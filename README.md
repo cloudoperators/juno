@@ -1,106 +1,40 @@
-# Juno
+# SAP Repository Template
 
-Is a collection of Micro Frontends (MFE)
+Default templates for SAP open source repositories, including LICENSE, .reuse/dep5, Code of Conduct, etc... All repositories on github.com/SAP will be created based on this template.
 
-- [Overview](https://assets.juno.global.cloud.sap)
+## To-Do
 
-# Usage
+In case you are the maintainer of a new SAP open source project, these are the steps to do with the template files:
 
-use juno css styles in external projects
+- Check if the default license (Apache 2.0) also applies to your project. A license change should only be required in exceptional cases. If this is the case, please change the [license file](LICENSE).
+- Enter the correct metadata for the REUSE tool. See our [wiki page](https://wiki.one.int.sap/wiki/display/ospodocs/Using+the+Reuse+Tool+of+FSFE+for+Copyright+and+License+Information) for details how to do it. You can find an initial .reuse/dep5 file to build on. Please replace the parts inside the single angle quotation marks < > by the specific information for your repository and be sure to run the REUSE tool to validate that the metadata is correct.
+- Adjust the contribution guidelines (e.g. add coding style guidelines, pull request checklists, different license if needed etc.)
+- Add information about your project to this README (name, description, requirements etc). Especially take care for the <your-project> placeholders - those ones need to be replaced with your project name. See the sections below the horizontal line and [our guidelines on our wiki page](https://wiki.one.int.sap/wiki/pages/viewpage.action?pageId=3564976048#GuidelinesforGitHubHealthfiles(Readme,Contributing,CodeofConduct)-Readme.md) what is required and recommended.
+- Remove all content in this README above and including the horizontal line ;)
 
-import variables.css from assets server
+***
 
-```html
-<link
-  rel="stylesheet"
-  href="https://assets.juno.global.cloud.sap/libs/juno-ui-components@latest/build/lib/variables.css"
-/>
-```
+# Our new open source project
 
-or as part of sass
+## About this project
 
-```sass
-@import "https://assets.juno.global.cloud.sap/libs/juno-ui-components@latest/build/lib/variables.css";
-```
+*Insert a short description of your project here...*
 
-and preset tailwind config with juno-ui-components config
+## Requirements and Setup
 
-```js
-// tailwindcss.config.js
-```
+*Insert a short description what is required to get your project running...*
 
-# Development
+## Support, Feedback, Contributing
 
-Use Webpack for apps, and Rollup for libraries
+This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/<your-project>/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).
 
-Start any app in apps folder with workspace APP_NAME start
+## Security / Disclosure
+If you find any bug that may be a security problem, please follow our instructions at [in our security policy](https://github.com/SAP/<your-project>/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or problems.
 
-```bash
-npm -w dashboard run start
-```
+## Code of Conduct
 
-## In workspaces
+We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone. By participating in this project, you agree to abide by its [Code of Conduct](https://github.com/SAP/.github/blob/main/CODE_OF_CONDUCT.md) at all times.
 
-```bash
-wb npm -w dashboard run start
-```
+## Licensing
 
-## Juno CLI
-
-The Juno CLI facilitates the creation of a skeleton for a Juno app or library.
-
-### Prerequisites
-
-Ensure that you have a Node.js environment with `npx` installed.
-
-### Installation
-
-Use the following commands to create a new Juno app or library:
-
-```bash
-npx github:sapcc/juno create app myApp
-```
-
-or
-
-```bash
-npx github:sapcc/juno create lib myLib
-```
-
-If you wish to create an app or library within the Juno mono repository, navigate to the respective 'apps' or 'libs' directory in Juno and execute:
-
-```bash
-npx github:sapcc/juno create app myApp --internal
-```
-
-Feel free to replace `myApp` and `myLib` with your desired project names.
-
-# Debug
-
-If you want to run more the one Juno App/lib simultaneously you have then to assign different ports.
-Following different port for the widget loader App:
-
-```yaml
-  juno:
-    port: "3001"
-    ports:
-      ...
-      - name: heureka
-        number: "3005"
-      - name: loader
-        number: "3007"
-      ...
-```
-
-Start locally the widget loader within the container:
-
-```bash
-wb
-APP_PORT=$LOADER_PORT npm --workspace widget-loader start
-```
-
-Test im browser using following URL:
-
-```
-https://loader.<your-workspace-name>.ws2.eu-nl-1.cloud.sap/
-```
+Copyright (20xx-)20xx SAP SE or an SAP affiliate company and <your-project> contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/<your-project>).
