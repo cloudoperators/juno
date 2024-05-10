@@ -2,6 +2,8 @@
 
 [![REUSE status](https://api.reuse.software/badge/github.com/cloudoperators/juno)](https://api.reuse.software/info/github.com/cloudoperators/juno)
 
+[![REUSE status](https://api.reuse.software/badge/github.com/cloudoperators/greenhouse)](https://api.reuse.software/info/github.com/cloudoperators/greenhouse)
+
 ## Overview
 
 Juno is a repository that serves as a collection of Micro Frontends (MFE) and libraries designed for modular development within a larger system.
@@ -28,4 +30,4 @@ We as members, contributors, and leaders pledge to make participation in our com
 
 ## Licensing
 
-Copyright 2024 SAP SE or an SAP affiliate company and Juno contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/cloudoperators/juno).
+Copyright 2024-2026 SAP SE or an SAP affiliate company and Juno contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/cloudoperators/juno).
