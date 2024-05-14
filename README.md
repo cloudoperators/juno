@@ -2,8 +2,6 @@
 
 [![REUSE status](https://api.reuse.software/badge/github.com/cloudoperators/juno)](https://api.reuse.software/info/github.com/cloudoperators/juno)
 
-[![REUSE status](https://api.reuse.software/badge/github.com/cloudoperators/greenhouse)](https://api.reuse.software/info/github.com/cloudoperators/greenhouse)
-
 ## Overview
 
 Juno is a repository that serves as a collection of Micro Frontends (MFE) and libraries designed for modular development within a larger system.
