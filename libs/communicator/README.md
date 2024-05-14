@@ -1,77 +1,31 @@
-# Communicator
+# Juno
 
-The **Communicator** library facilitates seamless message exchange across various contexts, including multiple tabs on the same origin, by utilizing events. It offers a versatile range of communication options, including broadcast events for widespread interaction and one-to-one messaging capabilities.
+[![REUSE status](https://api.reuse.software/badge/github.com/cloudoperators/juno)](https://api.reuse.software/info/github.com/cloudoperators/juno)
 
 ## Overview
 
-The library employs a set of methods, each complementing its counterpart:
+Juno is a repository that serves as a collection of Micro Frontends (MFE) and libraries designed for modular development within a larger system.
 
-- **broadcast <-> watch**: These methods enable efficient communication between sender and receiver. When a sender employs the `broadcast` method to transmit an event, it must be monitored by a recipient using the `watch` method. This mechanism ensures that information is disseminated to the intended audience.
+## Micro Frontends (MFE)
 
-- **get <-> onGet**: These methods are tailor-made for one-to-one communication, allowing precise exchanges between sender and recipient. Similar to broadcast and watch, if a sender utilizes the `get` method, the corresponding recipient should listen and respond using the `onGet` method. This approach ensures that data flows seamlessly in a directed manner.
+Juno consists of multiple Micro Frontends (MFE) that encapsulate specific functionality and user interface components. Each MFE operates independently and can be integrated into a larger application seamlessly.
 
-Additionally, the Communicator library introduces the `crossWindow` option, which enhances its capabilities by enabling cross-tab communication. This feature facilitates communication between tabs, providing additional flexibility and expanding the library's utility.
+## Libraries
 
-## Usage
+In addition to Micro Frontends, Juno also includes a set of libraries that provide shared functionality and utilities across different parts of the system. These libraries are designed for reusability and modularity, facilitating consistent development practices and code sharing.
 
-To use the library, you can import the necessary functions:
+### Included Design System
 
-```javascript
-import { broadcast, watch, get, onGet } from "communicator"
-```
+One of the libraries in Juno incorporates a comprehensive design system, providing consistent UI components, styles, and guidelines for building user interfaces within the system. This design system promotes consistency and efficiency in frontend development across multiple Micro Frontends (MFE) and applications.
 
-### broadcast(name, data, options) ⇒ void
+## Support, Feedback, Contributing
 
-Use this function to send messages via BroadcastChannel across different contexts, such as multiple tabs on the same origin.
+This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/cloudoperators/juno/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).
 
-```javascript
-broadcast(
-  "AUTH_TOKEN_UPDATED",
-  { token: "TOKEN" },
-  { debug: true, crossWindow: false }
-)
-```
+## Code of Conduct
 
-### watch(name, callback, options) ⇒ function
+We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone. By participating in this project, you agree to abide by its [Code of Conduct](https://github.com/SAP/.github/blob/main/CODE_OF_CONDUCT.md) at all times.
 
-Register a listener for a specific message. Messages are observed across contexts.
+## Licensing
 
-```javascript
-const unwatch = watch(
-  "AUTH_TOKEN_UPDATED",
-  (data, { sourceWindowId, thisWindowId }) => {
-    console.log(data)
-  },
-  { debug: false }
-)
-```
-
-### get(name, callback, options) ⇒ function
-
-Request a message by name and receive the data with the callback.
-
-```javascript
-const cancel = get(
-  "AUTH_TOKEN_UPDATED",
-  (data, { sourceWindowId, thisWindowId }) => {
-    console.log(data)
-  },
-  { debug: false }
-)
-```
-
-### onGet(name, callback, options) ⇒ function
-
-Use this function to respond to get messages.
-
-```javascript
-const unwatch = onGet(
-  "AUTH_TOKEN_UPDATED",
-  (getOptions, { sourceWindowId, thisWindowId }) => {
-    return { name: "test" }
-  },
-  { debug: false }
-)
-```
-
-These changes make the README clearer and easier to understand, while maintaining the original structure and content. Let me know if you need further assistance!
+Copyright 2024-2026 SAP SE or an SAP affiliate company and Juno contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/cloudoperators/juno).
