@@ -24,4 +24,4 @@ jobs:
           npm install -g license-checker
           npm install
           npm run build-libs
-          license-checker -onlyAllow "MIT; ISC"
+          license-checker -onlyAllow "MIT;ISC;Apache-2.0"
