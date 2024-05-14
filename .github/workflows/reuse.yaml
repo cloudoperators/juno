@@ -1,7 +1,7 @@
 name: REUSE Compliance Check
 
 on:
-  push:
+  # push:
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -14,3 +14,14 @@ jobs:
       # https://github.com/fsfe/reuse-action
       - name: REUSE Compliance Check
         uses: fsfe/reuse-action@v3
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      # MIT, Apache License 2.0, BSD 2-clause License, ISC License
+      - name: build libs
+        run: |
+          npm install -g license-checker
+          npm install
+          npm run build-libs
+          license-checker -onlyAllow "MIT; ISC"
