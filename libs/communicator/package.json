@@ -6,7 +6,7 @@
   "contributors": [
     "Andreas Pfau"
   ],
-  "repository": "https://github.com/sapcc/juno/tree/main/libs/communicator",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/communicator",
   "license": "Apache-2.0",
   "source": "src/index.js",
   "main": "build/index.js",
