@@ -17,18 +17,21 @@ const files = glob.sync(`${DIRNAME}/../libs/**/package.json`, {
 files.forEach((pkgFile) => {
   const pkg = JSON.parse(fs.readFileSync(pkgFile))
 
-  exec(`npm --workspace ${pkg.name} run build`, (error, stdout, stderr) => {
-    console.log("----------------------------------")
-    console.log("BUILD LIB", pkg.name)
-    console.log("----------------------------------")
-    if (error) {
-      console.log(error.message)
-      return
+  exec(
+    `NODE_ENV=production npm --workspace ${pkg.name} run build`,
+    (error, stdout, stderr) => {
+      console.log("----------------------------------")
+      console.log("BUILD LIB", pkg.name)
+      console.log("----------------------------------")
+      if (error) {
+        console.log(error.message)
+        return
+      }
+      if (stderr) {
+        console.log(stderr)
+        return
+      }
+      console.log(stdout)
     }
-    if (stderr) {
-      console.log(stderr)
-      return
-    }
-    console.log(stdout)
-  })
+  )
 })
