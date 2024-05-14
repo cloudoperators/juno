@@ -20,7 +20,7 @@ jobs:
           node-version: "20.x"
       - name: build libs
         run: |
-          npm install
+          NODE_ENV=production npm ci
           npm run build-libs
       # MIT, Apache License 2.0, BSD 2-clause License, ISC License
       - name: check license
