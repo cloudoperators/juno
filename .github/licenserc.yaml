@@ -10,6 +10,7 @@ header:
 
   paths-ignore:
     - ".github/**"
+    - '.reuse/dep5'
     - "apis/**"
     - "assets/**"
     - ".npmignore"
