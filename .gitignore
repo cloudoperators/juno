@@ -1,38 +1,4 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
 node_modules
-
-.npm/*
-ci/scripts/test_data
-ci/scripts/externals
-ci/scripts/im.json
-ci/scripts/manifest.json
-ci/scripts/importmap.json
-
-# local assets-server build
-assets_server_build
-
-# testing
-/coverage
-
-# production
 build
-/build
-/ci/pipeline.yaml
-
-# misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-secretProps.json
-secretProps.js
-
 npm-debug.log*
-
-/e2e/cypress/videos
-/e2e/cypress/screenshots
-/.nova
