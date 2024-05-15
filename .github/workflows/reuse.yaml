@@ -60,7 +60,7 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        lib-changes: ${{ needs.detect-lib-changes.outputs.lib-changes }}
+        libs: ${{ needs.detect-lib-changes.outputs.lib-changes }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -72,12 +72,12 @@ jobs:
 
       - name: Install npm dependencies
         run: |
-          cd "libs/${matrix.lib-changes}"
+          cd "libs/${matrix.libs}"
           NODE_ENV=production npm ci
 
       - name: check license
         run: |
-          cd "libs/${matrix.lib-changes}"
+          cd "libs/${matrix.libs}"
           pwd
 
       # - name: build libs
