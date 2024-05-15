@@ -69,6 +69,7 @@ jobs:
 
       - name: Install npm dependencies
         run: |
+          echo ${{ needs.detect-lib-changes.outputs.lib-changes }}
           # Parse the filters array from the output of the paths-filter action
           FILTERS=$(echo "${{ needs.detect-lib-changes.outputs.lib-changes }}" | jq -r '.[]')
 
