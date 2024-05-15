@@ -69,8 +69,7 @@ jobs:
 
       - name: Install npm dependencies
         run: |
-          LIB_CHANGES="${{ needs.detect-lib-changes.outputs.lib-changes }}"
-          FILTERS=$(echo "${LIB_CHANGES}" | jq -r '.[]')
+          FILTERS=$(echo ${{ needs.detect-lib-changes.outputs.lib-changes }} | jq -r '.[]')
           for FILTER in $FILTERS; do
             echo "Installing npm dependencies for filter: $FILTER"
           done
