@@ -72,12 +72,14 @@ jobs:
           LIB_FILTERS=$(echo '${{ needs.detect-lib-changes.outputs.lib-changes }}' | jq -r '.[]')
           for FILTER in $LIB_FILTERS; do
             echo "Installing npm dependencies for filter: $FILTER"
-            (cd "libs/${folder}" && NODE_ENV=production npm ci)
+            cd "libs/${FILTER}"
+            NODE_ENV=production npm ci > output.log 2>&1
+            cat output.log
           done
 
       - name: check license
         run: |
-          echo pwd
+          pwd
 
       # - name: build libs
       #   run: |
