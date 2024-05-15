@@ -36,7 +36,7 @@ broadcast(
 
 Register a listener for a specific message. Messages are observed across contexts.
 
-```javascript
+```js
 const unwatch = watch(
   "AUTH_TOKEN_UPDATED",
   (data, { sourceWindowId, thisWindowId }) => {
@@ -50,7 +50,7 @@ const unwatch = watch(
 
 Request a message by name and receive the data with the callback.
 
-```javascript
+```js
 const cancel = get(
   "AUTH_TOKEN_UPDATED",
   (data, { sourceWindowId, thisWindowId }) => {
@@ -64,7 +64,7 @@ const cancel = get(
 
 Use this function to respond to get messages.
 
-```javascript
+```js
 const unwatch = onGet(
   "AUTH_TOKEN_UPDATED",
   (getOptions, { sourceWindowId, thisWindowId }) => {
