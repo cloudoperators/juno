@@ -16,7 +16,7 @@ jobs:
       - name: REUSE Compliance Check
         uses: fsfe/reuse-action@v3
 
-  detect-app-lib-changes:
+  detect-lib-changes:
     needs: reuse-compliance-check
     runs-on: [ubuntu-latest]
     steps:
@@ -48,7 +48,7 @@ jobs:
           echo "========"
           cat temp_lib_filters.yaml
           echo "========"
-          echo libs-all: ${{ steps.filters.outputs}}
+          echo libs-all: ${{ toJSON(steps.filters.outputs) }}
           echo libs: ${{ steps.filters.outputs.libs}}
           echo libs_files: ${{ steps.filters.outputs.libs_files}}
           echo lib changes: ${{ steps.lib-filters.outputs.changes}}
