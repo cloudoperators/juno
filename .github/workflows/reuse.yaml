@@ -1,9 +1,13 @@
-name: 3rd Party License Checker
+name: Reus and 3rd Party License Checker
 
 on:
   # push:
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_run:
+    workflows: ["Check & Fix License Header"]
+    types:
+      - completed
 
 jobs:
   reuse-compliance-check:
