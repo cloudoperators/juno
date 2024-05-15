@@ -60,7 +60,7 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        libs: ${{ needs.detect-lib-changes.outputs.lib-changes }}
+        libs: ${{fromJson(needs.detect-lib-changes.outputs.lib-changes)}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
