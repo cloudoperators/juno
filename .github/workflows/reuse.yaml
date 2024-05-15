@@ -80,15 +80,4 @@ jobs:
         run: |
           npm install -g license-checker
           cd "libs/${{ matrix.libs }}"
-          license-checker -onlyAllow "ISC"
-
-      # - name: build libs
-      #   run: |
-      #     NODE_ENV=production npm ci
-      #     npm run build-libs
-
-      # # MIT, Apache-2.0, BSD, ISC
-      # - name: check license
-      #   run: |
-      #     npm install -g license-checker
-      #     license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause"
+          license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause"
