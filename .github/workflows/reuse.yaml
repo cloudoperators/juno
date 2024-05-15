@@ -69,12 +69,11 @@ jobs:
 
       - name: Install npm dependencies
         run: |
-          echo ${{ needs.detect-lib-changes.outputs.lib-changes }}
           # Parse the filters array from the output of the paths-filter action
           FILTERS=$(echo "${{ needs.detect-lib-changes.outputs.lib-changes }}" | jq -r '.[]')
 
           # Loop over each filter and run npm install
-          IFS=$'\n'
+
           for FILTER in $FILTERS; do
             echo "Installing npm dependencies for filter: $FILTER"
           done
