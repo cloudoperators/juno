@@ -55,7 +55,7 @@ jobs:
           echo "===================="
 
   check-3rd-party-licenses:
-    needs: detect-app-lib-changes
+    needs: detect-lib-changes
     runs-on: [ubuntu-latest]
     steps:
       - name: Checkout
