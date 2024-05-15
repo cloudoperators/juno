@@ -48,7 +48,7 @@ jobs:
           echo "========"
           cat temp_lib_filters.yaml
           echo "========"
-          echo libs-all: ${{ steps.filters.outputs.all}} | jq '.'
+          echo libs-all: ${{ steps.filters.outputs}} | jq '.'
           echo libs: ${{ steps.filters.outputs.libs}}
           echo libs_files: ${{ steps.filters.outputs.libs_files}}
           echo lib changes: ${{ steps.lib-filters.outputs.changes}}
