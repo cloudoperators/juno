@@ -20,6 +20,7 @@ jobs:
     needs: reuse-compliance-check
     runs-on: [ubuntu-latest]
     outputs:
+      libs: ${{ steps.filters.outputs.libs }}
       lib-changes: ${{ steps.lib-filters.outputs.changes }}
     steps:
       - name: Checkout
@@ -72,13 +73,14 @@ jobs:
 
       - name: Install npm dependencies
         run: |
-          cd "libs/${matrix.libs}"
+          cd "libs/${{ matrix.libs }}"
           NODE_ENV=production npm ci
 
       - name: check license
         run: |
-          cd "libs/${matrix.libs}"
-          pwd
+          npm install -g license-checker
+          cd "libs/${{ matrix.libs }}"
+          license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause"
 
       # - name: build libs
       #   run: |
