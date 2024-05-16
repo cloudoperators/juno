@@ -92,7 +92,7 @@ const DEFAULT_MOCKED_TOKEN = {
   exp: Math.floor(Date.now() / 1000) + 8 * 3600,
   iat: Math.floor(Date.now() / 1000),
   nonce: "MOCK",
-  email: "jane.doe@sap.com",
+  email: "jane.doe@nodomain.com",
   email_verified: true,
   groups: ["organization:test-org", "test-team-1"],
   name: "I123456",
@@ -113,30 +113,6 @@ The function returns an object with methods `login`, `logout`, `refresh`, and `c
 export default function mockedSession(params) {
   // ... Function implementation
 }
-```
-
-## Install
-
-add oauth to dependencies in package.json
-
-in juno monorepo
-
-```json
-
-  "dependencies": {
-    "oauth": ">= 0"
-  },
-
-```
-
-outside juno
-
-```json
-
-  "dependencies": {
-    "oauth": "https://assets.juno.eu-nl-1.cloud.sap/libs/oauth@latest/package.tgz"
-  },
-
 ```
 
 ## oidcSession(options) ⇒ <code>object</code>
