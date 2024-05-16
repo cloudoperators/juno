@@ -1,0 +1,4 @@
+node_modules
+src
+esbuild.config.js
+__tests__
