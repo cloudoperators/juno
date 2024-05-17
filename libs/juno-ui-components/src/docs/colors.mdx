@@ -1,0 +1,35 @@
+/_
+~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+~ SPDX-License-Identifier: Apache-2.0
+_/
+
+import { Meta, Controls } from "@storybook/blocks"
+import { ColorPalette } from "./ColorPalette/ColorPalette.jsx"
+import { JunoColorPalette } from "./ColorPalette/JunoColorPalette.jsx"
+import { Message } from "../components/Message/Message.component.js"
+import { JunoComponentWrapper } from "./JunoComponentWrapper/JunoComponentWrapper.jsx"
+
+<Meta title="Colors" />
+
+# Colors
+
+The Juno UI component library is based on Tailwind CSS which means that all Tailwind rules regarding colors apply (e.g. background colors are added by using a class name bg-COLOR_NAME, text colors via text-COLOR_NAME etc.). The difference is that the default Tailwind color names do not exist in the Juno design system. Instead we have our own colors and color naming scheme.
+
+## Theme Colors
+
+Theme colors adjust according to the chosen theme (dark or light) automatically. So unless you are creating something like a chart you should try to avoid the straight up colors like juno-grey-... and instead stick to the theme colors (they always contain the word theme somewhere in the name).
+
+<JunoComponentWrapper>
+  <ColorPalette theme="theme-dark" />
+  <ColorPalette theme="theme-light" />
+</JunoComponentWrapper>
+
+## Primary Colors
+
+<JunoComponentWrapper>
+  <Message
+    text="Do not use these colors! They are listed mostly for informational purposes. The only use case where the base colors might be used is for charts and the like. Otherwise stick to the theme colors above!"
+    variant="warning"
+  />
+  <JunoColorPalette />
+</JunoComponentWrapper>

@@ -1,0 +1,84 @@
+// SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+// SPDX-License-Identifier: Apache-2.0
+
+// For each variant, we set a border using the same color as the background to accommodate for the border of the subdued variant.
+// For all variants, valid/invalid borders override the natural border style, so we set the natural ones if the toggle is not valid/invalid.
+
+.juno-select-toggle-default {
+  background-color: var(--color-button-default-bg);
+  color: var(--color-button-default-text);
+
+  &:not(.juno-select-valid, .juno-select-invalid) {
+    border: 1px solid var(--color-button-default-bg);
+  }
+
+  &:hover {
+    background-color: var(--color-button-default-hover-bg);
+    color: var(--color-button-default-hover-text);
+  }
+
+  &:active {
+    background-color: var(--color-button-default-active-bg);
+    border-color: var(--color-button-default-active-border);
+    color: var(--color-button-default-active-text);
+  }
+}
+
+.juno-select-toggle-primary {
+  background-color: var(--color-button-primary-bg);
+  color: var(--color-button-primary-text);
+
+  &:not(.juno-select-valid, .juno-select-invalid) {
+    border: 1px solid var(--color-button-primary-bg);
+  }
+
+  &:hover {
+    background-color: var(--color-button-primary-hover-bg);
+    color: var(--color-button-primary-hover-text);
+  }
+
+  &:active {
+    background-color: var(--color-button-primary-active-bg);
+    color: var(--color-button-primary-active-text);
+  }
+}
+
+.juno-select-toggle-primary-danger {
+  background-color: var(--color-button-primary-danger-bg);
+  color: var(--color-button-primary-danger-text);
+
+  &:not(.juno-select-valid, .juno-select-invalid) {
+    border: 1px solid var(--color-button-primary-danger-bg);
+  }
+
+  &:hover {
+    background-color: var(--color-button-primary-danger-hover-bg);
+    color: var(--color-button-primary-danger-hover-text);
+  }
+
+  &:active {
+    background-color: var(--color-button-primary-danger-active-bg);
+    color: var(--color-button-primary-danger-active-text);
+  }
+}
+
+.juno-select-toggle-subdued {
+  background-color: var(--color-button-subdued-bg);
+  color: var(--color-button-subdued-text);
+
+  &:not(.juno-select-valid, .juno-select-invalid) {
+    border: 1px solid var(--color-button-subdued-border);
+  }
+
+  &:hover {
+    background-color: var(--color-button-subdued-hover-bg);
+    border-color: var(--color-button-subdued-hover-border);
+    color: var(--color-button-subdued-hover-text);
+  }
+
+  &:active {
+    background-color: var(--color-button-subdued-active-bg);
+    border-color: var(--color-button-subdued-active-border);
+    color: var(--color-button-subdued-active-text);
+  }
+}
