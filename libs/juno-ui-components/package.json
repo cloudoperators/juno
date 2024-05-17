@@ -15,7 +15,7 @@
     "Esther Schmitz",
     "Franz Heidl"
   ],
-  "repository": "https://github.com/sapcc/juno/tree/main/libs/juno-ui-components",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/juno-ui-components",
   "license": "Apache-2.0",
   "devDependencies": {
     "@babel/plugin-transform-parameters": "^7.22.5",
