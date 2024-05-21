@@ -1,0 +1,115 @@
+/_
+~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+~ SPDX-License-Identifier: Apache-2.0
+_/
+
+import { Meta, Controls, Story } from "@storybook/blocks"
+import { LinkTo, hrefTo } from "@storybook/addon-links"
+import { Default as TopNavigationDefaultStory } from "../components/TopNavigation/TopNavigation.stories"
+import { Default as SideNavigationDefaultStory } from "../components/SideNavigation/SideNavigation.stories"
+import { Default as TabNavigationDefaultStory } from "../components/TabNavigation/TabNavigation.stories"
+
+<Meta title="Navigation/Navigation" />
+
+# Navigation
+
+The Juno Design System comes with a variety of navigational elements. They are designed for different purposes and roles, but use a consistent API.
+
+## TopNavigation
+
+<Story of={TopNavigationDefaultStory} />
+
+A can only be used underneath an application's header, and above any other content elements. When used, it is the primary, top-level navigation. There can only ever be one `TopNavigation` in an application.
+
+For applications with a complex navigational or hierarchical structure, a `SideNavigation` and/or `TabNavigation` can be used as a secondary navigation.
+
+## SideNavigation
+
+<Story of={SideNavigationDefaultStory} />
+
+A `SideNavigation` lives on the left of a page's or view's content. It can serve as a primary navigation when used alone, or as a secondary navigation when a `TopNavigation` is being used as well.
+
+## TabNavigation
+
+<Story of={TabNavigationDefaultStory} />
+
+A TabNavigation visually comes across as an array of tabs, but it serves predominantly navigational purposes. It can live as the top element in the content of a page or view, or it can be used at any place inside the content.
+
+Even though a TabNavigation looks and, to the user, works identically to `Tabs`, it works differently: `TabNavigation`, consistent with the other types of navigations, expects an `onActiveItemChange`-handler, telling the application what to do when the user interacts with the navigation. It does not automatically handle any content panels on a page or view. This is what `Tabs` is for.
+
+## Usage and API
+
+As a minimum, each item in a navigation needs a `label` to render.
+
+```
+<TopNavigation>
+  <TopNavigationItem label="Item 1" />
+  <TopNavigationItem label="Item 2" />
+  <TopNavigationItem label="Item 3" />
+</TopNavigation>
+```
+
+In order to set an item as the active item, it can be set via an `active` prop on an individual item…
+
+```
+<TopNavigation>
+  <TopNavigationItem label="Item 1" active />
+  <TopNavigationItem label="Item 2" />
+  <TopNavigationItem label="Item 3" />
+</TopNavigation>
+```
+
+… or by passing an `activeItem` prop on the navigation parent:
+
+```
+<TopNavigation activeItem="Item 1" >
+  <TopNavigationItem label="Item 1" />
+  <TopNavigationItem label="Item 2" />
+  <TopNavigationItem label="Item 3" />
+</TopNavigation>
+```
+
+When both are being passed, the `activeItem` prop on the parent will take precedence.
+
+If application logic requires the use of more technical keys to identify any navigational item, it can accept an additional `value` prop:
+
+```
+<TopNavigation>
+  <TopNavigationItem label="Item 1" value="itm-1" />
+  <TopNavigationItem label="Item 2" value="itm-2" />
+  <TopNavigationItem label="Item 3" value="itm-3" />
+</TopNavigation>
+```
+
+NOTE: When using `value` props on the individual items, and the active item needs to be set on the parent, ONLY the `value` of the respective item can be used to set the `activeItem` on the parent. Passing the `label` to set the `activeItem`on the parent will NOT work when using values on the children, as `value` will be used internally to identify each tab when passed.
+
+```
+<TopNavigation activeItem="itm-1">
+  <TopNavigationItem label="Item 1" value="itm-1" />
+  <TopNavigationItem label="Item 2" value="itm-2" />
+  <TopNavigationItem label="Item 3" value="itm-3" />
+</TopNavigation>
+```
+
+You may also pass `children` to each navigation item and they will be rendered. When using `children`, either `value` or `label` MUST be passed, too, in order to make the navigation work. When passing `children` and `label`, children will be rendered instead of labels, the latter will still be needed as an internal identifier.
+
+```
+// Use value on the items when passing children to them:
+
+<TopNavigation activeItem="itm-1">
+  <TopNavigationItem value="itm-1">Item 1</TopNavigationItem>
+  <TopNavigationItem value="itm-2">Item 2</TopNavigationItem>
+  <TopNavigationItem value="itm-3">Item 3</TopNavigationItem>
+</TopNavigation>
+
+// or use labels:
+
+<TopNavigation activeItem="itm-1">
+  <TopNavigationItem label="itm-1">Item 1</TopNavigationItem>
+  <TopNavigationItem label="itm-2">Item 2</TopNavigationItem>
+  <TopNavigationItem label="itm-3">Item 3</TopNavigationItem>
+</TopNavigation>
+
+```
+
+When children, values and labels are being passed to the navigation items, the same caveat will apply as described above: In this case, ONLY the `value` of the respective item will work to set the active item on the parent via `activeItem`.

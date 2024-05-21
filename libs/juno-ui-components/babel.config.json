@@ -1,0 +1,9 @@
+{
+  "presets": ["@babel/preset-react"],
+  "env": {
+    "test": {
+      "presets": ["@babel/env"]
+    }
+  },
+  "plugins": ["@babel/plugin-transform-parameters"]
+}

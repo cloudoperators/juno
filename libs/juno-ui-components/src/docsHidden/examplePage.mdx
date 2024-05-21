@@ -1,0 +1,44 @@
+<!--
+  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+
+{/* !!! How-To-MDX Page. Move this page to docs to make it visible, but reverse it before you push. */}
+
+import { Meta, Canvas, Controls } from "@storybook/blocks"
+import * as Textarea from "../components/Textarea/Textarea.stories"
+import imageUrl from "../docs/img/Schwan.jpg"
+
+import { Message } from "../components/Message/Message.component.js"
+
+import { JunoComponentWrapper } from "../docs/JunoComponentWrapper/JunoComponentWrapper.jsx"
+
+{/* The Metatag helps to sort the page in the Nav bar. Components/Introduction would name the page Introduction in the components folder */}
+
+<Meta title="Example Page" />
+
+# Welcome
+
+Juno is a powerful React library designed to streamline your web development projects. The library offers a wide range of components and tools to simplify the development process and enhance the user experience. With Juno, you can create modern and responsive user interfaces with ease.
+Juno is extending W3C Standards to provide a more versatile and developer-friendly experience. Take the "textarea" component, for example. While Juno might not explicitly define the "rows" prop, Juno allows to use the props according to the standard.
+
+<img src={imageUrl} alt="Ein Schwan" />
+
+{/* Through a Canvas you can import Stories */}
+
+<Canvas of={Textarea.WithLabel} />
+## Componenten
+
+{/* You can import JunoComponent with a JunoComponentWrapper beaware: you can use tailwind classes with the prefix: jn- */}
+
+<JunoComponentWrapper>
+  <Message
+    text="This is a component. Not a story."
+    variant="warning"
+    className="jn-mb-6 jn-mt-5 "
+  />
+</JunoComponentWrapper>
+
+{
+console.log("You can write JS in mdx with curly braces")
+}

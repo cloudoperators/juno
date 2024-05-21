@@ -1,0 +1,32 @@
+// SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+// SPDX-License-Identifier: Apache-2.0
+
+.juno-input-group {
+  
+  // remove border-radius where necessary
+  .juno-button,
+  .juno-textinput,
+  // this is weird for selects as is since these are inside a wrapper each and thus all qualify as first child, and potentially harder for radix-ui based selects, as we would need to select the Select button child?:
+  .juno-select {
+    &:not(:first-child, :last-child) {
+      border-radius: 0;
+    }
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+  
+  // prevent double-borders for identical buttons next to each other:
+  .juno-button-default + .juno-button-default,
+  .juno-button-primary + .juno-button-primary,
+  .juno-button-default-primary-danger + .juno-button-primary-danger,
+  .juno-button-subdued + .juno-button-subdued {
+    border-left: 0;
+  }
+
+}
