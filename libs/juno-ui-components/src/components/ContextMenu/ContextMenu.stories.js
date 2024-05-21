@@ -39,13 +39,13 @@ export const Default = {
       <MenuItem
         key="1"
         label="Juno on Github"
-        href="https://github.com/sapcc/juno"
+        href="https://github.com/cloudoperators/juno"
       />,
       <MenuItem key="2" label="This item does nothing" icon="help" />,
       <MenuItem
         key="3"
         label="Disabled Item"
-        href="https://github.com/sapcc/juno"
+        href="https://github.com/cloudoperators/juno"
         disabled
       />,
       <MenuItem key="4">
@@ -75,13 +75,13 @@ export const InsidePortal = {
       <MenuItem
         key="1"
         label="Juno on Github"
-        href="https://github.com/sapcc/juno"
+        href="https://github.com/cloudoperators/juno"
       />,
       <MenuItem key="2" label="This item does nothing" />,
       <MenuItem
         key="3"
         label="Disabled Item"
-        href="https://github.com/sapcc/juno"
+        href="https://github.com/cloudoperators/juno"
         disabled
       />,
       <MenuItem key="4">

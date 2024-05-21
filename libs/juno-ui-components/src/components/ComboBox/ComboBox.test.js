@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { cleanup, render, screen, fireEvent } from "@testing-library/react"
+import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { ComboBox } from "./index"
 import { ComboBoxOption } from "../ComboBoxOption/index"
@@ -314,11 +314,16 @@ describe("ComboBox", () => {
     const cbutton = screen.getByRole("button")
     expect(cbox).toBeInTheDocument()
     expect(cbutton).toBeInTheDocument()
-    await userEvent.click(cbutton)
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    await userEvent.click(screen.getByRole("option", { name: "abc" }))
-    expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
-    expect(cbox).toHaveValue("abc")
+    waitFor(() => {
+      userEvent.click(cbutton)
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+    })
+
+    waitFor(() => {
+      userEvent.click(screen.getByRole("option", { name: "abc" }))
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
+      expect(cbox).toHaveValue("abc")
+    })
   })
 
   test("works as a controlled component with a value as passed", async () => {
@@ -365,12 +370,18 @@ describe("ComboBox", () => {
     expect(cbox).toBeInTheDocument()
     expect(toggle).toBeInTheDocument()
     expect(cbox).toHaveValue("abc")
-    await userEvent.click(toggle)
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    const option123 = screen.getAllByRole("option")[3]
-    expect(option123).toHaveTextContent("123")
-    await userEvent.click(option123)
-    expect(cbox).toHaveValue("123")
+    waitFor(() => {
+      userEvent.click(toggle)
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+    })
+    waitFor(() => {
+      const option123 = screen.getAllByRole("option")[3]
+      expect(option123).toHaveTextContent("123")
+    })
+    waitFor(() => {
+      userEvent.click(option123)
+      expect(cbox).toHaveValue("123")
+    })
   })
 
   // Caution: The below test basically tests headless-ui behaviour, not our logic. This is here only for testing consistency and so that we know should headless ever change their behaviour:

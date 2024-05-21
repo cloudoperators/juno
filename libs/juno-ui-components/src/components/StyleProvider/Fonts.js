@@ -11,7 +11,7 @@
 import React, { useInsertionEffect } from "react"
 
 const CSS_FONTS_URL =
-  "https://assets.juno.qa-de-1.cloud.sap/assets/fonts/plex/css/ibm-plex.min.css"
+  "https://assets.juno.global.cloud.sap/assets/fonts/plex/css/ibm-plex.min.css"
 
 const STYLE_ID = "juno-style-provider-golbal-fonts"
 const Fonts = ({ inline }) => {

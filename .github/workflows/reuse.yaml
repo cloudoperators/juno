@@ -83,4 +83,4 @@ jobs:
         run: |
           npm install -g license-checker
           cd "libs/${{ matrix.libs }}"
-          license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause"
+          license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;Unlicense;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD"

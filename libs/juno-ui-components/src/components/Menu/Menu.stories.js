@@ -34,12 +34,12 @@ export const Default = {
       <MenuItem label="Label with Icon" icon="help" key="2" />,
       <MenuItem
         label="Item with a Link"
-        href="https://github.com/sapcc/juno"
+        href="https://github.com/cloudoperators/juno"
         key="3"
       />,
       <MenuItem
         label="Item with a Link and icon"
-        href="https://github.com/sapcc/juno"
+        href="https://github.com/cloudoperators/juno"
         icon="help"
         key="4"
       />,
@@ -64,12 +64,12 @@ export const Small = {
       <MenuItem label="Label with Icon" icon="help" key="2" />,
       <MenuItem
         label="Item with a Link"
-        href="https://github.com/sapcc/juno"
+        href="https://github.com/cloudoperators/juno"
         key="3"
       />,
       <MenuItem
         label="Item with a Link and icon"
-        href="https://github.com/sapcc/juno"
+        href="https://github.com/cloudoperators/juno"
         icon="help"
         key="4"
       />,
@@ -96,12 +96,12 @@ export const WithASection = {
       <MenuSection title="Danger Zone" key="m2">
         <MenuItem
           label="Item with a Link"
-          href="https://github.com/sapcc/juno"
+          href="https://github.com/cloudoperators/juno"
           key="3"
         />
         <MenuItem
           label="Item with a Link and icon"
-          href="https://github.com/sapcc/juno"
+          href="https://github.com/cloudoperators/juno"
           icon="help"
           key="4"
         />
