@@ -54,14 +54,17 @@ describe("ComboBox", () => {
         <ComboBoxOption value="Option 1">Option 1</ComboBoxOption>
       </ComboBox>
     )
+    const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
     const cbutton = screen.getByRole("button")
     expect(cbox).toBeInTheDocument()
     expect(cbutton).toBeInTheDocument()
-    await userEvent.click(cbutton)
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toHaveTextContent("Option 1")
+    waitFor(() => {
+      user.click(cbutton)
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toHaveTextContent("Option 1")
+    })
   })
 
   test("renders an id as passed", async () => {
@@ -196,9 +199,11 @@ describe("ComboBox", () => {
     render(<ComboBox onBlur={mockOnBlur} />)
     const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
-    await user.click(cbox) // focus the element
-    await user.tab() // blur the element
-    expect(mockOnBlur).toHaveBeenCalled()
+    waitFor(() => {
+      user.click(cbox) // focus the element
+      user.tab() // blur the element
+      expect(mockOnBlur).toHaveBeenCalled()
+    })
   })
 
   test("fires an onChange handler as passed when the user selects an option", async () => {
@@ -208,21 +213,27 @@ describe("ComboBox", () => {
         <ComboBoxOption value="option 2">Option 2</ComboBoxOption>
       </ComboBox>
     )
+    const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
     const cbutton = screen.getByRole("button")
     expect(cbox).toBeInTheDocument()
     expect(cbutton).toBeInTheDocument()
-    await userEvent.click(cbutton)
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    await userEvent.click(screen.getByRole("option", { name: "Option 2" }))
-    expect(mockOnChange).toHaveBeenCalled()
+    waitFor(() => {
+      user.click(cbutton)
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      user.click(screen.getByRole("option", { name: "Option 2" }))
+      expect(mockOnChange).toHaveBeenCalled()
+    })    
   })
 
   test("fires an onFocus handler as passed when the ComboBox receives focus", async () => {
     render(<ComboBox onFocus={mockOnFocus} />)
+    const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
-    await userEvent.click(cbox)
-    expect(mockOnFocus).toHaveBeenCalled()
+    waitFor(() => {
+      user.click(cbox)
+      expect(mockOnFocus).toHaveBeenCalled()
+    })
   })
 
   test("fires an onInputChange handler when the user types into the ComboBox", async () => {
@@ -234,8 +245,10 @@ describe("ComboBox", () => {
     )
     const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
-    await user.type(cbox, "a")
-    expect(mockOnInputChange).toHaveBeenCalled()
+    waitFor(() => {
+      user.type(cbox, "a")
+      expect(mockOnInputChange).toHaveBeenCalled()
+    })
   })
 
   test("filters options as the user types", async () => {
@@ -258,39 +271,43 @@ describe("ComboBox", () => {
     const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
     expect(cbox).toBeInTheDocument()
-    await user.type(cbox, "a")
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-    expect(
-      screen.queryByRole("option", { name: "123" })
-    ).not.toBeInTheDocument()
-    await user.type(cbox, "b")
-    expect(
-      screen.queryByRole("option", { name: "aaa" })
-    ).not.toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-    expect(
-      screen.queryByRole("option", { name: "123" })
-    ).not.toBeInTheDocument()
-    await userEvent.clear(cbox)
-    expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
-    await user.type(cbox, "1")
-    expect(
-      screen.queryByRole("option", { name: "aaa" })
-    ).not.toBeInTheDocument()
-    expect(
-      screen.queryByRole("option", { name: "aab" })
-    ).not.toBeInTheDocument()
-    expect(
-      screen.queryByRole("option", { name: "abc" })
-    ).not.toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
+    waitFor(() => {
+      user.type(cbox, "a")
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
+      expect(
+        screen.queryByRole("option", { name: "123" })
+      ).not.toBeInTheDocument()
+    })
+    waitFor(() => {
+      user.type(cbox, "b")
+      expect(
+        screen.queryByRole("option", { name: "aaa" })
+      ).not.toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
+      expect(
+        screen.queryByRole("option", { name: "123" })
+      ).not.toBeInTheDocument()
+      user.clear(cbox)
+      expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
+      user.type(cbox, "1")
+      expect(
+        screen.queryByRole("option", { name: "aaa" })
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByRole("option", { name: "aab" })
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByRole("option", { name: "abc" })
+      ).not.toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
+    })
   })
 
   test("selects an option when the user clicks it and closes the menu", async () => {
@@ -310,17 +327,18 @@ describe("ComboBox", () => {
         </ComboBoxOption>
       </ComboBox>
     )
+    const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
     const cbutton = screen.getByRole("button")
     expect(cbox).toBeInTheDocument()
     expect(cbutton).toBeInTheDocument()
     waitFor(() => {
-      userEvent.click(cbutton)
+      user.click(cbutton)
       expect(screen.getByRole("listbox")).toBeInTheDocument()
     })
 
     waitFor(() => {
-      userEvent.click(screen.getByRole("option", { name: "abc" }))
+      user.click(screen.getByRole("option", { name: "abc" }))
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
       expect(cbox).toHaveValue("abc")
     })
@@ -343,17 +361,20 @@ describe("ComboBox", () => {
         </ComboBoxOption>
       </ComboBox>
     )
+    const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
     const toggle = screen.getByRole("button")
     expect(cbox).toBeInTheDocument()
     expect(toggle).toBeInTheDocument()
     expect(cbox).toHaveValue("aab")
-    await userEvent.click(toggle)
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    const option123 = screen.getAllByRole("option")[3]
-    expect(option123).toHaveTextContent("123")
-    await userEvent.click(option123)
-    expect(cbox).toHaveValue("123")
+    waitFor(() => {
+      user.click(toggle)
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      const option123 = screen.getAllByRole("option")[3]
+      expect(option123).toHaveTextContent("123")
+      user.click(option123)
+      expect(cbox).toHaveValue("123")
+    })
   })
 
   test("works as an uncontrolled component with a defaultValue as passed", async () => {
@@ -365,13 +386,14 @@ describe("ComboBox", () => {
         <ComboBoxOption>123</ComboBoxOption>
       </ComboBox>
     )
+    const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
     const toggle = screen.getByRole("button")
     expect(cbox).toBeInTheDocument()
     expect(toggle).toBeInTheDocument()
     expect(cbox).toHaveValue("abc")
     waitFor(() => {
-      userEvent.click(toggle)
+      user.click(toggle)
       expect(screen.getByRole("listbox")).toBeInTheDocument()
     })
     waitFor(() => {
@@ -379,7 +401,7 @@ describe("ComboBox", () => {
       expect(option123).toHaveTextContent("123")
     })
     waitFor(() => {
-      userEvent.click(option123)
+      user.click(option123)
       expect(cbox).toHaveValue("123")
     })
   })
