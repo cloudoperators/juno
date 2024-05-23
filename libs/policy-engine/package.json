@@ -1,11 +1,11 @@
 {
   "name": "policy-engine",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "UI-Team",
   "contributors": [
     "Andreas Pfau"
   ],
-  "repository": "https://github.com/sapcc/juno/tree/main/libs/policy-engine",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/policy-engine",
   "license": "Apache-2.0",
   "source": "src/index.js",
   "main": "build/cjs/index.js",
