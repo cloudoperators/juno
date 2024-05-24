@@ -1,6 +1,6 @@
 # Messages Provider
 
-Manage and display messages in your application easily and with the [Juno message component](https://ui.juno.qa-de-1.cloud.sap/?path=/docs/components-message--default).
+Manage and display messages in your application easily and with the [Juno message component](https://github.com/cloudoperators/juno/blob/main/libs/juno-ui-components/README.md).
 
 A message holds generally important information to help understand the contents, purpose, or state of a whole page or view.
 
@@ -10,12 +10,12 @@ This lib uses a **context** store based on Zustand to manage the messages. That 
 
 In order to run this library in your application you need to install also following libraries which are not included in the bundle:
 
-- juno-ui-components, recommended version ^1.2.7
+- juno-ui-components, recommended version ^2.14.1
 - react, recommended version ^18.2.0
-- zustand, recommended version ^4.1.5
+- zustand, recommended version ^4.5.2
 
 ```bash
-yarn add zustand@4.1.5, react@18.2.0 https://assets.juno.global.cloud.sap/libs/juno-ui-components@latest/package.tgz
+yarn add zustand@4.5.2, react@18.2.0 https://assets.juno.global.cloud.sap/libs/juno-ui-components@2.14.1/package.tgz
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ yarn add zustand@4.1.5, react@18.2.0 https://assets.juno.global.cloud.sap/libs/j
 1. Import this lib
 
    ```bash
-   yarn add https://assets.juno.global.cloud.sap/libs/messages-provider@latest/package.tgz
+   yarn add https://assets.juno.global.cloud.sap/libs/messages-provider@0.1.12/package.tgz
    ```
 
 2. Add the message **MessagesProvider**. Normally it is set on the top of your application so you can use it from everywhere underneath.
