@@ -1,8 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
 /* Do not change this File. This is an (by generateTailwindThemeClassesJson.js) auto-generated file for documentation issues.
 It is needed for the ColorPalette and JunoColorPalette to show the documented colors.
 We need to do this because Tailwind classes can't be concatenated at runtime via String interpolation. It only works if you use the full class name.*/
