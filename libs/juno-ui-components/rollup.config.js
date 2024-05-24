@@ -83,7 +83,6 @@ const plugins = [
     babelHelpers: "bundled",
   }),
   commonjs(),
-
   minify({ comments: false }),
   analyze({
     summaryOnly: true,
@@ -91,13 +90,20 @@ const plugins = [
   }),
 ]
 
+// input is a map of all components of format { [componentName]: path }
+// it is also contains the main entry point of the library (pkg.source)
+const input = fs.readdirSync("./src/components").reduce(
+  (map, file) => {
+    map[file] = `src/components/${file}/index.js`
+    return map
+  },
+  { [filename]: pkg.source }
+)
+
 const config = [
   // bundle all components
   {
-    input: fs.readdirSync("./src/components").reduce((map, file) => {
-      map[file] = `src/components/${file}/index.js`
-      return map
-    }, {}),
+    input,
     output: [
       // { dir: "lib", format: "cjs", preserveModules: false },
       {
@@ -109,28 +115,18 @@ const config = [
     ],
 
     plugins: [del({ targets: [`${buildDir}/**/*`] }), ...plugins],
-  },
-  {
-    input: "tailwind.config.js",
-    output: {
-      file: `${buildDir}/lib/tailwind.config.js`,
-    },
-  },
-  {
-    input: pkg.source,
-    output: {
-      file: `${buildDir}/index.js`,
-      format: "esm",
-      preserveModules: false,
-      compact: true,
-    },
-    plugins,
 
     external: ["react", "react-dom", "prop-types"].concat(
       isProduction && !IGNORE_EXTERNALS
         ? Object.keys(pkg.peerDependencies || {})
         : []
     ),
+  },
+  {
+    input: "tailwind.config.js",
+    output: {
+      file: `${buildDir}/lib/tailwind.config.js`,
+    },
   },
   {
     input: "lib/variables.scss",
