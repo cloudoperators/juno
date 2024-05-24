@@ -5,7 +5,7 @@
   "module": "build/index.js",
   "source": "src/index.js",
   "style": "build/lib/variables.css",
-  "version": "2.14.1",
+  "version": "2.14.2",
   "files": [
     "src/colors.css",
     "tailwind.config.js"
