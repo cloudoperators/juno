@@ -1,0 +1,45 @@
+{
+  "enabled": true,
+  "schedule": [
+    "before 3am on the first day of the month"
+  ],
+  "extends": [
+    "config:base"
+  ],
+  "unicodeEmoji": true,
+  "prHourlyLimit": 15,
+
+  "separateMinorPatch": false,
+  "separateMajorMinor": true,
+  "major": {
+    "enabled": true
+  },
+  "minor": {
+    "enabled": true
+  },
+  "rangeStrategy": "update-lockfile",
+  "packageRules": [
+    {
+      "depTypeList": [
+        "peerDependencies"
+      ],
+      "enabled": true,
+      "rangeStrategy": "replace"
+    },
+    {
+      "depTypeList": [
+        "devDependencies"
+      ],
+      "enabled": true,
+      "rangeStrategy": "pin"
+    }
+  ],
+
+  "ignoreDeps": [
+  ], 
+  
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  }
+}

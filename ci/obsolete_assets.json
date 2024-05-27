@@ -1,0 +1,9 @@
+{
+  "juno-ui-components": "<=1.1.5",
+  "widget-loader": "<=1.1.1",
+  "greenhouse-cluster-admin": "<=1.0",
+  "whois": "<=3.0.3",
+  "doop": "<=2.2.0",
+  "greenhouse": "*",
+  "greenhouse-management": "*"
+}

@@ -1,0 +1,174 @@
+<!--
+  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mfe-Shell</title>
+  </head>
+  <body>
+    Widget Loader Dev
+    <!--
+    <script type="module-shim">
+      window.process = {env: {NODE_ENV: "production"}}
+
+      console.log("==========================1")
+      const mount = await importShim("@juno/dashboard@latest").then((m) => m.mount)
+      console.log("===============mount",mount)
+
+      const container2 = document.createElement("div")
+      document.body.append(container2)
+      mount(container2)
+    </script> -->
+
+    <!-- <script
+      src="https://widget-loader.ap.ws2.eu-nl-1.cloud.sap/index.js"
+      data-importmap-url="https://assets.juno.qa-de-1.cloud.sap/importmap.json"
+      data-url="https://juno.ap.ws2.eu-nl-1.cloud.sap/index.js"
+      data-props-manifest-url="https://assets.juno.qa-de-1.cloud.sap/manifest.json"
+      data-props-blablaBla="test"
+      data-props-blabla-bla="test"
+      data-debug="true"
+      data-importmap-only="false"
+    ></script> -->
+
+    <!-- <script
+      defer
+      src="https://assets.juno.qa-de-1.cloud.sap/apps/widget-loader@latest/build/app.js"
+      data-name="dashboard"
+      data-version="latest"
+    ></script>
+    <script
+      defer
+      src="https://assets.juno.global.cloud.sap/apps/widget-loader@latest/build/app.js"
+      data-name="dashboard"
+      data-version="latest"
+    ></script> -->
+    <script
+      defer
+      src="./build/app.js"
+      data-debug="false"
+      data-origin="https://assets.juno.qa-de-1.cloud.sap"
+      data-importmap-only="true"
+    ></script>
+    <script
+      defer
+      src="./build/app.js"
+      data-debug="false"
+      data-origin="https://assets.juno.qa-de-1.cloud.sap"
+      data-name="dashboard"
+      data-version="latest"
+    ></script>
+
+    <script
+      defer
+      src="./build/app.js"
+      data-origin="https://assets.juno.qa-de-1.cloud.sap"
+      data-name="whois"
+      data-version="=3.0.2"
+      data-debug="true"
+    ></script>
+
+    <script
+      defer
+      src="./build/app.js"
+      data-origin="https://assets.juno.qa-de-1.cloud.sap"
+      data-name="greenhouse-cluster-admin"
+      data-version="1.1"
+      data-debug="true"
+    ></script>
+
+    <!-- <script
+      defer
+      src="./build/app.js"
+      data-origin="https://assets.juno.global.cloud.sap"
+      data-name="whois"
+      data-version="latest"
+    ></script> -->
+
+    <!-- <div style="display: flex">
+      <div style="flex: 50%">
+        <script
+          defer
+          src="./build/app.js"
+          data-origin="https://assets.juno.qa-de-1.cloud.sap"
+          data-debug="true"
+          data-show-loading="true"
+          data-name="whois"
+          data-version="latest"
+          data-props-region="qa-de-1"
+          data-props-domain="monsoon3"
+          data-props-prodmode="production"
+        ></script>
+      </div>
+
+      <div style="flex: 50%">
+        <script
+          defer
+          src="https://assets.juno.qa-de-1.cloud.sap/apps/widget-loader@latest/build/app.js"
+          data-name="dashboard"
+          data-version="latest"
+          data-show-loading="true"
+        ></script>
+      </div>
+    </div>
+
+    <div style="display: flex">
+      <div style="flex: 100%">
+        <script
+          defer
+          src="https://assets.juno.qa-de-1.cloud.sap/apps/widget-loader@latest/build/app.js"
+          data-name="assets-overview"
+          data-version="latest"
+          data-props-manifest-url="https://assets.juno.qa-de-1.cloud.sap/manifest.json"
+        ></script>
+      </div>
+    </div> -->
+
+    <!-- <script
+      src="https://assets.juno.qa-de-1.cloud.sap/apps/widget-loader@latest/build/app.js"
+      data-importmap-only="true"
+    ></script> -->
+
+    <!-- <script
+    src="/index.js"
+    data-importmap-url="https://assets.juno.qa-de-1.cloud.sap/importmap.json"
+    data-importmap-only="true"
+  ></script>
+
+    <script type="module" defer>
+      const container = document.createElement("div")
+      container.style = "display: flex; "
+      const dashboardWrapper = document.createElement("div")
+      dashboardWrapper.style = "flex: 50%; border: 1px solid #ddd"
+      dashboardWrapper.textContent = "Loading..."
+      const overviewWrapper = document.createElement("div")
+      overviewWrapper.style = "flex: 50%; border: 1px solid #ddd"
+      overviewWrapper.textContent = "Loading..."
+      container.append(dashboardWrapper,overviewWrapper)
+      const whoisWrapper = document.createElement("div")
+      whoisWrapper.style="border: 1px solid #ddd;"
+      whoisWrapper.textContent = "Loading..."
+    
+      document.body.append(container,whoisWrapper) 
+
+      const ready = new Promise((resolve) => {
+        window.addEventListener("junoImportmapLoaded",(e) => {
+          console.log("==========READY=========",)
+          resolve(e.detail)
+        })
+      }) 
+
+      ready.then((data) => {
+        importShim("@juno/dashboard@latest").then((app) => app.mount(dashboardWrapper))
+        importShim("@juno/whois@latest").then((app) => app.mount(whoisWrapper))
+        importShim("@juno/assets-overview@latest").then((app) => app.mount(overviewWrapper,{props: {
+          manifestUrl:"https://assets.juno.qa-de-1.cloud.sap/manifest.json"
+      }}))
+      })
+
+    </script> -->
+  </body>
+</html>

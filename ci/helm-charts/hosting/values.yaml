@@ -1,0 +1,10 @@
+owner-info:
+  helm-chart-url: https://github.com/sapcc/juno/tree/main/ci/helm-charts/hosting
+  support-group: containers
+  service: juno-hosting
+  maintainers:
+    - Esther Schmitz
+    - Andreas Pfau
+    - Hans-Georg Winkler
+    - Arturo Reuschenbach Puncernau
+    - Hoda Noori

@@ -1,0 +1,215 @@
+ARG BASE_URL_PLACEHOLDER="%BASE_URL%"
+ARG EXIT_ON_ERROR="true"
+
+# Latest assets server image
+# FIRSTRUN!
+# NOTE: if this image does not exist 
+#       this is the case if the image was not build before
+#       comment out this line for the first run
+# TODO: change to v3 when switching to this version
+FROM keppel.eu-de-1.cloud.sap/ccloud/juno-v3-assets-server:latest AS lastbuild
+
+# Base image
+FROM keppel.eu-de-1.cloud.sap/ccloud/juno-v3-base:latest AS base 
+ARG BASE_URL_PLACEHOLDER
+
+RUN mkdir -p /tmp/latest
+
+# copy all app and lib builds (from dist) to tmp/latest  
+# input is comming from the pipeline
+
+# -> /apps/whois/build, package.json
+# -> /apps/volta/build, package.json
+# -> /libs/juno-ui-components/build, package.json
+ADD . /tmp/latest
+WORKDIR /tmp/latest
+
+ARG NPM_PROVIDER="jspm"
+ARG VERBOSE="false"
+
+# create folder in tmp for merged assets
+RUN mkdir -p /tmp/final 
+
+# copy old versions of assets to current layer
+# FIRSTRUN!
+# NOTE: if this image does not exist 
+#       this is the case if the image was not build before
+#       comment out this line for the first run
+COPY --from=lastbuild /usr/share/nginx/html /tmp/final
+
+# delete old assets. Use it once to clean up the old assets.
+# RUN rm -rf /tmp/final/externals/*
+
+# merge latest assets over the old assets 
+RUN \
+  for PACKAGE in ./**/*/package.json; do \
+  NAME=$(jq -r .name $PACKAGE); \
+  VERSION=$(jq -r .version $PACKAGE); \
+  # dir is something like ./libs/juno-ui-components@1.1.5
+  DIR=$(dirname $PACKAGE); \
+  # asset path is then ./libs
+  ASSET_PATH=$(dirname $DIR); \
+  rm -rf /tmp/final/$DIR; \
+  rm -rf /tmp/final/$ASSET_PATH/$NAME@$VERSION; \
+  rm -rf /tmp/final/$ASSET_PATH/$NAME@latest; \
+  mkdir -p /tmp/final/$ASSET_PATH/$NAME@$VERSION; \ 
+  cp -r $DIR/* /tmp/final/$ASSET_PATH/$NAME@$VERSION/; \
+  mkdir -p /tmp/final/$ASSET_PATH/$NAME@latest; \
+  cp -r $DIR/* /tmp/final/$ASSET_PATH/$NAME@latest/; \
+  done ;
+
+RUN mkdir -p /tmp/final/global && cp /juno/README.md /tmp/final/global/
+
+WORKDIR /tmp/final 
+
+# ADD ci/scripts/generate_importmap.mjs /juno/ci/scripts/generate_importmap.mjs
+
+# delete old importmaps and manifests and obsolete assets (see: ci/obsolete_assets.json
+RUN \
+  rm -rf externals_* importmap* importmap* ; \
+  node /juno/ci/scripts/delete_obsolete_assets.js --manifest=/juno/ci/obsolete_assets.json --src=./
+
+# Create importmaps and manifest
+RUN \
+  set -e ; \
+  node /juno/ci/scripts/esm_build/generate_importmap.mjs \
+  --node-modules-path=/tmp/ \
+  --external-path=externals \
+  --exit-on-error=$EXIT_ON_ERROR \
+  --src=./ \
+  --base-url=$BASE_URL_PLACEHOLDER \
+  --ignore-externals=false \
+  --output=./importmap.json  \
+  --verbose=$VERBOSE ; \
+  \
+  node /juno/ci/scripts/generate_manifest.mjs \
+  --src=./ \
+  --output=./manifest.json \
+  --base-url=$BASE_URL_PLACEHOLDER \
+  --verbose=$VERBOSE ;
+
+# RESULTS
+# /tmp/final/apps/whois@version/files
+# /tmp/final/apps/volta/files
+# /tmp/final/libs/juno-ui-components/files
+# /tmp/final/assets/static files
+# /tmp/final/importmap.json
+# /tmp/final/importmap.dev.json
+# /tmp/final/manifest.json
+
+# Check the integrity of the file structure
+RUN chmod +x /juno/ci/scripts/check_file_integrity.sh && \
+  /juno/ci/scripts/check_file_integrity.sh global apps libs assets externals index.html mount-test.html manifest.json importmap.json
+
+# create self signed dummy certificate and key
+RUN apk add openssl ; openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
+  -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=dummy" \
+  -keyout /tmp/tls.key  -out /tmp/tls.crt
+
+############### FINAL IMAGE! ###################
+FROM keppel.eu-de-1.cloud.sap/ccloud-dockerhub-mirror/library/nginx:alpine AS server
+ARG BASE_URL_PLACEHOLDER
+
+LABEL source_repository="https://github.com/sapcc/juno"
+
+# delete default html files of nginx
+RUN rm -rf /usr/share/nginx/html ; 
+# copy tls certificate and key
+COPY --from=base /tmp/tls.crt /tmp/tls.key /etc/ssl/juno/ 
+# COPY --from=base /tmp/tls.key /etc/ssl/sap/tls.key
+
+# copy new version 
+COPY --from=base /tmp/final "/usr/share/nginx/html"
+
+# Replace default nginx config
+RUN rm -rf /etc/nginx/conf.d/default.conf && echo -e $'\
+  server { \n \
+  \troot  /usr/share/nginx/html; \n\
+  \tadd_header Access-Control-Allow-Origin *;\n\
+  \tlisten       80; \n \
+  \tlisten 443 default_server ssl; \n\ 
+  \tssl_certificate     /etc/ssl/juno/tls.crt; \n\
+  \tssl_certificate_key /etc/ssl/juno/tls.key; \n\
+  \tserver_name  localhost; \n \
+  \tinclude mime.types; \n \
+  \ttypes \n \ 
+  \t{ \n \
+  \t\tapplication/javascript mjs js; \n \
+  \t} \n \
+  \n \
+  \tlocation / { \n \
+  \t\tindex  index.html index.htm; \n \
+  \t} \n \
+  \n \
+  \tlocation ~* (importmap|manifest).*\.json$ { \n \
+  \t\tsub_filter '$BASE_URL_PLACEHOLDER$' "https://$host"; \n \
+  \t\tsub_filter_types *; \n \
+  \t\tsub_filter_once off; \n \
+  \t\tadd_header Cache-Control "no-store, no-cache"; \n \
+  \t\tadd_header Access-Control-Allow-Origin *;\n\
+  \t} \n \
+  \n \
+  \tlocation ~* .*widget-loader@latest.*\.js$ { \n \
+  \t\tadd_header Cache-Control "no-store, no-cache"; \n \
+  \t\tadd_header Access-Control-Allow-Origin *;\n\
+  \t}\n \
+  } \n \
+  ' > /etc/nginx/conf.d/default.conf
+
+# Create the index.html with the assets-overview micro frontend app
+RUN echo -e $'\
+  <!DOCTYPE html> \n\
+  <html style="height: 100vh; background: rgb(13, 20, 28);">\n\
+  \t<head>\n\
+  \t\t<title>Juno Assets</title> \n \
+  \t\t<link rel="icon" href="/assets/favicon.ico"/> \n\
+  \t</head>\n\
+  \t<body style="height: 100vh;">\n \
+  \t\t<script \n\
+  \t\t\tsrc="/apps/widget-loader@latest/build/app.js" \n\ 
+  \t\t\tdata-name="assets-overview" \n\
+  \t\t\tdata-props-manifest-url="/manifest.json"></script>\n\
+  \t</body>\n\
+  </html>' > /usr/share/nginx/html/index.html   
+
+RUN echo -e $'\
+  <!DOCTYPE html> \n\
+  <html lang="en"> \n\
+  \t<head> \n\
+  \t\t<meta charset="UTF-8" /> \n\
+  \t\t<title>Assets Test</title> \n\
+  \t\t<style> \n\
+  \t\t\t.blured { \n\
+  \t\t\t\tposition: absolute; \n\
+  \t\t\t\tleft: 0; \n\
+  \t\t\t\tright: 0; \n\
+  \t\t\t\ttop: 0; \n\
+  \t\t\t\tbottom: 0; \n\
+  \t\t\t\tbackdrop-filter: blur(10px); \n\
+  \t\t\t\tz-index: 1000; \n\
+  \t\t\t} \n\
+  \t\t</style> \n\
+  \t</head> \n\
+  \t<body> \n\
+  \t\tAsset mount test \n\
+  \t\t<script> \n\
+  \t\t\tconst params = new URLSearchParams(window.location.search) \n\
+  \t\t\tconst { name, version, props } = JSON.parse(atob(params.get("config"))) \n\
+  \t\t\tconst script = document.createElement("script") \n\
+  \t\t\tscript.src = "/apps/widget-loader@latest/build/app.js" \n\
+  \t\t\tscript.setAttribute("data-name", name) \n\
+  \t\t\tscript.setAttribute("data-version", version) \n\
+  \t\t\tif (props) { \n\
+  \t\t\t\tObject.keys(props).forEach((key) => { \n\
+  \t\t\t\t\tconst propKey = key.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase()) \n\
+  \t\t\t\t\tscript.setAttribute(`data-props-${propKey}`, props[key]) \n\
+  \t\t\t\t}) \n\
+  \t\t\t} \n\
+  \t\t\tdocument.currentScript.replaceWith(script) \n\
+  \t\t</script> \n\
+  \t\t<div class="blured"></div> \n\
+  \t</body> \n\
+  </html>' > /usr/share/nginx/html/mount-test.html   
+
+# default command is nginx
+# CMD nginx -g "daemon off;"

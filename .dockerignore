@@ -1,0 +1,5 @@
+ci/helm-charts
+ci/pipeline*
+.npm/cache
+node_modules
+build

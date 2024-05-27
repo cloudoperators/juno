@@ -1,0 +1,90 @@
+name: Block PRs on apps supernova, huereka, greenhouse and greenhouse-management and libs communicator, oauth, policy-engine and juno-ui-components
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  changes:
+    runs-on: [ubuntu-latest]
+    outputs:
+      apps: ${{ steps.filters.outputs.apps }}
+      libs: ${{ steps.filters.outputs.libs }}
+      app-changes: ${{ steps.app-filters.outputs.changes }}
+      lib-changes: ${{ steps.lib-filters.outputs.changes }}
+    steps:
+      - name: Checkout Pull Request
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: Generate app and lib filters
+        run: |
+          for folder in apps/*; do
+            folder_name=$(basename "$folder")
+            echo "$folder_name: $folder/**" >> temp_app_filters.yaml
+          done
+          for folder in libs/*; do
+            folder_name=$(basename "$folder")
+            echo "$folder_name: $folder/**" >> temp_lib_filters.yaml
+          done
+      - uses: dorny/paths-filter@v3
+        id: filters
+        with:
+          list-files: shell
+          filters: |
+            apps: apps/**
+            libs: libs/**
+      - uses: dorny/paths-filter@v3
+        id: app-filters
+        with:
+          list-files: shell
+          filters: temp_app_filters.yaml
+      - uses: dorny/paths-filter@v3
+        id: lib-filters
+        with:
+          list-files: shell
+          filters: temp_lib_filters.yaml
+      - name: Show outputs
+        run: |
+          echo "===================="
+          cat temp_app_filters.yaml
+          echo "===================="
+          cat temp_lib_filters.yaml
+          echo "===================="
+          echo apps: ${{ steps.filters.outputs.apps}}
+          echo apps_files: ${{ steps.filters.outputs.apps_files}}
+          echo app changes: ${{ steps.app-filters.outputs.changes}}
+          echo libs: ${{ steps.filters.outputs.libs}}
+          echo libs_files: ${{ steps.filters.outputs.libs_files}}
+          echo lib changes: ${{ steps.lib-filters.outputs.changes}}
+          echo "===================="
+  evaluate-changes:
+    needs: changes
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Show inputs
+        run: |
+          echo apps: ${{ needs.changes.outputs.apps }}
+          echo libs: ${{ needs.changes.outputs.libs }}
+          echo app changes: ${{ needs.changes.outputs.app-changes }}
+          echo lib changes: ${{ needs.changes.outputs.lib-changes }}
+      - name: Check if changes belongs to apps supernova, huereka, greenhouse or greenhouse-management or libs communicator, oauth, policy-engine or juno-ui-components
+        if: |
+          contains(needs.changes.outputs.app-changes, 'supernova') ||
+          contains(needs.changes.outputs.app-changes, 'huereka') ||
+          contains(needs.changes.outputs.app-changes, 'greenhouse') ||
+          contains(needs.changes.outputs.app-changes, 'greenhouse-management') ||
+          contains(needs.changes.outputs.lib-changes, 'communicator') ||
+          contains(needs.changes.outputs.lib-changes, 'policy-engine') ||
+          contains(needs.changes.outputs.lib-changes, 'oauth') ||
+          contains(needs.changes.outputs.lib-changes, 'juno-ui-components')
+        run: |
+          echo "::error not allowed to make changes to supernova, huereka, greenhouse or greenhouse-management apps or communicator, oauth, policy-engine or juno-ui-components libs"
+          exit 1

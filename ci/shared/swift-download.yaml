@@ -1,0 +1,33 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: keppel.eu-de-1.cloud.sap/ccloud/juno-v3-ci-helper
+    tag: "latest"
+
+outputs:
+  - name: download # where do you want to download
+
+params:
+  CONTAINER: juno-3rd-party # the container to handle
+  ASSET_NAME: # the assetname that you want to download
+  ASSET_TYPE: # app or lib
+  OS_USERNAME: concourse
+  OS_PASSWORD: ((keystone-user-password/concourse-eu-de-1))
+  OS_AUTH_URL: https://identity-3.eu-de-1.cloud.sap/v3
+  OS_USER_DOMAIN_NAME: Default
+  OS_PROJECT_DOMAIN_NAME: ccadmin
+  OS_PROJECT_NAME: master
+  DEBUG: "false" # enable debug
+
+run:
+  path: /bin/bash
+  args:
+    - -c
+    - |
+      set -e
+      cd ./download
+      DOWNLOAD_DIR=$(pwd)
+      cd /juno
+      ./ci/scripts/asset_storage.sh --container $CONTAINER --asset-name $ASSET_NAME --asset-type $ASSET_TYPE --action download --root-path $DOWNLOAD_DIR --debug $DEBUG

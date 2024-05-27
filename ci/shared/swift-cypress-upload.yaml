@@ -1,0 +1,36 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: keppel.eu-de-1.cloud.sap/ccloud/juno-v3-ci-helper
+    tag: "latest"
+
+inputs:
+  - name: upload # where the data is located that you want to upload
+  - name: version # the version of the cypress test, this is used to create a folder with the version in the container
+
+params:
+  ACTION: upload # upload will keep deleted files that are not exiting in the source untouched in the destination folder
+  CONTAINER: cypress # the container to handle
+  PROJECT: juno
+  OS_USERNAME: concourse
+  OS_PASSWORD: ((keystone-user-password/concourse-eu-de-1))
+  OS_AUTH_URL: https://identity-3.eu-de-1.cloud.sap/v3
+  OS_USER_DOMAIN_NAME: Default
+  OS_PROJECT_DOMAIN_NAME: ccadmin
+  OS_PROJECT_NAME: master
+  NAME: "default" # name of the cypress test
+
+run:
+  path: /bin/bash
+  args:
+    - -c
+    - |
+      set -e
+      export VERSION=$(cat version/version)
+      cd ./upload
+      export UPLOAD_DIR=$(pwd)
+      # TODO: this needs to be changed, we need to move the swift scripts outside from juno to use this also in elektra!
+      cd /juno
+      ./ci/scripts/cypress_storage.sh --container $CONTAINER --root-path $UPLOAD_DIR --project $PROJECT --name $NAME --version $VERSION

@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: juno-cert
+  namespace: juno
+spec:
+  dnsNames:
+    - assets.juno.global.cloud.sap
+  issuerRef:
+    group: certmanager.cloud.sap
+    kind: DigicertIssuer
+    name: digicert-issuer
+  secretName: tls-assets-juno
+  usages:
+    - digital signature
+    - key encipherment

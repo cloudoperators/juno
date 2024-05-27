@@ -1,0 +1,34 @@
+// SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+// SPDX-License-Identifier: Apache-2.0
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// .theme-dark {
+
+//   .whois {
+//     background: url(img/IP-Background.svg?url) bottom right no-repeat;
+//   }
+// }
+
+// .theme-light {
+
+//   .whois {
+//     background: url(img/IP-Background_light.svg?url) bottom right no-repeat;
+//   }
+// }
+
+.whois {
+  min-height: 40rem;
+}
+
+.search {
+  min-width: 36rem;
+}
+
+/* bottom fade out */
+.fade {
+  mask-image: linear-gradient(180deg, #000 80%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent);
+}

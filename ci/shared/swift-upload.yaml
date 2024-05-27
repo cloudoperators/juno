@@ -1,0 +1,39 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: keppel.eu-de-1.cloud.sap/ccloud/juno-v3-ci-helper
+    tag: "latest"
+
+inputs:
+  - name: upload # where the data is located that you want to upload
+
+params:
+  ACTION:
+    upload # upload or sync,
+    # upload will keep deleted files that are not exiting in the source untouched in the destination folder
+    # sync will synchronies all changes, that means it will also delete files in the destination that are not exiting in the source folder
+  CONTAINER: juno-3rd-party # the container to handle
+  ASSET_NAME: # the assetname that you want to upload or download
+  ASSET_TYPE: # app or lib
+  OS_USERNAME: concourse
+  OS_PASSWORD: ((keystone-user-password/concourse-eu-de-1))
+  OS_AUTH_URL: https://identity-3.eu-de-1.cloud.sap/v3
+  OS_USER_DOMAIN_NAME: Default
+  OS_PROJECT_DOMAIN_NAME: ccadmin
+  OS_PROJECT_NAME: master
+  DEBUG: "false" # enable debug
+  DRY_RUN: "false" # this is only valid if you use the sync mode and is useful to prevent data loss 😉
+
+run:
+  path: /bin/bash
+  args:
+    - -c
+    - |
+      set -e
+      cd ./upload
+      export UPLOAD_DIR=$(pwd)
+      cd /juno
+      source ./ci/scripts/swift-upload-pre-check.sh
+      ./ci/scripts/asset_storage.sh --container $CONTAINER --asset-name $ASSET_NAME --asset-type $ASSET_TYPE --action $ACTION --root-path $UPLOAD_DIR --debug $DEBUG --dry-run $DRY_RUN

@@ -1,0 +1,18 @@
+# prettier-ignore
+kind: Service
+apiVersion: v1
+
+metadata:
+  namespace: juno
+  name: assets-server
+
+spec:
+  selector:
+    app: assets-server
+  ports:
+    - name: assets-server-https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+  externalIPs:
+    - {{ .Values.public_ip }}

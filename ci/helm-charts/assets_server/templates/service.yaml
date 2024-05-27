@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  namespace: juno
+  name: assets-server
+
+spec:
+  selector:
+    app: assets-server
+  ports:
+    - name: assets-server
+      port: 8888
+      targetPort: 80
+      protocol: TCP

@@ -1,0 +1,651 @@
+{
+  "assets-overview": {
+    "1.0.0": {
+      "type": "app",
+      "entryFile": "/apps/assets-overview@1.0.0/build/index.js",
+      "entryDir": "/apps/assets-overview@1.0.0/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "52040",
+      "sizeHuman": "50.8K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "manifestUrl": {
+          "value": "./test-data.json",
+          "description": "Endpoint URL of the assets manifest"
+        },
+        "embeded": {
+          "value": "false",
+          "description": "Set to true if app is to be embedded in another existing app or page, like e.g. Elektra.  If set to true the app won't render a page header/footer and instead render only the content"
+        }
+      },
+      "README": "/apps/assets-overview@1.0.0/README.md"
+    },
+    "latest": {
+      "type": "app",
+      "entryFile": "/apps/assets-overview@latest/build/index.js",
+      "entryDir": "/apps/assets-overview@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "52040",
+      "sizeHuman": "50.8K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "manifestUrl": {
+          "value": "./test-data.json",
+          "description": "Endpoint URL of the assets manifest"
+        },
+        "embeded": {
+          "value": "false",
+          "description": "Set to true if app is to be embedded in another existing app or page, like e.g. Elektra.  If set to true the app won't render a page header/footer and instead render only the content"
+        }
+      },
+      "README": "/apps/assets-overview@latest/README.md"
+    }
+  },
+  "dashboard": {
+    "1.0.0": {
+      "type": "app",
+      "entryFile": "/apps/dashboard@1.0.0/build/index.js",
+      "entryDir": "/apps/dashboard@1.0.0/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "1502842",
+      "sizeHuman": "1.4M",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "region": {
+          "value": "qa-de-1",
+          "description": "Default region"
+        },
+        "domain": {
+          "value": "monsoon3",
+          "description": "Default domain"
+        },
+        "prodmode": {
+          "value": "true",
+          "description": "Production mode"
+        }
+      },
+      "README": "/apps/dashboard@1.0.0/README.md"
+    },
+    "latest": {
+      "type": "app",
+      "entryFile": "/apps/dashboard@latest/build/index.js",
+      "entryDir": "/apps/dashboard@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "1502842",
+      "sizeHuman": "1.4M",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "region": {
+          "value": "qa-de-1",
+          "description": "Default region"
+        },
+        "domain": {
+          "value": "monsoon3",
+          "description": "Default domain"
+        },
+        "prodmode": {
+          "value": "true",
+          "description": "Production mode"
+        }
+      },
+      "README": "/apps/dashboard@latest/README.md"
+    }
+  },
+  "exampleapp": {
+    "1.0.0": {
+      "type": "app",
+      "entryFile": "/apps/exampleapp@1.0.0/build/widget.js",
+      "entryDir": "/apps/exampleapp@1.0.0/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "84831",
+      "sizeHuman": "82.8K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "endpoint": {
+          "value": "",
+          "description": "Endpoint URL of the API"
+        },
+        "embeded": {
+          "value": "false",
+          "description": "Set to true if app is to be embedded in another existing app or page, like e.g. Elektra.  If set to true the app won't render a page header/footer and instead render only the content"
+        }
+      },
+      "README": "/apps/exampleapp@1.0.0/README.md"
+    },
+    "latest": {
+      "type": "app",
+      "entryFile": "/apps/exampleapp@latest/build/widget.js",
+      "entryDir": "/apps/exampleapp@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "84831",
+      "sizeHuman": "82.8K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "endpoint": {
+          "value": "",
+          "description": "Endpoint URL of the API"
+        },
+        "embeded": {
+          "value": "false",
+          "description": "Set to true if app is to be embedded in another existing app or page, like e.g. Elektra.  If set to true the app won't render a page header/footer and instead render only the content"
+        }
+      },
+      "README": "/apps/exampleapp@latest/README.md"
+    }
+  },
+  "heureka": {
+    "1.0.0": {
+      "type": "app",
+      "entryFile": "/apps/heureka@1.0.0/build/index.js",
+      "entryDir": "/apps/heureka@1.0.0/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "134811",
+      "sizeHuman": "131.7K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "endpoint": {
+          "value": "https://the_endpoint/api/v1",
+          "description": "Endpoint URL of the API"
+        },
+        "issuerurl": {
+          "value": "https://tbd.com",
+          "description": "Endpoint URL of Open ID provider"
+        },
+        "clientid": {
+          "value": "tbd",
+          "description": "OIDC client id"
+        }
+      },
+      "README": "/apps/heureka@1.0.0/README.md"
+    },
+    "latest": {
+      "type": "app",
+      "entryFile": "/apps/heureka@latest/build/index.js",
+      "entryDir": "/apps/heureka@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "134811",
+      "sizeHuman": "131.7K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "endpoint": {
+          "value": "https://the_endpoint/api/v1",
+          "description": "Endpoint URL of the API"
+        },
+        "issuerurl": {
+          "value": "https://tbd.com",
+          "description": "Endpoint URL of Open ID provider"
+        },
+        "clientid": {
+          "value": "tbd",
+          "description": "OIDC client id"
+        }
+      },
+      "README": "/apps/heureka@latest/README.md"
+    }
+  },
+  "maintenance": {
+    "1.0.0": {
+      "type": "app",
+      "entryFile": "/apps/maintenance@1.0.0/build/index.js",
+      "entryDir": "/apps/maintenance@1.0.0/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "52357",
+      "sizeHuman": "51.1K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "service": {
+          "value": "compute",
+          "description": "Name of the service being maintained"
+        }
+      },
+      "README": "/apps/maintenance@1.0.0/README.md"
+    },
+    "latest": {
+      "type": "app",
+      "entryFile": "/apps/maintenance@latest/build/index.js",
+      "entryDir": "/apps/maintenance@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "52357",
+      "sizeHuman": "51.1K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        },
+        "service": {
+          "value": "compute",
+          "description": "Name of the service being maintained"
+        }
+      },
+      "README": "/apps/maintenance@latest/README.md"
+    }
+  },
+  "requests": {
+    "1.0.0": {
+      "type": "app",
+      "entryFile": "/apps/requests@1.0.0/build/index.js",
+      "entryDir": "/apps/requests@1.0.0/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "109230",
+      "sizeHuman": "106.7K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        }
+      }
+    },
+    "latest": {
+      "type": "app",
+      "entryFile": "/apps/requests@latest/build/index.js",
+      "entryDir": "/apps/requests@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "109230",
+      "sizeHuman": "106.7K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        }
+      }
+    }
+  },
+  "volta": {
+    "1.0.1": {
+      "type": "app",
+      "entryFile": "/apps/volta@1.0.1/build/index.js",
+      "entryDir": "/apps/volta@1.0.1/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "364048",
+      "sizeHuman": "355.5K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "type": "optional",
+          "description": "Override the default theme (optional). Possible values are theme-light or theme-dark (default)"
+        },
+        "endpoint": {
+          "value": "https://the_endpoint/api/v1",
+          "type": "required",
+          "description": "Endpoint URL of the API (required)"
+        },
+        "issuerurl": {
+          "value": "https://endpoint_url_of_the_openid_provider.com",
+          "type": "required",
+          "description": "Endpoint URL of the OpenID provider (required)"
+        },
+        "clientid": {
+          "value": "tbd",
+          "type": "optional",
+          "description": "OIDC client id (required)"
+        },
+        "disabledcas": {
+          "value": "",
+          "type": "optional",
+          "description": "Coma separated strings containing the CA names which should not be displayed (optional). Ex: 'galvani-pki,mutual_tls-pki'"
+        },
+        "documentationlinks": {
+          "value": "",
+          "type": "optional",
+          "description": "Key value pairs separated by '=' and each pair separated by ',' (optional). Ex: '2fa-pki=https://doculink.com,mutual_tls-pki=https://doculink.com'"
+        }
+      },
+      "README": "/apps/volta@1.0.1/README.md"
+    },
+    "latest": {
+      "type": "app",
+      "entryFile": "/apps/volta@latest/build/index.js",
+      "entryDir": "/apps/volta@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "364048",
+      "sizeHuman": "355.5K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "type": "optional",
+          "description": "Override the default theme (optional). Possible values are theme-light or theme-dark (default)"
+        },
+        "endpoint": {
+          "value": "https://the_endpoint/api/v1",
+          "type": "required",
+          "description": "Endpoint URL of the API (required)"
+        },
+        "issuerurl": {
+          "value": "https://endpoint_url_of_the_openid_provider.com",
+          "type": "required",
+          "description": "Endpoint URL of the OpenID provider (required)"
+        },
+        "clientid": {
+          "value": "tbd",
+          "type": "optional",
+          "description": "OIDC client id (required)"
+        },
+        "disabledcas": {
+          "value": "",
+          "type": "optional",
+          "description": "Coma separated strings containing the CA names which should not be displayed (optional). Ex: 'galvani-pki,mutual_tls-pki'"
+        },
+        "documentationlinks": {
+          "value": "",
+          "type": "optional",
+          "description": "Key value pairs separated by '=' and each pair separated by ',' (optional). Ex: '2fa-pki=https://doculink.com,mutual_tls-pki=https://doculink.com'"
+        }
+      },
+      "README": "/apps/volta@latest/README.md"
+    }
+  },
+  "whois": {
+    "1.0.0": {
+      "type": "app",
+      "entryFile": "/apps/whois@1.0.0/build/index.js",
+      "entryDir": "/apps/whois@1.0.0/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "242695",
+      "sizeHuman": "237.0K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        }
+      },
+      "README": "/apps/whois@1.0.0/README.md"
+    },
+    "latest": {
+      "type": "app",
+      "entryFile": "/apps/whois@latest/build/index.js",
+      "entryDir": "/apps/whois@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "242695",
+      "sizeHuman": "237.0K",
+      "appProps": {
+        "theme": {
+          "value": "theme-dark",
+          "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
+        }
+      },
+      "README": "/apps/whois@latest/README.md"
+    }
+  },
+  "widget-loader": {
+    "1.1.1": {
+      "type": "app",
+      "entryFile": "/apps/widget-loader@1.1.1/build/app.js",
+      "entryDir": "/apps/widget-loader@1.1.1/build",
+      "updatedAt": "2023-01-17T12:43:05.000Z",
+      "size": "15843",
+      "sizeHuman": "15.5K",
+      "appProps": {
+        "importmap-url": {
+          "value": "https://assets.juno.qa-de-1.cloud.sap/importmap.json",
+          "description": "URL where the importmap is located"
+        },
+        "url": {
+          "value": "https://assets.juno.qa-de-1.cloud.sap/apps/dashboard@latest/build/index.js",
+          "description": "URL of the app entry file"
+        },
+        "name": {
+          "value": "dashboard",
+          "description": "name of the app that you want to to load (ignored if url is given)"
+        },
+        "version": {
+          "value": "latest",
+          "description": "version of the app (default is latest, ignored if url is given)"
+        },
+        "debug": {
+          "value": "true",
+          "description": "if true check the console log for details"
+        },
+        "importmap-only": {
+          "value": "false",
+          "description": "if true then only the importmap is loaded, all other props except importmap-url and debug are ignored!"
+        }
+      },
+      "README": "/apps/widget-loader@1.1.1/README.md"
+    },
+    "1.1.2": {
+      "type": "app",
+      "entryFile": "/apps/widget-loader@1.1.2/build/app.js",
+      "entryDir": "/apps/widget-loader@1.1.2/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "29681",
+      "sizeHuman": "29.0K",
+      "appProps": {
+        "importmap-url": {
+          "value": "https://assets.juno.qa-de-1.cloud.sap/importmap.json",
+          "description": "URL where the importmap is located"
+        },
+        "url": {
+          "value": "https://assets.juno.qa-de-1.cloud.sap/apps/dashboard@latest/build/index.js",
+          "description": "URL of the app entry file"
+        },
+        "name": {
+          "value": "dashboard",
+          "description": "name of the app that you want to to load (ignored if url is given)"
+        },
+        "version": {
+          "value": "latest",
+          "description": "version of the app (default is latest, ignored if url is given)"
+        },
+        "debug": {
+          "value": "true",
+          "description": "if true check the console log for details"
+        },
+        "origin": {
+          "value": "URL",
+          "description": "URL of the assets host"
+        },
+        "show-loading": {
+          "value": "false",
+          "description": "show Loading... while content is being loaded"
+        },
+        "importmap-only": {
+          "value": "false",
+          "description": "if true then only the importmap is loaded, all other props except importmap-url and debug are ignored!"
+        }
+      },
+      "README": "/apps/widget-loader@1.1.2/README.md"
+    },
+    "latest": {
+      "type": "app",
+      "entryFile": "/apps/widget-loader@latest/build/app.js",
+      "entryDir": "/apps/widget-loader@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "29681",
+      "sizeHuman": "29.0K",
+      "appProps": {
+        "importmap-url": {
+          "value": "https://assets.juno.qa-de-1.cloud.sap/importmap.json",
+          "description": "URL where the importmap is located"
+        },
+        "url": {
+          "value": "https://assets.juno.qa-de-1.cloud.sap/apps/dashboard@latest/build/index.js",
+          "description": "URL of the app entry file"
+        },
+        "name": {
+          "value": "dashboard",
+          "description": "name of the app that you want to to load (ignored if url is given)"
+        },
+        "version": {
+          "value": "latest",
+          "description": "version of the app (default is latest, ignored if url is given)"
+        },
+        "debug": {
+          "value": "true",
+          "description": "if true check the console log for details"
+        },
+        "origin": {
+          "value": "URL",
+          "description": "URL of the assets host"
+        },
+        "show-loading": {
+          "value": "false",
+          "description": "show Loading... while content is being loaded"
+        },
+        "importmap-only": {
+          "value": "false",
+          "description": "if true then only the importmap is loaded, all other props except importmap-url and debug are ignored!"
+        }
+      },
+      "README": "/apps/widget-loader@latest/README.md"
+    }
+  },
+  "communicator": {
+    "1.0.0": {
+      "type": "lib",
+      "entryFile": "/libs/communicator@1.0.0/build/index.js",
+      "entryDir": "/libs/communicator@1.0.0/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "10963",
+      "sizeHuman": "10.7K",
+      "appProps": {},
+      "README": "/libs/communicator@1.0.0/README.md"
+    },
+    "latest": {
+      "type": "lib",
+      "entryFile": "/libs/communicator@latest/build/index.js",
+      "entryDir": "/libs/communicator@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "10963",
+      "sizeHuman": "10.7K",
+      "appProps": {},
+      "README": "/libs/communicator@latest/README.md"
+    }
+  },
+  "juno-ui-components": {
+    "1.1.5": {
+      "type": "lib",
+      "entryFile": "/libs/juno-ui-components@1.1.5/build/index.js",
+      "entryDir": "/libs/juno-ui-components@1.1.5/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "731472",
+      "sizeHuman": "714.3K",
+      "appProps": {},
+      "README": "/libs/juno-ui-components@1.1.5/README.md"
+    },
+    "latest": {
+      "type": "lib",
+      "entryFile": "/libs/juno-ui-components@latest/build/index.js",
+      "entryDir": "/libs/juno-ui-components@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "731472",
+      "sizeHuman": "714.3K",
+      "appProps": {},
+      "README": "/libs/juno-ui-components@latest/README.md"
+    }
+  },
+  "oauth": {
+    "0.1.1": {
+      "type": "lib",
+      "entryFile": "/libs/oauth@0.1.1/build/index.js",
+      "entryDir": "/libs/oauth@0.1.1/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "20390",
+      "sizeHuman": "19.9K",
+      "appProps": {},
+      "README": "/libs/oauth@0.1.1/README.md"
+    },
+    "latest": {
+      "type": "lib",
+      "entryFile": "/libs/oauth@latest/build/index.js",
+      "entryDir": "/libs/oauth@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "20390",
+      "sizeHuman": "19.9K",
+      "appProps": {},
+      "README": "/libs/oauth@latest/README.md"
+    }
+  },
+  "policy-engine": {
+    "2.0.0": {
+      "type": "lib",
+      "entryFile": "/libs/policy-engine@2.0.0/build/esm/index.js",
+      "entryDir": "/libs/policy-engine@2.0.0/build/esm",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "35737",
+      "sizeHuman": "34.9K",
+      "appProps": {},
+      "README": "/libs/policy-engine@2.0.0/README.md"
+    },
+    "latest": {
+      "type": "lib",
+      "entryFile": "/libs/policy-engine@latest/build/esm/index.js",
+      "entryDir": "/libs/policy-engine@latest/build/esm",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "35737",
+      "sizeHuman": "34.9K",
+      "appProps": {},
+      "README": "/libs/policy-engine@latest/README.md"
+    }
+  },
+  "url-state-provider": {
+    "1.0.0": {
+      "type": "lib",
+      "entryFile": "/libs/url-state-provider@1.0.0/build/esm/index.js",
+      "entryDir": "/libs/url-state-provider@1.0.0/build/esm",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "24703",
+      "sizeHuman": "24.1K",
+      "appProps": {},
+      "README": "/libs/url-state-provider@1.0.0/README.md"
+    },
+    "latest": {
+      "type": "lib",
+      "entryFile": "/libs/url-state-provider@latest/build/esm/index.js",
+      "entryDir": "/libs/url-state-provider@latest/build/esm",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "24703",
+      "sizeHuman": "24.1K",
+      "appProps": {},
+      "README": "/libs/url-state-provider@latest/README.md"
+    }
+  },
+  "url-state-router": {
+    "1.0.0": {
+      "type": "lib",
+      "entryFile": "/libs/url-state-router@1.0.0/build/index.js",
+      "entryDir": "/libs/url-state-router@1.0.0/build",
+      "updatedAt": "2023-01-18T08:28:48.000Z",
+      "size": "27311",
+      "sizeHuman": "26.7K",
+      "appProps": {},
+      "README": "/libs/url-state-router@1.0.0/README.md"
+    },
+    "latest": {
+      "type": "lib",
+      "entryFile": "/libs/url-state-router@latest/build/index.js",
+      "entryDir": "/libs/url-state-router@latest/build",
+      "updatedAt": "2023-01-18T08:30:14.000Z",
+      "size": "27311",
+      "sizeHuman": "26.7K",
+      "appProps": {},
+      "README": "/libs/url-state-router@latest/README.md"
+    }
+  }
+}

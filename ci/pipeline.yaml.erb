@@ -1,0 +1,941 @@
+# prettier-ignore
+<%
+  # supported asset types
+  ASSETS_SOURCE = { 
+    "juno-assets": ["app","lib"],
+    "juno-3rd-party": ["app"],
+  }
+  ASSETS = {
+    "auth":                 { type: "app", path: "apps/auth" },
+    "assets-overview":      { type: "app", path: "apps/assets-overview"},
+    "user-activity":        { type: "app", path: "apps/user-activity"},
+    "volta":                { type: "app", path: "apps/volta"},
+    "whois":                { type: "app", path: "apps/whois"},
+    "widget-loader":        { type: "app", path: "apps/widget-loader"},
+    "dashboard":            { type: "app", path: "apps/dashboard"},
+    # "supernova":            { type: "app", path: "apps/supernova"},
+    "exampleapp":           { type: "app", path: "apps/exampleapp"},
+    # "greenhouse":           { type: "app", path: "apps/greenhouse" },
+    # "greenhouse-management":{ type: "app", path: "apps/greenhouse-management" },
+    # "heureka":              { type: "app", path: "apps/heureka"},
+    "playground":           { type: "app", path: "apps/playground"},
+    # "juno-ui-components":   { type: "lib", path: "libs/juno-ui-components"},
+    "messages-provider":    { type: "lib", path: "libs/messages-provider"},
+    # "policy-engine":        { type: "lib", path: "libs/policy-engine"},
+    "url-state-provider":   { type: "lib", path: "libs/url-state-provider"},
+    "url-state-router":     { type: "lib", path: "libs/url-state-router"},
+    "utils":                { type: "lib", path: "libs/utils"},
+  }
+
+  CLOUDOPERATOR_ASSETS = {
+    "communicator":         { type: "lib", path: "libs/communicator"},
+    "juno-ui-components":   { type: "lib", path: "libs/juno-ui-components"},    
+    "policy-engine":        { type: "lib", path: "libs/policy-engine"},
+    "oauth":                { type: "lib", path: "libs/oauth"},
+  }
+
+  HA_REGIONS = ["eu-de-1","eu-de-2","eu-nl-1","ap-ae-1","ap-jp-2","ap-au-1","la-br-1","na-us-1","na-us-2"]
+%>
+
+resources:
+  - name: swift-juno-assets.version
+    type: http-resource
+    source:
+      url: https://objectstore-3.eu-de-1.cloud.sap:443/v1/AUTH_caa6209d2c38450f8266311fd0f05446/juno-assets
+      method: HEAD
+      version: 
+        header: x-container-bytes-used
+  - name: swift-3rdparty.version
+    type: http-resource
+    source:
+      url: https://objectstore-3.eu-de-1.cloud.sap:443/v1/AUTH_caa6209d2c38450f8266311fd0f05446/juno-3rd-party
+      method: HEAD
+      version: 
+        header: x-container-bytes-used
+
+  - name: base.image
+    type: docker-image
+    icon: docker
+    source:
+      username: ((registry-user/keppel-ccloud.username))
+      password: ((registry-user/keppel-ccloud.password))
+      repository: keppel.eu-de-1.cloud.sap/ccloud/juno-v3-base
+
+  - name: ci-helper.image
+    type: docker-image
+    icon: docker
+    source:
+      username: ((registry-user/keppel-ccloud.username))
+      password: ((registry-user/keppel-ccloud.password))
+      repository: keppel.eu-de-1.cloud.sap/ccloud/juno-v3-ci-helper
+
+  - name: assets-server.image
+    type: docker-image
+    icon: docker
+    source:
+      username: ((registry-user/keppel-ccloud.username))
+      password: ((registry-user/keppel-ccloud.password))
+      repository: keppel.eu-de-1.cloud.sap/ccloud/juno-v3-assets-server
+
+  - name: secrets.git
+    type: git-proxy
+    webhook_token: lfkhslkfhs
+    check_every: 6h
+    source:
+      uri: git@github.wdf.sap.corp:cc/secrets.git
+      branch: "master"
+      private_key: ((github-private-key/cc-secrets))
+
+  - name: juno.git
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/sapcc/juno.git
+      branch: main
+      username: sapcc-bot
+      password: ((github-access-token/sapcc-bot))      
+
+  - name: juno-ci-helper.git
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/sapcc/juno.git
+      branch: main
+      username: sapcc-bot
+      paths: ["ci/Dockerfile.ci-helper","ci/scripts"]
+      password: ((github-access-token/sapcc-bot))
+
+  - name: ui-storybook.git
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/sapcc/juno.git
+      branch: main
+      paths: ["libs/juno-ui-components","package.json","ci/Dockerfile.ui.storybook","e2e","ci/helm-charts/ui_storybook"]
+      username: sapcc-bot
+      password: ((github-access-token/sapcc-bot))
+  
+  - name: ui-storybook.version
+    type: time-version-resource
+    icon: lock
+    check_every: 525600h
+    source: { key: juno-ui-storybook-version } # disambiguate from other time-version resources
+
+  - name: ui-storybook.image
+    type: docker-image
+    icon: docker
+    source:
+      username: ((registry-user/keppel-ccloud.username))
+      password: ((registry-user/keppel-ccloud.password))
+      repository: keppel.eu-de-1.cloud.sap/ccloud/juno-v3-ui-storybook
+
+  - name: hosting.git
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/sapcc/juno.git
+      branch: main
+      paths: ["ci/helm-charts/hosting","e2e/cypress/integration/hosting"]
+      username: sapcc-bot
+      password: ((github-access-token/sapcc-bot))
+  <%# ASSETS SOURCE GIT %>
+  <% ASSETS.each do |name,details| %>
+  - name: <%=details[:type]%>-<%= name %>.git
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/sapcc/juno.git
+      branch: main
+      paths: ["<%=details[:path]%>","libs","package.json","e2e", ".yarn"]
+      username: sapcc-bot
+      password: ((github-access-token/sapcc-bot))
+  
+  - name: <%= details[:type] %>-<%= name %>.version
+    type: time-version-resource
+    icon: lock
+    check_every: 525600h
+    source: { key: "<%= details[:type] %>-<%= name %>" } # disambiguate from other time-version resources
+
+  <% end %>
+
+  <% CLOUDOPERATOR_ASSETS.each do |name,details| %>
+  - name: <%=details[:type]%>-<%= name %>.git
+    icon: github
+    type: git-proxy
+    webhook_token: bleep-bloop
+    source:
+      uri: https://github.com/cloudoperators/juno.git
+      username: ((github-access-token/sapcc-bot))
+      password: x-oauth-basic
+      branch: main      
+      paths: ["<%=details[:path]%>"]
+  
+  - name: <%= details[:type] %>-<%= name %>.version
+    type: time-version-resource
+    icon: lock
+    check_every: 525600h
+    source: { key: "<%= details[:type] %>-<%= name %>" } # disambiguate from other time-version resources
+
+  <% end %>
+
+  - name: run-manually.version
+    type: time-version-resource
+    icon: lock
+    check_every: 525600h
+    source: { key: "juno-run-manually-version" } # disambiguate from other time-version resources
+
+  - name: assets-server.version
+    type: time-version-resource
+    icon: lock
+    check_every: 525600h
+    source: { key: "juno-assets-server-version" } # disambiguate from other time-version resources
+
+resource_types:
+  - name: http-resource
+    type: docker-image
+    check_every: 20m
+    source:
+      repository: keppel.eu-de-1.cloud.sap/ccloud-dockerhub-mirror/jgriff/http-resource
+      tag: latest
+
+  - name: git-proxy
+    type: registry-image
+    check_every: 24h
+    source:
+      repository: keppel.eu-de-1.cloud.sap/ccloud/concourse-git-resource-proxy
+      tag: latest
+
+  - name: time-version-resource
+    type: docker-image
+    check_every: 24h
+    source:
+      repository: keppel.eu-de-1.cloud.sap/ccloud/concourse-time-version-resource
+      tag: v2
+
+groups: 
+  - name: assets 
+    jobs:
+      - run-all-manually
+      <% ASSETS.merge(CLOUDOPERATOR_ASSETS).each do |name,details| %>
+      - build-<%= details[:type] %>-<%= name %>
+      <% end %>
+      - build-assets-server-image
+      - deploy-assets-server-to-s-qa-de-1
+      - e2e-tests-assets-server-s-qa-de-1
+      - promote-prod-assets-server
+      <%HA_REGIONS.each do |region|%>
+      - deploy-assets-server-to-<%= region %>
+      - e2e-tests-assets-server-<%= region %>
+      <% end %>  
+  - name: storybook
+    jobs:
+      - build-ui-storybook-image
+      - deploy-storybook-to-s-qa-de-1
+      - e2e-tests-storybook-s-qa-de-1
+      - deploy-storybook-to-s-eu-nl-1 
+      - e2e-tests-storybook-s-eu-nl-1  
+  - name: hosting 
+    jobs:
+      - deploy-hosting-to-s-qa-de-1
+      - e2e-tests-hosting-s-qa-de-1
+      - deploy-hosting-to-s-eu-nl-1     
+      - e2e-tests-hosting-s-eu-nl-1
+  - name: base
+    jobs:
+      - readme
+      - build-base-image
+      - build-ci-helper-image  
+
+jobs:
+  - name: readme
+    serial: true
+    plan:
+      - task: describe-this-pipeline
+        config:
+          platform: "linux"
+          image_resource:
+            type: docker-image
+            source:
+              repository: keppel.eu-de-1.cloud.sap/ccloud-dockerhub-mirror/library/alpine
+              tag: latest
+          run:
+            path: /bin/echo
+            args:
+              - -e
+              - '\tThis pipeline is defined at: https://github.com/sapcc/juno/ci/\n\n'
+              - '\tManage Juno images: https://keppel.eu-de-1.cloud.sap/ccloud/juno\n'
+
+
+  - name: run-all-manually
+    plan:
+      - put: run-manually.version
+
+  # =============================================================
+  # BUILD BASE IMAGES
+  - name: build-base-image
+    public: true
+    plan:
+      - get: juno.git
+        trigger: true
+
+      - put: base.image
+        params:
+          tag_as_latest: true
+          cache: true
+          cache_tag: "latest"
+          build: juno.git
+          dockerfile: juno.git/ci/Dockerfile.base
+
+  - name: build-ci-helper-image
+    public: true
+    plan:
+      - get: juno-ci-helper.git
+        trigger: true
+
+      - put: ci-helper.image
+        params:
+          tag_as_latest: true
+          cache: true
+          cache_tag: "latest"
+          build: juno-ci-helper.git
+          dockerfile: juno-ci-helper.git/ci/Dockerfile.ci-helper
+
+  # ============================================================= 
+  # BUILD ASSET SERVER IMAGE
+
+  # Assets build
+  <% ASSETS.merge(CLOUDOPERATOR_ASSETS).each do |name,details| %>
+  - name: build-<%= details[:type] %>-<%= name %>
+    public: true
+    plan:
+      - get: run-manually.version
+        trigger: true 
+        passed: [run-all-manually]
+      - get: <%= details[:type] %>-<%= name %>.git
+        trigger: true
+      - get: juno.git  
+      - get: base.image
+      - get: ci-helper.image
+      - put: <%= details[:type] %>-<%= name %>.version
+
+      <% if details[:type] == "lib" %>
+      # this is used to get the last version, only libs with new versions will be deployed
+      - task: download-last-build
+        file: juno.git/ci/shared/swift-download.yaml
+        output_mapping:
+          download: last_build
+        params:
+          DEBUG: "true"
+          CONTAINER: "juno-assets"
+          ASSET_NAME: <%= name %>
+          ASSET_TYPE: lib
+      <% end %>  
+      - task: build
+        image: base.image
+        input_mapping: 
+          latest: <%= details[:type] %>-<%= name %>.git
+        config:
+          inputs:
+            - name: latest
+            <% if details[:type] == "lib" %>
+            - name: last_build
+            <% end %>
+          outputs:
+            - name: build_result
+          platform: linux
+          run:
+            path: /bin/sh
+            # NOTE use -cx for debugging, than you can see the commands that where tirggered in the log
+            args:
+              - -c
+              - |
+                set -e 
+                ls -la
+                # TODO: this need a lot of runtime, move that stuff into asset_build.sh after version check
+                echo "sync all node_modules from /juno/ to ./latest/"
+                rsync -am --include='*/' --include='node_modules/***' --exclude='*' /juno/ ./latest
+                cd ./latest/<%=details[:type]%>s/<%=name%>
+                echo "update node modules -> npm install --silent"
+                npm install 
+                cd ../../
+                echo ""
+                /juno/ci/scripts/asset_build.sh --asset-name <%= name %> --asset-type <%= details[:type] %> --output-path ../build_result <% if details[:type] == "lib" %> --last-build-path ../last_build <% end %>
+      - task: sync
+        file: juno.git/ci/shared/swift-upload.yaml
+        input_mapping:
+          upload: build_result
+        params:
+          ACTION: sync
+          DRY_RUN: "false"
+          DEBUG: "true"
+          CONTAINER: "juno-assets"
+          ASSET_NAME: <%= name %>
+          ASSET_TYPE: <%= details[:type] %>
+  <% end %> 
+
+  <% 
+  # this step combines all assets that where build and uploaded before to swift
+  # for that we use nginx image and copy all assets (that where build in the step before) into /usr/share/nginx/html/
+  # this image will be deployed as asset server 
+
+  # Important! 
+  # If the asset-server.image was not build before 
+  # 1) comment the parts in the dockerfile where the image is needed to copy old stuff over
+  # 2) you need first build the libs otherwise the build importmap step will fail because 
+  #    it will not find the libs
+  # 3) if the libs are build and uploaded to swift you can add the apps
+  # 4) when the apps are build without problems you can uncomment the parts in 
+  #    the dockerfile to store the old versions 
+  %>
+  
+  - name: build-assets-server-image
+    public: true
+    plan:
+      - get: ci-helper.image
+      - get: juno.git   
+      - get: swift-3rdparty.version 
+        trigger: true  
+      - get: swift-juno-assets.version
+        trigger: true    
+
+      <% ASSETS.merge(CLOUDOPERATOR_ASSETS).each do |name, details|%>
+      - get: <%= details[:type] %>-<%= name %>.version
+        trigger: false
+        passed: ["build-<%= details[:type] %>-<%= name %>"]  
+      <% end %>
+      - put: assets-server.version
+      <%# COPY ALL BUILDS TO dist %>
+
+      - task: download-assets
+        image: ci-helper.image
+        params: 
+          OS_USERNAME: ((swift-username))
+          OS_PASSWORD: ((keystone-user-password/concourse-eu-de-1))
+          OS_AUTH_URL: ((swift-auth-url))
+          OS_USER_DOMAIN_NAME: ((swift-user-domain-name))
+          OS_PROJECT_DOMAIN_NAME: ((swift-project-domain-name))
+          OS_PROJECT_NAME: ((swift-project-name))
+        config:
+          platform: linux
+          inputs:
+            - name: juno.git
+          outputs:
+            - name: juno-assets
+            - name: juno-3rd-party
+          run:
+            path: /bin/bash
+            # NOTE use -cx for debugging, than you can see the commands that where tirggered in the log
+            args:
+              - -c
+              - |
+                # exit on error
+                set -e
+                cd ./juno.git
+                # 1) download our own assets
+                <% ASSETS.merge(CLOUDOPERATOR_ASSETS).each do |name, details|%>
+                  ./ci/scripts/asset_storage.sh --container juno-assets --asset-name <%= name %> --asset-path <%= details[:path] %> --action download --root-path ../juno-assets
+                <% end %>
+                # 2) download and check for name collission in juno-3rd-party assets
+                <% ASSETS_SOURCE[:"juno-3rd-party"].each do |asset_type|%>
+                    # download 3rd party assets
+                    ./ci/scripts/asset_storage.sh --container juno-3rd-party --asset-type <%= asset_type %> --action download --root-path ../juno-3rd-party                  
+                    ./ci/scripts/check_3rd_party_name_collisions.sh --juno-assets-path ../juno-assets --third-party-assets-path ../juno-3rd-party --asset-type <%= asset_type %>
+                <% end %>
+
+      - task: combine-builds
+        image: ci-helper.image
+        params: 
+          OS_USERNAME: ((swift-username))
+          OS_PASSWORD: ((keystone-user-password/concourse-eu-de-1))
+          OS_AUTH_URL: ((swift-auth-url))
+          OS_USER_DOMAIN_NAME: ((swift-user-domain-name))
+          OS_PROJECT_DOMAIN_NAME: ((swift-project-domain-name))
+          OS_PROJECT_NAME: ((swift-project-name))
+        config:
+          platform: linux
+          inputs:
+            - name: juno.git
+            - name: juno-assets
+            - name: juno-3rd-party
+          outputs:
+            - name: dist
+          run:
+            path: /bin/bash
+            # NOTE use -cx for debugging, than you can see the commands that where tirggered in the log
+            args:
+              - -c
+              - |
+                # exit on error
+                set -e
+                DIST_PATH=$(pwd)/dist
+                EXIT=0
+                cd ./juno.git
+                # compose everthing together that we can use it in the asset-server image build
+                <% ASSETS_SOURCE.each do |name,asset_types|%>
+                  <% asset_types.each do |asset_type|%>
+                <% 
+                # check and compose everthing in the dist output folder that
+                # we can combine everything in the asset-server build step
+                %>
+                    <% if name.to_s == "juno-3rd-party" %>
+                <%
+                # if the integrity check for 3rd party fails there will be no error
+                # because we do not want a blocked pipeline
+                # but an error log is uploaded to the 3rd party apps/libs folder
+                # if an error_log was found the new version is not deployed
+                %>
+                ./ci/scripts/compose_assets.sh --error-on-exit 0 --asset-type <%= asset_type %> --source-path ../  --dist-path $DIST_PATH --kind <%= name %>
+                    <% else %>
+                ./ci/scripts/compose_assets.sh --error-on-exit 1 --asset-type <%= asset_type %> --source-path ../  --dist-path $DIST_PATH --kind <%= name %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+                echo ""
+                echo "### APPS ###"
+                ls -all $DIST_PATH/apps/
+                echo "### LIBS ###"
+                ls -all $DIST_PATH/libs/
+                # upload build logs
+                ./ci/scripts/asset_storage.sh --container juno-3rd-party --asset-type apps --action upload --root-path ../juno-3rd-party &> /dev/null
+                ./ci/scripts/asset_storage.sh --container juno-assets --asset-type apps --action upload --root-path ../juno-assets &> /dev/null
+                # exit 1
+
+      # to serve our js, css and stattic assets this step will add all the created data 
+      # in dist/ to the nginx image in /usr/share/nginx/html
+      - put: assets-server.image
+        params:
+          tag_as_latest: true
+          cache: true
+          cache_tag: "latest"
+          # root for docker build, its using the output dir from the step before
+          build: dist
+          dockerfile: juno.git/ci/Dockerfile.assets.server
+          tag: assets-server.version/version
+          build_args: 
+            NPM_PROVIDER: "jspm"
+        get_params:
+          skip_download: true
+
+
+  # ======================== STORYBOOK ==========================
+  # BUILD STORYBOOK IMAGE
+  - name: build-ui-storybook-image
+    serial: true
+    plan:
+      - in_parallel:
+        - get: ui-storybook.git
+          trigger: true
+        - put: ui-storybook.version
+      - in_parallel:  
+        - put: ui-storybook.image
+          params:
+            tag_as_latest: true
+            # cache: true
+            cache_tag: "latest"
+            build: ui-storybook.git
+            build_args: 
+              KEPPEL_HOSTNAME: keppel.eu-de-1.cloud.sap
+            dockerfile: ui-storybook.git/ci/Dockerfile.ui.storybook
+            tag: ui-storybook.version/version
+          get_params:
+            skip_download: true   
+
+  # DEPLOY STORYBOOK TO QA 
+  - name: deploy-storybook-to-s-qa-de-1
+    serial: true
+    plan:
+      - in_parallel:
+        - get: secrets.git
+        - get: ui-storybook.git
+        - get: ui-storybook.version
+          trigger: true
+          passed: [build-ui-storybook-image]
+      - task: deploy
+        file: secrets.git/ci/shared/task-helm-upgrade.yaml
+        input_mapping:
+          app.version: ui-storybook.version
+          helm-charts.git: ui-storybook.git
+
+        params:
+          HELM_MAJOR_VERSION: '3'
+          CHART_PATH: ci/helm-charts/ui_storybook
+          RELEASE: juno-v3-storybook
+          NAMESPACE: juno
+          REGION: qa-de-1
+          CONTEXT: s-qa-de-1
+          TAG_VARIABLE:  image.tag
+          VALUES: local:globals
+          KUBELOGON_USER: ((unified-kubernetes-auth/default.username))
+          KUBELOGON_PASSWORD: ((unified-kubernetes-auth/default.password))
+          VAULT_ROLE_ID:      ((auth.role_id))
+          VAULT_SECRET_ID:    ((auth.secret_id))            
+
+  # RUN CYPRESS TESTS FOR STORYBOOK IN QA 
+  - name: e2e-tests-storybook-s-qa-de-1
+    serial: true
+    plan:
+      - in_parallel:
+        - get: ui-storybook.git
+        - get: ui-storybook.version
+          trigger: true
+          passed: [deploy-storybook-to-s-qa-de-1]   
+      - task: cypress
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: keppel.eu-de-1.cloud.sap/ccloud/cypress-client
+              tag: "latest"
+          inputs:
+            - name: ui-storybook.git
+              path: /app/juno
+
+          run:
+            path: /bin/sh
+            args:
+              - -c
+              - |
+                cd /app/juno/e2e
+                CYPRESS_BASE_URL=https://ui.juno.qa-de-1.cloud.sap cypress run --browser chrome --spec "cypress/integration/ui-storybook/*" 
+
+
+  # DEPLOY STORYBOOK TO PROD
+  - name: deploy-storybook-to-s-eu-nl-1
+    serial: true
+    plan:
+      - in_parallel:
+        - get: secrets.git
+        - get: ui-storybook.version
+          trigger: true
+          passed: [e2e-tests-storybook-s-qa-de-1]
+        - get: ui-storybook.git
+      - task: deploy
+        file: secrets.git/ci/shared/task-helm-upgrade.yaml
+        input_mapping:
+          app.version: ui-storybook.version
+          helm-charts.git: ui-storybook.git
+
+        params:
+          HELM_MAJOR_VERSION: '3'
+          CHART_PATH: ci/helm-charts/ui_storybook
+          RELEASE: juno-v3-storybook
+          NAMESPACE: juno
+          REGION: eu-nl-1
+          CONTEXT: s-eu-nl-1
+          TAG_VARIABLE:  image.tag
+          VALUES: local:globals 
+          KUBELOGON_USER: ((unified-kubernetes-auth/default.username))
+          KUBELOGON_PASSWORD: ((unified-kubernetes-auth/default.password))
+          VAULT_ROLE_ID:      ((auth.role_id))
+          VAULT_SECRET_ID:    ((auth.secret_id))  
+
+  # RUN CYPRESS TESTS FOR STORYBOOK IN QA 
+  - name: e2e-tests-storybook-s-eu-nl-1
+    serial: true
+    plan:
+      - in_parallel:
+        - get: ui-storybook.git
+        - get: ui-storybook.version
+          trigger: true
+          passed: [deploy-storybook-to-s-eu-nl-1]   
+      - task: cypress
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: keppel.eu-de-1.cloud.sap/ccloud/cypress-client
+              tag: "latest"
+          inputs:
+            - name: ui-storybook.git
+              path: /app/juno
+
+          run:
+            path: /bin/sh
+            args:
+              - -c
+              - |
+                cd /app/juno/e2e
+                CYPRESS_BASE_URL=https://ui.juno.eu-nl-1.cloud.sap cypress run --browser chrome --spec "cypress/integration/ui-storybook/*" 
+
+
+  ############ ASSETS SERVER  #########
+  # DEPLOY ASSETS SERVER TO S-QA-DE-1 
+  - name: deploy-assets-server-to-s-qa-de-1
+    serial: true
+    plan:
+      - in_parallel:
+        - get: juno.git
+        - get: secrets.git
+          params:
+            depth: 100 
+        - get: assets-server.version
+          trigger: true
+          passed: [build-assets-server-image]
+      - task: deploy
+        file: secrets.git/ci/shared/task-helm-upgrade.yaml
+        input_mapping:
+          app.version: assets-server.version
+          helm-charts.git: juno.git
+
+        params:
+          HELM_MAJOR_VERSION: '3'
+          CHART_PATH: ci/helm-charts/assets_server
+          RELEASE: juno-v3-assets-server
+          NAMESPACE: juno
+          REGION: qa-de-1
+          CONTEXT: s-qa-de-1
+          TAG_VARIABLE:       image.tag
+          VALUES: local:globals
+          KUBELOGON_USER: ((unified-kubernetes-auth/default.username))
+          KUBELOGON_PASSWORD: ((unified-kubernetes-auth/default.password))
+          VAULT_ROLE_ID:      ((auth.role_id))
+          VAULT_SECRET_ID:    ((auth.secret_id))
+
+  # RUN CYPRESS TESTS FOR ASSETS SERVER IN QA 
+  - name: e2e-tests-assets-server-s-qa-de-1
+    serial: true
+    plan:
+      - in_parallel:
+        - get: juno.git
+        - get: assets-server.version
+          trigger: true
+          passed: [deploy-assets-server-to-s-qa-de-1]   
+      - task: cypress
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: keppel.eu-de-1.cloud.sap/ccloud/cypress-client
+              tag: "latest"
+          inputs:
+            - name: juno.git
+              path: /app/juno
+          outputs:
+            - name: upload
+              path: /upload
+
+          run:
+            path: /bin/sh
+            args:
+              - -c
+              - |
+                cd /app/juno/e2e
+                CYPRESS_BASE_URL=https://assets.juno.qa-de-1.cloud.sap cypress run --browser chrome --spec "cypress/integration/assets-server/*"
+                EXIT=$?
+                mv /app/juno/e2e/cypress /upload
+                exit $EXIT  
+      - task: upload-cypress-result
+        file: juno.git/ci/shared/swift-cypress-upload.yaml
+        input_mapping:
+          version: assets-server.version
+        params:
+          NAME: "asset-server"
+
+  # PROMOTE TO PROD  
+  - name: promote-prod-assets-server
+    serial: true
+    plan:
+      - in_parallel:
+        - get: assets-server.version
+          trigger: false
+          passed: [e2e-tests-assets-server-s-qa-de-1]   
+
+  # DEPLOY ASSETS SERVER TO PROD (HA)
+  <%HA_REGIONS.each do |region|%>
+  - name: deploy-assets-server-to-<%= region %>
+    serial: true
+    plan:
+      - in_parallel:
+          - get: assets-server.version
+            trigger: true
+            passed: [promote-prod-assets-server]           
+          - get: juno.git
+          - get: secrets.git
+            params:
+              depth: 100 
+
+      - task: diff
+        file: secrets.git/ci/shared/task-helm-diff.yaml
+        input_mapping:
+          app.version: assets-server.version
+          helm-charts.git: juno.git
+        params:
+          DEBUG_TASK:         1 
+          CHART_PATH:         ci/helm-charts/assets_server_ha
+          RELEASE:            juno-v3-assets-server-ha
+          NAMESPACE:          juno
+          REGION:             <%= region %>
+          CONTEXT:            <%= region %>
+          TAG_VARIABLE:       image.tag
+          VALUES:             local:globals global:juno
+          KUBELOGON_USER:     ((unified-kubernetes-auth/default.username))
+          KUBELOGON_PASSWORD: ((unified-kubernetes-auth/default.password))
+          HELM_MAJOR_VERSION: '3'
+          VAULT_ROLE_ID:      ((auth.role_id))
+          VAULT_SECRET_ID:    ((auth.secret_id))
+
+      - task: deploy
+        file: secrets.git/ci/shared/task-helm-upgrade.yaml
+        input_mapping:
+          app.version: assets-server.version
+          helm-charts.git: juno.git
+          
+        params:
+          CHART_PATH:         ci/helm-charts/assets_server_ha
+          RELEASE:            juno-assets-server-prod
+          NAMESPACE:          juno
+          HELM_MAJOR_VERSION: '3'
+          REGION:             <%= region %>
+          CONTEXT:            <%= region %>
+          TAG_VARIABLE:       image.tag
+          VALUES:             local:globals global:juno
+          KUBELOGON_USER: ((unified-kubernetes-auth/default.username))
+          KUBELOGON_PASSWORD: ((unified-kubernetes-auth/default.password))
+          VAULT_ROLE_ID:      ((auth.role_id))
+          VAULT_SECRET_ID:    ((auth.secret_id))
+
+  # RUN CYPRESS TESTS FOR ASSETS SERVER IN PROD 
+  - name: e2e-tests-assets-server-<%= region %>
+    serial: true
+    plan:
+      - in_parallel:
+        - get: assets-server.version
+          trigger: true
+          passed: [deploy-assets-server-to-<%= region %>]   
+        - get: juno.git
+      - task: cypress
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: keppel.eu-de-1.cloud.sap/ccloud/cypress-client
+              tag: "latest"
+          inputs:
+            - name: juno.git
+              path: /app/juno
+
+          run:
+            path: /bin/sh
+            args:
+              - -c
+              - |
+                cd /app/juno/e2e
+                CYPRESS_BASE_URL=https://assets.juno.global.cloud.sap cypress run --browser chrome --spec "cypress/integration/assets-server/*"
+              
+  <% end %>                
+
+  # ======================== HOSTING =====================
+  # DEPLOY HOSTING TO QA 
+  - name: deploy-hosting-to-s-qa-de-1
+    serial: true
+    plan:
+      - in_parallel:
+        - get: hosting.git
+          trigger: true
+        - get: secrets.git
+      - task: deploy
+        file: secrets.git/ci/shared/task-helm-upgrade.yaml
+        input_mapping:
+          helm-charts.git: hosting.git
+
+        params:
+          HELM_MAJOR_VERSION: '3'
+          CHART_PATH: ci/helm-charts/hosting
+          RELEASE: juno-v3-hosting
+          NAMESPACE: juno
+          REGION: qa-de-1
+          CONTEXT: s-qa-de-1
+          VALUES: local:globals
+          KUBELOGON_USER: ((unified-kubernetes-auth/default.username))
+          KUBELOGON_PASSWORD: ((unified-kubernetes-auth/default.password))
+          VAULT_ROLE_ID:      ((auth.role_id))
+          VAULT_SECRET_ID:    ((auth.secret_id))
+
+  # RUN CYPRESS TESTS FOR HOSTING IN QA 
+  - name: e2e-tests-hosting-s-qa-de-1
+    serial: true
+    plan:
+      - in_parallel:
+          - get: hosting.git
+            trigger: true
+            passed: [deploy-hosting-to-s-qa-de-1]   
+      - task: cypress
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: keppel.eu-de-1.cloud.sap/ccloud/cypress-client
+              tag: "latest"
+          inputs:
+            - name: hosting.git
+              path: /app/juno
+
+          run:
+            path: /bin/sh
+            args:
+              - -c
+              - |
+                cd /app/juno/e2e
+                CYPRESS_BASE_URL=https://juno.qa-de-1.cloud.sap cypress run --browser chrome --spec "cypress/integration/hosting/dashboard*" 
+
+  # DEPLOY HOSTING TO PROD
+  - name: deploy-hosting-to-s-eu-nl-1
+    serial: true
+    plan:
+      - in_parallel:
+        - get: secrets.git 
+        - get: hosting.git
+          trigger: false
+          passed: [e2e-tests-hosting-s-qa-de-1]  
+
+      - task: deploy
+        file: secrets.git/ci/shared/task-helm-upgrade.yaml
+        input_mapping:
+          helm-charts.git: hosting.git
+        params:
+          HELM_MAJOR_VERSION: '3'
+          CHART_PATH: ci/helm-charts/hosting
+          RELEASE: juno-v3-hosting
+          NAMESPACE: juno
+          REGION: eu-nl-1
+          CONTEXT: s-eu-nl-1
+          VALUES: local:globals
+          KUBELOGON_USER: ((unified-kubernetes-auth/default.username))
+          KUBELOGON_PASSWORD: ((unified-kubernetes-auth/default.password))
+          VAULT_ROLE_ID:      ((auth.role_id))
+          VAULT_SECRET_ID:    ((auth.secret_id))            
+
+  # RUN CYPRESS TESTS FOR HOSTING IN PROD 
+  - name: e2e-tests-hosting-s-eu-nl-1
+    serial: true
+    plan:
+      - in_parallel:
+          - get: hosting.git
+            trigger: true
+            passed: [deploy-hosting-to-s-eu-nl-1]   
+      - task: cypress
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: keppel.eu-de-1.cloud.sap/ccloud/cypress-client
+              tag: "latest"
+          inputs:
+            - name: hosting.git
+              path: /app/juno
+
+          run:
+            path: /bin/sh
+            args:
+              - -c
+              - |
+                cd /app/juno/e2e
+                CYPRESS_BASE_URL=https://juno.global.cloud.sap cypress run --browser chrome --spec "cypress/integration/hosting/dashboard*" && \
+                CYPRESS_BASE_URL=https://ccloud.global.cloud.sap cypress run --browser chrome --spec "cypress/integration/hosting/dashboard*" && \
+                CYPRESS_BASE_URL=https://convergedcloud.global.cloud.sap cypress run --browser chrome --spec "cypress/integration/hosting/dashboard*" 

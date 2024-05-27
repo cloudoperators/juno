@@ -1,0 +1,11 @@
+owner-info:
+  support-group: containers
+  service: juno-assets-server-prod # optional
+  maintainers:
+    - Esther Schmitz
+    - Andreas Pfau
+    - Hans-Georg Winkler
+    - Arturo Reuschenbach Puncernau
+    - Hoda Noori
+  helm-chart-url: https://github.com/sapcc/juno/tree/main/ci/helm-charts
+
