@@ -9,25 +9,25 @@ import React, {
   useId,
   useMemo,
   useState,
-} from "react"
-import PropTypes from "prop-types"
-import { Listbox } from "@headlessui/react"
-import { Label } from "../Label/Label.component"
-import { Icon } from "../Icon/Icon.component"
-import { Spinner } from "../Spinner/Spinner.component"
-import { FormHint } from "../FormHint/FormHint.component"
-import { Float } from "@headlessui-float/react"
-import { flip, offset, shift, size } from "@floating-ui/react-dom"
-import { usePortalRef } from "../PortalProvider/index"
-import { createPortal } from "react-dom"
-import "./select.scss"
+} from "react";
+import PropTypes from "prop-types";
+import { Listbox } from "@headlessui/react";
+import { Label } from "../Label/Label.component";
+import { Icon } from "../Icon/Icon.component";
+import { Spinner } from "../Spinner/Spinner.component";
+import { FormHint } from "../FormHint/FormHint.component";
+import { Float } from "@headlessui-float/react";
+import { flip, offset, shift, size } from "@floating-ui/react-dom";
+import { usePortalRef } from "../PortalProvider/index";
+import { createPortal } from "react-dom";
+import "./select.scss";
 
 const labelStyles = `
   jn-no-wrap
   jn-pointer-events-none
   jn-top-2
   jn-left-4
-`
+`;
 
 const toggleStyles = `
   jn-appearance-none
@@ -41,16 +41,16 @@ const toggleStyles = `
   focus:jn-outline-none
   focus:jn-ring-2
   focus:jn-ring-theme-focus
-`
+`;
 const validToggleStyles = `
   jn-border
   jn-border-theme-success
-`
+`;
 
 const invalidToggleStyles = `
   jn-border
   jn-border-theme-error
-`
+`;
 
 const centeredIconStyles = `
   jn-absolute
@@ -58,14 +58,14 @@ const centeredIconStyles = `
   jn-left-1/2
   jn-translate-y-[-50%]
   jn-translate-x-[-0.75rem]
-`
+`;
 
 const menuStyles = `
   jn-rounded
   jn-bg-theme-background-lvl-1
   jn-w-full
   jn-overflow-y-auto
-`
+`;
 
 const truncateStyles = `
   jn-block
@@ -73,9 +73,9 @@ const truncateStyles = `
   jn-overflow-hidden
   jn-text-ellipsis
   jn-whitespace-nowrap
-`
+`;
 
-export const SelectContext = createContext()
+export const SelectContext = createContext();
 
 /** 
   A Select component that can be configured to allow selecting a single item or multiple items.
@@ -107,22 +107,23 @@ export const Select = ({
   valueLabel,
   variant,
   width,
+  wrapperClassName,
   ...props
 }) => {
   const isNotEmptyString = (str) => {
-    return !(typeof str === "string" && str.trim().length === 0)
-  }
+    return !(typeof str === "string" && str.trim().length === 0);
+  };
 
-  const uniqueId = () => "juno-select-" + useId()
+  const uniqueId = () => "juno-select-" + useId();
 
-  const theId = id || uniqueId()
-  const helptextId = "juno-select-helptext-" + useId()
+  const theId = id || uniqueId();
+  const helptextId = "juno-select-helptext-" + useId();
 
-  const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(new Map())
-  const [hasError, setHasError] = useState(false)
-  const [isInvalid, setIsInvalid] = useState(false)
-  const [isValid, setIsValid] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(new Map());
+  const [hasError, setHasError] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // This callback is for all SelectOptions to send us their value, label and children so we can save them in a map
   // We need this because the Select component wants to display the selected value, label or children in the toggle button
@@ -137,41 +138,41 @@ export const Select = ({
         children: children,
         displayName: children || label || value,
       })
-    )
-  }
+    );
+  };
 
   const invalidated = useMemo(
     () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
     [invalid, errortext]
-  )
+  );
   const validated = useMemo(
     () =>
       valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
-  )
+  );
 
   useEffect(() => {
-    setHasError(error)
-  }, [error])
+    setHasError(error);
+  }, [error]);
 
   useEffect(() => {
-    setIsInvalid(invalidated)
-  }, [invalidated])
+    setIsInvalid(invalidated);
+  }, [invalidated]);
 
   useEffect(() => {
-    setIsValid(validated)
-  }, [validated])
+    setIsValid(validated);
+  }, [validated]);
 
   useEffect(() => {
-    setIsLoading(loading)
-  }, [loading])
+    setIsLoading(loading);
+  }, [loading]);
 
   const handleChange = (value) => {
-    onChange && onChange(value || "")
-    onValueChange && onValueChange(value || "")
-  }
+    onChange && onChange(value || "");
+    onValueChange && onValueChange(value || "");
+  };
 
-  const portalContainerRef = usePortalRef()
+  const portalContainerRef = usePortalRef();
 
   // Headless-UI-Float Middleware
   const middleware = [
@@ -185,25 +186,25 @@ export const Select = ({
           maxWidth: `${availableWidth}px`,
           maxHeight: `${availableHeight}px`,
           overflowY: "auto",
-        })
+        });
       },
     }),
-  ]
+  ];
 
   // This function is used to determine what to render for the selected options in the Select Toggle in multi-select case.
   // For each of the values, we get the respective element from the optionValuesAndLabels map, get the corresponding label or children, and filter these for empty elements to make sure we do not include any empty strings in the returned array.
   const getMultipleDisplayValues = (values) => {
     const getChildrenOrLabel = (key) => {
-      const element = optionValuesAndLabels.get(key)
+      const element = optionValuesAndLabels.get(key);
       if (element) {
-        return element.displayName?.length ? element.displayName : null
+        return element.displayName?.length ? element.displayName : null;
       }
-    }
+    };
     const valuesToDisplay = values
       .map((key) => getChildrenOrLabel(key))
-      .filter((value) => value && value.toString().trim().length > 0)
-    return valuesToDisplay.join(", ")
-  }
+      .filter((value) => value && value.toString().trim().length > 0);
+    return valuesToDisplay.join(", ");
+  };
 
   return (
     <SelectContext.Provider
@@ -218,6 +219,7 @@ export const Select = ({
           jn-relative
           ${width == "auto" ? "jn-inline-block" : "jn-block"}
           ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          ${wrapperClassName}
         `}
       >
         <Listbox
@@ -374,27 +376,27 @@ export const Select = ({
         )}
       </div>
     </SelectContext.Provider>
-  )
-}
+  );
+};
 
 // Validator function to make sure the proptype of value is set accordingly when we use single or multi select
 const valuePropType = (props) => {
-  const { multiple, value } = props
+  const { multiple, value } = props;
 
   // only validate if value is not undefined to avoid throwing an error when not necessary:
   if (value) {
     if (multiple && !Array.isArray(value)) {
       return new Error(
         "Invalid prop value supplied to Select component: Pass an array when using as a multi-select."
-      )
+      );
     }
     if (!multiple && typeof value !== "string") {
       return new Error(
         "Invalid prop value supplied to Select component: Pass a string when using as single select."
-      )
+      );
     }
   }
-}
+};
 
 Select.propTypes = {
   /** Pass an aria-label to the Select toggle button */
@@ -448,7 +450,9 @@ Select.propTypes = {
   variant: PropTypes.oneOf(["default", "primary", "primary-danger", "subdued"]),
   /** Whether the Select toggle should consume the available width of its parent container (default), or render its "natural" width depending on the content and the currently selected value or state. */
   width: PropTypes.oneOf(["full", "auto"]),
-}
+  /** Pass a className to the outer wrapping element. */
+  wrapperClassName: PropTypes.string,
+};
 
 Select.defaultProps = {
   ariaLabel: "",
@@ -476,4 +480,5 @@ Select.defaultProps = {
   valueLabel: undefined,
   variant: "default",
   width: "full",
-}
+  wrapperClassName: "",
+};
