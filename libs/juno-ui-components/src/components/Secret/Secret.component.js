@@ -95,7 +95,9 @@ export const Secret = ({ mask, onChange, value, ...props }) => {
     setSecretHasFocus(false);
   };
 
-  const handleCopyClick = () => {};
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(theValue);
+  };
 
   return (
     <div>
