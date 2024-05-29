@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { render, queryByAttribute } from "@testing-library/react"
-import { renderHook, act, waitFor } from "@testing-library/react"
+import { render, queryByAttribute, renderHook } from "@testing-library/react"
 import { useEndlessScrollList } from "../index"
 import "../../__mocks__/intersectionObserverMock"
 
