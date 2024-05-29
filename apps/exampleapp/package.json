@@ -5,7 +5,7 @@
   "contributors": [
     "Arturo Reuschenbach Pucernau"
   ],
-  "repository": "https://github.com/sapcc/juno/tree/main/apps/exampleapp",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/exampleapp",
   "license": "Apache-2.0",
   "module": "build/index.js",
   "source": "src/index.js",
@@ -67,7 +67,7 @@
     "zustand": "4.5.2"
   },
   "importmapExtras": {
-    "zustand/middleware": "4.3.7"
+    "zustand/middleware": "4.5.2"
   },
   "appProps": {
     "theme": {
@@ -80,7 +80,7 @@
     },
     "embedded": {
       "value": "false",
-      "description": "Set to true if app is to be embedded in another existing app or page, like e.g. Elektra.  If set to true the app won't render a page header/footer and instead render only the content"
+      "description": "Set to true if app is to be embedded in another existing app or page.  If set to true the app won't render a page header/footer and instead render only the content"
     }
   },
   "appPreview": true

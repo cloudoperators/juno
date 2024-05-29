@@ -6,7 +6,7 @@
     "Andreas Pfau",
     "Arturo Reuschenbach Pucernau"
   ],
-  "repository": "https://github.com/sapcc/juno/tree/main/apps/template",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
   "license": "Apache-2.0",
   "source": "src/index.js",
   "module": "build/index.js",
@@ -61,7 +61,7 @@
     "zustand": "4.5.2"
   },
   "importmapExtras": {
-    "zustand/middleware": "4.3.7"
+    "zustand/middleware": "4.5.2"
   },
   "appProps": {
     "urlStateKey": {
@@ -82,7 +82,7 @@
     "embedded": {
       "value": "false",
       "type": "optional",
-      "description": "Set to true if app is to be embedded in another existing app or page, like e.g. Elektra.  If set to true the app won't render a page header/footer and instead render only the content. The default value is false."
+      "description": "Set to true if app is to be embedded in another existing app or page.  If set to true the app won't render a page header/footer and instead render only the content. The default value is false."
     }
   },
   "appPreview": true
