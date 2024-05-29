@@ -1,0 +1,32 @@
+// 20240529160629
+// https://raw.githubusercontent.com/cloudoperators/juno/main/.github/renovate.json
+
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "assigneesFromCodeOwners": true,
+  "extends": ["config:recommended"],
+  "packageRules": [
+    {
+      "groupName": "github actions",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["major", "minor"],
+      "extends": ["helpers:pinGitHubActionDigests"],
+      "minimumReleaseAge": "14 days"
+    },
+    {
+      "groupName": "npm dependencies",
+      "matchDatasources": ["npm"],
+      "minimumReleaseAge": "14 days"
+    }
+  ],
+  "separateMinorPatch": true,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["Makefile$", "\\.sh$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?(?: registryUrl=(?<registryUrl>[^\\s]+?))?\\s.+?_(VERSION|version) *[?:]?= *\"?(?<currentValue>.+?)\"?\\s"
+      ]
+    }
+  ]
+}
