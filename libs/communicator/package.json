@@ -11,6 +11,10 @@
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
+  "engines": {
+    "node": "20.13.1",
+    "npm": "10.5.2"
+  },
   "scripts": {
     "dev": "NODE_ENV=development node ./esbuild.config.js --watch",
     "build": "NODE_ENV=production node ./esbuild.config.js",

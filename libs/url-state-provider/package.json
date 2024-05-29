@@ -11,6 +11,10 @@
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
   "license": "Apache-2.0",
+  "engines": {
+    "node": "20.13.1",
+    "npm": "10.5.2"
+  },
   "scripts": {
     "build": "rollup -c",
     "test": "NODE_ENV=test jest "

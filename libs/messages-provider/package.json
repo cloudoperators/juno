@@ -11,6 +11,10 @@
   "main": "build/index.js",
   "module": "build/index.js",
   "license": "Apache-2.0",
+  "engines": {
+    "node": "20.13.1",
+    "npm": "10.5.2"
+  },
   "peerDependencies": {
     "juno-ui-components": "https://assets.juno.global.cloud.sap/libs/juno-ui-components@2.14.1/package.tgz",
     "react": "18.2.0",
