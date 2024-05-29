@@ -1,7 +1,5 @@
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
 
-@core_ui_team = @edda @andypf @ArtieReus @hgw77 @hodanoori @tilmanhaupt
-
-* @core_ui_team
-/libs/juno-ui-components/ @core_ui_team @franzheidl  
+* @edda @andypf @artieReus @hgw77 @hodanoori @tilmanhaupt
+/libs/juno-ui-components/ @edda @andypf @artieReus @hgw77 @hodanoori @tilmanhaupt @franzheidl  
