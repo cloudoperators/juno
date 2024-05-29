@@ -1,5 +1,0 @@
-swift-username: concourse
-swift-auth-url: https://identity-3.eu-de-1.cloud.sap/v3
-swift-project-name: master
-swift-user-domain-name: Default
-swift-project-domain-name: ccadmin
