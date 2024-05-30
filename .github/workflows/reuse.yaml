@@ -72,7 +72,7 @@ jobs:
           for change in $lib_changes; do
             changes+=( "{\"type\":\"libs\",\"asset\":$change}" )
           done
-          echo "::set-output name=changes::[$(IFS=,; echo "${changes[*]}")]"
+          echo "changes=[$(IFS=,; echo "${changes[*]}")]" >> $GITHUB_OUTPUT
 
       - name: Show outputs
         run: |
