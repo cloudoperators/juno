@@ -114,7 +114,7 @@ jobs:
 
       - name: Print out changes with component and asset
         run: |
-          change="${{ toJson(matrix.change) }}"
+          change=${{ toJson(matrix.change) }}
           echo "Change got it: $change"
           echo $change | jq -r '.type'
 
