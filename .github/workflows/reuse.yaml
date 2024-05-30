@@ -114,6 +114,7 @@ jobs:
 
       - name: Print out changes with component and change within in a loop
         run: |
+          echo changes: ${{ matrix.changes}}
           for change in ${{ matrix.changes }}; do
             echo "Change: $change"
           done
