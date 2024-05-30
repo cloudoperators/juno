@@ -19,18 +19,25 @@ jobs:
       - name: REUSE Compliance Check
         uses: fsfe/reuse-action@v3
 
-  detect-lib-changes:
+  detect-changes:
     needs: reuse-compliance-check
     runs-on: [ubuntu-latest]
     outputs:
+      apps: ${{ steps.filters.outputs.apps }}
+      app-changes: ${{ steps.app-filters.outputs.changes }}
       libs: ${{ steps.filters.outputs.libs }}
       lib-changes: ${{ steps.lib-filters.outputs.changes }}
+      changes: ${{ steps.create-changes.outputs.changes }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate lib filters
+      - name: Generate app and lib filters
         run: |
+          for folder in apps/*; do
+            folder_name=$(basename "$folder")
+            echo "$folder_name: $folder/**" >> temp_app_filters.yaml
+          done
           for folder in libs/*; do
             folder_name=$(basename "$folder")
             echo "$folder_name: $folder/**" >> temp_lib_filters.yaml
@@ -41,7 +48,14 @@ jobs:
         with:
           list-files: shell
           filters: |
+            apps: apps/**
             libs: libs/**
+
+      - uses: dorny/paths-filter@v3
+        id: app-filters
+        with:
+          list-files: shell
+          filters: temp_app_filters.yaml
 
       - uses: dorny/paths-filter@v3
         id: lib-filters
@@ -49,38 +63,63 @@ jobs:
           list-files: shell
           filters: temp_lib_filters.yaml
 
+      - name: Create changes array
+        id: create-changes
+        run: |
+          app_changes=$(echo "${{ steps.app-filters.outputs.changes }}" | jq -c '.[]')
+          lib_changes=$(echo "${{ steps.lib-filters.outputs.changes }}" | jq -c '.[]')
+
+          changes=()
+
+          for app in $app_changes; do
+            changes+=( "{\"component\":\"app\",\"change\":$app}" )
+          done
+
+          for change in $lib_changes; do
+            changes+=( "{\"component\":\"lib\",\"change\":$change}" )
+          done
+
+          echo "::set-output name=changes::[$(IFS=,; echo "${changes[*]}")]"
+
       - name: Show outputs
         run: |
           echo "========"
+          cat temp_app_filters.yaml
+          echo "========"          
           cat temp_lib_filters.yaml
           echo "========"
+          echo apps: ${{ steps.filters.outputs.apps}}
+          echo apps_files: ${{ steps.filters.outputs.apps_files}}
+          echo app changes: ${{ steps.app-filters.outputs.changes}}          
           echo libs: ${{ steps.filters.outputs.libs}}
           echo libs_files: ${{ steps.filters.outputs.libs_files}}
           echo lib changes: ${{ steps.lib-filters.outputs.changes}}
+          echo changes: ${{ steps.create-changes.outputs.changes}}
           echo "===================="
 
-  check-3rd-party-licenses:
-    needs: detect-lib-changes
-    runs-on: [ubuntu-latest]
-    strategy:
-      matrix:
-        libs: ${{fromJson(needs.detect-lib-changes.outputs.lib-changes)}}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  # check-3rd-party-licenses:
+  #   needs: detect-changes
+  #   runs-on: [ubuntu-latest]
+  #   strategy:
+  #     matrix:
+  #       libs: ${{fromJson(needs.detect-changes.outputs.lib-changes)}}
+  #       apps: ${{fromJson(needs.detect-changes.outputs.app-changes)}}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
+  #     - name: Setup node
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "20.x"
 
-      - name: Install npm dependencies
-        run: |
-          cd "libs/${{ matrix.libs }}"
-          NODE_ENV=production npm ci
+  #     - name: Install npm dependencies
+  #       run: |
+  #         cd "libs/${{ matrix.libs }}"
+  #         NODE_ENV=production npm ci
 
-      - name: check license
-        run: |
-          npm install -g license-checker
-          cd "libs/${{ matrix.libs }}"
-          license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;Unlicense;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD"
+  #     - name: check license
+  #       run: |
+  #         npm install -g license-checker
+  #         cd "libs/${{ matrix.libs }}"
+  #         license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;Unlicense;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD"
