@@ -115,8 +115,8 @@ jobs:
       - name: Print out changes with component and change within in a loop
         run: |
           for change in ${{ matrix.changes }}; do
-            component=$(echo "$change" | jq -r '.component')
-            change=$(echo "$change" | jq -r '.change')
+            component=$(echo '$change' | jq -r '.component')
+            change=$(echo '$change' | jq -r '.change')
             echo "Component: $component, Change: $change"
           done
 
