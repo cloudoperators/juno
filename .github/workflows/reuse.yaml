@@ -116,7 +116,9 @@ jobs:
         id: extract-attributes
         run: |
           echo Change for: '${{ toJson(matrix.change) }}'
-          echo 'change_type=${{ toJson(matrix.change) }}' | jq -r '.type'
+          echo '${{ toJson(matrix.change) }}' | jq -r '.type'
+          echo '${{ toJson(matrix.change) }}' | jq -r '.asset'
+          echo change_type='${{ toJson(matrix.change) }}' | jq -r '.type' >> $GITHUB_ENV
 
       # - name: test
       #   run: |
