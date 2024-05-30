@@ -23,10 +23,10 @@ jobs:
     needs: reuse-compliance-check
     runs-on: [ubuntu-latest]
     outputs:
-      apps: ${{ steps.filters.outputs.apps }}
-      app-changes: ${{ steps.app-filters.outputs.changes }}
-      libs: ${{ steps.filters.outputs.libs }}
-      lib-changes: ${{ steps.lib-filters.outputs.changes }}
+      # apps: ${{ steps.filters.outputs.apps }}
+      # app-changes: ${{ steps.app-filters.outputs.changes }}
+      # libs: ${{ steps.filters.outputs.libs }}
+      # lib-changes: ${{ steps.lib-filters.outputs.changes }}
       changes: ${{ steps.create-changes.outputs.changes }}
     steps:
       - name: Checkout
@@ -97,21 +97,27 @@ jobs:
           echo changes: ${{ steps.create-changes.outputs.changes}}
           echo "===================="
 
-  # check-3rd-party-licenses:
-  #   needs: detect-changes
-  #   runs-on: [ubuntu-latest]
-  #   strategy:
-  #     matrix:
-  #       libs: ${{fromJson(needs.detect-changes.outputs.lib-changes)}}
-  #       apps: ${{fromJson(needs.detect-changes.outputs.app-changes)}}
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  check-3rd-party-licenses:
+    needs: detect-changes
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        changes: ${{fromJson(needs.detect-changes.outputs.changes)}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Setup node
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: "20.x"
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Print out changes with component and change within in a loop
+        run: |
+          for change in ${{ matrix.changes }}; do
+            echo $change.component
+            echo $change.change
+          done
 
   #     - name: Install npm dependencies
   #       run: |
