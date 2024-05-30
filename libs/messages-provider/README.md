@@ -11,7 +11,7 @@ This lib uses a **context** store based on Zustand to manage the messages. That 
 In order to run this library in your application you need to install also following libraries which are not included in the bundle:
 
 - juno-ui-components, recommended version ^2.14.1
-- react, recommended version ^18.2.0
+- react, recommended version 18.2.0
 - zustand, recommended version ^4.5.2
 
 ```bash
