@@ -102,7 +102,7 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        changes: ${{ needs.detect-changes.outputs.changes }}
+        changes: ${{fromJson(needs.detect-changes.outputs.changes)}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -114,9 +114,10 @@ jobs:
 
       - name: Print out changes with component and change within in a loop
         run: |
-          echo changes: ${{ matrix.changes}}
-          for change in ${{ matrix.changes }}; do
-            echo "Change: $change"
+          for change in "${{ matrix.changes }}"; do
+            component=$(echo "$change" | jq -r '.type')
+            asset=$(echo "$change" | jq -r '.asset')
+            echo "Component: $component, Change: $asset"
           done
 
   #     - name: Install npm dependencies
