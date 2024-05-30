@@ -115,7 +115,8 @@ jobs:
       - name: Print out changes with component and asset
         run: |
           change="${{ toJson(matrix.change) }}"
-          echo "Change got it: $change"
+          changeV2="${{ matrix.change }}"
+          echo "Change got it: $change, and $changeV2"
           component=$(echo "$change" | jq -r '.type')
           asset=$(echo "$change" | jq -r '.asset')
           echo "Component: $component, Change: $asset"
