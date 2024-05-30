@@ -114,8 +114,8 @@ jobs:
 
       - name: Print out changes with component and asset
         run: |
-          echo Change got it: ${{ toJson(matrix.change) }}
-          echo ${{ toJson(matrix.change) }} | jq -r '.type'
+          echo Change got it: '${{ toJson(matrix.change) }}'
+          echo '${{ toJson(matrix.change) }}' | jq -r '.type'
 
   #     - name: Install npm dependencies
   #       run: |
