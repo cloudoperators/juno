@@ -102,7 +102,7 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        changes: ${{fromJson(needs.detect-changes.outputs.changes)}}
+        change: ${{fromJson(needs.detect-changes.outputs.changes)}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -112,9 +112,9 @@ jobs:
         with:
           node-version: "20.x"
 
-      - name: Print out changes with component and change within in a loop
+      - name: Print out changes with component and asset
         run: |
-          change="${{ toJson(matrix.changes) }}"
+          change="${{ matrix.change }}"
           component=$(echo "$change" | jq -r '.type')
           asset=$(echo "$change" | jq -r '.asset')
           echo "Component: $component, Change: $asset"
