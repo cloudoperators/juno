@@ -1,4 +1,4 @@
-name: Reus and 3rd Party License Checker
+name: Reuse and 3rd Party License Checker
 
 on:
   pull_request:
@@ -66,8 +66,8 @@ jobs:
       - name: Create changes array
         id: create-changes
         run: |
-          app_changes=$(echo "${{ steps.app-filters.outputs.changes }}" | jq -c '.[]')
-          lib_changes=$(echo "${{ steps.lib-filters.outputs.changes }}" | jq -c '.[]')
+          app_changes=$(echo '${{ steps.app-filters.outputs.changes }}' | jq -c '.[]')
+          lib_changes=$(echo '${{ steps.lib-filters.outputs.changes }}' | jq -c '.[]')
 
           changes=()
 
