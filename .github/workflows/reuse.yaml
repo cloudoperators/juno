@@ -105,7 +105,7 @@ jobs:
         with:
           node-version: "20.x"
 
-      - name: Extract change attributes
+      - name: Extract change attributes and save to env
         id: extract-attributes
         run: |
           change_type=$( echo '${{ toJson(matrix.change) }}' | jq -r '.type' )
@@ -115,13 +115,13 @@ jobs:
 
       - name: Install npm dependencies
         run: |
-          echo "type: $change_type, asset: $change_asset"
+          echo type: $change_type, asset: $change_asset
           cd "$change_type/$change_asset"
           NODE_ENV=production npm ci
 
       - name: check license
         run: |
-          echo "type: $change_type, asset: $change_asset"
+          echo type: $change_type, asset: $change_asset
           npm install -g license-checker          
           cd "$change_type/$change_asset"
           license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;Unlicense;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD"
