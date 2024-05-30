@@ -12,8 +12,8 @@
   "module": "build/index.js",
   "private": true,
   "engines": {
-    "node": "20.13.1",
-    "npm": "10.5.2"
+    "node": "˜20.0.0",
+    "npm": "˜10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",

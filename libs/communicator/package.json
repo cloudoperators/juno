@@ -12,8 +12,8 @@
   "main": "build/index.js",
   "module": "build/index.js",
   "engines": {
-    "node": "20.13.1",
-    "npm": "10.5.2"
+    "node": "˜20.0.0",
+    "npm": "˜10.0.0"
   },
   "scripts": {
     "dev": "NODE_ENV=development node ./esbuild.config.js --watch",
