@@ -27,7 +27,7 @@ jobs:
       # app-changes: ${{ steps.app-filters.outputs.changes }}
       # libs: ${{ steps.filters.outputs.libs }}
       # lib-changes: ${{ steps.lib-filters.outputs.changes }}
-      changes: ${{ steps.create-changes.outputs.changes }}
+      changes: ${{ steps.create-changes.outputs.changes}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -102,7 +102,7 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        changes: ${{fromJson(needs.detect-changes.outputs.changes)}}
+        changes: ${{ needs.detect-changes.outputs.changes }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
