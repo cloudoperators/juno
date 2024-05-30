@@ -116,14 +116,12 @@ jobs:
         id: extract-attributes
         run: |
           echo Change for: '${{ toJson(matrix.change) }}'
-          echo '${{ toJson(matrix.change) }}' | jq -r '.type'
-          echo "::set-output name=type::[$(IFS=,; echo '${{ toJson(matrix.change) }}' | jq -r '.type')]"
-          echo "::set-output name=asset::[$(IFS=,; echo '${{ toJson(matrix.change) }}' | jq -r '.asset')]"
+          echo 'change_type=${{ toJson(matrix.change) }}' | jq -r '.type'
 
-      - name: test
-        run: |
-          echo "type: ${{ toJson(steps.extract-attributes.type) }}"
-          echo "asset: ${{ toJson(steps.extract-attributes.asset) }}"
+      # - name: test
+      #   run: |
+      #     echo "type: ${{ toJson(steps.extract-attributes.type) }}"
+      #     echo "asset: ${{ toJson(steps.extract-attributes.asset) }}"
 
   #     - name: Install npm dependencies
   #       run: |
