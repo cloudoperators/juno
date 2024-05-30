@@ -72,11 +72,11 @@ jobs:
           changes=()
 
           for app in $app_changes; do
-            changes+=( "{\"component\":\"app\",\"change\":$app}" )
+            changes+=( "{\"type\":\"app\",\"asset\":$app}" )
           done
 
           for change in $lib_changes; do
-            changes+=( "{\"component\":\"lib\",\"change\":$change}" )
+            changes+=( "{\"type\":\"lib\",\"asset\":$change}" )
           done
 
           echo "::set-output name=changes::[$(IFS=,; echo "${changes[*]}")]"
@@ -115,9 +115,7 @@ jobs:
       - name: Print out changes with component and change within in a loop
         run: |
           for change in ${{ matrix.changes }}; do
-            component=$(echo '$change' | jq -r '.component')
-            change=$(echo '$change' | jq -r '.change')
-            echo "Component: $component, Change: $change"
+            echo "Change: $change"
           done
 
   #     - name: Install npm dependencies
