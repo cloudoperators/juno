@@ -31,7 +31,7 @@ To integrate the Microfrontend as a standalone module, follow these steps:
 1. To embed the React Microfrontend into your application, start by installing it:
 
 ```bash
-npm add @sapcc/juno-app-exampleapp"
+npm add "@sapcc/juno-app-exampleapp"
 ```
 
 2. Next, import and integrate it into your code:
@@ -64,21 +64,4 @@ const App = () => {
     </div>
   )
 }
-```
-
-# Best practices
-
-- [React Zustand] implementation with React context
-- [React Zustand] store sliced and structured in lib folder.
-- [React Zustand] [Avoid Rerenders] Zustand export single States instead of the whole Store.
-- [React Query] [Avoid Rerenders] Use of hook `useQueryClilentFn` isolated in AsyncWorker component.
-- [React Query] use of hook `useQueryClilentFn` to encapsulate all queries and react to changes.
-- [Avoid Rerenders] use of hook `useUrlState` instead isolated in AsyncWorker component.
-- [Coworking Experience] use of hook `useUrlState` without boiler plate.
-- [Enhance Rendering Experience] Use of hook `useEndlessScrollList`.
-- [Coworking Experience] Components splitted in contexts.
-- Use of fetchLocal to simulate a local db.
-
-```
-
 ```
