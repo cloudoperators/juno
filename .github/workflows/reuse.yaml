@@ -118,13 +118,15 @@ jobs:
           echo Change for: '${{ toJson(matrix.change) }}'
           echo '${{ toJson(matrix.change) }}' | jq -r '.type'
           echo '${{ toJson(matrix.change) }}' | jq -r '.asset'
-          change_type=$( echo '${{ toJson(matrix.change) }}' | jq -r '.asset' )
+          change_type=$( echo '${{ toJson(matrix.change) }}' | jq -r '.type' )
+          change_asset=$( echo '${{ toJson(matrix.change) }}' | jq -r '.asset' )
           echo "change_type=$change_type" >> $GITHUB_ENV
+          echo "change_asset=$change_asset" >> $GITHUB_ENV
 
-      # - name: test
-      #   run: |
-      #     echo "type: ${{ toJson(steps.extract-attributes.type) }}"
-      #     echo "asset: ${{ toJson(steps.extract-attributes.asset) }}"
+      - name: test
+        run: |
+          echo "type: $change_type"
+          echo "asset: $change_asset"
 
   #     - name: Install npm dependencies
   #       run: |
