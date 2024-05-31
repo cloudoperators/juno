@@ -10,7 +10,7 @@ on:
 
 jobs:
   reuse-compliance-check:
-    runs-on: [ubuntu-latest]
+    runs-on: [default]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
 
   detect-changes:
     needs: reuse-compliance-check
-    runs-on: [ubuntu-latest]
+    runs-on: [default]
     outputs:
       changes: ${{ steps.create-changes.outputs.changes}}
     steps:
@@ -92,7 +92,7 @@ jobs:
 
   check-3rd-party-licenses:
     needs: detect-changes
-    runs-on: [ubuntu-latest]
+    runs-on: [default]
     strategy:
       matrix:
         change: ${{fromJson(needs.detect-changes.outputs.changes)}}
