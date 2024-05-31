@@ -18,7 +18,7 @@
   "repository": "https://github.com/cloudoperators/juno/tree/main/libs/juno-ui-components",
   "license": "Apache-2.0",
   "engines": {
-    "node": "˜20.0.0",
+    "node": "˜v20.0.0",
     "npm": "˜10.0.0"
   },
   "devDependencies": {

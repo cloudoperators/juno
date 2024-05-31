@@ -12,7 +12,7 @@
   "module": "build/index.js",
   "license": "Apache-2.0",
   "engines": {
-    "node": "˜20.0.0",
+    "node": "˜v20.0.0",
     "npm": "˜10.0.0"
   },
   "peerDependencies": {
