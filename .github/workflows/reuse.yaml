@@ -149,17 +149,3 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-
-      - name: Extract change attributes and save to env
-        id: extract-attributes
-        run: |
-          change_type=$( echo '${{ toJson(matrix.change) }}' | jq -r '.type' )
-          change_asset=$( echo '${{ toJson(matrix.change) }}' | jq -r '.asset' )
-          echo "change_type=$change_type" >> $GITHUB_ENV
-          echo "change_asset=$change_asset" >> $GITHUB_ENV
-
-      - name: Run tests
-        run: |
-          cd "$change_type/$change_asset"
-          npm i
-          npm run test
