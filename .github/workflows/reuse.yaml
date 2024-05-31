@@ -117,8 +117,8 @@ jobs:
         run: |
           echo type: $change_type, asset: $change_asset
           cd "$change_type/$change_asset"
-          jq '(.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $deps |              
-          .dependencies = $deps package.json > temp.json && mv temp.json package.json
+          jq '(.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $devDeps |
+              .devDependencies = $devDeps' package.json > temp.json && mv temp.json package.json
           jq -r '.devDependencies | keys | .[]' package.json
 
       - name: Install npm dependencies and check 3rd party licenses
