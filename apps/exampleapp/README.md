@@ -1,5 +1,7 @@
 # Example App
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 The example app serves as a demonstration application where we thoroughly test and implement interactions between multiple components following our best practices. Additionally, it functions as a prime illustration of how Juno components can be effectively utilized.
 
 # Usage

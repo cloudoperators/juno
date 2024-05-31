@@ -12,22 +12,10 @@
 
 add template to dependencies in package.json
 
-in juno monorepo
-
 ```json
 
   "dependencies": {
-    "template": "*"
-  },
-
-```
-
-outside juno
-
-```json
-
-  "dependencies": {
-    "template": "https://assets.juno.global.cloud.sap/libs/template@latest/package.tgz"
+    "template": "https://assets.juno.global.cloud.sap/libs/template@<version>/package.tgz"
   },
 
 ```

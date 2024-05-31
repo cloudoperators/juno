@@ -1,5 +1,7 @@
 # URL State Provider: Streamlining State Management in the URL
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 URL State Provider is your solution for simplifying the intricate task of managing multiple application states within the URL. Originally conceived for Micro Frontends (MFEs), this module empowers you to effortlessly navigate between diverse views while preserving the art of deep linking.
 
 ## Key Features

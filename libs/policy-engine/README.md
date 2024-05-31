@@ -1,6 +1,8 @@
 # Policy Engine
 
-Ploicy Engine compiles a JSON file with rules and returns a policy, which in turn implements the check function. The syntax of the rules corresponds to the policy syntax used in Openstack Services. However, some features have been added to allow more flexibility.
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+Policy Engine compiles a JSON file with rules and returns a policy, which in turn implements the check function. The syntax of the rules corresponds to the policy syntax used in Openstack Services. However, some features have been added to allow more flexibility.
 
 ## Architecture
 

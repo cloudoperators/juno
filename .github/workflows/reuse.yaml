@@ -113,15 +113,10 @@ jobs:
           echo "change_type=$change_type" >> $GITHUB_ENV
           echo "change_asset=$change_asset" >> $GITHUB_ENV
 
-      - name: Install npm dependencies
+      - name: Install npm dependencies and check 3rd party licenses
         run: |
           echo type: $change_type, asset: $change_asset
           cd "$change_type/$change_asset"
           NODE_ENV=production npm ci
-
-      - name: check license
-        run: |
-          echo type: $change_type, asset: $change_asset
-          npm install -g license-checker          
-          cd "$change_type/$change_asset"
-          license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;Unlicense;UNLICENSED;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD"
+          npm install -g license-checker
+          license-checker -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD"

@@ -1,5 +1,7 @@
 # Juno UI Components Library
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 ## Installation
 
 To include Juno UI components as a dev dependency in your app install with npm:
