@@ -18,8 +18,8 @@
   "repository": "https://github.com/cloudoperators/juno/tree/main/libs/juno-ui-components",
   "license": "Apache-2.0",
   "engines": {
-    "node": "˜v20.0.0",
-    "npm": "˜10.0.0"
+    "node": ">=20.0.0 <21.0.0",
+    "npm": ">=10.0.0 <11.0.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-parameters": "^7.22.5",

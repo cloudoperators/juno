@@ -12,8 +12,8 @@
   "module": "build/index.js",
   "license": "Apache-2.0",
   "engines": {
-    "node": "˜v20.0.0",
-    "npm": "˜10.0.0"
+    "node": ">=20.0.0 <21.0.0",
+    "npm": ">=10.0.0 <11.0.0"
   },
   "peerDependencies": {
     "juno-ui-components": "https://assets.juno.global.cloud.sap/libs/juno-ui-components@2.14.1/package.tgz",
