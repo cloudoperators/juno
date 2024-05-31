@@ -117,6 +117,6 @@ jobs:
         run: |
           echo type: $change_type, asset: $change_asset
           cd "$change_type/$change_asset"
-          npm ci
+          npm install --omit=optional
           npm install -g license-checker-rseidelsohn
           license-checker-rseidelsohn -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD;Python-2.0;BSD*;Unlicense"
