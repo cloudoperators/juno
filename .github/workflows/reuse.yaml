@@ -113,10 +113,18 @@ jobs:
           echo "change_type=$change_type" >> $GITHUB_ENV
           echo "change_asset=$change_asset" >> $GITHUB_ENV
 
-      - name: Install npm dependencies and check 3rd party licenses
+      - name: Remove all dependencies to our self hosted registry (temporary do tue not access from the internet)
         run: |
           echo type: $change_type, asset: $change_asset
           cd "$change_type/$change_asset"
-          npm install --omit=optional
+          jq '(.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $deps |              
+          .dependencies = $deps package.json > temp.json && mv temp.json package.json
+          jq -r '.devDependencies | keys | .[]' package.json
+
+      - name: Install npm dependencies and check 3rd party licenses
+        run: |
+          echo type: $change_type, asset: $change_asset
+          echo Actual path is: $(pwd)
+          npm ci --omit=optional
           npm install -g license-checker-rseidelsohn
           license-checker-rseidelsohn -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD;Python-2.0;BSD*;Unlicense"
