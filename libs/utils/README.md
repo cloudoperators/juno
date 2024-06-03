@@ -14,22 +14,10 @@
 
 Add utils to dependencies in package.json:
 
-Within juno monorepo
-
 ```json
 
   "dependencies": {
     "utils": "https://assets.juno.global.cloud.sap/libs/utils@1.1.6/package.tgz"
-  },
-
-```
-
-Outside juno
-
-```json
-
-  "dependencies": {
-    "utils": "https://assets.juno.global.cloud.sap/libs/utils@latest/package.tgz"
   },
 
 ```

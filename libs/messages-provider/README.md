@@ -1,5 +1,7 @@
 # Messages Provider
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 Manage and display messages in your application easily and with the [Juno message component](https://github.com/cloudoperators/juno/blob/main/libs/juno-ui-components/README.md).
 
 A message holds generally important information to help understand the contents, purpose, or state of a whole page or view.

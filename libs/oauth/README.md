@@ -1,5 +1,7 @@
 # OpenID Connect Lib (oauth)
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 The principle of this lib is as follows. Immediately after loading this lib, it evaluates the URL. It looks for state param in the hash or search. If state is found, then the value of this parameter is used as a key to find the corresponding stored state properties in sessionStorage. If the saved state exists, then it is the answer (oidc response) from the ID provider to the previously made request (oidc request), and the lib tries to evaluate the result.
 
 ## Evaluation of the response

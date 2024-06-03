@@ -9,10 +9,10 @@
   "license": "Apache-2.0",
   "module": "build/index.js",
   "source": "src/index.js",
-  "private": true,
+  "private": false,
   "engines": {
-    "node": "˜20.0.0",
-    "npm": "˜10.0.0"
+    "node": ">=20.0.0 <21.0.0",
+    "npm": ">=10.0.0 <11.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
