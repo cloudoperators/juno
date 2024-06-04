@@ -368,7 +368,12 @@ module.exports = {
             li: {
               lineHeight: "160%",
             },
-            a: { color: "var(--color-accent)" },
+            a: {
+              color: "var(--color-accent)",
+              "&:hover": {
+                color: "var(--color-text-default)", // Hier die gewünschte Hover-Farbe angeben
+              },
+            },
           },
         },
       }),
