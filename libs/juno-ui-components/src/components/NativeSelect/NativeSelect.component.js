@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
-import { Icon } from "../Icon/index.js"
-import { Spinner } from "../Spinner/Spinner.component"
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { Icon } from "../Icon/index.js";
+import { Spinner } from "../Spinner/Spinner.component";
 
 const selectstyles = `
 	jn-w-full
@@ -24,11 +24,11 @@ const selectstyles = `
 	focus:jn-ring-2
 	focus:jn-ring-theme-focus
 	disabled:jn-opacity-50
-`
+`;
 
 const wrapperstyles = `
 	jn-relative
-`
+`;
 
 const iconstyles = `
 	jn-absolute
@@ -36,21 +36,21 @@ const iconstyles = `
 	jn-right-2
 	jn-top-1.5
 	jn-pointer-events-none
-`
+`;
 
 const disablediconstyles = `
 	jn-opacity-50
-`
+`;
 
 const errorstyles = `
 	jn-border
 	jn-border-theme-error
-`
+`;
 
 const successstyles = `
 	jn-border
 	jn-border-theme-success
-`
+`;
 
 const loadingStyles = `
 	jn-absolute
@@ -68,7 +68,7 @@ const loadingStyles = `
 	jn-justify-center
 	jn-select-none
 	jn-cursor-not-allowed
-`
+`;
 
 const errorStyles = `
 	jn-absolute
@@ -86,25 +86,25 @@ const errorStyles = `
 	jn-justify-center
 	jn-select-none
 	jn-cursor-not-allowed
-`
+`;
 
 const loadingSpinnerStyles = `
 	jn-ml-auto
 	jn-mr-auto
-`
+`;
 
 const errorIconStyles = `
 	jn-ml-auto
 	jn-mr-auto
-`
+`;
 
 const iconpaddingright = `
 	jn-pr-[3.75rem]
-`
+`;
 
 const defaultpaddingright = `
 	jn-pr-9
-`
+`;
 
 /** A basic, uncontrolled, native html Select. Takes SelectOption and SelectOptionGroup as children. */
 export const NativeSelect = ({
@@ -119,36 +119,37 @@ export const NativeSelect = ({
   error,
   onChange,
   onClick,
+  wrapperClassName,
   ...props
 }) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [isInvalid, setIsInvalid] = useState(false)
-  const [isValid, setIsValid] = useState(false)
-  const [hasError, setHasError] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    setIsLoading(loading)
-  }, [loading])
+    setIsLoading(loading);
+  }, [loading]);
 
   useEffect(() => {
-    setIsInvalid(invalid)
-  }, [invalid])
+    setIsInvalid(invalid);
+  }, [invalid]);
 
   useEffect(() => {
-    setIsValid(valid)
-  }, [valid])
+    setIsValid(valid);
+  }, [valid]);
 
   useEffect(() => {
-    setHasError(error)
-  }, [error])
+    setHasError(error);
+  }, [error]);
 
   const handleChange = (event) => {
-    onChange && onChange(event)
-  }
+    onChange && onChange(event);
+  };
 
   const handleClick = (event) => {
-    onClick && onClick(event)
-  }
+    onClick && onClick(event);
+  };
 
   const SelectIcons = ({ disabled }) => {
     if (isLoading) {
@@ -156,7 +157,7 @@ export const NativeSelect = ({
         <div className={`juno-select-loading ${loadingStyles}`}>
           <Spinner className={`${loadingSpinnerStyles}`} />
         </div>
-      )
+      );
     } else if (hasError) {
       return (
         <div className={`juno-select-errortext ${errorStyles}`}>
@@ -166,7 +167,7 @@ export const NativeSelect = ({
             className={`${errorIconStyles}`}
           />
         </div>
-      )
+      );
     } else {
       return (
         <div className={`${iconstyles} ${disabled ? disablediconstyles : ""} `}>
@@ -178,20 +179,26 @@ export const NativeSelect = ({
           ) : null}
           <Icon icon={"expandMore"} />
         </div>
-      )
+      );
     }
-  }
+  };
 
   const selectPadding = () => {
     if (isValid || isInvalid) {
-      return iconpaddingright
+      return iconpaddingright;
     } else {
-      return defaultpaddingright
+      return defaultpaddingright;
     }
-  }
+  };
 
   return (
-    <div className={`juno-select-wrapper ${wrapperstyles}`}>
+    <div
+      className={`
+      juno-select-wrapper 
+      ${wrapperstyles}
+      ${wrapperClassName}
+    `}
+    >
       <select
         name={name || "Unnamed Select"}
         id={id}
@@ -209,8 +216,8 @@ export const NativeSelect = ({
       </select>
       <SelectIcons disabled={disabled} />
     </div>
-  )
-}
+  );
+};
 
 NativeSelect.propTypes = {
   /** Pass a name. */
@@ -235,7 +242,9 @@ NativeSelect.propTypes = {
   onChange: PropTypes.func,
   /** Pass a click handler */
   onClick: PropTypes.func,
-}
+  /** Pass a className to the outer wrapping element */
+  wrapperClassName: PropTypes.string,
+};
 
 NativeSelect.defaultProps = {
   name: null,
@@ -248,4 +257,5 @@ NativeSelect.defaultProps = {
   error: false,
   onChange: undefined,
   onClick: undefined,
-}
+  wrapperClassName: "",
+};

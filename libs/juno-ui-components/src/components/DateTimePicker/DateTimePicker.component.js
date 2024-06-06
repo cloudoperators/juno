@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useRef, useId, useMemo, useState } from "react"
-import PropTypes from "prop-types"
-import flatpickr from "flatpickr"
-import { FormHint } from "../FormHint/"
-import { Icon } from "../Icon/"
-import { Label } from "../Label/"
-import "./datetimepicker.scss"
+import React, { useEffect, useRef, useId, useMemo, useState } from "react";
+import PropTypes from "prop-types";
+import flatpickr from "flatpickr";
+import { FormHint } from "../FormHint/";
+import { Icon } from "../Icon/";
+import { Label } from "../Label/";
+import "./datetimepicker.scss";
 
 /* 
 TODO:
@@ -20,7 +20,7 @@ TODO:
 
 const inputWrapperStyles = `
   jn-relative
-`
+`;
 
 const inputStyles = `
   jn-bg-theme-textinput
@@ -41,35 +41,35 @@ const inputStyles = `
   disabled:jn-cursor-not-allowed
   autofill:jn-bg-theme-textinput-autofill
   autofill:jn-text-theme-textinput-autofill
-`
+`;
 
 const inputWithLabelStyles = `
   jn-pt-[1.125rem] 
   jn-pb-1
-`
+`;
 
 const inputWithoutLabelStyles = `
   jn-py-4
-`
+`;
 
 const inputDefaultBorderStyles = `
   jn-border-theme-textinput-default
-`
+`;
 
 const inputInvalidStyles = `
   jn-border-theme-error
-`
+`;
 
 const inputValidStyles = `
   jn-border-theme-success
-`
+`;
 
 const labelStyles = `
   peer-autofill:jn-text-theme-textinput-autofill-label
   jn-pointer-events-none
   jn-top-2
   jn-left-[0.9375rem]
-`
+`;
 
 const iconContainerStyles = `
   jn-absolute
@@ -77,7 +77,7 @@ const iconContainerStyles = `
   jn-top-2
   jn-right-[2.75rem]
   jn-gap-1.5
-`
+`;
 
 /** A all-purpose date and time picker component. Highly configurable, based on Flatpickr. */
 
@@ -129,97 +129,98 @@ export const DateTimePicker = ({
   value,
   weekNumbers,
   width,
+  wrapperClassName,
   ...props
 }) => {
   // always generate auto-id string using the useId hook to avoid "more hooks than in previous render" error when removing custom id:
-  const autoId = "juno-datetimepicker-" + useId()
-  const theId = id && id.length ? id : autoId
+  const autoId = "juno-datetimepicker-" + useId();
+  const theId = id && id.length ? id : autoId;
 
-  const fpRef = useRef(null) // the dom node flatpickr instance will be bound to
-  let flatpickrInstanceRef = useRef({}) // The actual flatpickr instance
-  const calendarTargetRef = useRef(null) // The DOM node the flatpickr calendar should be rendered to
+  const fpRef = useRef(null); // the dom node flatpickr instance will be bound to
+  let flatpickrInstanceRef = useRef({}); // The actual flatpickr instance
+  const calendarTargetRef = useRef(null); // The DOM node the flatpickr calendar should be rendered to
 
-  const [theDate, setTheDate] = useState({})
-  const [hasFocus, setHasFocus] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const [isInvalid, setIsInvalid] = useState(false)
-  const [isValid, setIsValid] = useState(false)
+  const [theDate, setTheDate] = useState({});
+  const [hasFocus, setHasFocus] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
   const updateFlatpickrInstance = (newKeys) =>
     (flatpickrInstanceRef.current = {
       ...flatpickrInstanceRef.current,
       ...Object.keys(newKeys).reduce((a, key) => {
-        a[key] = newKeys[key]
-        return a
+        a[key] = newKeys[key];
+        return a;
       }, {}),
-    })
+    });
 
   const invalidated = useMemo(
     () => (invalid || (errortext && errortext.length) ? true : false),
     [invalid, errortext]
-  )
+  );
   const validated = useMemo(
     () => (valid || (successtext && successtext.length) ? true : false),
     [valid, successtext]
-  )
+  );
 
   useEffect(() => {
-    setIsInvalid(invalidated)
-  }, [invalidated])
+    setIsInvalid(invalidated);
+  }, [invalidated]);
 
   useEffect(() => {
-    setIsValid(validated)
-  }, [validated])
+    setIsValid(validated);
+  }, [validated]);
 
   const handleBlur = () => {
-    setHasFocus(false)
-    onBlur && onBlur(theDate.selectedDate, theDate.selectedDateStr)
-  }
+    setHasFocus(false);
+    onBlur && onBlur(theDate.selectedDate, theDate.selectedDateStr);
+  };
 
   const handleChange = (selectedDate, dateStr, instance) => {
-    setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr })
-    onChange && onChange(selectedDate, dateStr)
-  }
+    setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr });
+    onChange && onChange(selectedDate, dateStr);
+  };
 
   const handleClose = (selectedDate, dateStr, instance) => {
-    setIsOpen(false)
-    onClose && onClose(selectedDate, dateStr)
-  }
+    setIsOpen(false);
+    onClose && onClose(selectedDate, dateStr);
+  };
 
   const handleMonthChange = (selectedDate, dateStr, instance) => {
-    setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr })
-    onMonthChange && onMonthChange(selectedDate, dateStr)
-  }
+    setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr });
+    onMonthChange && onMonthChange(selectedDate, dateStr);
+  };
 
   const handleOpen = (selectedDate, dateStr, instance) => {
-    setIsOpen(true)
-    onOpen && onOpen(selectedDate, dateStr)
-  }
+    setIsOpen(true);
+    onOpen && onOpen(selectedDate, dateStr);
+  };
 
   const handleReady = (selectedDate, dateStr, instance) => {
-    onReady && onReady(selectedDate, dateStr)
-  }
+    onReady && onReady(selectedDate, dateStr);
+  };
 
   const handleYearChange = (selectedDate, dateStr, instance) => {
-    setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr })
-    onYearChange && onYearChange(selectedDate, dateStr)
-  }
+    setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr });
+    onYearChange && onYearChange(selectedDate, dateStr);
+  };
 
   const handleInputFocus = () => {
-    setHasFocus(true)
-    onFocus && onFocus(theDate.selectedDate, theDate.selectedDateStr)
-  }
+    setHasFocus(true);
+    onFocus && onFocus(theDate.selectedDate, theDate.selectedDateStr);
+  };
 
   const handleClearIconClick = () => {
-    setTheDate({})
-    flatpickrInstanceRef.current?.clear()
-    onClear && onClear([], "")
-  }
+    setTheDate({});
+    flatpickrInstanceRef.current?.clear();
+    onClear && onClear([], "");
+  };
 
   // Create stringified versions of the value prop and its aliases in order to use them in a useEffect dependency array later.
-  const stringifiedValue = JSON.stringify(value)
-  const stringifiedDefaultDate = JSON.stringify(defaultDate)
-  const stringifiedDefaultValue = JSON.stringify(defaultValue)
+  const stringifiedValue = JSON.stringify(value);
+  const stringifiedDefaultDate = JSON.stringify(defaultDate);
+  const stringifiedDefaultValue = JSON.stringify(defaultValue);
 
   // Function to determine the date format. Will return the dateFormat if passed as a prop, or a useful defaultFormat depending on whether the DateTimePicker is set to show the time, seconds, or no calendar at all (time picker only).
   const getDateFormat = () => {
@@ -231,15 +232,15 @@ export const DateTimePicker = ({
         : enableSeconds
         ? "Y-m-d H:i:S"
         : "Y-m-d H:i"
-      : "Y-m-d"
+      : "Y-m-d";
 
     const theDateFormat =
-      dateFormat === undefined ? defaultDateFormat : dateFormat
+      dateFormat === undefined ? defaultDateFormat : dateFormat;
 
-    return theDateFormat
-  }
+    return theDateFormat;
+  };
 
-  const theDateFormat = getDateFormat()
+  const theDateFormat = getDateFormat();
 
   const createFlatpickrInstance = () => {
     const options = {
@@ -274,24 +275,24 @@ export const DateTimePicker = ({
       showMonths: showMonths,
       time_24hr: time_24hr,
       weekNumbers: weekNumbers,
-    }
+    };
     const FP =
-      calendarTargetRef && fpRef.current && flatpickr(fpRef.current, options)
-    updateFlatpickrInstance(FP)
-  }
+      calendarTargetRef && fpRef.current && flatpickr(fpRef.current, options);
+    updateFlatpickrInstance(FP);
+  };
 
   const destroyFlatpickrInstance = () => {
-    flatpickrInstanceRef.current.destroy()
-    setTheDate({})
-    flatpickrInstanceRef = null // Not sure if this is actually necessary?
-  }
+    flatpickrInstanceRef.current.destroy();
+    setTheDate({});
+    flatpickrInstanceRef = null; // Not sure if this is actually necessary?
+  };
 
   useEffect(() => {
-    createFlatpickrInstance()
+    createFlatpickrInstance();
     return () => {
-      destroyFlatpickrInstance()
-    }
-  }, [])
+      destroyFlatpickrInstance();
+    };
+  }, []);
 
   /* 
   Some config options on the flatpickr instance can not be set with immediate effect, a new instance needs to be created.
@@ -310,16 +311,16 @@ export const DateTimePicker = ({
     mode: mode,
     noCalendar: noCalendar,
     weekNumbers: weekNumbers,
-  })
+  });
 
   // Apply a use effect to handle the logic bound to the props that require creating a new faltpickr instance:
   useEffect(() => {
     // set a variable to be set to true once we know we need to destroy the current instance and create  a new one:
-    let hasChanged = false
+    let hasChanged = false;
 
     // For each of the props…
     Object.keys(prevRerenderingProps.current).forEach((propKey) => {
-      const prevValue = prevRerenderingProps.current[propKey]
+      const prevValue = prevRerenderingProps.current[propKey];
       const currentValue = {
         allowInput,
         defaultHour,
@@ -333,18 +334,18 @@ export const DateTimePicker = ({
         noCalendar,
         showMonths,
         weekNumbers,
-      }[propKey]
+      }[propKey];
 
       // … we need to check whether their value has actually changed
       if (prevValue !== currentValue) {
-        hasChanged = true
+        hasChanged = true;
       }
-    })
+    });
 
     // After we have checked if any one or multiple of the relevant props have changed, we actually destroy the curent instance and create a new one:
     if (hasChanged) {
-      flatpickrInstanceRef?.current?.destroy()
-      createFlatpickrInstance()
+      flatpickrInstanceRef?.current?.destroy();
+      createFlatpickrInstance();
     }
 
     // Also make sure we update our stored props in order to be ready for the next update:
@@ -361,7 +362,7 @@ export const DateTimePicker = ({
       noCalendar: noCalendar,
       showMonths: showMonths,
       weekNumbers: weekNumbers,
-    }
+    };
   }, [
     allowInput,
     defaultHour,
@@ -375,71 +376,71 @@ export const DateTimePicker = ({
     noCalendar,
     showMonths,
     weekNumbers,
-  ])
+  ]);
 
   // useEffects for props that represent config options that can be set on an existing flatpickr instance with immediate effect:
   useEffect(() => {
     flatpickrInstanceRef.current?.set(
       "allowInvalidPreload",
       allowInvalidPreload
-    )
-  }, [allowInvalidPreload])
+    );
+  }, [allowInvalidPreload]);
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("ariaDateFormat", ariaDateFormat)
-  }, [ariaDateFormat])
+    flatpickrInstanceRef.current?.set("ariaDateFormat", ariaDateFormat);
+  }, [ariaDateFormat]);
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("conjunction", conjunction)
-  }, [conjunction])
+    flatpickrInstanceRef.current?.set("conjunction", conjunction);
+  }, [conjunction]);
 
   useEffect(() => {
-    const newDateFormat = getDateFormat()
-    flatpickrInstanceRef.current?.set("dateFormat", newDateFormat)
-  }, [dateFormat])
+    const newDateFormat = getDateFormat();
+    flatpickrInstanceRef.current?.set("dateFormat", newDateFormat);
+  }, [dateFormat]);
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("disable", disable)
-  }, [disable])
+    flatpickrInstanceRef.current?.set("disable", disable);
+  }, [disable]);
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("hourIncrement", hourIncrement)
-  }, [hourIncrement])
+    flatpickrInstanceRef.current?.set("hourIncrement", hourIncrement);
+  }, [hourIncrement]);
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("locale", locale)
-  }, [locale])
+    flatpickrInstanceRef.current?.set("locale", locale);
+  }, [locale]);
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("maxDate", maxDate)
-  }, [maxDate])
+    flatpickrInstanceRef.current?.set("maxDate", maxDate);
+  }, [maxDate]);
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("minDate", minDate)
-  }, [minDate])
+    flatpickrInstanceRef.current?.set("minDate", minDate);
+  }, [minDate]);
 
   useEffect(() => {
     flatpickrInstanceRef.current?.set(
       "shorthandCurrentMonth",
       shorthandCurrentMonth
-    )
-  }, [shorthandCurrentMonth])
+    );
+  }, [shorthandCurrentMonth]);
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("time_24hr", time_24hr)
-  }, [time_24hr])
+    flatpickrInstanceRef.current?.set("time_24hr", time_24hr);
+  }, [time_24hr]);
 
   // Update the flatpickr instance whenever the value prop (or any of its aliases) changes, and force the flatpickr instance to fire onChange event. These props may contain an array of one or multiple objects. These will never pass React's identity comparison, and will be regarded as a new object with any render regardless of their contents, thus creating an endless loop by updating the flatpickr instance updating the parent state (via onChange above) updating the flatpickr instance (…). We prevent this by checking on the stringified versions of the props in the dependency array.
   useEffect(() => {
     flatpickrInstanceRef.current?.setDate(
       value || defaultDate || defaultValue,
       true // enforce firing change event that in turn will update our state via handleChange.
-    )
-  }, [stringifiedValue, stringifiedDefaultDate, stringifiedDefaultValue])
+    );
+  }, [stringifiedValue, stringifiedDefaultDate, stringifiedDefaultValue]);
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("weekNumbers", weekNumbers)
-  }, [weekNumbers])
+    flatpickrInstanceRef.current?.set("weekNumbers", weekNumbers);
+  }, [weekNumbers]);
 
   return (
     <div
@@ -447,6 +448,7 @@ export const DateTimePicker = ({
       juno-datetimepicker-wrapper
       ${width == "auto" ? "jn-inline-block" : "jn-block"}
       ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+      ${wrapperClassName}
     `}
     >
       <div
@@ -553,15 +555,15 @@ export const DateTimePicker = ({
         ""
       )}
     </div>
-  )
-}
+  );
+};
 
 const datePropType = PropTypes.oneOfType([
   PropTypes.string,
   PropTypes.array,
   PropTypes.object,
   PropTypes.number,
-])
+]);
 
 DateTimePicker.propTypes = {
   /** Whether the DateTimePicker input element allows direct user keyboard input. Default is `false`. */
@@ -658,7 +660,9 @@ DateTimePicker.propTypes = {
   weekNumbers: PropTypes.bool,
   /** The width of the datepicker input. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
-}
+  /** Pass a className to the outer wrapping element */
+  wrapperClassName: PropTypes.string,
+};
 
 DateTimePicker.defaultProps = {
   allowInput: false,
@@ -708,4 +712,5 @@ DateTimePicker.defaultProps = {
   value: "",
   weekNumbers: false,
   width: "full",
-}
+  wrapperClassName: "",
+};
