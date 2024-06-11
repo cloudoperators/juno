@@ -4,16 +4,16 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Secret } from "./Secret.component";
+import { SecretText } from "./SecretText.component";
 
 export default {
-  title: "WIP/Secret",
-  component: Secret,
+  title: "WIP/SecretText",
+  component: SecretText,
   argTypes: {},
 };
 
 const Template = ({ ...args }) => {
-  return <Secret {...args} />;
+  return <SecretText {...args} />;
 };
 
 export const Default = {
@@ -38,10 +38,12 @@ export const revealWithValue = {
   },
 };
 
-export const NoClearNoToggle = {
+export const NoClearNoToggleNoPaste = {
   render: Template,
   args: {
+    value: "It's a secret.",
     clear: false,
     toggle: false,
+    paste: false,
   },
 };

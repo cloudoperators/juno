@@ -50,7 +50,7 @@ const actionStyles = `
   jn-h-[1.875rem]
 `;
 
-export const Secret = ({
+export const SecretText = ({
   autoComplete,
   autoFocus,
   className,
@@ -70,8 +70,10 @@ export const Secret = ({
   onCopy,
   onFocus,
   onHide,
+  onPaste,
   onReveal,
   onRevealToggle,
+  paste,
   placeholder,
   readOnly,
   required,
@@ -122,6 +124,17 @@ export const Secret = ({
     clearTimeout(timeoutRef.current); // clear any possibly existing Refs
     timeoutRef.current = setTimeout(() => setIsCopied(false), 1000);
     onCopy && onCopy(val);
+  };
+
+  const handlePasteClick = () => {
+    try {
+      navigator.clipboard.readText().then((clipboardText) => {
+        setVal(clipboardText);
+        onPaste && onPaste();
+      });
+    } catch (error) {
+      console.warn("Failed to read clipboard.");
+    }
   };
 
   return (
@@ -232,13 +245,24 @@ export const Secret = ({
           ) : (
             ""
           )}
+          {paste ? (
+            <Button
+              size="small"
+              className={`${actionStyles}`}
+              onClick={handlePasteClick}
+            >
+              Paste
+            </Button>
+          ) : (
+            ""
+          )}
         </ButtonRow>
       </Stack>
     </div>
   );
 };
 
-Secret.propTypes = {
+SecretText.propTypes = {
   /** Whether the secret field should autocomplete. */
   autoComplete: PropTypes.string,
   /** Whether the secret field should receive focus automatically. Only available when the Secret is set to `reveal={false}`. */
@@ -264,25 +288,29 @@ Secret.propTypes = {
   onFocus: PropTypes.func,
   /** A handler to execute when the user hides the Secret's content. */
   onHide: PropTypes.func,
+  /** A handler to execute when the user pastes text from the clipboard into the SecretText. */
+  onPaste: PropTypes.func,
   /** A handler to execute when the user reveals the Secret's content. */
   onReveal: PropTypes.func,
-  /** A handler to execute when the visibility of the Secret's content is toggled, i.e. this will be run when the content is revealed and when it is hidden. */
+  /** A handler to execute when the visibility of the SecretText's content is toggled, i.e. this will be run when the content is revealed and when it is hidden. */
   onRevealToggle: PropTypes.func,
+  /** Whether a button to paste text content even in hidden mode is rendered. */
+  paste: PropTypes.bool,
   /** Whether the secret's content is revealed / legible. */
   reveal: PropTypes.bool,
   /** A small text to display giving information in the context of the secret, e.g. when it was successfully validated or matches specific requirements, etc.  */
   successtext: PropTypes.string,
-  /** Whether a button to toggle visibility of the Secret's content should be rendered. */
+  /** Whether a button to toggle visibility of the SecretText's content should be rendered. */
   toggle: PropTypes.bool,
   /** Whether the Secret's content was successfully validated. */
   valid: PropTypes.bool,
-  /** The value of the Secret, i.e. the Secret's content.  */
+  /** The value of the SecretText, i.e. the Secret's content.  */
   value: PropTypes.string,
   /** Pass a className to the outer wrapper element */
   wrapperClassName: PropTypes.string,
 };
 
-Secret.defaultProps = {
+SecretText.defaultProps = {
   autoComplete: "off",
   autoFocus: false,
   className: "",
@@ -298,8 +326,10 @@ Secret.defaultProps = {
   onCopy: undefined,
   onFocus: undefined,
   onHide: undefined,
+  onPaste: undefined,
   onReveal: undefined,
   onRevealToggle: undefined,
+  paste: true,
   reveal: false,
   successText: undefined,
   toggle: true,
