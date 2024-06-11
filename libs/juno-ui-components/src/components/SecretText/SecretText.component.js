@@ -220,6 +220,8 @@ export const SecretText = ({
               size="small"
               className={`${actionStyles}`}
               onClick={handleClearClick}
+              disabled={val.length ? null : true}
+              title="Clear"
             >
               Clear
             </Button>
@@ -231,6 +233,7 @@ export const SecretText = ({
               size="small"
               className={`${actionStyles}`}
               onClick={handleToggleClick}
+              title={isRevealed ? "Hide" : "Reveal"}
             >
               {isRevealed ? "Hide" : "Reveal"}
             </Button>
@@ -242,6 +245,8 @@ export const SecretText = ({
               size="small"
               className={`${actionStyles}`}
               onClick={handleCopyClick}
+              disabled={val.length ? null : true}
+              title="Copy"
             >
               Copy
             </Button>
@@ -253,6 +258,7 @@ export const SecretText = ({
               size="small"
               className={`${actionStyles}`}
               onClick={handlePasteClick}
+              title="Paste"
             >
               Paste
             </Button>
