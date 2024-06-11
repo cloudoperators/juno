@@ -131,7 +131,7 @@ export const SecretText = ({
     try {
       navigator.clipboard.readText().then((clipboardText) => {
         setVal(clipboardText);
-        onPaste && onPaste();
+        onPaste && onPaste(clipboardText);
       });
     } catch (error) {
       console.warn("Failed to read clipboard.");
