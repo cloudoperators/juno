@@ -25,20 +25,8 @@ module.exports = {
   prefix: "jn-",
   theme: {
     fontFamily: {
-      sans: [
-        '"IBM Plex Sans"',
-        "ui-sans-serif",
-        "Arial",
-        "system-ui",
-        "sans-serif",
-      ],
-      condensed: [
-        '"IBM Plex Sans Condensed"',
-        "ui-sans-serif",
-        "Arial",
-        "system-ui",
-        "sans-serif",
-      ],
+      sans: ['"IBM Plex Sans"', "ui-sans-serif", "Arial", "system-ui", "sans-serif"],
+      condensed: ['"IBM Plex Sans Condensed"', "ui-sans-serif", "Arial", "system-ui", "sans-serif"],
       serif: ['"IBM Plex Serif"', "ui-serif", "serif"],
       mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
     },
@@ -194,30 +182,20 @@ module.exports = {
           radio: withOpacity("--color-radio-bg"),
           "radio-checked": withOpacity("--color-radio-checked-bg"),
           "switch-handle": withOpacity("--color-switch-handle-bg"),
-          "switch-handle-checked": withOpacity(
-            "--color-switch-handle-checked-bg"
-          ),
+          "switch-handle-checked": withOpacity("--color-switch-handle-checked-bg"),
           required: withOpacity("--color-required-bg"),
           introbox: withOpacity("--color-introbox-bg"),
           "datagridrow-selected": withOpacity("--color-datagridrow-selected"),
           "datalistrow-selected": withOpacity("--color-datalistrow-selected"),
           "message-border-danger": withOpacity("--color-message-danger-border"),
-          "message-border-default": withOpacity(
-            "--color-message-default-border"
-          ),
+          "message-border-default": withOpacity("--color-message-default-border"),
           "message-border-error": withOpacity("--color-message-error-border"),
-          "message-border-warning": withOpacity(
-            "--color-message-warning-border"
-          ),
-          "message-border-success": withOpacity(
-            "--color-message-success-border"
-          ),
+          "message-border-warning": withOpacity("--color-message-warning-border"),
+          "message-border-success": withOpacity("--color-message-success-border"),
           "tab-navigation-top": withOpacity("--color-tabnavigation-top-bg"),
           filters: withOpacity("--color-filters-bg"),
           "filter-input": withOpacity("--color-filter-input-bg"),
-          "filter-input-textinput": withOpacity(
-            "--color-filter-input-textinput-bg"
-          ),
+          "filter-input-textinput": withOpacity("--color-filter-input-textinput-bg"),
           "filter-pill-key": withOpacity("--color-filter-pill-key-bg"),
           "modal-backdrop": "var(--color-modal-backdrop-bg)",
           "sidenavigation-item-active": "var(--color-sidenavigation-item-active-bg)",
@@ -326,6 +304,79 @@ module.exports = {
         "grid-column":
           "var(--grid-column-flex-grow) var(--grid-column-flex-shrink) var(--grid-column-flex-basis)",
       },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            color: "var(--color-text-default)",
+            "--tw-prose-body": "var(--color-text-default)",
+            "--tw-prose-headings": "var(--color-text-default)",
+            "--tw-prose-lead": "var(--color-text-default)",
+            "--tw-prose-links": "var(--color-accent)",
+            "--tw-prose-bold": "var(--color-text-default)",
+            "--tw-prose-counters": "var(--color-text-default)",
+            "--tw-prose-bullets": "var(--color-text-default)",
+            "--tw-prose-hr": "var(--color-text-default)",
+            "--tw-prose-quotes": "var(--color-text-default)",
+            "--tw-prose-quote-borders": "var(--color-text-default)",
+            "--tw-prose-captions": "var(--color-text-default)",
+            "--tw-prose-code": "var(--color-high)",
+            "--tw-prose-pre-code": "var(--color-text-default)",
+            "--tw-prose-pre-bg": "var(--color-text-default)",
+            "--tw-prose-th-borders": "var(--color-text-default)",
+            "--tw-prose-td-borders": "var(--color-text-default)",
+            fontSize: "16px",
+            p: {
+              fontSize: "1rem",
+              lineHeight: "150%" /* ineHeight: "160%", /* 2.1875rem */, // or as it is in css (but in quotes).
+            },
+            h1: {
+              fontSize: "1.69rem",
+              fontWeight: "700",
+              lineHeight: "160%",
+            },
+            h2: {
+              fontSize: "1.56rem",
+              fontWeight: "700",
+              lineHeight: "160%",
+            },
+            h3: {
+              fontSize: "1.44rem",
+              fontWeight: "700",
+              lineHeight: "160%",
+              marginTop: "1rem",
+            },
+            h4: {
+              fontSize: "1.28rem",
+              fontStyle: "normal",
+              fontWeight: "700",
+              lineHeight: "160%",
+            },
+            h5: {
+              fontSize: "1.03rem",
+              fontStyle: "normal",
+              fontWeight: "700",
+              lineHeight: "160%",
+            },
+            code: {
+              fontFamily: "IBM Plex Mono",
+              fontSize: "0.875rem",
+              backgroundColor: "var(--color-background-lvl-2)",
+              borderRadius: "4px",
+              fontWeight: "400",
+              margin: "0 2px",
+            },
+            li: {
+              lineHeight: "160%",
+            },
+            a: {
+              color: "var(--color-accent)",
+              "&:hover": {
+                color: "var(--color-text-default)", // Hier die gewünschte Hover-Farbe angeben
+              },
+            },
+          },
+        },
+      }),
     },
     borderWidth: {
       DEFAULT: "1px",
@@ -336,5 +387,5 @@ module.exports = {
       6: "6px",
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 }

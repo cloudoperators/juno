@@ -72,10 +72,8 @@ export { PageFooter } from "./components/PageFooter/index.js"
 export { PageHeader } from "./components/PageHeader/index.js"
 export { Pagination } from "./components/Pagination/index.js"
 export { Pill } from "./components/Pill/index.js"
-export {
-  PortalProvider,
-  usePortalRef,
-} from "./components/PortalProvider/index.js"
+export { PortalProvider, usePortalRef } from "./components/PortalProvider/index.js"
+export { ProseContainer } from "./components/ProseContainer/index.js"
 export { Radio } from "./components/Radio/index.js"
 export { RadioGroup } from "./components/RadioGroup/index.js"
 export { RadioRow } from "./components/RadioRow/index.js"
@@ -115,4 +113,5 @@ export * from "./components/Form/index.js"
 
 // backwards compatibility, StyleProvider as default export
 import { StyleProvider } from "./components/StyleProvider/index.js"
+import { fromJSON } from "postcss"
 export default StyleProvider
