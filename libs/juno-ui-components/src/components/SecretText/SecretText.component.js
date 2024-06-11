@@ -23,12 +23,15 @@ const coverStyles = `
   jn-bottom-0
   jn-cursor-not-allowed
   jn-backdrop-blur-[4px]
-  
   jn-bg-theme-background-lvl-2/30
   jn-z-10
   jn-flex
   jn-justify-center
   jn-items-center
+`;
+
+const blurStyles = `
+  jn-backdrop-blur-[4px]
 `;
 
 const copyConfirmMessageStyles = `
@@ -53,7 +56,6 @@ const actionStyles = `
 /** A component to hold a secret text, e.g. an SSH key, and conceal or reveal as needed. */
 export const SecretText = ({
   autoComplete,
-  autoFocus,
   className,
   clear,
   copy,
@@ -155,7 +157,7 @@ export const SecretText = ({
           <div className={`juno-secret-cover ${coverStyles} `}>
             {isCopied ? (
               <span
-                className={`jn-secret-copyconfirmmessage ${copyConfirmMessageStyles}`}
+                className={`juno-secret-copyconfirmmessage ${copyConfirmMessageStyles}`}
               >
                 {copyConfirmtext}
               </span>
@@ -169,8 +171,7 @@ export const SecretText = ({
 
         <Textarea
           autoComplete={autoComplete}
-          autoFocus={isRevealed ? autoFocus : false}
-          className={`jn-secret-textarea jn-font-mono ${textareaStyles} ${className}`}
+          className={`juno-secret-textarea jn-font-mono ${textareaStyles} ${className}`}
           disabled={disabled}
           id={id}
           invalid={invalid}
@@ -182,6 +183,7 @@ export const SecretText = ({
           readOnly={readOnly}
           valid={valid}
           value={val}
+          {...props}
         />
       </div>
 
@@ -266,8 +268,6 @@ export const SecretText = ({
 SecretText.propTypes = {
   /** Whether the secret field should autocomplete. */
   autoComplete: PropTypes.string,
-  /** Whether the secret field should receive focus automatically. Only available when the Secret is set to `reveal={false}`. */
-  autoFocus: PropTypes.bool,
   /** Pass a custom className to the Secret input field. */
   className: PropTypes.string,
   /** A small text to display for a second to confirm the secret's content was copied to the clipboard. */
@@ -313,7 +313,6 @@ SecretText.propTypes = {
 
 SecretText.defaultProps = {
   autoComplete: "off",
-  autoFocus: false,
   className: "",
   clear: true,
   copy: true,
@@ -332,7 +331,7 @@ SecretText.defaultProps = {
   onRevealToggle: undefined,
   paste: true,
   reveal: false,
-  successText: undefined,
+  successtext: undefined,
   toggle: true,
   valid: false,
   value: "",
