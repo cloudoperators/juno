@@ -60,7 +60,11 @@ export const SecretText = ({
   clear,
   copy,
   copyConfirmtext,
+  disableClear,
+  disableCopy,
+  disableToggle,
   disabled,
+  disablePaste,
   errortext,
   helptext,
   id,
@@ -220,7 +224,7 @@ export const SecretText = ({
               size="small"
               className={`${actionStyles}`}
               onClick={handleClearClick}
-              disabled={val.length ? null : true}
+              disabled={val.length || !disableClear ? null : true}
               title="Clear"
             >
               Clear
@@ -234,6 +238,7 @@ export const SecretText = ({
               className={`${actionStyles}`}
               onClick={handleToggleClick}
               title={isRevealed ? "Hide" : "Reveal"}
+              disabled={disableToggle ? true : null}
             >
               {isRevealed ? "Hide" : "Reveal"}
             </Button>
@@ -245,7 +250,7 @@ export const SecretText = ({
               size="small"
               className={`${actionStyles}`}
               onClick={handleCopyClick}
-              disabled={val.length ? null : true}
+              disabled={val.length || !disableCopy ? null : true}
               title="Copy"
             >
               Copy
@@ -259,6 +264,7 @@ export const SecretText = ({
               className={`${actionStyles}`}
               onClick={handlePasteClick}
               title="Paste"
+              disabled={disablePaste ? true : null}
             >
               Paste
             </Button>
@@ -278,8 +284,16 @@ SecretText.propTypes = {
   className: PropTypes.string,
   /** A small text to display for a second to confirm the secret's content was copied to the clipboard. */
   copyConfirmtext: PropTypes.string,
+  /** Disable the Clear button */
+  disableClear: PropTypes.bool,
+  /** Disable the Copy button */
+  disableCopy: PropTypes.bool,
   /** Whether the Secret's input is disabled. */
   disabled: PropTypes.bool,
+  /** Disable the Paste button */
+  disablePaste: PropTypes.bool,
+  /** Disable the Hide/Reveal button */
+  disableToggle: PropTypes.bool,
   /** A small text to display information regarding any errors in the context of the Secret. */
   errortext: PropTypes.string,
   /** A small text to display giving more information and context about the Secret. */
@@ -292,6 +306,7 @@ SecretText.propTypes = {
   onClear: PropTypes.func,
   /** A handler to execute when the user copies the Secret's content to the clipboard. */
   onCopy: PropTypes.func,
+  /** A handler to execute when the SecretText textarea receives focus */
   onFocus: PropTypes.func,
   /** A handler to execute when the user hides the Secret's content. */
   onHide: PropTypes.func,
@@ -323,7 +338,11 @@ SecretText.defaultProps = {
   clear: true,
   copy: true,
   copyConfirmtext: "Secret copied to clipboard.",
+  disableClear: false,
+  disableCopy: false,
   disabled: false,
+  disablePaste: false,
+  disableToggle: false,
   errortext: undefined,
   helptext: undefined,
   onBlur: undefined,
