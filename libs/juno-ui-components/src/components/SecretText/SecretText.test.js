@@ -80,11 +80,51 @@ describe("SecretText", () => {
     ).not.toBeInTheDocument();
   });
 
+  test("renders an invalid SecretText", async () => {
+    render(<SecretText invalid />);
+    expect(screen.getByRole("textbox")).toHaveClass("juno-secret-textarea");
+    expect(screen.getByRole("textbox")).toHaveClass("juno-textarea-invalid");
+    expect(screen.getByTitle("Dangerous")).toBeInTheDocument();
+  });
+
   test("renders a valid SecretText", async () => {
     render(<SecretText valid />);
     expect(screen.getByRole("textbox")).toHaveClass("juno-secret-textarea");
     expect(screen.getByRole("textbox")).toHaveClass("juno-textarea-valid");
     expect(screen.getByTitle("CheckCircle")).toBeInTheDocument();
+  });
+
+  test("renders an errortext as passed", async () => {
+    render(<SecretText errortext="This is an errortext" />);
+    expect(document.querySelector(".juno-form-hint")).toBeInTheDocument();
+    expect(document.querySelector(".juno-form-hint")).toHaveClass(
+      "juno-form-hint-error"
+    );
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
+      "This is an errortext"
+    );
+  });
+
+  test("renders an helptext as passed", async () => {
+    render(<SecretText helptext="This is a helptext" />);
+    expect(document.querySelector(".juno-form-hint")).toBeInTheDocument();
+    expect(document.querySelector(".juno-form-hint")).toHaveClass(
+      "juno-form-hint-help"
+    );
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
+      "This is a helptext"
+    );
+  });
+
+  test("renders an successtext as passed", async () => {
+    render(<SecretText successtext="This is a successtext" />);
+    expect(document.querySelector(".juno-form-hint")).toBeInTheDocument();
+    expect(document.querySelector(".juno-form-hint")).toHaveClass(
+      "juno-form-hint-success"
+    );
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
+      "This is a successtext"
+    );
   });
 
   test("renders a value as passed", async () => {
