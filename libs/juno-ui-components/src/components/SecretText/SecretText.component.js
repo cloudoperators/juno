@@ -50,6 +50,7 @@ const actionStyles = `
   jn-h-[1.875rem]
 `;
 
+/** A component to hold a secret text, e.g. an SSH key, and conceal or reveal as needed. */
 export const SecretText = ({
   autoComplete,
   autoFocus,
