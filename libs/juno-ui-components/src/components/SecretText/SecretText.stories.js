@@ -38,6 +38,13 @@ export const revealWithValue = {
   },
 };
 
+export const WithLabel = {
+  render: Template,
+  args: {
+    label: "Secret things",
+  },
+};
+
 export const NoClearNoToggleNoPaste = {
   render: Template,
   args: {
@@ -45,5 +52,12 @@ export const NoClearNoToggleNoPaste = {
     clear: false,
     toggle: false,
     paste: false,
+  },
+};
+
+export const Disabled = {
+  render: Template,
+  args: {
+    disabled: true,
   },
 };

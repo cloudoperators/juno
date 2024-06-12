@@ -8,6 +8,29 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { SecretText } from "./index";
 
 describe("SecretText", () => {
+  let originalClipboard;
+
+  beforeAll(() => {
+    // Save the original clipboard object
+    originalClipboard = { ...navigator.clipboard };
+
+    // Mock the clipboard methods if they don't exist
+    navigator.clipboard = {
+      writeText: jest.fn(),
+      readText: jest.fn().mockResolvedValue("pasted text"),
+    };
+  });
+
+  afterAll(() => {
+    // Restore the original clipboard object
+    navigator.clipboard = originalClipboard;
+  });
+
+  afterEach(() => {
+    // Clear all mocks after each test
+    jest.clearAllMocks();
+  });
+
   test("renders a SecretText component", async () => {
     render(<SecretText />);
     expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -27,9 +50,61 @@ describe("SecretText", () => {
     expect(screen.getByRole("button", { name: "Paste" })).toBeInTheDocument();
   });
 
+  test("does not render a Clear button as passed", async () => {
+    render(<SecretText clear={false} />);
+    expect(
+      screen.queryByRole("button", { name: "Clear" })
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Reveal" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Paste" })).toBeInTheDocument();
+  });
+
+  test("does not render a Reveal button as passed", async () => {
+    render(<SecretText toggle={false} />);
+    expect(screen.getByRole("button", { name: "Clear" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Reveal" })
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Paste" })).toBeInTheDocument();
+  });
+
+  test("does not render a Copy button as passed", async () => {
+    render(<SecretText copy={false} />);
+    expect(screen.getByRole("button", { name: "Clear" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Reveal" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Copy" })
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Paste" })).toBeInTheDocument();
+  });
+
+  test("does not render a Paste button as passed", async () => {
+    render(<SecretText paste={false} />);
+    expect(screen.getByRole("button", { name: "Clear" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Reveal" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Paste" })
+    ).not.toBeInTheDocument();
+  });
+
   test("renders a Hide button when set to reveal", async () => {
     render(<SecretText reveal />);
     expect(screen.getByRole("button", { name: "Hide" })).toBeInTheDocument();
+  });
+
+  test("renders concealed text by default", async () => {
+    render(<SecretText />);
+    expect(document.querySelector(".juno-secret-cover")).toBeInTheDocument();
+  });
+
+  test("renders unconcealed text when set to reveal", async () => {
+    render(<SecretText reveal />);
+    expect(
+      document.querySelector(".juno-secret-cover")
+    ).not.toBeInTheDocument();
   });
 
   test("renders a disabled SecretText textarea as passed", async () => {
@@ -37,7 +112,39 @@ describe("SecretText", () => {
     expect(screen.getByRole("textbox")).toBeDisabled();
   });
 
-  test.skip("renders a label as passed", async () => {});
+  test("renders a label as passed", async () => {
+    render(<SecretText label="My Secret Text" required />);
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(document.querySelector(".juno-label")).toBeInTheDocument();
+    expect(document.querySelector(".juno-label")).toHaveTextContent(
+      "My Secret Text"
+    );
+  });
+
+  test("renders an id as passed", async () => {
+    render(<SecretText id="my-secrettext-id" />);
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.getByRole("textbox")).toHaveAttribute(
+      "id",
+      "my-secrettext-id"
+    );
+  });
+
+  test("renders a generated id when no id was passed", async () => {
+    render(<SecretText />);
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.getByRole("textbox")).toHaveAttribute("id");
+  });
+
+  test("associates label with textarea using an id as passed", async () => {
+    render(<SecretText label="secret label" id="secret-id" />);
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.getByRole("textbox")).toHaveAttribute("id", "secret-id");
+    expect(document.querySelector(".juno-label")).toHaveAttribute(
+      "for",
+      "secret-id"
+    );
+  });
 
   test("renders a name attribute as passed", async () => {
     render(<SecretText name="my-secret-name" />);
@@ -46,8 +153,6 @@ describe("SecretText", () => {
       "my-secret-name"
     );
   });
-
-  test.skip("renders a copyComfirmText when the user has copied the SecretText's content", async () => {});
 
   test("renders a placeholder as passed", async () => {
     render(<SecretText placeholder="secret text goes here" />);
@@ -62,10 +167,11 @@ describe("SecretText", () => {
     expect(screen.getByRole("textbox")).toHaveAttribute("readOnly");
   });
 
-  test.skip("renders a required SecretText component as passed", async () => {});
-
-  test.skip("renders a revealed SecretText as passed", async () => {
-    render(<SecretText reveal />);
+  test("renders a required SecretText component as passed", async () => {
+    render(<SecretText label="My Secret Text" required />);
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(document.querySelector(".juno-label")).toBeInTheDocument();
+    expect(document.querySelector(".juno-required")).toBeInTheDocument();
   });
 
   test("does not render a Toggle button if passed", async () => {

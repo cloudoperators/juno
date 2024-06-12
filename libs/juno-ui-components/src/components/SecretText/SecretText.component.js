@@ -10,9 +10,19 @@ import { ButtonRow } from "../ButtonRow/";
 import { Button } from "../Button/";
 import { FormHint } from "../FormHint/";
 import { Stack } from "../Stack/";
+import { Label } from "../Label/";
 
 const innerWrapperStyles = `
   jn-relative
+`;
+
+const labelStyles = `
+  jn-pointer-events-none
+  jn-top-2
+  jn-left-[0.9375rem]
+  jn-pr-4
+  jn-bg-theme-textinput
+  jn-z-20
 `;
 
 const coverStyles = `
@@ -96,9 +106,13 @@ export const SecretText = ({
     return !(typeof str === "string" && str.trim().length === 0);
   };
 
+  const uniqueId = () => "juno-secrettext-" + useId();
+  const theId = id || uniqueId();
+
   const [isRevealed, setIsRevealed] = useState(false);
   const [val, setVal] = useState("");
   const [isCopied, setIsCopied] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
   const timeoutRef = React.useRef(null);
 
   useEffect(() => {
@@ -144,6 +158,16 @@ export const SecretText = ({
     }
   };
 
+  const handleFocus = (event) => {
+    setHasFocus(true);
+    onFocus && onFocus(event);
+  };
+
+  const handleBlur = (event) => {
+    setHasFocus(false);
+    onBlur && onBlur(event);
+  };
+
   return (
     <div
       className={`
@@ -157,6 +181,22 @@ export const SecretText = ({
           ${innerWrapperStyles} 
         `}
       >
+        {label && isNotEmptyString(label) ? (
+          <Label
+            className={`${labelStyles}`}
+            htmlFor={theId}
+            text={label}
+            disabled={disabled}
+            required={required}
+            floating
+            minimized={
+              placeholder || hasFocus || (val && val.length) ? true : false
+            }
+          />
+        ) : (
+          ""
+        )}
+
         {isCopied || !isRevealed ? (
           <div className={`juno-secret-cover ${coverStyles} `}>
             {isCopied ? (
@@ -177,12 +217,12 @@ export const SecretText = ({
           autoComplete={autoComplete}
           className={`juno-secret-textarea jn-font-mono ${textareaStyles} ${className}`}
           disabled={disabled}
-          id={id}
+          id={theId}
           invalid={invalid}
           name={name}
-          onBlur={onBlur}
+          onBlur={handleBlur}
           onChange={handleValueChange}
-          onFocus={onFocus}
+          onFocus={handleFocus}
           placeholder={placeholder}
           readOnly={readOnly}
           valid={valid}
@@ -298,6 +338,8 @@ SecretText.propTypes = {
   errortext: PropTypes.string,
   /** A small text to display giving more information and context about the Secret. */
   helptext: PropTypes.string,
+  /** Pass an id  */
+  id: PropTypes.string,
   /** A handler to execute when the Secret's input area looses focus. */
   onBlur: PropTypes.func,
   /** A handler to execute when the Secret's content changes. */
@@ -318,6 +360,10 @@ SecretText.propTypes = {
   onRevealToggle: PropTypes.func,
   /** Whether a button to paste text content even in hidden mode is rendered. */
   paste: PropTypes.bool,
+  /** Pass a placeholder to the SecretText's textarea */
+  placeholder: PropTypes.string,
+  /** Whether the SecretText is required. Passing `true` will render a small required marker to the label. This will only have an effect when a label is passed, too.  */
+  required: PropTypes.bool,
   /** Whether the secret's content is revealed / legible. */
   reveal: PropTypes.bool,
   /** A small text to display giving information in the context of the secret, e.g. when it was successfully validated or matches specific requirements, etc.  */
@@ -345,6 +391,7 @@ SecretText.defaultProps = {
   disableToggle: false,
   errortext: undefined,
   helptext: undefined,
+  id: "",
   onBlur: undefined,
   onChange: undefined,
   onClear: undefined,
@@ -355,6 +402,8 @@ SecretText.defaultProps = {
   onReveal: undefined,
   onRevealToggle: undefined,
   paste: true,
+  placeholder: "",
+  required: false,
   reveal: false,
   successtext: undefined,
   toggle: true,
