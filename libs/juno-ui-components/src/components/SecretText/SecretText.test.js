@@ -5,31 +5,14 @@
 
 import * as React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { SecretText } from "./index";
 
 describe("SecretText", () => {
-  let originalClipboard;
-
-  beforeAll(() => {
-    // Save the original clipboard object
-    originalClipboard = { ...navigator.clipboard };
-
-    // Mock the clipboard methods if they don't exist
-    navigator.clipboard = {
-      writeText: jest.fn(),
-      readText: jest.fn().mockResolvedValue("pasted text"),
-    };
-  });
-
-  afterAll(() => {
-    // Restore the original clipboard object
-    navigator.clipboard = originalClipboard;
-  });
-
-  afterEach(() => {
-    // Clear all mocks after each test
-    jest.clearAllMocks();
-  });
+  // afterEach(() => {
+  //   // Clear all mocks after each test
+  //   jest.clearAllMocks();
+  // });
 
   test("renders a SecretText component", async () => {
     render(<SecretText />);
@@ -272,6 +255,27 @@ describe("SecretText", () => {
   test("renders a value as passed", async () => {
     render(<SecretText value="my secret text" />);
     expect(screen.getByRole("textbox")).toHaveValue("my secret text");
+  });
+
+  test("copes the SecretText content to the clipboard", async () => {
+    const user = userEvent.setup();
+    render(<SecretText value="some secret text" />);
+    const copyButton = screen.getByRole("button", { name: "Copy" });
+    await user.click(copyButton);
+    const textInClipboard = await navigator.clipboard.readText();
+    expect(textInClipboard).toBe("some secret text");
+  });
+
+  test("pastes a text from the clipboard", async () => {
+    const user = userEvent.setup();
+    navigator.clipboard.writeText("text in clipboard");
+    render(<SecretText />);
+    const pasteButton = screen.getByRole("button", { name: "Paste" });
+    const secretTextarea = screen.getByRole("textbox");
+    await user.click(pasteButton);
+    await waitFor(() => {
+      expect(secretTextarea.value).toBe("text in clipboard");
+    });
   });
 
   test("renders a className as passed", async () => {
