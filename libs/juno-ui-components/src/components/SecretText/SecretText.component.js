@@ -89,7 +89,7 @@ export const SecretText = ({
   onHide,
   onPaste,
   onReveal,
-  onRevealToggle,
+  onToggle,
   paste,
   placeholder,
   readOnly,
@@ -131,7 +131,7 @@ export const SecretText = ({
   const handleToggleClick = () => {
     isRevealed ? onHide && onHide() : onReveal && onReveal();
     setIsRevealed(!isRevealed);
-    onRevealToggle && onRevealToggle();
+    onToggle && onToggle();
   };
 
   const handleClearClick = () => {
@@ -357,7 +357,7 @@ SecretText.propTypes = {
   /** A handler to execute when the user reveals the Secret's content. */
   onReveal: PropTypes.func,
   /** A handler to execute when the visibility of the SecretText's content is toggled, i.e. this will be run when the content is revealed and when it is hidden. */
-  onRevealToggle: PropTypes.func,
+  onToggle: PropTypes.func,
   /** Whether a button to paste text content even in hidden mode is rendered. */
   paste: PropTypes.bool,
   /** Pass a placeholder to the SecretText's textarea */
@@ -400,7 +400,7 @@ SecretText.defaultProps = {
   onHide: undefined,
   onPaste: undefined,
   onReveal: undefined,
-  onRevealToggle: undefined,
+  onToggle: undefined,
   paste: true,
   placeholder: "",
   required: false,

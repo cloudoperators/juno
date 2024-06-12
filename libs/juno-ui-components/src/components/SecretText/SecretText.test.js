@@ -8,11 +8,21 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SecretText } from "./index";
 
+const mockOnBlur = jest.fn();
+const mockOnChange = jest.fn();
+const mockOnClear = jest.fn();
+const mockOnCopy = jest.fn();
+const mockOnFocus = jest.fn();
+const mockOnHide = jest.fn();
+const mockOnPaste = jest.fn();
+const mockOnReveal = jest.fn();
+const mockOnToggle = jest.fn();
+
 describe("SecretText", () => {
-  // afterEach(() => {
-  //   // Clear all mocks after each test
-  //   jest.clearAllMocks();
-  // });
+  afterEach(() => {
+    // Clear all mocks after each test
+    jest.clearAllMocks();
+  });
 
   test("renders a SecretText component", async () => {
     render(<SecretText />);
@@ -297,6 +307,75 @@ describe("SecretText", () => {
     await waitFor(() => {
       expect(secretTextarea.value).toBe("text in clipboard");
     });
+  });
+
+  test("updates the SecretText value when the user types into the textarea", async () => {
+    render(<SecretText reveal />);
+    const user = userEvent.setup();
+    const textarea = screen.getByRole("textbox");
+    await user.type(textarea, "some nice text here");
+    expect(textarea.value).toBe("some nice text here");
+  });
+
+  test("runs an onChange callback when the user types into the SecretText", async () => {
+    render(<SecretText reveal onChange={mockOnChange} />);
+    const user = userEvent.setup();
+    const textarea = screen.getByRole("textbox");
+    await user.type(textarea, "a");
+    expect(mockOnChange).toHaveBeenCalled();
+  });
+
+  test("runs an onClear callback when the user clears the SecretText using the Clear button", async () => {
+    render(<SecretText value="some secret text" onClear={mockOnClear} />);
+    const user = userEvent.setup();
+    const clearButton = screen.getByRole("button", { name: "Clear" });
+    await user.click(clearButton);
+    expect(mockOnClear).toHaveBeenCalled();
+  });
+
+  test("runs an onCopy callback when the user copies the SecretText using the Copy button", async () => {
+    render(<SecretText value="some secret text" onCopy={mockOnCopy} />);
+    const user = userEvent.setup();
+    const copyButton = screen.getByRole("button", { name: "Copy" });
+    await user.click(copyButton);
+    expect(mockOnCopy).toHaveBeenCalled();
+  });
+
+  test("runs an onPaste callback when the user pastes from the clipboard using the Paste button", async () => {
+    const user = userEvent.setup();
+    navigator.clipboard.writeText("text in clipboard");
+    render(<SecretText onPaste={mockOnPaste} />);
+    const pasteButton = screen.getByRole("button", { name: "Paste" });
+    await user.click(pasteButton);
+    expect(mockOnPaste).toHaveBeenCalled();
+  });
+
+  test("runs an onReveal callback when the user reveals the SecretText using the toggle button", async () => {
+    render(<SecretText value="some secret text" onReveal={mockOnReveal} />);
+    const user = userEvent.setup();
+    const toggleButton = screen.getByRole("button", { name: "Reveal" });
+    await user.click(toggleButton);
+    expect(mockOnReveal).toHaveBeenCalled();
+  });
+
+  test("runs an onHide callback when the user hides the SecretText using the toggle button", async () => {
+    render(<SecretText value="some secret text" onHide={mockOnHide} reveal />);
+    const user = userEvent.setup();
+    const toggleButton = screen.getByRole("button", { name: "Hide" });
+    await user.click(toggleButton);
+    expect(mockOnHide).toHaveBeenCalled();
+  });
+
+  test("runs an onToggle callback when the user reveals or hides the SecretText using the toggle button", async () => {
+    render(<SecretText value="some secret text" onToggle={mockOnToggle} />);
+    const user = userEvent.setup();
+    const toggleButton = screen.getByRole("button", { name: "Reveal" });
+    // reveal the secret
+    await user.click(toggleButton);
+    expect(mockOnToggle).toHaveBeenCalled();
+    // hide the secret again
+    await user.click(toggleButton);
+    expect(mockOnToggle).toHaveBeenCalled();
   });
 
   test("renders a className as passed", async () => {
