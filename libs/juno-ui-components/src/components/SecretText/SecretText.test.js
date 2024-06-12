@@ -347,7 +347,9 @@ describe("SecretText", () => {
     render(<SecretText onPaste={mockOnPaste} />);
     const pasteButton = screen.getByRole("button", { name: "Paste" });
     await user.click(pasteButton);
-    expect(mockOnPaste).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(mockOnPaste).toHaveBeenCalled();
+    });
   });
 
   test("runs an onReveal callback when the user reveals the SecretText using the toggle button", async () => {
