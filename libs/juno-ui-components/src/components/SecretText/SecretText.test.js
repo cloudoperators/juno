@@ -112,6 +112,42 @@ describe("SecretText", () => {
     expect(screen.getByRole("textbox")).toBeDisabled();
   });
 
+  test("renders disabled buttons when the whole SecretText is set to disabled", async () => {
+    render(<SecretText disabled />);
+    expect(screen.getByRole("button", { name: "Clear" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Clear" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Reveal" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Reveal" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Paste" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Paste" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Copy" })).toBeDisabled();
+  });
+
+  test("renders a disabled Clear button as passed", async () => {
+    render(<SecretText disableClear />);
+    expect(screen.getByRole("button", { name: "Clear" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Clear" })).toBeDisabled();
+  });
+
+  test("renders a disabled Toggle button as passed", async () => {
+    render(<SecretText disableToggle />);
+    expect(screen.getByRole("button", { name: "Reveal" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Reveal" })).toBeDisabled();
+  });
+
+  test("renders a disabled Paste button as passed", async () => {
+    render(<SecretText disablePaste />);
+    expect(screen.getByRole("button", { name: "Paste" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Paste" })).toBeDisabled();
+  });
+
+  test("renders a disabled Copy button as passed", async () => {
+    render(<SecretText disableCopy />);
+    expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Copy" })).toBeDisabled();
+  });
+
   test("renders a label as passed", async () => {
     render(<SecretText label="My Secret Text" required />);
     expect(screen.getByRole("textbox")).toBeInTheDocument();
