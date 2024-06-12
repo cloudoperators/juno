@@ -257,7 +257,28 @@ describe("SecretText", () => {
     expect(screen.getByRole("textbox")).toHaveValue("my secret text");
   });
 
-  test("copes the SecretText content to the clipboard", async () => {
+  test("clears the SecretText when the user clicks the Clear button", async () => {
+    render(<SecretText value="some secret text" />);
+    const user = userEvent.setup();
+    const secretTextarea = screen.getByRole("textbox");
+    const clearButton = screen.getByRole("button", { name: "Clear" });
+    expect(secretTextarea.value).toBe("some secret text");
+    await user.click(clearButton);
+    expect(secretTextarea.value).toBe("");
+  });
+
+  test("toggles the secret's visibility when the user clicks the toggle button", async () => {
+    render(<SecretText />);
+    const user = userEvent.setup();
+    const toggle = screen.getByRole("button", { name: "Reveal" });
+    expect(document.querySelector(".juno-secret-cover")).toBeInTheDocument();
+    await user.click(toggle);
+    expect(
+      document.querySelector(".juno-secret-cover")
+    ).not.toBeInTheDocument();
+  });
+
+  test("copies the SecretText content to the clipboard", async () => {
     const user = userEvent.setup();
     render(<SecretText value="some secret text" />);
     const copyButton = screen.getByRole("button", { name: "Copy" });
