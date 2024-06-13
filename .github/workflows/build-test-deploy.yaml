@@ -1,0 +1,170 @@
+# Run it locally with act
+#  1. Install act:
+#     `brew install act`
+#  2. Create a .secret file with the following content:
+#     `GITHUB_TOKEN=your_github_token`
+#  3. Create a pull_request.json file in case of a pull request with the following content:
+#     `{"pull_request": {"number": <PR number>, "head": {"ref": "<PR branch name>", "sha": "PR commit sha"}, "base": {"ref": "main"}}, "repository": {"name": "juno", "owner": {"login": "cloudoperators"}}}`
+#  4. Run the following command:
+# `act pull_request --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -j detect-changes -e act_pull_request.json`
+
+name: Build, Test, and Deploy
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "apps/**"
+      - "libs/**"
+
+jobs:
+  detect-changes:
+    runs-on: [default]
+    outputs:
+      changes: ${{ steps.create-matrix-changes.outputs.changes}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate app and lib filters
+        run: |
+          for folder in apps/*; do
+            folder_name=$(basename "$folder")
+            echo "$folder_name: $folder/**" >> temp_app_filters.yaml
+          done
+          for folder in libs/*; do
+            folder_name=$(basename "$folder")
+            echo "$folder_name: $folder/**" >> temp_lib_filters.yaml
+          done
+
+      - uses: dorny/paths-filter@v3
+        id: filters
+        with:
+          list-files: shell
+          filters: |
+            apps: apps/**
+            libs: libs/**
+
+      - uses: dorny/paths-filter@v3
+        id: app-filters
+        with:
+          list-files: shell
+          filters: temp_app_filters.yaml
+
+      - uses: dorny/paths-filter@v3
+        id: lib-filters
+        with:
+          list-files: shell
+          filters: temp_lib_filters.yaml
+
+      - name: Create changes array for the matrix strategy
+        id: create-matrix-changes
+        run: |
+          app_changes=$(echo '${{ steps.app-filters.outputs.changes }}' | jq -c '.[]')
+          lib_changes=$(echo '${{ steps.lib-filters.outputs.changes }}' | jq -c '.[]')
+
+          changes=()
+          for app in $app_changes; do
+            changes+=( "{\"type\":\"apps\",\"asset\":$app}" )
+          done
+          for change in $lib_changes; do
+            changes+=( "{\"type\":\"libs\",\"asset\":$change}" )
+          done
+          echo "changes=[$(IFS=,; echo "${changes[*]}")]" >> $GITHUB_OUTPUT
+
+      - name: Show outputs
+        run: |
+          echo "========"
+          cat temp_app_filters.yaml
+          echo "========"          
+          cat temp_lib_filters.yaml
+          echo "========"
+          echo apps: ${{ steps.filters.outputs.apps}}
+          echo apps_files: ${{ steps.filters.outputs.apps_files}}
+          echo app changes: ${{ steps.app-filters.outputs.changes}}          
+          echo libs: ${{ steps.filters.outputs.libs}}
+          echo libs_files: ${{ steps.filters.outputs.libs_files}}
+          echo lib changes: ${{ steps.lib-filters.outputs.changes}}
+          echo changes: ${{ toJson(steps.create-matrix-changes.outputs.changes) }}
+          echo "===================="
+
+  check-3rd-party-licenses:
+    needs: detect-changes
+    runs-on: [default]
+    strategy:
+      matrix:
+        change: ${{fromJson(needs.detect-changes.outputs.changes)}}
+        node: [20.x]
+    outputs:
+      matrix-changed-package-type: ${{ steps.set-matrix-outputs.outputs.changed_package_type }}
+      matrix-changed-package: ${{ steps.set-matrix-outputs.outputs.changed_package }}
+      matrix-node: ${{ steps.set-matrix-outputs.outputs.node }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Extract change attributes and save to env
+        id: extract-attributes
+        run: |
+          changed_package_type=$( echo '${{ toJson(matrix.change) }}' | jq -r '.type' )
+          changed_package=$( echo '${{ toJson(matrix.change) }}' | jq -r '.asset' )
+          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
+          echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
+
+      - name: Remove all dependencies to our self hosted registry (temporary do tue not access from the internet)
+        if: ${{ !env.ACT }}
+        run: |
+          echo type: $change-type, asset: $CHANGED_PACKAGE
+          cd "$change-type/$CHANGED_PACKAGE"
+          jq '(.dependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $deps |
+              (.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $devDeps |
+              (.peerDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $peerDeps |
+              .dependencies = $deps |
+              .devDependencies = $devDeps |
+              .peerDependencies = $peerDeps' package.json > temp.json && mv temp.json package.json
+
+      - name: Install npm dependencies and check 3rd party licenses
+        if: ${{ !env.ACT }}
+        run: |
+          echo type: $change-type, asset: $CHANGED_PACKAGE
+          cd "$change-type/$CHANGED_PACKAGE"
+          echo "====package.json===="
+          cat package.json
+          echo "========"
+          npm i
+          npm install -g license-checker-rseidelsohn
+          license-checker-rseidelsohn -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD;Python-2.0;BSD*;Unlicense"
+
+      - name: Set matrix outputs
+        id: set-matrix-outputs
+        run: |
+          echo "changed_package_type=$CHANGED_PACKAGE_TYPE" >> $GITHUB_OUTPUT
+          echo "changed_package=$CHANGED_PACKAGE" >> $GITHUB_OUTPUT
+          echo "node=${{ matrix.node }}" >> $GITHUB_OUTPUT
+
+  test:
+    needs: check-3rd-party-licenses
+    runs-on: [default]
+    # if: |
+    #   contains('["communicator"]', ${{ needs.check-3rd-party-licenses.outputs.matrix-changed-package }}, ','))
+    steps:
+      # - name: Checkout
+      #   uses: actions/checkout@v4
+
+      # - name: Setup node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: ${{ matrix.node }}
+
+      - name: Run tests
+        run: |
+          echo "=======Running tests======="
+          echo "type: ${{ needs.check-3rd-party-licenses.outputs.matrix-changed-package-type }}"
+          echo "package: ${{ needs.check-3rd-party-licenses.outputs.matrix-changed-package }}"
+          echo "Node: ${{ needs.check-3rd-party-licenses.outputs.matrix-node }}"
+          echo "===================="
