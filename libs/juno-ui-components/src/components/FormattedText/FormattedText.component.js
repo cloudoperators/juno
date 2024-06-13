@@ -8,21 +8,21 @@ const proseStyles = `
 /**
  * A very basic layout container with padding.
  */
-export const ProseContainer = ({ className, children, ...props }) => {
+export const FormattedText = ({ className, children, ...props }) => {
   return (
-    <div className={`prose-container ${proseStyles} ${className} `} {...props}>
+    <div className={`formatted-text-container ${proseStyles} ${className} `} {...props}>
       {children}
     </div>
   )
 }
 
-ProseContainer.propTypes = {
+FormattedText.propTypes = {
   /** Add custom class name */
   className: PropTypes.string,
   children: PropTypes.node,
 }
 
-ProseContainer.defaultProps = {
+FormattedText.defaultProps = {
   className: "",
   children: null,
 }

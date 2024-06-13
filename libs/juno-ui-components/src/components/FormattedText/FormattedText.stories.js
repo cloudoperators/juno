@@ -1,8 +1,8 @@
-import { ProseContainer } from "./index.js"
+import { FormattedText } from "./index.js"
 
 export default {
-  title: "Components/ProseContainer",
-  component: ProseContainer,
+  title: "Components/FormattedText",
+  component: FormattedText,
   argTypes: {
     children: {
       control: false,
@@ -19,7 +19,7 @@ export default {
 }
 
 const Template = (args) => (
-  <ProseContainer {...args}>
+  <FormattedText {...args}>
     <h1>Headline 1</h1>
     <h2>Headline 2</h2>
     <h3>Headline 3</h3>
@@ -147,7 +147,7 @@ const Template = (args) => (
         mollit anim id est laborum.
       </p>
     </article>
-  </ProseContainer>
+  </FormattedText>
 )
 
 export const Basic = {
@@ -156,7 +156,7 @@ export const Basic = {
   parameters: {
     docs: {
       description: {
-        story: "A basic ProseContainer component with various text elements.",
+        story: "A basic FormattedTextcomponent with various text elements.",
       },
     },
   },
