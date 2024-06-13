@@ -119,8 +119,8 @@ jobs:
       - name: Remove all dependencies to our self hosted registry (temporary do tue not access from the internet)
         if: ${{ !env.ACT }}
         run: |
-          echo type: $change-type, asset: $CHANGED_PACKAGE
-          cd "$change-type/$CHANGED_PACKAGE"
+          echo type: $CHANGED_PACKAGE_TYPE, asset: $CHANGED_PACKAGE
+          cd "$CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE"
           jq '(.dependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $deps |
               (.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $devDeps |
               (.peerDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $peerDeps |
@@ -131,8 +131,8 @@ jobs:
       - name: Install npm dependencies and check 3rd party licenses
         if: ${{ !env.ACT }}
         run: |
-          echo type: $change-type, asset: $CHANGED_PACKAGE
-          cd "$change-type/$CHANGED_PACKAGE"
+          echo type: $CHANGED_PACKAGE_TYPE, asset: $CHANGED_PACKAGE
+          cd "$CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE"
           echo "====package.json===="
           cat package.json
           echo "========"
