@@ -1,6 +1,6 @@
 {
   "name": "exampleapp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "UI-Team",
   "contributors": [
     "Arturo Reuschenbach Pucernau"
@@ -58,7 +58,6 @@
   },
   "peerDependencies": {
     "@tanstack/react-query": "4.28.0",
-    "custom-event-polyfill": "^1.0.7",
     "juno-ui-components": "https://assets.juno.global.cloud.sap/libs/juno-ui-components@2.14.1/package.tgz",
     "luxon": "^2.3.0",
     "messages-provider": "https://assets.juno.global.cloud.sap/libs/messages-provider@0.1.12/package.tgz",
@@ -84,7 +83,7 @@
     },
     "embedded": {
       "value": "false",
-      "description": "Set to true if app is to be embedded in another existing app or page.  If set to true the app won't render a page header/footer and instead render only the content"
+      "description": "Set to true if app is to be embedded in another existing app or page. If set to true the app won't render a page header/footer and instead render only the content"
     }
   },
   "appPreview": true

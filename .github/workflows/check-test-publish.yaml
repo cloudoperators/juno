@@ -1,0 +1,117 @@
+# Run it locally with act
+#  1. Install act:
+#     `brew install act`
+#  2. Create a .secret file with the following content:
+#     `GITHUB_TOKEN=your_github_token`
+# WORKFLOW CALL
+# 1.Create a act_workflow_call.json file with the following content:
+#     `{"inputs": {"change": {"type": "package", "asset": "juno-ui-components"}, "node": "20.x"}}`
+# 2. Run the following command:
+#     `act workflow_call --eventpath act_workflow_call.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j test-package`
+
+name: Check, Test, and Publish
+
+on:
+  workflow_call:
+    inputs:
+      change:
+        required: true
+        type: string
+      node:
+        required: true
+        type: string
+
+jobs:
+  check-3rd-party-licenses:
+    runs-on: [default]
+    steps:
+      - name: Extract package name and type save them to env
+        id: extract-attributes
+        run: |
+          changed_package_type=$( echo '${{ toJson(inputs.change) }}' | jq -r '.type' )
+          changed_package=$( echo '${{ toJson(inputs.change) }}' | jq -r '.asset' )
+          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
+          echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node }}
+
+      - name: Remove all dependencies to our self hosted registry (temporary do tue not access from the internet)
+        run: |
+          echo type: $CHANGED_PACKAGE_TYPE, package: $CHANGED_PACKAGE
+          cd "$CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE"
+          jq '(.dependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $deps |
+              (.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $devDeps |
+              (.peerDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $peerDeps |
+              .dependencies = $deps |
+              .devDependencies = $devDeps |
+              .peerDependencies = $peerDeps' package.json > temp.json && mv temp.json package.json
+
+      - name: Install npm dependencies and check 3rd party licenses
+        run: |
+          echo type: $CHANGED_PACKAGE_TYPE, package: $CHANGED_PACKAGE
+          cd "$CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE"
+          echo "====package.json===="
+          cat package.json
+          echo "========"
+          npm i
+          npm install -g license-checker-rseidelsohn
+          license-checker-rseidelsohn -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD;Python-2.0;BSD*;Unlicense"
+
+  test-package:
+    needs: [check-3rd-party-licenses]
+    runs-on: [default]
+    steps:
+      - name: Extract package name and type save them to env
+        id: extract-attributes
+        run: |
+          changed_package_type=$( echo '${{ toJson(inputs.change) }}' | jq -r '.type' )
+          changed_package=$( echo '${{ toJson(inputs.change) }}' | jq -r '.asset' )
+          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
+          echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
+
+      - name: Skip if package contains dependencies to our self hosted registry (temporary do tue not access from the internet)
+        id: skip-check
+        run: |
+          skip_items=("juno-ui-components" "messages-provider" "url-state-router")
+
+          for item in "${skip_items[@]}"; do
+            if [[ "$CHANGED_PACKAGE" == *"$item"* ]]; then
+              echo "SKIP=true" >> $GITHUB_ENV
+              break
+            else
+              echo "SKIP=false" >> $GITHUB_ENV
+            fi
+          done
+
+      - name: Checkout
+        if: env.SKIP == 'false'
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        if: env.SKIP == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Run tests
+        if: env.SKIP == 'false'
+        run: |
+          echo type: $CHANGED_PACKAGE_TYPE, package: $CHANGED_PACKAGE
+          cd "$CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE"
+          npm i
+          npm run test
+
+      - name: Skip message
+        if: env.SKIP == 'true'
+        run: |
+          echo "==="
+          echo "Skipping job for $CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE as it contains self hosted registry (temporary do tue not access from the internet)"
+          echo "==="
+          # fail job when skippped so it do not trigger next job
+          exit 1
