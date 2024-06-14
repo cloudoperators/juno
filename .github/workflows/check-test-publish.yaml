@@ -30,6 +30,8 @@ jobs:
         run: |
           echo "====inputs===="
           echo 'Inputs: ${{ toJson(inputs) }}'
+          echo "Change: ${{ toJson(inputs.change) }}"
+          echo "Node: ${{ toJson(inputs.node) }}"
           echo "===="
           changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
           changed_package=$( echo '${{ inputs.change }}' | jq -r '.asset' )
