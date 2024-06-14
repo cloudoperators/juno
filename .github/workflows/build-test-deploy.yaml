@@ -95,11 +95,15 @@ jobs:
       matrix:
         change: ${{fromJson(needs.detect-changes.outputs.changes)}}
         node: [20.x]
-    outputs:
-      matrix-changed-package-type: ${{ steps.set-matrix-outputs.outputs.changed_package_type }}
-      matrix-changed-package: ${{ steps.set-matrix-outputs.outputs.changed_package }}
-      matrix-node: ${{ steps.set-matrix-outputs.outputs.node }}
     steps:
+      - name: Extract package name and type save them to env
+        id: extract-attributes
+        run: |
+          changed_package_type=$( echo '${{ toJson(matrix.change) }}' | jq -r '.type' )
+          changed_package=$( echo '${{ toJson(matrix.change) }}' | jq -r '.asset' )
+          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
+          echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -108,18 +112,10 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Extract change attributes and save to env
-        id: extract-attributes
-        run: |
-          changed_package_type=$( echo '${{ toJson(matrix.change) }}' | jq -r '.type' )
-          changed_package=$( echo '${{ toJson(matrix.change) }}' | jq -r '.asset' )
-          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
-          echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
-
       - name: Remove all dependencies to our self hosted registry (temporary do tue not access from the internet)
         if: ${{ !env.ACT }}
         run: |
-          echo type: $CHANGED_PACKAGE_TYPE, asset: $CHANGED_PACKAGE
+          echo type: $CHANGED_PACKAGE_TYPE, package: $CHANGED_PACKAGE
           cd "$CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE"
           jq '(.dependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $deps |
               (.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $devDeps |
@@ -131,7 +127,7 @@ jobs:
       - name: Install npm dependencies and check 3rd party licenses
         if: ${{ !env.ACT }}
         run: |
-          echo type: $CHANGED_PACKAGE_TYPE, asset: $CHANGED_PACKAGE
+          echo type: $CHANGED_PACKAGE_TYPE, package: $CHANGED_PACKAGE
           cd "$CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE"
           echo "====package.json===="
           cat package.json
@@ -140,31 +136,34 @@ jobs:
           npm install -g license-checker-rseidelsohn
           license-checker-rseidelsohn -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD;Python-2.0;BSD*;Unlicense"
 
-      - name: Set matrix outputs
-        id: set-matrix-outputs
-        run: |
-          echo "changed_package_type=$CHANGED_PACKAGE_TYPE" >> $GITHUB_OUTPUT
-          echo "changed_package=$CHANGED_PACKAGE" >> $GITHUB_OUTPUT
-          echo "node=${{ matrix.node }}" >> $GITHUB_OUTPUT
-
   test:
-    needs: check-3rd-party-licenses
+    needs: [check-3rd-party-licenses, detect-changes]
     runs-on: [default]
-    # if: |
-    #   contains('["communicator"]', ${{ needs.check-3rd-party-licenses.outputs.matrix-changed-package }}, ','))
+    strategy:
+      matrix:
+        change: ${{fromJson(needs.detect-changes.outputs.changes)}}
+        node: [20.x]
     steps:
+      - name: Extract package name and type save them to env
+        id: extract-attributes
+        run: |
+          changed_package_type=$( echo '${{ toJson(matrix.change) }}' | jq -r '.type' )
+          changed_package=$( echo '${{ toJson(matrix.change) }}' | jq -r '.asset' )
+          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
+          echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
+
       # - name: Checkout
       #   uses: actions/checkout@v4
 
       # - name: Setup node
       #   uses: actions/setup-node@v4
       #   with:
-      #     node-version: ${{ matrix.node }}
+      #     node-version: "20.x"
 
       - name: Run tests
         run: |
           echo "=======Running tests======="
-          echo "type: ${{ needs.check-3rd-party-licenses.outputs.matrix-changed-package-type }}"
-          echo "package: ${{ needs.check-3rd-party-licenses.outputs.matrix-changed-package }}"
-          echo "Node: ${{ needs.check-3rd-party-licenses.outputs.matrix-node }}"
+          echo "Change: ${{ toJson(matrix.change) }}"
+          echo "Node: ${{ toJson(matrix.node) }}"
+          echo type: $CHANGED_PACKAGE_TYPE, package: $CHANGED_PACKAGE
           echo "===================="
