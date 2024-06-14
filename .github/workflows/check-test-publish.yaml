@@ -28,6 +28,9 @@ jobs:
       - name: Extract package name and type save them to env
         id: extract-attributes
         run: |
+          echo "====inputs===="
+          echo 'Inputs: ${{ toJson(inputs) }}'
+          echo "===="
           changed_package_type=$( echo '${{ toJson(inputs.change) }}' | jq -r '.type' )
           changed_package=$( echo '${{ toJson(inputs.change) }}' | jq -r '.asset' )
           echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
