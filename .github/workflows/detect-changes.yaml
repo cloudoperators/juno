@@ -90,16 +90,13 @@ jobs:
           echo "===================="
 
   run-check-test-publish:
-    needs: detect-changes
-    runs-on: [default]
+    needs: [detect-changes]
     strategy:
       matrix:
         change: ${{fromJson(needs.detect-changes.outputs.changes)}}
         node: [20.x]
       fail-fast: false # Allow other jobs to continue if one fails
-    steps:
-      - name: Call Reusable Workflow
-        uses: cloudoperators/juno/.github/workflows/check-test-publish.yaml@main
-        with:
-          change: ${{ toJson(matrix.change) }}
-          node: ${{ toJson(matrix.node) }}
+    uses: cloudoperators/juno/.github/workflows/check-test-publish.yaml@main
+    with:
+      change: ${{ toJson(matrix.change) }}
+      node: ${{ toJson(matrix.node) }}
