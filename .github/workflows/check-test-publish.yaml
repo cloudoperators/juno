@@ -31,10 +31,12 @@ jobs:
           echo "====inputs===="
           echo 'Inputs: ${{ toJson(inputs) }}'
           echo "===="
-          changed_package_type=$( echo '${{ toJson(inputs.change) }}' | jq -r '.type' )
-          changed_package=$( echo '${{ toJson(inputs.change) }}' | jq -r '.asset' )
+          changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
+          changed_package=$( echo '${{ inputs.change }}' | jq -r '.asset' )
+          node_version=$(echo '${{ inputs.node }}' | jq -r '.')
           echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
           echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
+          echo "NODE_VERSION=$node_version" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,7 +44,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ inputs.node }}
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Remove all dependencies to our self hosted registry (temporary do tue not access from the internet)
         run: |
@@ -73,10 +75,12 @@ jobs:
       - name: Extract package name and type save them to env
         id: extract-attributes
         run: |
-          changed_package_type=$( echo '${{ toJson(inputs.change) }}' | jq -r '.type' )
-          changed_package=$( echo '${{ toJson(inputs.change) }}' | jq -r '.asset' )
+          changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
+          changed_package=$( echo '${{ inputs.change }}' | jq -r '.asset' )
+          node_version=$(echo '${{ inputs.node }}' | jq -r '.')
           echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
           echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
+          echo "NODE_VERSION=$node_version" >> $GITHUB_ENV
 
       - name: Skip if package contains dependencies to our self hosted registry (temporary do tue not access from the internet)
         id: skip-check
@@ -100,7 +104,7 @@ jobs:
         if: env.SKIP == 'false'
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Run tests
         if: env.SKIP == 'false'
