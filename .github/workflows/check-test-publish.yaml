@@ -120,5 +120,5 @@ jobs:
           echo "==="
           echo "Skipping job for $CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE as it contains self hosted registry (temporary do tue not access from the internet)"
           echo "==="
-          # fail job when skippped so it do not trigger next job
-          exit 1
+          # cancel job when skippped so it do not trigger next jobs
+          exit 78
