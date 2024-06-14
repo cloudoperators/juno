@@ -87,7 +87,7 @@ jobs:
       - name: Skip if package contains dependencies to our self hosted registry (temporary do tue not access from the internet)
         id: skip-check
         run: |
-          skip_items=("juno-ui-components" "messages-provider" "url-state-router", "exampleapp", "template")
+          skip_items=("juno-ui-components" "messages-provider" "url-state-router" "exampleapp" "template")
 
           for item in "${skip_items[@]}"; do
             if [[ "$CHANGED_PACKAGE" == *"$item"* ]]; then
