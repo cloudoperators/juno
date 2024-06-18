@@ -1,0 +1,52 @@
+# Run it locally with act
+#  1. Install act:
+#     `brew install act`
+#  2. Create a .secret file with the following content:
+#     `GITHUB_TOKEN=your_github_token`
+# WORKFLOW CALL
+# 1.Create a act_workflow_call.json file with the following content:
+#     `{"inputs": {"change": {"type": "package", "asset": "juno-ui-components"}, "node": "20.x"}}`
+# 2. Run the following command:
+#     `act workflow_call --eventpath act_workflow_call_pipeline.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j check-licenses`
+
+name: Pipeline Juno Package NPM
+
+on:
+  workflow_call:
+    inputs:
+      change:
+        required: true
+        type: string
+      node:
+        required: true
+        type: string
+
+jobs:
+  extract-package-attributes:
+    runs-on: [default]
+    outputs:
+      package_name: ${{ steps.extract-attributes.outputs.CHANGED_PACKAGE_NAME }}
+      package_type: ${{ steps.extract-attributes.outputs.CHANGED_PACKAGE_TYPE }}
+      node_version: ${{ steps.extract-attributes.outputs.NODE_VERSION }}
+    steps:
+      - name: Extract package name and type
+        id: extract-attributes
+        run: |
+          echo "====workflow inputs===="
+          echo 'Inputs: ${{ toJson(inputs) }}'
+          echo "Change: ${{ toJson(inputs.change) }}"
+          echo "Node: ${{ toJson(inputs.node) }}"
+          echo "===="
+          changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
+          changed_package_name=$( echo '${{ inputs.change }}' | jq -r '.asset' )
+          node_version=$(echo '${{ inputs.node }}' | jq -r '.')
+          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_OUTPUT
+          echo "CHANGED_PACKAGE_NAME=$changed_package_name" >> $GITHUB_OUTPUT
+          echo "NODE_VERSION=$node_version" >> $GITHUB_OUTPUT
+
+  check-licenses:
+    needs: [extract-package-attributes]
+    uses: ./.github/workflows/check-licenses-package-npm.yaml
+    with:
+      path: "${{ needs.extract-package-attributes.outputs.package_type }}/${{ needs.extract-package-attributes.outputs.package_name }}"
+      node: ${{ needs.extract-package-attributes.outputs.node_version }}
