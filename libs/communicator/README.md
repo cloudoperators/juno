@@ -75,5 +75,3 @@ const unwatch = onGet(
   { debug: false }
 )
 ```
-
-These changes make the README clearer and easier to understand, while maintaining the original structure and content. Let me know if you need further assistance!
