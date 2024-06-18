@@ -7,7 +7,7 @@
 # 1.Create a act_workflow_call.json file with the following content:
 #     `{"inputs": {"change": {"type": "package", "asset": "juno-ui-components"}, "node": "20.x"}}`
 # 2. Run the following command:
-#     `act workflow_call --eventpath act_workflow_call.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j test-package`
+#     `act workflow_call --eventpath act_workflow_call.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j publish-package`
 
 name: Check, Test, and Publish
 
@@ -24,12 +24,16 @@ on:
 jobs:
   check-3rd-party-licenses:
     runs-on: [default]
+    outputs:
+      skip: ${{ steps.remove-self-hosted-registry.outputs.SKIP }}
     steps:
       - name: Extract package name and type save them to env
         id: extract-attributes
         run: |
-          echo "====inputs===="
+          echo "====workflow inputs===="
           echo 'Inputs: ${{ toJson(inputs) }}'
+          echo "Change: ${{ toJson(inputs.change) }}"
+          echo "Node: ${{ toJson(inputs.node) }}"
           echo "===="
           changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
           changed_package=$( echo '${{ inputs.change }}' | jq -r '.asset' )
@@ -47,15 +51,27 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Remove all dependencies to our self hosted registry (temporary do tue not access from the internet)
+        id: remove-self-hosted-registry
         run: |
           echo type: $CHANGED_PACKAGE_TYPE, package: $CHANGED_PACKAGE
           cd "$CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE"
+
+          cp package.json original-package.json
+
           jq '(.dependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $deps |
-              (.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $devDeps |
-              (.peerDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $peerDeps |
-              .dependencies = $deps |
-              .devDependencies = $devDeps |
-              .peerDependencies = $peerDeps' package.json > temp.json && mv temp.json package.json
+          (.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $devDeps |
+          (.peerDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $peerDeps |
+          (if ($deps | length) > 0 then .dependencies = $deps else del(.dependencies) end) |
+          (if ($devDeps | length) > 0 then .devDependencies = $devDeps else del(.devDependencies) end) |
+          (if ($peerDeps | length) > 0 then .peerDependencies = $peerDeps else del(.peerDependencies) end)' package.json > temp.json && mv temp.json package.json
+
+          if diff original-package.json package.json > /dev/null; then
+            echo "=== No dependencies to our self hosted registry found ==="
+            echo "SKIP=false" >> $GITHUB_OUTPUT
+          else
+            echo "=== Dependencies to our self hosted registry found ==="
+            echo "SKIP=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Install npm dependencies and check 3rd party licenses
         run: |
@@ -71,9 +87,11 @@ jobs:
   test-package:
     needs: [check-3rd-party-licenses]
     runs-on: [default]
+    if: needs.check-3rd-party-licenses.outputs.skip == 'false'
+    outputs:
+      skip: ${{ needs.check-3rd-party-licenses.outputs.skip }}
     steps:
       - name: Extract package name and type save them to env
-        id: extract-attributes
         run: |
           changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
           changed_package=$( echo '${{ inputs.change }}' | jq -r '.asset' )
@@ -82,43 +100,36 @@ jobs:
           echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
           echo "NODE_VERSION=$node_version" >> $GITHUB_ENV
 
-      - name: Skip if package contains dependencies to our self hosted registry (temporary do tue not access from the internet)
-        id: skip-check
-        run: |
-          skip_items=("juno-ui-components" "messages-provider" "url-state-router" "exampleapp" "template")
-
-          for item in "${skip_items[@]}"; do
-            if [[ "$CHANGED_PACKAGE" == *"$item"* ]]; then
-              echo "SKIP=true" >> $GITHUB_ENV
-              break
-            else
-              echo "SKIP=false" >> $GITHUB_ENV
-            fi
-          done
-
       - name: Checkout
-        if: env.SKIP == 'false'
         uses: actions/checkout@v4
 
       - name: Setup node
-        if: env.SKIP == 'false'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Run tests
-        if: env.SKIP == 'false'
         run: |
           echo type: $CHANGED_PACKAGE_TYPE, package: $CHANGED_PACKAGE
           cd "$CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE"
           npm i
           npm run test
 
-      - name: Skip message
-        if: env.SKIP == 'true'
+  publish-package:
+    needs: [test-package]
+    runs-on: [default]
+    if: needs.test-package.outputs.skip == 'false'
+    steps:
+      - name: Extract package name and type save them to env
+        run: |
+          changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
+          changed_package=$( echo '${{ inputs.change }}' | jq -r '.asset' )
+          node_version=$(echo '${{ inputs.node }}' | jq -r '.')
+          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_ENV
+          echo "CHANGED_PACKAGE=$changed_package" >> $GITHUB_ENV
+          echo "NODE_VERSION=$node_version" >> $GITHUB_ENV
+      - name: Publish package
         run: |
           echo "==="
-          echo "Skipping job for $CHANGED_PACKAGE_TYPE/$CHANGED_PACKAGE as it contains self hosted registry (temporary do tue not access from the internet)"
+          echo "We would now publish!!!!"
           echo "==="
-          # fail job when skippped so it do not trigger next job
-          exit 1
