@@ -317,6 +317,14 @@ describe("SecretText", () => {
     expect(textarea.value).toBe("some nice text here");
   });
 
+  test("renders a Secrettext that can not be edited when readOnly is passed", async () => {
+    render(<SecretText value="abc" readOnly />);
+    const user = userEvent.setup();
+    const textarea = screen.getByRole("textbox");
+    await user.type(textarea, "some nice text here");
+    expect(textarea.value).toBe("abc");
+  });
+
   test("runs an onChange callback when the user types into the SecretText", async () => {
     render(<SecretText reveal onChange={mockOnChange} />);
     const user = userEvent.setup();
