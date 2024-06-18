@@ -35,14 +35,13 @@ jobs:
           echo "====workflow inputs===="
           echo 'Inputs: ${{ toJson(inputs) }}'
           echo "Change: ${{ toJson(inputs.change) }}"
-          echo "Node: ${{ toJson(inputs.node) }}"
+          echo "Node: ${{ inputs.node }}"
           echo "===="
           changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
           changed_package_name=$( echo '${{ inputs.change }}' | jq -r '.asset' )
-          node_version=$(echo '${{ inputs.node }}' | jq -r '.')
           echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_OUTPUT
           echo "CHANGED_PACKAGE_NAME=$changed_package_name" >> $GITHUB_OUTPUT
-          echo "NODE_VERSION=$node_version" >> $GITHUB_OUTPUT
+          echo "NODE_VERSION=${{ inputs.node }}" >> $GITHUB_OUTPUT
 
   check-licenses:
     needs: [extract-package-attributes]
