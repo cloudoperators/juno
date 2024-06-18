@@ -1,12 +1,12 @@
 {
   "name": "url-state-router",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Router",
   "author": "UI-Team",
   "contributors": [
     "Andreas Pfau"
   ],
-  "repository": "https://github.com/sapcc/juno/tree/main/libs/url-state-router",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/url-state-router",
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
@@ -17,7 +17,7 @@
   },
   "peerDependencies": {
     "react": "18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "18.2.0",
     "url-state-provider": "https://assets.juno.global.cloud.sap/libs/url-state-provider@1.3.2/package.tgz",
     "prop-types": "^15.8.1"
   },

@@ -1,12 +1,12 @@
 {
   "name": "template-lib",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Description of template",
   "author": "UI-Team",
   "contributors": [
     "Andreas Pfau"
   ],
-  "repository": "https://github.com/sapcc/juno/tree/main/libs/template-lib",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/template-lib",
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
