@@ -2,6 +2,8 @@
 
 To establish a clear and consistent naming convention for directories and packages within our project, we have adopted the following schema:
 
+Please consider the npm naming guidelines: https://docs.npmjs.com/cli/v10/configuring-npm/package-json
+
 ## Package Directory Naming
 
 **`[<TARGET_PROJECT>-]<PACKAGE_NAME>[-app|mfe]`**
