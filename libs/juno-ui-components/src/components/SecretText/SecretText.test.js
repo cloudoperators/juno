@@ -317,6 +317,16 @@ describe("SecretText", () => {
     expect(textarea.value).toBe("some nice text here");
   });
 
+  test("does not render a Clear nor a Paste button when set to readOnly", async () => {
+    render(<SecretText readOnly />);
+    expect(
+      screen.queryByRole("button", { name: "Clear" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Paste" })
+    ).not.toBeInTheDocument();
+  });
+
   test("renders a Secrettext that can not be edited when readOnly is passed", async () => {
     render(<SecretText value="abc" readOnly />);
     const user = userEvent.setup();

@@ -92,7 +92,7 @@ export const ReadOnly = {
     docs: {
       description: {
         story:
-          "Pass `readOnly` in order to make sure users can not edit the SecretText content by typing into the field when it is revealed. In order to aslo prevent users from pasting new content, set `disablePaste` to disable the Paste button, or set `paste` to `false` in order to not render a Paste button at all.",
+          "Pass `readOnly` in order to make sure users can not edit the SecretText content by typing into the field when it is revealed.",
       },
     },
   },

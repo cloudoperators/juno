@@ -259,7 +259,7 @@ export const SecretText = ({
         </div>
 
         <ButtonRow className="jn-secret-actions jn-justify-self-end jn-mt-2">
-          {clear ? (
+          {clear && !readOnly ? (
             <Button
               size="small"
               className={`${actionStyles}`}
@@ -298,7 +298,7 @@ export const SecretText = ({
           ) : (
             ""
           )}
-          {paste ? (
+          {paste && !readOnly ? (
             <Button
               size="small"
               className={`${actionStyles}`}
@@ -362,7 +362,7 @@ SecretText.propTypes = {
   paste: PropTypes.bool,
   /** Pass a placeholder to the SecretText's textarea */
   placeholder: PropTypes.string,
-  /** Whether the SecretText content is read only, i.e. can not be edited. NOTE: It is still possible to paste new content into the SecretText. In order to prevent this, either set `paste` to `false` or disable the "Paste" button by passing `disablePaste`.*/
+  /** Whether the SecretText content is read only, i.e. can not be edited..*/
   readOnly: PropTypes.bool,
   /** Whether the SecretText is required. Passing `true` will render a small required marker to the label. This will only have an effect when a label is passed, too.  */
   required: PropTypes.bool,
