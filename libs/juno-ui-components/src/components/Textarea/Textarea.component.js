@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useRef } from "react"
-import PropTypes from "prop-types"
-import { Label } from "../Label/index"
-import { Icon } from "../Icon/index"
-import { FormHint } from "../FormHint/FormHint.component"
+import React, { useState, useEffect, useMemo, useId, useRef } from "react";
+import PropTypes from "prop-types";
+import { Label } from "../Label/index";
+import { Icon } from "../Icon/index";
+import { FormHint } from "../FormHint/FormHint.component";
 
 const wrapperStyles = `
   jn-inline-block
   jn-relative
-`
+`;
 
 const textareastyles = `
   jn-bg-theme-textinput
@@ -22,33 +22,34 @@ const textareastyles = `
   jn-leading-4
   jn-px-4
   jn-rounded-3px
+  jn-align-top
   focus:jn-outline-none
   focus:jn-ring-2
   focus:jn-ring-theme-focus
   disabled:jn-opacity-50
   disabled:jn-cursor-not-allowed
-`
+`;
 
 const defaultborderstyles = `
   jn-border-theme-textinput-default
-`
+`;
 
 const invalidstyles = `
   jn-border-theme-error
-`
+`;
 
 const validstyles = `
   jn-border-theme-success
-`
+`;
 
 const withLabelStyles = `
   jn-pt-[1.125rem] 
   jn-pb-1
-`
+`;
 
 const noLabelStyles = `
   jn-py-4
-`
+`;
 
 const labelStyles = `
   jn-pointer-events-none
@@ -56,28 +57,28 @@ const labelStyles = `
   jn-left-[0.9375rem]
   jn-pr-4
   jn-bg-theme-textinput
-`
+`;
 
 const iconcontainerstyles = `
   jn-inline-flex
   jn-absolute
   jn-top-[.4rem]
   jn-right-3
-`
+`;
 
 const disablediconstyles = `
   jn-opacity-50
-`
+`;
 
 const iconstyles = `
   jn-inline-block 
   jn-ml-1 
   jn-leading-1
   jn-mt-[-.2rem]
-`
+`;
 const hintStyles = `
   jn-mt-0
-`
+`;
 
 /** 
 A controlled Text Input.
@@ -87,7 +88,6 @@ export const Textarea = ({
   name,
   value,
   id,
-  type,
   placeholder,
   disabled,
   readOnly,
@@ -107,64 +107,62 @@ export const Textarea = ({
   onBlur,
   ...props
 }) => {
-  
   const isNotEmptyString = (str) => {
-    return !(typeof str === 'string' && str.trim().length === 0)
-  }
-  
-  const uniqueId = () => (
-    "juno-textarea-" + useId()
-  )
-  
-  const ref = useRef()
-  const [val, setValue] = useState("")
-  const [hasFocus, setFocus] = useState(false)
-  const [isInvalid, setIsInvalid] = useState(false)
-  const [isValid, setIsValid] = useState(false)
-  
+    return !(typeof str === "string" && str.trim().length === 0);
+  };
+
+  const uniqueId = () => "juno-textarea-" + useId();
+
+  const ref = useRef();
+  const [val, setValue] = useState("");
+  const [hasFocus, setFocus] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+
   /* Set the focus state variable in case the input was focussed by passing autoFocus, or when the input was rendered and focussed by the user before React started listening to client side events, e.g. when rendering server-side: */
   useEffect(() => {
     if (document.hasFocus() && ref.current.contains(document.activeElement)) {
       setFocus(true);
     }
-  }, [])
-  
+  }, []);
+
   useEffect(() => {
-    setValue(value)
-  }, [value])
-  
+    setValue(value);
+  }, [value]);
+
   const invalidated = useMemo(
     () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
     [invalid, errortext]
-  )
+  );
   const validated = useMemo(
-    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () =>
+      valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
-  )
+  );
 
   useEffect(() => {
-    setIsInvalid(invalidated)
-  }, [invalidated])
+    setIsInvalid(invalidated);
+  }, [invalidated]);
 
   useEffect(() => {
-    setIsValid(validated)
-  }, [validated])
+    setIsValid(validated);
+  }, [validated]);
 
   const handleValueChange = (event) => {
-    setValue(event.target.value)
-    onChange && onChange(event)
-  }
-  
+    setValue(event.target.value);
+    onChange && onChange(event);
+  };
+
   const handleFocus = (event) => {
-    setFocus(true)
-    onFocus && onFocus(event)
-  }
-  
+    setFocus(true);
+    onFocus && onFocus(event);
+  };
+
   const handleBlur = (event) => {
-    setFocus(false)
-    onBlur && onBlur(event)
-  }
-  
+    setFocus(false);
+    onBlur && onBlur(event);
+  };
+
   const Icons = ({ disabled }) => {
     if (isValid || isInvalid) {
       return (
@@ -180,37 +178,39 @@ export const Textarea = ({
             <Icon icon="checkCircle" color="jn-text-theme-success" />
           ) : null}
         </div>
-      )
+      );
     } else {
-      return ""
+      return "";
     }
-  }
-  
-  const theId = id || uniqueId()
-  
+  };
+
+  const theId = id || uniqueId();
+
   return (
     <div>
-      <span 
+      <div
         className={`
           juno-textarea-wrapper 
           ${wrapperStyles}
-          ${ width == "auto" ? "jn-inline-block" : "jn-block" }
-          ${ width == "auto" ? "jn-w-auto" : "jn-w-full" }
-        `} 
-        >
-        { label && label.length ?
-            <Label 
-              text={label}
-              htmlFor={theId}
-              className={`${labelStyles}`}
-              disabled={disabled}
-              required={required}
-              floating
-              minimized={ placeholder || hasFocus || val && val.length  ? true : false}
-            />
-          :
-            ""
-        }
+          ${width == "auto" ? "jn-inline-block" : "jn-block"}
+          ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+        `}
+      >
+        {label && label.length ? (
+          <Label
+            text={label}
+            htmlFor={theId}
+            className={`${labelStyles}`}
+            disabled={disabled}
+            required={required}
+            floating
+            minimized={
+              placeholder || hasFocus || (val && val.length) ? true : false
+            }
+          />
+        ) : (
+          ""
+        )}
         <textarea
           name={name}
           autoComplete={autoComplete}
@@ -224,38 +224,45 @@ export const Textarea = ({
           onChange={handleValueChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className={
-            `juno-textarea 
-            ${ textareastyles }
-            ${ label ? withLabelStyles : noLabelStyles }
-            ${ isInvalid ? "juno-textarea-invalid " + invalidstyles : "" } 
-            ${ isValid ? "juno-textarea-valid " + validstyles : "" }  
-            ${ isValid || isInvalid ? "" : defaultborderstyles } 
-            ${ width == "auto" ? "jn-w-auto" : "jn-w-full" }
-            ${ className }
+          className={`juno-textarea 
+            ${textareastyles}
+            ${label ? withLabelStyles : noLabelStyles}
+            ${isInvalid ? "juno-textarea-invalid " + invalidstyles : ""} 
+            ${isValid ? "juno-textarea-valid " + validstyles : ""}  
+            ${isValid || isInvalid ? "" : defaultborderstyles} 
+            ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+            ${className}
           `}
           {...props}
         />
         <Icons disabled={disabled} />
-      </span>
-      { errortext && isNotEmptyString(errortext) ?
-          <FormHint text={errortext} variant="error" className={`${hintStyles}`} />
-        :
-          ""
-      }
-      { successtext && isNotEmptyString(successtext) ?
-          <FormHint text={successtext} variant="success" className={`${hintStyles}`} />
-        :
-          ""
-      }
-      { helptext && isNotEmptyString(helptext) ?
-          <FormHint text={helptext} className={`${hintStyles}`} />
-        :
-          ""
-       }
+      </div>
+      {errortext && isNotEmptyString(errortext) ? (
+        <FormHint
+          text={errortext}
+          variant="error"
+          className={`${hintStyles}`}
+        />
+      ) : (
+        ""
+      )}
+      {successtext && isNotEmptyString(successtext) ? (
+        <FormHint
+          text={successtext}
+          variant="success"
+          className={`${hintStyles}`}
+        />
+      ) : (
+        ""
+      )}
+      {helptext && isNotEmptyString(helptext) ? (
+        <FormHint text={helptext} className={`${hintStyles}`} />
+      ) : (
+        ""
+      )}
     </div>
-  )
-}
+  );
+};
 
 Textarea.propTypes = {
   /** Pass a name attribute */
@@ -290,8 +297,6 @@ Textarea.propTypes = {
   onFocus: PropTypes.func,
   /** Pass a blur handler */
   onBlur: PropTypes.func,
-  /** Specify the type attribute. Defaults to an input with no type attribute, which in turn will be treateas as type="text" by browsers. */
-  type: PropTypes.oneOf(["text", "email", "password", "tel", "url", "number"]),
   /** A helptext to render to explain meaning and significance of the Textarea */
   helptext: PropTypes.node,
   /** A text to render when the Textarea was successfully validated */
@@ -300,7 +305,7 @@ Textarea.propTypes = {
   errortext: PropTypes.node,
   /** The width of the textarea. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
-}
+};
 
 Textarea.defaultProps = {
   value: "",
@@ -320,7 +325,6 @@ Textarea.defaultProps = {
   onChange: undefined,
   onFocus: undefined,
   onBlur: undefined,
-  type: null,
   label: undefined,
   width: "full",
-}
+};
