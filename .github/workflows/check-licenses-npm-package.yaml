@@ -24,7 +24,6 @@ on:
       contains-self-hosted-registry:
         description: "Set to true if the package contains dependencies to our self hosted registry"
         value: ${{ jobs.check-allowed-3rd-party-licenses.outputs.contains-self-hosted-registry }}
-        type: string
 
 jobs:
   check-allowed-3rd-party-licenses:

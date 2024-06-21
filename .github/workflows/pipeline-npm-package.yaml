@@ -51,7 +51,7 @@ jobs:
   check-licenses:
     needs: [input-processing]
     uses: ./.github/workflows/ci/check-licenses-npm-package.yaml
-    uses: cloudoperators/juno/.github/workflows/ci/check-licenses-npm-package.yaml@workflows-name-convention
+    uses: cloudoperators/juno/.github/workflows/check-licenses-npm-package.yaml@workflows-name-convention
     with:
       path: ${{ needs.input-processing.outputs.package_path }}
       node: ${{ inputs.node }}
@@ -59,7 +59,7 @@ jobs:
   test-unit-and-build:
     needs: [input-processing, check-licenses]
     if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
-    uses: cloudoperators/juno/.github/workflows/ci/test-build-npm-package.yaml@workflows-name-convention
+    uses: cloudoperators/juno/.github/workflows/test-build-npm-package.yaml@workflows-name-convention
     with:
       path: ${{ needs.input-processing.outputs.package_path }}
       node: ${{ inputs.node }}
@@ -67,7 +67,7 @@ jobs:
   publish:
     needs: [input-processing, test-unit-and-build]
     if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
-    uses: cloudoperators/juno/.github/workflows/ci/publish-npm-package-npm.yaml@workflows-name-convention
+    uses: cloudoperators/juno/.github/workflows/publish-npm-package-npm.yaml@workflows-name-convention
     with:
       path: ${{ needs.input-processing.outputs.package_path }}
       node: ${{ inputs.node }}
