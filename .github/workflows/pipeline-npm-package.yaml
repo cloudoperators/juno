@@ -13,7 +13,7 @@
 #        }
 #      }`
 # 2. Run the following command:
-#     `act workflow_call --eventpath act_workflow_call_ci.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j test-unit-and-build`
+#     `act workflow_call --eventpath act_workflow_call_ci.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j publish`
 #     `act workflow_call --eventpath act_workflow_call_ci.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -W ./.github/workflows/ci/pipeline-npm-package.yaml`
 
 name: Juno NPM Package Pipeline (publish to npm)
