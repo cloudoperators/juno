@@ -1,0 +1,73 @@
+# Run it locally with act
+#  1. Install act:
+#     `brew install act`
+#  2. Create a .secret file with the following content:
+#     `GITHUB_TOKEN=your_github_token`
+# WORKFLOW CALL
+# 1.Create a act_workflow_call.json file with the following content:
+#     `{
+#        "inputs": {
+#        "change": "{\n  \"asset\": \"messages-provider\",\n  \"type\": \"libs\"\n}",
+#        "node": "20.x",
+#        "path": "libs/messages-provider"
+#        }
+#      }`
+# 2. Run the following command:
+#     `act workflow_call --eventpath act_workflow_call_ci.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j test-unit-and-build`
+#     `act workflow_call --eventpath act_workflow_call_ci.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -W ./.github/workflows/ci/pipeline-npm-package.yaml`
+
+name: Juno NPM Package Pipeline (publish to npm)
+
+on:
+  workflow_call:
+    inputs:
+      change:
+        required: true
+        type: string
+      node:
+        required: true
+        type: string
+
+jobs:
+  input-processing:
+    runs-on: [default]
+    outputs:
+      package_path: "${{ steps.extract-attributes.outputs.CHANGED_PACKAGE_TYPE }}/${{ steps.extract-attributes.outputs.CHANGED_PACKAGE_NAME }}"
+    steps:
+      - name: Print Inputs
+        run: |
+          echo "====${{ github.workflow }} Inputs===="
+          echo "Inputs: ${{ toJson(inputs) }}"
+          echo "===="
+
+      - name: Extract package name and type and set path as output
+        id: extract-attributes
+        run: |
+          changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
+          changed_package_name=$( echo '${{ inputs.change }}' | jq -r '.asset' )
+          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_OUTPUT
+          echo "CHANGED_PACKAGE_NAME=$changed_package_name" >> $GITHUB_OUTPUT
+
+  check-licenses:
+    needs: [input-processing]
+    uses: ./.github/workflows/ci/check-licenses-npm-package.yaml
+    uses: cloudoperators/juno/.github/workflows/ci/check-licenses-npm-package.yaml@workflows-name-convention
+    with:
+      path: ${{ needs.input-processing.outputs.package_path }}
+      node: ${{ inputs.node }}
+
+  test-unit-and-build:
+    needs: [input-processing, check-licenses]
+    if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
+    uses: cloudoperators/juno/.github/workflows/ci/test-build-npm-package.yaml@workflows-name-convention
+    with:
+      path: ${{ needs.input-processing.outputs.package_path }}
+      node: ${{ inputs.node }}
+
+  publish:
+    needs: [input-processing, test-unit-and-build]
+    if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
+    uses: cloudoperators/juno/.github/workflows/ci/publish-npm-package-npm.yaml@workflows-name-convention
+    with:
+      path: ${{ needs.input-processing.outputs.package_path }}
+      node: ${{ inputs.node }}

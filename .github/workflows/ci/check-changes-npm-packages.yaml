@@ -7,9 +7,9 @@
 #  1. Create a act_pull_request.json file in case of a pull request with the following content:
 #     `{"pull_request": {"number": <PR number>, "head": {"ref": "<PR branch name>", "sha": "PR commit sha"}, "base": {"ref": "main"}}, "repository": {"name": "juno", "owner": {"login": "cloudoperators"}}}`
 #  2. Run the following command:
-#     `act pull_request --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -j run-check-test-publish -e act_pull_request.json`
+#     `act pull_request --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -j run-ci-npm-package -e act_pull_request.json`
 
-name: Detect Changes and trigger Worflow check-test-publish
+name: Detect Changes and trigger Pipeline
 
 on:
   pull_request:
@@ -75,7 +75,7 @@ jobs:
 
       - name: Show outputs
         run: |
-          echo "========"
+          echo "===${{ github.workflow }} Outputs==="
           cat temp_app_filters.yaml
           echo "========"          
           cat temp_lib_filters.yaml
@@ -89,14 +89,14 @@ jobs:
           echo changes: ${{ toJson(steps.create-matrix-changes.outputs.changes) }}
           echo "===================="
 
-  run-check-test-publish:
+  run-ci-npm-package:
     needs: [detect-changes]
     strategy:
       matrix:
         change: ${{fromJson(needs.detect-changes.outputs.changes)}}
         node: [20.x]
       fail-fast: false # Allow other jobs to continue if one fails
-    uses: cloudoperators/juno/.github/workflows/check-test-publish.yaml@main
+    uses: cloudoperators/juno/.github/workflows/ci/pipeline-npm-package.yaml@workflows-name-convention
     with:
       change: ${{ toJson(matrix.change) }}
-      node: ${{ toJson(matrix.node) }}
+      node: "${{ matrix.node }}"

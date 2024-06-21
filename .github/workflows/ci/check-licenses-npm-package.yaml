@@ -5,7 +5,7 @@
 #     `GITHUB_TOKEN=your_github_token`
 # WORKFLOW CALL
 # 1.Create a act_workflow_call.json file with the following content:
-#     `{"inputs": {"change": {"type": "package", "asset": "juno-ui-components"}, "node": "20.x"}}`
+#     `{"inputs": {"path": "packages/juno-ui-components", "node": "20.x"}}`
 # 2. Run the following command:
 #     `act workflow_call --eventpath act_workflow_call_check_licenses.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j check-allowed-3rd-party-licenses`
 
@@ -20,18 +20,22 @@ on:
       node:
         required: true
         type: string
+    outputs:
+      contains-self-hosted-registry:
+        description: "Set to true if the package contains dependencies to our self hosted registry"
+        value: ${{ jobs.check-allowed-3rd-party-licenses.outputs.contains-self-hosted-registry }}
+        type: string
 
 jobs:
   check-allowed-3rd-party-licenses:
     runs-on: [default]
     outputs:
-      contains-self-hosted-registry: ${{ steps.remove-self-hosted-registry.outputs.SKIP }}
+      contains-self-hosted-registry: ${{ steps.remove-self-hosted-registry.outputs.contains-self-hosted-registry }}
     steps:
       - name: Print inputs
         run: |
-          echo "====workflow inputs===="
-          echo "Path: ${{ inputs.path }}"
-          echo "Node: ${{ inputs.node }}"
+          echo "====Check licenses Workflow Inputs===="
+          echo "Inputs: ${{ toJson(inputs) }}"
           echo "===="
 
       - name: Checkout
@@ -69,7 +73,7 @@ jobs:
         run: |
           echo path: ${{ inputs.path }}
           cd "${{ inputs.path }}"
-          echo "====used package.json to run npm i===="
+          echo "====used package.json to run for license checker===="
           cat package.json
           echo "========"
           npm i
