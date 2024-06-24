@@ -1,0 +1,82 @@
+# Run it locally with act
+#  1. Install act:
+#     `brew install act`
+#  2. Create a .secret file with the following content:
+#     `GITHUB_TOKEN=your_github_token`
+# WORKFLOW CALL
+# 1.Create a act_workflow_call.json file with the following content:
+#     `{"inputs": {"path": "packages/juno-ui-components", "node": "20.x"}}`
+# 2. Run the following command:
+#     `act workflow_call --eventpath act_workflow_call_check_licenses.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j check-allowed-3rd-party-licenses`
+
+name: Check 3rd Party Licenses
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: "Path to the npm package"
+        required: true
+        type: string
+      node:
+        description: "Node version to use"
+        required: true
+        type: string
+    outputs:
+      contains-self-hosted-registry:
+        description: "Set to true if the package contains dependencies to our self hosted registry"
+        value: ${{ jobs.check-allowed-3rd-party-licenses.outputs.contains-self-hosted-registry }}
+
+jobs:
+  check-allowed-3rd-party-licenses:
+    runs-on: [default]
+    outputs:
+      contains-self-hosted-registry: ${{ steps.remove-self-hosted-registry.outputs.contains-self-hosted-registry }}
+    steps:
+      - name: Print inputs
+        run: |
+          echo "====Check licenses Workflow Inputs===="
+          echo "Inputs: ${{ toJson(inputs) }}"
+          echo "===="
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node }}
+
+      - name: Remove all dependencies to our self hosted registry (temporary do tue not access from the internet)
+        id: remove-self-hosted-registry
+        run: |
+          echo path: ${{ inputs.path }}
+          cd "${{ inputs.path }}"
+
+          cp package.json original-package.json
+
+          jq '(.dependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $deps |
+          (.devDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $devDeps |
+          (.peerDependencies // {} | with_entries(select(.value | contains("https://assets.juno.global.cloud.sap") | not))) as $peerDeps |
+          (if ($deps | length) > 0 then .dependencies = $deps else del(.dependencies) end) |
+          (if ($devDeps | length) > 0 then .devDependencies = $devDeps else del(.devDependencies) end) |
+          (if ($peerDeps | length) > 0 then .peerDependencies = $peerDeps else del(.peerDependencies) end)' package.json > temp.json && mv temp.json package.json
+
+          if diff original-package.json package.json > /dev/null; then
+            echo "=== No dependencies to our self hosted registry found ==="
+            echo "contains-self-hosted-registry=false" >> $GITHUB_OUTPUT
+          else
+            echo "=== Dependencies to our self hosted registry found ==="
+            echo "contains-self-hosted-registry=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install npm dependencies and check 3rd party licenses
+        run: |
+          echo path: ${{ inputs.path }}
+          cd "${{ inputs.path }}"
+          echo "====used package.json to run for license checker===="
+          cat package.json
+          echo "========"
+          npm i
+          npm install -g license-checker-rseidelsohn
+          license-checker-rseidelsohn -onlyAllow "MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD;Python-2.0;BSD*;Unlicense"
