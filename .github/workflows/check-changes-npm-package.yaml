@@ -21,7 +21,7 @@ on:
     outputs:
       changes:
         description: "List of found changes in the paths"
-        value: ${{ jobs.detect-changes.outputs.changes }}
+        value: ${{ jobs.detect-npm-changes.outputs.changes }}
 
 jobs:
   detect-npm-changes:
