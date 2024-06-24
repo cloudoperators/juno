@@ -28,7 +28,7 @@ jobs:
     needs: [run-detect-changes]
     strategy:
       matrix:
-        change: ${{fromJson(needs.detect-changes.outputs.changes)}}
+        change: ${{fromJson(needs.run-detect-changes.outputs.changes)}}
         node: [20.x]
       fail-fast: false # Allow other jobs to continue if one fails
     uses: cloudoperators/juno/.github/workflows/pipeline-npm-package.yaml@workflows-name-convention
