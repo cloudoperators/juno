@@ -25,7 +25,7 @@ jobs:
       paths: "apps libs"
 
   run-pipeline:
-    needs: [detect-changes]
+    needs: [run-detect-changes]
     strategy:
       matrix:
         change: ${{fromJson(needs.detect-changes.outputs.changes)}}
