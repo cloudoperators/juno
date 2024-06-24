@@ -15,9 +15,11 @@ on:
   workflow_call:
     inputs:
       path:
+        description: "Path to the npm package"
         required: true
         type: string
       node:
+        description: "Node version to use"
         required: true
         type: string
     outputs:

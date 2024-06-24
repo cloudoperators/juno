@@ -21,18 +21,18 @@ name: Juno NPM Package Pipeline (publish to npm)
 on:
   workflow_call:
     inputs:
-      change:
+      path:
+        description: "Path to the npm package"
         required: true
         type: string
       node:
+        description: "Node version to use"
         required: true
         type: string
 
 jobs:
   input-processing:
     runs-on: [default]
-    outputs:
-      package_path: "${{ steps.extract-attributes.outputs.CHANGED_PACKAGE_TYPE }}/${{ steps.extract-attributes.outputs.CHANGED_PACKAGE_NAME }}"
     steps:
       - name: Print Inputs
         run: |
@@ -40,19 +40,11 @@ jobs:
           echo "Inputs: ${{ toJson(inputs) }}"
           echo "===="
 
-      - name: Extract package name and type and set path as output
-        id: extract-attributes
-        run: |
-          changed_package_type=$( echo '${{ inputs.change }}' | jq -r '.type' )
-          changed_package_name=$( echo '${{ inputs.change }}' | jq -r '.asset' )
-          echo "CHANGED_PACKAGE_TYPE=$changed_package_type" >> $GITHUB_OUTPUT
-          echo "CHANGED_PACKAGE_NAME=$changed_package_name" >> $GITHUB_OUTPUT
-
   check-licenses:
     needs: [input-processing]
     uses: cloudoperators/juno/.github/workflows/check-licenses-npm-package.yaml@workflows-name-convention
     with:
-      path: ${{ needs.input-processing.outputs.package_path }}
+      path: ${{ inputs.path }}
       node: ${{ inputs.node }}
 
   test-unit-and-build:
@@ -60,7 +52,7 @@ jobs:
     if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
     uses: cloudoperators/juno/.github/workflows/test-build-npm-package.yaml@workflows-name-convention
     with:
-      path: ${{ needs.input-processing.outputs.package_path }}
+      path: ${{ inputs.path }}
       node: ${{ inputs.node }}
 
   publish:
@@ -68,5 +60,5 @@ jobs:
     if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
     uses: cloudoperators/juno/.github/workflows/publish-npm-package-npm.yaml@workflows-name-convention
     with:
-      path: ${{ needs.input-processing.outputs.package_path }}
+      path: ${{ inputs.path }}
       node: ${{ inputs.node }}

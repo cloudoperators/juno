@@ -1,0 +1,69 @@
+# Run it locally with act
+#  1. Install act:
+#     `brew install act`
+#  2. Create a .secret file with the following content:
+#     `GITHUB_TOKEN=your_github_token`
+#  PULL REQUEST
+#  1. Create a act_pull_request.json file in case of a pull request with the following content:
+#     `{"inputs": {"paths": "libs/juno-ui-components apps/exampleapp", "node": "20.x"}}`
+#  2. Run the following command:
+#     `act workflow_call --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -e act_workflow_call_ci.json -W .github/workflows/check-changes-npm-package.yaml`
+
+name: Detect Changes and trigger Pipeline
+
+on:
+  workflow_call:
+    inputs:
+      paths:
+        description: "Space separated list of paths to be checked for changes"
+        required: true
+        type: string
+    outputs:
+      changes:
+        description: "List of found changes in the paths"
+        value: ${{ jobs.detect-changes.outputs.changes }}
+
+jobs:
+  detect-changes:
+    runs-on: [default]
+    outputs:
+      changes: ${{ steps.package-filters.outputs.changes}}
+    steps:
+      - name: Print Inputs
+        run: |
+          echo "====${{ github.workflow }} Inputs===="
+          echo "Inputs: ${{ toJson(inputs) }}"
+          echo "===="
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate filters
+        id: generate-filters
+        run: |
+          # Split the input string by spaces into an array
+          IFS=' ' read -r -a paths <<< "${{ inputs.paths }}"
+
+          # Create a filter for each folder/package in the paths
+          echo "" > package_filters.yaml
+          for path in "${paths[@]}"; do
+            for folder in $path/*; do
+              echo "$folder: $folder/**" >> package_filters.yaml
+            done
+          done
+
+      - name: Set specific filters for the packages wihtin the paths
+        uses: dorny/paths-filter@v3
+        id: package-filters
+        with:
+          list-files: json
+          filters: package_filters.yaml
+
+      - name: Show outputs
+        run: |
+          echo "===${{ github.workflow }} Outputs==="
+          echo "====Package filters===="
+          cat package_filters.yaml
+          echo "========"
+          echo changed packages: ${{ steps.package-filters.outputs.changes}}
+          echo "===================="
