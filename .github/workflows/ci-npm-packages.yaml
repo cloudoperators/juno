@@ -9,7 +9,7 @@
 #  2. Run the following command:
 #     `act pull_request --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -j run-pipeline -e act_pull_request.json -W .github/workflows/ci-npm-packages.yaml`
 
-name: Detect Changes and trigger Pipeline
+name: Detect NPM Package Changes and trigger Pipeline
 
 on:
   pull_request:
@@ -19,7 +19,7 @@ on:
       - "libs/**"
 
 jobs:
-  detect-changes:
+  run-detect-changes:
     uses: cloudoperators/juno/.github/workflows/check-changes-npm-package.yaml@workflows-name-convention
     with:
       paths: "apps libs"

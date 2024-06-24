@@ -9,7 +9,7 @@
 #  2. Run the following command:
 #     `act workflow_call --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -e act_workflow_call_ci.json -W .github/workflows/check-changes-npm-package.yaml`
 
-name: Detect Changes and trigger Pipeline
+name: Detect NPM Package Changes on the given paths
 
 on:
   workflow_call:
@@ -24,7 +24,7 @@ on:
         value: ${{ jobs.detect-changes.outputs.changes }}
 
 jobs:
-  detect-changes:
+  detect-npm-changes:
     runs-on: [default]
     outputs:
       changes: ${{ steps.package-filters.outputs.changes}}
