@@ -44,7 +44,7 @@ jobs:
         run: npm run build-storybook
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           # working-directory is being ignored set the complete path to the storybook static folder
           path: libs/juno-ui-components/storybook-static
@@ -65,4 +65,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
