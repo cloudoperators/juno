@@ -1,0 +1,34 @@
+# Workflow name
+name: Build and Publish Storybook to GitHub Pages
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "libs/juno-ui-components"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: [default]
+    defaults:
+      run:
+        working-directory: libs/juno-ui-components # Set the working directory for all steps in this job
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        with:
+          install_command: npm ci
+          build_command: npm run build-storybook
+          path: storybook-static
+          # do not checkout the code again since the storybook is in a subfolder and need to set the working directory
+          checkout: false
