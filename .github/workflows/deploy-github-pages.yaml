@@ -48,7 +48,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./storybook-static
+          # working-directory is being ignored set the complete path to the storybook static folder
+          path: libs/juno-ui-components/storybook-static
 
   deploy:
     env:
