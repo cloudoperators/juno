@@ -57,3 +57,7 @@ Run the test suite:
 ```bash
 npm -w juno-ui-components run test
 ```
+
+## Storybook
+
+Storybook is deployed automatically to [GitHub Pages](https://cloudoperators.github.io/juno/?path=/story/*) on every merged pull request.
