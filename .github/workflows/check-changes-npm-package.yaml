@@ -19,7 +19,7 @@ on:
         required: false
         type: string
       folders:
-        description: "Space separated list of folders to be checked for changes. Example: 'libs/juno-ui-components' will check the juno-ui-components package."
+        description: "Space-separated list of folders to be checked for changes. Example: 'libs/communicator libs/juno-ui-components' checks for changes in the communicator and juno-ui-components packages. You can use wildcards to check all packages within a specific folder. Example: '*/ui' checks all packages with a ui folder at the second level."
         required: false
         type: string
     outputs:
@@ -49,10 +49,8 @@ jobs:
           echo "" > package_filters.yaml
 
           if [ -n "${{ inputs.paths }}" ]; then
-            # Split the input string by spaces into an array
-            IFS=' ' read -r -a paths <<< "${{ inputs.paths }}"
             # Create a filter for each folder/package in the paths
-            for path in "${paths[@]}"; do
+            for path in ${{ inputs.paths }}; do
               for folder in $path/*; do
                 echo "$folder: $folder/**" >> package_filters.yaml
               done
@@ -60,10 +58,8 @@ jobs:
           fi
 
           if [ -n "${{ inputs.folders }}" ]; then
-            # Split the input string by spaces into an array
-            IFS=' ' read -r -a folders <<< "${{ inputs.folders }}"
-            # Create a filter for each folder/package in the paths
-            for folder in "${folders[@]}"; do
+            # Create a filter for each folder
+            for folder in ${{ inputs.folders }}; do
               echo "$folder: $folder/**" >> package_filters.yaml
             done
           fi
