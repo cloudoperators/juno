@@ -15,8 +15,12 @@ on:
   workflow_call:
     inputs:
       paths:
-        description: "Space separated list of paths to be checked for changes"
-        required: true
+        description: "Space separated list of paths indicating where to collect packages to be check for changes. Example: 'libs' will check all packages in the libs folder."
+        required: false
+        type: string
+      folders:
+        description: "Space-separated list of folders to be checked for changes. Example: 'libs/communicator libs/juno-ui-components' checks for changes in the communicator and juno-ui-components packages. You can use wildcards to check all packages within a specific folder. Example: '*/ui' checks all packages with a ui folder at the second level."
+        required: false
         type: string
     outputs:
       changes:
@@ -41,16 +45,24 @@ jobs:
       - name: Generate filters
         id: generate-filters
         run: |
-          # Split the input string by spaces into an array
-          IFS=' ' read -r -a paths <<< "${{ inputs.paths }}"
-
-          # Create a filter for each folder/package in the paths
+          items=()
           echo "" > package_filters.yaml
-          for path in "${paths[@]}"; do
-            for folder in $path/*; do
+
+          if [ -n "${{ inputs.paths }}" ]; then
+            # Create a filter for each folder/package in the paths
+            for path in ${{ inputs.paths }}; do
+              for folder in $path/*; do
+                echo "$folder: $folder/**" >> package_filters.yaml
+              done
+            done
+          fi
+
+          if [ -n "${{ inputs.folders }}" ]; then
+            # Create a filter for each folder
+            for folder in ${{ inputs.folders }}; do
               echo "$folder: $folder/**" >> package_filters.yaml
             done
-          done
+          fi
 
       - name: Set specific filters for the packages wihtin the paths
         uses: dorny/paths-filter@v3
