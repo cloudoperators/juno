@@ -11,15 +11,13 @@
 name: Build and Publish Storybook to GitHub Pages
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
     paths:
       - "libs/juno-ui-components/**"
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build:
