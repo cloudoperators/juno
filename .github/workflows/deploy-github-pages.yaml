@@ -5,7 +5,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - "libs/juno-ui-components"
+      - "libs/juno-ui-components/**"
 
 permissions:
   contents: read
