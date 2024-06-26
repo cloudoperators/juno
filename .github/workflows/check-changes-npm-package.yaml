@@ -22,6 +22,11 @@ on:
         description: "Space-separated list of folders to be checked for changes. Example: 'libs/communicator libs/juno-ui-components' checks for changes in the communicator and juno-ui-components packages. You can use wildcards to check all packages within a specific folder. Example: '*/ui' checks all packages with a ui folder at the second level."
         required: false
         type: string
+      runs_on:
+        description: "The runner to use for the job"
+        required: false
+        default: "default"
+        type: string
     outputs:
       changes:
         description: "List of found changes in the paths"
@@ -29,7 +34,7 @@ on:
 
 jobs:
   detect-changes:
-    runs-on: [ubutnu-latest]
+    runs-on: ${{ inputs.runs_on}}
     outputs:
       changes: ${{ steps.package-filters.outputs.changes}}
     steps:

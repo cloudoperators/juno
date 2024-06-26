@@ -22,10 +22,15 @@ on:
         description: "Node version to use"
         required: true
         type: string
+      runs_on:
+        description: "The runner to use for the job"
+        required: false
+        default: "default"
+        type: string
 
 jobs:
   test-unit-build:
-    runs-on: [ubutnu-latest]
+    runs-on: ${{ inputs.runs_on}}
     defaults:
       run:
         working-directory: ${{ inputs.path }} # Set the working directory for all steps in this job

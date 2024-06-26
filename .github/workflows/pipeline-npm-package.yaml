@@ -29,10 +29,15 @@ on:
         description: "Node version to use"
         required: true
         type: string
+      runs_on:
+        description: "The runner to use for the job"
+        required: false
+        default: "default"
+        type: string
 
 jobs:
   input-processing:
-    runs-on: [ubutnu-latest]
+    runs-on: ${{ inputs.runs_on}}
     steps:
       - name: Print Inputs
         run: |
