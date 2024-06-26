@@ -47,15 +47,17 @@ jobs:
 
   check-licenses:
     needs: [input-processing]
-    uses: cloudoperators/juno/.github/workflows/check-licenses-npm-package.yaml@main
+    uses: cloudoperators/juno/.github/workflows/check-licenses-npm-package.yaml@workflow-use-ubuntu-latest
     with:
       path: ${{ inputs.path }}
       node: ${{ inputs.node }}
+      runs-on: ${{ inputs.runs_on}}
 
   test-unit-and-build:
     needs: [input-processing, check-licenses]
     if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
-    uses: cloudoperators/juno/.github/workflows/test-build-npm-package.yaml@main
+    uses: cloudoperators/juno/.github/workflows/test-build-npm-package.yaml@workflow-use-ubuntu-latest
     with:
       path: ${{ inputs.path }}
       node: ${{ inputs.node }}
+      runs-on: ${{ inputs.runs_on}}
