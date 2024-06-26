@@ -9,7 +9,7 @@
 # 2. Run the following command:
 #     `act workflow_call --eventpath act_workflow_call.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j publish-to-npm`
 
-name: Check, Test, and Publish
+name: Publish to NPM
 
 on:
   workflow_call:
