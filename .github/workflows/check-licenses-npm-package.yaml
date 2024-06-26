@@ -29,7 +29,7 @@ on:
 
 jobs:
   check-allowed-3rd-party-licenses:
-    runs-on: [default]
+    runs-on: [ubutnu-latest]
     outputs:
       contains-self-hosted-registry: ${{ steps.remove-self-hosted-registry.outputs.contains-self-hosted-registry }}
     steps:

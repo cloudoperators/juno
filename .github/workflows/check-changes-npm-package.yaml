@@ -29,7 +29,7 @@ on:
 
 jobs:
   detect-changes:
-    runs-on: [default]
+    runs-on: [ubutnu-latest]
     outputs:
       changes: ${{ steps.package-filters.outputs.changes}}
     steps:

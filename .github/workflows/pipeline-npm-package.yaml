@@ -32,7 +32,7 @@ on:
 
 jobs:
   input-processing:
-    runs-on: [default]
+    runs-on: [ubutnu-latest]
     steps:
       - name: Print Inputs
         run: |
