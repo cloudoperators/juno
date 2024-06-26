@@ -9,6 +9,7 @@
 #        "inputs": {
 #        "change": "{\n  \"asset\": \"messages-provider\",\n  \"type\": \"libs\"\n}",
 #        "node": "20.x",
+#        "runs_on": "ubuntu-latest"
 #        "path": "libs/messages-provider"
 #        }
 #      }`
