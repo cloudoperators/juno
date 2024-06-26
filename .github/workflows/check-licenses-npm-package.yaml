@@ -1,13 +1,13 @@
-# Run it locally with act
+# Run it locally with act (https://github.com/nektos/act)
 #  1. Install act:
 #     `brew install act`
 #  2. Create a .secret file with the following content:
 #     `GITHUB_TOKEN=your_github_token`
 # WORKFLOW CALL
 # 1.Create a act_workflow_call.json file with the following content:
-#     `{"inputs": {"path": "packages/juno-ui-components", "node": "20.x"}}`
+#     `{"inputs": {"path": "packages/juno-ui-components", "node": "20.x", "runs-on": "ubuntu-latest"}}`
 # 2. Run the following command:
-#     `act workflow_call --eventpath act_workflow_call_check_licenses.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j check-allowed-3rd-party-licenses`
+#     `act workflow_call --eventpath act_workflow_call_check_licenses.json -W .github/workflows/check-licenses-npm-package.yaml`
 
 name: Check 3rd Party Licenses
 
@@ -22,6 +22,11 @@ on:
         description: "Node version to use"
         required: true
         type: string
+      runs-on:
+        description: "The runner to use for the job"
+        required: false
+        default: "default"
+        type: string
     outputs:
       contains-self-hosted-registry:
         description: "Set to true if the package contains dependencies to our self hosted registry"
@@ -29,7 +34,7 @@ on:
 
 jobs:
   check-allowed-3rd-party-licenses:
-    runs-on: [default]
+    runs-on: ${{ inputs.runs-on}}
     outputs:
       contains-self-hosted-registry: ${{ steps.remove-self-hosted-registry.outputs.contains-self-hosted-registry }}
     steps:
