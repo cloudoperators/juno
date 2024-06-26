@@ -9,7 +9,7 @@
 #        "inputs": {
 #        "change": "{\n  \"asset\": \"messages-provider\",\n  \"type\": \"libs\"\n}",
 #        "node": "20.x",
-#        "runs_on": "ubuntu-latest"
+#        "runs-on": "ubuntu-latest"
 #        "path": "libs/messages-provider"
 #        }
 #      }`
@@ -30,7 +30,7 @@ on:
         description: "Node version to use"
         required: true
         type: string
-      runs_on:
+      runs-on:
         description: "The runner to use for the job"
         required: false
         default: "default"
@@ -38,7 +38,7 @@ on:
 
 jobs:
   input-processing:
-    runs-on: ${{ inputs.runs_on}}
+    runs-on: ${{ inputs.runs-on}}
     steps:
       - name: Print Inputs
         run: |
@@ -52,7 +52,7 @@ jobs:
     with:
       path: ${{ inputs.path }}
       node: ${{ inputs.node }}
-      runs-on: ${{ inputs.runs_on}}
+      runs-on: ${{ inputs.runs-on}}
 
   test-unit-and-build:
     needs: [input-processing, check-licenses]
@@ -61,4 +61,4 @@ jobs:
     with:
       path: ${{ inputs.path }}
       node: ${{ inputs.node }}
-      runs-on: ${{ inputs.runs_on}}
+      runs-on: ${{ inputs.runs-on}}

@@ -5,7 +5,7 @@
 #     `GITHUB_TOKEN=your_github_token`
 # WORKFLOW CALL
 # 1.Create a act_workflow_call.json file with the following content:
-#     `{"inputs": {"path": "packages/communicator", "node": "20.x", "runs_on": "ubuntu-latest"}}`
+#     `{"inputs": {"path": "packages/communicator", "node": "20.x", "runs-on": "ubuntu-latest"}}`
 # 2. Run the following command:
 #     `act workflow_call --eventpath act_workflow_call_test_build.json -j test-unit-build`
 
@@ -22,7 +22,7 @@ on:
         description: "Node version to use"
         required: true
         type: string
-      runs_on:
+      runs-on:
         description: "The runner to use for the job"
         required: false
         default: "default"
@@ -30,7 +30,7 @@ on:
 
 jobs:
   test-unit-build:
-    runs-on: ${{ inputs.runs_on}}
+    runs-on: ${{ inputs.runs-on}}
     defaults:
       run:
         working-directory: ${{ inputs.path }} # Set the working directory for all steps in this job

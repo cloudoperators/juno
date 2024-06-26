@@ -5,7 +5,7 @@
 #     `GITHUB_TOKEN=your_github_token`
 #  PULL REQUEST
 #  1. Create a act_pull_request.json file in case of a pull request with the following content:
-#     `{"inputs": {"paths": "libs/juno-ui-components apps/exampleapp", "node": "20.x", "runs_on": "ubuntu-latest"}}`
+#     `{"inputs": {"paths": "libs/juno-ui-components apps/exampleapp", "node": "20.x", "runs-on": "ubuntu-latest"}}`
 #  2. Run the following command:
 #     `act workflow_call -e act_workflow_call_ci.json -W .github/workflows/check-changes-npm-package.yaml`
 
@@ -22,7 +22,7 @@ on:
         description: "Space-separated list of folders to be checked for changes. Example: 'libs/communicator libs/juno-ui-components' checks for changes in the communicator and juno-ui-components packages. You can use wildcards to check all packages within a specific folder. Example: '*/ui' checks all packages with a ui folder at the second level."
         required: false
         type: string
-      runs_on:
+      runs-on:
         description: "The runner to use for the job"
         required: false
         default: "default"
@@ -34,7 +34,7 @@ on:
 
 jobs:
   detect-changes:
-    runs-on: ${{ inputs.runs_on}}
+    runs-on: ${{ inputs.runs-on}}
     outputs:
       changes: ${{ steps.package-filters.outputs.changes}}
     steps:
