@@ -7,7 +7,7 @@
 # 1.Create a act_workflow_call.json file with the following content:
 #     `{"inputs": {"path": "libs/communicator", "node": "20.x", "runs-on": "ubuntu-latest"}}`
 # 2. Run the following command:
-#     `act workflow_call --eventpath act_workflow_call.json -j publish-to-npm`
+#     `act workflow_call --eventpath act_workflow_call_publish.json -W .github/workflows/publish-npm-package-npm.yaml`
 
 name: Publish to NPM
 
