@@ -16,7 +16,7 @@
 #     `act workflow_call --eventpath act_workflow_call_ci.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j publish`
 #     `act workflow_call --eventpath act_workflow_call_ci.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -W ./.github/workflows/ci/pipeline-npm-package.yaml`
 
-name: Juno NPM Package Pipeline (publish to npm)
+name: Juno NPM Package Pipeline
 
 on:
   workflow_call:
@@ -51,14 +51,6 @@ jobs:
     needs: [input-processing, check-licenses]
     if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
     uses: cloudoperators/juno/.github/workflows/test-build-npm-package.yaml@main
-    with:
-      path: ${{ inputs.path }}
-      node: ${{ inputs.node }}
-
-  publish:
-    needs: [input-processing, check-licenses, test-unit-and-build]
-    if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
-    uses: cloudoperators/juno/.github/workflows/publish-npm-package-npm.yaml@main
     with:
       path: ${{ inputs.path }}
       node: ${{ inputs.node }}
