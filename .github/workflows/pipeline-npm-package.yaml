@@ -13,8 +13,8 @@
 #        }
 #      }`
 # 2. Run the following command:
-#     `act workflow_call --eventpath act_workflow_call_ci.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j publish`
-#     `act workflow_call --eventpath act_workflow_call_ci.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -W ./.github/workflows/ci/pipeline-npm-package.yaml`
+#     `act workflow_call --eventpath act_workflow_call_pipeline.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -j test-unit-and-build`
+#     `act workflow_call --eventpath act_workflow_call_pipeline.json --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -W ./.github/workflows/pipeline-npm-package.yaml`
 
 name: Juno NPM Package Pipeline
 
@@ -54,3 +54,30 @@ jobs:
     with:
       path: ${{ inputs.path }}
       node: ${{ inputs.node }}
+
+  cypress-run:
+    runs-on: [default]
+    defaults:
+      run:
+        # Set the working directory for all steps in this job
+        working-directory: apps/exampleapp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node }}
+
+      - name: Install Prerequisites to run Cypress
+        run: |
+          sudo apt-get update
+          # sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+          # For Ubuntu 24.04 use the following command: https://docs.cypress.io/guides/getting-started/installing-cypress#Linux-Prerequisites
+          sudo apt-get install libgtk2.0-0t64 libgtk-3-0t64 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm run start
+          working-directory: ${{ inputs.path }}
