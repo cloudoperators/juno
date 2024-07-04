@@ -17,6 +17,7 @@ const config = {
     "@storybook/addon-mdx-gfm",
     "./juno-addon",
   ],
+  staticDirs: ["../public"],
   webpackFinal: async (config) => {
     // Default rule for images /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
     // Exclude SVG files so that they can be loaded via svgr
