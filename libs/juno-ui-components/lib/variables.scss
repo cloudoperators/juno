@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// Juno 
+// Juno
 
 /* Color Definitions */
 /* The Mother of Colors – The single source of truth of colors in Juno.
@@ -11,6 +11,7 @@
 */
 
 /* Global Color Definitions */
+// prettier-ignore
 $color-map: (
   
   "white": (255, 255, 255),
@@ -110,6 +111,7 @@ $color-map: (
 );
 
 /* Light Theme Color Definitions */
+// prettier-ignore
 $light-theme-color-map: (
   "accent": (0, 118, 203),
   
@@ -133,6 +135,7 @@ $light-theme-color-map: (
 );
 
 /* Dark Theme Color Definitions */
+// prettier-ignore
 $dark-theme-color-map: (
   "accent": (21, 208, 224),
   
@@ -155,35 +158,30 @@ $dark-theme-color-map: (
   "juno-primary-danger-5": (164, 54, 14),
 );
 
-
-
 /* Global Color Variables */
 :root,
 :host {
-  
   @each $name, $value in $color-map {
-      --color-#{$name}: rgb(#{$value});
-      --color-#{$name}-raw: #{$value};
+    --color-#{$name}: rgb(#{$value});
+    --color-#{$name}-raw: #{$value};
   }
-  
 }
 
 /* Light Theme Color Variables */
 .theme-light {
   @each $name, $value in $light-theme-color-map {
-      --color-#{$name}: rgb(#{$value});
-      --color-#{$name}-raw: #{$value};
+    --color-#{$name}: rgb(#{$value});
+    --color-#{$name}-raw: #{$value};
   }
 }
 
 /* Dark Theme Color Variables */
 .theme-dark {
   @each $name, $value in $dark-theme-color-map {
-      --color-#{$name}: rgb(#{$value});
-      --color-#{$name}-raw: #{$value};
+    --color-#{$name}: rgb(#{$value});
+    --color-#{$name}-raw: #{$value};
   }
 }
-
 
 /* Color Assignments */
 
@@ -241,7 +239,7 @@ $dark-theme-color-map: (
   // |-- LT Primary Button :active
   --color-button-primary-active-text: var(--color-white);
   --color-button-primary-active-bg: var(--color-juno-primary-blue-5);
-  
+
   // LT Default Button
   --color-button-default-text: var(--color-text-high);
   --color-button-default-bg: var(--color-background-lvl-4);
@@ -254,7 +252,7 @@ $dark-theme-color-map: (
   --color-button-default-active-text: var(--color-text-high);
   --color-button-default-active-bg: var(--color-background-lvl-2);
   --color-button-default-active-border: var(--color-background-lvl-4);
-  
+
   // LT Subdued Button
   --color-button-subdued-text: var(--color-text-default);
   --color-button-subdued-icon: var(--color-text-default);
@@ -359,7 +357,7 @@ $dark-theme-color-map: (
   --color-syntax-highlight-base0B: var(--color-juno-blue-4); // float value
   --color-syntax-highlight-base0C: var(--color-sap-gold); // array index
   --color-syntax-highlight-base0D: var(--color-sap-gold); // expanded icon
-  --color-syntax-highlight-base0E: var(--color-juno-blue-4); 
+  --color-syntax-highlight-base0E: var(--color-juno-blue-4);
   // LT bool + collapsed icon
   --color-syntax-highlight-base0F: var(--color-juno-blue-4); // integer value
   // LT DataGrid
@@ -375,7 +373,9 @@ $dark-theme-color-map: (
   --color-panel-bg: rgba(252, 252, 252, 0.8);
   // LT TabNavigation
   --color-tabnavigation-top-bg: var(--color-juno-grey-light-5-raw);
-  --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4-raw);
+  --color-tabnavigation-content-bottom-border: var(
+    --color-background-lvl-4-raw
+  );
   // LT Filters
   --color-filters-bg: var(--color-background-lvl-1-raw);
   --color-filter-input-bg: var(--color-background-lvl-0-raw);
@@ -395,10 +395,9 @@ $dark-theme-color-map: (
   --color-topnavigation-item-active: var(--color-black);
   --color-topnavigation-item-bg: var(--color-sap-grey-1);
   --color-topnavigation-item-active-bg: var(--color-sap-grey-3);
-  
+
   // DT Datepicker
   --color-datepicker-calendar-bg: var(--color-background-lvl-1);
-  
 }
 
 /* ----- LIGHT THEME END -----*/
@@ -463,7 +462,7 @@ $dark-theme-color-map: (
   // |-- DT Primary Button :active
   --color-button-primary-active-bg: var(--color-juno-turquoise-9);
   --color-button-primary-active-text: var(--color-white);
-  
+
   // DT Default Button
   --color-button-default-text: var(--color-text-high);
   --color-button-default-icon: var(--color-text-high);
@@ -477,7 +476,7 @@ $dark-theme-color-map: (
   --color-button-default-active-text: var(--color-text-high);
   --color-button-default-active-bg: var(--color-background-lvl-2);
   --color-button-default-active-border: var(--color-background-lvl-4);
-  
+
   // DT Subdued Button
   --color-button-subdued-text: var(--color-text-default);
   --color-button-subdued-icon: var(--color-text-default);
@@ -491,7 +490,7 @@ $dark-theme-color-map: (
   --color-button-subdued-active-text: var(--color-text-default);
   --color-button-subdued-active-bg: var(--color-background-lvl-0);
   --color-button-subdued-active-border: var(--color-background-lvl-4);
-  
+
   // DT Primary-Danger Button
   --color-button-primary-danger-text: var(--color-white);
   --color-button-primary-danger-bg: var(--color-juno-primary-danger-4);
@@ -501,7 +500,7 @@ $dark-theme-color-map: (
   // |-- DT Primary Danger Button :active
   --color-button-primary-danger-active-text: var(--color-white);
   --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
-  
+
   // DT Icon
   --color-icon-danger: var(--color-juno-red-5-raw);
   --color-icon-info: var(--color-accent-raw);
@@ -582,7 +581,9 @@ $dark-theme-color-map: (
   --color-syntax-highlight-base0B: var(--color-juno-blue-4); // float value
   --color-syntax-highlight-base0C: var(--color-sap-gold); // array index
   --color-syntax-highlight-base0D: var(--color-sap-gold); // DT expanded icon
-  --color-syntax-highlight-base0E: var(--color-juno-blue-4); // DT bool + collapsed icon
+  --color-syntax-highlight-base0E: var(
+    --color-juno-blue-4
+  ); // DT bool + collapsed icon
   --color-syntax-highlight-base0F: var(--color-juno-blue-4); // integer value
   // DT DataGrid
   --color-datagridrow-selected: var(--color-accent-raw);
@@ -594,10 +595,12 @@ $dark-theme-color-map: (
   --color-codeblock-bar-border: var(--color-background-lvl-4-raw);
   // DT Panel
   --color-panel-bg: rgba(var(--color-juno-grey-blue-11-raw), 0.75);
-  
+
   // DT TabNavigation
   --color-tabnavigation-top-bg: var(--color-juno-grey-blue-8-raw);
-  --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4-raw);
+  --color-tabnavigation-content-bottom-border: var(
+    --color-background-lvl-4-raw
+  );
   // DT Filters
   --color-filters-bg: var(--color-background-lvl-1-raw);
   --color-filter-input-bg: var(--color-background-lvl-0-raw);
