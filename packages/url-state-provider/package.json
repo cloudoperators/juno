@@ -1,5 +1,5 @@
 {
-  "name": "url-state-provider",
+  "name": "@cloudoperators/juno-url-state-provider",
   "version": "1.3.4",
   "description": "Save several paths in the url. This makes it possible to manage the status of several apps such as micro frontends with the help of URL.",
   "author": "UI-Team",

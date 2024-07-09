@@ -1,5 +1,5 @@
 {
-  "name": "url-state-router",
+  "name": "@cloudoperators/juno-url-state-router",
   "version": "1.0.5",
   "description": "Router",
   "author": "UI-Team",

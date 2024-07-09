@@ -1,11 +1,11 @@
 {
-  "name": "exampleapp",
+  "name": "@cloudoperators/juno-app-example",
   "version": "1.0.6",
   "author": "UI-Team",
   "contributors": [
     "Arturo Reuschenbach Pucernau"
   ],
-  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/exampleapp",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/example",
   "license": "Apache-2.0",
   "module": "build/index.js",
   "source": "src/index.js",

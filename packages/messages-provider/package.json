@@ -1,5 +1,5 @@
 {
-  "name": "messages-provider",
+  "name": "@cloudoperators/juno-messages-provider",
   "version": "0.1.13",
   "description": "Messages provider",
   "author": "UI-Team",

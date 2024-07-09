@@ -1,5 +1,5 @@
 {
-  "name": "juno-ui-components",
+  "name": "@cloudoperators/juno-ui-components",
   "private": false,
   "main": "build/index.js",
   "module": "build/index.js",
