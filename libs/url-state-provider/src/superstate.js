@@ -5,7 +5,7 @@
 
 /*
 
-  STATEGATE 
+  SUPERSTATE 
 
   + is a space
   ~ indentifies a non URI safe character with is not % encoded when followed by a character from the keys
