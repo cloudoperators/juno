@@ -21,7 +21,7 @@
 
 import lzstring from "lz-string"
 
-module.exports = function () {
+export default function () {
   const nonURIsafe = "~%\t\n\r\\/{}()+#$@?&=[]*;,"
   const keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-!_"
 
