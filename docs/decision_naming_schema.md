@@ -2,25 +2,22 @@
 
 To establish a clear and consistent naming convention for directories and packages within our project, we have adopted the following schema:
 
-Please consider the npm naming guidelines: https://docs.npmjs.com/cli/v10/configuring-npm/package-json
+Please consider the npm naming guidelines: [npm naming guidelines](https://docs.npmjs.com/cli/v10/configuring-npm/package-json).
 
 ## Package Directory Naming
 
-**`[<TARGET_PROJECT>-]<PACKAGE_NAME>[-app|mfe]`**
+**`[apps|packages]/<PACKAGE_NAME>`**
 
 ## `package.json` Naming
 
-**`@<OWNER>/[<TARGET_PROJECT>-]<PACKAGE_NAME>[-app|mfe]`**
+**`@<OWNER>/<REPOSITORY_NAME>-[app-]<PACKAGE_NAME>`**
 
 ### Components of the Naming Schema
 
 - **`@<OWNER>`**: Used in `package.json` files on npm to namespace packages under a specific owner or organization. It facilitates grouping packages belonging to the same entity, such as a company, team, or individual developer, under a common namespace.
+- **`<REPOSITORY_NAME>`**: Specifies the name of the GitHub repository the package is intended for. This helps in categorizing and associating the package within a multi-repository environment.
 
-- **`[<TARGET_PROJECT>-]`**: Optionally specifies the target project the package is intended for, including the project name and a hyphen if applicable. This enhances categorization based on project association within a multi-project environment.
-
-- **`<PACKAGE_NAME>`**: Clearly identifies the specific package. A descriptive and concise name facilitates quick understanding of the package’s functionality or purpose.
-
-- **`[-app|mfe]`**: Optional suffix indicating whether the package is an application (`app`) or a micro frontend (`mfe`). This differentiation helps in understanding the type of functionality the package provides within the project architecture.
+- **`[app-]<PACKAGE_NAME>`**: Clearly identifies the specific package. For application packages, prefix with `app-` to distinguish them from other packages. A descriptive and concise name facilitates quick understanding of the package’s functionality or purpose.
 
 ### Examples
 
@@ -28,16 +25,30 @@ Here are some examples illustrating the application of our naming schema:
 
 #### Directory Names:
 
-- `elektra-dashboard-app`: Represents an application directory for the dashboard component in Project Elektra.
+Repository: `juno`
 
-- `elektra-compute-mfe`: Denotes a micro frontend directory for compute functionalities in Project Elektra.
+- `apps/landing-page`
+- `apps/user-dashboard`
+- `packages/ui-components`
+- `packages/communicator`
 
-- `utils-logger`: Serves as a utility directory for logging purposes, applicable across various projects.
+Repository: `elektra`
+
+- `apps/dashboard`
+- `packages/compute`
 
 #### `package.json` Entries:
 
-- `@cloudoperators/elektra-dashboard-app`: `package.json` entry for the dashboard application in Project Elektra.
+Repository: `juno`
 
-- `@cloudoperators/elektra-compute-mfe`: `package.json` entry for the compute micro frontend in Project Elektra.
+- `@cloudoperators/juno-app-landing-page`
+- `@cloudoperators/juno-app-user-dashboard`
+- `@cloudoperators/juno-ui-components`
+- `@cloudoperators/juno-communicator`
 
-- `@cloudoperators/utils-logger`: `package.json` entry for the logging utility package.
+Repository: `elektra`
+
+- `@cloudoperators/elektra-app-dashboard`
+- `@cloudoperators/elektra-compute`
+
+These examples should help in understanding how to apply the naming schema consistently across directories and `package.json` files.
