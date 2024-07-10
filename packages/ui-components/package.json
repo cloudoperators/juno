@@ -15,7 +15,7 @@
     "Esther Schmitz",
     "Franz Heidl"
   ],
-  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/juno-ui-components",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/juno-ui-components",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0 <21.0.0",

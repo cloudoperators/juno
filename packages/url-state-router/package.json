@@ -6,7 +6,7 @@
   "contributors": [
     "Andreas Pfau"
   ],
-  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/url-state-router",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/url-state-router",
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",

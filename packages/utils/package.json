@@ -7,7 +7,7 @@
     "Andreas Pfau",
     "Arturo Reuschenbach Pucernau"
   ],
-  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/utils",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/utils",
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",

@@ -6,7 +6,7 @@
   "contributors": [
     "Andreas Pfau"
   ],
-  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/oauth",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/oauth",
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",

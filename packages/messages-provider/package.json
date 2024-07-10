@@ -6,7 +6,7 @@
   "contributors": [
     "Arturo Reuschenbach Pucernau"
   ],
-  "repository": "https://github.com/cloudoperators/juno/tree/main/libs/messages-provider",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/messages-provider",
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
