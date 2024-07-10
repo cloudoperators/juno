@@ -4,12 +4,12 @@
  */
 
 import LZString from "lz-string"
-import juriCutlery from "juri-cutlery"
+import superstate from "./superstate"
 
-const jsonURLSerializer = juriCutlery()
+const jsonURLSerializer = superstate()
 const SEARCH_KEY = "__s"
-const regex = new RegExp(SEARCH_KEY + "=([^&]+)")
 
+const regex = new RegExp(SEARCH_KEY + "=([^&]+)")
 /**
  * Variable where to host listeners for history changes
  */
@@ -253,7 +253,6 @@ function informListener(stateID, newState, oldState) {
     if (JSON.stringify(oldState) === JSON.stringify(newState)) return
   }
 
-  //console.log("INFORM_LISTENER", stateID, newState)
   // inform listener
   listener(newState)
 }
@@ -289,11 +288,9 @@ function registerConsumer(stateID) {
     },
     onGlobalChange,
     push: function (state, historyOptions) {
-      //console.log("PUSH", stateID, state)
       push(stateID, state, historyOptions)
     },
     replace: function (state, historyOptions) {
-      //console.log("REPLACE", stateID, state)
       replace(stateID, state, historyOptions)
     },
   }
