@@ -15,7 +15,7 @@ on:
     branches:
       - main
     paths:
-      - "libs/juno-ui-components/**"
+      - "packages/juno-ui-components/**"
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -25,12 +25,12 @@ jobs:
     defaults:
       run:
         # Set the working directory for all steps in this job
-        working-directory: libs/juno-ui-components
+        working-directory: packages/juno-ui-components
     steps:
       - uses: actions/checkout@v4
         with:
           # Fetch only the juno-ui-components folder
-          sparse-checkout: libs/juno-ui-components
+          sparse-checkout: packages/juno-ui-components
 
       - uses: actions/setup-node@v4
         with:
@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # working-directory is being ignored set the complete path to the storybook static folder
-          path: libs/juno-ui-components/storybook-static
+          path: packages/juno-ui-components/storybook-static
 
   deploy:
     env:

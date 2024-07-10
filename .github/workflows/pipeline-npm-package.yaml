@@ -7,10 +7,10 @@
 # 1.Create a act_workflow_call.json file with the following content:
 #     `{
 #        "inputs": {
-#        "change": "{\n  \"asset\": \"messages-provider\",\n  \"type\": \"libs\"\n}",
+#        "change": "{\n  \"asset\": \"messages-provider\",\n  \"type\": \"packages\"\n}",
 #        "node": "20.x",
 #        "runs-on": "ubuntu-latest"
-#        "path": "libs/messages-provider"
+#        "path": "packages/messages-provider"
 #        }
 #      }`
 # 2. Run the following command:

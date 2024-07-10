@@ -9,25 +9,36 @@ Juno has evolved into a platform that includes tools and libraries for developin
 ### Key Components
 
 - **Design System**: The `ui-components` library offers a consistent set of UI components, styles, and guidelines for building user interfaces.
+- **OIDC Library**: Provides OpenID Connect (OIDC) support for authentication and authorization in Juno-based applications.
+- **Communicator Library**: Facilitates communication between different parts of the application, ensuring efficient data exchange.
+- **CLI Tools**: Command-line tools to generate, build, and manage applications and libraries, simplifying the development workflow.
 
-## Micro Frontends (MFE)
+### Applications
 
-Juno consists of multiple Micro Frontends (MFE) that encapsulate specific functionality and user interface components. Each MFE operates independently and can be integrated into a larger application seamlessly.
+Juno includes various applications that showcase the use of its tools and libraries, providing examples and templates for developers.
 
-### Included Micro Frontends
+#### Included Applications
 
-- `apps/landing-page`
-- `apps/user-dashboard`
+- `apps/example`
+- `apps/template`
 
-## Libraries
+### Libraries
 
-In addition to Micro Frontends, Juno also includes a set of libraries that provide shared functionality and utilities across different parts of the system. These libraries are designed for reusability and modularity, facilitating consistent development practices and code sharing.
+In addition to applications, Juno also includes a set of libraries that provide shared functionality and utilities across different parts of the system. These libraries are designed for reusability and modularity, facilitating consistent development practices and code sharing.
 
-### Included Libraries
+#### Included Libraries
 
 - `packages/ui-components`
 - `packages/communicator`
-- `packages/oidc-lib`
+- `packages/oauth`
+
+## Getting Started
+
+To get started with Juno, follow the instructions in the [Getting Started Guide](docs/getting-started.md). This guide covers the initial setup, installation of dependencies, and basic usage of the platform's tools and libraries.
+
+## Documentation
+
+Comprehensive documentation for Juno is available in the [docs](docs) directory. This includes detailed guides on using the various tools and libraries, best practices, and examples to help you get the most out of the platform.
 
 ## Support, Feedback, Contributing
 

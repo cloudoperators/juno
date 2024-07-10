@@ -16,13 +16,13 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - "apps/**"
-      - "libs/**"
+      - "packages/**"
 
 jobs:
   run-detect-changes:
     uses: cloudoperators/juno/.github/workflows/check-changes-npm-package.yaml@main
     with:
-      paths: "apps libs"
+      paths: "apps packages"
 
   run-pipeline:
     needs: [run-detect-changes]
