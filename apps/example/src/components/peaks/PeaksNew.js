@@ -5,14 +5,14 @@
 
 import React, { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useActions } from "messages-provider"
+import { useActions } from "@cloudoperators/juno-messages-provider"
 import {
   PanelBody,
   PanelFooter,
   Button,
   FormRow,
   TextInput,
-} from "juno-ui-components"
+} from "@cloudoperators/juno-ui-components"
 
 const PeaksNew = ({ closeCallback }) => {
   const queryClient = useQueryClient()

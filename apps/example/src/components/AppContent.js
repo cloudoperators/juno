@@ -15,14 +15,14 @@ import {
   TabPanel,
   Select,
   SelectOption,
-} from "juno-ui-components"
+} from "@cloudoperators/juno-ui-components"
 import {
   useGlobalsActions,
   useGlobalsTabIndex,
   useAuthLoggedIn,
   useAuthError,
 } from "./StoreProvider"
-import { useActions, Messages } from "messages-provider"
+import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
 import ModalManager from "./ModalManager"
 import PanelManager from "./PanelManager"
 import Peaks from "./peaks/Peaks"
