@@ -39,7 +39,7 @@ esbuild
       ctx
         .serve({
           host: "0.0.0.0",
-          port: parseInt(process.env.APP_PORT),
+          port: parseInt(process.env.APP_PORT || 3000),
           servedir: DEV_FOLDER,
         })
         .then(({ host, port }) => console.log("serve on", `${host}:${port}`))
