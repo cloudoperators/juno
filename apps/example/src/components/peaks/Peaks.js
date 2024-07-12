@@ -6,7 +6,7 @@
 import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import PeaksList from "./PeaksList"
-import { Spinner, Message } from "juno-ui-components"
+import { Spinner, Message } from "@cloudoperators/juno-ui-components"
 import { useGlobalsQueryClientFnReady } from "../StoreProvider"
 
 const Peaks = () => {

@@ -9,7 +9,7 @@ import {
   useGlobalsEndpoint,
   useGlobalsActions,
 } from "../components/StoreProvider"
-import { fetchProxy as fetch } from "utils"
+import { fetchProxy as fetch } from "@cloudoperators/juno-utils"
 
 class HTTPError extends Error {
   constructor(code, message) {

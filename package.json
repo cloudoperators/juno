@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "displayName": "juno",
+  "name": "juno",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=docs^... && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.3"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packageManager": "^npm@10.0.0",
+  "dependencies": {
+    "workspaces": "^0.1.0"
+  }
+}

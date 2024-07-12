@@ -11,11 +11,11 @@ import {
   DataGridHeadCell,
   DataGridRow,
   DataGridCell,
-} from "juno-ui-components"
+} from "@cloudoperators/juno-ui-components"
 import PeaksListItem from "./PeaksListItem"
 import HintNotFound from "../shared/HintNotFound"
 import { useGlobalsActions } from "../StoreProvider"
-import { useEndlessScrollList } from "utils"
+import { useEndlessScrollList } from "@cloudoperators/juno-utils"
 
 const LIST_COLUMNS = 6
 
