@@ -1,7 +1,8 @@
-node_modules
-build
+.turbo
 .DS_Store
+node_modules
 npm-debug.log*
+build
 
 # act artifacts needed for testing workflows
 .secrets

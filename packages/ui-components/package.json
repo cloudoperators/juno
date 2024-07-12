@@ -7,6 +7,7 @@
   "style": "build/lib/variables.css",
   "version": "2.15.0",
   "files": [
+    "build/*",
     "src/colors.css",
     "tailwind.config.js"
   ],
@@ -91,6 +92,7 @@
     "storybook": "storybook dev -p $APP_PORT --ci --no-open",
     "build-storybook": "storybook build",
     "build": "rollup -c",
+    "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },

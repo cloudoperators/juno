@@ -10,8 +10,8 @@ import {
   AppShell,
   PageHeader,
   Container,
-} from "juno-ui-components"
-import { oidcSession, mockedSession } from "oauth"
+} from "@cloudoperators/juno-ui-components"
+import { oidcSession, mockedSession } from "@cloudoperators/juno-oauth"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import AppContent from "./components/AppContent"
 import HeaderUser from "./components/auth/HeaderUser"
@@ -20,10 +20,10 @@ import StoreProvider, {
   useGlobalsActions,
   useAuthActions,
 } from "./components/StoreProvider"
-import { MessagesProvider } from "messages-provider"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
 // mock API
-import { fetchProxyInitDB } from "utils"
+import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
 import db from "../db.json"
 
 const App = (props = {}) => {
