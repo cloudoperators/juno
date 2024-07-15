@@ -27,4 +27,5 @@ To achieve these goals, the following decisions have been made:
    - Adoption of `turborepo` is proposed to optimize task management and leverage caching for performance improvements.
 
 3. **Release Management:**
+
    - The `changeset` CLI tool will be used to manage versioning and changelogs for packages within the monorepo. It will streamline the process of tracking changes, updating versions, and generating changelogs for releases.
