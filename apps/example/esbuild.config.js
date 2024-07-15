@@ -198,7 +198,7 @@ const build = async () => {
 
       let { host, port } = await ctx.serve({
         host: "0.0.0.0",
-        port: parseInt(process.env.APP_PORT || process.env.PORT || 3020),
+        port: parseInt(process.env.APP_PORT || process.env.PORT || 3000),
         servedir: "public",
       })
       console.log("serve on", `${host}:${port}`)

@@ -40,7 +40,7 @@ esbuild
         .serve({
           host: "0.0.0.0",
           port: parseInt(
-            process.env.COMMUNICATOR_PORT || process.env.APP_PORT || 3000
+            process.env.COMMUNICATOR_PORT || process.env.APP_PORT || 3001
           ),
           servedir: DEV_FOLDER,
         })
