@@ -5,6 +5,7 @@
 
 import React, { useEffect } from "react"
 import styles from "./styles.scss"
+
 import {
   AppShellProvider,
   AppShell,
