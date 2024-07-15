@@ -5,14 +5,6 @@
 
 import React, { useEffect } from "react"
 import styles from "./styles.scss"
-import { broadcast, watch, get, onGet } from "communicator"
-
-console.log("==import communicator", {
-  broadcast,
-  watch,
-  get,
-  onGet,
-})
 
 import {
   AppShellProvider,
