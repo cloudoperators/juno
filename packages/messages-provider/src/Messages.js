@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Message } from "juno-ui-components"
+import { Message } from "@cloudoperators/juno-ui-components"
 import { useMessages, useActions } from "./useMessageStore"
 
 const shouldAutoDismiss = (variant) => {
