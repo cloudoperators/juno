@@ -1,5 +1,9 @@
 # Decision Document: Monorepo Adoption
 
+## Overview
+
+The decision to adopt a monorepo structure for our projects is driven by the need for improved dependency management, task performance, and a streamlined release process. This document outlines the motivation and decision points.
+
 ## Motivation for Monorepo
 
 The decision to adopt a monorepo is driven by the following considerations:
