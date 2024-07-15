@@ -20,7 +20,7 @@ To achieve these goals, the following decisions have been made:
 
 1. **Dependency Management:**
 
-   - Internal dependencies within the monorepo will be marked with `*` to streamline development processes.
+   - Internal dependencies within the monorepo will be marked with `*` to streamline development processes. Within the monorepo, internal dependencies are marked with _ to streamline development processes. This notation signifies that the referenced packages are internal to the monorepo. When preparing a package for publication, these _ placeholders are replaced temporarily with the appropriate version numbers before the packages are published to npm.
 
 2. **Tool Adoption:**
 
