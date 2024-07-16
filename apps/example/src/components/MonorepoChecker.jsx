@@ -12,6 +12,7 @@ import {
 } from "@cloudoperators/juno-communicator";
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider";
 import { mockedSession } from "@cloudoperators/juno-oauth";
+import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
 
 import { Stack } from "@cloudoperators/juno-ui-components";
 
@@ -23,7 +24,7 @@ console.log("==import communicator", {
 });
 
 console.log("==import oauth", mockedSession);
-
+console.log("==import juno url state provider", registerConsumer("MONOREPO"))
 console.log("==import message provider", {
   MessagesProvider,
 });
