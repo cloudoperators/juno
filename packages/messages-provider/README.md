@@ -99,7 +99,7 @@ This is the case when you want to manage and display the messages in different l
 import React from "react"
 import { MessagesProvider } from "messages-provider"
 import NewItemForm from "./NewItemForm"
-import { Panel } from "juno-ui-components"
+import { Panel } from "@cloudoperators/juno-ui-components"
 
 const NewItem = (props) => {
   return (
@@ -119,7 +119,7 @@ Within the NewItemForm component all actions will be handled bei the first `pare
 ```javascript
 import React from "react"
 import { useActions, Messages } from "messages-provider"
-import { PanelBody } from "juno-ui-components"
+import { PanelBody } from "@cloudoperators/juno-ui-components"
 
 const NewItemForm = (props) => {
   const { addMessage } = useActions()

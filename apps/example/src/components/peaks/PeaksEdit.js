@@ -11,7 +11,7 @@ import {
   PanelFooter,
   FormRow,
   TextInput,
-} from "juno-ui-components"
+} from "@cloudoperators/juno-ui-components"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import HintLoading from "../shared/HintLoading"
 import { useGlobalsQueryClientFnReady } from "../StoreProvider"

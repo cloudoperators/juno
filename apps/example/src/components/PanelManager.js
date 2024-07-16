@@ -4,7 +4,7 @@
  */
 
 import React, { useMemo } from "react"
-import { Panel } from "juno-ui-components"
+import { Panel } from "@cloudoperators/juno-ui-components"
 import PeaksEdit from "./peaks/PeaksEdit"
 import PeaksNew from "./peaks/PeaksNew"
 import { useGlobalsActions, useGlobalsCurrentPanel } from "./StoreProvider"

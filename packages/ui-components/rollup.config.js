@@ -116,11 +116,7 @@ const config = [
 
     plugins: [del({ targets: [`${buildDir}/**/*`] }), ...plugins],
 
-    external: ["react", "react-dom", "prop-types"].concat(
-      isProduction && !IGNORE_EXTERNALS
-        ? Object.keys(pkg.peerDependencies || {})
-        : []
-    ),
+    external: Object.keys(pkg.peerDependencies || {}),
   },
   {
     input: "tailwind.config.js",
