@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - andypf-release-workflow
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
