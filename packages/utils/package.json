@@ -16,6 +16,10 @@
     "node": ">=20.0.0 <21.0.0",
     "npm": ">=10.0.0 <11.0.0"
   },
+  "files": [
+    "build/*",
+    "LICENSE"
+  ],
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
@@ -33,7 +37,8 @@
   },
   "scripts": {
     "test": "NODE_ENV=test jest",
-    "build": "NODE_ENV=production node ./esbuild.config.js"
+    "dev": "esbuild src/index.js --outfile=build/index.js --format=esm --loader:.js=jsx --bundle --watch",
+    "build": "esbuild src/index.js --outfile=build/index.js --format=esm --loader:.js=jsx --bundle --minify"
   },
   "babel": {
     "presets": [
