@@ -56,7 +56,7 @@
     "@cloudoperators/juno-ui-components": "*",
     "@cloudoperators/juno-messages-provider": "*",
     "@cloudoperators/juno-communicator": "*",
-    "@cloudoperators/juno-url-state-provider": "https://assets.juno.global.cloud.sap/libs/url-state-provider@1.3.2/package.tgz",
+    "@cloudoperators/juno-url-state-provider": "*",
     "@cloudoperators/juno-utils": "https://assets.juno.global.cloud.sap/libs/utils@1.1.6/package.tgz"
   },
   "peerDependencies": {
