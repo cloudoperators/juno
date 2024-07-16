@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-ui-components": "*",
+    "@cloudoperators/juno-messages-provider": "*",
+    "@cloudoperators/juno-communicator": "*",
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",

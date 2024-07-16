@@ -16,7 +16,7 @@
     "npm": ">=10.0.0 <11.0.0"
   },
   "peerDependencies": {
-    "juno-ui-components": "https://assets.juno.global.cloud.sap/libs/juno-ui-components@2.14.1/package.tgz",
+    "@cloudoperators/juno-ui-components": "https://assets.juno.global.cloud.sap/libs/juno-ui-components@2.14.1/package.tgz",
     "react": "18.2.0",
     "zustand": "4.5.2"
   },
@@ -46,7 +46,7 @@
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "test": "NODE_ENV=test jest",
-    "devOld": "PORT=3005 node server.js"
+    "dev": "NODE_ENV=development rollup -c -w"
   },
   "jest": {
     "testEnvironment": "jsdom",
