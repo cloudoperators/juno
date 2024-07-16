@@ -6,6 +6,10 @@
   "contributors": [
     "Andreas Pfau"
   ],
+  "files": [
+    "build/*",
+    "LICENCE"
+  ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/oauth",
   "source": "src/index.js",
   "main": "build/index.js",
@@ -27,7 +31,8 @@
   },
   "scripts": {
     "test": "NODE_ENV=test jest",
-    "build": "NODE_ENV=production node ./esbuild.config.js"
+    "build": "esbuild src/index.js --outfile=build/index.js --format=esm --bundle --minify",
+    "dev": "esbuild src/index.js --outfile=build/index.js --format=esm --bundle --watch"
   },
   "babel": {
     "presets": [
