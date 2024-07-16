@@ -11,15 +11,18 @@ import {
   onGet,
 } from "@cloudoperators/juno-communicator";
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider";
+import { mockedSession } from "@cloudoperators/juno-oauth";
 
 import { Stack } from "@cloudoperators/juno-ui-components";
-console.log("HI folks from mono")
+
 console.log("==import communicator", {
   broadcast,
   watch,
   get,
   onGet,
 });
+
+console.log("==import oauth", mockedSession);
 
 console.log("==import message provider", {
   MessagesProvider,
