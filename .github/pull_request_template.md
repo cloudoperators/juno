@@ -1,14 +1,40 @@
-## Description
-I experiment with build task and specific turbo task order so there are no errors occur later, also clean up the package.json
+# Summary
 
-## Related Issue
-Link or brief description of the related issue.
+<!-- Provide a short summary explaining the purpose of this pull request. -->
 
-## Changes
-- oauth through the turbo dev
-- no esbuild config for oauth
+# Changes Made
 
-## Testing
- - turbo dev
+<!-- List the changes that were made in this pull request. -->
 
-Summary of tests performed.
+- Change 1
+- Change 2
+- Change 3
+
+# Related Issues
+
+<!-- List any related issues or tickets, including links to them. -->
+
+- Issue 1: [link to issue]
+
+# Screenshots (if applicable)
+
+<!-- If there are any visual changes, provide screenshots or GIFs. -->
+
+# Testing Instructions
+
+<!-- Describe the steps needed to test this pull request. -->
+
+1. Step 1
+2. Step 2
+3. Step 3
+
+# Checklist
+
+<!-- Ensure that your pull request meets the following requirements. -->
+
+- [ ] I have performed a self-review of my code.
+- [ ] I have commented my code, particularly in hard-to-understand areas.
+- [ ] I have added tests that prove my fix is effective or that my feature works.
+- [ ] New and existing unit tests pass locally with my changes.
+- [ ] I have made corresponding changes to the documentation (if applicable).
+- [ ] My changes generate no new warnings or errors.
