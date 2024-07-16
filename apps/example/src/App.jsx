@@ -3,43 +3,45 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
-import styles from "./styles.scss"
+import React, { useEffect } from "react";
+import styles from "./styles.scss";
+
+import MonorepoChecker from "./components/MonorepoChecker";
 
 import {
   AppShellProvider,
   AppShell,
   PageHeader,
   Container,
-} from "@cloudoperators/juno-ui-components"
-import { oidcSession, mockedSession } from "@cloudoperators/juno-oauth"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import AppContent from "./components/AppContent"
-import HeaderUser from "./components/auth/HeaderUser"
-import AsyncWorker from "./components/AsyncWorker"
+} from "@cloudoperators/juno-ui-components";
+import { oidcSession, mockedSession } from "@cloudoperators/juno-oauth";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AppContent from "./components/AppContent";
+import HeaderUser from "./components/auth/HeaderUser";
+import AsyncWorker from "./components/AsyncWorker";
 import StoreProvider, {
   useGlobalsActions,
   useAuthActions,
-} from "./components/StoreProvider"
-import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
+} from "./components/StoreProvider";
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider";
 
 // mock API
-import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
-import db from "../db.json"
+import { fetchProxyInitDB } from "@cloudoperators/juno-utils";
+import db from "../db.json";
 
 const App = (props = {}) => {
-  const { setEndpoint } = useGlobalsActions()
-  const { setData } = useAuthActions()
+  const { setEndpoint } = useGlobalsActions();
+  const { setData } = useAuthActions();
 
   // Create query client which it can be used from overall in the app
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient();
 
   // on app initial load save Endpoint and URL_STATE_KEY so it can be
   // used from overall in the application
   useEffect(() => {
     // set default endpoint so the useQueryClientFn can be used
-    setEndpoint(props.endpoint || window.location.origin)
-  }, [])
+    setEndpoint(props.endpoint || window.location.origin);
+  }, []);
 
   // fetch the mocked auth object and save it globally
   const oidc = React.useMemo(() => {
@@ -47,20 +49,21 @@ const App = (props = {}) => {
     return mockedSession({
       initialLogin: true,
       onUpdate: (data) => {
-        setData(data)
+        setData(data);
       },
-    })
-  }, [])
+    });
+  }, []);
 
   // setup the mock db.json
   useEffect(() => {
-    fetchProxyInitDB(db)
-  }, [])
+    fetchProxyInitDB(db);
+  }, []);
 
-  console.log("[exampleapp] embedded mode:", props.embedded)
+  console.log("[exampleapp] embedded mode:", props.embedded);
 
   return (
     <QueryClientProvider client={queryClient}>
+      <MonorepoChecker></MonorepoChecker>
       <AsyncWorker consumerId={props.id} mockAPI={true} />
       <AppShell
         pageHeader={
@@ -71,12 +74,13 @@ const App = (props = {}) => {
         embedded={props.embedded === "true" || props.embedded === true}
       >
         <Container py>
+
           <AppContent props={props} />
         </Container>
       </AppShell>
     </QueryClientProvider>
-  )
-}
+  );
+};
 
 const StyledApp = (props) => {
   return (
@@ -89,6 +93,6 @@ const StyledApp = (props) => {
         </StoreProvider>
       </MessagesProvider>
     </AppShellProvider>
-  )
-}
-export default StyledApp
+  );
+};
+export default StyledApp;
