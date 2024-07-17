@@ -40,7 +40,7 @@ const serve = args.indexOf("--serve") >= 0
 // helpers for console log
 const green = "\x1b[32m%s\x1b[0m"
 const yellow = "\x1b[33m%s\x1b[0m"
-const clear = "\033c"
+const clear = "\x1b"
 
 const build = async () => {
   // delete build folder and re-create it as an empty folder
