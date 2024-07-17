@@ -3,17 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useRef } from "react"
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef} from "react"
 import PropTypes from "prop-types"
 import { ShadowRoot } from "../ShadowRoot/index"
 import tailwindTheme from "../../../tailwind.config"
 import Fonts from "./Fonts"
 import GlobalStyles, { styles } from "./GlobalStyles"
+import useLocalStorage from "../../hooks/useLocalStorage"
 
-// create the context for values to be provided to the nested components.
+// Create the context for values to be provided to the nested components.
 const StylesContext = React.createContext()
-
 const APP_BODY_CSS_CLASS_NAME = "juno-app-body"
+const DEFAULT_THEME_NAME = "theme-dark"
 
 /**
  * Component wich inserts the ui styles. It also creates a
@@ -41,8 +42,10 @@ export const StyleProvider = ({
   children,
   shadowRootMode,
 }) => {
-  // theme class default to theme-dark
-  const themeClass = themeClassName || "theme-dark"
+  // Lazy init the currently stored theme using either the theme passed as a prop or default:
+  const themeClass = themeClassName || DEFAULT_THEME_NAME
+  const [storedTheme, setStoredTheme] = useLocalStorage("juno-theme", themeClass)
+
 
   // store current theme. This is needed to remove the old theme class when the theme changes
   const currentTheme = useRef(themeClass)
@@ -86,15 +89,16 @@ export const StyleProvider = ({
       container.current.classList.add(value)
       currentTheme.current = value
       containerCssClasses.current = container.current.className
+      setStoredTheme(value)
     },
     [container.current, currentTheme.current]
   )
 
-  // update the theme class when the theme changes
+  // update the theme class when the theme prop changes
   React.useEffect(() => {
     if (!container.current) return
-    setThemeClass(themeClass)
-  }, [setThemeClass, themeClass])
+    setThemeClass(themeClassName || DEFAULT_THEME)
+  }, [themeClassName])
 
   // useMemo is used to avoid re-rendering the component when the theme changes
   return React.useMemo(
@@ -106,6 +110,7 @@ export const StyleProvider = ({
           value={{
             styles,
             theme: tailwindTheme,
+            currentTheme: currentTheme.current,
             setThemeClass,
             addCssClass,
             removeCssClass,
