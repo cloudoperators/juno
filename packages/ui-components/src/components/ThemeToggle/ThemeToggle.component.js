@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Button } from "../Button/"
 import { StyleProvider} from "../StyleProvider/index"
 
+
+// TODO: description, propTypes, stories, tests.
 export const ThemeToggle = ({
   className,
   disabled, 

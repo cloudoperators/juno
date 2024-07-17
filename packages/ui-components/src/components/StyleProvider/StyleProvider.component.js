@@ -3,7 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef} from "react"
+import React, { 
+  createContext, 
+  useCallback, 
+  useContext, 
+  useEffect, 
+  useId, 
+  useMemo, 
+  useRef} 
+from "react"
 import PropTypes from "prop-types"
 import { ShadowRoot } from "../ShadowRoot/index"
 import tailwindTheme from "../../../tailwind.config"
@@ -11,18 +19,18 @@ import Fonts from "./Fonts"
 import GlobalStyles, { styles } from "./GlobalStyles"
 import useLocalStorage from "../../hooks/useLocalStorage"
 
-// Create the context for values to be provided to the nested components.
-const StylesContext = React.createContext()
+// Create the context for values and methods to be provided to the nested components.
+const StylesContext = createContext()
+
 const APP_BODY_CSS_CLASS_NAME = "juno-app-body"
 const DEFAULT_THEME_NAME = "theme-dark"
 
 /**
- * Component wich inserts the ui styles. It also creates a
- * shadow dom element with styes inside it if 'stylesWrapper' is equal
- * to "shadowRoot".
+ * Component wich inserts the ui styles and manages theming. 
+ * It also creates a shadow dom element with styes inside  if 'stylesWrapper' is equal to "shadowRoot".
  * Accepted values for 'stylesWrapper' are 'head', 'inline' and 'shadowRoot'.
-Both this component and ShadowRoot
- * can be used independently. The stylesWrapper parameter is set to "inline" by default.
+ * Both this component and ShadowRoot can be used independently. 
+ * The stylesWrapper parameter is set to "inline" by default.
  * If you want to use StyleProvider without inline styles, then the value of this
  * parameter should be changed to "head".
  * Examples:
@@ -38,27 +46,31 @@ Both this component and ShadowRoot
  */
 export const StyleProvider = ({
   stylesWrapper,
-  theme: themeClassName,
+  theme: themeProp,
   children,
   shadowRootMode,
 }) => {
-  // Lazy init the currently stored theme using either the theme passed as a prop or default:
-  const themeClass = themeClassName || DEFAULT_THEME_NAME
-  const [storedTheme, setStoredTheme] = useLocalStorage("juno-theme", themeClass)
-
-
-  // store current theme. This is needed to remove the old theme class when the theme changes
+  // Create a unique Id string to add to the key in local storage. Otherwise, in case there are multiple StyleProvider instances, these would all write to and read from the same key causing havoc.
+  const themeUId = useId()
+  // Determine the default value to init the storedTheme by using the prop if passed, or default:
+  const themeClass = themeProp || DEFAULT_THEME_NAME
+  // Init the currently stored theme using either the theme passed as a prop or default:
+  const [storedTheme, setStoredTheme] = useLocalStorage("juno-theme" + "-" + themeUId, themeClass)
+  
+  // Store a reference to the current theme. This is needed to remove the old theme class when the theme is updated:
+  // (Idea: this could potentially be omitted if we do not remove and add the theme class to update, but just re-generate the whole set of classes, so we do not care about the old theme class anymore.)
   const currentTheme = useRef(themeClass)
-  // store current container css classes. This is needed to update classes without loosing the old ones
+  // Store a reference to the current container css classes. This is needed to update classes without loosing the old ones.
   const containerCssClasses = useRef(APP_BODY_CSS_CLASS_NAME + " " + themeClass)
-  // store the reference to the container element
-  const container = useRef()
+  // Store a reference to the container element:
+  const container = useRef(null)
+
 
   // Deprecated!
   // Only necessary in case the stylesWrapper is set to shadowRoot.
   // This functionality exists to provide backwards compatibility.
   // Should be removed in perspective
-  const Wrapper = React.useCallback(
+  const Wrapper = useCallback(
     ({ children }) => {
       if (stylesWrapper === "shadowRoot")
         return <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot>
@@ -67,21 +79,21 @@ export const StyleProvider = ({
     [stylesWrapper, shadowRootMode]
   )
 
-  // this function makes it possible to add css class to the container on the fly
+  // Function to add a css class to the container on the fly (without re-rendering):
   const addCssClass = useCallback((value) => {
     if (!container.current || typeof value !== "string") return
     container.current.classList.add(value)
     containerCssClasses.current = container.current.className
   }, [])
 
-  // this function makes it possible to remove css class from the container on the fly
+  // Function to remove css class from the container on the fly (without re-rendering):
   const removeCssClass = useCallback((value) => {
     if (!container.current || typeof value !== "string") return
     container.current.classList.remove(value)
     containerCssClasses.current = container.current.className
   }, [])
 
-  // this function makes it possible to change the theme class on the fly
+  // Function to update the theme class on the container without re-rendering the container, and to write the new theme to local storage. This function will be exposed to all children via context:
   const setThemeClass = useCallback(
     (value) => {
       if (!container.current || typeof value !== "string") return
@@ -94,14 +106,14 @@ export const StyleProvider = ({
     [container.current, currentTheme.current]
   )
 
-  // update the theme class when the theme prop changes
-  React.useEffect(() => {
+  // Update the theme class when the theme prop changes:
+  useEffect(() => {
     if (!container.current) return
-    setThemeClass(themeClassName || DEFAULT_THEME)
-  }, [themeClassName])
+    setThemeClass(themeProp || DEFAULT_THEME_NAME)
+  }, [themeProp])
 
-  // useMemo is used to avoid re-rendering the component when the theme changes
-  return React.useMemo(
+  // Use useMemo is used to avoid re-rendering the component when the theme changes:
+  return useMemo(
     () => (
       <Wrapper>
         <Fonts inline={stylesWrapper !== "head"} />
@@ -122,16 +134,18 @@ export const StyleProvider = ({
         </StylesContext.Provider>
       </Wrapper>
     ),
-    [stylesWrapper, children, shadowRootMode, setThemeClass]
+    [stylesWrapper, children, shadowRootMode, containerCssClasses.current, setThemeClass]
   )
 }
 
 StyleProvider.propTypes = {
+  /** The children to render. */
   children: PropTypes.node,
-  stylesWrapper: PropTypes.oneOfType([
-    PropTypes.oneOf(["head", "inline", "shadowRoot"]),
-  ]),
+  /** What element to render as a wrapper, respectively where to render the StyleProvider.  */
+  stylesWrapper: PropTypes.oneOf(["head", "inline", "shadowRoot"]),
+  /** The name of the theme to render. */
   theme: PropTypes.string,
+  /** The mode of the shadowRoot. Only relevant when `stylesWrapper="shadowRoot"`. */
   shadowRootMode: PropTypes.oneOf(["open", "closed"]),
 }
 
@@ -143,5 +157,5 @@ StyleProvider.defaultProps = {
 }
 
 // export a helper hook to use styles in nested components
-// returns {styles, theme, setCustomCssClasses}
+// returns {styles, theme, currentTheme, setThemeClass, addCssClass, removeCssClass}
 StyleProvider.useStyles = () => React.useContext(StylesContext)
