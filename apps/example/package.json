@@ -59,9 +59,6 @@
     "dev": "NODE_ENV=development node esbuild.config.js --serve --watch",
     "build": "NODE_ENV=production node esbuild.config.js"
   },
-  "importmapExtras": {
-    "zustand/middleware": "4.5.2"
-  },
   "appProps": {
     "theme": {
       "value": "theme-dark",

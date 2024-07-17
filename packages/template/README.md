@@ -15,7 +15,7 @@ add template to dependencies in package.json
 ```json
 
   "dependencies": {
-    "template": "https://assets.juno.global.cloud.sap/libs/template@<version>/package.tgz"
+    "@cloudoperators/juno-template": "*"
   },
 
 ```

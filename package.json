@@ -15,7 +15,8 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "prettier": "^3.2.5",
-    "turbo": "^2.0.3"
+    "turbo": "^2.0.3",
+    "yargs": "^17.7.2"
   },
   "workspaces": [
     "apps/*",
