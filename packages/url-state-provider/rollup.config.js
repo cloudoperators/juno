@@ -27,18 +27,12 @@ const IGNORE_EXTERNALS = process.env.IGNORE_EXTERNALS === "true"
 const config = [
   {
     input: pkg.source,
-    output: [
-      {
-        file: pkg.main,
-        name: pkg.name,
-        format: "cjs",
-        compact: true,
-      },
-      {
-        file: pkg.module,
-        format: "esm",
-      },
-    ],
+    output: {
+      file: pkg.module,
+      format: "esm",
+      compact: true,
+    },
+
     plugins: [
       terser(),
       del({ targets: [mainBuildDir, moduleBuildDir] }),

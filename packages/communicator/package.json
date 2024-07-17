@@ -20,9 +20,9 @@
     "npm": ">=10.0.0 <11.0.0"
   },
   "scripts": {
-    "dev": "NODE_ENV=development node ./esbuild.config.js",
-    "build": "NODE_ENV=production node ./esbuild.config.js",
-    "test": "jest"
+    "build": "NODE_ENV=production rollup -c",
+    "test": "NODE_ENV=test jest",
+    "dev": "NODE_ENV=development rollup -c -w"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",

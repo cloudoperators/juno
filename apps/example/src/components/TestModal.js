@@ -5,7 +5,7 @@
 
 import React, { useState } from "react"
 
-import { Modal } from "juno-ui-components"
+import { Modal } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActions } from "./StoreProvider"
 
 const TestModal = () => {

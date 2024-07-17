@@ -30,9 +30,9 @@
     "oauth-pkce": "^0.0.6"
   },
   "scripts": {
+    "build": "NODE_ENV=production rollup -c",
     "test": "NODE_ENV=test jest",
-    "build": "esbuild src/index.js --outfile=build/index.js --format=esm --bundle --minify",
-    "dev": "esbuild src/index.js --outfile=build/index.js --format=esm --bundle --watch"
+    "dev": "NODE_ENV=development rollup -c -w"
   },
   "babel": {
     "presets": [
