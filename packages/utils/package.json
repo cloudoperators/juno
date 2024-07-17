@@ -30,7 +30,14 @@
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "whatwg-fetch": "^3.6.19"
+    "whatwg-fetch": "^3.6.19",
+    "rollup": "^3.4.0",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "rollup-plugin-babel-minify": "^10.0.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-includepaths": "^0.2.4",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^4.0.2"
   },
   "peerDependencies": {
     "react": "^18.2.0"
