@@ -14,7 +14,7 @@ import {
   FormSection,
   Select,
   SelectOption
-} from "juno-ui-components"
+} from "@cloudoperators/juno-ui-components"
 
 /** A component to include anywhere in the example app, just to try out things and validate behaviour in an app environment */
 const Playground = ({

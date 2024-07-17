@@ -40,7 +40,7 @@ const PortalRefContent = () => {
             {`
 import React from "react"
 import ReactDOM from "react-dom"
-import { usePortalRef } from "juno-ui-components"
+import { usePortalRef } from "@cloudoperators/juno-ui-components"
 
 const MyComponent = () => {
   const portalRef = usePortalRef()
