@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect} from "react"
 import PropTypes from "prop-types";
 import { Button } from "../Button/"
-import { StyleProvider} from "../StyleProvider/StyleProvider.component"
+import { StyleProvider} from "../StyleProvider/index"
 
 export const ThemeToggle = ({
   className,

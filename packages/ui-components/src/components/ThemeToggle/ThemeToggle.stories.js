@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeToggle } from "./index";
-import { StyleProvider } from "../StyleProvider/";
+import { StyleProvider } from "../StyleProvider/index";
 
 export default {
   title: "Components/ThemeToggle",
