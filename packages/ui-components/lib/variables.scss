@@ -373,9 +373,7 @@ $dark-theme-color-map: (
   --color-panel-bg: rgba(252, 252, 252, 0.8);
   // LT TabNavigation
   --color-tabnavigation-top-bg: var(--color-juno-grey-light-5-raw);
-  --color-tabnavigation-content-bottom-border: var(
-    --color-background-lvl-4-raw
-  );
+  --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4-raw);
   // LT Filters
   --color-filters-bg: var(--color-background-lvl-1-raw);
   --color-filter-input-bg: var(--color-background-lvl-0-raw);
@@ -394,7 +392,7 @@ $dark-theme-color-map: (
   // DT TopNavigation
   --color-topnavigation-item-active: var(--color-black);
   --color-topnavigation-item-bg: var(--color-sap-grey-1);
-  --color-topnavigation-item-active-bg: var(--color-sap-grey-3);
+  --color-topnavigation-item-active-bg: var(--color-juno-grey-light-3);
 
   // DT Datepicker
   --color-datepicker-calendar-bg: var(--color-background-lvl-1);
@@ -508,35 +506,15 @@ $dark-theme-color-map: (
   --color-icon-warning: var(--color-warning-raw);
   // DT Message
   --color-message-danger-border: var(--color-danger-raw);
-  --gradient-message-danger-bg: linear-gradient(
-    90deg,
-    rgb(57, 39, 38) 0%,
-    rgb(124, 48, 30) 100%
-  );
+  --gradient-message-danger-bg: linear-gradient(90deg, rgb(57, 39, 38) 0%, rgb(124, 48, 30) 100%);
   --color-message-default-border: var(--color-info-raw);
-  --gradient-message-default-bg: linear-gradient(
-    90deg,
-    rgb(28, 57, 65) 0%,
-    rgb(25, 108, 119) 100%
-  );
+  --gradient-message-default-bg: linear-gradient(90deg, rgb(28, 57, 65) 0%, rgb(25, 108, 119) 100%);
   --color-message-error-border: var(--color-error-raw);
-  --gradient-message-error-bg: linear-gradient(
-    90deg,
-    rgb(57, 39, 38) 0%,
-    rgb(124, 48, 30) 100%
-  );
+  --gradient-message-error-bg: linear-gradient(90deg, rgb(57, 39, 38) 0%, rgb(124, 48, 30) 100%);
   --color-message-warning-border: var(--color-warning-raw);
-  --gradient-message-warning-bg: linear-gradient(
-    90deg,
-    rgb(57, 56, 36) 0%,
-    rgb(124, 104, 24) 100%
-  );
+  --gradient-message-warning-bg: linear-gradient(90deg, rgb(57, 56, 36) 0%, rgb(124, 104, 24) 100%);
   --color-message-success-border: var(--color-success-raw);
-  --gradient-message-success-bg: linear-gradient(
-    90deg,
-    rgb(32, 55, 46) 0%,
-    rgb(39, 102, 57) 100%
-  );
+  --gradient-message-success-bg: linear-gradient(90deg, rgb(32, 55, 46) 0%, rgb(39, 102, 57) 100%);
   // DT Introbox
   --color-introbox-bg: var(--color-background-lvl-2-raw);
   --color-introbox-border: var(--color-accent-raw);
@@ -581,9 +559,7 @@ $dark-theme-color-map: (
   --color-syntax-highlight-base0B: var(--color-juno-blue-4); // float value
   --color-syntax-highlight-base0C: var(--color-sap-gold); // array index
   --color-syntax-highlight-base0D: var(--color-sap-gold); // DT expanded icon
-  --color-syntax-highlight-base0E: var(
-    --color-juno-blue-4
-  ); // DT bool + collapsed icon
+  --color-syntax-highlight-base0E: var(--color-juno-blue-4); // DT bool + collapsed icon
   --color-syntax-highlight-base0F: var(--color-juno-blue-4); // integer value
   // DT DataGrid
   --color-datagridrow-selected: var(--color-accent-raw);
@@ -598,9 +574,7 @@ $dark-theme-color-map: (
 
   // DT TabNavigation
   --color-tabnavigation-top-bg: var(--color-juno-grey-blue-8-raw);
-  --color-tabnavigation-content-bottom-border: var(
-    --color-background-lvl-4-raw
-  );
+  --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4-raw);
   // DT Filters
   --color-filters-bg: var(--color-background-lvl-1-raw);
   --color-filter-input-bg: var(--color-background-lvl-0-raw);
@@ -619,7 +593,7 @@ $dark-theme-color-map: (
   // DT TopNavigation
   --color-topnavigation-item-active: var(--color-white);
   --color-topnavigation-item-bg: var(--color-juno-grey-blue-7);
-  --color-topnavigation-item-active-bg: var(--color-juno-grey-blue-2);
+  --color-topnavigation-item-active-bg: var(--color-juno-grey-blue-5);
   // DT Datepicker
   --color-datepicker-calendar-bg: var(--color-background-lvl-1);
 }
