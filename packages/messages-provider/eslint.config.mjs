@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module.exports = {
-  root: true,
-  extends: ["@cloudoperators/juno/juno-libs.js"],
-}
+import junoConfigs from "@cloudoperators/eslint-config/juno.mjs"
+
+export default [...junoConfigs]

@@ -36,9 +36,6 @@ const filename = pkg.module.slice(
   pkg.module.lastIndexOf(".")
 )
 
-const isProduction = process.env.NODE_ENV === "production"
-const IGNORE_EXTERNALS = process.env.IGNORE_EXTERNALS === "true"
-
 // define plugins here to use it in different configs
 const plugins = [
   svgr({

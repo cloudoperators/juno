@@ -43,7 +43,7 @@ const listenerWrapper =
   (callback) =>
   (data, options = {}) => {
     // Create a promise that will be resolved when the listener is executed
-    return new Promise(async (resolve) => {
+    return new Promise((resolve) => {
       const result = callback(data, options)
       resolve(result)
     })
@@ -208,7 +208,7 @@ const get = (name, callback, options = {}) => {
       throw new Error("(get) the message name must be given.")
     if (typeof callback !== "function")
       throw new Error("(get) the callback parameter must be a function.")
-    const { debug, getOptions, consumerID, ...unknownOptions } = options || {}
+    const { debug, consumerID, ...unknownOptions } = options || {}
     const unknownOptionsKeys = Object.keys(unknownOptions)
     if (unknownOptionsKeys.length > 0)
       warn(`(get) unknown options: ${unknownOptionsKeys.join(", ")}`)

@@ -19,7 +19,7 @@
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
-    "@cloudoperators/eslint-config-juno": "*",
+    "@cloudoperators/eslint-config": "*",
     "@svgr/core": "^7.0.0",
     "@svgr/plugin-jsx": "^7.0.0",
     "@tanstack/react-query": "4.28.0",
@@ -49,9 +49,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@tanstack/react-query": "4.28.0",
     "@cloudoperators/juno-ui-components": "*",
     "@cloudoperators/juno-url-state-provider": "*",
+    "@tanstack/react-query": "4.28.0",
     "luxon": "^2.3.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
