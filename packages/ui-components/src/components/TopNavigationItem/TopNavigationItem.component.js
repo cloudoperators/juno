@@ -12,16 +12,17 @@ const topNavItemStyles = `
   jn-flex
   jn-items-center
   jn-grow-0
+  jn-box-border
   jn-justify-start
   jn-text-theme-default
   jn-font-bold
-  jn-text-base
   jn-leading-6
-  jn-h-8
-  jn-py-1
-  jn-px-[.3125rem]
+  jn-py-[0.875rem]
+  jn-px-[1.9rem]
   jn-text-theme-default
   jn-bg-theme-topnavigation-item
+  hover:jn-text-theme-high
+  hover:jn-bg-theme-topnavigation-item-active
   active:jn-text-theme-high
   active:jn-bg-theme-topnavigation-item-active
   focus-visible:jn-outline-none
@@ -33,6 +34,7 @@ const topNavActiveItemStyles = `
   jn-font-bold
   jn-text-theme-high
   jn-bg-theme-topnavigation-item-active
+  jn-border-b-[3px]
 `
 
 /**

@@ -9,10 +9,8 @@ import { Navigation } from "../Navigation/index"
 
 const topNavStyles = `
   jn-flex
-  jn-bg-theme-global-bg
-  jn-gap-6
-  jn-px-6
-  jn-py-1.5
+  jn-bg-theme-background-lvl-1
+  jn-gap-0
 `
 
 /**
