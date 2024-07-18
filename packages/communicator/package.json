@@ -22,9 +22,11 @@
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "test": "NODE_ENV=test jest",
+    "lint": "eslint .",
     "dev": "NODE_ENV=development rollup -c -w"
   },
   "devDependencies": {
+    "@cloudoperators/eslint-config-juno": "*",
     "@babel/preset-env": "^7.20.2",
     "babel-jest": "^29.4.2",
     "rollup": "^3.4.0",
