@@ -5,7 +5,7 @@
 
 import React, { createContext, useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { NavigationItem } from "../NavigationItem/"
+// import { NavigationItem } from "../NavigationItem/"
 
 export const NavigationContext = createContext()
 
@@ -17,7 +17,7 @@ export const Navigation = ({
   className,
   disabled,
   onActiveItemChange,
-  onChange,
+  // onChange,
   ...props
 }) => {
   const [activeItm, setActiveItm] = useState("")
@@ -33,7 +33,7 @@ export const Navigation = ({
     } else {
       // If the value is not found in the keys of the items map, search for the value in the individual items according to the sequence in prioritizedKeys. If a matching item is found, return its id or null:
       let foundItemId
-      for (let [key, obj] of items.entries()) {
+      for (let [_key, obj] of items.entries()) {
         prioritizedKeys.forEach((pKey) => {
           if (obj[pKey] === valueToFind) {
             foundItemId = obj.id
@@ -107,7 +107,7 @@ Navigation.propTypes = {
   /** The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem. */
   activeItem: PropTypes.string,
   /** The aria label of the navigation */
-  arialLabel: PropTypes.string,
+  ariaLabel: PropTypes.string,
   /** The child navigation items of the navigation  */
   children: PropTypes.oneOfType([
     PropTypes.node,

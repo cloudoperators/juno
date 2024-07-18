@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 
 // Shows a color and a name, given through props.colorName
 // The Card is used by ColorPalette.jsx
@@ -39,4 +40,10 @@ export function TextColorCard(props) {
       </div>
     </div>
   )
+}
+
+// prop types
+TextColorCard.propTypes = {
+  colorName: PropTypes.string,
+  colorClass: PropTypes.string,
 }

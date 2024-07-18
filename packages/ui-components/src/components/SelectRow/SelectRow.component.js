@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Select } from "../Select/index.js"
 import { FormRow } from "../FormRow/index.js"
-import { withDeprecationWarning } from '../withDeprecationWarning/index.js'
-
+import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
 
 /** DEPRECATED: A select group containing a select, an associated label, and necessary structural markup. This component is DEPRECATED, use Select instead. */
 const SelectRow = ({
@@ -92,6 +91,8 @@ SelectRow.propTypes = {
   children: PropTypes.node,
   /** Passing a value turns the select into a controlled component. If you pass a value you must also specify an onChange handler to deal with value changes */
   value: PropTypes.string,
+  /** The semantic variant of the Select toggle button.*/
+  variant: PropTypes.oneOf(["default", "primary", "primary-danger", "subdued"]),
   /** Pass a handler to the Select element to execute once the value changes */
   onValueChange: PropTypes.func,
   /** Deprecated: Use `onValueChange` instead. */
@@ -129,4 +130,7 @@ SelectRow.defaultProps = {
   loading: undefined,
 }
 
-export default withDeprecationWarning(SelectRow, "SelectRow is deprecated and will be removed in future versions. To be future-proof, use Select instead.")
+export default withDeprecationWarning(
+  SelectRow,
+  "SelectRow is deprecated and will be removed in future versions. To be future-proof, use Select instead."
+)

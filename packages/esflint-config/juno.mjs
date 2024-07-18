@@ -60,7 +60,11 @@ export default [
       // ignore unused vars starting with _
       "no-unused-vars": [
         "error",
-        { caughtErrorsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+        {
+          caughtErrorsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_",
+        },
       ],
     },
   },

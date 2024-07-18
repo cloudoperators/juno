@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useRef } from "react";
-import PropTypes from "prop-types";
-import { Label } from "../Label/index";
-import { Icon } from "../Icon/index";
-import { FormHint } from "../FormHint/FormHint.component";
+import React, { useState, useEffect, useMemo, useId, useRef } from "react"
+import PropTypes from "prop-types"
+import { Label } from "../Label/index"
+import { Icon } from "../Icon/index"
+import { FormHint } from "../FormHint/FormHint.component"
 
 const wrapperStyles = `
   jn-inline-block
   jn-relative
-`;
+`
 
 const textareastyles = `
   jn-bg-theme-textinput
@@ -28,28 +28,28 @@ const textareastyles = `
   focus:jn-ring-theme-focus
   disabled:jn-opacity-50
   disabled:jn-cursor-not-allowed
-`;
+`
 
 const defaultborderstyles = `
   jn-border-theme-textinput-default
-`;
+`
 
 const invalidstyles = `
   jn-border-theme-error
-`;
+`
 
 const validstyles = `
   jn-border-theme-success
-`;
+`
 
 const withLabelStyles = `
   jn-pt-[1.125rem] 
   jn-pb-1
-`;
+`
 
 const noLabelStyles = `
   jn-py-4
-`;
+`
 
 const labelStyles = `
   jn-pointer-events-none
@@ -57,28 +57,22 @@ const labelStyles = `
   jn-left-[0.9375rem]
   jn-pr-4
   jn-bg-theme-textinput
-`;
+`
 
 const iconcontainerstyles = `
   jn-inline-flex
   jn-absolute
   jn-top-[.4rem]
   jn-right-3
-`;
+`
 
 const disablediconstyles = `
   jn-opacity-50
-`;
+`
 
-const iconstyles = `
-  jn-inline-block 
-  jn-ml-1 
-  jn-leading-1
-  jn-mt-[-.2rem]
-`;
 const hintStyles = `
   jn-mt-0
-`;
+`
 
 /** 
 A controlled Text Input.
@@ -108,60 +102,60 @@ export const Textarea = ({
   ...props
 }) => {
   const isNotEmptyString = (str) => {
-    return !(typeof str === "string" && str.trim().length === 0);
-  };
+    return !(typeof str === "string" && str.trim().length === 0)
+  }
 
-  const uniqueId = () => "juno-textarea-" + useId();
+  const uniqueId = () => "juno-textarea-" + useId()
 
-  const ref = useRef();
-  const [val, setValue] = useState("");
-  const [hasFocus, setFocus] = useState(false);
-  const [isInvalid, setIsInvalid] = useState(false);
-  const [isValid, setIsValid] = useState(false);
+  const ref = useRef()
+  const [val, setValue] = useState("")
+  const [hasFocus, setFocus] = useState(false)
+  const [isInvalid, setIsInvalid] = useState(false)
+  const [isValid, setIsValid] = useState(false)
 
   /* Set the focus state variable in case the input was focussed by passing autoFocus, or when the input was rendered and focussed by the user before React started listening to client side events, e.g. when rendering server-side: */
   useEffect(() => {
     if (document.hasFocus() && ref.current.contains(document.activeElement)) {
-      setFocus(true);
+      setFocus(true)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    setValue(value);
-  }, [value]);
+    setValue(value)
+  }, [value])
 
   const invalidated = useMemo(
     () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
     [invalid, errortext]
-  );
+  )
   const validated = useMemo(
     () =>
       valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
-  );
+  )
 
   useEffect(() => {
-    setIsInvalid(invalidated);
-  }, [invalidated]);
+    setIsInvalid(invalidated)
+  }, [invalidated])
 
   useEffect(() => {
-    setIsValid(validated);
-  }, [validated]);
+    setIsValid(validated)
+  }, [validated])
 
   const handleValueChange = (event) => {
-    setValue(event.target.value);
-    onChange && onChange(event);
-  };
+    setValue(event.target.value)
+    onChange && onChange(event)
+  }
 
   const handleFocus = (event) => {
-    setFocus(true);
-    onFocus && onFocus(event);
-  };
+    setFocus(true)
+    onFocus && onFocus(event)
+  }
 
   const handleBlur = (event) => {
-    setFocus(false);
-    onBlur && onBlur(event);
-  };
+    setFocus(false)
+    onBlur && onBlur(event)
+  }
 
   const Icons = ({ disabled }) => {
     if (isValid || isInvalid) {
@@ -178,13 +172,13 @@ export const Textarea = ({
             <Icon icon="checkCircle" color="jn-text-theme-success" />
           ) : null}
         </div>
-      );
+      )
     } else {
-      return "";
+      return ""
     }
-  };
+  }
 
-  const theId = id || uniqueId();
+  const theId = id || uniqueId()
 
   return (
     <div>
@@ -261,8 +255,8 @@ export const Textarea = ({
         ""
       )}
     </div>
-  );
-};
+  )
+}
 
 Textarea.propTypes = {
   /** Pass a name attribute */
@@ -305,7 +299,7 @@ Textarea.propTypes = {
   errortext: PropTypes.node,
   /** The width of the textarea. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
-};
+}
 
 Textarea.defaultProps = {
   value: "",
@@ -327,4 +321,4 @@ Textarea.defaultProps = {
   onBlur: undefined,
   label: undefined,
   width: "full",
-};
+}

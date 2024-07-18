@@ -73,7 +73,7 @@ describe("DateTimePicker", () => {
     ).toBeInTheDocument()
   })
 
-  test("renders a DateTimePicker with a label associated by an auto-generated id if no id was passed ", async () => {
+  test("renders a DateTimePicker with a label associated by an auto-generated id if no id was passed", async () => {
     render(<DateTimePicker label="This is a DateTimePicker" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(
@@ -405,7 +405,7 @@ describe("DateTimePicker", () => {
     expect(screen.getByRole("textbox")).toHaveAttribute("data-mode", "range")
   })
 
-  test("allows setting an otherwise invalid value on first load as configured ", async () => {
+  test("allows setting an otherwise invalid value on first load as configured", async () => {
     render(
       <DateTimePicker
         value="2024-01-30"

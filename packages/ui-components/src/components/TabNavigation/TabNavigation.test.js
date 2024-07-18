@@ -170,7 +170,7 @@ describe("TabNavigation", () => {
     )
   })
 
-  test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item", async () => {
+  test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item with 3 options", async () => {
     const { rerender } = render(
       <TabNavigation activeItem="Item 2">
         <TabNavigationItem label="Item 1" active />

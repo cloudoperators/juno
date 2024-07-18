@@ -7,15 +7,16 @@ import Decorator from "./Decorator"
 import { getCurrentTheme } from "./themes"
 import DocsContainer from "./DocsContainer"
 
-import {
-  Title,
-  Subtitle,
-  Description,
-  Primary,
-  ArgsTable,
-  PRIMARY_STORY,
-  Stories,
-} from "@storybook/addon-docs"
+// commented out to avoid breaking the linting
+// import {
+//   Title,
+//   Subtitle,
+//   Description,
+//   Primary,
+//   ArgsTable,
+//   PRIMARY_STORY,
+//   Stories,
+// } from "@storybook/addon-docs"
 
 export const decorators = [Decorator]
 

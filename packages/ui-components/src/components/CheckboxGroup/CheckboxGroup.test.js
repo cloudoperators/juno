@@ -18,7 +18,7 @@ describe("CheckboxGroup", () => {
 		expect(screen.getByTestId("checkbox-group")).toBeInTheDocument()
 	})
 	
-	test("renders a CheckboxGroup with an id as passed ", async () => {
+	test("renders a CheckboxGroup with an id as passed", async () => {
 		render(< CheckboxGroup data-testid="group" id="my-checkboxgroup-1"/>)
 		expect(screen.getByTestId("group")).toBeInTheDocument()
 		expect(screen.getByTestId("group")).toHaveAttribute("id", "my-checkboxgroup-1")

@@ -38,14 +38,14 @@ describe("TextInputRow", () => {
     expect(screen.getByRole("textbox")).toHaveAttribute("type", "email")
   })
 
-  test("renders a text input row with an input type email as passed", async () => {
+  test("renders a text input row with an input type tel as passed", async () => {
     render(<TextInputRow data-testid="text-input-row" type="tel" />)
     expect(screen.getByTestId("text-input-row")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveAttribute("type", "tel")
   })
 
-  test("renders a text input row with an input type email as passed", async () => {
+  test("renders a text input row with an input type url as passed", async () => {
     render(<TextInputRow data-testid="text-input-row" type="url" />)
     expect(screen.getByTestId("text-input-row")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toBeInTheDocument()

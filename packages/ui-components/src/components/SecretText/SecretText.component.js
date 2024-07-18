@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useId, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import { Textarea } from "../Textarea/";
-import { ButtonRow } from "../ButtonRow/";
-import { Button } from "../Button/";
-import { FormHint } from "../FormHint/";
-import { Stack } from "../Stack/";
-import { Label } from "../Label/";
+import React, { useEffect, useId, useState } from "react"
+import PropTypes from "prop-types"
+import { Textarea } from "../Textarea/"
+import { ButtonRow } from "../ButtonRow/"
+import { Button } from "../Button/"
+import { FormHint } from "../FormHint/"
+import { Stack } from "../Stack/"
+import { Label } from "../Label/"
 
 const innerWrapperStyles = `
   jn-relative
-`;
+`
 
 const labelStyles = `
   jn-pointer-events-none
@@ -23,7 +23,7 @@ const labelStyles = `
   jn-pr-4
   jn-bg-theme-textinput
   jn-z-20
-`;
+`
 
 const coverStyles = `
   jn-absolute
@@ -38,11 +38,7 @@ const coverStyles = `
   jn-flex
   jn-justify-center
   jn-items-center
-`;
-
-const blurStyles = `
-  jn-backdrop-blur-[4px]
-`;
+`
 
 const copyConfirmMessageStyles = `
   jn-bg-theme-background-lvl-1
@@ -50,18 +46,18 @@ const copyConfirmMessageStyles = `
   jn-px-3
   jn-py-1
   jn-rounded
-`;
+`
 
 const textareaStyles = `
   jn-break-all
   jn-min-h-[7.5rem]
-`;
+`
 
-const hintStyles = ``;
+const hintStyles = ``
 
 const actionStyles = `
   jn-h-[1.875rem]
-`;
+`
 
 /** A component to hold a secret text, e.g. an SSH key, and conceal or reveal as needed. */
 export const SecretText = ({
@@ -103,70 +99,70 @@ export const SecretText = ({
   ...props
 }) => {
   const isNotEmptyString = (str) => {
-    return !(typeof str === "string" && str.trim().length === 0);
-  };
+    return !(typeof str === "string" && str.trim().length === 0)
+  }
 
-  const uniqueId = () => "juno-secrettext-" + useId();
-  const theId = id || uniqueId();
+  const uniqueId = () => "juno-secrettext-" + useId()
+  const theId = id || uniqueId()
 
-  const [isRevealed, setIsRevealed] = useState(false);
-  const [val, setVal] = useState("");
-  const [isCopied, setIsCopied] = useState(false);
-  const [hasFocus, setHasFocus] = useState(false);
-  const timeoutRef = React.useRef(null);
-
-  useEffect(() => {
-    setIsRevealed(reveal);
-  }, [reveal]);
+  const [isRevealed, setIsRevealed] = useState(false)
+  const [val, setVal] = useState("")
+  const [isCopied, setIsCopied] = useState(false)
+  const [hasFocus, setHasFocus] = useState(false)
+  const timeoutRef = React.useRef(null)
 
   useEffect(() => {
-    setVal(value);
-  }, [value]);
+    setIsRevealed(reveal)
+  }, [reveal])
+
+  useEffect(() => {
+    setVal(value)
+  }, [value])
 
   const handleValueChange = (event) => {
-    setVal(event.target.value);
-    onChange && onChange(event);
-  };
+    setVal(event.target.value)
+    onChange && onChange(event)
+  }
 
   const handleToggleClick = () => {
-    isRevealed ? onHide && onHide() : onReveal && onReveal();
-    setIsRevealed(!isRevealed);
-    onToggle && onToggle();
-  };
+    isRevealed ? onHide && onHide() : onReveal && onReveal()
+    setIsRevealed(!isRevealed)
+    onToggle && onToggle()
+  }
 
   const handleClearClick = () => {
-    setVal("");
-    onClear && onClear();
-  };
+    setVal("")
+    onClear && onClear()
+  }
 
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(val || "");
-    setIsCopied(true);
-    clearTimeout(timeoutRef.current); // clear any possibly existing Refs
-    timeoutRef.current = setTimeout(() => setIsCopied(false), 1000);
-    onCopy && onCopy(val);
-  };
+    navigator.clipboard.writeText(val || "")
+    setIsCopied(true)
+    clearTimeout(timeoutRef.current) // clear any possibly existing Refs
+    timeoutRef.current = setTimeout(() => setIsCopied(false), 1000)
+    onCopy && onCopy(val)
+  }
 
   const handlePasteClick = () => {
     try {
       navigator.clipboard.readText().then((clipboardText) => {
-        setVal(clipboardText);
-        onPaste && onPaste(clipboardText);
-      });
+        setVal(clipboardText)
+        onPaste && onPaste(clipboardText)
+      })
     } catch (error) {
-      console.warn("Failed to read clipboard.");
+      console.warn("Failed to read clipboard.")
     }
-  };
+  }
 
   const handleFocus = (event) => {
-    setHasFocus(true);
-    onFocus && onFocus(event);
-  };
+    setHasFocus(true)
+    onFocus && onFocus(event)
+  }
 
   const handleBlur = (event) => {
-    setHasFocus(false);
-    onBlur && onBlur(event);
-  };
+    setHasFocus(false)
+    onBlur && onBlur(event)
+  }
 
   return (
     <div
@@ -314,14 +310,18 @@ export const SecretText = ({
         </ButtonRow>
       </Stack>
     </div>
-  );
-};
+  )
+}
 
 SecretText.propTypes = {
   /** Whether the secret field should autocomplete. */
   autoComplete: PropTypes.string,
   /** Pass a custom className to the Secret input field. */
   className: PropTypes.string,
+  /** Whether the Clear button is rendered. */
+  clear: PropTypes.bool,
+  /** Whether the Copy button is rendered. */
+  copy: PropTypes.bool,
   /** A small text to display for a second to confirm the secret's content was copied to the clipboard. */
   copyConfirmtext: PropTypes.string,
   /** Disable the Clear button */
@@ -340,6 +340,12 @@ SecretText.propTypes = {
   helptext: PropTypes.string,
   /** Pass an id  */
   id: PropTypes.string,
+  /** Whether the Secret's content is invalid. */
+  invalid: PropTypes.bool,
+  /** A label to display above the SecretText's textarea. */
+  label: PropTypes.string,
+  /** The name of the SecretText's textarea. */
+  name: PropTypes.string,
   /** A handler to execute when the Secret's input area looses focus. */
   onBlur: PropTypes.func,
   /** A handler to execute when the Secret's content changes. */
@@ -378,7 +384,7 @@ SecretText.propTypes = {
   value: PropTypes.string,
   /** Pass a className to the outer wrapper element */
   wrapperClassName: PropTypes.string,
-};
+}
 
 SecretText.defaultProps = {
   autoComplete: "off",
@@ -413,4 +419,4 @@ SecretText.defaultProps = {
   valid: false,
   value: "",
   wrapperClassName: "",
-};
+}

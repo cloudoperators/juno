@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { NativeSelect } from "./index.js"
 import { NativeSelectOption } from "../NativeSelectOption/index.js"
 import { NativeSelectOptionGroup } from "../NativeSelectOptionGroup/index.js"
@@ -27,14 +28,19 @@ const Template = ({ children, ...args }) => (
   <NativeSelect {...args}>{children}</NativeSelect>
 )
 
+// define prop types
+Template.propTypes = {
+  children: PropTypes.node,
+}
+
 export const Default = {
   render: Template,
 
   args: {
     children: [
-      <NativeSelectOption value="o-1" label="Option 1" />,
-      <NativeSelectOption value="o-2" label="Option 2" />,
-      <NativeSelectOption value="o-3" label="Option 3" />,
+      <NativeSelectOption key={0} value="o-1" label="Option 1" />,
+      <NativeSelectOption key={1} value="o-2" label="Option 2" />,
+      <NativeSelectOption key={2} value="o-3" label="Option 3" />,
     ],
   },
 }
@@ -44,12 +50,12 @@ export const GroupedNativeSelect = {
 
   args: {
     children: [
-      <NativeSelectOptionGroup label="Option Group 1">
+      <NativeSelectOptionGroup key={0} label="Option Group 1">
         <NativeSelectOption value="o-1" label="Option 1" />
         <NativeSelectOption value="o-2" label="Option 2" />
         <NativeSelectOption value="o-3" label="Option 3" />
       </NativeSelectOptionGroup>,
-      <NativeSelectOptionGroup label="Option Group 2">
+      <NativeSelectOptionGroup key={1} label="Option Group 2">
         <NativeSelectOption value="o-4" label="Option 4" />
         <NativeSelectOption value="o-5" label="Option 5" />
       </NativeSelectOptionGroup>,
@@ -63,9 +69,9 @@ export const DisabledNativeSelect = {
   args: {
     disabled: true,
     children: [
-      <NativeSelectOption value="o-1" label="Option 1" />,
-      <NativeSelectOption value="o-2" label="Option 2" />,
-      <NativeSelectOption value="o-3" label="Option 3" />,
+      <NativeSelectOption key={0} value="o-1" label="Option 1" />,
+      <NativeSelectOption key={1} value="o-2" label="Option 2" />,
+      <NativeSelectOption key={2} value="o-3" label="Option 3" />,
     ],
   },
 }
@@ -76,9 +82,9 @@ export const InvalidNativeSelect = {
   args: {
     invalid: true,
     children: [
-      <NativeSelectOption value="o-1" label="Option 1" />,
-      <NativeSelectOption value="o-2" label="Option 2" />,
-      <NativeSelectOption value="o-3" label="Option 3" />,
+      <NativeSelectOption key={0} value="o-1" label="Option 1" />,
+      <NativeSelectOption key={1} value="o-2" label="Option 2" />,
+      <NativeSelectOption key={2} value="o-3" label="Option 3" />,
     ],
   },
 }
@@ -89,9 +95,9 @@ export const ValidNativeSelect = {
   args: {
     valid: true,
     children: [
-      <NativeSelectOption value="o-1" label="Option 1" />,
-      <NativeSelectOption value="o-2" label="Option 2" />,
-      <NativeSelectOption value="o-3" label="Option 3" />,
+      <NativeSelectOption key={0} value="o-1" label="Option 1" />,
+      <NativeSelectOption key={1} value="o-2" label="Option 2" />,
+      <NativeSelectOption key={2} value="o-3" label="Option 3" />,
     ],
   },
 }

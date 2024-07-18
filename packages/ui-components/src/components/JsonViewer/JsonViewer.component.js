@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import PropTypes, { exact } from "prop-types"
+import PropTypes from "prop-types"
 import React, { useContext, useLayoutEffect } from "react"
 import * as themes from "./themes"
 import { SearchInput } from "../SearchInput/SearchInput.component"
@@ -114,6 +114,11 @@ const ExpandIcon = ({ expanded }) => {
   )
 }
 
+// prop types
+ExpandIcon.propTypes = {
+  expanded: PropTypes.bool,
+}
+
 // Toolbar Icon
 const ExpandAllIcon = () => {
   const { colors } = useContext(ThemeContext)
@@ -197,6 +202,11 @@ const StringWithHighlight = ({ value }) => {
   )
 }
 
+// prop types
+StringWithHighlight.propTypes = {
+  value: PropTypes.string,
+}
+
 // Key label (left side) with highlight functionality
 const NameLabel = ({ name }) => {
   const { colors } = useContext(ThemeContext)
@@ -213,6 +223,11 @@ const NameLabel = ({ name }) => {
       {" : "}
     </span>
   )
+}
+
+// prop types
+NameLabel.propTypes = {
+  name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 // this component show the right side of the json, type + value
@@ -256,8 +271,13 @@ const TypeValueLabel = ({ type, value }) => {
   )
 }
 
+TypeValueLabel.propTypes = {
+  type: PropTypes.string,
+  value: PropTypes.any,
+}
+
 const Toolbar = () => {
-  const { colors, searchTerm, onExpandAll, onSearch } = useContext(ThemeContext)
+  const { colors, onExpandAll, onSearch } = useContext(ThemeContext)
 
   return (
     <div
@@ -416,6 +436,13 @@ const JsonData = ({ name, value, nestedLevel = 0 }) => {
       </div>
     </div>
   )
+}
+
+// prop types
+JsonData.propTypes = {
+  name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.any,
+  nestedLevel: PropTypes.number,
 }
 
 /** A component to render json data in a nice way. */

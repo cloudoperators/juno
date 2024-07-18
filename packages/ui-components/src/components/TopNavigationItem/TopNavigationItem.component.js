@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useContext, useEffect, useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { NavigationItem } from "../NavigationItem/index"
 import { knownIcons } from "../Icon/Icon.component.js"

@@ -51,7 +51,7 @@ describe("Radio", () => {
 		expect(document.querySelector(".juno-label")).toHaveTextContent("My Radio")
 	})
 	
-	test("renders a Radio with a label associated by an auto-generated id if no id was passed ", async () => {
+	test("renders a Radio with a label associated by an auto-generated id if no id was passed", async () => {
 		render(<Radio label="This is a Radio" />)
 		expect(screen.getByRole("radio")).toBeInTheDocument()
 		expect(screen.getByLabelText("This is a Radio")).toBeInTheDocument()

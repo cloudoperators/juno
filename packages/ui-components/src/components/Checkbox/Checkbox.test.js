@@ -51,7 +51,7 @@ describe("Checkbox", () => {
 		expect(document.querySelector(".juno-label")).toHaveTextContent("My Checkbox")
 	})
 	
-	test("renders a Checkbox with a label associated by an auto-generated id if no id was passed ", async () => {
+	test("renders a Checkbox with a label associated by an auto-generated id if no id was passed", async () => {
 		render(<Checkbox label="This is a Checkbox" />)
 		expect(screen.getByRole("checkbox")).toBeInTheDocument()
 		expect(screen.getByLabelText("This is a Checkbox")).toBeInTheDocument()

@@ -141,9 +141,9 @@ export const FilterInput = ({
           loading={isLoading}
           error={hasError}
         >
-          // First "Placeholder" option:
+          {/* First "Placeholder" option: */}
           <NativeSelectOption label={keyLabel || "Select Filter"} value="" />
-          // Options representing actual filter key values:
+          {/* Options representing actual filter key values: */}
           {options.map((option, i) => (
             <NativeSelectOption
               label={option.label}
@@ -205,6 +205,8 @@ FilterInput.propTypes = {
   onFilterValueChange: PropTypes.func,
   /** Pass a handler to execute when the Filter Value Clear button is clicked */
   onClear: PropTypes.func,
+  /** Pass a handler to execute when key is pressed */
+  onKeyPress: PropTypes.func,
   /** Whether the filter is currently loading */
   loading: PropTypes.bool,
   /** Pass a className to the wrapping element */

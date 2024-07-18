@@ -4,9 +4,9 @@
  */
 
 import * as React from "react"
-import { cleanup, render, screen, fireEvent } from "@testing-library/react"
+import PropTypes from "prop-types"
+import { cleanup, render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { act } from "react-dom/test-utils"
 import { Select } from "./index"
 import { SelectOption } from "../SelectOption/index"
 
@@ -26,6 +26,12 @@ const ControlledSelectParent = ({ value, children, onChange, ...props }) => {
       {children}
     </Select>
   )
+}
+
+ControlledSelectParent.propTypes = {
+  value: PropTypes.string,
+  children: PropTypes.node,
+  onChange: PropTypes.func,
 }
 
 describe("Select", () => {
@@ -120,7 +126,7 @@ describe("Select", () => {
     expect(screen.getByLabelText("My Select")).toHaveClass("juno-select-toggle")
   })
 
-  test("renders a Select toggle with a label associated by an auto-generated id if no id was passed ", async () => {
+  test("renders a Select toggle with a label associated by an auto-generated id if no id was passed", async () => {
     render(<Select label="This is a Select" />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByLabelText("This is a Select")).toBeInTheDocument()
