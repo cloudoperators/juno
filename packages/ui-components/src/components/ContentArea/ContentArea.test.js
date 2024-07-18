@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as React from "react"
+import React from "react"
 import { render, screen } from "@testing-library/react"
 import { ContentArea } from "./index"
 
@@ -11,14 +11,12 @@ describe("ContentArea", () => {
   test("renders a content area", async () => {
     render(<ContentArea data-testid="content-area" />)
     expect(screen.getByTestId("content-area")).toBeInTheDocument()
-    expect(screen.getByTestId("content-area")).toHaveClass(
-      "juno-content-area"
-    )
+    expect(screen.getByTestId("content-area")).toHaveClass("juno-content-area")
   })
-  
+
   test("renders a deprecation warning to the console", async () => {
-    const consoleWarnSpy = jest.spyOn(console, 'warn')
-    render(<ContentArea/>)
+    const consoleWarnSpy = jest.spyOn(console, "warn")
+    render(<ContentArea />)
     expect(consoleWarnSpy).toHaveBeenCalled()
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       "ContentArea is deprecated and will be removed in future versions. To be future-proof, use AppShell to scaffold an app layout."
@@ -29,7 +27,9 @@ describe("ContentArea", () => {
   test("renders a content area with content area background color", async () => {
     render(<ContentArea data-testid="content-area" />)
     expect(screen.getByTestId("content-area")).toBeInTheDocument()
-    expect(screen.getByTestId("content-area")).toHaveClass("jn-bg-theme-content-area-bg")
+    expect(screen.getByTestId("content-area")).toHaveClass(
+      "jn-bg-theme-content-area-bg"
+    )
   })
 
   test("renders a content area with flex grow", async () => {
@@ -50,10 +50,7 @@ describe("ContentArea", () => {
 
   test("renders a custom className", async () => {
     render(
-      <ContentArea
-        data-testid="content-area"
-        className="my-custom-classname"
-      />
+      <ContentArea data-testid="content-area" className="my-custom-classname" />
     )
     expect(screen.getByTestId("content-area")).toBeInTheDocument()
     expect(screen.getByTestId("content-area")).toHaveClass(
@@ -62,9 +59,7 @@ describe("ContentArea", () => {
   })
 
   test("renders all props", async () => {
-    render(
-      <ContentArea data-testid="content-area" data-lolol="some-prop" />
-    )
+    render(<ContentArea data-testid="content-area" data-lolol="some-prop" />)
     expect(screen.getByTestId("content-area")).toBeInTheDocument()
     expect(screen.getByTestId("content-area")).toHaveAttribute(
       "data-lolol",
