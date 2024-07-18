@@ -26,7 +26,10 @@ export default [
     languageOptions: {
       sourceType: "module",
       parserOptions: { ecmaFeatures: { jsx: true } },
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
     },
   },
 
@@ -52,6 +55,15 @@ export default [
     },
   },
   //eslintPluginPrettierRecommended,
+  {
+    rules: {
+      // ignore unused vars starting with _
+      "no-unused-vars": [
+        "error",
+        { caughtErrorsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
+    },
+  },
   {
     ignores: ["**/build/*"],
   },

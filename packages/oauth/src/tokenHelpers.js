@@ -40,7 +40,7 @@ const extractNameFromEmail = (email) => {
       .map((t) => capitalize(t))
       .join(" ")
     return { firstName, lastName }
-  } catch (e) {
+  } catch (_) {
     console.info("(OAUTH) could not determine first and last names")
   }
 }

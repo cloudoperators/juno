@@ -33,8 +33,8 @@ describe("buildRequestUrl", () => {
     ).toBeDefined()
   })
 
-  test("should build url for implicit flow", () => {
-    buildRequestUrl({
+  test("should build url for implicit flow", async () => {
+    await buildRequestUrl({
       issuerURL: "http://issuer.com",
       clientID: "12345",
       oidcState: { nonce: "test", key: "123456" },
@@ -49,8 +49,8 @@ describe("buildRequestUrl", () => {
     })
   })
 
-  test("include additional request params", () => {
-    buildRequestUrl({
+  test("include additional request params", async () => {
+    await buildRequestUrl({
       issuerURL: "http://issuer.com",
       clientID: "12345",
       params: { origanization: "test", project: "test" },
@@ -69,8 +69,8 @@ describe("buildRequestUrl", () => {
     })
   })
 
-  test("use given callbackURL", () => {
-    buildRequestUrl({
+  test("use given callbackURL", async () => {
+    await buildRequestUrl({
       issuerURL: "http://issuer.com",
       clientID: "12345",
       callbackURL: "http://another-issuer.com",
@@ -115,7 +115,7 @@ describe("handleResponse", () => {
   test("should return token data", async () => {
     oidcState.searchParams = new URLSearchParams("id_token=" + testIdToken)
 
-    handleResponse().then(({ tokenData, idToken }) => {
+    await handleResponse().then(({ tokenData, idToken }) => {
       expect(tokenData).toEqual(expect.objectContaining(testTokenData))
       expect(idToken).toEqual(testIdToken)
     })

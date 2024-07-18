@@ -33,19 +33,19 @@ describe("oidcSession", () => {
         issuerURL: "http://dummy.com",
         onUpdate: true,
       })
-    }).toThrowError("(OAUTH) onUpdate should be a function")
+    }).toThrow("(OAUTH) onUpdate should be a function")
   })
 
   test("issuerURL is required", () => {
     expect(() => {
       oidcSession({ clientID: "test" })
-    }).toThrowError()
+    }).toThrow()
   })
 
   test("clientID is required", () => {
     expect(() => {
       oidcSession({ issuerURL: "http://dummy.com" })
-    }).toThrowError()
+    }).toThrow()
   })
 
   test("flowType is undefined", () => {
@@ -61,7 +61,7 @@ describe("oidcSession", () => {
         clientID: "test",
         flowType: "something",
       })
-    }).toThrowError("(OAUTH) flowType something is not supported!")
+    }).toThrow("(OAUTH) flowType something is not supported!")
   })
 
   describe("returned result", () => {

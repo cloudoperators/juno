@@ -94,7 +94,7 @@ const handleResponse = async ({ issuerURL, clientID, oidcState }) => {
   }
 }
 
-const refreshToken = async ({ issuerURL, clientID, idToken, refreshToken }) => {
+const refreshToken = async ({ issuerURL, clientID, refreshToken }) => {
   if (!issuerURL) throw new Error("issuerURL is required")
   if (!clientID) throw new Error("clientID is required")
 
