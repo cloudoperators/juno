@@ -3,15 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from "react"
+import React from "react"
 import {
-  Button,
   ComboBox,
-  ComboBoxOption,
-  ContextMenu,
   Form,
   FormRow,
-  FormSection,
   Select,
   SelectOption
 } from "@cloudoperators/juno-ui-components"
