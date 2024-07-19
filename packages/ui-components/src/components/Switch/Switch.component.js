@@ -109,21 +109,21 @@ const hintStyles = `
 
 /** A Switch/Toggle component */
 export const Switch = ({
-  name,
-  id,
-  label,
-  required,
-  size,
-  on,
-  disabled,
-  invalid,
-  valid,
-  helptext,
-  errortext,
-  successtext,
-  className,
-  onChange,
-  onClick,
+  name = "",
+  id = null,
+  label = undefined,
+  required = false,
+  size = "default",
+  on = false,
+  disabled = null,
+  invalid = false,
+  valid = false,
+  helptext = "",
+  errortext = "",
+  successtext = "",
+  className = "",
+  onChange = undefined,
+  onClick = undefined,
   ...props
 }) => {
   const isNotEmptyString = (str) => {
@@ -286,22 +286,4 @@ Switch.propTypes = {
   onChange: PropTypes.func,
   /** Pass a click handler */
   onClick: PropTypes.func,
-}
-
-Switch.defaultProps = {
-  name: "",
-  id: null,
-  label: undefined,
-  required: false,
-  size: "default",
-  on: false,
-  disabled: null,
-  invalid: false,
-  valid: false,
-  helptext: "",
-  errortext: "",
-  successtext: "",
-  className: "",
-  onChange: undefined,
-  onClick: undefined,
 }

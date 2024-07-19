@@ -41,16 +41,16 @@ const toggleOpenStyle = `
 
 /** A context menu with a toggle. */
 
-export const ContextMenu = ({ 
-  icon, 
-  className, 
-  children, 
-  open,
-  ...props
+export const ContextMenu = ({
+  /*icon,*/
+  /*className,*/
+  children = null,
+  open = false,
+  /*...props*/
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleClick = (event) => {
+  const handleClick = (_event) => {
     setIsOpen(!isOpen)
   }
 
@@ -60,35 +60,26 @@ export const ContextMenu = ({
 
   return (
     <Menu>
-        <Float>
-          <Menu.Button 
-            onClick={handleClick} 
-            className={`
+      <Float>
+        <Menu.Button
+          onClick={handleClick}
+          className={`
               juno-contextmenu-toggle 
               ${toggleStyles} 
-              ${ isOpen ? toggleOpenStyle : "" }
-            `}>
-            <Icon icon="moreVert"/>
-          </Menu.Button>
-          <Menu.Items 
-            className={`${menuStyles}`}
-          >
-            {children}
-          </Menu.Items> 
-        </Float>
+              ${isOpen ? toggleOpenStyle : ""}
+            `}
+        >
+          <Icon icon="moreVert" />
+        </Menu.Button>
+        <Menu.Items className={`${menuStyles}`}>{children}</Menu.Items>
+      </Float>
     </Menu>
   )
 }
 
-
 ContextMenu.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
+  icon: PropTypes.any,
   open: PropTypes.bool,
-}
-
-ContextMenu.defaultProps = {
-  className: "",
-  children: null,
-  open: false,
 }

@@ -11,20 +11,20 @@ import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
 
 /** DEPRECATED: A Switch input row containing a switch, associated label, and structural markup. This component is DEPRECATED, use Switch instead. */
 const SwitchRow = ({
-  name,
-  label,
-  id,
-  on,
-  disabled,
-  helptext,
-  required,
-  invalid,
-  errortext,
-  valid,
-  successtext,
-  className,
-  onChange,
-  onClick,
+  name = null,
+  label = null,
+  id = null,
+  on = false,
+  disabled = null,
+  helptext = null,
+  required = null,
+  invalid = false,
+  errortext = "",
+  valid = false,
+  successtext = "",
+  className = "",
+  onChange = undefined,
+  onClick = undefined,
   ...props
 }) => {
   return (
@@ -79,23 +79,6 @@ SwitchRow.propTypes = {
   onChange: PropTypes.func,
   /** Pass a click handler to the Switch */
   onClick: PropTypes.func,
-}
-
-SwitchRow.defaultProps = {
-  name: null,
-  label: null,
-  id: null,
-  on: false,
-  disabled: null,
-  helptext: null,
-  required: null,
-  invalid: false,
-  errortext: "",
-  valid: false,
-  successtext: "",
-  className: "",
-  onChange: undefined,
-  onClick: undefined,
 }
 
 export default withDeprecationWarning(

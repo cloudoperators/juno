@@ -11,4 +11,8 @@ export default [
     files: ["test/__mocks__/svgLib.js", "src/**/*.test.js"],
     languageOptions: { sourceType: "module" },
   },
+
+  {
+    ignores: ["setupTests.js"],
+  },
 ]

@@ -52,6 +52,7 @@ export default [
     rules: {
       ...jest.configs["flat/recommended"].rules,
       "jest/prefer-expect-assertions": "off",
+      "jest/no-disabled-tests": "off",
     },
   },
   //eslintPluginPrettierRecommended,

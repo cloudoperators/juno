@@ -36,7 +36,14 @@ const iconStyles = `
 
 
 */
-const Tab = ({ children, label, icon, disabled, className, ...props }) => {
+const Tab = ({
+  children = null,
+  label = "",
+  icon,
+  disabled = false,
+  className = "",
+  ...props
+}) => {
   return (
     <ReactTab
       className={`juno-tab ${tabStyles} ${className}`}
@@ -64,13 +71,6 @@ Tab.propTypes = {
   disabled: PropTypes.bool,
   /** Add custom classNames to the Tab */
   className: PropTypes.string,
-}
-
-Tab.defaultProps = {
-  children: null,
-  label: "",
-  disabled: false,
-  className: "",
 }
 
 export { Tab }

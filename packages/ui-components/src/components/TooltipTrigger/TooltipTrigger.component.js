@@ -10,12 +10,11 @@ import { useMergeRefs } from "@floating-ui/react"
 
 import { useTooltipState } from "../Tooltip/Tooltip.component"
 
-
 /**
  * This is the trigger element for a tooltip. See Tooltip for more in-depth explanation and examples.
  */
 export const TooltipTrigger = React.forwardRef(function TooltipTrigger(
-  { children, asChild, className, ...props },
+  { children = null, asChild = false, className = "", ...props },
   propRef
 ) {
   // get state
@@ -34,7 +33,9 @@ export const TooltipTrigger = React.forwardRef(function TooltipTrigger(
         ...props,
         ...children.props,
         "data-state": state.open ? "open" : "closed",
-        className: children.props.className + `${state.disabled && " jn-cursor-default"}`,
+        className:
+          children.props.className +
+          `${state.disabled && " jn-cursor-default"}`,
       })
     )
   }
@@ -60,10 +61,3 @@ TooltipTrigger.propTypes = {
   /** Pass a className to render to the trigger element */
   className: PropTypes.string,
 }
-
-TooltipTrigger.defaultProps = {
-  asChild: false,
-  children: null,
-  className: "",
-}
-

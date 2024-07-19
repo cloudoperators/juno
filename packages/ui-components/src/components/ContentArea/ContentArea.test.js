@@ -7,9 +7,11 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { ContentArea } from "./index"
 
+globalThis.console.warn = jest.fn()
 describe("ContentArea", () => {
   test("renders a content area", async () => {
     render(<ContentArea data-testid="content-area" />)
+    expect(console.warn).toHaveBeenCalled()
     expect(screen.getByTestId("content-area")).toBeInTheDocument()
     expect(screen.getByTestId("content-area")).toHaveClass("juno-content-area")
   })

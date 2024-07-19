@@ -28,11 +28,10 @@ const logoStyles = `
   jn-bottom-0
 `
 
-
 /**
  * The page footer component renders a footer at the bottom of the website. Place as last child of AppBody.
  */
-export const PageFooter = ({ className, children, ...props }) => {
+export const PageFooter = ({ className = "", children = null, ...props }) => {
   return (
     <div
       className={`juno-pagefooter ${basePageFooter} ${className}`}
@@ -49,9 +48,4 @@ PageFooter.propTypes = {
   /** Add custom class name */
   className: PropTypes.string,
   children: PropTypes.node,
-}
-
-PageFooter.defaultProps = {
-  className: "",
-  children: null,
 }

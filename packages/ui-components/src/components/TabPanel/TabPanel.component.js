@@ -11,7 +11,7 @@ import PropTypes from "prop-types"
 The TabPanel holds content related to a Tab in a TabList in a wrapping Tab component. Not to be used standalone / outside a Tabs wrapper.
 */
 
-const TabPanel = ({ children, className, ...props }) => {
+const TabPanel = ({ children = null, className = "", ...props }) => {
   return (
     <ReactTabPanel
       className={`juno-tabpanel ${className}`}
@@ -30,11 +30,6 @@ TabPanel.propTypes = {
   children: PropTypes.node,
   /** Add a custom classList to the TabPanel */
   className: PropTypes.string,
-}
-
-TabPanel.defaultProps = {
-  children: null,
-  className: "",
 }
 
 export { TabPanel }

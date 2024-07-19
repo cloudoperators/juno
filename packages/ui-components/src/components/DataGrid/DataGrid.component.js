@@ -56,14 +56,14 @@ export const useDataGridContext = () => React.useContext(DataGridContext)
 /** The DataGrid component is the main way to display lists of items that have a bunch of metadata that you want to display.
  */
 export const DataGrid = ({
-  columns,
-  columnMaxSize,
-  columnMinSize,
+  columns = 1,
+  columnMaxSize = "auto",
+  columnMinSize = "0px",
   minContentColumns,
   gridColumnTemplate,
-  cellVerticalAlignment,
-  className,
-  children,
+  cellVerticalAlignment = "center",
+  className = "",
+  children = null,
   ...props
 }) => {
   const dataGridConf = {
@@ -110,15 +110,4 @@ DataGrid.propTypes = {
   children: PropTypes.node,
   /** Add a class name */
   className: PropTypes.string,
-}
-
-DataGrid.defaultProps = {
-  columns: 1,
-  columnMaxSize: "auto",
-  columnMinSize: "0px",
-  minContentColumns: undefined,
-  gridColumnTemplate: undefined,
-  cellVerticalAlignment: "center",
-  className: "",
-  children: null,
 }

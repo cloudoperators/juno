@@ -15,7 +15,7 @@ import {
   PageHeader,
   Container,
 } from "@cloudoperators/juno-ui-components"
-import { oidcSession, mockedSession } from "@cloudoperators/juno-oauth"
+import { mockedSession } from "@cloudoperators/juno-oauth"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import AppContent from "./components/AppContent"
 import HeaderUser from "./components/auth/HeaderUser"

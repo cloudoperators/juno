@@ -21,61 +21,65 @@ const breadcrumblinkstyles = `
   jn-inline-flex
 `
 
-const disabledstyles = `
-  jn-text-theme-disabled
-  jn-pointer-events-none
-`
+// const disabledstyles = `
+//   jn-text-theme-disabled
+//   jn-pointer-events-none
+// `
 
 /** An individual item in a breadcrumb */
 export const BreadcrumbItem = ({
-  icon,
-  href,
-  label,
-  ariaLabel,
-  active,
-  children,
+  icon = null,
+  href = "#",
+  label = "Item",
+  ariaLabel = "",
+  active = false,
+  children = null,
   onClick,
-  disabled,
-  className,
+  disabled = false,
+  className = "",
   ...props
 }) => {
-  
-  const icn = icon ? <Icon icon={icon} size="18" color="jn-text-theme-default" className={ label && label.length ? "jn-mr-1" : "" } /> : null
-  
+  const icn = icon ? (
+    <Icon
+      icon={icon}
+      size="18"
+      color="jn-text-theme-default"
+      className={label && label.length ? "jn-mr-1" : ""}
+    />
+  ) : null
+
   const handleClick = (event) => {
     onClick && onClick(event)
   }
-  
-  return (
-    
-      children ?
-          children
-        : 
-          <span className={
-              `juno-breadcrumb-item 
-              ${breadcrumbitemstyles} 
-              ${ disabled ? "juno-breadcrumb-item-disabled" : "" } 
-              ${ active ? "juno-breadcrumb-item-active" : "" }
-              ${className}`
-            } {...props} 
-            >
-            { active || disabled ? 
-                <>
-                  { icn }
-                  { label }
-                </>
-              : 
-                <a href={href} 
-                  className={`${breadcrumblinkstyles} `}
-                  aria-label={ariaLabel || label}
-                  onClick={ handleClick }
-                >
-                  { icn }
-                  { label }
-                </a> 
-            }
-          </span>
 
+  return children ? (
+    children
+  ) : (
+    <span
+      className={`juno-breadcrumb-item 
+              ${breadcrumbitemstyles} 
+              ${disabled ? "juno-breadcrumb-item-disabled" : ""} 
+              ${active ? "juno-breadcrumb-item-active" : ""}
+              ${className}`}
+      {...props}
+    >
+      {active || disabled ? (
+        <>
+          {icn}
+          {label}
+        </>
+      ) : (
+        <a
+          href={href}
+          className={`${breadcrumblinkstyles} `}
+          aria-label={ariaLabel || label}
+          onClick={handleClick}
+        >
+          {icn}
+          {label}
+        </a>
+      )}
+    </span>
   )
 }
 
@@ -98,16 +102,4 @@ BreadcrumbItem.propTypes = {
   className: PropTypes.string,
   /** The children of the item */
   children: PropTypes.node,
-}
-
-BreadcrumbItem.defaultProps = {
-  icon: null,
-  href: "#",
-  label: "Item",
-  ariaLabel: "",
-  active: false,
-  onClick: undefined,
-  disabled: false,
-  className: "",
-  children: null,
 }

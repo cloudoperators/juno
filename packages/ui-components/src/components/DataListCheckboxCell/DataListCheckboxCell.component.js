@@ -15,37 +15,29 @@ const datalistcheckboxcellbasestyles = `
 `
 
 export const DataListCheckboxCell = ({
-	selected,
-	disabled,
-	onChange,
-	className,
-	children,
-	...props
+  selected = false,
+  disabled = false,
+  onChange,
+  className = "",
+  ...props
 }) => {
-	return (
-		<DataListCell className={`juno-datalist-checkbox-cell ${datalistcheckboxcellbasestyles} ${className}`} {...props} >
-			<Checkbox disabled={disabled} checked={selected} onChange={onChange} />
-		</DataListCell>
-	)
+  return (
+    <DataListCell
+      className={`juno-datalist-checkbox-cell ${datalistcheckboxcellbasestyles} ${className}`}
+      {...props}
+    >
+      <Checkbox disabled={disabled} checked={selected} onChange={onChange} />
+    </DataListCell>
+  )
 }
 
 DataListCheckboxCell.propTypes = {
-	/** Whether the item this cell belongs to is selected */
-	selected: PropTypes.bool,
-	/** Whether the item is disabled */
-	disabled: PropTypes.bool,
-	/** Custom classname */
-	className: PropTypes.string,
-	/** Children to render in the DataListCell */
-	children: PropTypes.node,
-	/** Handler to execute when selected state changes */
-	onChange: PropTypes.func,
-}
-
-DataListCell.defaultProps = {
-	selected: false,
-	disabled: false,
-	className: "",
-	children: null,
-	onChange: undefined,
+  /** Whether the item this cell belongs to is selected */
+  selected: PropTypes.bool,
+  /** Whether the item is disabled */
+  disabled: PropTypes.bool,
+  /** Custom classname */
+  className: PropTypes.string,
+  /** Handler to execute when selected state changes */
+  onChange: PropTypes.func,
 }

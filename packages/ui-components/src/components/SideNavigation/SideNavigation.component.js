@@ -16,12 +16,13 @@ const sideNavStyles = `
 A generic vertical side navigation component.
 Place SideNavigationItem components as children.
 */
+
 export const SideNavigation = ({
-  activeItem,
+  activeItem = "",
   ariaLabel,
-  children,
-  className,
-  disabled,
+  children = null,
+  className = "",
+  disabled = false,
   onActiveItemChange,
   ...props
 }) => {
@@ -31,7 +32,6 @@ export const SideNavigation = ({
       ariaLabel={ariaLabel}
       className={`juno-sidenavigation ${sideNavStyles} ${className}`}
       disabled={disabled}
-      navigationRole="SideNavigation"
       onActiveItemChange={onActiveItemChange}
       {...props}
     >
@@ -53,13 +53,4 @@ SideNavigation.propTypes = {
   disabled: PropTypes.bool,
   /** Handler to execute when the active item changes */
   onActiveItemChange: PropTypes.func,
-}
-
-SideNavigation.defaultProps = {
-  activeItem: "",
-  ariaLabel: undefined,
-  children: null,
-  className: "",
-  disabled: false,
-  onActiveItemChange: undefined,
 }

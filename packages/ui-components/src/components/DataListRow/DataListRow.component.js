@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect }  from "react"
+import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { useDataListContext } from "../DataList/DataList.component.js"
-import { DataListCheckboxCell } from "../DataListCheckboxCell/DataListCheckboxCell.component.js" 
+import { DataListCheckboxCell } from "../DataListCheckboxCell/DataListCheckboxCell.component.js"
 
 const datalistrowbasestyles = `
 	jn-flex
@@ -21,42 +21,52 @@ const rowselectedstyle = `
 `
 
 export const DataListRow = ({
-	selected,
-	disabled,
-	onChange,
-	className,
-	children,
-	...props
+  selected,
+  disabled,
+  onChange,
+  className = "",
+  children = null,
+  ...props
 }) => {
-	const dataListContext = useDataListContext() || {}
-	const selectable = dataListContext.selectable
-	
-	const [isSelected, setIsSelected] = useState(false)
-	useEffect( () => {
-		setIsSelected(selected)
-	}, [selected])
-	
-	const toggleSelected = (event) => {
-		setIsSelected(!isSelected)
-		onChange(event)
-	}
-	
-	return (
-		<li className={`juno-datalist-row ${datalistrowbasestyles} ${ selectable && isSelected ? rowselectedstyle : '' }${className}`} {...props} >
-			{ selectable ? <DataListCheckboxCell selected={selected} disabled={disabled} onChange={toggleSelected} /> : null }
-			{children}
-		</li>
-	)
+  const dataListContext = useDataListContext() || {}
+  const selectable = dataListContext.selectable
+
+  const [isSelected, setIsSelected] = useState(false)
+  useEffect(() => {
+    setIsSelected(selected)
+  }, [selected])
+
+  const toggleSelected = (event) => {
+    setIsSelected(!isSelected)
+    onChange(event)
+  }
+
+  return (
+    <li
+      className={`juno-datalist-row ${datalistrowbasestyles} ${selectable && isSelected ? rowselectedstyle : ""}${className}`}
+      {...props}
+    >
+      {selectable ? (
+        <DataListCheckboxCell
+          selected={selected}
+          disabled={disabled}
+          onChange={toggleSelected}
+        />
+      ) : null}
+      {children}
+    </li>
+  )
 }
 
 DataListRow.propTypes = {
-	/** Custom classname */
-	className: PropTypes.string,
-	/** Children to render in the DataListRow */
-	children: PropTypes.node,
-}
-
-DataListRow.defaultProps = {
-	className: "",
-	children: null,
+  /** Custom classname */
+  className: PropTypes.string,
+  /** Children to render in the DataListRow */
+  children: PropTypes.node,
+  /** Wheter the Row is selected */
+  selected: PropTypes.bool,
+  /** Wheter the Row is disabled */
+  disabled: PropTypes.bool,
+  /** Callback function for the onChange event */
+  onChange: PropTypes.func,
 }

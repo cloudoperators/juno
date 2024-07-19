@@ -52,20 +52,20 @@ const iconWrapperStyles = `
 A special Input to select key and value of a filter.
 */
 export const FilterInput = ({
-  keyLabel,
-  options,
-  valueLabel,
-  className,
-  selectedFilterKey,
-  onSelectedFilterKeyChange,
-  filterValue,
-  valuePlaceholder,
-  onFilterValueChange,
-  onClear,
+  keyLabel = "Select Filter",
+  options = [],
+  selectedFilterKey = "",
+  onSelectedFilterKeyChange = undefined,
+  valueLabel = "Filter by Value",
+  filterValue = "",
+  valuePlaceholder = "",
+  onFilterValueChange = undefined,
+  onClear = undefined,
+  onFilter = undefined,
+  loading = false,
+  className = "",
+  error = false,
   onKeyPress,
-  onFilter,
-  loading,
-  error,
   ...props
 }) => {
   const [selectedFilter, setSelectedFilter] = useState(selectedFilterKey)
@@ -215,20 +215,4 @@ FilterInput.propTypes = {
   onFilter: PropTypes.func,
   /** Whether the FilterInput has an error */
   error: PropTypes.bool,
-}
-
-FilterInput.defaultProps = {
-  keyLabel: "Select Filter",
-  options: [],
-  selectedFilterKey: "",
-  onSelectedFilterKeyChange: undefined,
-  valueLabel: "Filter by Value",
-  filterValue: "",
-  valuePlaceholder: "",
-  onFilterValueChange: undefined,
-  onClear: undefined,
-  onFilter: undefined,
-  loading: false,
-  className: "",
-  error: false,
 }

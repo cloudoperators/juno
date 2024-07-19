@@ -108,15 +108,15 @@ const defaultpaddingright = `
 
 /** A basic, uncontrolled, native html Select. Takes SelectOption and SelectOptionGroup as children. */
 export const NativeSelect = ({
-  name,
-  id,
+  name = null,
+  id = "",
   children,
-  className,
-  disabled,
-  invalid,
-  valid,
-  loading,
-  error,
+  className = "",
+  disabled = null,
+  invalid = false,
+  valid = false,
+  loading = false,
+  error = false,
   onChange,
   onClick,
   ...props
@@ -235,17 +235,4 @@ NativeSelect.propTypes = {
   onChange: PropTypes.func,
   /** Pass a click handler */
   onClick: PropTypes.func,
-}
-
-NativeSelect.defaultProps = {
-  name: null,
-  id: "",
-  className: "",
-  disabled: null,
-  invalid: false,
-  valid: false,
-  loading: false,
-  error: false,
-  onChange: undefined,
-  onClick: undefined,
 }

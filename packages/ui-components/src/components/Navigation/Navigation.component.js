@@ -11,11 +11,11 @@ export const NavigationContext = createContext()
 
 /** A generic Navigation component providing all the necessary functionality for a navigation. For internal use only. Not to be used directly, but to be wrapped by more role-specific / semantic navigation components such as `TabNavigation`, `TopNavigation`, `SideNavigation`. */
 export const Navigation = ({
-  activeItem,
-  ariaLabel,
-  children,
-  className,
-  disabled,
+  activeItem = "",
+  ariaLabel = "",
+  children = null,
+  className = "",
+  disabled = false,
   onActiveItemChange,
   // onChange,
   ...props
@@ -121,14 +121,5 @@ Navigation.propTypes = {
   onActiveItemChange: PropTypes.func,
   /** Handler to execute when the active item changes. Alias to `onActiveItemChange`. */
   onChange: PropTypes.func,
-}
-
-Navigation.defaultProps = {
-  activeItem: "",
-  ariaLabel: "",
-  children: null,
-  className: "",
-  disabled: false,
-  onActiveItemChange: undefined,
-  onChange: undefined,
+  /** Pass the role of navigation */
 }

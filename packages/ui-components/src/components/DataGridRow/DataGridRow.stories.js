@@ -3,16 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { DataGridRow } from './index.js';
-import { DataGridCell } from '../DataGridCell/index.js';
-import { Default as DataGridCellStory } from '../DataGridCell/DataGridCell.stories.js';
-import { DataGrid } from '../DataGrid/index.js';
+import React from "react"
+import PropTypes from "prop-types"
+import { DataGridRow } from "./index.js"
+import { DataGridCell } from "../DataGridCell/index.js"
+import { Default as DataGridCellStory } from "../DataGridCell/DataGridCell.stories.js"
+import { DataGrid } from "../DataGrid/index.js"
 
-const columns = 5;
+const columns = 5
 
 export default {
-  title: 'Components/DataGrid/DataGridRow',
+  title: "Components/DataGrid/DataGridRow",
   component: DataGridRow,
   argTypes: {
     items: {
@@ -32,7 +33,7 @@ export default {
       },
     },
   },
-};
+}
 
 const Template = ({ items, ...args }) => (
   <DataGridRow {...args}>
@@ -40,7 +41,11 @@ const Template = ({ items, ...args }) => (
       <DataGridCell {...item} key={`${i}`} />
     ))}
   </DataGridRow>
-);
+)
+
+Template.propTypes = {
+  items: PropTypes.array,
+}
 
 export const Default = {
   render: Template,
@@ -48,7 +53,7 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Juno DataGridRow for use in DataGrid',
+        story: "Juno DataGridRow for use in DataGrid",
       },
     },
   },
@@ -56,4 +61,4 @@ export const Default = {
   args: {
     items: Array(columns).fill({ ...DataGridCellStory.args }),
   },
-};
+}

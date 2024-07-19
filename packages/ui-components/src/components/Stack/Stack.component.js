@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 
 // Previously we used template literals to dynamically determine the gap classname like this: gap-${gap ? gap : '0'}
 // however if we want to use tailwind jit this doesn't work since these dynamic classnames will get purged. The way
-// you have to do it is to always select a complete tailwind classname. Read more here: 
+// you have to do it is to always select a complete tailwind classname. Read more here:
 // https://medium.com/coding-at-dawn/the-tailwind-css-jit-mode-bug-that-only-happens-in-production-4f25ef009fe8
 const gapSize = (gap) => {
   switch (gap) {
@@ -88,13 +88,11 @@ const gapSize = (gap) => {
 }
 
 const baseStack = (direction, gap, wrap) => {
-  return (
-    `
-      ${direction === "vertical" ? 'jn-flex jn-flex-col' : 'jn-flex jn-flex-row'}
+  return `
+      ${direction === "vertical" ? "jn-flex jn-flex-col" : "jn-flex jn-flex-row"}
       ${wrap && "jn-flex-wrap"}
       ${gapSize(gap)}
     `
-  )
 }
 
 const alignItems = (alignment) => {
@@ -138,18 +136,17 @@ const justifyItems = (distribution) => {
  * In addition a gap can be defined which the Stack injects between its children so they have some margin from one another.
  */
 export const Stack = ({
-  direction,
-  gap,
-  alignment,
-  distribution,
-  wrap,
-  className,
-  children,
+  direction = "horizontal",
+  gap = "0",
+  alignment = "stretch",
+  distribution = "start",
+  wrap = false,
+  className = "",
+  children = null,
   ...props
 }) => {
-
   return (
-    <div 
+    <div
       className={`juno-stack ${baseStack(direction, gap, wrap)} ${alignItems(alignment)} ${justifyItems(distribution)} ${className || ""}`}
       {...props}
     >
@@ -160,24 +157,59 @@ export const Stack = ({
 
 Stack.propTypes = {
   children: PropTypes.node,
+  /** Pass css class names */
+  className: PropTypes.string,
   /** Stack items horizontally or vertically */
   direction: PropTypes.oneOf(["horizontal", "vertical"]),
   /** Specify how items should be aligned on the cross axis (in a horizontal Stack this is the vertical alignment, in a vertical Stack it is the horizontal alignment) */
   alignment: PropTypes.oneOf(["start", "end", "center", "baseline", "stretch"]),
   /** Specify how items should be distributed on the main axis (in a horizontal Stack this is the horizontal distribution, in a vertical Stack it is the vertical distribution) */
-  distribution: PropTypes.oneOf(["start", "end", "center", "between", "around", "evenly"]),
+  distribution: PropTypes.oneOf([
+    "start",
+    "end",
+    "center",
+    "between",
+    "around",
+    "evenly",
+  ]),
   /** Specify whether the Stack children should be allowed to wrap or not */
   wrap: PropTypes.bool,
   /** Can be any valid tailwind  spacing. See here: https://tailwindcss.com/docs/customizing-spacing#default-spacing-scale */
-  gap: PropTypes.oneOf(["0","px","0.5","1","1.5","2","2.5","3","3.5","4","5","6","7","8","9","10","11","12","14","16","20","24","28","32","36","40","44","48","52","56","60","64","72","80","96"])
-}
-
-Stack.defaultProps = {
-  children: null,
-  direction: "horizontal",
-  alignment: "stretch",
-  distribution: "start",
-  wrap: false,
-  gap: "0",
-  className: ""
+  gap: PropTypes.oneOf([
+    "0",
+    "px",
+    "0.5",
+    "1",
+    "1.5",
+    "2",
+    "2.5",
+    "3",
+    "3.5",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "14",
+    "16",
+    "20",
+    "24",
+    "28",
+    "32",
+    "36",
+    "40",
+    "44",
+    "48",
+    "52",
+    "56",
+    "60",
+    "64",
+    "72",
+    "80",
+    "96",
+  ]),
 }

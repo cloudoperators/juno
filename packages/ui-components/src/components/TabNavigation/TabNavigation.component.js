@@ -15,13 +15,13 @@ export const TabNavigationContext = createContext()
 
 /** A Tab Navigation parent component. Use to wrap `<TabNavigationItem>` elements inside. For tabs with corresponding tab panels, use `<Tabs>` instead. */
 export const TabNavigation = ({
-  activeItem,
+  activeItem = "",
   ariaLabel,
-  children,
-  className,
-  disabled,
+  children = null,
+  className = "",
+  disabled = false,
   onActiveItemChange,
-  tabStyle,
+  tabStyle = "main",
   ...props
 }) => {
   return (
@@ -40,7 +40,7 @@ export const TabNavigation = ({
           ${className}
         `}
         disabled={disabled}
-        navigationRole="TabNavigation"
+        // navigationRole="TabNavigation"
         onActiveItemChange={onActiveItemChange}
         {...props}
       >
@@ -65,14 +65,4 @@ TabNavigation.propTypes = {
   onActiveItemChange: PropTypes.func,
   /** The stylistic variant of the Tabs: Use `main` as the first child in an `Appshell` (when manually scaffolding, as first child of `juno-content-container`). For tabs inside the page content use "content". `<TabNavigation tabStyle="main">` will have no darkened border on the bottom of inactive tabs, `tabStyle="content"` will.*/
   tabStyle: PropTypes.oneOf(["main", "content"]),
-}
-
-TabNavigation.defaultProps = {
-  activeItem: "",
-  ariaLabel: undefined,
-  children: null,
-  className: "",
-  disabled: false,
-  onActiveItemChange: undefined,
-  tabStyle: "main",
 }

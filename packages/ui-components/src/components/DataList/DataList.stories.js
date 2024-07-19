@@ -3,19 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { DataList } from './index.js';
-import { DataListRow } from '../DataListRow/index.js';
-import { DataListCell } from '../DataListCell/index.js';
-import { Default as DataListRowStory } from '../DataListRow/DataListRow.stories.js';
-import { Default as DataListCellStory } from '../DataListCell/DataListCell.stories.js';
-import { Selectable as SelectableDataListRowStory } from '../DataListRow/DataListRow.stories.js';
-import { AutoWidth as AutoWidthDataListRowStory } from '../DataListRow/DataListRow.stories.js';
-import { PercentageWidths as PercentageWidthsDataListRowStory } from '../DataListRow/DataListRow.stories.js';
-import { GridFitted as GridFittedDataListRowStory } from '../DataListRow/DataListRow.stories.js';
+import PropTypes from "prop-types"
+import React from "react"
+import { DataList } from "./index.js"
+import { DataListRow } from "../DataListRow/index.js"
+import { DataListCell } from "../DataListCell/index.js"
+import { Default as DataListRowStory } from "../DataListRow/DataListRow.stories.js"
+// import { Default as DataListCellStory } from '../DataListCell/DataListCell.stories.js';
+import { Selectable as SelectableDataListRowStory } from "../DataListRow/DataListRow.stories.js"
+import { AutoWidth as AutoWidthDataListRowStory } from "../DataListRow/DataListRow.stories.js"
+import { PercentageWidths as PercentageWidthsDataListRowStory } from "../DataListRow/DataListRow.stories.js"
+import { GridFitted as GridFittedDataListRowStory } from "../DataListRow/DataListRow.stories.js"
 
 export default {
-  title: 'Deprecated/DataList/DataList',
+  title: "Deprecated/DataList/DataList",
   component: DataList,
   argTypes: {
     items: {
@@ -30,11 +31,12 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'DataList is deprecated and will be removed. Please use DataGrid instead.',
+        component:
+          "DataList is deprecated and will be removed. Please use DataGrid instead.",
       },
     },
   },
-};
+}
 
 const Template = ({ items, ...args }) => (
   <DataList {...args}>
@@ -46,7 +48,11 @@ const Template = ({ items, ...args }) => (
       </DataListRow>
     ))}
   </DataList>
-);
+)
+// define prop types for Template
+Template.propTypes = {
+  items: PropTypes.array,
+}
 
 export const Default = {
   render: Template,
@@ -54,7 +60,7 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Default Juno DataList for displaying data',
+        story: "Default Juno DataList for displaying data",
       },
     },
   },
@@ -68,7 +74,7 @@ export const Default = {
       { ...DataListRowStory.args },
     ],
   },
-};
+}
 
 export const Selectable = {
   render: Template,
@@ -76,7 +82,7 @@ export const Selectable = {
   parameters: {
     docs: {
       description: {
-        story: 'Selectable Juno DataList for displaying and selecting data',
+        story: "Selectable Juno DataList for displaying and selecting data",
       },
     },
   },
@@ -91,7 +97,7 @@ export const Selectable = {
       { ...SelectableDataListRowStory.args },
     ],
   },
-};
+}
 
 export const Auto = {
   render: Template,
@@ -99,7 +105,8 @@ export const Auto = {
   parameters: {
     docs: {
       description: {
-        story: "Juno DataList with one column set to 'auto' to maximize its width",
+        story:
+          "Juno DataList with one column set to 'auto' to maximize its width",
       },
     },
   },
@@ -113,7 +120,7 @@ export const Auto = {
       { ...AutoWidthDataListRowStory.args },
     ],
   },
-};
+}
 
 export const Percentage = {
   render: Template,
@@ -121,7 +128,7 @@ export const Percentage = {
   parameters: {
     docs: {
       description: {
-        story: 'Juno DataList with percentage-based column widths',
+        story: "Juno DataList with percentage-based column widths",
       },
     },
   },
@@ -135,7 +142,7 @@ export const Percentage = {
       { ...PercentageWidthsDataListRowStory.args },
     ],
   },
-};
+}
 
 export const GridFitted = {
   render: Template,
@@ -143,7 +150,7 @@ export const GridFitted = {
   parameters: {
     docs: {
       description: {
-        story: 'Juno DataList with grid column-based column widths',
+        story: "Juno DataList with grid column-based column widths",
       },
     },
   },
@@ -157,4 +164,4 @@ export const GridFitted = {
       { ...GridFittedDataListRowStory.args },
     ],
   },
-};
+}

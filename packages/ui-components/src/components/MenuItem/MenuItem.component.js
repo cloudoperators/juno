@@ -41,21 +41,18 @@ const actionableItemStyles = `
 	data-[headlessui-state="disabled"]:jn-bg-theme-background-lvl-3
 `
 
-const iconStyles = `
-	jn-mr-1.5
-`
 /** 
 A menu item to be used inside Menu.
 Can render `<a>`, `<button>`, or generic elements to hold other interactive elements.
 */
 export const MenuItem = ({
-  label,
-  icon,
-  disabled,
-  children,
+  label = "",
+  icon = null,
+  disabled = false,
+  children = null,
   onClick,
   href,
-  className,
+  className = "",
 }) => {
   // commented out because it is not used (lint)
   // const icn = icon ? (
@@ -113,14 +110,4 @@ MenuItem.propTypes = {
   href: PropTypes.string,
   /** Pass an onClick handler to the menu item. Will result in the menu item being rendered as a `<button>`. */
   onClick: PropTypes.func,
-}
-
-MenuItem.defaultProps = {
-  label: "",
-  className: "",
-  disabled: false,
-  icon: null,
-  children: null,
-  href: undefined,
-  onClick: undefined,
 }

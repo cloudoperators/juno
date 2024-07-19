@@ -12,10 +12,13 @@ const rowBaseStyle = `
 // const rowSelectedStyle = `
 // 	jn-bg-theme-datagridrow-selected
 // `
-
 export const DataGridRow = forwardRef(
   (
-    { /* selected, disabled,*/ className, children, /*onChange,*/ ...props },
+    {
+      /* selected, disabled,*/ className = "",
+      children = null,
+      /*onChange,*/ ...props
+    },
     ref
   ) => {
     // const dataGridContext = useDataGridContext() || {}
@@ -59,12 +62,4 @@ DataGridRow.propTypes = {
   className: PropTypes.string,
   // /** Pass a handler to be executed when selected state changes */
   // onChange: PropTypes.func,
-}
-
-DataGridRow.defaultProps = {
-  // selected: false,
-  // disabled: false,
-  className: "",
-  children: null,
-  // onChange: undefined,
 }

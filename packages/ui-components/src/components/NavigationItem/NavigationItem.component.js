@@ -21,19 +21,19 @@ const disabledStyles = `
 
 /** A generic Navigation Item component. For internal use only. Use to wrap more semantic, role-specific navigation item components such as `SidenavigationItem`, `TabNavigationItem` , `TopNavigationItem` around. */
 export const NavigationItem = ({
-  active,
-  activeItemStyles,
-  ariaLabel,
-  children,
-  className,
-  disabled,
-  icon,
-  inactiveItemStyles,
-  label,
-  href,
+  active = false,
+  activeItemStyles = "",
+  ariaLabel = "",
+  children = null,
+  className = "",
+  disabled = false,
+  icon = null,
+  inactiveItemStyles = "",
+  label = "",
+  href = "",
   onClick,
-  value,
-  wrapperClassName,
+  value = "",
+  wrapperClassName = "",
   ...props
 }) => {
   const navigationContext = useContext(NavigationContext)
@@ -197,20 +197,4 @@ NavigationItem.propTypes = {
   value: PropTypes.string,
   /** Pass a custom className to the parent `<li>` element of the item. */
   wrapperClassName: PropTypes.string,
-}
-
-NavigationItem.defaultProps = {
-  active: false,
-  activeItemStyles: "",
-  ariaLabel: "",
-  className: "",
-  children: null,
-  disabled: false,
-  icon: null,
-  inactiveItemStyles: "",
-  label: "",
-  href: "",
-  onClick: undefined,
-  value: "",
-  wrapperClassName: "",
 }

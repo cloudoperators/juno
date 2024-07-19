@@ -92,7 +92,7 @@ export const DateTimePicker = ({
   defaultMinute,
   defaultDate,
   defaultValue,
-  disable,
+  disable = [],
   disabled,
   enableSeconds,
   enableTime,
@@ -661,6 +661,8 @@ DateTimePicker.propTypes = {
   width: PropTypes.oneOf(["full", "auto"]),
 }
 
+// can't get rid of this, as if we transform it to a default values using vanilla JS, two tests will fail
+// the disable prop causes problems in the tests
 DateTimePicker.defaultProps = {
   allowInput: false,
   allowInvalidPreload: false,

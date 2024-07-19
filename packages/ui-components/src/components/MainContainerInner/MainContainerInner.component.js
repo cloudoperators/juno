@@ -23,31 +23,31 @@ const constrainWithSideNavStyles = `
 
 /** An inner wrapper to constrain page / view content width. */
 export const MainContainerInner = ({
-  children,
-  fullWidth,
-  hasSideNav,
-  className,
+  children = null,
+  fullWidth = false,
+  hasSideNav = false,
+  className = "",
   ...props
 }) => {
   return (
-    <div 
+    <div
       className={`
         juno-main-inner
          ${mainInnerStyles}
-         ${ !fullWidth ? 
-            ( hasSideNav ? constrainWithSideNavStyles : constrainStyles )
-           :
-            "juno-main-inner-fullwidth"
+         ${
+           !fullWidth
+             ? hasSideNav
+               ? constrainWithSideNavStyles
+               : constrainStyles
+             : "juno-main-inner-fullwidth"
          }
-         ${className}`
-      }
+         ${className}`}
       {...props}
     >
-      { children }
+      {children}
     </div>
   )
 }
-
 
 MainContainerInner.propTypes = {
   /** The children to render */
@@ -58,12 +58,4 @@ MainContainerInner.propTypes = {
   hasSideNav: PropTypes.bool,
   /** Add a custom class */
   className: PropTypes.string,
-}
-
-
-MainContainerInner.defaultProps = {
-  children: null,
-  fullWidth: false,
-  hasSideNav: false,
-  className: ""
 }

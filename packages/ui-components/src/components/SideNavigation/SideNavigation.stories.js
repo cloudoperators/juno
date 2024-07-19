@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { SideNavigation } from "./index.js"
 import { SideNavigationItem } from "../SideNavigationItem/SideNavigationItem.component"
 
@@ -25,6 +26,10 @@ export default {
 const Template = ({ children, ...args }) => (
   <SideNavigation {...args}>{children}</SideNavigation>
 )
+
+Template.propTypes = {
+  children: PropTypes.node,
+}
 
 export const Default = Template.bind({})
 Default.args = {

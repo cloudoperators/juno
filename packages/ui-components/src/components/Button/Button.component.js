@@ -111,17 +111,17 @@ export const Button = React.forwardRef(
   (
     {
       label,
-      title,
+      title = null,
       variant,
-      size,
-      disabled,
-      href,
-      icon,
-      className,
+      size = "default",
+      disabled = null,
+      href = null,
+      icon = null,
+      className = "",
       onClick,
       children,
-      progress,
-      progressLabel,
+      progress = false,
+      progressLabel = "",
       ...props
     },
     ref
@@ -206,6 +206,7 @@ export const Button = React.forwardRef(
 Button.displayName = "Button"
 
 Button.propTypes = {
+  children: PropTypes.any,
   /** Choose a variant for your purpose. May leave empty to get default button. */
   variant: PropTypes.oneOf(["primary", "primary-danger", "default", "subdued"]),
   /** Leave empty for default size */
@@ -228,17 +229,4 @@ Button.propTypes = {
   progress: PropTypes.bool,
   /** Display an alternative label while the button action is in progress */
   progressLabel: PropTypes.string,
-}
-
-Button.defaultProps = {
-  variant: undefined,
-  size: "default",
-  disabled: null,
-  icon: null,
-  className: "",
-  href: null,
-  title: null,
-  onClick: undefined,
-  progress: false,
-  progressLabel: "",
 }

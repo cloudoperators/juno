@@ -17,12 +17,12 @@ import { PageFooter } from "../PageFooter/index"
  */
 export const AppShell = ({
   children,
-  className,
-  contentHeading,
-  embedded,
+  className = "",
+  contentHeading = "",
+  embedded = false,
   fullWidthContent,
-  pageHeader,
-  pageFooter,
+  pageHeader = <PageHeader />,
+  pageFooter = <PageFooter />,
   sideNavigation,
   topNavigation,
   ...props
@@ -100,15 +100,4 @@ AppShell.propTypes = {
   fullWidthContent: PropTypes.bool,
   /** Add a custom class name */
   className: PropTypes.string,
-}
-
-AppShell.defaultProps = {
-  pageHeader: <PageHeader />,
-  pageFooter: <PageFooter />,
-  topNavigation: undefined,
-  sideNavigation: undefined,
-  contentHeading: "",
-  embedded: false,
-  fullWidthContent: undefined,
-  className: "",
 }

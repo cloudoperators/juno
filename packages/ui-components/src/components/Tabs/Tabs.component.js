@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { Tabs as ReactTabs } from "react-tabs" //
 import PropTypes from "prop-types"
 
@@ -18,67 +18,59 @@ Tabs are used to provide a tabbed section within the content area when combining
 */
 
 const Tabs = ({
-	children,
-	defaultIndex,
-	selectedIndex,
-	onSelect,
-	variant,
-	className,
-	...props
+  children = null,
+  defaultIndex,
+  selectedIndex,
+  onSelect,
+  variant = "content",
+  className = "",
+  ...props
 }) => {
-	// ensure component updates if selected index changes
-	const [passedIndex, setPassedIndex] = useState(selectedIndex)
-	
-	useEffect(() => {
-		setPassedIndex(selectedIndex)
-	}, [selectedIndex])
+  // ensure component updates if selected index changes
+  const [passedIndex, setPassedIndex] = useState(selectedIndex)
 
-	const handleSelect = (index) => {
-		onSelect && onSelect(index)
-  	}
-	  
-	const tabsConf = {
-		variant: variant
-	}
+  useEffect(() => {
+    setPassedIndex(selectedIndex)
+  }, [selectedIndex])
 
-	return (
-		<TabsContext.Provider value={tabsConf}>
-			<ReactTabs 
-				className={`juno-tabs juno-tabs-${variant} ${className}`}
-				defaultIndex={defaultIndex}
-				selectedIndex={passedIndex}
-				onSelect={handleSelect}
-				{...props} >
-					{children}
-			</ReactTabs>
-		</TabsContext.Provider>
-	)
-}	
+  const handleSelect = (index) => {
+    onSelect && onSelect(index)
+  }
 
-Tabs.tabsRole = 'Tabs'
+  const tabsConf = {
+    variant: variant,
+  }
 
-Tabs.propTypes = {
-	/** All the child elements of the Tabs: Tab(s) inside a TabList and TabPanel(s) */
-	children: PropTypes.node,
-	/** The index of the Tab to be selected by default in "Uncontrolled Mode" (default) where Tabs handle their state internally. Do not use in "Controlled Mode".*/
-	defaultIndex: PropTypes.number,
-	/** The index of the Tab to be selected by default. This enables "Controlled Mode" where the developer takes over control of the Tabs state and behaviour. Requires onSelect to be set.*/
-	selectedIndex: PropTypes.number,
-	/** Handler required in "Controlled Mode" */
-	onSelect: PropTypes.func,
-	/** Switch on Main Tab styles and context if needed */
-	variant: PropTypes.oneOf(["main", "content", "codeblocks"]),
-	/** Add a custom className to the whole Tabs construct */
-	className: PropTypes.string,
+  return (
+    <TabsContext.Provider value={tabsConf}>
+      <ReactTabs
+        className={`juno-tabs juno-tabs-${variant} ${className}`}
+        defaultIndex={defaultIndex}
+        selectedIndex={passedIndex}
+        onSelect={handleSelect}
+        {...props}
+      >
+        {children}
+      </ReactTabs>
+    </TabsContext.Provider>
+  )
 }
 
-Tabs.defaultProps = {
-	children: null,
-	defaultIndex: undefined,
-	selectedIndex: undefined,
-	onSelect: undefined,
-	variant: "content",
-	className: "",
+Tabs.tabsRole = "Tabs"
+
+Tabs.propTypes = {
+  /** All the child elements of the Tabs: Tab(s) inside a TabList and TabPanel(s) */
+  children: PropTypes.node,
+  /** The index of the Tab to be selected by default in "Uncontrolled Mode" (default) where Tabs handle their state internally. Do not use in "Controlled Mode".*/
+  defaultIndex: PropTypes.number,
+  /** The index of the Tab to be selected by default. This enables "Controlled Mode" where the developer takes over control of the Tabs state and behaviour. Requires onSelect to be set.*/
+  selectedIndex: PropTypes.number,
+  /** Handler required in "Controlled Mode" */
+  onSelect: PropTypes.func,
+  /** Switch on Main Tab styles and context if needed */
+  variant: PropTypes.oneOf(["main", "content", "codeblocks"]),
+  /** Add a custom className to the whole Tabs construct */
+  className: PropTypes.string,
 }
 
 export { Tabs }

@@ -329,7 +329,9 @@ const JsonData = ({ name, value, nestedLevel = 0 }) => {
     if (value && searchTerm) {
       try {
         if (JSON.stringify(value).indexOf(searchTerm) > 0) setIsExpanded(true)
-      } catch (e) {}
+      } catch (_e) {
+        // do nothing
+      }
     }
   }, [searchTerm])
 
@@ -339,7 +341,7 @@ const JsonData = ({ name, value, nestedLevel = 0 }) => {
     if (dataType === "array")
       return value.map((v, i) => ({ name: i, value: v }))
     if (dataType === "object")
-      return Object.keys(value).map((key, i) => ({
+      return Object.keys(value).map((key, _i) => ({
         name: key,
         value: value[key],
       }))
@@ -440,21 +442,25 @@ const JsonData = ({ name, value, nestedLevel = 0 }) => {
 
 // prop types
 JsonData.propTypes = {
-  name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  name: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool,
+  ]),
   value: PropTypes.any,
   nestedLevel: PropTypes.number,
 }
 
 /** A component to render json data in a nice way. */
 export const JsonViewer = ({
-  data,
-  showRoot,
-  toolbar,
-  theme,
-  expanded,
-  indentWidth,
+  data = {},
+  showRoot = false,
+  toolbar = false,
+  theme = null,
+  expanded = 1,
+  indentWidth = 4,
   style,
-  truncate,
+  truncate = false,
   className,
   ...props
 }) => {
@@ -556,15 +562,4 @@ JsonViewer.propTypes = {
   indentWidth: PropTypes.number,
   /* add custom classes */
   className: PropTypes.string,
-}
-
-JsonViewer.defaultProps = {
-  showRoot: false,
-  indentWidth: 4,
-  toolbar: false,
-  expanded: 1,
-  truncate: false,
-  style: undefined,
-  data: {},
-  theme: null,
 }

@@ -23,7 +23,6 @@ const wrapperStyles = (variant) => {
     default:
       return `${wrapperBaseStyles} jn-w-auto`
   }
-
 }
 
 const searchStyles = (variant) => {
@@ -37,8 +36,8 @@ const searchStyles = (variant) => {
     focus:jn-ring-theme-focus
     disabled:jn-cursor-not-allowed
     disabled:jn-opacity-50
-  ` 
-  
+  `
+
   const roundedStyles = `
     jn-rounded-full 
     focus:jn-rounded-full
@@ -79,57 +78,60 @@ const clearIconSize = (variant) => {
   switch (variant) {
     case "hero":
       return "24"
-    default: 
+    default:
       return "18"
   }
 }
 
 /** A basic, atomic, controlled Input[type="search"] */
 export const SearchInput = ({
-  name,
-  value,
-  placeholder,
-  clear,
-  className,
-  autoComplete,
-  onSearch,
-  onChange,
-  onClick,
-  onKeyPress,
-  onClear,
-  variant,
-  disabled,
+  value = "",
+  variant = "default",
+  disabled = false,
+  clear = true,
+  onSearch = undefined,
+  onChange = undefined,
+  onClick = undefined,
+  onKeyPress = undefined,
+  onClear = undefined,
+  autoComplete = "off",
+  placeholder = "Search…",
+  className = "",
   ...props
 }) => {
-
   const [val, setValue] = useState(value)
-	
-	useEffect(() => {
-		setValue(value)
-	}, [value])
 
-	const handleInputChange = (event) => {
-		setValue(event.target.value)
-		onChange && onChange(event)
+  useEffect(() => {
+    setValue(value)
+  }, [value])
+
+  const handleInputChange = (event) => {
+    setValue(event.target.value)
+    onChange && onChange(event)
   }
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter" && onSearch) { onSearch(val) }
+    if (event.key === "Enter" && onSearch) {
+      onSearch(val)
+    }
     onKeyPress && onKeyPress(event)
   }
 
   const handleSearchClick = (event) => {
-		onSearch && onSearch(val)
-		onClick && onClick(event)
+    onSearch && onSearch(val)
+    onClick && onClick(event)
   }
-  
+
   const handleClearClick = (event) => {
     setValue("")
     onClear && onClear(event)
   }
 
   return (
-    <div className={`juno-search-input-wrapper ${wrapperStyles(variant)} ${className}`} role="search">
+    <div
+      className={`juno-search-input-wrapper ${wrapperStyles(variant)} ${className}`}
+      role="search"
+    >
       <Stack gap="2" alignment="center">
         <input
           type="search"
@@ -144,17 +146,16 @@ export const SearchInput = ({
           {...props}
         />
         <div className={`${iconWrapperStyles(variant)}`}>
-          { clear && val?.length ? 
-            <Icon 
-                icon="close"
-                size={`${clearIconSize(variant)}`}
-                title="Clear"
-                className={`${clearIconStyles(variant)}`}
-                onClick={handleClearClick}
-                disabled={disabled}
-              /> 
-            : 
-              null }
+          {clear && val?.length ? (
+            <Icon
+              icon="close"
+              size={`${clearIconSize(variant)}`}
+              title="Clear"
+              className={`${clearIconStyles(variant)}`}
+              onClick={handleClearClick}
+              disabled={disabled}
+            />
+          ) : null}
           <Icon
             icon="search"
             title="Search"
@@ -179,7 +180,7 @@ SearchInput.propTypes = {
   /** Pass a value for initial rendering. Will NOT be updated once user changes for now */
   value: PropTypes.string,
   /** Pass a valid autocomplete value. We do not police validity. Default is "off" */
-	autoComplete: PropTypes.string,
+  autoComplete: PropTypes.string,
   /** Pass whether to show Clear button or not. Default is true. */
   clear: PropTypes.bool,
   /** The class names passed here will be merged with the existing class names of the component */
@@ -194,19 +195,4 @@ SearchInput.propTypes = {
   onKeyPress: PropTypes.func,
   /** Pass a handler to be executed once a user clicks on the Clear button of the SearchField */
   onClear: PropTypes.func,
-}
-
-SearchInput.defaultProps = {
-  value: "",
-  variant: "default",
-  disabled: false,
-  clear: true,
-  onSearch: undefined,
-  onChange: undefined,
-  onClick: undefined,
-  onKeyPress: undefined,
-  onClear: undefined,
-  autoComplete: "off",
-  placeholder: "Search…",
-  className: "",
 }
