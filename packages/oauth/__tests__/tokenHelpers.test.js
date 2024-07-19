@@ -111,13 +111,12 @@ describe("parseIdTokenData", () => {
     })
     expect(data).toEqual(
       expect.objectContaining({
-        loginName: "P123456",
+        loginName: "test",
         firstName: "Dona",
         lastName: "Moore",
         fullName: "Dona Moore",
         email: "dona.moore@example.com",
         groups: ["test"],
-        loginName: "test",
         userId: "P123456",
         avatarUrl: {
           small: `https://avatars.wdf.sap.corp/avatar/P123456?size=24`,

@@ -11,10 +11,6 @@ const analyze = require("rollup-plugin-analyzer")
 const commonjs = require("@rollup/plugin-commonjs")
 const { nodeResolve } = require("@rollup/plugin-node-resolve")
 
-const isProduction = process.env.NODE_ENV === "production"
-// IMPORTANT!
-// package.json is single source of truth policy
-
 if (!/.+\/.+\.js/.test(pkg.module))
   throw new Error(
     "module value is incorrect, use DIR/FILE.js like build/index.js"

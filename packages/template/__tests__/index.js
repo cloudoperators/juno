@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const Template = require("../src/index")
+const Template = require("../src/index").default
 
 describe("Template", () => {
   let library

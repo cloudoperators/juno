@@ -5,7 +5,6 @@
 
 import "./__utils__/globalsMock"
 import mockedSession, { mockedAuthData } from "../src/mockedSession"
-import { parseIdTokenData } from "../src/tokenHelpers"
 
 describe("mockedSession", () => {
   // initialLogin,

@@ -39,8 +39,8 @@ describe("buildRequestUrl", () => {
     ).toBeDefined()
   })
 
-  test("should build url for implicit flow", () => {
-    buildRequestUrl({
+  test("should build url for implicit flow", async () => {
+    await buildRequestUrl({
       issuerURL: "http://issuer.com",
       clientID: "12345",
       oidcState: {
@@ -60,8 +60,8 @@ describe("buildRequestUrl", () => {
     })
   })
 
-  test("include additional request params", () => {
-    buildRequestUrl({
+  test("include additional request params", async () => {
+    await buildRequestUrl({
       issuerURL: "http://issuer.com",
       clientID: "12345",
       params: { origanization: "test", project: "test" },
@@ -82,8 +82,8 @@ describe("buildRequestUrl", () => {
     })
   })
 
-  test("use given callbackURL", () => {
-    buildRequestUrl({
+  test("use given callbackURL", async () => {
+    await buildRequestUrl({
       issuerURL: "http://issuer.com",
       clientID: "12345",
       callbackURL: "http://another-issuer.com",
@@ -105,11 +105,11 @@ describe("buildRequestUrl", () => {
     })
   })
 
-  test("should use scope from config", () => {
+  test("should use scope from config", async () => {
     const org_scopes_supported = config.scopes_supported
     config.scopes_supported = ["openid", "email"]
 
-    buildRequestUrl({
+    await buildRequestUrl({
       issuerURL: "http://issuer.com",
       clientID: "12345",
       callbackURL: "http://another-issuer.com",
@@ -184,7 +184,7 @@ describe("handleResponse", () => {
       expect(getOidcConfig).toHaveBeenCalledWith("http://issuer.com")
     })
 
-    test("call fetch", async () => {
+    test("global fetch is called", async () => {
       oidcState.searchParams = new URLSearchParams("code=12345678")
 
       await handleResponse({
@@ -205,7 +205,7 @@ describe("handleResponse", () => {
       )
     })
 
-    test("call fetch", async () => {
+    test("fetch returns token data", async () => {
       oidcState.searchParams = new URLSearchParams("code=123456789")
 
       const data = await handleResponse({

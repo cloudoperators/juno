@@ -49,15 +49,15 @@ yarn add url-state-provider
 Here's a basic example of how to use URL State Provider in your JavaScript application:
 
 ```javascript
-import urlStateProvider from "url-state-provider"
+import urlStateProvider from "url-state-provider";
 
 // get initial state for app1 from URL (initial page URL)
-urlStateProvider.currentState("app1")
+urlStateProvider.currentState("app1");
 
 // add a new URL to the history object
-urlStatusProvider.push("app1", { p: "/items" })
+urlStatusProvider.push("app1", { p: "/items" });
 // replace last URL with a new one
-urlStatusProvider.replace("app1", { p: "/items/new" })
+urlStatusProvider.replace("app1", { p: "/items/new" });
 ```
 
 ## API Reference
@@ -134,46 +134,46 @@ Please make sure to adjust and expand this reference based on the specific detai
 ### Low level
 
 ```js
-import urlStateProvider from "url-state-provider"
+import urlStateProvider from "url-state-provider";
 
 // Add a listener for changes on URL for the state of app1
 // The callback function is always executed when the state for app1 changes.
 // The status changes if, for example, a new status is pushed from the
 // app or if the user clicks the back and forward buttons in browser.
 urlStateProvider.addOnChangeListener("app1", (newState) => {
-  console.log(newState)
-})
+  console.log(newState);
+});
 
 // get initial state for app1 from URL (initial page URL)
-urlStateProvider.currentState("app1")
+urlStateProvider.currentState("app1");
 
 // add a new URL to the history object
-urlStatusProvider.push("app1", { p: "/items" })
+urlStatusProvider.push("app1", { p: "/items" });
 // replace last URL with a new one
-urlStatusProvider.replace("app1", { p: "/items/new" })
+urlStatusProvider.replace("app1", { p: "/items/new" });
 
 // unregister listener
-urlStateProvider.removeOnChangeListener("app1")
+urlStateProvider.removeOnChangeListener("app1");
 ```
 
 ### High level
 
 ```js
-import urlStateProvider from "url-state-provider"
+import urlStateProvider from "url-state-provider";
 
-const consumer1 = urlStateProvider.registerConsumer("app1")
-const consumer2 = urlStateProvider.registerConsumer("app2")
+const consumer1 = urlStateProvider.registerConsumer("app1");
+const consumer2 = urlStateProvider.registerConsumer("app2");
 
 // Listen for changes in state resulting from navigation button clicks
 const unregisterConsumer2 = consumer2.onChange((newState) =>
-  console.log("State changed due to navigation:", newState)
-)
+  console.log("State changed due to navigation:", newState),
+);
 
-consumer2.currentState()
-consumer2.push({ p: "/items" })
-consumer2.replace({ p: "/items/new" })
+consumer2.currentState();
+consumer2.push({ p: "/items" });
+consumer2.replace({ p: "/items/new" });
 
-unregisterConsumer2()
+unregisterConsumer2();
 ```
 
 ## Encoding
