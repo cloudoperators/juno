@@ -24,7 +24,7 @@ export const mockedAuthData = (tokenData) => {
     if (typeof tokenData === "string") {
       tokenData = JSON.parse(atob(tokenData))
     }
-  } catch (e) {
+  } catch (_) {
     console.warn(
       `WARNING: (OAUTH MOCK) Could not parse token data: ${tokenData}`
     )

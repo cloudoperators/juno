@@ -26,6 +26,7 @@ class Template {
    */
   constructor(options = {}) {
     // Initialize your library here
+    this.options = { ...options }
   }
 
   /**
@@ -52,4 +53,4 @@ class Template {
   }
 }
 
-module.exports = Template
+export default Template

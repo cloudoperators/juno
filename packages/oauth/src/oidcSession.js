@@ -27,7 +27,7 @@ const isOidcResponse = hasValidState()
 const oidcFlowHandler = (flowType) => {
   if (flowType === FLOW_TYPE.IMPLICIT) return implicitFlowHandler
   else if (flowType === FLOW_TYPE.CODE) return codeFlowHandler
-  throw new Error("no flow handler for " + oidcState.flowType)
+  throw new Error("no flow handler for " + flowType)
 }
 
 //############################## REQUEST #################################
@@ -187,7 +187,7 @@ const oidcSession = (params) => {
     flowType,
     onUpdate,
     requestParams,
-    callbackURL,
+    _callbackURL,
     ...unknownProps
   } = params || {}
   if (!issuerURL || !clientID) {

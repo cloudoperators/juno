@@ -37,7 +37,7 @@ export const encodeBase64Json = (props) =>
 export const decodeBase64Json = (string) => {
   try {
     return JSON.parse(window.atob(string))
-  } catch (e) {
+  } catch (_) {
     return null
   }
 }
