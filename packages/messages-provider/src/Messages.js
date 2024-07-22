@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { Message } from "@cloudoperators/juno-ui-components"
 import { useMessages, useActions } from "./useMessageStore"
 
@@ -48,6 +49,10 @@ const Messages = ({ className }) => {
       )}
     </>
   )
+}
+
+Messages.propTypes = {
+  className: PropTypes.string,
 }
 
 export default Messages
