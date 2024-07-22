@@ -232,15 +232,14 @@ Other characters like ñ and ß are encoded with % ( https://developer.mozilla.o
 
 ## Encoding of other values
 
-- Encoding types:
-  - `*A` is `null`
-  - `*B` is `undefined`
-  - `*C` is `true`
-  - `*D` is `false`
-  - `*E` is `NaN`
-  - `*F` is `+Infinity`
-  - `*G` is `-Infinity`
-  - `*R` is marks a Regex.
+- `*A` is `null`
+- `*B` is `undefined`
+- `*C` is `true`
+- `*D` is `false`
+- `*E` is `NaN`
+- `*F` is `+Infinity`
+- `*G` is `-Infinity`
+- `*R` is marks a Regex.
 
 ## License
 
