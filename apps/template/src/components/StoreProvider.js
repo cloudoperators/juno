@@ -4,6 +4,7 @@
  */
 
 import React, { createContext, useContext } from "react"
+import PropTypes from "prop-types"
 import { useStore as create } from "zustand"
 import createStore from "../lib/store"
 
@@ -21,4 +22,8 @@ export const useGlobalsUrlStateKey = () =>
 export const useGlobalsActions = () =>
   useAppStore((state) => state.globals.actions)
 
+StoreProvider.propTypes = {
+  options: PropTypes.object,
+  children: PropTypes.node,
+}
 export default StoreProvider

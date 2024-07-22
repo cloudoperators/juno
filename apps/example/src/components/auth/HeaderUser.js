@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { Stack, Button } from "@cloudoperators/juno-ui-components"
 import Avatar from "./Avatar"
 import { useAuthLoggedIn, useAuthData } from "../StoreProvider"
@@ -34,6 +35,11 @@ const HeaderUser = ({ login, logout }) => {
       )}
     </Stack>
   )
+}
+
+HeaderUser.propTypes = {
+  login: PropTypes.func,
+  logout: PropTypes.func,
 }
 
 export default HeaderUser

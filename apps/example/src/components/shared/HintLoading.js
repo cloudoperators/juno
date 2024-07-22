@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { Stack, Spinner } from "@cloudoperators/juno-ui-components"
 
 const HintLoading = ({ text }) => {
@@ -15,4 +16,7 @@ const HintLoading = ({ text }) => {
   )
 }
 
+HintLoading.propTypes = {
+  text: PropTypes.string,
+}
 export default HintLoading

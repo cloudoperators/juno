@@ -3,8 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from "react"
-import { DataGridCell, DataGridRow, Icon, Stack } from "@cloudoperators/juno-ui-components"
+import React from "react"
+import PropTypes from "prop-types"
+import {
+  DataGridCell,
+  DataGridRow,
+  Icon,
+  Stack,
+} from "@cloudoperators/juno-ui-components"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useGlobalsActions } from "../StoreProvider"
 
@@ -12,7 +18,7 @@ const PeaksListItem = ({ peak }) => {
   const queryClient = useQueryClient()
   const { setCurrentPanel } = useGlobalsActions()
 
-  const { isLoading, isError, error, data, isSuccess, mutate } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["peakDelete"],
   })
 
@@ -26,11 +32,11 @@ const PeaksListItem = ({ peak }) => {
         id: peak.id,
       },
       {
-        onSuccess: (data, variables, context) => {
+        onSuccess: () => {
           // refetch peaks
           queryClient.invalidateQueries("peaks")
         },
-        onError: (error, variables, context) => {
+        onError: () => {
           // TODO display error
         },
       }
@@ -74,6 +80,10 @@ const PeaksListItem = ({ peak }) => {
       </DataGridCell>
     </DataGridRow>
   )
+}
+
+PeaksListItem.propTypes = {
+  peak: PropTypes.object,
 }
 
 export default PeaksListItem

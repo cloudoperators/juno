@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
 const avatarCss = `
@@ -29,6 +30,11 @@ const Avatar = ({ userName, url }) => {
       {userName && <span className="ml-2">{userName}</span>}
     </Stack>
   )
+}
+
+Avatar.propTypes = {
+  userName: PropTypes.string,
+  url: PropTypes.string,
 }
 
 export default Avatar

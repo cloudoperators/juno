@@ -72,7 +72,6 @@ const build = async () => {
     // load the app via dynamic import (splitting: true)
     splitting: true,
     // we suport only esm!
-    format: "esm",
     plugins: [
       // minimal plugin to log the recompiling process.
       {
@@ -132,7 +131,7 @@ const build = async () => {
               const maxSize = 10240 // 10Kb
               // built-in loaders: js, jsx, ts, tsx, css, json, text, base64, dataurl, file, binary
               // use dataurl loader for small files and file loader for big files!
-              loader = contents.length <= maxSize ? "dataurl" : "file"
+              const loader = contents.length <= maxSize ? "dataurl" : "file"
 
               return { contents, loader }
             }

@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
 const HintNotFound = ({ text }) => {
@@ -17,6 +18,10 @@ const HintNotFound = ({ text }) => {
       <span>{text || "No items found"}</span>
     </Stack>
   )
+}
+
+HintNotFound.propTypes = {
+  text: PropTypes.string,
 }
 
 export default HintNotFound

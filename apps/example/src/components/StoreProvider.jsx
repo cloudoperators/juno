@@ -4,6 +4,7 @@
  */
 
 import React, { createContext, useContext } from "react"
+import PropTypes from "prop-types"
 import { useStore as create } from "zustand"
 import createStore from "../lib/store"
 
@@ -39,4 +40,7 @@ export const useAuthLastAction = () =>
   useStore((state) => state.auth.lastAction)
 export const useAuthActions = () => useStore((state) => state.auth.actions)
 
+StoreProvider.propTypes = {
+  children: PropTypes.node,
+}
 export default StoreProvider

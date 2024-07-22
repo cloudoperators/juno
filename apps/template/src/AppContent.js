@@ -8,7 +8,7 @@ import { Container } from "@cloudoperators/juno-ui-components"
 
 // This is your starting point of tour application
 // see several examples in the exampleApp
-const AppContent = (props) => {
+const AppContent = () => {
   return (
     <Container>
       <div>Hello World!!!</div>
