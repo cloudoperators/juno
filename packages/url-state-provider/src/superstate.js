@@ -59,47 +59,43 @@ export default function () {
   }
 
   function decode(value) {
-    try {
-      if (!value) return ""
+    if (!value) return ""
 
-      if (value[0] === "*") {
-        switch (value[1]) {
-          case "A":
-            return null
-          case "B":
-            return undefined
-          case "C":
-            return true
-          case "D":
-            return false
-          case "E":
-            return NaN
-          case "F":
-            return +Infinity
-          case "G":
-            return -Infinity
-          case "R":
-            return decodeRegex(value)
-          default:
-            return decodeNumber(value)
-        }
+    if (value[0] === "*") {
+      switch (value[1]) {
+        case "A":
+          return null
+        case "B":
+          return undefined
+        case "C":
+          return true
+        case "D":
+          return false
+        case "E":
+          return NaN
+        case "F":
+          return +Infinity
+        case "G":
+          return -Infinity
+        case "R":
+          return decodeRegex(value)
+        default:
+          return decodeNumber(value)
       }
-
-      // if value[0] is ~ and value[1] is a number
-      if (/^~\d/.test(value)) {
-        return decodeNumber(value)
-      }
-
-      if (value[0] === "(") {
-        if (value[value.length - 1] !== ")") {
-          throw new Error("JSON object not closed correctly")
-        }
-        return decodeObject(value)
-      }
-      return decodeString(value)
-    } catch (error) {
-      throw error
     }
+
+    // if value[0] is ~ and value[1] is a number
+    if (/^~\d/.test(value)) {
+      return decodeNumber(value)
+    }
+
+    if (value[0] === "(") {
+      if (value[value.length - 1] !== ")") {
+        throw new Error("JSON object not closed correctly")
+      }
+      return decodeObject(value)
+    }
+    return decodeString(value)
   }
   // obj
   function encodeString(value) {
@@ -309,7 +305,7 @@ export default function () {
   function decodeB64(value) {
     try {
       return decode(atob(value))
-    } catch (error) {
+    } catch (_error) {
       throw new Error("URI malformed")
     }
   }
@@ -336,7 +332,7 @@ export default function () {
   function decodeB64NullOnError(value) {
     try {
       return decode(atob(value))
-    } catch (error) {
+    } catch (_error) {
       return null
     }
   }
@@ -348,7 +344,7 @@ export default function () {
         throw new Error("URI malformed")
       }
       return result
-    } catch (error) {
+    } catch (_error) {
       return null
     }
   }
@@ -356,7 +352,7 @@ export default function () {
   function decodeNullOnError(value) {
     try {
       return decode(value)
-    } catch (error) {
+    } catch (_error) {
       return null
     }
   }
