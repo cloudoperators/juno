@@ -37,6 +37,7 @@ Route.propTypes = {
   path: PropTypes.string.isRequired,
   exact: PropTypes.bool,
   component: PropTypes.func,
+  children: PropTypes.node,
 }
 
 Route.displayName = "Route"

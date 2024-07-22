@@ -22,7 +22,7 @@ const routeMatcher = (currentPath, routePath, options) => {
   currentPath = currentPath.trim()
 
   // build regex from path by replacing all ":var" with "([^\/]+)"
-  let regexString = "^" + routePath.replace(/:[^\/]+/g, "([^\\/]+)")
+  let regexString = "^" + routePath.replace(/:[^/]+/g, "([^\\/]+)")
   // add "$" at the end of regex if exact is set
   if (options.exact) regexString += "$"
 
