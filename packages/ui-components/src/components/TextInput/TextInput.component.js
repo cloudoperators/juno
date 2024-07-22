@@ -72,13 +72,6 @@ const disablediconstyles = `
   jn-opacity-50
 `
 
-const iconstyles = `
-  jn-inline-block 
-  jn-ml-1 
-  jn-leading-1
-  jn-mt-[-.2rem]
-`
-
 const hintStyles = `
   jn-mt-0
 `
@@ -88,51 +81,47 @@ A controlled Text Input.
 Also covers email, telephone, password, url derivates. 
 */
 export const TextInput = ({
-  name,
-  value,
-  id,
-  type,
-  placeholder,
-  disabled,
-  readOnly,
-  required,
-  invalid,
-  valid,
-  autoFocus,
-  className,
-  label,
-  helptext,
-  successtext,
-  errortext,
-  autoComplete,
-  width,
-  onChange,
-  onFocus,
-  onBlur,
+  value = "",
+  id = "",
+  placeholder = "",
+  disabled = false,
+  readOnly = false,
+  required = false,
+  invalid = false,
+  valid = false,
+  autoFocus = false,
+  className = "",
+  autoComplete = "off",
+  helptext = "",
+  successtext = "",
+  errortext = "",
+  onChange = undefined,
+  onFocus = undefined,
+  onBlur = undefined,
+  type = null,
+  label = undefined,
+  width = "full",
   ...props
 }) => {
-  
   const isNotEmptyString = (str) => {
-    return !(typeof str === 'string' && str.trim().length === 0)
+    return !(typeof str === "string" && str.trim().length === 0)
   }
-  
-  const uniqueId = () => (
-    "juno-textinput-" + useId()
-  )
-  
+
+  const uniqueId = () => "juno-textinput-" + useId()
+
   const ref = useRef()
   const [val, setValue] = useState("")
   const [hasFocus, setFocus] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
   const [isValid, setIsValid] = useState(false)
-  
+
   /* Set the focus state variable in case the input was focussed by passing autoFocus, or when the input was rendered and focussed by the user before React started listening to client side events, e.g. when rendering server-side: */
   useEffect(() => {
     if (document.hasFocus() && ref.current.contains(document.activeElement)) {
-      setFocus(true);
+      setFocus(true)
     }
   }, [])
-  
+
   useEffect(() => {
     setValue(value)
   }, [value])
@@ -142,14 +131,15 @@ export const TextInput = ({
     [invalid, errortext]
   )
   const validated = useMemo(
-    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () =>
+      valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
   )
-  
+
   useEffect(() => {
     setIsInvalid(invalidated)
   }, [invalidated])
-  
+
   useEffect(() => {
     setIsValid(validated)
   }, [validated])
@@ -158,17 +148,17 @@ export const TextInput = ({
     setValue(event.target.value)
     onChange && onChange(event)
   }
-  
+
   const handleFocus = (event) => {
     setFocus(true)
     onFocus && onFocus(event)
   }
-  
+
   const handleBlur = (event) => {
     setFocus(false)
     onBlur && onBlur(event)
   }
-  
+
   const Icons = ({ disabled }) => {
     if (isValid || isInvalid) {
       return (
@@ -189,19 +179,19 @@ export const TextInput = ({
       return ""
     }
   }
-  
+
   const theId = id || uniqueId()
-  
+
   return (
     <div>
-      <span 
+      <span
         className={`
           juno-textinput-wrapper 
           ${wrapperStyles}
-          ${ width == "auto" ? "jn-inline-block" : "jn-block" }
-          ${ width == "auto" ? "jn-w-auto" : "jn-w-full" }
-          `} 
-        >
+          ${width == "auto" ? "jn-inline-block" : "jn-block"}
+          ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          `}
+      >
         <input
           type={type}
           name={name}
@@ -216,48 +206,57 @@ export const TextInput = ({
           onChange={handleValueChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className={
-            `juno-textinput 
-            ${ textinputstyles }
-            ${ label ? withLabelStyles : noLabelStyles }
-            ${ isInvalid ? "juno-textinput-invalid " + invalidstyles : "" } 
-            ${ isValid ? "juno-textinput-valid " + validstyles : "" }  
-            ${ isValid || isInvalid ? "" : defaultborderstyles } 
-            ${ width == "auto" ? "jn-w-auto" : "jn-w-full" }
-            ${ className }
+          className={`juno-textinput 
+            ${textinputstyles}
+            ${label ? withLabelStyles : noLabelStyles}
+            ${isInvalid ? "juno-textinput-invalid " + invalidstyles : ""} 
+            ${isValid ? "juno-textinput-valid " + validstyles : ""}  
+            ${isValid || isInvalid ? "" : defaultborderstyles} 
+            ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+            ${className}
           `}
           {...props}
         />
-        { label && label.length ?
-            <Label 
-              text={label}
-              htmlFor={theId}
-              className={`${labelStyles}`}
-              disabled={disabled}
-              required={required}
-              floating
-              minimized={ placeholder || hasFocus || val && val.length ? true : false}
-            />
-          :
-            ""
-        }
+        {label && label.length ? (
+          <Label
+            text={label}
+            htmlFor={theId}
+            className={`${labelStyles}`}
+            disabled={disabled}
+            required={required}
+            floating
+            minimized={
+              placeholder || hasFocus || (val && val.length) ? true : false
+            }
+          />
+        ) : (
+          ""
+        )}
         <Icons disabled={disabled} />
       </span>
-      { errortext && isNotEmptyString(errortext) ?
-          <FormHint text={errortext} variant="error" className={`${hintStyles}`} />
-        :
-          ""
-      }
-      { successtext && isNotEmptyString(successtext) ?
-          <FormHint text={successtext} variant="success" className={`${hintStyles}`} />
-        :
-          ""
-      }
-      { helptext && isNotEmptyString(helptext) ?
-          <FormHint text={helptext} className={`${hintStyles}`} />
-        :
-          ""
-       }
+      {errortext && isNotEmptyString(errortext) ? (
+        <FormHint
+          text={errortext}
+          variant="error"
+          className={`${hintStyles}`}
+        />
+      ) : (
+        ""
+      )}
+      {successtext && isNotEmptyString(successtext) ? (
+        <FormHint
+          text={successtext}
+          variant="success"
+          className={`${hintStyles}`}
+        />
+      ) : (
+        ""
+      )}
+      {helptext && isNotEmptyString(helptext) ? (
+        <FormHint text={helptext} className={`${hintStyles}`} />
+      ) : (
+        ""
+      )}
     </div>
   )
 }
@@ -305,27 +304,4 @@ TextInput.propTypes = {
   errortext: PropTypes.node,
   /** The width of the text input. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
-}
-
-TextInput.defaultProps = {
-  value: "",
-  id: "",
-  placeholder: "",
-  disabled: false,
-  readOnly: false,
-  required: false,
-  invalid: false,
-  valid: false,
-  autoFocus: false,
-  className: "",
-  autoComplete: "off",
-  helptext: "",
-  successtext: "",
-  errortext: "",
-  onChange: undefined,
-  onFocus: undefined,
-  onBlur: undefined,
-  type: null,
-  label: undefined,
-  width: "full",
 }

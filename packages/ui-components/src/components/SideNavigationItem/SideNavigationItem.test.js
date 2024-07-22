@@ -4,13 +4,7 @@
  */
 
 import * as React from "react"
-import {
-  render,
-  screen,
-  waitFor,
-  cleanup,
-  rerender,
-} from "@testing-library/react"
+import { render, screen, cleanup } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { SideNavigation } from "../SideNavigation/index"
 import { SideNavigationItem } from "./index"
@@ -49,6 +43,14 @@ describe("SideNavigationItem", () => {
     expect(screen.getByRole("button")).toHaveAttribute(
       "aria-label",
       "My ARIA-Label"
+    )
+  })
+
+  test("renders an aria-label as passed, role link", async () => {
+    render(<SideNavigationItem href="#" ariaLabel="hey nav item!" />)
+    expect(screen.getByRole("link")).toHaveAttribute(
+      "aria-label",
+      "hey nav item!"
     )
   })
 
@@ -105,14 +107,6 @@ describe("SideNavigationItem", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).not.toHaveClass(
       "juno-sidenavigation-item-active"
-    )
-  })
-
-  test("renders an aria-label as passed", async () => {
-    render(<SideNavigationItem href="#" ariaLabel="hey nav item!" />)
-    expect(screen.getByRole("link")).toHaveAttribute(
-      "aria-label",
-      "hey nav item!"
     )
   })
 

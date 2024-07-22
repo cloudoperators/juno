@@ -3,34 +3,34 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { PortalProvider, usePortalRef } from '.';
-import { Message } from '../Message/index.js';
-import { CodeBlock } from '../CodeBlock/index.js';
+import React from "react"
+import ReactDOM from "react-dom"
+import { PortalProvider, usePortalRef } from "."
+import { Message } from "../Message/index.js"
+import { CodeBlock } from "../CodeBlock/index.js"
 
 export default {
-  title: 'Layout/PortalProvider',
+  title: "Layout/PortalProvider",
   component: PortalProvider,
-  subcomponents: { 'PortalProvider.Portal': PortalProvider.Portal },
-  tags: ['autodocs'],
+  subcomponents: { "PortalProvider.Portal": PortalProvider.Portal },
+  tags: ["autodocs"],
   argTypes: {
     children: {
       control: false,
     },
   },
-};
+}
 
-const Default = (args) => (
+const Default = () => (
   <PortalProvider>
     <PortalProvider.Portal>
       <Message title="Hi!" text="I'm inside the portal" />
     </PortalProvider.Portal>
   </PortalProvider>
-);
+)
 
 const PortalRefContent = () => {
-  let portalRef = usePortalRef();
+  let portalRef = usePortalRef()
 
   return (
     <>
@@ -52,16 +52,16 @@ const MyComponent = () => {
           portalRef
         )}
     </>
-  );
-};
+  )
+}
 /**
  *  PortalRef
  */
-const PortalRef = (args) => (
+const PortalRef = () => (
   <PortalProvider>
     <PortalRefContent />
   </PortalProvider>
-);
+)
 
 /** The PortalProvider is the parent for all portals of a Juno app. */
-export { Default as PortalComponent, PortalRef };
+export { Default as PortalComponent, PortalRef }

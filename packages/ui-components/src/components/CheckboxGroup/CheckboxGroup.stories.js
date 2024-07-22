@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { CheckboxGroup } from './index.js';
-import { CheckboxRow } from '../CheckboxRow/index.js';
-import { Checkbox } from '../Checkbox/index.js';
+import React from "react"
+import PropTypes from "prop-types"
+import { CheckboxGroup } from "./index.js"
+import { Checkbox } from "../Checkbox/index.js"
 
 export default {
-  title: 'Forms/Checkbox/CheckboxGroup',
+  title: "Forms/Checkbox/CheckboxGroup",
   component: CheckboxGroup,
   argTypes: {
     items: {
@@ -33,9 +33,15 @@ export default {
       control: false,
     },
   },
-};
+}
 
-const Template = ({ children, ...args }) => <CheckboxGroup {...args}>{children}</CheckboxGroup>;
+const Template = ({ children, ...args }) => (
+  <CheckboxGroup {...args}>{children}</CheckboxGroup>
+)
+
+Template.propTypes = {
+  children: PropTypes.node,
+}
 
 export const Default = {
   render: Template,
@@ -47,20 +53,20 @@ export const Default = {
       <Checkbox value="val-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const Selected = {
   render: Template,
 
   args: {
-    selected: ['val-2'],
+    selected: ["val-2"],
     children: [
       <Checkbox value="val-1" label="Option 1" key="1" />,
       <Checkbox value="val-2" label="Option 2" key="2" />,
       <Checkbox value="val-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const IndividuallyChecked = {
   render: Template,
@@ -73,28 +79,28 @@ export const IndividuallyChecked = {
       <Checkbox value="val-4" label="Option 4" key="4" />,
     ],
   },
-};
+}
 
 export const WithLabel = {
   render: Template,
 
   args: {
-    name: 'Labelled ChechboxGroup',
-    label: 'A Labelled CheckboxGroup',
+    name: "Labelled ChechboxGroup",
+    label: "A Labelled CheckboxGroup",
     children: [
       <Checkbox value="val-1" id="c-1" label="Option 1" key="1" />,
       <Checkbox value="val-2" id="c-2" label="Option 2" key="2" />,
       <Checkbox value="val-3" id="c-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const Required = {
   render: Template,
 
   args: {
-    name: 'Required Labelled ChechboxGroup',
-    label: 'A Required, Labelled CheckboxGroup',
+    name: "Required Labelled ChechboxGroup",
+    label: "A Required, Labelled CheckboxGroup",
     required: true,
     children: [
       <Checkbox value="val-1" id="c-1" label="Option 1" key="1" />,
@@ -102,13 +108,13 @@ export const Required = {
       <Checkbox value="val-3" id="c-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const Disabled = {
   render: Template,
 
   args: {
-    label: 'A disabled CheckboxGroup',
+    label: "A disabled CheckboxGroup",
     disabled: true,
     children: [
       <Checkbox value="val-1" id="c-1" label="Option 1" key="1" />,
@@ -116,14 +122,14 @@ export const Disabled = {
       <Checkbox value="val-3" id="c-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const ValidCheckboxGroup = {
   render: Template,
 
   args: {
-    name: 'valid-checkbox-group',
-    label: 'A valid CheckboxGroup',
+    name: "valid-checkbox-group",
+    label: "A valid CheckboxGroup",
     valid: true,
     children: [
       <Checkbox value="val-1" id="c-1" label="Option 1" key="1" />,
@@ -131,29 +137,29 @@ export const ValidCheckboxGroup = {
       <Checkbox value="val-3" id="c-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const WithHelptext = {
   render: Template,
 
   args: {
-    name: 'checkbox-group-with-helptext',
-    label: 'A CheckboxGroup with helptext',
-    helptext: 'A helptext',
+    name: "checkbox-group-with-helptext",
+    label: "A CheckboxGroup with helptext",
+    helptext: "A helptext",
     children: [
       <Checkbox value="val-1" id="c-1" label="Option 1" key="1" />,
       <Checkbox value="val-2" id="c-2" label="Option 2" key="2" />,
       <Checkbox value="val-3" id="c-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const WithHelptextAsNode = {
   render: Template,
 
   args: {
-    name: 'checkbox-group-with-helptext-as-node',
-    label: 'A CheckboxGroup with helptext as node',
+    name: "checkbox-group-with-helptext-as-node",
+    label: "A CheckboxGroup with helptext as node",
     helptext: (
       <>
         This is a helptext with a <a href="#">Link</a>
@@ -165,29 +171,29 @@ export const WithHelptextAsNode = {
       <Checkbox value="val-3" id="c-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const WithSuccesstext = {
   render: Template,
 
   args: {
-    name: 'checkbox-group-with-success',
-    label: 'A CheckboxGroup with successful validation',
-    successtext: 'This group is valid.',
+    name: "checkbox-group-with-success",
+    label: "A CheckboxGroup with successful validation",
+    successtext: "This group is valid.",
     children: [
       <Checkbox value="val-1" id="c-1" label="Option 1" key="1" />,
       <Checkbox value="val-2" id="c-2" label="Option 2" key="2" />,
       <Checkbox value="val-3" id="c-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const InvalidCheckboxGroup = {
   render: Template,
 
   args: {
-    name: 'invalid-checkbox-group',
-    label: 'An invalid CheckboxGroup',
+    name: "invalid-checkbox-group",
+    label: "An invalid CheckboxGroup",
     invalid: true,
     children: [
       <Checkbox value="val-1" id="c-1" label="Option 1" key="1" />,
@@ -195,19 +201,19 @@ export const InvalidCheckboxGroup = {
       <Checkbox value="val-3" id="c-3" label="Option 3" key="3" />,
     ],
   },
-};
+}
 
 export const WithErrortext = {
   render: Template,
 
   args: {
-    name: 'checkbox-group-with-error',
-    label: 'A CheckboxGroup with an Error',
-    errortext: 'This group has an error.',
+    name: "checkbox-group-with-error",
+    label: "A CheckboxGroup with an Error",
+    errortext: "This group has an error.",
     children: [
       <Checkbox value="val-1" id="c-1" label="Option 1" key="1" />,
       <Checkbox value="val-2" id="c-2" label="Option 2" key="2" />,
       <Checkbox value="val-3" id="c-3" label="Option 3" key="3" />,
     ],
   },
-};
+}

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useContext, useEffect, useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { NavigationItem } from "../NavigationItem/index"
 import { knownIcons } from "../Icon/Icon.component.js"
@@ -41,16 +41,16 @@ const topNavActiveItemStyles = `
 An individual item of a top level navigation. Place inside TopNavigation.
 */
 export const TopNavigationItem = ({
-  active,
+  active = false,
   ariaLabel,
-  children,
-  className,
-  disabled,
-  href,
-  icon,
-  label,
-  onClick,
-  value,
+  children = null,
+  className = "",
+  disabled = false,
+  href = "",
+  icon = null,
+  label = "",
+  onClick = undefined,
+  value = "",
   ...props
 }) => {
   return (
@@ -93,17 +93,4 @@ TopNavigationItem.propTypes = {
   onClick: PropTypes.func,
   /** An optional technical identifier fort the tab. If not passed, the label will be used to identify the tab. NOTE: If value is passed, the value of the active tab MUST be used when setting the activeItem prop on the parent TabNavigation.*/
   value: PropTypes.string,
-}
-
-TopNavigationItem.defaultProps = {
-  active: false,
-  ariaLabel: undefined,
-  children: null,
-  disabled: false,
-  icon: null,
-  label: "",
-  className: "",
-  href: "",
-  onClick: undefined,
-  value: "",
 }

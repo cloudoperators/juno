@@ -27,14 +27,17 @@ Use for annotations, further explanations, and remarks where Message or InfoBox 
 Will typically contain (small) text, but can be passed any child element(s) as desired.
 */
 export const Box = ({
-  children,
-  unpad,
-  className,
+  children = null,
+  unpad = false,
+  className = "",
   ...props
 }) => {
   return (
-    <div className={`juno-box ${boxstyles} ${ unpad ? "" : boxpadding } ${className}`} {...props} >
-      { children }
+    <div
+      className={`juno-box ${boxstyles} ${unpad ? "" : boxpadding} ${className}`}
+      {...props}
+    >
+      {children}
     </div>
   )
 }
@@ -43,10 +46,4 @@ Box.propTypes = {
   children: PropTypes.node,
   unpad: PropTypes.bool,
   className: PropTypes.string,
-}
-
-Box.defaultProps = {
-  children: null,
-  unpad: false,
-  className: "",
 }

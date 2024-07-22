@@ -17,12 +17,13 @@ const topNavStyles = `
 A generic horizontal top level navigation component. To be placed below the application header but above application content.
 Place `TopNavigationItem` elements as children.
 */
+
 export const TopNavigation = ({
-  activeItem,
+  activeItem = "",
   ariaLabel,
-  children,
-  className,
-  disabled,
+  children = null,
+  className = "",
+  disabled = false,
   onActiveItemChange,
   ...props
 }) => {
@@ -32,7 +33,6 @@ export const TopNavigation = ({
       ariaLabel={ariaLabel}
       className={`juno-topnavigation ${topNavStyles} ${className}`}
       disabled={disabled}
-      navigationRole="TopNavigation"
       onActiveItemChange={onActiveItemChange}
       {...props}
     >
@@ -54,13 +54,4 @@ TopNavigation.propTypes = {
   disabled: PropTypes.bool,
   /** Handler to execute when the active item changes */
   onActiveItemChange: PropTypes.func,
-}
-
-TopNavigation.defaultProps = {
-  activeItem: "",
-  ariaLabel: undefined,
-  children: null,
-  className: "",
-  disabled: false,
-  onActiveItemChange: undefined,
 }

@@ -3,30 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Switch } from "../Switch/index.js"
 import { FormRow } from "../FormRow/index.js"
-import { withDeprecationWarning } from '../withDeprecationWarning/index.js'
-
-
+import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
 
 /** DEPRECATED: A Switch input row containing a switch, associated label, and structural markup. This component is DEPRECATED, use Switch instead. */
 const SwitchRow = ({
-  name,
-  label,
-  id,
-  on,
-  disabled,
-  helptext,
-  required,
-  invalid,
-  errortext,
-  valid,
-  successtext,
-  className,
-  onChange,
-  onClick,
+  name = null,
+  label = null,
+  id = null,
+  on = false,
+  disabled = null,
+  helptext = null,
+  required = null,
+  invalid = false,
+  errortext = "",
+  valid = false,
+  successtext = "",
+  className = "",
+  onChange = undefined,
+  onClick = undefined,
   ...props
 }) => {
   return (
@@ -83,21 +81,7 @@ SwitchRow.propTypes = {
   onClick: PropTypes.func,
 }
 
-SwitchRow.defaultProps = {
-  name: null,
-  label: null,
-  id: null,
-  on: false,
-  disabled: null,
-  helptext: null,
-  required: null,
-  invalid: false,
-  errortext: "",
-  valid: false,
-  successtext: "",
-  className: "",
-  onChange: undefined,
-  onClick: undefined,
-}
-
-export default withDeprecationWarning(SwitchRow, "SwitchRow is deprecated and will be removed in future versions. To be future-proof, use Switch instead.")
+export default withDeprecationWarning(
+  SwitchRow,
+  "SwitchRow is deprecated and will be removed in future versions. To be future-proof, use Switch instead."
+)

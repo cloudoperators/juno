@@ -3,33 +3,32 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { SearchInput } from './index.js';
+import { SearchInput } from "./index.js"
 
 export default {
-  title: 'Components/SearchInput',
+  title: "Components/SearchInput",
   component: SearchInput,
   argTypes: {},
-};
+}
 
 export const Default = {
   args: {},
-};
+}
 
 export const Rounded = {
   args: {
-    variant: 'rounded',
+    variant: "rounded",
   },
-};
+}
 
 export const Hero = {
   args: {
-    variant: 'hero',
+    variant: "hero",
   },
-};
+}
 
 export const Disabled = {
   args: {
     disabled: true,
   },
-};
+}

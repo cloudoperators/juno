@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { Breadcrumb } from "./index"
 import { BreadcrumbItem } from "../BreadcrumbItem/index"
 // import { Default as Item } from '../BreadcrumbItem/BreadcrumbItem.stories';
@@ -14,6 +15,9 @@ import { BreadcrumbItem } from "../BreadcrumbItem/index"
 
 const Template = ({ children, ...args }) => {
   return <Breadcrumb {...args}>{children}</Breadcrumb>
+}
+Template.propTypes = {
+  children: PropTypes.node,
 }
 
 export default {

@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { DataListRow } from './index.js';
-import { DataListCell } from '../DataListCell/index.js';
-import { DataListCheckboxCell } from '../DataListCheckboxCell/index.js';
-import { Default as DataListCellStory } from '../DataListCell/DataListCell.stories.js';
-import { Default as DataListCheckboxCellStory } from '../DataListCheckboxCell/DataListCheckboxCell.stories.js';
+import React from "react"
+import PropTypes from "prop-types"
+import { DataListRow } from "./index.js"
+import { DataListCell } from "../DataListCell/index.js"
+import { DataListCheckboxCell } from "../DataListCheckboxCell/index.js"
+import { Default as DataListCellStory } from "../DataListCell/DataListCell.stories.js"
 
 export default {
-  title: 'Deprecated/DataList/DataListRow',
+  title: "Deprecated/DataList/DataListRow",
   component: DataListRow,
   argTypes: {
     items: {
@@ -26,11 +26,12 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'DataList is deprecated and will be removed. Please use DataGrid instead.',
+        component:
+          "DataList is deprecated and will be removed. Please use DataGrid instead.",
       },
     },
   },
-};
+}
 
 const Template = ({ items, ...args }) => (
   <DataListRow {...args}>
@@ -38,7 +39,11 @@ const Template = ({ items, ...args }) => (
       <DataListCell {...item} key={`${i}`} />
     ))}
   </DataListRow>
-);
+)
+
+Template.propTypes = {
+  items: PropTypes.array,
+}
 
 const SelectableTemplate = ({ items, ...args }) => (
   <DataListRow {...args}>
@@ -47,7 +52,11 @@ const SelectableTemplate = ({ items, ...args }) => (
       <DataListCell {...item} key={`${i}`} />
     ))}
   </DataListRow>
-);
+)
+
+SelectableTemplate.propTypes = {
+  items: PropTypes.array,
+}
 
 export const Default = {
   render: Template,
@@ -55,7 +64,7 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Juno DataListRow for displaying data',
+        story: "Juno DataListRow for displaying data",
       },
     },
   },
@@ -69,7 +78,7 @@ export const Default = {
       { ...DataListCellStory.args },
     ],
   },
-};
+}
 
 export const Selectable = {
   render: SelectableTemplate,
@@ -78,7 +87,7 @@ export const Selectable = {
     docs: {
       description: {
         story:
-          'Selectable DataListRow for displaying and selecting data. Note that highlighting the row will not work when rendered outside a DataList. ',
+          "Selectable DataListRow for displaying and selecting data. Note that highlighting the row will not work when rendered outside a DataList. ",
       },
     },
   },
@@ -92,7 +101,7 @@ export const Selectable = {
       { ...DataListCellStory.args },
     ],
   },
-};
+}
 
 export const AutoWidth = {
   render: Template,
@@ -108,13 +117,13 @@ export const AutoWidth = {
   args: {
     items: [
       { ...DataListCellStory.args },
-      { ...DataListCellStory.args, auto: true, children: 'Auto DataListCell' },
+      { ...DataListCellStory.args, auto: true, children: "Auto DataListCell" },
       { ...DataListCellStory.args },
       { ...DataListCellStory.args },
       { ...DataListCellStory.args },
     ],
   },
-};
+}
 
 export const PercentageWidths = {
   render: Template,
@@ -122,7 +131,7 @@ export const PercentageWidths = {
   parameters: {
     docs: {
       description: {
-        story: 'Row with Cells set to individual percentage widths',
+        story: "Row with Cells set to individual percentage widths",
       },
     },
   },
@@ -136,7 +145,7 @@ export const PercentageWidths = {
       { ...DataListCellStory.args, width: 10 },
     ],
   },
-};
+}
 
 export const GridFitted = {
   render: Template,
@@ -144,17 +153,17 @@ export const GridFitted = {
   parameters: {
     docs: {
       description: {
-        story: 'Row with cells fitted to the Grid',
+        story: "Row with cells fitted to the Grid",
       },
     },
   },
 
   args: {
     items: [
-      { ...DataListCellStory.args, cols: 1, children: 'cols 1' },
-      { ...DataListCellStory.args, cols: 6, children: 'cols 6' },
-      { ...DataListCellStory.args, cols: 3, children: 'cols 3' },
-      { ...DataListCellStory.args, cols: 2, children: 'cols 2' },
+      { ...DataListCellStory.args, cols: 1, children: "cols 1" },
+      { ...DataListCellStory.args, cols: 6, children: "cols 6" },
+      { ...DataListCellStory.args, cols: 3, children: "cols 3" },
+      { ...DataListCellStory.args, cols: 2, children: "cols 2" },
     ],
   },
-};
+}

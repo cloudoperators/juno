@@ -5,14 +5,14 @@
 
 import React from "react"
 import { ContentHeading } from "./index.js"
-import { Button } from "../Button/index.js"
+// import { Button } from "../Button/index.js"
 
 export default {
   title: "Internal/ContentHeading",
   component: ContentHeading,
   argTypes: {
     children: {
-      control: false
+      control: false,
     },
   },
 }
@@ -23,8 +23,7 @@ export const Default = Template.bind({})
 Default.parameters = {
   docs: {
     description: {
-      story:
-        "The the main heading of the content area of a page/view.",
+      story: "The the main heading of the content area of a page/view.",
     },
   },
 }

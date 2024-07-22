@@ -26,18 +26,25 @@ describe("TooltipContent", () => {
     await render(
       <Tooltip initialOpen={true}>
         <TooltipTrigger>Click me to show tooltip</TooltipTrigger>
-        <TooltipContent data-testid="tooltip-content" className="custom-test-tooltip">TEST</TooltipContent>
+        <TooltipContent
+          data-testid="tooltip-content"
+          className="custom-test-tooltip"
+        >
+          TEST
+        </TooltipContent>
       </Tooltip>
     )
     // screen.debug()
-    expect(screen.getByTestId("tooltip-content")).toHaveClass("custom-test-tooltip")
+    expect(screen.getByTestId("tooltip-content")).toHaveClass(
+      "custom-test-tooltip"
+    )
   })
 
   test("throws error if TooltipContent is not wrapped in a Tooltip", async () => {
     const spy = jest.spyOn(console, "error").mockImplementation(() => {})
     expect(() => {
       render(<TooltipContent>This is the content</TooltipContent>)
-    }).toThrowError("Tooltip components must be wrapped in <Tooltip />")
+    }).toThrow("Tooltip components must be wrapped in <Tooltip />")
     spy.mockRestore()
   })
 })

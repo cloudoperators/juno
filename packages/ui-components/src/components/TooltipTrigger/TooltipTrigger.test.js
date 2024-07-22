@@ -24,7 +24,12 @@ describe("TooltipTrigger", () => {
   test("renders a TooltipTrigger with a custom className as passed", async () => {
     await render(
       <Tooltip>
-        <TooltipTrigger data-testid="tooltip-trigger" className="custom-test-tooltip">Click me to show tooltip</TooltipTrigger>
+        <TooltipTrigger
+          data-testid="tooltip-trigger"
+          className="custom-test-tooltip"
+        >
+          Click me to show tooltip
+        </TooltipTrigger>
         <TooltipContent>TEST</TooltipContent>
       </Tooltip>
     )
@@ -36,8 +41,7 @@ describe("TooltipTrigger", () => {
     const spy = jest.spyOn(console, "error").mockImplementation(() => {})
     expect(() => {
       render(<TooltipTrigger>Click me to show tooltip</TooltipTrigger>)
-    }).toThrowError("Tooltip components must be wrapped in <Tooltip />")
+    }).toThrow("Tooltip components must be wrapped in <Tooltip />")
     spy.mockRestore()
   })
-  
 })

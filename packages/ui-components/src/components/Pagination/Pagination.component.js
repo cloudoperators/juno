@@ -17,10 +17,6 @@ const paginationStyles = `
   jn-items-center
 `
 
-const numberStyles = `
-
-`
-
 const inputStyles = `
   jn-w-[3.125rem]
 `
@@ -46,7 +42,6 @@ const renderPaginationInnards = (
   switch (variant) {
     case "number":
       return <span>{currentPage || "0"}</span>
-      break
     case "select":
       return (
         <Select
@@ -58,20 +53,15 @@ const renderPaginationInnards = (
           {selectOptions(pages)}
         </Select>
       )
-      break
     case "input":
       return (
         <Stack gap="2" alignment="center">
           <div className={`${inputStyles}`}>
-            <TextInput
-              value={currentPage || ""}
-              onKeyPress={handleKeyPress}
-            />
+            <TextInput value={currentPage || ""} onKeyPress={handleKeyPress} />
           </div>
           <span>of {pages || "0"}</span>
         </Stack>
       )
-      break
     default:
       return null
   }
@@ -79,16 +69,16 @@ const renderPaginationInnards = (
 
 /** A basic, uncontrolled Pagination component. Renders '<' and '>' buttons as a minimun/default. */
 export const Pagination = ({
-  variant,
-  currentPage,
-  pages,
-  isFirstPage,
-  isLastPage,
-  onPressPrevious,
-  onPressNext,
-  onSelectChange,
-  onKeyPress,
-  className,
+  variant = "",
+  currentPage = null,
+  pages = null,
+  isFirstPage = false,
+  isLastPage = false,
+  onPressPrevious = undefined,
+  onPressNext = undefined,
+  onSelectChange = undefined,
+  onKeyPress = undefined,
+  className = "",
   ...props
 }) => {
   const handlePrevClick = (event) => {
@@ -152,17 +142,4 @@ Pagination.propTypes = {
   onSelectChange: PropTypes.func,
   onKeyPress: PropTypes.func,
   className: PropTypes.string,
-}
-
-Pagination.defaultProps = {
-  variant: "",
-  currentPage: null,
-  pages: null,
-  isFirstPage: false,
-  isLastPage: false,
-  onPressPrevious: undefined,
-  onPressNext: undefined,
-  onSelectChange: undefined,
-  onKeyPress: undefined,
-  className: "",
 }

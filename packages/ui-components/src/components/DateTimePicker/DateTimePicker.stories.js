@@ -5,8 +5,6 @@
 
 import React, { useState } from "react"
 import { DateTimePicker } from "./index.js"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
-import { Form } from "../Form/"
 
 export default {
   title: "WIP/DateTimePicker/DateTimePicker",
@@ -40,12 +38,6 @@ export default {
       control: false,
     },
   },
-}
-
-// Not in use yet, useful for "enable" story once we have it, pls leave here:
-const daysFromToday = (n) => {
-  const today = new Date()
-  return new Date(today.setDate(today.getDate() + n))
 }
 
 const Template = ({ ...args }) => <DateTimePicker {...args} />
@@ -473,7 +465,8 @@ InvalidPreload.args = {
 const ControlledTemplate = ({ ...args }) => {
   const [testState, setTestState] = useState({ date: { end: null } })
 
-  const handleChange = (dObj, dStr) => {
+  // variables starting with underscore are not linted
+  const handleChange = (dObj, _dStr) => {
     setTestState({ date: { end: dObj } })
   }
 

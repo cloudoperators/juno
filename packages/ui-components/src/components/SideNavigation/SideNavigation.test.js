@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { render, screen, waitFor, cleanup } from "@testing-library/react"
+import { render, screen, cleanup } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { SideNavigation } from "./index"
 import { SideNavigationItem } from "../SideNavigationItem/index"
@@ -175,7 +175,7 @@ describe("SideNavigation", () => {
     )
   })
 
-  test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item", async () => {
+  test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item, 4 items", async () => {
     const { rerender } = render(
       <SideNavigation activeItem="Item 2">
         <SideNavigationItem label="Item 1" active />

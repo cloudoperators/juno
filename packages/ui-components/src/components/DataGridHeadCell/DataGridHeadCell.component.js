@@ -14,18 +14,14 @@ const headCellBaseStyles = `
 	jn-border-theme-background-lvl-0
 `
 
-const sortIconStyles = `
-	jn-ml-2
-`
-
 export const DataGridHeadCell = forwardRef(
   (
     {
       // sortable,
       colSpan,
-      nowrap,
-      className,
-      children,
+      nowrap = false,
+      className = "",
+      children = null,
       ...props
     },
     ref
@@ -52,6 +48,8 @@ export const DataGridHeadCell = forwardRef(
   }
 )
 
+DataGridHeadCell.displayName = "DataGridHeadCell"
+
 DataGridHeadCell.propTypes = {
   /** Whether the DataGrid should be sortable by this column */
   // sortable: PropTypes.bool,
@@ -63,12 +61,4 @@ DataGridHeadCell.propTypes = {
   children: PropTypes.node,
   /** Add a classname */
   className: PropTypes.string,
-}
-
-DataGridHeadCell.defaultProps = {
-  // sortable: false,
-  colSpan: undefined,
-  nowrap: false,
-  className: "",
-  children: null,
 }

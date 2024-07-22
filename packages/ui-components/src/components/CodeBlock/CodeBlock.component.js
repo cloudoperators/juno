@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useRef } from "react"
 import PropTypes from "prop-types"
 import { JsonViewer } from "../JsonViewer/JsonViewer.component"
 import { Icon } from "../Icon/index"
@@ -85,10 +85,6 @@ const copyTextStyles = `
   jn-mt-1
 `
 
-const jsonStyles = `
-  jn-bg-theme-code-block
-`
-
 const jsonViewStyles = {
   fontFamily: "IBM Plex Mono",
   fontSize: "0.875rem",
@@ -116,14 +112,14 @@ const jsonTheme = {
 
 /**  A basic CodeBlock component. Accepts a content prop or children. Will render a pre-wrapped code element. */
 export const CodeBlock = ({
-  content,
-  children,
+  content = "",
+  children = null,
   heading,
-  wrap,
-  size,
-  copy,
-  lang,
-  className,
+  wrap = true,
+  size = "auto",
+  copy = true,
+  lang = "",
+  className = "",
   ...props
 }) => {
   const [isCopied, setIsCopied] = useState(false)
@@ -211,14 +207,4 @@ CodeBlock.propTypes = {
   lang: PropTypes.string,
   /** Add a custom className to the wrapper of the CodeBlock */
   className: PropTypes.string,
-}
-
-CodeBlock.defaultProps = {
-  content: "",
-  children: null,
-  wrap: true,
-  size: "auto",
-  copy: true,
-  lang: "",
-  className: "",
 }

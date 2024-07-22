@@ -11,24 +11,24 @@ import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
 
 /** DEPRECATED: A text input row containing an input of type text, password, email, tel, or url, an associated label, and necessary structural markup. This component is DEPRECATED, use TextInput instead. */
 const TextInputRow = ({
-  type,
-  value,
-  name,
-  label,
-  id,
-  placeholder,
-  helptext,
-  required,
-  invalid,
-  errortext,
-  valid,
-  successtext,
-  autoFocus,
-  className,
-  disabled,
-  onChange,
-  onFocus,
-  onBlur,
+  type = null,
+  value = "",
+  name = "",
+  label = "",
+  id = "",
+  placeholder = "",
+  helptext = "",
+  required = false,
+  invalid = false,
+  errortext = "",
+  valid = false,
+  successtext = "",
+  autoFocus = false,
+  className = "",
+  disabled = false,
+  onChange = undefined,
+  onFocus = undefined,
+  onBlur = undefined,
   ...props
 }) => {
   return (
@@ -95,27 +95,6 @@ TextInputRow.propTypes = {
   onFocus: PropTypes.func,
   /** Pass a handler to the input element */
   onBlur: PropTypes.func,
-}
-
-TextInputRow.defaultProps = {
-  type: null,
-  value: "",
-  name: "",
-  label: "",
-  id: "",
-  placeholder: "",
-  helptext: "",
-  required: false,
-  invalid: false,
-  errortext: "",
-  valid: false,
-  successtext: "",
-  autoFocus: false,
-  className: "",
-  disabled: false,
-  onChange: undefined,
-  onFocus: undefined,
-  onBlur: undefined,
 }
 
 export default withDeprecationWarning(

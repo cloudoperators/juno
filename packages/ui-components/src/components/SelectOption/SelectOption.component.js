@@ -50,16 +50,14 @@ const truncateOptionStyles = `
   jn-text-ellipsis
   jn-whitespace-nowrap
 `
-
 export const SelectOption = ({
   children,
-  className,
-  disabled,
-  value,
+  className = "",
+  disabled = false,
+  value = "",
   label,
   ...props
 }) => {
-  
   const selectContext = useContext(SelectContext)
   const {
     truncateOptions: truncateOptions,
@@ -71,41 +69,36 @@ export const SelectOption = ({
     addOptionValueAndLabel(value, label, children)
   }, [value, label, children])
 
-  
   return (
-    <Listbox.Option 
-      as={Fragment}
-      disabled={disabled} 
-      value={ value || children }  
-    >
-    { ({ active, selected } ) => (
-      <li
-        className={`
+    <Listbox.Option as={Fragment} disabled={disabled} value={value || children}>
+      {({ /*active,*/ selected }) => (
+        <li
+          className={`
           juno-select-option 
           jn-min-h-[2.5rem]
-          ${ optionStyles }
-          ${ selected ? "juno-select-option-selected " + selectedOptionStyles : unselectedOptionStyles }
-          ${ disabled ? "juno-select-option-disabled jn-opacity-50 jn-cursor-not-allowed" : "" }
-          ${ truncateOptions ? "juno-select-option-truncate" : "" }
-          ${ className }
+          ${optionStyles}
+          ${selected ? "juno-select-option-selected " + selectedOptionStyles : unselectedOptionStyles}
+          ${disabled ? "juno-select-option-disabled jn-opacity-50 jn-cursor-not-allowed" : ""}
+          ${truncateOptions ? "juno-select-option-truncate" : ""}
+          ${className}
         `}
-        {...props}
-      >
-        { selected ? 
-            <Icon icon="check" size="18" className={`${selectedIconStyles}`} /> 
-          : 
-            "" 
-        }
-        <span
-          className={`
-            ${ disabled ? disabledOptionLabelStyles : "" }
-            ${ truncateOptions ? truncateOptionStyles : "" }
-          `}
+          {...props}
         >
-          { children || label || value }
-        </span>
-      </li>
-    )}
+          {selected ? (
+            <Icon icon="check" size="18" className={`${selectedIconStyles}`} />
+          ) : (
+            ""
+          )}
+          <span
+            className={`
+            ${disabled ? disabledOptionLabelStyles : ""}
+            ${truncateOptions ? truncateOptionStyles : ""}
+          `}
+          >
+            {children || label || value}
+          </span>
+        </li>
+      )}
     </Listbox.Option>
   )
 }
@@ -116,12 +109,4 @@ SelectOption.propTypes = {
   disabled: PropTypes.bool,
   value: PropTypes.string,
   label: PropTypes.string,
-}
-
-SelectOption.defaultProps = {
-  children: undefined,
-  className: "",
-  disabled: false,
-  value: "",
-  label: undefined,
 }

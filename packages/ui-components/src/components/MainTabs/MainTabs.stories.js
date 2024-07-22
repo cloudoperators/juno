@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from "react"
+import PropTypes from "prop-types"
 import { MainTabs } from "./index.js"
 import { Tab } from "../Tab/index.js"
 import { TabList } from "../TabList/index.js"
@@ -36,6 +37,11 @@ const Template = ({ tabs, tabpanels, ...args }) => (
   </MainTabs>
 )
 
+Template.propTypes = {
+  tabs: PropTypes.node,
+  tabpanels: PropTypes.node,
+}
+
 const ControlledTemplate = ({
   onSelect,
   selectedIndex,
@@ -60,6 +66,14 @@ const ControlledTemplate = ({
       {tabpanels}
     </MainTabs>
   )
+}
+
+// prop types for ControlledTemplate
+ControlledTemplate.propTypes = {
+  tabs: PropTypes.node,
+  tabpanels: PropTypes.node,
+  selectedIndex: PropTypes.number,
+  onSelect: PropTypes.func,
 }
 
 export const Default = {

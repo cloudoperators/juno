@@ -43,13 +43,13 @@ const filtervalueStyles = `
 A Pill to represent Key and Value of a filter. Can be closed to un-apply the filter represented.
 Mostly to be used inside a Filters component in conjunction with FilterInput. */
 export const FilterPill = ({
-  uid,
-  filterKey,
-  filterKeyLabel,
-  filterValue,
-  filterValueLabel,
-  onClose,
-  className,
+  uid = "",
+  filterKey = "",
+  filterKeyLabel = "",
+  filterValue = "",
+  filterValueLabel = "",
+  onClose = undefined,
+  className = "",
   ...props
 }) => {
   const handleCloseClick = () => {
@@ -87,14 +87,4 @@ FilterPill.propTypes = {
   className: PropTypes.string,
   /** Pass a handler to be executed when closing the FilterPill */
   onClose: PropTypes.func,
-}
-
-FilterPill.defaultProps = {
-  uid: "",
-  filterKey: "",
-  filterKeyLabel: "",
-  filterValue: "",
-  filterValueLabel: "",
-  onClose: undefined,
-  className: "",
 }

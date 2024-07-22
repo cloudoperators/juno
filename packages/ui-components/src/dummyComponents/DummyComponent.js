@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 
 const DummyComponent = ({ label }) => {
   return (
@@ -21,6 +22,10 @@ const DummyComponent = ({ label }) => {
       <div className="jn-m-auto">{label}</div>
     </div>
   )
+}
+
+DummyComponent.propTypes = {
+  label: PropTypes.string.isRequired,
 }
 
 export default DummyComponent

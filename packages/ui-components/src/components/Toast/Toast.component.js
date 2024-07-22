@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { Icon } from "../Icon/index.js";
+import React, { useEffect, useState } from "react"
+import PropTypes from "prop-types"
+import { Icon } from "../Icon/index.js"
 
 const toastStyles = `
 	jn-bg-theme-background-lvl-1
@@ -15,83 +15,84 @@ const toastStyles = `
 	jn-p-2
 	jn-mb-8
 	jn-rounded
-`;
+`
 const toastStylesText = `
 	jn-mx-4
 	jn-max-w-full
-`;
+`
 
 // get the appropriate icon for messasge tyope by MUI name:
 const getMuiIcon = (messageType) => {
   switch (messageType) {
     case "error":
-      return "dangerous";
+      return "dangerous"
     default:
-      return messageType;
+      return messageType
   }
-};
+}
 
 /**
 A Toast component. Use for short-lived, temporary/transient messaging to users relating to their current usage context, e.g. 'Edits changed successfully'. For more general, persistent messaging, e.g. 'Our servers will be down for maintenance all weekend', use Message instead.
 */
 
 export const Toast = ({
-  variant,
-  children,
-  text,
-  autoDismiss,
-  autoDismissTimeout,
+  variant = "info",
+  children = null,
+  text = "",
+  autoDismiss = false,
+  autoDismissTimeout = 10000,
   onDismiss,
-  className,
+  className = "",
   ...props
 }) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(true)
 
   // ----- Timeout stuff -------
-  const timeoutRef = React.useRef(null);
+  const timeoutRef = React.useRef(null)
 
   React.useEffect(() => {
-    return () => clearTimeout(timeoutRef.current); // clear when component is unmounted
-  }, []);
+    return () => clearTimeout(timeoutRef.current) // clear when component is unmounted
+  }, [])
 
   // if autoDissmiss is true, hide message after passed or preconfigured timeout
   useEffect(() => {
     if (autoDismiss) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => hideMessage(), autoDismissTimeout);
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = setTimeout(() => hideMessage(), autoDismissTimeout)
     }
-  }, [autoDismiss, autoDismissTimeout]);
+  }, [autoDismiss, autoDismissTimeout])
 
   const hideMessage = () => {
-    setVisible(false);
+    setVisible(false)
     // call the callback dismiss message (if any)
-    onDismiss && onDismiss();
-  };
+    onDismiss && onDismiss()
+  }
 
   return (
     <>
       {visible && (
         <div
           className={`juno-toast juno-toast-${variant} ${toastStyles} ${className}`}
-          {...props}>
+          {...props}
+        >
           <Icon
             icon={getMuiIcon(variant)}
             color={"jn-text-theme-" + variant}
-            className='jn-shrink-0'
+            className="jn-shrink-0"
           />
           <div className={`juno-toast-text ${toastStylesText}`}>
             {children ? children : text}
           </div>
           <Icon
-            icon='close'
+            icon="close"
             onClick={hideMessage}
-            className='juno-message-close-button jn-opacity-50 hover:jn-opacity-100 jn-shrink-0'
+            className="juno-message-close-button jn-opacity-50 hover:jn-opacity-100 jn-shrink-0"
           />
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
 Toast.propTypes = {
   /** Specify a semantic variant */
@@ -108,14 +109,4 @@ Toast.propTypes = {
   onDismiss: PropTypes.func,
   /** Pass an optional className */
   className: PropTypes.string,
-};
-
-Toast.defaultProps = {
-  variant: "info",
-  children: null,
-  text: "",
-  autoDismiss: false,
-  autoDismissTimeout: 10000,
-  onDismiss: undefined,
-  className: "",
-};
+}
