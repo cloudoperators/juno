@@ -70,7 +70,7 @@ describe("currentState", () => {
 
   describe("regex", () => {
     const state = provider.encode({
-      r: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      r: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     })
 
     beforeAll(() => {
@@ -79,9 +79,9 @@ describe("currentState", () => {
         "http://localhost?test1=test1&__s=" + state + "&test2=test2"
     })
 
-    it("", () => {
+    it("test regex mail", () => {
       expect(provider.currentState("r")).toEqual(
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       )
     })
   })
@@ -243,11 +243,10 @@ describe("currentState", () => {
   })
 
   describe("addOnChangeListener", () => {
-    var listener, listener2
+    var listener
     beforeAll(() => {
       jest.resetModules()
-      listener = jest.fn((newState) => null)
-      listener2 = jest.fn((newState) => null)
+      listener = jest.fn(() => null)
     })
 
     it("should register a new listener", () => {
@@ -279,7 +278,7 @@ describe("currentState", () => {
     var listener
     beforeAll(() => {
       jest.resetModules()
-      listener = jest.fn((newState) => null)
+      listener = jest.fn(() => null)
     })
 
     it("should register a new listener", () => {

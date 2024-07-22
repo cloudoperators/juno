@@ -51,7 +51,7 @@ function decode(string) {
 
     // if parsed value is an object, return it
     if (json && typeof json === "object") return json
-  } catch (e) {
+  } catch (_e) {
     // do nothing
     // go to the next step try to decode using lz-string
   }
