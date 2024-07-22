@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { TabNavigation } from "./index.js"
 import { TabNavigationItem } from "../TabNavigationItem/index.js"
 
@@ -27,6 +28,10 @@ export default {
 const Template = ({ children, ...args }) => (
   <TabNavigation {...args}>{children}</TabNavigation>
 )
+
+Template.propTypes = {
+  children: PropTypes.node,
+}
 
 export const Default = Template.bind({})
 Default.args = {

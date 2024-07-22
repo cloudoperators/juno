@@ -66,11 +66,11 @@ const getVariantStyle = (variant) => {
 A Badge component to visually indicate properties or states of an entity. Besides the default, there are also semantic versions. Can optionally contain an icon to emphasize their meaning.
 */
 export const Badge = ({
-  variant,
-  icon,
-  text,
-  className,
-  children,
+  variant = "default",
+  icon = false,
+  text = "",
+  className = "",
+  children = null,
   ...props
 }) => {
   const getIcon = (icon, variant) => {
@@ -124,12 +124,4 @@ Badge.propTypes = {
   text: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.node,
-}
-
-Badge.defaultProps = {
-  variant: "default",
-  icon: false,
-  text: "",
-  className: "",
-  children: null,
 }

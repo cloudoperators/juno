@@ -102,20 +102,6 @@ describe("CodeBlock", () => {
     )
   })
 
-  test("renders a medium sized CodeBlock as passed", async () => {
-    render(<CodeBlock content="123" size="large" />)
-    expect(document.querySelector("pre")).toBeInTheDocument()
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "juno-codeblock-pre-small"
-    )
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "juno-codeblock-pre-medium"
-    )
-    expect(document.querySelector("pre")).toHaveClass(
-      "juno-codeblock-pre-large"
-    )
-  })
-
   test("renders a heading as passed", async () => {
     render(
       <CodeBlock

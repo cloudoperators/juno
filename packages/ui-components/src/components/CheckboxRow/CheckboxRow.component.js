@@ -3,31 +3,31 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Checkbox } from "../Checkbox/index.js"
-import { withDeprecationWarning } from '../withDeprecationWarning/index.js'
+import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
 
 /** DEPRECATED: A single checkbox, associated label, and structural markup. This component is DEPRECATED, use Checkbox instead. */
 const CheckboxRow = ({
-  value,
-  checked,
-  indeterminate,
-  name,
-  label,
-  id,
-  helptext,
-  required,
-  disabled,
-  invalid,
-  errortext,
-  valid,
-  successtext,
-  className,
+  value = "",
+  checked = false,
+  indeterminate = false,
+  name = null,
+  label = null,
+  id = null,
+  helptext = null,
+  required = null,
+  disabled = false,
+  invalid = false,
+  errortext = "",
+  valid = false,
+  successtext = "",
+  className = "",
   onChange,
   ...props
 }) => {
-  return (   
+  return (
     <Checkbox
       value={value}
       checked={checked}
@@ -44,7 +44,7 @@ const CheckboxRow = ({
       successtext={successtext}
       className={className}
       onChange={onChange}
-      {...props}  
+      {...props}
     />
   )
 }
@@ -82,22 +82,7 @@ CheckboxRow.propTypes = {
   onChange: PropTypes.func,
 }
 
-CheckboxRow.defaultProps = {
-  value: "",
-  checked: false,
-  indeterminate: false,
-  name: null,
-  label: null,
-  id: null,
-  helptext: null,
-  required: null,
-  disabled: false,
-  invalid: false,
-  errortext: "",
-  valid: false,
-  successtext: "",
-  className: "",
-  onChange: undefined,
-}
-
-export default withDeprecationWarning(CheckboxRow, "CheckboxRow is deprecated and will be removed in future versions. To be future-proof, use Checkbox instead.")
+export default withDeprecationWarning(
+  CheckboxRow,
+  "CheckboxRow is deprecated and will be removed in future versions. To be future-proof, use Checkbox instead."
+)

@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
-import { ComboBox } from './index.js';
-import { ComboBoxOption } from '../ComboBoxOption/index.js';
-import { PortalProvider } from '../PortalProvider/PortalProvider.component';
+import React, { useState, useEffect } from "react"
+import PropTypes from "prop-types"
+import { ComboBox } from "./index.js"
+import { ComboBoxOption } from "../ComboBoxOption/index.js"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 export default {
-  title: 'Forms/ComboBox/ComboBox',
+  title: "Forms/ComboBox/ComboBox",
   component: ComboBox,
   argTypes: {
     children: {
@@ -34,29 +35,45 @@ export default {
       </div>
     ),
   ],
-};
+}
 
 const Template = ({ children, ...args }) => {
-  return <ComboBox {...args}>{children}</ComboBox>;
-};
+  return <ComboBox {...args}>{children}</ComboBox>
+}
+
+// define prop types fro Template
+Template.propTypes = {
+  children: PropTypes.any,
+}
 
 const ConstrainedWidthTemplate = ({ children, ...args }) => {
   return (
-    <div style={{ width: '300px' }}>
+    <div style={{ width: "300px" }}>
       <ComboBox {...args}>{children}</ComboBox>
     </div>
-  );
-};
+  )
+}
 
-const ControlledTemplate = ({ value, children, ...args }) => {
-  const [v, setV] = useState(value);
+// define prop types for ConstrainedWidthTemplate
+ConstrainedWidthTemplate.propTypes = {
+  children: PropTypes.any,
+}
+
+const ControlledTemplate = ({ value, children }) => {
+  const [v, setV] = useState(value)
 
   useEffect(() => {
-    setV(value);
-  }, [value]);
+    setV(value)
+  }, [value])
 
-  return <ComboBox value={v}>{children}</ComboBox>;
-};
+  return <ComboBox value={v}>{children}</ComboBox>
+}
+
+// define prop types for ControlledTemplate
+ControlledTemplate.propTypes = {
+  value: PropTypes.string,
+  children: PropTypes.any,
+}
 
 export const Default = {
   render: Template,
@@ -113,14 +130,14 @@ export const Default = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const ControlledComboBox = {
   render: ControlledTemplate,
 
   args: {
-    value: 'Houdini',
-    label: 'A controlled ComboBox',
+    value: "Houdini",
+    label: "A controlled ComboBox",
     children: [
       <ComboBoxOption value="Caligari" key="1">
         Caligari
@@ -131,14 +148,14 @@ export const ControlledComboBox = {
       <ComboBoxOption value="Lencia" key="3"></ComboBoxOption>,
     ],
   },
-};
+}
 
 export const UncontrolledComboBox = {
   render: Template,
 
   args: {
-    defaultValue: 'Lencia',
-    label: 'An uncontrolled ComboBox',
+    defaultValue: "Lencia",
+    label: "An uncontrolled ComboBox",
     children: [
       <ComboBoxOption value="Caligari" key="1">
         Caligari
@@ -149,14 +166,14 @@ export const UncontrolledComboBox = {
       <ComboBoxOption value="Lencia" key="3"></ComboBoxOption>,
     ],
   },
-};
+}
 
 export const WithLabel = {
   render: Template,
 
   args: {
-    label: 'ComboBox',
-    placeholder: '',
+    label: "ComboBox",
+    placeholder: "",
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
         Rhubarb
@@ -208,14 +225,14 @@ export const WithLabel = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const WithLabelAndPlaceholder = {
   render: Template,
 
   args: {
-    label: 'ComboBox',
-    placeholder: 'Type or select an Option…',
+    label: "ComboBox",
+    placeholder: "Type or select an Option…",
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
         Rhubarb
@@ -267,13 +284,13 @@ export const WithLabelAndPlaceholder = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const Required = {
   render: Template,
 
   args: {
-    label: 'Required ComboBox',
+    label: "Required ComboBox",
     required: true,
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
@@ -326,13 +343,13 @@ export const Required = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const Valid = {
   render: Template,
 
   args: {
-    label: 'Valid ComboBox',
+    label: "Valid ComboBox",
     valid: true,
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
@@ -385,13 +402,13 @@ export const Valid = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const Invalid = {
   render: Template,
 
   args: {
-    label: 'invalid ComboBox',
+    label: "invalid ComboBox",
     invalid: true,
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
@@ -444,13 +461,13 @@ export const Invalid = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const Disabled = {
   render: Template,
 
   args: {
-    label: 'Disabled ComboBox',
+    label: "Disabled ComboBox",
     disabled: true,
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
@@ -503,14 +520,14 @@ export const Disabled = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const DisabledOption = {
   render: Template,
 
   args: {
-    label: 'ComboBox with a Disabled Option',
-    helptext: 'Option Carrots should be disabled',
+    label: "ComboBox with a Disabled Option",
+    helptext: "Option Carrots should be disabled",
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
         Rhubarb
@@ -523,14 +540,14 @@ export const DisabledOption = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const WithHelpText = {
   render: Template,
 
   args: {
-    label: 'ComboBox',
-    helptext: 'Helptext to describe meaning and significance of the ComboBox',
+    label: "ComboBox",
+    helptext: "Helptext to describe meaning and significance of the ComboBox",
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
         Rhubarb
@@ -582,13 +599,13 @@ export const WithHelpText = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const WithHelpTextAsNode = {
   render: Template,
 
   args: {
-    label: 'ComboBox',
+    label: "ComboBox",
     helptext: (
       <>
         This is a helptext with a <a href="#">Link</a>
@@ -645,14 +662,14 @@ export const WithHelpTextAsNode = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const WithErrorText = {
   render: Template,
 
   args: {
-    label: 'ComboBox',
-    errortext: 'Invalidated by passing an errortext',
+    label: "ComboBox",
+    errortext: "Invalidated by passing an errortext",
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
         Rhubarb
@@ -704,14 +721,14 @@ export const WithErrorText = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const WithSuccessText = {
   render: Template,
 
   args: {
-    label: 'ComboBox',
-    successtext: 'Validated by passing a successtext',
+    label: "ComboBox",
+    successtext: "Validated by passing a successtext",
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
         Rhubarb
@@ -763,16 +780,16 @@ export const WithSuccessText = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const NonNullable = {
   render: Template,
 
   args: {
     nullable: false,
-    label: 'Non-Nullable ComboBox',
+    label: "Non-Nullable ComboBox",
     helptext:
-      'This Select can not be reset to having no value selected. The last selected value will remian selected when emptying the input field.',
+      "This Select can not be reset to having no value selected. The last selected value will remian selected when emptying the input field.",
     children: [
       <ComboBoxOption value="Rhubarb" key="1">
         Rhubarb
@@ -794,7 +811,7 @@ export const NonNullable = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const NonTruncatedOptions = {
   render: ConstrainedWidthTemplate,
@@ -811,7 +828,7 @@ export const NonTruncatedOptions = {
       ></ComboBoxOption>,
     ],
   },
-};
+}
 
 export const TruncatedOptions = {
   render: ConstrainedWidthTemplate,
@@ -829,7 +846,7 @@ export const TruncatedOptions = {
       ></ComboBoxOption>,
     ],
   },
-};
+}
 
 export const OptionsWithLabels = {
   render: Template,
@@ -838,7 +855,7 @@ export const OptionsWithLabels = {
     docs: {
       description: {
         story:
-          'If an option has both a label and a child, then the child is displayed instead of the label',
+          "If an option has both a label and a child, then the child is displayed instead of the label",
       },
     },
   },
@@ -851,36 +868,36 @@ export const OptionsWithLabels = {
       </ComboBoxOption>,
     ],
   },
-};
+}
 
 export const Loading = {
   render: Template,
 
   args: {
     loading: true,
-    helptext: 'ComboBox busy loading options',
+    helptext: "ComboBox busy loading options",
   },
-};
+}
 
 export const Error = {
   render: Template,
 
   args: {
     error: true,
-    errortext: 'ComboBox having trouble loading options',
+    errortext: "ComboBox having trouble loading options",
   },
-};
+}
 
 export const ValueAndDefaultValue = {
   render: Template,
 
   args: {
-    value: 'Option 1',
-    defaultValue: 'Option 2',
+    value: "Option 1",
+    defaultValue: "Option 2",
     children: [
       <ComboBoxOption value="Option 1" key="1" />,
       <ComboBoxOption value="Option 2" key="2" />,
       <ComboBoxOption value="Option 3" key="3" />,
     ],
   },
-};
+}

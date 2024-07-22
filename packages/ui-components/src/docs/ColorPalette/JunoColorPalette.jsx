@@ -10,7 +10,7 @@ import { ColorCard } from "./ColorCard"
 import { ContentArea } from "../../components/ContentArea/index"
 
 // Shows the colors from tailwind classes for a given theme (props.theme)
-export function JunoColorPalette(props) {
+export function JunoColorPalette() {
   const gridStyle = `jn-grid jn-gap-4 xl:jn-grid-cols-4 md:jn-grid-cols-3 jn-grid-cols-2 jn-mb-6`
 
   return (

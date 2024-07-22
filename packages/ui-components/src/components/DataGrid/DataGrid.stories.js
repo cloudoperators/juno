@@ -3,33 +3,37 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { DataGrid } from './index.js';
-import { DataGridRow } from '../DataGridRow/index.js';
-import { DataGridCell } from '../DataGridCell/index.js';
-// import { DataGridCheckboxCell } from "../DataGridCheckboxCell/index.js"
-import { DataGridHeadCell } from '../DataGridHeadCell/index.js';
-import { ContentArea } from '../ContentArea/index.js';
-import { Container } from '../Container/index.js';
-import { PreseletedWithSearch as FiltersStory } from '../Filters/Filters.stories';
-import { Filters } from '../Filters/index.js';
-import { DataGridToolbar } from '../DataGridToolbar/index.js';
-import { Default as DataGridToolbarStory } from '../DataGridToolbar/DataGridToolbar.stories';
-import { Button } from '../Button/index.js';
+import React from "react"
+import PropTypes from "prop-types"
+import { DataGrid } from "./index.js"
+import { DataGridRow } from "../DataGridRow/index.js"
+import { DataGridCell } from "../DataGridCell/index.js"
+import { DataGridHeadCell } from "../DataGridHeadCell/index.js"
+import { PreseletedWithSearch as FiltersStory } from "../Filters/Filters.stories"
+import { Filters } from "../Filters/index.js"
+import { DataGridToolbar } from "../DataGridToolbar/index.js"
+import { Default as DataGridToolbarStory } from "../DataGridToolbar/DataGridToolbar.stories"
+import { Button } from "../Button/index.js"
 
 export default {
-  title: 'Components/DataGrid/DataGrid',
+  title: "Components/DataGrid/DataGrid",
   component: DataGrid,
   argTypes: {
     children: {
       control: false,
     },
   },
-};
+}
 
-const defaultColumns = 3;
+const defaultColumns = 3
 
-const Template = ({ hideHead, includeColSpanRow, withToolbar, withFilters, ...args }) => (
+const Template = ({
+  hideHead,
+  includeColSpanRow,
+  withToolbar,
+  withFilters,
+  ...args
+}) => (
   <>
     {withFilters && <Filters {...FiltersStory.args}></Filters>}
     {withToolbar && (
@@ -41,7 +45,9 @@ const Template = ({ hideHead, includeColSpanRow, withToolbar, withFilters, ...ar
       {!hideHead && (
         <DataGridRow>
           {[...Array(args.columns || defaultColumns)].map((_, c) => (
-            <DataGridHeadCell key={`h_${c}`}>{`Head cell ${c}`}</DataGridHeadCell>
+            <DataGridHeadCell
+              key={`h_${c}`}
+            >{`Head cell ${c}`}</DataGridHeadCell>
           ))}
         </DataGridRow>
       )}
@@ -66,7 +72,15 @@ const Template = ({ hideHead, includeColSpanRow, withToolbar, withFilters, ...ar
       )}
     </DataGrid>
   </>
-);
+)
+
+Template.propTypes = {
+  hideHead: PropTypes.bool,
+  includeColSpanRow: PropTypes.bool,
+  withToolbar: PropTypes.bool,
+  withFilters: PropTypes.bool,
+  columns: PropTypes.number,
+}
 
 export const Default = {
   render: Template,
@@ -74,7 +88,7 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Juno DataGrid for displaying data. Example with 5 columns.',
+        story: "Juno DataGrid for displaying data. Example with 5 columns.",
       },
     },
   },
@@ -82,7 +96,7 @@ export const Default = {
   args: {
     columns: 5,
   },
-};
+}
 
 export const EqualColumnSize = {
   render: Template,
@@ -98,9 +112,9 @@ export const EqualColumnSize = {
 
   args: {
     columns: 5,
-    columnMaxSize: '1fr',
+    columnMaxSize: "1fr",
   },
-};
+}
 
 export const ColumnMinSize = {
   render: Template,
@@ -116,9 +130,9 @@ export const ColumnMinSize = {
 
   args: {
     columns: 5,
-    columnMinSize: '300px',
+    columnMinSize: "300px",
   },
-};
+}
 
 export const MinimumSizedColumns = {
   render: Template,
@@ -127,7 +141,7 @@ export const MinimumSizedColumns = {
     docs: {
       description: {
         story:
-          'Example: specify some columns that should be as small as possible (typically used for when you have a cell that contains only a button and you want to ensure the cell is only exactly as wide as the button',
+          "Example: specify some columns that should be as small as possible (typically used for when you have a cell that contains only a button and you want to ensure the cell is only exactly as wide as the button",
       },
     },
   },
@@ -136,7 +150,7 @@ export const MinimumSizedColumns = {
     columns: 5,
     minContentColumns: [0, 4],
   },
-};
+}
 
 export const CustomGridTemplate = {
   render: Template,
@@ -153,7 +167,7 @@ export const CustomGridTemplate = {
   args: {
     gridColumnTemplate: `20% repeat(${defaultColumns - 1}, auto)`,
   },
-};
+}
 
 export const NoHead = {
   render: Template,
@@ -161,7 +175,7 @@ export const NoHead = {
   parameters: {
     docs: {
       description: {
-        story: 'Without head cells',
+        story: "Without head cells",
       },
     },
   },
@@ -170,7 +184,7 @@ export const NoHead = {
     columns: 5,
     hideHead: true,
   },
-};
+}
 
 export const ColSpanCell = {
   render: Template,
@@ -178,7 +192,7 @@ export const ColSpanCell = {
   parameters: {
     docs: {
       description: {
-        story: 'With a col span cell',
+        story: "With a col span cell",
       },
     },
   },
@@ -187,7 +201,7 @@ export const ColSpanCell = {
     columns: 5,
     includeColSpanRow: true,
   },
-};
+}
 
 export const WithToolbar = {
   render: Template,
@@ -195,7 +209,7 @@ export const WithToolbar = {
   parameters: {
     docs: {
       description: {
-        story: 'With toolbar',
+        story: "With toolbar",
       },
     },
   },
@@ -204,7 +218,7 @@ export const WithToolbar = {
     columns: 5,
     withToolbar: true,
   },
-};
+}
 
 export const WithFilters = {
   render: Template,
@@ -212,7 +226,7 @@ export const WithFilters = {
   parameters: {
     docs: {
       description: {
-        story: 'With filters',
+        story: "With filters",
       },
     },
   },
@@ -221,7 +235,7 @@ export const WithFilters = {
     columns: 5,
     withFilters: true,
   },
-};
+}
 
 export const WithToolbarAndFilters = {
   render: Template,
@@ -229,7 +243,7 @@ export const WithToolbarAndFilters = {
   parameters: {
     docs: {
       description: {
-        story: 'With toolbar and filters',
+        story: "With toolbar and filters",
       },
     },
   },
@@ -239,4 +253,4 @@ export const WithToolbarAndFilters = {
     withFilters: true,
     withToolbar: true,
   },
-};
+}

@@ -8,8 +8,8 @@ import PropTypes from "prop-types"
 
 const containerStyles = (px, py) => {
   return `
-    ${ px ? "jn-px-6 " : " " } 
-    ${ py ? " jn-py-6" : "" }
+    ${px ? "jn-px-6 " : " "} 
+    ${py ? " jn-py-6" : ""}
   `
 }
 
@@ -17,10 +17,10 @@ const containerStyles = (px, py) => {
  * A very basic layout container with padding.
  */
 export const Container = ({
-  px,
-  py,
-  className,
-  children,
+  px = true,
+  py = false,
+  className = "",
+  children = null,
   ...props
 }) => {
   return (
@@ -41,11 +41,4 @@ Container.propTypes = {
   /** Add custom class name */
   className: PropTypes.string,
   children: PropTypes.node,
-}
-
-Container.defaultProps = {
-  px: true,
-  py: false,
-  className: "",
-  children: null,
 }

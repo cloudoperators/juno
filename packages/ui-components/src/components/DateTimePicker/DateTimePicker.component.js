@@ -92,7 +92,7 @@ export const DateTimePicker = ({
   defaultMinute,
   defaultDate,
   defaultValue,
-  disable,
+  disable = [],
   disabled,
   enableSeconds,
   enableTime,
@@ -140,7 +140,8 @@ export const DateTimePicker = ({
   const calendarTargetRef = useRef(null) // The DOM node the flatpickr calendar should be rendered to
 
   const [theDate, setTheDate] = useState({})
-  const [hasFocus, setHasFocus] = useState(false)
+  // variables starting with underscore are not linted
+  const [_hasFocus, setHasFocus] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
   const [isValid, setIsValid] = useState(false)
@@ -176,31 +177,31 @@ export const DateTimePicker = ({
     onBlur && onBlur(theDate.selectedDate, theDate.selectedDateStr)
   }
 
-  const handleChange = (selectedDate, dateStr, instance) => {
+  const handleChange = (selectedDate, dateStr, _instance) => {
     setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr })
     onChange && onChange(selectedDate, dateStr)
   }
 
-  const handleClose = (selectedDate, dateStr, instance) => {
+  const handleClose = (selectedDate, dateStr, _instance) => {
     setIsOpen(false)
     onClose && onClose(selectedDate, dateStr)
   }
 
-  const handleMonthChange = (selectedDate, dateStr, instance) => {
+  const handleMonthChange = (selectedDate, dateStr, _instance) => {
     setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr })
     onMonthChange && onMonthChange(selectedDate, dateStr)
   }
 
-  const handleOpen = (selectedDate, dateStr, instance) => {
+  const handleOpen = (selectedDate, dateStr, _instance) => {
     setIsOpen(true)
     onOpen && onOpen(selectedDate, dateStr)
   }
 
-  const handleReady = (selectedDate, dateStr, instance) => {
+  const handleReady = (selectedDate, dateStr, _instance) => {
     onReady && onReady(selectedDate, dateStr)
   }
 
-  const handleYearChange = (selectedDate, dateStr, instance) => {
+  const handleYearChange = (selectedDate, dateStr, _instance) => {
     setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr })
     onYearChange && onYearChange(selectedDate, dateStr)
   }
@@ -229,8 +230,8 @@ export const DateTimePicker = ({
           ? "H:i:S"
           : "H:i"
         : enableSeconds
-        ? "Y-m-d H:i:S"
-        : "Y-m-d H:i"
+          ? "Y-m-d H:i:S"
+          : "Y-m-d H:i"
       : "Y-m-d"
 
     const theDateFormat =
@@ -660,6 +661,8 @@ DateTimePicker.propTypes = {
   width: PropTypes.oneOf(["full", "auto"]),
 }
 
+// can't get rid of this, as if we transform it to a default values using vanilla JS, two tests will fail
+// the disable prop causes problems in the tests
 DateTimePicker.defaultProps = {
   allowInput: false,
   allowInvalidPreload: false,

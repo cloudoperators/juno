@@ -31,16 +31,16 @@ const tabNavActiveItemStyles = `
 
 /** An individual Tab Navigation Item. Use wrapped in a `<TabNavigation>` parent component. */
 export const TabNavigationItem = ({
-  active,
+  active = false,
   ariaLabel,
-  children,
-  className,
-  disabled,
+  children = null,
+  className = "",
+  disabled = false,
   href,
   icon,
-  label,
+  label = "",
   onClick,
-  value,
+  value = "",
   ...props
 }) => {
   const tabNavigationContext = useContext(TabNavigationContext)
@@ -95,17 +95,4 @@ TabNavigationItem.propTypes = {
   onClick: PropTypes.func,
   /** An optional technical identifier fort the tab. If not passed, the label will be used to identify the tab. NOTE: If value is passed, the value of the active tab MUST be used when setting the activeItem prop on the parent TabNavigation.*/
   value: PropTypes.string,
-}
-
-TabNavigationItem.defaultProps = {
-  active: false,
-  ariaLabel: undefined,
-  children: null,
-  className: "",
-  disabled: false,
-  href: undefined,
-  icon: undefined,
-  label: "",
-  onClick: undefined,
-  value: "",
 }

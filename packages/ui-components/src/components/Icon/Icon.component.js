@@ -84,9 +84,9 @@ const buttonIconStyles = `
 	disabled:jn-cursor-not-allowed
 `
 
-const wrapperStyles = `
-  jn-leading-none
-`
+// const wrapperStyles = `
+//   jn-leading-none
+// `
 // export all known icons as an array of their names to be used with PropTypes here and from other components:
 export const knownIcons = [
   "accessTime",
@@ -743,7 +743,17 @@ const getColoredSizedIcon = ({
 
 export const Icon = forwardRef(
   (
-    { icon, color, size, title, className, href, disabled, onClick, ...props },
+    {
+      icon = null,
+      color = "",
+      size = "24",
+      title = "",
+      className = "",
+      href = "",
+      disabled = false,
+      onClick,
+      ...props
+    },
     ref
   ) => {
     // if href or onClick was passed, then we want to add the passed classes and passed arbitrary props to the button or anchor
@@ -795,6 +805,8 @@ export const Icon = forwardRef(
   }
 )
 
+Icon.displayName = "Icon"
+
 Icon.propTypes = {
   /** The icon to display */
   icon: PropTypes.oneOf(knownIcons),
@@ -812,15 +824,4 @@ Icon.propTypes = {
   disabled: PropTypes.bool,
   /** Optionally specify a click handler. This will render the icon inside a <code><button></code> with the given handler.  */
   onClick: PropTypes.func,
-}
-
-Icon.defaultProps = {
-  icon: null,
-  color: "",
-  size: "24",
-  title: "",
-  className: "",
-  href: "",
-  disabled: false,
-  onClick: undefined,
 }

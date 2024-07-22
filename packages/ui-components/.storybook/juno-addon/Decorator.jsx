@@ -8,7 +8,8 @@ import { StyleProvider } from "../../src/components/StyleProvider"
 import { ContentContainer } from "../../src/components/ContentContainer/index"
 import { Container } from "../../src/components/Container/index"
 import React, { useEffect } from "react"
-import { useChannel, addons } from "@storybook/preview-api"
+import PropTypes from "prop-types"
+import { _useChannel, addons } from "@storybook/preview-api"
 import { getCurrentTheme, getCurrentThemeMode } from "./themes"
 
 const fixBodyBg = () => {
@@ -21,7 +22,7 @@ const fixBodyBg = () => {
 
 fixBodyBg()
 
-export default (Story, context) => {
+function Decorator(Story /*, _context*/) {
   const [theme, setTheme] = React.useState("theme-" + getCurrentThemeMode())
 
   useEffect(() => {
@@ -50,3 +51,15 @@ export default (Story, context) => {
     </StyleProvider>
   )
 }
+
+Decorator.propTypes = {
+  args: PropTypes.object,
+  children: PropTypes.node,
+  context: PropTypes.object,
+  id: PropTypes.string,
+  kind: PropTypes.string,
+  parameters: PropTypes.object,
+  storyFn: PropTypes.func,
+}
+
+export default Decorator

@@ -17,57 +17,47 @@ const tabListStyles = `
 // focus-within:ring-inset
 
 const getVariantStyles = (variant) => {
-	switch (variant) {
-		case "main": 
-			return `jn-bg-theme-tab-navigation-top`
-		case "codeblocks":
-			return `
+  switch (variant) {
+    case "main":
+      return `jn-bg-theme-tab-navigation-top`
+    case "codeblocks":
+      return `
 				jn-text-sm
 				jn-bg-theme-code-block
 				jn-border-b-[1px]
 				jn-border-theme-codeblock-bar 
 			`
-		default: 
-			return `
+    default:
+      return `
 				jn-border-b-[1px] 
 				jn-border-theme-tab-navigation-content-bottom
 			`
-	}
+  }
 }
 
 /** A tabList component wraps all individual Tabs inside a parent Tabs component */
 
-const TabList = ({
-	variant,
-	children,
-	...props
-}) => {
-	
-	const tabsContext = useTabsContext() || {}
-	const tabsVariant = tabsContext.variant || variant
-	
-	return (
-		<ReactTabList 
-			className={`juno-tablist juno-tablist-${tabsVariant} ${tabListStyles} ${getVariantStyles(tabsVariant)}`}
-			{...props} >
-				{children}
-		</ReactTabList>
-	)
+const TabList = ({ variant = "content", children = null, ...props }) => {
+  const tabsContext = useTabsContext() || {}
+  const tabsVariant = tabsContext.variant || variant
+
+  return (
+    <ReactTabList
+      className={`juno-tablist juno-tablist-${tabsVariant} ${tabListStyles} ${getVariantStyles(tabsVariant)}`}
+      {...props}
+    >
+      {children}
+    </ReactTabList>
+  )
 }
 
-TabList.tabsRole = 'TabList'
+TabList.tabsRole = "TabList"
 
 TabList.propTypes = {
-	/** Pick the TabList style */
-	variant: PropTypes.oneOf(["main", "content", "codeblocks"]),
-	/** The individual child Tabs to render */
-	children: PropTypes.node,
-}
-
-TabList.defaultProps = {
-	variant: "content",
-	children: null,
+  /** Pick the TabList style */
+  variant: PropTypes.oneOf(["main", "content", "codeblocks"]),
+  /** The individual child Tabs to render */
+  children: PropTypes.node,
 }
 
 export { TabList }
-

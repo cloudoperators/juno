@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { FormSection } from '../FormSection/FormSection.component';
-import { FormRow } from '../FormRow/FormRow.component';
-import { TextInput } from '../TextInput/TextInput.component';
+import React from "react"
+import PropTypes from "prop-types"
+import { FormSection } from "../FormSection/FormSection.component"
+import { FormRow } from "../FormRow/FormRow.component"
+import { TextInput } from "../TextInput/TextInput.component"
 
 export default {
-  title: 'Forms/FormSection',
+  title: "Forms/FormSection",
   component: FormSection,
   argTypes: {
     items: {
@@ -21,9 +22,14 @@ export default {
       control: false,
     },
   },
-};
+}
 
-const Template = ({ children, ...args }) => <FormSection {...args}>{children}</FormSection>;
+const Template = ({ children, ...args }) => (
+  <FormSection {...args}>{children}</FormSection>
+)
+Template.propTypes = {
+  children: PropTypes.node,
+}
 
 export const Default = {
   render: Template,
@@ -38,13 +44,13 @@ export const Default = {
       </FormRow>,
     ],
   },
-};
+}
 
 export const WithTitle = {
   render: Template,
 
   args: {
-    title: 'Form Section With Title',
+    title: "Form Section With Title",
     children: [
       <FormRow key="1">
         <TextInput label="Address Line 1" />
@@ -54,4 +60,4 @@ export const WithTitle = {
       </FormRow>,
     ],
   },
-};
+}

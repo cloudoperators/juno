@@ -52,6 +52,7 @@ export default [
     rules: {
       ...jest.configs["flat/recommended"].rules,
       "jest/prefer-expect-assertions": "off",
+      "jest/no-disabled-tests": "off",
     },
   },
   //eslintPluginPrettierRecommended,
@@ -60,7 +61,11 @@ export default [
       // ignore unused vars starting with _
       "no-unused-vars": [
         "error",
-        { caughtErrorsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+        {
+          caughtErrorsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_",
+        },
       ],
     },
   },

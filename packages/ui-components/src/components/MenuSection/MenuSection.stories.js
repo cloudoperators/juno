@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { MenuSection } from "./index.js"
 import { Menu } from "../Menu/index.js"
 import { MenuItem } from "../MenuItem/index.js"
@@ -30,15 +31,19 @@ const Template = ({ children, ...args }) => (
   </Menu>
 )
 
+Template.propTypes = {
+  children: PropTypes.array,
+}
+
 export const Default = {
   render: Template,
 
   args: {
     title: "Menu Section",
     children: [
-      <MenuItem>Menu Item 1</MenuItem>,
-      <MenuItem>Menu Item 2</MenuItem>,
-      <MenuItem>Menu Item 3</MenuItem>,
+      <MenuItem key="1">Menu Item 1</MenuItem>,
+      <MenuItem key="2">Menu Item 2</MenuItem>,
+      <MenuItem key="3">Menu Item 3</MenuItem>,
     ],
   },
 }

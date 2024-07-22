@@ -9,6 +9,7 @@
  * @module Fonts
  */
 import React, { useInsertionEffect } from "react"
+import PropTypes from "prop-types"
 
 const CSS_FONTS_URL =
   "https://assets.juno.global.cloud.sap/assets/fonts/plex/css/ibm-plex.min.css"
@@ -48,6 +49,10 @@ const Fonts = ({ inline }) => {
       {...{ [`data-${STYLE_ID}`]: "" }}
     >{`@import url("${CSS_FONTS_URL}");`}</style>
   )
+}
+
+Fonts.propTypes = {
+  inline: PropTypes.bool,
 }
 
 export default Fonts

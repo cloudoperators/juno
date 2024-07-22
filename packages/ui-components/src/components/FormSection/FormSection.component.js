@@ -6,7 +6,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-
 const formSection = `
 	jn-mb-8
 	jn-last:mb-0
@@ -20,34 +19,33 @@ const formSectionHeading = `
 
 /** A Form section to group form elements inside complex forms with an optional title. */
 export const FormSection = ({
-
-	title,
-	children,
-	className,
-	...props
+  title = null,
+  children = null,
+  className = "",
+  ...props
 }) => {
-	return (
-		<section 
-			className={`juno-form-section ${formSection} ${className}`}
-			{...props}
-		>
-			{title ?  <h1 className={`juno-formsection-heading ${formSectionHeading}`}>{title}</h1> : ""}
-			{children}
-		</section>		
-	)
+  return (
+    <section
+      className={`juno-form-section ${formSection} ${className}`}
+      {...props}
+    >
+      {title ? (
+        <h1 className={`juno-formsection-heading ${formSectionHeading}`}>
+          {title}
+        </h1>
+      ) : (
+        ""
+      )}
+      {children}
+    </section>
+  )
 }
 
-FormSection.propTypes = { 
-	/** Title, will be rendering as an `<h1>`. */
-	title: PropTypes.string,
-	/** Pass a custpm className */
-	className: PropTypes.string,
-	/** Children to render in the form section */
-	children: PropTypes.node,
-}
-
-FormSection.defaultProps = {
-	title: null,
-	className: "",
-	children: null,
+FormSection.propTypes = {
+  /** Title, will be rendering as an `<h1>`. */
+  title: PropTypes.string,
+  /** Pass a custpm className */
+  className: PropTypes.string,
+  /** Children to render in the form section */
+  children: PropTypes.node,
 }

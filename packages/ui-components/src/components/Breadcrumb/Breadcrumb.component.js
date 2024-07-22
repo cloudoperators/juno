@@ -13,7 +13,7 @@ const breadcrumbstyles = `
 
 `
 /** Generic breadcrumb component. Use this to Wrap `Breadcrumb` items or custom children in a breadcrumb. */
-export const Breadcrumb = ({ children, className, ...props }) => {
+export const Breadcrumb = ({ children = null, className = "", ...props }) => {
   const breadcrumbArray = Children.toArray(children)
   const breadcrumbArrayWithSeparators = []
 
@@ -43,9 +43,4 @@ Breadcrumb.propTypes = {
   className: PropTypes.string,
   /** The children to render. Typically use the BreadcrumbItem component. */
   children: PropTypes.node,
-}
-
-Breadcrumb.defaultProps = {
-  className: "",
-  children: null,
 }

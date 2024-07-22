@@ -3,33 +3,32 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Select } from "../Select/index.js"
 import { FormRow } from "../FormRow/index.js"
-import { withDeprecationWarning } from '../withDeprecationWarning/index.js'
-
+import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
 
 /** DEPRECATED: A select group containing a select, an associated label, and necessary structural markup. This component is DEPRECATED, use Select instead. */
 const SelectRow = ({
-  name,
+  name = null,
   variant,
-  label,
-  id,
-  helptext,
-  required,
-  className,
-  disabled,
-  invalid,
-  errortext,
+  label = null,
+  id = null,
+  helptext = null,
+  required = null,
+  className = "",
+  disabled = null,
+  invalid = false,
+  errortext = "",
   valid,
-  placeholder,
+  placeholder = "Select…",
   successtext,
   children,
   value,
   onValueChange,
   onChange,
-  onOpenChange,
+  // onOpenChange,
   defaultValue,
   open,
   error,
@@ -45,7 +44,7 @@ const SelectRow = ({
         required={required}
         placeholder={placeholder}
         onChange={onValueChange || onChange}
-        onOpenChange={onOpenChange}
+        // onOpenChange={onOpenChange}
         disabled={disabled}
         invalid={invalid}
         valid={valid}
@@ -90,8 +89,12 @@ SelectRow.propTypes = {
   errortext: PropTypes.string,
   /** Children to render */
   children: PropTypes.node,
+  /** Specify whether the select is valid */
+  valid: PropTypes.bool,
   /** Passing a value turns the select into a controlled component. If you pass a value you must also specify an onChange handler to deal with value changes */
   value: PropTypes.string,
+  /** The semantic variant of the Select toggle button.*/
+  variant: PropTypes.oneOf(["default", "primary", "primary-danger", "subdued"]),
   /** Pass a handler to the Select element to execute once the value changes */
   onValueChange: PropTypes.func,
   /** Deprecated: Use `onValueChange` instead. */
@@ -106,27 +109,11 @@ SelectRow.propTypes = {
   error: PropTypes.bool,
   /** Whether the Select is currently busy loading options. Will display a Spinner Icon. */
   loading: PropTypes.bool,
+  /** Pass a value for success message */
+  successtext: PropTypes.string,
 }
 
-SelectRow.defaultProps = {
-  name: null,
-  label: null,
-  placeholder: "Select…",
-  id: null,
-  required: null,
-  className: "",
-  helptext: null,
-  disabled: null,
-  invalid: false,
-  errortext: "",
-  value: undefined,
-  onValueChange: undefined,
-  onChange: undefined,
-  onOpenChange: undefined,
-  defaultValue: undefined,
-  open: undefined,
-  error: undefined,
-  loading: undefined,
-}
-
-export default withDeprecationWarning(SelectRow, "SelectRow is deprecated and will be removed in future versions. To be future-proof, use Select instead.")
+export default withDeprecationWarning(
+  SelectRow,
+  "SelectRow is deprecated and will be removed in future versions. To be future-proof, use Select instead."
+)

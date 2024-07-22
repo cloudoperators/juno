@@ -23,28 +23,27 @@ const variantStyles = (variant) => {
 }
 
 export const FormHint = ({
-  children,
-  text,
-  variant,
+  children = null,
+  text = "",
+  variant = "help",
   className,
   ...props
 }) => {
   return (
-    <div 
+    <div
       className={`
         juno-form-hint
         juno-form-hint-${variant}
-        ${ baseStyles }
-        ${ variantStyles(variant) }
-        ${ className }
-      `} 
-      {...props} 
+        ${baseStyles}
+        ${variantStyles(variant)}
+        ${className}
+      `}
+      {...props}
     >
-      { children || text }
+      {children || text}
     </div>
   )
 }
-
 
 FormHint.propTypes = {
   /** The children to render as a hint associated with a form element */
@@ -55,12 +54,4 @@ FormHint.propTypes = {
   variant: PropTypes.oneOf(["help", "error", "success"]),
   /** Pass a custom className */
   className: PropTypes.string,
-}
-
-
-FormHint.defaultProps = {
-  children: null,
-  text: "",
-  variant: "help",
-  className: undefined,
 }

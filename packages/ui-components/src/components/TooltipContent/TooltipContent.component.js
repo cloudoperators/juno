@@ -43,7 +43,7 @@ const getIcon = (variant) => {
  * Put content for a tooltip here. See Tooltip for more in-depth explanation and examples.
  */
 export const TooltipContent = React.forwardRef(function TooltipContent(
-  { className, children, ...props },
+  { className = "", children = null, ...props },
   propRef
 ) {
   // get tooltip state
@@ -84,9 +84,4 @@ TooltipContent.propTypes = {
   children: PropTypes.node,
   /** Pass a className to render to the icon button*/
   className: PropTypes.string,
-}
-
-TooltipContent.defaultProps = {
-  children: null,
-  className: "",
 }

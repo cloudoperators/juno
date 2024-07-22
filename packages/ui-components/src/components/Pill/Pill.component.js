@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { Icon } from "../Icon/Icon.component.js"
 
 const pillStyles = (onClick) => {
-  return`
+  return `
     jn-inline-flex
     jn-basis-auto
     jn-shrink
@@ -25,7 +25,7 @@ const pillStyles = (onClick) => {
 }
 
 const pillKeyStyles = (onClick) => {
-  return`
+  return `
     jn-bg-theme-background-lvl-4
     jn-text-theme-high
     ${onClick ? "group-hover:jn-text-theme-highest" : ""}
@@ -37,7 +37,7 @@ const pillKeyStyles = (onClick) => {
 }
 
 const pillValueStyles = (onClick) => {
-  return`
+  return `
     jn-px-1
     jn-py-0.5
     jn-text-theme-high
@@ -50,15 +50,15 @@ const pillValueStyles = (onClick) => {
 A Pill to represent a value, or key and value. Can e.g. be used to represent selected filter values in a filter component. Can optionally be closed. On close the uid, if provided, or the pillKey is returned in the callback.
  */
 export const Pill = ({
-  uid,
-  pillKey,
-  pillKeyLabel,
-  pillValue,
-  pillValueLabel,
-  closeable,
-  onClick,
-  onClose,
-  className,
+  uid = "",
+  pillKey = "",
+  pillKeyLabel = "",
+  pillValue = "",
+  pillValueLabel = "",
+  closeable = false,
+  onClick = undefined,
+  onClose = undefined,
+  className = "",
   ...props
 }) => {
   const handleCloseClick = (event) => {
@@ -71,23 +71,31 @@ export const Pill = ({
 
   return (
     <div className={`juno-pill ${pillStyles(onClick)} ${className}`} {...props}>
-      { (!pillValue && !pillValueLabel) ?
+      {!pillValue && !pillValueLabel ? (
         <span className={`${pillValueStyles}`}>
           set pillValue or pillValueLabel
         </span>
-        :
+      ) : (
         <>
-          { (pillKeyLabel || pillKey) &&
-            <span className={`pill-key ${pillKeyStyles(onClick)}`} onClick={(e) => handleClick(e)}>
+          {(pillKeyLabel || pillKey) && (
+            <span
+              className={`pill-key ${pillKeyStyles(onClick)}`}
+              onClick={(e) => handleClick(e)}
+            >
               {pillKeyLabel || pillKey}
             </span>
-          }
-          <span className={`pill-value ${pillValueStyles(onClick)}`} onClick={(e) => handleClick(e)}>
+          )}
+          <span
+            className={`pill-value ${pillValueStyles(onClick)}`}
+            onClick={(e) => handleClick(e)}
+          >
             {pillValueLabel || pillValue}
           </span>
         </>
-      }
-      {closeable && <Icon icon="close" size="18" onClick={(e) => handleCloseClick(e)} />}
+      )}
+      {closeable && (
+        <Icon icon="close" size="18" onClick={(e) => handleCloseClick(e)} />
+      )}
     </div>
   )
 }
@@ -111,16 +119,4 @@ Pill.propTypes = {
   onClose: PropTypes.func,
   /** Pass a handler to be executed when clicking on the Pill (but not on the close button). Also returns the event and the uid (fallback: pillKey -> fallback: pillValue) */
   onClick: PropTypes.func,
-}
-
-Pill.defaultProps = {
-  uid: "",
-  pillKey: "",
-  pillKeyLabel: "",
-  pillValue: "",
-  pillValueLabel: "",
-  closeable: false,
-  onClick: undefined,
-  onClose: undefined,
-  className: "",
 }

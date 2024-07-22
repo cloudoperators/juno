@@ -37,7 +37,10 @@ const cellCustomStyles = (colSpan) => {
 }
 
 export const DataGridCell = forwardRef(
-  ({ colSpan, nowrap, className, children, ...props }, ref) => {
+  (
+    { colSpan, nowrap = false, className = "", children = null, ...props },
+    ref
+  ) => {
     const dataGridContext = useDataGridContext() || {}
     const cellVerticalAlignment = dataGridContext.cellVerticalAlignment
 
@@ -58,6 +61,8 @@ export const DataGridCell = forwardRef(
   }
 )
 
+DataGridCell.displayName = "DataGridCell"
+
 DataGridCell.propTypes = {
   /** Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.  */
   colSpan: PropTypes.number,
@@ -67,11 +72,4 @@ DataGridCell.propTypes = {
   children: PropTypes.node,
   /** Add a classname */
   className: PropTypes.string,
-}
-
-DataGridCell.defaultProps = {
-  colSpan: undefined,
-  nowrap: false,
-  className: "",
-  children: null,
 }

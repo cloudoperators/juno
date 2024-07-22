@@ -36,6 +36,10 @@ const Portal = ({ children }) => {
   return ref ? createPortal(children, ref) : null
 }
 
+Portal.propTypes = {
+  children: PropTypes.any,
+}
+
 Portal.propTypes = {}
 
 /**
@@ -57,7 +61,11 @@ Portal.propTypes = {}
  * a usePortalRef hook. While the component places all children in the portal, the hook
  * returns a React reference object to the DOM element.
  */
-export const PortalProvider = ({ className, id, children }) => {
+export const PortalProvider = ({
+  className = "",
+  id = "",
+  children = null,
+}) => {
   const ref = useRef()
 
   return (
@@ -78,11 +86,4 @@ PortalProvider.propTypes = {
   id: PropTypes.string,
   /** The PortalProvider must have children. It is typically used as a wrapper for the whole app. */
   children: PropTypes.node,
-}
-
-// define default values
-PortalProvider.defaultProps = {
-  className: "",
-  id: "",
-  children: null,
 }

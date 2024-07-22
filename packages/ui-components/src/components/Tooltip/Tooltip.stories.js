@@ -3,15 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Tooltip } from './index.js';
-import { TooltipContent } from '../TooltipContent/index.js';
-import { TooltipTrigger } from '../TooltipTrigger/index.js';
-import { Icon } from '../Icon/index.js';
-import { Button } from '../Button/index.js';
+import React from "react"
+import PropTypes from "prop-types"
+import { Tooltip } from "./index.js"
+import { TooltipContent } from "../TooltipContent/index.js"
+import { TooltipTrigger } from "../TooltipTrigger/index.js"
+import { Icon } from "../Icon/index.js"
+import { Button } from "../Button/index.js"
 
 export default {
-  title: 'Components/Tooltip/Tooltip',
+  title: "Components/Tooltip/Tooltip",
   component: Tooltip,
   argTypes: {
     text: {
@@ -35,7 +36,7 @@ export default {
       </div>
     ),
   ],
-};
+}
 
 const Template = ({
   placement,
@@ -60,8 +61,20 @@ const Template = ({
       <TooltipTrigger>{triggerText}</TooltipTrigger>
       <TooltipContent {...args}>{text}</TooltipContent>
     </Tooltip>
-  );
-};
+  )
+}
+
+// define available prop types
+Template.propTypes = {
+  placement: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  variant: PropTypes.oneOf(["info", "warning", "error", "danger", "success"]),
+  initialOpen: PropTypes.bool,
+  open: PropTypes.bool,
+  triggerEvent: PropTypes.oneOf(["click", "hover"]),
+  disabled: PropTypes.bool,
+  text: PropTypes.string,
+  triggerText: PropTypes.string,
+}
 
 const TemplateAsChildAnchor = ({
   initialOpen,
@@ -87,8 +100,19 @@ const TemplateAsChildAnchor = ({
       </TooltipTrigger>
       <TooltipContent {...args}>{text}</TooltipContent>
     </Tooltip>
-  );
-};
+  )
+}
+
+// define available prop types
+TemplateAsChildAnchor.propTypes = {
+  placement: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  variant: PropTypes.oneOf(["info", "warning", "error", "danger", "success"]),
+  initialOpen: PropTypes.bool,
+  open: PropTypes.bool,
+  triggerEvent: PropTypes.oneOf(["click", "hover"]),
+  disabled: PropTypes.bool,
+  text: PropTypes.string,
+}
 
 const TemplateButtonAsChildAnchor = ({
   initialOpen,
@@ -114,119 +138,130 @@ const TemplateButtonAsChildAnchor = ({
       </TooltipTrigger>
       <TooltipContent {...args}>{text}</TooltipContent>
     </Tooltip>
-  );
-};
+  )
+}
+
+// define available prop types
+TemplateButtonAsChildAnchor.propTypes = {
+  placement: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  variant: PropTypes.oneOf(["info", "warning", "error", "danger", "success"]),
+  initialOpen: PropTypes.bool,
+  open: PropTypes.bool,
+  triggerEvent: PropTypes.oneOf(["click", "hover"]),
+  disabled: PropTypes.bool,
+  text: PropTypes.string,
+}
 
 export const Default = {
   render: Template,
 
   args: {
-    text: 'A default tooltip',
-    triggerText: 'click me',
+    text: "A default tooltip",
+    triggerText: "click me",
     initialOpen: true,
   },
-};
+}
 
 export const Hover = {
   render: Template,
 
   args: {
-    text: 'A default tooltip opened on hover',
-    triggerText: 'hover me',
-    triggerEvent: 'hover',
+    text: "A default tooltip opened on hover",
+    triggerText: "hover me",
+    triggerEvent: "hover",
   },
-};
+}
 
 export const AsChildTooltipTrigger = {
   render: TemplateAsChildAnchor,
 
   args: {
-    text: 'A Tooltip with asChild Icon trigger',
+    text: "A Tooltip with asChild Icon trigger",
   },
 
   parameters: {
     docs: {
       description: {
         story:
-          'If the asChild option is set on the TooltipTrigger the passed child element is used as the tooltip trigger. This is useful for when you want to use e.g. an Icon or Button as the trigger',
+          "If the asChild option is set on the TooltipTrigger the passed child element is used as the tooltip trigger. This is useful for when you want to use e.g. an Icon or Button as the trigger",
       },
     },
   },
-};
+}
 
 export const ButtonAsChildTooltipTrigger = {
   render: TemplateButtonAsChildAnchor,
 
   args: {
-    text: 'A Tooltip with asChild Button trigger',
-    triggerEvent: 'hover',
+    text: "A Tooltip with asChild Button trigger",
+    triggerEvent: "hover",
   },
 
   parameters: {
     docs: {
       description: {
         story:
-          'If the asChild option is set on the TooltipTrigger the passed child element is used as the tooltip trigger. This is useful for when you want to use e.g. an Icon or Button as the trigger',
+          "If the asChild option is set on the TooltipTrigger the passed child element is used as the tooltip trigger. This is useful for when you want to use e.g. an Icon or Button as the trigger",
       },
     },
   },
-};
+}
 
 export const InfoTooltip = {
   render: TemplateAsChildAnchor,
 
   args: {
-    variant: 'info',
-    text: 'An Info Tooltip',
+    variant: "info",
+    text: "An Info Tooltip",
     open: true,
   },
-};
+}
 
 export const WarningTooltip = {
   render: TemplateAsChildAnchor,
 
   args: {
-    variant: 'warning',
-    text: 'A Warning Tooltip',
+    variant: "warning",
+    text: "A Warning Tooltip",
     open: true,
   },
-};
+}
 
 export const ErrorTooltip = {
   render: TemplateAsChildAnchor,
 
   args: {
-    variant: 'error',
-    text: 'An Error Tooltip',
+    variant: "error",
+    text: "An Error Tooltip",
     open: true,
   },
-};
+}
 
 export const DangerTooltip = {
   render: TemplateAsChildAnchor,
 
   args: {
-    variant: 'danger',
-    text: 'A Danger Tooltip.',
+    variant: "danger",
+    text: "A Danger Tooltip.",
     open: true,
   },
-};
+}
 
 export const SuccessTooltip = {
   render: TemplateAsChildAnchor,
 
   args: {
-    variant: 'success',
-    text: 'A Success Tooltip',
+    variant: "success",
+    text: "A Success Tooltip",
     open: true,
   },
-};
+}
 
 export const Disabled = {
   render: TemplateAsChildAnchor,
 
   args: {
-    text: 'A disabled tooltip',
+    text: "A disabled tooltip",
     disabled: true,
   },
-};
+}

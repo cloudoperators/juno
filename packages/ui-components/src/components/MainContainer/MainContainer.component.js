@@ -17,16 +17,12 @@ const mainStyles = `
  * The main container for app content.
  */
 export const MainContainer = ({
-  className,
-  children,
+  className = "",
+  children = null,
   ...props
 }) => {
-
   return (
-    <main
-      className={`juno-main ${mainStyles} ${className}`}
-      {...props}
-    >
+    <main className={`juno-main ${mainStyles} ${className}`} {...props}>
       {children}
     </main>
   )
@@ -36,9 +32,4 @@ MainContainer.propTypes = {
   /** Add custom class name */
   className: PropTypes.string,
   children: PropTypes.node,
-}
-
-MainContainer.defaultProps = {
-  className: "",
-  children: null,
 }

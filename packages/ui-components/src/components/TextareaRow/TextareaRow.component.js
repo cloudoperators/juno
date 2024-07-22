@@ -7,25 +7,25 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Textarea } from "../Textarea/index.js"
 import { FormRow } from "../FormRow/index.js"
-import { withDeprecationWarning } from '../withDeprecationWarning/index.js'
+import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
 
 /** DEPRECATED: A textarea row containing a textarea, associated label, optional helptext, and structural markup. This component is DEPRECATED, use Textarea instead. */
 
 const TextareaRow = ({
-  value,
-  name,
-  label,
-  id,
-  placeholder,
-  helptext,
-  required,
-  invalid,
-  errortext,
-  valid,
-  successtext,
-  className,
-  disabled,
-  onChange,
+  value = "",
+  name = null,
+  label = null,
+  id = null,
+  placeholder = null,
+  required = null,
+  invalid = false,
+  errortext = "",
+  valid = false,
+  successtext = "",
+  helptext = null,
+  className = "",
+  disabled = null,
+  onChange = undefined,
   ...props
 }) => {
   return (
@@ -82,21 +82,7 @@ TextareaRow.propTypes = {
   onChange: PropTypes.func,
 }
 
-TextareaRow.defaultProps = {
-  value: "",
-  name: null,
-  label: null,
-  id: null,
-  placeholder: null,
-  required: null,
-  invalid: false,
-  errortext: "",
-  valid: false,
-  successtext: "",
-  helptext: null,
-  className: "",
-  disabled: null,
-  onChange: undefined,
-}
-
-export default withDeprecationWarning(TextareaRow, "TextareaRow is deprecated and will be removed in future versions. To be future-proof, use Textarea instead.")
+export default withDeprecationWarning(
+  TextareaRow,
+  "TextareaRow is deprecated and will be removed in future versions. To be future-proof, use Textarea instead."
+)

@@ -3,31 +3,31 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Radio } from "../Radio/index.js"
-import { withDeprecationWarning } from '../withDeprecationWarning/index.js'
+import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
 
 /** DEPRECATED: A radio row containing a radio, associated label, and structural markup. This component is DEPRECATED, use Radio instead. */
 const RadioRow = ({
-  value,
-  name,
-  checked,
-  label,
-  id,
-  helptext,
-  className,
-  disabled,
-  required,
+  value = "",
+  checked = false,
+  name = null,
+  label = null,
+  id = null,
+  helptext = "",
+  className = "",
+  disabled = false,
+  required = false,
+  errortext = "",
+  valid = false,
   invalid,
-  errortext,
-  valid,
-  successtext,
-  onChange,
+  successtext = "",
+  onChange = undefined,
   ...props
 }) => {
   return (
-    <Radio 
+    <Radio
       value={value}
       checked={checked}
       name={name}
@@ -78,20 +78,7 @@ RadioRow.propTypes = {
   onChange: PropTypes.func,
 }
 
-RadioRow.defaultProps = {
-  value: "",
-  checked: false,
-  name: null,
-  label: null,
-  id: null,
-  helptext: "",
-  className: "",
-  disabled: false,
-  required: false,
-  errortext: "",
-  valid: false,
-  successtext: "",
-  onChange: undefined,
-}
-
-export default withDeprecationWarning(RadioRow, "RadioRow is deprecated and will be removed in future versions. To be future-proof, use Radio instead.")
+export default withDeprecationWarning(
+  RadioRow,
+  "RadioRow is deprecated and will be removed in future versions. To be future-proof, use Radio instead."
+)

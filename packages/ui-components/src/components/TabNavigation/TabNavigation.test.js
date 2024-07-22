@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { render, screen, cleanup } from "@testing-library/react"
+import { render, screen, cleanup, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { TabNavigation } from "./index"
 import { TabNavigationItem } from "../TabNavigationItem/index"
@@ -18,18 +18,20 @@ describe("TabNavigation", () => {
   })
 
   test("renders a TabNavigation", async () => {
-    render(<TabNavigation />)
+    await waitFor(() => render(<TabNavigation />))
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toHaveClass("juno-tabnavigation")
   })
 
   test("renders children as passed", async () => {
-    render(
-      <TabNavigation>
-        <TabNavigationItem>Item 1</TabNavigationItem>
-        <TabNavigationItem>Item 2</TabNavigationItem>
-        <TabNavigationItem>Item 3</TabNavigationItem>
-      </TabNavigation>
+    await waitFor(() =>
+      render(
+        <TabNavigation>
+          <TabNavigationItem>Item 1</TabNavigationItem>
+          <TabNavigationItem>Item 2</TabNavigationItem>
+          <TabNavigationItem>Item 3</TabNavigationItem>
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(3)
@@ -39,7 +41,9 @@ describe("TabNavigation", () => {
   })
 
   test("renders an aria-label as passed", async () => {
-    render(<TabNavigation ariaLabel="the relelvance of the navigation" />)
+    await waitFor(() =>
+      render(<TabNavigation ariaLabel="the relelvance of the navigation" />)
+    )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toHaveAttribute(
       "aria-label",
@@ -48,11 +52,13 @@ describe("TabNavigation", () => {
   })
 
   test("renders disabled children as passed", async () => {
-    render(
-      <TabNavigation disabled>
-        <TabNavigationItem label="Item 1" />
-        <TabNavigationItem label="Item 2" />
-      </TabNavigation>
+    await waitFor(() =>
+      render(
+        <TabNavigation disabled>
+          <TabNavigationItem label="Item 1" />
+          <TabNavigationItem label="Item 2" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
@@ -71,11 +77,13 @@ describe("TabNavigation", () => {
   })
 
   test("renders an active tab as passed by label", async () => {
-    render(
-      <TabNavigation activeItem="Item 2">
-        <TabNavigationItem label="Item 1" />
-        <TabNavigationItem label="Item 2" />
-      </TabNavigation>
+    await waitFor(() =>
+      render(
+        <TabNavigation activeItem="Item 2">
+          <TabNavigationItem label="Item 1" />
+          <TabNavigationItem label="Item 2" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
@@ -97,11 +105,13 @@ describe("TabNavigation", () => {
   })
 
   test("renders an active tab as passed by value", async () => {
-    render(
-      <TabNavigation activeItem="item-2">
-        <TabNavigationItem value="item-1" label="Item 1" />
-        <TabNavigationItem value="item-2" label="Item 2" />
-      </TabNavigation>
+    await waitFor(() =>
+      render(
+        <TabNavigation activeItem="item-2">
+          <TabNavigationItem value="item-1" label="Item 1" />
+          <TabNavigationItem value="item-2" label="Item 2" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
@@ -123,11 +133,13 @@ describe("TabNavigation", () => {
   })
 
   test("renders the active tab as passed to the parent if conflicting with active prop passed to child item", async () => {
-    render(
-      <TabNavigation activeItem="Item 2">
-        <TabNavigationItem label="Item 1" active />
-        <TabNavigationItem label="Item 2" />
-      </TabNavigation>
+    await waitFor(() =>
+      render(
+        <TabNavigation activeItem="Item 2">
+          <TabNavigationItem label="Item 1" active />
+          <TabNavigationItem label="Item 2" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
@@ -143,11 +155,13 @@ describe("TabNavigation", () => {
   })
 
   test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item", async () => {
-    const { rerender } = render(
-      <TabNavigation activeItem="Item 2">
-        <TabNavigationItem label="Item 1" active />
-        <TabNavigationItem label="Item 2" />
-      </TabNavigation>
+    const { rerender } = await waitFor(() =>
+      render(
+        <TabNavigation activeItem="Item 2">
+          <TabNavigationItem label="Item 1" active />
+          <TabNavigationItem label="Item 2" />
+        </TabNavigation>
+      )
     )
 
     expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveClass(
@@ -156,11 +170,13 @@ describe("TabNavigation", () => {
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass(
       "juno-navigation-item-active"
     )
-    rerender(
-      <TabNavigation activeItem="Item 1">
-        <TabNavigationItem label="Item 1" />
-        <TabNavigationItem label="Item 2" />
-      </TabNavigation>
+    await waitFor(() =>
+      rerender(
+        <TabNavigation activeItem="Item 1">
+          <TabNavigationItem label="Item 1" />
+          <TabNavigationItem label="Item 2" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass(
       "juno-navigation-item-active"
@@ -170,13 +186,15 @@ describe("TabNavigation", () => {
     )
   })
 
-  test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item", async () => {
-    const { rerender } = render(
-      <TabNavigation activeItem="Item 2">
-        <TabNavigationItem label="Item 1" active />
-        <TabNavigationItem label="Item 2" />
-        <TabNavigationItem label="Item 3" />
-      </TabNavigation>
+  test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item with 3 options", async () => {
+    const { rerender } = await waitFor(() =>
+      render(
+        <TabNavigation activeItem="Item 2">
+          <TabNavigationItem label="Item 1" active />
+          <TabNavigationItem label="Item 2" />
+          <TabNavigationItem label="Item 3" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass(
       "juno-navigation-item-active"
@@ -187,12 +205,14 @@ describe("TabNavigation", () => {
     expect(screen.getByRole("button", { name: "Item 3" })).not.toHaveClass(
       "juno-navigation-item-active"
     )
-    rerender(
-      <TabNavigation activeItem="Item 2">
-        <TabNavigationItem label="Item 1" />
-        <TabNavigationItem label="Item 2" />
-        <TabNavigationItem label="Item 3" active />
-      </TabNavigation>
+    await waitFor(() =>
+      rerender(
+        <TabNavigation activeItem="Item 2">
+          <TabNavigationItem label="Item 1" />
+          <TabNavigationItem label="Item 2" />
+          <TabNavigationItem label="Item 3" active />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass(
       "juno-navigation-item-active"
@@ -206,11 +226,13 @@ describe("TabNavigation", () => {
   })
 
   test("changes the active tab when the user clicks", async () => {
-    render(
-      <TabNavigation activeItem="Item 1">
-        <TabNavigationItem label="Item 1" />
-        <TabNavigationItem label="Item 2" />
-      </TabNavigation>
+    await waitFor(() =>
+      render(
+        <TabNavigation activeItem="Item 1">
+          <TabNavigationItem label="Item 1" />
+          <TabNavigationItem label="Item 2" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
@@ -218,33 +240,37 @@ describe("TabNavigation", () => {
     const tab2 = screen.getByRole("button", { name: "Item 2" })
     expect(tab1).toHaveAttribute("aria-selected", "true")
     expect(tab2).not.toHaveAttribute("aria-selected")
-    await userEvent.click(tab2)
+    await waitFor(() => userEvent.click(tab2))
     expect(tab1).not.toHaveAttribute("aria-selected")
     expect(tab2).toHaveAttribute("aria-selected", "true")
   })
 
   test("executes a handler as passed when the selected tab changes", async () => {
-    render(
-      <TabNavigation
-        activeItem="Item 1"
-        onActiveItemChange={mockOnActiveItemChange}
-      >
-        <TabNavigationItem label="Item 1" />
-        <TabNavigationItem label="Item 2" />
-      </TabNavigation>
+    await waitFor(() =>
+      render(
+        <TabNavigation
+          activeItem="Item 1"
+          onActiveItemChange={mockOnActiveItemChange}
+        >
+          <TabNavigationItem label="Item 1" />
+          <TabNavigationItem label="Item 2" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
     const tab2 = screen.getByRole("button", { name: "Item 2" })
-    await userEvent.click(tab2)
+    await waitFor(() => userEvent.click(tab2))
     expect(mockOnActiveItemChange).toHaveBeenCalled()
   })
 
   test("renders a main style tab navigation by default", async () => {
-    render(
-      <TabNavigation>
-        <TabNavigationItem label="Item 1" />
-      </TabNavigation>
+    await waitFor(() =>
+      render(
+        <TabNavigation>
+          <TabNavigationItem label="Item 1" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toHaveClass(
@@ -253,10 +279,12 @@ describe("TabNavigation", () => {
   })
 
   test("renders a content style tab navigation by passed", async () => {
-    render(
-      <TabNavigation tabStyle="content">
-        <TabNavigationItem label="Item 1" />
-      </TabNavigation>
+    await waitFor(() =>
+      render(
+        <TabNavigation tabStyle="content">
+          <TabNavigationItem label="Item 1" />
+        </TabNavigation>
+      )
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toHaveClass(
@@ -265,13 +293,13 @@ describe("TabNavigation", () => {
   })
 
   test("renders a custom classNames", async () => {
-    render(<TabNavigation className="my-custom-class" />)
+    await waitFor(() => render(<TabNavigation className="my-custom-class" />))
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toHaveClass("my-custom-class")
   })
 
   test("renders all other props", async () => {
-    render(<TabNavigation data-lolol="13" />)
+    await waitFor(() => render(<TabNavigation data-lolol="13" />))
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toHaveAttribute("data-lolol", "13")
   })

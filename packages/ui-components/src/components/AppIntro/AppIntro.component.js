@@ -16,7 +16,7 @@ const introStyles = `
 /**
  * OBSOLETE: Will be deleted!
  */
-export const AppIntro = ({ className, children, ...props }) => {
+export const AppIntro = ({ className = "", children, ...props }) => {
   return (
     <div className={`juno-app-intro ${introStyles} ${className}`} {...props}>
       {children}
@@ -27,8 +27,5 @@ export const AppIntro = ({ className, children, ...props }) => {
 AppIntro.propTypes = {
   /** Add custom class name */
   className: PropTypes.string,
-}
-
-AppIntro.defaultProps = {
-  className: "",
+  children: PropTypes.any,
 }

@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { ContextMenu } from "./index.js"
 import { MenuItem } from "../MenuItem/MenuItem.component"
 import { Button } from "../Button/index"
@@ -23,6 +24,10 @@ const Template = ({ children, ...args }) => (
   <ContextMenu {...args}>{children}</ContextMenu>
 )
 
+Template.propTypes = {
+  children: PropTypes.node,
+}
+
 const PortalTemplate = ({ children, ...args }) => (
   <PortalProvider>
     <PortalProvider.Portal>
@@ -30,6 +35,10 @@ const PortalTemplate = ({ children, ...args }) => (
     </PortalProvider.Portal>
   </PortalProvider>
 )
+
+PortalTemplate.propTypes = {
+  children: PropTypes.node,
+}
 
 export const Default = {
   render: Template,

@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Icon } from './index.js';
+import { Icon } from "./index.js"
 
 export default {
-  title: 'Components/Icon',
+  title: "Components/Icon",
   component: Icon,
   argTypes: {},
   parameters: {
@@ -18,386 +17,386 @@ export default {
       },
     },
   },
-};
+}
 
 export const Default = {
   args: {
-    icon: 'help',
-    color: 'jn-global-text',
+    icon: "help",
+    color: "jn-global-text",
   },
-};
+}
 
 export const Info_Colored = {
   args: {
-    icon: 'info',
-    color: 'jn-text-theme-info',
+    icon: "info",
+    color: "jn-text-theme-info",
   },
-};
+}
 
 export const Danger_Colored = {
   args: {
-    icon: 'danger',
-    color: 'jn-text-theme-danger',
+    icon: "danger",
+    color: "jn-text-theme-danger",
   },
-};
+}
 
 export const Success_Colored = {
   args: {
-    icon: 'success',
-    color: 'jn-text-theme-success',
+    icon: "success",
+    color: "jn-text-theme-success",
   },
-};
+}
 
 export const Warning_Colored = {
   args: {
-    icon: 'warning',
-    color: 'jn-text-theme-warning',
+    icon: "warning",
+    color: "jn-text-theme-warning",
   },
-};
+}
 
 export const ThemeColor = {
   args: {
-    icon: 'help',
-    color: 'jn-global-text',
+    icon: "help",
+    color: "jn-global-text",
   },
-};
+}
 
 export const Smaller = {
   args: {
     ...Default.args,
-    icon: 'help',
-    size: '18',
+    icon: "help",
+    size: "18",
   },
-};
+}
 
 export const Larger = {
   args: {
     ...Default.args,
-    icon: 'help',
-    size: '64',
+    icon: "help",
+    size: "64",
   },
-};
+}
 
 export const IconAsLink = {
   args: {
     ...Default.args,
-    href: '#',
-    title: 'The Icon is a link',
+    href: "#",
+    title: "The Icon is a link",
   },
-};
+}
 
 export const IconAsButton = {
   args: {
     ...Default.args,
-    title: 'The Icon is a button',
+    title: "The Icon is a button",
     onClick: () => {
-      console.log('click');
+      console.log("click")
     },
   },
-};
+}
 
 export const Account_Circle = {
   args: {
     ...Default.args,
-    icon: 'accountCircle',
+    icon: "accountCircle",
   },
-};
+}
 
 export const Add_Circle = {
   args: {
     ...Default.args,
-    icon: 'addCircle',
+    icon: "addCircle",
   },
-};
+}
 
 export const Auto_Awesome_Mosaic = {
   args: {
     ...Default.args,
-    icon: 'autoAwesomeMosaic',
+    icon: "autoAwesomeMosaic",
   },
-};
+}
 
 export const Auto_Awesome_Motion = {
   args: {
     ...Default.args,
-    icon: 'autoAwesomeMotion',
+    icon: "autoAwesomeMotion",
   },
-};
+}
 
 export const Bolt = {
   args: {
     ...Default.args,
-    icon: 'bolt',
+    icon: "bolt",
   },
-};
+}
 
 export const Cancel = {
   args: {
     ...Default.args,
-    icon: 'cancel',
+    icon: "cancel",
   },
-};
+}
 
 export const Check = {
   args: {
-    icon: 'check',
+    icon: "check",
   },
-};
+}
 
 export const CheckCircle = {
   args: {
-    icon: 'checkCircle',
+    icon: "checkCircle",
   },
-};
+}
 
 export const ChevronLeft = {
   args: {
-    icon: 'chevronLeft',
+    icon: "chevronLeft",
   },
-};
+}
 
 export const ChevronRight = {
   args: {
-    icon: 'chevronRight',
+    icon: "chevronRight",
   },
-};
+}
 
 export const Close = {
   args: {
-    icon: 'close',
+    icon: "close",
   },
-};
+}
 
 export const Comment = {
   args: {
     ...Default.args,
-    icon: 'comment',
+    icon: "comment",
   },
-};
+}
 
 export const ContentCopy = {
   args: {
-    icon: 'contentCopy',
+    icon: "contentCopy",
   },
-};
+}
 
 export const Danger = {
   args: {
     ...Default.args,
-    icon: 'danger',
+    icon: "danger",
   },
-};
+}
 
 export const Dangerous = {
   args: {
-    icon: 'dangerous',
+    icon: "dangerous",
   },
-};
+}
 
 export const DeleteForever = {
   args: {
-    icon: 'deleteForever',
+    icon: "deleteForever",
   },
-};
+}
 
 export const Description = {
   args: {
     ...Default.args,
-    icon: 'description',
+    icon: "description",
   },
-};
+}
 
 export const DNS = {
   args: {
     ...Default.args,
-    icon: 'dns',
+    icon: "dns",
   },
-};
+}
 
 export const Download = {
   args: {
-    icon: 'download',
+    icon: "download",
   },
-};
+}
 
 export const Edit = {
   args: {
     ...Default.args,
-    icon: 'edit',
+    icon: "edit",
   },
-};
+}
 
 export const Error = {
   args: {
     ...Default.args,
-    icon: 'dangerous',
+    icon: "dangerous",
   },
-};
+}
 
 export const Error_Outline = {
   args: {
     ...Default.args,
-    icon: 'errorOutline',
+    icon: "errorOutline",
   },
-};
+}
 
 export const Exit_To_App = {
   args: {
     ...Default.args,
-    icon: 'exitToApp',
+    icon: "exitToApp",
   },
-};
+}
 
 export const Expand_Less = {
   args: {
     ...Default.args,
-    icon: 'expandLess',
+    icon: "expandLess",
   },
-};
+}
 
 export const Expand_More = {
   args: {
     ...Default.args,
-    icon: 'expandMore',
+    icon: "expandMore",
   },
-};
+}
 
 export const Filter_Alt = {
   args: {
     ...Default.args,
-    icon: 'filterAlt',
+    icon: "filterAlt",
   },
-};
+}
 
 export const Forum = {
   args: {
     ...Default.args,
-    icon: 'forum',
+    icon: "forum",
   },
-};
+}
 
 export const Help = {
   args: {
     ...Default.args,
-    icon: 'help',
+    icon: "help",
   },
-};
+}
 
 export const Home = {
   args: {
     ...Default.args,
-    icon: 'home',
+    icon: "home",
   },
-};
+}
 
 export const Info = {
   args: {
     ...Default.args,
-    icon: 'info',
+    icon: "info",
   },
-};
+}
 
 export const Manage_Accounts = {
   args: {
     ...Default.args,
-    icon: 'manageAccounts',
+    icon: "manageAccounts",
   },
-};
+}
 
 export const Monitor_Heart = {
   args: {
     ...Default.args,
-    icon: 'monitorHeart',
+    icon: "monitorHeart",
   },
-};
+}
 
 export const More_Vert = {
   args: {
     ...Default.args,
-    icon: 'moreVert',
+    icon: "moreVert",
   },
-};
+}
 
 export const Notifications_Off = {
   args: {
     ...Default.args,
-    icon: 'notificationsOff',
+    icon: "notificationsOff",
   },
-};
+}
 
 export const Open_In_Browser = {
   args: {
     ...Default.args,
-    icon: 'openInBrowser',
+    icon: "openInBrowser",
   },
-};
+}
 
 export const Open_In_New = {
   args: {
     ...Default.args,
-    icon: 'openInNew',
+    icon: "openInNew",
   },
-};
+}
 
 export const Place = {
   args: {
     ...Default.args,
-    icon: 'place',
+    icon: "place",
   },
-};
+}
 
 export const Search = {
   args: {
     ...Default.args,
-    icon: 'search',
+    icon: "search",
   },
-};
+}
 
 export const SeverityLow = {
   args: {
     ...Default.args,
-    icon: 'severityLow',
+    icon: "severityLow",
   },
-};
+}
 
 export const SeverityMedium = {
   args: {
     ...Default.args,
-    icon: 'severityMedium',
+    icon: "severityMedium",
   },
-};
+}
 
 export const SeverityHigh = {
   args: {
     ...Default.args,
-    icon: 'severityHigh',
+    icon: "severityHigh",
   },
-};
+}
 
 export const SeverityCritical = {
   args: {
     ...Default.args,
-    icon: 'severityCritical',
+    icon: "severityCritical",
   },
-};
+}
 
 export const Success = {
   args: {
     ...Default.args,
-    icon: 'success',
+    icon: "success",
   },
-};
+}
 
 export const Warning = {
   args: {
     ...Default.args,
-    icon: 'warning',
+    icon: "warning",
   },
-};
+}
 
 export const Widgets = {
   args: {
     ...Default.args,
-    icon: 'widgets',
+    icon: "widgets",
   },
-};
+}

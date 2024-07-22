@@ -35,10 +35,11 @@ Both this component and ShadowRoot
  * @param {object} props
  * @returns
  */
+
 export const StyleProvider = ({
-  stylesWrapper,
+  stylesWrapper = "inline",
   theme: themeClassName,
-  children,
+  children = null,
   shadowRootMode,
 }) => {
   // theme class default to theme-dark
@@ -128,13 +129,6 @@ StyleProvider.propTypes = {
   ]),
   theme: PropTypes.string,
   shadowRootMode: PropTypes.oneOf(["open", "closed"]),
-}
-
-// define default values
-StyleProvider.defaultProps = {
-  children: null,
-  stylesWrapper: "inline",
-  theme: undefined,
 }
 
 // export a helper hook to use styles in nested components

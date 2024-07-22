@@ -18,16 +18,16 @@ const bodyContentClasses = `
 /**
  * The panel body component. The main (form) content for the panel goes here.
  */
-export const PanelBody = ({ className, footer, children, ...props }) => {
+export const PanelBody = ({ className = "", footer, children, ...props }) => {
   return (
-    <div 
+    <div
       className={`juno-panel-body ${panelBodyClasses}  ${className}`}
-      {...props}  
+      {...props}
     >
       <div className={`juno-panel-body-content ${bodyContentClasses}`}>
         {children}
       </div>
-      
+
       {footer}
     </div>
   )
@@ -36,11 +36,7 @@ export const PanelBody = ({ className, footer, children, ...props }) => {
 PanelBody.propTypes = {
   /** Add custom class name */
   className: PropTypes.string,
+  children: PropTypes.any,
   /** optional footer component */
-  footer: PropTypes.element
-}
-
-PanelBody.defaultProps = {
-  className: "",
-  footer: undefined
+  footer: PropTypes.element,
 }

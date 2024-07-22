@@ -22,15 +22,17 @@ const panelClasses = (isOpen, isTransitioning, size) => {
       jn-backdrop-blur
       jn-backdrop-saturate-150     
       jn-shadow-md
-      ${size === "large" ? `
+      ${
+        size === "large"
+          ? `
           jn-w-[90%]
           xl:jn-w-[80%]
-          2xl:jn-w-[1228px]` 
-        : `
+          2xl:jn-w-[1228px]`
+          : `
           jn-w-[75%]
           xl:jn-w-[55%]
           2xl:jn-w-[844px]`
-        }
+      }
 			${!isOpen ? `jn-translate-x-[100%]` : ""}
 			${!isOpen && !isTransitioning ? `jn-invisible` : ""}
 		`
@@ -57,11 +59,11 @@ const panelTitleClasses = `
 
 /** A slide-in panel for the Content Area.  */
 export const Panel = ({
-  heading,
+  heading = "",
   size,
-  className,
-  opened,
-  closeable,
+  className = "",
+  opened = false,
+  closeable = true,
   onClose,
   children,
   ...props
@@ -121,13 +123,13 @@ export const Panel = ({
         >
           {heading}
         </div>
-        { isCloseable &&
-            <Icon
+        {isCloseable && (
+          <Icon
             icon="close"
             onClick={handleClose}
             className="juno-panel-close jn-ml-auto"
           />
-        }
+        )}
       </div>
       <div className={`juno-panel-content-wrapper ${contentWrapperClasses}`}>
         {children}
@@ -151,13 +153,4 @@ Panel.propTypes = {
   className: PropTypes.string,
   /** Pass child nodes to be rendered in the main body of the Panel */
   children: PropTypes.node,
-}
-
-Panel.defaultProps = {
-  heading: "",
-  size: undefined,
-  opened: false,
-  closeable: true,
-  onClose: undefined,
-  className: "",
 }

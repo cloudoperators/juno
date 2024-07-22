@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Icon } from "../Icon/index.js"
 
@@ -132,14 +132,14 @@ const getMuiIcon = (messageType) => {
 Use sparingly, there should never be any two or more subsequent instances of Message as direct siblings/neighbors on an individual view.
 */
 export const Message = ({
-  title,
-  text,
-  variant,
-  dismissible,
-  autoDismiss,
-  autoDismissTimeout,
+  title = null,
+  text = null,
+  variant = "info",
+  dismissible = false,
+  autoDismiss = false,
+  autoDismissTimeout = 10000,
   onDismiss,
-  className,
+  className = "",
   children,
   ...props
 }) => {
@@ -223,15 +223,4 @@ Message.propTypes = {
   className: PropTypes.string,
   /** Pass child nodes to be rendered as contents */
   children: PropTypes.node,
-}
-
-Message.defaultProps = {
-  title: null,
-  text: null,
-  variant: "info",
-  dismissible: false,
-  autoDismiss: false,
-  autoDismissTimeout: 10000,
-  onDismiss: undefined,
-  className: "",
 }

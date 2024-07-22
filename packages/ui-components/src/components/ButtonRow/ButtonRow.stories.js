@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { ButtonRow } from "./index.js"
 import { Button } from "../Button/index.js"
 
@@ -25,6 +26,9 @@ export default {
 const Template = ({ children, ...args }) => (
   <ButtonRow {...args}>{children}</ButtonRow>
 )
+Template.propTypes = {
+  children: PropTypes.node,
+}
 
 export const Default = {
   render: Template,
@@ -32,8 +36,8 @@ export const Default = {
   args: {
     name: "Default ButtonRow",
     children: [
-      <Button label="Cancel" title="Cancel" />,
-      <Button label="Save" title="Save" variant="primary" />,
+      <Button key="1" label="Cancel" title="Cancel" />,
+      <Button key="2" label="Save" title="Save" variant="primary" />,
     ],
   },
 }
