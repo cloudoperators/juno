@@ -44,7 +44,10 @@ const Router = ({ stateID, children }) => {
 }
 
 Router.propTypes = {
+  /** Pass the stateID */
   stateID: PropTypes.string.isRequired,
+  /** Pass the children */
+  children: PropTypes.node,
 }
 
 export default Router

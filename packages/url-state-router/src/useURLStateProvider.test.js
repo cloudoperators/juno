@@ -19,7 +19,7 @@ describe("useURLStateProvider", () => {
   })
 
   it("throws an error if stateID is missing", () => {
-    const { result } = renderHook(() => useURLStateProvider())
+    renderHook(() => useURLStateProvider())
 
     expect(console.error).toHaveBeenCalledWith(
       "stateID is undefined. Please provide an unique ID."

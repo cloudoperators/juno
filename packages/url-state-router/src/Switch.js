@@ -4,6 +4,7 @@
  */
 
 import React, { useMemo } from "react"
+import PropTypes from "prop-types"
 import routeMatcher from "./routeMatcher"
 import { useRouter } from "./RouterContext"
 
@@ -45,6 +46,10 @@ const Switch = ({ children }) => {
   }, [currentPath, children])
 
   return route ? React.cloneElement(route) : null
+}
+
+Switch.propTypes = {
+  children: PropTypes.node,
 }
 
 export default Switch
