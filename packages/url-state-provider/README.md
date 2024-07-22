@@ -31,6 +31,7 @@ By automatically determining the most suitable encoding method, URL State Provid
 - [API Reference](#api-reference)
 - [Examples](#examples)
 - [Contributing](#contributing)
+- [Encoding](#encoding)
 - [License](#license)
 
 ## Installation
@@ -174,6 +175,72 @@ consumer2.replace({ p: "/items/new" })
 
 unregisterConsumer2()
 ```
+
+## Encoding
+
+### Unencoded characters
+
+- `a-z`
+- `A-Z`
+- `0-9`
+- `-`
+- `.`
+- `_`
+
+### Spaces are encoded `+`
+
+### Tilde encoded characters
+
+- `~` -> `~A`
+- `%` -> `~B`
+- `\t` -> `~C`
+- `\n` -> `~D`
+- `\r` -> `~E`
+- `\` -> `~F`
+- `/` -> `~G`
+- `{` -> `~H`
+- `}` -> `~I`
+- `(` -> `~J`
+- `)` -> `~K`
+- `+` -> `~L`
+- `#` -> `~M`
+- `$` -> `~N`
+- `@` -> `~O`
+- `?` -> `~P`
+- `&` -> `~Q`
+- `=` -> `~R`
+- `[` -> `~S`
+- `]` -> `~T`
+- `*` -> `~U`
+- `;` -> `~V`
+- `,` -> `~W`
+
+Other characters like ñ and ß are encoded with % ( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent )
+
+## Encoding of Numbers
+
+- Positive numbers starting with a (`*`) followed by 0-9
+- Negative numbers starting with a (`~`) followed by 0-9
+
+## Encoding of Objects and Arrays
+
+- `()` Object or Array
+- `,` segregates entries
+- `:` Key/value separator in JSON
+- `(~)` array with no elements
+- `(*)` array with an empty string
+
+## Encoding of other values
+
+- Encoding types:
+  - `*A` is `null`
+  - `*B` is `undefined`
+  - `*C` is `true`
+  - `*D` is `false`
+  - `*E` is `NaN`
+  - `*F` is `+Infinity`
+  - `*G` is `-Infinity`
+  - `*R` is marks a Regex.
 
 ## License
 
