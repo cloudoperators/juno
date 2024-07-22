@@ -31,7 +31,12 @@ const Link = ({ to, children, options, ...props }) => {
 }
 
 Link.propTypes = {
+  /** Pass the path the link should navigate to */
   to: PropTypes.string.isRequired,
+  /** Pass the options object */
+  options: PropTypes.object,
+  /** Pass the children */
+  children: PropTypes.node,
 }
 
 export default Link
