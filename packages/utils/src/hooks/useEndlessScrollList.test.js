@@ -5,6 +5,7 @@
 
 import { render, queryByAttribute, renderHook } from "@testing-library/react"
 import { useEndlessScrollList } from "../index"
+// eslint-disable-next-line jest/no-mocks-import
 import "../../__mocks__/intersectionObserverMock"
 
 // TODO: add tests for the loading indicator which currently is not implemented do tue intersection observer can't be reproduced in tests
@@ -41,43 +42,42 @@ describe("useEndlessScrollList", () => {
       )
       expect(intersectionRefElement).toBeTruthy()
     })
-    if (
-      ("returns a map function which iterates over all scrollListItems and do not include the intersection ref or do not call refFunction if showRef is set to false in options",
-      () => {
-        const refFunction = jest.fn()
-        const { result } = renderHook(() =>
-          useEndlessScrollList(["1", "2", "3"], {
-            showRef: false,
-            refFunction: refFunction,
-          })
-        )
-        const mapFunction = result.current.iterator.map((item) => item)
-        const getById = queryByAttribute.bind(null, "id")
-        const dom = render(mapFunction)
-        const intersectionRefElement = getById(
-          dom.container,
-          "endlessScrollListLastItemRef"
-        )
-        expect(intersectionRefElement).toBeFalsy()
-        expect(refFunction).not.toHaveBeenCalled()
-      })
-    )
-      it("returns a map function which iterates over all scrollListItems and does not add an intersection ref element", () => {
-        const refFunction = jest.fn()
-        const { result } = renderHook(() =>
-          useEndlessScrollList(["1", "2", "3"], {
-            refFunction: refFunction,
-          })
-        )
-        const mapFunction = result.current.iterator.map((item) => item)
-        const getById = queryByAttribute.bind(null, "id")
-        const dom = render(mapFunction)
-        const intersectionRefElement = getById(
-          dom.container,
-          "endlessScrollListLastItemRef"
-        )
-        expect(intersectionRefElement).toBeFalsy()
-        expect(refFunction).toHaveBeenCalled()
-      })
+
+    it("returns a map function which iterates over all scrollListItems and do not include the intersection ref or do not call refFunction if showRef is set to false in options", () => {
+      const refFunction = jest.fn()
+      const { result } = renderHook(() =>
+        useEndlessScrollList(["1", "2", "3"], {
+          showRef: false,
+          refFunction: refFunction,
+        })
+      )
+      const mapFunction = result.current.iterator.map((item) => item)
+      const getById = queryByAttribute.bind(null, "id")
+      const dom = render(mapFunction)
+      const intersectionRefElement = getById(
+        dom.container,
+        "endlessScrollListLastItemRef"
+      )
+      expect(intersectionRefElement).toBeFalsy()
+      expect(refFunction).not.toHaveBeenCalled()
+    })
+
+    it("returns a map function which iterates over all scrollListItems and does not add an intersection ref element", () => {
+      const refFunction = jest.fn()
+      const { result } = renderHook(() =>
+        useEndlessScrollList(["1", "2", "3"], {
+          refFunction: refFunction,
+        })
+      )
+      const mapFunction = result.current.iterator.map((item) => item)
+      const getById = queryByAttribute.bind(null, "id")
+      const dom = render(mapFunction)
+      const intersectionRefElement = getById(
+        dom.container,
+        "endlessScrollListLastItemRef"
+      )
+      expect(intersectionRefElement).toBeFalsy()
+      expect(refFunction).toHaveBeenCalled()
+    })
   })
 })

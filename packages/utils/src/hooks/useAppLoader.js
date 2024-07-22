@@ -19,14 +19,14 @@ const loadWidgetLoaderWithImportmap = (assetsHost) => {
   importmaps[assetsHost] =
     importmaps[assetsHost] ||
     // this promise is resolved once!
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
       // create a script element into the head to load the importMaps
       const url = new URL("/apps/widget-loader@latest/build/app.js", assetsHost)
       const script = document.createElement("script")
       script.src = url.href
       script.setAttribute("data-importmap-only", "true")
       document.head.append(script)
-      window.addEventListener("JUNO_IMPORTMAP_LOADED", (e) => {
+      window.addEventListener("JUNO_IMPORTMAP_LOADED", () => {
         resolve(true)
       })
     })

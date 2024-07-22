@@ -130,6 +130,10 @@ export const MessagesProvider = ({ children }) => {
   )
 }
 
+MessagesProvider.propTypes = {
+  children: PropTypes.node,
+}
+
 const messageStore = (selector) => useStore(useContext(StoreContext), selector)
 
 // decrecated old hook

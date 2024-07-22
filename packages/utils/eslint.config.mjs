@@ -11,4 +11,12 @@ export default [
     files: ["**/*.test.js"],
     languageOptions: { sourceType: "module" },
   },
+  {
+    files: ["**/*.{js,mjs,cjs,jsx}"],
+    languageOptions: {
+      globals: {
+        importShim: "readonly",
+      },
+    },
+  },
 ]

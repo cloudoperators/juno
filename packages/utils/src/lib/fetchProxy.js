@@ -81,7 +81,7 @@ export const fetchProxyInitDB = (jsonData, options = {}) => {
         try {
           new RegExp(key)
           return true
-        } catch (error) {
+        } catch (_error) {
           // warn if expresion is not regex
           console.warn(
             `It seems that the given rewrite rule ${key} for routes is not a valid regex expresion.`
@@ -123,7 +123,7 @@ export const fetchProxyInitDB = (jsonData, options = {}) => {
           try {
             new RegExp(key)
             return true
-          } catch (error) {
+          } catch (_error) {
             // warn if expresion is not regex
             console.warn(
               `It seems that the given rewrite rule ${key} for responses is not a valid regex expresion.`
@@ -161,7 +161,7 @@ export const fetchProxyInitDB = (jsonData, options = {}) => {
 // is set to production when building for browser platform: https://esbuild.github.io/api/#platform
 const fetchProxy = (urlString, options) => {
   // split custom options from fetch options
-  const { mock, jsonData, ...fetchOptions } = options
+  const { mock, ...fetchOptions } = options
 
   // if not set explicitly to true or "true", use the real fetch
   if (mock !== true && mock !== "true") {
@@ -180,7 +180,7 @@ const fetchProxy = (urlString, options) => {
   try {
     // get the path from the url
     url = new URL(urlString)
-  } catch (error) {
+  } catch (_error) {
     throw new Error(`Invalid URL: ${urlString}`)
   }
 
@@ -237,8 +237,7 @@ const fetchProxy = (urlString, options) => {
   // switch over the header method
   switch (method) {
     case "GET":
-      return new Promise((resolve, reject) => {
-        let json = null
+      return new Promise((resolve) => {
         if (object) {
           // object is given
           if (localDB?.[object]) {
@@ -270,7 +269,7 @@ const fetchProxy = (urlString, options) => {
         resolve(resolveResponse(customResponse || localDB))
       })
     case "POST":
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (!object || !body)
           resolve(
             rejectResponse(`No object '${object}' or body '${body}' given`)
@@ -294,7 +293,7 @@ const fetchProxy = (urlString, options) => {
         resolve(customResponse || resolveResponse(newBody))
       })
     case "PUT":
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (!object || !id)
           resolve(rejectResponse(`No object '${object}' or id '${id}' given`))
         if (!localDB?.[object])
@@ -320,7 +319,7 @@ const fetchProxy = (urlString, options) => {
         }
       })
     case "DELETE":
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (!object || !id)
           resolve(rejectResponse(`No object '${object}' or id '${id}' given`))
         if (!localDB?.[object])

@@ -47,7 +47,7 @@ export default [
   ...fixupConfigRules(pluginReactConfig),
   // ######### JEST ##########
   {
-    files: ["__tests__/**", "**/*.test.js"],
+    files: ["__tests__/**", "**/*.test.js", "__mocks__/**"],
     ...jest.configs["flat/recommended"],
     rules: {
       ...jest.configs["flat/recommended"].rules,

@@ -26,7 +26,7 @@ describe("fetchProxy lib", () => {
     it("through an error if given data is not valid JSON", () => {
       // setup wrang json data
       const db = 1234
-      expect(() => fetchProxyInitDB(db)).toThrowError(/not a valid JSON object/)
+      expect(() => fetchProxyInitDB(db)).toThrow(/not a valid JSON object/)
     })
     it("through an error if given data is not a collection of key value pairs with values as arrays", () => {
       // setup wrang json data
@@ -39,7 +39,7 @@ describe("fetchProxy lib", () => {
           range: "Alps",
         },
       }
-      expect(() => fetchProxyInitDB(db)).toThrowError(
+      expect(() => fetchProxyInitDB(db)).toThrow(
         /not a collection of key value pairs with values as arrays/
       )
     })
@@ -91,7 +91,7 @@ describe("fetchProxy lib", () => {
     })
 
     it("through an error if given url is not conform", () => {
-      expect(() => fetchProxy("/peaks", { mock: true })).toThrowError()
+      expect(() => fetchProxy("/peaks", { mock: true })).toThrow()
     })
 
     test("GET all peaks", async () => {
@@ -186,7 +186,7 @@ describe("fetchProxy lib", () => {
         "^/api": "", // Replace '/api' with an empty string
       }
 
-      const test = fetchProxyInitDB(db, { rewriteRoutes })
+      fetchProxyInitDB(db, { rewriteRoutes })
     })
 
     test("ignore prefix api/v1", async () => {
