@@ -21,11 +21,6 @@ const breadcrumblinkstyles = `
   jn-inline-flex
 `
 
-// const disabledstyles = `
-//   jn-text-theme-disabled
-//   jn-pointer-events-none
-// `
-
 /** An individual item in a breadcrumb */
 export const BreadcrumbItem = ({
   icon = null,

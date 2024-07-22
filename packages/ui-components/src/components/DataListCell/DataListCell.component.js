@@ -16,16 +16,6 @@ const datalistcellbasestyles = `
 	jn-flex-basis-auto
 `
 
-// const datalistcellautostyles = `
-// 	jn-grow
-// 	jn-shrink-0
-// 	jn-flex-basis-0
-// `
-
-// const datalistcellgridstyles = `
-// 	jn-p-grid-column
-// `
-
 const cols_1 = `
 	jn-w-grid-col-1
 `

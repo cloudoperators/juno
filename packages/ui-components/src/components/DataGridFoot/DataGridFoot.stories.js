@@ -5,8 +5,6 @@
 
 import React from "react"
 import { DataGridFoot } from "./index.js"
-// import { DataGridCell } from '../DataGridCell/index.js';
-// import { Default as DataGridCellStory } from '../DataGridCell/DataGridCell.stories.js';
 
 export default {
   title: "WiP/DataGrid/DataGridFoot",

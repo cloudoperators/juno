@@ -9,7 +9,6 @@ import { DataList } from "./index.js"
 import { DataListRow } from "../DataListRow/index.js"
 import { DataListCell } from "../DataListCell/index.js"
 import { Default as DataListRowStory } from "../DataListRow/DataListRow.stories.js"
-// import { Default as DataListCellStory } from '../DataListCell/DataListCell.stories.js';
 import { Selectable as SelectableDataListRowStory } from "../DataListRow/DataListRow.stories.js"
 import { AutoWidth as AutoWidthDataListRowStory } from "../DataListRow/DataListRow.stories.js"
 import { PercentageWidths as PercentageWidthsDataListRowStory } from "../DataListRow/DataListRow.stories.js"

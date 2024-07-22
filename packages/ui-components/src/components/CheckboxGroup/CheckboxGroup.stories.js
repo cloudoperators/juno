@@ -6,7 +6,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { CheckboxGroup } from "./index.js"
-// import { CheckboxRow } from '../CheckboxRow/index.js';
 import { Checkbox } from "../Checkbox/index.js"
 
 export default {

@@ -7,13 +7,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Stack } from "../Stack/Stack.component"
 
-// const buttonrowstyles = `
-// 	jn-flex
-// 	jn-flex-row
-// 	jn-justify-end
-// 	jn-gap-2
-// `
-
 /** A container to hold one or multiple buttons and space and align them. */
 export const ButtonRow = ({ children = null, className = "", ...props }) => {
   return (

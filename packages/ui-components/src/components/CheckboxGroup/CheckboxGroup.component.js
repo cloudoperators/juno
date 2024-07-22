@@ -20,11 +20,6 @@ const checkboxgroupstyles = `
 	jn-last:mb-0
 `
 
-// const checkboxgrouplabelstyles = `
-// 	jn-inline-block
-// 	jn-mb-1
-// `
-
 const groupstyles = `
 	jn-relative
 	jn-rounded
@@ -45,18 +40,6 @@ const invalidgroupstyles = `
 	jn-border-theme-error
 	jn-px-2
 `
-
-// const errortextstyles = `
-// 	jn-text-xs
-// 	jn-text-theme-error
-// 	jn-mb-2
-// `
-
-// const successtextstyles = `
-// 	jn-text-xs
-// 	jn-text-theme-success
-// 	jn-mb-2
-// `
 
 const iconstyles = `
 	jn-absolute
