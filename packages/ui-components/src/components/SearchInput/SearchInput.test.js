@@ -67,7 +67,7 @@ describe("SearchInput", () => {
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
 
-  test("on click on search button fires both onClick and onSearch handler if both are passed ", async () => {
+  test("on click on search button fires both onClick and onSearch handler if both are passed", async () => {
     const handleClick = jest.fn()
     const handleSearch = jest.fn()
     render(<SearchInput onClick={handleClick} onSearch={handleSearch} />)

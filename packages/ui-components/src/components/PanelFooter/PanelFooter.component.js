@@ -21,7 +21,7 @@ const panelFooterClasses = `
 /**
  * The panel footer component. You can drop buttons in here and they will automatically be aligned correctly to the right.
  */
-export const PanelFooter = ({ className, children, ...props }) => {
+export const PanelFooter = ({ className = "", children, ...props }) => {
   return (
     <div
       className={`juno-panel-footer ${panelFooterClasses}  ${className}`}
@@ -35,8 +35,5 @@ export const PanelFooter = ({ className, children, ...props }) => {
 PanelFooter.propTypes = {
   /** Add custom class name */
   className: PropTypes.string,
-}
-
-PanelFooter.defaultProps = {
-  className: "",
+  children: PropTypes.any,
 }

@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Fragment, useState, useEffect, useContext } from "react"
+import React, { Fragment, useEffect, useContext } from "react"
 import PropTypes from "prop-types"
 import { Combobox } from "@headlessui/react"
 import { ComboBoxContext } from "../ComboBox/ComboBox.component"
-import { Icon } from "../Icon/Icon.component" 
-
+import { Icon } from "../Icon/Icon.component"
 
 const optionStyles = `
   jn-flex
@@ -53,58 +52,55 @@ const truncateOptionStyles = `
 
 export const ComboBoxOption = ({
   children,
-  disabled,
-  value,
+  disabled = false,
+  value = "",
   label,
-  className,
+  className = "",
   ...props
 }) => {
-  
   const comboBoxContext = useContext(ComboBoxContext)
   const {
     selectedValue: selectedValue,
     truncateOptions: truncateOptions,
-    addOptionValueAndLabel: addOptionValueAndLabel
+    addOptionValueAndLabel: addOptionValueAndLabel,
   } = comboBoxContext || {}
-  
+
   // send option metadata to the ComboBox parent component via Context
   useEffect(() => {
     addOptionValueAndLabel(value, label, children)
   }, [value, label, children])
-  
+
   const theValue = value || children
-  
+
   return (
-    <Combobox.Option
-      value={theValue}
-      disabled={disabled}
-      as={Fragment}
-    >
-      <li 
+    <Combobox.Option value={theValue} disabled={disabled} as={Fragment}>
+      <li
         className={`
           juno-combobox-option 
-          ${ optionStyles}
-          ${ selectedValue === value ? selectedOptionStyles : unselectedOptionStyles }
-          ${ disabled ? "jn-cursor-not-allowed" : "" }
-          ${ className }
+          ${optionStyles}
+          ${selectedValue === value ? selectedOptionStyles : unselectedOptionStyles}
+          ${disabled ? "jn-cursor-not-allowed" : ""}
+          ${className}
         `}
         {...props}
       >
-        { selectedValue === theValue ? <Icon icon="check" size="18" className={`${selectedIconStyles}`} /> : "" }
-        <span 
+        {selectedValue === theValue ? (
+          <Icon icon="check" size="18" className={`${selectedIconStyles}`} />
+        ) : (
+          ""
+        )}
+        <span
           className={`
-            ${ disabled ? disabledOptionLabelStyles : "" }
-            ${ truncateOptions ? truncateOptionStyles : "" }
+            ${disabled ? disabledOptionLabelStyles : ""}
+            ${truncateOptions ? truncateOptionStyles : ""}
           `}
         >
-          { children || label || value }
+          {children || label || value}
         </span>
       </li>
-
     </Combobox.Option>
   )
 }
-
 
 ComboBoxOption.propTypes = {
   children: PropTypes.string,
@@ -112,12 +108,4 @@ ComboBoxOption.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   className: PropTypes.string,
-}
-
-ComboBoxOption.defaultProps = {
-  children: undefined,
-  disabled: false,
-  value: "",
-  label: undefined,
-  className: "",
 }

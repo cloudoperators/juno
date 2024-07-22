@@ -52,20 +52,20 @@ const iconWrapperStyles = `
 A special Input to select key and value of a filter.
 */
 export const FilterInput = ({
-  keyLabel,
-  options,
-  valueLabel,
-  className,
-  selectedFilterKey,
-  onSelectedFilterKeyChange,
-  filterValue,
-  valuePlaceholder,
-  onFilterValueChange,
-  onClear,
+  keyLabel = "Select Filter",
+  options = [],
+  selectedFilterKey = "",
+  onSelectedFilterKeyChange = undefined,
+  valueLabel = "Filter by Value",
+  filterValue = "",
+  valuePlaceholder = "",
+  onFilterValueChange = undefined,
+  onClear = undefined,
+  onFilter = undefined,
+  loading = false,
+  className = "",
+  error = false,
   onKeyPress,
-  onFilter,
-  loading,
-  error,
   ...props
 }) => {
   const [selectedFilter, setSelectedFilter] = useState(selectedFilterKey)
@@ -141,9 +141,9 @@ export const FilterInput = ({
           loading={isLoading}
           error={hasError}
         >
-          // First "Placeholder" option:
+          {/* First "Placeholder" option: */}
           <NativeSelectOption label={keyLabel || "Select Filter"} value="" />
-          // Options representing actual filter key values:
+          {/* Options representing actual filter key values: */}
           {options.map((option, i) => (
             <NativeSelectOption
               label={option.label}
@@ -205,6 +205,8 @@ FilterInput.propTypes = {
   onFilterValueChange: PropTypes.func,
   /** Pass a handler to execute when the Filter Value Clear button is clicked */
   onClear: PropTypes.func,
+  /** Pass a handler to execute when key is pressed */
+  onKeyPress: PropTypes.func,
   /** Whether the filter is currently loading */
   loading: PropTypes.bool,
   /** Pass a className to the wrapping element */
@@ -213,20 +215,4 @@ FilterInput.propTypes = {
   onFilter: PropTypes.func,
   /** Whether the FilterInput has an error */
   error: PropTypes.bool,
-}
-
-FilterInput.defaultProps = {
-  keyLabel: "Select Filter",
-  options: [],
-  selectedFilterKey: "",
-  onSelectedFilterKeyChange: undefined,
-  valueLabel: "Filter by Value",
-  filterValue: "",
-  valuePlaceholder: "",
-  onFilterValueChange: undefined,
-  onClear: undefined,
-  onFilter: undefined,
-  loading: false,
-  className: "",
-  error: false,
 }

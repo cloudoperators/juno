@@ -60,9 +60,13 @@ const btnDefaultSubduedPadding = `
 
 const getButtonPadding = (size, variant) => {
   if (size === "small") {
-    return (variant === "subdued" ? `${btnSmallSubduedPadding}` : `${btnSmallDefaultPadding}`)
+    return variant === "subdued"
+      ? `${btnSmallSubduedPadding}`
+      : `${btnSmallDefaultPadding}`
   } else {
-    return (variant === "subdued" ? `${btnDefaultSubduedPadding}`: `${btnDefaultPadding}`)
+    return variant === "subdued"
+      ? `${btnDefaultSubduedPadding}`
+      : `${btnDefaultPadding}`
   }
 }
 
@@ -87,8 +91,8 @@ const progressClass = (progress) => {
   return progClass
 }
 
-const spinnerColorClass = (variant, disabled) => {
-  switch ( variant ) {
+const spinnerColorClass = (variant) => {
+  switch (variant) {
     case "default":
       return "jn-text-theme-accent"
     case "primary":
@@ -107,17 +111,17 @@ export const Button = React.forwardRef(
   (
     {
       label,
-      title,
+      title = null,
       variant,
-      size,
-      disabled,
-      href,
-      icon,
-      className,
+      size = "default",
+      disabled = null,
+      href = null,
+      icon = null,
+      className = "",
       onClick,
       children,
-      progress,
-      progressLabel,
+      progress = false,
+      progressLabel = "",
       ...props
     },
     ref
@@ -127,7 +131,7 @@ export const Button = React.forwardRef(
 
     const buttonIcon = progress ? (
       <Spinner
-        size={ size === "small" ? "1.125rem" : "1.5rem" }
+        size={size === "small" ? "1.125rem" : "1.5rem"}
         color={`${spinnerColorClass(theVariant, disabled)}`}
       />
     ) : icon ? (
@@ -136,7 +140,7 @@ export const Button = React.forwardRef(
         className={`juno-button-icon ${
           label || children ? iconClasses(size) : ""
         } `}
-        size={ size === "small" ? "1.125rem" : "1.5rem" }
+        size={size === "small" ? "1.125rem" : "1.5rem"}
       />
     ) : null
 
@@ -155,11 +159,10 @@ export const Button = React.forwardRef(
           juno-button-${theVariant} 
           juno-button-${size}-size 
           ${btnBase} 
-          ${ size === 'small' ? btnSmallBase : btnDefaultBase } 
-          ${ getButtonPadding(size, variant) }
+          ${size === "small" ? btnSmallBase : btnDefaultBase} 
+          ${getButtonPadding(size, variant)}
           ${progressClass(progress)} 
-          ${className}`
-        }
+          ${className}`}
         disabled={disabled}
         onClick={handleClick}
         title={titleValue}
@@ -180,8 +183,8 @@ export const Button = React.forwardRef(
           juno-button-${theVariant} 
           juno-button-${size}-size 
           ${btnBase} 
-          ${ size === 'small' ? btnSmallBase : btnDefaultBase }
-          ${ getButtonPadding(size, variant) }
+          ${size === "small" ? btnSmallBase : btnDefaultBase}
+          ${getButtonPadding(size, variant)}
           ${progressClass(progress)} 
           ${className}
         `}
@@ -200,7 +203,10 @@ export const Button = React.forwardRef(
   }
 )
 
+Button.displayName = "Button"
+
 Button.propTypes = {
+  children: PropTypes.any,
   /** Choose a variant for your purpose. May leave empty to get default button. */
   variant: PropTypes.oneOf(["primary", "primary-danger", "default", "subdued"]),
   /** Leave empty for default size */
@@ -219,23 +225,8 @@ Button.propTypes = {
   className: PropTypes.string,
   /** Click handler  */
   onClick: PropTypes.func,
-  /** Set to true to disable */
-  disabled: PropTypes.bool,
   /** Whether the button action is in progress */
   progress: PropTypes.bool,
   /** Display an alternative label while the button action is in progress */
   progressLabel: PropTypes.string,
-}
-
-Button.defaultProps = {
-  variant: undefined,
-  size: "default",
-  disabled: null,
-  icon: null,
-  className: "",
-  href: null,
-  title: null,
-  onClick: undefined,
-  progress: false,
-  progressLabel: "",
 }

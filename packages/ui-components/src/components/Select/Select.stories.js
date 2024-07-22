@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from "react"
+import PropTypes from "prop-types"
 import { Select } from "./Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
@@ -44,12 +45,20 @@ const Template = ({ children, ...args }) => {
   return <Select {...args}>{children}</Select>
 }
 
+Template.propTypes = {
+  children: PropTypes.node,
+}
+
 const ConstrainedWidthTemplate = ({ children, ...args }) => {
   return (
     <div style={{ width: "300px" }}>
       <Select {...args}>{children}</Select>
     </div>
   )
+}
+
+ConstrainedWidthTemplate.propTypes = {
+  children: PropTypes.node,
 }
 
 const ControlledTemplate = ({ value, children, ...args }) => {
@@ -68,6 +77,11 @@ const ControlledTemplate = ({ value, children, ...args }) => {
       {children}
     </Select>
   )
+}
+
+ControlledTemplate.propTypes = {
+  value: PropTypes.any,
+  children: PropTypes.node,
 }
 
 export const Default = {

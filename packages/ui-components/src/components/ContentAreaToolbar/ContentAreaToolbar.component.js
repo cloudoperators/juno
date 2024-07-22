@@ -6,7 +6,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-
 const toolbarStyles = `
   jn-bg-theme-background-lvl-1
   jn-py-3
@@ -20,8 +19,8 @@ const toolbarStyles = `
  * This is the main toolbar of the content area. Add main actions for the current page here.
  */
 export const ContentAreaToolbar = ({
-  className,
-  children,
+  className = "",
+  children = null,
   ...props
 }) => {
   return (
@@ -38,9 +37,4 @@ ContentAreaToolbar.propTypes = {
   /** Add custom class name */
   className: PropTypes.string,
   children: PropTypes.node,
-}
-
-ContentAreaToolbar.defaultProps = {
-  className: "",
-  children: null,
 }

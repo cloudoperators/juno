@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 
 // Shows a color from a tailwind class props.colorClass and the name the color given through props.colorName
 // Optional: A prefix like "theme-" can be used (props.prefix)
@@ -37,4 +38,11 @@ export function ColorCard(props) {
       </div>
     </div>
   )
+}
+
+// define available props
+ColorCard.propTypes = {
+  colorName: PropTypes.string.isRequired,
+  colorClass: PropTypes.string.isRequired,
+  prefix: PropTypes.string,
 }

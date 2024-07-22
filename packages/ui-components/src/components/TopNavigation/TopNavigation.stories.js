@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { TopNavigation } from "./index.js"
 import { TopNavigationItem } from "../TopNavigationItem/TopNavigationItem.component"
 
@@ -25,6 +26,10 @@ export default {
 const Template = ({ children, ...args }) => (
   <TopNavigation {...args}>{children}</TopNavigation>
 )
+
+Template.propTypes = {
+  children: PropTypes.node.isRequired,
+}
 
 export const Default = Template.bind({})
 Default.args = {

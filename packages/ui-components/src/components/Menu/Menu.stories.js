@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { Menu } from "./index.js"
 import { MenuItem } from "../MenuItem/index.js"
 import { MenuSection } from "../MenuSection/index.js"
@@ -24,6 +25,9 @@ export default {
 }
 
 const Template = ({ children, ...args }) => <Menu {...args}>{children}</Menu>
+Template.propTypes = {
+  children: PropTypes.node,
+}
 
 export const Default = {
   render: Template,

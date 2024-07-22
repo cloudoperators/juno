@@ -14,10 +14,10 @@ import { PortalProvider } from "../PortalProvider/PortalProvider.component"
  * This provider acts as a wrapper for Juno apps. It renders a StyleProvider and PortalProvider
  */
 export const AppShellProvider = ({
-  shadowRoot,
-  shadowRootMode,
-  stylesWrapper,
-  theme,
+  shadowRoot = true,
+  shadowRootMode = "open",
+  stylesWrapper = "inline",
+  theme = null,
   children,
 }) => {
   const Wrapper = React.useCallback(
@@ -50,12 +50,5 @@ AppShellProvider.propTypes = {
   stylesWrapper: PropTypes.oneOf(["head", "inline"]),
   /** theme: theme-dark or theme-light */
   theme: PropTypes.string,
-}
-
-// define default values
-AppShellProvider.defaultProps = {
-  shadowRoot: true,
-  shadowRootMode: "open",
-  stylesWrapper: "inline",
-  theme: null,
+  children: PropTypes.any,
 }

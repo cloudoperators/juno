@@ -32,16 +32,16 @@ const sideNavActiveItemStyles = `
 A SideNavigation item. To be used inside SideNavigation.
 */
 export const SideNavigationItem = ({
-  active,
-  ariaLabel,
+  active = false,
+  ariaLabel = "",
   children,
-  className,
-  disabled,
-  icon,
-  label,
-  href,
+  className = "",
+  disabled = false,
+  icon = null,
+  label = "",
+  href = "",
   onClick,
-  value,
+  value = "",
   ...props
 }) => {
   return (
@@ -78,26 +78,10 @@ SideNavigationItem.propTypes = {
   label: PropTypes.string,
   /** Pass a custom className */
   className: PropTypes.string,
-  /** The aria label of the item */
-  ariaLabel: PropTypes.string,
   /** The link the item should point to. Will render the item as an anchor if passed */
   href: PropTypes.string,
   /** A handler to execute once the item is clicked. Will render the item as a button element if passed */
   onClick: PropTypes.func,
   /** An optional technical identifier fort the tab. If not passed, the label will be used to identify the tab. NOTE: If value is passed, the value of the active tab MUST be used when setting the activeItem prop on the parent SideNavigation.*/
   value: PropTypes.string,
-}
-
-SideNavigationItem.defaultProps = {
-  active: false,
-  ariaLabel: undefined,
-  children: null,
-  disabled: false,
-  icon: null,
-  label: "",
-  className: "",
-  ariaLabel: "",
-  href: "",
-  onClick: undefined,
-  value: "",
 }

@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import DummyComponent from "./DummyComponent"
 
 const DummyComponentList = ({ count }) => {
@@ -14,6 +15,10 @@ const DummyComponentList = ({ count }) => {
       })}
     </>
   )
+}
+
+DummyComponentList.propTypes = {
+  count: PropTypes.number.isRequired,
 }
 
 export default DummyComponentList

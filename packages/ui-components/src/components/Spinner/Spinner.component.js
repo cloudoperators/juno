@@ -32,10 +32,17 @@ const warning = `
 const defaultColor = `
   jn-text-theme-on-default
 `
+
 /** 
 A generic Spinner component to indicate an individual component or portion of the UI is busy processing or awaiting data. 
 To indicate full views, panels, or other larger parts of an interface are busy or waiting for data, use LoadingIndicator instead.*/
-export const Spinner = ({ variant, size, className, color, ...props }) => {
+export const Spinner = ({
+  variant = "default",
+  size = null,
+  className = "",
+  color = "",
+  ...props
+}) => {
   const mode = () => {
     switch (variant) {
       case "primary":
@@ -108,11 +115,4 @@ Spinner.propTypes = {
   className: PropTypes.string,
   /** Pass a text-color class in order to apply any color to a spinner (These classes typically begin with "text-".). If passed, `color` will overwrite the semantic color as defined by `variant`. */
   color: PropTypes.string,
-}
-
-Spinner.defaultProps = {
-  className: "",
-  variant: "default",
-  size: null,
-  color: "",
 }

@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Checkbox } from './index.js';
+import { Checkbox } from "./index.js"
 
 export default {
-  title: 'Forms/Checkbox/Checkbox',
+  title: "Forms/Checkbox/Checkbox",
   component: Checkbox,
   argTypes: {
     errortext: {
@@ -20,78 +19,80 @@ export default {
       control: false,
     },
   },
-};
+}
 
 export const Default = {
   args: {},
-};
+}
 
 export const Checked = {
   args: {
     checked: true,
   },
-};
+}
 
 export const WithLabel = {
   args: {
-    label: 'Checkbox with Label',
+    label: "Checkbox with Label",
   },
-};
+}
 
 export const Required = {
   args: {
     required: true,
-    label: 'Required Checkbox',
+    label: "Required Checkbox",
   },
-};
+}
 
 export const Disabled = {
   args: {
     disabled: true,
   },
-};
+}
 
 export const Indeterminate = {
   args: {
     indeterminate: true,
   },
-};
+}
 
 export const Valid = {
   args: {
     valid: true,
   },
-};
+}
 
 export const Invalid = {
   args: {
     invalid: true,
   },
-};
+}
 
 export const ValidWithLabel = {
   args: {
     valid: true,
-    label: 'Validated checkbox with label and icon',
-    successtext: 'This option is valid.',
-    helptext: 'Validation icons will only show when there is a label on the Checkbox',
+    label: "Validated checkbox with label and icon",
+    successtext: "This option is valid.",
+    helptext:
+      "Validation icons will only show when there is a label on the Checkbox",
   },
-};
+}
 
 export const InvalidWithLabel = {
   args: {
     invalid: true,
-    label: 'Invalidated checkbox with label and icon',
-    errortext: 'This option is invalid.',
-    helptext: 'Validation icons will only show when there is a label on the Checkbox',
+    label: "Invalidated checkbox with label and icon",
+    errortext: "This option is invalid.",
+    helptext:
+      "Validation icons will only show when there is a label on the Checkbox",
   },
-};
+}
 
 export const IndeterminateWithLabel = {
   args: {
     indeterminate: true,
-    label: 'Indeterminate checkbox with label',
+    label: "Indeterminate checkbox with label",
     helptext:
-      'A checkbox can be indeterminate as parent of multiple checkboxes with mixed checked states',
+      "A checkbox can be indeterminate as parent of multiple checkboxes with mixed checked states",
   },
-};
+}

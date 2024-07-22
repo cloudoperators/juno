@@ -61,16 +61,14 @@ const introboxHeading = `
 Use sparingly, there should never be any two or more subsequent instances of Introbox as direct siblings/neighbors on an individual view.
 */
 export const IntroBox = ({
-  title,
-  text,
-  variant,
-  heroImage,
-  className,
+  title = null,
+  text = null,
+  variant = "default",
+  heroImage = null,
+  className = "",
   children,
   ...props
 }) => {
-
-  
   const isHeroWithImage = React.useMemo(() => {
     return heroImage && variant === "hero"
   }, [variant, heroImage])
@@ -78,7 +76,7 @@ export const IntroBox = ({
   return (
     <div
       className={`juno-introbox ${introbox(variant, heroImage)} ${className}`}
-      style={isHeroWithImage ? {backgroundImage: `${heroImage}`} : {}}
+      style={isHeroWithImage ? { backgroundImage: `${heroImage}` } : {}}
       {...props}
     >
       <div className={`${introboxBorder}`}></div>
@@ -103,12 +101,4 @@ IntroBox.propTypes = {
   className: PropTypes.string,
   /** Pass child nodes to be rendered as contents */
   children: PropTypes.node,
-}
-
-IntroBox.defaultProps = {
-  title: null,
-  text: null,
-  variant: "default",
-  heroImage: null,
-  className: "",
 }

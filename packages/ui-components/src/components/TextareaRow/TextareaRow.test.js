@@ -7,9 +7,12 @@ import * as React from "react"
 import { render, screen, fireEvent } from "@testing-library/react"
 import { TextareaRow } from "./index"
 
+globalThis.console.warn = jest.fn()
+
 describe("TextInputRow", () => {
   test("renders a textarea row", async () => {
     render(<TextareaRow data-testid="textarea-row" />)
+    expect(console.warn).toHaveBeenCalledTimes(1)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
   })
 
@@ -53,7 +56,7 @@ describe("TextInputRow", () => {
     render(<TextareaRow helptext="Helptext goes here" />)
     expect(screen.getByText("Helptext goes here")).toBeInTheDocument()
   })
-  
+
   test("renders a helpt text with a link as passed", async () => {
     render(<TextareaRow helptext={<a href="#">Link</a>} />)
     expect(screen.getByRole("link")).toBeInTheDocument()
@@ -71,14 +74,14 @@ describe("TextInputRow", () => {
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toBeDisabled()
   })
-  
+
   test("renders an invalid TextAreaRow as passed", async () => {
     render(<TextareaRow invalid />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveClass("juno-textarea-invalid")
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
-  
+
   test("renders an invalid TextAreaRow with an error text as passed", async () => {
     render(<TextareaRow errortext="This is an error text" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -86,14 +89,14 @@ describe("TextInputRow", () => {
     expect(screen.getByText("This is an error text")).toBeInTheDocument()
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
-  
+
   test("renders a valid TextAreaRow as passed", async () => {
     render(<TextareaRow valid />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveClass("juno-textarea-valid")
     expect(screen.getByTitle("CheckCircle")).toBeInTheDocument()
   })
-  
+
   test("renders an valid TextAreaRow with a success text as passed", async () => {
     render(<TextareaRow successtext="This is a success text" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()

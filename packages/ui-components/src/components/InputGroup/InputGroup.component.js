@@ -8,31 +8,31 @@ import { Stack } from "../Stack/index"
 import "./input-group.scss"
 import PropTypes from "prop-types"
 
-
-
 /** A component to visually group Buttons, TextInput, and Select elements. */
 export const InputGroup = ({
-  children,
+  children = null,
   className,
-  variant,
-  disabled,
+  variant = "default",
+  disabled = false,
   ...props
 }) => {
-  
   const modifiedChildren = () => {
     return React.Children.map(children, (child) => {
       const ownVariant = child.props.variant || variant
       const ownDisabled = child.props.disabled || disabled
-      return React.cloneElement(child, { 
+      return React.cloneElement(child, {
         variant: ownVariant,
-        disabled: ownDisabled
+        disabled: ownDisabled,
       })
     })
   }
-  
+
   return (
-    <Stack className={`juno-input-group juno-input-group-${variant} ${ disabled ? "juno-input-group-disabled" : "" } ${className}`} {...props}>
-      { modifiedChildren() }
+    <Stack
+      className={`juno-input-group juno-input-group-${variant} ${disabled ? "juno-input-group-disabled" : ""} ${className}`}
+      {...props}
+    >
+      {modifiedChildren()}
     </Stack>
   )
 }
@@ -46,11 +46,4 @@ InputGroup.propTypes = {
   variant: PropTypes.oneOf(["default", "primary", "primary-danger", "subdued"]),
   /** Disable all elements in the InputGroup */
   disabled: PropTypes.bool,
-}
-
-InputGroup.defaultProps = {
-  children: null,
-  className: undefined,
-  variant: "default",
-  disabled: false,
 }

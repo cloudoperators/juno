@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { DataGridFoot } from './index.js';
-import { DataGridCell } from '../DataGridCell/index.js';
-import { Default as DataGridCellStory } from '../DataGridCell/DataGridCell.stories.js';
+import React from "react"
+import { DataGridFoot } from "./index.js"
 
 export default {
-  title: 'WiP/DataGrid/DataGridFoot',
+  title: "WiP/DataGrid/DataGridFoot",
   component: DataGridFoot,
   argTypes: {
     children: {
@@ -24,9 +22,9 @@ export default {
       },
     },
   },
-};
+}
 
-const Template = ({ items, ...args }) => (
+const Template = ({ /*items,*/ ...args }) => (
   <DataGridFoot {...args}>
     {/* {items.map((item, i) => (
       <DataGridFootRow key={`f_${i}`}>
@@ -36,7 +34,7 @@ const Template = ({ items, ...args }) => (
       </DataGridFootRow>
     ))} */}
   </DataGridFoot>
-);
+)
 
 export const Default = {
   render: Template,
@@ -44,10 +42,10 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Juno DataGridFoot for use in DataGrid',
+        story: "Juno DataGridFoot for use in DataGrid",
       },
     },
   },
 
   args: {},
-};
+}

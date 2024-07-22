@@ -12,7 +12,7 @@ export default {
   component: ContentArea,
   argTypes: {
     children: {
-      control: false
+      control: false,
     },
   },
 }
@@ -26,7 +26,7 @@ Basic.parameters = {
   docs: {
     description: {
       story:
-       "Deprecated: This component used to be used internally by AppShell but has been removed there since. It was only needed to manually scaffold an app. Use AppShell to scaffold an app layout.",
+        "Deprecated: This component used to be used internally by AppShell but has been removed there since. It was only needed to manually scaffold an app. Use AppShell to scaffold an app layout.",
     },
   },
 }

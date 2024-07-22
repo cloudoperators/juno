@@ -79,7 +79,7 @@ describe("NativeSelect", () => {
 
   test("executes onChange handler as passed", async () => {
     const handleChange = jest.fn()
-    const { container } = render(<NativeSelect onChange={handleChange} />)
+    render(<NativeSelect onChange={handleChange} />)
     const select = screen.getByRole("combobox")
     fireEvent.change(select, { target: { value: "a" } })
     expect(handleChange).toHaveBeenCalledTimes(1)

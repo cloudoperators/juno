@@ -9,6 +9,7 @@
  * @module GlobalStyles
  */
 import React, { useInsertionEffect } from "react"
+import PropTypes from "prop-types"
 import globalCss from "../../global.scss"
 const styles = globalCss.toString()
 
@@ -31,6 +32,10 @@ const GlobalStyles = ({ inline }) => {
   // add styles inline
   if (!inline) return null
   return <style {...{ [`data-${GLOBAL_STYLE_ID}`]: "" }}>{styles}</style>
+}
+
+GlobalStyles.propTypes = {
+  inline: PropTypes.bool,
 }
 
 export default GlobalStyles

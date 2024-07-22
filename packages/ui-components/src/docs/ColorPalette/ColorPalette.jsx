@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import tailwindColors from "./TailwindColors"
 import { ColorCard } from "./ColorCard"
 import { TextColorCard } from "./TextColorCard"
@@ -50,4 +51,8 @@ export function ColorPalette(props) {
       </div>
     </ContentArea>
   )
+}
+
+ColorPalette.propTypes = {
+  theme: PropTypes.string.isRequired,
 }

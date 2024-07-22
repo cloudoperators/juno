@@ -5,19 +5,19 @@
 
 import React, { createContext, useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { NavigationItem } from "../NavigationItem/"
+// import { NavigationItem } from "../NavigationItem/"
 
 export const NavigationContext = createContext()
 
 /** A generic Navigation component providing all the necessary functionality for a navigation. For internal use only. Not to be used directly, but to be wrapped by more role-specific / semantic navigation components such as `TabNavigation`, `TopNavigation`, `SideNavigation`. */
 export const Navigation = ({
-  activeItem,
-  ariaLabel,
-  children,
-  className,
-  disabled,
+  activeItem = "",
+  ariaLabel = "",
+  children = null,
+  className = "",
+  disabled = false,
   onActiveItemChange,
-  onChange,
+  // onChange,
   ...props
 }) => {
   const [activeItm, setActiveItm] = useState("")
@@ -33,7 +33,7 @@ export const Navigation = ({
     } else {
       // If the value is not found in the keys of the items map, search for the value in the individual items according to the sequence in prioritizedKeys. If a matching item is found, return its id or null:
       let foundItemId
-      for (let [key, obj] of items.entries()) {
+      for (let [_key, obj] of items.entries()) {
         prioritizedKeys.forEach((pKey) => {
           if (obj[pKey] === valueToFind) {
             foundItemId = obj.id
@@ -107,7 +107,7 @@ Navigation.propTypes = {
   /** The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem. */
   activeItem: PropTypes.string,
   /** The aria label of the navigation */
-  arialLabel: PropTypes.string,
+  ariaLabel: PropTypes.string,
   /** The child navigation items of the navigation  */
   children: PropTypes.oneOfType([
     PropTypes.node,
@@ -121,14 +121,5 @@ Navigation.propTypes = {
   onActiveItemChange: PropTypes.func,
   /** Handler to execute when the active item changes. Alias to `onActiveItemChange`. */
   onChange: PropTypes.func,
-}
-
-Navigation.defaultProps = {
-  activeItem: "",
-  ariaLabel: "",
-  children: null,
-  className: "",
-  disabled: false,
-  onActiveItemChange: undefined,
-  onChange: undefined,
+  /** Pass the role of navigation */
 }

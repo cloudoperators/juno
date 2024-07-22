@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { TabList } from "./index.js"
 import { Tab } from "../Tab/index.js"
 
@@ -25,6 +26,10 @@ export default {
 const Template = ({ children, ...args }) => (
   <TabList {...args}>{children}</TabList>
 )
+
+Template.propTypes = {
+  children: PropTypes.node,
+}
 
 export const Default = {
   render: Template,

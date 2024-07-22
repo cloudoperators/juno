@@ -58,7 +58,7 @@ const plugins = [
         test: /\.(sass|scss)$/,
         process({ code }) {
           // handle glob import
-          return new Promise((resolve, reject) => {
+          return new Promise((resolve, _reject) => {
             const match = [...code.matchAll(/@import\s+(.*\*+.*);/g)]
             match.forEach((m) => {
               const files = glob.sync("./src/" + m[1].replace(/"|'/g, ""))

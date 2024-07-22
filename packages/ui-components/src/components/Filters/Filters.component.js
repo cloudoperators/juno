@@ -41,22 +41,21 @@ const errortextStyles = `
 -- Deprecated. For new implementations, combine and compose Input Group, Inputs and Pills as needed. --
 A component to hold a FilterInput, resulting FilterPills, and optional SearchBar for any filter-able content.
 */
-
 export const Filters = ({
-  search,
-  filters,
-  selectedFilterKey,
+  search = null,
+  filters = null,
+  selectedFilterKey = "",
   onSelectedFilterKeyChange,
-  filterValue,
-  valuePlaceholder,
+  filterValue = "",
+  valuePlaceholder = "",
   onFilterValueChange,
   onFilter,
   onFilterClear,
   children,
-  className,
-  loading,
-  error,
-  errortext,
+  className = "",
+  loading = false,
+  error = false,
+  errortext = "",
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -148,20 +147,5 @@ Filters.propTypes = {
   error: PropTypes.bool,
   /** The error message to display. When passed, error is set to true automatically */
   errortext: PropTypes.string,
-}
-
-Filters.defaultProps = {
-  search: null,
-  filters: null,
-  selectedFilterKey: "",
-  onSelectedFilterKeyChange: undefined,
-  filterValue: "",
-  valuePlaceholder: "",
-  onFilter: undefined,
-  onFilterValueChange: undefined,
-  onFilterClear: undefined,
-  className: "",
-  loading: false,
-  error: false,
-  errortext: "",
+  children: PropTypes.any,
 }

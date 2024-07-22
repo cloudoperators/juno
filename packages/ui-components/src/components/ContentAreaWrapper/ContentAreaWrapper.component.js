@@ -17,7 +17,11 @@ const containerStyles = `
 /**
  * OBSOLETE: Will be deleted!
  */
-export const ContentAreaWrapper = ({ className, children, ...props }) => {
+export const ContentAreaWrapper = ({
+  className = "",
+  children = null,
+  ...props
+}) => {
   return (
     <div
       className={`juno-content-area-wrapper ${containerStyles} ${className}`}
@@ -32,9 +36,4 @@ ContentAreaWrapper.propTypes = {
   /** Add custom class name */
   className: PropTypes.string,
   children: PropTypes.node,
-}
-
-ContentAreaWrapper.defaultProps = {
-  className: "",
-  children: null,
 }

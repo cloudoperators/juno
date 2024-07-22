@@ -12,20 +12,19 @@ import { TopNavigation } from "../TopNavigation/TopNavigation.component"
 import { SideNavigation } from "../SideNavigation/SideNavigation.component"
 
 describe("AppShell", () => {
-  
   afterEach(() => {
-    cleanup();
+    cleanup()
     jest.clearAllMocks()
   })
-  
+
   test("renders an app shell", async () => {
     render(<AppShell data-testid="app-shell" />)
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
     expect(screen.getByTestId("app-shell")).toHaveClass("juno-body")
   })
-  
+
   test("logs a deprecation warning to the console when user passed obsolete contentHeading prop", async () => {
-    const consoleWarnSpy = jest.spyOn(console, 'warn')
+    const consoleWarnSpy = jest.spyOn(console, "warn")
     render(<AppShell contentHeading="My Content Heading" />)
     expect(consoleWarnSpy).toHaveBeenCalled()
     expect(consoleWarnSpy).toHaveBeenCalledWith(
@@ -40,40 +39,58 @@ describe("AppShell", () => {
   })
 
   test("renders an app shell with page header passed as component", async () => {
-    render(<AppShell data-testid="app-shell" pageHeader={<PageHeader data-testid="page-header" heading="My Page Header" />} />)
+    render(
+      <AppShell
+        data-testid="app-shell"
+        pageHeader={
+          <PageHeader data-testid="page-header" heading="My Page Header" />
+        }
+      />
+    )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
     expect(screen.getByTestId("page-header")).toBeInTheDocument()
     expect(screen.getByText("My Page Header")).toBeInTheDocument()
   })
 
   test("renders an app shell with custom page footer passed as component", async () => {
-    render(<AppShell data-testid="app-shell" pageFooter={<PageFooter data-testid="page-footer">My Page Footer</PageFooter>} />)
+    render(
+      <AppShell
+        data-testid="app-shell"
+        pageFooter={
+          <PageFooter data-testid="page-footer">My Page Footer</PageFooter>
+        }
+      />
+    )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
     expect(screen.getByTestId("page-footer")).toBeInTheDocument()
     expect(screen.getByText("My Page Footer")).toBeInTheDocument()
   })
 
   test("renders an app shell with top navigation passed as component", async () => {
-    render(<AppShell data-testid="app-shell" topNavigation={<TopNavigation data-testid="top-navigation"></TopNavigation>} />)
+    render(
+      <AppShell
+        data-testid="app-shell"
+        topNavigation={
+          <TopNavigation data-testid="top-navigation"></TopNavigation>
+        }
+      />
+    )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
     expect(screen.getByTestId("top-navigation")).toBeInTheDocument()
   })
-  
+
   test("renders an app shell with a side navigation passed as a component", async () => {
     render(
-      <AppShell 
-        data-testid="app-shell" 
-        sideNavigation={<SideNavigation />}
-      />
+      <AppShell data-testid="app-shell" sideNavigation={<SideNavigation />} />
     )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toHaveClass("juno-sidenavigation")
   })
-  
+
   test("renders an app shell with both a side and a top navigation as passed", async () => {
     render(
-      <AppShell 
+      <AppShell
         data-testid="app-shell"
         sideNavigation={<SideNavigation data-testid="side-nav" />}
         topNavigation={<TopNavigation data-testid="top-nav" />}
@@ -86,7 +103,18 @@ describe("AppShell", () => {
   })
 
   test("renders an embeddable app shell without page heading or footer", async () => {
-    render(<AppShell data-testid="app-shell" embedded={true} pageHeader={<PageHeader data-testid="page-header" heading="My Page Heading" />} pageFooter={<PageFooter data-testid="page-footer">My Page Footer</PageFooter>} />)
+    render(
+      <AppShell
+        data-testid="app-shell"
+        embedded={true}
+        pageHeader={
+          <PageHeader data-testid="page-header" heading="My Page Heading" />
+        }
+        pageFooter={
+          <PageFooter data-testid="page-footer">My Page Footer</PageFooter>
+        }
+      />
+    )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
     expect(screen.queryByTestId("page-header")).not.toBeInTheDocument()
     expect(screen.queryByText("My Page Heading")).not.toBeInTheDocument()
@@ -103,27 +131,50 @@ describe("AppShell", () => {
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
     expect(screen.getByRole("button")).toBeInTheDocument()
   })
-  
-  
+
   // The following test whether the MainContainerInner element rendered by AppShell does the right thing depending of props passed to AppShell:
   test("does not render a fullwidth main container in non-embedded mode by default", async () => {
-    render(<AppShell><button></button></AppShell>)
-    expect(document.querySelector(".juno-main-inner")).not.toHaveClass("juno-main-inner-fullwidth")
+    render(
+      <AppShell>
+        <button></button>
+      </AppShell>
+    )
+    expect(document.querySelector(".juno-main-inner")).not.toHaveClass(
+      "juno-main-inner-fullwidth"
+    )
   })
-  
+
   test("renders a fullwidth main container in non-embedded mode if passed explicitly", async () => {
-    render(<AppShell fullWidthContent={true}><button></button></AppShell>)
-    expect(document.querySelector(".juno-main-inner")).toHaveClass("juno-main-inner-fullwidth")
+    render(
+      <AppShell fullWidthContent={true}>
+        <button></button>
+      </AppShell>
+    )
+    expect(document.querySelector(".juno-main-inner")).toHaveClass(
+      "juno-main-inner-fullwidth"
+    )
   })
-  
+
   test("renders a fullwidth main inner container in embedded mode by default", async () => {
-    render(<AppShell embedded><button></button></AppShell>)
-    expect(document.querySelector(".juno-main-inner")).toHaveClass("juno-main-inner-fullwidth")
+    render(
+      <AppShell embedded>
+        <button></button>
+      </AppShell>
+    )
+    expect(document.querySelector(".juno-main-inner")).toHaveClass(
+      "juno-main-inner-fullwidth"
+    )
   })
-  
+
   test("renders a non-fullwidth, size-restricted main inner container in embedded mode if passed explicitly", async () => {
-    render(<AppShell embedded fullWidthContent={false}><button></button></AppShell>)
-    expect(document.querySelector(".juno-main-inner")).not.toHaveClass("juno-main-inner-fullwidth")
+    render(
+      <AppShell embedded fullWidthContent={false}>
+        <button></button>
+      </AppShell>
+    )
+    expect(document.querySelector(".juno-main-inner")).not.toHaveClass(
+      "juno-main-inner-fullwidth"
+    )
   })
 
   test("renders a custom className", async () => {
