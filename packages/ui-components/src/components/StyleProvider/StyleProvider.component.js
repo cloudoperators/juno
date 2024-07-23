@@ -26,8 +26,8 @@ const APP_BODY_CSS_CLASS_NAME = "juno-app-body"
 const DEFAULT_THEME_NAME = "theme-dark"
 
 /**
- * Component wich inserts the ui styles and manages theming. 
- * It also creates a shadow dom element with styes inside  if 'stylesWrapper' is equal to "shadowRoot".
+ * Component that inserts the ui styles and manages theming and styles. 
+ * Also creates a shadow DOM element with styes inside  if 'stylesWrapper' is equal to "shadowRoot".
  * Accepted values for 'stylesWrapper' are 'head', 'inline' and 'shadowRoot'.
  * Both this component and ShadowRoot can be used independently. 
  * The stylesWrapper parameter is set to "inline" by default.
@@ -149,13 +149,13 @@ StyleProvider.propTypes = {
   shadowRootMode: PropTypes.oneOf(["open", "closed"]),
 }
 
-// define default values
+// Define default values
 StyleProvider.defaultProps = {
   children: null,
   stylesWrapper: "inline",
   theme: undefined,
 }
 
-// export a helper hook to use styles in nested components
-// returns {styles, theme, currentTheme, setThemeClass, addCssClass, removeCssClass}
+// Export a helper hook to use styles in nested components
+// Returns {styles, theme, currentTheme, setThemeClass, addCssClass, removeCssClass}
 StyleProvider.useStyles = () => React.useContext(StylesContext)
