@@ -50,7 +50,7 @@ export const AddStylesToShadowRoot = {
   },
 };
 
-export const WithTheme = {
+export const WithLightTheme = {
   render: Template,
 
   args: {
