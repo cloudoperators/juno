@@ -15,7 +15,7 @@ on:
     branches:
       - main
     paths:
-      - "packages/juno-ui-components/**"
+      - "packages/ui-components/**"
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -25,12 +25,12 @@ jobs:
     defaults:
       run:
         # Set the working directory for all steps in this job
-        working-directory: packages/juno-ui-components
+        working-directory: packages/ui-components
     steps:
       - uses: actions/checkout@v4
         with:
-          # Fetch only the juno-ui-components folder
-          sparse-checkout: packages/juno-ui-components
+          # Fetch only the ui-components folder
+          sparse-checkout: packages/ui-components
 
       - uses: actions/setup-node@v4
         with:
@@ -43,11 +43,19 @@ jobs:
       - name: Build storybook
         run: npm run build-storybook
 
+      - name: Check if CNAME secret is set and create CNAME file
+        run: |
+          if [ -n "${{ secrets.CNAME }}" ]; then
+            echo "${{ secrets.CNAME }}" > storybook-static/CNAME
+          else
+            echo "CNAME secret is not set."
+          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # working-directory is being ignored set the complete path to the storybook static folder
-          path: packages/juno-ui-components/storybook-static
+          path: packages/ui-components/storybook-static
 
   deploy:
     env:
