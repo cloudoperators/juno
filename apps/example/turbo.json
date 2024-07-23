@@ -7,6 +7,12 @@
         "@cloudoperators/juno-messages-provider#build"
       ]
     },
+    "build": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-messages-provider#build"
+      ]
+    },
     "test": {
       "dependsOn": ["build"]
     }
