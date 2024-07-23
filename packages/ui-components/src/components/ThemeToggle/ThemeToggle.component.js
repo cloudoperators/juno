@@ -3,9 +3,6 @@ import PropTypes from "prop-types";
 import { Button } from "../Button/"
 import { StyleProvider} from "../StyleProvider/index"
 
-
-// TODO: description, stories, tests, warn if no context.
-
 /** 
 A Toggle button to toggle Light and Dark UI Themes.
 Requires a StyleProvider context, which is automatically provided by the Juno AppShell.
@@ -25,7 +22,7 @@ export const ThemeToggle = ({
   
   // Warn if no context is found
   if (!ThemeContext) {
-    console.warn("ThemeToggle requires a StyleProvider context in order to work. Use ThemeToggle in a Juno AppShell or include StyleProvider manually.")
+    console.warn("Juno ThemeToggle requires a StyleProvider context in order to work. Use ThemeToggle in a Juno AppShell or include StyleProvider manually.")
   }
   
   // Destructure the context, fallback

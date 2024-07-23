@@ -47,7 +47,7 @@ describe("ThemeToggle", () => {
   test("logs a console warning when no theme context is provided", async () => {
     render(<ThemeToggle name="my-theme-toggle"/>)
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-     "ThemeToggle requires a StyleProvider context in order to work. Use ThemeToggle in a Juno AppShell or include StyleProvider manually."
+     "Juno ThemeToggle requires a StyleProvider context in order to work. Use ThemeToggle in a Juno AppShell or include StyleProvider manually."
     )
   })
   

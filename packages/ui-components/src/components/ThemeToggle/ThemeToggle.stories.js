@@ -2,7 +2,6 @@ import React from "react";
 import { ThemeToggle } from "./index";
 import { StyleProvider } from "../StyleProvider/index";
 
-// TODO: update decorator to accept a theme
 
 export default {
   title: "Components/ThemeToggle",
