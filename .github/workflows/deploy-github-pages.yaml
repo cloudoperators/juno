@@ -1,68 +1,68 @@
-# Run it locally with act (https://github.com/nektos/act)
-#  1. Install act:
-#     `brew install act`
-#  2. Create a .secret file with the following content:
-#     `GITHUB_TOKEN=your_github_token`
-#  PULL REQUEST
-#  1. Create a act_pull_request.json file in case of a pull request with the following content:
-#     `{"pull_request": {"number": <PR number>, "head": {"ref": "<PR branch name>", "sha": "PR commit sha"}, "base": {"ref": "main"}}, "repository": {"name": "juno", "owner": {"login": "cloudoperators"}}}`
-#  2. Run the following command:
-#     `act push --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -e act_push.json -W .github/workflows/deploy-github-pages.yaml`
-name: Build and Publish Storybook to GitHub Pages
+# # Run it locally with act (https://github.com/nektos/act)
+# #  1. Install act:
+# #     `brew install act`
+# #  2. Create a .secret file with the following content:
+# #     `GITHUB_TOKEN=your_github_token`
+# #  PULL REQUEST
+# #  1. Create a act_pull_request.json file in case of a pull request with the following content:
+# #     `{"pull_request": {"number": <PR number>, "head": {"ref": "<PR branch name>", "sha": "PR commit sha"}, "base": {"ref": "main"}}, "repository": {"name": "juno", "owner": {"login": "cloudoperators"}}}`
+# #  2. Run the following command:
+# #     `act push --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -e act_push.json -W .github/workflows/deploy-github-pages.yaml`
+# name: Build and Publish Storybook to GitHub Pages
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - "packages/juno-ui-components/**"
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - "packages/juno-ui-components/**"
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: [default]
-    defaults:
-      run:
-        # Set the working directory for all steps in this job
-        working-directory: packages/juno-ui-components
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          # Fetch only the juno-ui-components folder
-          sparse-checkout: packages/juno-ui-components
+# jobs:
+#   build:
+#     runs-on: [default]
+#     defaults:
+#       run:
+#         # Set the working directory for all steps in this job
+#         working-directory: packages/juno-ui-components
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           # Fetch only the juno-ui-components folder
+#           sparse-checkout: packages/juno-ui-components
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: "20.x"
 
-      - name: Install dependencies
-        run: |
-          npm install
+#       - name: Install dependencies
+#         run: |
+#           npm install
 
-      - name: Build storybook
-        run: npm run build-storybook
+#       - name: Build storybook
+#         run: npm run build-storybook
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # working-directory is being ignored set the complete path to the storybook static folder
-          path: packages/juno-ui-components/storybook-static
+#       - name: Upload artifact
+#         uses: actions/upload-pages-artifact@v3
+#         with:
+#           # working-directory is being ignored set the complete path to the storybook static folder
+#           path: packages/juno-ui-components/storybook-static
 
-  deploy:
-    env:
-      NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
-      NODE_OPTIONS: --use-openssl-ca
-      ACTIONS_RUNNER_DEBUG: true
-    permissions:
-      pages: write # to deploy to Pages
-      id-token: write # to verify the deployment originates from an appropriate source
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: [default]
-    needs: [build]
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+#   deploy:
+#     env:
+#       NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
+#       NODE_OPTIONS: --use-openssl-ca
+#       ACTIONS_RUNNER_DEBUG: true
+#     permissions:
+#       pages: write # to deploy to Pages
+#       id-token: write # to verify the deployment originates from an appropriate source
+#     environment:
+#       name: github-pages
+#       url: ${{ steps.deployment.outputs.page_url }}
+#     runs-on: [default]
+#     needs: [build]
+#     steps:
+#       - name: Deploy to GitHub Pages
+#         id: deployment
+#         uses: actions/deploy-pages@v4
