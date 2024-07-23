@@ -9,6 +9,9 @@
       "dependsOn": ["^lint"],
       "cache": false
     },
+    "check-types": {
+      "cache": false
+    },
     "test": {
       "cache": false,
       "persistent": true

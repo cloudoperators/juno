@@ -28,6 +28,8 @@ export default [
   },
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
+    parser: "@typescript-eslint/parser",
+    plugins: ["@typescript-eslint", "prettier"],
     languageOptions: {
       sourceType: "module",
       parserOptions: { ecmaFeatures: { jsx: true } },
@@ -37,7 +39,6 @@ export default [
       },
     },
   },
-
   {
     files: [
       "**/*.test.js",
