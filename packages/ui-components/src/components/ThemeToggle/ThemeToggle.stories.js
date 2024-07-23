@@ -7,13 +7,7 @@ import { StyleProvider } from "../StyleProvider/index";
 export default {
   title: "Components/ThemeToggle",
   component: ThemeToggle,
-  parameters: {
-    docs: {
-      description: {
-        component: "A toggle to switch between Dark and Light Theme.",
-      },
-    },
-  },
+  
   argTypes: {},
   decorators: [
     (Story) => (
