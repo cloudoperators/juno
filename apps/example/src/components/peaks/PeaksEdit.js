@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from "react"
+import PropTypes from "prop-types"
 import {
   Button,
   Form,
@@ -44,12 +45,12 @@ const PeaksEdit = ({ peakId, closeCallback }) => {
         formState: formState,
       },
       {
-        onSuccess: (data, variables, context) => {
+        onSuccess: () => {
           closeCallback()
           // refetch peaks
           queryClient.invalidateQueries("peaks")
         },
-        onError: (error, variables, context) => {
+        onError: () => {
           // TODO display error
         },
       }
@@ -114,6 +115,11 @@ const PeaksEdit = ({ peakId, closeCallback }) => {
       )}
     </PanelBody>
   )
+}
+
+PeaksEdit.propTypes = {
+  peakId: PropTypes.string,
+  closeCallback: PropTypes.func,
 }
 
 export default PeaksEdit

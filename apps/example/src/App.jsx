@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect } from "react"
+import PropTypes from "prop-types"
 import styles from "./styles.scss"
 
 console.log("====================", React)
@@ -82,6 +83,12 @@ const App = (props = {}) => {
   )
 }
 
+App.propTypes = {
+  endpoint: PropTypes.string,
+  embedded: PropTypes.bool,
+  id: PropTypes.string,
+}
+
 const StyledApp = (props) => {
   return (
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
@@ -94,5 +101,12 @@ const StyledApp = (props) => {
       </MessagesProvider>
     </AppShellProvider>
   )
+}
+
+StyledApp.propTypes = {
+  theme: PropTypes.string,
+  embedded: PropTypes.bool,
+  endpoint: PropTypes.string,
+  id: PropTypes.string,
 }
 export default StyledApp

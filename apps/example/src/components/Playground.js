@@ -9,32 +9,27 @@ import {
   Form,
   FormRow,
   Select,
-  SelectOption
+  SelectOption,
 } from "@cloudoperators/juno-ui-components"
 
 /** A component to include anywhere in the example app, just to try out things and validate behaviour in an app environment */
-const Playground = ({
-  ...props
-}) => {
+const Playground = () => {
   return (
     <div>
       <Form>
         <FormRow>
-          <ComboBox>
-          
-          </ComboBox>
+          <ComboBox></ComboBox>
         </FormRow>
         <FormRow>
           <Select>
-            <SelectOption value="China"/>
-            <SelectOption value="Georgia"/>
-            <SelectOption value="Germany"/>
+            <SelectOption value="China" />
+            <SelectOption value="Georgia" />
+            <SelectOption value="Germany" />
             <SelectOption value="Nepal" />
-            <SelectOption value="Switzerland"/>
+            <SelectOption value="Switzerland" />
           </Select>
         </FormRow>
       </Form>
-    
     </div>
   )
 }

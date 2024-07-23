@@ -4,6 +4,7 @@
  */
 
 import React, { useState } from "react"
+import PropTypes from "prop-types"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import {
@@ -19,7 +20,7 @@ const PeaksNew = ({ closeCallback }) => {
   const [formState, setFormState] = useState({})
   const { addMessage } = useActions()
 
-  const { isLoading, isError, error, data, isSuccess, mutate } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["peakAdd"],
   })
 
@@ -27,7 +28,7 @@ const PeaksNew = ({ closeCallback }) => {
     mutate(
       { formState: formState },
       {
-        onSuccess: (data, variables, context) => {
+        onSuccess: (/*data, variables, context*/) => {
           addMessage({
             variant: "success",
             text: `Successfully added Peak`,
@@ -36,7 +37,7 @@ const PeaksNew = ({ closeCallback }) => {
           // refetch peaks
           queryClient.invalidateQueries("peaks")
         },
-        onError: (error, variables, context) => {
+        onError: (/*error, variables, context*/) => {
           // TODO display error
         },
       }
@@ -96,6 +97,10 @@ const PeaksNew = ({ closeCallback }) => {
       </FormRow>
     </PanelBody>
   )
+}
+
+PeaksNew.propTypes = {
+  closeCallback: PropTypes.func,
 }
 
 export default PeaksNew

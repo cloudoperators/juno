@@ -4,8 +4,12 @@
  */
 
 import React from "react"
-
-import { AppShell, AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
+import PropTypes from "prop-types"
+import {
+  AppShell,
+  AppShellProvider,
+  CodeBlock,
+} from "@cloudoperators/juno-ui-components"
 import StoreProvider from "./components/StoreProvider"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import AppContent from "./AppContent"
@@ -58,6 +62,13 @@ const App = (props = {}) => {
   )
 }
 
+App.propTypes = {
+  theme: PropTypes.string,
+  embedded: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  endpoint: PropTypes.string,
+  currentHost: PropTypes.string,
+}
+
 const StyledApp = (props) => {
   return (
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
@@ -68,6 +79,13 @@ const StyledApp = (props) => {
       </StoreProvider>
     </AppShellProvider>
   )
+}
+
+StyledApp.propTypes = {
+  theme: PropTypes.string,
+  embedded: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  endpoint: PropTypes.string,
+  currentHost: PropTypes.string,
 }
 
 export default StyledApp

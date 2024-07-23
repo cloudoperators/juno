@@ -15,8 +15,8 @@ const WelcomeView = () => {
       className="my-[10vh]"
     >
       <p className="text-xl">
-        Welcome to the Example App! To explore the app's features, kindly log in
-        and begin your testing journey
+        Welcome to the Example App! To explore the app&apos;s features, kindly
+        log in and begin your testing journey
       </p>
     </Stack>
   )

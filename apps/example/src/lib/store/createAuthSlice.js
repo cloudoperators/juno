@@ -8,7 +8,7 @@ export const AUTH_ACTIONS = {
   SIGN_OUT: "signOut",
 }
 
-const createAuthSlice = (set, get) => ({
+const createAuthSlice = (set, _get) => ({
   auth: {
     data: null,
     isProcessing: false,

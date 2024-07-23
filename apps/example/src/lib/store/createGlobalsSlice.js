@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const createGlobalsSlice = (set, get) => ({
+const createGlobalsSlice = (set, _get) => ({
   globals: {
     endpoint: "",
     queryClientFnReady: false,

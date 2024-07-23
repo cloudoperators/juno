@@ -4,6 +4,7 @@
  */
 
 import React, { useMemo } from "react"
+import PropTypes from "prop-types"
 import {
   Button,
   ContentAreaToolbar,
@@ -83,6 +84,10 @@ const PeaksList = ({ peaks }) => {
       </DataGrid>
     </>
   )
+}
+
+PeaksList.propTypes = {
+  peaks: PropTypes.array,
 }
 
 export default PeaksList

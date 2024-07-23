@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,7 +28,7 @@ import PanelManager from "./PanelManager"
 import Peaks from "./peaks/Peaks"
 import WelcomeView from "./WelcomeView"
 
-const AppContent = (props) => {
+const AppContent = () => {
   const { setTabIndex, setCurrentModal } = useGlobalsActions()
   const loggedIn = useAuthLoggedIn()
   const authError = useAuthError()
@@ -40,7 +40,7 @@ const AppContent = (props) => {
     if (authError) {
       addMessage({
         variant: "error",
-        text: parseError(authError),
+        text: JSON.stringify(authError),
       })
     }
   }, [authError])
