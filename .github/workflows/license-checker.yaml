@@ -1,4 +1,4 @@
-name: Lint
+name: Check Licenses Node Modules
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  lint:
+  allowed-licenses:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,5 +24,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run ESlint
-        run: npm run lint
+      - name: Run License Checker
+        run: npm run check-licenses
