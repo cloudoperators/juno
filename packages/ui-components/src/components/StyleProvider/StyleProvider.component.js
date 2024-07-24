@@ -50,12 +50,10 @@ export const StyleProvider = ({
   children,
   shadowRootMode,
 }) => {
-  // Create a unique Id string to add to the key in local storage. Otherwise, in case there are multiple StyleProvider instances, these would all write to and read from the same key causing havoc.
-  const themeUId = useId()
   // Determine the default value to init the storedTheme by using the prop if passed, or default:
   const themeClass = themeProp || DEFAULT_THEME_NAME
-  // Init the currently stored theme using either the theme passed as a prop or default:
-  const [storedTheme, setStoredTheme] = useLocalStorage("juno-theme" + "-" + themeUId, themeClass)
+  // Init the currently stored theme using either the theme found in local storage, a theme passed as a prop, or default:
+  const [storedTheme, setStoredTheme] = useLocalStorage("juno-theme", themeClass)
   
   // Store a reference to the current theme. This is needed to remove the old theme class when the theme is updated:
   // (Idea: this could potentially be omitted if we do not remove and add the theme class to update, but just re-generate the whole set of classes, so we do not care about the old theme class anymore.)
