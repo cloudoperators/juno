@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect} from "react"
 import PropTypes from "prop-types";
 import { Button } from "../Button/"
 import { StyleProvider} from "../StyleProvider/index"
+import { Icon } from "../Icon/"
 
 /** 
 A Toggle button to toggle Light and Dark UI Themes.
@@ -47,7 +48,7 @@ export const ThemeToggle = ({
       onClick={toggleTheme}
       {...props}
     >
-     {currentTheme === "theme-light" ? "Switch to Dark Theme" : "Switch to Light Theme"}
+     {currentTheme === "theme-light" ? <Icon icon="nightsStay" alt="Toggle theme" title="Toggle theme"/> : <Icon icon="wbSunny" alt="Toggle theme" title="Toggle theme" />}
     </Button>
   )
 }

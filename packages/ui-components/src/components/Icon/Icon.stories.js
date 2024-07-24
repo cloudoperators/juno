@@ -318,6 +318,13 @@ export const More_Vert = {
   },
 };
 
+export const Nights_Stay = {
+  args: {
+    ...Default.args,
+    icon: 'nightsStay',
+  },
+};
+
 export const Notifications_Off = {
   args: {
     ...Default.args,
@@ -392,6 +399,13 @@ export const Warning = {
   args: {
     ...Default.args,
     icon: 'warning',
+  },
+};
+
+export const WBSunny = {
+  args: {
+    ...Default.args,
+    icon: 'wbSunny',
   },
 };
 

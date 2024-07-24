@@ -43,6 +43,7 @@ import Comment from "@material-design-icons/svg/filled/comment.svg"
 import ManageAccounts from "@material-design-icons/svg/filled/manage_accounts.svg"
 import MonitorHeart from "@material-design-icons/svg/outlined/monitor_heart.svg"
 import MoreVert from "@material-design-icons/svg/outlined/more_vert.svg"
+import NightsStay from "@material-design-icons/svg/outlined/nights_stay.svg"
 import NotificationsOff from "@material-design-icons/svg/outlined/notifications_off.svg"
 import OpenInBrowser from "@material-design-icons/svg/outlined/open_in_browser.svg"
 import OpenInNew from "@material-design-icons/svg/outlined/open_in_new.svg"
@@ -54,6 +55,7 @@ import SeverityMedium from "./icons/juno_severity_medium.svg"
 import SeverityHigh from "./icons/juno_severity_high.svg"
 import SeverityCritical from "./icons/juno_severity_critical.svg"
 import Warning from "@material-design-icons/svg/filled/warning.svg"
+import WBSunny from "@material-design-icons/svg/outlined/wb_sunny.svg"
 import Widgets from "@material-design-icons/svg/filled/widgets.svg"
 
 /**
@@ -125,6 +127,7 @@ export const knownIcons = [
   "manageAccounts",
   "monitorHeart",
   "moreVert",
+  "nightsStay",
   "notificationsOff",
   "openInBrowser",
   "openInNew",
@@ -136,6 +139,7 @@ export const knownIcons = [
   "severityCritical",
   "success",
   "warning",
+  "wbSunny",
   "widgets",
 ]
 
@@ -570,6 +574,18 @@ const getColoredSizedIcon = ({
           {...iconProps}
         />
       )
+      case "nightsStay":
+      return (
+        <NightsStay
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="nights stay"
+          title={title ? title : "Nights stay"}
+          role="img"
+          {...iconProps}
+        />
+      )
     case "notificationsOff":
       return (
         <NotificationsOff
@@ -710,6 +726,18 @@ const getColoredSizedIcon = ({
           className={iconClass}
           alt="warning"
           title={title ? title : "Warning"}
+          role="img"
+          {...iconProps}
+        />
+      )
+      case "wbSunny":
+      return (
+        <WBSunny
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="wb sunny"
+          title={title ? title : "WBSunny"}
           role="img"
           {...iconProps}
         />
