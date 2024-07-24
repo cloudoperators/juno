@@ -1,8 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import globals from "globals"
 import pluginJs from "@eslint/js"
 import tseslint from "typescript-eslint"
@@ -31,6 +26,20 @@ export default [
   {
     files: ["**/*.test.js", "**/*.config.js", "__tests__/**", "test/__mocks__/**"],
     languageOptions: { sourceType: "commonjs" },
+  },
+
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommendedTypeCheckedOnly,
+  {
+    languageOptions: {
+      parserOptions: {
+        project: true,
+      },
+    },
+  },
+  {
+    files: ["**/*.js", "*.js", "*.config.js", "*.test.js", "*.mjs"],
+    ...tseslint.configs.disableTypeChecked,
   },
   ...fixupConfigRules(pluginReactConfig),
   // ######### JEST ##########

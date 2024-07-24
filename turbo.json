@@ -9,7 +9,7 @@
       "dependsOn": ["^lint"],
       "cache": false
     },
-    "check-types": {
+    "typecheck": {
       "cache": false
     },
     "test": {
