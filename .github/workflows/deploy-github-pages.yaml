@@ -22,15 +22,8 @@ on:
 jobs:
   build:
     runs-on: [default]
-    defaults:
-      run:
-        # Set the working directory for all steps in this job
-        working-directory: packages/ui-components
     steps:
       - uses: actions/checkout@v4
-        with:
-          # Fetch only the ui-components folder
-          sparse-checkout: packages/ui-components
 
       - uses: actions/setup-node@v4
         with:
@@ -38,12 +31,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          npm install --force
 
       - name: Build storybook
-        run: npm run build-storybook
+        run: npm -w @cloudoperators/juno-ui-components run build-storybook
 
       - name: Check if CNAME secret is set and create CNAME file
+        working-directory: packages/ui-components
         run: |
           if [ -n "${{ secrets.CNAME }}" ]; then
             echo "${{ secrets.CNAME }}" > storybook-static/CNAME
@@ -54,7 +48,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # working-directory is being ignored set the complete path to the storybook static folder
           path: packages/ui-components/storybook-static
 
   deploy:
