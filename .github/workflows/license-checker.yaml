@@ -1,4 +1,4 @@
-name: License Checker
+name: Check Licenses Node Modules
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  lint:
+  allowed-licenses:
     runs-on: ubuntu-latest
 
     steps:
