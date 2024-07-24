@@ -5,6 +5,7 @@
 
 import * as React from "react"
 import { render, screen, fireEvent, waitFor } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import '@testing-library/jest-dom/extend-expect'
 import { StyleProvider } from "./index"
 
@@ -106,28 +107,86 @@ describe("StyleProvider", () => {
     expect(screen.getByRole("button")).toHaveTextContent("theme-test")
   })
   
-  test.skip("updates the current theme name provided when the theme is changed", async () => {
-    const TestChildComponent = () => {
+  test("persists the user's preferred theme across re-renders", async () => {
+    const ToggleChildComponent = () => {
       const {currentTheme, setThemeClass} = StyleProvider.useStyles()
-      const [childTheme, setChildTheme] = React.useState("")
-      React.useEffect(() => {
-        setChildTheme(currentTheme)
-      }, [currentTheme])
-      return(<button onClick={() => setThemeClass("theme-light")}>{childTheme}</button>)
+      return(<button onClick={
+        () => {
+          currentTheme === "theme-dark" ?
+            setThemeClass("theme-light")
+            :
+            setThemeClass("theme-dark")
+        }
+      } >Toggle Theme</button>)
     }
+    const { rerender } = render(
+      <StyleProvider>
+        <ToggleChildComponent />
+      </StyleProvider>
+    )
+    const appBody = document.querySelector('.juno-app-body');
+    const toggleButton = screen.getByRole("button");
+    const user = userEvent.setup();
+    
+    // Assert initial state
+    expect(appBody).toHaveClass('theme-dark');
+    
+    // Simulate user changing the theme
+    await user.click(toggleButton)
+    
+    // Assert updated state
+    expect(appBody).toHaveClass('theme-light');
+    
+    // Rerender to force component to decide about theme again
+    rerender(
+      <StyleProvider>
+        <ToggleChildComponent />
+      </StyleProvider>
+    )
+  
+    // Assert final state (i.e. last user choice was used)
+    expect(appBody).toHaveClass('theme-light');
+  })
+  
+  
+  // This test keeps failing, presumably because of issues with asynchronously updating currentTheme in the context. This works manually with a similar 
+  test.skip("updates the current theme name provided when the theme is changed", async () => {
+    // Define a child component to use the context
+    const TestChildComponent = () => {
+      const { currentTheme, setThemeClass } = StyleProvider.useStyles();
+      
+      return (
+        <button onClick={() => setThemeClass("theme-light")}>
+          {currentTheme}
+        </button>
+      );
+    };
+  
+    // Render the component with a specific theme
     const { container } = render(
       <StyleProvider theme="theme-test">
         <TestChildComponent />
       </StyleProvider>
-    )
+    );
+  
+    // Query for the container element and the toggle button
     const appBody = container.querySelector('.juno-app-body');
+    const toggleButton = screen.getByRole("button");
+  
+    // Assert initial state
     expect(appBody).toHaveClass('theme-test');
-    expect(screen.getByRole("button")).toHaveTextContent("theme-test")
-    // simulate updating the current theme 
-    fireEvent.click(screen.getByText('theme-test'));
-    expect(appBody).not.toHaveClass('theme-test');
-    expect(appBody).toHaveClass('theme-light');
-    await waitFor( () => {expect(screen.getByRole("button")).toHaveTextContent("theme-light")})
-  })
+    expect(toggleButton).toHaveTextContent("theme-test");
+  
+    // Create a userEvent instance and await click interaction
+    const user = userEvent.setup();
+    await user.click(toggleButton);  // Ensure to await the click
+  
+    // Wait for theme updates and assert final state
+    await waitFor(() => {
+      expect(appBody).not.toHaveClass('theme-test');  // Ensure old theme is removed
+      expect(appBody).toHaveClass('theme-light');     // Check new theme is applied
+      expect(toggleButton).toHaveTextContent("theme-light");  // Validate button text
+    });
+  });
   
 })
