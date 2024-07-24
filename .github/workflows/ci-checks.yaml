@@ -120,7 +120,7 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci  
+        run: npm ci && npm run build 
       - name: Run Tests
         run: npm run test    
         
