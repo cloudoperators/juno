@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import globals from "globals"
 import pluginJs from "@eslint/js"
 import pluginReactConfig from "eslint-plugin-react/configs/recommended.js"
