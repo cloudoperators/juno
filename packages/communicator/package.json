@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
-    "@cloudoperators/typescript-config": "*",
+    "@cloudoperators/juno-typescript-config": "*",
     "@cloudoperators/eslint-config": "*",
     "babel-jest": "^29.4.2",
     "jest": "^29.4.2",
