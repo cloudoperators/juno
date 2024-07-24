@@ -14,7 +14,7 @@ header:
     - "apis/**"
     - "assets/**"
     - ".npmignore"
-    - "**/*.npmignore"
+    - ".npmignore"
     - "**/*.npmrc"
     - ".npmrc"
     - "CODEOWNERS"

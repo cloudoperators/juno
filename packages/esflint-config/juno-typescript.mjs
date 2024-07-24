@@ -32,6 +32,20 @@ export default [
     files: ["**/*.test.js", "**/*.config.js", "__tests__/**", "test/__mocks__/**"],
     languageOptions: { sourceType: "commonjs" },
   },
+
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommendedTypeCheckedOnly,
+  {
+    languageOptions: {
+      parserOptions: {
+        project: true,
+      },
+    },
+  },
+  {
+    files: ["**/*.js", "*.js", "*.config.js", "*.test.js", "*.mjs"],
+    ...tseslint.configs.disableTypeChecked,
+  },
   ...fixupConfigRules(pluginReactConfig),
   // ######### JEST ##########
   {
