@@ -8,19 +8,19 @@ export default {
   component: ThemeToggle,
   
   argTypes: {},
-  decorators: [
-    (Story, context) => {
-      const theme = context.args.theme
-      return (
-        <StyleProvider theme={theme}>
-          <div className="jn-p-12" style={{ minHeight: "250px" }}>
-            <Story />
-            <p> Some content. </p>
-          </div>
-        </StyleProvider>
-      )
-    },
-  ],
+  // decorators: [
+  //   (Story, context) => {
+  //     const theme = context.args.theme
+  //     return (
+  //       <StyleProvider theme={theme}>
+  //         <div className="jn-p-12" style={{ minHeight: "250px" }}>
+  //           <Story />
+  //           <p> Some content. </p>
+  //         </div>
+  //       </StyleProvider>
+  //     )
+  //   },
+  // ],
 };
 
 const Template = (args) => <ThemeToggle {...args} />;
