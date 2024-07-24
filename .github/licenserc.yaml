@@ -41,6 +41,7 @@ header:
     - "Makefile"
     - "**/*.map"
     - "**/*.mdx"
+    - .prettierrc
 
   comment: on-failure
 
