@@ -1,4 +1,4 @@
-name: CI Checks
+name: CI Check
 
 on:
   pull_request:
