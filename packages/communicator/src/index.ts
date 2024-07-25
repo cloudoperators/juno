@@ -20,6 +20,29 @@ window.__junoEventListeners = window.__junoEventListeners || {
   get: {},
 }
 
+type KnownOptions = {
+  debug?: boolean
+  consumerID?: string
+}
+type WatchOptions = KnownOptions
+type OnGetOptions = KnownOptions
+
+type GetOptions = KnownOptions & {
+  getOptions?: DataObject // Allow additional properties
+}
+
+type BroadcastOptions = KnownOptions & {
+  crossWindow?: boolean
+}
+
+type CallbackOptions = {
+  sourceWindowId?: string
+  thisWindowId?: string
+}
+type DataObject = {
+  [key: string]: any
+} | null
+
 const log = (...params: any[]) => console.log("Communicator Debug:", ...params)
 const warn = (...params: any[]) => console.warn("Communicator Warning:", ...params)
 const error = (...params: any[]) => console.error("Communicator Error:", ...params)
@@ -89,32 +112,19 @@ crossWindowEventBridge.onmessage = (e) => {
   }
 }
 
-interface KnownOptions {
-  debug?: boolean
-  crossWindow?: boolean
-  consumerID?: string
-  [key: string]: any // Allow additional properties
-}
 /**
  * Send messages via BroadcastChannel across contexts (e.g. several tabs on
  * the same origin). The last message is stored by default. However, it
  * is possible to influence the storage period using the expire option.
  * @param {string} name
- * @param {any} data
- * @param {object} options (optional) allowed options are debug:undefined|boolean and expires:undefined|number
+ * @param {DataObject} data
+ * @param {BroadcastOptions} options (optional) allowed options are debug:undefined|boolean and expires:undefined|number
  * @returns void
  */
-
-const broadcast = (name?: string, data?: any, options: KnownOptions = {}): void => {
+const broadcast = (name: string, data: DataObject = null, options: BroadcastOptions = {}): void => {
   try {
-    if (typeof name !== "string") throw new Error("(broadcast) the message name must be given.")
-    if (data === undefined) data = null
+    const { debug, crossWindow = false, consumerID } = options
 
-    const { debug, crossWindow = false, consumerID, ...unknownOptions } = options || {}
-    const unknownOptionsKeys = Object.keys(unknownOptions)
-    if (unknownOptionsKeys.length > 0) warn(`(broadcast) unknown options: ${unknownOptionsKeys.join(", ")}`)
-    if (debug !== undefined && typeof debug !== "boolean") warn("(broadcast) debug must be a boolean")
-    if (typeof crossWindow !== "boolean") warn("(broadcast) crossWindow must be a boolean")
     // backward compatibility
     const eventName = CHANNEL_PREFIX + name
 
@@ -159,20 +169,12 @@ const broadcast = (name?: string, data?: any, options: KnownOptions = {}): void 
  * with the youngerThan option.
  * @param {string} name
  * @param {function} callback:(data) => void
- * @param {object} options
+ * @param {WatchOptions} options
  * @returns {function} unregister:()=>void, a function to stop listening
  */
-const watch = (name?: string, callback?: (data: any) => void, options: KnownOptions = {}) => {
+const watch = (name: string, callback: (data: DataObject) => void, options: WatchOptions = {}) => {
   try {
-    if (typeof name !== "string")
-      throw new Error("(watch) the message name must be given.")
-    
-
-    if (typeof callback !== "function") throw new Error("(watch) the callback parameter must be a function.")
-
-    const { debug, consumerID, ...unknownOptions } = options || {}
-    const unknownOptionsKeys = Object.keys(unknownOptions)
-    if (unknownOptionsKeys.length > 0) warn(`(watch) unknown options: ${unknownOptionsKeys.join(", ")}`)
+    const { debug, consumerID } = options
 
     // backward compatibility
     const eventName = CHANNEL_PREFIX + name
@@ -190,29 +192,20 @@ const watch = (name?: string, callback?: (data: any) => void, options: KnownOpti
   }
 }
 
-interface CallbackOptions {
-  sourceWindowId?: string
-  thisWindowId?: string
-  [key: string]: any // Allow additional properties
-}
 /**
  * This function implements a 1:1 communication
  * @param {string} name
  * @param {function} callback
- * @param {object} options
+ * @param {GetOptions} options
  * @returns cancel function
  */
 const get = (
   name: string,
-  callback: (data: any, callbackOptions: CallbackOptions) => void,
-  options: KnownOptions = {}
+  callback: (data: DataObject, callbackOptions: CallbackOptions) => void,
+  options: GetOptions = {}
 ) => {
   try {
-    if (typeof name !== "string") throw new Error("(get) the message name must be given.")
-    if (typeof callback !== "function") throw new Error("(get) the callback parameter must be a function.")
-    const { debug, consumerID, ...unknownOptions } = options || {}
-    const unknownOptionsKeys = Object.keys(unknownOptions)
-    if (unknownOptionsKeys.length > 0) warn(`(get) unknown options: ${unknownOptionsKeys.join(", ")}`)
+    const { debug, consumerID } = options
 
     // backward compatibility
     name = CHANNEL_PREFIX + "GET:" + name
@@ -245,17 +238,12 @@ const get = (
  * Listen to get messages
  * @param {string} name
  * @param {function} callback
- * @param {object} options
+ * @param {OnGetOptions} options
  * @returns cancel function
  */
-const onGet = (name: string, getDataCallback: (data: any) => void, options: KnownOptions = {}) => {
+const onGet = (name: string, getDataCallback: (data: DataObject) => void, options: OnGetOptions = {}) => {
   try {
-    if (typeof name !== "string") throw new Error("(onGet) the message name must be given.")
-    if (typeof getDataCallback !== "function") throw new Error("(onGet) the callback parameter must be a function.")
-    const { debug, consumerID, ...unknownOptions } = options || {}
-    const unknownOptionsKeys = Object.keys(unknownOptions)
-    if (unknownOptionsKeys.length > 0) warn(`(onGet) unknown options: ${unknownOptionsKeys.join(", ")}`)
-
+    const { debug, consumerID } = options
     // backward compatibility
     name = CHANNEL_PREFIX + "GET:" + name
 
