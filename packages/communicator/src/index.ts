@@ -249,7 +249,6 @@ const onGet = (name: string, getDataCallback: (data: DataObject) => void, option
 
     if (debug) {
       log(`${consumerID ? `(${consumerID})` : ""} send data for intra-window message ${name}`)
-      // log(`${consumerID ? `(${consumerID})` : ""} onGet EVENT: ${name}`)
     }
 
     // is a function (data, options = {}) => data

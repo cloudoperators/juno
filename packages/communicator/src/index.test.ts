@@ -28,7 +28,7 @@ describe("Communicator", () => {
       broadcast("TEST_123456", { name: "test" }, { debug: true })
       expect(callback).toHaveBeenCalledWith(
         { name: "test" },
-        { sourceWindowId: expect.anything(), thisWindowId: expect.anything() }
+        { sourceWindowId: expect.stringMatching(/.*/) as string, thisWindowId: expect.stringMatching(/.*/) as string }
       )
     })
 

@@ -43,7 +43,7 @@ export default [
     },
   },
   {
-    files: ["**/*.js", "*.js", "*.config.js", "*.test.js", "*.mjs"],
+    files: ["**/*.js", "*.js", "*.config.js", "*.config.ts", "*.test.js", "*.mjs"],
     ...tseslint.configs.disableTypeChecked,
   },
   ...fixupConfigRules(pluginReactConfig),
@@ -71,6 +71,6 @@ export default [
     },
   },
   {
-    ignores: ["**/build/*"],
+    ignores: ["**/build/*", "**/dist/*"],
   },
 ]
