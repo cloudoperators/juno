@@ -36,15 +36,6 @@ jobs:
       - name: Build storybook
         run: npm -w @cloudoperators/juno-ui-components run build-storybook
 
-      - name: Check if CNAME secret is set and create CNAME file
-        working-directory: packages/ui-components
-        run: |
-          if [ -n "${{ secrets.CNAME }}" ]; then
-            echo "${{ secrets.CNAME }}" > storybook-static/CNAME
-          else
-            echo "CNAME secret is not set."
-          fi
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
