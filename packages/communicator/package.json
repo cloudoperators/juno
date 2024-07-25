@@ -6,62 +6,36 @@
   "contributors": [
     "Andreas Pfau"
   ],
-  "exports": {
-    "./*": {
-      "types": "./src/*.ts",
-      "default": "./build/*.js"
-    }
-  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
-    "build/*",
+    "dist/**",
     "LICENCE"
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/communicator",
   "license": "Apache-2.0",
   "source": "src/index.js",
-  "main": "build/index.js",
   "module": "build/index.js",
   "engines": {
     "node": ">=20.0.0 <21.0.0",
     "npm": ">=10.0.0 <11.0.0"
   },
   "scripts": {
-    "build": "NODE_ENV=production rollup -c",
-    "test": "NODE_ENV=test jest",
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
     "lint": "eslint .",
-    "devOld": "NODE_ENV=development rollup -c -w",
-    "dev": "tsc --watch",
-    "typecheck": "tsc --noEmit"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.20.2",
-    "@cloudoperators/juno-typescript-config": "*",
     "@cloudoperators/eslint-config": "*",
-    "babel-jest": "^29.4.2",
-    "jest": "^29.4.2",
-    "jest-environment-jsdom": "^29.7.0",
-    "rollup": "^3.4.0",
-    "rollup-plugin-analyzer": "^4.0.0",
-    "rollup-plugin-babel-minify": "^10.0.0",
-    "rollup-plugin-delete": "^2.0.0",
-    "rollup-plugin-includepaths": "^0.2.4",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "typescript": "^5.5.4"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "verbose": true,
-    "transform": {
-      "\\.js$": "babel-jest"
-    },
-    "watchPathIgnorePatterns": [
-      "<rootDir>/dev/",
-      "<rootDir>/build/"
-    ]
+    "@cloudoperators/juno-typescript-config": "*",
+    "@types/node": "^20.11.24",
+    "jsdom": "^24.1.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.4"
   }
 }
