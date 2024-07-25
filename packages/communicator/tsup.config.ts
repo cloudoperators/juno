@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { defineConfig, type Options } from "tsup";
+import { defineConfig, type Options } from "tsup"
 
 export default defineConfig((options: Options) => ({
   entryPoints: ["src/index.ts"],
   clean: true,
   sourcemap: true,
   dts: true,
-  format: ['esm'],
+  format: ["esm"],
   ...options,
-}));
+}))
