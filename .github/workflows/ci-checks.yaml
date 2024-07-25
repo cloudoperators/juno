@@ -54,16 +54,6 @@ jobs:
           config: .github/licenserc.yaml
           mode: fix
 
-      - name: Apply Changes
-        uses: EndBug/add-and-commit@v9
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          author_name: License Bot
-          author_email: license_bot@github.com
-          message: "chor(licenses): Automatic application of license header"
-
-
   allowed-licenses:
     needs: install-dependencies
     runs-on: ubuntu-latest
