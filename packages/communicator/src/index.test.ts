@@ -3,38 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-test("HI", () => expect(true).toEqual(true))
-globalThis.console.log = jest.fn()
-globalThis.console.warn = jest.fn()
-globalThis.console.error = jest.fn()
+import { broadcast, watch, get, onGet } from "./index"
+import { describe, it, vi, afterEach, expect } from "vitest"
 
-const bc = {
-  postMessage: jest.fn(),
-  close: jest.fn(() => true),
-}
-
-globalThis.BroadcastChannel = jest.fn().mockImplementation(() => {
-  return bc
-})
-
-const { broadcast, watch, get, onGet } = require("./index")
-
+globalThis.console.warn = vi.fn()
+globalThis.console.error = vi.fn()
 describe("Communicator", () => {
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   // ################ BROADCAST #####################
   describe("broadcast", () => {
-    test("log error on missing name", () => {
+    it("log error on missing name", () => {
+      // @ts-ignore: Expected error case
       broadcast()
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
         "(broadcast) the message name must be given."
       )
     })
-    test("log warning on missing data", () => {
-      let callback = jest.fn()
+
+    it("log warning on missing data", () => {
+      const callback = vi.fn()
       watch("TEST", callback)
       broadcast("TEST", "data")
       expect(callback).toHaveBeenCalledWith("data", {
@@ -43,7 +34,7 @@ describe("Communicator", () => {
       })
     })
 
-    test("unknown options", () => {
+    it("unknown options", () => {
       broadcast("TEST", { test: "test" }, { unknownOption: true })
       expect(globalThis.console.warn).toHaveBeenCalledWith(
         "Communicator Warning:",
@@ -51,15 +42,15 @@ describe("Communicator", () => {
       )
     })
 
-    test("create new broadcast channel", () => {
-      let callback = jest.fn()
+    it("create new broadcast channel", () => {
+      const callback = vi.fn()
       watch("TEST_12345", callback)
       broadcast("TEST_12345", { name: "test" })
       expect(callback).toHaveBeenCalledWith({ name: "test" }, expect.anything())
     })
 
-    test("include options in message payload", () => {
-      let callback = jest.fn()
+    it("include options in message payload", () => {
+      const callback = vi.fn()
       watch("TEST_123456", callback)
       broadcast("TEST_123456", { name: "test" }, { debug: true })
       expect(callback).toHaveBeenCalledWith(
@@ -68,7 +59,8 @@ describe("Communicator", () => {
       )
     })
 
-    test("log error if wrong debug value", () => {
+    it("log error if wrong debug value", () => {
+      // @ts-ignore: Expected error case
       broadcast("TEST", { name: "test" }, { debug: "true" })
 
       expect(globalThis.console.warn).toHaveBeenCalledWith(
@@ -77,23 +69,29 @@ describe("Communicator", () => {
       )
     })
 
-    test("close channel after broadcast", () => {
+    it("close channel after broadcast", () => {
+      const postMessage = vi.fn()
+
+      vi.spyOn(BroadcastChannel.prototype, "postMessage").mockImplementation(postMessage)
       broadcast("TEST", { name: "test" }, { crossWindow: true })
 
-      expect(bc.postMessage).toHaveBeenCalled()
+      expect(postMessage).toHaveBeenCalled()
     })
   })
 
   // ################## WATCH ###################
   describe("watch", () => {
-    test("log error on missing name", () => {
+    it("log error on missing name", () => {
+      // @ts-ignore: Expected error case
       watch()
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
         "(watch) the message name must be given."
       )
     })
-    test("log error on missing callback", () => {
+
+    it("log error on missing callback", () => {
+      // @ts-ignore: Expected error case
       watch("TEST")
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
@@ -101,7 +99,8 @@ describe("Communicator", () => {
       )
     })
 
-    test("log error if callback is not a function", () => {
+    it("log error if callback is not a function", () => {
+      // @ts-ignore: Expected error case
       watch("TEST", "callback")
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
@@ -109,7 +108,7 @@ describe("Communicator", () => {
       )
     })
 
-    test("unknown options", () => {
+    it("unknown options", () => {
       watch("TEST", () => null, { unknownOption: true })
       expect(globalThis.console.warn).toHaveBeenCalledWith(
         "Communicator Warning:",
@@ -117,16 +116,16 @@ describe("Communicator", () => {
       )
     })
 
-    test("watch for events", () => {
-      let callback = jest.fn()
+    it("watch for events", () => {
+      const callback = vi.fn()
       watch("TEST", callback)
       broadcast("TEST")
       expect(callback).toHaveBeenCalled()
     })
 
-    test("multiple watchers", () => {
-      let callback1 = jest.fn()
-      let callback2 = jest.fn()
+    it("multiple watchers", () => {
+      const callback1 = vi.fn()
+      const callback2 = vi.fn()
       watch("TEST", callback1)
       watch("TEST", callback2)
       broadcast("TEST")
@@ -137,14 +136,17 @@ describe("Communicator", () => {
 
   // ############### GET ##################
   describe("get", () => {
-    test("log error on missing name", () => {
+    it("log error on missing name", () => {
+      // @ts-ignore: Expected error case
       get()
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
         "(get) the message name must be given."
       )
     })
-    test("log error on missing callback", () => {
+
+    it("log error on missing callback", () => {
+      // @ts-ignore: Expected error case
       get("TEST")
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
@@ -152,7 +154,8 @@ describe("Communicator", () => {
       )
     })
 
-    test("log error if callback is not a function", () => {
+    it("log error if callback is not a function", () => {
+      // @ts-ignore: Expected error case
       get("TEST", "callback")
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
@@ -160,7 +163,7 @@ describe("Communicator", () => {
       )
     })
 
-    test("unknown options", () => {
+    it("unknown options", () => {
       get("TEST", () => null, { unknownOption: true })
       expect(globalThis.console.warn).toHaveBeenCalledWith(
         "Communicator Warning:",
@@ -168,8 +171,8 @@ describe("Communicator", () => {
       )
     })
 
-    test("execute callback", () => {
-      let callback = jest.fn()
+    it("execute callback", () => {
+      const callback = vi.fn()
       onGet("TEST_12345", callback)
       get("TEST_12345", callback)
       expect(callback).toHaveBeenCalled()
@@ -178,7 +181,8 @@ describe("Communicator", () => {
 
   // ############### ON GET ##################
   describe("onGet", () => {
-    test("log error on missing name", () => {
+    it("log error on missing name", () => {
+      // @ts-ignore: Expected error case
       onGet()
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
@@ -186,21 +190,25 @@ describe("Communicator", () => {
       )
     })
 
-    test("log error on missing callback", () => {
+    it("log error on missing callback", () => {
+      // @ts-ignore: Expected error case
       onGet("TEST")
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
         "(onGet) the callback parameter must be a function."
       )
     })
-    test("log error if callback is not a function", () => {
+
+    it("log error if callback is not a function", () => {
+      // @ts-ignore: Expected error case
       onGet("TEST", "callback")
       expect(globalThis.console.error).toHaveBeenCalledWith(
         "Communicator Error:",
         "(onGet) the callback parameter must be a function."
       )
     })
-    test("unknown options", () => {
+
+    it("unknown options", () => {
       onGet("TEST", () => null, { unknownOption: true })
       expect(globalThis.console.warn).toHaveBeenCalledWith(
         "Communicator Warning:",
@@ -208,7 +216,7 @@ describe("Communicator", () => {
       )
     })
 
-    test("returns a function", () => {
+    it("returns a function", () => {
       const cancel = onGet("TEST", () => null)
       expect(typeof cancel).toEqual("function")
     })

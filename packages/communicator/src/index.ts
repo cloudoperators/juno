@@ -104,7 +104,8 @@ interface KnownOptions {
  * @param {object} options (optional) allowed options are debug:undefined|boolean and expires:undefined|number
  * @returns void
  */
-const broadcast = (name: string, data: any, options: KnownOptions = {}) => {
+
+const broadcast = (name?: string, data?: any, options: KnownOptions = {}): void => {
   try {
     if (typeof name !== "string") throw new Error("(broadcast) the message name must be given.")
     if (data === undefined) data = null
@@ -112,23 +113,20 @@ const broadcast = (name: string, data: any, options: KnownOptions = {}) => {
     const { debug, crossWindow = false, consumerID, ...unknownOptions } = options || {}
     const unknownOptionsKeys = Object.keys(unknownOptions)
     if (unknownOptionsKeys.length > 0) warn(`(broadcast) unknown options: ${unknownOptionsKeys.join(", ")}`)
-    if (debug != undefined && typeof debug !== "boolean") warn("(broadcast) debug must be a boolean")
+    if (debug !== undefined && typeof debug !== "boolean") warn("(broadcast) debug must be a boolean")
     if (typeof crossWindow !== "boolean") warn("(broadcast) crossWindow must be a boolean")
-
     // backward compatibility
-    name = CHANNEL_PREFIX + name
+    const eventName = CHANNEL_PREFIX + name
 
     if (debug) {
       log(
         `${consumerID ? `(${consumerID})` : ""} broadcast ${
           crossWindow ? "cross-window" : "intra-window"
-        } message ${name} with data `,
+        } message ${eventName} with data `,
         data
       )
-      // log(`${consumerID ? `(${consumerID})` : ""} broadcast EVENT: ${name}`)
     }
-
-    window.__junoEventListeners!["broadcast"]?.[name]?.forEach((listener) => {
+    window.__junoEventListeners?.broadcast?.[eventName]?.forEach((listener) => {
       try {
         listener(data, {
           sourceWindowId: window.__junoCommunicatorTabId,
@@ -151,7 +149,6 @@ const broadcast = (name: string, data: any, options: KnownOptions = {}) => {
     error(e.message)
   }
 }
-
 /**
  * Register a listener for a specific message. Messages are observed
  * across contexts (e.g. several tabs on the same origin).
@@ -165,9 +162,12 @@ const broadcast = (name: string, data: any, options: KnownOptions = {}) => {
  * @param {object} options
  * @returns {function} unregister:()=>void, a function to stop listening
  */
-const watch = (name: string, callback: (data: any) => void, options: KnownOptions = {}) => {
+const watch = (name?: string, callback?: (data: any) => void, options: KnownOptions = {}) => {
   try {
-    if (typeof name !== "string") throw new Error("(watch) the message name must be given.")
+    if (typeof name !== "string")
+      throw new Error("(watch) the message name must be given.")
+    
+
     if (typeof callback !== "function") throw new Error("(watch) the callback parameter must be a function.")
 
     const { debug, consumerID, ...unknownOptions } = options || {}
@@ -175,16 +175,16 @@ const watch = (name: string, callback: (data: any) => void, options: KnownOption
     if (unknownOptionsKeys.length > 0) warn(`(watch) unknown options: ${unknownOptionsKeys.join(", ")}`)
 
     // backward compatibility
-    name = CHANNEL_PREFIX + name
+    const eventName = CHANNEL_PREFIX + name
 
     if (debug) {
-      log(`${consumerID ? `(${consumerID})` : ""} watch for message ${name}`)
+      log(`${consumerID ? `(${consumerID})` : ""} watch for message ${eventName}`)
       // log(`${consumerID ? `(${consumerID})` : ""} watch EVENT: ${name}`)
     }
 
-    addListener("broadcast", name, listenerWrapper(callback))
+    addListener("broadcast", eventName, listenerWrapper(callback))
 
-    return () => removeListener("broadcast", name, listenerWrapper(callback))
+    return () => removeListener("broadcast", eventName, listenerWrapper(callback))
   } catch (e: any) {
     error(e.message)
   }

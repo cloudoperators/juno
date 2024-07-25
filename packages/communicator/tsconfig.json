@@ -2,7 +2,15 @@
   "extends": "@cloudoperators/juno-typescript-config/base.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "target": "ES6",
+    "module": "ES2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vitest/globals"],
+    "resolveJsonModule": true
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["node_modules", "build", "dist", "rollup.config.js"]
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts"],
+  "exclude": ["node_modules", "build", "dist", ]
 }
