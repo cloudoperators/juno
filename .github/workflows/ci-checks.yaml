@@ -37,9 +37,6 @@ jobs:
 
   license-headers:
     runs-on: [ubuntu-latest]
-    permissions:
-      contents: write
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -100,6 +97,29 @@ jobs:
         run: npm ci  
       - name: Run Linter
         run: npm run lint
+
+  format:
+    needs: install-dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Specify the node version you need
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+
+      - name: Install Dependencies
+        run: npm ci  
+      - name: Run Prettier
+        run: npm run check-format       
 
   test:
     needs: install-dependencies

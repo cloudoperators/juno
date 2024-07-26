@@ -11,6 +11,7 @@
     "clean": "turbo run clean && rm -rf node_modules && rm -rf ./**/*/node_modules",
     "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md}\"",
+    "check-format": "prettier --config ./.prettierrc --check \"**/*.{js,jsx,ts,tsx,md}\" ",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build && changeset publish"
