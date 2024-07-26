@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-utils",
-  "version": "1.1.8",
+  "version": "1.1.11",
   "description": "Description of utils",
   "author": "UI-Team",
   "contributors": [
@@ -11,15 +11,14 @@
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
+  "files": [
+    "build"
+  ],
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0 <21.0.0",
     "npm": ">=10.0.0 <11.0.0"
   },
-  "files": [
-    "build/*",
-    "LICENSE"
-  ],
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",

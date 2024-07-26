@@ -1,14 +1,13 @@
 {
   "name": "@cloudoperators/juno-oauth",
-  "version": "1.2.2",
+  "version": "1.2.5",
   "description": "Authenticates user via OIDC",
   "author": "UI-Team",
   "contributors": [
     "Andreas Pfau"
   ],
   "files": [
-    "build/*",
-    "LICENCE"
+    "build/*"
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/oauth",
   "source": "src/index.js",
