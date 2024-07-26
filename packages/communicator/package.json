@@ -31,7 +31,7 @@
     "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo"
   },
   "devDependencies": {
-    "@cloudoperators/eslint-config": "*",
+    "@cloudoperators/juno-eslint-config": "*",
     "@cloudoperators/juno-typescript-config": "*",
     "@types/node": "^20.11.24",
     "jsdom": "^24.1.1",
