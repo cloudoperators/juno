@@ -14,7 +14,7 @@ eslint.config.mjs
 1. **Create an `eslint.config.mjs` in your package or app:**
 
 ```javascript
-import junoConfigs from "@cloudoperators/eslint-config/juno.mjs"
+import junoConfigs from "@cloudoperators/juno-eslint-config/juno.mjs"
 
 export default [
   ...junoConfigs,
@@ -32,7 +32,7 @@ export default [
 2. **Create an `eslint.config.mjs` in your package or app specific for typescript:**
 
 ```javascript
-import junoConfigs from "@cloudoperators/eslint-config/juno-typescript.mjs"
+import junoConfigs from "@cloudoperators/juno-eslint-config/juno-typescript.mjs"
 
 export default [...junoConfigs]
 ```
