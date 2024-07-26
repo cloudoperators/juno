@@ -11,5 +11,6 @@ export default defineConfig((options: Options) => ({
   sourcemap: true,
   dts: true,
   format: ["esm"],
+  platform: "browser",
   ...options,
 }))

@@ -31,6 +31,28 @@ The following rule governs code contributions:
 - Contributions must be licensed under the [Apache 2.0 License](./LICENSE)
 - Due to legal reasons, contributors will be asked to accept a Developer Certificate of Origin (DCO) when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
 
+## License Header
+
+Please include the following license header at the top of every source file:
+
+```plaintext
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+```
+
+## Checks
+
+Before submitting your pull request, please ensure your code passes the following checks. These checks are also run in the CI workflow for every PR:
+
+- **Linting**: Make sure your code adheres to the project’s coding standards by running `npm run lint`.
+- **Prettier**: Ensure your code is properly formatted by running `npm run check-format`.
+- **License Header**: Verify that every source file includes the correct license header as specified above.
+- **Allowed Licenses**: Ensure that any dependencies added are compliant with the list of allowed licenses (see in `package.json`). Check with `npm run check-licenses`.
+- **REUSE Compliance**: Ensure that your contributions are compliant with the [REUSE guidelines](./reuse/dep5).
+- **Tests**: Make sure all tests pass. Run `npm run test` at the root level to ensure your code didn't break other packages.
+
 ## Issues and Planning
 
 - We use GitHub issues to track bugs and enhancement requests.

@@ -6,7 +6,8 @@
   "contributors": [
     "Andreas Pfau"
   ],
-  "main": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist/**",
