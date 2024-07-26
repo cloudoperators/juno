@@ -8,7 +8,7 @@
 #     `{"pull_request": {"number": <PR number>, "head": {"ref": "<PR branch name>", "sha": "PR commit sha"}, "base": {"ref": "main"}}, "repository": {"name": "juno", "owner": {"login": "cloudoperators"}}}`
 #  2. Run the following command:
 #     `act push --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -e act_push.json -W .github/workflows/deploy-github-pages.yaml`
-name: Build and Publish Storybook to GitHub Pages
+name: Storybook
 
 on:
   push:
