@@ -36,24 +36,10 @@ export const Default = {
     children: [
       <MenuItem label="Label only" key="1" />,
       <MenuItem label="Label with Icon" icon="help" key="2" />,
-      <MenuItem
-        label="Item with a Link"
-        href="https://github.com/cloudoperators/juno"
-        key="3"
-      />,
-      <MenuItem
-        label="Item with a Link and icon"
-        href="https://github.com/cloudoperators/juno"
-        icon="help"
-        key="4"
-      />,
+      <MenuItem label="Item with a Link" href="https://github.com/cloudoperators/juno" key="3" />,
+      <MenuItem label="Item with a Link and icon" href="https://github.com/cloudoperators/juno" icon="help" key="4" />,
       <MenuItem label="Item with OnClick" onClick={() => {}} key="5" />,
-      <MenuItem
-        label="Item with OnClick and Icon"
-        onClick={() => {}}
-        icon="deleteForever"
-        key="6"
-      />,
+      <MenuItem label="Item with OnClick and Icon" onClick={() => {}} icon="deleteForever" key="6" />,
     ],
   },
 }
@@ -66,24 +52,10 @@ export const Small = {
     children: [
       <MenuItem label="Label only" key="1" />,
       <MenuItem label="Label with Icon" icon="help" key="2" />,
-      <MenuItem
-        label="Item with a Link"
-        href="https://github.com/cloudoperators/juno"
-        key="3"
-      />,
-      <MenuItem
-        label="Item with a Link and icon"
-        href="https://github.com/cloudoperators/juno"
-        icon="help"
-        key="4"
-      />,
+      <MenuItem label="Item with a Link" href="https://github.com/cloudoperators/juno" key="3" />,
+      <MenuItem label="Item with a Link and icon" href="https://github.com/cloudoperators/juno" icon="help" key="4" />,
       <MenuItem label="Item with OnClick" onClick={() => {}} key="5" />,
-      <MenuItem
-        label="Item with OnClick and Icon"
-        onClick={() => {}}
-        icon="deleteForever"
-        key="6"
-      />,
+      <MenuItem label="Item with OnClick and Icon" onClick={() => {}} icon="deleteForever" key="6" />,
     ],
   },
 }
@@ -98,24 +70,10 @@ export const WithASection = {
         <MenuItem label="Label with Icon" icon="help" key="2" />
       </MenuSection>,
       <MenuSection title="Danger Zone" key="m2">
-        <MenuItem
-          label="Item with a Link"
-          href="https://github.com/cloudoperators/juno"
-          key="3"
-        />
-        <MenuItem
-          label="Item with a Link and icon"
-          href="https://github.com/cloudoperators/juno"
-          icon="help"
-          key="4"
-        />
+        <MenuItem label="Item with a Link" href="https://github.com/cloudoperators/juno" key="3" />
+        <MenuItem label="Item with a Link and icon" href="https://github.com/cloudoperators/juno" icon="help" key="4" />
         <MenuItem label="Item with OnClick" onClick={() => {}} key="5" />
-        <MenuItem
-          label="Item with OnClick and Icon"
-          onClick={() => {}}
-          icon="deleteForever"
-          key="6"
-        />
+        <MenuItem label="Item with OnClick and Icon" onClick={() => {}} icon="deleteForever" key="6" />
       </MenuSection>,
     ],
   },

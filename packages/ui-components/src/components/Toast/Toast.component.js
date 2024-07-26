@@ -71,18 +71,9 @@ export const Toast = ({
   return (
     <>
       {visible && (
-        <div
-          className={`juno-toast juno-toast-${variant} ${toastStyles} ${className}`}
-          {...props}
-        >
-          <Icon
-            icon={getMuiIcon(variant)}
-            color={"jn-text-theme-" + variant}
-            className="jn-shrink-0"
-          />
-          <div className={`juno-toast-text ${toastStylesText}`}>
-            {children ? children : text}
-          </div>
+        <div className={`juno-toast juno-toast-${variant} ${toastStyles} ${className}`} {...props}>
+          <Icon icon={getMuiIcon(variant)} color={"jn-text-theme-" + variant} className="jn-shrink-0" />
+          <div className={`juno-toast-text ${toastStylesText}`}>{children ? children : text}</div>
           <Icon
             icon="close"
             onClick={hideMessage}

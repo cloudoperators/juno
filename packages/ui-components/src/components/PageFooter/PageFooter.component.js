@@ -33,11 +33,7 @@ const logoStyles = `
  */
 export const PageFooter = ({ className = "", children = null, ...props }) => {
   return (
-    <div
-      className={`juno-pagefooter ${basePageFooter} ${className}`}
-      role="contentinfo"
-      {...props}
-    >
+    <div className={`juno-pagefooter ${basePageFooter} ${className}`} role="contentinfo" {...props}>
       {children}
       <CCloudShape className={logoStyles} alt="cloud shape" />
     </div>

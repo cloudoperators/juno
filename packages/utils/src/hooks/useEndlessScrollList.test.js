@@ -36,10 +36,7 @@ describe("useEndlessScrollList", () => {
       const mapFunction = result.current.iterator.map((item) => item)
       const getById = queryByAttribute.bind(null, "id")
       const dom = render(mapFunction)
-      const intersectionRefElement = getById(
-        dom.container,
-        "endlessScrollListLastItemRef"
-      )
+      const intersectionRefElement = getById(dom.container, "endlessScrollListLastItemRef")
       expect(intersectionRefElement).toBeTruthy()
     })
 
@@ -54,10 +51,7 @@ describe("useEndlessScrollList", () => {
       const mapFunction = result.current.iterator.map((item) => item)
       const getById = queryByAttribute.bind(null, "id")
       const dom = render(mapFunction)
-      const intersectionRefElement = getById(
-        dom.container,
-        "endlessScrollListLastItemRef"
-      )
+      const intersectionRefElement = getById(dom.container, "endlessScrollListLastItemRef")
       expect(intersectionRefElement).toBeFalsy()
       expect(refFunction).not.toHaveBeenCalled()
     })
@@ -72,10 +66,7 @@ describe("useEndlessScrollList", () => {
       const mapFunction = result.current.iterator.map((item) => item)
       const getById = queryByAttribute.bind(null, "id")
       const dom = render(mapFunction)
-      const intersectionRefElement = getById(
-        dom.container,
-        "endlessScrollListLastItemRef"
-      )
+      const intersectionRefElement = getById(dom.container, "endlessScrollListLastItemRef")
       expect(intersectionRefElement).toBeFalsy()
       expect(refFunction).toHaveBeenCalled()
     })

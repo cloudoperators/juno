@@ -108,35 +108,23 @@ describe("Radio", () => {
   test("renders a helptext as passed", async () => {
     render(<Radio helptext="this is a helptext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-help"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is a helptext"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is a helptext")
   })
 
   test("renders a successtext as passed and validates the Radio", async () => {
     render(<Radio successtext="great success!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-success"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "great success!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("great success!")
     expect(screen.getByRole("radio")).toHaveClass("juno-radio-valid")
   })
 
   test("renders an errortext as passed and invalidates the Radio", async () => {
     render(<Radio errortext="this is an error!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-error"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is an error!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is an error!")
     expect(screen.getByRole("radio")).toHaveClass("juno-radio-invalid")
   })
 

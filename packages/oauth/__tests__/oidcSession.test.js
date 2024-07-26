@@ -50,9 +50,7 @@ describe("oidcSession", () => {
 
   test("flowType is undefined", () => {
     oidcSession({ issuerURL: "http://dummy.com", clientID: "test" })
-    expect(console.info).toHaveBeenCalledWith(
-      "INFO: (OAUTH) no flowType provided, default to code"
-    )
+    expect(console.info).toHaveBeenCalledWith("INFO: (OAUTH) no flowType provided, default to code")
   })
   test("flowType is not supported", () => {
     expect(() => {

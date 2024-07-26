@@ -20,14 +20,7 @@ const rowselectedstyle = `
 	jn-bg-theme-datalistrow-selected
 `
 
-export const DataListRow = ({
-  selected,
-  disabled,
-  onChange,
-  className = "",
-  children = null,
-  ...props
-}) => {
+export const DataListRow = ({ selected, disabled, onChange, className = "", children = null, ...props }) => {
   const dataListContext = useDataListContext() || {}
   const selectable = dataListContext.selectable
 
@@ -46,13 +39,7 @@ export const DataListRow = ({
       className={`juno-datalist-row ${datalistrowbasestyles} ${selectable && isSelected ? rowselectedstyle : ""}${className}`}
       {...props}
     >
-      {selectable ? (
-        <DataListCheckboxCell
-          selected={selected}
-          disabled={disabled}
-          onChange={toggleSelected}
-        />
-      ) : null}
+      {selectable ? <DataListCheckboxCell selected={selected} disabled={disabled} onChange={toggleSelected} /> : null}
       {children}
     </li>
   )

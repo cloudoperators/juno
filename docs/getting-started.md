@@ -13,12 +13,14 @@ Before you begin, ensure you have the following software installed on your machi
 ## Setup
 
 1. **Clone the Repository:**
+
    ```bash
    git clone https://github.com/cloudoperators/juno.git
    cd juno
    ```
 
 2. **Install Dependencies:**
+
    ```bash
    npm install -f
    ```
@@ -46,11 +48,14 @@ Before you begin, ensure you have the following software installed on your machi
      ```
 
 You can also install Turbo globally and run the commands directly:
+
 ```bash
 npm install -g turbo
 turbo build
 ```
+
 Or just use `npx`:
+
 ```bash
 npx turbo build
 ```

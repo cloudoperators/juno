@@ -10,9 +10,7 @@ import { useCallback } from "react"
 const importmaps = {}
 const loadWidgetLoaderWithImportmap = (assetsHost) => {
   if (!assetsHost) {
-    console.warn(
-      "utils#useAppLoader: assetsHost is undefined. Please prove a valid assetsHost"
-    )
+    console.warn("utils#useAppLoader: assetsHost is undefined. Please prove a valid assetsHost")
     return Promise.resolve(false)
   }
 
@@ -63,13 +61,9 @@ const useAppLoader = (assetsHost) => {
       // fetch first the widget-loader (with importMap) before we mount the application
       return loadWidgetLoaderWithImportmap(assetsHost).then(() => {
         console.log("useAppLoader: mount", options, assetsHost)
-        const name = options?.name?.startsWith("@")
-          ? options.name
-          : `@juno/${options.name}`
+        const name = options?.name?.startsWith("@") ? options.name : `@juno/${options.name}`
 
-        let url = options.url
-          ? options.url
-          : `${name}@${options?.version || "latest"}`
+        let url = options.url ? options.url : `${name}@${options?.version || "latest"}`
         return importShim(url).then(async (app) => {
           try {
             await app.mount(container, { props: { ...options.props } })

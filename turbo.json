@@ -1,4 +1,5 @@
 {
+  "globalEnv": ["PORT", "APP_PORT"],
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {

@@ -25,26 +25,14 @@ describe("ContentAreaToolbar", () => {
   })
 
   test("renders a custom className", async () => {
-    render(
-      <ContentAreaToolbar
-        data-testid="content-area-toolbar"
-        className="my-custom-classname"
-      />
-    )
+    render(<ContentAreaToolbar data-testid="content-area-toolbar" className="my-custom-classname" />)
     expect(screen.getByTestId("content-area-toolbar")).toBeInTheDocument()
-    expect(screen.getByTestId("content-area-toolbar")).toHaveClass(
-      "my-custom-classname"
-    )
+    expect(screen.getByTestId("content-area-toolbar")).toHaveClass("my-custom-classname")
   })
 
   test("renders all props", async () => {
-    render(
-      <ContentAreaToolbar data-testid="content-area-toolbar" data-lolol="some-prop" />
-    )
+    render(<ContentAreaToolbar data-testid="content-area-toolbar" data-lolol="some-prop" />)
     expect(screen.getByTestId("content-area-toolbar")).toBeInTheDocument()
-    expect(screen.getByTestId("content-area-toolbar")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("content-area-toolbar")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

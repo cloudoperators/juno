@@ -24,20 +24,11 @@ describe("TextInputRow", () => {
   test("renders a name attribute as passed", async () => {
     render(<TextareaRow name="my-textarea-row" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "name",
-      "my-textarea-row"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("name", "my-textarea-row")
   })
 
   test("renders a textarea row with a textarea and an associated label with an id as passed", async () => {
-    render(
-      <TextareaRow
-        data-testid="textarea-row"
-        label="My Textarea Row"
-        id="text-area-row"
-      />
-    )
+    render(<TextareaRow data-testid="textarea-row" label="My Textarea Row" id="text-area-row" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByLabelText("My Textarea Row")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveAttribute("id", "text-area-row")
@@ -46,10 +37,7 @@ describe("TextInputRow", () => {
   test("redners a placeholder as passed", async () => {
     render(<TextareaRow placeholder="Some placeholder text" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "placeholder",
-      "Some placeholder text"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "Some placeholder text")
   })
 
   test("renders a help text as passed", async () => {
@@ -106,18 +94,13 @@ describe("TextInputRow", () => {
   })
 
   test("renders a className to the row as passed", async () => {
-    render(
-      <TextareaRow data-testid="textarea-row" className="my-custom-class" />
-    )
+    render(<TextareaRow data-testid="textarea-row" className="my-custom-class" />)
     expect(screen.getByTestId("textarea-row")).toHaveClass("my-custom-class")
   })
 
   test("renders all props to teh row as passed", async () => {
     render(<TextareaRow data-testid="textarea-row" data-lolol="some-props" />)
-    expect(screen.getByTestId("textarea-row")).toHaveAttribute(
-      "data-lolol",
-      "some-props"
-    )
+    expect(screen.getByTestId("textarea-row")).toHaveAttribute("data-lolol", "some-props")
   })
 
   test("fires onChange handler as passed", async () => {

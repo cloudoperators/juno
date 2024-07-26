@@ -128,9 +128,7 @@ function updateState(stateID, state, options = {}) {
   // URLToState should return an object, if not return empty object
   if ("string" === typeof newState) return {}
   // change state, overwrite or merge if "merge" option is true
-  newState[stateID] = options?.merge
-    ? { ...newState[stateID], ...state }
-    : state
+  newState[stateID] = options?.merge ? { ...newState[stateID], ...state } : state
 
   // inform listeners for all changes in the url
   onGlobalChangeListeners.forEach((listener) => listener(newState))

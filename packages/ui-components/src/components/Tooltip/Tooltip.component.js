@@ -68,11 +68,7 @@ export function Tooltip({
     disabled,
     props,
   })
-  return (
-    <TooltipContext.Provider value={tooltip}>
-      {children}
-    </TooltipContext.Provider>
-  )
+  return <TooltipContext.Provider value={tooltip}>{children}</TooltipContext.Provider>
 }
 
 // /** tooltip state from useTooltipState hook, needs to be passed to both anchor and tooltip itself */

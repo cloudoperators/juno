@@ -45,9 +45,7 @@ describe("getOidcConfig", () => {
   })
   it("should call fetch with the correct url", async () => {
     await getOidcConfig("https://test.com")
-    expect(global.fetch).toHaveBeenCalledWith(
-      expect.matchURL("https://test.com/.well-known/openid-configuration")
-    )
+    expect(global.fetch).toHaveBeenCalledWith(expect.matchURL("https://test.com/.well-known/openid-configuration"))
   })
 
   it("should cache the result", async () => {
@@ -73,9 +71,7 @@ describe("getOidcConfig", () => {
     resetCache()
     await getOidcConfig("https://test.com/with/path")
     expect(global.fetch).toHaveBeenLastCalledWith(
-      expect.matchURL(
-        "https://test.com/with/path/.well-known/openid-configuration"
-      )
+      expect.matchURL("https://test.com/with/path/.well-known/openid-configuration")
     )
   })
 })

@@ -12,9 +12,7 @@ describe("PanelBody", () => {
   test("renders a panel body", async () => {
     render(<PanelBody data-testid="panel-body" />)
     expect(screen.getByTestId("panel-body")).toBeInTheDocument()
-    expect(screen.getByTestId("panel-body")).toHaveClass(
-      "juno-panel-body"
-    )
+    expect(screen.getByTestId("panel-body")).toHaveClass("juno-panel-body")
   })
 
   test("renders children as passed", async () => {
@@ -28,35 +26,20 @@ describe("PanelBody", () => {
   })
 
   test("renders footer as passed", async () => {
-    render(
-      <PanelBody data-testid="panel-body" footer={<PanelFooter>This is the footer</PanelFooter>}>
-      </PanelBody>
-    )
+    render(<PanelBody data-testid="panel-body" footer={<PanelFooter>This is the footer</PanelFooter>}></PanelBody>)
     expect(screen.getByTestId("panel-body")).toBeInTheDocument()
     expect(screen.getByTestId("panel-body")).toHaveTextContent("This is the footer")
-    
   })
 
   test("renders a custom className", async () => {
-    render(
-      <PanelBody
-        data-testid="panel-body"
-        className="my-custom-classname"
-      />
-    )
+    render(<PanelBody data-testid="panel-body" className="my-custom-classname" />)
     expect(screen.getByTestId("panel-body")).toBeInTheDocument()
-    expect(screen.getByTestId("panel-body")).toHaveClass(
-      "my-custom-classname"
-    )
+    expect(screen.getByTestId("panel-body")).toHaveClass("my-custom-classname")
   })
 
   test("renders all props", async () => {
     render(<PanelBody data-testid="panel-body" data-lolol="some-prop" />)
     expect(screen.getByTestId("panel-body")).toBeInTheDocument()
-    expect(screen.getByTestId("panel-body")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("panel-body")).toHaveAttribute("data-lolol", "some-prop")
   })
-  
 })

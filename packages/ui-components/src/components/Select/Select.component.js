@@ -3,13 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, {
-  createContext,
-  useEffect,
-  useId,
-  useMemo,
-  useState,
-} from "react"
+import React, { createContext, useEffect, useId, useMemo, useState } from "react"
 import PropTypes from "prop-types"
 import { Listbox } from "@headlessui/react"
 import { Label } from "../Label/Label.component"
@@ -145,8 +139,7 @@ export const Select = ({
     [invalid, errortext]
   )
   const validated = useMemo(
-    () =>
-      valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
   )
 
@@ -252,36 +245,16 @@ export const Select = ({
                 id={theId}
                 className={`
                     juno-select-toggle
-                    ${
-                      variant && variant.length
-                        ? "juno-select-toggle-" + variant
-                        : "juno-select-toggle-default"
-                    }
+                    ${variant && variant.length ? "juno-select-toggle-" + variant : "juno-select-toggle-default"}
                     ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
                     ${toggleStyles}
                     ${label && isNotEmptyString(label) ? "jn-pt-[0.4rem]" : ""}
-                    ${
-                      disabled
-                        ? "juno-select-disabled jn-opacity-50 jn-cursor-not-allowed"
-                        : ""
-                    }
-                    ${
-                      isLoading || hasError
-                        ? "jn-justify-center"
-                        : "jn-justify-between"
-                    }
-                    ${
-                      isInvalid
-                        ? "juno-select-invalid " + invalidToggleStyles
-                        : ""
-                    } 
+                    ${disabled ? "juno-select-disabled jn-opacity-50 jn-cursor-not-allowed" : ""}
+                    ${isLoading || hasError ? "jn-justify-center" : "jn-justify-between"}
+                    ${isInvalid ? "juno-select-invalid " + invalidToggleStyles : ""} 
                     ${isValid ? "juno-select-valid " + validToggleStyles : ""}  
                     
-                    ${
-                      isLoading
-                        ? "juno-select-loading jn-cursor-not-allowed"
-                        : ""
-                    }
+                    ${isLoading ? "juno-select-loading jn-cursor-not-allowed" : ""}
                     ${hasError ? "juno-select-error jn-cursor-not-allowed" : ""}
                     ${className}
                   `}
@@ -292,29 +265,12 @@ export const Select = ({
                     <>
                       <span className={`${truncateStyles}`}>
                         {multiple
-                          ? getMultipleDisplayValues(value) ||
-                            valueLabel ||
-                            value.join(", ") ||
-                            placeholder
-                          : optionValuesAndLabels.get(value)?.displayName ||
-                            valueLabel ||
-                            value ||
-                            placeholder}
+                          ? getMultipleDisplayValues(value) || valueLabel || value.join(", ") || placeholder
+                          : optionValuesAndLabels.get(value)?.displayName || valueLabel || value || placeholder}
                       </span>
                       <span className="jn-flex">
-                        {isValid ? (
-                          <Icon
-                            icon="checkCircle"
-                            color="jn-text-theme-success"
-                          />
-                        ) : (
-                          ""
-                        )}
-                        {isInvalid ? (
-                          <Icon icon="dangerous" color="jn-text-theme-error" />
-                        ) : (
-                          ""
-                        )}
+                        {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : ""}
+                        {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : ""}
                         <span>
                           <Icon icon={open ? "expandLess" : "expandMore"} />
                         </span>
@@ -323,11 +279,7 @@ export const Select = ({
                   ) : (
                     <span className={`${centeredIconStyles}`}>
                       {hasError ? (
-                        <Icon
-                          icon="errorOutline"
-                          color="jn-text-theme-error"
-                          className={"jn-cursor-not-allowed"}
-                        />
+                        <Icon icon="errorOutline" color="jn-text-theme-error" className={"jn-cursor-not-allowed"} />
                       ) : isLoading ? (
                         <Spinner className={"jn-cursor-not-allowed"} />
                       ) : (
@@ -357,21 +309,9 @@ export const Select = ({
           </Float>
         </Listbox>
 
-        {errortext && isNotEmptyString(errortext) ? (
-          <FormHint text={errortext} variant="error" />
-        ) : (
-          ""
-        )}
-        {successtext && isNotEmptyString(successtext) ? (
-          <FormHint text={successtext} variant="success" />
-        ) : (
-          ""
-        )}
-        {helptext && isNotEmptyString(helptext) ? (
-          <FormHint text={helptext} id={helptextId} />
-        ) : (
-          ""
-        )}
+        {errortext && isNotEmptyString(errortext) ? <FormHint text={errortext} variant="error" /> : ""}
+        {successtext && isNotEmptyString(successtext) ? <FormHint text={successtext} variant="success" /> : ""}
+        {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} id={helptextId} /> : ""}
       </div>
     </SelectContext.Provider>
   )
@@ -384,14 +324,10 @@ const valuePropType = (props) => {
   // only validate if value is not undefined to avoid throwing an error when not necessary:
   if (value) {
     if (multiple && !Array.isArray(value)) {
-      return new Error(
-        "Invalid prop value supplied to Select component: Pass an array when using as a multi-select."
-      )
+      return new Error("Invalid prop value supplied to Select component: Pass an array when using as a multi-select.")
     }
     if (!multiple && typeof value !== "string") {
-      return new Error(
-        "Invalid prop value supplied to Select component: Pass a string when using as single select."
-      )
+      return new Error("Invalid prop value supplied to Select component: Pass a string when using as single select.")
     }
   }
 }

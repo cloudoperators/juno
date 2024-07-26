@@ -5,14 +5,7 @@
 
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import {
-  Button,
-  Form,
-  PanelBody,
-  PanelFooter,
-  FormRow,
-  TextInput,
-} from "@cloudoperators/juno-ui-components"
+import { Button, Form, PanelBody, PanelFooter, FormRow, TextInput } from "@cloudoperators/juno-ui-components"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import HintLoading from "../shared/HintLoading"
 import { useGlobalsQueryClientFnReady } from "../StoreProvider"
@@ -77,11 +70,7 @@ const PeaksEdit = ({ peakId, closeCallback }) => {
       ) : (
         <Form>
           <FormRow>
-            <TextInput
-              label="Name"
-              value={formState?.name}
-              onChange={(e) => onAttrChanged("name", e.target.value)}
-            />
+            <TextInput label="Name" value={formState?.name} onChange={(e) => onAttrChanged("name", e.target.value)} />
           </FormRow>
           <FormRow>
             <TextInput

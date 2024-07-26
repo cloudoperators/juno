@@ -21,20 +21,12 @@ export const AppShellProvider = ({
   children,
 }) => {
   const Wrapper = React.useCallback(
-    ({ children }) =>
-      shadowRoot ? (
-        <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot>
-      ) : (
-        children
-      ),
+    ({ children }) => (shadowRoot ? <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot> : children),
     [shadowRoot, shadowRootMode]
   )
   return (
     <Wrapper>
-      <StyleProvider
-        theme={theme}
-        stylesWrapper={shadowRoot ? "inline" : stylesWrapper}
-      >
+      <StyleProvider theme={theme} stylesWrapper={shadowRoot ? "inline" : stylesWrapper}>
         <PortalProvider>{children}</PortalProvider>
       </StyleProvider>
     </Wrapper>

@@ -3,13 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  createContext,
-  useId,
-} from "react"
+import React, { useState, useEffect, useMemo, createContext, useId } from "react"
 import PropTypes from "prop-types"
 import { Label } from "../Label/index.js"
 import { Icon } from "../Icon/index"
@@ -82,14 +76,8 @@ export const CheckboxGroup = ({
   const [isValid, setIsValid] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
 
-  const validated = useMemo(
-    () => valid || (successtext && successtext.length ? true : false),
-    [valid, successtext]
-  )
-  const invalidated = useMemo(
-    () => invalid || (errortext && errortext.length ? true : false),
-    [invalid, errortext]
-  )
+  const validated = useMemo(() => valid || (successtext && successtext.length ? true : false), [valid, successtext])
+  const invalidated = useMemo(() => invalid || (errortext && errortext.length ? true : false), [invalid, errortext])
 
   useEffect(() => {
     if (selected) {
@@ -115,10 +103,7 @@ export const CheckboxGroup = ({
         })
       )
     } else if (selectedOptions && !selectedOptions.includes(value)) {
-      setSelectedOptions((selectedOptions) => [
-        ...selectedOptions,
-        changedValue,
-      ])
+      setSelectedOptions((selectedOptions) => [...selectedOptions, changedValue])
     } else {
       setSelectedOptions([changedValue])
     }
@@ -128,10 +113,7 @@ export const CheckboxGroup = ({
   // Callback function to be passed via the context to child Checkboxes so they can add their value to the groups' selectedOptions array in case selected has not been set on the parent (otherwise the parent select will trump whatever is set on the child in a group context). Called ONLY ONCE during initialization of the child Checkbox when we DON't want to execute any additional onChange handlers just yet:
   const updateSelectedValue = (value) => {
     if (!selected) {
-      setSelectedOptions((selectedOptions) => [
-        ...(selectedOptions || []),
-        value,
-      ])
+      setSelectedOptions((selectedOptions) => [...(selectedOptions || []), value])
     }
   }
 
@@ -158,12 +140,7 @@ export const CheckboxGroup = ({
         {...props}
       >
         {label && isNotEmptyString(label) ? (
-          <Label
-            text={label}
-            htmlFor={groupId}
-            disabled={disabled}
-            required={required}
-          />
+          <Label text={label} htmlFor={groupId} disabled={disabled} required={required} />
         ) : (
           ""
         )}
@@ -176,42 +153,14 @@ export const CheckboxGroup = ({
             ${isValid || isInvalid ? "" : defaultgroupstyles}
           `}
         >
-          {isInvalid ? (
-            <Icon
-              icon="dangerous"
-              color="jn-text-theme-error"
-              className={`${iconstyles}`}
-            />
-          ) : (
-            ""
-          )}
-          {isValid ? (
-            <Icon
-              icon="checkCircle"
-              color="jn-text-theme-success"
-              className={`${iconstyles}`}
-            />
-          ) : (
-            ""
-          )}
+          {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" className={`${iconstyles}`} /> : ""}
+          {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" className={`${iconstyles}`} /> : ""}
 
           {children}
         </div>
-        {errortext && isNotEmptyString(errortext) ? (
-          <FormHint text={errortext} variant="error" />
-        ) : (
-          ""
-        )}
-        {successtext && isNotEmptyString(successtext) ? (
-          <FormHint text={successtext} variant="success" />
-        ) : (
-          ""
-        )}
-        {helptext && isNotEmptyString(helptext) ? (
-          <FormHint text={helptext} />
-        ) : (
-          ""
-        )}
+        {errortext && isNotEmptyString(errortext) ? <FormHint text={errortext} variant="error" /> : ""}
+        {successtext && isNotEmptyString(successtext) ? <FormHint text={successtext} variant="success" /> : ""}
+        {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} /> : ""}
       </div>
     </CheckboxGroupContext.Provider>
   )

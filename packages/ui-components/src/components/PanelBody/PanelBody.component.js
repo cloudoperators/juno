@@ -20,13 +20,8 @@ const bodyContentClasses = `
  */
 export const PanelBody = ({ className = "", footer, children, ...props }) => {
   return (
-    <div
-      className={`juno-panel-body ${panelBodyClasses}  ${className}`}
-      {...props}
-    >
-      <div className={`juno-panel-body-content ${bodyContentClasses}`}>
-        {children}
-      </div>
+    <div className={`juno-panel-body ${panelBodyClasses}  ${className}`} {...props}>
+      <div className={`juno-panel-body-content ${bodyContentClasses}`}>{children}</div>
 
       {footer}
     </div>

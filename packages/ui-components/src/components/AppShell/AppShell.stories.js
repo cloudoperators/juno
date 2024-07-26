@@ -38,9 +38,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <AppShell {...args}>{children}</AppShell>
-)
+const Template = ({ children, ...args }) => <AppShell {...args}>{children}</AppShell>
 Template.propTypes = {
   children: PropTypes.node,
 }
@@ -49,67 +47,51 @@ export const Default = Template.bind({})
 Default.parameters = {
   docs: {
     description: {
-      story:
-        "Responsive shell for your application with content heading and default header and footer.",
+      story: "Responsive shell for your application with content heading and default header and footer.",
     },
   },
 }
 Default.args = {
-  children: [
-    <ContentHeading key="1">My Page</ContentHeading>,
-    <p key="2">Content goes here</p>,
-  ],
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
 }
 
 export const AppName = Template.bind({})
 AppName.parameters = {
   docs: {
     description: {
-      story:
-        "Responsive shell for your application with provided app name for the header and default footer.",
+      story: "Responsive shell for your application with provided app name for the header and default footer.",
     },
   },
 }
 AppName.args = {
   pageHeader: "My App",
-  children: [
-    <ContentHeading key="1">My Page</ContentHeading>,
-    <p key="2">Content goes here</p>,
-  ],
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
 }
 
 export const CustomPageHeader = Template.bind({})
 CustomPageHeader.parameters = {
   docs: {
     description: {
-      story:
-        "Responsive shell for your application with custom page header and default footer.",
+      story: "Responsive shell for your application with custom page header and default footer.",
     },
   },
 }
 CustomPageHeader.args = {
   pageHeader: <PageHeader heading="My Custom Header" />,
-  children: [
-    <ContentHeading key="1">My Page</ContentHeading>,
-    <p key="2">Content goes here</p>,
-  ],
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
 }
 
 export const CustomPageFooter = Template.bind({})
 CustomPageFooter.parameters = {
   docs: {
     description: {
-      story:
-        "Responsive shell for your application with default header and custom footer.",
+      story: "Responsive shell for your application with default header and custom footer.",
     },
   },
 }
 CustomPageFooter.args = {
   pageFooter: <PageFooter>My custom footer</PageFooter>,
-  children: [
-    <ContentHeading key="1">My Page</ContentHeading>,
-    <p key="2">Content goes here</p>,
-  ],
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
 }
 
 export const WithSideNavigation = Template.bind({})
@@ -128,10 +110,7 @@ WithSideNavigation.args = {
       <SideNavigationItem label="Item 3" />
     </SideNavigation>
   ),
-  children: [
-    <ContentHeading key="1">My Page</ContentHeading>,
-    <p key="2">Content goes here</p>,
-  ],
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
 }
 
 export const WithTopNavigation = Template.bind({})
@@ -149,18 +128,14 @@ WithTopNavigation.args = {
       <TopNavigationItem active label="Navigation Item" />
     </TopNavigation>
   ),
-  children: [
-    <ContentHeading key="1">My Page</ContentHeading>,
-    <p key="2">Content goes here</p>,
-  ],
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
 }
 
 export const WithSideAndTopNavigation = Template.bind({})
 WithSideAndTopNavigation.parameters = {
   docs: {
     description: {
-      story:
-        "Responsive shell for your application with both a top navigation and side navigation.",
+      story: "Responsive shell for your application with both a top navigation and side navigation.",
     },
   },
 }
@@ -178,10 +153,7 @@ WithSideAndTopNavigation.args = {
       <SideNavigationItem label="Item 3" />
     </SideNavigation>
   ),
-  children: [
-    <ContentHeading key="1">My Page</ContentHeading>,
-    <p key="2">Content goes here</p>,
-  ],
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
 }
 
 export const WithTabNavigation = Template.bind({})

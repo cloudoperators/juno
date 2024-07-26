@@ -70,22 +70,10 @@ const useEndlessScrollList = (items, options = {}) => {
           <>
             {content}
             {isAddingItems && options?.showLoading !== false && (
-              <>
-                {options?.loadingObject ? (
-                  options.loadingObject
-                ) : (
-                  <span>Loading...</span>
-                )}
-              </>
+              <>{options?.loadingObject ? options.loadingObject : <span>Loading...</span>}</>
             )}
             {options?.showRef !== false && (
-              <>
-                {options?.refFunction ? (
-                  options.refFunction(lastLisItemRef)
-                ) : (
-                  <span ref={lastLisItemRef} />
-                )}
-              </>
+              <>{options?.refFunction ? options.refFunction(lastLisItemRef) : <span ref={lastLisItemRef} />}</>
             )}
           </>
         )

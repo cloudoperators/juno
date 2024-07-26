@@ -35,12 +35,7 @@ export const BreadcrumbItem = ({
   ...props
 }) => {
   const icn = icon ? (
-    <Icon
-      icon={icon}
-      size="18"
-      color="jn-text-theme-default"
-      className={label && label.length ? "jn-mr-1" : ""}
-    />
+    <Icon icon={icon} size="18" color="jn-text-theme-default" className={label && label.length ? "jn-mr-1" : ""} />
   ) : null
 
   const handleClick = (event) => {
@@ -64,12 +59,7 @@ export const BreadcrumbItem = ({
           {label}
         </>
       ) : (
-        <a
-          href={href}
-          className={`${breadcrumblinkstyles} `}
-          aria-label={ariaLabel || label}
-          onClick={handleClick}
-        >
+        <a href={href} className={`${breadcrumblinkstyles} `} aria-label={ariaLabel || label} onClick={handleClick}>
           {icn}
           {label}
         </a>

@@ -18,16 +18,9 @@ const toolbarStyles = `
 /**
  * This is the main toolbar of the content area. Add main actions for the current page here.
  */
-export const ContentAreaToolbar = ({
-  className = "",
-  children = null,
-  ...props
-}) => {
+export const ContentAreaToolbar = ({ className = "", children = null, ...props }) => {
   return (
-    <div
-      className={`juno-content-area-toolbar ${toolbarStyles} ${className}`}
-      {...props}
-    >
+    <div className={`juno-content-area-toolbar ${toolbarStyles} ${className}`} {...props}>
       {children}
     </div>
   )

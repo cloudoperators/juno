@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Grid } from './index.js';
-import { GridRow } from '../GridRow/GridRow.component.js';
-import { GridColumn } from '../GridColumn/GridColumn.component.js';
+import React from "react"
+import { Grid } from "./index.js"
+import { GridRow } from "../GridRow/GridRow.component.js"
+import { GridColumn } from "../GridColumn/GridColumn.component.js"
 
 export default {
-  title: 'Layout/Grid/Grid',
+  title: "Layout/Grid/Grid",
   component: Grid,
   argTypes: {
     children: {
@@ -17,11 +17,11 @@ export default {
     },
   },
   decorators: [(Story) => <Story className="jn-bg-juno-blue-3 jn-text-juno-grey-blue" />],
-};
+}
 
 // for the decorator to work like this (passing props to the story) we have to access the passed props from the decorator
 // from the context. This might be storybook 6.x-specific. Double check when we upgrade to storybook 7.x
-const Template = (args, context) => <Grid {...args} className={context.className}></Grid>;
+const Template = (args, context) => <Grid {...args} className={context.className}></Grid>
 
 export const Default = {
   render: Template,
@@ -30,7 +30,7 @@ export const Default = {
     docs: {
       description: {
         story:
-          'By default, Juno uses a 12-column fluid grid. Columns can be made to span multiple columns by passing `cols={n}`.',
+          "By default, Juno uses a 12-column fluid grid. Columns can be made to span multiple columns by passing `cols={n}`.",
       },
     },
   },
@@ -59,7 +59,7 @@ export const Default = {
       </GridRow>,
     ],
   },
-};
+}
 
 export const Auto = {
   render: Template,
@@ -68,7 +68,7 @@ export const Auto = {
     docs: {
       description: {
         story:
-          'By passing `auto` to the grid, all of its contained columns will automatically size to share available space equally. Columns with `cols={n}` will switch their behaviour to auto-size.',
+          "By passing `auto` to the grid, all of its contained columns will automatically size to share available space equally. Columns with `cols={n}` will switch their behaviour to auto-size.",
       },
     },
   },
@@ -101,7 +101,7 @@ export const Auto = {
       </GridRow>,
     ],
   },
-};
+}
 
 export const MixedGrid = {
   render: Template,
@@ -116,7 +116,7 @@ export const MixedGrid = {
       </GridRow>
     ),
   },
-};
+}
 
 export const MixedAutoGrid = {
   render: Template,
@@ -132,7 +132,7 @@ export const MixedAutoGrid = {
       </GridRow>
     ),
   },
-};
+}
 
 export const NestedGrid = {
   render: Template,
@@ -156,4 +156,4 @@ export const NestedGrid = {
       </GridRow>
     ),
   },
-};
+}

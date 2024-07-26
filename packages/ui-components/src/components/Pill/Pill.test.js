@@ -9,25 +9,13 @@ import { Pill } from "./index"
 
 describe("Pill", () => {
   test("renders a Pill", async () => {
-    render(
-      <Pill
-        data-testid="my-Pill"
-        pillKey="TheRequiredKey"
-        pillValue="TheRequiredValue"
-      />
-    )
+    render(<Pill data-testid="my-Pill" pillKey="TheRequiredKey" pillValue="TheRequiredValue" />)
     expect(screen.getByTestId("my-Pill")).toBeInTheDocument()
     expect(screen.getByTestId("my-Pill")).toHaveClass("juno-pill")
   })
 
   test("renders a pill key label as passed", async () => {
-    render(
-      <Pill
-        pillKeyLabel="My Pill Key"
-        pillKey="TheRequiredKey"
-        pillValue="TheRequiredValue"
-      />
-    )
+    render(<Pill pillKeyLabel="My Pill Key" pillKey="TheRequiredKey" pillValue="TheRequiredValue" />)
     expect(screen.getByText("My Pill Key")).toBeInTheDocument()
   })
 
@@ -44,13 +32,7 @@ describe("Pill", () => {
   })
 
   test("renders a pill value label as passed", async () => {
-    render(
-      <Pill
-        pillValue="TheRequiredValue"
-        pillValueLabel="My Pill Value"
-        pillKey="TheRequiredKey"
-      />
-    )
+    render(<Pill pillValue="TheRequiredValue" pillValueLabel="My Pill Value" pillKey="TheRequiredKey" />)
     expect(screen.getByText("My Pill Value")).toBeInTheDocument()
   })
 
@@ -69,13 +51,7 @@ describe("Pill", () => {
   test("an onClose handler is called as passed and returns the uid", () => {
     const handleClose = jest.fn()
     render(
-      <Pill
-        uid="uidAbc"
-        pillKey="TheRequiredKey"
-        pillValue="TheRequiredValue"
-        closeable={true}
-        onClose={handleClose}
-      />
+      <Pill uid="uidAbc" pillKey="TheRequiredKey" pillValue="TheRequiredValue" closeable={true} onClose={handleClose} />
     )
     screen.getByRole("button").click()
     expect(handleClose).toHaveBeenCalledTimes(1)
@@ -84,14 +60,7 @@ describe("Pill", () => {
 
   test("an onClose handler is called as passed and returns the pillKey if uid missing", () => {
     const handleClose = jest.fn()
-    render(
-      <Pill
-        pillKey="abc"
-        pillValue="TheRequiredValue"
-        closeable={true}
-        onClose={handleClose}
-      />
-    )
+    render(<Pill pillKey="abc" pillValue="TheRequiredValue" closeable={true} onClose={handleClose} />)
     screen.getByRole("button").click()
     expect(handleClose).toHaveBeenCalledTimes(1)
     expect(handleClose).toHaveBeenCalledWith(expect.anything(), "abc")
@@ -99,14 +68,7 @@ describe("Pill", () => {
 
   test("an onClick handler is called as passed and returns the uid", () => {
     const handleClick = jest.fn()
-    render(
-      <Pill
-        uid="uidAbc"
-        pillKey="TheRequiredKey"
-        pillValue="TheRequiredValue"
-        onClick={handleClick}
-      />
-    )
+    render(<Pill uid="uidAbc" pillKey="TheRequiredKey" pillValue="TheRequiredValue" onClick={handleClick} />)
     screen.getByText("TheRequiredKey").click()
     expect(handleClick).toHaveBeenCalledTimes(1)
     expect(handleClick).toHaveBeenCalledWith(expect.anything(), "uidAbc")
@@ -114,13 +76,7 @@ describe("Pill", () => {
 
   test("an onClick handler is called as passed and returns the pillKey if uid missing", () => {
     const handleClick = jest.fn()
-    render(
-      <Pill
-        pillKey="abc"
-        pillValue="TheRequiredValue"
-        onClick={handleClick}
-      />
-    )
+    render(<Pill pillKey="abc" pillValue="TheRequiredValue" onClick={handleClick} />)
     screen.getByText("abc").click()
     expect(handleClick).toHaveBeenCalledTimes(1)
     expect(handleClick).toHaveBeenCalledWith(expect.anything(), "abc")
@@ -128,26 +84,14 @@ describe("Pill", () => {
 
   test("renders a custom className", async () => {
     render(
-      <Pill
-        data-testid="my-Pill"
-        pillKey="TheRequiredKey"
-        pillValue="TheRequiredValue"
-        className="my-custom-class"
-      />
+      <Pill data-testid="my-Pill" pillKey="TheRequiredKey" pillValue="TheRequiredValue" className="my-custom-class" />
     )
     expect(screen.getByTestId("my-Pill")).toBeInTheDocument()
     expect(screen.getByTestId("my-Pill")).toHaveClass("my-custom-class")
   })
 
   test("renders all props as passed", async () => {
-    render(
-      <Pill
-        data-testid="23"
-        pillKey="TheRequiredKey"
-        pillValue="TheRequiredValue"
-        data-lolol={true}
-      />
-    )
+    render(<Pill data-testid="23" pillKey="TheRequiredKey" pillValue="TheRequiredValue" data-lolol={true} />)
     expect(screen.getByTestId("23")).toBeInTheDocument()
     expect(screen.getByTestId("23")).toHaveAttribute("data-lolol")
   })

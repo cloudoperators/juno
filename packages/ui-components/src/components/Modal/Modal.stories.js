@@ -33,12 +33,7 @@ const Template = ({ closeOnConfirm, ...args }) => {
   return (
     <>
       <Button label="Open Modal" variant="primary" onClick={open} />
-      <Modal
-        open={isOpen}
-        onCancel={close}
-        onConfirm={closeOnConfirm ? close : null}
-        {...args}
-      />
+      <Modal open={isOpen} onCancel={close} onConfirm={closeOnConfirm ? close : null} {...args} />
     </>
   )
 }
@@ -104,20 +99,10 @@ Login.args = {
   children: (
     <>
       <FormRow>
-        <TextInput
-          label="Username"
-          name="username"
-          id="username"
-          autoComplete="on"
-        />
+        <TextInput label="Username" name="username" id="username" autoComplete="on" />
       </FormRow>
       <FormRow>
-        <TextInput
-          type="password"
-          label="Password"
-          name="password"
-          id="password"
-        />
+        <TextInput type="password" label="Password" name="password" id="password" />
       </FormRow>
       <FormRow>
         <Checkbox label="Remember Me" id="remember-me" />
@@ -125,11 +110,7 @@ Login.args = {
     </>
   ),
   modalFooter: (
-    <ModalFooter
-      confirmButtonLabel="Log In"
-      confirmButtonIcon="accountCircle"
-      cancelButtonLabel="Never Mind"
-    />
+    <ModalFooter confirmButtonLabel="Log In" confirmButtonIcon="accountCircle" cancelButtonLabel="Never Mind" />
   ),
 }
 
@@ -137,11 +118,7 @@ export const CustomModalFooter = Template.bind({})
 CustomModalFooter.args = {
   title: "Modal with Custom ModalFooter",
   size: "large",
-  children: (
-    <p>
-      This Modal renders a custom footer with three buttons and a custom hint.
-    </p>
-  ),
+  children: <p>This Modal renders a custom footer with three buttons and a custom hint.</p>,
   modalFooter: (
     <ModalFooter className="jn-justify-between jn-items-center">
       <span>
@@ -217,11 +194,7 @@ ModalWithALargerForm.args = {
         <TextInput label="Password" id="password" type="password" />
       </FormRow>
       <FormRow>
-        <TextInput
-          label="Retype Password"
-          id="retype-password"
-          type="password"
-        />
+        <TextInput label="Retype Password" id="retype-password" type="password" />
       </FormRow>
       <FormRow>
         <Select label="Role">

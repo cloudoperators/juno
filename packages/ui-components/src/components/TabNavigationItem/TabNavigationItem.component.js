@@ -60,9 +60,7 @@ export const TabNavigationItem = ({
       href={href}
       icon={icon}
       inactiveItemStyles={`${
-        tabStyle === "content"
-          ? "jn-border-theme-tab-content-inactive-bottom"
-          : "jn-border-transparent"
+        tabStyle === "content" ? "jn-border-theme-tab-content-inactive-bottom" : "jn-border-transparent"
       }`}
       label={label}
       onClick={onClick}

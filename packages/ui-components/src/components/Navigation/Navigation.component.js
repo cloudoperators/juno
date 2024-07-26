@@ -109,10 +109,7 @@ Navigation.propTypes = {
   /** The aria label of the navigation */
   ariaLabel: PropTypes.string,
   /** The child navigation items of the navigation  */
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
   /** Pass a custom className to the navigation parent element */
   className: PropTypes.string,
   /** Whether the navigation is disabled. Will disable all children. */

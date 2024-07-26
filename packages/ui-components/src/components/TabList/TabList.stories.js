@@ -23,9 +23,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <TabList {...args}>{children}</TabList>
-)
+const Template = ({ children, ...args }) => <TabList {...args}>{children}</TabList>
 
 Template.propTypes = {
   children: PropTypes.node,

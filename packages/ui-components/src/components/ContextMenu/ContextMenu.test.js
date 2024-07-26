@@ -24,8 +24,6 @@ describe("ContextMenu", () => {
     await waitFor(() => userEvent.click(screen.getByRole("button")))
     await waitFor(() => expect(screen.getByRole("menu")).toBeInTheDocument())
     await waitFor(() => userEvent.click(screen.getByRole("button")))
-    await waitFor(() =>
-      expect(screen.queryByRole("menu")).not.toBeInTheDocument()
-    )
+    await waitFor(() => expect(screen.queryByRole("menu")).not.toBeInTheDocument())
   })
 })

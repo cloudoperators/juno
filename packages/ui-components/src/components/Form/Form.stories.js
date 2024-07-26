@@ -71,17 +71,10 @@ export const ComplexForm = {
   args: {
     title: "A Complex Form",
     children: [
-      <IntroBox
-        text="In order to get to know you, we need to talk about colors."
-        key="ib-1"
-      />,
+      <IntroBox text="In order to get to know you, we need to talk about colors." key="ib-1" />,
       <FormSection title="First Section of the Form" key="fs-1">
         <FormRow key="fr-1">
-          <Select
-            label="Your Favorite Color"
-            placeholder="Select your favorite color…"
-            id="color"
-          >
+          <Select label="Your Favorite Color" placeholder="Select your favorite color…" id="color">
             <SelectOption value="red" key="so-1">
               Red
             </SelectOption>
@@ -102,31 +95,15 @@ export const ComplexForm = {
         </FormRow>
       </FormSection>,
       <FormSection title="Second Section of the Form" key="fs-2">
-        <RadioGroup
-          name="color-radios"
-          label="In case you are not sure, select your true favorite color:"
-        >
+        <RadioGroup name="color-radios" label="In case you are not sure, select your true favorite color:">
           <Radio key="r-1" id="color-red" label="Red" value="red" />
           <Radio key="r-2" id="color-blue" label="Blue" value="blue" />
           <Radio key="r-3" id="color-green" label="Green" value="green" />
           <Radio key="r-4" id="color-yellow" label="Yellow" value="yellow" />
         </RadioGroup>
-        <CheckboxGroup
-          name="all-about-red"
-          label="What is your opinion towards the color Red?"
-        >
-          <Checkbox
-            key="c-1"
-            id="overrated"
-            label="Red is vastly overrated"
-            value="overrated"
-          />
-          <Checkbox
-            key="c-2"
-            id="blackisred"
-            label="Black is better"
-            value="blackisbetter"
-          />
+        <CheckboxGroup name="all-about-red" label="What is your opinion towards the color Red?">
+          <Checkbox key="c-1" id="overrated" label="Red is vastly overrated" value="overrated" />
+          <Checkbox key="c-2" id="blackisred" label="Black is better" value="blackisbetter" />
         </CheckboxGroup>
         <FormRow key="fr-4">
           <Textarea
@@ -137,10 +114,7 @@ export const ComplexForm = {
         </FormRow>
         <FormRow>
           <TextInput invalid value="Error!" />
-          <FormHint
-            variant="error"
-            text="A textInput with an error for no reason whatsoever."
-          />
+          <FormHint variant="error" text="A textInput with an error for no reason whatsoever." />
         </FormRow>
         <FormRow key="fr-5">
           <Switch label="Wake me up at 4.30am" id="wakey" />

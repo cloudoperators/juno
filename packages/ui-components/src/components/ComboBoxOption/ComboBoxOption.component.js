@@ -50,14 +50,7 @@ const truncateOptionStyles = `
   jn-whitespace-nowrap
 `
 
-export const ComboBoxOption = ({
-  children,
-  disabled = false,
-  value = "",
-  label,
-  className = "",
-  ...props
-}) => {
+export const ComboBoxOption = ({ children, disabled = false, value = "", label, className = "", ...props }) => {
   const comboBoxContext = useContext(ComboBoxContext)
   const {
     selectedValue: selectedValue,
@@ -84,11 +77,7 @@ export const ComboBoxOption = ({
         `}
         {...props}
       >
-        {selectedValue === theValue ? (
-          <Icon icon="check" size="18" className={`${selectedIconStyles}`} />
-        ) : (
-          ""
-        )}
+        {selectedValue === theValue ? <Icon icon="check" size="18" className={`${selectedIconStyles}`} /> : ""}
         <span
           className={`
             ${disabled ? disabledOptionLabelStyles : ""}

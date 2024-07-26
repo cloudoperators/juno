@@ -17,9 +17,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <FormHint {...args}>{children}</FormHint>
-)
+const Template = ({ children, ...args }) => <FormHint {...args}>{children}</FormHint>
 Template.propTypes = {
   children: PropTypes.node,
 }

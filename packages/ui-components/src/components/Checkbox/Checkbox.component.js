@@ -165,8 +165,7 @@ export const Checkbox = ({
     [invalid, errortext]
   )
   const validated = useMemo(
-    () =>
-      valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
   )
 
@@ -185,10 +184,7 @@ export const Checkbox = ({
   const handleChange = (event) => {
     setIsChecked(!isChecked)
     // If we are in a context, update :
-    if (
-      groupHandleCheckboxChange &&
-      typeof groupHandleCheckboxChange === "function"
-    ) {
+    if (groupHandleCheckboxChange && typeof groupHandleCheckboxChange === "function") {
       groupHandleCheckboxChange(value)
     }
 
@@ -209,9 +205,7 @@ export const Checkbox = ({
 
   const determineChecked = () => {
     if (checkboxGroupContext) {
-      return groupSelectedOptions && groupSelectedOptions.includes(value)
-        ? true
-        : false
+      return groupSelectedOptions && groupSelectedOptions.includes(value) ? true : false
     } else {
       return isChecked
     }
@@ -266,11 +260,7 @@ export const Checkbox = ({
             type="checkbox"
             value={value}
           />
-          {isIndeterminate && !determineChecked() ? (
-            <div className={`${mockindeterminatestyles}`}></div>
-          ) : (
-            ""
-          )}
+          {isIndeterminate && !determineChecked() ? <div className={`${mockindeterminatestyles}`}></div> : ""}
         </div>
         {label && isNotEmptyString(label) ? (
           <>
@@ -313,28 +303,16 @@ export const Checkbox = ({
         )}
       </div>
       {errortext && isNotEmptyString(errortext) ? (
-        <FormHint
-          text={errortext}
-          variant="error"
-          className={`${hintStyles}`}
-        />
+        <FormHint text={errortext} variant="error" className={`${hintStyles}`} />
       ) : (
         ""
       )}
       {successtext && isNotEmptyString(successtext) ? (
-        <FormHint
-          text={successtext}
-          variant="success"
-          className={`${hintStyles}`}
-        />
+        <FormHint text={successtext} variant="success" className={`${hintStyles}`} />
       ) : (
         ""
       )}
-      {helptext && isNotEmptyString(helptext) ? (
-        <FormHint text={helptext} className={`${hintStyles}`} />
-      ) : (
-        ""
-      )}
+      {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} className={`${hintStyles}`} /> : ""}
     </div>
   )
 }

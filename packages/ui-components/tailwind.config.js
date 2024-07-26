@@ -25,20 +25,8 @@ module.exports = {
   prefix: "jn-",
   theme: {
     fontFamily: {
-      sans: [
-        '"IBM Plex Sans"',
-        "ui-sans-serif",
-        "Arial",
-        "system-ui",
-        "sans-serif",
-      ],
-      condensed: [
-        '"IBM Plex Sans Condensed"',
-        "ui-sans-serif",
-        "Arial",
-        "system-ui",
-        "sans-serif",
-      ],
+      sans: ['"IBM Plex Sans"', "ui-sans-serif", "Arial", "system-ui", "sans-serif"],
+      condensed: ['"IBM Plex Sans Condensed"', "ui-sans-serif", "Arial", "system-ui", "sans-serif"],
       serif: ['"IBM Plex Serif"', "ui-serif", "serif"],
       mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
     },
@@ -194,30 +182,20 @@ module.exports = {
           radio: withOpacity("--color-radio-bg"),
           "radio-checked": withOpacity("--color-radio-checked-bg"),
           "switch-handle": withOpacity("--color-switch-handle-bg"),
-          "switch-handle-checked": withOpacity(
-            "--color-switch-handle-checked-bg"
-          ),
+          "switch-handle-checked": withOpacity("--color-switch-handle-checked-bg"),
           required: withOpacity("--color-required-bg"),
           introbox: withOpacity("--color-introbox-bg"),
           "datagridrow-selected": withOpacity("--color-datagridrow-selected"),
           "datalistrow-selected": withOpacity("--color-datalistrow-selected"),
           "message-border-danger": withOpacity("--color-message-danger-border"),
-          "message-border-default": withOpacity(
-            "--color-message-default-border"
-          ),
+          "message-border-default": withOpacity("--color-message-default-border"),
           "message-border-error": withOpacity("--color-message-error-border"),
-          "message-border-warning": withOpacity(
-            "--color-message-warning-border"
-          ),
-          "message-border-success": withOpacity(
-            "--color-message-success-border"
-          ),
+          "message-border-warning": withOpacity("--color-message-warning-border"),
+          "message-border-success": withOpacity("--color-message-success-border"),
           "tab-navigation-top": withOpacity("--color-tabnavigation-top-bg"),
           filters: withOpacity("--color-filters-bg"),
           "filter-input": withOpacity("--color-filter-input-bg"),
-          "filter-input-textinput": withOpacity(
-            "--color-filter-input-textinput-bg"
-          ),
+          "filter-input-textinput": withOpacity("--color-filter-input-textinput-bg"),
           "filter-pill-key": withOpacity("--color-filter-pill-key-bg"),
           "modal-backdrop": "var(--color-modal-backdrop-bg)",
           "sidenavigation-item-active": "var(--color-sidenavigation-item-active-bg)",
@@ -264,9 +242,7 @@ module.exports = {
           "switch-hover": withOpacity("--color-switch-hover-border"),
           "datalist-row": withOpacity("--color-datalist-row-border"),
           introbox: withOpacity("--color-introbox-border"),
-          "tab-navigation-content-bottom": withOpacity(
-            "--color-tabnavigation-content-bottom-border"
-          ),
+          "tab-navigation-content-bottom": withOpacity("--color-tabnavigation-content-bottom-border"),
           "tab-active-bottom": withOpacity("--color-text-default-raw"),
           "filter-input": withOpacity("--color-filter-input-border"),
           "filter-pill": withOpacity("--color-filter-pill-border"),
@@ -323,8 +299,7 @@ module.exports = {
         "grid-row": "0 var(--grid-row-margin-x)",
       },
       flex: {
-        "grid-column":
-          "var(--grid-column-flex-grow) var(--grid-column-flex-shrink) var(--grid-column-flex-basis)",
+        "grid-column": "var(--grid-column-flex-grow) var(--grid-column-flex-shrink) var(--grid-column-flex-basis)",
       },
     },
     borderWidth: {

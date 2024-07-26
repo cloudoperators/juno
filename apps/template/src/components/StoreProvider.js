@@ -10,17 +10,13 @@ import createStore from "../lib/store"
 
 const StoreContext = createContext()
 const StoreProvider = ({ options, children }) => (
-  <StoreContext.Provider value={createStore(options)}>
-    {children}
-  </StoreContext.Provider>
+  <StoreContext.Provider value={createStore(options)}>{children}</StoreContext.Provider>
 )
 
 const useAppStore = (selector) => create(useContext(StoreContext), selector)
 
-export const useGlobalsUrlStateKey = () =>
-  useAppStore((state) => state.globals.urlStateKey)
-export const useGlobalsActions = () =>
-  useAppStore((state) => state.globals.actions)
+export const useGlobalsUrlStateKey = () => useAppStore((state) => state.globals.urlStateKey)
+export const useGlobalsActions = () => useAppStore((state) => state.globals.actions)
 
 StoreProvider.propTypes = {
   options: PropTypes.object,

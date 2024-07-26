@@ -77,11 +77,7 @@ export const NavigationItem = ({
     if (disabled) {
       event.preventDefault()
     } else {
-      if (
-        !isActive &&
-        handleActiveItemChange &&
-        typeof handleActiveItemChange === "function"
-      ) {
+      if (!isActive && handleActiveItemChange && typeof handleActiveItemChange === "function") {
         handleActiveItemChange(theKey)
       }
       onClick && onClick(event)
@@ -103,21 +99,11 @@ export const NavigationItem = ({
                 ? "juno-" +
                   navigationRole.toLowerCase() +
                   "-item " +
-                  (isActive
-                    ? "juno-" + navigationRole.toLowerCase() + "-item-active"
-                    : "")
+                  (isActive ? "juno-" + navigationRole.toLowerCase() + "-item-active" : "")
                 : ""
             }
-            ${
-              isActive
-                ? "juno-navigation-item-active " + activeItemStyles
-                : inactiveItemStyles
-            }
-            ${
-              navigationDisabled || disabled
-                ? "juno-navigation-item-disabled " + disabledStyles
-                : ""
-            }
+            ${isActive ? "juno-navigation-item-active " + activeItemStyles : inactiveItemStyles}
+            ${navigationDisabled || disabled ? "juno-navigation-item-disabled " + disabledStyles : ""}
             ${className}`}
           data-value={value && value.length ? value : null}
           disabled={navigationDisabled || disabled}
@@ -141,21 +127,11 @@ export const NavigationItem = ({
                 ? "juno-" +
                   navigationRole.toLowerCase() +
                   "-item " +
-                  (isActive
-                    ? "juno-" + navigationRole.toLowerCase() + "-item-active"
-                    : "")
+                  (isActive ? "juno-" + navigationRole.toLowerCase() + "-item-active" : "")
                 : ""
             }
-            ${
-              isActive
-                ? "juno-navigation-item-active " + activeItemStyles
-                : inactiveItemStyles
-            }
-            ${
-              navigationDisabled || disabled
-                ? "juno-navigation-item-disabled " + disabledStyles
-                : ""
-            }
+            ${isActive ? "juno-navigation-item-active " + activeItemStyles : inactiveItemStyles}
+            ${navigationDisabled || disabled ? "juno-navigation-item-disabled " + disabledStyles : ""}
             ${className}`}
           data-value={value && value.length ? value : null}
           disabled={navigationDisabled || disabled}

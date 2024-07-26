@@ -445,10 +445,7 @@ export const TruncatedOptions = {
   args: {
     truncateOptions: true,
     children: [
-      <SelectOption
-        value="Option with a very long title that will most likely not fit into the menu width"
-        key="1"
-      />,
+      <SelectOption value="Option with a very long title that will most likely not fit into the menu width" key="1" />,
       <SelectOption
         value="Another option with a very long title that will most likely not fit into the menu width"
         key="2"
@@ -466,10 +463,7 @@ export const NonTruncatedOptions = {
 
   args: {
     children: [
-      <SelectOption
-        value="Option with a very long title that will most likely not fit into the menu width"
-        key="1"
-      />,
+      <SelectOption value="Option with a very long title that will most likely not fit into the menu width" key="1" />,
       <SelectOption
         value="Another option with a very long title that will most likely not fit into the menu width"
         key="2"

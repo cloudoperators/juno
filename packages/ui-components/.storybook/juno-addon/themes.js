@@ -4,11 +4,7 @@
  */
 
 import { create } from "@storybook/theming/create"
-import {
-  LOGO_DARK_DATA_URL,
-  LOGO_LIGHT_DATA_URL,
-  STORAGE_KEY,
-} from "./constants"
+import { LOGO_DARK_DATA_URL, LOGO_LIGHT_DATA_URL, STORAGE_KEY } from "./constants"
 // import { themes } from "@storybook/theming"
 // console.log(themes.dark)
 
@@ -108,10 +104,4 @@ const setCurrentThemeMode = (mode) => localStorage.setItem(STORAGE_KEY, mode)
 const getCurrentThemeMode = () => localStorage.getItem(STORAGE_KEY) || "dark"
 const getCurrentTheme = () => (getCurrentThemeMode() === "dark" ? dark : light)
 
-export {
-  dark,
-  light,
-  getCurrentTheme,
-  setCurrentThemeMode,
-  getCurrentThemeMode,
-}
+export { dark, light, getCurrentTheme, setCurrentThemeMode, getCurrentThemeMode }

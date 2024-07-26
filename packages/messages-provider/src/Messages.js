@@ -24,10 +24,7 @@ const Messages = ({ className }) => {
   return (
     <>
       {messages && messages.length > 0 && (
-        <div
-          role="group"
-          className={`juno-message-provider ${className ? className : ""}`}
-        >
+        <div role="group" className={`juno-message-provider ${className ? className : ""}`}>
           {messages.map((item, index) => {
             const { id, variant, text, ...props } = item
             return (

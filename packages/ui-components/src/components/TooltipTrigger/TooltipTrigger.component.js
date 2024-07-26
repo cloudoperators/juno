@@ -33,9 +33,7 @@ export const TooltipTrigger = React.forwardRef(function TooltipTrigger(
         ...props,
         ...children.props,
         "data-state": state.open ? "open" : "closed",
-        className:
-          children.props.className +
-          `${state.disabled && " jn-cursor-default"}`,
+        className: children.props.className + `${state.disabled && " jn-cursor-default"}`,
       })
     )
   }

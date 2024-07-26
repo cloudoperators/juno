@@ -20,17 +20,9 @@ const childrenWrapperStyles = `
 `
 
 /** This is the toolbar for use with a DataGrid. This is the place where you would put buttons and other controls that affect the items in the DataGrid (e.g. triggering batch actions). Optionally a search input can be added. */
-export const DataGridToolbar = ({
-  search,
-  className = "",
-  children = null,
-  ...props
-}) => {
+export const DataGridToolbar = ({ search, className = "", children = null, ...props }) => {
   return (
-    <div
-      className={`juno-datagrid-toolbar ${datagridtoolbarstyles} ${className}`}
-      {...props}
-    >
+    <div className={`juno-datagrid-toolbar ${datagridtoolbarstyles} ${className}`} {...props}>
       {search && <div>{search}</div>}
       <div className={childrenWrapperStyles}>{children}</div>
     </div>

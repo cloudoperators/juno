@@ -11,13 +11,7 @@ const addMessageValidation = (props) => {
   PropTypes.checkPropTypes(
     {
       text: PropTypes.string.isRequired || PropTypes.object.isRequired,
-      variant: PropTypes.oneOf([
-        "info",
-        "warning",
-        "danger",
-        "error",
-        "success",
-      ]),
+      variant: PropTypes.oneOf(["info", "warning", "danger", "error", "success"]),
     },
     props,
     "prop",
@@ -69,10 +63,7 @@ const createMessagesSlice = (set, get) => ({
       (state) => {
         // check if a message with the same text and variant exists
         const index = state.messages.findIndex((item) => {
-          return (
-            JSON.stringify(item.text) === JSON.stringify(text) &&
-            item.variant === variant
-          )
+          return JSON.stringify(item.text) === JSON.stringify(text) && item.variant === variant
         })
         if (index >= 0) return state
 
@@ -122,9 +113,7 @@ const StoreContext = createContext()
 
 export const MessagesProvider = ({ children }) => {
   return (
-    <StoreContext.Provider
-      value={createStore((set, get) => createMessagesSlice(set, get))}
-    >
+    <StoreContext.Provider value={createStore((set, get) => createMessagesSlice(set, get))}>
       {children}
     </StoreContext.Provider>
   )
@@ -138,10 +127,7 @@ const messageStore = (selector) => useStore(useContext(StoreContext), selector)
 
 // decrecated old hook
 export const useMessageStore = (selector) => {
-  if (
-    process.env.NODE_ENV === "development" ||
-    process.env.NODE_ENV === "test"
-  ) {
+  if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
     console.warn(
       `useMessageStore is deprecated and will be removed with the next version 0.2.0. Please visit the documentation (https://assets.juno.global.cloud.sap/?__s=N4IghgzhCmAuEFoD2A3aAnFBLaB3EAXKLGAEYCSAdgCbQAehATADQiVgrmzQC2hIIVgAcwlaABsA8kOhjqhWOgCu0VpBiwAcmB7R+uqGADm0REPSostdIPBQ4ANQwQsSSvwAMAOgCMXgKwgAL5BQA) for more information.`
     )

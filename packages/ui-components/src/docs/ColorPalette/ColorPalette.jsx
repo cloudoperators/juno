@@ -31,22 +31,13 @@ export function ColorPalette(props) {
       <h2 className={h2Style}>Theme colors</h2>
       <div className={gridStyle}>
         {Object.entries(tailwindColors.getThemeColors).map((color) => (
-          <ColorCard
-            key={color[0]}
-            prefix="theme-"
-            colorName={color[0]}
-            colorClass={color[1]}
-          />
+          <ColorCard key={color[0]} prefix="theme-" colorName={color[0]} colorClass={color[1]} />
         ))}
       </div>
       <h2 className={h2Style}>Font colors</h2>
       <div className={gridStyle}>
         {Object.entries(tailwindColors.getThemeTextColors).map((textColor) => (
-          <TextColorCard
-            key={textColor[0]}
-            colorName={textColor[0]}
-            colorClass={textColor[1]}
-          />
+          <TextColorCard key={textColor[0]} colorName={textColor[0]} colorClass={textColor[1]} />
         ))}
       </div>
     </ContentArea>

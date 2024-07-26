@@ -26,17 +26,9 @@ Use for annotations, further explanations, and remarks where Message or InfoBox 
 
 Will typically contain (small) text, but can be passed any child element(s) as desired.
 */
-export const Box = ({
-  children = null,
-  unpad = false,
-  className = "",
-  ...props
-}) => {
+export const Box = ({ children = null, unpad = false, className = "", ...props }) => {
   return (
-    <div
-      className={`juno-box ${boxstyles} ${unpad ? "" : boxpadding} ${className}`}
-      {...props}
-    >
+    <div className={`juno-box ${boxstyles} ${unpad ? "" : boxpadding} ${className}`} {...props}>
       {children}
     </div>
   )

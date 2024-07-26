@@ -17,9 +17,7 @@ export function JunoComponentWrapper(props) {
     return
   }
 
-  const [parentTheme, setParentTheme] = useState(
-    "theme-" + getCurrentThemeMode()
-  )
+  const [parentTheme, setParentTheme] = useState("theme-" + getCurrentThemeMode())
 
   useEffect(() => {
     const updateThemeClass = (mode) => {
@@ -36,11 +34,7 @@ export function JunoComponentWrapper(props) {
 
   return (
     <div>
-      <StyleProvider
-        key="decorator"
-        stylesWrapper="shadowRoot"
-        theme={parentTheme}
-      >
+      <StyleProvider key="decorator" stylesWrapper="shadowRoot" theme={parentTheme}>
         {props.children}
       </StyleProvider>
     </div>

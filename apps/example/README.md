@@ -40,7 +40,7 @@ npm add "@sapcc/juno-app-exampleapp"
 2. Next, import and integrate it into your code:
 
 ```js
-import Exampleapp from "@sapcc/juno-app-exampleapp";
+import Exampleapp from "@sapcc/juno-app-exampleapp"
 
 const App = () => {
   /*...*/
@@ -48,16 +48,16 @@ const App = () => {
     <div>
       <Exampleapp />
     </div>
-  );
-};
+  )
+}
 ```
 
 Or using React's lazy loading to keep the bundle size small
 
 ```js
-import { lazy } from "react";
+import { lazy } from "react"
 
-const Exampleapp = lazy(() => import("@sapcc/juno-app-exampleapp"));
+const Exampleapp = lazy(() => import("@sapcc/juno-app-exampleapp"))
 
 const App = () => {
   /*...*/
@@ -65,6 +65,6 @@ const App = () => {
     <div>
       <Exampleapp />
     </div>
-  );
-};
+  )
+}
 ```

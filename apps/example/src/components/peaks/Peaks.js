@@ -20,20 +20,11 @@ const Peaks = () => {
   return (
     <>
       {isError && (
-        <Message variant="danger">
-          {`${error.statusCode ? `${error.statusCode}, ` : ""}${
-            error?.message
-          }`}
-        </Message>
+        <Message variant="danger">{`${error.statusCode ? `${error.statusCode}, ` : ""}${error?.message}`}</Message>
       )}
       {/* Loading indicator for page content */}
       {isLoading && <Spinner variant="primary" />}
-      <PeaksList
-        isLoading={isLoading}
-        isError={isError}
-        peaks={data}
-        error={error}
-      />
+      <PeaksList isLoading={isLoading} isError={isError} peaks={data} error={error} />
     </>
   )
 }

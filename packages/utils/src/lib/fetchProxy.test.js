@@ -39,9 +39,7 @@ describe("fetchProxy lib", () => {
           range: "Alps",
         },
       }
-      expect(() => fetchProxyInitDB(db)).toThrow(
-        /not a collection of key value pairs with values as arrays/
-      )
+      expect(() => fetchProxyInitDB(db)).toThrow(/not a collection of key value pairs with values as arrays/)
     })
     it("through an warn if localDB already initialized", () => {
       // setup mock db.json
@@ -85,9 +83,7 @@ describe("fetchProxy lib", () => {
       // set localDB to null to simulate not initialized
       fetchProxyInitDB(null)
 
-      expect(() =>
-        fetchProxy("http://localhost:3000/peaks", { mock: true })
-      ).toThrow(/localDB not initialized/)
+      expect(() => fetchProxy("http://localhost:3000/peaks", { mock: true })).toThrow(/localDB not initialized/)
     })
 
     it("through an error if given url is not conform", () => {

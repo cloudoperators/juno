@@ -17,5 +17,4 @@ export const testTokenData = {
   nonce: "12345",
 }
 
-export const testIdToken =
-  "test_header." + btoa(JSON.stringify(testTokenData)) + ".test_signature"
+export const testIdToken = "test_header." + btoa(JSON.stringify(testTokenData)) + ".test_signature"

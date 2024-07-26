@@ -10,12 +10,7 @@ import PropTypes from "prop-types"
 A general-use grid. Use in conjunction with GridColumn and GridRow.
 */
 
-export const Grid = ({
-  auto = false,
-  children = null,
-  className = "",
-  ...props
-}) => {
+export const Grid = ({ auto = false, children = null, className = "", ...props }) => {
   // auto grid overrides for columns:
   const autoStyles = {
     "--grid-column-flex-grow": "1",

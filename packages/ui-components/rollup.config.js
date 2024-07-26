@@ -14,9 +14,7 @@ const { nodeResolve } = require("@rollup/plugin-node-resolve")
 const commonjs = require("@rollup/plugin-commonjs")
 const svgr = require("@svgr/rollup")
 const glob = require("glob")
-const {
-  generateTailwindThemeClassesJson,
-} = require("./src/docs/ColorPalette/generateTailwindThemeClassesJson")
+const { generateTailwindThemeClassesJson } = require("./src/docs/ColorPalette/generateTailwindThemeClassesJson")
 
 // generates tailwind classes for documentation usages.
 generateTailwindThemeClassesJson()
@@ -24,17 +22,11 @@ generateTailwindThemeClassesJson()
 // IMPORTANT!
 // package.json is single source of truth policy
 
-if (!/.+\/.+\.js/.test(pkg.module))
-  throw new Error(
-    "module value is incorrect, use DIR/FILE.js like build/index.js"
-  )
+if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like build/index.js")
 const buildDir = pkg.module.slice(0, pkg.module.lastIndexOf("/"))
 // filename is extracted from module key in package.json
 // because of single source of truth policy
-const filename = pkg.module.slice(
-  pkg.module.lastIndexOf("/") + 1,
-  pkg.module.lastIndexOf(".")
-)
+const filename = pkg.module.slice(pkg.module.lastIndexOf("/") + 1, pkg.module.lastIndexOf("."))
 
 // define plugins here to use it in different configs
 const plugins = [

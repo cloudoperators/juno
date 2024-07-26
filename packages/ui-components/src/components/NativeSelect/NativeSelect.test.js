@@ -115,9 +115,6 @@ describe("NativeSelect", () => {
   test("renders all props as passed", async () => {
     render(<NativeSelect data-lolol="some-random-prop" />)
     expect(screen.getByRole("combobox")).toBeInTheDocument()
-    expect(screen.getByRole("combobox")).toHaveAttribute(
-      "data-lolol",
-      "some-random-prop"
-    )
+    expect(screen.getByRole("combobox")).toHaveAttribute("data-lolol", "some-random-prop")
   })
 })

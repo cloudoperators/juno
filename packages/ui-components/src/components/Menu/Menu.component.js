@@ -35,12 +35,7 @@ const variantStyles = (variant) => {
 export const MenuContext = createContext()
 
 /** A generic menu component */
-export const Menu = ({
-  children = null,
-  variant = "normal",
-  className = "",
-  ...props
-}) => {
+export const Menu = ({ children = null, variant = "normal", className = "", ...props }) => {
   return (
     <MenuContext.Provider
       value={{

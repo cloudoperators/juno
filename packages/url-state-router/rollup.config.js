@@ -12,17 +12,12 @@ const { nodeResolve } = require("@rollup/plugin-node-resolve")
 const commonjs = require("@rollup/plugin-commonjs")
 const fs = require("fs")
 
-if (!/.+\/.+\.js/.test(pkg.module))
-  throw new Error(
-    "module value is incorrect, use DIR/FILE.js like build/index.js"
-  )
+if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like build/index.js")
 
 const dirFileRegex = /(.+)\/([^/]+)/
 
 if (!dirFileRegex.test(pkg.module))
-  throw new Error(
-    'package.json: module not found or its format does not match "DIR/FILE.js"'
-  )
+  throw new Error('package.json: module not found or its format does not match "DIR/FILE.js"')
 
 const [_, srcDir, entryFilename] = pkg.source.match(dirFileRegex)
 const [__, buildDir, filename] = pkg.module.match(dirFileRegex)

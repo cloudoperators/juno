@@ -71,8 +71,7 @@ export const fetchProxyInitDB = (jsonData, options = {}) => {
 
   // check if there are custom routes in the options
   if (options?.rewriteRoutes) {
-    if (debug)
-      console.log(`fetchProxyInitDB:: rewriteRoutes::`, options?.rewriteRoutes)
+    if (debug) console.log(`fetchProxyInitDB:: rewriteRoutes::`, options?.rewriteRoutes)
 
     // Filter out non-regex rules
     const regexRules = Object.fromEntries(
@@ -83,9 +82,7 @@ export const fetchProxyInitDB = (jsonData, options = {}) => {
           return true
         } catch (_error) {
           // warn if expresion is not regex
-          console.warn(
-            `It seems that the given rewrite rule ${key} for routes is not a valid regex expresion.`
-          )
+          console.warn(`It seems that the given rewrite rule ${key} for routes is not a valid regex expresion.`)
           return false
         }
       })
@@ -98,19 +95,13 @@ export const fetchProxyInitDB = (jsonData, options = {}) => {
     const allowedMethods = ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"] //'PATCH'
     const regexResponses = {}
 
-    if (debug)
-      console.log(
-        `fetchProxyInitDB:: rewriteResponses::`,
-        options?.rewriteResponses
-      )
+    if (debug) console.log(`fetchProxyInitDB:: rewriteResponses::`, options?.rewriteResponses)
 
     Object.keys(options?.rewriteResponses).forEach((key) => {
       // check if method is allowed
       if (!allowedMethods.includes(key)) {
         // warn if method is not allowed
-        console.warn(
-          `It seems that the given rewrite rule ${key} for responses is not a valid method.`
-        )
+        console.warn(`It seems that the given rewrite rule ${key} for responses is not a valid method.`)
         return
       }
 
@@ -125,9 +116,7 @@ export const fetchProxyInitDB = (jsonData, options = {}) => {
             return true
           } catch (_error) {
             // warn if expresion is not regex
-            console.warn(
-              `It seems that the given rewrite rule ${key} for responses is not a valid regex expresion.`
-            )
+            console.warn(`It seems that the given rewrite rule ${key} for responses is not a valid regex expresion.`)
             return false
           }
         })
@@ -146,9 +135,7 @@ export const fetchProxyInitDB = (jsonData, options = {}) => {
     })
   ) {
     // create a new custom error to return
-    throw new Error(
-      `It seems that jsonData is not a collection of key value pairs with values as arrays.`
-    )
+    throw new Error(`It seems that jsonData is not a collection of key value pairs with values as arrays.`)
   }
 
   if (debug) console.log(`fetchProxyInitDB:: jsonData::`, jsonData)
@@ -252,13 +239,9 @@ const fetchProxy = (urlString, options) => {
               // id is given
               if (index >= 0) {
                 // id is found
-                return resolve(
-                  customResponse || resolveResponse(localDB?.[object]?.[index])
-                )
+                return resolve(customResponse || resolveResponse(localDB?.[object]?.[index]))
               } else {
-                return resolve(
-                  rejectResponse(`No id ${id} for object ${object} found`)
-                )
+                return resolve(rejectResponse(`No id ${id} for object ${object} found`))
               }
             }
             return resolve(customResponse || resolveResponse(localDB?.[object]))
@@ -270,12 +253,8 @@ const fetchProxy = (urlString, options) => {
       })
     case "POST":
       return new Promise((resolve) => {
-        if (!object || !body)
-          resolve(
-            rejectResponse(`No object '${object}' or body '${body}' given`)
-          )
-        if (!localDB?.[object])
-          resolve(rejectResponse(`No object '${object}' found`))
+        if (!object || !body) resolve(rejectResponse(`No object '${object}' or body '${body}' given`))
+        if (!localDB?.[object]) resolve(rejectResponse(`No object '${object}' found`))
 
         let newBody = JSON.parse(body)
         // set default id
@@ -283,9 +262,7 @@ const fetchProxy = (urlString, options) => {
         // if there are items find the item with the highest id
         if (localDB?.[object]?.length > 0) {
           // find the object with the highest id
-          const maxObject = localDB?.[object].reduce((max, obj) =>
-            obj.id > max.id ? obj : max
-          )
+          const maxObject = localDB?.[object].reduce((max, obj) => (obj.id > max.id ? obj : max))
           // set the id to the highest id + 1
           newBody.id = (maxObject?.id || 0) + 1
         }
@@ -294,10 +271,8 @@ const fetchProxy = (urlString, options) => {
       })
     case "PUT":
       return new Promise((resolve) => {
-        if (!object || !id)
-          resolve(rejectResponse(`No object '${object}' or id '${id}' given`))
-        if (!localDB?.[object])
-          resolve(rejectResponse(`No object '${object}' found`))
+        if (!object || !id) resolve(rejectResponse(`No object '${object}' or id '${id}' given`))
+        if (!localDB?.[object]) resolve(rejectResponse(`No object '${object}' found`))
 
         // find the object with the id
         const index = localDB?.[object].findIndex((item) => {
@@ -320,10 +295,8 @@ const fetchProxy = (urlString, options) => {
       })
     case "DELETE":
       return new Promise((resolve) => {
-        if (!object || !id)
-          resolve(rejectResponse(`No object '${object}' or id '${id}' given`))
-        if (!localDB?.[object])
-          resolve(rejectResponse(`No object '${object}' found`))
+        if (!object || !id) resolve(rejectResponse(`No object '${object}' or id '${id}' given`))
+        if (!localDB?.[object]) resolve(rejectResponse(`No object '${object}' found`))
 
         // find the object with the id
         const index = localDB?.[object].findIndex((item) => {

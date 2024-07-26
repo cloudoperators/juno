@@ -10,12 +10,7 @@ import { Stack } from "../Stack/Stack.component"
 /** A container to hold one or multiple buttons and space and align them. */
 export const ButtonRow = ({ children = null, className = "", ...props }) => {
   return (
-    <Stack
-      gap="2"
-      distribution="end"
-      className={`juno-button-row ${className}`}
-      {...props}
-    >
+    <Stack gap="2" distribution="end" className={`juno-button-row ${className}`} {...props}>
       {children}
     </Stack>
   )

@@ -27,9 +27,7 @@ const PanelManager = () => {
   const panelBody = () => {
     switch (currentPanel?.type) {
       case "PeaksEdit":
-        return (
-          <PeaksEdit peakId={currentPanel?.itemId} closeCallback={onClose} />
-        )
+        return <PeaksEdit peakId={currentPanel?.itemId} closeCallback={onClose} />
       case "PeaksNew":
         return <PeaksNew closeCallback={onClose} />
       default:
@@ -42,11 +40,7 @@ const PanelManager = () => {
   }
 
   return (
-    <Panel
-      heading={heading}
-      opened={panelBody() ? true : false}
-      onClose={onClose}
-    >
+    <Panel heading={heading} opened={panelBody() ? true : false} onClose={onClose}>
       {panelBody()}
     </Panel>
   )

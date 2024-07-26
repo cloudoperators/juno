@@ -13,14 +13,7 @@ const rowBaseStyle = `
 // 	jn-bg-theme-datagridrow-selected
 // `
 export const DataGridRow = forwardRef(
-  (
-    {
-      /* selected, disabled,*/ className = "",
-      children = null,
-      /*onChange,*/ ...props
-    },
-    ref
-  ) => {
+  ({ /* selected, disabled,*/ className = "", children = null, /*onChange,*/ ...props }, ref) => {
     // const dataGridContext = useDataGridContext() || {}
     // const selectable = dataGridContext.selectable
 
@@ -36,12 +29,7 @@ export const DataGridRow = forwardRef(
 
     //  ${ selectable && isSelected ? rowSelectedStyle : '' }
     return (
-      <div
-        className={`juno-datagrid-row ${rowBaseStyle} ${className}`}
-        role="row"
-        ref={ref}
-        {...props}
-      >
+      <div className={`juno-datagrid-row ${rowBaseStyle} ${className}`} role="row" ref={ref} {...props}>
         {/* { selectable ? <DataGridCheckboxCell selected={selected} disabled={disabled} onChange={toggleSelected} /> : null } */}
         {children}
       </div>

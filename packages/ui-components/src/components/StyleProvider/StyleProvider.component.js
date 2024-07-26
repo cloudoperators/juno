@@ -36,12 +36,7 @@ Both this component and ShadowRoot
  * @returns
  */
 
-export const StyleProvider = ({
-  stylesWrapper = "inline",
-  theme: themeClassName,
-  children = null,
-  shadowRootMode,
-}) => {
+export const StyleProvider = ({ stylesWrapper = "inline", theme: themeClassName, children = null, shadowRootMode }) => {
   // theme class default to theme-dark
   const themeClass = themeClassName || "theme-dark"
 
@@ -58,8 +53,7 @@ export const StyleProvider = ({
   // Should be removed in perspective
   const Wrapper = React.useCallback(
     ({ children }) => {
-      if (stylesWrapper === "shadowRoot")
-        return <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot>
+      if (stylesWrapper === "shadowRoot") return <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot>
       return children
     },
     [stylesWrapper, shadowRootMode]
@@ -124,9 +118,7 @@ export const StyleProvider = ({
 
 StyleProvider.propTypes = {
   children: PropTypes.node,
-  stylesWrapper: PropTypes.oneOfType([
-    PropTypes.oneOf(["head", "inline", "shadowRoot"]),
-  ]),
+  stylesWrapper: PropTypes.oneOfType([PropTypes.oneOf(["head", "inline", "shadowRoot"])]),
   theme: PropTypes.string,
   shadowRootMode: PropTypes.oneOf(["open", "closed"]),
 }

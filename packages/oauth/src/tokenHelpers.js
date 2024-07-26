@@ -51,12 +51,7 @@ const extractNameFromEmail = (email) => {
  */
 export function parseIdTokenData(tokenData) {
   const email = tokenData.mail || tokenData.email || ""
-  const loginName =
-    tokenData.login_name ||
-    tokenData.name ||
-    tokenData.subject ||
-    tokenData.sub ||
-    ""
+  const loginName = tokenData.login_name || tokenData.name || tokenData.subject || tokenData.sub || ""
   let firstName = tokenData.first_name
   let lastName = tokenData.last_name
   if (!firstName && !lastName) {
@@ -78,12 +73,8 @@ export function parseIdTokenData(tokenData) {
     groups: tokenData.groups,
     userId: userId,
     avatarUrl: {
-      small: `https://avatars.wdf.sap.corp/avatar/${
-        userId || loginName
-      }?size=24`,
-      large: `https://avatars.wdf.sap.corp/avatar/${
-        userId || loginName
-      }?size=256`,
+      small: `https://avatars.wdf.sap.corp/avatar/${userId || loginName}?size=24`,
+      large: `https://avatars.wdf.sap.corp/avatar/${userId || loginName}?size=256`,
       default: `https://avatars.wdf.sap.corp/avatar/${userId || loginName}`,
     },
   }

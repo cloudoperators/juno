@@ -18,10 +18,7 @@ const containerStyles = `
  */
 export const ContentArea = ({ className = "", children = null, ...props }) => {
   return (
-    <div
-      className={`juno-content-area ${containerStyles} ${className}`}
-      {...props}
-    >
+    <div className={`juno-content-area ${containerStyles} ${className}`} {...props}>
       {children}
     </div>
   )

@@ -31,7 +31,7 @@ export const useTooltip = ({
   triggerEvent = "click",
   open: controlledOpen,
   onOpenChange: setControlledOpen,
-  disabled = false
+  disabled = false,
 } = {}) => {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen)
 
@@ -50,15 +50,15 @@ export const useTooltip = ({
 
   const context = data.context
 
-  const click = useClick(context, { 
-    enabled: controlledOpen == null && disabled === false && triggerEvent === "click" 
+  const click = useClick(context, {
+    enabled: controlledOpen == null && disabled === false && triggerEvent === "click",
   })
   const hover = useHover(context, {
     move: false,
     enabled: controlledOpen == null && disabled === false && triggerEvent === "hover",
   })
   const focus = useFocus(context, {
-    enabled: controlledOpen == null
+    enabled: controlledOpen == null,
   })
   const dismiss = useDismiss(context)
   const role = useRole(context, { role: "tooltip" })

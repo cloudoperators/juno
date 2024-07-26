@@ -85,11 +85,7 @@ export const MenuItem = ({
 					`}
     >
       <span className={`${disabled ? "jn-opacity-50" : ""}`}>
-        {icon ? (
-          <Icon icon={icon} size="18" className="jn-inline-block jn-mr-2" />
-        ) : (
-          ""
-        )}
+        {icon ? <Icon icon={icon} size="18" className="jn-inline-block jn-mr-2" /> : ""}
         {children || label}
       </span>
     </Menu.Item>

@@ -3,21 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React from "react"
 
-import { AppBody } from './index.js';
+import { AppBody } from "./index.js"
 
 export default {
-  title: 'Internal/AppBody',
+  title: "Internal/AppBody",
   component: AppBody,
   argTypes: {
     children: {
       control: false,
     },
   },
-};
+}
 
-const Template = (args) => <AppBody {...args}></AppBody>;
+const Template = (args) => <AppBody {...args}></AppBody>
 
 export const Body = {
   render: Template,
@@ -32,4 +32,4 @@ export const Body = {
   },
 
   args: {},
-};
+}

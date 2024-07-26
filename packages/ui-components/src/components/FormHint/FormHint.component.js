@@ -22,13 +22,7 @@ const variantStyles = (variant) => {
   }
 }
 
-export const FormHint = ({
-  children = null,
-  text = "",
-  variant = "help",
-  className,
-  ...props
-}) => {
+export const FormHint = ({ children = null, text = "", variant = "help", className, ...props }) => {
   return (
     <div
       className={`

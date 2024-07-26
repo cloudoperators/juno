@@ -23,10 +23,7 @@ describe("TextInput", () => {
   test("renders a text input with a value as passed", async () => {
     render(<TextInput value="Some kind of value" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "value",
-      "Some kind of value"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("value", "Some kind of value")
   })
 
   test("renders a label as passed", async () => {
@@ -45,9 +42,7 @@ describe("TextInput", () => {
     render(<TextInput />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveAttribute("id")
-    expect(screen.getByRole("textbox").getAttribute("id")).toMatch(
-      "juno-textinput"
-    )
+    expect(screen.getByRole("textbox").getAttribute("id")).toMatch("juno-textinput")
   })
 
   test("renders a text input with a label associated by an id as passed", async () => {
@@ -67,10 +62,7 @@ describe("TextInput", () => {
   test("renders a placeholder as passed", async () => {
     render(<TextInput placeholder="my placeholder" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "placeholder",
-      "my placeholder"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "my placeholder")
   })
 
   // resort to using a testId since <input type=""password" has no accessible wai-aria role:
@@ -139,35 +131,23 @@ describe("TextInput", () => {
   test("renders a helptext as passed", async () => {
     render(<TextInput helptext="this is a helptext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-help"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is a helptext"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is a helptext")
   })
 
   test("renders a successtext as passed and validates the Element", async () => {
     render(<TextInput successtext="great success!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-success"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "great success!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("great success!")
     expect(screen.getByRole("textbox")).toHaveClass("juno-textinput-valid")
   })
 
   test("renders an errortext as passed and invalidates the Element", async () => {
     render(<TextInput errortext="this is an error!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-error"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is an error!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is an error!")
     expect(screen.getByRole("textbox")).toHaveClass("juno-textinput-invalid")
   })
 

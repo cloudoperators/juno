@@ -25,9 +25,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <TabNavigation {...args}>{children}</TabNavigation>
-)
+const Template = ({ children, ...args }) => <TabNavigation {...args}>{children}</TabNavigation>
 
 Template.propTypes = {
   children: PropTypes.node,
@@ -38,16 +36,8 @@ Default.args = {
   children: [
     <TabNavigationItem label="Item 1" key="item-1"></TabNavigationItem>,
     <TabNavigationItem label="Item 2" key="item-2" active></TabNavigationItem>,
-    <TabNavigationItem
-      label="Item with Icon"
-      key="item-3"
-      icon="warning"
-    ></TabNavigationItem>,
-    <TabNavigationItem
-      label="Disabled Item"
-      key="item-4"
-      disabled
-    ></TabNavigationItem>,
+    <TabNavigationItem label="Item with Icon" key="item-3" icon="warning"></TabNavigationItem>,
+    <TabNavigationItem label="Disabled Item" key="item-4" disabled></TabNavigationItem>,
   ],
 }
 
@@ -55,8 +45,7 @@ export const Disabled = Template.bind({})
 ;(Disabled.parameters = {
   docs: {
     description: {
-      story:
-        "All navigation items can be disabled by passing `disabled` to the `TabNavigation`.",
+      story: "All navigation items can be disabled by passing `disabled` to the `TabNavigation`.",
     },
   },
 }),
@@ -82,26 +71,10 @@ export const WithValues = Template.bind({})
   (WithValues.args = {
     activeItem: "item-3",
     children: [
-      <TabNavigationItem
-        label="Item 1"
-        key="i-1"
-        value="item-1"
-      ></TabNavigationItem>,
-      <TabNavigationItem
-        label="Item 2"
-        key="i-2"
-        value="item-2"
-      ></TabNavigationItem>,
-      <TabNavigationItem
-        label="Item 3"
-        key="i-3"
-        value="item-3"
-      ></TabNavigationItem>,
-      <TabNavigationItem
-        label="Item 4"
-        key="i-4"
-        value="item-4"
-      ></TabNavigationItem>,
+      <TabNavigationItem label="Item 1" key="i-1" value="item-1"></TabNavigationItem>,
+      <TabNavigationItem label="Item 2" key="i-2" value="item-2"></TabNavigationItem>,
+      <TabNavigationItem label="Item 3" key="i-3" value="item-3"></TabNavigationItem>,
+      <TabNavigationItem label="Item 4" key="i-4" value="item-4"></TabNavigationItem>,
     ],
   })
 
@@ -109,8 +82,7 @@ export const WithChildren = Template.bind({})
 WithChildren.parameters = {
   docs: {
     description: {
-      story:
-        "Alternatively, navigation items can render children passed to them.",
+      story: "Alternatively, navigation items can render children passed to them.",
     },
   },
 }

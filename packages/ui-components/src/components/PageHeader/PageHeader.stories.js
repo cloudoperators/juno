@@ -3,21 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React from "react"
 
-import { PageHeader } from './index.js';
+import { PageHeader } from "./index.js"
 
 export default {
-  title: 'Layout/PageHeader',
+  title: "Layout/PageHeader",
   component: PageHeader,
   argTypes: {
     children: {
       control: false,
     },
   },
-};
+}
 
-const Template = (args) => <PageHeader {...args}></PageHeader>;
+const Template = (args) => <PageHeader {...args}></PageHeader>
 
 export const Simple = {
   render: Template,
@@ -25,25 +25,24 @@ export const Simple = {
   parameters: {
     docs: {
       description: {
-        story:
-          'The page header component renders a header at the top of the website. Place as first child of AppBody.',
+        story: "The page header component renders a header at the top of the website. Place as first child of AppBody.",
       },
     },
   },
 
   args: {},
-};
+}
 
 export const WithHeading = {
   render: Template,
 
   parameters: {
     docs: {
-      description: { story: 'PageHeader with Heading.' },
+      description: { story: "PageHeader with Heading." },
     },
   },
 
   args: {
-    heading: 'My Awesome App',
+    heading: "My Awesome App",
   },
-};
+}

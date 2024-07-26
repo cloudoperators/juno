@@ -142,8 +142,7 @@ export const Radio = ({
     [invalid, errortext]
   )
   const validated = useMemo(
-    () =>
-      valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
   )
 
@@ -238,11 +237,7 @@ export const Radio = ({
             type="radio"
             value={value}
           />
-          {determineChecked() ? (
-            <span className={`${checkedstyles}`}></span>
-          ) : (
-            ""
-          )}
+          {determineChecked() ? <span className={`${checkedstyles}`}></span> : ""}
         </div>
         {label && isNotEmptyString(label) ? (
           <>
@@ -285,28 +280,16 @@ export const Radio = ({
         )}
       </div>
       {errortext && isNotEmptyString(errortext) ? (
-        <FormHint
-          text={errortext}
-          variant="error"
-          className={`${hintStyles}`}
-        />
+        <FormHint text={errortext} variant="error" className={`${hintStyles}`} />
       ) : (
         ""
       )}
       {successtext && isNotEmptyString(successtext) ? (
-        <FormHint
-          text={successtext}
-          variant="success"
-          className={`${hintStyles}`}
-        />
+        <FormHint text={successtext} variant="success" className={`${hintStyles}`} />
       ) : (
         ""
       )}
-      {helptext && isNotEmptyString(helptext) ? (
-        <FormHint text={helptext} className={`${hintStyles}`} />
-      ) : (
-        ""
-      )}
+      {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} className={`${hintStyles}`} /> : ""}
     </div>
   )
 }

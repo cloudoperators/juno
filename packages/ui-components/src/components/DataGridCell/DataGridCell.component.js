@@ -37,19 +37,13 @@ const cellCustomStyles = (colSpan) => {
 }
 
 export const DataGridCell = forwardRef(
-  (
-    { colSpan, nowrap = false, className = "", children = null, ...props },
-    ref
-  ) => {
+  ({ colSpan, nowrap = false, className = "", children = null, ...props }, ref) => {
     const dataGridContext = useDataGridContext() || {}
     const cellVerticalAlignment = dataGridContext.cellVerticalAlignment
 
     return (
       <div
-        className={`juno-datagrid-cell ${cellBaseStyles(
-          nowrap,
-          cellVerticalAlignment
-        )} ${className}`}
+        className={`juno-datagrid-cell ${cellBaseStyles(nowrap, cellVerticalAlignment)} ${className}`}
         style={cellCustomStyles(colSpan)}
         role="gridcell"
         ref={ref}

@@ -11,13 +11,7 @@ const dataGridStyles = `
 	jn-items-stretch
 `
 
-const gridTemplate = (
-  columns,
-  columnMaxSize,
-  columnMinSize,
-  minContentColumns,
-  gridColumnTemplate
-) => {
+const gridTemplate = (columns, columnMaxSize, columnMinSize, minContentColumns, gridColumnTemplate) => {
   let styles
 
   // gridColumnTemplate was passed. Return it and ignore all other settings
@@ -29,11 +23,7 @@ const gridTemplate = (
   let generatedTemplate = ""
   // if a configuration for min-content columns has been passed iteratively generate the gridTemplateColumn sizes,
   // else generate a simpler statement using the repeat function
-  if (
-    minContentColumns &&
-    Array.isArray(minContentColumns) &&
-    minContentColumns.length > 0
-  ) {
+  if (minContentColumns && Array.isArray(minContentColumns) && minContentColumns.length > 0) {
     // for each configured column check if it should have normal or min-content sizing and add the respective string to the template string
     ;[...Array(columns)].map((_, i) => {
       generatedTemplate += minContentColumns.includes(i)
@@ -74,13 +64,7 @@ export const DataGrid = ({
     <DataGridContext.Provider value={dataGridConf}>
       <div
         className={`juno-datagrid ${dataGridStyles} ${className}`}
-        style={gridTemplate(
-          columns,
-          columnMaxSize,
-          columnMinSize,
-          minContentColumns,
-          gridColumnTemplate
-        )}
+        style={gridTemplate(columns, columnMaxSize, columnMinSize, minContentColumns, gridColumnTemplate)}
         role="grid"
         {...props}
       >

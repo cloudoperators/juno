@@ -29,7 +29,7 @@ describe("Tooltip", () => {
     expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
   })
 
-  test("render an controlled open Tooltip: the trigger and content are visible", async () => { 
+  test("render an controlled open Tooltip: the trigger and content are visible", async () => {
     await render(
       <Tooltip open={true}>
         <TooltipTrigger>trigger</TooltipTrigger>
@@ -140,5 +140,4 @@ describe("Tooltip", () => {
     await userEvent.tab()
     expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
   })
-
 })

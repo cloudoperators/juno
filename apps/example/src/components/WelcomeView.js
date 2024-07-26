@@ -8,15 +8,9 @@ import { Stack } from "@cloudoperators/juno-ui-components"
 
 const WelcomeView = () => {
   return (
-    <Stack
-      alignment="center"
-      distribution="center"
-      direction="vertical"
-      className="my-[10vh]"
-    >
+    <Stack alignment="center" distribution="center" direction="vertical" className="my-[10vh]">
       <p className="text-xl">
-        Welcome to the Example App! To explore the app&apos;s features, kindly
-        log in and begin your testing journey
+        Welcome to the Example App! To explore the app&apos;s features, kindly log in and begin your testing journey
       </p>
     </Stack>
   )

@@ -21,13 +21,7 @@ describe("SwitchRow", () => {
   })
 
   test("renders a switch row with a switch button and an associated label with an id as passed", async () => {
-    render(
-      <SwitchRow
-        data-testid="my-switch-row"
-        label="My Switch Row"
-        id="switch-row"
-      />
-    )
+    render(<SwitchRow data-testid="my-switch-row" label="My Switch Row" id="switch-row" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByLabelText("My Switch Row")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveAttribute("id", "switch-row")
@@ -80,9 +74,7 @@ describe("SwitchRow", () => {
   })
 
   test("renders all props as passed", async () => {
-    render(
-      <SwitchRow id="switchrow-1" data-test="47" data-testid="switch-row" />
-    )
+    render(<SwitchRow id="switchrow-1" data-test="47" data-testid="switch-row" />)
     expect(screen.getByTestId("switch-row")).toBeInTheDocument()
     expect(screen.getByTestId("switch-row")).toHaveAttribute("data-test", "47")
   })

@@ -41,9 +41,7 @@ describe("Textarea", () => {
     render(<Textarea />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveAttribute("id")
-    expect(screen.getByRole("textbox").getAttribute("id")).toMatch(
-      "juno-textarea"
-    )
+    expect(screen.getByRole("textbox").getAttribute("id")).toMatch("juno-textarea")
   })
 
   test("renders a Textarea with a label associated by an id as passed", async () => {
@@ -76,10 +74,7 @@ describe("Textarea", () => {
 
   test("renders a placeholder as passed", async () => {
     render(<Textarea placeholder="My placeholder" />)
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "placeholder",
-      "My placeholder"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "My placeholder")
   })
 
   test("renders a disabled textarea as passed", async () => {
@@ -101,35 +96,23 @@ describe("Textarea", () => {
   test("renders a helptext as passed", async () => {
     render(<Textarea helptext="this is a helptext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-help"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is a helptext"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is a helptext")
   })
 
   test("renders a successtext as passed and validates the Element", async () => {
     render(<Textarea successtext="great success!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-success"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "great success!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("great success!")
     expect(screen.getByRole("textbox")).toHaveClass("juno-textarea-valid")
   })
 
   test("renders an errortext as passed and invalidates the Element", async () => {
     render(<Textarea errortext="this is an error!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-error"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is an error!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is an error!")
     expect(screen.getByRole("textbox")).toHaveClass("juno-textarea-invalid")
   })
 

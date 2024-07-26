@@ -17,17 +17,12 @@ import PropTypes from "prop-types"
  */
 const Route = ({ path, exact, children, component }) => {
   const { currentPath, options, ...otherProps } = useRouter()
-  const [match, routeParams] = useMemo(
-    () => routeMatcher(currentPath, path, { exact }),
-    [currentPath, path, exact]
-  )
+  const [match, routeParams] = useMemo(() => routeMatcher(currentPath, path, { exact }), [currentPath, path, exact])
 
   if (!match) return null
 
   return (
-    <RouterContext.Provider
-      value={{ path: currentPath, options, routeParams, ...otherProps }}
-    >
+    <RouterContext.Provider value={{ path: currentPath, options, routeParams, ...otherProps }}>
       {component ? createElement(component) : children}
     </RouterContext.Provider>
   )

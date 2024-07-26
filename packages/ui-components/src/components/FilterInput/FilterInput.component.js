@@ -145,12 +145,7 @@ export const FilterInput = ({
           <NativeSelectOption label={keyLabel || "Select Filter"} value="" />
           {/* Options representing actual filter key values: */}
           {options.map((option, i) => (
-            <NativeSelectOption
-              label={option.label}
-              value={option.key}
-              key={`${i}`}
-              {...option}
-            />
+            <NativeSelectOption label={option.label} value={option.key} key={`${i}`} {...option} />
           ))}
         </NativeSelect>
       </div>
@@ -165,20 +160,9 @@ export const FilterInput = ({
       />
       <div className={`${iconWrapperStyles}`}>
         {value && value.length ? (
-          <Icon
-            icon="close"
-            title="Clear"
-            size="18"
-            className={`jn-mr-2`}
-            onClick={handleClearClick}
-          />
+          <Icon icon="close" title="Clear" size="18" className={`jn-mr-2`} onClick={handleClearClick} />
         ) : null}
-        <Icon
-          icon="filterAlt"
-          title="Filter"
-          disabled={isLoading || hasError}
-          onClick={handleFilterClick}
-        />
+        <Icon icon="filterAlt" title="Filter" disabled={isLoading || hasError} onClick={handleFilterClick} />
       </div>
     </div>
   )

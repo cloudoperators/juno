@@ -39,19 +39,9 @@ const headingStyles = (clickable) => {
  * The page header component renders a header at the top of the website. Place as first child of AppBody.
  */
 
-export const PageHeader = ({
-  heading = null,
-  className = "",
-  children = null,
-  onClick,
-  ...props
-}) => {
+export const PageHeader = ({ heading = null, className = "", children = null, onClick, ...props }) => {
   return (
-    <div
-      className={`juno-pageheader theme-dark ${basePageHeader} ${className}`}
-      role="banner"
-      {...props}
-    >
+    <div className={`juno-pageheader theme-dark ${basePageHeader} ${className}`} role="banner" {...props}>
       <SAPLogo className={logoStyles} alt="SAP" />
       {heading && (
         <div className={headingStyles(onClick !== undefined)} onClick={onClick}>

@@ -18,17 +18,10 @@ const HeaderUser = ({ login, logout }) => {
       {loggedIn ? (
         <>
           <div className="mr-4">
-            <Avatar
-              userName={authData?.parsed?.fullName}
-              url={authData?.parsed?.avatarUrl?.small}
-            />
+            <Avatar userName={authData?.parsed?.fullName} url={authData?.parsed?.avatarUrl?.small} />
           </div>
 
-          <Button
-            label="Logout"
-            size="small"
-            onClick={() => logout({ resetOIDCSession: false, silent: true })}
-          />
+          <Button label="Logout" size="small" onClick={() => logout({ resetOIDCSession: false, silent: true })} />
         </>
       ) : (
         <Button label="Login" size="small" onClick={() => login()} />

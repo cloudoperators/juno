@@ -50,19 +50,9 @@ const truncateOptionStyles = `
   jn-text-ellipsis
   jn-whitespace-nowrap
 `
-export const SelectOption = ({
-  children,
-  className = "",
-  disabled = false,
-  value = "",
-  label,
-  ...props
-}) => {
+export const SelectOption = ({ children, className = "", disabled = false, value = "", label, ...props }) => {
   const selectContext = useContext(SelectContext)
-  const {
-    truncateOptions: truncateOptions,
-    addOptionValueAndLabel: addOptionValueAndLabel,
-  } = selectContext || {}
+  const { truncateOptions: truncateOptions, addOptionValueAndLabel: addOptionValueAndLabel } = selectContext || {}
 
   // send option metadata to the Select component via Context
   useEffect(() => {
@@ -84,11 +74,7 @@ export const SelectOption = ({
         `}
           {...props}
         >
-          {selected ? (
-            <Icon icon="check" size="18" className={`${selectedIconStyles}`} />
-          ) : (
-            ""
-          )}
+          {selected ? <Icon icon="check" size="18" className={`${selectedIconStyles}`} /> : ""}
           <span
             className={`
             ${disabled ? disabledOptionLabelStyles : ""}

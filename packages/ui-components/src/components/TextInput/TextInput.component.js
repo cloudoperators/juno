@@ -131,8 +131,7 @@ export const TextInput = ({
     [invalid, errortext]
   )
   const validated = useMemo(
-    () =>
-      valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
   )
 
@@ -163,16 +162,10 @@ export const TextInput = ({
     if (isValid || isInvalid) {
       return (
         <div
-          className={`juno-textinput-row-icon-container ${iconcontainerstyles} ${
-            disabled ? disablediconstyles : ""
-          }`}
+          className={`juno-textinput-row-icon-container ${iconcontainerstyles} ${disabled ? disablediconstyles : ""}`}
         >
-          {isInvalid ? (
-            <Icon icon="dangerous" color="jn-text-theme-error" />
-          ) : null}
-          {isValid ? (
-            <Icon icon="checkCircle" color="jn-text-theme-success" />
-          ) : null}
+          {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : null}
+          {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : null}
         </div>
       )
     } else {
@@ -225,9 +218,7 @@ export const TextInput = ({
             disabled={disabled}
             required={required}
             floating
-            minimized={
-              placeholder || hasFocus || (val && val.length) ? true : false
-            }
+            minimized={placeholder || hasFocus || (val && val.length) ? true : false}
           />
         ) : (
           ""
@@ -235,28 +226,16 @@ export const TextInput = ({
         <Icons disabled={disabled} />
       </span>
       {errortext && isNotEmptyString(errortext) ? (
-        <FormHint
-          text={errortext}
-          variant="error"
-          className={`${hintStyles}`}
-        />
+        <FormHint text={errortext} variant="error" className={`${hintStyles}`} />
       ) : (
         ""
       )}
       {successtext && isNotEmptyString(successtext) ? (
-        <FormHint
-          text={successtext}
-          variant="success"
-          className={`${hintStyles}`}
-        />
+        <FormHint text={successtext} variant="success" className={`${hintStyles}`} />
       ) : (
         ""
       )}
-      {helptext && isNotEmptyString(helptext) ? (
-        <FormHint text={helptext} className={`${hintStyles}`} />
-      ) : (
-        ""
-      )}
+      {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} className={`${hintStyles}`} /> : ""}
     </div>
   )
 }

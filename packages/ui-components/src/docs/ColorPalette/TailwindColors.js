@@ -1,7 +1,13 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 /* Do not change this File. This is an (by generateTailwindThemeClassesJson.js) auto-generated file for documentation issues.
 It is needed for the ColorPalette and JunoColorPalette to show the documented colors.
 We need to do this because Tailwind classes can't be concatenated at runtime via String interpolation. It only works if you use the full class name.*/
-exports.getThemeColors = {
+// prettier-ignore
+export const getThemeColors = {
   "accent": "jn-bg-theme-accent",
   "danger": "jn-bg-theme-danger",
   "error": "jn-bg-theme-error",
@@ -16,7 +22,8 @@ exports.getThemeColors = {
   "background-lvl-4": "jn-bg-theme-background-lvl-4",
   "background-lvl-5": "jn-bg-theme-background-lvl-5"
 }
-exports.getThemeTextColors = {
+// prettier-ignore
+export const getThemeTextColors = {
   "highest": "jn-text-theme-highest",
   "high": "jn-text-theme-high",
   "default": "jn-text-theme-default",
@@ -24,7 +31,8 @@ exports.getThemeTextColors = {
   "disabled": "jn-text-theme-disabled",
   "link": "jn-text-theme-link"
 }
-exports.getJunoColors = {
+// prettier-ignore
+export const getJunoColors = {
   "juno-grey-blue": "jn-bg-juno-grey-blue",
   "juno-grey-blue-1": "jn-bg-juno-grey-blue-1",
   "juno-grey-blue-2": "jn-bg-juno-grey-blue-2",

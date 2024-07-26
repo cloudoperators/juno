@@ -20,22 +20,10 @@ const titleStyles = `
 	jn-p-2
 `
 /** Use MenuSection to structure and sub-divide MenuItems in a menu. All but the last MenuSection will render a visible divider at the bottom. Optionally, a MenuSection can have a title.*/
-export const MenuSection = ({
-  title = "",
-  children = null,
-  className = "",
-  ...props
-}) => {
+export const MenuSection = ({ title = "", children = null, className = "", ...props }) => {
   return (
-    <div
-      className={`juno-menu-section ${sectionStyles} ${className}`}
-      {...props}
-    >
-      {title ? (
-        <div className={`juno-menu-section-title ${titleStyles}`}>{title}</div>
-      ) : (
-        ""
-      )}
+    <div className={`juno-menu-section ${sectionStyles} ${className}`} {...props}>
+      {title ? <div className={`juno-menu-section-title ${titleStyles}`}>{title}</div> : ""}
       {children}
     </div>
   )

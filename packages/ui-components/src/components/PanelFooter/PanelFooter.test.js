@@ -31,9 +31,7 @@ describe("PanelFooter", () => {
   })
 
   test("renders a custom className", async () => {
-    render(
-      <PanelFooter data-testid="panel-footer" className="my-custom-classname" />
-    )
+    render(<PanelFooter data-testid="panel-footer" className="my-custom-classname" />)
     expect(screen.getByTestId("panel-footer")).toBeInTheDocument()
     expect(screen.getByTestId("panel-footer")).toHaveClass("my-custom-classname")
   })
@@ -41,9 +39,6 @@ describe("PanelFooter", () => {
   test("renders all props", async () => {
     render(<PanelFooter data-testid="panel-footer" data-lolol="some-prop" />)
     expect(screen.getByTestId("panel-footer")).toBeInTheDocument()
-    expect(screen.getByTestId("panel-footer")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("panel-footer")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

@@ -48,11 +48,7 @@ describe("SelectRow", () => {
   })
 
   test("renders a select row with a Select toggle and an associated label with an id as passed", async () => {
-    await waitFor(() =>
-      render(
-        <SelectRow data-testid="select-row" label="my-select" id="select-row" />
-      )
-    )
+    await waitFor(() => render(<SelectRow data-testid="select-row" label="my-select" id="select-row" />))
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByLabelText("my-select")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveAttribute("id", "select-row")
@@ -76,9 +72,7 @@ describe("SelectRow", () => {
   })
 
   test("renders a custom class to the row as passed", async () => {
-    await waitFor(() =>
-      render(<SelectRow data-testid="select-row" className="my-custom-class" />)
-    )
+    await waitFor(() => render(<SelectRow data-testid="select-row" className="my-custom-class" />))
     expect(screen.getByTestId("select-row")).toBeInTheDocument()
     expect(screen.getByTestId("select-row")).toHaveClass("my-custom-class")
   })
@@ -117,9 +111,7 @@ describe("SelectRow", () => {
   })
 
   test("renders a valid SelectRow when successtext prop was passed", async () => {
-    await waitFor(() =>
-      render(<SelectRow successtext="This is a success text" />)
-    )
+    await waitFor(() => render(<SelectRow successtext="This is a success text" />))
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-select-valid")
     expect(screen.getByText("This is a success text")).toBeInTheDocument()
@@ -138,14 +130,9 @@ describe("SelectRow", () => {
   })
 
   test("renders all props as passed", async () => {
-    await waitFor(() =>
-      render(<SelectRow data-testid="select-row" data-lolol="some-prop" />)
-    )
+    await waitFor(() => render(<SelectRow data-testid="select-row" data-lolol="some-prop" />))
     expect(screen.getByTestId("select-row")).toBeInTheDocument()
-    expect(screen.getByTestId("select-row")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("select-row")).toHaveAttribute("data-lolol", "some-prop")
   })
 
   test("sets selected option for an uncontrolled Select as passed", async () => {
@@ -208,9 +195,7 @@ describe("SelectRow", () => {
     expect(select).toHaveTextContent("val-1")
     await waitFor(() => userEvent.click(select))
     expect(screen.getByRole("listbox")).toBeInTheDocument()
-    await waitFor(() =>
-      userEvent.click(screen.getByRole("option", { name: "val-2" }))
-    )
+    await waitFor(() => userEvent.click(screen.getByRole("option", { name: "val-2" })))
     expect(select).toHaveTextContent("val-2")
     expect(mockOnChange).toHaveBeenCalled()
   })
@@ -233,9 +218,7 @@ describe("SelectRow", () => {
     expect(screen.getByRole("option", { name: "v-1" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "v-2" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "v-3" })).toBeInTheDocument()
-    await waitFor(() =>
-      userEvent.click(screen.getByRole("option", { name: "v-2" }))
-    )
+    await waitFor(() => userEvent.click(screen.getByRole("option", { name: "v-2" })))
     expect(select).toHaveTextContent("v-2")
     expect(mockOnChange).toHaveBeenCalled()
   })

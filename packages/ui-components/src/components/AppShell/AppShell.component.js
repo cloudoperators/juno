@@ -51,8 +51,7 @@ export const AppShell = ({
         </MainContainer>
       ) : (
         <>
-          {pageHeader &&
-          (typeof pageHeader === "string" || pageHeader instanceof String) ? (
+          {pageHeader && (typeof pageHeader === "string" || pageHeader instanceof String) ? (
             <PageHeader heading={pageHeader} />
           ) : (
             pageHeader
@@ -67,9 +66,7 @@ export const AppShell = ({
             >
               {sideNavigation && sideNavigation}
               {/* Content Container. This is the place to add the app's main content. Render left margin only if no SideNavigation is present. */}
-              <ContentContainer className={sideNavigation ? "" : "jn-ml-8"}>
-                {children}
-              </ContentContainer>
+              <ContentContainer className={sideNavigation ? "" : "jn-ml-8"}>{children}</ContentContainer>
             </MainContainerInner>
           </MainContainer>
 

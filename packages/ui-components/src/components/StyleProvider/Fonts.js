@@ -11,8 +11,7 @@
 import React, { useInsertionEffect } from "react"
 import PropTypes from "prop-types"
 
-const CSS_FONTS_URL =
-  "https://assets.juno.global.cloud.sap/assets/fonts/plex/css/ibm-plex.min.css"
+const CSS_FONTS_URL = "https://assets.juno.global.cloud.sap/assets/fonts/plex/css/ibm-plex.min.css"
 
 const STYLE_ID = "juno-style-provider-golbal-fonts"
 const Fonts = ({ inline }) => {
@@ -44,11 +43,7 @@ const Fonts = ({ inline }) => {
   if (!inline) return null
 
   // add fonts inline
-  return (
-    <style
-      {...{ [`data-${STYLE_ID}`]: "" }}
-    >{`@import url("${CSS_FONTS_URL}");`}</style>
-  )
+  return <style {...{ [`data-${STYLE_ID}`]: "" }}>{`@import url("${CSS_FONTS_URL}");`}</style>
 }
 
 Fonts.propTypes = {

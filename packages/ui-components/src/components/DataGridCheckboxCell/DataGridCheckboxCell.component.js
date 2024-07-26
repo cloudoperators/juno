@@ -8,18 +8,9 @@ import PropTypes from "prop-types"
 import { Checkbox } from "../Checkbox/Checkbox.component.js"
 import { DataGridCell } from "../DataGridCell/DataGridCell.component.js"
 
-export const DataGridCheckboxCell = ({
-  selected = false,
-  disabled = false,
-  className = "",
-  onChange,
-  ...props
-}) => {
+export const DataGridCheckboxCell = ({ selected = false, disabled = false, className = "", onChange, ...props }) => {
   return (
-    <DataGridCell
-      className={`juno-datagrid-checkbox-cell ${className}`}
-      {...props}
-    >
+    <DataGridCell className={`juno-datagrid-checkbox-cell ${className}`} {...props}>
       <Checkbox disabled={disabled} checked={selected} onChange={onChange} />
     </DataGridCell>
   )

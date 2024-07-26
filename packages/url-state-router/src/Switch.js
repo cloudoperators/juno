@@ -30,11 +30,7 @@ const Switch = ({ children }) => {
     // to trigger an unmount/remount for two <Route>s that render the same
     // component at different URLs.
     React.Children.forEach(children, (child) => {
-      if (
-        !element &&
-        React.isValidElement(child) &&
-        child.type.displayName === "Route"
-      ) {
+      if (!element && React.isValidElement(child) && child.type.displayName === "Route") {
         const [match, _] = routeMatcher(currentPath, child.props.path, {
           exact: child.props.exact,
         })

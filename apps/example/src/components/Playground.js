@@ -4,13 +4,7 @@
  */
 
 import React from "react"
-import {
-  ComboBox,
-  Form,
-  FormRow,
-  Select,
-  SelectOption,
-} from "@cloudoperators/juno-ui-components"
+import { ComboBox, Form, FormRow, Select, SelectOption } from "@cloudoperators/juno-ui-components"
 
 /** A component to include anywhere in the example app, just to try out things and validate behaviour in an app environment */
 const Playground = () => {

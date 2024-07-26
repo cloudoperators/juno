@@ -20,9 +20,7 @@ describe("SideNavigationItem", () => {
   test("renders a SideNavigationItem", async () => {
     render(<SideNavigationItem data-testid="side-nav-item" />)
     expect(screen.getByTestId("side-nav-item")).toBeInTheDocument()
-    expect(screen.getByTestId("side-nav-item")).toHaveClass(
-      "juno-sidenavigation-item"
-    )
+    expect(screen.getByTestId("side-nav-item")).toHaveClass("juno-sidenavigation-item")
   })
 
   test("renders a label as passed", async () => {
@@ -40,18 +38,12 @@ describe("SideNavigationItem", () => {
   test("renders an aria-label as passed", async () => {
     render(<SideNavigationItem ariaLabel="My ARIA-Label" />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute(
-      "aria-label",
-      "My ARIA-Label"
-    )
+    expect(screen.getByRole("button")).toHaveAttribute("aria-label", "My ARIA-Label")
   })
 
   test("renders an aria-label as passed, role link", async () => {
     render(<SideNavigationItem href="#" ariaLabel="hey nav item!" />)
-    expect(screen.getByRole("link")).toHaveAttribute(
-      "aria-label",
-      "hey nav item!"
-    )
+    expect(screen.getByRole("link")).toHaveAttribute("aria-label", "hey nav item!")
   })
 
   test("renders a disabled item as passed", async () => {
@@ -89,25 +81,17 @@ describe("SideNavigationItem", () => {
     render(<SideNavigationItem data-testid="side-nav-item" active />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-sidenavigation-item")
-    expect(screen.getByRole("button")).toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-active")
     expect(screen.getByRole("button")).toHaveAttribute("aria-selected", "true")
   })
 
   test("rerenders the active attribute of a navigation item", async () => {
-    const { rerender } = render(
-      <SideNavigationItem data-testid="side-nav-item" active={true} />
-    )
+    const { rerender } = render(<SideNavigationItem data-testid="side-nav-item" active={true} />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-active")
     rerender(<SideNavigationItem data-testid="side-nav-item" active={false} />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).not.toHaveClass(
-      "juno-sidenavigation-item-active"
-    )
+    expect(screen.getByRole("button")).not.toHaveClass("juno-sidenavigation-item-active")
   })
 
   test("executes an onClick handler as passed", async () => {
@@ -122,25 +106,12 @@ describe("SideNavigationItem", () => {
   })
 
   test("renders custom classNames as passed", async () => {
-    render(
-      <SideNavigationItem
-        data-testid="side-nav-item"
-        className="my-custom-class"
-      />
-    )
+    render(<SideNavigationItem data-testid="side-nav-item" className="my-custom-class" />)
     expect(screen.getByTestId("side-nav-item")).toHaveClass("my-custom-class")
   })
 
   test("renders all props as passed", async () => {
-    render(
-      <SideNavigationItem
-        data-testid="side-nav-item"
-        data-lol="Prop goes here"
-      />
-    )
-    expect(screen.getByTestId("side-nav-item")).toHaveAttribute(
-      "data-lol",
-      "Prop goes here"
-    )
+    render(<SideNavigationItem data-testid="side-nav-item" data-lol="Prop goes here" />)
+    expect(screen.getByTestId("side-nav-item")).toHaveAttribute("data-lol", "Prop goes here")
   })
 })

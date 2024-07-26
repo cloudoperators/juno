@@ -35,9 +35,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <CheckboxGroup {...args}>{children}</CheckboxGroup>
-)
+const Template = ({ children, ...args }) => <CheckboxGroup {...args}>{children}</CheckboxGroup>
 
 Template.propTypes = {
   children: PropTypes.node,

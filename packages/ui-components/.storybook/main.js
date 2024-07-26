@@ -21,9 +21,7 @@ const config = {
   webpackFinal: async (config) => {
     // Default rule for images /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
     // Exclude SVG files so that they can be loaded via svgr
-    const fileLoaderRule = config.module.rules.find(
-      (rule) => rule.test && rule.test.test(".svg")
-    )
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test && rule.test.test(".svg"))
     fileLoaderRule.exclude = /\.svg$/
 
     config.module.rules.push({

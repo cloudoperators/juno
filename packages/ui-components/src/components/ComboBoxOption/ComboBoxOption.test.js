@@ -55,9 +55,7 @@ describe("ComboBoxOption", () => {
       render(
         <AppShellProvider shadowRoot={false}>
           <ComboBox>
-            <ComboBoxOption value="option 1 value">
-              Option 1 child
-            </ComboBoxOption>
+            <ComboBoxOption value="option 1 value">Option 1 child</ComboBoxOption>
           </ComboBox>
         </AppShellProvider>
       )

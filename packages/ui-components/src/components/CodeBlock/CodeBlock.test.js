@@ -12,30 +12,21 @@ describe("CodeBlock", () => {
     render(<CodeBlock data-testid="codeblock" content="some example code" />)
     expect(screen.getByTestId("codeblock")).toBeInTheDocument()
     expect(screen.getByTestId("codeblock")).toHaveClass("juno-code-block")
-    expect(screen.getByTestId("codeblock")).toHaveTextContent(
-      "some example code"
-    )
+    expect(screen.getByTestId("codeblock")).toHaveTextContent("some example code")
   })
 
   test("renders a CodeBlock with children as passed", async () => {
-    render(
-      <CodeBlock data-testid="codeblock">{"some children here"}</CodeBlock>
-    )
+    render(<CodeBlock data-testid="codeblock">{"some children here"}</CodeBlock>)
     expect(screen.getByTestId("codeblock")).toBeInTheDocument()
     expect(screen.getByTestId("codeblock")).toHaveClass("juno-code-block")
-    expect(screen.getByTestId("codeblock")).toHaveTextContent(
-      "some children here"
-    )
+    expect(screen.getByTestId("codeblock")).toHaveTextContent("some children here")
   })
 
   test("renders a CodeBlock with a lang attribute as passed", async () => {
     render(<CodeBlock data-testid="codeblock" lang="javascript" />)
     expect(screen.getByTestId("codeblock")).toBeInTheDocument()
     expect(screen.getByTestId("codeblock")).toHaveClass("juno-code-block")
-    expect(screen.getByTestId("codeblock")).toHaveAttribute(
-      "data-lang",
-      "javascript"
-    )
+    expect(screen.getByTestId("codeblock")).toHaveAttribute("data-lang", "javascript")
   })
 
   test("renders a wrapping CodeBlock by default", async () => {
@@ -54,69 +45,39 @@ describe("CodeBlock", () => {
     expect(screen.getByTestId("codeblock")).toHaveClass("juno-code-block")
     expect(document.querySelector("pre")).not.toHaveClass("jn-break-words")
     expect(document.querySelector("pre")).not.toHaveClass("jn-break-all")
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "jn-whitespace-pre-wrap"
-    )
+    expect(document.querySelector("pre")).not.toHaveClass("jn-whitespace-pre-wrap")
     expect(document.querySelector("pre")).toHaveClass("jn-overflow-x-auto")
   })
 
   test("renders a CodeBlock without height restrictions by default", async () => {
     render(<CodeBlock content="123" />)
     expect(document.querySelector("pre")).toBeInTheDocument()
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "juno-codeblock-pre-small"
-    )
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "juno-codeblock-pre-medium"
-    )
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "juno-codeblock-pre-large"
-    )
+    expect(document.querySelector("pre")).not.toHaveClass("juno-codeblock-pre-small")
+    expect(document.querySelector("pre")).not.toHaveClass("juno-codeblock-pre-medium")
+    expect(document.querySelector("pre")).not.toHaveClass("juno-codeblock-pre-large")
   })
 
   test("renders a small sized CodeBlock as passed", async () => {
     render(<CodeBlock content="123" size="small" />)
     expect(document.querySelector("pre")).toBeInTheDocument()
-    expect(document.querySelector("pre")).toHaveClass(
-      "juno-codeblock-pre-small"
-    )
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "juno-codeblock-pre-medium"
-    )
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "juno-codeblock-pre-large"
-    )
+    expect(document.querySelector("pre")).toHaveClass("juno-codeblock-pre-small")
+    expect(document.querySelector("pre")).not.toHaveClass("juno-codeblock-pre-medium")
+    expect(document.querySelector("pre")).not.toHaveClass("juno-codeblock-pre-large")
   })
 
   test("renders a medium sized CodeBlock as passed", async () => {
     render(<CodeBlock content="123" size="medium" />)
     expect(document.querySelector("pre")).toBeInTheDocument()
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "juno-codeblock-pre-small"
-    )
-    expect(document.querySelector("pre")).toHaveClass(
-      "juno-codeblock-pre-medium"
-    )
-    expect(document.querySelector("pre")).not.toHaveClass(
-      "juno-codeblock-pre-large"
-    )
+    expect(document.querySelector("pre")).not.toHaveClass("juno-codeblock-pre-small")
+    expect(document.querySelector("pre")).toHaveClass("juno-codeblock-pre-medium")
+    expect(document.querySelector("pre")).not.toHaveClass("juno-codeblock-pre-large")
   })
 
   test("renders a heading as passed", async () => {
-    render(
-      <CodeBlock
-        data-testid="codeblock"
-        content="123"
-        heading="Look, a CodeBlock!"
-      />
-    )
+    render(<CodeBlock data-testid="codeblock" content="123" heading="Look, a CodeBlock!" />)
     expect(screen.getByTestId("codeblock")).toBeInTheDocument()
-    expect(
-      document.querySelector(".juno-codeblock-heading")
-    ).toBeInTheDocument()
-    expect(document.querySelector(".juno-codeblock-heading")).toHaveTextContent(
-      "Look, a CodeBlock!"
-    )
+    expect(document.querySelector(".juno-codeblock-heading")).toBeInTheDocument()
+    expect(document.querySelector(".juno-codeblock-heading")).toHaveTextContent("Look, a CodeBlock!")
   })
 
   test("renders a JSONView as passed", async () => {
@@ -149,9 +110,7 @@ describe("CodeBlock", () => {
 
   test("renders a CodeBlock with a Copy button by default", async () => {
     render(<CodeBlock />)
-    expect(
-      screen.getByRole("button", { name: "contentCopy" })
-    ).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "contentCopy" })).toBeInTheDocument()
   })
 
   test("renders a CodeBlock with className as passed", async () => {
@@ -163,9 +122,6 @@ describe("CodeBlock", () => {
   test("renders a CodeBlock with all props as passed", async () => {
     render(<CodeBlock data-testid="codeblock" data-lolol="code-lang-js" />)
     expect(screen.getByTestId("codeblock")).toBeInTheDocument()
-    expect(screen.getByTestId("codeblock")).toHaveAttribute(
-      "data-lolol",
-      "code-lang-js"
-    )
+    expect(screen.getByTestId("codeblock")).toHaveAttribute("data-lolol", "code-lang-js")
   })
 })

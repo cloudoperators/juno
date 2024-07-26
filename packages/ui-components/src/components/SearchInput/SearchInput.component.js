@@ -128,10 +128,7 @@ export const SearchInput = ({
   }
 
   return (
-    <div
-      className={`juno-search-input-wrapper ${wrapperStyles(variant)} ${className}`}
-      role="search"
-    >
+    <div className={`juno-search-input-wrapper ${wrapperStyles(variant)} ${className}`} role="search">
       <Stack gap="2" alignment="center">
         <input
           type="search"
@@ -156,12 +153,7 @@ export const SearchInput = ({
               disabled={disabled}
             />
           ) : null}
-          <Icon
-            icon="search"
-            title="Search"
-            onClick={handleSearchClick}
-            disabled={disabled}
-          />
+          <Icon icon="search" title="Search" onClick={handleSearchClick} disabled={disabled} />
         </div>
       </Stack>
     </div>

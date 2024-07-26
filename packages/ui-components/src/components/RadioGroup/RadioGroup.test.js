@@ -57,9 +57,7 @@ describe("RadioGroup", () => {
     render(<RadioGroup data-testid="group" />)
     expect(screen.getByTestId("group")).toBeInTheDocument()
     expect(screen.getByTestId("group")).toHaveAttribute("id")
-    expect(screen.getByTestId("group").getAttribute("id")).toMatch(
-      "juno-radiogroup"
-    )
+    expect(screen.getByTestId("group").getAttribute("id")).toMatch("juno-radiogroup")
   })
 
   test("renders a label for the group as passed", async () => {
@@ -118,12 +116,8 @@ describe("RadioGroup", () => {
   test("renders a helptext as passed", async () => {
     render(<RadioGroup name="a-radiogroup" helptext="this is a helptext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-help"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is a helptext"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is a helptext")
   })
 
   test("renders a valid RadioGroup as passed", async () => {
@@ -156,9 +150,7 @@ describe("RadioGroup", () => {
       </RadioGroup>
     )
     expect(screen.getByRole("radiogroup")).toBeInTheDocument()
-    expect(screen.getByRole("radiogroup")).toHaveClass(
-      "juno-radiogroup-invalid"
-    )
+    expect(screen.getByRole("radiogroup")).toHaveClass("juno-radiogroup-invalid")
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
 
@@ -169,9 +161,7 @@ describe("RadioGroup", () => {
       </RadioGroup>
     )
     expect(screen.getByRole("radiogroup")).toBeInTheDocument()
-    expect(screen.getByRole("radiogroup")).toHaveClass(
-      "juno-radiogroup-invalid"
-    )
+    expect(screen.getByRole("radiogroup")).toHaveClass("juno-radiogroup-invalid")
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
     expect(screen.getByText("Big Error!")).toBeInTheDocument()
   })
@@ -185,9 +175,6 @@ describe("RadioGroup", () => {
   test("renders all props", async () => {
     render(<RadioGroup name="my-radiogroup" data-lolol="some-prop" />)
     expect(screen.getByRole("radiogroup")).toBeInTheDocument()
-    expect(screen.getByRole("radiogroup")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByRole("radiogroup")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

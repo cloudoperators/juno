@@ -18,26 +18,16 @@ describe("Pagination", () => {
   test("renders a default Pagination with only two buttons by default", async () => {
     render(<Pagination data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
-    expect(screen.getByTestId("my-pagination")).toHaveClass(
-      "juno-pagination-default"
-    )
+    expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-default")
     expect(screen.queryAllByRole("button")).toHaveLength(2)
     expect(screen.queryAllByRole("combobox")).toHaveLength(0)
     expect(screen.queryAllByRole("textbox")).toHaveLength(0)
   })
 
   test("renders a number variant Pagination as passed", async () => {
-    render(
-      <Pagination
-        variant="number"
-        currentPage={12}
-        data-testid="my-pagination"
-      />
-    )
+    render(<Pagination variant="number" currentPage={12} data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
-    expect(screen.getByTestId("my-pagination")).toHaveClass(
-      "juno-pagination-number"
-    )
+    expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-number")
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("12")
     expect(screen.queryAllByRole("button")).toHaveLength(2)
     expect(screen.queryAllByRole("combobox")).toHaveLength(0)
@@ -47,28 +37,16 @@ describe("Pagination", () => {
   test("renders a select variant Pagination as passed", async () => {
     render(<Pagination variant="select" data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
-    expect(screen.getByTestId("my-pagination")).toHaveClass(
-      "juno-pagination-select"
-    )
+    expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-select")
     expect(screen.queryAllByRole("button")).toHaveLength(3)
     expect(screen.queryAllByRole("textbox")).toHaveLength(0)
-    expect(
-      document.querySelector("button.juno-select-toggle")
-    ).toBeInTheDocument()
+    expect(document.querySelector("button.juno-select-toggle")).toBeInTheDocument()
   })
 
   test("renders an input variant Pagination as passed", async () => {
-    render(
-      <Pagination
-        variant="input"
-        currentPage={43}
-        data-testid="my-pagination"
-      />
-    )
+    render(<Pagination variant="input" currentPage={43} data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
-    expect(screen.getByTestId("my-pagination")).toHaveClass(
-      "juno-pagination-input"
-    )
+    expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-input")
     expect(screen.queryAllByRole("button")).toHaveLength(2)
     expect(screen.queryAllByRole("combobox")).toHaveLength(0)
     expect(screen.queryByRole("textbox")).toBeInTheDocument()
@@ -91,14 +69,7 @@ describe("Pagination", () => {
   // TODO: This test needs re-work: Fire event when value changes
   test("fires onChange handler as passed when Select changes for select variant", async () => {
     const mockHandleChange = jest.fn()
-    render(
-      <Pagination
-        variant="select"
-        currentPage={1}
-        pages={6}
-        onSelectChange={mockHandleChange}
-      />
-    )
+    render(<Pagination variant="select" currentPage={1} pages={6} onSelectChange={mockHandleChange} />)
     const select = document.querySelector("button.juno-select-toggle")
     expect(select).toBeInTheDocument()
     expect(select).toHaveTextContent("1")
@@ -125,9 +96,6 @@ describe("Pagination", () => {
   test("renders all props as passed", async () => {
     render(<Pagination data-testid="my-pagination" data-lolol="123-456" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
-    expect(screen.getByTestId("my-pagination")).toHaveAttribute(
-      "data-lolol",
-      "123-456"
-    )
+    expect(screen.getByTestId("my-pagination")).toHaveAttribute("data-lolol", "123-456")
   })
 })

@@ -5,15 +5,14 @@ This package provides a temporary ESLint configuration specifically for TypeScri
 ## Usage
 
 You can use this configuration as a starting point in any package or app within your monorepo using TurboRepo.
+
 ```javascript
-packages/
-  package-a/
-    src/
-    tsconfig.json
-    eslint.config.mjs
+packages / package - a / src / tsconfig.json
+eslint.config.mjs
 ```
 
 1. **Create an `eslint.config.mjs` in your package or app:**
+
 ```javascript
 import junoConfigs from "@cloudoperators/eslint-config/juno.mjs"
 
@@ -29,11 +28,11 @@ export default [
   },
 ]
 ```
+
 2. **Create an `eslint.config.mjs` in your package or app specific for typescript:**
+
 ```javascript
 import junoConfigs from "@cloudoperators/eslint-config/juno-typescript.mjs"
 
-export default [
-  ...junoConfigs,
-]
+export default [...junoConfigs]
 ```

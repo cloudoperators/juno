@@ -14,53 +14,55 @@ export default {
   argTypes: {
     icon: {
       options: [null, ...knownIcons],
-      control: { type: 'select' },
+      control: { type: "select" },
     },
     onClick: {
       control: false,
     },
     children: {
-      control: false
+      control: false,
     },
   },
-  parameters: { actions: { argTypesRegex: null } }
+  parameters: { actions: { argTypesRegex: null } },
 }
 
-const Template = (args) => <TopNavigation><TopNavigationItem {...args} /></TopNavigation>
+const Template = (args) => (
+  <TopNavigation>
+    <TopNavigationItem {...args} />
+  </TopNavigation>
+)
 
 export const Default = Template.bind({})
 Default.args = {
-  label: "Navigation Item"
+  label: "Navigation Item",
 }
 
 export const Active = Template.bind({})
 Active.args = {
   label: "Navigation Item",
-  active: true
+  active: true,
 }
 
 export const Disabled = Template.bind({})
 Disabled.args = {
   disabled: true,
-  label: "Disabled Item"
+  label: "Disabled Item",
 }
 
 export const WithIcon = Template.bind({})
 WithIcon.args = {
   label: "Navigation Item",
-  icon: "warning"
+  icon: "warning",
 }
 
 export const AsLink = Template.bind({})
 AsLink.args = {
   label: "Navigation Item",
-  href: "#"
+  href: "#",
 }
 
 export const WithChildren = Template.bind({})
 WithChildren.args = {
   value: "itm-1",
-  children: "Item 1"
+  children: "Item 1",
 }
-
-

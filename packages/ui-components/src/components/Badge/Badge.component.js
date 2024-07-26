@@ -34,14 +34,7 @@ const errorStyles = `jn-bg-theme-error/25`
 
 const iconStyles = `jn-mr-1 jn-items-center`
 
-const knownVariants = [
-  "info",
-  "success",
-  "warning",
-  "danger",
-  "error",
-  "critical",
-]
+const knownVariants = ["info", "success", "warning", "danger", "error", "critical"]
 
 const getVariantStyle = (variant) => {
   switch (variant) {
@@ -65,14 +58,7 @@ const getVariantStyle = (variant) => {
 /** 
 A Badge component to visually indicate properties or states of an entity. Besides the default, there are also semantic versions. Can optionally contain an icon to emphasize their meaning.
 */
-export const Badge = ({
-  variant = "default",
-  icon = false,
-  text = "",
-  className = "",
-  children = null,
-  ...props
-}) => {
+export const Badge = ({ variant = "default", icon = false, text = "", className = "", children = null, ...props }) => {
   const getIcon = (icon, variant) => {
     if (icon && knownIcons.includes(icon)) {
       // if icon is an available icon, return as passed:

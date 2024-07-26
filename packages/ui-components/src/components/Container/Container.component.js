@@ -16,18 +16,9 @@ const containerStyles = (px, py) => {
 /**
  * A very basic layout container with padding.
  */
-export const Container = ({
-  px = true,
-  py = false,
-  className = "",
-  children = null,
-  ...props
-}) => {
+export const Container = ({ px = true, py = false, className = "", children = null, ...props }) => {
   return (
-    <div
-      className={`juno-container ${containerStyles(px, py)} ${className}`}
-      {...props}
-    >
+    <div className={`juno-container ${containerStyles(px, py)} ${className}`} {...props}>
       {children}
     </div>
   )

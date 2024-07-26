@@ -32,13 +32,7 @@ const selectOptions = (pages) => {
   return opts
 }
 
-const renderPaginationInnards = (
-  variant,
-  currentPage,
-  pages,
-  handleSelectChange,
-  handleKeyPress
-) => {
+const renderPaginationInnards = (variant, currentPage, pages, handleSelectChange, handleKeyPress) => {
   switch (variant) {
     case "number":
       return <span>{currentPage || "0"}</span>
@@ -101,32 +95,12 @@ export const Pagination = ({
 
   return (
     <div
-      className={`juno-pagination juno-pagination-${
-        variant || "default"
-      } ${paginationStyles} ${className}`}
+      className={`juno-pagination juno-pagination-${variant || "default"} ${paginationStyles} ${className}`}
       {...props}
     >
-      <Button
-        icon="chevronLeft"
-        disabled={isFirstPage}
-        onClick={handlePrevClick}
-        title="Previous Page"
-      />
-      {variant
-        ? renderPaginationInnards(
-            variant,
-            currentPage,
-            pages,
-            handleSelectChange,
-            handleKeyPress
-          )
-        : null}
-      <Button
-        icon="chevronRight"
-        disabled={isLastPage}
-        onClick={handleNextClick}
-        title="Next Page"
-      />
+      <Button icon="chevronLeft" disabled={isFirstPage} onClick={handlePrevClick} title="Previous Page" />
+      {variant ? renderPaginationInnards(variant, currentPage, pages, handleSelectChange, handleKeyPress) : null}
+      <Button icon="chevronRight" disabled={isLastPage} onClick={handleNextClick} title="Next Page" />
     </div>
   )
 }

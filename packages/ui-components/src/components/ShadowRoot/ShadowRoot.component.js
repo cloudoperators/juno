@@ -44,11 +44,7 @@ import PropTypes from "prop-types"
  * @param {Object} props
  * @returns {function} component
  */
-export const ShadowRoot = ({
-  mode = "open",
-  delegatesFocus = false,
-  children = null,
-}) => {
+export const ShadowRoot = ({ mode = "open", delegatesFocus = false, children = null }) => {
   // reference element which is replaced by the shadow dom element
   const ref = useRef()
   // hold shadow element in the state

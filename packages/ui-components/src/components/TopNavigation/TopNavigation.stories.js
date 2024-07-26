@@ -23,9 +23,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <TopNavigation {...args}>{children}</TopNavigation>
-)
+const Template = ({ children, ...args }) => <TopNavigation {...args}>{children}</TopNavigation>
 
 Template.propTypes = {
   children: PropTypes.node.isRequired,
@@ -45,8 +43,7 @@ export const Disabled = Template.bind({})
 ;(Disabled.parameters = {
   docs: {
     description: {
-      story:
-        "All navigation items can be disabled by passing `disabled` to the `TabNavigation`.",
+      story: "All navigation items can be disabled by passing `disabled` to the `TabNavigation`.",
     },
   },
 }),
@@ -83,8 +80,7 @@ export const WithChildren = Template.bind({})
 WithChildren.parameters = {
   docs: {
     description: {
-      story:
-        "Alternatively, navigation items can render children passed to them.",
+      story: "Alternatively, navigation items can render children passed to them.",
     },
   },
 }

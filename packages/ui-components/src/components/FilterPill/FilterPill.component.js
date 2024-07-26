@@ -57,16 +57,9 @@ export const FilterPill = ({
   }
 
   return (
-    <div
-      className={`juno-filterpill ${filterpillStyles} ${className}`}
-      {...props}
-    >
-      <span className={`${filterkeyStyles}`}>
-        {filterKeyLabel || filterKey}
-      </span>
-      <span className={`${filtervalueStyles}`}>
-        {filterValueLabel || filterValue}
-      </span>
+    <div className={`juno-filterpill ${filterpillStyles} ${className}`} {...props}>
+      <span className={`${filterkeyStyles}`}>{filterKeyLabel || filterKey}</span>
+      <span className={`${filtervalueStyles}`}>{filterValueLabel || filterValue}</span>
       <Icon icon="close" size="18" onClick={handleCloseClick} />
     </div>
   )

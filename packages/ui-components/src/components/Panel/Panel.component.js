@@ -107,33 +107,18 @@ export const Panel = ({
 
   return (
     <div
-      className={`juno-panel ${panelClasses(
-        isOpen,
-        isTransitioning,
-        size
-      )} ${className}`}
+      className={`juno-panel ${panelClasses(isOpen, isTransitioning, size)} ${className}`}
       role="dialog"
       aria-labelledby="juno-panel-title"
       {...props}
     >
       <div className={`juno-panel-header ${panelHeaderClasses}`}>
-        <div
-          className={`juno-panel-title ${panelTitleClasses}`}
-          id="juno-panel-title"
-        >
+        <div className={`juno-panel-title ${panelTitleClasses}`} id="juno-panel-title">
           {heading}
         </div>
-        {isCloseable && (
-          <Icon
-            icon="close"
-            onClick={handleClose}
-            className="juno-panel-close jn-ml-auto"
-          />
-        )}
+        {isCloseable && <Icon icon="close" onClick={handleClose} className="juno-panel-close jn-ml-auto" />}
       </div>
-      <div className={`juno-panel-content-wrapper ${contentWrapperClasses}`}>
-        {children}
-      </div>
+      <div className={`juno-panel-content-wrapper ${contentWrapperClasses}`}>{children}</div>
     </div>
   )
 }

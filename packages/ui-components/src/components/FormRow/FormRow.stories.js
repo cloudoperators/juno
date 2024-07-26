@@ -18,9 +18,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <FormRow {...args}>{children}</FormRow>
-)
+const Template = ({ children, ...args }) => <FormRow {...args}>{children}</FormRow>
 Template.propTypes = {
   children: PropTypes.node,
 }
@@ -29,12 +27,6 @@ export const Default = {
   render: Template,
 
   args: {
-    children: [
-      <TextInput
-        label="TextInput in a FormRow"
-        placeholder="Your input here…"
-        key="1"
-      />,
-    ],
+    children: [<TextInput label="TextInput in a FormRow" placeholder="Your input here…" key="1" />],
   },
 }

@@ -21,9 +21,7 @@ describe("useRouter", () => {
       const spy = jest.spyOn(console, "warn")
       renderHook(() => useRouter())
 
-      expect(spy).toHaveBeenCalledWith(
-        "You should not use <Route>, <Switch>, <Redirect> or <Link> outside a <Router>"
-      )
+      expect(spy).toHaveBeenCalledWith("You should not use <Route>, <Switch>, <Redirect> or <Link> outside a <Router>")
     })
   })
 

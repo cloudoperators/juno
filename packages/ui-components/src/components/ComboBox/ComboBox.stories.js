@@ -854,8 +854,7 @@ export const OptionsWithLabels = {
   parameters: {
     docs: {
       description: {
-        story:
-          "If an option has both a label and a child, then the child is displayed instead of the label",
+        story: "If an option has both a label and a child, then the child is displayed instead of the label",
       },
     },
   },
