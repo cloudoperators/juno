@@ -3,6 +3,7 @@
 node_modules
 npm-debug.log*
 build
+dist
 
 # act artifacts needed for testing workflows
 .secrets
