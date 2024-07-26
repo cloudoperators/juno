@@ -24,9 +24,8 @@
 
 <!-- Describe the steps needed to test this pull request. -->
 
-1. Step 1
-2. Step 2
-3. Step 3
+1. `npm i`
+2. `npm run TASK`
 
 # Checklist
 
