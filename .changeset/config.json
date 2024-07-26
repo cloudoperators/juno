@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@cloudoperators/juno-app-example", "@cloudoperators/juno-app-template"]
+  "ignore": []
 }

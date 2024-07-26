@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "source": "src/index.js",
   "module": "build/index.js",
-  "private": false,
+  "private": true,
   "engines": {
     "node": ">=20.0.0 <21.0.0",
     "npm": ">=10.0.0 <11.0.0"
