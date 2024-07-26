@@ -17,7 +17,7 @@
     "release": "turbo run build && changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
+    "@changesets/cli": "^2.27.7",
     "@types/node": "^20.14.11",
     "eslint": "^9.7.0",
     "license-checker-rseidelsohn": "^4.3.0",
