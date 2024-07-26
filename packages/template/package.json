@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-template",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "private": true,
   "description": "Description of template",
   "author": "UI-Team",
@@ -11,6 +11,9 @@
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
+  "files": [
+    "build"
+  ],
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0 <21.0.0",

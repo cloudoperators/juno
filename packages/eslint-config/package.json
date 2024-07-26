@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-eslint-config",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "private": true,
   "devDependencies": {
     "@eslint/compat": "^1.1.1",

@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-url-state-router",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "Router",
   "author": "UI-Team",
   "contributors": [
@@ -10,6 +10,9 @@
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
+  "files": [
+    "build"
+  ],
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0 <21.0.0",
