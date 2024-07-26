@@ -7,10 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "@cloudoperators/juno-app-example",
-    "@cloudoperators/juno-app-template",
-    "@cloudoperators/juno-eslint-config",
-    "@cloudoperators/juno-typescript-config"
-  ]
+  "ignore": ["@cloudoperators/juno-app-example", "@cloudoperators/juno-app-template"]
 }
