@@ -7,11 +7,7 @@ import { parseIdTokenData } from "./tokenHelpers"
 import * as implicitFlowHandler from "./implicitFlow"
 import * as codeFlowHandler from "./codeFlow"
 
-import {
-  hasValidState,
-  createState as createRequestState,
-  getState as getResponseState,
-} from "./oidcState"
+import { hasValidState, createState as createRequestState, getState as getResponseState } from "./oidcState"
 import { getOidcConfig } from "./oidcConfig"
 
 // define flow types
@@ -32,20 +28,12 @@ const oidcFlowHandler = (flowType) => {
 
 //############################## REQUEST #################################
 // This function initiates the oidc flow
-const createOidcRequest = async ({
-  issuerURL,
-  clientID,
-  flowType,
-  requestParams,
-}) => {
+const createOidcRequest = async ({ issuerURL, clientID, flowType, requestParams }) => {
   try {
     // create state props and store them in the SessionStorage
     // to use them after the redirect back from the ID provider
     // for code flow we use pkce and without secret!
-    const oidcState = await createRequestState(
-      { flowType },
-      { pkce: flowType === FLOW_TYPE.CODE }
-    )
+    const oidcState = await createRequestState({ flowType }, { pkce: flowType === FLOW_TYPE.CODE })
     const handler = oidcFlowHandler(flowType)
 
     // make the actual request
@@ -57,14 +45,9 @@ const createOidcRequest = async ({
 
     // add additional search params
     if (requestParams) {
-      let params =
-        typeof requestParams === "string"
-          ? JSON.parse(requestParams)
-          : requestParams
+      let params = typeof requestParams === "string" ? JSON.parse(requestParams) : requestParams
       const newUrl = new URL(url)
-      Object.keys(params).forEach((k) =>
-        newUrl.searchParams.append(k, params[k])
-      )
+      Object.keys(params).forEach((k) => newUrl.searchParams.append(k, params[k]))
       url = newUrl.href
     }
 
@@ -93,8 +76,7 @@ const handleOidcResponse = async ({ issuerURL, clientID }) => {
       oidcState,
     })
 
-    if (oidcState.nonce && tokenData?.nonce !== oidcState.nonce)
-      throw new Error("compromised id token content")
+    if (oidcState.nonce && tokenData?.nonce !== oidcState.nonce) throw new Error("compromised id token content")
 
     const authData = {
       JWT: idToken,
@@ -114,12 +96,7 @@ const handleOidcResponse = async ({ issuerURL, clientID }) => {
 }
 
 // Refresh token works only for the code flow!
-const refreshOidcToken = async ({
-  issuerURL,
-  clientID,
-  flowType,
-  refreshToken,
-}) => {
+const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }) => {
   if (!flowType === FLOW_TYPE.CODE) return null
   try {
     const {
@@ -156,9 +133,7 @@ function oidcLogout({ issuerURL, silent }) {
     }
     let url = config.end_session_endpoint
     if (silent) {
-      const currentScript = document.querySelector(
-        `iframe[id="__oauth_logout_silent_mode"]`
-      )
+      const currentScript = document.querySelector(`iframe[id="__oauth_logout_silent_mode"]`)
       if (currentScript) currentScript.remove()
       // refresh token using iframe and postMessage API
       const iframe = document.createElement("iframe")
@@ -179,17 +154,8 @@ function oidcLogout({ issuerURL, silent }) {
  * @returns {object} contains login, logout, refresh, currentState
  */
 const oidcSession = (params) => {
-  let {
-    issuerURL,
-    clientID,
-    initialLogin,
-    refresh,
-    flowType,
-    onUpdate,
-    requestParams,
-    _callbackURL,
-    ...unknownProps
-  } = params || {}
+  let { issuerURL, clientID, initialLogin, refresh, flowType, onUpdate, requestParams, _callbackURL, ...unknownProps } =
+    params || {}
   if (!issuerURL || !clientID) {
     throw new Error("(OAUTH) issuerURL and clientID are required")
   }
@@ -227,11 +193,7 @@ const oidcSession = (params) => {
 
     if (expiresAt) {
       const expiresIn = expiresAt - Date.now() - 5000
-      console.info(
-        "(OAUTH) refresh token in",
-        Math.floor(expiresIn / 1000),
-        "seconds"
-      )
+      console.info("(OAUTH) refresh token in", Math.floor(expiresIn / 1000), "seconds")
       // start timer for refresh
       refreshTimer = setTimeout(refreshAuth, expiresIn)
     }
@@ -243,11 +205,7 @@ const oidcSession = (params) => {
     const expiresAt = state.auth?.parsed?.expiresAt
     if (expiresAt) {
       const expiresIn = expiresAt - Date.now() - 5000
-      console.info(
-        "(OAUTH) logout token in",
-        Math.floor(expiresIn / 1000),
-        "seconds"
-      )
+      console.info("(OAUTH) logout token in", Math.floor(expiresIn / 1000), "seconds")
       expirationTimer = setTimeout(logout, expiresIn)
     }
   }
@@ -300,8 +258,7 @@ const oidcSession = (params) => {
   const logout = (options) => {
     console.info("(OAUTH) logout")
     update({ auth: null, error: null, loggedIn: false, isProcessing: false })
-    if (options?.resetOIDCSession)
-      oidcLogout({ issuerURL, silent: options?.silent === true })
+    if (options?.resetOIDCSession) oidcLogout({ issuerURL, silent: options?.silent === true })
   }
 
   //############### HANDLE OIDC RESPONSE ################

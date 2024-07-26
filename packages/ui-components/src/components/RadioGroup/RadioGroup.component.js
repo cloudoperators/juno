@@ -3,13 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  useId,
-  createContext,
-} from "react"
+import React, { useState, useEffect, useMemo, useId, createContext } from "react"
 import PropTypes from "prop-types"
 import { Label } from "../Label/index.js"
 import { Icon } from "../Icon/index"
@@ -104,14 +98,8 @@ export const RadioGroup = ({
   const [isInvalid, setIsInvalid] = useState(false)
 
   // Validate / Invalidate the RadioGroup based on the respective props:
-  const validated = useMemo(
-    () => valid || (successtext && successtext.length ? true : false),
-    [valid, successtext]
-  )
-  const invalidated = useMemo(
-    () => invalid || (errortext && errortext.length ? true : false),
-    [invalid, errortext]
-  )
+  const validated = useMemo(() => valid || (successtext && successtext.length ? true : false), [valid, successtext])
+  const invalidated = useMemo(() => invalid || (errortext && errortext.length ? true : false), [invalid, errortext])
 
   useEffect(() => {
     setIsValid(validated)
@@ -163,12 +151,7 @@ export const RadioGroup = ({
         {...props}
       >
         {label && isNotEmptyString(label) ? (
-          <Label
-            text={label}
-            htmlFor={groupId}
-            disabled={disabled}
-            required={required}
-          />
+          <Label text={label} htmlFor={groupId} disabled={disabled} required={required} />
         ) : (
           ""
         )}
@@ -181,41 +164,13 @@ export const RadioGroup = ({
             ${isValid || isInvalid ? "" : defaultgroupstyles}
           `}
         >
-          {isInvalid ? (
-            <Icon
-              icon="dangerous"
-              color="jn-text-theme-error"
-              className={`${iconstyles}`}
-            />
-          ) : (
-            ""
-          )}
-          {isValid ? (
-            <Icon
-              icon="checkCircle"
-              color="jn-text-theme-success"
-              className={`${iconstyles}`}
-            />
-          ) : (
-            ""
-          )}
+          {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" className={`${iconstyles}`} /> : ""}
+          {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" className={`${iconstyles}`} /> : ""}
           {children}
         </div>
-        {errortext && isNotEmptyString(errortext) ? (
-          <FormHint text={errortext} variant="error" />
-        ) : (
-          ""
-        )}
-        {successtext && isNotEmptyString(successtext) ? (
-          <FormHint text={successtext} variant="success" />
-        ) : (
-          ""
-        )}
-        {helptext && isNotEmptyString(helptext) ? (
-          <FormHint text={helptext} />
-        ) : (
-          ""
-        )}
+        {errortext && isNotEmptyString(errortext) ? <FormHint text={errortext} variant="error" /> : ""}
+        {successtext && isNotEmptyString(successtext) ? <FormHint text={successtext} variant="success" /> : ""}
+        {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} /> : ""}
       </div>
     </RadioGroupContext.Provider>
   )

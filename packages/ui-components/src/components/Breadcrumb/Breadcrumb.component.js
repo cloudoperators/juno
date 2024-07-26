@@ -27,12 +27,7 @@ export const Breadcrumb = ({ children = null, className = "", ...props }) => {
   })
 
   return (
-    <Stack
-      className={`juno-breadcrumb ${breadcrumbstyles} ${className}`}
-      gap="1"
-      key="stck"
-      {...props}
-    >
+    <Stack className={`juno-breadcrumb ${breadcrumbstyles} ${className}`} gap="1" key="stck" {...props}>
       {breadcrumbArrayWithSeparators}
     </Stack>
   )

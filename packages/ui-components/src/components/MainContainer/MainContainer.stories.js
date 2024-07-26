@@ -3,21 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React from "react"
 
-import { MainContainer } from './index.js';
+import { MainContainer } from "./index.js"
 
 export default {
-  title: 'Internal/MainContainer',
+  title: "Internal/MainContainer",
   component: MainContainer,
   argTypes: {
     children: {
       control: false,
     },
   },
-};
+}
 
-const Template = (args) => <MainContainer {...args}>main content</MainContainer>;
+const Template = (args) => <MainContainer {...args}>main content</MainContainer>
 
 export const Main = {
   render: Template,
@@ -32,4 +32,4 @@ export const Main = {
   },
 
   args: {},
-};
+}

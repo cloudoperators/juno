@@ -3,21 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React from "react"
 
-import { ContentContainer } from './index.js';
+import { ContentContainer } from "./index.js"
 
 export default {
-  title: 'Internal/ContentContainer',
+  title: "Internal/ContentContainer",
   component: ContentContainer,
   argTypes: {
     children: {
       control: false,
     },
   },
-};
+}
 
-const Template = (args) => <ContentContainer {...args}>content</ContentContainer>;
+const Template = (args) => <ContentContainer {...args}>content</ContentContainer>
 
 export const Centered = {
   render: Template,
@@ -32,4 +32,4 @@ export const Centered = {
   },
 
   args: {},
-};
+}

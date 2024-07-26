@@ -51,9 +51,7 @@ describe("buildRequestUrl", () => {
       },
     }).then((url) => {
       expect(url).toEqual(
-        `${
-          config.authorization_endpoint
-        }?response_type=code&client_id=12345&redirect_uri=${encodeURIComponent(
+        `${config.authorization_endpoint}?response_type=code&client_id=12345&redirect_uri=${encodeURIComponent(
           "http://dummy.com"
         )}&scope=openid+email+profile+groups+offline_access&state=123456&nonce=test&code_challenge=12345&code_challenge_method=S256`
       )
@@ -73,9 +71,7 @@ describe("buildRequestUrl", () => {
       },
     }).then((url) => {
       expect(url).toEqual(
-        `${
-          config.authorization_endpoint
-        }?response_type=code&client_id=12345&redirect_uri=${encodeURIComponent(
+        `${config.authorization_endpoint}?response_type=code&client_id=12345&redirect_uri=${encodeURIComponent(
           "http://dummy.com"
         )}&scope=openid+email+profile+groups+offline_access&state=123456&nonce=test&code_challenge=12345&code_challenge_method=S256&origanization=test&project=test`
       )
@@ -96,9 +92,7 @@ describe("buildRequestUrl", () => {
       },
     }).then((url) => {
       expect(url).toEqual(
-        `${
-          config.authorization_endpoint
-        }?response_type=code&client_id=12345&redirect_uri=${encodeURIComponent(
+        `${config.authorization_endpoint}?response_type=code&client_id=12345&redirect_uri=${encodeURIComponent(
           "http://another-issuer.com"
         )}&scope=openid+email+profile+groups+offline_access&state=123456&nonce=test&code_challenge=12345&code_challenge_method=S256&origanization=test&project=test`
       )
@@ -122,9 +116,7 @@ describe("buildRequestUrl", () => {
       },
     }).then((url) => {
       expect(url).toEqual(
-        `${
-          config.authorization_endpoint
-        }?response_type=code&client_id=12345&redirect_uri=${encodeURIComponent(
+        `${config.authorization_endpoint}?response_type=code&client_id=12345&redirect_uri=${encodeURIComponent(
           "http://another-issuer.com"
         )}&scope=openid+email&state=123456&nonce=test&code_challenge=12345&code_challenge_method=S256&origanization=test&project=test`
       )
@@ -147,9 +139,7 @@ describe("handleResponse", () => {
   })
 
   test("url contains error", async () => {
-    oidcState.searchParams = new URLSearchParams(
-      "error=unsupported_response_type"
-    )
+    oidcState.searchParams = new URLSearchParams("error=unsupported_response_type")
 
     await expect(
       handleResponse({

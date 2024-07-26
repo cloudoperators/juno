@@ -36,14 +36,7 @@ const iconStyles = `
 
 
 */
-const Tab = ({
-  children = null,
-  label = "",
-  icon,
-  disabled = false,
-  className = "",
-  ...props
-}) => {
+const Tab = ({ children = null, label = "", icon, disabled = false, className = "", ...props }) => {
   return (
     <ReactTab
       className={`juno-tab ${tabStyles} ${className}`}

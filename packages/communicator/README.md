@@ -19,7 +19,7 @@ Additionally, the Communicator library introduces the `crossWindow` option, whic
 To use the library, you can import the necessary functions:
 
 ```javascript
-import { broadcast, watch, get, onGet } from "communicator";
+import { broadcast, watch, get, onGet } from "communicator"
 ```
 
 ### broadcast(name, data, options) ⇒ void
@@ -27,11 +27,7 @@ import { broadcast, watch, get, onGet } from "communicator";
 Use this function to send messages via BroadcastChannel across different contexts, such as multiple tabs on the same origin.
 
 ```javascript
-broadcast(
-  "AUTH_TOKEN_UPDATED",
-  { token: "TOKEN" },
-  { debug: true, crossWindow: false },
-);
+broadcast("AUTH_TOKEN_UPDATED", { token: "TOKEN" }, { debug: true, crossWindow: false })
 ```
 
 ### watch(name, callback, options) ⇒ function
@@ -42,10 +38,10 @@ Register a listener for a specific message. Messages are observed across context
 const unwatch = watch(
   "AUTH_TOKEN_UPDATED",
   (data, { sourceWindowId, thisWindowId }) => {
-    console.log(data);
+    console.log(data)
   },
-  { debug: false },
-);
+  { debug: false }
+)
 ```
 
 ### get(name, callback, options) ⇒ function
@@ -56,10 +52,10 @@ Request a message by name and receive the data with the callback.
 const cancel = get(
   "AUTH_TOKEN_UPDATED",
   (data, { sourceWindowId, thisWindowId }) => {
-    console.log(data);
+    console.log(data)
   },
-  { debug: false },
-);
+  { debug: false }
+)
 ```
 
 ### onGet(name, callback, options) ⇒ function
@@ -70,8 +66,8 @@ Use this function to respond to get messages.
 const unwatch = onGet(
   "AUTH_TOKEN_UPDATED",
   (getOptions, { sourceWindowId, thisWindowId }) => {
-    return { name: "test" };
+    return { name: "test" }
   },
-  { debug: false },
-);
+  { debug: false }
+)
 ```

@@ -72,30 +72,20 @@ export const Pill = ({
   return (
     <div className={`juno-pill ${pillStyles(onClick)} ${className}`} {...props}>
       {!pillValue && !pillValueLabel ? (
-        <span className={`${pillValueStyles}`}>
-          set pillValue or pillValueLabel
-        </span>
+        <span className={`${pillValueStyles}`}>set pillValue or pillValueLabel</span>
       ) : (
         <>
           {(pillKeyLabel || pillKey) && (
-            <span
-              className={`pill-key ${pillKeyStyles(onClick)}`}
-              onClick={(e) => handleClick(e)}
-            >
+            <span className={`pill-key ${pillKeyStyles(onClick)}`} onClick={(e) => handleClick(e)}>
               {pillKeyLabel || pillKey}
             </span>
           )}
-          <span
-            className={`pill-value ${pillValueStyles(onClick)}`}
-            onClick={(e) => handleClick(e)}
-          >
+          <span className={`pill-value ${pillValueStyles(onClick)}`} onClick={(e) => handleClick(e)}>
             {pillValueLabel || pillValue}
           </span>
         </>
       )}
-      {closeable && (
-        <Icon icon="close" size="18" onClick={(e) => handleCloseClick(e)} />
-      )}
+      {closeable && <Icon icon="close" size="18" onClick={(e) => handleCloseClick(e)} />}
     </div>
   )
 }

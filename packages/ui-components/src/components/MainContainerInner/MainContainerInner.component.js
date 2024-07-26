@@ -34,13 +34,7 @@ export const MainContainerInner = ({
       className={`
         juno-main-inner
          ${mainInnerStyles}
-         ${
-           !fullWidth
-             ? hasSideNav
-               ? constrainWithSideNavStyles
-               : constrainStyles
-             : "juno-main-inner-fullwidth"
-         }
+         ${!fullWidth ? (hasSideNav ? constrainWithSideNavStyles : constrainStyles) : "juno-main-inner-fullwidth"}
          ${className}`}
       {...props}
     >

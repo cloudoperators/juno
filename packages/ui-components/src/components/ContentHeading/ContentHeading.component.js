@@ -17,17 +17,9 @@ const headingStyles = `
 
  *The main heading of a page/View. Pass as a child into `<AppShell>` or, when scaffolding manually, into `<ContentContainer>`.
  */
-export const ContentHeading = ({
-  heading = "",
-  className = "",
-  children = null,
-  ...props
-}) => {
+export const ContentHeading = ({ heading = "", className = "", children = null, ...props }) => {
   return (
-    <h1
-      className={`juno-content-heading ${headingStyles} ${className}`}
-      {...props}
-    >
+    <h1 className={`juno-content-heading ${headingStyles} ${className}`} {...props}>
       {children || heading}
     </h1>
   )

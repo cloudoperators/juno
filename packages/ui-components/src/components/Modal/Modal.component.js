@@ -108,8 +108,7 @@ export const Modal = ({
 
   const [isOpen, setIsOpen] = useState(open)
   const [isCloseable, setIsCloseable] = useState(closeable)
-  const [isCloseabelOnBackdropClick, setIsCloseableOnBackdropClick] =
-    useState(closeOnBackdropClick)
+  const [isCloseabelOnBackdropClick, setIsCloseableOnBackdropClick] = useState(closeOnBackdropClick)
   const [isCloseableOnEsc, setisCloseableOnEsc] = useState(closeOnEsc)
 
   useEffect(() => {
@@ -165,10 +164,7 @@ export const Modal = ({
     <>
       {isOpen &&
         createPortal(
-          <div
-            className={`juno-modal-container ${modalcontainerstyles}`}
-            onClick={handleBackdropClick}
-          >
+          <div className={`juno-modal-container ${modalcontainerstyles}`} onClick={handleBackdropClick}>
             <FocusTrap
               focusTrapOptions={{
                 initialFocus: initialFocus,
@@ -185,33 +181,22 @@ export const Modal = ({
                 role="dialog"
                 ref={modalRef}
                 {...props}
-                aria-labelledby={
-                  theTitle && theTitle.length ? modalTitleId : null
-                }
+                aria-labelledby={theTitle && theTitle.length ? modalTitleId : null}
                 aria-label={ariaLabel}
               >
                 <div
                   className={`juno-modal-header ${headerstyles} ${theTitle && theTitle.length ? `jn-justify-between` : `jn-justify-end`}`}
                 >
                   {title || heading ? (
-                    <h1
-                      className={`juno-modal-title ${titlestyles}`}
-                      id={modalTitleId}
-                    >
+                    <h1 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
                       {title || heading}
                     </h1>
                   ) : (
                     ""
                   )}
-                  {isCloseable ? (
-                    <Icon icon="close" onClick={handleCancelClick} />
-                  ) : (
-                    ""
-                  )}
+                  {isCloseable ? <Icon icon="close" onClick={handleCancelClick} /> : ""}
                 </div>
-                <div
-                  className={`juno-modal-content ${contentstyles} ${unpad ? "" : contentpaddingstyles}`}
-                >
+                <div className={`juno-modal-content ${contentstyles} ${unpad ? "" : contentpaddingstyles}`}>
                   {children}
                 </div>
                 {isCloseable ? (

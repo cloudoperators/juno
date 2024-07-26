@@ -11,11 +11,9 @@ describe("ContentHeading", () => {
   test("renders a content heading", async () => {
     render(<ContentHeading heading="My Heading" />)
     expect(screen.getByRole("heading")).toBeInTheDocument()
-    expect(screen.getByRole("heading")).toHaveClass(
-      "juno-content-heading"
-    )
+    expect(screen.getByRole("heading")).toHaveClass("juno-content-heading")
   })
-  
+
   test("renders a content heading with the given text", async () => {
     render(<ContentHeading heading="My Heading" />)
     expect(screen.getByRole("heading")).toHaveTextContent("My Heading")
@@ -23,7 +21,7 @@ describe("ContentHeading", () => {
 
   test("renders children as passed", async () => {
     render(
-      <ContentHeading >
+      <ContentHeading>
         <button></button>
       </ContentHeading>
     )
@@ -32,27 +30,14 @@ describe("ContentHeading", () => {
   })
 
   test("renders a custom className", async () => {
-    render(
-      <ContentHeading
-        className="my-custom-classname"
-      />
-    )
+    render(<ContentHeading className="my-custom-classname" />)
     expect(screen.getByRole("heading")).toBeInTheDocument()
-    expect(screen.getByRole("heading")).toHaveClass(
-      "my-custom-classname"
-    )
+    expect(screen.getByRole("heading")).toHaveClass("my-custom-classname")
   })
 
   test("renders all props", async () => {
-    render(
-      <ContentHeading
-        data-lolol="some-prop"
-      />
-    )
+    render(<ContentHeading data-lolol="some-prop" />)
     expect(screen.getByRole("heading")).toBeInTheDocument()
-    expect(screen.getByRole("heading")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByRole("heading")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

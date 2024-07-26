@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Button } from '../Button/index.js';
-import { ButtonRow } from '../ButtonRow/index.js';
-import { DataGridToolbar } from './index.js';
-import { SearchInput } from '../SearchInput/SearchInput.component';
+import React from "react"
+import { Button } from "../Button/index.js"
+import { ButtonRow } from "../ButtonRow/index.js"
+import { DataGridToolbar } from "./index.js"
+import { SearchInput } from "../SearchInput/SearchInput.component"
 
 export default {
-  title: 'Components/DataGrid/DataGridToolbar',
+  title: "Components/DataGrid/DataGridToolbar",
   component: DataGridToolbar,
   argTypes: {
     children: {
@@ -20,7 +20,7 @@ export default {
       control: false,
     },
   },
-};
+}
 
 const Template = (args) => (
   <DataGridToolbar {...args}>
@@ -29,7 +29,7 @@ const Template = (args) => (
       <Button>Add new</Button>
     </ButtonRow>
   </DataGridToolbar>
-);
+)
 
 export const Default = {
   render: Template,
@@ -37,13 +37,13 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Optional toolbar for use in DataGrid. Use ButtonRow for multiple buttons',
+        story: "Optional toolbar for use in DataGrid. Use ButtonRow for multiple buttons",
       },
     },
   },
 
   args: {},
-};
+}
 
 export const WithSearch = {
   render: Template,
@@ -51,7 +51,7 @@ export const WithSearch = {
   parameters: {
     docs: {
       description: {
-        story: 'DataGridToolbar with optional search input',
+        story: "DataGridToolbar with optional search input",
       },
     },
   },
@@ -60,9 +60,9 @@ export const WithSearch = {
     search: (
       <SearchInput
         onSearch={() => {
-          console.log('Searching…');
+          console.log("Searching…")
         }}
       />
     ),
   },
-};
+}

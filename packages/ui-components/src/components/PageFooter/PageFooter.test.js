@@ -39,9 +39,6 @@ describe("PageFooter", () => {
   test("renders all props", async () => {
     render(<PageFooter data-lolol="some-prop" />)
     expect(screen.getByRole("contentinfo")).toBeInTheDocument()
-    expect(screen.getByRole("contentinfo")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByRole("contentinfo")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

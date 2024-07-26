@@ -11,9 +11,7 @@ describe("ModalFooter", () => {
   test("renders a ModalFooter", async () => {
     render(<ModalFooter data-testid="my-modal-footer" />)
     expect(screen.getByTestId("my-modal-footer")).toBeInTheDocument()
-    expect(screen.getByTestId("my-modal-footer")).toHaveClass(
-      "juno-modal-footer"
-    )
+    expect(screen.getByTestId("my-modal-footer")).toHaveClass("juno-modal-footer")
   })
 
   test("renders a ModalFooter with a single 'Close' button by default", async () => {
@@ -40,9 +38,7 @@ describe("ModalFooter", () => {
   test("does not render a 'Confirm' button but a single 'Close' button when neither a label nor a handler are being passed", async () => {
     render(<ModalFooter />)
     expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Confirm" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Confirm" })).not.toBeInTheDocument()
   })
 
   test("renders a ModalFooter with a custom label for the cancelling button as passed", async () => {
@@ -74,19 +70,12 @@ describe("ModalFooter", () => {
   })
 
   test("renders custom classNames as passed", async () => {
-    render(
-      <ModalFooter data-testid="my-modal-footer" className="my-custom-class" />
-    )
+    render(<ModalFooter data-testid="my-modal-footer" className="my-custom-class" />)
     expect(screen.getByTestId("my-modal-footer")).toHaveClass("my-custom-class")
   })
 
   test("renders all props as passed", async () => {
-    render(
-      <ModalFooter data-testid="my-modal-footer" name="My little ModalFooter" />
-    )
-    expect(screen.getByTestId("my-modal-footer")).toHaveAttribute(
-      "name",
-      "My little ModalFooter"
-    )
+    render(<ModalFooter data-testid="my-modal-footer" name="My little ModalFooter" />)
+    expect(screen.getByTestId("my-modal-footer")).toHaveAttribute("name", "My little ModalFooter")
   })
 })

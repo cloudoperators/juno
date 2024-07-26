@@ -10,9 +10,7 @@ describe("encoding", () => {
     const humanURI = superstate()
     const string = "hallo peter wie geht es ñ ~ dsfesf%&/834294239477788 {}()"
     let urlState = humanURI.encode(string)
-    expect(urlState).toBe(
-      "hallo+peter+wie+geht+es+%C3%B1+~A+dsfesf~B~Q~G834294239477788+~H~I~J~K"
-    )
+    expect(urlState).toBe("hallo+peter+wie+geht+es+%C3%B1+~A+dsfesf~B~Q~G834294239477788+~H~I~J~K")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(string)
   })
@@ -261,8 +259,7 @@ describe("lz-string compressed", () => {
         continent: "Europe",
         workers: { name: "John Doe", title: "CEO", term: 2 },
         id: 123456789,
-        string:
-          "Lorem ipsum dolor sit amet, consectetur adipisici elit. Wie: 1234567890",
+        string: "Lorem ipsum dolor sit amet, consectetur adipisici elit. Wie: 1234567890",
       },
     }
     let urlState = humanURI.encodeLZ(data)
@@ -302,8 +299,7 @@ describe("base 64 with null on error", () => {
         continent: "Europe",
         workers: { name: "John Doe", title: "CEO", term: 2 },
         id: 123456789,
-        string:
-          "Lorem ipsum dolor sit amet, consectetur adipisici elit. Wie: 1234567890",
+        string: "Lorem ipsum dolor sit amet, consectetur adipisici elit. Wie: 1234567890",
       },
     }
     let urlState = humanURI.encodeB64(data)
@@ -312,8 +308,7 @@ describe("base 64 with null on error", () => {
   })
   it("decoded broken string", () => {
     const humanURI = superstate()
-    const data =
-      "aGFsbG8rcGV0ZXIrd2llK2dlaHQ5BK2RzZmVzZn5CflF+RzgzNDI5NDIzOTQ3Nzc4OCt+SH5Jfkp+Sw=="
+    const data = "aGFsbG8rcGV0ZXIrd2llK2dlaHQ5BK2RzZmVzZn5CflF+RzgzNDI5NDIzOTQ3Nzc4OCt+SH5Jfkp+Sw=="
     const decoded = humanURI.decodeB64NullOnError(data)
     expect(decoded).toStrictEqual(null)
   })
@@ -328,8 +323,7 @@ describe("compressed with null on error", () => {
         continent: "Europe",
         workers: { name: "John Doe", title: "CEO", term: 2 },
         id: 123456789,
-        string:
-          "Lorem ipsum dolor sit amet, consectetur adipisici elit. Wie: 1234567890",
+        string: "Lorem ipsum dolor sit amet, consectetur adipisici elit. Wie: 1234567890",
       },
     }
     let urlState = humanURI.encodeLZ(data)

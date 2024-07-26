@@ -41,10 +41,7 @@ describe("TopNavigation", () => {
   test("renders an aria-label as passed", async () => {
     render(<TopNavigation ariaLabel="describe the navigation" />)
     expect(screen.getByRole("navigation")).toBeInTheDocument()
-    expect(screen.getByRole("navigation")).toHaveAttribute(
-      "aria-label",
-      "describe the navigation"
-    )
+    expect(screen.getByRole("navigation")).toHaveAttribute("aria-label", "describe the navigation")
   })
 
   test("renders disabled children as passed", async () => {
@@ -58,16 +55,10 @@ describe("TopNavigation", () => {
     expect(screen.queryAllByRole("button")).toHaveLength(2)
     expect(screen.getByRole("button", { name: "Item 1" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Item 1" })).toBeDisabled()
-    expect(screen.getByRole("button", { name: "Item 1" })).toHaveAttribute(
-      "aria-disabled",
-      "true"
-    )
+    expect(screen.getByRole("button", { name: "Item 1" })).toHaveAttribute("aria-disabled", "true")
     expect(screen.getByRole("button", { name: "Item 2" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Item 2" })).toBeDisabled()
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute(
-      "aria-disabled",
-      "true"
-    )
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-disabled", "true")
   })
 
   test("renders an active navigation item as passed", async () => {
@@ -80,20 +71,11 @@ describe("TopNavigation", () => {
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
     expect(screen.getByRole("button", { name: "Item 1" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute(
-      "aria-selected"
-    )
-    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute("aria-selected")
+    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveClass("juno-navigation-item-active")
     expect(screen.getByRole("button", { name: "Item 2" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute(
-      "aria-selected",
-      "true"
-    )
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-selected", "true")
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass("juno-navigation-item-active")
   })
 
   test("renders an active navigation item as passed by value", async () => {
@@ -106,19 +88,11 @@ describe("TopNavigation", () => {
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
     expect(screen.getByRole("button", { name: "Item 1" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute(
-      "aria-selected"
-    )
-    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute("aria-selected")
+    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveClass("juno-navigation-item-active")
     expect(screen.getByRole("button", { name: "Item 2" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute(
-      "aria-selected"
-    )
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-selected")
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass("juno-navigation-item-active")
   })
 
   test("renders the active item as passed to the parent if conflicting with active prop passed to child item", async () => {
@@ -131,20 +105,11 @@ describe("TopNavigation", () => {
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
     expect(screen.getByRole("button", { name: "Item 1" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute(
-      "aria-selected"
-    )
-    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute("aria-selected")
+    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveClass("juno-navigation-item-active")
     expect(screen.getByRole("button", { name: "Item 2" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute(
-      "aria-selected",
-      "true"
-    )
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-selected", "true")
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass("juno-navigation-item-active")
   })
 
   test("changes the active item when the user clicks", async () => {
@@ -171,10 +136,7 @@ describe("TopNavigation", () => {
 
   test("executes a handler as passed when the selected item changes", async () => {
     render(
-      <TopNavigation
-        activeItem="Item 1"
-        onActiveItemChange={mockOnActiveItemChange}
-      >
+      <TopNavigation activeItem="Item 1" onActiveItemChange={mockOnActiveItemChange}>
         <TopNavigationItem label="Item 1" />
         <TopNavigationItem label="Item 2" />
       </TopNavigation>
@@ -193,9 +155,6 @@ describe("TopNavigation", () => {
 
   test("renders all props as passed", async () => {
     render(<TopNavigation data-lol="Prop goes here" />)
-    expect(screen.getByRole("navigation")).toHaveAttribute(
-      "data-lol",
-      "Prop goes here"
-    )
+    expect(screen.getByRole("navigation")).toHaveAttribute("data-lol", "Prop goes here")
   })
 })

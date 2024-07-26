@@ -13,10 +13,7 @@ const url = require("postcss-url")
 // this function generates app props based on package.json and propSecrets.json
 const appProps = require("../../helpers/appProps")
 
-if (!/.+\/.+\.js/.test(pkg.module))
-  throw new Error(
-    "module value is incorrect, use DIR/FILE.js like build/index.js"
-  )
+if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like build/index.js")
 
 const isProduction = process.env.NODE_ENV === "production"
 // If the jspm server fails and we cannot use external packages
@@ -61,10 +58,7 @@ const build = async () => {
     // here we exclude package from bundle which are defined in peerDependencies
     // our importmap generator uses also the peerDependencies to create the importmap
     // it means all packages defined in peerDependencies are in browser available via the importmap
-    external:
-      isProduction && !IGNORE_EXTERNALS
-        ? Object.keys(pkg.peerDependencies || {})
-        : [],
+    external: isProduction && !IGNORE_EXTERNALS ? Object.keys(pkg.peerDependencies || {}) : [],
     entryPoints: [pkg.source],
     outdir,
     // this step is important for performance reason.
@@ -190,10 +184,7 @@ const build = async () => {
     if (watch) await ctx.watch()
     if (serve) {
       // generate app props based on package.json and secretProps.json
-      await fs.writeFile(
-        `./${outdir}/appProps.js`,
-        `export default ${JSON.stringify(appProps())}`
-      )
+      await fs.writeFile(`./${outdir}/appProps.js`, `export default ${JSON.stringify(appProps())}`)
 
       let { host, port } = await ctx.serve({
         host: "0.0.0.0",

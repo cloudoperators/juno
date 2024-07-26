@@ -48,13 +48,7 @@ Template.propTypes = {
   tabpanels: PropTypes.node,
 }
 
-const ControlledTemplate = ({
-  selectedIndex,
-  onSelect,
-  tabs,
-  tabpanels,
-  ...args
-}) => {
+const ControlledTemplate = ({ selectedIndex, onSelect, tabs, tabpanels, ...args }) => {
   const [i, setI] = useState(0)
 
   useEffect(() => {
@@ -85,11 +79,7 @@ export const Default = {
   render: Template,
 
   args: {
-    tabs: [
-      <Tab key="t-1">Tab 1</Tab>,
-      <Tab key="t-2">Tab 2</Tab>,
-      <Tab key="t-3">Tab 3</Tab>,
-    ],
+    tabs: [<Tab key="t-1">Tab 1</Tab>, <Tab key="t-2">Tab 2</Tab>, <Tab key="t-3">Tab 3</Tab>],
     tabpanels: [
       <TabPanel key="tp-1">Content 1</TabPanel>,
       <TabPanel key="tp-2">Content 2</TabPanel>,
@@ -125,11 +115,7 @@ export const ControlledTabs = {
   render: ControlledTemplate,
 
   args: {
-    tabs: [
-      <Tab key="t-1">Tab 1</Tab>,
-      <Tab key="t-2">Tab 2</Tab>,
-      <Tab key="t-3">Tab 3</Tab>,
-    ],
+    tabs: [<Tab key="t-1">Tab 1</Tab>, <Tab key="t-2">Tab 2</Tab>, <Tab key="t-3">Tab 3</Tab>],
     tabpanels: [
       <TabPanel key="tp-1">Content 1</TabPanel>,
       <TabPanel key="tp-2">Content 2</TabPanel>,

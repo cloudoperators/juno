@@ -164,14 +164,7 @@ Stack.propTypes = {
   /** Specify how items should be aligned on the cross axis (in a horizontal Stack this is the vertical alignment, in a vertical Stack it is the horizontal alignment) */
   alignment: PropTypes.oneOf(["start", "end", "center", "baseline", "stretch"]),
   /** Specify how items should be distributed on the main axis (in a horizontal Stack this is the horizontal distribution, in a vertical Stack it is the vertical distribution) */
-  distribution: PropTypes.oneOf([
-    "start",
-    "end",
-    "center",
-    "between",
-    "around",
-    "evenly",
-  ]),
+  distribution: PropTypes.oneOf(["start", "end", "center", "between", "around", "evenly"]),
   /** Specify whether the Stack children should be allowed to wrap or not */
   wrap: PropTypes.bool,
   /** Can be any valid tailwind  spacing. See here: https://tailwindcss.com/docs/customizing-spacing#default-spacing-scale */

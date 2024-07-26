@@ -3,22 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { AppShellProvider } from '.';
-import { CodeBlock } from '../CodeBlock/index.js';
-import { Message } from '../Message/Message.component';
+import React from "react"
+import { AppShellProvider } from "."
+import { CodeBlock } from "../CodeBlock/index.js"
+import { Message } from "../Message/Message.component"
 
 export default {
-  title: 'Layout/AppShellProvider',
+  title: "Layout/AppShellProvider",
   component: AppShellProvider,
   argTypes: {
     children: {
       control: false,
     },
   },
-};
+}
 
-const Template = (args) => <AppShellProvider {...args}>{args.children}</AppShellProvider>;
+const Template = (args) => <AppShellProvider {...args}>{args.children}</AppShellProvider>
 
 export const Default = {
   render: Template,
@@ -39,7 +39,7 @@ export const Default = {
       </CodeBlock>,
     ],
   },
-};
+}
 
 export const NoShadowRoot = {
   render: Template,
@@ -61,14 +61,14 @@ export const NoShadowRoot = {
       </CodeBlock>,
     ],
   },
-};
+}
 
 export const StylesInHead = {
   render: Template,
 
   args: {
     shadowRoot: false,
-    stylesWrapper: 'head',
+    stylesWrapper: "head",
     children: [
       <Message key={0}>Juno styles are added to the head tag</Message>,
       <CodeBlock key={1}>
@@ -84,14 +84,14 @@ export const StylesInHead = {
       </CodeBlock>,
     ],
   },
-};
+}
 
 export const StylesInline = {
   render: Template,
 
   args: {
     shadowRoot: false,
-    stylesWrapper: 'inline',
+    stylesWrapper: "inline",
     children: [
       <Message key={0}>Juno style are added inline</Message>,
       <CodeBlock key={1}>
@@ -107,13 +107,13 @@ export const StylesInline = {
       </CodeBlock>,
     ],
   },
-};
+}
 
 export const ThemeLight = {
   render: Template,
 
   args: {
-    theme: 'theme-light',
+    theme: "theme-light",
     children: [
       <Message key={0}>Light Theme</Message>,
       <CodeBlock key={1}>{`
@@ -125,4 +125,4 @@ export const ThemeLight = {
   </AppShellProvider>`}</CodeBlock>,
     ],
   },
-};
+}

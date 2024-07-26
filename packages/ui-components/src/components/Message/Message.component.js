@@ -170,21 +170,11 @@ export const Message = ({
     <>
       {visible && (
         <div
-          className={`juno-message juno-message-${variant} ${message} ${backgroundClass(
-            variant
-          )} ${className}`}
+          className={`juno-message juno-message-${variant} ${message} ${backgroundClass(variant)} ${className}`}
           {...props}
         >
-          <div
-            className={`juno-message-border ${messageBorderStyles} ${variantClass(
-              variant
-            )}`}
-          ></div>
-          <Icon
-            icon={getMuiIcon(variant)}
-            color={"jn-text-theme-" + variant}
-            className="jn-shrink-0"
-          />
+          <div className={`juno-message-border ${messageBorderStyles} ${variantClass(variant)}`}></div>
+          <Icon icon={getMuiIcon(variant)} color={"jn-text-theme-" + variant} className="jn-shrink-0" />
           <div className={`juno-message-content ${messageContentStyles}`}>
             {title ? <h1 className={`${messageHeading}`}>{title}</h1> : ""}
             <div>{children ? children : text}</div>

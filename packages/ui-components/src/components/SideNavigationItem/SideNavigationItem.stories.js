@@ -5,9 +5,8 @@
 
 import React from "react"
 import { SideNavigationItem } from "./index.js"
-import { SideNavigation } from '../SideNavigation/index';
+import { SideNavigation } from "../SideNavigation/index"
 import { knownIcons } from "../Icon/Icon.component.js"
-
 
 export default {
   title: "Navigation/SideNavigation/SideNavigationItem",
@@ -15,13 +14,13 @@ export default {
   argTypes: {
     icon: {
       options: [null, ...knownIcons],
-      control: { type: 'select' },
+      control: { type: "select" },
     },
     onClick: {
       control: false,
     },
     children: {
-      control: false
+      control: false,
     },
   },
   parameters: { actions: { argTypesRegex: null } },
@@ -32,13 +31,13 @@ const Template = (args) => <SideNavigationItem {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
-  label: "Navigation Item"
+  label: "Navigation Item",
 }
 
 export const Active = Template.bind({})
 Active.args = {
   label: "Active Navigation Item",
-  active: true
+  active: true,
 }
 
 export const Disabled = Template.bind({})
@@ -50,19 +49,17 @@ Disabled.args = {
 export const WithIcon = Template.bind({})
 WithIcon.args = {
   label: "Navigation Item With Icon",
-  icon: "warning"
+  icon: "warning",
 }
 
 export const AsLink = Template.bind({})
 AsLink.args = {
   label: "Navigation Item as Anchor",
-  href: "#"
+  href: "#",
 }
 
 export const WithChildren = Template.bind({})
 WithChildren.args = {
   value: "itm-1",
-  children: "Item 1"
+  children: "Item 1",
 }
-
-

@@ -16,11 +16,7 @@ const wrapperStyles = `
 const preStyles = (wrap) => {
   return `
     jn-p-6
-    ${
-      wrap
-        ? "jn-break-words jn-break-all jn-whitespace-pre-wrap"
-        : "jn-overflow-x-auto"
-    }
+    ${wrap ? "jn-break-words jn-break-all jn-whitespace-pre-wrap" : "jn-overflow-x-auto"}
   `
 }
 
@@ -132,10 +128,7 @@ export const CodeBlock = ({
   const theCode = useRef(null)
 
   const handleCopyClick = () => {
-    const textToCopy =
-      lang === "json"
-        ? JSON.stringify(content || children)
-        : theCode.current.textContent
+    const textToCopy = lang === "json" ? JSON.stringify(content || children) : theCode.current.textContent
     navigator.clipboard.writeText(textToCopy)
     setIsCopied(true)
     clearTimeout(timeoutRef.current) // clear any possibly existing Refs
@@ -144,9 +137,7 @@ export const CodeBlock = ({
 
   return (
     <div
-      className={`juno-code-block ${wrapperStyles} ${
-        lang ? `juno-code-block-lang-${lang}` : ""
-      } ${className}`}
+      className={`juno-code-block ${wrapperStyles} ${lang ? `juno-code-block-lang-${lang}` : ""} ${className}`}
       data-lang={lang || null}
       {...props}
     >
@@ -158,18 +149,9 @@ export const CodeBlock = ({
         ""
       )}
       {lang === "json" ? (
-        <JsonViewer
-          data={content}
-          expanded={3}
-          theme={jsonTheme}
-          style={jsonViewStyles}
-        />
+        <JsonViewer data={content} expanded={3} theme={jsonTheme} style={jsonViewStyles} />
       ) : (
-        <pre
-          className={`juno-code-block-pre ${preStyles(wrap)} ${sizeStyles(
-            size
-          )}`}
-        >
+        <pre className={`juno-code-block-pre ${preStyles(wrap)} ${sizeStyles(size)}`}>
           <code className={`${codeStyles}`} ref={theCode}>
             {content || children}
           </code>
@@ -178,9 +160,7 @@ export const CodeBlock = ({
 
       {copy ? (
         <div className={`juno-codeblock-bottombar ${bottomBarStyles}`}>
-          <span className={`${copyTextStyles}`}>
-            {isCopied ? "Copied!" : ""}
-          </span>
+          <span className={`${copyTextStyles}`}>{isCopied ? "Copied!" : ""}</span>
           <Icon icon="contentCopy" onClick={handleCopyClick} />
         </div>
       ) : (

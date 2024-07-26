@@ -16,11 +16,9 @@ Object.defineProperty(window, "location", {
   },
 })
 
-window.history.replaceState = jest
-  .fn()
-  .mockImplementation((state, title, url) => {
-    window.location.href = url
-  })
+window.history.replaceState = jest.fn().mockImplementation((state, title, url) => {
+  window.location.href = url
+})
 
 window.history.pushState = jest.fn().mockImplementation((state, title, url) => {
   window.location.href = url
@@ -49,8 +47,7 @@ describe("currentState", () => {
 
     beforeAll(() => {
       jest.resetModules()
-      window.location.href =
-        "http://localhost?test1=test1&__s=" + state + "&test2=test2"
+      window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2"
     })
 
     it("should return state object for consumer1", () => {
@@ -75,8 +72,7 @@ describe("currentState", () => {
 
     beforeAll(() => {
       jest.resetModules()
-      window.location.href =
-        "http://localhost?test1=test1&__s=" + state + "&test2=test2"
+      window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2"
     })
 
     it("test regex mail", () => {
@@ -95,8 +91,7 @@ describe("currentState", () => {
     beforeAll(() => {
       jest.resetModules()
       delete window["__url_state_provider"]
-      window.location.href =
-        "http://localhost?test1=test1&__s=" + state + "&test2=test2"
+      window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2"
       provider.push("consumer1", { p: "/about", o: { tab: 1 } })
     })
 
@@ -129,9 +124,7 @@ describe("currentState", () => {
         consumer2: { p: "/items/10", o: { tab: 2 } },
       })
 
-      expect(window.location.href).toEqual(
-        "http://localhost/?test1=test1&__s=" + newState + "&test2=test2"
-      )
+      expect(window.location.href).toEqual("http://localhost/?test1=test1&__s=" + newState + "&test2=test2")
     })
 
     describe("search params are empty", () => {
@@ -147,9 +140,7 @@ describe("currentState", () => {
           consumer1: { p: "/about" },
         })
 
-        expect(window.location.href).toEqual(
-          "http://localhost/?__s=" + newState
-        )
+        expect(window.location.href).toEqual("http://localhost/?__s=" + newState)
       })
     })
 
@@ -184,8 +175,7 @@ describe("currentState", () => {
     beforeAll(() => {
       jest.resetModules()
       delete window["__url_state_provider"]
-      window.location.href =
-        "http://localhost?test1=test1&__s=" + state + "&test2=test2"
+      window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2"
       provider.replace("consumer1", { p: "/about", o: { tab: 1 } })
     })
 
@@ -217,9 +207,7 @@ describe("currentState", () => {
         consumer1: { p: "/about", o: { tab: 1 } },
         consumer2: { p: "/items/10", o: { tab: 2 } },
       })
-      expect(window.location.href).toEqual(
-        "http://localhost/?test1=test1&__s=" + newState + "&test2=test2"
-      )
+      expect(window.location.href).toEqual("http://localhost/?test1=test1&__s=" + newState + "&test2=test2")
     })
 
     describe("search params are empty", () => {
@@ -235,9 +223,7 @@ describe("currentState", () => {
           consumer1: { p: "/about" },
         })
 
-        expect(window.location.href).toEqual(
-          "http://localhost/?__s=" + newState
-        )
+        expect(window.location.href).toEqual("http://localhost/?__s=" + newState)
       })
     })
   })

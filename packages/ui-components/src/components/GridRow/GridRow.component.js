@@ -16,10 +16,7 @@ A grid row to hold GridColumn elements inside a Grid.
 */
 export const GridRow = ({ children = null, className = "", ...props }) => {
   return (
-    <div
-      className={`juno-grid-row ${gridRowBaseStyles} ${className}`}
-      {...props}
-    >
+    <div className={`juno-grid-row ${gridRowBaseStyles} ${className}`} {...props}>
       {children}
     </div>
   )

@@ -5,11 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import {
-  AppShell,
-  AppShellProvider,
-  CodeBlock,
-} from "@cloudoperators/juno-ui-components"
+import { AppShell, AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import StoreProvider from "./components/StoreProvider"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import AppContent from "./AppContent"

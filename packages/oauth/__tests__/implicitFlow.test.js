@@ -40,9 +40,7 @@ describe("buildRequestUrl", () => {
       oidcState: { nonce: "test", key: "123456" },
     }).then((url) => {
       expect(url).toEqual(
-        `${
-          config.authorization_endpoint
-        }?response_type=id_token&client_id=12345&redirect_uri=${encodeURIComponent(
+        `${config.authorization_endpoint}?response_type=id_token&client_id=12345&redirect_uri=${encodeURIComponent(
           "http://dummy.com"
         )}&scope=openid&state=123456&nonce=test`
       )
@@ -60,9 +58,7 @@ describe("buildRequestUrl", () => {
       },
     }).then((url) => {
       expect(url).toEqual(
-        `${
-          config.authorization_endpoint
-        }?response_type=id_token&client_id=12345&redirect_uri=${encodeURIComponent(
+        `${config.authorization_endpoint}?response_type=id_token&client_id=12345&redirect_uri=${encodeURIComponent(
           "http://dummy.com"
         )}&scope=openid&state=123456&nonce=test&origanization=test&project=test`
       )
@@ -81,9 +77,7 @@ describe("buildRequestUrl", () => {
       },
     }).then((url) => {
       expect(url).toEqual(
-        `${
-          config.authorization_endpoint
-        }?response_type=id_token&client_id=12345&redirect_uri=${encodeURIComponent(
+        `${config.authorization_endpoint}?response_type=id_token&client_id=12345&redirect_uri=${encodeURIComponent(
           "http://another-issuer.com"
         )}&scope=openid&state=123456&nonce=test&origanization=test&project=test`
       )
@@ -94,15 +88,11 @@ describe("buildRequestUrl", () => {
 describe("handleResponse", () => {
   test("url does not contain id_token and error", async () => {
     oidcState.searchParams = new URLSearchParams()
-    await expect(handleResponse()).rejects.toThrow(
-      "bad response, missing id_token"
-    )
+    await expect(handleResponse()).rejects.toThrow("bad response, missing id_token")
   })
 
   test("url contains error", async () => {
-    oidcState.searchParams = new URLSearchParams(
-      "error=unsupported_response_type"
-    )
+    oidcState.searchParams = new URLSearchParams("error=unsupported_response_type")
     await expect(handleResponse()).rejects.toThrow("unsupported_response_type")
   })
 

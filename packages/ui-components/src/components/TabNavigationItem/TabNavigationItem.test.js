@@ -20,9 +20,7 @@ describe("TabNavigationItem", () => {
   test("renders a TabNavigationItem", async () => {
     render(<TabNavigationItem data-testid={"tab-nav-item"} />)
     expect(screen.getByTestId("tab-nav-item")).toBeInTheDocument()
-    expect(screen.getByTestId("tab-nav-item")).toHaveClass(
-      "juno-tabnavigation-item"
-    )
+    expect(screen.getByTestId("tab-nav-item")).toHaveClass("juno-tabnavigation-item")
   })
 
   test("renders a label as passed", async () => {
@@ -40,20 +38,14 @@ describe("TabNavigationItem", () => {
   test("renders an aria-label as passed", async () => {
     render(<TabNavigationItem ariaLabel="My ARIA-Label" />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute(
-      "aria-label",
-      "My ARIA-Label"
-    )
+    expect(screen.getByRole("button")).toHaveAttribute("aria-label", "My ARIA-Label")
   })
 
   test("renders a disabled tab navigation item as passed", async () => {
     render(<TabNavigationItem data-testid={"tab-nav-item"} disabled />)
     expect(screen.getByTestId("tab-nav-item")).toBeInTheDocument()
     expect(screen.getByTestId("tab-nav-item")).toBeDisabled()
-    expect(screen.getByTestId("tab-nav-item")).toHaveAttribute(
-      "aria-disabled",
-      "true"
-    )
+    expect(screen.getByTestId("tab-nav-item")).toHaveAttribute("aria-disabled", "true")
   })
 
   test("renders an icon as passed", async () => {
@@ -72,25 +64,17 @@ describe("TabNavigationItem", () => {
     render(<TabNavigationItem active />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-tabnavigation-item")
-    expect(screen.getByRole("button")).toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-active")
     expect(screen.getByRole("button")).toHaveAttribute("aria-selected", "true")
   })
 
   test("rerenders the active attribute of the TabNavigationItem", async () => {
-    const { rerender } = render(
-      <TabNavigationItem data-testid="tab-nav-item" active={true} />
-    )
+    const { rerender } = render(<TabNavigationItem data-testid="tab-nav-item" active={true} />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-active")
     rerender(<TabNavigationItem data-testid="tab-nav-item" active={false} />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).not.toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button")).not.toHaveClass("juno-navigation-item-active")
   })
 
   test("executes an onClick handler as passed", async () => {
@@ -111,9 +95,7 @@ describe("TabNavigationItem", () => {
       </TabNavigation>
     )
     expect(screen.getByRole("button", { name: "Item 1" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass(
-      "juno-tabnavigation-main-item"
-    )
+    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabnavigation-main-item")
   })
 
   test("renders content style tab navigation items as passed to the parent TabNavigation", async () => {
@@ -123,30 +105,18 @@ describe("TabNavigationItem", () => {
       </TabNavigation>
     )
     expect(screen.getByRole("button", { name: "Item 1" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass(
-      "juno-tabnavigation-content-item"
-    )
+    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabnavigation-content-item")
   })
 
   test("renders a className as passed", async () => {
-    render(
-      <TabNavigationItem
-        data-testid={"tab-nav-item"}
-        className="my-custom-class"
-      />
-    )
+    render(<TabNavigationItem data-testid={"tab-nav-item"} className="my-custom-class" />)
     expect(screen.getByTestId("tab-nav-item")).toBeInTheDocument()
     expect(screen.getByTestId("tab-nav-item")).toHaveClass("my-custom-class")
   })
 
   test("renders all props as passed", async () => {
-    render(
-      <TabNavigationItem data-testid={"tab-nav-item"} data-lol="lol-1-2-3" />
-    )
+    render(<TabNavigationItem data-testid={"tab-nav-item"} data-lol="lol-1-2-3" />)
     expect(screen.getByTestId("tab-nav-item")).toBeInTheDocument()
-    expect(screen.getByTestId("tab-nav-item")).toHaveAttribute(
-      "data-lol",
-      "lol-1-2-3"
-    )
+    expect(screen.getByTestId("tab-nav-item")).toHaveAttribute("data-lol", "lol-1-2-3")
   })
 })

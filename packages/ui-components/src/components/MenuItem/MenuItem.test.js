@@ -28,9 +28,7 @@ describe("MenuItem", () => {
     expect(screen.getByRole("menuitem")).toBeInTheDocument()
     expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item")
     expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item-anchor")
-    expect(screen.getByRole("menuitem")).not.toHaveClass(
-      "juno-menu-item-button"
-    )
+    expect(screen.getByRole("menuitem")).not.toHaveClass("juno-menu-item-button")
   })
 
   test("renders a button menu item when onClick prop is passed", async () => {
@@ -46,9 +44,7 @@ describe("MenuItem", () => {
     expect(screen.getByRole("menuitem")).toBeInTheDocument()
     expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item")
     expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item-button")
-    expect(screen.getByRole("menuitem")).not.toHaveClass(
-      "juno-menu-item-anchor"
-    )
+    expect(screen.getByRole("menuitem")).not.toHaveClass("juno-menu-item-anchor")
   })
 
   test("renders a menu item with an icon as passed", async () => {
@@ -68,9 +64,7 @@ describe("MenuItem", () => {
         </MenuItem>
       </Menu>
     )
-    expect(
-      screen.getByRole("button", { name: "Child Button" })
-    ).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "Child Button" })).toBeInTheDocument()
   })
 
   test("executes an onClick handler as passed", async () => {

@@ -9,13 +9,7 @@ import "./input-group.scss"
 import PropTypes from "prop-types"
 
 /** A component to visually group Buttons, TextInput, and Select elements. */
-export const InputGroup = ({
-  children = null,
-  className,
-  variant = "default",
-  disabled = false,
-  ...props
-}) => {
+export const InputGroup = ({ children = null, className, variant = "default", disabled = false, ...props }) => {
   const modifiedChildren = () => {
     return React.Children.map(children, (child) => {
       const ownVariant = child.props.variant || variant

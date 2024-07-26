@@ -24,9 +24,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <NativeSelect {...args}>{children}</NativeSelect>
-)
+const Template = ({ children, ...args }) => <NativeSelect {...args}>{children}</NativeSelect>
 
 // define prop types
 Template.propTypes = {

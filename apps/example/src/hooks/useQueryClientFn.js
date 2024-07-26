@@ -5,10 +5,7 @@
 
 import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
-import {
-  useGlobalsEndpoint,
-  useGlobalsActions,
-} from "../components/StoreProvider"
+import { useGlobalsEndpoint, useGlobalsActions } from "../components/StoreProvider"
 import { fetchProxy as fetch } from "@cloudoperators/juno-utils"
 
 class HTTPError extends Error {
@@ -58,17 +55,14 @@ const useQueryClientFn = (mockAPI) => {
       queryFn: ({ queryKey }) => {
         const [_key, id, params] = queryKey
         const query = encodeUrlParamsFromObject(params)
-        return fetch(
-          `${endpoint}/peaks${id ? "/" + id : ""}${query ? "" + query : ""}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            ...{ mock: mockAPI },
-          }
-        )
+        return fetch(`${endpoint}/peaks${id ? "/" + id : ""}${query ? "" + query : ""}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          ...{ mock: mockAPI },
+        })
           .then(checkStatus)
           .then((response) => {
             //  sort peaks by name

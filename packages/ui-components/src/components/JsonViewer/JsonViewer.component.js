@@ -161,19 +161,10 @@ const StringWithHighlight = ({ value }) => {
   const { colors, searchTerm } = useContext(ThemeContext)
 
   const highlight = React.useMemo(() => {
-    if (
-      value === undefined ||
-      value === null ||
-      !searchTerm ||
-      searchTerm === ""
-    )
-      return null
+    if (value === undefined || value === null || !searchTerm || searchTerm === "") return null
 
     try {
-      const startIndex = value
-        .toString()
-        .toLowerCase()
-        .indexOf(searchTerm.toLowerCase())
+      const startIndex = value.toString().toLowerCase().indexOf(searchTerm.toLowerCase())
 
       if (startIndex < 0) return null
 
@@ -246,9 +237,7 @@ const TypeValueLabel = ({ type, value }) => {
     <span
       style={{
         color: colors.dataType[type],
-        backgroundColor: undefinedValue
-          ? colors.dataType.background
-          : undefined,
+        backgroundColor: undefinedValue ? colors.dataType.background : undefined,
         borderRadius: 3,
         padding: undefinedValue ? "2px 5px" : 0,
       }}
@@ -314,8 +303,7 @@ const Toolbar = () => {
 
 // This component renders a row of json entry
 const JsonData = ({ name, value, nestedLevel = 0 }) => {
-  const { colors, expanded, searchTerm, indentWidth, expandAll } =
-    useContext(ThemeContext)
+  const { colors, expanded, searchTerm, indentWidth, expandAll } = useContext(ThemeContext)
   const [isExpanded, setIsExpanded] = React.useState(
     expanded === true || (expanded !== false && expanded > nestedLevel)
   )
@@ -338,8 +326,7 @@ const JsonData = ({ name, value, nestedLevel = 0 }) => {
   const dataType = React.useMemo(() => type(value), [value])
 
   const children = React.useMemo(() => {
-    if (dataType === "array")
-      return value.map((v, i) => ({ name: i, value: v }))
+    if (dataType === "array") return value.map((v, i) => ({ name: i, value: v }))
     if (dataType === "object")
       return Object.keys(value).map((key, _i) => ({
         name: key,
@@ -382,18 +369,14 @@ const JsonData = ({ name, value, nestedLevel = 0 }) => {
           <TypeValueLabel type={dataType} value={value} />
         ) : (
           <>
-            <span style={{ color: colors.brace }}>
-              {dataType === "array" ? "[" : "{"}
-            </span>
+            <span style={{ color: colors.brace }}>{dataType === "array" ? "[" : "{"}</span>
             {!isExpanded && (
               <>
                 {/* Expand Icon */}
                 <ExpandButton>
                   <span style={{ color: colors.ellipsis }}>...</span>
                 </ExpandButton>
-                <span style={{ color: colors.brace }}>
-                  {dataType === "array" ? "]" : "}"}
-                </span>
+                <span style={{ color: colors.brace }}>{dataType === "array" ? "]" : "}"}</span>
               </>
             )}
             <span
@@ -420,17 +403,10 @@ const JsonData = ({ name, value, nestedLevel = 0 }) => {
                   }}
                 >
                   {children?.map((entry, i) => (
-                    <JsonData
-                      key={i}
-                      name={entry.name}
-                      value={entry.value}
-                      nestedLevel={nestedLevel + 1}
-                    />
+                    <JsonData key={i} name={entry.name} value={entry.value} nestedLevel={nestedLevel + 1} />
                   ))}
                 </div>
-                <span style={{ color: colors.key, marginLeft: 6 }}>
-                  {dataType === "array" ? "]" : "}"}
-                </span>
+                <span style={{ color: colors.key, marginLeft: 6 }}>{dataType === "array" ? "]" : "}"}</span>
               </>
             )}
           </>
@@ -442,11 +418,7 @@ const JsonData = ({ name, value, nestedLevel = 0 }) => {
 
 // prop types
 JsonData.propTypes = {
-  name: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.bool,
-  ]),
+  name: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   value: PropTypes.any,
   nestedLevel: PropTypes.number,
 }
@@ -481,8 +453,7 @@ export const JsonViewer = ({
         searchTerm,
         indentWidth,
         truncate,
-        onExpandAll: (v) =>
-          setExpandAll({ expanded: v, timestamp: Date.now() }),
+        onExpandAll: (v) => setExpandAll({ expanded: v, timestamp: Date.now() }),
         onSearch: (v) => setSearchTerm(v),
       }}
     >

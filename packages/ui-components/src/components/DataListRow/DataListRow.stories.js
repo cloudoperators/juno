@@ -26,8 +26,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          "DataList is deprecated and will be removed. Please use DataGrid instead.",
+        component: "DataList is deprecated and will be removed. Please use DataGrid instead.",
       },
     },
   },

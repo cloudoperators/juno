@@ -259,8 +259,7 @@ export const WithErrorText = {
   args: {
     label: "Select Row with Error Text",
     helptext: "Oh so helpful helptext",
-    errortext:
-      "When passed an errortext prop, the SelectRow will be set to invalid automatically.",
+    errortext: "When passed an errortext prop, the SelectRow will be set to invalid automatically.",
     items: [
       { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
       { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
@@ -295,8 +294,7 @@ export const WithSuccessText = {
 
   args: {
     label: "Select Row with Error Text",
-    successtext:
-      "When passed an successtext prop, the SelectRow will be set to valid automatically.",
+    successtext: "When passed an successtext prop, the SelectRow will be set to valid automatically.",
     items: [
       { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
       { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
@@ -325,8 +323,7 @@ export const Loading = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Set a SelectRow to `loading` when a Select is busy loading the optiins to display",
+        story: "Set a SelectRow to `loading` when a Select is busy loading the optiins to display",
       },
     },
   },

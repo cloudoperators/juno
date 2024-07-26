@@ -40,10 +40,7 @@ describe("PageHeader", () => {
   test("renders all props", async () => {
     render(<PageHeader data-lolol="some-prop" />)
     expect(screen.getByRole("banner")).toBeInTheDocument()
-    expect(screen.getByRole("banner")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByRole("banner")).toHaveAttribute("data-lolol", "some-prop")
   })
 
   test("click on heading fires onClick handler as passed", async () => {

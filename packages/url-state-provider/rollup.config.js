@@ -10,14 +10,9 @@ const { nodeResolve } = require("@rollup/plugin-node-resolve")
 const commonjs = require("@rollup/plugin-commonjs")
 let pkg = JSON.parse(fs.readFileSync("./package.json"))
 
-if (!/.+\/.+\.js/.test(pkg.main))
-  throw new Error(
-    "main value is incorrect, use DIR/FILE.js like build/cjs/index.js"
-  )
+if (!/.+\/.+\.js/.test(pkg.main)) throw new Error("main value is incorrect, use DIR/FILE.js like build/cjs/index.js")
 if (!/.+\/.+\.js/.test(pkg.module))
-  throw new Error(
-    "module value is incorrect, use DIR/FILE.js like build/esm/index.js"
-  )
+  throw new Error("module value is incorrect, use DIR/FILE.js like build/esm/index.js")
 const mainBuildDir = pkg.main.slice(0, pkg.module.lastIndexOf("/"))
 const moduleBuildDir = pkg.module.slice(0, pkg.module.lastIndexOf("/"))
 
@@ -33,16 +28,8 @@ const config = [
       compact: true,
     },
 
-    plugins: [
-      terser(),
-      del({ targets: [mainBuildDir, moduleBuildDir] }),
-      nodeResolve(),
-      commonjs(),
-    ],
-    external:
-      isProduction && !IGNORE_EXTERNALS
-        ? Object.keys(pkg.peerDependencies || {})
-        : [],
+    plugins: [terser(), del({ targets: [mainBuildDir, moduleBuildDir] }), nodeResolve(), commonjs()],
+    external: isProduction && !IGNORE_EXTERNALS ? Object.keys(pkg.peerDependencies || {}) : [],
   },
 ]
 

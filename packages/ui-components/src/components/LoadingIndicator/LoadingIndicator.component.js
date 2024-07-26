@@ -9,21 +9,8 @@ import PropTypes from "prop-types"
 import Loading from "./loading-indicator.svg"
 
 /** An animated loading indicator. Use this to indicate loading larger portions, panels, or full views of an application. For micro-interactions or to indicate indivudally buys UI components, use Spinner. */
-export const LoadingIndicator = ({
-  size = "96",
-  color = "",
-  className = "",
-  ...props
-}) => {
-  return (
-    <Loading
-      width={size}
-      height={size}
-      className={`${className} ${color}`}
-      role="progressbar"
-      {...props}
-    />
-  )
+export const LoadingIndicator = ({ size = "96", color = "", className = "", ...props }) => {
+  return <Loading width={size} height={size} className={`${className} ${color}`} role="progressbar" {...props} />
 }
 
 LoadingIndicator.propTypes = {

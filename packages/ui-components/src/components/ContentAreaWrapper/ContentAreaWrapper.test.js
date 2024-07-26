@@ -37,26 +37,14 @@ describe("ContentAreaWrapper", () => {
   })
 
   test("renders a custom className", async () => {
-    render(
-      <ContentAreaWrapper
-        data-testid="content-area-wrapper"
-        className="my-custom-classname"
-      />
-    )
+    render(<ContentAreaWrapper data-testid="content-area-wrapper" className="my-custom-classname" />)
     expect(screen.getByTestId("content-area-wrapper")).toBeInTheDocument()
-    expect(screen.getByTestId("content-area-wrapper")).toHaveClass(
-      "my-custom-classname"
-    )
+    expect(screen.getByTestId("content-area-wrapper")).toHaveClass("my-custom-classname")
   })
 
   test("renders all props", async () => {
-    render(
-      <ContentAreaWrapper data-testid="content-area-wrapper" data-lolol="some-prop" />
-    )
+    render(<ContentAreaWrapper data-testid="content-area-wrapper" data-lolol="some-prop" />)
     expect(screen.getByTestId("content-area-wrapper")).toBeInTheDocument()
-    expect(screen.getByTestId("content-area-wrapper")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("content-area-wrapper")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

@@ -17,7 +17,7 @@ The request to the ID provider proceeds as follows. Before the actual request is
 Vanilla
 
 ```js
-import { oidcSession } from "oauth";
+import { oidcSession } from "oauth"
 
 const oidc = oidcSession({
   issuerURL: props.issuerURL,
@@ -26,20 +26,20 @@ const oidc = oidcSession({
   refresh: true,
   flowType: "code",
   onUpdate: (authData) => {
-    const { auth, isProcessing, loggedIn, error } = authData;
-    console.log("auth data updated", { auth, isProcessing, loggedIn, error });
+    const { auth, isProcessing, loggedIn, error } = authData
+    console.log("auth data updated", { auth, isProcessing, loggedIn, error })
   },
-});
-const { login, logout, refresh, currentState } = oidc;
+})
+const { login, logout, refresh, currentState } = oidc
 ```
 
 React
 
 ```js
-import { oidcSession } from "oauth";
+import { oidcSession } from "oauth"
 
 const App = (props = {}) => {
-  const [authData, setAuthData] = React.useState();
+  const [authData, setAuthData] = React.useState()
 
   const oidc = React.useMemo(
     () =>
@@ -50,11 +50,11 @@ const App = (props = {}) => {
         refresh: true,
         flowType: "code",
         onUpdate: (authData) => {
-          setAuthData(authData);
+          setAuthData(authData)
         },
       }),
-    [setAuthData],
-  );
+    [setAuthData]
+  )
 
   return (
     <div>
@@ -71,8 +71,8 @@ const App = (props = {}) => {
         <button onClick={oidc.login}>Login</button>
       )}
     </div>
-  );
-};
+  )
+}
 ```
 
 Certainly! Here's the code description in Markdown format:
@@ -99,7 +99,7 @@ const DEFAULT_MOCKED_TOKEN = {
   groups: ["organization:test-org", "test-team-1"],
   name: "I123456",
   preferred_username: "Jane Doe",
-};
+}
 ```
 ````
 

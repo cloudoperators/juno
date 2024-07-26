@@ -17,9 +17,7 @@ describe("Code", () => {
   test("renders inline code with children as passed", async () => {
     render(<Code data-testid="code">Some example code as children</Code>)
     expect(screen.getByTestId("code")).toBeInTheDocument()
-    expect(screen.getByTestId("code")).toHaveTextContent(
-      "Some example code as children"
-    )
+    expect(screen.getByTestId("code")).toHaveTextContent("Some example code as children")
   })
 
   test("renders inline code with content as passed when both content and children were passed", async () => {
@@ -42,9 +40,6 @@ describe("Code", () => {
   test("renders inline code with all props as passed", async () => {
     render(<Code data-testid="code" data-lolol="code-lang-js"></Code>)
     expect(screen.getByTestId("code")).toBeInTheDocument()
-    expect(screen.getByTestId("code")).toHaveAttribute(
-      "data-lolol",
-      "code-lang-js"
-    )
+    expect(screen.getByTestId("code")).toHaveAttribute("data-lolol", "code-lang-js")
   })
 })

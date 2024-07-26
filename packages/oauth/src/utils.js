@@ -10,8 +10,7 @@
 export function randomString(length) {
   if (!length) length = 60
   let result = ""
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
   const charactersLength = characters.length
   let counter = 0
   while (counter < length) {
@@ -26,8 +25,7 @@ export function randomString(length) {
  * @param {object} props
  * @returns base64 encoded json string
  */
-export const encodeBase64Json = (props) =>
-  window.btoa(JSON.stringify({ ...props }))
+export const encodeBase64Json = (props) => window.btoa(JSON.stringify({ ...props }))
 
 /**
  *

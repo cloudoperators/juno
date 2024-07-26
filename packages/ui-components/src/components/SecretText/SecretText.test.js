@@ -43,9 +43,7 @@ describe("SecretText", () => {
 
   test("does not render a Clear button as passed", async () => {
     render(<SecretText clear={false} />)
-    expect(
-      screen.queryByRole("button", { name: "Clear" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Clear" })).not.toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Reveal" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Paste" })).toBeInTheDocument()
@@ -54,9 +52,7 @@ describe("SecretText", () => {
   test("does not render a Reveal button as passed", async () => {
     render(<SecretText toggle={false} />)
     expect(screen.getByRole("button", { name: "Clear" })).toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Reveal" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Reveal" })).not.toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Paste" })).toBeInTheDocument()
   })
@@ -65,9 +61,7 @@ describe("SecretText", () => {
     render(<SecretText copy={false} />)
     expect(screen.getByRole("button", { name: "Clear" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Reveal" })).toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Copy" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Copy" })).not.toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Paste" })).toBeInTheDocument()
   })
 
@@ -76,9 +70,7 @@ describe("SecretText", () => {
     expect(screen.getByRole("button", { name: "Clear" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Reveal" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Paste" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Paste" })).not.toBeInTheDocument()
   })
 
   test("renders a Hide button when set to reveal", async () => {
@@ -141,18 +133,13 @@ describe("SecretText", () => {
     render(<SecretText label="My Secret Text" required />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(document.querySelector(".juno-label")).toBeInTheDocument()
-    expect(document.querySelector(".juno-label")).toHaveTextContent(
-      "My Secret Text"
-    )
+    expect(document.querySelector(".juno-label")).toHaveTextContent("My Secret Text")
   })
 
   test("renders an id as passed", async () => {
     render(<SecretText id="my-secrettext-id" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "id",
-      "my-secrettext-id"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("id", "my-secrettext-id")
   })
 
   test("renders a generated id when no id was passed", async () => {
@@ -165,26 +152,17 @@ describe("SecretText", () => {
     render(<SecretText label="secret label" id="secret-id" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveAttribute("id", "secret-id")
-    expect(document.querySelector(".juno-label")).toHaveAttribute(
-      "for",
-      "secret-id"
-    )
+    expect(document.querySelector(".juno-label")).toHaveAttribute("for", "secret-id")
   })
 
   test("renders a name attribute as passed", async () => {
     render(<SecretText name="my-secret-name" />)
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "name",
-      "my-secret-name"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("name", "my-secret-name")
   })
 
   test("renders a placeholder as passed", async () => {
     render(<SecretText placeholder="secret text goes here" />)
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "placeholder",
-      "secret text goes here"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "secret text goes here")
   })
 
   test("renders a readOnly textarea as passed", async () => {
@@ -203,12 +181,8 @@ describe("SecretText", () => {
     render(<SecretText toggle={false} />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveClass("juno-secret-textarea")
-    expect(
-      screen.queryByRole("button", { name: "Hide" })
-    ).not.toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Reveal" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Hide" })).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Reveal" })).not.toBeInTheDocument()
   })
 
   test("renders an invalid SecretText", async () => {
@@ -228,34 +202,22 @@ describe("SecretText", () => {
   test("renders an errortext as passed", async () => {
     render(<SecretText errortext="This is an errortext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-error"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "This is an errortext"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("This is an errortext")
   })
 
   test("renders an helptext as passed", async () => {
     render(<SecretText helptext="This is a helptext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-help"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "This is a helptext"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("This is a helptext")
   })
 
   test("renders an successtext as passed", async () => {
     render(<SecretText successtext="This is a successtext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-success"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "This is a successtext"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("This is a successtext")
   })
 
   test("renders a value as passed", async () => {
@@ -313,12 +275,8 @@ describe("SecretText", () => {
 
   test("does not render a Clear nor a Paste button when set to readOnly", async () => {
     render(<SecretText readOnly />)
-    expect(
-      screen.queryByRole("button", { name: "Clear" })
-    ).not.toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Paste" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Clear" })).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Paste" })).not.toBeInTheDocument()
   })
 
   test("renders a Secrettext that can not be edited when readOnly is passed", async () => {

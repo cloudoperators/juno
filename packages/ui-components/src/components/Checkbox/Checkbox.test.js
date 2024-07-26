@@ -24,9 +24,7 @@ describe("Checkbox", () => {
     render(<Checkbox label="My Checkbox" id="my-checkbox" />)
     expect(screen.getByLabelText("My Checkbox")).toBeInTheDocument()
     expect(document.querySelector(".juno-label")).toBeInTheDocument()
-    expect(document.querySelector(".juno-label")).toHaveTextContent(
-      "My Checkbox"
-    )
+    expect(document.querySelector(".juno-label")).toHaveTextContent("My Checkbox")
   })
 
   test("renders a checkbox with an id as passed", async () => {
@@ -39,9 +37,7 @@ describe("Checkbox", () => {
     render(<Checkbox />)
     expect(screen.getByRole("checkbox")).toBeInTheDocument()
     expect(screen.getByRole("checkbox")).toHaveAttribute("id")
-    expect(screen.getByRole("checkbox").getAttribute("id")).toMatch(
-      "juno-checkbox"
-    )
+    expect(screen.getByRole("checkbox").getAttribute("id")).toMatch("juno-checkbox")
   })
 
   test("renders a Checkbox with an associated label with an id as passed", async () => {
@@ -49,9 +45,7 @@ describe("Checkbox", () => {
     expect(screen.getByRole("checkbox")).toBeInTheDocument()
     expect(screen.getByLabelText("My Checkbox")).toBeInTheDocument()
     expect(document.querySelector(".juno-label")).toBeInTheDocument()
-    expect(document.querySelector(".juno-label")).toHaveTextContent(
-      "My Checkbox"
-    )
+    expect(document.querySelector(".juno-label")).toHaveTextContent("My Checkbox")
   })
 
   test("renders a Checkbox with a label associated by an auto-generated id if no id was passed", async () => {
@@ -63,10 +57,7 @@ describe("Checkbox", () => {
   test("renders a checkbox with a value as passed", async () => {
     render(<Checkbox value="ValueAsPassed" />)
     expect(screen.getByRole("checkbox")).toBeInTheDocument()
-    expect(screen.getByRole("checkbox")).toHaveAttribute(
-      "value",
-      "ValueAsPassed"
-    )
+    expect(screen.getByRole("checkbox")).toHaveAttribute("value", "ValueAsPassed")
   })
 
   test("renders a checked checkbox as passed", async () => {
@@ -109,35 +100,23 @@ describe("Checkbox", () => {
   test("renders a helptext as passed", async () => {
     render(<Checkbox helptext="this is a helptext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-help"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is a helptext"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is a helptext")
   })
 
   test("renders a successtext as passed and validates the Checkbox", async () => {
     render(<Checkbox successtext="great success!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-success"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "great success!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("great success!")
     expect(screen.getByRole("checkbox")).toHaveClass("juno-checkbox-valid")
   })
 
   test("renders an errortext as passed and invalidates the Checkbox", async () => {
     render(<Checkbox errortext="this is an error!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-error"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is an error!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is an error!")
     expect(screen.getByRole("checkbox")).toHaveClass("juno-checkbox-invalid")
   })
 

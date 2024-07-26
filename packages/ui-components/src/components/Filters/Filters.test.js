@@ -33,12 +33,8 @@ describe("Filters", () => {
     }
     render(<Filters filters={filters} />)
     expect(screen.getByRole("option", { name: "Filter" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "option 1" })).toHaveValue(
-      "option-1"
-    )
-    expect(screen.getByRole("option", { name: "option 2" })).toHaveValue(
-      "option-2"
-    )
+    expect(screen.getByRole("option", { name: "option 1" })).toHaveValue("option-1")
+    expect(screen.getByRole("option", { name: "option 2" })).toHaveValue("option-2")
   })
 
   test("renders a Select with selected filter key as passed", async () => {
@@ -56,10 +52,7 @@ describe("Filters", () => {
     const filters = { valueLabel: "Enter a filter value", options: [] }
     render(<Filters filters={filters} />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "aria-label",
-      "Enter a filter value"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("aria-label", "Enter a filter value")
   })
 
   test("renders a Filter vlaue text input witn a placeholder as passed", async () => {
@@ -72,10 +65,7 @@ describe("Filters", () => {
     }
     render(<Filters valuePlaceholder="my placeholder" filters={filters} />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "placeholder",
-      "my placeholder"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "my placeholder")
   })
 
   test("renders a Filter value as passed", async () => {
@@ -87,12 +77,7 @@ describe("Filters", () => {
   test("executes a handler as passed when the filter input value changes", async () => {
     const handleFilterValueChange = jest.fn()
     const filters = { options: [{ label: "option 1", value: "option-1" }] }
-    render(
-      <Filters
-        filters={filters}
-        onFilterValueChange={handleFilterValueChange}
-      />
-    )
+    render(<Filters filters={filters} onFilterValueChange={handleFilterValueChange} />)
     await userEvent.type(screen.getByRole("textbox"), "123")
     expect(handleFilterValueChange).toHaveBeenCalledTimes(3)
   })
@@ -126,13 +111,7 @@ describe("Filters", () => {
       label: "Filter",
       options: [{ label: "option 1", value: "option-1" }],
     }
-    render(
-      <Filters
-        filters={filters}
-        filterValue="some option"
-        onFilterClear={handleClear}
-      />
-    )
+    render(<Filters filters={filters} filterValue="some option" onFilterClear={handleClear} />)
     expect(screen.getByRole("textbox")).toHaveValue("some option")
     await userEvent.click(screen.getByTitle("Clear"))
     expect(screen.getByRole("textbox")).toHaveValue("")
@@ -171,22 +150,12 @@ describe("Filters", () => {
       label: "Filter",
       options: [{ label: "option 1", value: "option-1" }],
     }
-    render(
-      <Filters
-        data-testid="my-filters"
-        filters={filters}
-        errortext="These Filters have an error"
-      />
-    )
+    render(<Filters data-testid="my-filters" filters={filters} errortext="These Filters have an error" />)
     expect(screen.getByRole("combobox")).toBeDisabled()
     expect(screen.getByTestId("my-filters")).toBeInTheDocument()
     expect(screen.getByTestId("my-filters")).toHaveClass("juno-filters-error")
-    expect(
-      document.querySelector(".juno-filters-errortext")
-    ).toBeInTheDocument()
-    expect(document.querySelector(".juno-filters-errortext")).toHaveTextContent(
-      "These Filters have an error"
-    )
+    expect(document.querySelector(".juno-filters-errortext")).toBeInTheDocument()
+    expect(document.querySelector(".juno-filters-errortext")).toHaveTextContent("These Filters have an error")
     expect(screen.getByRole("button")).toBeDisabled()
   })
 

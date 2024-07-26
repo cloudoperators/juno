@@ -7,13 +7,7 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useActions } from "@cloudoperators/juno-messages-provider"
-import {
-  PanelBody,
-  PanelFooter,
-  Button,
-  FormRow,
-  TextInput,
-} from "@cloudoperators/juno-ui-components"
+import { PanelBody, PanelFooter, Button, FormRow, TextInput } from "@cloudoperators/juno-ui-components"
 
 const PeaksNew = ({ closeCallback }) => {
   const queryClient = useQueryClient()
@@ -58,42 +52,22 @@ const PeaksNew = ({ closeCallback }) => {
       }
     >
       <FormRow>
-        <TextInput
-          label="Name"
-          autoFocus
-          onChange={(e) => onAttrChanged("name", e.target.value)}
-        />
+        <TextInput label="Name" autoFocus onChange={(e) => onAttrChanged("name", e.target.value)} />
       </FormRow>
       <FormRow>
-        <TextInput
-          label="Height"
-          onChange={(e) => onAttrChanged("height", e.target.value)}
-        />
+        <TextInput label="Height" onChange={(e) => onAttrChanged("height", e.target.value)} />
       </FormRow>
       <FormRow>
-        <TextInput
-          label="Main Range"
-          onChange={(e) => onAttrChanged("range", e.target.value)}
-        />
+        <TextInput label="Main Range" onChange={(e) => onAttrChanged("range", e.target.value)} />
       </FormRow>
       <FormRow>
-        <TextInput
-          label="Region"
-          onChange={(e) => onAttrChanged("region", e.target.value)}
-        />
+        <TextInput label="Region" onChange={(e) => onAttrChanged("region", e.target.value)} />
       </FormRow>
       <FormRow>
-        <TextInput
-          label="Country"
-          onChange={(e) => onAttrChanged("country", e.target.value)}
-        />
+        <TextInput label="Country" onChange={(e) => onAttrChanged("country", e.target.value)} />
       </FormRow>
       <FormRow>
-        <TextInput
-          type="url"
-          label="URL"
-          onChange={(e) => onAttrChanged("url", e.target.value)}
-        />
+        <TextInput type="url" label="URL" onChange={(e) => onAttrChanged("url", e.target.value)} />
       </FormRow>
     </PanelBody>
   )

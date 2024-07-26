@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { DataGrid } from '../DataGrid/index.js';
-import { DataGridRow } from '../DataGridRow/index.js';
-import { DataGridCheckboxCell } from './index.js';
+import React from "react"
+import { DataGrid } from "../DataGrid/index.js"
+import { DataGridRow } from "../DataGridRow/index.js"
+import { DataGridCheckboxCell } from "./index.js"
 
 export default {
-  title: 'WiP/DataGrid/DataGridCheckboxCell',
+  title: "WiP/DataGrid/DataGridCheckboxCell",
   component: DataGridCheckboxCell,
   argTypes: {
     children: {
@@ -30,9 +30,9 @@ export default {
       },
     },
   },
-};
+}
 
-const Template = (args) => <DataGridCheckboxCell {...args}></DataGridCheckboxCell>;
+const Template = (args) => <DataGridCheckboxCell {...args}></DataGridCheckboxCell>
 
 export const Default = {
   render: Template,
@@ -40,13 +40,13 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Juno DataGridCheckboxCell for use in DataGrid',
+        story: "Juno DataGridCheckboxCell for use in DataGrid",
       },
     },
   },
 
   args: {},
-};
+}
 
 export const Disabled = {
   render: Template,
@@ -54,7 +54,7 @@ export const Disabled = {
   parameters: {
     docs: {
       description: {
-        story: 'Disabled Juno DataGridCheckboxCell for use in DataGrid',
+        story: "Disabled Juno DataGridCheckboxCell for use in DataGrid",
       },
     },
   },
@@ -62,4 +62,4 @@ export const Disabled = {
   args: {
     disabled: true,
   },
-};
+}

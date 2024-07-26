@@ -65,13 +65,7 @@ describe("TextInputRow", () => {
   })
 
   test("renders a text input row with a text input and an associated label with an id as passed", async () => {
-    render(
-      <TextInputRow
-        data-testid="text-input-row"
-        label="my-text-input"
-        id="text-input-row"
-      />
-    )
+    render(<TextInputRow data-testid="text-input-row" label="my-text-input" id="text-input-row" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByLabelText("my-text-input")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveAttribute("id", "text-input-row")
@@ -80,10 +74,7 @@ describe("TextInputRow", () => {
   test("renders a text input with a placeholder as passed", async () => {
     render(<TextInputRow placeholder="Some Placeholder" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "placeholder",
-      "Some Placeholder"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "Some Placeholder")
   })
 
   test("renders a help text as passed", async () => {
@@ -104,9 +95,7 @@ describe("TextInputRow", () => {
   })
 
   test("renders a className to the row as passed", async () => {
-    render(
-      <TextInputRow data-testid="text-input-row" className="my-custom-class" />
-    )
+    render(<TextInputRow data-testid="text-input-row" className="my-custom-class" />)
     expect(screen.getByTestId("text-input-row")).toHaveClass("my-custom-class")
   })
 
@@ -154,10 +143,7 @@ describe("TextInputRow", () => {
 
   test("renders all props to the row as passed", async () => {
     render(<TextInputRow data-testid="text-input-row" data-lolol="some-prop" />)
-    expect(screen.getByTestId("text-input-row")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("text-input-row")).toHaveAttribute("data-lolol", "some-prop")
   })
 
   test("fires onChange handler as passed when set", async () => {

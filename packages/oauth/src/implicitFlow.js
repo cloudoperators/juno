@@ -8,13 +8,7 @@ import { getOidcConfig } from "./oidcConfig"
 import { searchParams } from "./oidcState"
 import { paramsToUrl } from "./utils"
 
-const buildRequestUrl = async ({
-  issuerURL,
-  clientID,
-  oidcState,
-  callbackURL,
-  params,
-}) => {
+const buildRequestUrl = async ({ issuerURL, clientID, oidcState, callbackURL, params }) => {
   const config = await getOidcConfig(issuerURL)
 
   const urlParams = paramsToUrl({

@@ -15,9 +15,7 @@ export default {
   decorators: [(story) => <Navigation>{story()}</Navigation>],
 }
 
-const Template = ({ children, ...args }) => (
-  <NavigationItem {...args}>{children}</NavigationItem>
-)
+const Template = ({ children, ...args }) => <NavigationItem {...args}>{children}</NavigationItem>
 Template.propTypes = {
   children: PropTypes.node,
 }

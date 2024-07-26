@@ -7,20 +7,9 @@ import React from "react"
 import PropTypes from "prop-types"
 
 /** A SelectOptionGroup (<optgroup>). Can only be used inside a Select. */
-export const NativeSelectOptionGroup = ({
-  label = null,
-  disabled = false,
-  className = "",
-  children,
-  ...props
-}) => {
+export const NativeSelectOptionGroup = ({ label = null, disabled = false, className = "", children, ...props }) => {
   return (
-    <optgroup
-      label={label}
-      disabled={disabled}
-      className={`juno-select-option-group ${className}`}
-      {...props}
-    >
+    <optgroup label={label} disabled={disabled} className={`juno-select-option-group ${className}`} {...props}>
       {children}
     </optgroup>
   )

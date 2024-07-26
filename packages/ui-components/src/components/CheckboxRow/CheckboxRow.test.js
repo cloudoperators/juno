@@ -36,13 +36,7 @@ describe("CheckboxRow", () => {
   })
 
   test("renders a checkbox row with a checkbox and an associated label with an id as passed", async () => {
-    render(
-      <CheckboxRow
-        data-testid="my-checkbox-row"
-        label="My Checkbox Row"
-        id="checkbox-row"
-      />
-    )
+    render(<CheckboxRow data-testid="my-checkbox-row" label="My Checkbox Row" id="checkbox-row" />)
     expect(screen.getByRole("checkbox")).toBeInTheDocument()
     expect(screen.getByLabelText("My Checkbox Row")).toBeInTheDocument()
     expect(screen.getByRole("checkbox")).toHaveAttribute("id", "checkbox-row")
@@ -99,18 +93,13 @@ describe("CheckboxRow", () => {
   })
 
   test("renders a custom className", async () => {
-    render(
-      <CheckboxRow data-testid="my-checkbox-row" className="my-classname" />
-    )
+    render(<CheckboxRow data-testid="my-checkbox-row" className="my-classname" />)
     expect(screen.getByTestId("my-checkbox-row")).toHaveClass("my-classname")
   })
 
   test("renders all props as passed", async () => {
     render(<CheckboxRow data-testid="my-checkbox-row" data-lolol="some-prop" />)
-    expect(screen.getByTestId("my-checkbox-row")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("my-checkbox-row")).toHaveAttribute("data-lolol", "some-prop")
   })
 
   test("fire handler on change as passed", async () => {

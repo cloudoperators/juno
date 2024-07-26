@@ -31,20 +31,9 @@ export default {
 const Template = ({ currentPage, pages, ...args }) => {
   const [page, setPage] = React.useState(currentPage)
   const prev = React.useCallback(() => setPage(page > 1 ? page - 1 : 1), [page])
-  const next = React.useCallback(
-    () => setPage(!pages || page < pages ? page + 1 : pages),
-    [page]
-  )
+  const next = React.useCallback(() => setPage(!pages || page < pages ? page + 1 : pages), [page])
 
-  return (
-    <Pagination
-      {...args}
-      pages={pages}
-      currentPage={page}
-      onPressPrevious={prev}
-      onPressNext={next}
-    />
-  )
+  return <Pagination {...args} pages={pages} currentPage={page} onPressPrevious={prev} onPressNext={next} />
 }
 
 Template.propTypes = {

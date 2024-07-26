@@ -20,9 +20,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <ContextMenu {...args}>{children}</ContextMenu>
-)
+const Template = ({ children, ...args }) => <ContextMenu {...args}>{children}</ContextMenu>
 
 Template.propTypes = {
   children: PropTypes.node,
@@ -45,33 +43,13 @@ export const Default = {
 
   args: {
     children: [
-      <MenuItem
-        key="1"
-        label="Juno on Github"
-        href="https://github.com/cloudoperators/juno"
-      />,
+      <MenuItem key="1" label="Juno on Github" href="https://github.com/cloudoperators/juno" />,
       <MenuItem key="2" label="This item does nothing" icon="help" />,
-      <MenuItem
-        key="3"
-        label="Disabled Item"
-        href="https://github.com/cloudoperators/juno"
-        disabled
-      />,
+      <MenuItem key="3" label="Disabled Item" href="https://github.com/cloudoperators/juno" disabled />,
       <MenuItem key="4">
-        <Button
-          key={0}
-          label="Button as Child of MenuItem"
-          variant="subdued"
-          size="small"
-          className="jn-w-full"
-        />
+        <Button key={0} label="Button as Child of MenuItem" variant="subdued" size="small" className="jn-w-full" />
       </MenuItem>,
-      <MenuItem
-        key="5"
-        onClick={() => {}}
-        label="Button as Item with OnClick"
-        icon="help"
-      />,
+      <MenuItem key="5" onClick={() => {}} label="Button as Item with OnClick" icon="help" />,
     ],
   },
 }
@@ -81,26 +59,11 @@ export const InsidePortal = {
 
   args: {
     children: [
-      <MenuItem
-        key="1"
-        label="Juno on Github"
-        href="https://github.com/cloudoperators/juno"
-      />,
+      <MenuItem key="1" label="Juno on Github" href="https://github.com/cloudoperators/juno" />,
       <MenuItem key="2" label="This item does nothing" />,
-      <MenuItem
-        key="3"
-        label="Disabled Item"
-        href="https://github.com/cloudoperators/juno"
-        disabled
-      />,
+      <MenuItem key="3" label="Disabled Item" href="https://github.com/cloudoperators/juno" disabled />,
       <MenuItem key="4">
-        <Button
-          key={0}
-          label="Button as Child of MenuItem"
-          variant="subdued"
-          size="small"
-          className="jn-w-full"
-        />
+        <Button key={0} label="Button as Child of MenuItem" variant="subdued" size="small" className="jn-w-full" />
       </MenuItem>,
     ],
   },

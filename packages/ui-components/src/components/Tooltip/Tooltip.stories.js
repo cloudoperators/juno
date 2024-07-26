@@ -38,17 +38,7 @@ export default {
   ],
 }
 
-const Template = ({
-  placement,
-  variant,
-  initialOpen,
-  open,
-  triggerEvent,
-  disabled,
-  text,
-  triggerText,
-  ...args
-}) => {
+const Template = ({ placement, variant, initialOpen, open, triggerEvent, disabled, text, triggerText, ...args }) => {
   return (
     <Tooltip
       initialOpen={initialOpen}
@@ -76,16 +66,7 @@ Template.propTypes = {
   triggerText: PropTypes.string,
 }
 
-const TemplateAsChildAnchor = ({
-  initialOpen,
-  placement,
-  variant,
-  open,
-  triggerEvent,
-  disabled,
-  text,
-  ...args
-}) => {
+const TemplateAsChildAnchor = ({ initialOpen, placement, variant, open, triggerEvent, disabled, text, ...args }) => {
   return (
     <Tooltip
       initialOpen={initialOpen}

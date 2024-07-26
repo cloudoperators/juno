@@ -14,18 +14,9 @@ const datalistcheckboxcellbasestyles = `
 	jn-justify-center
 `
 
-export const DataListCheckboxCell = ({
-  selected = false,
-  disabled = false,
-  onChange,
-  className = "",
-  ...props
-}) => {
+export const DataListCheckboxCell = ({ selected = false, disabled = false, onChange, className = "", ...props }) => {
   return (
-    <DataListCell
-      className={`juno-datalist-checkbox-cell ${datalistcheckboxcellbasestyles} ${className}`}
-      {...props}
-    >
+    <DataListCell className={`juno-datalist-checkbox-cell ${datalistcheckboxcellbasestyles} ${className}`} {...props}>
       <Checkbox disabled={disabled} checked={selected} onChange={onChange} />
     </DataListCell>
   )

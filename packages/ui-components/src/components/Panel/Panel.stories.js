@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Panel } from './index.js';
-import { PanelBody } from '../PanelBody/index.js';
-import { ContentAreaWrapper } from '../ContentAreaWrapper/index.js';
-import { ContentArea } from '../ContentArea/index.js';
+import React from "react"
+import { Panel } from "./index.js"
+import { PanelBody } from "../PanelBody/index.js"
+import { ContentAreaWrapper } from "../ContentAreaWrapper/index.js"
+import { ContentArea } from "../ContentArea/index.js"
 
 // the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
 export default {
-  title: 'Layout/Panel/Panel',
+  title: "Layout/Panel/Panel",
   component: Panel,
   argTypes: {
     children: {
@@ -19,7 +19,7 @@ export default {
     },
   },
   decorators: [(story) => <div className="jn-contrast-100">{story()}</div>],
-};
+}
 
 const Template = (args) => (
   <ContentAreaWrapper>
@@ -28,7 +28,7 @@ const Template = (args) => (
     </Panel>
     <ContentArea className="dummy-css-ignore jn-h-[150px]">Content Area</ContentArea>
   </ContentAreaWrapper>
-);
+)
 
 export const WithHeading = {
   render: Template,
@@ -43,10 +43,10 @@ export const WithHeading = {
   },
 
   args: {
-    heading: 'Panel Heading',
+    heading: "Panel Heading",
     opened: true,
   },
-};
+}
 
 export const Plain = {
   render: Template,
@@ -54,4 +54,4 @@ export const Plain = {
   args: {
     opened: true,
   },
-};
+}

@@ -3,13 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, {
-  useState,
-  useEffect,
-  useId,
-  useMemo,
-  createContext,
-} from "react"
+import React, { useState, useEffect, useId, useMemo, createContext } from "react"
 import PropTypes from "prop-types"
 import { Combobox } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
@@ -205,8 +199,7 @@ export const ComboBox = ({
     [invalid, errortext]
   )
   const validated = useMemo(
-    () =>
-      valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
   )
 
@@ -275,10 +268,7 @@ export const ComboBox = ({
       : children.filter((child) => {
           // ensure that we filter on the value that is displayed to the user. Apply the same logic as when rendering
           // the options, i.e. match children if present, if not match label, lastly if neither label nor children exist, then check value
-          const optionDisplayValue =
-            child.props.children?.toString() ||
-            child.props.label ||
-            child.props.value
+          const optionDisplayValue = child.props.children?.toString() || child.props.label || child.props.value
           return optionDisplayValue?.toLowerCase().includes(query.toLowerCase())
         })
 
@@ -372,11 +362,7 @@ export const ComboBox = ({
                     {isLoading ? (
                       <Spinner className={"jn-cursor-not-allowed"} />
                     ) : (
-                      <Icon
-                        icon="errorOutline"
-                        color="jn-text-theme-error"
-                        className={"jn-cursor-not-allowed"}
-                      />
+                      <Icon icon="errorOutline" color="jn-text-theme-error" className={"jn-cursor-not-allowed"} />
                     )}
                   </span>
                 ) : isValid || isInvalid ? (
@@ -389,11 +375,7 @@ export const ComboBox = ({
                   >
                     <Icon
                       icon={isValid ? "checkCircle" : "dangerous"}
-                      color={
-                        isValid
-                          ? "jn-text-theme-success"
-                          : "jn-text-theme-error"
-                      }
+                      color={isValid ? "jn-text-theme-success" : "jn-text-theme-error"}
                     />
                   </span>
                 ) : (
@@ -412,9 +394,7 @@ export const ComboBox = ({
                         ${isValid || isInvalid ? "" : defaultButtonStyles} 
                       `}
                   >
-                    {({ open }) => (
-                      <Icon icon={open ? "expandLess" : "expandMore"} />
-                    )}
+                    {({ open }) => <Icon icon={open ? "expandLess" : "expandMore"} />}
                   </Combobox.Button>
                 ) : (
                   ""
@@ -439,21 +419,9 @@ export const ComboBox = ({
           </Float>
         </Combobox>
 
-        {errortext && isNotEmptyString(errortext) ? (
-          <FormHint text={errortext} variant="error" />
-        ) : (
-          ""
-        )}
-        {successtext && isNotEmptyString(successtext) ? (
-          <FormHint text={successtext} variant="success" />
-        ) : (
-          ""
-        )}
-        {helptext && isNotEmptyString(helptext) ? (
-          <FormHint text={helptext} id={helptextId} />
-        ) : (
-          ""
-        )}
+        {errortext && isNotEmptyString(errortext) ? <FormHint text={errortext} variant="error" /> : ""}
+        {successtext && isNotEmptyString(successtext) ? <FormHint text={successtext} variant="success" /> : ""}
+        {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} id={helptextId} /> : ""}
       </div>
     </ComboBoxContext.Provider>
   )

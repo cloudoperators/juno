@@ -104,8 +104,7 @@ export const Invalid = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Set `invalid` to true to invalidate the field and render the associated styles and the icon.",
+        story: "Set `invalid` to true to invalidate the field and render the associated styles and the icon.",
       },
     },
   },
@@ -115,8 +114,7 @@ export const WithErrorText = {
   args: {
     label: "Input Row with Error Text",
     helptext: "Oh so helpful helptext",
-    errortext:
-      "When passed an errortext prop, the InputRow will be set to invalid automatically.",
+    errortext: "When passed an errortext prop, the InputRow will be set to invalid automatically.",
   },
 
   parameters: {
@@ -138,8 +136,7 @@ export const Valid = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Set `valid` to true to set the field to valid and render the associated styles and the icon.",
+        story: "Set `valid` to true to set the field to valid and render the associated styles and the icon.",
       },
     },
   },
@@ -149,8 +146,7 @@ export const WithSuccessText = {
   args: {
     label: "Input Row with Success Text",
     helptext: "Oh so helpful helptext",
-    successtext:
-      "When passed an errortext prop, the InputRow will be set to invalid automatically.",
+    successtext: "When passed an errortext prop, the InputRow will be set to invalid automatically.",
   },
 
   parameters: {

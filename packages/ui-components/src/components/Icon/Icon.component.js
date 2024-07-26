@@ -139,14 +139,7 @@ export const knownIcons = [
   "widgets",
 ]
 
-const getColoredSizedIcon = ({
-  icon,
-  color,
-  size,
-  title,
-  iconClassName,
-  ...iconProps
-}) => {
+const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconProps }) => {
   const iconClass = `juno-icon juno-icon-${icon} jn-fill-current ${color} ${iconClassName}`
 
   switch (icon) {

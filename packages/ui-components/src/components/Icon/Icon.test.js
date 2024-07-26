@@ -31,10 +31,7 @@ describe("Icon", () => {
     render(<Icon />)
     expect(screen.getByRole("img")).toBeInTheDocument()
     // check that there is no class that contains 'text-'
-    expect(screen.getByRole("img")).not.toHaveAttribute(
-      "class",
-      expect.stringContaining("text-")
-    )
+    expect(screen.getByRole("img")).not.toHaveAttribute("class", expect.stringContaining("text-"))
   })
 
   test("renders an Icon with color as passed", async () => {
@@ -60,10 +57,7 @@ describe("Icon", () => {
   test("renders a custom alt text instead of default when passed", async () => {
     render(<Icon alt="my super custom icon alt text" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveAttribute(
-      "alt",
-      "my super custom icon alt text"
-    )
+    expect(screen.getByRole("img")).toHaveAttribute("alt", "my super custom icon alt text")
   })
 
   // Test individual icons:
@@ -95,10 +89,7 @@ describe("Icon", () => {
   test("renders a autoAwesomeMotion icon", async () => {
     render(<Icon icon="autoAwesomeMotion" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveAttribute(
-      "alt",
-      "items stacked behind each other"
-    )
+    expect(screen.getByRole("img")).toHaveAttribute("alt", "items stacked behind each other")
   })
 
   test("renders a bolt icon", async () => {
@@ -254,10 +245,7 @@ describe("Icon", () => {
   test("renders a manageAccounts icon", async () => {
     render(<Icon icon="manageAccounts" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveAttribute(
-      "alt",
-      "user account configuration"
-    )
+    expect(screen.getByRole("img")).toHaveAttribute("alt", "user account configuration")
   })
 
   test("renders an openInBrowser icon", async () => {
@@ -305,10 +293,7 @@ describe("Icon", () => {
   test("renders an <a> element with correct aria-label-attribute as passed", async () => {
     render(<Icon href="#" title="my link title" />)
     expect(screen.getByRole("link")).toBeInTheDocument()
-    expect(screen.getByRole("link")).toHaveAttribute(
-      "aria-label",
-      "my link title"
-    )
+    expect(screen.getByRole("link")).toHaveAttribute("aria-label", "my link title")
   })
 
   test("renders an <a> element with correct aria-label-attribute fallback if not passed", async () => {
@@ -327,10 +312,7 @@ describe("Icon", () => {
     const handleClick = jest.fn()
     render(<Icon onClick={handleClick} title="my-button-title" />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute(
-      "aria-label",
-      "my-button-title"
-    )
+    expect(screen.getByRole("button")).toHaveAttribute("aria-label", "my-button-title")
   })
 
   test("renders a <button> element with correct aria-label-attribute fallback if not passed", async () => {

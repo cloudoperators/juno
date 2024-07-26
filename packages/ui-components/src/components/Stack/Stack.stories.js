@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import DummyComponent from '../../dummyComponents/DummyComponent';
+import React from "react"
+import DummyComponent from "../../dummyComponents/DummyComponent"
 
-import { Stack } from './index.js';
+import { Stack } from "./index.js"
 
 export default {
-  title: 'Layout/Stack',
+  title: "Layout/Stack",
   component: Stack,
   argTypes: {
     children: {
@@ -17,93 +17,93 @@ export default {
     },
     gap: {
       options: [
-        '0',
-        'px',
-        '0.5',
-        '1',
-        '1.5',
-        '2',
-        '2.5',
-        '3',
-        '3.5',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12',
-        '14',
-        '16',
-        '20',
-        '24',
-        '28',
-        '32',
-        '36',
-        '40',
-        '44',
-        '48',
-        '52',
-        '56',
-        '60',
-        '64',
-        '72',
-        '80',
-        '96',
+        "0",
+        "px",
+        "0.5",
+        "1",
+        "1.5",
+        "2",
+        "2.5",
+        "3",
+        "3.5",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "14",
+        "16",
+        "20",
+        "24",
+        "28",
+        "32",
+        "36",
+        "40",
+        "44",
+        "48",
+        "52",
+        "56",
+        "60",
+        "64",
+        "72",
+        "80",
+        "96",
       ],
     },
   },
-};
+}
 
 const docuClassnames = (direction) => {
   return `
     bg-theme-background-lvl-3
-    ${direction === 'vertical' ? 'jn-w-full jn-h-80' : 'jn-h-24'}
-    `;
-};
+    ${direction === "vertical" ? "jn-w-full jn-h-80" : "jn-h-24"}
+    `
+}
 
 const Template = (args) => (
   <Stack className={docuClassnames(args.direction)} {...args}>
     {[...Array(5)].map((_, i) => {
-      return <DummyComponent key={i} label={i} />;
+      return <DummyComponent key={i} label={i} />
     })}
   </Stack>
-);
+)
 const TemplateManyChildren = (args) => (
   <Stack className="jn-bg-theme-background-lvl-3" {...args}>
     {[...Array(15)].map((_, i) => {
-      return <DummyComponent key={i} label={i} />;
+      return <DummyComponent key={i} label={i} />
     })}
   </Stack>
-);
+)
 
 export const Horizontal = {
   render: Template,
 
   parameters: {
     docs: {
-      description: { story: 'Default stack direction.' },
+      description: { story: "Default stack direction." },
     },
   },
 
   args: {},
-};
+}
 
 export const Vertical = {
   render: Template,
 
   parameters: {
     docs: {
-      description: { story: 'Children can also be stacked vertically.' },
+      description: { story: "Children can also be stacked vertically." },
     },
   },
 
   args: {
-    direction: 'vertical',
+    direction: "vertical",
   },
-};
+}
 
 export const GapHorizontal = {
   render: Template,
@@ -112,15 +112,15 @@ export const GapHorizontal = {
     docs: {
       description: {
         story:
-          'By specifying a gap, the child elements will have the specified margin from one another. It is the same for horizontal and vertical stacks.',
+          "By specifying a gap, the child elements will have the specified margin from one another. It is the same for horizontal and vertical stacks.",
       },
     },
   },
 
   args: {
-    gap: '4',
+    gap: "4",
   },
-};
+}
 
 export const GapVertical = {
   render: Template,
@@ -129,16 +129,16 @@ export const GapVertical = {
     docs: {
       description: {
         story:
-          'By specifying a gap, the child elements will have the specified margin from one another. It is the same for horizontal and vertical stacks.',
+          "By specifying a gap, the child elements will have the specified margin from one another. It is the same for horizontal and vertical stacks.",
       },
     },
   },
 
   args: {
-    direction: 'vertical',
-    gap: '3',
+    direction: "vertical",
+    gap: "3",
   },
-};
+}
 
 export const HorizontalAlignmentCenter = {
   render: Template,
@@ -153,9 +153,9 @@ export const HorizontalAlignmentCenter = {
   },
 
   args: {
-    alignment: 'center',
+    alignment: "center",
   },
-};
+}
 
 export const VerticalAlignmentCenter = {
   render: Template,
@@ -170,10 +170,10 @@ export const VerticalAlignmentCenter = {
   },
 
   args: {
-    direction: 'vertical',
-    alignment: 'center',
+    direction: "vertical",
+    alignment: "center",
   },
-};
+}
 
 export const HorizontalAlignmentStart = {
   render: Template,
@@ -181,16 +181,15 @@ export const HorizontalAlignmentStart = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Setting the alignment to 'start' will cause the items to be aligned to the top in a horizontal Stack.",
+        story: "Setting the alignment to 'start' will cause the items to be aligned to the top in a horizontal Stack.",
       },
     },
   },
 
   args: {
-    alignment: 'start',
+    alignment: "start",
   },
-};
+}
 
 export const VerticalAlignmentStart = {
   render: Template,
@@ -198,17 +197,16 @@ export const VerticalAlignmentStart = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Setting the alignment to 'start' will cause the items to be aligned to the left in a vertical Stack.",
+        story: "Setting the alignment to 'start' will cause the items to be aligned to the left in a vertical Stack.",
       },
     },
   },
 
   args: {
-    direction: 'vertical',
-    alignment: 'start',
+    direction: "vertical",
+    alignment: "start",
   },
-};
+}
 
 export const HorizontalDistributionCenter = {
   render: Template,
@@ -223,9 +221,9 @@ export const HorizontalDistributionCenter = {
   },
 
   args: {
-    distribution: 'center',
+    distribution: "center",
   },
-};
+}
 
 export const VerticalDistributionCenter = {
   render: Template,
@@ -240,10 +238,10 @@ export const VerticalDistributionCenter = {
   },
 
   args: {
-    direction: 'vertical',
-    distribution: 'center',
+    direction: "vertical",
+    distribution: "center",
   },
-};
+}
 
 export const Centered = {
   render: Template,
@@ -258,10 +256,10 @@ export const Centered = {
   },
 
   args: {
-    alignment: 'center',
-    distribution: 'center',
+    alignment: "center",
+    distribution: "center",
   },
-};
+}
 
 export const Wrap = {
   render: TemplateManyChildren,
@@ -277,6 +275,6 @@ export const Wrap = {
 
   args: {
     wrap: true,
-    gap: '4',
+    gap: "4",
   },
-};
+}

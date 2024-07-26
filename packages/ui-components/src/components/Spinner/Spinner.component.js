@@ -36,13 +36,7 @@ const defaultColor = `
 /** 
 A generic Spinner component to indicate an individual component or portion of the UI is busy processing or awaiting data. 
 To indicate full views, panels, or other larger parts of an interface are busy or waiting for data, use LoadingIndicator instead.*/
-export const Spinner = ({
-  variant = "default",
-  size = null,
-  className = "",
-  color = "",
-  ...props
-}) => {
+export const Spinner = ({ variant = "default", size = null, className = "", color = "", ...props }) => {
   const mode = () => {
     switch (variant) {
       case "primary":
@@ -73,9 +67,7 @@ export const Spinner = ({
 
   return (
     <svg
-      className={`juno-spinner ${spinnerBaseStyles} ${
-        color ? color : mode()
-      } ${className}`}
+      className={`juno-spinner ${spinnerBaseStyles} ${color ? color : mode()} ${className}`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -83,14 +75,7 @@ export const Spinner = ({
       role="progressbar"
       {...props}
     >
-      <circle
-        className="jn-opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      ></circle>
+      <circle className="jn-opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
       <path
         className="jn-opacity-75"
         fill="currentColor"
@@ -102,13 +87,7 @@ export const Spinner = ({
 
 Spinner.propTypes = {
   /** The semantic color variant of the Spinner */
-  variant: PropTypes.oneOf([
-    "primary",
-    "danger",
-    "default",
-    "success",
-    "warning",
-  ]),
+  variant: PropTypes.oneOf(["primary", "danger", "default", "success", "warning"]),
   /** The size of the spinner: `small`, `large`, or any valid CSS length like `1.5rem`*/
   size: PropTypes.string,
   /** Add custom classNames */

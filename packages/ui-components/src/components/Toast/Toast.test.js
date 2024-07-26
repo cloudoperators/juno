@@ -69,13 +69,7 @@ describe("Toast", () => {
   })
 
   test("renders a toast e that will be automatically dismissed", async () => {
-    render(
-      <Toast
-        data-testid="my-toast"
-        autoDismiss={true}
-        autoDismissTimeout={500}
-      />
-    )
+    render(<Toast data-testid="my-toast" autoDismiss={true} autoDismissTimeout={500} />)
     await waitFor(
       () => {
         expect(screen.queryByTestId("my-toast")).not.toBeInTheDocument()
@@ -91,9 +85,6 @@ describe("Toast", () => {
 
   test("renders all props as passed", async () => {
     render(<Toast data-testid="my-toast" name="My shiny little Message" />)
-    expect(screen.getByTestId("my-toast")).toHaveAttribute(
-      "name",
-      "My shiny little Message"
-    )
+    expect(screen.getByTestId("my-toast")).toHaveAttribute("name", "My shiny little Message")
   })
 })

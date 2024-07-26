@@ -69,10 +69,7 @@ describe("Tabs", () => {
       </Tabs>
     )
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "true")
-    expect(screen.getByTestId("tab-2")).toHaveAttribute(
-      "aria-selected",
-      "false"
-    )
+    expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 2 content")).not.toBeInTheDocument()
   })
@@ -88,10 +85,7 @@ describe("Tabs", () => {
         <TabPanel>Tab 2 content</TabPanel>
       </Tabs>
     )
-    expect(screen.getByTestId("tab-1")).toHaveAttribute(
-      "aria-selected",
-      "false"
-    )
+    expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "true")
     expect(screen.getByText("Tab 2 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 1 content")).not.toBeInTheDocument()
@@ -108,10 +102,7 @@ describe("Tabs", () => {
         <TabPanel>Tab 2 content</TabPanel>
       </Tabs>
     )
-    expect(screen.getByTestId("tab-1")).toHaveAttribute(
-      "aria-selected",
-      "false"
-    )
+    expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "true")
     expect(screen.getByText("Tab 2 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 1 content")).not.toBeInTheDocument()
@@ -131,17 +122,11 @@ describe("Tabs", () => {
       </Tabs>
     )
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "true")
-    expect(screen.getByTestId("tab-2")).toHaveAttribute(
-      "aria-selected",
-      "false"
-    )
+    expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 2 content")).not.toBeInTheDocument()
     await userEvent.click(screen.getByRole("tab", { name: "Tab 2" }))
-    expect(screen.getByTestId("tab-1")).toHaveAttribute(
-      "aria-selected",
-      "false"
-    )
+    expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "true")
     expect(screen.getByText("Tab 2 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 1 content")).not.toBeInTheDocument()
@@ -159,26 +144,17 @@ describe("Tabs", () => {
       </Tabs>
     )
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "true")
-    expect(screen.getByTestId("tab-2")).toHaveAttribute(
-      "aria-selected",
-      "false"
-    )
+    expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 2 content")).not.toBeInTheDocument()
     await userEvent.type(screen.getByTestId("tab-1"), "{arrowright}")
-    expect(screen.getByTestId("tab-1")).toHaveAttribute(
-      "aria-selected",
-      "false"
-    )
+    expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "true")
     expect(screen.queryByText("Tab 1 content")).not.toBeInTheDocument()
     expect(screen.getByText("Tab 2 content")).toBeInTheDocument()
     await userEvent.type(screen.getByTestId("tab-2"), "{arrowright}")
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "true")
-    expect(screen.getByTestId("tab-2")).toHaveAttribute(
-      "aria-selected",
-      "false"
-    )
+    expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 2 content")).not.toBeInTheDocument()
   })

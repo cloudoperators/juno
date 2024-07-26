@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { SecretText } from "./SecretText.component.js";
+export { SecretText } from "./SecretText.component.js"

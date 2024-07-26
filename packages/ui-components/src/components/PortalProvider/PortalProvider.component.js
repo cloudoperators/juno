@@ -3,13 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import React, { createContext, useContext, useEffect, useRef, useState } from "react"
 import PropTypes from "prop-types"
 import { createPortal } from "react-dom"
 
@@ -61,11 +55,7 @@ Portal.propTypes = {}
  * a usePortalRef hook. While the component places all children in the portal, the hook
  * returns a React reference object to the DOM element.
  */
-export const PortalProvider = ({
-  className = "",
-  id = "",
-  children = null,
-}) => {
+export const PortalProvider = ({ className = "", id = "", children = null }) => {
   const ref = useRef()
 
   return (

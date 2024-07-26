@@ -29,9 +29,7 @@ describe("ContentArea", () => {
   test("renders a content area with content area background color", async () => {
     render(<ContentArea data-testid="content-area" />)
     expect(screen.getByTestId("content-area")).toBeInTheDocument()
-    expect(screen.getByTestId("content-area")).toHaveClass(
-      "jn-bg-theme-content-area-bg"
-    )
+    expect(screen.getByTestId("content-area")).toHaveClass("jn-bg-theme-content-area-bg")
   })
 
   test("renders a content area with flex grow", async () => {
@@ -51,21 +49,14 @@ describe("ContentArea", () => {
   })
 
   test("renders a custom className", async () => {
-    render(
-      <ContentArea data-testid="content-area" className="my-custom-classname" />
-    )
+    render(<ContentArea data-testid="content-area" className="my-custom-classname" />)
     expect(screen.getByTestId("content-area")).toBeInTheDocument()
-    expect(screen.getByTestId("content-area")).toHaveClass(
-      "my-custom-classname"
-    )
+    expect(screen.getByTestId("content-area")).toHaveClass("my-custom-classname")
   })
 
   test("renders all props", async () => {
     render(<ContentArea data-testid="content-area" data-lolol="some-prop" />)
     expect(screen.getByTestId("content-area")).toBeInTheDocument()
-    expect(screen.getByTestId("content-area")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("content-area")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

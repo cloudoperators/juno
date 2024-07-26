@@ -10,21 +10,13 @@ import styles from "./styles.scss"
 console.log("====================", React)
 import MonorepoChecker from "./components/MonorepoChecker"
 
-import {
-  AppShellProvider,
-  AppShell,
-  PageHeader,
-  Container,
-} from "@cloudoperators/juno-ui-components"
+import { AppShellProvider, AppShell, PageHeader, Container } from "@cloudoperators/juno-ui-components"
 import { mockedSession } from "@cloudoperators/juno-oauth"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import AppContent from "./components/AppContent"
 import HeaderUser from "./components/auth/HeaderUser"
 import AsyncWorker from "./components/AsyncWorker"
-import StoreProvider, {
-  useGlobalsActions,
-  useAuthActions,
-} from "./components/StoreProvider"
+import StoreProvider, { useGlobalsActions, useAuthActions } from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
 // mock API

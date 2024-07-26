@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React from "react"
 
-import { Container } from './index.js';
+import { Container } from "./index.js"
 
 export default {
-  title: 'Layout/Container',
+  title: "Layout/Container",
   component: Container,
   argTypes: {
     children: {
@@ -19,13 +19,13 @@ export default {
     docs: {
       description: {
         component:
-          'A very basic layout element with padding. By default has padding all around. Can be set to have only vertical padding.',
+          "A very basic layout element with padding. By default has padding all around. Can be set to have only vertical padding.",
       },
     },
   },
-};
+}
 
-const Template = (args) => <Container {...args}>Content goes here</Container>;
+const Template = (args) => <Container {...args}>Content goes here</Container>
 
 export const Basic = {
   render: Template,
@@ -40,7 +40,7 @@ export const Basic = {
   },
 
   args: {},
-};
+}
 
 export const WithVerticalPadding = {
   render: Template,
@@ -49,7 +49,7 @@ export const WithVerticalPadding = {
     docs: {
       description: {
         story:
-          'A content container with vertical padding added. This will add padding to both the top and the bottom of the container.',
+          "A content container with vertical padding added. This will add padding to both the top and the bottom of the container.",
       },
     },
   },
@@ -57,4 +57,4 @@ export const WithVerticalPadding = {
   args: {
     py: true,
   },
-};
+}

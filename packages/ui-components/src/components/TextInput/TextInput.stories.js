@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { TextInput } from './index.js';
+import React from "react"
+import { TextInput } from "./index.js"
 
 export default {
-  title: 'Forms/TextInput',
+  title: "Forms/TextInput",
   component: TextInput,
   argTypes: {
     errortext: {
@@ -20,90 +20,90 @@ export default {
       control: false,
     },
   },
-};
+}
 
 export const Default = {
   args: {},
-};
+}
 
 export const WithLabel = {
   args: {
-    label: 'Text Input',
+    label: "Text Input",
   },
-};
+}
 
 export const RequiredWithLabel = {
   args: {
-    label: 'Required Text Input',
+    label: "Required Text Input",
     required: true,
   },
-};
+}
 
 export const Invalid = {
   args: {
     invalid: true,
   },
-};
+}
 
 export const Valid = {
   args: {
     valid: true,
   },
-};
+}
 
 export const Autofocus = {
   args: {
     autoFocus: true,
   },
-};
+}
 
 export const Disabled = {
   args: {
     disabled: true,
   },
-};
+}
 
 export const ReadOnly = {
   args: {
     readOnly: true,
   },
-};
+}
 
 export const Email = {
   args: {
-    type: 'email',
+    type: "email",
   },
-};
+}
 
 export const Tel = {
   args: {
-    type: 'tel',
+    type: "tel",
   },
-};
+}
 
 export const Url = {
   args: {
-    type: 'url',
+    type: "url",
   },
-};
+}
 
 export const Number = {
   args: {
-    type: 'number',
+    type: "number",
   },
-};
+}
 
 export const Password = {
   args: {
-    type: 'password',
+    type: "password",
   },
-};
+}
 
 export const WithHelpText = {
   args: {
-    helptext: 'This is an explanatory text referring to the input',
+    helptext: "This is an explanatory text referring to the input",
   },
-};
+}
 
 export const WithHelpTextAsNode = {
   args: {
@@ -113,16 +113,16 @@ export const WithHelpTextAsNode = {
       </>
     ),
   },
-};
+}
 
 export const WithSuccessText = {
   args: {
-    successtext: 'This field is a great success!',
+    successtext: "This field is a great success!",
   },
-};
+}
 
 export const WithErrorText = {
   args: {
-    errortext: 'This field has an error',
+    errortext: "This field has an error",
   },
-};
+}

@@ -13,11 +13,7 @@ The TabPanel holds content related to a Tab in a TabList in a wrapping Tab compo
 
 const TabPanel = ({ children = null, className = "", ...props }) => {
   return (
-    <ReactTabPanel
-      className={`juno-tabpanel ${className}`}
-      selectedClassName="juno-tabpanel-selected"
-      {...props}
-    >
+    <ReactTabPanel className={`juno-tabpanel ${className}`} selectedClassName="juno-tabpanel-selected" {...props}>
       {children}
     </ReactTabPanel>
   )

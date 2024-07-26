@@ -66,15 +66,9 @@ describe("Select", () => {
     expect(screen.getByRole("button")).toHaveAttribute("type", "button")
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-select-toggle")
-    expect(screen.getByRole("button")).not.toHaveClass(
-      "juno-select-toggle-primary"
-    )
-    expect(screen.getByRole("button")).not.toHaveClass(
-      "juno-select-toggle-primary-danger"
-    )
-    expect(screen.getByRole("button")).not.toHaveClass(
-      "juno-select-toggle-primary-subdued"
-    )
+    expect(screen.getByRole("button")).not.toHaveClass("juno-select-toggle-primary")
+    expect(screen.getByRole("button")).not.toHaveClass("juno-select-toggle-primary-danger")
+    expect(screen.getByRole("button")).not.toHaveClass("juno-select-toggle-primary-subdued")
   })
 
   test("renders a primary variant select toggle as passed", async () => {
@@ -100,9 +94,7 @@ describe("Select", () => {
     )
     expect(screen.getByRole("button")).toHaveAttribute("type", "button")
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass(
-      "juno-select-toggle-primary-danger"
-    )
+    expect(screen.getByRole("button")).toHaveClass("juno-select-toggle-primary-danger")
   })
 
   test("renders a subdued variant select toggle as passed", async () => {
@@ -176,9 +168,7 @@ describe("Select", () => {
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveAttribute("id")
-    expect(screen.getByRole("button").getAttribute("id")).toMatch(
-      "juno-select-"
-    )
+    expect(screen.getByRole("button").getAttribute("id")).toMatch("juno-select-")
   })
 
   test("renders a Select toggle with an associated label with an id as passed", async () => {
@@ -204,9 +194,7 @@ describe("Select", () => {
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByLabelText("This is a Select")).toBeInTheDocument()
-    expect(screen.getByLabelText("This is a Select")).toHaveClass(
-      "juno-select-toggle"
-    )
+    expect(screen.getByLabelText("This is a Select")).toHaveClass("juno-select-toggle")
   })
 
   test("renders a required marker as passed", async () => {
@@ -231,10 +219,7 @@ describe("Select", () => {
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute(
-      "aria-label",
-      "my-select"
-    )
+    expect(screen.getByRole("button")).toHaveAttribute("aria-label", "my-select")
   })
 
   test("renders a custom className to the Select toggle as passed", async () => {
@@ -296,12 +281,8 @@ describe("Select", () => {
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-success"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "great success!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("great success!")
     expect(screen.getByRole("button")).toHaveClass("juno-select-valid")
     expect(screen.getByTitle("CheckCircle")).toBeInTheDocument()
   })
@@ -315,12 +296,8 @@ describe("Select", () => {
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-error"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is an error!"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is an error!")
     expect(screen.getByRole("button")).toHaveClass("juno-select-invalid")
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
@@ -364,9 +341,7 @@ describe("Select", () => {
     expect(toggle).toBeInTheDocument()
     await waitFor(() => userEvent.click(toggle))
     expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).not.toHaveClass(
-      "juno-select-option-truncate"
-    )
+    expect(screen.getByRole("option")).not.toHaveClass("juno-select-option-truncate")
   })
 
   test("renders truncated Select Options as passed", async () => {
@@ -383,9 +358,7 @@ describe("Select", () => {
     expect(toggle).toBeInTheDocument()
     await waitFor(() => userEvent.click(toggle))
     expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toHaveClass(
-      "juno-select-option-truncate"
-    )
+    expect(screen.getByRole("option")).toHaveClass("juno-select-option-truncate")
   })
 
   test("renders a Select with a selected value as passed", async () => {
@@ -406,10 +379,7 @@ describe("Select", () => {
     await waitFor(() => userEvent.click(toggle))
     expect(screen.getByRole("listbox")).toBeInTheDocument()
     expect(screen.getAllByRole("option")[1]).toHaveTextContent("Option 2")
-    expect(screen.getAllByRole("option")[1]).toHaveAttribute(
-      "aria-selected",
-      "true"
-    )
+    expect(screen.getAllByRole("option")[1]).toHaveAttribute("aria-selected", "true")
   })
 
   test("renders the valueLabel in the toggle for selected items if passed", async () => {

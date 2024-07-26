@@ -52,11 +52,7 @@ const PeaksList = ({ peaks }) => {
   return (
     <>
       <ContentAreaToolbar>
-        <Button
-          icon="addCircle"
-          onClick={handleNewPeakClick}
-          label="Add a Peak"
-        />
+        <Button icon="addCircle" onClick={handleNewPeakClick} label="Add a Peak" />
       </ContentAreaToolbar>
       <DataGrid columns={LIST_COLUMNS}>
         <DataGridRow>

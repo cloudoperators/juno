@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { DataListCheckboxCell } from './index.js';
+import React from "react"
+import { DataListCheckboxCell } from "./index.js"
 
 export default {
-  title: 'Deprecated/DataList/DataListCheckboxCell',
+  title: "Deprecated/DataList/DataListCheckboxCell",
   component: DataListCheckboxCell,
   argTypes: {
     children: {
@@ -17,13 +17,13 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'DataList is deprecated and will be removed. Please use DataGrid instead.',
+        component: "DataList is deprecated and will be removed. Please use DataGrid instead.",
       },
     },
   },
-};
+}
 
-const Template = (args) => <DataListCheckboxCell {...args}></DataListCheckboxCell>;
+const Template = (args) => <DataListCheckboxCell {...args}></DataListCheckboxCell>
 
 export const Default = {
   render: Template,
@@ -31,13 +31,13 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Juno DataListCheckboxCell for use in DataList',
+        story: "Juno DataListCheckboxCell for use in DataList",
       },
     },
   },
 
   args: {},
-};
+}
 
 export const Disabled = {
   render: Template,
@@ -45,7 +45,7 @@ export const Disabled = {
   parameters: {
     docs: {
       description: {
-        story: 'Disabled Juno DataListCheckboxCell for use in DataList',
+        story: "Disabled Juno DataListCheckboxCell for use in DataList",
       },
     },
   },
@@ -53,4 +53,4 @@ export const Disabled = {
   args: {
     disabled: true,
   },
-};
+}

@@ -11,10 +11,7 @@ const analyze = require("rollup-plugin-analyzer")
 const commonjs = require("@rollup/plugin-commonjs")
 const { nodeResolve } = require("@rollup/plugin-node-resolve")
 
-if (!/.+\/.+\.js/.test(pkg.module))
-  throw new Error(
-    "module value is incorrect, use DIR/FILE.js like build/index.js"
-  )
+if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like build/index.js")
 const buildDir = pkg.module.slice(0, pkg.module.lastIndexOf("/"))
 
 const config = [

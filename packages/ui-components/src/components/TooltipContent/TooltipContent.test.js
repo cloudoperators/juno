@@ -17,27 +17,20 @@ describe("TooltipContent", () => {
       </Tooltip>
     )
     // screen.debug()
-    expect(
-      container.querySelector('[class~="test-tooltip-content"]')
-    ).toBeInTheDocument()
+    expect(container.querySelector('[class~="test-tooltip-content"]')).toBeInTheDocument()
   })
 
   test("renders a TooltipContent with a custom className as passed", async () => {
     await render(
       <Tooltip initialOpen={true}>
         <TooltipTrigger>Click me to show tooltip</TooltipTrigger>
-        <TooltipContent
-          data-testid="tooltip-content"
-          className="custom-test-tooltip"
-        >
+        <TooltipContent data-testid="tooltip-content" className="custom-test-tooltip">
           TEST
         </TooltipContent>
       </Tooltip>
     )
     // screen.debug()
-    expect(screen.getByTestId("tooltip-content")).toHaveClass(
-      "custom-test-tooltip"
-    )
+    expect(screen.getByTestId("tooltip-content")).toHaveClass("custom-test-tooltip")
   })
 
   test("throws error if TooltipContent is not wrapped in a Tooltip", async () => {

@@ -30,8 +30,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          "DataList is deprecated and will be removed. Please use DataGrid instead.",
+        component: "DataList is deprecated and will be removed. Please use DataGrid instead.",
       },
     },
   },
@@ -104,8 +103,7 @@ export const Auto = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Juno DataList with one column set to 'auto' to maximize its width",
+        story: "Juno DataList with one column set to 'auto' to maximize its width",
       },
     },
   },

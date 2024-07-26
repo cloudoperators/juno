@@ -28,7 +28,7 @@ describe("ContentContainer", () => {
 
   test("renders children as passed", async () => {
     render(
-      <ContentContainer data-testid="content-container" >
+      <ContentContainer data-testid="content-container">
         <button></button>
       </ContentContainer>
     )
@@ -37,15 +37,14 @@ describe("ContentContainer", () => {
   })
 
   test("renders a custom className", async () => {
-    render(<ContentContainer  data-testid="content-container" className="my-custom-classname" />)
+    render(<ContentContainer data-testid="content-container" className="my-custom-classname" />)
     expect(screen.getByTestId("content-container")).toBeInTheDocument()
     expect(screen.getByTestId("content-container")).toHaveClass("my-custom-classname")
   })
 
   test("renders all props", async () => {
-    render(<ContentContainer  data-testid="content-container" data-lolol="some-prop" />)
+    render(<ContentContainer data-testid="content-container" data-lolol="some-prop" />)
     expect(screen.getByTestId("content-container")).toBeInTheDocument()
     expect(screen.getByTestId("content-container")).toHaveAttribute("data-lolol", "some-prop")
   })
-
 })

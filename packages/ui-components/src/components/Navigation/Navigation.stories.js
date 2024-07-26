@@ -22,9 +22,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...props }) => (
-  <Navigation {...props}>{children}</Navigation>
-)
+const Template = ({ children, ...props }) => <Navigation {...props}>{children}</Navigation>
 Template.propTypes = {
   children: PropTypes.node,
 }

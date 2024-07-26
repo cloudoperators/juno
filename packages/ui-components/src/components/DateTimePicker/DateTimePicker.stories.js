@@ -106,8 +106,7 @@ WithDefaultHourAndMinute.args = {
   defaultHour: 9,
   defaultMinute: 13,
   enableTime: true,
-  helptext:
-    "The hour and minute input elements in the dropdown calendar have been set to default values (09:13 AM).",
+  helptext: "The hour and minute input elements in the dropdown calendar have been set to default values (09:13 AM).",
 }
 
 export const WithDefaultValue = Template.bind({})
@@ -140,8 +139,7 @@ export const WithValueAsIsoDateString = Template.bind({})
 WithValueAsIsoDateString.parameters = {
   docs: {
     description: {
-      story:
-        "Pass an ISO-compatible date string to display the corresponding date in the Datepicker.",
+      story: "Pass an ISO-compatible date string to display the corresponding date in the Datepicker.",
     },
   },
 }
@@ -153,8 +151,7 @@ export const WithValueAsTimestamp = Template.bind({})
 WithValueAsTimestamp.parameters = {
   docs: {
     description: {
-      story:
-        "Pass a timestamp with milliseconds as `value` to display the corresponding date in the Datepicker.",
+      story: "Pass a timestamp with milliseconds as `value` to display the corresponding date in the Datepicker.",
     },
   },
 }
@@ -166,8 +163,7 @@ export const WithValueAsTodayShortcut = Template.bind({})
 WithValueAsTodayShortcut.parameters = {
   docs: {
     description: {
-      story:
-        'Pass `"today"` as `value` as a shortcut to display the current Date in the Datepicker.',
+      story: 'Pass `"today"` as `value` as a shortcut to display the current Date in the Datepicker.',
     },
   },
 }
@@ -213,8 +209,7 @@ export const WithTimeWithCustomHourIncrement = Template.bind({})
 WithTimeWithCustomHourIncrement.parameters = {
   docs: {
     description: {
-      story:
-        "Set a custom hour increment by which to change the hour in the respective element.",
+      story: "Set a custom hour increment by which to change the hour in the respective element.",
     },
   },
 }
@@ -228,8 +223,7 @@ export const WithTimeWithCustomMinuteIncrement = Template.bind({})
 WithTimeWithCustomMinuteIncrement.parameters = {
   docs: {
     description: {
-      story:
-        "Set a custom minute increment by which to change the minute in the respective element.",
+      story: "Set a custom minute increment by which to change the minute in the respective element.",
     },
   },
 }
@@ -243,8 +237,7 @@ export const With24hTime = Template.bind({})
 With24hTime.parameters = {
   docs: {
     description: {
-      story:
-        "Set the time picker to use 24h time mode without AM/PM selection.",
+      story: "Set the time picker to use 24h time mode without AM/PM selection.",
     },
   },
 }
@@ -257,8 +250,7 @@ export const ShowTwoMonths = Template.bind({})
 ShowTwoMonths.parameters = {
   docs: {
     description: {
-      story:
-        "Set the number of months to be displayed side by side in the calendar.",
+      story: "Set the number of months to be displayed side by side in the calendar.",
     },
   },
 }
@@ -270,8 +262,7 @@ export const WithWeekNumbers = Template.bind({})
 WithWeekNumbers.parameters = {
   docs: {
     description: {
-      story:
-        "Set `weekNumbers` to `true` to display week numbers in the calendar.",
+      story: "Set `weekNumbers` to `true` to display week numbers in the calendar.",
     },
   },
 }
@@ -283,8 +274,7 @@ export const WithShorthandCurrentMonth = Template.bind({})
 WithShorthandCurrentMonth.parameters = {
   docs: {
     description: {
-      story:
-        "Set `shorthandCurrentMonth` to `true` to show shorthand month names, e.g. 'Jan' instead of 'January'.",
+      story: "Set `shorthandCurrentMonth` to `true` to show shorthand month names, e.g. 'Jan' instead of 'January'.",
     },
   },
 }
@@ -296,8 +286,7 @@ export const WithMonthSelectorDropdown = Template.bind({})
 WithMonthSelectorDropdown.parameters = {
   docs: {
     description: {
-      story:
-        'Set `monthSelectorType` to "dropdown" in order to show a select element to switch months in the calndar.',
+      story: 'Set `monthSelectorType` to "dropdown" in order to show a select element to switch months in the calndar.',
     },
   },
 }
@@ -309,8 +298,7 @@ export const AllowInput = Template.bind({})
 AllowInput.parameters = {
   docs: {
     description: {
-      story:
-        "Set `allowInput` to `true` to allow direct user input by typing into the DateTimePicker input element.",
+      story: "Set `allowInput` to `true` to allow direct user input by typing into the DateTimePicker input element.",
     },
   },
 }
@@ -334,8 +322,7 @@ export const Range = Template.bind({})
 Range.parameters = {
   docs: {
     description: {
-      story:
-        'To select a date range instead of individual date(s), set `mode` to "range".',
+      story: 'To select a date range instead of individual date(s), set `mode` to "range".',
     },
   },
 }
@@ -388,8 +375,7 @@ export const DisableDate = Template.bind({})
 ;(DisableDate.parameters = {
   docs: {
     description: {
-      story:
-        "Pass an array of dates to be disabled, making it impossible for the user to select these dates.",
+      story: "Pass an array of dates to be disabled, making it impossible for the user to select these dates.",
     },
   },
 }),
@@ -416,8 +402,7 @@ DisableByFunction.args = {
   locale: {
     firstDayOfWeek: 1, // set week to start on Monday
   },
-  helptext:
-    "Only work days can be selected, week in calendar starts with Monday.",
+  helptext: "Only work days can be selected, week in calendar starts with Monday.",
 }
 
 export const Valid = Template.bind({})
@@ -470,13 +455,7 @@ const ControlledTemplate = ({ ...args }) => {
     setTestState({ date: { end: dObj } })
   }
 
-  return (
-    <DateTimePicker
-      {...args}
-      onChange={handleChange}
-      value={testState?.date?.end}
-    />
-  )
+  return <DateTimePicker {...args} onChange={handleChange} value={testState?.date?.end} />
 }
 
 export const ControlledDateTimePicker = {

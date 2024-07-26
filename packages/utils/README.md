@@ -108,9 +108,7 @@ Utilize this library to develop against mock data and without requiring any code
 
    ```json
    {
-     "peaks": [
-       { "id": 1, "name": "Ama Dablam", "height": "6814m", "region": "Khumbu" }
-     ],
+     "peaks": [{ "id": 1, "name": "Ama Dablam", "height": "6814m", "region": "Khumbu" }],
      "regions": [{ "id": 1, "name": "Khumbu", "countries": "Nepal" }]
    }
    ```
@@ -142,11 +140,11 @@ Utilize this library to develop against mock data and without requiring any code
 
    ```js
    // AppContent.jsx
-   import React, { useEffect, useState } from "react";
-   import { fetchProxy } from "utils";
+   import React, { useEffect, useState } from "react"
+   import { fetchProxy } from "utils"
 
    const AppContent = () => {
-     const [data, setData] = useState(null);
+     const [data, setData] = useState(null)
 
      useEffect(() => {
        fetchProxy(`${window.location.origin}/peaks`, {
@@ -159,17 +157,17 @@ Utilize this library to develop against mock data and without requiring any code
        })
          .then((response) => {
            if (!response.ok) {
-             throw new Error("Network response was not ok");
+             throw new Error("Network response was not ok")
            }
-           return response.json();
+           return response.json()
          })
          .then((result) => {
-           setData(result);
-         });
-     }, []);
+           setData(result)
+         })
+     }, [])
 
-     return <>{data && <pre>{JSON.stringify(data, null, 2)}</pre>}</>;
-   };
+     return <>{data && <pre>{JSON.stringify(data, null, 2)}</pre>}</>
+   }
    ```
 
 ### Conditions and Limitations
@@ -224,9 +222,9 @@ Utilize the rewriteRoutes option when you wish to align URLs with the structure 
 const customRoutes = {
   "/api/v1/(.*)": "/$1", // Replace '/api/v1' with an empty string
   "^/api": "", // Replace '/api' with an empty string
-};
+}
 
-fetchProxyInitDB(db, { rewriteRoutes: customRoutes });
+fetchProxyInitDB(db, { rewriteRoutes: customRoutes })
 ```
 
 Now you can access resources using following routes:
@@ -245,9 +243,9 @@ const customResponses = {
   POST: {
     "^/peaks": { certificate: "testCertificate" },
   },
-};
+}
 
-fetchProxyInitDB(db, { rewriteResponses: customResponses });
+fetchProxyInitDB(db, { rewriteResponses: customResponses })
 ```
 
 ### Self Contained Running Example
@@ -255,18 +253,18 @@ fetchProxyInitDB(db, { rewriteResponses: customResponses });
 Simply copy the following example and run it to explore how to use this library.
 
 ```js
-import React, { useEffect, useState } from "react";
-import { fetchProxy, fetchProxyInitDB } from "utils";
+import React, { useEffect, useState } from "react"
+import { fetchProxy, fetchProxyInitDB } from "utils"
 
 const App = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(null)
 
   // setup the mock db.json
   useEffect(() => {
     fetchProxyInitDB({
       peaks: [{ id: 1, name: "Ama Dablam", height: "6814m", region: "Khumbu" }],
-    });
-  }, []);
+    })
+  }, [])
 
   useEffect(() => {
     fetchProxy(`${window.location.origin}/peaks`, {
@@ -279,19 +277,19 @@ const App = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Network response was not ok")
         }
-        return response.json();
+        return response.json()
       })
       .then((result) => {
-        setData(result);
-      });
-  }, []);
+        setData(result)
+      })
+  }, [])
 
-  return <>{data && <pre>{JSON.stringify(data, null, 2)}</pre>}</>;
-};
+  return <>{data && <pre>{JSON.stringify(data, null, 2)}</pre>}</>
+}
 
-export default App;
+export default App
 ```
 
 ## Mount Juno Apps (useAppLoader)<a name="useAppLoader"></a>
@@ -336,19 +334,19 @@ If the application is hosted in a different server you can choose between:
 1. Import the react hook useAppLoader.
 
    ```js
-   import { useAppLoader } from "utils";
+   import { useAppLoader } from "utils"
    ```
 
 2. Invoke the use hook useAppLoader by providing the assets URL.
 
    ```js
-   const { mount } = useAppLoader("https://assets.juno.qa-de-1.cloud.sap/");
+   const { mount } = useAppLoader("https://assets.juno.qa-de-1.cloud.sap/")
    ```
 
 3. Create a ref using the useRef hook.
 
    ```js
-   const app = useRef(null);
+   const app = useRef(null)
    ```
 
 4. Use the mount function to mount the application. The mount function accepts the following options:
@@ -363,25 +361,25 @@ If the application is hosted in a different server you can choose between:
 
    ```js
    useEffect(() => {
-     if (!mount) return;
+     if (!mount) return
      mount(app.current, {
        name: "exampleapp",
        version: "latest",
        props: { embedded: true },
-     });
-   }, [mount]);
+     })
+   }, [mount])
    ```
 
    Example using URL and passing embedded as a prop to the target application:
 
    ```js
    useEffect(() => {
-     if (!mount) return;
+     if (!mount) return
      mount(app.current, {
        url: "https://assets.juno.global.cloud.sap/apps/exampleapp@latest/build/index.js",
        props: { embedded: true },
-     });
-   }, [mount]);
+     })
+   }, [mount])
    ```
 
 5. Use the ref to render the application.
@@ -395,27 +393,27 @@ If the application is hosted in a different server you can choose between:
 Simply copy the following example and run it to explore how to use this library.
 
 ```js
-import React, { useEffect, useRef } from "react";
-import { useAppLoader } from "utils";
+import React, { useEffect, useRef } from "react"
+import { useAppLoader } from "utils"
 
 const App = () => {
-  const { mount } = useAppLoader("https://assets.juno.qa-de-1.cloud.sap/");
-  const app = useRef();
+  const { mount } = useAppLoader("https://assets.juno.qa-de-1.cloud.sap/")
+  const app = useRef()
 
   useEffect(() => {
-    if (!mount || !app.current) return;
-    mount(app.current, { name: "exampleapp" });
-  }, [mount, app]);
+    if (!mount || !app.current) return
+    mount(app.current, { name: "exampleapp" })
+  }, [mount, app])
 
   return (
     <>
       <div>This is the root app responsible for loading the other apps.</div>
       <div ref={app} />
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
 ```
 
 ## Testing

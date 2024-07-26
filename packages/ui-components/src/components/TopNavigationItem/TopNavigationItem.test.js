@@ -18,13 +18,9 @@ describe("TopNavigationItem", () => {
   })
 
   test("renders a ToppNavigationItem", async () => {
-    await waitFor(() =>
-      render(<TopNavigationItem data-testid="top-nav-item" />)
-    )
+    await waitFor(() => render(<TopNavigationItem data-testid="top-nav-item" />))
     expect(screen.getByTestId("top-nav-item")).toBeInTheDocument()
-    expect(screen.getByTestId("top-nav-item")).toHaveClass(
-      "juno-topnavigation-item"
-    )
+    expect(screen.getByTestId("top-nav-item")).toHaveClass("juno-topnavigation-item")
   })
 
   test("renders a label as passed", async () => {
@@ -34,9 +30,7 @@ describe("TopNavigationItem", () => {
   })
 
   test("renders children as passed", async () => {
-    await waitFor(() =>
-      render(<TopNavigationItem>The Item Is A Child</TopNavigationItem>)
-    )
+    await waitFor(() => render(<TopNavigationItem>The Item Is A Child</TopNavigationItem>))
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveTextContent("The Item Is A Child")
   })
@@ -44,10 +38,7 @@ describe("TopNavigationItem", () => {
   test("redners an aria-label attribute as passed", async () => {
     await waitFor(() => render(<TopNavigationItem ariaLabel="My ARIA-Label" />))
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute(
-      "aria-label",
-      "My ARIA-Label"
-    )
+    expect(screen.getByRole("button")).toHaveAttribute("aria-label", "My ARIA-Label")
   })
 
   test("renders a disabled item as passed", async () => {
@@ -84,26 +75,15 @@ describe("TopNavigationItem", () => {
   })
 
   test("renders an active ToppNavigationItem as passed", async () => {
-    await waitFor(() =>
-      render(<TopNavigationItem data-testid="top-nav-item" active />)
-    )
+    await waitFor(() => render(<TopNavigationItem data-testid="top-nav-item" active />))
     expect(screen.getByTestId("top-nav-item")).toBeInTheDocument()
-    expect(screen.getByTestId("top-nav-item")).toHaveClass(
-      "juno-topnavigation-item"
-    )
-    expect(screen.getByTestId("top-nav-item")).toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByTestId("top-nav-item")).toHaveClass("juno-topnavigation-item")
+    expect(screen.getByTestId("top-nav-item")).toHaveClass("juno-navigation-item-active")
   })
 
   test("renders an aria-label as passed", async () => {
-    await waitFor(() =>
-      render(<TopNavigationItem href="#" ariaLabel="hey nav item!" />)
-    )
-    expect(screen.getByRole("link")).toHaveAttribute(
-      "aria-label",
-      "hey nav item!"
-    )
+    await waitFor(() => render(<TopNavigationItem href="#" ariaLabel="hey nav item!" />))
+    expect(screen.getByRole("link")).toHaveAttribute("aria-label", "hey nav item!")
   })
 
   test("executes an onClick handler as passed", async () => {
@@ -115,36 +95,17 @@ describe("TopNavigationItem", () => {
       )
     )
     expect(screen.getByRole("button", { name: "My Item" })).toBeInTheDocument()
-    await waitFor(() =>
-      userEvent.click(screen.getByRole("button", { name: "My Item" }))
-    )
+    await waitFor(() => userEvent.click(screen.getByRole("button", { name: "My Item" })))
     expect(mockOnClick).toHaveBeenCalled()
   })
 
   test("renders custom classNames as passed", async () => {
-    await waitFor(() =>
-      render(
-        <TopNavigationItem
-          data-testid="top-nav-item"
-          className="my-custom-class"
-        />
-      )
-    )
+    await waitFor(() => render(<TopNavigationItem data-testid="top-nav-item" className="my-custom-class" />))
     expect(screen.getByTestId("top-nav-item")).toHaveClass("my-custom-class")
   })
 
   test("renders all props as passed", async () => {
-    await waitFor(() =>
-      render(
-        <TopNavigationItem
-          data-testid="top-nav-item"
-          data-lol="Prop goes here"
-        />
-      )
-    )
-    expect(screen.getByTestId("top-nav-item")).toHaveAttribute(
-      "data-lol",
-      "Prop goes here"
-    )
+    await waitFor(() => render(<TopNavigationItem data-testid="top-nav-item" data-lol="Prop goes here" />))
+    expect(screen.getByTestId("top-nav-item")).toHaveAttribute("data-lol", "Prop goes here")
   })
 })

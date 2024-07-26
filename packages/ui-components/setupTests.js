@@ -24,7 +24,6 @@ class ResizeObserver {
 
 window.ResizeObserver = ResizeObserver
 
-
 /**
  * Required to test Radix-UI-based components:
  * JSDOM doesn't implement PointerEvent so we need to mock our own implementation
@@ -32,7 +31,7 @@ window.ResizeObserver = ResizeObserver
  * https://github.com/radix-ui/primitives/issues/1822
  * https://github.com/jsdom/jsdom/pull/2666
  */
- 
+
 class MockPointerEvent extends Event {
   constructor(type, props) {
     super(type, props)

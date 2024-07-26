@@ -23,10 +23,7 @@ const panelFooterClasses = `
  */
 export const PanelFooter = ({ className = "", children, ...props }) => {
   return (
-    <div
-      className={`juno-panel-footer ${panelFooterClasses}  ${className}`}
-      {...props}
-    >
+    <div className={`juno-panel-footer ${panelFooterClasses}  ${className}`} {...props}>
       {children}
     </div>
   )

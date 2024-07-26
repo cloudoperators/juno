@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { DataListCell } from './index.js';
+import React from "react"
+import { DataListCell } from "./index.js"
 
 export default {
-  title: 'Deprecated/DataList/DataListCell',
+  title: "Deprecated/DataList/DataListCell",
   component: DataListCell,
   argTypes: {
     children: {
@@ -17,13 +17,13 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'DataList is deprecated and will be removed. Please use DataGrid instead.',
+        component: "DataList is deprecated and will be removed. Please use DataGrid instead.",
       },
     },
   },
-};
+}
 
-const Template = (args) => <DataListCell {...args}></DataListCell>;
+const Template = (args) => <DataListCell {...args}></DataListCell>
 
 export const Default = {
   render: Template,
@@ -31,12 +31,12 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'Juno DataListCell for displaying data',
+        story: "Juno DataListCell for displaying data",
       },
     },
   },
 
   args: {
-    children: ['DataListCell'],
+    children: ["DataListCell"],
   },
-};
+}

@@ -66,30 +66,19 @@ export const SubduedInputGroup = {
 export const Disabled = {
   args: {
     disabled: true,
-    children: [
-      <Button key={0} label="Button" />,
-      <Button key={1} label="Button" />,
-      <Button key={2} label="Button" />,
-    ],
+    children: [<Button key={0} label="Button" />, <Button key={1} label="Button" />, <Button key={2} label="Button" />],
   },
 }
 
 export const IconButtons = {
   args: {
-    children: [
-      <Button key={0} icon="home" />,
-      <Button key={1} icon="help" />,
-      <Button key={2} icon="forum" />,
-    ],
+    children: [<Button key={0} icon="home" />, <Button key={1} icon="help" />, <Button key={2} icon="forum" />],
   },
 }
 
 export const TextInputWithButton = {
   args: {
-    children: [
-      <TextInput key={0} placeholder="Enter a value…" />,
-      <Button key={1} label="Submit" />,
-    ],
+    children: [<TextInput key={0} placeholder="Enter a value…" />, <Button key={1} label="Submit" />],
   },
 }
 

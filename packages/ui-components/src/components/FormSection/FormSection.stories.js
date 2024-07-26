@@ -24,9 +24,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <FormSection {...args}>{children}</FormSection>
-)
+const Template = ({ children, ...args }) => <FormSection {...args}>{children}</FormSection>
 Template.propTypes = {
   children: PropTypes.node,
 }

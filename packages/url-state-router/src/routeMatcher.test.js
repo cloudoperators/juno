@@ -25,11 +25,7 @@ describe("routeMatcher", () => {
       })
 
       it("returns only mapped route params", () => {
-        const [_, routeParams] = routeMatcher(
-          currentPath,
-          "/items/:id",
-          options
-        )
+        const [_, routeParams] = routeMatcher(currentPath, "/items/:id", options)
         expect(routeParams).toEqual({ id: "10" })
       })
     })

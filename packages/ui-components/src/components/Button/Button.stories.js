@@ -27,8 +27,7 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story:
-          "The default button is a neutral button that can be used multiple times on a page",
+        story: "The default button is a neutral button that can be used multiple times on a page",
       },
     },
   },
@@ -58,8 +57,7 @@ export const Primary = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Only use the primary button **maximum once per page** for the preferred user action",
+        story: "Only use the primary button **maximum once per page** for the preferred user action",
       },
     },
   },
@@ -74,8 +72,7 @@ export const PrimaryDanger = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Use this button sparingly and only for dangerous or destructive actions",
+        story: "Use this button sparingly and only for dangerous or destructive actions",
       },
     },
   },
@@ -204,8 +201,7 @@ export const SmallWithIcon = {
 export const IconOnlyButton = {}
 ;(IconOnlyButton.docs = {
   description: {
-    story:
-      "A button with a Icon but no label. The icon name can be passed as a prop.",
+    story: "A button with a Icon but no label. The icon name can be passed as a prop.",
   },
 }),
   (IconOnlyButton.args = {
@@ -293,8 +289,7 @@ export const DefaultButtonInProgressWithProgressLabel = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Default Button with an action in oprogress and an alternate label while in progress",
+        story: "Default Button with an action in oprogress and an alternate label while in progress",
       },
     },
   },
@@ -360,8 +355,7 @@ export const LinkAsButtonInProgress = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Link as button with action in progress. Should hardly ever be used, just to check consistent styling.",
+        story: "Link as button with action in progress. Should hardly ever be used, just to check consistent styling.",
       },
     },
   },

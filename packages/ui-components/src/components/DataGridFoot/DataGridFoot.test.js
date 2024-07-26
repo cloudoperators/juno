@@ -18,13 +18,9 @@ describe("DataGridFoot", () => {
 
   test("renders a custom className", async () => {
     const table = document.createElement("table")
-    render(
-      <DataGridFoot
-        data-testid="my-datagridfoot"
-        className="my-custom-class"
-      />,
-      { container: document.body.appendChild(table) }
-    )
+    render(<DataGridFoot data-testid="my-datagridfoot" className="my-custom-class" />, {
+      container: document.body.appendChild(table),
+    })
     expect(screen.getByTestId("my-datagridfoot")).toBeInTheDocument()
     expect(screen.getByTestId("my-datagridfoot")).toHaveClass("my-custom-class")
   })

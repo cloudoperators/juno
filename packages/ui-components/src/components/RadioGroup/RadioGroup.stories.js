@@ -32,9 +32,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <RadioGroup {...args}>{children}</RadioGroup>
-)
+const Template = ({ children, ...args }) => <RadioGroup {...args}>{children}</RadioGroup>
 Template.propTypes = {
   children: PropTypes.node,
 }
@@ -58,24 +56,9 @@ export const Selected = {
     name: "group-selected-radiogroup",
     selected: "selected-2",
     children: [
-      <Radio
-        id="group-selected-1"
-        value="selected-1"
-        label="Option 1"
-        key="1"
-      />,
-      <Radio
-        id="group-selected-2"
-        value="selected-2"
-        label="Option 2"
-        key="2"
-      />,
-      <Radio
-        id="group-selected-3"
-        value="selected-3"
-        label="Option 3"
-        key="3"
-      />,
+      <Radio id="group-selected-1" value="selected-1" label="Option 1" key="1" />,
+      <Radio id="group-selected-2" value="selected-2" label="Option 2" key="2" />,
+      <Radio id="group-selected-3" value="selected-3" label="Option 3" key="3" />,
     ],
   },
 }
@@ -86,25 +69,9 @@ export const IndividuallyChecked = {
   args: {
     name: "individually-checked-radiogroup",
     children: [
-      <Radio
-        id="individually-checked-1"
-        value="individually-checked-1"
-        label="Option 1"
-        key="1"
-      />,
-      <Radio
-        id="individually-checked-2"
-        value="individually-checked-2"
-        label="Option 2"
-        key="2"
-      />,
-      <Radio
-        id="individually-checked-3"
-        value="individually-checked-3"
-        label="Option 3"
-        key="3"
-        checked
-      />,
+      <Radio id="individually-checked-1" value="individually-checked-1" label="Option 1" key="1" />,
+      <Radio id="individually-checked-2" value="individually-checked-2" label="Option 2" key="2" />,
+      <Radio id="individually-checked-3" value="individually-checked-3" label="Option 3" key="3" checked />,
     ],
   },
 }
@@ -217,24 +184,9 @@ export const WithHelptextAsNode = {
       </>
     ),
     children: [
-      <Radio
-        id="invalid-1"
-        value="with-helptext-node-1"
-        label="Option 1"
-        key="1"
-      />,
-      <Radio
-        id="invalid-2"
-        value="with-helptext-node-2"
-        label="Option 2"
-        key="2"
-      />,
-      <Radio
-        id="invalid-3"
-        value="with-helptext-node-3"
-        label="Option 3"
-        key="3"
-      />,
+      <Radio id="invalid-1" value="with-helptext-node-1" label="Option 1" key="1" />,
+      <Radio id="invalid-2" value="with-helptext-node-2" label="Option 2" key="2" />,
+      <Radio id="invalid-3" value="with-helptext-node-3" label="Option 3" key="3" />,
     ],
   },
 }

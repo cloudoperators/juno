@@ -14,9 +14,7 @@ describe("DataListCell", () => {
   })
 
   test("renders a custom className", async () => {
-    render(
-      <DataListCell data-testid="my-datalistcell" className="my-custom-class" />
-    )
+    render(<DataListCell data-testid="my-datalistcell" className="my-custom-class" />)
     expect(screen.getByTestId("my-datalistcell")).toBeInTheDocument()
     expect(screen.getByTestId("my-datalistcell")).toHaveClass("my-custom-class")
   })

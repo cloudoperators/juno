@@ -36,19 +36,13 @@ describe("SearchInput", () => {
   test("renders a default placeholder 'Search…'", async () => {
     render(<SearchInput />)
     expect(screen.getByRole("searchbox")).toBeInTheDocument()
-    expect(screen.getByRole("searchbox")).toHaveAttribute(
-      "placeholder",
-      "Search…"
-    )
+    expect(screen.getByRole("searchbox")).toHaveAttribute("placeholder", "Search…")
   })
 
   test("renders a placeholder as passed", async () => {
     render(<SearchInput placeholder="My custom placeholder" />)
     expect(screen.getByRole("searchbox")).toBeInTheDocument()
-    expect(screen.getByRole("searchbox")).toHaveAttribute(
-      "placeholder",
-      "My custom placeholder"
-    )
+    expect(screen.getByRole("searchbox")).toHaveAttribute("placeholder", "My custom placeholder")
   })
 
   // EVENTS
@@ -133,10 +127,7 @@ describe("SearchInput", () => {
 
   test("renders all props as passed", async () => {
     render(<SearchInput name="My shiny little Message" />)
-    expect(screen.getByRole("searchbox")).toHaveAttribute(
-      "name",
-      "My shiny little Message"
-    )
+    expect(screen.getByRole("searchbox")).toHaveAttribute("name", "My shiny little Message")
   })
 
   // various props, disabled

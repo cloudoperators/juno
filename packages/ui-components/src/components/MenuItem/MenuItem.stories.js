@@ -82,14 +82,7 @@ export const WithChildren = {
 
   args: {
     children: [
-      <Button
-        label="Delete"
-        size="small"
-        variant="subdued"
-        icon="deleteForever"
-        className="jn-w-full"
-        key="1"
-      />,
+      <Button label="Delete" size="small" variant="subdued" icon="deleteForever" className="jn-w-full" key="1" />,
     ],
   },
 }

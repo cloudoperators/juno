@@ -18,24 +18,10 @@ const formSectionHeading = `
 `
 
 /** A Form section to group form elements inside complex forms with an optional title. */
-export const FormSection = ({
-  title = null,
-  children = null,
-  className = "",
-  ...props
-}) => {
+export const FormSection = ({ title = null, children = null, className = "", ...props }) => {
   return (
-    <section
-      className={`juno-form-section ${formSection} ${className}`}
-      {...props}
-    >
-      {title ? (
-        <h1 className={`juno-formsection-heading ${formSectionHeading}`}>
-          {title}
-        </h1>
-      ) : (
-        ""
-      )}
+    <section className={`juno-form-section ${formSection} ${className}`} {...props}>
+      {title ? <h1 className={`juno-formsection-heading ${formSectionHeading}`}>{title}</h1> : ""}
       {children}
     </section>
   )

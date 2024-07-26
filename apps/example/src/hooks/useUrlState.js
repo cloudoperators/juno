@@ -38,10 +38,7 @@ const useUrlState = (key) => {
       don't read the url if we are already read it or if we are not logged in!!!!!
     */
     if (isURLRead || !loggedIn) return
-    console.log(
-      `EXAMPLEAPP: (${key || DEFAULT_KEY}) setting up state from url:`,
-      urlStateManager.currentState()
-    )
+    console.log(`EXAMPLEAPP: (${key || DEFAULT_KEY}) setting up state from url:`, urlStateManager.currentState())
 
     // READ the url state and set the state
     const newTabIndex = urlStateManager.currentState()?.[TAB_INDEX]

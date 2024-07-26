@@ -26,20 +26,14 @@ describe("NavigationItem", () => {
   test("renders a link element when a url is passed", async () => {
     render(<NavigationItem href="https://www.sap.com" />)
     expect(screen.getByRole("link")).toBeInTheDocument()
-    expect(screen.getByRole("link")).toHaveAttribute(
-      "href",
-      "https://www.sap.com"
-    )
+    expect(screen.getByRole("link")).toHaveAttribute("href", "https://www.sap.com")
   })
 
   test("renders an aria-label as passed", async () => {
     render(<NavigationItem aria-label="My Item Aria Label" />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     // test whether the attribute will be set correctly
-    expect(screen.getByRole("button")).toHaveAttribute(
-      "aria-label",
-      "My Item Aria Label"
-    )
+    expect(screen.getByRole("button")).toHaveAttribute("aria-label", "My Item Aria Label")
     // double-check whether the element can be found in the accessibility tree using the aria-label:
     expect(screen.getByLabelText("My Item Aria Label")).toBeInTheDocument()
   })
@@ -48,9 +42,7 @@ describe("NavigationItem", () => {
     render(<NavigationItem active />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-navigation-item")
-    expect(screen.getByRole("button")).toHaveClass(
-      "juno-navigation-item-active"
-    )
+    expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-active")
   })
 
   test("renders a disabled navigationItem as passed", async () => {
@@ -58,9 +50,7 @@ describe("NavigationItem", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-navigation-item")
     expect(screen.getByRole("button")).toBeDisabled()
-    expect(screen.getByRole("button")).toHaveClass(
-      "juno-navigation-item-disabled"
-    )
+    expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-disabled")
   })
 
   test("renders children as passed", async () => {
@@ -143,8 +133,6 @@ describe("NavigationItem", () => {
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toBeDisabled()
-    expect(screen.getByRole("button")).toHaveClass(
-      "juno-navigation-item-disabled"
-    )
+    expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-disabled")
   })
 })

@@ -48,9 +48,7 @@ describe("ComboBox", () => {
     /* Here we need to directly select the input, since headless
       a) does not add the name to the visible input element but to another, hidden input element it keeps in sync, and
       b) react-testing fails when trying to access hidden elements by role: */
-    expect(
-      document.querySelector("input[name='my-wonderful-combobox']")
-    ).toBeInTheDocument()
+    expect(document.querySelector("input[name='my-wonderful-combobox']")).toBeInTheDocument()
   })
 
   test("renders a ComboBox with a label as passed", async () => {
@@ -125,10 +123,7 @@ describe("ComboBox", () => {
       )
     )
     expect(screen.getByRole("combobox")).toBeInTheDocument()
-    expect(screen.getByRole("combobox")).toHaveAttribute(
-      "aria-label",
-      "my aria-label"
-    )
+    expect(screen.getByRole("combobox")).toHaveAttribute("aria-label", "my aria-label")
   })
 
   test("renders the label as an aria-label if no aria-label was passed", async () => {
@@ -140,10 +135,7 @@ describe("ComboBox", () => {
       )
     )
     expect(screen.getByRole("combobox")).toBeInTheDocument()
-    expect(screen.getByRole("combobox")).toHaveAttribute(
-      "aria-label",
-      "My Label"
-    )
+    expect(screen.getByRole("combobox")).toHaveAttribute("aria-label", "My Label")
   })
 
   test("renders a ComboBox with a placeholder as passed", async () => {
@@ -155,10 +147,7 @@ describe("ComboBox", () => {
       )
     )
     expect(screen.getByRole("combobox")).toBeInTheDocument()
-    expect(screen.getByRole("combobox")).toHaveAttribute(
-      "placeholder",
-      "My Placeholder"
-    )
+    expect(screen.getByRole("combobox")).toHaveAttribute("placeholder", "My Placeholder")
   })
 
   test("renders a disabled ComboBox as passed", async () => {
@@ -246,12 +235,8 @@ describe("ComboBox", () => {
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-help"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "A helptext goes here"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("A helptext goes here")
   })
 
   test("renders an errortext as passed", async () => {
@@ -263,12 +248,8 @@ describe("ComboBox", () => {
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-error"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "An errortext goes here"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("An errortext goes here")
   })
 
   test("renders a successtext as passed", async () => {
@@ -280,12 +261,8 @@ describe("ComboBox", () => {
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-success"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "A successtext goes here"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("A successtext goes here")
   })
 
   test("renders a loading ComboBox with a Spinner as passed", async () => {
@@ -375,9 +352,7 @@ describe("ComboBox", () => {
         <AppShellProvider shadowRoot={false}>
           <ComboBox onInputChange={mockOnInputChange}>
             <ComboBoxOption value="something">Something</ComboBoxOption>
-            <ComboBoxOption value="something else">
-              Something else
-            </ComboBoxOption>
+            <ComboBoxOption value="something else">Something else</ComboBoxOption>
           </ComboBox>
         </AppShellProvider>
       )
@@ -419,34 +394,22 @@ describe("ComboBox", () => {
     expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-    expect(
-      screen.queryByRole("option", { name: "123" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
 
     await waitFor(() => user.type(cbox, "b"))
-    expect(
-      screen.queryByRole("option", { name: "aaa" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
     expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-    expect(
-      screen.queryByRole("option", { name: "123" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
     await waitFor(() => user.clear(cbox))
     expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
     await waitFor(() => user.type(cbox, "1"))
-    expect(
-      screen.queryByRole("option", { name: "aaa" })
-    ).not.toBeInTheDocument()
-    expect(
-      screen.queryByRole("option", { name: "aab" })
-    ).not.toBeInTheDocument()
-    expect(
-      screen.queryByRole("option", { name: "abc" })
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "aab" })).not.toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "abc" })).not.toBeInTheDocument()
     expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
   })
 

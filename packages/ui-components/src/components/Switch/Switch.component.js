@@ -145,8 +145,7 @@ export const Switch = ({
     [invalid, errortext]
   )
   const validated = useMemo(
-    () =>
-      valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
   )
 
@@ -198,13 +197,7 @@ export const Switch = ({
           ></span>
         </button>
 
-        <Label
-          text={label}
-          htmlFor={theId}
-          className="jn-ml-2"
-          disabled={disabled}
-          required={required}
-        />
+        <Label text={label} htmlFor={theId} className="jn-ml-2" disabled={disabled} required={required} />
 
         {isInvalid ? (
           <Icon
@@ -229,28 +222,16 @@ export const Switch = ({
         )}
       </span>
       {errortext && isNotEmptyString(errortext) ? (
-        <FormHint
-          text={errortext}
-          variant="error"
-          className={`${hintStyles}`}
-        />
+        <FormHint text={errortext} variant="error" className={`${hintStyles}`} />
       ) : (
         ""
       )}
       {successtext && isNotEmptyString(successtext) ? (
-        <FormHint
-          text={successtext}
-          variant="success"
-          className={`${hintStyles}`}
-        />
+        <FormHint text={successtext} variant="success" className={`${hintStyles}`} />
       ) : (
         ""
       )}
-      {helptext && isNotEmptyString(helptext) ? (
-        <FormHint text={helptext} className={`${hintStyles}`} />
-      ) : (
-        ""
-      )}
+      {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} className={`${hintStyles}`} /> : ""}
     </div>
   )
 }

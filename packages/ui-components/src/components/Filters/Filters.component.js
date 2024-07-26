@@ -67,9 +67,7 @@ export const Filters = ({
     // This causes hasError to become a string. Further down, hasError is
     // passed on to the TextInput, whose type check logs a warning
     // To prevet that check the type of errortext instead!
-    setHasError(
-      error || (typeof errortext === "string" && errortext.length > 0)
-    )
+    setHasError(error || (typeof errortext === "string" && errortext.length > 0))
   }, [error, errortext])
 
   useEffect(() => {
@@ -77,12 +75,7 @@ export const Filters = ({
   }, [loading])
 
   return (
-    <div
-      className={`juno-filters ${
-        hasError ? "juno-filters-error " : ""
-      } ${filterStyles} ${className}`}
-      {...props}
-    >
+    <div className={`juno-filters ${hasError ? "juno-filters-error " : ""} ${filterStyles} ${className}`} {...props}>
       <div className={`juno-filters-input-wrapper ${inputWrapperStyles}`}>
         {filters && filters.options ? (
           <FilterInput
@@ -100,17 +93,9 @@ export const Filters = ({
             error={hasError}
           />
         ) : null}
-        {search ? (
-          <div className={`${searchWrapperStyles}`}>{search}</div>
-        ) : null}
+        {search ? <div className={`${searchWrapperStyles}`}>{search}</div> : null}
       </div>
-      {hasError && errortext ? (
-        <div className={`juno-filters-errortext ${errortextStyles}`}>
-          {errortext}
-        </div>
-      ) : (
-        ""
-      )}
+      {hasError && errortext ? <div className={`juno-filters-errortext ${errortextStyles}`}>{errortext}</div> : ""}
       <div className={`${filterPillWrapperStyles}`}>{children}</div>
     </div>
   )

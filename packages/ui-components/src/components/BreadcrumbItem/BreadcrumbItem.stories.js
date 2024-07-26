@@ -3,27 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { BreadcrumbItem } from './index';
-import { knownIcons } from '../Icon/Icon.component.js';
+import React from "react"
+import { BreadcrumbItem } from "./index"
+import { knownIcons } from "../Icon/Icon.component.js"
 
 const Template = (args) => {
-  return <BreadcrumbItem {...args} />;
-};
+  return <BreadcrumbItem {...args} />
+}
 
 export default {
-  title: 'Components/Breadcrumb/BreadcrumbItem',
+  title: "Components/Breadcrumb/BreadcrumbItem",
   component: BreadcrumbItem,
   argTypes: {
     icon: {
-      options: ['default', ...knownIcons],
-      control: { type: 'select' },
+      options: ["default", ...knownIcons],
+      control: { type: "select" },
     },
     children: {
       control: false,
     },
   },
-};
+}
 
 export const Default = {
   render: Template,
@@ -31,15 +31,15 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'A default breadcrumb item',
+        story: "A default breadcrumb item",
       },
     },
   },
 
   args: {
-    label: 'Breadcrumb Item',
+    label: "Breadcrumb Item",
   },
-};
+}
 
 export const WithIcon = {
   render: Template,
@@ -47,16 +47,16 @@ export const WithIcon = {
   parameters: {
     docs: {
       description: {
-        story: 'Pass any available icon name to render an additional icon for the item.',
+        story: "Pass any available icon name to render an additional icon for the item.",
       },
     },
   },
 
   args: {
-    icon: 'place',
-    label: 'Breadcrumb Item with Icon',
+    icon: "place",
+    label: "Breadcrumb Item with Icon",
   },
-};
+}
 
 export const Active = {
   render: Template,
@@ -64,16 +64,16 @@ export const Active = {
   parameters: {
     docs: {
       description: {
-        story: 'An active item represents the current page.',
+        story: "An active item represents the current page.",
       },
     },
   },
 
   args: {
-    label: 'Active Breadcrumb Item',
+    label: "Active Breadcrumb Item",
     active: true,
   },
-};
+}
 
 export const Disabled = {
   render: Template,
@@ -81,16 +81,16 @@ export const Disabled = {
   parameters: {
     docs: {
       description: {
-        story: 'A disabled breadcrumb item.',
+        story: "A disabled breadcrumb item.",
       },
     },
   },
 
   args: {
-    label: 'Disabled Breadcrumb Item',
+    label: "Disabled Breadcrumb Item",
     disabled: true,
   },
-};
+}
 
 export const Home = {
   render: Template,
@@ -98,13 +98,13 @@ export const Home = {
   parameters: {
     docs: {
       description: {
-        story: 'Typically the first item in a breadcrumb.',
+        story: "Typically the first item in a breadcrumb.",
       },
     },
   },
 
   args: {
-    label: '',
-    icon: 'home',
+    label: "",
+    icon: "home",
   },
-};
+}

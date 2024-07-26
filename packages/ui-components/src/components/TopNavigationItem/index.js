@@ -3,5 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { TopNavigationItem } from "./TopNavigationItem.component";
-
+export { TopNavigationItem } from "./TopNavigationItem.component"

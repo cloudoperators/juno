@@ -38,8 +38,7 @@ const useURLStateProvider = (stateID = "_some-state_") => {
   )
 
   useEffect(() => {
-    if (stateID === "_some-state_")
-      console.error("stateID is undefined. Please provide an unique ID.")
+    if (stateID === "_some-state_") console.error("stateID is undefined. Please provide an unique ID.")
 
     const unregisterConsumer = onChange(setState)
     return unregisterConsumer

@@ -32,13 +32,7 @@ const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID }) => {
   }).then((r) => r.json())
 }
 
-const buildRequestUrl = async ({
-  issuerURL,
-  clientID,
-  oidcState,
-  params,
-  callbackURL,
-}) => {
+const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbackURL }) => {
   const config = await getOidcConfig(issuerURL)
 
   let scope = "openid email profile offline_access"
@@ -72,8 +66,7 @@ const handleResponse = async ({ issuerURL, clientID, oidcState }) => {
 
   // get token endpoint
   const config = await getOidcConfig(issuerURL)
-  if (!config)
-    throw new Error("could not load oidc config, issuerURL: " + issuerURL)
+  if (!config) throw new Error("could not load oidc config, issuerURL: " + issuerURL)
 
   const data = await exchangeCode({
     tokenEndpoint: config.token_endpoint,

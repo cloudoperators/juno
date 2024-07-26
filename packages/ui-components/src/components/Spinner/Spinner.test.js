@@ -46,12 +46,8 @@ describe("Spinner", () => {
   test("renders a custom colored spinner", async () => {
     render(<Spinner variant="success" color="jn-text-theme-button-primary" />)
     expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).not.toHaveClass(
-      "jn-text-theme-success"
-    )
-    expect(screen.getByRole("progressbar")).toHaveClass(
-      "jn-text-theme-button-primary"
-    )
+    expect(screen.getByRole("progressbar")).not.toHaveClass("jn-text-theme-success")
+    expect(screen.getByRole("progressbar")).toHaveClass("jn-text-theme-button-primary")
   })
 
   test("renders a default sized Spinner", async () => {
@@ -94,13 +90,7 @@ describe("Spinner", () => {
   })
 
   test("renders all props", async () => {
-    render(
-      <Spinner
-        id="a-spinner"
-        name="the-spinner-to-test"
-        data-lolol="some-random-prop"
-      />
-    )
+    render(<Spinner id="a-spinner" name="the-spinner-to-test" data-lolol="some-random-prop" />)
     const spinner = screen.getByRole("progressbar")
     expect(spinner).toHaveAttribute("id", "a-spinner")
     expect(spinner).toHaveAttribute("name", "the-spinner-to-test")

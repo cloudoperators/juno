@@ -94,9 +94,7 @@ const getJunoColors = () => {
       if (colorfam) {
         colorfam.map((subcolor) => {
           if (subcolor != "DEFAULT") {
-            colors[
-              `${colorName}-${subcolor}`
-            ] = `jn-bg-${colorName}-${subcolor}`
+            colors[`${colorName}-${subcolor}`] = `jn-bg-${colorName}-${subcolor}`
           }
         })
       }

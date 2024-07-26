@@ -16,12 +16,7 @@ import {
   Select,
   SelectOption,
 } from "@cloudoperators/juno-ui-components"
-import {
-  useGlobalsActions,
-  useGlobalsTabIndex,
-  useAuthLoggedIn,
-  useAuthError,
-} from "./StoreProvider"
+import { useGlobalsActions, useGlobalsTabIndex, useAuthLoggedIn, useAuthError } from "./StoreProvider"
 import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
 import ModalManager from "./ModalManager"
 import PanelManager from "./PanelManager"
@@ -79,10 +74,7 @@ const AppContent = () => {
               <TabPanel>
                 <Container py px={false}>
                   <p>Test a panel pressing the Button</p>
-                  <Button
-                    label="Button"
-                    onClick={() => setCurrentModal("TestModal")}
-                  />
+                  <Button label="Button" onClick={() => setCurrentModal("TestModal")} />
                   <p>Test a select</p>
                   <Select
                     name="filter"

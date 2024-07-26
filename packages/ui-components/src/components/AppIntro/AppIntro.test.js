@@ -33,9 +33,6 @@ describe("AppIntro", () => {
   test("renders all props", async () => {
     render(<AppIntro data-testid="app-intro" data-lolol="some-prop" />)
     expect(screen.getByTestId("app-intro")).toBeInTheDocument()
-    expect(screen.getByTestId("app-intro")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("app-intro")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

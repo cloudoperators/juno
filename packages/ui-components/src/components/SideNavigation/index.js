@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { SideNavigation } from "./SideNavigation.component";
+export { SideNavigation } from "./SideNavigation.component"

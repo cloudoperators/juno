@@ -24,10 +24,7 @@ describe("TooltipTrigger", () => {
   test("renders a TooltipTrigger with a custom className as passed", async () => {
     await render(
       <Tooltip>
-        <TooltipTrigger
-          data-testid="tooltip-trigger"
-          className="custom-test-tooltip"
-        >
+        <TooltipTrigger data-testid="tooltip-trigger" className="custom-test-tooltip">
           Click me to show tooltip
         </TooltipTrigger>
         <TooltipContent>TEST</TooltipContent>

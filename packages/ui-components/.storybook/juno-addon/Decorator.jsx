@@ -13,11 +13,7 @@ import { _useChannel, addons } from "@storybook/preview-api"
 import { getCurrentTheme, getCurrentThemeMode } from "./themes"
 
 const fixBodyBg = () => {
-  document.body.style.setProperty(
-    "background-color",
-    getCurrentTheme().appContentBg,
-    "important"
-  )
+  document.body.style.setProperty("background-color", getCurrentTheme().appContentBg, "important")
 }
 
 fixBodyBg()

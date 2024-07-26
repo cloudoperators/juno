@@ -23,9 +23,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <ButtonRow {...args}>{children}</ButtonRow>
-)
+const Template = ({ children, ...args }) => <ButtonRow {...args}>{children}</ButtonRow>
 Template.propTypes = {
   children: PropTypes.node,
 }

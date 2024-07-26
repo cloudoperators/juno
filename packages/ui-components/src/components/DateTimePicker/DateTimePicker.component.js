@@ -155,14 +155,8 @@ export const DateTimePicker = ({
       }, {}),
     })
 
-  const invalidated = useMemo(
-    () => (invalid || (errortext && errortext.length) ? true : false),
-    [invalid, errortext]
-  )
-  const validated = useMemo(
-    () => (valid || (successtext && successtext.length) ? true : false),
-    [valid, successtext]
-  )
+  const invalidated = useMemo(() => (invalid || (errortext && errortext.length) ? true : false), [invalid, errortext])
+  const validated = useMemo(() => (valid || (successtext && successtext.length) ? true : false), [valid, successtext])
 
   useEffect(() => {
     setIsInvalid(invalidated)
@@ -234,8 +228,7 @@ export const DateTimePicker = ({
           : "Y-m-d H:i"
       : "Y-m-d"
 
-    const theDateFormat =
-      dateFormat === undefined ? defaultDateFormat : dateFormat
+    const theDateFormat = dateFormat === undefined ? defaultDateFormat : dateFormat
 
     return theDateFormat
   }
@@ -276,8 +269,7 @@ export const DateTimePicker = ({
       time_24hr: time_24hr,
       weekNumbers: weekNumbers,
     }
-    const FP =
-      calendarTargetRef && fpRef.current && flatpickr(fpRef.current, options)
+    const FP = calendarTargetRef && fpRef.current && flatpickr(fpRef.current, options)
     updateFlatpickrInstance(FP)
   }
 
@@ -380,10 +372,7 @@ export const DateTimePicker = ({
 
   // useEffects for props that represent config options that can be set on an existing flatpickr instance with immediate effect:
   useEffect(() => {
-    flatpickrInstanceRef.current?.set(
-      "allowInvalidPreload",
-      allowInvalidPreload
-    )
+    flatpickrInstanceRef.current?.set("allowInvalidPreload", allowInvalidPreload)
   }, [allowInvalidPreload])
 
   useEffect(() => {
@@ -420,10 +409,7 @@ export const DateTimePicker = ({
   }, [minDate])
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set(
-      "shorthandCurrentMonth",
-      shorthandCurrentMonth
-    )
+    flatpickrInstanceRef.current?.set("shorthandCurrentMonth", shorthandCurrentMonth)
   }, [shorthandCurrentMonth])
 
   useEffect(() => {
@@ -450,31 +436,17 @@ export const DateTimePicker = ({
       ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
     `}
     >
-      <div
-        className={`juno-datetimepicker-input-wrapper ${inputWrapperStyles}`}
-      >
+      <div className={`juno-datetimepicker-input-wrapper ${inputWrapperStyles}`}>
         <input
           className={`
             juno-datetimepicker-input 
             ${inputStyles}
             ${label ? inputWithLabelStyles : inputWithoutLabelStyles}
-            ${
-              isInvalid
-                ? "juno-datetimepicker-input-invalid " + inputInvalidStyles
-                : ""
-            } 
-            ${
-              isValid
-                ? "juno-datetimepicker-input-valid" + inputValidStyles
-                : ""
-            }  
+            ${isInvalid ? "juno-datetimepicker-input-invalid " + inputInvalidStyles : ""} 
+            ${isValid ? "juno-datetimepicker-input-valid" + inputValidStyles : ""}  
             ${isValid || isInvalid ? "" : inputDefaultBorderStyles} 
             ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
-            ${
-              enableTime && noCalendar
-                ? "juno-datetimepicker-input-timepicker"
-                : "juno-datetimepicker-input-default"
-            }
+            ${enableTime && noCalendar ? "juno-datetimepicker-input-timepicker" : "juno-datetimepicker-input-default"}
             ${className}
           `}
           data-mode={mode}
@@ -499,70 +471,33 @@ export const DateTimePicker = ({
             required={required}
             floating
             minimized={
-              placeholder ||
-              isOpen ||
-              theDate.selectedDate?.length ||
-              theDate.selectedDateStr?.length
-                ? true
-                : false
+              placeholder || isOpen || theDate.selectedDate?.length || theDate.selectedDateStr?.length ? true : false
             }
           />
         ) : (
           ""
         )}
 
-        <div
-          className={`juno-datetimepicker-icon-container ${iconContainerStyles}`}
-        >
+        <div className={`juno-datetimepicker-icon-container ${iconContainerStyles}`}>
           {theDate.selectedDate?.length || theDate.selectedDateStr?.length ? (
-            <Icon
-              icon="close"
-              onClick={handleClearIconClick}
-              disabled={disabled}
-              title="Clear"
-            />
+            <Icon icon="close" onClick={handleClearIconClick} disabled={disabled} title="Clear" />
           ) : (
             ""
           )}
-          {isInvalid ? (
-            <Icon icon="dangerous" color="jn-text-theme-error" />
-          ) : (
-            ""
-          )}
-          {isValid ? (
-            <Icon icon="checkCircle" color="jn-text-theme-success" />
-          ) : (
-            ""
-          )}
+          {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : ""}
+          {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : ""}
         </div>
       </div>
       <div ref={calendarTargetRef}></div>
 
-      {errortext && errortext.length ? (
-        <FormHint text={errortext} variant="error" className="jn-mt-0" />
-      ) : (
-        ""
-      )}
-      {successtext && successtext.length ? (
-        <FormHint text={successtext} variant="success" className="jn-mt-0" />
-      ) : (
-        ""
-      )}
-      {helptext && helptext.length ? (
-        <FormHint text={helptext} className="jn-mt-0" />
-      ) : (
-        ""
-      )}
+      {errortext && errortext.length ? <FormHint text={errortext} variant="error" className="jn-mt-0" /> : ""}
+      {successtext && successtext.length ? <FormHint text={successtext} variant="success" className="jn-mt-0" /> : ""}
+      {helptext && helptext.length ? <FormHint text={helptext} className="jn-mt-0" /> : ""}
     </div>
   )
 }
 
-const datePropType = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.array,
-  PropTypes.object,
-  PropTypes.number,
-])
+const datePropType = PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object, PropTypes.number])
 
 DateTimePicker.propTypes = {
   /** Whether the DateTimePicker input element allows direct user keyboard input. Default is `false`. */

@@ -22,9 +22,7 @@ if (searchParams.get("state")) {
 
 if (!state) {
   // check hash query string
-  searchParams = new URLSearchParams(
-    window.location.hash?.replace(/^#(.*)/, "$1")
-  )
+  searchParams = new URLSearchParams(window.location.hash?.replace(/^#(.*)/, "$1"))
   if (searchParams.get("state")) {
     state = window.sessionStorage.getItem(searchParams.get("state"))
   }

@@ -7,20 +7,9 @@ import React from "react"
 import PropTypes from "prop-types"
 
 /** A basic SelectOption. Can only be used inside a Select. */
-export const NativeSelectOption = ({
-  value = null,
-  label = null,
-  disabled = false,
-  className = "",
-  ...props
-}) => {
+export const NativeSelectOption = ({ value = null, label = null, disabled = false, className = "", ...props }) => {
   return (
-    <option
-      value={value}
-      disabled={disabled}
-      className={`juno-select-option ${className}`}
-      {...props}
-    >
+    <option value={value} disabled={disabled} className={`juno-select-option ${className}`} {...props}>
       {label || value}
     </option>
   )

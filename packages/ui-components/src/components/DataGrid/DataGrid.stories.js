@@ -27,13 +27,7 @@ export default {
 
 const defaultColumns = 3
 
-const Template = ({
-  hideHead,
-  includeColSpanRow,
-  withToolbar,
-  withFilters,
-  ...args
-}) => (
+const Template = ({ hideHead, includeColSpanRow, withToolbar, withFilters, ...args }) => (
   <>
     {withFilters && <Filters {...FiltersStory.args}></Filters>}
     {withToolbar && (
@@ -45,9 +39,7 @@ const Template = ({
       {!hideHead && (
         <DataGridRow>
           {[...Array(args.columns || defaultColumns)].map((_, c) => (
-            <DataGridHeadCell
-              key={`h_${c}`}
-            >{`Head cell ${c}`}</DataGridHeadCell>
+            <DataGridHeadCell key={`h_${c}`}>{`Head cell ${c}`}</DataGridHeadCell>
           ))}
         </DataGridRow>
       )}
@@ -56,18 +48,14 @@ const Template = ({
           <DataGridRow key={`b_${r}`}>
             {[...Array(args.columns || defaultColumns)].map((_, c) => (
               <DataGridCell key={`b_${r}_${c}`}>
-                {c === args.columns - 2
-                  ? `Cell ${r}-${c} has more content than others`
-                  : `Cell ${r}-${c}`}
+                {c === args.columns - 2 ? `Cell ${r}-${c} has more content than others` : `Cell ${r}-${c}`}
               </DataGridCell>
             ))}
           </DataGridRow>
         ))}
       {includeColSpanRow && (
         <DataGridRow>
-          <DataGridCell colSpan={args.columns}>
-            This is a cell with colspan spanning all available columns
-          </DataGridCell>
+          <DataGridCell colSpan={args.columns}>This is a cell with colspan spanning all available columns</DataGridCell>
         </DataGridRow>
       )}
     </DataGrid>

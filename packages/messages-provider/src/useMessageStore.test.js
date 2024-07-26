@@ -32,21 +32,14 @@ beforeEach(() => {
 // catch consol warns: https://www.jackfranklin.co.uk/blog/failing-tests-on-react-proptypes/
 describe("messages-provider", () => {
   it("return no messages on initialize", () => {
-    const wrapper = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
+    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
     const { result } = renderHook(() => useMessages(), { wrapper })
     expect(result.current.length).toBe(0)
   })
 
   it("adds a message correctly", () => {
-    const wrapper = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
-    const store = renderHook(
-      () => ({ actions: useActions(), messages: useMessages() }),
-      { wrapper }
-    )
+    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
+    const store = renderHook(() => ({ actions: useActions(), messages: useMessages() }), { wrapper })
     let actionResult = null
     act(
       () =>
@@ -65,9 +58,7 @@ describe("messages-provider", () => {
   })
 
   it("test proptype for addMessage text", () => {
-    const wrapper = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
+    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
     const actions = renderHook(() => useActions(), { wrapper })
     expect(() => {
       act(() => actions.result.current.addMessage({ variant: "error" }))
@@ -75,9 +66,7 @@ describe("messages-provider", () => {
   })
 
   it("test proptype for addMessage variant", () => {
-    const wrapper = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
+    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
     const actions = renderHook(() => useActions(), { wrapper })
     expect(() => {
       act(() =>
@@ -90,13 +79,8 @@ describe("messages-provider", () => {
   })
 
   it("adds a message extra props (ex. dismissible) correctly", () => {
-    const wrapper = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
-    const store = renderHook(
-      () => ({ actions: useActions(), messages: useMessages() }),
-      { wrapper }
-    )
+    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
+    const store = renderHook(() => ({ actions: useActions(), messages: useMessages() }), { wrapper })
 
     let actionResult = null
     act(
@@ -118,13 +102,8 @@ describe("messages-provider", () => {
   })
 
   it("remove a message correctly", () => {
-    const wrapper = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
-    const store = renderHook(
-      () => ({ actions: useActions(), messages: useMessages() }),
-      { wrapper }
-    )
+    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
+    const store = renderHook(() => ({ actions: useActions(), messages: useMessages() }), { wrapper })
     act(() =>
       store.result.current.actions.addMessage({
         variant: "error",
@@ -139,18 +118,12 @@ describe("messages-provider", () => {
     )
 
     expect(store.result.current.messages.length).toBe(2)
-    act(() =>
-      store.result.current.actions.removeMessage(
-        store.result.current.messages[1].id
-      )
-    )
+    act(() => store.result.current.actions.removeMessage(store.result.current.messages[1].id))
     expect(store.result.current.messages.length).toBe(1)
   })
 
   it("test proptype for removeMessage id", () => {
-    const wrapper = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
+    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
     const actions = renderHook(() => useActions(), { wrapper })
     expect(() => {
       act(() => actions.result.current.removeMessage())
@@ -158,13 +131,8 @@ describe("messages-provider", () => {
   })
 
   it("reset messages store", () => {
-    const wrapper = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
-    const store = renderHook(
-      () => ({ actions: useActions(), messages: useMessages() }),
-      { wrapper }
-    )
+    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
+    const store = renderHook(() => ({ actions: useActions(), messages: useMessages() }), { wrapper })
     act(() =>
       store.result.current.actions.addMessage({
         variant: "error",
@@ -184,24 +152,14 @@ describe("messages-provider", () => {
   })
 
   it("creates different stores when using different providers", () => {
-    const wrapper1 = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
-    const wrapper2 = ({ children }) => (
-      <MessagesProvider>{children}</MessagesProvider>
-    )
-    const store = renderHook(
-      () => ({ actions: useActions(), messages: useMessages() }),
-      {
-        wrapper: wrapper1,
-      }
-    )
-    const store2 = renderHook(
-      () => ({ actions: useActions(), messages: useMessages() }),
-      {
-        wrapper: wrapper2,
-      }
-    )
+    const wrapper1 = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
+    const wrapper2 = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
+    const store = renderHook(() => ({ actions: useActions(), messages: useMessages() }), {
+      wrapper: wrapper1,
+    })
+    const store2 = renderHook(() => ({ actions: useActions(), messages: useMessages() }), {
+      wrapper: wrapper2,
+    })
 
     act(() =>
       store.result.current.actions.addMessage({

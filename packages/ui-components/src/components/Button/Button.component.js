@@ -60,13 +60,9 @@ const btnDefaultSubduedPadding = `
 
 const getButtonPadding = (size, variant) => {
   if (size === "small") {
-    return variant === "subdued"
-      ? `${btnSmallSubduedPadding}`
-      : `${btnSmallDefaultPadding}`
+    return variant === "subdued" ? `${btnSmallSubduedPadding}` : `${btnSmallDefaultPadding}`
   } else {
-    return variant === "subdued"
-      ? `${btnDefaultSubduedPadding}`
-      : `${btnDefaultPadding}`
+    return variant === "subdued" ? `${btnDefaultSubduedPadding}` : `${btnDefaultPadding}`
   }
 }
 
@@ -130,22 +126,16 @@ export const Button = React.forwardRef(
     const titleValue = title || label || ""
 
     const buttonIcon = progress ? (
-      <Spinner
-        size={size === "small" ? "1.125rem" : "1.5rem"}
-        color={`${spinnerColorClass(theVariant, disabled)}`}
-      />
+      <Spinner size={size === "small" ? "1.125rem" : "1.5rem"} color={`${spinnerColorClass(theVariant, disabled)}`} />
     ) : icon ? (
       <Icon
         icon={icon}
-        className={`juno-button-icon ${
-          label || children ? iconClasses(size) : ""
-        } `}
+        className={`juno-button-icon ${label || children ? iconClasses(size) : ""} `}
         size={size === "small" ? "1.125rem" : "1.5rem"}
       />
     ) : null
 
-    const buttonLabel =
-      progress && progressLabel ? progressLabel : label || children
+    const buttonLabel = progress && progressLabel ? progressLabel : label || children
 
     const handleClick = (event) => {
       onClick && onClick(event)

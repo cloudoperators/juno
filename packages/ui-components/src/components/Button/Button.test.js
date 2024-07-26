@@ -51,19 +51,13 @@ describe("Button", () => {
   test("renders a title", async () => {
     render(<Button title="Click me title">Click me</Button>)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute(
-      "title",
-      "Click me title"
-    )
+    expect(screen.getByRole("button")).toHaveAttribute("title", "Click me title")
   })
 
   test("renders label as title if no title given", async () => {
     render(<Button label="Click me label">Click me</Button>)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute(
-      "title",
-      "Click me label"
-    )
+    expect(screen.getByRole("button")).toHaveAttribute("title", "Click me label")
   })
 
   test("renders a default button", async () => {

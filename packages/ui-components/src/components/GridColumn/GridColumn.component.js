@@ -104,14 +104,7 @@ const colsClass = (cols) => {
 /**
 A grid column to be used inside a Grid.
 */
-export const GridColumn = ({
-  width = null,
-  cols = null,
-  auto = false,
-  className = "",
-  children,
-  ...props
-}) => {
+export const GridColumn = ({ width = null, cols = null, auto = false, className = "", children, ...props }) => {
   // auto column:
   const autoStyles = {
     flexGrow: "1",

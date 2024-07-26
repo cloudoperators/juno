@@ -17,9 +17,7 @@ describe("AppBody", () => {
   test("renders an app body with flex column", async () => {
     render(<AppBody data-testid="app-body" />)
     expect(screen.getByTestId("app-body")).toBeInTheDocument()
-    expect(screen.getByTestId("app-body")).toHaveClass(
-      "jn-flex-col"
-    )
+    expect(screen.getByTestId("app-body")).toHaveClass("jn-flex-col")
   })
 
   test("renders an app body with full height", async () => {
@@ -39,21 +37,14 @@ describe("AppBody", () => {
   })
 
   test("renders a custom className", async () => {
-    render(
-      <AppBody data-testid="app-body" className="my-custom-classname" />
-    )
+    render(<AppBody data-testid="app-body" className="my-custom-classname" />)
     expect(screen.getByTestId("app-body")).toBeInTheDocument()
-    expect(screen.getByTestId("app-body")).toHaveClass(
-      "my-custom-classname"
-    )
+    expect(screen.getByTestId("app-body")).toHaveClass("my-custom-classname")
   })
 
   test("renders all props", async () => {
     render(<AppBody data-testid="app-body" data-lolol="some-prop" />)
     expect(screen.getByTestId("app-body")).toBeInTheDocument()
-    expect(screen.getByTestId("app-body")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("app-body")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

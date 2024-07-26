@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { SelectDivider } from './index.js';
-import { Select } from '../Select/index.js';
-import { SelectOption } from '../SelectOption/index.js';
-import { PortalProvider } from '../PortalProvider/PortalProvider.component.js';
+import React from "react"
+import { SelectDivider } from "./index.js"
+import { Select } from "../Select/index.js"
+import { SelectOption } from "../SelectOption/index.js"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component.js"
 
 export default {
-  title: 'Forms/Select/SelectDivider',
+  title: "Forms/Select/SelectDivider",
   component: SelectDivider,
   argTypes: {},
   decorators: [(story) => <PortalProvider>{story()}</PortalProvider>],
-};
+}
 
 const Template = () => {
   return (
@@ -23,10 +23,10 @@ const Template = () => {
       <SelectDivider />
       <SelectOption value="3">3</SelectOption>
     </Select>
-  );
-};
+  )
+}
 
 export const Default = {
   render: Template,
   args: {},
-};
+}

@@ -3,22 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React from "react"
 
-import { ContentAreaWrapper } from './index.js';
-import { ContentArea } from '../ContentArea/index.js';
-import { ContentAreaToolbar } from '../ContentAreaToolbar/index.js';
-import { Button } from '../Button/index.js';
+import { ContentAreaWrapper } from "./index.js"
+import { ContentArea } from "../ContentArea/index.js"
+import { ContentAreaToolbar } from "../ContentAreaToolbar/index.js"
+import { Button } from "../Button/index.js"
 
 export default {
-  title: 'Internal/ContentAreaWrapper',
+  title: "Internal/ContentAreaWrapper",
   component: ContentAreaWrapper,
   argTypes: {
     children: {
       control: false,
     },
   },
-};
+}
 
 const Template = (args) => (
   <ContentAreaWrapper {...args}>
@@ -27,7 +27,7 @@ const Template = (args) => (
     </ContentAreaToolbar>
     <ContentArea>Content goes here</ContentArea>
   </ContentAreaWrapper>
-);
+)
 
 export const Basic = {
   render: Template,
@@ -35,10 +35,10 @@ export const Basic = {
   parameters: {
     docs: {
       description: {
-        story: 'OBSOLETE: Will be deleted!',
+        story: "OBSOLETE: Will be deleted!",
       },
     },
   },
 
   args: {},
-};
+}

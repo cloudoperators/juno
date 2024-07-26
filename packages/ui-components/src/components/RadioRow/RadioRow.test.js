@@ -26,13 +26,7 @@ describe("RadioRow", () => {
   })
 
   test("renders a radio group with a radio and an associated label with an id as passed", async () => {
-    render(
-      <RadioRow
-        data-testid="my-radio-row"
-        label="My Radio Row"
-        id="radio-row"
-      />
-    )
+    render(<RadioRow data-testid="my-radio-row" label="My Radio Row" id="radio-row" />)
     expect(screen.getByRole("radio")).toBeInTheDocument()
     expect(screen.getByLabelText("My Radio Row")).toBeInTheDocument()
     expect(screen.getByRole("radio")).toHaveAttribute("id", "radio-row")
@@ -100,10 +94,7 @@ describe("RadioRow", () => {
   test("renders all props as passed", async () => {
     render(<RadioRow data-testid="radio-row" data-lolol="random-prop" />)
     expect(screen.getByTestId("radio-row")).toBeInTheDocument()
-    expect(screen.getByTestId("radio-row")).toHaveAttribute(
-      "data-lolol",
-      "random-prop"
-    )
+    expect(screen.getByTestId("radio-row")).toHaveAttribute("data-lolol", "random-prop")
   })
 
   test("fire handler on change as passed", async () => {

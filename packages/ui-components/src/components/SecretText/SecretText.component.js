@@ -184,9 +184,7 @@ export const SecretText = ({
             disabled={disabled}
             required={required}
             floating
-            minimized={
-              placeholder || hasFocus || (val && val.length) ? true : false
-            }
+            minimized={placeholder || hasFocus || (val && val.length) ? true : false}
           />
         ) : (
           ""
@@ -195,11 +193,7 @@ export const SecretText = ({
         {isCopied || !isRevealed ? (
           <div className={`juno-secret-cover ${coverStyles} `}>
             {isCopied ? (
-              <span
-                className={`juno-secret-copyconfirmmessage ${copyConfirmMessageStyles}`}
-              >
-                {copyConfirmtext}
-              </span>
+              <span className={`juno-secret-copyconfirmmessage ${copyConfirmMessageStyles}`}>{copyConfirmtext}</span>
             ) : (
               ""
             )}
@@ -229,28 +223,16 @@ export const SecretText = ({
       <Stack>
         <div className="jn-grow">
           {errortext && isNotEmptyString(errortext) ? (
-            <FormHint
-              text={errortext}
-              variant="error"
-              className={`${hintStyles}`}
-            />
+            <FormHint text={errortext} variant="error" className={`${hintStyles}`} />
           ) : (
             ""
           )}
           {successtext && isNotEmptyString(successtext) ? (
-            <FormHint
-              text={successtext}
-              variant="success"
-              className={`${hintStyles}`}
-            />
+            <FormHint text={successtext} variant="success" className={`${hintStyles}`} />
           ) : (
             ""
           )}
-          {helptext && isNotEmptyString(helptext) ? (
-            <FormHint text={helptext} className={`${hintStyles}`} />
-          ) : (
-            ""
-          )}
+          {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} className={`${hintStyles}`} /> : ""}
         </div>
 
         <ButtonRow className="jn-secret-actions jn-justify-self-end jn-mt-2">

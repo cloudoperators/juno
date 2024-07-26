@@ -17,11 +17,7 @@ export function JunoColorPalette() {
     <ContentArea className={`jn-p-4`}>
       <div className={gridStyle}>
         {Object.entries(tailwindColors.getJunoColors).map((color) => (
-          <ColorCard
-            key={color[0]}
-            colorName={color[0]}
-            colorClass={color[1]}
-          />
+          <ColorCard key={color[0]} colorName={color[0]} colorClass={color[1]} />
         ))}
       </div>
     </ContentArea>

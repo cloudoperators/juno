@@ -67,10 +67,7 @@ describe("Modal", () => {
     const modalTitle = screen.getByText("My a11y Modal")
     expect(modalTitle).toHaveAttribute("id")
     const modalTitleId = modalTitle.getAttribute("id")
-    expect(screen.getByRole("dialog")).toHaveAttribute(
-      "aria-labelledby",
-      modalTitleId
-    )
+    expect(screen.getByRole("dialog")).toHaveAttribute("aria-labelledby", modalTitleId)
   })
 
   test("renders an aria-labelledby attribute referencing the heading if passed", async () => {
@@ -85,10 +82,7 @@ describe("Modal", () => {
     const modalTitle = screen.getByText("My other a11y Modal")
     expect(modalTitle).toHaveAttribute("id")
     const modalTitleId = modalTitle.getAttribute("id")
-    expect(screen.getByRole("dialog")).toHaveAttribute(
-      "aria-labelledby",
-      modalTitleId
-    )
+    expect(screen.getByRole("dialog")).toHaveAttribute("aria-labelledby", modalTitleId)
   })
 
   test("renders an arial-label attribute as passed", async () => {
@@ -100,10 +94,7 @@ describe("Modal", () => {
       )
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
-    expect(screen.getByRole("dialog")).toHaveAttribute(
-      "aria-label",
-      "Otherwise unnamed modal"
-    )
+    expect(screen.getByRole("dialog")).toHaveAttribute("aria-label", "Otherwise unnamed modal")
   })
 
   test("renders children as passed", async () => {
@@ -118,9 +109,7 @@ describe("Modal", () => {
       )
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
-    expect(
-      screen.getByRole("button", { name: "Child Button" })
-    ).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "Child Button" })).toBeInTheDocument()
     expect(screen.getByRole("dialog")).toHaveTextContent("Something here")
   })
 
@@ -159,9 +148,7 @@ describe("Modal", () => {
       )
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Click here to Cancel" })
-    ).toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Click here to Cancel" })).toBeInTheDocument()
   })
 
   test("renders a confirm button with a label as passed", async () => {
@@ -173,12 +160,8 @@ describe("Modal", () => {
       )
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Click here to Proceed" })
-    ).toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Click here to Proceed" })
-    ).toHaveClass("juno-button-primary")
+    expect(screen.queryByRole("button", { name: "Click here to Proceed" })).toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "Click here to Proceed" })).toHaveClass("juno-button-primary")
   })
 
   test("closes the modal when clicking the close button in the title bar", async () => {
@@ -192,7 +175,7 @@ describe("Modal", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     const titleBarCloseButton = screen.queryAllByRole("button")[0]
     expect(titleBarCloseButton).toHaveAttribute("aria-label", "close")
-    await waitFor(()=>userEvent.click(titleBarCloseButton))
+    await waitFor(() => userEvent.click(titleBarCloseButton))
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
   })
 
@@ -207,7 +190,7 @@ describe("Modal", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     const footerCloseButton = screen.queryAllByRole("button")[1]
     expect(footerCloseButton).toHaveTextContent("Cancel all the things")
-    await waitFor(()=>userEvent.click(footerCloseButton))
+    await waitFor(() => userEvent.click(footerCloseButton))
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
   })
 
@@ -235,7 +218,7 @@ describe("Modal", () => {
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     const backdrop = document.querySelector(".juno-modal-container")
-    await waitFor(()=>userEvent.click(backdrop))
+    await waitFor(() => userEvent.click(backdrop))
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
   })
 
@@ -250,7 +233,7 @@ describe("Modal", () => {
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     const confirmButton = screen.getByRole("button", { name: "OK" })
-    await waitFor(()=>userEvent.click(confirmButton))
+    await waitFor(() => userEvent.click(confirmButton))
     expect(mockOnConfirm).toHaveBeenCalled()
   })
 
@@ -265,7 +248,7 @@ describe("Modal", () => {
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     const cancelButton = screen.getByRole("button", { name: "Cancel" })
-    await waitFor(()=>userEvent.click(cancelButton))
+    await waitFor(() => userEvent.click(cancelButton))
     expect(mockOnCancel).toHaveBeenCalled()
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
   })
@@ -281,7 +264,7 @@ describe("Modal", () => {
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     const closeButton = screen.getByRole("button", { name: "close" })
-    await waitFor(()=>userEvent.click(closeButton))
+    await waitFor(() => userEvent.click(closeButton))
     expect(mockOnCancel).toHaveBeenCalled()
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
   })
@@ -296,7 +279,7 @@ describe("Modal", () => {
       )
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
-    await waitFor(()=>userEvent.keyboard("{Escape}"))
+    await waitFor(() => userEvent.keyboard("{Escape}"))
     expect(mockOnCancel).toHaveBeenCalled()
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
   })
@@ -362,9 +345,6 @@ describe("Modal", () => {
         </PortalProvider>
       )
     )
-    expect(screen.getByRole("dialog")).toHaveAttribute(
-      "name",
-      "My little Modal"
-    )
+    expect(screen.getByRole("dialog")).toHaveAttribute("name", "My little Modal")
   })
 })

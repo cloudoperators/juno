@@ -17,19 +17,10 @@ const formHeading = `
 `
 
 /** A Form to hold FormSections and/or FormGroups with an optional title. */
-export const Form = ({
-  title = null,
-  className = "",
-  children = null,
-  ...props
-}) => {
+export const Form = ({ title = null, className = "", children = null, ...props }) => {
   return (
     <form className={`juno-form ${formStyles} ${className}`} {...props}>
-      {title ? (
-        <h1 className={`juno-form-heading ${formHeading}`}>{title}</h1>
-      ) : (
-        ""
-      )}
+      {title ? <h1 className={`juno-form-heading ${formHeading}`}>{title}</h1> : ""}
       {children}
     </form>
   )

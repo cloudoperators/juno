@@ -42,9 +42,7 @@ describe("AppShell", () => {
     render(
       <AppShell
         data-testid="app-shell"
-        pageHeader={
-          <PageHeader data-testid="page-header" heading="My Page Header" />
-        }
+        pageHeader={<PageHeader data-testid="page-header" heading="My Page Header" />}
       />
     )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
@@ -56,9 +54,7 @@ describe("AppShell", () => {
     render(
       <AppShell
         data-testid="app-shell"
-        pageFooter={
-          <PageFooter data-testid="page-footer">My Page Footer</PageFooter>
-        }
+        pageFooter={<PageFooter data-testid="page-footer">My Page Footer</PageFooter>}
       />
     )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
@@ -68,21 +64,14 @@ describe("AppShell", () => {
 
   test("renders an app shell with top navigation passed as component", async () => {
     render(
-      <AppShell
-        data-testid="app-shell"
-        topNavigation={
-          <TopNavigation data-testid="top-navigation"></TopNavigation>
-        }
-      />
+      <AppShell data-testid="app-shell" topNavigation={<TopNavigation data-testid="top-navigation"></TopNavigation>} />
     )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
     expect(screen.getByTestId("top-navigation")).toBeInTheDocument()
   })
 
   test("renders an app shell with a side navigation passed as a component", async () => {
-    render(
-      <AppShell data-testid="app-shell" sideNavigation={<SideNavigation />} />
-    )
+    render(<AppShell data-testid="app-shell" sideNavigation={<SideNavigation />} />)
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.getByRole("navigation")).toHaveClass("juno-sidenavigation")
@@ -107,12 +96,8 @@ describe("AppShell", () => {
       <AppShell
         data-testid="app-shell"
         embedded={true}
-        pageHeader={
-          <PageHeader data-testid="page-header" heading="My Page Heading" />
-        }
-        pageFooter={
-          <PageFooter data-testid="page-footer">My Page Footer</PageFooter>
-        }
+        pageHeader={<PageHeader data-testid="page-header" heading="My Page Heading" />}
+        pageFooter={<PageFooter data-testid="page-footer">My Page Footer</PageFooter>}
       />
     )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
@@ -139,9 +124,7 @@ describe("AppShell", () => {
         <button></button>
       </AppShell>
     )
-    expect(document.querySelector(".juno-main-inner")).not.toHaveClass(
-      "juno-main-inner-fullwidth"
-    )
+    expect(document.querySelector(".juno-main-inner")).not.toHaveClass("juno-main-inner-fullwidth")
   })
 
   test("renders a fullwidth main container in non-embedded mode if passed explicitly", async () => {
@@ -150,9 +133,7 @@ describe("AppShell", () => {
         <button></button>
       </AppShell>
     )
-    expect(document.querySelector(".juno-main-inner")).toHaveClass(
-      "juno-main-inner-fullwidth"
-    )
+    expect(document.querySelector(".juno-main-inner")).toHaveClass("juno-main-inner-fullwidth")
   })
 
   test("renders a fullwidth main inner container in embedded mode by default", async () => {
@@ -161,9 +142,7 @@ describe("AppShell", () => {
         <button></button>
       </AppShell>
     )
-    expect(document.querySelector(".juno-main-inner")).toHaveClass(
-      "juno-main-inner-fullwidth"
-    )
+    expect(document.querySelector(".juno-main-inner")).toHaveClass("juno-main-inner-fullwidth")
   })
 
   test("renders a non-fullwidth, size-restricted main inner container in embedded mode if passed explicitly", async () => {
@@ -172,9 +151,7 @@ describe("AppShell", () => {
         <button></button>
       </AppShell>
     )
-    expect(document.querySelector(".juno-main-inner")).not.toHaveClass(
-      "juno-main-inner-fullwidth"
-    )
+    expect(document.querySelector(".juno-main-inner")).not.toHaveClass("juno-main-inner-fullwidth")
   })
 
   test("renders a custom className", async () => {
@@ -186,9 +163,6 @@ describe("AppShell", () => {
   test("renders all props", async () => {
     render(<AppShell data-testid="app-shell" data-lolol="some-prop" />)
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
-    expect(screen.getByTestId("app-shell")).toHaveAttribute(
-      "data-lolol",
-      "some-prop"
-    )
+    expect(screen.getByTestId("app-shell")).toHaveAttribute("data-lolol", "some-prop")
   })
 })

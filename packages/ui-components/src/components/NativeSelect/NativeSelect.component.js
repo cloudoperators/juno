@@ -160,22 +160,14 @@ export const NativeSelect = ({
     } else if (hasError) {
       return (
         <div className={`juno-select-errortext ${errorStyles}`}>
-          <Icon
-            icon="errorOutline"
-            color="jn-text-theme-error"
-            className={`${errorIconStyles}`}
-          />
+          <Icon icon="errorOutline" color="jn-text-theme-error" className={`${errorIconStyles}`} />
         </div>
       )
     } else {
       return (
         <div className={`${iconstyles} ${disabled ? disablediconstyles : ""} `}>
-          {isInvalid ? (
-            <Icon icon="dangerous" color="jn-text-theme-error" />
-          ) : null}
-          {isValid ? (
-            <Icon icon="checkCircle" color="jn-text-theme-success" />
-          ) : null}
+          {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : null}
+          {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : null}
           <Icon icon={"expandMore"} />
         </div>
       )

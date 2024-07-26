@@ -84,8 +84,7 @@ export const WithErrorText = {
   args: {
     label: "Textarea Row with Error Text",
     helptext: "Oh so helpful helptext",
-    errortext:
-      "When passed an errortext prop, the TextareaRow will be set to invalid automatically.",
+    errortext: "When passed an errortext prop, the TextareaRow will be set to invalid automatically.",
   },
 
   parameters: {
@@ -109,8 +108,7 @@ export const WithSuccessText = {
   args: {
     label: "Textarea Row with Success Text",
     helptext: "Oh so helpful helptext",
-    successtext:
-      "When passed a successtext prop, the TextareaRow will be set to valid automatically.",
+    successtext: "When passed a successtext prop, the TextareaRow will be set to valid automatically.",
   },
 
   parameters: {

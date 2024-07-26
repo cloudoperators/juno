@@ -45,9 +45,7 @@ describe("DateTimePicker", () => {
       )
     )
     expect(document.querySelector(".juno-label")).toBeInTheDocument()
-    expect(document.querySelector(".juno-label")).toHaveTextContent(
-      "The DateTimePicker Label"
-    )
+    expect(document.querySelector(".juno-label")).toHaveTextContent("The DateTimePicker Label")
   })
 
   test("renders an id as passed", async () => {
@@ -59,10 +57,7 @@ describe("DateTimePicker", () => {
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "id",
-      "my-datetimepicker"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("id", "my-datetimepicker")
   })
 
   test("renders a name as passed", async () => {
@@ -87,9 +82,7 @@ describe("DateTimePicker", () => {
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveAttribute("id")
-    expect(screen.getByRole("textbox").getAttribute("id")).toMatch(
-      "juno-datetimepicker"
-    )
+    expect(screen.getByRole("textbox").getAttribute("id")).toMatch("juno-datetimepicker")
   })
 
   test("renders a DateTimePicker with a label associated by an id as passed", async () => {
@@ -103,9 +96,7 @@ describe("DateTimePicker", () => {
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveAttribute("id")
     expect(screen.getByRole("textbox").getAttribute("id")).toMatch("dp-1")
-    expect(
-      screen.getByLabelText("The DateTimePicker Label")
-    ).toBeInTheDocument()
+    expect(screen.getByLabelText("The DateTimePicker Label")).toBeInTheDocument()
   })
 
   test("renders a DateTimePicker with a label associated by an auto-generated id if no id was passed", async () => {
@@ -117,9 +108,7 @@ describe("DateTimePicker", () => {
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(
-      screen.getByLabelText("This is a DateTimePicker")
-    ).toBeInTheDocument()
+    expect(screen.getByLabelText("This is a DateTimePicker")).toBeInTheDocument()
   })
 
   test("renders a DateTimePicker with a placholder as passed", async () => {
@@ -131,10 +120,7 @@ describe("DateTimePicker", () => {
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "placeholder",
-      "This is a placeholder"
-    )
+    expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "This is a placeholder")
   })
 
   test("renders a disabled DateTimePicker as passed", async () => {
@@ -194,12 +180,8 @@ describe("DateTimePicker", () => {
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-help"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is a helptext"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is a helptext")
   })
 
   test("renders a valid DateTimePicker as passed", async () => {
@@ -211,9 +193,7 @@ describe("DateTimePicker", () => {
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveClass(
-      "juno-datetimepicker-input-valid"
-    )
+    expect(screen.getByRole("textbox")).toHaveClass("juno-datetimepicker-input-valid")
     expect(screen.getByTitle("CheckCircle")).toBeInTheDocument()
   })
 
@@ -226,9 +206,7 @@ describe("DateTimePicker", () => {
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveClass(
-      "juno-datetimepicker-input-invalid"
-    )
+    expect(screen.getByRole("textbox")).toHaveClass("juno-datetimepicker-input-invalid")
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
 
@@ -241,15 +219,9 @@ describe("DateTimePicker", () => {
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-success"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "great success!"
-    )
-    expect(screen.getByRole("textbox")).toHaveClass(
-      "juno-datetimepicker-input-valid"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("great success!")
+    expect(screen.getByRole("textbox")).toHaveClass("juno-datetimepicker-input-valid")
     expect(screen.getByTitle("CheckCircle")).toBeInTheDocument()
   })
 
@@ -262,15 +234,9 @@ describe("DateTimePicker", () => {
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
-    expect(document.querySelector(".juno-form-hint")).toHaveClass(
-      "juno-form-hint-error"
-    )
-    expect(document.querySelector(".juno-form-hint")).toHaveTextContent(
-      "this is an error!"
-    )
-    expect(screen.getByRole("textbox")).toHaveClass(
-      "juno-datetimepicker-input-invalid"
-    )
+    expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
+    expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is an error!")
+    expect(screen.getByRole("textbox")).toHaveClass("juno-datetimepicker-input-invalid")
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
 
@@ -450,9 +416,7 @@ describe("DateTimePicker", () => {
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveValue(
-      nowAsStringWithOnlyHoursAndMinutes
-    )
+    expect(screen.getByRole("textbox")).toHaveValue(nowAsStringWithOnlyHoursAndMinutes)
   })
 
   test("uses the correct defaultDateFormat (H:i:S) in time-picker-only mode with seconds enabled", async () => {
@@ -469,9 +433,7 @@ describe("DateTimePicker", () => {
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveValue(
-      nowAsStringWithOnlyHoursMinutesAndSeconds
-    )
+    expect(screen.getByRole("textbox")).toHaveValue(nowAsStringWithOnlyHoursMinutesAndSeconds)
   })
 
   test("displays the date as passed as defaultDate instead of value or defaultDate", async () => {
@@ -499,9 +461,7 @@ describe("DateTimePicker", () => {
   })
 
   test("updates the date accordingly when value changes", async () => {
-    const { rerender } = render(
-      <DateTimePicker value={new Date(2024, 0, 12)} />
-    )
+    const { rerender } = render(<DateTimePicker value={new Date(2024, 0, 12)} />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveValue("2024-01-12")
     await waitFor(() =>
@@ -515,9 +475,7 @@ describe("DateTimePicker", () => {
   })
 
   test("updates the date accordingly when defaultValue changes", async () => {
-    const { rerender } = render(
-      <DateTimePicker defaultValue={new Date(2024, 0, 12)} />
-    )
+    const { rerender } = render(<DateTimePicker defaultValue={new Date(2024, 0, 12)} />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveValue("2024-01-12")
     await waitFor(() =>
@@ -531,9 +489,7 @@ describe("DateTimePicker", () => {
   })
 
   test("updates the date accordingly when defaultDate changes", async () => {
-    const { rerender } = render(
-      <DateTimePicker defaultDate={new Date(2024, 0, 12)} />
-    )
+    const { rerender } = render(<DateTimePicker defaultDate={new Date(2024, 0, 12)} />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveValue("2024-01-12")
     await waitFor(() =>
@@ -669,13 +625,7 @@ describe("DateTimePicker", () => {
   })
 
   test("allows setting an otherwise invalid value on first load as configured", async () => {
-    render(
-      <DateTimePicker
-        value="2024-01-30"
-        disable={["2024-01-30"]}
-        allowInvalidPreload
-      />
-    )
+    render(<DateTimePicker value="2024-01-30" disable={["2024-01-30"]} allowInvalidPreload />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveValue("2024-01-30")
   })
@@ -712,49 +662,29 @@ describe("DateTimePicker", () => {
     // click to open the calendar:
     await waitFor(() => user.click(input))
     //Match something like "Monday, January 31, 2024" to pattern like [word, comma, space, word, space, one or two-digit number, comma, space, four-digit number] assuming this is precise enough:
-    expect(
-      document.querySelectorAll(".flatpickr-day")[0].getAttribute("aria-label")
-    ).toMatch(new RegExp(/^\b\w+\b, \b\w+\b \d{1,2}, \d{4}$/))
+    expect(document.querySelectorAll(".flatpickr-day")[0].getAttribute("aria-label")).toMatch(
+      new RegExp(/^\b\w+\b, \b\w+\b \d{1,2}, \d{4}$/)
+    )
   })
 
   test("uses a custom conjunction between dates in multiple mode as passed", async () => {
-    render(
-      <DateTimePicker
-        mode="multiple"
-        conjunction=" || "
-        value={["2024-02-01", "2099-03-12"]}
-      />
-    )
+    render(<DateTimePicker mode="multiple" conjunction=" || " value={["2024-02-01", "2099-03-12"]} />)
     const input = screen.getByRole("textbox")
     expect(input).toBeInTheDocument()
     expect(input).toHaveValue("2024-02-01 || 2099-03-12")
   })
 
   test("updates the displayed value accordingly when the conjunction prop changes", async () => {
-    const { rerender } = render(
-      <DateTimePicker mode="multiple" value={["2024-02-01", "2099-03-12"]} />
-    )
+    const { rerender } = render(<DateTimePicker mode="multiple" value={["2024-02-01", "2099-03-12"]} />)
     const input = screen.getByRole("textbox")
     expect(input).toBeInTheDocument()
     expect(input).toHaveValue("2024-02-01, 2099-03-12")
-    rerender(
-      <DateTimePicker
-        mode="multiple"
-        value={["2024-02-01", "2099-03-12"]}
-        conjunction=" --- "
-      />
-    )
+    rerender(<DateTimePicker mode="multiple" value={["2024-02-01", "2099-03-12"]} conjunction=" --- " />)
     expect(input).toHaveValue("2024-02-01 --- 2099-03-12")
   })
 
   test("sets a default hour as passed", async () => {
-    render(
-      <DateTimePicker
-        enableTime={true}
-        dateFormat="Y-m-d H:i"
-        defaultHour={5}
-      />
-    )
+    render(<DateTimePicker enableTime={true} dateFormat="Y-m-d H:i" defaultHour={5} />)
     const input = screen.getByRole("textbox")
     const user = userEvent.setup()
     expect(input).toBeInTheDocument()
@@ -764,9 +694,7 @@ describe("DateTimePicker", () => {
   })
 
   test("sets a default minute as passed", async () => {
-    render(
-      <DateTimePicker enableTime dateFormat="Y-m-d H:i" defaultMinute={13} />
-    )
+    render(<DateTimePicker enableTime dateFormat="Y-m-d H:i" defaultMinute={13} />)
     const input = screen.getByRole("textbox")
     const user = userEvent.setup()
     expect(input).toBeInTheDocument()
@@ -794,17 +722,13 @@ describe("DateTimePicker", () => {
   })
 
   test("uses a custom hour increment as passed", async () => {
-    render(
-      <DateTimePicker enableTime dateFormat="Y-m-d H:i" hourIncrement={6} />
-    )
+    render(<DateTimePicker enableTime dateFormat="Y-m-d H:i" hourIncrement={6} />)
     const hourInput = document.querySelector("input.flatpickr-hour")
     expect(hourInput).toHaveAttribute("step", "6")
   })
 
   test("uses a custom minute increment as passed", async () => {
-    render(
-      <DateTimePicker enableTime dateFormat="Y-m-d H:i" minuteIncrement={7} />
-    )
+    render(<DateTimePicker enableTime dateFormat="Y-m-d H:i" minuteIncrement={7} />)
     const hourInput = document.querySelector("input.flatpickr-minute")
     expect(hourInput).toHaveAttribute("step", "7")
   })

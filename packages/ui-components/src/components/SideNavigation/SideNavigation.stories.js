@@ -23,9 +23,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
-  <SideNavigation {...args}>{children}</SideNavigation>
-)
+const Template = ({ children, ...args }) => <SideNavigation {...args}>{children}</SideNavigation>
 
 Template.propTypes = {
   children: PropTypes.node,
@@ -45,8 +43,7 @@ export const Disabled = Template.bind({})
 ;(Disabled.parameters = {
   docs: {
     description: {
-      story:
-        "All navigation items can be disabled by passing `disabled` to the `TabNavigation`.",
+      story: "All navigation items can be disabled by passing `disabled` to the `TabNavigation`.",
     },
   },
 }),
