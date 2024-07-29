@@ -7,16 +7,16 @@
 To include Juno UI components as a dev dependency in your app install with npm:
 
 ```bash
-npm add --dev juno-ui-components
+npm add @cloudoperators/juno-ui-components
 ```
 
 …or declare manually as a dev-dependency:
 
 ```js
 // package.json
-"devDependencies": {
+"dependencies": {
   ...
-  "juno-ui-components": ">= 0"
+  "@cloudoperators/juno-ui-components": "*"
   ...
 }
 ```
@@ -34,7 +34,7 @@ To be able to make full use of the predefined colors and other custom properties
 ```js
 module.exports = {
   presets: [
-    require("juno-ui-components/build/lib/tailwind.config")
+    require("@cloudoperators/juno-ui-components/build/lib/tailwind.config")
   ],
  ...
 }
@@ -47,13 +47,11 @@ Doing this lets you use Tailwind classnames from the Juno UI Components library.
 In order to work ON (NOT WITH) the Juno Design System and its components run storybook with:
 
 ```bash
-npm -w juno-ui-components run storybook
+npm -w @cloudoperators/juno-ui-components run storybook
 ```
-
-or just run from the root directory of this repository `npm run ui-components`
 
 Run the test suite:
 
 ```bash
-npm -w juno-ui-components run test
+npm -w @cloudoperators/juno-ui-components run test
 ```

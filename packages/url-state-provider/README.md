@@ -39,9 +39,9 @@ By automatically determining the most suitable encoding method, URL State Provid
 You can install the URL State Provider library via npm or yarn:
 
 ```bash
-npm install url-state-provider
+npm install @cloudoperators/url-state-provider
 # or
-yarn add url-state-provider
+yarn add @cloudoperators/url-state-provider
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ yarn add url-state-provider
 Here's a basic example of how to use URL State Provider in your JavaScript application:
 
 ```javascript
-import urlStateProvider from "url-state-provider"
+import urlStateProvider from "@cloudoperators/url-state-provider"
 
 // get initial state for app1 from URL (initial page URL)
 urlStateProvider.currentState("app1")
@@ -134,7 +134,7 @@ Please make sure to adjust and expand this reference based on the specific detai
 ### Low level
 
 ```js
-import urlStateProvider from "url-state-provider"
+import urlStateProvider from "@cloudoperators/url-state-provider"
 
 // Add a listener for changes on URL for the state of app1
 // The callback function is always executed when the state for app1 changes.
@@ -159,7 +159,7 @@ urlStateProvider.removeOnChangeListener("app1")
 ### High level
 
 ```js
-import urlStateProvider from "url-state-provider"
+import urlStateProvider from "@cloudoperators/url-state-provider"
 
 const consumer1 = urlStateProvider.registerConsumer("app1")
 const consumer2 = urlStateProvider.registerConsumer("app2")
