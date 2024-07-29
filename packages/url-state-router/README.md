@@ -10,10 +10,10 @@ Solution: URL-State-Router.
 
 The idea of the URL State Router is based heavily on the [React-Router](https://reactrouter.com/). However, the URL-State-Router pursues the use case to enable multiple routers on a single page.
 
-This is achieved by combining the paths from several routers and managing them as search param in the URL. Each URL state router registers itself with a unique key (stateID) in the global state (part of [url-state-provider]()) and receives functions to update the state such as **push** and **replace** or **onChange** in order to react to changes in the URL . The synchronization and mapping of the state to the URL and back is done by the [url-state-provider]().
+This is achieved by combining the paths from several routers and managing them as search param in the URL. Each URL state router registers itself with a unique key (stateID) in the global state (part of [@cloudoperators/url-state-provider]()) and receives functions to update the state such as **push** and **replace** or **onChange** in order to react to changes in the URL . The synchronization and mapping of the state to the URL and back is done by the [@cloudoperators/url-state-provider]().
 
 ```js
-import { Router, Route, Switch, Redirect, Link } from "url-state-router"
+import { Router, Route, Switch, Redirect, Link } from "@cloudoperators/url-state-router"
 
 const App = () => {
   return (
@@ -37,7 +37,7 @@ const App = () => {
 ## Install
 
 ```bash
-npm add url-state-router
+npm add @cloudoperators/url-state-router
 ```
 
 ## Router
@@ -52,7 +52,7 @@ In principle it is a context provider. Immediately after mounting, this componen
 - redirectTo, similar to navigateTo with the difference that the window history does not get a new entry, but the last URL is replaced.
 
 ```js
-import { Router } from "url-state-router"
+import { Router } from "@cloudoperators/url-state-router"
 
 const App = () => <Router stateID="app1">...</Router>
 ```
@@ -62,7 +62,7 @@ const App = () => <Router stateID="app1">...</Router>
 Route component compares the current path with the given path and if a match is made, the content of the route is rendered.
 
 ```js
-import { Router, Route, Link } from "url-state-router"
+import { Router, Route, Link } from "@cloudoperators/url-state-router"
 
 const App = () => (
   <Router stateID="app">
@@ -75,7 +75,7 @@ const App = () => (
 The content of the Route can either be given as a component prop or as children.
 
 ```js
-import { Router, Route, Link } from "url-state-router"
+import { Router, Route, Link } from "@cloudoperators/url-state-router"
 
 const Overview = () => <div>Items Overview</div>
 
@@ -90,7 +90,7 @@ const App = () => (
 The comparison of the paths goes from left to the right. If the current path is longer than the Route `path`, but is identical at the beginning, then this is evaluated as a match. This is useful if, for example, you are using modal windows and you want both the modal window and the view in the background to be displayed. However, in certain cases this behavior is undesirable. Then the prop `exact` should be used.
 
 ```js
-import { Router, Route } from "url-state-router"
+import { Router, Route } from "@cloudoperators/url-state-router"
 
 const Overview = () => <div>Items Overview</div>
 
@@ -111,7 +111,7 @@ const App = () => (
 Redirect is used to force an initial redirection.
 
 ```js
-import { Router, Route, Redirect } from "url-state-router"
+import { Router, Route, Redirect } from "@cloudoperators/url-state-router"
 
 const Overview = () => <div>Items Overview</div>
 
@@ -131,7 +131,7 @@ const App = () => (
 Switch is used when multiple routes with similar paths match the current path. For example, the path `/items/:id` and `/items/new` would both match `/items/new`. If we only want to render one of the two routes, we need a Switch.
 
 ```js
-import { Router, Route, Switch } from "url-state-router"
+import { Router, Route, Switch } from "@cloudoperators/url-state-router"
 
 const Overview = () => <div>Items Overview</div>
 
@@ -152,7 +152,7 @@ The order is important, the first path from top to bottom that matches is used!
 Link renders an anchor using in onClick the `navigateTo` function from the `RouterContext`.
 
 ```js
-import { Router, Route, Link } from "url-state-router"
+import { Router, Route, Link } from "@cloudoperators/url-state-router"
 
 const Overview = () => <div>Items Overview</div>
 
@@ -175,7 +175,7 @@ This hook accesses the RouterContext and returns navigation-relevant data and fu
 - `redirectTo`: function(path, options), replaces the last state in the window.history
 
 ```js
-import { Router, Route, useRouter } from "url-state-router"
+import { Router, Route, useRouter } from "@cloudoperators/url-state-router"
 
 const Items = () => {
   const { currentPath, options, navigateTo, redirectTo } = useRouter()
