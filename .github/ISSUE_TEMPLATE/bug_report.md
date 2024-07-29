@@ -3,7 +3,7 @@ name: Bug report
 about: Report a bug to help us improve
 title: "[Bug]: "
 labels: bug
-assignees: ''
+assignees: ""
 ---
 
 **Description**
@@ -11,9 +11,10 @@ A clear and concise description of what the bug is.
 
 **Steps to Reproduce**
 Steps to reproduce the behavior:
-1. 
-2. 
-3. 
+
+1.
+2.
+3.
 
 **Expected Behavior**
 A clear and concise description of what you expected to happen.
@@ -22,6 +23,7 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Environment**
+
 - OS: [e.g., Windows, macOS, Linux]
 - Browser: [e.g., Chrome, Firefox, Safari]
 - Version: [e.g., 22]
