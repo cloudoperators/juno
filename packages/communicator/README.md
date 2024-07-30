@@ -14,12 +14,16 @@ The library employs a set of methods, each complementing its counterpart:
 
 Additionally, the Communicator library introduces the `crossWindow` option, which enhances its capabilities by enabling cross-tab communication. This feature facilitates communication between tabs, providing additional flexibility and expanding the library's utility.
 
+## Install
+
+`npm add @cloudoperators/communicator"`
+
 ## Usage
 
 To use the library, you can import the necessary functions:
 
 ```javascript
-import { broadcast, watch, get, onGet } from "communicator"
+import { broadcast, watch, get, onGet } from "@cloudoperators/communicator"
 ```
 
 ### broadcast(name, data, options) ⇒ void

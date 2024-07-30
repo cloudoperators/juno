@@ -12,12 +12,16 @@ The response contains either the `id_token` (in the hash of the URL) directly in
 
 The request to the ID provider proceeds as follows. Before the actual request is made, the Lib creates state properties and saves them in the session storage under a hash as a key. This state contains all the necessary information that is required for the request to the ID provider and the evaluation of the response. The hash key is sent as the value of the state parameter in the request to the ID provider. Next, the lib constructs the request URL and redirects the user. After successful login, the ID provider redirects the user (the response contains the state key). Since the response is a redirect, the website is reloaded and with it this lib and the process as described in **Evaluation of the response** is triggered.
 
+## Install
+
+```npm add @cloudoperators/oauth````
+
 ## Usage
 
 Vanilla
 
 ```js
-import { oidcSession } from "oauth"
+import { oidcSession } from "@cloudoperators/oauth"
 
 const oidc = oidcSession({
   issuerURL: props.issuerURL,
@@ -36,7 +40,7 @@ const { login, logout, refresh, currentState } = oidc
 React
 
 ```js
-import { oidcSession } from "oauth"
+import { oidcSession } from "@cloudoperators/oauth"
 
 const App = (props = {}) => {
   const [authData, setAuthData] = React.useState()

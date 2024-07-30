@@ -12,12 +12,12 @@ This lib uses a **context** store based on Zustand to manage the messages. That 
 
 In order to run this library in your application you need to install also following libraries which are not included in the bundle:
 
-- juno-ui-components, recommended version ^2.14.1
+- @cloudoperators/juno-ui-components, recommended version ^2.14.1
 - react, recommended version 18.2.0
 - zustand, recommended version ^4.5.2
 
 ```bash
-yarn add zustand@4.5.2, react@18.2.0 https://assets.juno.global.cloud.sap/libs/juno-ui-components@2.14.1/package.tgz
+yarn add zustand@4.5.2, react@18.2.0 @cloudoperators/juno-ui-components
 ```
 
 ## Usage
@@ -25,14 +25,14 @@ yarn add zustand@4.5.2, react@18.2.0 https://assets.juno.global.cloud.sap/libs/j
 1. Import this lib
 
    ```bash
-   yarn add https://assets.juno.global.cloud.sap/libs/messages-provider@0.1.12/package.tgz
+   yarn add @cloudoperators//messages-provider
    ```
 
 2. Add the message **MessagesProvider**. Normally it is set on the top of your application so you can use it from everywhere underneath.
 
    ```javascript
    import React from "react"
-   import { MessagesProvider } from "messages-provider"
+   import { MessagesProvider } from "@cloudoperators/messages-provider"
    import AppContent from "./AppContent"
 
    const App = (props) => {
@@ -50,7 +50,7 @@ yarn add zustand@4.5.2, react@18.2.0 https://assets.juno.global.cloud.sap/libs/j
 
    ```javascript
    import React from "react"
-   import { Messages } from "messages-provider"
+   import { Messages } from "@cloudoperators/messages-provider"
    import AppContent from "./AppContent"
 
    const AppContent = (props) => {
@@ -67,7 +67,7 @@ yarn add zustand@4.5.2, react@18.2.0 https://assets.juno.global.cloud.sap/libs/j
 
    ```javascript
    import React from "react"
-   import { useActions, Messages } from "messages-provider"
+   import { useActions, Messages } from "@cloudoperators/messages-provider"
 
    const AppContent = (props) => {
      const { addMessage } = useActions()
@@ -97,7 +97,7 @@ This is the case when you want to manage and display the messages in different l
 
 ```javascript
 import React from "react"
-import { MessagesProvider } from "messages-provider"
+import { MessagesProvider } from "@cloudoperators/messages-provider"
 import NewItemForm from "./NewItemForm"
 import { Panel } from "@cloudoperators/juno-ui-components"
 
@@ -118,7 +118,7 @@ Within the NewItemForm component all actions will be handled bei the first `pare
 
 ```javascript
 import React from "react"
-import { useActions, Messages } from "messages-provider"
+import { useActions, Messages } from "@cloudoperators/messages-provider"
 import { PanelBody } from "@cloudoperators/juno-ui-components"
 
 const NewItemForm = (props) => {
@@ -148,7 +148,7 @@ export default NewItemForm
 - **messages**: return all messages int the store
 
   ```javascript
-  import { useMessages } from "messages-provider"
+  import { useMessages } from "@cloudoperators/messages-provider"
   ...
   const messages = useMessages()
   ...
@@ -159,7 +159,7 @@ export default NewItemForm
 - **messages**: return all messages int the store
 
   ```javascript
-  import { useMessageStore } from "messages-provider"
+  import { useMessageStore } from "@cloudoperators/messages-provider"
   ...
   const messages = useMessageStore((state) => state.messages)
   ...
@@ -174,7 +174,7 @@ export default NewItemForm
   Returns the message id if succeed otherwise null.
 
   ```javascript
-  import { useActions } from "messages-provider"
+  import { useActions } from "@cloudoperators/messages-provider"
   ...
   const { addMessage } = useActions()
   ...
@@ -189,7 +189,7 @@ export default NewItemForm
   Accepts a paremeter containing the id as string from the message to remove.
 
   ```javascript
-  import { useActions } from "messages-provider"
+  import { useActions } from "@cloudoperators/messages-provider"
   ...
   const { removeMessage } = useActions()
   ...
@@ -200,7 +200,7 @@ export default NewItemForm
 - **resetMessages**: removes all messages in the store
 
   ```javascript
-  import { useActions } from "messages-provider"
+  import { useActions } from "@cloudoperators/messages-provider"
   ...
   const { resetMessages } = useActions()
   ...
