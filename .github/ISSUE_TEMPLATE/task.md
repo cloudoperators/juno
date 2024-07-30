@@ -1,7 +1,7 @@
 ---
 name: Task
 about: Create a task for planned work or project
-title: "[EPIC]: "
+title: "[TASK]: "
 labels: task
 assignees: ""
 ---
