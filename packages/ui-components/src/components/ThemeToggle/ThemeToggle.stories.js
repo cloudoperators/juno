@@ -1,6 +1,6 @@
 import React from "react"
 import { ThemeToggle } from "./index"
-import { StyleProvider } from "../StyleProvider/index"
+//import { StyleProvider } from "../StyleProvider/index"
 
 export default {
   title: "Components/ThemeToggle",
@@ -22,8 +22,6 @@ export default {
   //   },
   // ],
 }
-
-const Template = (args) => <ThemeToggle {...args} />
 
 export const Default = {
   parameters: {},

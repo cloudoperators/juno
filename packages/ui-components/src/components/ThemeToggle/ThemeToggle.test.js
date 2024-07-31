@@ -2,7 +2,6 @@ import * as React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { ThemeToggle } from "./index"
-import { StyleProvider } from "../StyleProvider/index"
 
 const mockOnToggleTheme = jest.fn()
 

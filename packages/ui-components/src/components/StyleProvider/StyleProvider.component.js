@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef } from "react"
+import React, { createContext, useCallback, useEffect, useMemo, useRef } from "react"
 import PropTypes from "prop-types"
 import { ShadowRoot } from "../ShadowRoot/index"
 import tailwindTheme from "../../../tailwind.config"
@@ -40,7 +40,7 @@ export const StyleProvider = ({ stylesWrapper = "inline", theme: themeProp, chil
   // Determine the default value to init the storedTheme by using the prop if passed, or default:
   const themeClass = themeProp || DEFAULT_THEME_NAME
   // Init the currently stored theme using either the theme found in local storage, a theme passed as a prop, or default:
-  const [storedTheme, setStoredTheme] = useLocalStorage("juno-theme", themeClass)
+  const [storedTheme, setStoredTheme] = useLocalStorage("juno-theme", themeClass) // eslint-disable-line no-unused-vars
 
   // Store a reference to the current theme. This is needed to remove the old theme class when the theme is updated:
   // (Idea: this could potentially be omitted if we do not remove and add the theme class to update, but just re-generate the whole set of classes, so we do not care about the old theme class anymore.)
