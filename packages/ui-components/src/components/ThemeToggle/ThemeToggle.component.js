@@ -1,6 +1,5 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Button } from "../Button/"
 import { StyleProvider } from "../StyleProvider/index"
 import { Icon } from "../Icon/"
 import "./themeToggle.scss"
