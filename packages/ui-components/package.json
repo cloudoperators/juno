@@ -102,7 +102,7 @@
     "build": "NODE_ENV=production rollup -c",
     "dev": "NODE_ENV=development rollup -c -w",
     "lint": "eslint .",
-    "test": "jest",
+    "test": "npm run test-vitest && npm run test-jest",
     "test-vitest": "vitest run",
     "test-jest": "jest",
     "test:watch": "jest --watchAll",
