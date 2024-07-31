@@ -2,33 +2,27 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-
-const { babel } = require("@rollup/plugin-babel")
-const del = require("rollup-plugin-delete")
-const postcss = require("rollup-plugin-postcss")
-const pkg = require("./package.json")
-const fs = require("fs")
-const minify = require("rollup-plugin-babel-minify")
-const analyze = require("rollup-plugin-analyzer")
-const { nodeResolve } = require("@rollup/plugin-node-resolve")
-const commonjs = require("@rollup/plugin-commonjs")
-const svgr = require("@svgr/rollup")
-const glob = require("glob")
-const { generateTailwindThemeClassesJson } = require("./src/docs/ColorPalette/generateTailwindThemeClassesJson")
+const { babel } = require("@rollup/plugin-babel");
+const del = require("rollup-plugin-delete");
+const postcss = require("rollup-plugin-postcss");
+const pkg = require("./package.json");
+const fs = require("fs");
+const minify = require("rollup-plugin-babel-minify");
+const analyze = require("rollup-plugin-analyzer");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
+const commonjs = require("@rollup/plugin-commonjs");
+const svgr = require("@svgr/rollup");
+const glob = require("glob");
+const typescript = require("@rollup/plugin-typescript");
+const { generateTailwindThemeClassesJson } = require("./src/docs/ColorPalette/generateTailwindThemeClassesJson");
 
 // generates tailwind classes for documentation usages.
-generateTailwindThemeClassesJson()
+generateTailwindThemeClassesJson();
 
-// IMPORTANT!
-// package.json is single source of truth policy
+if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like dist/index.js");
+const buildDir = 'dist'; // Ensure this matches the `outDir` in tsconfig.json
+const filename = pkg.module.slice(pkg.module.lastIndexOf("/") + 1, pkg.module.lastIndexOf("."));
 
-if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like build/index.js")
-const buildDir = pkg.module.slice(0, pkg.module.lastIndexOf("/"))
-// filename is extracted from module key in package.json
-// because of single source of truth policy
-const filename = pkg.module.slice(pkg.module.lastIndexOf("/") + 1, pkg.module.lastIndexOf("."))
-
-// define plugins here to use it in different configs
 const plugins = [
   svgr({
     svgo: false,
@@ -39,26 +33,24 @@ const plugins = [
       path: "./postcss.config.js",
     },
     extract: false,
-    minimize: false, //true,
+    minimize: false,
     inject: false,
     extensions: [".scss", ".css"],
     use: ["sass", "glob-imports"],
     loaders: [
-      // custom loader!!! to load all scss files in globals.scss
       {
         name: "glob-imports",
         test: /\.(sass|scss)$/,
         process({ code }) {
-          // handle glob import
           return new Promise((resolve, _reject) => {
-            const match = [...code.matchAll(/@import\s+(.*\*+.*);/g)]
+            const match = [...code.matchAll(/@import\s+(.*\*+.*);/g)];
             match.forEach((m) => {
-              const files = glob.sync("./src/" + m[1].replace(/"|'/g, ""))
-              let result = files.map((f) => `@import "${f}";`).join("\n")
-              code = code.replace(m[0], result)
-            })
-            resolve({ code })
-          })
+              const files = glob.sync("./src/" + m[1].replace(/"|'/g, ""));
+              let result = files.map((f) => `@import "${f}";`).join("\n");
+              code = code.replace(m[0], result);
+            });
+            resolve({ code });
+          });
         },
       },
     ],
@@ -66,9 +58,6 @@ const plugins = [
 
   nodeResolve(),
   babel({
-    // babelrc: false,
-    // // exclude: "node_modules/**",
-    // presets: ["@babel/preset-react"],
     babelHelpers: "bundled",
   }),
   commonjs(),
@@ -77,26 +66,24 @@ const plugins = [
     summaryOnly: true,
     limit: 0,
   }),
-]
+  typescript({ tsconfig: "./tsconfig.json" }), // Reference tsconfig.json
+];
 
-// input is a map of all components of format { [componentName]: path }
-// it is also contains the main entry point of the library (pkg.source)
 const input = fs.readdirSync("./src/components").reduce(
   (map, file) => {
-    map[file] = `src/components/${file}/index.js`
-    return map
+    const componentName = file.replace(/\.[tj]sx?$/, '');
+    map[componentName] = `src/components/${file}`;
+    return map;
   },
   { [filename]: pkg.source }
-)
+);
 
 const config = [
-  // bundle all components
   {
     input,
     output: [
-      // { dir: "lib", format: "cjs", preserveModules: false },
       {
-        dir: buildDir,
+        dir: buildDir, // Ensure this matches the `outDir` in tsconfig.json
         format: "esm",
         preserveModules: false,
         compact: true,
@@ -129,6 +116,6 @@ const config = [
       }),
     ],
   },
-]
+];
 
-module.exports = config
+module.exports = config;

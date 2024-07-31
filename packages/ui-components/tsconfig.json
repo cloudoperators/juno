@@ -1,0 +1,20 @@
+{
+  "extends": "@cloudoperators/juno-typescript-config/base.json",
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ESNext",
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts"],
+  "exclude": ["node_modules", "build", "dist"]
+}
