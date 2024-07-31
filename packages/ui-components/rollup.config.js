@@ -2,26 +2,29 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-const { babel } = require("@rollup/plugin-babel");
-const del = require("rollup-plugin-delete");
-const postcss = require("rollup-plugin-postcss");
-const pkg = require("./package.json");
-const fs = require("fs");
-const minify = require("rollup-plugin-babel-minify");
-const analyze = require("rollup-plugin-analyzer");
-const { nodeResolve } = require("@rollup/plugin-node-resolve");
-const commonjs = require("@rollup/plugin-commonjs");
-const svgr = require("@svgr/rollup");
-const glob = require("glob");
-const typescript = require("@rollup/plugin-typescript");
-const { generateTailwindThemeClassesJson } = require("./src/docs/ColorPalette/generateTailwindThemeClassesJson");
+
+const { babel } = require("@rollup/plugin-babel")
+const del = require("rollup-plugin-delete")
+const postcss = require("rollup-plugin-postcss")
+const pkg = require("./package.json")
+const fs = require("fs")
+const minify = require("rollup-plugin-babel-minify")
+const analyze = require("rollup-plugin-analyzer")
+const { nodeResolve } = require("@rollup/plugin-node-resolve")
+const commonjs = require("@rollup/plugin-commonjs")
+const svgr = require("@svgr/rollup")
+const typescript = require("@rollup/plugin-typescript")
+const path = require("path")
+const glob = require("glob")
+const { generateTailwindThemeClassesJson } = require("./src/docs/ColorPalette/generateTailwindThemeClassesJson")
 
 // generates tailwind classes for documentation usages.
-generateTailwindThemeClassesJson();
+generateTailwindThemeClassesJson()
 
-if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like dist/index.js");
-const buildDir = 'dist'; // Ensure this matches the `outDir` in tsconfig.json
-const filename = pkg.module.slice(pkg.module.lastIndexOf("/") + 1, pkg.module.lastIndexOf("."));
+// Ensure the module value in package.json is correct
+if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like dist/index.js")
+const buildDir = "dist"
+const filename = pkg.module.slice(pkg.module.lastIndexOf("/") + 1, pkg.module.lastIndexOf("."))
 
 const plugins = [
   svgr({
@@ -43,14 +46,14 @@ const plugins = [
         test: /\.(sass|scss)$/,
         process({ code }) {
           return new Promise((resolve, _reject) => {
-            const match = [...code.matchAll(/@import\s+(.*\*+.*);/g)];
+            const match = [...code.matchAll(/@import\s+(.*\*+.*);/g)]
             match.forEach((m) => {
-              const files = glob.sync("./src/" + m[1].replace(/"|'/g, ""));
-              let result = files.map((f) => `@import "${f}";`).join("\n");
-              code = code.replace(m[0], result);
-            });
-            resolve({ code });
-          });
+              const files = glob.sync("./src/" + m[1].replace(/"|'/g, ""))
+              let result = files.map((f) => `@import "${f}";`).join("\n")
+              code = code.replace(m[0], result)
+            })
+            resolve({ code })
+          })
         },
       },
     ],
@@ -66,32 +69,53 @@ const plugins = [
     summaryOnly: true,
     limit: 0,
   }),
-  typescript({ tsconfig: "./tsconfig.json" }), // Reference tsconfig.json
-];
+  typescript({ tsconfig: path.resolve(__dirname, "./tsconfig.build.json") }), // Reference tsconfig.build.json
+]
 
-const input = fs.readdirSync("./src/components").reduce(
-  (map, file) => {
-    const componentName = file.replace(/\.[tj]sx?$/, '');
-    map[componentName] = `src/components/${file}`;
-    return map;
-  },
-  { [filename]: pkg.source }
-);
+// Function to get component paths
+function getComponentPaths() {
+  const componentsDir = path.resolve(__dirname, "src/components")
+  const components = fs.readdirSync(componentsDir)
+
+  return components.reduce(
+    (map, file) => {
+      const componentPath = path.join(componentsDir, file)
+      const componentName = path.basename(file, path.extname(file)) // Get the component name without extension
+
+      if (/\.test\.[tj]sx?$/.test(file) || /\.stories\.[tj]sx?$/.test(file)) {
+        // Skip test and story files
+        return map
+      }
+
+      if (fs.lstatSync(componentPath).isDirectory()) {
+        const indexFile = ["index.ts", "index.js"].find((file) => fs.existsSync(path.join(componentPath, file)))
+        if (indexFile) {
+          map[componentName] = path.join(componentPath, indexFile)
+        }
+      } else {
+        map[componentName] = componentPath
+      }
+
+      return map
+    },
+    { [filename]: pkg.source }
+  )
+}
+
+const input = getComponentPaths()
 
 const config = [
   {
     input,
     output: [
       {
-        dir: buildDir, // Ensure this matches the `outDir` in tsconfig.json
+        dir: buildDir, // Ensure this matches the `outDir` in tsconfig.build.json
         format: "esm",
         preserveModules: false,
         compact: true,
       },
     ],
-
     plugins: [del({ targets: [`${buildDir}/**/*`] }), ...plugins],
-
     external: Object.keys(pkg.peerDependencies || {}),
   },
   {
@@ -116,6 +140,6 @@ const config = [
       }),
     ],
   },
-];
+]
 
-module.exports = config;
+module.exports = config
