@@ -1,0 +1,16 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { defineConfig } from "vitest/config"
+
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: "jsdom",
+    include: ["**/*.test.tsx"],
+    setupFiles: "./vitest.setup.ts",
+    watch: true,
+  },
+})

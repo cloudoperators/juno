@@ -6,7 +6,7 @@
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { PageHeader } from "./index"
+import { PageHeader } from "."
 
 describe("PageHeader", () => {
   test("renders a simple Page Header and has flexbox layout", async () => {
@@ -44,7 +44,7 @@ describe("PageHeader", () => {
   })
 
   test("click on heading fires onClick handler as passed", async () => {
-    const handleClick = jest.fn()
+    const handleClick = vi.fn()
     render(<PageHeader onClick={handleClick} heading="My Heading" />)
     await userEvent.click(screen.getByText("My Heading"))
     expect(handleClick).toHaveBeenCalledTimes(1)
