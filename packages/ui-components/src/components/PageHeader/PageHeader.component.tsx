@@ -4,8 +4,7 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import SAPLogo from "../../img/sap_logo.svg"
+import { SapSvg } from "../../svg/SapSvg"
 
 const basePageHeader = `
   jn-flex
@@ -27,7 +26,7 @@ const logoStyles = `
   jn-mr-3
 `
 
-const headingStyles = (clickable) => {
+const headingStyles = (clickable: boolean) => {
   return `
     jn-text-lg
     jn-text-theme-high
@@ -35,14 +34,30 @@ const headingStyles = (clickable) => {
     `
 }
 
+export interface PageHeaderProps {
+  /** Heading (typically the name of the application) */
+  heading?: string | null
+  /** Add custom class name */
+  className?: string
+  /** Optional: onClick handler for brand logo/page title. To be used to navigate to the home page.  */
+  onClick?: (..._args: unknown[]) => unknown
+  children?: React.ReactNode
+}
+
 /**
  * The page header component renders a header at the top of the website. Place as first child of AppBody.
  */
 
-export const PageHeader = ({ heading = null, className = "", children = null, onClick, ...props }) => {
+export const PageHeader = ({
+  heading = null,
+  className = "",
+  children = null,
+  onClick,
+  ...props
+}: PageHeaderProps) => {
   return (
     <div className={`juno-pageheader theme-dark ${basePageHeader} ${className}`} role="banner" {...props}>
-      <SAPLogo className={logoStyles} alt="SAP" />
+      <SapSvg className={logoStyles} alt="SAP" />
       {heading && (
         <div className={headingStyles(onClick !== undefined)} onClick={onClick}>
           {heading}
@@ -52,14 +67,4 @@ export const PageHeader = ({ heading = null, className = "", children = null, on
       {children}
     </div>
   )
-}
-
-PageHeader.propTypes = {
-  /** Heading (typically the name of the application) */
-  heading: PropTypes.string,
-  /** Add custom class name */
-  className: PropTypes.string,
-  /** Optional: onClick handler for brand logo/page title. To be used to navigate to the home page.  */
-  onClick: PropTypes.func,
-  children: PropTypes.node,
 }

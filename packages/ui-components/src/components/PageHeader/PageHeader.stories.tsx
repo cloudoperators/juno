@@ -4,8 +4,9 @@
  */
 
 import React from "react"
+import { PageHeader } from "."
+import { PageHeaderProps } from "./PageHeader.component"
 
-import { PageHeader } from "./index.js"
 
 export default {
   title: "Layout/PageHeader",
@@ -17,7 +18,7 @@ export default {
   },
 }
 
-const Template = (args) => <PageHeader {...args}></PageHeader>
+const Template = (args: PageHeaderProps) => <PageHeader {...args}></PageHeader>
 
 export const Simple = {
   render: Template,
