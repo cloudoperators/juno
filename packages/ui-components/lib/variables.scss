@@ -284,35 +284,15 @@ $dark-theme-color-map: (
   --color-icon-warning: var(--color-warning-raw);
   // LT Message
   --color-message-danger-border: var(--color-danger-raw);
-  --gradient-message-danger-bg: linear-gradient(
-    90deg,
-    rgb(255, 231, 224) 0%,
-    rgb(255, 180, 158) 100%
-  );
+  --gradient-message-danger-bg: linear-gradient(90deg, rgb(255, 231, 224) 0%, rgb(255, 180, 158) 100%);
   --color-message-default-border: var(--color-info-raw);
-  --gradient-message-default-bg: linear-gradient(
-    90deg,
-    rgb(229, 244, 248) 0%,
-    rgb(46, 168, 196) 100%
-  );
+  --gradient-message-default-bg: linear-gradient(90deg, rgb(229, 244, 248) 0%, rgb(46, 168, 196) 100%);
   --color-message-error-border: var(--color-error-raw);
-  --gradient-message-error-bg: linear-gradient(
-    90deg,
-    rgb(255, 231, 224) 0%,
-    rgb(255, 180, 158) 100%
-  );
+  --gradient-message-error-bg: linear-gradient(90deg, rgb(255, 231, 224) 0%, rgb(255, 180, 158) 100%);
   --color-message-warning-border: var(--color-warning-raw);
-  --gradient-message-warning-bg: linear-gradient(
-    90deg,
-    rgb(253, 245, 226) 0%,
-    rgb(255, 231, 147) 100%
-  );
+  --gradient-message-warning-bg: linear-gradient(90deg, rgb(253, 245, 226) 0%, rgb(255, 231, 147) 100%);
   --color-message-success-border: var(--color-success-raw);
-  --gradient-message-success-bg: linear-gradient(
-    90deg,
-    rgb(230, 247, 233) 0%,
-    rgb(170, 229, 180) 100%
-  );
+  --gradient-message-success-bg: linear-gradient(90deg, rgb(230, 247, 233) 0%, rgb(170, 229, 180) 100%);
 
   // LT Introbox
   --color-introbox-bg: var(--color-background-lvl-2-raw);
@@ -386,15 +366,15 @@ $dark-theme-color-map: (
   // LT Box
   --color-box-bg: var(--color-background-lvl-1);
   --color-box-border: var(--color-background-lvl-3);
-  // DT SideNavigation
+  // LT SideNavigation
   --color-sidenavigation-item-active: var(--color-black);
   --color-sidenavigation-item-active-bg: var(--color-background-lvl-0);
-  // DT TopNavigation
+  // LT TopNavigation
   --color-topnavigation-item-active: var(--color-black);
   --color-topnavigation-item-bg: var(--color-sap-grey-1);
   --color-topnavigation-item-active-bg: var(--color-juno-grey-light-3);
 
-  // DT Datepicker
+  // LT Datepicker
   --color-datepicker-calendar-bg: var(--color-background-lvl-1);
 }
 
