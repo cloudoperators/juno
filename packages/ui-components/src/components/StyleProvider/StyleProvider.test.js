@@ -139,7 +139,9 @@ describe("StyleProvider", () => {
     expect(appBody).toHaveClass("theme-light")
   })
 
-  // This test keeps failing, presumably because of issues with asynchronously updating currentTheme in the context. This works manually with a similar
+  // This test keeps failing, presumably because of issues with asynchronously updating currentTheme in the context.
+  // When using a similar set-up in storybook, updating the theme works as desired.
+  // leaving the skipped test for now, as it still has a value illustrating what the test aims to achieve.
   test.skip("updates the current theme name provided when the theme is changed", async () => {
     // Define a child component to use the context
     const TestChildComponent = () => {
