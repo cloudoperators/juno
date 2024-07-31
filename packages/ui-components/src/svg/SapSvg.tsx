@@ -7,7 +7,14 @@ interface SapSvgProps {
 
 export const SapSvg: React.FC<SapSvgProps> = ({ className, alt }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" height="40" fill="none" viewBox="0 0 82 40" className={className} aria-label={alt}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="40"
+      fill="none"
+      viewBox="0 0 82 40"
+      className={className}
+      aria-label={alt}
+    >
       <path
         fill="url(#paint0_linear_250_2398)"
         fillRule="evenodd"

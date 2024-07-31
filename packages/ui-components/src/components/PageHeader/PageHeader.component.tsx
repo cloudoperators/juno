@@ -48,13 +48,7 @@ export interface PageHeaderProps {
  * The page header component renders a header at the top of the website. Place as first child of AppBody.
  */
 
-export const PageHeader = ({
-  heading = null,
-  className = "",
-  children = null,
-  onClick,
-  ...props
-}: PageHeaderProps) => {
+export const PageHeader = ({ heading = null, className = "", children = null, onClick, ...props }: PageHeaderProps) => {
   return (
     <div className={`juno-pageheader theme-dark ${basePageHeader} ${className}`} role="banner" {...props}>
       <SapSvg className={logoStyles} alt="SAP" />

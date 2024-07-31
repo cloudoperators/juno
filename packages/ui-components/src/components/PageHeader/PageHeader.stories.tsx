@@ -7,7 +7,6 @@ import React from "react"
 import { PageHeader } from "."
 import { PageHeaderProps } from "./PageHeader.component"
 
-
 export default {
   title: "Layout/PageHeader",
   component: PageHeader,
