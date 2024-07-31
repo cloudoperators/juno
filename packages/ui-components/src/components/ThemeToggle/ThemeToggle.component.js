@@ -9,7 +9,7 @@ A Toggle button to toggle Light and Dark UI Themes.
 Requires a StyleProvider context, which is automatically provided by the Juno AppShell.
 If you are not using AppShell, include  a StyleProvider manually.
  */
-export const ThemeToggle = ({ className, disabled, id, name, onToggleTheme, ...props }) => {
+export const ThemeToggle = ({ className = "", disabled = false, id, name, onToggleTheme, ...props }) => {
   // Consume the theme context
   const ThemeContext = StyleProvider.useStyles()
 
@@ -58,12 +58,4 @@ ThemeToggle.propTypes = {
   name: PropTypes.string,
   /** Handler to execute when the theme is toggled */
   onToggleTheme: PropTypes.func,
-}
-
-ThemeToggle.defaultProps = {
-  className: "",
-  disabled: false,
-  id: undefined,
-  name: undefined,
-  onToggleTheme: undefined,
 }

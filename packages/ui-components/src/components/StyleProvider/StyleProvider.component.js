@@ -36,7 +36,7 @@ const DEFAULT_THEME_NAME = "theme-dark"
  * @param {object} props
  * @returns
  */
-export const StyleProvider = ({ stylesWrapper, theme: themeProp, children, shadowRootMode }) => {
+export const StyleProvider = ({ stylesWrapper = "inline", theme: themeProp, children = null, shadowRootMode }) => {
   // Determine the default value to init the storedTheme by using the prop if passed, or default:
   const themeClass = themeProp || DEFAULT_THEME_NAME
   // Init the currently stored theme using either the theme found in local storage, a theme passed as a prop, or default:
@@ -130,13 +130,6 @@ StyleProvider.propTypes = {
   theme: PropTypes.string,
   /** The mode of the shadowRoot. Only relevant when `stylesWrapper="shadowRoot"`. */
   shadowRootMode: PropTypes.oneOf(["open", "closed"]),
-}
-
-// Define default values
-StyleProvider.defaultProps = {
-  children: null,
-  stylesWrapper: "inline",
-  theme: undefined,
 }
 
 // Export a helper hook to use styles in nested components
