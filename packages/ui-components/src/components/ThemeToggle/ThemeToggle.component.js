@@ -3,6 +3,25 @@ import PropTypes from "prop-types"
 import { Button } from "../Button/"
 import { StyleProvider } from "../StyleProvider/index"
 import { Icon } from "../Icon/"
+import "./themeToggle.scss"
+
+const toggleStyles = `
+  jn-inline-flex 
+  jn-justify-center 
+  jn-items-center
+  jn-rounded
+  jn-py-[0.4375rem]
+  jn-px-[0.625rem]
+  hover:jn-text-theme-accent
+  focus:jn-outline-none 
+  focus-visible:jn-ring-2
+  focus-visible:jn-ring-theme-focus
+  focus-visible:jn-ring-offset-1
+  focus-visible:jn-ring-offset-theme-focus
+  disabled:jn-opacity-50
+  disabled:jn-cursor-not-allowed
+  active:jn-bg-theme-background-lvl-4
+`
 
 /** 
 A Toggle button to toggle Light and Dark UI Themes.
@@ -30,20 +49,15 @@ export const ThemeToggle = ({ className = "", disabled = false, id, name, onTogg
   }
 
   return (
-    <Button
-      className={`juno-theme-toggle ${className}`}
+    <Icon
+      className={`juno-theme-toggle ${toggleStyles} ${className}`}
       disabled={disabled}
+      icon={currentTheme === "theme-light" ? "nightsStay" : "wbSunny"}
       id={id}
       name={name}
       onClick={toggleTheme}
       {...props}
-    >
-      {currentTheme === "theme-light" ? (
-        <Icon icon="nightsStay" alt="Toggle theme" title="Toggle theme" />
-      ) : (
-        <Icon icon="wbSunny" alt="Toggle theme" title="Toggle theme" />
-      )}
-    </Button>
+    />
   )
 }
 
