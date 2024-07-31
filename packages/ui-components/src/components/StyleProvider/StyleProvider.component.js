@@ -41,11 +41,11 @@ export const StyleProvider = ({ stylesWrapper = "inline", theme: themeProp, chil
   const themeClass = themeProp || DEFAULT_THEME_NAME
 
   // Init the currently stored theme using either the theme found in local storage, a theme passed as a prop, or default:
-  const [storedTheme, setStoredTheme] = useLocalStorage("juno-theme", themeClass) // eslint-disable-line no-unused-vars
+  const [storedTheme, setStoredTheme] = useLocalStorage("juno-theme", themeClass)
 
   // Store a reference to the current theme. This is needed to remove the old theme class when the theme is updated:
   // (Idea: this could potentially be omitted if we do not remove and add the theme class to update, but just re-generate the whole set of classes, so we do not care about the old theme class anymore.)
-  const currentTheme = useRef(themeClass)
+  const currentTheme = useRef(storedTheme)
 
   // Store a reference to the current container css classes. This is needed to update classes without loosing the old ones.
   const containerCssClasses = useRef(APP_BODY_CSS_CLASS_NAME + " " + themeClass)
