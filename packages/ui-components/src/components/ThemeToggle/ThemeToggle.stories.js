@@ -27,11 +27,12 @@ export const Default = {
   args: {},
 }
 
-export const LightTheme = {
-  args: {
-    theme: "theme-light",
-  },
-}
+// // Comment out for now as the story will not work: The theme found in local storage and provided by the Decorator will override the prop.
+// export const LightTheme = {
+//   args: {
+//     theme: "theme-light",
+//   },
+// }
 
 export const Disabled = {
   args: {
