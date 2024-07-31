@@ -2,7 +2,7 @@ import { ThemeToggle } from "./index"
 //import { StyleProvider } from "../StyleProvider/index"
 
 export default {
-  title: "Components/ThemeToggle",
+  title: "WIP/ThemeToggle",
   component: ThemeToggle,
 
   argTypes: {},
