@@ -34,7 +34,7 @@ To be able to make full use of the predefined colors and other custom properties
 ```js
 module.exports = {
   presets: [
-    require("@cloudoperators/juno-ui-components/build/lib/tailwind.config")
+    require("@cloudoperators/juno-ui-components/dist/lib/tailwind.config")
   ],
  ...
 }
