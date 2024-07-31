@@ -9,19 +9,19 @@ import userEvent from "@testing-library/user-event"
 import { PageHeader } from "."
 
 describe("PageHeader", () => {
-  test("renders a simple Page Header and has flexbox layout", async () => {
+  test("renders a simple Page Header and has flexbox layout", () => {
     render(<PageHeader />)
     expect(screen.getByRole("banner")).toBeInTheDocument()
     expect(screen.getByRole("banner")).toHaveClass("jn-flex")
   })
 
-  test("renders a Page Header with heading as passed", async () => {
+  test("renders a Page Header with heading as passed", () => {
     render(<PageHeader heading="My Test Heading" />)
     expect(screen.getByRole("banner")).toBeInTheDocument()
     expect(screen.getByRole("banner")).toHaveTextContent("My Test Heading")
   })
 
-  test("renders children as passed", async () => {
+  test("renders children as passed", () => {
     render(
       <PageHeader>
         <button></button>
@@ -31,13 +31,13 @@ describe("PageHeader", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
   })
 
-  test("renders a custom className", async () => {
+  test("renders a custom className", () => {
     render(<PageHeader className="my-custom-classname" />)
     expect(screen.getByRole("banner")).toBeInTheDocument()
     expect(screen.getByRole("banner")).toHaveClass("my-custom-classname")
   })
 
-  test("renders all props", async () => {
+  test("renders all props", () => {
     render(<PageHeader data-lolol="some-prop" />)
     expect(screen.getByRole("banner")).toBeInTheDocument()
     expect(screen.getByRole("banner")).toHaveAttribute("data-lolol", "some-prop")
