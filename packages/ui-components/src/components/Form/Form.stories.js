@@ -20,7 +20,7 @@ import { CheckboxGroup } from "../CheckboxGroup/index.js"
 import { Checkbox } from "../Checkbox/index.js"
 import { Button } from "../Button/index.js"
 import { ButtonRow } from "../ButtonRow/index.js"
-import { IntroBox } from "../IntroBox/index.js"
+import { IntroBox } from "../IntroBox/index"
 
 export default {
   title: "Forms/Form",
