@@ -14,9 +14,9 @@
     "noEmit": null,
     "allowImportingTsExtensions": false,
     "allowSyntheticDefaultImports": true,
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["@testing-library/jest-dom"]
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts"],
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx"],
   "exclude": [
     "node_modules",
     "build",

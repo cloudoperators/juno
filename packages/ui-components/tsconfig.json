@@ -16,6 +16,6 @@
     "allowSyntheticDefaultImports": true,
     "types": ["vitest/globals", "@testing-library/jest-dom", "@types/react"]
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts", "./global.d.ts", "src/components/AppShell/AppShell.test.jsx", "src/components/AppShell/AppShell.test.js", "src/components/PageHeader/PageHeader.test.jsx", "src/components/PageHeader/PageHeader.stories.jsx", "src/components/PageHeader/PageHeader.component.jsx", "src/components/PageHeader/index.js"],
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts", ],
   "exclude": ["node_modules", "build"]
 }
