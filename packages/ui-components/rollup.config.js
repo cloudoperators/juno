@@ -22,8 +22,8 @@ const { generateTailwindThemeClassesJson } = require("./src/docs/ColorPalette/ge
 generateTailwindThemeClassesJson()
 
 // Ensure the module value in package.json is correct
-if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like dist/index.js")
-const buildDir = "dist"
+if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like build/index.js")
+const buildDir = "build"
 const filename = pkg.module.slice(pkg.module.lastIndexOf("/") + 1, pkg.module.lastIndexOf("."))
 
 const plugins = [

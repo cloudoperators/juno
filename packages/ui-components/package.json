@@ -1,13 +1,13 @@
 {
   "name": "@cloudoperators/juno-ui-components",
   "private": false,
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "build/index.js",
+  "module": "build/index.js",
   "source": "src/index.js",
-  "style": "dist/lib/variables.css",
+  "style": "build/lib/variables.css",
   "version": "2.15.3",
   "files": [
-    "dist/*",
+    "build/*",
     "src/colors.css",
     "tailwind.config.js"
   ],
@@ -101,7 +101,7 @@
     "build-storybook": "storybook build",
     "build": "NODE_ENV=production rollup -c",
     "dev": "NODE_ENV=development rollup -c -w",
-    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "lint": "eslint .",
     "test": "npm run test-vitest && npm run test-jest",
     "test-vitest": "vitest run",
