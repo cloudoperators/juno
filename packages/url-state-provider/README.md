@@ -237,7 +237,7 @@ Other characters like ñ and ß are encoded with % ( https://developer.mozilla.o
 - `*E` is `NaN`
 - `*F` is `+Infinity`
 - `*G` is `-Infinity`
-- `*R` is marks a Regex.
+- `*R` marks a Regex.
 
 ## License
 
