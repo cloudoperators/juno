@@ -21,6 +21,7 @@ import { Checkbox } from "../Checkbox/index.js"
 import { Button } from "../Button/index.js"
 import { ButtonRow } from "../ButtonRow/index.js"
 import { IntroBox } from "../IntroBox/index.js"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 export default {
   title: "Forms/Form",
@@ -35,6 +36,15 @@ export default {
       control: false,
     },
   },
+  decorators: [
+    (Story) => (
+      <div className="jn-pb-12" style={{ minHeight: "250px" }}>
+        <PortalProvider>
+          <Story />
+        </PortalProvider>
+      </div>
+    ),
+  ],
 }
 
 const Template = ({ children, ...args }) => <Form {...args}>{children}</Form>
