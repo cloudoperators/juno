@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IntroBox } from "./index.js"
-import heroImage from "../../img/app_bg_example.svg?url"
+import { IntroBox } from "./index"
+import heroImage from "../../img/app_bg_example.svg"
 
 export default {
   title: "Components/IntroBox",
@@ -42,6 +42,7 @@ export const HeroWithBGImage = {
     title: "IntroBox",
     text: "Hero IntroBox with background image. Background image must be referenced as a css bg image string. Import svg images with query param ?url.",
     variant: "hero",
-    heroImage: `url(${heroImage})`,
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    heroImage: `url(${heroImage}?url)`,
   },
 }

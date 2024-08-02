@@ -19,8 +19,6 @@ const config = {
   ],
   staticDirs: ["../public"],
   webpackFinal: async (config) => {
-    // Default rule for images /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
-    // Exclude SVG files so that they can be loaded via svgr
     const fileLoaderRule = config.module.rules.find((rule) => rule.test && rule.test.test(".svg"))
     fileLoaderRule.exclude = /\.svg$/
 
@@ -33,7 +31,7 @@ const config = {
     config.module.rules.push({
       test: /\.svg$/i,
       enforce: "pre",
-      issuer: /\.jsx?$/,
+      issuer: /\.(js|jsx|ts|tsx)$/, // Updated to include ts and tsx
       resourceQuery: { not: [/url/] }, // exclude react component if import filename *.svg?url
       loader: require.resolve("@svgr/webpack"),
       options: {
@@ -61,7 +59,6 @@ const config = {
         "css-loader",
         {
           loader: "postcss-loader",
-          // important! use local installed postcss (version 8)
           options: {
             implementation: require("postcss"),
           },
@@ -77,6 +74,20 @@ const config = {
       ],
       include: [path.resolve(__dirname, "../src")],
     })
+    // Add TypeScript support
+    config.module.rules.push({
+      test: /\.(ts|tsx)$/,
+      use: [
+        {
+          loader: require.resolve("ts-loader"),
+          options: {
+            transpileOnly: true,
+            configFile: path.resolve(__dirname, "tsconfig.storybook.json"), // Specify the path to your tsconfig.json
+          },
+        },
+      ],
+    })
+    config.resolve.extensions.push(".ts", ".tsx")
 
     return config
   },
@@ -89,4 +100,5 @@ const config = {
     autodocs: true,
   },
 }
+
 export default config
