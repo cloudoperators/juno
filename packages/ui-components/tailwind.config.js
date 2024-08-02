@@ -170,12 +170,6 @@ module.exports = {
       backgroundColor: {
         theme: {
           "global-bg": withOpacity("--color-global-bg-raw"),
-          "background-lvl-0": withOpacity("--color-background-lvl-0-raw"),
-          "background-lvl-1": withOpacity("--color-background-lvl-1-raw"),
-          "background-lvl-2": withOpacity("--color-background-lvl-2-raw"),
-          "background-lvl-3": withOpacity("--color-background-lvl-3-raw"),
-          "background-lvl-4": withOpacity("--color-background-lvl-4-raw"),
-          "background-lvl-5": withOpacity("--color-background-lvl-5-raw"),
           "badge-default": "var(--color-badge-default-bg)",
           "box-default": "var(--color-box-bg)",
           "code-block": withOpacity("--color-codeblock-bg"),
