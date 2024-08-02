@@ -45,4 +45,3 @@ Identify any other epics, issues, or tasks that this epic depends on.
 ### Additional Notes
 
 Any additional information, context, or considerations.
-
