@@ -7,7 +7,7 @@ import React from "react"
 import { SecretText } from "./SecretText.component"
 
 export default {
-  title: "WIP/SecretText",
+  title: "Forms/SecretText",
   component: SecretText,
   argTypes: {},
 }
