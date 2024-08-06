@@ -1,5 +1,13 @@
 # @cloudoperators/juno-url-state-router
 
+## 1.0.10
+
+### Patch Changes
+
+- 3ca3d35: Update instructions in readme files
+- Updated dependencies [3ca3d35]
+  - @cloudoperators/juno-url-state-provider@2.0.6
+
 ## 1.0.9
 
 ### Patch Changes

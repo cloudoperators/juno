@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-oauth",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Authenticates user via OIDC",
   "author": "UI-Team",
   "contributors": [
