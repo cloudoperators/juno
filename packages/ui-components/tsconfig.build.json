@@ -1,0 +1,32 @@
+{
+  "extends": "@cloudoperators/juno-typescript-config/base.json",
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ESNext",
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "build",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": null,
+    "allowImportingTsExtensions": false,
+    "allowSyntheticDefaultImports": true,
+    "types": ["@testing-library/jest-dom"]
+  },
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.test.js",
+    "**/*.test.jsx",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/*.stories.js",
+    "**/*.stories.jsx"
+  ]
+}

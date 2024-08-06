@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "composite": null,
+    "declaration": null,
+    "declarationMap": null,
+  },
+}

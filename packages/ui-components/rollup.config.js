@@ -13,22 +13,19 @@ const analyze = require("rollup-plugin-analyzer")
 const { nodeResolve } = require("@rollup/plugin-node-resolve")
 const commonjs = require("@rollup/plugin-commonjs")
 const svgr = require("@svgr/rollup")
+const typescript = require("@rollup/plugin-typescript")
+const path = require("path")
 const glob = require("glob")
 const { generateTailwindThemeClassesJson } = require("./src/docs/ColorPalette/generateTailwindThemeClassesJson")
 
 // generates tailwind classes for documentation usages.
 generateTailwindThemeClassesJson()
 
-// IMPORTANT!
-// package.json is single source of truth policy
-
+// Ensure the module value in package.json is correct
 if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like build/index.js")
-const buildDir = pkg.module.slice(0, pkg.module.lastIndexOf("/"))
-// filename is extracted from module key in package.json
-// because of single source of truth policy
+const buildDir = "build"
 const filename = pkg.module.slice(pkg.module.lastIndexOf("/") + 1, pkg.module.lastIndexOf("."))
 
-// define plugins here to use it in different configs
 const plugins = [
   svgr({
     svgo: false,
@@ -39,17 +36,15 @@ const plugins = [
       path: "./postcss.config.js",
     },
     extract: false,
-    minimize: false, //true,
+    minimize: false,
     inject: false,
     extensions: [".scss", ".css"],
     use: ["sass", "glob-imports"],
     loaders: [
-      // custom loader!!! to load all scss files in globals.scss
       {
         name: "glob-imports",
         test: /\.(sass|scss)$/,
         process({ code }) {
-          // handle glob import
           return new Promise((resolve, _reject) => {
             const match = [...code.matchAll(/@import\s+(.*\*+.*);/g)]
             match.forEach((m) => {
@@ -66,9 +61,6 @@ const plugins = [
 
   nodeResolve(),
   babel({
-    // babelrc: false,
-    // // exclude: "node_modules/**",
-    // presets: ["@babel/preset-react"],
     babelHelpers: "bundled",
   }),
   commonjs(),
@@ -77,34 +69,53 @@ const plugins = [
     summaryOnly: true,
     limit: 0,
   }),
+  typescript({ tsconfig: path.resolve(__dirname, "./tsconfig.build.json") }), // Reference tsconfig.build.json
 ]
 
-// input is a map of all components of format { [componentName]: path }
-// it is also contains the main entry point of the library (pkg.source)
-const input = fs.readdirSync("./src/components").reduce(
-  (map, file) => {
-    map[file] = `src/components/${file}/index.js`
-    return map
-  },
-  { [filename]: pkg.source }
-)
+// Function to get component paths
+function getComponentPaths() {
+  const componentsDir = path.resolve(__dirname, "src/components")
+  const components = fs.readdirSync(componentsDir)
+
+  return components.reduce(
+    (map, file) => {
+      const componentPath = path.join(componentsDir, file)
+      const componentName = path.basename(file, path.extname(file)) // Get the component name without extension
+
+      if (/\.test\.[tj]sx?$/.test(file) || /\.stories\.[tj]sx?$/.test(file)) {
+        // Skip test and story files
+        return map
+      }
+
+      if (fs.lstatSync(componentPath).isDirectory()) {
+        const indexFile = ["index.ts", "index.js"].find((file) => fs.existsSync(path.join(componentPath, file)))
+        if (indexFile) {
+          map[componentName] = path.join(componentPath, indexFile)
+        }
+      } else {
+        map[componentName] = componentPath
+      }
+
+      return map
+    },
+    { [filename]: pkg.source }
+  )
+}
+
+const input = getComponentPaths()
 
 const config = [
-  // bundle all components
   {
     input,
     output: [
-      // { dir: "lib", format: "cjs", preserveModules: false },
       {
-        dir: buildDir,
+        dir: buildDir, // Ensure this matches the `outDir` in tsconfig.build.json
         format: "esm",
         preserveModules: false,
         compact: true,
       },
     ],
-
     plugins: [del({ targets: [`${buildDir}/**/*`] }), ...plugins],
-
     external: Object.keys(pkg.peerDependencies || {}),
   },
   {
