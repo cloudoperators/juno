@@ -2,7 +2,7 @@
 name: Epic
 about: Create an epic
 title: "[EPIC](context): "
-labels: task
+labels: epic
 assignees: ""
 ---
 
