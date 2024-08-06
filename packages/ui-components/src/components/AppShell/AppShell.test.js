@@ -107,6 +107,19 @@ describe("AppShell", () => {
     expect(screen.queryByText("My Page Footer")).not.toBeInTheDocument()
   })
 
+  test("renders a TopNavigation as passed in emebedded mode", async () => {
+    render(
+      <AppShell
+        data-testid="app-shell"
+        embedded={true}
+        topNavigation={<TopNavigation data-testid="top-navigation" />}
+      />
+    )
+    expect(screen.getByTestId("app-shell")).toBeInTheDocument()
+    expect(screen.getByTestId("top-navigation")).toBeInTheDocument()
+    expect(screen.queryByRole("navigation")).toBeInTheDocument()
+  })
+
   test("renders children as passed", async () => {
     render(
       <AppShell data-testid="app-shell">

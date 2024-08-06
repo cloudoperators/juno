@@ -40,15 +40,18 @@ export const AppShell = ({
         : ""}
 
       {embedded ? (
-        <MainContainer>
-          <MainContainerInner
-            fullWidth={fullWidthContent === false ? false : true}
-            hasSideNav={sideNavigation ? true : false}
-          >
-            {sideNavigation && sideNavigation}
-            <ContentContainer>{children}</ContentContainer>
-          </MainContainerInner>
-        </MainContainer>
+        <>
+          {topNavigation && topNavigation}
+          <MainContainer>
+            <MainContainerInner
+              fullWidth={fullWidthContent === false ? false : true}
+              hasSideNav={sideNavigation ? true : false}
+            >
+              {sideNavigation && sideNavigation}
+              <ContentContainer>{children}</ContentContainer>
+            </MainContainerInner>
+          </MainContainer>
+        </>
       ) : (
         <>
           {pageHeader && (typeof pageHeader === "string" || pageHeader instanceof String) ? (
