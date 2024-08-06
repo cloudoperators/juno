@@ -94,7 +94,7 @@ AppShell.propTypes = {
   /** OBSOLETE: The contentHeading prop is obsolete and will be removed in a future version. In order to render a content heading, use a `<ContentHeading>` element as a child in your main content. */
   contentHeading: PropTypes.string,
   /** Optional: Defaults to false. Set embedded to true if app is to be rendered embedded in another app/page.
-   * In this case only the content area and children are rendered, no header/footer or remaining layout components */
+   * In this case only the content area and children are rendered, a TopNavigation if passed, but no header/footer or remaining layout components */
   embedded: PropTypes.bool,
   /** Whether the main page / view content can spread over the full available width of the viewport or not. Default is `false` (resulting in a width-constrained, centred content column on very wide screens) UNLESS the AppShell is rendered with embedded as true, then the main content will be full-width by default. In embedded mode, `fullWidthContent` can still be passed as `false` explicitly. */
   fullWidthContent: PropTypes.bool,
