@@ -2,8 +2,16 @@ name: CI Check
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
-
+    types: 
+      - opened
+      - synchronize
+      - reopened
+  pull_request_target:
+    types: 
+      - edited
+    branches:
+      - changeset-release/main  
+    
 jobs:
   install-dependencies:
     runs-on: ubuntu-latest
