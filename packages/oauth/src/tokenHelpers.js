@@ -25,7 +25,7 @@ const capitalize = (str) => {
 const extractNameFromEmail = (email) => {
   if (!email) return null
   try {
-    const match = email.match(/^(.+)@.*$/)
+    const match = email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
     if (!match) return null
     const emailName = match[1]
     const index = emailName.indexOf(".")
