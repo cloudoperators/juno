@@ -2,7 +2,7 @@ name: CI Check
 
 on:
   pull_request:
-    types: [opened, synchronize, edited, reopened]
+    types: [opened, synchronize, reopened]
 
 jobs:
   install-dependencies:
