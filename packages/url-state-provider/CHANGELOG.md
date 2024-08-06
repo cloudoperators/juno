@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 2.0.5
+
+### Patch Changes
+
+- 5102bf8: Update instructions in readme files
+
 ## 2.0.4
 
 ### Patch Changes

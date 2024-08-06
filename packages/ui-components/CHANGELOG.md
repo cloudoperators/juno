@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.15.4
+
+### Patch Changes
+
+- 5102bf8: Update instructions in readme files
+
 ## 2.15.3
 
 ### Patch Changes

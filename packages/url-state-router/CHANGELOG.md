@@ -1,5 +1,13 @@
 # @cloudoperators/juno-url-state-router
 
+## 1.0.9
+
+### Patch Changes
+
+- 5102bf8: Update instructions in readme files
+- Updated dependencies [5102bf8]
+  - @cloudoperators/juno-url-state-provider@2.0.5
+
 ## 1.0.8
 
 ### Patch Changes
