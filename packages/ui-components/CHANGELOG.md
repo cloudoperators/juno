@@ -4,7 +4,6 @@
 
 ### Minor Changes
 
-- 55f53e3: Add ThemeToggle component, store current theme in local storage, take SecretText component out of WiP
 - ed9b963: Add ThemeToggle component, store current theme in local storage, take SecretText component out of WiP
 
 ### Patch Changes
