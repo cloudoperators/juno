@@ -1,5 +1,11 @@
 # @cloudoperators/juno-oauth
 
+## 1.2.6
+
+### Patch Changes
+
+- 5102bf8: Update instructions in readme files
+
 ## 1.2.5
 
 ### Patch Changes
