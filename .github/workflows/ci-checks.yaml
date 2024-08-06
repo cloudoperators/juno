@@ -3,12 +3,6 @@ name: CI Check
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-  # do not run when the PR is edited  
-  pull_request_target:
-    branches:
-      - 'changeset-release/main'
-    types:
-      - edited  
 
 jobs:
   install-dependencies:
