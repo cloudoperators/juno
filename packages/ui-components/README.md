@@ -56,6 +56,12 @@ Run the test suite:
 npm -w @cloudoperators/juno-ui-components run test
 ```
 
+Build storybook:
+
+```bash
+npm -w @cloudoperators/juno-ui-components run build-storybook
+```
+
 ## Continuous Deployment to GitHub Pages
 
 Any change to this library will automatically trigger a deployment to GitHub Pages. When changes are committed to the main branch, GitHub Actions will build and test the project. If successful, the latest version of the library will be deployed to GitHub Pages.
