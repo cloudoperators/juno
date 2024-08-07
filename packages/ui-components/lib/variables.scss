@@ -17,145 +17,147 @@ $color-map: (
   "white": (255, 255, 255),
   "black": (0, 0, 0),
   
-  "sap-grey-1": (255, 255, 255),
-  "sap-grey-2": (225, 225, 225),
-  "sap-grey-3": (204, 204, 204),
-  "sap-grey-4": (153, 153, 153),
-  "sap-grey-5": (127, 127, 127),
-  "sap-grey-6": (102, 102, 102),
-  "sap-grey-7": (75, 75, 75),
-  "sap-grey-8": (0, 0, 0),
+  "sap-grey-1": (255, 182, 193),   // Light Pink
+  "sap-grey-2": (255, 105, 180),   // Hot Pink
+  "sap-grey-3": (219, 112, 147),   // Pale Violet Red
+  "sap-grey-4": (255, 20, 147),    // Deep Pink
+  "sap-grey-5": (255, 69, 0),      // Red-Orange
+  "sap-grey-6": (255, 140, 0),     // Dark Orange
+  "sap-grey-7": (255, 165, 0),     // Orange
+  "sap-grey-8": (255, 255, 0),     // Yellow
   
-  "sap-blue-1": (15, 170, 25),
-  "sap-blue-2": (0, 143, 211),
-  "sap-blue-3": (0, 118, 203),
-  "sap-blue-4": (15, 70, 167),
-  "sap-blue-5": (0, 50, 131),
-  "sap-blue-6": (0, 25, 90),
+  "sap-blue-1": (135, 206, 250),   // Light Sky Blue
+  "sap-blue-2": (0, 191, 255),     // Deep Sky Blue
+  "sap-blue-3": (30, 144, 255),    // Dodger Blue
+  "sap-blue-4": (0, 0, 255),       // Blue
+  "sap-blue-5": (75, 0, 130),      // Indigo
+  "sap-blue-6": (138, 43, 226),    // Blue Violet
   
-  "sap-gold": (240, 171, 0),
+  "sap-gold": (255, 223, 0),       // Gold
   
-  "sap-purple-1": (220, 0, 150),
-  "sap-purple-2": (190, 0, 140),
-  "sap-purple-3": (151, 10, 130),
-  "sap-purple-4": (118, 10, 133),
-  "sap-purple-5": (69, 21, 126),
-  "sap-purple-6": (60, 20, 100),
+  "sap-purple-1": (255, 0, 255),   // Magenta
+  "sap-purple-2": (218, 112, 214), // Orchid
+  "sap-purple-3": (186, 85, 211),  // Medium Orchid
+  "sap-purple-4": (128, 0, 128),   // Purple
+  "sap-purple-5": (147, 112, 219), // Medium Purple
+  "sap-purple-6": (148, 0, 211),   // Dark Violet
   
-  "sap-green-1": (188, 220, 80),
-  "sap-green-2": (147, 201, 57),
-  "sap-green-3": (79, 184, 28),
-  "sap-green-4": (52, 139, 38),
-  "sap-green-5": (36, 114, 48),
-  "sap-green-6": (15, 75, 60),
+  "sap-green-1": (0, 255, 0),      // Lime
+  "sap-green-2": (50, 205, 50),    // Lime Green
+  "sap-green-3": (144, 238, 144),  // Light Green
+  "sap-green-4": (34, 139, 34),    // Forest Green
+  "sap-green-5": (0, 128, 0),      // Green
+  "sap-green-6": (0, 100, 0),      // Dark Green
   
-  "sap-orange-1": (255, 175, 0),
-  "sap-orange-2": (250, 145, 0),
-  "sap-orange-3": (235, 115, 0),
-  "sap-orange-4": (227, 85, 0),
-  "sap-orange-5": (208, 69, 18),
-  "sap-orange-6": (188, 54, 24),
+  "sap-orange-1": (255, 165, 0),   // Orange
+  "sap-orange-2": (255, 140, 0),   // Dark Orange
+  "sap-orange-3": (255, 69, 0),    // Red-Orange
+  "sap-orange-4": (255, 99, 71),   // Tomato
+  "sap-orange-5": (255, 127, 80),  // Coral
+  "sap-orange-6": (255, 218, 185), // Peach Puff
   
-  "juno-grey-blue-1":  (64, 70, 75),
-  "juno-grey-blue-2":  (48, 54, 60),
-  "juno-grey-blue-3":  (41, 47, 54),
-  "juno-grey-blue-4":  (38, 44, 51),
-  "juno-grey-blue-5":  (36, 42, 49),
-  "juno-grey-blue-6":  (31, 38, 45),
-  "juno-grey-blue-7":  (28, 35, 42),
-  "juno-grey-blue-8":  (23, 30, 37),
-  "juno-grey-blue-9":  (18, 25, 32),
-  "juno-grey-blue-10": (13, 20, 28),
-  "juno-grey-blue-11": (0, 8, 16),
+  "juno-grey-blue-1":  (64, 224, 208),   // Turquoise
+  "juno-grey-blue-2":  (72, 209, 204),   // Medium Turquoise
+  "juno-grey-blue-3":  (0, 206, 209),    // Dark Turquoise
+  "juno-grey-blue-4":  (32, 178, 170),   // Light Sea Green
+  "juno-grey-blue-5":  (47, 79, 79),     // Dark Slate Gray
+  "juno-grey-blue-6":  (0, 139, 139),    // Dark Cyan
+  "juno-grey-blue-7":  (0, 128, 128),    // Teal
+  "juno-grey-blue-8":  (64, 224, 208),   // Turquoise
+  "juno-grey-blue-9":  (175, 238, 238),  // Pale Turquoise
+  "juno-grey-blue-10": (0, 255, 255),    // Aqua
+  "juno-grey-blue-11": (224, 255, 255),  // Light Cyan
   
-  "juno-grey-light-1":  (249, 249, 249),
-  "juno-grey-light-2":  (247, 247, 247),
-  "juno-grey-light-3":  (244, 244, 244),
-  "juno-grey-light-4":  (241, 241, 241),
-  "juno-grey-light-5":  (238, 238, 238),
-  "juno-grey-light-6":  (235, 235, 235),
-  "juno-grey-light-7":  (233, 233, 233),
-  "juno-grey-light-8":  (230, 230, 230),
-  "juno-grey-light-9":  (227, 227, 227),
-  "juno-grey-light-10": (215, 215, 215),
+  "juno-grey-light-1":  (250, 128, 114), // Salmon
+  "juno-grey-light-2":  (233, 150, 122), // Dark Salmon
+  "juno-grey-light-3":  (240, 128, 128), // Light Coral
+  "juno-grey-light-4":  (205, 92, 92),   // Indian Red
+  "juno-grey-light-5":  (178, 34, 34),   // Firebrick
+  "juno-grey-light-6":  (139, 0, 0),     // Dark Red
+  "juno-grey-light-7":  (255, 99, 71),   // Tomato
+  "juno-grey-light-8":  (255, 69, 0),    // Orange Red
+  "juno-grey-light-9":  (255, 140, 0),   // Dark Orange
+  "juno-grey-light-10": (255, 165, 0),   // Orange
   
-  "juno-blue-1":  (203, 232, 247),
-  "juno-blue-2":  (165, 211, 234),
-  "juno-blue-3":  (137, 201, 232),
-  "juno-blue-4":  (67, 162, 208),
-  "juno-blue-5":  (0, 125, 184),
-  "juno-blue-6":  (30, 106, 146),
-  "juno-blue-7":  (10, 103, 153),
-  "juno-blue-8":  (7, 85, 128),
-  "juno-blue-9":  (5, 70, 105),
-  "juno-blue-10": (3, 55, 84),
+  "juno-blue-1":  (0, 255, 255),     // Aqua
+  "juno-blue-2":  (64, 224, 208),    // Turquoise
+  "juno-blue-3":  (0, 206, 209),     // Dark Turquoise
+  "juno-blue-4":  (72, 209, 204),    // Medium Turquoise
+  "juno-blue-5":  (127, 255, 212),   // Aquamarine
+  "juno-blue-6":  (175, 238, 238),   // Pale Turquoise
+  "juno-blue-7":  (224, 255, 255),   // Light Cyan
+  "juno-blue-8":  (173, 216, 230),   // Light Blue
+  "juno-blue-9":  (135, 206, 250),   // Light Sky Blue
+  "juno-blue-10": (0, 191, 255),     // Deep Sky Blue
   
-  "juno-turquoise-1":  (197, 247, 255),
-  "juno-turquoise-2":  (132, 241, 255),
-  "juno-turquoise-3":  (25, 232, 250),
-  "juno-turquoise-4":  (22, 217, 234),
-  "juno-turquoise-5":  (21, 208, 224),
-  "juno-turquoise-6":  (15, 167, 180),
-  "juno-turquoise-7":  (9, 133, 144),
-  "juno-turquoise-8":  (5, 100, 109),
-  "juno-turquoise-9":  (2, 69, 75),
-  "juno-turquoise-10": (1, 41, 4),
+  "juno-turquoise-1":  (250, 128, 114), // Salmon
+  "juno-turquoise-2":  (233, 150, 122), // Dark Salmon
+  "juno-turquoise-3":  (240, 128, 128), // Light Coral
+  "juno-turquoise-4":  (205, 92, 92),   // Indian Red
+  "juno-turquoise-5":  (178, 34, 34),   // Firebrick
+  "juno-turquoise-6":  (139, 0, 0),     // Dark Red
+  "juno-turquoise-7":  (255, 69, 0),    // Orange Red
+  "juno-turquoise-8":  (255, 99, 71),   // Tomato
+  "juno-turquoise-9":  (255, 127, 80),  // Coral
+  "juno-turquoise-10": (255, 218, 185), // Peach Puff
   
-  "juno-primary-blue-1": (15, 170, 255),
-  "juno-primary-blue-2": (0, 143, 211),
-  "juno-primary-blue-3": (0, 118, 203),
-  "juno-primary-blue-4": (15, 70, 167),
-  "juno-primary-blue-5": (0, 50, 131),
-  "juno-primary-blue-6": (0, 25, 90),
+  "juno-primary-blue-1": (255, 20, 147), // Deep Pink
+  "juno-primary-blue-2": (255, 105, 180), // Hot Pink
+  "juno-primary-blue-3": (219, 112, 147), // Pale Violet Red
+  "juno-primary-blue-4": (255, 69, 0),   // Orange Red
+  "juno-primary-blue-5": (255, 140, 0),  // Dark Orange
+  "juno-primary-blue-6": (255, 165, 0),  // Orange
   
 );
 
 /* Light Theme Color Definitions */
 // prettier-ignore
 $light-theme-color-map: (
-  "accent": (0, 118, 203),
+  "accent": (255, 69, 0), // Orange Red
   
-  "info":    (0, 118, 203),
-  "success": (79, 184, 28),
-  "warning": (255, 175, 0),
-  "danger":  (199, 0, 0),
-  "error":   (199, 0, 0),
+  "info":    (0, 255, 255),   // Aqua
+  "success": (50, 205, 50),   // Lime Green
+  "warning": (255, 165, 0),   // Orange
+  "danger":  (255, 0, 0),     // Red
+  "error":   (255, 0, 0),     // Red
   
-  "juno-text-light":    (150, 150, 150),
-  "juno-text-default":  (76, 76, 76),
-  "juno-text-high":     (64, 64, 64),
-  "juno-text-highest":  (0, 0, 0),
-  "juno-text-disabled": (183, 183, 183),
+  "juno-text-light":    (255, 182, 193),   // Light Pink
+  "juno-text-default":  (255, 105, 180),   // Hot Pink
+  "juno-text-high":     (219, 112, 147),   // Pale Violet Red
+  "juno
+
+-text-highest":  (255, 20, 147),    // Deep Pink
+  "juno-text-disabled": (255, 69, 0),      // Orange Red
   
-  "juno-primary-danger-1": (235, 146, 146),
-  "juno-primary-danger-2": (218, 93, 93),
-  "juno-primary-danger-3": (213, 64, 64),
-  "juno-primary-danger-4": (199, 0, 0),
-  "juno-primary-danger-5": (165,11,11),
+  "juno-primary-danger-1": (255, 127, 80),  // Coral
+  "juno-primary-danger-2": (255, 99, 71),   // Tomato
+  "juno-primary-danger-3": (255, 69, 0),    // Orange Red
+  "juno-primary-danger-4": (255, 165, 0),   // Orange
+  "juno-primary-danger-5": (255, 140, 0),   // Dark Orange
 );
 
 /* Dark Theme Color Definitions */
 // prettier-ignore
 $dark-theme-color-map: (
-  "accent": (21, 208, 224),
+  "accent": (173, 255, 47),    // Green Yellow
   
-  "info":    (21, 208, 224),
-  "success": (59, 255, 91),
-  "warning": (255, 198, 0),
-  "danger":  (255, 65, 16),
-  "error":   (255, 65, 16),
+  "info":    (0, 255, 127),    // Spring Green
+  "success": (127, 255, 0),    // Chartreuse
+  "warning": (255, 255, 0),    // Yellow
+  "danger":  (255, 0, 0),      // Red
+  "error":   (255, 0, 0),      // Red
   
-  "juno-text-light":    (122, 122, 122),
-  "juno-text-default":  (187, 187, 187),
-  "juno-text-high":     (222, 223, 224),
-  "juno-text-highest":  (255, 254, 253),
-  "juno-text-disabled": (92, 92, 92),
+  "juno-text-light":    (255, 20, 147),    // Deep Pink
+  "juno-text-default":  (255, 105, 180),   // Hot Pink
+  "juno-text-high":     (255, 182, 193),   // Light Pink
+  "juno-text-highest":  (255, 0, 255),     // Magenta
+  "juno-text-disabled": (219, 112, 147),   // Pale Violet Red
   
-  "juno-primary-danger-1": (231, 163, 137),
-  "juno-primary-danger-2": (222, 126, 91),
-  "juno-primary-danger-3": (208, 69, 18),
-  "juno-primary-danger-4": (187, 62, 16),
-  "juno-primary-danger-5": (164, 54, 14),
+  "juno-primary-danger-1": (255, 127, 80),  // Coral
+  "juno-primary-danger-2": (255, 99, 71),   // Tomato
+  "juno-primary-danger-3": (255, 69, 0),    // Orange Red
+  "juno-primary-danger-4": (255, 140, 0),   // Dark Orange
+  "juno-primary-danger-5": (255, 165, 0),   // Orange
 );
 
 /* Global Color Variables */
