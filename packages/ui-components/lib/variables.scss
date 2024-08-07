@@ -13,150 +13,150 @@
 /* Global Color Definitions */
 // prettier-ignore
 $color-map: (
-  
-  "white": (255, 255, 255),
-  "black": (0, 0, 0),
-  
-  "sap-grey-1": (255, 255, 255),
-  "sap-grey-2": (225, 225, 225),
-  "sap-grey-3": (204, 204, 204),
-  "sap-grey-4": (153, 153, 153),
-  "sap-grey-5": (127, 127, 127),
-  "sap-grey-6": (102, 102, 102),
-  "sap-grey-7": (75, 75, 75),
-  "sap-grey-8": (0, 0, 0),
-  
-  "sap-blue-1": (15, 170, 25),
-  "sap-blue-2": (0, 143, 211),
-  "sap-blue-3": (0, 118, 203),
-  "sap-blue-4": (15, 70, 167),
-  "sap-blue-5": (0, 50, 131),
-  "sap-blue-6": (0, 25, 90),
-  
-  "sap-gold": (240, 171, 0),
-  
-  "sap-purple-1": (220, 0, 150),
-  "sap-purple-2": (190, 0, 140),
-  "sap-purple-3": (151, 10, 130),
-  "sap-purple-4": (118, 10, 133),
-  "sap-purple-5": (69, 21, 126),
-  "sap-purple-6": (60, 20, 100),
-  
-  "sap-green-1": (188, 220, 80),
-  "sap-green-2": (147, 201, 57),
-  "sap-green-3": (79, 184, 28),
-  "sap-green-4": (52, 139, 38),
-  "sap-green-5": (36, 114, 48),
-  "sap-green-6": (15, 75, 60),
-  
-  "sap-orange-1": (255, 175, 0),
-  "sap-orange-2": (250, 145, 0),
-  "sap-orange-3": (235, 115, 0),
-  "sap-orange-4": (227, 85, 0),
-  "sap-orange-5": (208, 69, 18),
-  "sap-orange-6": (188, 54, 24),
-  
-  "juno-grey-blue-1":  (64, 70, 75),
-  "juno-grey-blue-2":  (48, 54, 60),
-  "juno-grey-blue-3":  (41, 47, 54),
-  "juno-grey-blue-4":  (38, 44, 51),
-  "juno-grey-blue-5":  (36, 42, 49),
-  "juno-grey-blue-6":  (31, 38, 45),
-  "juno-grey-blue-7":  (28, 35, 42),
-  "juno-grey-blue-8":  (23, 30, 37),
-  "juno-grey-blue-9":  (18, 25, 32),
-  "juno-grey-blue-10": (13, 20, 28),
-  "juno-grey-blue-11": (0, 8, 16),
-  
-  "juno-grey-light-1":  (249, 249, 249),
-  "juno-grey-light-2":  (247, 247, 247),
-  "juno-grey-light-3":  (244, 244, 244),
-  "juno-grey-light-4":  (241, 241, 241),
-  "juno-grey-light-5":  (238, 238, 238),
-  "juno-grey-light-6":  (235, 235, 235),
-  "juno-grey-light-7":  (233, 233, 233),
-  "juno-grey-light-8":  (230, 230, 230),
-  "juno-grey-light-9":  (227, 227, 227),
-  "juno-grey-light-10": (215, 215, 215),
-  
-  "juno-blue-1":  (203, 232, 247),
-  "juno-blue-2":  (165, 211, 234),
-  "juno-blue-3":  (137, 201, 232),
-  "juno-blue-4":  (67, 162, 208),
-  "juno-blue-5":  (0, 125, 184),
-  "juno-blue-6":  (30, 106, 146),
-  "juno-blue-7":  (10, 103, 153),
-  "juno-blue-8":  (7, 85, 128),
-  "juno-blue-9":  (5, 70, 105),
-  "juno-blue-10": (3, 55, 84),
-  
-  "juno-turquoise-1":  (197, 247, 255),
-  "juno-turquoise-2":  (132, 241, 255),
-  "juno-turquoise-3":  (25, 232, 250),
-  "juno-turquoise-4":  (22, 217, 234),
-  "juno-turquoise-5":  (21, 208, 224),
-  "juno-turquoise-6":  (15, 167, 180),
-  "juno-turquoise-7":  (9, 133, 144),
-  "juno-turquoise-8":  (5, 100, 109),
-  "juno-turquoise-9":  (2, 69, 75),
-  "juno-turquoise-10": (1, 41, 4),
-  
-  "juno-primary-blue-1": (15, 170, 255),
-  "juno-primary-blue-2": (0, 143, 211),
-  "juno-primary-blue-3": (0, 118, 203),
-  "juno-primary-blue-4": (15, 70, 167),
-  "juno-primary-blue-5": (0, 50, 131),
-  "juno-primary-blue-6": (0, 25, 90),
-  
+  "white": (245, 245, 245),
+  "black": (15, 15, 15),
+
+  "sap-grey-1": (240, 240, 240),
+  "sap-grey-2": (210, 210, 210),
+  "sap-grey-3": (180, 180, 180),
+  "sap-grey-4": (150, 150, 150),
+  "sap-grey-5": (120, 120, 120),
+  "sap-grey-6": (90, 90, 90),
+  "sap-grey-7": (60, 60, 60),
+  "sap-grey-8": (30, 30, 30),
+
+  "sap-blue-1": (135, 206, 235),
+  "sap-blue-2": (70, 130, 180),
+  "sap-blue-3": (30, 144, 255),
+  "sap-blue-4": (0, 0, 255),
+  "sap-blue-5": (0, 0, 139),
+  "sap-blue-6": (25, 25, 112),
+
+  "sap-gold": (255, 223, 0),
+
+  "sap-purple-1": (216, 191, 216),
+  "sap-purple-2": (221, 160, 221),
+  "sap-purple-3": (238, 130, 238),
+  "sap-purple-4": (148, 0, 211),
+  "sap-purple-5": (75, 0, 130),
+  "sap-purple-6": (138, 43, 226),
+
+  "sap-green-1": (144, 238, 144),
+  "sap-green-2": (0, 255, 127),
+  "sap-green-3": (0, 250, 154),
+  "sap-green-4": (34, 139, 34),
+  "sap-green-5": (0, 128, 0),
+  "sap-green-6": (0, 100, 0),
+
+  "sap-orange-1": (255, 165, 0),
+  "sap-orange-2": (255, 140, 0),
+  "sap-orange-3": (255, 69, 0),
+  "sap-orange-4": (255, 99, 71),
+  "sap-orange-5": (255, 127, 80),
+  "sap-orange-6": (255, 160, 122),
+
+  "juno-grey-blue-1": (70, 130, 180),
+  "juno-grey-blue-2": (65, 105, 225),
+  "juno-grey-blue-3": (72, 61, 139),
+  "juno-grey-blue-4": (106, 90, 205),
+  "juno-grey-blue-5": (123, 104, 238),
+  "juno-grey-blue-6": (100, 149, 237),
+  "juno-grey-blue-7": (176, 196, 222),
+  "juno-grey-blue-8": (119, 136, 153),
+  "juno-grey-blue-9": (112, 128, 144),
+  "juno-grey-blue-10": (105, 105, 105),
+  "juno-grey-blue-11": (169, 169, 169),
+
+  "juno-grey-light-1": (245, 245, 245),
+  "juno-grey-light-2": (220, 220, 220),
+  "juno-grey-light-3": (211, 211, 211),
+  "juno-grey-light-4": (192, 192, 192),
+  "juno-grey-light-5": (169, 169, 169),
+  "juno-grey-light-6": (128, 128, 128),
+  "juno-grey-light-7": (105, 105, 105),
+  "juno-grey-light-8": (85, 85, 85),
+  "juno-grey-light-9": (70, 70, 70),
+  "juno-grey-light-10": (50, 50, 50),
+
+  "juno-blue-1": (135, 206, 235),
+  "juno-blue-2": (70, 130, 180),
+  "juno-blue-3": (30, 144, 255),
+  "juno-blue-4": (0, 0, 255),
+  "juno-blue-5": (0, 0, 139),
+  "juno-blue-6": (25, 25, 112),
+  "juno-blue-7": (0, 191, 255),
+  "juno-blue-8": (135, 206, 250),
+  "juno-blue-9": (173, 216, 230),
+  "juno-blue-10": (176, 224, 230),
+
+  "juno-turquoise-1": (64, 224, 208),
+  "juno-turquoise-2": (72, 209, 204),
+  "juno-turquoise-3": (0, 206, 209),
+  "juno-turquoise-4": (32, 178, 170),
+  "juno-turquoise-5": (0, 139, 139),
+  "juno-turquoise-6": (127, 255, 212),
+  "juno-turquoise-7": (64, 224, 208),
+  "juno-turquoise-8": (224, 255, 255),
+  "juno-turquoise-9": (175, 238, 238),
+  "juno-turquoise-10": (0, 255, 255),
+
+  "juno-primary-blue-1": (135, 206, 235),
+  "juno-primary-blue-2": (70, 130, 180),
+  "juno-primary-blue-3": (30, 144, 255),
+  "juno-primary-blue-4": (0, 0, 255),
+  "juno-primary-blue-5": (0, 0, 139),
+  "juno-primary-blue-6": (25, 25, 112),
 );
 
 /* Light Theme Color Definitions */
 // prettier-ignore
 $light-theme-color-map: (
-  "accent": (0, 118, 203),
+  "accent": (255, 99, 71), // Changed
   
-  "info":    (0, 118, 203),
-  "success": (79, 184, 28),
-  "warning": (255, 175, 0),
-  "danger":  (199, 0, 0),
-  "error":   (199, 0, 0),
+  "info":    (70, 130, 180), // Changed
+  "success": (60, 179, 113), // Changed
+  "warning": (255, 215, 0), // Changed
+  "danger":  (220, 20, 60), // Changed
+  "error":   (220, 20, 60), // Changed
   
-  "juno-text-light":    (150, 150, 150),
-  "juno-text-default":  (76, 76, 76),
-  "juno-text-high":     (64, 64, 64),
+  "juno-text-light":    (169, 169, 169), // Changed
+  "juno-text-default":  (105, 105, 105), // Changed
+  "juno-text-high":     (85, 85, 85), // Changed
   "juno-text-highest":  (0, 0, 0),
-  "juno-text-disabled": (183, 183, 183),
+  "juno-text-disabled": (192, 192, 192), // Changed
   
-  "juno-primary-danger-1": (235, 146, 146),
-  "juno-primary-danger-2": (218, 93, 93),
-  "juno-primary-danger-3": (213, 64, 64),
-  "juno-primary-danger-4": (199, 0, 0),
-  "juno-primary-danger-5": (165,11,11),
+  "juno-primary-danger-1": (255, 182, 193), // Changed
+  "juno-primary-danger-2": (255, 105, 180), // Changed
+  "juno-primary-danger-3": (255, 20, 147), // Changed
+  "juno-primary-danger-4": (199, 21, 133), // Changed
+  "juno-primary-danger-5": (139, 0, 139), // Changed
 );
 
 /* Dark Theme Color Definitions */
 // prettier-ignore
 $dark-theme-color-map: (
-  "accent": (21, 208, 224),
+  "accent": (100, 149, 237), // Changed
   
-  "info":    (21, 208, 224),
-  "success": (59, 255, 91),
-  "warning": (255, 198, 0),
-  "danger":  (255, 65, 16),
-  "error":   (255, 65, 16),
+  "info":    (100, 149, 237), // Changed
+  "success": (127, 255, 0), // Changed
+  "warning": (255, 165, 0), // Changed
+  "danger":  (255, 69, 0), // Changed
+  "error":   (255, 69, 0), // Changed
   
-  "juno-text-light":    (122, 122, 122),
-  "juno-text-default":  (187, 187, 187),
-  "juno-text-high":     (222, 223, 224),
-  "juno-text-highest":  (255, 254, 253),
-  "juno-text-disabled": (92, 92, 92),
+  "juno-text-light":    (169, 169, 169), // Changed
+  "juno-text-default":  (211, 211, 211), // Changed
+  "juno-text-high":     (245, 245, 245), // Changed
+  "juno-text-highest":  (255, 255, 255),
+  "juno-text-disabled": (128, 128, 128), // Changed
   
-  "juno-primary-danger-1": (231, 163, 137),
-  "juno-primary-danger-2": (222, 126, 91),
-  "juno-primary-danger-3": (208, 69, 18),
-  "juno-primary-danger-4": (187, 62, 16),
-  "juno-primary-danger-5": (164, 54, 14),
+  "juno-primary-danger-1": (255, 160, 122), // Changed
+  "juno-primary-danger-2": (255, 127, 80), // Changed
+  "juno-primary-danger-3": (255, 99, 71), // Changed
+  "juno-primary-danger-4": (238, 75, 43), // Changed
+  "juno-primary-danger-5": (205, 92, 92), // Changed
 );
+
+This creates a new theme with different color values while keeping the variable names the same.
 
 /* Global Color Variables */
 :root,
