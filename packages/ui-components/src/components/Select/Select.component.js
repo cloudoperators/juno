@@ -11,7 +11,7 @@ import { Icon } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/Spinner.component"
 import { FormHint } from "../FormHint/FormHint.component"
 import { Float } from "@headlessui-float/react"
-import { flip, offset, shift, size } from "@floating-ui/react-dom"
+import { autoPlacement, flip, offset, shift, size } from "@floating-ui/react-dom"
 import { usePortalRef } from "../PortalProvider/index"
 import { createPortal } from "react-dom"
 import "./select.scss"
@@ -169,8 +169,16 @@ export const Select = ({
   // Headless-UI-Float Middleware
   const middleware = [
     offset(4),
-    shift(),
-    flip(),
+    //flip(),
+    autoPlacement(
+      (state) => (
+        console.log(state),
+        {
+          crossAxis: true,
+          allowedPlacements: ["bottom", "top"],
+        }
+      )
+    ),
     size({
       boundary: "viewport",
       apply({ availableWidth, availableHeight, elements }) {
@@ -181,6 +189,7 @@ export const Select = ({
         })
       },
     }),
+    shift(),
   ]
 
   // This function is used to determine what to render for the selected options in the Select Toggle in multi-select case.

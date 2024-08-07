@@ -84,8 +84,8 @@ ControlledTemplate.propTypes = {
   children: PropTypes.node,
 }
 
-const PageBottomTemplate = ({ children, ...args }) => (
-  <div style={{ position: "absolute", bottom: "0" }}>
+const PageBottomTemplate = ({ parentStyles, children, ...args }) => (
+  <div style={parentStyles}>
     Page Bottom Select
     <Select {...args}>{children}</Select>
   </div>
@@ -105,10 +105,15 @@ export const Default = {
 export const PageBottom = {
   render: PageBottomTemplate,
   args: {
+    parentStyles: {
+      position: "absolute",
+      bottom: "0",
+    },
     children: [
       <SelectOption key="1" value="Option 1" />,
       <SelectOption key="2" value="Option 2" />,
       <SelectOption key="3" value="Option 3" />,
+      <SelectOption key="4" value="Option 4" />,
     ],
   },
 }
