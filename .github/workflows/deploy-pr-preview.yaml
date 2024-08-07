@@ -1,0 +1,42 @@
+name: Storybook PR Preview
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+    paths:
+      - "packages/ui-components/**"
+    # The paths-ignore option only prevents the workflow from running if all the changed files match the ignore patterns
+    paths-ignore:
+      - '**.md'  
+
+# Limit the concurrency of entire workflow
+concurrency: deploy-pr-preview-${{ github.ref }}
+
+jobs:
+  deploy-preview:
+    runs-on: [default]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"      
+
+      - name: Install dependencies
+        if: github.event.action != 'closed'
+        run: |
+          npm install --force         
+
+      - name: Build storybook
+        run: npm -w @cloudoperators/juno-ui-components run build-storybook          
+
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: packages/ui-components/storybook-static
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
