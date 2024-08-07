@@ -9,9 +9,6 @@ on:
       - closed
     paths:
       - "packages/ui-components/**"
-    # The paths-ignore option only prevents the workflow from running if all the changed files match the ignore patterns
-    paths-ignore:
-      - '**.md'  
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
