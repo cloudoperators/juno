@@ -14,7 +14,7 @@ on:
     
 jobs:
   install-dependencies:
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -34,7 +34,7 @@ jobs:
         run: npm ci      
 
   reuse-compliance:
-    runs-on: [ubuntu-latest]
+    runs-on: [default]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
         uses: fsfe/reuse-action@v3
 
   license-headers:
-    runs-on: [ubuntu-latest]
+    runs-on: [default]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,7 +61,7 @@ jobs:
 
   allowed-licenses:
     needs: install-dependencies
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -85,7 +85,7 @@ jobs:
 
   lint:
     needs: install-dependencies
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -108,7 +108,7 @@ jobs:
 
   format:
     needs: install-dependencies
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -131,7 +131,7 @@ jobs:
 
   test:
     needs: install-dependencies
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
