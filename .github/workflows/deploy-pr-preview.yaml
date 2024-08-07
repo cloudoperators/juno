@@ -7,6 +7,8 @@ on:
       - reopened
       - synchronize
       - closed
+    paths:
+      - "packages/ui-components/**"
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
