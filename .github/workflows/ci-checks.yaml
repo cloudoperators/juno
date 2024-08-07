@@ -6,6 +6,9 @@ on:
       - opened
       - synchronize
       - reopened
+    # The paths-ignore option only prevents the workflow from running if all the changed files match the ignore patterns
+    paths-ignore:
+      - '**.md'      
   pull_request_target:
     types: 
       - edited
