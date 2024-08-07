@@ -5,6 +5,12 @@
 
 import React, { useState } from "react"
 import { DateTimePicker } from "./index.js"
+import { Modal } from "../Modal/index.js"
+import { PortalProvider } from "../PortalProvider/index.js"
+import { Form } from "../Form/index.js"
+import { FormRow } from "../FormRow/index.js"
+import { TextInput } from "../TextInput/index.js"
+import { Textarea } from "../Textarea/index.js"
 
 export default {
   title: "WIP/DateTimePicker/DateTimePicker",
@@ -42,8 +48,46 @@ export default {
 
 const Template = ({ ...args }) => <DateTimePicker {...args} />
 
+const InModalTemplate = ({ ...args }) => (
+  <PortalProvider>
+    <Modal open={true}>
+      <Form>
+        <div style={{ display: "inline-flex", gap: "8px" }}>
+          <FormRow>
+            <DateTimePicker />
+          </FormRow>
+          <FormRow>
+            <DateTimePicker />
+          </FormRow>
+        </div>
+        <FormRow>
+          <TextInput />
+        </FormRow>
+        <FormRow>
+          <TextInput />
+        </FormRow>
+        <FormRow>
+          <Textarea />
+        </FormRow>
+        <FormRow>
+          <Textarea />
+        </FormRow>
+      </Form>
+    </Modal>
+  </PortalProvider>
+)
+
 export const Default = Template.bind({})
 Default.args = {}
+
+export const InModal = InModalTemplate.bind()
+InModal.args = {}
+
+export const RangeWithTime = Template.bind()
+RangeWithTime.args = {
+  mode: "range",
+  enableTime: true,
+}
 
 export const WithLabel = Template.bind({})
 WithLabel.args = {
