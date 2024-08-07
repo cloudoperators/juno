@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
+        if: github.event.action != 'closed'
         with:
           node-version: "20.x"      
 
@@ -29,6 +30,7 @@ jobs:
           npm install --force         
 
       - name: Build storybook
+        if: github.event.action != 'closed'
         run: npm -w @cloudoperators/juno-ui-components run build-storybook          
 
       - uses: rossjrw/pr-preview-action@v1
