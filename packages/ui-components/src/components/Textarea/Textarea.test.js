@@ -131,6 +131,12 @@ describe("Textarea", () => {
     expect(onChangeSpy).not.toHaveBeenCalled()
   })
 
+  test("renders a wrapperClassName to the wrapping <div> element", async () => {
+    render(<Textarea wrapperClassName="my-wrapper-class" />)
+    expect(document.querySelector(".juno-textarea-wrapper")).toBeInTheDocument()
+    expect(document.querySelector(".juno-textarea-wrapper")).toHaveClass("my-wrapper-class")
+  })
+
   test("renders a className as passed", async () => {
     render(<Textarea className="my-custom-class" />)
     expect(screen.getByRole("textbox")).toHaveClass("my-custom-class")

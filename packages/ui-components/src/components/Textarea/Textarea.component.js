@@ -98,6 +98,7 @@ export const Textarea = ({
   onBlur = undefined,
   label = undefined,
   width = "full",
+  wrapperClassName = "",
   ...props
 }) => {
   const isNotEmptyString = (str) => {
@@ -180,6 +181,7 @@ export const Textarea = ({
           ${wrapperStyles}
           ${width == "auto" ? "jn-inline-block" : "jn-block"}
           ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          ${wrapperClassName}
         `}
       >
         {label && label.length ? (
@@ -277,4 +279,6 @@ Textarea.propTypes = {
   errortext: PropTypes.node,
   /** The width of the textarea. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
+  /** Pass a custom className to the wrapping element */
+  wrapperClassName: PropTypes.string,
 }
