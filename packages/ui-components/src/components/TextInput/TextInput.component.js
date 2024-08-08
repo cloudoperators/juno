@@ -101,6 +101,7 @@ export const TextInput = ({
   type = null,
   label = undefined,
   width = "full",
+  wrapperClassName = "",
   ...props
 }) => {
   const isNotEmptyString = (str) => {
@@ -183,6 +184,7 @@ export const TextInput = ({
           ${wrapperStyles}
           ${width == "auto" ? "jn-inline-block" : "jn-block"}
           ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          ${wrapperClassName}
           `}
       >
         <input
@@ -283,4 +285,6 @@ TextInput.propTypes = {
   errortext: PropTypes.node,
   /** The width of the text input. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
+  /** Passa custom className to the wrapping element */
+  wrapperClassName: PropTypes.string,
 }
