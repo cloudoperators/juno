@@ -112,6 +112,12 @@ describe("NativeSelect", () => {
     expect(onClickSpy).not.toHaveBeenCalled()
   })
 
+  test("renders a wrapperClassName to the outer wrapping element", async () => {
+    render(<NativeSelect wrapperClassName="my-wrapper-class" />)
+    expect(document.querySelector(".juno-select-wrapper")).toBeInTheDocument()
+    expect(document.querySelector(".juno-select-wrapper")).toHaveClass("my-wrapper-class")
+  })
+
   test("renders all props as passed", async () => {
     render(<NativeSelect data-lolol="some-random-prop" />)
     expect(screen.getByRole("combobox")).toBeInTheDocument()
