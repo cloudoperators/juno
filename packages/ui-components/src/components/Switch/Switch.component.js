@@ -124,6 +124,7 @@ export const Switch = ({
   className = "",
   onChange = undefined,
   onClick = undefined,
+  wrapperClassName = "",
   ...props
 }) => {
   const isNotEmptyString = (str) => {
@@ -171,6 +172,7 @@ export const Switch = ({
         className={`
 				juno-switch-wrapper 
 				${switchWrapperStyles}
+        ${wrapperClassName}
 				`}
       >
         <button
@@ -267,4 +269,6 @@ Switch.propTypes = {
   onChange: PropTypes.func,
   /** Pass a click handler */
   onClick: PropTypes.func,
+  /** Pass a custom className to the wrapping element */
+  wrapperClassName: PropTypes.string,
 }
