@@ -107,7 +107,7 @@ describe("AppShell", () => {
     expect(screen.queryByText("My Page Footer")).not.toBeInTheDocument()
   })
 
-  test("renders a TopNavigation as passed in emebedded mode", async () => {
+  test("renders a TopNavigation as passed in embedded mode", async () => {
     render(
       <AppShell
         data-testid="app-shell"
