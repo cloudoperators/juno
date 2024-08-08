@@ -101,6 +101,7 @@ export const Select = ({
   valueLabel,
   variant = "default",
   width = "full",
+  wrapperClassName = "",
   ...props
 }) => {
   const isNotEmptyString = (str) => {
@@ -211,6 +212,7 @@ export const Select = ({
           jn-relative
           ${width == "auto" ? "jn-inline-block" : "jn-block"}
           ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          ${wrapperClassName}
         `}
       >
         <Listbox
@@ -384,4 +386,6 @@ Select.propTypes = {
   variant: PropTypes.oneOf(["default", "primary", "primary-danger", "subdued"]),
   /** Whether the Select toggle should consume the available width of its parent container (default), or render its "natural" width depending on the content and the currently selected value or state. */
   width: PropTypes.oneOf(["full", "auto"]),
+  /** Pass a custom classname to the wrapping element */
+  wrapperClassName: PropTypes.string,
 }

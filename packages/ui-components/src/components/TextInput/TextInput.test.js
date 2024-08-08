@@ -166,6 +166,12 @@ describe("TextInput", () => {
     expect(onChangeSpy).not.toHaveBeenCalled()
   })
 
+  test("renders a wrapperClassName to the outer wrapper element", async () => {
+    render(<TextInput wrapperClassName="my-wrapper-class" />)
+    expect(document.querySelector(".juno-textinput-wrapper")).toBeInTheDocument()
+    expect(document.querySelector(".juno-textinput-wrapper")).toHaveClass("my-wrapper-class")
+  })
+
   test("renders a className as passed", async () => {
     render(<TextInput className="my-custom-class" />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()

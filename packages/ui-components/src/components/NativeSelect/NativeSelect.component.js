@@ -119,6 +119,7 @@ export const NativeSelect = ({
   error = false,
   onChange,
   onClick,
+  wrapperClassName = "",
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -183,7 +184,12 @@ export const NativeSelect = ({
   }
 
   return (
-    <div className={`juno-select-wrapper ${wrapperstyles}`}>
+    <div
+      className={`
+      juno-select-wrapper 
+      ${wrapperstyles}
+      ${wrapperClassName}`}
+    >
       <select
         name={name || "Unnamed Select"}
         id={id}
@@ -227,4 +233,6 @@ NativeSelect.propTypes = {
   onChange: PropTypes.func,
   /** Pass a click handler */
   onClick: PropTypes.func,
+  /** Pass a custom className to the wrapping element */
+  wrapperClassName: PropTypes.string,
 }

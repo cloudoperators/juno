@@ -127,6 +127,12 @@ describe("Switch", () => {
     expect(screen.getByRole("switch")).toHaveClass("juno-switch-invalid")
   })
 
+  test("renders a wrapperClassName to the outer wrapper element", async () => {
+    render(<Switch wrapperClassName="my-wrapper-class" />)
+    expect(document.querySelector(".juno-switch-wrapper")).toBeInTheDocument()
+    expect(document.querySelector(".juno-switch-wrapper")).toHaveClass("my-wrapper-class")
+  })
+
   test("renders a custom className", async () => {
     render(<Switch className="my-custom-class" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()

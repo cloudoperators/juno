@@ -161,6 +161,7 @@ export const ComboBox = ({
   value = "",
   valueLabel,
   width = "full",
+  wrapperClassName = "",
   ...props
 }) => {
   const isNotEmptyString = (str) => {
@@ -286,6 +287,7 @@ export const ComboBox = ({
           jn-relative
           ${width == "auto" ? "jn-inline-block" : "jn-block"}
           ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          ${wrapperClassName}
         `}
       >
         <Combobox
@@ -480,4 +482,6 @@ ComboBox.propTypes = {
   valueLabel: PropTypes.string,
   /** The width of the text input. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
+  /** Pass a custom classname to the wrapping <div> element */
+  wrapperClassName: PropTypes.string,
 }
