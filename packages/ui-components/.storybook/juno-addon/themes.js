@@ -5,11 +5,17 @@
 
 import { create } from "@storybook/theming/create"
 import { LOGO_DARK_DATA_URL, LOGO_LIGHT_DATA_URL, STORAGE_KEY } from "./constants"
-// import { themes } from "@storybook/theming"
-// console.log(themes.dark)
+import { version } from "../../package.json"
+
+function brandTitle(logoUrl) {
+  return `
+    <div style="display: flex; flex-direction: column; align-items: start;">
+      <img src="${logoUrl}" alt="Juno UI" style="max-width:150px;max-height:100px;">
+      <span style="font-size: 0.8em; color: gray; align-self: flex-end; margin-top: 5px;">v${version}</span>
+    </div>`
+}
 
 const staticOptions = {
-  brandTitle: "Juno UI",
   brandUrl: window.location.origin + window.location.pathname,
   brandTarget: "_self",
   // Fonts
@@ -22,8 +28,8 @@ const staticOptions = {
 const dark = create({
   ...staticOptions,
   base: "dark",
-  brandImage: LOGO_DARK_DATA_URL,
-  //
+  brandTitle: brandTitle(LOGO_DARK_DATA_URL),
+
   colorPrimary: "rgb(15, 167, 180)",
   colorSecondary: "rgb(21, 208, 224)",
 
@@ -62,9 +68,8 @@ const dark = create({
 const light = create({
   ...staticOptions,
   base: "light",
-  brandImage: LOGO_LIGHT_DATA_URL,
+  brandTitle: brandTitle(LOGO_LIGHT_DATA_URL),
 
-  //
   colorPrimary: "rgb(30, 106, 146)",
   colorSecondary: "rgb(0, 125, 184)",
 
