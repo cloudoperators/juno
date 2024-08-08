@@ -217,12 +217,12 @@ Other characters like ñ and ß are encoded with % ( https://developer.mozilla.o
 
 ## Encoding of Numbers
 
-- Positive numbers starting with a (`*`) followed by 0-9
-- Negative numbers starting with a (`~`) followed by 0-9
+- Positive numbers starting with a `*` followed by 0-9
+- Negative numbers starting with a `~` followed by 0-9
 
 ## Encoding of Objects and Arrays
 
-- `()` Object or Array
+- `()` encloses Object or Arrays
 - `,` segregates entries
 - `:` Key/value separator in JSON
 - `(~)` array with no elements
@@ -237,7 +237,7 @@ Other characters like ñ and ß are encoded with % ( https://developer.mozilla.o
 - `*E` is `NaN`
 - `*F` is `+Infinity`
 - `*G` is `-Infinity`
-- `*R` marks a Regex.
+- `*R` marks a Regex with following structure: `*R`pattern`*R`flag`*R`
 
 ## License
 
