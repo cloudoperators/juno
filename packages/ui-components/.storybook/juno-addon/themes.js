@@ -10,7 +10,7 @@ import { LOGO_DARK_DATA_URL, LOGO_LIGHT_DATA_URL, STORAGE_KEY } from "./constant
 
 const staticOptions = {
   brandTitle: "Juno UI",
-  brandUrl: "https://assets.juno.global.cloud.sap",
+  brandUrl: window.location.origin + window.location.pathname,
   brandTarget: "_self",
   // Fonts
   fontBase:
