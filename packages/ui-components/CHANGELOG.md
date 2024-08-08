@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.16.1
+
+### Patch Changes
+
+- 3abe6e4: fix(ui) fix complex form story: add `<PortalProvider />` to decorator to make sure the Select menu renders into a portal inside the scope of our <StyleProvider />`.
+
 ## 2.16.0
 
 ### Minor Changes
