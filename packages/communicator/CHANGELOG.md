@@ -1,5 +1,17 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.12
+
+### Patch Changes
+
+- 3ca3d35: Update instructions in readme files
+
+## 2.2.11
+
+### Patch Changes
+
+- 5102bf8: Update instructions in readme files
+
 ## 2.2.10
 
 ### Patch Changes

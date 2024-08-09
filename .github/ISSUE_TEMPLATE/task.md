@@ -1,7 +1,7 @@
 ---
 name: Task
 about: Create a task for planned work or project
-title: "[TASK]: "
+title: "[Task](context): "
 labels: task
 assignees: ""
 ---

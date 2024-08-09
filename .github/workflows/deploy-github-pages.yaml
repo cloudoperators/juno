@@ -8,7 +8,7 @@
 #     `{"pull_request": {"number": <PR number>, "head": {"ref": "<PR branch name>", "sha": "PR commit sha"}, "base": {"ref": "main"}}, "repository": {"name": "juno", "owner": {"login": "cloudoperators"}}}`
 #  2. Run the following command:
 #     `act push --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -e act_push.json -W .github/workflows/deploy-github-pages.yaml`
-name: Storybook
+name: Storybook to GitHub Pages
 
 on:
   push:
@@ -19,8 +19,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  build:
+  build-and-deploy:
+    concurrency: deploy-gh-pages-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: [default]
     steps:
       - uses: actions/checkout@v4
@@ -36,25 +40,9 @@ jobs:
       - name: Build storybook
         run: npm -w @cloudoperators/juno-ui-components run build-storybook
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: packages/ui-components/storybook-static
-
-  deploy:
-    env:
-      NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
-      NODE_OPTIONS: --use-openssl-ca
-      ACTIONS_RUNNER_DEBUG: true
-    permissions:
-      pages: write # to deploy to Pages
-      id-token: write # to verify the deployment originates from an appropriate source
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: [default]
-    needs: [build]
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          folder: packages/ui-components/storybook-static
+          clean-exclude: pr-preview/
+          force: false
