@@ -15,6 +15,7 @@ import { TopNavigationItem } from "../TopNavigationItem/index"
 import { TabNavigation } from "../TabNavigation/index"
 import { TabNavigationItem } from "../TabNavigationItem/index"
 import { ContentHeading } from "../ContentHeading/index"
+import { Container } from "../Container/index"
 
 export default {
   title: "Layout/AppShell",
@@ -38,7 +39,11 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => <AppShell {...args}>{children}</AppShell>
+const Template = ({ children, ...args }) => (
+  <AppShell {...args}>
+    <Container py={true}>{children}</Container>
+  </AppShell>
+)
 Template.propTypes = {
   children: PropTypes.node,
 }
@@ -52,6 +57,61 @@ Default.parameters = {
   },
 }
 Default.args = {
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
+}
+
+export const Embedded = Template.bind({})
+Embedded.parameters = {
+  docs: {
+    description: {
+      story:
+        "Responsive shell for your application in embedded mode (typical use case for MFEs, i.e. if your app is to be embedded somewhere).",
+    },
+  },
+}
+Embedded.args = {
+  embedded: true,
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
+}
+
+export const EmbeddedWithTopNav = Template.bind({})
+EmbeddedWithTopNav.parameters = {
+  docs: {
+    description: {
+      story:
+        "Responsive shell for your application in embedded mode (typical use case for MFEs, i.e. if your app is to be embedded somewhere). TopNavigation can be used in embedded mode.",
+    },
+  },
+}
+EmbeddedWithTopNav.args = {
+  embedded: true,
+  topNavigation: (
+    <TopNavigation>
+      <TopNavigationItem icon="home" label="Home" />
+      <TopNavigationItem active label="Navigation Item" />
+    </TopNavigation>
+  ),
+  children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
+}
+
+export const EmbeddedWithSideNav = Template.bind({})
+EmbeddedWithSideNav.parameters = {
+  docs: {
+    description: {
+      story:
+        "Responsive shell for your application in embedded mode (typical use case for MFEs, i.e. if your app is to be embedded somewhere). SideNavigation can be used in embedded mode.",
+    },
+  },
+}
+EmbeddedWithSideNav.args = {
+  embedded: true,
+  sideNavigation: (
+    <SideNavigation>
+      <SideNavigationItem active label="Item 1" />
+      <SideNavigationItem label="Item 2" />
+      <SideNavigationItem label="Item 3" />
+    </SideNavigation>
+  ),
   children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
 }
 
