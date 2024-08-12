@@ -434,7 +434,7 @@ ComboBox.propTypes = {
   ariaLabel: PropTypes.string,
   /** The children to Render. Use `ComboBox.Option` elements. */
   children: PropTypes.node,
-  /** A custom className. Will be passed to the text input element of the ComboBox */
+  /** A custom className. Will be passed to the internal text input element of the ComboBox */
   className: PropTypes.string,
   /** Pass a defaultValue to use as an uncontrolled Component that will handle its state internally */
   defaultValue: PropTypes.string,
@@ -482,6 +482,6 @@ ComboBox.propTypes = {
   valueLabel: PropTypes.string,
   /** The width of the text input. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
-  /** Pass a custom classname to the wrapping <div> element */
+  /** Pass a custom classname to the wrapping <div> element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
   wrapperClassName: PropTypes.string,
 }

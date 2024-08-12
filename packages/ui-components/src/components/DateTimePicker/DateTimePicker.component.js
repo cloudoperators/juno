@@ -596,7 +596,7 @@ DateTimePicker.propTypes = {
   weekNumbers: PropTypes.bool,
   /** The width of the datepicker input. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
-  /** Pass a custom className to the wrapping element */
+  /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
   wrapperClassName: PropTypes.string,
 }
 

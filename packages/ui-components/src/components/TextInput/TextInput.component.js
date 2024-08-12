@@ -263,7 +263,7 @@ TextInput.propTypes = {
   valid: PropTypes.bool,
   /** Whether the field receives autofocus */
   autoFocus: PropTypes.bool,
-  /** Pass a classname */
+  /** Pass a classname. The class name is applied to the internal input element. */
   className: PropTypes.string,
   /** Pass a valid autocomplete value. We do not police validity. */
   autoComplete: PropTypes.string,
@@ -285,6 +285,6 @@ TextInput.propTypes = {
   errortext: PropTypes.node,
   /** The width of the text input. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
-  /** Passa custom className to the wrapping element */
+  /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
   wrapperClassName: PropTypes.string,
 }

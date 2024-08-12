@@ -215,7 +215,7 @@ NativeSelect.propTypes = {
   name: PropTypes.string,
   /** The id of the select */
   id: PropTypes.string,
-  /** Pass a classname */
+  /** Pass a classname. The class name is applied to the internal select element. */
   className: PropTypes.string,
   /** Pass SelectOption and SelectOptionGroup as children. */
   children: PropTypes.node,
@@ -233,6 +233,6 @@ NativeSelect.propTypes = {
   onChange: PropTypes.func,
   /** Pass a click handler */
   onClick: PropTypes.func,
-  /** Pass a custom className to the wrapping element */
+  /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
   wrapperClassName: PropTypes.string,
 }
