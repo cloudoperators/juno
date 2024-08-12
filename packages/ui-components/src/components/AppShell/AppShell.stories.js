@@ -39,7 +39,11 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => <AppShell {...args}><Container py={true}>{children}</Container></AppShell>
+const Template = ({ children, ...args }) => (
+  <AppShell {...args}>
+    <Container py={true}>{children}</Container>
+  </AppShell>
+)
 Template.propTypes = {
   children: PropTypes.node,
 }
@@ -60,7 +64,8 @@ export const Embedded = Template.bind({})
 Embedded.parameters = {
   docs: {
     description: {
-      story: "Responsive shell for your application in embedded mode (typical use case for MFEs, i.e. if your app is to be embedded somewhere).",
+      story:
+        "Responsive shell for your application in embedded mode (typical use case for MFEs, i.e. if your app is to be embedded somewhere).",
     },
   },
 }
@@ -73,7 +78,8 @@ export const EmbeddedWithTopNav = Template.bind({})
 EmbeddedWithTopNav.parameters = {
   docs: {
     description: {
-      story: "Responsive shell for your application in embedded mode (typical use case for MFEs, i.e. if your app is to be embedded somewhere). TopNavigation can be used in embedded mode.",
+      story:
+        "Responsive shell for your application in embedded mode (typical use case for MFEs, i.e. if your app is to be embedded somewhere). TopNavigation can be used in embedded mode.",
     },
   },
 }
@@ -92,7 +98,8 @@ export const EmbeddedWithSideNav = Template.bind({})
 EmbeddedWithSideNav.parameters = {
   docs: {
     description: {
-      story: "Responsive shell for your application in embedded mode (typical use case for MFEs, i.e. if your app is to be embedded somewhere). SideNavigation can be used in embedded mode.",
+      story:
+        "Responsive shell for your application in embedded mode (typical use case for MFEs, i.e. if your app is to be embedded somewhere). SideNavigation can be used in embedded mode.",
     },
   },
 }
