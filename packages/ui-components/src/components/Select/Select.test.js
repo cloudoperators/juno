@@ -581,3 +581,13 @@ describe("Select", () => {
     expect(toggle).toHaveTextContent("Option 1")
   })
 })
+
+test("renders a wrapperClassName to the outer wrapping element", () => {
+  render(
+    <Select wrapperClassName="my-wrapper-class">
+      <SelectOption>Option 1</SelectOption>
+    </Select>
+  )
+  expect(document.querySelector(".juno-select-wrapper ")).toBeInTheDocument()
+  expect(document.querySelector(".juno-select-wrapper ")).toHaveClass("my-wrapper-class")
+})
