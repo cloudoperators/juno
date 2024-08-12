@@ -941,7 +941,7 @@ describe("DateTimePicker", () => {
     expect(mockOnMonthChange).toHaveBeenCalled()
   })
 
-  test("renders a wrapperClassName to the outer wrapping element", async () => {
+  test("renders a wrapperClassName to the outer wrapping element", () => {
     render(<DateTimePicker wrapperClassName="my-wrapper-class" />)
     expect(document.querySelector(".juno-datetimepicker-wrapper")).toBeInTheDocument()
     expect(document.querySelector(".juno-datetimepicker-wrapper")).toHaveClass("my-wrapper-class")

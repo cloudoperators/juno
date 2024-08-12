@@ -582,7 +582,7 @@ describe("Select", () => {
   })
 })
 
-test("renders a wrapperClassName to the outer wrapping element", async () => {
+test("renders a wrapperClassName to the outer wrapping element", () => {
   render(
     <Select wrapperClassName="my-wrapper-class">
       <SelectOption>Option 1</SelectOption>
