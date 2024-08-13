@@ -91,6 +91,11 @@ const BottomPositionTemplate = ({ parentStyles, children, ...args }) => (
   </div>
 )
 
+BottomPositionTemplate.propTypes = {
+  parentStyles: PropTypes.object,
+  children: PropTypes.node,
+}
+
 export const Default = {
   render: Template,
   args: {
