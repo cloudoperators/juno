@@ -84,9 +84,9 @@ ControlledTemplate.propTypes = {
   children: PropTypes.node,
 }
 
-const PageBottomTemplate = ({ parentStyles, children, ...args }) => (
+const BottomPositionTemplate = ({ parentStyles, children, ...args }) => (
   <div style={parentStyles}>
-    Page Bottom Select
+    Bottom Positioned Select
     <Select {...args}>{children}</Select>
   </div>
 )
@@ -98,22 +98,6 @@ export const Default = {
       <SelectOption key="1" value="Option 1" />,
       <SelectOption key="2" value="Option 2" />,
       <SelectOption key="3" value="Option 3" />,
-    ],
-  },
-}
-
-export const PageBottom = {
-  render: PageBottomTemplate,
-  args: {
-    parentStyles: {
-      position: "absolute",
-      bottom: "0",
-    },
-    children: [
-      <SelectOption key="1" value="Option 1" />,
-      <SelectOption key="2" value="Option 2" />,
-      <SelectOption key="3" value="Option 3" />,
-      <SelectOption key="4" value="Option 4" />,
     ],
   },
 }
@@ -555,6 +539,22 @@ export const MultiSelectWithOptionValuesAndLabels = {
       <SelectOption key="1" value="opt-1" label="Option 1" />,
       <SelectOption key="2" value="opt-2" label="Option 2" />,
       <SelectOption key="3" value="opt-3" label="Option 3" />,
+    ],
+  },
+}
+
+export const BottomPositionedSelect = {
+  render: BottomPositionTemplate,
+  args: {
+    parentStyles: {
+      position: "absolute",
+      bottom: "0",
+    },
+    children: [
+      <SelectOption key="1" value="Option 1" />,
+      <SelectOption key="2" value="Option 2" />,
+      <SelectOption key="3" value="Option 3" />,
+      <SelectOption key="4" value="Option 4" />,
     ],
   },
 }
