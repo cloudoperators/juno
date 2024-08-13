@@ -8,31 +8,31 @@ import { render, screen } from "@testing-library/react"
 import { Switch } from "./index"
 
 describe("Switch", () => {
-  test("renders a switch button", async () => {
+  test("renders a switch button", () => {
     render(<Switch />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
   })
 
-  test("renders a switch with a name as passed", async () => {
+  test("renders a switch with a name as passed", () => {
     render(<Switch name="My Switch" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveAttribute("name", "My Switch")
   })
 
-  test("renders a switch with an id as passed", async () => {
+  test("renders a switch with an id as passed", () => {
     render(<Switch id="my-switch" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveAttribute("id", "my-switch")
   })
 
-  test("renders a switch with an auto-generated id if no id is passed", async () => {
+  test("renders a switch with an auto-generated id if no id is passed", () => {
     render(<Switch />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveAttribute("id")
     expect(screen.getByRole("switch").getAttribute("id")).toMatch("juno-switch")
   })
 
-  test("renders a Switch with an associated label with an id as passed", async () => {
+  test("renders a Switch with an associated label with an id as passed", () => {
     render(<Switch id="my-switch" label="My Switch" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByLabelText("My Switch")).toBeInTheDocument()
@@ -40,13 +40,13 @@ describe("Switch", () => {
     expect(document.querySelector(".juno-label")).toHaveTextContent("My Switch")
   })
 
-  test("renders a Switch with a label associated by an auto-generated id if no id was passed", async () => {
+  test("renders a Switch with a label associated by an auto-generated id if no id was passed", () => {
     render(<Switch label="This is a Switch" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByLabelText("This is a Switch")).toBeInTheDocument()
   })
 
-  test("renders a disabled switch as passed", async () => {
+  test("renders a disabled switch as passed", () => {
     act(() => {
       render(<Switch disabled />)
     })
@@ -54,7 +54,7 @@ describe("Switch", () => {
     expect(screen.getByRole("switch")).toBeDisabled()
   })
 
-  test("renders an invalid Switch as passed", async () => {
+  test("renders an invalid Switch as passed", () => {
     act(() => {
       render(<Switch invalid />)
     })
@@ -63,7 +63,7 @@ describe("Switch", () => {
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
 
-  test("renders a valid Switch as passed", async () => {
+  test("renders a valid Switch as passed", () => {
     act(() => {
       render(<Switch valid />)
     })
@@ -72,25 +72,25 @@ describe("Switch", () => {
     expect(screen.getByTitle("CheckCircle")).toBeInTheDocument()
   })
 
-  test("renders a default size switch by default", async () => {
+  test("renders a default size switch by default", () => {
     render(<Switch />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveClass("juno-switch-default")
   })
 
-  test("renders a small switch as passed", async () => {
+  test("renders a small switch as passed", () => {
     render(<Switch size="small" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveClass("juno-switch-small")
   })
 
-  test("renders a large switch as passed", async () => {
+  test("renders a large switch as passed", () => {
     render(<Switch size="large" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveClass("juno-switch-large")
   })
 
-  test("renders an aria-checked switch as passed", async () => {
+  test("renders an aria-checked switch as passed", () => {
     act(() => {
       render(<Switch on />)
     })
@@ -98,20 +98,20 @@ describe("Switch", () => {
     expect(screen.getByRole("switch")).toHaveAttribute("aria-checked")
   })
 
-  test("renders an aria-checked attribute set to false if off", async () => {
+  test("renders an aria-checked attribute set to false if off", () => {
     render(<Switch />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveAttribute("aria-checked", "false")
   })
 
-  test("renders a helptext as passed", async () => {
+  test("renders a helptext as passed", () => {
     render(<Switch helptext="this is a helptext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
     expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
     expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is a helptext")
   })
 
-  test("renders a successtext as passed and validates the Element", async () => {
+  test("renders a successtext as passed and validates the Element", () => {
     render(<Switch successtext="great success!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
     expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
@@ -119,7 +119,7 @@ describe("Switch", () => {
     expect(screen.getByRole("switch")).toHaveClass("juno-switch-valid")
   })
 
-  test("renders an errortext as passed and invalidates the Element", async () => {
+  test("renders an errortext as passed and invalidates the Element", () => {
     render(<Switch errortext="this is an error!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
     expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
@@ -127,20 +127,26 @@ describe("Switch", () => {
     expect(screen.getByRole("switch")).toHaveClass("juno-switch-invalid")
   })
 
-  test("renders a custom className", async () => {
+  test("renders a wrapperClassName to the outer wrapper element", () => {
+    render(<Switch wrapperClassName="my-wrapper-class" />)
+    expect(document.querySelector(".juno-switch-wrapper")).toBeInTheDocument()
+    expect(document.querySelector(".juno-switch-wrapper")).toHaveClass("my-wrapper-class")
+  })
+
+  test("renders a custom className", () => {
     render(<Switch className="my-custom-class" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveClass("my-custom-class")
   })
 
-  test("renders all props as passed", async () => {
+  test("renders all props as passed", () => {
     render(<Switch id="switch-1" data-test="23" />)
     expect(screen.getByRole("switch")).toBeInTheDocument()
     expect(screen.getByRole("switch")).toHaveAttribute("id", "switch-1")
     expect(screen.getByRole("switch")).toHaveAttribute("data-test", "23")
   })
 
-  test("executes custom handler on change as passed", async () => {
+  test("executes custom handler on change as passed", () => {
     const onChangeSpy = jest.fn()
     render(<Switch onChange={onChangeSpy} />)
     act(() => {
@@ -149,7 +155,7 @@ describe("Switch", () => {
     expect(onChangeSpy).toHaveBeenCalled()
   })
 
-  test("executes handler on click as passed", async () => {
+  test("executes handler on click as passed", () => {
     const onClickSpy = jest.fn()
     render(<Switch onClick={onClickSpy} />)
     act(() => {
@@ -158,7 +164,7 @@ describe("Switch", () => {
     expect(onClickSpy).toHaveBeenCalled()
   })
 
-  test("does not execute handler on change when disabled", async () => {
+  test("does not execute handler on change when disabled", () => {
     const onChangeSpy = jest.fn()
     render(<Switch onChange={onChangeSpy} disabled />)
     act(() => {
@@ -167,7 +173,7 @@ describe("Switch", () => {
     expect(onChangeSpy).not.toHaveBeenCalled()
   })
 
-  test("does not execute handler on click when disabled", async () => {
+  test("does not execute handler on click when disabled", () => {
     const onClickSpy = jest.fn()
     render(<Switch onClick={onClickSpy} disabled />)
     act(() => {
