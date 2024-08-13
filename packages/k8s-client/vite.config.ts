@@ -13,6 +13,7 @@ export default defineConfig({
   },
   plugins: [
     dts({
+      exclude: ["./test/**/*.test.ts", "vitest.setup.ts"],
       insertTypesEntry: true, // Ensure types are properly exported
       outDir: "build/types", // Specify where to output the types
     }),

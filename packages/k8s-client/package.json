@@ -5,7 +5,7 @@
   "description": "JavaScript client for Kubernetes API",
   "main": "build/k8s-client.es.js",
   "module": "build/k8s-client.es.js",
-  "types": "build/types/*.d.ts",
+  "types": "build/types/index.d.ts",
   "files": [
     "build/**",
     "LICENCE"
