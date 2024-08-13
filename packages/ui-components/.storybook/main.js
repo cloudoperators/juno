@@ -14,8 +14,10 @@ const config = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-docs",
-    "@storybook/addon-mdx-gfm",
     "./juno-addon",
+    "@storybook/addon-mdx-gfm",
+    "@storybook/addon-webpack5-compiler-babel",
+    '@storybook/addon-postcss',
   ],
   staticDirs: ["../public"],
   webpackFinal: async (config) => {
@@ -56,6 +58,7 @@ const config = {
     config.module.rules.push({
       test: /\.scss$/,
       use: [
+        //'style-loader',
         "css-loader",
         {
           loader: "postcss-loader",
@@ -74,6 +77,7 @@ const config = {
       ],
       include: [path.resolve(__dirname, "../src")],
     })
+
     // Add TypeScript support
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
@@ -91,7 +95,6 @@ const config = {
 
     return config
   },
-
   framework: {
     name: "@storybook/react-webpack5",
     options: {},
