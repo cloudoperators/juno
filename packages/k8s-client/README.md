@@ -21,13 +21,13 @@ The client requires a Kubernetes API endpoint and a token. Once both parameters 
 With npm:
 
 ```
-npm install sapcc-k8sclient
+npm install @cloudoperators/juno-k8s-client
 ```
 
 With yarn:
 
 ```
-yarn add sapcc-k8sclient
+yarn add @cloudoperators/juno-k8s-client
 ```
 
 # Example Code (ES6)
@@ -37,7 +37,7 @@ yarn add sapcc-k8sclient
 In this code snippet, we use the get method to fetch all pods from the Kubernetes API endpoint. The retrieved data is then logged to the console.
 
 ```js
-import { createClient } from "sapcc-k8sclient"
+import { createClient } from "@cloudoperators/juno-k8s-client"
 
 const apiEndpoint = "https://k8s-api.com"
 let token = "BEARER-TOKEN"
@@ -52,7 +52,7 @@ apiClient.get("/api/v1/pods").then((data) => console.log(data))
 You can use this example to create a new namespace in the Kubernetes cluster.
 
 ```js
-import { createClient } from "sapcc-k8sclient"
+import { createClient } from "@cloudoperators/juno-k8s-client"
 
 const apiEndpoint = "https://k8s-api.com"
 let token = "BEARER-TOKEN"
@@ -75,7 +75,7 @@ apiClient.post("/api/v1/namespaces", {
 The following example demonstrates how to delete a namespace in the Kubernetes cluster.
 
 ```js
-import { createClient } from "sapcc-k8sclient"
+import { createClient } from "@cloudoperators/juno-k8s-client"
 
 const apiEndpoint = "https://k8s-api.com"
 let token = "BEARER-TOKEN"
@@ -90,7 +90,7 @@ apiClient.delete("/api/v1/namespaces/my_namespace")
 Use this example to refresh the authentication token.
 
 ```js
-import { createClient } from "sapcc-k8sclient"
+import { createClient } from "@cloudoperators/juno-k8s-client"
 
 const apiEndpoint = "https://k8s-api.com"
 let token = "BEARER-TOKEN"
@@ -107,7 +107,7 @@ The watch call establishes a persistent connection to the Kubernetes API server 
 The watch call should be **explicitly started** using `podsWatch.start()` to begin listening for changes, and it can be **cancelled** using `podsWatch.cancel()` when it's no longer needed.
 
 ```javascript
-import { createClient } from "sapcc-k8sclient"
+import { createClient } from "@cloudoperators/juno-k8s-client"
 
 const apiEndpoint = "https://k8s-api.com"
 let token = "BEARER-TOKEN"
@@ -119,15 +119,9 @@ const dispatch = (action) => console.log(action)
 const podsWatch = apiClient
   .watch("/api/v1/pods")
   .on(apiClient.WATCH_ERROR, () => console.log("ERROR"))
-  .on(apiClient.WATCH_ADDED, (items) =>
-    dispatch({ type: "RECEIVE_ITEMS", items })
-  )
-  .on(apiClient.WATCH_MODIFIED, (items) =>
-    dispatch({ type: "UPDATE_ITEMS", items })
-  )
-  .on(apiClient.WATCH_DELETED, (items) =>
-    dispatch({ type: "DELETE_ITEMS", items })
-  )
+  .on(apiClient.WATCH_ADDED, (items) => dispatch({ type: "RECEIVE_ITEMS", items }))
+  .on(apiClient.WATCH_MODIFIED, (items) => dispatch({ type: "UPDATE_ITEMS", items }))
+  .on(apiClient.WATCH_DELETED, (items) => dispatch({ type: "DELETE_ITEMS", items }))
 
 // Start the watch call to begin listening for changes
 podsWatch.start()
