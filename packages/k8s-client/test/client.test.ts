@@ -9,7 +9,7 @@ vi.mock("../src/request", () => ({
 }))
 
 describe("k8sClient", () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     // mock fetch to avoid network calls
     global.fetch = vi.fn(() => Promise.resolve({ status: 200 } as Response))
   })
@@ -77,7 +77,7 @@ describe("Client", () => {
       expect(client.post).toBeDefined()
     })
 
-    test("call request", async () => {
+    test("call request", () => {
       client.post("/api/v1", { key1: "value1" }, { params: { key1: "value1", key2: "value2" } })
       expect(request).toHaveBeenLastCalledWith("POST", "https://test.com/api/v1", {
         headers: expect.anything(),
@@ -92,7 +92,7 @@ describe("Client", () => {
       expect(client.put).toBeDefined()
     })
 
-    test("call request", async () => {
+    test("call request", () => {
       client.put("/api/v1", { key1: "value1" }, { params: { key1: "value1", key2: "value2" } })
       expect(request).toHaveBeenLastCalledWith("PUT", "https://test.com/api/v1", {
         headers: {
@@ -110,7 +110,7 @@ describe("Client", () => {
       expect(client.patch).toBeDefined()
     })
 
-    test("call request", async () => {
+    test("call request", () => {
       client.patch(
         "/api/v1",
         { key1: "value1" },
@@ -134,7 +134,7 @@ describe("Client", () => {
       expect(client.delete).toBeDefined()
     })
 
-    test("call request", async () => {
+    test("call request", () => {
       client.delete("/api/v1", null, {
         params: { key1: "value1", key2: "value2" },
       })
@@ -151,7 +151,7 @@ describe("Client", () => {
       expect(client.head).toBeDefined()
     })
 
-    test("call request", async () => {
+    test("call request", () => {
       client.head("/api/v1", { params: { key1: "value1", key2: "value2" } })
       expect(request).toHaveBeenLastCalledWith("HEAD", "https://test.com/api/v1", {
         headers: expect.anything(),

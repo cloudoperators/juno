@@ -7,7 +7,7 @@ const DELETED = "DELETED"
 const ERROR = "ERROR"
 const BOOKMARK = "BOOKMARK"
 
-type Listener = (items: any) => void
+type Listener = (_items: any) => void
 
 interface WatchOptions {
   params?: Record<string, any>
@@ -71,6 +71,7 @@ class Watch {
         try {
           listener(items)
         } catch (e) {
+          logger.error(e)
           // Handle listener errors if necessary
         }
       })
