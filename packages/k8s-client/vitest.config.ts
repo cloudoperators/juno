@@ -4,7 +4,7 @@
  */
 
 import { defineConfig } from "vitest/config"
-import viteConfig from "./vite.config"
+import viteConfig from "./vite.config.mts"
 
 export default defineConfig({
   ...viteConfig,

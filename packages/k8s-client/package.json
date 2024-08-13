@@ -10,6 +10,7 @@
     "build/**",
     "LICENCE"
   ],
+  "type": "module",
   "scripts": {
     "test": "vitest run",
     "lint": "eslint",

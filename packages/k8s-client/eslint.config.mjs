@@ -23,6 +23,6 @@ export default [
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/unbound-method": "off",
     },
-    ignores: ["vitest.config.ts", "vite.config.ts"],
+    ignores: ["vitest.config.ts", "vite.config.mts"],
   },
 ]
