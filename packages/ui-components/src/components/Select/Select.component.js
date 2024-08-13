@@ -169,15 +169,13 @@ export const Select = ({
   // Headless-UI-Float Middleware
   const middleware = [
     offset(4),
-    //flip(),
-    autoPlacement(
-      (state) => (
-        console.log(state),
-        {
-          crossAxis: true,
-          allowedPlacements: ["bottom", "top"],
-        }
-      )
+    autoPlacement((state) =>
+      // Uncomment to examine Headless-UI-Floating middleware:
+      // console.log(state),
+      ({
+        crossAxis: true,
+        allowedPlacements: ["bottom", "top"],
+      })
     ),
     size({
       boundary: "viewport",
