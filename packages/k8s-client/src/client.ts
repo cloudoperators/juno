@@ -19,34 +19,22 @@ interface RequestOptions {
   credentials?: RequestCredentials
 }
 
-class Client {
-  WATCH_ERROR = ERROR
-  WATCH_ADDED = ADDED
-  WATCH_DELETED = DELETED
-  WATCH_MODIFIED = MODIFIED
-  private apiEndpoint: string
-  private token: string
-  private defaultHeaders: Record<string, string>
+function createClient(options: ClientOptions) {
+  const { apiEndpoint } = options
+  let token = options.token
 
-  constructor(options: ClientOptions) {
-    const { apiEndpoint, token } = options
-
-    if (!apiEndpoint || !token) {
-      throw new Error(`Bad options: ${JSON.stringify(options, null, 4)}. Please provide apiEndpoint and token`)
-    }
-
-    this.apiEndpoint = apiEndpoint
-    this.token = token
-
-    this.defaultHeaders = {
-      Authorization: `Bearer ${this.token}`,
-      "Content-Type": "application/json",
-    }
+  if (!apiEndpoint || !token) {
+    throw new Error(`Bad options: ${JSON.stringify(options, null, 4)}. Please provide apiEndpoint and token`)
   }
 
-  private extendOptions(options: RequestOptions, defaultOptions: RequestOptions = {}): RequestOptions {
+  const defaultHeaders = () => ({
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  })
+
+  function extendOptions(options: RequestOptions, defaultOptions: RequestOptions = {}): RequestOptions {
     const headers = {
-      ...this.defaultHeaders,
+      ...defaultHeaders(),
       ...defaultOptions.headers,
       ...options.headers,
     }
@@ -58,33 +46,34 @@ class Client {
     }
   }
 
-  head(path: string, options: RequestOptions = {}): Promise<Response> {
-    return request("HEAD", buildUrl(this.apiEndpoint, path), this.extendOptions(options)).catch(handleApiError)
+  function head(path: string, options: RequestOptions = {}): Promise<Response> {
+    return request("HEAD", buildUrl(apiEndpoint, path), extendOptions(options)).catch(handleApiError)
   }
 
-  get(path: string, options: RequestOptions = {}): Promise<any> {
-    return request("GET", buildUrl(this.apiEndpoint, path), this.extendOptions(options))
+  function get(path: string, options: RequestOptions = {}): Promise<any> {
+    return request("GET", buildUrl(apiEndpoint, path), extendOptions(options))
       .then((res) => res.json())
       .catch(handleApiError)
   }
 
-  post(path: string, data: any, options: RequestOptions = {}): Promise<any> {
-    return request("POST", buildUrl(this.apiEndpoint, path), this.extendOptions(options, { body: data }))
+  function post(path: string, data: {}, options: RequestOptions = {}): Promise<any> {
+    const result = request("POST", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
+      .then((res) => res.json())
+      .catch(handleApiError)
+    return result
+  }
+
+  function put(path: string, data: {}, options: RequestOptions = {}): Promise<any> {
+    return request("PUT", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
   }
 
-  put(path: string, data: any, options: RequestOptions = {}): Promise<any> {
-    return request("PUT", buildUrl(this.apiEndpoint, path), this.extendOptions(options, { body: data }))
-      .then((res) => res.json())
-      .catch(handleApiError)
-  }
-
-  patch(path: string, data: any, options: RequestOptions = {}): Promise<any> {
+  function patch(path: string, data: {}, options: RequestOptions = {}): Promise<any> {
     return request(
       "PATCH",
-      buildUrl(this.apiEndpoint, path),
-      this.extendOptions(options, {
+      buildUrl(apiEndpoint, path),
+      extendOptions(options, {
         headers: { "Content-Type": "application/merge-patch+json" },
         body: data,
       })
@@ -93,27 +82,39 @@ class Client {
       .catch(handleApiError)
   }
 
-  delete(path: string, data?: any, options: RequestOptions = {}): Promise<any> {
-    return request("DELETE", buildUrl(this.apiEndpoint, path), this.extendOptions(options, { body: data }))
+  function del(path: string, data?: {} | null, options: RequestOptions = {}): Promise<any> {
+    return request("DELETE", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
   }
 
-  watch(path: string, options: RequestOptions = {}): Watch {
-    return new Watch(buildUrl(this.apiEndpoint, path), this.extendOptions(options), () => this.token)
+  function watch(path: string, options: RequestOptions = {}): Watch {
+    return new Watch(buildUrl(apiEndpoint, path), extendOptions(options), () => token)
   }
 
-  refreshToken(newToken: string): void {
-    this.token = newToken
+  function refreshToken(newToken: string): void {
+    token = newToken
   }
 
-  currentToken(): string {
-    return this.token
+  function currentToken(): string {
+    return token
+  }
+
+  return {
+    WATCH_ERROR: ERROR,
+    WATCH_ADDED: ADDED,
+    WATCH_DELETED: DELETED,
+    WATCH_MODIFIED: MODIFIED,
+    head,
+    get,
+    post,
+    put,
+    patch,
+    delete: del,
+    watch,
+    refreshToken,
+    currentToken,
   }
 }
 
-function createClient(options: ClientOptions): Client {
-  return new Client(options)
-}
-
-export { createClient, Client }
+export { createClient }
