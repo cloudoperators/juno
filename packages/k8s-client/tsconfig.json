@@ -1,0 +1,18 @@
+{
+  "extends": "@cloudoperators/juno-typescript-config/base.json",
+  "compilerOptions": {
+    "outDir": "./build",
+    "target": "ES6",
+    "module": "ES2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": true, // Emit TypeScript declaration files (.d.ts)
+    "declarationMap": true, // Emit a map file alongside the declaration
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vitest/globals"],
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx"],
+  "exclude": ["node_modules", "build"]
+}

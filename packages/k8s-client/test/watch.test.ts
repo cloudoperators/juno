@@ -1,49 +1,42 @@
-/* eslint-disable import/first */
-
-jest.mock("../src/request", () => ({
-  __esModule: true,
-  default: jest.fn(),
-}))
-
+import { beforeEach, describe, expect, test, vi, Mock } from "vitest"
 import request from "../src/request"
 import { Watch, ADDED, MODIFIED, DELETED, ERROR } from "../src/watch"
 
-describe("ADDED", () => {
-  test("should be defined", () => {
+vi.mock("../src/request", () => ({
+  __esModule: true,
+  default: vi.fn(),
+}))
+
+describe("Constants", () => {
+  test("ADDED should be defined", () => {
     expect(ADDED).toBeDefined()
   })
-})
 
-describe("MODIFIED", () => {
-  test("should be defined", () => {
+  test("MODIFIED should be defined", () => {
     expect(MODIFIED).toBeDefined()
   })
-})
 
-describe("DELETED", () => {
-  test("should be defined", () => {
+  test("DELETED should be defined", () => {
     expect(DELETED).toBeDefined()
   })
-})
 
-describe("ERROR", () => {
-  test("should be defined", () => {
+  test("ERROR should be defined", () => {
     expect(ERROR).toBeDefined()
   })
 })
 
 describe("Watch", () => {
-  let watch
+  let watch: Watch
   const url = "https://apiEndpoint.com"
 
   beforeEach(() => {
-    request.mockReturnValue(
+    ;(request as Mock).mockReturnValue(
       Promise.resolve({
         status: 200,
-        json: () => null,
+        json: () => Promise.resolve(null),
         body: {
-          getReader: jest.fn(() => ({
-            read: jest.fn().mockResolvedValue({ value: "test", done: true }),
+          getReader: vi.fn(() => ({
+            read: vi.fn().mockResolvedValue({ value: "test", done: true }),
           })),
         },
       })

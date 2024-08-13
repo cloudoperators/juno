@@ -1,19 +1,23 @@
 {
   "name": "@cloudoperators/juno-k8s-client",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "author": "UI-Team",
   "description": "JavaScript client for Kubernetes API",
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
+  "main": "build/k8s-client.es.js",
+  "module": "build/k8s-client.es.js",
+  "types": "build/types/*.d.ts",
   "files": [
-    "dist/**",
+    "build/**",
     "LICENCE"
   ],
   "scripts": {
-    "build": "rm -rf dist && esbuild src/*.js --bundle --minify --outdir=dist/esm --bundle=false --format=esm  && esbuild src/*.js --bundle --minify --outdir=dist/cjs --bundle=false --format=cjs",
-    "test": "jest test",
+    "test": "vitest run",
     "lint": "eslint .",
-    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo"
+    "typecheck": "tsc --noEmit",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
   "keywords": [
     "kubernetes",
@@ -21,18 +25,12 @@
     "typescript",
     "client"
   ],
-  "jest": {
-    "verbose": true,
-    "transform": {
-      ".js": "babel-jest"
-    }
-  },
   "devDependencies": {
     "@cloudoperators/juno-eslint-config": "*",
-    "@babel/core": "^7.24.5",
-    "@babel/preset-env": "^7.24.5",
-    "babel-jest": "^29.7.0",
-    "esbuild": "^0.21.0",
-    "jest": "^29.7.0"
+    "@cloudoperators/juno-typescript-config": "*",
+    "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.3"
   }
 }
