@@ -168,16 +168,14 @@ export const Select = ({
   const portalContainerRef = usePortalRef()
 
   // Headless-UI-Float Middleware
+  // In order to quickly debug middleware state, each parameter function can be passed the state to work with, e.g.
+  // autoPlacement((state) => console.log(state), ({crossAxis: true, [params…]}))
   const middleware = [
     offset(4),
-    autoPlacement((state) =>
-      // Uncomment to examine Headless-UI-Floating middleware:
-      // console.log(state),
-      ({
-        crossAxis: true,
-        allowedPlacements: ["bottom", "top"],
-      })
-    ),
+    autoPlacement({
+      crossAxis: true,
+      allowedPlacements: ["bottom", "top"],
+    }),
     size({
       boundary: "viewport",
       apply({ availableWidth, availableHeight, elements }) {
