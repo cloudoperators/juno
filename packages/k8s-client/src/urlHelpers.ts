@@ -10,8 +10,9 @@ const encodeQueryData = (data: Record<string, any>): string | undefined => {
   if (!data) return
   const ret = []
   for (const key in data) {
-    if (data.hasOwnProperty(key)) {
-      ret.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    if (Object.prototype.hasOwnProperty.call(data, key)) {
+      const result = data[key] as string | number | boolean
+      ret.push(encodeURIComponent(key) + "=" + encodeURIComponent(result))
     }
   }
   return ret.join("&")

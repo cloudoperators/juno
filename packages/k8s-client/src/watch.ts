@@ -140,7 +140,7 @@ class Watch {
           done = result?.done ?? true
           data += this.decoder.decode(result?.value || new Uint8Array())
 
-          let events = data.split(/\n|\r|\r\n/)
+          const events = data.split(/\n|\r|\r\n/)
           data = events.pop() || ""
 
           const parsedEvents: any[] = []

@@ -21,7 +21,7 @@ function isNumber(value: any): value is number {
  * @param {any} value value to be tested
  * @return {boolean} true or false
  */
-function isObject(value: any): value is Record<string, unknown> {
+function isObject<T>(value: T): boolean {
   return value !== null && typeof value === "object" && value.constructor === Object
 }
 

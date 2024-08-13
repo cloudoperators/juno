@@ -2,12 +2,14 @@
 const PREFIX = "k8sClient:"
 
 type ConsoleType = "log" | "error" | "debug" | "info"
+// Define a type that describes the arguments to be passed to the console methods
+type ConsoleArgs = [message?: any, ...optionalParams: any[]]
 
 // Add prefix to all log functions
 const prefixedLog = (name: ConsoleType) => {
-  return function (...args: any[]) {
+  return function (...args: unknown[]) {
     try {
-      const prefixedArgs = [PREFIX, ...args]
+      const prefixedArgs: ConsoleArgs = [`${PREFIX}`, ...args]
       console[name](...prefixedArgs)
     } catch (e) {
       console.error(PREFIX, "Logging error:", e)
