@@ -58,7 +58,6 @@ const config = {
     config.module.rules.push({
       test: /\.scss$/,
       use: [
-        //'style-loader',
         "css-loader",
         {
           loader: "postcss-loader",
@@ -77,7 +76,6 @@ const config = {
       ],
       include: [path.resolve(__dirname, "../src")],
     })
-
     // Add TypeScript support
     config.module.rules.push({
       test: /\.(ts|tsx)$/,

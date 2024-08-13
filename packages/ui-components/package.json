@@ -101,7 +101,7 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "storybook": "storybook dev -p 7723 --ci --no-open",
+    "storybook": "storybook dev -p $APP_PORT --ci --no-open",
     "build-storybook": "storybook build",
     "build": "NODE_ENV=production rollup -c",
     "dev": "NODE_ENV=development rollup -c -w",
