@@ -4,6 +4,7 @@ on:
   pull_request:
     types:
       - opened
+      - edited
       - synchronize
       - reopened
 
@@ -149,6 +150,7 @@ jobs:
 
   title-lint:
     name: Validate PR title
+    if: github.event.changes.title
     runs-on: ubuntu-latest
     steps:
       - uses: amannn/action-semantic-pull-request@v5
@@ -168,6 +170,9 @@ jobs:
           # These are regex patterns auto-wrapped in `^ $`.
           scopes: |
             core
+            ci
+            build
+            infra
             ui
             communicator
             oauth
