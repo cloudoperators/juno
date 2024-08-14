@@ -24,7 +24,7 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest --watch",
-    "lint": "eslint .",
+    "lint": "eslint ",
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
