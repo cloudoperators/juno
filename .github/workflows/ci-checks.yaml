@@ -2,23 +2,15 @@ name: CI Check
 
 on:
   pull_request:
-    types: 
-      - opened
-      - synchronize
-      - reopened
-  pull_request_target:
-    types: 
-      - edited
-    branches:
-      - changeset-release/main  
-
-on:
-  pull_request_target:
     types:
       - opened
-      - edited
       - synchronize
       - reopened
+  pull_request_target:
+    types:
+      - edited
+    branches:
+      - changeset-release/main
 
 jobs:
   install-dependencies:
@@ -28,7 +20,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -39,7 +31,7 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci      
+        run: npm ci
 
   reuse-compliance:
     runs-on: [default]
@@ -75,7 +67,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -86,7 +78,7 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci  
+        run: npm ci
 
       - name: Run Linter
         run: npm run check-licenses
@@ -99,7 +91,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -110,7 +102,7 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci  
+        run: npm ci
       - name: Run Linter
         run: npm run lint
 
@@ -122,7 +114,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -133,9 +125,9 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci  
+        run: npm ci
       - name: Run Prettier
-        run: npm run check-format       
+        run: npm run check-format
 
   test:
     needs: install-dependencies
@@ -145,7 +137,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -156,9 +148,9 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci && npm run build 
+        run: npm ci && npm run build
       - name: Run Tests
-        run: npm run test    
+        run: npm run test
 
   title-lint:
     name: Validate PR title
@@ -166,7 +158,7 @@ jobs:
     steps:
       - uses: amannn/action-semantic-pull-request@v5
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     with:
       wip: true
       # Configure which types are allowed (newline-delimited).
