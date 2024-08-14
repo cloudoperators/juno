@@ -17,7 +17,7 @@ const config = {
     "./juno-addon",
     "@storybook/addon-mdx-gfm",
     "@storybook/addon-webpack5-compiler-babel",
-    '@storybook/addon-postcss',
+    "@storybook/addon-postcss",
   ],
   staticDirs: ["../public"],
   webpackFinal: async (config) => {
