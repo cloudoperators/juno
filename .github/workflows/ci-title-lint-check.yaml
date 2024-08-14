@@ -1,4 +1,4 @@
-ame: PR Title Edit Handler
+name: CI title lint check
 
 on:
   pull_request:
