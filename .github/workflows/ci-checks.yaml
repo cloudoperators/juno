@@ -6,11 +6,6 @@ on:
       - opened
       - synchronize
       - reopened
-  pull_request_target:
-    types:
-      - edited
-    branches:
-      - changeset-release/main
 
 jobs:
   install-dependencies:
