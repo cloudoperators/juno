@@ -37,6 +37,7 @@ jobs:
             config
             ci
             core
+            deps
             example
             infra
             juno
