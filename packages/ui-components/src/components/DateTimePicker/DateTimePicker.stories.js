@@ -40,7 +40,17 @@ export default {
   },
 }
 
-const Template = ({ ...args }) => <DateTimePicker {...args} />
+const Template = ({ ...args }) => (
+  <DateTimePicker
+    {...args}
+    onChange={() => {}}
+    onClose={() => {}}
+    onReady={() => {}}
+    onOpen={() => {}}
+    onMonthChange={() => {}}
+    onYearChange={() => {}}
+  />
+)
 
 export const Default = Template.bind({})
 Default.args = {}
@@ -455,7 +465,18 @@ const ControlledTemplate = ({ ...args }) => {
     setTestState({ date: { end: dObj } })
   }
 
-  return <DateTimePicker {...args} onChange={handleChange} value={testState?.date?.end} />
+  return (
+    <DateTimePicker
+      {...args}
+      onChange={handleChange}
+      onClose={() => {}}
+      onReady={() => {}}
+      onOpen={() => {}}
+      onMonthChange={() => {}}
+      onYearChange={() => {}}
+      value={testState?.date?.end}
+    />
+  )
 }
 
 export const ControlledDateTimePicker = {
