@@ -11,7 +11,7 @@ on:
 jobs:
   title-lint:
     name: Validate PR title
-    if: github.event.changes.title
+    if: github.event.action == 'opened' || github.event.changes.title != null
     runs-on: ubuntu-latest
     steps:
       - name: CI Check Title

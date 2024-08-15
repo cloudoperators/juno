@@ -29,9 +29,7 @@
   "devDependencies": {
     "@cloudoperators/juno-eslint-config": "*",
     "@cloudoperators/juno-typescript-config": "*",
-    "vite": "^5.4.0"
-  },
-  "dependencies": {
-    "axios": "^1.7.3"
+    "vite": "^5.4.0",
+    "vite-plugin-dts": "^4.0.3"
   }
 }
