@@ -46,6 +46,7 @@ jobs:
             juno
             k8s
             example
+            template
             ISSUE-\d+
           # Configure that a scope must always be provided.
           requireScope: true
