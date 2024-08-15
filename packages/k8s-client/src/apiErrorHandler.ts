@@ -1,13 +1,10 @@
-import { AxiosError } from "axios"
-
-interface ApiErrorResponse {
-  message?: string
+interface ApiErrorType extends Error {
+  response?: {
+    data?: { message?: string }
+  }
 }
-
-const apiErrorHandler = async (apiError: AxiosError): Promise<never> => {
-  const error = apiError.response?.data
-    ? new Error((apiError.response.data as ApiErrorResponse).message || apiError.message)
-    : apiError
+const apiErrorHandler = async (apiError: ApiErrorType): Promise<never> => {
+  const error = apiError.response?.data ? new Error(apiError.response.data.message || apiError.message) : apiError
 
   return Promise.reject(error)
 }
