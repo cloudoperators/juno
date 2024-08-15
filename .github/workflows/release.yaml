@@ -10,7 +10,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions:
   contents: write
   pull-requests: write
-  
+
 jobs:
   release:
     name: Release
@@ -33,9 +33,8 @@ jobs:
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npm run release
-          title: 'chore: Automate Package Versioning and Publishing with Changesets'
-          commit: 'chore: Update versions with Changesets'
+          title: "publish(npm): Automate Package Versioning and Publishing with Changesets"
+          commit: "chore(version): Update versions with Changesets"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          

@@ -23,30 +23,33 @@ jobs:
           # Configure which types are allowed (newline-delimited).
           # Default: https://github.com/commitizen/conventional-commit-types
           types: |
+            build
+            chore
             fix
             feat
-            chore
-            build
+            publish
             release
           # Configure which scopes are allowed (newline-delimited).
           # These are regex patterns auto-wrapped in `^ $`.
           scopes: |
-            core
-            ci
             build
-            infra
-            ui
             communicator
-            oauth
-            message-provider
-            url-state-provider
-            url-state-router
-            utils
             config
+            ci
+            core
+            example
+            infra
             juno
             k8s
-            example
+            message-provider
+            npm
+            oauth
             template
+            ui
+            utils
+            url-state-provider
+            url-state-router
+            version
             ISSUE-\d+
           # Configure that a scope must always be provided.
           requireScope: true
