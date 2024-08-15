@@ -533,6 +533,12 @@ describe("ComboBox", () => {
     expect(cbox).toHaveValue("option 2")
   })
 
+  test("renders a wrapperClassName to the outer wrapping <div> element", async () => {
+    render(<ComboBox wrapperClassName="my-wrapper-class" />)
+    expect(document.querySelector(".juno-combobox-wrapper")).toBeInTheDocument()
+    expect(document.querySelector(".juno-combobox-wrapper")).toHaveClass("my-wrapper-class")
+  })
+
   test("renders a ComboBox with a custom className as passed", async () => {
     await waitFor(() =>
       render(

@@ -43,7 +43,7 @@ export default [
     },
   },
   {
-    files: ["**/*.js","**/*.jsx", "*.js", "*.jsx", "*.config.js", "*.config.ts", "*.test.js", "*.mjs"],
+    files: ["**/*.js", "**/*.jsx", "*.js", "*.jsx", "*.config.js", "*.config.ts", "*.test.js", "*.mjs", "*.config.mts"],
     ...tseslint.configs.disableTypeChecked,
   },
   ...fixupConfigRules(pluginReactConfig),

@@ -124,6 +124,7 @@ export const Switch = ({
   className = "",
   onChange = undefined,
   onClick = undefined,
+  wrapperClassName = "",
   ...props
 }) => {
   const isNotEmptyString = (str) => {
@@ -171,6 +172,7 @@ export const Switch = ({
         className={`
 				juno-switch-wrapper 
 				${switchWrapperStyles}
+        ${wrapperClassName}
 				`}
       >
         <button
@@ -261,10 +263,12 @@ Switch.propTypes = {
   errortext: PropTypes.node,
   /** A text to render when the Switch has an error or could not be validated */
   successtext: PropTypes.node,
-  /** Pass a className */
+  /** Pass a className. The class name is applied to the internal button element. */
   className: PropTypes.string,
   /** Pass a change handler */
   onChange: PropTypes.func,
   /** Pass a click handler */
   onClick: PropTypes.func,
+  /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
+  wrapperClassName: PropTypes.string,
 }

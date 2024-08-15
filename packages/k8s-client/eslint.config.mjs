@@ -1,0 +1,28 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import junoConfigs from "@cloudoperators/juno-eslint-config/juno-typescript.mjs"
+
+export default [
+  ...junoConfigs,
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    languageOptions: {
+      parserOptions: {
+        project: ["./tsconfig.json"], // Ensure this points to your tsconfig.json
+      },
+    },
+    // TODO: We need to make all of this checks on again, step by step
+    rules: {
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/unbound-method": "off",
+    },
+    ignores: ["vitest.config.ts", "vite.config.mts"],
+  },
+]

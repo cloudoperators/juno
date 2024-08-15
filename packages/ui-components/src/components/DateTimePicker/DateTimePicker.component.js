@@ -129,6 +129,7 @@ export const DateTimePicker = ({
   value,
   weekNumbers,
   width,
+  wrapperClassName,
   ...props
 }) => {
   // always generate auto-id string using the useId hook to avoid "more hooks than in previous render" error when removing custom id:
@@ -434,6 +435,7 @@ export const DateTimePicker = ({
       juno-datetimepicker-wrapper
       ${width == "auto" ? "jn-inline-block" : "jn-block"}
       ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+      ${wrapperClassName}
     `}
     >
       <div className={`juno-datetimepicker-input-wrapper ${inputWrapperStyles}`}>
@@ -594,6 +596,8 @@ DateTimePicker.propTypes = {
   weekNumbers: PropTypes.bool,
   /** The width of the datepicker input. Either 'full' (default) or 'auto'. */
   width: PropTypes.oneOf(["full", "auto"]),
+  /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
+  wrapperClassName: PropTypes.string,
 }
 
 // can't get rid of this, as if we transform it to a default values using vanilla JS, two tests will fail
@@ -646,4 +650,5 @@ DateTimePicker.defaultProps = {
   value: "",
   weekNumbers: false,
   width: "full",
+  wrapperClassName: "",
 }
