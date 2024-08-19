@@ -10,6 +10,7 @@ export default defineConfig((options: Options) => ({
   clean: true,
   sourcemap: true,
   dts: true,
+  outDir: "build",
   format: ["esm"],
   platform: "browser",
   ...options,
