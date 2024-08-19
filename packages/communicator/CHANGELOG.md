@@ -1,5 +1,11 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.13
+
+### Patch Changes
+
+- Integrate Vite for build process
+
 ## 2.2.12
 
 ### Patch Changes

@@ -1,22 +1,22 @@
 {
   "name": "@cloudoperators/juno-communicator",
-  "version": "2.2.12",
+  "version": "2.2.13",
   "description": "Send and receive across tabs",
   "author": "UI-Team",
   "contributors": [
     "Andreas Pfau"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./build/communicator.es.js",
+  "types": "./build/types/index.d.ts",
   "files": [
-    "dist/**",
+    "build/**",
     "LICENCE"
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/communicator",
   "license": "Apache-2.0",
   "source": "src/index.js",
-  "module": "./dist/index.js",
+  "module": "./build/communicator.es.js",
   "engines": {
     "node": ">=20.0.0 <21.0.0",
     "npm": ">=10.0.0 <11.0.0"
@@ -25,18 +25,20 @@
     "test": "vitest run",
     "test:watch": "vitest --watch",
     "lint": "eslint ",
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo"
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
   "devDependencies": {
     "@cloudoperators/juno-eslint-config": "*",
     "@cloudoperators/juno-typescript-config": "*",
     "@types/node": "^20.11.24",
     "jsdom": "^24.1.1",
-    "tsup": "^8.0.2",
     "typescript": "^5.5.4",
+    "vite": "^5.4.0",
+    "vite-plugin-dts": "^4.0.3",
     "vitest": "^2.0.4"
   }
 }
