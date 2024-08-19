@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.17.1
+
+### Patch Changes
+
+- 4d748f8: Fix Select menu placement on page bottom. Switch from `flip` to `autoPlacement` positioning strategy in headless-ui middleware.
+
 ## 2.17.0
 
 ### Minor Changes
