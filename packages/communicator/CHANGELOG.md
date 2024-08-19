@@ -2,7 +2,7 @@
 
 ## 2.2.13
 
-### Major Changes
+### Patch Changes
 
 - Integrate Vite for build process
 
