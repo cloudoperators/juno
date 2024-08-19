@@ -11,6 +11,6 @@
     "types": ["vitest/globals"],
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts"],
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "vitest.setup.ts"],
   "exclude": ["node_modules", "build"]
 }
