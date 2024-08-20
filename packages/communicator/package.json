@@ -7,8 +7,8 @@
     "Andreas Pfau"
   ],
   "type": "module",
-  "main": "./build/communicator.es.js",
-  "types": "./build/types/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/types/index.d.ts",
   "files": [
     "build/**",
     "LICENCE"
@@ -16,7 +16,7 @@
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/communicator",
   "license": "Apache-2.0",
   "source": "src/index.js",
-  "module": "./build/communicator.es.js",
+  "module": "build/index.js",
   "engines": {
     "node": ">=20.0.0 <21.0.0",
     "npm": ">=10.0.0 <11.0.0"
