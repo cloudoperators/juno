@@ -1,5 +1,11 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.14
+
+### Patch Changes
+
+- a80532a: Change build output of communicator
+
 ## 2.2.13
 
 ### Patch Changes
