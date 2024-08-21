@@ -1,6 +1,2 @@
-# Skip commitlint in CI environments
-if [ "$CI" = "true" ]; then
-  exit 0
-fi
-
+# .husky/commit
 npx --no-install commitlint --edit "$1"

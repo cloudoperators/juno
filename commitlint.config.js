@@ -11,6 +11,7 @@ module.exports = {
         "config",
         "ci",
         "core",
+        "docs",
         "deps",
         "example",
         "infra",
