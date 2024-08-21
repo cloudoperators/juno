@@ -36,6 +36,9 @@ on:
         default: "default"
         type: string
 
+env:
+  HUSKY: 0
+
 jobs:
   input-processing:
     runs-on: ${{ inputs.runs-on}}
