@@ -8,6 +8,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Container,
+  DateTimePicker,
   Button,
   MainTabs,
   Tab,
@@ -45,7 +46,7 @@ const AppContent = () => {
   }
 
   return (
-    <>
+    <div style={{ width: "1280px" }}>
       {loggedIn && !authError ? (
         <>
           <Breadcrumb>
@@ -73,7 +74,13 @@ const AppContent = () => {
               </TabPanel>
               <TabPanel>
                 <Container py px={false}>
-                  <p>Test a panel pressing the Button</p>
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <p>Place a DateTimePicker to the very right:</p>
+                    <DateTimePicker width="auto" />
+                  </div>
+                  <p>Open a testing Modal by pressing the button</p>
+                  <Button onClick={() => setCurrentModal("TestModalDateTimePicker")}>Open Test modal</Button>
+                  <p>Test a Modal by pressing the Button</p>
                   <Button label="Button" onClick={() => setCurrentModal("TestModal")} />
                   <p>Test a select</p>
                   <Select
@@ -97,7 +104,7 @@ const AppContent = () => {
       ) : (
         <WelcomeView />
       )}
-    </>
+    </div>
   )
 }
 

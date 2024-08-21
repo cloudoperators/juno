@@ -11,6 +11,9 @@ import { Icon } from "../Icon/"
 import { Label } from "../Label/"
 import "./datetimepicker.scss"
 
+// TMP:
+import { usePortalRef } from "../PortalProvider/"
+
 /* 
 TODO:
 * add enable prop (or leave out if no success)
@@ -139,6 +142,9 @@ export const DateTimePicker = ({
   let flatpickrInstanceRef = useRef({}) // The actual flatpickr instance
   const calendarTargetRef = useRef(null) // The DOM node the flatpickr calendar should be rendered to
 
+  // TMP
+  const portalRef = usePortalRef()
+
   const [theDate, setTheDate] = useState({})
   // variables starting with underscore are not linted
   const [_hasFocus, setHasFocus] = useState(false)
@@ -240,7 +246,8 @@ export const DateTimePicker = ({
       allowInput: allowInput,
       allowInvalidPreload: allowInvalidPreload,
       ariaDateFormat: ariaDateFormat,
-      appendTo: calendarTargetRef.current,
+      //appendTo: calendarTargetRef.current,
+      appendTo: portalRef,
       conjunction: conjunction,
       dateFormat: theDateFormat,
       defaultDate: defaultDate || defaultValue,
@@ -281,6 +288,8 @@ export const DateTimePicker = ({
 
   useEffect(() => {
     createFlatpickrInstance()
+    //console.log(flatpickrInstanceRef.current?._positionCalendar)
+    //flatpickrInstanceRef.current?._positionCalendar()
     return () => {
       destroyFlatpickrInstance()
     }

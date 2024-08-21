@@ -6,6 +6,7 @@
 import React from "react"
 import { useGlobalsCurrentModal } from "./StoreProvider"
 import TestModal from "./TestModal"
+import TestModalDateTimePicker from "./TestModalDateTimePicker"
 
 const ModalManager = () => {
   const currentModal = useGlobalsCurrentModal()
@@ -13,6 +14,8 @@ const ModalManager = () => {
   switch (currentModal) {
     case "TestModal":
       return <TestModal />
+    case "TestModalDateTimePicker":
+      return <TestModalDateTimePicker />
     default:
       return null
   }
