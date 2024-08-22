@@ -1,7 +1,11 @@
 module.exports = {
   extends: ["@commitlint/config-conventional"],
   rules: {
-    "type-enum": [2, "always", ["build", "chore", "fix", "feat", "publish", "release"]],
+    "type-enum": [
+      2,
+      "always",
+      ["build", "chore", "fix", "feat", "publish", "release", "refactor", "research", "style", "test"],
+    ], // Enforces the type to be one of the specified values
     "scope-enum": [
       2,
       "always",

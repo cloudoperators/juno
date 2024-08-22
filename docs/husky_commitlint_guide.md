@@ -11,11 +11,14 @@ We enforce specific commit message formats using `commitlint` to ensure that all
 The following commit types are allowed:
 
 - **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-- **chore**: Other changes that don't modify `src` or `test` files
+- **chore**: Changes that don't have an influence on the code running in production. Chore commits typically don't change the release.
 - **fix**: A bug fix
 - **feat**: A new feature
 - **publish**: Changes related to publishing the package
 - **release**: Version releases
+- **refactor**: Code refactor that doesn't introduce a new feature or fix a bug
+- **test**: For test purposes, when it is only tests will be written on changed
+- **style**: For test purposes, When it is only tests will be written on changed
 
 ### Allowed Commit Scopes
 
@@ -28,15 +31,15 @@ The following scopes are permitted for commits:
 - **core**: Core functionalities
 - **deps**: Dependency management
 - **docs**: Docs related
-- **example**: Examples or sample code
+- **example**: Changes to the example app
 - **infra**: Infrastructure-related changes
 - **juno**: Juno-specific changes
 - **k8s**: Kubernetes-related changes
 - **message-provider**: Changes in the message provider
 - **npm**: npm-related changes
 - **oauth**: OAuth implementation and changes
-- **template**: Template files or project templates
-- **ui**: User interface-related changes
+- **template**: Changes to the template app
+- **ui**: changes to ui-components
 - **utils**: Utility functions or modules
 - **url-state-provider**: Changes in the URL state provider
 - **url-state-router**: Changes in the URL state router
