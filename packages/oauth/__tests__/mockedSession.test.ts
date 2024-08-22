@@ -2,6 +2,7 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
+import { beforeEach, describe, expect, test, it, vi } from "vitest"
 
 import "./__utils__/globalsMock"
 import mockedSession, { mockedAuthData } from "../src/mockedSession"
@@ -9,7 +10,7 @@ import mockedSession, { mockedAuthData } from "../src/mockedSession"
 describe("mockedSession", () => {
   // initialLogin,
   // onUpdate,
-  test("throw error on missing onUpdate callback", () => {
+  it("throw error on missing onUpdate callback", () => {
     expect(() => {
       mockedSession()
     }).toThrow()
@@ -53,9 +54,10 @@ describe("mockedSession", () => {
   })
 
   describe("session", () => {
-    let session, onUpdate
+    let session :any = undefined
+    let onUpdate :any = undefined
     beforeEach(() => {
-      onUpdate = jest.fn()
+      onUpdate = vi.fn()
       session = mockedSession({ onUpdate, initialLogin: true })
     })
 
@@ -105,9 +107,9 @@ describe("mockedSession", () => {
     })
 
     describe("custom token", () => {
-      let onUpdate
+      let onUpdate :any = undefined
       beforeEach(() => {
-        onUpdate = jest.fn()
+        onUpdate = vi.fn()
         mockedSession({
           onUpdate,
           initialLogin: true,

@@ -9,12 +9,12 @@ import { decodeBase64Json } from "./utils"
  * @param {string} idToken JWT
  * @returns {object} json
  */
-export function decodeIDToken(idToken) {
+export function decodeIDToken(idToken :string) :any {
   const [_head, tokenData, _signature] = idToken.split(".")
   return decodeBase64Json(tokenData)
 }
 
-const capitalize = (str) => {
+const capitalize = (str :string) :string => {
   if (!str || str.length === 0) return ""
 
   let result = str.charAt(0).toUpperCase()
@@ -22,7 +22,12 @@ const capitalize = (str) => {
   return result
 }
 
-const extractNameFromEmail = (email) => {
+interface EmailName {
+  firstName :string 
+  lastName :string
+}
+
+const extractNameFromEmail = (email :string) :(EmailName | null | undefined) => {
   if (!email) return null
   try {
     const match = email.match(/^([a-zA-Z0-9._%+-]+)@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
@@ -33,11 +38,11 @@ const extractNameFromEmail = (email) => {
     let lastName = emailName.substring(index + 1)
     firstName = firstName
       .split("-")
-      .map((t) => capitalize(t))
+      .map((t :any) => capitalize(t))
       .join("-")
     lastName = lastName
       .split(".")
-      .map((t) => capitalize(t))
+      .map((t :any) => capitalize(t))
       .join(" ")
     return { firstName, lastName }
   } catch (_) {
@@ -49,7 +54,7 @@ const extractNameFromEmail = (email) => {
  * @param {object} tokenData
  * @returns {object} parsed data
  */
-export function parseIdTokenData(tokenData) {
+export function parseIdTokenData(tokenData :any) :any {
   const email = tokenData.mail || tokenData.email || ""
   const loginName = tokenData.login_name || tokenData.name || tokenData.subject || tokenData.sub || ""
   let firstName = tokenData.first_name
@@ -62,7 +67,7 @@ export function parseIdTokenData(tokenData) {
   const regex = new RegExp("^[c,d,i,s,p,C,D,I,S,P][0-9]+$")
   const userId = tokenData?.sub?.match(regex) ? tokenData.sub : null
 
-  const parsedData = {
+  const parsedData :any = {
     loginName,
     email,
     firstName,
@@ -80,7 +85,7 @@ export function parseIdTokenData(tokenData) {
   }
 
   if (Array.isArray(tokenData.groups)) {
-    tokenData.groups.forEach((item) => {
+    tokenData.groups.forEach((item :any) => {
       if (item.startsWith("organization:")) {
         parsedData.organizations = parsedData.organizations || []
         parsedData.organizations.push(item.substring("organization:".length))

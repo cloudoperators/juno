@@ -2,6 +2,7 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
+import { beforeEach, describe, expect, test } from "vitest"
 
 import "./__utils__/globalsMock"
 
@@ -63,7 +64,7 @@ describe("oidcSession", () => {
   })
 
   describe("returned result", () => {
-    let session
+    let session :any = undefined
     beforeEach(() => {
       session = oidcSession({ clientID: "test", issuerURL: "http://dummy.com" })
     })

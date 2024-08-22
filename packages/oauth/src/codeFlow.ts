@@ -8,9 +8,9 @@ import { decodeIDToken } from "./tokenHelpers"
 import { searchParams } from "./oidcState"
 import { paramsToUrl } from "./utils"
 
-const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID }) => {
+const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID } :any) => {
   if (!clientID) throw new Error("clientID is required")
-  const body = {
+  const body :any = {
     grant_type: "authorization_code",
     code: code,
     redirect_uri: window.location.origin,
@@ -19,7 +19,7 @@ const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID }) => {
 
   if (verifier) body.code_verifier = verifier
 
-  let formBody = Object.keys(body)
+  const formBody = Object.keys(body)
     .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(body[k])}`)
     .join("&")
 
@@ -29,10 +29,12 @@ const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID }) => {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: formBody,
-  }).then((r) => r.json())
+  }).then((r) => {
+    return r.json() 
+  })
 }
 
-const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbackURL }) => {
+const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbackURL } :any) => {
   const config = await getOidcConfig(issuerURL)
 
   let scope = "openid email profile offline_access"
@@ -55,7 +57,7 @@ const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbac
   return config.authorization_endpoint + "?" + urlParams
 }
 
-const handleResponse = async ({ issuerURL, clientID, oidcState }) => {
+const handleResponse = async ({ issuerURL, clientID, oidcState } :any) => {
   if (!searchParams) return null
 
   const code = searchParams.get("code")
@@ -87,19 +89,19 @@ const handleResponse = async ({ issuerURL, clientID, oidcState }) => {
   }
 }
 
-const refreshToken = async ({ issuerURL, clientID, refreshToken }) => {
+const refreshToken = async ({ issuerURL, clientID, refreshToken } :any) => {
   if (!issuerURL) throw new Error("issuerURL is required")
   if (!clientID) throw new Error("clientID is required")
 
   const config = await getOidcConfig(issuerURL)
 
-  const body = {
+  const body :any = {
     grant_type: "refresh_token",
     refresh_token: refreshToken,
     client_id: clientID,
   }
 
-  let formBody = Object.keys(body)
+  const formBody = Object.keys(body)
     .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(body[k])}`)
     .join("&")
 

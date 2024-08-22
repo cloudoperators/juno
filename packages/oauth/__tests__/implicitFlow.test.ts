@@ -2,19 +2,20 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
+import { describe, expect, test, vi } from "vitest"
 
-import "./__utils__/globalsMock"
-import config from "./__utils__/oidcConfigMock"
-import { testIdToken, testTokenData } from "./__utils__/idTokenMock"
+import "./__utils__/globalsMock.ts"
+import config from "./__utils__/oidcConfigMock.ts"
+import { testIdToken, testTokenData } from "./__utils__/idTokenMock.ts"
 
 import { buildRequestUrl, handleResponse } from "../src/implicitFlow"
 
-const oidcState = require("../src/oidcState")
+import * as oidcState from "../src/oidcState.ts"
 
-jest.mock("../src/oidcConfig.js", () => {
-  const testConfig = require("./__utils__/oidcConfigMock").default
+vi.mock("../src/oidcConfig.ts", async () => {
+  const testConfig = await import('./__utils__/oidcConfigMock.ts')
   return {
-    getOidcConfig: jest.fn().mockResolvedValue(testConfig),
+    getOidcConfig: vi.fn().mockResolvedValue(testConfig.default),
   }
 })
 
@@ -87,25 +88,25 @@ describe("buildRequestUrl", () => {
 
 describe("handleResponse", () => {
   test("url does not contain id_token and error", async () => {
-    oidcState.searchParams = new URLSearchParams()
+    oidcState.setSearchParams(new URLSearchParams())
     await expect(handleResponse()).rejects.toThrow("bad response, missing id_token")
   })
 
   test("url contains error", async () => {
-    oidcState.searchParams = new URLSearchParams("error=unsupported_response_type")
+    oidcState.setSearchParams(new URLSearchParams("error=unsupported_response_type"))
     await expect(handleResponse()).rejects.toThrow("unsupported_response_type")
   })
 
   test("id_token has bad format", async () => {
-    oidcState.searchParams = new URLSearchParams("id_token=test")
+    oidcState.setSearchParams(new URLSearchParams("id_token=test"))
 
     await expect(handleResponse()).rejects.toThrow("bad format of id_token")
   })
 
   test("should return token data", async () => {
-    oidcState.searchParams = new URLSearchParams("id_token=" + testIdToken)
+    oidcState.setSearchParams(new URLSearchParams("id_token=" + testIdToken))
 
-    await handleResponse().then(({ tokenData, idToken }) => {
+    await handleResponse().then(({ tokenData, idToken } :any) => {
       expect(tokenData).toEqual(expect.objectContaining(testTokenData))
       expect(idToken).toEqual(testIdToken)
     })

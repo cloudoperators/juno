@@ -2,27 +2,28 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
+import { describe, expect, test, vi } from "vitest"
 
-import "./__utils__/globalsMock"
-import { getOidcConfig } from "../src/oidcConfig"
+import "./__utils__/globalsMock.ts"
+import { getOidcConfig } from "../src/oidcConfig.ts"
 import { buildRequestUrl, handleResponse, refreshToken } from "../src/codeFlow"
-import { testIdToken, testTokenData } from "./__utils__/idTokenMock"
-const config = require("./__utils__/oidcConfigMock").default
+import { testIdToken, testTokenData } from "./__utils__/idTokenMock.ts"
+import config from "./__utils__/oidcConfigMock.ts"
+import * as oidcState from "../src/oidcState.ts"
 
-const oidcState = require("../src/oidcState")
-
-jest.mock("../src/oidcConfig.js", () => {
-  const testConfig = require("./__utils__/oidcConfigMock").default
+vi.mock("../src/oidcConfig.ts", async () => {
+  const testConfig = await import('./__utils__/oidcConfigMock.ts')
   return {
-    getOidcConfig: jest.fn().mockResolvedValue(testConfig),
+    getOidcConfig: vi.fn().mockResolvedValue(testConfig.default)
   }
 })
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve({ id_token: testIdToken }),
-  })
-)
+const mockIdTokenResponse = {
+  ok: true,
+  statusText: "OK",
+  json: () => { return { id_token: testIdToken } },
+} as any;
+global.fetch = vi.fn().mockResolvedValue(mockIdTokenResponse);
 
 describe("buildRequestUrl", () => {
   test("should be a function", () => {
@@ -127,7 +128,7 @@ describe("buildRequestUrl", () => {
 
 describe("handleResponse", () => {
   test("url does not contain code and error", async () => {
-    oidcState.searchParams = new URLSearchParams("")
+    oidcState.setSearchParams(new URLSearchParams(""))
 
     await expect(
       handleResponse({
@@ -139,7 +140,7 @@ describe("handleResponse", () => {
   })
 
   test("url contains error", async () => {
-    oidcState.searchParams = new URLSearchParams("error=unsupported_response_type")
+    oidcState.setSearchParams(new URLSearchParams("error=unsupported_response_type"))
 
     await expect(
       handleResponse({
@@ -151,7 +152,7 @@ describe("handleResponse", () => {
   })
 
   test("cliend_id is required", async () => {
-    oidcState.searchParams = new URLSearchParams("code=test")
+    oidcState.setSearchParams(new URLSearchParams("code=test"))
 
     await expect(
       handleResponse({
@@ -163,7 +164,7 @@ describe("handleResponse", () => {
 
   describe("code is presented", () => {
     test("call getOidcConfig", async () => {
-      oidcState.searchParams = new URLSearchParams("code=123456789")
+      oidcState.setSearchParams(new URLSearchParams("code=123456789"))
 
       await handleResponse({
         issuerURL: "http://issuer.com",
@@ -175,7 +176,7 @@ describe("handleResponse", () => {
     })
 
     test("global fetch is called", async () => {
-      oidcState.searchParams = new URLSearchParams("code=12345678")
+      oidcState.setSearchParams(new URLSearchParams("code=12345678"))
 
       await handleResponse({
         issuerURL: "http://issuer.com",
@@ -196,7 +197,7 @@ describe("handleResponse", () => {
     })
 
     test("fetch returns token data", async () => {
-      oidcState.searchParams = new URLSearchParams("code=123456789")
+      oidcState.setSearchParams(new URLSearchParams("code=123456789"))
 
       const data = await handleResponse({
         issuerURL: "http://issuer.com",
@@ -204,7 +205,7 @@ describe("handleResponse", () => {
         oidcState: {},
       })
 
-      expect(data.tokenData).toEqual(expect.objectContaining(testTokenData))
+      expect(data!.tokenData).toEqual(expect.objectContaining(testTokenData))
     })
   })
 })
