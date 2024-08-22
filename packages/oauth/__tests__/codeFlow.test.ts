@@ -12,18 +12,20 @@ import config from "./__utils__/oidcConfigMock.ts"
 import * as oidcState from "../src/oidcState.ts"
 
 vi.mock("../src/oidcConfig.ts", async () => {
-  const testConfig = await import('./__utils__/oidcConfigMock.ts')
+  const testConfig = await import("./__utils__/oidcConfigMock.ts")
   return {
-    getOidcConfig: vi.fn().mockResolvedValue(testConfig.default)
+    getOidcConfig: vi.fn().mockResolvedValue(testConfig.default),
   }
 })
 
 const mockIdTokenResponse = {
   ok: true,
   statusText: "OK",
-  json: () => { return { id_token: testIdToken } },
-} as any;
-global.fetch = vi.fn().mockResolvedValue(mockIdTokenResponse);
+  json: () => {
+    return { id_token: testIdToken }
+  },
+} as any
+global.fetch = vi.fn().mockResolvedValue(mockIdTokenResponse)
 
 describe("buildRequestUrl", () => {
   test("should be a function", () => {

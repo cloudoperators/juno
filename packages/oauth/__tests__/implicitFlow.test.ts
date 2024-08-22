@@ -13,7 +13,7 @@ import { buildRequestUrl, handleResponse } from "../src/implicitFlow"
 import * as oidcState from "../src/oidcState.ts"
 
 vi.mock("../src/oidcConfig.ts", async () => {
-  const testConfig = await import('./__utils__/oidcConfigMock.ts')
+  const testConfig = await import("./__utils__/oidcConfigMock.ts")
   return {
     getOidcConfig: vi.fn().mockResolvedValue(testConfig.default),
   }
@@ -106,7 +106,7 @@ describe("handleResponse", () => {
   test("should return token data", async () => {
     oidcState.setSearchParams(new URLSearchParams("id_token=" + testIdToken))
 
-    await handleResponse().then(({ tokenData, idToken } :any) => {
+    await handleResponse().then(({ tokenData, idToken }: any) => {
       expect(tokenData).toEqual(expect.objectContaining(testTokenData))
       expect(idToken).toEqual(testIdToken)
     })

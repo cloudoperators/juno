@@ -54,8 +54,8 @@ describe("mockedSession", () => {
   })
 
   describe("session", () => {
-    let session :any = undefined
-    let onUpdate :any = undefined
+    let session: any = undefined
+    let onUpdate: any = undefined
     beforeEach(() => {
       onUpdate = vi.fn()
       session = mockedSession({ onUpdate, initialLogin: true })
@@ -107,7 +107,7 @@ describe("mockedSession", () => {
     })
 
     describe("custom token", () => {
-      let onUpdate :any = undefined
+      let onUpdate: any = undefined
       beforeEach(() => {
         onUpdate = vi.fn()
         mockedSession({

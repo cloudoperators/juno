@@ -20,7 +20,7 @@ export const FLOW_TYPE = {
 const isOidcResponse = hasValidState()
 
 // returns the correct flow handler
-const oidcFlowHandler = (flowType :any) => {
+const oidcFlowHandler = (flowType: any) => {
   if (flowType === FLOW_TYPE.IMPLICIT) return implicitFlowHandler
   else if (flowType === FLOW_TYPE.CODE) return codeFlowHandler
   throw new Error("no flow handler for " + flowType)
@@ -28,7 +28,7 @@ const oidcFlowHandler = (flowType :any) => {
 
 //############################## REQUEST #################################
 // This function initiates the oidc flow
-const createOidcRequest = async ({ issuerURL, clientID, flowType, requestParams } :any) : Promise<any> => {
+const createOidcRequest = async ({ issuerURL, clientID, flowType, requestParams }: any): Promise<any> => {
   try {
     // create state props and store them in the SessionStorage
     // to use them after the redirect back from the ID provider
@@ -53,14 +53,14 @@ const createOidcRequest = async ({ issuerURL, clientID, flowType, requestParams 
 
     // redirect to this URL
     window.location.replace(url)
-  } catch (error :any) {
+  } catch (error: any) {
     throw new Error("(OAUTH) " + error.message, { cause: error })
   }
 }
 
 //################################ RESPONSE #################################
 // handle the response from ID provider
-const handleOidcResponse = async ({ issuerURL, clientID } :any) :Promise<any> => {
+const handleOidcResponse = async ({ issuerURL, clientID }: any): Promise<any> => {
   const oidcState = getResponseState()
   // no oidc state presented or it does not match the stored one -> return null
   if (!oidcState) {
@@ -70,7 +70,7 @@ const handleOidcResponse = async ({ issuerURL, clientID } :any) :Promise<any> =>
 
   try {
     const handler = oidcFlowHandler(oidcState.flowType)
-    const { tokenData, idToken, refreshToken } :any = await handler.handleResponse({
+    const { tokenData, idToken, refreshToken }: any = await handler.handleResponse({
       issuerURL,
       clientID,
       oidcState,
@@ -90,13 +90,13 @@ const handleOidcResponse = async ({ issuerURL, clientID } :any) :Promise<any> =>
       window.history.replaceState("", "", oidcState.lastUrl || "/")
     }
     return authData
-  } catch (error :any) {
+  } catch (error: any) {
     throw new Error("(OAUTH) " + error.message, { cause: error })
   }
 }
 
 // Refresh token works only for the code flow!
-const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken } :any) :Promise<any> => {
+const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }: any): Promise<any> => {
   if (flowType !== FLOW_TYPE.CODE) return null
   try {
     const {
@@ -115,7 +115,7 @@ const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken } 
       refreshToken: newRefreshToken,
       parsed: parseIdTokenData(tokenData),
     }
-  } catch (error :any) {
+  } catch (error: any) {
     throw new Error("(OAUTH) refresh token, " + error?.message)
   }
 }
@@ -123,8 +123,8 @@ const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken } 
 // This function removes cached token from storage.
 // We use iframe for ending oidc session in id provider
 // if we don't want user to leave current page
-function oidcLogout({ issuerURL, silent } :any) :void {
-  getOidcConfig(issuerURL).then((config :any) => {
+function oidcLogout({ issuerURL, silent }: any): void {
+  getOidcConfig(issuerURL).then((config: any) => {
     if (!config.end_session_endpoint) {
       console.warn(
         'WARNING: (OAUTH) Id provider does not offer an endpoint for logout. Checked: "end_session_endpoint"'
@@ -153,7 +153,7 @@ function oidcLogout({ issuerURL, silent } :any) :void {
  * @param {object} params
  * @returns {object} contains login, logout, refresh, currentState
  */
-const oidcSession = (params :any) :any => {
+const oidcSession = (params: any): any => {
   const { issuerURL, clientID, initialLogin, refresh, onUpdate, requestParams, _callbackURL, ...unknownProps } =
     params || {}
   let { flowType } = params || {}
@@ -172,24 +172,24 @@ const oidcSession = (params :any) :any => {
 
   if (Object.keys(unknownProps).length > 0) {
     console.warn(
-      `WARNING: (OAUTH) unknown options: ${Object.keys(
-        unknownProps
-      ).join(",")}. Allowed options are issuerURL, clientID, initialLogin, refresh, flowType, onUpdate, requestParams, callbackURL`
+      `WARNING: (OAUTH) unknown options: ${Object.keys(unknownProps).join(
+        ","
+      )}. Allowed options are issuerURL, clientID, initialLogin, refresh, flowType, onUpdate, requestParams, callbackURL`
     )
   }
 
   interface OidcState {
-    auth :any;
-    error :any;
-    isProcessing :boolean;
-    loggedIn :any;
+    auth: any
+    error: any
+    isProcessing: boolean
+    loggedIn: any
   }
 
   // initialize state
   // this state is updated on every change on the auth status
-  let state :OidcState = { auth: null, error: null, isProcessing: false, loggedIn: false }
+  let state: OidcState = { auth: null, error: null, isProcessing: false, loggedIn: false }
 
-  let refreshTimer :NodeJS.Timeout
+  let refreshTimer: NodeJS.Timeout
   // this function re-creates a refresh timer if a refreshToken is presented
   const updateRefresher = () => {
     // clear refresh timer every time the auth date gets updated
@@ -207,7 +207,7 @@ const oidcSession = (params :any) :any => {
     }
   }
 
-  let expirationTimer :NodeJS.Timeout
+  let expirationTimer: NodeJS.Timeout
   const updateExpirationTimer = () => {
     clearTimeout(expirationTimer)
     const expiresAt = state.auth?.parsed?.expiresAt
@@ -219,7 +219,7 @@ const oidcSession = (params :any) :any => {
   }
 
   // define update method which updates the state and calls the callback function
-  const update = (newState :any) => {
+  const update = (newState: any) => {
     state = { ...state, ...newState }
     if (onUpdate) onUpdate({ ...state })
 
@@ -228,11 +228,11 @@ const oidcSession = (params :any) :any => {
   }
 
   // handle new data from odic response
-  const receiveNewData = async (promise :Promise<any>) => {
+  const receiveNewData = async (promise: Promise<any>) => {
     try {
       const data = await promise
       update({ auth: data, error: null, loggedIn: !!data, isProcessing: false })
-    } catch (error :any) {
+    } catch (error: any) {
       update({
         auth: null,
         error: error.toString(),
@@ -263,7 +263,7 @@ const oidcSession = (params :any) :any => {
     createOidcRequest({ issuerURL, clientID, flowType, requestParams })
   }
 
-  const logout = (options :any) => {
+  const logout = (options: any) => {
     console.info("(OAUTH) logout")
     update({ auth: null, error: null, loggedIn: false, isProcessing: false })
     if (options?.resetOIDCSession) oidcLogout({ issuerURL, silent: options?.silent === true })

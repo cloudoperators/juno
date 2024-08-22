@@ -10,8 +10,8 @@ const mockResponse = {
   ok: true,
   statusText: "OK",
   json: async () => {},
-} as Response;
-global.fetch = vi.fn().mockResolvedValue(mockResponse);
+} as Response
+global.fetch = vi.fn().mockResolvedValue(mockResponse)
 
 // add a custom matcher to jest to match URLs
 expect.extend({

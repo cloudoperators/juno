@@ -4,13 +4,13 @@
  */
 import { vi } from "vitest"
 
-vi.restoreAllMocks();
+vi.restoreAllMocks()
 
 globalThis.console.error = vi.fn()
 globalThis.console.warn = vi.fn()
 globalThis.console.info = vi.fn()
 
-vi.stubGlobal('location', {
+vi.stubGlobal("location", {
   ancestorOrigins: null,
   hash: null,
   host: "dummy.com",
@@ -24,11 +24,11 @@ vi.stubGlobal('location', {
   assign: null,
   reload: null,
   replace: null,
-});
+})
 
 const mockResponse = {
   ok: true,
   statusText: "OK",
   json: async () => {},
-} as Response;
-global.fetch = vi.fn().mockResolvedValue(mockResponse);
+} as Response
+global.fetch = vi.fn().mockResolvedValue(mockResponse)

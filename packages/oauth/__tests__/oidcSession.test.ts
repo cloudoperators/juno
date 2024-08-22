@@ -64,7 +64,7 @@ describe("oidcSession", () => {
   })
 
   describe("returned result", () => {
-    let session :any = undefined
+    let session: any = undefined
     beforeEach(() => {
       session = oidcSession({ clientID: "test", issuerURL: "http://dummy.com" })
     })
