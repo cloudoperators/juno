@@ -85,3 +85,15 @@ Before any code is pushed to the remote repository, the following checks are per
 ### Skipping Hooks in CI
 
 In CI environments (e.g., when using automation bots), these hooks are automatically skipped to avoid unnecessary checks on automated commits.
+
+### Commit Title Check
+
+> **Important**: When adding a new scope to your project, it's essential to ensure consistency across your tooling and documentation. Follow these steps whenever a new scope is introduced:
+
+1. **Update Commitlint Configuration**: First, add the new scope to your commitlint configuration to enforce it during commit message validation. See the `commitlint.config.js.md` for guidance on how to update your configuration.
+
+2. **Update Documentation**: Reflect this change in the `husky_commitlint_guide.md` document to keep your contributors informed about the allowed scopes. Specifically, add the new scope to the list in the excerpt provided above to maintain an up-to-date reference.
+
+3. **Update CI Title Lint Check**: Lastly, modify the `ci-title-lint-check.yaml` file to include the new scope in the `scopes` section. This ensures that your continuous integration process aligns with the updated commit conventions, preventing CI failures due to unrecognized scopes.
+
+By following these steps, you maintain alignment between your commitlint rules, project documentation, and CI checks, ensuring a smooth workflow for contributors and maintainers alike.
