@@ -6,6 +6,7 @@ npm-debug.log*
 build
 dist
 loadNvmNode.sh
+.nvmrc
 
 # act artifacts needed for testing workflows
 .secrets
