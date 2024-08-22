@@ -4,12 +4,12 @@
  */
 import { describe, expect, test, vi } from "vitest"
 
-import "./__utils__/globalsMock.ts"
-import { getOidcConfig } from "../src/oidcConfig.ts"
+import "./__utils__/globalsMock"
+import { getOidcConfig } from "../src/oidcConfig"
 import { buildRequestUrl, handleResponse, refreshToken } from "../src/codeFlow"
-import { testIdToken, testTokenData } from "./__utils__/idTokenMock.ts"
-import config from "./__utils__/oidcConfigMock.ts"
-import * as oidcState from "../src/oidcState.ts"
+import { testIdToken, testTokenData } from "./__utils__/idTokenMock"
+import config from "./__utils__/oidcConfigMock"
+import * as oidcState from "../src/oidcState"
 
 vi.mock("../src/oidcConfig.ts", async () => {
   const testConfig = await import("./__utils__/oidcConfigMock.ts")
