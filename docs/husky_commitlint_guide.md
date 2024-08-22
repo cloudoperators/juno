@@ -2,6 +2,30 @@
 
 This project uses **Husky** to enforce code quality checks and **commitlint** to ensure commit messages follow a consistent convention. Below are the details on how these are configured and how they work together.
 
+## Husky Prepare
+
+To set up Husky for the first time, you need to run the following command:
+
+```
+npm run prepare
+```
+
+This command will initialize Husky and set up the necessary Git hooks in your project. After running this command, you can proceed with configuring the hooks and their associated scripts.
+
+## GUI Visual Studio Troubleshooting Guide
+
+If you are experiencing issues with GUI Visual Studio while using Husky and commitlint, follow these troubleshooting steps:
+
+Ensure that the `~/.config/husky/init.sh` file exists and contains the following code:
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+nvm use default  # or your current version
+```
+
+For more info check this one https://typicode.github.io/husky/how-to.html#node-version-managers-and-guis
+
 ## Commitlint Configuration
 
 We enforce specific commit message formats using `commitlint` to ensure that all commits are meaningful and consistent. This is crucial for maintaining a clean and understandable project history.
