@@ -29,22 +29,23 @@ Every pull request that involves a change to a package should include a changese
 
    - **Major**: For breaking changes that are incompatible with the previous version. We strongly suggest not to pick this one for most of the cases.
    - **Minor**: For adding new features that are backward-compatible.
-   - **Patch**: For bug fixes or minor changes that are backward-compatible. Usually it is your good way to go.
+   - **Patch**: For bug fixes or minor changes that are backward-compatible.
 
 4. **Provide a Summary**  
    You will then be prompted to provide a brief description of the changes made. This summary will be included in the changelog.
 
 5. **Commit the Changeset**  
    Once the changeset is created, a Markdown file will be generated in the `.changeset` directory. Commit this file along with your changes:
-
+   We use conventional commit pattern, so pay atttention to a commit message:
    ```bash
         git add .
-        git commit -m "chore("name_of_package"): add changeset for [package-name]"
+        git commit -m "release("name_of_package"): add changeset for [package-name]"
    ```
 
 ### Submit a Pull Request
 
 Push your branch and create a pull request as usual. Ensure that the PR includes the changeset file.
+If you forget to create a changeset file, the changeset bot will notify you in the PR. If you have committer rights, you can create the changeset directly on GitHub and commit it to the PR.
 
 ### Review Process
 
@@ -60,7 +61,7 @@ After your pull request containing the changeset is merged, an automated workflo
 Once a changeset PR is merged, an automated
 **publish(npm): automate Package Versioning and Publishing with Changesets** is created. This PR updates version numbers and changelogs. After reviewing and merging this Publish PR, the pipeline will automatically publish the packages to npm and clean up the changeset files.
 
-### Post-Merge Publishing PR
+### Post-Merge "Publishing PR"
 
 After your pull request containing the changeset is merged, an automated workflow will generate a new pull request known as the “Publish PR.” This PR will include:
 
@@ -73,7 +74,7 @@ After your pull request containing the changeset is merged, an automated workflo
    Review the automated PR to ensure that the version bumps and changelog updates are correct. This PR is generated based on the changeset files committed in the previous steps.
 
 2. **Merge the Publish PR**  
-   Once you are satisfied with the changes, merge the Publish PR. This merge will trigger the deployment pipeline.
+   Once you are satisfied with the changes, merge the Publish PR. This will trigger the deployment pipeline and update the version in `package.json`.
 
 ### Deployment to npm
 
