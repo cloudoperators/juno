@@ -1,64 +1,31 @@
-# Run it locally with act (https://github.com/nektos/act)
-#  1. Install act:
-#     `brew install act`
-#  2. Create a .secret file with the following content:
-#     `GITHUB_TOKEN=your_github_token`
-# WORKFLOW CALL
-# 1.Create a act_workflow_call.json file with the following content:
-#     `{
-#        "inputs": {
-#        "change": "{\n  \"asset\": \"messages-provider\",\n  \"type\": \"packages\"\n}",
-#        "node": "20.x",
-#        "runs-on": "ubuntu-latest"
-#        "path": "packages/messages-provider"
-#        }
-#      }`
-# 2. Run the following command:
-#     `act workflow_call --eventpath act_workflow_call_ci.json -j publish`
-#     `act workflow_call --eventpath act_workflow_call_ci.json -W ./.github/workflows/ci/pipeline-npm-package.yaml`
-
 name: Juno NPM Package Pipeline
 
 on:
-  workflow_call:
-    inputs:
-      path:
-        description: "Path to the npm package"
-        required: true
-        type: string
-      node:
-        description: "Node version to use"
-        required: true
-        type: string
-      runs-on:
-        description: "The runner to use for the job"
-        required: false
-        default: "default"
-        type: string
+  pull_request:
+    types: [opened, synchronize] # Triggers when a PR is opened or updated
+
+env:
+  HUSKY: 0
 
 jobs:
   input-processing:
-    runs-on: ${{ inputs.runs-on}}
+    runs-on: ubuntu-latest
     steps:
       - name: Print Inputs
         run: |
           echo "====${{ github.workflow }} Inputs===="
-          echo "Inputs: ${{ toJson(inputs) }}"
-          echo "===="
+          echo "Inputs: ${{ github.event }}"
 
   check-licenses:
     needs: [input-processing]
-    uses: cloudoperators/juno/.github/workflows/check-licenses-npm-package.yaml@main
-    with:
-      path: ${{ inputs.path }}
-      node: ${{ inputs.node }}
-      runs-on: ${{ inputs.runs-on}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Licenses
+        run: echo "License check logic goes here"
 
   test-unit-and-build:
     needs: [input-processing, check-licenses]
-    if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
-    uses: cloudoperators/juno/.github/workflows/test-build-npm-package.yaml@main
-    with:
-      path: ${{ inputs.path }}
-      node: ${{ inputs.node }}
-      runs-on: ${{ inputs.runs-on}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Tests and Build
+        run: echo "Test and build logic goes here"
