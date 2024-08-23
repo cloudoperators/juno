@@ -78,6 +78,7 @@ describe("mockedSession", () => {
     })
 
     test("session's current state is auth data", () => {
+      const session = mockedSession({ onUpdate, initialLogin: true })
       expect(session.currentState().auth).toEqual(mockedAuthData())
     })
 
