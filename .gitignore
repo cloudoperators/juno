@@ -1,5 +1,6 @@
 .turbo
 .DS_Store
+.vscode
 node_modules
 npm-debug.log*
 build

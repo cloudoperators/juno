@@ -4,6 +4,9 @@ on:
   pull_request:
     types: [opened, synchronize] # Triggers when a PR is opened or updated
 
+env:
+  HUSKY: 0
+
 jobs:
   input-processing:
     runs-on: ubuntu-latest

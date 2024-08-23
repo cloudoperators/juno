@@ -7,6 +7,9 @@ on:
       - synchronize
       - reopened
 
+env:
+  HUSKY: 0
+
 jobs:
   install-dependencies:
     runs-on: [default]

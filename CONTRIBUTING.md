@@ -42,6 +42,12 @@ Please include the following license header at the top of every source file:
  */
 ```
 
+# Commitlint and Husky Configuration
+
+This project uses **Husky** to enforce code quality checks and **commitlint** to ensure commit messages follow a consistent convention. Below are the details on how these are configured and how they work together.
+
+For more details on the specific hooks and commitlint rules used in this project, see our [Husky and Commitlint Guide](docs/husky_commitlint_guide.md).
+
 ## Checks
 
 Before submitting your pull request, please ensure your code passes the following checks. These checks are also run in the CI workflow for every PR:
