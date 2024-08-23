@@ -48,6 +48,7 @@ Before submitting your pull request, please ensure your code passes the followin
 
 - **Linting**: Make sure your code adheres to the project’s coding standards by running `npm run lint`.
 - **Prettier**: Ensure your code is properly formatted by running `npm run check-format`.
+- **Title lint**: Ensure your title is following conventional commit format, for more details please check the [workflow](.github/workflows/ci-title-lint-check.yaml)
 - **License Header**: Verify that every source file includes the correct license header as specified above.
 - **Allowed Licenses**: Ensure that any dependencies added are compliant with the list of allowed licenses (see in `package.json`). Check with `npm run check-licenses`.
 - **REUSE Compliance**: Ensure that your contributions are compliant with the [REUSE guidelines](./reuse/dep5).
@@ -58,3 +59,7 @@ Before submitting your pull request, please ensure your code passes the followin
 - We use GitHub issues to track bugs and enhancement requests.
 
 - Please provide as much context as possible when you open an issue. The information you provide must be comprehensive enough to reproduce that issue for the assignee.
+
+## Release Guidelines
+
+For detail release management on npm registry please check our detailed [Release Guidelines](./docs/RELEASE_GUIDELINES.mdx)

@@ -28,4 +28,4 @@ To achieve these goals, the following decisions have been made:
 
 3. **Release Management:**
 
-   - The [`changeset`](https://www.npmjs.com/package/@changesets/cli) CLI tool will be used to manage versioning and changelogs for packages within the monorepo. It will streamline the process of tracking changes, updating versions, and generating changelogs for releases.
+   - The [`changeset`](https://www.npmjs.com/package/@changesets/cli) CLI tool will be used to manage versioning and changelogs for packages within the monorepo. For more details check our: [Release Guidelines](releases_guidelines.md)
