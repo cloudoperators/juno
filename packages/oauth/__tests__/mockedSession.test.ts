@@ -58,7 +58,7 @@ describe("mockedSession", () => {
     const session = mockedSession({ onUpdate, initialLogin: true })
 
     afterEach(() => {
-      vi.clearAllMocks();
+      vi.clearAllMocks()
     })
 
     test("session's current state is defined", () => {
@@ -113,7 +113,7 @@ describe("mockedSession", () => {
       const onUpdate = vi.fn()
 
       afterEach(() => {
-        vi.clearAllMocks();
+        vi.clearAllMocks()
       })
 
       beforeEach(() => {

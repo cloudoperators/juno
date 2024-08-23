@@ -57,7 +57,7 @@ const createOidcRequest = async ({ issuerURL, clientID, flowType, requestParams 
     if (error instanceof Error) {
       throw new Error("(OAUTH) " + error.message, { cause: error })
     } else {
-      throw error;
+      throw error
     }
   }
 }
@@ -98,7 +98,7 @@ const handleOidcResponse = async ({ issuerURL, clientID }: any): Promise<any> =>
     if (error instanceof Error) {
       throw new Error("(OAUTH) " + error.message, { cause: error })
     } else {
-      throw error;
+      throw error
     }
   }
 }
@@ -127,7 +127,7 @@ const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }:
     if (error instanceof Error) {
       throw new Error("(OAUTH) refresh token, " + error?.message)
     } else {
-      throw error;
+      throw error
     }
   }
 }
@@ -136,28 +136,31 @@ const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }:
 // We use iframe for ending oidc session in id provider
 // if we don't want user to leave current page
 function oidcLogout({ issuerURL, silent }: any): void {
-  getOidcConfig(issuerURL).then((config: any) => {
-    if (!config.end_session_endpoint) {
-      console.warn(
-        'WARNING: (OAUTH) Id provider does not offer an endpoint for logout. Checked: "end_session_endpoint"'
-      )
-      return
-    }
-    const url = config.end_session_endpoint
-    if (silent) {
-      const currentScript = document.querySelector(`iframe[id="__oauth_logout_silent_mode"]`)
-      if (currentScript) currentScript.remove()
-      // refresh token using iframe and postMessage API
-      const iframe = document.createElement("iframe")
-      iframe.setAttribute("id", "__oauth_silent_mode")
-      iframe.setAttribute("src", url + "&prompt=none")
-      iframe.setAttribute("width", "0")
-      iframe.setAttribute("height", "0")
-      document.body.append(iframe)
-    } else {
-      window.location.replace(url)
-    }
-  }, () => { })
+  getOidcConfig(issuerURL).then(
+    (config: any) => {
+      if (!config.end_session_endpoint) {
+        console.warn(
+          'WARNING: (OAUTH) Id provider does not offer an endpoint for logout. Checked: "end_session_endpoint"'
+        )
+        return
+      }
+      const url = config.end_session_endpoint
+      if (silent) {
+        const currentScript = document.querySelector(`iframe[id="__oauth_logout_silent_mode"]`)
+        if (currentScript) currentScript.remove()
+        // refresh token using iframe and postMessage API
+        const iframe = document.createElement("iframe")
+        iframe.setAttribute("id", "__oauth_silent_mode")
+        iframe.setAttribute("src", url + "&prompt=none")
+        iframe.setAttribute("width", "0")
+        iframe.setAttribute("height", "0")
+        document.body.append(iframe)
+      } else {
+        window.location.replace(url)
+      }
+    },
+    () => {}
+  )
 }
 
 /**
@@ -247,7 +250,7 @@ const oidcSession = (params: any): any => {
     } catch (error: unknown) {
       update({
         auth: null,
-        error: (error instanceof Error ? error.toString() : ''),
+        error: error instanceof Error ? error.toString() : "",
         loggedIn: false,
         isProcessing: false,
       })
@@ -267,8 +270,8 @@ const oidcSession = (params: any): any => {
         refreshToken,
       })
       receiveNewData(promise).then(
-        () => { }, 
-        () => { }
+        () => {},
+        () => {}
       )
     }
   }
@@ -276,8 +279,8 @@ const oidcSession = (params: any): any => {
   const login = () => {
     update({ isProcessing: true })
     createOidcRequest({ issuerURL, clientID, flowType, requestParams }).then(
-      () => { }, 
-      () => { }
+      () => {},
+      () => {}
     )
   }
 
@@ -296,8 +299,8 @@ const oidcSession = (params: any): any => {
     // try to get auth infos from the URL if current page load is a redirect from ID Provider
     // Initial auth state!
     receiveNewData(handleOidcResponse({ issuerURL, clientID })).then(
-      () => { }, 
-      () => { }
+      () => {},
+      () => {}
     )
   }
 
