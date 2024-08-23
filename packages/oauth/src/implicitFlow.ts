@@ -29,6 +29,7 @@ const buildRequestUrl = async ({ issuerURL, clientID, oidcState, callbackURL, pa
  * @param {object} params
  * @returns {Promise} resolves to token data
  */
+// eslint-disable-next-line @typescript-eslint/require-await
 const handleResponse = async () => {
   if (!searchParams) return null
 

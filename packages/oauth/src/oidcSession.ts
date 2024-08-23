@@ -53,8 +53,12 @@ const createOidcRequest = async ({ issuerURL, clientID, flowType, requestParams 
 
     // redirect to this URL
     window.location.replace(url)
-  } catch (error: any) {
-    throw new Error("(OAUTH) " + error.message, { cause: error })
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error("(OAUTH) " + error.message, { cause: error })
+    } else {
+      throw error;
+    }
   }
 }
 
@@ -90,8 +94,12 @@ const handleOidcResponse = async ({ issuerURL, clientID }: any): Promise<any> =>
       window.history.replaceState("", "", oidcState.lastUrl || "/")
     }
     return authData
-  } catch (error: any) {
-    throw new Error("(OAUTH) " + error.message, { cause: error })
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error("(OAUTH) " + error.message, { cause: error })
+    } else {
+      throw error;
+    }
   }
 }
 
@@ -115,8 +123,12 @@ const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }:
       refreshToken: newRefreshToken,
       parsed: parseIdTokenData(tokenData),
     }
-  } catch (error: any) {
-    throw new Error("(OAUTH) refresh token, " + error?.message)
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error("(OAUTH) refresh token, " + error?.message)
+    } else {
+      throw error;
+    }
   }
 }
 
@@ -232,10 +244,10 @@ const oidcSession = (params: any): any => {
     try {
       const data = await promise
       update({ auth: data, error: null, loggedIn: !!data, isProcessing: false })
-    } catch (error: any) {
+    } catch (error: unknown) {
       update({
         auth: null,
-        error: error.toString(),
+        error: (error instanceof Error ? error.toString() : ''),
         loggedIn: false,
         isProcessing: false,
       })

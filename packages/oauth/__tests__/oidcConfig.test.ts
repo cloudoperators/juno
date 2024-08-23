@@ -36,7 +36,7 @@ describe("getOidcConfig", () => {
     await expect(getOidcConfig("bad")).rejects.toThrow()
   })
   it("should return a promise", () => {
-    expect(getOidcConfig("https://test.com").then).toBeDefined()
+    expect(getOidcConfig("https://test.com")).toBeInstanceOf(Promise)
   })
   it("should call fetch", async () => {
     await getOidcConfig("https://test.com")

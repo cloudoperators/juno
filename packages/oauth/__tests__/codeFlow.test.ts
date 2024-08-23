@@ -24,7 +24,7 @@ const mockIdTokenResponse = {
   json: () => {
     return { id_token: testIdToken }
   },
-} as any
+}
 global.fetch = vi.fn().mockResolvedValue(mockIdTokenResponse)
 
 describe("buildRequestUrl", () => {
@@ -38,8 +38,8 @@ describe("buildRequestUrl", () => {
         issuerURL: "http://issuer.com",
         clientID: "12345",
         oidcState: {},
-      }).then
-    ).toBeDefined()
+      })
+    ).toBeInstanceOf(Promise)
   })
 
   test("should build url for implicit flow", async () => {

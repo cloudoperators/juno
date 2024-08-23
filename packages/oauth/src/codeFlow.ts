@@ -10,14 +10,13 @@ import { paramsToUrl } from "./utils"
 
 const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID }: any) => {
   if (!clientID) throw new Error("clientID is required")
-  const body: any = {
+  const body :Record<string, any> = {
     grant_type: "authorization_code",
     code: code,
     redirect_uri: window.location.origin,
     client_id: clientID,
+    code_verifier: (verifier || undefined)
   }
-
-  if (verifier) body.code_verifier = verifier
 
   const formBody = Object.keys(body)
     .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(body[k])}`)

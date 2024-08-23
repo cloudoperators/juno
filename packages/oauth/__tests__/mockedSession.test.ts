@@ -54,11 +54,11 @@ describe("mockedSession", () => {
   })
 
   describe("session", () => {
-    let session: any = undefined
-    let onUpdate: any = undefined
-    beforeEach(() => {
-      onUpdate = vi.fn()
-      session = mockedSession({ onUpdate, initialLogin: true })
+    const onUpdate = vi.fn()
+    const session = mockedSession({ onUpdate, initialLogin: true })
+
+    afterEach(() => {
+      vi.clearAllMocks();
     })
 
     test("session's current state is defined", () => {
@@ -82,10 +82,12 @@ describe("mockedSession", () => {
     })
 
     test("onUpdate have been called initialy", () => {
+      const session = mockedSession({ onUpdate, initialLogin: true })
       expect(onUpdate).toHaveBeenLastCalledWith(session.currentState())
     })
 
     test("logout", () => {
+      const session = mockedSession({ onUpdate, initialLogin: true })
       session.logout()
       expect(onUpdate).toHaveBeenLastCalledWith({
         auth: null,
@@ -96,6 +98,7 @@ describe("mockedSession", () => {
     })
 
     test("login", () => {
+      const session = mockedSession({ onUpdate, initialLogin: true })
       session.logout()
       session.login()
       expect(onUpdate).toHaveBeenLastCalledWith({
@@ -107,9 +110,13 @@ describe("mockedSession", () => {
     })
 
     describe("custom token", () => {
-      let onUpdate: any = undefined
+      const onUpdate = vi.fn()
+
+      afterEach(() => {
+        vi.clearAllMocks();
+      })
+
       beforeEach(() => {
-        onUpdate = vi.fn()
         mockedSession({
           onUpdate,
           initialLogin: true,
