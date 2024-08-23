@@ -41,7 +41,7 @@ The following commit types are allowed:
 - **publish**: Changes related to publishing the package
 - **release**: Version releases
 - **refactor**: Code refactor that doesn't introduce a new feature or fix a bug
-- **test**: For test purposes, when it is only tests will be written on changed
+- **test**: For test purposes, when only tests will be written or changed
 - **style**: When there are only style changes
 
 ### Allowed Commit Scopes
