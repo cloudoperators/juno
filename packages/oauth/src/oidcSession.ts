@@ -157,7 +157,7 @@ function oidcLogout({ issuerURL, silent }: any): void {
     } else {
       window.location.replace(url)
     }
-  })
+  }, () => { })
 }
 
 /**
@@ -266,13 +266,19 @@ const oidcSession = (params: any): any => {
         flowType,
         refreshToken,
       })
-      receiveNewData(promise)
+      receiveNewData(promise).then(
+        () => { }, 
+        () => { }
+      )
     }
   }
 
   const login = () => {
     update({ isProcessing: true })
-    createOidcRequest({ issuerURL, clientID, flowType, requestParams })
+    createOidcRequest({ issuerURL, clientID, flowType, requestParams }).then(
+      () => { }, 
+      () => { }
+    )
   }
 
   const logout = (options: any) => {
@@ -289,7 +295,10 @@ const oidcSession = (params: any): any => {
     update({ isProcessing: true })
     // try to get auth infos from the URL if current page load is a redirect from ID Provider
     // Initial auth state!
-    receiveNewData(handleOidcResponse({ issuerURL, clientID }))
+    receiveNewData(handleOidcResponse({ issuerURL, clientID })).then(
+      () => { }, 
+      () => { }
+    )
   }
 
   //############### START OIDC ################
