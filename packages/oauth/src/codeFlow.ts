@@ -8,7 +8,7 @@ import { decodeIDToken } from "./tokenHelpers"
 import { searchParams } from "./oidcState"
 import { paramsToUrl } from "./utils"
 
-const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID }: any) => {
+const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID }: Record<string, any>) => {
   if (!clientID) throw new Error("clientID is required")
   const body: Record<string, any> = {
     grant_type: "authorization_code",
@@ -33,7 +33,7 @@ const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID }: any) =>
   })
 }
 
-const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbackURL }: any) => {
+const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbackURL }: Record<string, any>) => {
   const config = await getOidcConfig(issuerURL)
 
   let scope = "openid email profile offline_access"
@@ -56,7 +56,7 @@ const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbac
   return config.authorization_endpoint + "?" + urlParams
 }
 
-const handleResponse = async ({ issuerURL, clientID, oidcState }: any) => {
+const handleResponse = async ({ issuerURL, clientID, oidcState }: Record<string, any>) => {
   if (!searchParams) return null
 
   const code = searchParams.get("code")
@@ -88,7 +88,7 @@ const handleResponse = async ({ issuerURL, clientID, oidcState }: any) => {
   }
 }
 
-const refreshToken = async ({ issuerURL, clientID, refreshToken }: any) => {
+const refreshToken = async ({ issuerURL, clientID, refreshToken }: Record<string, any>) => {
   if (!issuerURL) throw new Error("issuerURL is required")
   if (!clientID) throw new Error("clientID is required")
 

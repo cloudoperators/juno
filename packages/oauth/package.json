@@ -3,8 +3,8 @@
   "version": "1.2.7",
   "author": "UI-Team",
   "description": "Authenticates user via OIDC",
-  "main": "build/oauth.es.js",
-  "module": "build/oauth.es.js",
+  "main": "build/index.js",
+  "module": "build/index.js",
   "types": "build/types/index.d.ts",
   "files": [
     "build/**",

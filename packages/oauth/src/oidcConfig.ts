@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+type OidcConfig = Record<string, any>
+
 interface CachedConfig {
   time: number
-  config: Record<string, any>
+  config: OidcConfig
 }
 
 let oidcConfig: Record<any, CachedConfig> = {}
 const cacheDuration = 5 * 60 * 60 * 1000
 
-export async function getOidcConfig(issuerURL: any): Promise<any> {
+export async function getOidcConfig(issuerURL: any): Promise<OidcConfig> {
   // throw an error if no issuerURL is provided
   if (!issuerURL) throw new Error("No issuerURL provided")
   const cachedConfig = oidcConfig[issuerURL]

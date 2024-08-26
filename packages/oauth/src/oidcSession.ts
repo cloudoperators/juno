@@ -28,7 +28,12 @@ const oidcFlowHandler = (flowType: any) => {
 
 //############################## REQUEST #################################
 // This function initiates the oidc flow
-const createOidcRequest = async ({ issuerURL, clientID, flowType, requestParams }: any): Promise<any> => {
+const createOidcRequest = async ({
+  issuerURL,
+  clientID,
+  flowType,
+  requestParams,
+}: Record<string, any>): Promise<any> => {
   try {
     // create state props and store them in the SessionStorage
     // to use them after the redirect back from the ID provider
@@ -64,7 +69,7 @@ const createOidcRequest = async ({ issuerURL, clientID, flowType, requestParams 
 
 //################################ RESPONSE #################################
 // handle the response from ID provider
-const handleOidcResponse = async ({ issuerURL, clientID }: any): Promise<any> => {
+const handleOidcResponse = async ({ issuerURL, clientID }: Record<string, any>): Promise<any> => {
   const oidcState = getResponseState()
   // no oidc state presented or it does not match the stored one -> return null
   if (!oidcState) {
@@ -104,7 +109,7 @@ const handleOidcResponse = async ({ issuerURL, clientID }: any): Promise<any> =>
 }
 
 // Refresh token works only for the code flow!
-const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }: any): Promise<any> => {
+const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }: Record<string, any>): Promise<any> => {
   if (flowType !== FLOW_TYPE.CODE) return null
   try {
     const {
