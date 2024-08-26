@@ -2,16 +2,15 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
+import { vi } from "vitest"
 
-globalThis.console.error = jest.fn()
-globalThis.console.warn = jest.fn()
-globalThis.console.info = jest.fn()
+vi.restoreAllMocks()
 
-delete global.window.location
-// global.window = Object.create(window)
-// global.window.location = {}
+globalThis.console.error = vi.fn()
+globalThis.console.warn = vi.fn()
+globalThis.console.info = vi.fn()
 
-global.window.location = {
+vi.stubGlobal("location", {
   ancestorOrigins: null,
   hash: null,
   host: "dummy.com",
@@ -25,10 +24,11 @@ global.window.location = {
   assign: null,
   reload: null,
   replace: null,
-}
+})
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve({}),
-  })
-)
+const mockResponse = {
+  ok: true,
+  statusText: "OK",
+  json: async () => {},
+} as Response
+global.fetch = vi.fn().mockResolvedValue(mockResponse)

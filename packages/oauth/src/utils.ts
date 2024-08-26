@@ -7,8 +7,7 @@
  * This function generates a random string based on Math.random
  * @returns {string} random string
  */
-export function randomString(length) {
-  if (!length) length = 60
+export function randomString(length: number = 60): string {
   let result = ""
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
   const charactersLength = characters.length
@@ -25,14 +24,14 @@ export function randomString(length) {
  * @param {object} props
  * @returns base64 encoded json string
  */
-export const encodeBase64Json = (props) => window.btoa(JSON.stringify({ ...props }))
+export const encodeBase64Json = (props: any): string => window.btoa(JSON.stringify({ ...props }))
 
 /**
  *
  * @param {string} string, base64 encoded json string
  * @returns {object} json
  */
-export const decodeBase64Json = (string) => {
+export const decodeBase64Json = (string: string): any => {
   try {
     return JSON.parse(window.atob(string))
   } catch (_) {
@@ -40,7 +39,7 @@ export const decodeBase64Json = (string) => {
   }
 }
 
-export const paramsToUrl = (params = {}) => {
+export const paramsToUrl = (params: any = {}): string => {
   const urlParams = new URLSearchParams()
   Object.keys(params).forEach((k) => urlParams.set(k, params[k]))
   return urlParams.toString()
