@@ -46,6 +46,12 @@ Please include the following license header at the top of every source file:
 
 This project uses **Husky** to enforce code quality checks and **commitlint** to ensure commit messages follow a consistent convention. Below are the details on how these are configured and how they work together.
 
+## Setup Husky:
+
+```bash
+npm run prepare
+```
+
 For more details on the specific hooks and commitlint rules used in this project, see our [Husky and Commitlint Guide](docs/husky_commitlint_guide.md).
 
 ## Checks
@@ -68,4 +74,4 @@ Before submitting your pull request, please ensure your code passes the followin
 
 ## Release Guidelines
 
-For detail release management on npm registry please check our detailed [Release Guidelines](./docs/RELEASE_GUIDELINES.mdx)
+For detail release management on npm registry please check our detailed [Release Guidelines](./docs/releases_guidelines.md)
