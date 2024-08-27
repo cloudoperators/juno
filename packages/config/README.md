@@ -11,7 +11,7 @@ This package provides a base TypeScript configuration to be used across multiple
 
 ## Usage
 
-You can use this configuration as a starting point in any package or app within your monorepo using TurboRepo.
+You can use this configuration as a starting point in any package or app within our project using TurboRepo.
 
 ```javascript
 packages / package - a / src / tsconfig.json
@@ -33,11 +33,11 @@ eslint.config.mjs
 
 ## ESLint
 
-This package provides also a temporary ESLint configuration specifically for TypeScript to be used across multiple packages in a monorepo setup.
+This package provides also ESLint configuration specifically for TypeScript to be used across multiple packages in a monorepo setup.
 
 ## Usage
 
-You can use this configuration as a starting point in any package or app within your monorepo using TurboRepo.
+You can use this configuration as a starting point in any package or app within our project using TurboRepo.
 
 ```javascript
 packages / package - a / src / tsconfig.json
