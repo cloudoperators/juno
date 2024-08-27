@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-eslint-config": "*",
-    "@cloudoperators/juno-typescript-config": "*",
+    "@cloudoperators/juno-config": "*",
     "@types/node": "^20.11.24",
     "jsdom": "^24.1.1",
     "typescript": "^5.5.4",
