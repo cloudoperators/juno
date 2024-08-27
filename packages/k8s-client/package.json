@@ -27,7 +27,6 @@
     "client"
   ],
   "devDependencies": {
-    "@cloudoperators/juno-eslint-config": "*",
     "@cloudoperators/juno-config": "*",
     "vite": "^5.4.0",
     "vite-plugin-dts": "^4.0.3"
