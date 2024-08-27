@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "author": "UI-Team",
   "description": "JavaScript client for Kubernetes API",
-  "main": "build/k8s-client.es.js",
-  "module": "build/k8s-client.es.js",
+  "main": "build/index.js",
+  "module": "build/index.js",
   "types": "build/types/index.d.ts",
   "files": [
     "build/**",
