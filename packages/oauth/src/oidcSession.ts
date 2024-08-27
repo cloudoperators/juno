@@ -9,6 +9,7 @@ import * as codeFlowHandler from "./codeFlow"
 
 import { hasValidState, createState as createRequestState, getState as getResponseState } from "./oidcState"
 import { getOidcConfig } from "./oidcConfig"
+import { OAuthError } from "./OAuthError"
 
 // define flow types
 export const FLOW_TYPE = {
@@ -60,8 +61,9 @@ const createOidcRequest = async ({
     window.location.replace(url)
   } catch (error: unknown) {
     if (error instanceof Error) {
-      throw new Error("(OAUTH) " + error.message, { cause: error })
+      throw new OAuthError("(OAUTH) " + error.message, error)
     } else {
+      // If the error is not an instance of Error, we throw it as is
       throw error
     }
   }
@@ -101,8 +103,9 @@ const handleOidcResponse = async ({ issuerURL, clientID }: Record<string, any>):
     return authData
   } catch (error: unknown) {
     if (error instanceof Error) {
-      throw new Error("(OAUTH) " + error.message, { cause: error })
+      throw new OAuthError("(OAUTH) " + error.message, error)
     } else {
+      // If the error is not an instance of Error, we throw it as is
       throw error
     }
   }

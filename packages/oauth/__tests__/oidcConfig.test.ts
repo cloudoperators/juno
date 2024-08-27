@@ -13,23 +13,21 @@ const mockResponse = {
 } as Response
 global.fetch = vi.fn().mockResolvedValue(mockResponse)
 
-// add a custom matcher to jest to match URLs
-expect.extend({
-  matchURL(received, argument) {
-    const url = received instanceof URL ? received.href : received
-    if (url === argument) {
-      return {
-        pass: true,
-        message: () => `expected ${received} to be ${argument}`,
-      }
-    } else {
-      return {
-        pass: false,
-        message: () => `expected ${received} not to be ${argument}`,
-      }
-    }
-  },
-})
+export function matchURL(expected: string) {
+  return {
+    asymmetricMatch(received: URL | string) {
+      const url = received instanceof URL ? received : new URL(received)
+      const expectedUrl = new URL(expected)
+      return url.href === expectedUrl.href
+    },
+    toString() {
+      return `matchURL("${expected}")`
+    },
+    getExpectedType() {
+      return "string"
+    },
+  }
+}
 
 describe("getOidcConfig", () => {
   it("should throw if issuerURL is bad", async () => {
@@ -44,7 +42,7 @@ describe("getOidcConfig", () => {
   })
   it("should call fetch with the correct url", async () => {
     await getOidcConfig("https://test.com")
-    expect(global.fetch).toHaveBeenCalledWith(expect.matchURL("https://test.com/.well-known/openid-configuration"))
+    expect(global.fetch).toHaveBeenLastCalledWith(matchURL("https://test.com/.well-known/openid-configuration"))
   })
 
   it("should cache the result", async () => {
@@ -70,7 +68,7 @@ describe("getOidcConfig", () => {
     resetCache()
     await getOidcConfig("https://test.com/with/path")
     expect(global.fetch).toHaveBeenLastCalledWith(
-      expect.matchURL("https://test.com/with/path/.well-known/openid-configuration")
+      matchURL("https://test.com/with/path/.well-known/openid-configuration")
     )
   })
 })
