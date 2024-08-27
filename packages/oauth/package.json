@@ -20,7 +20,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@cloudoperators/juno-eslint-config": "*",
-    "@cloudoperators/juno-typescript-config": "*",
+    "@cloudoperators/juno-config": "*",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",

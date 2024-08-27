@@ -1,5 +1,5 @@
 {
-  "extends": "@cloudoperators/juno-typescript-config/base.json",
+  "extends": "@cloudoperators/juno-config/typescript/base.json",
   "compilerOptions": {
     "target": "ES5",
     "module": "ESNext",
@@ -16,6 +16,6 @@
     "allowSyntheticDefaultImports": true,
     "types": ["vitest/globals", "@testing-library/jest-dom", "@types/react"]
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts", ],
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts"],
   "exclude": ["node_modules", "build"]
 }

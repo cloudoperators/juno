@@ -7,7 +7,7 @@
 
 ## Typescript
 
-This package provides a base TypeScript configuration to be used across multiple packages in a monorepo setup. It ensures consistent TypeScript settings and simplifies the TypeScript setup process for each package. The package name is `@cloudoperators/juno-typescript-config`.
+This package provides a base TypeScript configuration to be used across multiple packages in a monorepo setup. It ensures consistent TypeScript settings and simplifies the TypeScript setup process for each package. The package name is `@cloudoperators/juno-config`.
 
 ## Usage
 
@@ -22,7 +22,7 @@ eslint.config.mjs
 
 ```json
 {
-  "extends": "@cloudoperators/juno-typescript-config/base.json",
+  "extends": "@cloudoperators/juno-config/typescript/base.json",
   "compilerOptions": {
     "outDir": "./build",
     "rootDir": "./src"

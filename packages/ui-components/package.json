@@ -27,7 +27,7 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@cloudoperators/juno-eslint-config": "*",
-    "@cloudoperators/juno-typescript-config": "*",
+    "@cloudoperators/juno-config": "*",
     "@floating-ui/react": "^0.25.1",
     "@headlessui-float/react": "^0.11.2",
     "@headlessui/react": "^1.7.15",

@@ -1,5 +1,5 @@
 {
-  "extends": "@cloudoperators/juno-typescript-config/base.json",
+  "extends": "@cloudoperators/juno-config/typescript/base.json",
   "compilerOptions": {
     "outDir": "./dist",
     "target": "ES6",
@@ -12,5 +12,5 @@
     "resolveJsonModule": true
   },
   "include": ["./src/**/*.ts", "./__tests__/**/*.test.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts"],
-  "exclude": ["node_modules", "build", "dist", ]
+  "exclude": ["node_modules", "build", "dist"]
 }
