@@ -18,7 +18,7 @@ Every pull request that involves a change to a package should include a changese
    To start the process, run the following command in your terminal:
 
    ```bash
-    turbo run changeset
+    npm run changeset
    ```
 
 2. **Select the Package**  

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "author": "UI-Team",
   "description": "JavaScript client for Kubernetes API",
-  "main": "build/k8s-client.es.js",
-  "module": "build/k8s-client.es.js",
+  "main": "build/index.js",
+  "module": "build/index.js",
   "types": "build/types/index.d.ts",
   "files": [
     "build/**",
@@ -27,8 +27,7 @@
     "client"
   ],
   "devDependencies": {
-    "@cloudoperators/juno-eslint-config": "*",
-    "@cloudoperators/juno-typescript-config": "*",
+    "@cloudoperators/juno-config": "*",
     "vite": "^5.4.0",
     "vite-plugin-dts": "^4.0.3"
   }

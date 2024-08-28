@@ -22,7 +22,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
-    "@cloudoperators/juno-eslint-config": "*",
+    "@cloudoperators/juno-config": "*",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -47,7 +47,7 @@
   },
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
-    "lint": "eslint .",
+    "lint": "eslint",
     "test": "NODE_ENV=test jest",
     "dev": "NODE_ENV=development rollup -c -w"
   },
