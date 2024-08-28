@@ -6,9 +6,9 @@
 import React, { FC } from "react"
 import Close from "@material-design-icons/svg/filled/close.svg"
 
-type EventHandler = (_event :React.MouseEvent<EventTarget>, _id :string) => void;
+type EventHandler = (_event: React.MouseEvent<EventTarget>, _id: string) => void
 
-const pillStyles = (onClick :boolean) => {
+const pillStyles = (onClick: boolean) => {
   return `
     jn-inline-flex
     jn-basis-auto
@@ -25,7 +25,7 @@ const pillStyles = (onClick :boolean) => {
   `
 }
 
-const pillKeyStyles = (onClick :boolean) => {
+const pillKeyStyles = (onClick: boolean) => {
   return `
     jn-bg-theme-background-lvl-4
     jn-text-theme-high
@@ -37,7 +37,7 @@ const pillKeyStyles = (onClick :boolean) => {
   `
 }
 
-const pillValueStyles = (onClick :boolean) => {
+const pillValueStyles = (onClick: boolean) => {
   return `
     jn-px-1
     jn-py-0.5
@@ -50,7 +50,7 @@ const pillValueStyles = (onClick :boolean) => {
 /**
 A Pill to represent a value, or key and value. Can e.g. be used to represent selected filter values in a filter component. Can optionally be closed. On close the uid, if provided, or the pillKey is returned in the callback.
  */
-export const Pill : FC<PillProps> = ({
+export const Pill: FC<PillProps> = ({
   uid = "",
   pillKey = "",
   pillKeyLabel = "",
@@ -62,11 +62,11 @@ export const Pill : FC<PillProps> = ({
   className = "",
   ...props
 }) => {
-  const handleCloseClick = (event :React.MouseEvent<EventTarget>) => {
+  const handleCloseClick = (event: React.MouseEvent<EventTarget>) => {
     onClose && onClose(event, uid || pillKey || pillValue)
   }
 
-  const handleClick = (event :React.MouseEvent<EventTarget>) => {
+  const handleClick = (event: React.MouseEvent<EventTarget>) => {
     onClick && onClick(event, uid || pillKey || pillValue)
   }
 
@@ -86,35 +86,41 @@ export const Pill : FC<PillProps> = ({
           </span>
         </>
       )}
-      {closeable && <Close
-          width="18"
-          height="18"
-          alt="close"
-          title="Close"
-          role="img"
-          onClick={(e :React.MouseEvent<SVGAElement, MouseEvent>) => handleCloseClick(e)}
-        />}
+      {closeable && (
+        <button
+          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleCloseClick(e)}
+          className={`juno-icon-button`}
+        >
+          <Close
+            width="18"
+            height="18"
+            alt="close"
+            title="Close"
+            role="img"
+          />
+        </button>
+      )}
     </div>
   )
 }
 
 export interface PillProps {
-    /** The unique identifier of the pill. Returned by the onClose callback */
-    uid? :string
-    /** The key of the filter the pill represents. Returned by the onClose callback if uid undefined. Optional. */
-    pillKey? :string
-    /** The visible label to describe the pill key. If not set pillKey is used. Optional. */
-    pillKeyLabel? :string
-    /** The value of filter the pill represents. Returned by the onClose callback if uid and pillKey undefined */
-    pillValue :string //.isRequired,
-    /** The visible label to describe the pill value. If not set pillValue is used. Optional. */
-    pillValueLabel? :string
-    /** add custom classNames */
-    className? :string
-    /** Whether the pill should be closeable */
-    closeable? :boolean
-    /** Pass a handler to be executed when closing the Pill. Also returns the event and the uid (fallback: pillKey -> fallback: pillValue) */
-    onClose? :EventHandler
-    /** Pass a handler to be executed when clicking on the Pill (but not on the close button). Also returns the event and the uid (fallback: pillKey -> fallback: pillValue) */
-    onClick? :EventHandler
+  /** The unique identifier of the pill. Returned by the onClose callback */
+  uid?: string
+  /** The key of the filter the pill represents. Returned by the onClose callback if uid undefined. Optional. */
+  pillKey?: string
+  /** The visible label to describe the pill key. If not set pillKey is used. Optional. */
+  pillKeyLabel?: string
+  /** The value of filter the pill represents. Returned by the onClose callback if uid and pillKey undefined */
+  pillValue: string //.isRequired,
+  /** The visible label to describe the pill value. If not set pillValue is used. Optional. */
+  pillValueLabel?: string
+  /** add custom classNames */
+  className?: string
+  /** Whether the pill should be closeable */
+  closeable?: boolean
+  /** Pass a handler to be executed when closing the Pill. Also returns the event and the uid (fallback: pillKey -> fallback: pillValue) */
+  onClose?: EventHandler
+  /** Pass a handler to be executed when clicking on the Pill (but not on the close button). Also returns the event and the uid (fallback: pillKey -> fallback: pillValue) */
+  onClick?: EventHandler
 }
