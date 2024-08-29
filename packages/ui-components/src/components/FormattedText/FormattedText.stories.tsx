@@ -1,5 +1,13 @@
-import { FormattedText } from "./index.js"
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
+import React from "react"
+import { FormattedText } from "./FormattedText.component"
+import { FormattedTextProps } from "./FormattedText.component"
+
+// Remove the import statement for "ComponentStory"
 export default {
   title: "Components/FormattedText",
   component: FormattedText,
@@ -18,7 +26,7 @@ export default {
   },
 }
 
-const Template = (args) => (
+const Template = (args: FormattedTextProps) => (
   <FormattedText {...args}>
     <h1>Headline 1</h1>
     <h2>Headline 2</h2>
