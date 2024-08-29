@@ -1,0 +1,31 @@
+name: Juno NPM Package Pipeline
+
+on:
+  pull_request:
+    types: [opened, synchronize] # Triggers when a PR is opened or updated
+
+env:
+  HUSKY: 0
+
+jobs:
+  input-processing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Inputs
+        run: |
+          echo "====${{ github.workflow }} Inputs===="
+          echo "Inputs: ${{ github.event }}"
+
+  check-licenses:
+    needs: [input-processing]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Licenses
+        run: echo "License check logic goes here"
+
+  test-unit-and-build:
+    needs: [input-processing, check-licenses]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Tests and Build
+        run: echo "Test and build logic goes here"

@@ -1,4 +1,12 @@
-node_modules
-build
+.turbo
 .DS_Store
+.vscode
+node_modules
 npm-debug.log*
+build
+dist
+
+# act artifacts needed for testing workflows
+.secrets
+.env
+act_*.json

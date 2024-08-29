@@ -1,0 +1,40 @@
+{
+  "name": "@cloudoperators/juno-oauth",
+  "version": "1.2.7",
+  "author": "UI-Team",
+  "description": "Authenticates user via OIDC",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/types/index.d.ts",
+  "files": [
+    "build/**",
+    "LICENCE"
+  ],
+  "type": "module",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/oauth",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0 <21.0.0",
+    "npm": ">=10.0.0 <11.0.0"
+  },
+  "devDependencies": {
+    "@cloudoperators/juno-config": "*",
+    "esbuild": "^0.17.6",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.4",
+    "vite": "^5.4.0",
+    "vite-plugin-dts": "^4.0.3"
+  },
+  "dependencies": {
+    "oauth-pkce": "^0.0.6"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
+  }
+}

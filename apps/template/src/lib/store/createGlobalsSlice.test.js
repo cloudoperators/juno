@@ -5,17 +5,12 @@
 
 import * as React from "react"
 import { renderHook, act } from "@testing-library/react"
-import StoreProvider, {
-  useGlobalsActions,
-  useGlobalsUrlStateKey,
-} from "../../components/StoreProvider"
+import StoreProvider, { useGlobalsActions, useGlobalsUrlStateKey } from "../../components/StoreProvider"
 
 describe("createGlobalsSlice", () => {
   describe("setUrlStateKey", () => {
     it("examples a basic test", () => {
-      const wrapper = ({ children }) => (
-        <StoreProvider>{children}</StoreProvider>
-      )
+      const wrapper = ({ children }) => <StoreProvider>{children}</StoreProvider>
       const store = renderHook(
         () => ({
           globalsActions: useGlobalsActions(),

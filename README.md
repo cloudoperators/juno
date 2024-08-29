@@ -4,23 +4,45 @@
 
 ## Overview
 
-Juno is a repository that serves as a collection of Micro Frontends (MFE) and libraries designed for modular development within a larger system.
+Juno has evolved into a platform that includes tools and libraries for developing Juno-based applications. This platform provides a comprehensive set of utilities to streamline the development process, ensure consistency, and facilitate code sharing across different projects.
 
-## Micro Frontends (MFE)
+### Key Components
 
-Juno consists of multiple Micro Frontends (MFE) that encapsulate specific functionality and user interface components. Each MFE operates independently and can be integrated into a larger application seamlessly.
+- **Design System**: The `ui-components` library offers a consistent set of UI components, styles, and guidelines for building user interfaces.
+- **OIDC Library**: Provides OpenID Connect (OIDC) support for authentication and authorization in Juno-based applications.
+- **Communicator Library**: Facilitates communication between different parts of the application, ensuring efficient data exchange.
+- **CLI Tools**: Command-line tools to generate, build, and manage applications and libraries, simplifying the development workflow.
 
-## Libraries
+### Applications
 
-In addition to Micro Frontends, Juno also includes a set of libraries that provide shared functionality and utilities across different parts of the system. These libraries are designed for reusability and modularity, facilitating consistent development practices and code sharing.
+Juno includes various applications that showcase the use of its tools and libraries, providing examples and templates for developers.
 
-### Included Design System
+#### Included Applications
 
-One of the libraries in Juno incorporates a comprehensive design system, providing consistent UI components, styles, and guidelines for building user interfaces within the system. This design system promotes consistency and efficiency in frontend development across multiple Micro Frontends (MFE) and applications.
+- `apps/example`
+- `apps/template`
+
+### Libraries
+
+In addition to applications, Juno also includes a set of libraries that provide shared functionality and utilities across different parts of the system. These libraries are designed for reusability and modularity, facilitating consistent development practices and code sharing.
+
+#### Included Libraries
+
+- `packages/ui-components`
+- `packages/communicator`
+- `packages/oauth`
+
+## Getting Started
+
+To get started with Juno, follow the instructions in the [Getting Started Guide](docs/getting-started.md). This guide covers the initial setup, installation of dependencies, and basic usage of the platform's tools and libraries.
+
+## Documentation
+
+Comprehensive documentation for Juno is available in the [docs](docs) directory. This includes detailed guides on using the various tools and libraries, best practices, and examples to help you get the most out of the platform.
 
 ## Support, Feedback, Contributing
 
-This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/cloudoperators/juno/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).
+This project is open to feature requests/suggestions, bug reports, etc. via [GitHub issues](https://github.com/cloudoperators/juno/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).
 
 ## Code of Conduct
 

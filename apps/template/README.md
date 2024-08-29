@@ -1,6 +1,7 @@
 # Template App
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Built with Juno](https://cloudoperators.github.io/juno/built-with-juno.svg)](https://github.com/cloudoperators/juno)
 
 This is the standard app template for microfrontends. Use this as a basis for new juno microfrontend apps.
 

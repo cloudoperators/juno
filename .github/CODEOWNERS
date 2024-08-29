@@ -1,5 +1,5 @@
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
 
-* @edda @andypf @artieReus @hgw77 @hodanoori @tilmanhaupt
-/libs/juno-ui-components/ @edda @andypf @artieReus @hgw77 @hodanoori @tilmanhaupt @franzheidl
+* @cloudoperators/frontend-core
+/packages/ui-components/ @cloudoperators/frontend-core @franzheidl

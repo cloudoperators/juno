@@ -35,18 +35,14 @@ module.exports = ({ appPath = "" } = {}) => {
   for (let propName in secrets) {
     if (propName === "appDependencies") continue
     if (!appProps.hasOwnProperty(propName))
-      throw Error(
-        `Secret property ${propName} is not defined in package.json -> appProps`
-      )
+      throw Error(`Secret property ${propName} is not defined in package.json -> appProps`)
     appProps[propName] = secrets[propName]
   }
 
   if (secrets.appDependencies) {
     for (let propName in secrets.appDependencies) {
       if (!pkgDependencyProps.hasOwnProperty(propName))
-        throw Error(
-          `Secret property ${propName} is not defined in package.json -> appDependencies`
-        )
+        throw Error(`Secret property ${propName} is not defined in package.json -> appDependencies`)
       dependencyProps[propName] = secrets.appDependencies[propName]
     }
   }

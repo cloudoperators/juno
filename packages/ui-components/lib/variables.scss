@@ -1,0 +1,592 @@
+// SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+// SPDX-License-Identifier: Apache-2.0
+
+// Juno
+
+/* Color Definitions */
+/* The Mother of Colors – The single source of truth of colors in Juno.
+   Here we define all relevant colors as triples of their rgb values.
+   We use these to generate CSS variables: one is the triple itself for use with tailwind opacity functions, one is the rgb( r, g, b) color definition for direct use.
+   
+*/
+
+/* Global Color Definitions */
+// prettier-ignore
+$color-map: (
+  
+  "white": (255, 255, 255),
+  "black": (0, 0, 0),
+  
+  "sap-grey-1": (255, 255, 255),
+  "sap-grey-2": (225, 225, 225),
+  "sap-grey-3": (204, 204, 204),
+  "sap-grey-4": (153, 153, 153),
+  "sap-grey-5": (127, 127, 127),
+  "sap-grey-6": (102, 102, 102),
+  "sap-grey-7": (75, 75, 75),
+  "sap-grey-8": (0, 0, 0),
+  
+  "sap-blue-1": (15, 170, 25),
+  "sap-blue-2": (0, 143, 211),
+  "sap-blue-3": (0, 118, 203),
+  "sap-blue-4": (15, 70, 167),
+  "sap-blue-5": (0, 50, 131),
+  "sap-blue-6": (0, 25, 90),
+  
+  "sap-gold": (240, 171, 0),
+  
+  "sap-purple-1": (220, 0, 150),
+  "sap-purple-2": (190, 0, 140),
+  "sap-purple-3": (151, 10, 130),
+  "sap-purple-4": (118, 10, 133),
+  "sap-purple-5": (69, 21, 126),
+  "sap-purple-6": (60, 20, 100),
+  
+  "sap-green-1": (188, 220, 80),
+  "sap-green-2": (147, 201, 57),
+  "sap-green-3": (79, 184, 28),
+  "sap-green-4": (52, 139, 38),
+  "sap-green-5": (36, 114, 48),
+  "sap-green-6": (15, 75, 60),
+  
+  "sap-orange-1": (255, 175, 0),
+  "sap-orange-2": (250, 145, 0),
+  "sap-orange-3": (235, 115, 0),
+  "sap-orange-4": (227, 85, 0),
+  "sap-orange-5": (208, 69, 18),
+  "sap-orange-6": (188, 54, 24),
+  
+  "juno-grey-blue-1":  (64, 70, 75),
+  "juno-grey-blue-2":  (48, 54, 60),
+  "juno-grey-blue-3":  (41, 47, 54),
+  "juno-grey-blue-4":  (38, 44, 51),
+  "juno-grey-blue-5":  (36, 42, 49),
+  "juno-grey-blue-6":  (31, 38, 45),
+  "juno-grey-blue-7":  (28, 35, 42),
+  "juno-grey-blue-8":  (23, 30, 37),
+  "juno-grey-blue-9":  (18, 25, 32),
+  "juno-grey-blue-10": (13, 20, 28),
+  "juno-grey-blue-11": (0, 8, 16),
+  
+  "juno-grey-light-1":  (249, 249, 249),
+  "juno-grey-light-2":  (247, 247, 247),
+  "juno-grey-light-3":  (244, 244, 244),
+  "juno-grey-light-4":  (241, 241, 241),
+  "juno-grey-light-5":  (238, 238, 238),
+  "juno-grey-light-6":  (235, 235, 235),
+  "juno-grey-light-7":  (233, 233, 233),
+  "juno-grey-light-8":  (230, 230, 230),
+  "juno-grey-light-9":  (227, 227, 227),
+  "juno-grey-light-10": (215, 215, 215),
+  
+  "juno-blue-1":  (203, 232, 247),
+  "juno-blue-2":  (165, 211, 234),
+  "juno-blue-3":  (137, 201, 232),
+  "juno-blue-4":  (67, 162, 208),
+  "juno-blue-5":  (0, 125, 184),
+  "juno-blue-6":  (30, 106, 146),
+  "juno-blue-7":  (10, 103, 153),
+  "juno-blue-8":  (7, 85, 128),
+  "juno-blue-9":  (5, 70, 105),
+  "juno-blue-10": (3, 55, 84),
+  
+  "juno-turquoise-1":  (197, 247, 255),
+  "juno-turquoise-2":  (132, 241, 255),
+  "juno-turquoise-3":  (25, 232, 250),
+  "juno-turquoise-4":  (22, 217, 234),
+  "juno-turquoise-5":  (21, 208, 224),
+  "juno-turquoise-6":  (15, 167, 180),
+  "juno-turquoise-7":  (9, 133, 144),
+  "juno-turquoise-8":  (5, 100, 109),
+  "juno-turquoise-9":  (2, 69, 75),
+  "juno-turquoise-10": (1, 41, 4),
+  
+  "juno-primary-blue-1": (15, 170, 255),
+  "juno-primary-blue-2": (0, 143, 211),
+  "juno-primary-blue-3": (0, 118, 203),
+  "juno-primary-blue-4": (15, 70, 167),
+  "juno-primary-blue-5": (0, 50, 131),
+  "juno-primary-blue-6": (0, 25, 90),
+  
+);
+
+/* Light Theme Color Definitions */
+// prettier-ignore
+$light-theme-color-map: (
+  "accent": (0, 118, 203),
+  
+  "info":    (0, 118, 203),
+  "success": (79, 184, 28),
+  "warning": (255, 175, 0),
+  "danger":  (199, 0, 0),
+  "error":   (199, 0, 0),
+  
+  "juno-text-light":    (150, 150, 150),
+  "juno-text-default":  (76, 76, 76),
+  "juno-text-high":     (64, 64, 64),
+  "juno-text-highest":  (0, 0, 0),
+  "juno-text-disabled": (183, 183, 183),
+  
+  "juno-primary-danger-1": (235, 146, 146),
+  "juno-primary-danger-2": (218, 93, 93),
+  "juno-primary-danger-3": (213, 64, 64),
+  "juno-primary-danger-4": (199, 0, 0),
+  "juno-primary-danger-5": (165,11,11),
+);
+
+/* Dark Theme Color Definitions */
+// prettier-ignore
+$dark-theme-color-map: (
+  "accent": (21, 208, 224),
+  
+  "info":    (21, 208, 224),
+  "success": (59, 255, 91),
+  "warning": (255, 198, 0),
+  "danger":  (255, 65, 16),
+  "error":   (255, 65, 16),
+  
+  "juno-text-light":    (122, 122, 122),
+  "juno-text-default":  (187, 187, 187),
+  "juno-text-high":     (222, 223, 224),
+  "juno-text-highest":  (255, 254, 253),
+  "juno-text-disabled": (92, 92, 92),
+  
+  "juno-primary-danger-1": (231, 163, 137),
+  "juno-primary-danger-2": (222, 126, 91),
+  "juno-primary-danger-3": (208, 69, 18),
+  "juno-primary-danger-4": (187, 62, 16),
+  "juno-primary-danger-5": (164, 54, 14),
+);
+
+/* Global Color Variables */
+:root,
+:host {
+  @each $name, $value in $color-map {
+    --color-#{$name}: rgb(#{$value});
+    --color-#{$name}-raw: #{$value};
+  }
+}
+
+/* Light Theme Color Variables */
+.theme-light {
+  @each $name, $value in $light-theme-color-map {
+    --color-#{$name}: rgb(#{$value});
+    --color-#{$name}-raw: #{$value};
+  }
+}
+
+/* Dark Theme Color Variables */
+.theme-dark {
+  @each $name, $value in $dark-theme-color-map {
+    --color-#{$name}: rgb(#{$value});
+    --color-#{$name}-raw: #{$value};
+  }
+}
+
+/* Color Assignments */
+
+/* ----- LIGHT THEME ----- */
+.theme-light {
+  // LT Background Colors
+  --color-background-lvl-0: var(--color-white);
+  --color-background-lvl-1: var(--color-juno-grey-light-1);
+  --color-background-lvl-2: var(--color-juno-grey-light-3);
+  --color-background-lvl-3: var(--color-juno-grey-light-7);
+  --color-background-lvl-4: var(--color-juno-grey-light-9);
+  --color-background-lvl-5: var(--color-juno-grey-light-10);
+
+  --color-background-lvl-0-raw: var(--color-white-raw);
+  --color-background-lvl-1-raw: var(--color-juno-grey-light-1-raw);
+  --color-background-lvl-2-raw: var(--color-juno-grey-light-3-raw);
+  --color-background-lvl-3-raw: var(--color-juno-grey-light-7-raw);
+  --color-background-lvl-4-raw: var(--color-juno-grey-light-9-raw);
+  --color-background-lvl-5-raw: var(--color-juno-grey-light-10-raw);
+
+  // LT Global
+  --color-global-bg: var(--color-juno-grey-light-1);
+  --color-global-bg-raw: var(--color-juno-grey-light-1-raw);
+
+  --color-global-text: var(--color-juno-text-default-raw);
+  --color-content-area-bg: var(--color-background-lvl-0);
+  --color-content-area-bg-raw: var(--color-background-lvl-0-raw);
+  // LT FOCUS
+  --color-focus: var(--color-accent);
+  --color-focus-raw: var(--color-accent-raw);
+  // LT Text
+  --color-text-highest: var(--color-juno-text-highest);
+  --color-text-high: var(--color-juno-text-high);
+  --color-text-default: var(--color-juno-text-default);
+  --color-text-light: var(--color-juno-text-light);
+  --color-text-disabled: var(--color-juno-text-disabled);
+  --color-text-link: var(--color-accent);
+  --color-text-highest-raw: var(--color-juno-text-highest-raw);
+  --color-text-high-raw: var(--color-juno-text-high-raw);
+  --color-text-default-raw: var(--color-juno-text-default-raw);
+  --color-text-light-raw: var(--color-juno-text-light-raw);
+  --color-text-disabled-raw: var(--color-juno-text-disabled-raw);
+  --color-text-link-raw: var(--color-accent-raw);
+
+  // LT Badge
+  --color-badge-default-bg: var(--color-juno-grey-light-3);
+
+  // LT Button
+  // LT Primary Button
+  --color-button-primary-text: var(--color-white);
+  --color-button-primary-bg: var(--color-juno-primary-blue-3);
+  // |-- LT Primary Button :hover
+  --color-button-primary-hover-text: var(--color-white);
+  --color-button-primary-hover-bg: var(--color-juno-primary-blue-2);
+  // |-- LT Primary Button :active
+  --color-button-primary-active-text: var(--color-white);
+  --color-button-primary-active-bg: var(--color-juno-primary-blue-5);
+
+  // LT Default Button
+  --color-button-default-text: var(--color-text-high);
+  --color-button-default-bg: var(--color-background-lvl-4);
+  --color-button-default-border: var(--color-background-lvl-4);
+  // |-- LT Default Button :hover
+  --color-button-default-hover-text: var(--color-text-high);
+  --color-button-default-hover-bg: var(--color-background-lvl-3);
+  --color-button-default-hover-border: var(--color-background-lvl-3);
+  // |-- LT Default Button :active
+  --color-button-default-active-text: var(--color-text-high);
+  --color-button-default-active-bg: var(--color-background-lvl-2);
+  --color-button-default-active-border: var(--color-background-lvl-4);
+
+  // LT Subdued Button
+  --color-button-subdued-text: var(--color-text-default);
+  --color-button-subdued-icon: var(--color-text-default);
+  --color-button-subdued-bg: var(--color-background-lvl-3);
+  --color-button-subdued-border: var(--color-background-lvl-4);
+  // |-- LT Subdued Button :hover
+  --color-button-subdued-hover-text: var(--color-text-default);
+  --color-button-subdued-hover-bg: var(--color-background-lvl-1);
+  --color-button-subdued-hover-border: var(--color-background-lvl-4);
+  // |-- LT Subdued Button :active
+  --color-button-subdued-active-text: var(--color-text-default);
+  --color-button-subdued-active-bg: var(--color-background-lvl-0);
+  --color-button-subdued-active-border: var(--color-background-lvl-4);
+
+  // LT Primary Danger Button
+  --color-button-primary-danger-text: var(--color-white);
+  --color-button-primary-danger-bg: var(--color-juno-primary-danger-4);
+  // |-- LT Primary Danger Button :hover
+  --color-button-primary-danger-hover-text: var(--color-white);
+  --color-button-primary-danger-hover-bg: var(--color-juno-primary-danger-3);
+  // |-- LT Primary Danger Button :active
+  --color-button-primary-danger-active-text: var(--color-white);
+  --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
+
+  // LT Icon
+  --color-icon-danger: var(--color-juno-red-raw);
+  --color-icon-info: var(--color-accent-raw);
+  --color-icon-success: var(--color-sap-green-raw);
+  --color-icon-warning: var(--color-warning-raw);
+  // LT Message
+  --color-message-danger-border: var(--color-danger-raw);
+  --gradient-message-danger-bg: linear-gradient(90deg, rgb(255, 231, 224) 0%, rgb(255, 180, 158) 100%);
+  --color-message-default-border: var(--color-info-raw);
+  --gradient-message-default-bg: linear-gradient(90deg, rgb(229, 244, 248) 0%, rgb(46, 168, 196) 100%);
+  --color-message-error-border: var(--color-error-raw);
+  --gradient-message-error-bg: linear-gradient(90deg, rgb(255, 231, 224) 0%, rgb(255, 180, 158) 100%);
+  --color-message-warning-border: var(--color-warning-raw);
+  --gradient-message-warning-bg: linear-gradient(90deg, rgb(253, 245, 226) 0%, rgb(255, 231, 147) 100%);
+  --color-message-success-border: var(--color-success-raw);
+  --gradient-message-success-bg: linear-gradient(90deg, rgb(230, 247, 233) 0%, rgb(170, 229, 180) 100%);
+
+  // LT Introbox
+  --color-introbox-bg: var(--color-background-lvl-2-raw);
+  --color-introbox-border: var(--color-accent-raw);
+  // LT (Text-) Input
+  --color-textinput-bg: var(--color-background-lvl-3-raw);
+  --color-textinput-default-border: var(--color-background-lvl-4-raw);
+  --color-textinput-text: var(--color-juno-text-high-raw);
+  --color-textinput-placeholder-text: var(--color-juno-text-high-raw);
+  --color-textinput-focus-border: var(--color-accent-raw);
+  --color-textinput-autofill-text: var(--color-black);
+  --color-textinput-autofill-bg: var(--color-juno-blue-1);
+  --color-textinput-autofill-label: var(--color-juno-text-default);
+  // LT Select
+  --color-select-bg: var(--color-background-lvl-3-raw);
+  // LT Checkbox
+  --color-checkbox-bg: var(--color-background-lvl-5-raw);
+  --color-checkbox-checked-color: var(--color-accent-raw);
+  // LT Radio
+  --color-radio-bg: var(--color-background-lvl-5-raw);
+  --color-radio-checked-bg: var(--color-accent-raw);
+  // LT Switch
+  --color-switch-default-border: var(--color-juno-text-default-raw);
+  --color-switch-handle-bg: var(--color-juno-text-default-raw);
+  --color-switch-handle-checked-bg: var(--color-accent-raw);
+  // LT Required
+  --color-required-bg: var(--color-accent-raw);
+  // LT Spinner
+  --color-spinner-primary: var(--color-accent-raw);
+  // LT Syntax Highlighting
+  --color-syntax-highlight-base00: var(--color-codeblock-bg); // bg
+  --color-syntax-highlight-base01: var(--color-juno-grey-light-3); // ?
+  --color-syntax-highlight-base02: var(--color-sap-grey-3); // lines and boxes
+  --color-syntax-highlight-base03: var(--color-sap-grey-3);
+  --color-syntax-highlight-base04: var(--color-sap-grey-3);
+  --color-syntax-highlight-base05: var(--color-juno-text-high);
+  --color-syntax-highlight-base06: red;
+  --color-syntax-highlight-base07: var(--color-juno-text-high);
+  --color-syntax-highlight-base08: var(--color-juno-grey-blue-6); // NULL
+  --color-syntax-highlight-base09: var(--color-juno-blue-4); // String value
+  --color-syntax-highlight-base0A: var(--color-juno-grey-blue-6); // NaN
+  --color-syntax-highlight-base0B: var(--color-juno-blue-4); // float value
+  --color-syntax-highlight-base0C: var(--color-sap-gold); // array index
+  --color-syntax-highlight-base0D: var(--color-sap-gold); // expanded icon
+  --color-syntax-highlight-base0E: var(--color-juno-blue-4);
+  // LT bool + collapsed icon
+  --color-syntax-highlight-base0F: var(--color-juno-blue-4); // integer value
+  // LT DataGrid
+  --color-datagridrow-selected: var(--color-accent-raw);
+  // LT DataList
+  --color-datalist-row-border: var(--color-background-lvl-1-raw);
+  --color-datalistrow-selected: var(--color-accent-raw);
+  // LT CodeBlock
+  --color-codeblock-bg: var(--color-background-lvl-2-raw);
+  --color-codeblock-bar-border: var(--color-background-lvl-4-raw);
+  // LT Panel
+  //  --color-panel-bg-raw: var(--color-white-raw);
+  --color-panel-bg: rgba(252, 252, 252, 0.8);
+  // LT TabNavigation
+  --color-tabnavigation-top-bg: var(--color-juno-grey-light-5-raw);
+  --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4-raw);
+  // LT Filters
+  --color-filters-bg: var(--color-background-lvl-1-raw);
+  --color-filter-input-bg: var(--color-background-lvl-0-raw);
+  --color-filter-input-border: var(--color-background-lvl-4-raw);
+  --color-filter-input-textinput-bg: transparent;
+  --color-filter-pill-border: var(--color-background-lvl-4-raw);
+  --color-filter-pill-key-bg: var(--color-background-lvl-4-raw);
+  // LT Modal
+  --color-modal-backdrop-bg: rgba(0, 0, 0, 0.2);
+  // LT Box
+  --color-box-bg: var(--color-background-lvl-1);
+  --color-box-border: var(--color-background-lvl-3);
+  // LT SideNavigation
+  --color-sidenavigation-item-active: var(--color-black);
+  --color-sidenavigation-item-active-bg: var(--color-background-lvl-0);
+  // LT TopNavigation
+  --color-topnavigation-item-active: var(--color-black);
+  --color-topnavigation-item-bg: var(--color-sap-grey-1);
+  --color-topnavigation-item-active-bg: var(--color-juno-grey-light-3);
+
+  // LT Datepicker
+  --color-datepicker-calendar-bg: var(--color-background-lvl-1);
+}
+
+/* ----- LIGHT THEME END -----*/
+/* ----- */
+/* ----- */
+/* ----- */
+/* ----- */
+/* ----- DARK THEME ----- */
+
+.theme-dark {
+  // DT Background Colors
+  --color-background-lvl-0: var(--color-juno-grey-blue-9);
+  --color-background-lvl-1: var(--color-juno-grey-blue-7);
+  --color-background-lvl-2: var(--color-juno-grey-blue-5);
+  --color-background-lvl-3: var(--color-juno-grey-blue-3);
+  --color-background-lvl-4: var(--color-juno-grey-blue-2);
+  --color-background-lvl-5: var(--color-juno-grey-blue-1);
+
+  --color-background-lvl-0-raw: var(--color-juno-grey-blue-9-raw);
+  --color-background-lvl-1-raw: var(--color-juno-grey-blue-7-raw);
+  --color-background-lvl-2-raw: var(--color-juno-grey-blue-5-raw);
+  --color-background-lvl-3-raw: var(--color-juno-grey-blue-3-raw);
+  --color-background-lvl-4-raw: var(--color-juno-grey-blue-2-raw);
+  --color-background-lvl-5-raw: var(--color-juno-grey-blue-1-raw);
+
+  // DT Global
+  --color-global-bg: var(--color-juno-grey-blue-10);
+  --color-global-bg-raw: var(--color-juno-grey-blue-10-raw);
+
+  --color-global-text: var(--color-juno-text-default-raw);
+  --color-content-area-bg: var(--color-background-lvl-0);
+  --color-content-area-bg-raw: var(--color-background-lvl-0-raw);
+
+  // DT FOCUS
+  --color-focus: var(--color-accent);
+  --color-focus-raw: var(--color-accent-raw);
+  --color-focus-border: var(--color-accent-raw);
+  // DT Text
+  --color-text-highest: var(--color-juno-text-highest);
+  --color-text-high: var(--color-juno-text-high);
+  --color-text-default: var(--color-juno-text-default);
+  --color-text-light: var(--color-juno-text-light);
+  --color-text-disabled: var(--color-juno-text-disabled);
+  --color-text-link: var(--color-accent);
+  --color-text-highest-raw: var(--color-juno-text-highest-raw);
+  --color-text-high-raw: var(--color-juno-text-high-raw);
+  --color-text-default-raw: var(--color-juno-text-default-raw);
+  --color-text-light-raw: var(--color-juno-text-light-raw);
+  --color-text-disabled-raw: var(--color-juno-text-disabled-raw);
+  --color-text-link-raw: var(--color-accent-raw);
+
+  // DT Badge
+  --color-badge-default-bg: var(--color-juno-grey-blue-3);
+
+  // DT Button
+  // DT Primary Button
+  --color-button-primary-bg: var(--color-juno-turquoise-7);
+  --color-button-primary-text: var(--color-white);
+  // |-- DT Primary Button :hover
+  --color-button-primary-hover-bg: var(--color-juno-turquoise-5);
+  --color-button-primary-hover-text: var(--color-white);
+  // |-- DT Primary Button :active
+  --color-button-primary-active-bg: var(--color-juno-turquoise-9);
+  --color-button-primary-active-text: var(--color-white);
+
+  // DT Default Button
+  --color-button-default-text: var(--color-text-high);
+  --color-button-default-icon: var(--color-text-high);
+  --color-button-default-bg: var(--color-background-lvl-5);
+  --color-button-default-border: var(--color-background-lvl-5);
+  // |-- DT Default Button :hover
+  --color-button-default-hover-text: var(--color-text-high);
+  --color-button-default-hover-bg: var(--color-background-lvl-3);
+  --color-button-default-hover-border: var(--color-background-lvl-3);
+  // |-- DT Default Button :active
+  --color-button-default-active-text: var(--color-text-high);
+  --color-button-default-active-bg: var(--color-background-lvl-2);
+  --color-button-default-active-border: var(--color-background-lvl-4);
+
+  // DT Subdued Button
+  --color-button-subdued-text: var(--color-text-default);
+  --color-button-subdued-icon: var(--color-text-default);
+  --color-button-subdued-bg: var(--color-background-lvl-3);
+  --color-button-subdued-border: var(--color-background-lvl-4);
+  // |-- DT Subdued Button :hover
+  --color-button-subdued-hover-text: var(--color-text-default);
+  --color-button-subdued-hover-bg: var(--color-background-lvl-2);
+  --color-button-subdued-hover-border: var(--color-background-lvl-4);
+  // |-- DT Subdued Button :active
+  --color-button-subdued-active-text: var(--color-text-default);
+  --color-button-subdued-active-bg: var(--color-background-lvl-0);
+  --color-button-subdued-active-border: var(--color-background-lvl-4);
+
+  // DT Primary-Danger Button
+  --color-button-primary-danger-text: var(--color-white);
+  --color-button-primary-danger-bg: var(--color-juno-primary-danger-4);
+  // |-- DT Primary Danger Button :hover
+  --color-button-primary-danger-hover-text: var(--color-white);
+  --color-button-primary-danger-hover-bg: var(--color-juno-primary-danger-3);
+  // |-- DT Primary Danger Button :active
+  --color-button-primary-danger-active-text: var(--color-white);
+  --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
+
+  // DT Icon
+  --color-icon-danger: var(--color-juno-red-5-raw);
+  --color-icon-info: var(--color-accent-raw);
+  --color-icon-success: var(--color-sap-green-5-raw);
+  --color-icon-warning: var(--color-warning-raw);
+  // DT Message
+  --color-message-danger-border: var(--color-danger-raw);
+  --gradient-message-danger-bg: linear-gradient(90deg, rgb(57, 39, 38) 0%, rgb(124, 48, 30) 100%);
+  --color-message-default-border: var(--color-info-raw);
+  --gradient-message-default-bg: linear-gradient(90deg, rgb(28, 57, 65) 0%, rgb(25, 108, 119) 100%);
+  --color-message-error-border: var(--color-error-raw);
+  --gradient-message-error-bg: linear-gradient(90deg, rgb(57, 39, 38) 0%, rgb(124, 48, 30) 100%);
+  --color-message-warning-border: var(--color-warning-raw);
+  --gradient-message-warning-bg: linear-gradient(90deg, rgb(57, 56, 36) 0%, rgb(124, 104, 24) 100%);
+  --color-message-success-border: var(--color-success-raw);
+  --gradient-message-success-bg: linear-gradient(90deg, rgb(32, 55, 46) 0%, rgb(39, 102, 57) 100%);
+  // DT Introbox
+  --color-introbox-bg: var(--color-background-lvl-2-raw);
+  --color-introbox-border: var(--color-accent-raw);
+  // DT (Text-)Input
+  --color-textinput-bg: var(--color-background-lvl-3-raw);
+  --color-textinput-default-border: var(--color-background-lvl-4-raw);
+  --color-textinput-text: var(--color-juno-text-high-raw);
+  --color-textinput-placeholder-text: var(--color-juno-text-high-raw);
+  --color-textinput-focus-border: var(--color-accent-raw);
+  --color-textinput-autofill-text: var(--color-black);
+  --color-textinput-autofill-bg: var(--color-juno-blue-1);
+  --color-textinput-autofill-label: var(--color-black);
+  // DT Select
+  --color-select-bg: var(--color-background-lvl-4-raw);
+  // DT Checkbox
+  --color-checkbox-bg: var(--color-background-lvl-5-raw);
+  --color-checkbox-checked-color: var(--color-accent-raw);
+  // DT Radio
+  --color-radio-bg: var(--color-background-lvl-5-raw);
+  --color-radio-checked-bg: var(--color-accent-raw);
+  // DT Switch
+  --color-switch-default-border: var(--color-juno-text-high-raw);
+  --color-switch-handle-bg: var(--color-juno-text-high-raw);
+  --color-switch-handle-checked-bg: var(--color-accent-raw);
+  --color-switch-hover-border: var(--color-accent-raw);
+  // DT Required
+  --color-required-bg: var(--color-accent-raw);
+  // DT Spinner
+  --color-spinner-primary: var(--color-accent-raw);
+  // DT Syntax Highlighting
+  --color-syntax-highlight-base00: var(--color-codeblock-bg); // bg
+  --color-syntax-highlight-base01: var(--color-juno-grey-blue-3); // ?
+  --color-syntax-highlight-base02: #bbb; // lines and boxes
+  --color-syntax-highlight-base03: var(--color-sap-grey-3);
+  --color-syntax-highlight-base04: var(--color-sap-grey-3);
+  --color-syntax-highlight-base05: #dedfe0;
+  --color-syntax-highlight-base06: red;
+  --color-syntax-highlight-base07: #dedfe0;
+  --color-syntax-highlight-base08: var(--color-juno-grey-blue-6); // NULL
+  --color-syntax-highlight-base09: var(--color-juno-blue-4); // String value
+  --color-syntax-highlight-base0A: var(--color-juno-grey-blue-6); // NaN
+  --color-syntax-highlight-base0B: var(--color-juno-blue-4); // float value
+  --color-syntax-highlight-base0C: var(--color-sap-gold); // array index
+  --color-syntax-highlight-base0D: var(--color-sap-gold); // DT expanded icon
+  --color-syntax-highlight-base0E: var(--color-juno-blue-4); // DT bool + collapsed icon
+  --color-syntax-highlight-base0F: var(--color-juno-blue-4); // integer value
+  // DT DataGrid
+  --color-datagridrow-selected: var(--color-accent-raw);
+  // DT DataList
+  --color-datalist-row-border: var(--color-background-lvl-1-raw);
+  --color-datalistrow-selected: var(--color-accent-raw);
+  // DT CodeBlock
+  --color-codeblock-bg: var(--color-background-lvl-2-raw);
+  --color-codeblock-bar-border: var(--color-background-lvl-4-raw);
+  // DT Panel
+  --color-panel-bg: rgba(var(--color-juno-grey-blue-11-raw), 0.75);
+
+  // DT TabNavigation
+  --color-tabnavigation-top-bg: var(--color-juno-grey-blue-8-raw);
+  --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4-raw);
+  // DT Filters
+  --color-filters-bg: var(--color-background-lvl-1-raw);
+  --color-filter-input-bg: var(--color-background-lvl-0-raw);
+  --color-filter-input-border: var(--color-background-lvl-4-raw);
+  --color-filter-input-textinput-bg: transparent;
+  --color-filter-pill-border: var(--color-background-lvl-4-raw);
+  --color-filter-pill-key-bg: var(--color-background-lvl-4-raw);
+  // DT Modal
+  --color-modal-backdrop-bg: rgba(60, 70, 75, 0.6);
+  // DT Box
+  --color-box-bg: var(--color-background-lvl-1);
+  --color-box-border: var(--color-background-lvl-3);
+  // DT SideNavigation
+  --color-sidenavigation-item-active: var(--color-white);
+  --color-sidenavigation-item-active-bg: var(--color-background-lvl-0);
+  // DT TopNavigation
+  --color-topnavigation-item-active: var(--color-white);
+  --color-topnavigation-item-bg: var(--color-juno-grey-blue-7);
+  --color-topnavigation-item-active-bg: var(--color-juno-grey-blue-5);
+  // DT Datepicker
+  --color-datepicker-calendar-bg: var(--color-background-lvl-1);
+}
+
+/* ----- DARK THEME END ----- */
+
+// Grid configuration
+:root,
+:host {
+  --grid-columns: 12;
+  --grid-row-margin-x: -0.5rem;
+  --grid-column-flex-grow: 0;
+  --grid-column-flex-shrink: 1;
+  --grid-column-flex-basis: auto;
+  --grid-column-default-width: 8.333333%;
+}
