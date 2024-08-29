@@ -4,7 +4,7 @@
  */
 
 import React, { FC } from "react"
-import Close from "@material-design-icons/svg/filled/close.svg"
+import { Icon } from "../IconTs"
 
 type EventHandler = (_event: React.MouseEvent<EventTarget>, _id: string) => void
 
@@ -87,18 +87,11 @@ export const Pill: FC<PillProps> = ({
         </>
       )}
       {closeable && (
-        <button
-          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleCloseClick(e)}
-          className={`juno-icon-button`}
-        >
-          <Close
-            width="18"
-            height="18"
-            alt="close"
-            title="Close"
-            role="img"
-          />
-        </button>
+        <Icon 
+          icon="close" 
+          size={18}
+          onClick={(e: React.MouseEvent<EventTarget>) => handleCloseClick(e)}
+        />
       )}
     </div>
   )
