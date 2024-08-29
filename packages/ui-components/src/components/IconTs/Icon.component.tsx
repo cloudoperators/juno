@@ -90,66 +90,66 @@ const buttonIconStyles = `
 // `
 // export all known icons as an array of their names to be used with PropTypes here and from other components:
 export type KnownIcons =
-  "accessTime" |
-  "accountCircle" |
-  "addCircle" |
-  "autoAwesomeMosaic" |
-  "autoAwesomeMotion" |
-  "bolt" |
-  "calendarToday" |
-  "cancel" |
-  "check" |
-  "checkCircle" |
-  "chevronLeft" |
-  "chevronRight" |
-  "close" |
-  "comment" |
-  "contentCopy" |
-  "danger" |
-  "dangerous" |
-  "default" |
-  "deleteForever" |
-  "description" |
-  "dns" |
-  "download" |
-  "edit" |
-  "error" |
-  "errorOutline" |
-  "exitToApp" |
-  "expandLess" |
-  "expandMore" |
-  "filterAlt" |
-  "forum" |
-  "help" |
-  "home" |
-  "info" |
-  "manageAccounts" |
-  "monitorHeart" |
-  "moreVert" |
-  "nightsStay" |
-  "notificationsOff" |
-  "openInBrowser" |
-  "openInNew" |
-  "place" |
-  "search" |
-  "severityLow" |
-  "severityMedium" |
-  "severityHigh" |
-  "severityCritical" |
-  "success" |
-  "warning" |
-  "wbSunny" |
-  "widgets";
+  | "accessTime"
+  | "accountCircle"
+  | "addCircle"
+  | "autoAwesomeMosaic"
+  | "autoAwesomeMotion"
+  | "bolt"
+  | "calendarToday"
+  | "cancel"
+  | "check"
+  | "checkCircle"
+  | "chevronLeft"
+  | "chevronRight"
+  | "close"
+  | "comment"
+  | "contentCopy"
+  | "danger"
+  | "dangerous"
+  | "default"
+  | "deleteForever"
+  | "description"
+  | "dns"
+  | "download"
+  | "edit"
+  | "error"
+  | "errorOutline"
+  | "exitToApp"
+  | "expandLess"
+  | "expandMore"
+  | "filterAlt"
+  | "forum"
+  | "help"
+  | "home"
+  | "info"
+  | "manageAccounts"
+  | "monitorHeart"
+  | "moreVert"
+  | "nightsStay"
+  | "notificationsOff"
+  | "openInBrowser"
+  | "openInNew"
+  | "place"
+  | "search"
+  | "severityLow"
+  | "severityMedium"
+  | "severityHigh"
+  | "severityCritical"
+  | "success"
+  | "warning"
+  | "wbSunny"
+  | "widgets"
 
 interface IconColorProps {
-  icon? :KnownIcons
-  color :string,
-  title :string
-  size :number
-  iconClassName :string
+  icon?: KnownIcons
+  color: string
+  title: string
+  size: number
+  iconClassName: string
 }
 
-const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconProps } :IconColorProps) => {
+const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconProps }: IconColorProps) => {
   const iconClass = `juno-icon juno-icon-${icon} jn-fill-current ${color} ${iconClassName}`
 
   switch (icon) {
@@ -768,19 +768,9 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
   }
 }
 
-export const Icon = forwardRef<(HTMLAnchorElement | HTMLButtonElement), IconProps>(
+export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(
   (
-    {
-      icon = null,
-      color = "",
-      size = 24,
-      title = "",
-      className = "",
-      href = "",
-      disabled = false,
-      onClick,
-      ...props
-    },
+    { icon = null, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
     ref
   ) => {
     // if href or onClick was passed, then we want to add the passed classes and passed arbitrary props to the button or anchor
@@ -789,7 +779,7 @@ export const Icon = forwardRef<(HTMLAnchorElement | HTMLButtonElement), IconProp
     const iconProps = href || onClick ? {} : props
 
     const icn = getColoredSizedIcon({
-      icon: (icon || undefined),
+      icon: icon || undefined,
       color,
       size,
       title,
@@ -838,12 +828,12 @@ Icon.displayName = "IconTs"
 type EventHandler = (_event: React.MouseEvent<EventTarget>) => void
 
 export type IconProps = {
-  icon? :KnownIcons
-  color? :string
-  size? :number
-  title? :string
-  className? :string
-  href? :string
-  disabled? :boolean
-  onClick? :EventHandler
+  icon?: KnownIcons
+  color?: string
+  size?: number
+  title?: string
+  className?: string
+  href?: string
+  disabled?: boolean
+  onClick?: EventHandler
 } & (React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>)

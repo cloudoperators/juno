@@ -86,13 +86,7 @@ export const Pill: FC<PillProps> = ({
           </span>
         </>
       )}
-      {closeable && (
-        <Icon 
-          icon="close" 
-          size={18}
-          onClick={(e: React.MouseEvent<EventTarget>) => handleCloseClick(e)}
-        />
-      )}
+      {closeable && <Icon icon="close" size={18} onClick={(e: React.MouseEvent<EventTarget>) => handleCloseClick(e)} />}
     </div>
   )
 }
