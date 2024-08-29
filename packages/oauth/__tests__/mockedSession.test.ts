@@ -2,6 +2,7 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
+import { beforeEach, describe, expect, test, vi } from "vitest"
 
 import "./__utils__/globalsMock"
 import mockedSession, { mockedAuthData } from "../src/mockedSession"
@@ -53,10 +54,11 @@ describe("mockedSession", () => {
   })
 
   describe("session", () => {
-    let session, onUpdate
-    beforeEach(() => {
-      onUpdate = jest.fn()
-      session = mockedSession({ onUpdate, initialLogin: true })
+    const onUpdate = vi.fn()
+    const session = mockedSession({ onUpdate, initialLogin: true })
+
+    afterEach(() => {
+      vi.clearAllMocks()
     })
 
     test("session's current state is defined", () => {
@@ -76,14 +78,17 @@ describe("mockedSession", () => {
     })
 
     test("session's current state is auth data", () => {
+      const session = mockedSession({ onUpdate, initialLogin: true })
       expect(session.currentState().auth).toEqual(mockedAuthData())
     })
 
     test("onUpdate have been called initialy", () => {
+      const session = mockedSession({ onUpdate, initialLogin: true })
       expect(onUpdate).toHaveBeenLastCalledWith(session.currentState())
     })
 
     test("logout", () => {
+      const session = mockedSession({ onUpdate, initialLogin: true })
       session.logout()
       expect(onUpdate).toHaveBeenLastCalledWith({
         auth: null,
@@ -94,6 +99,7 @@ describe("mockedSession", () => {
     })
 
     test("login", () => {
+      const session = mockedSession({ onUpdate, initialLogin: true })
       session.logout()
       session.login()
       expect(onUpdate).toHaveBeenLastCalledWith({
@@ -105,9 +111,13 @@ describe("mockedSession", () => {
     })
 
     describe("custom token", () => {
-      let onUpdate
+      const onUpdate = vi.fn()
+
+      afterEach(() => {
+        vi.clearAllMocks()
+      })
+
       beforeEach(() => {
-        onUpdate = jest.fn()
         mockedSession({
           onUpdate,
           initialLogin: true,

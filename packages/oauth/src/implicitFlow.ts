@@ -8,7 +8,7 @@ import { getOidcConfig } from "./oidcConfig"
 import { searchParams } from "./oidcState"
 import { paramsToUrl } from "./utils"
 
-const buildRequestUrl = async ({ issuerURL, clientID, oidcState, callbackURL, params }) => {
+const buildRequestUrl = async ({ issuerURL, clientID, oidcState, callbackURL, params }: Record<string, any>) => {
   const config = await getOidcConfig(issuerURL)
 
   const urlParams = paramsToUrl({
@@ -29,11 +29,13 @@ const buildRequestUrl = async ({ issuerURL, clientID, oidcState, callbackURL, pa
  * @param {object} params
  * @returns {Promise} resolves to token data
  */
+// eslint-disable-next-line @typescript-eslint/require-await
 const handleResponse = async () => {
   if (!searchParams) return null
 
   const idToken = searchParams.get("id_token")
   const error = searchParams.get("error")
+  const refreshToken = null
 
   if (error) throw new Error(error)
   if (!idToken) throw new Error("bad response, missing id_token")
@@ -41,7 +43,7 @@ const handleResponse = async () => {
   const tokenData = decodeIDToken(idToken)
   if (!tokenData) throw new Error("bad format of id_token")
 
-  return { tokenData, idToken }
+  return { tokenData, idToken, refreshToken }
 }
 
 export { handleResponse, buildRequestUrl }

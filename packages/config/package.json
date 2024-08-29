@@ -1,7 +1,11 @@
 {
-  "name": "@cloudoperators/juno-eslint-config",
-  "version": "0.0.3",
+  "name": "@cloudoperators/juno-config",
+  "version": "0.0.0",
   "private": true,
+  "files": [
+    "typescript/*",
+    "eslint/*"
+  ],
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
     "@types/eslint__js": "^8.42.3",

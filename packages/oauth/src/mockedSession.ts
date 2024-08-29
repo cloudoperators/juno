@@ -19,7 +19,7 @@ const DEFAULT_MOCKED_TOKEN = {
   preferred_username: "Jane Doe",
 }
 
-export const mockedAuthData = (tokenData) => {
+export const mockedAuthData = (tokenData: any = undefined) => {
   try {
     if (typeof tokenData === "string") {
       tokenData = JSON.parse(atob(tokenData))
@@ -43,8 +43,8 @@ export const mockedAuthData = (tokenData) => {
   }
 }
 
-export default function mockedSession(params) {
-  let { token, initialLogin, onUpdate, ...unknownProps } = params || {}
+export default function mockedSession(params: any = {}): any {
+  const { token, initialLogin, onUpdate, ...unknownProps } = params || {}
 
   if (typeof onUpdate !== "function") {
     throw new Error("(OAUTH MOCK) onUpdate should be a function")
@@ -52,14 +52,14 @@ export default function mockedSession(params) {
 
   if (Object.keys(unknownProps).length > 0) {
     console.warn(
-      `WARNING: (OAUTH) unknown options: ${Object.keys(
-        unknownProps
+      `WARNING: (OAUTH) unknown options: ${Object.keys(unknownProps).join(
+        ","
       )}. Allowed options are token, initialLogin, onUpdate`
     )
   }
 
   let authData = mockedAuthData(token)
-  let state = { auth: null, error: null, loggedIn: false, isProcessing: false }
+  let state: Record<string, any> = { auth: null, error: null, loggedIn: false, isProcessing: false }
 
   const login = () => {
     state = { auth: authData, error: null, loggedIn: true, isProcessing: false }

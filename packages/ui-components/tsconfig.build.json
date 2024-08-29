@@ -1,5 +1,5 @@
 {
-  "extends": "@cloudoperators/juno-typescript-config/base.json",
+  "extends": "@cloudoperators/juno-config/typescript/base.json",
   "compilerOptions": {
     "target": "ES5",
     "module": "ESNext",
