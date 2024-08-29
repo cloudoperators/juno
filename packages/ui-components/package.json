@@ -50,6 +50,7 @@
     "@storybook/test": "^8.2.7",
     "@svgr/rollup": "^6.2.1",
     "@svgr/webpack": "^6.5.1",
+    "@tailwindcss/typography": "^0.5.13",
     "@testing-library/dom": "^10.3.2",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
