@@ -21,6 +21,6 @@ export default [
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",
     },
-    ignores: ["vitest.config.ts", "vite.config.mts"],
+    ignores: ["vitest.config.ts", "vite.config.ts"],
   },
 ]
