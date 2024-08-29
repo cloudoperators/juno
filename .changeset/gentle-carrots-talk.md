@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": patch
 ---
 
-feat(ui): add FormattedText component 
+feat(ui): add FormattedText component
