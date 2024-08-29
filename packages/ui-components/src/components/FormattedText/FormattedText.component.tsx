@@ -18,7 +18,11 @@ export interface FormattedTextProps {
 /**
  * A very basic layout container with padding.
  */
-export const FormattedText = ({ className, children, ...props }: FormattedTextProps) => {
+export const FormattedText = ({
+  className = "", // Default value for className
+  children = null, // Default value for children
+  ...props
+}: FormattedTextProps) => {
   return (
     <div className={`formatted-text-container ${proseStyles} ${className} `} {...props}>
       {children}
