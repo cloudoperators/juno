@@ -6,6 +6,11 @@ on:
       - opened
       - synchronize
       - reopened
+  # Trigger after the 'Release' workflow completes
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
 
 env:
   HUSKY: 0
