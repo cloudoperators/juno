@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Pill } from "./index.js"
+import { Pill } from "./index.ts"
 
 export default {
   title: "Components/Pill",
