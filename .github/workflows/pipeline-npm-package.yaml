@@ -32,6 +32,9 @@ on:
         description: "List of found changes in the paths"
         value: ${{ jobs.detect-changes.outputs.changes }}
 
+env:
+  HUSKY: 0
+
 jobs:
   detect-changes:
     runs-on: ${{ inputs.runs-on}}
