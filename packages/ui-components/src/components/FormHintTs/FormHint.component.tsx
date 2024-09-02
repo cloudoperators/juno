@@ -3,15 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import PropTypes from "prop-types"
+import React, { ReactNode } from "react"
 
 const baseStyles = `
   jn-text-xs
   jn-mt-1
 `
 
-const variantStyles = (variant) => {
+type FormHintVariant = "help" | "error" | "success"
+
+const variantStyles = (variant: FormHintVariant) => {
   switch (variant) {
     case "success":
       return "jn-text-theme-success"
@@ -22,7 +23,7 @@ const variantStyles = (variant) => {
   }
 }
 
-export const FormHint = ({ children = null, text = "", variant = "help", className, ...props }) => {
+export const FormHint = ({ children = null, text = "", variant = "help", className, ...props }: FormHintProps) => {
   return (
     <div
       className={`
@@ -39,15 +40,15 @@ export const FormHint = ({ children = null, text = "", variant = "help", classNa
   )
 }
 
-FormHint.displayName = "FormHint Js"
+FormHint.displayName = "FormHint"
 
-FormHint.propTypes = {
+export interface FormHintProps {
   /** The children to render as a hint associated with a form element */
-  children: PropTypes.node,
+  children?: ReactNode
   /** The text to render. If both children and text are passed, children will rendered */
-  text: PropTypes.node,
+  text?: ReactNode | string
   /** The variant of the the hint. Defaults to 'help'. */
-  variant: PropTypes.oneOf(["help", "error", "success"]),
+  variant?: FormHintVariant
   /** Pass a custom className */
-  className: PropTypes.string,
+  className?: string
 }

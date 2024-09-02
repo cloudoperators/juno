@@ -5,10 +5,10 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { FormHint } from "./index.js"
+import { FormHint } from "./index"
 
 export default {
-  title: "Forms/FormHint (JS, deprecated)",
+  title: "Forms/FormHint",
   component: FormHint,
   argTypes: {
     children: {
@@ -17,7 +17,11 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => <FormHint {...args}>{children}</FormHint>
+type TemplateProps = {
+  children: React.ReactNode
+}
+
+const Template = ({ children, ...args }: TemplateProps) => <FormHint {...args}>{children}</FormHint>
 Template.propTypes = {
   children: PropTypes.node,
 }
