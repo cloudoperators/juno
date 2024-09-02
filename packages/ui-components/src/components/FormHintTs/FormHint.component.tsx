@@ -40,7 +40,7 @@ export const FormHint = ({ children = null, text = "", variant = "help", classNa
   )
 }
 
-FormHint.displayName = "FormHint Js"
+FormHint.displayName = "FormHint"
 
 export interface FormHintProps {
   /** The children to render as a hint associated with a form element */

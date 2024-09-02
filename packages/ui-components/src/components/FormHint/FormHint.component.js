@@ -39,7 +39,7 @@ export const FormHint = ({ children = null, text = "", variant = "help", classNa
   )
 }
 
-FormHint.displayName = "Label Js"
+FormHint.displayName = "FormHint Js"
 
 FormHint.propTypes = {
   /** The children to render as a hint associated with a form element */

@@ -6,39 +6,39 @@
 import React from "react"
 
 const labelstyles = `
-	jn-text-theme-high
-	jn-text-base
-	jn-transform 
-	jn-origin-top-left 
-	jn-transition-all 
-	jn-duration-100 
-	jn-ease-in-out
-	jn-z-10
+  jn-text-theme-high
+  jn-text-base
+  jn-transform 
+  jn-origin-top-left 
+  jn-transition-all 
+  jn-duration-100 
+  jn-ease-in-out
+  jn-z-10
 `
 
 const floatingStyles = `
-	jn-absolute
+  jn-absolute
 `
 
 const minimizedStyles = `
-	jn-scale-75
-	-jn-translate-y-[0.4375rem]
+  jn-scale-75
+  -jn-translate-y-[0.4375rem]
 `
 
 const requiredstyles = `
-	jn-inline-block
-	jn-w-1
-	jn-h-1
-	jn-rounded-full
-	jn-align-top
-	jn-ml-1
-	jn-mt-2
-	jn-bg-theme-required
+  jn-inline-block
+  jn-w-1
+  jn-h-1
+  jn-rounded-full
+  jn-align-top
+  jn-ml-1
+  jn-mt-2
+  jn-bg-theme-required
 `
 
 const disabledstyles = `
-	jn-opacity-50
-	jn-cursor-not-allowed
+  jn-opacity-50
+  jn-cursor-not-allowed
 `
 
 /**
@@ -62,13 +62,13 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
     return (
       <label
         className={`
-				juno-label 
-				${labelstyles} 
-				${floating ? "juno-label-floating " + floatingStyles : ""}
-				${minimized ? "juno-label-minimized " + minimizedStyles : ""}
-				${disabled ? "juno-label-disabled " + disabledstyles : ""} 
-				${className}
-			`}
+        juno-label 
+        ${labelstyles} 
+        ${floating ? "juno-label-floating " + floatingStyles : ""}
+        ${minimized ? "juno-label-minimized " + minimizedStyles : ""}
+        ${disabled ? "juno-label-disabled " + disabledstyles : ""} 
+        ${className}
+      `}
         htmlFor={htmlFor}
         ref={forwardedRef}
         {...props}
@@ -77,9 +77,9 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         {required ? (
           <span
             className={`
-					juno-required 
-					${requiredstyles}
-					`}
+          juno-required 
+          ${requiredstyles}
+          `}
           ></span>
         ) : (
           ""
