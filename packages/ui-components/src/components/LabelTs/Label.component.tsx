@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
 const labelstyles = `
 	jn-text-theme-high
@@ -46,7 +45,7 @@ const disabledstyles = `
  * A re-usable Label component
  */
 
-export const Label = React.forwardRef(
+export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
   (
     {
       text = "",
@@ -90,21 +89,21 @@ export const Label = React.forwardRef(
   }
 )
 
-Label.displayName = "Label (JS)"
+Label.displayName = "Label"
 
-Label.propTypes = {
+export interface LabelProps {
   /** Pass a string of text to be rendered as contents. Required.  */
-  text: PropTypes.string,
+  text?: string
   /** An Id of an input element to associate the label with */
-  htmlFor: PropTypes.string,
+  htmlFor?: string
   /** Required */
-  required: PropTypes.bool,
+  required?: boolean
   /** Pass a className */
-  className: PropTypes.string,
+  className?: string
   /** Label for a disabled input */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** Whether the label is floating */
-  floating: PropTypes.bool,
+  floating?: boolean
   /** Whether the label is minimized. Requires `floating` set to TRUE, otherwise it will have no effect. */
-  minimized: PropTypes.bool,
+  minimized?: boolean
 }

@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useMemo, createContext, useId } from "react"
 import PropTypes from "prop-types"
-import { Label } from "../Label/index.js"
+import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
 

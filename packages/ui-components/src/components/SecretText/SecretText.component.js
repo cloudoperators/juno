@@ -5,7 +5,7 @@
 
 import React, { useEffect, useId, useState } from "react"
 import PropTypes from "prop-types"
-import { Textarea } from "../Textarea/"
+import { Textarea } from "../Textarea/index.js"
 import { ButtonRow } from "../ButtonRow/"
 import { Button } from "../Button/"
 import { FormHint } from "../FormHint/"
