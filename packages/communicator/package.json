@@ -8,6 +8,7 @@
   ],
   "type": "module",
   "main": "build/index.js",
+  "module": "build/index.js",
   "types": "build/types/index.d.ts",
   "files": [
     "build/**",
@@ -16,7 +17,6 @@
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/communicator",
   "license": "Apache-2.0",
   "source": "src/index.js",
-  "module": "build/index.js",
   "engines": {
     "node": ">=20.0.0 <21.0.0",
     "npm": ">=10.0.0 <11.0.0"
@@ -26,7 +26,7 @@
     "test:watch": "vitest --watch",
     "lint": "eslint ",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --outDir build",
     "serve": "vite preview",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"

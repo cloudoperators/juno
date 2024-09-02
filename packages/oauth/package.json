@@ -33,7 +33,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --outDir build",
     "serve": "vite preview",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   }
