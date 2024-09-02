@@ -1,31 +1,89 @@
-name: Juno NPM Package Pipeline
+# Run it locally with act (https://github.com/nektos/act)
+#  1. Install act:
+#     `brew install act`
+#  2. Create a .secret file with the following content:
+#     `GITHUB_TOKEN=your_github_token`
+#  PULL REQUEST
+#  1. Create a act_pull_request.json file in case of a pull request with the following content:
+#     `{"inputs": {"paths": "packages/juno-ui-components apps/exampleapp", "node": "20.x", "runs-on": "ubuntu-latest"}}`
+#  2. Run the following command:
+#     `act workflow_call -e act_workflow_call_ci.json -W .github/workflows/check-changes-npm-package.yaml`
+
+name: Detect Changes on the given Paths
 
 on:
-  pull_request:
-    types: [opened, synchronize] # Triggers when a PR is opened or updated
+  workflow_call:
+    inputs:
+      paths:
+        description: "Space separated list of paths indicating where to collect packages to be check for changes. Example: 'packages' will check all packages in the packages folder."
+        required: false
+        type: string
+      folders:
+        description: "Space-separated list of folders to be checked for changes. Example: 'packages/communicator packages/juno-ui-components' checks for changes in the communicator and juno-ui-components packages. You can use wildcards to check all packages within a specific folder. Example: '*/ui' checks all packages with a ui folder at the second level."
+        required: false
+        type: string
+      runs-on:
+        description: "The runner to use for the job"
+        required: false
+        default: "default"
+        type: string
+    outputs:
+      changes:
+        description: "List of found changes in the paths"
+        value: ${{ jobs.detect-changes.outputs.changes }}
 
 env:
   HUSKY: 0
 
 jobs:
-  input-processing:
-    runs-on: ubuntu-latest
+  detect-changes:
+    runs-on: ${{ inputs.runs-on}}
+    outputs:
+      changes: ${{ steps.package-filters.outputs.changes}}
     steps:
       - name: Print Inputs
         run: |
           echo "====${{ github.workflow }} Inputs===="
-          echo "Inputs: ${{ github.event }}"
+          echo "Inputs: ${{ toJson(inputs) }}"
+          echo "===="
 
-  check-licenses:
-    needs: [input-processing]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Licenses
-        run: echo "License check logic goes here"
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  test-unit-and-build:
-    needs: [input-processing, check-licenses]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run Tests and Build
-        run: echo "Test and build logic goes here"
+      - name: Generate filters
+        id: generate-filters
+        run: |
+          items=()
+          echo "" > package_filters.yaml
+
+          if [ -n "${{ inputs.paths }}" ]; then
+            # Create a filter for each folder/package in the paths
+            for path in ${{ inputs.paths }}; do
+              for folder in $path/*; do
+                echo "$folder: $folder/**" >> package_filters.yaml
+              done
+            done
+          fi
+
+          if [ -n "${{ inputs.folders }}" ]; then
+            # Create a filter for each folder
+            for folder in ${{ inputs.folders }}; do
+              echo "$folder: $folder/**" >> package_filters.yaml
+            done
+          fi
+
+      - name: Set specific filters for the packages wihtin the paths
+        uses: dorny/paths-filter@v3
+        id: package-filters
+        with:
+          list-files: json
+          filters: package_filters.yaml
+
+      - name: Show outputs
+        run: |
+          echo "===${{ github.workflow }} Outputs==="
+          echo "====Package filters===="
+          cat package_filters.yaml
+          echo "========"
+          echo changed packages: ${{ steps.package-filters.outputs.changes}}
+          echo "===================="
