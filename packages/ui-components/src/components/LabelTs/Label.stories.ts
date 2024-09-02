@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Label } from "./index.js"
+import { Label } from "./index"
 
 export default {
   title: "Forms/Label",

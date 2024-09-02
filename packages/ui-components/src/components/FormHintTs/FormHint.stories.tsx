@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { FormHint } from "./index.js"
+import { FormHint } from "./index"
 
 export default {
   title: "Forms/FormHint",

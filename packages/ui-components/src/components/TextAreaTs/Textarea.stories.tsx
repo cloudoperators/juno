@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Textarea } from "./index.js"
+import { Textarea } from "./index"
 
 export default {
   title: "Forms/Textarea",
