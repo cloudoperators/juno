@@ -11,7 +11,7 @@ import { Icon } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/Spinner.component"
 import { FormHint } from "../FormHint/FormHint.component"
 import { Float } from "@headlessui-float/react"
-import { flip, offset, shift, size } from "@floating-ui/react-dom"
+import { autoPlacement, offset, shift, size } from "@floating-ui/react-dom"
 import { usePortalRef } from "../PortalProvider/index"
 import { createPortal } from "react-dom"
 import "./select.scss"
@@ -101,6 +101,7 @@ export const Select = ({
   valueLabel,
   variant = "default",
   width = "full",
+  wrapperClassName = "",
   ...props
 }) => {
   const isNotEmptyString = (str) => {
@@ -167,10 +168,14 @@ export const Select = ({
   const portalContainerRef = usePortalRef()
 
   // Headless-UI-Float Middleware
+  // In order to quickly debug middleware state, each parameter function can be passed the state to work with, e.g.
+  // autoPlacement((state) => console.log(state), ({crossAxis: true, [params…]}))
   const middleware = [
     offset(4),
-    shift(),
-    flip(),
+    autoPlacement({
+      crossAxis: true,
+      allowedPlacements: ["bottom", "top"],
+    }),
     size({
       boundary: "viewport",
       apply({ availableWidth, availableHeight, elements }) {
@@ -181,6 +186,7 @@ export const Select = ({
         })
       },
     }),
+    shift(),
   ]
 
   // This function is used to determine what to render for the selected options in the Select Toggle in multi-select case.
@@ -211,6 +217,7 @@ export const Select = ({
           jn-relative
           ${width == "auto" ? "jn-inline-block" : "jn-block"}
           ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          ${wrapperClassName}
         `}
       >
         <Listbox
@@ -337,7 +344,7 @@ Select.propTypes = {
   ariaLabel: PropTypes.string,
   /** The children to render as options. Use the SelectOption component, and SelectDivider if needed. */
   children: PropTypes.node,
-  /** Pass a custom className to the Select toggle button */
+  /** Pass a custom className to the internal Select toggle button */
   className: PropTypes.string,
   /** Pass a defaultValue to use as an uncontrolled component that handles its state internally. When setting `multiple` on the Select pass an Array instead of a string.  */
   defaultValue: PropTypes.string,
@@ -384,4 +391,6 @@ Select.propTypes = {
   variant: PropTypes.oneOf(["default", "primary", "primary-danger", "subdued"]),
   /** Whether the Select toggle should consume the available width of its parent container (default), or render its "natural" width depending on the content and the currently selected value or state. */
   width: PropTypes.oneOf(["full", "auto"]),
+  /** Pass a custom classname to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
+  wrapperClassName: PropTypes.string,
 }

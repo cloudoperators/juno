@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+
+# SPDX-License-Identifier: Apache-2.0
+
+# .husky/pre-commit
+
+# Now you can use npm or any Node.js commands
+
+npm run lint
+npm run lint -- -- --fix
+npm run format

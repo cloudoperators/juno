@@ -90,7 +90,7 @@ export const Label = React.forwardRef(
   }
 )
 
-Label.displayName = "Label"
+Label.displayName = "Label (JS)"
 
 Label.propTypes = {
   /** Pass a string of text to be rendered as contents. Required.  */

@@ -1,5 +1,23 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.14
+
+### Patch Changes
+
+- a80532a: Change build output of communicator
+
+## 2.2.13
+
+### Patch Changes
+
+- Integrate Vite for build process
+
+## 2.2.12
+
+### Patch Changes
+
+- 3ca3d35: Update instructions in readme files
+
 ## 2.2.11
 
 ### Patch Changes

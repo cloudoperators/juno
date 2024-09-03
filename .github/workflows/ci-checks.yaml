@@ -2,25 +2,28 @@ name: CI Check
 
 on:
   pull_request:
-    types: 
+    types:
       - opened
       - synchronize
       - reopened
-  pull_request_target:
-    types: 
-      - edited
-    branches:
-      - changeset-release/main  
-    
+  # Trigger after the 'Release' workflow completes
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
+
+env:
+  HUSKY: 0
+
 jobs:
   install-dependencies:
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -31,10 +34,10 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci      
+        run: npm ci
 
   reuse-compliance:
-    runs-on: [ubuntu-latest]
+    runs-on: [default]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,7 +47,7 @@ jobs:
         uses: fsfe/reuse-action@v3
 
   license-headers:
-    runs-on: [ubuntu-latest]
+    runs-on: [default]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,13 +64,13 @@ jobs:
 
   allowed-licenses:
     needs: install-dependencies
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -78,20 +81,20 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci  
+        run: npm ci
 
       - name: Run Linter
         run: npm run check-licenses
 
   lint:
     needs: install-dependencies
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -102,19 +105,19 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci  
+        run: npm ci
       - name: Run Linter
         run: npm run lint
 
-  format:
+  type-check:
     needs: install-dependencies
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -125,19 +128,42 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci  
+        run: npm ci
+      - name: Run Typecheck
+        run: npm run typecheck
+
+  format:
+    needs: install-dependencies
+    runs-on: [default]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Specify the node version you need
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+
+      - name: Install Dependencies
+        run: npm ci
       - name: Run Prettier
-        run: npm run check-format       
+        run: npm run check-format
 
   test:
     needs: install-dependencies
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the node version you need
+          node-version: "20" # Specify the node version you need
 
       - name: Cache npm
         uses: actions/cache@v4
@@ -148,7 +174,6 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install Dependencies
-        run: npm ci && npm run build 
+        run: npm ci && npm run build
       - name: Run Tests
-        run: npm run test    
-        
+        run: npm run test

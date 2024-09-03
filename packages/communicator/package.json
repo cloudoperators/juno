@@ -1,16 +1,16 @@
 {
   "name": "@cloudoperators/juno-communicator",
-  "version": "2.2.11",
+  "version": "2.2.14",
   "description": "Send and receive across tabs",
   "author": "UI-Team",
   "contributors": [
     "Andreas Pfau"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/types/index.d.ts",
   "files": [
-    "dist/**",
+    "build/**",
     "LICENCE"
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/communicator",
@@ -24,19 +24,20 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest --watch",
-    "lint": "eslint .",
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "lint": "eslint ",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo"
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
   "devDependencies": {
-    "@cloudoperators/juno-eslint-config": "*",
-    "@cloudoperators/juno-typescript-config": "*",
+    "@cloudoperators/juno-config": "*",
     "@types/node": "^20.11.24",
     "jsdom": "^24.1.1",
-    "tsup": "^8.0.2",
     "typescript": "^5.5.4",
+    "vite": "^5.4.0",
+    "vite-plugin-dts": "^4.0.3",
     "vitest": "^2.0.4"
   }
 }

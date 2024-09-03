@@ -1,9 +1,11 @@
 .turbo
 .DS_Store
+.vscode
 node_modules
 npm-debug.log*
 build
 dist
+vite.config.*.timestamp-*
 
 # act artifacts needed for testing workflows
 .secrets

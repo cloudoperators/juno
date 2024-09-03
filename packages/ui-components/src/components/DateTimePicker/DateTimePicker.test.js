@@ -739,7 +739,7 @@ describe("DateTimePicker", () => {
     const today = new Date()
     const yesterday = new Date()
     yesterday.setDate(yesterday.getDate() - 1)
-    const fullMonth = yesterday.toLocaleString("default", { month: "long" })
+    const fullMonth = yesterday.toLocaleString("en-US", { month: "long" })
     const day = yesterday.getDate()
     const fullYear = yesterday.getFullYear()
     const yesterdayLabel = `${fullMonth} ${day}, ${fullYear}`
@@ -761,7 +761,7 @@ describe("DateTimePicker", () => {
     const today = new Date()
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
-    const fullMonth = tomorrow.toLocaleString("default", { month: "long" })
+    const fullMonth = tomorrow.toLocaleString("en-US", { month: "long" })
     const day = tomorrow.getDate()
     const fullYear = tomorrow.getFullYear()
     const tomorrowLabel = `${fullMonth} ${day}, ${fullYear}`
@@ -783,7 +783,7 @@ describe("DateTimePicker", () => {
     const today = new Date()
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
-    const tomorrowFullMonth = tomorrow.toLocaleString("default", {
+    const tomorrowFullMonth = tomorrow.toLocaleString("en-US", {
       month: "long",
     })
     const tomorrowDay = tomorrow.getDate()
@@ -807,7 +807,7 @@ describe("DateTimePicker", () => {
     const today = new Date()
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
-    const todayFullMonth = today.toLocaleString("default", { month: "long" })
+    const todayFullMonth = today.toLocaleString("en-US", { month: "long" })
     const todayDay = today.getDate()
     const todayFullYear = today.getFullYear()
     const todayLabel = `${todayFullMonth} ${todayDay}, ${todayFullYear}`
@@ -889,7 +889,7 @@ describe("DateTimePicker", () => {
     const today = new Date()
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
-    const tomorrowFullMonth = tomorrow.toLocaleString("default", {
+    const tomorrowFullMonth = tomorrow.toLocaleString("en-US", {
       month: "long",
     })
     const tomorrowDay = tomorrow.getDate()
@@ -939,6 +939,12 @@ describe("DateTimePicker", () => {
     const nextMonthButton = document.querySelector(".flatpickr-next-month")
     await waitFor(() => user.click(nextMonthButton))
     expect(mockOnMonthChange).toHaveBeenCalled()
+  })
+
+  test("renders a wrapperClassName to the outer wrapping element", () => {
+    render(<DateTimePicker wrapperClassName="my-wrapper-class" />)
+    expect(document.querySelector(".juno-datetimepicker-wrapper")).toBeInTheDocument()
+    expect(document.querySelector(".juno-datetimepicker-wrapper")).toHaveClass("my-wrapper-class")
   })
 
   test("renders a className as passed", async () => {

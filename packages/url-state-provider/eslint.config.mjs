@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import junoConfigs from "@cloudoperators/juno-eslint-config/juno.mjs"
+import junoConfigs from "@cloudoperators/juno-config/eslint/juno.mjs"
 
 export default [
   ...junoConfigs,

@@ -1,0 +1,34 @@
+{
+  "name": "@cloudoperators/juno-k8s-client",
+  "version": "1.0.0",
+  "author": "UI-Team",
+  "description": "JavaScript client for Kubernetes API",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/types/index.d.ts",
+  "files": [
+    "build/**",
+    "LICENCE"
+  ],
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
+  },
+  "keywords": [
+    "kubernetes",
+    "js",
+    "typescript",
+    "client"
+  ],
+  "devDependencies": {
+    "@cloudoperators/juno-config": "*",
+    "vite": "^5.4.0",
+    "vite-plugin-dts": "^4.0.3"
+  }
+}

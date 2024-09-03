@@ -25,7 +25,13 @@ Before you begin, ensure you have the following software installed on your machi
    npm install -f
    ```
 
-3. **Available Turbo Commands:**
+3. **Setup Husky:**
+
+   ```bash
+   npm run prepare
+   ```
+
+4. **Available Turbo Commands:**
    - **Build:**
      ```bash
      npm run turbo build
