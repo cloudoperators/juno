@@ -145,7 +145,7 @@ interface IconColorProps {
   icon?: KnownIcons
   color: string
   title: string
-  size: number
+  size: string | number
   iconClassName: string
 }
 
@@ -830,10 +830,10 @@ type EventHandler = (_event: React.MouseEvent<EventTarget>) => void
 export type IconProps = {
   icon?: KnownIcons
   color?: string
-  size?: number
+  size?: string | number
   title?: string
   className?: string
   href?: string
   disabled?: boolean
   onClick?: EventHandler
-} & (React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>)
+} & Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size">

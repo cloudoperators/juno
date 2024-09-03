@@ -4,10 +4,9 @@
  */
 
 import React, { useState, useEffect, useMemo, useId, createContext } from "react"
-import PropTypes from "prop-types"
-import { Label } from "../Label/index.js"
-import { Icon } from "../Icon/index"
-import { FormHint } from "../FormHint/index"
+import { Label } from "../LabelTs/index.js"
+import { Icon } from "../IconTs/index"
+import { FormHint } from "../FormHintTs/index"
 
 const radiogroupstyles = `
 	jn-mb-4
@@ -60,7 +59,17 @@ const iconstyles = `
 	jn-top-1.5
 `
 
-export const RadioGroupContext = createContext()
+type EventUpdateHandler = (_value: string | undefined) => void
+
+export interface RadioGroupContextProps {
+  selectedValue?: string
+  onChange?: EventUpdateHandler
+  name?: string
+  updateSelectedValue?: EventUpdateHandler
+  disabled?: boolean
+}
+
+export const RadioGroupContext = createContext<RadioGroupContextProps>({})
 
 /**
 A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.
@@ -81,9 +90,9 @@ export const RadioGroup = ({
   successtext = "",
   valid = false,
   ...props
-}) => {
+}: RadioGroupProps) => {
   // Utility
-  const isNotEmptyString = (str) => {
+  const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -93,9 +102,9 @@ export const RadioGroup = ({
   const groupName = name || uniqueId()
   const groupId = id || uniqueId()
 
-  const [selectedValue, setSelectedValue] = useState(selected)
-  const [isValid, setIsValid] = useState(false)
-  const [isInvalid, setIsInvalid] = useState(false)
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(selected)
+  const [isValid, setIsValid] = useState<boolean>(false)
+  const [isInvalid, setIsInvalid] = useState<boolean>(false)
 
   // Validate / Invalidate the RadioGroup based on the respective props:
   const validated = useMemo(() => valid || (successtext && successtext.length ? true : false), [valid, successtext])
@@ -117,12 +126,12 @@ export const RadioGroup = ({
   }, [selected])
 
   // Callback function to be passed via the group context to child Radios so they can set the value on the parent if necessary (only used ONCE during initialisation when we don't want to trigger onChange handlers yet):
-  const updateSelectedValue = (value) => {
+  const updateSelectedValue = (value: string | undefined) => {
     setSelectedValue(value)
   }
 
   // Handler to be passed to child Radios to execute when they change
-  const handleRadioChange = (value) => {
+  const handleRadioChange = (value: string | undefined) => {
     setSelectedValue(value)
     onChange && onChange(value)
   }
@@ -176,33 +185,33 @@ export const RadioGroup = ({
   )
 }
 
-RadioGroup.propTypes = {
+export interface RadioGroupProps {
   /** The children of the RadioGroup. Typically, these will be `Radio` components. */
-  children: PropTypes.node,
+  children?: React.ReactNode
   /** Pass a custom className */
-  className: PropTypes.string,
+  className?: string
   /** Whether all Radios in the group are disabled */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed. */
-  errortext: PropTypes.node,
+  errortext?: string
   /** A text to render to further explain meaning and significance of the group */
-  helptext: PropTypes.node,
+  helptext?: string
   /** The id of the group. If not passed, RadioGroup will create and use a unique id for the group */
-  id: PropTypes.string,
+  id?: string
   /** Whether the group not be validated. */
-  invalid: PropTypes.bool,
+  invalid?: boolean
   /** Label for the group of radios as a whole. Passing a label is mandatory in order to denote a selection in the set is required by passing the `required` prop. */
-  label: PropTypes.string,
+  label?: string
   /** The name of all radios in a group. If not passed, RadioGroup will create and use a unique name identifier for its child Radios */
-  name: PropTypes.string,
+  name?: string
   /** An onChange handler to execute when the selected option changes */
-  onChange: PropTypes.func,
+  onChange?: EventUpdateHandler
   /** Whether a selection on the RadioGroup is required */
-  required: PropTypes.bool,
+  required?: boolean
   /** The value of the initially selected radio. This will override 'checked' set on any of the child radio elements. */
-  selected: PropTypes.string,
+  selected?: string
   /** Text to display in case validation is successful. When passed, will set the whole group to valid. */
-  successtext: PropTypes.node,
+  successtext?: string
   /** Whether the RadioGroup was successfully validated */
-  valid: PropTypes.bool,
+  valid?: boolean
 }
