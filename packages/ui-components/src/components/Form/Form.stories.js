@@ -107,8 +107,8 @@ export const ComplexForm = {
       </FormSection>,
       <FormSection title="Second Section of the Form" key="fs-2">
         {
-        // Temporarily disabled until TS migration is done
-        /*
+          // Temporarily disabled until TS migration is done
+          /*
         <RadioGroup name="color-radios" label="In case you are not sure, select your true favorite color:">
           <Radio key="r-1" id="color-red" label="Red" value="red" />
           <Radio key="r-2" id="color-blue" label="Blue" value="blue" />

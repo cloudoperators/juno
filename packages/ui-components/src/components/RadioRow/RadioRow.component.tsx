@@ -5,7 +5,7 @@
 
 import React from "react"
 import { Radio } from "../Radio/index"
-import { withDeprecationWarning } from "../withDeprecationWarningTs/index.js"
+import { withDeprecationWarning } from "../withDeprecationWarningTs/index"
 
 type EventUpdateHandler = (_value: string | undefined) => void
 
