@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  HUSKY: 0
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 permissions:
@@ -36,5 +39,5 @@ jobs:
           title: "publish(npm): automate Package Versioning and Publishing with Changesets"
           commit: "chore(version): update versions with Changesets"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CHANGESET_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
