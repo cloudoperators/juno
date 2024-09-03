@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useMemo, useId, createContext } from "react"
-import { Label } from "../LabelTs/index.js"
+import { Label } from "../LabelTs/index"
 import { Icon } from "../IconTs/index"
 import { FormHint } from "../FormHintTs/index"
 
