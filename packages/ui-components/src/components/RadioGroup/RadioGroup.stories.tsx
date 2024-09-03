@@ -33,10 +33,10 @@ export default {
 }
 
 interface TemplateProps {
-  children :React.ReactNode
+  children: React.ReactNode
 }
 
-const Template = ({ children, ...args } :TemplateProps) => <RadioGroup {...args}>{children}</RadioGroup>
+const Template = ({ children, ...args }: TemplateProps) => <RadioGroup {...args}>{children}</RadioGroup>
 Template.propTypes = {
   children: PropTypes.node,
 }
