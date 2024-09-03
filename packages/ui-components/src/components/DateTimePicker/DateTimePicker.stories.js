@@ -68,7 +68,7 @@ const Template = ({ ...args }) => (
 )
 
 const InModalTemplate = ({ ...args }) => (
-  <Modal open={true}>
+  <Modal {...args} open={true}>
     <Form>
       <div style={{ display: "inline-flex", gap: "8px" }}>
         <FormRow>
