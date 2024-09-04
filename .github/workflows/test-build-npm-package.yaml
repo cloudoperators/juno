@@ -11,6 +11,11 @@
 
 name: Unit Test and Build Package
 
+####################################################################
+# SHARED WORKFLOW
+# Do not modify this file if you don't know what you are doing
+####################################################################
+
 on:
   workflow_call:
     inputs:
@@ -29,28 +34,39 @@ on:
         type: string
 
 jobs:
-  input-processing:
+  test-unit-build:
     runs-on: ${{ inputs.runs-on}}
+    defaults:
+      run:
+        working-directory: ${{ inputs.path }} # Set the working directory for all steps in this job
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Print Inputs
         run: |
           echo "====${{ github.workflow }} Inputs===="
           echo "Inputs: ${{ toJson(inputs) }}"
           echo "===="
 
-  check-licenses:
-    needs: [input-processing]
-    uses: cloudoperators/juno/.github/workflows/check-licenses-npm-package.yaml@main
-    with:
-      path: ${{ inputs.path }}
-      node: ${{ inputs.node }}
-      runs-on: ${{ inputs.runs-on}}
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node }}
 
-  test-unit-and-build:
-    needs: [input-processing, check-licenses]
-    if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
-    uses: cloudoperators/juno/.github/workflows/test-build-npm-package.yaml@main
-    with:
-      path: ${{ inputs.path }}
-      node: ${{ inputs.node }}
-      runs-on: ${{ inputs.runs-on}}
+      - name: Run clean install to ensure existing package-lock.json and dependencies in the package lock match those in package.json
+        run: |
+          npm ci
+
+      - name: Run unit tests for the package
+        run: |
+          npm i
+          npm run test
+
+      - name: Build package if script is available
+        run: |
+          if jq -e '.scripts.build' package.json > /dev/null; then
+            npm run build
+          else
+            echo "=== Build script not found in package.json ==="
+          fi

@@ -11,6 +11,11 @@
 
 name: Check 3rd Party Licenses
 
+####################################################################
+# SHARED WORKFLOW
+# Do not modify this file if you don't know what you are doing
+####################################################################
+
 on:
   workflow_call:
     inputs:
