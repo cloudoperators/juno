@@ -32,6 +32,7 @@ Before you begin, ensure you have the following software installed on your machi
    ```
 
 4. **Available Turbo Commands:**
+
    - **Build:**
      ```bash
      npm run turbo build
@@ -51,6 +52,12 @@ Before you begin, ensure you have the following software installed on your machi
    - **Clean:**
      ```bash
      npm run turbo clean
+     ```
+   - **App:**
+     To run a specific app, start by identifying the app name in the package.json file located within the relevant app folder. Once you have the app name, use it in the following command. For example, to run the exampleapp use `@cloudoperators/juno-app-example` as in the command below:
+
+     ```bash
+     npm run app -- @cloudoperators/juno-app-example
      ```
 
 You can also install Turbo globally and run the commands directly:
