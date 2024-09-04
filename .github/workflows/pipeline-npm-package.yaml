@@ -3,43 +3,50 @@
 #     `brew install act`
 #  2. Create a .secret file with the following content:
 #     `GITHUB_TOKEN=your_github_token`
-#  PULL REQUEST
-#  1. Create a act_pull_request.json file in case of a pull request with the following content:
-#     `{"inputs": {"paths": "packages/juno-ui-components apps/exampleapp", "node": "20.x", "runs-on": "ubuntu-latest"}}`
-#  2. Run the following command:
-#     `act workflow_call -e act_workflow_call_ci.json -W .github/workflows/check-changes-npm-package.yaml`
+# WORKFLOW CALL
+# 1.Create a act_workflow_call.json file with the following content:
+#     `{
+#        "inputs": {
+#        "change": "{\n  \"asset\": \"messages-provider\",\n  \"type\": \"packages\"\n}",
+#        "node": "20.x",
+#        "runs-on": "ubuntu-latest"
+#        "path": "packages/messages-provider"
+#        }
+#      }`
+# 2. Run the following command:
+#     `act workflow_call --eventpath act_workflow_call_ci.json -j publish`
+#     `act workflow_call --eventpath act_workflow_call_ci.json -W ./.github/workflows/ci/pipeline-npm-package.yaml`
 
-name: Detect Changes on the given Paths
+name: Juno NPM Package Pipeline
+
+####################################################################
+# SHARED WORKFLOW
+# Do not modify this file if you don't know what you are doing
+####################################################################
 
 on:
   workflow_call:
     inputs:
-      paths:
-        description: "Space separated list of paths indicating where to collect packages to be check for changes. Example: 'packages' will check all packages in the packages folder."
-        required: false
+      path:
+        description: "Path to the npm package"
+        required: true
         type: string
-      folders:
-        description: "Space-separated list of folders to be checked for changes. Example: 'packages/communicator packages/juno-ui-components' checks for changes in the communicator and juno-ui-components packages. You can use wildcards to check all packages within a specific folder. Example: '*/ui' checks all packages with a ui folder at the second level."
-        required: false
+      node:
+        description: "Node version to use"
+        required: true
         type: string
       runs-on:
         description: "The runner to use for the job"
         required: false
         default: "default"
         type: string
-    outputs:
-      changes:
-        description: "List of found changes in the paths"
-        value: ${{ jobs.detect-changes.outputs.changes }}
 
 env:
   HUSKY: 0
 
 jobs:
-  detect-changes:
+  input-processing:
     runs-on: ${{ inputs.runs-on}}
-    outputs:
-      changes: ${{ steps.package-filters.outputs.changes}}
     steps:
       - name: Print Inputs
         run: |
@@ -47,43 +54,19 @@ jobs:
           echo "Inputs: ${{ toJson(inputs) }}"
           echo "===="
 
-      - name: Checkout
-        uses: actions/checkout@v4
+  check-licenses:
+    needs: [input-processing]
+    uses: cloudoperators/juno/.github/workflows/check-licenses-npm-package.yaml@main
+    with:
+      path: ${{ inputs.path }}
+      node: ${{ inputs.node }}
+      runs-on: ${{ inputs.runs-on}}
 
-      - name: Generate filters
-        id: generate-filters
-        run: |
-          items=()
-          echo "" > package_filters.yaml
-
-          if [ -n "${{ inputs.paths }}" ]; then
-            # Create a filter for each folder/package in the paths
-            for path in ${{ inputs.paths }}; do
-              for folder in $path/*; do
-                echo "$folder: $folder/**" >> package_filters.yaml
-              done
-            done
-          fi
-
-          if [ -n "${{ inputs.folders }}" ]; then
-            # Create a filter for each folder
-            for folder in ${{ inputs.folders }}; do
-              echo "$folder: $folder/**" >> package_filters.yaml
-            done
-          fi
-
-      - name: Set specific filters for the packages wihtin the paths
-        uses: dorny/paths-filter@v3
-        id: package-filters
-        with:
-          list-files: json
-          filters: package_filters.yaml
-
-      - name: Show outputs
-        run: |
-          echo "===${{ github.workflow }} Outputs==="
-          echo "====Package filters===="
-          cat package_filters.yaml
-          echo "========"
-          echo changed packages: ${{ steps.package-filters.outputs.changes}}
-          echo "===================="
+  test-unit-and-build:
+    needs: [input-processing, check-licenses]
+    if: ${{ needs.check-licenses.outputs.contains-self-hosted-registry == 'false' }}
+    uses: cloudoperators/juno/.github/workflows/test-build-npm-package.yaml@main
+    with:
+      path: ${{ inputs.path }}
+      node: ${{ inputs.node }}
+      runs-on: ${{ inputs.runs-on}}
