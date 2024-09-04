@@ -344,7 +344,7 @@ export const DateTimePicker = ({
       }
     })
 
-    // After we have checked if any one or multiple of the relevant props have changed, we actually destroy the curent instance and create a new one:
+    // After we have checked if any one or multiple of the relevant props have changed, we actually destroy the current instance and create a new one:
     if (hasChanged) {
       flatpickrInstanceRef?.current?.destroy()
       createFlatpickrInstance()
