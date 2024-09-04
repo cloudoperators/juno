@@ -11,6 +11,7 @@ import { Form } from "../Form/index.js"
 import { FormRow } from "../FormRow/index.js"
 import { TextInput } from "../TextInput/index.js"
 import { Textarea } from "../Textarea/index.js"
+import { fn } from "@storybook/test"
 
 export default {
   title: "WIP/DateTimePicker/DateTimePicker",
@@ -55,27 +56,17 @@ export default {
   ],
 }
 
-const Template = ({ ...args }) => (
-  <DateTimePicker
-    {...args}
-    onChange={() => {}}
-    onClose={() => {}}
-    onReady={() => {}}
-    onOpen={() => {}}
-    onMonthChange={() => {}}
-    onYearChange={() => {}}
-  />
-)
+const Template = ({ ...args }) => <DateTimePicker {...args} />
 
 const InModalTemplate = ({ ...args }) => (
-  <Modal {...args} open={true}>
+  <Modal open={true}>
     <Form>
       <div style={{ display: "inline-flex", gap: "8px" }}>
         <FormRow>
-          <DateTimePicker />
+          <DateTimePicker {...args} />
         </FormRow>
         <FormRow>
-          <DateTimePicker />
+          <DateTimePicker {...args} />
         </FormRow>
       </div>
       <FormRow>
@@ -96,11 +87,26 @@ const InModalTemplate = ({ ...args }) => (
 
 export const Default = {
   render: Template,
-  args: {},
+  args: {
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
+  },
 }
 
 export const InModal = {
   render: InModalTemplate,
+  args: {
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
+  },
 }
 
 export const RangeWithTime = {
@@ -108,6 +114,12 @@ export const RangeWithTime = {
   args: {
     mode: "range",
     enableTime: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -115,6 +127,12 @@ export const WithLabel = {
   render: Template,
   args: {
     label: "Select a date",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -123,6 +141,12 @@ export const Required = {
   args: {
     label: "Select a date",
     required: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -131,6 +155,12 @@ export const Disabled = {
   args: {
     label: "Select a date",
     disabled: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -138,6 +168,12 @@ export const WithPlaceholder = {
   render: Template,
   args: {
     placeholder: "Select a date…",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -145,6 +181,12 @@ export const WithValue = {
   render: Template,
   args: {
     value: new Date(),
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -160,6 +202,12 @@ export const WithDefaultDate = {
   render: Template,
   args: {
     defaultDate: new Date(),
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -178,6 +226,12 @@ export const WithDefaultHourAndMinute = {
     defaultMinute: 13,
     enableTime: true,
     helptext: "The hour and minute input elements in the dropdown calendar have been set to default values (09:13 AM).",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -193,6 +247,12 @@ export const WithDefaultValue = {
   render: Template,
   args: {
     defaultValue: new Date(),
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -208,6 +268,12 @@ export const WithValueAsDateString = {
   render: Template,
   args: {
     value: "2024-01-24",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -223,6 +289,12 @@ export const WithValueAsIsoDateString = {
   render: Template,
   args: {
     value: "2034-02-26T19:40:03.243Z",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -237,6 +309,12 @@ export const WithValueAsTimestamp = {
   render: Template,
   args: {
     value: 1706273787000,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -251,6 +329,12 @@ export const WithValueAsTodayShortcut = {
   render: Template,
   args: {
     value: "today",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -266,6 +350,12 @@ export const WithCustomDateFormat = {
   args: {
     value: "today",
     dateFormat: "F d, Y",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -273,6 +363,12 @@ export const WithTime = {
   render: Template,
   args: {
     enableTime: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -289,6 +385,12 @@ export const WithTimeAndSeconds = {
   args: {
     enableTime: true,
     enableSeconds: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -306,6 +408,12 @@ export const WithTimeWithCustomHourIncrement = {
     enableTime: true,
     hourIncrement: 6,
     helptext: "The hour input of this DateTimePicker has a 6 hour increment.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -322,6 +430,12 @@ export const WithTimeWithCustomMinuteIncrement = {
     enableTime: true,
     minuteIncrement: 5,
     helptext: "The minute input of this DateTimePicker has a 5 minute increment.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -337,6 +451,12 @@ export const With24hTime = {
   args: {
     enableTime: true,
     time_24hr: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -351,6 +471,12 @@ export const ShowTwoMonths = {
   render: Template,
   args: {
     showMonths: 2,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -365,6 +491,12 @@ export const WithWeekNumbers = {
   render: Template,
   args: {
     weekNumbers: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -379,6 +511,12 @@ export const WithShorthandCurrentMonth = {
   render: Template,
   args: {
     shorthandCurrentMonth: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -393,6 +531,12 @@ export const WithMonthSelectorDropdown = {
   render: Template,
   args: {
     monthSelectorType: "dropdown",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -408,6 +552,12 @@ export const AllowInput = {
   render: Template,
   args: {
     allowInput: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -422,6 +572,12 @@ export const Multiple = {
   render: Template,
   args: {
     mode: "multiple",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -436,6 +592,12 @@ export const Range = {
   render: Template,
   args: {
     mode: "range",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -452,6 +614,12 @@ export const TimePicker = {
     enableTime: true,
     noCalendar: true,
     enableSeconds: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -468,6 +636,12 @@ export const WithMinDate = {
   args: {
     minDate: new Date(),
     helptext: "Only dates in the future including today can be selected.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -483,6 +657,12 @@ export const WithMaxDate = {
   args: {
     maxDate: new Date(),
     helptext: "Only dates in the past including today can be selected.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -498,6 +678,12 @@ export const DisableDate = {
   args: {
     disable: [new Date()],
     helptext: "The current date (today) can not be selected.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -520,6 +706,12 @@ export const DisableByFunction = {
       firstDayOfWeek: 1, // set week to start on Monday
     },
     helptext: "Only work days can be selected, week in calendar starts with Monday.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -535,6 +727,12 @@ export const Valid = {
   render: Template,
   args: {
     valid: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -542,6 +740,12 @@ export const Invalid = {
   render: Template,
   args: {
     invalid: true,
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -549,6 +753,12 @@ export const WithErrortext = {
   render: Template,
   args: {
     errortext: "This DateTimePicker has an error or is invalid.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -556,6 +766,12 @@ export const WithSuccesstext = {
   render: Template,
   args: {
     successtext: "This DateTimePicker was susccessfully validated.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 
@@ -563,6 +779,12 @@ export const WithHelptext = {
   render: Template,
   args: {
     helptext: "Some useful information goes here.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
 }
 WithHelptext.args = {}
@@ -575,6 +797,12 @@ export const InvalidPreload = {
     disable: ["2024-01-30"],
     helptext:
       "The datpicker initially shows Jan 30, 2024 as value even though this date has been set as disabled and thus can not be selected by a user.",
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
   },
   parameters: {
     docs: {
@@ -594,18 +822,7 @@ const ControlledTemplate = ({ ...args }) => {
     setTestState({ date: { end: dObj } })
   }
 
-  return (
-    <DateTimePicker
-      {...args}
-      onChange={handleChange}
-      onClose={() => {}}
-      onReady={() => {}}
-      onOpen={() => {}}
-      onMonthChange={() => {}}
-      onYearChange={() => {}}
-      value={testState?.date?.end}
-    />
-  )
+  return <DateTimePicker {...args} onChange={handleChange} value={testState?.date?.end} />
 }
 
 export const ControlledDateTimePicker = {
@@ -618,5 +835,12 @@ export const ControlledDateTimePicker = {
       },
     },
   },
-  args: {},
+  args: {
+    onChange: fn(),
+    onClose: fn(),
+    onReady: fn(),
+    onOpen: fn(),
+    onMonthChange: fn(),
+    onYearChange: fn(),
+  },
 }
