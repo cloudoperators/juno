@@ -85,7 +85,7 @@
     "predefinedFilters": {
       "value": null,
       "type": "optional",
-      "description": "PredefinedFilters are filters applied through TabNavigation in the UI to differentiate between contexts such as Production, QA, and others. They are loaded by default when the application is loaded. The format is a list of objects including name, display name and matchers (map containing matchers as name and expression pairs)"
+      "description": "PredefinedFilters are groups of filters comprised of a list of filter labels and a regex that is used to filter on the values of that label. They can be thought of as filter categories where the filter logic can be more complex than simple label+values pairs. Predefined filters are defined as an array of objects, where each object is a predefined filter. It contains the display name for the UI as well as a list of filter label + value regex pairs which are AND concatenated when they are being evaluated."
     }
   },
   "appPreview": true,
