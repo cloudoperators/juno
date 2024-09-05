@@ -5,13 +5,13 @@
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import { Tooltip } from "../Tooltip/index.js"
-import { TooltipContent } from "../TooltipContent/index.js"
+import { Tooltip } from "../Tooltip/index"
+import { TooltipContent } from "../TooltipContent/index"
 import { TooltipTrigger } from "./index"
 
 describe("TooltipTrigger", () => {
-  test("render a TooltipTrigger", async () => {
-    await render(
+  it("render a TooltipTrigger", () => {
+    render(
       <Tooltip>
         <TooltipTrigger>Click me to show tooltip</TooltipTrigger>
         <TooltipContent>TEST</TooltipContent>
@@ -21,8 +21,8 @@ describe("TooltipTrigger", () => {
     expect(screen.getByText("Click me to show tooltip")).toBeInTheDocument()
   })
 
-  test("renders a TooltipTrigger with a custom className as passed", async () => {
-    await render(
+  it("renders a TooltipTrigger with a custom className as passed", () => {
+    render(
       <Tooltip>
         <TooltipTrigger data-testid="tooltip-trigger" className="custom-test-tooltip">
           Click me to show tooltip
@@ -34,11 +34,13 @@ describe("TooltipTrigger", () => {
     expect(screen.getByRole("button")).toHaveClass("custom-test-tooltip")
   })
 
-  test("throws error if TooltipTrigger is not wrapped in a Tooltip", async () => {
-    const spy = jest.spyOn(console, "error").mockImplementation(() => {})
+  it("throws error if TooltipTrigger is not wrapped in a Tooltip", () => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {}) // Mock console.error
+
     expect(() => {
-      render(<TooltipTrigger>Click me to show tooltip</TooltipTrigger>)
+      render(<TooltipTrigger>This is the content</TooltipTrigger>)
     }).toThrow("Tooltip components must be wrapped in <Tooltip />")
-    spy.mockRestore()
+
+    spy.mockRestore() // Restore the original console.error
   })
 })

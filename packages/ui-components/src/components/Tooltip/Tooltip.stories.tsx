@@ -4,12 +4,10 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Tooltip } from "./index.js"
-import { TooltipContent } from "../TooltipContent/index.js"
-import { TooltipTrigger } from "../TooltipTrigger/index.js"
-import { Icon } from "../Icon/index.js"
-import { Button } from "../Button/index.js"
+import { Tooltip } from "./index"
+import { TooltipContent } from "../TooltipContent/index"
+import { TooltipTrigger } from "../TooltipTrigger/index"
+import { Icon } from "../Icon/index"
 
 export default {
   title: "Components/Tooltip/Tooltip",
@@ -30,7 +28,7 @@ export default {
     },
   },
   decorators: [
-    (Story) => (
+    (Story: React.FC) => (
       <div className="jn-my-6 jn-flex jn-justify-center">
         <Story />
       </div>
@@ -38,7 +36,28 @@ export default {
   ],
 }
 
-const Template = ({ placement, variant, initialOpen, open, triggerEvent, disabled, text, triggerText, ...args }) => {
+interface TemplateProps {
+  placement?: "top" | "bottom" | "left" | "right"
+  variant?: "info" | "warning" | "error" | "danger" | "success"
+  initialOpen?: boolean
+  open?: boolean
+  triggerEvent?: "click" | "hover"
+  disabled?: boolean
+  text?: string
+  triggerText?: string
+}
+
+const Template = ({
+  placement,
+  variant,
+  initialOpen,
+  open,
+  triggerEvent,
+  disabled,
+  text,
+  triggerText,
+  ...args
+}: TemplateProps) => {
   return (
     <Tooltip
       initialOpen={initialOpen}
@@ -48,25 +67,35 @@ const Template = ({ placement, variant, initialOpen, open, triggerEvent, disable
       triggerEvent={triggerEvent}
       disabled={disabled}
     >
-      <TooltipTrigger>{triggerText}</TooltipTrigger>
+      <TooltipTrigger>
+        {/* Wrap the triggerText in a JSX element */}
+        <span key="tooltip-trigger-text">{triggerText}</span>
+      </TooltipTrigger>
       <TooltipContent {...args}>{text}</TooltipContent>
     </Tooltip>
   )
 }
 
-// define available prop types
-Template.propTypes = {
-  placement: PropTypes.oneOf(["top", "bottom", "left", "right"]),
-  variant: PropTypes.oneOf(["info", "warning", "error", "danger", "success"]),
-  initialOpen: PropTypes.bool,
-  open: PropTypes.bool,
-  triggerEvent: PropTypes.oneOf(["click", "hover"]),
-  disabled: PropTypes.bool,
-  text: PropTypes.string,
-  triggerText: PropTypes.string,
+interface TemplateAsChildAnchorProps {
+  placement?: "top" | "bottom" | "left" | "right"
+  variant?: "info" | "warning" | "error" | "danger" | "success"
+  initialOpen?: boolean
+  open?: boolean
+  triggerEvent?: "click" | "hover"
+  disabled?: boolean
+  text?: string
 }
 
-const TemplateAsChildAnchor = ({ initialOpen, placement, variant, open, triggerEvent, disabled, text, ...args }) => {
+const TemplateAsChildAnchor = ({
+  initialOpen,
+  placement,
+  variant,
+  open,
+  triggerEvent,
+  disabled,
+  text,
+  ...args
+}: TemplateAsChildAnchorProps) => {
   return (
     <Tooltip
       initialOpen={initialOpen}
@@ -84,15 +113,14 @@ const TemplateAsChildAnchor = ({ initialOpen, placement, variant, open, triggerE
   )
 }
 
-// define available prop types
-TemplateAsChildAnchor.propTypes = {
-  placement: PropTypes.oneOf(["top", "bottom", "left", "right"]),
-  variant: PropTypes.oneOf(["info", "warning", "error", "danger", "success"]),
-  initialOpen: PropTypes.bool,
-  open: PropTypes.bool,
-  triggerEvent: PropTypes.oneOf(["click", "hover"]),
-  disabled: PropTypes.bool,
-  text: PropTypes.string,
+interface TemplateButtonAsChildAnchorProps {
+  placement?: "top" | "bottom" | "left" | "right"
+  variant?: "info" | "warning" | "error" | "danger" | "success"
+  initialOpen?: boolean
+  open?: boolean
+  triggerEvent?: "click" | "hover"
+  disabled?: boolean
+  text?: string
 }
 
 const TemplateButtonAsChildAnchor = ({
@@ -104,7 +132,7 @@ const TemplateButtonAsChildAnchor = ({
   disabled,
   text,
   ...args
-}) => {
+}: TemplateButtonAsChildAnchorProps) => {
   return (
     <Tooltip
       initialOpen={initialOpen}
@@ -115,22 +143,14 @@ const TemplateButtonAsChildAnchor = ({
       disabled={disabled}
     >
       <TooltipTrigger asChild={true}>
-        <Button label="hover me" />
+        <TooltipTrigger>
+          {/* Wrap the triggerText in a JSX element */}
+          <button>hover me</button>
+        </TooltipTrigger>
       </TooltipTrigger>
       <TooltipContent {...args}>{text}</TooltipContent>
     </Tooltip>
   )
-}
-
-// define available prop types
-TemplateButtonAsChildAnchor.propTypes = {
-  placement: PropTypes.oneOf(["top", "bottom", "left", "right"]),
-  variant: PropTypes.oneOf(["info", "warning", "error", "danger", "success"]),
-  initialOpen: PropTypes.bool,
-  open: PropTypes.bool,
-  triggerEvent: PropTypes.oneOf(["click", "hover"]),
-  disabled: PropTypes.bool,
-  text: PropTypes.string,
 }
 
 export const Default = {
