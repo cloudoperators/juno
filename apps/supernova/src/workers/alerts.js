@@ -63,16 +63,16 @@ const alertsService = new ApiService({
 })
 
 self.onmessage = (e) => {
-  const action = e.data.action
+  const action = e?.data?.action || ""
 
   switch (action) {
     case "ALERTS_CONFIGURE":
       // require at least apiEndpoint to update the fetch method
-      if (e.data?.fetchVars?.apiEndpoint) {
+      if (e?.data?.fetchVars?.apiEndpoint) {
         // update the fetch function
         e.data["fetchFn"] = () => fetchAction(e.data?.fetchVars.apiEndpoint, e.data?.fetchVars.options || {})
       }
-      alertsService.configure(e.data)
+      alertsService.configure(e?.data || {})
       break
     case "ALERTS_FETCH":
       alertService.fetch()
