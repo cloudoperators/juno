@@ -58,7 +58,7 @@ function ApiService(initialConfig) {
               "Could not reach endpoint. Possible causes could include network issues, incorrect URL, or server outages."
           }
 
-          console.warn(`ApiService::${config.serviceName || ""}:`, error)
+          console.warn("ApiService::%s:%s", config.serviceName, error)
           if (config.onFetchError) config.onFetchError(error)
         })
     } else {
@@ -91,7 +91,7 @@ function ApiService(initialConfig) {
     // check for allowed keys
     Object.keys(config).forEach((key) => allowedOptions.indexOf(key) < 0 && delete config[key])
 
-    if (config?.debug) console.debug(`ApiService::${config.serviceName || ""}: new config: `, config)
+    if (config?.debug) console.debug("ApiService::%s: new config: %s", config.serviceName, config)
 
     // update watcher will check the config relevant attribute changed to update the watcher
     updateWatcher(oldConfig)
