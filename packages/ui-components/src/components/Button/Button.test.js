@@ -133,7 +133,7 @@ describe("Button", () => {
   })
 
   test("renders an icon with the defined button title", async () => {
-    render(<Button title="customTitle" icon="default"/>)
+    render(<Button title="customTitle" icon="default" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
     expect(screen.getByRole("img")).toHaveAttribute("title", "customTitle")
   })
