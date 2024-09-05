@@ -394,6 +394,13 @@ export const Success = {
   },
 }
 
+export const Upload = {
+  args: {
+    ...Default.args,
+    icon: "upload",
+  },
+}
+
 export const Warning = {
   args: {
     ...Default.args,

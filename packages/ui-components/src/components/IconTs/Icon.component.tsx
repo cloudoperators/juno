@@ -53,6 +53,7 @@ import SeverityLow from "./../Icon/icons/juno_severity_low.svg"
 import SeverityMedium from "./../Icon/icons/juno_severity_medium.svg"
 import SeverityHigh from "./../Icon/icons/juno_severity_high.svg"
 import SeverityCritical from "./../Icon/icons/juno_severity_critical.svg"
+import Upload from "@material-design-icons/svg/filled/upload.svg"
 import Warning from "@material-design-icons/svg/filled/warning.svg"
 import WBSunny from "@material-design-icons/svg/outlined/wb_sunny.svg"
 import Widgets from "@material-design-icons/svg/filled/widgets.svg"
@@ -137,6 +138,7 @@ export type KnownIcons =
   | "severityHigh"
   | "severityCritical"
   | "success"
+  | "upload"
   | "warning"
   | "wbSunny"
   | "widgets"
@@ -701,6 +703,18 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           className={iconClass}
           alt="success"
           title={title ? title : "Success"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case "upload":
+      return (
+        <Upload
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="upload"
+          title={title ? title : "Upload"}
           role="img"
           {...iconProps}
         />
