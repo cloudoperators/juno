@@ -130,7 +130,7 @@ export const Button = React.forwardRef(
     ) : icon ? (
       <Icon
         icon={icon}
-        title={title}
+        title={titleValue}
         className={`juno-button-icon ${label || children ? iconClasses(size) : ""} `}
         size={size === "small" ? "1.125rem" : "1.5rem"}
       />
