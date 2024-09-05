@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Radio } from "./index.js"
+import { Radio } from "./index"
 
 export default {
   title: "Forms/Radio",

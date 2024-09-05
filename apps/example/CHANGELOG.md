@@ -1,5 +1,23 @@
 # @cloudoperators/juno-app-example
 
+## 1.0.10
+
+### Patch Changes
+
+- 8c06648: Unify Typescript and Eslint config in one package
+- Updated dependencies [e279c73]
+- Updated dependencies [8c06648]
+- Updated dependencies [75332cd]
+- Updated dependencies [1abf467]
+- Updated dependencies [8c06648]
+- Updated dependencies [87e409c]
+  - @cloudoperators/juno-ui-components@2.17.2
+  - @cloudoperators/juno-oauth@1.3.0
+  - @cloudoperators/juno-communicator@2.2.15
+  - @cloudoperators/juno-url-state-provider@2.0.7
+  - @cloudoperators/juno-messages-provider@0.1.19
+  - @cloudoperators/juno-utils@1.1.14
+
 ## 1.0.9
 
 ### Patch Changes

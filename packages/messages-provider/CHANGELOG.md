@@ -1,5 +1,15 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.1.19
+
+### Patch Changes
+
+- 8c06648: Unify Typescript and Eslint config in one package
+- Updated dependencies [e279c73]
+- Updated dependencies [1abf467]
+- Updated dependencies [8c06648]
+  - @cloudoperators/juno-ui-components@2.17.2
+
 ## 0.1.18
 
 ### Patch Changes
