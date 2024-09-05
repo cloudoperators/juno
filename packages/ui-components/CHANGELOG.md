@@ -1,5 +1,13 @@
 # @cloudoperators/juno-ui-components
 
+## 2.17.2
+
+### Patch Changes
+
+- e279c73: chore(ui): migrate Pill component to typescript
+- 1abf467: chore(core): fix security deps problems
+- 8c06648: Unify Typescript and Eslint config in one package
+
 ## 2.17.1
 
 ### Patch Changes

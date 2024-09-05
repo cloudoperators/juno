@@ -16,7 +16,9 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build && changeset publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "pkg:run": "turbo run dev --filter",
+    "pkg": "npm run pkg:run --"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

@@ -11,6 +11,11 @@
 
 name: Detect Changes on the given Paths
 
+####################################################################
+# SHARED WORKFLOW
+# Do not modify this file if you don't know what you are doing
+####################################################################
+
 on:
   workflow_call:
     inputs:

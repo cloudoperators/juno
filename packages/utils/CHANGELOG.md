@@ -1,5 +1,11 @@
 # @cloudoperators/juno-utils
 
+## 1.1.14
+
+### Patch Changes
+
+- 8c06648: Unify Typescript and Eslint config in one package
+
 ## 1.1.13
 
 ### Patch Changes
