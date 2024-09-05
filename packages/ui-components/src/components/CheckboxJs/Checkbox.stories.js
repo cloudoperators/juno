@@ -6,7 +6,7 @@
 import { Checkbox } from "./index.js"
 
 export default {
-  title: "Forms/Checkbox/Checkbox",
+  title: "Forms/Checkbox/Checkbox (JS, deprecated)",
   component: Checkbox,
   argTypes: {
     errortext: {
