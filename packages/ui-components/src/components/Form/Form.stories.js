@@ -14,9 +14,6 @@ import { Select } from "../Select/index.js"
 import { SelectOption } from "../SelectOption/index.js"
 import { Switch } from "../Switch/index.js"
 import { Textarea } from "../Textarea/index.js"
-// Temporarily disabled until TS migration is done
-// import { RadioGroup } from "../RadioGroup/index.js"
-// import { Radio } from "../Radio/index.js"
 import { CheckboxGroup } from "../CheckboxGroup/index.js"
 import { Checkbox } from "../Checkbox/index.js"
 import { Button } from "../Button/index.js"
@@ -106,17 +103,6 @@ export const ComplexForm = {
         </FormRow>
       </FormSection>,
       <FormSection title="Second Section of the Form" key="fs-2">
-        {
-          // Temporarily disabled until TS migration is done
-          /*
-        <RadioGroup name="color-radios" label="In case you are not sure, select your true favorite color:">
-          <Radio key="r-1" id="color-red" label="Red" value="red" />
-          <Radio key="r-2" id="color-blue" label="Blue" value="blue" />
-          <Radio key="r-3" id="color-green" label="Green" value="green" />
-          <Radio key="r-4" id="color-yellow" label="Yellow" value="yellow" />
-        </RadioGroup>
-        */
-        }
         <CheckboxGroup name="all-about-red" label="What is your opinion towards the color Red?">
           <Checkbox key="c-1" id="overrated" label="Red is vastly overrated" value="overrated" />
           <Checkbox key="c-2" id="blackisred" label="Black is better" value="blackisbetter" />
