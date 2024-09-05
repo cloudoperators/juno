@@ -3,5 +3,6 @@
   "theme": "theme-light",
   "embedded": false,
   "silenceExcludedLabels": [],
-  "silenceTemplates": {}
+  "silenceTemplates": {},
+  "predefinedFilters": []
 }

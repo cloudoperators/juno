@@ -78,12 +78,12 @@ RUN apk add --no-cache jq \
 
 COPY --from=build /app /usr/share/nginx/html
 
-ENV ENDPOINT=""
 ENV THEME=""
 ENV ENDPOINT="" 
 ENV FILTER_LABELS="" 
 ENV SILENCE_EXCLUDED_LABELS=""
 ENV SILENCE_TEMPLATES=""
+ENV PREDEFINED_FILTERS=""
 
 # Create Entrypoint which creates /app/appProps.js from ENVs
 # Environment variables are known at runtime, so we can use them to create a file that will be used by the app
@@ -119,6 +119,7 @@ update_json_field "theme" "\$THEME"
 update_json_field "embedded" "\$EMBEDDED"
 update_json_field "silenceExcludedLabels" "\$SILENCE_EXCLUDED_LABELS"
 update_json_field "silenceTemplates" "\$SILENCE_TEMPLATES"
+update_json_field "predefinedFilters" "\$PREDEFINED_FILTERS"
 
 echo "\$APP_PROPS_FILE has been updated."
 

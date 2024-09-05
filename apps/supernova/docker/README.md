@@ -52,30 +52,49 @@ You can customize the Supernova application using the following environment vari
 
 - **`FILTER_LABELS`**: An array of labels that will be available in the filter dropdown. These labels allow users to filter alerts based on specific criteria. The `Status` label is included by default, based on the alert status attribute, and cannot be overridden. Example:
 
-  ```json
-  ["app", "cluster", "cluster_type"]
-  ```
+```json
+["app", "cluster", "cluster_type"]
+```
 
 - **`SILENCE_EXCLUDED_LABEL`**: A list of labels that are excluded by default when creating a silence. Users can add these labels through the advanced options in the silence form if needed. Provide these labels as an array of strings. Example:
-  ```json
-  ["pod", "pod_name", "instance"]
-  ```
+
+```json
+["pod", "pod_name", "instance"]
+```
+
 - **`SILENCE_TEMPLATE`**: An array of pre-defined silence templates that can be used to schedule maintenance windows. Each template is an object with the following properties:
+
   - **`description`**: A brief description of the template.
   - **`editable_labels`**: An array of strings specifying the labels that users can modify.
   - **`fixed_labels`**: A map containing fixed labels and their corresponding values.
   - **`status`**: The status of the silence.
   - **`title`**: The title of the template.
     Example:
-  ```json
+
+```json
+{
+  "description": "Weekly maintenance window",
+  "editable_labels": ["app", "environment"],
+  "fixed_labels": {
+    "maintenance": "true",
+    "team": "devops"
+  },
+  "status": "active",
+  "title": "Weekly Maintenance"
+}
+```
+
+- **`PREDEFINED_FILTERS`**: PredefinedFilters are filters applied through TabNavigation in the UI to differentiate between contexts such as Production, QA, and others. They are loaded by default when the application is loaded. The format is a list of objects including name, display name and matchers (map containing matchers as name and expression pairs).
+  Example:
+
+```json
+[
   {
-    "description": "Weekly maintenance window",
-    "editable_labels": ["app", "environment"],
-    "fixed_labels": {
-      "maintenance": "true",
-      "team": "devops"
-    },
-    "status": "active",
-    "title": "Weekly Maintenance"
+    "name": "prod",
+    "displayName": "Productive System",
+    "matchers": {
+      "region": "^prod-.*"
+    }
   }
-  ```
+]
+```
