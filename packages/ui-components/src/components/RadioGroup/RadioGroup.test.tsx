@@ -9,14 +9,14 @@ import { RadioGroup } from "./index"
 import { Radio } from "../Radio/index"
 
 describe("RadioGroup", () => {
-  test("does not render any radios if no children passed", async () => {
+  test("does not render any radios if no children passed", () => {
     render(<RadioGroup name="my-radiogroup"></RadioGroup>)
     expect(() => {
       screen.getByRole("radio")
     }).toThrow()
   })
 
-  test("renders radios as passed", async () => {
+  test("renders radios as passed", () => {
     render(
       <RadioGroup name="my-radiogroup">
         <Radio />
@@ -27,7 +27,7 @@ describe("RadioGroup", () => {
     expect(screen.getAllByRole("radio")).toHaveLength(3)
   })
 
-  test("renders individually named radios as passed", async () => {
+  test("renders individually named radios as passed", () => {
     render(
       <RadioGroup name="my-radiogroup">
         <Radio />
@@ -36,7 +36,7 @@ describe("RadioGroup", () => {
     expect(screen.getByRole("radio")).toHaveAttribute("name", "my-radiogroup")
   })
 
-  test("renders radios with an auto-generated name if no name was passed", async () => {
+  test("renders radios with an auto-generated name if no name was passed", () => {
     render(
       <RadioGroup>
         <Radio />
@@ -47,20 +47,20 @@ describe("RadioGroup", () => {
     radios.forEach((radio) => expect(radio).toHaveAttribute("name"))
   })
 
-  test("renders a RadioGroup with an id as passed", async () => {
+  test("renders a RadioGroup with an id as passed", () => {
     render(<RadioGroup data-testid="group" id="my-radiogroup" />)
     expect(screen.getByTestId("group")).toBeInTheDocument()
     expect(screen.getByTestId("group")).toHaveAttribute("id", "my-radiogroup")
   })
 
-  test("renders a RadioGroup with an auto-generated id if no id is passed", async () => {
+  test("renders a RadioGroup with an auto-generated id if no id is passed", () => {
     render(<RadioGroup data-testid="group" />)
     expect(screen.getByTestId("group")).toBeInTheDocument()
     expect(screen.getByTestId("group")).toHaveAttribute("id")
     expect(screen.getByTestId("group").getAttribute("id")).toMatch("juno-radiogroup")
   })
 
-  test("renders a label for the group as passed", async () => {
+  test("renders a label for the group as passed", () => {
     render(
       <RadioGroup name="my-radiogroup" label="My labeled RadioGroup">
         <Radio />
@@ -69,7 +69,7 @@ describe("RadioGroup", () => {
     expect(screen.getByText("My labeled RadioGroup")).toBeInTheDocument()
   })
 
-  test("renders a required label as passed", async () => {
+  test("renders a required label as passed", () => {
     render(
       <RadioGroup name="my-radiogroup" label="my-labeled-radiogroup" required>
         <Radio />
@@ -79,7 +79,7 @@ describe("RadioGroup", () => {
     expect(document.querySelector(".juno-required")).toBeInTheDocument()
   })
 
-  test("renders a disabled radiogroup as passes", async () => {
+  test("renders a disabled radiogroup as passes", () => {
     render(
       <RadioGroup name="my-radiogroup" disabled={true}>
         <Radio />
@@ -89,7 +89,7 @@ describe("RadioGroup", () => {
     expect(screen.getByRole("radio")).toBeDisabled()
   })
 
-  test("renders a radiogroup with a selected option as passed to the parent", async () => {
+  test("renders a radiogroup with a selected option as passed to the parent", () => {
     render(
       <RadioGroup name="my-radiogroup" selected="val2">
         <Radio value="val1" />
@@ -101,7 +101,7 @@ describe("RadioGroup", () => {
     expect(document.querySelector("#radio-2")).toBeChecked()
   })
 
-  test("renders a radiogroup with a checked radio as passed to a child", async () => {
+  test("renders a radiogroup with a checked radio as passed to a child", () => {
     render(
       <RadioGroup name="my-radiogroup">
         <Radio value="v1" />
@@ -113,14 +113,14 @@ describe("RadioGroup", () => {
     expect(document.querySelector("#radio-3")).toBeChecked()
   })
 
-  test("renders a helptext as passed", async () => {
+  test("renders a helptext as passed", () => {
     render(<RadioGroup name="a-radiogroup" helptext="this is a helptext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
     expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
     expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is a helptext")
   })
 
-  test("renders a valid RadioGroup as passed", async () => {
+  test("renders a valid RadioGroup as passed", () => {
     render(
       <RadioGroup valid name="my-radiogroup">
         <Radio value="v1" />
@@ -131,7 +131,7 @@ describe("RadioGroup", () => {
     expect(screen.getByTitle("CheckCircle")).toBeInTheDocument()
   })
 
-  test("renders a valid RadioGroup when successtext is passed", async () => {
+  test("renders a valid RadioGroup when successtext is passed", () => {
     render(
       <RadioGroup successtext="Great Success!" name="my-radiogroup">
         <Radio value="v1" />
@@ -143,7 +143,7 @@ describe("RadioGroup", () => {
     expect(screen.getByText("Great Success!")).toBeInTheDocument()
   })
 
-  test("renders a invalid RadioGroup as passed", async () => {
+  test("renders a invalid RadioGroup as passed", () => {
     render(
       <RadioGroup invalid name="my-radiogroup">
         <Radio value="v1" />
@@ -154,7 +154,7 @@ describe("RadioGroup", () => {
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
 
-  test("renders an invalid RadioGroup when errortext is passed", async () => {
+  test("renders an invalid RadioGroup when errortext is passed", () => {
     render(
       <RadioGroup errortext="Big Error!" name="my-radiogroup">
         <Radio value="v1" />
@@ -166,13 +166,13 @@ describe("RadioGroup", () => {
     expect(screen.getByText("Big Error!")).toBeInTheDocument()
   })
 
-  test("renders a custom className", async () => {
+  test("renders a custom className", () => {
     render(<RadioGroup name="my-radiogroup" className="my-classname" />)
     expect(screen.getByRole("radiogroup")).toBeInTheDocument()
     expect(screen.getByRole("radiogroup")).toHaveClass("my-classname")
   })
 
-  test("renders all props", async () => {
+  test("renders all props", () => {
     render(<RadioGroup name="my-radiogroup" data-lolol="some-prop" />)
     expect(screen.getByRole("radiogroup")).toBeInTheDocument()
     expect(screen.getByRole("radiogroup")).toHaveAttribute("data-lolol", "some-prop")
