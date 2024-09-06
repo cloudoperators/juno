@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": patch
 ---
 
-fix(ui): forward button title to icon
+fix(ui): when an icon is used in a button, ensure the icon title matches the button title
