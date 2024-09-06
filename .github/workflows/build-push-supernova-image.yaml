@@ -39,7 +39,7 @@ jobs:
 
       - name: Read Docker image version
         id: read_version
-        run: echo "IMAGE_VERSION=$(cat ${{ env.PACKAGE_PATH }}/docker/VERSION)" >> $GITHUB_ENV
+        run: echo "IMAGE_VERSION=$(cat ${{ env.PACKAGE_PATH }}/docker/VERSION | tr -d '\n')" >> $GITHUB_ENV
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
