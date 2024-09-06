@@ -4,17 +4,17 @@
  */
 
 import React from "react"
-import { Tooltip } from "../Tooltip/index.js"
-import { TooltipContent } from "../TooltipContent/index.js"
-import { TooltipTrigger } from "./index.js"
-import { Icon } from "../Icon/index.js"
+import { Tooltip } from "../Tooltip/index"
+import { TooltipContent } from "../TooltipContent/index"
+import { TooltipTrigger } from "./index"
+import { Icon } from "../IconTs/index"
 
 export default {
   title: "Components/Tooltip/TooltipTrigger",
   component: TooltipTrigger,
   argTypes: {},
   decorators: [
-    (Story) => (
+    (Story: React.ComponentType) => (
       <div className="jn-my-6 jn-flex jn-justify-center">
         <Tooltip initialOpen={true}>
           <Story />

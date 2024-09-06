@@ -19,6 +19,9 @@ const config = {
     "@storybook/addon-webpack5-compiler-babel",
     "@storybook/addon-postcss",
   ],
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
+  },
   staticDirs: ["../public"],
   webpackFinal: async (config) => {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test && rule.test.test(".svg"))
