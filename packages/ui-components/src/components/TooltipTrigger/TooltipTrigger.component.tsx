@@ -31,25 +31,22 @@ export const TooltipTrigger = React.forwardRef<HTMLElement, TooltipTriggerProps>
   const state = useTooltipState()
 
   // merge all the refs
-  const childrenRef = React.useRef<HTMLElement>(null)
-
-  const ref = useMergeRefs([state.refs.setReference, propRef, childrenRef])
-
-  // merge all the refs
-
+  const ref = useMergeRefs([state.refs.setReference, propRef])
   // `asChild` allows the user to pass any element as the anchor
   if (asChild && React.isValidElement(children)) {
     const childrenProps = children.props as CustomProps
-    // Extract existing props and add `data-state`
-    const referenceProps = state.getReferenceProps(props)
+    const childrenRef = childrenProps.ref as React.RefObject<HTMLElement>
+    const ref = useMergeRefs([state.refs.setReference, propRef, childrenRef])
 
-    // Combine props, explicitly including `data-state`
-    const combinedProps: CustomProps = {
-      ...referenceProps,
+    const referencedProps = {
+      ref,
+      ...props,
       ...childrenProps,
       "data-state": state.open ? "open" : "closed",
-      className: `${childrenProps.className || ""} ${state.disabled ? "jn-cursor-default" : ""}`,
+      className: childrenProps.className + `${state.disabled && " jn-cursor-default"}`,
     }
+    const combinedProps = state.getReferenceProps(referencedProps)
+
     return React.cloneElement(children, combinedProps)
   }
 
