@@ -4,17 +4,18 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Radio } from "../Radio/index.js"
-import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
+import { Radio } from "../Radio/index"
+import { withDeprecationWarning } from "../withDeprecationWarningTs/index"
+
+type EventUpdateHandler = (_value: string | undefined) => void
 
 /** DEPRECATED: A radio row containing a radio, associated label, and structural markup. This component is DEPRECATED, use Radio instead. */
 const RadioRow = ({
   value = "",
   checked = false,
-  name = null,
-  label = null,
-  id = null,
+  name = undefined,
+  label = undefined,
+  id = undefined,
   helptext = "",
   className = "",
   disabled = false,
@@ -25,7 +26,7 @@ const RadioRow = ({
   successtext = "",
   onChange = undefined,
   ...props
-}) => {
+}: RadioRowProps) => {
   return (
     <Radio
       value={value}
@@ -47,35 +48,35 @@ const RadioRow = ({
   )
 }
 
-RadioRow.propTypes = {
+export interface RadioRowProps {
   /** Optional initial value */
-  value: PropTypes.string,
+  value?: string
   /**  Pass checked state  */
-  checked: PropTypes.bool,
+  checked?: boolean
   /** Name attribute of the Radio element */
-  name: PropTypes.string,
+  name?: string
   /** Label text */
-  label: PropTypes.string,
+  label?: string
   /** Id */
-  id: PropTypes.string,
+  id?: string
   /** Help text */
-  helptext: PropTypes.node,
+  helptext?: React.ReactNode
   /** Pass to disable the Radio */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** Whether the Radio is required */
-  required: PropTypes.bool,
+  required?: boolean
   /** Whether the Radio is invalid */
-  invalid: PropTypes.bool,
+  invalid?: boolean
   /** Error text to be displayed. When passed, the Radio will automatically be invalidated. */
-  errortext: PropTypes.node,
+  errortext?: React.ReactNode | string
   /** Whether the Radio is valid */
-  valid: PropTypes.bool,
+  valid?: boolean
   /** Success text to be displayed when the Radio is valid. When passed, will set the radio to valid automatically. */
-  successtext: PropTypes.node,
+  successtext?: React.ReactNode | string
   /** Pass a className */
-  className: PropTypes.string,
+  className?: string
   /** Pass a handler to the checkbox element */
-  onChange: PropTypes.func,
+  onChange?: EventUpdateHandler
 }
 
 export default withDeprecationWarning(

@@ -3,83 +3,84 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useContext } from "react"
-import PropTypes from "prop-types"
-import { RadioGroupContext } from "../RadioGroup/RadioGroup.component"
-import { Label } from "../Label/index"
-import { Icon } from "../Icon/Icon.component"
-import { FormHint } from "../FormHint/FormHint.component"
+import React, { useState, useEffect, useMemo, useId, useContext, MouseEventHandler } from "react"
+import { RadioGroupContext, RadioGroupContextProps } from "../RadioGroup/RadioGroup.component"
+import { Label } from "../LabelTs/index"
+import { Icon } from "../IconTs/Icon.component"
+import { FormHint } from "../FormHintTs/FormHint.component"
 
 const wrapperStyles = `
-	jn-inline-flex
-	jn-items-center
+  jn-inline-flex
+  jn-items-center
 `
 
 const inputstyles = `
-	jn-w-4
-	jn-h-4
-	jn-opacity-0
-	jn-z-50
+  jn-w-4
+  jn-h-4
+  jn-opacity-0
+  jn-z-50
 `
 
 const mockradiostyles = `
-	jn-relative
-	jn-w-4
-	jn-h-4
-	jn-rounded-full
-	jn-bg-theme-radio
+  jn-relative
+  jn-w-4
+  jn-h-4
+  jn-rounded-full
+  jn-bg-theme-radio
 `
 
 const checkedstyles = `
-	jn-absolute
-	jn-block
-	jn-bg-theme-radio-checked
-	jn-rounded-full
-	jn-w-3
-	jn-h-3
-	jn-top-[1px]
-	jn-left-[1px]
+  jn-absolute
+  jn-block
+  jn-bg-theme-radio-checked
+  jn-rounded-full
+  jn-w-3
+  jn-h-3
+  jn-top-[1px]
+  jn-left-[1px]
 `
 
 const mockfocusradiostyles = `
-	jn-outline-none
-	jn-ring-2
-	jn-ring-theme-focus
+  jn-outline-none
+  jn-ring-2
+  jn-ring-theme-focus
 `
 
 const mockdisabledradiostyles = `
-	jn-opacity-50
-	jn-cursor-not-allowed
+  jn-opacity-50
+  jn-cursor-not-allowed
 `
 
 const noBorderStyles = `
-	jn-border
-	jn-border-transparent
+  jn-border
+  jn-border-transparent
 `
 
 const errorstyles = `
-	jn-border
-	jn-border-theme-error
+  jn-border
+  jn-border-theme-error
 `
 
 const successstyles = `
-	jn-border
-	jn-border-theme-success
+  jn-border
+  jn-border-theme-success
 `
 
 const labelStyles = `
-	jn-leading-0
-	jn-ml-2
+  jn-leading-0
+  jn-ml-2
 `
 
 const iconStyles = `
-	jn-ml-1
+  jn-ml-1
 `
 
 const hintStyles = `
-	jn-mt-0
-	jn-ml-6
+  jn-mt-0
+  jn-ml-6
 `
+
+type EventUpdateHandler = (_value: string | undefined) => void
 
 /** A controlled Radio component. */
 export const Radio = ({
@@ -99,23 +100,23 @@ export const Radio = ({
   valid = false,
   value = undefined,
   ...props
-}) => {
+}: RadioProps) => {
   // Utility
-  const isNotEmptyString = (str) => {
+  const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
   const uniqueId = () => "juno-radio-" + useId()
 
   // Consume and deconstruct the context so we won't get errors but 'undefined' when trying to access a group context in case there is none:
-  const radioGroupContext = useContext(RadioGroupContext)
+  const radioGroupContext = useContext<RadioGroupContextProps>(RadioGroupContext)
   const {
     selectedValue: groupSelectedValue,
     onChange: groupOnChange,
     name: groupName,
     updateSelectedValue: updateGroupSelectedValue,
     disabled: groupDisabled,
-  } = radioGroupContext || {}
+  }: RadioGroupContextProps = radioGroupContext || {}
 
   // Lazily init state depending on parent selected value (if parent context exists), or the Radio's own checked prop:
   const initialChecked = () => {
@@ -157,7 +158,7 @@ export const Radio = ({
   // Update the parent selected state ONCE upon initialisation when 1.) we are in a group context, 2.) there is no selected value set on the parent, but 3.) we have a Radio that is set to 'selected'
   useEffect(() => {
     if (checked && radioGroupContext && groupSelectedValue === undefined) {
-      updateGroupSelectedValue(value)
+      updateGroupSelectedValue && updateGroupSelectedValue(value)
     }
   }, [])
 
@@ -190,7 +191,7 @@ export const Radio = ({
     }
   }
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     onClick && onClick(event)
   }
 
@@ -209,24 +210,24 @@ export const Radio = ({
       <div className={`juno-radio-wrapper ${wrapperStyles}`}>
         <div
           className={`
- 						juno-radio 
- 						${mockradiostyles} 
- 						${hasFocus ? mockfocusradiostyles : ""} 
- 						${disabled ? mockdisabledradiostyles : ""} 
- 						${isInvalid ? errorstyles : ""} 
- 						${isValid ? successstyles : ""} 
- 						${isInvalid || isValid ? "" : noBorderStyles}
- 						${className}
- 					`}
+             juno-radio 
+             ${mockradiostyles} 
+             ${hasFocus ? mockfocusradiostyles : ""} 
+             ${disabled ? mockdisabledradiostyles : ""} 
+             ${isInvalid ? errorstyles : ""} 
+             ${isValid ? successstyles : ""} 
+             ${isInvalid || isValid ? "" : noBorderStyles}
+             ${className}
+           `}
           {...props}
         >
           <input
             checked={determineChecked()}
             className={`
-							${inputstyles} 
-							${isInvalid ? "juno-radio-invalid" : ""} 
-							${isValid ? "juno-radio-valid" : ""}
-						`}
+              ${inputstyles} 
+              ${isInvalid ? "juno-radio-invalid" : ""} 
+              ${isValid ? "juno-radio-valid" : ""}
+            `}
             disabled={groupDisabled || disabled}
             id={theId}
             onBlur={handleBlur}
@@ -254,9 +255,9 @@ export const Radio = ({
                 color="jn-text-theme-error"
                 size="1.125rem"
                 className={`
-										${iconStyles}
-										${disabled ? "jn-opacity-50" : ""}
-									`}
+                    ${iconStyles}
+                    ${disabled ? "jn-opacity-50" : ""}
+                  `}
               />
             ) : (
               ""
@@ -267,9 +268,9 @@ export const Radio = ({
                 color="jn-text-theme-success"
                 size="1.125rem"
                 className={`
-										${iconStyles}
-										${disabled ? "jn-opacity-50" : ""}
-									`}
+                    ${iconStyles}
+                    ${disabled ? "jn-opacity-50" : ""}
+                  `}
               />
             ) : (
               ""
@@ -294,35 +295,35 @@ export const Radio = ({
   )
 }
 
-Radio.propTypes = {
+export interface RadioProps {
   /** Whether the Radio is checked */
-  checked: PropTypes.bool,
+  checked?: boolean
   /** Pass a custom className */
-  className: PropTypes.string,
+  className?: string
   /** Whether the Radio is disabled */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** A text to render when the Radio has an error or could not be validated */
-  errortext: PropTypes.string,
+  errortext?: React.ReactNode | string
   /** A helptext to render to explain meaning and significance of the Radio */
-  helptext: PropTypes.node,
+  helptext?: React.ReactNode | string
   /** The id of the Radio. An id will be automatically generated if not passed. */
-  id: PropTypes.string,
+  id?: string
   /** Whether the Radio was validated unsuccessfully */
-  invalid: PropTypes.bool,
+  invalid?: boolean
   /** The label of the Radio */
-  label: PropTypes.string,
+  label?: string
   /** The name attribute of the Radio. Only Radios sharing the same name attribute will work together as expected. */
-  name: PropTypes.string,
+  name?: string
   /** Handler to execute when the Radio changes */
-  onChange: PropTypes.func,
+  onChange?: EventUpdateHandler
   /** Handler to execute when the Radio is clicked */
-  onClick: PropTypes.func,
+  onClick?: MouseEventHandler<HTMLElement>
   /** Whether the Radio is required */
-  required: PropTypes.bool,
+  required?: boolean
   /** A text to render when the Radio was successfully validated */
-  successtext: PropTypes.string,
+  successtext?: React.ReactNode | string
   /** Whether the Radio was successfully validated */
-  valid: PropTypes.bool,
+  valid?: boolean
   /** The value of the Radio */
-  value: PropTypes.string,
+  value?: string
 }

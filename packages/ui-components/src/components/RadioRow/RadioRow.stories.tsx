@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { RadioRow } from "./index.js"
+import { RadioRow } from "./index"
 
 export default {
   title: "Deprecated/RadioRow",
