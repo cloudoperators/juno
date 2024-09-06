@@ -9,35 +9,35 @@ import { Icon } from "../IconTs/index"
 import { FormHint } from "../FormHintTs/index"
 
 const checkboxgroupstyles = `
-	jn-mb-4
-	jn-last:mb-0
+  jn-mb-4
+  jn-last:mb-0
 `
 
 const groupstyles = `
-	jn-relative
-	jn-rounded
-	jn-border
-	jn-py-1
+  jn-relative
+  jn-rounded
+  jn-border
+  jn-py-1
 `
 
 const defaultgroupstyles = `
-	jn-border-transparent
+  jn-border-transparent
 `
 
 const validgroupstyles = `
-	jn-border-theme-success
-	jn-px-2
+  jn-border-theme-success
+  jn-px-2
 `
 
 const invalidgroupstyles = `
-	jn-border-theme-error
-	jn-px-2
+  jn-border-theme-error
+  jn-px-2
 `
 
 const iconstyles = `
-	jn-absolute
-	jn-right-2
-	jn-top-1.5
+  jn-absolute
+  jn-right-2
+  jn-top-1.5
 `
 
 type EventUpdateHandler = (_value: string | undefined) => void
