@@ -42,6 +42,7 @@ header:
     - "**/*.map"
     - "**/*.mdx"
     - ".prettierrc"
+    - "VERSION"
 
   comment: on-failure
 
