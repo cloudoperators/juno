@@ -156,7 +156,7 @@ To set the endpoint:
 
 ### Predefined Filters
 
-Specifies filters to be applied in the UI for distinguishing between contexts by matching alerts with regular expressions. These filters are automatically loaded when the application starts. The format is a list of objects including name, displayname and matchers (containing keys corresponding value).
+PredefinedFilters are filters applied through TabNavigation in the UI to differentiate between contexts such as Production, QA, and others. They are loaded by default when the application is loaded. The format is a list of objects including name, display name and matchers (map containing matchers as name and expression pairs).
 
 Example:
 
@@ -178,7 +178,7 @@ To set the predefined Filter:
 
 ### Silence Templates
 
-Defines pre-configured silences available in the schedule silence modal for setting up maintenance windows. The format consists of a list of objects including description, editable_labels (array of strings specifying the labels that users can modify), fixed_labels (map containing fixed labels and their corresponding values), status, and title.
+Defines pre-configured silences available in the schedule silence modal for scheduling future silences. For example when setting up maintenance windows where it is known that certain alerts will fire. The format consists of a list of objects including description, editable_labels (array of strings specifying the labels that users can modify), fixed_labels (map containing fixed labels and their corresponding values), status, and title.
 
 Example:
 
