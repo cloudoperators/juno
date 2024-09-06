@@ -8,6 +8,7 @@ import { Tooltip } from "./index"
 import { TooltipContent } from "../TooltipContent/index"
 import { TooltipTrigger } from "../TooltipTrigger/index"
 import { Icon } from "../Icon/index"
+import { ToolTipVariant, TooltipPlacement } from "./ToolTip.types"
 
 export default {
   title: "Components/Tooltip/Tooltip",
@@ -37,8 +38,8 @@ export default {
 }
 
 interface TemplateProps {
-  placement?: "top" | "bottom" | "left" | "right"
-  variant?: "info" | "warning" | "error" | "danger" | "success"
+  placement?: TooltipPlacement
+  variant?: ToolTipVariant
   initialOpen?: boolean
   open?: boolean
   triggerEvent?: "click" | "hover"
@@ -76,16 +77,6 @@ const Template = ({
   )
 }
 
-interface TemplateAsChildAnchorProps {
-  placement?: "top" | "bottom" | "left" | "right"
-  variant?: "info" | "warning" | "error" | "danger" | "success"
-  initialOpen?: boolean
-  open?: boolean
-  triggerEvent?: "click" | "hover"
-  disabled?: boolean
-  text?: string
-}
-
 const TemplateAsChildAnchor = ({
   initialOpen,
   placement,
@@ -95,7 +86,7 @@ const TemplateAsChildAnchor = ({
   disabled,
   text,
   ...args
-}: TemplateAsChildAnchorProps) => {
+}: TemplateProps) => {
   return (
     <Tooltip
       initialOpen={initialOpen}
@@ -113,16 +104,6 @@ const TemplateAsChildAnchor = ({
   )
 }
 
-interface TemplateButtonAsChildAnchorProps {
-  placement?: "top" | "bottom" | "left" | "right"
-  variant?: "info" | "warning" | "error" | "danger" | "success"
-  initialOpen?: boolean
-  open?: boolean
-  triggerEvent?: "click" | "hover"
-  disabled?: boolean
-  text?: string
-}
-
 const TemplateButtonAsChildAnchor = ({
   initialOpen,
   placement,
@@ -132,7 +113,7 @@ const TemplateButtonAsChildAnchor = ({
   disabled,
   text,
   ...args
-}: TemplateButtonAsChildAnchorProps) => {
+}: TemplateProps) => {
   return (
     <Tooltip
       initialOpen={initialOpen}
