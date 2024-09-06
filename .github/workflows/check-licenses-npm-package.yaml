@@ -88,5 +88,8 @@ jobs:
           cat package.json
           echo "========"
           npm i
-          npm install license-checker-rseidelsohn --save-dev
+          echo "========Install license-checker-rseidelsohn 4.3.0======== "
+          # use this version to avoid the issue with the https://github.com/RSeidelsohn/license-checker-rseidelsohn?tab=readme-ov-file#version-441
+          npm install -g license-checker-rseidelsohn@4.3.0
+          echo "========Run license-checker-rseidelsohn========"
           npx license-checker-rseidelsohn --summary --excludePrivatePackages --onlyAllow 'MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD;Python-2.0;BSD*;Unlicense'

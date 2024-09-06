@@ -53,6 +53,7 @@ import SeverityLow from "./../Icon/icons/juno_severity_low.svg"
 import SeverityMedium from "./../Icon/icons/juno_severity_medium.svg"
 import SeverityHigh from "./../Icon/icons/juno_severity_high.svg"
 import SeverityCritical from "./../Icon/icons/juno_severity_critical.svg"
+import Upload from "@material-design-icons/svg/filled/upload.svg"
 import Warning from "@material-design-icons/svg/filled/warning.svg"
 import WBSunny from "@material-design-icons/svg/outlined/wb_sunny.svg"
 import Widgets from "@material-design-icons/svg/filled/widgets.svg"
@@ -137,6 +138,7 @@ export type KnownIcons =
   | "severityHigh"
   | "severityCritical"
   | "success"
+  | "upload"
   | "warning"
   | "wbSunny"
   | "widgets"
@@ -145,7 +147,7 @@ interface IconColorProps {
   icon?: KnownIcons
   color: string
   title: string
-  size: number
+  size: string | number
   iconClassName: string
 }
 
@@ -705,6 +707,18 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
+    case "upload":
+      return (
+        <Upload
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="upload"
+          title={title ? title : "Upload"}
+          role="img"
+          {...iconProps}
+        />
+      )
     case "widgets":
       return (
         <Widgets
@@ -830,10 +844,10 @@ type EventHandler = (_event: React.MouseEvent<EventTarget>) => void
 export type IconProps = {
   icon?: KnownIcons
   color?: string
-  size?: number
+  size?: string | number
   title?: string
   className?: string
   href?: string
   disabled?: boolean
   onClick?: EventHandler
-} & (React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>)
+} & Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size">
