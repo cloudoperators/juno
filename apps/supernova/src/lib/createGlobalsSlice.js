@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { produce } from "immer"
-
 const validateEmbedded = (embedded) => {
   if (embedded === true || embedded === "true") {
     return true

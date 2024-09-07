@@ -14,8 +14,6 @@ import {
   useActivePredefinedFilter,
 } from "../hooks/useAppStore"
 
-const originalConsoleError = global.console.warn
-
 describe("createFiltersSlice", () => {
   describe("setLabels", () => {
     it("return default status label", () => {
@@ -96,7 +94,7 @@ describe("createFiltersSlice", () => {
       }
 
       const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
-      const store = renderHook(
+      renderHook(
         () => ({
           actions: useFilterActions(),
           filterLabels: useFilterLabels(),
@@ -224,7 +222,7 @@ describe("createFiltersSlice", () => {
       }
 
       const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
-      const store = renderHook(
+      renderHook(
         () => ({
           predefinedFilters: usePredefinedFilters(),
           activePredefinedFilter: useActivePredefinedFilter(),

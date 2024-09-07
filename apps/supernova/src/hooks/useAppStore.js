@@ -14,15 +14,6 @@ import createAuthDataSlice from "../lib/createAuthDataSlice"
 import createGlobalsSlice from "../lib/createGlobalsSlice"
 import createUserActivitySlice from "../lib/createUserActivitySlice"
 
-const createAppStore = devtools((set, get) => ({
-  ...createGlobalsSlice(set, get),
-  ...createAuthDataSlice(set, get),
-  ...createUserActivitySlice(set, get),
-  ...createAlertsSlice(set, get),
-  ...createFiltersSlice(set, get),
-  ...createSilencesSlice(set, get),
-}))
-
 const StoreContext = createContext()
 
 export const StoreProvider = ({ options, children }) => {

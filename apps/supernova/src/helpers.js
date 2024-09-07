@@ -28,7 +28,9 @@ const parseMessage = (message) => {
     if (newMsg?.message) {
       newMsg = (newMsg?.code ? `${newMsg.code}, ` : "") + newMsg?.message
     }
-  } catch (error) {}
+  } catch (error) {
+    return error
+  }
 
   if (newMsg === "Failed to fetch") {
     newMsg =

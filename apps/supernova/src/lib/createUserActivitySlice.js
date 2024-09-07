@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { produce } from "immer"
-
-const createUserActivitySlice = (set, get) => ({
+const createUserActivitySlice = (set) => ({
   userActivity: {
     isActive: true,
 

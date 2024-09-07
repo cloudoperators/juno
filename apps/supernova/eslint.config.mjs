@@ -11,7 +11,6 @@ export default [
     files: ["**/*.js", "**/*.mjs", "**/*.jsx"],
     languageOptions: { sourceType: "module" },
     rules: {
-      "no-unused-vars": "off",
       "react/prop-types": "off",
       "react/no-unescaped-entities": "off",
     },
