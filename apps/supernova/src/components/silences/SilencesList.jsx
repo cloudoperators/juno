@@ -160,7 +160,7 @@ const SilencesList = () => {
                 <DataGridCell colSpan={4}>
                   <Stack gap="3">
                     <Icon icon="info" color="text-theme-info" />
-                    <div>We couldn't find any matching silences.</div>
+                    <div>We couldn&apos;t find any matching silences.</div>
                   </Stack>
                 </DataGridCell>
               </DataGridRow>

@@ -27,7 +27,6 @@ const serve = args.indexOf("--serve") >= 0
 
 const green = "\x1b[32m%s\x1b[0m"
 const yellow = "\x1b[33m%s\x1b[0m"
-const clear = "\x1b\x63"
 
 // shared config
 const config = {
@@ -77,7 +76,7 @@ const build = async () => {
             // console.log(clear)
             console.log(yellow, "Compiling...")
           })
-          build.onEnd((result) => console.log(green, "Done!"))
+          build.onEnd(() => console.log(green, "Done!"))
         },
       },
       // this custom plugin rewrites SVG imports to

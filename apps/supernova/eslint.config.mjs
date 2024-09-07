@@ -12,7 +12,6 @@ export default [
     languageOptions: { sourceType: "module" },
     rules: {
       "react/prop-types": "off",
-      "react/no-unescaped-entities": "off",
     },
   },
   {
