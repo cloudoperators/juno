@@ -8,13 +8,7 @@ import IssueMatchesList from "./IssueMatchesList"
 import ListController from "../shared/ListController"
 
 const IssueMatchesListController = () => {
-  return (
-    <ListController
-      queryKey="IssueMatches"
-      entityName="IssueMatches"
-      ListComponent={IssueMatchesList}
-    />
-  )
+  return <ListController queryKey="IssueMatches" entityName="IssueMatches" ListComponent={IssueMatchesList} />
 }
 
 export default IssueMatchesListController

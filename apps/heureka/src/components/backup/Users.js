@@ -64,11 +64,7 @@ const Users = ({}) => {
         <HintLoading text="Loading users..." />
       ) : (
         <>
-          <FilterToolbar
-            filterTypes={filters.data}
-            onSearchTerm={onSearchTerm}
-            isLoading={filters.isLoading}
-          />
+          <FilterToolbar filterTypes={filters.data} onSearchTerm={onSearchTerm} isLoading={filters.isLoading} />
           <UsersList users={users.data?.Results} />
           <Pagination
             count={users.data?.Count}

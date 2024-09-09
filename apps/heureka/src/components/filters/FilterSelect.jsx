@@ -4,14 +4,7 @@
  */
 
 import React, { useState } from "react"
-import {
-  Button,
-  InputGroup,
-  SelectOption,
-  Select,
-  Stack,
-  SearchInput,
-} from "@cloudoperators/juno-ui-components"
+import { Button, InputGroup, SelectOption, Select, Stack, SearchInput } from "@cloudoperators/juno-ui-components"
 import {
   useFilterLabels,
   useFilterLabelValues,
@@ -25,8 +18,7 @@ const FilterSelect = ({ entityName, isLoading }) => {
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
 
-  const { addActiveFilter, clearActiveFilters, setSearchTerm } =
-    useFilterActions()
+  const { addActiveFilter, clearActiveFilters, setSearchTerm } = useFilterActions()
 
   const filterLabels = useFilterLabels(entityName)
   const filterLabelValues = useFilterLabelValues(entityName)
@@ -71,11 +63,7 @@ const FilterSelect = ({ entityName, isLoading }) => {
           disabled={isLoading}
         >
           {filterLabels?.map((filter) => (
-            <SelectOption
-              value={filter}
-              label={humanizeString(filter)}
-              key={filter}
-            />
+            <SelectOption value={filter} label={humanizeString(filter)} key={filter} />
           ))}
         </Select>
         <Select
@@ -95,11 +83,7 @@ const FilterSelect = ({ entityName, isLoading }) => {
         <Button icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
       {activeFilters && Object.keys(activeFilters).length > 0 && (
-        <Button
-          label="Clear all"
-          onClick={() => clearActiveFilters(entityName)}
-          variant="subdued"
-        />
+        <Button label="Clear all" onClick={() => clearActiveFilters(entityName)} variant="subdued" />
       )}
       {entityName === "IssueMatches" && (
         <SearchInput

@@ -4,24 +4,10 @@
  */
 
 import React, { useMemo } from "react"
-import {
-  Pill,
-  Stack,
-  DataGrid,
-  DataGridCell,
-  DataGridHeadCell,
-  DataGridRow,
-} from "@cloudoperators/juno-ui-components"
-import {
-  useGlobalsQueryClientFnReady,
-  useGlobalsShowIssueDetail,
-} from "../../hooks/useAppStore"
+import { Pill, Stack, DataGrid, DataGridCell, DataGridHeadCell, DataGridRow } from "@cloudoperators/juno-ui-components"
+import { useGlobalsQueryClientFnReady, useGlobalsShowIssueDetail } from "../../hooks/useAppStore"
 import { useQuery } from "@tanstack/react-query"
-import {
-  listOfCommaSeparatedObjs,
-  severityString,
-  formatDate,
-} from "../shared/Helper"
+import { listOfCommaSeparatedObjs, severityString, formatDate } from "../shared/Helper"
 import LoadElement from "../shared/LoadElement"
 
 const IssueMatchesDetails = () => {
@@ -54,9 +40,7 @@ const IssueMatchesDetails = () => {
             <DataGridHeadCell>Target Remediation Date</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement
-                elem={formatDate(issue?.node?.targetRemediationDate)}
-              />
+              <LoadElement elem={formatDate(issue?.node?.targetRemediationDate)} />
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>
@@ -87,12 +71,7 @@ const IssueMatchesDetails = () => {
             <DataGridHeadCell>Support Group Name</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement
-                elem={listOfCommaSeparatedObjs(
-                  issue?.componentInstance?.service?.supportGroups,
-                  "name"
-                )}
-              />
+              <LoadElement elem={listOfCommaSeparatedObjs(issue?.componentInstance?.service?.supportGroups, "name")} />
             </DataGridCell>
           </DataGridRow>
 
@@ -100,11 +79,7 @@ const IssueMatchesDetails = () => {
             <DataGridHeadCell>Component Name</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement
-                elem={
-                  issue?.componentInstance?.componentVersion?.component?.name
-                }
-              />
+              <LoadElement elem={issue?.componentInstance?.componentVersion?.component?.name} />
             </DataGridCell>
           </DataGridRow>
 
@@ -112,9 +87,7 @@ const IssueMatchesDetails = () => {
             <DataGridHeadCell>Component Version</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement
-                elem={issue?.componentInstance?.componentVersion.version}
-              />
+              <LoadElement elem={issue?.componentInstance?.componentVersion.version} />
             </DataGridCell>
           </DataGridRow>
 
@@ -124,17 +97,15 @@ const IssueMatchesDetails = () => {
             <DataGridCell>
               {issue?.componentInstance?.service?.owners?.edges ? (
                 <Stack gap="2" wrap={true}>
-                  {issue?.componentInstance?.service?.owners?.edges?.map(
-                    (owner, i) => (
-                      <Pill
-                        key={i}
-                        pillKey={owner?.node?.uniqueUserId}
-                        pillKeyLabel={owner?.node?.uniqueUserId}
-                        pillValue={owner?.node?.name}
-                        pillValueLabel={owner?.node?.name}
-                      />
-                    )
-                  )}
+                  {issue?.componentInstance?.service?.owners?.edges?.map((owner, i) => (
+                    <Pill
+                      key={i}
+                      pillKey={owner?.node?.uniqueUserId}
+                      pillKeyLabel={owner?.node?.uniqueUserId}
+                      pillValue={owner?.node?.name}
+                      pillValueLabel={owner?.node?.name}
+                    />
+                  ))}
                 </Stack>
               ) : (
                 <LoadElement />
@@ -145,9 +116,7 @@ const IssueMatchesDetails = () => {
           <DataGridRow>
             <DataGridHeadCell>Issue Variant</DataGridHeadCell>
 
-            <DataGridCell>
-              {<LoadElement elem={issue?.issue?.type} />}
-            </DataGridCell>
+            <DataGridCell>{<LoadElement elem={issue?.issue?.type} />}</DataGridCell>
           </DataGridRow>
         </DataGrid>
       </Stack>

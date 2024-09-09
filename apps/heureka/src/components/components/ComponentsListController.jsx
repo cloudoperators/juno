@@ -8,13 +8,7 @@ import ComponentsList from "./ComponentsList"
 import ListController from "../shared/ListController"
 
 const ComponentsListController = () => {
-  return (
-    <ListController
-      queryKey="Components"
-      entityName="Components"
-      ListComponent={ComponentsList}
-    />
-  )
+  return <ListController queryKey="Components" entityName="Components" ListComponent={ComponentsList} />
 }
 
 export default ComponentsListController

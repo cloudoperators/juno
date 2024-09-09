@@ -15,12 +15,7 @@ import {
   Stack,
   TextareaRow,
 } from "juno-ui-components"
-import {
-  DetailSection,
-  DetailSectionBox,
-  DetailContentHeading,
-  DetailSectionHeader,
-} from "../styles"
+import { DetailSection, DetailSectionBox, DetailContentHeading, DetailSectionHeader } from "../styles"
 import { changeLogExample1, changeLogExample2 } from "../helpers"
 import { useRouter } from "url-state-router"
 import { DateTime } from "luxon"
@@ -44,9 +39,7 @@ const ChangesLogDetail = ({}) => {
 
   const createdAt = useMemo(() => {
     if (change?.CreatedAt) {
-      return DateTime.fromSQL(change.CreatedAt).toLocaleString(
-        DateTime.DATETIME_SHORT
-      )
+      return DateTime.fromSQL(change.CreatedAt).toLocaleString(DateTime.DATETIME_SHORT)
     }
   }, [change?.CreatedAt])
 

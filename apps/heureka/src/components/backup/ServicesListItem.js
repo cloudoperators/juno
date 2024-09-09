@@ -21,9 +21,7 @@ const listOfUsers = (users) => {
     <span key={index}>
       <span>{index ? ", " : ""}</span>
       {`${user.Name} `}
-      <small className="text-sm pt-1 whitespace-nowrap text-theme-disabled">
-        ({user.SapID})
-      </small>
+      <small className="text-sm pt-1 whitespace-nowrap text-theme-disabled">({user.SapID})</small>
     </span>
   ))
 }

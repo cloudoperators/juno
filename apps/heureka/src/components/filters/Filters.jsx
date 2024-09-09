@@ -6,10 +6,7 @@
 import React, { useMemo, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { Stack } from "@cloudoperators/juno-ui-components"
-import {
-  useGlobalsQueryClientFnReady,
-  useFilterActions,
-} from "../../hooks/useAppStore"
+import { useGlobalsQueryClientFnReady, useFilterActions } from "../../hooks/useAppStore"
 import FilterSelect from "./FilterSelect"
 import FilterPills from "./FilterPills"
 

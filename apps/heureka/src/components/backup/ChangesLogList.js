@@ -5,12 +5,7 @@
 
 import React, { useMemo } from "react"
 import ChangesLogListItem from "./ChangesLogListItem"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  DataGridCell,
-} from "juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "juno-ui-components"
 import HintNotFound from "./HintNotFound"
 
 const ChangesLogList = ({ changes, selectable }) => {

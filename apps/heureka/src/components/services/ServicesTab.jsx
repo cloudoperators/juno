@@ -6,10 +6,7 @@
 import React from "react"
 import ServicesListController from "./ServicesListController"
 import Filters from "../filters/Filters"
-import {
-  Messages,
-  MessagesProvider,
-} from "@cloudoperators/juno-messages-provider"
+import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
 const ServicesTab = () => {
   return (

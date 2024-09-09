@@ -8,39 +8,25 @@ import { parseError, classifyVulnerabilities } from "./helpers"
 describe("Helpers", () => {
   describe("parseError", () => {
     test("return error as string if no object with message", () => {
-      expect(parseError({ error: "This is an error text" })).toEqual(
-        '{"error":"This is an error text"}'
-      )
+      expect(parseError({ error: "This is an error text" })).toEqual('{"error":"This is an error text"}')
     })
     test("return error message if object with message attr exists", () => {
-      expect(parseError({ message: "This is an error text" })).toEqual(
-        "This is an error text"
-      )
+      expect(parseError({ message: "This is an error text" })).toEqual("This is an error text")
     })
     test("return error message if object message has attr msg", () => {
-      expect(
-        parseError({ message: '{ "msg": "This is an error text" }' })
-      ).toEqual("This is an error text")
+      expect(parseError({ message: '{ "msg": "This is an error text" }' })).toEqual("This is an error text")
     })
     test("return error message if object message has attr error", () => {
-      expect(
-        parseError({ message: '{ "error": "This is an error text" }' })
-      ).toEqual("This is an error text")
+      expect(parseError({ message: '{ "error": "This is an error text" }' })).toEqual("This is an error text")
     })
     test("return standard error message if no object message available", () => {
-      expect(parseError({})).toEqual(
-        "An error occurred. There is no further information"
-      )
+      expect(parseError({})).toEqual("An error occurred. There is no further information")
     })
     test("return standard error message if no object message available", () => {
-      expect(parseError()).toEqual(
-        "An error occurred. There is no further information"
-      )
+      expect(parseError()).toEqual("An error occurred. There is no further information")
     })
     test("return error text if just a string is available", () => {
-      expect(parseError("This is a mega error")).toEqual(
-        '"This is a mega error"'
-      )
+      expect(parseError("This is a mega error")).toEqual('"This is a mega error"')
     })
   })
 
@@ -75,23 +61,15 @@ describe("Helpers", () => {
     })
     test("classify all possibilities with and without capital letter", () => {
       const component1 = {
-        Vulnerabilities: [
-          { ThreatLevelOverall: "High" },
-          { ThreatLevelOverall: "Low" },
-        ],
+        Vulnerabilities: [{ ThreatLevelOverall: "High" }, { ThreatLevelOverall: "Low" }],
       }
       const component2 = {
-        Vulnerabilities: [
-          { ThreatLevelOverall: "Critical" },
-          { ThreatLevelOverall: "Medium" },
-        ],
+        Vulnerabilities: [{ ThreatLevelOverall: "Critical" }, { ThreatLevelOverall: "Medium" }],
       }
       const component3 = {
         Vulnerabilities: [{ ThreatLevelOverall: "medium" }],
       }
-      expect(
-        classifyVulnerabilities([component1, component2, component3])
-      ).toEqual({
+      expect(classifyVulnerabilities([component1, component2, component3])).toEqual({
         low: 1,
         medium: 2,
         high: 1,

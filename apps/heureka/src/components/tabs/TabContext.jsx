@@ -4,11 +4,7 @@
  */
 
 import React, { useMemo } from "react"
-import {
-  Container,
-  TabNavigation,
-  TabNavigationItem,
-} from "@cloudoperators/juno-ui-components"
+import { Container, TabNavigation, TabNavigationItem } from "@cloudoperators/juno-ui-components"
 import TabPanel from "./TabPanel"
 import { useGlobalsActions, useGlobalsActiveTab } from "../../hooks/useAppStore"
 
@@ -44,12 +40,7 @@ const TabContext = () => {
   const memoizedTabs = useMemo(
     () =>
       TAB_CONFIG.map((tab) => (
-        <TabNavigationItem
-          key={tab.value}
-          icon={tab.icon}
-          label={tab.label}
-          value={tab.value}
-        />
+        <TabNavigationItem key={tab.value} icon={tab.icon} label={tab.label} value={tab.value} />
       )),
     []
   )
@@ -66,10 +57,7 @@ const TabContext = () => {
 
   return (
     <>
-      <TabNavigation
-        activeItem={activeTab}
-        onActiveItemChange={(value) => setActiveTab(value)}
-      >
+      <TabNavigation activeItem={activeTab} onActiveItemChange={(value) => setActiveTab(value)}>
         {memoizedTabs}
       </TabNavigation>
       <Container py>{memoizedTabPanels}</Container>

@@ -4,14 +4,7 @@
  */
 
 import React, { useCallback, useMemo } from "react"
-import {
-  Button,
-  Panel,
-  PanelBody,
-  PanelFooter,
-  Form,
-  TextInputRow,
-} from "juno-ui-components"
+import { Button, Panel, PanelBody, PanelFooter, Form, TextInputRow } from "juno-ui-components"
 import { useRouter } from "url-state-router"
 import { getService } from "../queries"
 import useStore from "../hooks/useStore"

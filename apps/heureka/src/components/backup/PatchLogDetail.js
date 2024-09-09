@@ -4,22 +4,8 @@
  */
 
 import React, { useMemo } from "react"
-import {
-  Button,
-  Panel,
-  PanelBody,
-  PanelFooter,
-  DataGrid,
-  DataGridRow,
-  DataGridCell,
-  Stack,
-} from "juno-ui-components"
-import {
-  DetailSection,
-  DetailSectionBox,
-  DetailContentHeading,
-  DetailSectionHeader,
-} from "../styles"
+import { Button, Panel, PanelBody, PanelFooter, DataGrid, DataGridRow, DataGridCell, Stack } from "juno-ui-components"
+import { DetailSection, DetailSectionBox, DetailContentHeading, DetailSectionHeader } from "../styles"
 import { patchExampl1, patchExampl2 } from "../helpers"
 import { useRouter } from "url-state-router"
 import { DateTime } from "luxon"
@@ -43,9 +29,7 @@ const PatchLogDetail = ({}) => {
 
   const createdAt = useMemo(() => {
     if (patch?.CreatedAt) {
-      return DateTime.fromSQL(patch.CreatedAt).toLocaleString(
-        DateTime.DATETIME_SHORT
-      )
+      return DateTime.fromSQL(patch.CreatedAt).toLocaleString(DateTime.DATETIME_SHORT)
     }
   }, [patch?.CreatedAt])
 
@@ -78,11 +62,7 @@ const PatchLogDetail = ({}) => {
         <div className={DetailSection}>
           <Stack alignment="center">
             <p className={`${DetailSectionHeader} w-full`}>Changes</p>
-            <Button
-              label="Add"
-              onClick={function noRefCheck() {}}
-              size="small"
-            />
+            <Button label="Add" onClick={function noRefCheck() {}} size="small" />
           </Stack>
           <div className="mt-4">
             <ChangesLogList changes={patch.Changes} />
@@ -92,11 +72,7 @@ const PatchLogDetail = ({}) => {
         <div className={DetailSection}>
           <Stack alignment="center">
             <p className={`${DetailSectionHeader} w-full`}>Evidences</p>
-            <Button
-              label="Add"
-              onClick={function noRefCheck() {}}
-              size="small"
-            />
+            <Button label="Add" onClick={function noRefCheck() {}} size="small" />
           </Stack>
           <div className="mt-4">
             <EvidencesList evidences={[]} />

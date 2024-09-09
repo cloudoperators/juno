@@ -7,11 +7,7 @@ import React, { useMemo } from "react"
 import { DataGridRow, DataGridCell, CheckboxRow } from "juno-ui-components"
 import { Link } from "url-state-router"
 import VulnerabilitiesOverview from "./VulnerabilitiesOverview"
-import {
-  classifyVulnerabilities,
-  usersListToString,
-  componentVersionByType,
-} from "../helpers"
+import { classifyVulnerabilities, usersListToString, componentVersionByType } from "../helpers"
 import { COMPONENTS_PATH } from "./AppRouter"
 import CustomBadge from "./CustomBadge"
 
@@ -37,11 +33,7 @@ const ComponentsListItem = ({ item, columns, unlink, selectable }) => {
     <DataGridRow>
       {selectable && (
         <DataGridCell>
-          <CheckboxRow
-            id="selectable"
-            label=" "
-            onChange={function noRefCheck() {}}
-          />
+          <CheckboxRow id="selectable" label=" " onChange={function noRefCheck() {}} />
         </DataGridCell>
       )}
       {columns?.name && (
@@ -49,19 +41,14 @@ const ComponentsListItem = ({ item, columns, unlink, selectable }) => {
           {unlink ? (
             <>{item.Name}</>
           ) : (
-            <Link
-              to={`${COMPONENTS_PATH}/${item.ID}`}
-              state={{ placeholderData: item }}
-            >
+            <Link to={`${COMPONENTS_PATH}/${item.ID}`} state={{ placeholderData: item }}>
               {item.Name}
             </Link>
           )}
         </DataGridCell>
       )}
       {columns?.type && <DataGridCell>{item.Type}</DataGridCell>}
-      {columns?.version && (
-        <DataGridCell>{componentVersionByType(item)}</DataGridCell>
-      )}
+      {columns?.version && <DataGridCell>{componentVersionByType(item)}</DataGridCell>}
       {columns?.vulnerabilities && (
         <DataGridCell>
           <VulnerabilitiesOverview vulnerabilities={vulnerabilities} />

@@ -4,24 +4,13 @@
  */
 
 import React, { useCallback, useEffect, useMemo } from "react"
-import {
-  Icon,
-  DataGrid,
-  DataGridRow,
-  DataGridCell,
-  Container,
-} from "juno-ui-components"
+import { Icon, DataGrid, DataGridRow, DataGridCell, Container } from "juno-ui-components"
 import { getVulnerability } from "../queries"
 import useStore from "../hooks/useStore"
 import { useActions } from "messages-provider"
 import { useRouter } from "url-state-router"
 import { parseError } from "../helpers"
-import {
-  DetailSection,
-  DetailSectionBox,
-  DetailContentHeading,
-  DetailSectionHeader,
-} from "../styles"
+import { DetailSection, DetailSectionBox, DetailContentHeading, DetailSectionHeader } from "../styles"
 import HintLoading from "./HintLoading"
 import HintNotFound from "./HintNotFound"
 import { DateTime } from "luxon"
@@ -33,11 +22,7 @@ const VulnerabilitiyDetails = () => {
   const auth = useStore(useCallback((state) => state.auth))
   const { addMessage } = useActions()
   const vulnerabilityId = routeParams?.vulnerabilityId
-  const { isLoading, isError, isFetching, data, error } = getVulnerability(
-    auth?.id_token,
-    endpoint,
-    vulnerabilityId
-  )
+  const { isLoading, isError, isFetching, data, error } = getVulnerability(auth?.id_token, endpoint, vulnerabilityId)
 
   // dispatch error with useEffect because error variable will first set once all retries did not succeed
   useEffect(() => {
@@ -51,17 +36,13 @@ const VulnerabilitiyDetails = () => {
 
   const scnLastModified = useMemo(() => {
     if (data?.Scn?.ScnLastModified) {
-      return DateTime.fromSQL(data?.Scn?.ScnLastModified).toLocaleString(
-        DateTime.DATETIME_SHORT
-      )
+      return DateTime.fromSQL(data?.Scn?.ScnLastModified).toLocaleString(DateTime.DATETIME_SHORT)
     }
   }, [data?.Scn?.ScnLastModified])
 
   const cveLastModified = useMemo(() => {
     if (data?.Scn?.CveLastModified) {
-      return DateTime.fromSQL(data?.Scn?.CveLastModified).toLocaleString(
-        DateTime.DATETIME_SHORT
-      )
+      return DateTime.fromSQL(data?.Scn?.CveLastModified).toLocaleString(DateTime.DATETIME_SHORT)
     }
   }, [data?.Scn?.CveLastModified])
 
@@ -74,8 +55,7 @@ const VulnerabilitiyDetails = () => {
           {data ? (
             <>
               <h1 className={DetailContentHeading}>
-                <Icon className="mr-2" icon="autoAwesomeMotion" />{" "}
-                {data?.Scn?.Name}
+                <Icon className="mr-2" icon="autoAwesomeMotion" /> {data?.Scn?.Name}
               </h1>
               <div className={DetailSection}>
                 <div className={DetailSectionBox}>
@@ -109,9 +89,7 @@ const VulnerabilitiyDetails = () => {
               </div>
 
               <div className={DetailSection}>
-                <p className={DetailSectionHeader}>
-                  SAP CERT Notifications (SCN) information
-                </p>
+                <p className={DetailSectionHeader}>SAP CERT Notifications (SCN) information</p>
                 <div className="mt-4">
                   <div className={DetailSectionBox}>
                     <DataGrid gridColumnTemplate="2fr 8fr">
@@ -131,25 +109,19 @@ const VulnerabilitiyDetails = () => {
                         <DataGridCell>
                           <b>Threat level client: </b>
                         </DataGridCell>
-                        <DataGridCell>
-                          {data?.Scn?.ThreatLevelClient}
-                        </DataGridCell>
+                        <DataGridCell>{data?.Scn?.ThreatLevelClient}</DataGridCell>
                       </DataGridRow>
                       <DataGridRow>
                         <DataGridCell>
                           <b>Threat level overall: </b>
                         </DataGridCell>
-                        <DataGridCell>
-                          {data?.Scn?.ThreatLevelOverall}
-                        </DataGridCell>
+                        <DataGridCell>{data?.Scn?.ThreatLevelOverall}</DataGridCell>
                       </DataGridRow>
                       <DataGridRow>
                         <DataGridCell>
                           <b>Threat level server: </b>
                         </DataGridCell>
-                        <DataGridCell>
-                          {data?.Scn?.ThreatLevelServer}
-                        </DataGridCell>
+                        <DataGridCell>{data?.Scn?.ThreatLevelServer}</DataGridCell>
                       </DataGridRow>
                       <DataGridRow>
                         <DataGridCell>
@@ -169,9 +141,7 @@ const VulnerabilitiyDetails = () => {
               </div>
 
               <div className={DetailSection}>
-                <p className={DetailSectionHeader}>
-                  Common Vulnerabilities and Exposures (CVE) information
-                </p>
+                <p className={DetailSectionHeader}>Common Vulnerabilities and Exposures (CVE) information</p>
                 <div className="mt-4">
                   <div className={DetailSectionBox}>
                     <DataGrid gridColumnTemplate="1fr 9fr">
@@ -211,9 +181,7 @@ const VulnerabilitiyDetails = () => {
               </div>
             </>
           ) : (
-            <HintNotFound
-              text={`No details found for vulnerability id ${vulnerabilityId}`}
-            />
+            <HintNotFound text={`No details found for vulnerability id ${vulnerabilityId}`} />
           )}
         </>
       )}

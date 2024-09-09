@@ -4,14 +4,7 @@
  */
 
 import React, { useMemo } from "react"
-import {
-  MainTabs,
-  TabList,
-  Tab,
-  TabPanel,
-  Icon,
-  Container,
-} from "juno-ui-components"
+import { MainTabs, TabList, Tab, TabPanel, Icon, Container } from "juno-ui-components"
 import { useRouter } from "url-state-router"
 import Breadcrumb from "./Breadcrumb"
 import { Messages } from "messages-provider"

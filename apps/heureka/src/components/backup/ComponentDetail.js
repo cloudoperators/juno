@@ -4,29 +4,15 @@
  */
 
 import React, { useCallback, useEffect, useMemo } from "react"
-import {
-  Icon,
-  DataGrid,
-  DataGridRow,
-  DataGridCell,
-  Container,
-} from "juno-ui-components"
+import { Icon, DataGrid, DataGridRow, DataGridCell, Container } from "juno-ui-components"
 import { useRouter } from "url-state-router"
 import { getComponent } from "../queries"
 import { useActions } from "messages-provider"
 import useStore from "../hooks/useStore"
-import {
-  usersListToString,
-  componentDetailsByType,
-  parseError,
-} from "../helpers"
+import { usersListToString, componentDetailsByType, parseError } from "../helpers"
 import VulnerabilitiesList from "./VulnerabilitiesList"
 import PackagesList from "./PackagesList"
-import {
-  DetailSection,
-  DetailContentHeading,
-  DetailSectionHeader,
-} from "../styles"
+import { DetailSection, DetailContentHeading, DetailSectionHeader } from "../styles"
 import HintLoading from "./HintLoading"
 import HintNotFound from "./HintNotFound"
 import ServicesList from "./ServicesList"
@@ -50,11 +36,7 @@ const ComponentDetail = () => {
   const auth = useStore(useCallback((state) => state.auth))
   const { addMessage } = useActions()
   const componentId = routeParams?.componentId
-  const { isLoading, isError, isFetching, data, error } = getComponent(
-    auth?.id_token,
-    endpoint,
-    componentId
-  )
+  const { isLoading, isError, isFetching, data, error } = getComponent(auth?.id_token, endpoint, componentId)
 
   // dispatch error with useEffect because error variable will first set once all retries did not succeed
   useEffect(() => {
@@ -141,11 +123,7 @@ const ComponentDetail = () => {
               <div className={DetailSection}>
                 <p className={DetailSectionHeader}>Vulnerabilities</p>
                 <div className="mt-4">
-                  <VulnerabilitiesList
-                    vulnerabilities={data.Vulnerabilities}
-                    sortBy="ThreatLevelOverall"
-                    minimized
-                  />
+                  <VulnerabilitiesList vulnerabilities={data.Vulnerabilities} sortBy="ThreatLevelOverall" minimized />
                 </div>
               </div>
 
@@ -157,9 +135,7 @@ const ComponentDetail = () => {
               </div>
             </>
           ) : (
-            <HintNotFound
-              text={`No details found for component id ${componentId}`}
-            />
+            <HintNotFound text={`No details found for component id ${componentId}`} />
           )}
         </>
       )}

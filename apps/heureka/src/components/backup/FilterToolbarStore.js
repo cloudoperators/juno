@@ -26,16 +26,11 @@ const initialStore = (filterTypes) => {
 const addFilter = (set, key, value) =>
   set((state) => {
     // prevent to add duplicates
-    const index = state.filters.findIndex(
-      (item) => item.key === key && item.value === value
-    )
+    const index = state.filters.findIndex((item) => item.key === key && item.value === value)
     if (index >= 0) return state
 
     // if key type is string or boolean do not add more than 1 filter, overwrite existing
-    if (
-      state.filterTypes[key] === SEARCH_STRING_TYPE ||
-      state.filterTypes[key] === SEARCH_BOOL_TYPE
-    ) {
+    if (state.filterTypes[key] === SEARCH_STRING_TYPE || state.filterTypes[key] === SEARCH_BOOL_TYPE) {
       const newFilters = state.filters.slice()
       const foundItem = newFilters.find((element) => element.key === key)
       if (foundItem) {
@@ -44,9 +39,7 @@ const addFilter = (set, key, value) =>
       }
     }
     // add entry
-    let newFilters = state.filters
-      .slice()
-      .concat({ uid: uniqueId("filter-"), key: key, value: value })
+    let newFilters = state.filters.slice().concat({ uid: uniqueId("filter-"), key: key, value: value })
     // sort entries
     newFilters.sort((a, b) => a.key.localeCompare(b.key))
     return { ...state, filters: newFilters }

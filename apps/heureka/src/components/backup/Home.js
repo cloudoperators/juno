@@ -4,13 +4,7 @@
  */
 
 import React, { useCallback, useEffect, useMemo, useState } from "react"
-import {
-  Icon,
-  DataGrid,
-  DataGridRow,
-  DataGridCell,
-  Container,
-} from "juno-ui-components"
+import { Icon, DataGrid, DataGridRow, DataGridCell, Container } from "juno-ui-components"
 import { DetailSection, DetailSectionBox, DetailSectionHeader } from "../styles"
 import { getServices, getUsers } from "../queries"
 import useStore from "../hooks/useStore"

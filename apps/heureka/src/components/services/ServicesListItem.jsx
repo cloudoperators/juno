@@ -7,11 +7,7 @@ import React, { useMemo } from "react"
 import { DataGridRow, DataGridCell } from "@cloudoperators/juno-ui-components"
 import { listOfCommaSeparatedObjs } from "../shared/Helper"
 import constants from "../shared/constants"
-import {
-  useGlobalsActions,
-  useGlobalsShowPanel,
-  useGlobalsShowServiceDetail,
-} from "../../hooks/useAppStore"
+import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowServiceDetail } from "../../hooks/useAppStore"
 
 const countIssueMatches = (service) => {
   return service?.componentInstances?.edges?.reduce((acc, edge) => {
@@ -31,10 +27,7 @@ const ServicesListItem = ({ item }) => {
   const issueMatchesCount = useMemo(() => countIssueMatches(service), [service])
 
   const handleClick = () => {
-    if (
-      showServiceDetail === service?.name &&
-      showPanel === constants.PANEL_SERVICE
-    ) {
+    if (showServiceDetail === service?.name && showPanel === constants.PANEL_SERVICE) {
       {
         setShowServiceDetail(null)
         setShowPanel(constants.PANEL_NONE)
@@ -48,23 +41,14 @@ const ServicesListItem = ({ item }) => {
   return (
     <DataGridRow
       className={`cursor-pointer ${
-        showServiceDetail === service?.name &&
-        showPanel === constants.PANEL_SERVICE
-          ? "active"
-          : ""
+        showServiceDetail === service?.name && showPanel === constants.PANEL_SERVICE ? "active" : ""
       }`}
       onClick={() => handleClick()}
     >
       <DataGridCell>{service?.name}</DataGridCell>
-      <DataGridCell>
-        {listOfCommaSeparatedObjs(service?.owners, "name")}
-      </DataGridCell>
-      <DataGridCell>
-        {listOfCommaSeparatedObjs(service?.supportGroups, "name")}
-      </DataGridCell>
-      <DataGridCell>
-        {service?.componentInstances?.edges?.length || 0}
-      </DataGridCell>
+      <DataGridCell>{listOfCommaSeparatedObjs(service?.owners, "name")}</DataGridCell>
+      <DataGridCell>{listOfCommaSeparatedObjs(service?.supportGroups, "name")}</DataGridCell>
+      <DataGridCell>{service?.componentInstances?.edges?.length || 0}</DataGridCell>
       <DataGridCell>{issueMatchesCount}</DataGridCell>
     </DataGridRow>
   )

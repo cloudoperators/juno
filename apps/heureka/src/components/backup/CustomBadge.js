@@ -8,10 +8,7 @@ import { Badge, Icon } from "juno-ui-components"
 
 const CustomBadge = ({ badgeVariant, icon, label, className }) => {
   return (
-    <Badge
-      className={`pb-1 inline-block min-w-[3rem] ${className}`}
-      variant={badgeVariant}
-    >
+    <Badge className={`pb-1 inline-block min-w-[3rem] ${className}`} variant={badgeVariant}>
       <Icon className="mr-2" size="15" icon={icon} />
       <span className="mt-0.5">{label}</span>
     </Badge>

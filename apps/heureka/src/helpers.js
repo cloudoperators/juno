@@ -130,9 +130,7 @@ export const componentVersionByType = (component) => {
   switch (component.Type) {
     case COMPONENT_TYPE_KEPPEL:
       if (component?.Details?.PushedAt) {
-        version = DateTime.fromSeconds(
-          component?.Details?.PushedAt
-        ).toLocaleString(DateTime.DATETIME_SHORT)
+        version = DateTime.fromSeconds(component?.Details?.PushedAt).toLocaleString(DateTime.DATETIME_SHORT)
       }
     default:
   }

@@ -16,9 +16,7 @@ const ChangesLogListItem = ({ item, selectable }) => {
 
   const createdAt = useMemo(() => {
     if (item.CreatedAt) {
-      return DateTime.fromSQL(item.CreatedAt).toLocaleString(
-        DateTime.DATETIME_SHORT
-      )
+      return DateTime.fromSQL(item.CreatedAt).toLocaleString(DateTime.DATETIME_SHORT)
     }
   }, [item.CreatedAt])
 
@@ -26,23 +24,15 @@ const ChangesLogListItem = ({ item, selectable }) => {
     <DataGridRow>
       {selectable && (
         <DataGridCell>
-          <CheckboxRow
-            id="selectable"
-            label=" "
-            onChange={function noRefCheck() {}}
-          />
+          <CheckboxRow id="selectable" label=" " onChange={function noRefCheck() {}} />
         </DataGridCell>
       )}
       <DataGridCell>
-        <Link to={`${SERVICES_PATH}/${serviceId}/changeLog/${item.ID}`}>
-          {item.ID}
-        </Link>
+        <Link to={`${SERVICES_PATH}/${serviceId}/changeLog/${item.ID}`}>{item.ID}</Link>
       </DataGridCell>
       <DataGridCell>{item.Type}</DataGridCell>
       <DataGridCell>{createdAt}</DataGridCell>
-      <DataGridCell>
-        {item.Components.map((component) => component.Name).join(", ")}
-      </DataGridCell>
+      <DataGridCell>{item.Components.map((component) => component.Name).join(", ")}</DataGridCell>
     </DataGridRow>
   )
 }

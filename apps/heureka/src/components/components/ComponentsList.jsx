@@ -28,9 +28,7 @@ const ComponentsList = ({ items, isLoading }) => {
           <Stack direction="vertical">
             <Tooltip triggerEvent="hover">
               <TooltipTrigger>Versions</TooltipTrigger>
-              <TooltipContent>
-                Total Number of Component Versions
-              </TooltipContent>
+              <TooltipContent>Total Number of Component Versions</TooltipContent>
             </Tooltip>
           </Stack>
         </DataGridHeadCell>
@@ -39,9 +37,7 @@ const ComponentsList = ({ items, isLoading }) => {
           <Stack direction="vertical">
             <Tooltip triggerEvent="hover">
               <TooltipTrigger>Instances</TooltipTrigger>
-              <TooltipContent>
-                Total Number of Component Instances
-              </TooltipContent>
+              <TooltipContent>Total Number of Component Instances</TooltipContent>
             </Tooltip>
           </Stack>
         </DataGridHeadCell>
@@ -57,10 +53,7 @@ const ComponentsList = ({ items, isLoading }) => {
           {items?.length > 0 ? (
             <>
               {items.map((item, index) => (
-                <ComponentsListItem
-                  key={index}
-                  item={item}
-                ></ComponentsListItem>
+                <ComponentsListItem key={index} item={item}></ComponentsListItem>
               ))}
             </>
           ) : (

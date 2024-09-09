@@ -4,13 +4,7 @@
  */
 
 import React, { useMemo } from "react"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  DataGridCell,
-  Stack,
-} from "juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, DataGridCell, Stack } from "juno-ui-components"
 import VulnerabilitiesListItem from "./VulnerabilitiesListItem"
 import { threadLevelToWeight } from "../helpers"
 import HintNotFound from "./HintNotFound"
@@ -20,12 +14,7 @@ const VulnerabilitiesList = ({ vulnerabilities, sortBy, minimized }) => {
     if (!vulnerabilities) return []
     if (!Array.isArray(vulnerabilities)) vulnerabilities = [vulnerabilities]
     if (sortBy === "ThreatLevelOverall") {
-      return vulnerabilities
-        .sort(
-          (a, b) =>
-            threadLevelToWeight(a[sortBy]) - threadLevelToWeight(b[sortBy])
-        )
-        .reverse()
+      return vulnerabilities.sort((a, b) => threadLevelToWeight(a[sortBy]) - threadLevelToWeight(b[sortBy])).reverse()
     }
     return vulnerabilities
   }, [vulnerabilities])
@@ -43,11 +32,7 @@ const VulnerabilitiesList = ({ vulnerabilities, sortBy, minimized }) => {
         <>
           {" "}
           {vulnerabilities.map((item, index) => (
-            <VulnerabilitiesListItem
-              key={index}
-              item={item}
-              minimized={minimized}
-            ></VulnerabilitiesListItem>
+            <VulnerabilitiesListItem key={index} item={item} minimized={minimized}></VulnerabilitiesListItem>
           ))}
         </>
       ) : (

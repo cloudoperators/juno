@@ -64,14 +64,8 @@ const Vulnerabilities = ({}) => {
         <HintLoading text="Loading vulnerabilities..." />
       ) : (
         <>
-          <FilterToolbar
-            filterTypes={filters.data}
-            onSearchTerm={onSearchTerm}
-            isLoading={filters.isLoading}
-          />
-          <VulnerabilitiesList
-            vulnerabilities={vulnerabilities.data?.Results}
-          />
+          <FilterToolbar filterTypes={filters.data} onSearchTerm={onSearchTerm} isLoading={filters.isLoading} />
+          <VulnerabilitiesList vulnerabilities={vulnerabilities.data?.Results} />
           <Pagination
             count={vulnerabilities.data?.Count}
             limit={ITEMS_PER_PAGE}

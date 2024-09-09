@@ -30,13 +30,10 @@ const createFiltersSlice = (set, get) => ({
       setFilterLabelValues: (entityName, filters) =>
         set(
           produce((state) => {
-            state.filters.filterLabelValues[entityName] = filters.reduce(
-              (acc, filter) => {
-                acc[filter.label] = filter.values
-                return acc
-              },
-              {}
-            )
+            state.filters.filterLabelValues[entityName] = filters.reduce((acc, filter) => {
+              acc[filter.label] = filter.values
+              return acc
+            }, {})
           }),
           false,
           "filters.setFilterLabelValues"
@@ -75,10 +72,7 @@ const createFiltersSlice = (set, get) => ({
 
             // Add the filter value if it doesn't already exist
             state.filters.activeFilters[entityName][filterLabel] = [
-              ...new Set([
-                ...state.filters.activeFilters[entityName][filterLabel],
-                filterValue,
-              ]),
+              ...new Set([...state.filters.activeFilters[entityName][filterLabel], filterValue]),
             ]
           }),
           false,
@@ -99,10 +93,7 @@ const createFiltersSlice = (set, get) => ({
 
             // Add the filter values and ensure uniqueness
             state.filters.activeFilters[entityName][filterLabel] = [
-              ...new Set([
-                ...state.filters.activeFilters[entityName][filterLabel],
-                ...filterValues,
-              ]),
+              ...new Set([...state.filters.activeFilters[entityName][filterLabel], ...filterValues]),
             ]
           }),
           false,
@@ -113,15 +104,14 @@ const createFiltersSlice = (set, get) => ({
       removeActiveFilter: (entityName, filterLabel, filterValue) => {
         set(
           produce((state) => {
-            const updatedFilters = state.filters.activeFilters[entityName][
-              filterLabel
-            ].filter((value) => value !== filterValue)
+            const updatedFilters = state.filters.activeFilters[entityName][filterLabel].filter(
+              (value) => value !== filterValue
+            )
 
             if (updatedFilters.length === 0) {
               delete state.filters.activeFilters[entityName][filterLabel]
             } else {
-              state.filters.activeFilters[entityName][filterLabel] =
-                updatedFilters
+              state.filters.activeFilters[entityName][filterLabel] = updatedFilters
             }
           }),
           false,

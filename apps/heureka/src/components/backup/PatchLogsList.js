@@ -5,12 +5,7 @@
 
 import React, { useMemo } from "react"
 import PatchLogsListItem from "./PatchLogsListItem"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  DataGridCell,
-} from "juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "juno-ui-components"
 import HintNotFound from "./HintNotFound"
 
 const PatchLogsList = ({ patches }) => {

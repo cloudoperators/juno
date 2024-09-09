@@ -56,11 +56,7 @@ const useQueryClientFn = () => {
 
     queryClient.setQueryDefaults(["IssueMatchFilterValues"], {
       queryFn: async ({ queryKey, variables }) => {
-        return await request(
-          endpoint,
-          issueMatchesFilterValuesQuery(),
-          variables
-        )
+        return await request(endpoint, issueMatchesFilterValuesQuery(), variables)
       },
       staleTime: Infinity, // this do not change often keep it until reload
     })

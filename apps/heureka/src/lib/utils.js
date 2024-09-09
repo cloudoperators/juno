@@ -16,9 +16,7 @@ export const humanizeString = (value) => {
   const underscoresToSpaces = camelCaseToSpaces.replace(underscoreMatch, " ")
 
   // all together now (also capitalize first word and lowercase all other words)
-  const humanized =
-    underscoresToSpaces.charAt(0).toUpperCase() +
-    underscoresToSpaces.slice(1).toLowerCase()
+  const humanized = underscoresToSpaces.charAt(0).toUpperCase() + underscoresToSpaces.slice(1).toLowerCase()
 
   return humanized
 }

@@ -4,25 +4,12 @@
  */
 
 import React, { useCallback, useEffect, useMemo } from "react"
-import {
-  Icon,
-  DataGrid,
-  DataGridRow,
-  DataGridCell,
-  Stack,
-  Spinner,
-  Container,
-} from "juno-ui-components"
+import { Icon, DataGrid, DataGridRow, DataGridCell, Stack, Spinner, Container } from "juno-ui-components"
 import { useRouter } from "url-state-router"
 import { getUser } from "../queries"
 import { useActions } from "messages-provider"
 import useStore from "../hooks/useStore"
-import {
-  DetailSection,
-  DetailSectionBox,
-  DetailContentHeading,
-  DetailSectionHeader,
-} from "../styles"
+import { DetailSection, DetailSectionBox, DetailContentHeading, DetailSectionHeader } from "../styles"
 import HintLoading from "./HintLoading"
 import ServicesList from "./ServicesList"
 import { parseError } from "../helpers"
@@ -34,11 +21,7 @@ const UserDetail = ({}) => {
   const auth = useStore(useCallback((state) => state.auth))
   const { addMessage } = useActions()
   const userId = routeParams?.userId
-  const { isLoading, isError, isFetching, data, error } = getUser(
-    auth?.id_token,
-    endpoint,
-    userId
-  )
+  const { isLoading, isError, isFetching, data, error } = getUser(auth?.id_token, endpoint, userId)
 
   // dispatch error with useEffect because error variable will first set once all retries did not succeed
   useEffect(() => {

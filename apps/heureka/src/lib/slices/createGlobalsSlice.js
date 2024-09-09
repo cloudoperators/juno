@@ -54,11 +54,7 @@ const createGlobalsSlice = (set, get, options) => ({
           "globals/setQueryOptions"
         ),
       setEmbedded: (embedded) =>
-        set(
-          (state) => ({ globals: { ...state.globals, embedded: embedded } }),
-          false,
-          "globals/setEmbedded"
-        ),
+        set((state) => ({ globals: { ...state.globals, embedded: embedded } }), false, "globals/setEmbedded"),
       setApiEndpoint: (apiEndpoint) =>
         set(
           (state) => ({

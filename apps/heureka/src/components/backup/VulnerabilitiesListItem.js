@@ -23,9 +23,7 @@ flex
 const VulnerabilitiesListItem = ({ item, minimized }) => {
   const lastModifiedtString = useMemo(() => {
     if (!item?.Scn?.ScnLastModified) return "No date available"
-    return DateTime.fromSQL(item.Scn.ScnLastModified).toLocaleString(
-      DateTime.DATETIME_SHORT
-    )
+    return DateTime.fromSQL(item.Scn.ScnLastModified).toLocaleString(DateTime.DATETIME_SHORT)
   }, [item?.Scn?.ScnLastModified])
 
   return (
@@ -38,10 +36,7 @@ const VulnerabilitiesListItem = ({ item, minimized }) => {
       </DataGridCell>
       <DataGridCell>
         <div className={VulnerabilityCss}>
-          <VulnerabilityBadge
-            level={item?.Scn?.ThreatLevelOverall}
-            label={item?.Scn?.ThreatLevelOverall}
-          />
+          <VulnerabilityBadge level={item?.Scn?.ThreatLevelOverall} label={item?.Scn?.ThreatLevelOverall} />
         </div>
       </DataGridCell>
       {!minimized && <DataGridCell>{item?.Component?.Name}</DataGridCell>}

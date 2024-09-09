@@ -14,11 +14,7 @@ import {
   useGlobalsActiveTab,
   useSearchTerm,
 } from "../../hooks/useAppStore"
-import {
-  Pagination,
-  Container,
-  Stack,
-} from "@cloudoperators/juno-ui-components"
+import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
 
@@ -79,9 +75,7 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
     setCurrentPage(newPage)
     if (!pageInfo?.pages) return
     const pages = pageInfo.pages
-    const currentPageIndex = pages?.findIndex(
-      (page) => page?.pageNumber === parseInt(newPage)
-    )
+    const currentPageIndex = pages?.findIndex((page) => page?.pageNumber === parseInt(newPage))
     if (currentPageIndex > -1) {
       const after = pages[currentPageIndex]?.after
       setQueryOptions(queryKey, {

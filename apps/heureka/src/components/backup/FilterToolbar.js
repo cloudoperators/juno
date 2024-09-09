@@ -7,13 +7,7 @@ import React from "react"
 import { FilterToolbarStateProvider } from "./FilterToolbarStore"
 import FilterToolbarCore from "./FilterToolbarCore"
 
-const FilterToolbar = ({
-  filterTypes,
-  onSearchTerm,
-  isLoading,
-  filterLabels,
-  placeholders,
-}) => {
+const FilterToolbar = ({ filterTypes, onSearchTerm, isLoading, filterLabels, placeholders }) => {
   return (
     <FilterToolbarStateProvider filterTypes={filterTypes}>
       <FilterToolbarCore

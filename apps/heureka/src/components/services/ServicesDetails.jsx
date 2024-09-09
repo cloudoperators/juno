@@ -18,19 +18,12 @@ import {
   Icon,
   Modal,
 } from "@cloudoperators/juno-ui-components"
-import {
-  useGlobalsQueryClientFnReady,
-  useGlobalsShowServiceDetail,
-} from "../../hooks/useAppStore"
+import { useGlobalsQueryClientFnReady, useGlobalsShowServiceDetail } from "../../hooks/useAppStore"
 import { useQuery, useMutation } from "@tanstack/react-query"
 import LoadElement from "../shared/LoadElement"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
-import {
-  listOfCommaSeparatedObjs,
-  severityString,
-  highestSeverity,
-} from "../shared/Helper"
+import { listOfCommaSeparatedObjs, severityString, highestSeverity } from "../shared/Helper"
 
 const ServicesDetail = () => {
   const showServiceDetail = useGlobalsShowServiceDetail()
@@ -124,16 +117,12 @@ const ServicesDetail = () => {
       },
       {
         onSuccess: () => {
-          const removedUser = selectedOwners.find(
-            (owner) => owner.id === userId
-          )
+          const removedUser = selectedOwners.find((owner) => owner.id === userId)
           addMessage({
             variant: "success",
             text: `${removedUser.name} removed as owner.`,
           })
-          setSelectedOwners((prev) =>
-            prev.filter((owner) => owner.id !== userId)
-          )
+          setSelectedOwners((prev) => prev.filter((owner) => owner.id !== userId))
           setConfirmRemoveOwner(null) // Close the modal
         },
         onError: (error) => {
@@ -177,12 +166,7 @@ const ServicesDetail = () => {
                       onClose={() => handleConfirmRemoveOwner(owner)}
                     />
                   ))}
-                <Icon
-                  color="jn-global-text"
-                  icon="addCircle"
-                  onClick={() => setShowComboBox(true)}
-                  className="ml-2"
-                />
+                <Icon color="jn-global-text" icon="addCircle" onClick={() => setShowComboBox(true)} className="ml-2" />
               </Stack>
             )}
 
@@ -197,13 +181,7 @@ const ServicesDetail = () => {
                   }}
                 >
                   {users?.data?.Users?.edges
-                    ?.filter(
-                      (user) =>
-                        !selectedOwners.some(
-                          (owner) =>
-                            owner.uniqueUserId === user.node.uniqueUserId
-                        )
-                    )
+                    ?.filter((user) => !selectedOwners.some((owner) => owner.uniqueUserId === user.node.uniqueUserId))
                     .map((user, i) => (
                       <ComboBoxOption key={i} value={user?.node?.uniqueUserId}>
                         {user?.node?.name}
@@ -230,22 +208,14 @@ const ServicesDetail = () => {
             onCancel={() => setConfirmRemoveOwner(null)}
             onConfirm={() => handleRemoveOwner(confirmRemoveOwner)}
           >
-            <p>
-              Are you sure you want to remove {ownerToRemove} from the owners?
-            </p>
+            <p>Are you sure you want to remove {ownerToRemove} from the owners?</p>
           </Modal>
         )}
 
         <DataGridRow>
           <DataGridHeadCell nowrap={true}>Support Group</DataGridHeadCell>
           <DataGridCell>
-            <LoadElement
-              elem={
-                <ul>
-                  {listOfCommaSeparatedObjs(service?.supportGroups, "name")}
-                </ul>
-              }
-            />
+            <LoadElement elem={<ul>{listOfCommaSeparatedObjs(service?.supportGroups, "name")}</ul>} />
           </DataGridCell>
         </DataGridRow>
       </DataGrid>
@@ -266,20 +236,10 @@ const ServicesDetail = () => {
 
         {service?.componentInstances?.edges?.map((componentInstance, i) => (
           <DataGridRow key={i}>
-            <DataGridCell>
-              {componentInstance?.node?.componentVersion?.component?.name}
-            </DataGridCell>
-            <DataGridCell>
-              {componentInstance?.node?.componentVersion?.version}
-            </DataGridCell>
-            <DataGridCell>
-              {componentInstance?.node?.issueMatches?.totalCount}
-            </DataGridCell>
-            <DataGridCell>
-              {severityString(
-                highestSeverity(componentInstance?.node?.issueMatches?.edges)
-              )}
-            </DataGridCell>
+            <DataGridCell>{componentInstance?.node?.componentVersion?.component?.name}</DataGridCell>
+            <DataGridCell>{componentInstance?.node?.componentVersion?.version}</DataGridCell>
+            <DataGridCell>{componentInstance?.node?.issueMatches?.totalCount}</DataGridCell>
+            <DataGridCell>{severityString(highestSeverity(componentInstance?.node?.issueMatches?.edges))}</DataGridCell>
           </DataGridRow>
         ))}
       </DataGrid>

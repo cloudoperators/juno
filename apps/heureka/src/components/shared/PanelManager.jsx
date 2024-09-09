@@ -4,12 +4,7 @@
  */
 
 import React from "react"
-import {
-  Panel,
-  Stack,
-  PanelBody,
-  Container,
-} from "@cloudoperators/juno-ui-components"
+import { Panel, Stack, PanelBody, Container } from "@cloudoperators/juno-ui-components"
 import {
   useGlobalsActions,
   useGlobalsShowPanel,
@@ -19,14 +14,10 @@ import {
 import ServicesDetail from "../services/ServicesDetails"
 import constants from "./constants"
 import IssueMatchesDetails from "../issueMatches/IssueMatchesDetails"
-import {
-  Messages,
-  MessagesProvider,
-} from "@cloudoperators/juno-messages-provider"
+import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
 const PanelManger = () => {
-  const { setShowPanel, setShowServiceDetail, setShowIssueDetail } =
-    useGlobalsActions()
+  const { setShowPanel, setShowServiceDetail, setShowIssueDetail } = useGlobalsActions()
   const showPanel = useGlobalsShowPanel()
   const showServiceDetail = useGlobalsShowServiceDetail()
   const showIssueDetail = useGlobalsShowIssueDetail()

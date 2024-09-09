@@ -4,12 +4,7 @@
  */
 
 import React from "react"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  DataGridCell,
-} from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
 import HintNotFound from "../shared/HintNotFound"
 import HintLoading from "../shared/HintLoading"
 import IssueMatchesListItem from "./IssueMatchesListItem"
@@ -39,10 +34,7 @@ const IssueMatchesList = ({ items, isLoading }) => {
             {items?.length > 0 ? (
               <>
                 {items.map((item, index) => (
-                  <IssueMatchesListItem
-                    key={index}
-                    item={item}
-                  ></IssueMatchesListItem>
+                  <IssueMatchesListItem key={index} item={item}></IssueMatchesListItem>
                 ))}
               </>
             ) : (

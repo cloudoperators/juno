@@ -4,12 +4,7 @@
  */
 
 import React, { useMemo } from "react"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  DataGridCell,
-} from "juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "juno-ui-components"
 import HintNotFound from "./HintNotFound"
 
 const ServerGroupsList = ({ supportGroups }) => {

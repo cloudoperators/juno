@@ -17,18 +17,14 @@ const PatchLogsListItem = ({ item }) => {
 
   const createdAt = useMemo(() => {
     if (item.CreatedAt) {
-      return DateTime.fromSQL(item.CreatedAt).toLocaleString(
-        DateTime.DATETIME_SHORT
-      )
+      return DateTime.fromSQL(item.CreatedAt).toLocaleString(DateTime.DATETIME_SHORT)
     }
   }, [item.CreatedAt])
 
   return (
     <DataGridRow>
       <DataGridCell>
-        <Link to={`${SERVICES_PATH}/${serviceId}/patchLog/${item.ID}`}>
-          {item.ID}
-        </Link>
+        <Link to={`${SERVICES_PATH}/${serviceId}/patchLog/${item.ID}`}>{item.ID}</Link>
       </DataGridCell>
       <DataGridCell>{createdAt}</DataGridCell>
       <DataGridCell>

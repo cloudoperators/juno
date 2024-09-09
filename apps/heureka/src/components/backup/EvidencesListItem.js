@@ -16,9 +16,7 @@ const EvidencesListItem = ({ item }) => {
 
   const createdAt = useMemo(() => {
     if (item.CreatedAt) {
-      return DateTime.fromSQL(item.CreatedAt).toLocaleString(
-        DateTime.DATETIME_SHORT
-      )
+      return DateTime.fromSQL(item.CreatedAt).toLocaleString(DateTime.DATETIME_SHORT)
     }
   }, [item.CreatedAt])
 

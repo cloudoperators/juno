@@ -5,11 +5,7 @@
 
 import React, { useLayoutEffect } from "react"
 import styles from "./styles.scss"
-import {
-  AppShell,
-  AppShellProvider,
-  CodeBlock,
-} from "@cloudoperators/juno-ui-components"
+import { AppShell, AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import AsyncWorker from "./components/AsyncWorker"
@@ -57,10 +53,7 @@ function App(props = {}) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppShell
-        pageHeader="Converged Cloud | Heureka"
-        embedded={props.embedded === "true" || props.embedded === true}
-      >
+      <AppShell pageHeader="Converged Cloud | Heureka" embedded={props.embedded === "true" || props.embedded === true}>
         <ErrorBoundary fallbackRender={fallbackRender}>
           <AsyncWorker consumerId={props.id} />
           <PanelManager />

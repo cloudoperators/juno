@@ -22,11 +22,7 @@ const ServicesList = ({ items, isLoading }) => {
   return (
     <>
       {/* clickableTable Table allow changes the background by css when hovering or active*/}
-      <DataGrid
-        minContentColumns={[3, 4]}
-        columns={5}
-        className="clickableTable"
-      >
+      <DataGrid minContentColumns={[3, 4]} columns={5} className="clickableTable">
         <DataGridRow>
           <DataGridHeadCell>Service</DataGridHeadCell>
           <DataGridHeadCell>Owners</DataGridHeadCell>
@@ -35,9 +31,7 @@ const ServicesList = ({ items, isLoading }) => {
             <Stack direction="vertical">
               <Tooltip triggerEvent="hover">
                 <TooltipTrigger>Components</TooltipTrigger>
-                <TooltipContent>
-                  Total Number of Component Instances
-                </TooltipContent>
+                <TooltipContent>Total Number of Component Instances</TooltipContent>
               </Tooltip>
             </Stack>
           </DataGridHeadCell>

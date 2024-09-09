@@ -8,28 +8,9 @@ import { getService } from "../queries"
 import useStore from "../hooks/useStore"
 import { useActions } from "messages-provider"
 import { useRouter } from "url-state-router"
-import {
-  parseError,
-  patchExampl1,
-  patchExampl2,
-  changeLogExample1,
-  changeLogExample2,
-} from "../helpers"
-import {
-  Icon,
-  DataGrid,
-  DataGridRow,
-  DataGridCell,
-  Container,
-  Stack,
-  Button,
-} from "juno-ui-components"
-import {
-  DetailSection,
-  DetailSectionBox,
-  DetailContentHeading,
-  DetailSectionHeader,
-} from "../styles"
+import { parseError, patchExampl1, patchExampl2, changeLogExample1, changeLogExample2 } from "../helpers"
+import { Icon, DataGrid, DataGridRow, DataGridCell, Container, Stack, Button } from "juno-ui-components"
+import { DetailSection, DetailSectionBox, DetailContentHeading, DetailSectionHeader } from "../styles"
 import HintLoading from "./HintLoading"
 import HintNotFound from "./HintNotFound"
 import PatchLogsList from "./PatchLogsList"
@@ -43,9 +24,7 @@ const listOfUsers = (users) => {
     <span key={index}>
       <span>{index ? ", " : ""}</span>
       {`${user.Name} `}
-      <small className="text-sm pt-1 whitespace-nowrap text-theme-disabled">
-        ({user.SapID})
-      </small>
+      <small className="text-sm pt-1 whitespace-nowrap text-theme-disabled">({user.SapID})</small>
     </span>
   ))
 }
@@ -56,11 +35,7 @@ const ServiceDetail = () => {
   const auth = useStore(useCallback((state) => state.auth))
   const { addMessage } = useActions()
   const serviceId = routeParams?.serviceId
-  const { isLoading, isError, isFetching, data, error } = getService(
-    auth?.id_token,
-    endpoint,
-    serviceId
-  )
+  const { isLoading, isError, isFetching, data, error } = getService(auth?.id_token, endpoint, serviceId)
 
   // dispatch error with useEffect because error variable will first set once all retries did not succeed
   useEffect(() => {
@@ -139,9 +114,7 @@ const ServiceDetail = () => {
               </div>
 
               <div className={DetailSection}>
-                <p className={DetailSectionHeader}>
-                  Vulnerabilities in this service
-                </p>
+                <p className={DetailSectionHeader}>Vulnerabilities in this service</p>
                 <div className="mt-4">
                   <ComponentsList
                     columns={{
@@ -161,9 +134,7 @@ const ServiceDetail = () => {
                   <p className={`${DetailSectionHeader} w-full`}>Patches log</p>
                   <Button
                     label="Add"
-                    onClick={() =>
-                      navigateTo(`${SERVICES_PATH}/${serviceId}/patchLog/new`)
-                    }
+                    onClick={() => navigateTo(`${SERVICES_PATH}/${serviceId}/patchLog/new`)}
                     size="small"
                   />
                 </Stack>
@@ -177,9 +148,7 @@ const ServiceDetail = () => {
                   <p className={`${DetailSectionHeader} w-full`}>Changes log</p>
                   <Button
                     label="Add"
-                    onClick={() =>
-                      navigateTo(`${SERVICES_PATH}/${serviceId}/patchLog/new`)
-                    }
+                    onClick={() => navigateTo(`${SERVICES_PATH}/${serviceId}/patchLog/new`)}
                     size="small"
                   />
                 </Stack>
@@ -189,9 +158,7 @@ const ServiceDetail = () => {
               </div>
             </>
           ) : (
-            <HintNotFound
-              text={`No details found for service id ${serviceId}`}
-            />
+            <HintNotFound text={`No details found for service id ${serviceId}`} />
           )}
         </>
       )}

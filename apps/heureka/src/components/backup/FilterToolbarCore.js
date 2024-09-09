@@ -19,12 +19,7 @@ const toURLOptions = (items) => {
 // isLoading (boolean): sets the tool in loading state
 // filterLabels (object): labels matching the filter key to be displayed in the dropdown. Ex: {name: "service name"}
 // placeholders (object): placeholders matching the selected key
-const FilterToolbarCore = ({
-  onSearchTerm,
-  isLoading,
-  filterLabels,
-  placeholders,
-}) => {
+const FilterToolbarCore = ({ onSearchTerm, isLoading, filterLabels, placeholders }) => {
   const selectedFilters = useStore(useCallback((state) => state.filters))
   const filterTypes = useStore(useCallback((state) => state.filterTypes))
   const addFilter = useStore((state) => state.addFilter)
@@ -39,8 +34,7 @@ const FilterToolbarCore = ({
     let result = []
     Object.keys(filterTypes).forEach((key) => {
       // check if there is a label for the key
-      const label =
-        filterLabels && typeof filterLabels === "object" && filterLabels[key]
+      const label = filterLabels && typeof filterLabels === "object" && filterLabels[key]
       result.push({ label: label || key, key: key })
     })
     return result
@@ -89,13 +83,7 @@ const FilterToolbarCore = ({
       onSelectedFilterKeyChange={onSelectChange}
     >
       {selectedFilters.map((item, index) => (
-        <FilterPill
-          key={index}
-          uid={item.uid}
-          filterKey={item.key}
-          filterValue={item.value}
-          onClose={onPillClosed}
-        />
+        <FilterPill key={index} uid={item.uid} filterKey={item.key} filterValue={item.value} onClose={onPillClosed} />
       ))}
       {error && (
         <div className="basis-full">

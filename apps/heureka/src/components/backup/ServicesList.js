@@ -4,13 +4,7 @@
  */
 
 import React, { useMemo } from "react"
-import {
-  Stack,
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  DataGridCell,
-} from "juno-ui-components"
+import { Stack, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "juno-ui-components"
 import ServicesListItem from "./ServicesListItem"
 import HintNotFound from "./HintNotFound"
 

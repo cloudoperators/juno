@@ -5,22 +5,11 @@
 
 import React, { useMemo } from "react"
 import ComponentsListItem from "./ComponentsListItem"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  DataGridCell,
-} from "juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "juno-ui-components"
 import HintNotFound from "./HintNotFound"
 import { classifyVulnerabilities } from "../helpers"
 
-const ComponentsList = ({
-  components,
-  columns,
-  sorted,
-  unlink,
-  selectable,
-}) => {
+const ComponentsList = ({ components, columns, sorted, unlink, selectable }) => {
   components = useMemo(() => {
     if (!components) return []
     // inforce input as array
@@ -32,10 +21,7 @@ const ComponentsList = ({
           const vulA = classifyVulnerabilities(a)
           const vulB = classifyVulnerabilities(b)
           return (
-            vulA.critical - vulB.critical ||
-            vulA.high - vulB.high ||
-            vulA.medium - vulB.medium ||
-            vulA.low - vulB.low
+            vulA.critical - vulB.critical || vulA.high - vulB.high || vulA.medium - vulB.medium || vulA.low - vulB.low
           )
         })
         .reverse()
@@ -70,9 +56,7 @@ const ComponentsList = ({
         {columns?.name && <DataGridHeadCell>Name</DataGridHeadCell>}
         {columns?.type && <DataGridHeadCell>Type</DataGridHeadCell>}
         {columns?.version && <DataGridHeadCell>Version</DataGridHeadCell>}
-        {columns?.vulnerabilities && (
-          <DataGridHeadCell>Vulnerabilities</DataGridHeadCell>
-        )}
+        {columns?.vulnerabilities && <DataGridHeadCell>Vulnerabilities</DataGridHeadCell>}
         {columns?.belongsTo && <DataGridHeadCell>Belongs to</DataGridHeadCell>}
         {columns?.owners && <DataGridHeadCell>Owners</DataGridHeadCell>}
         {columns?.operators && <DataGridHeadCell>Operators</DataGridHeadCell>}
@@ -80,13 +64,7 @@ const ComponentsList = ({
       {components.length > 0 ? (
         <>
           {components.map((item, i) => (
-            <ComponentsListItem
-              key={i}
-              item={item}
-              columns={columns}
-              unlink={unlink}
-              selectable={selectable}
-            />
+            <ComponentsListItem key={i} item={item} columns={columns} unlink={unlink} selectable={selectable} />
           ))}
         </>
       ) : (
