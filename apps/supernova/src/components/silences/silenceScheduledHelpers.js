@@ -90,6 +90,7 @@ const validateLabelValue = (value) => {
   try {
     return !!new RegExp(value)
   } catch (e) {
+    console.error(e)
     return false
   }
 }

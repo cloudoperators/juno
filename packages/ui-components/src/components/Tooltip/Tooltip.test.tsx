@@ -6,19 +6,20 @@
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import { describe, it, expect } from "vitest"
 
 import { Tooltip } from "./index"
 import { TooltipTrigger } from "../TooltipTrigger/TooltipTrigger.component"
 import { TooltipContent } from "../TooltipContent/TooltipContent.component"
 
 describe("Tooltip", () => {
-  test("renders a Tooltip", async () => {
+  it("renders a Tooltip", () => {
     render(<Tooltip>tooltip</Tooltip>)
     expect(screen.getByText(/tooltip/i)).toBeInTheDocument()
   })
 
-  test("renders a closed Tooltip: the trigger renders as passed and the content is not visible", async () => {
-    await render(
+  it("renders a closed Tooltip: the trigger renders as passed and the content is not visible", () => {
+    render(
       <Tooltip>
         <TooltipTrigger>trigger</TooltipTrigger>
         <TooltipContent>my content</TooltipContent>
@@ -29,8 +30,8 @@ describe("Tooltip", () => {
     expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
   })
 
-  test("render an controlled open Tooltip: the trigger and content are visible", async () => {
-    await render(
+  it("render an controlled open Tooltip: the trigger and content are visible", () => {
+    render(
       <Tooltip open={true}>
         <TooltipTrigger>trigger</TooltipTrigger>
         <TooltipContent>my content</TooltipContent>
@@ -41,8 +42,8 @@ describe("Tooltip", () => {
     expect(screen.getByText(/my content/i)).toBeInTheDocument()
   })
 
-  test("render a Tooltip with initialOpen set to true: the trigger and content are visible", async () => {
-    await render(
+  it("render a Tooltip with initialOpen set to true: the trigger and content are visible", () => {
+    render(
       <Tooltip initialOpen={true}>
         <TooltipTrigger>trigger</TooltipTrigger>
         <TooltipContent>my content</TooltipContent>
@@ -53,8 +54,8 @@ describe("Tooltip", () => {
     expect(screen.getByText(/my content/i)).toBeInTheDocument()
   })
 
-  test("render an initialOpen Tooltip with variant set to info: the content should be visible and have a class matching the passed variant", async () => {
-    await render(
+  it("render an initialOpen Tooltip with variant set to info: the content should be visible and have a class matching the passed variant", () => {
+    render(
       <Tooltip variant="info" initialOpen={true}>
         <TooltipTrigger>trigger</TooltipTrigger>
         <TooltipContent data-testid="tooltip-content">my content</TooltipContent>
@@ -66,23 +67,23 @@ describe("Tooltip", () => {
     expect(screen.getByTestId("tooltip-content")).toHaveClass("juno-tooltip-info")
   })
 
-  test("render a TooltipTrigger with asChild set to true: the trigger renders the child as passed, the trigger component is not rendered", async () => {
-    await render(
+  it("render a TooltipTrigger with asChild set to true: the trigger renders the child as passed, the trigger component is not rendered", () => {
+    render(
       <Tooltip initialOpen={true}>
         <TooltipTrigger data-testid="trigger-component" asChild>
-          <button data-testid="trigger-child">Click me to show tooltip</button>
+          <a data-testid="trigger-child">Click me to show tooltip</a>
         </TooltipTrigger>
         <TooltipContent>TEST</TooltipContent>
       </Tooltip>
     )
     // screen.debug()
     expect(screen.getByText("Click me to show tooltip")).toBeInTheDocument()
-    expect(screen.queryByTestId("trigger-component")).not.toBeInTheDocument()
     expect(screen.getByTestId("trigger-child")).toBeInTheDocument()
+    expect(screen.queryByTestId("trigger-component")).not.toBeInTheDocument()
   })
 
-  test("render an uncontrolled Tooltip: by default the trigger event that opens the tooltip is click", async () => {
-    await render(
+  it("render an uncontrolled Tooltip: by default the trigger event that opens the tooltip is click", async () => {
+    render(
       <Tooltip>
         <TooltipTrigger>trigger</TooltipTrigger>
         <TooltipContent>my content</TooltipContent>
@@ -95,8 +96,8 @@ describe("Tooltip", () => {
     expect(screen.getByText(/my content/i)).toBeInTheDocument()
   })
 
-  test("render an uncontrolled Tooltip with triggerEvent set to hover: the content should become visible on trigger hover", async () => {
-    await render(
+  it("render an uncontrolled Tooltip with triggerEvent set to hover: the content should become visible on trigger hover", async () => {
+    render(
       <Tooltip triggerEvent="hover">
         <TooltipTrigger>trigger</TooltipTrigger>
         <TooltipContent>my content</TooltipContent>
@@ -109,8 +110,8 @@ describe("Tooltip", () => {
     expect(screen.getByText(/my content/i)).toBeInTheDocument()
   })
 
-  test("render an uncontrolled Tooltip: the content should become visible on trigger focus", async () => {
-    await render(
+  it("render an uncontrolled Tooltip: the content should become visible on trigger focus", async () => {
+    render(
       <Tooltip>
         <TooltipTrigger>trigger</TooltipTrigger>
         <TooltipContent>my content</TooltipContent>
@@ -123,8 +124,8 @@ describe("Tooltip", () => {
     expect(screen.getByText(/my content/i)).toBeInTheDocument()
   })
 
-  test("render a disabled Tooltip: the content should not become visible on trigger click or hover or focus", async () => {
-    await render(
+  it("render a disabled Tooltip: the content should not become visible on trigger click or hover or focus", async () => {
+    render(
       <Tooltip disabled={true}>
         <TooltipTrigger>trigger</TooltipTrigger>
         <TooltipContent>my content</TooltipContent>

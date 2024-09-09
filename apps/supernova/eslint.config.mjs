@@ -11,9 +11,8 @@ export default [
     files: ["**/*.js", "**/*.mjs", "**/*.jsx"],
     languageOptions: { sourceType: "module" },
     rules: {
-      "no-unused-vars": "off",
+      // disable for now, till we switch to TypeScript
       "react/prop-types": "off",
-      "react/no-unescaped-entities": "off",
     },
   },
   {

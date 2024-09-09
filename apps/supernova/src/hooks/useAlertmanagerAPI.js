@@ -138,7 +138,7 @@ const useAlertmanagerAPI = (apiEndpoint) => {
 
     // set alerts state to loading
     setAlertsIsLoading(true)
-    alertsWorker.then(({ createWorker, stopWorker }) => {
+    alertsWorker.then(({ createWorker }) => {
       const worker = createWorker()
       // initial config
       worker.postMessage({
@@ -152,7 +152,7 @@ const useAlertmanagerAPI = (apiEndpoint) => {
     })
 
     setSilencesIsLoading(true)
-    silencesWorker.then(({ createWorker, stopWorker }) => {
+    silencesWorker.then(({ createWorker }) => {
       const worker = createWorker()
       // initial config
       worker.postMessage({
@@ -165,14 +165,14 @@ const useAlertmanagerAPI = (apiEndpoint) => {
   // enable/disable watching in the workers
   useEffect(() => {
     if (isUserActive === undefined) return
-    alertsWorker.then(({ createWorker, stopWorker }) => {
+    alertsWorker.then(({ createWorker }) => {
       const worker = createWorker()
       worker.postMessage({
         action: "ALERTS_CONFIGURE",
         watch: isUserActive,
       })
     })
-    silencesWorker.then(({ createWorker, stopWorker }) => {
+    silencesWorker.then(({ createWorker }) => {
       const worker = createWorker()
       worker.postMessage({
         action: "SILENCES_CONFIGURE",
@@ -191,7 +191,7 @@ const useAlertmanagerAPI = (apiEndpoint) => {
 
     // Use setTimeout to delay the worker call delayed by 10s
     setTimeout(() => {
-      silencesWorker.then(({ createWorker, stopWorker }) => {
+      silencesWorker.then(({ createWorker }) => {
         const worker = createWorker()
         worker.postMessage({
           action: "SILENCES_FETCH",

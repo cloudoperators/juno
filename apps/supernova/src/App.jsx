@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useLayoutEffect } from "react"
+import React from "react"
 
 import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
 import styles from "./styles.scss"
-import { useGlobalsActions, useFilterActions, useSilencesActions, StoreProvider } from "./hooks/useAppStore"
+import { StoreProvider } from "./hooks/useAppStore"
 import AsyncWorker from "./components/AsyncWorker"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import CustomAppShell from "./components/CustomAppShell"

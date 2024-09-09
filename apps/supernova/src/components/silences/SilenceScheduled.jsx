@@ -23,7 +23,7 @@ import {
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
 import { useAuthData, useSilenceTemplates, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
-import { post, get } from "../../api/client"
+import { post } from "../../api/client"
 import { parseError } from "../../helpers"
 
 import { DEFAULT_FORM_VALUES, validateForm } from "./silenceScheduledHelpers"

@@ -881,7 +881,7 @@ describe("setExcludedLabels", () => {
     }
 
     const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
-    const store = renderHook(
+    renderHook(
       () => ({
         actions: useSilencesActions(),
         excludedLabels: useSilencesExcludedLabels(),
