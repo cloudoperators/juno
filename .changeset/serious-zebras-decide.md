@@ -1,5 +1,5 @@
 ---
-"@cloudoperators/juno-ui-components": minor
+"@cloudoperators/juno-ui-components": patch
 ---
 
 Migrate Checkbox components to Typescript
