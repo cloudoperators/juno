@@ -28,7 +28,7 @@ import AlertDescription from "../alerts/shared/AlertDescription"
 import SilenceNewAdvanced from "./SilenceNewAdvanced"
 import { debounce } from "../../helpers"
 import { DateTime } from "luxon"
-import { latestExpirationDate, DEFAULT_DURATION_OPTIONS, getSelectOptions, setupMatchers } from "./silenceHelpers"
+import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"
 import constants from "../../constants"
 
@@ -109,9 +109,7 @@ const SilenceNew = ({ alert, size, variant }) => {
     let newFormState = { ...formState }
     // clean up attributes in matchers and remove excluded
     if (newFormState.matchers?.length > 0) {
-      newFormState.matchers = newFormState.matchers
-        .filter((m) => !m.excluded)
-        .map(({ excluded, configurable, ...keepAttrs }) => keepAttrs)
+      newFormState.matchers = newFormState.matchers.filter((m) => !m.excluded).map(({ ...keepAttrs }) => keepAttrs)
     }
     // add extra attributes
     const startsAt = new Date()

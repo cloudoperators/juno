@@ -51,7 +51,7 @@ const RecreateSilence = (props) => {
   const authData = useAuthData()
   const apiEndpoint = useGlobalsApiEndpoint()
 
-  const { addLocalItem, getMappingSilences } = useSilencesActions()
+  const { addLocalItem } = useSilencesActions()
 
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)

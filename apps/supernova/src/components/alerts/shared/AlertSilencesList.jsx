@@ -26,7 +26,6 @@ const badgeVariant = (state) => {
 
 const AlertSilencesList = ({ alert }) => {
   const dateFormat = { ...DateTime.DATETIME_SHORT }
-  const timeFormat = { ...DateTime.TIME_24_WITH_SHORT_OFFSET }
   const localItems = useSilencesLocalItems()
 
   const { getSilencesForAlert } = useSilencesActions()

@@ -79,8 +79,8 @@ const AlertsList = () => {
             <Stack gap="3">
               <Icon icon="info" color="text-theme-info" />
               <div>
-                We couldn't find anything. It's possible that the matching alerts are not active at the moment, or the
-                chosen filters could be overly limiting.
+                We couldn&apos;t find anything. It&apos;s possible that the matching alerts are not active at the
+                moment, or the chosen filters could be overly limiting.
               </div>
             </Stack>
           </DataGridCell>

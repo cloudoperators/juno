@@ -7,14 +7,12 @@ import React, { useEffect } from "react"
 import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
 import { Container, Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import {
-  useAlertsError,
   useAlertsIsLoading,
   useAlertsIsUpdating,
   useAlertsUpdatedAt,
   useAlertsTotalCounts,
   useSilencesIsLoading,
   useSilencesError,
-  useGlobalsActions,
   useGlobalsActiveSelectedTab,
 } from "./hooks/useAppStore"
 import AlertsList from "./components/alerts/AlertsList"
@@ -39,7 +37,6 @@ const AppContent = () => {
   const silencesError = useSilencesError()
   const isSilencesLoading = useSilencesIsLoading()
 
-  const { setActiveSelectedTab } = useGlobalsActions()
   const activeSelectedTab = useGlobalsActiveSelectedTab()
 
   useEffect(() => {
@@ -50,10 +47,6 @@ const AppContent = () => {
       text: parseError(silencesError),
     })
   }, [silencesError])
-
-  const handleTabSelect = (item) => {
-    setActiveSelectedTab(item)
-  }
 
   return (
     <Container px py className="h-full">

@@ -18,7 +18,7 @@ import { humanizeString } from "../../lib/utils"
 const FilterSelect = () => {
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
-  const [resetKey, setResetKey] = useState(Date.now())
+  const [resetKey] = useState(Date.now())
 
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
