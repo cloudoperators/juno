@@ -55,13 +55,16 @@ The following scopes are permitted for commits:
 - **core**: Core functionalities
 - **deps**: Dependency management
 - **docs**: Docs related
+- **doop**: Changes in the doop app
 - **example**: Changes to the example app
+- **heureka**: Changes in the heureka
 - **infra**: Infrastructure-related changes
 - **juno**: Juno-specific changes
 - **k8s**: Kubernetes-related changes
 - **message-provider**: Changes in the message provider
 - **npm**: npm-related changes
 - **oauth**: OAuth implementation and changes
+- **supernova**: Changes in the supernova app
 - **template**: Changes to the template app
 - **ui**: changes to ui-components
 - **utils**: Utility functions or modules

@@ -6,10 +6,6 @@ on:
       - opened
       - synchronize
       - reopened
-  push:
-    branches:
-      - "changeset-release/main"
-
   # Trigger after the 'Release' workflow completes
   workflow_run:
     workflows: ["Release"]
@@ -41,30 +37,14 @@ jobs:
         run: npm ci
 
   reuse-compliance:
-    runs-on: [default]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      # https://github.com/fsfe/reuse-action
-      - name: REUSE Compliance Check
-        uses: fsfe/reuse-action@v3
+    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@main
 
   license-headers:
-    runs-on: [default]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: Check License Header
-        uses: apache/skywalking-eyes/header@v0.5.0
-        with:
-          config: .github/licenserc.yaml
-          mode: fix
+    permissions:
+      contents: write # Only used when `apply_header: true` else the permission is `read` see: https://github.com/cloudoperators/common/blob/8f15c13b6f4c1631c7e6f6dff5c3300452e9b5b6/.github/workflows/shared-license.yaml#L21-L22
+    uses: cloudoperators/common/.github/workflows/shared-license.yaml@main
+    with:
+      apply_header: false
 
   allowed-licenses:
     needs: install-dependencies

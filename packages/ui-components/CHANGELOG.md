@@ -1,5 +1,17 @@
 # @cloudoperators/juno-ui-components
 
+## 2.18.0
+
+### Minor Changes
+
+- 502ec8f: Migrate Radio, RadioRow and RadioGroup components to TypeScript
+
+### Patch Changes
+
+- 990af5a: Introduce a ToolTip typescript version along with storybook doc type support
+- ea09b68: fix(ui): add upload icon into icon lib
+- 7f4d17a: fix(ui): when an icon is used in a button, ensure the icon title matches the button title
+
 ## 2.17.2
 
 ### Patch Changes
