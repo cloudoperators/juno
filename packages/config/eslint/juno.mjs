@@ -55,6 +55,6 @@ export default [
     },
   },
   {
-    ignores: ["**/build/*"],
+    ignores: ["**/build/*", "**/vite.config.ts.timestamp-*"],
   },
 ]

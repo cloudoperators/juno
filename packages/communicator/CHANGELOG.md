@@ -1,5 +1,12 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.15
+
+### Patch Changes
+
+- 75332cd: fix(config): rename mts config for release fix
+- 8c06648: Unify Typescript and Eslint config in one package
+
 ## 2.2.14
 
 ### Patch Changes
