@@ -6,9 +6,6 @@ on:
       - opened
       - synchronize
       - reopened
-  push:
-    branches-ignore:
-      - "changeset-release/main"
   # Trigger after the 'Release' workflow completes
   workflow_run:
     workflows: ["Release"]
