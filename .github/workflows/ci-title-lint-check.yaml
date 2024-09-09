@@ -11,7 +11,7 @@ on:
 jobs:
   title-lint:
     name: Validate PR title
-    runs-on: ubuntu-latest
+    runs-on: [default]
     steps:
       - name: CI Check Title
         uses: amannn/action-semantic-pull-request@v5
