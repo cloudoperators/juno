@@ -11,6 +11,7 @@ export default [
     files: ["**/*.js", "**/*.mjs", "**/*.jsx"],
     languageOptions: { sourceType: "module" },
     rules: {
+      // disable for now, till we switch to TypeScript
       "react/prop-types": "off",
     },
   },
