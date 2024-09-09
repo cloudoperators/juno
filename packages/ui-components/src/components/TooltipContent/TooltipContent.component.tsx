@@ -4,33 +4,33 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { useMergeRefs } from "@floating-ui/react"
 
-import { Icon } from "../Icon/index.js"
-import { useTooltipState } from "../Tooltip/Tooltip.component.js"
+import { Icon } from "../IconTs/Icon.component"
+import { useTooltipState } from "../Tooltip/Tooltip.component"
+import { ToolTipVariant } from "../Tooltip/ToolTip.types"
 
 /* Styles */
 const popoverStyles = `
-	jn-bg-theme-background-lvl-1
-	jn-text-theme-high 
-	jn-inline-flex	
+    jn-bg-theme-background-lvl-1
+    jn-text-theme-high 
+    jn-inline-flex	
   jn-items-center
-	jn-p-2
-	jn-rounded
-	jn-drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]
+    jn-p-2
+    jn-rounded
+    jn-drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]
 `
 
 const popoverTextStyles = `
-	jn-mx-4
-	jn-max-w-full
+    jn-mx-4
+    jn-max-w-full
 `
 
 const popoverIconStyles = `
-	jn-shrink-0
+    jn-shrink-0
 `
 
-const getIcon = (variant) => {
+const getIcon = (variant: ToolTipVariant) => {
   switch (variant) {
     case "error":
       return "dangerous"
@@ -39,10 +39,17 @@ const getIcon = (variant) => {
   }
 }
 
+export interface TooltipContentProps {
+  /** Pass child nodes to display in the tooltip */
+  children?: React.ReactNode
+  /** Pass a className to render to the icon button*/
+  className?: string
+}
+
 /**
  * Put content for a tooltip here. See Tooltip for more in-depth explanation and examples.
  */
-export const TooltipContent = React.forwardRef(function TooltipContent(
+export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>(function TooltipContent(
   { className = "", children = null, ...props },
   propRef
 ) {
@@ -78,10 +85,3 @@ export const TooltipContent = React.forwardRef(function TooltipContent(
     </>
   )
 })
-
-TooltipContent.propTypes = {
-  /** Pass child nodes to display in the tooltip */
-  children: PropTypes.node,
-  /** Pass a className to render to the icon button*/
-  className: PropTypes.string,
-}
