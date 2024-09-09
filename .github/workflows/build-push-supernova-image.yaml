@@ -14,7 +14,7 @@ on:
     branches:
       - main
     paths:
-      - apps/supernova/docker/VERSION
+      - apps/supernova/CHANGELOG.md
 
 env:
   REGISTRY: ghcr.io
@@ -37,9 +37,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Read Docker image version
+      - name: Read version from CHANGELOG.md
         id: read_version
-        run: echo "IMAGE_VERSION=$(cat ${{ env.PACKAGE_PATH }}/docker/VERSION)" >> $GITHUB_ENV
+        working-directory: ${{ env.PACKAGE_PATH }}
+        run: |
+          # Extract the first version number that appears after "## "
+          LAST_VERSION=$(grep -m 1 -oP '(?<=## )\d+\.\d+\.\d+' CHANGELOG.md)
+          echo "Latest version is $LAST_VERSION"
+          echo "IMAGE_VERSION=$LAST_VERSION" >> $GITHUB_ENV
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
