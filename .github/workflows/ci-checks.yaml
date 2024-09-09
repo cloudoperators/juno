@@ -6,10 +6,6 @@ on:
       - opened
       - synchronize
       - reopened
-  push:
-    branches:
-      - "changeset-release/main"
-
   # Trigger after the 'Release' workflow completes
   workflow_run:
     workflows: ["Release"]
