@@ -10,24 +10,28 @@ RUN apk add --no-cache jq \
 
 # create a directory where we can copy the source code
 RUN mkdir -p /tmp/src /app
-# copy the source code to the container
+# copy the repository code to the container
 ADD . /tmp/src
+# app specific environment variables
+ENV PACKAGE_PATH="apps/supernova"
 
-# remove peerDependencies from package.json
-# install dependencies
-# build the project 
+# install dependencies but from root directory of the project
+# build the project but from root directory of the project 
 # copy the build output to /app
 # copy favicon.ico to /app
 RUN \
   cd /tmp/src && \
-  jq 'del(.peerDependencies)' package.json > tmp.json && mv tmp.json package.json && \
-  entry_file=$(jq -r '.module // .main' package.json) && \
+  entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json) && \
   echo $entry_file > /app/entry_file && \
   dir=$(dirname $entry_file) && \
+  package_name=$(jq -r '.name' $PACKAGE_PATH/package.json) && \
+  echo "Entry file: $entry_file" && \
+  echo "Directory: $dir" && \
+  echo "Package name: $package_name" && \
   npm install && \
-  npm run build && \
-  cp -r /tmp/src/$dir /app/ && \
-  cp public/favicon.ico /app/
+  npx turbo run build --filter $package_name && \
+  cp -r /tmp/src/$PACKAGE_PATH/$dir /app/ && \
+  cp $PACKAGE_PATH/public/favicon.ico /app/
 
 # create index.html  
 RUN cat <<EOF > /app/index.html
