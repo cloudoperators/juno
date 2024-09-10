@@ -4,92 +4,91 @@
  */
 
 import React, { useState, useEffect, useMemo, useContext, useId } from "react"
-import PropTypes from "prop-types"
 import { CheckboxGroupContext } from "../CheckboxGroup/CheckboxGroup.component"
-import { Label } from "../Label/index"
-import { Icon } from "../Icon/Icon.component"
-import { FormHint } from "../FormHint/FormHint.component"
+import { Label } from "../LabelTs/index"
+import { Icon } from "../IconTs/index"
+import { FormHint } from "../FormHintTs/index"
 
 const wrapperStyles = `
-	jn-inline-flex
-	jn-items-center
+  jn-inline-flex
+  jn-items-center
 `
 
 const inputstyles = `
-	jn-w-4
-	jn-h-4
-	jn-opacity-0
-	jn-z-50
+  jn-w-4
+  jn-h-4
+  jn-opacity-0
+  jn-z-50
 `
 
 const mockcheckboxstyles = `
-	jn-relative
-	jn-w-4
-	jn-h-4
-	jn-rounded-sm
-	jn-bg-theme-checkbox
-	jn-cursor-pointer
-	focus:jn-outline-none
-	focus:jn-ring-2
-	focus:jn-ring-theme-focus
+  jn-relative
+  jn-w-4
+  jn-h-4
+  jn-rounded-sm
+  jn-bg-theme-checkbox
+  jn-cursor-pointer
+  focus:jn-outline-none
+  focus:jn-ring-2
+  focus:jn-ring-theme-focus
 `
 
 const mockfocusstyles = `
-	jn-ring-2
-	jn-ring-theme-focus
+  jn-ring-2
+  jn-ring-theme-focus
 `
 
 const mockcheckmarkstyles = `
-	jn-absolute
-	jn-top-0
-	jn-left-0
-	jn-text-theme-checkbox-checked
-	jn-fill-current
+  jn-absolute
+  jn-top-0
+  jn-left-0
+  jn-text-theme-checkbox-checked
+  jn-fill-current
 `
 
 const mockindeterminatestyles = `
-	jn-absolute
-	jn-w-2
-	jn-h-0.5
-	jn-top-1.5
-	jn-left-[.2rem]
-	jn-inline-block
-	jn-bg-theme-focus
+  jn-absolute
+  jn-w-2
+  jn-h-0.5
+  jn-top-1.5
+  jn-left-[.2rem]
+  jn-inline-block
+  jn-bg-theme-focus
 `
 
 const mockdisabledstyles = `
-	jn-pointer-events-none
-	jn-opacity-50
-	jn-cursor-not-allowed
+  jn-pointer-events-none
+  jn-opacity-50
+  jn-cursor-not-allowed
 `
 
 const noBorderStyles = `
-	jn-border
-	jn-border-transparent
+  jn-border
+  jn-border-transparent
 `
 
 const errorstyles = `
-	jn-border
-	jn-border-theme-error
+  jn-border
+  jn-border-theme-error
 `
 
 const successstyles = `
-	jn-border
-	jn-border-theme-success
+  jn-border
+  jn-border-theme-success
 `
 
 const labelStyles = `
-	jn-leading-0
-	jn-ml-2
+  jn-leading-0
+  jn-ml-2
 `
 
 const iconStyles = `
-	jn-ml-1
+  jn-ml-1
 `
 
 const hintStyles = `
-	jn-mt-0
-	jn-ml-6
+  jn-mt-0
+  jn-ml-6
 `
 
 export const Checkbox = ({
@@ -110,9 +109,9 @@ export const Checkbox = ({
   valid = false,
   value,
   ...props
-}) => {
+}: CheckboxProps) => {
   // Utility
-  const isNotEmptyString = (str) => {
+  const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -150,7 +149,7 @@ export const Checkbox = ({
   // Run once to update the parent state to respect and reflect the checked prop if we are in a group context, but parent has no selected options set via its prop:
   useEffect(() => {
     if (checked && checkboxGroupContext) {
-      updateGroupSelectedValue(value)
+      updateGroupSelectedValue && updateGroupSelectedValue(value)
     }
   }, [])
 
@@ -181,7 +180,7 @@ export const Checkbox = ({
     setIsValid(validated)
   }, [validated])
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(!isChecked)
     // If we are in a context, update :
     if (groupHandleCheckboxChange && typeof groupHandleCheckboxChange === "function") {
@@ -191,7 +190,7 @@ export const Checkbox = ({
     onChange && onChange(event)
   }
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     onClick && onClick(event)
   }
 
@@ -218,15 +217,15 @@ export const Checkbox = ({
       <div className={`jn-checkbox-wrapper ${wrapperStyles}`}>
         <div
           className={`
-						juno-checkbox 
-						${mockcheckboxstyles} 
-						${hasFocus ? mockfocusstyles : ""} 
-						${groupDisabled || disabled ? mockdisabledstyles : ""} 
-						${isInvalid ? errorstyles : ""} 
-						${isValid ? successstyles : ""} 
-						${isInvalid || isValid ? "" : noBorderStyles}
-						${className}
-					`}
+            juno-checkbox 
+            ${mockcheckboxstyles} 
+            ${hasFocus ? mockfocusstyles : ""} 
+            ${groupDisabled || disabled ? mockdisabledstyles : ""} 
+            ${isInvalid ? errorstyles : ""} 
+            ${isValid ? successstyles : ""} 
+            ${isInvalid || isValid ? "" : noBorderStyles}
+            ${className}
+          `}
           {...props}
         >
           {determineChecked() ? (
@@ -245,11 +244,11 @@ export const Checkbox = ({
           <input
             checked={determineChecked()}
             className={`
-							${inputstyles} 
-							${isInvalid ? "juno-checkbox-invalid" : ""} 
-							${isValid ? "juno-checkbox-valid" : ""} 
-							${groupDisabled || disabled ? "jn-cursor-not-allowed" : ""}
-						`}
+              ${inputstyles} 
+              ${isInvalid ? "juno-checkbox-invalid" : ""} 
+              ${isValid ? "juno-checkbox-valid" : ""} 
+              ${groupDisabled || disabled ? "jn-cursor-not-allowed" : ""}
+            `}
             disabled={groupDisabled || disabled}
             id={theId}
             name={groupName || name}
@@ -277,9 +276,9 @@ export const Checkbox = ({
                 color="jn-text-theme-error"
                 size="1.125rem"
                 className={`
-									${iconStyles}
-									${groupDisabled || disabled ? "jn-opacity-50" : ""}
-								`}
+                  ${iconStyles}
+                  ${groupDisabled || disabled ? "jn-opacity-50" : ""}
+                `}
               />
             ) : (
               ""
@@ -290,9 +289,9 @@ export const Checkbox = ({
                 color="jn-text-theme-success"
                 size="1.125rem"
                 className={`
-									${iconStyles}
-									${disabled ? "jn-opacity-50" : ""}
-								`}
+                  ${iconStyles}
+                  ${disabled ? "jn-opacity-50" : ""}
+                `}
               />
             ) : (
               ""
@@ -317,37 +316,37 @@ export const Checkbox = ({
   )
 }
 
-Checkbox.propTypes = {
+export interface CheckboxProps {
   /** Whether the Checkbox is checked */
-  checked: PropTypes.bool,
+  checked?: boolean
   /** Pass a custom className */
-  className: PropTypes.string,
+  className?: string
   /** Whether the Checkbox is disabled */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** A text to render when the Checkbox has an error or could not be validated */
-  errortext: PropTypes.node,
+  errortext?: React.ReactNode | string
   /** A helptext to render to explain meaning and significance of the Checkbox */
-  helptext: PropTypes.node,
+  helptext?: React.ReactNode | string
   /** The id of the Radio. An id will be automatically generated if not passed. */
-  id: PropTypes.string,
+  id?: string
   /** Whether the Checkbox is indeterminate. Applicable ONLY if the Checkbox represents multiple child Checkboxes with non--identical checked state. */
-  indeterminate: PropTypes.bool,
+  indeterminate?: boolean
   /** Whether the Checkbox was validated unsuccessfully */
-  invalid: PropTypes.bool,
+  invalid?: boolean
   /** The label of the Checkbox */
-  label: PropTypes.string,
+  label?: string
   /** The name of the Checkbox */
-  name: PropTypes.string,
+  name?: string
   /** handler to be executed when the Checkbox changes. */
-  onChange: PropTypes.func,
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
   /** handler to be executed when the Checkbox is clicked. */
-  onClick: PropTypes.func,
+  onClick?: React.MouseEventHandler<HTMLElement>
   /** Whether the Checkbox is required */
-  required: PropTypes.bool,
+  required?: boolean
   /** A text to render when the Checkbox was successfully validated */
-  successtext: PropTypes.node,
+  successtext?: React.ReactNode | string
   /** Whether the Checkbox was successfully validated */
-  valid: PropTypes.bool,
+  valid?: boolean
   /** The value of the Checkbox */
-  value: PropTypes.string,
+  value?: string
 }

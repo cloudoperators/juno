@@ -4,20 +4,19 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Checkbox } from "../Checkbox/index.js"
-import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
+import { Checkbox } from "../Checkbox/index"
+import { withDeprecationWarning } from "../withDeprecationWarningTs/index"
 
 /** DEPRECATED: A single checkbox, associated label, and structural markup. This component is DEPRECATED, use Checkbox instead. */
 const CheckboxRow = ({
   value = "",
   checked = false,
   indeterminate = false,
-  name = null,
-  label = null,
-  id = null,
-  helptext = null,
-  required = null,
+  name = undefined,
+  label = undefined,
+  id = undefined,
+  helptext = undefined,
+  required = undefined,
   disabled = false,
   invalid = false,
   errortext = "",
@@ -26,7 +25,7 @@ const CheckboxRow = ({
   className = "",
   onChange,
   ...props
-}) => {
+}: CheckboxRowProps) => {
   return (
     <Checkbox
       value={value}
@@ -49,37 +48,37 @@ const CheckboxRow = ({
   )
 }
 
-CheckboxRow.propTypes = {
+export interface CheckboxRowProps {
   /** Optional initial value */
-  value: PropTypes.string,
+  value?: string
   /**  Pass checked state  */
-  checked: PropTypes.bool,
+  checked?: boolean
   /** Whether the checkbox is indeterminate */
-  indeterminate: PropTypes.bool,
+  indeterminate?: boolean
   /** Name attribute of the checkbox element */
-  name: PropTypes.string,
+  name?: string
   /** Label text */
-  label: PropTypes.string,
+  label?: string
   /** Id */
-  id: PropTypes.string,
+  id?: string
   /** Help text */
-  helptext: PropTypes.node,
+  helptext?: React.ReactNode
   /** Specify whether the checkbox is required */
-  required: PropTypes.bool,
+  required?: boolean
   /** Disable the Checkbox */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** Whether the CheckboxRow is invalid */
-  invalid: PropTypes.bool,
+  invalid?: boolean
   /** The error text to render with the CheckboxRow. If passed, the Checkbox row will be set to invalid automatically. */
-  errortext: PropTypes.node,
+  errortext?: React.ReactNode
   /** Whether the CheckboxRow is valid */
-  valid: PropTypes.bool,
+  valid?: boolean
   /** The text to render when the field is validated. If passed, the Checkbox will be set to valid automatically. */
-  successtext: PropTypes.node,
+  successtext?: React.ReactNode
   /** Pass a custom className */
-  className: PropTypes.string,
+  className?: string
   /** Pass a handler to the checkbox element */
-  onChange: PropTypes.func,
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
 export default withDeprecationWarning(

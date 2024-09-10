@@ -4,44 +4,55 @@
  */
 
 import React, { useState, useEffect, useMemo, createContext, useId } from "react"
-import PropTypes from "prop-types"
-import { Label } from "../Label/index"
-import { Icon } from "../Icon/index"
-import { FormHint } from "../FormHint/index"
+import { Label } from "../LabelTs/index"
+import { Icon } from "../IconTs/index"
+import { FormHint } from "../FormHintTs/index"
 
 const checkboxgroupstyles = `
-	jn-mb-4
-	jn-last:mb-0
+  jn-mb-4
+  jn-last:mb-0
 `
 
 const groupstyles = `
-	jn-relative
-	jn-rounded
-	jn-border
-	jn-py-1
+  jn-relative
+  jn-rounded
+  jn-border
+  jn-py-1
 `
 
 const defaultgroupstyles = `
-	jn-border-transparent
+  jn-border-transparent
 `
 
 const validgroupstyles = `
-	jn-border-theme-success
-	jn-px-2
+  jn-border-theme-success
+  jn-px-2
 `
 
 const invalidgroupstyles = `
-	jn-border-theme-error
-	jn-px-2
+  jn-border-theme-error
+  jn-px-2
 `
 
 const iconstyles = `
-	jn-absolute
-	jn-right-2
-	jn-top-1.5
+  jn-absolute
+  jn-right-2
+  jn-top-1.5
 `
 
-export const CheckboxGroupContext = createContext()
+type EventUpdateHandler = (_value: string | undefined) => void
+
+export interface CheckboxGroupContextProps {
+  selectedOptions?: CheckboxValue[]
+  handleCheckboxChange?: EventUpdateHandler
+  name?: string
+  updateSelectedValue?: EventUpdateHandler
+  disabled?: boolean
+}
+
+export const CheckboxGroupContext = createContext<CheckboxGroupContextProps | undefined>(undefined)
+
+export type CheckboxValue = string | undefined
 
 export const CheckboxGroup = ({
   children = null,
@@ -59,9 +70,9 @@ export const CheckboxGroup = ({
   successtext = "",
   valid = false,
   ...props
-}) => {
+}: CheckboxGroupProps) => {
   // Utility
-  const isNotEmptyString = (str) => {
+  const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -72,7 +83,7 @@ export const CheckboxGroup = ({
   const groupId = id || uniqueId()
 
   // Init state variables:
-  const [selectedOptions, setSelectedOptions] = useState(selected) // undefined, empty array or array of values
+  const [selectedOptions, setSelectedOptions] = useState<CheckboxValue[] | undefined>(selected)
   const [isValid, setIsValid] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
 
@@ -94,7 +105,7 @@ export const CheckboxGroup = ({
   }, [invalidated])
 
   // Callback function to be passed via context to individual checkboxes:
-  const handleCheckboxChange = (value) => {
+  const handleCheckboxChange = (value: CheckboxValue) => {
     const changedValue = value
     if (selectedOptions && selectedOptions.includes(value)) {
       setSelectedOptions(
@@ -103,7 +114,7 @@ export const CheckboxGroup = ({
         })
       )
     } else if (selectedOptions && !selectedOptions.includes(value)) {
-      setSelectedOptions((selectedOptions) => [...selectedOptions, changedValue])
+      setSelectedOptions((selectedOptions) => [...(selectedOptions || []), changedValue])
     } else {
       setSelectedOptions([changedValue])
     }
@@ -111,7 +122,7 @@ export const CheckboxGroup = ({
   }
 
   // Callback function to be passed via the context to child Checkboxes so they can add their value to the groups' selectedOptions array in case selected has not been set on the parent (otherwise the parent select will trump whatever is set on the child in a group context). Called ONLY ONCE during initialization of the child Checkbox when we DON't want to execute any additional onChange handlers just yet:
-  const updateSelectedValue = (value) => {
+  const updateSelectedValue = (value: CheckboxValue) => {
     if (!selected) {
       setSelectedOptions((selectedOptions) => [...(selectedOptions || []), value])
     }
@@ -166,32 +177,32 @@ export const CheckboxGroup = ({
   )
 }
 
-CheckboxGroup.propTypes = {
+export interface CheckboxGroupProps {
   /** The Checkbox children of the CheckboxGroup */
-  children: PropTypes.node,
+  children?: React.ReactNode
   /** Pass a custom className */
-  className: PropTypes.string,
+  className?: string
   /** Whether all Checkboxes in the group are disabled */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed. */
-  errortext: PropTypes.node,
+  errortext?: string
   /** A text to render to further explain meaning and significance of the group */
-  helptext: PropTypes.node,
+  helptext?: string
   /** The id of the group. If not passed, a unique id will be created and used for the group as a whole. */
-  id: PropTypes.string,
-  invalid: PropTypes.bool,
-  /*+ The label of the whole group. */
-  label: PropTypes.string,
+  id?: string
+  invalid?: boolean
+  /** The label of the whole group. */
+  label?: string
   /** The name of all checkboxes in the group. If not passed, a unique name identifier will be created and used for the group as a whole. */
-  name: PropTypes.string,
+  name?: string
   /** An onChange handler to execute when the selection of options changes */
-  onChange: PropTypes.func,
+  onChange?: EventUpdateHandler
   /** Whether a selection in the group is required */
-  required: PropTypes.bool,
+  required?: boolean
   /** Array of values of individual selected options in the group */
-  selected: PropTypes.array,
+  selected?: string[]
   /** Text to display in case validation is successful. When passed, will set the whole group to valid. */
-  successtext: PropTypes.node,
+  successtext?: string
   /** Whether the CheckboxGroup was successfully validated */
-  valid: PropTypes.bool,
+  valid?: boolean
 }

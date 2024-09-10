@@ -14,8 +14,6 @@ import { Select } from "../Select/index.js"
 import { SelectOption } from "../SelectOption/index.js"
 import { Switch } from "../Switch/index.js"
 import { Textarea } from "../Textarea/index.js"
-import { CheckboxGroup } from "../CheckboxGroup/index.js"
-import { Checkbox } from "../Checkbox/index.js"
 import { Button } from "../Button/index.js"
 import { ButtonRow } from "../ButtonRow/index.js"
 import { IntroBox } from "../IntroBox/index.ts"
@@ -103,10 +101,6 @@ export const ComplexForm = {
         </FormRow>
       </FormSection>,
       <FormSection title="Second Section of the Form" key="fs-2">
-        <CheckboxGroup name="all-about-red" label="What is your opinion towards the color Red?">
-          <Checkbox key="c-1" id="overrated" label="Red is vastly overrated" value="overrated" />
-          <Checkbox key="c-2" id="blackisred" label="Black is better" value="blackisbetter" />
-        </CheckboxGroup>
         <FormRow key="fr-4">
           <Textarea
             label="Your Message"

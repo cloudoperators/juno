@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { CheckboxRow } from "./index.js"
+import { CheckboxRow } from "./index"
 
 export default {
   title: "Deprecated/CheckboxRow",
