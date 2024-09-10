@@ -6,7 +6,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { CheckboxGroup } from "./index"
-import { Checkbox } from "../../components-transition/Checkbox/index"
+import { Checkbox } from "../Checkbox/index"
 
 export default {
   title: "Forms/Checkbox/CheckboxGroup",

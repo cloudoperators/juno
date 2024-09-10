@@ -4,9 +4,9 @@
  */
 
 import React, { useState, useEffect, useMemo, createContext, useId } from "react"
-import { Label } from "../../components-transition/Label/index"
-import { Icon } from "../../components-transition/Icon/index"
-import { FormHint } from "../../components-transition/FormHint/index"
+import { Label } from "../Label/index"
+import { Icon } from "../Icon/index"
+import { FormHint } from "../FormHint/index"
 
 const checkboxgroupstyles = `
   jn-mb-4

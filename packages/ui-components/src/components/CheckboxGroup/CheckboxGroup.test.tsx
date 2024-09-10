@@ -6,7 +6,7 @@
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { CheckboxGroup } from "./index"
-import { Checkbox } from "../../components-transition/Checkbox/index"
+import { Checkbox } from "../Checkbox/index"
 
 describe("CheckboxGroup", () => {
   test("renders a CheckboxGroup container", () => {

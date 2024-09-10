@@ -4,9 +4,9 @@
  */
 
 import React, { useState, useEffect, useMemo, useId, createContext } from "react"
-import { Label } from "../../components-transition/Label/index"
-import { Icon } from "../../components-transition/Icon/index"
-import { FormHint } from "../../components-transition/FormHint/index"
+import { Label } from "../Label/index"
+import { Icon } from "../Icon/index"
+import { FormHint } from "../FormHint/index"
 
 const radiogroupstyles = `
 	jn-mb-4

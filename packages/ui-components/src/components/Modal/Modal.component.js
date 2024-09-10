@@ -8,7 +8,7 @@ import { createPortal } from "react-dom"
 import PropTypes from "prop-types"
 import FocusTrap from "focus-trap-react"
 import { ModalFooter } from "../ModalFooter/index"
-import { Icon, knownIcons } from "../Icon/Icon.component"
+import { Icon, knownIcons } from "../../deprecated_js/Icon/Icon.component"
 import { usePortalRef } from "../PortalProvider/PortalProvider.component"
 
 /*

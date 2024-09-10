@@ -5,12 +5,12 @@
 
 import React, { useEffect, useId, useState } from "react"
 import PropTypes from "prop-types"
-import { Textarea } from "../Textarea/index.js"
+import { Textarea } from "../../deprecated_js/Textarea/index.js"
 import { ButtonRow } from "../ButtonRow/"
 import { Button } from "../Button/"
 import { FormHint } from "../FormHint/"
 import { Stack } from "../Stack/"
-import { Label } from "../Label/"
+import { Label } from "../../deprecated_js/Label/index.js"
 
 const innerWrapperStyles = `
   jn-relative

@@ -7,7 +7,7 @@ import React from "react"
 import { Tooltip } from "../Tooltip/index"
 import { TooltipContent } from "../TooltipContent/index"
 import { TooltipTrigger } from "./index"
-import { Icon } from "../../components-transition/Icon/index"
+import { Icon } from "../Icon/index"
 
 export default {
   title: "Components/Tooltip/TooltipTrigger",

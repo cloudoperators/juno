@@ -4,7 +4,7 @@
  */
 
 import React, { FC } from "react"
-import { Icon } from "../../components-transition/Icon"
+import { Icon } from "../Icon"
 
 type EventHandler = (_event: React.MouseEvent<EventTarget>, _id: string) => void
 

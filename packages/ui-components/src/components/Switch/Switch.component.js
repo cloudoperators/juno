@@ -5,8 +5,8 @@
 
 import React, { useState, useEffect, useMemo, useId } from "react"
 import PropTypes from "prop-types"
-import { Label } from "../Label/index"
-import { Icon } from "../Icon/index"
+import { Label } from "../../deprecated_js/Label/index"
+import { Icon } from "../../deprecated_js/Icon/index"
 import { FormHint } from "../FormHint/FormHint.component"
 
 const switchWrapperStyles = `

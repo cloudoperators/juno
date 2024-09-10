@@ -5,10 +5,10 @@
 
 import React, { useContext } from "react"
 import PropTypes from "prop-types"
-import { Icon } from "../Icon/index.js"
+import { Icon } from "../../deprecated_js/Icon/index.js"
 import { Menu } from "@headlessui/react"
 import { MenuContext } from "../Menu/Menu.component.js"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 const itemStyles = `
 	jn-text-theme-default

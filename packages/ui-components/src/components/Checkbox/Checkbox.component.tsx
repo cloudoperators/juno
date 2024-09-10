@@ -4,11 +4,10 @@
  */
 
 import React, { useState, useEffect, useMemo, useContext, useId } from "react"
-import PropTypes from "prop-types"
-import { CheckboxGroupContext } from "./CheckboxGroups.context"
+import { CheckboxGroupContext } from "../CheckboxGroup/CheckboxGroup.component"
 import { Label } from "../Label/index"
-import { Icon } from "../Icon/Icon.component"
-import { FormHint } from "../FormHint/FormHint.component"
+import { Icon } from "../Icon/index"
+import { FormHint } from "../FormHint/index"
 
 const wrapperStyles = `
   jn-inline-flex
@@ -110,9 +109,9 @@ export const Checkbox = ({
   valid = false,
   value,
   ...props
-}) => {
+}: CheckboxProps) => {
   // Utility
-  const isNotEmptyString = (str) => {
+  const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -150,7 +149,7 @@ export const Checkbox = ({
   // Run once to update the parent state to respect and reflect the checked prop if we are in a group context, but parent has no selected options set via its prop:
   useEffect(() => {
     if (checked && checkboxGroupContext) {
-      updateGroupSelectedValue(value)
+      updateGroupSelectedValue && updateGroupSelectedValue(value)
     }
   }, [])
 
@@ -181,7 +180,7 @@ export const Checkbox = ({
     setIsValid(validated)
   }, [validated])
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(!isChecked)
     // If we are in a context, update :
     if (groupHandleCheckboxChange && typeof groupHandleCheckboxChange === "function") {
@@ -191,7 +190,7 @@ export const Checkbox = ({
     onChange && onChange(event)
   }
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     onClick && onClick(event)
   }
 
@@ -317,37 +316,37 @@ export const Checkbox = ({
   )
 }
 
-Checkbox.propTypes = {
+export interface CheckboxProps {
   /** Whether the Checkbox is checked */
-  checked: PropTypes.bool,
+  checked?: boolean
   /** Pass a custom className */
-  className: PropTypes.string,
+  className?: string
   /** Whether the Checkbox is disabled */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** A text to render when the Checkbox has an error or could not be validated */
-  errortext: PropTypes.node,
+  errortext?: React.ReactNode | string
   /** A helptext to render to explain meaning and significance of the Checkbox */
-  helptext: PropTypes.node,
+  helptext?: React.ReactNode | string
   /** The id of the Radio. An id will be automatically generated if not passed. */
-  id: PropTypes.string,
+  id?: string
   /** Whether the Checkbox is indeterminate. Applicable ONLY if the Checkbox represents multiple child Checkboxes with non--identical checked state. */
-  indeterminate: PropTypes.bool,
+  indeterminate?: boolean
   /** Whether the Checkbox was validated unsuccessfully */
-  invalid: PropTypes.bool,
+  invalid?: boolean
   /** The label of the Checkbox */
-  label: PropTypes.string,
+  label?: string
   /** The name of the Checkbox */
-  name: PropTypes.string,
+  name?: string
   /** handler to be executed when the Checkbox changes. */
-  onChange: PropTypes.func,
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
   /** handler to be executed when the Checkbox is clicked. */
-  onClick: PropTypes.func,
+  onClick?: React.MouseEventHandler<HTMLElement>
   /** Whether the Checkbox is required */
-  required: PropTypes.bool,
+  required?: boolean
   /** A text to render when the Checkbox was successfully validated */
-  successtext: PropTypes.node,
+  successtext?: React.ReactNode | string
   /** Whether the Checkbox was successfully validated */
-  valid: PropTypes.bool,
+  valid?: boolean
   /** The value of the Checkbox */
-  value: PropTypes.string,
+  value?: string
 }

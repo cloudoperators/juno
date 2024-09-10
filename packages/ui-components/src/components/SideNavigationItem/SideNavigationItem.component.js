@@ -6,7 +6,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { NavigationItem } from "../NavigationItem/index"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 const sideNavItemStyles = `
   jn-flex
