@@ -14,7 +14,7 @@ const initialFiltersState = {
   search: "", // Global search term used for full-text filtering: { entityName: ["searchTerm1", "searchTerm2", ...] }
 }
 
-const createFiltersSlice = (set, get) => ({
+const createFiltersSlice = (set) => ({
   filters: {
     ...initialFiltersState,
     actions: {
