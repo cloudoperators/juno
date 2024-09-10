@@ -4,8 +4,8 @@
  */
 
 import React from "react"
-import { Checkbox } from "../Checkbox/index"
-import { withDeprecationWarning } from "../withDeprecationWarningTs/index"
+import { Checkbox } from "../../components-transition/Checkbox/index"
+import { withDeprecationWarning } from "../../components-transition/withDeprecationWarning/index"
 
 /** DEPRECATED: A single checkbox, associated label, and structural markup. This component is DEPRECATED, use Checkbox instead. */
 const CheckboxRow = ({

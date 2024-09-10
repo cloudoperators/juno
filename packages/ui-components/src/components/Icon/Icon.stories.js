@@ -6,7 +6,7 @@
 import { Icon } from "./index.js"
 
 export default {
-  title: "Components/Icon",
+  title: "Deprecated/Components/Icon (JS)",
   component: Icon,
   argTypes: {},
   parameters: {

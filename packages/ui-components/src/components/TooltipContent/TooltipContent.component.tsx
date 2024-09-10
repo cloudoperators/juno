@@ -6,7 +6,7 @@
 import React from "react"
 import { useMergeRefs } from "@floating-ui/react"
 
-import { Icon } from "../IconTs/Icon.component"
+import { Icon } from "../../components-transition/Icon/Icon.component"
 import { useTooltipState } from "../Tooltip/Tooltip.component"
 import { ToolTipVariant } from "../Tooltip/ToolTip.types"
 

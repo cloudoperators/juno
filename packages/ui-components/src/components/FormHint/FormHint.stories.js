@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { FormHint } from "./index.js"
 
 export default {
-  title: "Forms/FormHint (JS, deprecated)",
+  title: "Deprecated/Forms/FormHint (JS)",
   component: FormHint,
   argTypes: {
     children: {

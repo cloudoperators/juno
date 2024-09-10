@@ -1,0 +1,764 @@
+🔎 checking possible migrations..
+
+🔎 found a 'remove-jest-testing-library' migration:
+╭ Automigration detected ──────────────────────────────────────────────────────╮
+│                                                                              │
+│   Attention: We've detected that you're using the following packages which   │
+│   are known to be incompatible since Storybook 8:                            │
+│                                                                              │
+│   - @storybook/testing-library                                               │
+│                                                                              │
+│   We will uninstall them for you and install @storybook/test instead.        │
+│                                                                              │
+│   Also, we can help you migrate your stories to use the new package.         │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+? Do you want to run the 'remove-jest-testing-library' migration on your project? » (Y/n)√ Do you want to run the 'remove-jest-testing-library' migration on your project? ... yes
+? Please enter the glob for your stories to migrate to @storybook/test » ./src/**/*.stories.*? Please enter the glob for your stories to migrate to @storybook/test » y√ Please enter the glob for your stories to migrate to @storybook/test ... y
+=> Applying migrate-to-test-package: 0 files
+=> No matching files for glob: y
+✅ ran remove-jest-testing-library migration
+
+🔎 found a 'remove-argtypes-regex' migration:
+╭ Manual migration detected ───────────────────────────────────────────────────╮
+│                                                                              │
+│   Attention: We've detected that you're using argTypesRegex:                 │
+│                                                                              │
+│   .storybook\preview.js                                                      │
+│   13 |       },                                                              │
+│   14 |     },                                                                │
+│   > 15 |     actions: { argTypesRegex: "^on[A-Z].*" },                       │
+│   |                ^^^^^^^^^^^^^                                             │
+│   16 |     controls: {                                                       │
+│   17 |       expanded: true,                                                 │
+│   18 |       matchers: {                                                     │
+│                                                                              │
+│   Storybook's play functions let you render your stories interactively.      │
+│                                                                              │
+│   In the past, play functions mocked action args implicitly by analyzing     │
+│   the argTypesRegex                                                          │
+│   in your preview.js|ts file.                                                │
+│                                                                              │
+│   However, Storybook 8 changes this behavior, and we now recommend using     │
+│   the                                                                        │
+│   (fn) function to mock your component's methods instead.                    │
+│                                                                              │
+│   Use the following command to check for implied mocked actions in your      │
+│   play functions:                                                            │
+│   npx storybook migrate find-implicit-spies                                  │
+│   --glob="**/*.stories.@(js|jsx|ts|tsx)"                                     │
+│                                                                              │
+│   Then, refer to our docs to migrate your play functions to Storybook 8:     │
+│   https://storybook.js.org/docs/8.0/essentials/actions#via-storybooktest-f   │
+│   n-spy-function                                                             │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+? Select continue once you have made the required changes, or quit to exit the migration process » quit / continue? Select continue once you have made the required changes, or quit to exit the migration process » quit / continue? Select continue once you have made the required changes, or quit to exit the migration process » quit / continue? Select continue once you have made the required changes, or quit to exit the migration process » quit / continue? Select continue once you have made the required changes, or quit to exit the migration process » quit / continue√ Select continue once you have made the required changes, or quit to exit the migration process ... quit / continue
+
+🔎 found a 'wrap-require' migration:
+╭ Automigration detected ──────────────────────────────────────────────────────╮
+│                                                                              │
+│   We have detected that you're using Storybook 8.2.7 in a monorepo           │
+│   project.                                                                   │
+│   For Storybook to work correctly, some fields in your main config must be   │
+│   updated. We can do this for you automatically.                             │
+│                                                                              │
+│   More info: https://storybook.js.org/docs/react/faq#how-do-i-fix-module-r   │
+│   esolution-in-special-environments                                          │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+? Do you want to run the 'wrap-require' migration on your project? » (Y/n)√ Do you want to run the 'wrap-require' migration on your project? ... yes
+✅ ran wrap-require migration
+
+⚠️  failed to check fix react-docgen
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+⚠️  failed to check fix storyshots
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+⚠️  failed to check fix remove-react-dependency
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+⚠️  failed to check fix remove-legacy-mdx1
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+⚠️  failed to check fix webpack5-compiler-setup
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+⚠️  failed to check fix mdx1to3
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+⚠️  failed to check fix upgradeStorybookRelatedDependencies
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+⚠️  failed to check fix visual-tests-addon
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+⚠️  failed to check fix autodocs-tags
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+⚠️  failed to check fix initial-globals
+
+Error: Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your .storybook\main.js file.
+
+Original error:
+Error: Cannot find module 'juno-addon\package.json'
+Require stack:
+- \.storybook\main.js
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\common\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\telemetry\index.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs
+- C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\bin\index.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)
+    at Module._resolveFilename (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4794:36)
+    at Function.resolve (node:internal/modules/helpers:187:19)
+    at getAbsolutePath (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)
+    at Object.<anonymous> (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._compile (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2258:26)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Object.newLoader (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:2262:9)
+    at extensions..js (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\esbuild-register\dist\node.js:4833:24)
+    at getStorybookData (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:196:4457)
+    at async runFixes (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:2645)
+    at async automigrate (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:663:1620)
+    at async doUpgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:1608)
+    at async withTelemetry (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\@storybook\core\dist\core-server\index.cjs:255711:12)
+    at async upgrade (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46ffc\node_modules\storybook\dist\generate.cjs:679:2075)
+
+╭ Migration check ran with failures ───────────────────────────────────────────╮
+│                                                                              │
+│   Successful migrations:                                                     │
+│                                                                              │
+│   remove-jest-testing-library, wrap-require                                  │
+│                                                                              │
+│   Failed migrations:                                                         │
+│                                                                              │
+│   react-docgen:                                                              │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│   storyshots:                                                                │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│   remove-react-dependency:                                                   │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│   remove-legacy-mdx1:                                                        │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│   webpack5-compiler-setup:                                                   │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│   mdx1to3:                                                                   │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│   upgradeStorybookRelatedDependencies:                                       │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│   visual-tests-addon:                                                        │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│   autodocs-tags:                                                             │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│   initial-globals:                                                           │
+│   Unable to find or evaluate .storybook\main.js: SB_CORE-SERVER_0007         │
+│   (MainFileEvaluationError): Storybook couldn't evaluate your                │
+│   .storybook\main.js file.                                                   │
+│                                                                              │
+│   Original error:                                                            │
+│   Error: Cannot find module 'juno-addon\package.json'                        │
+│   Require stack:                                                             │
+│   - \.storybook\main.js                                                      │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\common\index.cjs                    │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\@storybook\core\dist\telemetry\index.cjs                 │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\dist\generate.cjs                              │
+│   - C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb4   │
+│   6ffc\node_modules\storybook\bin\index.cjs                                  │
+│   at Module._resolveFilename (node:internal/modules/cjs/loader:1144:15)      │
+│   at Module._resolveFilename                                                 │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4794:36)                    │
+│   at Function.resolve (node:internal/modules/helpers:187:19)                 │
+│   at getAbsolutePath                                                         │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:108:26)     │
+│   at Object.<anonymous>                                                      │
+│   (c:\Dev\SAP-ORA\juno\packages\ui-components\.storybook\main.js:19:5)       │
+│   at Module._compile (node:internal/modules/cjs/loader:1376:14)              │
+│   at Module._compile                                                         │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2258:26)                    │
+│   at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)       │
+│   at Object.newLoader                                                        │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:2262:9)                     │
+│   at extensions..js                                                          │
+│   (C:\Users\grzegorz.jaskiewicz\AppData\Local\npm-cache\_npx\bc7e1e37fcb46   │
+│   ffc\node_modules\esbuild-register\dist\node.js:4833:24)                    │
+│                                                                              │
+│   You can find the full logs in                                              │
+│   C:\Dev\SAP-ORA\juno\packages\ui-components\migration-storybook.log         │
+│                                                                              │
+│   Manual migrations:                                                         │
+│                                                                              │
+│   remove-argtypes-regex                                                      │
+│                                                                              │
+│   ─────────────────────────────────────────────────                          │
+│                                                                              │
+│   If you'd like to run the migrations again, you can do so by running 'npx   │
+│   storybook automigrate'                                                     │
+│                                                                              │
+│   The automigrations try to migrate common patterns in your project, but     │
+│   might not contain everything needed to migrate to the latest version of    │
+│   Storybook.                                                                 │
+│                                                                              │
+│   Please check the changelog and migration guide for manual migrations and   │
+│   more information: https://storybook.js.org/docs/8.0/migration-guide        │
+│   And reach out on Discord if you need help: https://discord.gg/storybook    │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

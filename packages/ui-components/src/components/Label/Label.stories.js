@@ -6,7 +6,7 @@
 import { Label } from "./index"
 
 export default {
-  title: "Forms/Label (JS, deprecated)",
+  title: "Deprecated/Forms/Label (JS)",
   component: Label,
   argTypes: {},
 }

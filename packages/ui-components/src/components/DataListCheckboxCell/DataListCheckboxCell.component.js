@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { Checkbox } from "../CheckboxJs/Checkbox.component.js"
+import { Checkbox } from "../Checkbox/Checkbox.component.js"
 import { DataListCell } from "../DataListCell/DataListCell.component.js"
 
 const datalistcheckboxcellbasestyles = `

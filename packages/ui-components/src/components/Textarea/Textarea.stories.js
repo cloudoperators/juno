@@ -7,7 +7,7 @@ import React from "react"
 import { Textarea } from "./index.js"
 
 export default {
-  title: "Forms/Textarea (JS, deprecated)",
+  title: "Deprecated/Forms/Textarea (JS)",
   component: Textarea,
   argTypes: {
     errortext: {

@@ -4,10 +4,10 @@
  */
 
 import React, { useState, useEffect, useMemo, useContext, useId } from "react"
-import { CheckboxGroupContext } from "../CheckboxGroup/CheckboxGroup.component"
-import { Label } from "../LabelTs/index"
-import { Icon } from "../IconTs/index"
-import { FormHint } from "../FormHintTs/index"
+import { CheckboxGroupContext } from "../../components/CheckboxGroup/CheckboxGroup.component"
+import { Label } from "../Label/index"
+import { Icon } from "../Icon/index"
+import { FormHint } from "../FormHint/index"
 
 const wrapperStyles = `
   jn-inline-flex
