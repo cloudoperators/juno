@@ -51,7 +51,6 @@ const ViolationDetailsOccurrences = ({ violation }) => {
       )}
       {violation?.instances?.length > COLLAPSE_REGIONS_COUNT && (
         <a
-          variant="primary"
           onClick={(e) => {
             e.preventDefault()
             setShowRegions(!showRegions)

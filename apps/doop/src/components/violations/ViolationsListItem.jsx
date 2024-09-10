@@ -42,7 +42,7 @@ const ViolationListItem = ({ item }) => {
             (c, i) =>
               c.metadata?.template_source && (
                 <div key={i}>
-                  <a href={c.metadata.template_source} target="_blank" className="hover:underline">
+                  <a href={c.metadata.template_source} target="_blank" className="hover:underline" rel="noreferrer">
                     <Stack gap="1.5" alignment="center">
                       <Icon icon="openInNew" size="16" />
                       {c.name}
@@ -59,7 +59,7 @@ const ViolationListItem = ({ item }) => {
             (c, i) =>
               c.metadata?.constraint_source && (
                 <div key={i}>
-                  <a href={c.metadata.constraint_source} target="_blank" className="hover:underline">
+                  <a href={c.metadata.constraint_source} target="_blank" className="hover:underline" rel="noreferrer">
                     <Stack gap="1.5" alignment="center">
                       <Icon icon="openInNew" size="16" />
                       {c.name}
