@@ -6,7 +6,7 @@
 import React from "react"
 import { capitalize } from "../../lib/helpers"
 import { useEndlessScrollList } from "@cloudoperators/juno-utils"
-import { DataGrid, DataGridRow, DataGridCell, Box, Stack, Icon, Message } from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridCell, Box, Stack } from "@cloudoperators/juno-ui-components"
 // import { useGlobalsDetailsViolationItems } from "../StoreProvider"
 import { useDataDetailsViolationGroup } from "../StoreProvider"
 import ReactMarkdown from "react-markdown"
@@ -70,10 +70,11 @@ const ViolationDetailsList = () => {
                         <h1 className="mb-4 mt-0 text-2xl">{capitalize(item.title)}</h1>
                         {item.data ? (
                           <ReactMarkdown
-                            children={item.data}
                             linkTarget="_blank"
-                            transformLinkUri={(href, children, title) => href.replace(/^\((.+)\)$/, "$1")}
-                          />
+                            transformLinkUri={(href) => href.replace(/^\((.+)\)$/, "$1")}
+                          >
+                            {item.data}
+                          </ReactMarkdown>
                         ) : (
                           item.severity === "debug" &&
                           "This violation group is currently in a draft state, undergoing development and refinement."
