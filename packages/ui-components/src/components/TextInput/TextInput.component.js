@@ -7,7 +7,7 @@ import React, { useState, useEffect, useMemo, useId, useRef } from "react"
 import PropTypes from "prop-types"
 import { Label } from "../../deprecated_js/Label/index"
 import { Icon } from "../../deprecated_js/Icon/index"
-import { FormHint } from "../FormHint/FormHint.component"
+import { FormHint } from "../../deprecated_js/FormHint/FormHint.component"
 import "./textinput.scss"
 
 const textinputstyles = `

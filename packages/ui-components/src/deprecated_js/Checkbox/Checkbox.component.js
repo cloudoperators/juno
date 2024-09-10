@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { CheckboxGroupContext } from "./CheckboxGroups.context"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/Icon.component"
-import { FormHint } from "../../components/FormHint/FormHint.component"
+import { FormHint } from "../FormHint/FormHint.component"
 
 const wrapperStyles = `
   jn-inline-flex
