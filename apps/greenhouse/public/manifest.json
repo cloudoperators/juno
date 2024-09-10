@@ -1,0 +1,122 @@
+{
+  "@cloudoperators/juno-app-supernova": {
+    "0.11.1": {
+      "path": "/apps/cloudoperators/juno-app-supernova@0.11.1/build",
+      "version": "0.11.1"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-supernova@0.11.1/build",
+      "version": "0.11.1"
+    }
+  },
+  "supernova": {
+    "0.11.1": {
+      "path": "/apps/cloudoperators/juno-app-supernova@0.11.1/build",
+      "version": "0.11.1"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-supernova@0.11.1/build",
+      "version": "0.11.1"
+    }
+  },
+  "@cloudoperators/juno-app-heureka": {
+    "2.4.5": {
+      "path": "/apps/cloudoperators/juno-app-heureka@2.4.5/build",
+      "version": "2.4.5"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-heureka@2.4.5/build",
+      "version": "2.4.5"
+    }
+  },
+  "heureka": {
+    "2.4.5": {
+      "path": "/apps/cloudoperators/juno-app-heureka@2.4.5/build",
+      "version": "2.4.5"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-heureka@2.4.5/build",
+      "version": "2.4.5"
+    }
+  },
+  "@cloudoperators/juno-app-greenhouse-org-admin": {
+    "1.1.22": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-org-admin@1.1.22/build",
+      "version": "1.1.22"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-org-admin@1.1.22/build",
+      "version": "1.1.22"
+    }
+  },
+  "greenhouse-org-admin": {
+    "1.1.22": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-org-admin@1.1.22/build",
+      "version": "1.1.22"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-org-admin@1.1.22/build",
+      "version": "1.1.22"
+    }
+  },
+  "@cloudoperators/juno-app-greenhouse-plugin-admin": {
+    "1.0.13": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-plugin-admin@1.0.13/build",
+      "version": "1.0.13"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-plugin-admin@1.0.13/build",
+      "version": "1.0.13"
+    }
+  },
+  "greenhouse-plugin-admin": {
+    "1.0.13": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-plugin-admin@1.0.13/build",
+      "version": "1.0.13"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-plugin-admin@1.0.13/build",
+      "version": "1.0.13"
+    }
+  },
+  "@cloudoperators/juno-app-greenhouse-secret-admin": {
+    "1.0.7": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-secret-admin@1.0.7/build",
+      "version": "1.0.7"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-secret-admin@1.0.7/build",
+      "version": "1.0.7"
+    }
+  },
+  "greenhouse-secret-admin": {
+    "1.0.7": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-secret-admin@1.0.7/build",
+      "version": "1.0.7"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-secret-admin@1.0.7/build",
+      "version": "1.0.7"
+    }
+  },
+  "@cloudoperators/juno-app-greenhouse-team-admin": {
+    "1.5.5": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-team-admin@1.5.5/build",
+      "version": "1.5.5"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-team-admin@1.5.5/build",
+      "version": "1.5.5"
+    }
+  },
+  "greenhouse-team-admin": {
+    "1.5.5": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-team-admin@1.5.5/build",
+      "version": "1.5.5"
+    },
+    "latest": {
+      "path": "/apps/cloudoperators/juno-app-greenhouse-team-admin@1.5.5/build",
+      "version": "1.5.5"
+    }
+  }
+}
