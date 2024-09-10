@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { Textarea } from "../../deprecated_js/Textarea/index.js"
 import { ButtonRow } from "../ButtonRow/"
 import { Button } from "../Button/"
-import { FormHint } from "../FormHint/"
+import { FormHint } from "../../deprecated_js/FormHint/"
 import { Stack } from "../Stack/"
 import { Label } from "../../deprecated_js/Label/index.js"
 

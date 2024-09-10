@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useId, useMemo, useState } from "react"
 import PropTypes from "prop-types"
 import flatpickr from "flatpickr"
-import { FormHint } from "../FormHint/"
+import { FormHint } from "../../deprecated_js/FormHint/"
 import { Icon } from "../../deprecated_js/Icon"
 import { Label } from "../../deprecated_js/Label"
 import "./datetimepicker.scss"
