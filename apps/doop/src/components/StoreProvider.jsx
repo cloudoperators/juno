@@ -8,11 +8,7 @@ import { useStore as create } from "zustand"
 import createStore from "../lib/store"
 
 const StoreContext = createContext()
-const StoreProvider = ({ children }) => (
-  <StoreContext.Provider value={createStore()}>
-    {children}
-  </StoreContext.Provider>
-)
+const StoreProvider = ({ children }) => <StoreContext.Provider value={createStore()}>{children}</StoreContext.Provider>
 
 const useStore = (selector) => create(useContext(StoreContext), selector)
 
@@ -32,23 +28,16 @@ export const useAuthAppIsLoading = () => useStore((s) => s.auth.appIsLoading)
 export const useAuthActions = () => useStore((s) => s.auth.actions)
 
 // user activity
-export const useUserActivityIsActive = () =>
-  useStore((s) => s.userActivity.isActive)
-export const useUserActivityActions = () =>
-  useStore((s) => s.userActivity.actions)
+export const useUserActivityIsActive = () => useStore((s) => s.userActivity.isActive)
+export const useUserActivityActions = () => useStore((s) => s.userActivity.actions)
 
 // data
 export const useDataLoaded = () => useStore((s) => s.data.loaded)
-export const useDataClusterIdentities = () =>
-  useStore((s) => s.data.clusterIdentities)
-export const useDataViolationGroups = () =>
-  useStore((s) => s.data.violationGroups)
-export const useDataDetailsViolationGroupKind = () =>
-  useStore((s) => s.data.detailsViolationGroupKind)
-export const useDataDetailsViolationGroup = () =>
-  useStore((s) => s.data.detailsViolationGroup)
-export const useDataSeverityWeights = () =>
-  useStore((s) => s.data.severityWeights)
+export const useDataClusterIdentities = () => useStore((s) => s.data.clusterIdentities)
+export const useDataViolationGroups = () => useStore((s) => s.data.violationGroups)
+export const useDataDetailsViolationGroupKind = () => useStore((s) => s.data.detailsViolationGroupKind)
+export const useDataDetailsViolationGroup = () => useStore((s) => s.data.detailsViolationGroup)
+export const useDataSeverityWeights = () => useStore((s) => s.data.severityWeights)
 export const useDataFilterEntries = () => useStore((s) => s.data.filterEntries)
 export const useDataFilteredItems = () => useStore((s) => s.data.filteredItems)
 export const useDataActions = () => useStore((s) => s.data.actions)

@@ -24,9 +24,7 @@ export const camelCaseToSpaceCase = (str) => {
 
 export const valueToLabel = (str) => {
   if (!str) return str
-  return str
-    .replace(/([A-Z])/g, (c) => " " + c.toLowerCase())
-    .replace(/_/g, " ")
+  return str.replace(/([A-Z])/g, (c) => " " + c.toLowerCase()).replace(/_/g, " ")
 }
 
 export function capitalize(string) {

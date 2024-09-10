@@ -82,11 +82,7 @@ const AppContent = ({ id, showDebugSeverities }) => {
       {/* <UrlStateManager consumerId={id || "doop"} /> */}
       <Header />
       <Messages className="mb-4" />
-      {dataRequest?.isLoading && !isMock ? (
-        <HintLoading className="tw-mt-4" />
-      ) : (
-        <Violations />
-      )}
+      {dataRequest?.isLoading && !isMock ? <HintLoading className="tw-mt-4" /> : <Violations />}
       <Highlighter />
     </Container>
   )

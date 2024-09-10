@@ -4,17 +4,8 @@
  */
 
 import React from "react"
-import {
-  Stack,
-  Badge,
-  DataGridRow,
-  DataGridCell,
-  Icon,
-} from "@cloudoperators/juno-ui-components"
-import {
-  useDataDetailsViolationGroupKind,
-  useDataActions,
-} from "../StoreProvider"
+import { Stack, Badge, DataGridRow, DataGridCell, Icon } from "@cloudoperators/juno-ui-components"
+import { useDataDetailsViolationGroupKind, useDataActions } from "../StoreProvider"
 import ViolationServicesCount from "./ViolationServicesCount"
 import ViolationSeverity from "./ViolationSeverity"
 
@@ -24,9 +15,7 @@ const ViolationListItem = ({ item }) => {
 
   return (
     <DataGridRow
-      className={`cursor-pointer ${
-        detailsViolationGroupKind === item?.kind ? "active" : ""
-      }`}
+      className={`cursor-pointer ${detailsViolationGroupKind === item?.kind ? "active" : ""}`}
       onClick={() =>
         detailsViolationGroupKind === item.kind
           ? setDetailsViolationGroupKind(null)
@@ -34,11 +23,7 @@ const ViolationListItem = ({ item }) => {
       }
     >
       <DataGridCell className="pl-0">
-        <ViolationSeverity
-          severities={item?.severities}
-          className="pl-5"
-          border
-        />
+        <ViolationSeverity severities={item?.severities} className="pl-5" border />
       </DataGridCell>
 
       <DataGridCell className="font-bold">{item?.kind}</DataGridCell>
@@ -57,11 +42,7 @@ const ViolationListItem = ({ item }) => {
             (c, i) =>
               c.metadata?.template_source && (
                 <div key={i}>
-                  <a
-                    href={c.metadata.template_source}
-                    target="_blank"
-                    className="hover:underline"
-                  >
+                  <a href={c.metadata.template_source} target="_blank" className="hover:underline">
                     <Stack gap="1.5" alignment="center">
                       <Icon icon="openInNew" size="16" />
                       {c.name}
@@ -78,11 +59,7 @@ const ViolationListItem = ({ item }) => {
             (c, i) =>
               c.metadata?.constraint_source && (
                 <div key={i}>
-                  <a
-                    href={c.metadata.constraint_source}
-                    target="_blank"
-                    className="hover:underline"
-                  >
+                  <a href={c.metadata.constraint_source} target="_blank" className="hover:underline">
                     <Stack gap="1.5" alignment="center">
                       <Icon icon="openInNew" size="16" />
                       {c.name}

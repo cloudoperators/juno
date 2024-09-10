@@ -6,15 +6,7 @@
 import React from "react"
 import { capitalize } from "../../lib/helpers"
 import { useEndlessScrollList } from "@cloudoperators/juno-utils"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridCell,
-  Box,
-  Stack,
-  Icon,
-  Message,
-} from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridCell, Box, Stack, Icon, Message } from "@cloudoperators/juno-ui-components"
 // import { useGlobalsDetailsViolationItems } from "../StoreProvider"
 import { useDataDetailsViolationGroup } from "../StoreProvider"
 import ReactMarkdown from "react-markdown"
@@ -65,10 +57,7 @@ const ViolationDetailsList = () => {
   return (
     <>
       {scrollListItems?.length > 0 ? (
-        <DataGrid
-          cellVerticalAlignment="top"
-          gridColumnTemplate="min-content 2fr"
-        >
+        <DataGrid cellVerticalAlignment="top" gridColumnTemplate="min-content 2fr">
           {iterator.map((item, index) => (
             <DataGridRow key={index}>
               {item?.type === "doc" ? (
@@ -78,16 +67,12 @@ const ViolationDetailsList = () => {
                       <ViolationSeverity severities={[item.severity]} />
 
                       <div className="info-box text-theme-high">
-                        <h1 className="mb-4 mt-0 text-2xl">
-                          {capitalize(item.title)}
-                        </h1>
+                        <h1 className="mb-4 mt-0 text-2xl">{capitalize(item.title)}</h1>
                         {item.data ? (
                           <ReactMarkdown
                             children={item.data}
                             linkTarget="_blank"
-                            transformLinkUri={(href, children, title) =>
-                              href.replace(/^\((.+)\)$/, "$1")
-                            }
+                            transformLinkUri={(href, children, title) => href.replace(/^\((.+)\)$/, "$1")}
                           />
                         ) : (
                           item.severity === "debug" &&

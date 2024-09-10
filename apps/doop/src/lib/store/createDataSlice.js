@@ -32,32 +32,28 @@ const getClusterFilterItems = (clusterIdentities) => {
   if (!clusterIdentities) return []
 
   // Create an object called `entries` to store the filter items that will be generated.
-  const entries = Object.keys(clusterIdentities).reduce(
-    (filterItems, cluster) => {
-      // Get all identities for the current cluster.
-      const identities = clusterIdentities[cluster]
+  const entries = Object.keys(clusterIdentities).reduce((filterItems, cluster) => {
+    // Get all identities for the current cluster.
+    const identities = clusterIdentities[cluster]
 
-      // Iterate through each identity within the cluster.
-      Object.keys(identities).forEach((id) => {
-        // Get the value associated with the identity.
-        const value = identities[id]
+    // Iterate through each identity within the cluster.
+    Object.keys(identities).forEach((id) => {
+      // Get the value associated with the identity.
+      const value = identities[id]
 
-        // Create a filter item for the identity if it doesn't exist in filterItems.
-        filterItems[id] = filterItems[id] || {
-          key: `${FILTER_TYPE_CLUSTER}:${id}`,
-          label: valueToLabel(id), // Convert the identity key to a human-readable label.
-          values: [],
-        }
+      // Create a filter item for the identity if it doesn't exist in filterItems.
+      filterItems[id] = filterItems[id] || {
+        key: `${FILTER_TYPE_CLUSTER}:${id}`,
+        label: valueToLabel(id), // Convert the identity key to a human-readable label.
+        values: [],
+      }
 
-        // Add the value to the filter item's values array if it's not already present.
-        if (filterItems[id].values.indexOf(value) < 0)
-          filterItems[id].values.push(value)
-      })
+      // Add the value to the filter item's values array if it's not already present.
+      if (filterItems[id].values.indexOf(value) < 0) filterItems[id].values.push(value)
+    })
 
-      return filterItems // Return the updated filterItems object.
-    },
-    {}
-  )
+    return filterItems // Return the updated filterItems object.
+  }, {})
 
   // Return an array of filter items by extracting the values from the `entries` object.
   return Object.values(entries)
@@ -93,15 +89,10 @@ const getClusterFilterItems = (clusterIdentities) => {
  * @param {Array} violationGroups
  * @returns an array of objects representing filter items
  */
-const getViolationFilterItems = (
-  violationGroups,
-  options = { showDebugSeverities: false }
-) => {
+const getViolationFilterItems = (violationGroups, options = { showDebugSeverities: false }) => {
   if (!violationGroups) return []
   const constraints = []
-  violationGroups.forEach((v) =>
-    v.constraints.forEach((c) => constraints.push(c))
-  )
+  violationGroups.forEach((v) => v.constraints.forEach((c) => constraints.push(c)))
   const entries = constraints.reduce((filterItems, constraint) => {
     if (constraint?.metadata?.severity) {
       const value = constraint.metadata.severity
@@ -111,8 +102,7 @@ const getViolationFilterItems = (
         values: [],
       }
       if (filterItems["severity"].values.indexOf(value) < 0) {
-        if (options?.showDebugSeverities || value !== "debug")
-          filterItems["severity"].values.push(value)
+        if (options?.showDebugSeverities || value !== "debug") filterItems["severity"].values.push(value)
       }
     }
     constraint?.violation_groups?.forEach((vg) => {
@@ -124,8 +114,7 @@ const getViolationFilterItems = (
             label: valueToLabel(id),
             values: [],
           }
-          if (filterItems[id].values.indexOf(value) < 0)
-            filterItems[id].values.push(value)
+          if (filterItems[id].values.indexOf(value) < 0) filterItems[id].values.push(value)
         })
       }
     })
@@ -138,21 +127,13 @@ const getViolationFilterItems = (
   return Object.values(entries)
 }
 
-const filterViolations = ({
-  violationGroups,
-  clusterIdentities,
-  activeFilters,
-  searchTerm,
-  showDebugSeverities,
-}) => {
+const filterViolations = ({ violationGroups, clusterIdentities, activeFilters, searchTerm, showDebugSeverities }) => {
   // initialize items to all violation groups
   let items = violationGroups
   // if showDebugSeverities is false and severity is debug, filter it out
   if (!showDebugSeverities) {
     items = items?.filter((v) => {
-      v.constraints = v.constraints?.filter(
-        (constraint) => constraint.metadata?.severity !== "debug"
-      )
+      v.constraints = v.constraints?.filter((constraint) => constraint.metadata?.severity !== "debug")
       return v.constraints?.length > 0
     })
   }
@@ -201,15 +182,12 @@ const filterViolations = ({
           //OR: includes
           //AND: bool &&
           // Example: (service:elektra OR service:castelum) AND (service_group:containers OR service_group:compute)
-          constraint.violation_groups = constraint.violation_groups?.filter(
-            (vg) =>
-              Object.keys(checkFilters).reduce(
-                (bool, key) =>
-                  bool &&
-                  vg.pattern?.object_identity &&
-                  checkFilters[key]?.includes(vg.pattern.object_identity[key]),
-                true
-              )
+          constraint.violation_groups = constraint.violation_groups?.filter((vg) =>
+            Object.keys(checkFilters).reduce(
+              (bool, key) =>
+                bool && vg.pattern?.object_identity && checkFilters[key]?.includes(vg.pattern.object_identity[key]),
+              true
+            )
           )
           found = found && constraint.violation_groups?.length > 0
         }
@@ -220,24 +198,17 @@ const filterViolations = ({
           // collect all clusters that match the filter
           const clusters = clusterIdentities
             ?.filter((ci) =>
-              Object.keys(clusterFilters).reduce(
-                (bool, key) => bool && clusterFilters[key].includes(ci[key]),
-                true
-              )
+              Object.keys(clusterFilters).reduce((bool, key) => bool && clusterFilters[key].includes(ci[key]), true)
             )
             .map((ci) => ci.cluster)
 
           // collect all violation groups that match the clusters
-          constraint.violation_groups = constraint.violation_groups?.filter(
-            (vg) => {
-              // filter out instances that don't match the clusters
-              vg.instances = vg.instances.filter((i) =>
-                clusters.includes(i.cluster)
-              )
-              // return true if there are any instances left
-              return vg.instances.length > 0
-            }
-          )
+          constraint.violation_groups = constraint.violation_groups?.filter((vg) => {
+            // filter out instances that don't match the clusters
+            vg.instances = vg.instances.filter((i) => clusters.includes(i.cluster))
+            // return true if there are any instances left
+            return vg.instances.length > 0
+          })
           // set found to false if there are no violation groups left
           found = found && constraint.violation_groups?.length > 0
         }
@@ -248,8 +219,7 @@ const filterViolations = ({
           found =
             found &&
             Object.values(severityFilters).reduce(
-              (bool, values) =>
-                bool && values.includes(constraint.metadata?.severity),
+              (bool, values) => bool && values.includes(constraint.metadata?.severity),
               true
             )
         }
@@ -266,20 +236,16 @@ const filterViolations = ({
   // filter items by search term
   if (searchTerm && items) {
     items = items.filter((item) => {
-      const constraints = (item.constraints = item.constraints?.filter(
-        (constraint) => {
-          const { violation_groups, ...data } = constraint
-          const foundInData = JSON.stringify(data)
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
-          const vgs = violation_groups.filter((vg) => {
-            const vgString = JSON.stringify(vg)
-            return vgString.toLowerCase().includes(searchTerm.toLowerCase())
-          })
-          constraint.violation_groups = vgs
-          return foundInData || vgs.length > 0
-        }
-      ))
+      const constraints = (item.constraints = item.constraints?.filter((constraint) => {
+        const { violation_groups, ...data } = constraint
+        const foundInData = JSON.stringify(data).toLowerCase().includes(searchTerm.toLowerCase())
+        const vgs = violation_groups.filter((vg) => {
+          const vgString = JSON.stringify(vg)
+          return vgString.toLowerCase().includes(searchTerm.toLowerCase())
+        })
+        constraint.violation_groups = vgs
+        return foundInData || vgs.length > 0
+      }))
       item.constraints = constraints
       return constraints.length > 0
     })
@@ -305,16 +271,12 @@ const extendAndSortViolations = ({ items, severityWeights }) => {
         }
       })
       item.severities = item.severities.sort(
-        (a, b) =>
-          (severityWeights.indexOf(a) || 100) -
-          (severityWeights.indexOf(b) || 100)
+        (a, b) => (severityWeights.indexOf(a) || 100) - (severityWeights.indexOf(b) || 100)
       )
       return item
     })
     .sort(
-      (a, b) =>
-        (severityWeights[a.severities[0]] || 100) -
-        (severityWeights[b.severities[0]] || 100) // sort by highest severity
+      (a, b) => (severityWeights[a.severities[0]] || 100) - (severityWeights[b.severities[0]] || 100) // sort by highest severity
     )
 }
 
@@ -347,9 +309,10 @@ const createDataSlice = (set, get) => ({
 
         let clusterIdentities = []
         if (data.cluster_identities) {
-          clusterIdentities = Object.keys(data.cluster_identities).map(
-            (key) => ({ cluster: key, ...data.cluster_identities[key] })
-          )
+          clusterIdentities = Object.keys(data.cluster_identities).map((key) => ({
+            cluster: key,
+            ...data.cluster_identities[key],
+          }))
         }
 
         set(
@@ -425,16 +388,13 @@ const createDataSlice = (set, get) => ({
         const activeKind = get().data.detailsViolationGroupKind
         if (!activeKind) return
         // find the active violation group in the filtered items
-        const activeViolationGroup = get().data.filteredItems?.find(
-          (i) => i.kind === activeKind
-        )
+        const activeViolationGroup = get().data.filteredItems?.find((i) => i.kind === activeKind)
 
         // if the active violation group is already set, return
         if (
           get().data.detailsViolationGroup &&
           activeViolationGroup &&
-          JSON.stringify(get().data.detailsViolationGroup) ===
-            JSON.stringify(activeViolationGroup)
+          JSON.stringify(get().data.detailsViolationGroup) === JSON.stringify(activeViolationGroup)
         )
           return
         // set the active violation group

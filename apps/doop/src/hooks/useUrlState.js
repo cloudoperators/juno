@@ -39,15 +39,11 @@ const useUrlState = (key) => {
   useEffect(() => {
     // don't read the url if we are already reading it or if we are not logged in
     if (isURLRead || !loggedIn) return
-    console.log(
-      `DOOP: (${key || DEFAULT_KEY}) setting up state from url:`,
-      urlStateManager.currentState()
-    )
+    console.log(`DOOP: (${key || DEFAULT_KEY}) setting up state from url:`, urlStateManager.currentState())
     const searchTerm = urlStateManager.currentState()?.[SEARCH_TERM]
     const activeFilters = urlStateManager.currentState()?.[ACTIVE_FILTERS]
 
-    const detailsViolationGroupKind =
-      urlStateManager.currentState()?.[DETAILS_VIOLATION_GROUP]
+    const detailsViolationGroupKind = urlStateManager.currentState()?.[DETAILS_VIOLATION_GROUP]
 
     // if there are no filters in the url, but there are teams in the auth data
     // set the active filters to the teams
@@ -70,13 +66,7 @@ const useUrlState = (key) => {
       setDetailsViolationGroupKind(detailsViolationGroupKind)
     }
     setIsURLRead(true)
-  }, [
-    loggedIn,
-    authData,
-    setActiveFilters,
-    setDetailsViolationGroupKind,
-    setSearchTerm,
-  ])
+  }, [loggedIn, authData, setActiveFilters, setDetailsViolationGroupKind, setSearchTerm])
   // sync activeFilters to URL state
   useEffect(() => {
     // don't sync if we are not logged in OR if we are already reading the url

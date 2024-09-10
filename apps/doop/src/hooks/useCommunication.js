@@ -24,8 +24,7 @@ const useCommunication = () => {
   const authError = useAuthError()
   const authLoggedIn = useAuthLoggedIn()
   const authLastAction = useAuthLastAction()
-  const { setData: authSetData, setAppLoaded: authSetAppLoaded } =
-    useAuthActions()
+  const { setData: authSetData, setAppLoaded: authSetAppLoaded } = useAuthActions()
 
   useEffect(() => {
     // watch for user activity updates messages

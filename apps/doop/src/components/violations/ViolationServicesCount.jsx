@@ -24,12 +24,7 @@ const ViolationServicesCount = ({ constraints, slice }) => {
       {Object.keys(serviceCounts).map(
         (service, i) =>
           (!slice || i < slice) && (
-            <FilterPill
-              key={i}
-              name="service"
-              value={service}
-              valueLabel={`${service} | ${serviceCounts[service]}`}
-            />
+            <FilterPill key={i} name="service" value={service} valueLabel={`${service} | ${serviceCounts[service]}`} />
           )
       )}
       {Object.keys(serviceCounts).length > slice && "..."}

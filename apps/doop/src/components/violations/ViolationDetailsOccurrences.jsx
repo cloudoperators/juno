@@ -27,8 +27,8 @@ const ViolationDetailsOccurrences = ({ violation }) => {
   return (
     <>
       <div>
-        {violation.kind} <strong>{parseVariables(violation.name)}</strong> in
-        namespace {violation.namespace}: {parseVariables(violation.message)}
+        {violation.kind} <strong>{parseVariables(violation.name)}</strong> in namespace {violation.namespace}:{" "}
+        {parseVariables(violation.message)}
       </div>
       {violation?.instances?.length > COLLAPSE_REGIONS_COUNT ? (
         <Collapsible show={showRegions} maxHeight={false}>
@@ -58,9 +58,7 @@ const ViolationDetailsOccurrences = ({ violation }) => {
           }}
           href="#"
         >
-          {showRegions
-            ? "Hide occurrences"
-            : `Show occurrences (${violation.instances?.length})`}
+          {showRegions ? "Hide occurrences" : `Show occurrences (${violation.instances?.length})`}
         </a>
       )}
     </>

@@ -5,21 +5,9 @@
 
 import React, { useEffect, useState } from "react"
 
-import {
-  Button,
-  InputGroup,
-  SearchInput,
-  Select,
-  SelectOption,
-  Stack,
-} from "@cloudoperators/juno-ui-components"
+import { Button, InputGroup, SearchInput, Select, SelectOption, Stack } from "@cloudoperators/juno-ui-components"
 
-import {
-  useFiltersActions,
-  useFiltersSearchTerm,
-  useFiltersActive,
-  useDataFilterEntries,
-} from "../StoreProvider"
+import { useFiltersActions, useFiltersSearchTerm, useFiltersActive, useDataFilterEntries } from "../StoreProvider"
 
 const FilterSelect = () => {
   const [selectedCategory, selectCategory] = useState("")
@@ -80,18 +68,12 @@ const FilterSelect = () => {
               ))}
           </Select>
           <Button
-            onClick={() =>
-              selectedCategory &&
-              selectedValue &&
-              addFilter(selectedCategory, selectedValue)
-            }
+            onClick={() => selectedCategory && selectedValue && addFilter(selectedCategory, selectedValue)}
             icon="filterAlt"
             className="py-[0.3rem]"
           />
         </InputGroup>
-        {activeFilters.length > 0 && (
-          <Button label="Clear all" onClick={removeAll} variant="subdued" />
-        )}
+        {activeFilters.length > 0 && <Button label="Clear all" onClick={removeAll} variant="subdued" />}
       </Stack>
 
       <SearchInput

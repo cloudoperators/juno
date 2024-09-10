@@ -4,12 +4,7 @@
  */
 
 import React from "react"
-import {
-  Icon,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@cloudoperators/juno-ui-components"
+import { Icon, Tooltip, TooltipTrigger, TooltipContent } from "@cloudoperators/juno-ui-components"
 import { useDataSeverityWeights } from "../StoreProvider"
 
 // data to be used for severity while rendering
@@ -44,11 +39,7 @@ const SEVERITY_DATA = {
 const StatusIcon = ({ severityData, title }) => (
   <Tooltip triggerEvent="hover">
     <TooltipTrigger>
-      <Icon
-        icon={severityData.icon}
-        title={title}
-        color={severityData.iconCss}
-      />
+      <Icon icon={severityData.icon} title={title} color={severityData.iconCss} />
     </TooltipTrigger>
 
     <TooltipContent>{severityData.tooltip}</TooltipContent>
@@ -69,11 +60,7 @@ const ViolationSeverity = ({ severities, border, className = "" }) => {
 
   // border should be true when the severity is being rendered in the alert list
   return (
-    <div
-      className={`${
-        border ? "border-l-2 h-full " + severityData.borderCss : ""
-      } ${className}`}
-    >
+    <div className={`${border ? "border-l-2 h-full " + severityData.borderCss : ""} ${className}`}>
       <StatusIcon severityData={severityData} title={severities[0]} />
     </div>
   )

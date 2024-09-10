@@ -11,11 +11,7 @@ const createFiltersSlice = (set, get) => ({
     actions: {
       set: (filters) => {
         if (!Array.isArray(filters)) return
-        set(
-          (state) => ({ filters: { ...state.filters, active: filters } }),
-          false,
-          "filters.set"
-        )
+        set((state) => ({ filters: { ...state.filters, active: filters } }), false, "filters.set")
         // filter items
         get().data.actions.filterItems()
       },
@@ -23,9 +19,7 @@ const createFiltersSlice = (set, get) => ({
         set(
           (state) => {
             let activeFilters = state.filters.active?.slice() || []
-            let index = activeFilters.findIndex(
-              (f) => f.key === key && f.value === value
-            )
+            let index = activeFilters.findIndex((f) => f.key === key && f.value === value)
             if (index < 0) activeFilters.push({ key: key, value: value })
             return { filters: { ...state.filters, active: activeFilters } }
           },
@@ -39,9 +33,7 @@ const createFiltersSlice = (set, get) => ({
         set(
           (state) => {
             let activeFilters = state.filters.active?.slice() || []
-            let index = activeFilters.findIndex(
-              (f) => f.key === key && f.value === value
-            )
+            let index = activeFilters.findIndex((f) => f.key === key && f.value === value)
             if (index >= 0) activeFilters.splice(index, 1)
             return { filters: { ...state.filters, active: activeFilters } }
           },
@@ -52,11 +44,7 @@ const createFiltersSlice = (set, get) => ({
         get().data.actions.filterItems()
       },
       removeAll: () => {
-        set(
-          (state) => ({ filters: { ...state.filters, active: [] } }),
-          false,
-          "filters.remove"
-        )
+        set((state) => ({ filters: { ...state.filters, active: [] } }), false, "filters.remove")
         // filter items
         get().data.actions.filterItems()
       },

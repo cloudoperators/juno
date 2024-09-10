@@ -15,11 +15,7 @@ const createAuthDataSlice = (set, get) => ({
 
     actions: {
       setAppLoaded: (appLoaded) => {
-        set(
-          (state) => ({ auth: { ...state.auth, appLoaded } }),
-          false,
-          "auth/setAppLoaded"
-        )
+        set((state) => ({ auth: { ...state.auth, appLoaded } }), false, "auth/setAppLoaded")
       },
       setData: (data) => {
         set(

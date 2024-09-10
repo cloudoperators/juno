@@ -5,10 +5,7 @@
 
 import React, { useEffect, useMemo, useLayoutEffect } from "react"
 
-import {
-  AppShellProvider,
-  ContentHeading,
-} from "@cloudoperators/juno-ui-components"
+import { AppShellProvider, ContentHeading } from "@cloudoperators/juno-ui-components"
 import AppContent from "./components/AppContent"
 import styles from "./styles.scss"
 import AuthProvider from "./components/AuthProvider"
@@ -23,10 +20,7 @@ import { useGlobalsActions } from "./components/StoreProvider"
 
 const App = (props = {}) => {
   const { setEndpoint, setMock } = useGlobalsActions()
-  const isMock = useMemo(
-    () => props.isMock === true || props.isMock === "true",
-    [props.isMock]
-  )
+  const isMock = useMemo(() => props.isMock === true || props.isMock === "true", [props.isMock])
   // setup the mock db.json
   useEffect(() => {
     if (isMock) {
@@ -61,17 +55,12 @@ const App = (props = {}) => {
     <MessagesProvider>
       <AppShell pageHeader={`Doop`} embedded={props.embedded === true}>
         <ContentHeading
-          heading={`Decentralized Observer of Policies  ${
-            props.displayName ? ` - ${props.displayName}` : ""
-          }`}
+          heading={`Decentralized Observer of Policies  ${props.displayName ? ` - ${props.displayName}` : ""}`}
         />
         <AsyncWorker consumerId={props.id || "doop"} />
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <AppContent
-              id={props?.id}
-              showDebugSeverities={props.showDebugSeverities}
-            />
+            <AppContent id={props?.id} showDebugSeverities={props.showDebugSeverities} />
           </AuthProvider>
         </QueryClientProvider>
       </AppShell>

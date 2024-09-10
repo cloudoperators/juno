@@ -84,18 +84,14 @@ const Highlighter = () => {
     let foundNodes = findNodes(searchTerm)
     // replace found nodes with highlighted nodes
     foundNodes.forEach((node) => {
-      const index = node.textContent
-        .toLowerCase()
-        .indexOf(searchTerm.toLowerCase())
+      const index = node.textContent.toLowerCase().indexOf(searchTerm.toLowerCase())
 
       const searchNode = document.createElement("span")
       const highlightNode = document.createElement("span")
       searchNode.className = SEARCH_NODE_CLASS
       highlightNode.className = "bg-theme-warning/40 text-theme-high rounded-sm"
 
-      highlightNode.append(
-        node.textContent.slice(index, index + searchTerm.length)
-      )
+      highlightNode.append(node.textContent.slice(index, index + searchTerm.length))
       searchNode.append(node.textContent.slice(0, index))
       searchNode.append(highlightNode)
       searchNode.append(node.textContent.slice(index + searchTerm.length))
@@ -112,12 +108,8 @@ const Highlighter = () => {
         if (!mutation.type === "childList") continue
 
         // ignore changes to search nodes
-        const addedOrRemovedNodes = Array.from(mutation.addedNodes).concat(
-          Array.from(mutation.removedNodes)
-        )
-        let ignore = addedOrRemovedNodes.some((node) =>
-          node.classList?.contains(SEARCH_NODE_CLASS)
-        )
+        const addedOrRemovedNodes = Array.from(mutation.addedNodes).concat(Array.from(mutation.removedNodes))
+        let ignore = addedOrRemovedNodes.some((node) => node.classList?.contains(SEARCH_NODE_CLASS))
         if (ignore) continue
         setChangeAt(Date.now())
       }

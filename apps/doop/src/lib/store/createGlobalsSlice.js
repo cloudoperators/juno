@@ -10,17 +10,8 @@ const createGlobalsSlice = (set, get) => ({
 
     actions: {
       setEndpoint: (endpoint) =>
-        set(
-          (state) => ({ globals: { ...state.globals, endpoint: endpoint } }),
-          false,
-          "globals/setEndpoint"
-        ),
-      setMock: (isMock) =>
-        set(
-          (state) => ({ globals: { ...state.globals, isMock } }),
-          false,
-          "globals/setMock"
-        ),
+        set((state) => ({ globals: { ...state.globals, endpoint: endpoint } }), false, "globals/setEndpoint"),
+      setMock: (isMock) => set((state) => ({ globals: { ...state.globals, isMock } }), false, "globals/setMock"),
     },
   },
 })

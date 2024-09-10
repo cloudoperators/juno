@@ -18,9 +18,7 @@ import data from "../../../db.json"
 describe("createDataSlice", () => {
   describe("setData", () => {
     it("should update the filtered items", () => {
-      const wrapper = ({ children }) => (
-        <StoreProvider>{children}</StoreProvider>
-      )
+      const wrapper = ({ children }) => <StoreProvider>{children}</StoreProvider>
       const store = renderHook(
         () => ({
           actions: useDataActions(),
@@ -35,17 +33,13 @@ describe("createDataSlice", () => {
         store.result.current.actions.setData(data)
       })
       // after setting the doop data should update the filtered items which is equal to the violation_groups since there are no filters
-      expect(store.result.current.filteredItems.length).toEqual(
-        data.templates.length
-      )
+      expect(store.result.current.filteredItems.length).toEqual(data.templates.length)
     })
   })
 
   describe("setDetailsViolationGroupName", () => {
     it("should should set detailsViolationGroup object", () => {
-      const wrapper = ({ children }) => (
-        <StoreProvider>{children}</StoreProvider>
-      )
+      const wrapper = ({ children }) => <StoreProvider>{children}</StoreProvider>
       const store = renderHook(
         () => ({
           dataActions: useDataActions(),
@@ -60,21 +54,15 @@ describe("createDataSlice", () => {
       expect(store.result.current.detailsViolationGroup).toBe(null)
       // set a detailsViolationGroup
       act(() => {
-        store.result.current.dataActions.setDetailsViolationGroupKind(
-          data.templates[0].kind
-        )
+        store.result.current.dataActions.setDetailsViolationGroupKind(data.templates[0].kind)
       })
 
       // check if the detailsViolationItems is set
-      expect(store.result.current.detailsViolationGroup).toEqual(
-        data.templates[0]
-      )
+      expect(store.result.current.detailsViolationGroup).toEqual(data.templates[0])
     })
 
     it("violationGroups should contain violationCount and severities", () => {
-      const wrapper = ({ children }) => (
-        <StoreProvider>{children}</StoreProvider>
-      )
+      const wrapper = ({ children }) => <StoreProvider>{children}</StoreProvider>
       const store = renderHook(
         () => ({
           dataActions: useDataActions(),
@@ -87,18 +75,14 @@ describe("createDataSlice", () => {
         store.result.current.dataActions.setData(data)
       })
 
-      expect(
-        store.result.current.filteredItems[0].severities?.length > 0
-      ).toEqual(true)
+      expect(store.result.current.filteredItems[0].severities?.length > 0).toEqual(true)
 
       expect(store.result.current.filteredItems[0].violationCount).toBeDefined()
       // set a detailsViolationGroup
     })
 
     it("filterEntries should be prefilled with available values from data", () => {
-      const wrapper = ({ children }) => (
-        <StoreProvider>{children}</StoreProvider>
-      )
+      const wrapper = ({ children }) => <StoreProvider>{children}</StoreProvider>
       const store = renderHook(
         () => ({
           dataActions: useDataActions(),
@@ -116,9 +100,7 @@ describe("createDataSlice", () => {
     })
 
     it("clusterIdentities should be an array", () => {
-      const wrapper = ({ children }) => (
-        <StoreProvider>{children}</StoreProvider>
-      )
+      const wrapper = ({ children }) => <StoreProvider>{children}</StoreProvider>
       const store = renderHook(
         () => ({
           dataActions: useDataActions(),
@@ -131,9 +113,7 @@ describe("createDataSlice", () => {
         store.result.current.dataActions.setData(data)
       })
 
-      expect(Array.isArray(store.result.current.clusterIdentities)).toEqual(
-        true
-      )
+      expect(Array.isArray(store.result.current.clusterIdentities)).toEqual(true)
     })
   })
 })
