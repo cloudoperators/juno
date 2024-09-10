@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo, useRef, useEffect } from "react"
+import React, { useMemo } from "react"
 import { useGlobalsActiveTab } from "../../hooks/useAppStore"
 
 const TabPanel = ({ value, children }) => {
