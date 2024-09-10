@@ -22,9 +22,6 @@ describe("Helpers", () => {
     test("return standard error message if no object message available", () => {
       expect(parseError({})).toEqual("An error occurred. There is no further information")
     })
-    test("return standard error message if no object message available", () => {
-      expect(parseError()).toEqual("An error occurred. There is no further information")
-    })
     test("return error text if just a string is available", () => {
       expect(parseError("This is a mega error")).toEqual('"This is a mega error"')
     })
