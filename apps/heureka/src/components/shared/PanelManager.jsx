@@ -5,12 +5,7 @@
 
 import React from "react"
 import { Panel, Stack, PanelBody, Container } from "@cloudoperators/juno-ui-components"
-import {
-  useGlobalsActions,
-  useGlobalsShowPanel,
-  useGlobalsShowServiceDetail,
-  useGlobalsShowIssueDetail,
-} from "../../hooks/useAppStore"
+import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowServiceDetail } from "../../hooks/useAppStore"
 import ServicesDetail from "../services/ServicesDetails"
 import constants from "./constants"
 import IssueMatchesDetails from "../issueMatches/IssueMatchesDetails"
@@ -20,7 +15,6 @@ const PanelManger = () => {
   const { setShowPanel, setShowServiceDetail, setShowIssueDetail } = useGlobalsActions()
   const showPanel = useGlobalsShowPanel()
   const showServiceDetail = useGlobalsShowServiceDetail()
-  const showIssueDetail = useGlobalsShowIssueDetail()
 
   const onPanelClose = () => {
     setShowPanel(null)

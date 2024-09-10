@@ -13,10 +13,6 @@ export default [
     rules: {
       // disable for now, till we switch to TypeScript
       "react/prop-types": "off",
-      "no-unused-vars": "off",
-      "react/no-unescaped-entities": "off",
-      "react/jsx-no-target-blank": "off",
-      "jest/no-identical-title": "off",
     },
   },
   {
