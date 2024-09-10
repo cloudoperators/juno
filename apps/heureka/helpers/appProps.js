@@ -15,7 +15,7 @@ module.exports = ({ appPath = "" } = {}) => {
     } else {
       secrets = require(path.resolve(appPath, "secretProps.json"))
     }
-  } catch (e) {
+  } catch {
     secrets = {}
   }
 
