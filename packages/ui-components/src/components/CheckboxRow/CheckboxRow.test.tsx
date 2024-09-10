@@ -8,65 +8,65 @@ import { render, screen } from "@testing-library/react"
 import { CheckboxRow } from "./index"
 
 describe("CheckboxRow", () => {
-  test("renders a checkbox row", async () => {
+  test("renders a checkbox row", () => {
     render(<CheckboxRow data-testid="checkbox-row" />)
     expect(screen.getByTestId("checkbox-row")).toBeInTheDocument()
   })
 
-  test("renders a checked checkbox as passed", async () => {
+  test("renders a checked checkbox as passed", () => {
     act(() => {
       render(<CheckboxRow checked />)
     })
     expect(screen.getByRole("checkbox")).toBeChecked()
   })
 
-  test("renders a checkbox row with a value as passed", async () => {
+  test("renders a checkbox row with a value as passed", () => {
     render(<CheckboxRow value="my-value" />)
     expect(screen.getByRole("checkbox")).toHaveAttribute("value", "my-value")
   })
 
-  test("renders a checkbox row with a name as passed", async () => {
+  test("renders a checkbox row with a name as passed", () => {
     render(<CheckboxRow name="my-checkbox" />)
     expect(screen.getByRole("checkbox")).toHaveAttribute("name", "my-checkbox")
   })
 
-  test("renders a checkbox row with an id as passed", async () => {
+  test("renders a checkbox row with an id as passed", () => {
     render(<CheckboxRow id="my-checkbox" />)
     expect(screen.getByRole("checkbox")).toHaveAttribute("id", "my-checkbox")
   })
 
-  test("renders a checkbox row with a checkbox and an associated label with an id as passed", async () => {
+  test("renders a checkbox row with a checkbox and an associated label with an id as passed", () => {
     render(<CheckboxRow data-testid="my-checkbox-row" label="My Checkbox Row" id="checkbox-row" />)
     expect(screen.getByRole("checkbox")).toBeInTheDocument()
     expect(screen.getByLabelText("My Checkbox Row")).toBeInTheDocument()
     expect(screen.getByRole("checkbox")).toHaveAttribute("id", "checkbox-row")
   })
 
-  test("renders a help text as passed", async () => {
+  test("renders a help text as passed", () => {
     render(<CheckboxRow helptext="Helptext goes here" />)
     expect(screen.getByText("Helptext goes here")).toBeInTheDocument()
   })
 
-  test("renders a helpt text with a link as passed", async () => {
+  test("renders a helpt text with a link as passed", () => {
     render(<CheckboxRow helptext={<a href="#">Link</a>} />)
     expect(screen.getByRole("link")).toBeInTheDocument()
     expect(screen.getByRole("link")).toHaveAttribute("href", "#")
     expect(screen.getByRole("link")).toHaveTextContent("Link")
   })
 
-  test("renders a required label as passed", async () => {
+  test("renders a required label as passed", () => {
     render(<CheckboxRow label="Required Input" required />)
     expect(document.querySelector(".juno-required")).toBeInTheDocument()
   })
 
-  test("renders a disabled Checkbox as passed", async () => {
+  test("renders a disabled Checkbox as passed", () => {
     act(() => {
       render(<CheckboxRow disabled />)
     })
     expect(screen.getByRole("checkbox")).toBeDisabled()
   })
 
-  test("renders an invalid CheckboxRow as passed", async () => {
+  test("renders an invalid CheckboxRow as passed", () => {
     act(() => {
       render(<CheckboxRow invalid label="invalid checkbox" />)
     })
@@ -75,7 +75,7 @@ describe("CheckboxRow", () => {
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
 
-  test("renders an invalid CheckRow with an error text as passed", async () => {
+  test("renders an invalid CheckRow with an error text as passed", () => {
     render(<CheckboxRow errortext="This is an error text" label="Checkbox" />)
     expect(screen.getByRole("checkbox")).toBeInTheDocument()
     expect(screen.getByRole("checkbox")).toHaveClass("juno-checkbox-invalid")
@@ -83,7 +83,7 @@ describe("CheckboxRow", () => {
     expect(screen.getByText("This is an error text")).toBeInTheDocument()
   })
 
-  test("renders a valid CheckboxRow as passed", async () => {
+  test("renders a valid CheckboxRow as passed", () => {
     act(() => {
       render(<CheckboxRow valid label="valid checkbox" />)
     })
@@ -92,18 +92,18 @@ describe("CheckboxRow", () => {
     expect(screen.getByTitle("CheckCircle")).toBeInTheDocument()
   })
 
-  test("renders a custom className", async () => {
+  test("renders a custom className", () => {
     render(<CheckboxRow data-testid="my-checkbox-row" className="my-classname" />)
     expect(screen.getByTestId("my-checkbox-row")).toHaveClass("my-classname")
   })
 
-  test("renders all props as passed", async () => {
+  test("renders all props as passed", () => {
     render(<CheckboxRow data-testid="my-checkbox-row" data-lolol="some-prop" />)
     expect(screen.getByTestId("my-checkbox-row")).toHaveAttribute("data-lolol", "some-prop")
   })
 
-  test("fire handler on change as passed", async () => {
-    const onChangeSpy = jest.fn()
+  test("fire handler on change as passed", () => {
+    const onChangeSpy = vi.fn()
     render(<CheckboxRow onChange={onChangeSpy} />)
     act(() => {
       screen.getByRole("checkbox").click()

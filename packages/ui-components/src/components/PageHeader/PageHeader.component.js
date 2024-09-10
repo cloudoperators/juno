@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import SAPLogo from "../../img/sap_logo.svg"
+import SAPLogo from "../../img/JunoUI_logo.svg"
 
 const basePageHeader = `
   jn-flex
@@ -23,7 +23,7 @@ const basePageHeader = `
 `
 
 const logoStyles = `
-  jn-h-6
+  jn-h-7
   jn-mr-3
 `
 

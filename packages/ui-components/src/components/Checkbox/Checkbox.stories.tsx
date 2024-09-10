@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Checkbox } from "./index.js"
+import { Checkbox } from "./index"
 
 export default {
   title: "Forms/Checkbox/Checkbox",
