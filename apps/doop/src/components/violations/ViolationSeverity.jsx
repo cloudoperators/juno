@@ -5,7 +5,6 @@
 
 import React from "react"
 import { Icon, Tooltip, TooltipTrigger, TooltipContent } from "@cloudoperators/juno-ui-components"
-import { useDataSeverityWeights } from "../StoreProvider"
 
 // data to be used for severity while rendering
 const SEVERITY_DATA = {

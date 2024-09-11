@@ -13,7 +13,7 @@ const ViolationDetailsPills = ({ violation }) => {
 
   return (
     <Stack direction="vertical" gap="2">
-      {Object.keys(violation.object_identity).map((key, i) => (
+      {Object.keys(violation.object_identity).map((key) => (
         <div key={key} className="whitespace-nowrap">
           <FilterPill name={key} value={valueToLabel(violation.object_identity[key])} />
         </div>

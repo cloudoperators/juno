@@ -19,7 +19,7 @@ import Violations from "./violations/violations"
 import { fetchProxy } from "@cloudoperators/juno-utils"
 import { useGlobalsMock, useGlobalsEndpoint } from "./StoreProvider"
 
-const AppContent = ({ id, showDebugSeverities }) => {
+const AppContent = ({ showDebugSeverities }) => {
   const { setData, setShowDebugSeverities } = useDataActions()
   const { addMessage } = useActions()
   const isMock = useGlobalsMock()

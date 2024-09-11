@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, Suspense, useLayoutEffect } from "react"
-import { Panel, PanelBody, Message } from "@cloudoperators/juno-ui-components"
+import React, { useState, useEffect, useLayoutEffect } from "react"
+import { Panel, PanelBody } from "@cloudoperators/juno-ui-components"
 import { useDataDetailsViolationGroupKind, useDataActions } from "../StoreProvider"
 import HintLoading from "../shared/HintLoading"
 import ViolationDetailsList from "./ViolationDetailsList"
