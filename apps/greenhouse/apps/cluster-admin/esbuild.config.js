@@ -31,7 +31,7 @@ const serve = args.indexOf("--serve") >= 0
 // helpers for console log
 const green = "\x1b[32m%s\x1b[0m"
 const yellow = "\x1b[33m%s\x1b[0m"
-const clear = "\x1b[2J\x1b[H"
+const clear = "\x1b"
 
 const build = async () => {
   // delete build folder and re-create it as an empty folder
@@ -153,11 +153,11 @@ const build = async () => {
                 // rewrite urls inside css
                 url({
                   url: "inline",
-                  // maxSize: 10, // use dataurls if files are smaller than 10k
-                  // fallback: "copy", // if files are bigger use copy method
-                  // assetsPath: "./build/assets",
-                  // useHash: true,
-                  // optimizeSvgEncode: true,
+                  maxSize: 10, // use dataurls if files are smaller than 10k
+                  fallback: "copy", // if files are bigger use copy method
+                  assetsPath: "./build/assets",
+                  useHash: true,
+                  optimizeSvgEncode: true,
                 }),
               ]
 
@@ -183,7 +183,7 @@ const build = async () => {
 
       let { host, port } = await ctx.serve({
         host: "0.0.0.0",
-        port: parseInt(process.env.APP_PORT || process.env.PORT || 3100),
+        port: parseInt(process.env.APP_PORT || process.env.PORT || 3103),
         servedir: "public",
       })
       console.log("serve on", `${host}:${port}`)

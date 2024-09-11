@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: Apache-2.0
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -29,9 +29,7 @@
     </style>
     <script>
       // automatically reload on build changes
-      new EventSource("/esbuild").addEventListener("change", () =>
-        location.reload()
-      )
+      new EventSource("/esbuild").addEventListener("change", () => location.reload())
     </script>
     <script type="importmap">
       {
@@ -62,6 +60,7 @@
     <script type="module">
       // appProps are generated in development env and added to the build
       import allProps from "./build/appProps.js"
+
       import("./build/index.js").then((app) => {
         app.mount(document.getElementById("root"), { props: allProps.appProps })
       })

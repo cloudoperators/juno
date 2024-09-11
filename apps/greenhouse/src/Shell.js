@@ -44,6 +44,8 @@ const Shell = (props = {}) => {
 }
 
 const StyledShell = (props) => {
+  props = { ...props, currentHost: props.currentHost === "origin" ? window.location.origin : props.currentHost }
+
   return (
     <AppShellProvider>
       {/* load styles inside the shadow dom */}

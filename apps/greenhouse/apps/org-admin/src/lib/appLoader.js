@@ -26,6 +26,7 @@ export async function mount(containerElement, { name, version, assetsHost = docu
 
   // Check if the app name exists in the manifest
   if (!manifest[name]) {
+    console.debug("==========================dsdsdsds", name, manifest)
     console.error(`No manifest found for ${name}`)
     return false // Return false if the app is not found in the manifest
   }
