@@ -29,7 +29,7 @@ Alerting rules offer the capability to define alert conditions using expressions
 
 #### Labels
 
-The labels clause allows specifying a set of additional labels to be attached to the alert. Following is a live example of a set of labels from an alert of the `support_group:containers` with `severity:info` in the `region:eu-de-2`.
+The labels clause allows specifying a set of additional labels to be attached to the alert. They look something like the below:
 
 ```js
 {
@@ -48,7 +48,6 @@ The labels clause allows specifying a set of additional labels to be attached to
     "region": "eu-de-2",
     "service": "resources",
     "severity": "info",
-    "support_group": "containers",
     "tier": "k8s",
     "status": "active"
   }
@@ -74,7 +73,6 @@ Given an alert with following labels:
   fingerprint: "alert123",
   labels: {
     severity: "critical",
-    support_group: "containers",
     service: "automation",
   }
   ...
@@ -89,7 +87,6 @@ In order to prevent the alert from continuing to trigger, we require a silence t
   id: "silence123",
   matchers: [
     { name: "severity", value: "critical" },
-    { name: "support_group", value: "containers" },
     { name: "service", value: "automation" },
   ],
   ...
@@ -151,7 +148,6 @@ PodOOMKilled alarm labels example:
   "region": "eu-de-1",
   "service": "resources",
   "severity": "info",
-  "support_group": "containers",
   "tier": "k8s",
   "status": "active"
 }
