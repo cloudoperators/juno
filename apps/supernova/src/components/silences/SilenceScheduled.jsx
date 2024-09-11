@@ -36,6 +36,8 @@ const SilenceScheduled = (props) => {
 
   const { addLocalItem } = useSilencesActions()
 
+  const [isNameEditable, setNameEditable] = useState(false)
+
   // set sucess of sending the silence
   const [success, setSuccess] = useState(null)
 
@@ -155,8 +157,18 @@ const SilenceScheduled = (props) => {
     setFormState(newFormState)
 
     setSelected(newSelectedOption)
+
+    if (authData?.parsed?.fullName === "anonymous") {
+      setNameEditable(true)
+    }
   }
 
+  const onInputChanged = ({ key, value }) => {
+    if (!value) return
+    setFormState({ ...formState, [key]: value })
+  }
+
+  // todo delete other input change functions
   const onChangeLabelValue = (e) => {
     const editable_label = e.target.id
     setFormState(
@@ -247,7 +259,13 @@ const SilenceScheduled = (props) => {
             <Form>
               <FormSection>
                 <FormRow>
-                  <TextInput required label="Silenced by" value={formState.createdBy} disabled />
+                  <TextInput
+                    required
+                    label="Silenced by"
+                    value={formState.createdBy}
+                    onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                    disabled={!isNameEditable}
+                  />
                 </FormRow>
                 <FormRow>
                   <div className="grid gap-2 grid-cols-2">

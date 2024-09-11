@@ -59,6 +59,8 @@ const SilenceNew = ({ alert, size, variant }) => {
   const { addLocalItem, getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
 
+  const [isNameEditable, setNameEditable] = useState(false)
+
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
   const [expirationDate, setExpirationDate] = useState(null)
@@ -78,6 +80,10 @@ const SilenceNew = ({ alert, size, variant }) => {
       createdBy: authData?.parsed?.fullName,
       matchers: setupMatchers(alert?.labels, excludedLabels, enrichedLabels),
     })
+
+    if (authData?.parsed?.fullName === "anonymous") {
+      setNameEditable(true)
+    }
     // get the latest expiration date from the existing silences
     // recalculate always on open modal due to the fact that the silences or local silences
     // may change without change in the alert
@@ -208,7 +214,13 @@ const SilenceNew = ({ alert, size, variant }) => {
 
               <Form className="mt-6">
                 <FormRow>
-                  <TextInput required label="Silenced by" value={formState.createdBy} disabled />
+                  <TextInput
+                    required
+                    label="Silenced by"
+                    value={formState.createdBy}
+                    onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                    disabled={!isNameEditable}
+                  />
                 </FormRow>
                 <FormRow>
                   <Textarea

@@ -55,6 +55,7 @@ const RecreateSilence = (props) => {
 
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
+  const [isNameEditable, setNameEditable] = useState(true)
   const [expirationDate, setExpirationDate] = useState(null)
   const [showValidation, setShowValidation] = useState({})
   const [error, setError] = useState(null)
@@ -82,6 +83,9 @@ const RecreateSilence = (props) => {
     setError(null)
     setSuccess(null)
     setShowValidation({})
+    if (authData?.parsed?.fullName === "anonymous") {
+      setNameEditable(true)
+    }
   }, [displayNewSilence])
 
   // collect options for select dropdown with time (2 hours, 12 hours, 1 day, 3 days, 7 days) which exceeds the expiration date
@@ -198,7 +202,13 @@ const RecreateSilence = (props) => {
 
               <Form className="mt-6">
                 <FormRow>
-                  <TextInput required label="Silenced by" value={formState.createdBy} disabled />
+                  <TextInput
+                    required
+                    label="Silenced by"
+                    value={formState.createdBy}
+                    disabled={!isNameEditable}
+                    onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                  />
                 </FormRow>
                 <FormRow>
                   <Textarea
