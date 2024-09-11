@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { get, watch } from "@cloudoperators/juno-communicator"
 import useStore from "../store"
 
