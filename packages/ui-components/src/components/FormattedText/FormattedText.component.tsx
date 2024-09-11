@@ -4,10 +4,7 @@
  */
 
 import React from "react"
-
-const proseStyles = `
-  jn-prose
-`
+import "./formatted-text.scss"
 
 export interface FormattedTextProps {
   /** Add custom class name */
@@ -24,7 +21,7 @@ export const FormattedText = ({
   ...props
 }: FormattedTextProps) => {
   return (
-    <div className={`formatted-text-container ${proseStyles} ${className} `} {...props}>
+    <div className={`formatted-text-container ${className} `} {...props}>
       {children}
     </div>
   )

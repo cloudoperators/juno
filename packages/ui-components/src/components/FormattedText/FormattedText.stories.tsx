@@ -61,6 +61,28 @@ const Template = (args: FormattedTextProps) => (
       </ul>
       <div>
         <h2>Concepts</h2>
+        <table>
+          <tr>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Genre</th>
+          </tr>
+          <tr>
+            <td>The Book Thief</td>
+            <td>Markus Zusak</td>
+            <td>Historical Fiction</td>
+          </tr>
+          <tr>
+            <td>The Cruel Prince</td>
+            <td>Holly Black</td>
+            <td>Fantasy</td>
+          </tr>
+          <tr>
+            <td>The Silent Patient</td>
+            <td> Alex Michaelides</td>
+            <td>Psychological Fiction</td>
+          </tr>
+        </table>
       </div>
       <div>
         <h3>Alerts</h3>
