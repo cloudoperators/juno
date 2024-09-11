@@ -3,17 +3,23 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Built with Juno](https://cloudoperators.github.io/juno/built-with-juno.svg)](https://github.com/cloudoperators/juno)
 
-Supernova is an alternative UI for Prometheus Alertmanager with some quality of life improvements:
+Supernova is an enhanced UI for Prometheus Alertmanager, offering several quality-of-life improvements:
 
-- Micro frontend design based on `Juno UI components`
-- Predefined filter categories
-- Easy filtering
-- Autodiscover of the support group and added automatically as filter
-- Aggregation and counting of alerts by region and severity
-- Automatic URL linking for URLs in descriptions
-- Parsing of alert labels for included external links
-- Display of active and expired silences for a given alert
-- Warning of an existing silence displaying the exact expiration time when creating new silences
+- Predefined filter categories for quick, one-click filtering of the alerts list using label and regex combinations.
+- Configurable labels for flexible alert filtering.
+- Convenient silencing of alerts directly from the alerts list.
+- Display of both active and expired silences for any given alert, with the ability to recreate expired silences or expire active ones.
+- Aggregation and count of alerts by region and severity.
+- Automatic hyperlinking for URLs found in alert descriptions.
+- Parsing of alert labels to identify paths to external tools and turning them into hyperlinks on the alert.
+- Notification when creating new silences that overlap with existing ones.
+- Micro frontend design that allows embedding into existing applications via a script tag.
+
+**Coming soon:**
+
+- Configurable initial filters to automatically apply at app startup.
+- Aggregation by customizable labels, replacing the current hardcoded region label.
+- Configurable URL patterns for automatic linking in labels (replacing the current hardcoded patterns).
 
 ## Concepts
 
@@ -23,7 +29,7 @@ Alerting rules offer the capability to define alert conditions using expressions
 
 #### Labels
 
-The labels clause allows specifying a set of additional labels to be attached to the alert. Following is a live example of a set of labels from an alert of the `support group:containers` with `severity:info` in the `region:eu-de-2`.
+The labels clause allows specifying a set of additional labels to be attached to the alert. They look something like the below:
 
 ```js
 {
@@ -33,7 +39,6 @@ The labels clause allows specifying a set of additional labels to be attached to
     "cluster": "eu-de-2",
     "cluster_type": "metal",
     "context": "memory",
-    "label_ccloud_support_group": "containers",
     "meta": "Pod kube-system/kube-system-metal-owner-label-injector-28150200-2vgk5 OOMKilled",
     "namespace": "kube-system",
     "no_alert_on_absence": "true",
@@ -43,7 +48,6 @@ The labels clause allows specifying a set of additional labels to be attached to
     "region": "eu-de-2",
     "service": "resources",
     "severity": "info",
-    "support_group": "containers",
     "tier": "k8s",
     "status": "active"
   }
@@ -69,7 +73,6 @@ Given an alert with following labels:
   fingerprint: "alert123",
   labels: {
     severity: "critical",
-    support_group: "containers",
     service: "automation",
   }
   ...
@@ -84,7 +87,6 @@ In order to prevent the alert from continuing to trigger, we require a silence t
   id: "silence123",
   matchers: [
     { name: "severity", value: "critical" },
-    { name: "support_group", value: "containers" },
     { name: "service", value: "automation" },
   ],
   ...
@@ -93,13 +95,35 @@ In order to prevent the alert from continuing to trigger, we require a silence t
 
 ## Configuration
 
+When running Supernova in dev mode the configuration is pulled from a `secretProps.js` file (see sample `secretProps.sample.js`). When loading the app via script tag the configuration can be passed via attribute on the script tag. For configuration when running the image built with docker see the `README.md` in the `/docker` folder.
+
+### Endpoint
+
+Sets the Alertmanager API Endpoint URL. Provide the full URL of the Alertmanager API endpoint to which the application will connect.
+
+To set the endpoint:
+
+- Configured via app prop `endpoint`, which is used during the setup of the script tag.
+
+Example:
+
+```json
+"https://myalertmanager.com/api/v2"
+```
+
 ### Filter labels
 
 Filter labels are a set of labels that are utilized to define the criteria by which alerts will be filtered, if those labels exist within the fetched alerts. These filter labels enable you to selectively narrow down the alerts based on specific label values, resulting in a more targeted and refined alert filtering process.
 
-To set the filter labels:
+To set the filter labels which are made available for filtering:
 
-1. Utilize the app prop `filterLabels`, which is used during the setup of the script tag.
+- Configured via the app prop `filterLabels`
+
+Example value:
+
+```json
+["severity", "region", "app", "namespace"]
+```
 
 ### Silence excluded alert labels
 
@@ -115,8 +139,6 @@ PodOOMKilled alarm labels example:
   "cluster": "eu-de-1",
   "cluster_type": "metal",
   "context": "memory",
-  "label_ccloud_service": "keppel",
-  "label_ccloud_support_group": "containers",
   "meta": "Pod keppel/keppel-janitor-6dc777bcbf-5xrns OOMKilled",
   "namespace": "keppel",
   "no_alert_on_absence": "true",
@@ -126,7 +148,6 @@ PodOOMKilled alarm labels example:
   "region": "eu-de-1",
   "service": "resources",
   "severity": "info",
-  "support_group": "containers",
   "tier": "k8s",
   "status": "active"
 }
@@ -136,7 +157,13 @@ If the end user wishes to include any excluded labels as matchers, they can easi
 
 To set the excluded alert labels:
 
-1. Utilize the app prop `silenceExcludedLabels`, which is used during the setup of the script tag.
+- Configured via app prop `silenceExcludedLabels`
+
+Example:
+
+```json
+["pod", "pod_name", "instance"]
+```
 
 ### Theme
 
@@ -144,19 +171,11 @@ Set this attribute to specify a custom theme for your application. Possible valu
 
 To set the theme:
 
-1. Utilize the app prop `theme`, which is used during the setup of the script tag.
-
-### Endpoint
-
-Sets the Alertmanager API Endpoint URL. Provide the full URL of the Alertmanager API endpoint to which the application will connect.
-
-To set the endpoint:
-
-1. Utilize the app prop `endpoint`, which is used during the setup of the script tag.
+- Configured via app prop `theme`
 
 ### Predefined Filters
 
-PredefinedFilters are filters applied through TabNavigation in the UI to differentiate between contexts such as Production, QA, and others. They are loaded by default when the application is loaded. The format is a list of objects including name, display name and matchers (map containing matchers as name and expression pairs).
+PredefinedFilters are groups of filters comprised of a list of filter labels and a regex that is used to filter on the values of that label. They can be thought of as filter categories where the filter logic can be more complex than simple label+values pairs. Predefined filters are defined as an array of objects, where each object is a predefined filter which contains the display name for the UI as well as a list of filter label + value regex pairs which are AND concatenated when they are being evaluated.
 
 Example:
 
@@ -164,7 +183,7 @@ Example:
 [
   {
     "name": "prod",
-    "displayName": "Productive System",
+    "displayName": "Prod",
     "matchers": {
       "region": "^prod-.*"
     }
@@ -174,7 +193,7 @@ Example:
 
 To set the predefined Filter:
 
-1. Utilize the app prop `predefinedFilters`, which is used during the setup of the script tag.
+- Configured via app prop `predefinedFilters`
 
 ### Silence Templates
 
@@ -198,4 +217,4 @@ Example:
 
 To set the silence templates:
 
-1. Utilize the app prop `silenceTemplates`, which is used during the setup of the script tag.
+- Configured via app prop `silenceTemplates`, which is used during the setup of the script tag.
