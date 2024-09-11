@@ -5,9 +5,9 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { Textarea } from "../Textarea/index.js"
+import { Textarea } from "../../deprecated_js/Textarea/index.js"
 import { FormRow } from "../FormRow/index.js"
-import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
+import { withDeprecationWarning } from "../../deprecated_js/withDeprecationWarning/index.js"
 
 /** DEPRECATED: A textarea row containing a textarea, associated label, optional helptext, and structural markup. This component is DEPRECATED, use Textarea instead. */
 

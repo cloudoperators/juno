@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { Icon } from "../Icon/Icon.component.js"
+import { Icon } from "../../deprecated_js/Icon/Icon.component.js"
 
 const filterpillStyles = `
 	jn-inline-flex

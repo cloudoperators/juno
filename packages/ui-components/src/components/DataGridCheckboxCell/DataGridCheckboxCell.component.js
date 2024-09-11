@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { Checkbox } from "../CheckboxJs/Checkbox.component.js"
+import { Checkbox } from "../../deprecated_js/Checkbox/Checkbox.component.js"
 import { DataGridCell } from "../DataGridCell/DataGridCell.component.js"
 
 export const DataGridCheckboxCell = ({ selected = false, disabled = false, className = "", onChange, ...props }) => {

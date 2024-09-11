@@ -6,7 +6,7 @@
 import { Icon } from "./index.ts"
 
 export default {
-  title: "Components/IconTs",
+  title: "Components/Icon",
   component: Icon,
   argTypes: {},
   parameters: {

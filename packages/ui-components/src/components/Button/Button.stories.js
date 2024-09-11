@@ -5,8 +5,8 @@
 
 import React from "react"
 import { Button } from "./index"
-import { Icon } from "../Icon/index.js"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { Icon } from "../../deprecated_js/Icon/index.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 export default {
   title: "Components/Button",

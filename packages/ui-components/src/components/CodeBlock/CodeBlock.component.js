@@ -6,7 +6,7 @@
 import React, { useState, useRef } from "react"
 import PropTypes from "prop-types"
 import { JsonViewer } from "../JsonViewer/JsonViewer.component"
-import { Icon } from "../Icon/index"
+import { Icon } from "../../deprecated_js/Icon/index"
 
 const wrapperStyles = `
   jn-bg-theme-code-block

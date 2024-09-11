@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { forwardRef, LegacyRef } from "react"
+import React, { forwardRef } from "react"
+import PropTypes from "prop-types"
 
 /* Import Icons here. The icon svgs in the icons folder correspond to the respective "xyz_24px.svg" from material-ui icons.
  */
@@ -21,7 +22,7 @@ import ChevronLeft from "@material-design-icons/svg/outlined/chevron_left.svg"
 import ChevronRight from "@material-design-icons/svg/outlined/chevron_right.svg"
 import Close from "@material-design-icons/svg/filled/close.svg"
 import ContentCopy from "@material-design-icons/svg/outlined/content_copy.svg"
-import Danger from "./../Icon/icons/juno-danger.svg"
+import Danger from "../../components/Icon/icons/juno-danger.svg"
 import Dangerous from "@material-design-icons/svg/filled/dangerous.svg"
 import Download from "@material-design-icons/svg/filled/download.svg"
 import DeleteForever from "@material-design-icons/svg/filled/delete_forever.svg"
@@ -36,7 +37,7 @@ import ExpandMore from "@material-design-icons/svg/outlined/expand_more.svg"
 import FilterAlt from "@material-design-icons/svg/filled/filter_alt.svg"
 import Forum from "@material-design-icons/svg/filled/forum.svg"
 import Help from "@material-design-icons/svg/filled/help.svg"
-import Home from "./../Icon/icons/home_sharp.svg"
+import Home from "../../components/Icon/icons/home_sharp.svg"
 import Info from "@material-design-icons/svg/filled/info.svg"
 import Comment from "@material-design-icons/svg/filled/comment.svg"
 import ManageAccounts from "@material-design-icons/svg/filled/manage_accounts.svg"
@@ -46,13 +47,13 @@ import NightsStay from "@material-design-icons/svg/outlined/nights_stay.svg"
 import NotificationsOff from "@material-design-icons/svg/outlined/notifications_off.svg"
 import OpenInBrowser from "@material-design-icons/svg/outlined/open_in_browser.svg"
 import OpenInNew from "@material-design-icons/svg/outlined/open_in_new.svg"
-import Place from "./../Icon/icons/place.svg"
+import Place from "../../components/Icon/icons/place.svg"
 import Success from "@material-design-icons/svg/filled/check_box.svg"
 import Search from "@material-design-icons/svg/outlined/search.svg"
-import SeverityLow from "./../Icon/icons/juno_severity_low.svg"
-import SeverityMedium from "./../Icon/icons/juno_severity_medium.svg"
-import SeverityHigh from "./../Icon/icons/juno_severity_high.svg"
-import SeverityCritical from "./../Icon/icons/juno_severity_critical.svg"
+import SeverityLow from "../../components/Icon/icons/juno_severity_low.svg"
+import SeverityMedium from "../../components/Icon/icons/juno_severity_medium.svg"
+import SeverityHigh from "../../components/Icon/icons/juno_severity_high.svg"
+import SeverityCritical from "../../components/Icon/icons/juno_severity_critical.svg"
 import Upload from "@material-design-icons/svg/filled/upload.svg"
 import Warning from "@material-design-icons/svg/filled/warning.svg"
 import WBSunny from "@material-design-icons/svg/outlined/wb_sunny.svg"
@@ -90,68 +91,61 @@ const buttonIconStyles = `
 //   jn-leading-none
 // `
 // export all known icons as an array of their names to be used with PropTypes here and from other components:
-export type KnownIcons =
-  | "accessTime"
-  | "accountCircle"
-  | "addCircle"
-  | "autoAwesomeMosaic"
-  | "autoAwesomeMotion"
-  | "bolt"
-  | "calendarToday"
-  | "cancel"
-  | "check"
-  | "checkCircle"
-  | "chevronLeft"
-  | "chevronRight"
-  | "close"
-  | "comment"
-  | "contentCopy"
-  | "danger"
-  | "dangerous"
-  | "default"
-  | "deleteForever"
-  | "description"
-  | "dns"
-  | "download"
-  | "edit"
-  | "error"
-  | "errorOutline"
-  | "exitToApp"
-  | "expandLess"
-  | "expandMore"
-  | "filterAlt"
-  | "forum"
-  | "help"
-  | "home"
-  | "info"
-  | "manageAccounts"
-  | "monitorHeart"
-  | "moreVert"
-  | "nightsStay"
-  | "notificationsOff"
-  | "openInBrowser"
-  | "openInNew"
-  | "place"
-  | "search"
-  | "severityLow"
-  | "severityMedium"
-  | "severityHigh"
-  | "severityCritical"
-  | "success"
-  | "upload"
-  | "warning"
-  | "wbSunny"
-  | "widgets"
+export const knownIcons = [
+  "accessTime",
+  "accountCircle",
+  "addCircle",
+  "autoAwesomeMosaic",
+  "autoAwesomeMotion",
+  "bolt",
+  "calendarToday",
+  "cancel",
+  "check",
+  "checkCircle",
+  "chevronLeft",
+  "chevronRight",
+  "close",
+  "comment",
+  "contentCopy",
+  "danger",
+  "dangerous",
+  "default",
+  "deleteForever",
+  "description",
+  "dns",
+  "download",
+  "edit",
+  "error",
+  "errorOutline",
+  "exitToApp",
+  "expandLess",
+  "expandMore",
+  "filterAlt",
+  "forum",
+  "help",
+  "home",
+  "info",
+  "manageAccounts",
+  "monitorHeart",
+  "moreVert",
+  "nightsStay",
+  "notificationsOff",
+  "openInBrowser",
+  "openInNew",
+  "place",
+  "search",
+  "severityLow",
+  "severityMedium",
+  "severityHigh",
+  "severityCritical",
+  "success",
+  "upload",
+  "warning",
+  "wbSunny",
+  "widgets",
+]
 
-interface IconColorProps {
-  icon?: KnownIcons
-  color: string
-  title: string
-  size: string | number
-  iconClassName: string
-}
-
-const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconProps }: IconColorProps) => {
+const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconProps }) => {
   const iconClass = `juno-icon juno-icon-${icon} jn-fill-current ${color} ${iconClassName}`
 
   switch (icon) {
@@ -782,9 +776,19 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
   }
 }
 
-export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(
+export const Icon = forwardRef(
   (
-    { icon = null, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
+    {
+      icon = null,
+      color = "",
+      size = "24",
+      title = "",
+      className = "",
+      href = "",
+      disabled = false,
+      onClick,
+      ...props
+    },
     ref
   ) => {
     // if href or onClick was passed, then we want to add the passed classes and passed arbitrary props to the button or anchor
@@ -793,7 +797,7 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
     const iconProps = href || onClick ? {} : props
 
     const icn = getColoredSizedIcon({
-      icon: icon || undefined,
+      icon,
       color,
       size,
       title,
@@ -801,19 +805,18 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
       ...iconProps,
     })
 
-    const handleClick = (event: React.MouseEvent<EventTarget>) => {
+    const handleClick = (event) => {
       onClick && onClick(event)
     }
 
     const button = (
       <button
-        {...(props as React.HTMLProps<HTMLButtonElement>)}
-        type="button"
         onClick={handleClick}
         className={`juno-icon-button ${buttonIconStyles} ${className}`}
-        aria-label={title || icon || undefined}
+        aria-label={title || icon}
         disabled={disabled}
-        ref={ref as LegacyRef<HTMLButtonElement>}
+        ref={ref}
+        {...props}
       >
         {icn}
       </button>
@@ -821,11 +824,11 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
 
     const anchor = (
       <a
-        {...(props as React.HTMLProps<HTMLAnchorElement>)}
-        aria-label={title || icon || undefined}
         href={href}
         className={`juno-icon-link ${anchorIconStyles} ${className}`}
-        ref={ref as LegacyRef<HTMLAnchorElement>}
+        aria-label={title || icon}
+        ref={ref}
+        {...props}
       >
         {icn}
       </a>
@@ -837,17 +840,23 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
   }
 )
 
-Icon.displayName = "IconTs"
+Icon.displayName = "Icon"
 
-type EventHandler = (_event: React.MouseEvent<EventTarget>) => void
-
-export type IconProps = {
-  icon?: KnownIcons
-  color?: string
-  size?: string | number
-  title?: string
-  className?: string
-  href?: string
-  disabled?: boolean
-  onClick?: EventHandler
-} & Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size">
+Icon.propTypes = {
+  /** The icon to display */
+  icon: PropTypes.oneOf(knownIcons),
+  /** By default, Icons will use the `color` of the current context. In order to use a different color just for the icon, a text color class can be passed. These begin with "jn-text-". */
+  color: PropTypes.string,
+  /** The size of the icon as a number of pixels (without "px": "16" will render an icon of 16px x 16px)*/
+  size: PropTypes.string,
+  /** The title of the icon. Important for accessibility, will also show as a tooltip: */
+  title: PropTypes.string,
+  /** A custom className */
+  className: PropTypes.string,
+  /** Optionally specify an href. This will render the Icon inside an <code><a></code> element with the given url. */
+  href: PropTypes.string,
+  /** Disable the Icon. Only applicable when rendering as a button by passing an onClick handler, too. */
+  disabled: PropTypes.bool,
+  /** Optionally specify a click handler. This will render the icon inside a <code><button></code> with the given handler.  */
+  onClick: PropTypes.func,
+}

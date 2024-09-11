@@ -4,7 +4,7 @@
  */
 
 import { Badge } from "./index"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 export default {
   title: "Components/Badge",
