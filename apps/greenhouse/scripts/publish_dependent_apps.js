@@ -18,7 +18,9 @@ if (fs.existsSync(APPS_FOLDER)) {
 const APP_SRC = [
   path.resolve(__dirname, "../../../apps/supernova"),
   path.resolve(__dirname, "../../../apps/heureka"),
+  path.resolve(__dirname, "../../../apps/doop"),
   path.resolve(__dirname, "../apps/org-admin"),
+  path.resolve(__dirname, "../apps/cluster-admin"),
   path.resolve(__dirname, "../apps/plugin-admin"),
   path.resolve(__dirname, "../apps/secret-admin"),
   path.resolve(__dirname, "../apps/team-admin"),
@@ -27,7 +29,9 @@ const APP_SRC = [
 const BACKWARD_COMPATIBILITY = {
   "@cloudoperators/juno-app-supernova": "supernova",
   "@cloudoperators/juno-app-heureka": "heureka",
+  "@cloudoperators/juno-app-doop": "doop",
   "@cloudoperators/juno-app-greenhouse-org-admin": "greenhouse-org-admin",
+  "@cloudoperators/juno-app-greenhouse-cluster-admin": "greenhouse-cluster-admin",
   "@cloudoperators/juno-app-greenhouse-plugin-admin": "greenhouse-plugin-admin",
   "@cloudoperators/juno-app-greenhouse-secret-admin": "greenhouse-secret-admin",
   "@cloudoperators/juno-app-greenhouse-team-admin": "greenhouse-team-admin",
@@ -47,16 +51,16 @@ APP_SRC.forEach((app) => {
   fs.cpSync(`${app}/${buildDir}`, `${appPath}/${buildDir}`, { recursive: true })
 
   manifest[pkg.name] = manifest[pkg.name] || {}
-  manifest[pkg.name][version] = { path: `/${path.basename(APPS_FOLDER)}/${name}@${version}/${buildDir}`, version }
-  manifest[pkg.name]["latest"] = { path: `/${path.basename(APPS_FOLDER)}/${name}@${version}/${buildDir}`, version }
+  manifest[pkg.name][version] = { path: `/${path.basename(APPS_FOLDER)}/${name}@${version}/${buildFile}`, version }
+  manifest[pkg.name]["latest"] = { path: `/${path.basename(APPS_FOLDER)}/${name}@${version}/${buildFile}`, version }
   if (BACKWARD_COMPATIBILITY[pkg.name]) {
     manifest[BACKWARD_COMPATIBILITY[pkg.name]] = manifest[BACKWARD_COMPATIBILITY[pkg.name]] || {}
     manifest[BACKWARD_COMPATIBILITY[pkg.name]][version] = {
-      path: `/${path.basename(APPS_FOLDER)}/${name}@${version}/${buildDir}`,
+      path: `/${path.basename(APPS_FOLDER)}/${name}@${version}/${buildFile}`,
       version,
     }
     manifest[BACKWARD_COMPATIBILITY[pkg.name]]["latest"] = {
-      path: `/${path.basename(APPS_FOLDER)}/${name}@${version}/${buildDir}`,
+      path: `/${path.basename(APPS_FOLDER)}/${name}@${version}/${buildFile}`,
       version,
     }
   }
