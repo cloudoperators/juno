@@ -15,12 +15,10 @@
     },
     "test": {
       "cache": false,
-      "persistent": true,
       "dependsOn": ["build"]
     },
     "dev": {
-      "cache": false,
-      "persistent": true
+      "cache": false
     },
     "clean": {
       "cache": false
