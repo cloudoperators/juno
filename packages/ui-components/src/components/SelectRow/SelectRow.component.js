@@ -7,7 +7,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Select } from "../Select/index.js"
 import { FormRow } from "../FormRow/index.js"
-import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
+import { withDeprecationWarning } from "../../deprecated_js/withDeprecationWarning/index.js"
 
 /** DEPRECATED: A select group containing a select, an associated label, and necessary structural markup. This component is DEPRECATED, use Select instead. */
 const SelectRow = ({

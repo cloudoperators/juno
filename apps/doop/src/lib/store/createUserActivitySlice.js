@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const createUserActivitySlice = (set, get) => ({
+const createUserActivitySlice = (set) => ({
   userActivity: {
     isActive: true,
 

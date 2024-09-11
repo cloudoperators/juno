@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { forwardRef } from "react"
-import PropTypes from "prop-types"
+import React, { forwardRef, LegacyRef } from "react"
 
 /* Import Icons here. The icon svgs in the icons folder correspond to the respective "xyz_24px.svg" from material-ui icons.
  */
@@ -91,61 +90,68 @@ const buttonIconStyles = `
 //   jn-leading-none
 // `
 // export all known icons as an array of their names to be used with PropTypes here and from other components:
-export const knownIcons = [
-  "accessTime",
-  "accountCircle",
-  "addCircle",
-  "autoAwesomeMosaic",
-  "autoAwesomeMotion",
-  "bolt",
-  "calendarToday",
-  "cancel",
-  "check",
-  "checkCircle",
-  "chevronLeft",
-  "chevronRight",
-  "close",
-  "comment",
-  "contentCopy",
-  "danger",
-  "dangerous",
-  "default",
-  "deleteForever",
-  "description",
-  "dns",
-  "download",
-  "edit",
-  "error",
-  "errorOutline",
-  "exitToApp",
-  "expandLess",
-  "expandMore",
-  "filterAlt",
-  "forum",
-  "help",
-  "home",
-  "info",
-  "manageAccounts",
-  "monitorHeart",
-  "moreVert",
-  "nightsStay",
-  "notificationsOff",
-  "openInBrowser",
-  "openInNew",
-  "place",
-  "search",
-  "severityLow",
-  "severityMedium",
-  "severityHigh",
-  "severityCritical",
-  "success",
-  "upload",
-  "warning",
-  "wbSunny",
-  "widgets",
-]
+export type KnownIcons =
+  | "accessTime"
+  | "accountCircle"
+  | "addCircle"
+  | "autoAwesomeMosaic"
+  | "autoAwesomeMotion"
+  | "bolt"
+  | "calendarToday"
+  | "cancel"
+  | "check"
+  | "checkCircle"
+  | "chevronLeft"
+  | "chevronRight"
+  | "close"
+  | "comment"
+  | "contentCopy"
+  | "danger"
+  | "dangerous"
+  | "default"
+  | "deleteForever"
+  | "description"
+  | "dns"
+  | "download"
+  | "edit"
+  | "error"
+  | "errorOutline"
+  | "exitToApp"
+  | "expandLess"
+  | "expandMore"
+  | "filterAlt"
+  | "forum"
+  | "help"
+  | "home"
+  | "info"
+  | "manageAccounts"
+  | "monitorHeart"
+  | "moreVert"
+  | "nightsStay"
+  | "notificationsOff"
+  | "openInBrowser"
+  | "openInNew"
+  | "place"
+  | "search"
+  | "severityLow"
+  | "severityMedium"
+  | "severityHigh"
+  | "severityCritical"
+  | "success"
+  | "upload"
+  | "warning"
+  | "wbSunny"
+  | "widgets"
 
-const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconProps }) => {
+interface IconColorProps {
+  icon?: KnownIcons
+  color: string
+  title: string
+  size: string | number
+  iconClassName: string
+}
+
+const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconProps }: IconColorProps) => {
   const iconClass = `juno-icon juno-icon-${icon} jn-fill-current ${color} ${iconClassName}`
 
   switch (icon) {
@@ -776,19 +782,9 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
   }
 }
 
-export const Icon = forwardRef(
+export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(
   (
-    {
-      icon = null,
-      color = "",
-      size = "24",
-      title = "",
-      className = "",
-      href = "",
-      disabled = false,
-      onClick,
-      ...props
-    },
+    { icon = null, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
     ref
   ) => {
     // if href or onClick was passed, then we want to add the passed classes and passed arbitrary props to the button or anchor
@@ -797,7 +793,7 @@ export const Icon = forwardRef(
     const iconProps = href || onClick ? {} : props
 
     const icn = getColoredSizedIcon({
-      icon,
+      icon: icon || undefined,
       color,
       size,
       title,
@@ -805,18 +801,19 @@ export const Icon = forwardRef(
       ...iconProps,
     })
 
-    const handleClick = (event) => {
+    const handleClick = (event: React.MouseEvent<EventTarget>) => {
       onClick && onClick(event)
     }
 
     const button = (
       <button
+        {...(props as React.HTMLProps<HTMLButtonElement>)}
+        type="button"
         onClick={handleClick}
         className={`juno-icon-button ${buttonIconStyles} ${className}`}
-        aria-label={title || icon}
+        aria-label={title || icon || undefined}
         disabled={disabled}
-        ref={ref}
-        {...props}
+        ref={ref as LegacyRef<HTMLButtonElement>}
       >
         {icn}
       </button>
@@ -824,11 +821,11 @@ export const Icon = forwardRef(
 
     const anchor = (
       <a
+        {...(props as React.HTMLProps<HTMLAnchorElement>)}
+        aria-label={title || icon || undefined}
         href={href}
         className={`juno-icon-link ${anchorIconStyles} ${className}`}
-        aria-label={title || icon}
-        ref={ref}
-        {...props}
+        ref={ref as LegacyRef<HTMLAnchorElement>}
       >
         {icn}
       </a>
@@ -840,23 +837,17 @@ export const Icon = forwardRef(
   }
 )
 
-Icon.displayName = "Icon"
+Icon.displayName = "IconTs"
 
-Icon.propTypes = {
-  /** The icon to display */
-  icon: PropTypes.oneOf(knownIcons),
-  /** By default, Icons will use the `color` of the current context. In order to use a different color just for the icon, a text color class can be passed. These begin with "jn-text-". */
-  color: PropTypes.string,
-  /** The size of the icon as a number of pixels (without "px": "16" will render an icon of 16px x 16px)*/
-  size: PropTypes.string,
-  /** The title of the icon. Important for accessibility, will also show as a tooltip: */
-  title: PropTypes.string,
-  /** A custom className */
-  className: PropTypes.string,
-  /** Optionally specify an href. This will render the Icon inside an <code><a></code> element with the given url. */
-  href: PropTypes.string,
-  /** Disable the Icon. Only applicable when rendering as a button by passing an onClick handler, too. */
-  disabled: PropTypes.bool,
-  /** Optionally specify a click handler. This will render the icon inside a <code><button></code> with the given handler.  */
-  onClick: PropTypes.func,
-}
+type EventHandler = (_event: React.MouseEvent<EventTarget>) => void
+
+export type IconProps = {
+  icon?: KnownIcons
+  color?: string
+  size?: string | number
+  title?: string
+  className?: string
+  href?: string
+  disabled?: boolean
+  onClick?: EventHandler
+} & Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size">

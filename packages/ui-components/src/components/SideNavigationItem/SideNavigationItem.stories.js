@@ -6,7 +6,7 @@
 import React from "react"
 import { SideNavigationItem } from "./index.js"
 import { SideNavigation } from "../SideNavigation/index"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 export default {
   title: "Navigation/SideNavigation/SideNavigationItem",

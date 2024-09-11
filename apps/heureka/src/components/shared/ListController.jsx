@@ -36,8 +36,8 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
         filter: {
           ...activeFilters,
           ...predefinedFilters,
-          ...(entityName === "IssueMatches" && {
-            // Currently search is only available for IssueMatches entity.
+          ...(["IssueMatches", "Services"].includes(entityName) && {
+            // Currently search is only available for IssueMatches and Services entity.
             search: Array.isArray(searchTerm) ? searchTerm : [searchTerm], // Ensure searchTerm is an array
           }),
         },

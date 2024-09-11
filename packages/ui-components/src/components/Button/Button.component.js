@@ -6,8 +6,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import "./button.scss"
-import { Icon } from "../Icon/index.js"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { Icon } from "../../deprecated_js/Icon/index.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 import { Spinner } from "../Spinner/index.js"
 
 const btnBase = `

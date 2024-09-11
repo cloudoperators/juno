@@ -85,7 +85,7 @@ const FilterSelect = ({ entityName, isLoading }) => {
       {activeFilters && Object.keys(activeFilters).length > 0 && (
         <Button label="Clear all" onClick={() => clearActiveFilters(entityName)} variant="subdued" />
       )}
-      {entityName === "IssueMatches" && (
+      {["IssueMatches", "Services"].includes(entityName) && (
         <SearchInput
           placeholder="Search term or regular expression"
           className="w-96 ml-auto"

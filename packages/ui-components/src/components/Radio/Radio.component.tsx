@@ -5,9 +5,9 @@
 
 import React, { useState, useEffect, useMemo, useId, useContext, MouseEventHandler } from "react"
 import { RadioGroupContext, RadioGroupContextProps } from "../RadioGroup/RadioGroup.component"
-import { Label } from "../LabelTs/index"
-import { Icon } from "../IconTs/Icon.component"
-import { FormHint } from "../FormHintTs/FormHint.component"
+import { Label } from "../Label/index"
+import { Icon } from "../Icon/Icon.component"
+import { FormHint } from "../FormHint/FormHint.component"
 
 const wrapperStyles = `
   jn-inline-flex
