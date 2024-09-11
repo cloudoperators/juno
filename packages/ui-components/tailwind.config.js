@@ -311,5 +311,5 @@ module.exports = {
       6: "6px",
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [],
 }
