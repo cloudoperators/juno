@@ -6,7 +6,7 @@
 import React from "react"
 import { TopNavigation } from "../TopNavigation/"
 import { TopNavigationItem } from "./index.js"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 export default {
   title: "Navigation/TopNavigation/TopNavigationItem",

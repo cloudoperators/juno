@@ -4,9 +4,9 @@
  */
 
 import React, { useState, useEffect, useMemo, useId, useRef } from "react"
-import { Label } from "../LabelTs/index"
-import { Icon } from "../IconTs/index"
-import { FormHint } from "../FormHintTs/FormHint.component"
+import { Label } from "../Label/index"
+import { Icon } from "../Icon/index"
+import { FormHint } from "../FormHint/FormHint.component"
 
 const wrapperStyles = `
   jn-inline-block

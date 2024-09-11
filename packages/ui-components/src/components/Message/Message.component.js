@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Icon } from "../Icon/index.js"
+import { Icon } from "../../deprecated_js/Icon/index.js"
 
 const message = `
 	jn-text-theme-high

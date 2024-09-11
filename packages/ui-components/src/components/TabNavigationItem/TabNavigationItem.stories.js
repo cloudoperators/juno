@@ -6,7 +6,7 @@
 import React from "react"
 import { TabNavigation } from "../TabNavigation/index"
 import { TabNavigationItem } from "./index.js"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 export default {
   title: "Navigation/TabNavigation/TabNavigationItem",

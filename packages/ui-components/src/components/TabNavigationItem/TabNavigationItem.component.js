@@ -7,7 +7,7 @@ import React, { useContext } from "react"
 import PropTypes from "prop-types"
 import { NavigationItem } from "../NavigationItem/index"
 import { TabNavigationContext } from "../TabNavigation/TabNavigation.component"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 const tabNavItemStyles = `
   jn-flex
