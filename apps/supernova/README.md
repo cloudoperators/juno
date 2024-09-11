@@ -5,21 +5,21 @@
 
 Supernova is an enhanced UI for Prometheus Alertmanager, offering several quality-of-life improvements:
 
-* Predefined filter categories for quick, one-click filtering of the alerts list using label and regex combinations.
-* Configurable labels for flexible alert filtering.
-* Convenient silencing of alerts directly from the alerts list.
-* Display of both active and expired silences for any given alert, with the ability to recreate expired silences or expire active ones.
-* Aggregation and count of alerts by region and severity.
-* Automatic hyperlinking for URLs found in alert descriptions.
-* Parsing of alert labels to identify paths to external tools and turning them into hyperlinks on the alert.
-* Notification when creating new silences that overlap with existing ones.
-* Micro frontend design that allows embedding into existing applications via a script tag.
+- Predefined filter categories for quick, one-click filtering of the alerts list using label and regex combinations.
+- Configurable labels for flexible alert filtering.
+- Convenient silencing of alerts directly from the alerts list.
+- Display of both active and expired silences for any given alert, with the ability to recreate expired silences or expire active ones.
+- Aggregation and count of alerts by region and severity.
+- Automatic hyperlinking for URLs found in alert descriptions.
+- Parsing of alert labels to identify paths to external tools and turning them into hyperlinks on the alert.
+- Notification when creating new silences that overlap with existing ones.
+- Micro frontend design that allows embedding into existing applications via a script tag.
 
 **Coming soon:**
 
-* Configurable initial filters to automatically apply at app startup.
-* Aggregation by customizable labels, replacing the current hardcoded region label.
-* Configurable URL patterns for automatic linking in labels (replacing the current hardcoded patterns).
+- Configurable initial filters to automatically apply at app startup.
+- Aggregation by customizable labels, replacing the current hardcoded region label.
+- Configurable URL patterns for automatic linking in labels (replacing the current hardcoded patterns).
 
 ## Concepts
 
@@ -106,9 +106,10 @@ Sets the Alertmanager API Endpoint URL. Provide the full URL of the Alertmanager
 
 To set the endpoint:
 
-* Configured via app prop `endpoint`, which is used during the setup of the script tag.
+- Configured via app prop `endpoint`, which is used during the setup of the script tag.
 
 Example:
+
 ```json
 "https://myalertmanager.com/api/v2"
 ```
@@ -119,7 +120,7 @@ Filter labels are a set of labels that are utilized to define the criteria by wh
 
 To set the filter labels which are made available for filtering:
 
-* Configured via the app prop `filterLabels`
+- Configured via the app prop `filterLabels`
 
 Example value:
 
@@ -160,7 +161,7 @@ If the end user wishes to include any excluded labels as matchers, they can easi
 
 To set the excluded alert labels:
 
-* Configured via app prop `silenceExcludedLabels`
+- Configured via app prop `silenceExcludedLabels`
 
 Example:
 
@@ -174,8 +175,7 @@ Set this attribute to specify a custom theme for your application. Possible valu
 
 To set the theme:
 
-* Configured via app prop `theme`
-
+- Configured via app prop `theme`
 
 ### Predefined Filters
 
@@ -197,7 +197,7 @@ Example:
 
 To set the predefined Filter:
 
-* Configured via app prop `predefinedFilters`
+- Configured via app prop `predefinedFilters`
 
 ### Silence Templates
 
@@ -221,4 +221,4 @@ Example:
 
 To set the silence templates:
 
-* Configured via app prop `silenceTemplates`, which is used during the setup of the script tag.
+- Configured via app prop `silenceTemplates`, which is used during the setup of the script tag.
