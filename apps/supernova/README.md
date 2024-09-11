@@ -7,7 +7,6 @@ Supernova is an enhanced UI for Prometheus Alertmanager.
 
 ![supernova_alerts](https://github.com/user-attachments/assets/5e3b4272-d12a-4524-9c6e-669d1dd32ffb)
 
-
 Supernova offers several quality-of-life improvements:
 
 - Predefined filter categories for quick, one-click filtering of the alerts list using label and regex combinations.
@@ -27,14 +26,13 @@ Supernova offers several quality-of-life improvements:
 - Configurable URL patterns for automatic linking in labels (replacing the current hardcoded patterns).
 
 ## Screenshots
+
 Alert detail:
 ![supernova_alerts_details](https://github.com/user-attachments/assets/232059cd-61e6-4140-8d07-775c5145caaf)
-
 
 Silence information per alert:
 
 ![supernova_alerts_details_silences](https://github.com/user-attachments/assets/33e192dd-759b-441c-8fd2-2b94164d7b74)
-
 
 ## Concepts
 
