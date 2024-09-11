@@ -5,7 +5,7 @@
 
 import React from "react"
 import ComponentsListController from "./ComponentsListController"
-import Filters from "../filters/Filters"
+// import Filters from "../filters/Filters"
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
 const ComponentsTab = () => {

@@ -3,19 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// opacity helper to make custom colors work with opacity
-function withOpacity(variableName) {
-  return ({ opacityVariable, opacityValue }) => {
-    if (opacityValue !== undefined) {
-      return `rgba(var(${variableName}), ${opacityValue})`
-    }
-    if (opacityVariable !== undefined) {
-      return `rgba(var(${variableName}), var(${opacityVariable}, 1))`
-    }
-    return `rgb(var(${variableName}))`
-  }
-}
-
 module.exports = {
   presets: [require("@cloudoperators/juno-ui-components/build/lib/tailwind.config")],
   prefix: "", // important, do not change

@@ -118,7 +118,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@v6
         with:
-          context: ${{ env.PACKAGE_PATH }}
+          context: .
           file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
           push: true
           # remove untagged images produced for multi platform builds
