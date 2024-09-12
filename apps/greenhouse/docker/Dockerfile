@@ -3,46 +3,20 @@
 
 FROM node:20-alpine as build
 
-LABEL repository="https://github.com/cloudoperators/greenhouse/tree/main/ui/docker/Dockerfile" 
+LABEL repository="https://github.com/cloudoperators/juno/tree/main/apps/greenhouse/docker/Dockerfile" 
 
 RUN apk add --no-cache git jq \
   && apk upgrade --no-cache --no-progress \
   && apk del --no-cache --no-progress apk-tools alpine-keys
 
 
-WORKDIR /greenhouse/apps 
-
-RUN mkdir -p /tmp/greenhouse
+WORKDIR /juno 
 
 # copy all greenhouse apps to /tmp/greenhouse
-ADD . /tmp/greenhouse/
+ADD . .
 
-# copy all greenhouse extensions to /tmp/greenhouse
-RUN \
-  cd /tmp && \
-  git clone https://github.com/cloudoperators/greenhouse-extensions.git && \
-  cp -r greenhouse-extensions/doop/ui /tmp/greenhouse/doop && \
-  cp -r greenhouse-extensions/alerts/ui /tmp/greenhouse/alerts && \
-  cp -r greenhouse-extensions/heureka/ui /tmp/greenhouse/heureka && \
-  rm -rf greenhouse-extensions
+RUN npm install && npx turbo build --filter @cloudoperators/juno-app-greenhouse
 
-
-# run for each folder npm run build --if-present
-RUN cd /tmp/greenhouse && for d in */; do (cd "$d" && npm install && npm run build --if-present); done
-
-# run for each copy build to /dist
-
-RUN cd /tmp/greenhouse && \
-  for d in */; do \
-  if [ -d "$d/build" ] && [ -n "$d/package.json" ] ; then \
-  name=$(jq -r '.name' "$d/package.json"); \
-  version=$(jq -r '.version' "$d/package.json"); \
-  echo "Copying $name"; \
-  mkdir -p "/greenhouse/apps/$name@$version"; \
-  cp -rf "$d/build" "/greenhouse/apps/$name@$version/"; \
-  cp -f "$d/package.json" "/greenhouse/apps/$name@$version/" ; \
-  fi; \
-  done
 
 FROM nginx:alpine
 
@@ -70,17 +44,13 @@ RUN cat <<EOF > /appProps.json
 EOF
 
 
-COPY docker/index.html .
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /juno/apps/greenhouse/build /usr/share/nginx/html/
 
-COPY --from=build /greenhouse/apps /usr/share/nginx/html/apps
-COPY --from=build /tmp/greenhouse/dashboard/public/favicon.ico /usr/share/nginx/html/favicon.ico
+COPY apps/greenhouse/docker/index.html .
+COPY apps/greenhouse/docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY apps/greenhouse/public/favicon.ico /usr/share/nginx/html/favicon.ico
+COPY apps/greenhouse/docker/entrypoint.sh /usr/local/bin/entrypoint.sh 
 
-# Create a manifest file
-ADD docker/generate_manifest.sh /usr/local/bin/generate_manifest.sh 
-RUN mkdir -p extensions && chmod +x /usr/local/bin/generate_manifest.sh
-
-ADD docker/entrypoint.sh /usr/local/bin/entrypoint.sh 
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]

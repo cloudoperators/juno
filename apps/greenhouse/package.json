@@ -49,8 +49,8 @@
   "scripts": {
     "lint": "eslint",
     "test": "jest",
-    "dev": "NODE_ENV=development node scripts/publish_dependent_apps.js && node esbuild.config.js --serve --watch",
-    "build": "NODE_ENV=production node esbuild.config.js"
+    "dev": "NODE_ENV=development node esbuild/config.js --serve --watch",
+    "build": "NODE_ENV=production node esbuild/config.js"
   },
   "peerDependencies": {
     "prop-types": "^15.8.1",

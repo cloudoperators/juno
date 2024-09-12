@@ -7,8 +7,8 @@ This Dockerfile builds a standalone, runnable Greenhouse image that includes all
 To build the Docker image, navigate to the ui directory and execute the following command:
 
 ```bash
-cd ui
-docker build -t greenhouse -f docker/Dockerfile .
+# juno ROOT
+docker build -t greenhouse -f apps/greenhouse/docker/Dockerfile .
 ```
 
 This process copies the entire ui folder into the image, clones the greenhouse-extensions repository, and copies the supernova, doop, and heureka apps into the core apps folder. It then builds each app sequentially, creates a manifest file with key-path pairs, and finally starts an Nginx server to serve the application.

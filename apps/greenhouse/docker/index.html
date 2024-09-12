@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: Apache-2.0
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html style="margin: 0; padding: 0; display: flex; flex-direction: column">
   <head>
     <title>Greenhouse</title>
@@ -36,23 +36,8 @@
   </head>
   <body style="height: 100vh; flex-grow: 1; margin: 0; padding: 0">
     <script type="module">
-      const manifest = await fetch("manifest.json").then((response) => {
-        return response.json()
-      })
-
-      if (!manifest["greenhouse-dashboard"]) {
-        console.error("No manifest found for greenhouse-dashboard")
-      }
-
       const props = await fetch("/appProps.json").then((r) => r.json())
-      if (props?.currentHost === "origin") {
-        props.currentHost = window.location.origin
-      }
-
-      const { mount } = await import(
-        manifest["greenhouse-dashboard"]["latest"].path
-      )
-
+      const { mount } = await import("/index.js")
       const root = document.createElement("div")
       document.body.appendChild(root)
       root.setAttribute("data-app", "greenhouse-dashboard")

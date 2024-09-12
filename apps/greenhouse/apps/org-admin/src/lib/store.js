@@ -44,7 +44,6 @@ export default (options) => {
   return createStore(
     devtools((set, get) => ({
       isUrlStateSetup: false,
-      assetsUrl: options.assetsUrl,
       apiEndpoint: options.apiEndpoint,
       pluginConfig: configs,
       authData: {

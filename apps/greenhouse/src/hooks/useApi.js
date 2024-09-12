@@ -7,6 +7,7 @@ import { useCallback, useMemo } from "react"
 import { createClient } from "sapcc-k8sclient"
 import { useAuthData, useGlobalsApiEndpoint, useGlobalsAssetsHost } from "../components/StoreProvider"
 import { createPluginConfig } from "../lib/plugin"
+import { getManifest } from "../lib/manifestLoader"
 
 // get plugin configs from k8s api
 const useApi = () => {
@@ -29,19 +30,18 @@ const useApi = () => {
   }, [apiEndpoint, authData?.JWT])
 
   const getPluginConfigs = useCallback(() => {
-    if (!client || !assetsHost || !namespace) return Promise.resolve({})
+    if (!client || !namespace) return Promise.resolve({})
 
-    const manifestUrl = new URL("/manifest.json", assetsHost)
     return Promise.all([
       // manifest
-      fetch(manifestUrl).then((r) => r.json()),
+      getManifest,
       // plugin configs
       client.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
         limit: 500,
       }),
     ]).then(([manifest, configs]) => {
-      // console.log("::::::::::::::::::::::::manifest", manifest)
-      // console.log("::::::::::::::::::::::::configs", configs.items)
+      // console.debug("::::::::::::::::::::::::manifest", manifest)
+      // console.debug("::::::::::::::::::::::::configs", configs.items)
 
       // create config map
       const config = {}
@@ -56,7 +56,7 @@ const useApi = () => {
         // console.log("===", name, version, manifest[name]?.[version])
 
         // only add plugin if the url is from another host or the name with the given version is in the manifest!
-        if ((url && url.indexOf(assetsHost) < 0) || manifest[name]?.[version]) {
+        if (manifest?.[name]) {
           const newConf = createPluginConfig({
             id,
             name,
@@ -73,7 +73,7 @@ const useApi = () => {
         }
       })
 
-      // console.log(config)
+      // console.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>", config)
 
       return config
     })

@@ -4,14 +4,15 @@
  */
 
 const esbuild = require("esbuild")
+const pluginGreenhouseApps = require("./plugin_greenhouse_apps")
 const fs = require("node:fs/promises")
-const pkg = require("./package.json")
+const pkg = require("../package.json")
 const postcss = require("postcss")
 const sass = require("sass")
 const { transform } = require("@svgr/core")
 const url = require("postcss-url")
 // this function generates app props based on package.json and propSecrets.json
-const appProps = require("../../helpers/appProps")
+const appProps = require("../../../helpers/appProps")
 
 if (!/.+\/.+\.js/.test(pkg.module)) throw new Error("module value is incorrect, use DIR/FILE.js like build/index.js")
 
@@ -74,7 +75,9 @@ const build = async () => {
         },
       },
 
-      // this custom plugin rewrites SVG imports to
+      pluginGreenhouseApps,
+
+      // this custo_ plu_in rewrites SVG imports to
       // dataurls, paths or react components based on the
       // search param and size
       {

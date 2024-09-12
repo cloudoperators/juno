@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useMemo, useRef, useState } from "react"
-import { useAssetsUrl, usePluginActive } from "./StoreProvider"
+import { usePluginActive } from "./StoreProvider"
 import { Messages, useActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../lib/helpers"
 import { Stack, Button } from "@cloudoperators/juno-ui-components"
@@ -13,7 +13,6 @@ import { mount } from "../lib/appLoader"
 
 const Plugin = ({ config }) => {
   const { addMessage } = useActions()
-  const assetsUrl = useAssetsUrl()
   const holder = useRef()
   const activePlugin = usePluginActive()
 
@@ -33,7 +32,6 @@ const Plugin = ({ config }) => {
     // mount the app
     mount(app.current, {
       ...config,
-      assetsHost: assetsUrl,
       appProps: { ...config?.props, embedded: true },
     })
       .then((loaded) => {
@@ -47,12 +45,11 @@ const Plugin = ({ config }) => {
           text: `${config?.name}: ` + parseError(error),
         })
       })
-  }, [assetsUrl, reload, config])
+  }, [reload, config])
 
   const displayPluging = useMemo(() => activePlugin === config?.name, [activePlugin, config])
 
   useEffect(() => {
-    // if assetsUrl still null when rendering for first time the component then mountApp also return null and we skip here
     if (!isMountedApp) return
 
     if (displayPluging) {
