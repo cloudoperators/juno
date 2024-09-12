@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { NativeSelect } from "../NativeSelect/NativeSelect.component"
 import { NativeSelectOption } from "../NativeSelectOption/NativeSelectOption.component"
 import { TextInput } from "../TextInput/TextInput.component"
-import { Icon } from "../Icon/Icon.component"
+import { Icon } from "../../deprecated_js/Icon/Icon.component"
 
 const wrapperStyles = `
 	jn-flex

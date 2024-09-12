@@ -7,7 +7,7 @@ import React from "react"
 import { Tooltip } from "./index"
 import { TooltipContent } from "../TooltipContent/index"
 import { TooltipTrigger } from "../TooltipTrigger/index"
-import { Icon } from "../Icon/index"
+import { Icon } from "../../deprecated_js/Icon/index"
 import { ToolTipVariant, TooltipPlacement } from "./ToolTip.types"
 
 export default {

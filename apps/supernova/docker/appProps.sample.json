@@ -1,7 +1,8 @@
 {
   "endpoint": "",
-  "theme": "theme-light",
+  "theme": "theme-dark",
   "embedded": false,
+  "filterLabels": [],
   "silenceExcludedLabels": [],
   "silenceTemplates": {},
   "predefinedFilters": []

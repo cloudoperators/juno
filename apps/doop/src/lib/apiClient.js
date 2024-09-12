@@ -4,7 +4,7 @@
  */
 
 // Example fetch call. Adjust as needed for your API
-export const fetchData = ({ queryKey, meta }) => {
+export const fetchData = ({ meta }) => {
   return fetch(`${meta.endpoint}`, {
     method: "GET",
     headers: {
@@ -15,7 +15,6 @@ export const fetchData = ({ queryKey, meta }) => {
     if (response.statusCode >= 400) {
       throw new Error(response.statusText)
     }
-    // console.log("fetchData: ", response)
     return response.json()
   })
 }

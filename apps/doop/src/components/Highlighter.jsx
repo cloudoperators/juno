@@ -36,7 +36,7 @@ function findNodes(searchTerm, node = document, nodes = []) {
 }
 
 // Function to create MutationObservers for all elements on the page
-const createObservers = (callback, config) => {
+const createObservers = (callback) => {
   // Alle Elemente auf der Seite auswählen
   const allElements = document.querySelectorAll("*")
 

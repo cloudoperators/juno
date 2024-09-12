@@ -7,7 +7,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Button } from "../Button/index.js"
 import { ButtonRow } from "../ButtonRow/index.js"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 const modalfooterstyles = `
 	jn-flex

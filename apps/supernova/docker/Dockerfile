@@ -3,6 +3,10 @@
 
 FROM node:20-alpine as build
 
+LABEL org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/supernova
+LABEL org.opencontainers.image.description="This image contains a standalone runnable version of the Supernova alternative Alertmanager UI. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/supernova/docker"
+LABEL org.opencontainers.image.licenses=Apache-2.0
+
 # we need jq to read and manipulate package.json and upgrade the system
 RUN apk add --no-cache jq \
   && apk upgrade --no-cache --no-progress \

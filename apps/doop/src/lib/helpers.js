@@ -13,7 +13,9 @@ export const parseError = (error) => {
       const msgJson = JSON.parse(error?.message)
       if (msgJson.error) errMsg = msgJson.error
       if (msgJson.msg) errMsg = msgJson.msg
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+    }
   }
   return errMsg
 }
