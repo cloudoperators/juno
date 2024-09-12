@@ -34,6 +34,21 @@ Silence information per alert:
 
 ![supernova_alerts_details_silences](https://github.com/user-attachments/assets/33e192dd-759b-441c-8fd2-2b94164d7b74)
 
+## Getting Started
+
+### Docker image
+
+We publish a self-hostable docker image [in our registry](https://github.com/cloudoperators/juno/pkgs/container/juno-app-supernova). The README for it can be found [here in the docker folder](https://github.com/cloudoperators/juno/tree/main/apps/supernova/docker)
+
+### Dev mode
+
+To start Supernova in dev mode, make a copy of the included `secretProps_sample.js` file, rename it `secretProps.js` and enter your configuration options (see below). Then:
+
+```shell
+npm i
+npm run dev
+```
+
 ## Concepts
 
 ### Alerts
