@@ -1,4 +1,5 @@
 {
+  "name": "@cloudoperators/juno-app-greenhouse-utils",
   "dependencies": {
     "ts-luxon": "^4.5.2"
   }
