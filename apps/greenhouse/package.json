@@ -12,6 +12,10 @@
   "license": "Apache-2.0",
   "source": "src/index.js",
   "module": "build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./org-admin": "./build/org-admin.js"
+  },
   "private": false,
   "devDependencies": {
     "@babel/core": "^7.20.2",
@@ -49,7 +53,7 @@
   "scripts": {
     "lint": "eslint",
     "test": "jest",
-    "dev": "NODE_ENV=development node scripts/publish_dependent_apps.js && node esbuild.config.js --serve --watch",
+    "dev": "NODE_ENV=development node esbuild.config.js --serve --watch",
     "build": "NODE_ENV=production node esbuild.config.js"
   },
   "peerDependencies": {
@@ -63,6 +67,9 @@
     "@cloudoperators/juno-messages-provider": "*",
     "@cloudoperators/juno-oauth": "*",
     "@cloudoperators/juno-ui-components": "*",
+    "@cloudoperators/juno-app-supernova": "*",
+    "@cloudoperators/juno-app-doop": "*",
+    "@cloudoperators/juno-app-heureka": "*",
     "@cloudoperators/juno-url-state-provider-v1": "^1.3.2"
   },
   "appProps": {

@@ -3,22 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState, useMemo, useRef } from "react"
-import { mount } from "../lib/appLoader"
-import { usePlugin, useGlobalsAssetsHost } from "../components/StoreProvider"
+import React, { useEffect, useMemo, useRef, useState } from "react"
+import { useAssetsUrl, usePluginActive } from "./StoreProvider"
 import { Messages, useActions } from "@cloudoperators/juno-messages-provider"
+import { parseError } from "../lib/helpers"
 import { Stack, Button } from "@cloudoperators/juno-ui-components"
+import HintLoading from "./shared/HintLoading"
+import { mount } from "../../../lib/appLoader"
 
-const Plugin = ({ id }) => {
-  const assetsHost = useGlobalsAssetsHost()
-  const holder = useRef()
-  const config = usePlugin().config()
-  const activeApps = usePlugin().active()
+const Plugin = ({ config }) => {
   const { addMessage } = useActions()
+  const assetsUrl = useAssetsUrl()
+  const holder = useRef()
+  const activePlugin = usePluginActive()
 
+  // local state
   const [displayReload, setDisplayReload] = useState(false)
   const [reload, setReload] = useState(0)
-  const [isMounted, setIsMounted] = useState(false)
+  const [isMountedApp, setIsMountedApp] = useState(false)
 
   // element to mount the app
   const el = document.createElement("div")
@@ -27,43 +29,46 @@ const Plugin = ({ id }) => {
 
   // mount the app each time the component is reloaded losing the state
   useEffect(() => {
-    if (!assetsHost || !config) return
+    if (!config) return
     // mount the app
     mount(app.current, {
-      ...config[id],
-      assetsHost,
-      appProps: { ...config[id]?.props, embedded: true },
+      ...config,
+      appProps: { ...config?.props, embedded: true },
     })
-      .then(() => setIsMounted(true))
+      .then((loaded) => {
+        if (!loaded) return
+        setIsMountedApp(true)
+      })
       .catch((error) => {
         setDisplayReload(true)
         addMessage({
-          variant: "warning",
-          title: `Could not load plugin ${config[id]?.name}`,
-          text: `could not fetch URL: ${error.url}`,
+          variant: "error",
+          text: `${config?.name}: ` + parseError(error),
         })
       })
-  }, [mount, reload, config, assetsHost])
+  }, [assetsUrl, reload, config])
 
-  const displayPluging = useMemo(() => activeApps.indexOf(id) >= 0, [activeApps, config])
+  const displayPluging = useMemo(() => activePlugin === config?.name, [activePlugin, config])
 
   useEffect(() => {
-    if (!config[id] || !isMounted) return
+    // if assetsUrl still null when rendering for first time the component then mountApp also return null and we skip here
+    if (!isMountedApp) return
 
     if (displayPluging) {
-      //  add to holder
+      // append to holder
       holder.current.appendChild(app.current)
     } else {
       // remove from holder
       if (holder.current.contains(app.current)) holder.current.removeChild(app.current)
     }
-  }, [isMounted, displayPluging])
+  }, [isMountedApp, displayPluging])
 
   return (
-    <div data-app={id} ref={holder} className="inline">
+    <div data-app={config?.name} ref={holder} className="inline">
       {displayPluging && (
         <>
-          <Messages className="mr-4" />
+          <Messages />
+          {!isMountedApp && !displayReload && <HintLoading centered />}
           {displayReload && (
             <Stack alignment="center" distribution="center" direction="vertical" className="my-[10vh]">
               <p className="text-xl">

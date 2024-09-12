@@ -1,0 +1,20 @@
+{
+  "clusters": {
+    "label": "Clusters",
+    "name": "greenhouse-cluster-admin"
+  },
+  "teams": {
+    "label": "Teams",
+    "name": "greenhouse-team-admin"
+  },
+  "plugins": {
+    "label": "Plugins",
+    "name": "greenhouse-plugin-admin",
+    "releaseState": "beta"
+  },
+  "secrets": {
+    "label": "Secrets",
+    "name": "greenhouse-secret-admin",
+    "releaseState": "beta"
+  }
+}

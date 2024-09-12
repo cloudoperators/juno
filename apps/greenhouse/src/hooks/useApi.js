@@ -5,16 +5,13 @@
 
 import { useCallback, useMemo } from "react"
 import { createClient } from "sapcc-k8sclient"
-import { useAuthData, useGlobalsApiEndpoint, useGlobalsAssetsHost } from "../components/StoreProvider"
+import { useAuthData, useGlobalsApiEndpoint } from "../components/StoreProvider"
 import { createPluginConfig } from "../lib/plugin"
 
 // get plugin configs from k8s api
 const useApi = () => {
   const authData = useAuthData()
-  // const token = useStoreByKey("auth.data?.JWT")
-  // const groups = useStoreByKey("auth.data?.raw?.groups")
   const apiEndpoint = useGlobalsApiEndpoint()
-  const assetsHost = useGlobalsAssetsHost()
 
   const namespace = useMemo(() => {
     if (!authData?.raw?.groups) return null
@@ -29,34 +26,25 @@ const useApi = () => {
   }, [apiEndpoint, authData?.JWT])
 
   const getPluginConfigs = useCallback(() => {
-    if (!client || !assetsHost || !namespace) return Promise.resolve({})
-
-    const manifestUrl = new URL("/manifest.json", assetsHost)
-    return Promise.all([
-      // manifest
-      fetch(manifestUrl).then((r) => r.json()),
-      // plugin configs
-      client.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
+    if (!client || !namespace) return Promise.resolve({})
+    // plugin configs
+    return client
+      .get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
         limit: 500,
-      }),
-    ]).then(([manifest, configs]) => {
-      // console.log("::::::::::::::::::::::::manifest", manifest)
-      // console.log("::::::::::::::::::::::::configs", configs.items)
+      })
+      .then((configs) => {
+        // console.log("::::::::::::::::::::::::configs", configs.items)
 
-      // create config map
-      const config = {}
-      configs.items.forEach((conf) => {
-        const id = conf.metadata?.name
-        const name = conf.status?.uiApplication?.name
-        const displayName = conf.spec?.displayName
-        const weight = conf.status?.weight
-        const version = conf.status?.uiApplication?.version
-        const url = conf.status?.uiApplication?.url
+        // create config map
+        const config = {}
+        configs.items.forEach((conf) => {
+          const id = conf.metadata?.name
+          const name = conf.status?.uiApplication?.name
+          const displayName = conf.spec?.displayName
+          const weight = conf.status?.weight
+          const version = conf.status?.uiApplication?.version
+          const url = conf.status?.uiApplication?.url
 
-        // console.log("===", name, version, manifest[name]?.[version])
-
-        // only add plugin if the url is from another host or the name with the given version is in the manifest!
-        if ((url && url.indexOf(assetsHost) < 0) || manifest[name]?.[version]) {
           const newConf = createPluginConfig({
             id,
             name,
@@ -70,14 +58,13 @@ const useApi = () => {
             }, {}),
           })
           if (newConf) config[id] = newConf
-        }
+        })
+
+        console.log("==========================", config)
+
+        return config
       })
-
-      // console.log(config)
-
-      return config
-    })
-  }, [client, assetsHost, namespace])
+  }, [client, namespace])
 
   return { client, getPluginConfigs }
 }

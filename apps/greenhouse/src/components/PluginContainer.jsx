@@ -26,7 +26,6 @@ const PluginContainer = () => {
   const receiveError = usePlugin().receiveError
 
   const availableAppIds = React.useMemo(() => Object.keys(config), [config])
-
   useLayoutEffect(() => {
     if (!getPluginConfigs) return
     requestConfig()
