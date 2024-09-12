@@ -46,3 +46,8 @@ export const WithHeading = {
     heading: "My Awesome App",
   },
 }
+
+export const WithCustomLogo = {
+  render: Template,
+  args: {},
+}
