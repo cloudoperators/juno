@@ -6,7 +6,7 @@
 
 ## Overview
 
-Juno has evolved into a platform that includes tools and libraries for developing Juno-based applications. This platform provides a comprehensive set of utilities to streamline the development process, ensure consistency, and facilitate code sharing across different projects.
+Juno is a platform that includes tools and libraries for developing Juno-based applications. This platform provides a comprehensive set of utilities to streamline the development process, ensure consistency, and facilitate code sharing across different projects.
 
 ### Key Components
 
@@ -21,8 +21,11 @@ Juno includes various applications that showcase the use of its tools and librar
 
 #### Included Applications
 
-- `apps/example`
-- `apps/template`
+- [Supernova](https://github.com/cloudoperators/juno/tree/main/apps/supernova): an alternative Prometheus Alertmanager UI
+- [Heureka](https://github.com/cloudoperators/juno/tree/main/apps/heureka): dashboard for security and compliance management
+- [Doop](https://github.com/cloudoperators/juno/tree/main/apps/doop): displays policy violations as reported by Gatekeeper
+- [App template](https://github.com/cloudoperators/juno/tree/main/apps/template): an app template for Juno applications
+- [Example app](https://github.com/cloudoperators/juno/tree/main/apps/example): an example application containing some best practice ux pattern examples (in progress)
 
 ### Libraries
 
@@ -30,9 +33,8 @@ In addition to applications, Juno also includes a set of libraries that provide 
 
 #### Included Libraries
 
-- `packages/ui-components`
-- `packages/communicator`
-- `packages/oauth`
+- [Juno UI Components](https://github.com/cloudoperators/juno/tree/main/packages/ui-components): React components for the Juno design system
+- [k8s client](https://github.com/cloudoperators/juno/tree/main/packages/k8s-client): a client-side API client for the kubernetes API (interact with the k8s API directly from the browser)
 
 ## Getting Started
 
