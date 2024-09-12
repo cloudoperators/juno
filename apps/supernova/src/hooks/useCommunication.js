@@ -60,7 +60,6 @@ const useCommunication = () => {
   }, [setIsActive])
 
   useEffect(() => {
-    authSetData({ auth: { parsed: { fullName: "anonymous" } } })
     if (!setAuthData) return
 
     get("AUTH_GET_DATA", setAuthData)

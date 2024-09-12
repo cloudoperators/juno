@@ -22,7 +22,13 @@ import {
   FormSection,
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
-import { useAuthData, useSilenceTemplates, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
+import {
+  useAuthData,
+  useSilenceTemplates,
+  useGlobalsApiEndpoint,
+  useSilencesActions,
+  useAuthUserEditable,
+} from "../../hooks/useAppStore"
 import { post } from "../../api/client"
 import { parseError } from "../../helpers"
 
@@ -33,10 +39,8 @@ const SilenceScheduled = (props) => {
   const { addMessage, resetMessages } = useActions()
   const silenceTemplates = useSilenceTemplates()
   const apiEndpoint = useGlobalsApiEndpoint()
-
+  const isNameEditable = useAuthUserEditable()
   const { addLocalItem } = useSilencesActions()
-
-  const [isNameEditable, setNameEditable] = useState(false)
 
   // set sucess of sending the silence
   const [success, setSuccess] = useState(null)
@@ -74,10 +78,10 @@ const SilenceScheduled = (props) => {
 
     if (errorFormState) {
       setFormState(errorFormState)
-      addMessage({
-        variant: "error",
-        text: parseError("Please fix the errors in the form"),
-      })
+      // addMessage({
+      //   variant: "error",
+      //   text: parseError("Please fix the errors in the form"),
+      // })
       return
     }
 
@@ -157,10 +161,6 @@ const SilenceScheduled = (props) => {
     setFormState(newFormState)
 
     setSelected(newSelectedOption)
-
-    if (authData?.parsed?.fullName === "anonymous") {
-      setNameEditable(true)
-    }
   }
 
   const onInputChanged = ({ key, value }) => {
@@ -300,6 +300,7 @@ const SilenceScheduled = (props) => {
                     value={formState.comment.value}
                     errortext={formState.comment.error}
                     onChange={onChangeComment}
+                    required
                   ></Textarea>
                 </FormRow>
               </FormSection>

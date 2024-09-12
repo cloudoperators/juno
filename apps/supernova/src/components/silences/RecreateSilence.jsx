@@ -17,7 +17,7 @@ import {
   Pill,
   Stack,
 } from "@cloudoperators/juno-ui-components"
-import { useAuthData, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
+import { useAuthData, useGlobalsApiEndpoint, useSilencesActions, useAuthUserEditable } from "../../hooks/useAppStore"
 import { debounce } from "../../helpers"
 import { post } from "../../api/client"
 import { DateTime } from "luxon"
@@ -50,12 +50,12 @@ const RecreateSilence = (props) => {
   const fingerprint = props.fingerprint ? props.fingerprint : null
   const authData = useAuthData()
   const apiEndpoint = useGlobalsApiEndpoint()
+  const isNameEditable = useAuthUserEditable()
 
   const { addLocalItem } = useSilencesActions()
 
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
-  const [isNameEditable, setNameEditable] = useState(true)
   const [expirationDate, setExpirationDate] = useState(null)
   const [showValidation, setShowValidation] = useState({})
   const [error, setError] = useState(null)
@@ -83,9 +83,6 @@ const RecreateSilence = (props) => {
     setError(null)
     setSuccess(null)
     setShowValidation({})
-    if (authData?.parsed?.fullName === "anonymous") {
-      setNameEditable(true)
-    }
   }, [displayNewSilence])
 
   // collect options for select dropdown with time (2 hours, 12 hours, 1 day, 3 days, 7 days) which exceeds the expiration date

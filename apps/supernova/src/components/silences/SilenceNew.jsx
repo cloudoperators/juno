@@ -22,6 +22,7 @@ import {
   useGlobalsApiEndpoint,
   useSilencesActions,
   useAlertEnrichedLabels,
+  useAuthUserEditable,
 } from "../../hooks/useAppStore"
 import { post } from "../../api/client"
 import AlertDescription from "../alerts/shared/AlertDescription"
@@ -58,8 +59,7 @@ const SilenceNew = ({ alert, size, variant }) => {
   const excludedLabels = useSilencesExcludedLabels()
   const { addLocalItem, getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
-
-  const [isNameEditable, setNameEditable] = useState(false)
+  const isNameEditable = useAuthUserEditable()
 
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
@@ -81,9 +81,6 @@ const SilenceNew = ({ alert, size, variant }) => {
       matchers: setupMatchers(alert?.labels, excludedLabels, enrichedLabels),
     })
 
-    if (authData?.parsed?.fullName === "anonymous") {
-      setNameEditable(true)
-    }
     // get the latest expiration date from the existing silences
     // recalculate always on open modal due to the fact that the silences or local silences
     // may change without change in the alert
