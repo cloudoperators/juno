@@ -35,9 +35,14 @@ import constants from "../../constants"
 
 const validateForm = (values) => {
   const invalidItems = {}
-  if (values?.comment?.length <= 3) {
+  if (values?.comment?.length < 3) {
     if (!invalidItems["comment"]) invalidItems["comment"] = []
     invalidItems["comment"].push(`Please enter at least 3 characters`)
+  }
+
+  if (values?.createdBy?.length < 1) {
+    if (!invalidItems["createdBy"]) invalidItems["createdBy"] = []
+    invalidItems["createdBy"].push(`Please enter a name`)
   }
 
   return invalidItems
@@ -77,7 +82,7 @@ const SilenceNew = ({ alert, size, variant }) => {
     setFormState({
       ...formState,
       ...DEFAULT_FORM_VALUES,
-      createdBy: authData?.parsed?.fullName,
+      createdBy: authData?.parsed?.fullName || "",
       matchers: setupMatchers(alert?.labels, excludedLabels, enrichedLabels),
     })
 
@@ -106,6 +111,7 @@ const SilenceNew = ({ alert, size, variant }) => {
   const onSubmitForm = debounce(() => {
     setError(null)
     setSuccess(null)
+
     const formValidation = validateForm(formState)
     setShowValidation(formValidation)
     if (Object.keys(formValidation).length > 0) return
@@ -216,6 +222,7 @@ const SilenceNew = ({ alert, size, variant }) => {
                     label="Silenced by"
                     value={formState.createdBy}
                     onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                    errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
                     disabled={!isNameEditable}
                   />
                 </FormRow>

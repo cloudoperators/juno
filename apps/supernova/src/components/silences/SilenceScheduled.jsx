@@ -89,7 +89,7 @@ const SilenceScheduled = (props) => {
       startsAt: formState.date.start,
       endsAt: formState.date.end,
       comment: formState.comment.value,
-      createdBy: formState.createdBy,
+      createdBy: formState.createdBy.value,
       matchers: [],
     }
 
@@ -146,7 +146,7 @@ const SilenceScheduled = (props) => {
     const newFormState = {
       ...DEFAULT_FORM_VALUES,
       fixed_labels: newSelectedOption?.fixed_labels || {},
-      createdBy: authData?.parsed?.fullName,
+      createdBy: { value: authData?.parsed?.fullName, error: null },
       editable_labels: newSelectedOption?.editable_labels?.reduce(
         (acc, label) => ({
           ...acc,
@@ -165,7 +165,8 @@ const SilenceScheduled = (props) => {
 
   const onInputChanged = ({ key, value }) => {
     if (!value) return
-    setFormState({ ...formState, [key]: value })
+    setFormState({ ...formState, [key]: { value: value, error: null } })
+    console.log("formState", formState)
   }
 
   // todo delete other input change functions
@@ -175,15 +176,6 @@ const SilenceScheduled = (props) => {
       produce((formState) => {
         formState.editable_labels[editable_label].value = e.target.value
         formState.editable_labels[editable_label].error = null
-      })
-    )
-  }
-
-  const onChangeComment = (e) => {
-    setFormState(
-      produce((formState) => {
-        formState.comment.value = e.target.value
-        formState.comment.error = null
       })
     )
   }
@@ -262,7 +254,8 @@ const SilenceScheduled = (props) => {
                   <TextInput
                     required
                     label="Silenced by"
-                    value={formState.createdBy}
+                    value={formState?.createdBy?.value}
+                    errortext={formState?.createdBy?.error}
                     onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
                     disabled={!isNameEditable}
                   />
@@ -276,7 +269,7 @@ const SilenceScheduled = (props) => {
                       enableTime
                       time_24hr
                       required
-                      errortext={formState.date.error}
+                      errortext={formState?.date?.error}
                       onChange={setStartDate}
                       enableSeconds
                     />
@@ -287,7 +280,7 @@ const SilenceScheduled = (props) => {
                       enableTime
                       time_24hr
                       required
-                      errortext={formState.date.error}
+                      errortext={formState?.date?.error}
                       onChange={setEndDate}
                       enableSeconds
                     />
@@ -299,7 +292,7 @@ const SilenceScheduled = (props) => {
                     label="Comment"
                     value={formState.comment.value}
                     errortext={formState.comment.error}
-                    onChange={onChangeComment}
+                    onChange={(e) => onInputChanged({ key: "comment", value: e.target.value })}
                     required
                   ></Textarea>
                 </FormRow>

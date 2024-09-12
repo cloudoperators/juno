@@ -10,7 +10,10 @@ export const DEFAULT_FORM_VALUES = {
     value: "",
     error: null,
   },
-  createdBy: "",
+  createdBy: {
+    value: "",
+    error: null,
+  },
   date: {
     start: null,
     end: null,
@@ -32,6 +35,18 @@ export const validateForm = (state) => {
       comment: {
         ...formState.comment, // Only create the comment object if it exists
         error: "Please enter at least 3 characters",
+      },
+    }
+  }
+
+  // validate if createdBy is at least 1 characters long
+  if (!formState?.createdBy?.value || formState?.createdBy?.value.length < 1) {
+    errorexist = true
+    formState = {
+      ...formState,
+      createdBy: {
+        ...formState.createdBy, // Only create the comment object if it exists
+        error: "Created by cannot be empty",
       },
     }
   }
