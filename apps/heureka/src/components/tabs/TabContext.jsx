@@ -4,7 +4,7 @@
  */
 
 import React, { useMemo } from "react"
-import { Container, TabNavigation, TabNavigationItem } from "@cloudoperators/juno-ui-components"
+import { Container, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
 import TabPanel from "./TabPanel"
 import { useGlobalsActions, useGlobalsActiveTab } from "../../hooks/useAppStore"
 
@@ -37,15 +37,22 @@ const TabContext = () => {
   const { setActiveTab } = useGlobalsActions()
   const activeTab = useGlobalsActiveTab()
 
-  const memoizedTabs = useMemo(
+  // Memorized top navigation items
+  const memorizedTabs = useMemo(
     () =>
       TAB_CONFIG.map((tab) => (
-        <TabNavigationItem key={tab.value} icon={tab.icon} label={tab.label} value={tab.value} />
+        <TopNavigationItem
+          key={tab.value}
+          label={tab.label}
+          active={activeTab === tab.value} // Set the active item
+          onClick={() => setActiveTab(tab.value)} // Trigger tab change
+        />
       )),
-    []
+    [activeTab, setActiveTab]
   )
 
-  const memoizedTabPanels = useMemo(
+  // Memorized tab panels
+  const memorizedTabPanels = useMemo(
     () =>
       TAB_CONFIG.map((tab) => (
         <TabPanel key={tab.value} value={tab.value}>
@@ -57,10 +64,8 @@ const TabContext = () => {
 
   return (
     <>
-      <TabNavigation activeItem={activeTab} onActiveItemChange={(value) => setActiveTab(value)}>
-        {memoizedTabs}
-      </TabNavigation>
-      <Container py>{memoizedTabPanels}</Container>
+      <TopNavigation onActiveItemChange={() => {}}>{memorizedTabs}</TopNavigation>
+      <Container py>{memorizedTabPanels}</Container>
     </>
   )
 }
