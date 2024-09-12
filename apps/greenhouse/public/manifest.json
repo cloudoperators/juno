@@ -1,22 +1,22 @@
 {
   "@cloudoperators/juno-app-supernova": {
-    "0.11.1": {
-      "path": "/apps/cloudoperators/juno-app-supernova@0.11.1/build/index.js",
-      "version": "0.11.1"
+    "0.11.2": {
+      "path": "/apps/cloudoperators/juno-app-supernova@0.11.2/build/index.js",
+      "version": "0.11.2"
     },
     "latest": {
-      "path": "/apps/cloudoperators/juno-app-supernova@0.11.1/build/index.js",
-      "version": "0.11.1"
+      "path": "/apps/cloudoperators/juno-app-supernova@0.11.2/build/index.js",
+      "version": "0.11.2"
     }
   },
   "supernova": {
-    "0.11.1": {
-      "path": "/apps/cloudoperators/juno-app-supernova@0.11.1/build/index.js",
-      "version": "0.11.1"
+    "0.11.2": {
+      "path": "/apps/cloudoperators/juno-app-supernova@0.11.2/build/index.js",
+      "version": "0.11.2"
     },
     "latest": {
-      "path": "/apps/cloudoperators/juno-app-supernova@0.11.1/build/index.js",
-      "version": "0.11.1"
+      "path": "/apps/cloudoperators/juno-app-supernova@0.11.2/build/index.js",
+      "version": "0.11.2"
     }
   },
   "@cloudoperators/juno-app-heureka": {
