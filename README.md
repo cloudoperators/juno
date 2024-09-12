@@ -2,6 +2,8 @@
 
 [![REUSE status](https://api.reuse.software/badge/github.com/cloudoperators/juno)](https://api.reuse.software/info/github.com/cloudoperators/juno)
 
+<a href="https://github.com/cloudoperators/juno"><img align="left" width="150" height="170" src="./assets/logos/JUNO_log_github.png"></a>
+
 ## Overview
 
 Juno is a platform that includes tools and libraries for developing Juno-based applications. This platform provides a comprehensive set of utilities to streamline the development process, ensure consistency, and facilitate code sharing across different projects.
