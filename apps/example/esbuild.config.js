@@ -27,8 +27,6 @@ let outfile = `${isProduction ? "" : "public/"}${pkg.main || pkg.module}`
 // let [outdir, file] = outfile.split("/", 2)
 let outdir = outfile.slice(0, outfile.lastIndexOf("/"))
 
-console.log(`=====================outdir: ${outdir}`)
-console.log(`=====================file: ${outfile}`)
 // process.exit()
 const args = process.argv.slice(2)
 const watch = args.indexOf("--watch") >= 0
