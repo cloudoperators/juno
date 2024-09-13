@@ -4,15 +4,15 @@
  */
 
 import React, { useMemo } from "react"
-import { useGlobalsActiveTab } from "../../hooks/useAppStore"
+import { useGlobalsActiveNavEntry } from "../../hooks/useAppStore"
 
-const TabPanel = ({ value, children }) => {
-  const activeTab = useGlobalsActiveTab()
+const NavEntry = ({ value, children }) => {
+  const activeNavEntry = useGlobalsActiveNavEntry()
 
   // ATENTION!! compare with == since tabindex is int and value is string
-  const displayChildren = useMemo(() => activeTab == value, [activeTab, value])
+  const displayChildren = useMemo(() => activeNavEntry == value, [activeNavEntry, value])
 
   return <div style={{ display: displayChildren ? "inline" : "none" }}>{children}</div>
 }
 
-export default TabPanel
+export default NavEntry
