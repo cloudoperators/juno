@@ -19,7 +19,7 @@ const createGlobalsSlice = (set, get, options) => ({
     isURLRead: false,
 
     actions: {
-      setURLRead: () =>
+      setIsURLRead: () =>
         set(
           (state) => ({
             globals: { ...state.globals, isURLRead: true },
