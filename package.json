@@ -34,6 +34,7 @@
   },
   "workspaces": [
     "apps/*",
+    "apps/**/*",
     "packages/*"
   ],
   "packageManager": "^npm@10.0.0",
