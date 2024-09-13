@@ -13,7 +13,7 @@ export default {
   component: Pagination,
   argTypes: {
     variant: {
-      options: ['"" (default)', "number", "select", "input"],
+      options: ["default", "number", "select", "input"],
       control: { type: "select" },
     },
   },
@@ -28,22 +28,26 @@ export default {
   ],
 }
 
-const Template = ({ currentPage, pages, ...args }) => {
+const Template = (args) => {
+  return <Pagination {...args} />
+}
+
+const UncontrolledTemplate = ({ currentPage, pages, ...args }) => {
   const [page, setPage] = React.useState(currentPage)
   const prev = React.useCallback(() => setPage(page > 1 ? page - 1 : 1), [page])
   const next = React.useCallback(() => setPage(!pages || page < pages ? page + 1 : pages), [page])
 
-  return <Pagination {...args} pages={pages} currentPage={page} onPressPrevious={prev} onPressNext={next} />
+  return <Pagination {...args} totalPages={pages} currentPage={page} onPressPrevious={prev} onPressNext={next} />
 }
 
-Template.propTypes = {
+UncontrolledTemplate.propTypes = {
   currentPage: PropTypes.number,
   pages: PropTypes.number,
 }
 
 export const Default = {
   render: Template,
-  args: {},
+  args: { variant: "default" },
 }
 
 export const PaginationWithNumber = {
@@ -72,5 +76,71 @@ export const PaginationWithInput = {
     variant: "input",
     currentPage: 3,
     pages: 6,
+  },
+}
+
+export const DisabledPagination = {
+  render: Template,
+
+  args: {
+    disabled: true,
+  },
+}
+
+export const ProgressPagination = {
+  render: Template,
+
+  args: {
+    progress: true,
+  },
+}
+
+export const UncontrolledDefault = {
+  render: UncontrolledTemplate,
+  args: { variant: "default" },
+}
+
+export const UncontrolledPaginationWithNumber = {
+  render: UncontrolledTemplate,
+
+  args: {
+    variant: "number",
+    currentPage: 3,
+  },
+}
+
+export const UncontrolledPaginationWithSelect = {
+  render: UncontrolledTemplate,
+
+  args: {
+    variant: "select",
+    currentPage: 2,
+    pages: 6,
+  },
+}
+
+export const UncontrolledPaginationWithInput = {
+  render: UncontrolledTemplate,
+
+  args: {
+    variant: "input",
+    currentPage: 3,
+    pages: 6,
+  },
+}
+
+export const UncontrolledDisabledPagination = {
+  render: UncontrolledTemplate,
+
+  args: {
+    disabled: true,
+  },
+}
+
+export const UncontrolledProgressPagination = {
+  render: UncontrolledTemplate,
+
+  args: {
+    progress: true,
   },
 }
