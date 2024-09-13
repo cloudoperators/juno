@@ -4,8 +4,13 @@
  */
 
 import React from "react"
-
 import { PageHeader } from "./index.js"
+import CustomLogoLandscape from "./custom-logo-placeholders/custom-logo-landscape.svg"
+import CustomLogoPortrait from "./custom-logo-placeholders/custom-logo-portrait.svg"
+import CustomLogoSquare from "./custom-logo-placeholders/custom-logo-square.svg"
+import CustomLogoLandscapePNG from "./custom-logo-placeholders/custom-logo-landscape.png"
+import CustomLogoPortraitPNG from "./custom-logo-placeholders/custom-logo-portrait.png"
+import CustomLogoSquarePNG from "./custom-logo-placeholders/custom-logo-square.png"
 
 export default {
   title: "Layout/PageHeader",
@@ -17,9 +22,13 @@ export default {
   },
 }
 
+const CustomLogoImagePNGSquare = () => <img src={CustomLogoSquarePNG} />
+const CustomLogoImagePNGLandscape = () => <img src={CustomLogoLandscapePNG} />
+const CustomLogoImagePNGPortrait = () => <img src={CustomLogoPortraitPNG} />
+
 const Template = (args) => <PageHeader {...args}></PageHeader>
 
-export const Simple = {
+export const Default = {
   render: Template,
 
   parameters: {
@@ -47,7 +56,58 @@ export const WithHeading = {
   },
 }
 
-export const WithCustomLogo = {
+export const NoLogo = {
   render: Template,
-  args: {},
+  args: {
+    logo: false,
+    heading: "My Awesome App",
+  },
+}
+
+export const WithCustomLogoSquareInline = {
+  render: Template,
+  args: {
+    logo: <CustomLogoSquare />,
+    heading: "My Awesome App",
+  },
+}
+
+export const WithCustomLogoLandscapeInline = {
+  render: Template,
+  args: {
+    logo: <CustomLogoLandscape />,
+    heading: "My Awesome App",
+  },
+}
+
+export const WithCustomLogoPortraitInline = {
+  render: Template,
+  args: {
+    logo: <CustomLogoPortrait />,
+    heading: "My Awesome App",
+  },
+}
+
+export const WithCustomLogoPNGSquare = {
+  render: Template,
+  args: {
+    logo: <CustomLogoImagePNGSquare />,
+    heading: "My Awesome App",
+  },
+}
+
+export const WithCustomLogoPNGLandscape = {
+  render: Template,
+  args: {
+    logo: <CustomLogoImagePNGLandscape />,
+    heading: "My Awesome App",
+  },
+}
+
+export const WithCustomLogoPNGPortrait = {
+  render: Template,
+  args: {
+    logo: <CustomLogoImagePNGPortrait />,
+    heading: "My Awesome App",
+  },
 }
