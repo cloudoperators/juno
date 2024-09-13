@@ -37,6 +37,7 @@ const useCommunication = () => {
       // check if activeFilters are set and skip if they are
       // activeFilters example: {support_group: Array(1)}
       if (
+        activeFilters &&
         Object.keys(activeFilters).length === 0 &&
         data?.auth?.parsed?.supportGroups &&
         filterLabels?.includes("support_group")
