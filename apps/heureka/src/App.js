@@ -9,7 +9,7 @@ import { AppShell, AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-c
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import AsyncWorker from "./components/AsyncWorker"
-import TabContext from "./components/tabs/TabContext"
+import NavEntryContext from "./components/navEntries/NavEntryContext"
 import { ErrorBoundary } from "react-error-boundary"
 import { useGlobalsActions, StoreProvider } from "./hooks/useAppStore"
 import PanelManager from "./components/shared/PanelManager"
@@ -57,7 +57,7 @@ function App(props = {}) {
         <ErrorBoundary fallbackRender={fallbackRender}>
           <AsyncWorker consumerId={props.id} />
           <PanelManager />
-          <TabContext />
+          <NavEntryContext />
         </ErrorBoundary>
       </AppShell>
     </QueryClientProvider>
