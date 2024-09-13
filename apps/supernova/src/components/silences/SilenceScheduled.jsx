@@ -78,10 +78,10 @@ const SilenceScheduled = (props) => {
 
     if (errorFormState) {
       setFormState(errorFormState)
-      // addMessage({
-      //   variant: "error",
-      //   text: parseError("Please fix the errors in the form"),
-      // })
+      addMessage({
+        variant: "error",
+        text: "Please fix the errors in the form",
+      })
       return
     }
 
@@ -164,7 +164,6 @@ const SilenceScheduled = (props) => {
   }
 
   const onInputChanged = ({ key, value }) => {
-    if (!value) return
     setFormState({ ...formState, [key]: { value: value, error: null } })
     console.log("formState", formState)
   }
