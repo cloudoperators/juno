@@ -45,7 +45,7 @@ const useCommunication = () => {
         setActiveFilters({ support_group: data.auth.parsed.supportGroups })
       }
     },
-    [authSetData, filterLabels]
+    [authSetData, filterLabels, activeFilters]
   )
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const useCommunication = () => {
     return () => {
       if (unwatchUpdate) unwatchUpdate()
     }
-  }, [setAuthData])
+  }, [setAuthData, isURLRead])
 }
 
 export default useCommunication

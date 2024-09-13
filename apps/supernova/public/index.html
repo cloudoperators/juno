@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: Apache-2.0
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -28,13 +28,11 @@
     </style>
     <script>
       // automatically reload on build changes
-      new EventSource("/esbuild").addEventListener("change", () =>
-        location.reload()
-      )
+      new EventSource("/esbuild").addEventListener("change", () => location.reload())
     </script>
   </head>
   <body>
-    <!-- <script
+    <script
       defer
       src="https://assets.juno.global.cloud.sap/apps/widget-loader@latest/build/app.js"
       data-name="auth"
@@ -42,7 +40,7 @@
       data-props-initial-login="true"
       data-props-mock='{"groups":["organization:test-org", "team:containers","support-group:containers","role:ccloud:admin"]}'
       data-props-debug="true"
-    ></script> -->
+    ></script>
     <script type="module">
       // appProps are generated in development env and added to the build
       import allProps from "./build/appProps.js"
