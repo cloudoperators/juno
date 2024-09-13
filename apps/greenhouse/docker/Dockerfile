@@ -43,7 +43,6 @@ RUN cat <<EOF > /appProps.json
 }
 EOF
 
-
 COPY --from=build /juno/apps/greenhouse/build /usr/share/nginx/html/
 
 COPY apps/greenhouse/docker/index.html .
