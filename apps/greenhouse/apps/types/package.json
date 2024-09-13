@@ -1,5 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse-types",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "kubernetes-types": "^1.30.0"
