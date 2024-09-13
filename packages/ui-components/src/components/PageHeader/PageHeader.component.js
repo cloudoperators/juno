@@ -7,14 +7,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import DefaultLogo from "../../img/JunoUI_logo.svg"
 
-const basePageHeader = `
-  jn-flex
-  jn-shrink-0
-  jn-grow-0
-  jn-basis-auto
+const pageHeaderStyles = `
   jn-min-h-[3.25rem]
-  jn-items-center
-  jn-justify-start
   jn-bg-juno-grey-blue-11
   jn-sticky
   jn-top-0
@@ -23,17 +17,22 @@ const basePageHeader = `
   jn-z-50
 `
 
-//   jn-max-w-xs
+const pageHeaderInnerStyles = `
+  jn-grid
+  jn-grid-cols-[minmax(0,max-content),1fr]
+  jn-gap-3
+  jn-h-7
+  jn-w-full
+  jn-overflow-hidden
+  jn-items-center
+`
+
 const logoContainerStyles = `
   jn-h-7
   jn-max-w-xs
-  jn-mr-3
-  jn-flex
-  jn-items-center
-  jn-justify-start
-  jn-overflow-hidden
-  [&>*]:jn-max-w-full
-  [&>*]:jn-max-h-full
+  [&>*]:jn-w-min
+  [&>*]:jn-max-w-xs
+  [&>*]:jn-h-7
   [&>*]:jn-object-contain
 `
 
@@ -51,21 +50,24 @@ const headingStyles = (clickable) => {
 
 export const PageHeader = ({ heading, className = "", children = null, logo = undefined, onClick, ...props }) => {
   return (
-    <div className={`juno-pageheader theme-dark ${basePageHeader} ${className}`} role="banner" {...props}>
-      <div className={`juno-pageheader-logo-container ${logoContainerStyles}`}>
-        {
-          (typeof logo === "function" && <logo />) || // Render if logo is a function (component)
-            (React.isValidElement(logo) && logo) || // Render if logo is a valid React element
-            ((logo === true || logo === undefined) && <DefaultLogo />) // Render default logo if logo is true or undefined
-        }
-      </div>
-      {heading && (
-        <div className={headingStyles(onClick !== undefined)} onClick={onClick}>
-          {heading}
+    <div className={`juno-pageheader theme-dark ${pageHeaderStyles} ${className}`} role="banner" {...props}>
+      <div className={`juno-pageheader-inner ${pageHeaderInnerStyles}`}>
+        <div className={`juno-pageheader-logo-container ${logoContainerStyles}`}>
+          {
+            (typeof logo === "function" && <logo />) || // Render if logo is a function (component)
+              (React.isValidElement(logo) && logo) || // Render if logo is a valid React element
+              ((logo === true || logo === undefined) && <DefaultLogo />) // Render default logo if logo is true or undefined
+          }
         </div>
-      )}
-
-      {children}
+        <div>
+          {heading && (
+            <div className={headingStyles(onClick !== undefined)} onClick={onClick}>
+              {heading}
+            </div>
+          )}
+        </div>
+        {children}
+      </div>
     </div>
   )
 }
