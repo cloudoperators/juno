@@ -56,6 +56,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+
+      - name: Pull the latest image and set status
+        id: check-image
+        run: |
+          if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}; then
+            echo "bump=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Image needs version bump
+        if: steps.check-image.outputs.bump == 'true'
+        run: |
+          echo "Image ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }} already exists in the ${{ env.REGISTRY }} registry. Skipping workflow. Please increment the version."
+          exit 1
+          
       # This action enables you to SIGN and VERIFY container images using cosign
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign

@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "source": "src/index.js",
   "module": "build/index.js",
-  "private": false,
+  "private": true,
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
