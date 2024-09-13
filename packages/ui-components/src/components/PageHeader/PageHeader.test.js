@@ -9,10 +9,10 @@ import userEvent from "@testing-library/user-event"
 import { PageHeader } from "./index"
 
 describe("PageHeader", () => {
-  test("renders a simple Page Header and has flexbox layout", async () => {
+  test("renders a Page Header", async () => {
     render(<PageHeader />)
     expect(screen.getByRole("banner")).toBeInTheDocument()
-    expect(screen.getByRole("banner")).toHaveClass("jn-flex")
+    expect(screen.getByRole("banner")).toHaveClass("juno-pageheader")
   })
 
   test("renders a Page Header with heading as passed", async () => {
