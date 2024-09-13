@@ -8,7 +8,6 @@
 
 Juno is a platform that includes tools and libraries for developing Juno-based applications. This platform provides a comprehensive set of utilities to streamline the development process, ensure consistency, and facilitate code sharing across different projects.
 
-
 ### Key Components
 
 - **Design System**: The `ui-components` library offers a consistent set of UI components, styles, and guidelines for building user interfaces.
