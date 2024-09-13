@@ -13,7 +13,6 @@ const StoreProvider = ({ children }) => <StoreContext.Provider value={createStor
 const useStore = (selector) => create(useContext(StoreContext), selector)
 
 // globals
-export const useGlobalsIsURLRead = () => useStore((s) => s.globals.isURLRead)
 export const useGlobalsMock = () => useStore((s) => s.globals.isMock)
 export const useGlobalsEndpoint = () => useStore((s) => s.globals.endpoint)
 export const useGlobalsActions = () => useStore((s) => s.globals.actions)
