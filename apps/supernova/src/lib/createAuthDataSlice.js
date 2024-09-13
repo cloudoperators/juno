@@ -20,20 +20,13 @@ const createAuthDataSlice = (set, get) => ({
         // check if data has changed before updating the state
         if (data?.loggedIn === get().auth.loggedIn && data?.auth === get().auth.data) return
 
-        // If a user has a name, name is not editable in forms.
-        // Therefore, we set userEditable to true to set userEditable to !anonymous
-        let anonymous = false
-        if (data.auth?.parsed?.fullName) {
-          anonymous = true
-        }
-
         set(
           (state) => ({
             auth: {
               ...state.auth,
               loggedIn: data?.loggedIn,
               data: data?.auth,
-              userEditable: !anonymous,
+              userEditable: !!data.auth?.parsed?.fullName,
             },
           }),
           false,
