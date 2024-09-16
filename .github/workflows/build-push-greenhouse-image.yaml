@@ -1,10 +1,9 @@
 # Run it locally with act
-#  1. Install act:
-#     `brew install act`
+#  1. Install act: https://github.com/nektos/act/releases
 #  2. Create a .secret file with the following content:
-#     `GITHUB_TOKEN=your_github_token`
-#  WORKFLOW_DISPATCH
-#     `act workflow_dispatch  --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -W .github/workflows/ui-dashboard-image.yaml`
+#     `GITHUB_TOKEN=your_github_token` and `ACT=true`
+#  3. Trigger the workflow with act:
+#     `act workflow_dispatch --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -W .github/workflows/build-push-greenhouse-image.yaml`
 
 name: Build Greenhouse Dashborad
 
@@ -56,7 +55,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-
+      # and check the version was bumped
       - name: Pull the latest image and set status
         id: check-image
         run: |
@@ -64,6 +63,7 @@ jobs:
             echo "bump=true" >> $GITHUB_OUTPUT
           fi
 
+      # Check that only a new image is built if the version was bumped
       - name: Image needs version bump
         if: steps.check-image.outputs.bump == 'true'
         run: |
@@ -71,19 +71,16 @@ jobs:
           exit 1
           
       # This action enables you to SIGN and VERIFY container images using cosign
-      # https://github.com/sigstore/cosign-installer
       - name: Install cosign
         uses: sigstore/cosign-installer@v3.6.0
         with:
           cosign-release: "v2.4.0"
 
-      # Add support for more platforms with QEMU (optional)
-      # QEMU is a generic and open source machine & userspace emulator and virtualizer.
+      # Add support for more platforms with QEMU
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
       # Set up BuildKit Docker container builder to be able to build MULTI-platform images and export cache
-      # https://github.com/docker/setup-buildx-action
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
@@ -106,18 +103,29 @@ jobs:
             type=raw,value=${{ github.sha }}
             type=sha,enable=true,format=short,prefix=
             type=edge,branch=master
-          labels: |
-            org.opencontainers.image.title=Greenhouse Dashboard
-            org.opencontainers.image.description="This image contains a standalone runnable version of the Greenhouse Dashboard. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/greenhouse/docker"
-            org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-            org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-            org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-          annotations: |
-            org.opencontainers.image.title=Greenhouse Dashboard
-            org.opencontainers.image.description="This image contains a standalone runnable version of the Greenhouse Dashboard. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/greenhouse/docker"
-            org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-            org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-            org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+          # this is for reference only, to show the documentation in the details of the image but is not working
+          # and shows only the main README.md in the root of the repository
+          #labels: |
+          #  org.opencontainers.image.title=Greenhouse Dashboard
+          #  org.opencontainers.image.description="This image contains a standalone runnable version of the Greenhouse Dashboard. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/greenhouse/docker"
+          #  org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+          #  org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+          #  org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+          #annotations: |
+          #  org.opencontainers.image.title=Greenhouse Dashboard
+          #  org.opencontainers.image.description="This image contains a standalone runnable version of the Greenhouse Dashboard. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/greenhouse/docker"
+          #  org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+          #  org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+          #  org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+
+      # Set push to false if ACT is true
+      - name: Set push to false if ACT is true
+        run: |
+          if [ "$ACT" = "true" ]; then
+            echo "PUSH_ENABLED=false" >> $GITHUB_ENV
+          else
+            echo "PUSH_ENABLED=true" >> $GITHUB_ENV
+          fi
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -127,11 +135,12 @@ jobs:
         with:
           context: .
           file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
-          push: true
+          push: ${{ env.PUSH_ENABLED }}
           # remove untagged images produced for multi platform builds
           provenance: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # This is the list of platforms that will be built and here comes qemu into play if the platform is not the same as the host
           platforms: |
             linux/amd64
 
@@ -140,6 +149,7 @@ jobs:
       # transparency data even for private images, pass --force to cosign below.
       # https://github.com/sigstore/cosign
       - name: Sign the published Docker image
+        if: ${{ !env.ACT }}
         env:
           # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
           TAGS: ${{ steps.meta.outputs.tags }}
@@ -155,21 +165,20 @@ jobs:
       security-events: write
 
     name: Vulnerability Scan
-    needs: build-and-push
+    needs: build-and-push-greenhouse-image
     runs-on: [default]
     steps:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
-        if: success()
+        if: ${{ success() && !env.ACT }}
         with:
           image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           ignore-unfixed: true
           format: "sarif"
           output: "trivy-results.sarif"
           severity: "CRITICAL,HIGH"
-
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
+        if: ${{ always() && !env.ACT }}
         with:
           sarif_file: trivy-results.sarif
