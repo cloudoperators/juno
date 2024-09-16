@@ -7,7 +7,6 @@ import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 import styles from "./styles.scss"
 
-console.log("====================", React)
 import MonorepoChecker from "./components/MonorepoChecker"
 
 import { AppShellProvider, AppShell, PageHeader, Container } from "@cloudoperators/juno-ui-components"

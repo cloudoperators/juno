@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.11.3
+
+### Patch Changes
+
+- c51c8bf: chore(supernova): add screenshots to readme
+- 1b7cb95: Fixed the useCommunication hook to properly enable and handle filters derived from the URL. This ensures that the communication layer respects the filter parameters passed via the URL, improving synchronization between the app state and the URL.
+
 ## 0.11.2
 
 ### Patch Changes

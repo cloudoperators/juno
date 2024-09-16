@@ -41,6 +41,7 @@ const useAppStore = (selector) => useStore(useContext(StoreContext), selector)
 // See reasoning here: https://tkdodo.eu/blog/working-with-zustand
 
 // Globals exports
+export const useGlobalsIsURLRead = () => useAppStore((s) => s.globals.isURLRead)
 export const useGlobalsEmbedded = () => useAppStore((state) => state.globals.embedded)
 export const useShowDetailsFor = () => useAppStore((state) => state.globals.showDetailsFor)
 export const useGlobalsApiEndpoint = () => useAppStore((state) => state.globals.apiEndpoint)
@@ -51,6 +52,7 @@ export const useGlobalsActions = () => useAppStore((state) => state.globals.acti
 export const useAuthData = () => useAppStore((state) => state.auth.data)
 export const useAuthLoggedIn = () => useAppStore((state) => state.auth.loggedIn)
 export const useAuthActions = () => useAppStore((state) => state.auth.actions)
+export const useAuthUserEditable = () => useAppStore((state) => state.auth.userEditable)
 
 // UserActivity exports
 export const useUserIsActive = () => useAppStore((state) => state.userActivity.isActive)
