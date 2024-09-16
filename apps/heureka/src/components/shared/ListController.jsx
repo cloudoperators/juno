@@ -11,7 +11,7 @@ import {
   useGlobalsActions,
   useActiveFilters,
   usePredefinedFilters,
-  useGlobalsActiveTab,
+  useGlobalsActiveNavEntry,
   useSearchTerm,
 } from "../../hooks/useAppStore"
 import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
@@ -23,7 +23,7 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
   const queryOptions = useGlobalsQueryOptions(queryKey)
   const { setQueryOptions } = useGlobalsActions()
   const { addMessage, resetMessages } = messageActions()
-  const activeTab = useGlobalsActiveTab()
+  const activeNavEntry = useGlobalsActiveNavEntry()
   const activeFilters = useActiveFilters(entityName)
   const predefinedFilters = usePredefinedFilters(entityName)
   const searchTerm = useSearchTerm(entityName)
@@ -36,14 +36,14 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
         filter: {
           ...activeFilters,
           ...predefinedFilters,
-          ...(entityName === "IssueMatches" && {
-            // Currently search is only available for IssueMatches entity.
+          ...(["IssueMatches", "Services"].includes(entityName) && {
+            // Currently search is only available for IssueMatches and Services entity.
             search: Array.isArray(searchTerm) ? searchTerm : [searchTerm], // Ensure searchTerm is an array
           }),
         },
       },
     ],
-    enabled: !!queryClientFnReady && queryKey === activeTab,
+    enabled: !!queryClientFnReady && queryKey === activeNavEntry,
   })
 
   const [currentPage, setCurrentPage] = useState(1)

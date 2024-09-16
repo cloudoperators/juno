@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useLayoutEffect, useEffect, useState } from "react"
+import { useLayoutEffect, useEffect } from "react"
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import {
-  useAuthLoggedIn,
   useFilterLabels,
   useFilterActions,
   useActiveFilters,
@@ -20,6 +19,7 @@ import {
   useSilencesRegEx,
   useSilencesStatus,
   useShowDetailsForSilence,
+  useGlobalsIsURLRead,
 } from "./useAppStore"
 
 const urlStateManager = registerConsumer("supernova")
@@ -35,8 +35,8 @@ const SILENCE_STATUS = "st"
 const SILENCE_DETAIL = "sd"
 
 const useUrlState = () => {
-  const [isURLRead, setIsURLRead] = useState(false)
-  const loggedIn = useAuthLoggedIn()
+  const isURLRead = useGlobalsIsURLRead()
+  const { setIsURLRead } = useGlobalsActions()
   const { setActiveFilters, setPausedFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
   const { setSilencesRegEx, setSilencesStatus, setShowDetailsForSilence } = useSilencesActions()
   const filterLabels = useFilterLabels()
@@ -150,7 +150,6 @@ const useUrlState = () => {
 
     urlStateManager.push(newState)
   }, [
-    loggedIn,
     activeFilters,
     pausedFilters,
     searchTerm,

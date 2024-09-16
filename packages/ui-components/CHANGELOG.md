@@ -1,5 +1,15 @@
 # @cloudoperators/juno-ui-components
 
+## 2.19.0
+
+### Minor Changes
+
+- 8449754: Added new default logo for JunoUI into Storybook UI and component: PageHeader
+
+### Patch Changes
+
+- d1c14e2: Migrate Checkbox components to Typescript
+
 ## 2.18.0
 
 ### Minor Changes

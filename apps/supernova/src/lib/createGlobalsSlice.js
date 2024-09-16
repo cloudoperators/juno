@@ -16,8 +16,18 @@ const createGlobalsSlice = (set, get, options) => ({
     showDetailsFor: null,
     apiEndpoint: options?.endpoint,
     activeSelectedTab: "alerts",
+    isURLRead: false,
 
     actions: {
+      setIsURLRead: () =>
+        set(
+          (state) => ({
+            globals: { ...state.globals, isURLRead: true },
+          }),
+          false,
+          "globals/setURLRead"
+        ),
+
       setShowDetailsFor: (alertID) =>
         set(
           (state) => ({

@@ -37,9 +37,11 @@ jobs:
             ci
             core
             deps
+            docs
             doop
             example
-            heureka            
+            heureka
+            greenhouse            
             infra
             juno
             k8s
