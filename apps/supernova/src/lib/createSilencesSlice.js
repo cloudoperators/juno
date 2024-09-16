@@ -298,7 +298,7 @@ const createSilencesSlice = (set, get, options) => ({
       },
 
       /*
-      Find all silences in items that matches all labels (key&value) from the alert but omit the labels that are excluded (excludedLabels)
+      Find all silences (also expired ones) in items that matches all labels (key&value) from the alert but omit the labels that are excluded (excludedLabels)
       */
       getSilencesForAlert: (alert) => {
         if (!alert) return
