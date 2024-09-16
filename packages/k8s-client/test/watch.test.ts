@@ -30,7 +30,8 @@ describe("Watch", () => {
   const url = "https://apiEndpoint.com"
 
   beforeEach(() => {
-    ;(request as Mock).mockReturnValue(
+    const requestMock = request as Mock
+    requestMock.mockReturnValue(
       Promise.resolve({
         status: 200,
         json: () => Promise.resolve(null),
