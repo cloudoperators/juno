@@ -302,11 +302,14 @@ const createSilencesSlice = (set, get, options) => ({
       */
       getSilencesForAlert: (alert) => {
         if (!alert) return
+
         const alertLabels = alert?.labels || {}
+
+        // collect all silences
         let silences = [...get().silences.items]
         const localItems = get().silences.localItems || {}
 
-        // checking if localItem need to overwrite a item or if its appended
+        // checking if localItem need to overwrite a item or if its appended to silences
         for (const key in localItems) {
           const localSilence = localItems[key]
 
@@ -321,22 +324,39 @@ const createSilencesSlice = (set, get, options) => ({
           }
         }
 
+        // collect all excluded Labels
         const excludedLabels = get().silences.excludedLabels || []
         const enrichedLabels = get().alerts.enrichedLabels || []
         // combine the arrays containing the labels that shouldn't be used for matching into one for easier checking
         const labelsExcludedForMatching = [...excludedLabels, ...enrichedLabels]
 
-        // find all expired silences that matches all labels from the alert excluding the excluded excludedLabels
+        // Find all expired silences that matches all labels from the alert excluding the excluded excludedLabels
         return silences.filter((silence) => {
           const silenceMatchers = silence?.matchers || []
+
           // check if all labels from the alert are included in the silence
           return Object.keys(alertLabels).every((label) => {
             // check if the label is excluded
             if (labelsExcludedForMatching.includes(label)) return true
-            // check if the label is included in the silence
-            return silenceMatchers.some(
-              (silenceLabel) => silenceLabel?.name === label && silenceLabel?.value === alertLabels?.[label]
-            )
+            // check if the label is included in the silence ///REGEX
+            return silenceMatchers.some((silenceLabel) => {
+              if (!silenceLabel?.isRegex) return false
+
+              // if (silenceLabel?.isRegex) {
+              const regex = new RegExp(silenceLabel?.value)
+
+              // console.log("regex", regex)
+              // console.log("alertLabels?.[label]", alertLabels, alertLabels?.[label])
+              // console.log("silenceL", silenceLabel, silenceLabel?.value)
+              // console.log("reg ", regex.test(alertLabels?.[label]))
+
+              // If silenceLabel.value is a regex, test it against alertLabels[label]
+              return regex.test(alertLabels?.[label].value)
+              // } else {
+              //   // Otherwise, perform a direct comparison
+              //   return silenceLabel?.name === label && silenceLabel?.value === alertLabels?.[label]
+              // }
+            })
           })
         })
       },
