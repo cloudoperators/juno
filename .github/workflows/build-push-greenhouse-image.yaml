@@ -155,7 +155,7 @@ jobs:
       security-events: write
 
     name: Vulnerability Scan
-    needs: build-and-push
+    needs: build-and-push-greenhouse-image
     runs-on: [default]
     steps:
       - name: Run Trivy vulnerability scanner
