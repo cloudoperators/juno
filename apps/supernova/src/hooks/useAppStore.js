@@ -52,6 +52,7 @@ export const useGlobalsActions = () => useAppStore((state) => state.globals.acti
 export const useAuthData = () => useAppStore((state) => state.auth.data)
 export const useAuthLoggedIn = () => useAppStore((state) => state.auth.loggedIn)
 export const useAuthActions = () => useAppStore((state) => state.auth.actions)
+export const useAuthUserEditable = () => useAppStore((state) => state.auth.userEditable)
 
 // UserActivity exports
 export const useUserIsActive = () => useAppStore((state) => state.userActivity.isActive)
