@@ -63,11 +63,7 @@ const useCommunication = () => {
   }, [setIsActive])
 
   useEffect(() => {
-    if (!isURLRead) return
-
-    // temporary fix to set the auth data for the app
-    authSetData({ auth: { parsed: { fullName: "anonymous" } } })
-    if (!setAuthData) return
+    if (!isURLRead || !setAuthData) return
 
     get("AUTH_GET_DATA", setAuthData)
     const unwatchUpdate = watch("AUTH_UPDATE_DATA", setAuthData)
