@@ -5,10 +5,10 @@
 
 import { useState, useEffect } from "react"
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
-import { useGlobalsActions, useGlobalsActiveTab } from "./useAppStore"
+import { useGlobalsActions, useGlobalsActiveNavEntry } from "./useAppStore"
 
 const DEFAULT_KEY = "heureka"
-const ACTIVE_TAB = "t"
+const ACTIVE_NAV = "t"
 
 const useUrlState = (key) => {
   const [isURLRead, setIsURLRead] = useState(false)
@@ -16,17 +16,17 @@ const useUrlState = (key) => {
   // int his case the key should be different per app
   const urlStateManager = registerConsumer(key || DEFAULT_KEY)
 
-  const { setActiveTab } = useGlobalsActions()
-  const activeTab = useGlobalsActiveTab()
+  const { setActiveNavEntry } = useGlobalsActions()
+  const activeNavEntry = useGlobalsActiveNavEntry()
 
   // Set initial state from URL (on login)
   useEffect(() => {
     if (isURLRead) return
 
     // READ the url state and set the state
-    const newTabIndex = urlStateManager.currentState()?.[ACTIVE_TAB]
+    const newNavIndex = urlStateManager.currentState()?.[ACTIVE_NAV]
     // SAVE the state
-    if (newTabIndex) setActiveTab(newTabIndex)
+    if (newNavIndex) setActiveNavEntry(newNavIndex)
     setIsURLRead(true)
   }, [isURLRead])
 
@@ -34,9 +34,9 @@ const useUrlState = (key) => {
   useEffect(() => {
     if (!isURLRead) return
     urlStateManager.push({
-      [ACTIVE_TAB]: activeTab,
+      [ACTIVE_NAV]: activeNavEntry,
     })
-  }, [isURLRead, activeTab])
+  }, [isURLRead, activeNavEntry])
 }
 
 export default useUrlState
