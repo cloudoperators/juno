@@ -22,6 +22,7 @@ import {
   useGlobalsApiEndpoint,
   useSilencesActions,
   useAlertEnrichedLabels,
+  useAuthUserEditable,
 } from "../../hooks/useAppStore"
 import { post } from "../../api/client"
 import AlertDescription from "../alerts/shared/AlertDescription"
@@ -33,10 +34,18 @@ import { parseError } from "../../helpers"
 import constants from "../../constants"
 
 const validateForm = (values) => {
+  const minCommentLength = 3
+  const minUserNameLength = 1
+
   const invalidItems = {}
-  if (values?.comment?.length <= 3) {
+  if (values?.comment?.length < minCommentLength) {
     if (!invalidItems["comment"]) invalidItems["comment"] = []
     invalidItems["comment"].push(`Please enter at least 3 characters`)
+  }
+
+  if (values?.createdBy?.length < minUserNameLength) {
+    if (!invalidItems["createdBy"]) invalidItems["createdBy"] = []
+    invalidItems["createdBy"].push(`Please enter a name`)
   }
 
   return invalidItems
@@ -58,6 +67,7 @@ const SilenceNew = ({ alert, size, variant }) => {
   const excludedLabels = useSilencesExcludedLabels()
   const { addLocalItem, getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
+  const isNameEditable = useAuthUserEditable()
 
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
@@ -75,9 +85,10 @@ const SilenceNew = ({ alert, size, variant }) => {
     setFormState({
       ...formState,
       ...DEFAULT_FORM_VALUES,
-      createdBy: authData?.parsed?.fullName,
+      createdBy: authData?.parsed?.fullName || "", // empty sting to prevent undefined for TextInput
       matchers: setupMatchers(alert?.labels, excludedLabels, enrichedLabels),
     })
+
     // get the latest expiration date from the existing silences
     // recalculate always on open modal due to the fact that the silences or local silences
     // may change without change in the alert
@@ -103,6 +114,7 @@ const SilenceNew = ({ alert, size, variant }) => {
   const onSubmitForm = debounce(() => {
     setError(null)
     setSuccess(null)
+
     const formValidation = validateForm(formState)
     setShowValidation(formValidation)
     if (Object.keys(formValidation).length > 0) return
@@ -208,7 +220,14 @@ const SilenceNew = ({ alert, size, variant }) => {
 
               <Form className="mt-6">
                 <FormRow>
-                  <TextInput required label="Silenced by" value={formState.createdBy} disabled />
+                  <TextInput
+                    required
+                    label="Silenced by"
+                    value={formState.createdBy}
+                    onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                    errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
+                    disabled={!isNameEditable}
+                  />
                 </FormRow>
                 <FormRow>
                   <Textarea

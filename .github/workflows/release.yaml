@@ -37,7 +37,7 @@ jobs:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npm run release
           title: "publish(npm): automate Package Versioning and Publishing with Changesets"
-          commit: "chore(version): update versions with Changesets"
+          commit: "chore(version): update versions with Changesets, '[ci skip]'"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -55,7 +55,7 @@ jobs:
                   "elements": [
                     {
                       "type": "image",
-                      "image_url": "https://avatars.githubusercontent.com/u/160245993?s=48&v=4",
+                      "image_url": "https://raw.githubusercontent.com/cloudoperators/juno/main/assets/logos/JUNO_logo_slack.png",
                       "alt_text": "cloudoperators/juno"
                     },
                     {
