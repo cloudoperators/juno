@@ -17,7 +17,6 @@ permissions:
 jobs:
   release:
     name: Release
-    if: "!startsWith(github.head_ref, 'changeset-release/main')"
     runs-on: [default]
     steps:
       - name: Checkout Repo
