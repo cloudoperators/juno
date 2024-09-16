@@ -22,7 +22,7 @@ env:
   PACKAGE_PATH: "apps/greenhouse"
 
 jobs:
-  build-and-push:
+  build-and-push-greenhouse-image:
     name: Build&Push
     runs-on: [default]
 
@@ -134,7 +134,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           platforms: |
             linux/amd64
-            linux/arm64
 
       # This will only write to the public Rekor transparency log when the Docker
       # repository is public to avoid leaking data.  If you would like to publish
