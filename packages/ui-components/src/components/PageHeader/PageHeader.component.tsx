@@ -62,7 +62,7 @@ export const PageHeader = ({
           {
             typeof logo === "function" || // Render if logo is a function (component)
               (React.isValidElement(logo) && logo) || // Render if logo is a valid React element
-              ((logo === true || logo === undefined) && <DefaultLogo alt={""} />) // Render default logo if logo is true or undefined
+              ((logo === true || logo === undefined) && <DefaultLogo data-testid="default-logo" alt={""} />) // Render default logo if logo is true or undefined
           }
         </div>
         <div>

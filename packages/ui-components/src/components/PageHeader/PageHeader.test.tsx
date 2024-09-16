@@ -35,8 +35,8 @@ describe("PageHeader", () => {
 
   test("renders a default logo by default", () => {
     render(<PageHeader />)
-    expect(screen.getByRole("banner")).toBeInTheDocument()
-    expect(document.querySelector("[data-file-name='SvgJunoUI_logo']")).toBeInTheDocument()
+    const element = screen.getByTestId("default-logo")
+    expect(element).toBeInTheDocument()
   })
 
   test("does not render any logo as passed", () => {
