@@ -45,7 +45,7 @@ const headingStyles = (clickable) => {
 }
 
 /**
- * The PageHeader component renders a header to the application. Place as first child of AppBody.
+ * The PageHeader component renders a header to the application. Place as first child of AppBody In order to customize the header Logo, PageHeader accepts a `logo` prop that expects a custom component: `logo={<CustomLogo />}` Ideally, the custom logo component should return an `<img />` or an inline `<svg>` element. When using `svg`, make sure the file does not contain any unnecessary cruft. `Svgo` is a great tool to optimize `svg` files. Make sure the `viewBox` element is not removed when optimizing a file for usage a a header logo.
  */
 
 export const PageHeader = ({ heading, className = "", children = null, logo = undefined, onClick, ...props }) => {

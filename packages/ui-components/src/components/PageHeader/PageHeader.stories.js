@@ -34,7 +34,7 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: "The page header component renders a header at the top of the website. Place as first child of AppBody.",
+        story: "The PageHeader component renders a header at the top of the website. Place as first child of AppBody.",
       },
     },
   },
