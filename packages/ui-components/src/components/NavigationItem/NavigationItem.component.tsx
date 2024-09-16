@@ -57,9 +57,6 @@ export const NavigationItem = ({
 
   // Determine whether the item is initially set to active via the parent navigation component or by its own devices:
   const initialActive = () => {
-    console.log("------- initialActive")
-    console.log(navigationContext)
-    console.log("------- active: " + active)
     if (navigationContext?.activeItem && isNotEmptyString(navigationContext?.activeItem)) {
       return activeItem === theKey
     } else {
@@ -83,15 +80,10 @@ export const NavigationItem = ({
   }, [activeItem, active])
 
   const handleClick = (event: React.MouseEvent<EventTarget>) => {
-    console.log("- item click")
     if (disabled) {
-      console.log("- disabled")
       event.preventDefault()
     } else {
-      console.log("- isActive: " + isActive)
-      console.log("- handleActiveItemChange: " + typeof handleActiveItemChange)
       if (!isActive && handleActiveItemChange && typeof handleActiveItemChange === "function") {
-        console.log("- invoke handleActiveItemChange")
         handleActiveItemChange(theKey)
       }
       onClick && onClick(event)
