@@ -26,13 +26,16 @@ import { parseError } from "../../helpers"
 import constants from "../../constants"
 
 const validateForm = (values) => {
+  const minCommentLength = 3
+  const minUserNameLength = 1
+
   const invalidItems = {}
-  if (values?.comment?.length < 3) {
+  if (values?.comment?.length < minCommentLength) {
     if (!invalidItems["comment"]) invalidItems["comment"] = []
     invalidItems["comment"].push(`Please enter at least 3 characters`)
   }
 
-  if (values?.createdBy?.length < 1) {
+  if (values?.createdBy?.length < minUserNameLength) {
     if (!invalidItems["createdBy"]) invalidItems["createdBy"] = []
     invalidItems["createdBy"].push(`Please enter a name`)
   }

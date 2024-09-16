@@ -24,11 +24,14 @@ export const DEFAULT_FORM_VALUES = {
 ////// Form Validation
 
 export const validateForm = (state) => {
+  const minCommentLength = 3
+  const minUserNameLength = 1
+
   let formState = state
   let errorexist = false
 
   // validate if comment is at least 3 characters long
-  if (formState.comment.value.length < 3) {
+  if (formState.comment.value.length < minCommentLength) {
     errorexist = true
     formState = {
       ...formState,
@@ -40,7 +43,7 @@ export const validateForm = (state) => {
   }
 
   // validate if createdBy is at least 1 characters long
-  if (!formState?.createdBy?.value || formState?.createdBy?.value.length < 1) {
+  if (!formState?.createdBy?.value || formState?.createdBy?.value.length < minUserNameLength) {
     errorexist = true
     formState = {
       ...formState,
