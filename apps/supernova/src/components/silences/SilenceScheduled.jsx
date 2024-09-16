@@ -165,7 +165,6 @@ const SilenceScheduled = (props) => {
 
   const onInputChanged = ({ key, value }) => {
     setFormState({ ...formState, [key]: { value: value, error: null } })
-    console.log("formState", formState)
   }
 
   // todo delete other input change functions
