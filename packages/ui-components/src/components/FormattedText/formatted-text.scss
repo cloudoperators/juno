@@ -219,30 +219,3 @@
     margin-bottom: 0;
   }
 }
-
-// const headCellBaseStyles = `
-// 	jn-font-bold
-// 	jn-text-theme-high
-// 	jn-bg-theme-background-lvl-1
-// 	jn-border-theme-background-lvl-0
-// `
-
-// const cellBaseStyles = (nowrap, cellVerticalAlignment) => {
-//   return `
-// 		${nowrap ? "jn-whitespace-nowrap" : ""}
-// 		${
-//       cellVerticalAlignment === "center"
-//         ? `
-// 				jn-justify-center
-// 				jn-flex
-// 				jn-flex-col
-// 			`
-//         : ""
-//     }
-// 		jn-px-5
-// 		jn-py-3
-// 		jn-border-b
-// 		jn-border-theme-background-lvl-2
-// 		jn-h-full
-// 	`
-// }
