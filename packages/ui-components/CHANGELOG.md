@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.20.0
+
+### Minor Changes
+
+- 4ad82f4: Migrate AppShell and navigation components to TypeScript
+
 ## 2.19.0
 
 ### Minor Changes
