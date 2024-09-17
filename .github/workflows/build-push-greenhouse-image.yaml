@@ -109,20 +109,6 @@ jobs:
             type=raw,value=${{ github.sha }}
             type=sha,enable=true,format=short,prefix=
             type=edge,branch=master
-          # this is for reference only, to show the documentation in the details of the image but is not working
-          # and shows only the main README.md in the root of the repository
-          #labels: |
-          #  org.opencontainers.image.title=Greenhouse Dashboard
-          #  org.opencontainers.image.description="This image contains a standalone runnable version of the Greenhouse Dashboard. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/greenhouse/docker"
-          #  org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-          #  org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-          #  org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-          #annotations: |
-          #  org.opencontainers.image.title=Greenhouse Dashboard
-          #  org.opencontainers.image.description="This image contains a standalone runnable version of the Greenhouse Dashboard. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/greenhouse/docker"
-          #  org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-          #  org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
-          #  org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
 
       # Set push to false if ACT is true
       - name: Set push to false if ACT is true
