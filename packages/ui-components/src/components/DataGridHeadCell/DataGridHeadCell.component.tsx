@@ -4,8 +4,7 @@
  */
 
 import React, { forwardRef } from "react"
-import PropTypes from "prop-types"
-import { DataGridCell } from "../DataGridCell/index.js"
+import { DataGridCell } from "../DataGridCell/index"
 
 const headCellBaseStyles = `
 	jn-font-bold
@@ -14,7 +13,7 @@ const headCellBaseStyles = `
 	jn-border-theme-background-lvl-0
 `
 
-export const DataGridHeadCell = forwardRef(
+export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps>(
   (
     {
       // sortable,
@@ -50,15 +49,15 @@ export const DataGridHeadCell = forwardRef(
 
 DataGridHeadCell.displayName = "DataGridHeadCell"
 
-DataGridHeadCell.propTypes = {
+export interface DataGridHeadCellProps {
   /** Whether the DataGrid should be sortable by this column */
   // sortable: PropTypes.bool,
   /** Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.  */
-  colSpan: PropTypes.number,
+  colSpan?: number
   /** Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;) */
-  nowrap: PropTypes.bool,
+  nowrap?: boolean
   /** Children to render in the DataGridHeadCell */
-  children: PropTypes.node,
+  children?: React.ReactNode
   /** Add a classname */
-  className: PropTypes.string,
+  className?: string
 }

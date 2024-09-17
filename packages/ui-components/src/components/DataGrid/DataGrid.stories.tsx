@@ -4,16 +4,10 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { DataGrid } from "./index.js"
-import { DataGridRow } from "../DataGridRow/index.js"
-import { DataGridCell } from "../DataGridCell/index.js"
-import { DataGridHeadCell } from "../DataGridHeadCell/index.js"
-import { PreseletedWithSearch as FiltersStory } from "../Filters/Filters.stories"
-import { Filters } from "../Filters/index.js"
-import { DataGridToolbar } from "../DataGridToolbar/index.js"
-import { Default as DataGridToolbarStory } from "../DataGridToolbar/DataGridToolbar.stories"
-import { Button } from "../Button/index.js"
+import { DataGrid } from "./index"
+import { DataGridRow } from "../DataGridRow/index"
+import { DataGridCell } from "../DataGridCell/index"
+import { DataGridHeadCell } from "../DataGridHeadCell/index"
 
 export default {
   title: "Components/DataGrid/DataGrid",
@@ -27,26 +21,26 @@ export default {
 
 const defaultColumns = 3
 
-const Template = ({ hideHead, includeColSpanRow, withToolbar, withFilters, ...args }) => (
+interface TemplateProps {
+  hideHead: boolean
+  includeColSpanRow: boolean
+  columns: number
+}
+
+const Template = ({ hideHead, includeColSpanRow, ...args }: TemplateProps) => (
   <>
-    {withFilters && <Filters {...FiltersStory.args}></Filters>}
-    {withToolbar && (
-      <DataGridToolbar {...DataGridToolbarStory.args}>
-        <Button variant="primary">Add new</Button>
-      </DataGridToolbar>
-    )}
     <DataGrid {...args}>
       {!hideHead && (
         <DataGridRow>
-          {[...Array(args.columns || defaultColumns)].map((_, c) => (
+          {[...Array<unknown>(args.columns || defaultColumns)].map((_, c) => (
             <DataGridHeadCell key={`h_${c}`}>{`Head cell ${c}`}</DataGridHeadCell>
           ))}
         </DataGridRow>
       )}
       {!includeColSpanRow &&
-        [...Array(4)].map((_, r) => (
+        [...Array<unknown>(4)].map((_, r) => (
           <DataGridRow key={`b_${r}`}>
-            {[...Array(args.columns || defaultColumns)].map((_, c) => (
+            {[...Array<unknown>(args.columns || defaultColumns)].map((_, c) => (
               <DataGridCell key={`b_${r}_${c}`}>
                 {c === args.columns - 2 ? `Cell ${r}-${c} has more content than others` : `Cell ${r}-${c}`}
               </DataGridCell>
@@ -61,14 +55,6 @@ const Template = ({ hideHead, includeColSpanRow, withToolbar, withFilters, ...ar
     </DataGrid>
   </>
 )
-
-Template.propTypes = {
-  hideHead: PropTypes.bool,
-  includeColSpanRow: PropTypes.bool,
-  withToolbar: PropTypes.bool,
-  withFilters: PropTypes.bool,
-  columns: PropTypes.number,
-}
 
 export const Default = {
   render: Template,
@@ -188,57 +174,5 @@ export const ColSpanCell = {
   args: {
     columns: 5,
     includeColSpanRow: true,
-  },
-}
-
-export const WithToolbar = {
-  render: Template,
-
-  parameters: {
-    docs: {
-      description: {
-        story: "With toolbar",
-      },
-    },
-  },
-
-  args: {
-    columns: 5,
-    withToolbar: true,
-  },
-}
-
-export const WithFilters = {
-  render: Template,
-
-  parameters: {
-    docs: {
-      description: {
-        story: "With filters",
-      },
-    },
-  },
-
-  args: {
-    columns: 5,
-    withFilters: true,
-  },
-}
-
-export const WithToolbarAndFilters = {
-  render: Template,
-
-  parameters: {
-    docs: {
-      description: {
-        story: "With toolbar and filters",
-      },
-    },
-  },
-
-  args: {
-    columns: 5,
-    withFilters: true,
-    withToolbar: true,
   },
 }

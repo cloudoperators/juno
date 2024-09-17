@@ -4,20 +4,22 @@
  */
 
 import React from "react"
-import { DataGrid } from "../DataGrid/index.js"
-import { DataGridRow } from "../DataGridRow/index.js"
-import { DataGridHeadCell } from "./index.js"
+import { DataGrid } from "../DataGrid/index"
+import { DataGridRow } from "../DataGridRow/index"
+import { DataGridCell, DataGridCellProps } from "./index"
+
+type StoryFunction = () => React.ReactNode
 
 export default {
-  title: "Components/DataGrid/DataGridHeadCell",
-  component: DataGridHeadCell,
+  title: "Components/DataGrid/DataGridCell",
+  component: DataGridCell,
   argTypes: {
     children: {
       control: false,
     },
   },
   decorators: [
-    (story) => (
+    (story: StoryFunction) => (
       <DataGrid columns={3}>
         <DataGridRow>{story()}</DataGridRow>
       </DataGrid>
@@ -32,7 +34,7 @@ export default {
   },
 }
 
-const Template = (args) => <DataGridHeadCell {...args}></DataGridHeadCell>
+const Template = (args: DataGridCellProps) => <DataGridCell {...args}></DataGridCell>
 
 export const Default = {
   render: Template,
@@ -40,13 +42,13 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: "Juno DataGridHeadCell for use in DataGrid",
+        story: "Juno DataGridCell for use in DataGrid",
       },
     },
   },
 
   args: {
-    children: ["DataGridHeadCell"],
+    children: ["DataGridCell"],
   },
 }
 
@@ -56,14 +58,14 @@ export const NoWrap = {
   parameters: {
     docs: {
       description: {
-        story: "Juno DataGridHeadCell with nowrap option (content has white-space: nowrap;)",
+        story: "Juno DataGridCell with nowrap option (content has white-space: nowrap;)",
       },
     },
   },
 
   args: {
     nowrap: true,
-    children: ["DataGridHeadCell does not wrap"],
+    children: ["DataGridCell does not wrap"],
   },
 }
 
@@ -73,13 +75,13 @@ export const ColSpan = {
   parameters: {
     docs: {
       description: {
-        story: "Juno DataGridHeadCell with colspan",
+        story: "Juno DataGridCell with colspan",
       },
     },
   },
 
   args: {
     colSpan: 3,
-    children: ["DataGridHeadCell with colspan"],
+    children: ["DataGridCell with colspan"],
   },
 }

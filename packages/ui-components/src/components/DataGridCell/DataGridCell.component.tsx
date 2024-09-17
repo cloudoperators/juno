@@ -4,11 +4,10 @@
  */
 
 import React, { forwardRef } from "react"
-import PropTypes from "prop-types"
 
-import { useDataGridContext } from "../DataGrid/DataGrid.component.js"
+import { useDataGridContext, CellVerticalAlignmentType } from "../DataGrid/DataGrid.component"
 
-const cellBaseStyles = (nowrap, cellVerticalAlignment) => {
+const cellBaseStyles = (nowrap: boolean, cellVerticalAlignment: CellVerticalAlignmentType | undefined) => {
   return `
 		${nowrap ? "jn-whitespace-nowrap" : ""}
 		${
@@ -28,7 +27,7 @@ const cellBaseStyles = (nowrap, cellVerticalAlignment) => {
 	`
 }
 
-const cellCustomStyles = (colSpan) => {
+const cellCustomStyles = (colSpan: number | undefined) => {
   let styles
   if (colSpan) {
     styles = { gridColumn: `span ${colSpan} / span ${colSpan}` }
@@ -36,7 +35,7 @@ const cellCustomStyles = (colSpan) => {
   return styles
 }
 
-export const DataGridCell = forwardRef(
+export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
   ({ colSpan, nowrap = false, className = "", children = null, ...props }, ref) => {
     const dataGridContext = useDataGridContext() || {}
     const cellVerticalAlignment = dataGridContext.cellVerticalAlignment
@@ -57,13 +56,13 @@ export const DataGridCell = forwardRef(
 
 DataGridCell.displayName = "DataGridCell"
 
-DataGridCell.propTypes = {
+export type DataGridCellProps = {
   /** Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.  */
-  colSpan: PropTypes.number,
+  colSpan?: number
   /** Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;) */
-  nowrap: PropTypes.bool,
+  nowrap?: boolean
   /** Children to render in the DataGridCell */
-  children: PropTypes.node,
+  children?: React.ReactNode
   /** Add a classname */
-  className: PropTypes.string,
-}
+  className?: string
+} & React.HTMLProps<HTMLDivElement>

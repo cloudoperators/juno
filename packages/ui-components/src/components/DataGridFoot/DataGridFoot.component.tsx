@@ -4,9 +4,8 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
-export const DataGridFoot = ({ className = "", children = null, ...props }) => {
+export const DataGridFoot = ({ className = "", children = null, ...props }: DataGridFootProps) => {
   return (
     <tfoot className={`juno-datagrid-foot ${className}`} {...props}>
       {children}
@@ -14,9 +13,9 @@ export const DataGridFoot = ({ className = "", children = null, ...props }) => {
   )
 }
 
-DataGridFoot.propTypes = {
+export interface DataGridFootProps {
   /** Children to render in the DataGridFoot */
-  children: PropTypes.node,
+  children?: React.ReactNode
   /** Add a classname */
-  className: PropTypes.string,
+  className?: string
 }

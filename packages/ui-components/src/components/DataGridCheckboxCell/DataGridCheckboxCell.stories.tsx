@@ -4,9 +4,11 @@
  */
 
 import React from "react"
-import { DataGrid } from "../DataGrid/index.js"
-import { DataGridRow } from "../DataGridRow/index.js"
-import { DataGridCheckboxCell } from "./index.js"
+import { DataGrid } from "../DataGrid/index"
+import { DataGridRow } from "../DataGridRow/index"
+import { DataGridCheckboxCell, DataGridCheckboxCellProps } from "./index"
+
+type StoryFunction = () => React.ReactNode
 
 export default {
   title: "WiP/DataGrid/DataGridCheckboxCell",
@@ -17,7 +19,7 @@ export default {
     },
   },
   decorators: [
-    (story) => (
+    (story: StoryFunction) => (
       <DataGrid columns={3}>
         <DataGridRow>{story()}</DataGridRow>
       </DataGrid>
@@ -32,7 +34,7 @@ export default {
   },
 }
 
-const Template = (args) => <DataGridCheckboxCell {...args}></DataGridCheckboxCell>
+const Template = (args: DataGridCheckboxCellProps) => <DataGridCheckboxCell {...args}></DataGridCheckboxCell>
 
 export const Default = {
   render: Template,

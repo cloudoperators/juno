@@ -4,14 +4,19 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
 const dataGridStyles = `
 	jn-grid
 	jn-items-stretch
 `
 
-const gridTemplate = (columns, columnMaxSize, columnMinSize, minContentColumns, gridColumnTemplate) => {
+const gridTemplate = (
+  columns: number,
+  columnMaxSize: string,
+  columnMinSize: string,
+  minContentColumns: number[] | undefined,
+  gridColumnTemplate: string | undefined
+) => {
   let styles
 
   // gridColumnTemplate was passed. Return it and ignore all other settings
@@ -25,8 +30,7 @@ const gridTemplate = (columns, columnMaxSize, columnMinSize, minContentColumns, 
   // else generate a simpler statement using the repeat function
   if (minContentColumns && Array.isArray(minContentColumns) && minContentColumns.length > 0) {
     // for each configured column check if it should have normal or min-content sizing and add the respective string to the template string
-    const columnsUpdated = [...Array(columns)]
-    columnsUpdated.map((_, i) => {
+    [...Array<unknown>(columns)].map((_, i) => {
       generatedTemplate += minContentColumns.includes(i)
         ? "min-content "
         : `minmax(${columnMinSize}, ${columnMaxSize}) `
@@ -39,7 +43,11 @@ const gridTemplate = (columns, columnMaxSize, columnMinSize, minContentColumns, 
   return styles
 }
 
-const DataGridContext = React.createContext()
+interface DataGridContextType {
+  cellVerticalAlignment?: CellVerticalAlignmentType
+}
+
+const DataGridContext = React.createContext<DataGridContextType>({})
 
 export const useDataGridContext = () => React.useContext(DataGridContext)
 
@@ -56,7 +64,7 @@ export const DataGrid = ({
   className = "",
   children = null,
   ...props
-}) => {
+}: DataGridProps) => {
   const dataGridConf = {
     cellVerticalAlignment: cellVerticalAlignment,
     // selectable: selectable
@@ -75,24 +83,26 @@ export const DataGrid = ({
   )
 }
 
-DataGrid.propTypes = {
+export type CellVerticalAlignmentType = "center" | "top"
+
+export interface DataGridProps {
   /** Set number of columns */
-  columns: PropTypes.number,
+  columns?: number
   /** Set column max sizing. Default: auto. For equally sized columns use "1fr" */
-  columnMaxSize: PropTypes.string,
+  columnMaxSize?: string
   /** Set column minimum size. Default: 0px */
-  columnMinSize: PropTypes.string,
+  columnMinSize?: string
   /** Specify which columns should be sized by minimum content size (i.e. as small as possible). Pass an array of column numbers (first column is 0) */
-  minContentColumns: PropTypes.arrayOf(PropTypes.number),
+  minContentColumns?: number[]
   /** Set the grid column template in CSS grid 'grid-template-columns' notation. If this prop is passed, all other template props (columns, columnMaxSize,
    *  columnMinSize, minContentColumns) are ignored. The easiest case where you might need this is e.g. if you want to set specific column widths for some
    *  or all columns, e.g. "20% auto auto 10%" (The first column is set to 20%, the next two to auto size, the last to 10%). */
-  gridColumnTemplate: PropTypes.string,
+  gridColumnTemplate?: string
   /** Set the vertical alignment for all GridCells. Default: center. PLEASE NOTE: the center alignment is achieved by using a flexbox column layout,
    * which means that all child elements of the cell will be stacked vertically. To avoid this, wrap the elements in their own div */
-  cellVerticalAlignment: PropTypes.oneOf(["center", "top"]),
+  cellVerticalAlignment?: CellVerticalAlignmentType
   /** Children to render in the DataGrid */
-  children: PropTypes.node,
+  children?: React.ReactNode
   /** Add a class name */
-  className: PropTypes.string,
+  className?: string
 }

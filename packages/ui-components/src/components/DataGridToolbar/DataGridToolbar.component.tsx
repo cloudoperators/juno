@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
 const datagridtoolbarstyles = `
 	jn-flex
@@ -20,7 +19,7 @@ const childrenWrapperStyles = `
 `
 
 /** This is the toolbar for use with a DataGrid. This is the place where you would put buttons and other controls that affect the items in the DataGrid (e.g. triggering batch actions). Optionally a search input can be added. */
-export const DataGridToolbar = ({ search, className = "", children = null, ...props }) => {
+export const DataGridToolbar = ({ search, className = "", children = null, ...props }: DataGridToolbarProps) => {
   return (
     <div className={`juno-datagrid-toolbar ${datagridtoolbarstyles} ${className}`} {...props}>
       {search && <div>{search}</div>}
@@ -29,11 +28,11 @@ export const DataGridToolbar = ({ search, className = "", children = null, ...pr
   )
 }
 
-DataGridToolbar.propTypes = {
+export interface DataGridToolbarProps {
   /** Pass an optional SearchInput component */
-  search: PropTypes.node,
+  search?: React.ReactNode
   /** Children to render in the DataGridToolbar */
-  children: PropTypes.node,
+  children?: React.ReactNode
   /** Add a classname */
-  className: PropTypes.string,
+  className?: string
 }
