@@ -18,9 +18,21 @@ const AlertStatus = ({ alert }) => {
   const localSilences = useSilencesLocalItems()
   const { getMappingSilences, getMappedState } = useSilencesActions()
 
-  const silences = useMemo(() => {
+  const silence = useMemo(() => {
     if (!alert) return []
-    return getMappingSilences(alert)
+    const silences = getMappingSilences(alert).sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
+    return silences.length > 0 ? silences[0] : null
+  }, [alert, allSilences, localSilences])
+
+  const inhibitor = useMemo(() => {
+    if (!alert) return []
+    if (!alert?.status?.inhibitedBy) return []
+
+    let inhibitedBy = alert.status.inhibitedBy.map((fingerprint) => {
+      return getAlertByFingerprint(fingerprint)
+    })
+    inhibitedBy = inhibitedBy.sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
+    return inhibitedBy.length > 0 ? inhibitedBy[0] : null
   }, [alert, allSilences, localSilences])
 
   const state = useMemo(() => {
@@ -42,23 +54,19 @@ const AlertStatus = ({ alert }) => {
           )}
         </>
       )}
-      {alert?.status?.inhibitedBy?.length > 0 && (
+      {inhibitor && (
         <div className="text-xs mt-2">
           <Stack direction="vertical">
             <span>Inhibited by:</span>
-            {alert.status.inhibitedBy.map((fingerprint, index) => (
-              <span key={index}>{getAlertByFingerprint(fingerprint)?.annotations?.summary}</span>
-            ))}
+            <span>{inhibitor?.annotations?.summary}</span>
           </Stack>
         </div>
       )}
-      {silences && silences.length > 0 && (
+      {silence && (
         <div className="text-xs mt-2">
           <Stack direction="vertical">
             <span>Silenced by:</span>
-            {silences.map((data) => (
-              <span key={data.id}>{data?.createdBy || data.id}</span>
-            ))}
+            <span key={silence.id}>{silence?.createdBy || silence.id}</span>
           </Stack>
         </div>
       )}
