@@ -93,12 +93,11 @@ jobs:
           cp $PACKAGE_PATH/public/favicon.ico ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/
 
           # Generate index.html
-          cat <<EOF > ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
-          <!DOCTYPE html>
+          echo "<!DOCTYPE html>
           <html>
             <head>
               <title>Supernova</title>
-              <link rel="icon" sizes="any" href="favicon.ico" />
+              <link rel=\"icon\" sizes=\"any\" href=\"favicon.ico\" />
               <style>
                 html, body, #root {
                   height: 100%;
@@ -108,19 +107,17 @@ jobs:
               </style>
             </head>
             <body>
-              <div id="root"></div>
-              <script type="module">
-                import { mount } from "/\$entry_file"
-                const props = await fetch("/appProps.json").then(r => r.json())
-                const root = document.getElementById("root")
+              <div id=\"root\"></div>
+              <script type=\"module\">
+                import { mount } from \"/$entry_file\"
+                const props = await fetch(\"appProps.json\").then(r => r.json())
+                const root = document.getElementById(\"root\")
                 mount(root, { props })
               </script>
             </body>
-          </html>
-          EOF
+          </html>" > ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
 
-          cat <<EOF > ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/appProps.json
-          {
+          echo "{
             "endpoint": "https://ccloud.alertmanager.greenhouse-qa.eu-nl-1.cloud.sap/api/v2",
             "filterLabels": [
               "app",
@@ -147,8 +144,7 @@ jobs:
                 }
               }
             ],
-          }
-          EOF
+          }" > ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/appProps.json
         env:
           PACKAGE_PATH: apps/supernova
           APP_FOLDER: supernova
