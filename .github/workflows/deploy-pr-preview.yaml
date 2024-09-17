@@ -74,7 +74,6 @@ jobs:
       - name: Build supernova if changes detected
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'supernova')
         run: |
-          cd /tmp/src
           entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
           echo $entry_file > /app/entry_file
           dir=$(dirname $entry_file)
