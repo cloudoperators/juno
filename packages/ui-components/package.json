@@ -75,6 +75,7 @@
     "react-dom": "^18.2.0",
     "react-jss": "^10.8.1",
     "react-tabs": "^4.2.1",
+    "react-test-renderer": "^18.2.0",
     "regenerator-runtime": "^0.13.9",
     "rollup": "^3.4.0",
     "rollup-plugin-analyzer": "^4.0.0",
