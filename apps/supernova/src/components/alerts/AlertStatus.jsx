@@ -37,7 +37,7 @@ const AlertStatus = ({ alert }) => {
     // sort by biggest endsAt (most far in the future)
     inhibitedBy = inhibitedBy.sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
     return inhibitedBy.length > 0 ? inhibitedBy[0] : null
-  }, [alert, allSilences, localSilences])
+  }, [alert])
 
   const state = useMemo(() => {
     if (!alert) return {}
