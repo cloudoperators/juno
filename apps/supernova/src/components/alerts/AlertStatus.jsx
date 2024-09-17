@@ -18,12 +18,15 @@ const AlertStatus = ({ alert }) => {
   const localSilences = useSilencesLocalItems()
   const { getMappingSilences, getMappedState } = useSilencesActions()
 
+  // Gives silence which will still last the longest
   const silence = useMemo(() => {
     if (!alert) return []
+    // sort by biggest endsAt (most far in the future)
     const silences = getMappingSilences(alert).sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
     return silences.length > 0 ? silences[0] : null
   }, [alert, allSilences, localSilences])
 
+  // Gives inhibitor which will still last the longest
   const inhibitor = useMemo(() => {
     if (!alert) return []
     if (!alert?.status?.inhibitedBy) return []
@@ -31,6 +34,7 @@ const AlertStatus = ({ alert }) => {
     let inhibitedBy = alert.status.inhibitedBy.map((fingerprint) => {
       return getAlertByFingerprint(fingerprint)
     })
+    // sort by biggest endsAt (most far in the future)
     inhibitedBy = inhibitedBy.sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
     return inhibitedBy.length > 0 ? inhibitedBy[0] : null
   }, [alert, allSilences, localSilences])
