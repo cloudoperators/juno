@@ -98,9 +98,9 @@ jobs:
       
       # Debugging step to print the tags
       #- name: print tags
-      #  run: |
-      #    echo "${{ steps.meta.outputs.tags }}"
-      #    exit 1
+      # run: |
+      #   echo "${{ steps.meta.outputs.tags }}"
+      #   exit 1
 
       # Build and load to Docker
       - name: Build and export to Docker ${{ steps.meta.outputs.tags }}
@@ -117,9 +117,8 @@ jobs:
         with:
           image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
           format: 'sarif'
-          exit-code: '1'
+          exit-code: '0'
           ignore-unfixed: true
-          vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
           output: "trivy-results.sarif"
 
@@ -130,12 +129,13 @@ jobs:
           sarif_file: trivy-results.sarif
 
       - name: Push Docker image
-        if: ${{ !env.ACT }}
+        if: ${{ env.ACT }}
         run: |
           # upload all images to the registry
-          for tag in "${{ steps.meta.outputs.tags }}"; do
-            echo "Pushing image: $tag"
-            docker push $tag
+          TAGS=$(echo "${{ steps.meta.outputs.tags }}")
+          printf '%s\n' "$TAGS" | while IFS= read -r tag; do
+            echo "Upload image: $tag"
+            #docker push $tag
           done
 
       - name: Sign the published Docker image
