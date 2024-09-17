@@ -24,7 +24,7 @@ const spinnerStyles = `
 const inputStyles = `
   justify-normal
 `
-/** A basic, uncontrolled Pagination component. Renders '<' and '>' buttons as a minimun/default. */
+/** A basic Pagination component. Renders '<' and '>' buttons as a minimun/default. The component keeps internal state about the currently selected page so it can be used as an uncontrolled component.  */
 export const Pagination = ({
   variant = "",
   currentPage = null,
