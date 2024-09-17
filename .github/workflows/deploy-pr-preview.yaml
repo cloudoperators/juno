@@ -1,3 +1,14 @@
+# Run it locally with act
+#  1. Install act:
+#     `brew install act`
+#  2. Create a .secret file with the following content:
+#     `GITHUB_TOKEN=your_github_token`
+#  PULL REQUEST
+#  1. Create a act_pull_request.json file in case of a pull request with the following content:
+#     `{"pull_request": {"number": <PR number>, "head": {"ref": "<PR branch name>", "sha": "PR commit sha"}, "base": {"ref": "main"}}, "repository": {"name": "juno", "owner": {"login": "cloudoperators"}}}`
+#  2. Run the following command:
+#     `act pull_request --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -e act_pull_request.json -W .github/workflows/deploy-pr-preview.yaml`
+
 name: Storybook PR Preview
 
 on:
@@ -9,33 +20,86 @@ on:
       - closed
     paths:
       - "packages/ui-components/**"
+      - "apps/supernova/**"
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
 
 jobs:
+  run-detect-changes:
+    uses: ./.github/workflows/shared-detect-pkg-changes.yaml
+    with:
+      paths: "packages apps"
+      runs-on: default
+
+  filter-changes:
+    runs-on: [default]
+    needs: [run-detect-changes]
+    # outputs:
+    #   filtered-changes: ${{ steps.filter.outputs.filtered-changes }}
+    steps:
+      - name: Filter changes to avoid triggering the pipeline for specific directories
+        id: filter
+        run: |
+          changes='${{ needs.run-detect-changes.outputs.changes }}'
+          echo "===="
+          echo $changes
+          echo "==="
+
   deploy-preview:
+    needs: [run-detect-changes]
     runs-on: [default]
     steps:
+      - name: Output changes
+        id: filter
+        run: |
+          changes='${{ needs.run-detect-changes.outputs.changes }}'
+          echo "===="
+          echo $changes
+          echo "==="
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         if: github.event.action != 'closed'
         with:
-          node-version: "20.x"      
+          node-version: "20.x"
 
       - name: Install dependencies
         if: github.event.action != 'closed'
         run: |
-          npm install --force         
+          npm install --force
 
-      - name: Build storybook
+      - name: Create a tmp folder with all compiled apps and pkgs
         if: github.event.action != 'closed'
-        run: npm -w @cloudoperators/juno-ui-components run build-storybook          
+        run: |
+          mkdir -p tmp
+
+      - name: Build storybook if changes detected
+        # if not closed and changes detected in ui-components run build-storybook
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'ui-components')
+        run: |
+          npm -w @cloudoperators/juno-ui-components run build-storybook
+          cp -r packages/ui-components/storybook-static tmp/ui-components
+
+      - name: Generate index.html for Deployed Apps
+        if: github.event.action != 'closed'
+        env:
+          UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
+          SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
+        run: |
+          echo "<html><body><h1>Deployed Apps for PR ${GITHUB_HEAD_REF}</h1><ul>" > index.html
+          if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
+            echo "<li><a href='./ui-components/index.html'>UI Components Storybook</a></li>" >> index.html
+          fi
+          if [ "$SUPERNOVA_CHANGED" = "true" ]; then
+            echo "<li><a href='./supernova/index.html'>Another App Storybook</a></li>" >> index.html
+          fi
+          echo "</ul></body></html>" >> index.html
 
       - uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: packages/ui-components/storybook-static
+          source-dir: tmp
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
