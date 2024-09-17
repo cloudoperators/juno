@@ -2,7 +2,7 @@
 #  1. Install act: https://github.com/nektos/act/releases
 #  2. Create a .secret file in the root of this repository with the following content:
 #     `GITHUB_TOKEN=your_github_token` and `ACT=true`
-#     Note: to create a token... 
+#     Note: to create a token...
 #      * Log in to your GitHub account and go to your profile settings.
 #      * In the left sidebar, click on "Developer settings".
 #      * Select "Personal access tokens" from the menu.
@@ -42,14 +42,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Read version from CHANGELOG.md
+      - name: Read version from package.json
         id: read_version
         working-directory: ${{ env.PACKAGE_PATH }}
         run: |
           # Extract the first version number that appears after "## "
-          LAST_VERSION=$(grep -m 1 -oP '(?<=## )\d+\.\d+\.\d+' CHANGELOG.md)
-          echo "Latest version is $LAST_VERSION"
-          echo "IMAGE_VERSION=$LAST_VERSION" >> $GITHUB_ENV
+          GREENHOUSE_VERSION=$(jq -r '.version' package.json)
+          echo "Greenhouse version is $GREENHOUSE_VERSION"
+          echo "IMAGE_VERSION=$GREENHOUSE_VERSION" >> $GITHUB_OUTPUT
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -61,30 +61,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # and check the version was bumped
-      - name: Pull the latest image and set status
+      # and check if the image with the same version already exists
+      - name: Check if image exists ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} in registry
         id: check-image
         run: |
-          if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}; then
-            echo "bump=true" >> $GITHUB_OUTPUT
+          if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }}; then
+            "Image ${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} already exists in the ${{ env.REGISTRY }} registry. Skipping workflow. Please increment the version."
+            exit 1 
           fi
 
-      # Check that only a new image is built if the version was bumped
-      - name: Image needs version bump
-        if: steps.check-image.outputs.bump == 'true'
-        run: |
-          echo "Image ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }} already exists in the ${{ env.REGISTRY }} registry. Skipping workflow. Please increment the version."
-          exit 1
-          
       # This action enables you to SIGN and VERIFY container images using cosign
       - name: Install cosign
         uses: sigstore/cosign-installer@v3.6.0
         with:
           cosign-release: "v2.4.0"
-
-      # Add support for more platforms with QEMU
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
 
       # Set up BuildKit Docker container builder to be able to build MULTI-platform images and export cache
       - name: Set up Docker Buildx
@@ -93,84 +83,65 @@ jobs:
           driver-opts: |
             image=moby/buildkit:latest
 
-      # Extract metadata (tags, labels) for Docker
-      # https://github.com/docker/metadata-action
-      - name: Extract Docker metadata
+      - name: Generate Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          # value is a template that will be evaluated at runtime
+          # this will generate a list of tags like:
+          #  ghcr.io/cloudoperators/juno-app-greenhouse:0.2.1
+          #  ghcr.io/cloudoperators/juno-app-greenhouse:latest
           tags: |
-            # Use the version from the VERSION file
-            type=raw,value=${{ env.IMAGE_TAG }},prefix=
-            # Optionally include semver tags
-            type=semver,pattern={{major}}.{{minor}},prefix=
-            # Additional Useful Tags
-            type=raw,value=${{ github.sha }}
-            type=sha,enable=true,format=short,prefix=
-            type=edge,branch=master
+            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
+      
+      # Debugging step to print the tags
+      #- name: print tags
+      #  run: |
+      #    echo "${{ steps.meta.outputs.tags }}"
+      #    exit 1
 
-      # Set push to false if ACT is true
-      - name: Set push to false if ACT is true
-        run: |
-          if [ "$ACT" = "true" ]; then
-            echo "PUSH_ENABLED=false" >> $GITHUB_ENV
-          else
-            echo "PUSH_ENABLED=true" >> $GITHUB_ENV
-          fi
-
-      # Build and push Docker image with Buildx (don't push on PR)
-      # https://github.com/docker/build-push-action
-      - name: Build and push Docker image
-        id: build-and-push
+      # Build and load to Docker
+      - name: Build and export to Docker ${{ steps.meta.outputs.tags }}
+        id: build-image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
-          push: ${{ env.PUSH_ENABLED }}
-          # remove untagged images produced for multi platform builds
-          provenance: false
+          load: true # load the image into the docker daemon to make the image available for the next steps in the workflow
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          # This is the list of platforms that will be built and here comes qemu into play if the platform is not the same as the host
-          platforms: |
-            linux/amd64
 
-      # This will only write to the public Rekor transparency log when the Docker
-      # repository is public to avoid leaking data.  If you would like to publish
-      # transparency data even for private images, pass --force to cosign below.
-      # https://github.com/sigstore/cosign
-      - name: Sign the published Docker image
-        if: ${{ !env.ACT }}
-        env:
-          # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
-          TAGS: ${{ steps.meta.outputs.tags }}
-          DIGEST: ${{ steps.build-and-push.outputs.digest }}
-        # This step uses the identity token to provision an ephemeral certificate
-        # against the sigstore community Fulcio instance.
-        run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
-
-  vulnerability-scan:
-    permissions:
-      contents: read
-      packages: read
-      security-events: write
-
-    name: Vulnerability Scan
-    needs: build-and-push-greenhouse-image
-    runs-on: [default]
-    steps:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
-        if: ${{ success() && !env.ACT }}
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+          format: 'sarif'
+          exit-code: '1'
           ignore-unfixed: true
-          format: "sarif"
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
           output: "trivy-results.sarif"
-          severity: "CRITICAL,HIGH"
+
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: ${{ always() && !env.ACT }}
         with:
           sarif_file: trivy-results.sarif
+
+      - name: Push Docker image
+        if: ${{ !env.ACT }}
+        run: |
+          # upload all images to the registry
+          for tag in ${{ steps.meta.outputs.tags }}; do
+            echo "Pushing image: $tag"
+            docker push $tag
+          done
+
+      - name: Sign the published Docker image
+        if: ${{ !env.ACT }}
+        env:
+          TAGS: ${{ steps.meta.outputs.tags }}
+          DIGEST: ${{ steps.build-image.outputs.digest }}
+        # This step uses the identity token to provision an ephemeral certificate
+        # against the sigstore community Fulcio instance.
+        run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
