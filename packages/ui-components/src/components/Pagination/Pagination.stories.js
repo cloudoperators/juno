@@ -47,7 +47,11 @@ UncontrolledTemplate.propTypes = {
 
 export const Default = {
   render: Template,
-  args: { variant: "default" },
+  args: {
+    variant: "default",
+    currentPage: 2,
+    pages: 6,
+  },
 }
 
 export const PaginationWithNumber = {
@@ -89,56 +93,6 @@ export const DisabledPagination = {
 
 export const ProgressPagination = {
   render: Template,
-
-  args: {
-    progress: true,
-  },
-}
-
-export const UncontrolledDefault = {
-  render: UncontrolledTemplate,
-  args: { variant: "default" },
-}
-
-export const UncontrolledPaginationWithNumber = {
-  render: UncontrolledTemplate,
-
-  args: {
-    variant: "number",
-    currentPage: 3,
-  },
-}
-
-export const UncontrolledPaginationWithSelect = {
-  render: UncontrolledTemplate,
-
-  args: {
-    variant: "select",
-    currentPage: 2,
-    pages: 6,
-  },
-}
-
-export const UncontrolledPaginationWithInput = {
-  render: UncontrolledTemplate,
-
-  args: {
-    variant: "input",
-    currentPage: 3,
-    pages: 6,
-  },
-}
-
-export const UncontrolledDisabledPagination = {
-  render: UncontrolledTemplate,
-
-  args: {
-    disabled: true,
-  },
-}
-
-export const UncontrolledProgressPagination = {
-  render: UncontrolledTemplate,
 
   args: {
     progress: true,

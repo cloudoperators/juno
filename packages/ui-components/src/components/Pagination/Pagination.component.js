@@ -93,6 +93,7 @@ export const Pagination = ({
     onBlur && onBlur(event)
   }
 
+  // Calculation of the width of input fields dynamically based on the number of characters
   const getInputWidthClass = () => {
     let logLength = isNaN(controlPage) ? 1 : controlPage?.toString().length
     logLength = logLength > 5 ? 5 : logLength

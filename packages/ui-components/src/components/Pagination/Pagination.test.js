@@ -9,13 +9,13 @@ import userEvent from "@testing-library/user-event"
 import { Pagination } from "./index"
 
 describe("Pagination", () => {
-  test("renders a Pagination", async () => {
+  test("renders a Pagination", () => {
     render(<Pagination data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
     expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination")
   })
 
-  test("renders a default Pagination with only two buttons by default", async () => {
+  test("renders a default Pagination with only two buttons by default", () => {
     render(<Pagination data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
     expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-default")
@@ -24,7 +24,7 @@ describe("Pagination", () => {
     expect(screen.queryAllByRole("textbox")).toHaveLength(0)
   })
 
-  test("renders a number variant Pagination as passed", async () => {
+  test("renders a number variant Pagination as passed", () => {
     render(<Pagination variant="number" currentPage={12} data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
     expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-number")
@@ -34,7 +34,7 @@ describe("Pagination", () => {
     expect(screen.queryAllByRole("textbox")).toHaveLength(0)
   })
 
-  test("renders a select variant Pagination as passed", async () => {
+  test("renders a select variant Pagination as passed", () => {
     render(<Pagination variant="select" data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
     expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-select")
@@ -43,7 +43,7 @@ describe("Pagination", () => {
     expect(document.querySelector("button.juno-select-toggle")).toBeInTheDocument()
   })
 
-  test("renders an input variant Pagination as passed", async () => {
+  test("renders an input variant Pagination as passed", () => {
     render(<Pagination variant="input" currentPage={43} data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
     expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-input")
@@ -86,44 +86,44 @@ describe("Pagination", () => {
     expect(handleKeyPress).toHaveBeenCalledTimes(1)
   })
 
-  test("renders disabled Pagination (default) as passed", async () => {
+  test("renders disabled Pagination (default) as passed", () => {
     render(<Pagination disabled />)
     expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
   })
 
-  test("renders disabled Pagination (select) as passed", async () => {
+  test("renders disabled Pagination (select) as passed", () => {
     render(<Pagination disabled variant="select" />)
     expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(3)
     expect(document.querySelector(".juno-select-toggle")).toBeDisabled()
   })
 
-  test("renders disabled Pagination (input) as passed", async () => {
+  test("renders disabled Pagination (input) as passed", () => {
     render(<Pagination disabled variant="input" />)
     expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
     expect(screen.getByRole("textbox")).toBeDisabled()
   })
 
-  test("renders Pagination (default) in progress as passed", async () => {
+  test("renders Pagination (default) in progress as passed", () => {
     render(<Pagination progress />)
     expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
     expect(document.querySelector(".juno-spinner")).toBeInTheDocument()
   })
 
-  test("renders Pagination (select) in progress as passed", async () => {
+  test("renders Pagination (select) in progress as passed", () => {
     render(<Pagination progress variant="select" />)
     expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
     expect(document.querySelector(".juno-select-toggle")).not.toBeInTheDocument()
     expect(document.querySelector(".juno-spinner")).toBeInTheDocument()
   })
 
-  test("renders Pagination (input) in progress as passed", async () => {
+  test("renders Pagination (input) in progress as passed", () => {
     render(<Pagination progress variant="input" />)
     expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
     expect(screen.queryByRole("textbox")).not.toBeInTheDocument()
     expect(document.querySelector(".juno-spinner")).toBeInTheDocument()
   })
 
-  test("renders Pagination (input) - fires onChange handler as passed", async () => {
+  test("renders Pagination (input) - fires onChange handler as passed", () => {
     const onChangeMock = jest.fn()
     render(<Pagination variant="input" pages={12} onChange={onChangeMock} />)
     const textinput = screen.getByRole("textbox")
@@ -131,7 +131,7 @@ describe("Pagination", () => {
     expect(onChangeMock).toHaveBeenCalledTimes(1)
   })
 
-  test("renders Pagination (input) - check whether a value that is too high is automatically corrected to the highest possible value - as passed", async () => {
+  test("renders Pagination (input) - value that is too high is corrected to the highest possible - as passed", () => {
     render(<Pagination variant="input" pages={12} />)
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "102" } })
@@ -139,7 +139,7 @@ describe("Pagination", () => {
     expect(textinput).toHaveValue("12")
   })
 
-  test("renders Pagination (input) - check whether a value that is too low is automatically corrected to the value : 1 - as passed", async () => {
+  test("renders Pagination (input) - value that is too low is corrected to the value : 1 - as passed", () => {
     render(<Pagination variant="input" pages={12} />)
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "0" } })
@@ -147,7 +147,7 @@ describe("Pagination", () => {
     expect(textinput).toHaveValue("1")
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (2 digits) as passed", async () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (2 digits) as passed", () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "22" } })
@@ -155,7 +155,7 @@ describe("Pagination", () => {
     expect(computedStyle.width).toBe("3.3rem")
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (3 digits) as passed", async () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (3 digits) as passed", () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "333" } })
@@ -163,7 +163,7 @@ describe("Pagination", () => {
     expect(computedStyle.width).toBe("3.9rem")
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (4 digits) as passed", async () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (4 digits) as passed", () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "4444" } })
@@ -171,7 +171,7 @@ describe("Pagination", () => {
     expect(computedStyle.width).toBe("4.5rem")
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (5 digits) as passed", async () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (5 digits) as passed", () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "55555" } })
@@ -179,7 +179,7 @@ describe("Pagination", () => {
     expect(computedStyle.width).toBe("5.1rem")
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (7 digits) as passed", async () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (7 digits) as passed", () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "777777" } })
@@ -187,20 +187,20 @@ describe("Pagination", () => {
     expect(computedStyle.width).toBe("5.1rem")
   })
 
-  test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item", async () => {
+  test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item", () => {
     const { rerender } = render(<Pagination variant="input" pages={12} />)
     expect(document.querySelector(".juno-stack")).toHaveTextContent("12")
     rerender(<Pagination variant="input" totalPages={33} />)
     expect(document.querySelector(".juno-stack")).toHaveTextContent("33")
   })
 
-  test("renders a custom className as passed", async () => {
+  test("renders a custom className as passed", () => {
     render(<Pagination className="my-class" data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
     expect(screen.getByTestId("my-pagination")).toHaveClass("my-class")
   })
 
-  test("renders all props as passed", async () => {
+  test("renders all props as passed", () => {
     render(<Pagination data-testid="my-pagination" data-lolol="123-456" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
     expect(screen.getByTestId("my-pagination")).toHaveAttribute("data-lolol", "123-456")
