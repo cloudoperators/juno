@@ -7,7 +7,7 @@
 #      * In the left sidebar, click on "Developer settings".
 #      * Select "Personal access tokens" from the menu.
 #      * Click on "Generate new token" (classic or fine-grained). and choose `public_repoAccess`
-#      * copy the token and use it in the .secrets file
+#      * Copy the token and use it in the .secrets file
 #  3. Trigger the workflow with act:
 #     `act workflow_dispatch --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -W .github/workflows/build-push-greenhouse-image.yaml`
 
