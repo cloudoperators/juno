@@ -62,7 +62,7 @@ jobs:
       - name: Create a tmp folder with all compiled apps and pkgs
         if: github.event.action != 'closed'
         run: |
-          mkdir -p tmp
+          mkdir -p ${{ env.DEPLOY_PATH }}
 
       - name: Build storybook if changes detected
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'ui-components')
@@ -88,6 +88,7 @@ jobs:
           npx turbo run build --filter $package_name
 
           # Copy the necessary files
+          mkdir -p ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}
           cp -r $PACKAGE_PATH/$build_folder ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/$build_folder
           cp $PACKAGE_PATH/public/favicon.ico ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/
 
@@ -116,6 +117,37 @@ jobs:
               </script>
             </body>
           </html>
+          EOF
+
+          cat <<EOF > ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/appProps.json
+          {
+            "endpoint": "https://ccloud.alertmanager.greenhouse-qa.eu-nl-1.cloud.sap/api/v2",
+            "filterLabels": [
+              "app",
+              "cluster",
+              "cluster_type",
+              "context",
+              "job",
+              "region",
+              "service",
+              "severity",
+              "status",
+              "support_group",
+              "tier",
+              "type"
+            ],
+            "silenceExcludedLabels": ["pod", "pod_name", "instance"],
+            "silenceTemplates": "",
+            "predefinedFilters": [
+              {
+                "name": "all",
+                "displayName": "All",
+                "matchers": {
+                  "region": ".*"
+                }
+              }
+            ],
+          }
           EOF
         env:
           PACKAGE_PATH: apps/supernova
