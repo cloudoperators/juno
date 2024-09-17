@@ -334,19 +334,17 @@ const createSilencesSlice = (set, get, options) => ({
         return silences.filter((silence) => {
           const silenceMatchers = silence?.matchers || []
 
-          // Check if all labels from the silence are included in the alert
+          // Check if all non-excluded labels from the silence are included in the alert
           return silenceMatchers.every((silenceLabel) => {
-            // Check if the label is excluded
             if (labelsExcludedForMatching.includes(silenceLabel.name)) return true
-
-            // Check if the label is included in the alert
             const alertLabelValue = alertLabels[silenceLabel.name]
 
+            // If the label is not a regex, check if the values are equal
             if (!silenceLabel.isRegex) {
               return silenceLabel.value === alertLabelValue
             }
 
-            // silenceLabel.isRegex is true
+            // SilenceLabel.isRegex is true so we need to check if the alertLabelValue matches the regex
             const regex = new RegExp(silenceLabel.value)
             return regex.test(alertLabelValue)
           })
