@@ -77,9 +77,12 @@ jobs:
           entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
           build_folder=$(dirname $entry_file)
           package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
+
+          echo "===================="
           echo "Entry file: $entry_file"
           echo "Build folder: $build_folder"
           echo "Package name: $package_name"
+          echo "===================="
 
           # Run build using turbo
           npx turbo run build --filter $package_name
