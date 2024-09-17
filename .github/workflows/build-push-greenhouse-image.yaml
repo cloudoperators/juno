@@ -133,7 +133,7 @@ jobs:
         if: ${{ !env.ACT }}
         run: |
           # upload all images to the registry
-          for tag in ${{ steps.meta.outputs.tags }}; do
+          for tag in "${{ steps.meta.outputs.tags }}"; do
             echo "Pushing image: $tag"
             docker push $tag
           done
