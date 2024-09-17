@@ -26,7 +26,7 @@ on:
 concurrency: deploy-pr-preview-${{ github.ref }}
 
 env:
-  DEPLOY_FOLDER: tmp
+  DEPLOY_PATH: tmp
 
 jobs:
   run-detect-changes:
@@ -68,29 +68,28 @@ jobs:
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'ui-components')
         run: |
           npm -w @cloudoperators/juno-ui-components run build-storybook
-          cp -r packages/ui-components/storybook-static ${{ env.DEPLOY_FOLDER }}/ui-components
+          cp -r packages/ui-components/storybook-static ${{ env.DEPLOY_PATH }}/ui-components
         continue-on-error: true
 
       - name: Build supernova if changes detected
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'supernova')
         run: |
           entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
-          echo $entry_file > /app/entry_file
-          dir=$(dirname $entry_file)
+          build_folder=$(dirname $entry_file)
           package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
           echo "Entry file: $entry_file"
-          echo "Directory: $dir"
+          echo "Build folder: $build_folder"
           echo "Package name: $package_name"
 
           # Run build using turbo
           npx turbo run build --filter $package_name
 
           # Copy the necessary files
-          cp -r $PACKAGE_PATH/$dir ${{ env.DEPLOY_FOLDER }}
-          cp $PACKAGE_PATH/public/favicon.ico ${{ env.DEPLOY_FOLDER }}
+          cp -r $PACKAGE_PATH/$build_folder ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/$build_folder
+          cp $PACKAGE_PATH/public/favicon.ico ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/
 
           # Generate index.html
-          cat <<EOF > ${{ env.DEPLOY_FOLDER }}/index.html
+          cat <<EOF > ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
           <!DOCTYPE html>
           <html>
             <head>
@@ -107,7 +106,7 @@ jobs:
             <body>
               <div id="root"></div>
               <script type="module">
-                import { mount } from "/\$(cat /app/entry_file)"
+                import { mount } from "/\$entry_file"
                 const props = await fetch("/appProps.json").then(r => r.json())
                 const root = document.getElementById("root")
                 mount(root, { props })
@@ -117,6 +116,7 @@ jobs:
           EOF
         env:
           PACKAGE_PATH: apps/supernova
+          APP_FOLDER: supernova
         continue-on-error: true
 
       - name: Generate index.html for Deployed Apps
@@ -125,18 +125,18 @@ jobs:
           UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
           SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
         run: |
-          echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Apps for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_FOLDER }}/index.html
+          echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Apps for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
           if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
-            echo "<li><a href='./ui-components/index.html'>UI Components Storybook</a></li>" >> ${{ env.DEPLOY_FOLDER }}/index.html
+            echo "<li><a href='./ui-components/index.html'>UI Components Storybook</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
           fi
           if [ "$SUPERNOVA_CHANGED" = "true" ]; then
-            echo "<li><a href='./supernova/index.html'>Supernova</a></li>" >> ${{ env.DEPLOY_FOLDER }}/index.html
+            echo "<li><a href='./supernova/index.html'>Supernova</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
           fi
-          echo "</ul></body></html>" >> ${{ env.DEPLOY_FOLDER }}/index.html
+          echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
       - uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: ${{ env.DEPLOY_FOLDER }}/
+          source-dir: ${{ env.DEPLOY_PATH }}/
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
