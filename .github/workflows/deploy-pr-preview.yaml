@@ -109,7 +109,7 @@ jobs:
             <body>
               <div id=\"root\"></div>
               <script type=\"module\">
-                import { mount } from \"$entry_file\"
+                import { mount } from \"./$entry_file\"
                 const props = await fetch(\"appProps.json\").then(r => r.json())
                 const root = document.getElementById(\"root\")
                 mount(root, { props })
