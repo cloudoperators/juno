@@ -35,20 +35,6 @@ jobs:
       paths: "packages apps"
       runs-on: default
 
-  filter-changes:
-    runs-on: [default]
-    needs: [run-detect-changes]
-    # outputs:
-    #   filtered-changes: ${{ steps.filter.outputs.filtered-changes }}
-    steps:
-      - name: Filter changes to avoid triggering the pipeline for specific directories
-        id: filter
-        run: |
-          changes='${{ needs.run-detect-changes.outputs.changes }}'
-          echo "===="
-          echo $changes
-          echo "==="
-
   deploy-preview:
     needs: [run-detect-changes]
     runs-on: [default]
@@ -83,6 +69,7 @@ jobs:
         run: |
           npm -w @cloudoperators/juno-ui-components run build-storybook
           cp -r packages/ui-components/storybook-static ${{ env.DEPLOY_FOLDER }}/ui-components
+        continue-on-error: true
 
       - name: Build supernova if changes detected
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'supernova')
@@ -131,6 +118,7 @@ jobs:
           EOF
         env:
           PACKAGE_PATH: apps/supernova
+        continue-on-error: true
 
       - name: Generate index.html for Deployed Apps
         if: github.event.action != 'closed'
