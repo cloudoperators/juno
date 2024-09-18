@@ -36,8 +36,9 @@ const useAppStore = (selector) => useStore(useContext(StoreContext), selector)
 // Globals exports
 export const useGlobalsEmbedded = () => useAppStore((state) => state.globals.embedded)
 export const useGlobalsQueryClientFnReady = () => useAppStore((state) => state.globals.queryClientFnReady)
-export const useGlobalsActiveTab = () => useAppStore((state) => state.globals.activeTab)
-export const useGlobalsQueryOptions = (tab) => useAppStore((state) => state.globals.tabs[tab].queryOptions)
+export const useGlobalsActiveNavEntry = () => useAppStore((state) => state.globals.activeNavEntry)
+export const useGlobalsQueryOptions = (navEntry) =>
+  useAppStore((state) => state.globals.navEntries[navEntry].queryOptions)
 export const useGlobalsApiEndpoint = () => useAppStore((state) => state.globals.apiEndpoint)
 export const useGlobalsShowPanel = () => useAppStore((state) => state.globals.showPanel)
 export const useGlobalsShowServiceDetail = () => useAppStore((state) => state.globals.showServiceDetail)

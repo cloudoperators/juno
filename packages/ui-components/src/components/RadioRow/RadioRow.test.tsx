@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { act } from "react"
-import { render, screen } from "@testing-library/react"
+import React from "react"
+import { act, render, screen } from "@testing-library/react"
 import { RadioRow } from "./index"
 
 describe("RadioRow", () => {

@@ -37,7 +37,7 @@ jobs:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npm run release
           title: "publish(npm): automate Package Versioning and Publishing with Changesets"
-          commit: "chore(version): update versions with Changesets"
+          commit: "chore(version): update versions with Changesets, '[ci skip]'"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -49,8 +49,37 @@ jobs:
         with:
           payload: |
             {
-              "text": "🎉 JUNO Packages Released Successfully! 🚀 - ${{ steps.changesets.outputs.publishedPackages }}",
-              "icon_url": "https://raw.githubusercontent.com/cloudoperators/juno/main/packages/ui-components/src/img/ccloud_shape.svg"
+              "blocks": [
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "image",
+                      "image_url": "https://raw.githubusercontent.com/cloudoperators/juno/main/assets/logos/JUNO_logo_slack.png",
+                      "alt_text": "cloudoperators/juno"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "JUNO Packages Released Successfully! 🚀"
+                    }
+                  ]
+                },
+                {
+                  "type": "rich_text",
+                  "elements": [
+                    {
+                      "type": "rich_text_preformatted",
+                      "elements": [
+                        {
+                          "type": "text",
+                          "text": ${{ toJson(steps.changesets.outputs.publishedPackages) }}
+                        }
+                      ],
+                      "border": 0
+                    }
+                  ]
+                }
+              ]
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

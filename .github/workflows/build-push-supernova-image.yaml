@@ -6,7 +6,7 @@
 #  WORKFLOW_DISPATCH
 #     `act workflow_dispatch  --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -W .github/workflows/build-push-supernova-image.yaml`
 
-name: Build Supernova UI Image
+name: Build Supernova ☀️
 
 on:
   workflow_dispatch: {}
@@ -107,9 +107,15 @@ jobs:
             type=edge,branch=master
           labels: |
             org.opencontainers.image.title=Supernova UI
-            org.opencontainers.image.description=Supernova is an alternative UI for Prometheus Alertmanager with some quality of life improvements
+            org.opencontainers.image.description="This image contains a standalone runnable version of the Supernova alternative Alertmanager UI. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/supernova/docker"
             org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/supernova
             org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/supernova
+            org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/supernova
+          annotations: |
+            org.opencontainers.image.title=Supernova UI
+            org.opencontainers.image.description="This image contains a standalone runnable version of the Supernova alternative Alertmanager UI. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/supernova/docker"
+            org.opencontainers.image.url="https://github.com/cloudoperators/juno/tree/main/apps/supernova"
+            org.opencontainers.image.source="https://github.com/cloudoperators/juno/tree/main/apps/supernova"            
             org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/supernova
 
       # Build and push Docker image with Buildx (don't push on PR)

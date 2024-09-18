@@ -90,58 +90,112 @@ const buttonIconStyles = `
 //   jn-leading-none
 // `
 // export all known icons as an array of their names to be used with PropTypes here and from other components:
-export type KnownIcons =
-  | "accessTime"
-  | "accountCircle"
-  | "addCircle"
-  | "autoAwesomeMosaic"
-  | "autoAwesomeMotion"
-  | "bolt"
-  | "calendarToday"
-  | "cancel"
-  | "check"
-  | "checkCircle"
-  | "chevronLeft"
-  | "chevronRight"
-  | "close"
-  | "comment"
-  | "contentCopy"
-  | "danger"
-  | "dangerous"
-  | "default"
-  | "deleteForever"
-  | "description"
-  | "dns"
-  | "download"
-  | "edit"
-  | "error"
-  | "errorOutline"
-  | "exitToApp"
-  | "expandLess"
-  | "expandMore"
-  | "filterAlt"
-  | "forum"
-  | "help"
-  | "home"
-  | "info"
-  | "manageAccounts"
-  | "monitorHeart"
-  | "moreVert"
-  | "nightsStay"
-  | "notificationsOff"
-  | "openInBrowser"
-  | "openInNew"
-  | "place"
-  | "search"
-  | "severityLow"
-  | "severityMedium"
-  | "severityHigh"
-  | "severityCritical"
-  | "success"
-  | "upload"
-  | "warning"
-  | "wbSunny"
-  | "widgets"
+export enum KnownIconsEnum {
+  // eslint-disable-next-line no-unused-vars
+  accessTime = "accessTime",
+  // eslint-disable-next-line no-unused-vars
+  accountCircle = "accountCircle",
+  // eslint-disable-next-line no-unused-vars
+  addCircle = "addCircle",
+  // eslint-disable-next-line no-unused-vars
+  autoAwesomeMosaic = "autoAwesomeMosaic",
+  // eslint-disable-next-line no-unused-vars
+  autoAwesomeMotion = "autoAwesomeMotion",
+  // eslint-disable-next-line no-unused-vars
+  bolt = "bolt",
+  // eslint-disable-next-line no-unused-vars
+  calendarToday = "calendarToday",
+  // eslint-disable-next-line no-unused-vars
+  cancel = "cancel",
+  // eslint-disable-next-line no-unused-vars
+  check = "check",
+  // eslint-disable-next-line no-unused-vars
+  checkCircle = "checkCircle",
+  // eslint-disable-next-line no-unused-vars
+  chevronLeft = "chevronLeft",
+  // eslint-disable-next-line no-unused-vars
+  chevronRight = "chevronRight",
+  // eslint-disable-next-line no-unused-vars
+  close = "close",
+  // eslint-disable-next-line no-unused-vars
+  comment = "comment",
+  // eslint-disable-next-line no-unused-vars
+  contentCopy = "contentCopy",
+  // eslint-disable-next-line no-unused-vars
+  danger = "danger",
+  // eslint-disable-next-line no-unused-vars
+  dangerous = "dangerous",
+  // eslint-disable-next-line no-unused-vars
+  default = "default",
+  // eslint-disable-next-line no-unused-vars
+  deleteForever = "deleteForever",
+  // eslint-disable-next-line no-unused-vars
+  description = "description",
+  // eslint-disable-next-line no-unused-vars
+  dns = "dns",
+  // eslint-disable-next-line no-unused-vars
+  download = "download",
+  // eslint-disable-next-line no-unused-vars
+  edit = "edit",
+  // eslint-disable-next-line no-unused-vars
+  error = "error",
+  // eslint-disable-next-line no-unused-vars
+  errorOutline = "errorOutline",
+  // eslint-disable-next-line no-unused-vars
+  exitToApp = "exitToApp",
+  // eslint-disable-next-line no-unused-vars
+  expandLess = "expandLess",
+  // eslint-disable-next-line no-unused-vars
+  expandMore = "expandMore",
+  // eslint-disable-next-line no-unused-vars
+  filterAlt = "filterAlt",
+  // eslint-disable-next-line no-unused-vars
+  forum = "forum",
+  // eslint-disable-next-line no-unused-vars
+  help = "help",
+  // eslint-disable-next-line no-unused-vars
+  home = "home",
+  // eslint-disable-next-line no-unused-vars
+  info = "info",
+  // eslint-disable-next-line no-unused-vars
+  manageAccounts = "manageAccounts",
+  // eslint-disable-next-line no-unused-vars
+  monitorHeart = "monitorHeart",
+  // eslint-disable-next-line no-unused-vars
+  moreVert = "moreVert",
+  // eslint-disable-next-line no-unused-vars
+  nightsStay = "nightsStay",
+  // eslint-disable-next-line no-unused-vars
+  notificationsOff = "notificationsOff",
+  // eslint-disable-next-line no-unused-vars
+  openInBrowser = "openInBrowser",
+  // eslint-disable-next-line no-unused-vars
+  openInNew = "openInNew",
+  // eslint-disable-next-line no-unused-vars
+  place = "place",
+  // eslint-disable-next-line no-unused-vars
+  search = "search",
+  // eslint-disable-next-line no-unused-vars
+  severityLow = "severityLow",
+  // eslint-disable-next-line no-unused-vars
+  severityMedium = "severityMedium",
+  // eslint-disable-next-line no-unused-vars
+  severityHigh = "severityHigh",
+  // eslint-disable-next-line no-unused-vars
+  severityCritical = "severityCritical",
+  // eslint-disable-next-line no-unused-vars
+  success = "success",
+  // eslint-disable-next-line no-unused-vars
+  upload = "upload",
+  // eslint-disable-next-line no-unused-vars
+  warning = "warning",
+  // eslint-disable-next-line no-unused-vars
+  wbSunny = "wbSunny",
+  // eslint-disable-next-line no-unused-vars
+  widgets = "widgets",
+}
+
+export type KnownIcons = keyof typeof KnownIconsEnum
 
 interface IconColorProps {
   icon?: KnownIcons
@@ -154,8 +208,9 @@ interface IconColorProps {
 const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconProps }: IconColorProps) => {
   const iconClass = `juno-icon juno-icon-${icon} jn-fill-current ${color} ${iconClassName}`
 
-  switch (icon) {
-    case "accessTime":
+  const iconEnum = KnownIconsEnum[icon || "default"]
+  switch (iconEnum) {
+    case KnownIconsEnum.accessTime:
       return (
         <AccessTime
           width={size}
@@ -167,7 +222,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "accountCircle":
+    case KnownIconsEnum.accountCircle:
       return (
         <AccountCircle
           width={size}
@@ -179,7 +234,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "addCircle":
+    case KnownIconsEnum.addCircle:
       return (
         <AddCircle
           width={size}
@@ -191,7 +246,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "autoAwesomeMosaic":
+    case KnownIconsEnum.autoAwesomeMosaic:
       return (
         <AutoAwesomeMosaic
           width={size}
@@ -203,7 +258,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "autoAwesomeMotion":
+    case KnownIconsEnum.autoAwesomeMotion:
       return (
         <AutoAwesomeMotion
           width={size}
@@ -215,7 +270,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "bolt":
+    case KnownIconsEnum.bolt:
       return (
         <Bolt
           width={size}
@@ -227,7 +282,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "calendarToday":
+    case KnownIconsEnum.calendarToday:
       return (
         <CalendarToday
           width={size}
@@ -239,7 +294,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "cancel":
+    case KnownIconsEnum.cancel:
       return (
         <Cancel
           width={size}
@@ -251,7 +306,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "check":
+    case KnownIconsEnum.check:
       return (
         <Check
           width={size}
@@ -263,7 +318,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "checkCircle":
+    case KnownIconsEnum.checkCircle:
       return (
         <CheckCircle
           width={size}
@@ -275,7 +330,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "chevronLeft":
+    case KnownIconsEnum.chevronLeft:
       return (
         <ChevronLeft
           width={size}
@@ -287,7 +342,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "chevronRight":
+    case KnownIconsEnum.chevronRight:
       return (
         <ChevronRight
           width={size}
@@ -299,7 +354,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "close":
+    case KnownIconsEnum.close:
       return (
         <Close
           width={size}
@@ -311,7 +366,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "comment":
+    case KnownIconsEnum.comment:
       return (
         <Comment
           width={size}
@@ -323,7 +378,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "contentCopy":
+    case KnownIconsEnum.contentCopy:
       return (
         <ContentCopy
           width={size}
@@ -335,7 +390,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "danger":
+    case KnownIconsEnum.danger:
       return (
         <Danger
           width={size}
@@ -347,7 +402,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "dangerous":
+    case KnownIconsEnum.dangerous:
       return (
         <Dangerous
           width={size}
@@ -359,7 +414,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "deleteForever":
+    case KnownIconsEnum.deleteForever:
       return (
         <DeleteForever
           width={size}
@@ -371,7 +426,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "description":
+    case KnownIconsEnum.description:
       return (
         <Description
           width={size}
@@ -383,7 +438,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "dns":
+    case KnownIconsEnum.dns:
       return (
         <DNS
           width={size}
@@ -395,7 +450,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "download":
+    case KnownIconsEnum.download:
       return (
         <Download
           width={size}
@@ -407,7 +462,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "edit":
+    case KnownIconsEnum.edit:
       return (
         <Edit
           width={size}
@@ -419,7 +474,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "error":
+    case KnownIconsEnum.error:
       return (
         <Error
           width={size}
@@ -431,7 +486,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "errorOutline":
+    case KnownIconsEnum.errorOutline:
       return (
         <ErrorOutline
           width={size}
@@ -443,7 +498,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "exitToApp":
+    case KnownIconsEnum.exitToApp:
       return (
         <ExitToApp
           width={size}
@@ -455,7 +510,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "expandLess":
+    case KnownIconsEnum.expandLess:
       return (
         <ExpandLess
           width={size}
@@ -467,7 +522,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "expandMore":
+    case KnownIconsEnum.expandMore:
       return (
         <ExpandMore
           width={size}
@@ -479,7 +534,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "filterAlt":
+    case KnownIconsEnum.filterAlt:
       return (
         <FilterAlt
           width={size}
@@ -491,7 +546,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "forum":
+    case KnownIconsEnum.forum:
       return (
         <Forum
           width={size}
@@ -503,7 +558,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "help":
+    case KnownIconsEnum.help:
       return (
         <Help
           width={size}
@@ -515,7 +570,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "home":
+    case KnownIconsEnum.home:
       return (
         <Home
           width={size}
@@ -527,7 +582,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "info":
+    case KnownIconsEnum.info:
       return (
         <Info
           width={size}
@@ -539,7 +594,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "manageAccounts":
+    case KnownIconsEnum.manageAccounts:
       return (
         <ManageAccounts
           width={size}
@@ -551,7 +606,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "monitorHeart":
+    case KnownIconsEnum.monitorHeart:
       return (
         <MonitorHeart
           width={size}
@@ -563,7 +618,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "moreVert":
+    case KnownIconsEnum.moreVert:
       return (
         <MoreVert
           width={size}
@@ -575,7 +630,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "nightsStay":
+    case KnownIconsEnum.nightsStay:
       return (
         <NightsStay
           width={size}
@@ -587,7 +642,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "notificationsOff":
+    case KnownIconsEnum.notificationsOff:
       return (
         <NotificationsOff
           width={size}
@@ -599,7 +654,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "openInBrowser":
+    case KnownIconsEnum.openInBrowser:
       return (
         <OpenInBrowser
           width={size}
@@ -611,7 +666,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "openInNew":
+    case KnownIconsEnum.openInNew:
       return (
         <OpenInNew
           width={size}
@@ -623,7 +678,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "place":
+    case KnownIconsEnum.place:
       return (
         <Place
           width={size}
@@ -635,7 +690,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "search":
+    case KnownIconsEnum.search:
       return (
         <Search
           width={size}
@@ -647,7 +702,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "severityLow":
+    case KnownIconsEnum.severityLow:
       return (
         <SeverityLow
           width={size}
@@ -659,7 +714,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "severityMedium":
+    case KnownIconsEnum.severityMedium:
       return (
         <SeverityMedium
           width={size}
@@ -671,7 +726,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "severityHigh":
+    case KnownIconsEnum.severityHigh:
       return (
         <SeverityHigh
           width={size}
@@ -683,7 +738,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "severityCritical":
+    case KnownIconsEnum.severityCritical:
       return (
         <SeverityCritical
           width={size}
@@ -695,7 +750,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "success":
+    case KnownIconsEnum.success:
       return (
         <Success
           width={size}
@@ -707,7 +762,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "upload":
+    case KnownIconsEnum.upload:
       return (
         <Upload
           width={size}
@@ -719,7 +774,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "widgets":
+    case KnownIconsEnum.widgets:
       return (
         <Widgets
           width={size}
@@ -731,7 +786,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "warning":
+    case KnownIconsEnum.warning:
       return (
         <Warning
           width={size}
@@ -743,7 +798,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "wbSunny":
+    case KnownIconsEnum.wbSunny:
       return (
         <WBSunny
           width={size}
@@ -755,7 +810,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
-    case "default": // keep explicit default case to allow consuming components to use 'default'  w/o throwing warnings
+    case KnownIconsEnum.default: // keep explicit default case to allow consuming components to use 'default'  w/o throwing warnings
       return (
         <Help
           width={size}
@@ -839,8 +894,6 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
 
 Icon.displayName = "IconTs"
 
-type EventHandler = (_event: React.MouseEvent<EventTarget>) => void
-
 export type IconProps = {
   icon?: KnownIcons
   color?: string
@@ -849,5 +902,5 @@ export type IconProps = {
   className?: string
   href?: string
   disabled?: boolean
-  onClick?: EventHandler
+  onClick?: React.MouseEventHandler<EventTarget>
 } & Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size">

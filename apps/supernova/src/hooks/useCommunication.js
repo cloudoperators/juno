@@ -11,10 +11,12 @@ import {
   useActiveFilters,
   useFilterActions,
   useFilterLabels,
+  useGlobalsIsURLRead,
 } from "./useAppStore"
 
 const useCommunication = () => {
   console.debug("[supernova] useCommunication setup")
+  const isURLRead = useGlobalsIsURLRead()
   const { setIsActive } = useUserActivityActions()
   const { setData: authSetData } = useAuthActions()
   const activeFilters = useActiveFilters()
@@ -32,17 +34,18 @@ const useCommunication = () => {
       // We preset the support group filter based on auth data. This should be done
       // with predefined filters prop
 
-      // check if support group filter is set in activeFilters
+      // check if activeFilters are set and skip if they are
       // activeFilters example: {support_group: Array(1)}
       if (
-        !activeFilters?.support_group &&
+        activeFilters &&
+        Object.keys(activeFilters).length === 0 &&
         data?.auth?.parsed?.supportGroups &&
         filterLabels?.includes("support_group")
       ) {
         setActiveFilters({ support_group: data.auth.parsed.supportGroups })
       }
     },
-    [authSetData, filterLabels]
+    [authSetData, filterLabels, activeFilters]
   )
 
   useEffect(() => {
@@ -60,8 +63,7 @@ const useCommunication = () => {
   }, [setIsActive])
 
   useEffect(() => {
-    authSetData({ auth: { parsed: { fullName: "anonymous" } } })
-    if (!setAuthData) return
+    if (!isURLRead || !setAuthData) return
 
     get("AUTH_GET_DATA", setAuthData)
     const unwatchUpdate = watch("AUTH_UPDATE_DATA", setAuthData)
@@ -69,7 +71,7 @@ const useCommunication = () => {
     return () => {
       if (unwatchUpdate) unwatchUpdate()
     }
-  }, [setAuthData])
+  }, [setAuthData, isURLRead])
 }
 
 export default useCommunication

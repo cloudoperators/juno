@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-supernova",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "author": "UI-Team",
   "contributors": [
     "Esther Schmitz",
@@ -49,7 +49,8 @@
     "dev": "NODE_ENV=development node esbuild.config.js --serve --watch",
     "test": "jest",
     "build": "NODE_ENV=production node esbuild.config.js",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
   "appProps": {
     "theme": {
