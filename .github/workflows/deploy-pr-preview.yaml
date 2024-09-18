@@ -79,12 +79,6 @@ jobs:
           build_folder=$(dirname $entry_file)
           package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
 
-          echo "===================="
-          echo "Entry file: $entry_file"
-          echo "Build folder: $build_folder"
-          echo "Package name: $package_name"
-          echo "===================="
-
           # Run build using turbo
           npx turbo run build --filter $package_name
 
@@ -95,7 +89,7 @@ jobs:
 
           # Generate index.html
           cp $PACKAGE_PATH/docker/index.html ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
-          sed -i 's/{{entry_file}}/$entry_file/g' ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
+          sed -i "s/{{entry_file}}/$entry_file/g" ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
 
           echo "{
           \"endpoint\": \"https://ccloud.alertmanager.greenhouse-qa.eu-nl-1.cloud.sap/api/v2\",
