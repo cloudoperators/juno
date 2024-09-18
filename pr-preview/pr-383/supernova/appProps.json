@@ -1,0 +1,28 @@
+{
+"endpoint": "https://ccloud.alertmanager.greenhouse-qa.eu-nl-1.cloud.sap/api/v2",
+"filterLabels": [
+  "app",
+  "cluster",
+  "cluster_type",
+  "context",
+  "job",
+  "region",
+  "service",
+  "severity",
+  "status",
+  "support_group",
+  "tier",
+  "type"
+],
+"silenceExcludedLabels": ["pod", "pod_name", "instance"],
+"silenceTemplates": "",
+"predefinedFilters": [
+  {
+    "name": "all",
+    "displayName": "All",
+    "matchers": {
+      "region": ".*"
+    }
+  }
+]
+}
