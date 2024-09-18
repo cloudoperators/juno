@@ -12,12 +12,12 @@ const COMPONENTS = "Components"
 
 // Function to generate the initial filter state
 const createFilterState = () => ({
-  labels: [],
-  activeFilters: {},
-  filterLabelValues: {},
-  predefinedFilters: [],
-  activePredefinedFilter: null,
-  search: "",
+  labels: [], // Labels for each entity: ["label1", "label2", ...]
+  activeFilters: {}, // Active filters { label1: [value1], label2: [value2_1, value2_2], ... }
+  filterLabelValues: {}, // Filter label values { label1: ["val1", "val2", ...], label2: [...] }
+  predefinedFilters: [], // Predefined filters [ {name: "filter1", matchers: {"label1": "regex1", ...}}]
+  activePredefinedFilter: null, // Active predefined filter
+  search: "", // Search term used for full-text filtering
 })
 
 // Initial filters state using a helper function

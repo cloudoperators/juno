@@ -59,8 +59,6 @@ const FilterSelect = ({ entityName, isLoading }) => {
     useSearchTerm = () => "",
   } = entityHook
 
-  // const { useFilterLabels, useFilterLabelValues, useActiveFilters, useSearchTerm } = entityHooks[entity] || {}
-
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
   const activeFilters = useActiveFilters()
@@ -102,8 +100,8 @@ const FilterSelect = ({ entityName, isLoading }) => {
           disabled={!filterLabelValues[filterLabel]?.length}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
         >
-          {filterLabelValues[filterLabel]
-            ?.filter((value) => !activeFilters[filterLabel]?.includes(value))
+          {filterLabelValues[filterLabel] //Ensure already selected values are not displayed in filterValue drop down to avoid duplicate selections
+            ?.filter((value) => !activeFilters[filterLabel]?.includes(value)) // Filter out values that are already active
             .map((value) => (
               <SelectOption value={value} key={value} />
             ))}

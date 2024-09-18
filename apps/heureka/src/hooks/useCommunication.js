@@ -62,15 +62,6 @@ const useCommunication = () => {
       ) {
         setActiveFilters("Services", { support_group: data.auth.parsed.supportGroups })
       }
-
-      // Handle support group filters for Components
-      if (
-        !componentActiveFilters?.support_group &&
-        data?.auth?.parsed?.supportGroups &&
-        componentFilterLabels?.includes("support_group")
-      ) {
-        setActiveFilters("Components", { support_group: data.auth.parsed.supportGroups })
-      }
     },
     [
       authSetData,
@@ -86,6 +77,7 @@ const useCommunication = () => {
 
   useEffect(() => {
     // Watch for user activity updates
+    // with the watcher we get the user activity object when this app is loaded before the Auth app
     const unwatch = watch(
       "USER_ACTIVITY_UPDATE_DATA",
       (data) => {
