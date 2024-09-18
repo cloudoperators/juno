@@ -13,7 +13,7 @@ import {
 } from "../../hooks/useAppStore"
 
 // Gives inhibitor which will still last the longest
-const getInhibitor = (alertsInhibitedBy, alerts) => {
+export const getInhibitor = (alertsInhibitedBy, alerts) => {
   if (!alertsInhibitedBy) return null
 
   // get all alerts which are inhibited by this alert
@@ -21,9 +21,12 @@ const getInhibitor = (alertsInhibitedBy, alerts) => {
     return alerts.find((alert) => alert.fingerprint === fingerprint)
   })
 
+  // if no alert is found, return null
+  if (!inhibitedByAlerts[0]) return null
+
   // sort by biggest endsAt (most far in the future)
   const inhibitedBy = inhibitedByAlerts.sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
-  return inhibitedBy.length > 0 ? inhibitedBy[0] : null
+  return inhibitedBy[0]
 }
 
 const AlertStatus = ({ alert }) => {
@@ -38,7 +41,6 @@ const AlertStatus = ({ alert }) => {
   const silence = silences.length > 0 ? silences[0] : null
 
   const inhibitor = getInhibitor(alert?.status?.inhibitedBy, alerts)
-  console.log(inhibitor)
 
   const state = useMemo(() => {
     return getMappedState(alert)
