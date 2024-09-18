@@ -9,14 +9,38 @@ import {
   useGlobalsQueryClientFnReady,
   useGlobalsQueryOptions,
   useGlobalsActions,
-  useActiveFilters,
-  usePredefinedFilters,
+  useIssueMatchesActiveFilters,
+  useServiceActiveFilters,
+  useComponentActiveFilters,
+  useIssueMatchesPredefinedFilters,
+  useServicePredefinedFilters,
+  useComponentPredefinedFilters,
   useGlobalsActiveNavEntry,
-  useSearchTerm,
+  useIssueMatchesSearchTerm,
+  useServiceSearchTerm,
+  useComponentSearchTerm,
 } from "../../hooks/useAppStore"
 import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
+
+const entityHooks = {
+  IssueMatches: {
+    useActiveFilters: useIssueMatchesActiveFilters,
+    usePredefinedFilters: useIssueMatchesPredefinedFilters,
+    useSearchTerm: useIssueMatchesSearchTerm,
+  },
+  Services: {
+    useActiveFilters: useServiceActiveFilters,
+    usePredefinedFilters: useServicePredefinedFilters,
+    useSearchTerm: useServiceSearchTerm,
+  },
+  Components: {
+    useActiveFilters: useComponentActiveFilters,
+    usePredefinedFilters: useComponentPredefinedFilters,
+    useSearchTerm: useComponentSearchTerm,
+  },
+}
 
 const ListController = ({ queryKey, entityName, ListComponent }) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
@@ -24,9 +48,17 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
   const { setQueryOptions } = useGlobalsActions()
   const { addMessage, resetMessages } = messageActions()
   const activeNavEntry = useGlobalsActiveNavEntry()
-  const activeFilters = useActiveFilters(entityName)
-  const predefinedFilters = usePredefinedFilters(entityName)
-  const searchTerm = useSearchTerm(entityName)
+
+  // Safely access hooks for the entity, or provide fallback functions if entity is undefined or not in the entityHooks object
+  const {
+    useActiveFilters = () => ({}),
+    usePredefinedFilters = () => ({}),
+    useSearchTerm = () => "",
+  } = entityHooks?.[entityName] || {}
+
+  const activeFilters = useActiveFilters()
+  const predefinedFilters = usePredefinedFilters()
+  const searchTerm = useSearchTerm()
 
   const { isLoading, data, error } = useQuery({
     queryKey: [
@@ -37,7 +69,6 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
           ...activeFilters,
           ...predefinedFilters,
           ...(["IssueMatches", "Services"].includes(entityName) && {
-            // Currently search is only available for IssueMatches and Services entity.
             search: Array.isArray(searchTerm) ? searchTerm : [searchTerm], // Ensure searchTerm is an array
           }),
         },
@@ -59,7 +90,7 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
       variant: "error",
       text: parseError(error),
     })
-  }, [error])
+  }, [error, addMessage, resetMessages])
 
   const pageInfo = useMemo(() => {
     if (!data) return null

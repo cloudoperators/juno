@@ -6,50 +6,79 @@
 import React, { useState } from "react"
 import { Button, InputGroup, SelectOption, Select, Stack, SearchInput } from "@cloudoperators/juno-ui-components"
 import {
-  useFilterLabels,
-  useFilterLabelValues,
+  useIssueMatchesFilterLabels,
+  useServiceFilterLabels,
+  useComponentFilterLabels,
+  useIssueMatchesFilterLabelValues,
+  useServiceFilterLabelValues,
+  useComponentFilterLabelValues,
   useFilterActions,
-  useActiveFilters,
-  useSearchTerm,
+  useIssueMatchesActiveFilters,
+  useServiceActiveFilters,
+  useComponentActiveFilters,
+  useIssueMatchesSearchTerm,
+  useServiceSearchTerm,
+  useComponentSearchTerm,
 } from "../../hooks/useAppStore"
 import { humanizeString } from "../../lib/utils"
+
+const entityHooks = {
+  IssueMatches: {
+    useFilterLabels: useIssueMatchesFilterLabels,
+    useFilterLabelValues: useIssueMatchesFilterLabelValues,
+    useActiveFilters: useIssueMatchesActiveFilters,
+    useSearchTerm: useIssueMatchesSearchTerm,
+  },
+  Services: {
+    useFilterLabels: useServiceFilterLabels,
+    useFilterLabelValues: useServiceFilterLabelValues,
+    useActiveFilters: useServiceActiveFilters,
+    useSearchTerm: useServiceSearchTerm,
+  },
+  Components: {
+    useFilterLabels: useComponentFilterLabels,
+    useFilterLabelValues: useComponentFilterLabelValues,
+    useActiveFilters: useComponentActiveFilters,
+    useSearchTerm: useComponentSearchTerm,
+  },
+}
 
 const FilterSelect = ({ entityName, isLoading }) => {
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
 
   const { addActiveFilter, clearActiveFilters, setSearchTerm } = useFilterActions()
+  // Fallback or default values for cases where entityName is empty or undefined
+  const entityHook = entityHooks?.[entityName] || {}
 
-  const filterLabels = useFilterLabels(entityName)
-  const filterLabelValues = useFilterLabelValues(entityName)
-  const activeFilters = useActiveFilters(entityName)
+  // Destructure hooks safely with default empty functions to avoid errors
+  const {
+    useFilterLabels = () => [],
+    useFilterLabelValues = () => [],
+    useActiveFilters = () => [],
+    useSearchTerm = () => "",
+  } = entityHook
+
+  // const { useFilterLabels, useFilterLabelValues, useActiveFilters, useSearchTerm } = entityHooks[entity] || {}
+
+  const filterLabels = useFilterLabels()
+  const filterLabelValues = useFilterLabelValues()
+  const activeFilters = useActiveFilters()
   const searchTerm = useSearchTerm()
 
   const handleFilterAdd = (value) => {
     if (filterLabel && (filterValue || value)) {
-      // Add the active filter to the store
       addActiveFilter(entityName, filterLabel, filterValue || value)
-      setFilterValue("") // Reset filter value after adding
+      setFilterValue("")
     }
   }
 
-  const handleFilterLabelChange = (label) => {
-    setFilterLabel(label)
-  }
+  const handleFilterLabelChange = (label) => setFilterLabel(label)
 
   const handleFilterValueChange = (value) => {
     setFilterValue(value)
     handleFilterAdd(value)
   }
-
-  // TODO: The live search should be implemented after having store update mechanism in place
-  /*const handleSearchChange = (value) => {
-    // Debounce search term to avoid unnecessary re-renders
-    const debouncedSearchTerm = setTimeout(() => {
-      setSearchTerm(entityName, value.target.value)
-    }, 500) 
-    return () => clearTimeout(debouncedSearchTerm)
-  }*/
 
   return (
     <Stack alignment="center" gap="8">
@@ -59,7 +88,7 @@ const FilterSelect = ({ entityName, isLoading }) => {
           className="filter-label-select w-64 mb-0"
           label="Filter"
           value={humanizeString(filterLabel)}
-          onChange={(val) => handleFilterLabelChange(val)}
+          onChange={handleFilterLabelChange}
           disabled={isLoading}
         >
           {filterLabels?.map((filter) => (
@@ -69,13 +98,12 @@ const FilterSelect = ({ entityName, isLoading }) => {
         <Select
           name="filterValue"
           value={filterValue}
-          onChange={(value) => handleFilterValueChange(value)}
+          onChange={handleFilterValueChange}
           disabled={!filterLabelValues[filterLabel]?.length}
-          loading={filterLabelValues[filterLabel]?.isLoading}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
         >
-          {filterLabelValues[filterLabel] //Ensure already selected values are not displayed in filterValue drop down to avoid duplicate selections
-            ?.filter((value) => !activeFilters[filterLabel]?.includes(value)) // Filter out values that are already active
+          {filterLabelValues[filterLabel]
+            ?.filter((value) => !activeFilters[filterLabel]?.includes(value))
             .map((value) => (
               <SelectOption value={value} key={value} />
             ))}
@@ -91,8 +119,7 @@ const FilterSelect = ({ entityName, isLoading }) => {
           className="w-96 ml-auto"
           value={searchTerm || ""}
           onSearch={(value) => setSearchTerm(entityName, value)}
-          onClear={() => setSearchTerm(null)}
-          // onChange={(value) => handleSearchChange(value)}
+          onClear={() => setSearchTerm(entityName, "")}
         />
       )}
     </Stack>

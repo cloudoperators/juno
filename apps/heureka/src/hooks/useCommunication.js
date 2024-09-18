@@ -3,34 +3,93 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect } from "react"
-import { broadcast, get, watch } from "@cloudoperators/juno-communicator"
+import { useEffect, useCallback } from "react"
+import { get, watch } from "@cloudoperators/juno-communicator"
 import {
   useUserActivityActions,
-  useAuthAppLoaded,
-  useAuthIsProcessing,
-  useAuthError,
-  useAuthLoggedIn,
-  useAuthLastAction,
   useAuthActions,
+  useIssueMatchesActiveFilters,
+  useServiceActiveFilters,
+  useComponentActiveFilters,
+  useFilterActions,
+  useIssueMatchesFilterLabels,
+  useServiceFilterLabels,
+  useComponentFilterLabels,
 } from "./useAppStore"
-import { AUTH_ACTIONS } from "../lib/slices/createAuthDataSlice"
 
 const useCommunication = () => {
+  console.debug("[heureka] useCommunication setup")
   const { setIsActive } = useUserActivityActions()
-  const authAppLoaded = useAuthAppLoaded()
-  const authIsProcessing = useAuthIsProcessing()
-  const authError = useAuthError()
-  const authLoggedIn = useAuthLoggedIn()
-  const authLastAction = useAuthLastAction()
-  const { setData: authSetData, setAppLoaded: authSetAppLoaded } = useAuthActions()
+  const { setData: authSetData } = useAuthActions()
+
+  // Active filters for each entity
+  const issueMatchesActiveFilters = useIssueMatchesActiveFilters()
+  const serviceActiveFilters = useServiceActiveFilters()
+  const componentActiveFilters = useComponentActiveFilters()
+
+  // Filter labels for each entity
+  const issueMatchesFilterLabels = useIssueMatchesFilterLabels()
+  const serviceFilterLabels = useServiceFilterLabels()
+  const componentFilterLabels = useComponentFilterLabels()
+
+  const { setActiveFilters } = useFilterActions()
+
+  const setAuthData = useCallback(
+    (data) => {
+      if (!data) return
+
+      // Set the auth data
+      authSetData(data)
+
+      // The following code exists for historical reasons and should be refactored
+      // We preset the support group filter based on auth data. This should be done
+      // with predefined filters prop
+
+      // Handle support group filters for IssueMatches
+      if (
+        !issueMatchesActiveFilters?.support_group &&
+        data?.auth?.parsed?.supportGroups &&
+        issueMatchesFilterLabels?.includes("support_group")
+      ) {
+        setActiveFilters("IssueMatches", { support_group: data.auth.parsed.supportGroups })
+      }
+
+      // Handle support group filters for Services
+      if (
+        !serviceActiveFilters?.support_group &&
+        data?.auth?.parsed?.supportGroups &&
+        serviceFilterLabels?.includes("support_group")
+      ) {
+        setActiveFilters("Services", { support_group: data.auth.parsed.supportGroups })
+      }
+
+      // Handle support group filters for Components
+      if (
+        !componentActiveFilters?.support_group &&
+        data?.auth?.parsed?.supportGroups &&
+        componentFilterLabels?.includes("support_group")
+      ) {
+        setActiveFilters("Components", { support_group: data.auth.parsed.supportGroups })
+      }
+    },
+    [
+      authSetData,
+      issueMatchesFilterLabels,
+      serviceFilterLabels,
+      componentFilterLabels,
+      issueMatchesActiveFilters,
+      serviceActiveFilters,
+      componentActiveFilters,
+      setActiveFilters,
+    ]
+  )
 
   useEffect(() => {
-    // watch for user activity updates messages
-    // with the watcher we get the user activity object when this app is loaded before the Auth app
+    // Watch for user activity updates
     const unwatch = watch(
       "USER_ACTIVITY_UPDATE_DATA",
       (data) => {
+        console.debug("got message USER_ACTIVITY_UPDATE_DATA: ", data)
         setIsActive(data?.isActive)
       },
       { debug: true }
@@ -38,30 +97,17 @@ const useCommunication = () => {
     return unwatch
   }, [setIsActive])
 
-  // allow heureka to login/logout the user. Visible when app is not in embedded mode
   useEffect(() => {
-    if (!authAppLoaded || authIsProcessing || authError) return
-    if (authLastAction?.name === AUTH_ACTIONS.SIGN_ON && !authLoggedIn) {
-      broadcast("AUTH_LOGIN", "heureka", { debug: false })
-    } else if (authLastAction?.name === AUTH_ACTIONS.SIGN_OUT && authLoggedIn) {
-      broadcast("AUTH_LOGOUT", "heureka")
-    }
-  }, [authAppLoaded, authIsProcessing, authError, authLoggedIn, authLastAction])
+    // Fetch and watch for auth data updates
+    if (!setAuthData) return
 
-  useEffect(() => {
-    if (!authSetData || !authSetAppLoaded) return
-
-    get("AUTH_APP_LOADED", authSetAppLoaded)
-    const unwatchLoaded = watch("AUTH_APP_LOADED", authSetAppLoaded)
-
-    get("AUTH_GET_DATA", authSetData)
-    const unwatchUpdate = watch("AUTH_UPDATE_DATA", authSetData)
+    get("AUTH_GET_DATA", setAuthData)
+    const unwatchUpdate = watch("AUTH_UPDATE_DATA", setAuthData)
 
     return () => {
-      if (unwatchLoaded) unwatchLoaded()
       if (unwatchUpdate) unwatchUpdate()
     }
-  }, [authSetData, authSetAppLoaded])
+  }, [setAuthData])
 }
 
 export default useCommunication

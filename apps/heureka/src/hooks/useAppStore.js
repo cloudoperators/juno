@@ -12,6 +12,11 @@ import createAuthDataSlice from "../lib/slices/createAuthDataSlice"
 import createGlobalsSlice from "../lib/slices/createGlobalsSlice"
 import createUserActivitySlice from "../lib/slices/createUserActivitySlice"
 
+// Entity constants
+const ISSUEMATCHES = "IssueMatches"
+const SERVICES = "Services"
+const COMPONENTS = "Components"
+
 const StoreContext = createContext()
 
 export const StoreProvider = ({ options, children }) => {
@@ -60,15 +65,34 @@ export const useUserIsActive = () => useAppStore((state) => state.userActivity.i
 
 export const useUserActivityActions = () => useAppStore((state) => state.userActivity.actions)
 
-// Filter exports
-export const useFilterLabels = (entityName) => useAppStore((state) => state.filters.labels[entityName] || [])
-export const useActiveFilters = (entityName) => useAppStore((state) => state.filters.activeFilters[entityName] || {})
-export const useSearchTerm = (entityName) => useAppStore((state) => state.filters.search[entityName] || "")
-export const useFilterLabelValues = (entityName) =>
-  useAppStore((state) => state.filters.filterLabelValues[entityName] || {})
-export const usePredefinedFilters = (entityName) =>
-  useAppStore((state) => state.filters.predefinedFilters[entityName] || [])
-export const useActivePredefinedFilter = (entityName) =>
-  useAppStore((state) => state.filters.activePredefinedFilter[entityName] || null)
+// Filter exports for Issues
+export const useIssueMatchesFilterLabels = () => useAppStore((state) => state.filters[ISSUEMATCHES].labels)
+export const useIssueMatchesActiveFilters = () => useAppStore((state) => state.filters[ISSUEMATCHES].activeFilters)
+export const useIssueMatchesSearchTerm = () => useAppStore((state) => state.filters[ISSUEMATCHES].search)
+export const useIssueMatchesFilterLabelValues = () =>
+  useAppStore((state) => state.filters[ISSUEMATCHES].filterLabelValues)
+export const useIssueMatchesPredefinedFilters = () =>
+  useAppStore((state) => state.filters[ISSUEMATCHES].predefinedFilters)
+export const useIssueMatchesActivePredefinedFilter = () =>
+  useAppStore((state) => state.filters[ISSUEMATCHES].activePredefinedFilter)
 
+// Filter exports for Services
+export const useServiceFilterLabels = () => useAppStore((state) => state.filters[SERVICES].labels)
+export const useServiceActiveFilters = () => useAppStore((state) => state.filters[SERVICES].activeFilters)
+export const useServiceSearchTerm = () => useAppStore((state) => state.filters[SERVICES].search)
+export const useServiceFilterLabelValues = () => useAppStore((state) => state.filters[SERVICES].filterLabelValues)
+export const useServicePredefinedFilters = () => useAppStore((state) => state.filters[SERVICES].predefinedFilters)
+export const useServiceActivePredefinedFilter = () =>
+  useAppStore((state) => state.filters[SERVICES].activePredefinedFilter)
+
+// Filter exports for Components
+export const useComponentFilterLabels = () => useAppStore((state) => state.filters[COMPONENTS].labels)
+export const useComponentActiveFilters = () => useAppStore((state) => state.filters[COMPONENTS].activeFilters)
+export const useComponentSearchTerm = () => useAppStore((state) => state.filters[COMPONENTS].search)
+export const useComponentFilterLabelValues = () => useAppStore((state) => state.filters[COMPONENTS].filterLabelValues)
+export const useComponentPredefinedFilters = () => useAppStore((state) => state.filters[COMPONENTS].predefinedFilters)
+export const useComponentActivePredefinedFilter = () =>
+  useAppStore((state) => state.filters[COMPONENTS].activePredefinedFilter)
+
+// Filter actions
 export const useFilterActions = () => useAppStore((state) => state.filters.actions)

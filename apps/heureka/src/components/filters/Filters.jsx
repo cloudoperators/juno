@@ -27,23 +27,18 @@ const Filters = ({ queryKey, entityName }) => {
   })
 
   const filters = useMemo(() => {
-    //Since there is a custom query to fetch filter labels and values for each entity in API
-    //We need to map the data to the format that the FilterSelect component expects
-    //You can check the response structure of custom query e.g in /lib/queries/serviceFilterValues.js
     if (!data || !data[queryKey]) return []
 
     return Object.keys(data[queryKey]).map((key) => {
       const field = data[queryKey][key]
       return {
-        label: field.filterName, // Collecting filterName as filterLabel
-        values: field.values, // Collecting values as filterValues
+        label: field.filterName,
+        values: field.values,
       }
     })
   }, [data, queryKey])
 
   useEffect(() => {
-    // Set labels and filter values in the store
-    // It is done in this control as the fetch filter label and values is done above here
     if (filters.length > 0) {
       const filterLabels = filters.map((filter) => filter.label)
       setLabels(entityName, filterLabels)
