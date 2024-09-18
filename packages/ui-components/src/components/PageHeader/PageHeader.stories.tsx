@@ -4,34 +4,40 @@
  */
 
 import React from "react"
+import type { Meta, StoryFn, StoryObj } from "@storybook/react"
 import CustomLogoLandscape from "./custom-logo-placeholders/custom-logo-landscape.svg"
 import CustomLogoPortrait from "./custom-logo-placeholders/custom-logo-portrait.svg"
 import CustomLogoSquare from "./custom-logo-placeholders/custom-logo-square.svg"
 import CustomLogoLandscapePNG from "./custom-logo-placeholders/custom-logo-landscape.png"
 import CustomLogoPortraitPNG from "./custom-logo-placeholders/custom-logo-portrait.png"
 import CustomLogoSquarePNG from "./custom-logo-placeholders/custom-logo-square.png"
-
 import { PageHeader, PageHeaderProps } from "./index"
 
-export default {
+const CustomLogoImagePNGSquare = () => <img src={CustomLogoSquarePNG} alt="Custom Logo Square" />
+const CustomLogoImagePNGLandscape = () => <img src={CustomLogoLandscapePNG} alt="Custom Logo Landscape" />
+const CustomLogoImagePNGPortrait = () => <img src={CustomLogoPortraitPNG} alt="Custom Logo Portrait" />
+
+type Story = StoryObj<PageHeaderProps>
+
+const meta: Meta<PageHeaderProps> = {
   title: "Layout/PageHeader",
   component: PageHeader,
   argTypes: {
     children: {
       control: false,
     },
+    heading: {
+      control: "text", // You can use "text", "object", or "null" depending on your use case
+    },
+    logo: { control: "boolean" }, // Control type for `logo`
   },
 }
+export default meta
 
-const CustomLogoImagePNGSquare = () => <img src={CustomLogoSquarePNG} alt="Custom Logo Square" />
-const CustomLogoImagePNGLandscape = () => <img src={CustomLogoLandscapePNG} alt="Custom Logo Landscape" />
-const CustomLogoImagePNGPortrait = () => <img src={CustomLogoPortraitPNG} alt="Custom Logo Portrait" />
+const Template: StoryFn<PageHeaderProps> = (args) => <PageHeader {...args} />
 
-const Template = (args: PageHeaderProps) => <PageHeader {...args}></PageHeader>
-
-export const Default = {
+export const Default = Template.bind({
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -40,12 +46,13 @@ export const Default = {
     },
   },
 
-  args: {},
-}
+  args: {
+    heading: "My App",
+    logo: true,
+  },
+})
 
-export const WithHeading = {
-  render: Template,
-
+export const WithHeading: Story = {
   parameters: {
     docs: {
       description: { story: "PageHeader with Heading." },
@@ -57,56 +64,49 @@ export const WithHeading = {
   },
 }
 
-export const NoLogo = {
-  render: Template,
+export const NoLogo: Story = {
   args: {
     logo: false,
     heading: "My Awesome App",
   },
 }
 
-export const WithCustomLogoSquareInline = {
-  render: Template,
+export const WithCustomLogoSquareInline: Story = {
   args: {
     logo: <CustomLogoSquare alt={""} />,
     heading: "My Awesome App",
   },
 }
 
-export const WithCustomLogoLandscapeInline = {
-  render: Template,
+export const WithCustomLogoLandscapeInline: Story = {
   args: {
     logo: <CustomLogoLandscape alt={""} />,
     heading: "My Awesome App",
   },
 }
 
-export const WithCustomLogoPortraitInline = {
-  render: Template,
+export const WithCustomLogoPortraitInline: Story = {
   args: {
     logo: <CustomLogoPortrait alt={""} />,
     heading: "My Awesome App",
   },
 }
 
-export const WithCustomLogoPNGSquare = {
-  render: Template,
+export const WithCustomLogoPNGSquare: Story = {
   args: {
     logo: <CustomLogoImagePNGSquare />,
     heading: "My Awesome App",
   },
 }
 
-export const WithCustomLogoPNGLandscape = {
-  render: Template,
+export const WithCustomLogoPNGLandscape: Story = {
   args: {
     logo: <CustomLogoImagePNGLandscape />,
     heading: "My Awesome App",
   },
 }
 
-export const WithCustomLogoPNGPortrait = {
-  render: Template,
+export const WithCustomLogoPNGPortrait: Story = {
   args: {
     logo: <CustomLogoImagePNGPortrait />,
     heading: "My Awesome App",

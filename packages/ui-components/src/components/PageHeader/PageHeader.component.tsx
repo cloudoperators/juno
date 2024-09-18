@@ -80,10 +80,10 @@ export const PageHeader = ({
 
 export interface PageHeaderProps {
   /** Heading (typically the name of the application) */
-  heading?: string | React.ReactNode | null
+  heading?: string | JSX.Element | null // Union type to avoid `any`
   /** Add custom class name */
   className?: string
-  logo?: React.ReactNode | (() => React.ReactNode)
+  logo?: boolean | JSX.Element | null
   /** Optional: onClick handler for brand logo/page title. To be used to navigate to the home page.  */
   onClick?: React.MouseEventHandler<EventTarget>
   children?: React.ReactNode
