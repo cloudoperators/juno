@@ -79,7 +79,7 @@ jobs:
           build_folder=$(dirname $entry_file)
           package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
 
-          # # Run build using turbo
+          # Run build using turbo
           npx turbo run build --filter $package_name
 
           # Copy the necessary files
@@ -87,39 +87,11 @@ jobs:
           cp -r $PACKAGE_PATH/$build_folder ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/$build_folder
           cp $PACKAGE_PATH/public/favicon.ico ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/        
 
-          # Generate index.html
+          # Generate index.html and appProps.json
           cp $PACKAGE_PATH/docker/index.html ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
           entry_file_escaped=$(echo "$entry_file" | sed 's/\//\\\//g')
           sed -i "s/{{entry_file}}/$entry_file_escaped/g" ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
-
-          echo "{
-          \"endpoint\": \"https://ccloud.alertmanager.greenhouse-qa.eu-nl-1.cloud.sap/api/v2\",
-          \"filterLabels\": [
-            \"app\",
-            \"cluster\",
-            \"cluster_type\",
-            \"context\",
-            \"job\",
-            \"region\",
-            \"service\",
-            \"severity\",
-            \"status\",
-            \"support_group\",
-            \"tier\",
-            \"type\"
-          ],
-          \"silenceExcludedLabels\": [\"pod\", \"pod_name\", \"instance\"],
-          \"silenceTemplates\": \"\",
-          \"predefinedFilters\": [
-            {
-              \"name\": \"all\",
-              \"displayName\": \"All\",
-              \"matchers\": {
-                \"region\": \".*\"
-              }
-            }
-          ]
-          }" > "${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/appProps.json"
+          echo "${{ secrets.SUPERNOVA_APP_PROPS }}" > "${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/appProps.json"
         env:
           PACKAGE_PATH: apps/supernova
           APP_FOLDER: supernova
