@@ -22,7 +22,13 @@ import {
   FormSection,
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
-import { useAuthData, useSilenceTemplates, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
+import {
+  useAuthData,
+  useSilenceTemplates,
+  useGlobalsApiEndpoint,
+  useSilencesActions,
+  useAuthUserEditable,
+} from "../../hooks/useAppStore"
 import { post } from "../../api/client"
 import { parseError } from "../../helpers"
 
@@ -33,7 +39,7 @@ const SilenceScheduled = (props) => {
   const { addMessage, resetMessages } = useActions()
   const silenceTemplates = useSilenceTemplates()
   const apiEndpoint = useGlobalsApiEndpoint()
-
+  const isNameEditable = useAuthUserEditable()
   const { addLocalItem } = useSilencesActions()
 
   // set sucess of sending the silence
@@ -74,7 +80,7 @@ const SilenceScheduled = (props) => {
       setFormState(errorFormState)
       addMessage({
         variant: "error",
-        text: parseError("Please fix the errors in the form"),
+        text: "Please fix the errors in the form",
       })
       return
     }
@@ -83,7 +89,7 @@ const SilenceScheduled = (props) => {
       startsAt: formState.date.start,
       endsAt: formState.date.end,
       comment: formState.comment.value,
-      createdBy: formState.createdBy,
+      createdBy: formState.createdBy.value,
       matchers: [],
     }
 
@@ -140,7 +146,7 @@ const SilenceScheduled = (props) => {
     const newFormState = {
       ...DEFAULT_FORM_VALUES,
       fixed_labels: newSelectedOption?.fixed_labels || {},
-      createdBy: authData?.parsed?.fullName,
+      createdBy: { value: authData?.parsed?.fullName, error: null },
       editable_labels: newSelectedOption?.editable_labels?.reduce(
         (acc, label) => ({
           ...acc,
@@ -157,21 +163,17 @@ const SilenceScheduled = (props) => {
     setSelected(newSelectedOption)
   }
 
+  const onInputChanged = ({ key, value }) => {
+    setFormState({ ...formState, [key]: { value: value, error: null } })
+  }
+
+  // todo delete other input change functions
   const onChangeLabelValue = (e) => {
     const editable_label = e.target.id
     setFormState(
       produce((formState) => {
         formState.editable_labels[editable_label].value = e.target.value
         formState.editable_labels[editable_label].error = null
-      })
-    )
-  }
-
-  const onChangeComment = (e) => {
-    setFormState(
-      produce((formState) => {
-        formState.comment.value = e.target.value
-        formState.comment.error = null
       })
     )
   }
@@ -247,7 +249,14 @@ const SilenceScheduled = (props) => {
             <Form>
               <FormSection>
                 <FormRow>
-                  <TextInput required label="Silenced by" value={formState.createdBy} disabled />
+                  <TextInput
+                    required
+                    label="Silenced by"
+                    value={formState?.createdBy?.value}
+                    errortext={formState?.createdBy?.error}
+                    onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                    disabled={!isNameEditable}
+                  />
                 </FormRow>
                 <FormRow>
                   <div className="grid gap-2 grid-cols-2">
@@ -258,7 +267,7 @@ const SilenceScheduled = (props) => {
                       enableTime
                       time_24hr
                       required
-                      errortext={formState.date.error}
+                      errortext={formState?.date?.error}
                       onChange={setStartDate}
                       enableSeconds
                     />
@@ -269,7 +278,7 @@ const SilenceScheduled = (props) => {
                       enableTime
                       time_24hr
                       required
-                      errortext={formState.date.error}
+                      errortext={formState?.date?.error}
                       onChange={setEndDate}
                       enableSeconds
                     />
@@ -281,7 +290,8 @@ const SilenceScheduled = (props) => {
                     label="Comment"
                     value={formState.comment.value}
                     errortext={formState.comment.error}
-                    onChange={onChangeComment}
+                    onChange={(e) => onInputChanged({ key: "comment", value: e.target.value })}
+                    required
                   ></Textarea>
                 </FormRow>
               </FormSection>

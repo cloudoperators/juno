@@ -17,7 +17,7 @@ import {
   Pill,
   Stack,
 } from "@cloudoperators/juno-ui-components"
-import { useAuthData, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
+import { useAuthData, useGlobalsApiEndpoint, useSilencesActions, useAuthUserEditable } from "../../hooks/useAppStore"
 import { debounce } from "../../helpers"
 import { post } from "../../api/client"
 import { DateTime } from "luxon"
@@ -26,10 +26,18 @@ import { parseError } from "../../helpers"
 import constants from "../../constants"
 
 const validateForm = (values) => {
+  const minCommentLength = 3
+  const minUserNameLength = 1
+
   const invalidItems = {}
-  if (values?.comment?.length <= 3) {
+  if (values?.comment?.length < minCommentLength) {
     if (!invalidItems["comment"]) invalidItems["comment"] = []
     invalidItems["comment"].push(`Please enter at least 3 characters`)
+  }
+
+  if (values?.createdBy?.length < minUserNameLength) {
+    if (!invalidItems["createdBy"]) invalidItems["createdBy"] = []
+    invalidItems["createdBy"].push(`Please enter a name`)
   }
 
   return invalidItems
@@ -50,6 +58,7 @@ const RecreateSilence = (props) => {
   const fingerprint = props.fingerprint ? props.fingerprint : null
   const authData = useAuthData()
   const apiEndpoint = useGlobalsApiEndpoint()
+  const isNameEditable = useAuthUserEditable()
 
   const { addLocalItem } = useSilencesActions()
 
@@ -70,7 +79,7 @@ const RecreateSilence = (props) => {
     setFormState({
       ...formState,
       ...DEFAULT_FORM_VALUES,
-      createdBy: authData?.parsed?.fullName,
+      createdBy: authData?.parsed?.fullName || "", // empty sting to prevent undefined for TextInput
       matchers: silence.matchers,
       comment: silence.comment,
     })
@@ -198,7 +207,14 @@ const RecreateSilence = (props) => {
 
               <Form className="mt-6">
                 <FormRow>
-                  <TextInput required label="Silenced by" value={formState.createdBy} disabled />
+                  <TextInput
+                    required
+                    label="Silenced by"
+                    value={formState.createdBy}
+                    disabled={!isNameEditable}
+                    onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                    errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
+                  />
                 </FormRow>
                 <FormRow>
                   <Textarea
