@@ -130,24 +130,24 @@ jobs:
           APP_FOLDER: supernova
         continue-on-error: true
 
-      # - name: Generate index.html for Deployed Apps
-      #   if: github.event.action != 'closed'
-      #   env:
-      #     UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
-      #     SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
-      #   run: |
-      #     echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
-      #     if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
-      #       echo "<li><a href='./ui-components/index.html'>UI Components Storybook</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-      #     fi
-      #     if [ "$SUPERNOVA_CHANGED" = "true" ]; then
-      #       echo "<li><a href='./supernova/index.html'>Supernova</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-      #     fi
-      #     echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
+      - name: Generate index.html for Deployed Apps
+        if: github.event.action != 'closed'
+        env:
+          UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
+          SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
+        run: |
+          echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
+          if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
+            echo "<li><a href='./ui-components/index.html'>UI Components Storybook</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          if [ "$SUPERNOVA_CHANGED" = "true" ]; then
+            echo "<li><a href='./supernova/index.html'>Supernova</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
-      # - uses: rossjrw/pr-preview-action@v1
-      #   with:
-      #     source-dir: ${{ env.DEPLOY_PATH }}/
-      #     preview-branch: gh-pages
-      #     umbrella-dir: pr-preview
-      #     action: auto
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ${{ env.DEPLOY_PATH }}/
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
