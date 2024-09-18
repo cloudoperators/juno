@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Supernova</title>
-    <link rel="icon" sizes="any" href="favicon.ico" />
+    <link rel="icon" sizes="any" href="favicon.ico"/>
     <style>
-      html, body, #root {
+      #root,
+      body,
+      html {
         height: 100%;
         margin: 0;
         padding: 0;
@@ -14,10 +16,10 @@
   <body>
     <div id="root"></div>
     <script type="module">
-      import { mount } from "./build/index.js"
+      import {mount} from "./$entry_file"
       const props = await fetch("appProps.json").then(r => r.json())
       const root = document.getElementById("root")
-      mount(root, { props })
+      mount(root, {props})
     </script>
   </body>
 </html>
