@@ -9,38 +9,38 @@ import {
   useSilencesItemsHash,
   useSilencesLocalItems,
   useSilencesActions,
-  useAlertsActions,
+  useAlertsItems,
 } from "../../hooks/useAppStore"
 
+// Gives inhibitor which will still last the longest
+const getInhibitor = (alertsInhibitedBy, alerts) => {
+  if (!alertsInhibitedBy) return null
+
+  // get all alerts which are inhibited by this alert
+  const inhibitedByAlerts = alertsInhibitedBy.map((fingerprint) => {
+    return alerts.find((alert) => alert.fingerprint === fingerprint)
+  })
+
+  // sort by biggest endsAt (most far in the future)
+  const inhibitedBy = inhibitedByAlerts.sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
+  return inhibitedBy.length > 0 ? inhibitedBy[0] : null
+}
+
 const AlertStatus = ({ alert }) => {
-  const { getAlertByFingerprint } = useAlertsActions()
+  if (!alert) return null
+  const alerts = useAlertsItems()
   const allSilences = useSilencesItemsHash()
   const localSilences = useSilencesLocalItems()
   const { getMappingSilences, getMappedState } = useSilencesActions()
 
   // Gives silence which will still last the longest
-  const silence = useMemo(() => {
-    if (!alert) return []
-    // sort by biggest endsAt (most far in the future)
-    const silences = getMappingSilences(alert).sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
-    return silences.length > 0 ? silences[0] : null
-  }, [alert, allSilences, localSilences])
+  const silences = getMappingSilences(alert).sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
+  const silence = silences.length > 0 ? silences[0] : null
 
-  // Gives inhibitor which will still last the longest
-  const inhibitor = useMemo(() => {
-    if (!alert) return []
-    if (!alert?.status?.inhibitedBy) return []
-
-    let inhibitedBy = alert.status.inhibitedBy.map((fingerprint) => {
-      return getAlertByFingerprint(fingerprint)
-    })
-    // sort by biggest endsAt (most far in the future)
-    inhibitedBy = inhibitedBy.sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
-    return inhibitedBy.length > 0 ? inhibitedBy[0] : null
-  }, [alert])
+  const inhibitor = getInhibitor(alert?.status?.inhibitedBy, alerts)
+  console.log(inhibitor)
 
   const state = useMemo(() => {
-    if (!alert) return {}
     return getMappedState(alert)
   }, [alert, allSilences, localSilences])
 
