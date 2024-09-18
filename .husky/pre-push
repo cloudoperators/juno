@@ -3,4 +3,4 @@
 # .husky/pre-push
 
 # Run lint, typecheck, and test using Turbo
-npx turbo run lint typecheck test --concurrency=20
+npx turbo run lint typecheck --concurrency=50%

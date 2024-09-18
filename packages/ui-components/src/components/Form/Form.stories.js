@@ -8,16 +8,12 @@ import PropTypes from "prop-types"
 import { Form } from "./index.js"
 import { FormRow } from "../FormRow/index.js"
 import { FormSection } from "../FormSection/index.js"
-import { FormHint } from "../FormHint/index.js"
+import { FormHint } from "../../deprecated_js/FormHint/index.js"
 import { TextInput } from "../TextInput/index.js"
 import { Select } from "../Select/index.js"
 import { SelectOption } from "../SelectOption/index.js"
 import { Switch } from "../Switch/index.js"
-import { Textarea } from "../Textarea/index.js"
-import { RadioGroup } from "../RadioGroup/index.js"
-import { Radio } from "../Radio/index.js"
-import { CheckboxGroup } from "../CheckboxGroup/index.js"
-import { Checkbox } from "../Checkbox/index.js"
+import { Textarea } from "../../deprecated_js/Textarea/index.js"
 import { Button } from "../Button/index.js"
 import { ButtonRow } from "../ButtonRow/index.js"
 import { IntroBox } from "../IntroBox/index.ts"
@@ -105,16 +101,6 @@ export const ComplexForm = {
         </FormRow>
       </FormSection>,
       <FormSection title="Second Section of the Form" key="fs-2">
-        <RadioGroup name="color-radios" label="In case you are not sure, select your true favorite color:">
-          <Radio key="r-1" id="color-red" label="Red" value="red" />
-          <Radio key="r-2" id="color-blue" label="Blue" value="blue" />
-          <Radio key="r-3" id="color-green" label="Green" value="green" />
-          <Radio key="r-4" id="color-yellow" label="Yellow" value="yellow" />
-        </RadioGroup>
-        <CheckboxGroup name="all-about-red" label="What is your opinion towards the color Red?">
-          <Checkbox key="c-1" id="overrated" label="Red is vastly overrated" value="overrated" />
-          <Checkbox key="c-2" id="blackisred" label="Black is better" value="blackisbetter" />
-        </CheckboxGroup>
         <FormRow key="fr-4">
           <Textarea
             label="Your Message"

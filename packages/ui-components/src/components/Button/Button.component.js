@@ -6,8 +6,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import "./button.scss"
-import { Icon } from "../Icon/index.js"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { Icon } from "../../deprecated_js/Icon/index.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 import { Spinner } from "../Spinner/index.js"
 
 const btnBase = `
@@ -130,6 +130,7 @@ export const Button = React.forwardRef(
     ) : icon ? (
       <Icon
         icon={icon}
+        title={titleValue}
         className={`juno-button-icon ${label || children ? iconClasses(size) : ""} `}
         size={size === "small" ? "1.125rem" : "1.5rem"}
       />

@@ -11,6 +11,11 @@
 
 name: Unit Test and Build Package
 
+####################################################################
+# SHARED WORKFLOW
+# Do not modify this file if you don't know what you are doing
+####################################################################
+
 on:
   workflow_call:
     inputs:

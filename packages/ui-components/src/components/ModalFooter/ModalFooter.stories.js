@@ -8,7 +8,7 @@ import { ModalFooter } from "./index.js"
 import { Button } from "../Button/index.js"
 import { ButtonRow } from "../ButtonRow/index.js"
 import { Stack } from "../Stack/index.js"
-import { Icon } from "../Icon/index.js"
+import { Icon } from "../../deprecated_js/Icon/index.js"
 
 const Template = (args) => {
   return <ModalFooter {...args}></ModalFooter>

@@ -4,9 +4,9 @@
   "name": "juno",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --concurrency=20",
+    "dev": "turbo run dev --concurrency=50%",
     "lint": "turbo run lint",
-    "test": "turbo run test --concurrency=20",
+    "test": "turbo run test --concurrency=50%",
     "check-licenses": "npx license-checker-rseidelsohn --summary --excludePrivatePackages --onlyAllow 'MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD;Python-2.0;BSD*;Unlicense'",
     "cleanVite": "find . -type f -name 'vite.config.*.timestamp-*' -ls -delete 2>/dev/null",
     "clean": "npm run cleanVite && turbo run clean && rm -rf node_modules && rm -rf ./**/*/node_modules",
@@ -16,7 +16,9 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build && changeset publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "pkg:run": "turbo run dev --filter",
+    "pkg": "npm run pkg:run --"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
@@ -25,13 +27,14 @@
     "@types/node": "^20.14.11",
     "eslint": "^9.7.0",
     "husky": "^9.1.5",
-    "license-checker-rseidelsohn": "^4.3.0",
+    "license-checker-rseidelsohn": "4.3.0",
     "prettier": "^3.2.5",
     "turbo": "^2.0.3",
     "typescript": "^5.5.4"
   },
   "workspaces": [
     "apps/*",
+    "apps/**/*",
     "packages/*"
   ],
   "packageManager": "^npm@10.0.0",

@@ -5,6 +5,7 @@
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-communicator#build"
       ]
     },
@@ -12,7 +13,8 @@
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build"
+        "@cloudoperators/juno-communicator#build",
+        "@cloudoperators/juno-oauth#build"
       ]
     }
   }

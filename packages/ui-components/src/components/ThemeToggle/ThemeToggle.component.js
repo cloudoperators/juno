@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { StyleProvider } from "../StyleProvider/index"
-import { Icon } from "../Icon/"
+import { Icon } from "../../deprecated_js/Icon"
 import "./themeToggle.scss"
 
 const toggleStyles = `

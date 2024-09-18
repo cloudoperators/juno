@@ -41,7 +41,9 @@ header:
     - "Makefile"
     - "**/*.map"
     - "**/*.mdx"
+    - "**/nginx.conf"
     - ".prettierrc"
+    - "VERSION"
 
   comment: on-failure
 

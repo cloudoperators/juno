@@ -10,8 +10,8 @@ import { version } from "../../package.json"
 function brandTitle(logoUrl) {
   return `
     <div style="display: flex; flex-direction: column; align-items: start;">
-      <img src="${logoUrl}" alt="Juno UI" style="max-width:150px;max-height:100px;">
-      <span style="font-size: 0.8em; color: gray; align-self: flex-end; margin-top: 5px;">v${version}</span>
+      <img src="${logoUrl}" alt="Juno UI" style="width:150px;max-width:160px;max-height:130px;">
+      <span style="font-size: 0.55em; color: #73828C; position: absolute; top: 2.1rem; left: 4.5rem;">V${version}</span>
     </div>`
 }
 

@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 2.0.7
+
+### Patch Changes
+
+- 8c06648: Unify Typescript and Eslint config in one package
+
 ## 2.0.6
 
 ### Patch Changes

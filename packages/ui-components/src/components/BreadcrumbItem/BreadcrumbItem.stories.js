@@ -5,7 +5,7 @@
 
 import React from "react"
 import { BreadcrumbItem } from "./index"
-import { knownIcons } from "../Icon/Icon.component.js"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 const Template = (args) => {
   return <BreadcrumbItem {...args} />

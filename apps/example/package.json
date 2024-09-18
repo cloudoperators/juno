@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-example",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "author": "UI-Team",
   "contributors": [
     "Arturo Reuschenbach Pucernau"
@@ -59,7 +59,8 @@
     "test": "jest",
     "lint": "eslint",
     "dev": "NODE_ENV=development node esbuild.config.js --serve --watch",
-    "build": "NODE_ENV=production node esbuild.config.js"
+    "build": "NODE_ENV=production node esbuild.config.js",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
   "appProps": {
     "theme": {

@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
+import { withDeprecationWarning } from "../../deprecated_js/withDeprecationWarning/index.js"
 
 const containerStyles = `
   jn-bg-theme-content-area-bg
