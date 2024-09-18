@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { createStore } from "zustand/vanilla"
+import { createStore } from "zustand"
 import createFiltersSlice from "./createFiltersSlice"
 
 // Constants for entities
@@ -13,7 +13,6 @@ describe("createFiltersSlice", () => {
   let store
 
   beforeEach(() => {
-    // Create the store using zustand/vanilla createStore
     store = createStore((set) => ({
       ...createFiltersSlice(set),
     }))
