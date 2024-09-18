@@ -15,19 +15,18 @@ import StoreProvider, { useGlobalsActions } from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
 const Shell = (props = {}) => {
-  const { setApiEndpoint, setAssetsHost, setDemoUserToken, setEnvironment } = useGlobalsActions()
+  const { setApiEndpoint, setAssetsHost, setEnvironment } = useGlobalsActions()
 
   // INIT
   // on app initial load save Endpoint and URL_STATE_KEY so it can be
   // used from overall in the application
   useLayoutEffect(() => {
-    if (!setApiEndpoint || !setAssetsHost || !setDemoUserToken) return
+    if (!setApiEndpoint || !setAssetsHost || !setEnvironment) return
     // set to empty string to fetch local test data in dev mode
     setEnvironment(props.environment)
     setApiEndpoint(props.apiEndpoint)
     setAssetsHost(props.currentHost)
-    setDemoUserToken(props.demoUserToken)
-  }, [setApiEndpoint, setAssetsHost, setDemoUserToken])
+  }, [setApiEndpoint, setAssetsHost, setEnvironment])
 
   return (
     <Auth
@@ -35,6 +34,7 @@ const Shell = (props = {}) => {
       issuerUrl={props?.authIssuerUrl}
       demoOrg={props?.demoOrg || "demo"}
       mock={props?.mockAuth}
+      demoUserToken={props.demoUserToken}
     >
       <ShellLayout>
         <PluginContainer />

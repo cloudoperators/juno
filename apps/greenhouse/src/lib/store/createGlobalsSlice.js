@@ -13,9 +13,6 @@ const createGlobalsSlice = (set) => ({
     demoUserToken: null,
 
     actions: {
-      setDemoMode: (demoMode) => set((state) => ({ globals: { ...state.globals, demoMode } })),
-      setDemoUserToken: (demoUserToken) => set((state) => ({ globals: { ...state.globals, demoUserToken } })),
-
       setApiEndpoint: (value) =>
         set((state) => ({ globals: { ...state.globals, apiEndpoint: value } }), false, "globals/setApiEndpoint"),
 

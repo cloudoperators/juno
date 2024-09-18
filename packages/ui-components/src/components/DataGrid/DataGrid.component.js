@@ -25,7 +25,8 @@ const gridTemplate = (columns, columnMaxSize, columnMinSize, minContentColumns, 
   // else generate a simpler statement using the repeat function
   if (minContentColumns && Array.isArray(minContentColumns) && minContentColumns.length > 0) {
     // for each configured column check if it should have normal or min-content sizing and add the respective string to the template string
-    ;[...Array(columns)].map((_, i) => {
+    const columnsUpdated = [...Array(columns)]
+    columnsUpdated.map((_, i) => {
       generatedTemplate += minContentColumns.includes(i)
         ? "min-content "
         : `minmax(${columnMinSize}, ${columnMaxSize}) `

@@ -1,0 +1,221 @@
+.formatted-text-container {
+  font-size: 1rem;
+  line-height: round(28 / 16);
+
+  p {
+    font-size: 1rem;
+    line-height: 150%;
+    margin-top: 1.25rem; // rem(20)
+    margin-bottom: 1.25rem; // rem(20)
+  }
+
+  a {
+    color: var(--color-accent);
+
+    &:hover {
+      color: var(--color-text-default); // Desired hover color
+    }
+  }
+
+  [class~="lead"] {
+    font-size: 1.25rem; // rem(20)
+    line-height: round(32 / 20);
+    margin-top: 1.5rem; // rem(24)
+    margin-bottom: 1.5rem; // rem(24)
+  }
+
+  blockquote {
+    margin-top: 2rem; // rem(32)
+    margin-bottom: 2rem; // rem(32)
+    padding-inline-start: 1.25rem; // rem(20)
+  }
+
+  h1 {
+    font-size: 1.69rem;
+    font-weight: 700;
+    line-height: 160%;
+    margin-top: 0;
+    margin-bottom: 2rem; // rem(32)
+    line-height: round(40 / 36);
+  }
+
+  h2 {
+    font-size: 1.56rem;
+    font-weight: 700;
+    line-height: 160%;
+    margin-top: 3rem; // rem(48)
+    margin-bottom: 1.5rem; // rem(24)
+  }
+
+  h3 {
+    font-size: 1.44rem;
+    font-weight: 700;
+    line-height: 160%;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem; // rem(12)
+  }
+
+  h4 {
+    font-size: 1.28rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%;
+    margin-top: 1.5rem; // rem(24)
+    margin-bottom: 0.5rem; // rem(8)
+  }
+
+  h5 {
+    font-size: 1.03rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%;
+  }
+
+  img,
+  picture,
+  video {
+    margin-top: 2rem; // rem(32)
+    margin-bottom: 2rem; // rem(32)
+  }
+
+  picture > img {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  kbd {
+    font-size: 0.875rem; // rem(14)
+    border-radius: 0.3125rem; // rem(5)
+    padding: 0.1875rem 0.375rem; // rem(3) rem(6)
+  }
+
+  code {
+    font-family: IBM Plex Mono;
+    font-size: 0.875rem;
+    background-color: var(--color-background-lvl-2);
+    border-radius: 0.25rem; // 4px
+    font-weight: 400;
+    margin: 0 0.125rem; // 2px
+  }
+
+  h2 code {
+    font-size: 1.3125rem; // rem(21)
+  }
+
+  h3 code {
+    font-size: 1.125rem; // rem(18)
+  }
+
+  pre {
+    font-size: 0.875rem; // rem(14)
+    line-height: round(24 / 14);
+    margin-top: 1.5rem; // rem(24)
+    margin-bottom: 1.5rem; // rem(24)
+    border-radius: 0.375rem; // rem(6)
+    padding: 0.75rem 1rem; // rem(12) rem(16)
+  }
+
+  ol,
+  ul {
+    margin-top: 1.25rem; // rem(20)
+    margin-bottom: 1.25rem; // rem(20)
+    padding-inline-start: 1.625rem; // rem(26)
+  }
+
+  li {
+    margin-top: 0.5rem; // rem(8)
+    margin-bottom: 0.5rem; // rem(8)
+    line-height: 160%;
+  }
+
+  ol > li,
+  ul > li {
+    padding-inline-start: 0.375rem; // rem(6)
+  }
+
+  ol > li {
+    list-style-type: decimal;
+  }
+
+  ul > li {
+    list-style-type: disc;
+  }
+
+  ul ul,
+  ul ol,
+  ol ul,
+  ol ol {
+    margin-top: 0.75rem; // rem(12)
+    margin-bottom: 0.75rem; // rem(12)
+  }
+
+  dl {
+    margin-top: 1.25rem; // rem(20)
+    margin-bottom: 1.25rem; // rem(20)
+  }
+
+  dt {
+    margin-top: 1.25rem; // rem(20)
+  }
+
+  dd {
+    margin-top: 0.5rem; // rem(8)
+    padding-inline-start: 1.625rem; // rem(26)
+  }
+
+  hr {
+    margin-top: 3rem; // rem(48)
+    margin-bottom: 3rem; // rem(48)
+  }
+
+  table {
+    font-size: 0.875rem; // rem(14)
+    line-height: round(24 / 14);
+    text-align: left;
+  }
+
+  thead,
+  th {
+    padding: 0.5rem 0.5rem;
+    text-align: left;
+  }
+
+  tbody,
+  td,
+  tfoot,
+  td {
+    padding: 0.5rem 0.5rem;
+  }
+  tr {
+    border-bottom: 1px solid var(--color-background-lvl-2);
+  }
+  tr:nth-child(even) {
+  }
+  tr:nth-child(odd) {
+    // --tw-bg-opacity: 1;
+    // background-color: rgba(var(--color-background-lvl-1-raw), var(--tw-bg-opacity));
+  }
+  th,
+  thead {
+    background-color: var(--color-background-lvl-1);
+  }
+
+  figure {
+    margin-top: 2rem; // rem(32)
+    margin-bottom: 2rem; // rem(32)
+  }
+
+  figcaption {
+    font-size: 0.875rem; // rem(14)
+    line-height: round(20 / 14);
+    margin-top: 0.75rem; // rem(12)
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}

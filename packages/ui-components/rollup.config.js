@@ -59,7 +59,10 @@ const plugins = [
     ],
   }),
 
-  nodeResolve(),
+  nodeResolve({
+    browser: true, // Ensure resolution is for browser environment
+    preferBuiltins: false, // Avoid Node.js built-in modules like 'tty'
+  }),
   babel({
     babelHelpers: "bundled",
   }),
