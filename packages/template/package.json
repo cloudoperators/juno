@@ -3,7 +3,6 @@
   "version": "1.0.6",
   "description": "Package template that will be use to generate new juno packages",
   "author": "UI-Team",
-  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/template",
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
