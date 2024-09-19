@@ -27,7 +27,7 @@ interface TemplateProps {
   columns: number
 }
 
-const Template = ({ hideHead, includeColSpanRow, ...args } :TemplateProps) => (
+const Template = ({ hideHead, includeColSpanRow, ...args }: TemplateProps) => (
   <>
     <DataGrid {...args}>
       {(!hideHead || null) && (

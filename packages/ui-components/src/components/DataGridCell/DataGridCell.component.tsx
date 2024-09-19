@@ -62,7 +62,7 @@ export type DataGridCellProps = {
   /** Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;) */
   nowrap?: boolean
   /** Children to render in the DataGridCell */
-  children?: (JSX.Element | null)[] | JSX.Element | string | null
+  children?: (JSX.Element[] | JSX.Element | null)[] | JSX.Element | string | null
   /** Add a classname */
   className?: string
 } & React.HTMLProps<HTMLDivElement>

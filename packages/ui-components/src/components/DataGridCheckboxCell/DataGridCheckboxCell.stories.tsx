@@ -8,7 +8,7 @@ import { DataGrid } from "../DataGrid/index"
 import { DataGridRow } from "../DataGridRow/index"
 import { DataGridCheckboxCell, DataGridCheckboxCellProps } from "./index"
 
-type StoryFunction = () => React.ReactNode
+type StoryFunction = () => JSX.Element
 
 export default {
   title: "WiP/DataGrid/DataGridCheckboxCell",
