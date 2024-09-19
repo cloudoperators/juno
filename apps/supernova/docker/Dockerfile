@@ -39,9 +39,9 @@ RUN \
 
 # create index.html  
 RUN \
-  entry_file=$(cat /app/entry_file)
-  entry_file_escaped=$(echo "$entry_file" | sed 's/\//\\\//g')
-  cp /tmp/src/$PACKAGE_PATH/docker/index.html /app/index.html
+  entry_file=$(cat /app/entry_file) && \
+  entry_file_escaped=$(echo "$entry_file" | sed 's/\//\\\//g') && \
+  cp /tmp/src/$PACKAGE_PATH/docker/index.html /app/index.html && \
   sed -i "s/{{entry_file}}/$entry_file_escaped/g" /app/index.html  
 
 # create appProps.js
