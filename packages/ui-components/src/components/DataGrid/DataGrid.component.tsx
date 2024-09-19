@@ -103,7 +103,7 @@ export interface DataGridProps {
    * which means that all child elements of the cell will be stacked vertically. To avoid this, wrap the elements in their own div */
   cellVerticalAlignment?: CellVerticalAlignmentType
   /** Children to render in the DataGrid */
-  children?: JSX.Element | (JSX.Element | null)[] | null
+  children?: JSX.Element | (JSX.Element[] | JSX.Element | null)[] | null
   /** Add a class name */
   className?: string
 }

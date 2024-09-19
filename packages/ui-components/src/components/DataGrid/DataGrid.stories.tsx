@@ -27,7 +27,7 @@ interface TemplateProps {
   columns: number
 }
 
-const Template = ({ hideHead, includeColSpanRow, ...args }: TemplateProps) => (
+const Template = ({ hideHead, includeColSpanRow, ...args } :TemplateProps) => (
   <>
     <DataGrid {...args}>
       {(!hideHead || null) && (
@@ -37,15 +37,16 @@ const Template = ({ hideHead, includeColSpanRow, ...args }: TemplateProps) => (
           ))}
         </DataGridRow>
       )}
-      {...[...Array<unknown>(4)].map((_, r) => (
-        <DataGridRow key={`b_${r}`}>
-          {[...Array<unknown>(args.columns || defaultColumns)].map((_, c) => (
-            <DataGridCell key={`b_${r}_${c}`}>
-              {c === args.columns - 2 ? `Cell ${r}-${c} has more content than others` : `Cell ${r}-${c}`}
-            </DataGridCell>
-          ))}
-        </DataGridRow>
-      ))}
+      {(!includeColSpanRow || null) &&
+        [...Array<unknown>(4)].map((_, r) => (
+          <DataGridRow key={`b_${r}`}>
+            {[...Array<unknown>(args.columns || defaultColumns)].map((_, c) => (
+              <DataGridCell key={`b_${r}_${c}`}>
+                {c === args.columns - 2 ? `Cell ${r}-${c} has more content than others` : `Cell ${r}-${c}`}
+              </DataGridCell>
+            ))}
+          </DataGridRow>
+        ))}
       {(includeColSpanRow || null) && (
         <DataGridRow>
           <DataGridCell colSpan={args.columns}>This is a cell with colspan spanning all available columns</DataGridCell>
