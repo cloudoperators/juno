@@ -22,7 +22,6 @@ import {
   useGlobalsApiEndpoint,
   useSilencesActions,
   useAlertEnrichedLabels,
-  useAuthUserEditable,
 } from "../../hooks/useAppStore"
 import { post } from "../../api/client"
 import AlertDescription from "../alerts/shared/AlertDescription"
@@ -67,7 +66,6 @@ const SilenceNew = ({ alert, size, variant }) => {
   const excludedLabels = useSilencesExcludedLabels()
   const { addLocalItem, getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
-  const isNameEditable = useAuthUserEditable()
 
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
@@ -226,7 +224,7 @@ const SilenceNew = ({ alert, size, variant }) => {
                     value={formState.createdBy}
                     onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
                     errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
-                    disabled={!isNameEditable}
+                    disabled={!!authData?.parsed?.fullName}
                   />
                 </FormRow>
                 <FormRow>
