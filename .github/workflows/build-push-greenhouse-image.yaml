@@ -56,8 +56,8 @@ jobs:
         id: description
         working-directory: ${{ env.PACKAGE_PATH }}
         run: |
-          # Concatenate CHANGELOG.md and README.md into a single DESCRIPTION
-          echo "DESCRIPTION=$(cat CHANGELOG.md; echo; cat docker/README.md)" >> $GITHUB_OUTPUT
+          # Concatenate CHANGELOG.md 
+          echo "DESCRIPTION=$(head -c 512 apps/greenhouse/README.md)" >> $GITHUB_OUTPUT
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -117,6 +117,7 @@ jobs:
           file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
           load: true # load the image into the docker daemon to make the image available for the next steps in the workflow
           tags: ${{ steps.meta.outputs.tags }}
+          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=${{ steps.description.outputs.DESCRIPTION }}
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -141,8 +142,7 @@ jobs:
           TAGS=$(echo "${{ steps.meta.outputs.tags }}")
           printf '%s\n' "$TAGS" | while IFS= read -r tag; do
             echo "Upload image: $tag"
-            docker push $tag \ 
-              --label "org.opencontainers.image.description=${{ steps.description.outputs.DESCRIPTION }}" \
+            docker push $tag 
           done
 
       - name: Sign the published Docker image
