@@ -8,7 +8,7 @@ import { DataGrid } from "../DataGrid/index"
 import { DataGridRow } from "../DataGridRow/index"
 import { DataGridHeadCell, DataGridHeadCellProps } from "./index"
 
-type StoryFunction = () => React.ReactNode
+type StoryFunction = () => JSX.Element
 
 export default {
   title: "Components/DataGrid/DataGridHeadCell",

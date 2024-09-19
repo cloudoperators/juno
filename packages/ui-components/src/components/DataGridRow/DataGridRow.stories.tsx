@@ -11,7 +11,7 @@ import { DataGrid, DataGridProps } from "../DataGrid/index"
 
 const columns = 5
 
-type StoryFunction = () => React.ReactNode
+type StoryFunction = () => JSX.Element
 
 export default {
   title: "Components/DataGrid/DataGridRow",
