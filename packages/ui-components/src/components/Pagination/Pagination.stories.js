@@ -59,7 +59,8 @@ export const PaginationWithNumber = {
 
   args: {
     variant: "number",
-    currentPage: 3,
+    currentPage: 12,
+    pages: 6,
   },
 }
 

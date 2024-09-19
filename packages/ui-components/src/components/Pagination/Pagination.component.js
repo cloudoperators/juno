@@ -24,31 +24,33 @@ const spinnerStyles = `
 const inputStyles = `
   justify-normal
 `
+
 /** A basic Pagination component. Renders '<' and '>' buttons as a minimun/default. The component keeps internal state about the currently selected page so it can be used as an uncontrolled component.  */
 export const Pagination = ({
-  variant = "",
-  currentPage = null,
-  totalPages = null,
+  variant = "default",
+  currentPage = undefined,
+  totalPages = undefined,
   pages = undefined,
   disabled = false,
-  isFirstPage = false,
-  isLastPage = false,
+  isFirstPage = undefined,
+  isLastPage = undefined,
   onPressPrevious = undefined,
   onPressNext = undefined,
   onSelectChange = undefined,
   onKeyPress = undefined,
   onBlur = undefined,
-  progress = undefined,
+  progress = false,
   className = "",
   ...props
 }) => {
-  const [controlPage, setControlCurrentPage] = useState(1)
-  const [controlTotalPage, setControlTotalPage] = useState(1)
+  const [controlPage, setControlCurrentPage] = useState(currentPage)
+  const [controlTotalPage, setControlTotalPage] = useState(pages ? pages : totalPages)
 
   useEffect(() => {
     setControlCurrentPage(currentPage)
     // Fallback for the “pages” prop which was used in an earlier version of this component.
     pages ? setControlTotalPage(pages) : setControlTotalPage(totalPages)
+    controlPage > controlTotalPage && setControlCurrentPage(controlTotalPage)
   }, [currentPage, totalPages, pages])
 
   const handleInputChange = (event) => {
@@ -58,12 +60,17 @@ export const Pagination = ({
   }
 
   const handlePrevClick = (event) => {
-    setControlCurrentPage(controlPage > 1 ? controlPage - 1 : 1)
+    console.log("controlPage", controlPage)
+    if (controlTotalPage || pages || controlPage) {
+      setControlCurrentPage(controlPage > 1 ? controlPage - 1 : undefined)
+    }
     onPressPrevious && onPressPrevious(event)
   }
+  console.log("controlPage:", controlPage, " controlTotalPage:", controlTotalPage)
 
   const handleNextClick = (event) => {
-    setControlCurrentPage(controlPage < controlTotalPage ? controlPage + 1 : controlTotalPage)
+    setControlCurrentPage(controlPage < controlTotalPage || controlPage ? controlPage + 1 : controlPage)
+
     onPressNext && onPressNext(event)
   }
 
@@ -75,9 +82,9 @@ export const Pagination = ({
 
   const handleEnter = (event) => {
     if (event.key === "Enter") {
-      if (controlPage < 1) {
+      if (controlPage && controlPage < 1) {
         setControlCurrentPage(1)
-      } else if (controlPage > controlTotalPage) {
+      } else if (controlPage && controlPage > controlTotalPage) {
         setControlCurrentPage(controlTotalPage)
       }
       onKeyPress && onKeyPress(event)
@@ -113,18 +120,18 @@ export const Pagination = ({
         title="Previous Page"
       />
       {progress ? <Spinner size="small" color="default" className={spinnerStyles} /> : ""}
-
       {variant && !progress
         ? (() => {
             switch (variant) {
               case "number":
-                return <span> {controlPage || "0"}</span>
+                return controlPage ? <div className="page-value"> {controlPage || ""}</div> : ""
+
               case "select":
                 return (
                   <Select
                     name="totalPages"
                     width="auto"
-                    value={controlPage?.toString()} // here the same, defaultValue is of type string
+                    value={controlTotalPage ? controlPage?.toString() : ""} // here the same, defaultValue is of type string
                     onChange={handleSelectChange}
                     disabled={disabled}
                   >
@@ -133,7 +140,7 @@ export const Pagination = ({
                       if (controlTotalPage) {
                         for (let i = 0; i < controlTotalPage; i++) {
                           const p = (i + 1).toString() // SelectOption requires strings for value and label
-                          opts.push(<SelectOption value={p} label={p} key={p} />)
+                          opts.push(<SelectOption value={p || "0"} label={p} key={p} />)
                         }
                       }
                       return opts
@@ -147,7 +154,7 @@ export const Pagination = ({
                   <Stack gap="2" alignment="center">
                     <div className={`juno-pagination-wrapper`} style={getInputWidthClass()}>
                       <TextInput
-                        value={controlPage || ""}
+                        value={controlPage ? controlPage : ""}
                         //convert to integer
                         onChange={handleInputChange}
                         onBlur={handleBlur}
@@ -156,7 +163,7 @@ export const Pagination = ({
                         className={inputStyles}
                       />
                     </div>
-                    <span>of {controlTotalPage || "0"}</span>
+                    {controlTotalPage ? <span>of {controlTotalPage}</span> : ""}
                   </Stack>
                 )
               default:
@@ -166,7 +173,7 @@ export const Pagination = ({
         : ""}
       <Button
         icon="chevronRight"
-        disabled={isLastPage || disabled || progress || controlPage === controlTotalPage}
+        disabled={isLastPage || disabled || progress || (controlPage && controlPage === controlTotalPage)}
         onClick={handleNextClick}
         title="Next Page"
       />
@@ -202,20 +209,4 @@ Pagination.propTypes = {
   progress: PropTypes.bool,
   /** Additional class name */
   className: PropTypes.string,
-}
-Pagination.defaultProps = {
-  variant: "default",
-  currentPage: 1,
-  totalPages: 1,
-  pages: false,
-  disabled: false,
-  isFirstPage: false,
-  isLastPage: false,
-  onPressPrevious: undefined,
-  onPressNext: undefined,
-  onSelectChange: undefined,
-  onKeyPress: undefined,
-  onBlur: undefined,
-  progress: false,
-  className: "",
 }
