@@ -16,7 +16,7 @@ function parseMockData(mockData) {
   try {
     // First, attempt to decode from base64 and parse as JSON
     token = JSON.parse(atob(mockData))
-  } catch (base64Error) {
+  } catch (_base64Error) {
     //Failed to parse mock token from Base64"
 
     // Fallback to parsing mockData directly as JSON
