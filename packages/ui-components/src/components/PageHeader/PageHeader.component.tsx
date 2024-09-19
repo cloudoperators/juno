@@ -4,15 +4,10 @@
  */
 
 import React from "react"
-import SAPLogo from "../../img/JunoUI_logo.svg"
+import DefaultLogo from "../../img/JunoUI_logo.svg"
 
-const basePageHeader = `
-  jn-flex
-  jn-shrink-0
-  jn-grow-0
-  jn-basis-auto
+const pageHeaderStyles = `
   jn-min-h-[3.25rem]
-  jn-items-center
   jn-bg-juno-grey-blue-11
   jn-sticky
   jn-top-0
@@ -21,9 +16,23 @@ const basePageHeader = `
   jn-z-50
 `
 
-const logoStyles = `
+const pageHeaderInnerStyles = `
+  jn-grid
+  jn-grid-cols-[minmax(0,max-content),1fr]
+  jn-gap-3
   jn-h-7
-  jn-mr-3
+  jn-w-full
+  jn-overflow-hidden
+  jn-items-center
+`
+
+const logoContainerStyles = `
+  jn-h-7
+  jn-max-w-xs
+  [&>*]:jn-w-min
+  [&>*]:jn-max-w-xs
+  [&>*]:jn-h-7
+  [&>*]:jn-object-contain
 `
 
 const headingStyles = (clickable: boolean) => {
@@ -35,29 +44,48 @@ const headingStyles = (clickable: boolean) => {
 }
 
 /**
- * The page header component renders a header at the top of the website. Place as first child of AppBody.
+ * The PageHeader component renders a header to the application.
+ * In order to customize the header Logo, PageHeader accepts a `logo` prop that expects a custom component: `logo={<CustomLogo />}` Ideally, the custom logo component should return an `<img />` or an inline `<svg>` element. When using `svg`, make sure the file does not contain any unnecessary cruft. `Svgo` is a great tool to optimize `svg` files. Make sure the `viewBox` element is not removed when optimizing a file for usage a a header logo.
+ * Pass as prop to AppShell so it gets slotted into the correct place in the layout. If building your layout manually without AppShell place as first child of AppBody.
  */
 
-export const PageHeader = ({ heading = null, className = "", children = null, onClick, ...props }: PageHeaderProps) => {
+export const PageHeader = ({
+  heading = null,
+  className = "",
+  children = null,
+  logo = undefined,
+  onClick,
+  ...props
+}: PageHeaderProps) => {
   return (
-    <div className={`juno-pageheader theme-dark ${basePageHeader} ${className}`} role="banner" {...props}>
-      <SAPLogo className={logoStyles} alt="SAP" />
-      {heading && (
-        <div className={headingStyles(onClick !== undefined)} onClick={onClick}>
-          {heading}
+    <div className={`juno-pageheader theme-dark ${pageHeaderStyles} ${className}`} role="banner" {...props}>
+      <div className={`juno-pageheader-inner ${pageHeaderInnerStyles}`}>
+        <div className={`juno-pageheader-logo-container ${logoContainerStyles}`}>
+          {
+            typeof logo === "function" || // Render if logo is a function (component)
+              (React.isValidElement(logo) && logo) || // Render if logo is a valid React element
+              ((logo === true || logo === undefined) && <DefaultLogo data-testid="default-logo" alt={""} />) // Render default logo if logo is true or undefined
+          }
         </div>
-      )}
-
-      {children}
+        <div>
+          {heading && (
+            <div className={headingStyles(onClick !== undefined)} onClick={onClick}>
+              {heading}
+            </div>
+          )}
+        </div>
+        {children}
+      </div>
     </div>
   )
 }
 
 export interface PageHeaderProps {
   /** Heading (typically the name of the application) */
-  heading?: string | React.ReactNode | null
+  heading?: string | String | JSX.Element | null // Union type to avoid `any`
   /** Add custom class name */
   className?: string
+  logo?: boolean | Boolean | JSX.Element | null
   /** Optional: onClick handler for brand logo/page title. To be used to navigate to the home page.  */
   onClick?: React.MouseEventHandler<EventTarget>
   children?: React.ReactNode

@@ -8,3 +8,8 @@ declare module "*.svg" {
   const content: React.FunctionComponent<React.SVGAttributes<SVGElement> & SvgIconProps>
   export default content
 }
+
+declare module "*.png" {
+  const value: string
+  export = value
+}
