@@ -91,7 +91,7 @@ jobs:
           cp $PACKAGE_PATH/docker/index.html ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
           entry_file_escaped=$(echo "$entry_file" | sed 's/\//\\\//g')
           sed -i "s/{{entry_file}}/$entry_file_escaped/g" ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
-          echo "${{ secrets.SUPERNOVA_APP_PROPS }}" | jq '.' > "${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/appProps.json"
+          echo "${{ secrets.SUPERNOVA_APP_PROPS_BASE64 }}" | base64 -d > "${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/appProps.json"
         env:
           PACKAGE_PATH: apps/supernova
           APP_FOLDER: supernova
