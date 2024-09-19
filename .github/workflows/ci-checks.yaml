@@ -6,9 +6,6 @@ on:
       - opened
       - synchronize
       - reopened
-  push:
-    branches-ignore:
-      - main  # Ignore the main branch because all the checks are already done in the 'Release' workflow
   # Trigger after the 'Release' workflow completes
   workflow_run:
     workflows: ["Release"]
@@ -20,7 +17,7 @@ permissions:
   pull-requests: write
   actions: read
   checks: write
-  statuses: write      
+  statuses: write
 
 env:
   HUSKY: 0
