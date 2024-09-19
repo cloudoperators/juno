@@ -21,16 +21,10 @@ To use the **Template** package as a template to generate your next package, you
 3. Run the following command to install the **Template** package as a global dependency:
 
 ```bash
-turbo gen workspace --copy @cloudoperators/juno-package-template
+turbo gen workspace --type package --copy @cloudoperators/juno-package-template
 ```
 
-4. Once the installation is complete, you can generate a new package by running the following command:
-
-```bash
-juno-template generate
-```
-
-5. The command will prompt you to select a template and provide the necessary configuration options. Once you provide the required information, the package will be generated in the specified location.
+All your pacakges should start with `@cloudoperators/juno-` prefix.
 
 That's it! You can now use the **Template** package as a template to generate your next package without installing it inside your monorepo.
 
