@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.12.0
+
+### Minor Changes
+
+- 1f02087: feat(supernova): enable editing name, if user is anonymous
+
+### Patch Changes
+
+- Updated dependencies [4ad82f4]
+  - @cloudoperators/juno-ui-components@2.20.0
+
 ## 0.11.3
 
 ### Patch Changes
