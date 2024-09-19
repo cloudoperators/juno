@@ -17,7 +17,7 @@ import {
   Pill,
   Stack,
 } from "@cloudoperators/juno-ui-components"
-import { useAuthData, useGlobalsApiEndpoint, useSilencesActions, useAuthUserEditable } from "../../hooks/useAppStore"
+import { useAuthData, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
 import { debounce } from "../../helpers"
 import { post } from "../../api/client"
 import { DateTime } from "luxon"
@@ -58,7 +58,6 @@ const RecreateSilence = (props) => {
   const fingerprint = props.fingerprint ? props.fingerprint : null
   const authData = useAuthData()
   const apiEndpoint = useGlobalsApiEndpoint()
-  const isNameEditable = useAuthUserEditable()
 
   const { addLocalItem } = useSilencesActions()
 
@@ -211,7 +210,7 @@ const RecreateSilence = (props) => {
                     required
                     label="Silenced by"
                     value={formState.createdBy}
-                    disabled={!isNameEditable}
+                    disabled={!!authData?.parsed?.fullName}
                     onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
                     errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
                   />
