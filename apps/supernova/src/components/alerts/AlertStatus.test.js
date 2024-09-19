@@ -5,15 +5,16 @@
 
 import { getInhibitor } from "./AlertStatus"
 
-describe("getInhibitor", () => {
-  it("tests that null is returned if the inhibiting alert is not found", () => {
-    const result = getInhibitor(testedAlertFingerPrintNonExistent.status.inhibitedBy, alerts)
-    expect(result).toEqual(null)
-  }),
+describe("AlertStatus", () => {
+  describe("getInhibitor", () => {
+    it("tests that null is returned if the inhibiting alert is not found", () => {
+      const result = getInhibitor(testedAlertFingerPrintNonExistent.status.inhibitedBy, alerts)
+      expect(result).toEqual(null)
+    })
     it("test that the alert is not ihibited and returns null", () => {
       const result = getInhibitor(testedAlertNotInhibited.status.inhibitedBy, alerts)
       expect(result).toEqual(null)
-    }),
+    })
     it("should return the alert, which is the longest active", () => {
       const result = getInhibitor(testedAlert.status.inhibitedBy, alerts)
       expect(result).toEqual({
@@ -22,8 +23,8 @@ describe("getInhibitor", () => {
         status: { inhibitedBy: [], silencedBy: [], state: "suppressed" },
       })
     })
+  })
 })
-
 const testedAlert = {
   fingerprint: "e6e485c4b035f167",
   status: { inhibitedBy: ["a02f20abab2e9f6a", "8932rlf83rcs", "sadfewttw"], silencedBy: [], state: "suppressed" },
