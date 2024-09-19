@@ -12,7 +12,6 @@ const createAuthDataSlice = (set, get) => ({
   auth: {
     data: null,
     loggedIn: false,
-    userEditable: true,
 
     actions: {
       setData: (data) => {
@@ -26,7 +25,6 @@ const createAuthDataSlice = (set, get) => ({
               ...state.auth,
               loggedIn: data?.loggedIn,
               data: data?.auth,
-              userEditable: !!data.auth?.parsed?.fullName,
             },
           }),
           false,
