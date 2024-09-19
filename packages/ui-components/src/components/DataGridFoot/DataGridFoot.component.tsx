@@ -15,7 +15,7 @@ export const DataGridFoot = ({ className = "", children = null, ...props }: Data
 
 export interface DataGridFootProps {
   /** Children to render in the DataGridFoot */
-  children?: React.ReactNode
+  children?: JSX.Element | null
   /** Add a classname */
   className?: string
 }

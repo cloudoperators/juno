@@ -11,10 +11,10 @@ export default {
   component: DataGridToolbar,
   argTypes: {
     children: {
-      control: false,
+      control: { type: "text"},
     },
     search: {
-      control: false,
+      control: { type: "text"},
     },
   },
 }

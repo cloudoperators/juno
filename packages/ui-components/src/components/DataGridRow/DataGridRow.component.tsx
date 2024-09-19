@@ -44,7 +44,7 @@ export interface DataGridRowProps {
   // /** Whether the row/item is disabled (only relevant in a `selectable` DataGrid */
   // disabled: PropTypes.bool,
   /** Children to render in the DataGridRow */
-  children?: React.ReactNode
+  children?: JSX.Element
   /** Add a classname */
   className?: string
   // /** Pass a handler to be executed when selected state changes */

@@ -57,7 +57,7 @@ export interface DataGridHeadCellProps {
   /** Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;) */
   nowrap?: boolean
   /** Children to render in the DataGridHeadCell */
-  children?: React.ReactNode
+  children?: JSX.Element | null
   /** Add a classname */
   className?: string
 }

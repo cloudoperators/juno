@@ -30,9 +30,9 @@ export const DataGridToolbar = ({ search, className = "", children = null, ...pr
 
 export interface DataGridToolbarProps {
   /** Pass an optional SearchInput component */
-  search?: React.ReactNode
+  search?: JSX.Element
   /** Children to render in the DataGridToolbar */
-  children?: React.ReactNode
+  children?: JSX.Element | null
   /** Add a classname */
   className?: string
 }
