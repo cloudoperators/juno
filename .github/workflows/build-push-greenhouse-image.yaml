@@ -75,8 +75,11 @@ jobs:
         run: |
           if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }}; then
             "Image ${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} already exists in the ${{ env.REGISTRY }} registry. Skipping workflow. Please increment the version."
+            # looks like the docker pull command already exits with 1
+            # so this check is actually not needed
             exit 1 
           fi
+          exit 0
 
       # This action enables you to SIGN and VERIFY container images using cosign
       - name: Install cosign
