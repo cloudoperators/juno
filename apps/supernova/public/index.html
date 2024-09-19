@@ -6,8 +6,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <link rel="icon" href="favicon.ico" sizes="any"/>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
     <title>Supernova Dev</title>
     <style>
       html {
@@ -35,8 +35,8 @@
     <script type="module">
       // appProps are generated in development env and added to the build
       import allProps from "./build/appProps.js"
-      import ("./build/index.js").then((app) => {
-        app.mount(document.getElementById("root"), {props: allProps.appProps})
+      import("./build/index.js").then((app) => {
+        app.mount(document.getElementById("root"), { props: allProps.appProps })
       })
     </script>
     <div id="root"></div>
