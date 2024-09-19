@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Supernova</title>
-    <link rel="icon" sizes="any" href="favicon.ico"/>
+    <link rel="icon" sizes="any" href="favicon.ico" />
     <style>
       #root,
       body,
@@ -16,10 +16,10 @@
   <body>
     <div id="root"></div>
     <script type="module">
-      import {mount} from "./{{entry_file}}"
-      const props = await fetch("./appProps.json").then(r => r.json())
+      import { mount } from "./{{entry_file}}"
+      const props = await fetch("./appProps.json").then((r) => r.json())
       const root = document.getElementById("root")
-      mount(root, {props})
+      mount(root, { props })
     </script>
   </body>
 </html>
