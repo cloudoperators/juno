@@ -8,11 +8,13 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { PageHeader } from "./index"
 
+const CustomLogoComponent = () => <svg role="img" data-testid="custom-logo" className="juno-test-logo"></svg>
+
 describe("PageHeader", () => {
   test("renders a simple Page Header and has flexbox layout", () => {
     render(<PageHeader />)
     expect(screen.getByRole("banner")).toBeInTheDocument()
-    expect(screen.getByRole("banner")).toHaveClass("jn-flex")
+    expect(screen.getByRole("banner")).toHaveClass("juno-pageheader")
   })
 
   test("renders a Page Header with heading as passed", () => {
@@ -29,6 +31,28 @@ describe("PageHeader", () => {
     )
     expect(screen.getByRole("banner")).toBeInTheDocument()
     expect(screen.getByRole("button")).toBeInTheDocument()
+  })
+
+  test("renders a default logo by default", () => {
+    render(<PageHeader />)
+    const element = screen.getByTestId("default-logo")
+    expect(element).toBeInTheDocument()
+  })
+
+  test("does not render any logo as passed", () => {
+    render(<PageHeader logo={false} />)
+    expect(screen.getByRole("banner")).toBeInTheDocument()
+    expect(screen.queryByAltText("Juno UI")).not.toBeInTheDocument()
+    const logoContainer = document.querySelector(".juno-pageheader-logo-container")
+    expect(logoContainer).toBeInTheDocument()
+    expect(logoContainer).toBeEmptyDOMElement()
+  })
+
+  test("renders a custom logo component as passed", () => {
+    render(<PageHeader logo={<CustomLogoComponent />} />)
+    expect(screen.getByRole("banner")).toBeInTheDocument()
+    expect(screen.getByRole("img")).toBeInTheDocument()
+    expect(screen.getByRole("img")).toHaveClass("juno-test-logo")
   })
 
   test("renders a custom className", () => {

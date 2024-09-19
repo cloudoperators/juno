@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState, createRef } from "react"
+import React, { useEffect, useState } from "react"
 import { Button, LoadingIndicator, Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import {
   useAuthAppLoaded,
@@ -11,7 +11,6 @@ import {
   useAuthIsProcessing,
   useAuthError,
   useAuthActions,
-  useGlobalsActions,
 } from "../components/StoreProvider"
 import { useAuthentication } from "../hooks/useAuthentication"
 
@@ -38,34 +37,20 @@ let orgName = match ? match[1] : currentUrl.searchParams.get("org")
  *
  * Note: The component reads organization information from the token and adjusts the URL accordingly after the user is logged in.
  */
-const Auth = ({ clientId, issuerUrl, mock, children, demoOrg }) => {
+const Auth = ({ clientId, issuerUrl, mock, demoUserToken, children, demoOrg }) => {
   const authAppLoaded = useAuthAppLoaded()
   const authLoggedIn = useAuthLoggedIn()
   const authIsProcessing = useAuthIsProcessing()
   const authError = useAuthError()
   const { login } = useAuthActions()
-  const { setDemoMode } = useGlobalsActions()
-
-  const ref = createRef()
   const [loading, setLoading] = useState(!authAppLoaded)
   const [longLoading, setLongLoading] = useState(false)
-
-  useEffect(() => {
-    // if current orgName is the demo org, we mock the auth app
-    if (demoOrg === orgName) {
-      // we mock the auth app with default groups
-      mock = JSON.stringify({
-        groups: ["organization:demo", "role:ccloud:admin"],
-      })
-      // set demo mode
-      // see in useCommunication hook, there we redefine  the authData.JWT wit demoUserToken if demo mode is set
-      setDemoMode(true)
-    }
-  }, [setDemoMode])
 
   useAuthentication({
     issuerURL: issuerUrl,
     clientID: clientId,
+    demoMode: demoOrg === orgName,
+    demoUserToken,
     mock,
     debug: true,
     initialLogin: true,
@@ -95,44 +80,39 @@ const Auth = ({ clientId, issuerUrl, mock, children, demoOrg }) => {
     return () => longLoadingTimer && clearTimeout(longLoadingTimer)
   }, [])
 
+  if (authLoggedIn) {
+    return children
+  }
   return (
-    <>
-      <div data-app="greenhouse-auth" ref={ref} />
-
-      {!!authLoggedIn && children}
-
-      {!authLoggedIn && (
-        <Stack alignment="center" distribution="center" direction="vertical" className="h-screen">
-          {loading || authIsProcessing ? (
+    <Stack alignment="center" distribution="center" direction="vertical" className="h-screen">
+      {loading || authIsProcessing ? (
+        <>
+          {longLoading ? (
+            <LoadingIndicator className="jn-text-theme-info" />
+          ) : (
+            <Spinner className="mx-6 mb-3" variant="primary" size="1.5rem" />
+          )}
+          {loading ? "Loading..." : "Signing on..."}
+        </>
+      ) : (
+        <>
+          {authAppLoaded ? (
             <>
-              {longLoading ? (
-                <LoadingIndicator className="jn-text-theme-info" />
-              ) : (
-                <Spinner className="mx-6 mb-3" variant="primary" size="1.5rem" />
-              )}
-              {loading ? "Loading..." : "Signing on..."}
+              <span>
+                {authError
+                  ? "You have been logged out. Please sign in again."
+                  : "Please sign in before you can use Greenhouse."}
+              </span>
+              <Button variant="primary" onClick={login} className="mt-3">
+                Sign in
+              </Button>
             </>
           ) : (
-            <>
-              {authAppLoaded ? (
-                <>
-                  <span>
-                    {authError
-                      ? "You have been logged out. Please sign in again."
-                      : "Please sign in before you can use Greenhouse."}
-                  </span>
-                  <Button variant="primary" onClick={login} className="mt-3">
-                    Sign in
-                  </Button>
-                </>
-              ) : (
-                "Looks like the auth app is missing!"
-              )}
-            </>
+            "Looks like the auth app is missing!"
           )}
-        </Stack>
+        </>
       )}
-    </>
+    </Stack>
   )
 }
 
