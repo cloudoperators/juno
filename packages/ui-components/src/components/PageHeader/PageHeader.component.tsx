@@ -44,9 +44,9 @@ const headingStyles = (clickable: boolean) => {
 }
 
 /**
- * The PageHeader component renders a header to the application. 
+ * The PageHeader component renders a header to the application.
  * In order to customize the header Logo, PageHeader accepts a `logo` prop that expects a custom component: `logo={<CustomLogo />}` Ideally, the custom logo component should return an `<img />` or an inline `<svg>` element. When using `svg`, make sure the file does not contain any unnecessary cruft. `Svgo` is a great tool to optimize `svg` files. Make sure the `viewBox` element is not removed when optimizing a file for usage a a header logo.
- * Pass as prop to AppShell so it gets slotted into the correct place in the layout. If building your layout manually without AppShell place as first child of AppBody. 
+ * Pass as prop to AppShell so it gets slotted into the correct place in the layout. If building your layout manually without AppShell place as first child of AppBody.
  */
 
 export const PageHeader = ({
