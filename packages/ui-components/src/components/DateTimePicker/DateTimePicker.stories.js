@@ -5,12 +5,12 @@
 
 import React, { useState } from "react"
 import { DateTimePicker } from "./index.js"
-import { Modal } from "../Modal/index.js"
-import { PortalProvider } from "../PortalProvider/index.js"
+import { Modal } from "../Modal/"
+import { PortalProvider } from "../PortalProvider/"
 import { Form } from "../Form/index.js"
-import { FormRow } from "../FormRow/index.js"
-import { TextInput } from "../TextInput/index.js"
-import { Textarea } from "../Textarea/index.js"
+import { FormRow } from "../FormRow/"
+import { TextInput } from "../TextInput/"
+import { Textarea } from "../Textarea/"
 import { fn } from "@storybook/test"
 
 export default {
