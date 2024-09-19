@@ -37,8 +37,8 @@ const Template = ({ hideHead, includeColSpanRow, ...args }: TemplateProps) => (
           ))}
         </DataGridRow>
       )}
-      {(!includeColSpanRow || null) &&
-        [...Array<unknown>(4)].map((_, r) => (
+      {
+        ...[...Array<unknown>(4)].map((_, r) => (
           <DataGridRow key={`b_${r}`}>
             {[...Array<unknown>(args.columns || defaultColumns)].map((_, c) => (
               <DataGridCell key={`b_${r}_${c}`}>
