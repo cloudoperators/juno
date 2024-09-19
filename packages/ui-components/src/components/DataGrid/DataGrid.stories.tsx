@@ -30,14 +30,14 @@ interface TemplateProps {
 const Template = ({ hideHead, includeColSpanRow, ...args }: TemplateProps) => (
   <>
     <DataGrid {...args}>
-      {!hideHead && (
+      {(!hideHead || null) && (
         <DataGridRow>
           {[...Array<unknown>(args.columns || defaultColumns)].map((_, c) => (
             <DataGridHeadCell key={`h_${c}`}>{`Head cell ${c}`}</DataGridHeadCell>
           ))}
         </DataGridRow>
       )}
-      {!includeColSpanRow &&
+      {(!includeColSpanRow || null) &&
         [...Array<unknown>(4)].map((_, r) => (
           <DataGridRow key={`b_${r}`}>
             {[...Array<unknown>(args.columns || defaultColumns)].map((_, c) => (
@@ -47,7 +47,7 @@ const Template = ({ hideHead, includeColSpanRow, ...args }: TemplateProps) => (
             ))}
           </DataGridRow>
         ))}
-      {includeColSpanRow && (
+      {(includeColSpanRow || null) && (
         <DataGridRow>
           <DataGridCell colSpan={args.columns}>This is a cell with colspan spanning all available columns</DataGridCell>
         </DataGridRow>
