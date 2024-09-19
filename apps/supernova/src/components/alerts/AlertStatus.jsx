@@ -37,7 +37,7 @@ const AlertStatus = ({ alert }) => {
   const { getMappingSilences, getMappedState } = useSilencesActions()
 
   // Gives silence which will still last the longest
-  const silences = getMappingSilences(alert).sort((a, b) => new Date(b.endsAt) - new Date(a.endsAt))
+  const silences = getMappingSilences(alert).sort((a, b) => new Date(b?.endsAt) - new Date(a?.endsAt))
   const silence = silences.length > 0 ? silences[0] : null
 
   const inhibitor = getInhibitor(alert?.status?.inhibitedBy, alerts)

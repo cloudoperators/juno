@@ -6,15 +6,15 @@
 import { getInhibitor } from "./AlertStatus"
 
 describe("getInhibitor", () => {
-  it("Alert to the fingerprint does not exist and should return null", () => {
+  it("tests that null is returned if the inhibiting alert is not found", () => {
     const result = getInhibitor(testedAlertFingerPrintNonExistent.status.inhibitedBy, alerts)
     expect(result).toEqual(null)
   }),
-    it("test alert is not ihibited and should return null", () => {
+    it("test that the alert is not ihibited and returns null", () => {
       const result = getInhibitor(testedAlertNotInhibited.status.inhibitedBy, alerts)
       expect(result).toEqual(null)
     }),
-    it("should return the alert is the longest active", () => {
+    it("should return the alert, which is the longest active", () => {
       const result = getInhibitor(testedAlert.status.inhibitedBy, alerts)
       expect(result).toEqual({
         endsAt: "2024-11-18T13:33:58.716Z",
