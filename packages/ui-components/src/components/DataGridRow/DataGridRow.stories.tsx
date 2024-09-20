@@ -4,13 +4,14 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { DataGridRow } from "./index.js"
-import { DataGridCell } from "../DataGridCell/index.js"
-import { Default as DataGridCellStory } from "../DataGridCell/DataGridCell.stories.js"
-import { DataGrid } from "../DataGrid/index.js"
+import { DataGridRow } from "./index"
+import { DataGridCell } from "../DataGridCell/index"
+import { Default as DataGridCellStory } from "../DataGridCell/DataGridCell.stories"
+import { DataGrid, DataGridProps } from "../DataGrid/index"
 
 const columns = 5
+
+type StoryFunction = () => JSX.Element
 
 export default {
   title: "Components/DataGrid/DataGridRow",
@@ -25,7 +26,7 @@ export default {
       control: false,
     },
   },
-  decorators: [(story) => <DataGrid columns={columns}>{story()}</DataGrid>],
+  decorators: [(story: StoryFunction) => <DataGrid columns={columns}>{story()}</DataGrid>],
   parameters: {
     docs: {
       source: {
@@ -35,7 +36,7 @@ export default {
   },
 }
 
-const Template = ({ items, ...args }) => (
+const Template = ({ items, ...args }: TemplateProps) => (
   <DataGridRow {...args}>
     {items.map((item, i) => (
       <DataGridCell {...item} key={`${i}`} />
@@ -43,8 +44,8 @@ const Template = ({ items, ...args }) => (
   </DataGridRow>
 )
 
-Template.propTypes = {
-  items: PropTypes.array,
+interface TemplateProps {
+  items: DataGridProps[]
 }
 
 export const Default = {

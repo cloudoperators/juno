@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { DataGridCell } from "./DataGridCell.component"
+export { DataGridHeadCell, type DataGridHeadCellProps } from "./DataGridHeadCell.component"
