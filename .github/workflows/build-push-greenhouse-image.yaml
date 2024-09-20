@@ -52,7 +52,7 @@ jobs:
           echo "Greenhouse version is $GREENHOUSE_VERSION"
           echo "IMAGE_VERSION=$GREENHOUSE_VERSION" >> $GITHUB_OUTPUT
 
-      - name: Read version from package.json
+      - name: Read description from README.md
         id: description
         working-directory: ${{ env.PACKAGE_PATH }}
         run: |
