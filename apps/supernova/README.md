@@ -225,7 +225,7 @@ To set the predefined Filter:
 
 ### Initial FIlters
 
-InitialFilters are the filters that are applied when the app is loaded. The filters must be an object where the key is the label and the value is the value to filter on.
+InitialFilters are the filters that are applied when the app is loaded. The filters must be an object where the key is the label and the value are the values to filter on.
 
 Example:
 
@@ -233,9 +233,9 @@ Example:
 { "cluster": ["prod-1", "prod-2"], "status": ["critical"] }
 ```
 
-To set the predefined Filter:
+To set the inital Filters:
 
-- Configured via app prop `predefinedFilters`
+- Configured via app prop `initialFilters`
 
 ### Silence Templates
 

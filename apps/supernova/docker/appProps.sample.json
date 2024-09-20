@@ -3,6 +3,7 @@
   "theme": "theme-dark",
   "embedded": false,
   "filterLabels": [],
+  "initialFilters": {},
   "silenceExcludedLabels": [],
   "silenceTemplates": {},
   "predefinedFilters": []
