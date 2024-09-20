@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { DataGridToolbar } from "./DataGridToolbar.component"
+export { DataGridToolbar, type DataGridToolbarProps } from "./DataGridToolbar.component"

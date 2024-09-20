@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { DataGridRow } from "./DataGridRow.component"
+export { DataGridCell, type DataGridCellProps } from "./DataGridCell.component"

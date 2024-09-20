@@ -5,16 +5,16 @@
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import { DataGridCell } from "./index"
+import { DataGridCheckboxCell } from "./index"
 
-describe("DataGridCell", () => {
-  test("renders a DataGridCell", async () => {
-    render(<DataGridCell />)
+describe("DataGridCheckboxCell", () => {
+  test("renders a DataGridCheckboxCell", () => {
+    render(<DataGridCheckboxCell />)
     expect(screen.getByRole("gridcell")).toBeInTheDocument()
   })
 
-  test("renders a custom className", async () => {
-    render(<DataGridCell className="my-custom-class" />)
+  test("renders a custom className", () => {
+    render(<DataGridCheckboxCell className="my-custom-class" />)
     expect(screen.getByRole("gridcell")).toBeInTheDocument()
     expect(screen.getByRole("gridcell")).toHaveClass("my-custom-class")
   })

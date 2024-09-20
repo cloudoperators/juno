@@ -4,11 +4,16 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Checkbox } from "../../deprecated_js/Checkbox/Checkbox.component.js"
-import { DataGridCell } from "../DataGridCell/DataGridCell.component.js"
+import { Checkbox } from "../Checkbox/Checkbox.component"
+import { DataGridCell } from "../DataGridCell/DataGridCell.component"
 
-export const DataGridCheckboxCell = ({ selected = false, disabled = false, className = "", onChange, ...props }) => {
+export const DataGridCheckboxCell = ({
+  selected = false,
+  disabled = false,
+  className = "",
+  onChange,
+  ...props
+}: DataGridCheckboxCellProps) => {
   return (
     <DataGridCell className={`juno-datagrid-checkbox-cell ${className}`} {...props}>
       <Checkbox disabled={disabled} checked={selected} onChange={onChange} />
@@ -16,13 +21,13 @@ export const DataGridCheckboxCell = ({ selected = false, disabled = false, class
   )
 }
 
-DataGridCheckboxCell.propTypes = {
+export interface DataGridCheckboxCellProps {
   /** Whether the row this cell belongs to is selected */
-  selected: PropTypes.bool,
+  selected?: boolean
   /** Whether the item is disabled */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** Add a classname to the cell */
-  className: PropTypes.string,
+  className?: string
   /** Handler to change the selected state of the row */
-  onChange: PropTypes.func,
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
 }

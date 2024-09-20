@@ -4,7 +4,9 @@
  */
 
 import React from "react"
-import { DataGridFoot } from "./index.js"
+import { DataGridFoot } from "./index"
+
+type StoryFunction = () => React.ReactNode
 
 export default {
   title: "WiP/DataGrid/DataGridFoot",
@@ -14,7 +16,7 @@ export default {
       control: false,
     },
   },
-  decorators: [(story) => <table>{story()}</table>],
+  decorators: [(story: StoryFunction) => <table>{story()}</table>],
   parameters: {
     docs: {
       source: {
