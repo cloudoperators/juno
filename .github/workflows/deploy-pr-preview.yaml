@@ -96,6 +96,7 @@ jobs:
         env:
           UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
           SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
+          HEUREKA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}
         run: |
           echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
           if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
@@ -103,6 +104,9 @@ jobs:
           fi
           if [ "$SUPERNOVA_CHANGED" = "true" ]; then
             echo "<li><a href='./supernova/index.html'>Supernova</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          if [ "$HEUREKA_CHANGED" = "true" ]; then
+            echo "<li><a href='./heureka/index.html'>Heureka</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
           fi
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
