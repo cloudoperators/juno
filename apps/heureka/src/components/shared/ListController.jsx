@@ -5,60 +5,18 @@
 
 import React, { useEffect, useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import {
-  useGlobalsQueryClientFnReady,
-  useGlobalsQueryOptions,
-  useGlobalsActions,
-  useIssueMatchesActiveFilters,
-  useServiceActiveFilters,
-  useComponentActiveFilters,
-  useIssueMatchesPredefinedFilters,
-  useServicePredefinedFilters,
-  useComponentPredefinedFilters,
-  useGlobalsActiveNavEntry,
-  useIssueMatchesSearchTerm,
-  useServiceSearchTerm,
-  useComponentSearchTerm,
-} from "../../hooks/useAppStore"
+import { useGlobalsQueryClientFnReady, useGlobalsQueryOptions, useGlobalsActions } from "../../hooks/useAppStore"
 import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
+import { useGlobalsActiveNavEntry } from "../../hooks/useAppStore"
 
-const entityHooks = {
-  IssueMatches: {
-    useActiveFilters: useIssueMatchesActiveFilters,
-    usePredefinedFilters: useIssueMatchesPredefinedFilters,
-    useSearchTerm: useIssueMatchesSearchTerm,
-  },
-  Services: {
-    useActiveFilters: useServiceActiveFilters,
-    usePredefinedFilters: useServicePredefinedFilters,
-    useSearchTerm: useServiceSearchTerm,
-  },
-  Components: {
-    useActiveFilters: useComponentActiveFilters,
-    usePredefinedFilters: useComponentPredefinedFilters,
-    useSearchTerm: useComponentSearchTerm,
-  },
-}
-
-const ListController = ({ queryKey, entityName, ListComponent }) => {
+const ListController = ({ queryKey, entityName, ListComponent, activeFilters, searchTerm, enableSearchAndFilter }) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
   const queryOptions = useGlobalsQueryOptions(queryKey)
   const { setQueryOptions } = useGlobalsActions()
   const { addMessage, resetMessages } = messageActions()
   const activeNavEntry = useGlobalsActiveNavEntry()
-
-  // Safely access hooks for the entity, or provide fallback functions if entity is undefined or not in the entityHooks object
-  const {
-    useActiveFilters = () => ({}),
-    usePredefinedFilters = () => ({}),
-    useSearchTerm = () => "",
-  } = entityHooks?.[entityName] || {}
-
-  const activeFilters = useActiveFilters()
-  const predefinedFilters = usePredefinedFilters()
-  const searchTerm = useSearchTerm()
 
   const { isLoading, data, error } = useQuery({
     queryKey: [
@@ -67,11 +25,7 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
         ...queryOptions,
         filter: {
           ...activeFilters,
-          ...predefinedFilters,
-          // Currently search is only available for IssueMatches and Services entity.
-          ...(["IssueMatches", "Services"].includes(entityName) && {
-            search: Array.isArray(searchTerm) ? searchTerm : [searchTerm], // Ensure searchTerm is an array
-          }),
+          ...(!!enableSearchAndFilter && searchTerm && searchTerm.length > 0 && { search: searchTerm }),
         },
       },
     ],

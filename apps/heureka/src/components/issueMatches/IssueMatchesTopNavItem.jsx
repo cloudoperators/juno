@@ -4,17 +4,43 @@
  */
 
 import React from "react"
-import IssueMatchesListController from "./IssueMatchesListController"
 import Filters from "../filters/Filters"
+import IssueMatchesList from "./IssueMatchesList"
+import ListController from "../shared/ListController"
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import {
+  useIssueMatchesActiveFilters,
+  useIssueMatchesFilterLabels,
+  useIssueMatchesFilterLabelValues,
+  useIssueMatchesSearchTerm,
+} from "../../hooks/useAppStore"
 
 const IssuesTab = () => {
+  // Fetch filter data from global state using appropriate hooks
+  const activeFilters = useIssueMatchesActiveFilters()
+  const labels = useIssueMatchesFilterLabels()
+  const filterLabelValues = useIssueMatchesFilterLabelValues()
+  const searchTerm = useIssueMatchesSearchTerm()
   return (
     <>
       <MessagesProvider>
         <Messages />
-        <Filters queryKey="IssueMatchFilterValues" entityName="IssueMatches" />
-        <IssueMatchesListController />
+        <Filters
+          queryKey="IssueMatchFilterValues"
+          entityName="IssueMatches"
+          labels={labels}
+          filterLabelValues={filterLabelValues}
+          activeFilters={activeFilters}
+          searchTerm={searchTerm}
+        />
+        <ListController
+          queryKey="IssueMatches"
+          entityName="IssueMatches"
+          ListComponent={IssueMatchesList}
+          activeFilters={activeFilters}
+          searchTerm={searchTerm}
+          enableSearchAndFilter={true}
+        />
       </MessagesProvider>
     </>
   )

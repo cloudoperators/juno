@@ -4,7 +4,8 @@
  */
 
 import React from "react"
-import ComponentsListController from "./ComponentsListController"
+import ComponentsList from "./ComponentsList"
+import ListController from "../shared/ListController"
 // import Filters from "../filters/Filters"
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
@@ -14,7 +15,12 @@ const ComponentsTab = () => {
       <MessagesProvider>
         <Messages />
         {/* <Filters queryKey={ComponentFilterValues} />  // Should be activated after BE respective implementation*/}
-        <ComponentsListController />
+        <ListController
+          queryKey="Components"
+          entityName="Components"
+          ListComponent={ComponentsList}
+          enableSearchAndFilter={false}
+        />
       </MessagesProvider>
     </>
   )

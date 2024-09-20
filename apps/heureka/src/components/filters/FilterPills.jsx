@@ -5,26 +5,10 @@
 
 import React from "react"
 import { Pill, Stack } from "@cloudoperators/juno-ui-components"
-import {
-  useIssueMatchesActiveFilters,
-  useServiceActiveFilters,
-  useComponentActiveFilters,
-  useFilterActions,
-} from "../../hooks/useAppStore"
+import { useFilterActions } from "../../hooks/useAppStore"
 import { humanizeString } from "../../lib/utils"
 
-const entityHooks = {
-  IssueMatches: useIssueMatchesActiveFilters,
-  Services: useServiceActiveFilters,
-  Components: useComponentActiveFilters,
-}
-
-const FilterPills = ({ entityName }) => {
-  // Use a fallback function if entity is undefined or doesn't exist in entityHooks
-  const useActiveFiltersHook = entityHooks?.[entityName] || (() => ({}))
-
-  // Safely call the hook and get active filters
-  const activeFilters = useActiveFiltersHook()
+const FilterPills = ({ entityName, activeFilters }) => {
   const { removeActiveFilter } = useFilterActions()
 
   return (

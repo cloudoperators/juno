@@ -60,8 +60,6 @@ const useUrlState = () => {
   useLayoutEffect(() => {
     if (isURLRead) return
 
-    console.debug("HEUREKA:: setting up state from url with state::", urlStateManager.currentState())
-
     const activeFiltersFromURL = urlStateManager.currentState()?.[ACTIVE_FILTERS]
 
     if (activeFiltersFromURL && Object.keys(activeFiltersFromURL).length > 0) {
