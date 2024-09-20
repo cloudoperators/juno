@@ -81,6 +81,16 @@ jobs:
           APP_PROPS_BASE64: ${{ secrets.SUPERNOVA_APP_PROPS_BASE64 }}
         continue-on-error: true
 
+      - name: Build heureka if changes detected
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'heureka')
+        run: |
+          ./.github/scripts/build-app.sh
+        env:
+          PACKAGE_PATH: apps/heureka
+          TARGET_FOLDER: heureka
+          APP_PROPS_BASE64: ${{ secrets.HEUREKA_APP_PROPS_BASE64 }}
+        continue-on-error: true
+
       - name: Generate index.html for Deployed Apps
         if: github.event.action != 'closed'
         env:
