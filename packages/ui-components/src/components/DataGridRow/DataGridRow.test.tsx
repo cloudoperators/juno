@@ -8,12 +8,12 @@ import { render, screen } from "@testing-library/react"
 import { DataGridRow } from "./index"
 
 describe("DataGridRow", () => {
-  test("renders a DataGridRow", async () => {
+  test("renders a DataGridRow", () => {
     render(<DataGridRow />)
     expect(screen.getByRole("row")).toBeInTheDocument()
   })
 
-  test("renders a custom className", async () => {
+  test("renders a custom className", () => {
     render(<DataGridRow className="my-custom-class" />)
     expect(screen.getByRole("row")).toBeInTheDocument()
     expect(screen.getByRole("row")).toHaveClass("my-custom-class")

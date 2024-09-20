@@ -4,7 +4,6 @@
  */
 
 import React, { forwardRef } from "react"
-import PropTypes from "prop-types"
 
 const rowBaseStyle = `
 	jn-contents
@@ -12,7 +11,7 @@ const rowBaseStyle = `
 // const rowSelectedStyle = `
 // 	jn-bg-theme-datagridrow-selected
 // `
-export const DataGridRow = forwardRef(
+export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
   ({ /* selected, disabled,*/ className = "", children = null, /*onChange,*/ ...props }, ref) => {
     // const dataGridContext = useDataGridContext() || {}
     // const selectable = dataGridContext.selectable
@@ -39,15 +38,15 @@ export const DataGridRow = forwardRef(
 
 DataGridRow.displayName = "DataGridRow"
 
-DataGridRow.propTypes = {
+export interface DataGridRowProps {
   // /** Whether the row / item is selected (only relevant in a `selectable` DataGrid */
   // selected: PropTypes.bool,
   // /** Whether the row/item is disabled (only relevant in a `selectable` DataGrid */
   // disabled: PropTypes.bool,
   /** Children to render in the DataGridRow */
-  children: PropTypes.node,
+  children?: JSX.Element | (JSX.Element | null)[] | null
   /** Add a classname */
-  className: PropTypes.string,
+  className?: string
   // /** Pass a handler to be executed when selected state changes */
   // onChange: PropTypes.func,
 }

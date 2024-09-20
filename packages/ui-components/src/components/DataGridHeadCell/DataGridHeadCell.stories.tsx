@@ -4,9 +4,11 @@
  */
 
 import React from "react"
-import { DataGrid } from "../DataGrid/index.js"
-import { DataGridRow } from "../DataGridRow/index.js"
-import { DataGridHeadCell } from "./index.js"
+import { DataGrid } from "../DataGrid/index"
+import { DataGridRow } from "../DataGridRow/index"
+import { DataGridHeadCell, DataGridHeadCellProps } from "./index"
+
+type StoryFunction = () => JSX.Element
 
 export default {
   title: "Components/DataGrid/DataGridHeadCell",
@@ -17,7 +19,7 @@ export default {
     },
   },
   decorators: [
-    (story) => (
+    (story: StoryFunction) => (
       <DataGrid columns={3}>
         <DataGridRow>{story()}</DataGridRow>
       </DataGrid>
@@ -32,7 +34,7 @@ export default {
   },
 }
 
-const Template = (args) => <DataGridHeadCell {...args}></DataGridHeadCell>
+const Template = (args: DataGridHeadCellProps) => <DataGridHeadCell {...args}></DataGridHeadCell>
 
 export const Default = {
   render: Template,
