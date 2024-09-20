@@ -6,13 +6,9 @@ on:
       - opened
       - synchronize
       - reopened
-
-permissions:
-  contents: write
-  pull-requests: write
-  actions: read
-  checks: write
-  statuses: write
+  push:
+    branches:
+      - changeset-release/main
 
 env:
   HUSKY: 0
