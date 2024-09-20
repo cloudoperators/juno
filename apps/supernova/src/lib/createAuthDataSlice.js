@@ -12,9 +12,18 @@ const createAuthDataSlice = (set, get) => ({
   auth: {
     data: null,
     loggedIn: false,
-    userEditable: true,
 
     actions: {
+      // The following method is a temporary fix and should be refactored
+      // We preset the support group filter based on auth data. This should be done
+      // with predefined filters prop
+      setSupportGroup: (supportGroup) => {
+        if (!supportGroup) return
+        const activeFilters = get().filters.activeFilters
+        if (Object.keys(activeFilters).length === 0 && get().filters.labels?.includes("support_group")) {
+          get().filters.actions.setActiveFilters({ support_group: supportGroup })
+        }
+      },
       setData: (data) => {
         if (!data) return
         // check if data has changed before updating the state
@@ -26,7 +35,6 @@ const createAuthDataSlice = (set, get) => ({
               ...state.auth,
               loggedIn: data?.loggedIn,
               data: data?.auth,
-              userEditable: !!data.auth?.parsed?.fullName,
             },
           }),
           false,

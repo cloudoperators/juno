@@ -22,13 +22,7 @@ import {
   FormSection,
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
-import {
-  useAuthData,
-  useSilenceTemplates,
-  useGlobalsApiEndpoint,
-  useSilencesActions,
-  useAuthUserEditable,
-} from "../../hooks/useAppStore"
+import { useAuthData, useSilenceTemplates, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
 import { post } from "../../api/client"
 import { parseError } from "../../helpers"
 
@@ -39,7 +33,6 @@ const SilenceScheduled = (props) => {
   const { addMessage, resetMessages } = useActions()
   const silenceTemplates = useSilenceTemplates()
   const apiEndpoint = useGlobalsApiEndpoint()
-  const isNameEditable = useAuthUserEditable()
   const { addLocalItem } = useSilencesActions()
 
   // set sucess of sending the silence
@@ -255,7 +248,7 @@ const SilenceScheduled = (props) => {
                     value={formState?.createdBy?.value}
                     errortext={formState?.createdBy?.error}
                     onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
-                    disabled={!isNameEditable}
+                    disabled={!!authData?.parsed?.fullName}
                   />
                 </FormRow>
                 <FormRow>

@@ -3,50 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useCallback } from "react"
+import { useEffect } from "react"
 import { get, watch } from "@cloudoperators/juno-communicator"
-import {
-  useUserActivityActions,
-  useAuthActions,
-  useActiveFilters,
-  useFilterActions,
-  useFilterLabels,
-  useGlobalsIsURLRead,
-} from "./useAppStore"
+import { useUserActivityActions, useAuthActions, useGlobalsIsURLRead } from "./useAppStore"
 
 const useCommunication = () => {
-  console.debug("[supernova] useCommunication setup")
   const isURLRead = useGlobalsIsURLRead()
   const { setIsActive } = useUserActivityActions()
-  const { setData: authSetData } = useAuthActions()
-  const activeFilters = useActiveFilters()
-  const { setActiveFilters } = useFilterActions()
-  const filterLabels = useFilterLabels()
-
-  const setAuthData = useCallback(
-    (data) => {
-      if (!data) return
-
-      // set the auth data
-      authSetData(data)
-
-      // The following code exists of historical reasons and should be refactored
-      // We preset the support group filter based on auth data. This should be done
-      // with predefined filters prop
-
-      // check if activeFilters are set and skip if they are
-      // activeFilters example: {support_group: Array(1)}
-      if (
-        activeFilters &&
-        Object.keys(activeFilters).length === 0 &&
-        data?.auth?.parsed?.supportGroups &&
-        filterLabels?.includes("support_group")
-      ) {
-        setActiveFilters({ support_group: data.auth.parsed.supportGroups })
-      }
-    },
-    [authSetData, filterLabels, activeFilters]
-  )
+  const { setData: authSetData, setSupportGroup } = useAuthActions()
 
   useEffect(() => {
     // watch for user activity updates messages
@@ -62,16 +26,23 @@ const useCommunication = () => {
     return unwatch
   }, [setIsActive])
 
+  // WATCH for auth data updates
+  // GET the auth data initially
   useEffect(() => {
-    if (!isURLRead || !setAuthData) return
-
-    get("AUTH_GET_DATA", setAuthData)
-    const unwatchUpdate = watch("AUTH_UPDATE_DATA", setAuthData)
-
+    if (!isURLRead) return
+    get("AUTH_GET_DATA", (data) => {
+      authSetData(data)
+      setSupportGroup(data?.auth?.parsed?.supportGroups)
+    })
+    const unwatchUpdate = watch("AUTH_UPDATE_DATA", (data) => {
+      authSetData(data)
+      // TODO: if the user gets reauthenticated we would reset all active filters with the support group. This would be fixed once the initial filters with the support group is set
+      setSupportGroup(data?.auth?.parsed?.supportGroups)
+    })
     return () => {
       if (unwatchUpdate) unwatchUpdate()
     }
-  }, [setAuthData, isURLRead])
+  }, [isURLRead])
 }
 
 export default useCommunication
