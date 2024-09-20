@@ -74,27 +74,11 @@ jobs:
       - name: Build supernova if changes detected
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'supernova')
         run: |
-          # collect the necessary information
-          entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
-          build_folder=$(dirname $entry_file)
-          package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
-
-          # Run build using turbo
-          npx turbo run build --filter $package_name
-
-          # Copy the necessary files
-          mkdir -p ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}
-          cp -r $PACKAGE_PATH/$build_folder ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/$build_folder
-          cp $PACKAGE_PATH/public/favicon.ico ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/        
-
-          # Generate index.html and appProps.json
-          cp $PACKAGE_PATH/docker/index.html ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
-          entry_file_escaped=$(echo "$entry_file" | sed 's/\//\\\//g')
-          sed -i "s/{{entry_file}}/$entry_file_escaped/g" ${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/index.html
-          echo "${{ secrets.SUPERNOVA_APP_PROPS_BASE64 }}" | base64 -d > "${{ env.DEPLOY_PATH }}/${{ env.APP_FOLDER }}/appProps.json"
+          ./.github/scripts/build-app.sh
         env:
           PACKAGE_PATH: apps/supernova
-          APP_FOLDER: supernova
+          TARGET_FOLDER: supernova
+          APP_PROPS_BASE64: ${{ secrets.SUPERNOVA_APP_PROPS_BASE64 }}
         continue-on-error: true
 
       - name: Generate index.html for Deployed Apps
