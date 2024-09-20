@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.2.2
+
+### Patch Changes
+
+- 828f906: Restore demo user support
+- Updated dependencies [68e3984]
+- Updated dependencies [8c3d471]
+- Updated dependencies [59c00bb]
+  - @cloudoperators/juno-ui-components@2.21.0
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @cloudoperators/juno-ui-components
 
+## 2.21.0
+
+### Minor Changes
+
+- 68e3984: feat(ui): add pageheader custom logo
+
+  - add `logo` prop that accepts a custom logo as a component to be rendered in a slot
+  - move grid layout for pageheader for robust logo placement and sizing
+
+- 8c3d471: feat(ui): add FormattedText component. Update: Removed package 'tailwindcss-typography' and added SCSS file to rebuild this behavior.
+- 59c00bb: Migrate DataGrid to TypeScript
+
 ## 2.20.0
 
 ### Minor Changes
