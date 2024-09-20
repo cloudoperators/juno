@@ -104,7 +104,7 @@ jobs:
           #  ghcr.io/cloudoperators/juno-app-greenhouse:0.2.1
           #  ghcr.io/cloudoperators/juno-app-greenhouse:latest
           tags: |
-            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}‚
+            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
       # Debugging step to print the tags
       #- name: print tags
       # run: |
