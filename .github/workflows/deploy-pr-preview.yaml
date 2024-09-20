@@ -21,6 +21,8 @@ on:
     paths:
       - "packages/ui-components/**"
       - "apps/supernova/**"
+      - "apps/heureka/**"
+      - "apps/doop/**"
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
@@ -91,12 +93,23 @@ jobs:
           APP_PROPS_BASE64: ${{ secrets.HEUREKA_APP_PROPS_BASE64 }}
         continue-on-error: true
 
+      - name: Build DOOP if changes detected
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'doop')
+        run: |
+          ./.github/scripts/build-app.sh
+        env:
+          PACKAGE_PATH: apps/doop
+          TARGET_FOLDER: doop
+          APP_PROPS_BASE64: ${{ secrets.DOOP_APP_PROPS_BASE64 }}
+        continue-on-error: true
+
       - name: Generate index.html for Deployed Apps
         if: github.event.action != 'closed'
         env:
           UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
           SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
           HEUREKA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}
+          DOOP_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}
         run: |
           echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
           if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
@@ -107,6 +120,9 @@ jobs:
           fi
           if [ "$HEUREKA_CHANGED" = "true" ]; then
             echo "<li><a href='./heureka/index.html'>Heureka</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          if [ "$DOOP_CHANGED" = "true" ]; then
+            echo "<li><a href='./doop/index.html'>Doop</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
           fi
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
