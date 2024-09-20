@@ -223,6 +223,20 @@ To set the predefined Filter:
 
 - Configured via app prop `predefinedFilters`
 
+### Initial FIlters
+
+InitialFilters are the filters that are applied when the app is loaded. The filters must be an object where the key is the label and the value is the value to filter on.
+
+Example:
+
+```json
+{ "cluster": ["prod-1", "prod-2"], "status": ["critical"] }
+```
+
+To set the predefined Filter:
+
+- Configured via app prop `predefinedFilters`
+
 ### Silence Templates
 
 Defines pre-configured silences available in the schedule silence modal for scheduling future silences. For example when setting up maintenance windows where it is known that certain alerts will fire. The format consists of a list of objects including description, editable_labels (array of strings specifying the labels that users can modify), fixed_labels (map containing fixed labels and their corresponding values), status, and title.
