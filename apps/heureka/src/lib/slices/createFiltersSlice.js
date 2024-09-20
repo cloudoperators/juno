@@ -4,6 +4,7 @@
  */
 
 import { produce } from "immer"
+import constants from "../../components/shared/constants"
 
 // Constants for each entity
 const ISSUEMATCHES = "IssueMatches"
@@ -27,7 +28,7 @@ const initialFiltersState = {
   [COMPONENTS]: createFilterState(),
 }
 
-const createFiltersSlice = (set) => ({
+const createFiltersSlice = (set, get) => ({
   filters: {
     ...initialFiltersState,
     actions: {
@@ -132,6 +133,48 @@ const createFiltersSlice = (set) => ({
           false,
           `filters.setSearchTerm.${entity}`
         ),
+
+      setFiltersFromURL: (activeFilters, searchTerm) =>
+        set(
+          produce((state) => {
+            if (activeFilters) {
+              state.filters[ISSUEMATCHES].activeFilters = activeFilters[ISSUEMATCHES] || {}
+              state.filters[SERVICES].activeFilters = activeFilters[SERVICES] || {}
+              state.filters[COMPONENTS].activeFilters = activeFilters[COMPONENTS] || {}
+            }
+
+            if (searchTerm) {
+              state.filters[ISSUEMATCHES].search = searchTerm[ISSUEMATCHES] || ""
+              state.filters[SERVICES].search = searchTerm[SERVICES] || ""
+              state.filters[COMPONENTS].search = searchTerm[COMPONENTS] || ""
+            }
+          }),
+          false,
+          `filters.setFiltersFromURL`
+        ),
+
+      syncFiltersWithURL: (detailsFor, activeNavEntry) => {
+        const encodedSearchTerm = btoa(
+          JSON.stringify({
+            [ISSUEMATCHES]: get().filters[ISSUEMATCHES].search,
+            [SERVICES]: get().filters[SERVICES].search,
+            [COMPONENTS]: get().filters[COMPONENTS].search,
+          })
+        )
+
+        const activeFilters = {
+          [ISSUEMATCHES]: get().filters[ISSUEMATCHES].activeFilters,
+          [SERVICES]: get().filters[SERVICES].activeFilters,
+          [COMPONENTS]: get().filters[COMPONENTS].activeFilters,
+        }
+
+        return {
+          [constants.ACTIVE_FILTERS]: activeFilters,
+          [constants.SEARCH_TERM]: encodedSearchTerm,
+          [constants.DETAILS_FOR]: detailsFor,
+          [constants.ACTIVE_NAV]: activeNavEntry,
+        }
+      },
     },
   },
 })
