@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Toast } from "./index.js"
+import { Toast } from "./index"
 
 export default {
   title: "WiP/Toast",
