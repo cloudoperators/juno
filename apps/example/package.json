@@ -7,8 +7,7 @@
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/example",
   "license": "Apache-2.0",
-  "module": "build/index.js",
-  "source": "src/index.js",
+  "module": "dist/index.js",
   "private": true,
   "engines": {
     "node": ">=20.0.0 <21.0.0",
@@ -58,23 +57,9 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint",
-    "dev": "NODE_ENV=development node esbuild.config.js --serve --watch",
-    "build": "NODE_ENV=production node esbuild.config.js",
+    "dev": "vite",
+    "build": "vite build",
+    "static": "vite build --mode static",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
-  },
-  "appProps": {
-    "theme": {
-      "value": "theme-dark",
-      "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
-    },
-    "endpoint": {
-      "value": "",
-      "description": "Endpoint URL of the API"
-    },
-    "embedded": {
-      "value": "false",
-      "description": "Set to true if app is to be embedded in another existing app or page. If set to true the app won't render a page header/footer and instead render only the content"
-    }
-  },
-  "appPreview": true
+  }
 }
