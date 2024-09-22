@@ -52,7 +52,7 @@ const App = (props = {}) => {
     fetchProxyInitDB(db)
   }, [])
 
-  console.log("[exampleapp] embedded mode:", props.embedded)
+  console.debug("[exampleapp] embedded mode:", props.embedded)
 
   return (
     <QueryClientProvider client={queryClient}>
