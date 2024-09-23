@@ -1,5 +1,11 @@
 # @cloudoperators/juno-template
 
+## 1.1.0
+
+### Minor Changes
+
+- 8475ea0: Add typescript, vite, eslint, vitests for generating proper packages and also update readme
+
 ## 1.0.6
 
 ### Patch Changes
