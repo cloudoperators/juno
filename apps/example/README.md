@@ -13,7 +13,7 @@ To create a static, runnable build, execute the following commands:
 
 ```bash
 cd apps/example
-npx turbo static
+npx turbo build:static
 ```
 
 This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy a `appProps.json` file containing the required props into the dist folder.

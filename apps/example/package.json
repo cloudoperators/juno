@@ -47,7 +47,7 @@
     "lint": "eslint",
     "dev": "vite",
     "build": "vite build",
-    "static": "vite build --mode static",
+    "build:static": "vite build --mode static",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   }
 }
