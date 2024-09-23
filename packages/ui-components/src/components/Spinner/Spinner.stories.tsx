@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Spinner } from "./index.js"
+import { Spinner } from "./index"
 
 export default {
   title: "Components/Spinner",

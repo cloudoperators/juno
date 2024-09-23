@@ -9,36 +9,36 @@ import userEvent from "@testing-library/user-event"
 import { Toast } from "./index"
 
 describe("Toast", () => {
-  test("render a toast", async () => {
+  test("render a toast", () => {
     render(<Toast data-testid="my-toast" />)
     expect(screen.getByTestId("my-toast")).toBeInTheDocument()
   })
 
-  test("render an info toast by default", async () => {
+  test("render an info toast by default", () => {
     render(<Toast data-testid="my-toast" />)
     expect(screen.getByTestId("my-toast")).toBeInTheDocument()
     expect(screen.getByTitle("Info")).toBeInTheDocument()
   })
 
-  test("render an warning toast", async () => {
+  test("render an warning toast", () => {
     render(<Toast data-testid="my-toast" variant="warning" />)
     expect(screen.getByTestId("my-toast")).toBeInTheDocument()
     expect(screen.getByTitle("Warning")).toBeInTheDocument()
   })
 
-  test("render an sucess toast", async () => {
+  test("render an sucess toast", () => {
     render(<Toast data-testid="my-toast" variant="success" />)
     expect(screen.getByTestId("my-toast")).toBeInTheDocument()
     expect(screen.getByTitle("Success")).toBeInTheDocument()
   })
 
-  test("render an error toast", async () => {
+  test("render an error toast", () => {
     render(<Toast data-testid="my-toast" variant={"error"} />)
     expect(screen.getByTestId("my-toast")).toBeInTheDocument()
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
 
-  test("render an danger toas", async () => {
+  test("render an danger toas", () => {
     render(<Toast data-testid="my-toast" variant={"danger"} />)
     expect(screen.getByTestId("my-toast")).toBeInTheDocument()
     expect(screen.getByTitle("Danger")).toBeInTheDocument()
@@ -56,7 +56,7 @@ describe("Toast", () => {
   })
 
   test("fires onDismiss handler when toast is manually dismissed", async () => {
-    const handleDismiss = jest.fn()
+    const handleDismiss = vi.fn()
     render(<Toast data-testid="my-toast" onDismiss={handleDismiss} />)
     // not checking specifically for the close button here. So if there is more than one button in the message this test will fail
     // The reason is that it's hard to find specifically the close button because any classes added to a clickable Icon go to the image element, not the surrounding button
@@ -78,12 +78,12 @@ describe("Toast", () => {
     )
   })
 
-  test("renders custom classNames as passed", async () => {
+  test("renders custom classNames as passed", () => {
     render(<Toast data-testid="my-toast" className="my-custom-class" />)
     expect(screen.getByTestId("my-toast")).toHaveClass("my-custom-class")
   })
 
-  test("renders all props as passed", async () => {
+  test("renders all props as passed", () => {
     render(<Toast data-testid="my-toast" name="My shiny little Message" />)
     expect(screen.getByTestId("my-toast")).toHaveAttribute("name", "My shiny little Message")
   })

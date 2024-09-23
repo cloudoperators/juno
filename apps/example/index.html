@@ -3,11 +3,11 @@
   ~ SPDX-License-Identifier: Apache-2.0
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="src/img/favicon.ico" sizes="any" />
 
     <title>EXAMPLEAPP Dev</title>
     <style>
@@ -27,20 +27,20 @@
         display: inline;
       }
     </style>
-    <script>
-      // automatically reload on build changes
-      new EventSource("/esbuild").addEventListener("change", () =>
-        location.reload()
-      )
-    </script>
   </head>
   <body>
     <script type="module">
-      // appProps are generated in development env and added to the build
-      import allProps from "./build/appProps.js"
-      import("./build/index.js").then((app) => {
-        app.mount(document.getElementById("root"), { props: allProps.appProps })
-      })
+      // appProps are excluded from standalone build and should be generated from outside
+      fetch("./appProps.json")
+        .then((res) => res.json())
+        .catch((error) => {
+          console.warn("No appProps found, using default props", error.message)
+        })
+        .then((props) => {
+          import("./src/index").then((app) => {
+            app.mount(document.getElementById("root"), { props })
+          })
+        })
     </script>
     <div id="root" data-juno-app="exampleapp"></div>
   </body>

@@ -4,31 +4,49 @@
  */
 
 import React, { useEffect, useState } from "react"
-import PropTypes from "prop-types"
-import { Icon } from "../../deprecated_js/Icon/index.js"
+import { Icon } from "../Icon/index"
 
 const toastStyles = `
-	jn-bg-theme-background-lvl-1
-	jn-text-theme-high 
-	jn-inline-flex	
-	jn-items-start
-	jn-p-2
-	jn-mb-8
-	jn-rounded
+    jn-bg-theme-background-lvl-1
+    jn-text-theme-high 
+    jn-inline-flex	
+    jn-items-start
+    jn-p-2
+    jn-mb-8
+    jn-rounded
 `
 const toastStylesText = `
-	jn-mx-4
-	jn-max-w-full
+    jn-mx-4
+    jn-max-w-full
 `
 
 // get the appropriate icon for messasge tyope by MUI name:
-const getMuiIcon = (messageType) => {
+const getMuiIcon = (messageType: IconType) => {
   switch (messageType) {
     case "error":
       return "dangerous"
     default:
       return messageType
   }
+}
+type IconType = "info" | "warning" | "danger" | "error" | "success"
+export interface ToastProps {
+  /** Specify a semantic variant */
+  variant?: IconType
+  /** Pass child nodes to be rendered as contents */
+  children?: React.ReactNode
+  /** Pass an optional text */
+  text?: string
+  /** Optional. If set to 'true', the message will be automatically dismissed after 10 seconds by default or after the specified autoDismissTimeout */
+  autoDismiss?: boolean
+  /** Optional. Timeout in miliseconds after which the message is automatically dismissed. By default 10000 (10s).*/
+  autoDismissTimeout?: number
+  /** Optional. Pass a handler that will be called when the message is dismissed */
+  onDismiss?: () => unknown
+  /** Pass an optional className */
+  className?: string
+  /** Pass any optional properties */
+  [x: string]: any
 }
 
 /**
@@ -44,11 +62,11 @@ export const Toast = ({
   onDismiss,
   className = "",
   ...props
-}) => {
+}: ToastProps) => {
   const [visible, setVisible] = useState(true)
 
   // ----- Timeout stuff -------
-  const timeoutRef = React.useRef(null)
+  const timeoutRef = React.useRef(setTimeout(() => hideMessage(), autoDismissTimeout))
 
   React.useEffect(() => {
     return () => clearTimeout(timeoutRef.current) // clear when component is unmounted
@@ -83,21 +101,4 @@ export const Toast = ({
       )}
     </>
   )
-}
-
-Toast.propTypes = {
-  /** Specify a semantic variant */
-  variant: PropTypes.oneOf(["info", "warning", "danger", "error", "success"]),
-  /** Pass child nodes to be rendered as contents */
-  children: PropTypes.node,
-  /** Pass an optional text */
-  text: PropTypes.string,
-  /** Optional. If set to 'true', the message will be automatically dismissed after 10 seconds by default or after the specified autoDismissTimeout */
-  autoDismiss: PropTypes.bool,
-  /** Optional. Timeout in miliseconds after which the message is automatically dismissed. By default 10000 (10s).*/
-  autoDismissTimeout: PropTypes.number,
-  /** Optional. Pass a handler that will be called when the message is dismissed */
-  onDismiss: PropTypes.func,
-  /** Pass an optional className */
-  className: PropTypes.string,
 }
