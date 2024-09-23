@@ -8,7 +8,7 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Modal } from "./index"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
-import { TextInput } from "../TextInput/index.js"
+import { TextInput } from "../../deprecated_js/TextInput/index.js"
 
 const mockOnConfirm = jest.fn()
 const mockOnCancel = jest.fn()
