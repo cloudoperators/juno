@@ -22,30 +22,16 @@ export default defineConfig(({ mode }) => {
       host: "0.0.0.0",
       port: parseInt(process.env.PORT || "3000"),
     },
-
-    /* enable jsx in js files */
-    // esbuild: {
-    //   loader: "jsx",
-    //   include: /.*\.jsx?$/,
-    //   exclude: [],
-    // },
-    // optimizeDeps: {
-    //   esbuildOptions: {
-    //     loader: {
-    //       ".js": "jsx",
-    //     },
-    //   },
-    // },
   }
 
+  // with vite it is possible to have different configurations based on the mode
+  // we can use this to create a static build for previewing the app in github pages
+  // and also to create a docker image for the standalone app
   if (mode === "static") {
     return {
       ...sharedConfig,
       build: {
         outDir: "dist",
-        rollupOptions: {
-          //external: ["@cloudoperators/juno-ui-components"],
-        },
       },
     }
   }
