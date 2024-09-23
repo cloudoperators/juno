@@ -11,6 +11,7 @@ The **Greenhouse Dashboard** aims to build a new, flexible architecture under th
 ## Architecture Components
 
 1. **Core:**
+
    - **Description:** The Core handles critical functionalities for the dashboard to function, including loading extensions and providing basic system utilities.
    - **Key Features:**
      - Extension loader
@@ -18,6 +19,7 @@ The **Greenhouse Dashboard** aims to build a new, flexible architecture under th
      - Dashboard utilities
 
 2. **Modules:**
+
    - **Description:** Core components developed by the core team, which can be swapped or replaced with alternatives offering the same functionality.
    - **Key Features:**
      - Interchangeable modules
@@ -39,31 +41,36 @@ The **Greenhouse Dashboard** aims to build a new, flexible architecture under th
 ## Key Architecture Decisions
 
 ### 1. **Separation of Core, Modules, and Extensions**
-   - **Decision:** The architecture separates the **Core**, **Modules**, and **Extensions** to ensure clear boundaries between internal and external functionalities.
-   - **Rationale:** This enables modularity and flexibility, ensuring that third-party extensions do not affect the stability of the core system.
+
+- **Decision:** The architecture separates the **Core**, **Modules**, and **Extensions** to ensure clear boundaries between internal and external functionalities.
+- **Rationale:** This enables modularity and flexibility, ensuring that third-party extensions do not affect the stability of the core system.
 
 ### 2. **Fully Isolated Extensions**
-   - **Decision:** Extensions must be completely isolated from the core system and other modules, wrapped in an error boundary.
-   - **Rationale:** This prevents third-party code from causing failures or performance degradation within the core dashboard.
+
+- **Decision:** Extensions must be completely isolated from the core system and other modules, wrapped in an error boundary.
+- **Rationale:** This prevents third-party code from causing failures or performance degradation within the core dashboard.
 
 ### 3. **Interchangeable Core Modules**
-   - **Decision:** Modules within the core system are designed to be interchangeable, allowing for alternative modules with the same functionality to be swapped in as needed.
-   - **Rationale:** Ensures flexibility and adaptability, allowing new or improved modules to be integrated into the system with minimal disruption.
+
+- **Decision:** Modules within the core system are designed to be interchangeable, allowing for alternative modules with the same functionality to be swapped in as needed.
+- **Rationale:** Ensures flexibility and adaptability, allowing new or improved modules to be integrated into the system with minimal disruption.
 
 ### 4. **TypeScript as the Primary Language**
-   - **Decision:** The new system will be developed using **TypeScript**.
-   - **Rationale:** TypeScript offers type safety and adheres to modern JavaScript standards, reducing bugs and improving code maintainability.
+
+- **Decision:** The new system will be developed using **TypeScript**.
+- **Rationale:** TypeScript offers type safety and adheres to modern JavaScript standards, reducing bugs and improving code maintainability.
 
 ### 5. **Vite and Vitest for Build and Testing**
-   - **Decision:** The build system will use **Vite**, and testing will be managed with **Vitest**.
-   - **Rationale:** Both Vite and Vitest are chosen for their speed and developer-friendly features, enhancing Developer Experience (DX) and speeding up the build/test process.
+
+- **Decision:** The build system will use **Vite**, and testing will be managed with **Vitest**.
+- **Rationale:** Both Vite and Vitest are chosen for their speed and developer-friendly features, enhancing Developer Experience (DX) and speeding up the build/test process.
 
 ### 6. **Renaming the Legacy System**
-   - **Decision:** The current Greenhouse app will be renamed **Greenhouse Legacy**.
-   - **Rationale:** This clearly distinguishes the legacy system from the new "Carbon" architecture, reducing confusion for developers and users alike.
+
+- **Decision:** The current Greenhouse app will be renamed **Greenhouse Legacy**.
+- **Rationale:** This clearly distinguishes the legacy system from the new "Carbon" architecture, reducing confusion for developers and users alike.
 
 ---
-
 
 ## Diagram of Proposed Architecture
 
@@ -89,6 +96,7 @@ The **Greenhouse Dashboard** aims to build a new, flexible architecture under th
 |                      +---------------------------+              |
 +-----------------------------------------------------------------+
 ```
+
 - **Core System:** The foundation of the dashboard, handling key functionalities and loading third-party extensions.
 - **Core Modules:** Built-in components that can be swapped out, offering modular and customizable features.
 - **Extensions:** External components that integrate into the dashboard but remain isolated to protect system stability.
