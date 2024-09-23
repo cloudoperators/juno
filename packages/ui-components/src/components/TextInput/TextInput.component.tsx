@@ -10,33 +10,33 @@ import { FormHint } from "../FormHint/FormHint.component"
 import "./textinput.scss"
 
 const textinputstyles = `
-	jn-bg-theme-textinput
-	jn-text-theme-textinput
+  jn-bg-theme-textinput
+  jn-text-theme-textinput
   jn-border
-	jn-text-base
-	jn-leading-4
-	jn-px-4
-	jn-h-textinput
-	jn-rounded-3px
-	focus:jn-outline-none
-	focus:jn-ring-2
-	focus:jn-ring-theme-focus
-	disabled:jn-opacity-50
+  jn-text-base
+  jn-leading-4
+  jn-px-4
+  jn-h-textinput
+  jn-rounded-3px
+  focus:jn-outline-none
+  focus:jn-ring-2
+  focus:jn-ring-theme-focus
+  disabled:jn-opacity-50
   autofill:jn-bg-theme-textinput-autofill
   autofill:jn-text-theme-textinput-autofill
   peer
 `
 
 const defaultborderstyles = `
-	jn-border-theme-textinput-default
+  jn-border-theme-textinput-default
 `
 
 const invalidstyles = `
-	jn-border-theme-error
+  jn-border-theme-error
 `
 
 const validstyles = `
-	jn-border-theme-success
+  jn-border-theme-success
 `
 
 const withLabelStyles = `
