@@ -28,7 +28,7 @@ const IssuesTab = () => {
         <Filters
           queryKey="IssueMatchFilterValues"
           entityName="IssueMatches"
-          labels={labels}
+          filterLabels={labels}
           filterLabelValues={filterLabelValues}
           activeFilters={activeFilters}
           searchTerm={searchTerm}

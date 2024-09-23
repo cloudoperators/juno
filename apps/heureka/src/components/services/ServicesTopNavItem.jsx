@@ -28,7 +28,7 @@ const ServicesTab = () => {
         <Filters
           queryKey="ServiceFilterValues"
           entityName="Services"
-          labels={labels}
+          filterLabels={labels}
           filterLabelValues={filterLabelValues}
           activeFilters={activeFilters}
           searchTerm={searchTerm}
