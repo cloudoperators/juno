@@ -1,56 +1,39 @@
 {
-  "name": "@cloudoperators/juno-template",
+  "name": "@cloudoperators/juno-package-template",
   "version": "1.0.6",
-  "private": true,
-  "description": "Description of template",
+  "description": "Package template that will be use to generate new juno packages",
   "author": "UI-Team",
-  "contributors": [
-    "Andreas Pfau"
-  ],
-  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/template",
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
-  "files": [
-    "build"
-  ],
   "license": "Apache-2.0",
+  "type": "module",
+  "types": "build/types/index.d.ts",
+  "files": [
+    "build/**",
+    "LICENCE"
+  ],
   "engines": {
     "node": ">=20.0.0 <21.0.0",
     "npm": ">=10.0.0 <11.0.0"
   },
-  "devDependencies": {
-    "@babel/preset-env": "^7.20.2",
-    "@cloudoperators/juno-config": "*",
-    "babel-jest": "^29.4.2",
-    "esbuild": "^0.17.6",
-    "jest": "^29.4.2",
-    "jest-environment-jsdom": "^29.7.0"
-  },
   "scripts": {
-    "build": "NODE_ENV=production rollup -c",
-    "test": "NODE_ENV=test jest",
-    "lint": "eslint",
-    "dev": "NODE_ENV=development rollup -c -w"
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "lint": "eslint ",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "verbose": true,
-    "transform": {
-      "\\.js$": "babel-jest"
-    },
-    "watchPathIgnorePatterns": [
-      "<rootDir>/dev/",
-      "<rootDir>/build/"
-    ],
-    "testPathIgnorePatterns": [
-      "/__fixtures__/",
-      "/__utils__/"
-    ]
+  "devDependencies": {
+    "@cloudoperators/juno-config": "*",
+    "@types/node": "^20.11.24",
+    "jsdom": "^24.1.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0",
+    "vite-plugin-dts": "^4.0.3",
+    "vitest": "^2.0.4"
   }
 }
