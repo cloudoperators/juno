@@ -38,14 +38,17 @@ Discuss the outcomes of the decision, including benefits, drawbacks, and any fut
 _Example:_
 
 **Benefits:**
+
 - Rapid development with Django's built-in features.
 - Strong community support and extensive documentation.
 
 **Drawbacks:**
+
 - May not be as performant as other frameworks for real-time features.
 - Learning curve for team members unfamiliar with Django.
 
 **Implications:**
+
 - The team will need to allocate time for Django training.
 - Potential need to integrate additional tools to handle real-time functionalities effectively.
 
