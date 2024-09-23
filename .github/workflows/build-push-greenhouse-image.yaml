@@ -73,13 +73,8 @@ jobs:
       - name: Check if image exists ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} in registry
         id: check-image
         run: |
-          if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }}; then
-            "Image ${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} already exists in the ${{ env.REGISTRY }} registry. Skipping workflow. Please increment the version."
-            # looks like the docker pull command already exits with 1
-            # so this check is actually not needed
-            exit 1 
-          fi
-          exit 0
+          # If the image with this tag already exists, this command will exit with status code 1.
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }}
 
       # This action enables you to SIGN and VERIFY container images using cosign
       - name: Install cosign
