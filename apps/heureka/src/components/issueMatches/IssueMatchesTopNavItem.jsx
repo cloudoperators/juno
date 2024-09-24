@@ -15,7 +15,7 @@ import {
   useIssueMatchesSearchTerm,
 } from "../../hooks/useAppStore"
 
-const IssuesTab = () => {
+const IssueMatchesTopNavItem = () => {
   // Fetch filter data from global state using appropriate hooks
   const activeFilters = useIssueMatchesActiveFilters()
   const labels = useIssueMatchesFilterLabels()
@@ -46,4 +46,4 @@ const IssuesTab = () => {
   )
 }
 
-export default IssuesTab
+export default IssueMatchesTopNavItem

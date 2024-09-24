@@ -7,7 +7,6 @@ import { useEffect } from "react"
 import { get, watch } from "@cloudoperators/juno-communicator"
 
 const useCommunication = () => {
-
   useEffect(() => {
     // Fetch and watch for auth data updates
     if (!setAuthData) return

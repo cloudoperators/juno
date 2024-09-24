@@ -15,7 +15,7 @@ import {
   useServiceSearchTerm,
 } from "../../hooks/useAppStore"
 
-const ServicesTab = () => {
+const ServicesTopNavItem = () => {
   // Fetch filter data from global state using appropriate hooks
   const activeFilters = useServiceActiveFilters()
   const labels = useServiceFilterLabels()
@@ -46,4 +46,4 @@ const ServicesTab = () => {
   )
 }
 
-export default ServicesTab
+export default ServicesTopNavItem

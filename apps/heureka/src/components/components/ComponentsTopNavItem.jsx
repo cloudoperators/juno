@@ -9,7 +9,7 @@ import ListController from "../shared/ListController"
 // import Filters from "../filters/Filters"
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
-const ComponentsTab = () => {
+const ComponentsTopNavItem = () => {
   return (
     <>
       <MessagesProvider>
@@ -26,4 +26,4 @@ const ComponentsTab = () => {
   )
 }
 
-export default ComponentsTab
+export default ComponentsTopNavItem
