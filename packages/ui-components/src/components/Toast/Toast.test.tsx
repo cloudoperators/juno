@@ -5,8 +5,8 @@
 
 import * as React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
 import { Toast } from "./index"
+import userEvent from "@testing-library/user-event"
 
 describe("Toast", () => {
   test("render a toast", () => {
@@ -45,11 +45,15 @@ describe("Toast", () => {
   })
 
   test("renders a toast that can be dismissed", async () => {
-    render(<Toast data-testid="my-toast" />)
+    await waitFor(() => {
+      render(<Toast data-testid="my-toast" />)
+    })
     // not checking specifically for the close button here. So if there is more than one button in the message this test will fail
     // The reason is that it's hard to find specifically the close button because any classes added to a clickable Icon go to the image element, not the surrounding button
     expect(screen.getByTitle("Close")).toBeInTheDocument()
-    await userEvent.click(screen.getByTitle("Close"))
+    await waitFor(async () => {
+      await userEvent.click(screen.getByTitle("Close"))
+    })
     await waitFor(() => {
       expect(screen.queryByTestId("my-toast")).not.toBeInTheDocument()
     })
@@ -61,7 +65,10 @@ describe("Toast", () => {
     // not checking specifically for the close button here. So if there is more than one button in the message this test will fail
     // The reason is that it's hard to find specifically the close button because any classes added to a clickable Icon go to the image element, not the surrounding button
     expect(screen.getByTitle("Close")).toBeInTheDocument()
-    await userEvent.click(screen.getByTitle("Close"))
+
+    await waitFor(async () => {
+      await userEvent.click(screen.getByTitle("Close"))
+    })
     await waitFor(() => {
       expect(screen.queryByTestId("my-toast")).not.toBeInTheDocument()
       expect(handleDismiss).toHaveBeenCalledTimes(1)

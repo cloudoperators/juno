@@ -2,10 +2,8 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-
-import * as React from "react"
-import { cleanup, render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import React from "react"
+import { cleanup, render, screen, act } from "@testing-library/react"
 import { TopNavigation } from "./index"
 import { TopNavigationItem } from "../TopNavigationItem/index"
 
@@ -112,13 +110,14 @@ describe("TopNavigation", () => {
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass("juno-navigation-item-active")
   })
 
-  test("changes the active item when the user clicks", async () => {
+  test("changes the active item when the user clicks", () => {
     render(
       <TopNavigation activeItem="Item 1">
         <TopNavigationItem label="Item 1" />
         <TopNavigationItem label="Item 2" />
       </TopNavigation>
     )
+
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
     const tab1 = screen.getByRole("button", { name: "Item 1" })
@@ -127,14 +126,16 @@ describe("TopNavigation", () => {
     expect(tab1).toHaveClass("juno-navigation-item-active")
     expect(tab2).not.toHaveAttribute("aria-selected")
     expect(tab2).not.toHaveClass("juno-navigation-item-active")
-    await userEvent.click(tab2)
+    act(() => {
+      screen.getByRole("button", { name: "Item 2" }).click()
+    })
     expect(tab1).not.toHaveAttribute("aria-selected")
     expect(tab1).not.toHaveClass("juno-navigation-item-active")
     expect(tab2).toHaveAttribute("aria-selected", "true")
     expect(tab2).toHaveClass("juno-navigation-item-active")
   })
 
-  test("executes a handler as passed when the selected item changes", async () => {
+  test("executes a handler as passed when the selected item changes", () => {
     render(
       <TopNavigation activeItem="Item 1" onActiveItemChange={mockOnActiveItemChange}>
         <TopNavigationItem label="Item 1" />
@@ -143,8 +144,10 @@ describe("TopNavigation", () => {
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
-    const item2 = screen.getByRole("button", { name: "Item 2" })
-    await userEvent.click(item2)
+    act(() => {
+      screen.getByRole("button", { name: "Item 2" }).click()
+    })
+
     expect(mockOnActiveItemChange).toHaveBeenCalled()
   })
 
