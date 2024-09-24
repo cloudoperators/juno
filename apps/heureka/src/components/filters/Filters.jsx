@@ -17,7 +17,7 @@ const filtersStyles = `
   my-px
 `
 
-const Filters = ({ queryKey, entityName }) => {
+const Filters = ({ queryKey, entityName, filterLabels, filterLabelValues, activeFilters, searchTerm }) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
   const { setLabels, setFilterLabelValues } = useFilterActions()
 
@@ -42,7 +42,7 @@ const Filters = ({ queryKey, entityName }) => {
   }, [data, queryKey])
 
   useEffect(() => {
-    // Set labels and filter values in the store
+    // Set filter labels and values in the store
     // It is done in this control as the fetch filter label and values is done above here
     if (filters.length > 0) {
       const filterLabels = filters.map((filter) => filter.label)
@@ -53,8 +53,14 @@ const Filters = ({ queryKey, entityName }) => {
 
   return (
     <Stack direction="vertical" gap="4" className={`filters ${filtersStyles}`}>
-      <FilterSelect entityName={entityName} isLoading={isLoading} />
-      <FilterPills entityName={entityName} />
+      <FilterSelect
+        entityName={entityName}
+        isLoading={isLoading}
+        filterLabels={filterLabels}
+        filterLabelValues={filterLabelValues}
+        searchTerm={searchTerm}
+      />
+      <FilterPills entityName={entityName} activeFilters={activeFilters} />
     </Stack>
   )
 }
