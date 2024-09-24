@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { Icon } from "../../deprecated_js/Icon/index.js"
 import { Menu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
-import { autoPlacement } from "@floating-ui/react-dom"
+import { flip } from "@floating-ui/react-dom"
 
 /*
 TODO:
@@ -59,15 +59,9 @@ export const ContextMenu = ({
     setIsOpen(open)
   }, [open])
 
-  const middleware = [
-    autoPlacement({
-      allowedPlacements: ["right-start", "right-end", "left-start", "left-end"],
-    }),
-  ]
-
   return (
     <Menu>
-      <Float middleware={middleware}>
+      <Float middleware={[flip()]}>
         <Menu.Button
           onClick={handleClick}
           className={`

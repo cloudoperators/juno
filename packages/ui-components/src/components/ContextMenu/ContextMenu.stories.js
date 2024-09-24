@@ -20,7 +20,7 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div className="jn-pb-12" style={{ minHeight: "200px" }}>
+      <div className="jn-pb-12" style={{ minHeight: "250px" }}>
         <PortalProvider>
           <Story />
         </PortalProvider>
