@@ -3,68 +3,60 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Built with Juno](https://cloudoperators.github.io/juno/built-with-juno.svg)](https://github.com/cloudoperators/juno)
 
-The example app serves as a demonstration application where we thoroughly test and implement interactions between multiple components following our best practices. Additionally, it functions as a prime illustration of how Juno components can be effectively utilized.
+The Example App serves as a demo to showcase interactions between multiple components, adhering to our best practices. Additionally, it illustrates how Juno components can be utilized in a real-world scenario.
 
 # Usage
 
-## Standalone
+## Standalone Mode
 
-To integrate the Microfrontend as a standalone module, follow these steps:
+To create a static, runnable build, execute the following commands:
 
-1. Include the following script tag in your HTML file:
+```bash
+cd apps/example
+npx turbo build:static
+```
 
-```js
+This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy a `appProps.json` file containing the required props into the dist folder.
+
+## As a Micro Frontend (MFE)
+
+To build a library version for dynamic import, use the following commands:
+
+```bash
+cd apps/example
+npx turbo build
+```
+
+This will create a dist folder with all assets. You can host this folder and load it as an MFE using dynamic import:
+
+```html
+<div id="root"></div>
+
 <script type="module">
-  import("URL_TO_MODULE_JS_FILE").then((app) =>
-    app.mount(document.getElementById("root"), {
-      props: { /* SOME PROPS*/ }
-    })
-  )
+  import("PATH_TO_HOST/example/dist/index.js").then((app) => {
+    app.mount(document.getElementById("root"), { props: /* PROPS JSON */ })
+  })
 </script>
 ```
 
-2. Place a div element with the id "root" where you want the Microfrontend to be rendered:
-
-```html
-<div id="root" data-juno-app="exampleapp"></div>
-```
-
-## Embedded
-
-1. To embed the React Microfrontend into your application, start by installing it:
+## Development Mode
 
 ```bash
-npm add "@sapcc/juno-app-exampleapp"
+cd apps/example
+npx turbo dev
 ```
 
-2. Next, import and integrate it into your code:
+### Testing
 
-```js
-import Exampleapp from "@sapcc/juno-app-exampleapp"
-
-const App = () => {
-  /*...*/
-  return (
-    <div>
-      <Exampleapp />
-    </div>
-  )
-}
+```bash
+cd apps/example
+npx turbo test
 ```
 
-Or using React's lazy loading to keep the bundle size small
+## App Props
 
-```js
-import { lazy } from "react"
+These are the customizable application properties (appProps) that you can define in your appProps.json file:
 
-const Exampleapp = lazy(() => import("@sapcc/juno-app-exampleapp"))
-
-const App = () => {
-  /*...*/
-  return (
-    <div>
-      <Exampleapp />
-    </div>
-  )
-}
-```
+- **theme**: `"theme-light"` or `"theme-dark"` (default).
+- **endpoint**: The API endpoint URL for the app. Empty by default.
+- **embedded**: `true`or `false` (default). Set to true if the app is to be embedded in another existing app or page. If set to true, the app will not render a page header/footer and will only render the content.

@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
   "contributors": [
@@ -50,7 +50,8 @@
     "lint": "eslint",
     "test": "jest",
     "dev": "NODE_ENV=development node esbuild/config.js --serve --watch",
-    "build": "NODE_ENV=production node esbuild/config.js"
+    "build": "NODE_ENV=production node esbuild/config.js",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
   "peerDependencies": {
     "prop-types": "^15.8.1",

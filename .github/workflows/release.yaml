@@ -20,7 +20,7 @@ jobs:
     runs-on: [default]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js 20.x
         uses: actions/setup-node@v4
@@ -37,7 +37,7 @@ jobs:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npm run release
           title: "publish(npm): automate Package Versioning and Publishing with Changesets"
-          commit: "chore(version): update versions with Changesets, '[ci skip]'"
+          commit: "chore(version): update versions with Changesets"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

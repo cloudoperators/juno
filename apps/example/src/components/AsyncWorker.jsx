@@ -15,7 +15,7 @@ const AsyncWorker = ({ consumerId, mockAPI }) => {
 
 AsyncWorker.propTypes = {
   consumerId: PropTypes.string.isRequired,
-  mockAPI: PropTypes.func.isRequired,
+  mockAPI: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 export default AsyncWorker

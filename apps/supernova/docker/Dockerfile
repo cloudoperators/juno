@@ -38,31 +38,11 @@ RUN \
   cp $PACKAGE_PATH/public/favicon.ico /app/
 
 # create index.html  
-RUN cat <<EOF > /app/index.html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Supernova</title>
-    <link rel="icon" sizes="any" href="favicon.ico" />
-    <style>
-      html, body, #root {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module">
-      import { mount } from "/$(cat /app/entry_file)"
-      const props = await fetch("/appProps.json").then(r => r.json())
-      const root = document.getElementById("root")
-      mount(root, { props})
-    </script>
-  </body>
-</html>
-EOF
+RUN \
+  entry_file=$(cat /app/entry_file) && \
+  entry_file_escaped=$(echo "$entry_file" | sed 's/\//\\\//g') && \
+  cp /tmp/src/$PACKAGE_PATH/docker/index.html /app/index.html && \
+  sed -i "s/{{entry_file}}/$entry_file_escaped/g" /app/index.html  
 
 # create appProps.js
 RUN cat <<EOF > /app/appProps.json

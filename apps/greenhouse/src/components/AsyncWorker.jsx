@@ -5,7 +5,6 @@
 
 import { useEffect } from "react"
 import useUrlState from "../hooks/useUrlState"
-import useCommunication from "../hooks/useCommunication"
 import { useAuthData, useAuthLoggedIn } from "../components/StoreProvider"
 
 const currentUrl = new URL(window.location.href)
@@ -16,7 +15,6 @@ const AsyncWorker = () => {
   const authData = useAuthData()
   const authLoggedIn = useAuthLoggedIn()
 
-  useCommunication()
   useUrlState()
 
   // read org name from token and adjust url to contain the org name

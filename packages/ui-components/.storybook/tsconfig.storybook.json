@@ -4,5 +4,9 @@
     "composite": null,
     "declaration": null,
     "declarationMap": null,
-  },
+    "strict": true, // This ensures strict type checking
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx"
+  }
 }
