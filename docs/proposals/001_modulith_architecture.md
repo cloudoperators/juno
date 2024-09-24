@@ -10,9 +10,8 @@
 
 To create a new **Modulith Dashboard**, we need a flexible and scalable architecture that supports the integration of third-party extensions. The architecture should combine the benefits of modularity with the stability of a monolithic system, allowing for easy maintenance, upgrades, and adaptability to future requirements.
 
-_Example:_
 
-> The new Modulith Dashboard must enable seamless updates, interchangeable components, and third-party integrations while maintaining performance and stability.
+The new Modulith Dashboard must enable seamless updates, interchangeable components, and third-party integrations while maintaining performance and stability.
 
 ---
 
