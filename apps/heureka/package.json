@@ -49,12 +49,6 @@
     "lint": "eslint",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
-  "peerDependencies": {
-    "prop-types": "^15.8.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "zustand": "4.5.5"
-  },
   "importmapExtras": {
     "zustand/middleware": "4.5.2"
   },

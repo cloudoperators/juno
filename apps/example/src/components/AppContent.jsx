@@ -80,7 +80,7 @@ const AppContent = () => {
                     name="filter"
                     className="filter-label-select w-64 mb-0"
                     label="Filter"
-                    onChange={(e) => console.log(e)}
+                    onChange={(e) => console.debug(e)}
                   >
                     <SelectOption value="0" label="Option 0" />
                     <SelectOption value="1" label="Option 1" />

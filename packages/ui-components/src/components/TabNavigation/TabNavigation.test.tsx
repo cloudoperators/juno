@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as React from "react"
+import React from "react"
 import { render, screen, cleanup, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { TabNavigation } from "./index"

@@ -9,16 +9,16 @@ import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { mockedSession } from "@cloudoperators/juno-oauth"
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
 
-console.log("==import communicator", {
+console.debug("==import communicator", {
   broadcast,
   watch,
   get,
   onGet,
 })
 
-console.log("==import oauth", mockedSession)
-console.log("==import juno url state provider", registerConsumer("MONOREPO"))
-console.log("==import message provider", {
+console.debug("==import oauth", mockedSession)
+console.debug("==import juno url state provider", registerConsumer("MONOREPO"))
+console.debug("==import message provider", {
   MessagesProvider,
 })
 
