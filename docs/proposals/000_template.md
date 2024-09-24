@@ -2,7 +2,7 @@
 
 **Date:** YYYY-MM-DD  
 **Author(s):** [Names of those contributing to the proposal]  
-**Status:** Draft | Under Review | Finalized  
+**Status:** Draft | Under Review | Finalized
 
 ---
 
@@ -36,10 +36,12 @@ Document any technical, operational, or business constraints that will impact th
 _Example:_
 
 **Constraints:**
+
 - The system must integrate with the existing monolithic application.
 - Deployment timeline is six months.
 
 **Assumptions:**
+
 - Current infrastructure can handle additional load.
 - Real-time features will require low-latency solutions like WebSockets.
 
@@ -55,21 +57,24 @@ List out the different possible solutions for addressing the problem. Each solut
 
 **Description:**
 
-Provide a detailed description of the solution. 
+Provide a detailed description of the solution.
 
 _Example:_
 
 > Implement real-time functionality using WebSockets with a Redis-backed Pub/Sub system to manage message broadcasting.
 
 **Pros:**
+
 - High performance and low latency.
 - Scalable to handle thousands of concurrent connections.
 
 **Cons:**
+
 - Complexity in managing connection lifecycles.
 - Increases infrastructure costs due to Redis and additional servers.
 
 **Evaluation:**
+
 > This solution is the most performant but may introduce higher operational complexity and cost.
 
 ---
@@ -103,7 +108,7 @@ _Example:_
 
 ## 7. Next Steps
 
-Outline the next steps, such as additional research, prototyping, or stakeholder approval, to move forward with the decision-making process. 
+Outline the next steps, such as additional research, prototyping, or stakeholder approval, to move forward with the decision-making process.
 Link to ADR that follows this proposal.
 
 _Example:_
@@ -124,4 +129,3 @@ _Example:_
 - [Redis Pub/Sub Documentation](https://redis.io/topics/pubsub)
 
 ---
-
