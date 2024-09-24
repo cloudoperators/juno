@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as React from "react"
-import { render, screen, cleanup } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import React from "react"
+import { render, screen, cleanup, act } from "@testing-library/react"
 import { SideNavigation } from "./index"
 import { SideNavigationItem } from "../SideNavigationItem/index"
 
@@ -154,7 +153,7 @@ describe("SideNavigation", () => {
     expect(screen.getByRole("button", { name: "Item 3" })).not.toHaveClass("juno-navigation-item-active")
   })
 
-  test("changes the active item when the user clicks", async () => {
+  test("changes the active item when the user clicks", () => {
     render(
       <SideNavigation activeItem="Item 1">
         <SideNavigationItem label="Item 1" />
@@ -169,14 +168,16 @@ describe("SideNavigation", () => {
     expect(tab1).toHaveClass("juno-navigation-item-active")
     expect(tab2).not.toHaveAttribute("aria-selected")
     expect(tab2).not.toHaveClass("juno-navigation-item-active")
-    await userEvent.click(tab2)
+    act(() => {
+      tab2.click()
+    })
     expect(tab1).not.toHaveAttribute("aria-selected")
     expect(tab1).not.toHaveClass("juno-navigation-item-active")
     expect(tab2).toHaveAttribute("aria-selected", "true")
     expect(tab2).toHaveClass("juno-navigation-item-active")
   })
 
-  test("executes a handler as passed when the selected item changes", async () => {
+  test("executes a handler as passed when the selected item changes", () => {
     render(
       <SideNavigation activeItem="Item 1" onActiveItemChange={mockOnActiveItemChange}>
         <SideNavigationItem label="Item 1" />
@@ -185,8 +186,9 @@ describe("SideNavigation", () => {
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
     expect(screen.queryAllByRole("button")).toHaveLength(2)
-    const item2 = screen.getByRole("button", { name: "Item 2" })
-    await userEvent.click(item2)
+    act(() => {
+      screen.getByRole("button", { name: "Item 2" }).click()
+    })
     expect(mockOnActiveItemChange).toHaveBeenCalled()
   })
 
