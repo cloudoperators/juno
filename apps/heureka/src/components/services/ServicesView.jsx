@@ -5,38 +5,38 @@
 
 import React from "react"
 import Filters from "../filters/Filters"
-import IssueMatchesList from "./IssueMatchesList"
+import ServicesList from "./ServicesList"
 import ListController from "../shared/ListController"
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import {
-  useIssueMatchesActiveFilters,
-  useIssueMatchesFilterLabels,
-  useIssueMatchesFilterLabelValues,
-  useIssueMatchesSearchTerm,
+  useServiceActiveFilters,
+  useServiceFilterLabels,
+  useServiceFilterLabelValues,
+  useServiceSearchTerm,
 } from "../../hooks/useAppStore"
 
-const IssueMatchesTopNavItem = () => {
+const ServicesView = () => {
   // Fetch filter data from global state using appropriate hooks
-  const activeFilters = useIssueMatchesActiveFilters()
-  const labels = useIssueMatchesFilterLabels()
-  const filterLabelValues = useIssueMatchesFilterLabelValues()
-  const searchTerm = useIssueMatchesSearchTerm()
+  const activeFilters = useServiceActiveFilters()
+  const labels = useServiceFilterLabels()
+  const filterLabelValues = useServiceFilterLabelValues()
+  const searchTerm = useServiceSearchTerm()
   return (
     <>
       <MessagesProvider>
         <Messages />
         <Filters
-          queryKey="IssueMatchFilterValues"
-          entityName="IssueMatches"
+          queryKey="ServiceFilterValues"
+          entityName="Services"
           filterLabels={labels}
           filterLabelValues={filterLabelValues}
           activeFilters={activeFilters}
           searchTerm={searchTerm}
         />
         <ListController
-          queryKey="IssueMatches"
-          entityName="IssueMatches"
-          ListComponent={IssueMatchesList}
+          queryKey="Services"
+          entityName="Services"
+          ListComponent={ServicesList}
           activeFilters={activeFilters}
           searchTerm={searchTerm}
           enableSearchAndFilter={true}
@@ -46,4 +46,4 @@ const IssueMatchesTopNavItem = () => {
   )
 }
 
-export default IssueMatchesTopNavItem
+export default ServicesView

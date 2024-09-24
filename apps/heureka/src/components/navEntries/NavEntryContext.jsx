@@ -8,28 +8,28 @@ import { Container, TopNavigation, TopNavigationItem } from "@cloudoperators/jun
 import NavEntry from "./NavEntry"
 import { useGlobalsActions, useGlobalsActiveNavEntry } from "../../hooks/useAppStore"
 
-import ServicesNav from "../services/ServicesTopNavItem"
-import IssueMatchesNav from "../issueMatches/IssueMatchesTopNavItem"
-import ComponentsNav from "../components/ComponentsTopNavItem"
+import ServicesView from "../services/ServicesView"
+import IssueMatchesView from "../issueMatches/IssueMatchesView"
+import ComponentsView from "../components/ComponentsView"
 
 const NAV_CONFIG = [
   {
     label: "Services",
     value: "Services",
     icon: "dns",
-    component: ServicesNav,
+    component: ServicesView,
   },
   {
     label: "IssueMatches",
     value: "IssueMatches",
     icon: "autoAwesomeMotion",
-    component: IssueMatchesNav,
+    component: IssueMatchesView,
   },
   {
     label: "Components",
     value: "Components",
     icon: "autoAwesomeMotion",
-    component: ComponentsNav,
+    component: ComponentsView,
   },
 ]
 

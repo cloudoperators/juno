@@ -5,38 +5,38 @@
 
 import React from "react"
 import Filters from "../filters/Filters"
-import ServicesList from "./ServicesList"
+import IssueMatchesList from "./IssueMatchesList"
 import ListController from "../shared/ListController"
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import {
-  useServiceActiveFilters,
-  useServiceFilterLabels,
-  useServiceFilterLabelValues,
-  useServiceSearchTerm,
+  useIssueMatchesActiveFilters,
+  useIssueMatchesFilterLabels,
+  useIssueMatchesFilterLabelValues,
+  useIssueMatchesSearchTerm,
 } from "../../hooks/useAppStore"
 
-const ServicesTopNavItem = () => {
+const IssueMatchesView = () => {
   // Fetch filter data from global state using appropriate hooks
-  const activeFilters = useServiceActiveFilters()
-  const labels = useServiceFilterLabels()
-  const filterLabelValues = useServiceFilterLabelValues()
-  const searchTerm = useServiceSearchTerm()
+  const activeFilters = useIssueMatchesActiveFilters()
+  const labels = useIssueMatchesFilterLabels()
+  const filterLabelValues = useIssueMatchesFilterLabelValues()
+  const searchTerm = useIssueMatchesSearchTerm()
   return (
     <>
       <MessagesProvider>
         <Messages />
         <Filters
-          queryKey="ServiceFilterValues"
-          entityName="Services"
+          queryKey="IssueMatchFilterValues"
+          entityName="IssueMatches"
           filterLabels={labels}
           filterLabelValues={filterLabelValues}
           activeFilters={activeFilters}
           searchTerm={searchTerm}
         />
         <ListController
-          queryKey="Services"
-          entityName="Services"
-          ListComponent={ServicesList}
+          queryKey="IssueMatches"
+          entityName="IssueMatches"
+          ListComponent={IssueMatchesList}
           activeFilters={activeFilters}
           searchTerm={searchTerm}
           enableSearchAndFilter={true}
@@ -46,4 +46,4 @@ const ServicesTopNavItem = () => {
   )
 }
 
-export default ServicesTopNavItem
+export default IssueMatchesView
