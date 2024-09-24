@@ -10,7 +10,7 @@ import { TextInput } from "../TextInput/TextInput.component"
 import { Select } from "../Select/Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 import { Stack } from "../Stack/Stack.component"
-import { Spinner } from "../Spinner"
+import { Spinner } from "../../deprecated_js/Spinner/Spinner.component"
 
 const paginationStyles = `
   jn-flex
@@ -60,13 +60,11 @@ export const Pagination = ({
   }
 
   const handlePrevClick = (event) => {
-    console.log("controlPage", controlPage)
     if (controlTotalPage || pages || controlPage) {
       setControlCurrentPage(controlPage > 1 ? controlPage - 1 : undefined)
     }
     onPressPrevious && onPressPrevious(event)
   }
-  console.log("controlPage:", controlPage, " controlTotalPage:", controlTotalPage)
 
   const handleNextClick = (event) => {
     setControlCurrentPage(controlPage < controlTotalPage || controlPage ? controlPage + 1 : controlPage)
@@ -145,7 +143,6 @@ export const Pagination = ({
                       }
                       return opts
                     })()}
-                    {/* {selectOptions(controlTotalPage)} */}
                   </Select>
                 )
 

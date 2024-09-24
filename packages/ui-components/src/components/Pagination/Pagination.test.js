@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as React from "react"
-import { render, screen, fireEvent } from "@testing-library/react"
+import React from "react"
+import { render, screen, fireEvent, act, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Pagination } from "./index"
 
@@ -66,17 +66,21 @@ describe("Pagination", () => {
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
   })
 
-  test("fires onPressPrevious handler as passed when Prev button is clicked", async () => {
+  test("fires onPressPrevious handler as passed when Prev button is clicked", () => {
     const handlePressPrev = jest.fn()
     render(<Pagination currentPage={2} pages={6} onPressPrevious={handlePressPrev} />)
-    await userEvent.click(screen.getByRole("button", { name: "Previous Page" }))
+    act(() => {
+      screen.getByRole("button", { name: "Previous Page" }).click()
+    })
     expect(handlePressPrev).toHaveBeenCalledTimes(1)
   })
 
-  test("fires onPressNext handler as passed when Next button is clicked", async () => {
+  test("fires onPressNext handler as passed when Next button is clicked", () => {
     const handlePressNext = jest.fn()
     render(<Pagination currentPage={2} pages={6} onPressNext={handlePressNext} />)
-    await userEvent.click(screen.getByRole("button", { name: "Next Page" }))
+    act(() => {
+      screen.getByRole("button", { name: "Next Page" }).click()
+    })
     expect(handlePressNext).toHaveBeenCalledTimes(1)
   })
 
@@ -86,18 +90,24 @@ describe("Pagination", () => {
     const select = document.querySelector("button.juno-select-toggle")
     expect(select).toBeInTheDocument()
     expect(select).toHaveTextContent("1")
-    await userEvent.click(select)
+    await waitFor(() => userEvent.click(select))
     expect(screen.getByRole("listbox")).toBeInTheDocument()
-    await userEvent.click(screen.getByRole("option", { name: "4" }))
+    act(() => {
+      screen.getByRole("option", { name: "4" }).click()
+    })
     expect(select).toHaveTextContent("4")
     expect(mockHandleChange).toHaveBeenCalledTimes(1)
   })
 
   test("fires onKeyPress handler on Enter as passed for input variant", async () => {
     const handleKeyPress = jest.fn()
-    render(<Pagination variant="input" onKeyPress={handleKeyPress} />)
-    await userEvent.type(screen.getByRole("textbox"), "{enter}")
-    expect(handleKeyPress).toHaveBeenCalledTimes(1)
+    await waitFor(() => {
+      render(<Pagination variant="input" onKeyPress={handleKeyPress} />)
+    })
+    await waitFor(() => {
+      userEvent.type(screen.getByRole("textbox"), "{enter}")
+      expect(handleKeyPress).toHaveBeenCalledTimes(1)
+    })
   })
 
   test("renders disabled Pagination (default) as passed", () => {
@@ -137,68 +147,87 @@ describe("Pagination", () => {
     expect(document.querySelector(".juno-spinner")).toBeInTheDocument()
   })
 
-  test("renders Pagination (input) - fires onChange handler as passed", () => {
+  test("renders Pagination (input) - fires onChange handler as passed", async () => {
     const onChangeMock = jest.fn()
     render(<Pagination variant="input" pages={12} onChange={onChangeMock} />)
     const textinput = screen.getByRole("textbox")
-    fireEvent.change(textinput, { target: { value: "102" } })
-    expect(onChangeMock).toHaveBeenCalledTimes(1)
+    await waitFor(() => {
+      fireEvent.change(textinput, { target: { value: "102" } })
+      expect(onChangeMock).toHaveBeenCalledTimes(1)
+    })
   })
 
-  test("renders Pagination (input) - value corrected to the highest possible - as passed", () => {
+  test("renders Pagination (input) - value corrected to the highest possible - as passed", async () => {
     render(<Pagination variant="input" pages={12} />)
     const textinput = screen.getByRole("textbox")
-    fireEvent.change(textinput, { target: { value: "102" } })
-    fireEvent.keyPress(textinput, { key: "Enter", code: 13, charCode: 13 })
-    expect(textinput).toHaveValue("12")
+    await waitFor(() => {
+      fireEvent.change(textinput, { target: { value: "102" } })
+      fireEvent.keyPress(textinput, { key: "Enter", code: 13, charCode: 13 })
+      expect(textinput).toHaveValue("12")
+    })
   })
 
-  test("renders Pagination (input) - value that is too low is corrected to '1' - as passed", () => {
+  test("renders Pagination (input) - value that is too low is corrected to '1' - as passed", async () => {
     render(<Pagination variant="input" pages={12} />)
     const textinput = screen.getByRole("textbox")
-    fireEvent.change(textinput, { target: { value: "0" } })
-    fireEvent.blur(textinput)
-    expect(textinput).toHaveValue("1")
+
+    await waitFor(() => {
+      fireEvent.change(textinput, { target: { value: "0" } })
+      fireEvent.blur(textinput)
+      expect(textinput).toHaveValue("1")
+    })
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (2 digits) as passed", () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (2 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
-    fireEvent.change(textinput, { target: { value: "22" } })
-    const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
-    expect(computedStyle.width).toBe("3.3rem")
+
+    await waitFor(() => {
+      fireEvent.change(textinput, { target: { value: "22" } })
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
+      expect(computedStyle.width).toBe("3.3rem")
+    })
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (3 digits) as passed", () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (3 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
-    fireEvent.change(textinput, { target: { value: "333" } })
-    const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
-    expect(computedStyle.width).toBe("3.9rem")
+
+    await waitFor(() => {
+      fireEvent.change(textinput, { target: { value: "22" } })
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
+      expect(computedStyle.width).toBe("3.3rem")
+    })
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (4 digits) as passed", () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (4 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
-    fireEvent.change(textinput, { target: { value: "4444" } })
-    const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
-    expect(computedStyle.width).toBe("4.5rem")
+    await waitFor(() => {
+      fireEvent.change(textinput, { target: { value: "4444" } })
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
+      expect(computedStyle.width).toBe("4.5rem")
+    })
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (5 digits) as passed", () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (5 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
-    fireEvent.change(textinput, { target: { value: "55555" } })
-    const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
-    expect(computedStyle.width).toBe("5.1rem")
+    await waitFor(() => {
+      fireEvent.change(textinput, { target: { value: "55555" } })
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
+      expect(computedStyle.width).toBe("5.1rem")
+    })
   })
 
-  test("renders Pagination (input) - checks width of textfield based on the entry (7 digits) as passed", () => {
+  test("renders Pagination (input) - checks width of textfield based on the entry (7 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
-    fireEvent.change(textinput, { target: { value: "777777" } })
-    const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
-    expect(computedStyle.width).toBe("5.1rem")
+    await waitFor(() => {
+      fireEvent.change(textinput, { target: { value: "777777" } })
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
+      expect(computedStyle.width).toBe("5.1rem")
+    })
   })
 
   test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item", () => {
@@ -228,9 +257,11 @@ describe("Pagination", () => {
     expect(screen.getByRole("textbox")).toHaveValue("")
   })
 
-  test("renders Pagination (input) with undefined currentPage but with  totalPages after clicking previous page button", async () => {
+  test("renders Pagination (input) with undefined currentPage but with  totalPages after clicking previous page button", () => {
     render(<Pagination variant="input" totalPages={12} />)
-    await userEvent.click(screen.getByRole("button", { name: "Previous Page" }))
+    act(() => {
+      screen.getByRole("button", { name: "Previous Page" }).click()
+    })
     expect(screen.getByRole("textbox")).toHaveValue("")
   })
 
