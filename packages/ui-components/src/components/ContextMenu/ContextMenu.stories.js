@@ -89,7 +89,7 @@ export const InsidePortal = {
   },
 }
 
-export const BottomPositionedSelect = {
+export const BottomLeftPositionedSelect = {
   render: CustomPortalTemplate,
 
   args: {
@@ -109,7 +109,7 @@ export const BottomPositionedSelect = {
   },
 }
 
-export const RightPositionedSelect = {
+export const TopRightPositionedSelect = {
   render: CustomPortalTemplate,
 
   args: {
@@ -129,7 +129,7 @@ export const RightPositionedSelect = {
   },
 }
 
-export const BottomLeftPositionedSelect = {
+export const BottomRightPositionedSelect = {
   render: CustomPortalTemplate,
 
   args: {
