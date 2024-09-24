@@ -5,28 +5,18 @@
 
 import React, { useEffect, useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import {
-  useGlobalsQueryClientFnReady,
-  useGlobalsQueryOptions,
-  useGlobalsActions,
-  useActiveFilters,
-  usePredefinedFilters,
-  useGlobalsActiveNavEntry,
-  useSearchTerm,
-} from "../../hooks/useAppStore"
+import { useGlobalsQueryClientFnReady, useGlobalsQueryOptions, useGlobalsActions } from "../../hooks/useAppStore"
 import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
+import { useGlobalsActiveNavEntry } from "../../hooks/useAppStore"
 
-const ListController = ({ queryKey, entityName, ListComponent }) => {
+const ListController = ({ queryKey, entityName, ListComponent, activeFilters, searchTerm, enableSearchAndFilter }) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
   const queryOptions = useGlobalsQueryOptions(queryKey)
   const { setQueryOptions } = useGlobalsActions()
   const { addMessage, resetMessages } = messageActions()
   const activeNavEntry = useGlobalsActiveNavEntry()
-  const activeFilters = useActiveFilters(entityName)
-  const predefinedFilters = usePredefinedFilters(entityName)
-  const searchTerm = useSearchTerm(entityName)
 
   const { isLoading, data, error } = useQuery({
     queryKey: [
@@ -35,11 +25,7 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
         ...queryOptions,
         filter: {
           ...activeFilters,
-          ...predefinedFilters,
-          ...(["IssueMatches", "Services"].includes(entityName) && {
-            // Currently search is only available for IssueMatches and Services entity.
-            search: Array.isArray(searchTerm) ? searchTerm : [searchTerm], // Ensure searchTerm is an array
-          }),
+          ...(!!enableSearchAndFilter && searchTerm && searchTerm.length > 0 && { search: searchTerm }),
         },
       },
     ],
@@ -59,7 +45,7 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
       variant: "error",
       text: parseError(error),
     })
-  }, [error])
+  }, [error, addMessage, resetMessages])
 
   const pageInfo = useMemo(() => {
     if (!data) return null
