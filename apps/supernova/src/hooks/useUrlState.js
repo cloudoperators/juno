@@ -20,7 +20,6 @@ import {
   useSilencesStatus,
   useShowDetailsForSilence,
   useGlobalsIsURLRead,
-  useInitialFilters,
 } from "./useAppStore"
 
 const urlStateManager = registerConsumer("supernova")
@@ -51,7 +50,6 @@ const useUrlState = () => {
   const silenceRegEx = useSilencesRegEx()
   const silenceStatus = useSilencesStatus()
   const silenceDetail = useShowDetailsForSilence()
-  const initialFilters = useInitialFilters()
 
   // Set initial state from URL (on login)
   // useLayoutEffect so this is done before rendering anything
@@ -67,8 +65,6 @@ const useUrlState = () => {
     // check if there are active filters in the url state
     if (activeFiltersFromURL && Object.keys(activeFiltersFromURL).length > 0) {
       setActiveFilters(activeFiltersFromURL)
-    } else {
-      setActiveFilters(initialFilters)
     }
 
     // get paused filters from url state and set it in store

@@ -10,7 +10,6 @@ const initialFiltersState = {
   activeFilters: {}, // for each active filter key list the selected values: {key1: [value1], key2: [value2_1, value2_2], ...}
   pausedFilters: {}, // inactive subset of activeFilters. Same structure as activeFilters
   filterLabelValues: {}, // contains all possible values for filter labels: {label1: ["val1", "val2", "val3", ...], label2: [...]}, lazy loaded when a label is selected for filtering
-  initialFilters: {}, // initial filters (like activeFilters) that are set when the page is loaded
   predefinedFilters: [], // predefined complex filters that filter using regex: [{name: "filter1", displayName: "Filter 1", matchers: {"label1": "regex1", "label2": "regex2", ...}}, ...]
   activePredefinedFilter: null, // the currently active predefined filter
   searchTerm: "", // the search term used for full-text filtering
@@ -26,11 +25,18 @@ const parsePredefinedFilters = (predefinedFilters) => {
   return predefinedFilters
 }
 
-const parseInitialFilters = (initialFilters) => {
+// Todo: Test
+const parseInitialFilters = (initialFilters, filterLabels) => {
   if (!initialFilters) return initialFiltersState.initialFilters
 
   if (typeof initialFilters !== "object") {
     console.warn("[supernova]::parseInitialFilters: initialFilters object is not an object")
+    return {}
+  }
+
+  // Check if all keys are in filterLabelValues
+  if (!Object.keys(initialFilters).every((key) => filterLabels.includes(key))) {
+    console.warn("[supernova]::parseInitialFilters: Some keys of the initialFilters object are not in the labels")
     return {}
   }
 
@@ -75,7 +81,7 @@ const parseFilterLabels = (labels) => {
 const createFiltersSlice = (set, get, options) => ({
   filters: {
     ...initialFiltersState,
-    initialFilters: parseInitialFilters(options?.initialFilters) || {},
+    activeFilters: parseInitialFilters(options?.initialFilters, parseFilterLabels(options?.filterLabels)) || {},
     predefinedFilters: parsePredefinedFilters(options?.predefinedFilters),
     activePredefinedFilter: parseActivePredefinedFilter(options?.predefinedFilters),
     labels: parseFilterLabels(options?.filterLabels),

@@ -17,6 +17,7 @@ const createGlobalsSlice = (set, get, options) => ({
     apiEndpoint: options?.endpoint,
     activeSelectedTab: "alerts",
     isURLRead: false,
+    user: options?.user,
 
     actions: {
       setIsURLRead: () =>

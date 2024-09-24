@@ -22,14 +22,14 @@ import {
   FormSection,
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
-import { useAuthData, useSilenceTemplates, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
+import { useGlobalsUser, useSilenceTemplates, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
 import { post } from "../../api/client"
 import { parseError } from "../../helpers"
 
 import { DEFAULT_FORM_VALUES, validateForm } from "./silenceScheduledHelpers"
 
 const SilenceScheduled = (props) => {
-  const authData = useAuthData()
+  const user = useGlobalsUser()
   const { addMessage, resetMessages } = useActions()
   const silenceTemplates = useSilenceTemplates()
   const apiEndpoint = useGlobalsApiEndpoint()
@@ -139,7 +139,7 @@ const SilenceScheduled = (props) => {
     const newFormState = {
       ...DEFAULT_FORM_VALUES,
       fixed_labels: newSelectedOption?.fixed_labels || {},
-      createdBy: { value: authData?.parsed?.fullName, error: null },
+      createdBy: { value: user?.fullName, error: null },
       editable_labels: newSelectedOption?.editable_labels?.reduce(
         (acc, label) => ({
           ...acc,
@@ -248,7 +248,7 @@ const SilenceScheduled = (props) => {
                     value={formState?.createdBy?.value}
                     errortext={formState?.createdBy?.error}
                     onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
-                    disabled={!!authData?.parsed?.fullName}
+                    disabled={!!user?.fullName}
                   />
                 </FormRow>
                 <FormRow>

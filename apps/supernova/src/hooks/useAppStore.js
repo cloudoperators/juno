@@ -47,6 +47,7 @@ export const useShowDetailsFor = () => useAppStore((state) => state.globals.show
 export const useGlobalsApiEndpoint = () => useAppStore((state) => state.globals.apiEndpoint)
 export const useGlobalsActiveSelectedTab = () => useAppStore((state) => state.globals.activeSelectedTab)
 export const useGlobalsActions = () => useAppStore((state) => state.globals.actions)
+export const useGlobalsUser = () => useAppStore((state) => state.globals.user)
 
 // AUTH
 export const useAuthData = () => useAppStore((state) => state.auth.data)
@@ -81,7 +82,6 @@ export const usePausedFilters = () => useAppStore((state) => state.filters.pause
 export const useSearchTerm = () => useAppStore((state) => state.filters.searchTerm)
 export const useFilterLabelValues = () => useAppStore((state) => state.filters.filterLabelValues)
 export const usePredefinedFilters = () => useAppStore((state) => state.filters.predefinedFilters)
-export const useInitialFilters = () => useAppStore((state) => state.filters.initialFilters)
 export const useActivePredefinedFilter = () => useAppStore((state) => state.filters.activePredefinedFilter)
 export const useFilterPills = () => useAppStore((state) => state.filters.filterPills)
 

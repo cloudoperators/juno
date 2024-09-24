@@ -37,7 +37,7 @@ const useCommunication = () => {
     const unwatchUpdate = watch("AUTH_UPDATE_DATA", (data) => {
       authSetData(data)
       // TODO: if the user gets reauthenticated we would reset all active filters with the support group. This would be fixed once the initial filters with the support group is set
-      setSupportGroup(data?.auth?.parsed?.supportGroups)
+      tGroup(data?.auth?.parsed?.supportGroups)
     })
     return () => {
       if (unwatchUpdate) unwatchUpdate()

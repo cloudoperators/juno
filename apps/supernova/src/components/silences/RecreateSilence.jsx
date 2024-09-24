@@ -17,7 +17,7 @@ import {
   Pill,
   Stack,
 } from "@cloudoperators/juno-ui-components"
-import { useAuthData, useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
+import { useGlobalsApiEndpoint, useSilencesActions, useGlobalsUser } from "../../hooks/useAppStore"
 import { debounce } from "../../helpers"
 import { post } from "../../api/client"
 import { DateTime } from "luxon"
@@ -56,8 +56,8 @@ const DEFAULT_FORM_VALUES = { duration: "2", comment: "" }
 const RecreateSilence = (props) => {
   const silence = props.silence
   const fingerprint = props.fingerprint ? props.fingerprint : null
-  const authData = useAuthData()
   const apiEndpoint = useGlobalsApiEndpoint()
+  const { user } = useGlobalsUser()
 
   const { addLocalItem } = useSilencesActions()
 
@@ -78,7 +78,7 @@ const RecreateSilence = (props) => {
     setFormState({
       ...formState,
       ...DEFAULT_FORM_VALUES,
-      createdBy: authData?.parsed?.fullName || "", // empty sting to prevent undefined for TextInput
+      createdBy: user?.fullName || "", // empty sting to prevent undefined for TextInput
       matchers: silence.matchers,
       comment: silence.comment,
     })
@@ -210,7 +210,7 @@ const RecreateSilence = (props) => {
                     required
                     label="Silenced by"
                     value={formState.createdBy}
-                    disabled={!!authData?.parsed?.fullName}
+                    disabled={!!user?.fullName}
                     onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
                     errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
                   />

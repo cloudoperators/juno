@@ -68,6 +68,11 @@
       "type": "required",
       "description": "Alertmanager API Endpoint URL"
     },
+    "user": {
+      "value": null,
+      "type": "optional",
+      "description": "Object containing the user information like the full name.  Example: {\"fullName\": \"Jane Doe\"}"
+    },
     "filterLabels": {
       "value": null,
       "type": "optional",

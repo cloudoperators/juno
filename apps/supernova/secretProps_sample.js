@@ -15,4 +15,8 @@ module.exports = {
   silenceTemplates: [],
   // choose "theme_light" or "theme_dark" (default)
   theme: "theme_dark",
+  // Object containing the user information
+  user: {
+    fullName: "Jane Doe",
+  },
 }

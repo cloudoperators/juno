@@ -20,7 +20,11 @@ const createAuthDataSlice = (set, get) => ({
       setSupportGroup: (supportGroup) => {
         if (!supportGroup) return
         const activeFilters = get().filters.activeFilters
-        if (Object.keys(activeFilters).length === 0 && get().filters.labels?.includes("support_group")) {
+        const initialFilters = get().filters.initialFilters
+        if (
+          Object.keys(activeFilters).length === Object.keys(initialFilters).length &&
+          get().filters.labels?.includes("support_group")
+        ) {
           get().filters.actions.setActiveFilters({ support_group: supportGroup })
         }
       },
