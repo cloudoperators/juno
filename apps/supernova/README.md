@@ -261,13 +261,6 @@ To set the theme:
 
 - Configured via app prop `theme`
 
-### User
+### Username
 
-Object containing the user information like the user's full name.
-
-```json
-"user":
-    {
-      "fullName": "Jane Doe"
-    }
-```
+Username used for forms and API requests

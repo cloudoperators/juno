@@ -108,12 +108,6 @@ Example:
 { "cluster": ["prod-1", "prod-2"], "status": ["critical"] }
 ```
 
-- **`USER`**:
+- **`USERNAME`**:
 
-Object containing the user information like the user's full name.
-
-Example:
-
-```json
-{ "fullName": "Jane Doe" }
-```
+Username used for forms and API requests.

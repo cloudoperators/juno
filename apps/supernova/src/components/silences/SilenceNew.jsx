@@ -21,7 +21,7 @@ import {
   useGlobalsApiEndpoint,
   useSilencesActions,
   useAlertEnrichedLabels,
-  useGlobalsUser,
+  useGlobalsUsername,
 } from "../../hooks/useAppStore"
 import { post } from "../../api/client"
 import AlertDescription from "../alerts/shared/AlertDescription"
@@ -65,7 +65,7 @@ const SilenceNew = ({ alert, size, variant }) => {
   const excludedLabels = useSilencesExcludedLabels()
   const { addLocalItem, getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
-  const user = useGlobalsUser()
+  const user = useGlobalsUsername()
 
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
@@ -83,7 +83,7 @@ const SilenceNew = ({ alert, size, variant }) => {
     setFormState({
       ...formState,
       ...DEFAULT_FORM_VALUES,
-      createdBy: user?.fullName || "", // empty sting to prevent undefined for TextInput
+      createdBy: user || "", // empty sting to prevent undefined for TextInput
       matchers: setupMatchers(alert?.labels, excludedLabels, enrichedLabels),
     })
 
@@ -224,7 +224,7 @@ const SilenceNew = ({ alert, size, variant }) => {
                     value={formState.createdBy}
                     onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
                     errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
-                    disabled={!!user?.fullName}
+                    disabled={!!user}
                   />
                 </FormRow>
                 <FormRow>

@@ -45,7 +45,7 @@ export const useShowDetailsFor = () => useAppStore((state) => state.globals.show
 export const useGlobalsApiEndpoint = () => useAppStore((state) => state.globals.apiEndpoint)
 export const useGlobalsActiveSelectedTab = () => useAppStore((state) => state.globals.activeSelectedTab)
 export const useGlobalsActions = () => useAppStore((state) => state.globals.actions)
-export const useGlobalsUser = () => useAppStore((state) => state.globals.user)
+export const useGlobalsUsername = () => useAppStore((state) => state.globals.username)
 
 // UserActivity exports
 export const useUserIsActive = () => useAppStore((state) => state.userActivity.isActive)

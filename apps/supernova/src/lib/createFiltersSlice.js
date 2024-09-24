@@ -25,7 +25,6 @@ const parsePredefinedFilters = (predefinedFilters) => {
   return predefinedFilters
 }
 
-// Todo: Test
 const parseInitialFilters = (initialFilters, filterLabels) => {
   if (!initialFilters) return initialFiltersState.initialFilters
 

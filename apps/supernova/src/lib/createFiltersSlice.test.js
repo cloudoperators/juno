@@ -255,4 +255,5 @@ describe("createFiltersSlice", () => {
       expect(store.result.current.activePredefinedFilter).toEqual(null)
     })
   })
+  describe("parseInitialFilters", () => {})
 })
