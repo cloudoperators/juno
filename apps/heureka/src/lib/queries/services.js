@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { gql } from "graphql-request"
+/*import { gql } from "graphql-request"
 
 // gql
 // It is there for convenience so that you can get the tooling support
@@ -114,6 +114,138 @@ export default () => gql`
         }
         cursor
       }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        isValidPage
+        pageNumber
+        nextPageAfter
+        pages {
+          after
+          isCurrent
+          pageNumber
+          pageCount
+        }
+      }
+    }
+  }
+`
+*/
+import { gql } from "graphql-request"
+
+// Main query for fetching Services data (excluding totalCount and pageInfo)
+export const servicesMainQuery = () => gql`
+  query ($filter: ServiceFilter, $first: Int, $after: String) {
+    Services(filter: $filter, first: $first, after: $after) {
+      edges {
+        node {
+          id
+          name
+          owners {
+            totalCount
+            edges {
+              node {
+                id
+                uniqueUserId
+                name
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+              nextPageAfter
+            }
+          }
+          supportGroups {
+            totalCount
+            edges {
+              node {
+                id
+                name
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+              nextPageAfter
+            }
+          }
+          activities {
+            totalCount
+            edges {
+              node {
+                id
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+              nextPageAfter
+            }
+          }
+          componentInstances {
+            edges {
+              node {
+                id
+                ccrn
+                count
+                componentVersion {
+                  version
+                  component {
+                    name
+                  }
+                }
+                issueMatches {
+                  totalCount
+                  edges {
+                    node {
+                      id
+                      severity {
+                        value
+                        score
+                      }
+                      issue {
+                        id
+                        primaryName
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          issueRepositories {
+            totalCount
+            edges {
+              node {
+                id
+                name
+                url
+                created_at
+                updated_at
+              }
+              cursor
+              priority
+              created_at
+              updated_at
+            }
+            pageInfo {
+              hasNextPage
+              nextPageAfter
+            }
+          }
+        }
+        cursor
+      }
+    }
+  }
+`
+
+// Count query for fetching totalCount and pageInfo for Services
+export const servicesCountQuery = () => gql`
+  query ($filter: ServiceFilter, $first: Int, $after: String) {
+    Services(filter: $filter, first: $first, after: $after) {
+      totalCount
       pageInfo {
         hasNextPage
         hasPreviousPage

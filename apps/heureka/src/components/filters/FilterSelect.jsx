@@ -50,8 +50,9 @@ const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, 
           disabled={!filterLabelValues[filterLabel]?.length}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
         >
-          {filterLabelValues[filterLabel] //Ensure already selected values are not displayed in filterValue drop down to avoid duplicate selections
-            ?.filter((value) => !activeFilters[filterLabel]?.includes(value)) // Filter out values that are already active
+          {/* Ensure already selected values are not displayed in filterValue drop down */}
+          {filterLabelValues?.[filterLabel] // Safely access filterLabelValues
+            ?.filter((value) => !activeFilters?.[filterLabel]?.includes(value)) // Safely access activeFilters and filter out already active values
             .map((value) => (
               <SelectOption value={value} key={value} />
             ))}
