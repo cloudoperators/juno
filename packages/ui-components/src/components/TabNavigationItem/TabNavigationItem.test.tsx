@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as React from "react"
-import { render, screen, cleanup } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import React from "react"
+import { render, screen, cleanup, act } from "@testing-library/react"
 import { TabNavigationItem } from "./index"
 import { TabNavigation } from "../TabNavigation/index"
 
@@ -77,14 +76,16 @@ describe("TabNavigationItem", () => {
     expect(screen.getByRole("button")).not.toHaveClass("juno-navigation-item-active")
   })
 
-  test("executes an onClick handler as passed", async () => {
+  test("executes an onClick handler as passed", () => {
     render(
       <TabNavigation>
         <TabNavigationItem data-testid={"tab-nav-item"} onClick={mockOnClick} />
       </TabNavigation>
     )
     expect(screen.getByTestId("tab-nav-item")).toBeInTheDocument()
-    await userEvent.click(screen.getByTestId("tab-nav-item"))
+    act(() => {
+      screen.getByTestId("tab-nav-item").click()
+    })
     expect(mockOnClick).toHaveBeenCalled()
   })
 

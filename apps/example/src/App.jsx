@@ -5,7 +5,7 @@
 
 import React, { useEffect } from "react"
 import PropTypes from "prop-types"
-import styles from "./styles.scss"
+import styles from "./styles.module.scss"
 
 import MonorepoChecker from "./components/MonorepoChecker"
 
@@ -20,7 +20,7 @@ import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
 // mock API
 import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
-import db from "../db.json"
+import db from "./db.json"
 
 const App = (props = {}) => {
   const { setEndpoint } = useGlobalsActions()
@@ -52,7 +52,7 @@ const App = (props = {}) => {
     fetchProxyInitDB(db)
   }, [])
 
-  console.log("[exampleapp] embedded mode:", props.embedded)
+  console.debug("[exampleapp] embedded mode:", props.embedded)
 
   return (
     <QueryClientProvider client={queryClient}>
