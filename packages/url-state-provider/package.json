@@ -43,7 +43,7 @@
     "jsdom": "^18.0.0",
     "juri-cutlery": "^1.0.0",
     "lz-string": "^1.4.4",
-    "rollup": "^3.4.0",
+    "rollup": "^4.0.0",
     "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-delete": "^2.0.0"
   },
