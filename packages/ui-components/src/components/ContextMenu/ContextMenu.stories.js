@@ -18,6 +18,15 @@ export default {
       control: false,
     },
   },
+  decorators: [
+    (Story) => (
+      <div className="jn-pb-12" style={{ minHeight: "200px" }}>
+        <PortalProvider>
+          <Story />
+        </PortalProvider>
+      </div>
+    ),
+  ],
 }
 
 const Template = ({ children, ...args }) => <ContextMenu {...args}>{children}</ContextMenu>
@@ -35,6 +44,17 @@ const PortalTemplate = ({ children, ...args }) => (
 )
 
 PortalTemplate.propTypes = {
+  children: PropTypes.node,
+}
+
+const CustomPortalTemplate = ({ parentStyles, children, ...args }) => (
+  <div style={parentStyles}>
+    <PortalTemplate {...args}>{children}</PortalTemplate>
+  </div>
+)
+
+CustomPortalTemplate.propTypes = {
+  parentStyles: PropTypes.object,
   children: PropTypes.node,
 }
 
@@ -65,6 +85,67 @@ export const InsidePortal = {
       <MenuItem key="4">
         <Button key={0} label="Button as Child of MenuItem" variant="subdued" size="small" className="jn-w-full" />
       </MenuItem>,
+    ],
+  },
+}
+
+export const BottomPositionedSelect = {
+  render: CustomPortalTemplate,
+
+  args: {
+    parentStyles: {
+      position: "absolute",
+      bottom: "0",
+    },
+    children: [
+      <MenuItem key="1" label="Juno on Github" href="https://github.com/cloudoperators/juno" />,
+      <MenuItem key="2" label="This item does nothing" icon="help" />,
+      <MenuItem key="3" label="Disabled Item" href="https://github.com/cloudoperators/juno" disabled />,
+      <MenuItem key="4">
+        <Button key={0} label="Button as Child of MenuItem" variant="subdued" size="small" className="jn-w-full" />
+      </MenuItem>,
+      <MenuItem key="5" onClick={() => {}} label="Button as Item with OnClick" icon="help" />,
+    ],
+  },
+}
+
+export const RightPositionedSelect = {
+  render: CustomPortalTemplate,
+
+  args: {
+    parentStyles: {
+      position: "absolute",
+      right: "0",
+    },
+    children: [
+      <MenuItem key="1" label="Juno on Github" href="https://github.com/cloudoperators/juno" />,
+      <MenuItem key="2" label="This item does nothing" icon="help" />,
+      <MenuItem key="3" label="Disabled Item" href="https://github.com/cloudoperators/juno" disabled />,
+      <MenuItem key="4">
+        <Button key={0} label="Button as Child of MenuItem" variant="subdued" size="small" className="jn-w-full" />
+      </MenuItem>,
+      <MenuItem key="5" onClick={() => {}} label="Button as Item with OnClick" icon="help" />,
+    ],
+  },
+}
+
+export const BottomLeftPositionedSelect = {
+  render: CustomPortalTemplate,
+
+  args: {
+    parentStyles: {
+      position: "absolute",
+      right: "0",
+      bottom: "0",
+    },
+    children: [
+      <MenuItem key="1" label="Juno on Github" href="https://github.com/cloudoperators/juno" />,
+      <MenuItem key="2" label="This item does nothing" icon="help" />,
+      <MenuItem key="3" label="Disabled Item" href="https://github.com/cloudoperators/juno" disabled />,
+      <MenuItem key="4">
+        <Button key={0} label="Button as Child of MenuItem" variant="subdued" size="small" className="jn-w-full" />
+      </MenuItem>,
+      <MenuItem key="5" onClick={() => {}} label="Button as Item with OnClick" icon="help" />,
     ],
   },
 }
