@@ -1,4 +1,15 @@
-name: Storybook PR Preview
+# Run it locally with act
+#  1. Install act:
+#     `brew install act`
+#  2. Create a .secret file with the following content:
+#     `GITHUB_TOKEN=your_github_token`
+#  PULL REQUEST
+#  1. Create a act_pull_request.json file in case of a pull request with the following content:
+#     `{"pull_request": {"number": <PR number>, "head": {"ref": "<PR branch name>", "sha": "PR commit sha"}, "base": {"ref": "main"}}, "repository": {"name": "juno", "owner": {"login": "cloudoperators"}}}`
+#  2. Run the following command:
+#     `act pull_request --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest -e act_pull_request.json -W .github/workflows/deploy-pr-preview.yaml`
+
+name: PR Preview Deployment 🚀
 
 on:
   pull_request:
@@ -9,33 +20,115 @@ on:
       - closed
     paths:
       - "packages/ui-components/**"
+      - "apps/supernova/**"
+      - "apps/heureka/**"
+      - "apps/doop/**"
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
 
+env:
+  DEPLOY_PATH: tmp
+
 jobs:
-  deploy-preview:
+  run-detect-changes:
+    uses: ./.github/workflows/shared-detect-pkg-changes.yaml
+    with:
+      paths: "packages apps"
+      runs-on: default
+
+  build-deploy:
+    needs: [run-detect-changes]
     runs-on: [default]
     steps:
+      - name: Output changes
+        id: filter
+        run: |
+          changes='${{ needs.run-detect-changes.outputs.changes }}'
+          echo "===="
+          echo $changes
+          echo "==="
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         if: github.event.action != 'closed'
         with:
-          node-version: "20.x"      
+          node-version: "20.x"
 
       - name: Install dependencies
         if: github.event.action != 'closed'
         run: |
-          npm install --force         
+          npm install --force
 
-      - name: Build storybook
+      - name: Create a tmp folder with all compiled apps and pkgs
         if: github.event.action != 'closed'
-        run: npm -w @cloudoperators/juno-ui-components run build-storybook          
+        run: |
+          mkdir -p ${{ env.DEPLOY_PATH }}
+
+      - name: Build storybook if changes detected
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'ui-components')
+        run: |
+          npm -w @cloudoperators/juno-ui-components run build-storybook
+          cp -r packages/ui-components/storybook-static ${{ env.DEPLOY_PATH }}/ui-components
+        continue-on-error: true
+
+      - name: Build supernova if changes detected
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'supernova')
+        run: |
+          ./.github/scripts/build-app.sh
+        env:
+          PACKAGE_PATH: apps/supernova
+          TARGET_FOLDER: supernova
+          APP_PROPS_BASE64: ${{ secrets.SUPERNOVA_APP_PROPS_BASE64 }}
+        continue-on-error: true
+
+      - name: Build heureka if changes detected
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'heureka')
+        run: |
+          ./.github/scripts/build-app.sh
+        env:
+          PACKAGE_PATH: apps/heureka
+          TARGET_FOLDER: heureka
+          APP_PROPS_BASE64: ${{ secrets.HEUREKA_APP_PROPS_BASE64 }}
+        continue-on-error: true
+
+      - name: Build DOOP if changes detected
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'doop')
+        run: |
+          ./.github/scripts/build-app.sh
+        env:
+          PACKAGE_PATH: apps/doop
+          TARGET_FOLDER: doop
+          APP_PROPS_BASE64: ${{ secrets.DOOP_APP_PROPS_BASE64 }}
+        continue-on-error: true
+
+      - name: Generate index.html for Deployed Apps
+        if: github.event.action != 'closed'
+        env:
+          UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
+          SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
+          HEUREKA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}
+          DOOP_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}
+        run: |
+          echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
+          if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
+            echo "<li><a href='./ui-components/index.html'>UI Components Storybook</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          if [ "$SUPERNOVA_CHANGED" = "true" ]; then
+            echo "<li><a href='./supernova/index.html'>Supernova</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          if [ "$HEUREKA_CHANGED" = "true" ]; then
+            echo "<li><a href='./heureka/index.html'>Heureka</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          if [ "$DOOP_CHANGED" = "true" ]; then
+            echo "<li><a href='./doop/index.html'>Doop</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
       - uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: packages/ui-components/storybook-static
+          source-dir: ${{ env.DEPLOY_PATH }}/
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto

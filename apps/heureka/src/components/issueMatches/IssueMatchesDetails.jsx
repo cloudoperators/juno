@@ -16,7 +16,7 @@ const IssueMatchesDetails = () => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
 
   const issueElem = useQuery({
-    queryKey: ["IssueMatches", { filter: { id: [showIssueDetail] } }],
+    queryKey: ["IssueMatchesMain", { filter: { id: [showIssueDetail] } }],
     enabled: !!queryClientFnReady,
   })
   const issue = useMemo(() => {
@@ -24,9 +24,11 @@ const IssueMatchesDetails = () => {
     return issueElem?.data?.IssueMatches?.edges[0]?.node
   }, [issueElem])
 
+  // Take description from the first issueVariant, because if there are multiple, they have the same priority (edge case).
+  const issueDescription = issue?.effectiveIssueVariants?.edges?.[0]?.node?.description
+
   return (
     <>
-      {/* todo add messageprovider here */}
       <Stack direction="vertical" gap="4">
         <DataGrid columns={2}>
           <DataGridRow>
@@ -34,6 +36,12 @@ const IssueMatchesDetails = () => {
 
             <DataGridCell>
               <LoadElement elem={issue?.issue?.primaryName} />
+            </DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridHeadCell>Description</DataGridHeadCell>
+            <DataGridCell>
+              <LoadElement elem={issueDescription} />
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>

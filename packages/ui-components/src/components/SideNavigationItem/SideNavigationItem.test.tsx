@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as React from "react"
-import { render, screen, cleanup } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import React from "react"
+import { render, screen, cleanup, act } from "@testing-library/react"
 import { SideNavigation } from "../SideNavigation/index"
 import { SideNavigationItem } from "./index"
 
@@ -94,14 +93,16 @@ describe("SideNavigationItem", () => {
     expect(screen.getByRole("button")).not.toHaveClass("juno-sidenavigation-item-active")
   })
 
-  test("executes an onClick handler as passed", async () => {
+  test("executes an onClick handler as passed", () => {
     render(
       <SideNavigation>
         <SideNavigationItem onClick={mockOnClick} label="My Item" />
       </SideNavigation>
     )
     expect(screen.getByRole("button", { name: "My Item" })).toBeInTheDocument()
-    await userEvent.click(screen.getByRole("button", { name: "My Item" }))
+    act(() => {
+      screen.getByRole("button", { name: "My Item" }).click()
+    })
     expect(mockOnClick).toHaveBeenCalled()
   })
 

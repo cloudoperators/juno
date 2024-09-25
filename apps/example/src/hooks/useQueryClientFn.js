@@ -49,7 +49,7 @@ const useQueryClientFn = (mockAPI) => {
   useEffect(() => {
     if (!queryClient || !endpoint) return
 
-    console.log("useQueryClientFn::: setting defaults: ", endpoint)
+    console.debug("useQueryClientFn::: setting defaults: ", endpoint)
 
     queryClient.setQueryDefaults(["peaks"], {
       queryFn: ({ queryKey }) => {

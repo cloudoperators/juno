@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as React from "react"
-import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import React from "react"
+import { render, screen, act, waitFor } from "@testing-library/react"
 import { describe, it, expect } from "vitest"
 
 import { Tooltip } from "./index"
 import { TooltipTrigger } from "../TooltipTrigger/TooltipTrigger.component"
 import { TooltipContent } from "../TooltipContent/TooltipContent.component"
+import userEvent from "@testing-library/user-event"
 
 describe("Tooltip", () => {
   it("renders a Tooltip", () => {
@@ -82,7 +82,7 @@ describe("Tooltip", () => {
     expect(screen.queryByTestId("trigger-component")).not.toBeInTheDocument()
   })
 
-  it("render an uncontrolled Tooltip: by default the trigger event that opens the tooltip is click", async () => {
+  it("render an uncontrolled Tooltip: by default the trigger event that opens the tooltip is click", () => {
     render(
       <Tooltip>
         <TooltipTrigger>trigger</TooltipTrigger>
@@ -92,35 +92,39 @@ describe("Tooltip", () => {
     // screen.debug()
     expect(screen.getByText(/trigger/i)).toBeInTheDocument()
     expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
-    await userEvent.click(screen.getByText(/trigger/i))
+    act(() => {
+      screen.getByText(/trigger/i).click()
+    })
     expect(screen.getByText(/my content/i)).toBeInTheDocument()
   })
 
   it("render an uncontrolled Tooltip with triggerEvent set to hover: the content should become visible on trigger hover", async () => {
-    render(
-      <Tooltip triggerEvent="hover">
-        <TooltipTrigger>trigger</TooltipTrigger>
-        <TooltipContent>my content</TooltipContent>
-      </Tooltip>
+    await waitFor(() =>
+      render(
+        <Tooltip triggerEvent="hover">
+          <TooltipTrigger>trigger</TooltipTrigger>
+          <TooltipContent>my content</TooltipContent>
+        </Tooltip>
+      )
     )
-    // screen.debug()
     expect(screen.getByText(/trigger/i)).toBeInTheDocument()
     expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
-    await userEvent.hover(screen.getByText(/trigger/i))
+    await waitFor(() => userEvent.hover(screen.getByText(/trigger/i)))
     expect(screen.getByText(/my content/i)).toBeInTheDocument()
   })
 
   it("render an uncontrolled Tooltip: the content should become visible on trigger focus", async () => {
-    render(
-      <Tooltip>
-        <TooltipTrigger>trigger</TooltipTrigger>
-        <TooltipContent>my content</TooltipContent>
-      </Tooltip>
+    await waitFor(() =>
+      render(
+        <Tooltip>
+          <TooltipTrigger>trigger</TooltipTrigger>
+          <TooltipContent>my content</TooltipContent>
+        </Tooltip>
+      )
     )
-    // screen.debug()
     expect(screen.getByText(/trigger/i)).toBeInTheDocument()
     expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
-    await userEvent.tab()
+    await waitFor(() => userEvent.tab())
     expect(screen.getByText(/my content/i)).toBeInTheDocument()
   })
 
@@ -134,11 +138,13 @@ describe("Tooltip", () => {
     // screen.debug()
     expect(screen.getByText(/trigger/i)).toBeInTheDocument()
     expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
-    await userEvent.click(screen.getByText(/trigger/i))
-    expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
-    await userEvent.hover(screen.getByText(/trigger/i))
-    expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
-    await userEvent.tab()
+    await waitFor(async () => {
+      await userEvent.click(screen.getByText(/trigger/i))
+      expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
+      await userEvent.hover(screen.getByText(/trigger/i))
+      expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
+      await userEvent.tab()
+    })
     expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
   })
 })
