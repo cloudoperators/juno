@@ -1,4 +1,4 @@
-// please rename this file to appProps.json (note: .json not .js)
+// please copy this file to appProps.json (note: .json not .js)
 // and add props for your app
 // example:
 // {
