@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => {
     return {
       ...sharedConfig,
       build: {
-        outDir: "dist",
+        outDir: "build",
       },
     }
   }
@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => {
   return {
     ...sharedConfig,
     build: {
-      outDir: "dist",
+      outDir: "build",
 
       lib: {
         entry: "src/index.js",
