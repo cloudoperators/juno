@@ -104,7 +104,7 @@ jobs:
           # Run build using turbo
           npx turbo run build:static --filter $package_name
 
-          # Copy the necessary files
+          # Copy build folder to deploy path
           mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
           cp -r "$PACKAGE_PATH/$build_folder" "$DEPLOY_PATH/$TARGET_FOLDER/$build_folder"
 
