@@ -4,16 +4,16 @@
  */
 
 import { gql } from "graphql-request"
-
 // gql
 // It is there for convenience so that you can get the tooling support
 // like prettier formatting and IDE syntax highlighting.
 // You can use gql from graphql-tag if you need it for some reason too.
-export default () => gql`
+
+// Main query for fetching IssueMatches data excluding totalCount and pageInfo
+export const issueMatchesMainQuery = () => gql`
   query ($filter: IssueMatchFilter, $first: Int, $after: String) {
     IssueMatches(filter: $filter, first: $first, after: $after) {
       __typename
-      totalCount
       edges {
         node {
           id
@@ -111,6 +111,16 @@ export default () => gql`
         }
         cursor
       }
+    }
+  }
+`
+
+// Separate query for fetching totalCount and pageInfo only
+export const issueMatchesCountQuery = () => gql`
+  query ($filter: IssueMatchFilter, $first: Int, $after: String) {
+    IssueMatches(filter: $filter, first: $first, after: $after) {
+      __typename
+      totalCount
       pageInfo {
         hasNextPage
         hasPreviousPage
