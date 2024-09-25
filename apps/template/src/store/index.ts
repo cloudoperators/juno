@@ -4,16 +4,21 @@
  */
 
 import { create } from "zustand"
-import { devtools, persist } from "zustand/middleware"
 import { immer } from "zustand/middleware/immer"
 
 interface WelcomeState {
   welcome: string
 }
+type Actions = {
+  setWelcome: (welcome: string) => void
+}
 
-export const useWellcomeStore = create<WelcomeState>(
+export const useWellcomeStore = create<WelcomeState & Actions>()(
   immer((set) => ({
-    welcome: "Welcome to the template app",
-    setWelcome: (welcome: string) => set((state) => ({ welcome: state.welcome + welcome })),
+    welcome: "Welcome to the template app with zustand",
+    setWelcome: (welcome: string) =>
+      set((state) => {
+        state.welcome = welcome
+      }),
   }))
 )
