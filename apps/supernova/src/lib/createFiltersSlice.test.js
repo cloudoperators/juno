@@ -12,6 +12,7 @@ import {
   StoreProvider,
   usePredefinedFilters,
   useActivePredefinedFilter,
+  useActiveFilters,
 } from "../hooks/useAppStore"
 
 describe("createFiltersSlice", () => {
@@ -255,5 +256,115 @@ describe("createFiltersSlice", () => {
       expect(store.result.current.activePredefinedFilter).toEqual(null)
     })
   })
-  describe("parseInitialFilters", () => {})
+  describe("parseInitialFilters", () => {
+    it("parses predefined filters correctly", () => {
+      const props = {
+        initialFilters: {
+          region: ["europe"],
+          app: ["frontendapp", "monitoring", "store"],
+        },
+        filterLabels: ["app", "region", "service"],
+      }
+
+      const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
+
+      const store = renderHook(
+        () => ({
+          activeFilters: useActiveFilters(),
+        }),
+        { wrapper }
+      )
+
+      expect(store.result.current.activeFilters).toEqual(props.initialFilters)
+    })
+    it("warns because some keys are not in filterLabels", () => {
+      const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+
+      const props = {
+        initialFilters: {
+          region: ["europe"],
+          app: ["frontendapp", "monitoring", "store"],
+        },
+        filterLabels: ["region"],
+      }
+
+      const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
+
+      renderHook(
+        () => ({
+          activeFilters: useActiveFilters(),
+        }),
+        { wrapper }
+      )
+
+      expect(spy).toHaveBeenCalledWith(
+        "[supernova]::parseInitialFilters: Some keys of the initialFilters object are not in the labels"
+      )
+      spy.mockRestore()
+    })
+
+    it("warns because initial filters is not a object", () => {
+      const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+
+      const props = {
+        initialFilters: "app: frontendapp",
+        filterLabels: ["region"],
+      }
+
+      const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
+
+      renderHook(
+        () => ({
+          activeFilters: useActiveFilters(),
+        }),
+        { wrapper }
+      )
+
+      const store = renderHook(
+        () => ({
+          activeFilters: useActiveFilters(),
+        }),
+        { wrapper }
+      )
+
+      expect(store.result.current.activeFilters).toEqual({})
+      expect(spy).toHaveBeenCalledWith("[supernova]::validateExcludedLabels: labels object is not an array of strings")
+      spy.mockRestore()
+    })
+
+    it("initialFilters is empty", () => {
+      const props = {
+        initialFilters: {},
+        filterLabels: ["region"],
+      }
+
+      const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
+
+      const store = renderHook(
+        () => ({
+          activeFilters: useActiveFilters(),
+        }),
+        { wrapper }
+      )
+      expect(store.result.current.activeFilters).toEqual({})
+    })
+
+    it("initialFilters is null", () => {
+      const props = {
+        initialFilters: null,
+        filterLabels: ["region"],
+      }
+
+      const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
+
+      const store = renderHook(
+        () => ({
+          activeFilters: useActiveFilters(),
+        }),
+        { wrapper }
+      )
+
+      expect(store.result.current.activeFilters).toEqual({})
+    })
+  })
 })
