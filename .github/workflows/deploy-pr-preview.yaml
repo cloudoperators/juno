@@ -107,7 +107,7 @@ jobs:
 
           # Copy build folder to deploy path
           mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
-          cp -r "$PACKAGE_PATH/$build_folder" "$DEPLOY_PATH/$TARGET_FOLDER/$build_folder"
+          cp -r "$PACKAGE_PATH/$build_folder" "$DEPLOY_PATH/$TARGET_FOLDER"
 
           # Generate appProps.json
           echo "$APP_PROPS_BASE64" | base64 -d > "$DEPLOY_PATH/$TARGET_FOLDER/appProps.json"
