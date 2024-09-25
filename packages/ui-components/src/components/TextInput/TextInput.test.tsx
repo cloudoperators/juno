@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { render, screen, fireEvent } from "@testing-library/react"
+import { render, screen, fireEvent, act, waitFor } from "@testing-library/react"
 import { TextInput } from "./index"
 
 describe("TextInput", () => {
@@ -151,18 +151,18 @@ describe("TextInput", () => {
     expect(screen.getByRole("textbox")).toHaveClass("juno-textinput-invalid")
   })
 
-  test("fires onChange handler as passed", () => {
+  test("fires onChange handler as passed", async () => {
     const handleChange = vi.fn()
     render(<TextInput onChange={handleChange} data-testid="my-input" />)
     const textinput = screen.getByRole("textbox")
-    fireEvent.change(textinput, { target: { value: "a" } })
+    await act(() => fireEvent.change(textinput, { target: { value: "a" } }))
     expect(handleChange).toHaveBeenCalledTimes(1)
   })
 
-  test("does not fire onChange handler when disabled", () => {
+  test("does not fire onChange handler when disabled", async () => {
     const onChangeSpy = vi.fn()
     render(<TextInput onChange={onChangeSpy} disabled />)
-    screen.getByRole("textbox").click()
+    await waitFor(() => screen.getByRole("textbox").click())
     expect(onChangeSpy).not.toHaveBeenCalled()
   })
 
