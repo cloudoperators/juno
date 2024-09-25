@@ -15,5 +15,3 @@ export const mount = (container, options = {}) => {
 }
 
 export const unmount = () => mount.root && mount.root.unmount()
-
-export { default } from "./App"

@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module.exports = "test-file-stub"
+export { Spinner, type SpinnerProps } from "./Spinner.component"
