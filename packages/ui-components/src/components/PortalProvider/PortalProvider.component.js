@@ -1,71 +1,89 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import React, { createContext, useContext, useEffect, useRef, useState } from "react"
+import React, { createContext, useRef, useContext, useLayoutEffect } from "react"
 import PropTypes from "prop-types"
 import { createPortal } from "react-dom"
 
+const DEFAULT_PORTAL_ROOT_ID = "juno-portal-root"
+
 const PortalContext = createContext()
 
-export function usePortalRef() {
-  const ref = useContext(PortalContext)
-  const [_, setInitialized] = useState(ref?.current)
+const portalRootStyles = {
+  position: "absolute",
+  top: "0",
+  left: "0",
+}
 
-  useEffect(() => {
-    if (!ref) {
+const portalStyles = {
+  position: "relative",
+  zIndex: "1",
+}
+
+/** A PortalProvider.Portal component to directly use from within other components:
+ *  ```
+ *   <PortalProvider.Portal>
+ *     <MyComponent />
+ *   </PortalProvider.Portal>
+ *  ```
+ */
+const Portal = ({ children = null }) => {
+  const rootRef = useContext(PortalContext)
+  console.log(rootRef)
+  const wrappedChildren = (
+    <div className={`juno-portal`} style={portalStyles}>
+      {children}
+    </div>
+  )
+  return createPortal(wrappedChildren, rootRef.current || document.body)
+}
+
+/** A hook that creates a portal container in the current portal root, and returns a ref to this newly created container to use in other components:
+ * ```
+ *   const portalRef = usePortalRef()
+ *
+ *   createPortal(<MyComponent />, portalRef ? portalRef : document.body)
+ * ```
+ *  The ref to the portal container element can also be passed as a parameter to components that expect a reference element for positioning, such as Flatpickr / DateTimePickr
+ */
+export function usePortalRef() {
+  const portalRootRef = useContext(PortalContext)
+  const containerRef = useRef(null)
+
+  useLayoutEffect(() => {
+    if (!portalRootRef || !portalRootRef.current) {
       console.warn(
-        "usePortalRef should be called inside a PortalProvider! You are probably using a component that renders a portal, e.g. Modal or Select. Be sure that your app is wrapped in an AppShellProvider."
+        "usePortalRef must be called inside a PortalProvider. You are probably using a component that renders a portal, e.g. Modal or Select. Make sure your app is wrapped in an AppShellProvider. Alternatively, you can include a PortalProvider manually."
       )
       return
     }
-    if (ref.current) setInitialized(true)
-  }, [ref])
-  return ref?.current
+    const portalElement = document.createElement("div")
+    portalRootRef.current.append(portalElement)
+    containerRef.current = portalElement
+
+    return () => {
+      // Clean up the portal element when unmounting:
+      if (containerRef.current) {
+        portalRootRef.current.removeChild(containerRef.current)
+        containerRef.current = null
+      }
+    }
+  }, [portalRootRef])
+
+  return containerRef.current
 }
 
-const Portal = ({ children }) => {
-  const ref = usePortalRef()
-  return ref ? createPortal(children, ref) : null
-}
-
-Portal.propTypes = {
-  children: PropTypes.any,
-}
-
-Portal.propTypes = {}
-
-/**
- * This provider acts as a container for portals. All portals within a Juno app should be added as children to this.
- * The PortalProvider itself needs to be placed inside the Juno StyleProvider, otherwise styles might not be applied correctly on children of portals.
+/** A PortalProvider component that renders a portal root container and creates a context to expose a ref to this portal root container container:
  *
- * The main task of the PortalProvider is to offer a place (portal) where certain components
- * such as modals are mounted. Many existing libs place such components outside of the
- * current application's DOM tree, because the control over creating and scheduling
- * the components is not with the application but with the lib. This is not a problem
- * as long as the application is in the global document tree. Once shadow root comes
- * into play, it changes. In this case, such components are placed outside of the
- * shadow root and individual app styles are not applied. The PortalProvider solves
- * this problem by creating the portal that lives in the same DOM tree as the actual app.
- *
- * The PortalProvider is appended at the top of the application tree and all lower
- * components are children of it. This means that all children can access the portal.
- * There are two ways you can do this. Via the ProtalProvider.Portal component or via
- * a usePortalRef hook. While the component places all children in the portal, the hook
- * returns a React reference object to the DOM element.
  */
-export const PortalProvider = ({ className = "", id = "", children = null }) => {
-  const ref = useRef()
-
+export const PortalProvider = ({ children = null, id = DEFAULT_PORTAL_ROOT_ID }) => {
+  const portalRootRef = useRef()
   return (
-    <PortalContext.Provider value={ref}>
+    <PortalContext.Provider value={portalRootRef}>
       {children}
-      <div className={`juno-portal-container ${className}`} id={id} ref={ref} />
+      <div className={`juno-portal-root`} id={id} ref={portalRootRef} style={portalRootStyles} />
     </PortalContext.Provider>
   )
 }
-// bind Portal to PortalProvider
+
+// Bind Portal to PortalProvider:
 PortalProvider.Portal = Portal
 Portal.displayName = "PortalProvider.Portal"
 
