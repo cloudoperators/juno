@@ -22,7 +22,7 @@ const useUrlState = () => {
   const { setFiltersFromURL, syncFiltersWithURL } = useFilterActions()
 
   const activeNavEntry = useGlobalsActiveNavEntry()
-  const { setShowDetailsFor, setActiveNavEntry } = useGlobalsActions()
+  const { setShowPanel, setActiveNavEntry } = useGlobalsActions()
   const detailsFor = useGlobalsShowPanel()
 
   // Set initial state from URL (on login)
@@ -32,7 +32,7 @@ const useUrlState = () => {
     const urlState = urlStateManager.currentState()
     if (urlState) {
       setFiltersFromURL(urlState[constants.ACTIVE_FILTERS], urlState[constants.SEARCH_TERM])
-      if (urlState[constants.DETAILS_FOR]) setShowDetailsFor(urlState[constants.DETAILS_FOR])
+      if (urlState[constants.DETAILS_FOR]) setShowPanel(urlState[constants.DETAILS_FOR])
       if (urlState[constants.ACTIVE_NAV]) setActiveNavEntry(urlState[constants.ACTIVE_NAV])
     }
 
@@ -53,7 +53,7 @@ const useUrlState = () => {
   useEffect(() => {
     const unregisterStateListener = urlStateManager.onChange((state) => {
       setFiltersFromURL(state?.[constants.ACTIVE_FILTERS], state?.[constants.SEARCH_TERM])
-      setShowDetailsFor(state?.[constants.DETAILS_FOR])
+      setShowPanel(state?.[constants.DETAILS_FOR])
       setActiveNavEntry(state?.[constants.ACTIVE_NAV])
     })
 

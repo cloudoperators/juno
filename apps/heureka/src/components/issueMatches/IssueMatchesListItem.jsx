@@ -34,12 +34,7 @@ const IssueMatchesListItem = ({ item }) => {
       onClick={() => handleClick()}
     >
       <DataGridCell>{item?.node?.issue?.primaryName}</DataGridCell>
-      {/* <DataGridCell>
-        {listOfCommaSeparatedObjs(
-          item?.node?.effectiveIssueVariants,
-          "secondaryName"
-          )}
-          </DataGridCell> */}
+      <DataGridCell>{item?.node?.componentInstance?.ccrn}</DataGridCell>
       <DataGridCell>{formatDate(item?.node?.targetRemediationDate)}</DataGridCell>
       <DataGridCell>{item?.node?.status}</DataGridCell>
       <DataGridCell>{item?.node?.severity?.value}</DataGridCell>

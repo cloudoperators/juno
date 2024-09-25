@@ -37,6 +37,13 @@ const IssueMatchesDetails = () => {
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>
+            <DataGridHeadCell>Description</DataGridHeadCell>
+            <DataGridCell>
+              {/* // Take description from the first issueVariant, because if there are multiple, they have the same priority (edge case). */}
+              <LoadElement elem={issue?.effectiveIssueVariants?.edges?.[0]?.node?.description} />
+            </DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
             <DataGridHeadCell>Target Remediation Date</DataGridHeadCell>
 
             <DataGridCell>
