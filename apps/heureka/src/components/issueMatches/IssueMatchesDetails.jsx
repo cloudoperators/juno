@@ -16,7 +16,7 @@ const IssueMatchesDetails = () => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
 
   const issueElem = useQuery({
-    queryKey: ["IssueMatches", { filter: { id: [showIssueDetail] } }],
+    queryKey: ["IssueMatchesMain", { filter: { id: [showIssueDetail] } }],
     enabled: !!queryClientFnReady,
   })
   const issue = useMemo(() => {
