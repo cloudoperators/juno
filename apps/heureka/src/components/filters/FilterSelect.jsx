@@ -28,6 +28,11 @@ const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, 
     handleFilterAdd(value)
   }
 
+  // Define filter options by filtering out already selected values
+  const filterOptions = filterLabelValues?.[filterLabel]?.filter(
+    (value) => !activeFilters?.[filterLabel]?.includes(value)
+  )
+
   return (
     <Stack alignment="center" gap="8">
       <InputGroup>
@@ -50,11 +55,9 @@ const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, 
           disabled={!filterLabelValues[filterLabel]?.length}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
         >
-          {filterLabelValues[filterLabel] //Ensure already selected values are not displayed in filterValue drop down to avoid duplicate selections
-            ?.filter((value) => !activeFilters[filterLabel]?.includes(value)) // Filter out values that are already active
-            .map((value) => (
-              <SelectOption value={value} key={value} />
-            ))}
+          {filterOptions?.map((value) => (
+            <SelectOption value={value} key={value} />
+          ))}
         </Select>
         <Button icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
@@ -62,7 +65,7 @@ const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, 
         <Button label="Clear all" onClick={() => clearActiveFilters(entityName)} variant="subdued" />
       )}
       <SearchInput
-        placeholder="Search term or regular expression"
+        placeholder="Search term or wildcard (e.g., *term*)"
         className="w-96 ml-auto"
         value={searchTerm || ""}
         onSearch={(value) => setSearchTerm(entityName, value)}

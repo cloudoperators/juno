@@ -7,11 +7,11 @@ import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { useGlobalsApiEndpoint, useGlobalsActions } from "./useAppStore"
 import { request } from "graphql-request"
-import servicesQuery from "../lib/queries/services"
-import issueMatchesQuery from "../lib/queries/issueMatches"
+import { servicesMainQuery, servicesCountQuery } from "../lib/queries/services"
+import { componentsMainQuery, componentsCountQuery } from "../lib/queries/components"
+import { issueMatchesMainQuery, issueMatchesCountQuery } from "../lib/queries/issueMatches"
 import serviceFilterValuesQuery from "../lib/queries/serviceFilterValues"
 import issueMatchesFilterValuesQuery from "../lib/queries/issueMatchesFilterValues"
-import componentsQuery from "../lib/queries/components"
 import addRemoveServiceOwners from "../lib/queries/addRemoveServiceOwners"
 import usersQuery from "../lib/queries/users"
 
@@ -26,24 +26,51 @@ const useQueryClientFn = () => {
   useEffect(() => {
     if (!queryClient || !endpoint) return
 
-    queryClient.setQueryDefaults(["Services"], {
+    // Services main query
+    queryClient.setQueryDefaults(["ServicesMain"], {
       queryFn: async ({ queryKey }) => {
         const [_key, options] = queryKey
-        return await request(endpoint, servicesQuery(), options)
+        return await request(endpoint, servicesMainQuery(), options)
       },
     })
 
-    queryClient.setQueryDefaults(["IssueMatches"], {
+    // Services count query (for totalCount and pageInfo)
+    queryClient.setQueryDefaults(["ServicesCount"], {
       queryFn: async ({ queryKey }) => {
         const [_key, options] = queryKey
-        return await request(endpoint, issueMatchesQuery(), options)
+        return await request(endpoint, servicesCountQuery(), options)
       },
     })
 
-    queryClient.setQueryDefaults(["Components"], {
+    // Components main query
+    queryClient.setQueryDefaults(["ComponentsMain"], {
       queryFn: async ({ queryKey }) => {
         const [_key, options] = queryKey
-        return await request(endpoint, componentsQuery(), options)
+        return await request(endpoint, componentsMainQuery(), options)
+      },
+    })
+
+    // Components count query (for totalCount and pageInfo)
+    queryClient.setQueryDefaults(["ComponentsCount"], {
+      queryFn: async ({ queryKey }) => {
+        const [_key, options] = queryKey
+        return await request(endpoint, componentsCountQuery(), options)
+      },
+    })
+
+    // Main IssueMatches query
+    queryClient.setQueryDefaults(["IssueMatchesMain"], {
+      queryFn: async ({ queryKey }) => {
+        const [_key, options] = queryKey
+        return await request(endpoint, issueMatchesMainQuery(), options)
+      },
+    })
+
+    // IssueMatches count query (for totalCount and pageInfo)
+    queryClient.setQueryDefaults(["IssueMatchesCount"], {
+      queryFn: async ({ queryKey }) => {
+        const [_key, options] = queryKey
+        return await request(endpoint, issueMatchesCountQuery(), options)
       },
     })
 
