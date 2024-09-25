@@ -46,8 +46,6 @@ const App = (props = {}) => {
     },
   })
 
-  console.log("====================>props", props)
-
   // on load application save the props to be used in oder components
   useLayoutEffect(() => {
     setEndpoint(isMock ? window.location.origin : props?.apiEndpoint)

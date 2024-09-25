@@ -7,7 +7,7 @@
     "Arturo Reuschenbach Pucernau"
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/doop",
-  "module": "dist/index.js",
+  "module": "build/index.js",
   "license": "Apache-2.0",
   "private": true,
   "devDependencies": {
@@ -36,6 +36,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:static": "vite build --mode static",
+    "preview:static": "vite preview",
     "lint": "eslint",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
