@@ -7,7 +7,7 @@ import React, { useEffect, useMemo, useLayoutEffect } from "react"
 
 import { AppShellProvider, ContentHeading } from "@cloudoperators/juno-ui-components"
 import AppContent from "./components/AppContent"
-import styles from "./styles.scss"
+import styles from "./styles.module.scss"
 import AuthProvider from "./components/AuthProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import StoreProvider from "./components/StoreProvider"
@@ -15,7 +15,7 @@ import AsyncWorker from "./components/AsyncWorker"
 import { AppShell } from "@cloudoperators/juno-ui-components"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
-import db from "../db.json"
+import db from "./db.json"
 import { useGlobalsActions } from "./components/StoreProvider"
 
 const App = (props = {}) => {
@@ -45,6 +45,8 @@ const App = (props = {}) => {
       },
     },
   })
+
+  console.log("====================>props", props)
 
   // on load application save the props to be used in oder components
   useLayoutEffect(() => {

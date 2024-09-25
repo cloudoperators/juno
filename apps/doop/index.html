@@ -1,0 +1,59 @@
+<!--
+  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" href="src/img/favicon.ico" sizes="any"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+
+    <title>Doop Dev</title>
+    <style>
+      html {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        flex-grow: 1;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      #root {
+        display: inline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script
+      src="https://assets.juno.global.cloud.sap/apps/widget-loader@latest/build/app.js"
+      data-name="auth"
+      data-version="latest"
+      data-props-debug="true"
+      data-props-initial-login="true"
+      data-props-mock='{"groups":["organization:test-org", "team:containers","support-group:containers","role:ccloud:admin"]}'
+    ></script>
+
+    <script type="module">
+      // appProps are excluded from standalone build and should be generated from outside
+      fetch("./appProps.json")
+        .then((res) => res.json())
+        .catch((error) => {
+          console.warn("No appProps found, using default props", error.message)
+        })
+        .then((props) => {
+          import ("./src/index").then((app) => {
+            app.mount(document.getElementById("root"), {props})
+          })
+        })
+    </script>
+    <div id="root"></div>
+  </body>
+</html>
