@@ -28,6 +28,11 @@ const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, 
     handleFilterAdd(value)
   }
 
+  // Define filter options by filtering out already selected values
+  const filterOptions = filterLabelValues?.[filterLabel]?.filter(
+    (value) => !activeFilters?.[filterLabel]?.includes(value)
+  )
+
   return (
     <Stack alignment="center" gap="8">
       <InputGroup>
@@ -50,12 +55,9 @@ const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, 
           disabled={!filterLabelValues[filterLabel]?.length}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
         >
-          {/* Ensure already selected values are not displayed in filterValue drop down */}
-          {filterLabelValues?.[filterLabel] // Safely access filterLabelValues
-            ?.filter((value) => !activeFilters?.[filterLabel]?.includes(value)) // Safely access activeFilters and filter out already active values
-            .map((value) => (
-              <SelectOption value={value} key={value} />
-            ))}
+          {filterOptions?.map((value) => (
+            <SelectOption value={value} key={value} />
+          ))}
         </Select>
         <Button icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
