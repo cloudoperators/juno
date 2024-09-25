@@ -41,6 +41,11 @@ This will create a dist folder with all assets. You can host this folder and loa
 
 ## Development Mode
 
+<!-- add note -->
+
+> [!NOTE]  
+> Please make sure to copy the **appProps.template.js** file to **appProps.json** before proceeding.
+
 ```bash
 cd apps/example
 npx turbo dev
