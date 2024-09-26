@@ -62,6 +62,7 @@ export const ContextMenu = ({
   const middleware = [
     offset(4),
     autoPlacement({
+      crossAxis: true,
       allowedPlacements: ["top-start", "top-end", "bottom-start", "bottom-end"],
     }),
     size({
