@@ -4,9 +4,9 @@
  */
 
 import React from "react"
-import { Tabs } from "../Tabs/index.js"
-import { TabListProps } from "../TabList/TabList.component.js"
-import { TabPanelProps } from "../TabPanel/TabPanel.component.js"
+import { Tabs } from "../Tabs/index"
+import { TabListProps } from "../TabList/TabList.component"
+import { TabPanelProps } from "../TabPanel/TabPanel.component"
 
 /** 
 Main Tabs are used at the top of the content area when using the tabs to switch the complete content area content. If you only want to have tabs for parts of the content use 'Tabs' instead and place them in the part of the content where the tabbed content should live. You will probably want to use a 'Container' inside the TabPanels to get nice padding.
