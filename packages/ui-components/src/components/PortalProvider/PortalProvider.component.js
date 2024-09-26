@@ -47,6 +47,7 @@ const Portal = ({ children = null }) => {
 }
 
 Portal.propTypes = {
+  /** The children to mount in a portal. Typically, these will be menus, modal dialogs, etc. */
   children: PropTypes.node,
 }
 
@@ -85,8 +86,9 @@ export function usePortalRef() {
   return containerRef.current
 }
 
-/** A PortalProvider component that helps using and managing portals. It renders a portal root container, creates a context to expose a ref the container, a `PortalProvider.Portal` component to render content into a portal, and a `usePortalRef` hook to render content into a portal.
- *
+/** A PortalProvider component that helps using and managing portals.
+ * It renders a portal root container, creates a context to expose a ref the container, a `PortalProvider.Portal` component to render content into a portal, and a `usePortalRef` hook to render content into a portal.
+ * Normally, there is no need to include `PortalProvider` manually, when using `AppShell` `PortalProvider` is already included in the app.
  */
 export const PortalProvider = ({ children = null, className = "", id = DEFAULT_PORTAL_ROOT_ID }) => {
   const portalRootRef = useRef()
@@ -109,5 +111,10 @@ PortalProvider.propTypes = {
   /** Pass a custom id to the portal root container in which portals will be mounted */
   id: PropTypes.string,
   /** The children of the PortalProvider. Typically, this will be the whole app.  */
+  children: PropTypes.node,
+}
+
+PortalProvider.Portal.propTypes = {
+  /** The children to mount in a portal. Typically, these will be menus, modal dialogs, etc. */
   children: PropTypes.node,
 }
