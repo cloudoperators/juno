@@ -1,4 +1,4 @@
-import React, { createContext, useRef, useContext, useEffect, useLayoutEffect, useState } from "react"
+import React, { createContext, useRef, useContext, useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { createPortal } from "react-dom"
 
@@ -60,30 +60,39 @@ Portal.propTypes = {
  *  The ref to the portal container element can also be passed as a parameter to components that expect a reference element for positioning, such as Flatpickr / DateTimePickr.
  */
 export function usePortalRef() {
-  const portalRootRef = useContext(PortalContext)
+  const rootRef = useContext(PortalContext)
   const containerRef = useRef(null)
+  const [isReady, setIsReady] = useState(false)
 
-  useLayoutEffect(() => {
-    if (!portalRootRef || !portalRootRef.current) {
+  useEffect(() => {
+    if (!rootRef || !rootRef.current) {
       console.warn(
-        "usePortalRef must be called inside a PortalProvider. You are probably using a component that renders a portal, e.g. Modal or Select. Make sure your app is wrapped in an AppShellProvider. Alternatively, you can include a PortalProvider manually."
+        "usePortalRef must be called inside a PortalProvider. You are probably using a component that renders a portal, e.g. Modal or Select. Make sure your app is wrapped in an AppShellProvider. Alternatively, a PortalProvider can be included manually."
       )
       return
     }
-    const portalElement = document.createElement("div")
-    portalRootRef.current.append(portalElement)
-    containerRef.current = portalElement
+    const containerElement = document.createElement("div")
+    containerElement.style.position = "relative"
+    containerElement.style.zIndex = "1"
+    containerElement.classList.add("juno-portal")
+    rootRef.current.append(containerElement)
+    containerRef.current = containerElement
+    setIsReady(true)
 
     return () => {
       // Clean up the portal element when unmounting:
-      if (containerRef.current) {
-        portalRootRef.current.removeChild(containerRef.current)
+      if (containerRef.current && rootRef?.current) {
+        rootRef.current.removeChild(containerRef.current)
         containerRef.current = null
       }
     }
-  }, [portalRootRef])
+  }, [rootRef])
 
-  return containerRef.current
+  if (!containerRef?.current) {
+    return null
+  }
+
+  return isReady ? containerRef.current : null
 }
 
 /** A PortalProvider component that helps using and managing portals.

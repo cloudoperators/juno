@@ -1,6 +1,7 @@
 import React from "react"
+import { createPortal } from "react-dom"
 import PropTypes from "prop-types"
-import { PortalProvider } from "."
+import { PortalProvider, usePortalRef } from "."
 import { Message } from "../Message/"
 
 export default {
@@ -13,10 +14,9 @@ export default {
       control: false,
     },
   },
-  decorators: [(story) => <PortalProvider>{story()}</PortalProvider>],
 }
 
-const Template = ({ children, ...args }) => <PortalProvider.Portal {...args}>{children}</PortalProvider.Portal>
+const Template = ({ children, ...args }) => <PortalProvider {...args}>{children}</PortalProvider>
 
 Template.propTypes = {
   children: PropTypes.node,
@@ -25,13 +25,44 @@ Template.propTypes = {
 export const WithPortalComponent = {
   render: Template,
   args: {
-    children: <Message text="I'm inside a portal." />,
+    children: (
+      <PortalProvider.Portal>
+        <Message text="I'm inside a portal using the Portal component as provided by PortalProvider." />
+      </PortalProvider.Portal>
+    ),
   },
 }
 
-//
-// const PortalRef = () => (
-//   <PortalProvider>
-//     <div>Something</div>
-//   </PortalProvider>
-// )
+const PortalBox = () => {
+  const portalRef = usePortalRef()
+  if (!portalRef) return null
+  const content = <Message text="I'm inside a portal using the usePortalref hook in a custom component." />
+  return createPortal(content, portalRef)
+}
+
+export const WithHook = {
+  render: Template,
+  args: {
+    children: (
+      <>
+        <span> Some non-portalled content</span>
+        <PortalBox />
+      </>
+    ),
+  },
+}
+
+export const MultiplePortals = {
+  render: Template,
+  args: {
+    children: (
+      <>
+        <div>Some non-portaled content.</div>
+        <PortalProvider.Portal>
+          <Message text="I'm inside a portal using the Portal component as provided by PortalProvider." />
+        </PortalProvider.Portal>
+        <PortalBox />
+      </>
+    ),
+  },
+}
