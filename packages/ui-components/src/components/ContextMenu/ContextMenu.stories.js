@@ -94,21 +94,21 @@ export const ManyOptions = {
 
   args: {
     children: [
-      <MenuItem key="1" label="Option 1"/>,
-      <MenuItem key="2" label="Option 2"/>,
+      <MenuItem key="1" label="Option 1" />,
+      <MenuItem key="2" label="Option 2" />,
       <MenuItem key="3" label="Option 3" />,
       <MenuItem key="4" label="Option 4" />,
-      <MenuItem key="5" label="Option 5"/>,
-      <MenuItem key="6" label="Option 6"/>,
-      <MenuItem key="7" label="Option 7"/>,
-      <MenuItem key="8" label="Option 8"/>,
+      <MenuItem key="5" label="Option 5" />,
+      <MenuItem key="6" label="Option 6" />,
+      <MenuItem key="7" label="Option 7" />,
+      <MenuItem key="8" label="Option 8" />,
       <MenuItem key="9" label="Option 9" />,
       <MenuItem key="10" label="Option 10" />,
       <MenuItem key="11" label="Option 11" />,
       <MenuItem key="12" label="Option 12" />,
       <MenuItem key="13" label="Option 13" />,
       <MenuItem key="14" label="Option 14" />,
-      <MenuItem key="15" label="Option 15"/>,
+      <MenuItem key="15" label="Option 15" />,
     ],
   },
 }
