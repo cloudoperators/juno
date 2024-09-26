@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { PortalProvider } from "."
-import { Toast } from "../Toast/"
+import { Message } from "../Message/"
 
 export default {
   title: "WiP/PortalProvider",
@@ -25,17 +25,10 @@ Template.propTypes = {
 export const WithPortalComponent = {
   render: Template,
   args: {
-    children: <Toast text="I'm inside a portal." />,
+    children: <Message text="I'm inside a portal." />,
   },
 }
 
-// const Default = () => (
-//   <PortalProvider>
-//     <PortalProvider.Portal>
-//       <Toast text="I'm inside a portal." />
-//     </PortalProvider.Portal>
-//   </PortalProvider>
-// )
 //
 // const PortalRef = () => (
 //   <PortalProvider>

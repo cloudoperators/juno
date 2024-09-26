@@ -1,4 +1,4 @@
-import React, { createContext, useRef, useContext, useLayoutEffect } from "react"
+import React, { createContext, useRef, useContext, useEffect, useLayoutEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { createPortal } from "react-dom"
 
@@ -26,7 +26,18 @@ const portalStyles = {
  */
 const Portal = ({ children = null }) => {
   const rootRef = useContext(PortalContext)
-  console.log(rootRef)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    if (rootRef?.current) {
+      setIsMounted(true)
+    }
+  }, [rootRef])
+
+  if (!isMounted) {
+    return null
+  }
+
   const wrappedChildren = (
     <div className={`juno-portal`} style={portalStyles}>
       {children}
@@ -35,13 +46,17 @@ const Portal = ({ children = null }) => {
   return createPortal(wrappedChildren, rootRef.current || document.body)
 }
 
-/** A hook that creates a portal container in the current portal root, and returns a ref to this newly created container to use in other components:
+Portal.propTypes = {
+  children: PropTypes.node,
+}
+
+/** A hook that creates a portal container in the current portal root, and returns this newly created container as a node to use in other components:
  * ```
  *   const portalRef = usePortalRef()
  *
  *   createPortal(<MyComponent />, portalRef ? portalRef : document.body)
  * ```
- *  The ref to the portal container element can also be passed as a parameter to components that expect a reference element for positioning, such as Flatpickr / DateTimePickr
+ *  The ref to the portal container element can also be passed as a parameter to components that expect a reference element for positioning, such as Flatpickr / DateTimePickr.
  */
 export function usePortalRef() {
   const portalRootRef = useContext(PortalContext)
@@ -70,15 +85,16 @@ export function usePortalRef() {
   return containerRef.current
 }
 
-/** A PortalProvider component that renders a portal root container and creates a context to expose a ref to this portal root container container:
+/** A PortalProvider component that helps using and managing portals. It renders a portal root container, creates a context to expose a ref the container, a `PortalProvider.Portal` component to render content into a portal, and a `usePortalRef` hook to render content into a portal.
  *
  */
-export const PortalProvider = ({ children = null, id = DEFAULT_PORTAL_ROOT_ID }) => {
+export const PortalProvider = ({ children = null, className = "", id = DEFAULT_PORTAL_ROOT_ID }) => {
   const portalRootRef = useRef()
+
   return (
     <PortalContext.Provider value={portalRootRef}>
       {children}
-      <div className={`juno-portal-root`} id={id} ref={portalRootRef} style={portalRootStyles} />
+      <div className={`juno-portal-root ${className}`} id={id} ref={portalRootRef} style={portalRootStyles} />
     </PortalContext.Provider>
   )
 }
@@ -88,10 +104,10 @@ PortalProvider.Portal = Portal
 Portal.displayName = "PortalProvider.Portal"
 
 PortalProvider.propTypes = {
-  /** Optionally a class name can be passed to the portal container which is the container where portals are created by PortalProvider */
+  /** Pass a custom className to the portal root container in which portals will be mounted */
   className: PropTypes.string,
-  /** Optionally an id can be passed to the portal container which is the container where portals are created by PortalProvider */
+  /** Pass a custom id to the portal root container in which portals will be mounted */
   id: PropTypes.string,
-  /** The PortalProvider must have children. It is typically used as a wrapper for the whole app. */
+  /** The children of the PortalProvider. Typically, this will be the whole app.  */
   children: PropTypes.node,
 }
