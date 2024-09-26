@@ -37,6 +37,22 @@ describe("Pagination", () => {
     render(<Pagination variant="number" currentPage={12} totalPages={6} data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
   })
+  test("renders Pagination (number) with currentPage lower than totalPages", () => {
+    render(<Pagination variant="number" currentPage={6} totalPages={12} data-testid="my-pagination" />)
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
+  })
+  test("renders Pagination (number) with currentPage and undefined totalPages", () => {
+    render(<Pagination variant="number" currentPage={6} totalPages={undefined} data-testid="my-pagination" />)
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
+  })
+  test("renders Pagination (number) with undefined currentPage and defined totalPages", () => {
+    render(<Pagination variant="number" currentPage={undefined} totalPages={6} data-testid="my-pagination" />)
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
+  })
+  test("renders Pagination (number) with undefined currentPage and undefined totalPages", () => {
+    render(<Pagination variant="number" currentPage={undefined} totalPages={undefined} data-testid="my-pagination" />)
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
+  })
 
   test("renders a select variant Pagination as passed", () => {
     render(<Pagination variant="select" data-testid="my-pagination" />)
@@ -84,6 +100,96 @@ describe("Pagination", () => {
     expect(handlePressNext).toHaveBeenCalledTimes(1)
   })
 
+  test("fires onPressNext handler with undefined currentPage and undefinded totalPages - passed when Next button is clicked", () => {
+    const handlePressNext = jest.fn()
+    render(
+      <Pagination
+        variant="number"
+        currentPage={undefined}
+        totalPages={undefined}
+        data-testid="my-pagination"
+        onPressNext={handlePressNext}
+      />
+    )
+    act(() => {
+      screen.getByRole("button", { name: "Next Page" }).click()
+    })
+    expect(handlePressNext).toHaveBeenCalledTimes(1)
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
+  })
+
+  test("fires onPressNext handler with undefined currentPages", () => {
+    const handlePressNext = jest.fn()
+    render(
+      <Pagination
+        variant="number"
+        currentPage={undefined}
+        totalPages={8}
+        data-testid="my-pagination"
+        onPressNext={handlePressNext}
+      />
+    )
+    act(() => {
+      screen.getByRole("button", { name: "Next Page" }).click()
+    })
+    expect(handlePressNext).toHaveBeenCalledTimes(1)
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
+  })
+
+  test("fires onPressNext handler with undefinded totalPages", () => {
+    const handlePressNext = jest.fn()
+    render(
+      <Pagination
+        variant="number"
+        currentPage={6}
+        totalPages={undefined}
+        data-testid="my-pagination"
+        onPressNext={handlePressNext}
+      />
+    )
+    act(() => {
+      screen.getByRole("button", { name: "Next Page" }).click()
+    })
+    expect(handlePressNext).toHaveBeenCalledTimes(1)
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
+  })
+
+  test("fires onPressNext handler with higher currentPage than totalPages", () => {
+    const handlePressNext = jest.fn()
+    render(
+      <Pagination
+        variant="number"
+        currentPage={6}
+        totalPages={4}
+        data-testid="my-pagination"
+        onPressNext={handlePressNext}
+      />
+    )
+    act(() => {
+      screen.getByRole("button", { name: "Next Page" }).click()
+    })
+    expect(handlePressNext).toHaveBeenCalledTimes(0)
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("4")
+  })
+
+  test("fires onPressNext handler with lower currentPage than totalPages", () => {
+    const handlePressNext = jest.fn()
+    render(
+      <Pagination
+        variant="number"
+        currentPage={4}
+        totalPages={6}
+        data-testid="my-pagination"
+        onPressNext={handlePressNext}
+      />
+    )
+    act(() => {
+      screen.getByRole("button", { name: "Next Page" }).click()
+    })
+    expect(handlePressNext).toHaveBeenCalledTimes(1)
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("5")
+  })
+
   test("fires onChange handler as passed when Select changes for select variant", async () => {
     const mockHandleChange = jest.fn()
     render(<Pagination variant="select" currentPage={1} pages={6} onSelectChange={mockHandleChange} />)
@@ -107,6 +213,17 @@ describe("Pagination", () => {
     await waitFor(() => {
       userEvent.type(screen.getByRole("textbox"), "{enter}")
       expect(handleKeyPress).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  test("fires onKeyPress handler on Enter as passed for input variant with undefined controlPage", async () => {
+    const handleKeyPress = jest.fn()
+    await waitFor(() => {
+      render(<Pagination variant="input" currentPage={undefined} onKeyPress={handleKeyPress} />)
+    })
+    await waitFor(() => {
+      userEvent.type(screen.getByRole("textbox"), "{enter}")
+      expect(handleKeyPress).toHaveBeenCalledTimes(0)
     })
   })
 

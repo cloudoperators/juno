@@ -60,15 +60,17 @@ export const Pagination = ({
   }
 
   const handlePrevClick = (event) => {
-    if (controlTotalPage || pages || controlPage) {
-      setControlCurrentPage(controlPage > 1 ? controlPage - 1 : undefined)
+    if (controlPage && controlPage > 1) {
+      setControlCurrentPage(controlPage - 1)
     }
+
     onPressPrevious && onPressPrevious(event)
   }
 
   const handleNextClick = (event) => {
-    setControlCurrentPage(controlPage < controlTotalPage || controlPage ? controlPage + 1 : controlPage)
-
+    if (controlPage && controlPage < controlTotalPage) {
+      setControlCurrentPage(controlPage + 1)
+    }
     onPressNext && onPressNext(event)
   }
 
@@ -129,7 +131,7 @@ export const Pagination = ({
                   <Select
                     name="totalPages"
                     width="auto"
-                    value={controlTotalPage ? controlPage?.toString() : ""} // here the same, defaultValue is of type string
+                    value={controlPage?.toString()} // here the same, defaultValue is of type string
                     onChange={handleSelectChange}
                     disabled={disabled}
                   >
@@ -138,7 +140,7 @@ export const Pagination = ({
                       if (controlTotalPage) {
                         for (let i = 0; i < controlTotalPage; i++) {
                           const p = (i + 1).toString() // SelectOption requires strings for value and label
-                          opts.push(<SelectOption value={p || "0"} label={p} key={p} />)
+                          opts.push(<SelectOption value={p} label={p} key={p} />)
                         }
                       }
                       return opts
