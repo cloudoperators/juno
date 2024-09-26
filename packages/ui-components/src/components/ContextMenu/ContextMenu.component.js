@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { Icon } from "../../deprecated_js/Icon/index.js"
 import { Menu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
-import { flip } from "@floating-ui/react-dom"
+import { autoPlacement, offset, shift, size } from "@floating-ui/react-dom"
 
 /*
 TODO:
@@ -59,9 +59,27 @@ export const ContextMenu = ({
     setIsOpen(open)
   }, [open])
 
+  const middleware = [
+    offset(4),
+    autoPlacement({
+      allowedPlacements: ["top-start", "top-end", "bottom-start", "bottom-end"],
+    }),
+    size({
+      boundary: "viewport",
+      apply({ availableWidth, availableHeight, elements }) {
+        Object.assign(elements.floating.style, {
+          maxWidth: `${availableWidth}px`,
+          maxHeight: `${availableHeight}px`,
+          overflowY: "auto",
+        })
+      },
+    }),
+    shift(),
+  ]
+
   return (
     <Menu>
-      <Float middleware={[flip()]}>
+      <Float middleware={middleware}>
         <Menu.Button
           onClick={handleClick}
           className={`
