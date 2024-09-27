@@ -33,7 +33,7 @@ export const WithPortalComponent = {
   },
 }
 
-const PortalBox = () => {
+const PortalMessage = () => {
   const portalRef = usePortalRef()
   if (!portalRef) return null
   const content = <Message text="I'm inside a portal using the usePortalref hook in a custom component." />
@@ -46,7 +46,7 @@ export const WithHook = {
     children: (
       <>
         <span> Some non-portalled content</span>
-        <PortalBox />
+        <PortalMessage />
       </>
     ),
   },
@@ -61,7 +61,7 @@ export const MultiplePortals = {
         <PortalProvider.Portal>
           <Message text="I'm inside a portal using the Portal component as provided by PortalProvider." />
         </PortalProvider.Portal>
-        <PortalBox />
+        <PortalMessage />
       </>
     ),
   },
