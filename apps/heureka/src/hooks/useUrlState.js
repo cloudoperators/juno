@@ -3,40 +3,64 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from "react"
+import { useLayoutEffect, useEffect, useState } from "react"
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
-import { useGlobalsActions, useGlobalsActiveNavEntry } from "./useAppStore"
+import {
+  useAuthLoggedIn,
+  useGlobalsShowPanel,
+  useGlobalsActiveNavEntry,
+  useGlobalsActions,
+  useFilterActions,
+} from "./useAppStore"
+import constants from "../components/shared/constants"
 
-const DEFAULT_KEY = "heureka"
-const ACTIVE_NAV = "t"
+const urlStateManager = registerConsumer("heureka")
 
-const useUrlState = (key) => {
+const useUrlState = () => {
   const [isURLRead, setIsURLRead] = useState(false)
-  // it is possible to have two apps instances on the same page
-  // int his case the key should be different per app
-  const urlStateManager = registerConsumer(key || DEFAULT_KEY)
+  const loggedIn = useAuthLoggedIn()
+  const { setFiltersFromURL, syncFiltersWithURL } = useFilterActions()
 
-  const { setActiveNavEntry } = useGlobalsActions()
   const activeNavEntry = useGlobalsActiveNavEntry()
+  const { setShowPanel, setActiveNavEntry } = useGlobalsActions()
+  const detailsFor = useGlobalsShowPanel()
 
   // Set initial state from URL (on login)
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isURLRead) return
 
-    // READ the url state and set the state
-    const newNavIndex = urlStateManager.currentState()?.[ACTIVE_NAV]
-    // SAVE the state
-    if (newNavIndex) setActiveNavEntry(newNavIndex)
+    const urlState = urlStateManager.currentState()
+    if (urlState) {
+      setFiltersFromURL(urlState[constants.ACTIVE_FILTERS], urlState[constants.SEARCH_TERM])
+      if (urlState[constants.DETAILS_FOR]) setShowPanel(urlState[constants.DETAILS_FOR])
+      if (urlState[constants.ACTIVE_NAV]) setActiveNavEntry(urlState[constants.ACTIVE_NAV])
+    }
+
     setIsURLRead(true)
   }, [isURLRead])
 
-  // SYNC states to URL state
+  // Sync URL with the desired states
   useEffect(() => {
     if (!isURLRead) return
-    urlStateManager.push({
-      [ACTIVE_NAV]: activeNavEntry,
+
+    const updatedState = syncFiltersWithURL(detailsFor, activeNavEntry)
+    if (JSON.stringify(updatedState) !== JSON.stringify(urlStateManager.currentState())) {
+      urlStateManager.push(updatedState)
+    }
+  }, [loggedIn, detailsFor, activeNavEntry])
+
+  // Support for back button
+  useEffect(() => {
+    const unregisterStateListener = urlStateManager.onChange((state) => {
+      setFiltersFromURL(state?.[constants.ACTIVE_FILTERS], state?.[constants.SEARCH_TERM])
+      setShowPanel(state?.[constants.DETAILS_FOR])
+      setActiveNavEntry(state?.[constants.ACTIVE_NAV])
     })
-  }, [isURLRead, activeNavEntry])
+
+    return () => {
+      unregisterStateListener()
+    }
+  }, [])
 }
 
 export default useUrlState

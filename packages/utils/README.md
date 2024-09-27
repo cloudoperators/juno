@@ -1,8 +1,8 @@
-# utils
+# Juno utils
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-**utils** is a collection of utility functions, libraries, and hooks that are commonly used in building a Juno application.
+**Juno utils** is a collection of utility functions, libraries, and hooks that are commonly used in building a Juno application.
 
 ## Features
 
@@ -12,12 +12,12 @@
 
 ## Installation
 
-Add utils to dependencies in package.json:
+Add Juno utils to dependencies in package.json:
 
 ```json
 
   "dependencies": {
-    "@cloudoperators/utils": "*"
+    "@cloudoperators/juno-utils": "*"
   },
 
 ```
@@ -31,7 +31,7 @@ Add utils to dependencies in package.json:
 
 ```js
 //ViolationDetailsList.jsx
-(1) import {useEndlessScrollList} from "@cloudoperators/utils"
+(1) import {useEndlessScrollList} from "@cloudoperators/juno-utils"
 
 const ViolationDetailsList = ({items}) => {
 
@@ -121,7 +121,7 @@ Utilize this library to develop against mock data and without requiring any code
    // App.jsx
    import React { useEffect} from "react"
    import AppContent from "./components/AppContent"
-   import { fetchProxyInitDB } from "@cloudoperators/utils"
+   import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
    import db from "../db.json"
 
    const App = (props = {}) => {
@@ -141,7 +141,7 @@ Utilize this library to develop against mock data and without requiring any code
    ```js
    // AppContent.jsx
    import React, { useEffect, useState } from "react"
-   import { fetchProxy } from "@cloudoperators/utils"
+   import { fetchProxy } from "@cloudoperators/juno-utils"
 
    const AppContent = () => {
      const [data, setData] = useState(null)
@@ -254,7 +254,7 @@ Simply copy the following example and run it to explore how to use this library.
 
 ```js
 import React, { useEffect, useState } from "react"
-import { fetchProxy, fetchProxyInitDB } from "@cloudoperators/utils"
+import { fetchProxy, fetchProxyInitDB } from "@cloudoperators/juno-utils"
 
 const App = () => {
   const [data, setData] = useState(null)
@@ -334,7 +334,7 @@ If the application is hosted in a different server you can choose between:
 1. Import the react hook useAppLoader.
 
    ```js
-   import { useAppLoader } from "@cloudoperators/utils"
+   import { useAppLoader } from "@cloudoperators/juno-utils"
    ```
 
 2. Invoke the use hook useAppLoader by providing the assets URL.
@@ -394,7 +394,7 @@ Simply copy the following example and run it to explore how to use this library.
 
 ```js
 import React, { useEffect, useRef } from "react"
-import { useAppLoader } from "@cloudoperators/utils"
+import { useAppLoader } from "@cloudoperators/juno-utils"
 
 const App = () => {
   const { mount } = useAppLoader("https://assets.juno.qa-de-1.cloud.sap/")
@@ -427,7 +427,7 @@ npm run test
 If you're working within the Juno monorepo using workspaces, you can use:
 
 ````bash
-npm -w @cloudoperators/utils run test
+npm -w @cloudoperators/juno-utils run test
 ```@cloudoperators/
 
 ## Build
@@ -441,5 +441,5 @@ npm run build
 For Juno monorepo users within workspaces, you can use:
 
 ```bash
-npm -w @cloudoperators/utils run build
+npm -w @cloudoperators/juno-utils run build
 ```

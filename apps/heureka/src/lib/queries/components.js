@@ -4,15 +4,15 @@
  */
 
 import { gql } from "graphql-request"
-
 // gql
 // It is there for convenience so that you can get the tooling support
 // like prettier formatting and IDE syntax highlighting.
 // You can use gql from graphql-tag if you need it for some reason too.
-export default () => gql`
+
+// Main query for fetching Components data (excluding totalCount and pageInfo)
+export const componentsMainQuery = () => gql`
   query ($filter: ComponentFilter, $first: Int, $after: String) {
     Components(filter: $filter, first: $first, after: $after) {
-      totalCount
       edges {
         node {
           id
@@ -42,6 +42,15 @@ export default () => gql`
         }
         cursor
       }
+    }
+  }
+`
+
+// Count query for fetching totalCount and pageInfo for Components
+export const componentsCountQuery = () => gql`
+  query ($filter: ComponentFilter, $first: Int, $after: String) {
+    Components(filter: $filter, first: $first, after: $after) {
+      totalCount
       pageInfo {
         hasNextPage
         hasPreviousPage
