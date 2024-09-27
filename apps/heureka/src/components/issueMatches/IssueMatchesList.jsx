@@ -15,13 +15,13 @@ const IssueMatchesList = ({ items, isLoading }) => {
       {/* clickableTable Table allow changes the background by css when hovering or active*/}
       <DataGrid columns={7} className="clickableTable">
         <DataGridRow>
-          <DataGridHeadCell>Primary Name</DataGridHeadCell>
-          <DataGridHeadCell>CCRN</DataGridHeadCell>
-          <DataGridHeadCell>Target Remediation Date</DataGridHeadCell>
-          <DataGridHeadCell>Status</DataGridHeadCell>
           <DataGridHeadCell>Severity</DataGridHeadCell>
-          <DataGridHeadCell>Service Name</DataGridHeadCell>
-          <DataGridHeadCell>Support Group Name</DataGridHeadCell>
+          <DataGridHeadCell>Primary Name</DataGridHeadCell>
+          <DataGridHeadCell>Service</DataGridHeadCell>
+          <DataGridHeadCell>Resource</DataGridHeadCell>
+          <DataGridHeadCell>Support Group</DataGridHeadCell>
+          <DataGridHeadCell>Status</DataGridHeadCell>
+          <DataGridHeadCell>Target Remediation Date</DataGridHeadCell>
         </DataGridRow>
         {isLoading && !items ? (
           <DataGridRow>
