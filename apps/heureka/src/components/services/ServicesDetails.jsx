@@ -31,7 +31,7 @@ const ServicesDetail = () => {
   const { addMessage, resetMessages } = messageActions()
 
   const serviceElem = useQuery({
-    queryKey: ["Services", { filter: { serviceName: [showServiceDetail] } }],
+    queryKey: ["ServicesMain", { filter: { serviceName: [showServiceDetail] } }],
     enabled: !!queryClientFnReady,
   })
 

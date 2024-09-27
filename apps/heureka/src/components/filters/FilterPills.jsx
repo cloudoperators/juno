@@ -5,17 +5,16 @@
 
 import React from "react"
 import { Pill, Stack } from "@cloudoperators/juno-ui-components"
-import { useActiveFilters, useFilterActions } from "../../hooks/useAppStore"
+import { useFilterActions } from "../../hooks/useAppStore"
 import { humanizeString } from "../../lib/utils"
 
-const FilterPills = ({ entityName }) => {
-  const activeFilters = useActiveFilters(entityName)
+const FilterPills = ({ entityName, activeFilters }) => {
   const { removeActiveFilter } = useFilterActions()
 
   return (
     <Stack gap="2" wrap={true}>
-      {Object.entries(activeFilters || {}).map(([key, values]) => {
-        return values.map((value) => (
+      {Object.entries(activeFilters || {}).map(([key, values]) =>
+        values.map((value) => (
           <Pill
             pillKey={humanizeString(key)}
             pillValue={value}
@@ -24,7 +23,7 @@ const FilterPills = ({ entityName }) => {
             key={`${key}:${value}`}
           />
         ))
-      })}
+      )}
     </Stack>
   )
 }

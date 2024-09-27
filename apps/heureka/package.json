@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-heureka",
-  "version": "2.5.0",
+  "version": "2.7.0",
   "author": "UI-Team",
   "contributors": [
     "Hoda Noori, Arturo Reuschenbach Pucernau",
@@ -48,12 +48,6 @@
     "build": "NODE_ENV=production node esbuild.config.js",
     "lint": "eslint",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
-  },
-  "peerDependencies": {
-    "prop-types": "^15.8.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "zustand": "4.5.5"
   },
   "importmapExtras": {
     "zustand/middleware": "4.5.2"

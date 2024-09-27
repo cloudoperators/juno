@@ -5,41 +5,51 @@
 
 import React, { useEffect, useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import {
-  useGlobalsQueryClientFnReady,
-  useGlobalsQueryOptions,
-  useGlobalsActions,
-  useActiveFilters,
-  usePredefinedFilters,
-  useGlobalsActiveNavEntry,
-  useSearchTerm,
-} from "../../hooks/useAppStore"
+import { useGlobalsQueryClientFnReady, useGlobalsQueryOptions, useGlobalsActions } from "../../hooks/useAppStore"
 import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
+import { useGlobalsActiveNavEntry } from "../../hooks/useAppStore"
 
-const ListController = ({ queryKey, entityName, ListComponent }) => {
+const ListController = ({ queryKey, entityName, ListComponent, activeFilters, searchTerm, enableSearchAndFilter }) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
   const queryOptions = useGlobalsQueryOptions(queryKey)
   const { setQueryOptions } = useGlobalsActions()
   const { addMessage, resetMessages } = messageActions()
   const activeNavEntry = useGlobalsActiveNavEntry()
-  const activeFilters = useActiveFilters(entityName)
-  const predefinedFilters = usePredefinedFilters(entityName)
-  const searchTerm = useSearchTerm(entityName)
 
-  const { isLoading, data, error } = useQuery({
+  // Fetch view main data
+  const {
+    isLoading: isLoadingMain,
+    data: mainData,
+    error: mainError,
+  } = useQuery({
     queryKey: [
-      queryKey,
+      `${queryKey}Main`,
       {
         ...queryOptions,
         filter: {
           ...activeFilters,
-          ...predefinedFilters,
-          ...(["IssueMatches", "Services"].includes(entityName) && {
-            // Currently search is only available for IssueMatches and Services entity.
-            search: Array.isArray(searchTerm) ? searchTerm : [searchTerm], // Ensure searchTerm is an array
-          }),
+          ...(!!enableSearchAndFilter && searchTerm && searchTerm.length > 0 && { search: searchTerm }),
+        },
+      },
+    ],
+    enabled: !!queryClientFnReady && queryKey === activeNavEntry,
+  })
+
+  // Fetch view count and pageInfo
+  const {
+    isLoading: isLoadingCount,
+    data: countData,
+    error: countError,
+  } = useQuery({
+    queryKey: [
+      `${queryKey}Count`,
+      {
+        ...queryOptions,
+        filter: {
+          ...activeFilters,
+          ...(!!enableSearchAndFilter && searchTerm && searchTerm.length > 0 && { search: searchTerm }),
         },
       },
     ],
@@ -49,22 +59,22 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
   const [currentPage, setCurrentPage] = useState(1)
 
   const items = useMemo(() => {
-    if (!data) return null
-    return data?.[entityName]?.edges || []
-  }, [data, entityName])
+    if (!mainData) return null
+    return mainData?.[entityName]?.edges || []
+  }, [mainData, entityName])
 
   useEffect(() => {
-    if (!error) return resetMessages()
+    if (!mainError && !countError) return resetMessages()
     addMessage({
       variant: "error",
-      text: parseError(error),
+      text: parseError(mainError || countError),
     })
-  }, [error])
+  }, [mainError, countError, addMessage, resetMessages])
 
   const pageInfo = useMemo(() => {
-    if (!data) return null
-    return data?.[entityName]?.pageInfo
-  }, [data, entityName])
+    if (!countData) return null
+    return countData?.[entityName]?.pageInfo
+  }, [countData, entityName])
 
   const totalPages = useMemo(() => {
     if (!pageInfo?.pages) return 0
@@ -88,7 +98,7 @@ const ListController = ({ queryKey, entityName, ListComponent }) => {
   return (
     <>
       <Container py>
-        <ListComponent items={items} isLoading={isLoading} />
+        <ListComponent items={items} isLoading={isLoadingMain || isLoadingCount} />
       </Container>
       <Stack className="flex justify-end">
         <Pagination
