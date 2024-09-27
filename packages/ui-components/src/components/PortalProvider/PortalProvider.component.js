@@ -82,12 +82,14 @@ export function usePortalRef() {
       )
       return
     }
+    // create a portal container element and append it to the portal root container
     const containerElement = document.createElement("div")
     containerElement.style.position = "relative"
     containerElement.style.zIndex = "1"
     containerElement.classList.add("juno-portal")
     rootRef.current.append(containerElement)
     containerRef.current = containerElement
+    // mark the newly created container ready
     setIsReady(true)
 
     return () => {
@@ -102,7 +104,7 @@ export function usePortalRef() {
   if (!containerRef?.current) {
     return null
   }
-
+  // return the current of the ref or null if not yet ready
   return isReady ? containerRef.current : null
 }
 
