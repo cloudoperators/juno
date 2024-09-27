@@ -74,7 +74,10 @@ jobs:
         id: check-image
         run: |
           # If the image with this tag already exists, this command will exit with status code 1.
-          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }}
+          if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }}; then
+            echo "Image ${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} already exists in the registry"
+            exit 1
+          fi
 
       # This action enables you to SIGN and VERIFY container images using cosign
       - name: Install cosign
