@@ -1,5 +1,5 @@
 ---
-"@cloudoperators/juno-app-heureka": patch
+"@cloudoperators/juno-app-heureka": minor
 "@cloudoperators/juno-app-greenhouse": patch
 ---
 
