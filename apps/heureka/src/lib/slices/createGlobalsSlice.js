@@ -12,7 +12,7 @@ const createGlobalsSlice = (set, get, options) => ({
     apiEndpoint: options?.apiEndpoint, //The API endpoint to use for fetching data.
     isUrlStateSetup: false, //Set to true when the URL state has been set up.
     queryClientFnReady: false, //Set to true when the queryClient function is ready to be used.
-    activeNavEntry: "Services", //Set to the active navEntry.
+    activeView: "Services", //Set to the active navEntry.
     showPanel: constants.PANEL_NONE, //Set to the which panel should be shown (e.g service details panel, issue matches details panel and so on), if any.
 
     showServiceDetail: null,
@@ -63,13 +63,13 @@ const createGlobalsSlice = (set, get, options) => ({
           false,
           "globals/setApiEndpoint"
         ),
-      setActiveNavEntry: (activeNavEntry) =>
+      setActiveView: (activeView) =>
         set(
           (state) => ({
-            globals: { ...state.globals, activeNavEntry: activeNavEntry },
+            globals: { ...state.globals, activeView: activeView },
           }),
           false,
-          "globals/setActiveNavEntry"
+          "globals/setActiveView"
         ),
       setShowPanel: (panel) =>
         set(
