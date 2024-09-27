@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { Stack } from "../Stack/Stack.component"
+import { Stack } from "../../deprecated_js/Stack/Stack.component"
 
 /** A container to hold one or multiple buttons and space and align them. */
 export const ButtonRow = ({ children = null, className = "", ...props }) => {
