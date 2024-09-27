@@ -69,7 +69,8 @@ export const Pagination = ({
 
   const handleNextClick = (event) => {
     // set controlPage +1 if controlPage is not undefined and controlPage is less than controlTotalPage. Set conrolPage +1 also if controlTotalPage is undefined.
-    if (!controlTotalPage || (controlPage && controlPage < controlTotalPage)) {
+    if (controlPage) {
+      if ((controlPage < controlTotalPage) || !controlTotalPage) {
       setControlCurrentPage(controlPage + 1)
     }
     onPressNext && onPressNext(event)
