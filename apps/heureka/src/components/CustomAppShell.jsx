@@ -22,14 +22,14 @@ const CustomAppShell = ({ children }) => {
   const { setActiveView, setShowPanel } = useGlobalsActions()
   const activeView = useGlobalsActiveNavEntry()
 
-  const handleTabSelect = (item) => {
+  const handleNavItemChange = (item) => {
     setActiveView(item)
     setShowPanel(constants.PANEL_NONE) // Hide the panel when switching
   }
 
   // Create topNavigation with NavItems based on VIEW_CONFIG
   const topNavigation = (
-    <TopNavigation activeItem={activeView} onActiveItemChange={handleTabSelect}>
+    <TopNavigation activeItem={activeView} onActiveItemChange={handleNavItemChange}>
       {Object.entries(VIEW_CONFIG).map(([key, nav]) => (
         <TopNavigationItem key={key} icon={nav.icon} value={key} label={nav.label} />
       ))}
