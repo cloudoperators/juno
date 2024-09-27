@@ -26,4 +26,3 @@ export interface TabPanelProps {
   /** Add a custom classList to the TabPanel */
   className?: string
 }
-
