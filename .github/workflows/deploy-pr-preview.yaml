@@ -111,18 +111,34 @@ jobs:
           HEUREKA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}
           DOOP_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}
         run: |
-          echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
+          echo "<!DOCTYPE html><head><title>PR Preview</title></head><style> .failed { color: red; font-weight: bold; } </style><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
           if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
-            echo "<li><a href='./ui-components/index.html'>UI Components Storybook</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            if [ "${{ steps.build-storybook.outcome }}" == "success" ]; then
+              echo "<li><a href='./ui-components/index.html'>UI Components Storybook (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            else
+              echo "<li class='failed'>UI Components Storybook (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            fi
           fi
           if [ "$SUPERNOVA_CHANGED" = "true" ]; then
-            echo "<li><a href='./supernova/index.html'>Supernova</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            if [ "${{ steps.build-supernova.outcome }}" == "success" ]; then
+              echo "<li><a href='./supernova/index.html'>Supernova (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            else
+              echo "<li class='failed'>Supernova (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            fi
           fi
           if [ "$HEUREKA_CHANGED" = "true" ]; then
-            echo "<li><a href='./heureka/index.html'>Heureka</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            if [ "${{ steps.build-heureka.outcome }}" == "success" ]; then
+              echo "<li><a href='./heureka/index.html'>Heureka (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            else
+              echo "<li class='failed'>Heureka (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            fi
           fi
           if [ "$DOOP_CHANGED" = "true" ]; then
-            echo "<li><a href='./doop/index.html'>Doop</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            if [ "${{ steps.build-doop.outcome }}" == "success" ]; then
+              echo "<li><a href='./doop/index.html'>Doop (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            else
+              echo "<li class='failed'>Doop (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            fi
           fi
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
@@ -132,3 +148,24 @@ jobs:
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
+
+      - name: Fail workflow if any build step failed
+        if: github.event.action != 'closed'
+        env:
+          UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
+          SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
+          HEUREKA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}
+          DOOP_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}
+        run: |
+          if [ "$UI_COMPONENTS_CHANGED" = "true" ] && [ "${{ steps.build-storybook.outcome }}" != "success" ]; then
+            exit 1
+          fi
+          if [ "$SUPERNOVA_CHANGED" = "true" ] && [ "${{ steps.build-supernova.outcome }}" != "success" ]; then
+            exit 1
+          fi
+          if [ "$HEUREKA_CHANGED" = "true" ] && [ "${{ steps.build-heureka.outcome }}" != "success" ]; then
+            exit 1
+          fi
+          if [ "$DOOP_CHANGED" = "true" ] && [ "${{ steps.build-doop.outcome }}" != "success" ]; then
+            exit 1
+          fi
