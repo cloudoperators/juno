@@ -68,7 +68,8 @@ export const Pagination = ({
   }
 
   const handleNextClick = (event) => {
-    if (controlPage && controlPage < controlTotalPage) {
+    // set controlPage +1 if controlPage is not undefined and controlPage is less than controlTotalPage. Set conrolPage +1 also if controlTotalPage is undefined.
+    if (!controlTotalPage || (controlPage && controlPage < controlTotalPage)) {
       setControlCurrentPage(controlPage + 1)
     }
     onPressNext && onPressNext(event)
@@ -190,9 +191,9 @@ Pagination.propTypes = {
   pages: PropTypes.number,
   /** Disable component */
   disabled: PropTypes.bool,
-  /** Is the first page (mostly "1") - left button disabled */
+  /** Use this to have the Pagination emulate the state as being on the first page. Useful for when you don't have knowledge about pages but know that there is no previous page. Setting this to true leads to the left/prev button getting disabled */
   isFirstPage: PropTypes.bool,
-  /** Is the last page (e.g. total number of pages) - right button disabled */
+  /** Use this to have the Pagination emulate the state as being on the last page. Useful for when you don't have knowledge about pages/total page count but know that there is no next page. Setting this to true leads to the right/next button getting disabled */
   isLastPage: PropTypes.bool,
   /** onPress (previous) handler */
   onPressPrevious: PropTypes.func,
