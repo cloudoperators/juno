@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, act } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { MainTabs } from "./index"
 import { Tab } from "../Tab/index"
@@ -102,7 +102,7 @@ describe("MainTabs", () => {
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 2 content")).not.toBeInTheDocument()
-    await userEvent.click(screen.getByRole("tab", { name: "Tab 2" }))
+    await act(() => userEvent.click(screen.getByRole("tab", { name: "Tab 2" })))
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "true")
     expect(screen.getByText("Tab 2 content")).toBeInTheDocument()
@@ -124,12 +124,12 @@ describe("MainTabs", () => {
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 2 content")).not.toBeInTheDocument()
-    await userEvent.type(screen.getByTestId("tab-1"), "{arrowright}")
+    await act(() => userEvent.type(screen.getByTestId("tab-1"), "{arrowright}"))
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "true")
     expect(screen.queryByText("Tab 1 content")).not.toBeInTheDocument()
     expect(screen.getByText("Tab 2 content")).toBeInTheDocument()
-    await userEvent.type(screen.getByTestId("tab-2"), "{arrowright}")
+    await act(() => userEvent.type(screen.getByTestId("tab-2"), "{arrowright}"))
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "true")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
@@ -146,7 +146,7 @@ describe("MainTabs", () => {
         <TabPanel>Tab 1 content</TabPanel>
       </MainTabs>
     )
-    await userEvent.click(screen.getByRole("tab", { name: "Tab 1" }))
+    await act(() => userEvent.click(screen.getByRole("tab", { name: "Tab 1" })))
     expect(handleSelect).toHaveBeenCalledTimes(1)
   })
 

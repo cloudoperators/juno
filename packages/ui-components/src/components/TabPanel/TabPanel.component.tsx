@@ -10,7 +10,7 @@ import { TabPanel as ReactTabPanel } from "react-tabs"
 The TabPanel holds content related to a Tab in a TabList in a wrapping Tab component. Not to be used standalone / outside a Tabs wrapper.
 */
 
-const TabPanel = ({ children = null, className = "", ...props }: TabPanelProps) => {
+export const TabPanel = ({ children = null, className = "", ...props }: TabPanelProps) => {
   return (
     <ReactTabPanel className={`juno-tabpanel ${className}`} selectedClassName="juno-tabpanel-selected" {...props}>
       {children}
@@ -27,4 +27,3 @@ export interface TabPanelProps {
   className?: string
 }
 
-export { TabPanel }

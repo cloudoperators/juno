@@ -9,33 +9,33 @@ import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 
 const tabStyles = `
-	jn-flex
-	jn-font-bold
-	jn-px-[1.5625rem]
-	jn-items-center
-	jn-cursor-pointer
-	focus:jn-outline-none 
+  jn-flex
+  jn-font-bold
+  jn-px-[1.5625rem]
+  jn-items-center
+  jn-cursor-pointer
+  focus:jn-outline-none 
 `
 
 const disabledTabStyles = `
-	jn-pointer-events-none
-	jn-opacity-50
+  jn-pointer-events-none
+  jn-opacity-50
 `
 
 const selectedTabStyles = `
-	jn-border-b-[3px]
-	jn-border-theme-tab-active-bottom
+  jn-border-b-[3px]
+  jn-border-theme-tab-active-bottom
 `
 
 const iconStyles = `
-	jn-mr-2
+  jn-mr-2
 `
 
 /** A Tab Component representing an individual Tab inside a wrapping TabList inside a wrapping Tabs component. Not to be used standalone outside of the mentioned parent components.
 
 
 */
-const Tab = ({ children = null, label = "", icon, disabled = false, className = "", ...props }: TabProps) => {
+export const Tab = ({ children = null, label = "", icon, disabled = false, className = "", ...props }: TabProps) => {
   return (
     <ReactTab
       className={`juno-tab ${tabStyles} ${className}`}
@@ -52,7 +52,7 @@ const Tab = ({ children = null, label = "", icon, disabled = false, className = 
 
 Tab.tabsRole = "Tab"
 
-export type TabProps = {
+export interface TabProps extends ReactTabProps {
   /** The children to render inside the Tab (-button) */
   children?: any
   /** The Tab label (only rendered when no children are supplied) */
@@ -63,6 +63,4 @@ export type TabProps = {
   disabled?: boolean
   /** Add custom classNames to the Tab */
   className?: string
-} & ReactTabProps
-
-export { Tab }
+}

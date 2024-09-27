@@ -22,7 +22,7 @@ For a navigation that looks like tabs, but runs onClick handlers or contains hre
 Tabs are used to provide a tabbed section within the content area when combining static content and tabbed content on the same page. You will probably want to use a 'Container' (px=false) inside the TabPanels to get nice padding.
 */
 
-const Tabs = ({
+export const Tabs = ({
   children = null,
   defaultIndex,
   selectedIndex,
@@ -75,7 +75,7 @@ export type TabElement =
   | null
   | undefined
 
-export type TabsProps = {
+export interface TabsProps extends ReactTabsProps {
   /** All the child elements of the Tabs: Tab(s) inside a TabList and TabPanel(s) */
   children?: TabElement
   /** The index of the Tab to be selected by default in "Uncontrolled Mode" (default) where Tabs handle their state internally. Do not use in "Controlled Mode".*/
@@ -88,6 +88,4 @@ export type TabsProps = {
   variant?: TabsVariant
   /** Add a custom className to the whole Tabs construct */
   className?: string
-} & ReactTabsProps
-
-export { Tabs }
+}
