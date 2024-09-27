@@ -40,13 +40,18 @@ const useUrlState = () => {
 
       setFiltersFromURL(urlState[constants.ACTIVE_FILTERS], urlState[constants.SEARCH_TERM])
 
+      const currentDetailsFor = urlState[constants.DETAILS_FOR]
       // Set panel and details for service/issue
-      if (urlState[constants.DETAILS_FOR]) {
-        setShowPanel(urlState[constants.DETAILS_FOR])
-        if (urlState[constants.DETAILS_FOR] === constants.PANEL_SERVICE) {
-          setServiceDetail(urlState[constants.SERVICE_NAME]) // svn in the URL for selected service name to show its details panel
-        } else if (urlState[constants.DETAILS_FOR] === constants.PANEL_ISSUE) {
-          setIssueDetail(urlState[constants.ISSUE_ID]) // iid in the URL for selected issue ID to show its details panel
+      if (currentDetailsFor) {
+        setShowPanel(currentDetailsFor)
+
+        switch (currentDetailsFor) {
+          case constants.PANEL_SERVICE:
+            setServiceDetail(urlState[constants.SERVICE_NAME]) // Show service details panel
+            break
+          case constants.PANEL_ISSUE:
+            setIssueDetail(urlState[constants.ISSUE_ID]) // Show issue details panel
+            break
         }
       }
     }
@@ -79,10 +84,16 @@ const useUrlState = () => {
       setShowPanel(state?.[constants.DETAILS_FOR])
 
       // Set details for service/issue based on the URL state
-      if (state?.[constants.DETAILS_FOR] === constants.PANEL_SERVICE) {
-        setServiceDetail(state?.[constants.SERVICE_NAME])
-      } else if (state?.[constants.DETAILS_FOR] === constants.PANEL_ISSUE) {
-        setIssueDetail(state?.[constants.ISSUE_ID])
+      const currentDetailFor = state?.[constants.DETAILS_FOR]
+      if (currentDetailFor) {
+        switch (currentDetailFor) {
+          case constants.PANEL_SERVICE:
+            setServiceDetail(urlState[constants.SERVICE_NAME]) // Show service details panel
+            break
+          case constants.PANEL_ISSUE:
+            setIssueDetail(urlState[constants.ISSUE_ID]) // Show issue details panel
+            break
+        }
       }
     })
 
