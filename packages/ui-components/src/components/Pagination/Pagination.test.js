@@ -154,7 +154,7 @@ describe("Pagination", () => {
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
   })
 
-  test("fires onPressNext handler with higher currentPage than totalPages", () => {
+  test("does not fire onPressNext handler with higher currentPage than totalPages", () => {
     const handlePressNext = jest.fn()
     render(
       <Pagination
