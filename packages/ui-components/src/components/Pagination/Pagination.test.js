@@ -216,7 +216,7 @@ describe("Pagination", () => {
     })
   })
 
-  test("fires onKeyPress handler on Enter as passed for input variant with undefined controlPage", async () => {
+  test("does not fire onKeyPress handler on Enter for input variant with undefined controlPage", async () => {
     const handleKeyPress = jest.fn()
     await waitFor(() => {
       render(<Pagination variant="input" currentPage={undefined} onKeyPress={handleKeyPress} />)
