@@ -33,7 +33,7 @@ const ServicesDetail = () => {
 
   const serviceElem = useQuery({
     queryKey: ["ServicesMain", { filter: { serviceName: [showServiceDetail] } }],
-    enabled: !!queryClientFnReady,
+    enabled: !!queryClientFnReady && !!showServiceDetail,
   })
 
   const users = useQuery({

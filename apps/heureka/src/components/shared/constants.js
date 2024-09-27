@@ -10,5 +10,7 @@ module.exports = {
   ACTIVE_FILTERS: "f",
   SEARCH_TERM: "s",
   DETAILS_FOR: "d",
-  ACTIVE_NAV: "n",
+  ACTIVE_VIEW: "v",
+  SERVICE_NAME: "svc", // Abbreviation for service name
+  ISSUE_ID: "iid", // Abbreviation for issue ID
 }

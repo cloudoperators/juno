@@ -8,7 +8,7 @@ import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import {
   useAuthLoggedIn,
   useGlobalsShowPanel,
-  useGlobalsActiveNavEntry,
+  useGlobalsActiveView,
   useGlobalsActions,
   useFilterActions,
 } from "./useAppStore"
@@ -21,9 +21,9 @@ const useUrlState = () => {
   const loggedIn = useAuthLoggedIn()
   const { setFiltersFromURL, syncFiltersWithURL } = useFilterActions()
 
-  const activeView = useGlobalsActiveNavEntry()
-  const { setShowPanel, setActiveView } = useGlobalsActions()
+  const activeView = useGlobalsActiveView()
   const detailsFor = useGlobalsShowPanel()
+  const { setShowPanel, setActiveView, setServiceDetail, setIssueDetail, syncDetailsWithURL } = useGlobalsActions()
 
   // Set initial state from URL (on login)
   useLayoutEffect(() => {
@@ -31,9 +31,24 @@ const useUrlState = () => {
 
     const urlState = urlStateManager.currentState()
     if (urlState) {
+      // Set the active view
+      if (urlState[constants.ACTIVE_VIEW]) {
+        setActiveView(urlState[constants.ACTIVE_VIEW])
+      } else {
+        setActiveView("Services") // Default active view
+      }
+
       setFiltersFromURL(urlState[constants.ACTIVE_FILTERS], urlState[constants.SEARCH_TERM])
-      if (urlState[constants.DETAILS_FOR]) setShowPanel(urlState[constants.DETAILS_FOR])
-      if (urlState[constants.ACTIVE_NAV]) setActiveView(urlState[constants.ACTIVE_NAV])
+
+      // Set panel and details for service/issue
+      if (urlState[constants.DETAILS_FOR]) {
+        setShowPanel(urlState[constants.DETAILS_FOR])
+        if (urlState[constants.DETAILS_FOR] === constants.PANEL_SERVICE) {
+          setServiceDetail(urlState[constants.SERVICE_NAME]) // svn in the URL for selected service name to show its details panel
+        } else if (urlState[constants.DETAILS_FOR] === constants.PANEL_ISSUE) {
+          setIssueDetail(urlState[constants.ISSUE_ID]) // iid in the URL for selected issue ID to show its details panel
+        }
+      }
     }
 
     setIsURLRead(true)
@@ -43,8 +58,15 @@ const useUrlState = () => {
   useEffect(() => {
     if (!isURLRead) return
 
-    const updatedState = syncFiltersWithURL(detailsFor, activeView)
-    if (JSON.stringify(updatedState) !== JSON.stringify(urlStateManager.currentState())) {
+    const updatedState = {
+      [constants.ACTIVE_VIEW]: activeView, // Include active view
+      ...syncFiltersWithURL(),
+      ...syncDetailsWithURL(),
+    }
+
+    // Construct the URL state in the desired format
+    const currentState = urlStateManager.currentState()
+    if (JSON.stringify(updatedState) !== JSON.stringify(currentState)) {
       urlStateManager.push(updatedState)
     }
   }, [loggedIn, detailsFor, activeView])
@@ -52,9 +74,16 @@ const useUrlState = () => {
   // Support for back button
   useEffect(() => {
     const unregisterStateListener = urlStateManager.onChange((state) => {
+      setActiveView(state?.[constants.ACTIVE_VIEW])
       setFiltersFromURL(state?.[constants.ACTIVE_FILTERS], state?.[constants.SEARCH_TERM])
       setShowPanel(state?.[constants.DETAILS_FOR])
-      setActiveView(state?.[constants.ACTIVE_NAV])
+
+      // Set details for service/issue based on the URL state
+      if (state?.[constants.DETAILS_FOR] === constants.PANEL_SERVICE) {
+        setServiceDetail(state?.[constants.SERVICE_NAME])
+      } else if (state?.[constants.DETAILS_FOR] === constants.PANEL_ISSUE) {
+        setIssueDetail(state?.[constants.ISSUE_ID])
+      }
     })
 
     return () => {
