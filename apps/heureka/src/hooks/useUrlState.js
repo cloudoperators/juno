@@ -64,7 +64,7 @@ const useUrlState = () => {
       ...syncDetailsWithURL(),
     }
 
-    // Construct the URL state in the desired format
+    // Construct the URL state
     const currentState = urlStateManager.currentState()
     if (JSON.stringify(updatedState) !== JSON.stringify(currentState)) {
       urlStateManager.push(updatedState)

@@ -11,6 +11,6 @@ module.exports = {
   SEARCH_TERM: "s",
   DETAILS_FOR: "d",
   ACTIVE_VIEW: "v",
-  SERVICE_NAME: "svc", // Abbreviation for service name
-  ISSUE_ID: "iid", // Abbreviation for issue ID
+  SERVICE_NAME: "svc", // Abbreviation for service name in the URL
+  ISSUE_ID: "iid", // Abbreviation for issue ID in the URL
 }
