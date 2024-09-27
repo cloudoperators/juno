@@ -19,6 +19,9 @@ export default {
     successtext: {
       control: false,
     },
+    value: {
+      control: { type: "text" },
+    },
   },
 }
 
