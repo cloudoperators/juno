@@ -9,8 +9,8 @@ import { listOfCommaSeparatedObjs, formatDate, cellSeverityClasses } from "../sh
 import constants from "../shared/constants"
 import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowIssueDetail } from "../../hooks/useAppStore"
 
-// Helper function to extract the last four parts of a URL - used for displaying ccrn
-export const extractLastFourParts = (url) => {
+// Helper function to extract the last four parts of a URL - used for displaying ccrn as resource column
+export const extractResourceInfo = (url) => {
   if (!url) return ""
   const parts = url.split("/")
   return parts.slice(-4).join("/")
@@ -34,7 +34,7 @@ const IssueMatchesListItem = ({ item }) => {
   }
   const severity = item?.node?.severity?.value
   // Extract the most important (last 4) parts of ccrn for the Resource column
-  const extractedCcrn = extractLastFourParts(item?.node?.componentInstance?.ccrn)
+  const extractedCcrn = extractResourceInfo(item?.node?.componentInstance?.ccrn)
 
   return (
     <DataGridRow
