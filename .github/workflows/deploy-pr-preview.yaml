@@ -68,6 +68,7 @@ jobs:
 
       - name: Build storybook if changes detected
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'ui-components')
+        id: build-storybook
         run: |
           npm -w @cloudoperators/juno-ui-components run build-storybook
           cp -r packages/ui-components/storybook-static ${{ env.DEPLOY_PATH }}/ui-components
@@ -75,6 +76,7 @@ jobs:
 
       - name: Build supernova if changes detected
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'supernova')
+        id: build-supernova
         run: |
           ./.github/scripts/build-app.sh
         env:
@@ -85,6 +87,7 @@ jobs:
 
       - name: Build heureka if changes detected
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'heureka')
+        id: build-heureka
         run: |
           ./.github/scripts/build-app.sh
         env:
@@ -95,6 +98,7 @@ jobs:
 
       - name: Build DOOP if changes detected
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'doop')
+        id: build-doop
         run: |
           ./.github/scripts/build-app.sh
         env:
