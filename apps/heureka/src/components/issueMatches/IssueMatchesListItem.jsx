@@ -5,9 +5,16 @@
 
 import React from "react"
 import { DataGridRow, DataGridCell } from "@cloudoperators/juno-ui-components"
-import { listOfCommaSeparatedObjs, formatDate, extractLastFourParts, cellSeverityClasses } from "../shared/Helper"
+import { listOfCommaSeparatedObjs, formatDate, cellSeverityClasses } from "../shared/Helper"
 import constants from "../shared/constants"
 import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowIssueDetail } from "../../hooks/useAppStore"
+
+// Helper function to extract the last four parts of a URL - used for displaying ccrn
+export const extractLastFourParts = (url) => {
+  if (!url) return ""
+  const parts = url.split("/")
+  return parts.slice(-4).join("/")
+}
 
 const IssueMatchesListItem = ({ item }) => {
   const { setShowPanel, setShowIssueDetail } = useGlobalsActions()

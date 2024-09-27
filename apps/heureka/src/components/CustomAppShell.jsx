@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from "react"
+import React from "react"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActions, useGlobalsActiveNavEntry } from "../hooks/useAppStore"
 import ServicesView from "./services/ServicesView"
@@ -28,15 +28,12 @@ const CustomAppShell = ({ children }) => {
   }
 
   // Create topNavigation with NavItems based on VIEW_CONFIG
-  const topNavigation = useMemo(
-    () => (
-      <TopNavigation activeItem={activeView} onActiveItemChange={handleTabSelect}>
-        {Object.entries(VIEW_CONFIG).map(([key, nav]) => (
-          <TopNavigationItem key={key} icon={nav.icon} value={key} label={nav.label} />
-        ))}
-      </TopNavigation>
-    ),
-    [activeView, handleTabSelect]
+  const topNavigation = (
+    <TopNavigation activeItem={activeView} onActiveItemChange={handleTabSelect}>
+      {Object.entries(VIEW_CONFIG).map(([key, nav]) => (
+        <TopNavigationItem key={key} icon={nav.icon} value={key} label={nav.label} />
+      ))}
+    </TopNavigation>
   )
 
   // Get the component to render based on activeView
