@@ -16,7 +16,7 @@ const ListController = ({ queryKey, entityName, ListComponent, activeFilters, se
   const queryOptions = useGlobalsQueryOptions(queryKey)
   const { setQueryOptions } = useGlobalsActions()
   const { addMessage, resetMessages } = messageActions()
-  const activeNavEntry = useGlobalsActiveNavEntry()
+  const activeView = useGlobalsActiveNavEntry()
 
   // Fetch view main data
   const {
@@ -34,7 +34,7 @@ const ListController = ({ queryKey, entityName, ListComponent, activeFilters, se
         },
       },
     ],
-    enabled: !!queryClientFnReady && queryKey === activeNavEntry,
+    enabled: !!queryClientFnReady && queryKey === activeView,
   })
 
   // Fetch view count and pageInfo
@@ -53,7 +53,7 @@ const ListController = ({ queryKey, entityName, ListComponent, activeFilters, se
         },
       },
     ],
-    enabled: !!queryClientFnReady && queryKey === activeNavEntry,
+    enabled: !!queryClientFnReady && queryKey === activeView,
   })
 
   const [currentPage, setCurrentPage] = useState(1)

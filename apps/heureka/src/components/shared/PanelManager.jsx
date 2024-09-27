@@ -31,7 +31,7 @@ const PanelManger = () => {
           <Stack gap="2">
             <span>
               {showPanel === constants.PANEL_SERVICE && showServiceDetail}
-              {showPanel === constants.PANEL_ISSUE && "Detail"}
+              {showPanel === constants.PANEL_ISSUE && "Details"}
             </span>
           </Stack>
         }
