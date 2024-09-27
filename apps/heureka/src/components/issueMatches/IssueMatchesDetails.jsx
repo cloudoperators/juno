@@ -45,10 +45,16 @@ const IssueMatchesDetails = () => {
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>
+            <DataGridHeadCell>CCRN</DataGridHeadCell>
+            <DataGridCell>
+              <LoadElement elem={issue?.componentInstance?.ccrn} />
+            </DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
             <DataGridHeadCell>Target Remediation Date</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement elem={formatDate(issue?.node?.targetRemediationDate)} />
+              <LoadElement elem={formatDate(issue?.targetRemediationDate)} />
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>

@@ -21,8 +21,8 @@ const useUrlState = () => {
   const loggedIn = useAuthLoggedIn()
   const { setFiltersFromURL, syncFiltersWithURL } = useFilterActions()
 
-  const activeNavEntry = useGlobalsActiveNavEntry()
-  const { setShowPanel, setActiveNavEntry } = useGlobalsActions()
+  const activeView = useGlobalsActiveNavEntry()
+  const { setShowPanel, setActiveView } = useGlobalsActions()
   const detailsFor = useGlobalsShowPanel()
 
   // Set initial state from URL (on login)
@@ -33,7 +33,7 @@ const useUrlState = () => {
     if (urlState) {
       setFiltersFromURL(urlState[constants.ACTIVE_FILTERS], urlState[constants.SEARCH_TERM])
       if (urlState[constants.DETAILS_FOR]) setShowPanel(urlState[constants.DETAILS_FOR])
-      if (urlState[constants.ACTIVE_NAV]) setActiveNavEntry(urlState[constants.ACTIVE_NAV])
+      if (urlState[constants.ACTIVE_NAV]) setActiveView(urlState[constants.ACTIVE_NAV])
     }
 
     setIsURLRead(true)
@@ -43,18 +43,18 @@ const useUrlState = () => {
   useEffect(() => {
     if (!isURLRead) return
 
-    const updatedState = syncFiltersWithURL(detailsFor, activeNavEntry)
+    const updatedState = syncFiltersWithURL(detailsFor, activeView)
     if (JSON.stringify(updatedState) !== JSON.stringify(urlStateManager.currentState())) {
       urlStateManager.push(updatedState)
     }
-  }, [loggedIn, detailsFor, activeNavEntry])
+  }, [loggedIn, detailsFor, activeView])
 
   // Support for back button
   useEffect(() => {
     const unregisterStateListener = urlStateManager.onChange((state) => {
       setFiltersFromURL(state?.[constants.ACTIVE_FILTERS], state?.[constants.SEARCH_TERM])
       setShowPanel(state?.[constants.DETAILS_FOR])
-      setActiveNavEntry(state?.[constants.ACTIVE_NAV])
+      setActiveView(state?.[constants.ACTIVE_NAV])
     })
 
     return () => {
