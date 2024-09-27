@@ -17,7 +17,6 @@ ADD . .
 
 RUN npm install && npx turbo build --filter @cloudoperators/juno-app-greenhouse
 
-
 FROM nginx:alpine
 
 RUN apk add --no-cache jq \
@@ -49,6 +48,12 @@ COPY apps/greenhouse/docker/index.html .
 COPY apps/greenhouse/docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY apps/greenhouse/public/favicon.ico /usr/share/nginx/html/favicon.ico
 COPY apps/greenhouse/docker/entrypoint.sh /usr/local/bin/entrypoint.sh 
+
+COPY --from=build /juno/apps/greenhouse/package.json /tmp/greenhouse/package.json
+RUN \
+  version="$(jq -r '.version' /tmp/greenhouse/package.json)" && \ 
+  # replace %VERSION% in index.html with version
+  sed -i "s/%VERSION%/$version/g" /usr/share/nginx/html/index.html 
 
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
