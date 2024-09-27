@@ -43,7 +43,7 @@ const CustomAppShell = ({ children }) => {
   const ActiveComponent = VIEW_CONFIG[activeView]?.component
 
   return (
-    <AppShell pageHeader={<PageHeader heading="Heureka" />} topNavigation={topNavigation}>
+    <AppShell pageHeader={<PageHeader heading="Converged Cloud | Heureka" />} topNavigation={topNavigation}>
       {ActiveComponent && <ActiveComponent />}
       {children}
     </AppShell>
