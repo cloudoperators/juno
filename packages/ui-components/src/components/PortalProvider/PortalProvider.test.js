@@ -45,6 +45,5 @@ describe("PortalProvider", () => {
 
   // ("removes the parent element when the portalled content unmounts")
   // ("renders individual .juno-portal containers for multiple portalled components")
-  // ("render parent using usePortalRef")
   // ("keep parent ref in context")
 })

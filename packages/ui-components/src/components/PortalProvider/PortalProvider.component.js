@@ -16,6 +16,17 @@ const portalStyles = {
   position: "relative",
   zIndex: "1",
 }
+/** Discuss/decide:
+ * add usePortal(<StuffToRender/>) hook?
+ * add onMount/onMount props? (Portal component only, not sure whether this would be possible with he hook(s)?)
+ */
+
+/** Review:
+ * component behaviour over lifecycle:
+ * is context properly updated when root changes or unmounts?
+ * are containers properly updated when components calling them change?
+ * are containers properly removed when componetns unmount (e.g. when closing a modal?)
+ */
 
 /** A PortalProvider.Portal component to directly use from within other components:
  *  ```
