@@ -20,14 +20,8 @@ vi.mock("./styles.module.scss", () => ({
   }),
 }))
 
-// Mock BroadcastChannel
-// globalThis.BroadcastChannel = jest.fn(() => ({
-//   postMessage: jest.fn(),
-//   close: jest.fn(),
-// }))
-
 describe("App", () => {
-  it("should render the App component", async () => {
+  it("should render the App component", () => {
     render(<App id="123" />)
     const loginTitle = screen.queryAllByShadowText(/DOOP/i)
     expect(loginTitle.length > 0).toBe(true)
