@@ -8,7 +8,7 @@ import React from "react"
 import { PanelFooter } from "./index.js"
 import { ContentAreaWrapper } from "../ContentAreaWrapper/index.js"
 import { ContentArea } from "../ContentArea/index.js"
-import { Button } from "../Button/index.js"
+import { Button } from "../../deprecated_js/Button/index.js"
 import { Panel } from "../Panel/index.js"
 import { PanelBody } from "../PanelBody/index.js"
 
