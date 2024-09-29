@@ -5,7 +5,7 @@
 
 import { useEffect, useLayoutEffect } from "react"
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
-import { useActions, useIsUrlStateSetup, usePluginActive, useIsLoggedIn } from "../components/StoreProvider"
+import { useActions, useIsUrlStateSetup, useActivePlugin, useIsLoggedIn } from "../StoreProvider"
 
 // url state manager
 const URL_APP_STATE_KEY = "greenhouse-org-admin"
@@ -15,7 +15,7 @@ const urlStateManager = registerConsumer(URL_APP_STATE_KEY)
 const useUrlState = () => {
   const { setPluginActive, setIsUrlStateSetup } = useActions()
   const isUrlStateSetup = useIsUrlStateSetup()
-  const pluginActive = usePluginActive()
+  const activePlugin = useActivePlugin()
   const isLoggedIn = useIsLoggedIn()
 
   // Initial state from URL AFTER
@@ -40,10 +40,10 @@ const useUrlState = () => {
     // this prevents the history from being filled with the same state
     // and therefore prevents the forward button from being disabled
     // This small optimization allows the user to go back and forth!
-    if (urlStateManager.currentState()?.[ACTIVE_APP_KEY] === pluginActive) return
+    if (urlStateManager.currentState()?.[ACTIVE_APP_KEY] === activePlugin) return
 
-    urlStateManager.push({ [ACTIVE_APP_KEY]: pluginActive })
-  }, [isUrlStateSetup, pluginActive])
+    urlStateManager.push({ [ACTIVE_APP_KEY]: activePlugin })
+  }, [isUrlStateSetup, activePlugin])
 }
 
 export default useUrlState

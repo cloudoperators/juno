@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { useIsLoggedIn } from "./StoreProvider"
+import { useIsLoggedIn } from "../StoreProvider"
 import HintLoading from "./shared/HintLoading"
 
 // Adds a loading screen while during auth
