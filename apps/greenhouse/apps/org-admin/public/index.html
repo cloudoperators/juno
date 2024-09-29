@@ -75,13 +75,13 @@
 
       // load the auth app by passing the authProps
       const authScript = document.createElement("script")
-      authScript.src = "https://assets.juno.qa-de-1.cloud.sap/apps/widget-loader@latest/build/app.js"
+      authScript.src = "https://assets.juno.global.cloud.sap/apps/widget-loader@latest/build/app.js"
       authScript.setAttribute("data-name", "auth")
       authScript.setAttribute("data-version", "latest")
       authScript.setAttribute("data-props-debug", "true")
       authScript.setAttribute("data-props-initial-login", "true")
-      authScript.setAttribute("data-props-issuerUrl", authProps?.issuerUrl)
-      authScript.setAttribute("data-props-clientId", authProps?.clientId)
+      authScript.setAttribute("data-props-issuerUrl", authProps?.authIssuerUrl)
+      authScript.setAttribute("data-props-clientId", authProps?.authClientId)
       document.body.appendChild(authScript)
     </script>
     <div id="root" data-juno-app="greenhouse-org-admin"></div>

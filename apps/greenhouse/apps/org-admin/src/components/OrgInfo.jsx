@@ -5,7 +5,7 @@
 
 import React, { useMemo, useEffect, useState } from "react"
 import { createClient } from "sapcc-k8sclient"
-import { useApiEndpoint, useAuthData } from "./StoreProvider"
+import { useApiEndpoint, useAuthData } from "../StoreProvider"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 
 // Shows organization info
@@ -57,43 +57,6 @@ const OrgInfo = () => {
       </div>
       {org?.description && <p className="org-description">{org?.description}</p>}
       {!org?.name && <p className="org-description"></p>}
-      {/* <div className="grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] auto-rows-[minmax(8rem,_1fr)] gap-6 pt-8">
-        <Stack
-          direction="vertical"
-          alignment="start"
-          distribution="between"
-          className="org-info-item bg-theme-background-lvl-1 p-4"
-        >
-          <h2 className="text-lg font-bold">Thing 1</h2>
-          <div className="bg-theme-background-lvl-4 py-2 px-3 inline-flex">
-            23
-          </div>
-        </Stack>
-
-        <Stack
-          direction="vertical"
-          alignment="start"
-          distribution="between"
-          className="org-info-item bg-theme-background-lvl-1 p-4"
-        >
-          <h2 className="text-lg font-bold">Thing 2</h2>
-          <div className="bg-theme-background-lvl-4 py-2 px-3 inline-flex">
-            42
-          </div>
-        </Stack>
-
-        <Stack
-          direction="vertical"
-          alignment="start"
-          distribution="between"
-          className="org-info-item bg-theme-background-lvl-1 p-4"
-        >
-          <h2 className="text-lg font-bold">Thing 3</h2>
-          <div className="bg-theme-background-lvl-4 py-2 px-3 inline-flex">
-            4711
-          </div>
-        </Stack>
-      </div> */}
     </div>
   )
 }
