@@ -10,10 +10,6 @@ const APPS = [
   path.resolve(APPS_ROOT, "heureka"),
   path.resolve(APPS_ROOT, "doop"),
   path.resolve(APPS_ROOT, "greenhouse/apps/org-admin"),
-  path.resolve(APPS_ROOT, "greenhouse/apps/cluster-admin"),
-  path.resolve(APPS_ROOT, "greenhouse/apps/plugin-admin"),
-  path.resolve(APPS_ROOT, "greenhouse/apps/secret-admin"),
-  path.resolve(APPS_ROOT, "greenhouse/apps/team-admin"),
 ]
 
 let envPlugin = {

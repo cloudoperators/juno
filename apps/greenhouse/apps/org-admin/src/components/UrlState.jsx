@@ -5,7 +5,7 @@
 
 import React from "react"
 import HintLoading from "./shared/HintLoading"
-import { useIsUrlStateSetup } from "./StoreProvider"
+import { useIsUrlStateSetup } from "../StoreProvider"
 
 const UrlState = ({ children }) => {
   const isUrlStateSetup = useIsUrlStateSetup()

@@ -5,7 +5,7 @@
 
 import { useEffect } from "react"
 import { get, watch } from "@cloudoperators/juno-communicator"
-import { useActions } from "../components/StoreProvider"
+import { useActions } from "../StoreProvider"
 
 const useCommunication = () => {
   const { setAuthData: setAuthData } = useActions()
