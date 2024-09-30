@@ -6,7 +6,8 @@
 import * as React from "react"
 import { renderHook, act } from "@testing-library/react"
 import StoreProvider, { useDataActions, useFiltersActions, useDataFilteredItems } from "../../components/StoreProvider"
-import data from "../../../db.json"
+
+import data from "../../db.json"
 
 describe("createFiltersSlice", () => {
   describe("set", () => {
