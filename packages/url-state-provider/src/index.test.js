@@ -16,18 +16,18 @@ Object.defineProperty(window, "location", {
   },
 })
 
-window.history.replaceState = jest.fn().mockImplementation((state, title, url) => {
+window.history.replaceState = vi.fn().mockImplementation((state, title, url) => {
   window.location.href = url
 })
 
-window.history.pushState = jest.fn().mockImplementation((state, title, url) => {
+window.history.pushState = vi.fn().mockImplementation((state, title, url) => {
   window.location.href = url
 })
 
 describe("currentState", () => {
   describe("url does not contain state inforamtion", () => {
     beforeAll(() => {
-      jest.resetModules()
+      vi.resetModules()
       window.location.href = "http://localhost?prop1=test"
     })
 
@@ -46,7 +46,7 @@ describe("currentState", () => {
     })
 
     beforeAll(() => {
-      jest.resetModules()
+      vi.resetModules()
       window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2"
     })
 
@@ -71,7 +71,7 @@ describe("currentState", () => {
     })
 
     beforeAll(() => {
-      jest.resetModules()
+      vi.resetModules()
       window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2"
     })
 
@@ -89,7 +89,7 @@ describe("currentState", () => {
     })
 
     beforeAll(() => {
-      jest.resetModules()
+      vi.resetModules()
       delete window["__url_state_provider"]
       window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2"
       provider.push("consumer1", { p: "/about", o: { tab: 1 } })
@@ -129,7 +129,7 @@ describe("currentState", () => {
 
     describe("search params are empty", () => {
       beforeAll(() => {
-        jest.resetModules()
+        vi.resetModules()
         delete window["__url_state_provider"]
         window.location.href = "http://localhost"
         provider.push("consumer1", { p: "/about" })
@@ -173,7 +173,7 @@ describe("currentState", () => {
     })
 
     beforeAll(() => {
-      jest.resetModules()
+      vi.resetModules()
       delete window["__url_state_provider"]
       window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2"
       provider.replace("consumer1", { p: "/about", o: { tab: 1 } })
@@ -212,7 +212,7 @@ describe("currentState", () => {
 
     describe("search params are empty", () => {
       beforeAll(() => {
-        jest.resetModules()
+        vi.resetModules()
         delete window["__url_state_provider"]
         window.location.href = "http://localhost"
         provider.replace("consumer1", { p: "/about" })
@@ -231,8 +231,8 @@ describe("currentState", () => {
   describe("addOnChangeListener", () => {
     var listener
     beforeAll(() => {
-      jest.resetModules()
-      listener = jest.fn(() => null)
+      vi.resetModules()
+      listener = vi.fn(() => null)
     })
 
     it("should register a new listener", () => {
@@ -263,8 +263,8 @@ describe("currentState", () => {
   describe("removeOnChangeListener", () => {
     var listener
     beforeAll(() => {
-      jest.resetModules()
-      listener = jest.fn(() => null)
+      vi.resetModules()
+      listener = vi.fn(() => null)
     })
 
     it("should register a new listener", () => {

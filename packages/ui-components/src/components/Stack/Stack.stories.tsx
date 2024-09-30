@@ -6,7 +6,7 @@
 import React from "react"
 import DummyComponent from "../../dummyComponents/DummyComponent"
 
-import { Stack } from "./index.js"
+import { Stack, StackDirection, StackProps } from "./Stack.component"
 
 export default {
   title: "Layout/Stack",
@@ -57,24 +57,24 @@ export default {
   },
 }
 
-const docuClassnames = (direction) => {
+const docuClassnames = (direction: StackDirection | undefined) => {
   return `
     bg-theme-background-lvl-3
     ${direction === "vertical" ? "jn-w-full jn-h-80" : "jn-h-24"}
     `
 }
 
-const Template = (args) => (
+const Template = (args: StackProps) => (
   <Stack className={docuClassnames(args.direction)} {...args}>
-    {[...Array(5)].map((_, i) => {
-      return <DummyComponent key={i} label={i} />
+    {[...Array<unknown>(5)].map((_, i) => {
+      return <DummyComponent key={i} label={`${i}`} />
     })}
   </Stack>
 )
-const TemplateManyChildren = (args) => (
-  <Stack className="jn-bg-theme-background-lvl-3" {...args}>
-    {[...Array(15)].map((_, i) => {
-      return <DummyComponent key={i} label={i} />
+const TemplateManyChildren = (args: StackProps) => (
+  <Stack {...args} className="jn-bg-theme-background-lvl-3">
+    {[...Array<unknown>(15)].map((_, i) => {
+      return <DummyComponent key={i} label={`${i}`} />
     })}
   </Stack>
 )

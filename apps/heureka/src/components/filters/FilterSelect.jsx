@@ -65,7 +65,7 @@ const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, 
         <Button label="Clear all" onClick={() => clearActiveFilters(entityName)} variant="subdued" />
       )}
       <SearchInput
-        placeholder="Search term or wildcard (e.g., *term*)"
+        placeholder="Search term"
         className="w-96 ml-auto"
         value={searchTerm || ""}
         onSearch={(value) => setSearchTerm(entityName, value)}

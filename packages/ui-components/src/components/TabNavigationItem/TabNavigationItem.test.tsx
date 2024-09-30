@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { render, screen, cleanup, act } from "@testing-library/react"
+import { render, screen, cleanup, waitFor } from "@testing-library/react"
 import { TabNavigationItem } from "./index"
 import { TabNavigation } from "../TabNavigation/index"
 
@@ -76,14 +76,14 @@ describe("TabNavigationItem", () => {
     expect(screen.getByRole("button")).not.toHaveClass("juno-navigation-item-active")
   })
 
-  test("executes an onClick handler as passed", () => {
+  test("executes an onClick handler as passed", async () => {
     render(
       <TabNavigation>
         <TabNavigationItem data-testid={"tab-nav-item"} onClick={mockOnClick} />
       </TabNavigation>
     )
     expect(screen.getByTestId("tab-nav-item")).toBeInTheDocument()
-    act(() => {
+    await waitFor(() => {
       screen.getByTestId("tab-nav-item").click()
     })
     expect(mockOnClick).toHaveBeenCalled()

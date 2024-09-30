@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { TextInput } from "./index.js"
+import { TextInput } from "./index"
 
 export default {
   title: "Forms/TextInput",
@@ -18,6 +18,9 @@ export default {
     },
     successtext: {
       control: false,
+    },
+    value: {
+      control: { type: "text" },
     },
   },
 }
