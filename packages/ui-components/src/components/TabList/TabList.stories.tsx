@@ -4,9 +4,8 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { TabList } from "./index.js"
-import { Tab } from "../Tab/index.js"
+import { TabList } from "./TabList.component"
+import { Tab, TabProps } from "../Tab/Tab.component"
 
 export default {
   title: "Layout/Tabs/TabList",
@@ -23,10 +22,10 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => <TabList {...args}>{children}</TabList>
+const Template = ({ children, ...args }: TemplateProps) => <TabList {...args}>{children}</TabList>
 
-Template.propTypes = {
-  children: PropTypes.node,
+interface TemplateProps {
+  children?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[] | null
 }
 
 export const Default = {

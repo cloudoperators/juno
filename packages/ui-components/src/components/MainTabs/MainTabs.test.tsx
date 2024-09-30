@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, act } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { MainTabs } from "./index"
 import { Tab } from "../Tab/index"
@@ -12,14 +12,14 @@ import { TabList } from "../TabList/index"
 import { TabPanel } from "../TabPanel/index"
 
 describe("MainTabs", () => {
-  test("renders MainTabs", async () => {
+  test("renders MainTabs", () => {
     render(<MainTabs data-testid="main-tabs" />)
     expect(screen.getByTestId("main-tabs")).toBeInTheDocument()
     expect(screen.getByTestId("main-tabs")).toHaveClass("juno-tabs")
     expect(screen.getByTestId("main-tabs")).toHaveClass("juno-tabs-main")
   })
 
-  test("renders all children as passed", async () => {
+  test("renders all children as passed", () => {
     render(
       <MainTabs>
         <TabList>
@@ -34,7 +34,7 @@ describe("MainTabs", () => {
     expect(screen.getByText("Tab 1")).toBeInTheDocument()
   })
 
-  test("renders in 'uncontrolled mode' and with first tab selected by default", async () => {
+  test("renders in 'uncontrolled mode' and with first tab selected by default", () => {
     render(
       <MainTabs data-testid="tabs">
         <TabList>
@@ -51,7 +51,7 @@ describe("MainTabs", () => {
     expect(screen.queryByText("Tab 2 content")).not.toBeInTheDocument()
   })
 
-  test("renders in 'uncontrolled mode' and with second tab selected by default as passed", async () => {
+  test("renders in 'uncontrolled mode' and with second tab selected by default as passed", () => {
     render(
       <MainTabs data-testid="tabs" defaultIndex={1}>
         <TabList>
@@ -68,7 +68,7 @@ describe("MainTabs", () => {
     expect(screen.queryByText("Tab 1 content")).not.toBeInTheDocument()
   })
 
-  test("renders in 'controlled mode' and with second tab selected as passed", async () => {
+  test("renders in 'controlled mode' and with second tab selected as passed", () => {
     render(
       <MainTabs data-testid="tabs" selectedIndex={1}>
         <TabList>
@@ -102,7 +102,7 @@ describe("MainTabs", () => {
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 2 content")).not.toBeInTheDocument()
-    await userEvent.click(screen.getByRole("tab", { name: "Tab 2" }))
+    await act(() => userEvent.click(screen.getByRole("tab", { name: "Tab 2" })))
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "true")
     expect(screen.getByText("Tab 2 content")).toBeInTheDocument()
@@ -124,12 +124,12 @@ describe("MainTabs", () => {
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
     expect(screen.queryByText("Tab 2 content")).not.toBeInTheDocument()
-    await userEvent.type(screen.getByTestId("tab-1"), "{arrowright}")
+    await act(() => userEvent.type(screen.getByTestId("tab-1"), "{arrowright}"))
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "true")
     expect(screen.queryByText("Tab 1 content")).not.toBeInTheDocument()
     expect(screen.getByText("Tab 2 content")).toBeInTheDocument()
-    await userEvent.type(screen.getByTestId("tab-2"), "{arrowright}")
+    await act(() => userEvent.type(screen.getByTestId("tab-2"), "{arrowright}"))
     expect(screen.getByTestId("tab-1")).toHaveAttribute("aria-selected", "true")
     expect(screen.getByTestId("tab-2")).toHaveAttribute("aria-selected", "false")
     expect(screen.getByText("Tab 1 content")).toBeInTheDocument()
@@ -137,7 +137,7 @@ describe("MainTabs", () => {
   })
 
   test("on click on tab fires onSelect handler as passed", async () => {
-    const handleSelect = jest.fn()
+    const handleSelect = vi.fn()
     render(
       <MainTabs onSelect={handleSelect}>
         <TabList>
@@ -146,17 +146,17 @@ describe("MainTabs", () => {
         <TabPanel>Tab 1 content</TabPanel>
       </MainTabs>
     )
-    await userEvent.click(screen.getByRole("tab", { name: "Tab 1" }))
+    await act(() => userEvent.click(screen.getByRole("tab", { name: "Tab 1" })))
     expect(handleSelect).toHaveBeenCalledTimes(1)
   })
 
-  test("renders a custom classNames", async () => {
+  test("renders a custom classNames", () => {
     render(<MainTabs data-testid="tabs" className="my-custom-class" />)
     expect(screen.getByTestId("tabs")).toBeInTheDocument()
     expect(screen.getByTestId("tabs")).toHaveClass("my-custom-class")
   })
 
-  test("renders all other props", async () => {
+  test("renders all other props", () => {
     render(<MainTabs data-testid="tabs" data-lolol="13" />)
     expect(screen.getByTestId("tabs")).toBeInTheDocument()
     expect(screen.getByTestId("tabs")).toHaveAttribute("data-lolol", "13")

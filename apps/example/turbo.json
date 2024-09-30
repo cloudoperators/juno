@@ -6,15 +6,29 @@
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
-        "@cloudoperators/juno-communicator#build"
+        "@cloudoperators/juno-communicator#build",
+        "@cloudoperators/juno-url-state-provider#build",
+        "@cloudoperators/juno-utils#build"
       ]
     },
     "build": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-communicator#build",
-        "@cloudoperators/juno-oauth#build"
+        "@cloudoperators/juno-url-state-provider#build",
+        "@cloudoperators/juno-utils#build"
+      ]
+    },
+    "build:static": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-oauth#build",
+        "@cloudoperators/juno-communicator#build",
+        "@cloudoperators/juno-url-state-provider#build",
+        "@cloudoperators/juno-utils#build"
       ]
     }
   }

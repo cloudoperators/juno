@@ -45,3 +45,29 @@ export const severityString = (severity) => {
 
   return severity?.value + " (" + severity?.score + ")"
 }
+
+export const cellSeverityClasses = (severity) => {
+  let borderColor = "border-text-theme-default"
+  switch (severity) {
+    case "Critical":
+    case "High":
+      borderColor = "border-theme-danger"
+      break
+    case "Medium":
+      borderColor = "border-theme-warning"
+      break
+    case "Low":
+      borderColor = "border-theme-info"
+      break
+    case "None":
+      borderColor = "" // No special border color for "None"
+      break
+  }
+
+  return `
+    border-l-2
+    ${borderColor}
+    h-full
+    pl-5
+  `
+}

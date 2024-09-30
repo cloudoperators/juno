@@ -6,7 +6,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { FormRow } from "./index.js"
-import { TextInput } from "../TextInput/index.js"
+import { TextInput } from "../../deprecated_js/TextInput/index.js"
 
 export default {
   title: "Forms/FormRow",

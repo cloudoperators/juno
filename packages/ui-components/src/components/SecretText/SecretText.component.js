@@ -9,7 +9,7 @@ import { Textarea } from "../../deprecated_js/Textarea/index.js"
 import { ButtonRow } from "../ButtonRow/"
 import { Button } from "../Button/"
 import { FormHint } from "../../deprecated_js/FormHint/"
-import { Stack } from "../Stack/"
+import { Stack } from "../../deprecated_js/Stack/"
 import { Label } from "../../deprecated_js/Label/index.js"
 
 const innerWrapperStyles = `
