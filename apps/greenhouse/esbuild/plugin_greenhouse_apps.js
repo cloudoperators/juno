@@ -9,7 +9,7 @@ const APPS = [
   path.resolve(APPS_ROOT, "supernova"),
   path.resolve(APPS_ROOT, "heureka"),
   path.resolve(APPS_ROOT, "doop"),
-  path.resolve(APPS_ROOT, "greenhouse/apps/org-admin"),
+  // path.resolve(APPS_ROOT, "greenhouse/core-apps/org-admin"),
 ]
 
 let envPlugin = {

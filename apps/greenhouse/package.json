@@ -61,7 +61,6 @@
     "zustand": "4.5.5"
   },
   "dependencies": {
-    "@cloudoperators/juno-communicator": "*",
     "@cloudoperators/juno-messages-provider": "*",
     "@cloudoperators/juno-oauth": "*",
     "@cloudoperators/juno-ui-components": "*",
