@@ -4,12 +4,9 @@
  */
 
 import { beforeAll } from "vitest"
-import { expect } from "vitest"
-import matchers from "@testing-library/jest-dom/matchers"
-import "@testing-library/jest-dom/vitest"
+import * as matchers from "@testing-library/jest-dom/matchers"
 
 expect.extend(matchers)
-
 beforeAll(() => {
   // Mock global objects if necessary
   global.window = window

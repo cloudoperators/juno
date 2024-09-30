@@ -4,6 +4,9 @@
     "dev": {
       "dependsOn": ["@cloudoperators/juno-ui-components#build"]
     },
+    "test": {
+      "dependsOn": ["@cloudoperators/juno-ui-components#build"]
+    },
     "build": {
       "dependsOn": ["@cloudoperators/juno-ui-components#build"]
     },

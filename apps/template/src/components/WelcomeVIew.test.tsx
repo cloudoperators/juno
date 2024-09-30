@@ -6,6 +6,6 @@ import WelcomeView from "./WelcomeView"
 test("renders welcome message", () => {
   render(<WelcomeView />)
 
-  const welcomeMessage = screen.getByText("Welcome to the Example App!")
+  const welcomeMessage = screen.getByText("Welcome to the template app with zustand")
   expect(welcomeMessage).toBeInTheDocument()
 })
