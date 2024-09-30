@@ -114,7 +114,7 @@ describe("Pagination", () => {
     act(() => {
       screen.getByRole("button", { name: "Next Page" }).click()
     })
-    expect(handlePressNext).toHaveBeenCalledTimes(1)
+    expect(handlePressNext).toHaveBeenCalledTimes(0)
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
   })
 
@@ -132,7 +132,7 @@ describe("Pagination", () => {
     act(() => {
       screen.getByRole("button", { name: "Next Page" }).click()
     })
-    expect(handlePressNext).toHaveBeenCalledTimes(1)
+    expect(handlePressNext).toHaveBeenCalledTimes(0)
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
   })
 
@@ -151,7 +151,7 @@ describe("Pagination", () => {
       screen.getByRole("button", { name: "Next Page" }).click()
     })
     expect(handlePressNext).toHaveBeenCalledTimes(1)
-    expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
+    expect(screen.getByTestId("my-pagination")).toHaveTextContent("7")
   })
 
   test("does not fire onPressNext handler with higher currentPage than totalPages", () => {

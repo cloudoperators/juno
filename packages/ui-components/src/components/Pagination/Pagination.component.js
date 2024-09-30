@@ -70,10 +70,11 @@ export const Pagination = ({
   const handleNextClick = (event) => {
     // set controlPage +1 if controlPage is not undefined and controlPage is less than controlTotalPage. Set conrolPage +1 also if controlTotalPage is undefined.
     if (controlPage) {
-      if ((controlPage < controlTotalPage) || !controlTotalPage) {
-      setControlCurrentPage(controlPage + 1)
+      if (controlPage < controlTotalPage || !controlTotalPage) {
+        setControlCurrentPage(controlPage + 1)
+      }
+      onPressNext && onPressNext(event)
     }
-    onPressNext && onPressNext(event)
   }
 
   const handleSelectChange = (selected) => {
@@ -181,6 +182,7 @@ export const Pagination = ({
     </div>
   )
 }
+
 Pagination.propTypes = {
   /** The variant of the Pagination component */
   variant: PropTypes.oneOf(["default", "number", "select", "input"]),
