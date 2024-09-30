@@ -125,7 +125,7 @@ const SilenceScheduled = (props) => {
       .catch((error) => {
         addMessage({
           variant: "error",
-          text: parseError(error),
+          text: `${parseError(error)}`,
         })
       })
   }

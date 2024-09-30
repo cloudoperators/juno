@@ -40,11 +40,13 @@ const AppContent = () => {
   const activeSelectedTab = useGlobalsActiveSelectedTab()
 
   useEffect(() => {
+    const errorMessage = typeof silencesError === "string" ? silencesError : parseError(silencesError)
+
     // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
     if (!silencesError) return
     addMessage({
       variant: "error",
-      text: parseError(silencesError),
+      text: errorMessage,
     })
   }, [silencesError])
 
