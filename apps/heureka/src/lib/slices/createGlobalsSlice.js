@@ -12,12 +12,12 @@ const createGlobalsSlice = (set, get, options) => ({
     apiEndpoint: options?.apiEndpoint, //The API endpoint to use for fetching data.
     isUrlStateSetup: false, //Set to true when the URL state has been set up.
     queryClientFnReady: false, //Set to true when the queryClient function is ready to be used.
-    activeView: "Services", //Set to the active navEntry.
+    activeView: "Services", //Set to the active view.
     showPanel: constants.PANEL_NONE, //Set to the which panel should be shown (e.g service details panel, issue matches details panel and so on), if any.
 
     showServiceDetail: null,
     showIssueDetail: null,
-    navEntries: {
+    views: {
       Services: {
         queryOptions: {
           first: 20,
@@ -45,10 +45,10 @@ const createGlobalsSlice = (set, get, options) => ({
           "globals/setQueryClientFnReady"
         ),
 
-      setQueryOptions: (navEntry, options) =>
+      setQueryOptions: (viewName, options) =>
         set(
           produce((state) => {
-            state.globals.navEntries[navEntry].queryOptions = options
+            state.globals.views[viewName].queryOptions = options
           }),
           false,
           "globals/setQueryOptions"
@@ -96,6 +96,39 @@ const createGlobalsSlice = (set, get, options) => ({
           false,
           "globals/setShowIssueDetail"
         ),
+      // Helper function to set the service detail for deep linking
+      setServiceDetail: (serviceId) =>
+        set(
+          produce((state) => {
+            state.globals.showPanel = constants.PANEL_SERVICE
+            state.globals.showServiceDetail = serviceId
+          }),
+          false,
+          "globals/setServiceDetail"
+        ),
+
+      // Helper function to set the issue detail for deep linking
+      setIssueDetail: (issueId) =>
+        set(
+          produce((state) => {
+            state.globals.showPanel = constants.PANEL_ISSUE
+            state.globals.showIssueDetail = issueId
+          }),
+          false,
+          "globals/setIssueDetail"
+        ),
+
+      // Sync details state with the URL
+      syncDetailsWithURL: () => {
+        const state = get().globals
+        const updatedState = {
+          [constants.DETAILS_FOR]: state.showPanel,
+          // Include `iid` or `svn` immediately after `d:issue/service`
+          [state.showPanel === constants.PANEL_SERVICE ? constants.SERVICE_NAME : constants.ISSUE_ID]:
+            state.showPanel === constants.PANEL_SERVICE ? state.showServiceDetail : state.showIssueDetail,
+        }
+        return updatedState
+      },
     },
   },
 })

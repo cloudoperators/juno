@@ -4,11 +4,11 @@
  */
 
 import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
-import { Tabs } from "./index.js"
-import { Tab } from "../Tab/index.js"
-import { TabList } from "../TabList/index.js"
-import { TabPanel } from "../TabPanel/index.js"
+import { Tabs } from "./index"
+import { Tab, TabProps } from "../Tab/Tab.component"
+import { TabList } from "../TabList/index"
+import { TabPanel } from "../TabPanel/index"
+import { TabPanelProps } from "../TabPanel/TabPanel.component"
 
 export default {
   title: "Layout/Tabs/Tabs",
@@ -36,26 +36,26 @@ export default {
   },
 }
 
-const Template = ({ tabs, tabpanels, ...args }) => (
+const Template = ({ tabs, tabpanels, ...args }: TemplateProps) => (
   <Tabs {...args}>
     <TabList>{tabs}</TabList>
     {tabpanels}
   </Tabs>
 )
 
-Template.propTypes = {
-  tabs: PropTypes.node,
-  tabpanels: PropTypes.node,
+interface TemplateProps {
+  tabs?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[]
+  tabpanels?: React.ReactElement<TabPanelProps> | React.ReactElement<TabPanelProps>[]
 }
 
-const ControlledTemplate = ({ selectedIndex, onSelect, tabs, tabpanels, ...args }) => {
-  const [i, setI] = useState(0)
+const ControlledTemplate = ({ selectedIndex, onSelect, tabs, tabpanels, ...args }: ControlledTemplateProps) => {
+  const [i, setI] = useState<number | undefined>(0)
 
   useEffect(() => {
     setI(selectedIndex)
   }, [selectedIndex])
 
-  const handleSelect = (idx) => {
+  const handleSelect = (idx: number) => {
     setI(idx)
     onSelect && onSelect(idx)
   }
@@ -68,11 +68,14 @@ const ControlledTemplate = ({ selectedIndex, onSelect, tabs, tabpanels, ...args 
   )
 }
 
-ControlledTemplate.propTypes = {
-  selectedIndex: PropTypes.number,
-  onSelect: PropTypes.func,
-  tabs: PropTypes.node,
-  tabpanels: PropTypes.node,
+// eslint-disable-next-line no-unused-vars
+type OnSelectHandler = (value: number) => void
+
+interface ControlledTemplateProps {
+  selectedIndex?: number
+  onSelect?: OnSelectHandler
+  tabs?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[]
+  tabpanels?: React.ReactElement<TabPanelProps> | React.ReactElement<TabPanelProps>[]
 }
 
 export const Default = {

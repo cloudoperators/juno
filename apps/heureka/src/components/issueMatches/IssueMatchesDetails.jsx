@@ -17,7 +17,7 @@ const IssueMatchesDetails = () => {
 
   const issueElem = useQuery({
     queryKey: ["IssueMatchesMain", { filter: { id: [showIssueDetail] } }],
-    enabled: !!queryClientFnReady,
+    enabled: !!queryClientFnReady && !!showIssueDetail,
   })
   const issue = useMemo(() => {
     if (!issueElem) return null

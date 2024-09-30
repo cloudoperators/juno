@@ -4,11 +4,12 @@
  */
 
 import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
-import { MainTabs } from "./index.js"
-import { Tab } from "../Tab/index.js"
-import { TabList } from "../TabList/index.js"
-import { TabPanel } from "../TabPanel/index.js"
+import { MainTabs } from "./index"
+import { Tab } from "../Tab/index"
+import { TabList } from "../TabList/index"
+import { TabPanel } from "../TabPanel/index"
+import { TabPanelProps } from "../TabPanel/TabPanel.component"
+import { TabProps } from "../Tab/Tab.component"
 
 export default {
   title: "Layout/Tabs/MainTabs",
@@ -30,26 +31,26 @@ export default {
   },
 }
 
-const Template = ({ tabs, tabpanels, ...args }) => (
+const Template = ({ tabs, tabpanels, ...args }: TemplateProps) => (
   <MainTabs {...args}>
     <TabList>{tabs}</TabList>
     {tabpanels}
   </MainTabs>
 )
 
-Template.propTypes = {
-  tabs: PropTypes.node,
-  tabpanels: PropTypes.node,
+interface TemplateProps {
+  tabs: React.ReactElement<TabProps>[]
+  tabpanels: React.ReactElement<TabPanelProps>[]
 }
 
-const ControlledTemplate = ({ onSelect, selectedIndex, tabs, tabpanels, ...args }) => {
-  const [index, setIndex] = useState(0)
+const ControlledTemplate = ({ onSelect, selectedIndex, tabs, tabpanels, ...args }: ControlledTemplateProps) => {
+  const [index, setIndex] = useState<number | undefined>(0)
 
   useEffect(() => {
     setIndex(selectedIndex)
   }, [selectedIndex])
 
-  const handleSelect = (idx) => {
+  const handleSelect = (idx: number) => {
     setIndex(idx)
     onSelect && onSelect(idx)
   }
@@ -62,12 +63,15 @@ const ControlledTemplate = ({ onSelect, selectedIndex, tabs, tabpanels, ...args 
   )
 }
 
+// eslint-disable-next-line no-unused-vars
+type OnSelectHandler = (value: number) => void
+
 // prop types for ControlledTemplate
-ControlledTemplate.propTypes = {
-  tabs: PropTypes.node,
-  tabpanels: PropTypes.node,
-  selectedIndex: PropTypes.number,
-  onSelect: PropTypes.func,
+interface ControlledTemplateProps {
+  tabs?: React.ReactElement<TabProps>[]
+  tabpanels?: React.ReactElement<TabPanelProps>[]
+  selectedIndex?: number
+  onSelect?: OnSelectHandler
 }
 
 export const Default = {
