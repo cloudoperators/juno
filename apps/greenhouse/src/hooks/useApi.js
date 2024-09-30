@@ -40,6 +40,12 @@ const useApi = () => {
         limit: 500,
       }),
     ]).then(([manifest, configs]) => {
+      // console.debug("::::::::::::::::::::::::manifest", manifest)
+      // console.debug(
+      //   "::::::::::::::::::::::::configs",
+      //   configs.items.filter((conf) => conf.status?.uiApplication)
+      // )
+
       // create config map
       const config = {}
       configs.items.forEach((conf) => {
