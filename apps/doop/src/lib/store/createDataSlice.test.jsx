@@ -13,7 +13,7 @@ import StoreProvider, {
   useDataClusterIdentities,
 } from "../../components/StoreProvider.jsx"
 
-import data from "../../../db.json"
+import data from "../../db.json"
 
 describe("createDataSlice", () => {
   describe("setData", () => {
