@@ -4,8 +4,6 @@
  */
 
 export const parseError = (error) => {
-  let errMsg = error
-
   // check if error is JSON containing message or just string
   if (typeof error === "string") {
     if (error === "Failed to fetch") {
