@@ -13,19 +13,19 @@ const IssueMatchesList = ({ items, isLoading }) => {
   return (
     <>
       {/* clickableTable Table allow changes the background by css when hovering or active*/}
-      <DataGrid columns={6} className="clickableTable">
+      <DataGrid columns={7} className="clickableTable">
         <DataGridRow>
-          <DataGridHeadCell>Primary Name</DataGridHeadCell>
-          {/* <DataGridHeadCell>Secondary Name</DataGridHeadCell> */}
-          <DataGridHeadCell>Target Remediation Date</DataGridHeadCell>
-          <DataGridHeadCell>Status</DataGridHeadCell>
           <DataGridHeadCell>Severity</DataGridHeadCell>
-          <DataGridHeadCell>Service Name</DataGridHeadCell>
-          <DataGridHeadCell>Support Group Name</DataGridHeadCell>
+          <DataGridHeadCell>Primary Name</DataGridHeadCell>
+          <DataGridHeadCell>Service</DataGridHeadCell>
+          <DataGridHeadCell>Resource</DataGridHeadCell>
+          <DataGridHeadCell>Support Group</DataGridHeadCell>
+          <DataGridHeadCell>Status</DataGridHeadCell>
+          <DataGridHeadCell>Target Remediation Date</DataGridHeadCell>
         </DataGridRow>
         {isLoading && !items ? (
           <DataGridRow>
-            <DataGridCell colSpan={6}>
+            <DataGridCell colSpan={7}>
               <HintLoading className="my-4" text="Loading issue matches..." />
             </DataGridCell>
           </DataGridRow>
@@ -39,7 +39,7 @@ const IssueMatchesList = ({ items, isLoading }) => {
               </>
             ) : (
               <DataGridRow>
-                <DataGridCell colSpan={6}>
+                <DataGridCell colSpan={7}>
                   <HintNotFound text="No issue matches found" />
                 </DataGridCell>
               </DataGridRow>

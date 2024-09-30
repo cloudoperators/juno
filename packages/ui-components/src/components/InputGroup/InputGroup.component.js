@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Stack } from "../Stack/index"
+import { Stack } from "../../deprecated_js/Stack/index"
 import "./input-group.scss"
 import PropTypes from "prop-types"
 

@@ -1,5 +1,22 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.2.4
+
+### Patch Changes
+
+- 98070aa: Fixes issue with details panel being stuck in loading state when reloading the app while the panel is open
+- c152995: Ux improvement: Removed NavEntries folder and related controls; introduced CustomAppShell to manage TopNavigation within AppShell.
+- Updated dependencies [73f55e0]
+- Updated dependencies [44e88bf]
+- Updated dependencies [aa0bc95]
+  - @cloudoperators/juno-ui-components@2.22.0
+
+## 0.2.3
+
+### Patch Changes
+
+- 139621e: Optimized the data fetching for main views in Heureka to improve performance with large datasets (millions of issues). This change splits the fetch requests for all three views (IssueMatches, Services, and Components) by separating the total count and page info queries from the main data queries.
+
 ## 0.2.2
 
 ### Patch Changes

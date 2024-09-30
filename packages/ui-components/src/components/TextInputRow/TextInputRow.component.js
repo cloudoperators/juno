@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { TextInput } from "../TextInput/index.js"
+import { TextInput } from "../../deprecated_js/TextInput/index.js"
 import { FormRow } from "../FormRow/index.js"
 import { withDeprecationWarning } from "../../deprecated_js/withDeprecationWarning/index.js"
 

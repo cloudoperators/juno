@@ -27,11 +27,6 @@ export default () => gql`
         filterName
         values
       }
-      primaryName {
-        displayName
-        filterName
-        values
-      }
       affectedService {
         displayName
         filterName

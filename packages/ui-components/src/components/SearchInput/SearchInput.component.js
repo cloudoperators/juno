@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import "./searchinput.scss"
 import { Icon } from "../../deprecated_js/Icon/index"
-import { Stack } from "../Stack/index"
+import { Stack } from "../../deprecated_js/Stack/index"
 
 const wrapperStyles = (variant) => {
   const wrapperBaseStyles = `
