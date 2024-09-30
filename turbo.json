@@ -6,10 +6,6 @@
       "dependsOn": ["^build"],
       "cache": false
     },
-    "build:static": {
-      "dependsOn": ["^build:static"],
-      "cache": false
-    },
     "lint": {
       "dependsOn": ["^lint"],
       "cache": false
