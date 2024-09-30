@@ -73,8 +73,8 @@ export const Pagination = ({
       if (controlPage < controlTotalPage || !controlTotalPage) {
         setControlCurrentPage(controlPage + 1)
       }
-      onPressNext && onPressNext(event)
     }
+    onPressNext && onPressNext(event)
   }
 
   const handleSelectChange = (selected) => {
