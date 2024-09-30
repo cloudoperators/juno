@@ -53,28 +53,28 @@ export const Pagination = ({
     controlPage > controlTotalPage && setControlCurrentPage(controlTotalPage)
   }, [currentPage, totalPages, pages])
 
-  const handleInputChange = (event) => {
-    //convert all non-numeric characters to empty string
-    const inputValue = parseInt(event?.target.value)
-    setControlCurrentPage(inputValue)
-  }
-
   const handlePrevClick = (event) => {
+    let newPage
     if (controlPage && controlPage > 1) {
-      setControlCurrentPage(controlPage - 1)
+      newPage = controlPage - 1
     }
-
-    onPressPrevious && onPressPrevious(event)
+    setControlCurrentPage(newPage)
+    // returns newPage value if newPage exists, otherwise returns event
+    onPressPrevious && onPressPrevious(newPage ? newPage : event)
   }
 
   const handleNextClick = (event) => {
-    // set controlPage +1 if controlPage is not undefined and controlPage is less than controlTotalPage. Set conrolPage +1 also if controlTotalPage is undefined.
+    // set controlPage +1 if controlPage exists and controlPage is less than controlTotalPage
+    // also set controlPage +1 if controlPage exists but controlTotalPage does not exist
+    let newPage
     if (controlPage) {
       if (controlPage < controlTotalPage || !controlTotalPage) {
-        setControlCurrentPage(controlPage + 1)
+        newPage = controlPage + 1
       }
     }
-    onPressNext && onPressNext(event)
+    setControlCurrentPage(newPage)
+    // returns newPage value if newPage exists, otherwise returns event
+    onPressNext && onPressNext(newPage ? newPage : event)
   }
 
   const handleSelectChange = (selected) => {
@@ -83,24 +83,28 @@ export const Pagination = ({
     onSelectChange && onSelectChange(s)
   }
 
-  const handleEnter = (event) => {
+  const handleInputChange = (event) => {
+    // ensure that the input value is an integer
+    let inputValue = parseInt(event?.target.value)
+
+    if (inputValue < 1) {
+      inputValue = 1
+    } else if (inputValue > controlTotalPage) {
+      inputValue = controlTotalPage
+    }
+    setControlCurrentPage(inputValue)
+  }
+
+  const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      if (controlPage && controlPage < 1) {
-        setControlCurrentPage(1)
-      } else if (controlPage && controlPage > controlTotalPage) {
-        setControlCurrentPage(controlTotalPage)
-      }
-      onKeyPress && onKeyPress(event)
+      // if controlPage exists, return controlPage, otherwise return event
+      onKeyPress && onKeyPress(controlPage ? controlPage : event)
     }
   }
 
   const handleBlur = (event) => {
-    if (controlPage < 1) {
-      setControlCurrentPage(1)
-    } else if (controlPage > controlTotalPage) {
-      setControlCurrentPage(controlTotalPage)
-    }
-    onBlur && onBlur(event)
+    // if controlPage exists, return controlPage, otherwise return event
+    onBlur && onBlur(controlPage ? controlPage : event)
   }
 
   // Calculation of the width of input fields dynamically based on the number of characters
@@ -118,7 +122,7 @@ export const Pagination = ({
     >
       <Button
         icon="chevronLeft"
-        disabled={isFirstPage || disabled || progress || controlPage === 1}
+        disabled={!!isFirstPage || !!disabled || !!progress || !!(controlPage === 1)} // double negation to ensure boolean
         onClick={handlePrevClick}
         title="Previous Page"
       />
@@ -160,9 +164,10 @@ export const Pagination = ({
                         //convert to integer
                         onChange={handleInputChange}
                         onBlur={handleBlur}
-                        onKeyPress={handleEnter}
-                        disabled={disabled}
+                        onKeyPress={handleKeyPress}
+                        disabled={!!disabled}
                         className={inputStyles}
+                        maxLength="6"
                       />
                     </div>
                     {controlTotalPage ? <span>of {controlTotalPage}</span> : ""}
@@ -175,7 +180,7 @@ export const Pagination = ({
         : ""}
       <Button
         icon="chevronRight"
-        disabled={isLastPage || disabled || progress || (controlPage && controlPage === controlTotalPage)}
+        disabled={!!isLastPage || !!disabled || !!progress || !!(controlPage && controlPage === controlTotalPage)} // double negation to ensure boolean, the last expression was sometimes a number
         onClick={handleNextClick}
         title="Next Page"
       />

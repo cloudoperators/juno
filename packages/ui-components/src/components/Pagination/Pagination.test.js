@@ -55,7 +55,9 @@ describe("Pagination", () => {
   })
 
   test("renders a select variant Pagination as passed", () => {
-    render(<Pagination variant="select" data-testid="my-pagination" />)
+    act(() => {
+      render(<Pagination variant="select" data-testid="my-pagination" />)
+    })
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
     expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-select")
     expect(screen.queryAllByRole("button")).toHaveLength(3)
@@ -64,7 +66,9 @@ describe("Pagination", () => {
   })
 
   test("renders Pagination (select) with currentPage higher than totalPages", () => {
-    render(<Pagination variant="select" currentPage={12} totalPages={6} data-testid="my-pagination" />)
+    act(() => {
+      render(<Pagination variant="select" currentPage={12} totalPages={6} data-testid="my-pagination" />)
+    })
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
   })
 
@@ -192,7 +196,9 @@ describe("Pagination", () => {
 
   test("fires onChange handler as passed when Select changes for select variant", async () => {
     const mockHandleChange = jest.fn()
-    render(<Pagination variant="select" currentPage={1} pages={6} onSelectChange={mockHandleChange} />)
+    act(() => {
+      render(<Pagination variant="select" currentPage={1} pages={6} onSelectChange={mockHandleChange} />)
+    })
     const select = document.querySelector("button.juno-select-toggle")
     expect(select).toBeInTheDocument()
     expect(select).toHaveTextContent("1")
@@ -233,7 +239,9 @@ describe("Pagination", () => {
   })
 
   test("renders disabled Pagination (select) as passed", () => {
-    render(<Pagination disabled variant="select" />)
+    act(() => {
+      render(<Pagination disabled variant="select" />)
+    })
     expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(3)
     expect(document.querySelector(".juno-select-toggle")).toBeDisabled()
   })
@@ -251,7 +259,9 @@ describe("Pagination", () => {
   })
 
   test("renders Pagination (select) in progress as passed", () => {
-    render(<Pagination progress variant="select" />)
+    act(() => {
+      render(<Pagination progress variant="select" />)
+    })
     expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
     expect(document.querySelector(".juno-select-toggle")).not.toBeInTheDocument()
     expect(document.querySelector(".juno-spinner")).toBeInTheDocument()
@@ -276,23 +286,30 @@ describe("Pagination", () => {
 
   test("renders Pagination (input) - value corrected to the highest possible - as passed", async () => {
     render(<Pagination variant="input" pages={12} />)
-    const textinput = screen.getByRole("textbox")
-    await waitFor(() => {
-      fireEvent.change(textinput, { target: { value: "102" } })
-      fireEvent.keyPress(textinput, { key: "Enter", code: 13, charCode: 13 })
-      expect(textinput).toHaveValue("12")
-    })
+    const textInput = screen.getByRole("textbox")
+    await waitFor(
+      () => {
+        fireEvent.change(textInput, { target: { value: "20" } })
+        // userEvent.type(textInput, "102")
+        // fireEvent.keyPress(textinput, { key: "Enter", code: 13, charCode: 13 })
+      },
+      { timeout: 800 }
+    )
+    expect(textInput).toHaveValue("12")
   })
 
   test("renders Pagination (input) - value that is too low is corrected to '1' - as passed", async () => {
     render(<Pagination variant="input" pages={12} />)
-    const textinput = screen.getByRole("textbox")
+    const textInput = screen.getByRole("textbox")
 
-    await waitFor(() => {
-      fireEvent.change(textinput, { target: { value: "0" } })
-      fireEvent.blur(textinput)
-      expect(textinput).toHaveValue("1")
-    })
+    await waitFor(
+      () => {
+        fireEvent.change(textInput, { target: { value: "0" } })
+        fireEvent.blur(textInput)
+      },
+      { timeout: 800 }
+    )
+    expect(textInput).toHaveValue("1")
   })
 
   test("renders Pagination (input) - checks width of textfield based on the entry (2 digits) as passed", async () => {
@@ -360,7 +377,9 @@ describe("Pagination", () => {
   })
 
   test("renders Pagination (select) with undefined currentPage prop as passed", () => {
-    render(<Pagination variant="select" currentPage={undefined} />)
+    act(() => {
+      render(<Pagination variant="select" currentPage={undefined} />)
+    })
     expect(document.querySelector("button.juno-select-toggle")).toHaveValue("")
   })
 
@@ -383,7 +402,9 @@ describe("Pagination", () => {
   })
 
   test("renders Pagination (select) with undefined totalPages prop as passed", () => {
-    render(<Pagination variant="select" totalPages={undefined} />)
+    act(() => {
+      render(<Pagination variant="select" totalPages={undefined} />)
+    })
     expect(document.querySelector("button.juno-select-toggle")).toHaveValue("")
   })
 
