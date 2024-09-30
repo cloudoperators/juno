@@ -6,18 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* If necessary, app styles can be added below */
-
-.svg-bg-test {
-  background: url('assets/juno-danger.svg')
-}
-
-// .svg-bg-test-big-file {
-//   background: left 80px no-repeat url('assets/map.svg')
-// }
-
-
 .info-box {
   h4 {
     font-size: 1.2rem;
@@ -29,7 +17,6 @@
     padding-bottom: 10px;
   }
 }
-
 
 // datagrid row hover style
 // REMOVE THIS ONCE DATAGRID COMPONENT SUPPORTS HOVER
@@ -44,4 +31,3 @@
     @apply bg-theme-background-lvl-2;
   }
 }
-

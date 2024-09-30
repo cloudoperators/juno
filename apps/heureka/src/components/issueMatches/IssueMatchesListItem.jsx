@@ -5,9 +5,16 @@
 
 import React from "react"
 import { DataGridRow, DataGridCell } from "@cloudoperators/juno-ui-components"
-import { listOfCommaSeparatedObjs, formatDate } from "../shared/Helper"
+import { listOfCommaSeparatedObjs, formatDate, cellSeverityClasses } from "../shared/Helper"
 import constants from "../shared/constants"
 import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowIssueDetail } from "../../hooks/useAppStore"
+
+// Helper function to extract the last four parts of a URL - used for displaying ccrn as resource column
+export const extractResourceInfo = (url) => {
+  if (!url) return ""
+  const parts = url.split("/")
+  return parts.slice(-4).join("/")
+}
 
 const IssueMatchesListItem = ({ item }) => {
   const { setShowPanel, setShowIssueDetail } = useGlobalsActions()
@@ -25,6 +32,9 @@ const IssueMatchesListItem = ({ item }) => {
       setShowIssueDetail(item?.node?.id)
     }
   }
+  const severity = item?.node?.severity?.value
+  // Extract the most important (last 4) parts of ccrn for the Resource column
+  const extractedCcrn = extractResourceInfo(item?.node?.componentInstance?.ccrn)
 
   return (
     <DataGridRow
@@ -33,20 +43,17 @@ const IssueMatchesListItem = ({ item }) => {
       }`}
       onClick={() => handleClick()}
     >
+      <DataGridCell className="pl-0 interactive">
+        <div className={cellSeverityClasses(severity)}>{severity}</div>
+      </DataGridCell>
       <DataGridCell>{item?.node?.issue?.primaryName}</DataGridCell>
-      {/* <DataGridCell>
-        {listOfCommaSeparatedObjs(
-          item?.node?.effectiveIssueVariants,
-          "secondaryName"
-          )}
-          </DataGridCell> */}
-      <DataGridCell>{formatDate(item?.node?.targetRemediationDate)}</DataGridCell>
-      <DataGridCell>{item?.node?.status}</DataGridCell>
-      <DataGridCell>{item?.node?.severity?.value}</DataGridCell>
       <DataGridCell>{item?.node?.componentInstance?.service?.name}</DataGridCell>
+      <DataGridCell>{extractedCcrn}</DataGridCell>
       <DataGridCell>
         {listOfCommaSeparatedObjs(item?.node?.componentInstance?.service?.supportGroups, "name")}
       </DataGridCell>
+      <DataGridCell>{item?.node?.status}</DataGridCell>
+      <DataGridCell>{formatDate(item?.node?.targetRemediationDate)}</DataGridCell>
     </DataGridRow>
   )
 }

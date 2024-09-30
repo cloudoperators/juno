@@ -17,6 +17,7 @@ import {
   ComboBoxOption,
   Icon,
   Modal,
+  Container,
 } from "@cloudoperators/juno-ui-components"
 import { useGlobalsQueryClientFnReady, useGlobalsShowServiceDetail } from "../../hooks/useAppStore"
 import { useQuery, useMutation } from "@tanstack/react-query"
@@ -31,8 +32,8 @@ const ServicesDetail = () => {
   const { addMessage, resetMessages } = messageActions()
 
   const serviceElem = useQuery({
-    queryKey: ["Services", { filter: { serviceName: [showServiceDetail] } }],
-    enabled: !!queryClientFnReady,
+    queryKey: ["ServicesMain", { filter: { serviceName: [showServiceDetail] } }],
+    enabled: !!queryClientFnReady && !!showServiceDetail,
   })
 
   const users = useQuery({
@@ -230,14 +231,18 @@ const ServicesDetail = () => {
         </DataGridRow>
         {!service?.componentInstances?.edges && (
           <DataGridRow colSpan={4}>
-            <LoadElement />
+            <Container py>
+              <LoadElement />
+            </Container>
           </DataGridRow>
         )}
 
         {service?.componentInstances?.edges?.map((componentInstance, i) => (
           <DataGridRow key={i}>
             <DataGridCell>{componentInstance?.node?.componentVersion?.component?.name}</DataGridCell>
-            <DataGridCell>{componentInstance?.node?.componentVersion?.version}</DataGridCell>
+            <DataGridCell className="break-all overflow-hidden">
+              {componentInstance?.node?.componentVersion?.version}
+            </DataGridCell>
             <DataGridCell>{componentInstance?.node?.issueMatches?.totalCount}</DataGridCell>
             <DataGridCell>{severityString(highestSeverity(componentInstance?.node?.issueMatches?.edges))}</DataGridCell>
           </DataGridRow>

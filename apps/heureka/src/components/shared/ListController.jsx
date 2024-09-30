@@ -9,18 +9,23 @@ import { useGlobalsQueryClientFnReady, useGlobalsQueryOptions, useGlobalsActions
 import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
-import { useGlobalsActiveNavEntry } from "../../hooks/useAppStore"
+import { useGlobalsActiveView } from "../../hooks/useAppStore"
 
 const ListController = ({ queryKey, entityName, ListComponent, activeFilters, searchTerm, enableSearchAndFilter }) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
   const queryOptions = useGlobalsQueryOptions(queryKey)
   const { setQueryOptions } = useGlobalsActions()
   const { addMessage, resetMessages } = messageActions()
-  const activeNavEntry = useGlobalsActiveNavEntry()
+  const activeView = useGlobalsActiveView()
 
-  const { isLoading, data, error } = useQuery({
+  // Fetch view main data
+  const {
+    isLoading: isLoadingMain,
+    data: mainData,
+    error: mainError,
+  } = useQuery({
     queryKey: [
-      queryKey,
+      `${queryKey}Main`,
       {
         ...queryOptions,
         filter: {
@@ -29,28 +34,47 @@ const ListController = ({ queryKey, entityName, ListComponent, activeFilters, se
         },
       },
     ],
-    enabled: !!queryClientFnReady && queryKey === activeNavEntry,
+    enabled: !!queryClientFnReady && queryKey === activeView,
+  })
+
+  // Fetch view count and pageInfo
+  const {
+    isLoading: isLoadingCount,
+    data: countData,
+    error: countError,
+  } = useQuery({
+    queryKey: [
+      `${queryKey}Count`,
+      {
+        ...queryOptions,
+        filter: {
+          ...activeFilters,
+          ...(!!enableSearchAndFilter && searchTerm && searchTerm.length > 0 && { search: searchTerm }),
+        },
+      },
+    ],
+    enabled: !!queryClientFnReady && queryKey === activeView,
   })
 
   const [currentPage, setCurrentPage] = useState(1)
 
   const items = useMemo(() => {
-    if (!data) return null
-    return data?.[entityName]?.edges || []
-  }, [data, entityName])
+    if (!mainData) return null
+    return mainData?.[entityName]?.edges || []
+  }, [mainData, entityName])
 
   useEffect(() => {
-    if (!error) return resetMessages()
+    if (!mainError && !countError) return resetMessages()
     addMessage({
       variant: "error",
-      text: parseError(error),
+      text: parseError(mainError || countError),
     })
-  }, [error, addMessage, resetMessages])
+  }, [mainError, countError, addMessage, resetMessages])
 
   const pageInfo = useMemo(() => {
-    if (!data) return null
-    return data?.[entityName]?.pageInfo
-  }, [data, entityName])
+    if (!countData) return null
+    return countData?.[entityName]?.pageInfo
+  }, [countData, entityName])
 
   const totalPages = useMemo(() => {
     if (!pageInfo?.pages) return 0
@@ -74,7 +98,7 @@ const ListController = ({ queryKey, entityName, ListComponent, activeFilters, se
   return (
     <>
       <Container py>
-        <ListComponent items={items} isLoading={isLoading} />
+        <ListComponent items={items} isLoading={isLoadingMain || isLoadingCount} />
       </Container>
       <Stack className="flex justify-end">
         <Pagination

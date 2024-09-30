@@ -6,11 +6,11 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Button } from "../Button/Button.component"
-import { TextInput } from "../TextInput/TextInput.component"
+import { TextInput } from "../../deprecated_js/TextInput/TextInput.component"
 import { Select } from "../Select/Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
-import { Stack } from "../Stack/Stack.component"
 import { Spinner } from "../../deprecated_js/Spinner/Spinner.component"
+import { Stack } from "../../deprecated_js/Stack/Stack.component"
 
 const paginationStyles = `
   jn-flex

@@ -16,17 +16,19 @@ const IssueMatchesDetails = () => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
 
   const issueElem = useQuery({
-    queryKey: ["IssueMatches", { filter: { id: [showIssueDetail] } }],
-    enabled: !!queryClientFnReady,
+    queryKey: ["IssueMatchesMain", { filter: { id: [showIssueDetail] } }],
+    enabled: !!queryClientFnReady && !!showIssueDetail,
   })
   const issue = useMemo(() => {
     if (!issueElem) return null
     return issueElem?.data?.IssueMatches?.edges[0]?.node
   }, [issueElem])
 
+  // Take description from the first issueVariant, because if there are multiple, they have the same priority (edge case).
+  const issueDescription = issue?.effectiveIssueVariants?.edges?.[0]?.node?.description
+
   return (
     <>
-      {/* todo add messageprovider here */}
       <Stack direction="vertical" gap="4">
         <DataGrid columns={2}>
           <DataGridRow>
@@ -37,10 +39,22 @@ const IssueMatchesDetails = () => {
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>
+            <DataGridHeadCell>Description</DataGridHeadCell>
+            <DataGridCell>
+              <LoadElement elem={issueDescription} />
+            </DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridHeadCell>CCRN</DataGridHeadCell>
+            <DataGridCell>
+              <LoadElement elem={issue?.componentInstance?.ccrn} />
+            </DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
             <DataGridHeadCell>Target Remediation Date</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement elem={formatDate(issue?.node?.targetRemediationDate)} />
+              <LoadElement elem={formatDate(issue?.targetRemediationDate)} />
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>

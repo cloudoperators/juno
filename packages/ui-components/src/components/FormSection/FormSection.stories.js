@@ -7,7 +7,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { FormSection } from "../FormSection/FormSection.component"
 import { FormRow } from "../FormRow/FormRow.component"
-import { TextInput } from "../TextInput/TextInput.component"
+import { TextInput } from "../../deprecated_js/TextInput/TextInput.component"
 
 export default {
   title: "Forms/FormSection",
