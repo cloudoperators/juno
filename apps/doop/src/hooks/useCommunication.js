@@ -32,7 +32,7 @@ const useCommunication = () => {
     const unwatch = watch(
       "USER_ACTIVITY_UPDATE_DATA",
       (data) => {
-        console.log("got message USER_ACTIVITY_UPDATE_DATA: ", data)
+        console.debug("got message USER_ACTIVITY_UPDATE_DATA: ", data)
         setIsActive(data?.isActive)
       },
       { debug: true, consumerID: "doop" }

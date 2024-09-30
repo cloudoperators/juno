@@ -39,7 +39,7 @@ const useUrlState = (key) => {
   useEffect(() => {
     // don't read the url if we are already reading it or if we are not logged in
     if (isURLRead || !loggedIn) return
-    console.log(`DOOP: (${key || DEFAULT_KEY}) setting up state from url:`, urlStateManager.currentState())
+    console.debug(`DOOP: (${key || DEFAULT_KEY}) setting up state from url:`, urlStateManager.currentState())
     const searchTerm = urlStateManager.currentState()?.[SEARCH_TERM]
     const activeFilters = urlStateManager.currentState()?.[ACTIVE_FILTERS]
 
