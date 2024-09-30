@@ -36,7 +36,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:static": "vite build --mode static",
-    "preview:static": "vite preview",
+    "serve": "vite preview",
     "lint": "eslint",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
