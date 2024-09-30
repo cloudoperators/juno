@@ -3,14 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const createFiltersSlice = (set, get) => ({
+const parseInitialFilters = (initialFilters) => {
+  if (!Array.isArray(initialFilters)) return undefined
+
+  return initialFilters.map((f) => {
+    if (!f.key || !f.value) return undefined
+    return { key: f.key, value: f.value }
+  })
+}
+
+const createFiltersSlice = (set, get, options) => ({
   filters: {
     searchTerm: null,
-    active: undefined,
+    active: parseInitialFilters(options?.initialFilters),
 
     actions: {
       set: (filters) => {
         if (!Array.isArray(filters)) return
+
         set((state) => ({ filters: { ...state.filters, active: filters } }), false, "filters.set")
         // filter items
         get().data.actions.filterItems()
