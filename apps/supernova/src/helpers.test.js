@@ -25,14 +25,14 @@ describe("helpers", () => {
     it("should return the the error message from a object", () => {
       const error = { code: 404, message: "path was not found" }
 
-      expect(parseError(error)).toEqual("404: path was not found")
+      expect(parseError(error)).toEqual("API: 404, path was not found")
     })
 
     // test if we get the correct error message
     it("should return the the error message from a stringifyed object", () => {
       const error = JSON.stringify({ code: 404, message: "path was not found" })
 
-      expect(parseError(error)).toEqual("404: path was not found")
+      expect(parseError(error)).toEqual("API: 404, path was not found")
     })
 
     // return standard message if its not parseable
