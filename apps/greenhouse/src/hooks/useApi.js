@@ -51,7 +51,7 @@ const useApi = () => {
         const url = conf.status?.uiApplication?.url
 
         // temporary fix to forward initialFilters to the Plugins
-        const appProps = {}
+        const appProps = { username: authData?.parsed?.fullName }
         if (name === "doop") {
           appProps.initialFilters = [
             authData?.parsed?.supportGroups?.map((group) => ({
