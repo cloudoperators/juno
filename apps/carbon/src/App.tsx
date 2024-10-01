@@ -50,10 +50,7 @@ export const App = (props: AppProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppShell
-        pageHeader="Converged Cloud | App Template"
-        embedded={props.embedded === "true" || props.embedded === true}
-      >
+      <AppShell pageHeader="Converged Cloud Carbon App" embedded={props.embedded === "true" || props.embedded === true}>
         <ErrorBoundary fallbackRender={fallbackRender}>
           <AppContent />
         </ErrorBoundary>

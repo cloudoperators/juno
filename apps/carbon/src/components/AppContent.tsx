@@ -7,16 +7,27 @@ import React from "react"
 import { Breadcrumb, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
 
 import WelcomeView from "./WelcomeView"
+import { Link, Route, Switch } from "wouter"
 
 const AppContent = () => {
   return (
     <>
-      <Breadcrumb>
-        <BreadcrumbItem icon="home" label="Template App Home" />
-      </Breadcrumb>
-      <Container py>
-        <WelcomeView />
-      </Container>
+      <Link href="/admin/teams">Teams View</Link>
+      <Link href="/admin/org">Org View</Link>
+      <Link href="/admin/cluster">Cluster View</Link>
+      <Link href="/admin/secret">Secret View</Link>
+      <Link href="/admin/plugin">Plugin View</Link>
+      {/* 
+      Routes below are matched exclusively -
+      the first matched route gets rendered
+    */}
+      <Switch>
+        <Route path="/welcome" component={WelcomeView} />
+        <Route path="admin/:name">{(params) => <>Hello, {params.name}!</>}</Route>
+
+        {/* Default route in a switch */}
+        <Route>404: No such page!</Route>
+      </Switch>
     </>
   )
 }
