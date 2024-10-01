@@ -61,8 +61,7 @@ export const Pagination = ({
       setControlCurrentPage(newPage)
     }
 
-    // returns newPage value if newPage exists, otherwise returns event
-    onPressPrevious && onPressPrevious(newPage ? newPage : event)
+    onPressPrevious && onPressPrevious(newPage)
   }
 
   const handleNextClick = (event) => {
@@ -75,19 +74,20 @@ export const Pagination = ({
         setControlCurrentPage(newPage)
       }
     }
-    // returns newPage value if newPage exists, otherwise returns event
-    onPressNext && onPressNext(newPage ? newPage : event)
+
+    onPressNext && onPressNext(newPage)
   }
 
   const handleSelectChange = (selected) => {
     const s = parseInt(selected)
     setControlCurrentPage(s)
+
     onSelectChange && onSelectChange(s)
   }
 
   const handleInputChange = (event) => {
     // ensure that the input value is an integer
-    let inputValue = parseInt(event?.target.value)
+    let inputValue = event?.target.value ? parseInt(event?.target.value) : undefined
 
     if (inputValue < 1) {
       inputValue = 1
@@ -95,19 +95,18 @@ export const Pagination = ({
       inputValue = controlTotalPage
     }
     setControlCurrentPage(inputValue)
+
     onInputChange && onInputChange(inputValue)
   }
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      // if controlPage exists, return controlPage, otherwise return event
-      onKeyPress && onKeyPress(controlPage ? controlPage : event)
+      onKeyPress && onKeyPress(controlPage)
     }
   }
 
   const handleBlur = (event) => {
-    // if controlPage exists, return controlPage, otherwise return event
-    onBlur && onBlur(controlPage ? controlPage : event)
+    onBlur && onBlur(controlPage)
   }
 
   // Calculation of the width of input fields dynamically based on the number of characters
