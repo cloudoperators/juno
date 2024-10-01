@@ -5,7 +5,7 @@
 
 import React, { useEffect } from "react"
 import PropTypes from "prop-types"
-import styles from "./styles.module.scss"
+import styles from "./styles.scss?inline"
 
 import MonorepoChecker from "./components/MonorepoChecker"
 
