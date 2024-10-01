@@ -284,17 +284,25 @@ describe("Pagination", () => {
     })
   })
 
+  test("renders Pagination (input) - fires onBlur handler as passed", async () => {
+    const onBlurMock = jest.fn()
+    render(<Pagination variant="input" pages={12} onBlur={onBlurMock} />)
+    const textinput = screen.getByRole("textbox")
+    await waitFor(() => {
+      fireEvent.change(textinput, { target: { value: "102" } })
+      fireEvent.blur(textinput)
+      expect(onBlurMock).toHaveBeenCalledTimes(1)
+    })
+  })
+
   test("renders Pagination (input) - value corrected to the highest possible - as passed", async () => {
     render(<Pagination variant="input" pages={12} />)
     const textInput = screen.getByRole("textbox")
-    await waitFor(
-      () => {
-        fireEvent.change(textInput, { target: { value: "20" } })
-        // userEvent.type(textInput, "102")
-        // fireEvent.keyPress(textinput, { key: "Enter", code: 13, charCode: 13 })
-      },
-      { timeout: 800 }
-    )
+    await waitFor(() => {
+      fireEvent.change(textInput, { target: { value: "20" } })
+      // userEvent.type(textInput, "102")
+      // fireEvent.keyPress(textinput, { key: "Enter", code: 13, charCode: 13 })
+    })
     expect(textInput).toHaveValue("12")
   })
 
@@ -302,13 +310,10 @@ describe("Pagination", () => {
     render(<Pagination variant="input" pages={12} />)
     const textInput = screen.getByRole("textbox")
 
-    await waitFor(
-      () => {
-        fireEvent.change(textInput, { target: { value: "0" } })
-        fireEvent.blur(textInput)
-      },
-      { timeout: 800 }
-    )
+    await waitFor(() => {
+      fireEvent.change(textInput, { target: { value: "0" } })
+      fireEvent.blur(textInput)
+    })
     expect(textInput).toHaveValue("1")
   })
 

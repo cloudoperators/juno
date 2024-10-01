@@ -37,6 +37,7 @@ export const Pagination = ({
   onPressPrevious = undefined,
   onPressNext = undefined,
   onSelectChange = undefined,
+  onInputChange = undefined,
   onKeyPress = undefined,
   onBlur = undefined,
   progress = false,
@@ -57,8 +58,9 @@ export const Pagination = ({
     let newPage
     if (controlPage && controlPage > 1) {
       newPage = controlPage - 1
+      setControlCurrentPage(newPage)
     }
-    setControlCurrentPage(newPage)
+
     // returns newPage value if newPage exists, otherwise returns event
     onPressPrevious && onPressPrevious(newPage ? newPage : event)
   }
@@ -70,9 +72,9 @@ export const Pagination = ({
     if (controlPage) {
       if (controlPage < controlTotalPage || !controlTotalPage) {
         newPage = controlPage + 1
+        setControlCurrentPage(newPage)
       }
     }
-    setControlCurrentPage(newPage)
     // returns newPage value if newPage exists, otherwise returns event
     onPressNext && onPressNext(newPage ? newPage : event)
   }
@@ -93,6 +95,7 @@ export const Pagination = ({
       inputValue = controlTotalPage
     }
     setControlCurrentPage(inputValue)
+    onInputChange && onInputChange(inputValue)
   }
 
   const handleKeyPress = (event) => {
@@ -209,6 +212,8 @@ Pagination.propTypes = {
   onPressNext: PropTypes.func,
   /** Select field change handler (select + input) */
   onSelectChange: PropTypes.func,
+  /** Input field change handler (select + input) */
+  onInputChange: PropTypes.func,
   /** onKeyPress handler (input) */
   onKeyPress: PropTypes.func,
   /** onBlur handler (input)*/
