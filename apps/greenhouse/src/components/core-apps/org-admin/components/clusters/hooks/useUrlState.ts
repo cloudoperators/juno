@@ -34,7 +34,7 @@ const useUrlState = (key: string): void => {
       don't read the url if we are already read it or if we are not logged in!!!!!
     */
     if (isURLRead || !loggedIn) return
-    console.log(
+    console.debug(
       `greenhouse-cluster-admin: (${key || DEFAULT_KEY}) setting up state from url:`,
       urlStateManager.currentState()
     )
