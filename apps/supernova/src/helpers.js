@@ -4,21 +4,22 @@
  */
 
 export const parseError = (error) => {
-  let errMsg = error
-
   // check if error is JSON containing message or just string
   if (typeof error === "string") {
-    errMsg = parseMessage(error)
+    if (error.includes("Failed to fetch")) {
+      return "Could not reach endpoint. Possible causes could include network issues, incorrect URL, or server outages."
+    }
+    return parseMessage(error)
   }
 
   // check if the error is a object containing message
   if (typeof error === "object") {
-    console.debug("Error parsing error message::object")
     if (error?.message) {
-      errMsg = parseMessage(error?.message)
+      return (error?.code ? `API: ${error.code}, ` : "") + error?.message
     }
   }
-  return errMsg
+
+  return "An error occurred"
 }
 
 const parseMessage = (message) => {
@@ -26,15 +27,11 @@ const parseMessage = (message) => {
   try {
     newMsg = JSON.parse(message)
     if (newMsg?.message) {
-      newMsg = (newMsg?.code ? `${newMsg.code}, ` : "") + newMsg?.message
+      newMsg = (newMsg?.code ? `API: ${newMsg.code}, ` : "") + newMsg?.message
     }
   } catch (error) {
-    return error
-  }
-
-  if (newMsg === "Failed to fetch") {
-    newMsg =
-      "Sorry, there was an issue fetching the data. Possible causes could include network issues, incorrect URL, or server outages. "
+    console.warn(error)
+    return message
   }
 
   return newMsg
