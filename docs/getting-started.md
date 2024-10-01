@@ -63,7 +63,12 @@ Before you begin, ensure you have the following software installed on your machi
    - **Generator:Package**
      The npm run generate:package command is used to generate a new package in a project. When running this command, you need to provide a name for the package that starts with `@cloudoperators/juno-`.
      ```bash
-     npm run generate:paclage @cloudoperators/juno-NAME-OF-YOUR-PACKAGE
+     npm run generate:package @cloudoperators/juno-NAME-OF-YOUR-PACKAGE
+     ```
+   - **Generator:App**
+     The npm run generate:app command is used to generate a new app in a project. When running this command, you need to provide a name for the app that starts with `@cloudoperators/juno-`.
+     ```bash
+     npm run generate:app @cloudoperators/juno-NAME-OF-YOUR-PACKAGE
      ```
 
 You can also install Turbo globally and run the commands directly:
