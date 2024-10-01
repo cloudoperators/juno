@@ -16,6 +16,13 @@ export default {
   },
 }
 
+const PortalMessage = () => {
+  const portalRef = usePortalRef()
+  if (!portalRef) return null
+  const content = <Message text="I'm inside a portal using the usePortalref hook in a custom component." />
+  return createPortal(content, portalRef)
+}
+
 const Template = ({ children, ...args }) => <PortalProvider {...args}>{children}</PortalProvider>
 
 Template.propTypes = {
@@ -31,13 +38,6 @@ export const WithPortalComponent = {
       </PortalProvider.Portal>
     ),
   },
-}
-
-const PortalMessage = () => {
-  const portalRef = usePortalRef()
-  if (!portalRef) return null
-  const content = <Message text="I'm inside a portal using the usePortalref hook in a custom component." />
-  return createPortal(content, portalRef)
 }
 
 export const WithHook = {

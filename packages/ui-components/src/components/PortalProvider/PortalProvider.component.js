@@ -4,7 +4,7 @@ import { createPortal } from "react-dom"
 
 const DEFAULT_PORTAL_ROOT_ID = "juno-portal-root"
 
-const PortalContext = createContext()
+export const PortalContext = createContext()
 
 const portalRootStyles = {
   position: "absolute",
@@ -16,17 +16,6 @@ const portalStyles = {
   position: "relative",
   zIndex: "1",
 }
-/** Discuss/decide:
- * add usePortal(<StuffToRender/>) hook?
- * add onMount/onMount props? (Portal component only, not sure whether this would be possible with he hook(s)?)
- */
-
-/** Review:
- * component behaviour over lifecycle:
- * is context properly updated when root changes or unmounts?
- * are containers properly updated when components calling them change?
- * are containers properly removed when componetns unmount (e.g. when closing a modal?)
- */
 
 /** A PortalProvider.Portal component to directly use from within other components:
  *  ```
@@ -76,13 +65,13 @@ export function usePortalRef() {
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
-    if (!rootRef || !rootRef.current) {
+    if (!rootRef || !rootRef?.current) {
       console.warn(
         "usePortalRef must be called inside a PortalProvider. You are probably using a component that renders a portal, e.g. Modal or Select. Make sure your app is wrapped in an AppShellProvider. Alternatively, a PortalProvider can be included manually."
       )
       return
     }
-    // create a portal container element and append it to the portal root container
+    // Create a portal container element, add the styles, and append it to the portal root container when the root container is ready:
     const containerElement = document.createElement("div")
     containerElement.style.position = "relative"
     containerElement.style.zIndex = "1"
@@ -114,9 +103,17 @@ export function usePortalRef() {
  */
 export const PortalProvider = ({ children = null, className = "", id = DEFAULT_PORTAL_ROOT_ID }) => {
   const portalRootRef = useRef()
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Wait for the ref to be set after the initial render in order to make sure the context will provide a valid ref that points to an existing portal-root node:
+  useEffect(() => {
+    if (portalRootRef.current) {
+      setIsMounted(true)
+    }
+  }, [])
 
   return (
-    <PortalContext.Provider value={portalRootRef}>
+    <PortalContext.Provider value={isMounted ? portalRootRef : null}>
       {children}
       <div className={`juno-portal-root ${className}`} id={id} ref={portalRootRef} style={portalRootStyles} />
     </PortalContext.Provider>
