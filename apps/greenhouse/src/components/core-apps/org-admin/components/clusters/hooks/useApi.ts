@@ -30,7 +30,7 @@ export const useApi = (debug?: boolean) => {
         .then((res) => {
           if (res.kind !== object.kind) {
             isDebug &&
-              console.log(`ERROR: Failed to get ${object.kind}, did not get ${object.kind}: ${JSON.stringify(res)}`)
+              console.debug(`ERROR: Failed to get ${object.kind}, did not get ${object.kind}: ${JSON.stringify(res)}`)
             return {
               ok: false,
               message: `Failed getting ${object.kind}`,
@@ -44,7 +44,7 @@ export const useApi = (debug?: boolean) => {
           }
         })
         .catch((error) => {
-          isDebug && console.log(`ERROR: Failed to get ${object.kind}`, error)
+          isDebug && console.debug(`ERROR: Failed to get ${object.kind}`, error)
           return {
             ok: false,
             message: `Failed getting ${object.kind}: ${error}`,
@@ -65,7 +65,9 @@ export const useApi = (debug?: boolean) => {
         .then((res) => {
           if (res.kind !== object.kind) {
             isDebug &&
-              console.log(`ERROR: Failed to create ${object.kind}, did not get ${object.kind}: ${JSON.stringify(res)}`)
+              console.debug(
+                `ERROR: Failed to create ${object.kind}, did not get ${object.kind}: ${JSON.stringify(res)}`
+              )
             return { ok: false, message: `Failed creating ${object.kind}` }
           }
           return {
@@ -75,7 +77,7 @@ export const useApi = (debug?: boolean) => {
           }
         })
         .catch((error) => {
-          isDebug && console.log(`ERROR: Failed to create ${object.kind}`, error)
+          isDebug && console.debug(`ERROR: Failed to create ${object.kind}`, error)
           return {
             ok: false,
             message: `Failed creating ${object.kind}: ${error}`,
@@ -96,7 +98,9 @@ export const useApi = (debug?: boolean) => {
         .then((res) => {
           if (res.kind !== object.kind) {
             isDebug &&
-              console.log(`ERROR: Failed to update ${object.kind}, did not get ${object.kind}: ${JSON.stringify(res)}`)
+              console.debug(
+                `ERROR: Failed to update ${object.kind}, did not get ${object.kind}: ${JSON.stringify(res)}`
+              )
             return { ok: false, message: `Failed updating ${object.kind}` }
           }
           return {
@@ -106,7 +110,7 @@ export const useApi = (debug?: boolean) => {
           }
         })
         .catch((error) => {
-          isDebug && console.log(`ERROR: Failed to update ${object.kind}`, error)
+          isDebug && console.debug(`ERROR: Failed to update ${object.kind}`, error)
           return {
             ok: false,
             message: `Failed updating ${object.kind}: ${error}`,
@@ -132,11 +136,11 @@ export const useApi = (debug?: boolean) => {
             return { ok: true, message: `Successfully deleted ${object.kind}` }
           }
           isDebug &&
-            console.log(`ERROR: Failed to delete ${object.kind} did not get ${object.kind}: ${JSON.stringify(res)}`)
+            console.debug(`ERROR: Failed to delete ${object.kind} did not get ${object.kind}: ${JSON.stringify(res)}`)
           return { ok: false, message: `Failed deleting ${object.kind}` }
         })
         .catch((error) => {
-          isDebug && console.log(`ERROR: Failed to delete ${object.kind}`, error)
+          isDebug && console.debug(`ERROR: Failed to delete ${object.kind}`, error)
           return {
             ok: false,
             message: `Failed deleting ${object.kind}: ${error}`,
@@ -156,7 +160,7 @@ export const useApi = (debug?: boolean) => {
       params?: any
     ): Promise<ApiResponse> => {
       if (!client || !namespace) {
-        console.log(
+        console.debug(
           "Cannot initialize watch: client or namespace not available, waiting for client or namespace to become available"
         )
         return { ok: false, message: "Client or namespace not available" }
@@ -176,20 +180,17 @@ export const useApi = (debug?: boolean) => {
               params: params,
             })
             .on(client.WATCH_ERROR, () => {
-              console.log("ERROR: Failed to watch resource")
+              console.debug("ERROR: Failed to watch resource")
             })
             .on(client.WATCH_ADDED, (items) => {
-              console.log(`added ${items}`)
               addKind(items, kind)
               onAdded(items as T[])
             })
             .on(client.WATCH_MODIFIED, (items) => {
-              console.log(`modified ${items}`)
               addKind(items, kind)
               onModified(items as T[])
             })
             .on(client.WATCH_DELETED, (items) => {
-              console.log(`deleted ${items}`)
               addKind(items, kind)
               onDeleted(items as T[])
             })

@@ -43,7 +43,7 @@ const AppContainer = ({ apiEndpoint, auth }) => {
           token={auth?.JWT}
           namespace={auth?.parsed?.organizations?.[0]}
           expires={auth?.parsed.expiresAt}
-          userGroups={auth?.parsed?.teams?.[0]}
+          userGroup={auth?.parsed?.teams?.[0]}
         />
       </Suspense>
     </MessagesProvider>

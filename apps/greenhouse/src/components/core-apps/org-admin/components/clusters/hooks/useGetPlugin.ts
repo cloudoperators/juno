@@ -30,7 +30,7 @@ export const useGetPlugins = () => {
         })
         .then((res) => {
           if (res.kind !== "PluginList") {
-            console.log("ERROR: Failed to get Plugins for cluster, did not get PluginList")
+            console.debug("ERROR: Failed to get Plugins for cluster, did not get PluginList")
             return [] as Plugin[]
           }
           return res.items as Plugin[]
