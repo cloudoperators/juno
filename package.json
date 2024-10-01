@@ -12,6 +12,7 @@
     "clean": "npm run cleanVite && turbo run clean && rm -rf node_modules && rm -rf ./**/*/node_modules",
     "typecheck": "turbo run typecheck",
     "generate:package": "turbo gen workspace --type package --copy @cloudoperators/juno-package-template --name",
+    "generate:app": "turbo gen workspace --type app --copy @cloudoperators/juno-app-template --name",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md}\"",
     "check-format": "prettier --config ./.prettierrc --check \"**/*.{js,jsx,ts,tsx,md}\" ",
     "changeset": "changeset",
