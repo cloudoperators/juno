@@ -210,9 +210,9 @@ Pagination.propTypes = {
   onPressPrevious: PropTypes.func,
   /** onPress (next) handler */
   onPressNext: PropTypes.func,
-  /** Select field change handler (select + input) */
+  /** Select change handler (select variant) */
   onSelectChange: PropTypes.func,
-  /** Input field change handler (select + input) */
+  /** Input field change handler (input) */
   onInputChange: PropTypes.func,
   /** onKeyPress handler (input) */
   onKeyPress: PropTypes.func,
