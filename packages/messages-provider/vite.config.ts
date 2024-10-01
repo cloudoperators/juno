@@ -5,6 +5,7 @@
 
 import { defineConfig } from "vite"
 import dts from "vite-plugin-dts"
+import { peerDependencies } from "./package.json"
 
 export default defineConfig({
   build: {
@@ -15,6 +16,9 @@ export default defineConfig({
       fileName: () => `index.js`, // Output file names
     },
     outDir: "build",
+    rollupOptions: {
+      external: Object.keys(peerDependencies), // Specify which dependencies are external
+    },
   },
   plugins: [
     dts({
