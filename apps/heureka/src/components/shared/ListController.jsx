@@ -9,14 +9,14 @@ import { useGlobalsQueryClientFnReady, useGlobalsQueryOptions, useGlobalsActions
 import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
-import { useGlobalsActiveNavEntry } from "../../hooks/useAppStore"
+import { useGlobalsActiveView } from "../../hooks/useAppStore"
 
 const ListController = ({ queryKey, entityName, ListComponent, activeFilters, searchTerm, enableSearchAndFilter }) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
   const queryOptions = useGlobalsQueryOptions(queryKey)
   const { setQueryOptions } = useGlobalsActions()
   const { addMessage, resetMessages } = messageActions()
-  const activeView = useGlobalsActiveNavEntry()
+  const activeView = useGlobalsActiveView()
 
   // Fetch view main data
   const {

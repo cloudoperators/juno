@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.8.0
+
+### Minor Changes
+
+- 98070aa: Fixes issue with details panel being stuck in loading state when reloading the app while the panel is open
+- c152995: Ux improvement: Removed NavEntries folder and related controls; introduced CustomAppShell to manage TopNavigation within AppShell.
+
+### Patch Changes
+
+- Updated dependencies [73f55e0]
+- Updated dependencies [44e88bf]
+- Updated dependencies [aa0bc95]
+  - @cloudoperators/juno-ui-components@2.22.0
+
 ## 2.7.0
 
 ### Minor Changes

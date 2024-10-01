@@ -100,7 +100,20 @@ jobs:
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'doop')
         id: build-doop
         run: |
-          ./.github/scripts/build-app.sh
+          # collect the necessary information
+          entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
+          build_folder=$(dirname $entry_file)
+          package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
+
+          # Run build using turbo
+          npx turbo run build:static --filter $package_name
+
+          # Copy build folder to deploy path
+          mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
+          cp -r "$PACKAGE_PATH/$build_folder/." "$DEPLOY_PATH/$TARGET_FOLDER"
+
+          # Generate appProps.json
+          echo "$APP_PROPS_BASE64" | base64 -d > "$DEPLOY_PATH/$TARGET_FOLDER/appProps.json"
         env:
           PACKAGE_PATH: apps/doop
           TARGET_FOLDER: doop

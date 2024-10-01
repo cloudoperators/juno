@@ -5,7 +5,7 @@
 
 import React from "react"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useGlobalsActions, useGlobalsActiveNavEntry } from "../hooks/useAppStore"
+import { useGlobalsActions, useGlobalsActiveView } from "../hooks/useAppStore"
 import ServicesView from "./services/ServicesView"
 import IssueMatchesView from "./issueMatches/IssueMatchesView"
 import ComponentsView from "./components/ComponentsView"
@@ -20,7 +20,7 @@ const VIEW_CONFIG = {
 
 const CustomAppShell = ({ children }) => {
   const { setActiveView, setShowPanel } = useGlobalsActions()
-  const activeView = useGlobalsActiveNavEntry()
+  const activeView = useGlobalsActiveView()
 
   const handleNavItemChange = (item) => {
     setActiveView(item)
