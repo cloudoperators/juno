@@ -1,5 +1,13 @@
 # @cloudoperators/juno-ui-components
 
+## 2.22.0
+
+### Minor Changes
+
+- 73f55e0: Migrate Stack component to TypeScript
+- 44e88bf: Migrate TextInput component to TypeScript
+- aa0bc95: Migrate Tabs and related components to TypeScript
+
 ## 2.21.0
 
 ### Minor Changes
