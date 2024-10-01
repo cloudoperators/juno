@@ -25,10 +25,8 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "*",
-    "@testing-library/dom": "^8.19.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
     "prop-types": "15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -42,10 +40,14 @@
     "@cloudoperators/juno-ui-components": "*"
   },
   "scripts": {
-    "build": "vite build",
     "test": "vitest run",
-    "lint": "eslint .",
-    "dev": "NODE_ENV=development rollup -c -w"
+    "test:watch": "vitest --watch",
+    "lint": "eslint ",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
   },
   "jest": {
     "testEnvironment": "jsdom",
