@@ -6,7 +6,7 @@
 export const parseError = (error) => {
   // check if error is JSON containing message or just string
   if (typeof error === "string") {
-    if (error === "Failed to fetch") {
+    if (error.includes("Failed to fetch")) {
       return "Could not reach endpoint. Possible causes could include network issues, incorrect URL, or server outages."
     }
     return parseMessage(error)
