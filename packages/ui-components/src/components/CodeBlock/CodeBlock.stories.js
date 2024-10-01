@@ -6,11 +6,17 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { CodeBlock } from "./index.js"
-import { Tabs } from "../Tabs/index.js"
-import { TabList } from "../TabList/index.js"
-import { Tab } from "../Tab/index.js"
-import { Default as TabStory } from "../Tab/Tab.stories.js"
-import { TabPanel } from "../TabPanel/index.js"
+import { Tabs } from "../../deprecated_js/Tabs/index.js"
+import { TabList } from "../../deprecated_js/TabList/index.js"
+import { Tab } from "../../deprecated_js/Tab/index.js"
+import { TabPanel } from "../../deprecated_js/TabPanel/index.js"
+
+const TabStory = {
+  args: {
+    label: "A Tab Label",
+    children: "Tab 1",
+  },
+}
 
 export default {
   title: "Components/CodeBlock",

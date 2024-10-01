@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { TabPanel } from "./index.js"
+import { TabPanel } from "./index"
 
 export default {
   title: "Layout/Tabs/TabPanel",

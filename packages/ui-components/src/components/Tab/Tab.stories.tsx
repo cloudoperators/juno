@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Tab } from "./index.js"
-import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
+import { Tab } from "./index"
+import { KnownIconsEnum } from "../Icon/Icon.component"
 
 export default {
   title: "Layout/Tabs/Tab",
   component: Tab,
   argTypes: {
     icon: {
-      options: ["default", ...knownIcons],
+      options: ["default", ...Object.keys(KnownIconsEnum)],
       control: { type: "select" },
     },
     children: {
