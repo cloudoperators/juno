@@ -29,7 +29,7 @@ const ClusterSelect: React.FC<ClusterSelectProps> = (props: ClusterSelectProps) 
       try {
         const res = await client.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/clusters`, {})
         if (res.kind !== "ClusterList") {
-          console.log("ERROR: Failed to get Clusters")
+          console.debug("ERROR: Failed to get Clusters")
         } else {
           const newClusters = res.items as Cluster[]
           // Only update state if the new clusters are different

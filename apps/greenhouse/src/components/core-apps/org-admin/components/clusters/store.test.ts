@@ -52,14 +52,12 @@ describe("store tests", () => {
       })
       expect(result.current.clusters).toHaveLength(1)
       expect(result.current.clusters[0].metadata!.name!).toEqual("test-cluster")
-      console.log(result.current.clusters)
       let updateTestCluster = { ...testCluster }
 
       act(() => {
         updateTestCluster.metadata!.name = "updated-name"
         result.current.modifyClusters([updateTestCluster])
       })
-      console.log(result.current.clusters)
 
       expect(result.current.clusters[0].metadata!.name!).toEqual("updated-name")
       expect(result.current.clusters).toHaveLength(1)

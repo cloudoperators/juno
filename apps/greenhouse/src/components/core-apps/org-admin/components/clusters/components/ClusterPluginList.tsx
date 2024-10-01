@@ -30,7 +30,7 @@ const ClusterPluginList: React.FC<ClusterPluginListProps> = (props: ClusterPlugi
                   key={plugin.metadata!.name}
                   style={{ cursor: "default" }}
                   size="small"
-                  onClick={() => console.log("go to plugin config page of " + plugin.metadata!.name)}
+                  onClick={() => console.debug("go to plugin config page of " + plugin.metadata!.name)}
                 >
                   {plugin.metadata!.name}
                 </Button>
