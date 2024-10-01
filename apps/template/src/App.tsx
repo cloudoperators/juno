@@ -4,15 +4,19 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { AppShell, AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
-import StoreProvider from "./components/StoreProvider"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import AppContent from "./AppContent"
-import styles from "./styles.scss"
+import AppContent from "./components/AppContent"
 import { ErrorBoundary } from "react-error-boundary"
 
-const App = (props = {}) => {
+interface AppProps {
+  theme?: string
+  embedded?: string | boolean
+  endpoint?: string
+  currentHost?: string
+}
+
+export const App = (props: AppProps) => {
   const preErrorClasses = `
     custom-error-pre
     border-theme-error
@@ -34,7 +38,7 @@ const App = (props = {}) => {
     },
   })
 
-  const fallbackRender = ({ error }) => {
+  const fallbackRender = ({ error }: { error: { message: string } }) => {
     return (
       <div className="w-1/2">
         <CodeBlock className={preErrorClasses} copy={false}>
@@ -51,37 +55,21 @@ const App = (props = {}) => {
         embedded={props.embedded === "true" || props.embedded === true}
       >
         <ErrorBoundary fallbackRender={fallbackRender}>
-          <AppContent props={props} />
+          <AppContent />
         </ErrorBoundary>
       </AppShell>
     </QueryClientProvider>
   )
 }
 
-App.propTypes = {
-  theme: PropTypes.string,
-  embedded: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  endpoint: PropTypes.string,
-  currentHost: PropTypes.string,
-}
+type StyledAppProps = AppProps
 
-const StyledApp = (props) => {
+const StyledApp = (props: StyledAppProps) => {
   return (
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
-      {/* load styles inside the shadow dom */}
-      <style>{styles.toString()}</style>
-      <StoreProvider options={props}>
-        <App {...props} />
-      </StoreProvider>
+      <App theme={props.theme} embedded={props.embedded} endpoint={props.endpoint} currentHost={props.currentHost} />
     </AppShellProvider>
   )
-}
-
-StyledApp.propTypes = {
-  theme: PropTypes.string,
-  embedded: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  endpoint: PropTypes.string,
-  currentHost: PropTypes.string,
 }
 
 export default StyledApp
