@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from "react"
-import { Container, Stack } from "@cloudoperators/juno-ui-components"
+import { Container } from "@cloudoperators/juno-ui-components"
 import { useAPI } from "./hooks/useAPI"
 import TeamList from "./components/team/TeamList"
 import Filter from "./components/filter/Filter"

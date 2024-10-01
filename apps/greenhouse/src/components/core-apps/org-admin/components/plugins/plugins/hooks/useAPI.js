@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useCallback, useMemo } from "react"
+import { useCallback } from "react"
 import useClient from "./useClient"
 import { usePluginActions, useNamespace } from "../components/StoreProvider"
 
