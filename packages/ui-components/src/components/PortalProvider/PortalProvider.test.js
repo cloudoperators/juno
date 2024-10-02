@@ -23,14 +23,14 @@ const TestConsumer = () => {
 }
 
 describe("PortalProvider", () => {
-  test("renders a portal root container", async () => {
+  test("renders a portal root container", () => {
     render(<PortalProvider />)
     const portalRoot = document.getElementById("juno-portal-root")
     expect(portalRoot).toBeInTheDocument()
     expect(portalRoot).toHaveClass("juno-portal-root")
   })
 
-  test("renders children wrapped into a .juno-portal container into a portal using PortalProvider.Portal", async () => {
+  test("renders children wrapped into a .juno-portal container into a portal using PortalProvider.Portal", () => {
     render(
       <PortalProvider>
         <PortalProvider.Portal>
@@ -45,12 +45,12 @@ describe("PortalProvider", () => {
     expect(parentEl.parentElement).toHaveClass("juno-portal-root")
   })
 
-  test("renders a portal root container with an id as passed", async () => {
+  test("renders a portal root container with an id as passed", () => {
     render(<PortalProvider id="portal-provider-test-id" />)
     expect(document.getElementById("portal-provider-test-id")).toBeInTheDocument()
   })
 
-  test("renders children wrapped into a .juno-portal-container into a portal using usePortalRef", async () => {
+  test("renders children wrapped into a .juno-portal-container into a portal using usePortalRef", () => {
     render(
       <PortalProvider>
         <TestComponent />
@@ -63,7 +63,7 @@ describe("PortalProvider", () => {
     expect(parentEl.parentElement).toHaveClass("juno-portal-root")
   })
 
-  test("renders individual juno portal containers for multiple portals", async () => {
+  test("renders individual juno portal containers for multiple portals", () => {
     render(
       <PortalProvider>
         <PortalProvider.Portal>
@@ -81,7 +81,7 @@ describe("PortalProvider", () => {
     expect(portalContainers.length).toBe(3)
   })
 
-  test("removes the portal root container when unmounting", async () => {
+  test("removes the portal root container when unmounting", () => {
     const { unmount } = render(
       <PortalProvider>
         <TestComponent />
@@ -132,7 +132,18 @@ describe("PortalProvider", () => {
     consoleWarnSpy.mockRestore()
   })
 
-  test("renders an additional custom className to the portal root as passed", async () => {
+  // test("does not log a warning to the console when used inside a PortalProvider", async () => {
+  //   let consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {})
+  //   render(
+  //     <PortalProvider>
+  //       <TestComponent />
+  //     </PortalProvider>
+  //   )
+  //   expect(consoleWarnSpy).not.toHaveBeenCalled()
+  //   consoleWarnSpy.mockRestore()
+  // })
+
+  test("renders an additional custom className to the portal root as passed", () => {
     render(<PortalProvider className="my-custom-class" />)
     const portalRoot = document.getElementById("juno-portal-root")
     expect(portalRoot).toBeInTheDocument()
