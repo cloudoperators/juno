@@ -7,7 +7,7 @@ import React from "react"
 import { MenuItem } from "./MenuItem.component"
 import { Menu } from "../Menu/Menu.component"
 import { Button } from "../Button/index"
-import { knownIcons } from "../Icon/Icon.component"
+import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 export default {
   title: "WiP/Menu/MenuItem",
