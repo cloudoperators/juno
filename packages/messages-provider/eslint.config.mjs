@@ -5,13 +5,4 @@
 
 import junoConfigs from "@cloudoperators/juno-config/eslint/juno.mjs"
 
-export default [
-  ...junoConfigs,
-  {
-    files: ["**/*.test.js"],
-    languageOptions: { sourceType: "module" },
-  },
-  {
-    ignores: ["setupTests.js"],
-  },
-]
+export default [...junoConfigs]
