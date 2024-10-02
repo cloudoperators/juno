@@ -4,8 +4,6 @@
  */
 
 import React from "react"
-import { Breadcrumb, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
-
 import WelcomeView from "./WelcomeView"
 import { Link, Route, Switch } from "wouter"
 
