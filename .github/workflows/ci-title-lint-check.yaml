@@ -26,14 +26,20 @@ jobs:
             chore
             fix
             feat
+            merge
             publish
             release
+            refactor
+            research
+            style
+            test
           # Configure which scopes are allowed (newline-delimited).
           # These are regex patterns auto-wrapped in `^ $`.
           scopes: |
             build
             communicator
             config
+            carbon
             ci
             core
             deps
