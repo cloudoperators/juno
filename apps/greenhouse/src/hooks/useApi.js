@@ -60,6 +60,10 @@ const useApi = () => {
               value: group,
             })),
           ]
+        } else if (name === "supernova") {
+          appProps.initialFilters = {
+            support_group: authData?.parsed?.supportGroups?.map((group) => group),
+          }
         } else {
           appProps.initialFilters = [
             authData?.parsed?.supportGroups?.map((group) => ({
