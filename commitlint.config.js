@@ -15,6 +15,7 @@ module.exports = {
         "config",
         "ci",
         "core",
+        "carbon",
         "greenhouse",
         "deps",
         "docs",

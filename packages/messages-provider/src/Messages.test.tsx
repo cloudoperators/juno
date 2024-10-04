@@ -7,17 +7,20 @@ import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { MessagesProvider, Messages } from "./index"
 
-jest.mock("./useMessageStore", () => ({
-  ...jest.requireActual("./useMessageStore"),
-  useMessages: () => [
-    {
-      variant: "info",
-      text: "test",
-      id: "id",
-      dismissible: false,
-    },
-  ],
-}))
+vi.mock("./useMessageStore", async () => {
+  const actual = await vi.importActual("./useMessageStore")
+  return {
+    ...actual,
+    useMessages: () => [
+      {
+        variant: "info",
+        text: "test",
+        id: "id",
+        dismissible: false,
+      },
+    ],
+  }
+})
 
 describe("Messages", () => {
   test("renders extra props", async () => {
