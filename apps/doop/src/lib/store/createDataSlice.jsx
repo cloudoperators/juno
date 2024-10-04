@@ -8,6 +8,7 @@ import { valueToLabel } from "../helpers"
 const FILTER_TYPE_CLUSTER = "cluster"
 const FILTER_TYPE_VIOLATION_GROUP = "violationGroup"
 const FILTER_TYPE_CHECK = "check"
+export const FILTER_TYPE_UNKNOWN = "unknown"
 /**
  * This function, getClusterFilterItems, takes an object clusterIdentities as input and generates an
  * array of filter items based on the data within this object.
@@ -44,6 +45,8 @@ const getClusterFilterItems = (clusterIdentities) => {
       // Create a filter item for the identity if it doesn't exist in filterItems.
       filterItems[id] = filterItems[id] || {
         key: `${FILTER_TYPE_CLUSTER}:${id}`,
+        id: id,
+        type: FILTER_TYPE_CLUSTER,
         label: valueToLabel(id), // Convert the identity key to a human-readable label.
         values: [],
       }
@@ -98,6 +101,8 @@ const getViolationFilterItems = (violationGroups, options = { showDebugSeveritie
       const value = constraint.metadata.severity
       filterItems["severity"] = filterItems["severity"] || {
         key: `${FILTER_TYPE_VIOLATION_GROUP}:severity`,
+        id: "severity",
+        type: FILTER_TYPE_VIOLATION_GROUP,
         label: "severity",
         values: [],
       }
@@ -111,6 +116,8 @@ const getViolationFilterItems = (violationGroups, options = { showDebugSeveritie
           const value = vg.pattern.object_identity[id]
           filterItems[id] = filterItems[id] || {
             key: `${FILTER_TYPE_CHECK}:${id}`,
+            id: id,
+            type: FILTER_TYPE_CHECK,
             label: valueToLabel(id),
             values: [],
           }
@@ -333,6 +340,7 @@ const createDataSlice = (set, get) => ({
           false,
           "data/setData"
         )
+        get().filters.actions.ensureFilterType()
         // filter items
         get().data.actions.filterItems()
       },
