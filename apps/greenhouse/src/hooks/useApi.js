@@ -50,28 +50,10 @@ const useApi = () => {
         const version = conf.status?.uiApplication?.version
         const url = conf.status?.uiApplication?.url
 
-        // temporary fix to forward initialFilters to the Plugins
+        // temporary fix to forward initialFilters to the Plugins until middleware is implemented
         const appProps = { username: authData?.parsed?.fullName }
-        if (name === "doop") {
-          appProps.initialFilters = [
-            authData?.parsed?.supportGroups?.map((group) => ({
-              key: "check:support_group",
-              label: "support group",
-              value: group,
-            })),
-          ]
-        } else if (name === "supernova") {
-          appProps.initialFilters = {
-            support_group: authData?.parsed?.supportGroups?.map((group) => group),
-          }
-        } else {
-          appProps.initialFilters = [
-            authData?.parsed?.supportGroups?.map((group) => ({
-              key: "support_group",
-              label: "support group",
-              value: group,
-            })),
-          ]
+        appProps.initialFilters = {
+          support_group: authData?.parsed?.supportGroups?.map((group) => group),
         }
 
         // only add plugin if the url is from another host or the name with the given version is in the manifest!
