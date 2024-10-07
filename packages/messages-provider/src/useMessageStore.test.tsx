@@ -23,13 +23,6 @@ beforeEach(() => {
   // no need to reset the store since each provider creates in each test a new store
 })
 
-// https://github.com/testing-library/react-hooks-testing-library/blob/chore/migration-guide/MIGRATION_GUIDE.md
-// https://react-hooks-testing-library.com/usage/advanced-hooks
-// React 17 @testing-library/react-hooks issue with React 18
-//   https://github.com/testing-library/react-hooks-testing-library/issues/654
-// React 17 @testing-library/react-hooks vs React 18 @testing-library/react
-//   https://github.com/testing-library/react-testing-library/pull/991#issuecomment-1207138334
-// catch consol warns: https://www.jackfranklin.co.uk/blog/failing-tests-on-react-proptypes/
 describe("messages-provider", () => {
   it("return no messages on initialize", () => {
     const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
@@ -37,11 +30,11 @@ describe("messages-provider", () => {
     expect(result.current.length).toBe(0)
   })
 
-  it("adds a message correctly", () => {
+  it("adds a message correctly", async () => {
     const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
     const store = renderHook(() => ({ actions: useActions(), messages: useMessages() }), { wrapper })
     let actionResult = null
-    act(
+    await act(
       () =>
         (actionResult = store.result.current.actions.addMessage({
           variant: "error",
@@ -55,27 +48,6 @@ describe("messages-provider", () => {
       expect(store.result.current.messages[0].variant).toEqual("error")
       expect(store.result.current.messages[0].text).toEqual("this is an error")
     })
-  })
-
-  it("test proptype for addMessage text", () => {
-    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
-    const actions = renderHook(() => useActions(), { wrapper })
-    expect(() => {
-      act(() => actions.result.current.addMessage({ variant: "error" }))
-    }).toThrow(/Failed prop type: The prop `text`/)
-  })
-
-  it("test proptype for addMessage variant", () => {
-    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
-    const actions = renderHook(() => useActions(), { wrapper })
-    expect(() => {
-      act(() =>
-        actions.result.current.addMessage({
-          variant: "miau",
-          text: "this is an error",
-        })
-      )
-    }).toThrow(/Failed prop type: Invalid prop `variant`/)
   })
 
   it("adds a message extra props (ex. dismissible) correctly", () => {
@@ -120,14 +92,6 @@ describe("messages-provider", () => {
     expect(store.result.current.messages.length).toBe(2)
     act(() => store.result.current.actions.removeMessage(store.result.current.messages[1].id))
     expect(store.result.current.messages.length).toBe(1)
-  })
-
-  it("test proptype for removeMessage id", () => {
-    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
-    const actions = renderHook(() => useActions(), { wrapper })
-    expect(() => {
-      act(() => actions.result.current.removeMessage())
-    }).toThrow(/Failed prop type: The prop `id`/)
   })
 
   it("reset messages store", () => {

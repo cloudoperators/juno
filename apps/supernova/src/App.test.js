@@ -10,9 +10,6 @@ import { render, act } from "@testing-library/react"
 // https://reactjsexample.com/an-extension-of-dom-testing-library-to-provide-hooks-into-the-shadow-dom/
 import { screen } from "shadow-dom-testing-library"
 
-jest.mock("./hooks/useCommunication", () => {
-  return jest.fn(() => ({}))
-})
 jest.mock("./hooks/useAlertmanagerAPI", () => {
   return jest.fn(() => ({}))
 })

@@ -5,7 +5,7 @@
   "module": "build/index.js",
   "source": "src/index.js",
   "style": "build/lib/variables.css",
-  "version": "2.22.0",
+  "version": "2.22.1",
   "files": [
     "build/*",
     "src/colors.css",
@@ -104,14 +104,15 @@
     "build-storybook": "storybook build",
     "build": "NODE_ENV=production rollup -c",
     "dev": "NODE_ENV=development rollup -c -w",
-    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "lint": "eslint",
     "test": "npm run test-vitest && npm run test-jest",
     "test-vitest": "vitest run",
     "typecheck": "tsc --noEmit",
     "test-jest": "jest",
     "test:watch": "jest --watchAll",
-    "test-vitest:watch": "vitest"
+    "test-vitest:watch": "vitest",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
   },
   "jest": {
     "verbose": true,

@@ -4,20 +4,24 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { Message } from "@cloudoperators/juno-ui-components"
 import { useMessages, useActions } from "./useMessageStore"
+import { Message as MessageType } from "./useMessageStore"
 
-const shouldAutoDismiss = (variant) => {
+const shouldAutoDismiss = (variant: string): boolean => {
   if (variant === "info" || variant === "success") return true
   return false
 }
 
-const Messages = ({ className }) => {
+interface MessagesProps {
+  className?: string
+}
+
+const Messages = ({ className }: MessagesProps) => {
   const messages = useMessages()
   const { removeMessage } = useActions()
 
-  const onDismiss = (id) => {
+  const onDismiss = (id: string) => {
     removeMessage(id)
   }
 
@@ -25,7 +29,7 @@ const Messages = ({ className }) => {
     <>
       {messages && messages.length > 0 && (
         <div role="group" className={`juno-message-provider ${className ? className : ""}`}>
-          {messages.map((item, index) => {
+          {messages.map((item: MessageType, index: number) => {
             const { id, variant, text, ...props } = item
             return (
               <Message
@@ -46,10 +50,6 @@ const Messages = ({ className }) => {
       )}
     </>
   )
-}
-
-Messages.propTypes = {
-  className: PropTypes.string,
 }
 
 export default Messages

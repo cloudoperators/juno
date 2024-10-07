@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-template",
-  "version": "1.0.8",
+  "version": "2.0.0",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
   "license": "Apache-2.0",
@@ -19,7 +19,8 @@
     "test": "vitest run",
     "lint": "eslint",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
-    "typecheck": "tsc --project tsconfig.json --noEmit"
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
     "react": "^18.2.0",
