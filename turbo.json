@@ -1,27 +1,31 @@
 {
   "globalEnv": ["PORT", "APP_PORT"],
   "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "cache": false
+      "cache": true
     },
     "lint": {
       "dependsOn": ["^lint"],
-      "cache": false
+      "cache": true
     },
     "typecheck": {
-      "cache": false
+      "cache": true
     },
     "test": {
-      "cache": false,
+      "cache": true,
       "dependsOn": ["build"]
     },
     "dev": {
-      "cache": false,
+      "cache": true,
       "persistent": true
     },
     "clean": {
+      "cache": false
+    },
+    "clean:cache": {
       "cache": false
     }
   }

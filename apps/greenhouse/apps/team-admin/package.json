@@ -61,7 +61,8 @@
     "test": "jest",
     "dev": "NODE_ENV=development node esbuild.config.js --serve --watch",
     "build": "NODE_ENV=production node esbuild.config.js",
-    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
   },
   "appProps": {
     "theme": {
