@@ -55,7 +55,9 @@
     "build": "NODE_ENV=production rollup -c",
     "test": "NODE_ENV=test jest",
     "lint": "eslint",
-    "dev": "NODE_ENV=development rollup -c -w"
+    "dev": "NODE_ENV=development rollup -c -w",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
   },
   "babel": {
     "presets": [
