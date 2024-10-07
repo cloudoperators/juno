@@ -6,7 +6,7 @@ module.exports = {
   // These are the labels that are used to filter alerts in the UI, e.g. ["app", "severity", "status"]
   filterLabels: [],
   // initial filters that are applied when the app is loaded, see README.md for more information
-  initialFilters: [],
+  initialFilters: {},
   // predefined filters for more complex filter categories, see README.md for more information
   predefinedFilters: {},
   // These are the labels that are excluded by default from the silence matchers, e.g. ["pod", "pod_name", "instance"]
