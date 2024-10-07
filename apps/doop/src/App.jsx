@@ -8,7 +8,6 @@ import React, { useEffect, useMemo, useLayoutEffect } from "react"
 import { AppShellProvider, ContentHeading } from "@cloudoperators/juno-ui-components"
 import AppContent from "./components/AppContent"
 import styles from "./styles.scss?inline"
-import AuthProvider from "./components/AuthProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import StoreProvider from "./components/StoreProvider"
 import AsyncWorker from "./components/AsyncWorker"
@@ -59,9 +58,7 @@ const App = (props = {}) => {
         />
         <AsyncWorker consumerId={props.id || "doop"} />
         <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <AppContent id={props?.id} showDebugSeverities={props.showDebugSeverities} />
-          </AuthProvider>
+          <AppContent id={props?.id} showDebugSeverities={props.showDebugSeverities} />
         </QueryClientProvider>
       </AppShell>
     </MessagesProvider>
@@ -73,7 +70,7 @@ const StyledApp = (props) => {
     <AppShellProvider>
       {/* load styles inside the shadow dom */}
       <style>{styles.toString()}</style>
-      <StoreProvider>
+      <StoreProvider options={props}>
         <App {...props} />
       </StoreProvider>
     </AppShellProvider>
