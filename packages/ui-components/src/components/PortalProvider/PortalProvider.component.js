@@ -118,8 +118,8 @@ export const PortalProvider = ({ children = null, className = "", id = DEFAULT_P
   }, [])
 
   return (
-    <PortalContext.Provider value={isMounted ? portalRootRef : null}>
-      {children}
+    <PortalContext.Provider value={portalRootRef}>
+      {isMounted && children}
       <div className={`juno-portal-root ${className}`} id={id} ref={portalRootRef} style={portalRootStyles} />
     </PortalContext.Provider>
   )
