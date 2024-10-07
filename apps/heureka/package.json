@@ -47,7 +47,8 @@
     "dev": "NODE_ENV=development node esbuild.config.js --serve --watch",
     "build": "NODE_ENV=production node esbuild.config.js",
     "lint": "eslint",
-    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
   },
   "importmapExtras": {
     "zustand/middleware": "4.5.2"
