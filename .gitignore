@@ -6,6 +6,7 @@ npm-debug.log*
 build
 dist
 appProps.json
+secretProps.json
 vite.config.*.timestamp-*
 
 # act artifacts needed for testing workflows
