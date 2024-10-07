@@ -95,3 +95,5 @@ export const useComponentActivePredefinedFilter = () =>
 
 // Filter actions
 export const useFilterActions = () => useAppStore((state) => state.filters.actions)
+
+export default StoreProvider
