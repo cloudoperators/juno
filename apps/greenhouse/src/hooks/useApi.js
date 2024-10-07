@@ -40,9 +40,6 @@ const useApi = () => {
         limit: 500,
       }),
     ]).then(([manifest, configs]) => {
-      // console.debug("::::::::::::::::::::::::manifest", manifest)
-      // console.debug("::::::::::::::::::::::::configs", configs.items)
-
       // create config map
       const config = {}
       configs.items.forEach((conf) => {
@@ -53,7 +50,11 @@ const useApi = () => {
         const version = conf.status?.uiApplication?.version
         const url = conf.status?.uiApplication?.url
 
-        // console.log("===", name, version, manifest[name]?.[version])
+        // temporary fix to forward initialFilters to the Plugins until middleware is implemented
+        const appProps = { username: authData?.parsed?.fullName }
+        appProps.initialFilters = {
+          support_group: authData?.parsed?.supportGroups?.map((group) => group),
+        }
 
         // only add plugin if the url is from another host or the name with the given version is in the manifest!
         if (manifest?.[name]) {
@@ -64,16 +65,17 @@ const useApi = () => {
             weight,
             version,
             url,
-            props: conf.spec?.optionValues?.reduce((map, item) => {
-              map[item.name] = item.value
-              return map
-            }, {}),
+            props: {
+              ...conf.spec?.optionValues?.reduce((map, item) => {
+                map[item.name] = item.value
+                return map
+              }, {}),
+              ...appProps,
+            },
           })
           if (newConf) config[id] = newConf
         }
       })
-
-      // console.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>", config)
 
       return config
     })

@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.22.1
+
+### Patch Changes
+
+- a77c643: Fix MenuItem overflow within the ContextMenu component.
+
 ## 2.22.0
 
 ### Minor Changes

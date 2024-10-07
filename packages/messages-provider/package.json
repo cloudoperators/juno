@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-messages-provider",
-  "version": "0.1.19",
+  "version": "0.2.0",
   "description": "Messages provider",
   "author": "UI-Team",
   "contributors": [
@@ -47,7 +47,8 @@
     "build": "vite build",
     "serve": "vite preview",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
   },
   "jest": {
     "testEnvironment": "jsdom",
