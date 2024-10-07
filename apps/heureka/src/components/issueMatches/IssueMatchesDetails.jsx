@@ -5,7 +5,7 @@
 
 import React, { useMemo } from "react"
 import { Pill, Stack, DataGrid, DataGridCell, DataGridHeadCell, DataGridRow } from "@cloudoperators/juno-ui-components"
-import { useGlobalsQueryClientFnReady, useGlobalsShowIssueDetail } from "../../hooks/useAppStore"
+import { useGlobalsQueryClientFnReady, useGlobalsShowIssueDetail } from "../StoreProvider"
 import { useQuery } from "@tanstack/react-query"
 import { listOfCommaSeparatedObjs, severityString, formatDate } from "../shared/Helper"
 import LoadElement from "../shared/LoadElement"
