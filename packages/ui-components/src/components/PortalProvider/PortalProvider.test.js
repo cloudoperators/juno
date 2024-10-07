@@ -22,7 +22,7 @@ const TestConsumer = () => {
   if (!portalRef) return null
   return (
     <>
-      portalRef?.current && (<div data-testid="portal-root-ref-id">{portalRef.current.className}</div>)
+      <div data-testid="portal-root-ref-id">{portalRef?.current?.className}</div>
     </>
   )
 }
@@ -137,16 +137,16 @@ describe("PortalProvider", () => {
     consoleWarnSpy.mockRestore()
   })
 
-  // test("does not log a warning to the console when used inside a PortalProvider", async () => {
-  //   let consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {})
-  //   render(
-  //     <PortalProvider>
-  //       <TestComponent />
-  //     </PortalProvider>
-  //   )
-  //   expect(consoleWarnSpy).not.toHaveBeenCalled()
-  //   consoleWarnSpy.mockRestore()
-  // })
+  test("does not log a warning to the console when used inside a PortalProvider", () => {
+    let consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {})
+    render(
+      <PortalProvider.Portal>
+        <TestComponent />
+      </PortalProvider.Portal>
+    )
+    expect(consoleWarnSpy).not.toHaveBeenCalled()
+    consoleWarnSpy.mockRestore()
+  })
 
   test("renders an additional custom className to the portal root as passed", () => {
     render(<PortalProvider className="my-custom-class" />)
