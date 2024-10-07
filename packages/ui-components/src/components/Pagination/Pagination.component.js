@@ -54,7 +54,7 @@ export const Pagination = ({
     controlPage > controlTotalPage && setControlCurrentPage(controlTotalPage)
   }, [currentPage, totalPages, pages])
 
-  const handlePrevClick = (event) => {
+  const handlePrevClick = () => {
     let newPage
     if (controlPage && controlPage > 1) {
       newPage = controlPage - 1
@@ -64,7 +64,7 @@ export const Pagination = ({
     onPressPrevious && onPressPrevious(newPage)
   }
 
-  const handleNextClick = (event) => {
+  const handleNextClick = () => {
     // set controlPage +1 if controlPage exists and controlPage is less than controlTotalPage
     // also set controlPage +1 if controlPage exists but controlTotalPage does not exist
     let newPage
@@ -105,7 +105,7 @@ export const Pagination = ({
     }
   }
 
-  const handleBlur = (event) => {
+  const handleBlur = () => {
     onBlur && onBlur(controlPage)
   }
 
