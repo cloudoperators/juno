@@ -277,7 +277,7 @@ describe("createFiltersSlice", () => {
 
       expect(store.result.current.activeFilters).toEqual(props.initialFilters)
     })
-    it("warns because some keys are not in filterLabels", () => {
+    it("warns because some keys are not in filterLabels and filters initialFilters to only include valid keys", () => {
       const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
 
       const props = {
@@ -288,9 +288,13 @@ describe("createFiltersSlice", () => {
         filterLabels: ["region"],
       }
 
+      const expectedFilters = {
+        region: ["europe"],
+      } // Only region is a valid filter label, we except everything else to be filtered out
+
       const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
 
-      renderHook(
+      const store = renderHook(
         () => ({
           activeFilters: useActiveFilters(),
         }),
@@ -298,8 +302,9 @@ describe("createFiltersSlice", () => {
       )
 
       expect(spy).toHaveBeenCalledWith(
-        "[supernova]::parseInitialFilters: Some keys of the initialFilters object are not in the labels"
+        "[supernova]::parseInitialFilters: Some keys of the initialFilters object are not valid filter labels. They must be configured as filterLabels first. Using only valid keys."
       )
+      expect(store.result.current.activeFilters).toEqual(expectedFilters)
       spy.mockRestore()
     })
 
