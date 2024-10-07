@@ -8,8 +8,6 @@ import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import {
   useDataDetailsViolationGroupKind,
   useDataActions,
-  useAuthLoggedIn,
-  useAuthData,
   useFiltersActions,
   useFiltersSearchTerm,
   useFiltersActive,
@@ -25,8 +23,6 @@ const useUrlState = (key) => {
   // it is possible to have two doop apps on the page
   // int his case the key should be different per app
   const urlStateManager = registerConsumer(key || DEFAULT_KEY)
-  const loggedIn = useAuthLoggedIn()
-  const authData = useAuthData()
   // filters
   const { set: setActiveFilters, setSearchTerm } = useFiltersActions()
   const activeFilters = useFiltersActive()
@@ -35,48 +31,43 @@ const useUrlState = (key) => {
   const detailsViolationGroupKind = useDataDetailsViolationGroupKind()
   const { setDetailsViolationGroupKind } = useDataActions()
 
-  // Set initial state from URL (on login)
+  // Set initial state from URL
   useEffect(() => {
-    // don't read the url if we are already reading it or if we are not logged in
-    if (isURLRead || !loggedIn) return
+    if (isURLRead) return
     console.debug(`DOOP: (${key || DEFAULT_KEY}) setting up state from url:`, urlStateManager.currentState())
     const searchTerm = urlStateManager.currentState()?.[SEARCH_TERM]
     const activeFilters = urlStateManager.currentState()?.[ACTIVE_FILTERS]
 
     const detailsViolationGroupKind = urlStateManager.currentState()?.[DETAILS_VIOLATION_GROUP]
 
-    // if there are no filters in the url, but there are teams in the auth data
-    // set the active filters to the teams
-    if (activeFilters === undefined && authData?.parsed?.supportGroups) {
-      setActiveFilters(
-        authData?.parsed?.supportGroups?.map((group) => ({
-          key: "check:support_group",
-          label: "support group",
-          value: group,
-        }))
-      )
-    }
     if (searchTerm) {
       setSearchTerm(searchTerm)
     }
+    // if active filters are defined in the URL EVEN IF empty set them
     if (activeFilters) {
       setActiveFilters(activeFilters)
+    } else {
+      // if no url active filters defined, push the initial filters to the URL
+      urlStateManager.push({
+        [ACTIVE_FILTERS]: activeFilters,
+      })
     }
+
     if (detailsViolationGroupKind) {
       setDetailsViolationGroupKind(detailsViolationGroupKind)
     }
     setIsURLRead(true)
-  }, [loggedIn, authData, setActiveFilters, setDetailsViolationGroupKind, setSearchTerm])
-  // sync activeFilters to URL state
+  }, [isURLRead])
+
+  // sync to the URL state
   useEffect(() => {
-    // don't sync if we are not logged in OR if we are already reading the url
-    if (!isURLRead || !loggedIn) return
+    if (!isURLRead) return
     urlStateManager.push({
       [ACTIVE_FILTERS]: activeFilters,
       [DETAILS_VIOLATION_GROUP]: detailsViolationGroupKind,
       [SEARCH_TERM]: searchTerm,
     })
-  }, [loggedIn, activeFilters, detailsViolationGroupKind, searchTerm])
+  }, [activeFilters, detailsViolationGroupKind, searchTerm, isURLRead])
 }
 
 export default useUrlState

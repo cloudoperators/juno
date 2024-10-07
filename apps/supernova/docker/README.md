@@ -97,3 +97,17 @@ You can customize the Supernova application using the following environment vari
   }
 ]
 ```
+
+- **`INITIAL_FILTERS`**:
+
+InitialFilters are the filters that are applied when the app is loaded. The filters must be an object where the key is the label and the value are the values to filter on.
+
+Example:
+
+```json
+{ "cluster": ["prod-1", "prod-2"], "status": ["critical"] }
+```
+
+- **`USERNAME`**:
+
+Username used for forms and API requests.
