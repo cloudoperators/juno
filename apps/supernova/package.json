@@ -50,7 +50,8 @@
     "test": "jest",
     "build": "NODE_ENV=production node esbuild.config.js",
     "lint": "eslint",
-    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo"
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
   },
   "appProps": {
     "theme": {
@@ -67,6 +68,11 @@
       "value": "",
       "type": "required",
       "description": "Alertmanager API Endpoint URL"
+    },
+    "username": {
+      "value": null,
+      "type": "optional",
+      "description": "Username used for forms and API requests"
     },
     "filterLabels": {
       "value": null,
@@ -87,6 +93,11 @@
       "value": null,
       "type": "optional",
       "description": "PredefinedFilters are groups of filters comprised of a list of filter labels and a regex that is used to filter on the values of that label. They can be thought of as filter categories where the filter logic can be more complex than simple label+values pairs. Predefined filters are defined as an array of objects, where each object is a predefined filter. It contains the display name for the UI as well as a list of filter label + value regex pairs which are AND concatenated when they are being evaluated."
+    },
+    "initialFilters": {
+      "value": null,
+      "type": "optional",
+      "description": "InitialFilters are the filters that are applied when the app is loaded. The filters must be an object where the key is the label and the value are the values to filter on. "
     }
   },
   "appPreview": true,

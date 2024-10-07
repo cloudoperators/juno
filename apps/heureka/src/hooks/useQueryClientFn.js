@@ -5,7 +5,7 @@
 
 import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
-import { useGlobalsApiEndpoint, useGlobalsActions } from "./useAppStore"
+import { useGlobalsApiEndpoint, useGlobalsActions } from "../components/StoreProvider"
 import { request } from "graphql-request"
 import { servicesMainQuery, servicesCountQuery } from "../lib/queries/services"
 import { componentsMainQuery, componentsCountQuery } from "../lib/queries/components"
