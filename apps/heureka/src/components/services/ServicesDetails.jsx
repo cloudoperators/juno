@@ -19,7 +19,7 @@ import {
   Modal,
   Container,
 } from "@cloudoperators/juno-ui-components"
-import { useGlobalsQueryClientFnReady, useGlobalsShowServiceDetail } from "../../hooks/useAppStore"
+import { useGlobalsQueryClientFnReady, useGlobalsShowServiceDetail } from "../StoreProvider"
 import { useQuery, useMutation } from "@tanstack/react-query"
 import LoadElement from "../shared/LoadElement"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"

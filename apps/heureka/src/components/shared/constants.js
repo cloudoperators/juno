@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module.exports = {
+const constants = {
   PANEL_NONE: null,
   PANEL_SERVICE: "service",
   PANEL_ISSUE: "issue",
@@ -11,6 +11,8 @@ module.exports = {
   SEARCH_TERM: "s",
   DETAILS_FOR: "d",
   ACTIVE_VIEW: "v",
-  SERVICE_NAME: "svc", // Abbreviation for service name in the URL
-  ISSUE_ID: "iid", // Abbreviation for issue ID in the URL
+  SERVICE_NAME: "svc",
+  ISSUE_ID: "iid",
 }
+
+export default constants

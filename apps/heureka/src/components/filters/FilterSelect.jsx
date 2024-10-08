@@ -5,7 +5,7 @@
 
 import React, { useState } from "react"
 import { Button, InputGroup, SelectOption, Select, Stack, SearchInput } from "@cloudoperators/juno-ui-components"
-import { useFilterActions } from "../../hooks/useAppStore"
+import { useFilterActions } from "../StoreProvider"
 import { humanizeString } from "../../lib/utils"
 
 const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, activeFilters, searchTerm }) => {

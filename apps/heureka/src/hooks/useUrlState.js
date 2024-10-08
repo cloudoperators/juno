@@ -11,7 +11,7 @@ import {
   useGlobalsActiveView,
   useGlobalsActions,
   useFilterActions,
-} from "./useAppStore"
+} from "../components/StoreProvider"
 import constants from "../components/shared/constants"
 
 const urlStateManager = registerConsumer("heureka")
