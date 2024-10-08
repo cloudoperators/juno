@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React, { ReactElement } from "react"
 import { SideNavigationItem, SideNavigation } from "@cloudoperators/juno-ui-components"
 import { useLocation } from "wouter"
@@ -52,7 +57,7 @@ const NavigationItem = ({ icon, title, url, ...rest }: { icon: ReactElement; tit
   </SideNavigationItem>
 )
 
-function Navigation() {
+const Navigation = () => {
   const [, setLocation] = useLocation()
 
   return (

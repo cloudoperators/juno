@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import WelcomeView from "./WelcomeView"
 import { Route, Switch } from "wouter"
 import { Container, ContentHeading } from "@cloudoperators/juno-ui-components"
 
@@ -13,7 +12,7 @@ const AppContent = () => {
     <Container py>
       {/*Routes below are matched exclusively - the first matched route gets rendered*/}
       <Switch>
-        <Route path="/" component={WelcomeView} />
+        <Route path="/" />
         <Route path="admin/:name">
           {(params) => (
             <>
