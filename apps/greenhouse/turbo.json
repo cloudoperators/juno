@@ -9,8 +9,7 @@
         "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
-        "@cloudoperators/juno-app-doop#build",
-        "@cloudoperators/juno-app-greenhouse-org-admin#build"
+        "@cloudoperators/juno-app-doop#build"
       ]
     },
     "build": {
@@ -21,8 +20,7 @@
         "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
-        "@cloudoperators/juno-app-doop#build",
-        "@cloudoperators/juno-app-greenhouse-org-admin#build"
+        "@cloudoperators/juno-app-doop#build"
       ]
     }
   }
