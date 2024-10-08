@@ -44,6 +44,7 @@ const AppContainer = ({ apiEndpoint, auth }) => {
           namespace={auth?.parsed?.organizations?.[0]}
           expires={auth?.parsed.expiresAt}
           userGroup={auth?.parsed?.teams?.[0]}
+          embedded={true}
         />
       </Suspense>
     </MessagesProvider>

@@ -66,13 +66,14 @@
 // export default PluginContainer
 
 import React, { useEffect, useRef, lazy, Suspense } from "react"
+import { createRoot } from "react-dom/client"
 import useApi from "../hooks/useApi"
 import { usePlugin } from "../components/StoreProvider"
 import { mount } from "../lib/appLoader"
 import { useAuthData } from "../components/StoreProvider"
 
-const CorePlugin = ({ config }) => {
-  const auth = useAuthData()
+const CorePlugin = ({ config, auth }) => {
+  //const auth = useAuthData()
   // load the app lazily from the core-apps folder
   let App = lazy(() => import(`./core-apps/${config.id}/App.jsx`))
   return (
@@ -97,13 +98,42 @@ const Extension = ({ config }) => {
   return <div ref={holder}>Unknown</div>
 }
 
+function Plugin({ config, active, id }) {
+  const holder = useRef()
+  const app = useRef()
+  const auth = useAuthData()
+
+  useEffect(() => {
+    if (!holder.current) return
+    // create the app if it doesn't exist yet
+    if (!app.current) {
+      // App is a core app or an extension
+      const App = config.core ? CorePlugin : Extension
+      // create the app dom element
+      app.current = document.createElement("div")
+      // render the app into the dom element
+      createRoot(app.current).render(<App config={config} auth={auth} />)
+    }
+    // add or remove the app from the holder
+    if (active) {
+      //  add to holder
+      holder.current.appendChild(app.current)
+    } else {
+      // remove from holder
+      holder.current.innerHTML = ""
+    }
+  }, [active])
+
+  return <div id={id} ref={holder}></div>
+}
+
 export default function PluginContainer() {
   const { getPluginConfigs } = useApi()
   const requestConfig = usePlugin().requestConfig
   const receiveConfig = usePlugin().receiveConfig
   const receiveError = usePlugin().receiveError
-  const config = usePlugin().config()
   const isFetching = usePlugin().isFetching()
+  const config = usePlugin().config()
   const activeApps = usePlugin().active()
 
   useEffect(() => {
@@ -126,10 +156,7 @@ export default function PluginContainer() {
   }, [getPluginConfigs])
 
   if (isFetching) return <div>Loading...</div>
-
-  const activeConfig = activeApps?.map((id) => config[id])?.[0]
-
-  if (!activeConfig) return <div>No active plugin</div>
-
-  return activeConfig?.core ? <CorePlugin config={activeConfig} /> : <Extension config={activeConfig} />
+  return Object.keys(config).map((id) => (
+    <Plugin key={id} id={id} config={config[id]} active={activeApps?.[0] === id} />
+  ))
 }
