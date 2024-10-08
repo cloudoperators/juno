@@ -5,8 +5,8 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { Button } from "../Button/index.js"
-import { ButtonRow } from "../ButtonRow/index.js"
+import { Button } from "../../deprecated_js/Button/index.js"
+import { ButtonRow } from "../../deprecated_js/ButtonRow/index.js"
 import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 const modalfooterstyles = `

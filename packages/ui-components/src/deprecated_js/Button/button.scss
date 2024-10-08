@@ -1,0 +1,73 @@
+// SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+// SPDX-License-Identifier: Apache-2.0
+
+// handle button colours here, not in tw because of overall complexity, mostly singular colors, gradients, etc; and conflicting bg-colors and bg-images:
+
+
+.juno-button-default {
+	background-color: var(--color-button-default-bg);
+	color: var(--color-button-default-text);
+	
+	&:hover {
+		background-color: var(--color-button-default-hover-bg);
+		color: var(--color-button-default-hover-text);
+	}
+	
+	&:active {
+		background-color: var(--color-button-default-active-bg);
+		border-color: var(--color-button-default-active-border);
+		color: var(--color-button-default-active-text);
+	}
+
+}
+
+.juno-button-subdued {
+	background-color: var(--color-button-subdued-bg);
+	border: 1px solid var(--color-button-subdued-border);
+	color: var(--color-button-subdued-text);
+	
+	&:hover {
+		background-color: var(--color-button-subdued-hover-bg);
+		border-color: var(--color-button-subdued-hover-border);
+		color: var(--color-button-subdued-hover-text);
+	}
+	
+	&:active {
+		background-color: var(--color-button-subdued-active-bg);
+		border-color: var(--color-button-subdued-active-border);
+		color: var(--color-button-subdued-active-text);
+	}
+	
+}
+
+.juno-button-primary {
+	background-color: var(--color-button-primary-bg);
+	color: var(--color-button-primary-text);
+	
+	&:hover {
+		background-color: var(--color-button-primary-hover-bg);
+		color: var(--color-button-primary-hover-text);
+	}
+	
+	&:active {
+		background-color: var(--color-button-primary-active-bg);
+		color: var(--color-button-primary-active-text);
+	}
+	
+}
+
+.juno-button-primary-danger {
+	background-color: var(--color-button-primary-danger-bg);
+	color: var(--color-button-primary-danger-text);
+	
+	&:hover {
+		background-color: var(--color-button-primary-danger-hover-bg);
+		color: var(--color-button-primary-danger-hover-text);
+	}
+	
+	&:active {
+		background-color: var(--color-button-primary-danger-active-bg);
+		color: var(--color-button-primary-danger-active-text);
+	}
+	
+}

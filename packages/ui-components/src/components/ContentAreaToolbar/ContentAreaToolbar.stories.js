@@ -6,7 +6,7 @@
 import React from "react"
 
 import { ContentAreaToolbar } from "./index.js"
-import { Button } from "../Button/index.js"
+import { Button } from "../../deprecated_js/Button/index.js"
 
 export default {
   title: "Layout/ContentAreaToolbar",
