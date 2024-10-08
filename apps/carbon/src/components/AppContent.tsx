@@ -5,28 +5,30 @@
 
 import React from "react"
 import WelcomeView from "./WelcomeView"
-import { Link, Route, Switch } from "wouter"
+import { Route, Switch } from "wouter"
+import { Container, ContentHeading } from "@cloudoperators/juno-ui-components"
 
 const AppContent = () => {
   return (
-    <>
-      <Link href="/admin/teams">Teams View</Link>
-      <Link href="/admin/org">Org View</Link>
-      <Link href="/admin/cluster">Cluster View</Link>
-      <Link href="/admin/secret">Secret View</Link>
-      <Link href="/admin/plugin">Plugin View</Link>
-      {/* 
-      Routes below are matched exclusively -
-      the first matched route gets rendered
-    */}
+    <Container py>
+      {/*Routes below are matched exclusively - the first matched route gets rendered*/}
       <Switch>
-        <Route path="/welcome" component={WelcomeView} />
-        <Route path="admin/:name">{(params) => <>Hello, {params.name}!</>}</Route>
+        <Route path="/" component={WelcomeView} />
+        <Route path="admin/:name">
+          {(params) => (
+            <>
+              <ContentHeading>
+                <p>{params.name}!</p>
+              </ContentHeading>{" "}
+              Content goes here...
+            </>
+          )}
+        </Route>
 
         {/* Default route in a switch */}
         <Route>404: No such page!</Route>
       </Switch>
-    </>
+    </Container>
   )
 }
 
