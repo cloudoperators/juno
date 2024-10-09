@@ -7,8 +7,8 @@ import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
-
 import tsconfigPaths from "vite-tsconfig-paths"
+import svgr from "vite-plugin-svgr"
 
 export default defineConfig(({ mode }) => {
   const sharedConfig = {
@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [react(), tsconfigPaths()],
+    plugins: [react(), tsconfigPaths(), svgr()],
     css: {
       postcss: {
         plugins: [tailwindcss, autoprefixer],
