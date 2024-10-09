@@ -35,8 +35,21 @@ const parseInitialFilters = (initialFilters, filterLabels) => {
 
   // Check if all keys are in filterLabelValues
   if (!Object.keys(initialFilters).every((key) => filterLabels.includes(key))) {
-    console.warn("[supernova]::parseInitialFilters: Some keys of the initialFilters object are not in the labels")
-    return {}
+    console.warn(
+      "[supernova]::parseInitialFilters: Some keys of the initialFilters object are not valid filter labels. They must be configured as filterLabels first. Using only valid keys."
+    )
+
+    // filter out the keys that are not in filterLabels, return the rest
+    // this will ensure that at least the valid keys are used as initial filters
+    const filtered = Object.keys(initialFilters)
+      .filter((key) => filterLabels.includes(key))
+      .reduce((obj, key) => {
+        return {
+          ...obj,
+          [key]: initialFilters[key],
+        }
+      }, {})
+    return filtered
   }
 
   return initialFilters
