@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Cluster, UpdateObjectAction } from "../../../../types/types"
+import { Cluster } from "../../types/types"
 import useStore from "./store"
 import { act, renderHook } from "@testing-library/react"
 
