@@ -76,7 +76,6 @@ const useApi = () => {
           if (newConf) config[id] = newConf
         }
       })
-
       return config
     })
   }, [client, assetsHost, namespace])
