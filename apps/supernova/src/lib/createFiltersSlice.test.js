@@ -303,6 +303,7 @@ describe("createFiltersSlice", () => {
 
       expect(spy).toHaveBeenCalledWith(
         "[supernova]::parseInitialFilters: Some keys of the initialFilters object are not valid filter labels. They must be configured as filterLabels first. Using only valid keys."
+        expect.stringContaining("[supernova]::parseInitialFilters: Some keys of the initialFilters object are not valid filter labels.")
       )
       expect(store.result.current.activeFilters).toEqual(expectedFilters)
       spy.mockRestore()
