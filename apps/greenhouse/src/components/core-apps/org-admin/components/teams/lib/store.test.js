@@ -16,7 +16,6 @@ describe("Zustand Store", () => {
   test("initial state", () => {
     // Test initial state values
     expect(useStore.getState().endpoint).toEqual("")
-    expect(useStore.getState().loggedIn).toEqual(false)
     expect(useStore.getState().currentTeam).toEqual("")
     expect(useStore.getState().defaultTeam).toEqual("")
     expect(useStore.getState().teamMemberships).toEqual([])
@@ -24,32 +23,19 @@ describe("Zustand Store", () => {
     expect(useStore.getState().isMock).toEqual(false)
   })
 
-  test("setEndpoint action", () => {
-    useStore.getState().actions.setEndpoint("example.com")
+  test("initialize store", () => {
+    useStore.getState().actions.initialize("example.com", "token", "namespace", "userGroup")
 
     expect(useStore.getState().endpoint).toEqual("example.com")
-  })
-
-  test("setAuthData action", () => {
-    useStore.getState().actions.setAuthData({ auth: {}, loggedIn: true })
-
-    expect(useStore.getState().auth).toEqual({})
-    expect(useStore.getState().loggedIn).toEqual(true)
+    expect(useStore.getState().token).toEqual("token")
+    expect(useStore.getState().namespace).toEqual("namespace")
+    expect(useStore.getState().currentTeam).toEqual("userGroup")
   })
 
   test("setCurrentTeam action", () => {
     useStore.getState().actions.setCurrentTeam("team1")
 
     expect(useStore.getState().currentTeam).toEqual("team1")
-  })
-
-  test("setDefaultTeam action", () => {
-    useStore.getState().auth = { parsed: { teams: ["team2"] } }
-    useStore.getState().teamMemberships = [{ metadata: { name: "team1" } }, { metadata: { name: "team2" } }]
-
-    useStore.getState().actions.setDefaultTeam()
-
-    expect(useStore.getState().defaultTeam).toEqual("team2")
   })
 
   test("setTeamMemberships action", () => {
