@@ -5,7 +5,6 @@
 
 import React from "react"
 import { ContentHeading, ContentHeadingProps } from "./index"
-// import { Button } from "../../deprecated_js/Button/index.js"
 
 export default {
   title: "Internal/ContentHeading",

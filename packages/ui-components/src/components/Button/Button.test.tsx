@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, act } from "@testing-library/react"
 import { Button } from "./index"
 
 describe("Button", () => {
@@ -37,14 +37,14 @@ describe("Button", () => {
   test("onclick handler is called as passed", () => {
     const onClickSpy = vi.fn()
     render(<Button onClick={onClickSpy} />)
-    screen.getByRole("button").click()
+    act(() => screen.getByRole("button").click())
     expect(onClickSpy).toHaveBeenCalled()
   })
 
   test("onclick handler is not called when disabled", () => {
     const onClickSpy = vi.fn()
     render(<Button disabled onClick={onClickSpy} />)
-    screen.getByRole("button").click()
+    act(() => screen.getByRole("button").click())
     expect(onClickSpy).not.toHaveBeenCalled()
   })
 
