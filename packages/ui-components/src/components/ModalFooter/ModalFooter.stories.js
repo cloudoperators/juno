@@ -5,8 +5,8 @@
 
 import React from "react"
 import { ModalFooter } from "./index.js"
-import { Button } from "../Button/index.js"
-import { ButtonRow } from "../ButtonRow/index.js"
+import { Button } from "../../deprecated_js/Button/index.js"
+import { ButtonRow } from "../../deprecated_js/ButtonRow/index.js"
 import { Stack } from "../../deprecated_js/Stack/index.js"
 import { Icon } from "../../deprecated_js/Icon/index.js"
 
