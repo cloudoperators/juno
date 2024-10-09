@@ -198,7 +198,7 @@ export const SmallWithIcon = {
   },
 }
 
-export const IconOnlyButton = {}
+export const IconOnlyButton = { docs: {}, args: {} }
 ;(IconOnlyButton.docs = {
   description: {
     story: "A button with a Icon but no label. The icon name can be passed as a prop.",
@@ -208,7 +208,7 @@ export const IconOnlyButton = {}
     icon: "warning",
   })
 
-export const IconOnlyAsChild = {}
+export const IconOnlyAsChild = { docs: {}, args: {} }
 ;(IconOnlyAsChild.docs = {
   description: {
     story:

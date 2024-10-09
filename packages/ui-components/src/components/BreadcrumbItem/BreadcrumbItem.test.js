@@ -6,7 +6,7 @@
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { BreadcrumbItem } from "./index"
-import { Button } from "../Button/index"
+import { Button } from "../../deprecated_js/Button/index"
 
 describe("BreadcrumbItem", () => {
   test("renders a breadcrumb item with text as passed", async () => {
