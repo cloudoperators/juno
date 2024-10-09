@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import GreenhouseLogo from "../../assets/greenhouse_logo.svg"
+import GreenhouseLogo from "../../assets/greenhouse_logo.svg?react"
 import SupernovaIcon from "../../assets/juno_supernova.svg"
 import DoopIcon from "../../assets/juno_doop.svg"
 import HeurekaIcon from "../../assets/juno_heureka.svg"

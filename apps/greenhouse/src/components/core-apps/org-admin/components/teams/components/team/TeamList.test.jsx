@@ -8,14 +8,17 @@ import { render } from "@testing-library/react"
 import { screen } from "shadow-dom-testing-library"
 import { useCurrentTeam, useDefaultTeam, useTeamMemberships } from "../StoreProvider"
 import TeamList from "./TeamList"
-/* eslint-disable jest/no-mocks-import */
-import "../../../__mocks__/intersectionObserverMock"
 
-jest.mock("../StoreProvider", () => ({
-  useCurrentTeam: jest.fn(),
-  useDefaultTeam: jest.fn(),
-  useTeamMemberships: jest.fn(),
+vi.mock("../StoreProvider", () => ({
+  useCurrentTeam: vi.fn(),
+  useDefaultTeam: vi.fn(),
+  useTeamMemberships: vi.fn(() => [{ metadata: { name: "someTeam" }, spec: { members: [] } }]),
 }))
+
+global.IntersectionObserver = class IntersectionObserver {
+  observe() {}
+  disconnect() {}
+}
 
 describe("TeamList Component", () => {
   beforeEach(() => {
@@ -43,13 +46,6 @@ describe("TeamList Component", () => {
     useCurrentTeam.mockReturnValue("someTeam")
     useDefaultTeam.mockReturnValue("someTeam")
     useTeamMemberships.mockReturnValue([{ metadata: { name: "someTeam" }, spec: { members: mockTeamMembers } }])
-
-    jest.mock("@cloudoperators/juno-utils", () => ({
-      useEndlessScrollList: jest.fn(() => ({
-        scrollListItems: mockTeamMembers,
-        iterator: mockTeamMembers,
-      })),
-    }))
 
     render(<TeamList />)
 

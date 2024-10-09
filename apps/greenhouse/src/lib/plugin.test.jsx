@@ -11,7 +11,7 @@ import { renderHook, act } from "@testing-library/react"
 describe("Plugin", () => {
   describe("createPluginConfig", () => {
     it("requires at least an id and name", () => {
-      const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+      const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
 
       createPluginConfig()
       createPluginConfig({ id: "test" })
@@ -76,6 +76,7 @@ describe("Plugin", () => {
 
     it("creates a plugin", () => {
       const config = {
+        core: false,
         id: "id_test",
         name: "name_test",
         displayName: "displayName_Test",
