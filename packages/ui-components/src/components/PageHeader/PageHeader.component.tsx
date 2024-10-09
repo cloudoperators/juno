@@ -22,7 +22,6 @@ const pageHeaderInnerStyles = `
   jn-gap-3
   jn-h-7
   jn-w-full
-  jn-overflow-hidden
   jn-items-center
 `
 
@@ -35,13 +34,28 @@ const logoContainerStyles = `
   [&>*]:jn-object-contain
 `
 
-const headingStyles = (clickable: boolean) => {
-  return `
-    jn-text-lg
-    jn-text-theme-high
-    ${clickable && "jn-cursor-pointer"}
-    `
-}
+const contentContainerStyles = `
+  jn-grid
+  jn-grid-cols-[1fr,minmax(0,max-content)]
+`
+
+const optionsStyles = `
+  jn-flex
+  jn-flex-row
+  jn-items-center
+`
+
+// const headingStyles = (clickable: boolean) => {
+//   return `
+//     jn-text-lg
+//     jn-text-theme-high
+//     ${clickable && "jn-cursor-pointer"}
+//     `
+// }
+const headingStyles = `
+  jn-text-lg
+  jn-text-theme-high
+`
 
 /**
  * The PageHeader component renders a header to the application.
@@ -67,14 +81,17 @@ export const PageHeader = ({
               ((logo === true || logo === undefined) && <DefaultLogo data-testid="default-logo" alt={""} />) // Render default logo if logo is true or undefined
           }
         </div>
-        <div>
+        <div className={`juno-pageheader-content-container ${contentContainerStyles}`}>
           {heading && (
-            <div className={headingStyles(onClick !== undefined)} onClick={onClick}>
+            <div
+              className={`juno-pageheader-heading ${headingStyles} ${typeof onClick === "function" ? "jn-cursor-pointer" : ""}`}
+              onClick={onClick}
+            >
               {heading}
             </div>
           )}
+          <div className={`juno-pageheader-options ${optionsStyles}`}>{children}</div>
         </div>
-        {children}
       </div>
     </div>
   )
@@ -88,5 +105,6 @@ export interface PageHeaderProps {
   logo?: boolean | Boolean | JSX.Element | null
   /** Optional: onClick handler for brand logo/page title. To be used to navigate to the home page.  */
   onClick?: React.MouseEventHandler<EventTarget>
+  /** Children to render in the header such as user name, avatar, log-in/out button, etc. */
   children?: React.ReactNode
 }
