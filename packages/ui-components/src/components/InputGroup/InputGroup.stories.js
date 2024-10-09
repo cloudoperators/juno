@@ -5,7 +5,7 @@
 
 import React from "react"
 import { InputGroup } from "./index.js"
-import { Button } from "../Button/index"
+import { Button } from "../../deprecated_js/Button/index"
 import { NativeSelect } from "../NativeSelect/index"
 import { NativeSelectOption } from "../NativeSelectOption/index"
 import { TextInput } from "../../deprecated_js/TextInput/index"

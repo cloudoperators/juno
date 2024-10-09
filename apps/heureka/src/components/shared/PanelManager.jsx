@@ -5,7 +5,7 @@
 
 import React from "react"
 import { Panel, Stack, PanelBody, Container } from "@cloudoperators/juno-ui-components"
-import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowServiceDetail } from "../../hooks/useAppStore"
+import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowServiceDetail } from "../StoreProvider"
 import ServicesDetail from "../services/ServicesDetails"
 import constants from "./constants"
 import IssueMatchesDetails from "../issueMatches/IssueMatchesDetails"

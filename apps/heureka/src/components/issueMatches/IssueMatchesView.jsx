@@ -13,7 +13,7 @@ import {
   useIssueMatchesFilterLabels,
   useIssueMatchesFilterLabelValues,
   useIssueMatchesSearchTerm,
-} from "../../hooks/useAppStore"
+} from "../StoreProvider"
 
 const IssueMatchesView = () => {
   // Fetch filter data from global state using appropriate hooks

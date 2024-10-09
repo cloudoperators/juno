@@ -10,7 +10,6 @@ import { devtools } from "zustand/middleware"
 import createSilencesSlice from "../lib/createSilencesSlice"
 import createAlertsSlice from "../lib/createAlertsSlice"
 import createFiltersSlice from "../lib/createFiltersSlice"
-import createAuthDataSlice from "../lib/createAuthDataSlice"
 import createGlobalsSlice from "../lib/createGlobalsSlice"
 import createUserActivitySlice from "../lib/createUserActivitySlice"
 
@@ -22,7 +21,6 @@ export const StoreProvider = ({ options, children }) => {
       value={createStore(
         devtools((set, get) => ({
           ...createGlobalsSlice(set, get, options),
-          ...createAuthDataSlice(set, get),
           ...createUserActivitySlice(set, get),
           ...createAlertsSlice(set, get),
           ...createFiltersSlice(set, get, options),
@@ -47,12 +45,7 @@ export const useShowDetailsFor = () => useAppStore((state) => state.globals.show
 export const useGlobalsApiEndpoint = () => useAppStore((state) => state.globals.apiEndpoint)
 export const useGlobalsActiveSelectedTab = () => useAppStore((state) => state.globals.activeSelectedTab)
 export const useGlobalsActions = () => useAppStore((state) => state.globals.actions)
-
-// AUTH
-export const useAuthData = () => useAppStore((state) => state.auth.data)
-export const useAuthLoggedIn = () => useAppStore((state) => state.auth.loggedIn)
-export const useAuthActions = () => useAppStore((state) => state.auth.actions)
-export const useAuthUserEditable = () => useAppStore((state) => state.auth.userEditable)
+export const useGlobalsUsername = () => useAppStore((state) => state.globals.username)
 
 // UserActivity exports
 export const useUserIsActive = () => useAppStore((state) => state.userActivity.isActive)

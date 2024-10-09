@@ -108,6 +108,8 @@ update_json_field "embedded" "\$EMBEDDED"
 update_json_field "silenceExcludedLabels" "\$SILENCE_EXCLUDED_LABELS"
 update_json_field "silenceTemplates" "\$SILENCE_TEMPLATES"
 update_json_field "predefinedFilters" "\$PREDEFINED_FILTERS"
+update_json_field "initialFilters" "\$INITIAL_FILTERS"
+update_json_field "username" "\$USERNAME"
 
 echo "\$APP_PROPS_FILE has been updated."
 

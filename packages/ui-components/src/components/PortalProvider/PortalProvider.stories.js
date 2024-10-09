@@ -4,13 +4,13 @@
  */
 
 import React from "react"
-import ReactDOM from "react-dom"
+import { createPortal } from "react-dom"
+import PropTypes from "prop-types"
 import { PortalProvider, usePortalRef } from "."
-import { Message } from "../Message/index.js"
-import { CodeBlock } from "../CodeBlock/index.js"
+import { Message } from "../Message/"
 
 export default {
-  title: "Layout/PortalProvider",
+  title: "WiP/PortalProvider",
   component: PortalProvider,
   subcomponents: { "PortalProvider.Portal": PortalProvider.Portal },
   tags: ["autodocs"],
@@ -21,47 +21,53 @@ export default {
   },
 }
 
-const Default = () => (
-  <PortalProvider>
-    <PortalProvider.Portal>
-      <Message title="Hi!" text="I'm inside the portal" />
-    </PortalProvider.Portal>
-  </PortalProvider>
-)
-
-const PortalRefContent = () => {
-  let portalRef = usePortalRef()
-
-  return (
-    <>
-      {portalRef &&
-        ReactDOM.createPortal(
-          <CodeBlock>
-            {`
-import React from "react"
-import ReactDOM from "react-dom"
-import { usePortalRef } from "@cloudoperators/juno-ui-components"
-
-const MyComponent = () => {
+const PortalMessage = () => {
   const portalRef = usePortalRef()
-  return (
-    { portalRef && ReactDOM.createPortal("I'm inside the portal",portalRef) }
-  )
-}`}
-          </CodeBlock>,
-          portalRef
-        )}
-    </>
-  )
+  if (!portalRef) return null
+  const content = <Message text="I'm inside a portal using the usePortalref hook in a custom component." />
+  return createPortal(content, portalRef)
 }
-/**
- *  PortalRef
- */
-const PortalRef = () => (
-  <PortalProvider>
-    <PortalRefContent />
-  </PortalProvider>
-)
 
-/** The PortalProvider is the parent for all portals of a Juno app. */
-export { Default as PortalComponent, PortalRef }
+const Template = ({ children, ...args }) => <PortalProvider {...args}>{children}</PortalProvider>
+
+Template.propTypes = {
+  children: PropTypes.node,
+}
+
+export const WithPortalComponent = {
+  render: Template,
+  args: {
+    children: (
+      <PortalProvider.Portal>
+        <Message text="I'm inside a portal using the Portal component as provided by PortalProvider." />
+      </PortalProvider.Portal>
+    ),
+  },
+}
+
+export const WithHook = {
+  render: Template,
+  args: {
+    children: (
+      <>
+        <span> Some non-portalled content</span>
+        <PortalMessage />
+      </>
+    ),
+  },
+}
+
+export const MultiplePortals = {
+  render: Template,
+  args: {
+    children: (
+      <>
+        <div>Some non-portaled content.</div>
+        <PortalProvider.Portal>
+          <Message text="I'm inside a portal using the Portal component as provided by PortalProvider." />
+        </PortalProvider.Portal>
+        <PortalMessage />
+      </>
+    ),
+  },
+}
