@@ -5,6 +5,7 @@
 
 import React, { useEffect, useRef, lazy, Suspense } from "react"
 import { createRoot } from "react-dom/client"
+import { useActions } from "@cloudoperators/juno-messages-provider"
 import useApi from "../hooks/useApi"
 import { usePlugin } from "../components/StoreProvider"
 import { mount } from "../lib/appLoader"
@@ -73,6 +74,7 @@ export default function PluginContainer() {
   const isFetching = usePlugin().isFetching()
   const config = usePlugin().config()
   const activeApps = usePlugin().active()
+  const { addMessage } = useActions()
 
   useEffect(() => {
     if (!getPluginConfigs) return
@@ -88,7 +90,7 @@ export default function PluginContainer() {
         receiveError(error.message)
         addMessage({
           variant: "error",
-          text: parseError(error),
+          text: error.message,
         })
       })
   }, [getPluginConfigs])
