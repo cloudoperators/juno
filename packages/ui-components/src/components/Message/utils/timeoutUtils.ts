@@ -3,32 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Start an auto-dismiss timeout to hide the message after the specified duration (passed or preconfigured), if autoDismiss is enabled
-export const startAutoDismissTimeout = (
+// If autoDismiss is enabled, initiate an auto-dismiss timeout to hide the message after the specified timeout (passed or preconfigured)
+export const initiateAutoDismiss = (
   autoDismiss: boolean,
   timeout: number,
   hideMessage: () => void,
   timeoutRef: React.MutableRefObject<number | null>
 ) => {
   if (autoDismiss) {
-    // Check if a timeout is already set and clear it to avoid multiple timeouts
+    // Clear an existing timeout to avoid multiple
     if (timeoutRef.current !== null) {
       clearTimeout(timeoutRef.current)
     }
-    // Set a new timeout to hide the message after the specified duration
+    // Set a new timeout to hide the message after the specified timeout
     timeoutRef.current = window.setTimeout(() => {
       hideMessage()
     }, timeout) as unknown as number
   }
 }
 
-// Clears the auto-dismiss timeout (if it exists) and resets the timeout reference
+// Clear an existing auto-dismiss timeout and reset the timeout reference
 export const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | null>) => {
-  // Check if there is an existing timeout
   if (timeoutRef.current !== null) {
-    // Clear the existing timeout
     clearTimeout(timeoutRef.current)
-    // Reset the timeout reference
     timeoutRef.current = null
   }
 }

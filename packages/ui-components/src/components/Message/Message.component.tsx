@@ -9,7 +9,7 @@ import { Icon } from "../Icon"
 
 import { MessageProps } from "./Message.types"
 import { getMuiIcon } from "./utils/iconUtils"
-import { startAutoDismissTimeout, clearAutoDismissTimeout } from "./utils/timeoutUtils"
+import { initiateAutoDismiss, clearAutoDismissTimeout } from "./utils/timeoutUtils"
 import {
   messageStyles,
   messageBorderStyles,
@@ -49,7 +49,7 @@ export const Message: React.FC<MessageProps> = ({
 
   // Hide message after passed or preconfigured timeout if autoDismiss is true
   useEffect(() => {
-    startAutoDismissTimeout(autoDismiss, autoDismissTimeout, hideMessage, autoDismissTimeoutRef)
+    initiateAutoDismiss(autoDismiss, autoDismissTimeout, hideMessage, autoDismissTimeoutRef)
   }, [autoDismiss, autoDismissTimeout])
 
   if (!visible) return null
