@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { ContextMenu } from "./index.js"
 import { MenuItem } from "../MenuItem/MenuItem.component"
 import { Button } from "../../deprecated_js/Button/index"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
 export default {
   title: "WiP/ContextMenu/ContextMenu",

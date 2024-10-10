@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { ComboBox } from "./index.js"
 import { ComboBoxOption } from "../ComboBoxOption/index.js"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
 export default {
   title: "Forms/ComboBox/ComboBox",

@@ -12,7 +12,7 @@ import { FormHint } from "../../deprecated_js/FormHint/index.js"
 import { Icon } from "../../deprecated_js/Icon/index.js"
 import { Spinner } from "../../deprecated_js/Spinner/index.js"
 import { flip, offset, shift, size } from "@floating-ui/react-dom"
-import { usePortalRef } from "../PortalProvider/index"
+import { usePortalRef } from "../../deprecated_js/PortalProvider/index"
 import { createPortal } from "react-dom"
 
 // STYLES

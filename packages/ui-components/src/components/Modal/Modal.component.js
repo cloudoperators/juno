@@ -9,7 +9,7 @@ import PropTypes from "prop-types"
 import FocusTrap from "focus-trap-react"
 import { ModalFooter } from "../ModalFooter/index"
 import { Icon, knownIcons } from "../../deprecated_js/Icon/Icon.component"
-import { usePortalRef } from "../PortalProvider/PortalProvider.component"
+import { usePortalRef } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
 /*
  * handle height/scrolling TODO -> allow optional constrainHeight=false prop?

@@ -9,7 +9,7 @@ import PropTypes from "prop-types"
 import { SelectRow } from "./index.js"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 import { Default as DefaultSelectOptionStory } from "../SelectOption/SelectOption.stories"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
 export default {
   title: "Deprecated/SelectRow",
