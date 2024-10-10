@@ -5,9 +5,8 @@
 
 import React from "react"
 import { createPortal } from "react-dom"
-import PropTypes from "prop-types"
 import { PortalProvider, usePortalRef } from "."
-import { Message } from "../Message/"
+// import { Message } from "../Message" // TODO: use Message after it is available in TS
 
 export default {
   title: "WiP/PortalProvider",
@@ -21,6 +20,13 @@ export default {
   },
 }
 
+interface MessageProps {
+  text :string
+}
+const Message = ({ text } :MessageProps) => {
+  return <div>{text}</div>
+}
+
 const PortalMessage = () => {
   const portalRef = usePortalRef()
   if (!portalRef) return null
@@ -28,10 +34,10 @@ const PortalMessage = () => {
   return createPortal(content, portalRef)
 }
 
-const Template = ({ children, ...args }) => <PortalProvider {...args}>{children}</PortalProvider>
+const Template = ({ children, ...args } :TemplateProps) => <PortalProvider {...args}>{children}</PortalProvider>
 
-Template.propTypes = {
-  children: PropTypes.node,
+interface TemplateProps {
+  children?: React.ReactNode
 }
 
 export const WithPortalComponent = {
