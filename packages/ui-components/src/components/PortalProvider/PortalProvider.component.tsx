@@ -13,13 +13,13 @@ interface PortalContextType {
 }
 export const PortalContext = createContext<PortalContextType | undefined>(undefined)
 
-const portalRootStyles :React.CSSProperties = {
+const portalRootStyles: React.CSSProperties = {
   position: "absolute",
   top: "0",
   left: "0",
 }
 
-const portalStyles :React.CSSProperties = {
+const portalStyles: React.CSSProperties = {
   position: "relative",
   zIndex: "1",
 }
@@ -31,7 +31,7 @@ const portalStyles :React.CSSProperties = {
  *   </PortalProvider.Portal>
  *  ```
  */
-const Portal = ({ children = null } :PortalProviderPortalProps) => {
+const Portal = ({ children = null }: PortalProviderPortalProps) => {
   const rootRef = useContext(PortalContext)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -103,7 +103,11 @@ export function usePortalRef() {
  * It renders a portal root container, creates a context to expose a ref the container, a `PortalProvider.Portal` component to render content into a portal, and a `usePortalRef` hook to render content into a portal.
  * Normally, there is no need to include `PortalProvider` manually, when using `AppShell` `PortalProvider` is already included in the app.
  */
-export const PortalProvider = ({ children = null, className = "", id = DEFAULT_PORTAL_ROOT_ID } :PortalProviderProps) => {
+export const PortalProvider = ({
+  children = null,
+  className = "",
+  id = DEFAULT_PORTAL_ROOT_ID,
+}: PortalProviderProps) => {
   const portalRootRef = useRef<HTMLDivElement | null>(null)
   const [isMounted, setIsMounted] = useState(false)
 

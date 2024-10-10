@@ -21,9 +21,9 @@ export default {
 }
 
 interface MessageProps {
-  text :string
+  text: string
 }
-const Message = ({ text } :MessageProps) => {
+const Message = ({ text }: MessageProps) => {
   return <div>{text}</div>
 }
 
@@ -34,7 +34,7 @@ const PortalMessage = () => {
   return createPortal(content, portalRef)
 }
 
-const Template = ({ children, ...args } :TemplateProps) => <PortalProvider {...args}>{children}</PortalProvider>
+const Template = ({ children, ...args }: TemplateProps) => <PortalProvider {...args}>{children}</PortalProvider>
 
 interface TemplateProps {
   children?: React.ReactNode
