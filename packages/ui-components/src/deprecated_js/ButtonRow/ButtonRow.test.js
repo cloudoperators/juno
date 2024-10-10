@@ -5,7 +5,7 @@
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import { Button } from "../Button/index"
+import { Button } from "../../deprecated_js/Button/index"
 import { ButtonRow } from "./index"
 
 describe("ButtonRow", () => {

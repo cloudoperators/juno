@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Button } from "../Button/Button.component"
+import { Button } from "../../deprecated_js/Button/Button.component"
 import { TextInput } from "../../deprecated_js/TextInput/TextInput.component"
 import { Select } from "../Select/Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"

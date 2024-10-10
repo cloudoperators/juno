@@ -4,6 +4,7 @@
  */
 
 import { defineConfig } from "vitest/config"
+import svgr from "vite-plugin-svgr"
 
 export default defineConfig({
   test: {
@@ -12,4 +13,5 @@ export default defineConfig({
     setupFiles: "./vitest.setup.ts",
     watch: true,
   },
+  plugins: [svgr()],
 })
