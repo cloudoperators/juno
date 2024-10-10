@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import type { Meta, StoryFn, StoryObj } from "@storybook/react"
 import CustomLogoLandscape from "./custom-logo-placeholders/custom-logo-landscape.svg"
 import CustomLogoPortrait from "./custom-logo-placeholders/custom-logo-portrait.svg"
@@ -45,20 +44,18 @@ const meta: Meta<PageHeaderProps> = {
 }
 export default meta
 
-const Template: StoryFn<PageHeaderProps> = ({ children, args }) => <PageHeader {...args}>{children}</PageHeader>
-Template.propTypes = {
-  children: PropTypes.node,
-  args: PropTypes.object,
+const Template: StoryFn<PageHeaderProps> = (args) => {
+  return <PageHeader {...args} />
 }
 
-export const Default = Template.bind({
+export const Default: Story = {
   render: Template,
 
   args: {
     heading: "My App",
     logo: true,
   },
-})
+}
 
 export const WithHeading: Story = {
   parameters: {
