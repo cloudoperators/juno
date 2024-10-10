@@ -45,13 +45,6 @@ const optionsStyles = `
   jn-items-center
 `
 
-// const headingStyles = (clickable: boolean) => {
-//   return `
-//     jn-text-lg
-//     jn-text-theme-high
-//     ${clickable && "jn-cursor-pointer"}
-//     `
-// }
 const headingStyles = `
   jn-text-lg
   jn-text-theme-high
