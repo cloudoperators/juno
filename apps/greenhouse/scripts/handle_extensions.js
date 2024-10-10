@@ -1,6 +1,5 @@
 const path = require("path")
 const fs = require("fs")
-const { version } = require("os")
 
 /********************* HANDLE OWN EXTENSIONS ********************/
 // copy them from monorepo to greenhouse/extensions
@@ -16,7 +15,7 @@ const APPS = [
   // path.resolve(APPS_ROOT, "greenhouse/core-apps/org-admin"),
 ]
 
-let outDir = path.resolve(APPS_ROOT, "greenhouse", "extensions")
+let outDir = path.resolve(APPS_ROOT, "greenhouse", "public", "extensions")
 
 APPS.forEach((app) => {
   const pkg = require(`${app}/package.json`)
@@ -64,7 +63,7 @@ packageJsons.forEach((packageJson) => {
   const pkg = require(packageJson)
   const name = pkg.name?.startsWith("@") ? pkg.name.slice(1) : pkg.name
   const buildFile = pkg.main || pkg.module || "index.js"
-  const buildDir = path.dirname(buildFile)
+  // const buildDir = path.dirname(buildFile)
   const relativePath = `/${path.basename(outDir)}/${name}/${buildFile}`
 
   const pkgInfos = {

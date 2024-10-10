@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
 
     build: {
       outDir: "build",
-      publicDir: "extensions",
+      // publicDir: "extensions",
     },
 
     plugins: [react(), svgr()],
