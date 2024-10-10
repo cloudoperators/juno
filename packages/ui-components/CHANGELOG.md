@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 2.23.0
+
+### Minor Changes
+
+- aa185b4: Migrate Button component to TypeScript
+- 4ded874: Pagination component now behaves as expected in controlled and uncontrolled mode. Various edge cases have defined behaviour now. Added disabled and loading state.
+
 ## 2.22.1
 
 ### Patch Changes
