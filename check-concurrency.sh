@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # you need to source this script to consume $CONCURRENCY
 # this script is used to calculate the concurrency based on the number of persistent tasks
 # this is needed to prevent the turbo run from failing due to the default concurrency limit of 10 like the following:
