@@ -10,3 +10,7 @@ export const getManifest = fetch(new URL(`${pathPrefix}/apps/manifest.json`, ROO
     }
     return manifest
   })
+  .catch((error) => {
+    console.debug("COULD NOT LOAD THE MANIFEST", error)
+    return {}
+  })
