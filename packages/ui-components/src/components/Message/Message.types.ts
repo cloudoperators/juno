@@ -6,22 +6,22 @@
 export type MessageType = "info" | "warning" | "danger" | "error" | "success"
 
 export interface MessageProps {
-  /** Optional message title */
+  /** Message title (optional) */
   title?: string
-  /** Optional description to render as content. Alternatively, content can be passed as children. */
+  /** Description to render as content (optional). Alternatively, content can be passed as children. */
   text?: string
-  /** Optional variant for message appearance e.g. 'success'. Default is 'info'. */
+  /** Variant for message appearance e.g. 'success' (optional) */
   variant?: MessageType
-  /** Optional: If true, the message will have a 'close' button. Default is false. */
+  /** If true, the message will have a 'close' button (optional) */
   dismissible?: boolean
-  /** Optional: If true, the message will auto-dismiss after 10 seconds or the specified autoDismissTimeout. */
+  /** If true, the message will auto-dismiss after 10 seconds or the specified autoDismissTimeout (optional) */
   autoDismiss?: boolean
-  /** Optional timeout in milliseconds after which the message auto-dismisses. Default is 10000 (10 seconds). */
+  /** Timeout in milliseconds after which the message auto-dismisses (optional). Default is 10 seconds. */
   autoDismissTimeout?: number
-  /** Optional handler function called once the message is dismissed */
+  /** Handler function called once the message is dismissed (optional) */
   onDismiss?: () => void
-  /** Additional class names for message container styling */
+  /** Additional class names for message container styling (optional) */
   className?: string
-  /** Optional child nodes to be rendered as content */
+  /** Child nodes to be rendered as content (optional) */
   children?: React.ReactNode
 }

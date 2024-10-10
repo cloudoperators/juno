@@ -148,4 +148,22 @@ describe("Message", () => {
     render(<Message data-testid="my-message" title="My shiny little Message" />)
     expect(screen.getByText("My shiny little Message")).toBeInTheDocument()
   })
+
+  test("does not auto-dismiss when 'autoDismissTimeout' is set to zero", async () => {
+    render(<Message data-testid="my-message" autoDismiss={true} autoDismissTimeout={0} />)
+    expect(screen.getByTestId("my-message")).toBeInTheDocument()
+
+    // Wait to check that the message did not auto-dismiss
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    expect(screen.getByTestId("my-message")).toBeInTheDocument()
+  })
+
+  test("does not auto-dismiss when 'autoDismissTimeout' is set to a negative value", async () => {
+    render(<Message data-testid="my-message" autoDismiss={true} autoDismissTimeout={-1} />)
+    expect(screen.getByTestId("my-message")).toBeInTheDocument()
+
+    // Wait to check that the message did not auto-dismiss
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    expect(screen.getByTestId("my-message")).toBeInTheDocument()
+  })
 })
