@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Message } from "./index.js"
+import { Message } from "./index"
 
 export default {
   title: "Components/Message",

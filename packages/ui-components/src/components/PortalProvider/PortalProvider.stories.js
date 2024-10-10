@@ -6,8 +6,9 @@
 import React from "react"
 import { createPortal } from "react-dom"
 import PropTypes from "prop-types"
-import { PortalProvider, usePortalRef } from "."
+
 import { Message } from "../Message/"
+import { PortalProvider, usePortalRef } from "."
 
 export default {
   title: "WiP/PortalProvider",
