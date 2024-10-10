@@ -4,9 +4,8 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { ButtonRow } from "./index.js"
-import { Button } from "../Button/index.js"
+import { ButtonRow } from "./index"
+import { Button } from "../Button/index"
 
 export default {
   title: "Forms/ButtonRow",
@@ -23,9 +22,9 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => <ButtonRow {...args}>{children}</ButtonRow>
-Template.propTypes = {
-  children: PropTypes.node,
+const Template = ({ children, ...args }: TemplateProps) => <ButtonRow {...args}>{children}</ButtonRow>
+interface TemplateProps {
+  children?: React.ReactNode
 }
 
 export const Default = {
