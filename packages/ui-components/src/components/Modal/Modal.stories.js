@@ -7,8 +7,8 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Modal } from "./Modal.component"
 import { ModalFooter } from "../ModalFooter/index"
-import { Button } from "../Button/index"
-import { ButtonRow } from "../ButtonRow/index"
+import { Button } from "../../deprecated_js/Button/index"
+import { ButtonRow } from "../../deprecated_js/ButtonRow/index"
 import { Form } from "../Form/index"
 import { FormRow } from "../FormRow/index"
 import { TextInput } from "../../deprecated_js/TextInput/index"
@@ -33,7 +33,9 @@ const Template = ({ closeOnConfirm, ...args }) => {
   return (
     <>
       <Button label="Open Modal" variant="primary" onClick={open} />
-      <Modal open={isOpen} onCancel={close} onConfirm={closeOnConfirm ? close : null} {...args} />
+      <PortalProvider.Portal>
+        <Modal open={isOpen} onCancel={close} onConfirm={closeOnConfirm ? close : null} {...args} />
+      </PortalProvider.Portal>
     </>
   )
 }

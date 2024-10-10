@@ -3,4 +3,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { PortalContext, PortalProvider, usePortalRef } from "./PortalProvider.component"
+/// <reference types="vite-plugin-svgr/client" />
+/// <reference types="vite/client" />
