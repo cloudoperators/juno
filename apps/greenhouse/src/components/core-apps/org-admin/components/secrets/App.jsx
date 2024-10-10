@@ -9,7 +9,7 @@ import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 import StoreProvider from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import AppContent from "./AppContent"
-import styles from "./styles.scss"
+import styles from "./styles.scss?inline"
 import AsyncWorker from "./components/AsyncWorker"
 import useStore from "./store"
 

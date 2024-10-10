@@ -6,7 +6,7 @@
 import React from "react"
 import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
-import styles from "./styles.scss"
+import styles from "./styles.scss?inline"
 import AsyncWorker from "./components/AsyncWorker"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import StoreProvider, { useStoreActions } from "./components/StoreProvider"

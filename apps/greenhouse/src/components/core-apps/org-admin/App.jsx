@@ -15,7 +15,7 @@ import {
 import StoreProvider from "./StoreProvider"
 
 import AppContent from "./AppContent"
-import styles from "./styles.scss"
+import styles from "./styles.scss?inline"
 import OrgInfo from "./components/OrgInfo"
 import SideNav from "./components/SideNav"
 import AsyncWorker from "./components/AsyncWorker"

@@ -8,7 +8,7 @@ import React from "react"
 import useStore from "./store"
 import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
-import styles from "./styles.scss"
+import styles from "./styles.scss?inline"
 import AsyncWorker from "./components/AsyncWorker"
 
 /* IMPORTANT: Replace this with your app's name */

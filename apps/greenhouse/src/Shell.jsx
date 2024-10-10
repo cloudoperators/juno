@@ -7,7 +7,7 @@ import React, { useLayoutEffect } from "react"
 
 import ShellLayout from "./components/layout/ShellLayout"
 import Auth from "./components/Auth"
-import styles from "./styles.scss"
+import styles from "./styles.scss?inline"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import Plugins from "./components/Plugins"
 import AsyncWorker from "./components/AsyncWorker"
