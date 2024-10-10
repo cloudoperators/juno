@@ -24,4 +24,6 @@ export interface MessageProps {
   className?: string
   /** Child nodes to be rendered as content (optional) */
   children?: React.ReactNode
+  /** Pass additional arbitrary props to the message container */
+  [key: string]: any
 }
