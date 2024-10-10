@@ -173,7 +173,6 @@ export const Message: React.FC<MessageProps> = ({
     }
   }, [])
 
-  // Hide message after passed or preconfigured timeout if 'autoDismiss' is true
   useEffect(() => {
     initiateAutoDismiss(autoDismiss, autoDismissTimeout, hideMessage, autoDismissTimeoutRef)
   }, [autoDismiss, autoDismissTimeout])
