@@ -5,9 +5,10 @@
 
 import React from "react"
 import ReactDOM from "react-dom"
-import { PortalProvider, usePortalRef } from "."
-import { Message } from "../Message/index.js"
+
+import { Message } from "../Message/index.ts"
 import { CodeBlock } from "../CodeBlock/index.js"
+import { PortalProvider, usePortalRef } from "."
 
 export default {
   title: "Layout/PortalProvider",
