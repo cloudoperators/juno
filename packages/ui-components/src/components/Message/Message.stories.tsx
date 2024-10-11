@@ -11,7 +11,7 @@ export default {
   argTypes: {
     children: {
       control: { type: "object" },
-      description: "Pass child nodes to be rendered as contents",
+      type: { name: "React.ReactNode" },
     },
   },
 }
@@ -19,7 +19,7 @@ export default {
 // Default message
 export const Default = {
   args: {
-    text: "Default Message",
+    text: "Default Message.",
   },
 }
 

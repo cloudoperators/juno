@@ -25,18 +25,18 @@ export interface MessageProps {
   variant?: MessageType
 
   /**
-   * Optional. If true, the message will have a 'close' button to dismiss it (optional).
+   * Optional. If true, the message will have a 'close' button to dismiss it.
    */
   dismissible?: boolean
 
   /**
-   * Optional. If true, the message will be automatically dismissed after the default (10 seconds) or passed autoDismissTimeout.
+   * Optional. If true, the message will be automatically dismissed after the default or passed autoDismissTimeout.
    */
   autoDismiss?: boolean
 
   /**
-   * Optional. The timeout in milliseconds after which the message auto-dismisses (optional).
-   * By default 10000ms (10s).
+   * Optional. The timeout in milliseconds after which the message auto-dismisses.
+   * By default 10000 (10s).
    */
   autoDismissTimeout?: number
 
@@ -51,7 +51,7 @@ export interface MessageProps {
   className?: string
 
   /**
-   * Pass optional child nodes to be rendered as content.
+   * Pass optional React nodes or a collection of React nodes to be rendered as content.
    * Takes precedence over the text property.
    */
   children?: React.ReactNode
