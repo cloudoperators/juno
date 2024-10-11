@@ -4,7 +4,7 @@
  */
 
 import { KnownIconsEnum } from "../Icon/Icon.component"
-import { Badge } from "./index"
+import { Badge } from "./"
 
 export default {
   title: "Components/Badge",

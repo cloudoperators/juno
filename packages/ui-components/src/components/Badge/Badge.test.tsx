@@ -4,12 +4,13 @@
  */
 
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
+import { render, screen } from "@testing-library/react"
 
-import { Badge } from "./index"
-import { VariantType } from "./Badge.type"
 import { KnownIcons } from "../Icon/Icon.component"
+
+import { VariantType } from "./Badge.types"
+import { Badge } from "./"
 
 describe("Badge component", () => {
   // BASIC RENDERING

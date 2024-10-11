@@ -4,8 +4,9 @@
  */
 
 import React from "react"
+
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
-import { BadgeProps, VariantType } from "./Badge.type"
+import { BadgeProps, VariantType } from "./Badge.types"
 
 // BADGE STYLES
 
