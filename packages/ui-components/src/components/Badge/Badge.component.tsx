@@ -29,22 +29,21 @@ export const badgeVariantStyles = {
   error: "jn-bg-theme-error/25",
 }
 
-const getVariantStyle = (variant: VariantType): string => {
-  return badgeVariantStyles[variant] || badgeVariantStyles.default
-}
+const getVariantStyle = (variant: VariantType): string => badgeVariantStyles[variant] || badgeVariantStyles.default
 
 // ICON UTILS
 
 const iconStyles = "jn-mr-1 jn-items-center"
 
-// Get the appropriate Material UI icon for a variant type
-const getIcon = (icon: boolean | string, variant: VariantType): KnownIcons | undefined => {
+// Get the icon based on provided variant or icon
+const getIcon = (icon: boolean | KnownIcons | undefined, variant: VariantType): KnownIcons | undefined => {
   if (typeof icon === "string" && isValidIcon(icon)) return icon
   if (icon === true) return variant as KnownIcons
   return undefined
 }
 
-const getIconColor = (icon: boolean | string, variant: VariantType) => {
+// Get icon color based on the variant
+const getIconColor = (icon: boolean | KnownIcons | undefined, variant: VariantType): string | undefined => {
   if (icon === true) return `jn-text-theme-${variant}`
   return undefined
 }
@@ -52,7 +51,6 @@ const getIconColor = (icon: boolean | string, variant: VariantType) => {
 // Type guard to determine if a given string corresponds to a known icon
 // To Do: Externalise. Also used in other components e.g. Message
 export const isValidIcon = (icon: string): icon is KnownIcons => {
-  // Set of valid icon names
   const validIconNames: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
   return validIconNames.has(icon as KnownIcons)
 }
@@ -70,6 +68,9 @@ export const Badge: React.FC<BadgeProps> = ({
   children = null,
   ...props
 }) => {
+  const iconToRender = getIcon(icon, variant)
+  const iconColor = getIconColor(icon, variant)
+
   return (
     <span
       className={`
@@ -81,14 +82,7 @@ export const Badge: React.FC<BadgeProps> = ({
         ${className}`}
       {...props}
     >
-      {icon && (
-        <Icon
-          icon={getIcon(icon, variant)}
-          size="1.125rem"
-          className={iconStyles}
-          color={getIconColor(icon, variant)}
-        />
-      )}
+      {iconToRender && <Icon icon={iconToRender} size="1.125rem" className={iconStyles} color={iconColor} />}
       {children || text}
     </span>
   )

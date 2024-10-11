@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { KnownIcons } from "../Icon/Icon.component"
+
 // To Do: Externalise? Similar is used in Message component
 export type VariantType = "default" | "info" | "success" | "warning" | "danger" | "error" | "critical"
 export interface BadgeProps {
@@ -16,7 +18,7 @@ export interface BadgeProps {
    * If true, an icon corresponding to the variant will be displayed.
    * If a string is provided and it's a valid icon name, that icon will be displayed.
    */
-  icon?: boolean | string
+  icon?: boolean | KnownIcons
 
   /**
    * Pass an optional string of text to be rendered as content.
