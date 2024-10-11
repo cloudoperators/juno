@@ -4,7 +4,6 @@
  */
 
 import { beforeAll } from "vitest"
-import { expect } from "vitest"
 
 beforeAll(() => {
   // Mock global objects if necessary
