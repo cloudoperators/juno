@@ -18,7 +18,8 @@ export default {
       control: { type: "select" },
     },
     children: {
-      control: false,
+      control: { type: "object" },
+      type: { name: "React.ReactNode" },
     },
   },
 }

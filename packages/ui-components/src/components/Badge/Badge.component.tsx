@@ -58,10 +58,9 @@ export const isValidIcon = (icon: string): icon is KnownIcons => {
 }
 
 /**
- * The Badge component is used to visually represent properties or states of an entity.
- * It supports multiple semantic versions such as 'info', 'success', etc. Each has distinct styling.
- * Optionally, an icon can be included to further emphasize the badge's meaning.
- * The component can also render custom content through children or text props.
+ * A Badge is used to visually represent properties or states of an entity.
+ * It supports multiple semantic versions, each with distinct styling.
+ * Optionally, an icon can be included to further emphasize the meaning.
  */
 export const Badge: React.FC<BadgeProps> = ({
   variant = "default",
@@ -77,17 +76,17 @@ export const Badge: React.FC<BadgeProps> = ({
         juno-badge 
         juno-badge-${variant} 
         ${badgeBaseStyles} 
-        ${getVariantStyle(variant as VariantType)} 
+        ${getVariantStyle(variant)} 
         ${icon ? "jn-inline-flex" : ""} 
         ${className}`}
       {...props}
     >
       {icon && (
         <Icon
-          icon={getIcon(icon, variant as VariantType)}
+          icon={getIcon(icon, variant)}
           size="1.125rem"
           className={iconStyles}
-          color={getIconColor(icon, variant as VariantType)}
+          color={getIconColor(icon, variant)}
         />
       )}
       {children || text}

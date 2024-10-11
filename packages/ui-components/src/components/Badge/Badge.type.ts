@@ -4,35 +4,35 @@
  */
 
 // To Do: Externalise? Similar is used in Message component
-export type VariantType = "info" | "success" | "warning" | "danger" | "critical" | "error"
-
+export type VariantType = "default" | "info" | "success" | "warning" | "danger" | "error" | "critical"
 export interface BadgeProps {
   /**
-   * The semantic variant of the badge that determines its styling, including background and text color (optional).
+   * Specify an optional semantic variant that determines the appearance of a badge.
    */
   variant?: VariantType
 
   /**
+   * Optional.
    * If true, an icon corresponding to the variant will be displayed.
    * If a string is provided and it's a valid icon name, that icon will be displayed.
-   * This prop is optional.
    */
   icon?: boolean | string
 
   /**
-   * The text content of the badge (optional).
-   * If 'children' are provided, they will take precedence over this text.
+   * Pass an optional string of text to be rendered as content.
+   * Alternatively, content can be passed as children (see below).
+   * If children are provided, they will take precedence.
    */
   text?: string
 
   /**
-   * Additional CSS classes to apply to the badge (optional).
+   * Pass an optional CSS class to apply to the message.
    */
   className?: string
 
   /**
-   * Content to be rendered within the badge (optional).
-   * Takes precedence over the 'text' prop, if provided.
+   * Pass optional React nodes or a collection of React nodes to be rendered as content.
+   * Takes precedence over the text property.
    */
   children?: React.ReactNode
 }
