@@ -20,7 +20,7 @@ const badgeBaseStyles = `
   jn-items-center
 `
 
-export const badgeVariantStyles = {
+const badgeVariantStyles = {
   default: "jn-bg-theme-badge-default",
   info: "jn-bg-theme-info/25",
   success: "jn-bg-theme-success/25",
@@ -36,7 +36,7 @@ const getVariantStyle = (variant: VariantType): string => badgeVariantStyles[var
 
 const iconStyles = "jn-mr-1 jn-items-center"
 
-// Get the icon based on provided variant or icon
+// Get icon based on the provided variant or icon string
 const getIcon = (icon: boolean | KnownIcons | undefined, variant: VariantType): KnownIcons | undefined => {
   if (typeof icon === "string" && isValidIcon(icon)) return icon
   if (icon === true) return variant as KnownIcons
@@ -49,9 +49,9 @@ const getIconColor = (icon: boolean | KnownIcons | undefined, variant: VariantTy
   return undefined
 }
 
-// Type guard to determine if a given string corresponds to a known icon
+// Determine if a given string corresponds to a known icon
 // To Do: Externalise. Also used in other components e.g. Message
-export const isValidIcon = (icon: string): icon is KnownIcons => {
+const isValidIcon = (icon: string): icon is KnownIcons => {
   const validIconNames: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
   return validIconNames.has(icon as KnownIcons)
 }

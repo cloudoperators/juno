@@ -14,6 +14,7 @@ import { Badge } from "./"
 
 describe("Badge component", () => {
   // BASIC RENDERING
+
   test("renders with default props", () => {
     render(<Badge data-testid="badge" />)
     expect(screen.getByTestId("badge")).toBeInTheDocument()
@@ -34,6 +35,7 @@ describe("Badge component", () => {
   })
 
   // VARIANTS
+
   const variants: VariantType[] = ["info", "success", "warning", "danger", "error", "critical"]
   variants.forEach((variant) => {
     test(`renders a badge with the ${variant} variant`, () => {
@@ -44,6 +46,7 @@ describe("Badge component", () => {
   })
 
   // ICONS
+
   test("renders with default icon based on variant", () => {
     render(<Badge icon={true} />)
     expect(screen.getByRole("img")).toBeInTheDocument()
@@ -74,6 +77,7 @@ describe("Badge component", () => {
   })
 
   // ADDITIONAL PROPS
+
   test("renders with additional props", () => {
     render(<Badge data-testid="badge" data-extra="extra" />)
     expect(screen.getByTestId("badge")).toBeInTheDocument()
