@@ -148,13 +148,12 @@ export const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<numbe
 }
 
 /**
- * The Message component displays contextual messages with various predefined styles for different message types e.g. 'info', 'success' etc.
- * The message can be optionally dismissible, with an auto-dismiss feature that hides the message after a specified timeout.
- * The component can include a title, text, children, and an optional close button.
+ * A Message holds generally important information to help understand the contents, purpose, or state of a whole page or view.
+ * Use sparingly, there should never be two or more subsequent instances of Message as direct siblings/neighbors on an individual view.
  */
 export const Message: React.FC<MessageProps> = ({
-  title = "",
-  text = "",
+  title = null,
+  text = null,
   variant = "info",
   dismissible = false,
   autoDismiss = false,

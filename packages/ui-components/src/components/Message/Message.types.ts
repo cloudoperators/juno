@@ -4,37 +4,39 @@
  */
 
 // To Do: Externalise? Similar is used in Badge component
-export type MessageType = "info" | "success" | "warning" | "danger" | "error"
+export type MessageType = "info" | "warning" | "danger" | "error" | "success"
 
 export interface MessageProps {
   /**
-   * The title of the message (optional).
+   * Pass an optional title.
    */
   title?: string
 
   /**
-   * The main text content of the message (optional). If 'children' are provided, they will take precedence over this text.
+   * Pass an optional string of text to be rendered as content.
+   * Alternatively, content can be passed as children (see below)
+   * If children are provided, they will take precedence over text.
    */
   text?: string
 
   /**
-   * The semantic variant of the message that determines its appearance e.g. 'success', 'error' etc. (optional).
+   * Specify an optional semantic variant that determines the appearance of a message.
    */
   variant?: MessageType
 
   /**
-   * If true, the message will include a 'close' button to dismiss it (optional).
+   * Optional. If set to 'true', the message will have a 'close' button to dismiss it (optional).
    */
   dismissible?: boolean
 
   /**
-   * If true, the message will automatically dismiss after 10 seconds or the specified autoDismissTimeout (optional).
+   * Optional. If true, the message will be automatically dismissed after 10 seconds or the specified autoDismissTimeout.
    */
   autoDismiss?: boolean
 
   /**
-   * The timeout in milliseconds after which the message auto-dismisses (optional).
-   * Defaults to 10 seconds.
+   * Optional. The timeout in milliseconds after which the message auto-dismisses (optional).
+   * By default 10000ms (10s).
    */
   autoDismissTimeout?: number
 
@@ -44,13 +46,13 @@ export interface MessageProps {
   onDismiss?: () => void
 
   /**
-   * Additional CSS classes to apply to the message (optional).
+   * Pass an optional CSS class to apply to the message.
    */
   className?: string
 
   /**
-   * Content to be rendered within the message (optional).
-   * Takes precedence over the 'text' prop, if provided.
+   * Pass optional child nodes to be rendered as content within the message (optional).
+   * Takes precedence over the text prop.
    */
   children?: React.ReactNode
 

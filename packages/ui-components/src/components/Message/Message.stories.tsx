@@ -10,7 +10,8 @@ export default {
   component: Message,
   argTypes: {
     children: {
-      control: false,
+      control: { type: "object" },
+      description: "Pass child nodes to be rendered as contents",
     },
   },
 }
