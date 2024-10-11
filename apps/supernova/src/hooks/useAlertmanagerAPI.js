@@ -11,24 +11,13 @@ import {
   useSilencesLocalItems,
 } from "../components/StoreProvider"
 
-// Create a worker using Vite's way of handling worker files
-const createWorker = (workerPath) => {
-  const worker = new Worker(new URL(workerPath, import.meta.url), {
-    type: "module",
-  })
-
-  const stopWorker = () => {
-    if (worker) worker.terminate()
-  }
-
-  return { worker, stopWorker }
-}
-
-// create workers
-const alertsWorker = createWorker("../workers/alerts.js")
-const silencesWorker = createWorker("../workers/silences.js")
+import AlertsWorker from "../workers/alerts.js?worker"
+import SilencesWorker from "../workers/silences.js?worker"
 
 const useAlertmanagerAPI = (apiEndpoint) => {
+  const alertsWorker = new AlertsWorker()
+  const silencesWorker = new SilencesWorker()
+
   const {
     setAlertsData,
     setIsLoading: setAlertsIsLoading,
@@ -51,7 +40,7 @@ const useAlertmanagerAPI = (apiEndpoint) => {
     let cleanupSilencesWorker = () => silencesWorker.stopWorker()
 
     // receive messages from worker
-    alertsWorker.worker.onmessage = (e) => {
+    alertsWorker.onmessage = (e) => {
       const action = e.data.action
       switch (action) {
         case "ALERTS_UPDATE":
@@ -76,7 +65,7 @@ const useAlertmanagerAPI = (apiEndpoint) => {
     }
 
     // receive messages from worker
-    silencesWorker.worker.onmessage = (e) => {
+    silencesWorker.onmessage = (e) => {
       const action = e.data.action
       switch (action) {
         case "SILENCES_UPDATE":
@@ -115,14 +104,14 @@ const useAlertmanagerAPI = (apiEndpoint) => {
     if (!apiEndpoint) return
 
     setAlertsIsLoading(true)
-    alertsWorker.worker.postMessage({
+    alertsWorker.postMessage({
       action: "ALERTS_CONFIGURE",
       fetchVars: { apiEndpoint, options: {} },
       debug: true,
     })
 
     setSilencesIsLoading(true)
-    silencesWorker.worker.postMessage({
+    silencesWorker.postMessage({
       action: "SILENCES_CONFIGURE",
       apiEndpoint,
     })
@@ -132,12 +121,12 @@ const useAlertmanagerAPI = (apiEndpoint) => {
   useEffect(() => {
     if (isUserActive === undefined) return
 
-    alertsWorker.worker.postMessage({
+    alertsWorker.postMessage({
       action: "ALERTS_CONFIGURE",
       watch: isUserActive,
     })
 
-    silencesWorker.worker.postMessage({
+    silencesWorker.postMessage({
       action: "SILENCES_CONFIGURE",
       watch: isUserActive,
     })
@@ -152,12 +141,12 @@ const useAlertmanagerAPI = (apiEndpoint) => {
 
     // Use setTimeout to delay the worker call delayed by 10s
     setTimeout(() => {
-      silencesWorker.worker.postMessage({ action: "SILENCES_FETCH" })
+      silencesWorker.postMessage({ action: "SILENCES_FETCH" })
     }, 10000)
 
     return () => {
-      if (silencesWorker.worker) {
-        silencesWorker.worker.terminate()
+      if (silencesWorker) {
+        silencesWorker.terminate()
       }
     }
   }, [localItems])

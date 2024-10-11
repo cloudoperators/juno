@@ -24,6 +24,9 @@
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-communicator#build"
       ]
+    },
+    "serve": {
+      "dependsOn": ["@cloudoperators/juno-app-supernova#build"]
     }
   }
 }
