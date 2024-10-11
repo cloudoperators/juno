@@ -14,8 +14,8 @@ export interface MessageProps {
 
   /**
    * Pass an optional string of text to be rendered as content.
-   * Alternatively, content can be passed as children (see below)
-   * If children are provided, they will take precedence over text.
+   * Alternatively, content can be passed as children (see below).
+   * If children are provided, they will take precedence.
    */
   text?: string
 
@@ -25,12 +25,12 @@ export interface MessageProps {
   variant?: MessageType
 
   /**
-   * Optional. If set to 'true', the message will have a 'close' button to dismiss it (optional).
+   * Optional. If true, the message will have a 'close' button to dismiss it (optional).
    */
   dismissible?: boolean
 
   /**
-   * Optional. If true, the message will be automatically dismissed after 10 seconds or the specified autoDismissTimeout.
+   * Optional. If true, the message will be automatically dismissed after the default (10 seconds) or passed autoDismissTimeout.
    */
   autoDismiss?: boolean
 
@@ -41,7 +41,7 @@ export interface MessageProps {
   autoDismissTimeout?: number
 
   /**
-   * Handler function that is called once the message is dismissed (optional).
+   * Optional. Pass a handler that will be called when the message is dismissed.
    */
   onDismiss?: () => void
 
@@ -51,13 +51,13 @@ export interface MessageProps {
   className?: string
 
   /**
-   * Pass optional child nodes to be rendered as content within the message (optional).
-   * Takes precedence over the text prop.
+   * Pass optional child nodes to be rendered as content.
+   * Takes precedence over the text property.
    */
   children?: React.ReactNode
 
   /**
-   * Additional arbitrary props to pass to the message container.
+   * Additional arbitrary props.
    */
   [key: string]: any
 }

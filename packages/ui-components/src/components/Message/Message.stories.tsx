@@ -19,7 +19,7 @@ export default {
 // Default message
 export const Default = {
   args: {
-    text: "Default Message.",
+    text: "Default Message",
   },
 }
 
