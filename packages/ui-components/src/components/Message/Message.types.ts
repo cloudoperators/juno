@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type MessageType = "info" | "warning" | "danger" | "error" | "success"
+// To Do: Externalise? Similar is used in Badge component
+export type MessageType = "info" | "success" | "warning" | "danger" | "error"
 
 export interface MessageProps {
   /** Message title (optional) */

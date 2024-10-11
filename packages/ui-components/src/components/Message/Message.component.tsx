@@ -65,7 +65,7 @@ export const messageVariantStyles = {
   successBg: `jn-bg-theme-message-success`,
 }
 
-export const getBackgroundClass = (messageVariant: MessageType): string => {
+export const getBackgroundStyle = (messageVariant: MessageType): string => {
   switch (messageVariant) {
     case "error":
       return messageVariantStyles.errorBg
@@ -82,7 +82,7 @@ export const getBackgroundClass = (messageVariant: MessageType): string => {
   }
 }
 
-export const getVariantClass = (messageVariant: MessageType): string => {
+export const getVariantStyle = (messageVariant: MessageType): string => {
   switch (messageVariant) {
     case "error":
       return messageVariantStyles.error
@@ -102,6 +102,7 @@ export const getVariantClass = (messageVariant: MessageType): string => {
 // ICON UTILS
 
 // Type guard to determine if a given string corresponds to a known icon
+// To Do: Externalise. Also used in other components e.g. Badge
 export const isValidIcon = (icon: string): icon is KnownIcons => {
   // Set of valid icon names
   const validIconNames: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
@@ -146,6 +147,11 @@ export const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<numbe
   }
 }
 
+/**
+ * The Message component displays contextual messages with various predefined styles for different message types e.g. 'info', 'success' etc.
+ * The message can be optionally dismissible, with an auto-dismiss feature that hides the message after a specified timeout.
+ * The component can include a title, text, children, and an optional close button.
+ */
 export const Message: React.FC<MessageProps> = ({
   title = "",
   text = "",
@@ -181,10 +187,10 @@ export const Message: React.FC<MessageProps> = ({
 
   return (
     <div
-      className={`juno-message juno-message-${variant} ${messageStyles} ${getBackgroundClass(variant)} ${className}`}
+      className={`juno-message juno-message-${variant} ${messageStyles} ${getBackgroundStyle(variant)} ${className}`}
       {...props}
     >
-      <div className={`juno-message-border ${messageBorderStyles} ${getVariantClass(variant)}`}></div>
+      <div className={`juno-message-border ${messageBorderStyles} ${getVariantStyle(variant)}`}></div>
       <Icon icon={getMuiIcon(variant)} color={`jn-text-theme-${variant}`} className="jn-shrink-0" />
       <div className={`juno-message-content ${messageContentStyles}`}>
         {title && <h1 className={messageHeadingStyles}>{title}</h1>}
