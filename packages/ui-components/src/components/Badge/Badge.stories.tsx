@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { KnownIconsEnum } from "../Icon/Icon.component"
 import { Badge } from "./index"
-import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
 export default {
   title: "Components/Badge",
@@ -14,7 +14,7 @@ export default {
   },
   argTypes: {
     icon: {
-      options: ["default", ...knownIcons],
+      options: ["default", ...Object.values(KnownIconsEnum)],
       control: { type: "select" },
     },
     children: {
@@ -23,6 +23,7 @@ export default {
   },
 }
 
+// Badge with a default icon based on variant
 export const WithDefaultIcon = {
   args: {
     text: "With Icon",
@@ -30,6 +31,15 @@ export const WithDefaultIcon = {
   },
 }
 
+// Badge with a specific custom icon
+export const DefaultWithAnyIcon = {
+  args: {
+    text: "deleted",
+    icon: "deleteForever",
+  },
+}
+
+// Info variants
 export const Info = {
   args: {
     variant: "info",
@@ -44,19 +54,28 @@ export const InfoWithIcon = {
   },
 }
 
+// Success variants
 export const Success = {
   args: {
     variant: "success",
     text: "success",
   },
 }
-
 export const SuccessWithIcon = {
-  args: { variant: "success", text: "success", icon: true },
+  args: {
+    variant: "success",
+    text: "success",
+    icon: true,
+  },
 }
 
-export const Warning = { args: { variant: "warning", text: "warning" } }
-
+// Warning variants
+export const Warning = {
+  args: {
+    variant: "warning",
+    text: "warning",
+  },
+}
 export const WarningWithIcon = {
   args: {
     variant: "warning",
@@ -65,13 +84,13 @@ export const WarningWithIcon = {
   },
 }
 
+// Danger variants
 export const Danger = {
   args: {
     variant: "danger",
     text: "danger",
   },
 }
-
 export const DangerWithIcon = {
   args: {
     variant: "danger",
@@ -80,24 +99,17 @@ export const DangerWithIcon = {
   },
 }
 
+// Error variants
 export const Error = {
   args: {
     variant: "error",
     text: "error",
   },
 }
-
 export const ErrorWithIcon = {
   args: {
     variant: "error",
     text: "error",
     icon: true,
-  },
-}
-
-export const DefaultWithAnyIcon = {
-  args: {
-    text: "deleted",
-    icon: "deleteForever",
   },
 }
