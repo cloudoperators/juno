@@ -6,6 +6,7 @@
 import * as React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import { describe, expect, test } from "vitest"
 
 import { MessageType } from "./Message.types"
 import { Message } from "./index"
@@ -13,7 +14,7 @@ import { Message } from "./index"
 const mockOnDismiss = vi.fn()
 
 describe("Message Component", () => {
-  // TEST BASIC RENDERING
+  // BASIC RENDERING
 
   test("renders the Message component", () => {
     render(<Message data-testid="my-message" />)
@@ -54,7 +55,7 @@ describe("Message Component", () => {
     expect(screen.getByTestId("my-message")).toHaveAttribute("name", "My shiny little Message")
   })
 
-  // TEST VARIANTS
+  // VARIANTS
 
   test("renders an info Message by default if no variant is provided", () => {
     render(<Message data-testid="my-message" />)
@@ -84,7 +85,7 @@ describe("Message Component", () => {
     expect(screen.getByRole("img")).toHaveClass("jn-shrink-0")
   })
 
-  // TEST DISMISSABLE BEHAVIOUR
+  // DISMISSABLE BEHAVIOUR
 
   test("renders a Message without a dismiss button by default", () => {
     render(<Message data-testid="my-message" />)
@@ -125,7 +126,7 @@ describe("Message Component", () => {
     })
   })
 
-  // TEST AUTO-DISMISS BEHAVIOUR
+  // AUTO-DISMISS BEHAVIOUR
 
   test("automatically dismisses the Message after the provided timeout", async () => {
     render(<Message data-testid="my-message" autoDismiss={true} autoDismissTimeout={500} />)
