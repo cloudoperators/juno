@@ -12,14 +12,14 @@ import {
   useAlertsItems,
   useSilencesExcludedLabels,
   StoreProvider,
-} from "../hooks/useAppStore"
+} from "../components/StoreProvider"
 import {
   createFakeAlertStatustWith,
   createFakeAlertWith,
   createFakeSilenceWith,
   createFakeSilenceWithoutAlertFingerprint,
 } from "./fakeObjects"
-import { countAlerts } from "../lib/utils"
+import { countAlerts } from "./utils"
 
 describe("addLocalItem", () => {
   it("should append the object with key silence id and value the silence itself", () => {
@@ -875,7 +875,7 @@ describe("setExcludedLabels", () => {
   })
 
   it("warn the user if labels are different then an array of strings", () => {
-    const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
     const props = {
       silenceExcludedLabels: "pod,pod_name,instance",
     }

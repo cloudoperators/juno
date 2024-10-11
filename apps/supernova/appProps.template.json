@@ -1,0 +1,10 @@
+{
+  "endpoint": "https://myalertmanager.com/api/v2",
+  "filterLabels": [],
+  "initialFilters": {},
+  "predefinedFilters": {},
+  "silenceExcludedLabels": [],
+  "silenceTemplates": [],
+  "theme": "theme-dark",
+  "username": "Jane Doe"
+}

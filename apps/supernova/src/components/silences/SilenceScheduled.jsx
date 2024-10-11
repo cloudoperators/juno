@@ -22,12 +22,7 @@ import {
   FormSection,
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
-import {
-  useGlobalsUsername,
-  useSilenceTemplates,
-  useGlobalsApiEndpoint,
-  useSilencesActions,
-} from "../../hooks/useAppStore"
+import { useGlobalsUsername, useSilenceTemplates, useGlobalsApiEndpoint, useSilencesActions } from "../StoreProvider"
 import { post } from "../../api/client"
 import { parseError } from "../../helpers"
 

@@ -13,7 +13,7 @@ import {
   usePredefinedFilters,
   useActivePredefinedFilter,
   useActiveFilters,
-} from "../hooks/useAppStore"
+} from "../components/StoreProvider"
 
 describe("createFiltersSlice", () => {
   describe("setLabels", () => {
@@ -89,7 +89,7 @@ describe("createFiltersSlice", () => {
     })
 
     it("warns the user if labels are not an array", () => {
-      const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+      const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
       const props = {
         filterLabels: { app: "app" },
       }
@@ -109,7 +109,7 @@ describe("createFiltersSlice", () => {
     })
 
     it("warns the user if labels array also includes non-strings and adds the valid labels", () => {
-      const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+      const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
 
       const props = {
         filterLabels: ["app", 1, 9],
@@ -217,7 +217,7 @@ describe("createFiltersSlice", () => {
     })
 
     it("throws an warn if predefined filters are not in correct format", () => {
-      const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+      const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
       const props = {
         predefinedFilters: "Not an Array",
       }
@@ -278,7 +278,7 @@ describe("createFiltersSlice", () => {
       expect(store.result.current.activeFilters).toEqual(props.initialFilters)
     })
     it("warns because some keys are not in filterLabels and filters initialFilters to only include valid keys", () => {
-      const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+      const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
 
       const props = {
         initialFilters: {
@@ -311,7 +311,7 @@ describe("createFiltersSlice", () => {
     })
 
     it("warns because initial filters is not a object", () => {
-      const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+      const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
 
       const props = {
         initialFilters: "app: frontendapp",

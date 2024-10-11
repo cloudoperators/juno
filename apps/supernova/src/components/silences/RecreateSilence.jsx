@@ -17,7 +17,7 @@ import {
   Pill,
   Stack,
 } from "@cloudoperators/juno-ui-components"
-import { useGlobalsApiEndpoint, useSilencesActions, useGlobalsUsername } from "../../hooks/useAppStore"
+import { useGlobalsApiEndpoint, useSilencesActions, useGlobalsUsername } from "../StoreProvider"
 import { debounce } from "../../helpers"
 import { post } from "../../api/client"
 import { DateTime } from "luxon"

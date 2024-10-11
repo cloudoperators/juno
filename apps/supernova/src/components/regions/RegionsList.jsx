@@ -5,7 +5,7 @@
 
 import React from "react"
 
-import { useAlertsIsLoading, useAlertsRegionsFiltered, useAlertsSeverityCountsPerRegion } from "../../hooks/useAppStore"
+import { useAlertsIsLoading, useAlertsRegionsFiltered, useAlertsSeverityCountsPerRegion } from "../StoreProvider"
 import Region from "./Region"
 
 const regionsClasses = `

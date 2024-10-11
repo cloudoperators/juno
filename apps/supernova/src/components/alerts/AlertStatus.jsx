@@ -5,12 +5,7 @@
 
 import React, { useMemo } from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
-import {
-  useSilencesItemsHash,
-  useSilencesLocalItems,
-  useSilencesActions,
-  useAlertsItems,
-} from "../../hooks/useAppStore"
+import { useSilencesItemsHash, useSilencesLocalItems, useSilencesActions, useAlertsItems } from "../StoreProvider"
 
 // Gives inhibitor which will still last the longest
 export const getInhibitor = (alertsInhibitedBy, alerts) => {

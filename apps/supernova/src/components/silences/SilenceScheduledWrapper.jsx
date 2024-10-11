@@ -8,7 +8,7 @@ import SilenceScheduled from "./SilenceScheduled"
 
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { Button } from "@cloudoperators/juno-ui-components"
-import { useSilenceTemplates } from "../../hooks/useAppStore.js"
+import { useSilenceTemplates } from "../StoreProvider"
 
 const SilenceScheduledWrapper = () => {
   const templates = useSilenceTemplates()

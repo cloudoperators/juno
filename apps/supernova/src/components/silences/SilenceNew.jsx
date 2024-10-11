@@ -22,7 +22,7 @@ import {
   useSilencesActions,
   useAlertEnrichedLabels,
   useGlobalsUsername,
-} from "../../hooks/useAppStore"
+} from "../StoreProvider"
 import { post } from "../../api/client"
 import AlertDescription from "../alerts/shared/AlertDescription"
 import SilenceNewAdvanced from "./SilenceNewAdvanced"

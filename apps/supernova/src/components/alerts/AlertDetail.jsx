@@ -22,7 +22,7 @@ import {
   Tab,
   TabPanel,
 } from "@cloudoperators/juno-ui-components"
-import { useShowDetailsFor, useGlobalsActions, useAlertsActions, useAlertsIsLoading } from "../../hooks/useAppStore"
+import { useShowDetailsFor, useGlobalsActions, useAlertsActions, useAlertsIsLoading } from "../StoreProvider"
 import AlertIcon from "./shared/AlertIcon"
 import AlertTimestamp from "./shared/AlertTimestamp"
 import AlertDescription from "./shared/AlertDescription"

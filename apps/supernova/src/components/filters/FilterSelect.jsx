@@ -12,7 +12,7 @@ import {
   useFilterActions,
   useActiveFilters,
   useSearchTerm,
-} from "../../hooks/useAppStore"
+} from "../StoreProvider"
 import { humanizeString } from "../../lib/utils"
 
 const FilterSelect = () => {

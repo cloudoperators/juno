@@ -4,7 +4,12 @@
  */
 
 import { useEffect } from "react"
-import { useAlertsActions, useUserIsActive, useSilencesActions, useSilencesLocalItems } from "./useAppStore"
+import {
+  useAlertsActions,
+  useUserIsActive,
+  useSilencesActions,
+  useSilencesLocalItems,
+} from "../components/StoreProvider"
 
 const createWorker = (path) => {
   return fetch(new URL(path, import.meta.url))

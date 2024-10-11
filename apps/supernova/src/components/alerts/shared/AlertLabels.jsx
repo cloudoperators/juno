@@ -7,7 +7,7 @@ import React from "react"
 
 import { Pill, Stack } from "@cloudoperators/juno-ui-components"
 
-import { useActiveFilters, useFilterLabels, useFilterActions } from "../../../hooks/useAppStore"
+import { useActiveFilters, useFilterLabels, useFilterActions } from "../../StoreProvider"
 
 /**
  * For each of the given alert's labels which is included in the configured filterLabels render a Pill showing filterLabel and filterValue

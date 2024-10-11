@@ -7,7 +7,7 @@ import React from "react"
 
 import { Stack } from "@cloudoperators/juno-ui-components"
 import RegionSeverity from "./RegionSeverity"
-import { useFilterActions, useActiveFilters } from "../../hooks/useAppStore"
+import { useFilterActions, useActiveFilters } from "../StoreProvider"
 
 const regionStyles = `
   grid

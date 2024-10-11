@@ -5,7 +5,7 @@
 
 import React from "react"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useGlobalsEmbedded, useGlobalsActions, useGlobalsActiveSelectedTab } from "../hooks/useAppStore"
+import { useGlobalsEmbedded, useGlobalsActions, useGlobalsActiveSelectedTab } from "./StoreProvider"
 
 const CustomAppShell = ({ children }) => {
   const embedded = useGlobalsEmbedded()

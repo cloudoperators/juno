@@ -11,7 +11,7 @@ import RecreateSilence from "../../silences/RecreateSilence"
 
 import { Badge, DataGrid, DataGridCell, DataGridHeadCell, DataGridRow } from "@cloudoperators/juno-ui-components"
 
-import { useSilencesActions, useSilencesLocalItems } from "../../../hooks/useAppStore"
+import { useSilencesActions, useSilencesLocalItems } from "../../StoreProvider"
 
 const badgeVariant = (state) => {
   switch (state) {
