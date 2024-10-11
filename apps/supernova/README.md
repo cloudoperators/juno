@@ -1,4 +1,4 @@
-## Supernova
+# Supernova
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Built with Juno](https://cloudoperators.github.io/juno/built-with-juno.svg)](https://github.com/cloudoperators/juno)
@@ -40,13 +40,52 @@ Silence information per alert:
 
 We publish a self-hostable docker image [in our registry](https://github.com/cloudoperators/juno/pkgs/container/juno-app-supernova). The README for it can be found [here in the docker folder](https://github.com/cloudoperators/juno/tree/main/apps/supernova/docker)
 
+### Standalone Mode
+
+To create a static, runnable build, execute the following commands:
+
+```bash
+cd apps/heureka
+npx turbo build:static
+```
+
+This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy a `appProps.json` file containing the required props into the dist folder.
+
+### As a Micro Frontend (MFE)
+
+To build a library version for dynamic import, use the following commands:
+
+```bash
+cd apps/heureka
+npx turbo build
+```
+
+This will create a build folder with all assets. You can host this folder and load it as an MFE using dynamic import:
+
+```html
+<div id="root"></div>
+
+<script type="module">
+  import("PATH_TO_HOST/heureka/build/index.js").then((app) => {
+    app.mount(document.getElementById("root"), { props: /* PROPS JSON */ })
+  })
+</script>
+```
+
 ### Dev mode
 
-To start Supernova in dev mode, make a copy of the included `secretProps_sample.js` file, rename it `secretProps.js` and enter your configuration options (see below). Then:
+To start Supernova in dev mode, make a copy of the included `appProps_sample.js` file, rename it `appProps.js` and enter your configuration options (see below). Then:
 
 ```shell
 npm i
 npm run dev
+```
+
+### Testing
+
+```bash
+cd apps/heureka
+npx turbo test
 ```
 
 ## Concepts
@@ -123,9 +162,9 @@ In order to prevent the alert from continuing to trigger, we require a silence t
 
 ## Configuration
 
-When running Supernova in dev mode the configuration is pulled from a `secretProps.js` file (see sample `secretProps.sample.js`). When loading the app via script tag the configuration can be passed via attribute on the script tag. For configuration when running the image built with docker see the `README.md` in the `/docker` folder.
+When running Supernova in dev mode the configuration is pulled from a `appProps.js` file (see sample `appProps.sample.js`). When loading the app via script tag the configuration can be passed via attribute on the script tag. For configuration when running the image built with docker see the `README.md` in the `/docker` folder.
 
-### Endpoint
+### Endpoint (**required**)
 
 Sets the Alertmanager API Endpoint URL. Provide the full URL of the Alertmanager API endpoint to which the application will connect.
 
@@ -139,7 +178,7 @@ Example:
 "https://myalertmanager.com/api/v2"
 ```
 
-### Filter labels
+### Filter labels (**optional**)
 
 Filter labels are a set of labels that are utilized to define the criteria by which alerts will be filtered, if those labels exist within the fetched alerts. These filter labels enable you to selectively narrow down the alerts based on specific label values, resulting in a more targeted and refined alert filtering process.
 
@@ -153,7 +192,7 @@ Example value:
 ["severity", "region", "app", "namespace"]
 ```
 
-### Initial FIlters
+### Initial FIlters (**optional**)
 
 InitialFilters are the filters that are applied when the app is loaded. The filters must be an object where the key is the label and the value are the values to filter on.
 
@@ -167,7 +206,7 @@ To set the inital Filters:
 
 - Configured via app prop `initialFilters`
 
-### Predefined Filters
+### Predefined Filters (**optional**)
 
 PredefinedFilters are groups of filters comprised of a list of filter labels and a regex that is used to filter on the values of that label. They can be thought of as filter categories where the filter logic can be more complex than simple label+values pairs. Predefined filters are defined as an array of objects, where each object is a predefined filter which contains the display name for the UI as well as a list of filter label + value regex pairs which are AND concatenated when they are being evaluated.
 
@@ -189,7 +228,7 @@ To set the predefined Filter:
 
 - Configured via app prop `predefinedFilters`
 
-### Silence excluded alert labels
+### Silence excluded alert labels (**optional**)
 
 Excluded labels are a collection of labels that are automatically excluded by default when configuring silence matchers. These labels, such as `pod`, `pod_name` or `instance`, often undergo frequent value changes, causing new alerts to be triggered that are not covered by the existing silence.
 
@@ -229,7 +268,7 @@ Example:
 ["pod", "pod_name", "instance"]
 ```
 
-### Silence Templates
+### Silence Templates (**optional**)
 
 Defines pre-configured silences available in the schedule silence modal for scheduling future silences. For example when setting up maintenance windows where it is known that certain alerts will fire. The format consists of a list of objects including description, editable_labels (array of strings specifying the labels that users can modify), fixed_labels (map containing fixed labels and their corresponding values), status, and title.
 
@@ -253,7 +292,7 @@ To set the silence templates:
 
 - Configured via app prop `silenceTemplates`, which is used during the setup of the script tag.
 
-### Theme
+### Theme (**optional**)
 
 Set this attribute to specify a custom theme for your application. Possible values are `"theme-light"` or `"theme-dark"` (default)
 
@@ -261,6 +300,6 @@ To set the theme:
 
 - Configured via app prop `theme`
 
-### Username
+### Username (**optional**)
 
 Username used for forms and API requests

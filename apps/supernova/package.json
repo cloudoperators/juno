@@ -9,7 +9,6 @@
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/supernova",
   "license": "Apache-2.0",
-  "source": "src/index.js",
   "module": "build/index.js",
   "private": true,
   "devDependencies": {
@@ -53,54 +52,6 @@
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "clean:cache": "rm -rf .turbo"
   },
-  "appProps": {
-    "theme": {
-      "value": "theme-dark",
-      "type": "optional",
-      "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
-    },
-    "embedded": {
-      "value": "false",
-      "type": "optional",
-      "description": "Set to true if app is to be embedded in another existing app or page.  If set to true the app won't render a page header/footer and instead render only the content. The default value is false."
-    },
-    "endpoint": {
-      "value": "",
-      "type": "required",
-      "description": "Alertmanager API Endpoint URL"
-    },
-    "username": {
-      "value": null,
-      "type": "optional",
-      "description": "Username used for forms and API requests"
-    },
-    "filterLabels": {
-      "value": null,
-      "type": "optional",
-      "description": "FilterLabels are the labels shown in the filter dropdown, enabling users to filter alerts based on specific criteria. The 'Status' label serves as a default filter, automatically computed from the alert status attribute and will be not overwritten. The labels must be an array of strings. Example: [\"app\", \"cluster\", \"cluster_type\"]"
-    },
-    "silenceExcludedLabels": {
-      "value": null,
-      "type": "optional",
-      "description": "SilenceExcludedLabels are labels that are initially excluded by default when creating a silence. However, they can be added if necessary when utilizing the advanced options in the silence form. The labels must be an array of strings. Example: [\"pod\", \"pod_name\", \"instance\"]"
-    },
-    "silenceTemplates": {
-      "value": null,
-      "type": "optional",
-      "description": "SilenceTemplates are pre-defined silence templates that can be used to scheduled Maintenance Windows. The format consists of a list of objects including description, editable_labels (array of strings specifying the labels that users can modify), fixed_labels (map containing fixed labels and their corresponding values), status, and title."
-    },
-    "predefinedFilters": {
-      "value": null,
-      "type": "optional",
-      "description": "PredefinedFilters are groups of filters comprised of a list of filter labels and a regex that is used to filter on the values of that label. They can be thought of as filter categories where the filter logic can be more complex than simple label+values pairs. Predefined filters are defined as an array of objects, where each object is a predefined filter. It contains the display name for the UI as well as a list of filter label + value regex pairs which are AND concatenated when they are being evaluated."
-    },
-    "initialFilters": {
-      "value": null,
-      "type": "optional",
-      "description": "InitialFilters are the filters that are applied when the app is loaded. The filters must be an object where the key is the label and the value are the values to filter on. "
-    }
-  },
-  "appPreview": true,
   "dependencies": {
     "@cloudoperators/juno-communicator": "*",
     "@cloudoperators/juno-messages-provider": "*",
