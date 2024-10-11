@@ -7,24 +7,55 @@
 export type MessageType = "info" | "success" | "warning" | "danger" | "error"
 
 export interface MessageProps {
-  /** Message title (optional) */
+  /**
+   * The title of the message (optional).
+   */
   title?: string
-  /** Description to render as content (optional). Alternatively, content can be passed as children. */
+
+  /**
+   * The main text content of the message (optional). If 'children' are provided, they will take precedence over this text.
+   */
   text?: string
-  /** Variant for message appearance e.g. 'success' (optional) */
+
+  /**
+   * The semantic variant of the message that determines its appearance e.g. 'success', 'error' etc. (optional).
+   */
   variant?: MessageType
-  /** If true, the message will have a 'close' button (optional) */
+
+  /**
+   * If true, the message will include a 'close' button to dismiss it (optional).
+   */
   dismissible?: boolean
-  /** If true, the message will auto-dismiss after 10 seconds or the specified autoDismissTimeout (optional) */
+
+  /**
+   * If true, the message will automatically dismiss after 10 seconds or the specified autoDismissTimeout (optional).
+   */
   autoDismiss?: boolean
-  /** Timeout in milliseconds after which the message auto-dismisses (optional). Default is 10 seconds. */
+
+  /**
+   * The timeout in milliseconds after which the message auto-dismisses (optional).
+   * Defaults to 10 seconds.
+   */
   autoDismissTimeout?: number
-  /** Handler function called once the message is dismissed (optional) */
+
+  /**
+   * Handler function that is called once the message is dismissed (optional).
+   */
   onDismiss?: () => void
-  /** Additional class names for message container styling (optional) */
+
+  /**
+   * Additional CSS classes to apply to the message (optional).
+   */
   className?: string
-  /** Child nodes to be rendered as content (optional) */
+
+  /**
+   * Content to be rendered within the message (optional).
+   * Takes precedence over the 'text' prop, if provided.
+   */
   children?: React.ReactNode
-  /** Pass additional arbitrary props to the message container */
+
+  /**
+   * Additional arbitrary props to pass to the message container.
+   */
   [key: string]: any
 }

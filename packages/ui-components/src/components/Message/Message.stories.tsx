@@ -15,12 +15,14 @@ export default {
   },
 }
 
+// Default message
 export const Default = {
   args: {
     text: "Default Message.",
   },
 }
 
+// Message with title
 export const WithTitle = {
   args: {
     title: "Message",
@@ -28,6 +30,7 @@ export const WithTitle = {
   },
 }
 
+// Variant messages
 export const Warning = {
   args: {
     variant: "warning",
@@ -52,10 +55,11 @@ export const Danger = {
 export const Success = {
   args: {
     variant: "success",
-    text: "Success Message",
+    text: "Success Message.",
   },
 }
 
+// Dismissible message
 export const Dismissible = {
   args: {
     text: "Dismissible Message.",

@@ -12,7 +12,7 @@ import { MessageProps, MessageType } from "./Message.types"
 
 // CSS UTILS
 
-export const messageStyles = `
+export const messageBaseStyles = `
     jn-text-theme-high
     jn-flex
     jn-rounded
@@ -109,8 +109,8 @@ export const isValidIcon = (icon: string): icon is KnownIcons => {
   return validIconNames.has(icon as KnownIcons)
 }
 
-// Get the appropriate Material UI icon for a message type
-export const getMuiIcon = (messageVariant: MessageType): KnownIcons => {
+// Get the appropriate Material UI icon for a variant type
+export const getIcon = (messageVariant: MessageType): KnownIcons => {
   if (messageVariant === "error") return "dangerous"
   if (isValidIcon(messageVariant)) return messageVariant
   return "default"
@@ -187,11 +187,11 @@ export const Message: React.FC<MessageProps> = ({
 
   return (
     <div
-      className={`juno-message juno-message-${variant} ${messageStyles} ${getBackgroundStyle(variant)} ${className}`}
+      className={`juno-message juno-message-${variant} ${messageBaseStyles} ${getBackgroundStyle(variant)} ${className}`}
       {...props}
     >
       <div className={`juno-message-border ${messageBorderStyles} ${getVariantStyle(variant)}`}></div>
-      <Icon icon={getMuiIcon(variant)} color={`jn-text-theme-${variant}`} className="jn-shrink-0" />
+      <Icon icon={getIcon(variant)} color={`jn-text-theme-${variant}`} className="jn-shrink-0" />
       <div className={`juno-message-content ${messageContentStyles}`}>
         {title && <h1 className={messageHeadingStyles}>{title}</h1>}
         <div>{children || text}</div>
