@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Message } from "./index"
+import { Message } from "./"
 
 export default {
   title: "Components/Message",
@@ -31,7 +31,7 @@ export const WithTitle = {
   },
 }
 
-// Variant messages
+// Message variants
 export const Warning = {
   args: {
     variant: "warning",

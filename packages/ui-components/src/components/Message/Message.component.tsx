@@ -8,11 +8,11 @@ import React, { useEffect, useState, useRef } from "react"
 import { Icon } from "../Icon"
 import { KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
-import { MessageProps, MessageType } from "./Message.types"
+import { MessageProps, VariantType } from "./Message.types"
 
 // CSS UTILS
 
-export const messageBaseStyles = `
+const messageBaseStyles = `
     jn-text-theme-high
     jn-flex
     jn-rounded
@@ -21,17 +21,17 @@ export const messageBaseStyles = `
     jn-items-center
 `
 
-export const messageHeadingStyles = `
+const messageHeadingStyles = `
     jn-font-bold
 `
 
-export const messageContentStyles = `
+const messageContentStyles = `
     jn-py-3
     jn-pr-4
     jn-ml-7
 `
 
-export const messageBorderStyles = `
+const messageBorderStyles = `
     jn-w-[4px]
     jn-self-stretch
     jn-border-l-4
@@ -39,7 +39,7 @@ export const messageBorderStyles = `
     jn-shrink-0
 `
 
-export const dismissButtonStyles = `
+const dismissButtonStyles = `
     jn-ml-auto
     jn-self-stretch
     jn-flex
@@ -48,7 +48,7 @@ export const dismissButtonStyles = `
     jn-pr-2.5
 `
 
-export const messageVariantStyles = {
+const messageVariantStyles = {
   default: `jn-border-theme-message-default`,
   defaultBg: `jn-bg-theme-message-default`,
 
@@ -65,8 +65,8 @@ export const messageVariantStyles = {
   successBg: `jn-bg-theme-message-success`,
 }
 
-export const getBackgroundStyle = (messageVariant: MessageType): string => {
-  switch (messageVariant) {
+const getBackgroundStyle = (variant: VariantType): string => {
+  switch (variant) {
     case "error":
       return messageVariantStyles.errorBg
     case "warning":
@@ -82,8 +82,8 @@ export const getBackgroundStyle = (messageVariant: MessageType): string => {
   }
 }
 
-export const getVariantStyle = (messageVariant: MessageType): string => {
-  switch (messageVariant) {
+const getVariantStyle = (variant: VariantType): string => {
+  switch (variant) {
     case "error":
       return messageVariantStyles.error
     case "warning":
@@ -101,46 +101,43 @@ export const getVariantStyle = (messageVariant: MessageType): string => {
 
 // ICON UTILS
 
-// Type guard to determine if a given string corresponds to a known icon
+// Determine if a given string corresponds to a known icon
 // To Do: Externalise. Also used in other components e.g. Badge
-export const isValidIcon = (icon: string): icon is KnownIcons => {
-  // Set of valid icon names
+const isValidIcon = (icon: string): icon is KnownIcons => {
   const validIconNames: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
   return validIconNames.has(icon as KnownIcons)
 }
 
-// Get the appropriate Material UI icon for a variant type
-export const getIcon = (messageVariant: MessageType): KnownIcons => {
-  if (messageVariant === "error") return "dangerous"
-  if (isValidIcon(messageVariant)) return messageVariant
+// Get icon for a variant type
+const getIcon = (variant: VariantType): KnownIcons => {
+  if (variant === "error") return "dangerous"
+  if (isValidIcon(variant)) return variant
   return "default"
 }
 
 // TIMEOUT UTILS
 
-// Initiate auto-dismiss timeout to hide the message after the specified timeout (passed or preconfigured)
-export const initiateAutoDismiss = (
+// Initiate auto-dismiss to hide message
+const initiateAutoDismiss = (
   autoDismiss: boolean,
   timeout: number,
   hideMessage: () => void,
   timeoutRef: React.MutableRefObject<number | null>
 ) => {
-  // Ensure that auto-dismiss is enabled and that the value for timeout is valid
+  // Ensure that auto-dismiss is enabled and that timeout value is valid
   if (!autoDismiss || timeout < 1) return
 
-  // Clear an existing timeout to avoid multiple
-  if (timeoutRef.current !== null) {
-    clearTimeout(timeoutRef.current)
-  }
+  // Avoid multiple timeouts
+  if (timeoutRef.current !== null) clearTimeout(timeoutRef.current)
 
-  // Set a new timeout to hide the message after the specified timeout
+  // Set a new timeout to hide message after the specified timeout
   timeoutRef.current = window.setTimeout(() => {
     hideMessage()
   }, timeout) as unknown as number
 }
 
-// Clear an existing auto-dismiss timeout and reset the timeout reference
-export const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | null>) => {
+// Clear auto-dismiss timeout, if exists and reset the timeout reference
+const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | null>) => {
   if (timeoutRef.current !== null) {
     clearTimeout(timeoutRef.current)
     timeoutRef.current = null
@@ -184,13 +181,17 @@ export const Message: React.FC<MessageProps> = ({
 
   if (!visible) return null
 
+  const iconToRender = getIcon(variant)
+  const backgroundStyle = getBackgroundStyle(variant)
+  const variantStyle = getVariantStyle(variant)
+
   return (
     <div
-      className={`juno-message juno-message-${variant} ${messageBaseStyles} ${getBackgroundStyle(variant)} ${className}`}
+      className={`juno-message juno-message-${variant} ${messageBaseStyles} ${backgroundStyle} ${className}`}
       {...props}
     >
-      <div className={`juno-message-border ${messageBorderStyles} ${getVariantStyle(variant)}`}></div>
-      <Icon icon={getIcon(variant)} color={`jn-text-theme-${variant}`} className="jn-shrink-0" />
+      <div className={`juno-message-border ${messageBorderStyles} ${variantStyle}`}></div>
+      <Icon icon={iconToRender} color={`jn-text-theme-${variant}`} className="jn-shrink-0" />
       <div className={`juno-message-content ${messageContentStyles}`}>
         {title && <h1 className={messageHeadingStyles}>{title}</h1>}
         <div>{children || text}</div>

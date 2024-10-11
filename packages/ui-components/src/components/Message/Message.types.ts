@@ -4,7 +4,7 @@
  */
 
 // To Do: Externalise? Similar is used in Badge component
-export type MessageType = "info" | "warning" | "danger" | "error" | "success"
+export type VariantType = "info" | "warning" | "danger" | "error" | "success"
 
 export interface MessageProps {
   /**
@@ -22,7 +22,7 @@ export interface MessageProps {
   /**
    * Specify an optional semantic variant that determines the appearance of a message.
    */
-  variant?: MessageType
+  variant?: VariantType
 
   /**
    * Optional. If true, the message will have a 'close' button to dismiss it.

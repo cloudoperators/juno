@@ -6,10 +6,10 @@
 import * as React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { describe, expect, test } from "vitest"
+import { describe, expect, test, vi } from "vitest"
 
-import { MessageType } from "./Message.types"
-import { Message } from "./index"
+import { VariantType } from "./Message.types"
+import { Message } from "./"
 
 const mockOnDismiss = vi.fn()
 
@@ -72,7 +72,7 @@ describe("Message Component", () => {
     ${"success"} | ${"juno-message-success"} | ${"jn-text-theme-success"}
   `(
     "renders a $variant Message with the correct classes",
-    ({ variant, cssClass, iconClass }: { variant: MessageType; cssClass: string; iconClass: string }) => {
+    ({ variant, cssClass, iconClass }: { variant: VariantType; cssClass: string; iconClass: string }) => {
       render(<Message data-testid="my-message" variant={variant} />)
       expect(screen.getByTestId("my-message")).toHaveClass(cssClass)
       expect(screen.getByRole("img")).toHaveClass(iconClass)
@@ -85,41 +85,38 @@ describe("Message Component", () => {
     expect(screen.getByRole("img")).toHaveClass("jn-shrink-0")
   })
 
-  // DISMISSABLE BEHAVIOUR
+  // DISMISSIBLE BEHAVIOUR
 
   test("renders a Message without a dismiss button by default", () => {
     render(<Message data-testid="my-message" />)
-    expect(screen.queryByRole("button")).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: /close/i })).not.toBeInTheDocument()
   })
 
   test("renders a dismissible Message when 'dismissible' is true", async () => {
     render(<Message data-testid="my-message" dismissible={true} />)
 
-    // No specific check for the close button to avoid test failures if there are multiple buttons.
     const user = userEvent.setup()
-    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: /close/i })).toBeInTheDocument()
 
-    // Ensure the message is dismissed after clicking the button
+    // Ensure message is dismissed after clicking the button
     await waitFor(async () => {
-      await user.click(screen.getByRole("button"))
+      await user.click(screen.getByRole("button", { name: /close/i }))
       expect(screen.queryByTestId("my-message")).not.toBeInTheDocument()
     })
   })
 
   test("renders a Message without a dismiss button when 'dismissible' is false", () => {
     render(<Message data-testid="my-message" dismissible={false} />)
-    expect(screen.queryByRole("button")).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: /close/i })).not.toBeInTheDocument()
   })
 
   test("calls 'onDismiss' handler when the Message is manually dismissed", async () => {
     render(<Message data-testid="my-message" dismissible={true} onDismiss={mockOnDismiss} />)
 
-    // No specific check for the close button to avoid test failures if there are multiple buttons.
     const user = userEvent.setup()
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    const dismissButton = screen.getByRole("button")
+    expect(screen.getByRole("button", { name: /close/i })).toBeInTheDocument()
+    const dismissButton = screen.getByRole("button", { name: /close/i })
 
-    // Ensure onDismiss is called when the message is dismissed
     await waitFor(async () => {
       await user.click(dismissButton)
       expect(mockOnDismiss).toHaveBeenCalledTimes(1)
