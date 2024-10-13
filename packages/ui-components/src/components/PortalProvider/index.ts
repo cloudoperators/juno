@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { PortalContext, PortalProvider, usePortalRef } from "./PortalProvider.component"
+export { PortalContext, PortalProvider, type PortalProviderProps, usePortalRef } from "./PortalProvider.component"

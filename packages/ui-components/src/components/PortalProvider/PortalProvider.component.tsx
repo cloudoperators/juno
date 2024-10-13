@@ -4,7 +4,7 @@
  */
 
 import React, { createContext, useRef, useContext, useEffect, useState } from "react"
-import { createPortal } from "react-dom"
+import { Portal } from "./PortalProvider.Portal.component"
 
 const DEFAULT_PORTAL_ROOT_ID = "juno-portal-root"
 
@@ -17,40 +17,6 @@ const portalRootStyles: React.CSSProperties = {
   position: "absolute",
   top: "0",
   left: "0",
-}
-
-const portalStyles: React.CSSProperties = {
-  position: "relative",
-  zIndex: "1",
-}
-
-/** A PortalProvider.Portal component to directly use from within other components:
- *  ```
- *   <PortalProvider.Portal>
- *     <MyComponent />
- *   </PortalProvider.Portal>
- *  ```
- */
-const Portal = ({ children = null }: PortalProviderPortalProps) => {
-  const rootRef = useContext(PortalContext)
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    if (rootRef?.current) {
-      setIsMounted(true)
-    }
-  }, [rootRef])
-
-  if (!isMounted) {
-    return null
-  }
-
-  const wrappedChildren = (
-    <div className={`juno-portal`} style={portalStyles}>
-      {children}
-    </div>
-  )
-  return createPortal(wrappedChildren, rootRef!.current || document.body)
 }
 
 /** A hook that creates a portal container in the current portal root, and returns this newly created container as a node to use in other components:
@@ -128,7 +94,6 @@ export const PortalProvider = ({
 
 // Bind Portal to PortalProvider:
 PortalProvider.Portal = Portal
-Portal.displayName = "PortalProvider.Portal"
 
 export interface PortalProviderProps {
   /** Optionally a class name can be passed to the portal container which is the container where portals are created by PortalProvider */
@@ -139,7 +104,4 @@ export interface PortalProviderProps {
   children?: React.ReactNode
 }
 
-export interface PortalProviderPortalProps {
-  /** The children to mount in a portal. Typically, these will be menus, modal dialogs, etc. */
-  children?: React.ReactNode
-}
+
