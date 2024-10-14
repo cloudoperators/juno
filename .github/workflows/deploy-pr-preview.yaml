@@ -24,6 +24,7 @@ on:
       - "apps/heureka/**"
       - "apps/doop/**"
       - "apps/carbon/**"
+      - "apps/greenhouse/**"
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
@@ -155,6 +156,35 @@ jobs:
           APP_PROPS_BASE64: ${{ secrets.CARBON_APP_PROPS_BASE64 }}
         continue-on-error: true
 
+      - name: Build GREENHOUSE if changes detected
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'greenhouse')
+        run: |
+          # collect the necessary information
+          entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
+          build_folder=$(dirname $entry_file)
+          package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
+
+          # Run build using turbo
+          npx turbo run build --filter $package_name
+
+          # Copy the necessary files
+          mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
+          cp -r "$PACKAGE_PATH/$build_folder" "$DEPLOY_PATH/$TARGET_FOLDER/$build_folder"
+          cp "$PACKAGE_PATH/public/favicon.ico" "$DEPLOY_PATH/$TARGET_FOLDER/"
+          cp "$PACKAGE_PATH/public/favicon.svg" "$DEPLOY_PATH/$TARGET_FOLDER/"
+
+          # Generate index.html and appProps.json
+          cp "$PACKAGE_PATH/docker/index.html" "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
+          entry_file_escaped=$(echo "$entry_file" | sed 's/\//\\\//g')
+          sed -i 's|/appProps.json?%VERSION%|./appProps.json|g' "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
+          sed -i 's|/index.js?%VERSION%|./$entry_file_escaped|g' "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
+          echo "$APP_PROPS_BASE64" | base64 -d > "$DEPLOY_PATH/$TARGET_FOLDER/appProps.json"
+        env:
+          PACKAGE_PATH: apps/greenhouse
+          TARGET_FOLDER: greenhouse
+          APP_PROPS_BASE64: ${{ secrets.GREENHOUSE_APP_PROPS_BASE64 }}
+        continue-on-error: true
+
       - name: Generate index.html for Deployed Apps
         if: github.event.action != 'closed'
         env:
@@ -163,6 +193,7 @@ jobs:
           HEUREKA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}
           DOOP_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}
           CARBON_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'carbon') }}
+          GREENHOUSE_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'greenhouse') }}
         run: |
           echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
           if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
@@ -179,6 +210,9 @@ jobs:
           fi
           if [ "$CARBON_CHANGED" = "true" ]; then
             echo "<li><a href='./carbon/index.html'>Carbon</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          if [ "$GREENHOUSE_CHANGED" = "true" ]; then
+            echo "<li><a href='./greenhhouse/index.html'>Greenhouse</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
           fi
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
