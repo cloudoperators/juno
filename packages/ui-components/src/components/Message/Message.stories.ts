@@ -8,12 +8,6 @@ import { Message } from "./"
 export default {
   title: "Components/Message",
   component: Message,
-  argTypes: {
-    children: {
-      control: { type: "object" },
-      type: { name: "React.ReactNode" },
-    },
-  },
 }
 
 // Default message
