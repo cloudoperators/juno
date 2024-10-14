@@ -45,7 +45,7 @@ We publish a self-hostable docker image [in our registry](https://github.com/clo
 To create a static, runnable build, execute the following commands:
 
 ```bash
-cd apps/heureka
+cd apps/supernova
 npx turbo build:static
 ```
 
@@ -56,7 +56,7 @@ This will generate an `index.html` file along with the necessary assets in the d
 To build a library version for dynamic import, use the following commands:
 
 ```bash
-cd apps/heureka
+cd apps/supernova
 npx turbo build
 ```
 
@@ -66,7 +66,7 @@ This will create a build folder with all assets. You can host this folder and lo
 <div id="root"></div>
 
 <script type="module">
-  import("PATH_TO_HOST/heureka/build/index.js").then((app) => {
+  import("PATH_TO_HOST/supernova/build/index.js").then((app) => {
     app.mount(document.getElementById("root"), { props: /* PROPS JSON */ })
   })
 </script>
@@ -84,7 +84,7 @@ npm run dev
 ### Testing
 
 ```bash
-cd apps/heureka
+cd apps/supernova
 npx turbo test
 ```
 
