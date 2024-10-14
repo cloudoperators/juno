@@ -37,7 +37,7 @@
   <body style="height: 100vh; flex-grow: 1; margin: 0; padding: 0">
     <script type="module">
       const props = await fetch("./appProps.json").then((r) => r.json())
-      const { mount } = await import(`./$entry_file_escaped`)
+      const { mount } = await import(`./build/index.js`)
       const root = document.createElement("div")
       document.body.appendChild(root)
       root.setAttribute("data-app", "greenhouse-dashboard")
