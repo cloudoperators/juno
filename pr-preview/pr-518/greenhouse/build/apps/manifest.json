@@ -1,0 +1,8 @@
+{
+  "@cloudoperators/juno-app-supernova": "/apps/cloudoperators/juno-app-supernova/build/index.js",
+  "supernova": "/apps/cloudoperators/juno-app-supernova/build/index.js",
+  "@cloudoperators/juno-app-heureka": "/apps/cloudoperators/juno-app-heureka/build/index.js",
+  "heureka": "/apps/cloudoperators/juno-app-heureka/build/index.js",
+  "@cloudoperators/juno-app-doop": "/apps/cloudoperators/juno-app-doop/build/index.js",
+  "doop": "/apps/cloudoperators/juno-app-doop/build/index.js"
+}
