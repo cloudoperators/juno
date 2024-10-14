@@ -212,7 +212,7 @@ jobs:
             echo "<li><a href='./carbon/index.html'>Carbon</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
           fi
           if [ "$GREENHOUSE_CHANGED" = "true" ]; then
-            echo "<li><a href='./greenhhouse/index.html'>Greenhouse</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            echo "<li><a href='./greenhouse/index.html'>Greenhouse</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
           fi
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
