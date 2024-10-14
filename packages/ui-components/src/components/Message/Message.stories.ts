@@ -8,6 +8,11 @@ import { Message } from "./"
 export default {
   title: "Components/Message",
   component: Message,
+  argTypes: {
+    children: {
+      control: false,
+    },
+  },
 }
 
 // Default message
