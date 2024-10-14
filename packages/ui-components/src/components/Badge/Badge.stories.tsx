@@ -23,19 +23,24 @@ export default {
   },
 }
 
-// Badge with a default icon based on variant
-export const WithDefaultIcon = {
+//Default variants
+export const Default = {
   args: {
-    text: "With Icon",
-    icon: true,
+    text: "Default",
   },
 }
 
-// Badge with a specific custom icon
-export const DefaultWithAnyIcon = {
+export const WithDefaultIcon = {
+  args: {
+    text: "Default",
+    icon: true, // default icon based on variant
+  },
+}
+
+export const WithAnyIcon = {
   args: {
     text: "deleted",
-    icon: "deleteForever",
+    icon: "deleteForever", // passed icon
   },
 }
 
