@@ -6,16 +6,7 @@
 import React from "react"
 import { createPortal } from "react-dom"
 import { PortalProvider, usePortalRef, PortalProviderProps } from "./PortalProvider.component"
-
-//import { Message } from "../Message" // TODO: use Message after it is available in TS
-
-export interface MessageProps {
-  text: string
-}
-
-const Message = ({ text }: MessageProps) => {
-  return <div>{text}</div>
-}
+import { Button } from "../Button/index"
 
 export default {
   title: "WiP/PortalProvider",
@@ -32,7 +23,7 @@ export default {
 const PortalMessage = () => {
   const portalRef = usePortalRef()
   if (!portalRef) return null
-  const content = <Message text="I'm inside a portal using the usePortalref hook in a custom component." />
+  const content = <Button label="I'm inside a portal using the usePortalref hook in a custom component." />
   return createPortal(content, portalRef)
 }
 
@@ -46,7 +37,7 @@ export const WithPortalComponent = {
   args: {
     children: (
       <PortalProvider.Portal>
-        <Message text="I'm inside a portal using the Portal component as provided by PortalProvider." />
+        <Button label="I'm inside a portal using the Portal component as provided by PortalProvider." />
       </PortalProvider.Portal>
     ),
   },
@@ -71,7 +62,7 @@ export const MultiplePortals = {
       <>
         <div>Some non-portaled content.</div>
         <PortalProvider.Portal>
-          <Message text="I'm inside a portal using the Portal component as provided by PortalProvider." />
+          <Button label="I'm inside a portal using the Portal component as provided by PortalProvider." />
         </PortalProvider.Portal>
         <PortalMessage />
       </>
