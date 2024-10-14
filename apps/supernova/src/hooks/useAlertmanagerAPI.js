@@ -13,10 +13,10 @@ import {
 import AlertsWorker from "../workers/alerts.js?worker"
 import SilencesWorker from "../workers/silences.js?worker"
 
-const useAlertmanagerAPI = (apiEndpoint) => {
-  const alertsWorker = new AlertsWorker()
-  const silencesWorker = new SilencesWorker()
+const alertsWorker = new AlertsWorker()
+const silencesWorker = new SilencesWorker()
 
+const useAlertmanagerAPI = (apiEndpoint) => {
   const {
     setAlertsData,
     setIsLoading: setAlertsIsLoading,
