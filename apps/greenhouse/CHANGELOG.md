@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.2.5
+
+### Patch Changes
+
+- d13f774: Adds temporary fix to forward default initial filters to the applications (plugins)
+- Updated dependencies [aa185b4]
+- Updated dependencies [4ded874]
+  - @cloudoperators/juno-ui-components@2.23.0
+
 ## 0.2.4
 
 ### Patch Changes
