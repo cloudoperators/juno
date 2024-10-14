@@ -10,7 +10,6 @@ import {
   useSilencesActions,
   useSilencesLocalItems,
 } from "../components/StoreProvider"
-
 import AlertsWorker from "../workers/alerts.js?worker"
 import SilencesWorker from "../workers/silences.js?worker"
 
@@ -36,8 +35,8 @@ const useAlertmanagerAPI = (apiEndpoint) => {
 
   // Setup web workers
   useEffect(() => {
-    let cleanupAlertsWorker = () => alertsWorker.stopWorker()
-    let cleanupSilencesWorker = () => silencesWorker.stopWorker()
+    let cleanupAlertsWorker = () => alertsWorker.terminate()
+    let cleanupSilencesWorker = () => silencesWorker.terminate()
 
     // receive messages from worker
     alertsWorker.onmessage = (e) => {

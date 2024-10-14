@@ -57,7 +57,7 @@ const RecreateSilence = (props) => {
   const silence = props.silence
   const fingerprint = props.fingerprint ? props.fingerprint : null
   const apiEndpoint = useGlobalsApiEndpoint()
-  const { user } = useGlobalsUsername()
+  const user = useGlobalsUsername()
 
   const { addLocalItem } = useSilencesActions()
 
