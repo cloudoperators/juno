@@ -5,12 +5,7 @@ const fs = require("fs")
 const APPS_ROOT = path.resolve(__dirname, "../../../", "apps")
 
 // App source folders
-const APPS = [
-  path.resolve(APPS_ROOT, "supernova"),
-  path.resolve(APPS_ROOT, "heureka"),
-  path.resolve(APPS_ROOT, "doop"),
-  // path.resolve(APPS_ROOT, "greenhouse/core-apps/org-admin"),
-]
+const APPS = [path.resolve(APPS_ROOT, "supernova"), path.resolve(APPS_ROOT, "heureka"), path.resolve(APPS_ROOT, "doop")]
 
 let envPlugin = {
   name: "env",
