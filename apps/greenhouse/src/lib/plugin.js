@@ -6,7 +6,6 @@
 import { useStore, createStore } from "zustand"
 import { devtools } from "zustand/middleware"
 import produce from "immer"
-import { orgAdminVersion } from "../../package.json"
 
 export const NAV_TYPES = {
   APP: "app",
@@ -17,6 +16,7 @@ const pluginConfig = {
   id: "",
   name: "",
   displayName: "",
+  core: false,
   version: "latest",
   url: null,
   weight: 0,
@@ -82,11 +82,11 @@ const Plugin = ({ environment, apiEndpoint, currentHost }) => {
     devtools(() => ({
       active: [],
       config: {
-        [`greenhouse-org-admin`]: createPluginConfig({
-          id: "greenhouse-org-admin",
-          name: "greenhouse-org-admin",
+        [`org-admin`]: createPluginConfig({
+          id: "org-admin",
+          core: true,
+          name: "org-admin",
           displayName: "Organization",
-          version: environment == "qa" || environment == "development" ? "latest" : orgAdminVersion, // pull latest version in dev and qa
           navType: NAV_TYPES.MNG,
           props: {
             assetsUrl: currentHost,
@@ -134,32 +134,6 @@ const Plugin = ({ environment, apiEndpoint, currentHost }) => {
       false,
       "plugin/setActive"
     )
-
-  // const addActive = (appName) =>
-  //   setState(
-  //     produce((state) => {
-  //       const index = getState().active.findIndex((i) => i === appName)
-  //       if (index >= 0) return
-  //       const newActive = getState().active.slice()
-  //       newActive.push(appName)
-  //       state.active = newActive
-  //     }),
-  //     false,
-  //     "plugin/addActive"
-  //   )
-
-  // const removeActive = (appName) =>
-  //   setState(
-  //     produce((state) => {
-  //       const index = getState().active.findIndex((i) => i === appName)
-  //       if (index < 0) return
-  //       let newActive = getState().active.slice()
-  //       newActive.splice(index, 1)
-  //       state.active = newActive
-  //     }),
-  //     false,
-  //     "plugin/removeActive"
-  //   )
 
   const addConfig = (config) =>
     setState(

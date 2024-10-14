@@ -1,0 +1,14 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "dev": {
+      "dependsOn": ["@cloudoperators/juno-url-state-provider#build"]
+    },
+    "test": {
+      "dependsOn": ["@cloudoperators/juno-url-state-provider#build"]
+    },
+    "build": {
+      "dependsOn": ["@cloudoperators/juno-url-state-provider#build"]
+    }
+  }
+}

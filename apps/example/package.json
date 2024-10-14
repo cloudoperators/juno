@@ -24,6 +24,7 @@
     "luxon": "^2.3.0",
     "postcss": "^8.4.21",
     "shadow-dom-testing-library": "^1.11.3",
+    "vite": "^5.4.8",
     "vitest": "^2.1.1"
   },
   "dependencies": {
