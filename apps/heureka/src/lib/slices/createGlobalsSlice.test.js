@@ -14,7 +14,7 @@ describe("createGlobalsSlice", () => {
 
   beforeEach(() => {
     useStore = create((set, get) => ({
-      ...createGlobalsSlice(set, get, { apiEndpoint: "https://api.example.com" }),
+      ...createGlobalsSlice(set, get, { apiEndpoint: "https://api.com" }),
     }))
     initialState = useStore.getState().globals
   })
@@ -22,7 +22,7 @@ describe("createGlobalsSlice", () => {
   it("should initialize with correct default values", () => {
     expect(initialState).toEqual({
       embedded: false,
-      apiEndpoint: "https://api.example.com",
+      apiEndpoint: "https://api.com",
       isUrlStateSetup: false,
       queryClientFnReady: false,
       activeView: "Services",
@@ -55,7 +55,7 @@ describe("createGlobalsSlice", () => {
   })
 
   it("should update apiEndpoint", () => {
-    const newEndpoint = "https://newapi.example.com"
+    const newEndpoint = "https://newapi.com"
     useStore.getState().globals.actions.setApiEndpoint(newEndpoint)
     expect(useStore.getState().globals.apiEndpoint).toBe(newEndpoint)
   })

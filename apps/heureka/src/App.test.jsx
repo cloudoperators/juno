@@ -5,7 +5,7 @@
 
 import React from "react"
 import { render, act, waitFor } from "@testing-library/react"
-import { screen } from "shadow-dom-testing-library" // only import screen from here
+import { screen } from "shadow-dom-testing-library"
 import App from "./App"
 
 describe("App", () => {
