@@ -103,5 +103,3 @@ export interface PortalProviderProps {
   /** The PortalProvider must have children. It is typically used as a wrapper for the whole app. */
   children?: React.ReactNode
 }
-
-

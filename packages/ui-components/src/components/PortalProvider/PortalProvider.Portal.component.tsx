@@ -8,8 +8,8 @@ import { createPortal } from "react-dom"
 import { PortalContext } from "./PortalProvider.component"
 
 const portalStyles: React.CSSProperties = {
-    position: "relative",
-    zIndex: "1",
+  position: "relative",
+  zIndex: "1",
 }
 
 /** A PortalProvider.Portal component to directly use from within other components:
@@ -20,30 +20,30 @@ const portalStyles: React.CSSProperties = {
  *  ```
  */
 export const Portal = ({ children = null }: PortalProviderPortalProps) => {
-    const rootRef = useContext(PortalContext)
-    const [isMounted, setIsMounted] = useState(false)
-  
-    useEffect(() => {
-      if (rootRef?.current) {
-        setIsMounted(true)
-      }
-    }, [rootRef])
-  
-    if (!isMounted) {
-      return null
+  const rootRef = useContext(PortalContext)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    if (rootRef?.current) {
+      setIsMounted(true)
     }
-  
-    const wrappedChildren = (
-      <div className={`juno-portal`} style={portalStyles}>
-        {children}
-      </div>
-    )
-    return createPortal(wrappedChildren, rootRef!.current || document.body)
+  }, [rootRef])
+
+  if (!isMounted) {
+    return null
   }
 
-  Portal.displayName = "PortalProvider.Portal"
+  const wrappedChildren = (
+    <div className={`juno-portal`} style={portalStyles}>
+      {children}
+    </div>
+  )
+  return createPortal(wrappedChildren, rootRef!.current || document.body)
+}
 
-  export interface PortalProviderPortalProps {
-    /** The children to mount in a portal. Typically, these will be menus, modal dialogs, etc. */
-    children?: React.ReactNode
-  }
+Portal.displayName = "PortalProvider.Portal"
+
+export interface PortalProviderPortalProps {
+  /** The children to mount in a portal. Typically, these will be menus, modal dialogs, etc. */
+  children?: React.ReactNode
+}

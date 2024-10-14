@@ -26,7 +26,7 @@ export default {
     children: {
       control: false,
     },
-  }
+  },
 }
 
 const PortalMessage = () => {
