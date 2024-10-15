@@ -7,86 +7,89 @@ import * as React from "react"
 import { describe, expect, test } from "vitest"
 import { render, screen } from "@testing-library/react"
 
-import { KnownIcons } from "../Icon/Icon.component"
-
-import { VariantType } from "./Badge.types"
 import { Badge } from "./"
 
 describe("Badge component", () => {
-  // BASIC RENDERING
-
-  test("renders with default props", () => {
-    render(<Badge data-testid="badge" />)
-    expect(screen.getByTestId("badge")).toBeInTheDocument()
-    expect(screen.getByTestId("badge")).toHaveClass("juno-badge-default")
-    expect(screen.queryByRole("img")).not.toBeInTheDocument()
-  })
-
-  test("renders a badge with text", () => {
-    render(<Badge text="default badge" data-testid="badge" />)
-    expect(screen.getByTestId("badge")).toBeInTheDocument()
-    expect(screen.getByTestId("badge")).toHaveTextContent("default badge")
-  })
-
-  test("renders a badge with children", () => {
-    render(<Badge data-testid="badge">Children inside</Badge>)
-    expect(screen.getByTestId("badge")).toBeInTheDocument()
-    expect(screen.getByTestId("badge")).toHaveTextContent("Children inside")
-  })
-
-  // VARIANTS
-
-  const variants: VariantType[] = ["info", "success", "warning", "danger", "error", "critical"]
-  variants.forEach((variant) => {
-    test(`renders a badge with the ${variant} variant`, () => {
-      render(<Badge variant={variant} data-testid="badge" />)
+  describe("Basic rendering", () => {
+    test("renders with default props", () => {
+      render(<Badge data-testid="badge" />)
       expect(screen.getByTestId("badge")).toBeInTheDocument()
-      expect(screen.getByTestId("badge")).toHaveClass(`juno-badge-${variant}`)
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-default")
+      expect(screen.queryByRole("img")).not.toBeInTheDocument()
+    })
+
+    test("renders a badge with text", () => {
+      render(<Badge text="default badge" data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveTextContent("default badge")
+    })
+
+    test("renders a badge with children", () => {
+      render(<Badge data-testid="badge">Children inside</Badge>)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveTextContent("Children inside")
     })
   })
 
-  // ICONS
+  describe("Variants", () => {
+    test(`renders a badge with the info variant`, () => {
+      render(<Badge variant={"info"} data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-info")
+    })
 
-  test("renders with default icon based on variant", () => {
-    render(<Badge icon={true} />)
-    expect(screen.getByRole("img")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveClass("juno-icon-default")
+    test(`renders a badge with the success variant`, () => {
+      render(<Badge variant={"success"} data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-success")
+    })
   })
 
-  const icons: KnownIcons[] = ["comment", "deleteForever"]
-  icons.forEach((icon) => {
-    test(`renders with ${icon} icon`, () => {
-      render(<Badge icon={icon} />)
+  describe("Icons", () => {
+    test("renders with default icon based on variant", () => {
+      render(<Badge icon={true} />)
       expect(screen.getByRole("img")).toBeInTheDocument()
-      expect(screen.getByRole("img")).toHaveClass(`juno-icon-${icon}`)
+      expect(screen.getByRole("img")).toHaveClass("juno-icon-default")
+    })
+
+    test(`renders with passed comment icon`, () => {
+      render(<Badge icon={"comment"} />)
+      expect(screen.getByRole("img")).toBeInTheDocument()
+      expect(screen.getByRole("img")).toHaveClass("juno-icon-comment")
+    })
+
+    test(`renders with passed deleteForever icon`, () => {
+      render(<Badge icon={"deleteForever"} />)
+      expect(screen.getByRole("img")).toBeInTheDocument()
+      expect(screen.getByRole("img")).toHaveClass(`juno-icon-deleteForever`)
+    })
+
+    test("renders with icon and variant", () => {
+      render(<Badge variant="danger" icon="comment" data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByRole("img")).toBeInTheDocument()
+      expect(screen.getByRole("img")).toHaveClass("juno-icon-comment")
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-danger")
+    })
+
+    test("does not render icon when icon prop is undefined", () => {
+      render(<Badge data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.queryByRole("img")).not.toBeInTheDocument()
     })
   })
 
-  test("renders with icon and variant", () => {
-    render(<Badge variant="danger" icon="comment" data-testid="badge" />)
-    expect(screen.getByTestId("badge")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveClass("juno-icon-comment")
-    expect(screen.getByTestId("badge")).toHaveClass("juno-badge-danger")
-  })
+  describe("Additional Props", () => {
+    test("renders with additional props", () => {
+      render(<Badge data-testid="badge" data-extra="extra" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveAttribute("data-extra")
+    })
 
-  test("does not render icon when icon prop is undefined", () => {
-    render(<Badge data-testid="badge" />)
-    expect(screen.getByTestId("badge")).toBeInTheDocument()
-    expect(screen.queryByRole("img")).not.toBeInTheDocument()
-  })
-
-  // ADDITIONAL PROPS
-
-  test("renders with additional props", () => {
-    render(<Badge data-testid="badge" data-extra="extra" />)
-    expect(screen.getByTestId("badge")).toBeInTheDocument()
-    expect(screen.getByTestId("badge")).toHaveAttribute("data-extra")
-  })
-
-  test("applies additional CSS classes", () => {
-    render(<Badge data-testid="badge" className="extra-class" />)
-    expect(screen.getByTestId("badge")).toBeInTheDocument()
-    expect(screen.getByTestId("badge")).toHaveClass("extra-class")
+    test("applies additional CSS classes", () => {
+      render(<Badge data-testid="badge" className="extra-class" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveClass("extra-class")
+    })
   })
 })

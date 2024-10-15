@@ -23,22 +23,20 @@ export default {
   },
 }
 
-//Default variants
 export const WithDefaultIcon = {
   args: {
     text: "With Icon",
-    icon: true, // default icon based on variant
+    icon: true, // Default icon based on variant
   },
 }
 
 export const WithAnyIcon = {
   args: {
     text: "Deleted",
-    icon: "deleteForever", // passed icon
+    icon: "deleteForever",
   },
 }
 
-// Info variants
 export const Info = {
   args: {
     variant: "info",
@@ -53,7 +51,6 @@ export const InfoWithIcon = {
   },
 }
 
-// Success variants
 export const Success = {
   args: {
     variant: "success",
@@ -68,7 +65,6 @@ export const SuccessWithIcon = {
   },
 }
 
-// Warning variants
 export const Warning = {
   args: {
     variant: "warning",
@@ -83,7 +79,6 @@ export const WarningWithIcon = {
   },
 }
 
-// Danger variants
 export const Danger = {
   args: {
     variant: "danger",
@@ -98,7 +93,6 @@ export const DangerWithIcon = {
   },
 }
 
-// Error variants
 export const Error = {
   args: {
     variant: "error",
