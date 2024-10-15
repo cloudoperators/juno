@@ -1,12 +1,11 @@
 const ROOT = new URL(import.meta.url)
-let pathPrefix = ROOT.pathname.startsWith("/build") ? "/build" : ""
 
 // Fetch the manifest once
-export const getManifest = fetch(new URL(`${pathPrefix}/apps/manifest.json`, ROOT))
+export const getManifest = fetch(new URL(`/extensions/manifest.json`, ROOT))
   .then((res) => res.json())
   .then((manifest) => {
     for (const key in manifest) {
-      manifest[key] = new URL(`${pathPrefix}${manifest[key]}`.replace(/\/\//g, "/"), ROOT).href
+      manifest[key] = new URL(manifest[key]?.path, ROOT).href
     }
     return manifest
   })
