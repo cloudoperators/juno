@@ -6,7 +6,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Pagination } from "./index.js"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
 export default {
   title: "Components/Pagination",
