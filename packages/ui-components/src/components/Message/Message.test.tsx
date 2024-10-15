@@ -70,7 +70,7 @@ describe("Message component", () => {
     test("renders an error Message with the correct classes", () => {
       render(<Message data-testid="my-message" variant={"error"} />)
       expect(screen.getByTestId("my-message")).toHaveClass("juno-message-error")
-      expect(screen.getByRole("img")).toHaveClass("jn-text-theme-success")
+      expect(screen.getByRole("img")).toHaveClass("jn-text-theme-error")
     })
   })
 
