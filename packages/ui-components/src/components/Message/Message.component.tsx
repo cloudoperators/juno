@@ -61,7 +61,7 @@ const messageVariantStyles = {
   successBg: `jn-bg-theme-message-success`,
 }
 
-export type VariantType = "info" | "warning" | "danger" | "error" | "success"
+export type MessageVariantType = "info" | "warning" | "danger" | "error" | "success"
 
 export interface MessageProps {
   /**
@@ -79,7 +79,7 @@ export interface MessageProps {
   /**
    * Specify an optional semantic variant that determines the appearance of a message.
    */
-  variant?: VariantType
+  variant?: MessageVariantType
 
   /**
    * Optional. If true, the message will have a 'close' button to dismiss it.
@@ -119,7 +119,7 @@ export interface MessageProps {
   [key: string]: any
 }
 
-const getBackgroundStyle = (variant: VariantType): string => {
+const getBackgroundStyle = (variant: MessageVariantType): string => {
   switch (variant) {
     case "error":
       return messageVariantStyles.errorBg
@@ -136,7 +136,7 @@ const getBackgroundStyle = (variant: VariantType): string => {
   }
 }
 
-const getVariantStyle = (variant: VariantType): string => {
+const getVariantStyle = (variant: MessageVariantType): string => {
   switch (variant) {
     case "error":
       return messageVariantStyles.error
@@ -160,7 +160,7 @@ const isValidIcon = (icon: string): icon is KnownIcons => {
 }
 
 // Get icon for a variant type
-const getIcon = (variant: VariantType): KnownIcons => {
+const getIcon = (variant: MessageVariantType): KnownIcons => {
   if (variant === "error") return "dangerous"
   if (isValidIcon(variant)) return variant
   return "default"
