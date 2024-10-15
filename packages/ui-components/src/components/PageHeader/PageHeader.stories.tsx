@@ -69,7 +69,7 @@ export const WithHeading: Story = {
   },
 }
 
-export const WithHeadingAndOptions: Story = {
+export const WithHeadingAndChildren: Story = {
   args: {
     heading: "My Awesome App",
     children: <HeaderOptions />,
