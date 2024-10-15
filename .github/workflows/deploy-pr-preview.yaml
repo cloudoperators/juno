@@ -144,71 +144,24 @@ jobs:
       - name: Generate index.html for Deployed Apps
         if: github.event.action != 'closed'
         env:
-          UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
+          STORYBOOK_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
+          STORYBOOK_OUTCOME: "${{ steps.build-storybook.outcome }}"
           SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
+          SUPERNOVA_OUTCOME: "${{ steps.build-supernova.outcome }}"
           HEUREKA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}
+          HEUREKA_OUTCOME: "${{ steps.build-heureka.outcome }}"
           DOOP_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}
+          DOOP_OUTCOME: "${{ steps.build-doop.outcome }}"
           CARBON_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'carbon') }}
+          CARBON_OUTCOME: "${{ steps.build-carbon.outcome }}"
           GREENHOUSE_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'greenhouse') }}
+          GREENHOUSE_OUTCOME: "${{ steps.build-greenhouse.outcome }}"
           EXAMPLE_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
           EXAMPLE_OUTCOME: "${{ steps.build-example.outcome }}"
         run: |
           echo "<!DOCTYPE html><head><title>PR Preview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html        
 
-          if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
-            if [ "${{ steps.build-storybook.outcome }}" == "success" ]; then
-              echo "<li><a href='./ui-components/index.html'>UI Components Storybook (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            else
-              echo "<li class='failed'>UI Components Storybook (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            fi
-          fi
-          if [ "$SUPERNOVA_CHANGED" = "true" ]; then
-            if [ "${{ steps.build-supernova.outcome }}" == "success" ]; then
-              echo "<li><a href='./supernova/index.html'>Supernova (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            else
-              echo "<li class='failed'>Supernova (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            fi
-          fi
-          if [ "$HEUREKA_CHANGED" = "true" ]; then
-            if [ "${{ steps.build-heureka.outcome }}" == "success" ]; then
-              echo "<li><a href='./heureka/index.html'>Heureka (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            else
-              echo "<li class='failed'>Heureka (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            fi
-          fi
-          if [ "$DOOP_CHANGED" = "true" ]; then
-            if [ "${{ steps.build-doop.outcome }}" == "success" ]; then
-              echo "<li><a href='./doop/index.html'>Doop (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            else
-              echo "<li class='failed'>Doop (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            fi
-          fi
-          if [ "$CARBON_CHANGED" = "true" ]; then
-            echo "<li><a href='./carbon/index.html'>Carbon</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            if [ "${{ steps.build-carbon.outcome }}" == "success" ]; then
-              echo "<li><a href='./carbon/index.html'>Carbon (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            else
-              echo "<li class='failed'>Carbon (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            fi
-          fi
-          if [ "$GREENHOUSE_CHANGED" = "true" ]; then
-            echo "<li><a href='./greenhouse/index.html'>Greenhouse</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            if [ "${{ steps.build-greenhouse.outcome }}" == "success" ]; then
-              echo "<li><a href='./greenhouse/index.html'>Greenhouse (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            else
-              echo "<li class='failed'>Greenhouse (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
-            fi
-          fi
-          # if [ "$EXAMPLE_CHANGED" = "true" ]; then
-          #   echo "<li><a href='./example/index.html'>Example</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-          #   if [ "${{ steps.build-example.outcome }}" == "success" ]; then
-          #     echo "<li><a href='./example/index.html'>Example (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
-          #   else
-          #     echo "<li class='failed'>Example (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
-          #   fi
-          # fi          
-
-          COMPONENTS=("example")
+          COMPONENTS=("storybook" "supernova" "heureka" "doop" "carbon" "example" "greenhouse")
           for component in "${COMPONENTS[@]}"; do
             CHANGED_VAR="${component^^}_CHANGED"  # Make it uppercase for the env var
             CHANGED="${!CHANGED_VAR}"  # Get the value of the environment variable
