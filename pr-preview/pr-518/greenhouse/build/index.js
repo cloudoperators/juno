@@ -4,4 +4,4 @@ import"./chunk-5G2YJ22E.js";import{createRoot as s}from"react-dom/client";import
 | |  _| |_) |  _| |  _| |  \\| | |_| | | | | | | \\___ \\|  _|  
 | |_| |  _ <| |___| |___| |\\  |  _  | |_| | |_| |___) | |___ 
  \\____|_| \\_\\_____|_____|_| \\_|_| |_|\\___/ \\___/|____/|_____| v${t}
-`;console.log(o,"color:green")};_(r);var e=(t,o={})=>{import("./Shell-PRIOTSJD.js").then(n=>{e.root=s(t),e.root.render(a.createElement(n.default,o?.props))})},c=()=>e.root&&e.root.unmount();export{e as mount,c as unmount};
+`;console.log(o,"color:green")};_(r);var e=(t,o={})=>{import("./Shell-F34DSJUC.js").then(n=>{e.root=s(t),e.root.render(a.createElement(n.default,o?.props))})},c=()=>e.root&&e.root.unmount();export{e as mount,c as unmount};
