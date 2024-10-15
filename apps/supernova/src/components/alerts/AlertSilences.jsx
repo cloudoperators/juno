@@ -14,7 +14,7 @@ import {
   DataGridRow,
 } from "@cloudoperators/juno-ui-components"
 
-import { useAlertsActions, useGlobalsActions } from "../../hooks/useAppStore"
+import { useAlertsActions, useGlobalsActions } from "../StoreProvider"
 import AlertDescription from "./shared/AlertDescription"
 import AlertSilencesList from "./shared/AlertSilencesList"
 

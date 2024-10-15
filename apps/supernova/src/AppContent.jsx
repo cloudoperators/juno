@@ -14,7 +14,7 @@ import {
   useSilencesIsLoading,
   useSilencesError,
   useGlobalsActiveSelectedTab,
-} from "./hooks/useAppStore"
+} from "./components/StoreProvider"
 import AlertsList from "./components/alerts/AlertsList"
 import RegionsList from "./components/regions/RegionsList"
 import StatusBar from "./components/status/StatusBar"
