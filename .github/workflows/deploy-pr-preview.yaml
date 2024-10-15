@@ -206,7 +206,7 @@ jobs:
           #   else
           #     echo "<li class='failed'>Example (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
           #   fi
-          fi          
+          # fi          
 
           COMPONENTS=("example")
           for component in "${COMPONENTS[@]}"; do
