@@ -75,14 +75,12 @@ export const PageHeader = ({
           }
         </div>
         <div className={`juno-pageheader-content-container ${contentContainerStyles}`}>
-          {heading && (
-            <div
-              className={`juno-pageheader-heading ${headingStyles} ${typeof onClick === "function" ? "jn-cursor-pointer" : ""}`}
-              onClick={onClick}
-            >
-              {heading}
-            </div>
-          )}
+          <div
+            className={`juno-pageheader-heading ${headingStyles} ${typeof onClick === "function" ? "jn-cursor-pointer" : ""}`}
+            onClick={onClick}
+          >
+            {heading}
+          </div>
           <div className={`juno-pageheader-options ${optionsStyles}`}>{children}</div>
         </div>
       </div>

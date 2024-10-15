@@ -76,6 +76,12 @@ export const WithHeadingAndChildren: Story = {
   },
 }
 
+export const NoHeadingWithChildren: Story = {
+  args: {
+    children: <HeaderOptions />,
+  },
+}
+
 export const NoLogo: Story = {
   args: {
     logo: false,
