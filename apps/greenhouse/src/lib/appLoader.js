@@ -7,7 +7,7 @@ import { getManifest } from "./manifestLoader.js"
 
 export async function mount(containerElement, { name, url, appProps }) {
   if (!url) {
-    // load the manifest
+    // load the manifest for the co-located case
     const manifest = await getManifest.catch((error) => {
       console.debug("COULD NOT LOAD THE MANIFEST", error)
     })

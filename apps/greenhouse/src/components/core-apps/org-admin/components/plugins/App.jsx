@@ -5,15 +5,15 @@
 
 import React from "react"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import markdownDark from "github-markdown-css/github-markdown-dark.css"
-import markdownLight from "github-markdown-css/github-markdown-light.css"
-import markdown from "github-markdown-css/github-markdown.css"
+import markdownDark from "github-markdown-css/github-markdown-dark.css?inline"
+import markdownLight from "github-markdown-css/github-markdown-light.css?inline"
+import markdown from "github-markdown-css/github-markdown.css?inline"
+import styles from "./styles.scss?inline"
 import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
 import usePluginDefinitionsStore from "./plugindefinitions/store"
 import AsyncWorker from "./plugins/components/AsyncWorker"
 import StoreProvider, { useGlobalsActions } from "./plugins/components/StoreProvider"
-import styles from "./styles.scss"
 
 const URL_STATE_KEY = "plugin-admin"
 
