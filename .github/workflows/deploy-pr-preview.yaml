@@ -68,17 +68,17 @@ jobs:
         run: |
           mkdir -p ${{ env.DEPLOY_PATH }}
 
-      - name: Build storybook if changes detected
-        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'ui-components')
+      - name: Build STORYBOOK if changes detected
         id: build-storybook
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'ui-components')
         run: |
           npm -w @cloudoperators/juno-ui-components run build-storybook
           cp -r packages/ui-components/storybook-static ${{ env.DEPLOY_PATH }}/ui-components
         continue-on-error: true
 
-      - name: Build supernova if changes detected
-        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'supernova')
+      - name: Build SUPERNOVA if changes detected
         id: build-supernova
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'supernova')
         run: |
           ./.github/scripts/build-app.sh
         env:
@@ -87,24 +87,10 @@ jobs:
           APP_PROPS_BASE64: ${{ secrets.SUPERNOVA_APP_PROPS_BASE64 }}
         continue-on-error: true
 
-      - name: Build heureka if changes detected
-        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'heureka')
+      - name: Build HEUREKA if changes detected
         id: build-heureka
-        run: |
-          # collect the necessary information
-          entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
-          build_folder=$(dirname $entry_file)
-          package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
-
-          # Run build using turbo
-          npx turbo run build:static --filter $package_name
-
-          # Copy build folder to deploy path
-          mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
-          cp -r "$PACKAGE_PATH/$build_folder/." "$DEPLOY_PATH/$TARGET_FOLDER"
-
-          # Generate appProps.json
-          echo "$APP_PROPS_BASE64" | base64 -d > "$DEPLOY_PATH/$TARGET_FOLDER/appProps.json"
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'heureka')
+        run: ./.github/scripts/build-vite-app.sh
         env:
           PACKAGE_PATH: apps/heureka
           TARGET_FOLDER: heureka
@@ -112,48 +98,19 @@ jobs:
         continue-on-error: true
 
       - name: Build DOOP if changes detected
-        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'doop')
         id: build-doop
-        run: |
-          # collect the necessary information
-          entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
-          build_folder=$(dirname $entry_file)
-          package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
-
-          # Run build using turbo
-          npx turbo run build:static --filter $package_name
-
-          # Copy build folder to deploy path
-          mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
-          cp -r "$PACKAGE_PATH/$build_folder/." "$DEPLOY_PATH/$TARGET_FOLDER"
-
-          # Generate appProps.json
-          echo "$APP_PROPS_BASE64" | base64 -d > "$DEPLOY_PATH/$TARGET_FOLDER/appProps.json"
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'doop')
+        run: ./.github/scripts/build-vite-app.sh
         env:
           PACKAGE_PATH: apps/doop
           TARGET_FOLDER: doop
           APP_PROPS_BASE64: ${{ secrets.DOOP_APP_PROPS_BASE64 }}
         continue-on-error: true
 
-      - name: Build Carbon if changes detected
+      - name: Build CARBON if changes detected
+        id: build-carbon
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'carbon')
-        run: |
-          # collect the necessary information
-          entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
-          build_folder=$(dirname $entry_file)
-          package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
-
-          # Run build using turbo
-          npx turbo run build:static --filter $package_name
-
-          # Copy build folder to deploy path
-          mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
-          cp -r "$PACKAGE_PATH/$build_folder/." "$DEPLOY_PATH/$TARGET_FOLDER"
-
-          # Generate appProps.json if APP_PROPS_BASE64 is non-empty
-          if [ -n "$APP_PROPS_BASE64" ]; then
-            echo "$APP_PROPS_BASE64" | base64 -d > "$DEPLOY_PATH/$TARGET_FOLDER/appProps.json"
-          fi
+        run: ./.github/scripts/build-vite-app.sh
         env:
           PACKAGE_PATH: apps/carbon
           TARGET_FOLDER: carbon
@@ -161,32 +118,27 @@ jobs:
         continue-on-error: true
 
       - name: Build GREENHOUSE if changes detected
+        id: build-greenhouse
         if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'greenhouse')
         run: |
-          # collect the necessary information
-          entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
-          build_folder=$(dirname $entry_file)
-          package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
+          ./.github/scripts/build-app.sh
 
-          # Run build using turbo
-          npx turbo run build --filter $package_name
-
-          # Copy the necessary files
-          mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
-          cp -r "$PACKAGE_PATH/$build_folder" "$DEPLOY_PATH/$TARGET_FOLDER/$build_folder"
-          cp "$PACKAGE_PATH/public/favicon.ico" "$DEPLOY_PATH/$TARGET_FOLDER/"
-          cp "$PACKAGE_PATH/public/favicon.svg" "$DEPLOY_PATH/$TARGET_FOLDER/"
-
-          # Generate index.html and appProps.json
-          cp "$PACKAGE_PATH/docker/index.html" "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
-          entry_file_escaped=$(echo "$entry_file" | sed 's/\//\\\//g')
+          # Specific changes for greenhouse
           sed -i 's|/appProps.json?%VERSION%|./appProps.json|g' "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
           sed -i "s|/index.js?%VERSION%|./$entry_file_escaped|g" "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
-          echo "$APP_PROPS_BASE64" | base64 -d > "$DEPLOY_PATH/$TARGET_FOLDER/appProps.json"
         env:
           PACKAGE_PATH: apps/greenhouse
           TARGET_FOLDER: greenhouse
           APP_PROPS_BASE64: ${{ secrets.GREENHOUSE_APP_PROPS_BASE64 }}
+        continue-on-error: true
+
+      - name: Build EXAMPLE if changes detected
+        id: build-example
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'example')
+        run: ./.github/scripts/build-vite-app.sh
+        env:
+          PACKAGE_PATH: apps/example
+          TARGET_FOLDER: example
         continue-on-error: true
 
       - name: Generate index.html for Deployed Apps
@@ -198,8 +150,10 @@ jobs:
           DOOP_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}
           CARBON_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'carbon') }}
           GREENHOUSE_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'greenhouse') }}
+          EXAMPLE_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
         run: |
-          echo "<!DOCTYPE html><head><title>PR Preview</title></head><style> .failed { color: red; font-weight: bold; } </style><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
+          echo "<!DOCTYPE html><head><title>PR Preview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html        
+
           if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
             if [ "${{ steps.build-storybook.outcome }}" == "success" ]; then
               echo "<li><a href='./ui-components/index.html'>UI Components Storybook (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
@@ -230,10 +184,45 @@ jobs:
           fi
           if [ "$CARBON_CHANGED" = "true" ]; then
             echo "<li><a href='./carbon/index.html'>Carbon</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            if [ "${{ steps.build-carbon.outcome }}" == "success" ]; then
+              echo "<li><a href='./carbon/index.html'>Carbon (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            else
+              echo "<li class='failed'>Carbon (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            fi
           fi
           if [ "$GREENHOUSE_CHANGED" = "true" ]; then
             echo "<li><a href='./greenhouse/index.html'>Greenhouse</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            if [ "${{ steps.build-greenhouse.outcome }}" == "success" ]; then
+              echo "<li><a href='./greenhouse/index.html'>Greenhouse (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            else
+              echo "<li class='failed'>Greenhouse (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
+            fi
           fi
+          # if [ "$EXAMPLE_CHANGED" = "true" ]; then
+          #   echo "<li><a href='./example/index.html'>Example</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          #   if [ "${{ steps.build-example.outcome }}" == "success" ]; then
+          #     echo "<li><a href='./example/index.html'>Example (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          #   else
+          #     echo "<li class='failed'>Example (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          #   fi
+          fi          
+
+          COMPONENTS=("example")
+          for component in "${COMPONENTS[@]}"; do
+            CHANGED_VAR="${component^^}_CHANGED"  # Make it uppercase for the env var
+            CHANGED="${!CHANGED_VAR}"  # Get the value of the environment variable
+
+            if [ "$CHANGED" = "true" ]; then
+              BUILD_STEP="build-$component"
+              BUILD_OUTCOME="${{ steps[BUILD_STEP].outcome }}"
+              if [ "$BUILD_OUTCOME" == "success" ]; then
+                echo "<li><a href='./${component}/index.html'>${component^} (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+              else
+                echo "<li class='failed'>${component^} (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
+              fi
+            fi
+          done  
+
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
       - uses: rossjrw/pr-preview-action@v1
@@ -242,24 +231,3 @@ jobs:
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
-
-      - name: Fail workflow if any build step failed
-        if: github.event.action != 'closed'
-        env:
-          UI_COMPONENTS_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}
-          SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
-          HEUREKA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}
-          DOOP_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}
-        run: |
-          if [ "$UI_COMPONENTS_CHANGED" = "true" ] && [ "${{ steps.build-storybook.outcome }}" != "success" ]; then
-            exit 1
-          fi
-          if [ "$SUPERNOVA_CHANGED" = "true" ] && [ "${{ steps.build-supernova.outcome }}" != "success" ]; then
-            exit 1
-          fi
-          if [ "$HEUREKA_CHANGED" = "true" ] && [ "${{ steps.build-heureka.outcome }}" != "success" ]; then
-            exit 1
-          fi
-          if [ "$DOOP_CHANGED" = "true" ] && [ "${{ steps.build-doop.outcome }}" != "success" ]; then
-            exit 1
-          fi
