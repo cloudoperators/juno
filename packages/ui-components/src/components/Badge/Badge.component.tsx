@@ -6,6 +6,28 @@
 import React from "react"
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
+const badgeBaseStyles = `
+  jn-rounded
+  jn-text-sm
+  jn-text-theme-default
+  jn-py-0.5
+  jn-px-1
+  jn-justify-center
+  jn-items-center
+`
+
+const badgeVariantStyles = {
+  default: "jn-bg-theme-badge-default",
+  info: "jn-bg-theme-info/25",
+  success: "jn-bg-theme-success/25",
+  warning: "jn-bg-theme-warning/25",
+  danger: "jn-bg-theme-danger/25",
+  critical: "jn-bg-theme-danger/70 jn-text-theme-high",
+  error: "jn-bg-theme-error/25",
+}
+
+const iconStyles = "jn-mr-1 jn-items-center"
+
 export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error" | "critical"
 
 export interface BadgeProps {
@@ -40,29 +62,7 @@ export interface BadgeProps {
   children?: React.ReactNode
 }
 
-const badgeBaseStyles = `
-  jn-rounded
-  jn-text-sm
-  jn-text-theme-default
-  jn-py-0.5
-  jn-px-1
-  jn-justify-center
-  jn-items-center
-`
-
-const badgeVariantStyles = {
-  default: "jn-bg-theme-badge-default",
-  info: "jn-bg-theme-info/25",
-  success: "jn-bg-theme-success/25",
-  warning: "jn-bg-theme-warning/25",
-  danger: "jn-bg-theme-danger/25",
-  critical: "jn-bg-theme-danger/70 jn-text-theme-high",
-  error: "jn-bg-theme-error/25",
-}
-
 const getVariantStyle = (variant: BadgeVariantType): string => badgeVariantStyles[variant] || badgeVariantStyles.default
-
-const iconStyles = "jn-mr-1 jn-items-center"
 
 // Get icon based on the provided variant or icon string
 const getIcon = (icon: boolean | KnownIcons | undefined, variant: BadgeVariantType): KnownIcons | undefined => {
