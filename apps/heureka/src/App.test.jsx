@@ -5,20 +5,16 @@
 
 import React from "react"
 import { render, act, waitFor } from "@testing-library/react"
-// support shadow dom queries
-// https://reactjsexample.com/an-extension-of-dom-testing-library-to-provide-hooks-into-the-shadow-dom/
 import { screen } from "shadow-dom-testing-library"
 import App from "./App"
 
 describe("App", () => {
   test("should render the App component", async () => {
-    await act(async () => {
+    let loginTitles
+    act(() => {
       render(<App id="123" />)
     })
-
-    await waitFor(() => {
-      const loginTitles = screen.queryAllByShadowText(/HEUREKA/i)
-      expect(loginTitles.length).toBeGreaterThan(0)
-    })
+    waitFor(() => (loginTitles = screen.queryAllByShadowText(/HEUREKA/i)))
+    expect(loginTitles.length).toBeGreaterThan(0)
   })
 })
