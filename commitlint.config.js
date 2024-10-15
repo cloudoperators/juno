@@ -34,7 +34,6 @@ module.exports = {
         "ui",
         "utils",
         "url-state-provider",
-        "url-state-router",
         "version",
         /^ISSUE-\d+$/, // Regex pattern for ISSUE-<number>
       ],
