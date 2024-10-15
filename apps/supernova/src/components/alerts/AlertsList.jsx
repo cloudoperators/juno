@@ -6,7 +6,7 @@
 import React, { useMemo, useState, useRef, useCallback } from "react"
 import { DataGrid, DataGridHeadCell, DataGridRow, DataGridCell, Icon, Stack } from "@cloudoperators/juno-ui-components"
 import Alert from "./Alert"
-import { useAlertsItemsFiltered, useAlertsIsLoading } from "../../hooks/useAppStore"
+import { useAlertsItemsFiltered, useAlertsIsLoading } from "../StoreProvider"
 
 const AlertsList = () => {
   const [visibleAmount, setVisibleAmount] = useState(20)

@@ -20,7 +20,7 @@ import {
   useSilencesStatus,
   useShowDetailsForSilence,
   useGlobalsIsURLRead,
-} from "./useAppStore"
+} from "../components/StoreProvider"
 
 const urlStateManager = registerConsumer("supernova")
 const ACTIVE_FILTERS = "f"

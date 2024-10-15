@@ -6,7 +6,7 @@
 import React, { useState } from "react"
 
 import { Stack, TabNavigation, TabNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useActivePredefinedFilter, useFilterActions, usePredefinedFilters } from "../../hooks/useAppStore"
+import { useActivePredefinedFilter, useFilterActions, usePredefinedFilters } from "../StoreProvider"
 import SilenceScheduledWrapper from "../silences/SilenceScheduledWrapper"
 
 const PredefinedFilters = () => {
