@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 2.24.0
+
+### Minor Changes
+
+- 97b08cb: Migrate the Badge component to TypeScript and remove its Critical variant
+- bdee402: Migrate PortalProvider component to TypeScript
+
 ## 2.23.0
 
 ### Minor Changes
