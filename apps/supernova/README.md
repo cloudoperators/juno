@@ -74,7 +74,7 @@ This will create a build folder with all assets. You can host this folder and lo
 
 ### Dev mode
 
-To start Supernova in dev mode, make a copy of the included `appProps_sample.js` file, rename it `appProps.js` and enter your configuration options (see below). Then:
+To start Supernova in dev mode, make a copy of the included `appProps.template.json` file, rename it `appProps.json` and enter your configuration options (see below). Then:
 
 ```shell
 npm i
@@ -162,7 +162,7 @@ In order to prevent the alert from continuing to trigger, we require a silence t
 
 ## Configuration
 
-When running Supernova in dev mode the configuration is pulled from a `appProps.js` file (see sample `appProps.sample.js`). When loading the app via script tag the configuration can be passed via attribute on the script tag. For configuration when running the image built with docker see the `README.md` in the `/docker` folder.
+When running Supernova in dev mode the configuration is pulled from a `appProps.json` file (see sample `appProps.template.json`). When loading the app via script tag the configuration can be passed via attribute on the script tag. For configuration when running the image built with docker see the `README.md` in the `/docker` folder.
 
 ### Endpoint (**required**)
 
