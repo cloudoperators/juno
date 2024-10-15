@@ -22,13 +22,12 @@ const badgeVariantStyles = {
   success: "jn-bg-theme-success/25",
   warning: "jn-bg-theme-warning/25",
   danger: "jn-bg-theme-danger/25",
-  critical: "jn-bg-theme-danger/70 jn-text-theme-high",
   error: "jn-bg-theme-error/25",
 }
 
 const iconStyles = "jn-mr-1 jn-items-center"
 
-export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error" | "critical"
+export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
 
 export interface BadgeProps {
   /**
@@ -67,7 +66,7 @@ const getVariantStyle = (variant: BadgeVariantType): string => badgeVariantStyle
 // Get icon based on the provided variant or icon string
 const getIcon = (icon: boolean | KnownIcons | undefined, variant: BadgeVariantType): KnownIcons | undefined => {
   if (typeof icon === "string" && isValidIcon(icon)) return icon
-  if (icon === true) return variant as KnownIcons
+  if (icon === true) return variant
   return
 }
 
