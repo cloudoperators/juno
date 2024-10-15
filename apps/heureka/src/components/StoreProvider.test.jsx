@@ -5,19 +5,7 @@
 
 import React, { act } from "react"
 import { renderHook } from "@testing-library/react"
-import {
-  StoreProvider,
-  useGlobalsEmbedded,
-  // useGlobalsApiEndpoint,
-  // useGlobalsShowPanel,
-  // useGlobalsActiveView,
-  useGlobalsActions,
-  // useGlobalsQueryClientFnReady,
-  // useGlobalsShowServiceDetail,
-  // useGlobalsShowIssueDetail,
-  // useGlobalsQueryOptions,
-} from "./StoreProvider"
-// import constants from "../../components/shared/constants"
+import { StoreProvider, useGlobalsEmbedded, useGlobalsActions } from "./StoreProvider"
 
 describe("createGlobalsSlice", () => {
   const mockOptions = {
