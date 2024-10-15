@@ -25,7 +25,7 @@ import {
   useSilencesStatus,
   useSilencesIsLoading,
   useSilencesLocalItems,
-} from "../../hooks/useAppStore"
+} from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
 
 const filtersStyles = `
