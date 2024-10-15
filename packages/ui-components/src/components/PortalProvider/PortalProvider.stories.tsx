@@ -5,9 +5,8 @@
 
 import React from "react"
 import { createPortal } from "react-dom"
-import PropTypes from "prop-types"
-import { PortalProvider, usePortalRef } from "."
-import { Message } from "../Message/"
+import { PortalProvider, usePortalRef, PortalProviderProps } from "./PortalProvider.component"
+import { Button } from "../Button/index"
 
 export default {
   title: "WiP/PortalProvider",
@@ -24,22 +23,21 @@ export default {
 const PortalMessage = () => {
   const portalRef = usePortalRef()
   if (!portalRef) return null
-  const content = <Message text="I'm inside a portal using the usePortalref hook in a custom component." />
+  const content = <Button label="I'm inside a portal using the usePortalref hook in a custom component." />
   return createPortal(content, portalRef)
 }
 
-const Template = ({ children, ...args }) => <PortalProvider {...args}>{children}</PortalProvider>
-
-Template.propTypes = {
-  children: PropTypes.node,
+interface TemplateProps extends PortalProviderProps {
+  children?: React.ReactNode
 }
+const Template = ({ children, ...args }: TemplateProps) => <PortalProvider {...args}>{children}</PortalProvider>
 
 export const WithPortalComponent = {
   render: Template,
   args: {
     children: (
       <PortalProvider.Portal>
-        <Message text="I'm inside a portal using the Portal component as provided by PortalProvider." />
+        <Button label="I'm inside a portal using the Portal component as provided by PortalProvider." />
       </PortalProvider.Portal>
     ),
   },
@@ -64,7 +62,7 @@ export const MultiplePortals = {
       <>
         <div>Some non-portaled content.</div>
         <PortalProvider.Portal>
-          <Message text="I'm inside a portal using the Portal component as provided by PortalProvider." />
+          <Button label="I'm inside a portal using the Portal component as provided by PortalProvider." />
         </PortalProvider.Portal>
         <PortalMessage />
       </>
