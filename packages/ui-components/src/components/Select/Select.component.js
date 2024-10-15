@@ -12,7 +12,7 @@ import { Spinner } from "../../deprecated_js/Spinner/Spinner.component"
 import { FormHint } from "../../deprecated_js/FormHint/FormHint.component"
 import { Float } from "@headlessui-float/react"
 import { autoPlacement, offset, shift, size } from "@floating-ui/react-dom"
-import { usePortalRef } from "../PortalProvider/index"
+import { usePortalRef } from "../../deprecated_js/PortalProvider/index"
 import { createPortal } from "react-dom"
 import "./select.scss"
 
