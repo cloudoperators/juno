@@ -12,7 +12,7 @@ const AppContent = () => {
     <Container py>
       {/*Routes below are matched exclusively - the first matched route gets rendered*/}
       <Switch>
-        <Route path="/" />
+        <Route path="/" component={() => <div>Home page!</div>} />
         <Route path="admin/:name">
           {(params) => (
             <>

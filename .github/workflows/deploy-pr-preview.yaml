@@ -23,6 +23,7 @@ on:
       - "apps/supernova/**"
       - "apps/heureka/**"
       - "apps/doop/**"
+      - "apps/carbon/**"
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
@@ -129,6 +130,31 @@ jobs:
           APP_PROPS_BASE64: ${{ secrets.DOOP_APP_PROPS_BASE64 }}
         continue-on-error: true
 
+      - name: Build Carbon if changes detected
+        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'carbon')
+        run: |
+          # collect the necessary information
+          entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
+          build_folder=$(dirname $entry_file)
+          package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
+
+          # Run build using turbo
+          npx turbo run build:static --filter $package_name
+
+          # Copy build folder to deploy path
+          mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
+          cp -r "$PACKAGE_PATH/$build_folder/." "$DEPLOY_PATH/$TARGET_FOLDER"
+
+          # Generate appProps.json if APP_PROPS_BASE64 is non-empty
+          if [ -n "$APP_PROPS_BASE64" ]; then
+            echo "$APP_PROPS_BASE64" | base64 -d > "$DEPLOY_PATH/$TARGET_FOLDER/appProps.json"
+          fi
+        env:
+          PACKAGE_PATH: apps/carbon
+          TARGET_FOLDER: carbon
+          APP_PROPS_BASE64: ${{ secrets.CARBON_APP_PROPS_BASE64 }}
+        continue-on-error: true
+
       - name: Generate index.html for Deployed Apps
         if: github.event.action != 'closed'
         env:
@@ -136,6 +162,7 @@ jobs:
           SUPERNOVA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}
           HEUREKA_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}
           DOOP_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}
+          CARBON_CHANGED: ${{ contains(needs.run-detect-changes.outputs.changes, 'carbon') }}
         run: |
           echo "<!DOCTYPE html><head><title>PR Prview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html
           if [ "$UI_COMPONENTS_CHANGED" = "true" ]; then
@@ -149,6 +176,9 @@ jobs:
           fi
           if [ "$DOOP_CHANGED" = "true" ]; then
             echo "<li><a href='./doop/index.html'>Doop</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+          fi
+          if [ "$CARBON_CHANGED" = "true" ]; then
+            echo "<li><a href='./carbon/index.html'>Carbon</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
           fi
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
