@@ -10,7 +10,7 @@ import { ContentAreaWrapper } from "../ContentAreaWrapper/index.js"
 import { ContentArea } from "../ContentArea/index.js"
 import { Panel } from "../Panel/index.js"
 import { PanelFooter } from "../PanelFooter/index.js"
-import { Button } from "../Button/index.js"
+import { Button } from "../../deprecated_js/Button/index.js"
 
 // the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
 export default {

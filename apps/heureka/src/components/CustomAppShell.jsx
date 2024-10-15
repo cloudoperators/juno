@@ -5,7 +5,7 @@
 
 import React from "react"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useGlobalsActions, useGlobalsActiveView } from "../hooks/useAppStore"
+import { useGlobalsActions, useGlobalsActiveView } from "./StoreProvider"
 import ServicesView from "./services/ServicesView"
 import IssueMatchesView from "./issueMatches/IssueMatchesView"
 import ComponentsView from "./components/ComponentsView"

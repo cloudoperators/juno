@@ -17,11 +17,11 @@ import {
   FormRow,
 } from "@cloudoperators/juno-ui-components"
 import {
-  useAuthData,
   useSilencesExcludedLabels,
   useGlobalsApiEndpoint,
   useSilencesActions,
   useAlertEnrichedLabels,
+  useGlobalsUsername,
 } from "../../hooks/useAppStore"
 import { post } from "../../api/client"
 import AlertDescription from "../alerts/shared/AlertDescription"
@@ -61,11 +61,11 @@ const errorHelpText = (messages) => {
 const DEFAULT_FORM_VALUES = { duration: "2", comment: "" }
 
 const SilenceNew = ({ alert, size, variant }) => {
-  const authData = useAuthData()
   const apiEndpoint = useGlobalsApiEndpoint()
   const excludedLabels = useSilencesExcludedLabels()
   const { addLocalItem, getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
+  const user = useGlobalsUsername()
 
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
@@ -83,7 +83,7 @@ const SilenceNew = ({ alert, size, variant }) => {
     setFormState({
       ...formState,
       ...DEFAULT_FORM_VALUES,
-      createdBy: authData?.parsed?.fullName || "", // empty sting to prevent undefined for TextInput
+      createdBy: user || "", // empty sting to prevent undefined for TextInput
       matchers: setupMatchers(alert?.labels, excludedLabels, enrichedLabels),
     })
 
@@ -224,7 +224,7 @@ const SilenceNew = ({ alert, size, variant }) => {
                     value={formState.createdBy}
                     onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
                     errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
-                    disabled={!!authData?.parsed?.fullName}
+                    disabled={!!user}
                   />
                 </FormRow>
                 <FormRow>

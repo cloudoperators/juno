@@ -5,11 +5,15 @@
 
 import React, { useEffect, useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { useGlobalsQueryClientFnReady, useGlobalsQueryOptions, useGlobalsActions } from "../../hooks/useAppStore"
+import {
+  useGlobalsQueryClientFnReady,
+  useGlobalsQueryOptions,
+  useGlobalsActions,
+  useGlobalsActiveView,
+} from "../StoreProvider"
 import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
-import { useGlobalsActiveView } from "../../hooks/useAppStore"
 
 const ListController = ({ queryKey, entityName, ListComponent, activeFilters, searchTerm, enableSearchAndFilter }) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()

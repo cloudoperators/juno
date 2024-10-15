@@ -1,5 +1,16 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.0
+
+### Minor Changes
+
+- 9eecdc5: Converted codebase to TypeScript: Migrated the project to TypeScript to improve type safety, code maintainability, and developer experience.
+
+### Patch Changes
+
+- Updated dependencies [a77c643]
+  - @cloudoperators/juno-ui-components@2.22.1
+
 ## 0.1.19
 
 ### Patch Changes

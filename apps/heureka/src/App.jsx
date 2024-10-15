@@ -4,13 +4,13 @@
  */
 
 import React, { useLayoutEffect } from "react"
-import styles from "./styles.scss"
+import styles from "./styles.scss?inline"
 import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import AsyncWorker from "./components/AsyncWorker"
 import { ErrorBoundary } from "react-error-boundary"
-import { useGlobalsActions, StoreProvider } from "./hooks/useAppStore"
+import { useGlobalsActions, StoreProvider } from "./components/StoreProvider"
 import PanelManager from "./components/shared/PanelManager"
 import CustomAppShell from "./components/CustomAppShell"
 

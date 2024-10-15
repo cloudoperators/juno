@@ -69,10 +69,7 @@ const ViolationDetailsList = () => {
                       <div className="info-box text-theme-high">
                         <h1 className="mb-4 mt-0 text-2xl">{capitalize(item.title)}</h1>
                         {item.data ? (
-                          <ReactMarkdown
-                            linkTarget="_blank"
-                            transformLinkUri={(href) => href.replace(/^\((.+)\)$/, "$1")}
-                          >
+                          <ReactMarkdown urlTransform={(href) => href.replace(/^\((.+)\)$/, "$1")}>
                             {item.data}
                           </ReactMarkdown>
                         ) : (

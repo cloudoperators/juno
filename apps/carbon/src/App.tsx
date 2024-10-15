@@ -6,8 +6,11 @@
 import React from "react"
 import { AppShell, AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import AppContent from "./components/AppContent"
 import { ErrorBoundary } from "react-error-boundary"
+
+import styles from "./styles.scss?inline"
+import AppContent from "./components/AppContent"
+import Navigation from "./components/Navigation"
 
 interface AppProps {
   theme?: string
@@ -50,7 +53,7 @@ export const App = (props: AppProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppShell pageHeader="Converged Cloud Carbon App" embedded={props.embedded === "true" || props.embedded === true}>
+      <AppShell embedded sideNavigation={<Navigation />}>
         <ErrorBoundary fallbackRender={fallbackRender}>
           <AppContent />
         </ErrorBoundary>
@@ -64,6 +67,8 @@ type StyledAppProps = AppProps
 const StyledApp = (props: StyledAppProps) => {
   return (
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
+      {/* load styles inside the shadow dom */}
+      <style>{styles.toString()}</style>
       <App theme={props.theme} embedded={props.embedded} endpoint={props.endpoint} currentHost={props.currentHost} />
     </AppShellProvider>
   )

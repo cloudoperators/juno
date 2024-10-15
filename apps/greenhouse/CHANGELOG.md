@@ -1,5 +1,26 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.0
+
+### Minor Changes
+
+- 1863738: consolidates all admin applications into a unified structure under the core-apps module. By grouping these admin apps together, we simplify the codebase, enhance maintainability, and enable better modular loading of core functionalities.
+
+### Patch Changes
+
+- Updated dependencies [97b08cb]
+- Updated dependencies [bdee402]
+  - @cloudoperators/juno-ui-components@2.24.0
+
+## 0.2.5
+
+### Patch Changes
+
+- d13f774: Adds temporary fix to forward default initial filters to the applications (plugins)
+- Updated dependencies [aa185b4]
+- Updated dependencies [4ded874]
+  - @cloudoperators/juno-ui-components@2.23.0
+
 ## 0.2.4
 
 ### Patch Changes

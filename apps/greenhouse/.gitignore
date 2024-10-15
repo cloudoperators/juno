@@ -1,2 +1,1 @@
-*.plugin.config.yaml
-secretProps.js
+public/extensions

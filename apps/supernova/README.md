@@ -153,6 +153,42 @@ Example value:
 ["severity", "region", "app", "namespace"]
 ```
 
+### Initial FIlters
+
+InitialFilters are the filters that are applied when the app is loaded. The filters must be an object where the key is the label and the value are the values to filter on.
+
+Example:
+
+```json
+{ "cluster": ["prod-1", "prod-2"], "status": ["critical"] }
+```
+
+To set the inital Filters:
+
+- Configured via app prop `initialFilters`
+
+### Predefined Filters
+
+PredefinedFilters are groups of filters comprised of a list of filter labels and a regex that is used to filter on the values of that label. They can be thought of as filter categories where the filter logic can be more complex than simple label+values pairs. Predefined filters are defined as an array of objects, where each object is a predefined filter which contains the display name for the UI as well as a list of filter label + value regex pairs which are AND concatenated when they are being evaluated.
+
+Example:
+
+```json
+[
+  {
+    "name": "prod",
+    "displayName": "Prod",
+    "matchers": {
+      "region": "^prod-.*"
+    }
+  }
+]
+```
+
+To set the predefined Filter:
+
+- Configured via app prop `predefinedFilters`
+
 ### Silence excluded alert labels
 
 Excluded labels are a collection of labels that are automatically excluded by default when configuring silence matchers. These labels, such as `pod`, `pod_name` or `instance`, often undergo frequent value changes, causing new alerts to be triggered that are not covered by the existing silence.
@@ -193,36 +229,6 @@ Example:
 ["pod", "pod_name", "instance"]
 ```
 
-### Theme
-
-Set this attribute to specify a custom theme for your application. Possible values are `"theme-light"` or `"theme-dark"` (default)
-
-To set the theme:
-
-- Configured via app prop `theme`
-
-### Predefined Filters
-
-PredefinedFilters are groups of filters comprised of a list of filter labels and a regex that is used to filter on the values of that label. They can be thought of as filter categories where the filter logic can be more complex than simple label+values pairs. Predefined filters are defined as an array of objects, where each object is a predefined filter which contains the display name for the UI as well as a list of filter label + value regex pairs which are AND concatenated when they are being evaluated.
-
-Example:
-
-```json
-[
-  {
-    "name": "prod",
-    "displayName": "Prod",
-    "matchers": {
-      "region": "^prod-.*"
-    }
-  }
-]
-```
-
-To set the predefined Filter:
-
-- Configured via app prop `predefinedFilters`
-
 ### Silence Templates
 
 Defines pre-configured silences available in the schedule silence modal for scheduling future silences. For example when setting up maintenance windows where it is known that certain alerts will fire. The format consists of a list of objects including description, editable_labels (array of strings specifying the labels that users can modify), fixed_labels (map containing fixed labels and their corresponding values), status, and title.
@@ -246,3 +252,15 @@ Example:
 To set the silence templates:
 
 - Configured via app prop `silenceTemplates`, which is used during the setup of the script tag.
+
+### Theme
+
+Set this attribute to specify a custom theme for your application. Possible values are `"theme-light"` or `"theme-dark"` (default)
+
+To set the theme:
+
+- Configured via app prop `theme`
+
+### Username
+
+Username used for forms and API requests

@@ -6,7 +6,7 @@
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { InputGroup } from "./index"
-import { Button } from "../Button/index"
+import { Button } from "../../deprecated_js/Button/index"
 import { TextInput } from "../../deprecated_js/TextInput/index"
 import { NativeSelect } from "../NativeSelect/index"
 import { NativeSelectOption } from "../NativeSelectOption/index"

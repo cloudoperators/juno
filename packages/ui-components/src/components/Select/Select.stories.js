@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { Select } from "./Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
 export default {
   title: "Forms/Select/Select",

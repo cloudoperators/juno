@@ -7,7 +7,7 @@ import React from "react"
 import { DataGridRow, DataGridCell } from "@cloudoperators/juno-ui-components"
 import { listOfCommaSeparatedObjs, formatDate, cellSeverityClasses } from "../shared/Helper"
 import constants from "../shared/constants"
-import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowIssueDetail } from "../../hooks/useAppStore"
+import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowIssueDetail } from "../StoreProvider"
 
 // Helper function to extract the last four parts of a URL - used for displaying ccrn as resource column
 export const extractResourceInfo = (url) => {

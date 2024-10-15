@@ -5,12 +5,60 @@
 
 import * as React from "react"
 import { renderHook, act } from "@testing-library/react"
-import StoreProvider, { useDataActions, useFiltersActions, useDataFilteredItems } from "../../components/StoreProvider"
+import StoreProvider, {
+  useDataActions,
+  useFiltersActions,
+  useDataFilteredItems,
+  useFiltersActive,
+} from "../../components/StoreProvider"
 
 import data from "../../db.json"
 
 describe("createFiltersSlice", () => {
+  describe("ensureFilterType", () => {
+    it("should convert the unknown filter type to the correct type", () => {
+      const props = {
+        initialFilters: { support_group: ["containers"] },
+      }
+      const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
+      const store = renderHook(
+        () => ({
+          dataActions: useDataActions(),
+          filterActions: useFiltersActions(),
+          activeFilters: useFiltersActive(),
+        }),
+        { wrapper }
+      )
+      expect(store.result.current.activeFilters.length).toEqual(1)
+      expect(store.result.current.activeFilters[0].type).toEqual("unknown")
+      act(() => {
+        store.result.current.dataActions.setData(data)
+      })
+      expect(store.result.current.activeFilters.length).toEqual(1)
+      expect(store.result.current.activeFilters[0].type).toEqual("check")
+      expect(store.result.current.activeFilters[0].key).toEqual("check:support_group")
+    })
+  })
+
   describe("set", () => {
+    it("should set the initial filters and convert the object", () => {
+      const props = {
+        initialFilters: { support_group: ["containers"] },
+      }
+      const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
+      const store = renderHook(
+        () => ({
+          activeFilters: useFiltersActive(),
+        }),
+        { wrapper }
+      )
+      expect(store.result.current.activeFilters.length).toEqual(1)
+      expect(store.result.current.activeFilters[0].key).toEqual("unknown:support_group")
+      expect(store.result.current.activeFilters[0].id).toEqual("support_group")
+      expect(store.result.current.activeFilters[0].type).toEqual("unknown")
+      expect(store.result.current.activeFilters[0].value).toEqual("containers")
+    })
+
     it("should update the filtered items", () => {
       const wrapper = ({ children }) => <StoreProvider>{children}</StoreProvider>
       const store = renderHook(

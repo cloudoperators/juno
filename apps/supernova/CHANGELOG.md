@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.14.0
+
+### Minor Changes
+
+- d243b41: Introduced the user object and initial filters, which replace auth.
+
+### Patch Changes
+
+- 054f654: fix(supernova): filters invalid keys from initialFilters instead of completely discarding all initialFilters
+- Updated dependencies [aa185b4]
+- Updated dependencies [4ded874]
+  - @cloudoperators/juno-ui-components@2.23.0
+
 ## 0.13.0
 
 ### Minor Changes

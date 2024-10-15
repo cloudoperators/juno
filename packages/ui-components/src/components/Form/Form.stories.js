@@ -14,10 +14,10 @@ import { Select } from "../Select/index.js"
 import { SelectOption } from "../SelectOption/index.js"
 import { Switch } from "../Switch/index.js"
 import { Textarea } from "../../deprecated_js/Textarea/index.js"
-import { Button } from "../Button/index.js"
-import { ButtonRow } from "../ButtonRow/index.js"
+import { Button } from "../../deprecated_js/Button/index.js"
+import { ButtonRow } from "../../deprecated_js/ButtonRow/index.js"
 import { IntroBox } from "../IntroBox/index.ts"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
 export default {
   title: "Forms/Form",

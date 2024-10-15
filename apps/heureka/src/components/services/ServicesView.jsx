@@ -13,7 +13,7 @@ import {
   useServiceFilterLabels,
   useServiceFilterLabelValues,
   useServiceSearchTerm,
-} from "../../hooks/useAppStore"
+} from "../StoreProvider"
 
 const ServicesView = () => {
   // Fetch filter data from global state using appropriate hooks

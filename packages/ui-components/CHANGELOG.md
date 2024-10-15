@@ -1,5 +1,25 @@
 # @cloudoperators/juno-ui-components
 
+## 2.24.0
+
+### Minor Changes
+
+- 97b08cb: Migrate the Badge component to TypeScript and remove its Critical variant
+- bdee402: Migrate PortalProvider component to TypeScript
+
+## 2.23.0
+
+### Minor Changes
+
+- aa185b4: Migrate Button component to TypeScript
+- 4ded874: Pagination component now behaves as expected in controlled and uncontrolled mode. Various edge cases have defined behaviour now. Added disabled and loading state.
+
+## 2.22.1
+
+### Patch Changes
+
+- a77c643: Fix MenuItem overflow within the ContextMenu component.
+
 ## 2.22.0
 
 ### Minor Changes

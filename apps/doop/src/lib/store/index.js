@@ -7,16 +7,14 @@ import { createStore } from "zustand"
 import { devtools } from "zustand/middleware"
 import createDataSlice from "./createDataSlice"
 import createFiltersSlice from "./createFiltersSlice"
-import createAuthDataSlice from "./createAuthDataSlice"
 import createUserActivitySlice from "./createUserActivitySlice"
 import createGlobalsSlice from "./createGlobalsSlice"
 
-export default () =>
+export default (options) =>
   createStore(
     devtools((set, get) => ({
       ...createUserActivitySlice(set, get),
-      ...createAuthDataSlice(set, get),
-      ...createFiltersSlice(set, get),
+      ...createFiltersSlice(set, get, options),
       ...createDataSlice(set, get),
       ...createGlobalsSlice(set, get),
     }))

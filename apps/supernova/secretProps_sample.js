@@ -5,12 +5,16 @@ module.exports = {
   endpoint: "",
   // These are the labels that are used to filter alerts in the UI, e.g. ["app", "severity", "status"]
   filterLabels: [],
+  // initial filters that are applied when the app is loaded, see README.md for more information
+  initialFilters: {},
+  // predefined filters for more complex filter categories, see README.md for more information
+  predefinedFilters: {},
   // These are the labels that are excluded by default from the silence matchers, e.g. ["pod", "pod_name", "instance"]
   silenceExcludedLabels: [],
-  // choose "theme_light" or "theme_dark" (default)
-  theme: "theme_dark",
-  // predefined filters for more complex filter categories, see README.md for more information
-  predefinedFilters: [],
   // silence templates, see README.md for more information
   silenceTemplates: [],
+  // choose "theme_light" or "theme_dark" (default)
+  theme: "theme_dark",
+  // Object containing the user information
+  username: "Jane Doe",
 }

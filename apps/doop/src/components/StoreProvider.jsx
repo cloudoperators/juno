@@ -8,7 +8,9 @@ import { useStore as create } from "zustand"
 import createStore from "../lib/store"
 
 const StoreContext = createContext()
-const StoreProvider = ({ children }) => <StoreContext.Provider value={createStore()}>{children}</StoreContext.Provider>
+const StoreProvider = ({ options, children }) => (
+  <StoreContext.Provider value={createStore(options)}>{children}</StoreContext.Provider>
+)
 
 const useStore = (selector) => create(useContext(StoreContext), selector)
 
@@ -16,16 +18,6 @@ const useStore = (selector) => create(useContext(StoreContext), selector)
 export const useGlobalsMock = () => useStore((s) => s.globals.isMock)
 export const useGlobalsEndpoint = () => useStore((s) => s.globals.endpoint)
 export const useGlobalsActions = () => useStore((s) => s.globals.actions)
-
-// auth
-export const useAuthData = () => useStore((s) => s.auth.data)
-export const useAuthIsProcessing = () => useStore((s) => s.auth.isProcessing)
-export const useAuthLoggedIn = () => useStore((s) => s.auth.loggedIn)
-export const useAuthError = () => useStore((s) => s.auth.error)
-export const useAuthLastAction = () => useStore((s) => s.auth.lastAction)
-export const useAuthAppLoaded = () => useStore((s) => s.auth.appLoaded)
-export const useAuthAppIsLoading = () => useStore((s) => s.auth.appIsLoading)
-export const useAuthActions = () => useStore((s) => s.auth.actions)
 
 // user activity
 export const useUserActivityIsActive = () => useStore((s) => s.userActivity.isActive)
@@ -48,8 +40,3 @@ export const useFiltersSearchTerm = () => useStore((s) => s.filters.searchTerm)
 export const useFiltersActions = () => useStore((s) => s.filters.actions)
 
 export default StoreProvider
-
-export const ACTIONS = {
-  SIGN_ON: "signOn",
-  SIGN_OUT: "signOut",
-}

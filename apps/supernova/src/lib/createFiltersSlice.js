@@ -25,8 +25,39 @@ const parsePredefinedFilters = (predefinedFilters) => {
   return predefinedFilters
 }
 
+const parseInitialFilters = (initialFilters, filterLabels) => {
+  if (!initialFilters) return initialFiltersState.initialFilters
+
+  if (typeof initialFilters !== "object") {
+    console.warn("[supernova]::parseInitialFilters: initialFilters object is not an object")
+    return {}
+  }
+
+  // Check if all keys are in filterLabelValues
+  if (!Object.keys(initialFilters).every((key) => filterLabels.includes(key))) {
+    console.warn(
+      "[supernova]::parseInitialFilters: Some keys of the initialFilters object are not valid filter labels. They must be configured as filterLabels first. Using only valid keys."
+    )
+
+    // filter out the keys that are not in filterLabels, return the rest
+    // this will ensure that at least the valid keys are used as initial filters
+    const filtered = Object.keys(initialFilters)
+      .filter((key) => filterLabels.includes(key))
+      .reduce((obj, key) => {
+        return {
+          ...obj,
+          [key]: initialFilters[key],
+        }
+      }, {})
+    return filtered
+  }
+
+  return initialFilters
+}
+
 const parseActivePredefinedFilter = (predefinedFilters) => {
   if (!predefinedFilters) return initialFiltersState.activePredefinedFilter
+
   if (!Array.isArray(predefinedFilters)) {
     console.warn("[supernova]::parseActivePredefinedFilter: predefinedFilters object is not an array")
     return initialFiltersState.activePredefinedFilter
@@ -62,6 +93,7 @@ const parseFilterLabels = (labels) => {
 const createFiltersSlice = (set, get, options) => ({
   filters: {
     ...initialFiltersState,
+    activeFilters: parseInitialFilters(options?.initialFilters, parseFilterLabels(options?.filterLabels)) || {},
     predefinedFilters: parsePredefinedFilters(options?.predefinedFilters),
     activePredefinedFilter: parseActivePredefinedFilter(options?.predefinedFilters),
     labels: parseFilterLabels(options?.filterLabels),
