@@ -134,7 +134,7 @@ jobs:
 
       - name: Build EXAMPLE if changes detected
         id: build-example
-        if: github.event.action != 'closed' && contains(needs.run-detect-changes.outputs.changes, 'example')
+        if: github.event.action != 'closed' && (contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components'))
         run: ./.github/scripts/build-vite-app.sh
         env:
           PACKAGE_PATH: apps/example
