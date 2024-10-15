@@ -215,7 +215,13 @@ jobs:
 
             if [ "$CHANGED" = "true" ]; then
               OUTCOME_VAR="${component^^}_OUTCOME"  # Make it uppercase for the env var
+              echo "==OUTCOME_VAR=="
+              echo $OUTCOME_VAR
+              echo "==="
               BUILD_OUTCOME="${!OUTCOME_VAR}"  # Get the value of the environment variable
+              echo "==BUILD_OUTCOME=="
+              echo $BUILD_OUTCOME
+              echo "==="              
               if [ "$BUILD_OUTCOME" == "success" ]; then
                 echo "<li><a href='./${component}/index.html'>${component^} (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               else
