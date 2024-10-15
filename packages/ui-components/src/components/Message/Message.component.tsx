@@ -8,10 +8,6 @@ import React, { useEffect, useState, useRef } from "react"
 import { Icon } from "../Icon"
 import { KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
-import { MessageProps, VariantType } from "./Message.types"
-
-// CSS UTILS
-
 const messageBaseStyles = `
     jn-text-theme-high
     jn-flex
@@ -65,6 +61,64 @@ const messageVariantStyles = {
   successBg: `jn-bg-theme-message-success`,
 }
 
+export type VariantType = "info" | "warning" | "danger" | "error" | "success"
+
+export interface MessageProps {
+  /**
+   * Pass an optional title.
+   */
+  title?: string
+
+  /**
+   * Pass an optional string of text to be rendered as content.
+   * Alternatively, content can be passed as children (see below).
+   * If children are provided, they will take precedence.
+   */
+  text?: string
+
+  /**
+   * Specify an optional semantic variant that determines the appearance of a message.
+   */
+  variant?: VariantType
+
+  /**
+   * Optional. If true, the message will have a 'close' button to dismiss it.
+   */
+  dismissible?: boolean
+
+  /**
+   * Optional. If true, the message will be automatically dismissed after the default or passed autoDismissTimeout.
+   */
+  autoDismiss?: boolean
+
+  /**
+   * Optional. The timeout in milliseconds after which the message auto-dismisses.
+   * By default 10000 (10s).
+   */
+  autoDismissTimeout?: number
+
+  /**
+   * Optional. Pass a handler that will be called when the message is dismissed.
+   */
+  onDismiss?: () => void
+
+  /**
+   * Pass an optional CSS class to apply to the message.
+   */
+  className?: string
+
+  /**
+   * Pass optional React nodes or a collection of React nodes to be rendered as content.
+   * Takes precedence over the text property.
+   */
+  children?: React.ReactNode
+
+  /**
+   * Additional arbitrary props.
+   */
+  [key: string]: any
+}
+
 const getBackgroundStyle = (variant: VariantType): string => {
   switch (variant) {
     case "error":
@@ -99,10 +153,7 @@ const getVariantStyle = (variant: VariantType): string => {
   }
 }
 
-// ICON UTILS
-
 // Determine if a given string corresponds to a known icon
-// To Do: Externalise. Also used in other components e.g. Badge
 const isValidIcon = (icon: string): icon is KnownIcons => {
   const validIconNames: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
   return validIconNames.has(icon as KnownIcons)
@@ -114,8 +165,6 @@ const getIcon = (variant: VariantType): KnownIcons => {
   if (isValidIcon(variant)) return variant
   return "default"
 }
-
-// TIMEOUT UTILS
 
 // Initiate auto-dismiss to hide message
 const initiateAutoDismiss = (
