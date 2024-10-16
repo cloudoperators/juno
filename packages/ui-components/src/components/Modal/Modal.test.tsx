@@ -7,16 +7,16 @@ import * as React from "react"
 import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Modal } from "./index"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
-import { TextInput } from "../../deprecated_js/TextInput/index.js"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { TextInput } from "../TextInput/index"
 
-const mockOnConfirm = jest.fn()
-const mockOnCancel = jest.fn()
+const mockOnConfirm = vi.fn()
+const mockOnCancel = vi.fn()
 
 describe("Modal", () => {
   afterEach(() => {
     cleanup()
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   test("renders a Modal", async () => {
@@ -204,7 +204,7 @@ describe("Modal", () => {
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     const backdrop = document.querySelector(".juno-modal-container")
-    await waitFor(() => userEvent.click(backdrop))
+    await waitFor(() => userEvent.click(backdrop!))
     expect(screen.getByRole("dialog")).toBeInTheDocument()
   })
 
@@ -218,7 +218,7 @@ describe("Modal", () => {
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     const backdrop = document.querySelector(".juno-modal-container")
-    await waitFor(() => userEvent.click(backdrop))
+    await waitFor(() => userEvent.click(backdrop!))
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
   })
 
@@ -285,7 +285,7 @@ describe("Modal", () => {
   })
 
   // initialFocus
-  test("focusses an element inside the modal as passed", async () => {
+  test("focuses an element inside the modal as passed", async () => {
     await waitFor(() =>
       render(
         <PortalProvider>
@@ -297,6 +297,8 @@ describe("Modal", () => {
     )
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toBeInTheDocument()
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     waitFor(() => {
       expect(screen.getByRole("textbox")).toHaveFocus()
     })
@@ -314,14 +316,16 @@ describe("Modal", () => {
     )
     const user = userEvent.setup()
     expect(screen.getByRole("dialog")).toBeInTheDocument()
-    waitFor(() => {
-      user.keyboard("{Tab}")
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    waitFor(async () => {
+      await user.keyboard("{Tab}")
       expect(screen.getByRole("textbox")).toHaveFocus()
-      user.keyboard("{Tab}")
+      await user.keyboard("{Tab}")
       expect(screen.getByRole("button", { name: "Cancel" })).toHaveFocus()
-      user.keyboard("{Tab}")
+      await user.keyboard("{Tab}")
       expect(screen.getByRole("button", { name: "close" })).toHaveFocus()
-      user.keyboard("{Tab}")
+      await user.keyboard("{Tab}")
       expect(screen.getByRole("textbox")).toHaveFocus()
     })
   })
