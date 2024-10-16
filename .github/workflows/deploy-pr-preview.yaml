@@ -77,7 +77,10 @@ jobs:
         if: github.event.action != 'closed' && env.IS_STORYBOOK_CHANGED == 'true'
         run: |
           npm -w @cloudoperators/juno-ui-components run build-storybook
-          cp -r packages/ui-components/storybook-static ${{ env.DEPLOY_PATH }}/ui-components
+          cp -r ${{ env.PACKAGE_PATH }}/storybook-static ${{ env.DEPLOY_PATH }}/${{ env.TARGET_FOLDER }}
+        env:
+          PACKAGE_PATH: packages/ui-components
+          TARGET_FOLDER: storybook
         continue-on-error: true
 
       - name: Build SUPERNOVA if changes detected
@@ -174,7 +177,7 @@ jobs:
               echo $BUILD_OUTCOME
               echo "==="              
               if [ "$BUILD_OUTCOME" == "success" ]; then
-                echo "<li><a href='./${component}/index.html'>${component^} (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+                echo "<li><a href='./${component}/index.html' target="_blank">${component^} (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               else
                 echo "<li class='failed'>${component^} (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
               fi
