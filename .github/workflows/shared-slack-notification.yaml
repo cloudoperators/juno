@@ -45,7 +45,7 @@ jobs:
                       "elements": [
                         {
                           "type": "text",
-                          "text": ${{ inputs.body }}
+                          "text": "${{ inputs.body }}"
                         }
                       ],
                       "border": 0
