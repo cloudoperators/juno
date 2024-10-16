@@ -23,8 +23,8 @@ jobs:
     steps:
       - name: Set Slack Payload
         env:
-          RICH_BODY: '{"type": "rich_text","elements": [{"type": "rich_text_preformatted","elements": [{"type": "text","text": "${{ inputs.body }}" }],"border": 0}]}]}'
-          SECTION_BODY: '{"type": "section","text": {"type": "mrkdwn","text": "${{ inputs.body }}"}}}'
+          RICH_BODY: '{"type":"rich_text","elements":[{"type":"rich_text_preformatted","elements":[{"type":"text","text":"${{ inputs.body }}"}],"border":0}]}'
+          SECTION_BODY: '{"type":"section","text":{"type":"mrkdwn","text":"${{ inputs.body }}"}}'
         run: |
           if [[ "${{ inputs.rich_body }}" == "true" ]]; then
             echo "SLACK_PAYLOAD=${RICH_BODY}" >> $GITHUB_ENV
