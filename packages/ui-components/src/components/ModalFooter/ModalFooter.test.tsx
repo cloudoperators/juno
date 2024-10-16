@@ -4,29 +4,29 @@
  */
 
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, act } from "@testing-library/react"
 import { ModalFooter } from "./index"
 
 describe("ModalFooter", () => {
-  test("renders a ModalFooter", async () => {
+  test("renders a ModalFooter", () => {
     render(<ModalFooter data-testid="my-modal-footer" />)
     expect(screen.getByTestId("my-modal-footer")).toBeInTheDocument()
     expect(screen.getByTestId("my-modal-footer")).toHaveClass("juno-modal-footer")
   })
 
-  test("renders a ModalFooter with a single 'Close' button by default", async () => {
+  test("renders a ModalFooter with a single 'Close' button by default", () => {
     render(<ModalFooter />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument()
   })
 
-  test("renders a ModalFooter with a 'Confirm' and a 'Cancel' button when a confirmButtonLabel is passed", async () => {
+  test("renders a ModalFooter with a 'Confirm' and a 'Cancel' button when a confirmButtonLabel is passed", () => {
     render(<ModalFooter confirmButtonLabel="Confirm" />)
     expect(screen.getByRole("button", { name: "Confirm" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument()
   })
 
-  test("renders a ModalFooter with a 'Confirm' and a 'Cancel' button when an onComfirm handler is passed", async () => {
+  test("renders a ModalFooter with a 'Confirm' and a 'Cancel' button when an onComfirm handler is passed", () => {
     const confirmHandler = () => {
       console.log("confirmed!")
     }
@@ -35,18 +35,18 @@ describe("ModalFooter", () => {
     expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument()
   })
 
-  test("does not render a 'Confirm' button but a single 'Close' button when neither a label nor a handler are being passed", async () => {
+  test("does not render a 'Confirm' button but a single 'Close' button when neither a label nor a handler are being passed", () => {
     render(<ModalFooter />)
     expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument()
     expect(screen.queryByRole("button", { name: "Confirm" })).not.toBeInTheDocument()
   })
 
-  test("renders a ModalFooter with a custom label for the cancelling button as passed", async () => {
+  test("renders a ModalFooter with a custom label for the cancelling button as passed", () => {
     render(<ModalFooter cancelButtonLabel="Mach zu" />)
     expect(screen.getByRole("button", { name: "Mach zu" })).toBeInTheDocument()
   })
 
-  test("renders a ModalFooter with children as passed", async () => {
+  test("renders a ModalFooter with children as passed", () => {
     render(
       <ModalFooter>
         <button>Button</button>
@@ -56,25 +56,25 @@ describe("ModalFooter", () => {
   })
 
   test("onCancel handler is called when clicking the cancelling button as passed", () => {
-    const onClickSpy = jest.fn()
+    const onClickSpy = vi.fn()
     render(<ModalFooter onCancel={onClickSpy} />)
-    screen.getByRole("button").click()
+    act(() => screen.getByRole("button").click())
     expect(onClickSpy).toHaveBeenCalled()
   })
 
   test("onConfirm handler is called when clicking the confirming button as passed", () => {
-    const onClickSpy = jest.fn()
+    const onClickSpy = vi.fn()
     render(<ModalFooter confirmButtonLabel="Confirm" onConfirm={onClickSpy} />)
-    screen.getByRole("button", { name: "Confirm" }).click()
+    act(() => screen.getByRole("button", { name: "Confirm" }).click())
     expect(onClickSpy).toHaveBeenCalled()
   })
 
-  test("renders custom classNames as passed", async () => {
+  test("renders custom classNames as passed", () => {
     render(<ModalFooter data-testid="my-modal-footer" className="my-custom-class" />)
     expect(screen.getByTestId("my-modal-footer")).toHaveClass("my-custom-class")
   })
 
-  test("renders all props as passed", async () => {
+  test("renders all props as passed", () => {
     render(<ModalFooter data-testid="my-modal-footer" name="My little ModalFooter" />)
     expect(screen.getByTestId("my-modal-footer")).toHaveAttribute("name", "My little ModalFooter")
   })
