@@ -190,5 +190,6 @@ jobs:
     with:
       title: "🚨 JUNO Workflow Build Supernova Failed 🚨"
       body: "The build for the *${{ github.head_ref || github.ref_name }}* image associated with the branch *artie-shared-slack* has failed during a recent push to the main branch. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+      rich_body: true
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
