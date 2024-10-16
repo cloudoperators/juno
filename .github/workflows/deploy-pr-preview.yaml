@@ -117,7 +117,7 @@ jobs:
       - name: Build CARBON if changes detected
         id: build-carbon
         if: github.event.action != 'closed' && env.IS_CARBON_CHANGED == 'true'
-        run: ./.github/scripts/build-vite-apps.sh
+        run: ./.github/scripts/build-vite-app.sh
         env:
           PACKAGE_PATH: apps/carbon
           TARGET_FOLDER: carbon
