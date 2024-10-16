@@ -38,7 +38,7 @@ Routing is essential for isolating and providing direct access to each extension
 - **Support for Route Parameters:** Routes should support parameters, allowing apps to receive specific data or inputs (e.g., `/app/:id/:tab`). These parameters should be passed to the app as props or through another mechanism (e.g., context or query parameters).
 - **Support for query parameters:** Routes must support query parameters, e.g. `/app?foo=blah` or `/app/:id?foo=blah`
 - **Deep Linking Support:** The **Carbon** system must support deep linking, allowing users to navigate directly to a specific state or view within an extension using a complete URL path (e.g., `/app/:appId/view/:viewId`).
-
+- **App URL State Storage:** The previous URL state of an app should be saved (e.g. in browser local storage) when navigating to a different app and retrieved when returning to it. This behaviour should be configurable (turn on/off, default: on) per app. On initial load/mount of the host app all previously stored app states should be invalidated.
 ---
 
 ### 2. Loading Mechanism for Extensions
