@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module.exports = {
+const constants = {
   SILENCE_ACTIVE: "active",
   SILENCE_PENDING: "pending",
   SILENCE_EXPIRED: "expired",
-
   SILENCE_CREATING: "creating",
   SILENCE_EXPIRING: "expiring",
 }
+
+export default constants

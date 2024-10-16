@@ -6,7 +6,7 @@
 import React from "react"
 import { Select } from "../Select/Select.component"
 import { SelectOption } from "./SelectOption.component"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component.js"
+import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component.js"
 
 export default {
   title: "Forms/Select/SelectOption",

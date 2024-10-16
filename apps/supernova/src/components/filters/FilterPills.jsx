@@ -6,7 +6,7 @@
 import React from "react"
 
 import { Pill, Stack } from "@cloudoperators/juno-ui-components"
-import { useActiveFilters, usePausedFilters, useFilterActions } from "../../hooks/useAppStore"
+import { useActiveFilters, usePausedFilters, useFilterActions } from "../StoreProvider"
 
 const FilterPills = () => {
   const activeFilters = useActiveFilters()

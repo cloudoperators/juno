@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-doop",
-  "version": "2.2.8",
+  "version": "2.3.0",
   "author": "UI-Team",
   "contributors": [
     "Andreas Pfau",
@@ -28,6 +28,7 @@
     "sass": "^1.77.5",
     "shadow-dom-testing-library": "^1.11.3",
     "tailwindcss": "^3.3.1",
+    "vite": "^5.4.8",
     "vitest": "^2.1.1",
     "zustand": "4.5.5"
   },
