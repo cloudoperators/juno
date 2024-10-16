@@ -11,7 +11,7 @@
       "dependsOn": ["@cloudoperators/juno-ui-components#build"]
     },
     "build:static": {
-      "dependsOn": []
+      "dependsOn": ["@cloudoperators/juno-ui-components#build"]
     },
     "typecheck": {
       "dependsOn": ["@cloudoperators/juno-ui-components#build"]
