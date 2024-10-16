@@ -69,7 +69,6 @@ The following scopes are permitted for commits:
 - **ui**: changes to ui-components
 - **utils**: Utility functions or modules
 - **url-state-provider**: Changes in the URL state provider
-- **url-state-router**: Changes in the URL state router
 - **version**: Versioning and release-related changes
 - **ISSUE-\<number>**: Reference to a specific issue (e.g., `ISSUE-123`)
 
