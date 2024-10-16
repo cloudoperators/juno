@@ -190,5 +190,5 @@ jobs:
     with:
       title: "JUNO Workflow Build Supernova ☀️ Failed 🚨"
       body: "PR ${GITHUB_HEAD_REF} failed to build the Supernova image. Please check the logs for more information. [Check the logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
-      secrets:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
