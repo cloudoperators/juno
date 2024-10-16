@@ -22,8 +22,8 @@ const Template = ({ closeOnConfirm, ...args }: TemplateProps) => {
   const open = () => {
     setOpen(true)
   }
-  // eslint-disable-next-line no-unused-vars
-  const close = (event: any) => {
+
+  const close = () => {
     setOpen(false)
   }
 

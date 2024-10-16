@@ -298,9 +298,9 @@ describe("Modal", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toBeInTheDocument()
 
-    const _p = waitFor(() => {
-      const textBox = screen.getByRole("textbox")
-      expect(textBox).toHaveFocus()
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    waitFor(() => {
+      expect(screen.getByRole("textbox")).toHaveFocus()
     })
   })
 
@@ -316,7 +316,9 @@ describe("Modal", () => {
     )
     const user = userEvent.setup()
     expect(screen.getByRole("dialog")).toBeInTheDocument()
-    const _p = waitFor(async () => {
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    waitFor(async () => {
       await user.keyboard("{Tab}")
       expect(screen.getByRole("textbox")).toHaveFocus()
       await user.keyboard("{Tab}")
