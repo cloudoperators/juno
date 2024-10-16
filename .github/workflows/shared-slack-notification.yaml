@@ -34,7 +34,7 @@ jobs:
 
       - name: Construct Full Slack Payload
         run: |
-          echo "FULL_PAYLOAD=$(cat <<EOF
+          echo "FULL_PAYLOAD=$(jq -c . <<EOF
           {
             "blocks": [
               {
