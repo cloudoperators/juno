@@ -59,7 +59,6 @@ jobs:
             ui
             utils
             url-state-provider
-            url-state-router
             version
             ISSUE-\d+
           # Configure that a scope must always be provided.

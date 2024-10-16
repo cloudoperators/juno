@@ -5,7 +5,7 @@
 
 import React, { useState } from "react"
 import { Button, Modal } from "@cloudoperators/juno-ui-components"
-import { useGlobalsApiEndpoint, useSilencesActions } from "../../hooks/useAppStore"
+import { useGlobalsApiEndpoint, useSilencesActions } from "../StoreProvider"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
 import constants from "../../constants"
