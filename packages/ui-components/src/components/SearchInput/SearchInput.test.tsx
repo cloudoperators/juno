@@ -6,6 +6,7 @@
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import { describe, expect, test, vi } from "vitest"
 
 import { SearchInput } from "./"
 
@@ -49,22 +50,22 @@ describe("SearchInput", () => {
   // EVENTS
 
   test("on click on search button fires onSearch handler as passed", async () => {
-    const handleSearch = jest.fn()
+    const handleSearch = vi.fn()
     render(<SearchInput onSearch={handleSearch} />)
     await userEvent.click(screen.getByRole("button", { name: /search/i }))
     expect(handleSearch).toHaveBeenCalledTimes(1)
   })
 
   test("on click on search button fires onClick handler as passed", async () => {
-    const handleClick = jest.fn()
+    const handleClick = vi.fn()
     render(<SearchInput onClick={handleClick} />)
     await userEvent.click(screen.getByRole("button", { name: /search/i }))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
 
   test("on click on search button fires both onClick and onSearch handler if both are passed", async () => {
-    const handleClick = jest.fn()
-    const handleSearch = jest.fn()
+    const handleClick = vi.fn()
+    const handleSearch = vi.fn()
     render(<SearchInput onClick={handleClick} onSearch={handleSearch} />)
     await userEvent.click(screen.getByRole("button", { name: /search/i }))
     expect(handleClick).toHaveBeenCalledTimes(1)
@@ -72,14 +73,14 @@ describe("SearchInput", () => {
   })
 
   test("on Enter keypress fires onSearch handler as passed", async () => {
-    const handleSearch = jest.fn()
+    const handleSearch = vi.fn()
     render(<SearchInput onSearch={handleSearch} />)
     await userEvent.type(screen.getByRole("searchbox"), "{enter}")
     expect(handleSearch).toHaveBeenCalledTimes(1)
   })
 
   test("on keypresses other than 'Enter' does not fire onSearch handler as passed", async () => {
-    const handleSearch = jest.fn()
+    const handleSearch = vi.fn()
     render(<SearchInput onSearch={handleSearch} />)
     await userEvent.type(screen.getByRole("searchbox"), "{shift}")
     expect(handleSearch).toHaveBeenCalledTimes(0)
@@ -90,7 +91,7 @@ describe("SearchInput", () => {
   // the onChange handler does get called three times if three characters are typed.
   // The same isn't true for the onKeyPress handler for some reason
   test("fires onKeyPress handler as passed on any keyPress", async () => {
-    const handleKeyPress = jest.fn()
+    const handleKeyPress = vi.fn()
     render(<SearchInput onKeyPress={handleKeyPress} />)
     await userEvent.type(screen.getByRole("searchbox"), "{enter}")
     expect(handleKeyPress).toHaveBeenCalledTimes(1)
@@ -104,7 +105,7 @@ describe("SearchInput", () => {
   })
 
   test("fires onChange handler as passed when something is typed into the input", async () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     render(<SearchInput onChange={handleChange} />)
     await userEvent.type(screen.getByRole("searchbox"), "abc")
     expect(handleChange).toHaveBeenCalledTimes(3)
