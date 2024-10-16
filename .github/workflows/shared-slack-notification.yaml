@@ -9,9 +9,9 @@ on:
       body:
         required: false
         type: string
-      slackWebhookUrl:
+    secrets:
+      webhookUrl:
         required: true
-        type: string
 
 jobs:
   notify:
@@ -55,5 +55,5 @@ jobs:
               ]
             }
         env:
-          SLACK_WEBHOOK_URL: ${{ inputs.slackWebhookUrl }}
+          SLACK_WEBHOOK_URL: ${{ inputs.webhookUrl }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

@@ -184,10 +184,11 @@ jobs:
           sarif_file: trivy-results.sarif
 
   notify-on-failure:
-    if: failure() # This ensures the job runs only if a failure occurs
+    if: failure()
     needs: build-and-push # This ensures the job runs after the 'build' job
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-shared-slack
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-shared-slack # fully qualified path to the shared action to not have to checkout the repo
     with:
       title: "JUNO Workflow Build Supernova ☀️ Failed 🚨"
       body: "PR ${GITHUB_HEAD_REF} failed to build the Supernova image. Please check the logs for more information. [Check the logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
-      slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
+      secrets:
+        webhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
