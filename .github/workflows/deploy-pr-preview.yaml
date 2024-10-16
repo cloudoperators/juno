@@ -177,9 +177,9 @@ jobs:
               echo $BUILD_OUTCOME
               echo "==="              
               if [ "$BUILD_OUTCOME" == "success" ]; then
-                echo "<li><a href='./${component}/index.html' target="_blank">${component^} (Success)</a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+                echo "<li><a href='./${component}/index.html' target="_blank">${component^} <span style='color:green;'>✓ Success</span></a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               else
-                echo "<li class='failed'>${component^} (Failed)</li>" >> ${{ env.DEPLOY_PATH }}/index.html
+                echo "<li>${component^} <span style='color:red;'>✗ Failed</span></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               fi
             fi
           done  
