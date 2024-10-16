@@ -5,7 +5,12 @@
 
 import * as React from "react"
 import { renderHook, act } from "@testing-library/react"
-import { useAlertsActions, useAlertEnrichedLabels, StoreProvider, useAlertsItemsFiltered } from "../hooks/useAppStore"
+import {
+  useAlertsActions,
+  useAlertEnrichedLabels,
+  StoreProvider,
+  useAlertsItemsFiltered,
+} from "../components/StoreProvider"
 
 describe("createAlertsSlice", () => {
   describe("setEnrichedLabels", () => {
