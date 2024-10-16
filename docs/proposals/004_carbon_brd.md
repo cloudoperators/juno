@@ -73,7 +73,10 @@ The **Carbon** platform needs a flexible mechanism for loading and managing vari
 
 - **Mount API:** The **Carbon** platform must provide a consistent mounting interface for all extension types (e.g., `mount(container, props)`). This interface should allow colocated and remote extensions to be mounted dynamically within a specific DOM container while passing the necessary props and configuration details from the manifest.
 - **Lazy Loading:** The **Carbon** system should support lazy loading of extensions, allowing resources to be fetched and initialized only when needed, optimizing performance and reducing the initial load time.
+- **Unmounting:** The **Carbon** platform should have a mechanism to unmount loaded extensions when they are not in use to save memory
 
+**Isolation and Error Boundaries**
+Extensions must be loaded into an isolated container, either ShadowRoot (preferred) or iframe. Isolation of CSS styles between host app and extension must be ensured. Extensions must be wrapped in an ErrorBoundary to ensure runtime errors of the extensions/apps don't cause problems for the remaining extensions or host app
 ---
 
 ### 3. Communication
