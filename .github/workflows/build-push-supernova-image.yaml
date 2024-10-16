@@ -189,8 +189,7 @@ jobs:
     needs: build-and-push # This ensures the job runs after the 'build' job
     steps:
       - name: Send Slack notification on failure
-        uses: ./.github/workflows/shared-slack-notification.yaml
+        uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-shared-slack
         with:
           title: "JUNO Workflow Build Supernova ☀️ Failed 🚨"
-          # add a link to the failed job
           body: "PR ${GITHUB_HEAD_REF} failed to build the Supernova image. Please check the logs for more information. [Check the logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
