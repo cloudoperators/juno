@@ -189,6 +189,6 @@ jobs:
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-shared-slack # fully qualified path to the shared action to not have to checkout the repo
     with:
       title: "JUNO Workflow Build Supernova ☀️ Failed 🚨"
-      body: "PR ${GITHUB_HEAD_REF} failed to build the Supernova image. Please check the logs for more information. [Check the logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+      body: "PR ${{ github.head_ref || github.ref_name }} failed to build the Supernova image. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
