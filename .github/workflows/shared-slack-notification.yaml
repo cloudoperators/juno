@@ -33,7 +33,7 @@ jobs:
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "JUNO ${{ inputs.title }}"
+                      "text": "${{ inputs.title }}"
                     }
                   ]
                 },
