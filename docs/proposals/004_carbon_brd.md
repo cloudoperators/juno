@@ -36,7 +36,7 @@ Routing is essential for isolating and providing direct access to each extension
 - **Isolated Routing:** Extensions should not modify or interfere with the base URL of the host app. Any internal routing within an extension must remain scoped to that extension, ensuring that changes in URL or navigation do not affect the host's routing logic.
 - **Cross Navigation Support:** While extensions should not be able to modify the base URL directly the host app should provide an interface with which extensions can navigate to and from other extensions
 - **Support for Route Parameters:** Routes should support parameters, allowing apps to receive specific data or inputs (e.g., `/app/:id/:tab`). These parameters should be passed to the app as props or through another mechanism (e.g., context or query parameters).
-
+- **Support for query parameters:** Routes must support query parameters, e.g. `/app?foo=blah` or `/app/:id?foo=blah`
 - **Deep Linking Support:** The **Carbon** system must support deep linking, allowing users to navigate directly to a specific state or view within an extension using a complete URL path (e.g., `/app/:appId/view/:viewId`).
 
 ---
