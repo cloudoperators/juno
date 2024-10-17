@@ -207,7 +207,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           {...props}
         />
         <div className={getIconWrapperStyles(variant)}>
-          {clear && val?.length ? (
+          {clear && val?.length && (
             <Icon
               icon="close"
               size={getClearIconSize(variant)}
@@ -216,7 +216,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
               onClick={handleClearClick}
               disabled={disabled}
             />
-          ) : null}
+          )}
           <Icon icon="search" title="Search" onClick={handleSearchClick} disabled={disabled} />
         </div>
       </Stack>
