@@ -17,7 +17,7 @@ export const Default = {
   },
 }
 
-export const BoxWithoutPadding = {
+export const WithoutPadding = {
   parameters: {
     docs: {
       description: {
