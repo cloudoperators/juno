@@ -1,12 +1,6 @@
 name: Release
 
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - closed
   push:
     branches:
       - main
@@ -25,33 +19,31 @@ jobs:
     name: Release
     runs-on: [default]
     outputs:
-      # published: ${{ steps.changesets.outputs.published }}
-      # publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
-      published: "true"
-      publishedPackages: '[{"name": "@xx/xx", "version": "1.2.0"}, {"name": "@xx/xy", "version": "0.8.9"}]'
+      published: ${{ steps.changesets.outputs.published }}
+      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      # - name: Setup Node.js 20.x
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: 20.x
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
 
-      # - name: Install Dependencies
-      #   run: npm ci
+      - name: Install Dependencies
+        run: npm ci
 
-      # - name: Create Release Pull Request or Publish to npm
-      #   id: changesets
-      #   uses: changesets/action@v1
-      #   with:
-      #     # This expects you to have a script called release which does a build for your packages and calls changeset publish
-      #     publish: npm run release
-      #     title: "publish(npm): automate Package Versioning and Publishing with Changesets"
-      #     commit: "chore(version): update versions with Changesets"
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: npm run release
+          title: "publish(npm): automate Package Versioning and Publishing with Changesets"
+          commit: "chore(version): update versions with Changesets"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   notify-on-success:
     if: needs.release.outputs.published == 'true'
@@ -59,8 +51,8 @@ jobs:
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-shared-slack
     with:
       title: "JUNO Packages Released Successfully! 🚀"
-      body: bla bla bla
-      rich_body: false
+      body: ${{ needs.release.outputs.publishedPackages }}
+      rich_body: true
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
