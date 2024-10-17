@@ -103,7 +103,7 @@ Security is a critical aspect of loading external extensions in **Carbon**, part
 
 - **Authentication and Authorization:** Extensions must adhere to the **Carbon** platform's authentication and authorization mechanisms, ensuring that only authenticated users with appropriate permissions can load or interact with specific extensions.
 
-- **Dependency Security:** The manifest file or configuration source must define any external dependencies required by the extension. These dependencies should be validated for security vulnerabilities before being loaded into the platform.
+- **Dependency Security:** The manifest file or configuration source must specify any external dependencies required by the extension. For local extensions, these dependencies can be validated for security vulnerabilities before being loaded into the platform. However, this may not be feasible for remote extensions, such as those loaded via iframes or from CDNs, as they typically come as prepackaged, executable bundles, with their dependencies already included. This limits our ability to assess or validate the security of these external dependencies directly.
 
 ---
 
