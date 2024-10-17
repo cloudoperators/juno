@@ -10,8 +10,8 @@ import {
   useSilencesActions,
   useSilencesLocalItems,
 } from "../components/StoreProvider"
-import AlertsWorker from "../workers/alerts.js?worker"
-import SilencesWorker from "../workers/silences.js?worker"
+import AlertsWorker from "../workers/alerts.js?worker&inline"
+import SilencesWorker from "../workers/silences.js?worker&inline"
 
 const alertsWorker = new AlertsWorker()
 const silencesWorker = new SilencesWorker()
