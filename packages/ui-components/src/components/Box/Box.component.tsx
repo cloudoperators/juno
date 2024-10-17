@@ -13,7 +13,7 @@ const boxStyles = `
   jn-border-theme-box-default
 `
 
-// When adjusting the padding, make sure to update the tests to verify both padded and unpadded Box variations correctly.
+// When adjusting the padding, make sure to update the tests to verify Box variations with and without padding correctly.
 const boxPadding = `
   jn-py-1
   jn-px-2

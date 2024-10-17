@@ -35,7 +35,7 @@ export const UnpaddedBox = {
   },
 
   args: {
-    children: "Unpadded Box",
+    children: "A Box without padding",
     unpad: true,
   },
 }
