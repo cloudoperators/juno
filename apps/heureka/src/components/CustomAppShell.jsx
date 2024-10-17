@@ -5,7 +5,7 @@
 
 import React from "react"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useGlobalsActions, useGlobalsActiveView } from "./StoreProvider"
+import { useGlobalsActions, useGlobalsActiveView, useGlobalsEmbedded } from "./StoreProvider"
 import ServicesView from "./services/ServicesView"
 import IssueMatchesView from "./issueMatches/IssueMatchesView"
 import ComponentsView from "./components/ComponentsView"
@@ -21,6 +21,7 @@ const VIEW_CONFIG = {
 const CustomAppShell = ({ children }) => {
   const { setActiveView, setShowPanel } = useGlobalsActions()
   const activeView = useGlobalsActiveView()
+  const embedded = useGlobalsEmbedded()
 
   const handleNavItemChange = (item) => {
     setActiveView(item)
@@ -40,7 +41,7 @@ const CustomAppShell = ({ children }) => {
   const ActiveComponent = VIEW_CONFIG[activeView]?.component
 
   return (
-    <AppShell pageHeader={<PageHeader heading="Converged Cloud | Heureka" />} topNavigation={topNavigation}>
+    <AppShell pageHeader={<PageHeader heading="Heureka" />} topNavigation={topNavigation} embedded={embedded}>
       {ActiveComponent && <ActiveComponent />}
       {children}
     </AppShell>
