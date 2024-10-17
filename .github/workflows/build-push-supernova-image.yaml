@@ -34,10 +34,6 @@ jobs:
       id-token: write
 
     steps:
-      # step that fails
-      - name: test failure
-        run: exit 1
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
