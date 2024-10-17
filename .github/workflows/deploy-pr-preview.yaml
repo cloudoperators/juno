@@ -169,15 +169,9 @@ jobs:
 
           # Copy the necessary files
           mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"
-          cp -r "$PACKAGE_PATH/$build_folder" "$DEPLOY_PATH/$TARGET_FOLDER/$build_folder"
-          cp "$PACKAGE_PATH/public/favicon.ico" "$DEPLOY_PATH/$TARGET_FOLDER/"
-          cp "$PACKAGE_PATH/public/favicon.svg" "$DEPLOY_PATH/$TARGET_FOLDER/"
+          cp -r "$PACKAGE_PATH/$build_folder" "$DEPLOY_PATH/$TARGET_FOLDER"
 
-          # Generate index.html and appProps.json
-          cp "$PACKAGE_PATH/docker/index.html" "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
-          entry_file_escaped=$(echo "$entry_file" | sed 's/\//\\\//g')
-          sed -i 's|/appProps.json?%VERSION%|./appProps.json|g' "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
-          sed -i "s|/index.js?%VERSION%|./$entry_file_escaped|g" "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
+          # Generate appProps.json
           echo "$APP_PROPS_BASE64" | base64 -d > "$DEPLOY_PATH/$TARGET_FOLDER/appProps.json"
         env:
           PACKAGE_PATH: apps/greenhouse
