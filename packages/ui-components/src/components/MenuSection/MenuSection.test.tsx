@@ -20,4 +20,18 @@ describe("MenuSection", () => {
     expect(screen.getByTestId("menu-section")).toBeInTheDocument()
     expect(screen.getByTestId("menu-section")).toHaveTextContent("My Menu Section")
   })
+  test("renders children as passed", () => {
+    render(
+      <MenuSection>
+        <button>Test Button</button>
+      </MenuSection>
+    )
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveTextContent("Test Button")
+  })
+  test("renders a custom className as passed", () => {
+    render(<MenuSection data-testid="menu-section" className="my-class" />)
+    expect(screen.getByTestId("menu-section")).toBeInTheDocument()
+    expect(screen.getByTestId("menu-section")).toHaveClass("my-class")
+  })
 })
