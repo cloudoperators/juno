@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SearchInput } from "./index.js"
+import { SearchInput } from "./"
 
 export default {
   title: "Components/SearchInput",

@@ -7,7 +7,7 @@ import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Filters } from "./index"
-import { SearchInput } from "../SearchInput/index"
+import { SearchInput } from "../../deprecated_js/SearchInput"
 
 describe("Filters", () => {
   test("renders Filters", async () => {
