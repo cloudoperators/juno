@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, ChangeEvent, KeyboardEvent, MouseEvent } from "react"
+import React, { useState, useEffect, ChangeEvent, KeyboardEvent, MouseEvent, useCallback } from "react"
 
 import { Icon } from "../Icon"
 import { Stack } from "../Stack"
@@ -38,7 +38,7 @@ export interface SearchInputProps {
    * Controls the autocomplete attribute of the input element.
    * Pass a valid autocomplete value.
    * We do not enforce validity.
-   * */
+   */
   autoComplete?: string
   /**
    * Determines whether to show the 'Clear' button.
@@ -50,7 +50,7 @@ export interface SearchInputProps {
   className?: string
   /**
    * Callback function invoked when a search is triggered, either by pressing the 'Enter' key or by clicking the search icon.
-   * */
+   */
   onSearch?: (_value: string) => void
   /**
    * Click handler for the search icon.
@@ -70,24 +70,20 @@ export interface SearchInputProps {
   onClear?: (_event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
 }
 
-const wrapperStyles = (variant: "rounded" | "hero" | "default"): string => {
-  const wrapperBaseStyles = `
-    jn-relative
-    jn-inline-block
-    jn-win-max
-  `
+const getWrapperStyles = (variant: "rounded" | "hero" | "default"): string => {
+  const baseStyles = "jn-relative jn-inline-block jn-win-max"
   switch (variant) {
     case "rounded":
-      return `${wrapperBaseStyles} jn-w-auto`
+      return `${baseStyles} jn-w-auto`
     case "hero":
-      return `${wrapperBaseStyles} jn-w-full`
+      return `${baseStyles} jn-w-full`
     default:
-      return `${wrapperBaseStyles} jn-w-auto`
+      return `${baseStyles} jn-w-auto`
   }
 }
 
-const searchStyles = (variant: "rounded" | "hero" | "default"): string => {
-  const searchBaseStyles = `
+const getSearchStyles = (variant: "rounded" | "hero" | "default"): string => {
+  const baseStyles = `
     jn-bg-theme-textinput
     jn-text-theme-high
     jn-shadow
@@ -99,49 +95,39 @@ const searchStyles = (variant: "rounded" | "hero" | "default"): string => {
     disabled:jn-opacity-50
   `
 
-  const roundedStyles = `
-    jn-rounded-full 
-    focus:jn-rounded-full
-  `
+  const roundedStyles = "jn-rounded-full focus:jn-rounded-full"
   switch (variant) {
     case "rounded":
-      return `${searchBaseStyles} ${roundedStyles} jn-text-base jn-w-auto jn-pl-3 jn-pr-16 jn-py-1`
+      return `${baseStyles} ${roundedStyles} jn-text-base jn-w-auto jn-pl-3 jn-pr-16 jn-py-1`
     case "hero":
-      return `${searchBaseStyles} ${roundedStyles} jn-text-lg jn-w-full jn-pl-6 jn-pr-20 jn-py-2.5`
+      return `${baseStyles} ${roundedStyles} jn-text-lg jn-w-full jn-pl-6 jn-pr-20 jn-py-2.5`
     default:
-      return `${searchBaseStyles} jn-rounded jn-text-base jn-leading-4 jn-pl-4 jn-pr-16 jn-py-2.5`
+      return `${baseStyles} jn-rounded jn-text-base jn-leading-4 jn-pl-4 jn-pr-16 jn-py-2.5`
   }
 }
 
-const iconWrapperStyles = (variant: "rounded" | "hero" | "default"): string => {
+const getIconWrapperStyles = (variant: "rounded" | "hero" | "default"): string => {
   switch (variant) {
     case "rounded":
-      return `jn-absolute jn-inline-flex jn-right-3 jn-top-1`
+      return "jn-absolute jn-inline-flex jn-right-3 jn-top-1"
     case "hero":
-      return `jn-absolute jn-inline-flex jn-right-5`
+      return "jn-absolute jn-inline-flex jn-right-5"
     default:
-      return `jn-absolute jn-inline-flex jn-right-3 jn-top-2`
+      return "jn-absolute jn-inline-flex jn-right-3 jn-top-2"
   }
 }
 
-const clearIconStyles = (variant: "rounded" | "hero" | "default"): string => {
+const getClearIconStyles = (variant: "rounded" | "hero" | "default"): string => {
   switch (variant) {
-    case "rounded":
-      return `jn-mr-2`
     case "hero":
-      return `jn-mr-2.5`
+      return "jn-mr-2.5"
     default:
-      return `jn-mr-2`
+      return "jn-mr-2"
   }
 }
 
-const clearIconSize = (variant: "rounded" | "hero" | "default"): string => {
-  switch (variant) {
-    case "hero":
-      return "24"
-    default:
-      return "18"
-  }
+const getClearIconSize = (variant: "rounded" | "hero" | "default"): string => {
+  return variant === "hero" ? "24" : "18"
 }
 
 /**
@@ -149,7 +135,6 @@ const clearIconSize = (variant: "rounded" | "hero" | "default"): string => {
  * It provides a text field to enter a search query and optional clear and search icons.
  * Three styling variants are supported: "rounded", "hero", and "default".
  */
-
 export const SearchInput: React.FC<SearchInputProps> = ({
   value = "",
   name = "search",
@@ -172,48 +157,62 @@ export const SearchInput: React.FC<SearchInputProps> = ({
     setValue(value)
   }, [value])
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setValue(event.target.value)
-    onChange && onChange(event)
-  }
+  const handleInputChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setValue(event.target.value)
+      onChange?.(event)
+    },
+    [onChange]
+  )
 
-  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === "Enter" && onSearch) onSearch(val)
-    onKeyPress && onKeyPress(event)
-  }
+  const handleKeyPress = useCallback(
+    (event: KeyboardEvent<HTMLInputElement>): void => {
+      if (event.key === "Enter" && onSearch) {
+        onSearch(val)
+      }
+      onKeyPress?.(event)
+    },
+    [onSearch, onKeyPress, val]
+  )
 
-  const handleSearchClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement> = (event) => {
-    onSearch && onSearch(val)
-    onClick && onClick(event)
-  }
+  const handleSearchClick = useCallback(
+    (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>): void => {
+      onSearch?.(val)
+      onClick?.(event)
+    },
+    [onSearch, onClick, val]
+  )
 
-  const handleClearClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement> = (event) => {
-    setValue("")
-    onClear && onClear(event)
-  }
+  const handleClearClick = useCallback(
+    (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>): void => {
+      setValue("")
+      onClear?.(event)
+    },
+    [onClear]
+  )
 
   return (
-    <div className={`juno-search-input-wrapper ${wrapperStyles(variant)} ${className}`} role="search">
+    <div className={`juno-search-input-wrapper ${getWrapperStyles(variant)} ${className}`} role="search">
       <Stack gap="2" alignment="center">
         <input
           type="search"
-          name={name || "search"}
+          name={name}
           placeholder={placeholder}
           disabled={disabled}
           value={val}
           autoComplete={autoComplete}
-          className={`juno-search-input ${searchStyles(variant)}`}
+          className={`juno-search-input ${getSearchStyles(variant)}`}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
           {...props}
         />
-        <div className={`${iconWrapperStyles(variant)}`}>
+        <div className={getIconWrapperStyles(variant)}>
           {clear && val?.length ? (
             <Icon
               icon="close"
-              size={clearIconSize(variant)}
+              size={getClearIconSize(variant)}
               title="Clear"
-              className={clearIconStyles(variant)}
+              className={getClearIconStyles(variant)}
               onClick={handleClearClick}
               disabled={disabled}
             />
