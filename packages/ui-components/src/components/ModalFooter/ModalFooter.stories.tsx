@@ -4,13 +4,14 @@
  */
 
 import React from "react"
-import { ModalFooter } from "./index.js"
-import { Button } from "../../deprecated_js/Button/index.js"
-import { ButtonRow } from "../../deprecated_js/ButtonRow/index.js"
-import { Stack } from "../../deprecated_js/Stack/index.js"
-import { Icon } from "../../deprecated_js/Icon/index.js"
+import { ModalFooter } from "./index"
+import { Button } from "../Button/index"
+import { ButtonRow } from "../ButtonRow/index"
+import { Stack } from "../Stack/index"
+import { Icon } from "../Icon/index"
+import { ModalFooterProps } from "./ModalFooter.component"
 
-const Template = (args) => {
+const Template = (args: ModalFooterProps) => {
   return <ModalFooter {...args}></ModalFooter>
 }
 

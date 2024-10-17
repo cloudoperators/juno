@@ -4,10 +4,9 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Button } from "../../deprecated_js/Button/index.js"
-import { ButtonRow } from "../../deprecated_js/ButtonRow/index.js"
-import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
+import { Button } from "../Button/index"
+import { ButtonRow } from "../ButtonRow/index"
+import { KnownIcons } from "../Icon/Icon.component"
 
 const modalfooterstyles = `
 	jn-flex
@@ -40,12 +39,12 @@ export const ModalFooter = ({
   onCancel,
   className = "",
   ...props
-}) => {
-  const handleConfirmClick = (event) => {
+}: ModalFooterProps) => {
+  const handleConfirmClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
     onConfirm && onConfirm(event)
   }
 
-  const handleCancelClick = (event) => {
+  const handleCancelClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
     onCancel && onCancel(event)
   }
 
@@ -61,13 +60,13 @@ export const ModalFooter = ({
           <Button
             variant="primary"
             label={confirmButtonLabel || "Confirm"}
-            icon={confirmButtonIcon}
+            icon={confirmButtonIcon || undefined}
             onClick={handleConfirmClick}
           />
           <Button
             variant="subdued"
             label={cancelButtonLabel || "Cancel"}
-            icon={cancelButtonIcon}
+            icon={cancelButtonIcon || undefined}
             onClick={handleCancelClick}
           />
         </ButtonRow>
@@ -77,7 +76,7 @@ export const ModalFooter = ({
             variant="subdued"
             onClick={handleCancelClick}
             label={cancelButtonLabel || "Close"}
-            icon={cancelButtonIcon}
+            icon={cancelButtonIcon || undefined}
           />
         </ButtonRow>
       )}
@@ -85,21 +84,21 @@ export const ModalFooter = ({
   )
 }
 
-ModalFooter.propTypes = {
+export type ModalFooterProps = {
   /** Custom children to render. Anything goes. */
-  children: PropTypes.node,
+  children?: React.ReactNode
   /** The label for the Confirm-button. When passed, the component will render a Confirm button and a cancel button, otherwise the component will ONLY render a Close-Button. */
-  confirmButtonLabel: PropTypes.string,
+  confirmButtonLabel?: string
   /** Custom label for the cancel button. ONLY has an effect if a `confirmButtonLabel` is passed. */
-  cancelButtonLabel: PropTypes.string,
+  cancelButtonLabel?: string
   /** Pass an Icon name to show on the confirming action button */
-  confirmButtonIcon: PropTypes.oneOf(knownIcons),
+  confirmButtonIcon?: KnownIcons | null
   /** Pass an icon name to show on the cancelling button */
-  cancelButtonIcon: PropTypes.oneOf(knownIcons),
+  cancelButtonIcon?: KnownIcons | null
   /** A custom className. Useful to configure flex items alignment when passing custom content as children. */
-  className: PropTypes.string,
+  className?: string
   /** Handler to execute once the confirming button is clicked */
-  onConfirm: PropTypes.func,
+  onConfirm?: React.MouseEventHandler<EventTarget> | null
   /** Handler to execute once the cancelling button is clicked */
-  onCancel: PropTypes.func,
-}
+  onCancel?: React.MouseEventHandler<EventTarget> | null
+} & React.HTMLProps<HTMLDivElement>

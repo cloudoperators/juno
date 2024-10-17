@@ -5,11 +5,10 @@
 
 import React, { useState, useEffect, useRef, useId } from "react"
 import { createPortal } from "react-dom"
-import PropTypes from "prop-types"
 import FocusTrap from "focus-trap-react"
 import { ModalFooter } from "../ModalFooter/index"
-import { Icon, knownIcons } from "../../deprecated_js/Icon/Icon.component"
-import { usePortalRef } from "../../deprecated_js/PortalProvider/PortalProvider.component"
+import { Icon, KnownIcons } from "../Icon/Icon.component"
+import { usePortalRef } from "../PortalProvider/PortalProvider.component"
 
 /*
  * handle height/scrolling TODO -> allow optional constrainHeight=false prop?
@@ -60,7 +59,7 @@ const contentpaddingstyles = `
 	jn-px-8
 `
 
-const sizeClass = (size) => {
+const sizeClass = (size: ModalSize) => {
   switch (size) {
     case "large":
       return `jn-w-[40rem]`
@@ -103,7 +102,7 @@ export const Modal = ({
   unpad = false,
   className = "",
   ...props
-}) => {
+}: ModalProps) => {
   const uniqueId = () => "juno-modal-" + useId()
 
   const [isOpen, setIsOpen] = useState(open)
@@ -127,23 +126,23 @@ export const Modal = ({
     setisCloseableOnEsc(closeOnEsc)
   }, [closeOnEsc])
 
-  const handleConfirmClick = (event) => {
+  const handleConfirmClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
     onConfirm && onConfirm(event)
   }
 
-  const handleCancelClick = (event) => {
+  const handleCancelClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
     setIsOpen(false)
     onCancel && onCancel(event)
   }
 
-  const handleEsc = (event) => {
+  const handleEsc = (event: KeyboardEvent) => {
     if (isCloseable && isCloseableOnEsc) {
       setIsOpen(false)
       onCancel && onCancel(event)
     }
   }
 
-  const handleBackdropClick = (event) => {
+  const handleBackdropClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
     if (isCloseabelOnBackdropClick) {
       setIsOpen(false)
       onCancel && onCancel(event)
@@ -154,7 +153,7 @@ export const Modal = ({
 
   const portalContainer = usePortalRef()
 
-  const modalRef = useRef(null)
+  const modalRef = useRef<HTMLDivElement | null>(null)
 
   const theTitle = title || heading
 
@@ -169,10 +168,11 @@ export const Modal = ({
               focusTrapOptions={{
                 initialFocus: initialFocus,
                 clickOutsideDeactivates: isCloseabelOnBackdropClick,
-                fallbackFocus: () => modalRef.current,
+                fallbackFocus: () => modalRef.current!,
                 allowOutsideClick: true,
-                escapeDeactivates: () => {
-                  handleEsc()
+                escapeDeactivates: (e) => {
+                  handleEsc(e)
+                  return false
                 },
               }}
             >
@@ -181,7 +181,7 @@ export const Modal = ({
                 role="dialog"
                 ref={modalRef}
                 {...props}
-                aria-labelledby={theTitle && theTitle.length ? modalTitleId : null}
+                aria-labelledby={theTitle && theTitle.length ? modalTitleId : undefined}
                 aria-label={ariaLabel}
               >
                 <div
@@ -222,43 +222,48 @@ export const Modal = ({
   )
 }
 
-Modal.propTypes = {
+type ModalSize = "small" | "large"
+
+// eslint-disable-next-line no-unused-vars
+type CancelEventHandler = (event: React.MouseEvent<EventTarget, MouseEvent> | KeyboardEvent) => void
+
+export type ModalProps = {
   /** The aria-label of the modal. Use only if the modal does NOT have a `title` or `heading`.  */
-  ariaLabel: PropTypes.string,
+  ariaLabel?: string
   /** The title of the modal. This will be rendering as the heading of the modal, and the modal's `arial-labelledby` attribute will reference the title/heading element. If the modal does not have `title` or `heading`, use `ariaLabel` to provide an accessible name for the modal. */
-  title: PropTypes.string,
+  title?: string
   /** Also the title of the modal, just for API flexibility. If both `title` and `heading` are passed, `title` will win. */
-  heading: PropTypes.string,
+  heading?: string
   /** The Modal size */
-  size: PropTypes.oneOf(["small", "large"]),
+  size?: ModalSize
   /** Pass a label to render a confirm button and a Cancel button */
-  confirmButtonLabel: PropTypes.string,
+  confirmButtonLabel?: string
   /** Pass a label for the cancel button. Defaults to "Cancel" */
-  cancelButtonLabel: PropTypes.string,
+  cancelButtonLabel?: string
   /** Pass an Icon name to show on the confirming action button */
-  confirmButtonIcon: PropTypes.oneOf(knownIcons),
+  confirmButtonIcon?: KnownIcons | null
   /** Pass an icon name to show on the cancelling button */
-  cancelButtonIcon: PropTypes.oneOf(knownIcons),
+  cancelButtonIcon?: KnownIcons | null
   /** Whether the modal will be open */
-  open: PropTypes.bool,
+  open?: boolean
   /** The children of the modal. These will be rendered as the modal content. To render custom buttons at the bottom, see `modalFooter` below.*/
-  children: PropTypes.node,
+  children?: React.ReactNode
   /** Optional. Pass a `<ModalFooter />` component with custom content as required. Will default to using the `<ModalFooter/>` component internally. */
-  modalFooter: PropTypes.element,
+  modalFooter?: JSX.Element | null
   /** Whether the modal can be closed using an "X"-Button at the top right. Defaults to true. */
-  closeable: PropTypes.bool,
+  closeable?: boolean
   /** Pass to remove default padding from the content area of the modal */
-  unpad: PropTypes.bool,
+  unpad?: boolean
   /** Custom className to add to the modal */
-  className: PropTypes.string,
+  className?: string
   /** A handler to execute once the modal is confirmed by clicking the confrim button if exists. Note that we do not close the modal automatically. */
-  onConfirm: PropTypes.func,
+  onConfirm?: React.MouseEventHandler<EventTarget> | null
   /** A handler to execute once the modal is cancelled or dismissed using the x-Close button,  Cancel-button or pressing ESC */
-  onCancel: PropTypes.func,
+  onCancel?: CancelEventHandler
   /** Whether the modal should be closed when the backdrop is clicked. Essentially 'un-modals' the modal. */
-  closeOnBackdropClick: PropTypes.bool,
+  closeOnBackdropClick?: boolean
   /** Whether the modal can be closed by hitting the ESC key */
-  closeOnEsc: PropTypes.bool,
+  closeOnEsc?: boolean
   /** By default, the first element in the tab order of the Modal content will be focussed. To specify an element to be focussed when the modal opens, pass an element, DOM node, or selector string. */
-  initialFocus: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-}
+  initialFocus?: HTMLElement | SVGElement | string
+} & Omit<React.HTMLProps<HTMLDivElement>, "size">
