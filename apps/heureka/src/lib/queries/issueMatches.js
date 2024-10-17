@@ -18,6 +18,57 @@ export const issueMatchesMainQuery = () => gql`
         node {
           id
           status
+          targetRemediationDate
+          severity {
+            value
+            score
+          }
+          issue {
+            id
+            primaryName
+            lastModified
+            type
+          }
+          componentInstance {
+            id
+            ccrn
+            count
+            service {
+              name
+              owners {
+                edges {
+                  node {
+                    id
+                    uniqueUserId
+                    name
+                  }
+                  cursor
+                }
+              }
+              supportGroups {
+                edges {
+                  node {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+        cursor
+      }
+    }
+  }
+`
+// The query for fetching IssueMatches details data
+export const issueMatchesDetailsQuery = () => gql`
+  query ($filter: IssueMatchFilter, $first: Int, $after: String) {
+    IssueMatches(filter: $filter, first: $first, after: $after) {
+      __typename
+      edges {
+        node {
+          id
+          status
           remediationDate
           discoveryDate
           targetRemediationDate
@@ -34,28 +85,12 @@ export const issueMatchesMainQuery = () => gql`
               }
             }
           }
-          evidences {
-            totalCount
-            edges {
-              node {
-                id
-                description
-              }
-              cursor
-            }
-            pageInfo {
-              hasNextPage
-              nextPageAfter
-            }
-          }
-          issueId
           issue {
             id
             primaryName
             lastModified
             type
           }
-          componentInstanceId
           componentInstance {
             id
             ccrn
@@ -69,7 +104,6 @@ export const issueMatchesMainQuery = () => gql`
             service {
               name
               owners {
-                totalCount
                 edges {
                   node {
                     id
@@ -77,10 +111,6 @@ export const issueMatchesMainQuery = () => gql`
                     name
                   }
                   cursor
-                }
-                pageInfo {
-                  hasNextPage
-                  nextPageAfter
                 }
               }
               supportGroups {
@@ -92,29 +122,12 @@ export const issueMatchesMainQuery = () => gql`
               }
             }
           }
-          issueMatchChanges {
-            totalCount
-            edges {
-              node {
-                id
-                action
-                issueMatchId
-                activityId
-              }
-              cursor
-            }
-            pageInfo {
-              hasNextPage
-              nextPageAfter
-            }
-          }
         }
         cursor
       }
     }
   }
 `
-
 // Separate query for fetching totalCount and pageInfo only
 export const issueMatchesCountQuery = () => gql`
   query ($filter: IssueMatchFilter, $first: Int, $after: String) {

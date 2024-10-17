@@ -32,7 +32,7 @@ const ServicesDetail = () => {
   const { addMessage, resetMessages } = messageActions()
 
   const serviceElem = useQuery({
-    queryKey: ["ServicesMain", { filter: { serviceName: [showServiceDetail] } }],
+    queryKey: ["ServicesDetails", { filter: { serviceName: [showServiceDetail] } }],
     enabled: !!queryClientFnReady && !!showServiceDetail,
   })
 
@@ -239,7 +239,7 @@ const ServicesDetail = () => {
 
         {service?.componentInstances?.edges?.map((componentInstance, i) => (
           <DataGridRow key={i}>
-            <DataGridCell>{componentInstance?.node?.componentVersion?.component?.name}</DataGridCell>
+            <DataGridCell>{componentInstance?.node?.ccrn}</DataGridCell>
             <DataGridCell className="break-all overflow-hidden">
               {componentInstance?.node?.componentVersion?.version}
             </DataGridCell>
