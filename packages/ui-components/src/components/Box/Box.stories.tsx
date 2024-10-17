@@ -29,7 +29,7 @@ export const UnpaddedBox = {
   parameters: {
     docs: {
       description: {
-        story: "To remove the padding, set `unpad` prop.",
+        story: "To remove padding, set the `unpad` prop.",
       },
     },
   },
