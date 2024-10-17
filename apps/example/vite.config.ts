@@ -30,6 +30,7 @@ export default defineConfig(({ mode }) => {
   if (mode === "static") {
     return {
       ...sharedConfig,
+      base: "./", // Relative Path in Generated index.html
       build: {
         outDir: "build",
       },
