@@ -4,9 +4,9 @@
  */
 
 import React from "react"
-import { ShadowRoot } from "."
+import { ShadowRoot, ShadowRootProps } from "./ShadowRoot.component"
 
-const Template = (args) => (
+const Template = (args: ShadowRootProps) => (
   <ShadowRoot {...args}>
     <h1>Welcome</h1>
   </ShadowRoot>
