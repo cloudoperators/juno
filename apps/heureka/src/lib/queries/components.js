@@ -24,9 +24,6 @@ export const componentsMainQuery = () => gql`
               node {
                 id
                 version
-                issues {
-                  totalCount
-                }
                 componentInstances {
                   totalCount
                   edges {
