@@ -14,124 +14,124 @@
 // prettier-ignore
 $color-map: (
   
-  "white": (255, 255, 255),
-  "black": (0, 0, 0),
+  "white": (255, 182, 193), // Light Pink
+  "black": (255, 20, 147),  // Deep Pink
   
-  "sap-grey-1": (255, 255, 255),
-  "sap-grey-2": (225, 225, 225),
-  "sap-grey-3": (204, 204, 204),
-  "sap-grey-4": (153, 153, 153),
-  "sap-grey-5": (127, 127, 127),
-  "sap-grey-6": (102, 102, 102),
-  "sap-grey-7": (75, 75, 75),
-  "sap-grey-8": (0, 0, 0),
+  "sap-grey-1": (255, 228, 225), // Misty Rose
+  "sap-grey-2": (255, 192, 203), // Pink
+  "sap-grey-3": (250, 128, 114), // Salmon
+  "sap-grey-4": (255, 105, 180), // Hot Pink
+  "sap-grey-5": (219, 112, 147), // Pale Violet Red
+  "sap-grey-6": (255, 20, 147),  // Deep Pink
+  "sap-grey-7": (199, 21, 133),  // Medium Violet Red
+  "sap-grey-8": (139, 0, 139),   // Dark Magenta
   
-  "sap-blue-1": (15, 170, 25),
-  "sap-blue-2": (0, 143, 211),
-  "sap-blue-3": (0, 118, 203),
-  "sap-blue-4": (15, 70, 167),
-  "sap-blue-5": (0, 50, 131),
-  "sap-blue-6": (0, 25, 90),
+  "sap-blue-1": (255, 182, 193), // Light Pink
+  "sap-blue-2": (255, 105, 180), // Hot Pink
+  "sap-blue-3": (255, 20, 147),  // Deep Pink
+  "sap-blue-4": (255, 52, 179),  // Radial Pink
+  "sap-blue-5": (219, 112, 147), // Pale Violet Red
+  "sap-blue-6": (139, 0, 139),   // Dark Magenta
   
-  "sap-gold": (240, 171, 0),
+  "sap-gold": (255, 174, 185),   // Light Coral
   
-  "sap-purple-1": (220, 0, 150),
-  "sap-purple-2": (190, 0, 140),
-  "sap-purple-3": (151, 10, 130),
-  "sap-purple-4": (118, 10, 133),
-  "sap-purple-5": (69, 21, 126),
-  "sap-purple-6": (60, 20, 100),
+  "sap-purple-1": (255, 192, 203), // Pink
+  "sap-purple-2": (255, 182, 193), // Light Pink
+  "sap-purple-3": (255, 105, 180), // Hot Pink
+  "sap-purple-4": (255, 20, 147),  // Deep Pink
+  "sap-purple-5": (219, 112, 147), // Pale Violet Red
+  "sap-purple-6": (199, 21, 133),  // Medium Violet Red
   
-  "sap-green-1": (188, 220, 80),
-  "sap-green-2": (147, 201, 57),
-  "sap-green-3": (79, 184, 28),
-  "sap-green-4": (52, 139, 38),
-  "sap-green-5": (36, 114, 48),
-  "sap-green-6": (15, 75, 60),
+  "sap-green-1": (255, 174, 185), // Light Coral
+  "sap-green-2": (255, 130, 171), // Light Hot Pink
+  "sap-green-3": (255, 62, 150),  // Bright Pink
+  "sap-green-4": (219, 112, 147), // Pale Violet Red
+  "sap-green-5": (255, 20, 147),  // Deep Pink
+  "sap-green-6": (199, 21, 133),  // Medium Violet Red
   
-  "sap-orange-1": (255, 175, 0),
-  "sap-orange-2": (250, 145, 0),
-  "sap-orange-3": (235, 115, 0),
-  "sap-orange-4": (227, 85, 0),
-  "sap-orange-5": (208, 69, 18),
-  "sap-orange-6": (188, 54, 24),
+  "sap-orange-1": (255, 192, 203), // Pink
+  "sap-orange-2": (255, 105, 180), // Hot Pink
+  "sap-orange-3": (255, 20, 147),  // Deep Pink
+  "sap-orange-4": (219, 112, 147), // Pale Violet Red
+  "sap-orange-5": (199, 21, 133),  // Medium Violet Red
+  "sap-orange-6": (139, 0, 139),   // Dark Magenta
   
-  "juno-grey-blue-1":  (64, 70, 75),
-  "juno-grey-blue-2":  (48, 54, 60),
-  "juno-grey-blue-3":  (41, 47, 54),
-  "juno-grey-blue-4":  (38, 44, 51),
-  "juno-grey-blue-5":  (36, 42, 49),
-  "juno-grey-blue-6":  (31, 38, 45),
-  "juno-grey-blue-7":  (28, 35, 42),
-  "juno-grey-blue-8":  (23, 30, 37),
-  "juno-grey-blue-9":  (18, 25, 32),
-  "juno-grey-blue-10": (13, 20, 28),
-  "juno-grey-blue-11": (0, 8, 16),
+  "juno-grey-blue-1":  (255, 174, 185), // Light Coral
+  "juno-grey-blue-2":  (255, 105, 180), // Hot Pink
+  "juno-grey-blue-3":  (255, 62, 150),  // Bright Pink
+  "juno-grey-blue-4":  (219, 112, 147), // Pale Violet Red
+  "juno-grey-blue-5":  (255, 20, 147),  // Deep Pink
+  "juno-grey-blue-6":  (199, 21, 133),  // Medium Violet Red
+  "juno-grey-blue-7":  (139, 0, 139),   // Dark Magenta
+  "juno-grey-blue-8":  (255, 52, 179),  // Radial Pink
+  "juno-grey-blue-9":  (255, 130, 171), // Light Hot Pink
+  "juno-grey-blue-10": (255, 62, 150),  // Bright Pink
+  "juno-grey-blue-11": (219, 112, 147), // Pale Violet Red
   
-  "juno-grey-light-1":  (249, 249, 249),
-  "juno-grey-light-2":  (247, 247, 247),
-  "juno-grey-light-3":  (244, 244, 244),
-  "juno-grey-light-4":  (241, 241, 241),
-  "juno-grey-light-5":  (238, 238, 238),
-  "juno-grey-light-6":  (235, 235, 235),
-  "juno-grey-light-7":  (233, 233, 233),
-  "juno-grey-light-8":  (230, 230, 230),
-  "juno-grey-light-9":  (227, 227, 227),
-  "juno-grey-light-10": (215, 215, 215),
+  "juno-grey-light-1":  (255, 182, 193), // Light Pink
+  "juno-grey-light-2":  (255, 192, 203), // Pink
+  "juno-grey-light-3":  (255, 105, 180), // Hot Pink
+  "juno-grey-light-4":  (255, 52, 179),  // Radial Pink
+  "juno-grey-light-5":  (255, 62, 150),  // Bright Pink
+  "juno-grey-light-6":  (219, 112, 147), // Pale Violet Red
+  "juno-grey-light-7":  (255, 20, 147),  // Deep Pink
+  "juno-grey-light-8":  (199, 21, 133),  // Medium Violet Red
+  "juno-grey-light-9":  (255, 62, 150),  // Bright Pink
+  "juno-grey-light-10": (255, 105, 180), // Hot Pink
   
-  "juno-blue-1":  (203, 232, 247),
-  "juno-blue-2":  (165, 211, 234),
-  "juno-blue-3":  (137, 201, 232),
-  "juno-blue-4":  (67, 162, 208),
-  "juno-blue-5":  (0, 125, 184),
-  "juno-blue-6":  (30, 106, 146),
-  "juno-blue-7":  (10, 103, 153),
-  "juno-blue-8":  (7, 85, 128),
-  "juno-blue-9":  (5, 70, 105),
-  "juno-blue-10": (3, 55, 84),
+  "juno-blue-1":  (255, 182, 193), // Light Pink
+  "juno-blue-2":  (255, 52, 179),  // Radial Pink
+  "juno-blue-3":  (255, 130, 171), // Light Hot Pink
+  "juno-blue-4":  (255, 62, 150),  // Bright Pink
+  "juno-blue-5":  (219, 112, 147), // Pale Violet Red
+  "juno-blue-6":  (199, 21, 133),  // Medium Violet Red
+  "juno-blue-7":  (139, 0, 139),   // Dark Magenta
+  "juno-blue-8":  (255, 20, 147),  // Deep Pink
+  "juno-blue-9":  (255, 105, 180), // Hot Pink
+  "juno-blue-10": (255, 192, 203), // Pink
   
-  "juno-turquoise-1":  (197, 247, 255),
-  "juno-turquoise-2":  (132, 241, 255),
-  "juno-turquoise-3":  (25, 232, 250),
-  "juno-turquoise-4":  (22, 217, 234),
-  "juno-turquoise-5":  (21, 208, 224),
-  "juno-turquoise-6":  (15, 167, 180),
-  "juno-turquoise-7":  (9, 133, 144),
-  "juno-turquoise-8":  (5, 100, 109),
-  "juno-turquoise-9":  (2, 69, 75),
-  "juno-turquoise-10": (1, 41, 4),
+  "juno-turquoise-1":  (255, 174, 185), // Light Coral
+  "juno-turquoise-2":  (255, 105, 180), // Hot Pink
+  "juno-turquoise-3":  (255, 20, 147),  // Deep Pink
+  "juno-turquoise-4":  (219, 112, 147), // Pale Violet Red
+  "juno-turquoise-5":  (255, 62, 150),  // Bright Pink
+  "juno-turquoise-6":  (199, 21, 133),  // Medium Violet Red
+  "juno-turquoise-7":  (255, 192, 203), // Pink
+  "juno-turquoise-8":  (255, 52, 179),  // Radial Pink
+  "juno-turquoise-9":  (255, 130, 171), // Light Hot Pink
+  "juno-turquoise-10": (255, 105, 180), // Hot Pink
   
-  "juno-primary-blue-1": (15, 170, 255),
-  "juno-primary-blue-2": (0, 143, 211),
-  "juno-primary-blue-3": (0, 118, 203),
-  "juno-primary-blue-4": (15, 70, 167),
-  "juno-primary-blue-5": (0, 50, 131),
-  "juno-primary-blue-6": (0, 25, 90),
+  "juno-primary-blue-1": (255, 182, 193), // Light Pink
+  "juno-primary-blue-2": (255, 52, 179),  // Radial Pink
+  "juno-primary-blue-3": (255, 20, 147),  // Deep Pink
+  "juno-primary-blue-4": (199, 21, 133),  // Medium Violet Red
+  "juno-primary-blue-5": (139, 0, 139),   // Dark Magenta
+  "juno-primary-blue-6": (255, 105, 180), // Hot Pink
   
 );
 
 /* Light Theme Color Definitions */
 // prettier-ignore
 $light-theme-color-map: (
-  "accent": (0, 118, 203),
+  "accent": (255, 105, 180),      // Hot Pink
   
-  "info":    (0, 118, 203),
-  "success": (79, 184, 28),
-  "warning": (255, 175, 0),
-  "danger":  (199, 0, 0),
-  "error":   (199, 0, 0),
+  "info":    (255, 182, 193),     // Light Pink
+  "success": (255, 174, 185),     // Light Coral
+  "warning": (255, 130, 171),     // Light Hot Pink
+  "danger":  (255, 20, 147),      // Deep Pink
+  "error":   (255, 20, 147),      // Deep Pink
   
-  "juno-text-light":    (150, 150, 150),
-  "juno-text-default":  (76, 76, 76),
-  "juno-text-high":     (64, 64, 64),
-  "juno-text-highest":  (0, 0, 0),
-  "juno-text-disabled": (183, 183, 183),
+  "juno-text-light":    (255, 192, 203), // Pink
+  "juno-text-default":  (255, 174, 185), // Light Coral
+  "juno-text-high":     (255, 105, 180), // Hot Pink
+  "juno-text-highest":  (255, 62, 150),  // Bright Pink
+  "juno-text-disabled": (255, 182, 193), // Light Pink
   
-  "juno-primary-danger-1": (235, 146, 146),
-  "juno-primary-danger-2": (218, 93, 93),
-  "juno-primary-danger-3": (213, 64, 64),
-  "juno-primary-danger-4": (199, 0, 0),
-  "juno-primary-danger-5": (165,11,11),
+  "juno-primary-danger-1": (255, 174, 185), // Light Coral
+  "juno-primary-danger-2": (255, 130, 171), // Light Hot Pink
+  "juno-primary-danger-3": (255, 105, 180), // Hot Pink
+  "juno-primary-danger-4": (255, 20, 147),  // Deep Pink
+  "juno-primary-danger-5": (199, 21, 133),  // Medium Violet Red
 );
 
 /* Dark Theme Color Definitions */
