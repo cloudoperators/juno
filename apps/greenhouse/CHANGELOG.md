@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.1
+
+### Patch Changes
+
+- c3ab492: This fixes the embedded prop handling, ensuring it is passed correctly to AppShell.
+- Updated dependencies [f307966]
+- Updated dependencies [3ec48c0]
+- Updated dependencies [aaea462]
+  - @cloudoperators/juno-ui-components@2.25.0
+
 ## 0.3.0
 
 ### Minor Changes
