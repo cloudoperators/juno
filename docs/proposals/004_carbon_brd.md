@@ -39,6 +39,7 @@ Routing is essential for isolating and providing direct access to each extension
 - **Support for query parameters:** Routes must support query parameters, e.g. `/app?foo=blah` or `/app/:id?foo=blah`
 - **Deep Linking Support:** The **Carbon** system must support deep linking, allowing users to navigate directly to a specific state or view within an extension using a complete URL path (e.g., `/app/:appId/view/:viewId`).
 - **App URL State Storage:** The previous URL state of an app should be saved (e.g. in browser local storage) when navigating to a different app and retrieved when returning to it. This behaviour should be configurable (turn on/off, default: on) per app. On initial load/mount of the host app all previously stored app states should be invalidated.
+
 ---
 
 ### 2. Loading Mechanism for Extensions
@@ -77,6 +78,7 @@ The **Carbon** platform needs a flexible mechanism for loading and managing vari
 
 **Isolation and Error Boundaries**
 Extensions must be loaded into an isolated container, either ShadowRoot (preferred) or iframe. Isolation of CSS styles between host app and extension must be ensured. Extensions must be wrapped in an ErrorBoundary to ensure runtime errors of the extensions/apps don't cause problems for the remaining extensions or host app
+
 ---
 
 ### 3. Communication
