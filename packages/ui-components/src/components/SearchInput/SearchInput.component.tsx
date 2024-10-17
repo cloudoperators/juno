@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-License-Identifier: Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import React, { useState, useEffect, ChangeEvent, KeyboardEvent, MouseEvent } from "react"
@@ -11,31 +11,62 @@ import { Stack } from "../Stack"
 import "./searchinput.scss"
 
 export interface SearchInputProps {
-  /** Pass a name. Defaults to "search". */
+  /**
+   * Specifies the name attribute for the input element.
+   */
   name?: string
-  /** Pass a variant. Defaults to "default", "hero" variant renders a search input that is meant to be used standalone on a search page, similar to the initial google search page. */
+  /**
+   * Determines the visual styling variant of the SearchInput component.
+   * - "default": Standard search input styling.
+   * - "hero": A larger search input intended for standalone use on a dedicated search page, akin to the initial Google search page.
+   * - "rounded": A search input with rounded edges.
+   */
   variant?: "rounded" | "hero" | "default"
-  /** Whether the SearchInput is disabled */
+  /**
+   * Disables the search input when set to true.
+   */
   disabled?: boolean
-  /** Pass a custom placeholder to replace "Search…" default. */
+  /**
+   * Custom placeholder text displayed in the search input.
+   */
   placeholder?: string
-  /** Pass a value for initial rendering. Will NOT be updated once user changes for now. */
+  /**
+   * Initial value for the search input. Note that this value will not be updated if changed by the user.
+   */
   value?: string
-  /** Pass a valid autocomplete value. We do not police validity. Default is "off". */
+  /**
+   * Controls the autocomplete attribute of the input element.
+   * Pass a valid autocomplete value.
+   * We do not enforce validity.
+   * */
   autoComplete?: string
-  /** Pass whether to show Clear button or not. Default is true. */
+  /**
+   * Determines whether to show the 'Clear' button.
+   */
   clear?: boolean
-  /** The class names passed here will be merged with the existing class names of the component */
+  /**
+   * Pass an optional CSS class to apply to the search input.
+   */
   className?: string
-  /** Pass a search handler that will be called by the component when a search is triggered either via "Enter" keypress or via click on the magnifying glass icon */
+  /**
+   * Callback function invoked when a search is triggered, either by pressing the 'Enter' key or by clicking the search icon.
+   * */
   onSearch?: (_value: string) => void
-  /** Pass a click handler that will be called when the magnifying glass icon is clicked */
+  /**
+   * Click handler for the search icon.
+   */
   onClick?: (_event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
-  /** Pass a change handler */
+  /**
+   * Change handler for the search input.
+   */
   onChange?: (_event: ChangeEvent<HTMLInputElement>) => void
-  /** Pass a keyPress handler, by default the component will listen to the "Enter" key and call the passed onSearch function when it is pressed */
+  /**
+   * KeyPress handler for the search input. By default, triggers the onSearch function when the 'Enter' key is pressed.
+   */
   onKeyPress?: (_event: KeyboardEvent<HTMLInputElement>) => void
-  /** Pass a handler to be executed once a user clicks on the Clear button of the SearchField */
+  /**
+   * Click handler for the 'Clear' button.
+   */
   onClear?: (_event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
 }
 
@@ -114,8 +145,11 @@ const clearIconSize = (variant: "rounded" | "hero" | "default"): string => {
 }
 
 /**
- * A basic, atomic, controlled Input[type="search"]
+ * A SearchInput is a controlled input component for searching.
+ * It provides a text field to enter a search query and optional clear and search icons.
+ * Three styling variants are supported: "rounded", "hero", and "default".
  */
+
 export const SearchInput: React.FC<SearchInputProps> = ({
   value = "",
   name = "search",
@@ -140,24 +174,22 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value)
-    if (onChange) onChange(event)
+    onChange && onChange(event)
   }
 
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === "Enter" && onSearch) {
-      onSearch(val)
-    }
-    if (onKeyPress) onKeyPress(event)
+    if (event.key === "Enter" && onSearch) onSearch(val)
+    onKeyPress && onKeyPress(event)
   }
 
   const handleSearchClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement> = (event) => {
-    if (onSearch) onSearch(val)
-    if (onClick) onClick(event)
+    onSearch && onSearch(val)
+    onClick && onClick(event)
   }
 
   const handleClearClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement> = (event) => {
     setValue("")
-    if (onClear) onClear(event)
+    onClear && onClear(event)
   }
 
   return (

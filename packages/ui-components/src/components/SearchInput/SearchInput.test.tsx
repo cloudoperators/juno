@@ -7,130 +7,150 @@ import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, expect, test, vi } from "vitest"
-
 import { SearchInput } from "./"
 
 describe("SearchInput", () => {
-  test("renders a valid html input type search", () => {
-    render(<SearchInput />)
-    expect(screen.getByRole("searchbox")).toBeInTheDocument()
-    expect(screen.getByRole("searchbox")).toHaveAttribute("type", "search")
+  describe("Rendering", () => {
+    test("renders a valid HTML input type 'search'", () => {
+      render(<SearchInput />)
+      expect(screen.getByRole("searchbox")).toBeInTheDocument()
+      expect(screen.getByRole("searchbox")).toHaveAttribute("type", "search")
+    })
+
+    test("renders custom classNames when passed", () => {
+      render(<SearchInput className="my-custom-class" />)
+      expect(screen.getByRole("search")).toHaveClass("my-custom-class")
+    })
+
+    test("renders a default placeholder 'Search…'", () => {
+      render(<SearchInput />)
+      expect(screen.getByRole("searchbox")).toHaveAttribute("placeholder", "Search…")
+    })
+
+    test("renders a specific placeholder when passed", () => {
+      render(<SearchInput placeholder="My custom placeholder" />)
+      expect(screen.getByRole("searchbox")).toHaveAttribute("placeholder", "My custom placeholder")
+    })
+
+    test("renders a specific value when passed", () => {
+      render(<SearchInput value="blah" />)
+      expect(screen.getByRole("searchbox")).toHaveValue("blah")
+    })
+
+    test("renders a Clear icon if field has a value", () => {
+      render(<SearchInput value="123" />)
+      expect(screen.getByTitle("Clear")).toBeInTheDocument()
+    })
   })
 
-  test("renders a default name 'search'", () => {
-    render(<SearchInput />)
-    expect(screen.getByRole("searchbox")).toBeInTheDocument()
-    expect(screen.getByRole("searchbox")).toHaveAttribute("name", "search")
+  describe("Attributes", () => {
+    test("renders a default name 'search'", () => {
+      render(<SearchInput />)
+      expect(screen.getByRole("searchbox")).toHaveAttribute("name", "search")
+    })
+
+    test("renders a specific name when passed", () => {
+      render(<SearchInput name="searchbox" />)
+      expect(screen.getByRole("searchbox")).toHaveAttribute("name", "searchbox")
+    })
+
+    test("renders all props as passed", () => {
+      render(<SearchInput name="My shiny little Message" />)
+      expect(screen.getByRole("searchbox")).toHaveAttribute("name", "My shiny little Message")
+    })
   })
 
-  test("renders a name as passed", () => {
-    render(<SearchInput name="searchbox" />)
-    expect(screen.getByRole("searchbox")).toBeInTheDocument()
-    expect(screen.getByRole("searchbox")).toHaveAttribute("name", "searchbox")
+  describe("Disabled State", () => {
+    test("disables the search input when disabled prop is passed", () => {
+      render(<SearchInput disabled />)
+      expect(screen.getByRole("searchbox")).toBeDisabled()
+    })
   })
 
-  test("renders a value as passed", () => {
-    render(<SearchInput value="blah" />)
-    expect(screen.getByRole("searchbox")).toBeInTheDocument()
-    expect(screen.getByRole("searchbox")).toHaveValue("blah")
+  describe("Event Handlers", () => {
+    test("clicking search button triggers onSearch handler", async () => {
+      const handleSearch = vi.fn()
+      render(<SearchInput onSearch={handleSearch} />)
+      await userEvent.click(screen.getByRole("button", { name: /search/i }))
+      expect(handleSearch).toHaveBeenCalledTimes(1)
+    })
+
+    test("clicking search button triggers onClick handler", async () => {
+      const handleClick = vi.fn()
+      render(<SearchInput onClick={handleClick} />)
+      await userEvent.click(screen.getByRole("button", { name: /search/i }))
+      expect(handleClick).toHaveBeenCalledTimes(1)
+    })
+
+    test("clicking search button triggers both onClick and onSearch handlers if both are passed", async () => {
+      const handleClick = vi.fn()
+      const handleSearch = vi.fn()
+      render(<SearchInput onClick={handleClick} onSearch={handleSearch} />)
+      await userEvent.click(screen.getByRole("button", { name: /search/i }))
+      expect(handleClick).toHaveBeenCalledTimes(1)
+      expect(handleSearch).toHaveBeenCalledTimes(1)
+    })
+
+    test("pressing Enter key triggers onSearch handler", async () => {
+      const handleSearch = vi.fn()
+      render(<SearchInput onSearch={handleSearch} />)
+      await userEvent.type(screen.getByRole("searchbox"), "{enter}")
+      expect(handleSearch).toHaveBeenCalledTimes(1)
+    })
+
+    test("pressing keys other than Enter does not trigger onSearch handler", async () => {
+      const handleSearch = vi.fn()
+      render(<SearchInput onSearch={handleSearch} />)
+      await userEvent.type(screen.getByRole("searchbox"), "{shift}")
+      expect(handleSearch).toHaveBeenCalledTimes(0)
+    })
+
+    test("fires onKeyPress handler when any key is pressed, including Enter", async () => {
+      const handleKeyDown = vi.fn()
+      render(<SearchInput onKeyPress={handleKeyDown} />)
+      await userEvent.type(screen.getByRole("searchbox"), "{enter}abc")
+      expect(handleKeyDown).toHaveBeenCalledTimes(4)
+    })
+
+    test("typing updates the input value", async () => {
+      render(<SearchInput />)
+      const input = screen.getByRole("searchbox")
+      await userEvent.type(input, "abc")
+      expect(input).toHaveValue("abc")
+    })
+
+    test("fires onChange handler as text is typed", async () => {
+      const handleChange = vi.fn()
+      render(<SearchInput onChange={handleChange} />)
+      await userEvent.type(screen.getByRole("searchbox"), "abc")
+      expect(handleChange).toHaveBeenCalledTimes(3)
+    })
+
+    test("fires onClear handler when Clear icon is clicked", async () => {
+      const handleClear = vi.fn()
+      render(<SearchInput value="abc" onClear={handleClear} />)
+      await userEvent.click(screen.getByTitle("Clear"))
+      expect(handleClear).toHaveBeenCalledTimes(1)
+    })
   })
 
-  test("renders a default placeholder 'Search…'", () => {
-    render(<SearchInput />)
-    expect(screen.getByRole("searchbox")).toBeInTheDocument()
-    expect(screen.getByRole("searchbox")).toHaveAttribute("placeholder", "Search…")
+  describe("Clear Button Logic", () => {
+    test("renders a Clear icon if field has a value", () => {
+      render(<SearchInput value="123" />)
+      expect(screen.getByTitle("Clear")).toBeInTheDocument()
+    })
+
+    test("clears the input when Clear icon is clicked", async () => {
+      render(<SearchInput value="abc" />)
+      await userEvent.click(screen.getByTitle("Clear"))
+      expect(screen.getByRole("searchbox")).toHaveValue("")
+    })
+
+    test("fires onClear handler when Clear icon is clicked", async () => {
+      const handleClear = vi.fn()
+      render(<SearchInput value="abc" onClear={handleClear} />)
+      await userEvent.click(screen.getByTitle("Clear"))
+      expect(handleClear).toHaveBeenCalledTimes(1)
+    })
   })
-
-  test("renders a placeholder as passed", () => {
-    render(<SearchInput placeholder="My custom placeholder" />)
-    expect(screen.getByRole("searchbox")).toBeInTheDocument()
-    expect(screen.getByRole("searchbox")).toHaveAttribute("placeholder", "My custom placeholder")
-  })
-
-  // EVENTS
-
-  test("on click on search button fires onSearch handler as passed", async () => {
-    const handleSearch = vi.fn()
-    render(<SearchInput onSearch={handleSearch} />)
-    await userEvent.click(screen.getByRole("button", { name: /search/i }))
-    expect(handleSearch).toHaveBeenCalledTimes(1)
-  })
-
-  test("on click on search button fires onClick handler as passed", async () => {
-    const handleClick = vi.fn()
-    render(<SearchInput onClick={handleClick} />)
-    await userEvent.click(screen.getByRole("button", { name: /search/i }))
-    expect(handleClick).toHaveBeenCalledTimes(1)
-  })
-
-  test("on click on search button fires both onClick and onSearch handler if both are passed", async () => {
-    const handleClick = vi.fn()
-    const handleSearch = vi.fn()
-    render(<SearchInput onClick={handleClick} onSearch={handleSearch} />)
-    await userEvent.click(screen.getByRole("button", { name: /search/i }))
-    expect(handleClick).toHaveBeenCalledTimes(1)
-    expect(handleSearch).toHaveBeenCalledTimes(1)
-  })
-
-  test("on Enter keypress fires onSearch handler as passed", async () => {
-    const handleSearch = vi.fn()
-    render(<SearchInput onSearch={handleSearch} />)
-    await userEvent.type(screen.getByRole("searchbox"), "{enter}")
-    expect(handleSearch).toHaveBeenCalledTimes(1)
-  })
-
-  test("on keypresses other than 'Enter' does not fire onSearch handler as passed", async () => {
-    const handleSearch = vi.fn()
-    render(<SearchInput onSearch={handleSearch} />)
-    await userEvent.type(screen.getByRole("searchbox"), "{shift}")
-    expect(handleSearch).toHaveBeenCalledTimes(0)
-  })
-
-  // TODO check why this only works for {enter} All other keypresses seem to be ignored.
-  // Not sure if this is a problem with the component or with testing-library
-  // the onChange handler does get called three times if three characters are typed.
-  // The same isn't true for the onKeyPress handler for some reason
-  test("fires onKeyPress handler as passed on any keyPress", async () => {
-    const handleKeyPress = vi.fn()
-    render(<SearchInput onKeyPress={handleKeyPress} />)
-    await userEvent.type(screen.getByRole("searchbox"), "{enter}")
-    expect(handleKeyPress).toHaveBeenCalledTimes(1)
-  })
-
-  test("typing into the input leads to the input's value being changed", async () => {
-    render(<SearchInput />)
-    const input = screen.getByRole("searchbox")
-    await userEvent.type(input, "abc")
-    expect(input).toHaveValue("abc")
-  })
-
-  test("fires onChange handler as passed when something is typed into the input", async () => {
-    const handleChange = vi.fn()
-    render(<SearchInput onChange={handleChange} />)
-    await userEvent.type(screen.getByRole("searchbox"), "abc")
-    expect(handleChange).toHaveBeenCalledTimes(3)
-  })
-
-  test("renders a Clear icon if passed and field has a value", () => {
-    render(<SearchInput value="123" />)
-    expect(screen.getByTitle("Clear")).toBeInTheDocument()
-  })
-
-  test("Clears the field when the Clear icon is clicked", async () => {
-    render(<SearchInput value="abc" />)
-    await userEvent.click(screen.getByTitle("Clear"))
-    expect(screen.getByRole("searchbox")).toHaveValue("")
-  })
-
-  test("renders custom classNames as passed", () => {
-    render(<SearchInput className="my-custom-class" />)
-    expect(screen.getByRole("search")).toHaveClass("my-custom-class")
-  })
-
-  test("renders all props as passed", () => {
-    render(<SearchInput name="My shiny little Message" />)
-    expect(screen.getByRole("searchbox")).toHaveAttribute("name", "My shiny little Message")
-  })
-
-  // various props, disabled
 })
