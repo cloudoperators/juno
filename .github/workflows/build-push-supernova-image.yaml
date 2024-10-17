@@ -181,7 +181,7 @@ jobs:
   notify-on-failure:
     if: failure()
     needs: [build-and-push, vulnerability-scan]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml # fully qualified path to the shared action to not have to checkout the repo
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main # fully qualified path to the shared action to not have to checkout the repo
     with:
       title: "🚨 JUNO Supernova Image Failed 🚨"
       body: "An error occurred while building the Supernova image for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
