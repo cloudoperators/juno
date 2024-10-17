@@ -6,8 +6,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Menu } from "./index.js"
-import { MenuItem } from "../MenuItem/index.js"
-import { MenuSection } from "../MenuSection/index.js"
+import { MenuItem } from "../MenuItem/"
+import { MenuSection } from "../MenuSection/"
 
 export default {
   title: "WiP/Menu",
