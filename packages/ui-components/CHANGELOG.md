@@ -1,5 +1,16 @@
 # @cloudoperators/juno-ui-components
 
+## 2.25.0
+
+### Minor Changes
+
+- 3ec48c0: Migrate the Message component to TypeScript and disable automatic timeout for values less than one
+- aaea462: Migrate Modal component to TypeScript
+
+### Patch Changes
+
+- f307966: fix(ui): fix broken pageheader layout (#506)
+
 ## 2.24.0
 
 ### Minor Changes
