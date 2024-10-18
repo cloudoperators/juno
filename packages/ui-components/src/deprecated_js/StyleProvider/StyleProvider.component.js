@@ -5,7 +5,7 @@
 
 import React, { createContext, useCallback, useEffect, useMemo, useRef } from "react"
 import PropTypes from "prop-types"
-import { ShadowRoot } from "../../deprecated_js/ShadowRoot/index"
+import { ShadowRoot } from "../ShadowRoot/index"
 import tailwindTheme from "../../../tailwind.config"
 import Fonts from "./Fonts"
 import GlobalStyles, { styles } from "./GlobalStyles"
