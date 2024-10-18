@@ -1,0 +1,66 @@
+name: Slack Notification
+
+on:
+  workflow_call:
+    inputs:
+      title:
+        required: true
+        type: string
+      body:
+        required: false
+        type: string
+      rich_body:
+        required: false
+        type: boolean
+        default: false
+    secrets:
+      SLACK_WEBHOOK_URL:
+        required: true
+
+jobs:
+  notify:
+    runs-on: [default]
+    steps:
+      - name: Set Slack Payload
+        env:
+          RICH_BODY: '{"type":"rich_text","elements":[{"type":"rich_text_preformatted","elements":[{"type":"text","text":${{ toJson(inputs.body) }}}],"border":0}]}'
+          SECTION_BODY: '{"type":"section","text":{"type":"mrkdwn","text":${{ toJson(inputs.body) }}}}'
+        run: |
+          if [[ "${{ inputs.rich_body }}" == "true" ]]; then
+            echo "SLACK_PAYLOAD=${RICH_BODY}" >> $GITHUB_ENV
+          else
+            echo "SLACK_PAYLOAD=${SECTION_BODY}" >> $GITHUB_ENV
+          fi
+
+      - name: Construct Full Slack Payload
+        run: |
+          echo "FULL_PAYLOAD=$(jq -c . <<EOF
+          {
+            "blocks": [
+              {
+                "type": "context",
+                "elements": [
+                  {
+                    "type": "image",
+                    "image_url": "https://raw.githubusercontent.com/cloudoperators/juno/main/assets/logos/JUNO_logo_slack.png",
+                    "alt_text": "cloudoperators/juno"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "${{ inputs.title }}"
+                  }
+                ]
+              },
+              ${{ env.SLACK_PAYLOAD }}
+            ]
+          }
+          EOF
+          )" >> $GITHUB_ENV
+
+      - name: Send a Slack notification if a publish happens
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: ${{ env.FULL_PAYLOAD }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
