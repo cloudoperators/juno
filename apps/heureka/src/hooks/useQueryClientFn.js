@@ -24,7 +24,7 @@ const useQueryClientFn = () => {
   As stated in getQueryDefaults, the order of registration of query defaults does matter. Since the first matching defaults are returned by getQueryDefaults, the registration should be made in the following order: from the least generic key to the most generic one. This way, in case of specific key, the first matching one would be the expected one.
   */
   useEffect(() => {
-    if (!queryClient || !endpoint) return
+    if (!queryClient) return
 
     // Services main query
     queryClient.setQueryDefaults(["ServicesMain"], {
@@ -135,7 +135,7 @@ const useQueryClientFn = () => {
 
     // Set queryClientFnReady to true once
     setQueryClientFnReady(true)
-  }, [queryClient, endpoint])
+  }, [queryClient])
 }
 
 export default useQueryClientFn
