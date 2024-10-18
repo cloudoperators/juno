@@ -7,9 +7,9 @@ import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { useGlobalsApiEndpoint, useGlobalsActions } from "../components/StoreProvider"
 import { request } from "graphql-request"
-import { servicesMainQuery, servicesCountQuery } from "../lib/queries/services"
+import { servicesMainQuery, servicesDetailsQuery, servicesCountQuery } from "../lib/queries/services"
 import { componentsMainQuery, componentsCountQuery } from "../lib/queries/components"
-import { issueMatchesMainQuery, issueMatchesCountQuery } from "../lib/queries/issueMatches"
+import { issueMatchesMainQuery, issueMatchesDetailsQuery, issueMatchesCountQuery } from "../lib/queries/issueMatches"
 import serviceFilterValuesQuery from "../lib/queries/serviceFilterValues"
 import issueMatchesFilterValuesQuery from "../lib/queries/issueMatchesFilterValues"
 import addRemoveServiceOwners from "../lib/queries/addRemoveServiceOwners"
@@ -24,13 +24,20 @@ const useQueryClientFn = () => {
   As stated in getQueryDefaults, the order of registration of query defaults does matter. Since the first matching defaults are returned by getQueryDefaults, the registration should be made in the following order: from the least generic key to the most generic one. This way, in case of specific key, the first matching one would be the expected one.
   */
   useEffect(() => {
-    if (!queryClient || !endpoint) return
+    if (!queryClient) return
 
     // Services main query
     queryClient.setQueryDefaults(["ServicesMain"], {
       queryFn: async ({ queryKey }) => {
         const [_key, options] = queryKey
         return await request(endpoint, servicesMainQuery(), options)
+      },
+    })
+    // Services details query
+    queryClient.setQueryDefaults(["ServicesDetails"], {
+      queryFn: async ({ queryKey }) => {
+        const [_key, options] = queryKey
+        return await request(endpoint, servicesDetailsQuery(), options)
       },
     })
 
@@ -58,11 +65,19 @@ const useQueryClientFn = () => {
       },
     })
 
-    // Main IssueMatches query
+    // IssueMatches main query
     queryClient.setQueryDefaults(["IssueMatchesMain"], {
       queryFn: async ({ queryKey }) => {
         const [_key, options] = queryKey
         return await request(endpoint, issueMatchesMainQuery(), options)
+      },
+    })
+
+    // IssueMatches details query
+    queryClient.setQueryDefaults(["IssueMatchesDetails"], {
+      queryFn: async ({ queryKey }) => {
+        const [_key, options] = queryKey
+        return await request(endpoint, issueMatchesDetailsQuery(), options)
       },
     })
 
@@ -135,7 +150,7 @@ const useQueryClientFn = () => {
 
     // Set queryClientFnReady to true once
     setQueryClientFnReady(true)
-  }, [queryClient, endpoint])
+  }, [queryClient])
 }
 
 export default useQueryClientFn

@@ -8,7 +8,7 @@ import constants from "../../components/shared/constants"
 
 const createGlobalsSlice = (set, get, options) => ({
   globals: {
-    embedded: false, //Set to true if app is to be embedded in another existing app or page.
+    embedded: options?.embedded === true || options?.embedded === "true", //Set to true if app is to be embedded in another existing app or page.
     apiEndpoint: options?.apiEndpoint, //The API endpoint to use for fetching data.
     isUrlStateSetup: false, //Set to true when the URL state has been set up.
     queryClientFnReady: false, //Set to true when the queryClient function is ready to be used.
