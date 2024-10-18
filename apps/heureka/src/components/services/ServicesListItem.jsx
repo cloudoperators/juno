@@ -9,12 +9,6 @@ import { listOfCommaSeparatedObjs } from "../shared/Helper"
 import constants from "../shared/constants"
 import { useGlobalsActions, useGlobalsShowPanel, useGlobalsShowServiceDetail } from "../StoreProvider"
 
-// const countIssueMatches = (service) => {
-//   return service?.componentInstances?.edges?.reduce((acc, edge) => {
-//     return acc + (edge?.node?.issueMatches?.edges?.length || 0)
-//   }, 0)
-// }
-
 const ServicesListItem = ({ item }) => {
   const { setShowServiceDetail, setShowPanel } = useGlobalsActions()
   const showServiceDetail = useGlobalsShowServiceDetail()
@@ -23,8 +17,6 @@ const ServicesListItem = ({ item }) => {
     if (!item) return {}
     return item?.node
   }, [item])
-
-  // const issueMatchesCount = useMemo(() => countIssueMatches(service), [service])
 
   const handleClick = () => {
     if (showServiceDetail === service?.name && showPanel === constants.PANEL_SERVICE) {
