@@ -16,7 +16,7 @@ const IssueMatchesDetails = () => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
 
   const issueElem = useQuery({
-    queryKey: ["IssueMatchesMain", { filter: { id: [showIssueDetail] } }],
+    queryKey: ["IssueMatchesDetails", { filter: { id: [showIssueDetail] } }],
     enabled: !!queryClientFnReady && !!showIssueDetail,
   })
   const issue = useMemo(() => {
@@ -101,7 +101,7 @@ const IssueMatchesDetails = () => {
             <DataGridHeadCell>Component Version</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement elem={issue?.componentInstance?.componentVersion.version} />
+              <LoadElement elem={issue?.componentInstance?.componentVersion?.version} />
             </DataGridCell>
           </DataGridRow>
 
@@ -128,7 +128,7 @@ const IssueMatchesDetails = () => {
           </DataGridRow>
 
           <DataGridRow>
-            <DataGridHeadCell>Issue Variant</DataGridHeadCell>
+            <DataGridHeadCell>Issue Type</DataGridHeadCell>
 
             <DataGridCell>{<LoadElement elem={issue?.issue?.type} />}</DataGridCell>
           </DataGridRow>

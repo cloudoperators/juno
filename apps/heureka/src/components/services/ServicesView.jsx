@@ -32,6 +32,7 @@ const ServicesView = () => {
           filterLabelValues={filterLabelValues}
           activeFilters={activeFilters}
           searchTerm={searchTerm}
+          searchTargets="service name"
         />
         <ListController
           queryKey="Services"
