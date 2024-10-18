@@ -3,4 +3,4 @@
 "@cloudoperators/juno-app-greenhouse": patch
 ---
 
-customize search placeholder for issuematches and services views in heureka
+Customized search placeholder for IssueMatches and Services views in heureka
