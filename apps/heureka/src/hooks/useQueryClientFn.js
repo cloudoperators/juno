@@ -12,6 +12,7 @@ import { componentsMainQuery, componentsCountQuery } from "../lib/queries/compon
 import { issueMatchesMainQuery, issueMatchesDetailsQuery, issueMatchesCountQuery } from "../lib/queries/issueMatches"
 import serviceFilterValuesQuery from "../lib/queries/serviceFilterValues"
 import issueMatchesFilterValuesQuery from "../lib/queries/issueMatchesFilterValues"
+import componentsFilterValuesQuery from "../lib/queries/componentsFilterValues"
 import addRemoveServiceOwners from "../lib/queries/addRemoveServiceOwners"
 import usersQuery from "../lib/queries/users"
 
@@ -101,6 +102,14 @@ const useQueryClientFn = () => {
       queryFn: async ({ queryKey }) => {
         const [_key, variables] = queryKey
         return await request(endpoint, issueMatchesFilterValuesQuery(), variables)
+      },
+      staleTime: Infinity, // this do not change often keep it until reload
+    })
+
+    queryClient.setQueryDefaults(["ComponentFilterValues"], {
+      queryFn: async ({ queryKey }) => {
+        const [_key, variables] = queryKey
+        return await request(endpoint, componentsFilterValuesQuery(), variables)
       },
       staleTime: Infinity, // this do not change often keep it until reload
     })
