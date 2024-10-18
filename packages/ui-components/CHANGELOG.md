@@ -1,5 +1,19 @@
 # @cloudoperators/juno-ui-components
 
+## 2.25.0
+
+### Minor Changes
+
+- bcb45f5: Migrate the Box component to TypeScript
+- 3ec48c0: Migrate the Message component to TypeScript and disable automatic timeout for values less than one
+- 3e21132: Migrate ShadowRoot component to TypeScript
+- 436f35a: Migrate the Search Input component to TypeScript
+- aaea462: Migrate Modal component to TypeScript
+
+### Patch Changes
+
+- f307966: fix(ui): fix broken pageheader layout (#506)
+
 ## 2.24.0
 
 ### Minor Changes
