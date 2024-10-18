@@ -17,7 +17,16 @@ const filtersStyles = `
   my-px
 `
 
-const Filters = ({ queryKey, entityName, filterLabels, filterLabelValues, activeFilters, searchTerm }) => {
+const Filters = ({
+  queryKey,
+  entityName,
+  filterLabels,
+  filterLabelValues,
+  activeFilters,
+  searchTerm,
+  enableSearch,
+  searchTargets,
+}) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
   const { setLabels, setFilterLabelValues } = useFilterActions()
 
@@ -59,6 +68,8 @@ const Filters = ({ queryKey, entityName, filterLabels, filterLabelValues, active
         filterLabels={filterLabels}
         filterLabelValues={filterLabelValues}
         searchTerm={searchTerm}
+        enableSearch={enableSearch}
+        searchTargets={searchTargets}
       />
       <FilterPills entityName={entityName} activeFilters={activeFilters} />
     </Stack>

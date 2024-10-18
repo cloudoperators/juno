@@ -26,6 +26,7 @@ const ComponentsView = () => {
           filterLabels={labels}
           filterLabelValues={filterLabelValues}
           activeFilters={activeFilters}
+          enableSearch={false}
         />
         <ListController
           queryKey="Components"

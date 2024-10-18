@@ -32,6 +32,8 @@ const IssueMatchesView = () => {
           filterLabelValues={filterLabelValues}
           activeFilters={activeFilters}
           searchTerm={searchTerm}
+          enableSearch={true}
+          searchTargets="primary name"
         />
         <ListController
           queryKey="IssueMatches"
