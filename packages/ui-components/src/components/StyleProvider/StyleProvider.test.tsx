@@ -4,13 +4,13 @@
  */
 
 import * as React from "react"
-import { render, screen, fireEvent, waitFor } from "@testing-library/react"
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { StyleProvider } from "./index"
 
-jest.mock("../../hooks/useLocalStorage", () => ({
+vi.mock("../../hooks/useLocalStorage", () => ({
   __esModule: true,
-  default: vi.fn((key, initialValue: string) => [initialValue, vi.fn()]),
+  default: vi.fn((key, initialValue :string) => [initialValue, vi.fn()]),
 }))
 
 describe("StyleProvider", () => {
@@ -24,7 +24,7 @@ describe("StyleProvider", () => {
     expect(container.querySelector("div.juno-app-body")).toHaveClass("my-theme")
   })
 
-  test("allows a child component to set the theme correctly via the function provided", () => {
+  test("allows a child component to set the theme correctly via the function provided", async () => {
     const TestToggleComponent = () => {
       const { setThemeClass } = StyleProvider.useStyles()
       return <button onClick={() => setThemeClass("theme-dark")}>Toggle Theme</button>
@@ -39,11 +39,11 @@ describe("StyleProvider", () => {
     expect(appBody).toHaveClass("theme-light")
 
     // Simulate theme toggle
-    fireEvent.click(screen.getByText("Toggle Theme"))
+    await act(() => fireEvent.click(screen.getByText("Toggle Theme")))
     expect(appBody).toHaveClass("theme-dark")
   })
 
-  test("allows a child component to set a css class on the container via the function provided", () => {
+  test("allows a child component to set a css class on the container via the function provided", async () => {
     const TestAddClassComponent = () => {
       const { addCssClass } = StyleProvider.useStyles()
       return <button onClick={() => addCssClass("added-css-class")}>Set a Class</button>
@@ -57,13 +57,13 @@ describe("StyleProvider", () => {
     const appBody = container.querySelector(".juno-app-body")
     expect(appBody).toHaveClass("theme-dark")
     // Simulate adding a class
-    fireEvent.click(screen.getByText("Set a Class"))
+    await act(() => fireEvent.click(screen.getByText("Set a Class")))
     expect(appBody).toHaveClass("added-css-class")
     // double-check existing classes are still there:
     expect(appBody).toHaveClass("theme-dark")
   })
 
-  test("allows a child component to remove a css class on the container via the function provided", () => {
+  test("allows a child component to remove a css class on the container via the function provided", async () => {
     const TestRemoveClassComponent = () => {
       const { removeCssClass } = StyleProvider.useStyles()
       return <button onClick={() => removeCssClass("theme-dark")}>Remove a Class</button>
@@ -78,7 +78,7 @@ describe("StyleProvider", () => {
     const appBody = container.querySelector(".juno-app-body")
     expect(appBody).toHaveClass("theme-dark")
     // Simulate removing a class
-    fireEvent.click(screen.getByText("Remove a Class"))
+    await act(() => fireEvent.click(screen.getByText("Remove a Class")))
     expect(appBody).not.toHaveClass("theme-dark")
   })
 
@@ -123,7 +123,7 @@ describe("StyleProvider", () => {
     expect(appBody).toHaveClass("theme-dark")
 
     // Simulate user changing the theme
-    await user.click(toggleButton)
+    await act(() => user.click(toggleButton))
 
     // Assert updated state
     expect(appBody).toHaveClass("theme-light")
@@ -145,8 +145,7 @@ describe("StyleProvider", () => {
   test.skip("updates the current theme name provided when the theme is changed", async () => {
     // Define a child component to use the context
     const TestChildComponent = () => {
-      const styles = StyleProvider.useStyles()
-      const { currentTheme, setThemeClass } = styles
+      const { currentTheme, setThemeClass } = StyleProvider.useStyles()
 
       return <button onClick={() => setThemeClass("theme-light")}>{currentTheme}</button>
     }
@@ -168,7 +167,7 @@ describe("StyleProvider", () => {
 
     // Create a userEvent instance and await click interaction
     const user = userEvent.setup()
-    await user.click(toggleButton) // Ensure to await the click
+    await act(() => user.click(toggleButton)) // Ensure to await the click
 
     // Wait for theme updates and assert final state
     await waitFor(() => {
