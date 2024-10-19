@@ -9,7 +9,7 @@ import ShellLayout from "./components/layout/ShellLayout"
 import Auth from "./components/Auth"
 import styles from "./styles.scss?inline"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
-import Plugins from "./components/Plugins"
+import Extensions from "./components/Extensions"
 import AsyncWorker from "./components/AsyncWorker"
 import StoreProvider, { useGlobalsActions } from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
@@ -37,7 +37,7 @@ const Shell = (props = {}) => {
       demoUserToken={props.demoUserToken}
     >
       <ShellLayout>
-        <Plugins />
+        <Extensions />
       </ShellLayout>
     </Auth>
   )

@@ -45,7 +45,7 @@ export default defineConfig(({ mode }) => {
       lib: {
         entry: "src/index.js",
         formats: ["es"],
-        fileName: () => `index.js`,
+        fileName: (format, entryAlias) => `${entryAlias}.js`,
       },
     },
   }

@@ -37,7 +37,7 @@ const AppContainer = ({ apiEndpoint, auth }) => {
 
   return (
     <MessagesProvider>
-      <Suspense fallback={"Loading..."}>
+      <Suspense fallback={"Loadingx..."}>
         <ActivePlugin
           apiEndpoint={apiEndpoint}
           token={auth?.JWT}
