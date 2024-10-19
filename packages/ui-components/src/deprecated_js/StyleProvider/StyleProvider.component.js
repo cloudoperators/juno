@@ -9,7 +9,7 @@ import { ShadowRoot } from "../ShadowRoot/index"
 import tailwindTheme from "../../../tailwind.config"
 import Fonts from "./Fonts"
 import GlobalStyles, { styles } from "./GlobalStyles"
-import useLocalStorage from "../../hooks/useLocalStorage"
+import useLocalStorage from "../hooks/useLocalStorage"
 
 // Create the context for values and methods to be provided to the nested components.
 const StylesContext = createContext()
