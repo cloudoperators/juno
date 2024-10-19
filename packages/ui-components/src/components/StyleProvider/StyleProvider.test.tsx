@@ -10,7 +10,7 @@ import { StyleProvider } from "./index"
 
 vi.mock("../../hooks/useLocalStorage", () => ({
   __esModule: true,
-  default: vi.fn((key, initialValue :string) => [initialValue, vi.fn()]),
+  default: vi.fn((key, initialValue: string) => [initialValue, vi.fn()]),
 }))
 
 describe("StyleProvider", () => {
