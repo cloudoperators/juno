@@ -3,6 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-.juno-search-input::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-}
+export { ShadowRoot } from "./ShadowRoot.component"
