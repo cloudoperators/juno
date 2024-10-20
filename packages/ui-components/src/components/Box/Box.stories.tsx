@@ -12,30 +12,22 @@ export default {
 }
 
 export const Default = {
-  parameters: {
-    docs: {
-      description: {
-        story: "A default Box",
-      },
-    },
-  },
-
   args: {
     children: "Some content in a Box.",
   },
 }
 
-export const UnpaddedBox = {
+export const WithoutPadding = {
   parameters: {
     docs: {
       description: {
-        story: "To remove the padding, set `unpad` prop.",
+        story: "To remove padding, set the `unpad` prop.",
       },
     },
   },
 
   args: {
-    children: "Unpadded Box",
+    children: "A Box without padding",
     unpad: true,
   },
 }

@@ -8,7 +8,15 @@ import { Button, InputGroup, SelectOption, Select, Stack, SearchInput } from "@c
 import { useFilterActions } from "../StoreProvider"
 import { humanizeString } from "../../lib/utils"
 
-const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, activeFilters, searchTerm }) => {
+const FilterSelect = ({
+  entityName,
+  isLoading,
+  filterLabels,
+  filterLabelValues,
+  activeFilters,
+  searchTerm,
+  searchTargets,
+}) => {
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
 
@@ -65,7 +73,7 @@ const FilterSelect = ({ entityName, isLoading, filterLabels, filterLabelValues, 
         <Button label="Clear all" onClick={() => clearActiveFilters(entityName)} variant="subdued" />
       )}
       <SearchInput
-        placeholder="Search term"
+        placeholder={`search term for ${searchTargets}`}
         className="w-96 ml-auto"
         value={searchTerm || ""}
         onSearch={(value) => setSearchTerm(entityName, value)}
