@@ -4,18 +4,18 @@
  */
 
 import React from "react"
-import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
+import { AppShell, PageHeader, TopNavigation, TopNavigationItem, Container } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActions, useGlobalsActiveView, useGlobalsEmbedded } from "./StoreProvider"
 import ServicesView from "./services/ServicesView"
 import IssueMatchesView from "./issueMatches/IssueMatchesView"
-import ComponentsView from "./components/ComponentsView"
+// import ComponentsView from "./components/ComponentsView"
 import constants from "./shared/constants"
 
 // Configuration for navigation items and their respective components
 const VIEW_CONFIG = {
   Services: { label: "Services", icon: "dns", component: ServicesView },
   IssueMatches: { label: "IssueMatches", icon: "autoAwesomeMotion", component: IssueMatchesView },
-  Components: { label: "Components", icon: "autoAwesomeMotion", component: ComponentsView },
+  // Components: { label: "Components", icon: "autoAwesomeMotion", component: ComponentsView }, // Commented out to remove ComponentsView for MVP version
 }
 
 const CustomAppShell = ({ children }) => {
@@ -42,8 +42,10 @@ const CustomAppShell = ({ children }) => {
 
   return (
     <AppShell pageHeader={<PageHeader heading="Heureka" />} topNavigation={topNavigation} embedded={embedded}>
-      {ActiveComponent && <ActiveComponent />}
-      {children}
+      <Container py px>
+        {ActiveComponent && <ActiveComponent />}
+        {children}
+      </Container>
     </AppShell>
   )
 }

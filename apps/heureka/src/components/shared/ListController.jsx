@@ -101,26 +101,26 @@ const ListController = ({ queryKey, entityName, ListComponent, activeFilters, se
 
   return (
     <>
-      <Container py>
-        <ListComponent items={items} isLoading={isLoadingMain || isLoadingCount} />
+      <ListComponent items={items} isLoading={isLoadingMain || isLoadingCount} />
+      <Container py px={false}>
+        <Stack className="flex justify-end">
+          <Pagination
+            currentPage={currentPage}
+            isFirstPage={currentPage === 1}
+            isLastPage={currentPage === totalPages}
+            onPressNext={() => onPaginationChanged(currentPage + 1)}
+            onPressPrevious={() => onPaginationChanged(currentPage - 1)}
+            onKeyPress={(oKey) => {
+              if (oKey.code === "Enter") {
+                onPaginationChanged(parseInt(oKey.currentTarget.value))
+              }
+            }}
+            onSelectChange={onPaginationChanged}
+            pages={totalPages}
+            variant="input"
+          />
+        </Stack>
       </Container>
-      <Stack className="flex justify-end">
-        <Pagination
-          currentPage={currentPage}
-          isFirstPage={currentPage === 1}
-          isLastPage={currentPage === totalPages}
-          onPressNext={() => onPaginationChanged(currentPage + 1)}
-          onPressPrevious={() => onPaginationChanged(currentPage - 1)}
-          onKeyPress={(oKey) => {
-            if (oKey.code === "Enter") {
-              onPaginationChanged(parseInt(oKey.currentTarget.value))
-            }
-          }}
-          onSelectChange={onPaginationChanged}
-          pages={totalPages}
-          variant="input"
-        />
-      </Stack>
     </>
   )
 }
