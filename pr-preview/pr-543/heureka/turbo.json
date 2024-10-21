@@ -1,0 +1,26 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "dev": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-communicator#build"
+      ]
+    },
+    "build": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-communicator#build"
+      ]
+    },
+    "build:static": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-communicator#build"
+      ]
+    }
+  }
+}
