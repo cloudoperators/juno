@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { StyleProvider } from "../../components/StyleProvider/StyleProvider.component"
+import { StyleProvider } from "../../deprecated_js/StyleProvider/StyleProvider.component"
 import { getCurrentThemeMode } from "../../../.storybook/juno-addon/themes"
 import { addons } from "@storybook/preview-api"
 
