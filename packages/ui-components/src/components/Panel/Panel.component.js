@@ -4,8 +4,10 @@
  */
 
 import React, { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import PropTypes from "prop-types"
 import { Icon } from "../../deprecated_js/Icon/Icon.component"
+import { usePortalRef } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
 const panelClasses = (isOpen, isTransitioning, size) => {
   return `
@@ -105,7 +107,9 @@ export const Panel = ({
     onClose && onClose(event)
   }
 
-  return (
+  const portalContainer = usePortalRef()
+
+  return createPortal(
     <div
       className={`juno-panel ${panelClasses(isOpen, isTransitioning, size)} ${className}`}
       role="dialog"
@@ -119,7 +123,8 @@ export const Panel = ({
         {isCloseable && <Icon icon="close" onClick={handleClose} className="juno-panel-close jn-ml-auto" />}
       </div>
       <div className={`juno-panel-content-wrapper ${contentWrapperClasses}`}>{children}</div>
-    </div>
+    </div>,
+    portalContainer ? portalContainer : document.body
   )
 }
 
