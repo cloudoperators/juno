@@ -7,7 +7,11 @@
     "Arturo Reuschenbach Pucernau"
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/doop",
-  "module": "build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./index.js": "./build/index.js",
+    "./package.json": "./package.json"
+  },
   "license": "Apache-2.0",
   "private": true,
   "devDependencies": {

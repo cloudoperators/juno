@@ -4,3 +4,50 @@
 [![Built with Juno](https://cloudoperators.github.io/juno/built-with-juno.svg)](https://github.com/cloudoperators/juno)
 
 This is the shell app for Project Greenhouse. It is the host for all apps that are part of Greenhouse.
+
+# Usage
+
+## Standalone Mode
+
+To create a static, runnable build, execute the following commands:
+
+```bash
+cd apps/greenhouse
+npx turbo build:static
+```
+
+This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy a `appProps.json` file containing the required props into the dist folder.
+
+## Development Mode
+
+<!-- add note -->
+
+> [!NOTE]  
+> Please make sure to copy the **appProps.template.js** file to **appProps.json** before proceeding.
+
+```bash
+cd apps/greenhouse
+npx turbo dev
+```
+
+### Testing
+
+```bash
+cd apps/greenhouse
+npx turbo test
+```
+
+## App Props
+
+These are the customizable application properties (appProps) that you can define in your appProps.json file:
+
+- **authIssuerUrl**: `"https://endpoint_url_of_the_openid_provider.com"` (required). Endpoint URL of the OpenID provider.
+- **authClientId**: `"tbd"` (required). OIDC client ID.
+- **theme**: `"theme-light"` or `"theme-dark"` (default). Override the default theme.
+- **embedded**: `true` or `false` (default). Set to true if the app is embedded in another existing app or page. If true, the app will not render a page header/footer and only render content.
+- **currentHost**: `"URL TO ASSETS SERVER"` (required). This value is usually set by the Widget Loader. If the app is loaded via `import` or `importShim`, this parameter should be set.
+- **apiEndpoint**: `"URL TO K8S API"` (required). This value is necessary to communicate with the Kubernetes API.
+- **mockAuth**: `true`, `false` (default), or `json` (optional). Mock the OIDC data, allowed values include pure or base64 encoded JSON.
+- **demoOrg**: `"demo"` (optional). If the organization name matches this value, the app will enter demo mode (mock authentication and demo org plugins).
+- **demoUserToken**: `"token for demo user"` (optional). Used for authentication if `demoOrg` and `demoUserToken` are set, and the organization name matches `demoOrg`.
+- **environment**: `"production"`, `"qa"`, `"development"`, etc. (optional). Can be used to load different plugins for different environments.
