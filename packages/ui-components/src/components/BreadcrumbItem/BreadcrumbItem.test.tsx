@@ -5,7 +5,7 @@
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
+import { describe, expect, test, vi } from "vitest"
 
 import { Button } from "../Button"
 import { BreadcrumbItem } from "."
@@ -59,7 +59,7 @@ describe("BreadcrumbItem", () => {
   })
 
   test("renders a disabled item as passed", () => {
-    const onClickSpy = jest.fn()
+    const onClickSpy = vi.fn()
     render(<BreadcrumbItem href="#" disabled data-testid="breadcrumbitem" onClick={onClickSpy} />)
     expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
     expect(screen.getByTestId("breadcrumbitem")).toHaveClass("juno-breadcrumb-item-disabled")
@@ -68,7 +68,7 @@ describe("BreadcrumbItem", () => {
   })
 
   test("executes an onClick handler as passed", () => {
-    const onClickSpy = jest.fn()
+    const onClickSpy = vi.fn()
     render(<BreadcrumbItem onClick={onClickSpy} />)
     screen.getByRole("link").click()
     expect(onClickSpy).toHaveBeenCalled()
