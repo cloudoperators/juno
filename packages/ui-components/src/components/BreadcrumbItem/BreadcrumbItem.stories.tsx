@@ -4,19 +4,22 @@
  */
 
 import React from "react"
-import { BreadcrumbItem } from "./index"
-import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
 
-const Template = (args) => {
+import { KnownIconsEnum } from "../Icon/Icon.component.js"
+import { BreadcrumbItem, BreadcrumbItemProps } from "./BreadcrumbItem.component.js"
+
+const Template: React.FC<BreadcrumbItemProps> = (args) => {
   return <BreadcrumbItem {...args} />
 }
+
+const iconOptions = Object.keys(KnownIconsEnum)
 
 export default {
   title: "Components/Breadcrumb/BreadcrumbItem",
   component: BreadcrumbItem,
   argTypes: {
     icon: {
-      options: ["default", ...knownIcons],
+      options: iconOptions,
       control: { type: "select" },
     },
     children: {

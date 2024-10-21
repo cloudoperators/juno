@@ -5,17 +5,19 @@
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import { BreadcrumbItem } from "./index"
-import { Button } from "../../deprecated_js/Button/index"
+import { describe, expect, test } from "vitest"
+
+import { Button } from "../Button"
+import { BreadcrumbItem } from "."
 
 describe("BreadcrumbItem", () => {
-  test("renders a breadcrumb item with text as passed", async () => {
+  test("renders a breadcrumb item with text as passed", () => {
     render(<BreadcrumbItem data-testid="breadcrumbitem" />)
     expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
     expect(screen.getByTestId("breadcrumbitem")).toHaveClass("juno-breadcrumb-item")
   })
 
-  test("returns children as passed", async () => {
+  test("returns children as passed", () => {
     render(
       <BreadcrumbItem>
         <Button label="Test Button" />
@@ -25,38 +27,38 @@ describe("BreadcrumbItem", () => {
     expect(screen.getByRole("button")).toHaveTextContent("Test Button")
   })
 
-  test("renders an icon as passed", async () => {
+  test("renders an icon as passed", () => {
     render(<BreadcrumbItem icon="help" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
     expect(screen.getByRole("img")).toHaveAttribute("title", "Help")
   })
 
-  test("renders a label as passed", async () => {
+  test("renders a label as passed", () => {
     render(<BreadcrumbItem data-testid="breadcrumbitem" label="My Item" />)
     expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
     expect(screen.getByTestId("breadcrumbitem")).toHaveTextContent("My Item")
   })
 
-  test("renders an aria-label as passed", async () => {
+  test("renders an aria-label as passed", () => {
     render(<BreadcrumbItem href="#" ariaLabel="My Item" />)
     expect(screen.getByRole("link")).toBeInTheDocument()
     expect(screen.getByRole("link")).toHaveAttribute("aria-label", "My Item")
   })
 
-  test("renders the label as aria-label by default", async () => {
+  test("renders the label as aria-label by default", () => {
     render(<BreadcrumbItem href="#" label="My Item" />)
     expect(screen.getByRole("link")).toBeInTheDocument()
     expect(screen.getByRole("link")).toHaveAttribute("aria-label", "My Item")
   })
 
-  test("renders an active item that is not a link as passed", async () => {
+  test("renders an active item that is not a link as passed", () => {
     render(<BreadcrumbItem href="#" active data-testid="breadcrumbitem" />)
     expect(screen.queryByRole("link")).not.toBeInTheDocument()
     expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
     expect(screen.getByTestId("breadcrumbitem")).toHaveClass("juno-breadcrumb-item-active")
   })
 
-  test("renders a disabled item as passed", async () => {
+  test("renders a disabled item as passed", () => {
     const onClickSpy = jest.fn()
     render(<BreadcrumbItem href="#" disabled data-testid="breadcrumbitem" onClick={onClickSpy} />)
     expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
@@ -65,20 +67,20 @@ describe("BreadcrumbItem", () => {
     expect(onClickSpy).not.toHaveBeenCalled()
   })
 
-  test("executes an onClick handler as passed", async () => {
+  test("executes an onClick handler as passed", () => {
     const onClickSpy = jest.fn()
     render(<BreadcrumbItem onClick={onClickSpy} />)
     screen.getByRole("link").click()
     expect(onClickSpy).toHaveBeenCalled()
   })
 
-  test("renders a custom className as passed", async () => {
+  test("renders a custom className as passed", () => {
     render(<BreadcrumbItem data-testid="breadcrumbitem" className="my-custom-class" />)
     expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
     expect(screen.getByTestId("breadcrumbitem")).toHaveClass("my-custom-class")
   })
 
-  test("renders all props as passed", async () => {
+  test("renders all props as passed", () => {
     render(<BreadcrumbItem data-testid="breadcrumbitem" data-lolol={true} />)
     expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
     expect(screen.getByTestId("breadcrumbitem")).toHaveAttribute("data-lolol")
