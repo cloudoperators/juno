@@ -149,7 +149,7 @@ export interface StyleProviderProps {
   /** What element to render as a wrapper, respectively where to render the StyleProvider.  */
   stylesWrapper?: StyleProviderStylesWrapper
   /** The name of the theme to render. */
-  theme?: string
+  theme?: string | null
   /** The mode of the shadowRoot. Only relevant when `stylesWrapper="shadowRoot"`. */
   shadowRootMode?: ShadowRootMode
 }

@@ -9,7 +9,7 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Select } from "./index"
 import { SelectOption } from "../SelectOption/index"
-import { AppShellProvider } from "../AppShellProvider/index"
+import { AppShellProvider } from "../../deprecated_js/AppShellProvider/index"
 
 const mockOnChange = jest.fn()
 const mockOnValueChange = jest.fn()

@@ -4,11 +4,10 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
-import { StyleProvider } from "../../deprecated_js/StyleProvider/StyleProvider.component"
-import { ShadowRoot } from "../../deprecated_js/ShadowRoot/ShadowRoot.component"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
+import { StyleProvider } from "../StyleProvider/StyleProvider.component"
+import { ShadowRoot } from "../ShadowRoot/ShadowRoot.component"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 /**
  * This provider acts as a wrapper for Juno apps. It renders a StyleProvider and PortalProvider
@@ -19,9 +18,9 @@ export const AppShellProvider = ({
   stylesWrapper = "inline",
   theme = null,
   children,
-}) => {
+}: AppShellProviderProps) => {
   const Wrapper = React.useCallback(
-    ({ children }) => (shadowRoot ? <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot> : children),
+    ({ children }: WrapperProps) => (shadowRoot ? <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot> : children),
     [shadowRoot, shadowRootMode]
   )
   return (
@@ -33,14 +32,20 @@ export const AppShellProvider = ({
   )
 }
 
-AppShellProvider.propTypes = {
+export type AppShellStyleWrapper = "head" | "inline"
+
+interface WrapperProps {
+  children?: React.ReactNode
+}
+
+export interface AppShellProviderProps {
   /** Whether the app is rendered inside a ShadowRoot. Only choose false if the app is meant to run as a stand-alone application. */
-  shadowRoot: PropTypes.bool,
+  shadowRoot?: boolean
   /** Shadow root mode */
-  shadowRootMode: PropTypes.oneOf(["open", "closed"]),
+  shadowRootMode?: ShadowRootMode
   /** Where app stylesheets are imported. This is only relevant if shadowRoot === false. If you use a ShadowRoot the styles must be inline. */
-  stylesWrapper: PropTypes.oneOf(["head", "inline"]),
+  stylesWrapper?: AppShellStyleWrapper
   /** theme: theme-dark or theme-light */
-  theme: PropTypes.string,
-  children: PropTypes.any,
+  theme?: string | null
+  children?: React.ReactNode
 }
