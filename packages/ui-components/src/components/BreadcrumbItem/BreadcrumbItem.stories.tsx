@@ -5,8 +5,8 @@
 
 import React from "react"
 
-import { KnownIconsEnum } from "../Icon/Icon.component.js"
-import { BreadcrumbItem, BreadcrumbItemProps } from "./BreadcrumbItem.component.js"
+import { KnownIconsEnum } from "../Icon/Icon.component"
+import { BreadcrumbItem, BreadcrumbItemProps } from "./BreadcrumbItem.component"
 
 const Template: React.FC<BreadcrumbItemProps> = (args) => {
   return <BreadcrumbItem {...args} />
