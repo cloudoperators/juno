@@ -64,7 +64,7 @@ export interface BreadcrumbItemProps {
 }
 
 /**
- * An individual item in a Breadcrumb component
+ * BreadcrumbItem represents an individual item within a Breadcrumb component.
  */
 export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
   icon = null,

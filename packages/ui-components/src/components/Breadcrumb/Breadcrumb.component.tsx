@@ -22,8 +22,12 @@ export interface BreadcrumbProps {
 }
 
 /**
- * A generic Breadcrumb component.
- * Use this to wrap BreadcrumbItem or other custom components in a breadcrumb.
+ * Breadcrumb is a component that structures navigational links in a breadcrumb trail.
+ *
+ * This component:
+ * - Wraps around BreadcrumbItem or other custom components to create breadcrumb navigation.
+ * - Automatically inserts separator icons between items.
+ * - Filters out invalid React elements to prevent rendering errors.
  */
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({ children = null, className = "", ...props }) => {
   const childrenArray = Children.toArray(children).filter(React.isValidElement) // Filter out invalid elements
