@@ -1,0 +1,26 @@
+
+> @cloudoperators/juno-app-example@1.0.10 build:static
+> vite build --mode static
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.9 [32mbuilding for static...[36m[39m
+transforming...
+DEPRECATION WARNING: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+[32m✓[39m 249 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mbuild/[22m[32mindex.html                          [39m[1m[2m    0.78 kB[22m[1m[22m[2m │ gzip:     0.46 kB[22m
+[2mbuild/[22m[2massets/[22m[32mapp_bg_example-Bs7YGqs5.svg  [39m[1m[2m    7.33 kB[22m[1m[22m[2m │ gzip:     3.37 kB[22m
+[2mbuild/[22m[2massets/[22m[32mfavicon-BCN2Ir7d.ico         [39m[1m[2m   15.09 kB[22m[1m[22m
+[2mbuild/[22m[2massets/[22m[36mindex-BYR2nYYN.js            [39m[1m[2m    2.11 kB[22m[1m[22m[2m │ gzip:     1.09 kB[22m
+[2mbuild/[22m[2massets/[22m[36mindex-DoQiSYCM.js            [39m[1m[2m  141.84 kB[22m[1m[22m[2m │ gzip:    45.75 kB[22m
+[2mbuild/[22m[2massets/[22m[36mApp-knbe_P3G.js              [39m[1m[33m3,666.57 kB[39m[22m[2m │ gzip: 2,311.85 kB[22m
+[33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[32m✓ built in 3.34s[39m
