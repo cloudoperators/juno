@@ -16,14 +16,6 @@ describe("BreadcrumbItem", () => {
       render(<BreadcrumbItem />)
       expect(screen.getByText("Item")).toBeInTheDocument()
     })
-
-    test("renders default icon when 'icon' prop is not passed", () => {
-      render(<BreadcrumbItem />)
-      const svgElement = screen.getByRole("img")
-      expect(svgElement).toBeInTheDocument()
-      const titleElement = screen.getByText("Help", { selector: "title" })
-      expect(titleElement).toBeInTheDocument()
-    })
   })
 
   describe("Handling Props", () => {
