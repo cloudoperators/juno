@@ -56,6 +56,11 @@ export interface BreadcrumbItemProps {
    * Custom content to render within the breadcrumb item, replacing the default content.
    */
   children?: React.ReactNode
+
+  /**
+   * Additional arbitrary props.
+   */
+  [key: string]: any
 }
 
 /**
