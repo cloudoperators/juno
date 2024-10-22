@@ -7,7 +7,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="src/img/favicon.ico" sizes="any" />
+    <link rel="icon" href="./assets/favicon-BCN2Ir7d.ico" sizes="any" />
 
     <title>EXAMPLEAPP Dev</title>
     <style>
@@ -27,21 +27,9 @@
         display: inline;
       }
     </style>
+    <script type="module" crossorigin src="./assets/index-B7PRsv2N.js"></script>
   </head>
   <body>
-    <script type="module">
-      // appProps are excluded from standalone build and should be generated from outside
-      fetch("./appProps.json")
-        .then((res) => res.json())
-        .catch((error) => {
-          console.warn("No appProps found, using default props", error.message)
-        })
-        .then((props) => {
-          import("./src/index").then((app) => {
-            app.mount(document.getElementById("root"), { props })
-          })
-        })
-    </script>
     <div id="root" data-juno-app="exampleapp"></div>
   </body>
 </html>
