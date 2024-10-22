@@ -36,7 +36,7 @@ describe("Breadcrumb Component", () => {
   })
 
   describe("Children Rendering", () => {
-    test("renders children elements correctly", () => {
+    test("renders children elements", () => {
       render(
         <Breadcrumb data-testid="breadcrumb">
           <BreadcrumbItem label="Item 1" />
