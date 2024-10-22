@@ -88,7 +88,7 @@ jobs:
         id: build-supernova
         if: github.event.action != 'closed' && env.IS_SUPERNOVA_CHANGED == 'true'
         run: |
-          ./.github/scripts/build-app.sh
+          ./.github/scripts/build-vite-app.sh
         env:
           PACKAGE_PATH: apps/supernova
           TARGET_FOLDER: supernova
@@ -128,7 +128,7 @@ jobs:
         id: build-greenhouse
         if: github.event.action != 'closed' && env.IS_GREENHOUSE_CHANGED == 'true'
         run: |
-          ./.github/scripts/build-app.sh
+          ./.github/scripts/build-vite-app.sh
 
           # Specific changes for greenhouse
           sed -i 's|/appProps.json?%VERSION%|./appProps.json|g' "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
