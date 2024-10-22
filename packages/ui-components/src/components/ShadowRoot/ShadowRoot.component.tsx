@@ -63,7 +63,7 @@ export const ShadowRoot = ({ mode = "open", delegatesFocus = false, children = n
   )
 }
 
-type ShadowRootMode = "open" | "closed"
+export type ShadowRootMode = "open" | "closed"
 
 // define accepted properties
 export interface ShadowRootProps {
