@@ -151,7 +151,7 @@ jobs:
     needs: [build-and-push-greenhouse-image]
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
     with:
-      title: "🚨 JUNO Supernova Image Failed 🚨"
-      body: "An error occurred while building the Supernova image for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+      title: "🚨 JUNO Greenhouse Image Failed 🚨"
+      body: "An error occurred while building the Greenhouse image for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

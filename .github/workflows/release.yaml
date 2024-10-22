@@ -61,7 +61,7 @@ jobs:
     needs: [release]
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-shared-slack
     with:
-      title: "🚨 JUNO Supernova Image Failed 🚨"
-      body: "An error occurred while building the Supernova image for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+      title: "🚨 JUNO Packages Release Failed 🚨"
+      body: "An error occurred while releasing JUNO Packages for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
