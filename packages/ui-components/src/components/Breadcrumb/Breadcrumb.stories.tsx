@@ -4,20 +4,12 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Breadcrumb } from "./index"
-import { BreadcrumbItem } from "../BreadcrumbItem/index"
-// import { Default as Item } from '../BreadcrumbItem/BreadcrumbItem.stories';
-// import { Home as HomeItem } from '../BreadcrumbItem/BreadcrumbItem.stories';
-// import { Active as ActiveItem } from '../BreadcrumbItem/BreadcrumbItem.stories';
-// import { Disabled as DisabledItem } from '../BreadcrumbItem/BreadcrumbItem.stories';
-// import { WithIcon as ItemWithIcon } from '../BreadcrumbItem/BreadcrumbItem.stories';
 
-const Template = ({ children, ...args }) => {
+import { BreadcrumbItem } from "../BreadcrumbItem"
+import { Breadcrumb, BreadcrumbProps } from "./Breadcrumb.component"
+
+const Template: React.FC<BreadcrumbProps> = ({ children, ...args }) => {
   return <Breadcrumb {...args}>{children}</Breadcrumb>
-}
-Template.propTypes = {
-  children: PropTypes.node,
 }
 
 export default {
