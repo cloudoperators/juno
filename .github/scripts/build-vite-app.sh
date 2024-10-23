@@ -2,7 +2,7 @@
 set -e
 
 # collect the necessary information
-entry_file=$(jq -r '.module // .main' $PACKAGE_PATH/package.json)
+entry_file=$(jq -r '.module // .main // .exports["."]' $PACKAGE_PATH/package.json)
 build_folder=$(dirname $entry_file)
 package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
 
