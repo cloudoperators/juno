@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.26.0
+
+### Minor Changes
+
+- d55e192: Migrate the Breadcrumb and BreadcrumbItem components to Typescript
+
 ## 2.25.0
 
 ### Minor Changes
