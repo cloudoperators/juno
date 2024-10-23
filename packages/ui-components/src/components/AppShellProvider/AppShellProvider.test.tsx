@@ -5,7 +5,7 @@
 
 import * as React from "react"
 import { render } from "@testing-library/react"
-import { AppShellProvider } from "./index"
+import { AppShellProvider } from "./AppShellProvider.component"
 
 describe("AppShellProvider", () => {
   test("renders an AppShellProvider wrapper div with 'theme-dark' theme class by default", () => {
