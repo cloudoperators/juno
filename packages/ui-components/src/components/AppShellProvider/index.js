@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { AppShellProvider } from "./AppShellProvider.component"
+export { AppShellProvider } from "../../depecated_js/AppShellProvider/AppShellProvider.component"

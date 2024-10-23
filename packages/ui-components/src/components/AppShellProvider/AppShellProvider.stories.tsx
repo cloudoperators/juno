@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-// import { CodeBlock } from "../CodeBlock/index.js"
 import { Message } from "../Message/Message.component"
 import { AppShellProvider, AppShellProviderProps } from "./AppShellProvider.component"
 
