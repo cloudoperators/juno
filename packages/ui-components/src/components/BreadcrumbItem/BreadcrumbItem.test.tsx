@@ -27,12 +27,9 @@ describe("BreadcrumbItem", () => {
 
     test("renders an icon as passed", () => {
       render(<BreadcrumbItem icon="help" />)
-      const svgElement = screen.getByRole("img")
-      expect(svgElement).toBeInTheDocument()
-
-      const titleElement = svgElement.querySelector("title")
-      expect(titleElement).toBeInTheDocument()
-      expect(titleElement).toHaveTextContent("Help")
+      const imgElement = screen.getByRole("img")
+      expect(imgElement).toBeInTheDocument()
+      expect(imgElement).toHaveAttribute("alt", "help")
     })
 
     test("renders a label as passed", () => {
