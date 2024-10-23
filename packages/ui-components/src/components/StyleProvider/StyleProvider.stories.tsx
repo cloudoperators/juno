@@ -5,6 +5,7 @@
 
 import React from "react"
 import { StyleProvider } from "./index"
+import { StyleProviderProps } from "./StyleProvider.component"
 
 export default {
   title: "Layout/StyleProvider",
@@ -22,7 +23,9 @@ export default {
   },
 }
 
-const Template = (args) => <StyleProvider {...args}>{args.children || args.stylesWrapper || "undefined"}</StyleProvider>
+const Template = (args: StyleProviderProps) => (
+  <StyleProvider {...args}>{args.children || args.stylesWrapper || "undefined"}</StyleProvider>
+)
 
 export const AddStylesToHead = {
   render: Template,

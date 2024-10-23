@@ -6,7 +6,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import { StyleProvider } from "../StyleProvider/StyleProvider.component"
+import { StyleProvider } from "../../deprecated_js/StyleProvider/StyleProvider.component"
 import { ShadowRoot } from "../../deprecated_js/ShadowRoot/ShadowRoot.component"
 import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
