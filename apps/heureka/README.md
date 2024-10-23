@@ -3,34 +3,34 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Built with Juno](https://cloudoperators.github.io/juno/built-with-juno.svg)](https://github.com/cloudoperators/juno)
 
-This mircro frontent uses the Heureka POC API which aims to:
+This mircro frontend uses the Heureka POC API which aims to:
 
 - Track the overall state of our technology landscape
-- Establish a unified & complete Patch Management Process:
+- Establish a unified and complete Patch Management Process, including:
 
-  - Maintain & track vulnerabilities and affected components
-  - Document the remediation, classification, and impact of vulnerabilities
-  - Document the changes corresponding with patching of vulnerabilities, as well as updating components
+  - Maintaining and tracking vulnerabilities and affected components
+  - Documenting the remediation, classification, and impact of vulnerabilities
+  - Recording changes related to vulnerability patching and component updates
 
-  **Coming soon:**
+For your more info Heureka is a Security Posture Management tool designed to manage security issues in a cloud operating system.
+
+Its primary focus is remediation management of security issues such as vulnerabilities, security events, and policy violations while ensuring compliance and audit-ability. The BE code for Heureka including its used API here for frontend is available in the following repo: https://github.com/cloudoperators/heureka
+
+## Coming soon
 
 - Configurable initial filters to automatically apply at app startup.
 - Pagination for the Component Instances list in the service details panel.
 
-For your more info Heureka is a Security Posture Management tool designed to manage security issues in a cloud operating system.
-
-Its primary focus is remediation management of security issues such as vulnerabilities, security events, and policy violations while ensuring compliance and audit-ability. The BE code for Heureka including its used API here for frontend is availble in the following repo: https://github.com/cloudoperators/heureka
-
 ## Screenshots
 
 IssueMatches list view:
-![Issue Matches List](../assets/images/heureka_issues_matches_list.png)
+![Issue Matches List](../../assets/images/heureka_issues_matches_list.png)
 IssueMatches detail view:
-![Issue Matches Detail](../assets/images/heureka_issues_matches_detail.png)
+![Issue Matches Detail](../../assets/images/heureka_issues_matches_detail.png)
 Services list view:
-![Services List](../assets/images/heureka_services_list.png)
+![Services List](../../assets/images/heureka_services_list.png)
 Services detail view:
-![Services Detail](../assets/images/heureka_services_detail.png)
+![Services Detail](../../assets/images/heureka_services_detail.png)
 
 ## Standalone Mode
 
