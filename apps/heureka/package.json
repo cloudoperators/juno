@@ -8,7 +8,9 @@
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka",
   "license": "Apache-2.0",
-  "module": "build/index.js",
+  "exports": {
+    ".": "./build/index.js"
+  },
   "private": true,
   "devDependencies": {
     "@cloudoperators/juno-config": "*",
