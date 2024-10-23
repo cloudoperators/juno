@@ -86,4 +86,4 @@ These measures will help ensure a secure and stable environment for the **Greenh
 
 ## 5. **References**
 
-- [Carbon BRD](#)
+- [Carbon BRD](../proposals/004_carbon_brd.md)
