@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.27.0
+
+### Minor Changes
+
+- fb9146a: Migrate StyleProvider to TypeScript
+
 ## 2.26.0
 
 ### Minor Changes
