@@ -7,13 +7,10 @@ import { useCallback, useMemo } from "react"
 import { createClient } from "sapcc-k8sclient"
 import { useAuthData, useGlobalsApiEndpoint, useGlobalsAssetsHost } from "../components/StoreProvider"
 import { createPluginConfig } from "../lib/plugin"
-// import { getManifest } from "../lib/manifestLoader"
 
 // get plugin configs from k8s api
 const useApi = () => {
   const authData = useAuthData()
-  // const token = useStoreByKey("auth.data?.JWT")
-  // const groups = useStoreByKey("auth.data?.raw?.groups")
   const apiEndpoint = useGlobalsApiEndpoint()
   const assetsHost = useGlobalsAssetsHost()
 

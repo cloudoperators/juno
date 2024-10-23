@@ -8,9 +8,7 @@
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/doop",
   "exports": {
-    ".": "./build/index.js",
-    "./index.js": "./build/index.js",
-    "./package.json": "./package.json"
+    ".": "./build/index.js"
   },
   "license": "Apache-2.0",
   "private": true,
