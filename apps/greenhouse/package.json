@@ -19,7 +19,6 @@
     "@tailwindui/react": "^0.1.1",
     "@testing-library/react": "^16.0.1",
     "@vitejs/plugin-react": "^4.3.3",
-    "assert": "^2.0.0",
     "autoprefixer": "^10.4.2",
     "github-markdown-css": "^5.7.0",
     "immer": "^9.0.21",
