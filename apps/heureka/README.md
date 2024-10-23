@@ -26,7 +26,7 @@ Its primary focus is remediation management of security issues such as vulnerabi
 IssueMatches list view:
 ![Issue Matches List](../../assets/images/heureka_issues_matches_list.png)
 IssueMatches detail view:
-![Issue Matches Detail](../../assets/images/heureka_issues_matches_detail.png)
+![Issue Matches Detail](../../assets/images/heureka_issues_matches-detail.png)
 Services list view:
 ![Services List](../../assets/images/heureka_services_list.png)
 Services detail view:
