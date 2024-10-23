@@ -41,13 +41,13 @@ npx turbo test
 
 These are the customizable application properties (appProps) that you can define in your appProps.json file:
 
-- **authIssuerUrl**: `"https://endpoint_url_of_the_openid_provider.com"` (required). Endpoint URL of the OpenID provider.
-- **authClientId**: `"tbd"` (required). OIDC client ID.
+- **authIssuerUrl** (required): `"https://endpoint_url_of_the_openid_provider.com"`. Endpoint URL of the OpenID provider.
+- **authClientId** (required): `"tbd"`. OIDC client ID.
 - **theme**: `"theme-light"` or `"theme-dark"` (default). Override the default theme.
 - **embedded**: `true` or `false` (default). Set to true if the app is embedded in another existing app or page. If true, the app will not render a page header/footer and only render content.
-- **currentHost**: `"URL TO ASSETS SERVER"` (required). This value is usually set by the Widget Loader. If the app is loaded via `import` or `importShim`, this parameter should be set.
-- **apiEndpoint**: `"URL TO K8S API"` (required). This value is necessary to communicate with the Kubernetes API.
+- **currentHost** (required): `"URL TO ASSETS SERVER"`. This value is usually set by the Widget Loader. If the app is loaded via `import` or `importShim`, this parameter should be set.
+- **apiEndpoint** (required): `"URL TO K8S API"`. This value is necessary to communicate with the Kubernetes API.
 - **mockAuth**: `true`, `false` (default), or `json` (optional). Mock the OIDC data, allowed values include pure or base64 encoded JSON.
-- **demoOrg**: `"demo"` (optional). If the organization name matches this value, the app will enter demo mode (mock authentication and demo org plugins).
-- **demoUserToken**: `"token for demo user"` (optional). Used for authentication if `demoOrg` and `demoUserToken` are set, and the organization name matches `demoOrg`.
-- **environment**: `"production"`, `"qa"`, `"development"`, etc. (optional). Can be used to load different plugins for different environments.
+- **demoOrg** (optional): `"demo"`. If the organization name matches this value, the app will enter demo mode (mock authentication and demo org plugins).
+- **demoUserToken** (optional): `"token for demo user"`. Used for authentication if `demoOrg` and `demoUserToken` are set, and the organization name matches `demoOrg`.
+- **environment** (optional): `"production"`, `"qa"`, `"development"`, etc. Can be used to load different plugins for different environments.
