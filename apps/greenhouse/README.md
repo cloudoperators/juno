@@ -44,7 +44,7 @@ These are the customizable application properties (appProps) that you can define
 - **authIssuerUrl** (required): `"https://endpoint_url_of_the_openid_provider.com"`. Endpoint URL of the OpenID provider.
 - **authClientId** (required): `"tbd"`. OIDC client ID.
 - **theme** (optional): Overrides the default theme. Acceptable values are `"theme-light"` or `"theme-dark"` (default).
-- **embedded**: `true` or `false` (default). Set to true if the app is embedded in another existing app or page. If true, the app will not render a page header/footer and only render content.
+- **embedded** (optional): Set to `true` if the app will be embedded within another app or page. When `true`, the app will not display the header or footer, rendering only the content. Default is `false`.
 - **currentHost** (required): `"URL TO ASSETS SERVER"`. This value is usually set by the Widget Loader. If the app is loaded via `import` or `importShim`, this parameter should be set.
 - **apiEndpoint** (required): `"URL TO K8S API"`. This value is necessary to communicate with the Kubernetes API.
 - **mockAuth**: `true`, `false` (default), or `json` (optional). Mock the OIDC data, allowed values include pure or base64 encoded JSON.
