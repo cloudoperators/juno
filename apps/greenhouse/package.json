@@ -17,7 +17,6 @@
     "@cloudoperators/juno-config": "*",
     "@svgr/plugin-jsx": "^7.0.0",
     "@tailwindui/react": "^0.1.1",
-    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^16.0.1",
     "@vitejs/plugin-react": "^4.3.3",
     "assert": "^2.0.0",
