@@ -10,7 +10,7 @@ import { Stack } from "../Stack"
 
 import "./searchinput.scss"
 
-export interface SearchInputProps {
+export interface SearchInputProps extends Omit<React.HTMLProps<HTMLInputElement>, "onClick"> {
   /**
    * Specifies the name attribute for the input element.
    */

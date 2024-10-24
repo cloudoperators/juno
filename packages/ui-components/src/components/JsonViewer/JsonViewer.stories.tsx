@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { JsonViewer } from "./index.js"
+import { JsonViewer } from "./index.ts"
 
 export default {
   title: "Components/JsonViewer",
