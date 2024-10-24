@@ -6,26 +6,9 @@
 import React, { useContext, useLayoutEffect } from "react"
 import * as themes from "./themes"
 import { SearchInput } from "../SearchInput"
-
-// DEFAULT THEME (DARK)
-const DEFAULT_THEME: themes.JsonViewerTheme = {
-  base00: "var(--color-syntax-highlight-base00)", // background
-  base01: "var(--color-syntax-highlight-base01)", // toolbar: border, background
-  base02: "var(--color-syntax-highlight-base02)", // border, type background, border
-  base03: "var(--color-syntax-highlight-base03)", // -
-  base04: "var(--color-syntax-highlight-base04)", // size
-  base05: "var(--color-syntax-highlight-base05)", // types: "undefined"
-  base06: "var(--color-syntax-highlight-base06)", // -
-  base07: "var(--color-syntax-highlight-base07)", // key, brace
-  base08: "var(--color-syntax-highlight-base08)", // types: "NaN"
-  base09: "var(--color-syntax-highlight-base09)", // ..., types: "string"
-  base0A: "var(--color-syntax-highlight-base0A)", // types: "null", "regex"
-  base0B: "var(--color-syntax-highlight-base0B)", // types: "float"
-  base0C: "var(--color-syntax-highlight-base0C)", // array index
-  base0D: "var(--color-syntax-highlight-base0D)", // expanded icon, types: "date", "function"
-  base0E: "var(--color-syntax-highlight-base0E)", // collapsed icon, types: "boolean"
-  base0F: "var(--color-syntax-highlight-base0F)", // copy icon, types: "integer"
-}
+import { ExpandControlType, ExpandIconProps, TypeValueLabelType } from "./JsonViewer.types"
+import { ExpandAllIcon, CollapseAllIcon } from "./JsonViewer.ToolbarIcons.component"
+import { ThemeContext, colorMap, DEFAULT_THEME } from "./JsonViewer.context"
 
 // indent size in pixel
 const INDENTATION_SIZE = 5
@@ -36,128 +19,38 @@ const DEFAULT_INDENT_WIDTH = 4
 // default expand setting
 const DEFAULT_EXPANDED = 1
 
-// map of color keys to theme
-const colorMap = (theme: themes.JsonViewerTheme): ThemeColors => ({
-  background: theme.base00,
-  ellipsis: theme.base09,
-  brace: theme.base07,
-  key: theme.base07,
-  index: theme.base0C,
-  size: theme.base04,
-  border: theme.base02,
-  highlight: {
-    foreground: theme.base06,
-    background: theme.base02,
-  },
-  toolbar: {
-    border: theme.base01,
-    background: theme.base01,
-    foreground: theme.base07,
-  },
-  icon: {
-    expanded: theme.base0D,
-    collapsed: theme.base0E,
-    expandAll: theme.base0E,
-  },
-  dataType: {
-    boolean: theme.base0E,
-    date: theme.base0D,
-    float: theme.base0B,
-    function: theme.base0D,
-    integer: theme.base0F,
-    string: theme.base09,
-    nan: theme.base08,
-    null: theme.base0A,
-    undefined: theme.base05,
-    regexp: theme.base0A,
-    background: theme.base02,
-  },
-})
-
-// get type of value
-const type = (value: unknown): TypeValueLabelType => {
+function getValueTypeFromObject(value: object | null) {
   if (value === null) return "null"
   if (Array.isArray(value)) return "array"
   if (value instanceof RegExp) return "regexp"
   if (value instanceof Date) return "date"
-  const t = (typeof value).toLowerCase()
-  if (t === "number") {
-    if (Number.isNaN(value)) return "nan"
-    return Number.isInteger(value) ? "integer" : "float"
-  } else return t as TypeValueLabelType
+  return "object"
 }
 
-interface ThemeColors {
-  background?: string
-  ellipsis?: string
-  brace?: string
-  key?: string
-  index?: string
-  size?: string
-  border?: string
-  highlight: {
-    foreground?: string
-    background?: string
-  }
-  toolbar: {
-    border?: string
-    background?: string
-    foreground?: string
-  }
-  icon: {
-    expanded?: string
-    collapsed?: string
-    expandAll?: string
-  }
-  dataType: {
-    array?: string
-    object?: string
-    boolean?: string
-    date?: string
-    float?: string
-    function?: string
-    integer?: string
-    string?: string
-    nan?: string
-    null?: string
-    undefined?: string
-    regexp?: string
-    background?: string
+function getValueTypeFromNumber(value: number | null) {
+  if (Number.isNaN(value)) return "nan"
+  return Number.isInteger(value) ? "integer" : "float"
+}
+
+export const getTypeOfTheValue = (value: unknown): TypeValueLabelType => {
+  switch (typeof value) {
+    case "object":
+      return getValueTypeFromObject(value)
+    case "number":
+      return getValueTypeFromNumber(value)
+    case "boolean":
+      return "boolean"
+    case "string":
+      return "string"
+    case "undefined":
+      return "undefined"
+    case "function":
+      return "function"
+    default:
+      return "background"
   }
 }
 
-interface ThemeContextType {
-  colors: ThemeColors
-  searchTerm?: string | null
-  truncate?: number | boolean
-  onExpandAll?: OnExapandFunc
-  onSearch?: OnSearchFunc
-
-  expanded: number | boolean
-  indentWidth: number
-  expandAll?: ExpandControlType | null
-}
-
-interface ExpandControlType {
-  expanded: boolean
-  timestamp: number
-}
-
-// eslint-disable-next-line no-unused-vars
-type OnExapandFunc = (value: boolean) => void
-// eslint-disable-next-line no-unused-vars
-type OnSearchFunc = (value: string | null) => void
-
-// Theme context to provide colors, ident size ect. in component tree
-const ThemeContext = React.createContext<ThemeContextType>({
-  colors: colorMap(DEFAULT_THEME),
-  indentWidth: DEFAULT_INDENT_WIDTH,
-  expanded: DEFAULT_EXPANDED,
-})
-
-interface ExpandIconProps {
-  expanded: boolean
-}
 // this component renders the expand icon depends on the expanded prop
 // per entry
 const ExpandIcon = ({ expanded }: ExpandIconProps) => {
@@ -181,42 +74,6 @@ const ExpandIcon = ({ expanded }: ExpandIconProps) => {
       ) : (
         <path d="M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"></path>
       )}
-    </svg>
-  )
-}
-
-// Toolbar Icon
-const ExpandAllIcon = () => {
-  const { colors } = useContext(ThemeContext)
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill={colors.icon.expandAll}
-      role="img"
-    >
-      <title>Expand All</title>
-      <path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path>
-    </svg>
-  )
-}
-
-// Toolbar Icon
-const CollapseAllIcon = () => {
-  const { colors } = useContext(ThemeContext)
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill={colors.icon.expandAll}
-      role="img"
-    >
-      <title>Collapse All</title>
-      <path d="m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14l-6-6z"></path>
     </svg>
   )
 }
@@ -322,21 +179,6 @@ const TypeValueLabel = ({ type, value }: TypeValueLabelProps) => {
   )
 }
 
-type TypeValueLabelType =
-  | "array"
-  | "object"
-  | "boolean"
-  | "date"
-  | "float"
-  | "function"
-  | "integer"
-  | "string"
-  | "nan"
-  | "null"
-  | "undefined"
-  | "regexp"
-  | "background"
-
 interface TypeValueLabelProps {
   type: TypeValueLabelType
   value: unknown
@@ -378,13 +220,6 @@ const Toolbar = () => {
   )
 }
 
-// eslint-disable-next-line no-unused-vars
-type ExpandButtonSetExpandedFunc = (value: boolean) => void
-interface ExpandButtonProps {
-  children?: React.ReactNode
-  isExpanded: boolean
-  setIsExpanded: ExpandButtonSetExpandedFunc
-}
 const ExpandButton = ({ children, isExpanded, setIsExpanded }: ExpandButtonProps) => {
   return (
     <span
@@ -396,6 +231,13 @@ const ExpandButton = ({ children, isExpanded, setIsExpanded }: ExpandButtonProps
       {children}
     </span>
   )
+}
+
+interface ExpandButtonProps {
+  children?: React.ReactNode
+  isExpanded: boolean
+  // eslint-disable-next-line no-unused-vars
+  setIsExpanded: (value: boolean) => void
 }
 
 // This component renders a row of json entry
@@ -420,7 +262,7 @@ const JsonData = ({ name, value, nestedLevel = 0 }: JsonDataProps) => {
     }
   }, [searchTerm])
 
-  const dataType = React.useMemo(() => type(value), [value])
+  const dataType = React.useMemo(() => getTypeOfTheValue(value), [value])
 
   const children = React.useMemo(() => {
     if (dataType === "array") {
