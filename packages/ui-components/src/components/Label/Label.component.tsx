@@ -13,7 +13,6 @@ const labelstyles = `
   jn-transition-all 
   jn-duration-100 
   jn-ease-in-out
-  jn-z-10
 `
 
 const floatingStyles = `
