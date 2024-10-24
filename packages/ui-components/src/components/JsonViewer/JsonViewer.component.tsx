@@ -127,7 +127,6 @@ interface ThemeColors {
 }
 
 interface ThemeContextType {
-  //extends themes.JsonViewerTheme {
   colors: ThemeColors
   searchTerm?: string | null
   truncate?: number | boolean
