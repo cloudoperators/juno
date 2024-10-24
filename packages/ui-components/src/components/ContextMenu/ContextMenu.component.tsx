@@ -4,11 +4,11 @@
  */
 
 import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
-import { Icon } from "../../deprecated_js/Icon/index.js"
 import { Menu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
-import { autoPlacement, offset, shift, size } from "@floating-ui/react-dom"
+import { autoPlacement, offset, shift, size, Boundary } from "@floating-ui/react-dom"
+
+import { Icon } from "../Icon"
 
 /*
 TODO:
@@ -32,26 +32,32 @@ const menuStyles = `
 `
 
 const toggleStyles = `
-	hover:jn-text-theme-accent
-	active:jn-text-theme-accent
+  hover:jn-text-theme-accent
+  active:jn-text-theme-accent
 `
 
 const toggleOpenStyle = `
-	jn-text-theme-accent
+  jn-text-theme-accent
 `
 
-/** A context menu with a toggle. */
+export interface ContextMenuProps {
+  className?: string
+  children?: React.ReactNode
+  icon?: any
+  open?: boolean
+}
 
-export const ContextMenu = ({
+/** A context menu with a toggle. */
+export const ContextMenu: React.FC<ContextMenuProps> = ({
   /*icon,*/
   /*className,*/
   children = null,
   open = false,
   /*...props*/
 }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const handleClick = (_event) => {
+  const handleClick = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setIsOpen(!isOpen)
   }
 
@@ -66,7 +72,7 @@ export const ContextMenu = ({
       allowedPlacements: ["top-start", "top-end", "bottom-start", "bottom-end"],
     }),
     size({
-      boundary: "viewport",
+      boundary: "viewport" as unknown as Boundary,
       apply({ availableWidth, availableHeight, elements }) {
         Object.assign(elements.floating.style, {
           maxWidth: `${availableWidth}px`,
@@ -84,10 +90,10 @@ export const ContextMenu = ({
         <Menu.Button
           onClick={handleClick}
           className={`
-              juno-contextmenu-toggle 
-              ${toggleStyles} 
-              ${isOpen ? toggleOpenStyle : ""}
-            `}
+            juno-contextmenu-toggle 
+            ${toggleStyles} 
+            ${isOpen ? toggleOpenStyle : ""}
+          `}
         >
           <Icon icon="moreVert" />
         </Menu.Button>
@@ -95,11 +101,4 @@ export const ContextMenu = ({
       </Float>
     </Menu>
   )
-}
-
-ContextMenu.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node,
-  icon: PropTypes.any,
-  open: PropTypes.bool,
 }
