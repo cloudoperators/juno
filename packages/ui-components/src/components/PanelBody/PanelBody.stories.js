@@ -18,7 +18,13 @@ export default {
   title: "Layout/Panel/PanelBody",
   component: PanelBody,
   argTypes: {},
-  decorators: [(story) => <PortalProvider><div className="jn-contrast-100">{story()}</div></PortalProvider>],
+  decorators: [
+    (story) => (
+      <PortalProvider>
+        <div className="jn-contrast-100">{story()}</div>
+      </PortalProvider>
+    ),
+  ],
 }
 
 const FooterExample = (
