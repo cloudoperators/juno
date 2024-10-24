@@ -18,10 +18,10 @@ Supernova offers several quality-of-life improvements:
 - Parsing of alert labels to identify paths to external tools and turning them into hyperlinks on the alert.
 - Notification when creating new silences that overlap with existing ones.
 - Micro frontend design that allows embedding into existing applications via a script tag.
+- Configurable initial filters to automatically apply at app startup.
 
 **Coming soon:**
 
-- Configurable initial filters to automatically apply at app startup.
 - Aggregation by customizable labels, replacing the current hardcoded region label.
 - Configurable URL patterns for automatic linking in labels (replacing the current hardcoded patterns).
 

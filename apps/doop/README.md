@@ -3,7 +3,12 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Built with Juno](https://cloudoperators.github.io/juno/built-with-juno.svg)](https://github.com/cloudoperators/juno)
 
-This UI offers a dashboard to aggregate all policy violations reported by the Gatekeeper instances in each cluster.
+This user interface provides a comprehensive dashboard that aggregates all policy violations reported by Gatekeeper instances in each cluster. Users can easily filter and search through the violations, allowing for quick access to specific incidents. Additionally, detailed views are available for each violation, enabling users to gain deeper insights into the issues at hand.
+
+## Screenshots
+
+![Overview](../../assets/images/doop_overview.png)
+![Details](../../assets/images/doop_detail.png)
 
 # Usage
 
