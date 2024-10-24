@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { SelectOption } from "./SelectOption.component.js"
+export { SelectOption } from "./SelectOption.component"

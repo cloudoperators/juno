@@ -4,10 +4,9 @@
  */
 
 import React, { Fragment, useContext, useEffect } from "react"
-import PropTypes from "prop-types"
 import { Listbox } from "@headlessui/react"
 import { SelectContext } from "../Select/Select.component"
-import { Icon } from "../../deprecated_js/Icon/Icon.component"
+import { Icon } from "../Icon"
 
 const optionStyles = `
   jn-flex
@@ -50,9 +49,28 @@ const truncateOptionStyles = `
   jn-text-ellipsis
   jn-whitespace-nowrap
 `
-export const SelectOption = ({ children, className = "", disabled = false, value = "", label, ...props }) => {
+
+export interface SelectOptionProps {
+  children?: string
+  className?: string
+  disabled?: boolean
+  value?: string
+  label?: string
+}
+
+export const SelectOption = ({
+  children,
+  className = "",
+  disabled = false,
+  value = "",
+  label,
+  ...props
+}: SelectOptionProps) => {
   const selectContext = useContext(SelectContext)
-  const { truncateOptions: truncateOptions, addOptionValueAndLabel: addOptionValueAndLabel } = selectContext || {}
+  const { truncateOptions: truncateOptions, addOptionValueAndLabel: addOptionValueAndLabel } = selectContext || {
+    truncateOptions: false,
+    addOptionValueAndLabel: () => {},
+  }
 
   // send option metadata to the Select component via Context
   useEffect(() => {
@@ -87,12 +105,4 @@ export const SelectOption = ({ children, className = "", disabled = false, value
       )}
     </Listbox.Option>
   )
-}
-
-SelectOption.propTypes = {
-  children: PropTypes.string,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  value: PropTypes.string,
-  label: PropTypes.string,
 }

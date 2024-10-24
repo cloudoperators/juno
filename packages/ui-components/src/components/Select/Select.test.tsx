@@ -4,22 +4,22 @@
  */
 
 import * as React from "react"
-import PropTypes from "prop-types"
 import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Select } from "./index"
 import { SelectOption } from "../SelectOption/index"
 import { AppShellProvider } from "../AppShellProvider/index"
+import { SelectProps } from "./Select.component"
 
-const mockOnChange = jest.fn()
-const mockOnValueChange = jest.fn()
+const mockOnChange = vi.fn()
+const mockOnValueChange = vi.fn()
 
-const ControlledSelectParent = ({ value, children, onChange, ...props }) => {
-  const [val, setVal] = React.useState(value)
+const ControlledSelectParent = ({ children, ...props }: SelectProps) => {
+  const [val, setVal] = React.useState(props.value)
 
-  const handleChange = (v) => {
+  const handleChange = <T extends unknown>(v: T): void => {
     setVal(v)
-    onChange()
+    props.onChange?.()
   }
 
   return (
@@ -27,12 +27,6 @@ const ControlledSelectParent = ({ value, children, onChange, ...props }) => {
       {children}
     </Select>
   )
-}
-
-ControlledSelectParent.propTypes = {
-  value: PropTypes.string,
-  children: PropTypes.node,
-  onChange: PropTypes.func,
 }
 
 describe("Select", () => {
