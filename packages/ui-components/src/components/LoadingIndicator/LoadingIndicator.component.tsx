@@ -9,8 +9,9 @@ import Loading from "./loading-indicator.svg"
 export interface LoadingIndicatorProps {
   /**
    * The size of the LoadingIndicator in pixels.
+   * If a string, non-numeric characters will be ignored.
    */
-  size?: string
+  size?: string | number
   /**
    * A custom class that can be applied to change the color of the LoadingIndicator.
    * By default, the LoadingIndicator will use the color of the current context.
@@ -19,7 +20,7 @@ export interface LoadingIndicatorProps {
    */
   color?: string
   /**
-   * Additional CSS styles to apply to the LoadingIndicator for custom styling.
+   * Additional CSS classes to apply to the LoadingIndicator for custom styling.
    */
   className?: string
 }
@@ -29,11 +30,19 @@ export interface LoadingIndicatorProps {
  * Use this to indicate that a full page, a significant portion of a page, or a panel is loading.
  * For more generic use cases, including individual components and micro-interactions, use the Spinner component instead.
  */
-export const LoadingIndicator = ({ size = "96", color = "", className = "", ...props }: LoadingIndicatorProps) => {
+export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
+  size = 96,
+  color = "",
+  className = "",
+  ...props
+}) => {
+  // Remove non-numeric characters
+  const sanitizedSize = typeof size === "number" ? size : size.replace(/\D/g, "")
+
   return (
     <Loading
-      width={size}
-      height={size}
+      width={sanitizedSize}
+      height={sanitizedSize}
       className={`${className} ${color}`}
       role="progressbar"
       alt="Loading indicator"

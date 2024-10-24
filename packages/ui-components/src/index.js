@@ -90,7 +90,8 @@ export { SideNavigation } from "./components/SideNavigation/index.js"
 export { SideNavigationItem } from "./components/SideNavigationItem/index.js"
 export { Spinner } from "./components/Spinner/index.js"
 export { Stack } from "./components/Stack/index.js"
-export { StyleProvider } from "./components/StyleProvider/index.js"
+export { StyleProvider } from "./deprecated_js/StyleProvider/index.js"
+
 export { Switch } from "./components/Switch/index.js"
 export { SwitchRow } from "./components/SwitchRow/index.js"
 export { Tab } from "./components/Tab/index.js"
@@ -111,7 +112,3 @@ export { TooltipTrigger } from "./components/TooltipTrigger/index.js"
 export { TopNavigation } from "./components/TopNavigation/index.js"
 export { TopNavigationItem } from "./components/TopNavigationItem/index.js"
 export * from "./components/Form/index.js"
-
-// backwards compatibility, StyleProvider as default export
-import { StyleProvider } from "./components/StyleProvider/index.js"
-export default StyleProvider
