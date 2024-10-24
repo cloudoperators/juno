@@ -5,9 +5,9 @@
 
 import React from "react"
 import GreenhouseLogo from "../../assets/greenhouse_logo.svg?react"
-import SupernovaIcon from "../../assets/juno_supernova.svg"
-import DoopIcon from "../../assets/juno_doop.svg"
-import HeurekaIcon from "../../assets/juno_heureka.svg"
+import SupernovaIcon from "../../assets/juno_supernova.svg?react"
+import DoopIcon from "../../assets/juno_doop.svg?react"
+import HeurekaIcon from "../../assets/juno_heureka.svg?react"
 import { Icon, Stack, Button } from "@cloudoperators/juno-ui-components"
 import { useAuthData, useAuthLoggedIn, useAuthActions, usePlugin } from "../../components/StoreProvider"
 import Avatar from "../Avatar"
