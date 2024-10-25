@@ -3,11 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { LoadingIndicator } from "./index.js"
+import { LoadingIndicator } from "./"
 
 export default {
   title: "Components/LoadingIndicator",
   component: LoadingIndicator,
+  argTypes: {
+    size: {
+      control: { type: "number" },
+    },
+  },
 }
 
 export const Default = {
