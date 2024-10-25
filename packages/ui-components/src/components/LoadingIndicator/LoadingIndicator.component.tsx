@@ -29,8 +29,7 @@ export interface LoadingIndicatorProps {
 const defaultSize = 96
 
 /**
- * A CCloud-branded loading indicator.
- * Use this to indicate that a full page, a significant portion of a page, or a panel is loading.
+ * Use this loading indicator to indicate that a full page, a significant portion of a page, or a panel is loading.
  * For more generic use cases, including individual components and micro-interactions, use the Spinner component instead.
  */
 
