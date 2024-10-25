@@ -4,8 +4,7 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Menu } from "./index.js"
+import { Menu } from "./"
 import { MenuItem } from "../MenuItem/"
 import { MenuSection } from "../MenuSection/"
 
@@ -24,14 +23,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => <Menu {...args}>{children}</Menu>
-Template.propTypes = {
-  children: PropTypes.node,
-}
-
 export const Default = {
-  render: Template,
-
   args: {
     children: [
       <MenuItem label="Label only" key="1" />,
@@ -45,8 +37,6 @@ export const Default = {
 }
 
 export const Small = {
-  render: Template,
-
   args: {
     variant: "small",
     children: [
@@ -61,8 +51,6 @@ export const Small = {
 }
 
 export const WithASection = {
-  render: Template,
-
   args: {
     children: [
       <MenuSection key="m1">
