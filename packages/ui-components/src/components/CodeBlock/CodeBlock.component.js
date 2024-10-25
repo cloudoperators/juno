@@ -5,7 +5,7 @@
 
 import React, { useState, useRef } from "react"
 import PropTypes from "prop-types"
-import { JsonViewer } from "../JsonViewer/JsonViewer.component"
+import { JsonViewer } from "../../deprecated_js/JsonViewer/JsonViewer.component"
 import { Icon } from "../../deprecated_js/Icon/index"
 
 const wrapperStyles = `

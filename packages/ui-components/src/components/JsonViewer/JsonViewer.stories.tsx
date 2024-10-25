@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { JsonViewer } from "./index.js"
+import { JsonViewer } from "./index.ts"
 
 export default {
   title: "Components/JsonViewer",
@@ -32,10 +32,9 @@ const data = {
   array: [],
   brand: "Infinix",
   category: "laptops",
-  thumbnail: "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
-  test: "https://i.dummyjson.com/data/products/9/thumbnail.jpg?xxxxxxxxxxxxxxxxnnnnnnnnnnnnnnnnnnnnnnnndddddddddddddddddddddddddddddddd",
-  test2:
-    "LoremipsumdolorsitametconsectetueradipiscingelitAeneancommodoligulaegetdolorAeneanmassaCumsociisnatoquepenatibusetmagnisdisparturientmontesnasceturridiculus",
+  thumbnail: "https://i.dummyjson.com",
+  test: "https://i.dummyjson.com",
+  test2: "Loremipsum",
   images: [
     "https://i.dummyjson.com/data/products/9/1.jpg",
     "https://i.dummyjson.com/data/products/9/2.png",
