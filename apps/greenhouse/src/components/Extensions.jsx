@@ -7,12 +7,11 @@ import React, { useEffect, useRef, lazy, Suspense } from "react"
 import { createRoot } from "react-dom/client"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import useApi from "../hooks/useApi"
-import { usePlugin } from "../components/StoreProvider"
-import { mount } from "../lib/appLoader"
-import { useAuthData } from "../components/StoreProvider"
+import { usePlugin } from "./StoreProvider"
+import { useAuthData } from "./StoreProvider"
+import { extensionResolvers, extensionVersions } from "../../extensoinsManifest"
 
 const CorePlugin = ({ config, auth }) => {
-  //const auth = useAuthData()
   // load the app lazily from the core-apps folder
   let App = lazy(() => import(`./core-apps/${config.id}/App.jsx`))
   return (
@@ -27,11 +26,27 @@ const Extension = ({ config }) => {
 
   useEffect(() => {
     if (!holder.current) return
+
     holder.current.innerHTML = "...Loading"
-    mount(holder.current, {
-      ...config,
-      appProps: { ...config.props, embedded: true },
-    })
+
+    const loadExtension = async () => {
+      if (config.url) {
+        return await import(config.url)
+      } else if (extensionResolvers[config.name]) {
+        console.info("===Loading extension", config.name, extensionVersions[config.name])
+        return await extensionResolvers[config.name]
+      } else {
+        throw new Error(`Extension ${config.name} not found`)
+      }
+    }
+
+    loadExtension()
+      .then((app) => {
+        app.mount(holder.current, { props: { ...config.props, embedded: true } })
+      })
+      .catch((error) => {
+        holder.current.innerHTML = `Error loading extension: ${error.message}`
+      })
   }, [config])
 
   return <div ref={holder}>Unknown</div>
@@ -66,7 +81,7 @@ function Plugin({ config, active, id }) {
   return <div id={id} ref={holder}></div>
 }
 
-export default function PluginContainer() {
+export default function Extensions() {
   const { getPluginConfigs } = useApi()
   const requestConfig = usePlugin().requestConfig
   const receiveConfig = usePlugin().receiveConfig
