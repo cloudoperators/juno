@@ -4,23 +4,24 @@
  */
 
 import React from "react"
-import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useGlobalsActions, useGlobalsActiveView } from "./StoreProvider"
+import { AppShell, PageHeader, TopNavigation, TopNavigationItem, Container } from "@cloudoperators/juno-ui-components"
+import { useGlobalsActions, useGlobalsActiveView, useGlobalsEmbedded } from "./StoreProvider"
 import ServicesView from "./services/ServicesView"
 import IssueMatchesView from "./issueMatches/IssueMatchesView"
-import ComponentsView from "./components/ComponentsView"
+// import ComponentsView from "./components/ComponentsView"
 import constants from "./shared/constants"
 
 // Configuration for navigation items and their respective components
 const VIEW_CONFIG = {
   Services: { label: "Services", icon: "dns", component: ServicesView },
   IssueMatches: { label: "IssueMatches", icon: "autoAwesomeMotion", component: IssueMatchesView },
-  Components: { label: "Components", icon: "autoAwesomeMotion", component: ComponentsView },
+  // Components: { label: "Components", icon: "autoAwesomeMotion", component: ComponentsView }, // Commented out to remove ComponentsView for MVP version
 }
 
 const CustomAppShell = ({ children }) => {
   const { setActiveView, setShowPanel } = useGlobalsActions()
   const activeView = useGlobalsActiveView()
+  const embedded = useGlobalsEmbedded()
 
   const handleNavItemChange = (item) => {
     setActiveView(item)
@@ -40,9 +41,11 @@ const CustomAppShell = ({ children }) => {
   const ActiveComponent = VIEW_CONFIG[activeView]?.component
 
   return (
-    <AppShell pageHeader={<PageHeader heading="Converged Cloud | Heureka" />} topNavigation={topNavigation}>
-      {ActiveComponent && <ActiveComponent />}
-      {children}
+    <AppShell pageHeader={<PageHeader heading="Heureka" />} topNavigation={topNavigation} embedded={embedded}>
+      <Container py px>
+        {ActiveComponent && <ActiveComponent />}
+        {children}
+      </Container>
     </AppShell>
   )
 }

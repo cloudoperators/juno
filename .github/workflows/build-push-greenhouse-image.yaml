@@ -97,17 +97,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
-          # value is a template that will be evaluated at runtime
-          # this will generate a list of tags like:
-          #  ghcr.io/cloudoperators/juno-app-greenhouse:0.2.1
-          #  ghcr.io/cloudoperators/juno-app-greenhouse:latest
           tags: |
             type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
-      # Debugging step to print the tags
-      #- name: print tags
-      # run: |
-      #   echo "${{ steps.meta.outputs.tags }}"
-      #   exit 1
 
       # Build and load to Docker
       - name: Build and export to Docker ${{ steps.meta.outputs.tags }}
@@ -132,7 +123,7 @@ jobs:
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
-        if: ${{ always() && !env.ACT }}
+        if: ${{ !env.ACT }}
         with:
           sarif_file: trivy-results.sarif
 
@@ -154,3 +145,13 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+  notify-on-failure:
+    if: failure()
+    needs: [build-and-push-greenhouse-image]
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
+    with:
+      title: "🚨 JUNO Greenhouse Image Failed 🚨"
+      body: "An error occurred while building the Greenhouse image for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -1,5 +1,32 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.14.2
+
+### Patch Changes
+
+- fb9146a: migrate greenhouse to vite and adjust all dependent apps to export needed entrypoints
+- Updated dependencies [f6f054f]
+- Updated dependencies [4bcff19]
+- Updated dependencies [28a8d38]
+- Updated dependencies [fb9146a]
+  - @cloudoperators/juno-ui-components@2.27.0
+
+## 0.14.1
+
+### Patch Changes
+
+- 95d921f: Make web workers in supernova inline which allows it to run in greenhouse
+- 6901130: Build and test system migrated to vite
+- Updated dependencies [f307966]
+- Updated dependencies [bcb45f5]
+- Updated dependencies [4a9e17a]
+- Updated dependencies [3ec48c0]
+- Updated dependencies [3e21132]
+- Updated dependencies [436f35a]
+- Updated dependencies [24fec5c]
+- Updated dependencies [aaea462]
+  - @cloudoperators/juno-ui-components@2.25.0
+
 ## 0.14.0
 
 ### Minor Changes

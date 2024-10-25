@@ -1,5 +1,39 @@
 # @cloudoperators/juno-ui-components
 
+## 2.27.0
+
+### Minor Changes
+
+- 4bcff19: Migrate the LoadingIndictor component to TypeScript and only allow 'size' that is valid and greater than zero
+- 28a8d38: Migrate JsonViewer to TypeScript
+- fb9146a: Migrate StyleProvider to TypeScript
+
+### Patch Changes
+
+- f6f054f: fixes z index stacking problems for PageHeader
+
+## 2.26.0
+
+### Minor Changes
+
+- d55e192: Migrate the Breadcrumb and BreadcrumbItem components to Typescript
+
+## 2.25.0
+
+### Minor Changes
+
+- bcb45f5: Migrate the Box component to TypeScript
+- 3ec48c0: Migrate the Message component to TypeScript and disable automatic timeout for values less than one
+- 3e21132: Migrate ShadowRoot component to TypeScript
+- 436f35a: Migrate the Search Input component to TypeScript
+- 24fec5c: Migrate StyleProvider to TypeScript
+- aaea462: Migrate Modal component to TypeScript
+
+### Patch Changes
+
+- f307966: fix(ui): fix broken pageheader layout (#506)
+- 4a9e17a: Bring JS Modal back until all portal logic has been fully migrated to TS. Render Panel in portal to fix z-index stacking for components rendered in portals.
+
 ## 2.24.0
 
 ### Minor Changes

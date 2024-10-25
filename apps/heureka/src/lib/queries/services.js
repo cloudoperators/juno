@@ -9,7 +9,7 @@ import { gql } from "graphql-request"
 // like prettier formatting and IDE syntax highlighting.
 // You can use gql from graphql-tag if you need it for some reason too.
 
-// Main query for fetching Services data (excluding totalCount and pageInfo)
+// Main query for fetching Services list data (excluding totalCount and pageInfo)
 export const servicesMainQuery = () => gql`
   query ($filter: ServiceFilter, $first: Int, $after: String) {
     Services(filter: $filter, first: $first, after: $after) {
@@ -17,8 +17,11 @@ export const servicesMainQuery = () => gql`
         node {
           id
           name
+          metadata {
+            componentInstanceCount
+            issueMatchCount
+          }
           owners {
-            totalCount
             edges {
               node {
                 id
@@ -27,13 +30,8 @@ export const servicesMainQuery = () => gql`
               }
               cursor
             }
-            pageInfo {
-              hasNextPage
-              nextPageAfter
-            }
           }
           supportGroups {
-            totalCount
             edges {
               node {
                 id
@@ -41,22 +39,42 @@ export const servicesMainQuery = () => gql`
               }
               cursor
             }
-            pageInfo {
-              hasNextPage
-              nextPageAfter
-            }
           }
-          activities {
-            totalCount
+        }
+        cursor
+      }
+    }
+  }
+`
+// The query for fetching Services details data
+export const servicesDetailsQuery = () => gql`
+  query ($filter: ServiceFilter, $first: Int, $after: String) {
+    Services(filter: $filter, first: $first, after: $after) {
+      edges {
+        node {
+          id
+          name
+          metadata {
+            componentInstanceCount
+            issueMatchCount
+          }
+          owners {
             edges {
               node {
                 id
+                uniqueUserId
+                name
               }
               cursor
             }
-            pageInfo {
-              hasNextPage
-              nextPageAfter
+          }
+          supportGroups {
+            edges {
+              node {
+                id
+                name
+              }
+              cursor
             }
           }
           componentInstances {
@@ -71,7 +89,7 @@ export const servicesMainQuery = () => gql`
                     name
                   }
                 }
-                issueMatches {
+                issueMatches(first: 10000) {
                   totalCount
                   edges {
                     node {
@@ -80,34 +98,10 @@ export const servicesMainQuery = () => gql`
                         value
                         score
                       }
-                      issue {
-                        id
-                        primaryName
-                      }
                     }
                   }
                 }
               }
-            }
-          }
-          issueRepositories {
-            totalCount
-            edges {
-              node {
-                id
-                name
-                url
-                created_at
-                updated_at
-              }
-              cursor
-              priority
-              created_at
-              updated_at
-            }
-            pageInfo {
-              hasNextPage
-              nextPageAfter
             }
           }
         }

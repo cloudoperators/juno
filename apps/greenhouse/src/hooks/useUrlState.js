@@ -13,7 +13,6 @@ const ACTIVE_APPS_KEY = "a"
 const urlStateManager = registerConsumer(GREENHOUSE_STATE_KEY)
 
 const useUrlState = () => {
-  // const { setActive: setActiveApps } = usePlugin.actions()
   const setActiveApps = usePlugin().setActive
   const activeApps = usePlugin().active()
   const appsConfig = usePlugin().config()
@@ -50,19 +49,8 @@ const useUrlState = () => {
       setActiveApps(newActiveApps || [])
     })
 
-    // disable this for now, it's annoying!
-    // This code sets the title of the page if URL changes.
-    // It was introduced to see different titles in the browser history.
-    // const unregisterGlobalChangeListener = urlStateManager.onGlobalChange(
-    //   (state) => {
-    //     const url = new URL(window.location)
-    //     document.title = `Greenhouse - ${url.searchParams.get("__s")}`
-    //   }
-    // )
-
     return () => {
       unregisterStateListener()
-      //unregisterGlobalChangeListener()
     }
   }, [])
 }

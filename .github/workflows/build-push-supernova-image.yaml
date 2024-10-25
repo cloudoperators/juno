@@ -115,7 +115,7 @@ jobs:
             org.opencontainers.image.title=Supernova UI
             org.opencontainers.image.description="This image contains a standalone runnable version of the Supernova alternative Alertmanager UI. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/supernova/docker"
             org.opencontainers.image.url="https://github.com/cloudoperators/juno/tree/main/apps/supernova"
-            org.opencontainers.image.source="https://github.com/cloudoperators/juno/tree/main/apps/supernova"            
+            org.opencontainers.image.source="https://github.com/cloudoperators/juno/tree/main/apps/supernova"
             org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/supernova
 
       # Build and push Docker image with Buildx (don't push on PR)
@@ -149,6 +149,7 @@ jobs:
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
   vulnerability-scan:
+    if: success()
     permissions:
       contents: read
       packages: read
@@ -160,7 +161,6 @@ jobs:
     steps:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
-        if: success()
         with:
           image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           ignore-unfixed: true
@@ -173,3 +173,13 @@ jobs:
         if: always()
         with:
           sarif_file: trivy-results.sarif
+
+  notify-on-failure:
+    if: failure()
+    needs: [build-and-push, vulnerability-scan]
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
+    with:
+      title: "🚨 JUNO Supernova Image Failed 🚨"
+      body: "An error occurred while building the Supernova image for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -18,6 +18,9 @@ jobs:
   release:
     name: Release
     runs-on: [default]
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
+      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -42,45 +45,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Send a Slack notification if a publish happens
-        if: steps.changesets.outputs.published == 'true'
-        id: slack_notification
-        uses: slackapi/slack-github-action@v1.27.0
-        with:
-          payload: |
-            {
-              "blocks": [
-                {
-                  "type": "context",
-                  "elements": [
-                    {
-                      "type": "image",
-                      "image_url": "https://raw.githubusercontent.com/cloudoperators/juno/main/assets/logos/JUNO_logo_slack.png",
-                      "alt_text": "cloudoperators/juno"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "JUNO Packages Released Successfully! 🚀"
-                    }
-                  ]
-                },
-                {
-                  "type": "rich_text",
-                  "elements": [
-                    {
-                      "type": "rich_text_preformatted",
-                      "elements": [
-                        {
-                          "type": "text",
-                          "text": ${{ toJson(steps.changesets.outputs.publishedPackages) }}
-                        }
-                      ],
-                      "border": 0
-                    }
-                  ]
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+  notify-on-success:
+    if: needs.release.outputs.published == 'true'
+    needs: [release] # List the jobs that should complete successfully
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
+    with:
+      title: "JUNO Packages Released Successfully! 🚀"
+      body: ${{ needs.release.outputs.publishedPackages }}
+      rich_body: true
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  notify-on-failure:
+    if: failure()
+    needs: [release]
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
+    with:
+      title: "🚨 JUNO Packages Release Failed 🚨"
+      body: "An error occurred while releasing JUNO Packages for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
