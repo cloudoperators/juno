@@ -3,18 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { LoadingIndicator } from "./index.js"
+import { LoadingIndicator } from "./"
 
 export default {
   title: "Components/LoadingIndicator",
   component: LoadingIndicator,
-  argTypes: {},
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "A specific, CCloud-branded loading indicator. Use this to show a full page or a significant portion of a page, a panel, etc. is loading. For more generic use cases, individual comoponents and micro-interactions use Spinner instead.",
-      },
+  argTypes: {
+    size: {
+      control: { type: "number" },
     },
   },
 }
