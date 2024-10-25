@@ -9,7 +9,8 @@ import Loading from "./loading-indicator.svg"
 export interface LoadingIndicatorProps {
   /**
    * The size of the LoadingIndicator in pixels.
-   * If a string, non-numeric characters will be ignored.
+   * Must be a positive number value.
+   * If a string, must be a valid number
    */
   size?: string | number
   /**
@@ -20,29 +21,34 @@ export interface LoadingIndicatorProps {
    */
   color?: string
   /**
-   * Additional CSS classes to apply to the LoadingIndicator for custom styling.
+   * Additional CSS classes for custom styling.
    */
   className?: string
 }
+
+const defaultSize = 96
 
 /**
  * A CCloud-branded loading indicator.
  * Use this to indicate that a full page, a significant portion of a page, or a panel is loading.
  * For more generic use cases, including individual components and micro-interactions, use the Spinner component instead.
  */
+
 export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
-  size = 96,
+  size = defaultSize,
   color = "",
   className = "",
   ...props
 }) => {
   // Remove non-numeric characters
-  const sanitizedSize = typeof size === "number" ? size : size.replace(/\D/g, "")
+  const sanitizedSize = typeof size === "number" ? size : parseInt(size)
+  // Default size if NaN, zero, or negative
+  const finalSize = isNaN(sanitizedSize) || sanitizedSize <= 0 ? defaultSize : sanitizedSize
 
   return (
     <Loading
-      width={sanitizedSize}
-      height={sanitizedSize}
+      width={finalSize}
+      height={finalSize}
       className={`${className} ${color}`}
       role="progressbar"
       alt="Loading indicator"

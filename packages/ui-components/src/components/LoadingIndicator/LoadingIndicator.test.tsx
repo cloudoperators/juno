@@ -10,33 +10,79 @@ import { describe, expect, test } from "vitest"
 import { LoadingIndicator } from "./"
 
 describe("LoadingIndicator", () => {
-  test("renders a LoadingIndicator", () => {
-    render(<LoadingIndicator />)
-    expect(screen.getByRole("progressbar")).toBeInTheDocument()
+  describe("Default Rendering", () => {
+    test("renders a LoadingIndicator", () => {
+      render(<LoadingIndicator />)
+      expect(screen.getByRole("progressbar")).toBeInTheDocument()
+    })
   })
 
-  test("renders a LoadingIndicator with a size as passed", () => {
-    render(<LoadingIndicator size="1000" />)
-    expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveAttribute("width", "1000")
-    expect(screen.getByRole("progressbar")).toHaveAttribute("height", "1000")
+  describe("Size Prop Handling", () => {
+    test("renders a LoadingIndicator with a numerical size as passed", () => {
+      render(<LoadingIndicator size={1000} />)
+      const progressBar = screen.getByRole("progressbar")
+      expect(progressBar).toBeInTheDocument()
+      expect(progressBar).toHaveAttribute("width", "1000")
+      expect(progressBar).toHaveAttribute("height", "1000")
+    })
+
+    test("defaults when size of zero is passed", () => {
+      render(<LoadingIndicator size={0} />)
+      const progressBar = screen.getByRole("progressbar")
+      expect(progressBar).toBeInTheDocument()
+      expect(progressBar).toHaveAttribute("width", "96")
+      expect(progressBar).toHaveAttribute("height", "96")
+    })
+
+    test("defaults when a negative size is passed", () => {
+      render(<LoadingIndicator size={-50} />)
+      const progressBar = screen.getByRole("progressbar")
+      expect(progressBar).toBeInTheDocument()
+      expect(progressBar).toHaveAttribute("width", "96")
+      expect(progressBar).toHaveAttribute("height", "96")
+    })
+
+    test("defaults when an empty string size is passed", () => {
+      render(<LoadingIndicator size="" />)
+      const progressBar = screen.getByRole("progressbar")
+      expect(progressBar).toBeInTheDocument()
+      expect(progressBar).toHaveAttribute("width", "96")
+      expect(progressBar).toHaveAttribute("height", "96")
+    })
+
+    test("defaults when an invalid string size is passed", () => {
+      render(<LoadingIndicator size="x10px" />)
+      const progressBar = screen.getByRole("progressbar")
+      expect(progressBar).toBeInTheDocument()
+      expect(progressBar).toHaveAttribute("width", "96")
+      expect(progressBar).toHaveAttribute("height", "96")
+    })
   })
 
-  test("renders a LoadingIndicator with a color as passed", () => {
-    render(<LoadingIndicator color="jn-text-danger" />)
-    expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveClass("jn-text-danger")
+  describe("Color Class Handling", () => {
+    test("renders a LoadingIndicator with a color as passed", () => {
+      render(<LoadingIndicator color="jn-text-danger" />)
+      const progressBar = screen.getByRole("progressbar")
+      expect(progressBar).toBeInTheDocument()
+      expect(progressBar).toHaveClass("jn-text-danger")
+    })
   })
 
-  test("renders a custom className as passed", () => {
-    render(<LoadingIndicator className="some-custom-class" />)
-    expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveClass("some-custom-class")
+  describe("ClassName Prop Handling", () => {
+    test("renders a custom className as passed", () => {
+      render(<LoadingIndicator className="some-custom-class" />)
+      const progressBar = screen.getByRole("progressbar")
+      expect(progressBar).toBeInTheDocument()
+      expect(progressBar).toHaveClass("some-custom-class")
+    })
   })
 
-  test("renders all props as passed", () => {
-    render(<LoadingIndicator data-lolol="1-2-3-lol" />)
-    expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveAttribute("data-lolol", "1-2-3-lol")
+  describe("Additional Props Handling", () => {
+    test("renders all props as passed", () => {
+      render(<LoadingIndicator data-lolol="1-2-3-lol" />)
+      const progressBar = screen.getByRole("progressbar")
+      expect(progressBar).toBeInTheDocument()
+      expect(progressBar).toHaveAttribute("data-lolol", "1-2-3-lol")
+    })
   })
 })
