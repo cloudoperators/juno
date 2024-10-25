@@ -13,7 +13,7 @@ const pageHeaderStyles = `
   jn-top-0
   jn-px-6
   jn-py-3
-  jn-z-50
+  jn-z-[1]
 `
 
 const pageHeaderInnerStyles = `
