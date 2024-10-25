@@ -1,6 +1,6 @@
-# @cloudoperators/juno-app-doop
+# @cloudoperators/juno-app-carbon
 
-## 2.3.1
+## 1.0.1
 
 ### Patch Changes
 
@@ -10,15 +10,3 @@
 - Updated dependencies [28a8d38]
 - Updated dependencies [fb9146a]
   - @cloudoperators/juno-ui-components@2.27.0
-
-## 2.3.0
-
-### Minor Changes
-
-- a62ee9c: Removes auth and pass initial filters per appProp
-
-### Patch Changes
-
-- Updated dependencies [aa185b4]
-- Updated dependencies [4ded874]
-  - @cloudoperators/juno-ui-components@2.23.0
