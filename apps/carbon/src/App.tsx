@@ -4,74 +4,45 @@
  */
 
 import React from "react"
-import { AppShell, AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ErrorBoundary } from "react-error-boundary"
-
+import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 import styles from "./styles.scss?inline"
-import AppContent from "./components/AppContent"
-import Navigation from "./components/Navigation"
+import AppContent from "./components/AppContent/AppContent"
+import ErrorBoundary from "./components/ErrorBoundary"
 
-interface AppProps {
+type AppProps = {
   theme?: string
   embedded?: string | boolean
-  endpoint?: string
-  currentHost?: string
 }
 
-export const App = (props: AppProps) => {
-  const preErrorClasses = `
-    custom-error-pre
-    border-theme-error
-    border
-    h-full
-    w-full
-    `
+// TODO: load extensions dynamically
+const extensions = [
+  {
+    name: "alerts",
+    title: "Alerts",
+    url: "/alerts",
+  },
+  {
+    name: "doop",
+    title: "Doop",
+    url: "/doop",
+  },
+  {
+    name: "heureka",
+    title: "Heureka",
+    url: "/heureka",
+  },
+]
 
-  // Create query client which it can be used from overall in the app
-  // set default endpoint to fetch data
-
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        meta: {
-          endpoint: props.endpoint || props.currentHost || "",
-        },
-      },
-    },
-  })
-
-  const fallbackRender = ({ error }: { error: { message: string } }) => {
-    return (
-      <div className="w-1/2">
-        <CodeBlock className={preErrorClasses} copy={false}>
-          {error?.message || error?.toString() || "An error occurred"}
-        </CodeBlock>
-      </div>
-    )
-  }
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AppShell embedded sideNavigation={<Navigation />}>
-        <ErrorBoundary fallbackRender={fallbackRender}>
-          <AppContent />
-        </ErrorBoundary>
-      </AppShell>
-    </QueryClientProvider>
-  )
-}
-
-type StyledAppProps = AppProps
-
-const StyledApp = (props: StyledAppProps) => {
-  return (
+const App = (props: AppProps) => (
+  <ErrorBoundary>
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
-      {/* load styles inside the shadow dom */}
-      <style>{styles.toString()}</style>
-      <App theme={props.theme} embedded={props.embedded} endpoint={props.endpoint} currentHost={props.currentHost} />
+      <AppShell embedded>
+        {/* load styles inside the shadow dom */}
+        <style>{styles.toString()}</style>
+        <AppContent extensions={extensions} />
+      </AppShell>
     </AppShellProvider>
-  )
-}
+  </ErrorBoundary>
+)
 
-export default StyledApp
+export default App
