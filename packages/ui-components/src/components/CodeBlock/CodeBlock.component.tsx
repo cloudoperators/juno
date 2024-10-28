@@ -158,7 +158,7 @@ export const CodeBlock = ({
       ) : (
         <pre className={`juno-code-block-pre ${preStyles(wrap)} ${sizeStyles(size)}`}>
           <code className={`${codeStyles}`} ref={theCode}>
-            {children}
+            {children as React.ReactNode}
           </code>
         </pre>
       )}
@@ -181,7 +181,7 @@ export interface CodeBlockProps {
   /** The content to render. Will override children if passed. */
   content?: string | object
   /** The children to render. Will be overridden by content prop if passed as well.  */
-  children?: React.ReactNode
+  children?: React.ReactNode | object
   /** Pass at title to render. Will look like a single tab. */
   heading?: string
   /** Set whether the code should wrap or not. Default is true. */
