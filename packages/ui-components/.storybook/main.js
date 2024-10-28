@@ -17,7 +17,14 @@ const config = {
     "./juno-addon",
     "@storybook/addon-mdx-gfm",
     "@storybook/addon-webpack5-compiler-babel",
-    "@storybook/addon-postcss",
+    {
+      name: "@storybook/addon-postcss",
+      options: {
+        postcssLoaderOptions: {
+          implementation: require("postcss"),
+        },
+      },
+    },
   ],
   typescript: {
     reactDocgen: "react-docgen-typescript",
