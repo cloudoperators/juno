@@ -158,7 +158,7 @@ export const CodeBlock = ({
       ) : (
         <pre className={`juno-code-block-pre ${preStyles(wrap)} ${sizeStyles(size)}`}>
           <code className={`${codeStyles}`} ref={theCode}>
-            {children as React.ReactNode}
+            {(content || children) as React.ReactNode}
           </code>
         </pre>
       )}
