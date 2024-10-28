@@ -1,5 +1,17 @@
 # @cloudoperators/juno-ui-components
 
+## 2.27.0
+
+### Minor Changes
+
+- 4bcff19: Migrate the LoadingIndictor component to TypeScript and only allow 'size' that is valid and greater than zero
+- 28a8d38: Migrate JsonViewer to TypeScript
+- fb9146a: Migrate StyleProvider to TypeScript
+
+### Patch Changes
+
+- f6f054f: fixes z index stacking problems for PageHeader
+
 ## 2.26.0
 
 ### Minor Changes
