@@ -31,7 +31,7 @@ export default {
   },
 }
 
-const TabsTemplate = ({ tabs, codeBlocks } :TabsTemplateProps) => (
+const TabsTemplate = ({ tabs, codeBlocks }: TabsTemplateProps) => (
   <Tabs variant="codeblocks">
     <TabList>
       {tabs.map((tab, t) => (

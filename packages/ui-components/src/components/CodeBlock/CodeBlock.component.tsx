@@ -12,14 +12,14 @@ const wrapperStyles = `
   jn-rounded
 `
 
-const preStyles = (wrap :boolean) => {
+const preStyles = (wrap: boolean) => {
   return `
     jn-p-6
     ${wrap ? "jn-break-words jn-break-all jn-whitespace-pre-wrap" : "jn-overflow-x-auto"}
   `
 }
 
-const sizeStyles = (size :CodeBlockSize) => {
+const sizeStyles = (size: CodeBlockSize) => {
   switch (size) {
     case "small":
       return `
@@ -116,7 +116,7 @@ export const CodeBlock = ({
   lang = "",
   className = "",
   ...props
-} :CodeBlockProps) => {
+}: CodeBlockProps) => {
   const [isCopied, setIsCopied] = useState(false)
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
 
@@ -129,10 +129,9 @@ export const CodeBlock = ({
   const handleCopyClick = () => {
     const textToCopy = lang === "json" ? JSON.stringify(content || children) : theCode.current!.textContent
     if (textToCopy) {
-      navigator.clipboard.writeText(textToCopy)
-        .catch(() => { 
-          console.warn("Cannot copy text to clipboard")
-        })
+      navigator.clipboard.writeText(textToCopy).catch(() => {
+        console.warn("Cannot copy text to clipboard")
+      })
     }
     setIsCopied(true)
     if (timeoutRef.current) {

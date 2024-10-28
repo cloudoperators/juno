@@ -6,13 +6,7 @@
 import React from "react"
 import { Message } from "../Message/Message.component"
 import { AppShellProvider, AppShellProviderProps } from "./AppShellProvider.component"
-
-interface CodeBlockProps {
-  children: React.ReactNode
-}
-const CodeBlock = ({ children }: CodeBlockProps) => {
-  return <div>{children}</div>
-}
+import { CodeBlock } from "../CodeBlock/CodeBlock.component"
 
 export default {
   title: "Layout/AppShellProvider",

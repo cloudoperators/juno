@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": minor
 ---
 
-Migrate AppShellProvider to TypeScript
+Migrate AppShellProvider and CodeBlock to TypeScript
