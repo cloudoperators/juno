@@ -9,11 +9,11 @@ import userEvent from "@testing-library/user-event"
 import { Select } from "../Select/Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 
-globalThis.console.warn = jest.fn()
+globalThis.console.warn = vi.fn()
 describe("SelectOption", () => {
   afterEach(() => {
     cleanup()
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   test("renders a SelectOption", async () => {
