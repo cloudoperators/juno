@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-example",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "author": "UI-Team",
   "contributors": [
     "Arturo Reuschenbach Pucernau"
@@ -24,7 +24,7 @@
     "autoprefixer": "^10.4.2",
     "jsdom": "^25.0.1",
     "luxon": "^2.3.0",
-    "postcss": "^8.4.21",
+    "postcss": "^8.4.47",
     "shadow-dom-testing-library": "^1.11.3",
     "vite": "^5.4.8",
     "vitest": "^2.1.1"

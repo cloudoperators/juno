@@ -1,5 +1,20 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.2
+
+### Patch Changes
+
+- fb9146a: migrate greenhouse to vite and adjust all dependent apps to export needed entrypoints
+- Updated dependencies [f6f054f]
+- Updated dependencies [4bcff19]
+- Updated dependencies [28a8d38]
+- Updated dependencies [fb9146a]
+- Updated dependencies [fb9146a]
+  - @cloudoperators/juno-ui-components@2.27.0
+  - @cloudoperators/juno-app-supernova@0.14.2
+  - @cloudoperators/juno-app-heureka@2.9.1
+  - @cloudoperators/juno-app-doop@2.3.1
+
 ## 0.3.1
 
 ### Patch Changes
