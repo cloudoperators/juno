@@ -6,9 +6,8 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 
-import { SelectRow } from "./index.js"
+import SelectRow from "./SelectRow.component"
 import { SelectOption } from "../../deprecated_js/SelectOption/SelectOption.component"
-import { Default as DefaultSelectOptionStory } from "../../deprecated_js/SelectOption/SelectOption.stories"
 import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
 
 export default {
@@ -31,7 +30,7 @@ export default {
   },
   decorators: [(story) => <PortalProvider>{story()}</PortalProvider>],
 }
-
+const defaultSelectArgs = { value: "Option 1" }
 const Template = ({ items, ...args }) => (
   <SelectRow {...args}>
     {items.map((item, i) => (
@@ -92,8 +91,8 @@ export const Default = {
     loading: undefined,
     label: "Select Row",
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
-      { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-2", label: "Option 2" },
     ],
   },
 }
@@ -156,8 +155,8 @@ export const WithHelpTextAndPlaceholder = {
     helptext: "Select one",
     placeholder: "Select an option…",
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
-      { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-2", label: "Option 2" },
     ],
   },
 }
@@ -189,8 +188,8 @@ export const WithHelpTextWithLink = {
       </>
     ),
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
-      { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-2", label: "Option 2" },
     ],
   },
 }
@@ -202,8 +201,8 @@ export const Required = {
     label: "Required Select Row",
     required: true,
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
-      { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-2", label: "Option 2" },
     ],
   },
 }
@@ -216,13 +215,13 @@ export const WithSelectedOption = {
     required: true,
     value: "d-2",
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
       {
-        ...DefaultSelectOptionStory.args,
+        ...defaultSelectArgs,
         value: "d-2",
         label: "Option 2 is selected",
       },
-      { ...DefaultSelectOptionStory.args, value: "d-3", label: "Option 3" },
+      { ...defaultSelectArgs, value: "d-3", label: "Option 3" },
     ],
   },
 }
@@ -234,8 +233,8 @@ export const Disabled = {
     label: "Required Select Row",
     disabled: true,
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
-      { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-2", label: "Option 2" },
     ],
   },
 }
@@ -247,8 +246,8 @@ export const Invalid = {
     invalid: true,
     label: "Invalid SelectRow",
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
-      { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-2", label: "Option 2" },
     ],
   },
 }
@@ -261,8 +260,8 @@ export const WithErrorText = {
     helptext: "Oh so helpful helptext",
     errortext: "When passed an errortext prop, the SelectRow will be set to invalid automatically.",
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
-      { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-2", label: "Option 2" },
     ],
   },
 
@@ -283,8 +282,8 @@ export const Valid = {
     valid: true,
     label: "Valid SelectRow",
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
-      { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-2", label: "Option 2" },
     ],
   },
 }
@@ -296,8 +295,8 @@ export const WithSuccessText = {
     label: "Select Row with Error Text",
     successtext: "When passed an successtext prop, the SelectRow will be set to valid automatically.",
     items: [
-      { ...DefaultSelectOptionStory.args, value: "d-1", label: "Option 1" },
-      { ...DefaultSelectOptionStory.args, value: "d-2", label: "Option 2" },
+      { ...defaultSelectArgs, value: "d-1", label: "Option 1" },
+      { ...defaultSelectArgs, value: "d-2", label: "Option 2" },
     ],
   },
 
