@@ -154,11 +154,11 @@ export const CodeBlock = ({
         ""
       )}
       {lang === "json" ? (
-        <JsonViewer data={content as object} expanded={3} theme={jsonTheme} style={jsonViewStyles} />
+        <JsonViewer data={content} expanded={3} theme={jsonTheme} style={jsonViewStyles} />
       ) : (
         <pre className={`juno-code-block-pre ${preStyles(wrap)} ${sizeStyles(size)}`}>
           <code className={`${codeStyles}`} ref={theCode}>
-            {(content || children) as React.ReactNode}
+            {children}
           </code>
         </pre>
       )}
@@ -181,7 +181,7 @@ export interface CodeBlockProps {
   /** The content to render. Will override children if passed. */
   content?: string | object
   /** The children to render. Will be overridden by content prop if passed as well.  */
-  children?: React.ReactNode | object
+  children?: React.ReactNode
   /** Pass at title to render. Will look like a single tab. */
   heading?: string
   /** Set whether the code should wrap or not. Default is true. */
