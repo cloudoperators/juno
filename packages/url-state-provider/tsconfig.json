@@ -1,0 +1,23 @@
+{
+  "extends": "@cloudoperators/juno-config/typescript/base.json",
+  "compilerOptions": {
+    "outDir": "./build",
+    "target": "ES6",
+    "module": "ES2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vitest/globals"],
+    "resolveJsonModule": true
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./__tests__/**/*.test.ts",
+    "./types/**/*.ts",
+    "./src/**/*.tsx",
+    "vitest.setup.ts",
+    "src/superstate.js"
+  ],
+  "exclude": ["node_modules", "build"]
+}

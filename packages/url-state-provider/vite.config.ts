@@ -4,6 +4,7 @@
  */
 
 import { defineConfig } from "vite"
+import dts from "vite-plugin-dts"
 
 export default defineConfig({
   build: {
@@ -15,4 +16,11 @@ export default defineConfig({
     },
     outDir: "build",
   },
+  plugins: [
+    dts({
+      exclude: ["./__tests__/**/*.test.ts", "vitest.setup.ts"],
+      insertTypesEntry: true, // Ensure types are properly exported
+      outDir: "build/types", // Specify where to output the types
+    }),
+  ],
 })

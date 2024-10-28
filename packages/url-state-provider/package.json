@@ -27,6 +27,7 @@
     "dev": "vite",
     "lint": "eslint",
     "test": "vitest run",
+    "typecheck": "tsc --noEmit",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "clean:cache": "rm -rf .turbo"
   },
@@ -35,8 +36,10 @@
     "jsdom": "^18.0.0",
     "juri-cutlery": "^1.0.0",
     "lz-string": "^1.4.4",
+    "typescript": "^5.5.4",
     "vite": "^5.4.8",
-    "vitest": "^2.1.1"
+    "vitest": "^2.1.1",
+    "vite-plugin-dts": "^4.0.3"
   },
   "babel": {
     "presets": [
