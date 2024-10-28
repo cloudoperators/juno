@@ -6,7 +6,7 @@
 import React from "react"
 import { SelectDivider, SelectDividerProps } from "./SelectDivider.component"
 import { Select } from "../Select"
-import { SelectOption } from "../SelectOption/index.js"
+import { SelectOption } from "../SelectOption"
 import { PortalProvider } from "../PortalProvider"
 
 export default {
