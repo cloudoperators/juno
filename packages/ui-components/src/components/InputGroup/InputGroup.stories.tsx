@@ -9,8 +9,6 @@ import { InputGroup } from "./"
 
 import { Button } from "../Button"
 import { TextInput } from "../TextInput"
-import { NativeSelect } from "../NativeSelect"
-import { NativeSelectOption } from "../NativeSelectOption"
 
 export default {
   title: "WiP/InputGroup",
@@ -90,58 +88,6 @@ export const MultipleTextInputsWithButton = {
       <TextInput key={0} placeholder="First Name" />,
       <TextInput key={1} placeholder="Last Name" />,
       <Button key={2} label="Submit" />,
-    ],
-  },
-}
-
-export const ButtonWithOptions = {
-  args: {
-    children: [
-      <Button key={0} label="Button with Options" />,
-      <NativeSelect key={1}>
-        <NativeSelectOption value="1" label="Action 1" />
-        <NativeSelectOption value="2" label="Action 2" />
-      </NativeSelect>,
-    ],
-  },
-}
-
-export const SelectWithTextInput = {
-  args: {
-    children: [
-      <NativeSelect key={0}>
-        <NativeSelectOption value="1" label="Action 1" />
-        <NativeSelectOption value="2" label="Action 2" />
-      </NativeSelect>,
-      <TextInput key={1} placeholder="Value…" />,
-    ],
-  },
-}
-
-export const TextInputWithButtonAndOptions = {
-  args: {
-    children: [
-      <TextInput key={0} placeholder="Enter Value…" />,
-      <Button key={1} label="Submit" />,
-      <NativeSelect key={2} placeholder="Other Actions…">
-        <NativeSelectOption value="1" label="Save" />
-        <NativeSelectOption value="2" label="Delete" />
-      </NativeSelect>,
-    ],
-  },
-}
-
-export const SelectWithSelect = {
-  args: {
-    children: [
-      <NativeSelect key={0}>
-        <NativeSelectOption value="1" label="Action 1" />
-        <NativeSelectOption value="2" label="Action 2" />
-      </NativeSelect>,
-      <NativeSelect key={1}>
-        <NativeSelectOption value="2-1" label="Action 1" />
-        <NativeSelectOption value="2-2" label="Action 2" />
-      </NativeSelect>,
     ],
   },
 }

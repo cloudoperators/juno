@@ -5,23 +5,27 @@
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-
-import { InputGroup } from "./"
-
-import { Button } from "../Button"
-import { TextInput } from "../TextInput"
+import { InputGroup } from "../../deprecated_js/InputGroup"
+import { Button } from "../../deprecated_js/Button/index"
+import { TextInput } from "../../deprecated_js/TextInput/index"
+import { NativeSelect } from "../NativeSelect/index"
+import { NativeSelectOption } from "../NativeSelectOption/index"
 
 describe("InputGroup", () => {
-  test("renders an InputGroup", () => {
+  test("renders an InputGroup", async () => {
     render(<InputGroup />)
     expect(document.querySelector(".juno-input-group")).toBeInTheDocument()
   })
 
-  test("renders children as passed", () => {
+  test("renders children as passed", async () => {
     render(
       <InputGroup>
         <Button label="A Button" />
         <TextInput value="some value" />
+        <NativeSelect>
+          <NativeSelectOption label="A Select Option" value="sel-opt-1" />
+          <NativeSelectOption label="Another Select Option" value="sel-opt-2" />
+        </NativeSelect>
       </InputGroup>
     )
     expect(document.querySelector(".juno-input-group")).toBeInTheDocument()
@@ -29,9 +33,10 @@ describe("InputGroup", () => {
     expect(screen.getByRole("button")).toHaveTextContent("A Button")
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveValue("some value")
+    expect(screen.getByRole("combobox")).toBeInTheDocument() // use listbox for radix-based select
   })
 
-  test("renders child button variants as passed to parent", () => {
+  test("renders child button variants as passed to parent", async () => {
     render(
       <InputGroup variant="primary-danger">
         <Button label="first" />
@@ -47,7 +52,7 @@ describe("InputGroup", () => {
     expect(screen.getByRole("button", { name: "third" })).toHaveClass("juno-button-primary-danger")
   })
 
-  test("allows child button variant to override variant passed to parent", () => {
+  test("allows child button variant to override variant passed to parent", async () => {
     render(
       <InputGroup variant="primary-danger">
         <Button label="first" />
@@ -64,26 +69,32 @@ describe("InputGroup", () => {
     expect(screen.getByRole("button", { name: "third" })).toHaveClass("juno-button-primary-danger")
   })
 
-  test("disables all child elements as passed to parent", () => {
+  test("disables all child elements as passed to parent", async () => {
     render(
       <InputGroup disabled>
         <Button />
         <TextInput />
+        <NativeSelect>
+          <NativeSelectOption label="A Select Option" value="sel-opt-1" />
+          <NativeSelectOption label="Another Select Option" value="sel-opt-2" />
+        </NativeSelect>
       </InputGroup>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toBeDisabled()
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toBeDisabled()
+    expect(screen.getByRole("combobox")).toBeInTheDocument()
+    expect(screen.getByRole("combobox")).toBeDisabled()
   })
 
-  test("renders a className as passed", () => {
+  test("renders a className a spassed", async () => {
     render(<InputGroup className="my-class" />)
     expect(document.querySelector(".juno-input-group")).toBeInTheDocument()
     expect(document.querySelector(".juno-input-group")).toHaveClass("my-class")
   })
 
-  test("renders all props as passed", () => {
+  test("renders all props as passed", async () => {
     render(<InputGroup data-test="my-prop" />)
     expect(document.querySelector(".juno-input-group")).toBeInTheDocument()
     expect(document.querySelector(".juno-input-group")).toHaveAttribute("data-test", "my-prop")
