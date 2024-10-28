@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { FormRow } from "./FormRow.component"
+export { SelectRow } from "./SelectRow.component"
