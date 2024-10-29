@@ -128,6 +128,13 @@ const config = [
     },
   },
   {
+    input: "src/hooks/useEndlessScrollList.tsx",
+    output: {
+      file: `${buildDir}/hooks/useEndlessScrollList.js`,
+    },
+    plugins: [typescript({ tsconfig: path.resolve(__dirname, "./tsconfig.hooks.build.json") })],
+  },
+  {
     input: "lib/variables.scss",
     output: {
       file: `${buildDir}/lib/variables.css`,

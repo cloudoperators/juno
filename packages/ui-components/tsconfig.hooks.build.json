@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.build.json", // base that will be ovewrited
+  "include": ["./src/hooks/*.ts", "./types/hooks/*.ts", "./src/hooks/*.tsx"]
+}
