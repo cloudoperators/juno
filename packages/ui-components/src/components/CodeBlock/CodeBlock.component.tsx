@@ -122,8 +122,8 @@ export const CodeBlock = ({
 
   React.useEffect(() => {
     return () => {
-      if (timeoutRef.current) { 
-        clearTimeout(timeoutRef.current) 
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
       }
     } // clear when component is unmounted
   }, [])
