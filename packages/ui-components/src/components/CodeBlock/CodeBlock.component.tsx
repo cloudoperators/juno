@@ -131,7 +131,7 @@ export const CodeBlock = ({
   const theCode = useRef<HTMLElement>(null)
 
   const handleCopyClick = useCallback(() => {
-    const textToCopy = lang === "json" ? JSON.stringify(content || children) : theCode.current!.textContent
+    const textToCopy = lang === "json" ? JSON.stringify(content || children) : theCode.current?.textContent
     if (textToCopy) {
       navigator.clipboard.writeText(textToCopy).catch(() => {
         console.warn("Cannot copy text to clipboard")
@@ -142,7 +142,7 @@ export const CodeBlock = ({
       clearTimeout(timeoutRef.current) // clear any possibly existing Refs
     }
     timeoutRef.current = setTimeout(() => setIsCopied(false), 1000)
-  }, [content, children, theCode, navigator, timeoutRef, setIsCopied])
+  }, [content, children, lang])
 
   return (
     <div

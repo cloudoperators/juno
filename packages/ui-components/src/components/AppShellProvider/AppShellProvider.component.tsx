@@ -10,7 +10,13 @@ import { ShadowRoot } from "../ShadowRoot"
 import { PortalProvider } from "../PortalProvider"
 
 const Wrapper = ({ children, shadowRoot, shadowRootMode }: WrapperProps) => {
-  return shadowRoot ? <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot> : children
+  return shadowRoot ? (
+    <ShadowRoot mode={shadowRootMode}>
+      <>{children}</>
+    </ShadowRoot>
+  ) : (
+    children
+  )
 }
 
 /**
