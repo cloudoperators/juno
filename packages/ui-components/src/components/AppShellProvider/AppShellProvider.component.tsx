@@ -5,9 +5,9 @@
 
 import React from "react"
 
-import { StyleProvider } from "../StyleProvider/StyleProvider.component"
-import { ShadowRoot } from "../ShadowRoot/ShadowRoot.component"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { StyleProvider } from "../StyleProvider"
+import { ShadowRoot } from "../ShadowRoot"
+import { PortalProvider } from "../PortalProvider"
 
 const Wrapper = ({ children, shadowRoot, shadowRootMode }: WrapperProps) => {
   return shadowRoot ? <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot> : children

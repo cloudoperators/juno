@@ -4,11 +4,11 @@
  */
 
 import React from "react"
-import { CodeBlock } from "./index"
-import { Tabs } from "../Tabs/index"
-import { TabList } from "../TabList/index"
-import { Tab } from "../Tab/index"
-import { TabPanel } from "../TabPanel/index"
+import { CodeBlock } from "."
+import { Tabs } from "../Tabs"
+import { TabList } from "../TabList"
+import { Tab } from "../Tab"
+import { TabPanel } from "../TabPanel"
 
 const TabStory = {
   args: {

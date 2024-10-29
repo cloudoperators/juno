@@ -4,9 +4,9 @@
  */
 
 import React from "react"
-import { Message } from "../Message/Message.component"
+import { Message } from "../Message"
 import { AppShellProvider, AppShellProviderProps } from "./AppShellProvider.component"
-import { CodeBlock } from "../CodeBlock/CodeBlock.component"
+import { CodeBlock } from "../CodeBlock"
 
 export default {
   title: "Layout/AppShellProvider",

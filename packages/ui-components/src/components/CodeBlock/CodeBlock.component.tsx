@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useRef } from "react"
-import { JsonViewer } from "../JsonViewer/JsonViewer.component"
-import { Icon } from "../Icon/index"
+import React, { useState, useRef, useCallback } from "react"
+import { JsonViewer } from "../JsonViewer"
+import { Icon } from "../Icon"
 
 const wrapperStyles = `
   jn-bg-theme-code-block
@@ -121,12 +121,16 @@ export const CodeBlock = ({
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
 
   React.useEffect(() => {
-    return () => clearTimeout(timeoutRef.current!) // clear when component is unmounted
+    return () => {
+      if (timeoutRef.current) { 
+        clearTimeout(timeoutRef.current) 
+      }
+    } // clear when component is unmounted
   }, [])
 
-  const theCode = useRef<HTMLElement | null>(null)
+  const theCode = useRef<HTMLElement>(null)
 
-  const handleCopyClick = () => {
+  const handleCopyClick = useCallback(() => {
     const textToCopy = lang === "json" ? JSON.stringify(content || children) : theCode.current!.textContent
     if (textToCopy) {
       navigator.clipboard.writeText(textToCopy).catch(() => {
@@ -138,7 +142,7 @@ export const CodeBlock = ({
       clearTimeout(timeoutRef.current) // clear any possibly existing Refs
     }
     timeoutRef.current = setTimeout(() => setIsCopied(false), 1000)
-  }
+  }, [content, children, theCode, navigator, timeoutRef, setIsCopied])
 
   return (
     <div
