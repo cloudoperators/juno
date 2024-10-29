@@ -51,7 +51,7 @@ const Filters = ({
   }, [data, queryKey])
 
   useEffect(() => {
-    // Set filter labels and values in the store
+    // Set filter labels, names and values in the store
     // It is done in this control as the fetch filter label and values is done above here
     if (filters.length > 0) {
       setLabels(entityName, filters)
