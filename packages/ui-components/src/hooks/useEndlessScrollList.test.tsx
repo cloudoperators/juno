@@ -13,7 +13,6 @@ const intersectionObserverMock = () => ({
 window.IntersectionObserver = vi.fn().mockImplementation(intersectionObserverMock)
 
 // TODO: add tests for the loading indicator which currently is not implemented do tue intersection observer can't be reproduced in tests
-
 describe("useEndlessScrollList", () => {
   it("return no scroll items if items not all provided", () => {
     const { result } = renderHook(() => useEndlessScrollList([]))
@@ -35,7 +34,10 @@ describe("useEndlessScrollList", () => {
   describe("iterator", () => {
     it("returns a map function which iterates over all scrollListItems and adds the intersection ref if nothing else specified in options", () => {
       const { result } = renderHook(() => useEndlessScrollList(["1", "2", "3"]))
-      const mapFunction = result.current.iterator.map((item: unknown) => item)
+      const mapFunction = result.current.iterator.map(
+        // eslint-disable-next-line no-unused-vars
+        (item: unknown, index: number, array: unknown[]): React.JSX.Element => item as React.JSX.Element
+      )
       const getById = queryByAttribute.bind(null, "id")
       const dom = render(mapFunction)
       const intersectionRefElement = getById(dom.container, "endlessScrollListLastItemRef")
@@ -50,7 +52,10 @@ describe("useEndlessScrollList", () => {
           refFunction: refFunction,
         })
       )
-      const mapFunction = result.current.iterator.map((item: unknown) => item)
+      const mapFunction = result.current.iterator.map(
+        // eslint-disable-next-line no-unused-vars
+        (item: unknown, index: number, array: unknown[]): React.JSX.Element => item as React.JSX.Element
+      )
       const getById = queryByAttribute.bind(null, "id")
       const dom = render(mapFunction)
       const intersectionRefElement = getById(dom.container, "endlessScrollListLastItemRef")
@@ -65,7 +70,10 @@ describe("useEndlessScrollList", () => {
           refFunction: refFunction,
         })
       )
-      const mapFunction = result.current.iterator.map((item: unknown) => item)
+      const mapFunction = result.current.iterator.map(
+        // eslint-disable-next-line no-unused-vars
+        (item: unknown, index: number, array: unknown[]): React.JSX.Element => item as React.JSX.Element
+      )
       const getById = queryByAttribute.bind(null, "id")
       const dom = render(mapFunction)
       const intersectionRefElement = getById(dom.container, "endlessScrollListLastItemRef")
