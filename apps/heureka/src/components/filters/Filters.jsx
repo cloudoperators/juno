@@ -35,7 +35,7 @@ const Filters = ({
   })
 
   const filters = useMemo(() => {
-    //Since there is a custom query to fetch filter labels and values for each entity in API
+    //Since there is a custom query to fetch filter labels, names and values for each entity in API
     //We need to map the data to the format that the FilterSelect component expects
     //You can check the response structure of custom query e.g in /lib/queries/serviceFilterValues.js
     if (!data || !data[queryKey]) return []
@@ -43,8 +43,9 @@ const Filters = ({
     return Object.keys(data[queryKey]).map((key) => {
       const field = data[queryKey][key]
       return {
-        label: field.filterName, // Collecting filterName as filterLabel
-        values: field.values, // Collecting values as filterValues
+        displayName: field.displayName, // Display name of the filter
+        filterName: field.filterName, // Name of the filter to build the query
+        values: field.values,
       }
     })
   }, [data, queryKey])
@@ -53,8 +54,7 @@ const Filters = ({
     // Set filter labels and values in the store
     // It is done in this control as the fetch filter label and values is done above here
     if (filters.length > 0) {
-      const filterLabels = filters.map((filter) => filter.label)
-      setLabels(entityName, filterLabels)
+      setLabels(entityName, filters)
       setFilterLabelValues(entityName, filters)
     }
   }, [filters, setLabels, setFilterLabelValues, entityName])
