@@ -24,7 +24,8 @@ import { useQuery, useMutation } from "@tanstack/react-query"
 import LoadElement from "../shared/LoadElement"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
-import { listOfCommaSeparatedObjs, severityString, highestSeverity } from "../shared/Helper"
+import { listOfCommaSeparatedObjs } from "../shared/Helper"
+import ComponentInstancesList from "./ComponentInstancesList"
 
 const ServicesDetail = () => {
   const showServiceDetail = useGlobalsShowServiceDetail()
@@ -223,7 +224,7 @@ const ServicesDetail = () => {
 
       <Container py px={false}>
         <ContentHeading className="mt-8 mb-2" heading="Component Instances" />
-        <DataGrid columns={4}>
+        {/* <DataGrid columns={4}>
           <DataGridRow>
             <DataGridHeadCell>Component</DataGridHeadCell>
             <DataGridHeadCell>Version</DataGridHeadCell>
@@ -250,7 +251,8 @@ const ServicesDetail = () => {
               </DataGridCell>
             </DataGridRow>
           ))}
-        </DataGrid>
+        </DataGrid> */}
+        <ComponentInstancesList serviceName={showServiceDetail} />
       </Container>
     </>
   )

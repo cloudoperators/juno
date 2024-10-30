@@ -77,7 +77,7 @@ export const servicesDetailsQuery = () => gql`
               cursor
             }
           }
-          componentInstances {
+          componentInstances(first: $first, after: $after) {
             edges {
               node {
                 id
@@ -89,11 +89,10 @@ export const servicesDetailsQuery = () => gql`
                     name
                   }
                 }
-                issueMatches(first: 10000) {
+                issueMatches {
                   totalCount
                   edges {
                     node {
-                      id
                       severity {
                         value
                         score
@@ -102,6 +101,11 @@ export const servicesDetailsQuery = () => gql`
                   }
                 }
               }
+            }
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+              pageCount
             }
           }
         }
@@ -116,6 +120,50 @@ export const servicesCountQuery = () => gql`
   query ($filter: ServiceFilter, $first: Int, $after: String) {
     Services(filter: $filter, first: $first, after: $after) {
       totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        isValidPage
+        pageNumber
+        nextPageAfter
+        pages {
+          after
+          isCurrent
+          pageNumber
+          pageCount
+        }
+      }
+    }
+  }
+`
+// Query to fetch only Component Instances for a specific Service
+export const componentInstancesOfServiceQuery = () => gql`
+  query ($filter: ComponentInstanceFilter, $first: Int, $after: String) {
+    ComponentInstances(filter: $filter, first: $first, after: $after) {
+      edges {
+        node {
+          id
+          ccrn
+          count
+          componentVersion {
+            version
+            component {
+              name
+            }
+          }
+          issueMatches {
+            totalCount
+            edges {
+              node {
+                severity {
+                  value
+                  score
+                }
+              }
+            }
+          }
+        }
+      }
       pageInfo {
         hasNextPage
         hasPreviousPage
