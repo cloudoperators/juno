@@ -92,7 +92,7 @@ export const SelectOption = ({
         `}
           {...props}
         >
-          {selected ? <Icon icon="check" size="18" className={`${selectedIconStyles}`} /> : ""}
+          {selected ? <Icon icon="check" size="18" className={selectedIconStyles} /> : ""}
           <span
             className={`
             ${disabled ? disabledOptionLabelStyles : ""}
