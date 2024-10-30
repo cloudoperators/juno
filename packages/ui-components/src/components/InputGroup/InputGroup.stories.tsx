@@ -5,10 +5,10 @@
 
 import React from "react"
 
-import { InputGroup } from "./"
+import { InputGroup } from "./InputGroup.component"
 
-import { Button } from "../Button"
-import { TextInput } from "../TextInput"
+import { Button } from "../Button/Button.component"
+import { TextInput } from "../TextInput/TextInput.component"
 
 export default {
   title: "WiP/InputGroup",

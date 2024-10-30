@@ -4,7 +4,7 @@
  */
 
 import React, { ReactNode, isValidElement } from "react"
-import { Stack } from "../Stack"
+import { Stack } from "../Stack/Stack.component"
 import "./input-group.scss"
 
 type VariantTypes = "default" | "primary" | "primary-danger" | "subdued"

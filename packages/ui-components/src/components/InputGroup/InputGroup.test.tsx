@@ -7,9 +7,9 @@ import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
 
-import { InputGroup } from "./"
-import { Button } from "../Button"
-import { TextInput } from "../TextInput"
+import { InputGroup } from "./InputGroup.component"
+import { Button } from "../Button/Button.component"
+import { TextInput } from "../TextInput/TextInput.component"
 
 describe("InputGroup", () => {
   describe("Basic Rendering", () => {
