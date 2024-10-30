@@ -30,7 +30,7 @@ export interface InputGroupProps {
   disabled?: boolean
 }
 
-type OverrideProps = { variant?: VariantTypes; disabled?: boolean }
+type InheritedProps = { variant?: VariantTypes; disabled?: boolean }
 
 /**
  * Clones a child element with inherited variant and disabled props.
@@ -43,13 +43,22 @@ const cloneElementWithInheritedProps = (
   parentVariant: VariantTypes,
   parentDisabled: boolean
 ): ReactNode => {
-  if (!isValidElement<OverrideProps>(child)) return child
+  if (!isValidElement<InheritedProps>(child)) return child
 
   const combinedProps = {
-    variant: child.props.variant ?? parentVariant,
-    disabled: child.props.disabled ?? parentDisabled,
+    variant: child.props.variant || parentVariant,
+    disabled: child.props.disabled || parentDisabled,
   }
   return React.cloneElement(child, combinedProps)
+}
+
+const getClassNames = (
+  className: string,
+  variant: VariantTypes,
+  disabled: boolean,
+  additionalClassName: string
+): string => {
+  return `${className} ${className}-${variant} ${disabled ? `${className}-disabled` : ""} ${additionalClassName}`
 }
 
 /**
@@ -68,11 +77,10 @@ export const InputGroup: React.FC<InputGroupProps> = ({
     cloneElementWithInheritedProps(child, variant, disabled)
   )
 
+  const inputGroupClassName = getClassNames("juno-input-group", variant, disabled, className)
+
   return (
-    <Stack
-      className={`juno-input-group juno-input-group-${variant} ${disabled ? "juno-input-group-disabled" : ""} ${className}`}
-      {...props}
-    >
+    <Stack className={inputGroupClassName} {...props}>
       {modifiedChildren}
     </Stack>
   )
