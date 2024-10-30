@@ -223,35 +223,6 @@ const ServicesDetail = () => {
       </DataGrid>
 
       <Container py px={false}>
-        <ContentHeading className="mt-8 mb-2" heading="Component Instances" />
-        {/* <DataGrid columns={4}>
-          <DataGridRow>
-            <DataGridHeadCell>Component</DataGridHeadCell>
-            <DataGridHeadCell>Version</DataGridHeadCell>
-            <DataGridHeadCell>Total Number of Issues</DataGridHeadCell>
-            <DataGridHeadCell>Highest Severity</DataGridHeadCell>
-          </DataGridRow>
-          {!service?.componentInstances?.edges && (
-            <DataGridRow colSpan={4}>
-              <Container py>
-                <LoadElement />
-              </Container>
-            </DataGridRow>
-          )}
-
-          {service?.componentInstances?.edges?.map((componentInstance, i) => (
-            <DataGridRow key={i}>
-              <DataGridCell>{componentInstance?.node?.ccrn}</DataGridCell>
-              <DataGridCell className="break-all overflow-hidden">
-                {componentInstance?.node?.componentVersion?.version}
-              </DataGridCell>
-              <DataGridCell>{componentInstance?.node?.issueMatches?.totalCount}</DataGridCell>
-              <DataGridCell>
-                {severityString(highestSeverity(componentInstance?.node?.issueMatches?.edges))}
-              </DataGridCell>
-            </DataGridRow>
-          ))}
-        </DataGrid> */}
         <ComponentInstancesList serviceName={showServiceDetail} />
       </Container>
     </>

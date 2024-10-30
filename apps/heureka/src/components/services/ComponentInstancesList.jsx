@@ -6,6 +6,7 @@
 import React, { useState, useMemo } from "react"
 import { useQuery } from "@tanstack/react-query"
 import {
+  ContentHeading,
   Pagination,
   Container,
   Stack,
@@ -34,8 +35,6 @@ const ComponentInstancesList = ({ serviceName }) => {
     ],
     enabled: !!queryClientFnReady && !!serviceName,
   })
-
-  console.log("componentInstancesOfService data", data)
 
   const items = useMemo(() => {
     return data?.ComponentInstances?.edges || []
@@ -66,6 +65,7 @@ const ComponentInstancesList = ({ serviceName }) => {
 
   return (
     <>
+      <ContentHeading className="mt-8 mb-2" heading="Component Instances" />
       <DataGrid columns={4}>
         <DataGridRow>
           <DataGridHeadCell>Component</DataGridHeadCell>
