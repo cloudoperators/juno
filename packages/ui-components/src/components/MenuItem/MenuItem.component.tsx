@@ -87,8 +87,8 @@ export const MenuItem: FC<MenuItemProps> = ({
   return (
     <HLMenu.Item
       as={Element}
-      // @ts-ignore
-      href={href && Element === "a" && !disabled ? href : null}
+      // conditionally pass a href attribute only if href was supplied to prevent errors from headless-ui internal checks:
+      {...(href && Element === "a" && !disabled && { href: href })}
       onClick={onClick && Element === "button" && !disabled ? handleClick : undefined}
       disabled={disabled}
       className={`
