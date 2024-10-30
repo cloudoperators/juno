@@ -169,15 +169,15 @@ export const Select = ({
   wrapperClassName = "",
   ...props
 }: SelectProps) => {
-  const isNotEmptyString = (
-    str:
+  const isValueNotEmpty = (
+    value:
       | string
       | number
       | boolean
       | React.ReactElement<unknown, string | React.JSXElementConstructor<unknown>>
       | Iterable<React.ReactNode>
-  ) => {
-    return !(typeof str === "string" && str.trim().length === 0)
+  ): boolean => {
+    return !(typeof value === "string" && value.trim().length === 0)
   }
 
   const uniqueId = () => "juno-select-" + useId()
@@ -208,11 +208,11 @@ export const Select = ({
   }
 
   const invalidated = useMemo(
-    () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
+    () => invalid || (errortext && isValueNotEmpty(errortext) ? true : false),
     [invalid, errortext]
   )
   const validated = useMemo(
-    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () => valid || (successtext && isValueNotEmpty(successtext) ? true : false),
     [valid, successtext]
   )
 
@@ -300,7 +300,7 @@ export const Select = ({
           value={value}
           defaultValue={defaultValue}
         >
-          {label && isNotEmptyString(label) ? (
+          {label && isValueNotEmpty(label) ? (
             <Listbox.Label
               as={Label}
               htmlFor={theId}
@@ -327,7 +327,7 @@ export const Select = ({
                     ${variant && variant.length ? "juno-select-toggle-" + variant : "juno-select-toggle-default"}
                     ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
                     ${toggleStyles}
-                    ${label && isNotEmptyString(label) ? "jn-pt-[0.4rem]" : ""}
+                    ${label && isValueNotEmpty(label) ? "jn-pt-[0.4rem]" : ""}
                     ${disabled ? "juno-select-disabled jn-opacity-50 jn-cursor-not-allowed" : ""}
                     ${isLoading || hasError ? "jn-justify-center" : "jn-justify-between"}
                     ${isInvalid ? "juno-select-invalid " + invalidToggleStyles : ""} 
@@ -384,9 +384,9 @@ export const Select = ({
           </Float>
         </Listbox>
 
-        {errortext && isNotEmptyString(errortext) ? <FormHint text={errortext} variant="error" /> : ""}
-        {successtext && isNotEmptyString(successtext) ? <FormHint text={successtext} variant="success" /> : ""}
-        {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} id={helptextId} /> : ""}
+        {errortext && isValueNotEmpty(errortext) ? <FormHint text={errortext} variant="error" /> : ""}
+        {successtext && isValueNotEmpty(successtext) ? <FormHint text={successtext} variant="success" /> : ""}
+        {helptext && isValueNotEmpty(helptext) ? <FormHint text={helptext} id={helptextId} /> : ""}
       </div>
     </SelectContext.Provider>
   )

@@ -19,7 +19,7 @@ export interface SelectDividerProps {
 /** A visual border/divider between SelectOptions or SelectGroups */
 export const SelectDivider = React.forwardRef<HTMLDivElement, SelectDividerProps>(
   ({ className = "", ...props }, forwardedRef) => {
-    return <div className={`juno-select-divider ${dividerStyles} ${className}`} ref={forwardedRef} {...props}></div>
+    return <div className={`juno-select-divider ${dividerStyles} ${className}`} ref={forwardedRef} {...props} />
   }
 )
 
