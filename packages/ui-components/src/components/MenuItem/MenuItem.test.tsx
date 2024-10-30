@@ -25,10 +25,13 @@ describe("MenuItem", () => {
         <MenuItem href="#" />
       </Menu>
     )
-    expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item")
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item-a")
-    expect(screen.getByRole("menuitem")).not.toHaveClass("juno-menu-item-button")
+    const item = screen.getByRole("menuitem")
+    expect(item).toBeInTheDocument()
+    expect(item.tagName).toBe("A")
+    expect(item).toHaveClass("juno-menu-item")
+    expect(item).toHaveClass("juno-menu-item-a")
+    expect(item).not.toHaveClass("juno-menu-item-button")
+    expect(item).not.toHaveClass("juno-menu-item-div")
   })
 
   test("renders a button menu item when onClick prop is passed", () => {
@@ -41,42 +44,45 @@ describe("MenuItem", () => {
         />
       </Menu>
     )
-    expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item")
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item-button")
-    expect(screen.getByRole("menuitem")).not.toHaveClass("juno-menu-item-a")
+    const item = screen.getByRole("menuitem")
+    expect(item).toBeInTheDocument()
+    expect(item.tagName).toBe("BUTTON")
+    expect(item).toHaveClass("juno-menu-item")
+    expect(item).toHaveClass("juno-menu-item-button")
+    expect(item).not.toHaveClass("juno-menu-item-a")
+    expect(item).not.toHaveClass("juno-menu-item-div")
   })
 
-  test("renders a button menu item when onClick prop is passed", () => {
+  test("renders a plain div menu item when children are passed", () => {
     render(
       <Menu>
-        <MenuItem
-          onClick={() => {
-            console.log("clicked")
-          }}
-        />
+        <MenuItem>
+          <button>Child Button</button>
+        </MenuItem>
       </Menu>
     )
-    expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item")
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item-button")
-    expect(screen.getByRole("menuitem")).not.toHaveClass("juno-menu-item-a")
+    const item = screen.getByRole("menuitem")
+    expect(item).toBeInTheDocument()
+    expect(item.tagName).toBe("DIV")
+    expect(item).toHaveClass("juno-menu-item")
+    expect(item).toHaveClass("juno-menu-item-div")
+    expect(item).not.toHaveClass("juno-menu-item-a")
+    expect(item).not.toHaveClass("juno-menu-item-button")
   })
 
-  test("renders a button menu item when onClick prop is passed", () => {
+  test("renders a plain div menu item when neither onClick, href, nor children are passed", () => {
     render(
       <Menu>
-        <MenuItem
-          onClick={() => {
-            console.log("clicked")
-          }}
-        />
+        <MenuItem />
       </Menu>
     )
-    expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item")
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-menu-item-button")
-    expect(screen.getByRole("menuitem")).not.toHaveClass("juno-menu-item-a")
+    const item = screen.getByRole("menuitem")
+    expect(item).toBeInTheDocument()
+    expect(item.tagName).toBe("DIV")
+    expect(item).toHaveClass("juno-menu-item")
+    expect(item).toHaveClass("juno-menu-item-div")
+    expect(item).not.toHaveClass("juno-menu-item-a")
+    expect(item).not.toHaveClass("juno-menu-item-button")
   })
 
   test("renders a menu item with an icon as passed", () => {
