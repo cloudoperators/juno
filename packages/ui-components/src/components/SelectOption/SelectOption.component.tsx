@@ -67,7 +67,7 @@ export const SelectOption = ({
   ...props
 }: SelectOptionProps) => {
   const selectContext = useContext(SelectContext)
-  const { truncateOptions: truncateOptions, addOptionValueAndLabel: addOptionValueAndLabel } = selectContext || {
+  const { truncateOptions, addOptionValueAndLabel } = selectContext || {
     truncateOptions: false,
     addOptionValueAndLabel: () => {},
   }
