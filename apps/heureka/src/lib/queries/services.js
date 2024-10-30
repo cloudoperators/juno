@@ -77,37 +77,6 @@ export const servicesDetailsQuery = () => gql`
               cursor
             }
           }
-          componentInstances(first: $first, after: $after) {
-            edges {
-              node {
-                id
-                ccrn
-                count
-                componentVersion {
-                  version
-                  component {
-                    name
-                  }
-                }
-                issueMatches {
-                  totalCount
-                  edges {
-                    node {
-                      severity {
-                        value
-                        score
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-              pageCount
-            }
-          }
         }
         cursor
       }
