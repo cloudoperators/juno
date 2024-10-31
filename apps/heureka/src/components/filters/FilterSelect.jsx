@@ -6,7 +6,6 @@
 import React, { useState } from "react"
 import { Button, InputGroup, SelectOption, Select, Stack, SearchInput } from "@cloudoperators/juno-ui-components"
 import { useFilterActions } from "../StoreProvider"
-import { humanizeString } from "../../lib/utils"
 
 const FilterSelect = ({
   entityName,
@@ -48,19 +47,19 @@ const FilterSelect = ({
           name="filter"
           className="filter-label-select w-64 mb-0"
           label="Filter"
-          value={humanizeString(filterLabel)}
+          value={filterLabel}
           onChange={handleFilterLabelChange}
           disabled={isLoading}
         >
-          {filterLabels?.map((filter) => (
-            <SelectOption value={filter} label={humanizeString(filter)} key={filter} />
+          {filterLabels?.map(({ displayName, filterName }) => (
+            <SelectOption value={filterName} label={displayName} key={filterName} />
           ))}
         </Select>
         <Select
           name="filterValue"
           value={filterValue}
           onChange={handleFilterValueChange}
-          disabled={!filterLabelValues[filterLabel]?.length}
+          disabled={!filterLabelValues?.[filterLabel]?.length}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
         >
           {filterOptions?.map((value) => (
