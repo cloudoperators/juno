@@ -52,13 +52,11 @@ const cloneElementWithInheritedProps = (
   return React.cloneElement(child, combinedProps)
 }
 
-const getClassNames = (
-  className: string,
-  variant: VariantTypes,
-  disabled: boolean,
-  additionalClassName: string
-): string => {
-  return `${className} ${className}-${variant} ${disabled ? `${className}-disabled` : ""} ${additionalClassName}`
+const getClassNames = (baseClassName: string, variant: VariantTypes, disabled: boolean): string => {
+  return `
+    ${baseClassName}-${variant}
+    ${disabled ? `${baseClassName}-disabled` : ""}
+  `
 }
 
 /**
@@ -77,10 +75,10 @@ export const InputGroup: React.FC<InputGroupProps> = ({
     cloneElementWithInheritedProps(child, variant, disabled)
   )
 
-  const inputGroupClassName = getClassNames("juno-input-group", variant, disabled, className)
+  const inputGroupClassName = getClassNames("juno-input-group", variant, disabled)
 
   return (
-    <Stack className={inputGroupClassName} {...props}>
+    <Stack className={`juno-input-group ${inputGroupClassName} ${className}`} {...props}>
       {modifiedChildren}
     </Stack>
   )
