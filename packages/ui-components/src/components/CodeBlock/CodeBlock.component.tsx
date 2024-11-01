@@ -118,7 +118,7 @@ export const CodeBlock = ({
   ...props
 }: CodeBlockProps) => {
   const [isCopied, setIsCopied] = useState(false)
-  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+  const timeoutRef = React.useRef<number | null>(null)
 
   React.useEffect(() => {
     return () => {
@@ -141,7 +141,7 @@ export const CodeBlock = ({
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current) // clear any possibly existing Refs
     }
-    timeoutRef.current = setTimeout(() => setIsCopied(false), 1000)
+    timeoutRef.current = window.setTimeout(() => setIsCopied(false), 1000)
   }, [content, children, lang])
 
   return (
