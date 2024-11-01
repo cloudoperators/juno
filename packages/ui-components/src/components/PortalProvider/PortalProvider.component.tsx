@@ -13,6 +13,7 @@ interface PortalContextType {
 }
 export const PortalContext = createContext<PortalContextType | undefined>(undefined)
 
+// ensure very high z-index on portal root element to help prevent z-stacking problems for portaled components
 const portalRootStyles: React.CSSProperties = {
   position: "absolute",
   top: "0",
