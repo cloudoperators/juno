@@ -17,6 +17,7 @@ const portalRootStyles: React.CSSProperties = {
   position: "absolute",
   top: "0",
   left: "0",
+  zIndex: "9999",
 }
 
 /** A hook that creates a portal container in the current portal root, and returns this newly created container as a node to use in other components:
