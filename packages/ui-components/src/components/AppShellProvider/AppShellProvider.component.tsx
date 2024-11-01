@@ -8,6 +8,7 @@ import React from "react"
 import { StyleProvider } from "../StyleProvider"
 import { ShadowRoot } from "../ShadowRoot"
 import { PortalProvider } from "../PortalProvider"
+import { DEFAULT_THEME_NAME } from "../StyleProvider/StyleProvider.component"
 
 const Wrapper = ({ children, shadowRoot, shadowRootMode }: WrapperProps) => {
   return shadowRoot ? (
@@ -26,7 +27,7 @@ export const AppShellProvider = ({
   shadowRoot = true,
   shadowRootMode = "open",
   stylesWrapper = "inline",
-  theme = null,
+  theme = DEFAULT_THEME_NAME,
   children,
 }: AppShellProviderProps) => {
   return (
@@ -56,6 +57,6 @@ export interface AppShellProviderProps {
   /** Where app stylesheets are imported. This is only relevant if shadowRoot === false. If you use a ShadowRoot the styles must be inline. */
   stylesWrapper?: AppShellStyleWrapper
   /** theme: theme-dark or theme-light */
-  theme?: string | null
+  theme?: string
   children?: React.ReactNode
 }

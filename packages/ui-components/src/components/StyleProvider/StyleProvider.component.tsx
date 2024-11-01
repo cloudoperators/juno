@@ -29,7 +29,7 @@ export interface StyleContextProps {
 const StylesContext = createContext<StyleContextProps | undefined>(undefined)
 
 const APP_BODY_CSS_CLASS_NAME = "juno-app-body"
-const DEFAULT_THEME_NAME = "theme-dark"
+export const DEFAULT_THEME_NAME = "theme-dark"
 
 /**
  * Component that inserts the ui styles and manages theming and styles.
