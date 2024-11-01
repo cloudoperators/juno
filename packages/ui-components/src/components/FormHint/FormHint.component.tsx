@@ -51,6 +51,4 @@ export interface FormHintProps {
   variant?: FormHintVariant
   /** Pass a custom className */
   className?: string
-  /** Pass a custom id */
-  id?: string
 }
