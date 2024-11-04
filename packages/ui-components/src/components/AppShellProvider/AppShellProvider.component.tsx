@@ -49,14 +49,9 @@ interface WrapperProps {
   shadowRootMode?: ShadowRootMode
 }
 
-export interface AppShellProviderProps {
-  /** Whether the app is rendered inside a ShadowRoot. Only choose false if the app is meant to run as a stand-alone application. */
-  shadowRoot?: boolean
-  /** Shadow root mode */
-  shadowRootMode?: ShadowRootMode
+export interface AppShellProviderProps extends WrapperProps {
   /** Where app stylesheets are imported. This is only relevant if shadowRoot === false. If you use a ShadowRoot the styles must be inline. */
   stylesWrapper?: AppShellStyleWrapper
   /** theme: theme-dark or theme-light */
   theme?: "theme-dark" | "theme-light"
-  children?: React.ReactNode
 }
