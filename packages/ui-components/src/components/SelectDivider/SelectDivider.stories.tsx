@@ -4,19 +4,19 @@
  */
 
 import React from "react"
-import { SelectDivider } from "./index.js"
-import { Select } from "../Select/index.js"
-import { SelectOption } from "../SelectOption/index.js"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component.js"
+import { SelectDivider, SelectDividerProps } from "./SelectDivider.component"
+import { Select } from "../Select"
+import { SelectOption } from "../SelectOption"
+import { PortalProvider } from "../PortalProvider"
 
 export default {
   title: "Forms/Select/SelectDivider",
   component: SelectDivider,
   argTypes: {},
-  decorators: [(story) => <PortalProvider>{story()}</PortalProvider>],
+  decorators: [(story: () => React.ReactNode) => <PortalProvider>{story()}</PortalProvider>],
 }
 
-const Template = () => {
+const Template: React.FC<SelectDividerProps> = () => {
   return (
     <Select open>
       <SelectOption value="1">1</SelectOption>
