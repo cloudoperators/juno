@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { SelectRow } from "./index"
-import { SelectOption } from "../SelectOption/index"
+import { SelectOption } from "../../deprecated_js/SelectOption/SelectOption.component"
 
 const mockOnChange = jest.fn()
 // disable warnings for deprecated components

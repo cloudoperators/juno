@@ -79,10 +79,10 @@ export { RadioGroup } from "./components/RadioGroup/index.js"
 export { RadioRow } from "./components/RadioRow/index.js"
 export { SearchInput } from "./components/SearchInput"
 
-export { SelectDivider } from "./components/SelectDivider/index.js"
+export { SelectDivider } from "./deprecated_js/SelectDivider/index"
 
-export { Select } from "./components/Select/index.js"
-export { SelectOption } from "./components/SelectOption/index.js"
+export { Select } from "./deprecated_js/Select/index"
+export { SelectOption } from "./deprecated_js/SelectOption/index"
 
 export { SelectRow } from "./components/SelectRow/index.js"
 export { ShadowRoot } from "./components/ShadowRoot/index.js"
