@@ -16,6 +16,13 @@
     "allowSyntheticDefaultImports": true,
     "types": ["vitest/globals", "@testing-library/jest-dom", "@types/react"]
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts"],
+  "include": [
+    "./src/**/*.ts",
+    "./types/**/*.ts",
+    "./src/**/*.tsx",
+    "vitest.setup.ts",
+    "src/deprecated_js/Switch/Switch.component.js",
+    "src/deprecated_js/Switch/index.js"
+  ],
   "exclude": ["node_modules", "build"]
 }

@@ -4,29 +4,28 @@
  */
 
 import React, { useState, useEffect, useMemo, useId } from "react"
-import PropTypes from "prop-types"
-import { Label } from "../../deprecated_js/Label/index"
-import { Icon } from "../../deprecated_js/Icon/index"
-import { FormHint } from "../../deprecated_js/FormHint/FormHint.component"
+import { Label } from "../Label/index"
+import { Icon } from "../Icon/index"
+import { FormHint } from "../FormHint/FormHint.component"
 
 const switchWrapperStyles = `
-	jn-flex
-	jn-flex-row
-	jn-items-center
+    jn-flex
+    jn-flex-row
+    jn-items-center
 `
 
 const switchbasestyles = `
-	jn-rounded-full
-	jn-relative
-	jn-p-0
-	jn-leading-0
-	jn-border
-	jn-g-theme-default
-	focus:jn-outline-none
-	focus:jn-ring-2
-	focus:jn-ring-theme-focus
-	disabled:jn-opacity-50
-	disabled:jn-cursor-not-allowed
+    jn-rounded-full
+    jn-relative
+    jn-p-0
+    jn-leading-0
+    jn-border
+    jn-g-theme-default
+    focus:jn-outline-none
+    focus:jn-ring-2
+    focus:jn-ring-theme-focus
+    disabled:jn-opacity-50
+    disabled:jn-cursor-not-allowed
 `
 const switchsizestyles = (size) => {
   switch (size) {
@@ -40,12 +39,12 @@ const switchsizestyles = (size) => {
 }
 
 const handlebasestyles = `
-	jn-inline-block
-	jn-absolute
-	jn-top-[1px]
-	jn-rounded-full
-	jn-bg-theme-switch-handle
-	jn-border-theme-default
+    jn-inline-block
+    jn-absolute
+    jn-top-[1px]
+    jn-rounded-full
+    jn-bg-theme-switch-handle
+    jn-border-theme-default
 `
 const handlesizestyles = (size) => {
   switch (size) {
@@ -59,23 +58,23 @@ const handlesizestyles = (size) => {
 }
 
 const defaultborderstyles = `
-	jn-border-theme-switch-default
+    jn-border-theme-switch-default
 `
 
 const invalidbasestyles = `
-	jn-border-theme-error
+    jn-border-theme-error
 `
 
 const validbasestyles = `
-	jn-border-theme-success
+    jn-border-theme-success
 `
 
 const handleonstyles = `
-	jn-right-[1px] 
-	jn-bg-theme-switch-handle-checked
+    jn-right-[1px] 
+    jn-bg-theme-switch-handle-checked
 `
 const handleoffstyles = `
-	jn-left-[1px]
+    jn-left-[1px]
 `
 
 // const switchLabelStyles = `
@@ -97,15 +96,50 @@ const handleoffstyles = `
 // `
 
 const iconstyles = `
-	jn-inline-block 
-	jn-ml-1 
-	jn-leading-1
-	jn-mt-[-.2rem]
+    jn-inline-block 
+    jn-ml-1 
+    jn-leading-1
+    jn-mt-[-.2rem]
 `
 
 const hintStyles = `
-	jn-mt-0
+    jn-mt-0
 `
+
+interface SwitchProps {
+  /** Name attribute */
+  name?: string
+  /** Id */
+  id?: string
+  /** Add a label to the Switch */
+  label?: string
+  /** Whether the Switch is required */
+  required?: boolean
+  /** Leave empty for default size */
+  size?: "small" | "default" | "large"
+  /**  Pass checked state for initial rendering. */
+  on?: boolean
+  /** Disabled switch */
+  disabled?: boolean
+  /** Whether the Switch is invalid */
+  invalid?: boolean
+  /** Whether the Switch is valid */
+  valid?: boolean
+  /** A helptext to render to explain meaning and significance of the Switch */
+  helptext?: React.ReactNode
+  /** A text to render when the Switch was successfully validated */
+  errortext?: React.ReactNode
+  /** A text to render when the Switch has an error or could not be validated */
+  successtext?: React.ReactNode
+  /** Pass a className. The class name is applied to the internal button element. */
+  className?: string
+  /** Pass a change handler */
+  onChange?: (...args: unknown[]) => unknown
+  /** Pass a click handler */
+  onClick?: (...args: unknown[]) => unknown
+  /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
+  wrapperClassName?: string
+}
 
 /** A Switch/Toggle component */
 export const Switch = ({
@@ -126,7 +160,7 @@ export const Switch = ({
   onClick = undefined,
   wrapperClassName = "",
   ...props
-}) => {
+}: SwitchProps) => {
   const isNotEmptyString = (str) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
@@ -170,10 +204,10 @@ export const Switch = ({
     <div>
       <span
         className={`
-				juno-switch-wrapper 
-				${switchWrapperStyles}
+                juno-switch-wrapper 
+                ${switchWrapperStyles}
         ${wrapperClassName}
-				`}
+                `}
       >
         <button
           type="button"
@@ -184,14 +218,14 @@ export const Switch = ({
           disabled={disabled}
           onClick={handleClick}
           className={`
-						juno-switch 
-						juno-switch-${size} 
-						${switchbasestyles} 
-						${switchsizestyles(size)} 
-						${isInvalid ? "juno-switch-invalid " + invalidbasestyles : ""} 
-						${isValid ? "juno-switch-valid " + validbasestyles : ""} 
-						${isValid || isInvalid ? "" : defaultborderstyles} 
-						${className}`}
+                        juno-switch 
+                        juno-switch-${size} 
+                        ${switchbasestyles} 
+                        ${switchsizestyles(size)} 
+                        ${isInvalid ? "juno-switch-invalid " + invalidbasestyles : ""} 
+                        ${isValid ? "juno-switch-valid " + validbasestyles : ""} 
+                        ${isValid || isInvalid ? "" : defaultborderstyles} 
+                        ${className}`}
           {...props}
         >
           <span
@@ -236,39 +270,4 @@ export const Switch = ({
       {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} className={`${hintStyles}`} /> : ""}
     </div>
   )
-}
-
-Switch.propTypes = {
-  /** Name attribute */
-  name: PropTypes.string,
-  /** Id */
-  id: PropTypes.string,
-  /** Add a label to the Switch */
-  label: PropTypes.string,
-  /** Whether the Switch is required */
-  required: PropTypes.bool,
-  /** Leave empty for default size */
-  size: PropTypes.oneOf(["small", "default", "large"]),
-  /**  Pass checked state for initial rendering. */
-  on: PropTypes.bool,
-  /** Disabled switch */
-  disabled: PropTypes.bool,
-  /** Whether the Switch is invalid */
-  invalid: PropTypes.bool,
-  /** Whether the Switch is valid */
-  valid: PropTypes.bool,
-  /** A helptext to render to explain meaning and significance of the Switch */
-  helptext: PropTypes.node,
-  /** A text to render when the Switch was successfully validated */
-  errortext: PropTypes.node,
-  /** A text to render when the Switch has an error or could not be validated */
-  successtext: PropTypes.node,
-  /** Pass a className. The class name is applied to the internal button element. */
-  className: PropTypes.string,
-  /** Pass a change handler */
-  onChange: PropTypes.func,
-  /** Pass a click handler */
-  onClick: PropTypes.func,
-  /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
-  wrapperClassName: PropTypes.string,
 }
