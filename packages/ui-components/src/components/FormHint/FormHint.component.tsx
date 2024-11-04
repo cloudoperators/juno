@@ -42,7 +42,7 @@ export const FormHint = ({ children = null, text = "", variant = "help", classNa
 
 FormHint.displayName = "FormHint"
 
-export interface FormHintProps {
+export interface FormHintProps extends React.ComponentPropsWithoutRef<"div"> {
   /** The children to render as a hint associated with a form element */
   children?: ReactNode
   /** The text to render. If both children and text are passed, children will rendered */

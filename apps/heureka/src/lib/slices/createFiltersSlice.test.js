@@ -3,6 +3,7 @@
 
 import { createStore } from "zustand"
 import createFiltersSlice from "./createFiltersSlice"
+import constants from "../../components/shared/constants" // Import constants for use in tests
 
 // Constants for entities
 const ISSUEMATCHES = "IssueMatches"
@@ -13,8 +14,8 @@ describe("createFiltersSlice", () => {
   let store
 
   beforeEach(() => {
-    store = createStore((set) => ({
-      ...createFiltersSlice(set),
+    store = createStore((set, get) => ({
+      ...createFiltersSlice(set, get),
     }))
   })
 
@@ -28,17 +29,22 @@ describe("createFiltersSlice", () => {
 
   it("should set labels correctly for an entity", () => {
     const { setLabels } = store.getState().filters.actions
-    setLabels(ISSUEMATCHES, ["label1", "label2"])
+    const labelPairs = [
+      { displayName: "Label 1", filterName: "filter1" },
+      { displayName: "Label 2", filterName: "filter2" },
+    ]
+    setLabels(ISSUEMATCHES, labelPairs)
 
     const state = store.getState()
-    expect(state.filters[ISSUEMATCHES].labels).toEqual(["label1", "label2"])
+    expect(state.filters[ISSUEMATCHES].labels).toEqual(labelPairs)
+    expect(state.filters[ISSUEMATCHES].filterNames).toEqual(["filter1", "filter2"])
   })
 
   it("should set filter label values correctly for an entity", () => {
     const { setFilterLabelValues } = store.getState().filters.actions
     const filters = [
-      { label: "filter1", values: ["value1", "value2"] },
-      { label: "filter2", values: ["value3", "value4"] },
+      { filterName: "filter1", values: ["value1", "value2"] },
+      { filterName: "filter2", values: ["value3", "value4"] },
     ]
     setFilterLabelValues(ISSUEMATCHES, filters)
 
@@ -80,6 +86,18 @@ describe("createFiltersSlice", () => {
     state = store.getState()
     expect(state.filters[COMPONENTS].activeFilters).toEqual({
       filter1: ["value1", "value2"],
+    })
+  })
+
+  it("should not duplicate values when adding a single active filter", () => {
+    const { addActiveFilter } = store.getState().filters.actions
+
+    addActiveFilter(COMPONENTS, "filter1", "value1")
+    addActiveFilter(COMPONENTS, "filter1", "value1") // Adding the same value again
+
+    const state = store.getState()
+    expect(state.filters[COMPONENTS].activeFilters).toEqual({
+      filter1: ["value1"],
     })
   })
 
@@ -139,5 +157,49 @@ describe("createFiltersSlice", () => {
 
     const state = store.getState()
     expect(state.filters[SERVICES].search).toBe("searchText")
+  })
+
+  it("should set filters from URL correctly", () => {
+    const { setFiltersFromURL } = store.getState().filters.actions
+    const activeFilters = {
+      [ISSUEMATCHES]: { filter1: ["value1"] },
+      [SERVICES]: { filter2: ["value2"] },
+      [COMPONENTS]: { filter3: ["value3"] },
+    }
+    const searchTerm = {
+      [ISSUEMATCHES]: "search1",
+      [SERVICES]: "search2",
+      [COMPONENTS]: "search3",
+    }
+
+    setFiltersFromURL(activeFilters, searchTerm)
+
+    const state = store.getState()
+    expect(state.filters[ISSUEMATCHES].activeFilters).toEqual(activeFilters[ISSUEMATCHES])
+    expect(state.filters[SERVICES].activeFilters).toEqual(activeFilters[SERVICES])
+    expect(state.filters[COMPONENTS].activeFilters).toEqual(activeFilters[COMPONENTS])
+    expect(state.filters[ISSUEMATCHES].search).toBe("search1")
+    expect(state.filters[SERVICES].search).toBe("search2")
+    expect(state.filters[COMPONENTS].search).toBe("search3")
+  })
+
+  it("should synchronize filters with URL correctly", () => {
+    const { syncFiltersWithURL } = store.getState().filters.actions
+
+    // Set up initial filters and search terms
+    store.getState().filters.actions.setActiveFilters(ISSUEMATCHES, { filter1: ["value1"] })
+    store.getState().filters.actions.setActiveFilters(SERVICES, { filter2: ["value2"] })
+    store.getState().filters.actions.setActiveFilters(COMPONENTS, { filter3: ["value3"] })
+
+    const result = syncFiltersWithURL()
+
+    expect(result).toEqual({
+      [constants.ACTIVE_FILTERS]: {
+        [ISSUEMATCHES]: { filter1: ["value1"] },
+        [SERVICES]: { filter2: ["value2"] },
+        [COMPONENTS]: { filter3: ["value3"] },
+      },
+      [constants.SEARCH_TERM]: expect.any(String), // Use expect.any() for encoded search term verification
+    })
   })
 })

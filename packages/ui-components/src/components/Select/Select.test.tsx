@@ -4,22 +4,23 @@
  */
 
 import * as React from "react"
-import PropTypes from "prop-types"
 import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Select } from "./index"
 import { SelectOption } from "../SelectOption/index"
-import { AppShellProvider } from "../../deprecated_js/AppShellProvider/index"
+import { PortalProvider } from "../PortalProvider/index"
 
-const mockOnChange = jest.fn()
-const mockOnValueChange = jest.fn()
+import { SelectProps } from "./Select.component"
 
-const ControlledSelectParent = ({ value, children, onChange, ...props }) => {
-  const [val, setVal] = React.useState(value)
+const mockOnChange = vi.fn()
+const mockOnValueChange = vi.fn()
 
-  const handleChange = (v) => {
+const ControlledSelectParent = ({ children, ...props }: SelectProps) => {
+  const [val, setVal] = React.useState(props.value)
+
+  const handleChange = <T extends unknown>(v: T): void => {
     setVal(v)
-    onChange()
+    props.onChange?.()
   }
 
   return (
@@ -29,24 +30,18 @@ const ControlledSelectParent = ({ value, children, onChange, ...props }) => {
   )
 }
 
-ControlledSelectParent.propTypes = {
-  value: PropTypes.string,
-  children: PropTypes.node,
-  onChange: PropTypes.func,
-}
-
 describe("Select", () => {
   afterEach(() => {
     cleanup()
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   test("renders a Select toggle", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
 
@@ -58,9 +53,9 @@ describe("Select", () => {
   test("renders a default variant select toggle by defgault", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toHaveAttribute("type", "button")
@@ -74,9 +69,9 @@ describe("Select", () => {
   test("renders a primary variant select toggle as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select variant="primary" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toHaveAttribute("type", "button")
@@ -87,9 +82,9 @@ describe("Select", () => {
   test("renders a primary-danger variant select toggle as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select variant="primary-danger" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toHaveAttribute("type", "button")
@@ -100,9 +95,9 @@ describe("Select", () => {
   test("renders a subdued variant select toggle as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select variant="subdued" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toHaveAttribute("type", "button")
@@ -113,9 +108,9 @@ describe("Select", () => {
   test("renders a Select with a label as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select label="My Label" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(document.querySelector(".juno-label")).toBeInTheDocument()
@@ -125,9 +120,9 @@ describe("Select", () => {
   test("renders a placeholder as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select placeholder="my-placeholder" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -137,9 +132,9 @@ describe("Select", () => {
   test("renders default placeholder if empty string or undefined were passed as value", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select value="" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -149,9 +144,9 @@ describe("Select", () => {
   test("renders a Select toggle with an id as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select id="select-1" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -161,9 +156,9 @@ describe("Select", () => {
   test("renders a Select toggle with a generated unique id if no id was passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -174,9 +169,9 @@ describe("Select", () => {
   test("renders a Select toggle with an associated label with an id as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select id="my-select" label="My Select" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -187,9 +182,9 @@ describe("Select", () => {
   test("renders a Select toggle with a label associated by an auto-generated id if no id was passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select label="This is a Select" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -200,9 +195,9 @@ describe("Select", () => {
   test("renders a required marker as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select label="My Select" required={true} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -213,9 +208,9 @@ describe("Select", () => {
   test("renders an aria-label as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select ariaLabel="my-select" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -225,9 +220,9 @@ describe("Select", () => {
   test("renders a custom className to the Select toggle as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select className="my-class" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -237,9 +232,9 @@ describe("Select", () => {
   test("renders a disabled Select as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select disabled />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -249,9 +244,9 @@ describe("Select", () => {
   test("renders a valid Select as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select valid />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -262,9 +257,9 @@ describe("Select", () => {
   test("renders an invalid Select as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select invalid />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -275,9 +270,9 @@ describe("Select", () => {
   test("renders a successtext as passed and validates the Element", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select successtext="great success!" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
@@ -290,9 +285,9 @@ describe("Select", () => {
   test("renders an errortext as passed and invalidates the Element", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select errortext="this is an error!" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
@@ -305,9 +300,9 @@ describe("Select", () => {
   test("renders loading Select with a Spinner as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select loading />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -318,9 +313,9 @@ describe("Select", () => {
   test("renders a Select in error state as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select error />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -330,11 +325,11 @@ describe("Select", () => {
   test("renders non-truncated Select Options by default", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select>
             <SelectOption value="1">Option 1</SelectOption>
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -347,11 +342,11 @@ describe("Select", () => {
   test("renders truncated Select Options as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select truncateOptions>
             <SelectOption value="1">Option 1</SelectOption>
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -364,13 +359,13 @@ describe("Select", () => {
   test("renders a Select with a selected value as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select value="Option 2">
             <SelectOption value="Option 1" />
             <SelectOption value="Option 2" />
             <SelectOption value="Option 3" />
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -385,13 +380,13 @@ describe("Select", () => {
   test("renders the valueLabel in the toggle for selected items if passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select value="option-1" valueLabel="Option 1">
             <SelectOption value="option-1" label="Option 1" />
             <SelectOption value="option-2" label="Option 1" />
             <SelectOption value="option-3" label="Option 1" />
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -402,13 +397,13 @@ describe("Select", () => {
   test("opens the Select menu with options as passed when the user clicks the Select toggle", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select>
             <SelectOption value="Option 1" />
             <SelectOption value="Option 2" />
             <SelectOption value="Option 3" />
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -424,13 +419,13 @@ describe("Select", () => {
   test("changes the selected value as clicked by a user", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select>
             <SelectOption value="Option 1" />
             <SelectOption value="Option 2" />
             <SelectOption value="Option 3" />
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -446,11 +441,11 @@ describe("Select", () => {
   test("executes an onChange handler when the selected value changes", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select onChange={mockOnChange}>
             <SelectOption value="Option-1">Option 1</SelectOption>
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -464,11 +459,11 @@ describe("Select", () => {
   test("executes a legacy onValueChange handler when the Select value changes", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select onValueChange={mockOnValueChange}>
             <SelectOption value="Option-1">Option 1</SelectOption>
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -482,13 +477,13 @@ describe("Select", () => {
   test("works as a controlled component", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <ControlledSelectParent value="Option 1" onChange={mockOnChange}>
             <SelectOption value="Option 1">Option 1</SelectOption>
             <SelectOption value="Option 2">Option 2</SelectOption>
             <SelectOption value="Option 3">Option 3</SelectOption>
           </ControlledSelectParent>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -504,13 +499,13 @@ describe("Select", () => {
   test("updates value as passed", async () => {
     const { rerender } = await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select value="option-2">
             <SelectOption value="option-1" />
             <SelectOption value="option-2" />
             <SelectOption value="option-3" />
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -518,13 +513,13 @@ describe("Select", () => {
     expect(toggle).toHaveTextContent("option-2")
     await waitFor(() =>
       rerender(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select value="option-3">
             <SelectOption value="option-1" />
             <SelectOption value="option-2" />
             <SelectOption value="option-3" />
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(toggle).toBeInTheDocument()
@@ -534,13 +529,13 @@ describe("Select", () => {
   test("works as an uncontrolled component", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select defaultValue="Option 2">
             <SelectOption value="Option 1">Option 1</SelectOption>
             <SelectOption value="Option 2">Option 2</SelectOption>
             <SelectOption value="Option 3">Option 3</SelectOption>
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
@@ -556,7 +551,7 @@ describe("Select", () => {
   test("works when options are not passed a value prop but only children", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <Select>
             <SelectOption>Option 1</SelectOption>
             <SelectOption>Option 2</SelectOption>
@@ -564,7 +559,7 @@ describe("Select", () => {
             <SelectOption>Option 4</SelectOption>
             <SelectOption>Option 5</SelectOption>
           </Select>
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const toggle = screen.getByRole("button")
