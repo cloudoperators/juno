@@ -111,4 +111,6 @@ export { TooltipContent } from "./components/TooltipContent/index.js"
 export { TooltipTrigger } from "./components/TooltipTrigger/index.js"
 export { TopNavigation } from "./components/TopNavigation/index.js"
 export { TopNavigationItem } from "./components/TopNavigationItem/index.js"
+export { useEndlessScrollList } from "./hooks/useEndlessScrollList"
+
 export * from "./components/Form/index.js"
