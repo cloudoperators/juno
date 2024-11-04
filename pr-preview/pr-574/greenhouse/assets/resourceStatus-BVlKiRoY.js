@@ -1,0 +1,57 @@
+import{_ as S,S as T,a as V,I as B,K as L}from"./Shell-Br_N8qPK.js";import{R as s,r as b}from"./index-YfM9T4tD.js";var _=function(e,n,r){if(!b.isValidElement(e))return e;var t={variant:e.props.variant||n,disabled:e.props.disabled||r};return s.cloneElement(e,t)},R=function(e,n,r){return`
+    `.concat(e,"-").concat(n,`
+    `).concat(r?"".concat(e,"-disabled"):"",`
+  `)},$=function(e){var n=e.children,r=n===void 0?null:n,t=e.className,i=t===void 0?"":t,u=e.variant,o=u===void 0?"default":u,m=e.disabled,c=m!==void 0&&m,g=S(e,["children","className","variant","disabled"]),j=s.Children.map(r,function(p){return _(p,o,c)}),f=R("juno-input-group",o,c);return s.createElement(T,V({className:"juno-input-group ".concat(f," ").concat(i)},g),j)},F=`
+    jn-text-theme-high
+    jn-flex
+    jn-rounded
+    jn-leading-5
+    jn-overflow-hidden
+    jn-items-center
+`,P=`
+    jn-font-bold
+`,q=`
+    jn-py-3
+    jn-pr-4
+    jn-ml-7
+`,A=`
+    jn-w-[4px]
+    jn-self-stretch
+    jn-border-l-4
+    jn-mr-6
+    jn-shrink-0
+`,M=`
+    jn-ml-auto
+    jn-self-stretch
+    jn-flex
+    jn-flex-col
+    jn-py-2.5
+    jn-pr-2.5
+`,l={default:"jn-border-theme-message-default",defaultBg:"jn-bg-theme-message-default",error:"jn-border-theme-message-error",errorBg:"jn-bg-theme-message-error",warning:"jn-border-theme-message-warning",warningBg:"jn-bg-theme-message-warning",danger:"jn-border-theme-message-danger",dangerBg:"jn-bg-theme-message-danger",success:"jn-border-theme-message-success",successBg:"jn-bg-theme-message-success"},z=function(e){return e==="error"?l.errorBg:e==="warning"?l.warningBg:e==="success"?l.successBg:e==="info"?l.defaultBg:e==="danger"?l.dangerBg:l.defaultBg},G=function(e){return e==="error"?l.error:e==="warning"?l.warning:e==="success"?l.success:e==="info"?l.default:e==="danger"?l.danger:l.default},H=function(e){var n=new Set(Object.values(L));return n.has(e)},O=function(e){return e==="error"?"dangerous":H(e)?e:"default"},U=function(e,n,r,t){!e||1>n||(t.current!==null&&clearTimeout(t.current),t.current=window.setTimeout(function(){r()},n))},W=function(e){e.current!==null&&(clearTimeout(e.current),e.current=null)},ee=function(e){var n=e.title,r=n===void 0?null:n,t=e.text,i=t===void 0?null:t,u=e.variant,o=u===void 0?"info":u,m=e.dismissible,c=e.autoDismiss,g=c!==void 0&&c,j=e.autoDismissTimeout,f=j===void 0?1e4:j,p=e.onDismiss,d=e.className,y=d===void 0?"":d,x=e.children,k=S(e,["title","text","variant","dismissible","autoDismiss","autoDismissTimeout","onDismiss","className","children"]),E=b.useState(!0),w=E[0],N=E[1],h=b.useRef(null),a=function(){N(!1),p&&p()};if(b.useEffect(function(){return function(){W(h)}},[]),b.useEffect(function(){U(g,f,a,h)},[g,f]),!w)return null;var I=O(o),K=z(o),C=G(o);return s.createElement("div",V({className:"juno-message juno-message-".concat(o," ").concat(F," ").concat(K," ").concat(y)},k),s.createElement("div",{className:"juno-message-border ".concat(A," ").concat(C)}),s.createElement(B,{icon:I,color:"jn-text-theme-".concat(o),className:"jn-shrink-0"}),s.createElement("div",{className:"juno-message-content ".concat(q)},r&&s.createElement("h1",{className:P},r),s.createElement("div",null,x||i)),m!==void 0&&m&&s.createElement("div",{className:M},s.createElement(B,{icon:"close",onClick:a,className:"juno-message-close-button jn-opacity-50 hover:jn-opacity-100"})))},J=function(e){return`
+    jn-inline-flex
+    jn-basis-auto
+    jn-shrink
+    jn-items-center
+    jn-flex-nowrap
+    jn-text-xs
+    jn-p-px
+    jn-border
+    jn-rounded
+    jn-border-theme-background-lvl-4
+    jn-group
+    `.concat(e?"jn-cursor-pointer":"",`
+  `)},Q=function(e){return`
+    jn-bg-theme-background-lvl-4
+    jn-text-theme-high
+    `.concat(e?"group-hover:jn-text-theme-highest":"",`
+    jn-px-1
+    jn-py-0.5
+    jn-rounded-sm
+    jn-inline-block
+  `)},D=function(e){return`
+    jn-px-1
+    jn-py-0.5
+    jn-text-theme-high
+    `.concat(e?"group-hover:jn-text-theme-highest":"",`
+    jn-inline-block
+  `)},ne=function(e){var n=e.uid,r=n===void 0?"":n,t=e.pillKey,i=t===void 0?"":t,u=e.pillKeyLabel,o=u===void 0?"":u,m=e.pillValue,c=m===void 0?"":m,g=e.pillValueLabel,j=g===void 0?"":g,f=e.closeable,p=e.onClick,d=p===void 0?void 0:p,y=e.onClose,x=y===void 0?void 0:y,k=e.className,E=k===void 0?"":k,w=S(e,["uid","pillKey","pillKeyLabel","pillValue","pillValueLabel","closeable","onClick","onClose","className"]),N=function(a){x&&x(a,r||i||c)},h=function(a){d&&d(a,r||i||c)};return s.createElement("div",V({className:"juno-pill ".concat(J(!!d)," ").concat(E)},w),c||j?s.createElement(s.Fragment,null,(o||i)&&s.createElement("span",{className:"pill-key ".concat(Q(!!d)),onClick:function(a){return h(a)}},o||i),s.createElement("span",{className:"pill-value ".concat(D(!!d)),onClick:function(a){return h(a)}},j||c)):s.createElement("span",{className:"".concat(D(!1))},"set pillValue or pillValueLabel"),f!==void 0&&f&&s.createElement(B,{icon:"close",size:18,onClick:function(a){return N(a)}}))},v=(e=>(e[e.ready=0]="ready",e[e.unkown=1]="unkown",e[e.notReady=2]="notReady",e))(v||{});const X={state:v[v.unkown],color:"text-theme-default",icon:"warning"},te=e=>{let n="";return e.some(t=>(n=t.message??"",t.type==="Ready"&&t.status==="True"))?{state:v[v.ready],color:"text-theme-accent",icon:"success",message:n}:e.some(t=>(n=t.message??"",t.type==="Ready"&&t.status==="False"))?{state:v[v.notReady],color:"text-theme-danger",icon:"danger",message:n}:X};export{$ as I,ee as M,ne as P,te as g,X as r};
