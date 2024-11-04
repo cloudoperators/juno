@@ -13,8 +13,8 @@ describe("AppShellProvider", () => {
     expect(document.querySelector(".juno-app-body")).toHaveClass("theme-dark")
   })
 
-  test("renders an AppShellProvider wrapper div with theme class as passed", () => {
-    render(<AppShellProvider shadowRoot={false} theme="my-theme" />)
-    expect(document.querySelector("div.juno-app-body")).toHaveClass("my-theme")
+  test("renders an AppShellProvider wrapper div with theme as passed", () => {
+    render(<AppShellProvider shadowRoot={false} theme="theme-light" />)
+    expect(document.querySelector("div.juno-app-body")).toHaveClass("theme-light")
   })
 })

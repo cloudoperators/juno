@@ -57,6 +57,6 @@ export interface AppShellProviderProps {
   /** Where app stylesheets are imported. This is only relevant if shadowRoot === false. If you use a ShadowRoot the styles must be inline. */
   stylesWrapper?: AppShellStyleWrapper
   /** theme: theme-dark or theme-light */
-  theme?: string
+  theme?: "theme-dark" | "theme-light"
   children?: React.ReactNode
 }
