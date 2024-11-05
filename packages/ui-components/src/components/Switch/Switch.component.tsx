@@ -203,7 +203,11 @@ const renderFormHint = (
   return null
 }
 
-/** A Switch/Toggle component */
+/**
+ * A basic switch component for toggling between two options.
+ * Use this component for interactions that produce immediate results.
+ * For form scenarios requiring submission, use checkboxes instead.
+ */
 export const Switch: React.FC<SwitchProps> = ({
   name = "",
   id = "",
