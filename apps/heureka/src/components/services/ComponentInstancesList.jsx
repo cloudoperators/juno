@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo } from "react"
+import React, { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import {
   ContentHeading,
@@ -36,18 +36,9 @@ const ComponentInstancesList = ({ serviceCcrn }) => {
     enabled: !!queryClientFnReady && !!serviceCcrn,
   })
 
-  const items = useMemo(() => {
-    return data?.ComponentInstances?.edges || []
-  }, [data])
-
-  const pageInfo = useMemo(() => {
-    return data?.ComponentInstances?.pageInfo || {}
-  }, [data])
-
-  const totalPages = useMemo(() => {
-    if (!pageInfo?.pages) return 0
-    return pageInfo.pages.length
-  }, [pageInfo])
+  const items = data?.ComponentInstances?.edges || []
+  const pageInfo = data?.ComponentInstances?.pageInfo || {}
+  const totalPages = pageInfo?.pages?.length || 0
 
   const onPaginationChanged = (newPage) => {
     setCurrentPage(newPage)
