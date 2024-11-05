@@ -78,7 +78,7 @@ export const MenuItem: FC<MenuItemProps> = ({
   const variant = menuContext?.variant ?? "normal"
 
   // Determine which element to render:
-  const Element = href ? "a" : onClick ? "button" : "div"
+  const Element = href ? "a" : children ? "div" : onClick ? "button" : "div"
 
   const handleClick = (_event: MouseEvent<HTMLButtonElement>) => {
     onClick && onClick(_event)
@@ -88,7 +88,7 @@ export const MenuItem: FC<MenuItemProps> = ({
     <HLMenu.Item
       as={Element}
       // conditionally pass a href attribute only if href was supplied to prevent errors from headless-ui internal checks:
-      {...(href && Element === "a" && !disabled && { href: href })}
+      {...(href && Element === "a" && !disabled && { href })}
       onClick={onClick && Element === "button" && !disabled ? handleClick : undefined}
       disabled={disabled}
       className={`
