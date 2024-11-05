@@ -88,7 +88,7 @@ const Element: React.ElementType = href ? "a" : onClick ? "button" : "div"
     <HLMenu.Item
       as={Element}
       // conditionally pass a href attribute only if href was supplied to prevent errors from headless-ui internal checks:
-      {...(href && Element === "a" && !disabled && { href })}
+      {...(href && !disabled && Element === "a" ? { href } : {})}
       onClick={onClick && Element === "button" && !disabled ? handleClick : undefined}
       disabled={disabled}
       className={`
