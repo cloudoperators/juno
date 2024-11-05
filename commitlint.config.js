@@ -27,6 +27,7 @@ module.exports = {
         "k8s",
         "message-provider",
         "main",
+        "mock-server",
         "npm",
         "oauth",
         "supernova",
