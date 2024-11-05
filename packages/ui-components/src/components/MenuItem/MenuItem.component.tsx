@@ -20,24 +20,24 @@ const itemStyles = `
    jn-bg-theme-background-lvl-1
    disabled:jn-cursor-not-allowed
    data-[headlessui-state="disabled"]:jn-cursor-not-allowed
-`
+ `
 
 const smallStyles = `
    jn-text-sm
    jn-p-2
-`
+ `
 
 const normalStyles = `
    jn-text-base
    jn-pt-[0.6875rem]
    jn-pb-[0.5rem]
    jn-px-[0.875rem]
-`
+ `
 
 const actionableItemStyles = `
    hover:jn-bg-theme-background-lvl-3
    data-[headlessui-state="disabled"]:jn-bg-theme-background-lvl-3
-`
+ `
 
 export interface MenuItemProps {
   /** Children of the menu item */
@@ -74,11 +74,11 @@ export const MenuItem: FC<MenuItemProps> = ({
   onClick = undefined,
   ...props
 }) => {
-  const menuContext = useContext(MenuContext) as MenuContextType | null
+  const menuContext = useContext<MenuContextType | undefined>(MenuContext)
   const variant = menuContext?.variant ?? "normal"
 
   // Determine which element to render:
-  const Element = href ? "a" : children ? "div" : onClick ? "button" : "div"
+  const Element = href ? "a" : onClick ? "button" : "div"
 
   const handleClick = (_event: MouseEvent<HTMLButtonElement>) => {
     onClick && onClick(_event)
@@ -88,13 +88,13 @@ export const MenuItem: FC<MenuItemProps> = ({
     <HLMenu.Item
       as={Element}
       // conditionally pass a href attribute only if href was supplied to prevent errors from headless-ui internal checks:
-      {...(href && Element === "a" && !disabled && { href })}
+      {...(href && Element === "a" && !disabled && { href: href })}
       onClick={onClick && Element === "button" && !disabled ? handleClick : undefined}
       disabled={disabled}
       className={`
          juno-menu-item
          juno-menu-item-${Element}
-         ${itemStyles}
+         ${itemStyles} 
          ${children ? "" : actionableItemStyles}
          ${variant === "small" ? smallStyles : normalStyles}
          ${disabled ? "jn-cursor-not-allowed" : ""}
