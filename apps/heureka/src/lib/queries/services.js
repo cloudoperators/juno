@@ -16,7 +16,7 @@ export const servicesMainQuery = () => gql`
       edges {
         node {
           id
-          name
+          ccrn
           metadata {
             componentInstanceCount
             issueMatchCount
@@ -35,7 +35,7 @@ export const servicesMainQuery = () => gql`
             edges {
               node {
                 id
-                name
+                ccrn
               }
               cursor
             }
@@ -53,7 +53,7 @@ export const servicesDetailsQuery = () => gql`
       edges {
         node {
           id
-          name
+          ccrn
           metadata {
             componentInstanceCount
             issueMatchCount
@@ -72,7 +72,7 @@ export const servicesDetailsQuery = () => gql`
             edges {
               node {
                 id
-                name
+                ccrn
               }
               cursor
             }
@@ -117,7 +117,7 @@ export const componentInstancesOfServiceQuery = () => gql`
           componentVersion {
             version
             component {
-              name
+              ccrn
             }
           }
           issueMatches {

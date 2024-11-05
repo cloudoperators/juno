@@ -19,7 +19,7 @@ import { useGlobalsQueryClientFnReady, useGlobalsQueryOptions, useGlobalsActions
 import LoadElement from "../shared/LoadElement"
 import { severityString, highestSeverity } from "../shared/Helper"
 
-const ComponentInstancesList = ({ serviceName }) => {
+const ComponentInstancesList = ({ serviceCcrn }) => {
   const queryOptions = useGlobalsQueryOptions("ComponentInstancesOfService")
   const { setQueryOptions } = useGlobalsActions()
   const queryClientFnReady = useGlobalsQueryClientFnReady()
@@ -30,10 +30,10 @@ const ComponentInstancesList = ({ serviceName }) => {
       "ComponentInstancesOfService",
       {
         ...queryOptions,
-        filter: { serviceName: [serviceName] },
+        filter: { serviceCcrn: [serviceCcrn] },
       },
     ],
-    enabled: !!queryClientFnReady && !!serviceName,
+    enabled: !!queryClientFnReady && !!serviceCcrn,
   })
 
   const items = useMemo(() => {

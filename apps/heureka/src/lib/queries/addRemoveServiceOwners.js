@@ -14,7 +14,7 @@ export default (serviceId, userId, action) => {
   const mutation = `mutation ($serviceId: ID!, $userId: ID!) {
     ${mutationName}(serviceId: $serviceId, userId: $userId) {
       id
-      name
+      ccrn
       owners {
         edges {
           node {

@@ -33,7 +33,7 @@ const ServicesDetail = () => {
   const { addMessage, resetMessages } = messageActions()
 
   const serviceElem = useQuery({
-    queryKey: ["ServicesDetails", { filter: { serviceName: [showServiceDetail] } }],
+    queryKey: ["ServicesDetails", { filter: { serviceCcrn: [showServiceDetail] } }],
     enabled: !!queryClientFnReady && !!showServiceDetail,
   })
 
@@ -217,13 +217,13 @@ const ServicesDetail = () => {
         <DataGridRow>
           <DataGridHeadCell nowrap={true}>Support Group</DataGridHeadCell>
           <DataGridCell>
-            <LoadElement elem={<ul>{listOfCommaSeparatedObjs(service?.supportGroups, "name")}</ul>} />
+            <LoadElement elem={<ul>{listOfCommaSeparatedObjs(service?.supportGroups, "ccrn")}</ul>} />
           </DataGridCell>
         </DataGridRow>
       </DataGrid>
 
       <Container py px={false}>
-        <ComponentInstancesList serviceName={showServiceDetail} />
+        <ComponentInstancesList serviceCcrn={showServiceDetail} />
       </Container>
     </>
   )

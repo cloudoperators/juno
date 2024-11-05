@@ -14,7 +14,7 @@ const sumTotalInstances = (versions) => {
 const ComponentsListItem = ({ item }) => {
   return (
     <DataGridRow>
-      <DataGridCell>{item?.node?.name}</DataGridCell>
+      <DataGridCell>{item?.node?.ccrn}</DataGridCell>
       <DataGridCell>{item?.node?.type}</DataGridCell>
       <DataGridCell>{item?.node?.componentVersions?.totalCount}</DataGridCell>
       <DataGridCell>{sumTotalInstances(item?.node?.componentVersions?.edges)}</DataGridCell>
