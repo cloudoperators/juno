@@ -7,6 +7,7 @@ import React from "react"
 import { Menu } from "./"
 import { MenuItem } from "../MenuItem/"
 import { MenuSection } from "../MenuSection/"
+import { Button } from "../Button/"
 
 export default {
   title: "WiP/Menu",
@@ -32,6 +33,10 @@ export const Default = {
       <MenuItem label="Item with a Link and icon" href="https://github.com/cloudoperators/juno" icon="help" key="4" />,
       <MenuItem label="Item with OnClick" onClick={() => {}} key="5" />,
       <MenuItem label="Item with OnClick and Icon" onClick={() => {}} icon="deleteForever" key="6" />,
+      <MenuItem key="7">Menu Item with Children</MenuItem>,
+      <MenuItem key="8">
+        <Button label="Delete" size="small" variant="subdued" icon="deleteForever" className="jn-w-full" />
+      </MenuItem>,
     ],
   },
 }
