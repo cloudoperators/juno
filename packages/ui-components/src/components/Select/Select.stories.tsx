@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
-import { Select } from "./Select.component"
+import React, { useState } from "react"
+import { Select, SelectProps } from "./Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
+import { PortalProvider } from "../PortalProvider"
+type StoryFunction = () => JSX.Element
 
 export default {
   title: "Forms/Select/Select",
@@ -31,25 +31,25 @@ export default {
     },
   },
   decorators: [
-    (Story) => (
+    (story: StoryFunction) => (
       <div className="jn-pb-12" style={{ minHeight: "250px" }}>
-        <PortalProvider>
-          <Story />
-        </PortalProvider>
+        <PortalProvider>{story()}</PortalProvider>
       </div>
     ),
   ],
 }
 
-const Template = ({ children, ...args }) => {
+const Template = ({
+  children,
+  ...args
+}: {
+  children: React.ReactNode
+  args: React.JSX.IntrinsicAttributes & SelectProps
+}) => {
   return <Select {...args}>{children}</Select>
 }
 
-Template.propTypes = {
-  children: PropTypes.node,
-}
-
-const ConstrainedWidthTemplate = ({ children, ...args }) => {
+const ConstrainedWidthTemplate = ({ children, ...args }: SelectProps) => {
   return (
     <div style={{ width: "300px" }}>
       <Select {...args}>{children}</Select>
@@ -57,44 +57,34 @@ const ConstrainedWidthTemplate = ({ children, ...args }) => {
   )
 }
 
-ConstrainedWidthTemplate.propTypes = {
-  children: PropTypes.node,
-}
+const ControlledTemplate = ({ value, children, ...args }: React.JSX.IntrinsicAttributes & SelectProps) => {
+  const [val, setVal] = useState(value)
 
-const ControlledTemplate = ({ value, children, ...args }) => {
-  const [v, setV] = useState(value)
-
-  useEffect(() => {
-    setV(value)
-  }, [value])
-
-  const handleChange = (val) => {
-    setV(val)
+  const handleChange = <T extends unknown>(val: T): void => {
+    setVal(val)
   }
 
   return (
-    <Select {...args} value={v} onChange={handleChange}>
+    <Select {...args} value={val} onChange={handleChange}>
       {children}
     </Select>
   )
 }
 
-ControlledTemplate.propTypes = {
-  value: PropTypes.any,
-  children: PropTypes.node,
-}
-
-const BottomPositionTemplate = ({ parentStyles, children, ...args }) => (
+const BottomPositionTemplate = ({
+  parentStyles,
+  children,
+  ...args
+}: {
+  parentStyles: React.CSSProperties
+  children: React.ReactNode
+  args: any
+}) => (
   <div style={parentStyles}>
     Bottom Positioned Select
     <Select {...args}>{children}</Select>
   </div>
 )
-
-BottomPositionTemplate.propTypes = {
-  parentStyles: PropTypes.object,
-  children: PropTypes.node,
-}
 
 export const Default = {
   render: Template,

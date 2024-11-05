@@ -5,8 +5,8 @@
 
 import React from "react"
 import { Select } from "../Select/Select.component"
-import { SelectOption } from "./SelectOption.component"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component.js"
+import { SelectOption, SelectOptionProps } from "./SelectOption.component"
+import { PortalProvider } from "../PortalProvider"
 
 export default {
   title: "Forms/Select/SelectOption",
@@ -16,10 +16,10 @@ export default {
       control: false,
     },
   },
-  decorators: [(story) => <PortalProvider>{story()}</PortalProvider>],
+  decorators: [(story: () => null | undefined) => <PortalProvider>{story()}</PortalProvider>],
 }
 
-const Template = (args) => {
+const Template = (args: React.JSX.IntrinsicAttributes & SelectOptionProps) => {
   return (
     <Select open>
       <SelectOption {...args} />
