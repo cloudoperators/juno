@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": minor
 ---
 
-chore(ui): migrate Menu, MenuItem, MenuSection components to typescript (#237) 
+Migrate Menu, MenuItem and MenuSection components to Typescript (#237) 
