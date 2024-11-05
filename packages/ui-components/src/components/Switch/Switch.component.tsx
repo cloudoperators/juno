@@ -9,15 +9,7 @@ import { Label } from "../Label/Label.component"
 import { Icon } from "../Icon/Icon.component"
 import { FormHint } from "../FormHint/FormHint.component"
 
-// Styles for the switch wrapper
-const switchWrapperStyles = `
-    jn-flex
-    jn-flex-row
-    jn-items-center
-`
-
-// Base styles for the switch
-const switchbasestyles = `
+const switchBaseStyles = `
     jn-rounded-full
     jn-relative
     jn-p-0
@@ -31,8 +23,126 @@ const switchbasestyles = `
     disabled:jn-cursor-not-allowed
 `
 
-// Function to get switch size styles
-const switchsizestyles = (size: "small" | "default" | "large") => {
+const borderBaseStyles = `
+    jn-border-theme-switch-default
+`
+
+const switchWrapperStyles = `
+    jn-flex
+    jn-flex-row
+    jn-items-center
+`
+
+const handleBaseStyles = `
+    jn-inline-block
+    jn-absolute
+    jn-top-[1px]
+    jn-rounded-full
+    jn-bg-theme-switch-handle
+    jn-border-theme-default
+`
+
+const handleOnStyles = `
+    jn-right-[1px] 
+    jn-bg-theme-switch-handle-checked
+`
+
+const handleOffStyles = `
+    jn-left-[1px]
+`
+
+const validBaseStyles = `
+    jn-border-theme-success
+`
+
+const invalidBaseStyles = `
+    jn-border-theme-error
+`
+
+const iconBaseStyles = `
+    jn-inline-block 
+    jn-ml-1 
+    jn-leading-1
+    jn-mt-[-.2rem]
+`
+
+const hintBaseStyles = `
+    jn-mt-0
+`
+
+type SwitchSize = "small" | "default" | "large"
+
+export interface SwitchProps extends Omit<React.ComponentPropsWithoutRef<"button">, "ref"> {
+  /**
+   * HTML name attribute for the switch button
+   */
+  name?: string
+  /**
+   * HTML id attribute for the switch button
+   */
+  id?: string
+  /**
+   * Label to display next to the Switch component
+   */
+  label?: string
+  /**
+   * Indicates if the Switch is required
+   */
+  required?: boolean
+  /**
+   * Specifies the size of the Switch component
+   */
+  size?: SwitchSize
+  /**
+   * Sets the initial checked state of the Switch component for use in uncontrolled mode
+   */
+  on?: boolean
+  /**
+   * Disabled state of the Switch component
+   */
+  disabled?: boolean
+  /**
+   * Indicates if the Switch has an error state
+   */
+  invalid?: boolean
+  /**
+   * Indicates if the Switch has been validated successfully
+   */
+  valid?: boolean
+  /**
+   * Help text to provide additional information about the Switch
+   */
+  helptext?: React.ReactNode
+  /**
+   * Text to display when the Switch has validation errors
+   */
+  errortext?: React.ReactNode
+  /**
+   * Text to display when the Switch has been validated successfully
+   */
+  successtext?: React.ReactNode
+  /**
+   * Custom class name to apply to the internal button element
+   */
+  className?: string
+  /**
+   * Callback function to handle changes to the switch state
+   */
+  onChange?: (_event: React.ChangeEvent<HTMLButtonElement>) => void
+  /**
+   * Callback function to handle click events on the switch
+   */
+  onClick?: (_event: React.MouseEvent<HTMLButtonElement>) => void
+  /**
+   * Custom class name to apply to the wrapper element
+   * Useful for styling and positioning the outermost element of the component
+   */
+  wrapperClassName?: string
+}
+
+const isNotEmptyString = (str: unknown): boolean => !(typeof str === "string" && str.trim().length === 0)
+
+const getSwitchSizeStyles = (size: SwitchSize): string => {
   switch (size) {
     case "small":
       return "jn-w-[1.75rem] jn-h-4"
@@ -43,18 +153,7 @@ const switchsizestyles = (size: "small" | "default" | "large") => {
   }
 }
 
-// Base styles for the switch handle
-const handlebasestyles = `
-    jn-inline-block
-    jn-absolute
-    jn-top-[1px]
-    jn-rounded-full
-    jn-bg-theme-switch-handle
-    jn-border-theme-default
-`
-
-// Function to get switch handle size styles
-const handlesizestyles = (size: "small" | "default" | "large") => {
+const getHandleSizeStyles = (size: SwitchSize): string => {
   switch (size) {
     case "small":
       return "jn-w-[0.75rem] jn-h-[0.75rem]"
@@ -65,78 +164,43 @@ const handlesizestyles = (size: "small" | "default" | "large") => {
   }
 }
 
-// Default border styles
-const defaultborderstyles = `
-    jn-border-theme-switch-default
-`
+const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: boolean): React.ReactNode | null => {
+  if (!isInvalid && !isValid) return null
 
-// Styles for invalid switch state
-const invalidbasestyles = `
-    jn-border-theme-error
-`
+  if (isValid)
+    return (
+      <Icon
+        icon="checkCircle"
+        color="jn-text-theme-success"
+        size="1.125rem"
+        className={`${iconBaseStyles} ${disabled ? "jn-opacity-50" : ""}`}
+      />
+    )
 
-// Styles for valid switch state
-const validbasestyles = `
-    jn-border-theme-success
-`
+  return (
+    <Icon
+      icon="dangerous"
+      color="jn-text-theme-error"
+      size="1.125rem"
+      className={`${iconBaseStyles} ${disabled ? "jn-opacity-50" : ""}`}
+    />
+  )
+}
 
-// Styles for when switch is on
-const handleonstyles = `
-    jn-right-[1px] 
-    jn-bg-theme-switch-handle-checked
-`
+const renderFormHint = (
+  errortext: React.ReactNode,
+  successtext: React.ReactNode,
+  helptext: React.ReactNode
+): React.ReactNode | null => {
+  if (errortext && isNotEmptyString(errortext))
+    return <FormHint text={errortext} variant="error" className={hintBaseStyles} />
 
-// Styles for when switch is off
-const handleoffstyles = `
-    jn-left-[1px]
-`
+  if (successtext && isNotEmptyString(successtext))
+    return <FormHint text={successtext} variant="success" className={hintBaseStyles} />
 
-// Styles for the icon
-const iconstyles = `
-    jn-inline-block 
-    jn-ml-1 
-    jn-leading-1
-    jn-mt-[-.2rem]
-`
+  if (helptext && isNotEmptyString(helptext)) return <FormHint text={helptext} className={hintBaseStyles} />
 
-// Styles for form hints
-const hintStyles = `
-    jn-mt-0
-`
-
-export interface SwitchProps extends Omit<React.ComponentPropsWithoutRef<"button">, "ref"> {
-  /** Name attribute */
-  name?: string
-  /** Id */
-  id?: string
-  /** Add a label to the Switch */
-  label?: string
-  /** Whether the Switch is required */
-  required?: boolean
-  /** Leave empty for default size */
-  size?: "small" | "default" | "large"
-  /** Pass checked state for initial rendering. */
-  on?: boolean
-  /** Disabled switch */
-  disabled?: boolean
-  /** Whether the Switch is invalid */
-  invalid?: boolean
-  /** Whether the Switch is valid */
-  valid?: boolean
-  /** A helptext to render to explain meaning and significance of the Switch */
-  helptext?: React.ReactNode
-  /** A text to render when the Switch was successfully validated */
-  errortext?: React.ReactNode
-  /** A text to render when the Switch has an error or could not be validated */
-  successtext?: React.ReactNode
-  /** Pass a className. The class name is applied to the internal button element. */
-  className?: string
-  /** Pass a change handler */
-  onChange?: (event: React.ChangeEvent<HTMLButtonElement>) => void
-  /** Pass a click handler */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
-  /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
-  wrapperClassName?: string
+  return null
 }
 
 /** A Switch/Toggle component */
@@ -159,115 +223,84 @@ export const Switch: React.FC<SwitchProps> = ({
   wrapperClassName = "",
   ...props
 }: SwitchProps) => {
-  const isNotEmptyString = (str: unknown): boolean => {
-    return !(typeof str === "string" && str.trim().length === 0)
-  }
+  const generateUniqueId = (): string => "juno-switch-" + useId()
 
-  const uniqueId = (): string => "juno-switch-" + useId()
-
-  const [isOn, setIsOn] = useState(on)
-  const [isInvalid, setIsInvalid] = useState(false)
-  const [isValid, setIsValid] = useState(false)
+  const [isOn, setIsOn] = useState<boolean>(on)
+  const [isInvalid, setIsInvalid] = useState<boolean>(false)
+  const [isValid, setIsValid] = useState<boolean>(false)
 
   useEffect(() => {
     setIsOn(on)
   }, [on])
 
-  const invalidated = useMemo(
+  // Determine if the component has an invalid state based on props
+  const isComponentInvalid: boolean = useMemo(
     () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
     [invalid, errortext]
   )
-  const validated = useMemo(
+
+  // Determine if the component has a valid state based on props
+  const isComponentValid: boolean = useMemo(
     () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
   )
 
   useEffect(() => {
-    setIsInvalid(invalidated)
-  }, [invalidated])
+    setIsInvalid(isComponentInvalid)
+  }, [isComponentInvalid])
 
   useEffect(() => {
-    setIsValid(validated)
-  }, [validated])
+    setIsValid(isComponentValid)
+  }, [isComponentValid])
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSwitchClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setIsOn(!isOn)
     onClick && onClick(event)
     onChange && onChange(event as unknown as React.ChangeEvent<HTMLButtonElement>)
   }
 
-  const theId = id || uniqueId()
+  const generatedId: string = id || generateUniqueId()
 
   return (
     <div>
       <span
         className={`
-                juno-switch-wrapper 
-                ${switchWrapperStyles}
-        ${wrapperClassName}
-                `}
+          juno-switch-wrapper 
+          ${switchWrapperStyles}
+          ${wrapperClassName}
+        `}
       >
         <button
           type="button"
           role="switch"
           name={name}
-          id={theId}
+          id={generatedId}
           aria-checked={isOn}
           disabled={disabled}
-          onClick={handleClick}
+          onClick={handleSwitchClick}
           className={`
-                        juno-switch 
-                        juno-switch-${size} 
-                        ${switchbasestyles} 
-                        ${switchsizestyles(size)} 
-                        ${isInvalid ? "juno-switch-invalid " + invalidbasestyles : ""} 
-                        ${isValid ? "juno-switch-valid " + validbasestyles : ""} 
-                        ${isValid || isInvalid ? "" : defaultborderstyles} 
-                        ${className}`}
+            juno-switch 
+            juno-switch-${size} 
+            ${switchBaseStyles} 
+            ${getSwitchSizeStyles(size)} 
+            ${isInvalid ? "juno-switch-invalid " + invalidBaseStyles : ""} 
+            ${isValid ? "juno-switch-valid " + validBaseStyles : ""} 
+            ${isValid || isInvalid ? "" : borderBaseStyles} 
+            ${className}`}
           {...props}
         >
           <span
-            className={`juno-switch-handle ${handlebasestyles} ${handlesizestyles(size)} ${
-              isOn ? handleonstyles : handleoffstyles
+            className={`juno-switch-handle ${handleBaseStyles} ${getHandleSizeStyles(size)} ${
+              isOn ? handleOnStyles : handleOffStyles
             }`}
           ></span>
         </button>
 
-        <Label text={label} htmlFor={theId} className="jn-ml-2" disabled={disabled} required={required} />
+        <Label text={label} htmlFor={generatedId} className="jn-ml-2" disabled={disabled} required={required} />
 
-        {isInvalid ? (
-          <Icon
-            icon="dangerous"
-            color="jn-text-theme-error"
-            size="1.125rem"
-            className={`${iconstyles} ${disabled ? "jn-opacity-50" : ""}`}
-          />
-        ) : (
-          ""
-        )}
-
-        {isValid ? (
-          <Icon
-            icon="checkCircle"
-            color="jn-text-theme-success"
-            size="1.125rem"
-            className={`${iconstyles} ${disabled ? "jn-opacity-50" : ""}`}
-          />
-        ) : (
-          ""
-        )}
+        {renderValidationIcon(isInvalid, isValid, disabled)}
       </span>
-      {errortext && isNotEmptyString(errortext) ? (
-        <FormHint text={errortext} variant="error" className={`${hintStyles}`} />
-      ) : (
-        ""
-      )}
-      {successtext && isNotEmptyString(successtext) ? (
-        <FormHint text={successtext} variant="success" className={`${hintStyles}`} />
-      ) : (
-        ""
-      )}
-      {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} className={`${hintStyles}`} /> : ""}
+      {renderFormHint(errortext, successtext, helptext)}
     </div>
   )
 }
