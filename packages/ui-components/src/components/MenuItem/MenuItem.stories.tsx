@@ -32,12 +32,14 @@ export default {
 export const Default = {
   args: {
     label: "A menu item",
+    onClick: null,
   },
 }
 
 export const SmallMenuItem = {
   args: {
     label: "A small menu item",
+    onClick: null,
   },
   parameters: {
     menuVariant: "small",
@@ -48,6 +50,7 @@ export const WithIcon = {
   args: {
     label: "A menu item with icon",
     icon: "deleteForever",
+    onClick: null,
   },
 }
 
@@ -55,6 +58,7 @@ export const SmallWithIcon = {
   args: {
     label: "A small menu item with icon",
     icon: "deleteForever",
+    onClick: null,
   },
   parameters: {
     menuVariant: "small",
