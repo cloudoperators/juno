@@ -80,8 +80,8 @@ export const MenuItem: FC<MenuItemProps> = ({
   // Determine which element to render:
   const Element: React.ElementType = href ? "a" : onClick ? "button" : "div"
 
-  const handleClick = (_event: MouseEvent<HTMLButtonElement>) => {
-    onClick && onClick(_event)
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    onClick && onClick(event)
   }
 
   return (
