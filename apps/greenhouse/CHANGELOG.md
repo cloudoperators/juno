@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.3
+
+### Patch Changes
+
+- 3ee03d3: harmonizes filter names across different views
+- Updated dependencies [d4167c9]
+- Updated dependencies [3e225b9]
+- Updated dependencies [3ee03d3]
+- Updated dependencies [a304189]
+- Updated dependencies [02f06a1]
+  - @cloudoperators/juno-ui-components@2.28.0
+  - @cloudoperators/juno-app-heureka@2.9.2
+
 ## 0.3.2
 
 ### Patch Changes
