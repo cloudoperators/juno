@@ -9,7 +9,9 @@
         "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
-        "@cloudoperators/juno-app-doop#build"
+        "@cloudoperators/juno-app-doop#build",
+        "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build"
       ]
     },
     "build": {
@@ -20,7 +22,9 @@
         "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
-        "@cloudoperators/juno-app-doop#build"
+        "@cloudoperators/juno-app-doop#build",
+        "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build"
       ]
     },
     "build:static": {
@@ -31,7 +35,9 @@
         "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
-        "@cloudoperators/juno-app-doop#build"
+        "@cloudoperators/juno-app-doop#build",
+        "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build"
       ]
     },
     "test": {
@@ -42,7 +48,9 @@
         "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
-        "@cloudoperators/juno-app-doop#build"
+        "@cloudoperators/juno-app-doop#build",
+        "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build"
       ]
     }
   }

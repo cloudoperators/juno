@@ -16,7 +16,7 @@ import { fetchData } from "../lib/apiClient"
 import { parseError } from "../lib/helpers"
 import Highlighter from "./Highlighter"
 import Violations from "./violations/violations"
-import { fetchProxy } from "@cloudoperators/juno-utils"
+import { fetchProxy } from "@cloudoperators/juno-mock-server"
 import { useGlobalsMock, useGlobalsEndpoint } from "./StoreProvider"
 
 const AppContent = ({ showDebugSeverities }) => {

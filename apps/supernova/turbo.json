@@ -6,6 +6,7 @@
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build",
         "@cloudoperators/juno-communicator#build"
       ]
     },
@@ -13,6 +14,7 @@
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-communicator#build"
       ]
@@ -21,6 +23,7 @@
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-communicator#build"
       ]

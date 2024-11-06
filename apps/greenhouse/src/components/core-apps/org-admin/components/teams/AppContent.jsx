@@ -10,7 +10,7 @@ import TeamList from "./components/team/TeamList"
 import Filter from "./components/filter/Filter"
 import { useTeamMemberships, useIsMock, useEndpoint, useStoreActions } from "./components/StoreProvider"
 import { Messages, useActions } from "@cloudoperators/juno-messages-provider"
-import { fetchProxy } from "@cloudoperators/juno-utils"
+import { fetchProxy } from "@cloudoperators/juno-mock-server"
 import { parseError } from "./lib/helpers"
 
 const AppContent = () => {

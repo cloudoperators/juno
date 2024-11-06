@@ -8,7 +8,8 @@
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-url-state-provider#build",
-        "@cloudoperators/juno-utils#build"
+        "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build"
       ]
     },
     "build": {
@@ -18,7 +19,8 @@
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-url-state-provider#build",
-        "@cloudoperators/juno-utils#build"
+        "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build"
       ]
     },
     "build:static": {
@@ -28,7 +30,8 @@
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-url-state-provider#build",
-        "@cloudoperators/juno-utils#build"
+        "@cloudoperators/juno-utils#build",
+        "@cloudoperators/juno-mock-server#build"
       ]
     }
   }

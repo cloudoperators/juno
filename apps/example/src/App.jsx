@@ -19,7 +19,7 @@ import StoreProvider, { useGlobalsActions, useAuthActions } from "./components/S
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
 // mock API
-import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
+import { fetchProxyInitDB } from "@cloudoperators/juno-mock-server"
 import db from "./db.json"
 
 const App = (props = {}) => {

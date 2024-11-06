@@ -13,7 +13,7 @@ import StoreProvider from "./components/StoreProvider"
 import AsyncWorker from "./components/AsyncWorker"
 import { AppShell } from "@cloudoperators/juno-ui-components"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
-import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
+import { fetchProxyInitDB } from "@cloudoperators/juno-mock-server"
 import db from "./db.json"
 import { useGlobalsActions } from "./components/StoreProvider"
 

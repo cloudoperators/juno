@@ -51,6 +51,8 @@
     "@cloudoperators/juno-messages-provider": "*",
     "@cloudoperators/juno-oauth": "*",
     "@cloudoperators/juno-ui-components": "*",
+    "@cloudoperators/juno-mock-server": "*",
+    "@cloudoperators/juno-utils": "*",
     "@cloudoperators/juno-url-state-provider-v1": "^1.3.2"
   }
 }
