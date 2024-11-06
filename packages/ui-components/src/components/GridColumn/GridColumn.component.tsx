@@ -6,8 +6,8 @@
 import React from "react"
 
 const baseColumnStyles = `
-    jn-flex-grid-column
-    jn-p-grid-column
+  jn-flex-grid-column
+  jn-p-grid-column
 `
 
 const columnWidthStyles: { [key: number]: string } = {
@@ -27,9 +27,9 @@ const columnWidthStyles: { [key: number]: string } = {
 }
 
 const autoColumnStyles: React.CSSProperties = {
-  flexGrow: 1,
-  flexShrink: 0,
-  flexBasis: "0%",
+  flexGrow: "1",
+  flexShrink: "0",
+  flexBasis: "0",
 }
 
 // Get column class based on `cols` prop value
@@ -76,8 +76,8 @@ export const GridColumn: React.FC<GridColumnProps> = ({
   const widthBasedStyles: React.CSSProperties = width
     ? {
         width: `${width}%`,
-        flexGrow: 0,
-        flexShrink: 0,
+        flexGrow: "0",
+        flexShrink: "0",
         flexBasis: `${width}%`,
       }
     : {}
