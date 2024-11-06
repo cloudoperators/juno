@@ -128,11 +128,13 @@ export interface SwitchProps extends Omit<React.ComponentPropsWithoutRef<"button
   /**
    * Callback function to handle changes to the switch state
    */
-  onChange?: (_event: React.ChangeEvent<HTMLButtonElement>) => void
+  // eslint-disable-next-line no-unused-vars
+  onChange?: (event: React.ChangeEvent<HTMLButtonElement>) => void
   /**
    * Callback function to handle click events on the switch
    */
-  onClick?: (_event: React.MouseEvent<HTMLButtonElement>) => void
+  // eslint-disable-next-line no-unused-vars
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
   /**
    * Custom class name to apply to the wrapper element
    * Useful for styling and positioning the outermost element of the component
@@ -140,7 +142,9 @@ export interface SwitchProps extends Omit<React.ComponentPropsWithoutRef<"button
   wrapperClassName?: string
 }
 
-const isNotEmptyString = (str: unknown): boolean => !(typeof str === "string" && str.trim().length === 0)
+const isNotEmptyString = (str: any): str is string => {
+  return typeof str === "string" && str.trim().length > 0
+}
 
 const getSwitchSizeStyles = (size: SwitchSize): string => {
   switch (size) {
@@ -237,13 +241,11 @@ export const Switch: React.FC<SwitchProps> = ({
     setIsOn(on)
   }, [on])
 
-  // Determine if the component has an invalid state based on props
   const isComponentInvalid: boolean = useMemo(
     () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
     [invalid, errortext]
   )
 
-  // Determine if the component has a valid state based on props
   const isComponentValid: boolean = useMemo(
     () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
@@ -260,7 +262,7 @@ export const Switch: React.FC<SwitchProps> = ({
   const handleSwitchClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setIsOn(!isOn)
     onClick && onClick(event)
-    onChange && onChange(event as unknown as React.ChangeEvent<HTMLButtonElement>)
+    onChange && onChange(event as React.ChangeEvent<HTMLButtonElement>)
   }
 
   const generatedId: string = id || generateUniqueId()
