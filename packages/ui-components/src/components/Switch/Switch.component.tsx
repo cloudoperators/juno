@@ -142,7 +142,7 @@ export interface SwitchProps extends Omit<React.ComponentPropsWithoutRef<"button
   wrapperClassName?: string
 }
 
-const isNotEmptyString = (str: any): str is string => {
+const isNotEmptyString = (str: unknown): str is string => {
   return typeof str === "string" && str.trim().length > 0
 }
 
@@ -196,13 +196,11 @@ const renderFormHint = (
   successtext: React.ReactNode,
   helptext: React.ReactNode
 ): React.ReactNode | null => {
-  if (errortext && isNotEmptyString(errortext))
-    return <FormHint text={errortext} variant="error" className={hintBaseStyles} />
+  if (isNotEmptyString(errortext)) return <FormHint text={errortext} variant="error" className={hintBaseStyles} />
 
-  if (successtext && isNotEmptyString(successtext))
-    return <FormHint text={successtext} variant="success" className={hintBaseStyles} />
+  if (isNotEmptyString(successtext)) return <FormHint text={successtext} variant="success" className={hintBaseStyles} />
 
-  if (helptext && isNotEmptyString(helptext)) return <FormHint text={helptext} className={hintBaseStyles} />
+  if (isNotEmptyString(helptext)) return <FormHint text={helptext} className={hintBaseStyles} />
 
   return null
 }
@@ -242,12 +240,12 @@ export const Switch: React.FC<SwitchProps> = ({
   }, [on])
 
   const isComponentInvalid: boolean = useMemo(
-    () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
+    () => invalid || (isNotEmptyString(errortext) ? true : false),
     [invalid, errortext]
   )
 
   const isComponentValid: boolean = useMemo(
-    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    () => valid || (isNotEmptyString(successtext) ? true : false),
     [valid, successtext]
   )
 
@@ -261,8 +259,8 @@ export const Switch: React.FC<SwitchProps> = ({
 
   const handleSwitchClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setIsOn(!isOn)
-    onClick && onClick(event)
-    onChange && onChange(event as React.ChangeEvent<HTMLButtonElement>)
+    if (onClick) onClick(event)
+    if (onChange) onChange(event as unknown as React.ChangeEvent<HTMLButtonElement>)
   }
 
   const generatedId: string = id || generateUniqueId()
