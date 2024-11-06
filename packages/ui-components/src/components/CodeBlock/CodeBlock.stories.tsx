@@ -4,12 +4,11 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { CodeBlock } from "./index.js"
-import { Tabs } from "../../deprecated_js/Tabs/index.js"
-import { TabList } from "../../deprecated_js/TabList/index.js"
-import { Tab } from "../../deprecated_js/Tab/index.js"
-import { TabPanel } from "../../deprecated_js/TabPanel/index.js"
+import { CodeBlock } from "."
+import { Tabs } from "../Tabs"
+import { TabList } from "../TabList"
+import { Tab } from "../Tab"
+import { TabPanel } from "../TabPanel"
 
 const TabStory = {
   args: {
@@ -32,7 +31,7 @@ export default {
   },
 }
 
-const TabsTemplate = ({ tabs, codeBlocks }) => (
+const TabsTemplate = ({ tabs, codeBlocks }: TabsTemplateProps) => (
   <Tabs variant="codeblocks">
     <TabList>
       {tabs.map((tab, t) => (
@@ -47,9 +46,9 @@ const TabsTemplate = ({ tabs, codeBlocks }) => (
   </Tabs>
 )
 
-TabsTemplate.propTypes = {
-  tabs: PropTypes.array,
-  codeBlocks: PropTypes.array,
+interface TabsTemplateProps {
+  tabs: (typeof Tab)[]
+  codeBlocks: (typeof CodeBlock)[]
 }
 
 export const Default = {

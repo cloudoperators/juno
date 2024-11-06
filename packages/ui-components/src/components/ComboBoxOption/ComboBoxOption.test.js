@@ -5,7 +5,7 @@
 
 import * as React from "react"
 import { cleanup, render, screen, waitFor } from "@testing-library/react"
-import { AppShellProvider } from "../AppShellProvider"
+import { AppShellProvider } from "../../deprecated_js/AppShellProvider"
 import userEvent from "@testing-library/user-event"
 import { ComboBox } from "../ComboBox/ComboBox.component"
 import { ComboBoxOption } from "../ComboBoxOption/ComboBoxOption.component"
