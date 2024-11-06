@@ -9,29 +9,35 @@ import { describe, expect, test } from "vitest"
 
 import { Grid } from "./Grid.component"
 
-describe("Grid", () => {
-  test("renders a Grid container", () => {
-    render(<Grid data-testid="my-grid" />)
-    expect(screen.getByTestId("my-grid")).toBeInTheDocument()
+describe("Grid Component", () => {
+  describe("Basic Rendering", () => {
+    test("renders a Grid container", () => {
+      render(<Grid data-testid="my-grid" />)
+      expect(screen.getByTestId("my-grid")).toBeInTheDocument()
+    })
   })
 
-  test("renders a custom className", () => {
-    render(<Grid data-testid="my-grid" className="my-grid-class" />)
-    expect(screen.getByTestId("my-grid")).toHaveClass("my-grid-class")
+  describe("Class Names", () => {
+    test("renders a custom className", () => {
+      render(<Grid data-testid="my-grid" className="my-grid-class" />)
+      expect(screen.getByTestId("my-grid")).toHaveClass("my-grid-class")
+    })
   })
 
-  test("has modified CSS variables in a style tag for auto grids", () => {
-    render(<Grid data-testid="my-auto-grid" auto />)
-    const gridElement = screen.getByTestId("my-auto-grid")
+  describe("Inline Styles and Auto Prop", () => {
+    test("has modified CSS variables in a style tag for auto grids", () => {
+      render(<Grid data-testid="my-auto-grid" auto />)
+      const gridElement = screen.getByTestId("my-auto-grid")
 
-    // Ensure element is in the document before accessing style
-    expect(gridElement).toBeInTheDocument()
+      // Ensure element is in the document before accessing style
+      expect(gridElement).toBeInTheDocument()
 
-    // Cast elem style as CSSStyleDeclaration to ensure type safety
-    const style = gridElement.style
+      // Cast elem style as CSSStyleDeclaration to ensure type safety
+      const style = gridElement.style
 
-    expect(style.getPropertyValue("--grid-column-flex-grow")).toBe("1")
-    expect(style.getPropertyValue("--grid-column-flex-shrink")).toBe("0")
-    expect(style.getPropertyValue("--grid-column-flex-basis")).toBe("0")
+      expect(style.getPropertyValue("--grid-column-flex-grow")).toBe("1")
+      expect(style.getPropertyValue("--grid-column-flex-shrink")).toBe("0")
+      expect(style.getPropertyValue("--grid-column-flex-basis")).toBe("0")
+    })
   })
 })
