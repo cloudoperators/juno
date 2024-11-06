@@ -13,7 +13,6 @@ const itemStyles = `
    jn-flex
    jn-items-center
    jn-w-full
-   cursor-pointer
    bg-clip-padding
    jn-truncate
    jn-text-left
@@ -33,9 +32,10 @@ const normalStyles = `
    jn-pb-[0.5rem]
    jn-px-[0.875rem]
  `
-
+// Define styles applicable to interactive elements only:
 const actionableItemStyles = `
    hover:jn-bg-theme-background-lvl-3
+   cursor-pointer
    data-[headlessui-state="disabled"]:jn-bg-theme-background-lvl-3
  `
 
@@ -96,7 +96,7 @@ export const MenuItem: FC<MenuItemProps> = ({
          juno-menu-item
          juno-menu-item-${Element}
          ${itemStyles} 
-         ${children ? "" : actionableItemStyles}
+         ${Element !== "div" ? actionableItemStyles : ""}
          ${variant === "small" ? smallStyles : normalStyles}
          ${disabled ? "jn-cursor-not-allowed" : ""}
          ${className}
