@@ -78,7 +78,7 @@ export const MenuItem: FC<MenuItemProps> = ({
   const variant = menuContext?.variant ?? "normal"
 
   // Determine which element to render:
-  const Element: React.ElementType = href ? "a" : onClick ? "button" : "div"
+  const Element: React.ElementType = href ? "a" : children ? "div" : onClick ? "button" : "div"
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     onClick && onClick(event)
