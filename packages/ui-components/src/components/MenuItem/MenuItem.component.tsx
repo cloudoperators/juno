@@ -53,7 +53,8 @@ export interface MenuItemProps {
   /** Pass an href to the menu item. Will result in the menu item being rendered as an `<a>`. */
   href?: string
   /** Pass an onClick handler to the menu item. Will result in the menu item being rendered as a `<button>`. */
-  onClick?: (_event: MouseEvent<HTMLButtonElement>) => void
+  // eslint-disable-next-line no-unused-vars
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
 }
 
 interface MenuContextType {
