@@ -7,7 +7,7 @@ import * as React from "react"
 import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { ComboBox } from "./index"
-import { AppShellProvider } from "../AppShellProvider/index"
+import { AppShellProvider } from "../../deprecated_js/AppShellProvider/index"
 import { ComboBoxOption } from "../ComboBoxOption/index"
 
 const mockOnBlur = jest.fn()

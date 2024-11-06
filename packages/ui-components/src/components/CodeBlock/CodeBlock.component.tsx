@@ -3,24 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useRef } from "react"
-import PropTypes from "prop-types"
-import { JsonViewer } from "../../deprecated_js/JsonViewer/JsonViewer.component"
-import { Icon } from "../../deprecated_js/Icon/index"
+import React, { useState, useRef, useCallback } from "react"
+import { JsonViewer } from "../JsonViewer"
+import { Icon } from "../Icon"
 
 const wrapperStyles = `
   jn-bg-theme-code-block
   jn-rounded
 `
 
-const preStyles = (wrap) => {
+const preStyles = (wrap: boolean) => {
   return `
     jn-p-6
     ${wrap ? "jn-break-words jn-break-all jn-whitespace-pre-wrap" : "jn-overflow-x-auto"}
   `
 }
 
-const sizeStyles = (size) => {
+const sizeStyles = (size: CodeBlockSize) => {
   switch (size) {
     case "small":
       return `
@@ -117,23 +116,33 @@ export const CodeBlock = ({
   lang = "",
   className = "",
   ...props
-}) => {
+}: CodeBlockProps) => {
   const [isCopied, setIsCopied] = useState(false)
-  const timeoutRef = React.useRef(null)
+  const timeoutRef = React.useRef<number | null>(null)
 
   React.useEffect(() => {
-    return () => clearTimeout(timeoutRef.current) // clear when component is unmounted
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    } // clear when component is unmounted
   }, [])
 
-  const theCode = useRef(null)
+  const theCode = useRef<HTMLElement>(null)
 
-  const handleCopyClick = () => {
-    const textToCopy = lang === "json" ? JSON.stringify(content || children) : theCode.current.textContent
-    navigator.clipboard.writeText(textToCopy)
+  const handleCopyClick = useCallback(() => {
+    const textToCopy = lang === "json" ? JSON.stringify(content || children) : theCode.current?.textContent
+    if (textToCopy) {
+      navigator.clipboard.writeText(textToCopy).catch(() => {
+        console.warn("Cannot copy text to clipboard")
+      })
+    }
     setIsCopied(true)
-    clearTimeout(timeoutRef.current) // clear any possibly existing Refs
-    timeoutRef.current = setTimeout(() => setIsCopied(false), 1000)
-  }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current) // clear any possibly existing Refs
+    }
+    timeoutRef.current = window.setTimeout(() => setIsCopied(false), 1000)
+  }, [content, children, lang])
 
   return (
     <div
@@ -153,7 +162,7 @@ export const CodeBlock = ({
       ) : (
         <pre className={`juno-code-block-pre ${preStyles(wrap)} ${sizeStyles(size)}`}>
           <code className={`${codeStyles}`} ref={theCode}>
-            {content || children}
+            {(content || children) as React.ReactNode}
           </code>
         </pre>
       )}
@@ -170,21 +179,23 @@ export const CodeBlock = ({
   )
 }
 
-CodeBlock.propTypes = {
+type CodeBlockSize = "auto" | "small" | "medium" | "large"
+
+export interface CodeBlockProps {
   /** The content to render. Will override children if passed. */
-  content: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  content?: string | object
   /** The children to render. Will be overridden by content prop if passed as well.  */
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
+  children?: React.ReactNode | object
   /** Pass at title to render. Will look like a single tab. */
-  heading: PropTypes.string,
+  heading?: string
   /** Set whether the code should wrap or not. Default is true. */
-  wrap: PropTypes.bool,
+  wrap?: boolean
   /** Set the size of the CodeBlock. Default is "auto" */
-  size: PropTypes.oneOf(["auto", "small", "medium", "large"]),
+  size?: CodeBlockSize
   /** Render a button to copy the code to the clipboard. Defaults to true */
-  copy: PropTypes.bool,
+  copy?: boolean
   /** Pass a lang prop. Passing "json" will render a fully-featured JsonView. Will also add a data-lang-attribute to the codeblock */
-  lang: PropTypes.string,
+  lang?: string
   /** Add a custom className to the wrapper of the CodeBlock */
-  className: PropTypes.string,
+  className?: string
 }
