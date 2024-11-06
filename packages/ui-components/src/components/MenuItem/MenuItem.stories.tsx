@@ -11,7 +11,11 @@ import { Button } from "../Button/"
 export default {
   title: "WiP/Menu/MenuItem",
   component: MenuItem,
-  argTypes: {},
+  argTypes: {
+    children: {
+      control: false,
+    },
+  },
   decorators: [
     (storyFn: () => React.ReactNode, context: { parameters: { menuVariant: "normal" | "small" } }) => {
       // Access the menuVariant parameter from the story context
