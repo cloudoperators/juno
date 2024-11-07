@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { CodeBlock } from "./CodeBlock.component.js"
+export { AppShellProvider } from "./AppShellProvider.component"
