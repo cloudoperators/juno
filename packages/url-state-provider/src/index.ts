@@ -273,7 +273,7 @@ function informListener(stateID: string, newState: object, oldState: object) {
   listener(newState)
 }
 
-function onGlobalChange(callback: any): any {
+function onGlobalChange(callback: () => void) {
   return addOnGlobalChangeListener(callback)
 }
 

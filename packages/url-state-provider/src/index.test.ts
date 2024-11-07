@@ -230,7 +230,7 @@ describe("currentState", () => {
   })
 
   describe("addOnChangeListener", () => {
-    let listener: any
+    let listener: () => void
     beforeAll(() => {
       vi.resetModules()
       listener = vi.fn(() => null)
@@ -262,7 +262,7 @@ describe("currentState", () => {
   })
 
   describe("removeOnChangeListener", () => {
-    let listener: any
+    let listener: () => void
     beforeAll(() => {
       vi.resetModules()
       listener = vi.fn(() => null)

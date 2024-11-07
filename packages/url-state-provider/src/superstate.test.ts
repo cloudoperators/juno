@@ -359,8 +359,10 @@ describe("broken LZ decompression", () => {
 
     try {
       humanURI.decodeLZ(data)
-    } catch (error: any) {
-      err = error
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        err = error
+      }
     }
 
     expect(err.message).toBe("URI malformed")
@@ -376,8 +378,10 @@ describe("broken B64 decomopression", () => {
 
     try {
       humanURI.decodeB64(data)
-    } catch (error: any) {
-      err = error
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        err = error
+      }
     }
 
     expect(err.message).toBe("URI malformed")
@@ -393,8 +397,10 @@ describe("broken decoding because of not closed obj", () => {
 
     try {
       humanURI.decode(data)
-    } catch (error: any) {
-      err = error
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        err = error
+      }
     }
 
     expect(err.message).toBe("JSON object not closed correctly")
@@ -405,8 +411,10 @@ describe("broken decoding because of not closed obj", () => {
     const data = "%(324"
     try {
       humanURI.decode(data)
-    } catch (error: any) {
-      err = error
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        err = error
+      }
     }
 
     expect(err.message).toBe("URI malformed")
