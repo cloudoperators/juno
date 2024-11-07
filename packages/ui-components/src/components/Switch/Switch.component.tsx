@@ -169,26 +169,19 @@ const getHandleSizeStyles = (size: SwitchSize): string => {
 }
 
 const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: boolean): React.ReactNode | null => {
-  if (!isInvalid && !isValid) return null
+  const size = "1.125rem"
+  const className = `${iconBaseStyles} ${disabled ? "jn-opacity-50" : ""}`
 
-  if (isValid)
-    return (
-      <Icon
-        icon="checkCircle"
-        color="jn-text-theme-success"
-        size="1.125rem"
-        className={`${iconBaseStyles} ${disabled ? "jn-opacity-50" : ""}`}
-      />
-    )
+  // NOTE: isValid and isInvalid are purposely seperate states
+  if (isInvalid) {
+    return <Icon icon="dangerous" color="jn-text-theme-error" size={size} className={className} />
+  }
 
-  return (
-    <Icon
-      icon="dangerous"
-      color="jn-text-theme-error"
-      size="1.125rem"
-      className={`${iconBaseStyles} ${disabled ? "jn-opacity-50" : ""}`}
-    />
-  )
+  if (isValid) {
+    return <Icon icon="checkCircle" color="jn-text-theme-success" size={size} className={className} />
+  }
+
+  return null
 }
 
 const renderFormHint = (
