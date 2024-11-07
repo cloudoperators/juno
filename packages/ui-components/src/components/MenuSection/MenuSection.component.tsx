@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
 const sectionStyles = `
 	jn-bg-theme-background-lvl-1
@@ -20,7 +19,7 @@ const titleStyles = `
 	jn-p-2
 `
 /** Use MenuSection to structure and sub-divide MenuItems in a menu. All but the last MenuSection will render a visible divider at the bottom. Optionally, a MenuSection can have a title.*/
-export const MenuSection = ({ title = "", children = null, className = "", ...props }) => {
+export const MenuSection: React.FC<MenuSectionProps> = ({ title = "", children = null, className = "", ...props }) => {
   return (
     <div className={`juno-menu-section ${sectionStyles} ${className}`} {...props}>
       {title ? <div className={`juno-menu-section-title ${titleStyles}`}>{title}</div> : ""}
@@ -29,8 +28,11 @@ export const MenuSection = ({ title = "", children = null, className = "", ...pr
   )
 }
 
-MenuSection.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node,
-  className: PropTypes.string,
+export interface MenuSectionProps {
+  /** The children to render in the MenuSection */
+  children?: React.ReactNode
+  /** Pass a custom className */
+  className?: string
+  /** Pass an optional section title */
+  title?: string
 }
