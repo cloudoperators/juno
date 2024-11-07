@@ -4,7 +4,6 @@
  */
 
 import React, { createContext } from "react"
-import PropTypes from "prop-types"
 import { Menu as HLMenu } from "@headlessui/react"
 
 const baseStyles = `
@@ -23,19 +22,22 @@ const normalStyles = `
 	jn-text-base
 `
 
-const variantStyles = (variant) => {
-  switch (variant) {
-    case "small":
-      return smallStyles
-    default:
-      return normalStyles
-  }
+export interface MenuProps {
+  /** The children to render in the MenuSection */
+  children?: React.ReactNode
+  /** Whether the Menu will be in normal or small variant */
+  variant?: "small" | "normal"
+  /** Pass a custom className to the menu */
+  className?: string
 }
 
-export const MenuContext = createContext()
+interface MenuContextType {
+  variant: "small" | "normal"
+}
+export const MenuContext = createContext<MenuContextType | undefined>(undefined)
 
 /** A generic menu component */
-export const Menu = ({ children = null, variant = "normal", className = "", ...props }) => {
+export const Menu: React.FC<MenuProps> = ({ children = null, variant = "normal", className = "", ...props }) => {
   return (
     <MenuContext.Provider
       value={{
@@ -48,7 +50,7 @@ export const Menu = ({ children = null, variant = "normal", className = "", ...p
 					juno-menu 
 					juno-menu-${variant} 
 					${baseStyles} 
-					${variantStyles(variant)} 
+					${variant === "small" ? smallStyles : normalStyles} 
 					${className}
 				`}
           role="menu"
@@ -59,13 +61,4 @@ export const Menu = ({ children = null, variant = "normal", className = "", ...p
       </HLMenu>
     </MenuContext.Provider>
   )
-}
-
-Menu.propTypes = {
-  /* The children of the Menu,, typically MenuItem */
-  children: PropTypes.node,
-  /** Whether the Menu will be in normal or small variant */
-  variant: PropTypes.oneOf(["small", "normal"]),
-  /* Add a className */
-  className: PropTypes.string,
 }
