@@ -4,9 +4,9 @@
  */
 
 import React from "react"
-import { AppShellProvider } from "."
-import { CodeBlock } from "../CodeBlock/index.js"
-import { Message } from "../Message/Message.component"
+import { Message } from "../Message"
+import { AppShellProvider, AppShellProviderProps } from "./AppShellProvider.component"
+import { CodeBlock } from "../CodeBlock"
 
 export default {
   title: "Layout/AppShellProvider",
@@ -18,7 +18,7 @@ export default {
   },
 }
 
-const Template = (args) => <AppShellProvider {...args}>{args.children}</AppShellProvider>
+const Template = (args: AppShellProviderProps) => <AppShellProvider {...args}>{args.children}</AppShellProvider>
 
 export const Default = {
   render: Template,
