@@ -4,10 +4,10 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Menu } from "./index.js"
-import { MenuItem } from "../MenuItem/index.js"
-import { MenuSection } from "../MenuSection/index.js"
+import { Menu } from "./"
+import { MenuItem } from "../MenuItem/"
+import { MenuSection } from "../MenuSection/"
+import { Button } from "../Button/"
 
 export default {
   title: "WiP/Menu",
@@ -24,14 +24,7 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => <Menu {...args}>{children}</Menu>
-Template.propTypes = {
-  children: PropTypes.node,
-}
-
 export const Default = {
-  render: Template,
-
   args: {
     children: [
       <MenuItem label="Label only" key="1" />,
@@ -40,13 +33,15 @@ export const Default = {
       <MenuItem label="Item with a Link and icon" href="https://github.com/cloudoperators/juno" icon="help" key="4" />,
       <MenuItem label="Item with OnClick" onClick={() => {}} key="5" />,
       <MenuItem label="Item with OnClick and Icon" onClick={() => {}} icon="deleteForever" key="6" />,
+      <MenuItem key="7">Menu Item with Children</MenuItem>,
+      <MenuItem key="8">
+        <Button label="Delete" size="small" variant="subdued" icon="deleteForever" className="jn-w-full" />
+      </MenuItem>,
     ],
   },
 }
 
 export const Small = {
-  render: Template,
-
   args: {
     variant: "small",
     children: [
@@ -61,8 +56,6 @@ export const Small = {
 }
 
 export const WithASection = {
-  render: Template,
-
   args: {
     children: [
       <MenuSection key="m1">
