@@ -7,13 +7,10 @@ import { useCallback, useMemo } from "react"
 import { createClient } from "sapcc-k8sclient"
 import { useAuthData, useGlobalsApiEndpoint, useGlobalsAssetsHost } from "../components/StoreProvider"
 import { createPluginConfig } from "../lib/plugin"
-import { getManifest } from "../lib/manifestLoader"
 
 // get plugin configs from k8s api
 const useApi = () => {
   const authData = useAuthData()
-  // const token = useStoreByKey("auth.data?.JWT")
-  // const groups = useStoreByKey("auth.data?.raw?.groups")
   const apiEndpoint = useGlobalsApiEndpoint()
   const assetsHost = useGlobalsAssetsHost()
 
@@ -32,32 +29,27 @@ const useApi = () => {
   const getPluginConfigs = useCallback(() => {
     if (!client || !namespace) return Promise.resolve({})
 
-    return Promise.all([
-      // manifest
-      getManifest,
-      // plugin configs
-      client.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
+    return client
+      .get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
         limit: 500,
-      }),
-    ]).then(([manifest, configs]) => {
-      // create config map
-      const config = {}
-      configs.items.forEach((conf) => {
-        const id = conf.metadata?.name
-        const name = conf.status?.uiApplication?.name
-        const displayName = conf.spec?.displayName
-        const weight = conf.status?.weight
-        const version = conf.status?.uiApplication?.version
-        const url = conf.status?.uiApplication?.url
+      })
+      .then((configs) => {
+        // create config map
+        const config = {}
+        configs.items.forEach((conf) => {
+          const id = conf.metadata?.name
+          const name = conf.status?.uiApplication?.name
+          const displayName = conf.spec?.displayName
+          const weight = conf.status?.weight
+          const version = conf.status?.uiApplication?.version
+          const url = conf.status?.uiApplication?.url
 
-        // temporary fix to forward initialFilters to the Plugins until middleware is implemented
-        const appProps = { username: authData?.parsed?.fullName }
-        appProps.initialFilters = {
-          support_group: authData?.parsed?.supportGroups?.map((group) => group),
-        }
+          // temporary fix to forward initialFilters to the Plugins until middleware is implemented
+          const appProps = { username: authData?.parsed?.fullName }
+          appProps.initialFilters = {
+            support_group: authData?.parsed?.supportGroups?.map((group) => group),
+          }
 
-        // only add plugin if the url is from another host or the name with the given version is in the manifest!
-        if (manifest?.[name]) {
           const newConf = createPluginConfig({
             id,
             name,
@@ -74,10 +66,9 @@ const useApi = () => {
             },
           })
           if (newConf) config[id] = newConf
-        }
+        })
+        return config
       })
-      return config
-    })
   }, [client, assetsHost, namespace])
 
   return { client, getPluginConfigs }

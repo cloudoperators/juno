@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-heureka",
-  "version": "2.9.0",
+  "version": "2.9.2",
   "author": "UI-Team",
   "contributors": [
     "Hoda Noori, Arturo Reuschenbach Pucernau",
@@ -8,7 +8,9 @@
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka",
   "license": "Apache-2.0",
-  "module": "build/index.js",
+  "exports": {
+    ".": "./build/index.js"
+  },
   "private": true,
   "devDependencies": {
     "@cloudoperators/juno-config": "*",
@@ -21,7 +23,7 @@
     "immer": "^10.0.0",
     "jsdom": "^25.0.1",
     "luxon": "^3.4.4",
-    "postcss": "^8.4.21",
+    "postcss": "^8.4.47",
     "prop-types": "^15.8.1",
     "react-test-renderer": "^18.2.0",
     "sass": "^1.77.5",

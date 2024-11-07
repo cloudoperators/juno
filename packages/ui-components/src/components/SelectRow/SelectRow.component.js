@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { Select } from "../Select/index.js"
+import { Select } from "../../deprecated_js/Select/index.js"
 import { FormRow } from "../FormRow/index.js"
 import { withDeprecationWarning } from "../../deprecated_js/withDeprecationWarning/index.js"
 

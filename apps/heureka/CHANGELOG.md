@@ -1,5 +1,27 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.9.2
+
+### Patch Changes
+
+- 3ee03d3: harmonizes filter names across different views
+- Updated dependencies [d4167c9]
+- Updated dependencies [3e225b9]
+- Updated dependencies [a304189]
+- Updated dependencies [02f06a1]
+  - @cloudoperators/juno-ui-components@2.28.0
+
+## 2.9.1
+
+### Patch Changes
+
+- fb9146a: migrate greenhouse to vite and adjust all dependent apps to export needed entrypoints
+- Updated dependencies [f6f054f]
+- Updated dependencies [4bcff19]
+- Updated dependencies [28a8d38]
+- Updated dependencies [fb9146a]
+  - @cloudoperators/juno-ui-components@2.27.0
+
 ## 2.9.0
 
 ### Minor Changes

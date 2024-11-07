@@ -13,10 +13,10 @@ const COMPONENTS = "Components"
 
 // Function to generate the initial filter state
 const createFilterState = () => ({
-  labels: [], // Labels for each entity: ["label1", "label2", ...]
-  activeFilters: {}, // Active filters { label1: [value1], label2: [value2_1, value2_2], ... }
-  filterLabelValues: {}, // Filter label values { label1: ["val1", "val2", ...], label2: [...] }
-  predefinedFilters: [], // Predefined filters [ {name: "filter1", matchers: {"label1": "regex1", ...}}]
+  labels: [], // Array of objects: { displayName, filterName } for each filter entity. Filter names are used for request-building
+  activeFilters: {}, // Active filters { filterName1: [value1], filterName2: [value2_1, value2_2], ... }
+  filterLabelValues: {}, // Filter name values { filterName1: ["val1", "val2", ...], filterName2: [...] }
+  predefinedFilters: [], // Predefined filters [ {name: "filter1", matchers: {"filterName1": "regex1", ...}}]
   activePredefinedFilter: null, // Active predefined filter
   search: "", // Search term used for full-text filtering
 })
@@ -32,10 +32,14 @@ const createFiltersSlice = (set, get) => ({
   filters: {
     ...initialFiltersState,
     actions: {
-      setLabels: (entity, labels) =>
+      setLabels: (entity, labelPairs) =>
         set(
           produce((state) => {
-            state.filters[entity].labels = labels
+            state.filters[entity].labels = labelPairs.map(({ displayName, filterName }) => ({
+              displayName,
+              filterName,
+            }))
+            state.filters[entity].filterNames = labelPairs.map(({ filterName }) => filterName) // update filterNames accordingly
           }),
           false,
           `filters.setLabels.${entity}`
@@ -45,7 +49,7 @@ const createFiltersSlice = (set, get) => ({
         set(
           produce((state) => {
             state.filters[entity].filterLabelValues = filters.reduce((acc, filter) => {
-              acc[filter.label] = filter.values
+              acc[filter.filterName] = filter.values
               return acc
             }, {})
           }),
@@ -73,16 +77,16 @@ const createFiltersSlice = (set, get) => ({
         )
       },
 
-      addActiveFilter: (entity, filterLabel, filterValue) => {
+      addActiveFilter: (entity, filterName, filterValue) => {
         set(
           produce((state) => {
-            if (!state.filters[entity].activeFilters[filterLabel]) {
-              state.filters[entity].activeFilters[filterLabel] = []
+            if (!state.filters[entity].activeFilters[filterName]) {
+              state.filters[entity].activeFilters[filterName] = []
             }
 
             // Add the filter value if it doesn't already exist
-            state.filters[entity].activeFilters[filterLabel] = [
-              ...new Set([...state.filters[entity].activeFilters[filterLabel], filterValue]),
+            state.filters[entity].activeFilters[filterName] = [
+              ...new Set([...state.filters[entity].activeFilters[filterName], filterValue]),
             ]
           }),
           false,
@@ -90,16 +94,16 @@ const createFiltersSlice = (set, get) => ({
         )
       },
 
-      addActiveFilters: (entity, filterLabel, filterValues) => {
+      addActiveFilters: (entity, filterName, filterValues) => {
         set(
           produce((state) => {
-            if (!state.filters[entity].activeFilters[filterLabel]) {
-              state.filters[entity].activeFilters[filterLabel] = []
+            if (!state.filters[entity].activeFilters[filterName]) {
+              state.filters[entity].activeFilters[filterName] = []
             }
 
             // Add the filter values and ensure uniqueness
-            state.filters[entity].activeFilters[filterLabel] = [
-              ...new Set([...state.filters[entity].activeFilters[filterLabel], ...filterValues]),
+            state.filters[entity].activeFilters[filterName] = [
+              ...new Set([...state.filters[entity].activeFilters[filterName], ...filterValues]),
             ]
           }),
           false,
@@ -107,17 +111,17 @@ const createFiltersSlice = (set, get) => ({
         )
       },
 
-      removeActiveFilter: (entity, filterLabel, filterValue) => {
+      removeActiveFilter: (entity, filterName, filterValue) => {
         set(
           produce((state) => {
-            const updatedFilters = state.filters[entity].activeFilters[filterLabel].filter(
+            const updatedFilters = state.filters[entity].activeFilters[filterName].filter(
               (value) => value !== filterValue
             )
 
             if (updatedFilters.length === 0) {
-              delete state.filters[entity].activeFilters[filterLabel]
+              delete state.filters[entity].activeFilters[filterName]
             } else {
-              state.filters[entity].activeFilters[filterLabel] = updatedFilters
+              state.filters[entity].activeFilters[filterName] = updatedFilters
             }
           }),
           false,
