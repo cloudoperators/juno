@@ -410,7 +410,7 @@ type ThemeType = "dark" | "light"
 export interface JsonViewerProps extends Omit<React.HTMLProps<HTMLDivElement>, "data"> {
   /** Pass a valid json. Required.  */
   // data: PropTypes.object.isRequired,
-  data: object | object[]
+  data: string | object | object[]
   /** pass a styles object */
   style?: object
   /** show toolbar */
