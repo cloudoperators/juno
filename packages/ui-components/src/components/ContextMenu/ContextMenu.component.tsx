@@ -8,7 +8,7 @@ import { Menu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
 import { autoPlacement, offset, shift, size, Boundary } from "@floating-ui/react-dom"
 
-import { Icon } from "../Icon/Icon.component"
+import { Icon, KnownIcons } from "../Icon/Icon.component"
 
 /*
 TODO:
@@ -43,7 +43,7 @@ const toggleOpenStyle = `
 export interface ContextMenuProps {
   className?: string
   children?: React.ReactNode
-  icon?: any
+  icon?: KnownIcons
   open?: boolean
 }
 
@@ -73,7 +73,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
       allowedPlacements: ["top-start", "top-end", "bottom-start", "bottom-end"],
     }),
     size({
-      boundary: "viewport" as unknown as Boundary,
+      boundary: "viewport" as Boundary,
       apply({ availableWidth, availableHeight, elements }) {
         Object.assign(elements.floating.style, {
           maxWidth: `${availableWidth}px`,
