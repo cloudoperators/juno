@@ -32,12 +32,12 @@ export default () => gql`
         filterName
         values
       }
-      componentName {
+      componentCcrn {
         displayName
         filterName
         values
       }
-      supportGroupName {
+      supportGroupCcrn {
         displayName
         filterName
         values
