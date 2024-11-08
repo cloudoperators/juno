@@ -21,12 +21,18 @@
 
 import lzstring from "lz-string"
 
+type SupportedTypes = string | object | number | boolean | undefined | null | RegExp | any[]
+
+type Indexable = {
+  [key: string]: SupportedTypes
+}
+
 export default function () {
   const nonURIsafe = "~%\t\n\r\\/{}()+#$@?&=[]*;,"
   const keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-!_"
 
   // standard function for encoding and decoding
-  function encode(value) {
+  function encode(value: SupportedTypes): string {
     switch (typeof value) {
       case "object":
         if (value === null) {
@@ -58,7 +64,7 @@ export default function () {
     }
   }
 
-  function decode(value) {
+  function decode(value: string): SupportedTypes {
     if (!value) return ""
 
     if (value[0] === "*") {
@@ -84,7 +90,7 @@ export default function () {
       }
     }
 
-    // if value[0] is ~ and value[1] is a number
+    // test if value[0] is ~ and value[1] is a number
     if (/^~\d/.test(value)) {
       return decodeNumber(value)
     }
@@ -98,7 +104,7 @@ export default function () {
     return decodeString(value)
   }
   // obj
-  function encodeString(value) {
+  function encodeString(value: string): string {
     return value
       .split("")
       .map((char) => {
@@ -114,12 +120,12 @@ export default function () {
       .join("")
   }
 
-  function decodeString(value) {
+  function decodeString(value: string): string {
     let result = ""
     value = decodeURIComponent(value)
 
     for (let i = 0; i < value.length; i++) {
-      let char = value[i]
+      const char = value[i]
       if (char === "+") {
         result += " "
       } else if (char === "~" && keys.includes(value[i + 1])) {
@@ -132,20 +138,22 @@ export default function () {
     return result
   }
 
-  function encodeRegex(value) {
+  function encodeRegex(value: RegExp): string {
     // stringfy the regex and add *R to the beginning
-    let source = encode(value?.source.toString())
-    let flags = encode(value?.flags.toString())
+    const source = encodeString(value?.source.toString())
+    const flags = encodeString(value?.flags.toString())
     return `*R${source}*R${flags}*R`
   }
 
-  function decodeRegex(value) {
-    let regex = value.slice(2, -2)
-    regex = regex.split("*R").map((v) => decode(v))
+  function decodeRegex(value: string): RegExp {
+    const regex = value
+      .slice(2, -2)
+      .split("*R")
+      .map((v) => decodeString(v))
     return new RegExp(regex[0], regex[1])
   }
 
-  function encodeObject(value) {
+  function encodeObject(value: object | Array<any>): string {
     if (Array.isArray(value)) {
       return encodeArray(value)
     }
@@ -157,7 +165,7 @@ export default function () {
     return "(" + entries.join(",") + ")"
   }
 
-  function decodeObject(value) {
+  function decodeObject(value: string): object | Array<any> {
     if (value === "(~)") {
       return []
     }
@@ -175,7 +183,7 @@ export default function () {
     }
   }
 
-  function decodeJSON(value) {
+  function decodeJSON(value: string): object {
     value = value.slice(1, -1)
 
     const entries = []
@@ -211,7 +219,7 @@ export default function () {
 
     if (key) entries.push([key, currentEntry.trim()])
 
-    const result = {}
+    const result: Indexable = {}
     entries.forEach(([key, encodedValue]) => {
       result[key] = decode(encodedValue)
     })
@@ -219,18 +227,18 @@ export default function () {
     return result
   }
 
-  function encodeArray(value) {
+  function encodeArray(value: Array<any>): string {
     if (value.length === 0) {
       return "(~)" // Special case for empty arrays
     }
-    let encoded = "(" + value.map(encode).join(",") + ")"
+    const encoded = "(" + value.map(encode).join(",") + ")"
     if (encoded === "()") {
       return "(*)"
     }
     return encoded
   }
 
-  function decodeArray(value) {
+  function decodeArray(value: string): SupportedTypes[] {
     // remove the brackets
     value = value.slice(1, -1)
     const entries = []
@@ -259,7 +267,7 @@ export default function () {
 
     entries.push(currentEntry.trim())
 
-    const result = []
+    const result: SupportedTypes[] = []
     entries.forEach((encodedValue) => {
       result.push(decode(encodedValue))
     })
@@ -267,7 +275,7 @@ export default function () {
     return result
   }
 
-  function encodeNumber(value) {
+  function encodeNumber(value: number): string {
     if (value < 0) {
       // delete - through ~
       return "~" + -value
@@ -275,18 +283,18 @@ export default function () {
       return "*" + value
     }
   }
-  function decodeNumber(value) {
+  function decodeNumber(value: string): number {
     if (value[0] === "~") {
       return -value.slice(1)
     }
     return +value.slice(1)
   }
 
-  function isEncodedJSON(value) {
+  function isEncodedJSON(value: string): boolean {
     let isObject = false
     let depth = 0
 
-    for (let char of value) {
+    for (const char of value) {
       if (char === "(") depth++
       if (char === ")") depth--
 
@@ -298,11 +306,11 @@ export default function () {
   }
 
   /// base64
-  function encodeB64(value) {
+  function encodeB64(value: SupportedTypes): string {
     return btoa(encode(value))
   }
 
-  function decodeB64(value) {
+  function decodeB64(value: string): SupportedTypes {
     try {
       return decode(atob(value))
     } catch (_error) {
@@ -311,25 +319,25 @@ export default function () {
   }
 
   // compressed
-  function encodeLZ(value) {
+  function encodeLZ(value: SupportedTypes): string {
     return lzstring.compressToEncodedURIComponent(encode(value))
   }
 
-  function decodeLZ(value) {
+  function decodeLZ(value: string): SupportedTypes {
     try {
       const result = decode(lzstring.decompressFromEncodedURIComponent(value))
       if (result === "") {
         throw new Error("URI malformed")
       }
       return result
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.message)
     }
   }
 
   /// base64 with null on error
 
-  function decodeB64NullOnError(value) {
+  function decodeB64NullOnError(value: string): SupportedTypes {
     try {
       return decode(atob(value))
     } catch (_error) {
@@ -337,7 +345,7 @@ export default function () {
     }
   }
 
-  function decodeLZNullOnError(value) {
+  function decodeLZNullOnError(value: string): SupportedTypes {
     try {
       const result = decode(lzstring.decompressFromEncodedURIComponent(value))
       if (result === "" && value !== "") {
@@ -349,7 +357,7 @@ export default function () {
     }
   }
 
-  function decodeNullOnError(value) {
+  function decodeNullOnError(value: string): SupportedTypes {
     try {
       return decode(value)
     } catch (_error) {
