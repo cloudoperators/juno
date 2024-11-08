@@ -62,7 +62,7 @@ export const Default = {
       <GridRow key="2">
         <GridColumn>Column</GridColumn>
         <GridColumn cols={3}>Column cols-3</GridColumn>
-        <GridColumn cols={5}>Column cols-5</GridColumn>
+        <GridColumn cols={6}>Column cols-6</GridColumn>
         <GridColumn cols={2}>Column cols-2</GridColumn>
       </GridRow>,
     ],
