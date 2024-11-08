@@ -16,7 +16,7 @@ export const componentsMainQuery = () => gql`
       edges {
         node {
           id
-          name
+          ccrn
           type
           componentVersions {
             totalCount

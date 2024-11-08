@@ -77,7 +77,7 @@ const IssueMatchesDetails = () => {
             <DataGridHeadCell>Service Name</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement elem={issue?.componentInstance?.service?.name} />
+              <LoadElement elem={issue?.componentInstance?.service?.ccrn} />
             </DataGridCell>
           </DataGridRow>
 
@@ -85,7 +85,7 @@ const IssueMatchesDetails = () => {
             <DataGridHeadCell>Support Group Name</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement elem={listOfCommaSeparatedObjs(issue?.componentInstance?.service?.supportGroups, "name")} />
+              <LoadElement elem={listOfCommaSeparatedObjs(issue?.componentInstance?.service?.supportGroups, "ccrn")} />
             </DataGridCell>
           </DataGridRow>
 
@@ -93,7 +93,7 @@ const IssueMatchesDetails = () => {
             <DataGridHeadCell>Component Name</DataGridHeadCell>
 
             <DataGridCell>
-              <LoadElement elem={issue?.componentInstance?.componentVersion?.component?.name} />
+              <LoadElement elem={issue?.componentInstance?.componentVersion?.component?.ccrn} />
             </DataGridCell>
           </DataGridRow>
 

@@ -33,6 +33,11 @@ const createGlobalsSlice = (set, get, options) => ({
           first: 20,
         },
       },
+      ComponentInstancesOfService: {
+        queryOptions: {
+          first: 8,
+        },
+      },
     },
 
     actions: {
