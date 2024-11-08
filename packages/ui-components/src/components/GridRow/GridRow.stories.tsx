@@ -18,11 +18,14 @@ export default {
     },
   },
   decorators: [
-    (Story) => (
-      <div className="jn-bg-juno-blue-3 jn-text-juno-grey-blue">
-        <Story />
-      </div>
-    ),
+    (Story, context) => {
+      const { parameters } = context
+      return (
+        <div className={`jn-bg-juno-blue-3 jn-text-juno-grey-blue ${parameters.className || ""}`}>
+          <Story {...parameters} />
+        </div>
+      )
+    },
   ],
 } as Meta<typeof GridRow>
 

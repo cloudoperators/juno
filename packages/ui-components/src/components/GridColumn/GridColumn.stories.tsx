@@ -4,28 +4,27 @@
  */
 
 import React from "react"
-import { StoryFn, Meta } from "@storybook/react"
-
-import { GridColumn, GridColumnProps } from "./GridColumn.component" // Ensure the type is imported correctly
+import { Meta, StoryFn } from "@storybook/react"
+import { GridColumn, GridColumnProps } from "./GridColumn.component"
 
 export default {
   title: "Layout/Grid/GridColumn",
   component: GridColumn,
   argTypes: {
-    children: {
-      control: false,
-    },
+    children: { control: false },
   },
   decorators: [
-    (Story) => (
-      <div className="jn-bg-juno-blue-3 jn-text-juno-grey-blue">
-        <Story />
+    (Story, context) => (
+      <div className="juno-container jn-px-6 jn-py-6">
+        <Story {...context.args} />
       </div>
     ),
   ],
 } as Meta
 
-const Template: StoryFn<GridColumnProps> = (args) => <GridColumn {...args} />
+const Template: StoryFn<GridColumnProps> = (args) => {
+  return <GridColumn {...args} className={`${args.className} jn-bg-juno-blue-3 jn-text-juno-grey-blue`} />
+}
 
 export const Default = {
   render: Template,

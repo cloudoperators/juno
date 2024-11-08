@@ -5,7 +5,7 @@
 
 import React from "react"
 import { StoryFn, Meta } from "@storybook/react"
-import { Grid } from "./Grid.component"
+import { Grid, GridProps } from "./Grid.component"
 import { GridRow } from "../GridRow/GridRow.component"
 import { GridColumn } from "../GridColumn/GridColumn.component"
 
@@ -13,18 +13,25 @@ export default {
   title: "Layout/Grid/Grid",
   component: Grid,
   argTypes: {
-    children: { control: false },
+    children: {
+      control: false,
+    },
   },
   decorators: [
-    (Story) => (
-      <div className="jn-bg-juno-blue-3 jn-text-juno-grey-blue">
-        <Story />
-      </div>
-    ),
+    (Story, context) => {
+      const storyParams = context.parameters
+      return (
+        <div className="juno-container jn-px-6 jn-py-6">
+          <Story {...storyParams} />
+        </div>
+      )
+    },
   ],
-} as Meta<typeof Grid>
+} as Meta
 
-const Template: StoryFn<typeof Grid> = (args) => <Grid {...args} />
+const Template: StoryFn<GridProps> = (args, context) => (
+  <Grid {...args} className={`${args.className} ${context.className || ""}`} />
+)
 
 export const Default = {
   render: Template,
