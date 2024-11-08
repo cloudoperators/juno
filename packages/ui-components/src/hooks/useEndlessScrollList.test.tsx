@@ -12,7 +12,6 @@ const intersectionObserverMock = () => ({
 })
 window.IntersectionObserver = vi.fn().mockImplementation(intersectionObserverMock)
 
-// TODO: add tests for the loading indicator which currently is not implemented do tue intersection observer can't be reproduced in tests
 describe("useEndlessScrollList", () => {
   it("return no scroll items if items not all provided", () => {
     const { result } = renderHook(() => useEndlessScrollList([]))
