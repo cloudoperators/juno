@@ -7,7 +7,7 @@ import React from "react"
 import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { DateTimePicker } from "./index"
-import { AppShellProvider } from "../AppShellProvider"
+import { AppShellProvider } from "../../deprecated_js/AppShellProvider"
 
 const mockOnOpen = jest.fn()
 const mockOnClear = jest.fn()
