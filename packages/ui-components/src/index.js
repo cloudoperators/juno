@@ -92,7 +92,7 @@ export { Spinner } from "./components/Spinner/index.js"
 export { Stack } from "./components/Stack/index.js"
 export { StyleProvider } from "./deprecated_js/StyleProvider"
 
-export { Switch } from "./components/Switch/index.js"
+export { Switch } from "./components/Switch/index"
 export { SwitchRow } from "./components/SwitchRow/index.js"
 export { Tab } from "./components/Tab/index.js"
 export { TabList } from "./components/TabList/index.js"
