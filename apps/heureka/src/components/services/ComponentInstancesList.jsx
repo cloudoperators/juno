@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import {
   ContentHeading,
-  Pagination,
   Container,
-  Stack,
   DataGrid,
   DataGridRow,
   DataGridCell,
@@ -18,12 +16,13 @@ import {
 import { useGlobalsQueryClientFnReady, useGlobalsQueryOptions, useGlobalsActions } from "../StoreProvider"
 import LoadElement from "../shared/LoadElement"
 import { severityString, highestSeverity } from "../shared/Helper"
+import PaginationComponent from "../shared/PaginationComponent"
+import HintNotFound from "../shared/HintNotFound"
 
 const ComponentInstancesList = ({ serviceCcrn }) => {
   const queryOptions = useGlobalsQueryOptions("ComponentInstancesOfService")
   const { setQueryOptions } = useGlobalsActions()
   const queryClientFnReady = useGlobalsQueryClientFnReady()
-  const [currentPage, setCurrentPage] = useState(1)
 
   const { data, isLoading } = useQuery({
     queryKey: [
@@ -37,22 +36,6 @@ const ComponentInstancesList = ({ serviceCcrn }) => {
   })
 
   const items = data?.ComponentInstances?.edges || []
-  const pageInfo = data?.ComponentInstances?.pageInfo || {}
-  const totalPages = pageInfo?.pages?.length || 0
-
-  const onPaginationChanged = (newPage) => {
-    setCurrentPage(newPage)
-    if (!pageInfo?.pages) return
-    const pages = pageInfo.pages
-    const currentPageIndex = pages?.findIndex((page) => page?.pageNumber === parseInt(newPage))
-    if (currentPageIndex > -1) {
-      const after = pages[currentPageIndex]?.after
-      setQueryOptions("ComponentInstancesOfService", {
-        ...queryOptions,
-        after: `${after}`,
-      })
-    }
-  }
 
   return (
     <>
@@ -72,6 +55,8 @@ const ComponentInstancesList = ({ serviceCcrn }) => {
               </Container>
             </DataGridCell>
           </DataGridRow>
+        ) : items.length === 0 ? (
+          <HintNotFound text="No component instances available." />
         ) : (
           items.map((componentInstance, i) => (
             <DataGridRow key={i}>
@@ -87,26 +72,13 @@ const ComponentInstancesList = ({ serviceCcrn }) => {
           ))
         )}
       </DataGrid>
-
-      <Container py px={false}>
-        <Stack className="flex justify-end">
-          <Pagination
-            currentPage={currentPage}
-            isFirstPage={currentPage === 1}
-            isLastPage={currentPage === totalPages}
-            onPressNext={() => onPaginationChanged(currentPage + 1)}
-            onPressPrevious={() => onPaginationChanged(currentPage - 1)}
-            onKeyPress={(oKey) => {
-              if (oKey.code === "Enter") {
-                onPaginationChanged(parseInt(oKey.currentTarget.value))
-              }
-            }}
-            onSelectChange={onPaginationChanged}
-            pages={totalPages}
-            variant="input"
-          />
-        </Stack>
-      </Container>
+      <PaginationComponent
+        queryKey="ComponentInstancesOfService"
+        queryOptions={queryOptions}
+        entityName="ComponentInstances"
+        setQueryOptions={setQueryOptions}
+        countData={data}
+      />
     </>
   )
 }
