@@ -6,10 +6,10 @@ import React, { ReactNode, CSSProperties } from "react"
 import { Meta, StoryFn } from "@storybook/react"
 import PropTypes from "prop-types"
 
-import { ContextMenu } from "./"
-import { Button } from "../Button"
-import { MenuItem } from "../MenuItem"
-import { PortalProvider } from "../PortalProvider"
+import { ContextMenu } from "./ContextMenu.component"
+import { Button } from "../Button/Button.component"
+import { MenuItem } from "../MenuItem/MenuItem.component"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 export default {
   title: "WiP/ContextMenu/ContextMenu",

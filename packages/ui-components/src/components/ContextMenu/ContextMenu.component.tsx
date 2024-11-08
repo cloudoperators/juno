@@ -8,7 +8,7 @@ import { Menu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
 import { autoPlacement, offset, shift, size, Boundary } from "@floating-ui/react-dom"
 
-import { Icon } from "../Icon"
+import { Icon } from "../Icon/Icon.component"
 
 /*
 TODO:
@@ -57,7 +57,8 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const handleClick = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  // eslint-disable-next-line no-unused-vars
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setIsOpen(!isOpen)
   }
 
