@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { ComboBoxOption, type ComboBoxOptionProps } from "./ComboBoxOption.component"
+export { ComboBoxOption } from "./ComboBoxOption.component"

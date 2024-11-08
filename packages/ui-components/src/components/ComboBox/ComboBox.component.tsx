@@ -13,7 +13,7 @@ import { Spinner } from "../Spinner/index"
 import { flip, offset, shift, size } from "@floating-ui/react-dom"
 import { usePortalRef } from "../PortalProvider/index"
 import { createPortal } from "react-dom"
-import { ComboBoxOptionProps } from "../ComboBoxOption/index"
+import { ComboBoxOptionProps } from "../ComboBoxOption/ComboBoxOption.component"
 
 // STYLES
 
@@ -455,7 +455,7 @@ export type ComboBoxWidth = "full" | "auto"
 //eslint-disable-next-line no-unused-vars
 type OnChangeHandler = (value: string) => void
 
-export type ComboBoxProps = {
+export interface ComboBoxProps {
   /** The aria-label of the ComboBox. Defaults to the label if label was passed. */
   ariaLabel?: string
   /** The children to Render. Use `ComboBox.Option` elements. */

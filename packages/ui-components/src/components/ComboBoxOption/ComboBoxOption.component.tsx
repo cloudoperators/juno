@@ -99,10 +99,10 @@ export const ComboBoxOption = ({
   )
 }
 
-export type ComboBoxOptionProps = {
+export interface ComboBoxOptionProps extends React.HTMLProps<HTMLLIElement> {
   children?: string
   disabled?: boolean
   value?: string
   label?: string
   className?: string
-} & React.HTMLProps<HTMLLIElement>
+} 

@@ -37,27 +37,17 @@ export default {
   ],
 }
 
-const Template = ({ children, ...args }: TemplateProps) => {
+const Template = ({ children, ...args }: ComboBoxProps) => {
   return <ComboBox {...args}>{children}</ComboBox>
 }
 
-// define prop types fro Template
-type TemplateProps = {
-  children: React.ReactNode
-} & ComboBoxProps
-
-const ConstrainedWidthTemplate = ({ children, ...args }: ConstrainedWidthTemplateProps) => {
+const ConstrainedWidthTemplate = ({ children, ...args }: ComboBoxProps) => {
   return (
     <div style={{ width: "300px" }}>
       <ComboBox {...args}>{children}</ComboBox>
     </div>
   )
 }
-
-// define prop types for ConstrainedWidthTemplate
-type ConstrainedWidthTemplateProps = {
-  children: React.ReactNode
-} & ComboBoxProps
 
 const ControlledTemplate = ({ value, children }: ControlledTemplateProps) => {
   const [v, setV] = useState(value)
@@ -70,10 +60,9 @@ const ControlledTemplate = ({ value, children }: ControlledTemplateProps) => {
 }
 
 // define prop types for ControlledTemplate
-type ControlledTemplateProps = {
+interface ControlledTemplateProps extends ComboBoxProps {
   value: string
-  children: React.ReactNode
-} & ComboBoxProps
+}
 
 export const Default = {
   render: Template,
