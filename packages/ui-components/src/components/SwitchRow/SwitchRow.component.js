@@ -5,7 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { Switch } from "../Switch/index.js"
+import { Switch } from "../../deprecated_js/Switch/Switch.component"
 import { FormRow } from "../FormRow/index.js"
 import { withDeprecationWarning } from "../../deprecated_js/withDeprecationWarning/index.js"
 
