@@ -5,6 +5,7 @@
 
 import React from "react"
 import { StoryFn, Meta } from "@storybook/react"
+
 import { Grid, GridProps } from "./Grid.component"
 import { GridRow } from "../GridRow/GridRow.component"
 import { GridColumn } from "../GridColumn/GridColumn.component"
@@ -18,19 +19,18 @@ export default {
     },
   },
   decorators: [
-    (Story, context) => {
-      const storyParams = context.parameters
-      return (
-        <div className="juno-container jn-px-6 jn-py-6">
-          <Story {...storyParams} />
-        </div>
-      )
-    },
+    (Story, context) => (
+      <div className="juno-container jn-px-6 jn-py-6">
+        <Story {...context} />
+      </div>
+    ),
   ],
-} as Meta
+} as Meta<typeof Grid>
 
 const Template: StoryFn<GridProps> = (args, context) => (
-  <Grid {...args} className={`${args.className} ${context.className || ""}`} />
+  <Grid {...args} className={`jn-bg-juno-blue-3 jn-text-juno-grey-blue ${args.className}`}>
+    {context.args.children}
+  </Grid>
 )
 
 export const Default = {
