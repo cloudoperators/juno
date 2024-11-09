@@ -8,51 +8,41 @@ import React, { useState, useEffect, ReactNode, ChangeEvent, MouseEvent, FC } fr
 import { Icon } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/Spinner.component"
 
-const selectClasses = `
-    jn-w-full
-    jn-bg-theme-select
-    jn-text-theme-high
-    jn-appearance-none
-    jn-text-base
-    jn-pl-4
-    jn-h-[2.375rem]
-    jn-rounded-3px
-    jn-bg-icon-arrow-down
-    jn-bg-right
-    jn-bg-no-repeat
-    focus:jn-outline-none
-    focus:jn-ring-2
-    focus:jn-ring-theme-focus
-    disabled:jn-opacity-50
+const selectBaseClasses = `
+  jn-w-full
+  jn-bg-theme-select
+  jn-text-theme-high
+  jn-appearance-none
+  jn-text-base
+  jn-pl-4
+  jn-h-[2.375rem]
+  jn-rounded-3px
+  jn-bg-icon-arrow-down
+  jn-bg-right
+  jn-bg-no-repeat
+  focus:jn-outline-none
+  focus:jn-ring-2
+  focus:jn-ring-theme-focus
+  disabled:jn-opacity-50
 `
 
-const wrapperClasses = `
-    jn-relative
+const wrapperBaseClasses = `jn-relative`
+
+const iconBaseClasses = `
+  jn-absolute
+  jn-flex
+  jn-right-2
+  jn-top-1.5
+  jn-pointer-events-none
 `
 
-const iconClasses = `
-    jn-absolute
-    jn-flex
-    jn-right-2
-    jn-top-1.5
-    jn-pointer-events-none
-`
+const iconDisabledClasses = `jn-opacity-50`
 
-const disabledIconClasses = `
-    jn-opacity-50
-`
+const borderErrorClasses = `jn-border jn-border-theme-error`
+const borderSuccessClasses = `jn-border jn-border-theme-success`
 
-const errorBorderClasses = `
-    jn-border
-    jn-border-theme-error
-`
-
-const successBorderClasses = `
-    jn-border
-    jn-border-theme-success
-`
-
-const loadingClasses = `
+const stateClasses = {
+  loading: `
     jn-absolute
     jn-top-0
     jn-right-0
@@ -68,9 +58,8 @@ const loadingClasses = `
     jn-justify-center
     jn-select-none
     jn-cursor-not-allowed
-`
-
-const errorClasses = `
+  `,
+  error: `
     jn-absolute
     jn-top-0
     jn-right-0
@@ -86,59 +75,125 @@ const errorClasses = `
     jn-justify-center
     jn-select-none
     jn-cursor-not-allowed
-`
-
-const loadingSpinnerClasses = `
-    jn-ml-auto
-    jn-mr-auto
-`
-
-const errorIconClasses = `
-    jn-ml-auto
-    jn-mr-auto
-`
-
-const iconPaddingRight = `
-    jn-pr-[3.75rem]
-`
-
-const defaultPaddingRight = `
-    jn-pr-9
-`
+  `,
+  loadingSpinner: `jn-ml-auto jn-mr-auto`,
+  errorIcon: `jn-ml-auto jn-mr-auto`,
+  paddingIconRight: `jn-pr-[3.75rem]`,
+  paddingDefaultRight: `jn-pr-9`,
+}
 
 export interface NativeSelectProps {
-  /** The name attribute for the select element */
+  /**
+   * Name of the select element.
+   * Used as a key for the selected value if a form is submitted.
+   */
   name?: string
-  /** The id of the select element */
+
+  /**
+   * ID of the select element.
+   */
   id?: string
-  /** The classname to be applied to the internal select element */
+
+  /**
+   * Additional CSS classes to apply to the select element for custom styling.
+   */
   className?: string
-  /** The children elements, typically SelectOption or SelectOptionGroup components  */
+
+  /**
+   * Elements to be rendered inside the select element.
+   * This can be any React node or a collection of React nodes.
+   * Typically, these are SelectOption or SelectOptionGroup components.
+   */
   children?: ReactNode
-  /** Whether the select is disabled */
+
+  /**
+   * Disables the select element, making it unclickable.
+   */
   disabled?: boolean
-  /** Whether the select is invalid */
+
+  /**
+   * Highlights the select element as invalid, indicating incorrect user input or validation errors.
+   */
   invalid?: boolean
-  /** Whether the select is valid */
+
+  /**
+   * Highlights the select element as valid, indicating correct user input or successful validation.
+   */
   valid?: boolean
-  /** Whether the select is currently loading */
+
+  /**
+   * Displays a loading indicator over the select element.
+   * Used for async operations like fetching data.
+   */
   loading?: boolean
-  /** Whether there is an error fetching data or another non-validation error */
+
+  /**
+   * Displays an error state over the select element, such as during data fetching errors.
+   * Should not be used for validation errors.
+   */
   error?: boolean
-  /** Handler for the change event */
+
+  /**
+   * Event handler for the change event of the select element.
+   * Triggered when the user changes the selected option.
+   */
   // eslint-disable-next-line no-unused-vars
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void
-  /** Handler for the click event */
+
+  /**
+   * Event handler for the click event on the select element.
+   * Triggered when the user clicks on the select element.
+   */
   // eslint-disable-next-line no-unused-vars
   onClick?: (event: MouseEvent<HTMLSelectElement>) => void
-  /** A custom classname for the wrapping element, useful for positioning or additional styling */
+
+  /**
+   * Additionl CSS classes to apply to the outer wrapper of the select component for custom styling.
+   */
   wrapperClassName?: string
 }
 
-/** A basic, uncontrolled native HTML select. Takes SelectOption and SelectOptionGroup as children. */
+/**
+ * Renders the appropriate 'state' icon based on the state of the select element
+ */
+const SelectIcons: FC<{
+  isLoading: boolean
+  hasError: boolean
+  isInvalid: boolean
+  isValid: boolean
+  disabled?: boolean
+}> = ({ isLoading, hasError, isInvalid, isValid, disabled }) => {
+  if (isLoading) {
+    return (
+      <div className={`juno-select-loading ${stateClasses.loading}`}>
+        <Spinner className={stateClasses.loadingSpinner} />
+      </div>
+    )
+  }
+  if (hasError) {
+    return (
+      <div className={`juno-select-error-text ${stateClasses.error}`}>
+        <Icon icon="errorOutline" color="jn-text-theme-error" className={stateClasses.errorIcon} />
+      </div>
+    )
+  }
+  return (
+    <div className={`${iconBaseClasses} ${disabled ? iconDisabledClasses : ""}`}>
+      {isInvalid && <Icon icon="dangerous" color="jn-text-theme-error" />}
+      {isValid && <Icon icon="checkCircle" color="jn-text-theme-success" />}
+      <Icon icon="expandMore" />
+    </div>
+  )
+}
+
+/**
+ * A basic, uncontrolled native HTML select component.
+ * Takes NativeSelectOption and NativeSelectOptionGroup children as options.
+ * Handles states such as loading, valid, invalid, and error.
+ */
 export const NativeSelect: FC<NativeSelectProps> = ({
   name = "Unnamed Select",
-  id,
+  id = "",
   children,
   className = "",
   disabled = false,
@@ -152,74 +207,34 @@ export const NativeSelect: FC<NativeSelectProps> = ({
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(loading)
-  const [isInvalid, setIsInvalid] = useState(invalid)
   const [isValid, setIsValid] = useState(valid)
+  const [isInvalid, setIsInvalid] = useState(invalid)
   const [hasError, setHasError] = useState(error)
 
-  useEffect(() => {
-    setIsLoading(loading)
-  }, [loading])
+  useEffect(() => setIsLoading(loading), [loading])
+  useEffect(() => setIsValid(valid), [valid])
+  useEffect(() => setIsInvalid(invalid), [invalid])
+  useEffect(() => setHasError(error), [error])
 
-  useEffect(() => {
-    setIsInvalid(invalid)
-  }, [invalid])
-
-  useEffect(() => {
-    setIsValid(valid)
-  }, [valid])
-
-  useEffect(() => {
-    setHasError(error)
-  }, [error])
-
-  /** Handles the change event of the select element */
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => onChange && onChange(event)
-
-  /** Handles the click event of the select element */
   const handleClick = (event: MouseEvent<HTMLSelectElement>) => onClick && onClick(event)
 
-  /** Renders the appropriate icon based on the current state of the select element */
-  const SelectIcons: FC<{ disabled?: boolean }> = ({ disabled }) => {
-    if (isLoading) {
-      return (
-        <div className={`juno-select-loading ${loadingClasses}`}>
-          <Spinner className={`${loadingSpinnerClasses}`} />
-        </div>
-      )
-    }
-    if (hasError) {
-      return (
-        <div className={`juno-select-errortext ${errorClasses}`}>
-          <Icon icon="errorOutline" color="jn-text-theme-error" className={`${errorIconClasses}`} />
-        </div>
-      )
-    }
-    return (
-      <div className={`${iconClasses} ${disabled ? disabledIconClasses : ""}`}>
-        {isInvalid && <Icon icon="dangerous" color="jn-text-theme-error" />}
-        {isValid && <Icon icon="checkCircle" color="jn-text-theme-success" />}
-        <Icon icon="expandMore" />
-      </div>
-    )
-  }
-
-  /** Determines the right padding for the select element based on its state */
-  const selectPadding = () => {
-    if (isValid || isInvalid) return iconPaddingRight
-    return defaultPaddingRight
-  }
+  const paddingClass = isValid || isInvalid ? stateClasses.paddingIconRight : stateClasses.paddingDefaultRight
 
   return (
-    <div
-      className={`
-      juno-select-wrapper 
-      ${wrapperClasses}
-      ${wrapperClassName}`}
-    >
+    <div className={`juno-select-wrapper ${wrapperBaseClasses} ${wrapperClassName}`}>
       <select
         name={name}
         id={id}
-        className={`juno-select ${selectClasses} ${isInvalid ? "juno-select-invalid " + errorBorderClasses : ""} ${isValid ? "juno-select-valid " + successBorderClasses : ""} ${hasError ? "juno-select-error " : ""} ${selectPadding()} ${className}`}
+        className={`
+          juno-select
+          ${selectBaseClasses}
+          ${isInvalid ? "juno-select-invalid " + borderErrorClasses : ""}
+          ${isValid ? "juno-select-valid " + borderSuccessClasses : ""}
+          ${hasError ? "juno-select-error" : ""}
+          ${paddingClass}
+          ${className}
+        `}
         onChange={handleChange}
         onClick={handleClick}
         disabled={disabled || isLoading || hasError}
@@ -227,7 +242,13 @@ export const NativeSelect: FC<NativeSelectProps> = ({
       >
         {children}
       </select>
-      <SelectIcons disabled={disabled} />
+      <SelectIcons
+        isLoading={isLoading}
+        hasError={hasError}
+        isInvalid={isInvalid}
+        isValid={isValid}
+        disabled={disabled}
+      />
     </div>
   )
 }
