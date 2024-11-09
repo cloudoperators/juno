@@ -1,12 +1,12 @@
 /*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode, CSSProperties } from "react"
+import React, { CSSProperties, ReactNode } from "react"
 import { Meta, StoryFn } from "@storybook/react"
-import PropTypes from "prop-types"
 
-import { ContextMenu } from "./ContextMenu.component"
+import { ContextMenu, ContextMenuProps } from "./ContextMenu.component"
 import { Button } from "../Button/Button.component"
 import { MenuItem } from "../MenuItem/MenuItem.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
@@ -28,42 +28,7 @@ export default {
       </div>
     ),
   ],
-} as Meta
-
-interface TemplateProps {
-  children: ReactNode
-  parentStyles?: CSSProperties
-  [key: string]: any // For other props
-}
-
-const Template = ({ children, ...args }: TemplateProps) => <ContextMenu {...args}>{children}</ContextMenu>
-
-Template.propTypes = {
-  children: PropTypes.node,
-}
-
-const PortalTemplate = ({ children, ...args }: TemplateProps) => (
-  <PortalProvider>
-    <PortalProvider.Portal>
-      <ContextMenu {...args}>{children}</ContextMenu>
-    </PortalProvider.Portal>
-  </PortalProvider>
-)
-
-PortalTemplate.propTypes = {
-  children: PropTypes.node,
-}
-
-const CustomPortalTemplate = ({ parentStyles, children, ...args }: TemplateProps) => (
-  <div style={parentStyles}>
-    <PortalTemplate {...args}>{children}</PortalTemplate>
-  </div>
-)
-
-CustomPortalTemplate.propTypes = {
-  parentStyles: PropTypes.object,
-  children: PropTypes.node,
-}
+} as Meta<typeof ContextMenu>
 
 const childrenElements: ReactNode[] = [
   <MenuItem key="1" label="Juno on Github" href="https://github.com/cloudoperators/juno" />,
@@ -75,73 +40,92 @@ const childrenElements: ReactNode[] = [
   <MenuItem key="5" onClick={() => {}} label="Button as Item with OnClick" icon="help" />,
 ]
 
-export const Default = {
-  render: Template,
-  args: {
-    children: childrenElements,
-  },
+const Template: StoryFn<ContextMenuProps> = (args) => <ContextMenu {...args} />
+
+export const Default = Template.bind({})
+Default.args = {
+  children: childrenElements,
 }
 
-export const InsidePortal = {
-  render: PortalTemplate,
-  args: {
-    children: childrenElements,
-  },
+const PortalTemplate: StoryFn<ContextMenuProps> = (args) => (
+  <PortalProvider>
+    <PortalProvider.Portal>
+      <ContextMenu {...args} />
+    </PortalProvider.Portal>
+  </PortalProvider>
+)
+
+export const InsidePortal = PortalTemplate.bind({})
+InsidePortal.args = {
+  children: childrenElements,
 }
 
-export const ManyOptions = {
-  render: PortalTemplate,
-  args: {
-    children: [
-      <MenuItem key="1" label="Option 1" />,
-      <MenuItem key="2" label="Option 2" />,
-      <MenuItem key="3" label="Option 3" />,
-      <MenuItem key="4" label="Option 4" />,
-      <MenuItem key="5" label="Option 5" />,
-      <MenuItem key="6" label="Option 6" />,
-      <MenuItem key="7" label="Option 7" />,
-      <MenuItem key="8" label="Option 8" />,
-      <MenuItem key="9" label="Option 9" />,
-      <MenuItem key="10" label="Option 10" />,
-      <MenuItem key="11" label="Option 11" />,
-      <MenuItem key="12" label="Option 12" />,
-      <MenuItem key="13" label="Option 13" />,
-      <MenuItem key="14" label="Option 14" />,
-      <MenuItem key="15" label="Option 15" />,
-    ] as ReactNode[],
-  },
+export const ManyOptions: StoryFn<ContextMenuProps> = (args) => (
+  <PortalProvider>
+    <PortalProvider.Portal>
+      <ContextMenu {...args} />
+    </PortalProvider.Portal>
+  </PortalProvider>
+)
+ManyOptions.args = {
+  children: [
+    <MenuItem key="1" label="Option 1" />,
+    <MenuItem key="2" label="Option 2" />,
+    <MenuItem key="3" label="Option 3" />,
+    <MenuItem key="4" label="Option 4" />,
+    <MenuItem key="5" label="Option 5" />,
+    <MenuItem key="6" label="Option 6" />,
+    <MenuItem key="7" label="Option 7" />,
+    <MenuItem key="8" label="Option 8" />,
+    <MenuItem key="9" label="Option 9" />,
+    <MenuItem key="10" label="Option 10" />,
+    <MenuItem key="11" label="Option 11" />,
+    <MenuItem key="12" label="Option 12" />,
+    <MenuItem key="13" label="Option 13" />,
+    <MenuItem key="14" label="Option 14" />,
+    <MenuItem key="15" label="Option 15" />,
+  ],
 }
 
-export const BottomLeftPositionedSelect = {
-  render: CustomPortalTemplate,
-  args: {
-    parentStyles: {
-      position: "absolute",
-      bottom: "0",
-    },
-    children: childrenElements,
-  },
+interface CustomTemplateProps extends ContextMenuProps {
+  parentStyles?: CSSProperties
 }
 
-export const TopRightPositionedSelect = {
-  render: CustomPortalTemplate,
-  args: {
-    parentStyles: {
-      position: "absolute",
-      right: "0",
-    },
-    children: childrenElements,
+// eslint-disable-next-line react/prop-types
+const CustomPortalTemplate: StoryFn<CustomTemplateProps> = ({ parentStyles, ...args }) => (
+  <div style={parentStyles}>
+    <PortalProvider>
+      <PortalProvider.Portal>
+        <ContextMenu {...args} />
+      </PortalProvider.Portal>
+    </PortalProvider>
+  </div>
+)
+
+export const BottomLeftPositionedSelect = CustomPortalTemplate.bind({})
+BottomLeftPositionedSelect.args = {
+  parentStyles: {
+    position: "absolute",
+    bottom: "0",
   },
+  children: childrenElements,
 }
 
-export const BottomRightPositionedSelect = {
-  render: CustomPortalTemplate,
-  args: {
-    parentStyles: {
-      position: "absolute",
-      right: "0",
-      bottom: "0",
-    },
-    children: childrenElements,
+export const TopRightPositionedSelect = CustomPortalTemplate.bind({})
+TopRightPositionedSelect.args = {
+  parentStyles: {
+    position: "absolute",
+    right: "0",
   },
+  children: childrenElements,
+}
+
+export const BottomRightPositionedSelect = CustomPortalTemplate.bind({})
+BottomRightPositionedSelect.args = {
+  parentStyles: {
+    position: "absolute",
+    right: "0",
+    bottom: "0",
+  },
+  children: childrenElements,
 }
