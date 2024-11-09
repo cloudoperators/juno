@@ -35,6 +35,18 @@ describe("NativeSelectOption", () => {
       expect(screen.getByRole("option")).toBeInTheDocument()
       expect(screen.getByRole("option")).toBeDisabled()
     })
+
+    test("renders a native html option without value or label", () => {
+      render(<NativeSelectOption />)
+      expect(screen.getByRole("option")).toBeInTheDocument()
+    })
+
+    test("renders a native html option with number value and label", () => {
+      render(<NativeSelectOption value={1} label={1} />)
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toHaveAttribute("value", "1")
+      expect(screen.getByRole("option")).toHaveTextContent("1")
+    })
   })
 
   describe("Custom Attributes", () => {
