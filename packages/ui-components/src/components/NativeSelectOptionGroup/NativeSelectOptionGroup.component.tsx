@@ -7,13 +7,13 @@ import React from "react"
 
 export interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttributes<HTMLOptGroupElement> {
   /**
-   * A label for the option group.
-   * This will be displayed as the group heading in the dropdown select.
+   * A visible label for the option group.
+   * It will be displayed as the group heading in the dropdown.
    */
   label?: string
 
   /**
-   * Disables the option group.
+   * Determines whether the option group is disabled.
    * If true, all options within the group will also be disabled.
    */
   disabled?: boolean
@@ -32,7 +32,7 @@ export interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttribut
 }
 
 /**
- * The NativeSelectOptionGroup component represents a group of selectable options (<optgroup>) within a native HTML select element.
+ * The NativeSelectOptionGroup component groups related options within a dropdown list.
  * It should be used inside the <NativeSelect> component to group <NativeSelectOption> components.
  */
 export const NativeSelectOptionGroup: React.FC<NativeSelectOptionGroupProps> = ({

@@ -6,8 +6,8 @@
 import React from "react"
 
 import { NativeSelect } from "../NativeSelect/NativeSelect.component"
-import { NativeSelectOptionGroup } from "./NativeSelectOptionGroup.component"
 import { NativeSelectOption } from "../NativeSelectOption/NativeSelectOption.component"
+import { NativeSelectOptionGroup, NativeSelectOptionGroupProps } from "./NativeSelectOptionGroup.component"
 
 export default {
   title: "Forms/NativeSelect/NativeSelectOptionGroup",
@@ -24,14 +24,7 @@ export default {
   },
 }
 
-interface TemplateProps {
-  children: React.ReactNode
-  label?: string
-  disabled?: boolean
-  className?: string
-}
-
-const Template: React.FC<TemplateProps> = ({ children, ...args }) => (
+const Template: React.FC<NativeSelectOptionGroupProps> = ({ children, ...args }) => (
   <NativeSelect>
     <NativeSelectOptionGroup {...args}>{children}</NativeSelectOptionGroup>
   </NativeSelect>

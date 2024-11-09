@@ -5,18 +5,35 @@
 
 import React from "react"
 
-interface NativeSelectOptionProps {
-  /** Pass a visible label */
+export interface NativeSelectOptionProps extends Omit<React.OptionHTMLAttributes<HTMLOptionElement>, "label"> {
+  /**
+   * A visible label for the option.
+   * It will be displayed to the user in the dropdown.
+   */
   label?: string | number
-  /** Pass a value the option should represent */
+
+  /**
+   * The value that the option represents.
+   * It will be sent when submitting a form.
+   */
   value?: string | number
-  /** Whether the option is disabled */
+
+  /**
+   * Determines whether the option is disabled.
+   * If true, the option will be unselectable.
+   */
   disabled?: boolean
-  /** Add a class name to the option */
+
+  /**
+   * Additional CSS classes to apply to the option for custom styling.
+   */
   className?: string
 }
 
-/** A basic SelectOption. Can only be used inside a Select. */
+/**
+ * The NativeSelectOption component represents an individual option in a dropdown list.
+ * It should be used inside the NativeSelect component to define each option.
+ */
 export const NativeSelectOption: React.FC<NativeSelectOptionProps> = ({
   value,
   label,
