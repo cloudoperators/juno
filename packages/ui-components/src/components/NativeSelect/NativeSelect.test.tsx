@@ -24,6 +24,11 @@ describe("NativeSelect", () => {
       expect(screen.getByRole("combobox")).toBeInTheDocument()
       expect(screen.getByTestId("option")).toBeInTheDocument()
     })
+
+    test("renders without children", () => {
+      render(<NativeSelect />)
+      expect(screen.getByRole("combobox")).toBeInTheDocument()
+    })
   })
 
   describe("Prop Rendering", () => {
@@ -89,6 +94,33 @@ describe("NativeSelect", () => {
       render(<NativeSelect data-lolol="some-random-prop" />)
       expect(screen.getByRole("combobox")).toBeInTheDocument()
       expect(screen.getByRole("combobox")).toHaveAttribute("data-lolol", "some-random-prop")
+    })
+
+    test("renders without value or label", () => {
+      render(
+        <NativeSelect>
+          <option data-testid="option"></option>
+        </NativeSelect>
+      )
+      expect(screen.getByRole("combobox")).toBeInTheDocument()
+      expect(screen.getByTestId("option")).toBeInTheDocument()
+    })
+
+    test("renders multiple SelectOptionGroup components", () => {
+      render(
+        <NativeSelect>
+          <optgroup label="Group 1">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+          </optgroup>
+          <optgroup label="Group 2">
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+          </optgroup>
+        </NativeSelect>
+      )
+      expect(screen.getAllByRole("group")).toHaveLength(2)
+      expect(screen.getAllByRole("option")).toHaveLength(4)
     })
   })
 
