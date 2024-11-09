@@ -5,28 +5,35 @@
 
 import React from "react"
 
-interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttributes<HTMLOptGroupElement> {
+export interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttributes<HTMLOptGroupElement> {
   /**
-   * The visible label of the group of options
+   * A label for the option group.
+   * This will be displayed as the group heading in the dropdown select.
    */
   label?: string
+
   /**
-   * Disable the option group
+   * Disables the option group.
+   * If true, all options within the group will also be disabled.
    */
   disabled?: boolean
+
   /**
-   * Additional CSS classes to apply to the grid for custom styling.
+   * Additional CSS classes to apply to the option group for custom styling.
    */
   className?: string
+
   /**
-   * Elements to be rendered within the native select option group, typically should be NativeSelectOption elements
+   * Elements to be rendered within the option group.
+   * This can be any React node or a collection of React nodes.
+   * Typically, these should be NativeSelectOption components.
    */
   children?: React.ReactNode
 }
 
 /**
- * A SelectOptionGroup (<optgroup>).
- * Can only be used inside a <select> element to group <option> elements.
+ * The NativeSelectOptionGroup component represents a group of selectable options (<optgroup>) within a native HTML select element.
+ * It should be used inside the <NativeSelect> component to group <NativeSelectOption> components.
  */
 export const NativeSelectOptionGroup: React.FC<NativeSelectOptionGroupProps> = ({
   label,

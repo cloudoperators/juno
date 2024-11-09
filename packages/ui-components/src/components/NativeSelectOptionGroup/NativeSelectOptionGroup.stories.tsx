@@ -4,15 +4,10 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { NativeSelectOptionGroup } from "./index.js"
-import { NativeSelect } from "../NativeSelect/index.js"
-import { NativeSelectOption } from "../NativeSelectOption/index.js"
 
-// import {
-//   Default as DefaultSelectOption,
-//   Disabled as DisabledSelectOption,
-// } from '../NativeSelectOption/NativeSelectOption.stories';
+import { NativeSelect } from "../NativeSelect/NativeSelect.component"
+import { NativeSelectOptionGroup } from "./NativeSelectOptionGroup.component"
+import { NativeSelectOption } from "../NativeSelectOption/NativeSelectOption.component"
 
 export default {
   title: "Forms/NativeSelect/NativeSelectOptionGroup",
@@ -29,15 +24,18 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => (
+interface TemplateProps {
+  children: React.ReactNode
+  label?: string
+  disabled?: boolean
+  className?: string
+}
+
+const Template: React.FC<TemplateProps> = ({ children, ...args }) => (
   <NativeSelect>
     <NativeSelectOptionGroup {...args}>{children}</NativeSelectOptionGroup>
   </NativeSelect>
 )
-
-Template.propTypes = {
-  children: PropTypes.node,
-}
 
 export const Default = {
   render: Template,
