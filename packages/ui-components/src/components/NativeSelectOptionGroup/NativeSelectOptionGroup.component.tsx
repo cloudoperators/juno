@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import { NativeSelectOptionProps } from "../NativeSelectOption/NativeSelectOption.component"
 
 export interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttributes<HTMLOptGroupElement> {
   /**
@@ -25,10 +26,9 @@ export interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttribut
 
   /**
    * Elements to be rendered within the option group.
-   * This can be any React node or a collection of React nodes.
    * Typically, these should be NativeSelectOption components.
    */
-  children?: React.ReactNode
+  children?: React.ReactElement<NativeSelectOptionProps> | React.ReactElement<NativeSelectOptionProps>[]
 }
 
 /**
