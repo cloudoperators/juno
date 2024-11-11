@@ -5,7 +5,8 @@
 
 import React from "react"
 
-export interface NativeSelectOptionProps extends Omit<React.OptionHTMLAttributes<HTMLOptionElement>, "label"> {
+export interface NativeSelectOptionProps
+  extends Omit<React.OptionHTMLAttributes<HTMLOptionElement>, "label" | "value"> {
   /**
    * A visible label for the option.
    * It will be displayed to the user in the dropdown.
