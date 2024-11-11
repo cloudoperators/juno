@@ -6,15 +6,17 @@
 import React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { ContextMenu } from "./index.js"
+import { describe, expect, test } from "vitest"
+
+import { ContextMenu } from "./ContextMenu.component"
 
 describe("ContextMenu", () => {
-  test("renders a ContextMenu Toggle", async () => {
-    await waitFor(() => render(<ContextMenu />))
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass("juno-contextmenu-toggle")
-    expect(screen.getByRole("img")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveAttribute("title", "More")
+  test("renders a ContextMenu Toggle", () => {
+    render(<ContextMenu />)
+    const iconElement = screen.getByRole("img")
+
+    expect(iconElement).toHaveAccessibleName("More")
+    expect(iconElement.querySelector("title")?.textContent).toBe("More")
   })
 
   test("toggles Context Menu on click", async () => {

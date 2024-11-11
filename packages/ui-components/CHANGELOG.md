@@ -1,5 +1,14 @@
 # @cloudoperators/juno-ui-components
 
+## 2.29.0
+
+### Minor Changes
+
+- 63a951c: Migrate Grid, GridColumn and GridRow components to TypeScript
+- 5a4e3d1: Migrate the Switch component to TypeScript
+- 7cb142d: Migrate Menu, MenuItem and MenuSection components to Typescript (#237)
+- a278544: Migrate AppShellProvider and CodeBlock to TypeScript
+
 ## 2.28.0
 
 ### Minor Changes
