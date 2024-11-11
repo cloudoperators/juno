@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import {
   useGlobalsQueryClientFnReady,
@@ -11,9 +11,9 @@ import {
   useGlobalsActions,
   useGlobalsActiveView,
 } from "../StoreProvider"
-import { Pagination, Container, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
+import PaginationComponent from "./PaginationComponent"
 
 const ListController = ({ queryKey, entityName, ListComponent, activeFilters, searchTerm, enableSearchAndFilter }) => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
@@ -60,12 +60,7 @@ const ListController = ({ queryKey, entityName, ListComponent, activeFilters, se
     enabled: !!queryClientFnReady && queryKey === activeView,
   })
 
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const items = useMemo(() => {
-    if (!mainData) return null
-    return mainData?.[entityName]?.edges || []
-  }, [mainData, entityName])
+  const items = mainData?.[entityName]?.edges || []
 
   useEffect(() => {
     if (!mainError && !countError) return resetMessages()
@@ -75,52 +70,16 @@ const ListController = ({ queryKey, entityName, ListComponent, activeFilters, se
     })
   }, [mainError, countError, addMessage, resetMessages])
 
-  const pageInfo = useMemo(() => {
-    if (!countData) return null
-    return countData?.[entityName]?.pageInfo
-  }, [countData, entityName])
-
-  const totalPages = useMemo(() => {
-    if (!pageInfo?.pages) return 0
-    return pageInfo.pages.length
-  }, [pageInfo])
-
-  const onPaginationChanged = (newPage) => {
-    setCurrentPage(newPage)
-    if (!pageInfo?.pages) return
-    const pages = pageInfo.pages
-    const currentPageIndex = pages?.findIndex((page) => page?.pageNumber === parseInt(newPage))
-    if (currentPageIndex > -1) {
-      const after = pages[currentPageIndex]?.after
-      setQueryOptions(queryKey, {
-        ...queryOptions,
-        after: `${after}`,
-      })
-    }
-  }
-
   return (
     <>
       <ListComponent items={items} isLoading={isLoadingMain || isLoadingCount} />
-      <Container py px={false}>
-        <Stack className="flex justify-end">
-          <Pagination
-            currentPage={currentPage}
-            isFirstPage={currentPage === 1}
-            isLastPage={currentPage === totalPages}
-            onPressNext={() => onPaginationChanged(currentPage + 1)}
-            onPressPrevious={() => onPaginationChanged(currentPage - 1)}
-            onKeyPress={(oKey) => {
-              if (oKey.code === "Enter") {
-                onPaginationChanged(parseInt(oKey.currentTarget.value))
-              }
-            }}
-            onSelectChange={onPaginationChanged}
-            pages={totalPages}
-            variant="input"
-          />
-        </Stack>
-      </Container>
+      <PaginationComponent
+        queryKey={queryKey}
+        queryOptions={queryOptions}
+        entityName={entityName}
+        setQueryOptions={setQueryOptions}
+        countData={countData}
+      />
     </>
   )
 }

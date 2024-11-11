@@ -34,7 +34,7 @@ export const issueMatchesMainQuery = () => gql`
             ccrn
             count
             service {
-              name
+              ccrn
               owners {
                 edges {
                   node {
@@ -48,7 +48,7 @@ export const issueMatchesMainQuery = () => gql`
               supportGroups {
                 edges {
                   node {
-                    name
+                    ccrn
                   }
                 }
               }
@@ -98,11 +98,11 @@ export const issueMatchesDetailsQuery = () => gql`
             componentVersion {
               version
               component {
-                name
+                ccrn
               }
             }
             service {
-              name
+              ccrn
               owners {
                 edges {
                   node {
@@ -116,7 +116,7 @@ export const issueMatchesDetailsQuery = () => gql`
               supportGroups {
                 edges {
                   node {
-                    name
+                    ccrn
                   }
                 }
               }

@@ -7,7 +7,12 @@ import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { useGlobalsApiEndpoint, useGlobalsActions } from "../components/StoreProvider"
 import { request } from "graphql-request"
-import { servicesMainQuery, servicesDetailsQuery, servicesCountQuery } from "../lib/queries/services"
+import {
+  servicesMainQuery,
+  servicesDetailsQuery,
+  servicesCountQuery,
+  componentInstancesOfServiceQuery,
+} from "../lib/queries/services"
 import { componentsMainQuery, componentsCountQuery } from "../lib/queries/components"
 import { issueMatchesMainQuery, issueMatchesDetailsQuery, issueMatchesCountQuery } from "../lib/queries/issueMatches"
 import serviceFilterValuesQuery from "../lib/queries/serviceFilterValues"
@@ -38,6 +43,14 @@ const useQueryClientFn = () => {
       queryFn: async ({ queryKey }) => {
         const [_key, options] = queryKey
         return await request(endpoint, servicesDetailsQuery(), options)
+      },
+    })
+
+    // ComponentInstances of a service query both for main and count info - for the service details page
+    queryClient.setQueryDefaults(["ComponentInstancesOfService"], {
+      queryFn: async ({ queryKey }) => {
+        const [_key, options] = queryKey
+        return await request(endpoint, componentInstancesOfServiceQuery(), options)
       },
     })
 

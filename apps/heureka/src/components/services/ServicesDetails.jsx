@@ -24,7 +24,8 @@ import { useQuery, useMutation } from "@tanstack/react-query"
 import LoadElement from "../shared/LoadElement"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
-import { listOfCommaSeparatedObjs, severityString, highestSeverity } from "../shared/Helper"
+import { listOfCommaSeparatedObjs } from "../shared/Helper"
+import ComponentInstancesList from "./ComponentInstancesList"
 
 const ServicesDetail = () => {
   const showServiceDetail = useGlobalsShowServiceDetail()
@@ -32,7 +33,7 @@ const ServicesDetail = () => {
   const { addMessage, resetMessages } = messageActions()
 
   const serviceElem = useQuery({
-    queryKey: ["ServicesDetails", { filter: { serviceName: [showServiceDetail] } }],
+    queryKey: ["ServicesDetails", { filter: { serviceCcrn: [showServiceDetail] } }],
     enabled: !!queryClientFnReady && !!showServiceDetail,
   })
 
@@ -216,41 +217,13 @@ const ServicesDetail = () => {
         <DataGridRow>
           <DataGridHeadCell nowrap={true}>Support Group</DataGridHeadCell>
           <DataGridCell>
-            <LoadElement elem={<ul>{listOfCommaSeparatedObjs(service?.supportGroups, "name")}</ul>} />
+            <LoadElement elem={<ul>{listOfCommaSeparatedObjs(service?.supportGroups, "ccrn")}</ul>} />
           </DataGridCell>
         </DataGridRow>
       </DataGrid>
 
       <Container py px={false}>
-        <ContentHeading className="mt-8 mb-2" heading="Component Instances" />
-        <DataGrid columns={4}>
-          <DataGridRow>
-            <DataGridHeadCell>Component</DataGridHeadCell>
-            <DataGridHeadCell>Version</DataGridHeadCell>
-            <DataGridHeadCell>Total Number of Issues</DataGridHeadCell>
-            <DataGridHeadCell>Highest Severity</DataGridHeadCell>
-          </DataGridRow>
-          {!service?.componentInstances?.edges && (
-            <DataGridRow colSpan={4}>
-              <Container py>
-                <LoadElement />
-              </Container>
-            </DataGridRow>
-          )}
-
-          {service?.componentInstances?.edges?.map((componentInstance, i) => (
-            <DataGridRow key={i}>
-              <DataGridCell>{componentInstance?.node?.ccrn}</DataGridCell>
-              <DataGridCell className="break-all overflow-hidden">
-                {componentInstance?.node?.componentVersion?.version}
-              </DataGridCell>
-              <DataGridCell>{componentInstance?.node?.issueMatches?.totalCount}</DataGridCell>
-              <DataGridCell>
-                {severityString(highestSeverity(componentInstance?.node?.issueMatches?.edges))}
-              </DataGridCell>
-            </DataGridRow>
-          ))}
-        </DataGrid>
+        <ComponentInstancesList serviceCcrn={showServiceDetail} />
       </Container>
     </>
   )

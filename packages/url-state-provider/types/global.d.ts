@@ -3,4 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { MenuSection } from "./MenuSection.component"
+/* eslint-disable no-unused-vars */
+declare global {
+  interface Window {
+    __url_state_provider?: string
+  }
+}
+export {}
