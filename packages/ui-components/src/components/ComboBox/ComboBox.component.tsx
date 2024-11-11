@@ -150,7 +150,7 @@ type OptionValuesAndLabelsValue = {
 }
 
 // COMBOBOX
-export const ComboBox = ({
+export const ComboBox: React.FC<ComboBoxProps> = ({
   ariaLabel,
   children = null,
   className = "",
@@ -179,7 +179,7 @@ export const ComboBox = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}: ComboBoxProps) => {
+}) => {
   const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }

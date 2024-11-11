@@ -49,14 +49,14 @@ const truncateOptionStyles = `
   jn-whitespace-nowrap
 `
 
-export const ComboBoxOption = ({
+export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   children,
   disabled = false,
   value = "",
   label,
   className = "",
   ...props
-}: ComboBoxOptionProps) => {
+}) => {
   const comboBoxContext = useContext(ComboBoxContext)
   const {
     selectedValue: selectedValue,
@@ -105,4 +105,4 @@ export interface ComboBoxOptionProps extends React.HTMLProps<HTMLLIElement> {
   value?: string
   label?: string
   className?: string
-} 
+}
