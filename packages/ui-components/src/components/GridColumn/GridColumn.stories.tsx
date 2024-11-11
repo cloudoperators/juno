@@ -4,26 +4,30 @@
  */
 
 import React from "react"
-import { GridColumn } from "./index.js"
+import { Meta, StoryFn } from "@storybook/react"
+import { GridColumn, GridColumnProps } from "./GridColumn.component"
 
 export default {
   title: "Layout/Grid/GridColumn",
   component: GridColumn,
   argTypes: {
-    children: {
-      control: false,
-    },
+    children: { control: false },
   },
-  decorators: [(Story) => <Story className="jn-bg-juno-blue-3 jn-text-juno-grey-blue" />],
-}
+  decorators: [
+    (Story, context) => (
+      <div className="juno-container jn-px-6 jn-py-6">
+        <Story {...context.args} />
+      </div>
+    ),
+  ],
+} as Meta
 
-// for the decorator to work like this (passing props to the story) we have to access the passed props from the decorator
-// from the context. This might be storybook 6.x-specific. Double check when we upgrade to storybook 7.x
-const Template = (args, context) => <GridColumn {...args} className={context.className}></GridColumn>
+const Template: StoryFn<GridColumnProps> = (args) => {
+  return <GridColumn {...args} className={`${args.className} jn-bg-juno-blue-3 jn-text-juno-grey-blue`} />
+}
 
 export const Default = {
   render: Template,
-
   args: {
     children: "Column",
   },
@@ -31,7 +35,6 @@ export const Default = {
 
 export const AutoColumn = {
   render: Template,
-
   args: {
     auto: true,
     children: "Auto Column",
@@ -40,7 +43,6 @@ export const AutoColumn = {
 
 export const WidthColumn = {
   render: Template,
-
   args: {
     width: 50,
     children: "Column 50%",

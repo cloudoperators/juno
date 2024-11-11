@@ -4,9 +4,11 @@
  */
 
 import React from "react"
-import { Grid } from "./index.js"
-import { GridRow } from "../GridRow/GridRow.component.js"
-import { GridColumn } from "../GridColumn/GridColumn.component.js"
+import { StoryFn, Meta } from "@storybook/react"
+
+import { Grid, GridProps } from "./Grid.component"
+import { GridRow } from "../GridRow/GridRow.component"
+import { GridColumn } from "../GridColumn/GridColumn.component"
 
 export default {
   title: "Layout/Grid/Grid",
@@ -16,16 +18,21 @@ export default {
       control: false,
     },
   },
-  decorators: [(Story) => <Story className="jn-bg-juno-blue-3 jn-text-juno-grey-blue" />],
-}
+  decorators: [
+    (Story) => (
+      <div className="juno-container jn-px-6 jn-py-6">
+        <Story />
+      </div>
+    ),
+  ],
+} as Meta<typeof Grid>
 
-// for the decorator to work like this (passing props to the story) we have to access the passed props from the decorator
-// from the context. This might be storybook 6.x-specific. Double check when we upgrade to storybook 7.x
-const Template = (args, context) => <Grid {...args} className={context.className}></Grid>
+const Template: StoryFn<GridProps> = (args) => (
+  <Grid {...args} className={`jn-bg-juno-blue-3 jn-text-juno-grey-blue ${args.className || ""}`} />
+)
 
 export const Default = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -34,7 +41,6 @@ export const Default = {
       },
     },
   },
-
   args: {
     children: [
       <GridRow key="1">
@@ -54,7 +60,7 @@ export const Default = {
       <GridRow key="2">
         <GridColumn>Column</GridColumn>
         <GridColumn cols={3}>Column cols-3</GridColumn>
-        <GridColumn cols={5}>Column cols-6</GridColumn>
+        <GridColumn cols={6}>Column cols-6</GridColumn>
         <GridColumn cols={2}>Column cols-2</GridColumn>
       </GridRow>,
     ],
@@ -63,7 +69,6 @@ export const Default = {
 
 export const Auto = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -72,7 +77,6 @@ export const Auto = {
       },
     },
   },
-
   args: {
     auto: true,
     children: [
@@ -97,7 +101,6 @@ export const Auto = {
         <GridColumn>Column</GridColumn>
         <GridColumn>Column</GridColumn>
         <GridColumn>Column</GridColumn>
-        <GridColumn>Column</GridColumn>
       </GridRow>,
     ],
   },
@@ -105,7 +108,6 @@ export const Auto = {
 
 export const MixedGrid = {
   render: Template,
-
   args: {
     children: (
       <GridRow>
@@ -120,7 +122,6 @@ export const MixedGrid = {
 
 export const MixedAutoGrid = {
   render: Template,
-
   args: {
     auto: true,
     children: (
@@ -136,7 +137,6 @@ export const MixedAutoGrid = {
 
 export const NestedGrid = {
   render: Template,
-
   args: {
     children: (
       <GridRow>

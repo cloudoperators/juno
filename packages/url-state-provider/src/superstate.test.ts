@@ -9,7 +9,7 @@ describe("encoding", () => {
   it("encodes a string", () => {
     const humanURI = superstate()
     const string = "hallo peter wie geht es ñ ~ dsfesf%&/834294239477788 {}()"
-    let urlState = humanURI.encode(string)
+    const urlState = humanURI.encode(string)
     expect(urlState).toBe("hallo+peter+wie+geht+es+%C3%B1+~A+dsfesf~B~Q~G834294239477788+~H~I~J~K")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(string)
@@ -17,7 +17,7 @@ describe("encoding", () => {
   it("encodes null", () => {
     const humanURI = superstate()
     const data = null
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("*A")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -26,7 +26,7 @@ describe("encoding", () => {
   it("encodes undefined", () => {
     const humanURI = superstate()
     const data = undefined
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("*B")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -34,7 +34,7 @@ describe("encoding", () => {
   it("encodes boolean", () => {
     const humanURI = superstate()
     const data = true
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("*C")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -42,7 +42,7 @@ describe("encoding", () => {
   it("encodes integer", () => {
     const humanURI = superstate()
     const data = 12345
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("*12345")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -50,7 +50,7 @@ describe("encoding", () => {
   it("encodes NaN", () => {
     const humanURI = superstate()
     const data = NaN
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("*E")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -58,7 +58,7 @@ describe("encoding", () => {
   it("encodes Infinity", () => {
     const humanURI = superstate()
     const data = Infinity
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("*F")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -66,7 +66,7 @@ describe("encoding", () => {
   it("encodes float", () => {
     const humanURI = superstate()
     const data = 123.45678
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("*123.45678")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -74,7 +74,7 @@ describe("encoding", () => {
   it("encodes negative float", () => {
     const humanURI = superstate()
     const data = -123.45678
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("~123.45678")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -110,7 +110,7 @@ describe("encoding", () => {
         id: 123456789,
       },
     }
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe(
       "(company:(name:Example,continent:Europe,city:*B,tools:*A,a:(),b:(*),c:(*2,(~)),d:(a:*1,b:*C,c:*D,d:*E,e:*F,f:*G,g:(((~)),(regex:*Rab~Lc*Ri*R))),workers:(name:John+Doe,title:CEO,term:*2,working_hours:(*12,*13,*14,*15,(other:(~)))),id:*123456789))"
     )
@@ -120,7 +120,7 @@ describe("encoding", () => {
   it("encodes simple JSON", () => {
     const humanURI = superstate()
     const data = { a: 1, b: null, c: -3 }
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("(a:*1,b:*A,c:~3)")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -137,7 +137,7 @@ describe("encoding", () => {
       },
       c: "-3",
     }
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("(a:*B,b:(k:(1,*3),y:(),z:*2300000000),c:-3)")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -146,15 +146,15 @@ describe("encoding", () => {
   it("encodes array", () => {
     const humanURI = superstate()
     const data = ["a", "b", "c"]
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("(a,b,c)")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
   })
   it("encodes empty array", () => {
     const humanURI = superstate()
-    const data = []
-    let urlState = humanURI.encode(data)
+    const data: any[] = []
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("(~)")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -162,7 +162,7 @@ describe("encoding", () => {
   it("array with empty string", () => {
     const humanURI = superstate()
     const data = [""]
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("(*)")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -171,7 +171,7 @@ describe("encoding", () => {
   it("array with quotes in a string", () => {
     const humanURI = superstate()
     const data = "´´´'''"
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("%C2%B4%C2%B4%C2%B4'''")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -180,7 +180,7 @@ describe("encoding", () => {
   it("encodes regex", () => {
     const humanURI = superstate()
     const data = /ab+c/i
-    let urlState = humanURI.encode(data)
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe("*Rab~Lc*Ri*R")
     const decoded = humanURI.decode(urlState)
     expect(decoded).toStrictEqual(data)
@@ -190,7 +190,8 @@ describe("encoding", () => {
     const humanURI = superstate()
     const data =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    let urlState = humanURI.encode(data)
+
+    const urlState = humanURI.encode(data)
     expect(urlState).toBe(
       "*R%5E~J~J~S%5E%3C%3E~J~K~S~F~T~F~F.~W~V%3A~Fs~O%22~T~L~J~F.~S%5E%3C%3E~J~K~S~F~T~F~F.~W~V%3A~Fs~O%22~T~L~K~U~K%7C~J%22.~L%22~K~K~O~J~J~F~S~S0-9~T~H1~W3~I~F.~S0-9~T~H1~W3~I~F.~S0-9~T~H1~W3~I~F.~S0-9~T~H1~W3~I~T~K%7C~J~J~Sa-zA-Z~F-0-9~T~L~F.~K~L~Sa-zA-Z~T~H2~W~I~K~K~N*R*R"
     )
@@ -213,7 +214,7 @@ describe("base 64", () => {
   it("encodes a string", () => {
     const humanURI = superstate()
     const string = "hallo peter wie geht es ñ ~ dsfesf%&/834294239477788 {}()"
-    let urlState = humanURI.encodeB64(string)
+    const urlState = humanURI.encodeB64(string)
     expect(urlState).toBe(
       "aGFsbG8rcGV0ZXIrd2llK2dlaHQrZXMrJUMzJUIxK35BK2RzZmVzZn5CflF+RzgzNDI5NDIzOTQ3Nzc4OCt+SH5Jfkp+Sw=="
     )
@@ -231,7 +232,7 @@ describe("base 64", () => {
         id: 123456789,
       },
     }
-    let urlState = humanURI.encodeB64(data)
+    const urlState = humanURI.encodeB64(data)
     expect(urlState).toBe(
       "KGNvbXBhbnk6KG5hbWU6RXhhbXBsZSxjb250aW5lbnQ6RXVyb3BlLHdvcmtlcnM6KG5hbWU6Sm9obitEb2UsdGl0bGU6Q0VPLHRlcm06KjIpLGlkOioxMjM0NTY3ODkpKQ=="
     )
@@ -244,7 +245,7 @@ describe("lz-string compressed", () => {
   it("encodes and compress a string", () => {
     const humanURI = superstate()
     const string = "hallo peter wie geht es ñ ~ dsfesf%&/834294239477788 {}()"
-    let urlState = humanURI.encodeLZ(string)
+    const urlState = humanURI.encodeLZ(string)
     expect(urlState).toBe(
       "BYQwNmD2DUAOCmAXeAnaB3AlvaBzewi08AztAKQDCAzOQEICM0AfgILQAmJAZqd83WYBFZgHEAHNQAsAJgCcs6goDsq8eJYAJZgElmAKWYBpIA"
     )
@@ -262,7 +263,7 @@ describe("lz-string compressed", () => {
         string: "Lorem ipsum dolor sit amet, consectetur adipisici elit. Wie: 1234567890",
       },
     }
-    let urlState = humanURI.encodeLZ(data)
+    const urlState = humanURI.encodeLZ(data)
     expect(urlState).toBe(
       "BQYw9gtgDghgdgTwFzDjCBTJBRAHuqAGwwBpw4AXASzg0pwFcAnMKUgdzCYGsMmBnFGkxIAUmAAWcANQARMKWoViSAMLYA8iQp8ISAFQAmAJQkqAEwMBGQwGYALAFYAbAHYAHAE4S-CkxoA5kgAMlwYENJUUPwMEeZghFzS-FQU0ugYFAB+AOrS5PwYIDoUzOnmUVQpIFTSGISpAHTSOVQYAKS2AILSNg4uHp4ADMbGQA"
     )
@@ -281,7 +282,7 @@ describe("lz-string compressed", () => {
         id: 123456789,
       },
     }
-    let urlState = humanURI.encodeLZ(data)
+    const urlState = humanURI.encodeLZ(data)
     expect(urlState).toBe(
       "BQYw9gtgDghgdgTwFzDjCBTJBRAHuqAGwwBpw4AXASzg0pwFcAnMKUgdzCYGsMmBnFGkxIAUmAAWcANQARMKWoViSAMLYA8iQp8ISAFQAmAJQkqAEwMBGQwGYALAFYAbAHYAHAE5jxoA"
     )
@@ -302,7 +303,7 @@ describe("base 64 with null on error", () => {
         string: "Lorem ipsum dolor sit amet, consectetur adipisici elit. Wie: 1234567890",
       },
     }
-    let urlState = humanURI.encodeB64(data)
+    const urlState = humanURI.encodeB64(data)
     const decoded = humanURI.decodeB64NullOnError(urlState)
     expect(decoded).toStrictEqual(data)
   })
@@ -326,7 +327,7 @@ describe("compressed with null on error", () => {
         string: "Lorem ipsum dolor sit amet, consectetur adipisici elit. Wie: 1234567890",
       },
     }
-    let urlState = humanURI.encodeLZ(data)
+    const urlState = humanURI.encodeLZ(data)
     const decoded = humanURI.decodeLZNullOnError(urlState)
     expect(decoded).toStrictEqual(data)
   })
@@ -358,8 +359,10 @@ describe("broken LZ decompression", () => {
 
     try {
       humanURI.decodeLZ(data)
-    } catch (error) {
-      err = error
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        err = error
+      }
     }
 
     expect(err.message).toBe("URI malformed")
@@ -375,8 +378,10 @@ describe("broken B64 decomopression", () => {
 
     try {
       humanURI.decodeB64(data)
-    } catch (error) {
-      err = error
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        err = error
+      }
     }
 
     expect(err.message).toBe("URI malformed")
@@ -392,8 +397,10 @@ describe("broken decoding because of not closed obj", () => {
 
     try {
       humanURI.decode(data)
-    } catch (error) {
-      err = error
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        err = error
+      }
     }
 
     expect(err.message).toBe("JSON object not closed correctly")
@@ -404,8 +411,10 @@ describe("broken decoding because of not closed obj", () => {
     const data = "%(324"
     try {
       humanURI.decode(data)
-    } catch (error) {
-      err = error
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        err = error
+      }
     }
 
     expect(err.message).toBe("URI malformed")

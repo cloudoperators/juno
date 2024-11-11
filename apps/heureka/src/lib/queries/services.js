@@ -16,7 +16,7 @@ export const servicesMainQuery = () => gql`
       edges {
         node {
           id
-          name
+          ccrn
           metadata {
             componentInstanceCount
             issueMatchCount
@@ -35,7 +35,7 @@ export const servicesMainQuery = () => gql`
             edges {
               node {
                 id
-                name
+                ccrn
               }
               cursor
             }
@@ -53,7 +53,7 @@ export const servicesDetailsQuery = () => gql`
       edges {
         node {
           id
-          name
+          ccrn
           metadata {
             componentInstanceCount
             issueMatchCount
@@ -72,36 +72,9 @@ export const servicesDetailsQuery = () => gql`
             edges {
               node {
                 id
-                name
+                ccrn
               }
               cursor
-            }
-          }
-          componentInstances {
-            edges {
-              node {
-                id
-                ccrn
-                count
-                componentVersion {
-                  version
-                  component {
-                    name
-                  }
-                }
-                issueMatches(first: 10000) {
-                  totalCount
-                  edges {
-                    node {
-                      id
-                      severity {
-                        value
-                        score
-                      }
-                    }
-                  }
-                }
-              }
             }
           }
         }
@@ -116,6 +89,50 @@ export const servicesCountQuery = () => gql`
   query ($filter: ServiceFilter, $first: Int, $after: String) {
     Services(filter: $filter, first: $first, after: $after) {
       totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        isValidPage
+        pageNumber
+        nextPageAfter
+        pages {
+          after
+          isCurrent
+          pageNumber
+          pageCount
+        }
+      }
+    }
+  }
+`
+// Query to fetch only Component Instances for a specific Service
+export const componentInstancesOfServiceQuery = () => gql`
+  query ($filter: ComponentInstanceFilter, $first: Int, $after: String) {
+    ComponentInstances(filter: $filter, first: $first, after: $after) {
+      edges {
+        node {
+          id
+          ccrn
+          count
+          componentVersion {
+            version
+            component {
+              ccrn
+            }
+          }
+          issueMatches {
+            totalCount
+            edges {
+              node {
+                severity {
+                  value
+                  score
+                }
+              }
+            }
+          }
+        }
+      }
       pageInfo {
         hasNextPage
         hasPreviousPage
