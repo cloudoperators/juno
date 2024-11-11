@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.4
+
+### Patch Changes
+
+- eea5de6: The pagination is added to the list of component instances for a selected service on the service details page.
+- Updated dependencies [63a951c]
+- Updated dependencies [5a4e3d1]
+- Updated dependencies [7cb142d]
+- Updated dependencies [eea5de6]
+- Updated dependencies [a278544]
+  - @cloudoperators/juno-ui-components@2.29.0
+  - @cloudoperators/juno-app-heureka@2.10.0
+
 ## 0.3.3
 
 ### Patch Changes
