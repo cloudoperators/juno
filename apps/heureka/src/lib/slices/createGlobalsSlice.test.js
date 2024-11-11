@@ -33,6 +33,7 @@ describe("createGlobalsSlice", () => {
         Services: { queryOptions: { first: 20 } },
         IssueMatches: { queryOptions: { first: 20 } },
         Components: { queryOptions: { first: 20 } },
+        ComponentInstancesOfService: { queryOptions: { first: 8 } },
       },
       actions: expect.any(Object),
     })

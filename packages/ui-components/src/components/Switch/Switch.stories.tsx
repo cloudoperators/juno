@@ -9,14 +9,6 @@ import { Switch } from "./index"
 export default {
   title: "Forms/Switch",
   component: Switch,
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "The basic switch component. Use for interactions that produce an immediate result when switching between two states/options. IN the context of forms that require to be submitted in order to take effect, use checkboxes instead.",
-      },
-    },
-  },
   argTypes: {
     errortext: {
       control: false,

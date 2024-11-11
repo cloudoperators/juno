@@ -12,12 +12,12 @@ import { gql } from "graphql-request"
 export default () => gql`
   query {
     ServiceFilterValues {
-      serviceName {
+      serviceCcrn {
         displayName
         filterName
         values
       }
-      supportGroupName {
+      supportGroupCcrn {
         displayName
         filterName
         values
