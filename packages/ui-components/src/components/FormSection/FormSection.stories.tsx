@@ -4,10 +4,10 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
+
 import { FormSection } from "../FormSection/FormSection.component"
+import { TextInput } from "../TextInput/TextInput.component"
 import { FormRow } from "../FormRow/FormRow.component"
-import { TextInput } from "../../deprecated_js/TextInput/TextInput.component"
 
 export default {
   title: "Forms/FormSection",
@@ -24,10 +24,11 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => <FormSection {...args}>{children}</FormSection>
-Template.propTypes = {
-  children: PropTypes.node,
+interface TemplateProps {
+  children?: React.ReactNode
 }
+
+const Template = ({ children, ...args }: TemplateProps) => <FormSection {...args}>{children}</FormSection>
 
 export const Default = {
   render: Template,

@@ -4,9 +4,9 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
+
 import { FormRow } from "./FormRow.component"
-import { TextInput } from "../../deprecated_js/TextInput/index.js"
+import { TextInput } from "../TextInput/TextInput.component"
 
 export default {
   title: "Forms/FormRow",
@@ -18,10 +18,11 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }) => <FormRow {...args}>{children}</FormRow>
-Template.propTypes = {
-  children: PropTypes.node,
+interface TemplateProps {
+  children?: React.ReactNode
 }
+
+const Template = ({ children, ...args }: TemplateProps) => <FormRow {...args}>{children}</FormRow>
 
 export const Default = {
   render: Template,

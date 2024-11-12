@@ -4,20 +4,24 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Form } from "./index.js"
-import { FormRow } from "../FormRow/index.js"
-import { FormSection } from "../FormSection/index.js"
-import { FormHint } from "../../deprecated_js/FormHint/index.js"
-import { TextInput } from "../../deprecated_js/TextInput/index.js"
-import { Select } from "../../deprecated_js/Select/index.js"
-import { SelectOption } from "../../deprecated_js/SelectOption/index.js"
-import { Switch } from "../../deprecated_js/Switch/Switch.component"
-import { Textarea } from "../../deprecated_js/Textarea/index.js"
-import { Button } from "../../deprecated_js/Button/index.js"
-import { ButtonRow } from "../../deprecated_js/ButtonRow/index.js"
-import { IntroBox } from "../IntroBox/index.ts"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
+
+import { Form } from "./Form.component.tsx"
+import { FormRow } from "../FormRow/FormRow.component"
+import { FormHint } from "../FormHint/FormHint.component"
+import { FormSection } from "../FormSection/FormSection.component"
+
+import { Select } from "../Select/Select.component"
+import { SelectOption } from "../SelectOption/SelectOption.component"
+
+import { Textarea } from "../Textarea/Textarea.component"
+import { TextInput } from "../TextInput/TextInput.component"
+
+import { Button } from "../Button/Button.component"
+import { ButtonRow } from "../ButtonRow/ButtonRow.component"
+
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { IntroBox } from "../IntroBox/IntroBox.component.tsx"
+import { Switch } from "../Switch/Switch.component"
 
 export default {
   title: "Forms/Form",
@@ -43,10 +47,11 @@ export default {
   ],
 }
 
-const Template = ({ children, ...args }) => <Form {...args}>{children}</Form>
-Template.propTypes = {
-  children: PropTypes.node,
+interface TemplateProps {
+  children?: React.ReactNode
 }
+
+const Template = ({ children, ...args }: TemplateProps) => <Form {...args}>{children}</Form>
 
 export const Default = {
   render: Template,

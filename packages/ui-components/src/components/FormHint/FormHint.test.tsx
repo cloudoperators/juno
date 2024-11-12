@@ -5,7 +5,9 @@
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import { FormHint } from "./index"
+import { describe, expect, test } from "vitest"
+
+import { FormHint } from "./FormHint.component"
 
 describe("FormHint", () => {
   test("renders a FormHint", () => {
