@@ -10,12 +10,22 @@ import { Form, FormProps } from "./Form.component"
 import { FormRow } from "../FormRow/FormRow.component"
 import { FormHint } from "../FormHint/FormHint.component"
 import { FormSection } from "../FormSection/FormSection.component"
+
 import { Select } from "../Select/Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
+
 import { Textarea } from "../Textarea/Textarea.component"
 import { TextInput } from "../TextInput/TextInput.component"
+
 import { Button } from "../Button/Button.component"
 import { ButtonRow } from "../ButtonRow/ButtonRow.component"
+
+import { Radio } from "../Radio/Radio.component"
+import { RadioGroup } from "../RadioGroup/RadioGroup.component"
+
+import { Checkbox } from "../Checkbox/Checkbox.component"
+import { CheckboxGroup } from "../CheckboxGroup/CheckboxGroup.component"
+
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 import { IntroBox } from "../IntroBox/IntroBox.component"
 import { Switch } from "../Switch/Switch.component"
@@ -98,6 +108,16 @@ export const ComplexForm = {
         </FormRow>
       </FormSection>,
       <FormSection title="Second Section of the Form" key="fs-2">
+        <RadioGroup name="color-radios" label="In case you are not sure, select your true favorite color:">
+          <Radio key="r-1" id="color-red" label="Red" value="red" />
+          <Radio key="r-2" id="color-blue" label="Blue" value="blue" />
+          <Radio key="r-3" id="color-green" label="Green" value="green" />
+          <Radio key="r-4" id="color-yellow" label="Yellow" value="yellow" />
+        </RadioGroup>
+        <CheckboxGroup name="all-about-red" label="What is your opinion towards the color Red?">
+          <Checkbox key="c-1" id="overrated" label="Red is vastly overrated" value="overrated" />
+          <Checkbox key="c-2" id="blackisred" label="Black is better" value="blackisbetter" />
+        </CheckboxGroup>
         <FormRow key="fr-4">
           <Textarea
             label="Your Message"
