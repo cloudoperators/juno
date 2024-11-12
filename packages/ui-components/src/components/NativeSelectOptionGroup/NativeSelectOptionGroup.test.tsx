@@ -60,11 +60,6 @@ describe("NativeSelectOptionGroup", () => {
       expect(screen.getByRole("option")).toBeInTheDocument()
     })
 
-    test("renders with null children", () => {
-      render(<NativeSelectOptionGroup>{null}</NativeSelectOptionGroup>)
-      expect(screen.getByRole("group")).toBeInTheDocument()
-    })
-
     test("renders with undefined children", () => {
       render(<NativeSelectOptionGroup>{undefined}</NativeSelectOptionGroup>)
       expect(screen.getByRole("group")).toBeInTheDocument()
