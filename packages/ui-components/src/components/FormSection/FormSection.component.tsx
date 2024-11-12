@@ -3,33 +3,44 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes } from "react"
 
-const formSection = `
+const formSectionStyles = `
     jn-mb-8
     jn-last:mb-0
 `
 
-const formSectionHeading = `
+const headingStyles = `
     jn-text-lg
     jn-font-bold
     jn-mb-4
 `
 
-export interface FormSectionProps {
-  /** Title, will be rendering as an `<h1>`. */
+export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
+  /**
+   * Title for the form section.
+   */
   title?: string
-  /** Pass a custpm className */
+
+  /**
+   * Additional CSS classes to apply to the form section for custom styling.
+   */
   className?: string
-  /** Children to render in the form section */
+
+  /**
+   * Content to be rendered within the form section.
+   * This can include form elements and other React nodes.
+   */
   children?: React.ReactNode
 }
 
-/** A Form section to group form elements inside complex forms with an optional title. */
-export const FormSection = ({ title = null, children = null, className = "", ...props }: FormSectionProps) => {
+/**
+ * FormSection component for grouping form elements within complex forms.
+ */
+export const FormSection: React.FC<FormSectionProps> = ({ title = "", children, className = "", ...props }) => {
   return (
-    <section className={`juno-form-section ${formSection} ${className}`} {...props}>
-      {title ? <h1 className={`juno-formsection-heading ${formSectionHeading}`}>{title}</h1> : ""}
+    <section className={`juno-form-section ${formSectionStyles} ${className}`} {...props}>
+      {title ? <h1 className={`juno-formsection-heading ${headingStyles}`}>{title}</h1> : null}
       {children}
     </section>
   )
