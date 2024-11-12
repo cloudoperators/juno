@@ -449,7 +449,7 @@ export type ComboBoxWidth = "full" | "auto"
 //eslint-disable-next-line no-unused-vars
 type OnChangeHandler = (value: string) => void
 
-export type ComboBoxProps = typeof Combobox & {
+export interface ComboBoxProps {
   /** The aria-label of the ComboBox. Defaults to the label if label was passed. */
   ariaLabel?: string
   /** The children to Render. Use `ComboBox.Option` elements. */
