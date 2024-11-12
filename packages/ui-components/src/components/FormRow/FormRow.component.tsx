@@ -5,24 +5,30 @@
 
 import React from "react"
 
-const formRowStyles = `
+const formRowBaseStyles = `
   jn-mb-2
 `
 
-export interface FormRowProps {
-  /** The children to render in the formRow. Typically, these will be Input components such as TextInput, Textarea, Select, or Radio and CheckboxGroups*/
+export interface FormRowProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Content to render inside FormRow.
+   * Typically, these will be form elements such as TextInput, Textarea, Select, Radio, CheckboxGroups, etc.
+   */
   children?: React.ReactNode
-  /** Add a custom className to a FormRow */
+
+  /**
+   * Additional CSS classes to apply to the FormRow for custom styling.
+   */
   className?: string
 }
 
-/** 
-A generic FormRow component.
-Used to layout and structure forms. Pass Form elements such as TextInput, Textarea, Select, or Radio and CheckboxGroups as children.
-*/
-export const FormRow = ({ children = null, className = "", ...props }: FormRowProps) => {
+/**
+ * A generic FormRow component used to layout and structure form elements.
+ * It serves as a container for form elements such as TextInput, Textarea, Select, Radio, CheckboxGroups etc.
+ */
+export const FormRow: React.FC<FormRowProps> = ({ children, className = "", ...props }) => {
   return (
-    <div className={`juno-form-row ${formRowStyles} ${className}`} {...props}>
+    <div className={`juno-form-row ${formRowBaseStyles} ${className}`} {...props}>
       {children}
     </div>
   )

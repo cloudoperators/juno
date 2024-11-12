@@ -1,121 +1,89 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
 
-import { FormSection } from "./FormSection.component"
+import { FormRow } from "../FormRow/FormRow.component"
 
-describe("FormSection Component Tests", () => {
-  // Group: Basic Rendering Tests
+describe("FormRow Component Tests", () => {
   describe("Basic Rendering", () => {
-    test("renders a FormSection", () => {
-      render(<FormSection data-testid="my-formsection" />)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
+    test("renders a FormRow", () => {
+      render(<FormRow data-testid="my-form-row" />)
+      expect(screen.getByTestId("my-form-row")).toBeInTheDocument()
     })
 
-    test("renders children as passed", () => {
-      render(
-        <FormSection data-testid="my-formsection">
-          <button></button>
-        </FormSection>
-      )
-      expect(screen.getByRole("button")).toBeInTheDocument()
-    })
-
-    // Additional Edge Cases
     test("renders without any props", () => {
-      render(<FormSection data-testid="my-formsection" />)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
+      const { container } = render(<FormRow />)
+      expect(container.firstChild).toBeInTheDocument()
+      expect(container.firstChild).toHaveClass("juno-form-row")
     })
 
     test("renders with null children", () => {
-      render(<FormSection data-testid="my-formsection">{null}</FormSection>)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
+      render(<FormRow data-testid="my-form-row">{null}</FormRow>)
+      expect(screen.getByTestId("my-form-row")).toBeInTheDocument()
     })
 
     test("renders with undefined children", () => {
-      render(<FormSection data-testid="my-formsection">{undefined}</FormSection>)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
-    })
-
-    test("renders with mixed children types correctly", () => {
-      render(
-        <FormSection data-testid="my-formsection">
-          <div>Div Element</div>
-          {false && <span>False Element</span>}
-          {null}
-          <p>Paragraph Element</p>
-        </FormSection>
-      )
-      expect(screen.getByText("Div Element")).toBeInTheDocument()
-      expect(screen.queryByText("False Element")).not.toBeInTheDocument()
-      expect(screen.getByText("Paragraph Element")).toBeInTheDocument()
+      render(<FormRow data-testid="my-form-row">{undefined}</FormRow>)
+      expect(screen.getByTestId("my-form-row")).toBeInTheDocument()
     })
   })
 
-  // Group: Title Handling Tests
-  describe("Title Handling", () => {
-    test("renders a title", () => {
-      render(<FormSection data-testid="my-form-section" title="My Form Section" />)
-      expect(screen.getByTestId("my-form-section")).toBeInTheDocument()
-      expect(screen.getByRole("heading")).toHaveClass("juno-formsection-heading")
-      expect(screen.getByRole("heading")).toHaveTextContent("My Form Section")
-    })
-
-    test("does not render a title when title prop is not provided", () => {
-      render(<FormSection data-testid="my-form-section" />)
-      const titleElement = screen.queryByRole("heading")
-      expect(titleElement).not.toBeInTheDocument()
-    })
-
-    // Additional Edge Cases
-    test("renders with an empty string title", () => {
-      render(<FormSection data-testid="my-formsection" title="" />)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
-      const titleElement = screen.queryByRole("heading")
-      expect(titleElement).not.toBeInTheDocument()
-    })
-
-    test("renders with a long string title", () => {
-      const longTitle = "A".repeat(1000) // 1000 characters long
-      render(<FormSection data-testid="my-formsection" title={longTitle} />)
-      const titleElement = screen.getByText(longTitle)
-      expect(titleElement).toBeInTheDocument()
-    })
-
-    test("renders with special characters in title", () => {
-      const specialTitle = "!@#$%^&*()_+=-[]{}|;:'\",.<>?/"
-      render(<FormSection data-testid="my-formsection" title={specialTitle} />)
-      const titleElement = screen.getByText(specialTitle)
-      expect(titleElement).toBeInTheDocument()
-    })
-
-    test("renders h1 element only if title is provided", () => {
-      const { rerender } = render(<FormSection data-testid="my-formsection" title={undefined} />)
-      expect(screen.queryByRole("heading")).toBeNull()
-
-      rerender(<FormSection data-testid="my-formsection" title="Title" />)
-      expect(screen.getByRole("heading")).toBeInTheDocument()
-    })
-  })
-
-  // Group: Props Handling Tests
   describe("Props Handling", () => {
     test("renders a custom className", () => {
-      render(<FormSection data-testid="my-formsection" className="my-custom-class" />)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
-      expect(screen.getByTestId("my-formsection")).toHaveClass("my-custom-class")
+      render(<FormRow data-testid="my-form-row" className="my-custom-class" />)
+      expect(screen.getByTestId("my-form-row")).toBeInTheDocument()
+      expect(screen.getByTestId("my-form-row")).toHaveClass("my-custom-class")
     })
 
     test("renders all props as passed", () => {
-      render(<FormSection data-testid="23" data-lolol={true} />)
+      render(<FormRow data-testid="23" data-lolol={true} />)
       expect(screen.getByTestId("23")).toBeInTheDocument()
       expect(screen.getByTestId("23")).toHaveAttribute("data-lolol")
     })
 
-    // Additional Edge Cases
-    test("renders section HTML element with classnames", () => {
-      const { container } = render(<FormSection data-testid="my-form-section" />)
-      expect(container.firstChild).toHaveClass("juno-form-section")
+    test("adds and handles additional props", () => {
+      render(<FormRow data-testid="24" aria-label="form-row" />)
+      const sectionElement = screen.getByTestId("24")
+      expect(sectionElement).toHaveAttribute("aria-label", "form-row")
+    })
+
+    test("applies default styles", () => {
+      const { container } = render(<FormRow data-testid="my-form-row-default-styles" />)
+      expect(container.firstChild).toHaveClass("juno-form-row")
+      expect(container.firstChild).toHaveClass("jn-mb-2")
+    })
+  })
+
+  describe("Children Rendering", () => {
+    test("renders children as passed", () => {
+      render(
+        <FormRow>
+          <button></button>
+        </FormRow>
+      )
+      expect(screen.getByRole("button")).toBeInTheDocument()
+    })
+
+    test("renders multiple children", () => {
+      render(
+        <FormRow data-testid="my-form-row">
+          <button>Button 1</button>
+          <button>Button 2</button>
+        </FormRow>
+      )
+      expect(screen.getByText("Button 1")).toBeInTheDocument()
+      expect(screen.getByText("Button 2")).toBeInTheDocument()
+    })
+
+    test("renders with no children", () => {
+      render(<FormRow data-testid="my-form-row" />)
+      expect(screen.getByTestId("my-form-row")).toBeInTheDocument()
+      expect(screen.getByTestId("my-form-row").childElementCount).toBe(0)
     })
   })
 })
