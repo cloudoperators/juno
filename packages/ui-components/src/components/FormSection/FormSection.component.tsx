@@ -5,7 +5,7 @@
 
 import React, { HTMLAttributes } from "react"
 
-const formSectionStyles = `
+const formSectionBaseStyles = `
     jn-mb-8
     jn-last:mb-0
 `
@@ -39,7 +39,7 @@ export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
  */
 export const FormSection: React.FC<FormSectionProps> = ({ title = "", children, className = "", ...props }) => {
   return (
-    <section className={`juno-form-section ${formSectionStyles} ${className}`} {...props}>
+    <section className={`juno-form-section ${formSectionBaseStyles} ${className}`} {...props}>
       {title ? <h1 className={`juno-formsection-heading ${headingStyles}`}>{title}</h1> : null}
       {children}
     </section>

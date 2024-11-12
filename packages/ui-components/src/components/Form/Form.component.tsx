@@ -3,32 +3,44 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, FormHTMLAttributes } from "react"
 
-const formStyles = `
-    jn-mb-8
+const formBaseStyles = `
+  jn-mb-8
 `
 
-const formHeading = `
-    jn-text-2xl
-    jn-font-bold
-    jn-mb-4
+const formTitleStyles = `
+  jn-text-2xl
+  jn-font-bold
+  jn-mb-4
 `
 
-export interface FormProps {
-  /** Title to be rendered in the Form`. */
+export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
+  /**
+   * Title for the form.
+   */
   title?: string
-  /** Custom className */
+
+  /**
+   * Additional CSS classes to apply to the form for custom styling.
+   */
   className?: string
-  /** Children to render in the form */
-  children?: React.ReactNode
+
+  /**
+   * Content to render inside the form.
+   * This can include FormSections, FormGroups, and other form elements.
+   */
+  children?: ReactNode
 }
 
-/** A Form to hold FormSections and/or FormGroups with an optional title. */
-export const Form = ({ title = null, className = "", children = null, ...props }: FormProps) => {
+/**
+ * A Form component used to encapsulate FormSections and/or FormGroups.
+ * Can be used to build complex forms with structured sections.
+ */
+export const Form: React.FC<FormProps> = ({ title = "", className = "", children, ...props }) => {
   return (
-    <form className={`juno-form ${formStyles} ${className}`} {...props}>
-      {title ? <h1 className={`juno-form-heading ${formHeading}`}>{title}</h1> : ""}
+    <form className={`juno-form ${formBaseStyles} ${className}`} {...props}>
+      {title ? <h1 className={`juno-form-heading ${formTitleStyles}`}>{title}</h1> : null}
       {children}
     </form>
   )

@@ -4,8 +4,9 @@
  */
 
 import React from "react"
+import { Meta, StoryFn } from "@storybook/react"
 
-import { Form } from "./Form.component.tsx"
+import { Form, FormProps } from "./Form.component"
 import { FormRow } from "../FormRow/FormRow.component"
 import { FormHint } from "../FormHint/FormHint.component"
 import { FormSection } from "../FormSection/FormSection.component"
@@ -20,7 +21,7 @@ import { Button } from "../Button/Button.component"
 import { ButtonRow } from "../ButtonRow/ButtonRow.component"
 
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
-import { IntroBox } from "../IntroBox/IntroBox.component.tsx"
+import { IntroBox } from "../IntroBox/IntroBox.component"
 import { Switch } from "../Switch/Switch.component"
 
 export default {
@@ -37,7 +38,7 @@ export default {
     },
   },
   decorators: [
-    (Story) => (
+    (Story: StoryFn) => (
       <div className="jn-pb-12" style={{ minHeight: "250px" }}>
         <PortalProvider>
           <Story />
@@ -45,17 +46,13 @@ export default {
       </div>
     ),
   ],
-}
+} as Meta<typeof Form>
 
-interface TemplateProps {
-  children?: React.ReactNode
-}
-
-const Template = ({ children, ...args }: TemplateProps) => <Form {...args}>{children}</Form>
+// eslint-disable-next-line react/prop-types
+const Template: StoryFn<FormProps> = ({ children, ...args }) => <Form {...args}>{children}</Form>
 
 export const Default = {
   render: Template,
-
   args: {
     title: "A Simple Form",
     children: [
@@ -78,7 +75,6 @@ export const Default = {
 
 export const ComplexForm = {
   render: Template,
-
   args: {
     title: "A Complex Form",
     children: [
@@ -98,9 +94,11 @@ export const ComplexForm = {
           </Select>
           <FormHint text="Your favorite color to the best of your knowledge" />
         </FormRow>
+        ,
         <FormRow key="fr-2">
           <TextInput label="First Name" id="first-name" />
         </FormRow>
+        ,
         <FormRow key="fr-3">
           <TextInput label="Last Name" id="last-name" />
         </FormRow>
@@ -113,13 +111,16 @@ export const ComplexForm = {
             placeholder="If there is something else we should know about you – now is the time!"
           />
         </FormRow>
+        ,
         <FormRow>
           <TextInput invalid value="Error!" />
           <FormHint variant="error" text="A textInput with an error for no reason whatsoever." />
         </FormRow>
+        ,
         <FormRow key="fr-5">
           <Switch label="Wake me up at 4.30am" id="wakey" />
         </FormRow>
+        ,
         <FormRow key="fr-6">
           <Switch label="Send me an email, too" id="email-too" />
         </FormRow>
