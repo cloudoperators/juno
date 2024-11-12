@@ -10,16 +10,12 @@ import { Form, FormProps } from "./Form.component"
 import { FormRow } from "../FormRow/FormRow.component"
 import { FormHint } from "../FormHint/FormHint.component"
 import { FormSection } from "../FormSection/FormSection.component"
-
 import { Select } from "../Select/Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
-
 import { Textarea } from "../Textarea/Textarea.component"
 import { TextInput } from "../TextInput/TextInput.component"
-
 import { Button } from "../Button/Button.component"
 import { ButtonRow } from "../ButtonRow/ButtonRow.component"
-
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 import { IntroBox } from "../IntroBox/IntroBox.component"
 import { Switch } from "../Switch/Switch.component"
@@ -94,11 +90,9 @@ export const ComplexForm = {
           </Select>
           <FormHint text="Your favorite color to the best of your knowledge" />
         </FormRow>
-        ,
         <FormRow key="fr-2">
           <TextInput label="First Name" id="first-name" />
         </FormRow>
-        ,
         <FormRow key="fr-3">
           <TextInput label="Last Name" id="last-name" />
         </FormRow>
@@ -111,16 +105,13 @@ export const ComplexForm = {
             placeholder="If there is something else we should know about you – now is the time!"
           />
         </FormRow>
-        ,
         <FormRow>
           <TextInput invalid value="Error!" />
           <FormHint variant="error" text="A textInput with an error for no reason whatsoever." />
         </FormRow>
-        ,
         <FormRow key="fr-5">
           <Switch label="Wake me up at 4.30am" id="wakey" />
         </FormRow>
-        ,
         <FormRow key="fr-6">
           <Switch label="Send me an email, too" id="email-too" />
         </FormRow>
