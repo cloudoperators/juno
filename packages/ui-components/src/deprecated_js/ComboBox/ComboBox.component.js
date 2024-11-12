@@ -4,16 +4,18 @@
  */
 
 import React, { useState, useEffect, useId, useMemo, createContext } from "react"
+import PropTypes from "prop-types"
 import { Combobox } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
-import { Label } from "../Label/index"
-import { FormHint } from "../FormHint/index"
-import { Icon } from "../Icon/index"
-import { Spinner } from "../Spinner/index"
+import { Label } from "../../deprecated_js/Label/index.js"
+import { FormHint } from "../../deprecated_js/FormHint/index.js"
+import { Icon } from "../../deprecated_js/Icon/index.js"
+import { Spinner } from "../../deprecated_js/Spinner/index.js"
 import { flip, offset, shift, size } from "@floating-ui/react-dom"
-import { usePortalRef } from "../PortalProvider/index"
+import { usePortalRef } from "../../deprecated_js/PortalProvider/index"
 import { createPortal } from "react-dom"
-import { ComboBoxOptionProps } from "../ComboBoxOption/ComboBoxOption.component"
+
+// STYLES
 
 const inputWrapperStyles = `
   jn-relative
@@ -128,27 +130,13 @@ const centeredIconStyles = `
   jn-translate-x-[-0.75rem]
 `
 
-//eslint-disable-next-line no-unused-vars
-type AddOptionValueAndLabelFunction = (value: string, label: string | undefined, children: React.ReactNode) => void
+// CONTEXT
+export const ComboBoxContext = createContext()
 
-export type ComboBoxContextType = {
-  selectedValue?: string
-  truncateOptions: boolean
-  addOptionValueAndLabel: AddOptionValueAndLabelFunction
-}
-
-export const ComboBoxContext = createContext<ComboBoxContextType | undefined>(undefined)
-
-type OptionValuesAndLabelsKey = string | React.ReactNode
-type OptionValuesAndLabelsValue = {
-  val: string
-  label?: string
-  children: React.ReactNode
-}
-
-export const ComboBox: React.FC<ComboBoxProps> = ({
+// COMBOBOX
+export const ComboBox = ({
   ariaLabel,
-  children,
+  children = null,
   className = "",
   defaultValue = "",
   disabled = false,
@@ -176,16 +164,14 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
   const theId = id || "juno-combobox-" + useId()
   const helptextId = "juno-combobox-helptext-" + useId()
 
-  const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(
-    new Map<OptionValuesAndLabelsKey, OptionValuesAndLabelsValue>()
-  )
+  const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(new Map())
   const [query, setQuery] = useState("")
   const [selectedValue, setSelectedValue] = useState(value)
   const [isLoading, setIsLoading] = useState(false)
@@ -197,7 +183,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   // This callback is for all ComboBoxOptions to send us their value, label and children so we can save them as a map in our state.
   // We need this because the Select component wants to display the selected value, label or children in the ComboBox input field
   // but from the eventHandler we only get the value, not the label or children
-  const addOptionValueAndLabel = (value: string, label: string | undefined, children: React.ReactNode) => {
+  const addOptionValueAndLabel = (value, label, children) => {
     // append new entry to optionValuesAndLabels map containing the passed value, label and children
     // use callback syntax of setState function here since we want to merge the old state with the new entry
     setOptionValuesAndLabels((oldMap) =>
@@ -238,22 +224,22 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
     setIsValid(validated)
   }, [validated])
 
-  const handleChange = (value: string) => {
+  const handleChange = (value) => {
     setSelectedValue(value)
     onChange && onChange(value)
   }
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event) => {
     setQuery(event?.target?.value)
     onInputChange && onInputChange(event)
   }
 
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = (event) => {
     setFocus(true)
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (event) => {
     setFocus(false)
     onBlur && onBlur(event)
   }
@@ -266,7 +252,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
     shift(),
     flip(),
     size({
-      rootBoundary: "viewport",
+      boundary: "viewport",
       apply({ availableWidth, availableHeight, elements }) {
         Object.assign(elements.floating.style, {
           maxWidth: `${availableWidth}px`,
@@ -279,16 +265,12 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   const filteredChildren =
     query === ""
-      ? React.Children.toArray(children)
-      : React.Children.toArray(children).filter((child) => {
-          if (React.isValidElement<ComboBoxOptionProps>(child)) {
-            // ensure that we filter on the value that is displayed to the user. Apply the same logic as when rendering
-            // the options, i.e. match children if present, if not match label, lastly if neither label nor children exist, then check value
-            const optionDisplayValue = child.props.children?.toString() || child.props.label || child.props.value
-            return optionDisplayValue?.toLowerCase().includes(query.toLowerCase())
-          } else {
-            return false
-          }
+      ? children
+      : children.filter((child) => {
+          // ensure that we filter on the value that is displayed to the user. Apply the same logic as when rendering
+          // the options, i.e. match children if present, if not match label, lastly if neither label nor children exist, then check value
+          const optionDisplayValue = child.props.children?.toString() || child.props.label || child.props.value
+          return optionDisplayValue?.toLowerCase().includes(query.toLowerCase())
         })
 
   return (
@@ -312,7 +294,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
           defaultValue={defaultValue}
           disabled={disabled || isLoading || hasError}
           name={name}
-          nullable={nullable as true}
+          nullable={nullable}
           onChange={handleChange}
           value={selectedValue || defaultValue}
           {...props}
@@ -347,21 +329,21 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                   ""
                 )}
 
-                <Combobox.Input<OptionValuesAndLabelsKey>
+                <Combobox.Input
                   autoComplete="off"
                   aria-label={ariaLabel || label}
                   aria-describedby={helptext ? helptextId : ""}
+                  disabled={disabled || isLoading || hasError}
                   id={theId}
                   onBlur={handleBlur}
                   onChange={handleInputChange}
                   onFocus={handleFocus}
                   placeholder={!isLoading && !hasError ? placeholder : ""}
                   displayValue={(val) =>
-                    optionValuesAndLabels.get(val)?.children?.toString() ||
+                    optionValuesAndLabels.get(val)?.children ||
                     optionValuesAndLabels.get(val)?.label ||
                     valueLabel ||
-                    val?.toString() ||
-                    ""
+                    val
                   } // Headless-UI expects a callback here
                   className={`
                   juno-combobox-input 
@@ -404,6 +386,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
                 {!hasError && !isLoading ? (
                   <Combobox.Button
+                    disabled={disabled}
                     className={`
                         juno-combobox-toggle 
                         ${buttonStyles}
@@ -415,7 +398,9 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                   >
                     {({ open }) => <Icon icon={open ? "expandLess" : "expandMore"} />}
                   </Combobox.Button>
-                ) : null}
+                ) : (
+                  ""
+                )}
               </div>
             </Float.Reference>
 
@@ -444,64 +429,59 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   )
 }
 
-export type ComboBoxWidth = "full" | "auto"
-
-//eslint-disable-next-line no-unused-vars
-type OnChangeHandler = (value: string) => void
-
-export type ComboBoxProps = typeof Combobox & {
+ComboBox.propTypes = {
   /** The aria-label of the ComboBox. Defaults to the label if label was passed. */
-  ariaLabel?: string
+  ariaLabel: PropTypes.string,
   /** The children to Render. Use `ComboBox.Option` elements. */
-  children?: React.ReactElement<ComboBoxOptionProps> | React.ReactElement<ComboBoxOptionProps>[]
+  children: PropTypes.node,
   /** A custom className. Will be passed to the internal text input element of the ComboBox */
-  className?: string
+  className: PropTypes.string,
   /** Pass a defaultValue to use as an uncontrolled Component that will handle its state internally */
-  defaultValue?: string
+  defaultValue: PropTypes.string,
   /** Whether the ComboBox is disabled */
-  disabled?: boolean
+  disabled: PropTypes.bool,
   /** Whether the ComboBox has an error. Note this refers to an internal error like failing to load options etc., to indicate failed validation use `invalid` instead. */
-  error?: boolean
+  error: PropTypes.bool,
   /** An errortext to display when the ComboBox failed validation or an internal error occurred. */
-  errortext?: JSX.Element | string
+  errortext: PropTypes.node,
   /** A helptext to render to explain meaning and significance of the ComboBox */
-  helptext?: JSX.Element | string
+  helptext: PropTypes.node,
   /** The Id of the ComboBox. Will be assigned to the text input part of the ComboBox. If not passed, an id will be auto-generated. */
-  id?: string
+  id: PropTypes.string,
   /** Whether the ComboBox failed validation */
-  invalid?: boolean
+  invalid: PropTypes.bool,
   /** The label of the ComboBox */
-  label?: string
+  label: PropTypes.string,
   /** Whether the ComboBox is busy loading options */
-  loading?: boolean
+  loading: PropTypes.bool,
   /** The name attribute of the ComboBox when used as part of a form  */
-  name?: string
+  name: PropTypes.string,
   /** Whether the ComboBox can be reset to having no value selected by manually clearing the text and clicking outside of the ComboBox. Default is TRUE. When set to FALSE, the selected value can only be changed by selecting another value after the initial selection, but never back to no selected value at all. */
-  nullable?: boolean
+  nullable: PropTypes.bool,
   /** A handler to execute when the ComboBox looses focus */
-  onBlur?: React.FocusEventHandler<HTMLInputElement>
+  onBlur: PropTypes.func,
   /** A handler to execute when the ComboBox' selected value changes */
-  onChange?: OnChangeHandler
+  onChange: PropTypes.func,
   /** A handler to execute when the ComboBox input receives focus */
-  onFocus?: React.FocusEventHandler<HTMLInputElement>
+  onFocus: PropTypes.func,
   /** Handler to execute when the ComboBox text input value changes */
-  onInputChange?: React.ChangeEventHandler<HTMLInputElement>
+  onInputChange: PropTypes.func,
   /** A placeholder to render in the text input */
-  placeholder?: string
+  placeholder: PropTypes.string,
   /** Whether the ComboBox is required */
-  required?: boolean
+  required: PropTypes.bool,
   /** A text to display in case the ComboBox was successfully validated. Will set the ComboBox to `valid` when passed. */
-  successtext?: JSX.Element | string
+  successtext: PropTypes.node,
   /** Whether the option labels should be truncated in case they are longer/wider than the available space in an option or not. Default is FALSE. */
-  truncateOptions?: boolean
+  truncateOptions: PropTypes.bool,
   /** Whether the ComboBox was successfully validated */
-  valid?: boolean
+  valid: PropTypes.bool,
   /** The selected value of the ComboBox in Controlled Mode. */
-  value?: string
+  value: PropTypes.string,
   /** The label of the passed value or defaultValue. If you want to use controlled mode or pass as defaultValue in uncontrolled mode and additionally use labels for human-readable SelectOptions, you need to also pass the matching label for the passed value/defaultValue so that the Select component can render itself properly */
-  valueLabel?: string
+  valueLabel: PropTypes.string,
   /** The width of the text input. Either 'full' (default) or 'auto'. */
-  width?: ComboBoxWidth
+  width: PropTypes.oneOf(["full", "auto"]),
   /** Pass a custom classname to the wrapping <div> element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
-  wrapperClassName?: string
+  wrapperClassName: PropTypes.string,
 }

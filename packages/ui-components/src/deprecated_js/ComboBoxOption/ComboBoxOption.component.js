@@ -4,9 +4,10 @@
  */
 
 import React, { Fragment, useEffect, useContext } from "react"
+import PropTypes from "prop-types"
 import { Combobox } from "@headlessui/react"
 import { ComboBoxContext } from "../ComboBox/ComboBox.component"
-import { Icon } from "../Icon/Icon.component"
+import { Icon } from "../../deprecated_js/Icon/Icon.component"
 
 const optionStyles = `
   jn-flex
@@ -49,14 +50,7 @@ const truncateOptionStyles = `
   jn-whitespace-nowrap
 `
 
-export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
-  children,
-  disabled = false,
-  value = "",
-  label,
-  className = "",
-  ...props
-}) => {
+export const ComboBoxOption = ({ children, disabled = false, value = "", label, className = "", ...props }) => {
   const comboBoxContext = useContext(ComboBoxContext)
   const {
     selectedValue: selectedValue,
@@ -66,10 +60,8 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
 
   // send option metadata to the ComboBox parent component via Context
   useEffect(() => {
-    if (addOptionValueAndLabel) {
-      addOptionValueAndLabel(value, label, children)
-    }
-  }, [addOptionValueAndLabel, value, label, children])
+    addOptionValueAndLabel(value, label, children)
+  }, [value, label, children])
 
   const theValue = value || children
 
@@ -99,10 +91,10 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   )
 }
 
-export interface ComboBoxOptionProps extends React.HTMLProps<HTMLLIElement> {
-  children?: string
-  disabled?: boolean
-  value?: string
-  label?: string
-  className?: string
+ComboBoxOption.propTypes = {
+  children: PropTypes.string,
+  disabled: PropTypes.bool,
+  value: PropTypes.string,
+  label: PropTypes.string,
+  className: PropTypes.string,
 }
