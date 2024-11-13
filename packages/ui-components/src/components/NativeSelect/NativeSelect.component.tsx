@@ -82,7 +82,7 @@ const stateClasses = {
   paddingDefaultRight: `jn-pr-9`,
 }
 
-export interface NativeSelectProps {
+export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   /**
    * Name of the select element.
    * Used as a key for the selected value if a form is submitted.
@@ -148,7 +148,7 @@ export interface NativeSelectProps {
   onClick?: (event: MouseEvent<HTMLSelectElement>) => void
 
   /**
-   * Additionl CSS classes to apply to the outer wrapper of the select component for custom styling.
+   * Additional CSS classes to apply to the outer wrapper of the select component for custom styling.
    */
   wrapperClassName?: string
 }
