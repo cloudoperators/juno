@@ -31,8 +31,9 @@ export interface PanelFooterProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * A PanelFooter component is used to render the footer of a panel.
- * Buttons placed inside will automatically be aligned to the right.
+ * The PanelFooter component renders the footer section of a panel.
+ * Typically used to contain footer elements like buttons, which can be added to the PanelBody component via its `footer` property.
+ * Buttons placed inside will be automatically aligned to the right.
  */
 export const PanelFooter: React.FC<PanelFooterProps> = ({ className = "", children, ...props }) => {
   return (
