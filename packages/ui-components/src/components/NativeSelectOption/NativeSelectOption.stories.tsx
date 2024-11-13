@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { NativeSelectOption } from "./index.js"
+import { NativeSelectOption } from "./NativeSelectOption.component"
 
 export default {
   title: "Forms/NativeSelect/NativeSelectOption",

@@ -4,20 +4,31 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Form } from "./index.js"
-import { FormRow } from "../FormRow/index.js"
-import { FormSection } from "../FormSection/index.js"
-import { FormHint } from "../../deprecated_js/FormHint/index.js"
-import { TextInput } from "../../deprecated_js/TextInput/index.js"
-import { Select } from "../../deprecated_js/Select/index.js"
-import { SelectOption } from "../../deprecated_js/SelectOption/index.js"
-import { Switch } from "../../deprecated_js/Switch/Switch.component"
-import { Textarea } from "../../deprecated_js/Textarea/index.js"
-import { Button } from "../../deprecated_js/Button/index.js"
-import { ButtonRow } from "../../deprecated_js/ButtonRow/index.js"
-import { IntroBox } from "../IntroBox/index.ts"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
+import { Meta, StoryFn } from "@storybook/react"
+
+import { Form, FormProps } from "./Form.component"
+import { FormRow } from "../FormRow/FormRow.component"
+import { FormHint } from "../FormHint/FormHint.component"
+import { FormSection } from "../FormSection/FormSection.component"
+
+import { Select } from "../Select/Select.component"
+import { SelectOption } from "../SelectOption/SelectOption.component"
+
+import { Textarea } from "../Textarea/Textarea.component"
+import { TextInput } from "../TextInput/TextInput.component"
+
+import { Button } from "../Button/Button.component"
+import { ButtonRow } from "../ButtonRow/ButtonRow.component"
+
+import { Radio } from "../Radio/Radio.component"
+import { RadioGroup } from "../RadioGroup/RadioGroup.component"
+
+import { Checkbox } from "../Checkbox/Checkbox.component"
+import { CheckboxGroup } from "../CheckboxGroup/CheckboxGroup.component"
+
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { IntroBox } from "../IntroBox/IntroBox.component"
+import { Switch } from "../Switch/Switch.component"
 
 export default {
   title: "Forms/Form",
@@ -30,10 +41,13 @@ export default {
     },
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
   decorators: [
-    (Story) => (
+    (Story: StoryFn) => (
       <div className="jn-pb-12" style={{ minHeight: "250px" }}>
         <PortalProvider>
           <Story />
@@ -41,16 +55,13 @@ export default {
       </div>
     ),
   ],
-}
+} as Meta<typeof Form>
 
-const Template = ({ children, ...args }) => <Form {...args}>{children}</Form>
-Template.propTypes = {
-  children: PropTypes.node,
-}
+// eslint-disable-next-line react/prop-types
+const Template: StoryFn<FormProps> = ({ children, ...args }) => <Form {...args}>{children}</Form>
 
 export const Default = {
   render: Template,
-
   args: {
     title: "A Simple Form",
     children: [
@@ -73,7 +84,6 @@ export const Default = {
 
 export const ComplexForm = {
   render: Template,
-
   args: {
     title: "A Complex Form",
     children: [
@@ -101,6 +111,16 @@ export const ComplexForm = {
         </FormRow>
       </FormSection>,
       <FormSection title="Second Section of the Form" key="fs-2">
+        <RadioGroup name="color-radios" label="In case you are not sure, select your true favorite color:">
+          <Radio key="r-1" id="color-red" label="Red" value="red" />
+          <Radio key="r-2" id="color-blue" label="Blue" value="blue" />
+          <Radio key="r-3" id="color-green" label="Green" value="green" />
+          <Radio key="r-4" id="color-yellow" label="Yellow" value="yellow" />
+        </RadioGroup>
+        <CheckboxGroup name="all-about-red" label="What is your opinion towards the color Red?">
+          <Checkbox key="c-1" id="overrated" label="Red is vastly overrated" value="overrated" />
+          <Checkbox key="c-2" id="blackisred" label="Black is better" value="blackisbetter" />
+        </CheckboxGroup>
         <FormRow key="fr-4">
           <Textarea
             label="Your Message"
