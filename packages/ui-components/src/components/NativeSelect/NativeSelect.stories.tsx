@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn } from "@storybook/react"
+import { StoryFn } from "@storybook/react"
 
 import { NativeSelect, NativeSelectProps } from "./NativeSelect.component"
 import { NativeSelectOption } from "../NativeSelectOption/NativeSelectOption.component"
@@ -21,9 +21,12 @@ export default {
     },
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
-} as Meta<typeof NativeSelect>
+}
 
 const Template: StoryFn<NativeSelectProps> = (args) => <NativeSelect {...args} />
 
