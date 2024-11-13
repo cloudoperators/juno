@@ -10,6 +10,9 @@ import {
   useGlobalsShowPanel,
   useGlobalsActiveView,
   useGlobalsActions,
+  useServiceActiveFilters,
+  useIssueMatchesActiveFilters,
+  useComponentActiveFilters,
   useFilterActions,
 } from "../components/StoreProvider"
 import constants from "../components/shared/constants"
@@ -24,6 +27,9 @@ const useUrlState = () => {
   const activeView = useGlobalsActiveView()
   const detailsFor = useGlobalsShowPanel()
   const { setShowPanel, setActiveView, setServiceDetail, setIssueDetail, syncDetailsWithURL } = useGlobalsActions()
+  const serviceActiveFilters = useServiceActiveFilters()
+  const issueMatchesActiveFilters = useIssueMatchesActiveFilters()
+  const componentActiveFilters = useComponentActiveFilters()
 
   // Set initial state from URL (on login)
   useLayoutEffect(() => {
@@ -57,7 +63,7 @@ const useUrlState = () => {
     }
 
     setIsURLRead(true)
-  }, [isURLRead])
+  }, [isURLRead, setActiveView, setFiltersFromURL, setShowPanel, setServiceDetail, setIssueDetail])
 
   // Sync URL with the desired states
   useEffect(() => {
@@ -74,7 +80,17 @@ const useUrlState = () => {
     if (JSON.stringify(updatedState) !== JSON.stringify(currentState)) {
       urlStateManager.push(updatedState)
     }
-  }, [loggedIn, detailsFor, activeView])
+  }, [
+    loggedIn,
+    detailsFor,
+    activeView,
+    serviceActiveFilters,
+    issueMatchesActiveFilters,
+    componentActiveFilters,
+    isURLRead,
+    syncFiltersWithURL,
+    syncDetailsWithURL,
+  ])
 
   // Support for back button
   useEffect(() => {
