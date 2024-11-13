@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, HTMLAttributes } from "react"
 
-const panelBodyClasses = `
-  
+const panelBodyBaseClasses = `
+  jn-bg-white
+  jn-rounded-md
+  jn-shadow
 `
 
 const bodyContentClasses = `
@@ -14,23 +16,34 @@ const bodyContentClasses = `
   jn-py-4
 `
 
-export interface PanelBodyProps {
-  /** Add custom class name */
+export interface PanelBodyProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Additional CSS classes to apply to the panel body for custom styling.
+   */
   className?: string
-  children?: any
-  /** optional footer component */
+
+  /**
+   * The content to be rendered inside the panel body.
+   * Typically, this will include form elements and other interactive content.
+   */
+  children?: ReactNode
+
+  /**
+   * Optional footer component to be rendered below the main content.
+   * The footer can include buttons or other control elements.
+   */
   footer?: React.ReactElement
 }
 
 /**
- * The panel body component. The main (form) content for the panel goes here.
+ * A PanelBody component is used to encapsulate the main content of a panel.
+ * The primary content for the panel, such as forms or information, is rendered here.
  */
-export const PanelBody = ({ className = "", footer, children, ...props }: PanelBodyProps) => {
+export const PanelBody: React.FC<PanelBodyProps> = ({ className = "", footer, children, ...props }) => {
   return (
-    <div className={`juno-panel-body ${panelBodyClasses}  ${className}`} {...props}>
+    <div className={`juno-panel-body ${panelBodyBaseClasses} ${className}`} {...props}>
       <div className={`juno-panel-body-content ${bodyContentClasses}`}>{children}</div>
-
-      {footer}
+      {footer ? <div className="juno-panel-footer">{footer}</div> : null}
     </div>
   )
 }

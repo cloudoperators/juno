@@ -4,10 +4,11 @@
  */
 
 import React from "react"
+import { Meta, StoryFn } from "@storybook/react"
 
 import { Button } from "../Button/Button.component"
 import { Panel } from "../Panel/Panel.component"
-import { PanelFooter } from "./PanelFooter.component"
+import { PanelFooter, PanelFooterProps } from "./PanelFooter.component"
 import { PanelBody } from "../PanelBody/PanelBody.component"
 import { ContentArea } from "../ContentArea/ContentArea.component"
 import { ContentAreaWrapper } from "../ContentAreaWrapper/ContentAreaWrapper.component"
@@ -19,15 +20,17 @@ export default {
   component: PanelFooter,
   argTypes: {},
   decorators: [
-    (story) => (
+    (Story: StoryFn) => (
       <PortalProvider>
-        <div className="jn-contrast-100">{story()}</div>
+        <div className="jn-contrast-100">
+          <Story />
+        </div>
       </PortalProvider>
     ),
   ],
-}
+} as Meta<typeof PanelFooter>
 
-const Template = (args) => (
+const Template: StoryFn<PanelFooterProps> = (args) => (
   <ContentAreaWrapper>
     <Panel heading="My Panel" opened>
       <PanelBody
@@ -40,7 +43,9 @@ const Template = (args) => (
         This is the panel body
       </PanelBody>
     </Panel>
-    <ContentArea className="dummy-css-ignore jn-h-[250px]">Content Area</ContentArea>
+    <ContentArea className="dummy-css-ignore jn-h-[250px]">
+      <div>Content Area</div>
+    </ContentArea>
   </ContentAreaWrapper>
 )
 

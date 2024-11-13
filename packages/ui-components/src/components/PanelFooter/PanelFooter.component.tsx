@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, HTMLAttributes } from "react"
 
-const panelFooterClasses = `
+const panelFooterBaseStyles = `
   jn-border-t
   jn-border-t-theme-background-lvl-2
   jn-px-8
@@ -17,18 +17,26 @@ const panelFooterClasses = `
   jn-w-full
 `
 
-export interface PanelFooterProps {
-  /** Add custom class name */
+export interface PanelFooterProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Additional CSS classes to apply to the panel footer for custom styling.
+   */
   className?: string
-  children?: any
+
+  /**
+   * The content to render inside the panel footer.
+   * Typically, this will include buttons or other control elements.
+   */
+  children?: ReactNode
 }
 
 /**
- * The panel footer component. You can drop buttons in here and they will automatically be aligned correctly to the right.
+ * A PanelFooter component is used to render the footer of a panel.
+ * Buttons placed inside will automatically be aligned to the right.
  */
 export const PanelFooter: React.FC<PanelFooterProps> = ({ className = "", children, ...props }) => {
   return (
-    <div className={`juno-panel-footer ${panelFooterClasses} ${className}`} {...props}>
+    <div className={`juno-panel-footer ${panelFooterBaseStyles} ${className}`} {...props}>
       {children}
     </div>
   )
