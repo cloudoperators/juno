@@ -69,7 +69,7 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
     if (addOptionValueAndLabel) {
       addOptionValueAndLabel(value, label, children)
     }
-  }, [addOptionValueAndLabel, value, label, children])
+  }, [value, label, children])
 
   const theValue = value || children
 
