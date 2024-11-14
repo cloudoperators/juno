@@ -47,7 +47,9 @@ const useApi = () => {
           // temporary fix to forward initialFilters to the Plugins until middleware is implemented
           const appProps = { username: authData?.parsed?.fullName }
           appProps.initialFilters = {
-            support_group: authData?.parsed?.supportGroups?.map((group) => group),
+            ...(Array.isArray(authData?.parsed?.supportGroups) && {
+              support_group: authData.parsed.supportGroups.map((group) => group),
+            }),
           }
 
           const newConf = createPluginConfig({
