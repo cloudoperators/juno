@@ -73,19 +73,8 @@ const useUrlState = () => {
 
     const updatedState = {
       [constants.ACTIVE_VIEW]: activeView, // Include active view
-      ...syncFiltersWithURL(serviceActiveFilters, issueMatchesActiveFilters, componentActiveFilters),
-      ...(detailsFor
-        ? syncDetailsWithURL(
-            showServiceDetail,
-            showIssueDetail,
-            detailsFor === constants.PANEL_SERVICE ? constants.PANEL_SERVICE : constants.PANEL_ISSUE
-          )
-        : {
-            // Remove detailsFor from URL when details Panel is closed
-            [constants.DETAILS_FOR]: undefined,
-            [constants.SERVICE_NAME]: undefined,
-            [constants.ISSUE_ID]: undefined,
-          }),
+      ...syncFiltersWithURL(issueMatchesActiveFilters, serviceActiveFilters, componentActiveFilters),
+      ...syncDetailsWithURL(showServiceDetail, showIssueDetail, detailsFor),
     }
 
     // Construct the URL state

@@ -125,6 +125,13 @@ const createGlobalsSlice = (set, get, options) => ({
 
       // Sync details state with the URL
       syncDetailsWithURL: (serviceDetail, issueDetail, panelType) => {
+        if (panelType === undefined || panelType === null) {
+          return {
+            [constants.DETAILS_FOR]: panelType,
+            [constants.SERVICE_NAME]: undefined,
+            [constants.ISSUE_ID]: undefined,
+          }
+        }
         const updatedState = {
           [constants.DETAILS_FOR]: panelType,
           [panelType === constants.PANEL_SERVICE ? constants.SERVICE_NAME : constants.ISSUE_ID]:
