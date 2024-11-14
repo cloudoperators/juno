@@ -20,6 +20,7 @@ import { Button } from "../Button/"
 // - add size prop
 // - necessary to introduce context (size, open, handleToggle, etc)?
 // - position the menu
+// - allow for passing Toggle and Menu children, too
 
 // ----- Styles -----
 
