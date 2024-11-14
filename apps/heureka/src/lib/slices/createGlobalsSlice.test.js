@@ -116,11 +116,11 @@ describe("createGlobalsSlice", () => {
   })
 
   it("should handle clearing details for URL correctly when no panel is open", () => {
-    const urlState = useStore.getState().globals.actions.syncDetailsWithURL(null, null, null)
+    const urlState = useStore.getState().globals.actions.syncDetailsWithURL(undefined, undefined, undefined)
     expect(urlState).toEqual({
-      [constants.DETAILS_FOR]: null,
-      [constants.SERVICE_NAME]: null,
-      [constants.ISSUE_ID]: null,
+      [constants.DETAILS_FOR]: undefined,
+      [constants.SERVICE_NAME]: undefined,
+      [constants.ISSUE_ID]: undefined,
     })
   })
 })
