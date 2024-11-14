@@ -142,7 +142,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Run Prettier
-        run: npm run check-format-no-md
+        run: npm run check-format --check "**/*.{js,jsx,ts,tsx}"
 
   test:
     needs: install-dependencies
