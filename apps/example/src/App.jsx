@@ -9,7 +9,14 @@ import styles from "./styles.scss?inline"
 
 import MonorepoChecker from "./components/MonorepoChecker"
 
-import { AppShellProvider, AppShell, PageHeader, Container } from "@cloudoperators/juno-ui-components"
+import {
+  AppShellProvider,
+  AppShell,
+  PageHeader,
+  Container,
+  TopNavigation,
+  TopNavigationItem,
+} from "@cloudoperators/juno-ui-components"
 import { mockedSession } from "@cloudoperators/juno-oauth"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import AppContent from "./components/AppContent"
@@ -59,12 +66,19 @@ const App = (props = {}) => {
       <MonorepoChecker></MonorepoChecker>
       <AsyncWorker consumerId={props.id} mockAPI={true} />
       <AppShell
+        fullWidthContent
+        embedded={props.embedded === "true" || props.embedded === true}
         pageHeader={
           <PageHeader heading="Converged Cloud | Example App">
             <HeaderUser login={oidc.login} logout={oidc.logout} />
           </PageHeader>
         }
-        embedded={props.embedded === "true" || props.embedded === true}
+        topNavigation={
+          <TopNavigation>
+            <TopNavigationItem icon="home" label="Home" />
+            <TopNavigationItem active label="Navigation Item" />
+          </TopNavigation>
+        }
       >
         <Container py>
           <AppContent props={props} />

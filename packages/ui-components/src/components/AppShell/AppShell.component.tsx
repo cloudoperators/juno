@@ -10,6 +10,7 @@ import { MainContainer } from "../MainContainer/index"
 import { MainContainerInner } from "../MainContainerInner/index"
 import { ContentContainer } from "../ContentContainer/index"
 import { PageFooter } from "../PageFooter/index"
+import { HeaderContainer } from "../HeaderContainer/index"
 
 /**
  * Body of the app. Treat this like the body tag of an html page.
@@ -41,7 +42,7 @@ export const AppShell = ({
       {contentHeading || ""}
       {embedded ? (
         <>
-          {topNavigation && topNavigation}
+          <HeaderContainer>{topNavigation && topNavigation}</HeaderContainer>
           <MainContainer>
             <MainContainerInner
               fullWidth={fullWidthContent === false ? false : true}
@@ -55,13 +56,15 @@ export const AppShell = ({
         </>
       ) : (
         <>
-          {pageHeader && (typeof pageHeader === "string" || pageHeader instanceof String) ? (
-            <PageHeader heading={pageHeader} />
-          ) : (
-            pageHeader
-          )}
-          {topNavigation && topNavigation}
-          {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
+          <HeaderContainer fullWidth={fullWidthContent === true ? true : false} className="">
+            {pageHeader && (typeof pageHeader === "string" || pageHeader instanceof String) ? (
+              <PageHeader heading={pageHeader} />
+            ) : (
+              pageHeader
+            )}
+            {topNavigation && topNavigation}
+            {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
+          </HeaderContainer>
           <MainContainer>
             <MainContainerInner
               fullWidth={fullWidthContent === true ? true : false}
@@ -69,8 +72,7 @@ export const AppShell = ({
               className="jn-mt-[3.875rem]"
             >
               {sideNavigation && sideNavigation}
-              {/* Content Container. This is the place to add the app's main content. Render left margin only if no SideNavigation is present. */}
-              <ContentContainer className={sideNavigation ? "" : "jn-ml-8"}>{children}</ContentContainer>
+              <ContentContainer>{children}</ContentContainer>
             </MainContainerInner>
           </MainContainer>
 
