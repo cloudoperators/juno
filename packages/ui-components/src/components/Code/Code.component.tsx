@@ -21,7 +21,7 @@ export const Code: React.FC<CodeProps> = ({ content = "", children = null, class
   )
 }
 
-interface CodeProps extends React.ComponentPropsWithoutRef<"code"> {
+export interface CodeProps extends React.ComponentPropsWithoutRef<"code"> {
   content?: string
   className?: string
   children?: React.ReactNode
