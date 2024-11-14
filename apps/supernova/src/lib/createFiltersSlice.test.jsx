@@ -310,6 +310,37 @@ describe("createFiltersSlice", () => {
       spy.mockRestore()
     })
 
+    it("warns because some keys are not in filterLabels and filters initialFilters to only include valid keys", () => {
+      const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
+
+      const props = {
+        initialFilters: {
+          region: "europe",
+          app: ["frontendapp", "monitoring", "store"],
+        },
+        filterLabels: ["region", "app"],
+      }
+
+      const expectedFilters = {
+        app: ["frontendapp", "monitoring", "store"],
+      } // Only app is a valid filter label, because region is not an array, we except it to be filtered out
+
+      const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
+
+      const store = renderHook(
+        () => ({
+          activeFilters: useActiveFilters(),
+        }),
+        { wrapper }
+      )
+
+      expect(spy).toHaveBeenCalledWith(
+        expect.stringContaining('[supernova]::parseInitialFilters: Value for "region" is not an Array.')
+      )
+      expect(store.result.current.activeFilters).toEqual(expectedFilters)
+      spy.mockRestore()
+    })
+
     it("warns because initial filters is not a object", () => {
       const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
 
