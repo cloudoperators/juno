@@ -339,6 +339,35 @@ describe("createFiltersSlice", () => {
       spy.mockRestore()
     })
 
+    it("warns because initial filters is not a object", () => {
+      const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
+
+      const props = {
+        initialFilters: undefined,
+        filterLabels: ["region"],
+      }
+
+      const wrapper = ({ children }) => <StoreProvider options={props}>{children}</StoreProvider>
+
+      renderHook(
+        () => ({
+          activeFilters: useActiveFilters(),
+        }),
+        { wrapper }
+      )
+
+      const store = renderHook(
+        () => ({
+          activeFilters: useActiveFilters(),
+        }),
+        { wrapper }
+      )
+
+      expect(store.result.current.activeFilters).toEqual({})
+      expect(spy).toHaveBeenCalledWith("[supernova]::validateExcludedLabels: labels object is not an array of strings")
+      spy.mockRestore()
+    })
+
     it("initialFilters is empty", () => {
       const props = {
         initialFilters: {},

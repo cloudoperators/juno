@@ -30,28 +30,30 @@ const FilterPills = () => {
   return (
     <Stack gap="2" wrap={true}>
       {Object.entries(activeFilters).map(([key, filterItems]) => {
-        return filterItems.map((item) =>
-          pausedFilters[key]?.includes(item) ? (
-            <Pill
-              className="bg-theme-background-lvl-4 opacity-70	"
-              pillKey={key}
-              pillValue={item}
-              closeable
-              onClose={() => deleteFilter(key, item)}
-              key={`${key}:${item}`}
-              onClick={() => activateFilter(key, item)}
-            />
-          ) : (
-            <Pill
-              pillKey={key}
-              pillValue={item}
-              closeable
-              onClose={() => deleteFilter(key, item)}
-              key={`${key}:${item}`}
-              onClick={() => pauseFilter(key, item)}
-            />
+        if (Array.isArray(filterItems)) {
+          return filterItems.map((item) =>
+            pausedFilters[key]?.includes(item) ? (
+              <Pill
+                className="bg-theme-background-lvl-4 opacity-70	"
+                pillKey={key}
+                pillValue={item}
+                closeable
+                onClose={() => deleteFilter(key, item)}
+                key={`${key}:${item}`}
+                onClick={() => activateFilter(key, item)}
+              />
+            ) : (
+              <Pill
+                pillKey={key}
+                pillValue={item}
+                closeable
+                onClose={() => deleteFilter(key, item)}
+                key={`${key}:${item}`}
+                onClick={() => pauseFilter(key, item)}
+              />
+            )
           )
-        )
+        }
       })}
     </Stack>
   )
