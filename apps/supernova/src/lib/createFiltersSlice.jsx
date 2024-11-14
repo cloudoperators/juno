@@ -33,8 +33,6 @@ const parseInitialFilters = (initialFilters, filterLabels) => {
     return {}
   }
 
-  console.log("initialFilters", initialFilters)
-
   // Check if all values are arrays
   initialFilters = Object.entries(initialFilters).reduce((acc, [key, value]) => {
     if (Array.isArray(value)) {
@@ -44,8 +42,6 @@ const parseInitialFilters = (initialFilters, filterLabels) => {
     }
     return acc
   }, {})
-
-  console.log("initialFilters2", initialFilters)
 
   // Check if all keys are in filterLabelValues
   if (!Object.keys(initialFilters).every((key) => filterLabels.includes(key))) {
