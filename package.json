@@ -16,6 +16,7 @@
     "generate:app": "turbo gen workspace --type app --copy @cloudoperators/juno-app-template --name",
     "format": "prettier --log-level warn --write \"**/*.{js,jsx,ts,tsx,md}\"",
     "check-format": "prettier --config ./.prettierrc --check \"**/*.{js,jsx,ts,tsx,md}\" ",
+    "check-format-no-md": "prettier --config ./.prettierrc --check \"**/*.{js,jsx,ts,tsx}\" ",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "npm run build && changeset publish",
