@@ -34,7 +34,7 @@ const FilterPills = () => {
           return filterItems?.map((item) =>
             pausedFilters[key]?.includes(item) ? (
               <Pill
-                className="bg-theme-background-lvl-4 opacity-70	"
+                className="bg-theme-background-lvl-4 opacity-70"
                 pillKey={key}
                 pillValue={item}
                 closeable
