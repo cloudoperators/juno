@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
 const codeStyles = `
   jn-bg-theme-code-block
@@ -14,16 +13,16 @@ const codeStyles = `
 /** A basic inline <code> component.
  *   Accepts "content" prop or renders children as passed.
  */
-export const Code = ({ content = "", children = null, className = "", ...props }) => {
+export const Code: React.FC<CodeProps> = ({ content = "", children = null, className = "", ...props }) => {
   return (
     <code className={`juno-code ${codeStyles} ${className}`} {...props}>
-      {content || children}
+      {(content || children) as React.ReactNode}
     </code>
   )
 }
 
-Code.propTypes = {
-  content: PropTypes.string,
-  className: PropTypes.string,
-  children: PropTypes.node,
+interface CodeProps extends React.ComponentPropsWithoutRef<"code"> {
+  content?: string
+  className?: string
+  children?: React.ReactNode
 }
