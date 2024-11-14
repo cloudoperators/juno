@@ -11,6 +11,16 @@ import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
 import { Button } from "../Button/"
 
+// ----- TODO -----
+// - add item functionality as per current menu
+// - add item styles
+// - add default toggle styles
+// - enable rendering an open menu when passing open={true} prop
+// - will require internal state, how to sync with headless menu?
+// - add size prop
+// - necessary to introduce context (size, open, handleToggle, etc)?
+// - position the menu
+
 // ----- Styles -----
 
 const itemIconStyles = `
