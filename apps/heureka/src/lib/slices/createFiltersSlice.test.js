@@ -193,7 +193,7 @@ describe("createFiltersSlice", () => {
         [SERVICES]: { filter2: ["value2"] },
         [COMPONENTS]: { filter3: ["value3"] },
       },
-      [constants.SEARCH_TERM]: expect.any(String),
+      [constants.SEARCH_TERM]: expect.any(String), // Use expect.any() for encoded search term verification
     })
   })
 })

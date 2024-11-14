@@ -134,6 +134,7 @@ const createGlobalsSlice = (set, get, options) => ({
         }
         const updatedState = {
           [constants.DETAILS_FOR]: panelType,
+          // Include `iid` or `svn` immediately after `d:issue/service` in the URL
           [panelType === constants.PANEL_SERVICE ? constants.SERVICE_NAME : constants.ISSUE_ID]:
             panelType === constants.PANEL_SERVICE ? serviceDetail : issueDetail,
         }
