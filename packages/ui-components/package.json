@@ -5,7 +5,7 @@
   "module": "build/index.js",
   "source": "src/index.js",
   "style": "build/lib/variables.css",
-  "version": "2.29.0",
+  "version": "2.30.0",
   "files": [
     "build/*",
     "src/colors.css",
