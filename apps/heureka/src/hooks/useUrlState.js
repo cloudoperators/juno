@@ -9,6 +9,8 @@ import {
   useGlobalsShowPanel,
   useGlobalsActiveView,
   useGlobalsActions,
+  useGlobalsShowServiceDetail,
+  useGlobalsShowIssueDetail,
   useServiceActiveFilters,
   useIssueMatchesActiveFilters,
   useComponentActiveFilters,
@@ -24,6 +26,8 @@ const useUrlState = () => {
 
   const activeView = useGlobalsActiveView()
   const detailsFor = useGlobalsShowPanel()
+  const showServiceDetail = useGlobalsShowServiceDetail()
+  const showIssueDetail = useGlobalsShowIssueDetail()
   const { setShowPanel, setActiveView, setServiceDetail, setIssueDetail, syncDetailsWithURL } = useGlobalsActions()
   const serviceActiveFilters = useServiceActiveFilters()
   const issueMatchesActiveFilters = useIssueMatchesActiveFilters()
@@ -69,8 +73,19 @@ const useUrlState = () => {
 
     const updatedState = {
       [constants.ACTIVE_VIEW]: activeView, // Include active view
-      ...syncFiltersWithURL(),
-      ...syncDetailsWithURL(),
+      ...syncFiltersWithURL(serviceActiveFilters, issueMatchesActiveFilters, componentActiveFilters),
+      ...(detailsFor
+        ? syncDetailsWithURL(
+            showServiceDetail,
+            showIssueDetail,
+            detailsFor === constants.PANEL_SERVICE ? constants.PANEL_SERVICE : constants.PANEL_ISSUE
+          )
+        : {
+            // Remove detailsFor from URL when details Panel is closed
+            [constants.DETAILS_FOR]: undefined,
+            [constants.SERVICE_NAME]: undefined,
+            [constants.ISSUE_ID]: undefined,
+          }),
     }
 
     // Construct the URL state
@@ -79,12 +94,14 @@ const useUrlState = () => {
       urlStateManager.push(updatedState)
     }
   }, [
-    detailsFor,
     activeView,
+    isURLRead,
+    detailsFor,
+    showServiceDetail,
+    showIssueDetail,
     serviceActiveFilters,
     issueMatchesActiveFilters,
     componentActiveFilters,
-    isURLRead,
     syncFiltersWithURL,
     syncDetailsWithURL,
   ])
