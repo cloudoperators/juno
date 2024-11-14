@@ -2,4 +2,4 @@
 "@cloudoperators/juno-app-supernova": patch
 ---
 
-InitialFilters which value is not an Array are not added to ActiveFilters
+InitialFilters whose value is not an array are not added to ActiveFilters.
