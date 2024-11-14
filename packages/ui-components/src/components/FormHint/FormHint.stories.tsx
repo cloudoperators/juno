@@ -5,7 +5,8 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { FormHint } from "./index"
+
+import { FormHint } from "./FormHint.component"
 
 export default {
   title: "Forms/FormHint",
@@ -13,6 +14,9 @@ export default {
   argTypes: {
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
 }

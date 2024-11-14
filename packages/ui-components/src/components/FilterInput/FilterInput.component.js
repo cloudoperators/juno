@@ -5,8 +5,8 @@
 
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import { NativeSelect } from "../NativeSelect/NativeSelect.component"
-import { NativeSelectOption } from "../NativeSelectOption/NativeSelectOption.component"
+import { NativeSelect } from "../../deprecated_js/NativeSelect/NativeSelect.component"
+import { NativeSelectOption } from "../../deprecated_js/NativeSelectOption/NativeSelectOption.component"
 import { TextInput } from "../../deprecated_js/TextInput/TextInput.component"
 import { Icon } from "../../deprecated_js/Icon/Icon.component"
 

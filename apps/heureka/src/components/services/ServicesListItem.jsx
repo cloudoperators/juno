@@ -19,13 +19,13 @@ const ServicesListItem = ({ item }) => {
   }, [item])
 
   const handleClick = () => {
-    if (showServiceDetail === service?.name && showPanel === constants.PANEL_SERVICE) {
+    if (showServiceDetail === service?.ccrn && showPanel === constants.PANEL_SERVICE) {
       {
         setShowServiceDetail(null)
         setShowPanel(constants.PANEL_NONE)
       }
     } else {
-      setShowServiceDetail(service?.name)
+      setShowServiceDetail(service?.ccrn)
       setShowPanel(constants.PANEL_SERVICE)
     }
   }
@@ -33,13 +33,13 @@ const ServicesListItem = ({ item }) => {
   return (
     <DataGridRow
       className={`cursor-pointer ${
-        showServiceDetail === service?.name && showPanel === constants.PANEL_SERVICE ? "active" : ""
+        showServiceDetail === service?.ccrn && showPanel === constants.PANEL_SERVICE ? "active" : ""
       }`}
       onClick={() => handleClick()}
     >
-      <DataGridCell>{service?.name}</DataGridCell>
+      <DataGridCell>{service?.ccrn}</DataGridCell>
       <DataGridCell>{listOfCommaSeparatedObjs(service?.owners, "name")}</DataGridCell>
-      <DataGridCell>{listOfCommaSeparatedObjs(service?.supportGroups, "name")}</DataGridCell>
+      <DataGridCell>{listOfCommaSeparatedObjs(service?.supportGroups, "ccrn")}</DataGridCell>
       <DataGridCell>{service?.metadata?.componentInstanceCount}</DataGridCell>
       <DataGridCell>{service?.metadata?.issueMatchCount}</DataGridCell>
     </DataGridRow>
