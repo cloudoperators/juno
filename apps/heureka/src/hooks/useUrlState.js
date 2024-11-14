@@ -6,7 +6,6 @@
 import { useLayoutEffect, useEffect, useState } from "react"
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import {
-  useAuthLoggedIn,
   useGlobalsShowPanel,
   useGlobalsActiveView,
   useGlobalsActions,
@@ -21,7 +20,6 @@ const urlStateManager = registerConsumer("heureka")
 
 const useUrlState = () => {
   const [isURLRead, setIsURLRead] = useState(false)
-  const loggedIn = useAuthLoggedIn()
   const { setFiltersFromURL, syncFiltersWithURL } = useFilterActions()
 
   const activeView = useGlobalsActiveView()
@@ -81,7 +79,6 @@ const useUrlState = () => {
       urlStateManager.push(updatedState)
     }
   }, [
-    loggedIn,
     detailsFor,
     activeView,
     serviceActiveFilters,
