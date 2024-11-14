@@ -42,7 +42,7 @@ export const AppShell = ({
       {contentHeading || ""}
       {embedded ? (
         <>
-          <HeaderContainer>{topNavigation && topNavigation}</HeaderContainer>
+          <HeaderContainer>{topNavigation}</HeaderContainer>
           <MainContainer>
             <MainContainerInner
               fullWidth={fullWidthContent === false ? false : true}
@@ -56,13 +56,13 @@ export const AppShell = ({
         </>
       ) : (
         <>
-          <HeaderContainer fullWidth={fullWidthContent === true ? true : false} className="">
+          <HeaderContainer fullWidth={fullWidthContent === true} className="">
             {pageHeader && (typeof pageHeader === "string" || pageHeader instanceof String) ? (
               <PageHeader heading={pageHeader} />
             ) : (
               pageHeader
             )}
-            {topNavigation && topNavigation}
+            {topNavigation}
             {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
           </HeaderContainer>
           <MainContainer>
