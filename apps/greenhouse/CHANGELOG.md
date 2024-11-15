@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.6
+
+### Patch Changes
+
+- a6789db: This change corrects URL state handling for filter property
+- Updated dependencies [a6789db]
+  - @cloudoperators/juno-app-heureka@2.10.1
+
 ## 0.3.5
 
 ### Patch Changes
