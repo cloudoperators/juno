@@ -157,7 +157,7 @@ const createFiltersSlice = (set, get) => ({
           `filters.setFiltersFromURL`
         ),
 
-      syncFiltersWithURL: () => {
+      syncFiltersWithURL: (issueFilters, serviceFilters, componentFilters) => {
         const encodedSearchTerm = btoa(
           JSON.stringify({
             [ISSUEMATCHES]: get().filters[ISSUEMATCHES].search,
@@ -167,9 +167,9 @@ const createFiltersSlice = (set, get) => ({
         )
 
         const activeFilters = {
-          [ISSUEMATCHES]: get().filters[ISSUEMATCHES].activeFilters,
-          [SERVICES]: get().filters[SERVICES].activeFilters,
-          [COMPONENTS]: get().filters[COMPONENTS].activeFilters,
+          [ISSUEMATCHES]: issueFilters,
+          [SERVICES]: serviceFilters,
+          [COMPONENTS]: componentFilters,
         }
 
         return {
