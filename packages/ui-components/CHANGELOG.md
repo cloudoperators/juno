@@ -1,5 +1,13 @@
 # @cloudoperators/juno-ui-components
 
+## 2.30.0
+
+### Minor Changes
+
+- b1a5eb1: Migrate the ContextMenu component to TypeScript
+- c9190d0: Migrate NativeSelect, NativeSelectionOption and NativeSelectOptionGroup components to TypeScript
+- 18ebaba: Migrate Form, FormRow and FormSection components to TypeScript
+
 ## 2.29.0
 
 ### Minor Changes
