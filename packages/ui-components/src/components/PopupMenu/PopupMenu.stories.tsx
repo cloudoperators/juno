@@ -151,6 +151,19 @@ export const WithSectionWithTitle = {
   },
 }
 
+export const WithNonPopupMenuMenu = {
+  parameters: {
+    docs: {
+      description: {
+        story: "If necessary, elements other than `PopupMenu.Menu` can be passed as `menu`, too.",
+      },
+    },
+  },
+  args: {
+    menu: <div>I can be a menu, too!</div>,
+  },
+}
+
 export const WIPWithMenuChild = {
   parameters: {
     docs: {

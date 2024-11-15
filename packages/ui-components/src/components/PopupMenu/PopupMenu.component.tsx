@@ -18,6 +18,7 @@ import { Button } from "../Button/"
 // - enable rendering an open menu when passing open={true} prop
 // - will require internal state, how to sync with headless menu?
 // - add size prop
+// - allow passing an array of PopupMenu.Item elements without wrapping PopupMenu.Menu?
 // - necessary to introduce context (size, open, handleToggle, etc)?
 // - position the menu
 // - allow for passing Toggle and Menu children, too
