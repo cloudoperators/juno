@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.10.1
+
+### Patch Changes
+
+- a6789db: This change corrects URL state handling for filter property
+
 ## 2.10.0
 
 ### Minor Changes
