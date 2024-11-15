@@ -81,7 +81,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
     onOpenChange && onOpenChange(!open)
   }
 
-  // Function to determine if an element is a native button or renders a button
+  // Function to determine if an element is a native button or renders a button element.
   const rendersButtonElement = (element: React.ReactElement): boolean => {
     // Check for native button elements
     if (element.type === "button") return true
@@ -92,12 +92,12 @@ const PopupMenu: React.FC<PopupMenuProps> & {
     return false
   }
 
-  // Determine which toggle to use
+  // Determine which toggle to use, and what to do with it: When the element is passed as a plain <button> or a "Button" component, we will render the Headless Menu Button as a Fragment, otherwise the element will be wrapped in a <button> element by Headless Menu:
   const toggleToRender = propToggle ? (
     // Use toggle as passed as prop
     React.isValidElement(propToggle) ? (
       rendersButtonElement(propToggle) ? (
-        // If the provided propToggle renders a <button>, use it directly within HeadlessMenu.Button without wrapping it in a <button> element:
+        // If the provided propToggle renders a <button>, use it directly within HeadlessMenu.Button rendered as a Fragment, as to not wrap it in a <button> element, effectively prevent nesting two buttons and rendering invalid html:
         <HeadlessMenu.Button as={React.Fragment}>{propToggle}</HeadlessMenu.Button>
       ) : (
         // Otherwise, wrap the passed element in a PopupMenu.Toggle button element

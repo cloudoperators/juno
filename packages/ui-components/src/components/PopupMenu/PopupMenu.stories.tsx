@@ -89,6 +89,27 @@ export const WithPlainButtonToggleAsProp = {
   },
 }
 
+export const WithNonButtonToggleAsProp = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When passign a random, plain html element such as a `<div` as a toggle, it will be wrapped in a `<button>` element.",
+      },
+    },
+  },
+  args: {
+    toggle: <div>This is just a div</div>,
+    menu: (
+      <PopupMenu.Menu>
+        <PopupMenu.Item label="Menu Item 1" />
+        <PopupMenu.Item label="Menu Item 2" />
+        <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
+      </PopupMenu.Menu>
+    ),
+  },
+}
+
 export const WithButtonComponentToggleAsProp = {
   args: {
     toggle: <Button label="Button Component Toggle" />,
