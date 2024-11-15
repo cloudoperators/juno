@@ -71,7 +71,7 @@ export const AppShell = ({
               hasSideNav={sideNavigation ? true : false}
               className="jn-mt-[3.875rem]"
             >
-              {sideNavigation && sideNavigation}
+              {sideNavigation}
               <ContentContainer>{children}</ContentContainer>
             </MainContainerInner>
           </MainContainer>
