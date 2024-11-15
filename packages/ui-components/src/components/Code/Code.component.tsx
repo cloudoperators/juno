@@ -16,7 +16,7 @@ const codeStyles = `
 export const Code: React.FC<CodeProps> = ({ content = "", children = null, className = "", ...props }) => {
   return (
     <code className={`juno-code ${codeStyles} ${className}`} {...props}>
-      {(content || children) as React.ReactNode}
+      {content || children}
     </code>
   )
 }
