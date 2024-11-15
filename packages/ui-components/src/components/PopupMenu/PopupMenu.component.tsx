@@ -38,7 +38,7 @@ export interface PopupMenuProps {
   // eslint-disable-next-line no-unused-vars
   onOpenChange?: (open: boolean) => void
   open?: boolean
-  toggle: React.ReactElement
+  toggle?: React.ReactElement
 }
 
 export interface PopupMenuToggleProps {
