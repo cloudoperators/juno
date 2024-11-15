@@ -42,7 +42,7 @@ export const AppShell = ({
       {contentHeading || ""}
       {embedded ? (
         <>
-          <HeaderContainer>{topNavigation}</HeaderContainer>
+          {topNavigation && <HeaderContainer>{topNavigation}</HeaderContainer>}
           <MainContainer>
             <MainContainerInner
               fullWidth={fullWidthContent === false ? false : true}
