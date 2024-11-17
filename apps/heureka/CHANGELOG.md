@@ -1,5 +1,25 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.10.1
+
+### Patch Changes
+
+- a6789db: This change corrects URL state handling for filter property
+
+## 2.10.0
+
+### Minor Changes
+
+- eea5de6: The pagination is added to the list of component instances for a selected service on the service details page.
+
+### Patch Changes
+
+- Updated dependencies [63a951c]
+- Updated dependencies [5a4e3d1]
+- Updated dependencies [7cb142d]
+- Updated dependencies [a278544]
+  - @cloudoperators/juno-ui-components@2.29.0
+
 ## 2.9.2
 
 ### Patch Changes

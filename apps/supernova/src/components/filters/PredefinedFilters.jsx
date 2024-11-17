@@ -25,7 +25,7 @@ const PredefinedFilters = () => {
     <Stack>
       {predefinedFilters && selectedItem && (
         <TabNavigation activeItem={selectedItem} onActiveItemChange={handleTabSelect}>
-          {predefinedFilters.map((filter) => (
+          {predefinedFilters?.map((filter) => (
             <TabNavigationItem key={filter.name} value={filter.name} label={filter.displayName} />
           ))}
         </TabNavigation>

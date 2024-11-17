@@ -45,9 +45,16 @@ const useApi = () => {
           const url = conf.status?.uiApplication?.url
 
           // temporary fix to forward initialFilters to the Plugins until middleware is implemented
-          const appProps = { username: authData?.parsed?.fullName }
-          appProps.initialFilters = {
-            support_group: authData?.parsed?.supportGroups?.map((group) => group),
+          // Extract username and support group information for appProps
+          const appProps = {
+            username: authData?.parsed?.fullName,
+          }
+
+          // Conditionally add initialFilters if supportGroups exists and is an array
+          if (Array.isArray(authData?.parsed?.supportGroups)) {
+            appProps.initialFilters = {
+              support_group: authData.parsed.supportGroups.map((group) => String(group)),
+            }
           }
 
           const newConf = createPluginConfig({
