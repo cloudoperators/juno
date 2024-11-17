@@ -40,16 +40,16 @@ export default {
       },
     },
     onBlur: {
-      control: false
+      control: false,
     },
     onChange: {
-      control: false
+      control: false,
     },
     onFocus: {
-      control: false
+      control: false,
     },
     onInputChange: {
-      control: false
+      control: false,
     },
   },
   decorators: [
