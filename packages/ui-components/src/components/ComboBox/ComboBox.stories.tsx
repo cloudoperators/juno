@@ -23,12 +23,33 @@ export default {
     },
     errortext: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
     helptext: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
     successtext: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
+    },
+    onBlur: {
+      control: false
+    },
+    onChange: {
+      control: false
+    },
+    onFocus: {
+      control: false
+    },
+    onInputChange: {
+      control: false
     },
   },
   decorators: [

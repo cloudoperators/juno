@@ -463,9 +463,9 @@ export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   /** Whether the ComboBox has an error. Note this refers to an internal error like failing to load options etc., to indicate failed validation use `invalid` instead. */
   error?: boolean
   /** An errortext to display when the ComboBox failed validation or an internal error occurred. */
-  errortext?: JSX.Element | string
+  errortext?: React.ReactNode
   /** A helptext to render to explain meaning and significance of the ComboBox */
-  helptext?: JSX.Element | string
+  helptext?: React.ReactNode
   /** The Id of the ComboBox. Will be assigned to the text input part of the ComboBox. If not passed, an id will be auto-generated. */
   id?: string
   /** Whether the ComboBox failed validation */
@@ -491,7 +491,7 @@ export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   /** Whether the ComboBox is required */
   required?: boolean
   /** A text to display in case the ComboBox was successfully validated. Will set the ComboBox to `valid` when passed. */
-  successtext?: JSX.Element | string
+  successtext?: React.ReactNode
   /** Whether the option labels should be truncated in case they are longer/wider than the available space in an option or not. Default is FALSE. */
   truncateOptions?: boolean
   /** Whether the ComboBox was successfully validated */
