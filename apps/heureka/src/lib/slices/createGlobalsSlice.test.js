@@ -98,20 +98,29 @@ describe("createGlobalsSlice", () => {
   })
 
   it("should sync details with URL correctly for service", () => {
-    useStore.getState().globals.actions.setServiceDetail("service-123")
-    const urlState = useStore.getState().globals.actions.syncDetailsWithURL()
+    const serviceId = "service-123"
+    const urlState = useStore.getState().globals.actions.syncDetailsWithURL(serviceId, null, constants.PANEL_SERVICE)
     expect(urlState).toEqual({
       [constants.DETAILS_FOR]: constants.PANEL_SERVICE,
-      [constants.SERVICE_NAME]: "service-123",
+      [constants.SERVICE_NAME]: serviceId,
     })
   })
 
   it("should sync details with URL correctly for issue", () => {
-    useStore.getState().globals.actions.setIssueDetail("issue-456")
-    const urlState = useStore.getState().globals.actions.syncDetailsWithURL()
+    const issueId = "issue-456"
+    const urlState = useStore.getState().globals.actions.syncDetailsWithURL(null, issueId, constants.PANEL_ISSUE)
     expect(urlState).toEqual({
       [constants.DETAILS_FOR]: constants.PANEL_ISSUE,
-      [constants.ISSUE_ID]: "issue-456",
+      [constants.ISSUE_ID]: issueId,
+    })
+  })
+
+  it("should handle clearing details for URL correctly when no panel is open", () => {
+    const urlState = useStore.getState().globals.actions.syncDetailsWithURL(undefined, undefined, undefined)
+    expect(urlState).toEqual({
+      [constants.DETAILS_FOR]: undefined,
+      [constants.SERVICE_NAME]: undefined,
+      [constants.ISSUE_ID]: undefined,
     })
   })
 })

@@ -185,13 +185,7 @@ describe("createFiltersSlice", () => {
 
   it("should synchronize filters with URL correctly", () => {
     const { syncFiltersWithURL } = store.getState().filters.actions
-
-    // Set up initial filters and search terms
-    store.getState().filters.actions.setActiveFilters(ISSUEMATCHES, { filter1: ["value1"] })
-    store.getState().filters.actions.setActiveFilters(SERVICES, { filter2: ["value2"] })
-    store.getState().filters.actions.setActiveFilters(COMPONENTS, { filter3: ["value3"] })
-
-    const result = syncFiltersWithURL()
+    const result = syncFiltersWithURL({ filter1: ["value1"] }, { filter2: ["value2"] }, { filter3: ["value3"] })
 
     expect(result).toEqual({
       [constants.ACTIVE_FILTERS]: {

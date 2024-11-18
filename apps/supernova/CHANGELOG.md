@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.14.3
+
+### Patch Changes
+
+- 879812b: InitialFilters whose value is not an array are not added to ActiveFilters.
+- Updated dependencies [b1a5eb1]
+- Updated dependencies [c9190d0]
+- Updated dependencies [18ebaba]
+  - @cloudoperators/juno-ui-components@2.30.0
+
 ## 0.14.2
 
 ### Patch Changes
