@@ -56,7 +56,7 @@ export const AppShell = ({
         </>
       ) : (
         <>
-          <HeaderContainer fullWidth={fullWidthContent === true} className="">
+          <HeaderContainer fullWidth={fullWidthContent === true}>
             {pageHeader && (typeof pageHeader === "string" || pageHeader instanceof String) ? (
               <PageHeader heading={pageHeader} />
             ) : (

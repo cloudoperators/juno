@@ -66,7 +66,6 @@ const App = (props = {}) => {
       <MonorepoChecker></MonorepoChecker>
       <AsyncWorker consumerId={props.id} mockAPI={true} />
       <AppShell
-        fullWidthContent
         embedded={props.embedded === "true" || props.embedded === true}
         pageHeader={
           <PageHeader heading="Converged Cloud | Example App">

@@ -15,12 +15,12 @@ const headerContainerStyles = `
   jn-bg-theme-global-bg
 `
 
-export const HeaderContainer = ({
+export const HeaderContainer: React.FC<HeaderContainerProps> = ({
   fullWidth = false,
   className = "",
   children = null,
   ...props
-}: HeaderContainerProps) => {
+}) => {
   return (
     <div
       className={`
@@ -35,7 +35,7 @@ export const HeaderContainer = ({
   )
 }
 
-export interface HeaderContainerProps {
+export interface HeaderContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Whether the page/view content will stretch over the full width of the viewport or not. Default is `false`. */
   fullWidth?: boolean
   /** Add custom class name */
