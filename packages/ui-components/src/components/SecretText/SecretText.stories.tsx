@@ -36,7 +36,7 @@ export default {
     },
     onToggle: {
       control: false,
-    }
+    },
   },
 }
 
