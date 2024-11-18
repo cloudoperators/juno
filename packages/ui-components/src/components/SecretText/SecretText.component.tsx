@@ -4,13 +4,12 @@
  */
 
 import React, { useEffect, useId, useState } from "react"
-import PropTypes from "prop-types"
-import { Textarea } from "../../deprecated_js/Textarea/index.js"
-import { ButtonRow } from "../../deprecated_js/ButtonRow/"
-import { Button } from "../../deprecated_js/Button/"
-import { FormHint } from "../../deprecated_js/FormHint/"
-import { Stack } from "../../deprecated_js/Stack/"
-import { Label } from "../../deprecated_js/Label/index.js"
+import { Textarea } from "../Textarea/index"
+import { ButtonRow } from "../ButtonRow/index"
+import { Button } from "../Button/index"
+import { FormHint } from "../FormHint/index"
+import { Stack } from "../Stack/index"
+import { Label } from "../Label/index"
 
 const innerWrapperStyles = `
   jn-relative
@@ -60,7 +59,7 @@ const actionStyles = `
 `
 
 /** A component to hold a secret text, e.g. an SSH key, and conceal or reveal as needed. */
-export const SecretText = ({
+export const SecretText: React.FC<SecretTextProps> = ({
   autoComplete = "off",
   className = "",
   clear = true,
@@ -84,6 +83,7 @@ export const SecretText = ({
   onReveal = undefined,
   onToggle = undefined,
   label,
+  name,
   paste = true,
   placeholder = "",
   readOnly = false,
@@ -97,7 +97,7 @@ export const SecretText = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isNotEmptyString = (str) => {
+  const isNotEmptyString = (str: string) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -108,7 +108,7 @@ export const SecretText = ({
   const [val, setVal] = useState("")
   const [isCopied, setIsCopied] = useState(false)
   const [hasFocus, setHasFocus] = useState(false)
-  const timeoutRef = React.useRef(null)
+  const timeoutRef = React.useRef<number | null>(null)
 
   useEffect(() => {
     setIsRevealed(reveal)
@@ -118,7 +118,7 @@ export const SecretText = ({
     setVal(value)
   }, [value])
 
-  const handleValueChange = (event) => {
+  const handleValueChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setVal(event.target.value)
     onChange && onChange(event)
   }
@@ -135,30 +135,37 @@ export const SecretText = ({
   }
 
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(val || "")
-    setIsCopied(true)
-    clearTimeout(timeoutRef.current) // clear any possibly existing Refs
-    timeoutRef.current = setTimeout(() => setIsCopied(false), 1000)
-    onCopy && onCopy(val)
+    navigator.clipboard
+      .writeText(val || "")
+      .then(() => {
+        setIsCopied(true)
+        clearTimeout(timeoutRef.current || undefined) // clear any possibly existing Refs
+        timeoutRef.current = window.setTimeout(() => setIsCopied(false), 1000)
+        onCopy && onCopy(val)
+      })
+      .catch(() => {
+        console.warn("Failed to read clipboard.")
+      })
   }
 
   const handlePasteClick = () => {
-    try {
-      navigator.clipboard.readText().then((clipboardText) => {
+    navigator.clipboard
+      .readText()
+      .then((clipboardText) => {
         setVal(clipboardText)
         onPaste && onPaste(clipboardText)
       })
-    } catch (_error) {
-      console.warn("Failed to read clipboard.")
-    }
+      .catch(() => {
+        console.warn("Failed to read clipboard.")
+      })
   }
 
-  const handleFocus = (event) => {
+  const handleFocus = (event: React.FocusEvent<HTMLTextAreaElement>) => {
     setHasFocus(true)
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event) => {
+  const handleBlur = (event: React.FocusEvent<HTMLTextAreaElement>) => {
     setHasFocus(false)
     onBlur && onBlur(event)
   }
@@ -241,7 +248,7 @@ export const SecretText = ({
               size="small"
               className={`${actionStyles}`}
               onClick={handleClearClick}
-              disabled={disabled || disableClear || !val.length ? true : null}
+              disabled={disabled || disableClear || !val.length ? true : undefined}
               title="Clear"
             >
               Clear
@@ -255,7 +262,7 @@ export const SecretText = ({
               className={`${actionStyles}`}
               onClick={handleToggleClick}
               title={isRevealed ? "Hide" : "Reveal"}
-              disabled={disabled || disableToggle ? true : null}
+              disabled={disabled || disableToggle ? true : undefined}
             >
               {isRevealed ? "Hide" : "Reveal"}
             </Button>
@@ -267,7 +274,7 @@ export const SecretText = ({
               size="small"
               className={`${actionStyles}`}
               onClick={handleCopyClick}
-              disabled={disabled || disableCopy || !val.length ? true : null}
+              disabled={disabled || disableCopy || !val.length ? true : undefined}
               title="Copy"
             >
               Copy
@@ -281,7 +288,7 @@ export const SecretText = ({
               className={`${actionStyles}`}
               onClick={handlePasteClick}
               title="Paste"
-              disabled={disabled || disablePaste ? true : null}
+              disabled={disabled || disablePaste ? true : undefined}
             >
               Paste
             </Button>
@@ -294,75 +301,78 @@ export const SecretText = ({
   )
 }
 
-SecretText.propTypes = {
+//eslint-disable-next-line no-unused-vars
+type ValueChangeHandler = (value: string) => void
+
+export interface SecretTextProps extends Omit<React.HTMLAttributes<HTMLTextAreaElement>, "onCopy" | "onPaste"> {
   /** Whether the secret field should autocomplete. */
-  autoComplete: PropTypes.string,
+  autoComplete?: string
   /** Pass a custom className to the Secret input field. */
-  className: PropTypes.string,
+  className?: string
   /** Whether the Clear button is rendered. */
-  clear: PropTypes.bool,
+  clear?: boolean
   /** Whether the Copy button is rendered. */
-  copy: PropTypes.bool,
+  copy?: boolean
   /** A small text to display for a second to confirm the secret's content was copied to the clipboard. */
-  copyConfirmtext: PropTypes.string,
+  copyConfirmtext?: string
   /** Disable the Clear button */
-  disableClear: PropTypes.bool,
+  disableClear?: boolean
   /** Disable the Copy button */
-  disableCopy: PropTypes.bool,
+  disableCopy?: boolean
   /** Whether the Secret's input is disabled. */
-  disabled: PropTypes.bool,
+  disabled?: boolean
   /** Disable the Paste button */
-  disablePaste: PropTypes.bool,
+  disablePaste?: boolean
   /** Disable the Hide/Reveal button */
-  disableToggle: PropTypes.bool,
+  disableToggle?: boolean
   /** A small text to display information regarding any errors in the context of the Secret. */
-  errortext: PropTypes.string,
+  errortext?: string
   /** A small text to display giving more information and context about the Secret. */
-  helptext: PropTypes.string,
+  helptext?: string
   /** Pass an id  */
-  id: PropTypes.string,
+  id?: string
   /** Whether the Secret's content is invalid. */
-  invalid: PropTypes.bool,
+  invalid?: boolean
   /** A label to display above the SecretText's textarea. */
-  label: PropTypes.string,
+  label?: string
   /** The name of the SecretText's textarea. */
-  name: PropTypes.string,
+  name?: string
   /** A handler to execute when the Secret's input area looses focus. */
-  onBlur: PropTypes.func,
+  onBlur?: React.FocusEventHandler<HTMLTextAreaElement>
   /** A handler to execute when the Secret's content changes. */
-  onChange: PropTypes.func,
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>
   /** A handler to execute when the user clears the Secret's content using the Clear button. */
-  onClear: PropTypes.func,
+  onClear?: () => void
   /** A handler to execute when the user copies the Secret's content to the clipboard. */
-  onCopy: PropTypes.func,
+  onCopy?: ValueChangeHandler
   /** A handler to execute when the SecretText textarea receives focus */
-  onFocus: PropTypes.func,
+  onFocus?: React.FocusEventHandler<HTMLTextAreaElement>
   /** A handler to execute when the user hides the Secret's content. */
-  onHide: PropTypes.func,
+  onHide?: () => void
   /** A handler to execute when the user pastes text from the clipboard into the SecretText. */
-  onPaste: PropTypes.func,
+  onPaste?: ValueChangeHandler
   /** A handler to execute when the user reveals the Secret's content. */
-  onReveal: PropTypes.func,
+  onReveal?: () => void
   /** A handler to execute when the visibility of the SecretText's content is toggled, i.e. this will be run when the content is revealed and when it is hidden. */
-  onToggle: PropTypes.func,
+  onToggle?: () => void
   /** Whether a button to paste text content even in hidden mode is rendered. */
-  paste: PropTypes.bool,
+  paste?: boolean
   /** Pass a placeholder to the SecretText's textarea */
-  placeholder: PropTypes.string,
+  placeholder?: string
   /** Whether the SecretText content is read only, i.e. can not be edited..*/
-  readOnly: PropTypes.bool,
+  readOnly?: boolean
   /** Whether the SecretText is required. Passing `true` will render a small required marker to the label. This will only have an effect when a label is passed, too.  */
-  required: PropTypes.bool,
+  required?: boolean
   /** Whether the secret's content is revealed / legible. */
-  reveal: PropTypes.bool,
+  reveal?: boolean
   /** A small text to display giving information in the context of the secret, e.g. when it was successfully validated or matches specific requirements, etc.  */
-  successtext: PropTypes.string,
+  successtext?: string
   /** Whether a button to toggle visibility of the SecretText's content should be rendered. */
-  toggle: PropTypes.bool,
+  toggle?: boolean
   /** Whether the Secret's content was successfully validated. */
-  valid: PropTypes.bool,
+  valid?: boolean
   /** The value of the SecretText, i.e. the Secret's content.  */
-  value: PropTypes.string,
+  value?: string
   /** Pass a className to the outer wrapper element */
-  wrapperClassName: PropTypes.string,
+  wrapperClassName?: string
 }
