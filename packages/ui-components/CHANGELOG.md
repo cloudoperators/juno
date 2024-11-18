@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 2.31.0
+
+### Minor Changes
+
+- 0687bfa: Migrate ComboBox and ComboBoxOption to TypeScript
+- 6bfeffe: Migrate Code component to TypeScript
+
 ## 2.30.0
 
 ### Minor Changes
