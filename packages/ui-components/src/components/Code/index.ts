@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { Code } from "./Code.component.js"
+export { Code } from "./Code.component"
