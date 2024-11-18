@@ -100,14 +100,14 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
 }
 
 export interface ComboBoxOptionProps extends React.HTMLProps<HTMLLIElement> {
-  /** Children - will be shown to user */
+  /** Content to render inside the ComboBoxOption. Is specified should be string. */
   children?: string
-  /** If option is disabled */
+  /** If option is disabled. */
   disabled?: boolean
-  /** Option value */
+  /** Option value. */
   value?: string
-  /** Option label */
+  /** Option label. */
   label?: string
-  /** Class for the option */
+  /** CSS class for the option. */
   className?: string
 }
