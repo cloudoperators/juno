@@ -213,7 +213,7 @@ const ToggleWrapper: React.FC<{ toggle: React.ReactElement<ToggleElementProps>; 
 
   // If the element is not a button, Button component or native PopupMenu.Toggle, wrap the element in a button:
   return (
-    <HeadlessMenu.Button as="button" onClick={handleClick} type="button">
+    <HeadlessMenu.Button as="button" className={`juno-popupmenu-toggle`} onClick={handleClick} type="button">
       {toggle}
     </HeadlessMenu.Button>
   )
