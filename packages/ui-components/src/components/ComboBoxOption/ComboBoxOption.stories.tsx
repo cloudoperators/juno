@@ -5,7 +5,7 @@
 
 import React from "react"
 import { ComboBox } from "../ComboBox/ComboBox.component"
-import { ComboBoxOption } from "../ComboBoxOption/ComboBoxOption.component"
+import { ComboBoxOption, ComboBoxOptionProps } from "./ComboBoxOption.component"
 
 export default {
   title: "Forms/ComboBox/ComboBoxOption",
@@ -13,7 +13,7 @@ export default {
   argTypes: {},
 }
 
-const Template = (args) => {
+const Template = (args: ComboBoxOptionProps) => {
   return (
     <ComboBox>
       <ComboBoxOption {...args} />
