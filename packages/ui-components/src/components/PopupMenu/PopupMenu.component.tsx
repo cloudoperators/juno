@@ -5,23 +5,22 @@
 
 /* eslint-disable react/prop-types */
 
-import React, { useEffect, useState } from "react"
+import React, { createContext, useEffect, useState } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
 import { Button } from "../Button/"
 
 // ----- TODO -----
+// - DONE: enable rendering an open menu when passing open={true} prop
 // - add item functionality as per current menu
 // - add item styles
 // - add default toggle styles
-// - enable rendering an open menu when passing open={true} prop
-// - will require internal state, how to sync with headless menu?
 // - add size prop
-// - allow passing an array of PopupMenu.Item elements without wrapping PopupMenu.Menu?
-// - necessary to introduce context (size, open, handleToggle, etc)?
+// - update context to store size, toggleMenu handler
 // - position the menu
 // - allow for passing Toggle and Menu children, too
+// - allow passing an array of PopupMenu.Item elements without wrapping PopupMenu.Menu?
 
 // ----- Styles -----
 
@@ -31,6 +30,10 @@ const itemIconStyles = `
 `
 
 // ---- Interfaces -----
+
+interface PopupMenuContextType {
+  open?: boolean
+}
 
 export interface PopupMenuProps {
   children?: React.ReactNode
@@ -71,6 +74,9 @@ type ToggleElementProps = {
   onClick?: React.MouseEventHandler<HTMLElement>
   children?: React.ReactNode
 }
+
+// ----- Create Context -----
+const PopupMenuContext = createContext<PopupMenuContextType | undefined>(undefined)
 
 // ----- Component Definitions -----
 
@@ -114,10 +120,14 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   ) : null
 
   return (
-    <HeadlessMenu>
-      {toggleToRender}
-      <PortalProvider.Portal>{isOpen && <HeadlessMenu.Items>{menuToRender}</HeadlessMenu.Items>}</PortalProvider.Portal>
-    </HeadlessMenu>
+    <PopupMenuContext.Provider value={{ open: isOpen }}>
+      <HeadlessMenu className={`juno-popupmenu`} as="div">
+        {toggleToRender}
+        <PortalProvider.Portal>
+          {isOpen && <HeadlessMenu.Items static>{menuToRender}</HeadlessMenu.Items>}
+        </PortalProvider.Portal>
+      </HeadlessMenu>
+    </PopupMenuContext.Provider>
   )
 }
 PopupMenu.displayName = "PopupMenu"
@@ -134,7 +144,7 @@ PopupMenu.Toggle = React.forwardRef<HTMLButtonElement, PopupMenuToggleProps>(
 PopupMenu.Toggle.displayName = "PopupMenu.Toggle"
 
 // Menu
-// For some reason, this component caused a `Component definition is missing display name  react/display-name` error when declared after component definition (as with all the other subcomponents in this file) -> TODO: Evaluate/discuss whether to update all subcomponents to be declared like Menu
+// This component causes a `Component definition is missing display name  react/display-name` error when declared after component definition (as with all the other subcomponents in this file) -> TODO: Evaluate/discuss whether to update all subcomponents to be declared like Menu
 const Menu: React.FC<PopupMenuMenuProps> = ({ children = null }) => (
   <div className="juno-popupmenu-menu">{children}</div>
 )
