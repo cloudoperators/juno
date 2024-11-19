@@ -2,6 +2,7 @@ import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
 import { PopupMenu } from "./index"
+import { Button } from "../Button/"
 
 describe("PopupMenu", () => {
   test("renders a PopupMenu default toggle", () => {
@@ -30,7 +31,11 @@ describe("PopupMenu", () => {
     expect(screen.getByTestId("my-button")).toBeInTheDocument()
     expect(screen.getByTestId("my-button")).toHaveTextContent("My custom button")
   })
-  test.skip("renders a Juno Button component as a toggle as passed as a prop", () => {})
+  test("renders a Juno Button component as a toggle as passed as a prop", () => {
+    render(<PopupMenu toggle={<Button>My Juno Button</Button>} />)
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveClass("juno-button")
+  })
   test("renders a non-button element wrapped in a button as passed as a prop", () => {
     render(<PopupMenu toggle={<div data-testid="my-non-button">Not a button</div>} />)
     expect(screen.getByRole("button")).toBeInTheDocument()
