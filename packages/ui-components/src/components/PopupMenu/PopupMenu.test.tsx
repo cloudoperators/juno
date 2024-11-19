@@ -35,5 +35,6 @@ describe("PopupMenu", () => {
     render(<PopupMenu toggle={<div data-testid="my-non-button">Not a button</div>} />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
+    expect(screen.getByTestId("my-non-button").closest(".juno-popupmenu-toggle")).toBeInTheDocument()
   })
 })
