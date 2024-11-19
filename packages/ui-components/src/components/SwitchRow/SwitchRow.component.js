@@ -5,8 +5,8 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { Switch } from "../Switch/index.js"
-import { FormRow } from "../FormRow/index.js"
+import { Switch } from "../../deprecated_js/Switch/Switch.component"
+import { FormRow } from "../../deprecated_js/FormRow/FormRow.component"
 import { withDeprecationWarning } from "../../deprecated_js/withDeprecationWarning/index.js"
 
 /** DEPRECATED: A Switch input row containing a switch, associated label, and structural markup. This component is DEPRECATED, use Switch instead. */

@@ -3,14 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import junoConfigs from "@cloudoperators/juno-config/eslint/juno.mjs"
+import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 
 export default [
   ...junoConfigs,
   {
-    files: ["**/*.test.js"],
+    files: ["**/*.ts"],
     languageOptions: {
-      sourceType: "module",
+      parserOptions: {
+        project: ["./tsconfig.json"], // Ensure this points to your tsconfig.json
+      },
     },
+    // TODO: We need to make all of this checks on again, step by step
+    rules: {
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+    ignores: ["vitest.config.ts", "vite.config.ts"],
   },
 ]

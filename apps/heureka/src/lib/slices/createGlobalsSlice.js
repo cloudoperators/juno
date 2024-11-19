@@ -33,6 +33,11 @@ const createGlobalsSlice = (set, get, options) => ({
           first: 20,
         },
       },
+      ComponentInstancesOfService: {
+        queryOptions: {
+          first: 8,
+        },
+      },
     },
 
     actions: {
@@ -119,13 +124,19 @@ const createGlobalsSlice = (set, get, options) => ({
         ),
 
       // Sync details state with the URL
-      syncDetailsWithURL: () => {
-        const state = get().globals
+      syncDetailsWithURL: (serviceDetail, issueDetail, panelType) => {
+        if (panelType === undefined || panelType === null) {
+          return {
+            [constants.DETAILS_FOR]: panelType,
+            [constants.SERVICE_NAME]: undefined,
+            [constants.ISSUE_ID]: undefined,
+          }
+        }
         const updatedState = {
-          [constants.DETAILS_FOR]: state.showPanel,
-          // Include `iid` or `svn` immediately after `d:issue/service`
-          [state.showPanel === constants.PANEL_SERVICE ? constants.SERVICE_NAME : constants.ISSUE_ID]:
-            state.showPanel === constants.PANEL_SERVICE ? state.showServiceDetail : state.showIssueDetail,
+          [constants.DETAILS_FOR]: panelType,
+          // Include `iid` or `svn` immediately after `d:issue/service` in the URL
+          [panelType === constants.PANEL_SERVICE ? constants.SERVICE_NAME : constants.ISSUE_ID]:
+            panelType === constants.PANEL_SERVICE ? serviceDetail : issueDetail,
         }
         return updatedState
       },
