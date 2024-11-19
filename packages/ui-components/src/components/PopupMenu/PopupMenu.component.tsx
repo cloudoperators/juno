@@ -5,7 +5,7 @@
 
 /* eslint-disable react/prop-types */
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
@@ -67,6 +67,11 @@ export interface PopupMenuSectionProps {
   title?: string
 }
 
+type ToggleElementProps = {
+  onClick?: React.MouseEventHandler<HTMLElement>
+  children?: React.ReactNode
+}
+
 // ----- Component Definitions -----
 
 // Popup Menu
@@ -78,35 +83,22 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Item: React.FC<PopupMenuItemProps>
   Section: React.FC<PopupMenuSectionProps>
 } = ({ icon = "moreVert", menu: propMenu, onOpenChange = undefined, open = false, toggle: propToggle }) => {
+  const [isOpen, setIsOpen] = useState(open)
+
+  useEffect(() => {
+    setIsOpen(open)
+  }, [open])
+
   const handleToggleClick = () => {
-    onOpenChange && onOpenChange(!open)
+    const newOpenState = !isOpen
+    setIsOpen(newOpenState)
+    onOpenChange && onOpenChange(newOpenState)
   }
 
-  // Function to determine if an element is a native button or renders a button element.
-  const rendersButtonElement = (element: React.ReactElement): boolean => {
-    // Check for native button elements
-    if (element.type === "button") return true
-
-    // Check for display names of Juno components allowed as toggles
-    if (element.type === Button) return true
-
-    return false
-  }
-
-  // Determine which toggle to use, and what to do with it: When the element is passed as a plain <button> or a "Button" component, we will render the Headless Menu Button as a Fragment, otherwise the element will be wrapped in a <button> element by Headless Menu:
+  // When a togle was passed as a prop, outsource details what to do with it to ToggleWrapper, otherwise render default toggle:
   const toggleToRender = propToggle ? (
-    // Use toggle as passed as prop
-    React.isValidElement(propToggle) ? (
-      rendersButtonElement(propToggle) ? (
-        // If the provided propToggle renders a <button>, use it directly within HeadlessMenu.Button rendered as a Fragment, as to not wrap it in a <button> element, effectively prevent nesting two buttons and rendering invalid html:
-        <HeadlessMenu.Button as={React.Fragment}>{propToggle}</HeadlessMenu.Button>
-      ) : (
-        // Otherwise, wrap the passed element in a PopupMenu.Toggle button element
-        <PopupMenu.Toggle onClick={handleToggleClick}>{propToggle}</PopupMenu.Toggle>
-      )
-    ) : null
+    <ToggleWrapper toggle={propToggle} onClick={handleToggleClick} />
   ) : (
-    // Render a default toggle if neither propToggle nor children toggle is provided
     <PopupMenu.Toggle onClick={handleToggleClick}>
       <Icon icon={icon} />
     </PopupMenu.Toggle>
@@ -124,20 +116,20 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   return (
     <HeadlessMenu>
       {toggleToRender}
-      <PortalProvider.Portal>
-        <HeadlessMenu.Items>{menuToRender}</HeadlessMenu.Items>
-      </PortalProvider.Portal>
+      <PortalProvider.Portal>{isOpen && <HeadlessMenu.Items>{menuToRender}</HeadlessMenu.Items>}</PortalProvider.Portal>
     </HeadlessMenu>
   )
 }
 PopupMenu.displayName = "PopupMenu"
 
 // Toggle
-PopupMenu.Toggle = ({ children = null, icon = undefined, onClick = undefined }: PopupMenuToggleProps) => (
-  <HeadlessMenu.Button onClick={onClick} className={`juno-popupmenu-toggle`}>
-    {icon ? <Icon icon={icon} /> : ""}
-    {children}
-  </HeadlessMenu.Button>
+PopupMenu.Toggle = React.forwardRef<HTMLButtonElement, PopupMenuToggleProps>(
+  ({ children = null, icon = undefined, onClick = undefined }, ref) => (
+    <HeadlessMenu.Button ref={ref} onClick={onClick} className={`juno-popupmenu-toggle`}>
+      {icon ? <Icon icon={icon} /> : ""}
+      {children}
+    </HeadlessMenu.Button>
+  )
 )
 PopupMenu.Toggle.displayName = "PopupMenu.Toggle"
 
@@ -173,6 +165,40 @@ PopupMenu.Section = ({ title = "", children = null, className = "" }: PopupMenuS
   </div>
 )
 PopupMenu.Section.displayName = "PopupMenu.Section"
+
+// Toggle Wrapper: Based on what element was passed as a toggle, return headless ui menu button as a fragment or button, keeping it otherwise intact:
+const ToggleWrapper: React.FC<{ toggle: React.ReactElement<ToggleElementProps>; onClick: () => void }> = ({
+  toggle,
+  onClick,
+}) => {
+  // Check if the toggle renders a native button element or a PopupMenu.Toggle
+  const isButton = toggle.type === "button" || toggle.type === Button || toggle.type === PopupMenu.Toggle
+
+  // Attach onClick handler
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    onClick() // Run custom toggle logic
+    if (toggle.props.onClick) {
+      //  Run existing toggle's onClick if present
+      toggle.props.onClick(event)
+    }
+  }
+
+  if (isButton) {
+    // Use HeadlessMenu.Button as a Fragment if it's a valid button as to not wrap a button inside a button:
+    return (
+      <HeadlessMenu.Button as={React.Fragment}>
+        {React.cloneElement(toggle, { onClick: handleClick })}
+      </HeadlessMenu.Button>
+    )
+  }
+
+  // If the element is not a button, Button component or native PopupMenu.Toggle, wrap the element in a button:
+  return (
+    <HeadlessMenu.Button as="button" onClick={handleClick} type="button">
+      {toggle}
+    </HeadlessMenu.Button>
+  )
+}
 
 export { PopupMenu }
 
