@@ -13,6 +13,7 @@ import { Button } from "../Button/"
 
 // ----- TODO -----
 // - DONE: enable rendering an open menu when passing open={true} prop
+// - toggle should consume toggleMenu handler from context, not pass a prop around
 // - add item functionality as per current menu
 // - add item styles
 // - add default toggle styles
@@ -33,6 +34,7 @@ const itemIconStyles = `
 
 interface PopupMenuContextType {
   open?: boolean
+  toggleMenu?: () => void
 }
 
 export interface PopupMenuProps {
@@ -95,6 +97,12 @@ const PopupMenu: React.FC<PopupMenuProps> & {
     setIsOpen(open)
   }, [open])
 
+  const toggleMenu = () => {
+    const newOpenState = !isOpen
+    setIsOpen(newOpenState)
+    onOpenChange && onOpenChange(newOpenState)
+  }
+
   const handleToggleClick = () => {
     const newOpenState = !isOpen
     setIsOpen(newOpenState)
@@ -120,7 +128,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   ) : null
 
   return (
-    <PopupMenuContext.Provider value={{ open: isOpen }}>
+    <PopupMenuContext.Provider value={{ open: isOpen, toggleMenu: toggleMenu }}>
       <HeadlessMenu className={`juno-popupmenu`} as="div">
         {toggleToRender}
         <PortalProvider.Portal>
