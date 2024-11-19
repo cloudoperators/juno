@@ -5,14 +5,38 @@
 
 import React, { ReactNode } from "react"
 
-const baseStyles = `
+const formHintBaseStyles = `
   jn-text-xs
   jn-mt-1
 `
 
 type FormHintVariant = "help" | "error" | "success"
 
-const variantStyles = (variant: FormHintVariant) => {
+export interface FormHintProps extends React.ComponentPropsWithoutRef<"div"> {
+  /**
+   * The content to render as a hint for a form element.
+   * If children are provided, they will take precedence over text.
+   */
+  children?: ReactNode
+
+  /**
+   * The text to render as a hint for a form element.
+   * Overridden by children, if provided.
+   */
+  text?: ReactNode | string
+
+  /**
+   * The variant of the hint ("help", "error", or "success") determining its appearance.
+   */
+  variant?: FormHintVariant
+
+  /**
+   * Additional CSS classes to apply to the form hint for custom styling.
+   */
+  className?: string
+}
+
+const getVariantStyles = (variant: FormHintVariant): string => {
   switch (variant) {
     case "success":
       return "jn-text-theme-success"
@@ -23,14 +47,23 @@ const variantStyles = (variant: FormHintVariant) => {
   }
 }
 
-export const FormHint = ({ children = null, text = "", variant = "help", className, ...props }: FormHintProps) => {
+/**
+ * A FormHint component used to provide contextual help, error, or success messages associated with form elements.
+ */
+export const FormHint: React.FC<FormHintProps> = ({
+  children,
+  text = "",
+  variant = "help",
+  className = "",
+  ...props
+}) => {
   return (
     <div
       className={`
-        juno-form-hint
-        juno-form-hint-${variant}
-        ${baseStyles}
-        ${variantStyles(variant)}
+        juno-form-hint 
+        juno-form-hint-${variant} 
+        ${formHintBaseStyles} 
+        ${getVariantStyles(variant)} 
         ${className}
       `}
       {...props}
@@ -41,14 +74,3 @@ export const FormHint = ({ children = null, text = "", variant = "help", classNa
 }
 
 FormHint.displayName = "FormHint"
-
-export interface FormHintProps extends React.ComponentPropsWithoutRef<"div"> {
-  /** The children to render as a hint associated with a form element */
-  children?: ReactNode
-  /** The text to render. If both children and text are passed, children will rendered */
-  text?: ReactNode | string
-  /** The variant of the the hint. Defaults to 'help'. */
-  variant?: FormHintVariant
-  /** Pass a custom className */
-  className?: string
-}

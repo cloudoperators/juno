@@ -4,13 +4,13 @@
  */
 
 import React from "react"
-import { Stack } from "@cloudoperators/juno-ui-components"
+import { Container } from "@cloudoperators/juno-ui-components"
 
 const HintNotFound = ({ text }) => {
   return (
-    <Stack alignment="center" distribution="center" direction="vertical" className="h-full">
+    <Container py px="false">
       <span>{text}</span>
-    </Stack>
+    </Container>
   )
 }
 

@@ -5,7 +5,8 @@
 
 import React from "react"
 import { StoryFn, Meta } from "@storybook/react"
-import { Grid } from "./Grid.component"
+
+import { Grid, GridProps } from "./Grid.component"
 import { GridRow } from "../GridRow/GridRow.component"
 import { GridColumn } from "../GridColumn/GridColumn.component"
 
@@ -13,18 +14,22 @@ export default {
   title: "Layout/Grid/Grid",
   component: Grid,
   argTypes: {
-    children: { control: false },
+    children: {
+      control: false,
+    },
   },
   decorators: [
     (Story) => (
-      <div className="jn-bg-juno-blue-3 jn-text-juno-grey-blue">
+      <div className="juno-container jn-px-6 jn-py-6">
         <Story />
       </div>
     ),
   ],
 } as Meta<typeof Grid>
 
-const Template: StoryFn<typeof Grid> = (args) => <Grid {...args} />
+const Template: StoryFn<GridProps> = (args) => (
+  <Grid {...args} className={`jn-bg-juno-blue-3 jn-text-juno-grey-blue ${args.className || ""}`} />
+)
 
 export const Default = {
   render: Template,
@@ -55,7 +60,7 @@ export const Default = {
       <GridRow key="2">
         <GridColumn>Column</GridColumn>
         <GridColumn cols={3}>Column cols-3</GridColumn>
-        <GridColumn cols={5}>Column cols-5</GridColumn>
+        <GridColumn cols={6}>Column cols-6</GridColumn>
         <GridColumn cols={2}>Column cols-2</GridColumn>
       </GridRow>,
     ],

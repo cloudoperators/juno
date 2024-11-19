@@ -47,10 +47,10 @@ const IssueMatchesListItem = ({ item }) => {
         <div className={cellSeverityClasses(severity)}>{severity}</div>
       </DataGridCell>
       <DataGridCell>{item?.node?.issue?.primaryName}</DataGridCell>
-      <DataGridCell>{item?.node?.componentInstance?.service?.name}</DataGridCell>
+      <DataGridCell>{item?.node?.componentInstance?.service?.ccrn}</DataGridCell>
       <DataGridCell>{extractedCcrn}</DataGridCell>
       <DataGridCell>
-        {listOfCommaSeparatedObjs(item?.node?.componentInstance?.service?.supportGroups, "name")}
+        {listOfCommaSeparatedObjs(item?.node?.componentInstance?.service?.supportGroups, "ccrn")}
       </DataGridCell>
       <DataGridCell>{item?.node?.status}</DataGridCell>
       <DataGridCell>{formatDate(item?.node?.targetRemediationDate)}</DataGridCell>
