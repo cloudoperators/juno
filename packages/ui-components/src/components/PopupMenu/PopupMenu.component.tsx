@@ -18,6 +18,7 @@ import { Button } from "../Button/"
 // - add item styles
 // - add default toggle styles
 // - add size prop
+// - spread arbitrary props on PopupMenu.Toggle, PopupMenu.Menu?
 // - update context to store size, toggleMenu handler
 // - position the menu
 // - allow for passing Toggle and Menu children, too

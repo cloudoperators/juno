@@ -19,4 +19,15 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("img")).toHaveAttribute("alt", "warning")
   })
+  test("renders a PopupMenu.Toggle as toggle as passed as a prop", () => {
+    render(<PopupMenu toggle={<PopupMenu.Toggle>My Toggle</PopupMenu.Toggle>} />)
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveTextContent("My Toggle")
+  })
+  test("renders a plain button custom toggle as passed as a prop", () => {
+    render(<PopupMenu toggle={<button data-testid="my-button">My custom button</button>} />)
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByTestId("my-button")).toBeInTheDocument()
+    expect(screen.getByTestId("my-button")).toHaveTextContent("My custom button")
+  })
 })
