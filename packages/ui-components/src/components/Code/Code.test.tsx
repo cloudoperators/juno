@@ -8,19 +8,19 @@ import { render, screen } from "@testing-library/react"
 import { Code } from "./index"
 
 describe("Code", () => {
-  test("renders inline code with content as passed", async () => {
+  test("renders inline code with content as passed", () => {
     render(<Code data-testid="code" content="some example code" />)
     expect(screen.getByTestId("code")).toBeInTheDocument()
     expect(screen.getByTestId("code")).toHaveTextContent("some example code")
   })
 
-  test("renders inline code with children as passed", async () => {
+  test("renders inline code with children as passed", () => {
     render(<Code data-testid="code">Some example code as children</Code>)
     expect(screen.getByTestId("code")).toBeInTheDocument()
     expect(screen.getByTestId("code")).toHaveTextContent("Some example code as children")
   })
 
-  test("renders inline code with content as passed when both content and children were passed", async () => {
+  test("renders inline code with content as passed when both content and children were passed", () => {
     render(
       <Code data-testid="code" content="Content is go">
         Children are meh
@@ -31,13 +31,13 @@ describe("Code", () => {
     expect(screen.getByTestId("code")).not.toHaveTextContent("Children are meh")
   })
 
-  test("renders inline code with a className as passed", async () => {
+  test("renders inline code with a className as passed", () => {
     render(<Code data-testid="code" className="my-code-class"></Code>)
     expect(screen.getByTestId("code")).toBeInTheDocument()
     expect(screen.getByTestId("code")).toHaveClass("my-code-class")
   })
 
-  test("renders inline code with all props as passed", async () => {
+  test("renders inline code with all props as passed", () => {
     render(<Code data-testid="code" data-lolol="code-lang-js"></Code>)
     expect(screen.getByTestId("code")).toBeInTheDocument()
     expect(screen.getByTestId("code")).toHaveAttribute("data-lolol", "code-lang-js")
