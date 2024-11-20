@@ -4,10 +4,12 @@
  */
 
 import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
-import { ComboBox } from "./index.js"
-import { ComboBoxOption } from "../ComboBoxOption/index.js"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
+import { ComboBox } from "./index"
+import { ComboBoxOption } from "../ComboBoxOption/index"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { ComboBoxProps } from "./ComboBox.component"
+
+type StoryFunction = () => React.ReactNode
 
 export default {
   title: "Forms/ComboBox/ComboBox",
@@ -15,38 +17,55 @@ export default {
   argTypes: {
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
     errortext: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
     helptext: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
     successtext: {
+      control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
+    },
+    onBlur: {
+      control: false,
+    },
+    onChange: {
+      control: false,
+    },
+    onFocus: {
+      control: false,
+    },
+    onInputChange: {
       control: false,
     },
   },
   decorators: [
-    (Story) => (
+    (story: StoryFunction) => (
       <div className="jn-pb-12">
-        <PortalProvider>
-          <Story />
-        </PortalProvider>
+        <PortalProvider>{story()}</PortalProvider>
       </div>
     ),
   ],
 }
 
-const Template = ({ children, ...args }) => {
+const Template = ({ children, ...args }: ComboBoxProps) => {
   return <ComboBox {...args}>{children}</ComboBox>
 }
 
-// define prop types fro Template
-Template.propTypes = {
-  children: PropTypes.any,
-}
-
-const ConstrainedWidthTemplate = ({ children, ...args }) => {
+const ConstrainedWidthTemplate = ({ children, ...args }: ComboBoxProps) => {
   return (
     <div style={{ width: "300px" }}>
       <ComboBox {...args}>{children}</ComboBox>
@@ -54,12 +73,7 @@ const ConstrainedWidthTemplate = ({ children, ...args }) => {
   )
 }
 
-// define prop types for ConstrainedWidthTemplate
-ConstrainedWidthTemplate.propTypes = {
-  children: PropTypes.any,
-}
-
-const ControlledTemplate = ({ value, children }) => {
+const ControlledTemplate = ({ value, children }: ControlledTemplateProps) => {
   const [v, setV] = useState(value)
 
   useEffect(() => {
@@ -70,9 +84,8 @@ const ControlledTemplate = ({ value, children }) => {
 }
 
 // define prop types for ControlledTemplate
-ControlledTemplate.propTypes = {
-  value: PropTypes.string,
-  children: PropTypes.any,
+interface ControlledTemplateProps extends ComboBoxProps {
+  value: string
 }
 
 export const Default = {
