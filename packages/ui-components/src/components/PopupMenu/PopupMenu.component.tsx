@@ -13,8 +13,8 @@ import { Button } from "../Button/"
 
 // ----- TODO -----
 // - DONE: enable rendering an open menu when passing open={true} prop
-// - toggle should consume toggleMenu handler from context, not pass a prop around
-// - add item functionality as per current menu
+// - DONE: toggle should consume toggleMenu handler from context, not pass a prop around
+// - add item functionality as per current Menu
 // - add item styles
 // - add default toggle styles
 // - add size prop
@@ -22,7 +22,7 @@ import { Button } from "../Button/"
 // - update context to store size, toggleMenu handler
 // - position the menu
 // - allow for passing Toggle and Menu children, too
-// - allow passing an array of PopupMenu.Item elements without wrapping PopupMenu.Menu?
+// - allow passing an array of PopupMenu.Item elements without wrapping PopupMenu.Menu and do the magic?
 
 // ----- Styles -----
 
