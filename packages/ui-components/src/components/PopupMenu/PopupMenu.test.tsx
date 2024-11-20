@@ -3,6 +3,10 @@ import { render, screen, act } from "@testing-library/react"
 import { describe, expect, test, vi } from "vitest"
 import { PopupMenu } from "./index"
 import { Button } from "../Button/"
+import { PortalProvider } from "../PortalProvider/"
+
+// disable require-await, since eslint cannot properly detect indirect usage of await:
+/* eslint-disable @typescript-eslint/require-await */
 
 describe("PopupMenu", () => {
   // Test default rendering behaviour:
@@ -100,5 +104,26 @@ describe("PopupMenu", () => {
     render(<PopupMenu toggle={<div onClick={onClickSpy}>Toggle Button</div>} />)
     act(() => screen.getByRole("button").click())
     expect(onClickSpy).toHaveBeenCalled()
+  })
+  // Test rendering small size menu items (render into PortalProvider could be mocked or abstracted away in a custom render method later):
+  test("renders a small menu as passed", async () => {
+    await act(async () => {
+      render(
+        <PortalProvider>
+          <PopupMenu
+            size="small"
+            menu={
+              <PopupMenu.Menu>
+                <PopupMenu.Item />
+              </PopupMenu.Menu>
+            }
+            open={true}
+          />
+        </PortalProvider>
+      )
+    })
+    const menuItem = await screen.findByRole("menuitem")
+    expect(menuItem).toBeInTheDocument()
+    expect(menuItem).toHaveClass("juno-popupmenu-item-small")
   })
 })

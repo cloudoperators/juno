@@ -14,17 +14,32 @@ import { Button } from "../Button/"
 // ----- TODO -----
 // - DONE: enable rendering an open menu when passing open={true} prop
 // - DONE: toggle should consume toggleMenu handler from context, not pass a prop around
-// - add default toggle styles
-// - add item functionality as per current Menu
+// - DONE: add size prop
+// - DONE: add default toggle styles
+// - properly render Menu (no div in div!)
 // - add item styles
-// - add size prop
+// - add item functionality as per current Menu
 // - spread arbitrary props on PopupMenu.Toggle, PopupMenu.Menu?
 // - update context to store size, toggleMenu handler
 // - position the menu
+// - close menu on item click
+// - close menu on click outside
 // - allow for passing Toggle and Menu children, too
 // - allow passing an array of PopupMenu.Item elements without wrapping PopupMenu.Menu and do the magic?
 
 // ----- Styles -----
+
+const smallMenuItemStyles = `
+   jn-text-sm
+   jn-p-2
+ `
+
+const normalMenuItemStyles = `
+   jn-text-base
+   jn-pt-[0.6875rem]
+   jn-pb-[0.5rem]
+   jn-px-[0.875rem]
+ `
 
 const defaultToggleStyles = `
   hover:jn-text-theme-accent
@@ -44,6 +59,7 @@ const itemIconStyles = `
 
 interface PopupMenuContextType {
   open?: boolean
+  size?: "small" | "normal"
   toggleMenu?: () => void
 }
 
@@ -54,6 +70,7 @@ export interface PopupMenuProps {
   // eslint-disable-next-line no-unused-vars
   onOpenChange?: (open: boolean) => void
   open?: boolean
+  size?: "small" | "normal"
   toggle?: React.ReactElement
 }
 
@@ -101,7 +118,14 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Menu: React.FC<PopupMenuMenuProps>
   Item: React.FC<PopupMenuItemProps>
   Section: React.FC<PopupMenuSectionProps>
-} = ({ icon = "moreVert", menu: propMenu, onOpenChange = undefined, open = false, toggle: propToggle }) => {
+} = ({
+  icon = "moreVert",
+  menu: propMenu,
+  onOpenChange = undefined,
+  open = false,
+  size = "normal",
+  toggle: propToggle,
+}) => {
   const [isOpen, setIsOpen] = useState(open)
 
   useEffect(() => {
@@ -146,7 +170,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   ) : null
 
   return (
-    <PopupMenuContext.Provider value={{ open: isOpen, toggleMenu: toggleMenu }}>
+    <PopupMenuContext.Provider value={{ open: isOpen, size: size, toggleMenu: toggleMenu }}>
       <HeadlessMenu className={`juno-popupmenu`} as="div">
         {toggleToRender}
         <PortalProvider.Portal>
@@ -182,9 +206,9 @@ PopupMenu.Toggle.displayName = "PopupMenu.Toggle"
 
 // Menu
 // This component causes a `Component definition is missing display name  react/display-name` error when declared after component definition (as with all the other subcomponents in this file) -> TODO: Evaluate/discuss whether to update all subcomponents to be declared like Menu
-const Menu: React.FC<PopupMenuMenuProps> = ({ children = null }) => (
-  <div className="juno-popupmenu-menu">{children}</div>
-)
+const Menu: React.FC<PopupMenuMenuProps> = ({ children = null }) => {
+  return <div className={`juno-popupmenu-menu`}>{children}</div>
+}
 
 PopupMenu.Menu = Menu
 Menu.displayName = "PopupMenu.Menu"
@@ -196,12 +220,28 @@ PopupMenu.Item = ({
   disabled = false,
   icon = undefined,
   label = "",
-}: PopupMenuItemProps) => (
-  <HeadlessMenu.Item className={`juno-popupmenu-item ${itemIconStyles} ${className}`} as="div" disabled={disabled}>
-    {icon && <Icon icon={icon} size="18" className={`juno-popupmenu-item-icon`} />}
-    {label || children}
-  </HeadlessMenu.Item>
-)
+}: PopupMenuItemProps) => {
+  const context = useContext(PopupMenuContext)
+  if (!context) {
+    throw new Error("PopupMenu.Item must be used inside <PopupMenu>.")
+  }
+  const { size } = context
+  return (
+    <HeadlessMenu.Item
+      className={`
+        juno-popupmenu-item  
+        ${size === "small" ? "juno-popupmenu-item-small" : "juno-popupmenu-item-normal"}
+        ${size === "small" ? smallMenuItemStyles : normalMenuItemStyles} 
+        ${className}
+      `}
+      as="div"
+      disabled={disabled}
+    >
+      {icon && <Icon icon={icon} size="18" className={`juno-popupmenu-item-icon ${itemIconStyles}`} />}
+      {label || children}
+    </HeadlessMenu.Item>
+  )
+}
 PopupMenu.Item.displayName = "PopupMenu.Item"
 
 // Section

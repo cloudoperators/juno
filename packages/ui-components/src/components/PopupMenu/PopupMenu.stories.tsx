@@ -50,9 +50,35 @@ export const Default = {
   },
 }
 
+export const Open = {
+  args: {
+    open: true,
+    menu: (
+      <PopupMenu.Menu>
+        <PopupMenu.Item label="Menu Item 1" />
+        <PopupMenu.Item label="Menu Item 2" />
+        <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
+      </PopupMenu.Menu>
+    ),
+  },
+}
+
 export const WithCustomIcon = {
   args: {
     icon: "warning",
+    menu: (
+      <PopupMenu.Menu>
+        <PopupMenu.Item label="Menu Item 1" />
+        <PopupMenu.Item label="Menu Item 2" />
+        <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
+      </PopupMenu.Menu>
+    ),
+  },
+}
+
+export const Small = {
+  args: {
+    size: "small",
     menu: (
       <PopupMenu.Menu>
         <PopupMenu.Item label="Menu Item 1" />
