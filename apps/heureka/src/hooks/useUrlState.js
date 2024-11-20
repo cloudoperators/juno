@@ -6,10 +6,14 @@
 import { useLayoutEffect, useEffect, useState } from "react"
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import {
-  useAuthLoggedIn,
   useGlobalsShowPanel,
   useGlobalsActiveView,
   useGlobalsActions,
+  useGlobalsShowServiceDetail,
+  useGlobalsShowIssueDetail,
+  useServiceActiveFilters,
+  useIssueMatchesActiveFilters,
+  useComponentActiveFilters,
   useFilterActions,
 } from "../components/StoreProvider"
 import constants from "../components/shared/constants"
@@ -18,12 +22,16 @@ const urlStateManager = registerConsumer("heureka")
 
 const useUrlState = () => {
   const [isURLRead, setIsURLRead] = useState(false)
-  const loggedIn = useAuthLoggedIn()
   const { setFiltersFromURL, syncFiltersWithURL } = useFilterActions()
 
   const activeView = useGlobalsActiveView()
   const detailsFor = useGlobalsShowPanel()
+  const showServiceDetail = useGlobalsShowServiceDetail()
+  const showIssueDetail = useGlobalsShowIssueDetail()
   const { setShowPanel, setActiveView, setServiceDetail, setIssueDetail, syncDetailsWithURL } = useGlobalsActions()
+  const serviceActiveFilters = useServiceActiveFilters()
+  const issueMatchesActiveFilters = useIssueMatchesActiveFilters()
+  const componentActiveFilters = useComponentActiveFilters()
 
   // Set initial state from URL (on login)
   useLayoutEffect(() => {
@@ -57,7 +65,7 @@ const useUrlState = () => {
     }
 
     setIsURLRead(true)
-  }, [isURLRead])
+  }, [isURLRead, setActiveView, setFiltersFromURL, setShowPanel, setServiceDetail, setIssueDetail])
 
   // Sync URL with the desired states
   useEffect(() => {
@@ -65,8 +73,8 @@ const useUrlState = () => {
 
     const updatedState = {
       [constants.ACTIVE_VIEW]: activeView, // Include active view
-      ...syncFiltersWithURL(),
-      ...syncDetailsWithURL(),
+      ...syncFiltersWithURL(issueMatchesActiveFilters, serviceActiveFilters, componentActiveFilters),
+      ...syncDetailsWithURL(showServiceDetail, showIssueDetail, detailsFor),
     }
 
     // Construct the URL state
@@ -74,7 +82,18 @@ const useUrlState = () => {
     if (JSON.stringify(updatedState) !== JSON.stringify(currentState)) {
       urlStateManager.push(updatedState)
     }
-  }, [loggedIn, detailsFor, activeView])
+  }, [
+    activeView,
+    isURLRead,
+    detailsFor,
+    showServiceDetail,
+    showIssueDetail,
+    serviceActiveFilters,
+    issueMatchesActiveFilters,
+    componentActiveFilters,
+    syncFiltersWithURL,
+    syncDetailsWithURL,
+  ])
 
   // Support for back button
   useEffect(() => {

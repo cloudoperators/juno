@@ -28,10 +28,20 @@ const parsePredefinedFilters = (predefinedFilters) => {
 const parseInitialFilters = (initialFilters, filterLabels) => {
   if (!initialFilters) return initialFiltersState.initialFilters
 
-  if (typeof initialFilters !== "object") {
+  if (typeof initialFilters !== "object" || initialFilters === null) {
     console.warn("[supernova]::parseInitialFilters: initialFilters object is not an object")
     return {}
   }
+
+  // Check if all values are arrays
+  initialFilters = Object.entries(initialFilters).reduce((acc, [key, value]) => {
+    if (Array.isArray(value)) {
+      acc[key] = value // valid key-value pair
+    } else {
+      console.warn(`[supernova]::parseInitialFilters: Value for "${key}" is not an Array.`)
+    }
+    return acc
+  }, {})
 
   // Check if all keys are in filterLabelValues
   if (!Object.keys(initialFilters).every((key) => filterLabels.includes(key))) {
