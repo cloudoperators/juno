@@ -37,6 +37,22 @@ export const AppShell = ({
     )
   }
 
+  const renderHeaderContainer = (
+    pageHeader?: AppShellProps["pageHeader"],
+    topNavigation?: AppShellProps["topNavigation"]
+  ) => {
+    if (!pageHeader && !topNavigation) {
+      return null
+    }
+    return (
+      <HeaderContainer fullWidth={fullWidthContent === true}>
+        {pageHeader && typeof pageHeader === "string" ? <PageHeader heading={pageHeader} /> : pageHeader}
+        {topNavigation}
+        {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
+      </HeaderContainer>
+    )
+  }
+
   return (
     <AppBody className={className} {...props}>
       {contentHeading || ""}
@@ -56,15 +72,7 @@ export const AppShell = ({
         </>
       ) : (
         <>
-          <HeaderContainer fullWidth={fullWidthContent === true}>
-            {pageHeader && (typeof pageHeader === "string" || pageHeader instanceof String) ? (
-              <PageHeader heading={pageHeader} />
-            ) : (
-              pageHeader
-            )}
-            {topNavigation}
-            {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
-          </HeaderContainer>
+          {renderHeaderContainer(pageHeader, topNavigation)}
           <MainContainer>
             <MainContainerInner
               fullWidth={fullWidthContent === true ? true : false}
