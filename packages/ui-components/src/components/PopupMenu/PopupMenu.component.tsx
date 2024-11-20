@@ -5,7 +5,7 @@
 
 /* eslint-disable react/prop-types */
 
-import React, { createContext, useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
@@ -78,7 +78,7 @@ type ToggleElementProps = {
   children?: React.ReactNode
 }
 
-// ----- Create Context -----
+// ----- Create the context -----
 const PopupMenuContext = createContext<PopupMenuContextType | undefined>(undefined)
 
 // ----- Component Definitions -----
@@ -143,12 +143,23 @@ PopupMenu.displayName = "PopupMenu"
 
 // Toggle
 PopupMenu.Toggle = React.forwardRef<HTMLButtonElement, PopupMenuToggleProps>(
-  ({ children = null, icon = undefined, onClick = undefined }, ref) => (
-    <HeadlessMenu.Button ref={ref} onClick={onClick} className={`juno-popupmenu-toggle`}>
-      {icon ? <Icon icon={icon} /> : ""}
-      {children}
-    </HeadlessMenu.Button>
-  )
+  ({ children = null, icon = undefined, onClick = undefined }, ref) => {
+    const context = useContext(PopupMenuContext)
+    if (!context) {
+      throw new Error("PopupMenu.Toggle must be used inside <PopupMenu>.")
+    }
+    const { toggleMenu } = context
+    const handleToggleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      toggleMenu && toggleMenu()
+      onClick && onClick(event)
+    }
+    return (
+      <HeadlessMenu.Button ref={ref} onClick={handleToggleClick} className={`juno-popupmenu-toggle`}>
+        {icon ? <Icon icon={icon} /> : ""}
+        {children}
+      </HeadlessMenu.Button>
+    )
+  }
 )
 PopupMenu.Toggle.displayName = "PopupMenu.Toggle"
 
