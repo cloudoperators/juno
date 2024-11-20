@@ -1,6 +1,6 @@
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
+import { render, screen, act } from "@testing-library/react"
+import { describe, expect, test, vi } from "vitest"
 import { PopupMenu } from "./index"
 import { Button } from "../Button/"
 
@@ -41,5 +41,11 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
     expect(screen.getByTestId("my-non-button").closest(".juno-popupmenu-toggle")).toBeInTheDocument()
+  })
+  test("executes an onOpenChange handler as passed on a non-button toggle element passed as a prop", () => {
+    const onOpenChangeSpy = vi.fn()
+    render(<PopupMenu onOpenChange={onOpenChangeSpy} />)
+    act(() => screen.getByRole("button").click())
+    expect(onOpenChangeSpy).toHaveBeenCalled()
   })
 })
