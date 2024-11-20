@@ -10,6 +10,7 @@ describe("PopupMenu", () => {
     render(<PopupMenu />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
+    expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle-default")
   })
   test("renders an overflow menu per default", () => {
     render(<PopupMenu />)

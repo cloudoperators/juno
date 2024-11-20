@@ -14,9 +14,9 @@ import { Button } from "../Button/"
 // ----- TODO -----
 // - DONE: enable rendering an open menu when passing open={true} prop
 // - DONE: toggle should consume toggleMenu handler from context, not pass a prop around
+// - add default toggle styles
 // - add item functionality as per current Menu
 // - add item styles
-// - add default toggle styles
 // - add size prop
 // - spread arbitrary props on PopupMenu.Toggle, PopupMenu.Menu?
 // - update context to store size, toggleMenu handler
@@ -25,6 +25,15 @@ import { Button } from "../Button/"
 // - allow passing an array of PopupMenu.Item elements without wrapping PopupMenu.Menu and do the magic?
 
 // ----- Styles -----
+
+const defaultToggleStyles = `
+  hover:jn-text-theme-accent
+  active:jn-text-theme-accent
+`
+
+const defaultToggleOpenStyles = `
+  jn-text-theme-accent
+`
 
 const itemIconStyles = `
   jn-inline-block 
@@ -50,6 +59,7 @@ export interface PopupMenuProps {
 
 export interface PopupMenuToggleProps {
   children?: React.ReactNode
+  className?: string
   icon?: keyof typeof KnownIconsEnum
   // eslint-disable-next-line no-unused-vars
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -110,11 +120,18 @@ const PopupMenu: React.FC<PopupMenuProps> & {
     onOpenChange && onOpenChange(newOpenState)
   }
 
-  // When a togle was passed as a prop, outsource details what to do with it to ToggleWrapper, otherwise render default toggle:
+  // When a toggle was passed as a prop, outsource details what to do with it to ToggleWrapper, otherwise render default toggle:
   const toggleToRender = propToggle ? (
     <ToggleWrapper toggle={propToggle} onClick={handleToggleClick} />
   ) : (
-    <PopupMenu.Toggle onClick={handleToggleClick}>
+    <PopupMenu.Toggle
+      className={`
+        juno-popupmenu-toggle-default
+        ${defaultToggleStyles} 
+        ${isOpen ? defaultToggleOpenStyles : ""}
+      `}
+      onClick={handleToggleClick}
+    >
       <Icon icon={icon} />
     </PopupMenu.Toggle>
   )
@@ -143,7 +160,7 @@ PopupMenu.displayName = "PopupMenu"
 
 // Toggle
 PopupMenu.Toggle = React.forwardRef<HTMLButtonElement, PopupMenuToggleProps>(
-  ({ children = null, icon = undefined, onClick = undefined }, ref) => {
+  ({ children = null, className = "", icon = undefined, onClick = undefined }, ref) => {
     const context = useContext(PopupMenuContext)
     if (!context) {
       throw new Error("PopupMenu.Toggle must be used inside <PopupMenu>.")
@@ -154,7 +171,7 @@ PopupMenu.Toggle = React.forwardRef<HTMLButtonElement, PopupMenuToggleProps>(
       onClick && onClick(event)
     }
     return (
-      <HeadlessMenu.Button ref={ref} onClick={handleToggleClick} className={`juno-popupmenu-toggle`}>
+      <HeadlessMenu.Button ref={ref} onClick={handleToggleClick} className={`juno-popupmenu-toggle ${className}`}>
         {icon ? <Icon icon={icon} /> : ""}
         {children}
       </HeadlessMenu.Button>
