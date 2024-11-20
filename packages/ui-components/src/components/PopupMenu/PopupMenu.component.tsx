@@ -197,34 +197,37 @@ PopupMenu.Section = ({ title = "", children = null, className = "" }: PopupMenuS
 PopupMenu.Section.displayName = "PopupMenu.Section"
 
 // Toggle Wrapper: Based on what element was passed as a toggle, return headless ui menu button as a fragment or button, keeping it otherwise intact:
-const ToggleWrapper: React.FC<{ toggle: React.ReactElement<ToggleElementProps>; onClick: () => void }> = ({
-  toggle,
-  onClick,
-}) => {
-  // Check if the toggle renders a native button element or a PopupMenu.Toggle
-  const isButton = toggle.type === "button" || toggle.type === Button || toggle.type === PopupMenu.Toggle
-
-  // Attach onClick handler
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    onClick() // Run custom toggle logic
-    if (toggle.props.onClick) {
-      //  Run existing toggle's onClick if present
-      toggle.props.onClick(event)
-    }
+const ToggleWrapper: React.FC<{
+  toggle: React.ReactElement<ToggleElementProps>
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
+}> = ({ toggle, onClick = undefined }) => {
+  // Consume the context so any wrapped toggle can toggle the parent open state:
+  const context = useContext(PopupMenuContext)
+  if (!context) {
+    throw new Error("PopupMenu.Toggle must be used inside <PopupMenu>.")
+  }
+  const { toggleMenu } = context
+  const handleToggleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    toggleMenu && toggleMenu()
+    toggle.props.onClick && toggle.props.onClick(event)
+    onClick && onClick(event)
   }
 
+  // Check if the toggle renders a native button element or a PopupMenu.Toggle:
+  const isButton = toggle.type === "button" || toggle.type === Button || toggle.type === PopupMenu.Toggle
+
   if (isButton) {
-    // Use HeadlessMenu.Button as a Fragment if it's a valid button as to not wrap a button inside a button:
+    // Use HeadlessMenu.Button as a Fragment if it's a valid button as to not wrap a button inside another button:
     return (
       <HeadlessMenu.Button as={React.Fragment}>
-        {React.cloneElement(toggle, { onClick: handleClick })}
+        {React.cloneElement(toggle, { onClick: handleToggleClick })}
       </HeadlessMenu.Button>
     )
   }
 
   // If the element is not a button, Button component or native PopupMenu.Toggle, wrap the element in a button:
   return (
-    <HeadlessMenu.Button as="button" className={`juno-popupmenu-toggle`} onClick={handleClick} type="button">
+    <HeadlessMenu.Button as="button" className={`juno-popupmenu-toggle`} onClick={handleToggleClick} type="button">
       {toggle}
     </HeadlessMenu.Button>
   )
