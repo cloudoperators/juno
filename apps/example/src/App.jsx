@@ -18,10 +18,6 @@ import AsyncWorker from "./components/AsyncWorker"
 import StoreProvider, { useGlobalsActions, useAuthActions } from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 
-// mock API
-import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
-import db from "./db.json"
-
 const App = (props = {}) => {
   const { setEndpoint } = useGlobalsActions()
   const { setData } = useAuthActions()
@@ -45,11 +41,6 @@ const App = (props = {}) => {
         setData(data)
       },
     })
-  }, [])
-
-  // setup the mock db.json
-  useEffect(() => {
-    fetchProxyInitDB(db)
   }, [])
 
   console.debug("[exampleapp] embedded mode:", props.embedded)
