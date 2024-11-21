@@ -10,6 +10,28 @@ import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
 
+// ----- Styles -----
+
+const defaultToggleStyles = `
+  hover:jn-text-theme-accent
+  active:jn-text-theme-accent
+`
+
+const menuStyles = `
+  jn-overflow-hidden
+  jn-flex
+  jn-flex-col
+  jn-rounded
+  jn-bg-theme-background-lvl-1
+`
+
+const itemStyles = `
+  jn-text-base
+  jn-pt-[0.6875rem]
+  jn-pb-[0.5rem]
+  jn-px-[0.875rem]
+`
+
 // ----- Interfaces -----
 
 export interface PopupMenuProps {
@@ -32,7 +54,11 @@ export interface PopupMenuItemProps extends React.ComponentProps<typeof Headless
 
 // POPUP MENU
 
-// TODO: use headless-ui's `open` render prop to allow for styling the open toggle explicitly? Can this be exposed so custom components can use it, too?
+// TODO:
+// - use headless-ui's `open` render prop to allow for styling the open toggle explicitly? Can this be exposed so custom components can use it, too?
+// - implement small and normal sizes
+// - implement PopupMenu.Section
+// - Positioning
 
 /** A simple Popup Menu component that wraps Headless UI Menu */
 const PopupMenu: React.FC<PopupMenuProps> & {
@@ -51,7 +77,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
     <HeadlessMenu as="div" className={`juno-popupmenu`}>
       {/* Render default toggle button if no toggle is passed */}
       {!hasToggle && (
-        <PopupMenu.Toggle className="juno-popupmenu-toggle-default">
+        <PopupMenu.Toggle className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${defaultToggleStyles}`}>
           <Icon icon={icon} />
         </PopupMenu.Toggle>
       )}
@@ -82,14 +108,15 @@ const PopupMenuToggle: React.FC<PopupMenuToggleProps & { as?: React.ElementType 
 
 // MENU COMPONENT
 const PopupMenuMenu: React.FC<React.ComponentProps<typeof HeadlessMenu.Items>> = ({ children, ...props }) => (
-  <HeadlessMenu.Items className={`juno-popupmenu-menu`} {...props}>
+  <HeadlessMenu.Items className={`juno-popupmenu-menu ${menuStyles}`} {...props}>
     {children}
   </HeadlessMenu.Items>
 )
 
 // ITEM COMPONENT
+// TODO: add icon
 const PopupMenuItem: React.FC<PopupMenuItemProps> = ({ children, className, label, ...props }) => (
-  <HeadlessMenu.Item as="div" className={`juno-popupmenu-item ${className}`} {...props}>
+  <HeadlessMenu.Item as="div" className={`juno-popupmenu-item ${itemStyles} ${className}`} {...props}>
     {label || children}
   </HeadlessMenu.Item>
 )
