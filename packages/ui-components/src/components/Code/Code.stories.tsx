@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Code } from "./index.js"
+import { Code } from "./index"
 
 export default {
   title: "Components/Code",
@@ -11,6 +11,9 @@ export default {
   argTypes: {
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
 }

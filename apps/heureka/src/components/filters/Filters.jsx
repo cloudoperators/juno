@@ -66,6 +66,7 @@ const Filters = ({
         isLoading={isLoading}
         filterLabels={filterLabels}
         filterLabelValues={filterLabelValues}
+        activeFilters={activeFilters}
         searchTerm={searchTerm}
         searchTargets={searchTargets}
       />
