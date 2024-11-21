@@ -8,6 +8,7 @@
 import React from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
+import { PortalProvider } from "../PortalProvider/"
 
 // ----- Interfaces -----
 
@@ -18,6 +19,7 @@ export interface PopupMenuProps {
 
 export interface PopupMenuToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
+  as?: React.ElementType
 }
 
 export interface PopupMenuItemProps extends React.ComponentProps<typeof HeadlessMenu.Item> {
@@ -28,9 +30,9 @@ export interface PopupMenuItemProps extends React.ComponentProps<typeof Headless
 
 // ----- Component Definitions -----
 
-// TODO: remove internal state, rely on headless ui state, pass open render prop and only render the menu when render prop is true.
-
 // POPUP MENU
+
+// TODO: use headless-ui's `open` render prop to allow for styling the open toggle explicitly? Can this be exposed so custom components can use it, too?
 
 /** A simple Popup Menu component that wraps Headless UI Menu */
 const PopupMenu: React.FC<PopupMenuProps> & {
@@ -60,15 +62,20 @@ const PopupMenu: React.FC<PopupMenuProps> & {
           return child
         }
       })}
-
-      {menu}
+      <PortalProvider.Portal>{menu}</PortalProvider.Portal>
     </HeadlessMenu>
   )
 }
 
 // TOGGLE COMPONENT
-const PopupMenuToggle: React.FC<PopupMenuToggleProps> = ({ children, className, ...props }) => (
-  <HeadlessMenu.Button className={`juno-popupmenu-toggle ${className}`} {...props}>
+// TODO: Keep this toggle unstyled/minimal or use our own <Button> internally, while still allowing custom components passed as `as`?
+const PopupMenuToggle: React.FC<PopupMenuToggleProps & { as?: React.ElementType }> = ({
+  as = "button",
+  children,
+  className,
+  ...props
+}) => (
+  <HeadlessMenu.Button as={as} className={`juno-popupmenu-toggle ${className}`} {...props}>
     {children}
   </HeadlessMenu.Button>
 )
