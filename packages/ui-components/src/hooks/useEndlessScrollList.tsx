@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useRef, useEffect, useState, useMemo } from "react"
+import React, { useRef, useEffect, useState, useMemo, useCallback, LegacyRef } from "react"
 
 /*
   This hook is used to create an endless scroll list.
@@ -19,13 +19,14 @@ import React, { useRef, useEffect, useState, useMemo } from "react"
     @property iterator: an iterator to be used to render the list. It has a map function that receives a function to be used to render each item
  */
 /* eslint-disable no-unused-vars */
-type UseEndlessScrollListOptions = {
+interface UseEndlessScrollListOptions {
   delay?: number
   showLoading?: boolean
   loadingObject?: React.ReactNode
   showRef?: boolean
-  refFunction?: (ref: React.RefObject<unknown>) => React.ReactNode
+  refFunction?: RefFunction
 }
+type RefFunction = (node: Element) => void
 type Timeout = ReturnType<typeof setTimeout>
 export const useEndlessScrollList = (items: unknown[], options: UseEndlessScrollListOptions = {}) => {
   const [visibleAmount, setVisibleAmount] = useState(20)
@@ -47,10 +48,8 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
   }, [items, visibleAmount])
 
   // recalculate if items change
-  const lastLisItemRef = useRef<HTMLSpanElement | null>(null)
-
-  useEffect(() => {
-    if (lastLisItemRef.current) {
+  const lastLisItemRef = useCallback<RefFunction>(
+    (node: Element) => {
       // skip if already adding items
       if (isAddingItems) return
       // disconnect previous observer
@@ -59,21 +58,18 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
       observer.current = new IntersectionObserver((entries) => {
         // if the last element is intersecting and there are still items to show
         if (entries[0].isIntersecting && visibleAmount <= items.length) {
-          if (timeoutRef.current !== null) {
-            clearTimeout(timeoutRef.current)
-          } else {
-            setIsAddingItems(true)
-            timeoutRef.current = setTimeout(() => {
-              setIsAddingItems(false)
-              setVisibleAmount((prev) => prev + 10)
-            }, options?.delay || 500)
-          }
+          clearTimeout(timeoutRef.current as Timeout)
+          setIsAddingItems(true)
+          timeoutRef.current = setTimeout(() => {
+            setIsAddingItems(false)
+            setVisibleAmount((prev) => prev + 10)
+          }, options?.delay || 500)
         }
       })
-      observer.current.observe(lastLisItemRef.current)
-    }
-  }, [items, isAddingItems])
-
+      if (node) return observer.current.observe(node)
+    },
+    [items, isAddingItems]
+  )
   const iterator = useMemo(() => {
     return {
       map: (elements: (value: unknown, index: number, array: unknown[]) => React.JSX.Element) => {
@@ -89,9 +85,9 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
             {options?.showRef !== false && (
               <>
                 {options?.refFunction ? (
-                  options.refFunction(lastLisItemRef)
+                  options.refFunction(lastLisItemRef as unknown as Element)
                 ) : (
-                  <span id="endlessScrollListLastItemRef" ref={lastLisItemRef} />
+                  <span id="endlessScrollListLastItemRef" ref={lastLisItemRef as LegacyRef<HTMLSpanElement>} />
                 )}
               </>
             )}
