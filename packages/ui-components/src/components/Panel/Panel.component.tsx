@@ -162,6 +162,6 @@ export const Panel: FC<PanelProps> = ({
       </div>
       <div className={`juno-panel-content-wrapper ${contentWrapperStyles}`}>{children}</div>
     </div>,
-    portalContainer ?? document.body
+    portalContainer ? portalContainer : document.body
   )
 }

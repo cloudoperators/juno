@@ -5,13 +5,7 @@
 
 import React, { ReactNode, HTMLAttributes } from "react"
 
-const panelBodyBaseClasses = `
-  jn-bg-white
-  jn-rounded-md
-  jn-shadow
-`
-
-const bodyContentClasses = `
+const bodyContentStyles = `
   jn-px-8
   jn-py-4
 `
@@ -41,9 +35,9 @@ export interface PanelBodyProps extends HTMLAttributes<HTMLDivElement> {
  */
 export const PanelBody: React.FC<PanelBodyProps> = ({ className = "", footer, children, ...props }) => {
   return (
-    <div className={`juno-panel-body ${panelBodyBaseClasses} ${className}`} {...props}>
-      <div className={`juno-panel-body-content ${bodyContentClasses}`}>{children}</div>
-      {footer ? <div className="juno-panel-footer">{footer}</div> : null}
+    <div className={`juno-panel-body ${className}`} {...props}>
+      <div className={`juno-panel-body-content ${bodyContentStyles}`}>{children}</div>
+      {footer}
     </div>
   )
 }
