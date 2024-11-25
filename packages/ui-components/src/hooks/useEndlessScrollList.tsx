@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useRef, useEffect, useState, useCallback, useMemo } from "react"
+import React, { useRef, useEffect, useState, useMemo, useCallback, LegacyRef } from "react"
 
 /*
   This hook is used to create an endless scroll list.
-  @param items: the items to be displayed
+  @param items: complete list of items to be displayed
   @param options: options for the hook
     @param options.delay: the delay in ms between adding items to the list. Default is 500ms
     @param options.showLoading: whether to show the loading indicator. Default is true and it renders a span with the text "Loading..."
@@ -16,19 +16,28 @@ import React, { useRef, useEffect, useState, useCallback, useMemo } from "react"
     @param options.refFunction: the function to be used to render the ref element. It receives the ref as a parameter
   @return: an object with the following properties:
     @property scrollListItems: the items to be displayed
-    @property lastLisItemRef: the ref element to be used as the last item
-    @property isAddingItems: whether items are being added to the list
     @property iterator: an iterator to be used to render the list. It has a map function that receives a function to be used to render each item
  */
-const useEndlessScrollList = (items, options = {}) => {
+/* eslint-disable no-unused-vars */
+interface UseEndlessScrollListOptions {
+  delay?: number
+  showLoading?: boolean
+  loadingObject?: React.ReactNode
+  showRef?: boolean
+  refFunction?: RefFunction
+}
+type RefFunction = (node: Element) => void
+type Timeout = ReturnType<typeof setTimeout>
+export const useEndlessScrollList = (items: unknown[], options: UseEndlessScrollListOptions = {}) => {
   const [visibleAmount, setVisibleAmount] = useState(20)
   const [isAddingItems, setIsAddingItems] = useState(false)
-  const timeoutRef = useRef(null)
-  const observer = useRef()
+  const timeoutRef = useRef<Timeout | null>(null)
+  const observer = useRef<IntersectionObserver | undefined>()
 
   useEffect(() => {
     // clear when component is unmounted
-    return () => clearTimeout(timeoutRef.current)
+    // fix type issue
+    return () => clearTimeout(timeoutRef.current as Timeout)
   }, [])
 
   // recalculate if items change
@@ -39,8 +48,8 @@ const useEndlessScrollList = (items, options = {}) => {
   }, [items, visibleAmount])
 
   // recalculate if items change
-  const lastLisItemRef = useCallback(
-    (node) => {
+  const lastLisItemRef = useCallback<RefFunction>(
+    (node: Element) => {
       // skip if already adding items
       if (isAddingItems) return
       // disconnect previous observer
@@ -49,7 +58,7 @@ const useEndlessScrollList = (items, options = {}) => {
       observer.current = new IntersectionObserver((entries) => {
         // if the last element is intersecting and there are still items to show
         if (entries[0].isIntersecting && visibleAmount <= items.length) {
-          clearTimeout(timeoutRef.current)
+          clearTimeout(timeoutRef.current as Timeout)
           setIsAddingItems(true)
           timeoutRef.current = setTimeout(() => {
             setIsAddingItems(false)
@@ -57,23 +66,30 @@ const useEndlessScrollList = (items, options = {}) => {
           }, options?.delay || 500)
         }
       })
-      if (node) observer.current.observe(node)
+      if (node) return observer.current.observe(node)
     },
     [items, isAddingItems]
   )
-
   const iterator = useMemo(() => {
     return {
-      map: (f) => {
-        const content = scrollListItems.map(f)
+      map: (elements: (value: unknown, index: number, array: unknown[]) => React.JSX.Element) => {
+        const content = scrollListItems?.map<React.JSX.Element>(elements)
         return (
           <>
             {content}
             {isAddingItems && options?.showLoading !== false && (
-              <>{options?.loadingObject ? options.loadingObject : <span>Loading...</span>}</>
+              <>
+                {options?.loadingObject ? options.loadingObject : <span id="endlessScrollListLoading">Loading...</span>}
+              </>
             )}
             {options?.showRef !== false && (
-              <>{options?.refFunction ? options.refFunction(lastLisItemRef) : <span ref={lastLisItemRef} />}</>
+              <>
+                {options?.refFunction ? (
+                  options.refFunction(lastLisItemRef as unknown as Element)
+                ) : (
+                  <span id="endlessScrollListLastItemRef" ref={lastLisItemRef as LegacyRef<HTMLSpanElement>} />
+                )}
+              </>
             )}
           </>
         )
@@ -81,7 +97,5 @@ const useEndlessScrollList = (items, options = {}) => {
     }
   }, [scrollListItems, lastLisItemRef])
 
-  return { scrollListItems, lastLisItemRef, isAddingItems, iterator }
+  return { scrollListItems, iterator }
 }
-
-export default useEndlessScrollList
