@@ -16,7 +16,14 @@ import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 export default {
   title: "Layout/Panel/PanelFooter",
   component: PanelFooter,
-  argTypes: {},
+  argTypes: {
+    children: {
+      control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
+    },
+  },
   decorators: [
     (story: () => React.ReactNode) => (
       <PortalProvider>
