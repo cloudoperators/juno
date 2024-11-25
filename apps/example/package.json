@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-example",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "author": "UI-Team",
   "contributors": [
     "Arturo Reuschenbach Pucernau"
@@ -35,7 +35,7 @@
     "@cloudoperators/juno-oauth": "*",
     "@cloudoperators/juno-ui-components": "*",
     "@cloudoperators/juno-url-state-provider": "*",
-    "@cloudoperators/juno-utils": "1.1.14",
+    "@cloudoperators/juno-utils": "1.1.15",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

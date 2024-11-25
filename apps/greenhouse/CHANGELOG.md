@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.7
+
+### Patch Changes
+
+- b1503ed: Decouple juno-utils mocking logic
+- 8615024: Replace useEndlessScrollList from utils to ui-componetns and utils deprecation
+- Updated dependencies [b1503ed]
+- Updated dependencies [a0ee034]
+- Updated dependencies [8615024]
+  - @cloudoperators/juno-app-doop@2.3.2
+  - @cloudoperators/juno-ui-components@2.32.0
+  - @cloudoperators/juno-app-supernova@0.14.4
+
 ## 0.3.6
 
 ### Patch Changes
