@@ -31,9 +31,9 @@ The goal of this proposal is to consolidate all information regarding the extens
 
 ## Option 1: Co-Located Extensions (Integrated at Build Time)
 
-The concept is to co-locate the extension bundles within the same output build folder as the shell application. This approach bundles the extensions together with the shell app, enabling them to be dynamically loaded at runtime.
+The concept is to co-locate the extension bundles within the same output build folder as the shell application. This approach bundles the extensions together with the shell app, enabling them to be dynamically loaded at runtime. This approach is the one used in the current implementation of the Greenhouse Dashboard. A manifest file is used to define the extensions that can be loaded, and the shell app dynamically loads the extensions if they are in the manifest.
 
-**Internal Extensions**: have to be build first and afterwards bundled together with the shell application.
+**Internal Extensions**: have to be build first and afterwards bundled together with the shell application. To build the extension we use turbo dependency resolution to ensure that the extension is built before running or building the shell application and afterwards the extensions are added as dependencies in the package.json file so they are bundled together with the shell application.
 
 **External Extensions**: need to be retrieved at build time and stored in a designated directory
 
