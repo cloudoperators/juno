@@ -22,6 +22,12 @@ export default {
         type: { summary: "ReactNode" },
       },
     },
+    footer: {
+      control: false,
+      table: {
+        type: { summary: "ReactElement" },
+      },
+    },
   },
   decorators: [
     (story: () => React.ReactNode) => (

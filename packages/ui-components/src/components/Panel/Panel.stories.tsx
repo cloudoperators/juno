@@ -21,7 +21,6 @@ export default {
       },
     },
     heading: {
-      control: false,
       table: {
         type: { summary: "ReactNode" },
       },
