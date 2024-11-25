@@ -31,19 +31,33 @@ The goal of this proposal is to consolidate all information regarding the extens
 
 ## Option 1: Co-Located Extensions (Integrated at Build Time)
 
-The concept is to co-locate the extension bundles within the same output build folder as the shell application. This approach bundles the extensions together with the shell app, enabling them to be dynamically loaded at runtime. This approach is the one used in the current implementation of the Greenhouse Dashboard. A manifest file is used to define the extensions that can be loaded, and the shell app dynamically loads the extensions if they are in the manifest.
+The concept involves co-locating extension bundles within the same output as the shell application. This approach integrates the extensions directly with the shell app, allowing them to be dynamically loaded at runtime. This methodology is currently implemented in the Greenhouse Dashboard.
 
-**Internal Extensions**: have to be build first and afterwards bundled together with the shell application. To build the extension we use turbo dependency resolution to ensure that the extension is built before running or building the shell application and afterwards the extensions are added as dependencies in the package.json file so they are bundled together with the shell application.
+A manifest file defines the extensions available for loading. During runtime, the shell app references this manifest to dynamically load the specified extensions. The manifest file is generated during the build process and serves as the definitive source for determining which extensions are accessible for dynamic loading.
 
-**External Extensions**: need to be retrieved at build time and stored in a designated directory
+**Internal Extensions**: These must be built first and then bundled together with the shell application. Greenhouse uses Turbo's dependency resolution to ensure that each extension is built before the shell application built. Additionally, the extensions are included as dependencies in the shell application's package.json file, ensuring they are bundled seamlessly with the shell application.
 
-### Decision matrix
+**External Extensions**: These need to be retrieved, built, and tested during the build process. Once ready, they are added as dependencies in the shell application's package.json file, ensuring they are seamlessly bundled with the shell application.
+
+### Key Concepts
+
+- Co-located extensions are bundled together with the shell application.
+- Extensions are loaded dynamically at runtime.
+- A manifest file is used to define the extensions that can be loaded.
+- Internal extensions are built first and bundled together with the shell application.
+- External extensions are retrieved at build time and stored in a designated directory.
+
+### Pros and Cons
+
+- ## **Pros**:
+- **Cons**:
+  - Any updates to the extensions require a new build of the shell application.
 
 ## Option 2: Remote Extensions (Loaded at Runtime from CDNs)
 
 ### Docker images
 
-### Decision matrix
+### Pros and Cons
 
 ## References
 
