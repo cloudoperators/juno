@@ -15,7 +15,6 @@ export default () =>
     defaultTeam: "",
     teamMemberships: [],
     namespace: "",
-    isMock: false,
     actions: {
       initialize: (endpoint, token, namespace, userGroup) =>
         set({ endpoint, namespace, token, currentTeam: userGroup }),
@@ -27,6 +26,5 @@ export default () =>
         }
         set({ teamMemberships: teamMemberships, currentTeam })
       },
-      setMock: (isMock) => set({ isMock: isMock }),
     },
   }))

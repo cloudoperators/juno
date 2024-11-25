@@ -14,7 +14,9 @@
     "npm": ">=10.0.0 <11.0.0"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "run-p dev:*",
+    "dev:vite": "vite",
+    "dev:tsc": "tsc --watch",
     "build": "vite build",
     "build:static": "vite build --mode static",
     "serve": "vite preview",
@@ -53,6 +55,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-tailwindcss": "^3.17.4",
     "jsdom": "^24.1.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.47",
     "prettier": "3.1.1",
     "tailwindcss": "^3.4.12",
