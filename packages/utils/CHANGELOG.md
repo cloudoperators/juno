@@ -1,5 +1,11 @@
 # @cloudoperators/juno-utils
 
+## 1.1.15
+
+### Patch Changes
+
+- 8615024: Replace useEndlessScrollList from utils to ui-componetns and utils deprecation
+
 ## 1.1.14
 
 ### Patch Changes

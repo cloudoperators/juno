@@ -4,6 +4,5 @@
   "displayName": "MyApp",
   "apiEndpoint": "https://api.example.com/v1",
   "embedded": false,
-  "isMock": true,
   "showDebugSeverities": false
 }
