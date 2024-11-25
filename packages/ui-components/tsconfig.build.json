@@ -1,7 +1,7 @@
 {
   "extends": "@cloudoperators/juno-config/typescript/base.json",
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ESNext",
     "module": "ESNext",
     "jsx": "react",
     "strict": true,

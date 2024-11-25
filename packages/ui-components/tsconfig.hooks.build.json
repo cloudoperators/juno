@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.build.json",
+  "include": ["./src/hooks/*.ts", "./types/hooks/*.ts", "./src/hooks/*.tsx"]
+}
