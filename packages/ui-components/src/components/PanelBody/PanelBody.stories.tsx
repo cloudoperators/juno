@@ -9,7 +9,7 @@ import { Button } from "../Button/Button.component"
 import { Panel } from "../Panel/Panel.component"
 import { PanelBody, PanelBodyProps } from "./PanelBody.component"
 import { PanelFooter } from "../PanelFooter/PanelFooter.component"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component.js"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 // the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
 export default {
