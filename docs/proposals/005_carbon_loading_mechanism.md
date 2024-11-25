@@ -45,7 +45,7 @@ A manifest file defines the extensions available for loading. During runtime, th
 - Extensions are loaded dynamically at runtime.
 - A manifest file is used to define the extensions that can be loaded.
 - Internal extensions are built first and bundled together with the shell application.
-- External extensions are retrieved at build time and stored in a designated directory.
+- External extensions are retrieved, built, tested and bundled with the shell application.
 
 ### Pros and Cons
 
