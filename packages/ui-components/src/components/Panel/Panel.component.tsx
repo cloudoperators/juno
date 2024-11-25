@@ -9,6 +9,39 @@ import { createPortal } from "react-dom"
 import { Icon } from "../Icon/Icon.component"
 import { usePortalRef } from "../PortalProvider/PortalProvider.component"
 
+const panelStyles = (isOpen: boolean, isTransitioning: boolean, size?: "default" | "large"): string => {
+  return `
+      jn-fixed
+      jn-right-0
+      jn-transition-transform
+      jn-ease-out
+      jn-duration-300
+      jn-inset-y-0
+      jn-z-[9989]
+      jn-grid
+      jn-grid-rows-[auto_1fr]
+      jn-bg-theme-panel
+      jn-backdrop-blur
+      jn-backdrop-saturate-150     
+      jn-shadow-md
+      ${
+        size === "large"
+          ? `
+          jn-w-[90%]
+          xl:jn-w-[80%]
+          2xl:jn-w-[1228px]`
+          : `
+          jn-w-[75%]
+          xl:jn-w-[55%]
+          2xl:jn-w-[844px]`
+      }
+      ${!isOpen ? `jn-translate-x-[100%]` : ""}
+      ${!isOpen && !isTransitioning ? `jn-invisible` : ""}
+    `
+    .replace(/\n/g, " ")
+    .replace(/\s+/g, " ")
+}
+
 const contentWrapperStyles = `jn-overflow-auto`
 
 const panelHeaderStyles = `
@@ -22,22 +55,6 @@ const panelTitleStyles = `
   jn-text-theme-high
   jn-text-lg
   jn-font-bold
-`
-
-const basePanelStyles = `
-  jn-fixed
-  jn-right-0
-  jn-transition-transform
-  jn-ease-out
-  jn-duration-300
-  jn-inset-y-0
-  jn-z-[9989]
-  jn-grid
-  jn-grid-rows-[auto_1fr]
-  jn-bg-theme-panel
-  jn-backdrop-blur
-  jn-backdrop-saturate-150
-  jn-shadow-md
 `
 
 type PanelSize = "default" | "large"
@@ -63,7 +80,7 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
    * Handler called when the close button is clicked.
    */
   // eslint-disable-next-line no-unused-vars
-  onClose?: (event: MouseEvent) => void
+  onClose?: (event: MouseEvent<HTMLElement>) => void
   /**
    * Additional CSS classes to apply to the panel for custom styling.
    */
@@ -72,30 +89,6 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
    * Content to be rendered inside the main body of the panel.
    */
   children?: ReactNode
-}
-
-const getSizeStyles = (size: PanelSize) => {
-  if (size === "large") return "jn-w-[90%] xl:jn-w-[80%] 2xl:jn-w-[1228px]"
-  return "jn-w-[75%] xl:jn-w-[55%] 2xl:jn-w-[844px]"
-}
-
-const getVisibilityStyles = (isOpen: boolean, isTransitioning: boolean) => `
-  ${isOpen ? "" : "jn-translate-x-[100%]"}
-  ${isOpen && isTransitioning ? "" : "jn-invisible"}
-`
-
-// Combine base, size, and visibility classes into a single string
-const getPanelStyles = (isOpen: boolean, isTransitioning: boolean, size: PanelSize) => {
-  const sizeStyles = getSizeStyles(size)
-  const visibilityStyles = getVisibilityStyles(isOpen, isTransitioning)
-
-  return `
-    ${basePanelStyles}
-    ${sizeStyles}
-    ${visibilityStyles}
-  `
-    .replace(/\n/g, " ")
-    .replace(/\s+/g, " ")
 }
 
 /**
@@ -142,14 +135,14 @@ export const Panel: FC<PanelProps> = ({
     }
   }, [isOpen])
 
-  const handleClose = (event: MouseEvent) => {
+  const handleClose = (event: MouseEvent<HTMLElement>) => {
     setIsOpen(false)
     onClose?.(event)
   }
 
   return createPortal(
     <div
-      className={`juno-panel ${getPanelStyles(isOpen, isTransitioning, size)} ${className}`}
+      className={`juno-panel ${panelStyles(isOpen, isTransitioning, size)} ${className}`}
       role="dialog"
       aria-labelledby="juno-panel-title"
       {...props}
