@@ -20,7 +20,6 @@ describe("Zustand Store", () => {
     expect(useStore.getState().defaultTeam).toEqual("")
     expect(useStore.getState().teamMemberships).toEqual([])
     expect(useStore.getState().namespace).toEqual("")
-    expect(useStore.getState().isMock).toEqual(false)
   })
 
   test("initialize store", () => {
@@ -43,11 +42,5 @@ describe("Zustand Store", () => {
     useStore.getState().actions.setTeamMemberships(teamMemberships)
 
     expect(useStore.getState().teamMemberships).toEqual(teamMemberships)
-  })
-
-  test("setMock action", () => {
-    useStore.getState().actions.setMock(true)
-
-    expect(useStore.getState().isMock).toEqual(true)
   })
 })
