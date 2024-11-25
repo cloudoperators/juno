@@ -41,16 +41,22 @@ export interface PaginationProps {
   /** Emulate state as being on the last page, leading to right/next button being disabled */
   isLastPage?: boolean
   /** onPress (previous) handler */
+  // eslint-disable-next-line no-unused-vars
   onPressPrevious?: (newPage?: number) => void
   /** onPress (next) handler */
+  // eslint-disable-next-line no-unused-vars
   onPressNext?: (newPage?: number) => void
   /** Select change handler (select variant) */
+  // eslint-disable-next-line no-unused-vars
   onSelectChange?: (selected: number) => void
   /** Input field change handler (input variant) */
+  // eslint-disable-next-line no-unused-vars
   onInputChange?: (inputValue: number) => void
   /** onKeyDown handler (input variant) */
+  // eslint-disable-next-line no-unused-vars
   onKeyDown?: (value?: number) => void
   /** onBlur handler (input variant)*/
+  // eslint-disable-next-line no-unused-vars
   onBlur?: (value?: number) => void
   /** Spinner loading animation + disables interactions */
   progress?: boolean
