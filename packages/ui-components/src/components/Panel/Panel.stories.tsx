@@ -4,12 +4,10 @@
  */
 
 import React from "react"
-
-import { Panel } from "./Panel.component"
+import { Panel, PanelProps } from "./Panel.component"
 import { PanelBody } from "../PanelBody/PanelBody.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
-import { ContentArea } from "../ContentArea/ContentArea.component"
-import { ContentAreaWrapper } from "../ContentAreaWrapper/ContentAreaWrapper.component"
+import { Meta, StoryFn } from "@storybook/react"
 
 // the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
 export default {
@@ -21,21 +19,21 @@ export default {
     },
   },
   decorators: [
-    (story) => (
+    (story: () => React.ReactNode) => (
       <PortalProvider>
         <div className="jn-contrast-100">{story()}</div>
       </PortalProvider>
     ),
   ],
-}
+} as Meta
 
-const Template = (args) => (
-  <ContentAreaWrapper>
+const Template: StoryFn<PanelProps> = (args) => (
+  <div>
     <Panel {...args}>
-      <PanelBody>Panel Body Content</PanelBody>
+      <PanelBody>Hey Panel Body</PanelBody>
     </Panel>
-    <ContentArea className="dummy-css-ignore jn-h-[150px]">Content Area</ContentArea>
-  </ContentAreaWrapper>
+    <div className="dummy-css-ignore jn-h-[150px]">Hey Div</div>
+  </div>
 )
 
 export const WithHeading = {
