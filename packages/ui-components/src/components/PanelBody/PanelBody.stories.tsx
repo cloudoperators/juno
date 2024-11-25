@@ -5,46 +5,39 @@
 
 import React from "react"
 import { Meta, StoryFn } from "@storybook/react"
-
-import { PanelBody, PanelBodyProps } from "./PanelBody.component"
 import { Button } from "../Button/Button.component"
 import { Panel } from "../Panel/Panel.component"
+import { PanelBody, PanelBodyProps } from "./PanelBody.component"
 import { PanelFooter } from "../PanelFooter/PanelFooter.component"
-import { ContentArea } from "../ContentArea/ContentArea.component"
-import { ContentAreaWrapper } from "../ContentAreaWrapper/ContentAreaWrapper.component"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component.js"
 
-// The decorator captures the panel's fixed positioning within the iframe. Otherwise, it would be placed relative to the viewport, which is unwieldy in Storybook.
+// the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
 export default {
   title: "Layout/Panel/PanelBody",
   component: PanelBody,
   argTypes: {},
   decorators: [
-    (Story: StoryFn) => (
+    (story: () => React.ReactNode) => (
       <PortalProvider>
-        <div className="jn-contrast-100">
-          <Story />
-        </div>
+        <div className="jn-contrast-100">{story()}</div>
       </PortalProvider>
     ),
   ],
-} as Meta<typeof PanelBody>
+} as Meta
 
-const FooterExample: React.ReactNode = (
+const FooterExample = (
   <PanelFooter>
-    <Button label="Click me" />
+    <Button label="Click me"></Button>
   </PanelFooter>
 )
 
 const Template: StoryFn<PanelBodyProps> = (args) => (
-  <ContentAreaWrapper>
+  <div>
     <Panel heading="My Panel" opened>
       <PanelBody {...args}>This is the panel body</PanelBody>
     </Panel>
-    <ContentArea className="dummy-css-ignore jn-h-[250px]">
-      <div>Content Area</div>
-    </ContentArea>
-  </ContentAreaWrapper>
+    <div className="dummy-css-ignore jn-h-[250px]">Content Area</div>
+  </div>
 )
 
 export const Body = {

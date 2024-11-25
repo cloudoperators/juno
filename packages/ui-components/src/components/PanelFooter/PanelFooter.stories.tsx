@@ -8,10 +8,8 @@ import { Meta, StoryFn } from "@storybook/react"
 
 import { Button } from "../Button/Button.component"
 import { Panel } from "../Panel/Panel.component"
-import { PanelFooter, PanelFooterProps } from "./PanelFooter.component"
 import { PanelBody } from "../PanelBody/PanelBody.component"
-import { ContentArea } from "../ContentArea/ContentArea.component"
-import { ContentAreaWrapper } from "../ContentAreaWrapper/ContentAreaWrapper.component"
+import { PanelFooter, PanelFooterProps } from "./PanelFooter.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 // the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
@@ -20,18 +18,16 @@ export default {
   component: PanelFooter,
   argTypes: {},
   decorators: [
-    (Story: StoryFn) => (
+    (story: () => React.ReactNode) => (
       <PortalProvider>
-        <div className="jn-contrast-100">
-          <Story />
-        </div>
+        <div className="jn-contrast-100">{story()}</div>
       </PortalProvider>
     ),
   ],
-} as Meta<typeof PanelFooter>
+} as Meta
 
 const Template: StoryFn<PanelFooterProps> = (args) => (
-  <ContentAreaWrapper>
+  <div>
     <Panel heading="My Panel" opened>
       <PanelBody
         footer={
@@ -43,10 +39,8 @@ const Template: StoryFn<PanelFooterProps> = (args) => (
         This is the panel body
       </PanelBody>
     </Panel>
-    <ContentArea className="dummy-css-ignore jn-h-[250px]">
-      <div>Content Area</div>
-    </ContentArea>
-  </ContentAreaWrapper>
+    <div className="dummy-css-ignore jn-h-[250px]">Content Area</div>
+  </div>
 )
 
 export const Footer = {

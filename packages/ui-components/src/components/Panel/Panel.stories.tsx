@@ -4,10 +4,10 @@
  */
 
 import React from "react"
+import { Meta, StoryFn } from "@storybook/react"
 import { Panel, PanelProps } from "./Panel.component"
 import { PanelBody } from "../PanelBody/PanelBody.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
-import { Meta, StoryFn } from "@storybook/react"
 
 // the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
 export default {
@@ -30,9 +30,9 @@ export default {
 const Template: StoryFn<PanelProps> = (args) => (
   <div>
     <Panel {...args}>
-      <PanelBody>Hey Panel Body</PanelBody>
+      <PanelBody>Panel Body Content</PanelBody>
     </Panel>
-    <div className="dummy-css-ignore jn-h-[150px]">Hey Div</div>
+    <div className="dummy-css-ignore jn-h-[150px]">Content Area</div>
   </div>
 )
 
