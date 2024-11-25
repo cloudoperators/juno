@@ -32,7 +32,6 @@ module.exports = {
         "supernova",
         "template",
         "ui",
-        "utils",
         "url-state-provider",
         "version",
         /^ISSUE-\d+$/, // Regex pattern for ISSUE-<number>
