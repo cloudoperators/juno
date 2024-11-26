@@ -3,7 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* eslint-disable no-unused-vars */
+
 import React, { useEffect, useState } from "react"
+
 import { Stack } from "../Stack/Stack.component"
 import { Button } from "../Button/Button.component"
 import { Spinner } from "../Spinner/Spinner.component"
@@ -16,7 +19,6 @@ const paginationStyles = `
   jn-gap-[0.375rem]
   jn-items-center
 `
-
 const spinnerStyles = `
   jn-ml-3
 `
@@ -32,162 +34,201 @@ export interface PaginationProps {
   currentPage?: number
   /** The total number of pages */
   totalPages?: number
-  /** The total number of pages (fallback for older versions) */
+  /** The total number of pages (fallback solution, please use totalPages) */
   pages?: number
   /** Disable component */
   disabled?: boolean
-  /** Emulate state as being on the first page, leading to left/prev button being disabled */
+  /** Use this to have the Pagination emulate the state as being on the first page. Useful for when you don't have knowledge about pages but know that there is no previous page. Setting this to true leads to the left/prev button getting disabled */
   isFirstPage?: boolean
-  /** Emulate state as being on the last page, leading to right/next button being disabled */
+  /** Use this to have the Pagination emulate the state as being on the last page. Useful for when you don't have knowledge about pages/total page count but know that there is no next page. Setting this to true leads to the right/next button getting disabled */
   isLastPage?: boolean
   /** onPress (previous) handler */
-  // eslint-disable-next-line no-unused-vars
   onPressPrevious?: (newPage?: number) => void
   /** onPress (next) handler */
-  // eslint-disable-next-line no-unused-vars
   onPressNext?: (newPage?: number) => void
   /** Select change handler (select variant) */
-  // eslint-disable-next-line no-unused-vars
   onSelectChange?: (selected: number) => void
-  /** Input field change handler (input variant) */
-  // eslint-disable-next-line no-unused-vars
-  onInputChange?: (inputValue: number) => void
-  /** onKeyDown handler (input variant) */
-  // eslint-disable-next-line no-unused-vars
-  onKeyDown?: (value?: number) => void
-  /** onBlur handler (input variant)*/
-  // eslint-disable-next-line no-unused-vars
-  onBlur?: (value?: number) => void
-  /** Spinner loading animation + disables interactions */
+  /** Input field change handler (input) */
+  onInputChange?: (inputValue?: number) => void
+  /** onKeyPress handler (input) */
+  onKeyPress?: (controlPage?: number) => void
+  /** onBlur handler (input)*/
+  onBlur?: (controlPage?: number) => void
+  /** Spinner loading animation + disabled behavior */
   progress?: boolean
   /** Additional class name */
   className?: string
 }
 
-/** A basic Pagination component. Renders '<' and '>' buttons as a minimum/default. Keeps internal state of the current page for uncontrolled use. */
-export const Pagination: React.FC<PaginationProps> = ({
+/** A basic Pagination component. Renders '<' and '>' buttons as a minimum/default. The component keeps internal state about the currently selected page so it can be used as an uncontrolled component.  */
+export const Pagination = ({
   variant = "default",
-  currentPage = 1,
-  totalPages,
-  pages,
+  currentPage = undefined,
+  totalPages = undefined,
+  pages = undefined,
   disabled = false,
-  isFirstPage = false,
-  isLastPage = false,
-  onPressPrevious,
-  onPressNext,
-  onSelectChange,
-  onInputChange,
-  onKeyDown,
-  onBlur,
+  isFirstPage = undefined,
+  isLastPage = undefined,
+  onPressPrevious = undefined,
+  onPressNext = undefined,
+  onSelectChange = undefined,
+  onInputChange = undefined,
+  onKeyPress = undefined,
+  onBlur = undefined,
   progress = false,
   className = "",
   ...props
-}) => {
-  const [controlPage, setControlCurrentPage] = useState<number>(currentPage)
-  const [controlTotalPage, setControlTotalPage] = useState<number | undefined>(pages ?? totalPages)
+}: PaginationProps) => {
+  const [controlPage, setControlCurrentPage] = useState<number | undefined>(currentPage)
+  const [controlTotalPage, setControlTotalPage] = useState<number | undefined>(pages ? pages : totalPages)
 
   useEffect(() => {
     setControlCurrentPage(currentPage)
-    const totalPage = pages ?? totalPages
-    setControlTotalPage(totalPage)
-    if (controlPage > (totalPage ?? Number.MAX_SAFE_INTEGER)) {
-      setControlCurrentPage(totalPage ?? 1)
+    // Fallback for the “pages” prop which was used in an earlier version of this component.
+    pages ? setControlTotalPage(pages) : setControlTotalPage(totalPages)
+    if (controlPage !== undefined && controlTotalPage !== undefined && controlPage > controlTotalPage) {
+      setControlCurrentPage(controlTotalPage)
     }
-  }, [currentPage, totalPages, pages, controlPage])
+  }, [currentPage, totalPages, pages])
 
   const handlePrevClick = () => {
-    if (controlPage > 1) {
-      const newPage = controlPage - 1
+    let newPage
+    if (controlPage !== undefined && controlPage > 1) {
+      newPage = controlPage - 1
       setControlCurrentPage(newPage)
-      onPressPrevious?.(newPage)
     }
+
+    onPressPrevious && onPressPrevious(newPage)
   }
 
   const handleNextClick = () => {
-    if (controlPage && controlPage < (controlTotalPage ?? Number.MAX_SAFE_INTEGER)) {
-      const newPage = controlPage + 1
-      setControlCurrentPage(newPage)
-      onPressNext?.(newPage)
+    // set controlPage +1 if controlPage exists and controlPage is less than controlTotalPage
+    // also set controlPage +1 if controlPage exists but controlTotalPage does not exist
+    let newPage
+    if (controlPage !== undefined) {
+      if (controlTotalPage === undefined || controlPage < controlTotalPage) {
+        newPage = controlPage + 1
+        setControlCurrentPage(newPage)
+      }
     }
+
+    onPressNext && onPressNext(newPage)
   }
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selected = parseInt(event.target.value, 10)
-    setControlCurrentPage(selected)
-    onSelectChange?.(selected)
+  const handleSelectChange = (selectedValue: string | number | string[]) => {
+    const s = parseInt(selectedValue as string, 10)
+    setControlCurrentPage(s)
+
+    if (onSelectChange) {
+      onSelectChange(s)
+    }
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let inputValue = parseInt(event.target.value, 10)
-    if (isNaN(inputValue)) {
-      inputValue = controlPage // keep the current value if input is not a number
-    } else if (inputValue < 1) {
-      inputValue = 1 // set to 1 if less than 1
-    } else if (controlTotalPage && inputValue > controlTotalPage) {
-      inputValue = controlTotalPage // set to total page limit
+    // ensure that the input value is an integer
+    let inputValue = event.target.value ? parseInt(event.target.value, 10) : undefined
+
+    if (inputValue !== undefined) {
+      if (inputValue < 1) {
+        inputValue = 1
+      } else if (controlTotalPage !== undefined && inputValue > controlTotalPage) {
+        inputValue = controlTotalPage
+      }
     }
     setControlCurrentPage(inputValue)
-    onInputChange?.(inputValue)
+
+    onInputChange && onInputChange(inputValue)
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      onKeyDown?.(controlPage)
+      onKeyPress && onKeyPress(controlPage)
     }
   }
 
   const handleBlur = () => {
-    onBlur?.(controlPage)
+    onBlur && onBlur(controlPage)
   }
 
+  // Calculation of the width of input fields dynamically based on the number of characters
   const getInputWidthClass = () => {
-    const logLength = Math.min(controlPage?.toString().length || 1, 5)
+    let logLength = controlPage !== undefined && !isNaN(controlPage) ? controlPage.toString().length : 1
+    logLength = logLength > 5 ? 5 : logLength
     const width = `${(logLength * 0.6 + 2.1).toFixed(1)}rem` // 0.6rem per digit + 2.1rem
-    return { width }
+    return { width: width }
   }
 
   return (
-    <div className={`juno-pagination juno-pagination-${variant} ${paginationStyles} ${className}`} {...props}>
+    <div
+      className={`juno-pagination juno-pagination-${variant || "default"} ${paginationStyles} ${className}`}
+      {...props}
+    >
       <Button
         icon="chevronLeft"
-        disabled={isFirstPage || disabled || progress || controlPage === 1}
+        disabled={!!isFirstPage || !!disabled || !!progress || controlPage === 1}
         onClick={handlePrevClick}
         title="Previous Page"
       />
-      {progress && <Spinner size="small" color="default" className={spinnerStyles} />}
-      {!progress && variant === "number" && controlPage && <div className="page-value"> {controlPage}</div>}
-      {!progress && variant === "select" && (
-        <Select
-          name="totalPages"
-          width="auto"
-          value={controlPage.toString()}
-          onChange={(e) => handleSelectChange(e as React.ChangeEvent<HTMLSelectElement>)}
-          disabled={disabled}
-        >
-          {Array.from({ length: controlTotalPage || 0 }, (_, i) => i + 1).map((p) => (
-            <SelectOption value={p.toString()} label={p.toString()} key={p} />
-          ))}
-        </Select>
-      )}
-      {!progress && variant === "input" && (
-        <Stack gap="2" alignment="center">
-          <div className="juno-pagination-wrapper" style={getInputWidthClass()}>
-            <TextInput
-              value={controlPage}
-              onChange={handleInputChange}
-              onBlur={handleBlur}
-              onKeyDown={handleKeyDown}
-              disabled={disabled}
-              className={inputStyles}
-              maxLength={6}
-            />
-          </div>
-          {controlTotalPage !== undefined && <span>of {controlTotalPage}</span>}
-        </Stack>
-      )}
+      {progress ? <Spinner size="small" color="default" className={spinnerStyles} /> : ""}
+      {variant && !progress
+        ? (() => {
+            switch (variant) {
+              case "number":
+                return controlPage !== undefined ? <div className="page-value"> {controlPage}</div> : ""
+
+              case "select":
+                return (
+                  <Select
+                    name="totalPages"
+                    width="auto"
+                    value={controlPage?.toString()} // here the same, defaultValue is of type string
+                    onChange={handleSelectChange}
+                    disabled={disabled}
+                  >
+                    {(() => {
+                      const opts = []
+                      if (controlTotalPage !== undefined) {
+                        for (let i = 0; i < controlTotalPage; i++) {
+                          const p = (i + 1).toString() // SelectOption requires strings for value and label
+                          opts.push(<SelectOption value={p} label={p} key={p} />)
+                        }
+                      }
+                      return opts
+                    })()}
+                  </Select>
+                )
+
+              case "input":
+                return (
+                  <Stack gap="2" alignment="center">
+                    <div className={`juno-pagination-wrapper`} style={getInputWidthClass()}>
+                      <TextInput
+                        value={controlPage !== undefined ? controlPage : ""}
+                        //convert to integer
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
+                        onKeyPress={handleKeyPress}
+                        disabled={!!disabled}
+                        className={inputStyles}
+                        maxLength={6}
+                      />
+                    </div>
+                    {controlTotalPage !== undefined ? <span>of {controlTotalPage}</span> : ""}
+                  </Stack>
+                )
+              default:
+                return ""
+            }
+          })()
+        : ""}
       <Button
         icon="chevronRight"
-        disabled={isLastPage || disabled || progress || controlPage === controlTotalPage}
+        disabled={
+          !!isLastPage ||
+          !!disabled ||
+          !!progress ||
+          (controlPage !== undefined && controlTotalPage !== undefined && controlPage === controlTotalPage)
+        }
         onClick={handleNextClick}
         title="Next Page"
       />
