@@ -167,7 +167,7 @@ The manifest defines the CDN URL for each extension. Versioning can be specified
            +--------------------------------------------------------+
 ```
 
-### Docker images
+### Kubernetes as a CDN
 
 Kubernetes setup for deploying a shell app and multiple extensions as Docker images, with seamless internal communication:
 
