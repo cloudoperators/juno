@@ -115,12 +115,22 @@ export const Pagination = ({
     onPressNext && onPressNext(newPage)
   }
 
-  const handleSelectChange = (selectedValue: string | number | string[]) => {
-    const s = parseInt(selectedValue as string, 10)
-    setControlCurrentPage(s)
+  const handleSelectChange = (selectedValue?: string | number | string[]) => {
+    if (selectedValue !== undefined) {
+      let s: number
+      if (typeof selectedValue === "string") {
+        s = parseInt(selectedValue, 10)
+      } else if (typeof selectedValue === "number") {
+        s = selectedValue
+      } else {
+        // Handle string array case if necessary, here we assume it's a single string selection for simplicity
+        s = parseInt(selectedValue[0], 10)
+      }
+      setControlCurrentPage(s)
 
-    if (onSelectChange) {
-      onSelectChange(s)
+      if (onSelectChange) {
+        onSelectChange(s)
+      }
     }
   }
 

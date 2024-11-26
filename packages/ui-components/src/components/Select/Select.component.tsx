@@ -108,7 +108,7 @@ export interface SelectProps
   name?: string
   /** Handler to be executed when the selected value changes */
   // eslint-disable-next-line no-unused-vars
-  onChange?: (value: string | number | string[]) => void
+  onChange?: (value?: string | number | string[]) => void
   /** Handle for openning of select */
   open?: boolean
   /** LEGACY: Handler to be executed when the Select value changes. Here for backwards compatibility with apps based on older versions of Select. Use onChange instead. */
