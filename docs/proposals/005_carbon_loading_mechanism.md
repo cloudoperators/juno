@@ -42,6 +42,7 @@ The manifest specifies the location of each extension, offering flexibility in h
   "supernova": "@cloudoperators/juno-app-supernova",
   "xyz": "extensions/xyz/index.js"
 }
+```
 
 Additionally, this setup supports extensions hosted on CDNs:
 
@@ -49,7 +50,7 @@ Additionally, this setup supports extensions hosted on CDNs:
 {
   "xyz": "https://cdn.com/xyz"
 }
-````
+```
 
 `iFrames` are also supported by placing an extension in the extensions/xyz directory and loading it in index.js.
 
@@ -134,3 +135,4 @@ Additionally, this setup supports extensions hosted on CDNs:
 
 - [Architecture and Modularization EPIC](https://github.com/cloudoperators/juno/issues/275)
 - [Modular Architecture for Aurora Dashboard](https://github.com/cloudoperators/juno/issues/386)
+````
