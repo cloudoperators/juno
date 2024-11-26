@@ -35,9 +35,66 @@ The concept involves co-locating extension bundles within the same output as the
 
 A manifest file defines the extensions available for loading. During runtime, the shell app references this manifest to dynamically load the specified extensions. The manifest file is generated during the build process and serves as the definitive source for determining which extensions are accessible for dynamic loading.
 
+The manifest specifies the location of each extension, offering flexibility in how extensions are managed. For example:
+
+````json
+{
+  "supernova": "@cloudoperators/juno-app-supernova",
+  "xyz": "extensions/xyz/index.js"
+}
+
+Additionally, this setup supports extensions hosted on CDNs:
+
+```json
+{
+  "xyz": "https://cdn.com/xyz"
+}
+````
+
+`iFrames` are also supported by placing an extension in the extensions/xyz directory and loading it in index.js.
+
 **Internal Extensions**: These must be built first and then bundled together with the shell application. Greenhouse uses Turbo's dependency resolution to ensure that each extension is built before the shell application built. Additionally, the extensions are included as dependencies in the shell application's package.json file, ensuring they are bundled seamlessly with the shell application.
 
 **External Extensions**: These need to be retrieved, built, and tested during the build process. Once ready, they are added as dependencies in the shell application's package.json file, ensuring they are seamlessly bundled with the shell application.
+
+### Diagram
+
+```bash
+                      Build Process
+  ------------------------------------------------
+  |                                              |
+  |          +-----------------------+           |
+  |          | Internal Extensions   |           |
+  |          | (Built First)         |           |
+  |          +-----------------------+           |
+  |                                              |
+  |          +-----------------------+           |
+  |          | External Extensions   |           |
+  |          | (Retrieved, Built,    |           |
+  |          | and Tested)           |           |
+  |          +-----------------------+           |
+  |                                              |
+  ------------------------------------------------
+                      |
+                      v
+           +--------------------------+
+           |  Generate Manifest File  |
+           | (Defines Available       |
+           | Extensions)              |
+           +--------------------------+
+                      |
+                      v
+     +---------------------------------------+
+     | Shell Application                     |
+     | - Bundled Extensions                  |
+     | - References Manifest for Dynamic     |
+     |   Loading at Runtime                  |
+     +---------------------------------------+
+                      |
+                      v
+        Dynamic Loading of Extensions at Runtime
+
+```
 
 ### Key Concepts
 
@@ -46,12 +103,26 @@ A manifest file defines the extensions available for loading. During runtime, th
 - A manifest file is used to define the extensions that can be loaded.
 - Internal extensions are built first and bundled together with the shell application.
 - External extensions are retrieved, built, tested and bundled with the shell application.
+- Extensions can be hosted on CDNs.
+- Extensions can be loaded in `iFrames`.
 
 ### Pros and Cons
 
-- ## **Pros**:
+- **Pros**:
+
+  - **All Dependencies Resolved at Build Time**: ensures that all extensions, whether internal or external, are fully resolved during the build process. This eliminates CORS issues and prevents individual extension outages.
+  - **Flexibility in Extension Locations**: supports local paths for extensions (e.g., `extensions/xyz/index.js`) for tightly integrated functionalities. Allows external extensions to be hosted on CDNs, enabling scalable and efficient delivery.
+  - **Error Management**:
+    - **Internal Extensions**: Errors can be addressed promptly by committing fixes rather than rolling back, as the main branch remains unaffected.
+    - **External Extensions**: A specific version of an external extension is stored in the `extensions` directory. Errors can be caught during the build or resolved with a re-build. In the worst case, problematic extensions can be removed without affecting the rest of the application.
+  - **Ease of Configuration**: a manifest file serves as the single source of truth for defining accessible extensions. Updates can be made to the manifest without modifying core application logic.
+  - **Support for iFrames**: embedding extensions via iFrames allows for isolated execution of third-party or sandboxed extensions.
+  - **Streamlined Build Process**: the manifest is generated during the build process, ensuring consistency in available extensions and simplifying integration.
+
 - **Cons**:
-  - Any updates to the extensions require a new build of the shell application.
+  - **Dependency on Manifest File**: the system heavily relies on the accuracy of the manifest file. Errors or misconfigurations could disrupt extension loading.
+  - **Build-Time Configuration**: although dynamic loading reduces deployment frequency, changes to the build process or manifest generation logic still require developer involvement.
+  - **Limited Runtime Flexibility**: since dependencies are resolved at build time, adding new extensions dynamically without rebuilding the application is not feasible.
 
 ## Option 2: Remote Extensions (Loaded at Runtime from CDNs)
 
@@ -63,4 +134,3 @@ A manifest file defines the extensions available for loading. During runtime, th
 
 - [Architecture and Modularization EPIC](https://github.com/cloudoperators/juno/issues/275)
 - [Modular Architecture for Aurora Dashboard](https://github.com/cloudoperators/juno/issues/386)
--
