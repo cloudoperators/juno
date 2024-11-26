@@ -133,10 +133,11 @@ A manifest file lists the extensions and their versions available for loading. A
 
 The manifest defines the CDN URL for each extension. Versioning can be specified either directly in the URL path or through an additional attribute. For example:
 
-````json
+```json
 {
   "xyz": "https://cdn.com/xyz/version1.0.0"
 }
+```
 
 **Internal Extensions**: These extensions are bundled and deployed to a designated CDN. The shell application references the CDN URL from the manifest file, enabling seamless integration and dynamic loading at runtime.
 
@@ -164,7 +165,7 @@ The manifest defines the CDN URL for each extension. Versioning can be specified
            |   | Internal Extension  |      | External Extension  | |
            |   +---------------------+      +---------------------+ |
            +--------------------------------------------------------+
-````
+```
 
 ### Docker images
 
@@ -245,3 +246,7 @@ Kubernetes setup for deploying a shell app and multiple extensions as Docker ima
 
 - [Architecture and Modularization EPIC](https://github.com/cloudoperators/juno/issues/275)
 - [Modular Architecture for Aurora Dashboard](https://github.com/cloudoperators/juno/issues/386)
+
+```
+
+```
