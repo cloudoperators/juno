@@ -115,23 +115,29 @@ export const Pagination = ({
     onPressNext && onPressNext(newPage)
   }
 
-  const handleSelectChange = (selectedValue?: string | number | string[]) => {
-    if (selectedValue !== undefined) {
-      let s: number
-      if (typeof selectedValue === "string") {
-        s = parseInt(selectedValue, 10)
-      } else if (typeof selectedValue === "number") {
-        s = selectedValue
-      } else {
-        // Handle string array case if necessary, here we assume it's a single string selection for simplicity
-        s = parseInt(selectedValue[0], 10)
-      }
-      setControlCurrentPage(s)
+  /**
+   * Handle change event:
+   * - Convert the selected value to a number and update the control page state.
+   * - If defined, call the onSelectChange callback
+   */
+  const handleSelectChange = (selectedValue?: string | number | string[]): void => {
+    if (selectedValue === undefined) return
 
-      if (onSelectChange) {
-        onSelectChange(s)
-      }
+    let convertedNumber: number | undefined
+
+    // Convert the selected value to a number based on its type
+    if (typeof selectedValue === "string" || Array.isArray(selectedValue)) {
+      convertedNumber = parseInt(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue, 10)
+    } else {
+      // If selectedValue is a number, assign it directly
+      convertedNumber = selectedValue
     }
+
+    // If the conversion results in an invalid number
+    if (convertedNumber === undefined || isNaN(convertedNumber)) return
+
+    setControlCurrentPage(convertedNumber)
+    onSelectChange?.(convertedNumber)
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
