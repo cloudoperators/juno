@@ -283,7 +283,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
       time_24hr: time_24hr,
       weekNumbers: weekNumbers,
       inline: false,
-      ignoredFocusElements: []
+      ignoredFocusElements: [],
     }
 
     const FP = calendarTargetRef && fpRef.current && flatpickr(fpRef.current, options)

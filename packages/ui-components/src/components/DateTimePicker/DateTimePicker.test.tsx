@@ -864,8 +864,8 @@ describe("DateTimePicker", () => {
     const input = screen.getByRole("textbox")
     await waitFor(() => user.click(input))
 
-    const focusEvent = new FocusEvent('focus', { bubbles: true, composed: true });
-    document.body.dispatchEvent(focusEvent);
+    const focusEvent = new FocusEvent("focus", { bubbles: true, composed: true })
+    document.body.dispatchEvent(focusEvent)
 
     expect(mockOnClose).toHaveBeenCalled()
   })
