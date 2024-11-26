@@ -63,18 +63,18 @@ export interface PaginationProps {
 /** A basic Pagination component. Renders '<' and '>' buttons as a minimum/default. The component keeps internal state about the currently selected page so it can be used as an uncontrolled component.  */
 export const Pagination = ({
   variant = "default",
-  currentPage = undefined,
-  totalPages = undefined,
-  pages = undefined,
+  currentPage,
+  totalPages,
+  pages,
   disabled = false,
-  isFirstPage = undefined,
-  isLastPage = undefined,
-  onPressPrevious = undefined,
-  onPressNext = undefined,
-  onSelectChange = undefined,
-  onInputChange = undefined,
-  onKeyPress = undefined,
-  onBlur = undefined,
+  isFirstPage,
+  isLastPage,
+  onPressPrevious,
+  onPressNext,
+  onSelectChange,
+  onInputChange,
+  onKeyPress,
+  onBlur,
   progress = false,
   className = "",
   ...props
@@ -141,7 +141,7 @@ export const Pagination = ({
   }
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && controlPage !== undefined) {
       onKeyPress && onKeyPress(controlPage)
     }
   }

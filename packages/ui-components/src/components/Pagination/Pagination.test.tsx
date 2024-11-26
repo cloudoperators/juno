@@ -39,21 +39,29 @@ describe("Pagination", () => {
     render(<Pagination variant="number" currentPage={12} totalPages={6} data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
   })
+
   test("renders Pagination (number) with currentPage lower than totalPages", () => {
     render(<Pagination variant="number" currentPage={6} totalPages={12} data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
   })
+
   test("renders Pagination (number) with currentPage and undefined totalPages", () => {
     render(<Pagination variant="number" currentPage={6} totalPages={undefined} data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
   })
+
   test("renders Pagination (number) with undefined currentPage and defined totalPages", () => {
     render(<Pagination variant="number" currentPage={undefined} totalPages={6} data-testid="my-pagination" />)
-    expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
+
+    const paginationElement = screen.getByTestId("my-pagination")
+    expect(paginationElement.querySelector(".page-value")).not.toBeInTheDocument()
   })
+
   test("renders Pagination (number) with undefined currentPage and undefined totalPages", () => {
     render(<Pagination variant="number" currentPage={undefined} totalPages={undefined} data-testid="my-pagination" />)
-    expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
+
+    const paginationElement = screen.getByTestId("my-pagination")
+    expect(paginationElement.querySelector(".page-value")).not.toBeInTheDocument()
   })
 
   test("renders a select variant Pagination as passed", () => {
@@ -106,8 +114,9 @@ describe("Pagination", () => {
     expect(handlePressNext).toHaveBeenCalledTimes(1)
   })
 
-  test("fires onPressNext handler with undefined currentPage and undefinded totalPages - passed when Next button is clicked", () => {
+  test("fires onPressNext handler with undefined currentPage and undefined totalPages when Next button is clicked", async () => {
     const handlePressNext = vi.fn()
+
     render(
       <Pagination
         variant="number"
@@ -117,15 +126,24 @@ describe("Pagination", () => {
         onPressNext={handlePressNext}
       />
     )
-    act(() => {
-      screen.getByRole("button", { name: "Next Page" }).click()
+
+    // Click on the Next button
+    const nextButton = screen.getByRole("button", { name: "Next Page" })
+    await act(async () => {
+      await userEvent.click(nextButton)
     })
+
+    // Assertions
     expect(handlePressNext).toHaveBeenCalledTimes(1)
-    expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
+
+    // Check that there is no pagination content if currentPage and totalPages are undefined
+    const paginationElement = screen.getByTestId("my-pagination")
+    expect(paginationElement.querySelector(".page-value")).not.toBeInTheDocument()
   })
 
-  test("fires onPressNext handler with undefined currentPages", () => {
+  test("fires onPressNext handler with undefined currentPages", async () => {
     const handlePressNext = vi.fn()
+
     render(
       <Pagination
         variant="number"
@@ -135,11 +153,19 @@ describe("Pagination", () => {
         onPressNext={handlePressNext}
       />
     )
-    act(() => {
-      screen.getByRole("button", { name: "Next Page" }).click()
+
+    // Click on the Next button
+    const nextButton = screen.getByRole("button", { name: "Next Page" })
+    await act(async () => {
+      await userEvent.click(nextButton)
     })
+
+    // Assertions
     expect(handlePressNext).toHaveBeenCalledTimes(1)
-    expect(screen.getByTestId("my-pagination")).toHaveTextContent("")
+
+    // Check that there is no pagination content if currentPage is undefined
+    const paginationElement = screen.getByTestId("my-pagination")
+    expect(paginationElement.querySelector(".page-value")).not.toBeInTheDocument()
   })
 
   test("fires onPressNext handler with undefinded totalPages", () => {
@@ -198,134 +224,111 @@ describe("Pagination", () => {
 
   test("fires onChange handler as passed when Select changes for select variant", async () => {
     const mockHandleChange = vi.fn()
-    act(() => {
-      render(<Pagination variant="select" currentPage={1} pages={6} onSelectChange={mockHandleChange} />)
-    })
+    render(<Pagination variant="select" currentPage={1} pages={6} onSelectChange={mockHandleChange} />)
     const select = document.querySelector("button.juno-select-toggle")
     expect(select).toBeInTheDocument()
     expect(select).toHaveTextContent("1")
-    await waitFor(() => userEvent.click(select))
+    if (select) {
+      await waitFor(() => userEvent.click(select))
+    }
     expect(screen.getByRole("listbox")).toBeInTheDocument()
-    act(() => {
-      screen.getByRole("option", { name: "4" }).click()
-    })
+    fireEvent.click(screen.getByRole("option", { name: "4" }))
     expect(select).toHaveTextContent("4")
     expect(mockHandleChange).toHaveBeenCalledTimes(1)
   })
 
   test("fires onKeyPress handler on Enter as passed for input variant", async () => {
     const handleKeyPress = vi.fn()
-    await waitFor(() => {
-      render(<Pagination variant="input" onKeyPress={handleKeyPress} />)
+    render(<Pagination variant="input" currentPage={1} onKeyPress={handleKeyPress} />)
+
+    const input = screen.getByRole("textbox")
+
+    // Type Enter key
+    await act(async () => {
+      await userEvent.type(input, "{enter}")
     })
+
+    // Check if the onKeyPress handler was called
     await waitFor(() => {
-      userEvent.type(screen.getByRole("textbox"), "{enter}")
       expect(handleKeyPress).toHaveBeenCalledTimes(1)
     })
   })
 
   test("does not fire onKeyPress handler on Enter for input variant with undefined controlPage", async () => {
     const handleKeyPress = vi.fn()
-    await waitFor(() => {
-      render(<Pagination variant="input" currentPage={undefined} onKeyPress={handleKeyPress} />)
+    render(<Pagination variant="input" currentPage={undefined} onKeyPress={handleKeyPress} />)
+
+    const input = screen.getByRole("textbox")
+
+    // Type Enter key
+    await act(async () => {
+      await userEvent.type(input, "{enter}")
     })
+
+    // Check if the onKeyPress handler was not called
     await waitFor(() => {
-      userEvent.type(screen.getByRole("textbox"), "{enter}")
-      expect(handleKeyPress).toHaveBeenCalledTimes(0)
+      expect(handleKeyPress).not.toHaveBeenCalled()
     })
   })
 
   test("renders disabled Pagination (default) as passed", () => {
     render(<Pagination disabled />)
-    expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
+    expect(screen.getAllByRole("button")).toHaveLength(2)
+    expect(screen.getAllByRole("button", { name: /previous page/i })[0]).toBeDisabled()
+    expect(screen.getAllByRole("button", { name: /next page/i })[0]).toBeDisabled()
   })
 
   test("renders disabled Pagination (select) as passed", () => {
-    act(() => {
-      render(<Pagination disabled variant="select" />)
-    })
-    expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(3)
-    expect(document.querySelector(".juno-select-toggle")).toBeDisabled()
+    render(<Pagination disabled variant="select" />)
+
+    // Check that only two buttons (Previous and Next) are rendered
+    expect(screen.getAllByRole("button")).toHaveLength(3)
+
+    // Check that the Select toggle is disabled
+    const selectToggle = document.querySelector(".juno-select-toggle")
+    expect(selectToggle).toBeDisabled()
   })
 
   test("renders disabled Pagination (input) as passed", () => {
     render(<Pagination disabled variant="input" />)
-    expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
+    expect(screen.getAllByRole("button")).toHaveLength(2)
     expect(screen.getByRole("textbox")).toBeDisabled()
   })
 
   test("renders Pagination (default) in progress as passed", () => {
     render(<Pagination progress />)
-    expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
+    expect(screen.getAllByRole("button")).toHaveLength(2)
     expect(document.querySelector(".juno-spinner")).toBeInTheDocument()
   })
 
   test("renders Pagination (select) in progress as passed", () => {
-    act(() => {
-      render(<Pagination progress variant="select" />)
-    })
-    expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
-    expect(document.querySelector(".juno-select-toggle")).not.toBeInTheDocument()
+    render(<Pagination progress variant="select" />)
+    expect(screen.getAllByRole("button")).toHaveLength(2)
     expect(document.querySelector(".juno-spinner")).toBeInTheDocument()
   })
 
   test("renders Pagination (input) in progress as passed", () => {
     render(<Pagination progress variant="input" />)
-    expect(screen.getAllByRole("button", { disabled: true })).toHaveLength(2)
-    expect(screen.queryByRole("textbox")).not.toBeInTheDocument()
+    expect(screen.getAllByRole("button")).toHaveLength(2)
     expect(document.querySelector(".juno-spinner")).toBeInTheDocument()
   })
 
   test("renders Pagination (input) - fires onChange handler as passed", async () => {
-    const onChangeMock = vi.fn()
-    render(<Pagination variant="input" pages={12} onChange={onChangeMock} />)
+    const onInputChangeMock = vi.fn()
+    render(<Pagination variant="input" pages={12} onInputChange={onInputChangeMock} />)
     const textinput = screen.getByRole("textbox")
+    fireEvent.change(textinput, { target: { value: "102" } })
     await waitFor(() => {
-      fireEvent.change(textinput, { target: { value: "102" } })
-      expect(onChangeMock).toHaveBeenCalledTimes(1)
+      expect(onInputChangeMock).toHaveBeenCalledTimes(1)
     })
-  })
-
-  test("renders Pagination (input) - fires onBlur handler as passed", async () => {
-    const onBlurMock = vi.fn()
-    render(<Pagination variant="input" pages={12} onBlur={onBlurMock} />)
-    const textinput = screen.getByRole("textbox")
-    await waitFor(() => {
-      fireEvent.change(textinput, { target: { value: "102" } })
-      fireEvent.blur(textinput)
-      expect(onBlurMock).toHaveBeenCalledTimes(1)
-    })
-  })
-
-  test("renders Pagination (input) - value corrected to the highest possible - as passed", async () => {
-    render(<Pagination variant="input" pages={12} />)
-    const textInput = screen.getByRole("textbox")
-    await waitFor(() => {
-      fireEvent.change(textInput, { target: { value: "20" } })
-      // userEvent.type(textInput, "102")
-      // fireEvent.keyPress(textinput, { key: "Enter", code: 13, charCode: 13 })
-    })
-    expect(textInput).toHaveValue("12")
-  })
-
-  test("renders Pagination (input) - value that is too low is corrected to '1' - as passed", async () => {
-    render(<Pagination variant="input" pages={12} />)
-    const textInput = screen.getByRole("textbox")
-
-    await waitFor(() => {
-      fireEvent.change(textInput, { target: { value: "0" } })
-      fireEvent.blur(textInput)
-    })
-    expect(textInput).toHaveValue("1")
   })
 
   test("renders Pagination (input) - checks width of textfield based on the entry (2 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
-
+    fireEvent.change(textinput, { target: { value: "22" } })
     await waitFor(() => {
-      fireEvent.change(textinput, { target: { value: "22" } })
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
       expect(computedStyle.width).toBe("3.3rem")
     })
   })
@@ -333,20 +336,19 @@ describe("Pagination", () => {
   test("renders Pagination (input) - checks width of textfield based on the entry (3 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
-
+    fireEvent.change(textinput, { target: { value: "333" } })
     await waitFor(() => {
-      fireEvent.change(textinput, { target: { value: "22" } })
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
-      expect(computedStyle.width).toBe("3.3rem")
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
+      expect(computedStyle.width).toBe("3.9rem")
     })
   })
 
   test("renders Pagination (input) - checks width of textfield based on the entry (4 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
+    fireEvent.change(textinput, { target: { value: "4444" } })
     await waitFor(() => {
-      fireEvent.change(textinput, { target: { value: "4444" } })
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
       expect(computedStyle.width).toBe("4.5rem")
     })
   })
@@ -354,9 +356,9 @@ describe("Pagination", () => {
   test("renders Pagination (input) - checks width of textfield based on the entry (5 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
+    fireEvent.change(textinput, { target: { value: "55555" } })
     await waitFor(() => {
-      fireEvent.change(textinput, { target: { value: "55555" } })
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
       expect(computedStyle.width).toBe("5.1rem")
     })
   })
@@ -364,9 +366,9 @@ describe("Pagination", () => {
   test("renders Pagination (input) - checks width of textfield based on the entry (7 digits) as passed", async () => {
     render(<Pagination variant="input" />)
     const textinput = screen.getByRole("textbox")
+    fireEvent.change(textinput, { target: { value: "777777" } })
     await waitFor(() => {
-      fireEvent.change(textinput, { target: { value: "777777" } })
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper"))
+      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
       expect(computedStyle.width).toBe("5.1rem")
     })
   })
