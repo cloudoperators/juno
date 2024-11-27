@@ -93,7 +93,7 @@ export type PaginationProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onBlur
 /**
  * The Pagination component provides navigation controls for paginated content.
  */
-export const Pagination = ({
+export const Pagination: React.FC<PaginationProps> = ({
   variant = "default",
   currentPage,
   totalPages,
@@ -110,7 +110,7 @@ export const Pagination = ({
   progress = false,
   className = "",
   ...props
-}: PaginationProps) => {
+}) => {
   const [controlCurrentPage, setControlCurrentPage] = useState<number | undefined>(currentPage)
   const [controlTotalPage, setControlTotalPage] = useState<number | undefined>(pages ? pages : totalPages)
 
