@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { ContentHeading, ContentHeadingProps } from "./index"
+import { ContentHeading, ContentHeadingProps } from "./ContentHeading.component"
 
 export default {
   title: "Internal/ContentHeading",

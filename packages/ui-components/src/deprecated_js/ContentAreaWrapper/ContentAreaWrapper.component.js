@@ -15,7 +15,7 @@ const containerStyles = `
 `
 
 /**
- * OBSOLETE: Will be deleted!
+ * Deprecated: Will be deleted!
  */
 export const ContentAreaWrapper = ({ className = "", children = null, ...props }) => {
   return (

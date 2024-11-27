@@ -5,8 +5,9 @@
 
 import React from "react"
 
-import { ContentAreaToolbar } from "./index.js"
-import { Button } from "../../deprecated_js/Button/index.js"
+import { Button } from "../Button/Button.component"
+import { ContentAreaToolbar } from "./ContentAreaToolbar.component"
+import { ContentAreaToolbarProps } from "./ContentAreaToolbar.component"
 
 export default {
   title: "Layout/ContentAreaToolbar",
@@ -18,7 +19,7 @@ export default {
   },
 }
 
-const Template = (args) => (
+const Template = (args: ContentAreaToolbarProps) => (
   <ContentAreaToolbar {...args}>
     <Button>Main Action</Button>
   </ContentAreaToolbar>

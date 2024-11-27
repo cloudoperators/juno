@@ -5,7 +5,7 @@
 
 import React from "react"
 
-import { ContentContainer, ContentContainerProps } from "./index"
+import { ContentContainer, ContentContainerProps } from "./ContentContainer.component"
 
 export default {
   title: "Internal/ContentContainer",
