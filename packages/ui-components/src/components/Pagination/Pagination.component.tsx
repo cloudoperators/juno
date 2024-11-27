@@ -23,7 +23,7 @@ const spinnerStyles = `jn-ml-3`
 
 const inputStyles = `justify-normal`
 
-export interface PaginationProps {
+export type PaginationProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onBlur"> & {
   /**
    * The variant determines the style and user interaction method of the Pagination component:
    * - "default": Renders previous and next buttons only.
