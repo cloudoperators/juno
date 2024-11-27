@@ -7,7 +7,6 @@ import React from "react"
 import { render } from "@testing-library/react"
 import StoreProvider, {
   useEndpoint,
-  useIsMock,
   useNamespace,
   useCurrentTeam,
   useDefaultTeam,
@@ -19,7 +18,6 @@ describe("StoreProvider", () => {
   test("provides store values correctly", () => {
     const TestComponent = () => {
       const endpoint = useEndpoint()
-      const isMock = useIsMock()
       const namespace = useNamespace()
       const currentTeam = useCurrentTeam()
       const defaultTeam = useDefaultTeam()
@@ -29,7 +27,6 @@ describe("StoreProvider", () => {
       return (
         <div>
           <div data-testid="endpoint">{endpoint}</div>
-          <div data-testid="isMock">{String(isMock)}</div>
           <div data-testid="namespace">{namespace}</div>
           <div data-testid="currentTeam">{currentTeam}</div>
           <div data-testid="defaultTeam">{defaultTeam}</div>
@@ -47,7 +44,6 @@ describe("StoreProvider", () => {
 
     // Assert on the rendered values
     expect(getByTestId("endpoint")).toBeInTheDocument()
-    expect(getByTestId("isMock")).toBeInTheDocument()
     expect(getByTestId("namespace")).toBeInTheDocument()
     expect(getByTestId("currentTeam")).toBeInTheDocument()
     expect(getByTestId("defaultTeam")).toBeInTheDocument()
