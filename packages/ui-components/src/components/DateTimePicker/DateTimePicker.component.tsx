@@ -155,11 +155,13 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   const hasLength = (node: React.ReactNode) => (typeof node === "string" || Array.isArray(node)) && node.length
 
-  const updateFlatpickrInstance = (newKeys: Partial<flatpickr.Instance> | null) => {
-    if (flatpickrInstanceRef.current) {
+  const updateFlatpickrInstance = (newKeys: flatpickr.Instance | null) => {
+    if (flatpickrInstanceRef.current === null) {
+      flatpickrInstanceRef.current = newKeys
+    } else if (newKeys !== null) {
       flatpickrInstanceRef.current = {
         ...flatpickrInstanceRef.current,
-        ...(newKeys || {}),
+        ...newKeys,
       }
     }
   }
@@ -294,11 +296,11 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   const destroyFlatpickrInstance = () => {
     const instance = flatpickrInstanceRef.current
-    if (instance) {
-      instance.destroy()
-      setTheDate({})
-      flatpickrInstanceRef.current = null // Not sure if this is actually necessary?
-    }
+    //if (instance) {
+    instance?.destroy()
+    setTheDate({})
+    flatpickrInstanceRef.current = null // Not sure if this is actually necessary?
+    //}
   }
 
   useEffect(() => {
