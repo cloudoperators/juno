@@ -19,48 +19,80 @@ const paginationStyles = `
   jn-gap-[0.375rem]
   jn-items-center
 `
-const spinnerStyles = `
-  jn-ml-3
-`
+const spinnerStyles = `jn-ml-3`
 
-const inputStyles = `
-  justify-normal
-`
+const inputStyles = `justify-normal`
 
 export interface PaginationProps {
-  /** The variant of the Pagination component */
+  /**
+   * The variant determines the style and user interaction method of the Pagination component:
+   * - "default": Renders previous and next buttons only.
+   * - "number": Displays the current page number between next and previous buttons.
+   * - "select": Provides a dropdown menu between next and previous buttons for specific page selection.
+   * - "input": Provides an input field for specific page entry.
+   */
   variant?: "default" | "number" | "select" | "input"
-  /** The current page number */
+  /**
+   * The current page number.
+   */
   currentPage?: number
-  /** The total number of pages */
+  /**
+   * The total number of pages available.
+   */
   totalPages?: number
-  /** The total number of pages (fallback solution, please use totalPages) */
+  /**
+   * A fallback property for providing the total number of pages, maintained for backward compatibility.
+   */
   pages?: number
-  /** Disable component */
+  /**
+   * When true, disables the entire pagination component, preventing any interaction.
+   */
   disabled?: boolean
-  /** Use this to have the Pagination emulate the state as being on the first page. Useful for when you don't have knowledge about pages but know that there is no previous page. Setting this to true leads to the left/prev button getting disabled */
+  /**
+   * When true, simulates the component being on the first page, disabling the previous button.
+   */
   isFirstPage?: boolean
-  /** Use this to have the Pagination emulate the state as being on the last page. Useful for when you don't have knowledge about pages/total page count but know that there is no next page. Setting this to true leads to the right/next button getting disabled */
+  /**
+   * When true, simulates the component being on the last page, disabling the next button.
+   */
   isLastPage?: boolean
-  /** onPress (previous) handler */
+  /**
+   * Callback function triggered when the previous button is pressed.
+   */
   onPressPrevious?: (newPage?: number) => void
-  /** onPress (next) handler */
+  /**
+   * Callback function triggered when the next button is pressed.
+   */
   onPressNext?: (newPage?: number) => void
-  /** Select change handler (select variant) */
+  /**
+   * Callback function triggered when a new page is selected from the dropdown, applicable when variant is "select".
+   */
   onSelectChange?: (selected: number) => void
-  /** Input field change handler (input) */
+  /**
+   * Callback function triggered when the input field value changes, applicable when variant is "input".
+   */
   onInputChange?: (inputValue?: number) => void
-  /** onKeyPress handler (input) */
-  onKeyPress?: (controlPage?: number) => void
-  /** onBlur handler (input)*/
-  onBlur?: (controlPage?: number) => void
-  /** Spinner loading animation + disabled behavior */
+  /**
+   * Callback function triggered when a key is pressed in the input field, applicable when variant is "input".
+   */
+  onKeyPress?: (controlCurrentPage?: number) => void
+  /**
+   * Callback function triggered when the input field loses focus, applicable when variant is "input".
+   */
+  onBlur?: (controlCurrentPage?: number) => void
+  /**
+   * Displays a loading spinner and disables interaction when true.
+   */
   progress?: boolean
-  /** Additional class name */
+  /**
+   * Additional CSS classes for custom styling.
+   */
   className?: string
 }
 
-/** A basic Pagination component. Renders '<' and '>' buttons as a minimum/default. The component keeps internal state about the currently selected page so it can be used as an uncontrolled component.  */
+/**
+ * The Pagination component provides navigation controls for paginated content.
+ */
 export const Pagination = ({
   variant = "default",
   currentPage,
@@ -79,22 +111,24 @@ export const Pagination = ({
   className = "",
   ...props
 }: PaginationProps) => {
-  const [controlPage, setControlCurrentPage] = useState<number | undefined>(currentPage)
+  const [controlCurrentPage, setControlCurrentPage] = useState<number | undefined>(currentPage)
   const [controlTotalPage, setControlTotalPage] = useState<number | undefined>(pages ? pages : totalPages)
 
+  // Synchronize internal state with props whenever they change
   useEffect(() => {
     setControlCurrentPage(currentPage)
-    // Fallback for the “pages” prop which was used in an earlier version of this component.
+    // Fallback for the “pages” prop supported for backward compatibility
     pages ? setControlTotalPage(pages) : setControlTotalPage(totalPages)
-    if (controlPage !== undefined && controlTotalPage !== undefined && controlPage > controlTotalPage) {
+    // Check that the current page does not exceed total pages
+    if (controlCurrentPage !== undefined && controlTotalPage !== undefined && controlCurrentPage > controlTotalPage) {
       setControlCurrentPage(controlTotalPage)
     }
   }, [currentPage, totalPages, pages])
 
   const handlePrevClick = () => {
     let newPage
-    if (controlPage !== undefined && controlPage > 1) {
-      newPage = controlPage - 1
+    if (controlCurrentPage !== undefined && controlCurrentPage > 1) {
+      newPage = controlCurrentPage - 1
       setControlCurrentPage(newPage)
     }
 
@@ -102,12 +136,11 @@ export const Pagination = ({
   }
 
   const handleNextClick = () => {
-    // set controlPage +1 if controlPage exists and controlPage is less than controlTotalPage
-    // also set controlPage +1 if controlPage exists but controlTotalPage does not exist
+    // Increment controlCurrentPage if it exists and is less than controlTotalPage, or if controlTotalPage is undefined
     let newPage
-    if (controlPage !== undefined) {
-      if (controlTotalPage === undefined || controlPage < controlTotalPage) {
-        newPage = controlPage + 1
+    if (controlCurrentPage !== undefined) {
+      if (controlTotalPage === undefined || controlCurrentPage < controlTotalPage) {
+        newPage = controlCurrentPage + 1
         setControlCurrentPage(newPage)
       }
     }
@@ -116,9 +149,9 @@ export const Pagination = ({
   }
 
   /**
-   * Handle change event:
-   * - Convert the selected value to a number and update the control page state.
-   * - If defined, call the onSelectChange callback
+   * Handler for select dropdown change event
+   * - Converts the selected value to a number and updates the control page state.
+   * - Invokes the onSelectChange callback, if defined.
    */
   const handleSelectChange = (selectedValue?: string | number | string[]): void => {
     if (selectedValue === undefined) return
@@ -133,44 +166,48 @@ export const Pagination = ({
       convertedNumber = selectedValue
     }
 
-    // If the conversion results in an invalid number
+    // Ignore invalid conversion results
     if (convertedNumber === undefined || isNaN(convertedNumber)) return
 
+    // Update local state and invoke callback
     setControlCurrentPage(convertedNumber)
     onSelectChange?.(convertedNumber)
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // ensure that the input value is an integer
+    // Ensure that the input value is a valid integer
     let inputValue = event.target.value ? parseInt(event.target.value, 10) : undefined
 
     if (inputValue !== undefined) {
+      // Enforce minimum and maximum limits
       if (inputValue < 1) {
         inputValue = 1
       } else if (controlTotalPage !== undefined && inputValue > controlTotalPage) {
         inputValue = controlTotalPage
       }
     }
+    // Update local state and invoke callback
     setControlCurrentPage(inputValue)
-
     onInputChange && onInputChange(inputValue)
   }
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && controlPage !== undefined) {
-      onKeyPress && onKeyPress(controlPage)
+    if (event.key === "Enter" && controlCurrentPage !== undefined) {
+      onKeyPress && onKeyPress(controlCurrentPage)
     }
   }
 
+  // Handler for input field losing focus
   const handleBlur = () => {
-    onBlur && onBlur(controlPage)
+    onBlur && onBlur(controlCurrentPage)
   }
 
-  // Calculation of the width of input fields dynamically based on the number of characters
+  // Calculates the width of input fields dynamically based on the number of characters
   const getInputWidthClass = () => {
-    let logLength = controlPage !== undefined && !isNaN(controlPage) ? controlPage.toString().length : 1
+    let logLength =
+      controlCurrentPage !== undefined && !isNaN(controlCurrentPage) ? controlCurrentPage.toString().length : 1
     logLength = logLength > 5 ? 5 : logLength
-    const width = `${(logLength * 0.6 + 2.1).toFixed(1)}rem` // 0.6rem per digit + 2.1rem
+    const width = `${(logLength * 0.6 + 2.1).toFixed(1)}rem` // 0.6rem per digit + 2.1rem for padding
     return { width: width }
   }
 
@@ -181,7 +218,7 @@ export const Pagination = ({
     >
       <Button
         icon="chevronLeft"
-        disabled={!!isFirstPage || !!disabled || !!progress || controlPage === 1}
+        disabled={!!isFirstPage || !!disabled || !!progress || controlCurrentPage === 1}
         onClick={handlePrevClick}
         title="Previous Page"
       />
@@ -190,20 +227,23 @@ export const Pagination = ({
         ? (() => {
             switch (variant) {
               case "number":
-                return controlPage !== undefined ? <div className="page-value"> {controlPage}</div> : ""
+                // Displays the current page number if defined
+                return controlCurrentPage !== undefined ? <div className="page-value"> {controlCurrentPage}</div> : ""
 
               case "select":
+                // Renders a dropdown to select specific page numbers
                 return (
                   <Select
                     name="totalPages"
                     width="auto"
-                    value={controlPage?.toString()} // here the same, defaultValue is of type string
+                    value={controlCurrentPage?.toString()} // Select expects string values
                     onChange={handleSelectChange}
                     disabled={disabled}
                   >
                     {(() => {
                       const opts = []
                       if (controlTotalPage !== undefined) {
+                        // Generate options for each page
                         for (let i = 0; i < controlTotalPage; i++) {
                           const p = (i + 1).toString() // SelectOption requires strings for value and label
                           opts.push(<SelectOption value={p} label={p} key={p} />)
@@ -215,12 +255,12 @@ export const Pagination = ({
                 )
 
               case "input":
+                // Renders an input field to allow manual page entry
                 return (
                   <Stack gap="2" alignment="center">
                     <div className={`juno-pagination-wrapper`} style={getInputWidthClass()}>
                       <TextInput
-                        value={controlPage !== undefined ? controlPage : ""}
-                        //convert to integer
+                        value={controlCurrentPage !== undefined ? controlCurrentPage : ""}
                         onChange={handleInputChange}
                         onBlur={handleBlur}
                         onKeyPress={handleKeyPress}
@@ -243,7 +283,9 @@ export const Pagination = ({
           !!isLastPage ||
           !!disabled ||
           !!progress ||
-          (controlPage !== undefined && controlTotalPage !== undefined && controlPage === controlTotalPage)
+          (controlCurrentPage !== undefined &&
+            controlTotalPage !== undefined &&
+            controlCurrentPage === controlTotalPage)
         }
         onClick={handleNextClick}
         title="Next Page"
