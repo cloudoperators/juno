@@ -540,7 +540,8 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 // eslint-disable-next-line no-unused-vars
 type DateChangeHandler = (date: Date[] | undefined, dateStr: string | undefined) => void
 
-export interface DateTimePickerProps {
+export interface DateTimePickerProps
+  extends Omit<React.HTMLAttributes<HTMLInputElement>, "defaultValue" | "onFocus" | "onBlur" | "onChange"> {
   /** Whether the DateTimePicker input element allows direct user keyboard input. Default is `false`. */
   allowInput?: boolean
   /** Allows the preloading of an invalid date (e.g. a date that hass been disable by passing `disable`). When disabled, the field will be cleared if the provided date is invalid */
