@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.14.4
+
+### Patch Changes
+
+- 8615024: Replace useEndlessScrollList from utils to ui-componetns and utils deprecation
+- Updated dependencies [a0ee034]
+- Updated dependencies [8615024]
+  - @cloudoperators/juno-ui-components@2.32.0
+  - @cloudoperators/juno-utils@1.1.15
+
 ## 0.14.3
 
 ### Patch Changes

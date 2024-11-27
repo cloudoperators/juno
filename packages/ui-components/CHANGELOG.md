@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 2.32.0
+
+### Minor Changes
+
+- a0ee034: Migrate SecretText to TypeScript
+- 8615024: Replace useEndlessScrollList from utils to ui-componetns and utils deprecation
+
 ## 2.31.0
 
 ### Minor Changes
