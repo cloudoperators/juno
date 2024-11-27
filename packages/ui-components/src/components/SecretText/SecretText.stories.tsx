@@ -9,7 +9,35 @@ import { SecretText } from "./SecretText.component"
 export default {
   title: "Forms/SecretText",
   component: SecretText,
-  argTypes: {},
+  argTypes: {
+    onBlur: {
+      control: false,
+    },
+    onChange: {
+      control: false,
+    },
+    onClear: {
+      control: false,
+    },
+    onCopy: {
+      control: false,
+    },
+    onFocus: {
+      control: false,
+    },
+    onHide: {
+      control: false,
+    },
+    onPaste: {
+      control: false,
+    },
+    onReveal: {
+      control: false,
+    },
+    onToggle: {
+      control: false,
+    },
+  },
 }
 
 const Template = ({ ...args }) => {
