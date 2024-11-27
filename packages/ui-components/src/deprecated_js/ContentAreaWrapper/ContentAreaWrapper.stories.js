@@ -7,8 +7,8 @@ import React from "react"
 
 import { ContentAreaWrapper } from "./index.js"
 import { ContentArea } from "../ContentArea/index.js"
-import { ContentAreaToolbar } from "../ContentAreaToolbar/index.js"
-import { Button } from "../../deprecated_js/Button/index.js"
+import { ContentAreaToolbar } from "../../components/ContentAreaToolbar/ContentAreaToolbar.component"
+import { Button } from "../Button/index.js"
 
 export default {
   title: "Internal/ContentAreaWrapper",
