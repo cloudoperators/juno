@@ -4,9 +4,9 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Pagination } from "./index.js"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
+import { Meta, StoryFn } from "@storybook/react"
+import { Pagination, PaginationProps } from "./Pagination.component"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 export default {
   title: "Components/Pagination",
@@ -18,7 +18,7 @@ export default {
     },
   },
   decorators: [
-    (Story) => (
+    (Story: StoryFn) => (
       <div className="jn-pb-12">
         <PortalProvider>
           <Story />
@@ -26,24 +26,9 @@ export default {
       </div>
     ),
   ],
-}
+} as Meta<typeof Pagination>
 
-const Template = (args) => {
-  return <Pagination {...args} />
-}
-
-const UncontrolledTemplate = ({ currentPage, pages, ...args }) => {
-  const [page, setPage] = React.useState(currentPage)
-  const prev = React.useCallback(() => setPage(page > 1 ? page - 1 : 1), [page])
-  const next = React.useCallback(() => setPage(!pages || page < pages ? page + 1 : pages), [page])
-
-  return <Pagination {...args} totalPages={pages} currentPage={page} onPressPrevious={prev} onPressNext={next} />
-}
-
-UncontrolledTemplate.propTypes = {
-  currentPage: PropTypes.number,
-  pages: PropTypes.number,
-}
+const Template: StoryFn<PaginationProps> = (args) => <Pagination {...args} />
 
 export const Default = {
   render: Template,
@@ -56,7 +41,6 @@ export const Default = {
 
 export const PaginationWithNumber = {
   render: Template,
-
   args: {
     variant: "number",
     currentPage: 12,
@@ -66,7 +50,6 @@ export const PaginationWithNumber = {
 
 export const PaginationWithSelect = {
   render: Template,
-
   args: {
     variant: "select",
     currentPage: 2,
@@ -76,7 +59,6 @@ export const PaginationWithSelect = {
 
 export const PaginationWithInput = {
   render: Template,
-
   args: {
     variant: "input",
     currentPage: 3,
@@ -86,7 +68,6 @@ export const PaginationWithInput = {
 
 export const DisabledPagination = {
   render: Template,
-
   args: {
     disabled: true,
   },
@@ -94,7 +75,6 @@ export const DisabledPagination = {
 
 export const ProgressPagination = {
   render: Template,
-
   args: {
     progress: true,
   },

@@ -245,7 +245,7 @@ export const TextInput = ({
 type TextInputType = "text" | "email" | "password" | "tel" | "url" | "number"
 type TextInputWidth = "full" | "auto"
 
-export interface TextInputProps {
+export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   /** Pass a name attribute */
   name?: string
   /** Pass a value */
