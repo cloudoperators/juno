@@ -14,8 +14,36 @@ export default {
       options: ["single", "multiple", "range", "time"],
       control: { type: "select" },
     },
+    defaultDate: {
+      table: {
+        type: { summary: "DateOption | DateOption[] | null" },
+      },
+    },
+    defaultValue: {
+      table: {
+        type: { summary: "DateOption | DateOption[]" },
+      },
+    },
+    locale: {
+      table: {
+        type: { summary: "LocaleKey | Partial<CustomLocale> | null" },
+      },
+    },
+    maxDate: {
+      table: {
+        type: { summary: "DateOption | null" },
+      },
+    },
+    minDate: {
+      table: {
+        type: { summary: "DateOption | null" },
+      },
+    },
     value: {
       control: false,
+      table: {
+        type: { summary: "DateOption | DateOption[]" },
+      },
     },
     errortext: {
       control: false,

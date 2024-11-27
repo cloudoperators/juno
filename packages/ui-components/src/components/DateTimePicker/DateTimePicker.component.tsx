@@ -143,7 +143,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const theId = id && id.length ? id : autoId
 
   const fpRef = useRef<HTMLInputElement>(null) // the dom node flatpickr instance will be bound to
-  const flatpickrInstanceRef = useRef<flatpickr.Instance | {}>({}) // The actual flatpickr instance
+  const flatpickrInstanceRef = useRef<flatpickr.Instance | null>(null) // The actual flatpickr instance
   const calendarTargetRef = useRef(null) // The DOM node the flatpickr calendar should be rendered to
 
   const [theDate, setTheDate] = useState<SelectedDate>({})
@@ -156,9 +156,11 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const hasLength = (node: React.ReactNode) => (typeof node === "string" || Array.isArray(node)) && node.length
 
   const updateFlatpickrInstance = (newKeys: Partial<flatpickr.Instance> | null) => {
-    flatpickrInstanceRef.current = {
-      ...flatpickrInstanceRef.current,
-      ...(newKeys || {}),
+    if (flatpickrInstanceRef.current) {
+      flatpickrInstanceRef.current = {
+        ...flatpickrInstanceRef.current,
+        ...(newKeys || {}),
+      }
     }
   }
 
@@ -219,7 +221,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }
 
   const handleClearIconClick = () => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     setTheDate({})
     instance?.clear()
     onClear && onClear([], "")
@@ -291,10 +293,12 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }
 
   const destroyFlatpickrInstance = () => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
-    instance.destroy()
-    setTheDate({})
-    flatpickrInstanceRef.current = {} // Not sure if this is actually necessary?
+    const instance = flatpickrInstanceRef.current
+    if (instance) {
+      instance.destroy()
+      setTheDate({})
+      flatpickrInstanceRef.current = null // Not sure if this is actually necessary?
+    }
   }
 
   useEffect(() => {
@@ -358,7 +362,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
     // After we have checked if any one or multiple of the relevant props have changed, we actually destroy the curent instance and create a new one:
     if (hasChanged) {
-      const instance = flatpickrInstanceRef.current as flatpickr.Instance
+      const instance = flatpickrInstanceRef.current
       instance?.destroy()
       createFlatpickrInstance()
     }
@@ -395,64 +399,64 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   // useEffects for props that represent config options that can be set on an existing flatpickr instance with immediate effect:
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("allowInvalidPreload", allowInvalidPreload)
   }, [allowInvalidPreload])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("ariaDateFormat", ariaDateFormat)
   }, [ariaDateFormat])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("conjunction", conjunction)
   }, [conjunction])
 
   useEffect(() => {
     const newDateFormat = getDateFormat()
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("dateFormat", newDateFormat)
   }, [dateFormat])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("disable", disable)
   }, [disable])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("hourIncrement", hourIncrement)
   }, [hourIncrement])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("locale", locale)
   }, [locale])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("maxDate", maxDate)
   }, [maxDate])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("minDate", minDate)
   }, [minDate])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("shorthandCurrentMonth", shorthandCurrentMonth)
   }, [shorthandCurrentMonth])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("time_24hr", time_24hr)
   }, [time_24hr])
 
   // Update the flatpickr instance whenever the value prop (or any of its aliases) changes, and force the flatpickr instance to fire onChange event. These props may contain an array of one or multiple objects. These will never pass React's identity comparison, and will be regarded as a new object with any render regardless of their contents, thus creating an endless loop by updating the flatpickr instance updating the parent state (via onChange above) updating the flatpickr instance (…). We prevent this by checking on the stringified versions of the props in the dependency array.
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.setDate(
       value || defaultDate || defaultValue,
       true // enforce firing change event that in turn will update our state via handleChange.
@@ -460,7 +464,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }, [stringifiedValue, stringifiedDefaultDate, stringifiedDefaultValue])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current as flatpickr.Instance
+    const instance = flatpickrInstanceRef.current
     instance?.set("weekNumbers", weekNumbers)
   }, [weekNumbers])
 
@@ -537,9 +541,6 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   )
 }
 
-// eslint-disable-next-line no-unused-vars
-type DateChangeHandler = (date: Date[] | undefined, dateStr: string | undefined) => void
-
 export interface DateTimePickerProps
   extends Omit<React.HTMLAttributes<HTMLInputElement>, "defaultValue" | "onFocus" | "onBlur" | "onChange"> {
   /** Whether the DateTimePicker input element allows direct user keyboard input. Default is `false`. */
@@ -599,23 +600,32 @@ export interface DateTimePickerProps
   /** Set to `true` to not display a calendar at all. To create a time picker, set `enableTime` to true, too. */
   noCalendar?: boolean
   /** A handler to be executed when the DateTimePicker input element looses focus. */
-  onBlur?: DateChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onBlur?: (date?: Date[], dateStr?: string) => void
   /** A handler to be executed when the selected date(s), date range or time changes */
-  onChange?: DateChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onChange?: (date?: Date[], dateStr?: string) => void
   /** A handler to be executed when the DateTimePicker value is reset by clicking the clear icon. The onChnage handler will be fired in this event too, onClear is more specific. */
-  onClear?: DateChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onClear?: (date?: Date[], dateStr?: string) => void
   /** A handler to be executed when the DateTimePicker calendar closes */
-  onClose?: DateChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onClose?: (date?: Date[], dateStr?: string) => void
   /** A handler to be executed when the DateTimePicker input element receives focus. */
-  onFocus?: DateChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onFocus?: (date?: Date[], dateStr?: string) => void
   /** A handler to be executed when the selected month changes */
-  onMonthChange?: DateChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onMonthChange?: (date?: Date[], dateStr?: string) => void
   /** A handler to be executed when the DateTimePicker calendar opens */
-  onOpen?: DateChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onOpen?: (date?: Date[], dateStr?: string) => void
   /** A handler to be executed when the DateTimePicker component is ready */
-  onReady?: DateChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onReady?: (date?: Date[], dateStr?: string) => void
   /** A handler to be executed when the selected year changes */
-  onYearChange?: DateChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onYearChange?: (date?: Date[], dateStr?: string) => void
   /** The placeholder of the DateTimePicker input element */
   placeholder?: string
   /** Whether the DateTimePicker should be marked as required. Requires a `Label` to be set. */
