@@ -26,8 +26,8 @@ export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivEleme
 }
 
 /**
- * ContentContainer serves as a container for app content.
- * It is intended for manual app scaffold creation, though, in most cases, using the AppShell component is recommended.
+ * ContentContainer serves as a wrapper for app content.
+ * It is intended for manual app scaffold creation. In most cases, using the AppShell component instead is recommended.
  *
  * Note: When the browser window is wider than the max breakpoint width, the content within this container will be centered on the screen.
  */

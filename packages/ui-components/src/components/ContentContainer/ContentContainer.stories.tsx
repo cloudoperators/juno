@@ -24,15 +24,4 @@ const Template = (args: ContentContainerProps) => <ContentContainer {...args}>co
 
 export const Centered = {
   render: Template,
-
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Only needed if you want to build your app's scaffold manually. In most cases it is better to use the AppShell component instead. A wrapper for content components. Parent of ContentArea. Width will grow to the maximum breakpoint width and then be centered on the page if the browser is wider.",
-      },
-    },
-  },
-
-  args: {},
 }

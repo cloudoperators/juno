@@ -23,14 +23,4 @@ const Template = (args: ContentHeadingProps) => <ContentHeading {...args} />
 
 export const Default = {
   render: Template,
-  parameters: {
-    docs: {
-      description: {
-        story: "The the main heading of the content area of a page/view.",
-      },
-    },
-  },
-  args: {
-    heading: "My Page Heading",
-  },
 }

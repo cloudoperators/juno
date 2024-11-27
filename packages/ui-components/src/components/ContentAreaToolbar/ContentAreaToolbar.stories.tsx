@@ -30,15 +30,4 @@ const Template = (args: ContentAreaToolbarProps) => (
 
 export const Basic = {
   render: Template,
-
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "This is the main toolbar of the content area. Add main actions, search bar, filters for the current page here.",
-      },
-    },
-  },
-
-  args: {},
 }

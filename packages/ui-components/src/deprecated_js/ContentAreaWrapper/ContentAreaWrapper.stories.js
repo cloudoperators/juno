@@ -31,14 +31,4 @@ const Template = (args) => (
 
 export const Basic = {
   render: Template,
-
-  parameters: {
-    docs: {
-      description: {
-        story: "Deprecated: Will be deleted!",
-      },
-    },
-  },
-
-  args: {},
 }
