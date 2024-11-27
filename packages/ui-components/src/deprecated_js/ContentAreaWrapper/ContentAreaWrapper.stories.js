@@ -11,7 +11,7 @@ import { ContentAreaToolbar } from "../../components/ContentAreaToolbar/ContentA
 import { Button } from "../Button/index.js"
 
 export default {
-  title: "Internal/ContentAreaWrapper",
+  title: "Deprecated/ContentAreaWrapper",
   component: ContentAreaWrapper,
   argTypes: {
     children: {
@@ -35,7 +35,7 @@ export const Basic = {
   parameters: {
     docs: {
       description: {
-        story: "OBSOLETE: Will be deleted!",
+        story: "Deprecated: Will be deleted!",
       },
     },
   },

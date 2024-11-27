@@ -6,6 +6,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import { withDeprecationWarning } from "../../deprecated_js/withDeprecationWarning/withDeprecationWarning.component"
+
 const containerStyles = `
   jn-relative
   jn-grow
@@ -30,3 +32,8 @@ ContentAreaWrapper.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
 }
+
+export default withDeprecationWarning(
+  ContentAreaWrapper,
+  "ContentAreaWrapper is deprecated and will be removed in future versions."
+)
