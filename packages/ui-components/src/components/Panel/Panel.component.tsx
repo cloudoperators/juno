@@ -9,7 +9,7 @@ import { createPortal } from "react-dom"
 import { Icon } from "../Icon/Icon.component"
 import { usePortalRef } from "../PortalProvider/PortalProvider.component"
 
-const panelStyles = (isOpen: boolean, isTransitioning: boolean, size?: "default" | "large"): string => {
+const panelStyles = (isOpen: boolean, isTransitioning: boolean, size?: PanelSize): string => {
   return `
       jn-fixed
       jn-right-0
