@@ -11,9 +11,11 @@
       "minimumReleaseAge": "14 days"
     },
     {
-      "groupName": "npm dependencies",
+      "groupName": "dependencies for ui-components",
+      "matchFileNames": ["packages/ui-components/package.json"],
       "matchDatasources": ["npm"],
-      "minimumReleaseAge": "14 days"
+      "matchUpdateTypes": ["patch"],
+      "minimumReleaseAge": "7 days"
     }
   ],
   "separateMinorPatch": true,
