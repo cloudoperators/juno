@@ -142,16 +142,16 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const autoId = "juno-datetimepicker-" + useId()
   const theId = id && id.length ? id : autoId
 
-  const fpRef = useRef<HTMLInputElement>(null) // the dom node flatpickr instance will be bound to
+  const fpRef = useRef<HTMLInputElement | null>(null) // the DOM node flatpickr instance will be bound to
   const flatpickrInstanceRef = useRef<flatpickr.Instance | null>(null) // The actual flatpickr instance
-  const calendarTargetRef = useRef(null) // The DOM node the flatpickr calendar should be rendered to
+  const calendarTargetRef = useRef<HTMLDivElement | null>(null) // The DOM node the flatpickr calendar should be rendered to
 
   const [theDate, setTheDate] = useState<SelectedDate>({})
   // variables starting with underscore are not linted
-  const [_hasFocus, setHasFocus] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const [isInvalid, setIsInvalid] = useState(false)
-  const [isValid, setIsValid] = useState(false)
+  const [_hasFocus, setHasFocus] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isInvalid, setIsInvalid] = useState<boolean>(false)
+  const [isValid, setIsValid] = useState<boolean>(false)
 
   const hasLength = (node: React.ReactNode) => (typeof node === "string" || Array.isArray(node)) && node.length
 
@@ -296,11 +296,9 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   const destroyFlatpickrInstance = () => {
     const instance = flatpickrInstanceRef.current
-    //if (instance) {
     instance?.destroy()
     setTheDate({})
-    flatpickrInstanceRef.current = null // Not sure if this is actually necessary?
-    //}
+    flatpickrInstanceRef.current = null
   }
 
   useEffect(() => {
