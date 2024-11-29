@@ -601,31 +601,31 @@ export interface DateTimePickerProps
   noCalendar?: boolean
   /** A handler to be executed when the DateTimePicker input element looses focus. */
   // eslint-disable-next-line no-unused-vars
-  onBlur?: (date?: Date[], dateStr?: string) => void
+  onBlur?: (...args: any) => any
   /** A handler to be executed when the selected date(s), date range or time changes */
   // eslint-disable-next-line no-unused-vars
-  onChange?: (date?: Date[], dateStr?: string) => void
+  onChange?: (...args: any) => any
   /** A handler to be executed when the DateTimePicker value is reset by clicking the clear icon. The onChnage handler will be fired in this event too, onClear is more specific. */
   // eslint-disable-next-line no-unused-vars
-  onClear?: (date?: Date[], dateStr?: string) => void
+  onClear?: (...args: any) => any
   /** A handler to be executed when the DateTimePicker calendar closes */
   // eslint-disable-next-line no-unused-vars
-  onClose?: (date?: Date[], dateStr?: string) => void
+  onClose?: (...args: any) => any
   /** A handler to be executed when the DateTimePicker input element receives focus. */
   // eslint-disable-next-line no-unused-vars
-  onFocus?: (date?: Date[], dateStr?: string) => void
+  onFocus?: (...args: any) => any
   /** A handler to be executed when the selected month changes */
   // eslint-disable-next-line no-unused-vars
-  onMonthChange?: (date?: Date[], dateStr?: string) => void
+  onMonthChange?: (...args: any) => any
   /** A handler to be executed when the DateTimePicker calendar opens */
   // eslint-disable-next-line no-unused-vars
-  onOpen?: (date?: Date[], dateStr?: string) => void
+  onOpen?: (...args: any) => any
   /** A handler to be executed when the DateTimePicker component is ready */
   // eslint-disable-next-line no-unused-vars
-  onReady?: (date?: Date[], dateStr?: string) => void
+  onReady?: (...args: any) => any
   /** A handler to be executed when the selected year changes */
   // eslint-disable-next-line no-unused-vars
-  onYearChange?: (date?: Date[], dateStr?: string) => void
+  onYearChange?: (...args: any) => any
   /** The placeholder of the DateTimePicker input element */
   placeholder?: string
   /** Whether the DateTimePicker should be marked as required. Requires a `Label` to be set. */
