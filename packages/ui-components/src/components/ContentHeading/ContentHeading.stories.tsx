@@ -23,4 +23,7 @@ const Template = (args: ContentHeadingProps) => <ContentHeading {...args} />
 
 export const Default = {
   render: Template,
+  args: {
+    heading: "My Page Heading",
+  },
 }
