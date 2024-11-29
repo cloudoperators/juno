@@ -261,14 +261,14 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
       appendTo: calendarTargetRef.current || undefined,
       conjunction: conjunction,
       dateFormat: theDateFormat,
-      defaultDate: defaultDate || defaultValue,
+      defaultDate: (defaultDate || defaultValue) as DateOption | DateOption[],
       defaultHour: defaultHour,
       defaultMinute: defaultMinute,
-      disable: disable,
+      disable: disable as DateLimit<DateOption>[],
       enableSeconds: enableSeconds,
       enableTime: enableTime,
       hourIncrement: hourIncrement,
-      locale: locale || undefined,
+      locale: (locale || undefined) as LocaleKey | Partial<CustomLocale>,
       maxDate: (maxDate || undefined) as DateOption,
       minDate: (minDate || undefined) as DateOption,
       minuteIncrement: minuteIncrement,
@@ -458,7 +458,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   useEffect(() => {
     const instance = flatpickrInstanceRef.current
     instance?.setDate(
-      value || defaultDate || defaultValue,
+      (value || defaultDate || defaultValue) as DateOption | DateOption[],
       true // enforce firing change event that in turn will update our state via handleChange.
     )
   }, [stringifiedValue, stringifiedDefaultDate, stringifiedDefaultValue])
@@ -556,15 +556,15 @@ export interface DateTimePickerProps
   /** A string of characters to customize how a date will be formatted in the input field. Available options: https://flatpickr.js.org/formatting/ */
   dateFormat?: string
   /** Sets the default date of the DateTimePicker. Same as `value`, only here for compatibility with the original Flatpickr library. If both `value` and `defaultDate` are being passed, `value` will win. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted. */
-  defaultDate?: DateOption | DateOption[]
+  defaultDate?: string | any[] | object | number
   /** The initial value of the hour input element. Only effective if time is enabled. Note this will only set the hour input element to the value specified. Setting this options will not set a selected value on the DateTimePicker. */
   defaultHour?: number
   /** The initial value of the minute input element. Only effective if time is enabled. Note this will only set the minute input element to the value specified. Setting this options will not set a selected value on the DateTimePicker. */
   defaultMinute?: number
   /** Same as value, defaultDate */
-  defaultValue?: DateOption | DateOption[]
+  defaultValue?: string | any[] | object | number
   /** Pass an array of dates, date strings, date ranges or functions to disable dates. More on disabling dates: https://flatpickr.js.org/examples/#disabling-specific-dates */
-  disable?: DateLimit<DateOption>[]
+  disable?: any[]
   /** Whether the DateTimePicker is disabled */
   disabled?: boolean
   /** Whether to show seconds when showing a time picker. */
@@ -584,7 +584,7 @@ export interface DateTimePickerProps
   /** The label of the DateTimePicker input element. */
   label?: string
   /** Localization string or object. Can be used to set starting day of the week, e.g. Mondays instead of Sundays. More on localization: https://flatpickr.js.org/localization/ */
-  locale?: LocaleKey | Partial<CustomLocale>
+  locale?: string | object
   /** The maximum / latest date a user can select (inclusive). */
   maxDate?: string | any[] | object | number
   /** The minimum / earliest date a user can select (inclusive). */
