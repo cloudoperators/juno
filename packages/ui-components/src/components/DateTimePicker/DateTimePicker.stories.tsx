@@ -16,7 +16,7 @@ export default {
     },
     defaultDate: {
       table: {
-        type: { summary: "DateOption | DateOption[] | null" },
+        type: { summary: "DateOption | DateOption[]" },
       },
     },
     defaultValue: {
@@ -26,17 +26,17 @@ export default {
     },
     locale: {
       table: {
-        type: { summary: "LocaleKey | Partial<CustomLocale> | null" },
+        type: { summary: "LocaleKey | Partial<CustomLocale>" },
       },
     },
     maxDate: {
       table: {
-        type: { summary: "DateOption | null" },
+        type: { summary: "string | any[] | object | number" },
       },
     },
     minDate: {
       table: {
-        type: { summary: "DateOption | null" },
+        type: { summary: "string | any[] | object | number" },
       },
     },
     value: {
@@ -619,7 +619,7 @@ const ControlledTemplate = ({ ...args }) => {
       onOpen={() => {}}
       onMonthChange={() => {}}
       onYearChange={() => {}}
-      value={testState?.date?.end}
+      value={testState?.date?.end || undefined}
     />
   )
 }

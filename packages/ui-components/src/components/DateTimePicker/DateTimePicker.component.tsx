@@ -269,8 +269,8 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
       enableTime: enableTime,
       hourIncrement: hourIncrement,
       locale: locale || undefined,
-      maxDate: maxDate || undefined,
-      minDate: minDate || undefined,
+      maxDate: (maxDate || undefined) as DateOption,
+      minDate: (minDate || undefined) as DateOption,
       minuteIncrement: minuteIncrement,
       mode: mode,
       monthSelectorType,
@@ -556,7 +556,7 @@ export interface DateTimePickerProps
   /** A string of characters to customize how a date will be formatted in the input field. Available options: https://flatpickr.js.org/formatting/ */
   dateFormat?: string
   /** Sets the default date of the DateTimePicker. Same as `value`, only here for compatibility with the original Flatpickr library. If both `value` and `defaultDate` are being passed, `value` will win. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted. */
-  defaultDate?: DateOption | DateOption[] | null
+  defaultDate?: DateOption | DateOption[]
   /** The initial value of the hour input element. Only effective if time is enabled. Note this will only set the hour input element to the value specified. Setting this options will not set a selected value on the DateTimePicker. */
   defaultHour?: number
   /** The initial value of the minute input element. Only effective if time is enabled. Note this will only set the minute input element to the value specified. Setting this options will not set a selected value on the DateTimePicker. */
@@ -584,11 +584,11 @@ export interface DateTimePickerProps
   /** The label of the DateTimePicker input element. */
   label?: string
   /** Localization string or object. Can be used to set starting day of the week, e.g. Mondays instead of Sundays. More on localization: https://flatpickr.js.org/localization/ */
-  locale?: LocaleKey | Partial<CustomLocale> | null
+  locale?: LocaleKey | Partial<CustomLocale>
   /** The maximum / latest date a user can select (inclusive). */
-  maxDate?: DateOption | null
+  maxDate?: string | any[] | object | number
   /** The minimum / earliest date a user can select (inclusive). */
-  minDate?: DateOption | null
+  minDate?: string | any[] | object | number
   /**  The step for the minute input. Only has an effect when a time picker is enabled via `enableTime`.  */
   minuteIncrement?: number
   /** The mode of the Datepicker. */
@@ -641,7 +641,7 @@ export interface DateTimePickerProps
   /** Whether the DateTimePicker has been successfully validated */
   valid?: boolean
   /** The value of the datepicker. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted. */
-  value?: DateOption | DateOption[] | null
+  value?: DateOption | DateOption[]
   /** Whether to render week numbers. Default is `false`. */
   weekNumbers?: boolean
   /** The width of the datepicker input. Either 'full' (default) or 'auto'. */
