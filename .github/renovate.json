@@ -1,7 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "assigneesFromCodeOwners": true,
-  "extends": ["config:recommended"],
+  "extends": ["config:best-practices"],
+  "enabledManagers": ["npm", "github-actions"],
+  "includePaths": ["packages/ui-components/**"],
   "packageRules": [
     {
       "groupName": "github actions",
@@ -11,19 +13,13 @@
       "minimumReleaseAge": "14 days"
     },
     {
-      "groupName": "npm dependencies",
+      "groupName": "dependencies for ui-components",
       "matchDatasources": ["npm"],
-      "minimumReleaseAge": "14 days"
+      "matchFileNames": ["packages/ui-components/**"],
+      "matchUpdateTypes": ["patch"],
+      "minimumReleaseAge": "7 days",
+      "schedule": "every weekend"
     }
   ],
-  "separateMinorPatch": true,
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": ["Makefile$", "\\.sh$"],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?(?: registryUrl=(?<registryUrl>[^\\s]+?))?\\s.+?_(VERSION|version) *[?:]?= *\"?(?<currentValue>.+?)\"?\\s"
-      ]
-    }
-  ]
+  "separateMinorPatch": true
 }
