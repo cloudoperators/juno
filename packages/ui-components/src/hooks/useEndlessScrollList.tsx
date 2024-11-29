@@ -86,7 +86,7 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
             {options?.showRef !== false && (
               <React.Fragment>
                 {options?.refFunction ? (
-                  options.refFunction(lastLisItemRef as unknown as Element)
+                  (options.refFunction(lastLisItemRef as unknown as Element) ?? null)
                 ) : (
                   <span id="endlessScrollListLastItemRef" ref={lastLisItemRef as LegacyRef<HTMLSpanElement>} />
                 )}
