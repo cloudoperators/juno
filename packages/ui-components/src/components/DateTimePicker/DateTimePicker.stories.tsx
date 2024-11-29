@@ -16,17 +16,17 @@ export default {
     },
     defaultDate: {
       table: {
-        type: { summary: "DateOption | DateOption[]" },
+        type: { summary: "string | any[] | object | number" },
       },
     },
     defaultValue: {
       table: {
-        type: { summary: "DateOption | DateOption[]" },
+        type: { summary: "string | any[] | object | number" },
       },
     },
     locale: {
       table: {
-        type: { summary: "LocaleKey | Partial<CustomLocale>" },
+        type: { summary: "string | object" },
       },
     },
     maxDate: {
@@ -42,7 +42,7 @@ export default {
     value: {
       control: false,
       table: {
-        type: { summary: "DateOption | DateOption[]" },
+        type: { summary: "string | any[] | object | number" },
       },
     },
     errortext: {

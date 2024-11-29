@@ -641,7 +641,7 @@ export interface DateTimePickerProps
   /** Whether the DateTimePicker has been successfully validated */
   valid?: boolean
   /** The value of the datepicker. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted. */
-  value?: DateOption | DateOption[]
+  value?: string | any[] | object | number
   /** Whether to render week numbers. Default is `false`. */
   weekNumbers?: boolean
   /** The width of the datepicker input. Either 'full' (default) or 'auto'. */
