@@ -112,10 +112,9 @@ In the manifest, we can define an `iframe` type for the extension along with spe
 ```
 
 **Internal Extensions:**  
-Internal extensions must be built first and then bundled with the shell application. Greenhouse leverages Turbo's dependency resolution to ensure that each extension is built before the shell application is compiled. Additionally, the extensions are included as dependencies in the shell application's `package.json` file, ensuring seamless bundling. Integration and end-to-end tests are executed in the CI/CD pipeline, and vulnerability scans are performed using Trivy once the Docker image is created and pushed to the GitHub Container Registry (GHCR).
-
+Internal extensions must be built first and then bundled with the shell application. Greenhouse leverages Turbo's dependency resolution to ensure that each extension is built before the shell application is compiled. Additionally, the extensions are included as dependencies in the shell application's `package.json` file, ensuring seamless bundling. Integration and end-to-end tests are executed in the CI/CD pipeline, and vulnerability scans are performed using Trivy once the Docker image is created and pushed to the GitHub Container Registry (GHCR). Integration errors or test failures can be monitored by setting up error notifications, allowing issues to be addressed promptly.
 **External Extensions:**  
-External extensions need to be retrieved, built, and tested as part of the build process, with all steps automated through a CI/CD pipeline. The approach depends on the source of the extension. To streamline and automate retrieval, building, and testing, it’s essential to maintain a list of external extensions along with their versions wherever possible.
+External extensions need to be retrieved, built, and tested as part of the build process, with all steps automated through a CI/CD pipeline. The approach depends on the source of the extension. To streamline and automate retrieval, building, and testing, it’s essential to maintain a list of external extensions along with their versions wherever possible. Integration errors or test failures can be monitored by setting up error notifications, allowing issues to be addressed promptly.
 
 - Using npm packages: extensions can be retrieved from the npm registry by adding them as dependencies in the shell application's `package.json` file. These packages are built alongside the shell application. Testing primarily occurs during the build process to ensure proper integration, followed by end-to-end tests to verify that the extensions function as expected within the application. Vulnerability scans are performed using Trivy once the Docker image is created and pushed to the GHCR.
 
@@ -181,6 +180,7 @@ External extensions need to be retrieved, built, and tested as part of the build
   - **Error Management**:
     - **Internal Extensions**: Errors can be addressed promptly by committing fixes rather than rolling back, as the main branch remains unaffected.
     - **External Extensions**: A specific version of an external extension is stored in the `extensions` directory. Errors can be caught during the build or resolved with a re-build. In the worst case, problematic extensions can be removed without affecting the rest of the application.
+  - **Error Monitoring**: Integration errors or test failures can be monitored by setting up error notifications, allowing issues to be addressed promptly.
   - **Ease of Configuration**: a manifest file serves as the single source of truth for defining accessible extensions. Updates can be made to the manifest without modifying core application logic.
   - **Support for iFrames**: embedding extensions via iFrames allows for isolated execution of third-party or sandboxed extensions.
   - **Streamlined Build Process**: the manifest is generated during the build process, ensuring consistency in available extensions and simplifying integration.
@@ -313,24 +313,24 @@ Kubernetes setup for deploying a shell app and multiple extensions as Docker ima
   - **CORS Challenges**: Cross-origin resource sharing (CORS) configurations may require careful setup, particularly for external extensions, potentially leading to debugging and integration complexities.
   - **Internal Extensions Hosting**: Hosting internal extensions would require setting up dedicated asset servers and deployment pipelines. Errors in an extension might necessitate redeploying the host app to update the manifest or enforcing always loading the latest version.
   - **Kubernetes Setup**: Deploying extensions in Kubernetes demands a more complex setup and ongoing maintenance, which could increase operational overhead.
+  - **Error Monitoring**: No support real-time error notifications, making it challenging to monitor integration errors or test failures promptly.
 
 ## Comparison
 
-| **Feature**               | **Option 1: Co-Located Extensions**                                                                | **Option 2: Remote Extensions**                                                             |
-| ------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| **Dependency Resolution** | All dependencies resolved at build time.                                                           | Dependencies are resolved dynamically at runtime from external sources (CDN).               |
-| **Build Size**            | Can increase build size as extensions are bundled with the app.                                    | Smaller initial build size as extensions are loaded externally.                             |
-| **Runtime Flexibility**   | Extensions must be included at build time.                                                         | Extensions can be updated or swapped dynamically without rebuilding the app.                |
-| **Error Management**      | Internal extensions can be fixed by committing changes. External extensions managed via manifest.  | External extensions might require version updates or CDN fixes if issues arise.             |
-| **Extension Location**    | Supports both local paths and external URLs via the manifest.                                      | Extensions are loaded from external sources (usually CDNs).                                 |
-| **CORS Handling**         | Internal extensions do not have CORS issues. External extensions may require proper configuration. | External extensions may face CORS issues if not properly configured.                        |
-| **Build Process**         | Requires rebuilding app for any extension updates or changes.                                      | Does not require rebuilding the app to update or add new extensions.                        |
-| **Independent Rollbacks** | No independent rollback of extensions; all changes require a full rebuild.                         | Extensions can be rolled back independently via versioning on the CDN.                      |
-| **Performance Impact**    | Performance depends on the internal architecture; no external dependencies.                        | Dependent on the performance of external CDNs and their availability.                       |
-| **Scalability**           | Limited by the build process and the app's size.                                                   | Easily scalable, as new extensions can be added without affecting the main app.             |
-| **Manifest Management**   | Manifest is used to track extensions, which are bundled at build time.                             | Manifest is required to load extensions dynamically, and misconfiguration can cause issues. |
-
-This table provides a direct comparison of the two options based on various factors like dependency resolution, build size, performance, and more. Let me know if you'd like to adjust any details!
+| **Feature**               | **Option 1: Co-Located Extensions**                                                                | **Option 2: Remote Extensions**                                                                                             |
+| ------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **Dependency Resolution** | All dependencies resolved at build time.                                                           | Dependencies are resolved dynamically at runtime from external sources (CDN).                                               |
+| **Build Size**            | Can increase build size as extensions are bundled with the app.                                    | Smaller initial build size as extensions are loaded externally.                                                             |
+| **Runtime Flexibility**   | Extensions must be included at build time.                                                         | Extensions can be updated or swapped dynamically without rebuilding the app.                                                |
+| **Error Management**      | Internal extensions can be fixed by committing changes. External extensions managed via manifest.  | External extensions might require version updates or CDN fixes if issues arise.                                             |
+| **Extension Location**    | Supports both local paths and external URLs via the manifest.                                      | Extensions are loaded from external sources (usually CDNs).                                                                 |
+| **CORS Handling**         | Internal extensions do not have CORS issues. External extensions may require proper configuration. | External extensions may face CORS issues if not properly configured.                                                        |
+| **Build Process**         | Requires rebuilding app for any extension updates or changes.                                      | Does not require rebuilding the app to update or add new extensions.                                                        |
+| **Independent Rollbacks** | No independent rollback of extensions; all changes require a full rebuild.                         | Extensions can be rolled back independently via versioning on the CDN.                                                      |
+| **Performance Impact**    | Performance depends on the internal architecture; no external dependencies.                        | Dependent on the performance of external CDNs and their availability.                                                       |
+| **Scalability**           | Limited by the build process and the app's size.                                                   | Easily scalable, as new extensions can be added without affecting the main app.                                             |
+| **Manifest Management**   | Manifest is used to track extensions, which are bundled at build time.                             | Manifest is required to load extensions dynamically, and misconfiguration can cause issues.                                 |
+| **Error Monitoring**      | Supports real-time error monitoring, enabling prompt notification and resolution of issues.        | Does not support real-time error monitoring, making it challenging to address integration errors or test failures promptly. |
 
 ## References
 
