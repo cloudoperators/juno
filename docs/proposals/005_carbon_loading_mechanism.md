@@ -31,6 +31,31 @@ The goal of this proposal is to consolidate all information regarding the extens
 
 ## Option 1: Co-Located Extensions
 
+```bash
+              Shell Application Bundle
++-----------------------------------------------------+
+|  +-----------------------------------------------+  |
+|  |                    Core                       |  |
+|  +-----------------------------------------------+  |
+|                                                     |
+|                                                     |
+|  Internal Extensions          External Extensions   |
+|                                                     |
+| +-------------------+        +-------------------+  |
+| | Supernova Bundle  |        |  Ext1 Bundle      |  |
+| +-------------------+        +-------------------+  |
+| +-------------------+        +-------------------+  |
+| | Heureka Bunble    |        |  Ext2 Bunlde      |  |
+| +-------------------+        +-------------------+  |
+| +-------------------+        +-------------------+  |
+| | Doop Bundle       |        |  Ext3 Bundle      |  |
+| +-------------------+        +-------------------+  |
+| +-------------------+        +-------------------+  |
+| |       ...         |        |       ...         |  |
+| +-------------------+        +-------------------+  |
++-----------------------------------------------------+
+```
+
 The concept involves co-locating extension bundles within the same output as the shell application. This approach integrates the extensions directly with the shell app, allowing them to be dynamically loaded at runtime. Each extension implements a well-defined interface, ensuring seamless integration and communication with the shell application. This methodology is currently implemented in the Greenhouse Dashboard.
 
 A manifest file defines the extensions available and the location for loading. During runtime, the shell app references this manifest to dynamically load the specified extensions. The manifest file is generated during the build process and serves as the definitive source for determining which extensions are accessible for dynamic loading.
@@ -99,39 +124,41 @@ External extensions need to be retrieved, built, and tested as part of the build
 ### Diagram
 
 ```bash
-                      Build Process
-  ------------------------------------------------
-  |                                              |
-  |          +-----------------------+           |
-  |          | Internal Extensions   |           |
-  |          | (Built First)         |           |
-  |          +-----------------------+           |
-  |                                              |
-  |          +-----------------------+           |
-  |          | External Extensions   |           |
-  |          | (Retrieved, Built,    |           |
-  |          | and Tested)           |           |
-  |          +-----------------------+           |
-  |                                              |
-  ------------------------------------------------
-                      |
-                      v
-           +--------------------------+
-           |  Generate Manifest File  |
-           | (Defines Available       |
-           | Extensions)              |
-           +--------------------------+
-                      |
-                      v
-     +---------------------------------------+
-     | Shell Application                     |
-     | - Bundled Extensions                  |
-     | - References Manifest for Dynamic     |
-     |   Loading at Runtime                  |
-     +---------------------------------------+
-                      |
-                      v
-        Dynamic Loading of Extensions at Runtime
+                             Build Process
++---------------------------------------------------------------------+
+|                                    +------------------------------+ |
+|                                    | List of External Extensions  | |
+|                                    +------------------------------+ |
+|                                                  |                  |
+|                                                  v                  |
+| +------------------------------+   +------------------------------+ |
+| | Internal Extensions          |   |    External Extensions       | |
+| | (Built first)                |   |                              | |
+| +------------------------------+   |      +-------------+         | |
+|                |                   |      |  Retrieve   |         | |
+|                |                   |      +-------------+         | |
+|                |                   |             |                | |
+|                |                   |             v                | |
+|                |                   |      +-------------+         | |
+|                |                   |      |    Build    |         | |
+|                |                   |      +-------------+         | |
+|                |                   |             |                | |
+|                |                   |             v                | |
+|                |                   |      +-------------+         | |
+|                |                   |      |    Test     |         | |
+|                |                   |      +-------------+         | |
+|                |                   +------------------------------+ |
+|                |                                 |                  |
+|                |                                 |                  |
+|                v                                 v                  |
+| +-----------------------------------------------------------------+ |
+| |                 Generate Manifest File                          | |
+| |                 (Define available Extensions)                   | |
+| +-----------------------------------------------------------------+ |
++---------------------------------------------------------------------+
+                                |
+                                v
+               Dynamic Loading of Extensions at Runtime
 
 ```
 
@@ -186,25 +213,30 @@ The manifest defines the CDN URL for each extension. Versioning can be specified
 ### Diagram
 
 ```bash
-                              +-------------------+
-                              |   Shell App       |
-                              +-------------------+
-                                       |
-                                       v
-                             +---------------------+
-                             |  Manifest File      |
-                             +---------------------+
-                                       |
-                    +------------------+-------------------+
-                    |                                      |
-                    |                                      |
-           +--------------------------------------------------------+
-           |        |  Content Delivery Networks (CDNs)    |        |
-           |        v                                      v        |
-           |   +---------------------+      +---------------------+ |
-           |   | Internal Extension  |      | External Extension  | |
-           |   +---------------------+      +---------------------+ |
-           +--------------------------------------------------------+
++----------------------------------------------+   +-----------------------------------------------+
+|                                              |   |                                               |
+|          Shell Application Bundle            |   |      Content Delivery Networks (CDN)          |
+|                                              |   |                                               |
+|                                              |   | Internal Extensions       External Extensions |
+| +------------------------------------------+ |   |                                               |
+| |              Manifest File               | |   |      +-------+                 +-------+      |
+| |(Available Extensions Internal & External)| |   |      | Ext1  |                 | Ext1  |      |
+| +------------------------------------------+ |   |      +-------+                 +-------+      |
++----------------------------------------------+   |      +-------+                 +-------+      |
+                     |                             |      | Ext2  |                 | Ext2  |      |
+                     |                             |      +-------+                 +-------+      |
+                     |                             |      +-------+                 +-------+      |
+                     |                             |      | ...   |                 | ...   |      |
+                     |                             |      +-------+                 +-------+      |
+                     |                             +-----------------------------------------------+
+                     |                                                    |
+                     |                                                    |
+                     |                                                    |
+                     v                                                    v
+                   +---------------------------------------------------------+
+                   |                          Browser                        |
+                   |          (Dynamic Loading of Extension from CDN)        |
+                   +---------------------------------------------------------+
 ```
 
 ### Kubernetes as a CDN
@@ -229,31 +261,31 @@ Kubernetes setup for deploying a shell app and multiple extensions as Docker ima
 **Diagramm**
 
 ```bash
-                                    +--------------------+
-                                    |  User (Browser)    |
-                                    +--------------------+
-                                             |
-                                             v
-                                    +---------------------+
-                                    | Shell App (Ingress) |
-                                    | Service: shell-app  |
-                                    +---------------------+
-                                             |
-                          +------------------+------------------+
-                          |                                     |
-                          v                                     v
-           +--------------------------+          +--------------------------+
-           |    Extension XYZ (Pod)   |          |    Extension ABC (Pod)   |
-           | Service: extension-xyz   |          | Service: extension-abc   |
-           | Exposes: /bundle.js      |          | Exposes: /bundle.js      |
-           | Exposes: /entrypoint.js  |          | Exposes: /entrypoint.js  |
-           +--------------------------+          +--------------------------+
-                          |                                     |
-                          v                                     v
-           +--------------------------+          +--------------------------+
-           | Deployment: extension-xyz|          | Deployment: extension-abc|
-           | Image: xyz:latest        |          | Image: abc:latest        |
-           +--------------------------+          +--------------------------+
+
+      +-------------+
+      |   Browser   |
+      +-------------+
+             |
+             v
+      +-------------+
+      |   Ingress   |
+      +-------------+
+             |
+             v
+      +-------------+
+      |   Service   |
+      +-------------+                 +--------------+    +------------------+
+             |                   |--- | Service Ext1 |    |Ext1 Docker Image |
+             v                   |    |              |--> |     (Pod)        |
++-----------------------------+  |    +--------------+    +------------------+
+|   Shell APP Docker Image    |  ---- +--------------+    +------------------+
+|           (Pod)             |  |    | Service Ext2 |    |Ext2 Docker Image |
+|                             |  |    |              |--> |     (Pod)        |
+| +-----------------------+   |  |    +--------------+    +------------------+
+| | Manifest              |   |  |    +--------------+    +------------------+
+| | (Available Extensions)| <-------- | Service Ext3 |    |Ext3 Docker Image |
+| +-----------------------+   |       |              |--> |     (Pod)        |
++-----------------------------+       +--------------+    +------------------+
 ```
 
 ### Key Concepts
