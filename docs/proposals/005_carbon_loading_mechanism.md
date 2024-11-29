@@ -44,6 +44,8 @@ The manifest specifies the location of each extension, offering flexibility in h
 }
 ```
 
+**CDN Support**:
+
 Additionally, this setup supports extensions hosted on CDNs. Versioning can be specified either directly in the URL path or through an additional attribute:
 
 ```json
@@ -52,7 +54,37 @@ Additionally, this setup supports extensions hosted on CDNs. Versioning can be s
 }
 ```
 
-`iFrames` are also supported by placing an extension in the extensions/xyz directory and loading it in index.js.
+**iFrame Support**:
+
+iFrames can be used to load extensions by referencing the local `index.html` file of the extension bundled with the shell application and dynamically creating the iframe. If there is a requirement for the extension to be built with Vite, the `--mode static` option can be used to generate the static files. The resulting `index.html` file can then be referenced within the iframe for seamless integration.
+
+Example directory structure:
+
+```bash
+extensions/
+├── xyz/
+│   ├── index.html
+│   ├── script.js
+
+```
+
+In the manifest, we can define an `iframe` type for the extension along with specific configuration options for the iframe:
+
+```json
+{
+  "extensions": {
+    "xyz": {
+      "type": "iframe",
+      "location": "extensions/xyz/index.html",
+      "iframeConfig": {
+        "width": "100%",
+        "height": "600px",
+        "sandbox": "allow-scripts allow-same-origin"
+      }
+    }
+  }
+}
+```
 
 **Internal Extensions**: These must be built first and then bundled together with the shell application. Greenhouse uses Turbo's dependency resolution to ensure that each extension is built before the shell application built. Additionally, the extensions are included as dependencies in the shell application's package.json file, ensuring they are bundled seamlessly with the shell application.
 
