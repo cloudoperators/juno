@@ -314,11 +314,25 @@ Kubernetes setup for deploying a shell app and multiple extensions as Docker ima
   - **Internal Extensions Hosting**: Hosting internal extensions would require setting up dedicated asset servers and deployment pipelines. Errors in an extension might necessitate redeploying the host app to update the manifest or enforcing always loading the latest version.
   - **Kubernetes Setup**: Deploying extensions in Kubernetes demands a more complex setup and ongoing maintenance, which could increase operational overhead.
 
+## Comparison
+
+| **Feature**               | **Option 1: Co-Located Extensions**                                                                | **Option 2: Remote Extensions**                                                             |
+| ------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| **Dependency Resolution** | All dependencies resolved at build time.                                                           | Dependencies are resolved dynamically at runtime from external sources (CDN).               |
+| **Build Size**            | Can increase build size as extensions are bundled with the app.                                    | Smaller initial build size as extensions are loaded externally.                             |
+| **Runtime Flexibility**   | Extensions must be included at build time.                                                         | Extensions can be updated or swapped dynamically without rebuilding the app.                |
+| **Error Management**      | Internal extensions can be fixed by committing changes. External extensions managed via manifest.  | External extensions might require version updates or CDN fixes if issues arise.             |
+| **Extension Location**    | Supports both local paths and external URLs via the manifest.                                      | Extensions are loaded from external sources (usually CDNs).                                 |
+| **CORS Handling**         | Internal extensions do not have CORS issues. External extensions may require proper configuration. | External extensions may face CORS issues if not properly configured.                        |
+| **Build Process**         | Requires rebuilding app for any extension updates or changes.                                      | Does not require rebuilding the app to update or add new extensions.                        |
+| **Independent Rollbacks** | No independent rollback of extensions; all changes require a full rebuild.                         | Extensions can be rolled back independently via versioning on the CDN.                      |
+| **Performance Impact**    | Performance depends on the internal architecture; no external dependencies.                        | Dependent on the performance of external CDNs and their availability.                       |
+| **Scalability**           | Limited by the build process and the app's size.                                                   | Easily scalable, as new extensions can be added without affecting the main app.             |
+| **Manifest Management**   | Manifest is used to track extensions, which are bundled at build time.                             | Manifest is required to load extensions dynamically, and misconfiguration can cause issues. |
+
+This table provides a direct comparison of the two options based on various factors like dependency resolution, build size, performance, and more. Let me know if you'd like to adjust any details!
+
 ## References
 
 - [Architecture and Modularization EPIC](https://github.com/cloudoperators/juno/issues/275)
 - [Modular Architecture for Aurora Dashboard](https://github.com/cloudoperators/juno/issues/386)
-
-```
-
-```
