@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { ContentHeading, ContentHeadingProps } from "./index"
+import { ContentHeading, ContentHeadingProps } from "./ContentHeading.component"
 
 export default {
   title: "Internal/ContentHeading",
@@ -12,6 +12,9 @@ export default {
   argTypes: {
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
 }
@@ -20,13 +23,6 @@ const Template = (args: ContentHeadingProps) => <ContentHeading {...args} />
 
 export const Default = {
   render: Template,
-  parameters: {
-    docs: {
-      description: {
-        story: "The the main heading of the content area of a page/view.",
-      },
-    },
-  },
   args: {
     heading: "My Page Heading",
   },

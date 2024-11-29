@@ -5,7 +5,8 @@
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import { ContentHeading } from "./index"
+
+import { ContentHeading } from "./ContentHeading.component"
 
 describe("ContentHeading", () => {
   test("renders a content heading", () => {
@@ -19,6 +20,12 @@ describe("ContentHeading", () => {
     expect(screen.getByRole("heading")).toHaveTextContent("My Heading")
   })
 
+  test("renders a content heading without any text", () => {
+    render(<ContentHeading />)
+    expect(screen.getByRole("heading")).toBeInTheDocument()
+    expect(screen.getByRole("heading")).toHaveTextContent("")
+  })
+
   test("renders children as passed", () => {
     render(
       <ContentHeading>
@@ -27,6 +34,24 @@ describe("ContentHeading", () => {
     )
     expect(screen.getByRole("heading")).toBeInTheDocument()
     expect(screen.getByRole("button")).toBeInTheDocument()
+  })
+
+  test("renders multiple children elements", () => {
+    render(
+      <ContentHeading>
+        <button>Button 1</button>
+        <span>Span 1</span>
+      </ContentHeading>
+    )
+    expect(screen.getByRole("heading")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByText("Span 1")).toBeInTheDocument()
+  })
+
+  test("renders with no children", () => {
+    render(<ContentHeading />)
+    expect(screen.getByRole("heading")).toBeInTheDocument()
+    expect(screen.getByRole("heading").children).toHaveLength(0)
   })
 
   test("renders a custom className", () => {

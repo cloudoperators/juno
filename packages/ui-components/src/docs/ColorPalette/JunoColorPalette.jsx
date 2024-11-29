@@ -7,7 +7,7 @@ import React from "react"
 import { getJunoColors } from "./TailwindColors"
 import { ColorCard } from "./ColorCard"
 
-import { ContentArea } from "../../components/ContentArea/index"
+import { ContentArea } from "../../deprecated_js/ContentArea/ContentArea.component"
 
 // Shows the colors from tailwind classes for a given theme (props.theme)
 export function JunoColorPalette() {

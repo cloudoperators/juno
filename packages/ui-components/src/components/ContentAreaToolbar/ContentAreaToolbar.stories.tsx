@@ -5,8 +5,9 @@
 
 import React from "react"
 
-import { ContentAreaToolbar } from "./index.js"
-import { Button } from "../../deprecated_js/Button/index.js"
+import { Button } from "../Button/Button.component"
+import { ContentAreaToolbar } from "./ContentAreaToolbar.component"
+import { ContentAreaToolbarProps } from "./ContentAreaToolbar.component"
 
 export default {
   title: "Layout/ContentAreaToolbar",
@@ -14,11 +15,14 @@ export default {
   argTypes: {
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
 }
 
-const Template = (args) => (
+const Template = (args: ContentAreaToolbarProps) => (
   <ContentAreaToolbar {...args}>
     <Button>Main Action</Button>
   </ContentAreaToolbar>
@@ -26,15 +30,4 @@ const Template = (args) => (
 
 export const Basic = {
   render: Template,
-
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "This is the main toolbar of the content area. Add main actions, search bar, filters for the current page here.",
-      },
-    },
-  },
-
-  args: {},
 }
