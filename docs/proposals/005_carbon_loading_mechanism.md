@@ -124,6 +124,8 @@ Additionally, this setup supports extensions hosted on CDNs. Versioning can be s
   - **Dependency on Manifest File**: the system heavily relies on the accuracy of the manifest file. Errors or misconfigurations could disrupt extension loading.
   - **Build-Time Configuration**: although dynamic loading reduces deployment frequency, changes to the build process or manifest generation logic still require developer involvement.
   - **Limited Runtime Flexibility**: since dependencies are resolved at build time, adding new extensions dynamically without rebuilding the application is not feasible.
+  - **No Independent Rollbacks**: Rolling an extension back to its previous version independently of the other extensions will not be possible.
+  - **Increased Build Sizes and number of images generated**: In case of errors or even normal changes, the build system must package everything together, unnecessarily leading to larger builds and Docker image sizes. This results in multiple images being created, which increases both the overall image size and the total number of images generated.
 
 ## Option 2: Remote Extensions
 
