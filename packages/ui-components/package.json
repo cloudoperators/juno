@@ -77,14 +77,14 @@
     "react-tabs": "4.3.0",
     "react-test-renderer": "18.3.1",
     "regenerator-runtime": "0.14.1",
-    "rollup": "4.27.4",
+    "rollup": "4.28.0",
     "rollup-plugin-analyzer": "4.0.0",
     "rollup-plugin-babel-minify": "10.0.0",
     "rollup-plugin-delete": "2.1.0",
     "rollup-plugin-includepaths": "0.2.4",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-postcss": "4.0.2",
-    "sass": "1.81.0",
+    "sass": "1.81.1",
     "sass-loader": "12.6.0",
     "storybook": "8.4.6",
     "style-loader": "3.3.4",
@@ -92,7 +92,7 @@
     "ts-loader": "9.5.1",
     "typescript": "5.7.2",
     "vite-plugin-svgr": "4.3.0",
-    "vitest": "2.1.6"
+    "vitest": "2.1.8"
   },
   "peerDependencies": {
     "prop-types": "15.8.1",
