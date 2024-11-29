@@ -86,9 +86,15 @@ In the manifest, we can define an `iframe` type for the extension along with spe
 }
 ```
 
-**Internal Extensions**: These must be built first and then bundled together with the shell application. Greenhouse uses Turbo's dependency resolution to ensure that each extension is built before the shell application built. Additionally, the extensions are included as dependencies in the shell application's package.json file, ensuring they are bundled seamlessly with the shell application.
+**Internal Extensions:**  
+Internal extensions must be built first and then bundled with the shell application. Greenhouse leverages Turbo's dependency resolution to ensure that each extension is built before the shell application is compiled. Additionally, the extensions are included as dependencies in the shell application's `package.json` file, ensuring seamless bundling. Integration and end-to-end tests are executed in the CI/CD pipeline, and vulnerability scans are performed using Trivy once the Docker image is created and pushed to the GitHub Container Registry (GHCR).
 
-**External Extensions**: These need to be retrieved, built, and tested during the build process. Once ready, they are added as dependencies in the shell application's package.json file, ensuring they are seamlessly bundled with the shell application.
+**External Extensions:**  
+External extensions need to be retrieved, built, and tested as part of the build process, with all steps automated through a CI/CD pipeline. The approach depends on the source of the extension. To streamline and automate retrieval, building, and testing, it’s essential to maintain a list of external extensions along with their versions wherever possible.
+
+- Using npm packages: extensions can be retrieved from the npm registry by adding them as dependencies in the shell application's `package.json` file. These packages are built alongside the shell application. Testing primarily occurs during the build process to ensure proper integration, followed by end-to-end tests to verify that the extensions function as expected within the application. Vulnerability scans are performed using Trivy once the Docker image is created and pushed to the GHCR.
+
+- Using other sources: extensions can also be sourced from platforms like GitHub repositories or private registries. In these cases, they are retrieved within the CI/CD pipeline and built using a predefined build script. Once built, they are added as dependencies in the shell application's `package.json` file, ensuring seamless bundling. Testing occurs during the build process to ensure proper integration, followed by end-to-end tests to verify functionality. Vulnerability scans are performed using Trivy once the Docker image is created and pushed to the GHCR.
 
 ### Diagram
 
