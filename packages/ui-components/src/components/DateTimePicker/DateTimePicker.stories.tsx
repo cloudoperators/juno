@@ -16,33 +16,33 @@ export default {
     },
     defaultDate: {
       table: {
-        type: { summary: "string | any[] | object | number" },
+        type: { summary: "DateOption | DateOption[] | string | any[] | object | number" },
       },
     },
     defaultValue: {
       table: {
-        type: { summary: "string | any[] | object | number" },
+        type: { summary: "DateOption | DateOption[] | string | any[] | object | number" },
       },
     },
     locale: {
       table: {
-        type: { summary: "string | object" },
+        type: { summary: "LocaleKey | Partial<CustomLocale> | string | object" },
       },
     },
     maxDate: {
       table: {
-        type: { summary: "string | any[] | object | number" },
+        type: { summary: "DateOption | string | any[] | object | number" },
       },
     },
     minDate: {
       table: {
-        type: { summary: "string | any[] | object | number" },
+        type: { summary: "DateOption | string | any[] | object | number" },
       },
     },
     value: {
       control: false,
       table: {
-        type: { summary: "string | any[] | object | number" },
+        type: { summary: "DateOption | DateOption[] | string | any[] | object | number" },
       },
     },
     errortext: {
@@ -76,30 +76,75 @@ export default {
     },
     onBlur: {
       control: false,
+      table: {
+        type: {
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+        },
+      },
     },
     onChange: {
       control: false,
+      table: {
+        type: {
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+        },
+      },
     },
     onClear: {
       control: false,
+      table: {
+        type: {
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+        },
+      },
     },
     onClose: {
       control: false,
+      table: {
+        type: {
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+        },
+      },
     },
     onFocus: {
       control: false,
+      table: {
+        type: {
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+        },
+      },
     },
     onReady: {
       control: false,
+      table: {
+        type: {
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+        },
+      },
     },
     onOpen: {
       control: false,
+      table: {
+        type: {
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+        },
+      },
     },
     onMonthChange: {
       control: false,
+      table: {
+        type: {
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+        },
+      },
     },
     onYearChange: {
       control: false,
+      table: {
+        type: {
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+        },
+      },
     },
   },
 }

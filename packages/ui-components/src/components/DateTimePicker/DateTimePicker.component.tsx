@@ -541,6 +541,14 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   )
 }
 
+// eslint-disable-next-line no-unused-vars
+type DateChangeHandler = (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+
+// eslint-disable-next-line no-unused-vars
+type LegacyEventHandler = (...args: any) => any
+
+type BackwardCompatibleDateChangeHandler = DateChangeHandler | LegacyEventHandler
+
 export interface DateTimePickerProps
   extends Omit<React.HTMLAttributes<HTMLInputElement>, "defaultValue" | "onFocus" | "onBlur" | "onChange"> {
   /** Whether the DateTimePicker input element allows direct user keyboard input. Default is `false`. */
@@ -555,16 +563,25 @@ export interface DateTimePickerProps
   conjunction?: string
   /** A string of characters to customize how a date will be formatted in the input field. Available options: https://flatpickr.js.org/formatting/ */
   dateFormat?: string
-  /** Sets the default date of the DateTimePicker. Same as `value`, only here for compatibility with the original Flatpickr library. If both `value` and `defaultDate` are being passed, `value` will win. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted. */
-  defaultDate?: string | any[] | object | number
+  /**
+   * Sets the default date of the DateTimePicker. Same as `value`, only here for compatibility with the original Flatpickr library. If both `value` and `defaultDate` are being passed, `value` will win. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted.
+   * @deprecated use DateOption | DateOption[] instead
+   */
+  defaultDate?: DateOption | DateOption[] | string | any[] | object | number
   /** The initial value of the hour input element. Only effective if time is enabled. Note this will only set the hour input element to the value specified. Setting this options will not set a selected value on the DateTimePicker. */
   defaultHour?: number
   /** The initial value of the minute input element. Only effective if time is enabled. Note this will only set the minute input element to the value specified. Setting this options will not set a selected value on the DateTimePicker. */
   defaultMinute?: number
-  /** Same as value, defaultDate */
-  defaultValue?: string | any[] | object | number
-  /** Pass an array of dates, date strings, date ranges or functions to disable dates. More on disabling dates: https://flatpickr.js.org/examples/#disabling-specific-dates */
-  disable?: any[]
+  /**
+   * Same as value, defaultDate
+   * @deprecated use DateOption | DateOption[] instead
+   */
+  defaultValue?: DateOption | DateOption[] | string | any[] | object | number
+  /**
+   * Pass an array of dates, date strings, date ranges or functions to disable dates. More on disabling dates: https://flatpickr.js.org/examples/#disabling-specific-dates
+   * @deprecated use DateLimit<DateOption>[] instead
+   */
+  disable?: DateLimit<DateOption>[] | any[]
   /** Whether the DateTimePicker is disabled */
   disabled?: boolean
   /** Whether to show seconds when showing a time picker. */
@@ -583,12 +600,21 @@ export interface DateTimePickerProps
   invalid?: boolean
   /** The label of the DateTimePicker input element. */
   label?: string
-  /** Localization string or object. Can be used to set starting day of the week, e.g. Mondays instead of Sundays. More on localization: https://flatpickr.js.org/localization/ */
-  locale?: string | object
-  /** The maximum / latest date a user can select (inclusive). */
-  maxDate?: string | any[] | object | number
-  /** The minimum / earliest date a user can select (inclusive). */
-  minDate?: string | any[] | object | number
+  /**
+   * Localization string or object. Can be used to set starting day of the week, e.g. Mondays instead of Sundays. More on localization: https://flatpickr.js.org/localization/
+   * @deprecated use LocaleKey | Partial<CustomLocale> instead
+   */
+  locale?: Partial<CustomLocale> | string | object
+  /**
+   * The maximum / latest date a user can select (inclusive).
+   * @deprecated use DateOption instead
+   */
+  maxDate?: DateOption | string | any[] | object | number
+  /**
+   * The minimum / earliest date a user can select (inclusive).
+   * @deprecated use DateOption instead
+   */
+  minDate?: DateOption | string | any[] | object | number
   /**  The step for the minute input. Only has an effect when a time picker is enabled via `enableTime`.  */
   minuteIncrement?: number
   /** The mode of the Datepicker. */
@@ -599,33 +625,51 @@ export interface DateTimePickerProps
   name?: string
   /** Set to `true` to not display a calendar at all. To create a time picker, set `enableTime` to true, too. */
   noCalendar?: boolean
-  /** A handler to be executed when the DateTimePicker input element looses focus. */
-  // eslint-disable-next-line no-unused-vars
-  onBlur?: (...args: any) => any
-  /** A handler to be executed when the selected date(s), date range or time changes */
-  // eslint-disable-next-line no-unused-vars
-  onChange?: (...args: any) => any
-  /** A handler to be executed when the DateTimePicker value is reset by clicking the clear icon. The onChnage handler will be fired in this event too, onClear is more specific. */
-  // eslint-disable-next-line no-unused-vars
-  onClear?: (...args: any) => any
-  /** A handler to be executed when the DateTimePicker calendar closes */
-  // eslint-disable-next-line no-unused-vars
-  onClose?: (...args: any) => any
-  /** A handler to be executed when the DateTimePicker input element receives focus. */
-  // eslint-disable-next-line no-unused-vars
-  onFocus?: (...args: any) => any
-  /** A handler to be executed when the selected month changes */
-  // eslint-disable-next-line no-unused-vars
-  onMonthChange?: (...args: any) => any
-  /** A handler to be executed when the DateTimePicker calendar opens */
-  // eslint-disable-next-line no-unused-vars
-  onOpen?: (...args: any) => any
-  /** A handler to be executed when the DateTimePicker component is ready */
-  // eslint-disable-next-line no-unused-vars
-  onReady?: (...args: any) => any
-  /** A handler to be executed when the selected year changes */
-  // eslint-disable-next-line no-unused-vars
-  onYearChange?: (...args: any) => any
+  /**
+   * A handler to be executed when the DateTimePicker input element looses focus.
+   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   */
+  onBlur?: BackwardCompatibleDateChangeHandler
+  /**
+   * A handler to be executed when the selected date(s), date range or time changes
+   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   */
+  onChange?: BackwardCompatibleDateChangeHandler
+  /**
+   * A handler to be executed when the DateTimePicker value is reset by clicking the clear icon. The onChnage handler will be fired in this event too, onClear is more specific.
+   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   */
+  onClear?: BackwardCompatibleDateChangeHandler
+  /**
+   * A handler to be executed when the DateTimePicker calendar closes
+   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   */
+  onClose?: BackwardCompatibleDateChangeHandler
+  /**
+   * A handler to be executed when the DateTimePicker input element receives focus.
+   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   */
+  onFocus?: BackwardCompatibleDateChangeHandler
+  /**
+   * A handler to be executed when the selected month changes
+   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   */
+  onMonthChange?: BackwardCompatibleDateChangeHandler
+  /**
+   * A handler to be executed when the DateTimePicker calendar opens
+   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   */
+  onOpen?: BackwardCompatibleDateChangeHandler
+  /**
+   * A handler to be executed when the DateTimePicker component is ready
+   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   */
+  onReady?: BackwardCompatibleDateChangeHandler
+  /**
+   * A handler to be executed when the selected year changes
+   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   */
+  onYearChange?: BackwardCompatibleDateChangeHandler
   /** The placeholder of the DateTimePicker input element */
   placeholder?: string
   /** Whether the DateTimePicker should be marked as required. Requires a `Label` to be set. */
@@ -640,8 +684,11 @@ export interface DateTimePickerProps
   time_24hr?: boolean
   /** Whether the DateTimePicker has been successfully validated */
   valid?: boolean
-  /** The value of the datepicker. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted. */
-  value?: string | any[] | object | number
+  /**
+   * The value of the datepicker. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted.
+   * @deprecated use DateOption | DateOption[] instead
+   */
+  value?: DateOption | DateOption[] | string | any[] | object | number
   /** Whether to render week numbers. Default is `false`. */
   weekNumbers?: boolean
   /** The width of the datepicker input. Either 'full' (default) or 'auto'. */
