@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Stack, StackProps } from "../Stack/Stack.component"
+import { Stack } from "../Stack/Stack.component"
 
 /** A container to hold one or multiple buttons and space and align them. */
 export const ButtonRow: React.FC<ButtonRowProps> = ({ children = null, className = "", ...props }) => {
@@ -15,7 +15,7 @@ export const ButtonRow: React.FC<ButtonRowProps> = ({ children = null, className
   )
 }
 
-export interface ButtonRowProps extends StackProps {
+export interface ButtonRowProps extends React.HTMLAttributes<HTMLElement> {
   /** Add a class to the ButtonRow */
   className?: string
   /** Children to render in the ButtonRow */

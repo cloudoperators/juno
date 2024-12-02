@@ -4,12 +4,12 @@
  */
 
 import React, { ReactNode, isValidElement } from "react"
-import { Stack, StackProps } from "../Stack/Stack.component"
+import { Stack } from "../Stack/Stack.component"
 import "./input-group.scss"
 
 type VariantTypes = "default" | "primary" | "primary-danger" | "subdued"
 
-export interface InputGroupProps extends StackProps {
+export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * The children to render within the InputGroup.
    * This can be any React node or a collection of React nodes such as Buttons, TextInput, and Select elements.
