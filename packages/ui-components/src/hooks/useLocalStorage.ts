@@ -26,6 +26,7 @@ function useLocalStorage<T>(key: string, initialValue: T): LocalStorageReturnTyp
   const setValue = (value: T) => {
     try {
       // Optionally allow value to be a function, so it can be used just as useState:
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       const valueToStore = value instanceof Function ? (value(storedValue) as T) : value
       // save to our state:
       setStoredValue(valueToStore)

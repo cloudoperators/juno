@@ -22,6 +22,7 @@ export default [
       "@typescript-eslint/no-floating-promises": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/unbound-method": "off",
+      "@typescript-eslint/no-base-to-string": "off",
     },
     ignores: ["vitest.config.ts", "vite.config.ts"],
   },
