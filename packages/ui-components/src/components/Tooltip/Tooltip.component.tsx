@@ -27,7 +27,7 @@ export const useTooltipState = () => {
   return context
 }
 
-interface TooltipProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TooltipProps extends React.HTMLAttributes<HTMLDivElement> {
   // /** The semantic variant of the tooltip, or `plain` */
   variant?: ToolTipVariant
   /** Uncontrolled Tooltip: Choose which event should trigger the opening of the tooltip (click or hover) */
