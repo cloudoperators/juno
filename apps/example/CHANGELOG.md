@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-example
 
+## 1.0.13
+
+### Patch Changes
+
+- f25740e: Delete juno-utils package
+- Updated dependencies [8e6e94d]
+- Updated dependencies [385ebcf]
+- Updated dependencies [b99caff]
+- Updated dependencies [5d186c7]
+  - @cloudoperators/juno-ui-components@2.33.0
+
 ## 1.0.12
 
 ### Patch Changes
