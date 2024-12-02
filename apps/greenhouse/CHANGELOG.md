@@ -1,5 +1,21 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.8
+
+### Patch Changes
+
+- 0191ac6: Refine wording to enhance clarity of the UI displayed info.
+- Updated dependencies [8e6e94d]
+- Updated dependencies [385ebcf]
+- Updated dependencies [b99caff]
+- Updated dependencies [5d186c7]
+- Updated dependencies [f25740e]
+- Updated dependencies [0191ac6]
+  - @cloudoperators/juno-ui-components@2.33.0
+  - @cloudoperators/juno-app-supernova@0.14.5
+  - @cloudoperators/juno-app-doop@2.3.3
+  - @cloudoperators/juno-app-heureka@2.11.0
+
 ## 0.3.7
 
 ### Patch Changes
