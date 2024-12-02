@@ -9,7 +9,7 @@ import { getThemeColors, getThemeTextColors } from "./TailwindColors"
 import { ColorCard } from "./ColorCard"
 import { TextColorCard } from "./TextColorCard"
 
-import { ContentArea } from "../../components/ContentArea/index"
+import { ContentArea } from "../../deprecated_js/ContentArea/ContentArea.component"
 
 // Shows the colors from tailwind classes for a given theme (props.theme)
 export function ColorPalette(props) {
