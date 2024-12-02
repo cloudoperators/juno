@@ -1,5 +1,18 @@
 # @cloudoperators/juno-ui-components
 
+## 2.33.0
+
+### Minor Changes
+
+- 8e6e94d: Migrate the Pagination component to TypeScript
+- b99caff: Migrate ContentAreaToolbar, ContentContainer and ContentHeading components to TypeScript.
+  Deprecate ContentWrapper.
+- 5d186c7: Migrate Panel, PanelBody and PanelFooter components to TypeScript
+
+### Patch Changes
+
+- 385ebcf: Created HeaderContainer component to make PageHeader and TopNavigation sticky when scrolling the content. AppShell is also affected by this change.
+
 ## 2.32.0
 
 ### Minor Changes

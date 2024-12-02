@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.14.5
+
+### Patch Changes
+
+- f25740e: Delete juno-utils package
+- Updated dependencies [8e6e94d]
+- Updated dependencies [385ebcf]
+- Updated dependencies [b99caff]
+- Updated dependencies [5d186c7]
+  - @cloudoperators/juno-ui-components@2.33.0
+
 ## 0.14.4
 
 ### Patch Changes
