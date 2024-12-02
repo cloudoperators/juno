@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.11.0
+
+### Minor Changes
+
+- 0191ac6: Refine wording to enhance clarity of the UI displayed info.
+
+### Patch Changes
+
+- Updated dependencies [8e6e94d]
+- Updated dependencies [385ebcf]
+- Updated dependencies [b99caff]
+- Updated dependencies [5d186c7]
+  - @cloudoperators/juno-ui-components@2.33.0
+
 ## 2.10.1
 
 ### Patch Changes
