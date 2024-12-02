@@ -41,7 +41,7 @@ import React, { useRef, useState } from "react"
  * in to the current parent element. ShadowRoot allows html to be isolated from the rest of the DOM. If styles are given, these and
  * the children are added to the shadow element. The themeClass is added to a wrapper div surrounding the children.
  */
-export const ShadowRoot = ({ mode = "open", delegatesFocus = false, children = null }: ShadowRootProps) => {
+export const ShadowRoot: React.FC<ShadowRootProps> = ({ mode = "open", delegatesFocus = false, children = null }) => {
   // reference element which is replaced by the shadow dom element
   const ref = useRef<HTMLDivElement | null>(null)
   // hold shadow element in the state
@@ -66,7 +66,7 @@ export const ShadowRoot = ({ mode = "open", delegatesFocus = false, children = n
 export type ShadowRootMode = "open" | "closed"
 
 // define accepted properties
-export interface ShadowRootProps {
+export interface ShadowRootProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Choose "closed" to prevent styles from being inherited from the parent node. */
   mode?: ShadowRootMode
   delegatesFocus?: boolean

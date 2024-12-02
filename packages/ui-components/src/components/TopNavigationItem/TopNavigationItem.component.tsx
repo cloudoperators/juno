@@ -39,7 +39,7 @@ const topNavActiveItemStyles = `
 /**
 An individual item of a top level navigation. Place inside TopNavigation.
 */
-export const TopNavigationItem = ({
+export const TopNavigationItem: React.FC<TopNavigationItemProps> = ({
   active = false,
   ariaLabel,
   children = null,
@@ -51,7 +51,7 @@ export const TopNavigationItem = ({
   onClick = undefined,
   value = "",
   ...props
-}: TopNavigationItemProps) => {
+}) => {
   return (
     <NavigationItem
       active={active}
@@ -71,7 +71,7 @@ export const TopNavigationItem = ({
   )
 }
 
-export interface TopNavigationItemProps {
+export interface TopNavigationItemProps extends React.HTMLAttributes<HTMLLIElement> {
   /** Whether the item is the currently active item */
   active?: boolean
   /** The aria label of the item */

@@ -16,7 +16,12 @@ const headingStyles = `
 
  *The main heading of a page/View. Pass as a child into `<AppShell>` or, when scaffolding manually, into `<ContentContainer>`.
  */
-export const ContentHeading = ({ heading = "", className = "", children = null, ...props }: ContentHeadingProps) => {
+export const ContentHeading: React.FC<ContentHeadingProps> = ({
+  heading = "",
+  className = "",
+  children = null,
+  ...props
+}) => {
   return (
     <h1 className={`juno-content-heading ${headingStyles} ${className}`} {...props}>
       {children || heading}
@@ -24,7 +29,7 @@ export const ContentHeading = ({ heading = "", className = "", children = null, 
   )
 }
 
-export interface ContentHeadingProps {
+export interface ContentHeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   /** Optionally render children. If children are present, heading will be ignored */
   children?: React.ReactNode
   /** Text to use as a title */

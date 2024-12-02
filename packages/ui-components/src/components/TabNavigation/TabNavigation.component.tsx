@@ -17,7 +17,7 @@ export interface TabNavigationContextType {
 export const TabNavigationContext = createContext<TabNavigationContextType | undefined>(undefined)
 
 /** A Tab Navigation parent component. Use to wrap `<TabNavigationItem>` elements inside. For tabs with corresponding tab panels, use `<Tabs>` instead. */
-export const TabNavigation = ({
+export const TabNavigation: React.FC<TabNavigationProps> = ({
   activeItem = "",
   ariaLabel,
   children = null,
@@ -26,7 +26,7 @@ export const TabNavigation = ({
   onActiveItemChange,
   tabStyle = "main",
   ...props
-}: TabNavigationProps) => {
+}) => {
   return (
     <TabNavigationContext.Provider
       value={{
@@ -60,7 +60,7 @@ type ItemKeyType = string | React.ReactNode
 // eslint-disable-next-line no-unused-vars
 type ActiveItemChangeHandler = (value: ItemKeyType) => void
 
-export interface TabNavigationProps {
+export interface TabNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The label of the selected tab. The `activeItem` prop set on the parent will override / take precedence over any `active` prop that may be set on a child. */
   activeItem?: string
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */

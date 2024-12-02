@@ -29,7 +29,7 @@ const iconStyles = "jn-mr-1 jn-items-center"
 
 export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
 
-export interface BadgeProps {
+export interface BadgeProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Specify an optional semantic variant that determines the appearance of a badge.
    */

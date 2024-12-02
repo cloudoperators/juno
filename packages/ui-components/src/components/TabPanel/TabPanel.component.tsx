@@ -20,7 +20,7 @@ export const TabPanel = ({ children = null, className = "", ...props }: TabPanel
 
 TabPanel.tabsRole = "TabPanel"
 
-export interface TabPanelProps {
+export interface TabPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The content to show/render when the associated Tab is selected */
   children?: any
   /** Add a custom classList to the TabPanel */

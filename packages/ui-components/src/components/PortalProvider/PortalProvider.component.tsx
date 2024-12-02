@@ -97,7 +97,7 @@ export const PortalProvider = ({
 // Bind Portal to PortalProvider:
 PortalProvider.Portal = Portal
 
-export interface PortalProviderProps {
+export interface PortalProviderProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Optionally a class name can be passed to the portal container which is the container where portals are created by PortalProvider */
   className?: string
   /** Optionally an id can be passed to the portal container which is the container where portals are created by PortalProvider */

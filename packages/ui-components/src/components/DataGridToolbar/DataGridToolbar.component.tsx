@@ -19,7 +19,12 @@ const childrenWrapperStyles = `
 `
 
 /** This is the toolbar for use with a DataGrid. This is the place where you would put buttons and other controls that affect the items in the DataGrid (e.g. triggering batch actions). Optionally a search input can be added. */
-export const DataGridToolbar = ({ search, className = "", children = null, ...props }: DataGridToolbarProps) => {
+export const DataGridToolbar: React.FC<DataGridToolbarProps> = ({
+  search,
+  className = "",
+  children = null,
+  ...props
+}) => {
   return (
     <div className={`juno-datagrid-toolbar ${datagridtoolbarstyles} ${className}`} {...props}>
       {search && <div>{search}</div>}
@@ -28,7 +33,7 @@ export const DataGridToolbar = ({ search, className = "", children = null, ...pr
   )
 }
 
-export interface DataGridToolbarProps {
+export interface DataGridToolbarProps extends React.HTMLAttributes<HTMLElement> {
   /** Pass an optional SearchInput component */
   search?: JSX.Element
   /** Children to render in the DataGridToolbar */

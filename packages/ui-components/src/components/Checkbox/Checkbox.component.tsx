@@ -316,7 +316,7 @@ export const Checkbox = ({
   )
 }
 
-export interface CheckboxProps {
+export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Whether the Checkbox is checked */
   checked?: boolean
   /** Pass a custom className */

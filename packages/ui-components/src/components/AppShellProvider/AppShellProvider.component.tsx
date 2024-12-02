@@ -10,7 +10,7 @@ import { ShadowRoot } from "../ShadowRoot"
 import { PortalProvider } from "../PortalProvider"
 import { DEFAULT_THEME_NAME } from "../StyleProvider/StyleProvider.component"
 
-const Wrapper = ({ children, shadowRoot, shadowRootMode }: WrapperProps) => {
+const Wrapper: React.FC<WrapperProps> = ({ children, shadowRoot, shadowRootMode }) => {
   return shadowRoot ? (
     <ShadowRoot mode={shadowRootMode}>
       <>{children}</>
@@ -23,13 +23,13 @@ const Wrapper = ({ children, shadowRoot, shadowRootMode }: WrapperProps) => {
 /**
  * This provider acts as a wrapper for Juno apps. It renders a StyleProvider and PortalProvider
  */
-export const AppShellProvider = ({
+export const AppShellProvider: React.FC<AppShellProviderProps> = ({
   shadowRoot = true,
   shadowRootMode = "open",
   stylesWrapper = "inline",
   theme = DEFAULT_THEME_NAME,
   children,
-}: AppShellProviderProps) => {
+}) => {
   return (
     <Wrapper shadowRoot={shadowRoot} shadowRootMode={shadowRootMode}>
       <StyleProvider theme={theme} stylesWrapper={shadowRoot ? "inline" : stylesWrapper}>
@@ -41,7 +41,7 @@ export const AppShellProvider = ({
 
 export type AppShellStyleWrapper = "head" | "inline"
 
-interface WrapperProps {
+interface WrapperProps extends React.HTMLAttributes<HTMLElement> {
   /** React nodes or a collection of React nodes to be rendered as content. */
   children?: React.ReactNode
   /** Whether the app is rendered inside a ShadowRoot. Only choose false if the app is meant to run as a stand-alone application. */

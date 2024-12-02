@@ -26,7 +26,7 @@ export const ContentContainer = ({ className = "", children = null, ...props }: 
   )
 }
 
-export interface ContentContainerProps {
+export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Add custom class name */
   className?: string
   children?: React.ReactNode

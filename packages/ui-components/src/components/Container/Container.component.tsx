@@ -15,7 +15,13 @@ const containerStyles = (px: boolean, py: boolean) => {
 /**
  * A very basic layout container with padding.
  */
-export const Container = ({ px = true, py = false, className = "", children = null, ...props }: ContainerProps) => {
+export const Container: React.FC<ContainerProps> = ({
+  px = true,
+  py = false,
+  className = "",
+  children = null,
+  ...props
+}) => {
   return (
     <div className={`juno-container ${containerStyles(px, py)} ${className}`} {...props}>
       {children}
@@ -23,7 +29,7 @@ export const Container = ({ px = true, py = false, className = "", children = nu
   )
 }
 
-export interface ContainerProps {
+export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Choose false if you don't want horizontal padding to be added. */
   px?: boolean
   /** Set to true to add vertical padding. */

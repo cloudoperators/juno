@@ -15,7 +15,7 @@ const mainStyles = `
  * Only needed if you want to build your app's scaffold manually. In most cases it is better to use the AppShell component instead.
  * The main container for app content.
  */
-export const MainContainer = ({ className = "", children = null, ...props }: MainContainerProps) => {
+export const MainContainer: React.FC<MainContainerProps> = ({ className = "", children = null, ...props }) => {
   return (
     <main className={`juno-main ${mainStyles} ${className}`} {...props}>
       {children}
@@ -23,7 +23,7 @@ export const MainContainer = ({ className = "", children = null, ...props }: Mai
   )
 }
 
-export interface MainContainerProps {
+export interface MainContainerProps extends React.HTMLAttributes<HTMLElement> {
   /** Add custom class name */
   className?: string
   children?: React.ReactNode
