@@ -14,9 +14,7 @@
     "npm": ">=10.0.0 <11.0.0"
   },
   "scripts": {
-    "dev": "run-p dev:*",
-    "dev:vite": "vite",
-    "dev:tsc": "tsc --watch",
+    "dev": "vite",
     "build": "vite build",
     "build:static": "vite build --mode static",
     "serve": "vite preview",
