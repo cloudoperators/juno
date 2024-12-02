@@ -549,6 +549,8 @@ type LegacyEventHandler = (...args: any) => any
 
 type BackwardCompatibleDateChangeHandler = DateChangeHandler | LegacyEventHandler
 
+type DateTimePickerDate = DateOption | DateOption[] | string | unknown[] | object | number
+
 export interface DateTimePickerProps
   extends Omit<React.HTMLAttributes<HTMLInputElement>, "defaultValue" | "onFocus" | "onBlur" | "onChange"> {
   /** Whether the DateTimePicker input element allows direct user keyboard input. Default is `false`. */
@@ -567,7 +569,7 @@ export interface DateTimePickerProps
    * Sets the default date of the DateTimePicker. Same as `value`, only here for compatibility with the original Flatpickr library. If both `value` and `defaultDate` are being passed, `value` will win. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted.
    * @deprecated use DateOption | DateOption[] instead
    */
-  defaultDate?: DateOption | DateOption[] | string | any[] | object | number
+  defaultDate?: DateTimePickerDate
   /** The initial value of the hour input element. Only effective if time is enabled. Note this will only set the hour input element to the value specified. Setting this options will not set a selected value on the DateTimePicker. */
   defaultHour?: number
   /** The initial value of the minute input element. Only effective if time is enabled. Note this will only set the minute input element to the value specified. Setting this options will not set a selected value on the DateTimePicker. */
@@ -576,12 +578,12 @@ export interface DateTimePickerProps
    * Same as value, defaultDate
    * @deprecated use DateOption | DateOption[] instead
    */
-  defaultValue?: DateOption | DateOption[] | string | any[] | object | number
+  defaultValue?: DateTimePickerDate
   /**
    * Pass an array of dates, date strings, date ranges or functions to disable dates. More on disabling dates: https://flatpickr.js.org/examples/#disabling-specific-dates
    * @deprecated use DateLimit<DateOption>[] instead
    */
-  disable?: DateLimit<DateOption>[] | any[]
+  disable?: DateLimit<DateOption>[] | unknown[]
   /** Whether the DateTimePicker is disabled */
   disabled?: boolean
   /** Whether to show seconds when showing a time picker. */
@@ -609,12 +611,12 @@ export interface DateTimePickerProps
    * The maximum / latest date a user can select (inclusive).
    * @deprecated use DateOption instead
    */
-  maxDate?: DateOption | string | any[] | object | number
+  maxDate?: DateOption | string | unknown[] | object | number
   /**
    * The minimum / earliest date a user can select (inclusive).
    * @deprecated use DateOption instead
    */
-  minDate?: DateOption | string | any[] | object | number
+  minDate?: DateOption | string | unknown[] | object | number
   /**  The step for the minute input. Only has an effect when a time picker is enabled via `enableTime`.  */
   minuteIncrement?: number
   /** The mode of the Datepicker. */
@@ -688,7 +690,7 @@ export interface DateTimePickerProps
    * The value of the datepicker. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted.
    * @deprecated use DateOption | DateOption[] instead
    */
-  value?: DateOption | DateOption[] | string | any[] | object | number
+  value?: DateOption | DateOption[] | string | unknown[] | object | number
   /** Whether to render week numbers. Default is `false`. */
   weekNumbers?: boolean
   /** The width of the datepicker input. Either 'full' (default) or 'auto'. */
