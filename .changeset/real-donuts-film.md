@@ -2,4 +2,4 @@
 "@cloudoperators/juno-app-supernova": patch
 ---
 
-Introduced ReactQuery
+Introduced react query
