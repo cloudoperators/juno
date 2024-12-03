@@ -41,7 +41,7 @@ export const AppShellProvider: React.FC<AppShellProviderProps> = ({
 
 export type AppShellStyleWrapper = "head" | "inline"
 
-interface WrapperProps extends React.HTMLAttributes<HTMLElement> {
+interface WrapperProps {
   /** React nodes or a collection of React nodes to be rendered as content. */
   children?: React.ReactNode
   /** Whether the app is rendered inside a ShadowRoot. Only choose false if the app is meant to run as a stand-alone application. */

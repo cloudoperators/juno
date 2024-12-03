@@ -63,7 +63,7 @@ const messageVariantStyles = {
 
 export type MessageVariantType = "info" | "warning" | "danger" | "error" | "success"
 
-export interface MessageProps extends React.HTMLAttributes<HTMLElement> {
+export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Pass an optional title.
    */

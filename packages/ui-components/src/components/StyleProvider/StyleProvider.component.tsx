@@ -143,7 +143,7 @@ export const StyleProvider = ({
 
 type StyleProviderStylesWrapper = "head" | "inline" | "shadowRoot"
 
-export interface StyleProviderProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface StyleProviderProps {
   /** The children to render. */
   children?: React.ReactNode
   /** What element to render as a wrapper, respectively where to render the StyleProvider.  */

@@ -39,7 +39,7 @@ const actionableItemStyles = `
    data-[headlessui-state="disabled"]:jn-bg-theme-background-lvl-3
  `
 
-export interface MenuItemProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onClick"> {
+export interface MenuItemProps extends Omit<React.HTMLAttributes<HTMLElement>, "onClick"> {
   /** Children of the menu item */
   children?: React.ReactNode
   /** Pass a custom className to the menu item */

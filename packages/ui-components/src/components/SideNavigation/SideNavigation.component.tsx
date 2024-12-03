@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Navigation, NavigationProps } from "../Navigation/Navigation.component"
+import { Navigation } from "../Navigation/Navigation.component"
 
 const sideNavStyles = `
   jn-min-w-[7.5rem]

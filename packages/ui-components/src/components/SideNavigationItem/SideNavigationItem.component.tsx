@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { NavigationItem, NavigationItemProps } from "../NavigationItem/NavigationItem.component"
+import { NavigationItem } from "../NavigationItem/NavigationItem.component"
 import { KnownIcons } from "../Icon/Icon.component.js"
 
 const sideNavItemStyles = `
@@ -62,7 +62,7 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
   )
 }
 
-export interface SideNavigationItemProps extends NavigationItemProps {
+export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the item is the currently active item */
   active?: boolean
   /** The aria label of the item */

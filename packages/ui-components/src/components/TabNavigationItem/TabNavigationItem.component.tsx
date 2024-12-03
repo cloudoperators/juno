@@ -71,7 +71,7 @@ export const TabNavigationItem: React.FC<TabNavigationItemProps> = ({
   )
 }
 
-export interface TabNavigationItemProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface TabNavigationItemProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the tab navigation item is active */
   active?: boolean
   /** The aria label of the item */

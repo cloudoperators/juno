@@ -91,7 +91,7 @@ const hintStyles = `
   jn-ml-6
 `
 
-export const Checkbox = ({
+export const Checkbox: React.FC<CheckboxProps> = ({
   checked = false,
   className = "",
   disabled = false,
@@ -109,7 +109,7 @@ export const Checkbox = ({
   valid = false,
   value,
   ...props
-}: CheckboxProps) => {
+}) => {
   // Utility
   const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)

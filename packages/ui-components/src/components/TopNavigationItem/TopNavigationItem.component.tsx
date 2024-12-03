@@ -71,7 +71,7 @@ export const TopNavigationItem: React.FC<TopNavigationItemProps> = ({
   )
 }
 
-export interface TopNavigationItemProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface TopNavigationItemProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the item is the currently active item */
   active?: boolean
   /** The aria label of the item */

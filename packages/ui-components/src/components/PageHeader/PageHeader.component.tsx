@@ -88,7 +88,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   )
 }
 
-export interface PageHeaderProps extends React.HTMLAttributes<HTMLElement> {
+export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Heading (typically the name of the application) */
   heading?: string | String | JSX.Element | null // Union type to avoid `any`
   /** Add custom class name */

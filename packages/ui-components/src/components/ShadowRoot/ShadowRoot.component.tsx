@@ -66,7 +66,7 @@ export const ShadowRoot: React.FC<ShadowRootProps> = ({ mode = "open", delegates
 export type ShadowRootMode = "open" | "closed"
 
 // define accepted properties
-export interface ShadowRootProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ShadowRootProps {
   /** Choose "closed" to prevent styles from being inherited from the parent node. */
   mode?: ShadowRootMode
   delegatesFocus?: boolean

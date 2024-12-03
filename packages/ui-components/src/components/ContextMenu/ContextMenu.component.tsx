@@ -40,7 +40,7 @@ const toggleOpenStyle = `
   jn-text-theme-accent
 `
 
-export interface ContextMenuProps extends React.HTMLAttributes<HTMLElement> {
+export interface ContextMenuProps {
   className?: string
   children?: React.ReactNode
   icon?: KnownIcons
