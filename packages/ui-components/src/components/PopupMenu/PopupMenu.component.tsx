@@ -32,6 +32,11 @@ const itemStyles = `
   jn-px-[0.875rem]
 `
 
+const itemIconStyles = `
+  jn-inline-block
+  jn-mr-2
+`
+
 // ----- Interfaces -----
 
 export interface PopupMenuProps {
@@ -66,7 +71,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Toggle: React.FC<PopupMenuToggleProps>
   Menu: typeof PopupMenuMenu
   Item: React.FC<PopupMenuItemProps>
-} = ({ children, icon = "moreVert" }) => {
+} = ({ children = null, icon = "moreVert" }) => {
   // Ensure we always have an array of children:
   const childrenArray = React.Children.toArray(children)
 
@@ -76,7 +81,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 
   return (
     <HeadlessMenu as="div" className={`juno-popupmenu`}>
-      {/* Render default toggle button if no toggle is passed, render icon if passed: */}
+      {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
       {!hasToggle && (
         <PopupMenu.Toggle className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${defaultToggleStyles}`}>
           <Icon icon={icon} />
@@ -98,8 +103,8 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 // TODO: Keep this toggle unstyled/minimal or use our own <Button> internally, while still allowing custom components passed as `as`?
 const PopupMenuToggle: React.FC<PopupMenuToggleProps & { as?: React.ElementType }> = ({
   as = "button",
-  children,
-  className,
+  children = null,
+  className = "",
   ...props
 }) => (
   <HeadlessMenu.Button as={as} className={`juno-popupmenu-toggle ${className}`} {...props}>
@@ -115,15 +120,21 @@ const PopupMenuMenu: React.FC<React.ComponentProps<typeof HeadlessMenu.Items>> =
 )
 
 // ITEM COMPONENT
-const PopupMenuItem: React.FC<PopupMenuItemProps> = ({ children, className, icon, label, ...props }) => (
+const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
+  children = null,
+  className = "",
+  icon,
+  label = "",
+  ...props
+}) => (
   <HeadlessMenu.Item as="div" className={`juno-popupmenu-item ${itemStyles} ${className}`} {...props}>
     {/* 
-      Provide a itemBag context to the headless ui API. This includes properties like active, disabled, close. 
-      If label is a string, render it. Otherwise, if children is a function, invoke it with itemBag, otherweise render children straightaway:
+      To render the item content, provide an itemBag context to the headless ui API. This includes properties like active, disabled, close. 
+      Then, if label is a string, render it. Otherwise, if children is a function, invoke it with itemBag; otherwise render children straightaway:
     */}
     {(itemBag) => (
       <>
-        {icon ? <Icon icon={icon} /> : null}
+        {icon && <Icon icon={icon} size="18" className={`juno-popupmenu-item-icon ${itemIconStyles}`} />}
         {typeof label === "string"
           ? label
           : typeof children === "function"
