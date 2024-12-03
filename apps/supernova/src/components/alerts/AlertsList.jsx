@@ -32,7 +32,7 @@ const AlertsList = () => {
     queryKey: ["alerts", endpoint], // Pass the query key as part of the object
     queryFn: () => fetchAlerts(endpoint), // Pass the query function
     enabled: !!endpoint, // Add any other options here
-    cacheTime: 5 * 60 * 1000, // 5 Min
+    refetchInterval: 5 * 60 * 1000, // 5 Min
   })
 
   useEffect(() => {
