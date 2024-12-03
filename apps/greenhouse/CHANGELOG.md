@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.9
+
+### Patch Changes
+
+- 2d8da8a: This updates services query based on some minor API changes
+- Updated dependencies [2d8da8a]
+  - @cloudoperators/juno-app-heureka@2.11.1
+
 ## 0.3.8
 
 ### Patch Changes
