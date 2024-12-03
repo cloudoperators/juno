@@ -127,7 +127,7 @@ const AlertsList = () => {
             <DataGridRow className="no-hover">
               <DataGridCell colSpan={7}>Loading ...</DataGridCell>
             </DataGridRow>
-          )}{" "}
+          )}
         </>
       ) : (
         <Stack gap="2">
