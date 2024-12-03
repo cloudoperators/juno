@@ -41,26 +41,3 @@ export const fetchSilences = async (endpoint) => {
     throw error // Let React Query handle the error
   }
 }
-
-/*
-  const response = fetch(`https://ccloud.alertmanager.greenhouse-qa.eu-nl-1.cloud.sap/api/v2/silences`, {}).then(
-    (items) => {
-      // convert items to hash to easear access
-      const itemsHash = items.reduce((itemsHash, silence) => {
-        itemsHash[silence.id] = silence
-        return itemsHash
-      }, {})
-
-      // split items by state (active, pending and expired)
-      // https://github.com/prometheus/alertmanager/blob/main/types/types.go#L434
-      const itemsByState = sortSilencesByState(items)
-      return {
-        silences: items,
-        silencesHash: itemsHash,
-        silencesBySate: itemsByState,
-      }
-    }
-  )
-  return response
-}
-*/

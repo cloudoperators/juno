@@ -3,11 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import useAlertmanagerAPI from "../hooks/useAlertmanagerAPI"
 import useUrlState from "../hooks/useUrlState"
 
-const AsyncWorker = ({ endpoint }) => {
-  useAlertmanagerAPI(endpoint)
+const AsyncWorker = () => {
   useUrlState()
   return null
 }

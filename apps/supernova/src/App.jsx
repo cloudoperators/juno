@@ -9,7 +9,6 @@ import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
 import styles from "./styles.scss?inline"
 import { StoreProvider } from "./components/StoreProvider"
-import AsyncWorker from "./components/AsyncWorker"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import CustomAppShell from "./components/CustomAppShell"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -41,7 +40,6 @@ function App(props = {}) {
       <CustomAppShell>
         <ErrorBoundary fallbackRender={fallbackRender}>
           <QueryClientProvider client={queryClient}>
-            <AsyncWorker endpoint={props.endpoint} />
             <AppContent props={props} />
           </QueryClientProvider>
         </ErrorBoundary>

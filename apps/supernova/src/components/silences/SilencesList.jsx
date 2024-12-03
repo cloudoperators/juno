@@ -70,14 +70,12 @@ const SilencesList = () => {
 
   useEffect(() => {
     if (error) {
-      console.log("sdferr", error)
       setSilencesError(error)
     }
   }, [error])
 
   useEffect(() => {
     if (isLoading) {
-      console.log("sdfload", isLoading)
       setSilencesIsUpdating(isLoading)
     }
   }, [isLoading])

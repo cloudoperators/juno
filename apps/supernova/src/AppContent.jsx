@@ -5,14 +5,14 @@
 
 import React, { useEffect } from "react"
 import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
-import { Container, Spinner, Stack } from "@cloudoperators/juno-ui-components"
+import { Container } from "@cloudoperators/juno-ui-components"
 import {
-  useAlertsIsLoading,
   useAlertsIsUpdating,
   useAlertsUpdatedAt,
   useAlertsTotalCounts,
   useSilencesError,
   useGlobalsActiveSelectedTab,
+  useAlertsError,
 } from "./components/StoreProvider"
 import AlertsList from "./components/alerts/AlertsList"
 import RegionsList from "./components/regions/RegionsList"
@@ -27,13 +27,13 @@ const AppContent = () => {
   const { addMessage } = useActions()
 
   // alerts
-  const isAlertsLoading = useAlertsIsLoading()
   const totalCounts = useAlertsTotalCounts()
   const isAlertsUpdating = useAlertsIsUpdating()
   const updatedAt = useAlertsUpdatedAt()
 
   // silences
   const silencesError = useSilencesError()
+  const alertsError = useAlertsError()
 
   const activeSelectedTab = useGlobalsActiveSelectedTab()
 
@@ -46,6 +46,15 @@ const AppContent = () => {
     })
   }, [silencesError])
 
+  useEffect(() => {
+    // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
+    if (!alertsError) return
+    addMessage({
+      variant: "error",
+      text: parseError(alertsError),
+    })
+  }, [alertsError])
+
   return (
     <Container px py className="h-full">
       <Messages className="pb-6" />
@@ -54,19 +63,12 @@ const AppContent = () => {
         <>
           <AlertDetail />
           <RegionsList />
-          {isAlertsLoading ? (
-            <Stack gap="2">
-              <span>Loading</span>
-              <Spinner variant="primary" />
-            </Stack>
-          ) : (
-            <>
-              <PredefinedFilters />
-              <Filters />
-              <StatusBar totalCounts={totalCounts} isUpdating={isAlertsUpdating} updatedAt={updatedAt} />
-              <AlertsList />
-            </>
-          )}
+          <>
+            <PredefinedFilters />
+            <Filters />
+            <StatusBar totalCounts={totalCounts} isUpdating={isAlertsUpdating} updatedAt={updatedAt} />
+            <AlertsList />
+          </>
         </>
       )}
       {activeSelectedTab === "silences" && <SilencesList />}
