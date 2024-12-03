@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-doop
 
+## 2.3.3
+
+### Patch Changes
+
+- f25740e: Delete juno-utils package
+- Updated dependencies [8e6e94d]
+- Updated dependencies [385ebcf]
+- Updated dependencies [b99caff]
+- Updated dependencies [5d186c7]
+  - @cloudoperators/juno-ui-components@2.33.0
+
 ## 2.3.2
 
 ### Patch Changes
