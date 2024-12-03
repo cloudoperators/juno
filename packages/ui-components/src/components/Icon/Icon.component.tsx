@@ -894,7 +894,8 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
 
 Icon.displayName = "IconTs"
 
-export interface IconProps extends Omit<React.HTMLAttributes<HTMLElement>, "size"> {
+export interface IconProps
+  extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
   icon?: KnownIcons
   color?: string
   size?: string | number
