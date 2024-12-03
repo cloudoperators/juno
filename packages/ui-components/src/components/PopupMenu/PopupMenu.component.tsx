@@ -45,9 +45,10 @@ export interface PopupMenuToggleProps extends React.ButtonHTMLAttributes<HTMLBut
 }
 
 export interface PopupMenuItemProps extends React.ComponentProps<typeof HeadlessMenu.Item> {
-  label?: string
-  disabled?: boolean
   className?: string
+  disabled?: boolean
+  icon?: keyof typeof KnownIconsEnum
+  label?: string
 }
 
 // ----- Component Definitions -----
@@ -114,10 +115,22 @@ const PopupMenuMenu: React.FC<React.ComponentProps<typeof HeadlessMenu.Items>> =
 )
 
 // ITEM COMPONENT
-// TODO: add icon
-const PopupMenuItem: React.FC<PopupMenuItemProps> = ({ children, className, label, ...props }) => (
+const PopupMenuItem: React.FC<PopupMenuItemProps> = ({ children, className, icon, label, ...props }) => (
   <HeadlessMenu.Item as="div" className={`juno-popupmenu-item ${itemStyles} ${className}`} {...props}>
-    {label || children}
+    {/* 
+      Provide a itemBag context to the headless ui API. This includes properties like active, disabled, close. 
+      If label is a string, render it. Otherwise, if children is a function, invoke it with itemBag, otherweise render children straightaway:
+    */}
+    {(itemBag) => (
+      <>
+        {icon ? <Icon icon={icon} /> : null}
+        {typeof label === "string"
+          ? label
+          : typeof children === "function"
+            ? children(itemBag) // Pass the itemBag to the render prop function
+            : children}
+      </>
+    )}
   </HeadlessMenu.Item>
 )
 

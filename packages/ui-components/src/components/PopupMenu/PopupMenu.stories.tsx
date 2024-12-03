@@ -31,7 +31,7 @@ type ToggleButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string // Explicitly type `className` as a string
 }
 
-// Define a custom ToggleButton component
+// Define a custom ToggleButton component. Make sure to forward refs, otherwise a custom toggle is not going to work properly.
 const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProps>(({ className, ...props }, ref) => (
   <Button ref={ref} className={`my-custom-toggle ${className}`} {...props}>
     Custom Toggle
@@ -63,7 +63,7 @@ export const WithMenuChild = {
     children: (
       <PopupMenu.Menu>
         <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" />
+        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
         <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
       </PopupMenu.Menu>
     ),
@@ -83,7 +83,7 @@ export const WithIcon = {
     children: (
       <PopupMenu.Menu>
         <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" />
+        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
         <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
       </PopupMenu.Menu>
     ),
@@ -103,7 +103,7 @@ export const WIPWithToggleAndMenuChildren = {
       <PopupMenu.Toggle key="t">The Toggle</PopupMenu.Toggle>,
       <PopupMenu.Menu key="m">
         <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" />
+        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
         <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
       </PopupMenu.Menu>,
     ],
@@ -124,7 +124,7 @@ export const WIPWithToggleAsButtonComponent = {
       <PopupMenu.Toggle as={ToggleButton} key="t" />,
       <PopupMenu.Menu key="m">
         <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" />
+        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
         <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
       </PopupMenu.Menu>,
     ],
@@ -145,7 +145,7 @@ export const WIPOpenWithMenuChild = {
     children: (
       <PopupMenu.Menu>
         <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" />
+        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
         <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
       </PopupMenu.Menu>
     ),
