@@ -54,5 +54,5 @@ export interface TabListProps extends ReactTabListProps {
   /** Pick the TabList style */
   variant?: TabsVariant
   /** The individual child Tabs to render */
-  children?: (React.ReactElement<TabProps> & React.ReactElement<TabProps>[]) | null
+  children?: (React.ReactElement<TabProps> | React.ReactElement<TabProps>[]) | null
 }

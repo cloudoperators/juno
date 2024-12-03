@@ -199,7 +199,7 @@ type ButtonVariant = "primary" | "primary-danger" | "default" | "subdued"
 type ButtonSize = "small" | "default"
 
 export interface ButtonProps
-  extends Omit<React.HTMLProps<HTMLAnchorElement> & React.HTMLProps<HTMLButtonElement>, "size"> {
+  extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
   children?: React.ReactNode
   /** Choose a variant for your purpose. May leave empty to get default button. */
   variant?: ButtonVariant
