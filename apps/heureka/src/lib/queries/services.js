@@ -54,7 +54,7 @@ export const servicesDetailsQuery = () => gql`
         node {
           id
           ccrn
-          metadata {
+          objectMetadata {
             componentInstanceCount
             issueMatchCount
           }
