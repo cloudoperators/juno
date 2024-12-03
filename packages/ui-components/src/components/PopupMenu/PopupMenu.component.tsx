@@ -66,7 +66,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Menu: typeof PopupMenuMenu
   Item: React.FC<PopupMenuItemProps>
 } = ({ children, icon = "moreVert" }) => {
-  // Ensure we always have an array of children
+  // Ensure we always have an array of children:
   const childrenArray = React.Children.toArray(children)
 
   const hasToggle = childrenArray.some((child) => React.isValidElement(child) && child.type === PopupMenuToggle)
@@ -75,14 +75,14 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 
   return (
     <HeadlessMenu as="div" className={`juno-popupmenu`}>
-      {/* Render default toggle button if no toggle is passed */}
+      {/* Render default toggle button if no toggle is passed, render icon if passed: */}
       {!hasToggle && (
         <PopupMenu.Toggle className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${defaultToggleStyles}`}>
           <Icon icon={icon} />
         </PopupMenu.Toggle>
       )}
 
-      {/* Render toggle children as passsed. TODO: make sure there is only one toggle */}
+      {/* Render toggle children as passed. TODO: make sure there is only one toggle */}
       {childrenArray.map((child) => {
         if (React.isValidElement(child) && child.type === PopupMenuToggle) {
           return child
