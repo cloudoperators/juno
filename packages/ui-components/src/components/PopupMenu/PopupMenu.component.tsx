@@ -32,6 +32,17 @@ const itemStyles = `
   jn-px-[0.875rem]
 `
 
+const actionableItemStyles = `
+  hover:jn-bg-theme-background-lvl-3
+  jn-cursor-pointer
+`
+
+const disabledItemStyles = `
+  jn-cursor-not-allowed
+  jn-opacity-50
+  jn-bg-theme-background-lvl-1
+`
+
 const itemIconStyles = `
   jn-inline-block
   jn-mr-2
@@ -113,7 +124,7 @@ const PopupMenuToggle: React.FC<PopupMenuToggleProps & { as?: React.ElementType 
 )
 
 // MENU COMPONENT
-const PopupMenuMenu: React.FC<React.ComponentProps<typeof HeadlessMenu.Items>> = ({ children, ...props }) => (
+const PopupMenuMenu: React.FC<React.ComponentProps<typeof HeadlessMenu.Items>> = ({ children = null, ...props }) => (
   <HeadlessMenu.Items className={`juno-popupmenu-menu ${menuStyles}`} {...props}>
     {children}
   </HeadlessMenu.Items>
@@ -123,24 +134,30 @@ const PopupMenuMenu: React.FC<React.ComponentProps<typeof HeadlessMenu.Items>> =
 const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
   children = null,
   className = "",
-  icon,
+  disabled = false,
+  icon = null,
   label = "",
   ...props
 }) => (
-  <HeadlessMenu.Item as="div" className={`juno-popupmenu-item ${itemStyles} ${className}`} {...props}>
+  <HeadlessMenu.Item
+    as="div"
+    disabled={disabled}
+    className={`juno-popupmenu-item ${itemStyles} ${disabled ? disabledItemStyles : actionableItemStyles} ${className}`}
+    {...props}
+  >
     {/* 
       To render the item content, provide an itemBag context to the headless ui API. This includes properties like active, disabled, close. 
       Then, if label is a string, render it. Otherwise, if children is a function, invoke it with itemBag; otherwise render children straightaway:
     */}
     {(itemBag) => (
-      <>
+      <span>
         {icon && <Icon icon={icon} size="18" className={`juno-popupmenu-item-icon ${itemIconStyles}`} />}
         {typeof label === "string"
           ? label
           : typeof children === "function"
             ? children(itemBag) // Pass the itemBag to the render prop function
             : children}
-      </>
+      </span>
     )}
   </HeadlessMenu.Item>
 )
