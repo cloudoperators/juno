@@ -7,7 +7,7 @@ import React from "react"
 import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { DateTimePicker } from "./index"
-import { AppShellProvider } from "../AppShellProvider/AppShellProvider.component"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 const mockOnOpen = vi.fn()
 const mockOnClear = vi.fn()
@@ -15,7 +15,6 @@ const mockOnClose = vi.fn()
 const mockOnChange = vi.fn()
 const mockOnMonthChange = vi.fn()
 const mockOnYearChange = vi.fn()
-// const mockOnValueUpdate = vi.fn()
 
 describe("DateTimePicker", () => {
   afterEach(() => {
@@ -26,9 +25,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -39,9 +38,9 @@ describe("DateTimePicker", () => {
   test("renders a label as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker label="The DateTimePicker Label" id="my-textinput" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(document.querySelector(".juno-label")).toBeInTheDocument()
@@ -51,9 +50,9 @@ describe("DateTimePicker", () => {
   test("renders an id as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker id="my-datetimepicker" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -63,9 +62,9 @@ describe("DateTimePicker", () => {
   test("renders a name as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker name="my-name" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -75,9 +74,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker with an auto-generated id if no id is passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -88,9 +87,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker with a label associated by an id as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker label="The DateTimePicker Label" id="dp-1" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -102,9 +101,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker with a label associated by an auto-generated id if no id was passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker label="This is a DateTimePicker" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -114,9 +113,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker with a placholder as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker placeholder="This is a placeholder" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -126,9 +125,9 @@ describe("DateTimePicker", () => {
   test("renders a disabled DateTimePicker as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker disabled />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -138,9 +137,9 @@ describe("DateTimePicker", () => {
   test("renders a Clear button if passed and when a date is set", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value="2027-01-12" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -150,9 +149,9 @@ describe("DateTimePicker", () => {
   test("does not render a Clear button when no date is set", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -163,9 +162,9 @@ describe("DateTimePicker", () => {
     // DateTimePicker needs a label passed since the Label subcomponent is responsible for rendering the Required marker:
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker label="Required DateTimePicker" required />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(document.querySelector(".juno-required")).toBeInTheDocument()
@@ -174,9 +173,9 @@ describe("DateTimePicker", () => {
   test("renders a helptext as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker helptext="this is a helptext" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
@@ -187,9 +186,9 @@ describe("DateTimePicker", () => {
   test("renders a valid DateTimePicker as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker valid />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -200,9 +199,9 @@ describe("DateTimePicker", () => {
   test("renders an invalid DateTimePicker as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker invalid />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -213,9 +212,9 @@ describe("DateTimePicker", () => {
   test("renders a successtext as passed and validates the element", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker successtext="great success!" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
@@ -228,9 +227,9 @@ describe("DateTimePicker", () => {
   test("renders an errortext as passed and invalidates the element", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker errortext="this is an error!" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
@@ -243,9 +242,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker with a time picker as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker enableTime={true} dateFormat="Y-m-d H:i:S" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -257,9 +256,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker with a time picker with seconds as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker enableTime={true} enableSeconds={true} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -273,9 +272,9 @@ describe("DateTimePicker", () => {
   test("displays the date as passed as a date object", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value={new Date(2099, 0, 1)} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -285,9 +284,9 @@ describe("DateTimePicker", () => {
   test("displays the date as passed as a date string", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value="2024-01-26" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -297,9 +296,9 @@ describe("DateTimePicker", () => {
   test("diplays the date as passed as an ISO date string", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value="2034-02-26T19:40:03.243Z" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -309,9 +308,9 @@ describe("DateTimePicker", () => {
   test("displays the date as passed as a timestamp", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value={1706273787000} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -321,9 +320,9 @@ describe("DateTimePicker", () => {
   test("displays the date as passed by shortcut 'today'", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value="today" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const today = new Date()
@@ -338,9 +337,9 @@ describe("DateTimePicker", () => {
   test("displays the date in a custom format as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker dateFormat="F d Y" value={1706273787000} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -355,9 +354,9 @@ describe("DateTimePicker", () => {
     const todayAsString = `${fullYear}-${month}-${day}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value={today} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -374,9 +373,9 @@ describe("DateTimePicker", () => {
     const nowAsString = `${fullYear}-${month}-${day} ${hours}:${minutes}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker enableTime value={now} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -394,9 +393,9 @@ describe("DateTimePicker", () => {
     const nowAsStringWithSeconds = `${fullYear}-${month}-${day} ${hours}:${minutes}:${seconds}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker enableTime enableSeconds value={now} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -410,9 +409,9 @@ describe("DateTimePicker", () => {
     const nowAsStringWithOnlyHoursAndMinutes = `${hours}:${minutes}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker enableTime noCalendar value={now} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -427,9 +426,9 @@ describe("DateTimePicker", () => {
     const nowAsStringWithOnlyHoursMinutesAndSeconds = `${hours}:${minutes}:${seconds}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker enableTime enableSeconds noCalendar value={now} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -439,9 +438,9 @@ describe("DateTimePicker", () => {
   test("displays the date as passed as defaultDate instead of value or defaultDate", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker defaultDate={new Date(2099, 0, 1)} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -451,9 +450,9 @@ describe("DateTimePicker", () => {
   test("displays the date as passed as defaultValue instead of value or defaultDate", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker defaultValue={new Date(2099, 0, 1)} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -466,9 +465,9 @@ describe("DateTimePicker", () => {
     expect(screen.getByRole("textbox")).toHaveValue("2024-01-12")
     await waitFor(() =>
       rerender(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value={new Date(2025, 7, 18)} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toHaveValue("2025-08-18")
@@ -480,9 +479,9 @@ describe("DateTimePicker", () => {
     expect(screen.getByRole("textbox")).toHaveValue("2024-01-12")
     await waitFor(() =>
       rerender(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker defaultValue={new Date(2025, 7, 18)} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toHaveValue("2025-08-18")
@@ -494,9 +493,9 @@ describe("DateTimePicker", () => {
     expect(screen.getByRole("textbox")).toHaveValue("2024-01-12")
     await waitFor(() =>
       rerender(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker defaultDate={new Date(2025, 7, 18)} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toHaveValue("2025-08-18")
@@ -505,9 +504,9 @@ describe("DateTimePicker", () => {
   test("allows typing in the field when configured to do so", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker allowInput />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -522,9 +521,9 @@ describe("DateTimePicker", () => {
   test("updates accordingly when the allowInput prop changes", async () => {
     const { rerender } = await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -534,9 +533,9 @@ describe("DateTimePicker", () => {
     expect(input).toHaveAttribute("readonly", "readonly")
     await waitFor(() =>
       rerender(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker allowInput />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(input).toBeInTheDocument()
@@ -550,9 +549,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker with week numbers as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker weekNumbers />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -570,9 +569,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker in single mode per default", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -582,9 +581,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker in multiple mode as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker mode="multiple" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -594,9 +593,9 @@ describe("DateTimePicker", () => {
   test("renders a DateTimePicker in range mode as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker mode="range" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -606,18 +605,18 @@ describe("DateTimePicker", () => {
   test("Updates the mode accordingly when the mode prop changes", async () => {
     const { rerender } = await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
     expect(screen.getByRole("textbox")).toHaveAttribute("data-mode", "single")
     await waitFor(() =>
       rerender(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker mode="range" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -633,9 +632,9 @@ describe("DateTimePicker", () => {
   test("clicking the clear button clears the input", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value="2024-01-31" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -651,9 +650,9 @@ describe("DateTimePicker", () => {
   test("sets a custom aria-label format for calendar dates as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker ariaDateFormat="l, F j, Y" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -706,9 +705,9 @@ describe("DateTimePicker", () => {
   test("opens a calendar when clicking in the datepicker field", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -745,9 +744,9 @@ describe("DateTimePicker", () => {
     const yesterdayLabel = `${fullMonth} ${day}, ${fullYear}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker minDate={today} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -767,9 +766,9 @@ describe("DateTimePicker", () => {
     const tomorrowLabel = `${fullMonth} ${day}, ${fullYear}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker minDate={today} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -791,9 +790,9 @@ describe("DateTimePicker", () => {
     const tomorrowLabel = `${tomorrowFullMonth} ${tomorrowDay}, ${tomorrowFullYear}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker maxDate={today} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -813,9 +812,9 @@ describe("DateTimePicker", () => {
     const todayLabel = `${todayFullMonth} ${todayDay}, ${todayFullYear}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker maxDate={tomorrow} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -827,9 +826,9 @@ describe("DateTimePicker", () => {
   test("renders a time picker only if configured to do so", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker enableTime noCalendar />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(document.querySelector(".flatpickr-days")).not.toBeInTheDocument()
@@ -841,9 +840,9 @@ describe("DateTimePicker", () => {
     const user = userEvent.setup()
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker onOpen={mockOnOpen} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -856,9 +855,9 @@ describe("DateTimePicker", () => {
 
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker onClose={mockOnClose} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -873,9 +872,9 @@ describe("DateTimePicker", () => {
   test("executes an onClear handler when the user clears the DateTimePicker by clicking the clear icon", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value="2024-01-31" onClear={mockOnClear} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -901,9 +900,9 @@ describe("DateTimePicker", () => {
     const tomorrowLabel = `${tomorrowFullMonth} ${tomorrowDay}, ${tomorrowFullYear}`
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker value={today} onChange={mockOnChange} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -917,9 +916,9 @@ describe("DateTimePicker", () => {
     const user = userEvent.setup()
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker onYearChange={mockOnYearChange} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -933,9 +932,9 @@ describe("DateTimePicker", () => {
     const user = userEvent.setup()
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker onMonthChange={mockOnMonthChange} />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     const input = screen.getByRole("textbox")
@@ -954,9 +953,9 @@ describe("DateTimePicker", () => {
   test("renders a className as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker className="my-custom-class" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -966,9 +965,9 @@ describe("DateTimePicker", () => {
   test("renders other props as passed", async () => {
     await waitFor(() =>
       render(
-        <AppShellProvider shadowRoot={false}>
+        <PortalProvider>
           <DateTimePicker data-lolol="527" />
-        </AppShellProvider>
+        </PortalProvider>
       )
     )
     expect(screen.getByRole("textbox")).toBeInTheDocument()

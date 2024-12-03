@@ -8,9 +8,10 @@ import flatpickr from "flatpickr"
 import { FormHint } from "../FormHint/"
 import { Icon } from "../Icon"
 import { Label } from "../Label"
-import "./datetimepicker.scss"
 import { Options, DateOption, DateLimit } from "flatpickr/dist/types/options"
 import { key as LocaleKey, CustomLocale } from "flatpickr/dist/types/locale"
+
+import "./datetimepicker.scss"
 
 /* 
 TODO:
@@ -545,7 +546,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 type DateChangeHandler = (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
 
 // eslint-disable-next-line no-unused-vars
-type LegacyEventHandler = (...args: any) => any
+type LegacyEventHandler = (...args: unknown[]) => any
 
 type BackwardCompatibleDateChangeHandler = DateChangeHandler | LegacyEventHandler
 
@@ -669,7 +670,7 @@ export interface DateTimePickerProps
   onReady?: BackwardCompatibleDateChangeHandler
   /**
    * A handler to be executed when the selected year changes
-   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onYearChange?: BackwardCompatibleDateChangeHandler
   /** The placeholder of the DateTimePicker input element */
