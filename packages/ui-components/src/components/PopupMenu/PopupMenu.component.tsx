@@ -27,6 +27,10 @@ const menuStyles = `
 
 const itemStyles = `
   jn-text-base
+  jn-text-theme-default
+  jn-flex
+  jn-items-center
+  jn-w-full
   jn-pt-[0.6875rem]
   jn-pb-[0.5rem]
   jn-px-[0.875rem]
@@ -73,6 +77,7 @@ export interface PopupMenuItemProps extends React.ComponentProps<typeof Headless
 
 // TODO:
 // - use headless-ui's `open` render prop to allow for styling the open toggle explicitly? Can this be exposed so custom components can use it, too?
+// - implement onOpen, onClose using headless ui render props
 // - implement small and normal sizes
 // - implement PopupMenu.Section
 // - Positioning
