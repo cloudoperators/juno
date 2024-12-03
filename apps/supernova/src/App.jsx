@@ -12,8 +12,10 @@ import { StoreProvider } from "./components/StoreProvider"
 import AsyncWorker from "./components/AsyncWorker"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import CustomAppShell from "./components/CustomAppShell"
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ErrorBoundary } from "react-error-boundary"
+
+const queryClient = new QueryClient()
 
 function App(props = {}) {
   const preErrorClasses = `
@@ -38,8 +40,10 @@ function App(props = {}) {
     <MessagesProvider>
       <CustomAppShell>
         <ErrorBoundary fallbackRender={fallbackRender}>
-          <AsyncWorker endpoint={props.endpoint} />
-          <AppContent props={props} />
+          <QueryClientProvider client={queryClient}>
+            <AsyncWorker endpoint={props.endpoint} />
+            <AppContent props={props} />
+          </QueryClientProvider>
         </ErrorBoundary>
       </CustomAppShell>
     </MessagesProvider>

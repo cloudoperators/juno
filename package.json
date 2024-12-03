@@ -44,6 +44,7 @@
   ],
   "packageManager": "^npm@10.0.0",
   "dependencies": {
+    "@tanstack/react-query": "^5.62.2",
     "workspaces": "^0.1.0"
   }
 }

@@ -23,10 +23,12 @@ import {
   useSilencesActions,
   useSilencesRegEx,
   useSilencesStatus,
-  useSilencesIsLoading,
   useSilencesLocalItems,
+  useGlobalsApiEndpoint,
 } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
+import { useQuery } from "@tanstack/react-query"
+import { fetchSilences } from "../../workers/silences"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -38,11 +40,47 @@ my-px
 const SilencesList = () => {
   const silences = useSilencesItems()
   const [visibleSilences, setVisibleSilences] = useState(silences)
-  const { setSilencesStatus, setSilencesRegEx } = useSilencesActions()
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
-  const isSilencesLoading = useSilencesIsLoading()
   const localSilences = useSilencesLocalItems()
+  const endpoint = useGlobalsApiEndpoint()
+  const {
+    setSilences,
+    setIsUpdating: setSilencesIsUpdating,
+    setError: setSilencesError,
+    setSilencesStatus,
+    setSilencesRegEx,
+  } = useSilencesActions()
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["silences", endpoint], // Pass the query key as part of the object
+    queryFn: () => fetchSilences(endpoint), // Pass the query function
+    enabled: !!endpoint, // Add any other options here
+  })
+
+  useEffect(() => {
+    if (data) {
+      setSilences({
+        items: data?.silences,
+        itemsHash: data?.silencesHash,
+        itemsByState: data?.silencesBySate,
+      })
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (error) {
+      console.log("sdferr", error)
+      setSilencesError(error)
+    }
+  }, [error])
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("sdfload", isLoading)
+      setSilencesIsUpdating(isLoading)
+    }
+  }, [isLoading])
 
   useEffect(() => {
     let filtered = silences.filter((silence) => silence?.status?.state === status)
@@ -145,7 +183,7 @@ const SilencesList = () => {
       </Stack>
 
       <DataGrid columns={4} minContentColumns={[0, 2, 3]} cellVerticalAlignment="top" className="silences ">
-        {!isSilencesLoading && (
+        {!isLoading ? (
           <>
             <DataGridRow>
               <DataGridHeadCell>Time intervall</DataGridHeadCell>
@@ -166,6 +204,11 @@ const SilencesList = () => {
               </DataGridRow>
             )}
           </>
+        ) : (
+          <Stack gap="2">
+            <span>Loading</span>
+            <Spinner variant="primary" />
+          </Stack>
         )}
       </DataGrid>
     </>
