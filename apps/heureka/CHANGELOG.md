@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.11.2
+
+### Patch Changes
+
+- 975a7d9: Updates service details query
+
 ## 2.11.1
 
 ### Patch Changes
