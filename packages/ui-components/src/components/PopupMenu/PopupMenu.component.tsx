@@ -5,7 +5,7 @@
 
 /* eslint-disable react/prop-types */
 
-import React, { createContext, useContext, useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useRef, useState } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
@@ -138,8 +138,6 @@ export { PopupMenuContext }
 
 // TODO:
 // - address button nesting when passing a button as a child to PopupMenu.Toggle (if we want to handle that case that is!)
-// - address error (happens only once when first rendering the component):
-// PopupMenu.component.tsx:87 Warning: Cannot update a component (`PopupMenu`) while rendering a different component (`Me`). To locate the bad setState() call inside `Me`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render
 // - position the menu
 
 /** A Popup Menu component that wraps Headless UI Menu */
@@ -151,14 +149,18 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 } = ({ children = null, icon = "moreVert", menuSize = "normal", onClose = undefined, onOpen = undefined }) => {
   // Create a state to track headless-ui's internal open state:
   const [isOpen, setIsOpen] = useState(false)
+  const previousOpenRef = useRef(isOpen) // Track the previous value of isOpen for efficiency
 
   // Run handlers when our tracking state changes based on changes of the internal headless state, or when the handlers themselves change:
   useEffect(() => {
-    if (isOpen) {
-      onOpen?.()
-    } else {
-      onClose?.()
+    if (isOpen !== previousOpenRef.current) {
+      if (isOpen) {
+        onOpen?.()
+      } else {
+        onClose?.()
+      }
     }
+    previousOpenRef.current = isOpen // Update the previous state value
   }, [isOpen, onOpen, onClose])
 
   // Ensure we always have an array of children, even if no or only a single child were passed:
@@ -174,9 +176,13 @@ const PopupMenu: React.FC<PopupMenuProps> & {
     <HeadlessMenu as="div" className={`juno-popupmenu`}>
       {/* Update our open state when the open render prop from headless ui menu changes, so we can run the handlers when our tracking state changes: */}
       {({ open, close }) => {
-        if (open !== isOpen) {
-          setIsOpen(open)
-        }
+        // Set the open state outside of render
+        useEffect(() => {
+          if (open !== isOpen) {
+            setIsOpen(open)
+          }
+        }, [open])
+
         return (
           <PopupMenuContext.Provider value={{ isOpen, close, menuSize }}>
             {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
