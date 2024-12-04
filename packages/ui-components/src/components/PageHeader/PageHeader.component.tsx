@@ -56,14 +56,14 @@ const headingStyles = `
  * Pass as prop to AppShell so it gets slotted into the correct place in the layout. If building your layout manually without AppShell place as first child of AppBody.
  */
 
-export const PageHeader = ({
+export const PageHeader: React.FC<PageHeaderProps> = ({
   heading = null,
   className = "",
   children = null,
   logo = undefined,
   onClick,
   ...props
-}: PageHeaderProps) => {
+}) => {
   return (
     <div className={`juno-pageheader theme-dark ${pageHeaderStyles} ${className}`} role="banner" {...props}>
       <div className={`juno-pageheader-inner ${pageHeaderInnerStyles}`}>
@@ -88,7 +88,7 @@ export const PageHeader = ({
   )
 }
 
-export interface PageHeaderProps {
+export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Heading (typically the name of the application) */
   heading?: string | String | JSX.Element | null // Union type to avoid `any`
   /** Add custom class name */

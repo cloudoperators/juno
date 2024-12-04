@@ -49,7 +49,7 @@ export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps
 
 DataGridHeadCell.displayName = "DataGridHeadCell"
 
-export interface DataGridHeadCellProps {
+export interface DataGridHeadCellProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the DataGrid should be sortable by this column */
   // sortable: PropTypes.bool,
   /** Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.  */

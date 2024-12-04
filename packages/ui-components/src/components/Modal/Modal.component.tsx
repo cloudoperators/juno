@@ -81,7 +81,7 @@ By default, the modal will close (i.e. set its `open` state to false) once the u
 
 To make the modal less intrusive and effectively un-modal it, pass `closeOnBackdropClick`. This will close the modal when the user clicks the modal backdrop.
 */
-export const Modal = ({
+export const Modal: React.FC<ModalProps> = ({
   ariaLabel,
   cancelButtonIcon = null,
   cancelButtonLabel = "",
@@ -102,7 +102,7 @@ export const Modal = ({
   unpad = false,
   className = "",
   ...props
-}: ModalProps) => {
+}) => {
   const uniqueId = () => "juno-modal-" + useId()
 
   const [isOpen, setIsOpen] = useState(open)
@@ -227,7 +227,7 @@ type ModalSize = "small" | "large"
 // eslint-disable-next-line no-unused-vars
 type CancelEventHandler = (event: React.MouseEvent<EventTarget, MouseEvent> | KeyboardEvent) => void
 
-export type ModalProps = {
+export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
   /** The aria-label of the modal. Use only if the modal does NOT have a `title` or `heading`.  */
   ariaLabel?: string
   /** The title of the modal. This will be rendering as the heading of the modal, and the modal's `arial-labelledby` attribute will reference the title/heading element. If the modal does not have `title` or `heading`, use `ariaLabel` to provide an accessible name for the modal. */
@@ -266,4 +266,4 @@ export type ModalProps = {
   closeOnEsc?: boolean
   /** By default, the first element in the tab order of the Modal content will be focussed. To specify an element to be focussed when the modal opens, pass an element, DOM node, or selector string. */
   initialFocus?: HTMLElement | SVGElement | string
-} & Omit<React.HTMLProps<HTMLDivElement>, "size">
+}

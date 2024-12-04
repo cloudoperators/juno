@@ -55,7 +55,7 @@ const introboxHeading = `
     jn-font-bold
 `
 
-export interface IntroBoxProps {
+export interface IntroBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** Pass an optional title */
   title?: string | null
   /** Pass a string of text to be rendered as contents. Alternatively, contents can be passed as children (see below) */
@@ -76,7 +76,7 @@ export interface IntroBoxProps {
 * An Introbox holds generally important information to help understand the contents, purpose, or state of a whole page or view, or individual sections on longer pages.
 Use sparingly, there should never be any two or more subsequent instances of Introbox as direct siblings/neighbors on an individual view.
 */
-export const IntroBox = ({
+export const IntroBox: React.FC<IntroBoxProps> = ({
   title = null,
   text = null,
   variant = "default",
@@ -84,7 +84,7 @@ export const IntroBox = ({
   className = "",
   children,
   ...props
-}: IntroBoxProps) => {
+}) => {
   const isHeroWithImage = React.useMemo(() => {
     return heroImage && variant === "hero"
   }, [variant, heroImage])

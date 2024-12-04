@@ -19,7 +19,7 @@ const breadcrumbLinkBaseStyles = `
   jn-inline-flex
 `
 
-export interface BreadcrumbItemProps {
+export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLSpanElement> {
   /**
    * The icon type to display in the breadcrumb item.
    */
@@ -56,11 +56,6 @@ export interface BreadcrumbItemProps {
    * Custom content to render within the breadcrumb item, replacing the default content.
    */
   children?: React.ReactNode
-
-  /**
-   * Additional arbitrary props.
-   */
-  [key: string]: any
 }
 
 /**

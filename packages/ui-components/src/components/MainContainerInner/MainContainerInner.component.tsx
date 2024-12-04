@@ -21,13 +21,13 @@ const constrainWithSideNavStyles = `
 `
 
 /** An inner wrapper to constrain page / view content width. */
-export const MainContainerInner = ({
+export const MainContainerInner: React.FC<MainContainerInnerProps> = ({
   children = null,
   fullWidth = false,
   hasSideNav = false,
   className = "",
   ...props
-}: MainContainerInnerProps) => {
+}) => {
   return (
     <div
       className={`
@@ -42,7 +42,7 @@ export const MainContainerInner = ({
   )
 }
 
-export interface MainContainerInnerProps {
+export interface MainContainerInnerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The children to render */
   children?: React.ReactNode
   /** Whether the page/view content will stretch over the full width of the viewport or not. Default is `false`. */

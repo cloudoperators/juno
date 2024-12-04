@@ -10,7 +10,6 @@ import { Icon } from "../Icon/Icon.component"
 import { useTooltipState } from "../Tooltip/Tooltip.component"
 import { ToolTipVariant } from "../Tooltip/ToolTip.types"
 
-/* Styles */
 const popoverStyles = `
     jn-bg-theme-background-lvl-1
     jn-text-theme-high 
@@ -39,7 +38,7 @@ const getIcon = (variant: ToolTipVariant) => {
   }
 }
 
-export interface TooltipContentProps {
+export interface TooltipContentProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Pass child nodes to display in the tooltip */
   children?: React.ReactNode
   /** Pass a className to render to the icon button*/

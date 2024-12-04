@@ -72,7 +72,7 @@ const hintBaseStyles = `
 
 type SwitchSize = "small" | "default" | "large"
 
-export interface SwitchProps extends Omit<React.ComponentPropsWithoutRef<"button">, "ref"> {
+export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "ref"> {
   /**
    * HTML name attribute for the switch button
    */
@@ -221,7 +221,7 @@ export const Switch: React.FC<SwitchProps> = ({
   onClick = undefined,
   wrapperClassName = "",
   ...props
-}: SwitchProps) => {
+}) => {
   const generateUniqueId = (): string => "juno-switch-" + useId()
 
   const [isOn, setIsOn] = useState<boolean>(on)

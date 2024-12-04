@@ -29,7 +29,7 @@ const tabNavActiveItemStyles = `
 `
 
 /** An individual Tab Navigation Item. Use wrapped in a `<TabNavigation>` parent component. */
-export const TabNavigationItem = ({
+export const TabNavigationItem: React.FC<TabNavigationItemProps> = ({
   active = false,
   ariaLabel,
   children = null,
@@ -41,7 +41,7 @@ export const TabNavigationItem = ({
   onClick,
   value = "",
   ...props
-}: TabNavigationItemProps) => {
+}) => {
   const tabNavigationContext = useContext(TabNavigationContext)
   const { tabStyle: tabStyle } = tabNavigationContext || {}
   return (
@@ -71,7 +71,7 @@ export const TabNavigationItem = ({
   )
 }
 
-export interface TabNavigationItemProps {
+export interface TabNavigationItemProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the tab navigation item is active */
   active?: boolean
   /** The aria label of the item */
