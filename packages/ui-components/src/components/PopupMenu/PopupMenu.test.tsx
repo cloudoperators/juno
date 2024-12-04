@@ -20,5 +20,23 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("img")).toHaveAttribute("alt", "warning")
   })
-  // TODO: test behaviour when both icon and PopupMenu.toggle are being passed (expect Toggle to win)
+  // renders a disabled toggle as passed
+  // renders a toggle with a custom className as passed
+  // renders a menu as passed
+  // renders a menu with a custom className as passed
+  // renders a menu section as passed
+  // renders a menu section with a title as passed
+  // renders a menu section with a custom className as passed
+  // renders the menu into a portal as passed
+  // renders all menu items as passed
+  // renders a disabled menu item as passed
+  // renders a menu item with an icon as passed
+  // when both icon and a toggle subcomponent are passed, expect toggle subcomponent to be rendered (and icon ingnored)
+  // renders a functional toggle with only text as child
+  // renders a functional toggle with a custom component passed as 'as'
+  // renders a functional toggle with a custom component passed as a child to the toggle subcomponent
+  // runs an onOpen handler as passed
+  // runs an onClose handler as passed
+  // preserves and runs custom handlers on a toggle passed as 'as'
+  // preserves and runs custom handlers on a toggle passed as a child to the toggle subcomponent
 })
