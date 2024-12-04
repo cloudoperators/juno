@@ -448,8 +448,7 @@ export type ComboBoxWidth = "full" | "auto"
 
 //eslint-disable-next-line no-unused-vars
 type OnChangeHandler = (value: string) => void
-
-export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "onInput" | "children"> {
+export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children"> {
   /** The aria-label of the ComboBox. Defaults to the label if label was passed. */
   ariaLabel?: string
   /** The children to Render. Use `ComboBox.Option` elements. */

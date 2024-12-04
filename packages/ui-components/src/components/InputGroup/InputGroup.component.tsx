@@ -9,7 +9,7 @@ import "./input-group.scss"
 
 type VariantTypes = "default" | "primary" | "primary-danger" | "subdued"
 
-export interface InputGroupProps {
+export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * The children to render within the InputGroup.
    * This can be any React node or a collection of React nodes such as Buttons, TextInput, and Select elements.

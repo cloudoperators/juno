@@ -7,13 +7,13 @@ import React from "react"
 import { Checkbox } from "../Checkbox/Checkbox.component"
 import { DataGridCell } from "../DataGridCell/DataGridCell.component"
 
-export const DataGridCheckboxCell = ({
+export const DataGridCheckboxCell: React.FC<DataGridCheckboxCellProps> = ({
   selected = false,
   disabled = false,
   className = "",
   onChange,
   ...props
-}: DataGridCheckboxCellProps) => {
+}) => {
   return (
     <DataGridCell className={`juno-datagrid-checkbox-cell ${className}`} {...props}>
       <Checkbox disabled={disabled} checked={selected} onChange={onChange} />
@@ -21,7 +21,7 @@ export const DataGridCheckboxCell = ({
   )
 }
 
-export interface DataGridCheckboxCellProps {
+export interface DataGridCheckboxCellProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the row this cell belongs to is selected */
   selected?: boolean
   /** Whether the item is disabled */

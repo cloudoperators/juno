@@ -9,7 +9,7 @@ import { useMergeRefs } from "@floating-ui/react"
 
 import { useTooltipState } from "../Tooltip/Tooltip.component"
 
-export interface TooltipTriggerProps {
+export interface TooltipTriggerProps extends React.HTMLAttributes<HTMLElement> {
   /** If true, the child you passed to the TooltipTrigger is rendered as the trigger element, instead of the default trigger component. This is useful if you e.g. want to use a Button or Icon as the trigger. */
   asChild?: boolean
   /** Pass child nodes to display in the tooltip */

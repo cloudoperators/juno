@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { CodeBlock } from "."
+import { CodeBlock, CodeBlockProps } from "./CodeBlock.component"
 import { Tabs } from "../Tabs"
 import { TabList } from "../TabList"
 import { Tab } from "../Tab"
@@ -47,8 +47,8 @@ const TabsTemplate = ({ tabs, codeBlocks }: TabsTemplateProps) => (
 )
 
 interface TabsTemplateProps {
-  tabs: (typeof Tab)[]
-  codeBlocks: (typeof CodeBlock)[]
+  tabs: React.ComponentProps<typeof Tab>[]
+  codeBlocks: CodeBlockProps[]
 }
 
 export const Default = {
