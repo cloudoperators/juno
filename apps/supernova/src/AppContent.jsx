@@ -5,7 +5,7 @@
 
 import React from "react"
 import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
-import { Container, Spinner, Stack } from "@cloudoperators/juno-ui-components"
+import { Container } from "@cloudoperators/juno-ui-components"
 import {
   useAlertsIsUpdating,
   useAlertsUpdatedAt,
@@ -13,7 +13,6 @@ import {
   useSilencesError,
   useGlobalsActiveSelectedTab,
   useAlertsError,
-  useAlertsIsLoading,
 } from "./components/StoreProvider"
 import AlertsList from "./components/alerts/AlertsList"
 import RegionsList from "./components/regions/RegionsList"
@@ -26,7 +25,6 @@ import SilencesList from "./components/silences/SilencesList"
 
 const AppContent = () => {
   const { addMessage } = useActions()
-  const isAlertsLoading = useAlertsIsLoading()
 
   // alerts
   const totalCounts = useAlertsTotalCounts()
@@ -64,19 +62,12 @@ const AppContent = () => {
         <>
           <AlertDetail />
           <RegionsList />
-          {isAlertsLoading ? (
-            <Stack gap="2">
-              <span>Loading</span>
-              <Spinner variant="primary" />
-            </Stack>
-          ) : (
-            <>
-              <PredefinedFilters />
-              <Filters />
-              <StatusBar totalCounts={totalCounts} isUpdating={isAlertsUpdating} updatedAt={updatedAt} />
-              <AlertsList />
-            </>
-          )}
+          <>
+            <PredefinedFilters />
+            <Filters />
+            <StatusBar totalCounts={totalCounts} isUpdating={isAlertsUpdating} updatedAt={updatedAt} />
+            <AlertsList />
+          </>
         </>
       )}
       {activeSelectedTab === "silences" && <SilencesList />}
