@@ -52,6 +52,19 @@ const itemIconStyles = `
   jn-mr-2
 `
 
+const sectionStyles = `
+  jn-border-b
+  jn-border-theme-background-lvl-3
+  last:jn-border-b-0
+`
+
+const sectionTitleStyles = `
+  jn-text-theme-light
+  jn-text-xs
+  jn-p-2
+  jn-cursor-default
+`
+
 // ----- Interfaces -----
 
 export interface PopupMenuProps {
@@ -73,6 +86,13 @@ export interface PopupMenuItemProps extends React.ComponentProps<typeof Headless
   label?: string
 }
 
+// A Menu Section does not exist in headless ui menu, thus no need to extend an existing interface:
+export interface PopupMenuSectionProps {
+  children?: React.ReactNode
+  className?: string
+  title?: string
+}
+
 // ----- Component Definitions -----
 
 // POPUP MENU
@@ -88,6 +108,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Toggle: React.FC<PopupMenuToggleProps>
   Menu: typeof PopupMenuMenu
   Item: React.FC<PopupMenuItemProps>
+  Section: React.FC<PopupMenuSectionProps>
 } = ({ children = null, icon = "moreVert", onClose = undefined, onOpen = undefined }) => {
   // Create a state to track headless-ui's internal open state:
   const [isOpen, setIsOpen] = useState(false)
@@ -141,7 +162,6 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 }
 
 // TOGGLE COMPONENT
-// TODO: Keep this toggle unstyled/minimal or use our own <Button> internally, while still allowing custom components passed as `as`?
 const PopupMenuToggle: React.FC<PopupMenuToggleProps & { as?: React.ElementType }> = ({
   as = "button",
   children = null,
@@ -192,8 +212,19 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
   </HeadlessMenu.Item>
 )
 
+// POPUPMENU SECTION COMPONENT
+const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children = null, className = "", title = "" }) => {
+  return (
+    <div className={`juno-pop-menu-section ${sectionStyles} ${className}`}>
+      {title ? <div className={`juno-menu-section-title ${sectionTitleStyles}`}>{title}</div> : ""}
+      {children}
+    </div>
+  )
+}
+
 PopupMenu.Toggle = PopupMenuToggle
 PopupMenu.Menu = PopupMenuMenu
 PopupMenu.Item = PopupMenuItem
+PopupMenu.Section = PopupMenuSection
 
 export { PopupMenu }
