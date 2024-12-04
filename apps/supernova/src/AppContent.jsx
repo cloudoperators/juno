@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React from "react"
 import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
-import { Container } from "@cloudoperators/juno-ui-components"
+import { Container, Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import {
   useAlertsIsUpdating,
   useAlertsUpdatedAt,
@@ -13,6 +13,7 @@ import {
   useSilencesError,
   useGlobalsActiveSelectedTab,
   useAlertsError,
+  useAlertsIsLoading,
 } from "./components/StoreProvider"
 import AlertsList from "./components/alerts/AlertsList"
 import RegionsList from "./components/regions/RegionsList"
@@ -25,6 +26,7 @@ import SilencesList from "./components/silences/SilencesList"
 
 const AppContent = () => {
   const { addMessage } = useActions()
+  const isAlertsLoading = useAlertsIsLoading()
 
   // alerts
   const totalCounts = useAlertsTotalCounts()
@@ -37,23 +39,22 @@ const AppContent = () => {
 
   const activeSelectedTab = useGlobalsActiveSelectedTab()
 
-  useEffect(() => {
-    // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
-    if (!silencesError) return
+  // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
+  if (silencesError) {
     addMessage({
       variant: "error",
       text: parseError(silencesError),
     })
-  }, [silencesError])
+  }
 
-  useEffect(() => {
-    // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
-    if (!alertsError) return
+  // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
+
+  if (alertsError) {
     addMessage({
       variant: "error",
       text: parseError(alertsError),
     })
-  }, [alertsError])
+  }
 
   return (
     <Container px py className="h-full">
@@ -63,12 +64,19 @@ const AppContent = () => {
         <>
           <AlertDetail />
           <RegionsList />
-          <>
-            <PredefinedFilters />
-            <Filters />
-            <StatusBar totalCounts={totalCounts} isUpdating={isAlertsUpdating} updatedAt={updatedAt} />
-            <AlertsList />
-          </>
+          {isAlertsLoading ? (
+            <Stack gap="2">
+              <span>Loading</span>
+              <Spinner variant="primary" />
+            </Stack>
+          ) : (
+            <>
+              <PredefinedFilters />
+              <Filters />
+              <StatusBar totalCounts={totalCounts} isUpdating={isAlertsUpdating} updatedAt={updatedAt} />
+              <AlertsList />
+            </>
+          )}
         </>
       )}
       {activeSelectedTab === "silences" && <SilencesList />}

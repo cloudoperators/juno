@@ -13,10 +13,12 @@ import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import CustomAppShell from "./components/CustomAppShell"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ErrorBoundary } from "react-error-boundary"
+import useUrlState from "./hooks/useUrlState"
 
 const queryClient = new QueryClient()
 
 function App(props = {}) {
+  useUrlState()
   const preErrorClasses = `
     custom-error-pre
     border-theme-error
@@ -36,15 +38,15 @@ function App(props = {}) {
   }
 
   return (
-    <MessagesProvider>
-      <CustomAppShell>
-        <ErrorBoundary fallbackRender={fallbackRender}>
+    <ErrorBoundary fallbackRender={fallbackRender}>
+      <MessagesProvider>
+        <CustomAppShell>
           <QueryClientProvider client={queryClient}>
             <AppContent props={props} />
           </QueryClientProvider>
-        </ErrorBoundary>
-      </CustomAppShell>
-    </MessagesProvider>
+        </CustomAppShell>
+      </MessagesProvider>
+    </ErrorBoundary>
   )
 }
 

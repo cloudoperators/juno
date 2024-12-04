@@ -4,15 +4,7 @@
  */
 
 import React, { useMemo, useState, useRef, useCallback, useEffect } from "react"
-import {
-  DataGrid,
-  DataGridHeadCell,
-  DataGridRow,
-  DataGridCell,
-  Icon,
-  Stack,
-  Spinner,
-} from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridHeadCell, DataGridRow, DataGridCell, Icon, Stack } from "@cloudoperators/juno-ui-components"
 import Alert from "./Alert"
 import { useAlertsItemsFiltered, useAlertsActions, useGlobalsApiEndpoint } from "../StoreProvider"
 import { useQuery } from "@tanstack/react-query"
@@ -89,52 +81,45 @@ const AlertsList = () => {
 
   return (
     <DataGrid columns={7} minContentColumns={[0, 2, 5]} cellVerticalAlignment="top" className="alerts">
-      {!isLoading ? (
-        <>
-          <DataGridRow>
-            <DataGridHeadCell>
-              <Icon icon="monitorHeart" />
-            </DataGridHeadCell>
-            <DataGridHeadCell>Region</DataGridHeadCell>
-            <DataGridHeadCell>Service</DataGridHeadCell>
-            <DataGridHeadCell>Description</DataGridHeadCell>
-            <DataGridHeadCell>Firing Since</DataGridHeadCell>
-            <DataGridHeadCell>Status</DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
+      <>
+        <DataGridRow>
+          <DataGridHeadCell>
+            <Icon icon="monitorHeart" />
+          </DataGridHeadCell>
+          <DataGridHeadCell>Region</DataGridHeadCell>
+          <DataGridHeadCell>Service</DataGridHeadCell>
+          <DataGridHeadCell>Description</DataGridHeadCell>
+          <DataGridHeadCell>Firing Since</DataGridHeadCell>
+          <DataGridHeadCell>Status</DataGridHeadCell>
+          <DataGridHeadCell></DataGridHeadCell>
+        </DataGridRow>
+        {alertsSorted?.length > 0 ? (
+          alertsSorted?.map((alert, index) => {
+            if (alertsSorted.length === index + 1) {
+              // DataRow in alerts muss implement forwardRef
+              return <Alert ref={lastListElementRef} key={alert.fingerprint} alert={alert} />
+            }
+            return <Alert key={alert.fingerprint} alert={alert} />
+          })
+        ) : (
+          <DataGridRow className="no-hover">
+            <DataGridCell colSpan={7}>
+              <Stack gap="3">
+                <Icon icon="info" color="text-theme-info" />
+                <div>
+                  We couldn&apos;t find anything. It&apos;s possible that the matching alerts are not active at the
+                  moment, or the chosen filters could be overly limiting.
+                </div>
+              </Stack>
+            </DataGridCell>
           </DataGridRow>
-          {alertsSorted?.length > 0 ? (
-            alertsSorted?.map((alert, index) => {
-              if (alertsSorted.length === index + 1) {
-                // DataRow in alerts muss implement forwardRef
-                return <Alert ref={lastListElementRef} key={alert.fingerprint} alert={alert} />
-              }
-              return <Alert key={alert.fingerprint} alert={alert} />
-            })
-          ) : (
-            <DataGridRow className="no-hover">
-              <DataGridCell colSpan={7}>
-                <Stack gap="3">
-                  <Icon icon="info" color="text-theme-info" />
-                  <div>
-                    We couldn&apos;t find anything. It&apos;s possible that the matching alerts are not active at the
-                    moment, or the chosen filters could be overly limiting.
-                  </div>
-                </Stack>
-              </DataGridCell>
-            </DataGridRow>
-          )}
-          {isAddingItems && (
-            <DataGridRow className="no-hover">
-              <DataGridCell colSpan={7}>Loading ...</DataGridCell>
-            </DataGridRow>
-          )}
-        </>
-      ) : (
-        <Stack gap="2">
-          <span>Loading</span>
-          <Spinner variant="primary" />
-        </Stack>
-      )}
+        )}
+        {isAddingItems && (
+          <DataGridRow className="no-hover">
+            <DataGridCell colSpan={7}>Loading ...</DataGridCell>
+          </DataGridRow>
+        )}
+      </>
     </DataGrid>
   )
 }
