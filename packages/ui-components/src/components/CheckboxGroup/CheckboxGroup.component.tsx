@@ -54,7 +54,7 @@ export const CheckboxGroupContext = createContext<CheckboxGroupContextProps | un
 
 export type CheckboxValue = string | undefined
 
-export const CheckboxGroup = ({
+export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   children = null,
   className = "",
   disabled = false,
@@ -70,7 +70,7 @@ export const CheckboxGroup = ({
   successtext = "",
   valid = false,
   ...props
-}: CheckboxGroupProps) => {
+}) => {
   // Utility
   const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
@@ -177,7 +177,7 @@ export const CheckboxGroup = ({
   )
 }
 
-export interface CheckboxGroupProps {
+export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** The Checkbox children of the CheckboxGroup */
   children?: React.ReactNode
   /** Pass a custom className */

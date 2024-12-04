@@ -5,7 +5,7 @@
 
 import React from "react"
 
-export const DataGridFoot = ({ className = "", children = null, ...props }: DataGridFootProps) => {
+export const DataGridFoot: React.FC<DataGridFootProps> = ({ className = "", children = null, ...props }) => {
   return (
     <tfoot className={`juno-datagrid-foot ${className}`} {...props}>
       {children}
@@ -13,7 +13,7 @@ export const DataGridFoot = ({ className = "", children = null, ...props }: Data
   )
 }
 
-export interface DataGridFootProps {
+export interface DataGridFootProps extends React.HTMLAttributes<HTMLTableSectionElement> {
   /** Children to render in the DataGridFoot */
   children?: JSX.Element | null
   /** Add a classname */

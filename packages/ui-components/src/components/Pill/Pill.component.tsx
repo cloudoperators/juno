@@ -91,7 +91,7 @@ export const Pill: FC<PillProps> = ({
   )
 }
 
-export interface PillProps {
+export interface PillProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onClick"> {
   /** The unique identifier of the pill. Returned by the onClose callback */
   uid?: string
   /** The key of the filter the pill represents. Returned by the onClose callback if uid undefined. Optional. */

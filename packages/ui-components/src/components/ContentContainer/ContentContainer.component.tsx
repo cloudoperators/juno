@@ -38,3 +38,9 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({ className = 
     </div>
   )
 }
+
+export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Add custom class name */
+  className?: string
+  children?: React.ReactNode
+}
