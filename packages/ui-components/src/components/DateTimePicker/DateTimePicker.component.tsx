@@ -89,54 +89,54 @@ interface SelectedDate {
 /** A all-purpose date and time picker component. Highly configurable, based on Flatpickr. */
 
 export const DateTimePicker: React.FC<DateTimePickerProps> = ({
-  allowInput = false,
-  allowInvalidPreload = false,
-  ariaDateFormat = "F j, Y",
-  className = "",
-  conjunction = ", ",
-  dateFormat = undefined,
-  defaultHour = 12,
-  defaultMinute = 0,
-  defaultDate = null,
-  defaultValue = "",
+  allowInput,
+  allowInvalidPreload,
+  ariaDateFormat,
+  className,
+  conjunction,
+  dateFormat,
+  defaultHour,
+  defaultMinute,
+  defaultDate,
+  defaultValue,
   disable = [],
-  disabled = false,
-  enableSeconds = false,
-  enableTime = false,
-  errortext = "",
-  helptext = "",
-  hourIncrement = 1,
-  id = "",
-  invalid = false,
-  label = "",
-  locale = null,
-  maxDate = null,
-  minDate = null,
-  minuteIncrement = 1,
-  mode = "single",
-  monthSelectorType = "static",
-  name = "",
-  noCalendar = false,
-  onBlur = undefined,
-  onChange = undefined,
-  onClear = undefined,
-  onClose = undefined,
-  onFocus = undefined,
-  onMonthChange = undefined,
-  onOpen = undefined,
-  onReady = undefined,
-  onYearChange = undefined,
-  placeholder = "",
-  required = false,
-  shorthandCurrentMonth = false,
-  showMonths = 1,
-  successtext = "",
-  time_24hr = false,
-  valid = false,
-  value = "",
-  weekNumbers = false,
-  width = "full",
-  wrapperClassName = "",
+  disabled,
+  enableSeconds,
+  enableTime,
+  errortext,
+  helptext,
+  hourIncrement,
+  id,
+  invalid,
+  label,
+  locale,
+  maxDate,
+  minDate,
+  minuteIncrement,
+  mode,
+  monthSelectorType,
+  name,
+  noCalendar,
+  onBlur,
+  onChange,
+  onClear,
+  onClose,
+  onFocus,
+  onMonthChange,
+  onOpen,
+  onReady,
+  onYearChange,
+  placeholder,
+  required,
+  shorthandCurrentMonth,
+  showMonths,
+  successtext,
+  time_24hr,
+  valid,
+  value,
+  weekNumbers,
+  width,
+  wrapperClassName,
   ...props
 }) => {
   // always generate auto-id string using the useId hook to avoid "more hooks than in previous render" error when removing custom id:
@@ -224,9 +224,8 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }
 
   const handleClearIconClick = () => {
-    const instance = flatpickrInstanceRef.current
     setTheDate({})
-    instance?.clear()
+    flatpickrInstanceRef.current?.clear()
     onClear && onClear([], "")
   }
 
@@ -287,8 +286,6 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
       showMonths: showMonths,
       time_24hr: time_24hr,
       weekNumbers: weekNumbers,
-      inline: false,
-      ignoredFocusElements: [],
     }
 
     const FP = calendarTargetRef && fpRef.current && flatpickr(fpRef.current, options)
@@ -296,8 +293,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }
 
   const destroyFlatpickrInstance = () => {
-    const instance = flatpickrInstanceRef.current
-    instance?.destroy()
+    flatpickrInstanceRef.current?.destroy()
     setTheDate({})
     flatpickrInstanceRef.current = null
   }
@@ -363,8 +359,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
     // After we have checked if any one or multiple of the relevant props have changed, we actually destroy the curent instance and create a new one:
     if (hasChanged) {
-      const instance = flatpickrInstanceRef.current
-      instance?.destroy()
+      flatpickrInstanceRef.current?.destroy()
       createFlatpickrInstance()
     }
 
@@ -400,73 +395,60 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   // useEffects for props that represent config options that can be set on an existing flatpickr instance with immediate effect:
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("allowInvalidPreload", allowInvalidPreload)
+    flatpickrInstanceRef.current?.set("allowInvalidPreload", allowInvalidPreload)
   }, [allowInvalidPreload])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("ariaDateFormat", ariaDateFormat)
+    flatpickrInstanceRef.current?.set("ariaDateFormat", ariaDateFormat)
   }, [ariaDateFormat])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("conjunction", conjunction)
+    flatpickrInstanceRef.current?.set("conjunction", conjunction)
   }, [conjunction])
 
   useEffect(() => {
     const newDateFormat = getDateFormat()
-    const instance = flatpickrInstanceRef.current
-    instance?.set("dateFormat", newDateFormat)
+    flatpickrInstanceRef.current?.set("dateFormat", newDateFormat)
   }, [dateFormat])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("disable", disable)
+    flatpickrInstanceRef.current?.set("disable", disable)
   }, [disable])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("hourIncrement", hourIncrement)
+    flatpickrInstanceRef.current?.set("hourIncrement", hourIncrement)
   }, [hourIncrement])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("locale", locale)
+    flatpickrInstanceRef.current?.set("locale", locale)
   }, [locale])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("maxDate", maxDate)
+    flatpickrInstanceRef.current?.set("maxDate", maxDate)
   }, [maxDate])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("minDate", minDate)
+    flatpickrInstanceRef.current?.set("minDate", minDate)
   }, [minDate])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("shorthandCurrentMonth", shorthandCurrentMonth)
+    flatpickrInstanceRef.current?.set("shorthandCurrentMonth", shorthandCurrentMonth)
   }, [shorthandCurrentMonth])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("time_24hr", time_24hr)
+    flatpickrInstanceRef.current?.set("time_24hr", time_24hr)
   }, [time_24hr])
 
   // Update the flatpickr instance whenever the value prop (or any of its aliases) changes, and force the flatpickr instance to fire onChange event. These props may contain an array of one or multiple objects. These will never pass React's identity comparison, and will be regarded as a new object with any render regardless of their contents, thus creating an endless loop by updating the flatpickr instance updating the parent state (via onChange above) updating the flatpickr instance (…). We prevent this by checking on the stringified versions of the props in the dependency array.
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.setDate(
+    flatpickrInstanceRef.current?.setDate(
       (value || defaultDate || defaultValue) as DateOption | DateOption[],
       true // enforce firing change event that in turn will update our state via handleChange.
     )
   }, [stringifiedValue, stringifiedDefaultDate, stringifiedDefaultValue])
 
   useEffect(() => {
-    const instance = flatpickrInstanceRef.current
-    instance?.set("weekNumbers", weekNumbers)
+    flatpickrInstanceRef.current?.set("weekNumbers", weekNumbers)
   }, [weekNumbers])
 
   return (
@@ -568,7 +550,7 @@ export interface DateTimePickerProps
   dateFormat?: string
   /**
    * Sets the default date of the DateTimePicker. Same as `value`, only here for compatibility with the original Flatpickr library. If both `value` and `defaultDate` are being passed, `value` will win. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted.
-   * @deprecated use DateOption | DateOption[] instead
+   * Some prop types have been deprecated: Use DateOption and DateOption[] for future compatibility
    */
   defaultDate?: DateTimePickerDate
   /** The initial value of the hour input element. Only effective if time is enabled. Note this will only set the hour input element to the value specified. Setting this options will not set a selected value on the DateTimePicker. */
@@ -577,12 +559,12 @@ export interface DateTimePickerProps
   defaultMinute?: number
   /**
    * Same as value, defaultDate
-   * @deprecated use DateOption | DateOption[] instead
+   * Some prop types have been deprecated: Use DateOption and DateOption[] for future compatibility
    */
   defaultValue?: DateTimePickerDate
   /**
    * Pass an array of dates, date strings, date ranges or functions to disable dates. More on disabling dates: https://flatpickr.js.org/examples/#disabling-specific-dates
-   * @deprecated use DateLimit<DateOption>[] instead
+   * Some prop types have been deprecated: Use DateLimit<DateOption>[] for future compatibility
    */
   disable?: DateLimit<DateOption>[] | unknown[]
   /** Whether the DateTimePicker is disabled */
@@ -605,17 +587,17 @@ export interface DateTimePickerProps
   label?: string
   /**
    * Localization string or object. Can be used to set starting day of the week, e.g. Mondays instead of Sundays. More on localization: https://flatpickr.js.org/localization/
-   * @deprecated use LocaleKey | Partial<CustomLocale> instead
+   * Some prop types have been deprecated: Use LocaleKey and Partial<CustomLocale> for future compatibility
    */
   locale?: Partial<CustomLocale> | string | object
   /**
    * The maximum / latest date a user can select (inclusive).
-   * @deprecated use DateOption instead
+   * Some prop types have been deprecated: Use DateOption for future compatibility
    */
   maxDate?: DateOption | string | unknown[] | object | number
   /**
    * The minimum / earliest date a user can select (inclusive).
-   * @deprecated use DateOption instead
+   * Some prop types have been deprecated: Use DateOption for future compatibility
    */
   minDate?: DateOption | string | unknown[] | object | number
   /**  The step for the minute input. Only has an effect when a time picker is enabled via `enableTime`.  */
@@ -630,47 +612,47 @@ export interface DateTimePickerProps
   noCalendar?: boolean
   /**
    * A handler to be executed when the DateTimePicker input element looses focus.
-   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * Some prop types have been deprecated: For future compatibility use function with signature (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onBlur?: BackwardCompatibleDateChangeHandler
   /**
    * A handler to be executed when the selected date(s), date range or time changes
-   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * Some prop types have been deprecated: For future compatibility use function with signature (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onChange?: BackwardCompatibleDateChangeHandler
   /**
    * A handler to be executed when the DateTimePicker value is reset by clicking the clear icon. The onChnage handler will be fired in this event too, onClear is more specific.
-   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * Some prop types have been deprecated: For future compatibility use function with signature (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onClear?: BackwardCompatibleDateChangeHandler
   /**
    * A handler to be executed when the DateTimePicker calendar closes
-   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * Some prop types have been deprecated: For future compatibility use function with signature (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onClose?: BackwardCompatibleDateChangeHandler
   /**
    * A handler to be executed when the DateTimePicker input element receives focus.
-   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * Some prop types have been deprecated: For future compatibility use function with signature (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onFocus?: BackwardCompatibleDateChangeHandler
   /**
    * A handler to be executed when the selected month changes
-   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * Some prop types have been deprecated: For future compatibility use function with signature (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onMonthChange?: BackwardCompatibleDateChangeHandler
   /**
    * A handler to be executed when the DateTimePicker calendar opens
-   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * Some prop types have been deprecated: For future compatibility use function with signature (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onOpen?: BackwardCompatibleDateChangeHandler
   /**
    * A handler to be executed when the DateTimePicker component is ready
-   * @deprecated use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * Some prop types have been deprecated: For future compatibility use function with signature (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onReady?: BackwardCompatibleDateChangeHandler
   /**
    * A handler to be executed when the selected year changes
-   * use instead: (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+   * Some prop types have been deprecated: For future compatibility use function with signature (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
    */
   onYearChange?: BackwardCompatibleDateChangeHandler
   /** The placeholder of the DateTimePicker input element */
@@ -689,7 +671,7 @@ export interface DateTimePickerProps
   valid?: boolean
   /**
    * The value of the datepicker. Date Objects, timestamps, ISO date strings, chronological date strings `YYYY-MM-DD HH:MM` (must be compatible to current `dateFormat`), and the shortcut `today` are all accepted.
-   * @deprecated use DateOption | DateOption[] instead
+   * Some prop types have been deprecated: Use DateOption and DateOption[] for future compatibility
    */
   value?: DateOption | DateOption[] | string | unknown[] | object | number
   /** Whether to render week numbers. Default is `false`. */
@@ -698,4 +680,57 @@ export interface DateTimePickerProps
   width?: "full" | "auto"
   /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
   wrapperClassName?: string
+}
+
+// can't get rid of this, as if we transform it to a default values using vanilla JS, two tests will fail
+// the disable prop causes problems in the tests
+DateTimePicker.defaultProps = {
+  allowInput: false,
+  allowInvalidPreload: false,
+  ariaDateFormat: "F j, Y",
+  className: "",
+  conjunction: ", ",
+  dateFormat: undefined,
+  defaultHour: 12,
+  defaultMinute: 0,
+  defaultDate: undefined,
+  defaultValue: "",
+  disable: [],
+  disabled: false,
+  enableSeconds: false,
+  enableTime: false,
+  errortext: "",
+  helptext: "",
+  hourIncrement: 1,
+  id: "",
+  invalid: false,
+  label: "",
+  locale: undefined,
+  maxDate: undefined,
+  minDate: undefined,
+  minuteIncrement: 1,
+  mode: "single",
+  monthSelectorType: "static",
+  name: "",
+  noCalendar: false,
+  onBlur: undefined,
+  onChange: undefined,
+  onClear: undefined,
+  onClose: undefined,
+  onFocus: undefined,
+  onMonthChange: undefined,
+  onOpen: undefined,
+  onReady: undefined,
+  onYearChange: undefined,
+  placeholder: "",
+  required: false,
+  shorthandCurrentMonth: false,
+  showMonths: 1,
+  successtext: "",
+  time_24hr: false,
+  valid: false,
+  value: "",
+  weekNumbers: false,
+  width: "full",
+  wrapperClassName: "",
 }
