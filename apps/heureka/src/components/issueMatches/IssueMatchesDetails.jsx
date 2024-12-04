@@ -90,7 +90,7 @@ const IssueMatchesDetails = () => {
           </DataGridRow>
 
           <DataGridRow>
-            <DataGridHeadCell>Component Name</DataGridHeadCell>
+            <DataGridHeadCell>Pod</DataGridHeadCell>
 
             <DataGridCell>
               <LoadElement elem={issue?.componentInstance?.componentVersion?.component?.ccrn} />
@@ -98,7 +98,7 @@ const IssueMatchesDetails = () => {
           </DataGridRow>
 
           <DataGridRow>
-            <DataGridHeadCell>Component Version</DataGridHeadCell>
+            <DataGridHeadCell>Pod Version</DataGridHeadCell>
 
             <DataGridCell>
               <LoadElement elem={issue?.componentInstance?.componentVersion?.version} />
