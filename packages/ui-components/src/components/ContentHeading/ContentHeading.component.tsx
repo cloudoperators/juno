@@ -34,10 +34,24 @@ export interface ContentHeadingProps extends React.HTMLAttributes<HTMLHeadingEle
  * It can be used within an `<AppShell>` component or, if scaffolding manually, within a `<ContentContainer>` component.
  * The heading text can be provided either via the `heading` prop or by passing it as `children`.
  */
-export const ContentHeading: React.FC<ContentHeadingProps> = ({ heading = "", className = "", children, ...props }) => {
+export const ContentHeading: React.FC<ContentHeadingProps> = ({
+  heading = "",
+  className = "",
+  children = null,
+  ...props
+}) => {
   return (
     <h1 className={`juno-content-heading ${baseHeadingStyles} ${className}`} {...props}>
       {children || heading}
     </h1>
   )
+}
+
+export interface ContentHeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  /** Optionally render children. If children are present, heading will be ignored */
+  children?: React.ReactNode
+  /** Text to use as a title */
+  heading?: string
+  /** Add custom class name */
+  className?: string
 }

@@ -141,7 +141,7 @@ export interface SelectProps
   A Select component that can be configured to allow selecting a single item or multiple items.
   Pass a `defaultValue` to render as an uncontrolled component that tracks its open state etc internally.
 */
-export const Select = ({
+export const Select: React.FC<SelectProps> = ({
   ariaLabel = "",
   children = null,
   className = "",
@@ -169,7 +169,7 @@ export const Select = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}: SelectProps) => {
+}) => {
   const isValueNotEmpty = (
     value:
       | string

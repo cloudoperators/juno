@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Navigation } from "../Navigation/index"
+import { Navigation } from "../Navigation/Navigation.component"
 
 const sideNavStyles = `
   jn-min-w-[7.5rem]
@@ -16,7 +16,7 @@ A generic vertical side navigation component.
 Place SideNavigationItem components as children.
 */
 
-export const SideNavigation = ({
+export const SideNavigation: React.FC<SideNavigationProps> = ({
   activeItem = "",
   ariaLabel,
   children = null,
@@ -24,7 +24,7 @@ export const SideNavigation = ({
   disabled = false,
   onActiveItemChange,
   ...props
-}: SideNavigationProps) => {
+}) => {
   return (
     <Navigation
       activeItem={activeItem}
@@ -44,7 +44,7 @@ type ItemKeyType = string | React.ReactNode
 // eslint-disable-next-line no-unused-vars
 type ActiveItemChangeHandler = (value: ItemKeyType) => void
 
-export interface SideNavigationProps {
+export interface SideNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The active navigation item by label */
   activeItem?: string
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */

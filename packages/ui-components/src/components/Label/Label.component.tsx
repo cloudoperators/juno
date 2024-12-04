@@ -91,7 +91,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
 
 Label.displayName = "Label"
 
-export interface LabelProps {
+export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement> {
   /** Pass a string of text to be rendered as contents. Required.  */
   text?: string
   /** An Id of an input element to associate the label with */

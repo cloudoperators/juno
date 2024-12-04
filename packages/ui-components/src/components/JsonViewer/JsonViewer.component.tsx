@@ -53,7 +53,7 @@ export const getTypeOfTheValue = (value: unknown): TypeValueLabelType => {
 
 // this component renders the expand icon depends on the expanded prop
 // per entry
-const ExpandIcon = ({ expanded }: ExpandIconProps) => {
+const ExpandIcon: React.FC<ExpandIconProps> = ({ expanded }) => {
   const { colors } = useContext(ThemeContext)
   return (
     <svg
@@ -78,7 +78,7 @@ const ExpandIcon = ({ expanded }: ExpandIconProps) => {
   )
 }
 
-const StringWithHighlight = ({ value }: StringWithHighlightProps) => {
+const StringWithHighlight: React.FC<StringWithHighlightProps> = ({ value }) => {
   const { colors, searchTerm } = useContext(ThemeContext)
 
   const highlight = React.useMemo(() => {
@@ -119,7 +119,7 @@ interface StringWithHighlightProps {
 }
 
 // Key label (left side) with highlight functionality
-const NameLabel = ({ name }: NameLabelProps) => {
+const NameLabel: React.FC<NameLabelProps> = ({ name }) => {
   const { colors } = useContext(ThemeContext)
   const isIndex = typeof name === "number"
   const color = isIndex ? colors.index : colors.key
@@ -143,7 +143,7 @@ interface NameLabelProps {
 // this component show the right side of the json, type + value
 // for null, NaN and undefined values a background is shown
 // value label (left side) with highlight functionality
-const TypeValueLabel = ({ type, value }: TypeValueLabelProps) => {
+const TypeValueLabel: React.FC<TypeValueLabelProps> = ({ type, value }) => {
   const { colors, truncate } = useContext(ThemeContext)
   const undefinedValue = ["nan", "null", "undefined"].includes(type)
   let label = type === "string" ? `"${value as string}"` : `${value as any}`
@@ -184,7 +184,7 @@ interface TypeValueLabelProps {
   value: unknown
 }
 
-const Toolbar = () => {
+const Toolbar: React.FC = () => {
   const { colors, onExpandAll, onSearch } = useContext(ThemeContext)
 
   return (
@@ -220,7 +220,7 @@ const Toolbar = () => {
   )
 }
 
-const ExpandButton = ({ children, isExpanded, setIsExpanded }: ExpandButtonProps) => {
+const ExpandButton: React.FC<ExpandButtonProps> = ({ children, isExpanded, setIsExpanded }) => {
   return (
     <span
       style={{ cursor: "pointer", display: "inline-block" }}
@@ -241,7 +241,7 @@ interface ExpandButtonProps {
 }
 
 // This component renders a row of json entry
-const JsonData = ({ name, value, nestedLevel = 0 }: JsonDataProps) => {
+const JsonData: React.FC<JsonDataProps> = ({ name, value, nestedLevel = 0 }) => {
   const { colors, expanded, searchTerm, indentWidth, expandAll } = useContext(ThemeContext)
   const [isExpanded, setIsExpanded] = React.useState(
     expanded === true || (expanded !== false && expanded > nestedLevel)
@@ -343,14 +343,14 @@ const JsonData = ({ name, value, nestedLevel = 0 }: JsonDataProps) => {
   )
 }
 
-interface JsonDataProps {
+interface JsonDataProps extends React.HTMLAttributes<HTMLDivElement> {
   name?: string | number | boolean
   value?: unknown
   nestedLevel?: number
 }
 
 /** A component to render json data in a nice way. */
-export const JsonViewer = ({
+export const JsonViewer: React.FC<JsonViewerProps> = ({
   data = {},
   showRoot = false,
   toolbar = false,
@@ -361,7 +361,7 @@ export const JsonViewer = ({
   truncate = false,
   className,
   ...props
-}: JsonViewerProps) => {
+}) => {
   const currentTheme =
     typeof theme === "string"
       ? themes[theme]

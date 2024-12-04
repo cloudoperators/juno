@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from "react"
-import { Tabs as ReactTabs, TabsProps as ReactTabsProps } from "react-tabs" //
+import { Tabs as ReactTabs, TabsProps as ReactTabsProps } from "react-tabs"
 import { TabListProps } from "../TabList/TabList.component"
 import { TabPanelProps } from "../TabPanel/TabPanel.component"
 

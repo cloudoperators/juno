@@ -6,10 +6,10 @@
 import React, { Children, ReactNode, ReactElement } from "react"
 
 import { Icon } from "../Icon"
-import { Stack } from "../Stack"
+import { Stack } from "../Stack/Stack.component"
 import { BreadcrumbItem, BreadcrumbItemProps } from "../BreadcrumbItem/BreadcrumbItem.component"
 
-export interface BreadcrumbProps {
+export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Additional CSS styles to apply to the breadcrumb for custom styling.
    */

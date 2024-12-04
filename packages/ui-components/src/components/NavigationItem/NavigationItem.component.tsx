@@ -21,7 +21,7 @@ const disabledStyles = `
 `
 
 /** A generic Navigation Item component. For internal use only. Use to wrap more semantic, role-specific navigation item components such as `SidenavigationItem`, `TabNavigationItem` , `TopNavigationItem` around. */
-export const NavigationItem = ({
+export const NavigationItem: React.FC<NavigationItemProps> = ({
   active = false,
   activeItemStyles = "",
   ariaLabel = "",
@@ -36,7 +36,7 @@ export const NavigationItem = ({
   value = "",
   wrapperClassName = "",
   ...props
-}: NavigationItemProps) => {
+}) => {
   // Utility
   const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
@@ -151,7 +151,7 @@ export const NavigationItem = ({
   )
 }
 
-export interface NavigationItemProps {
+export interface NavigationItemProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the navigation item is the currently active item. If an acitve item is set on the parent, the one on the parent will win. */
   active?: boolean
   /** Styles to apply to the active item*/
