@@ -137,9 +137,9 @@ export { PopupMenuContext }
 // POPUP MENU
 
 // TODO:
-// - expose a function to close the menu for users to use whenever they deem fit, e.g. when passing non-PopupMenu.Item elements as children to the menu
-// - implement small and normal sizes
-// - expose open state to users to use in styling their custom toggle
+// - address button nesting when passing a button as a child to PopupMenu.Toggle (if we want to handle that case that is!)
+// - address error (happens only once when first rendering the component):
+// PopupMenu.component.tsx:87 Warning: Cannot update a component (`PopupMenu`) while rendering a different component (`Me`). To locate the bad setState() call inside `Me`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render
 // - position the menu
 
 /** A Popup Menu component that wraps Headless UI Menu */
