@@ -30,16 +30,16 @@ const ServicesList = ({ items, isLoading }) => {
           <DataGridHeadCell>
             <Stack direction="vertical">
               <Tooltip triggerEvent="hover">
-                <TooltipTrigger>Components</TooltipTrigger>
-                <TooltipContent>Total Number of Component Instances</TooltipContent>
+                <TooltipTrigger>Pods</TooltipTrigger>
+                <TooltipContent>Total Number of Pods</TooltipContent>
               </Tooltip>
             </Stack>
           </DataGridHeadCell>
           <DataGridHeadCell>
             <Stack direction="vertical">
               <Tooltip triggerEvent="hover">
-                <TooltipTrigger>Issues</TooltipTrigger>
-                <TooltipContent>Total Number of IssueMatches</TooltipContent>
+                <TooltipTrigger>Vulnerabilities</TooltipTrigger>
+                <TooltipContent>Total Number of Vulnerabilities</TooltipContent>
               </Tooltip>
             </Stack>
           </DataGridHeadCell>
