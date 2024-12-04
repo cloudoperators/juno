@@ -5,7 +5,7 @@
 
 /* eslint-disable react/prop-types */
 
-import React, { useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
@@ -34,6 +34,18 @@ const itemStyles = `
   jn-pt-[0.6875rem]
   jn-pb-[0.5rem]
   jn-px-[0.875rem]
+`
+
+const normalItemStyles = `
+  jn-text-base
+  jn-pt-[0.6875rem]
+  jn-pb-[0.5rem]
+  jn-px-[0.875rem]
+`
+
+const smallItemStyles = `
+  jn-text-sm
+  jn-p-2
 `
 
 const actionableItemStyles = `
@@ -67,9 +79,17 @@ const sectionTitleStyles = `
 
 // ----- Interfaces -----
 
+// Type the PopupMenu context
+export interface PopupMenuContextType {
+  close: () => void
+  isOpen: boolean
+  menuSize: "normal" | "small"
+}
+
 export interface PopupMenuProps {
   children?: React.ReactNode
   icon?: keyof typeof KnownIconsEnum
+  menuSize?: "normal" | "small"
   onClose?: () => void
   onOpen?: () => void
 }
@@ -93,14 +113,34 @@ export interface PopupMenuSectionProps {
   title?: string
 }
 
+// ----- Define PopupMenu context and hook -----
+
+// Context:
+const PopupMenuContext = createContext<PopupMenuContextType | null>(null)
+
+// Hook to use the context:
+export const usePopupMenuContext = () => {
+  const context = useContext(PopupMenuContext)
+  if (!context) {
+    throw new Error(
+      "The usePopupMenuContext hook must be used inside within a PopupMenu that provides the PopupMenuContext."
+    )
+  }
+  return context
+}
+
+// Export the context for advanced use cases:
+export { PopupMenuContext }
+
 // ----- Component Definitions -----
 
 // POPUP MENU
 
 // TODO:
-// - position the menu
-// - expose open state to users to use in styling their custom toggle
+// - expose a function to close the menu for users to use whenever they deem fit, e.g. when passing non-PopupMenu.Item elements as children to the menu
 // - implement small and normal sizes
+// - expose open state to users to use in styling their custom toggle
+// - position the menu
 
 /** A Popup Menu component that wraps Headless UI Menu */
 const PopupMenu: React.FC<PopupMenuProps> & {
@@ -108,7 +148,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Menu: typeof PopupMenuMenu
   Item: React.FC<PopupMenuItemProps>
   Section: React.FC<PopupMenuSectionProps>
-} = ({ children = null, icon = "moreVert", onClose = undefined, onOpen = undefined }) => {
+} = ({ children = null, icon = "moreVert", menuSize = "normal", onClose = undefined, onOpen = undefined }) => {
   // Create a state to track headless-ui's internal open state:
   const [isOpen, setIsOpen] = useState(false)
 
@@ -133,12 +173,12 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   return (
     <HeadlessMenu as="div" className={`juno-popupmenu`}>
       {/* Update our open state when the open render prop from headless ui menu changes, so we can run the handlers when our tracking state changes: */}
-      {({ open }) => {
+      {({ open, close }) => {
         if (open !== isOpen) {
           setIsOpen(open)
         }
         return (
-          <>
+          <PopupMenuContext.Provider value={{ isOpen, close, menuSize }}>
             {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
             {!hasToggle && (
               <PopupMenu.Toggle
@@ -155,7 +195,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
               }
             })}
             <PortalProvider.Portal>{menu}</PortalProvider.Portal>
-          </>
+          </PopupMenuContext.Provider>
         )
       }}
     </HeadlessMenu>
@@ -175,11 +215,13 @@ const PopupMenuToggle: React.FC<PopupMenuToggleProps & { as?: React.ElementType 
 )
 
 // MENU COMPONENT
-const PopupMenuMenu: React.FC<React.ComponentProps<typeof HeadlessMenu.Items>> = ({ children = null, ...props }) => (
-  <HeadlessMenu.Items className={`juno-popupmenu-menu ${menuStyles}`} {...props}>
-    {children}
-  </HeadlessMenu.Items>
-)
+const PopupMenuMenu: React.FC<React.ComponentProps<typeof HeadlessMenu.Items>> = ({ children = null, ...props }) => {
+  return (
+    <HeadlessMenu.Items className={`juno-popupmenu-menu ${menuStyles}`} {...props}>
+      {children}
+    </HeadlessMenu.Items>
+  )
+}
 
 // ITEM COMPONENT
 const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
@@ -189,29 +231,35 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
   icon = null,
   label = "",
   ...props
-}) => (
-  <HeadlessMenu.Item
-    as="div"
-    disabled={disabled}
-    className={`juno-popupmenu-item ${itemStyles} ${disabled ? disabledItemStyles : actionableItemStyles} ${className}`}
-    {...props}
-  >
-    {/* 
+}) => {
+  // Consume context to get the size to render and the close function:
+  const { menuSize } = usePopupMenuContext()
+  // Determine the appropriate set of styles per size:
+  const itemSizeStyles = menuSize === "small" ? smallItemStyles : normalItemStyles
+  return (
+    <HeadlessMenu.Item
+      as="div"
+      disabled={disabled}
+      className={`juno-popupmenu-item ${itemStyles} ${disabled ? disabledItemStyles : actionableItemStyles} ${itemSizeStyles} ${className}`}
+      {...props}
+    >
+      {/* 
       To render the item content, provide an itemBag context to the headless ui API. This includes properties like active, disabled, close. 
       Then, if label is a string, render it. Otherwise, if children is a function, invoke it with itemBag; otherwise render children straightaway:
     */}
-    {(itemBag) => (
-      <span>
-        {icon && <Icon icon={icon} size="18" className={`juno-popupmenu-item-icon ${itemIconStyles}`} />}
-        {typeof label === "string"
-          ? label
-          : typeof children === "function"
-            ? children(itemBag) // Pass the itemBag to the render prop function
-            : children}
-      </span>
-    )}
-  </HeadlessMenu.Item>
-)
+      {(itemBag) => (
+        <span>
+          {icon && <Icon icon={icon} size="18" className={`juno-popupmenu-item-icon ${itemIconStyles}`} />}
+          {typeof label === "string"
+            ? label
+            : typeof children === "function"
+              ? children(itemBag) // Pass the itemBag to the render prop function
+              : children}
+        </span>
+      )}
+    </HeadlessMenu.Item>
+  )
+}
 
 // POPUPMENU SECTION COMPONENT
 const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children = null, className = "", title = "" }) => {

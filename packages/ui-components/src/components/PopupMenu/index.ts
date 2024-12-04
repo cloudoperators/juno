@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { PopupMenu } from "./PopupMenu.component"
+export { PopupMenu, usePopupMenuContext } from "./PopupMenu.component"
