@@ -5,7 +5,7 @@
 
 /* eslint-disable react/prop-types */
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
@@ -57,6 +57,8 @@ const itemIconStyles = `
 export interface PopupMenuProps {
   children?: React.ReactNode
   icon?: keyof typeof KnownIconsEnum
+  onClose?: () => void
+  onOpen?: () => void
 }
 
 export interface PopupMenuToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -77,7 +79,6 @@ export interface PopupMenuItemProps extends React.ComponentProps<typeof Headless
 
 // TODO:
 // - use headless-ui's `open` render prop to allow for styling the open toggle explicitly? Can this be exposed so custom components can use it, too?
-// - implement onOpen, onClose using headless ui render props
 // - implement small and normal sizes
 // - implement PopupMenu.Section
 // - Positioning
@@ -87,8 +88,20 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Toggle: React.FC<PopupMenuToggleProps>
   Menu: typeof PopupMenuMenu
   Item: React.FC<PopupMenuItemProps>
-} = ({ children = null, icon = "moreVert" }) => {
-  // Ensure we always have an array of children:
+} = ({ children = null, icon = "moreVert", onClose = undefined, onOpen = undefined }) => {
+  // Create a state to track headless-ui's internal open state:
+  const [isOpen, setIsOpen] = useState(false)
+
+  // Run handlers when our tracking state changes based on changes of the internal headless state:
+  useEffect(() => {
+    if (isOpen) {
+      onOpen?.()
+    } else {
+      onClose?.()
+    }
+  }, [isOpen, onOpen, onClose])
+
+  // Ensure we always have an array of children, even if no or only a single child were passed:
   const childrenArray = React.Children.toArray(children)
 
   const hasToggle = childrenArray.some((child) => React.isValidElement(child) && child.type === PopupMenuToggle)
@@ -97,20 +110,32 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 
   return (
     <HeadlessMenu as="div" className={`juno-popupmenu`}>
-      {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
-      {!hasToggle && (
-        <PopupMenu.Toggle className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${defaultToggleStyles}`}>
-          <Icon icon={icon} />
-        </PopupMenu.Toggle>
-      )}
-
-      {/* Render toggle children as passed. TODO: make sure there is only one toggle */}
-      {childrenArray.map((child) => {
-        if (React.isValidElement(child) && child.type === PopupMenuToggle) {
-          return child
+      {/* Update our open state when the open render prop from headless ui menu changes, so we can run the handlers when our tracking state changes: */}
+      {({ open }) => {
+        if (open !== isOpen) {
+          setIsOpen(open)
         }
-      })}
-      <PortalProvider.Portal>{menu}</PortalProvider.Portal>
+        return (
+          <>
+            {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
+            {!hasToggle && (
+              <PopupMenu.Toggle
+                className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${defaultToggleStyles}`}
+              >
+                <Icon icon={icon} />
+              </PopupMenu.Toggle>
+            )}
+
+            {/* Render toggle children as passed. TODO: make sure there is only one toggle */}
+            {childrenArray.map((child) => {
+              if (React.isValidElement(child) && child.type === PopupMenuToggle) {
+                return child
+              }
+            })}
+            <PortalProvider.Portal>{menu}</PortalProvider.Portal>
+          </>
+        )
+      }}
     </HeadlessMenu>
   )
 }
