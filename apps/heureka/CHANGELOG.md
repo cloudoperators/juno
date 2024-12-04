@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.11.2
+
+### Patch Changes
+
+- 975a7d9: Updates service details query
+
+## 2.11.1
+
+### Patch Changes
+
+- 2d8da8a: This updates services query based on some minor API changes
+
 ## 2.11.0
 
 ### Minor Changes

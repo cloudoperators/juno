@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-carbon
 
+## 1.0.2
+
+### Patch Changes
+
+- 73b6e94: Delete and update dependencies
+
 ## 1.0.1
 
 ### Patch Changes
