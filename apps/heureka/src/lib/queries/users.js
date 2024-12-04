@@ -10,8 +10,8 @@ import { gql } from "graphql-request"
 // like prettier formatting and IDE syntax highlighting.
 // You can use gql from graphql-tag if you need it for some reason too.
 export default () => gql`
-  query ($filter: UserFilter, $first: Int, $after: String) {
-    Users(filter: $filter, first: $first, after: $after) {
+  query ($filter: UserFilter, $after: String) {
+    Users(filter: $filter, first: 100, after: $after) {
       __typename
       totalCount
       edges {

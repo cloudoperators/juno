@@ -26,7 +26,8 @@ interface UseEndlessScrollListOptions {
   showRef?: boolean
   refFunction?: RefFunction
 }
-type RefFunction = (node: Element) => void
+
+type RefFunction = (node: Element) => undefined
 type Timeout = ReturnType<typeof setTimeout>
 export const useEndlessScrollList = (items: unknown[], options: UseEndlessScrollListOptions = {}) => {
   const [visibleAmount, setVisibleAmount] = useState(20)
@@ -66,7 +67,7 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
           }, options?.delay || 500)
         }
       })
-      if (node) return observer.current.observe(node)
+      if (node) observer.current.observe(node)
     },
     [items, isAddingItems]
   )
@@ -75,23 +76,23 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
       map: (elements: (value: unknown, index: number, array: unknown[]) => React.JSX.Element) => {
         const content = scrollListItems?.map<React.JSX.Element>(elements)
         return (
-          <>
+          <React.Fragment>
             {content}
             {isAddingItems && options?.showLoading !== false && (
-              <>
+              <React.Fragment>
                 {options?.loadingObject ? options.loadingObject : <span id="endlessScrollListLoading">Loading...</span>}
-              </>
+              </React.Fragment>
             )}
             {options?.showRef !== false && (
-              <>
+              <React.Fragment>
                 {options?.refFunction ? (
-                  options.refFunction(lastLisItemRef as unknown as Element)
+                  (options.refFunction(lastLisItemRef as unknown as Element) ?? null)
                 ) : (
                   <span id="endlessScrollListLastItemRef" ref={lastLisItemRef as LegacyRef<HTMLSpanElement>} />
                 )}
-              </>
+              </React.Fragment>
             )}
-          </>
+          </React.Fragment>
         )
       },
     }

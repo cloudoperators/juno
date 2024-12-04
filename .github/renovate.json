@@ -16,7 +16,7 @@
       "groupName": "dependencies for ui-components",
       "matchDatasources": ["npm"],
       "matchFileNames": ["packages/ui-components/**"],
-      "matchUpdateTypes": ["patch"],
+      "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "7 days",
       "schedule": "every weekend"
     }

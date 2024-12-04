@@ -39,10 +39,10 @@ const ComponentInstancesList = ({ serviceCcrn }) => {
 
   return (
     <>
-      <ContentHeading className="mt-8 mb-2" heading="Component Instances" />
+      <ContentHeading className="mt-8 mb-2" heading="Pods" />
       <DataGrid columns={4}>
         <DataGridRow>
-          <DataGridHeadCell>Component</DataGridHeadCell>
+          <DataGridHeadCell>Name</DataGridHeadCell>
           <DataGridHeadCell>Version</DataGridHeadCell>
           <DataGridHeadCell>Total Number of Issues</DataGridHeadCell>
           <DataGridHeadCell>Highest Severity</DataGridHeadCell>
