@@ -98,12 +98,11 @@ export interface PopupMenuSectionProps {
 // POPUP MENU
 
 // TODO:
-// - use headless-ui's `open` render prop to allow for styling the open toggle explicitly? Can this be exposed so custom components can use it, too?
+// - position the menu
+// - expose open state to users to use in styling their custom toggle
 // - implement small and normal sizes
-// - implement PopupMenu.Section
-// - Positioning
 
-/** A simple Popup Menu component that wraps Headless UI Menu */
+/** A Popup Menu component that wraps Headless UI Menu */
 const PopupMenu: React.FC<PopupMenuProps> & {
   Toggle: React.FC<PopupMenuToggleProps>
   Menu: typeof PopupMenuMenu
@@ -113,7 +112,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   // Create a state to track headless-ui's internal open state:
   const [isOpen, setIsOpen] = useState(false)
 
-  // Run handlers when our tracking state changes based on changes of the internal headless state:
+  // Run handlers when our tracking state changes based on changes of the internal headless state, or when the handlers themselves change:
   useEffect(() => {
     if (isOpen) {
       onOpen?.()
@@ -125,8 +124,10 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   // Ensure we always have an array of children, even if no or only a single child were passed:
   const childrenArray = React.Children.toArray(children)
 
+  // Test whether a PopupMenu.Toggle child was passed:
   const hasToggle = childrenArray.some((child) => React.isValidElement(child) && child.type === PopupMenuToggle)
 
+  // Test whether a PopupMenu.Menu child was passed:
   const menu = childrenArray.find((child) => React.isValidElement(child) && child.type === PopupMenuMenu)
 
   return (
