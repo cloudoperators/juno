@@ -25,8 +25,16 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toBeDisabled()
   })
-  // renders a custom className to the parent element
-  // renders all props to the parent element
+  test("renders a custom className to the parent element", () => {
+    render(<PopupMenu data-testid="popupmenu" className="my-custom-class" />)
+    expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
+    expect(screen.getByTestId("popupmenu")).toHaveClass("my-custom-class")
+  })
+  test("renders all props to the parent element", () => {
+    render(<PopupMenu data-testid="popupmenu" data-lolol="1234" />)
+    expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
+    expect(screen.getByTestId("popupmenu")).toHaveAttribute("data-lolol", "1234")
+  })
   // renders a toggle with a custom className as passed
   // renders a menu as passed
   // renders a menu with a custom className as passed
@@ -37,6 +45,8 @@ describe("PopupMenu", () => {
   // renders all menu items as passed
   // renders a disabled menu item as passed
   // renders a menu item with an icon as passed
+  // renders only one toggle in case multiple toggles are passed
+  // renders only one menu in case multiple menus are passed
   // when both icon and a toggle subcomponent are passed, expect toggle subcomponent to be rendered (and icon ingnored)
   // renders a functional toggle with only text as child
   // renders a functional toggle with a custom component passed as 'as'
