@@ -6,7 +6,6 @@
 import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { useGlobalsEndpoint, useGlobalsActions } from "../components/StoreProvider"
-import { fetchProxy as fetch } from "@cloudoperators/juno-utils"
 
 class HTTPError extends Error {
   constructor(code, message) {
@@ -38,7 +37,7 @@ const checkStatus = (response) => {
 }
 
 // hook to register query defaults that depends on the queryClient and options
-const useQueryClientFn = (mockAPI) => {
+const useQueryClientFn = () => {
   const queryClient = useQueryClient()
   const endpoint = useGlobalsEndpoint()
   const { setQueryClientFnReady } = useGlobalsActions()
@@ -61,7 +60,6 @@ const useQueryClientFn = (mockAPI) => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          ...{ mock: mockAPI },
         })
           .then(checkStatus)
           .then((response) => {
@@ -89,7 +87,6 @@ const useQueryClientFn = (mockAPI) => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          ...{ mock: mockAPI },
           body: sendBody,
         })
           .then(checkStatus)
@@ -109,7 +106,6 @@ const useQueryClientFn = (mockAPI) => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          ...{ mock: mockAPI },
           body: sendBody,
         })
           .then(checkStatus)
@@ -127,7 +123,6 @@ const useQueryClientFn = (mockAPI) => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          ...{ mock: mockAPI },
         })
           .then(checkStatus)
           .then((response) => {
@@ -138,7 +133,7 @@ const useQueryClientFn = (mockAPI) => {
 
     // set queryClientFnReady to true once
     setQueryClientFnReady(true)
-  }, [queryClient, endpoint, mockAPI, setQueryClientFnReady])
+  }, [queryClient, endpoint, setQueryClientFnReady])
 }
 
 export default useQueryClientFn
