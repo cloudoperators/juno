@@ -4,14 +4,13 @@
  */
 
 import React, { useEffect, useState } from "react"
-import PropTypes from "prop-types"
 import { StyleProvider } from "../../deprecated_js/StyleProvider/StyleProvider.component"
 import { getCurrentThemeMode } from "../../../.storybook/juno-addon/themes"
 import { addons } from "@storybook/preview-api"
 
 // allows to implement themed components in the storybook
 // component adjusts to the selected theme and enables tailwind classes.
-export function JunoComponentWrapper(props) {
+export function JunoComponentWrapper(props :JunoComponentWrapperProps) {
   // returns nothing if there is no child
   if (!props.children) {
     return
@@ -20,7 +19,7 @@ export function JunoComponentWrapper(props) {
   const [parentTheme, setParentTheme] = useState("theme-" + getCurrentThemeMode())
 
   useEffect(() => {
-    const updateThemeClass = (mode) => {
+    const updateThemeClass = (mode :string) => {
       setParentTheme("theme-" + mode)
     }
     const channel = addons.getChannel()
@@ -41,6 +40,6 @@ export function JunoComponentWrapper(props) {
   )
 }
 
-JunoComponentWrapper.propTypes = {
-  children: PropTypes.any,
+interface JunoComponentWrapperProps {
+  children?: React.ReactNode
 }

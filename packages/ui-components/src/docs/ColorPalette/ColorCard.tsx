@@ -4,13 +4,12 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
 // Shows a color from a tailwind class props.colorClass and the name the color given through props.colorName
 // Optional: A prefix like "theme-" can be used (props.prefix)
 // The Card is used by ColorPalette.jsx
 
-export function ColorCard(props) {
+export function ColorCard(props :ColorCardProps) {
   if (!props.colorName || !props.colorClass) {
     console.warn("ColorCard has no color name")
     return (
@@ -41,8 +40,8 @@ export function ColorCard(props) {
 }
 
 // define available props
-ColorCard.propTypes = {
-  colorName: PropTypes.string.isRequired,
-  colorClass: PropTypes.string.isRequired,
-  prefix: PropTypes.string,
+interface ColorCardProps {
+  colorName: string
+  colorClass: string
+  prefix: string
 }
