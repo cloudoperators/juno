@@ -25,6 +25,7 @@ on:
       - "apps/doop/**"
       - "apps/carbon/**"
       - "apps/greenhouse/**"
+      - "apps/example/**"
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
