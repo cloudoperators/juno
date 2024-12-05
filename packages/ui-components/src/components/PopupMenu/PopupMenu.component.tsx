@@ -174,7 +174,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   onOpen = undefined,
   ...props
 }) => {
-  // Create a state to track headless-ui's internal open state:
+  // Create a state to track headless-ui's internal open state (Note that we can track the internal state and can let headless ui update our tracking state, but we can not set it, hence there is no `open` prop on our component):
   const [isOpen, setIsOpen] = useState(false)
   const previousOpenRef = useRef(isOpen) // Track the previous value of isOpen for efficiency
 
@@ -203,7 +203,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
     <HeadlessMenu as="div" className={`juno-popupmenu ${className}`} {...props}>
       {/* Update our open state when the open render prop from headless ui menu changes, so we can run the handlers when our tracking state changes: */}
       {({ open, close }) => {
-        // Set the open state outside of render
+        // Set our tracking open state outside of rendering cycle. Trying to set the state during render will cause an error:
         useEffect(() => {
           if (open !== isOpen) {
             setIsOpen(open)
@@ -211,6 +211,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
         }, [open])
 
         return (
+          // * Expose our context:
           <PopupMenuContext.Provider value={{ isOpen, close, menuSize }}>
             {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
             {!hasToggle && (
