@@ -1,14 +1,14 @@
-import * as React from "react"
+import React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { describe, expect, test, vi } from "vitest"
+import { describe, expect, test, beforeEach, afterEach, vi } from "vitest"
 
 import { ThemeToggle } from "./ThemeToggle.component"
 
 const mockOnToggleTheme = vi.fn()
 
 describe("ThemeToggle", () => {
-  let consoleWarnSpy
+  let consoleWarnSpy: ReturnType<typeof vi.spyOn>
 
   // Set up console.warn spy
   beforeEach(() => {
@@ -18,6 +18,7 @@ describe("ThemeToggle", () => {
   // Restore console.warn after each test
   afterEach(() => {
     consoleWarnSpy.mockRestore()
+    mockOnToggleTheme.mockClear()
   })
 
   test("render a ThemeToggle", () => {
@@ -51,11 +52,13 @@ describe("ThemeToggle", () => {
     )
   })
 
-  test("executes an onToggle handler when the user toggles the theme", () => {
+  test("executes an onToggle handler when the user toggles the theme", async () => {
     render(<ThemeToggle onToggleTheme={mockOnToggleTheme} />)
     const user = userEvent.setup()
     const toggleButton = screen.getByRole("button")
-    user.click(toggleButton)
+
+    await user.click(toggleButton)
+
     await waitFor(() => {
       expect(mockOnToggleTheme).toHaveBeenCalled()
     })

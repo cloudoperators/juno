@@ -4,7 +4,6 @@ import { ThemeToggle } from "./index"
 export default {
   title: "WIP/ThemeToggle",
   component: ThemeToggle,
-
   argTypes: {},
   // // Comment out decorator for now, as all StyleProviders read and write to the same key "juno-theme" in localStorage:
   // decorators: [

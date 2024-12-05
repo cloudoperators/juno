@@ -23,24 +23,34 @@ const toggleStyles = `
   active:jn-bg-theme-background-lvl-4
 `
 
-interface ThemeToggleProps {
-  /** Pass a custom className */
+export interface ThemeToggleProps {
+  /**
+   * Additional CSS classes for custom styling.
+   */
   className?: string
-  /** Whether the ThemeToggle is disabled */
+  /**
+   * If true, the ThemeToggle will be disabled and not respond to user input.
+   */
   disabled?: boolean
-  /** Optional of the ThemeToggle */
+  /**
+   * HTML id attribute for the ThemeToggle.
+   */
   id?: string
-  /** Optional name attribute of the ThemeToggle */
+  /**
+   * HTML name attribute for the ThemeToggle.
+   */
   name?: string
-  /** Handler to execute when the theme is toggled */
+  /**
+   * Callback function that is called when the theme is toggled.
+   */
   // eslint-disable-next-line no-unused-vars
-  onToggleTheme?: (...args: unknown[]) => unknown
+  onToggleTheme?: (...args: unknown[]) => void
 }
 
-/** 
-A Toggle button to toggle Light and Dark UI Themes.
-Requires a StyleProvider context, which is automatically provided by the Juno AppShell.
-If you are not using AppShell, include  a StyleProvider manually.
+/**
+ * ThemeToggle is a button component that toggles between Light and Dark UI Themes.
+ * This component requires a StyleProvider context to function, which is automatically provided by the Juno AppShell.
+ * If not using the AppShell, include a StyleProvider manually.
  */
 export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   className = "",
@@ -61,7 +71,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   }
 
   // Destructure the context, fallback
-  const { currentTheme: currentTheme, setThemeClass: setThemeClass } = ThemeContext || {}
+  const { currentTheme, setThemeClass } = ThemeContext || {}
 
   const toggleTheme = () => {
     const newTheme = currentTheme === "theme-dark" ? "theme-light" : "theme-dark"
