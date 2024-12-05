@@ -6,7 +6,7 @@
 import React from "react"
 import Loading from "./loading-indicator.svg"
 
-export interface LoadingIndicatorProps {
+export interface LoadingIndicatorProps extends React.SVGAttributes<SVGElement> {
   /**
    * The size of the LoadingIndicator in pixels.
    * Must be a positive number value.

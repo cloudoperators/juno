@@ -38,7 +38,7 @@ export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
 
 DataGridRow.displayName = "DataGridRow"
 
-export interface DataGridRowProps {
+export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
   // /** Whether the row / item is selected (only relevant in a `selectable` DataGrid */
   // selected: PropTypes.bool,
   // /** Whether the row/item is disabled (only relevant in a `selectable` DataGrid */

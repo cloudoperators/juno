@@ -19,7 +19,7 @@ const boxPadding = `
   jn-px-2
 `
 
-export interface BoxProps {
+export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Child elements to be rendered inside the Box.
    */

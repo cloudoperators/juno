@@ -37,7 +37,7 @@ interface NavigationMappingItem {
 }
 
 /** A generic Navigation component providing all the necessary functionality for a navigation. For internal use only. Not to be used directly, but to be wrapped by more role-specific / semantic navigation components such as `TabNavigation`, `TopNavigation`, `SideNavigation`. */
-export const Navigation = ({
+export const Navigation: React.FC<NavigationProps> = ({
   activeItem = "",
   ariaLabel = "",
   children = null,
@@ -46,7 +46,7 @@ export const Navigation = ({
   onActiveItemChange,
   // onChange,
   ...props
-}: NavigationProps) => {
+}) => {
   const [activeItm, setActiveItm] = useState<ItemKeyType | undefined>("")
   const [items, setItems] = useState(new Map<ItemKeyType, NavigationMappingItem>())
 
@@ -131,7 +131,7 @@ export const Navigation = ({
 
 // TODO: validate whether children are instances of NavigationItem
 
-export interface NavigationProps {
+export interface NavigationProps extends React.HTMLAttributes<HTMLUListElement> {
   /** The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem. */
   activeItem?: string
   /** The aria label of the navigation */

@@ -17,7 +17,7 @@ A generic horizontal top level navigation component. To be placed below the appl
 Place `TopNavigationItem` elements as children.
 */
 
-export const TopNavigation = ({
+export const TopNavigation: React.FC<TopNavigationProps> = ({
   activeItem = "",
   ariaLabel,
   children = null,
@@ -25,7 +25,7 @@ export const TopNavigation = ({
   disabled = false,
   onActiveItemChange,
   ...props
-}: TopNavigationProps) => {
+}) => {
   return (
     <Navigation
       activeItem={activeItem}
@@ -45,7 +45,7 @@ type ItemKeyType = string | React.ReactNode
 // eslint-disable-next-line no-unused-vars
 type ActiveItemChangeHandler = (value: ItemKeyType) => void
 
-export interface TopNavigationProps {
+export interface TopNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The active navigation item by label */
   activeItem?: string
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */

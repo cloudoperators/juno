@@ -63,7 +63,7 @@ const messageVariantStyles = {
 
 export type MessageVariantType = "info" | "warning" | "danger" | "error" | "success"
 
-export interface MessageProps {
+export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Pass an optional title.
    */
@@ -112,11 +112,6 @@ export interface MessageProps {
    * Takes precedence over the text property.
    */
   children?: React.ReactNode
-
-  /**
-   * Additional arbitrary props.
-   */
-  [key: string]: any
 }
 
 const getBackgroundStyle = (variant: MessageVariantType): string => {

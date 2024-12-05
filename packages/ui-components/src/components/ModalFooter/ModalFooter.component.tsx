@@ -29,7 +29,7 @@ Can be passed a confirmButtonLabel and cancelButton label with corresponding onC
 Can alternatively render all custom children as passed.
 */
 
-export const ModalFooter = ({
+export const ModalFooter: React.FC<ModalFooterProps> = ({
   children = null,
   confirmButtonLabel = "",
   cancelButtonLabel = "",
@@ -39,7 +39,7 @@ export const ModalFooter = ({
   onCancel,
   className = "",
   ...props
-}: ModalFooterProps) => {
+}) => {
   const handleConfirmClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
     onConfirm && onConfirm(event)
   }
@@ -84,7 +84,7 @@ export const ModalFooter = ({
   )
 }
 
-export type ModalFooterProps = {
+export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
   /** Custom children to render. Anything goes. */
   children?: React.ReactNode
   /** The label for the Confirm-button. When passed, the component will render a Confirm button and a cancel button, otherwise the component will ONLY render a Close-Button. */
@@ -101,4 +101,4 @@ export type ModalFooterProps = {
   onConfirm?: React.MouseEventHandler<EventTarget> | null
   /** Handler to execute once the cancelling button is clicked */
   onCancel?: React.MouseEventHandler<EventTarget> | null
-} & React.HTMLProps<HTMLDivElement>
+}

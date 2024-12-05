@@ -15,7 +15,7 @@ import { HeaderContainer } from "../HeaderContainer/index"
 /**
  * Body of the app. Treat this like the body tag of an html page.
  */
-export const AppShell = ({
+export const AppShell: React.FC<AppShellProps> = ({
   children,
   className = "",
   contentHeading = "",
@@ -26,7 +26,7 @@ export const AppShell = ({
   sideNavigation,
   topNavigation,
   ...props
-}: AppShellProps) => {
+}) => {
   // Determine whether to pass set fullWidth to true in embedded mode or not:
   // In non-embedded mode, fullWidthContent should default to false, unless explicitly set to true.
   // In embedded mode though, fullWidthContent should default to true, unless explicitly passed as false.
@@ -91,7 +91,7 @@ export const AppShell = ({
   )
 }
 
-export interface AppShellProps {
+export interface AppShellProps extends React.HTMLAttributes<HTMLElement> {
   /** The main content of the app. */
   children?: React.ReactNode
   /** Pass either the `<PageHeader>` component or if you don't need to add any content to the page header pass a string to be used as the app name in the standard page header. */

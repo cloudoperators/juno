@@ -198,7 +198,8 @@ Button.displayName = "Button"
 type ButtonVariant = "primary" | "primary-danger" | "default" | "subdued"
 type ButtonSize = "small" | "default"
 
-export type ButtonProps = {
+export interface ButtonProps
+  extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
   children?: React.ReactNode
   /** Choose a variant for your purpose. May leave empty to get default button. */
   variant?: ButtonVariant
@@ -222,4 +223,4 @@ export type ButtonProps = {
   progress?: boolean
   /** Display an alternative label while the button action is in progress */
   progressLabel?: string
-} & Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size">
+}
