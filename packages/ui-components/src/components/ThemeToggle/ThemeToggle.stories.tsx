@@ -1,4 +1,4 @@
-import { ThemeToggle } from "./index"
+import { ThemeToggle } from "./ThemeToggle.component"
 //import { StyleProvider } from "../StyleProvider/index"
 
 export default {
