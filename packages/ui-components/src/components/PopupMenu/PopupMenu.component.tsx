@@ -152,8 +152,8 @@ export { PopupMenuContext }
 // POPUP MENU
 
 // TODO:
-// - add classname prop to render, render to parent div (document that the menu and its contents will be rendered into a portal, and therefore not be stylable via the parent element)
-// - extend all headless ui menu element props?
+// - document that the menu and its contents will be rendered into a portal, and therefore not be stylable via the parent element
+// - extend item to run handlers as passed, implement logic to render button or a elements as in the old menu
 // - add tests
 // - position the menu
 
