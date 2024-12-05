@@ -10,7 +10,7 @@ import { addons } from "@storybook/preview-api"
 
 // allows to implement themed components in the storybook
 // component adjusts to the selected theme and enables tailwind classes.
-export function JunoComponentWrapper(props :JunoComponentWrapperProps) {
+export function JunoComponentWrapper(props: JunoComponentWrapperProps) {
   // returns nothing if there is no child
   if (!props.children) {
     return
@@ -19,7 +19,7 @@ export function JunoComponentWrapper(props :JunoComponentWrapperProps) {
   const [parentTheme, setParentTheme] = useState("theme-" + getCurrentThemeMode())
 
   useEffect(() => {
-    const updateThemeClass = (mode :string) => {
+    const updateThemeClass = (mode: string) => {
       setParentTheme("theme-" + mode)
     }
     const channel = addons.getChannel()

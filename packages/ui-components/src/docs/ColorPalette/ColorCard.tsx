@@ -9,7 +9,7 @@ import React from "react"
 // Optional: A prefix like "theme-" can be used (props.prefix)
 // The Card is used by ColorPalette.jsx
 
-export function ColorCard(props :ColorCardProps) {
+export function ColorCard(props: ColorCardProps) {
   if (!props.colorName || !props.colorClass) {
     console.warn("ColorCard has no color name")
     return (
@@ -43,5 +43,5 @@ export function ColorCard(props :ColorCardProps) {
 interface ColorCardProps {
   colorName: string
   colorClass: string
-  prefix: string
+  prefix?: string
 }

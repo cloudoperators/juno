@@ -7,7 +7,7 @@ import React from "react"
 
 // Shows a color and a name, given through props.colorName
 // The Card is used by ColorPalette.jsx
-export function TextColorCard(props :TextColorCardProps) {
+export function TextColorCard(props: TextColorCardProps) {
   if (!props.colorName) {
     console.warn("ColorCard has no color name")
     return (
