@@ -15,7 +15,16 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ErrorBoundary } from "react-error-boundary"
 import useUrlState from "./hooks/useUrlState"
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchInterval: 5 * 60 * 1000, // 5 minutes
+    },
+    mutations: {
+      // Add mutation defaults if needed
+    },
+  },
+})
 
 function App(props = {}) {
   useUrlState()

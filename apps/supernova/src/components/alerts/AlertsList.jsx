@@ -14,26 +14,18 @@ import {
   Spinner,
 } from "@cloudoperators/juno-ui-components"
 import Alert from "./Alert"
-import { useAlertsItemsFiltered, useAlertsActions, useGlobalsApiEndpoint } from "../StoreProvider"
-import { useQuery } from "@tanstack/react-query"
-
-import { fetchAlerts } from "../../workers/alerts"
+import { useAlertsItemsFiltered, useAlertsActions } from "../StoreProvider"
+import { useBoundQuery } from "../../hooks/useBoundQuery"
 
 const AlertsList = () => {
   const [visibleAmount, setVisibleAmount] = useState(20)
   const [isAddingItems, setIsAddingItems] = useState(false)
   const timeoutRef = React.useRef(null)
-  const endpoint = useGlobalsApiEndpoint()
 
   const itemsFiltered = useAlertsItemsFiltered()
   const { setAlertsData, setError, setIsLoading } = useAlertsActions()
 
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["alerts", endpoint], // Pass the query key as part of the object
-    queryFn: () => fetchAlerts(endpoint), // Pass the query function
-    enabled: !!endpoint, // Add any other options here
-    refetchInterval: 5 * 60 * 1000, // 5 Min
-  })
+  const { data, error, isLoading } = useBoundQuery("alerts")
 
   useEffect(() => {
     if (data) {

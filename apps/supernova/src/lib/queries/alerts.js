@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { sortAlerts, countAlerts } from "../lib/utils"
+import { sortAlerts, countAlerts } from "../utils"
 let compareAlertString
 
 export const fetchAlerts = async (endpoint) => {

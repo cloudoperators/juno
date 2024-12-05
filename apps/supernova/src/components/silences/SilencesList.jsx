@@ -24,11 +24,9 @@ import {
   useSilencesRegEx,
   useSilencesStatus,
   useSilencesLocalItems,
-  useGlobalsApiEndpoint,
 } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
-import { useQuery } from "@tanstack/react-query"
-import { fetchSilences } from "../../workers/silences"
+import { useBoundQuery } from "../../hooks/useBoundQuery"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -43,7 +41,6 @@ const SilencesList = () => {
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
   const localSilences = useSilencesLocalItems()
-  const endpoint = useGlobalsApiEndpoint()
   const {
     setSilences,
     setIsUpdating: setSilencesIsUpdating,
@@ -52,12 +49,7 @@ const SilencesList = () => {
     setSilencesRegEx,
   } = useSilencesActions()
 
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["silences", endpoint], // Pass the query key as part of the object
-    queryFn: () => fetchSilences(endpoint), // Pass the query function
-    enabled: !!endpoint, // Add any other options here
-    refetchInterval: 5 * 60 * 1000, // 5 Min
-  })
+  const { data, error, isLoading } = useBoundQuery("silences")
 
   useEffect(() => {
     if (data) {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { sortSilencesByState } from "../lib/utils"
+import { sortSilencesByState } from "../utils"
 
 export const fetchSilences = async (endpoint) => {
   try {
