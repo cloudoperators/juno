@@ -25,6 +25,8 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toBeDisabled()
   })
+  // renders a custom className to the parent element
+  // renders all props to the parent element
   // renders a toggle with a custom className as passed
   // renders a menu as passed
   // renders a menu with a custom className as passed
@@ -44,4 +46,5 @@ describe("PopupMenu", () => {
   // runs an onClose handler as passed
   // preserves and runs custom handlers on a toggle passed as 'as'
   // preserves and runs custom handlers on a toggle passed as a child to the toggle subcomponent
+  // runs all handlers of an item when clicked/selected
 })

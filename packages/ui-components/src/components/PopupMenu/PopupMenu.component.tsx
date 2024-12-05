@@ -91,8 +91,9 @@ export interface PopupMenuContextType {
   menuSize: "normal" | "small"
 }
 
-export interface PopupMenuProps {
+export interface PopupMenuProps extends React.ComponentProps<typeof HeadlessMenu> {
   children?: React.ReactNode
+  className?: string
   disabled?: boolean
   icon?: keyof typeof KnownIconsEnum
   menuSize?: "normal" | "small"
@@ -100,10 +101,17 @@ export interface PopupMenuProps {
   onOpen?: () => void
 }
 
-export interface PopupMenuToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  as?: React.ElementType
+export interface PopupMenuToggleProps extends React.ComponentProps<typeof HeadlessMenu.Button> {
   className?: string
-  disabled?: boolean
+}
+
+// Extract props directly from React.ElementType as it is a dynamically typed component that cannot be extended with React.ComponentPropsWithRef:
+type HeadlessMenuItemsProps = React.ComponentPropsWithRef<React.ElementType>
+// Extend the extracted props instead:
+export interface PopupMenuMenuProps extends HeadlessMenuItemsProps {
+  className?: string
+  children?: React.ReactNode
+  key?: React.Key
 }
 
 export interface PopupMenuItemProps extends React.ComponentProps<typeof HeadlessMenu.Item> {
@@ -144,6 +152,8 @@ export { PopupMenuContext }
 // POPUP MENU
 
 // TODO:
+// - add classname prop to render, render to parent div (document that the menu and its contents will be rendered into a portal, and therefore not be stylable via the parent element)
+// - extend all headless ui menu element props?
 // - add tests
 // - position the menu
 
@@ -155,11 +165,13 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Section: React.FC<PopupMenuSectionProps>
 } = ({
   children = null,
+  className = "",
   disabled = false,
   icon = "moreVert",
   menuSize = "normal",
   onClose = undefined,
   onOpen = undefined,
+  ...props
 }) => {
   // Create a state to track headless-ui's internal open state:
   const [isOpen, setIsOpen] = useState(false)
@@ -187,7 +199,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   const menu = childrenArray.find((child) => React.isValidElement(child) && child.type === PopupMenuMenu)
 
   return (
-    <HeadlessMenu as="div" className={`juno-popupmenu`}>
+    <HeadlessMenu as="div" className={`juno-popupmenu ${className}`} {...props}>
       {/* Update our open state when the open render prop from headless ui menu changes, so we can run the handlers when our tracking state changes: */}
       {({ open, close }) => {
         // Set the open state outside of render
@@ -224,7 +236,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 }
 
 // TOGGLE COMPONENT
-const PopupMenuToggle: React.FC<PopupMenuToggleProps & { as?: React.ElementType }> = ({
+const PopupMenuToggle: React.FC<PopupMenuToggleProps> = ({
   as = "button",
   disabled = false,
   children = null,
@@ -242,7 +254,7 @@ const PopupMenuToggle: React.FC<PopupMenuToggleProps & { as?: React.ElementType 
 )
 
 // MENU COMPONENT
-const PopupMenuMenu: React.FC<React.ComponentProps<typeof HeadlessMenu.Items>> = ({ children = null, ...props }) => {
+const PopupMenuMenu: React.FC<PopupMenuMenuProps> = ({ children = null, ...props }) => {
   return (
     <HeadlessMenu.Items className={`juno-popupmenu-menu ${menuStyles}`} {...props}>
       {children}
