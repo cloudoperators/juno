@@ -154,6 +154,7 @@ export { PopupMenuContext }
 // TODO:
 // - document that the menu and its contents will be rendered into a portal, and therefore not be stylable via the parent element
 // - extend item to run handlers as passed, implement logic to render button or a elements as in the old menu
+// - make sure only one toggle and menu each are being considered and rendered
 // - add tests
 // - position the menu
 
@@ -221,12 +222,13 @@ const PopupMenu: React.FC<PopupMenuProps> & {
               </PopupMenu.Toggle>
             )}
 
-            {/* Render toggle children as passed. TODO: make sure there is only one toggle */}
+            {/* Render toggle children as passed: */}
             {childrenArray.map((child) => {
               if (React.isValidElement(child) && child.type === PopupMenuToggle) {
                 return child
               }
             })}
+            {/* Render the menu in our portal: */}
             <PortalProvider.Portal>{menu}</PortalProvider.Portal>
           </PopupMenuContext.Provider>
         )
