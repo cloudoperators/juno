@@ -27,6 +27,9 @@ const queryClient = new QueryClient({
 })
 
 function App(props = {}) {
+  // syncs navigation relevat states with the url for deep links
+  // gets the state from the URL in the beginning
+  // sets the URL from state information
   useUrlState()
   const preErrorClasses = `
     custom-error-pre
