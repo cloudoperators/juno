@@ -20,7 +20,11 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("img")).toHaveAttribute("alt", "warning")
   })
-  // renders a disabled toggle as passed
+  test("renders a disabled default toggle as passed", () => {
+    render(<PopupMenu disabled />)
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toBeDisabled()
+  })
   // renders a toggle with a custom className as passed
   // renders a menu as passed
   // renders a menu with a custom className as passed
@@ -35,6 +39,7 @@ describe("PopupMenu", () => {
   // renders a functional toggle with only text as child
   // renders a functional toggle with a custom component passed as 'as'
   // renders a functional toggle with a custom component passed as a child to the toggle subcomponent
+  // renders the toggle as a fragment as passed
   // runs an onOpen handler as passed
   // runs an onClose handler as passed
   // preserves and runs custom handlers on a toggle passed as 'as'

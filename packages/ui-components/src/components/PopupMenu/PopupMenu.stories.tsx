@@ -80,6 +80,20 @@ export const Default = {
   },
 }
 
+export const DisabledDefaultToggle = {
+  parameters: {
+    args: {
+      description: {
+        story: "Disable the default toggle.",
+      },
+    },
+  },
+  args: {
+    ...actions("onOpen", "onClose"),
+    disabled: true,
+  },
+}
+
 export const WithMenuChild = {
   parameters: {
     docs: {
@@ -239,7 +253,7 @@ export const WithCustomButtonComponentAsChild = {
     docs: {
       description: {
         story:
-          "By default, `PopupMenu.Toggle` will render a `<button>` element as a toggle. When passing a custom component as a child, that will itself render a button or an element with button-like behavior, set the `PopupMenu.Toggle`'s `as` prop to `React.Fragment` to prevent rendering a button inside a button, whcih is invalid.",
+          "By default, `PopupMenu.Toggle` will render a `<button>` element as a toggle. When passing a custom component as a child, that will itself render a button or an element with button-like behavior, set the `PopupMenu.Toggle`'s `as` prop to `React.Fragment` to prevent rendering a button inside a button, which is invalid. When using a custom toggle component this way, make sure to forward refs and handle accessibility requirements properly.",
       },
     },
   },

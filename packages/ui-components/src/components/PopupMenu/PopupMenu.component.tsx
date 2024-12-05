@@ -17,6 +17,11 @@ const defaultToggleStyles = `
   active:jn-text-theme-accent
 `
 
+const disabledToggleStyles = `
+  jn-cursor-not-allowed
+  jn-opacity-50
+`
+
 const menuStyles = `
   jn-overflow-hidden
   jn-flex
@@ -88,6 +93,7 @@ export interface PopupMenuContextType {
 
 export interface PopupMenuProps {
   children?: React.ReactNode
+  disabled?: boolean
   icon?: keyof typeof KnownIconsEnum
   menuSize?: "normal" | "small"
   onClose?: () => void
@@ -95,8 +101,9 @@ export interface PopupMenuProps {
 }
 
 export interface PopupMenuToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  className?: string
   as?: React.ElementType
+  className?: string
+  disabled?: boolean
 }
 
 export interface PopupMenuItemProps extends React.ComponentProps<typeof HeadlessMenu.Item> {
@@ -146,7 +153,14 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Menu: typeof PopupMenuMenu
   Item: React.FC<PopupMenuItemProps>
   Section: React.FC<PopupMenuSectionProps>
-} = ({ children = null, icon = "moreVert", menuSize = "normal", onClose = undefined, onOpen = undefined }) => {
+} = ({
+  children = null,
+  disabled = false,
+  icon = "moreVert",
+  menuSize = "normal",
+  onClose = undefined,
+  onOpen = undefined,
+}) => {
   // Create a state to track headless-ui's internal open state:
   const [isOpen, setIsOpen] = useState(false)
   const previousOpenRef = useRef(isOpen) // Track the previous value of isOpen for efficiency
@@ -188,7 +202,8 @@ const PopupMenu: React.FC<PopupMenuProps> & {
             {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
             {!hasToggle && (
               <PopupMenu.Toggle
-                className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${defaultToggleStyles}`}
+                className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${disabled ? disabledToggleStyles : defaultToggleStyles}`}
+                disabled={disabled}
               >
                 <Icon icon={icon} />
               </PopupMenu.Toggle>
@@ -211,11 +226,17 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 // TOGGLE COMPONENT
 const PopupMenuToggle: React.FC<PopupMenuToggleProps & { as?: React.ElementType }> = ({
   as = "button",
+  disabled = false,
   children = null,
   className = "",
   ...props
 }) => (
-  <HeadlessMenu.Button as={as} className={`juno-popupmenu-toggle ${className}`} {...props}>
+  <HeadlessMenu.Button
+    as={as}
+    className={`juno-popupmenu-toggle ${disabled && disabledToggleStyles} ${className}`}
+    disabled={disabled}
+    {...props}
+  >
     {children}
   </HeadlessMenu.Button>
 )
