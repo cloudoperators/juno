@@ -4,9 +4,11 @@
  */
 
 import React, { useEffect, useState } from "react"
-import { StyleProvider } from "../../deprecated_js/StyleProvider/StyleProvider.component"
-import { getCurrentThemeMode } from "../../../.storybook/juno-addon/themes"
+import { StyleProvider } from "../../components/StyleProvider/StyleProvider.component"
 import { addons } from "@storybook/preview-api"
+
+const STORAGE_KEY = "__junoThemeMode"
+const getCurrentThemeMode = () => localStorage.getItem(STORAGE_KEY) || "dark"
 
 // allows to implement themed components in the storybook
 // component adjusts to the selected theme and enables tailwind classes.
