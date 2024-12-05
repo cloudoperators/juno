@@ -59,10 +59,7 @@ export const useAlertsTotalCounts = () => useAppStore((state) => state.alerts.to
 export const useAlertsSeverityCountsPerRegion = () => useAppStore((state) => state.alerts.severityCountsPerRegion)
 export const useAlertsRegions = () => useAppStore((state) => state.alerts.regions)
 export const useAlertsRegionsFiltered = () => useAppStore((state) => state.alerts.regionsFiltered)
-export const useAlertsIsLoading = () => useAppStore((state) => state.alerts.isLoading)
-export const useAlertsIsUpdating = () => useAppStore((state) => state.alerts.isUpdating)
 export const useAlertsUpdatedAt = () => useAppStore((state) => state.alerts.updatedAt)
-export const useAlertsError = () => useAppStore((state) => state.alerts.error)
 export const useAlertEnrichedLabels = () => useAppStore((state) => state.alerts.enrichedLabels)
 
 export const useAlertsActions = () => useAppStore((state) => state.alerts.actions)
@@ -85,7 +82,6 @@ export const useSilencesItemsHash = () => useAppStore((state) => state.silences.
 export const useSilencesExcludedLabels = () => useAppStore((state) => state.silences.excludedLabels)
 export const useSilencesIsUpdating = () => useAppStore((state) => state.silences.isUpdating)
 export const useSilencesUpdatedAt = () => useAppStore((state) => state.silences.updatedAt)
-export const useSilencesError = () => useAppStore((state) => state.silences.error)
 export const useSilencesLocalItems = () => useAppStore((state) => state.silences.localItems)
 export const useShowDetailsForSilence = () => useAppStore((state) => state.silences.showDetailsForSilence)
 export const useSilencesStatus = () => useAppStore((state) => state.silences.status)

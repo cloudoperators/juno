@@ -5,8 +5,9 @@
 
 import React from "react"
 
-import { useAlertsIsLoading, useAlertsRegionsFiltered, useAlertsSeverityCountsPerRegion } from "../StoreProvider"
+import { useAlertsRegionsFiltered, useAlertsSeverityCountsPerRegion } from "../StoreProvider"
 import Region from "./Region"
+import { useBoundQuery } from "../../hooks/useBoundQuery"
 
 const regionsClasses = `
   grid
@@ -17,7 +18,7 @@ const regionsClasses = `
 `
 
 const RegionsList = () => {
-  const isLoading = useAlertsIsLoading()
+  const { isLoading } = useBoundQuery("alerts")
   const severityCountsPerRegion = useAlertsSeverityCountsPerRegion()
   const regions = useAlertsRegionsFiltered()
 
