@@ -1,16 +1,18 @@
 import * as React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { ThemeToggle } from "./index"
+import { describe, expect, test, vi } from "vitest"
 
-const mockOnToggleTheme = jest.fn()
+import { ThemeToggle } from "./ThemeToggle.component"
+
+const mockOnToggleTheme = vi.fn()
 
 describe("ThemeToggle", () => {
   let consoleWarnSpy
 
   // Set up console.warn spy
   beforeEach(() => {
-    consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {})
+    consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
   })
 
   // Restore console.warn after each test
@@ -18,38 +20,38 @@ describe("ThemeToggle", () => {
     consoleWarnSpy.mockRestore()
   })
 
-  test("render a ThemeToggle", async () => {
+  test("render a ThemeToggle", () => {
     render(<ThemeToggle />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-theme-toggle")
   })
 
-  test("renders a disabled ThemeToggle as passed", async () => {
+  test("renders a disabled ThemeToggle as passed", () => {
     render(<ThemeToggle disabled />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toBeDisabled()
   })
 
-  test("renders an id as passed", async () => {
+  test("renders an id as passed", () => {
     render(<ThemeToggle id="my-theme-toggle" />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveAttribute("id", "my-theme-toggle")
   })
 
-  test("renders a name as passed", async () => {
+  test("renders a name as passed", () => {
     render(<ThemeToggle name="my-theme-toggle" />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveAttribute("name", "my-theme-toggle")
   })
 
-  test("logs a console warning when no theme context is provided", async () => {
+  test("logs a console warning when no theme context is provided", () => {
     render(<ThemeToggle name="my-theme-toggle" />)
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       "Juno ThemeToggle requires a StyleProvider context in order to work. Use ThemeToggle in a Juno AppShell or include StyleProvider manually."
     )
   })
 
-  test("executes an onToggle handler when the user toggles the theme", async () => {
+  test("executes an onToggle handler when the user toggles the theme", () => {
     render(<ThemeToggle onToggleTheme={mockOnToggleTheme} />)
     const user = userEvent.setup()
     const toggleButton = screen.getByRole("button")
@@ -59,13 +61,13 @@ describe("ThemeToggle", () => {
     })
   })
 
-  test("renders a custom classNames as passed", async () => {
+  test("renders a custom classNames as passed", () => {
     render(<ThemeToggle className="my-custom-class" />)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("my-custom-class")
   })
 
-  test("renders arbitrary props as passed", async () => {
+  test("renders arbitrary props as passed", () => {
     render(<ThemeToggle data-lolol="My theme toggle" />)
     expect(screen.getByRole("button")).toHaveAttribute("data-lolol", "My theme toggle")
   })
