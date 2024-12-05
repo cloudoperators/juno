@@ -105,7 +105,8 @@ export const WithMenuWithRandomContent = {
   parameters: {
     docs: {
       description: {
-        story: "If needed, the Popup menu may contain random elements other than PopupMenu.Item.",
+        story:
+          "A `PopupMenu` may contain random elements other than `PopupMenu.Item`. In such cases you may consume the PupupMenu context using the `usePopupMenuContext` hook that contains a `close` function that can be used by custom components to close the menu if needed.",
       },
     },
   },
@@ -167,11 +168,12 @@ export const WithIcon = {
   },
 }
 
-export const WIPWithToggleAndMenuChildren = {
+export const WithToggleAndMenuChildren = {
   parameters: {
     docs: {
       description: {
-        story: "WIP: Pass a <PopupMenu.Toggle> element (Styling TODO)",
+        story:
+          "In the simplest case, a toggle can contain only a string. `PopupMenu` will render a `<button>` element containing that string or any opther children.",
       },
     },
   },
@@ -188,7 +190,7 @@ export const WIPWithToggleAndMenuChildren = {
   },
 }
 
-export const WIPWithToggleAsButtonComponent = {
+export const WithToggleAsButtonComponent = {
   parameters: {
     docs: {
       description: {
@@ -211,6 +213,14 @@ export const WIPWithToggleAsButtonComponent = {
 }
 
 export const WithToggleAsButtonStyledByState = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A custom toggle component may consume the PopupMenu context using the `usePopupMenuContext` hook. This hook exposes the current `isOpen` state of the menu that can be used e.g. to apply conditional styling to the toggle.",
+      },
+    },
+  },
   args: {
     ...actions("onOpen", "onClose"),
     children: [
@@ -224,11 +234,19 @@ export const WithToggleAsButtonStyledByState = {
   },
 }
 
-export const WIPWithCustomButtonComponentAsChild = {
+export const WithCustomButtonComponentAsChild = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "By default, `PopupMenu.Toggle` will render a `<button>` element as a toggle. When passing a custom component as a child, that will itself render a button or an element with button-like behavior, set the `PopupMenu.Toggle`'s `as` prop to `React.Fragment` to prevent rendering a button inside a button, whcih is invalid.",
+      },
+    },
+  },
   args: {
     ...actions("onOpen", "onClose"),
     children: [
-      <PopupMenu.Toggle key="t">
+      <PopupMenu.Toggle as={React.Fragment} key="t">
         <ToggleButton />
       </PopupMenu.Toggle>,
       <PopupMenu.Menu key="m">

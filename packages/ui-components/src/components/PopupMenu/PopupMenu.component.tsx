@@ -137,7 +137,7 @@ export { PopupMenuContext }
 // POPUP MENU
 
 // TODO:
-// - address button nesting when passing a button as a child to PopupMenu.Toggle (if we want to handle that case that is!)
+// - add tests
 // - position the menu
 
 /** A Popup Menu component that wraps Headless UI Menu */
