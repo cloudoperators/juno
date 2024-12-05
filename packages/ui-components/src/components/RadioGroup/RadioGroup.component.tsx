@@ -74,7 +74,7 @@ export const RadioGroupContext = createContext<RadioGroupContextProps>({})
 /**
 A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.
 */
-export const RadioGroup = ({
+export const RadioGroup: React.FC<RadioGroupProps> = ({
   children = null,
   className = "",
   disabled = false,
@@ -90,7 +90,7 @@ export const RadioGroup = ({
   successtext = "",
   valid = false,
   ...props
-}: RadioGroupProps) => {
+}) => {
   // Utility
   const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
@@ -185,7 +185,7 @@ export const RadioGroup = ({
   )
 }
 
-export interface RadioGroupProps {
+export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** The children of the RadioGroup. Typically, these will be `Radio` components. */
   children?: React.ReactNode
   /** Pass a custom className */

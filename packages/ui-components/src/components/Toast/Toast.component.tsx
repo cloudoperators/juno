@@ -30,7 +30,7 @@ const getMuiIcon = (messageType: IconType) => {
   }
 }
 type IconType = "info" | "warning" | "danger" | "error" | "success"
-export interface ToastProps {
+export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Specify a semantic variant */
   variant?: IconType
   /** Pass child nodes to be rendered as contents */
@@ -45,15 +45,13 @@ export interface ToastProps {
   onDismiss?: () => unknown
   /** Pass an optional className */
   className?: string
-  /** Pass any optional properties */
-  [x: string]: any
 }
 
 /**
 A Toast component. Use for short-lived, temporary/transient messaging to users relating to their current usage context, e.g. 'Edits changed successfully'. For more general, persistent messaging, e.g. 'Our servers will be down for maintenance all weekend', use Message instead.
 */
 
-export const Toast = ({
+export const Toast: React.FC<ToastProps> = ({
   variant = "info",
   children = null,
   text = "",
@@ -62,7 +60,7 @@ export const Toast = ({
   onDismiss,
   className = "",
   ...props
-}: ToastProps) => {
+}) => {
   const [visible, setVisible] = useState(true)
 
   // ----- Timeout stuff -------

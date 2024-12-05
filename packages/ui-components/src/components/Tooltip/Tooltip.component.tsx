@@ -27,7 +27,7 @@ export const useTooltipState = () => {
   return context
 }
 
-interface TooltipProps {
+export interface TooltipProps extends React.HTMLAttributes<HTMLElement> {
   // /** The semantic variant of the tooltip, or `plain` */
   variant?: ToolTipVariant
   /** Uncontrolled Tooltip: Choose which event should trigger the opening of the tooltip (click or hover) */
@@ -51,7 +51,7 @@ interface TooltipProps {
  * open state and handle the events that open/close the tooltip yourself.
  */
 
-export function Tooltip({
+export const Tooltip: React.FC<TooltipProps> = ({
   initialOpen = false,
   placement = "top",
   variant,
@@ -60,7 +60,7 @@ export function Tooltip({
   disabled = false,
   children = null,
   ...props
-}: TooltipProps) {
+}) => {
   // This can accept any floating ui props as options, e.g. `placement`,
   // or other positioning options.
   const tooltip = useTooltip({

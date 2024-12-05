@@ -49,8 +49,8 @@ describe("Message component", () => {
     })
 
     test("renders the component with all provided props", () => {
-      render(<Message data-testid="my-message" name="My shiny little Message" />)
-      expect(screen.getByTestId("my-message")).toHaveAttribute("name", "My shiny little Message")
+      render(<Message data-testid="my-message" id="My shiny little Message" />)
+      expect(screen.getByTestId("my-message")).toHaveAttribute("id", "My shiny little Message")
     })
   })
 

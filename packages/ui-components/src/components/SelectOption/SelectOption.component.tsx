@@ -50,7 +50,7 @@ const truncateOptionStyles = `
   jn-whitespace-nowrap
 `
 
-export interface SelectOptionProps {
+export interface SelectOptionProps extends React.HTMLAttributes<HTMLLIElement> {
   children?: string
   className?: string
   disabled?: boolean
@@ -58,14 +58,14 @@ export interface SelectOptionProps {
   label?: string
 }
 
-export const SelectOption = ({
+export const SelectOption: React.FC<SelectOptionProps> = ({
   children,
   className = "",
   disabled = false,
   value = "",
   label,
   ...props
-}: SelectOptionProps) => {
+}) => {
   const selectContext = useContext(SelectContext)
   const { truncateOptions, addOptionValueAndLabel } = selectContext || {
     truncateOptions: false,

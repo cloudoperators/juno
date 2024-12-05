@@ -81,7 +81,7 @@ interface IconsProps {
 A controlled Text Input.
 Also covers email, telephone, password, url derivates. 
 */
-export const Textarea = ({
+export const Textarea: React.FC<TextareaProps> = ({
   name,
   value = "",
   id = "",
@@ -104,7 +104,7 @@ export const Textarea = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}: TextareaProps) => {
+}) => {
   const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
@@ -244,7 +244,7 @@ export const Textarea = ({
 
 type WidthType = "full" | "auto"
 
-export type TextareaProps = {
+export interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
   /** Pass a name attribute */
   name?: string
   /** The label of the textarea */
@@ -287,4 +287,4 @@ export type TextareaProps = {
   width?: WidthType
   /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
   wrapperClassName?: string
-} & React.HTMLProps<HTMLTextAreaElement>
+}

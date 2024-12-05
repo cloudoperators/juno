@@ -6,7 +6,7 @@
 import React from "react"
 import "./formatted-text.scss"
 
-export interface FormattedTextProps {
+export interface FormattedTextProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Add custom class name */
   className?: string
   children?: React.ReactNode
@@ -15,11 +15,11 @@ export interface FormattedTextProps {
 /**
  * A very basic layout container with padding.
  */
-export const FormattedText = ({
+export const FormattedText: React.FC<FormattedTextProps> = ({
   className = "", // Default value for className
   children = null, // Default value for children
   ...props
-}: FormattedTextProps) => {
+}) => {
   return (
     <div className={`formatted-text-container ${className} `} {...props}>
       {children}
