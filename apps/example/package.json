@@ -35,7 +35,7 @@
     "@cloudoperators/juno-oauth": "*",
     "@cloudoperators/juno-ui-components": "*",
     "@cloudoperators/juno-url-state-provider": "*",
-    "@cloudoperators/juno-utils": "1.1.15",
+    "msw": "^2.6.6",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -53,5 +53,10 @@
     "build:static": "vite build --mode static",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "clean:cache": "rm -rf .turbo"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
