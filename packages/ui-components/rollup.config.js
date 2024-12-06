@@ -16,7 +16,9 @@ const svgr = require("@svgr/rollup")
 const typescript = require("@rollup/plugin-typescript")
 const path = require("path")
 const glob = require("glob")
-const { generateTailwindThemeClassesJson } = require("./src/docs/ColorPalette/generateTailwindThemeClassesJson")
+const {
+  generateTailwindThemeClassesJson,
+} = require("./src/deprecated_js/ColorPalette/generateTailwindThemeClassesJson")
 
 // generates tailwind classes for documentation usages.
 generateTailwindThemeClassesJson()
