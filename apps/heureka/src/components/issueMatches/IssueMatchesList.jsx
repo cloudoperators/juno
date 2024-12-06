@@ -26,7 +26,7 @@ const IssueMatchesList = ({ items, isLoading }) => {
         {isLoading && !items ? (
           <DataGridRow>
             <DataGridCell colSpan={7}>
-              <HintLoading className="my-4" text="Loading issue matches..." />
+              <HintLoading className="my-4" text="Loading vulnerabilities..." />
             </DataGridCell>
           </DataGridRow>
         ) : (
@@ -40,7 +40,7 @@ const IssueMatchesList = ({ items, isLoading }) => {
             ) : (
               <DataGridRow>
                 <DataGridCell colSpan={7}>
-                  <HintNotFound text="No issue matches found" />
+                  <HintNotFound text="No vulnerabilities found" />
                 </DataGridCell>
               </DataGridRow>
             )}

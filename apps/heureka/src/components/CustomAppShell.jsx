@@ -14,7 +14,7 @@ import constants from "./shared/constants"
 // Configuration for navigation items and their respective components
 const VIEW_CONFIG = {
   Services: { label: "Services", icon: "dns", component: ServicesView },
-  IssueMatches: { label: "Issues", icon: "autoAwesomeMotion", component: IssueMatchesView },
+  IssueMatches: { label: "Vulnerabilities", icon: "autoAwesomeMotion", component: IssueMatchesView },
   Components: { label: "Images", icon: "autoAwesomeMotion", component: ComponentsView }, // Commented out to remove ComponentsView for MVP version
 }
 

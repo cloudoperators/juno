@@ -53,7 +53,10 @@ const createGlobalsSlice = (set, get, options) => ({
       setQueryOptions: (viewName, options) =>
         set(
           produce((state) => {
-            state.globals.views[viewName].queryOptions = options
+            state.globals.views[viewName].queryOptions = {
+              ...state.globals.views[viewName].queryOptions,
+              ...options,
+            }
           }),
           false,
           "globals/setQueryOptions"
