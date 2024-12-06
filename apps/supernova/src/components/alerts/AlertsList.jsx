@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo, useState, useRef, useCallback } from "react"
+import React, { useMemo, useState, useRef, useCallback, useEffect } from "react"
 import { DataGrid, DataGridHeadCell, DataGridRow, DataGridCell, Icon, Stack } from "@cloudoperators/juno-ui-components"
 import Alert from "./Alert"
-import { useAlertsItemsFiltered, useAlertsIsLoading } from "../StoreProvider"
+import { useAlertsItemsFiltered, useAlertsActions } from "../StoreProvider"
+import { useBoundQuery } from "../../hooks/useBoundQuery"
 
 const AlertsList = () => {
   const [visibleAmount, setVisibleAmount] = useState(20)
@@ -14,7 +15,15 @@ const AlertsList = () => {
   const timeoutRef = React.useRef(null)
 
   const itemsFiltered = useAlertsItemsFiltered()
-  const alertsIsLoading = useAlertsIsLoading()
+  const { setAlertsData } = useAlertsActions()
+
+  const { data, isLoading } = useBoundQuery("alerts")
+
+  useEffect(() => {
+    if (data) {
+      setAlertsData({ items: data.alerts, counts: data.counts })
+    }
+  }, [data])
 
   const alertsSorted = useMemo(() => {
     if (itemsFiltered) {
@@ -31,7 +40,7 @@ const AlertsList = () => {
   const lastListElementRef = useCallback(
     (node) => {
       // no fetch if loading original data
-      if (alertsIsLoading || isAddingItems) return
+      if (isLoading || isAddingItems) return
       if (observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver((entries) => {
         console.debug("IntersectionObserver: callback")
@@ -47,12 +56,12 @@ const AlertsList = () => {
       })
       if (node) observer.current.observe(node)
     },
-    [alertsIsLoading, isAddingItems]
+    [isLoading, isAddingItems]
   )
 
   return (
     <DataGrid columns={7} minContentColumns={[0, 2, 5]} cellVerticalAlignment="top" className="alerts">
-      {!alertsIsLoading && (
+      <>
         <DataGridRow>
           <DataGridHeadCell>
             <Icon icon="monitorHeart" />
@@ -64,33 +73,33 @@ const AlertsList = () => {
           <DataGridHeadCell>Status</DataGridHeadCell>
           <DataGridHeadCell></DataGridHeadCell>
         </DataGridRow>
-      )}
-      {alertsSorted?.length > 0 ? (
-        alertsSorted?.map((alert, index) => {
-          if (alertsSorted.length === index + 1) {
-            // DataRow in alerts muss implement forwardRef
-            return <Alert ref={lastListElementRef} key={alert.fingerprint} alert={alert} />
-          }
-          return <Alert key={alert.fingerprint} alert={alert} />
-        })
-      ) : (
-        <DataGridRow className="no-hover">
-          <DataGridCell colSpan={7}>
-            <Stack gap="3">
-              <Icon icon="info" color="text-theme-info" />
-              <div>
-                We couldn&apos;t find anything. It&apos;s possible that the matching alerts are not active at the
-                moment, or the chosen filters could be overly limiting.
-              </div>
-            </Stack>
-          </DataGridCell>
-        </DataGridRow>
-      )}
-      {isAddingItems && (
-        <DataGridRow className="no-hover">
-          <DataGridCell colSpan={7}>Loading ...</DataGridCell>
-        </DataGridRow>
-      )}
+        {alertsSorted?.length > 0 ? (
+          alertsSorted?.map((alert, index) => {
+            if (alertsSorted.length === index + 1) {
+              // DataRow in alerts muss implement forwardRef
+              return <Alert ref={lastListElementRef} key={alert.fingerprint} alert={alert} />
+            }
+            return <Alert key={alert.fingerprint} alert={alert} />
+          })
+        ) : (
+          <DataGridRow className="no-hover">
+            <DataGridCell colSpan={7}>
+              <Stack gap="3">
+                <Icon icon="info" color="text-theme-info" />
+                <div>
+                  We couldn&apos;t find anything. It&apos;s possible that the matching alerts are not active at the
+                  moment, or the chosen filters could be overly limiting.
+                </div>
+              </Stack>
+            </DataGridCell>
+          </DataGridRow>
+        )}
+        {isAddingItems && (
+          <DataGridRow className="no-hover">
+            <DataGridCell colSpan={7}>Loading ...</DataGridCell>
+          </DataGridRow>
+        )}
+      </>
     </DataGrid>
   )
 }

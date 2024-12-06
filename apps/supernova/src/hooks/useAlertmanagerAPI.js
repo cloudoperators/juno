@@ -26,12 +26,7 @@ const useAlertmanagerAPI = (apiEndpoint) => {
 
   const isUserActive = useUserIsActive()
 
-  const {
-    setSilences,
-    setIsUpdating: setSilencesIsUpdating,
-    setIsLoading: setSilencesIsLoading,
-    setError: setSilencesError,
-  } = useSilencesActions()
+  const { setSilences, setIsUpdating: setSilencesIsUpdating, setError: setSilencesError } = useSilencesActions()
 
   // Setup web workers
   useEffect(() => {
@@ -109,7 +104,6 @@ const useAlertmanagerAPI = (apiEndpoint) => {
       debug: true,
     })
 
-    setSilencesIsLoading(true)
     silencesWorker.postMessage({
       action: "SILENCES_CONFIGURE",
       apiEndpoint,
