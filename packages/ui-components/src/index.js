@@ -15,7 +15,7 @@ export { BreadcrumbItem } from "./components/BreadcrumbItem/BreadcrumbItem.compo
 export { Button } from "./components/Button/Button.component"
 export { ButtonRow } from "./components/ButtonRow/ButtonRow.component"
 export { Checkbox } from "./components/Checkbox/Checkbox.component"
-export { CheckboxRow } from "./components/CheckboxRow/CheckboxRow.component"
+export { CheckboxRow } from "./components/CheckboxRow"
 export { CheckboxGroup } from "./components/CheckboxGroup/CheckboxGroup.component"
 export { Code } from "./components/Code/Code.component"
 export { CodeBlock } from "./components/CodeBlock/CodeBlock.component"
