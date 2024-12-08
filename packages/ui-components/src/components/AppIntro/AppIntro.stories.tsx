@@ -5,7 +5,8 @@
 
 import React from "react"
 
-import { AppIntro } from "./index.js"
+import { AppIntro } from "./index"
+import { AppIntroProps } from "./AppIntro.component"
 
 export default {
   title: "Layout/AppIntro",
@@ -17,7 +18,7 @@ export default {
   },
 }
 
-const Template = (args) => (
+const Template = (args: AppIntroProps) => (
   <AppIntro {...args}>
     Intro text here. Explain what this app is in a short lead text. Lorem ipsum dolor sit amet. At vero eos et accusam
     et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est. Lorem ipsum dolor sit
