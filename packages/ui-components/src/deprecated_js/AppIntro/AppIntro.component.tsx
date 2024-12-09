@@ -16,7 +16,7 @@ const introStyles = `
 /**
  * DEPRECATED: Will be deleted!
  */
-const AppIntro: React.FC<AppIntroProps> = ({ className = "", children, ...props }) => {
+export const AppIntro: React.FC<AppIntroProps> = ({ className = "", children, ...props }) => {
   return (
     <div className={`juno-app-intro ${introStyles} ${className}`} {...props}>
       {children}
