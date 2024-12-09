@@ -11,10 +11,7 @@ const initialSilencesState = {
   itemsHash: {},
   itemsByState: {},
   excludedLabels: [],
-  isLoading: false,
-  isUpdating: false,
   updatedAt: null,
-  error: null,
   localItems: {},
   status: "active",
   regEx: "",
@@ -136,10 +133,7 @@ const createSilencesSlice = (set, get, options) => ({
             items: items,
             itemsHash: itemsHash,
             itemsByState: itemsByState,
-            isLoading: false,
-            isUpdating: false,
             updatedAt: Date.now(),
-            error: null,
           },
         })),
           false,
@@ -359,26 +353,6 @@ const createSilencesSlice = (set, get, options) => ({
         if (!silences?.length) return
         // return the latest expired silence
         return silences.reduce((prev, current) => (prev.endsAt > current.endsAt ? prev : current))
-      },
-
-      setIsLoading: (value) =>
-        set((state) => ({ silences: { ...state.silences, isLoading: value } }), false, "silences.setIsLoading"),
-      setIsUpdating: (value) =>
-        set(
-          (state) => ({
-            silences: { ...state.silences, isUpdating: value },
-          }),
-          false,
-          "silences.setIsUpdating"
-        ),
-      setError: (error) => {
-        set(
-          (state) => ({
-            silences: { ...state.silences, error, isLoading: false },
-          }),
-          false,
-          "silences.setError"
-        )
       },
     },
   },

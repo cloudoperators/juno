@@ -14,10 +14,7 @@ const initialAlertsState = {
   regions: [], // save all available regions from initial list here
   regionsFiltered: [], // regions list filtered by active predefined filters
   enrichedLabels: ["status"], // labels that are enriched by the alert worker
-  isLoading: false,
-  isUpdating: false,
   updatedAt: null,
-  error: null,
 }
 
 const createAlertsSlice = (set, get) => ({
@@ -31,10 +28,7 @@ const createAlertsSlice = (set, get) => ({
             state.alerts.totalCounts = counts?.global
             state.alerts.severityCountsPerRegion = counts?.regions
             state.alerts.regions = Object.keys(counts?.regions).sort()
-            state.alerts.isLoading = false
-            state.alerts.isUpdating = false
             state.alerts.updatedAt = Date.now()
-            state.alerts.error = null
 
             // on the initial fetch copy all items to the filtered items list once since
             // most views operate on the filtered items list
@@ -183,18 +177,6 @@ const createAlertsSlice = (set, get) => ({
           false,
           "alerts.updateFilteredCounts"
         )
-      },
-
-      setIsLoading: (value) => {
-        set((state) => ({ alerts: { ...state.alerts, isLoading: value } }), false, "alerts.setIsLoading")
-      },
-
-      setIsUpdating: (value) => {
-        set((state) => ({ alerts: { ...state.alerts, isUpdating: value } }), false, "alerts.setIsUpdating")
-      },
-
-      setError: (error) => {
-        set((state) => ({ alerts: { ...state.alerts, error, isLoading: false } }), false, "alerts.setError")
       },
 
       getAlertByFingerprint: (fingerprint) => {

@@ -3,18 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React from "react"
 import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
-import { Container, Spinner, Stack } from "@cloudoperators/juno-ui-components"
-import {
-  useAlertsIsLoading,
-  useAlertsIsUpdating,
-  useAlertsUpdatedAt,
-  useAlertsTotalCounts,
-  useSilencesIsLoading,
-  useSilencesError,
-  useGlobalsActiveSelectedTab,
-} from "./components/StoreProvider"
+import { Container, Stack, Spinner } from "@cloudoperators/juno-ui-components"
+import { useAlertsUpdatedAt, useAlertsTotalCounts, useGlobalsActiveSelectedTab } from "./components/StoreProvider"
 import AlertsList from "./components/alerts/AlertsList"
 import RegionsList from "./components/regions/RegionsList"
 import StatusBar from "./components/status/StatusBar"
@@ -24,29 +16,34 @@ import AlertDetail from "./components/alerts/AlertDetail"
 import PredefinedFilters from "./components/filters/PredefinedFilters"
 import SilencesList from "./components/silences/SilencesList"
 
+import { useBoundQuery } from "./hooks/useBoundQuery"
+
 const AppContent = () => {
   const { addMessage } = useActions()
 
   // alerts
-  const isAlertsLoading = useAlertsIsLoading()
   const totalCounts = useAlertsTotalCounts()
-  const isAlertsUpdating = useAlertsIsUpdating()
   const updatedAt = useAlertsUpdatedAt()
-
-  // silences
-  const silencesError = useSilencesError()
-  const isSilencesLoading = useSilencesIsLoading()
 
   const activeSelectedTab = useGlobalsActiveSelectedTab()
 
-  useEffect(() => {
-    // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
-    if (!silencesError) return
+  const { error: alertsError, isLoading: isAlertsLoading } = useBoundQuery("alerts")
+  const { error: silencesError, isLoading: isSilencesLoading } = useBoundQuery("silences")
+  // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
+  if (silencesError) {
+    addMessage({
+      variant: "error",
+      text: parseError(alertsError),
+    })
+  }
+
+  // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
+  if (alertsError) {
     addMessage({
       variant: "error",
       text: parseError(silencesError),
     })
-  }, [silencesError])
+  }
 
   return (
     <Container px py className="h-full">
@@ -65,7 +62,7 @@ const AppContent = () => {
             <>
               <PredefinedFilters />
               <Filters />
-              <StatusBar totalCounts={totalCounts} isUpdating={isAlertsUpdating} updatedAt={updatedAt} />
+              <StatusBar totalCounts={totalCounts} isUpdating={isAlertsLoading} updatedAt={updatedAt} />
               <AlertsList />
             </>
           )}
