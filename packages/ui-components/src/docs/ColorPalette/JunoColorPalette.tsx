@@ -12,7 +12,7 @@ export function JunoColorPalette() {
   const gridStyle = `jn-grid jn-gap-4 xl:jn-grid-cols-4 md:jn-grid-cols-3 jn-grid-cols-2 jn-mb-6`
 
   return (
-    <div className={`jn-p-4`}>
+    <div className={`juno-content-area jn-p-4`}>
       <div className={gridStyle}>
         {Object.entries(getJunoColors).map((color) => (
           <ColorCard key={color[0]} colorName={color[0]} colorClass={color[1]} />
