@@ -9,7 +9,7 @@ import { AppIntro } from "./index"
 import { AppIntroProps } from "./AppIntro.component"
 
 export default {
-  title: "Layout/AppIntro",
+  title: "Deprecated/AppIntro",
   component: AppIntro,
   argTypes: {
     children: {
