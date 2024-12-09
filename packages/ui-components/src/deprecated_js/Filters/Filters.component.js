@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import { FilterInput } from "../FilterInput/FilterInput.component"
+import { FilterInput } from "../../deprecated_js/FilterInput/FilterInput.component"
 
 const filterStyles = `
 	jn-mb-px
