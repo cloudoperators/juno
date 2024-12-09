@@ -82,7 +82,7 @@ const IssueMatchesDetails = () => {
           </DataGridRow>
 
           <DataGridRow>
-            <DataGridHeadCell>Support Group Name</DataGridHeadCell>
+            <DataGridHeadCell>Support Group</DataGridHeadCell>
 
             <DataGridCell>
               <LoadElement elem={listOfCommaSeparatedObjs(issue?.componentInstance?.service?.supportGroups, "ccrn")} />
@@ -125,12 +125,6 @@ const IssueMatchesDetails = () => {
                 <LoadElement />
               )}
             </DataGridCell>
-          </DataGridRow>
-
-          <DataGridRow>
-            <DataGridHeadCell>Issue Type</DataGridHeadCell>
-
-            <DataGridCell>{<LoadElement elem={issue?.issue?.type} />}</DataGridCell>
           </DataGridRow>
         </DataGrid>
       </Stack>
