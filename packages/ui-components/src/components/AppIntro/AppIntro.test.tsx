@@ -8,13 +8,13 @@ import { render, screen } from "@testing-library/react"
 import { AppIntro } from "./index"
 
 describe("AppIntro", () => {
-  test("renders an app intro", async () => {
+  test("renders an app intro", () => {
     render(<AppIntro data-testid="app-intro" />)
     expect(screen.getByTestId("app-intro")).toBeInTheDocument()
     expect(screen.getByTestId("app-intro")).toHaveClass("juno-app-intro")
   })
 
-  test("renders children as passed", async () => {
+  test("renders children as passed", () => {
     render(
       <AppIntro data-testid="app-intro">
         <button></button>
@@ -24,13 +24,13 @@ describe("AppIntro", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
   })
 
-  test("renders a custom className", async () => {
+  test("renders a custom className", () => {
     render(<AppIntro data-testid="app-intro" className="my-custom-classname" />)
     expect(screen.getByTestId("app-intro")).toBeInTheDocument()
     expect(screen.getByTestId("app-intro")).toHaveClass("my-custom-classname")
   })
 
-  test("renders all props", async () => {
+  test("renders all props", () => {
     render(<AppIntro data-testid="app-intro" data-lolol="some-prop" />)
     expect(screen.getByTestId("app-intro")).toBeInTheDocument()
     expect(screen.getByTestId("app-intro")).toHaveAttribute("data-lolol", "some-prop")
