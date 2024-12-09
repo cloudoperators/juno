@@ -7,7 +7,6 @@ import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Filters } from "./index"
-import { SearchInput } from "../../deprecated_js/SearchInput"
 
 describe("Filters", () => {
   test("renders Filters", async () => {
@@ -116,11 +115,6 @@ describe("Filters", () => {
     await userEvent.click(screen.getByTitle("Clear"))
     expect(screen.getByRole("textbox")).toHaveValue("")
     expect(handleClear).toHaveBeenCalledTimes(1)
-  })
-
-  test("renders a SearchInput as passed", async () => {
-    render(<Filters search={<SearchInput />}></Filters>)
-    expect(screen.getByRole("searchbox")).toBeInTheDocument()
   })
 
   test("renders loading Filters as passed", async () => {
