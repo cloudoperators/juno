@@ -12,7 +12,7 @@ const tailwindConfig = require("../../../tailwind.config")
 
 const generateTailwindThemeClassesJson = () => {
   fs.writeFileSync(
-    "./src/docs/ColorPalette/TailwindColors.js",
+    "./src/docs/ColorPalette/TailwindColors.ts",
     "/*\n" +
       " * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors\n" +
       " * SPDX-License-Identifier: Apache-2.0\n" +
