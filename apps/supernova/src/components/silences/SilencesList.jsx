@@ -23,10 +23,10 @@ import {
   useSilencesActions,
   useSilencesRegEx,
   useSilencesStatus,
-  useSilencesIsLoading,
   useSilencesLocalItems,
 } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
+import { useBoundQuery } from "../../hooks/useBoundQuery"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -38,11 +38,22 @@ my-px
 const SilencesList = () => {
   const silences = useSilencesItems()
   const [visibleSilences, setVisibleSilences] = useState(silences)
-  const { setSilencesStatus, setSilencesRegEx } = useSilencesActions()
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
-  const isSilencesLoading = useSilencesIsLoading()
   const localSilences = useSilencesLocalItems()
+  const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
+
+  const { data } = useBoundQuery("silences")
+
+  useEffect(() => {
+    if (data) {
+      setSilences({
+        items: data?.silences,
+        itemsHash: data?.silencesHash,
+        itemsByState: data?.silencesBySate,
+      })
+    }
+  }, [data])
 
   useEffect(() => {
     let filtered = silences.filter((silence) => silence?.status?.state === status)
@@ -145,28 +156,26 @@ const SilencesList = () => {
       </Stack>
 
       <DataGrid columns={4} minContentColumns={[0, 2, 3]} cellVerticalAlignment="top" className="silences ">
-        {!isSilencesLoading && (
-          <>
+        <>
+          <DataGridRow>
+            <DataGridHeadCell>Time intervall</DataGridHeadCell>
+            <DataGridHeadCell>Details</DataGridHeadCell>
+            <DataGridHeadCell>State</DataGridHeadCell>
+            <DataGridHeadCell>Action</DataGridHeadCell>
+          </DataGridRow>
+          {scrollListItems?.length > 0 ? (
+            iterator.map((silence) => <SilencesItem silence={silence} key={silence.id} />)
+          ) : (
             <DataGridRow>
-              <DataGridHeadCell>Time intervall</DataGridHeadCell>
-              <DataGridHeadCell>Details</DataGridHeadCell>
-              <DataGridHeadCell>State</DataGridHeadCell>
-              <DataGridHeadCell>Action</DataGridHeadCell>
+              <DataGridCell colSpan={4}>
+                <Stack gap="3">
+                  <Icon icon="info" color="text-theme-info" />
+                  <div>We couldn&apos;t find any matching silences.</div>
+                </Stack>
+              </DataGridCell>
             </DataGridRow>
-            {scrollListItems?.length > 0 ? (
-              iterator.map((silence) => <SilencesItem silence={silence} key={silence.id} />)
-            ) : (
-              <DataGridRow>
-                <DataGridCell colSpan={4}>
-                  <Stack gap="3">
-                    <Icon icon="info" color="text-theme-info" />
-                    <div>We couldn&apos;t find any matching silences.</div>
-                  </Stack>
-                </DataGridCell>
-              </DataGridRow>
-            )}
-          </>
-        )}
+          )}
+        </>
       </DataGrid>
     </>
   )
