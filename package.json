@@ -14,6 +14,7 @@
     "clean:cache": "turbo run clean:cache && rm -rf .turbo && rm -rf node_modules/.cache/turbo",
     "generate:package": "turbo gen workspace --type package --copy @cloudoperators/juno-package-template --name",
     "generate:app": "turbo gen workspace --type app --copy @cloudoperators/juno-app-template --name",
+    "generate:externalApp": "node scripts/generate-external-app.js",
     "format": "prettier --log-level warn --write \"**/*.{js,jsx,ts,tsx,md}\"",
     "check-format": "prettier --config ./.prettierrc --check \"**/*.{js,jsx,ts,tsx,md}\" ",
     "changeset": "changeset",
