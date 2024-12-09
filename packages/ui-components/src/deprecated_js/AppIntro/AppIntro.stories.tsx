@@ -31,14 +31,5 @@ const Template = (args: AppIntroProps) => (
 
 export const Intro = {
   render: Template,
-
-  parameters: {
-    docs: {
-      description: {
-        story: "OBSOLETE: Will be deleted!",
-      },
-    },
-  },
-
   args: {},
 }
