@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.14.6
+
+### Patch Changes
+
+- 454764a: Fixes an error where some error messages were not displayed
+- 454764a: Introduced react query
+- Updated dependencies [e96f612]
+- Updated dependencies [b12fa10]
+- Updated dependencies [6877281]
+- Updated dependencies [fbd1880]
+- Updated dependencies [a3c43a0]
+  - @cloudoperators/juno-ui-components@2.34.0
+
 ## 0.14.5
 
 ### Patch Changes
