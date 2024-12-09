@@ -5,9 +5,9 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { TextInput } from "../../deprecated_js/TextInput/index.js"
-import { FormRow } from "../../deprecated_js/FormRow/FormRow.component"
-import { withDeprecationWarning } from "../../deprecated_js/withDeprecationWarning/index.js"
+import { TextInput } from "../TextInput/index.js"
+import { FormRow } from "../FormRow/FormRow.component.js"
+import { withDeprecationWarning } from "../withDeprecationWarning/index.js"
 
 /** DEPRECATED: A text input row containing an input of type text, password, email, tel, or url, an associated label, and necessary structural markup. This component is DEPRECATED, use TextInput instead. */
 const TextInputRow = ({

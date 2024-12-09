@@ -7,8 +7,8 @@ import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 
 import SelectRow from "./SelectRow.component"
-import { SelectOption } from "../../deprecated_js/SelectOption/SelectOption.component"
-import { PortalProvider } from "../../deprecated_js/PortalProvider/PortalProvider.component"
+import { SelectOption } from "../SelectOption/SelectOption.component"
+import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 export default {
   title: "Deprecated/SelectRow",

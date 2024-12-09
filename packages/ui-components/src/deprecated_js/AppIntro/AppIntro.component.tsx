@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import { withDeprecationWarning } from "../../components/withDeprecationWarning/withDeprecationWarning.component"
 
 const introStyles = `
   jn-pt-16
@@ -13,7 +14,7 @@ const introStyles = `
 `
 
 /**
- * OBSOLETE: Will be deleted!
+ * DEPRECATED: Will be deleted!
  */
 export const AppIntro: React.FC<AppIntroProps> = ({ className = "", children, ...props }) => {
   return (
@@ -28,3 +29,5 @@ export interface AppIntroProps extends React.HTMLProps<HTMLDivElement> {
   className?: string
   children?: React.ReactNode
 }
+
+export default withDeprecationWarning(AppIntro, "AppIntro is deprecated and will be removed in future versions.")

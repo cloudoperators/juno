@@ -9,7 +9,7 @@ import { AppIntro } from "./index"
 import { AppIntroProps } from "./AppIntro.component"
 
 export default {
-  title: "Layout/AppIntro",
+  title: "Deprecated/AppIntro",
   component: AppIntro,
   argTypes: {
     children: {
@@ -31,14 +31,5 @@ const Template = (args: AppIntroProps) => (
 
 export const Intro = {
   render: Template,
-
-  parameters: {
-    docs: {
-      description: {
-        story: "OBSOLETE: Will be deleted!",
-      },
-    },
-  },
-
   args: {},
 }

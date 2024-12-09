@@ -4,8 +4,8 @@
  */
 
 import React from "react"
-import { Radio } from "../Radio/index"
-import { withDeprecationWarning } from "../withDeprecationWarning/index"
+import { Radio } from "../../components/Radio/Radio.component"
+import { withDeprecationWarning } from "../../components/withDeprecationWarning/withDeprecationWarning.component"
 
 type EventUpdateHandler = (_value: string | undefined) => void
 
