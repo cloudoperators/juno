@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
 const introStyles = `
   jn-pt-16
@@ -16,7 +15,7 @@ const introStyles = `
 /**
  * OBSOLETE: Will be deleted!
  */
-export const AppIntro = ({ className = "", children, ...props }) => {
+export const AppIntro: React.FC<AppIntroProps> = ({ className = "", children, ...props }) => {
   return (
     <div className={`juno-app-intro ${introStyles} ${className}`} {...props}>
       {children}
@@ -24,8 +23,8 @@ export const AppIntro = ({ className = "", children, ...props }) => {
   )
 }
 
-AppIntro.propTypes = {
+export interface AppIntroProps extends React.HTMLProps<HTMLDivElement> {
   /** Add custom class name */
-  className: PropTypes.string,
-  children: PropTypes.any,
+  className?: string
+  children?: React.ReactNode
 }

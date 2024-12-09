@@ -5,7 +5,7 @@
 
 import "./global.scss"
 export { AppBody } from "./components/AppBody/index.js"
-export { AppIntro } from "./components/AppIntro/index.js"
+export { AppIntro } from "./components/AppIntro/index"
 export { AppShell } from "./components/AppShell/index.js"
 export { AppShellProvider } from "./deprecated_js/AppShellProvider/index"
 export { Badge } from "./components/Badge"
