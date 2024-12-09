@@ -6,7 +6,7 @@
 import React from "react"
 import { Filters } from "./index.js"
 import { FilterPill } from "../FilterPill/FilterPill.component"
-import { SearchInput } from "../SearchInput/SearchInput.component"
+import { SearchInput } from "../../components/SearchInput/SearchInput.component"
 
 export default {
   title: "Deprecated/Filter/Filters",
