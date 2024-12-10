@@ -310,9 +310,14 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
 }
 
 // POPUPMENU SECTION COMPONENT
-const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children = null, className = "", title = "" }) => {
+const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({
+  children = null,
+  className = "",
+  title = "",
+  ...props
+}) => {
   return (
-    <div className={`juno-pop-menu-section ${sectionStyles} ${className}`}>
+    <div className={`juno-pop-menu-section ${sectionStyles} ${className}`} {...props}>
       {title ? <div className={`juno-menu-section-title ${sectionTitleStyles}`}>{title}</div> : ""}
       {children}
     </div>
