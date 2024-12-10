@@ -1,5 +1,18 @@
 # @cloudoperators/juno-ui-components
 
+## 2.34.0
+
+### Minor Changes
+
+- e96f612: Migrate DateTimePicker to TypeScript
+- b12fa10: Migrate AppIntro to TypeScript
+- fbd1880: Finalise Typescript migration for all non-deprecated components and clean up
+- a3c43a0: Migrate the ThemeToggle component to TypeScript
+
+### Patch Changes
+
+- 6877281: Dependencies are upgraded to latest minor version.
+
 ## 2.33.0
 
 ### Minor Changes
