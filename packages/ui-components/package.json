@@ -1,11 +1,20 @@
 {
   "name": "@cloudoperators/juno-ui-components",
   "private": false,
-  "main": "build/index.js",
-  "module": "build/index.js",
   "source": "src/index.js",
   "style": "build/lib/variables.css",
   "version": "2.34.0",
+  "types": "build/index.d.ts",
+  "exports": {
+    "./index": "./build/index.js",
+    ".": "./build/index.js",
+    "./lib/variables.css": "./build/lib/variables.css",
+    "./lib/variables.js": "./build/lib/variables.js",
+    "./build/lib/tailwind.config": {
+      "default": "./tailwind.config.js"
+    },
+    "./tailwind.config.js": "./tailwind.config.js"
+  },
   "files": [
     "build/*",
     "src/colors.css",
@@ -84,15 +93,19 @@
     "rollup-plugin-includepaths": "0.2.4",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-postcss": "4.0.2",
-    "sass": "1.81.1",
+    "sass": "^1.81.1",
     "sass-loader": "12.6.0",
     "storybook": "8.4.6",
     "style-loader": "3.3.4",
     "tailwindcss": "3.4.15",
     "ts-loader": "9.5.1",
     "typescript": "5.7.2",
+    "vite": "5.4.8",
+    "vite-plugin-dts": "4.3.0",
+    "vite-plugin-glob": "^0.3.2",
     "vite-plugin-svgr": "4.3.0",
-    "vitest": "2.1.8"
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "2.1.1"
   },
   "peerDependencies": {
     "prop-types": "15.8.1",
@@ -101,9 +114,11 @@
   },
   "scripts": {
     "storybook": "storybook dev -p $APP_PORT --ci --no-open",
+    "build": "vite build",
     "build-storybook": "storybook build",
-    "build": "NODE_ENV=production rollup -c",
-    "dev": "NODE_ENV=development rollup -c -w",
+    "buildOld": "NODE_ENV=production rollup -c",
+    "dev": "vite",
+    "devOld": "NODE_ENV=development rollup -c -w",
     "lint": "eslint",
     "test": "npm run test-vitest && npm run test-jest",
     "test-vitest": "vitest run",
