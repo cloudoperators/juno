@@ -35,6 +35,21 @@ describe("PopupMenu", () => {
     expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
     expect(screen.getByTestId("popupmenu")).toHaveAttribute("data-lolol", "1234")
   })
+  test("executes an onOpen handler as passed when the menu opens", () => {
+    const onOpenSpy = vi.fn()
+    render(<PopupMenu onOpen={onOpenSpy} />)
+    act(() => screen.getByRole("button").click())
+    expect(onOpenSpy).toHaveBeenCalled()
+  })
+  test("executes an onClose handler as passed when the menu closes", () => {
+    const onCloseSpy = vi.fn()
+    render(<PopupMenu onClose={onCloseSpy} />)
+    // click first to open
+    act(() => screen.getByRole("button").click())
+    // click again to close
+    act(() => screen.getByRole("button").click())
+    expect(onCloseSpy).toHaveBeenCalled()
+  })
 
   // ----- MENU TOGGLE: -----
   // Default Toggle – implicit
@@ -100,20 +115,26 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
     expect(screen.getByRole("button")).toHaveClass("my-custom-toggle")
   })
-  test("executes an onOpen handler as passed when the menu opens", () => {
-    const onOpenSpy = vi.fn()
-    render(<PopupMenu onOpen={onOpenSpy} />)
-    act(() => screen.getByRole("button").click())
-    expect(onOpenSpy).toHaveBeenCalled()
+  test("renders all arbitrary props on a Toggle", () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle data-lolol="123">Toggle Me</PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveAttribute("data-lolol", "123")
   })
-  test("executes an onClose handler as passed when the menu closes", () => {
-    const onCloseSpy = vi.fn()
-    render(<PopupMenu onClose={onCloseSpy} />)
-    // click first to open
+
+  test("runs an onClick handler on the toggle as passed", () => {
+    const onClickSpy = vi.fn()
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle onClick={onClickSpy}>Toggle Me</PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    expect(screen.getByRole("button")).toBeInTheDocument()
     act(() => screen.getByRole("button").click())
-    // click again to close
-    act(() => screen.getByRole("button").click())
-    expect(onCloseSpy).toHaveBeenCalled()
+    expect(onClickSpy).toHaveBeenCalled()
   })
   test("renders a Toggle as a custom component as passed", () => {
     render(
@@ -158,7 +179,7 @@ describe("PopupMenu", () => {
     await act(() => fireEvent.click(toggle))
     expect(onOpenSpy).toHaveBeenCalled()
   })
-  test("renders a functional toggle as a custom component that executes the onOpen handler as passed", async () => {
+  test("renders a functional toggle as a custom component that executes the onClose handler as passed", async () => {
     const onCloseSpy = vi.fn()
     render(
       <PopupMenu onClose={onCloseSpy}>
@@ -174,7 +195,31 @@ describe("PopupMenu", () => {
     await act(() => fireEvent.click(toggle))
     expect(onCloseSpy).toHaveBeenCalled()
   })
-  // Toggle as fragment
+  test("runs a custom onClick handler on a toggle passed as a custom component", async () => {
+    const onClickSpy = vi.fn()
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle as={CustomToggle} onClick={onClickSpy}>
+          Toggle Me
+        </PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    const toggle = screen.getByRole("button")
+    // click the toggle
+    await act(() => fireEvent.click(toggle))
+    expect(onClickSpy).toHaveBeenCalled()
+  })
+  test("renders all arbitrary props on a Toggle passed as a custom component", () => {
+    // This test can not (and should not) REALLY test whether a custom component can render these props, but we can test whether we pass them on correctly so they can be used by a custom component:
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle data-lolol="123">Toggle Me</PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveAttribute("data-lolol", "123")
+  })
+  // Toggle as React Fragment
   test("renders a Toggle as a React Fragment as passed via as prop", () => {
     render(
       <PopupMenu>
@@ -205,6 +250,20 @@ describe("PopupMenu", () => {
     expect(menu).toBeInTheDocument()
     await act(() => fireEvent.click(toggle))
     expect(screen.queryByRole("menu")).not.toBeInTheDocument()
+  })
+  test("runs a custom onClick handler on a Toggle that was rendered as a React Fragment", async () => {
+    const onClickSpy = vi.fn()
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle as={React.Fragment}>
+          <CustomToggle onClick={onClickSpy}>Toggle Child</CustomToggle>
+        </PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    const toggle = screen.getByRole("button")
+    expect(toggle).toBeInTheDocument()
+    await act(() => fireEvent.click(toggle))
+    expect(onClickSpy).toHaveBeenCalled()
   })
 
   // ----- MENU -----
@@ -345,7 +404,7 @@ describe("PopupMenu", () => {
     // access the icon using the title attribute that establishes its accessible name:
     expect(screen.getByRole("img", { name: "Warning" })).toBeInTheDocument()
   })
-  test("renders an item with arbitrary props", () => {
+  test("renders an item with all arbitrary props", () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -426,10 +485,6 @@ describe("PopupMenu", () => {
     expect(screen.getByTestId("my-menu-section")).toHaveAttribute("data-lolol", "123")
   })
 
-  // TODO: renders only one toggle in case multiple toggles are passed
-  // TODO: renders only one menu in case multiple menus are passed
-  // renders a functional toggle with only text as child
-  // preserves and runs custom handlers on a toggle passed as 'as'
   // preserves and runs custom handlers on a toggle passed as a child to the toggle subcomponent
   // runs all handlers of an item when clicked/selected
 })
