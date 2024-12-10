@@ -13,6 +13,7 @@ import {
   useIssueMatchesFilterLabels,
   useIssueMatchesFilterLabelValues,
   useIssueMatchesSearchTerm,
+  useGlobalsActions,
 } from "../StoreProvider"
 
 const IssueMatchesView = () => {
@@ -21,6 +22,12 @@ const IssueMatchesView = () => {
   const labels = useIssueMatchesFilterLabels()
   const filterLabelValues = useIssueMatchesFilterLabelValues()
   const searchTerm = useIssueMatchesSearchTerm()
+
+  // Access filter actions
+  const { setQueryOptions } = useGlobalsActions()
+
+  setQueryOptions("IssueMatches", { filter: { issueType: ["Vulnerability"] } })
+
   return (
     <>
       <MessagesProvider>
