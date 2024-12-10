@@ -416,6 +416,21 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("menuitem")).toBeInTheDocument()
     expect(screen.getByRole("menuitem")).toHaveAttribute("data-lolol", "123")
   })
+  test("excutes an onClick handler on the Menu Item as passed", async () => {
+    const onClickSpy = vi.fn()
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu>
+          <PopupMenu.Item onClick={onClickSpy} />
+        </PopupMenu.Menu>
+      </PopupMenu>
+    )
+    act(() => screen.getByRole("button").click())
+    const item = screen.getByRole("menuitem")
+    expect(item).toBeInTheDocument()
+    await act(() => fireEvent.click(item))
+    expect(onClickSpy).toHaveBeenCalled()
+  })
 
   // ----- MENU SECTION: -----
   test("renders a menu section as passed", () => {
@@ -484,7 +499,4 @@ describe("PopupMenu", () => {
     expect(screen.getByTestId("my-menu-section")).toBeInTheDocument()
     expect(screen.getByTestId("my-menu-section")).toHaveAttribute("data-lolol", "123")
   })
-
-  // preserves and runs custom handlers on a toggle passed as a child to the toggle subcomponent
-  // runs all handlers of an item when clicked/selected
 })
