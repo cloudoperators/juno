@@ -257,9 +257,14 @@ const PopupMenuToggle: React.FC<PopupMenuToggleProps> = ({
 )
 
 // MENU COMPONENT
-const PopupMenuMenu: React.FC<PopupMenuMenuProps> = ({ children = null, ...props }) => {
+const PopupMenuMenu: React.FC<PopupMenuMenuProps> = ({ children = null, className = "", ...props }) => {
+  // Consume context to get the size to render and the close function:
+  const { menuSize } = usePopupMenuContext()
   return (
-    <HeadlessMenu.Items className={`juno-popupmenu-menu ${menuStyles}`} {...props}>
+    <HeadlessMenu.Items
+      className={`juno-popupmenu-menu juno-popupmenu-menu-size-${menuSize} ${menuStyles} ${className}`}
+      {...props}
+    >
       {children}
     </HeadlessMenu.Items>
   )
@@ -274,7 +279,7 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
   label = "",
   ...props
 }) => {
-  // Consume context to get the size to render and the close function:
+  // Consume context to get the size to render:
   const { menuSize } = usePopupMenuContext()
   // Determine the appropriate set of styles per size:
   const itemSizeStyles = menuSize === "small" ? smallItemStyles : normalItemStyles
