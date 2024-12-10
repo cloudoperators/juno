@@ -1,5 +1,5 @@
 import * as React from "react"
-import { render, screen, act } from "@testing-library/react"
+import { render, screen, act, fireEvent } from "@testing-library/react"
 import { describe, expect, test, vi } from "vitest"
 import { PopupMenu } from "./index"
 
@@ -24,6 +24,20 @@ const CustomToggle = React.forwardRef<HTMLButtonElement, CustomToggleProps>(
 CustomToggle.displayName = "CustomToggle"
 
 describe("PopupMenu", () => {
+  // ----- MENU PARENT: -----
+  test("renders a custom className to the menu parent element", () => {
+    render(<PopupMenu data-testid="popupmenu" className="my-custom-class" />)
+    expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
+    expect(screen.getByTestId("popupmenu")).toHaveClass("my-custom-class")
+  })
+  test("renders all props to the menu parent element", () => {
+    render(<PopupMenu data-testid="popupmenu" data-lolol="1234" />)
+    expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
+    expect(screen.getByTestId("popupmenu")).toHaveAttribute("data-lolol", "1234")
+  })
+
+  // ----- MENU TOGGLE: -----
+  // Default Toggle – implicit
   test("renders a PopupMenu default toggle", () => {
     render(<PopupMenu />)
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -45,16 +59,17 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toBeDisabled()
   })
-  test("renders a custom className to the parent element", () => {
-    render(<PopupMenu data-testid="popupmenu" className="my-custom-class" />)
-    expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
-    expect(screen.getByTestId("popupmenu")).toHaveClass("my-custom-class")
+  test("renders a menu as passed when the default toggle is clicked", () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu />
+      </PopupMenu>
+    )
+    act(() => screen.getByRole("button").click())
+    expect(screen.getByRole("menu")).toBeInTheDocument()
+    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
   })
-  test("renders all props to the parent element", () => {
-    render(<PopupMenu data-testid="popupmenu" data-lolol="1234" />)
-    expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
-    expect(screen.getByTestId("popupmenu")).toHaveAttribute("data-lolol", "1234")
-  })
+  // Default toggle – explicit:
   test("renders a toggle with children as passed", () => {
     render(
       <PopupMenu>
@@ -85,19 +100,6 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
     expect(screen.getByRole("button")).toHaveClass("my-custom-toggle")
   })
-  test("renders a Toggle as a custom component as passed", () => {
-    render(
-      <PopupMenu>
-        <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
-          Toggle Me
-        </PopupMenu.Toggle>
-      </PopupMenu>
-    )
-    const toggle = screen.getByRole("button")
-    expect(toggle).toBeInTheDocument()
-    expect(toggle).toHaveTextContent("Toggle Me")
-    expect(toggle).toHaveClass("my-custom-toggle")
-  })
   test("executes an onOpen handler as passed when the menu opens", () => {
     const onOpenSpy = vi.fn()
     render(<PopupMenu onOpen={onOpenSpy} />)
@@ -113,16 +115,99 @@ describe("PopupMenu", () => {
     act(() => screen.getByRole("button").click())
     expect(onCloseSpy).toHaveBeenCalled()
   })
-  test("renders a menu as passed when the menu is opened", () => {
+  test("renders a Toggle as a custom component as passed", () => {
     render(
       <PopupMenu>
+        <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
+          Toggle Me
+        </PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    const toggle = screen.getByRole("button")
+    expect(toggle).toBeInTheDocument()
+    expect(toggle).toHaveTextContent("Toggle Me")
+    expect(toggle).toHaveClass("my-custom-toggle")
+  })
+  test("renders a functional toggle as a custom component that opens and closes the menu", async () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
+          Toggle Me
+        </PopupMenu.Toggle>
         <PopupMenu.Menu />
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByRole("menu")).toBeInTheDocument()
-    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
+    const toggle = screen.getByRole("button")
+    expect(toggle).toBeInTheDocument()
+    await act(() => fireEvent.click(toggle))
+    const menu = screen.getByRole("menu")
+    expect(menu).toBeInTheDocument()
+    await act(() => fireEvent.click(toggle))
+    expect(screen.queryByRole("menu")).not.toBeInTheDocument()
   })
+  test("renders a functional toggle as a custom component that executes the onOpen handler as passed", async () => {
+    const onOpenSpy = vi.fn()
+    render(
+      <PopupMenu onOpen={onOpenSpy}>
+        <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
+          Toggle Me
+        </PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    const toggle = screen.getByRole("button")
+    await act(() => fireEvent.click(toggle))
+    expect(onOpenSpy).toHaveBeenCalled()
+  })
+  test("renders a functional toggle as a custom component that executes the onOpen handler as passed", async () => {
+    const onCloseSpy = vi.fn()
+    render(
+      <PopupMenu onClose={onCloseSpy}>
+        <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
+          Toggle Me
+        </PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    const toggle = screen.getByRole("button")
+    // open the menu
+    await act(() => fireEvent.click(toggle))
+    // close the menu again
+    await act(() => fireEvent.click(toggle))
+    expect(onCloseSpy).toHaveBeenCalled()
+  })
+  // Toggle as fragment
+  test("renders a Toggle as a React Fragment as passed via as prop", () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle as={React.Fragment} className="my-custom-toggle" data-testid="toggle-fragment">
+          <CustomToggle>Toggle Child</CustomToggle>
+        </PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    const toggle = screen.queryByRole("button")
+    const toggleFragment = screen.getByTestId("toggle-fragment")
+    expect(toggle).toBeInTheDocument()
+    expect(toggle).toHaveTextContent("Toggle Child")
+    expect(toggle).toBe(toggleFragment)
+  })
+  test("renders a functional Toggle that opens and closes the menu as a React Fragment", async () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle as={React.Fragment} className="my-custom-toggle" data-testid="toggle-fragment">
+          <CustomToggle>Toggle Child</CustomToggle>
+        </PopupMenu.Toggle>
+        <PopupMenu.Menu />
+      </PopupMenu>
+    )
+    const toggle = screen.getByRole("button")
+    expect(toggle).toBeInTheDocument()
+    await act(() => fireEvent.click(toggle))
+    const menu = screen.getByRole("menu")
+    expect(menu).toBeInTheDocument()
+    await act(() => fireEvent.click(toggle))
+    expect(screen.queryByRole("menu")).not.toBeInTheDocument()
+  })
+
+  // ----- MENU -----
   test("renders the menu into a portal container", () => {
     render(
       <PopupMenu>
@@ -168,6 +253,8 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
     expect(screen.getByRole("menu")).toHaveClass("my-custom-menu")
   })
+
+  // ----- MENU ITEMS: -----
   test("renders menu items as passed", () => {
     render(
       <PopupMenu>
@@ -270,6 +357,8 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("menuitem")).toBeInTheDocument()
     expect(screen.getByRole("menuitem")).toHaveAttribute("data-lolol", "123")
   })
+
+  // ----- MENU SECTION: -----
   test("renders a menu section as passed", () => {
     render(
       <PopupMenu>
@@ -340,9 +429,6 @@ describe("PopupMenu", () => {
   // TODO: renders only one toggle in case multiple toggles are passed
   // TODO: renders only one menu in case multiple menus are passed
   // renders a functional toggle with only text as child
-  // renders a functional toggle with a custom component passed as 'as'
-  // renders a functional toggle with a custom component passed as a child to the toggle subcomponent
-  // renders the toggle as a fragment as passed
   // preserves and runs custom handlers on a toggle passed as 'as'
   // preserves and runs custom handlers on a toggle passed as a child to the toggle subcomponent
   // runs all handlers of an item when clicked/selected
