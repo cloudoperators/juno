@@ -1,7 +1,14 @@
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
+import { render, screen, act } from "@testing-library/react"
+import { describe, expect, test, vi } from "vitest"
 import { PopupMenu } from "./index"
+
+// Mock the PortalProvider so the menu is render4ded directly into a Dom node that is easily accessible for testing:
+vi.mock("../PortalProvider", () => ({
+  PortalProvider: {
+    Portal: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  },
+}))
 
 describe("PopupMenu", () => {
   test("renders a PopupMenu default toggle", () => {
@@ -55,8 +62,66 @@ describe("PopupMenu", () => {
     expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
     expect(screen.getByRole("button")).toHaveClass("my-custom-toggle")
   })
-  // renders a menu as passed
-  // renders a menu with a custom className as passed
+  test("executes an onOpen handler as passed when the menu opens", () => {
+    const onOpenSpy = vi.fn()
+    render(<PopupMenu onOpen={onOpenSpy} />)
+    act(() => screen.getByRole("button").click())
+    expect(onOpenSpy).toHaveBeenCalled()
+  })
+  test("executes an onClose handler as passed when the menu closes", () => {
+    const onCloseSpy = vi.fn()
+    render(<PopupMenu onClose={onCloseSpy} />)
+    // click first to open
+    act(() => screen.getByRole("button").click())
+    // click again to close
+    act(() => screen.getByRole("button").click())
+    expect(onCloseSpy).toHaveBeenCalled()
+  })
+  test("renders a menu as passed when the menu is opened", () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu />
+      </PopupMenu>
+    )
+
+    act(() => screen.getByRole("button").click())
+    expect(screen.getByRole("menu")).toBeInTheDocument()
+    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
+  })
+  test("renders a normal size menu by default", () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu />
+      </PopupMenu>
+    )
+    act(() => screen.getByRole("button").click())
+    expect(screen.getByRole("menu")).toBeInTheDocument()
+    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
+    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu-size-normal")
+  })
+  test("renders a small size menu as passed", () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu />
+      </PopupMenu>
+    )
+    act(() => screen.getByRole("button").click())
+    expect(screen.getByRole("menu")).toBeInTheDocument()
+    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
+    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu-size-normal")
+  })
+
+  test("renders a menu with a custom className as passed", () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu className="my-custom-menu" />
+      </PopupMenu>
+    )
+    act(() => screen.getByRole("button").click())
+    expect(screen.getByRole("menu")).toBeInTheDocument()
+    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
+    expect(screen.getByRole("menu")).toHaveClass("my-custom-menu")
+  })
   // renders a menu section as passed
   // renders a menu section with a title as passed
   // renders a menu section with a custom className as passed
@@ -71,8 +136,6 @@ describe("PopupMenu", () => {
   // renders a functional toggle with a custom component passed as 'as'
   // renders a functional toggle with a custom component passed as a child to the toggle subcomponent
   // renders the toggle as a fragment as passed
-  // runs an onOpen handler as passed
-  // runs an onClose handler as passed
   // preserves and runs custom handlers on a toggle passed as 'as'
   // preserves and runs custom handlers on a toggle passed as a child to the toggle subcomponent
   // runs all handlers of an item when clicked/selected
