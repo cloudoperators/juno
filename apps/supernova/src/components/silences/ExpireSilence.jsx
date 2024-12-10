@@ -9,10 +9,7 @@ import { useActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
 import { useBoundMutation } from "../../hooks/useBoundMutation"
 import { useQueryClient } from "@tanstack/react-query"
-// import constants from "../../constants"
 // import { debounce } from "../../helpers"
-// import { del } from "../../api/client"
-// localItems
 
 const ExpireSilence = (props) => {
   const { addMessage } = useActions()
@@ -20,34 +17,30 @@ const ExpireSilence = (props) => {
   const [confirmationDialog, setConfirmationDialog] = useState(false)
   const queryClient = useQueryClient()
 
-  const { mutate: deleteSilences } = useBoundMutation(
-    "deleteSilences",
-    {
-      onSuccess: () => {
-        // add success message in the ui
-        addMessage({
-          variant: "success",
-          text: `Silence ${silence.id} expired successfully. Please note that it may take up to 5 minutes for the silence to show up as expired.`,
-        })
-      },
-      onError: (error) => {
-        // add a error message in UI
-        addMessage({
-          variant: "error",
-          text: parseError(error),
-        })
-      },
-
-      onSettled: () => {
-        // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
-        queryClient.invalidateQueries(["silences"])
-      },
+  const { mutate: deleteSilences } = useBoundMutation("deleteSilences", {
+    onSuccess: () => {
+      // add success message in the ui
+      addMessage({
+        variant: "success",
+        text: `Silence ${silence.id} expired successfully. Please note that it may take up to 5 minutes for the silence to show up as expired.`,
+      })
     },
-    { id: silence.id }
-  )
+    onError: (error) => {
+      // add a error message in UI
+      addMessage({
+        variant: "error",
+        text: parseError(error),
+      })
+    },
+
+    onSettled: () => {
+      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
+      queryClient.invalidateQueries(["silences"])
+    },
+  })
 
   const onExpire = () => {
-    deleteSilences()
+    deleteSilences({ id: silence.id })
     setConfirmationDialog(false)
   }
 

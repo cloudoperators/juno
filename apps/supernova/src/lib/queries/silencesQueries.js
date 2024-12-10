@@ -61,3 +61,24 @@ export const deleteSilences = async (variables) => {
     throw error // Let React Query handle the error
   }
 }
+
+export const createSilences = async (variables) => {
+  try {
+    const response = await fetch(`${variables.endpoint}/silences`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(variables.silence),
+    })
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok")
+    }
+    return await response.json()
+  } catch (error) {
+    console.error(error)
+    throw error // Let React Query handle the error
+  }
+}

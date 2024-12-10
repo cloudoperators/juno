@@ -15,7 +15,7 @@ import { useGlobalsApiEndpoint } from "../components/StoreProvider"
 //   })
 // }
 
-export const useBoundMutation = (key, options = {}, variables = {}) => {
+export const useBoundMutation = (key, options = {}) => {
   const endpoint = useGlobalsApiEndpoint()
 
   const mutationFn = MUTATION_FUNCTIONS[key]
@@ -24,8 +24,7 @@ export const useBoundMutation = (key, options = {}, variables = {}) => {
   }
 
   return useMutation({
-    mutationFn: () => mutationFn({ ...variables, endpoint }),
-
+    mutationFn: (variables) => mutationFn({ ...variables, endpoint }),
     onError: options?.onError,
     ...options,
   })
