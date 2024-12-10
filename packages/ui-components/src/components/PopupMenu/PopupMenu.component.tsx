@@ -297,7 +297,8 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
       {(itemBag) => (
         <span>
           {icon && <Icon icon={icon} size="18" className={`juno-popupmenu-item-icon ${itemIconStyles}`} />}
-          {typeof label === "string"
+          {/* Make sure to test for truthy label and then check for string type, otherwise typeof label === string would alway return true due to the default empty string still being of type string: */}
+          {label && typeof label === "string"
             ? label
             : typeof children === "function"
               ? children(itemBag) // Pass the itemBag to the render prop function
