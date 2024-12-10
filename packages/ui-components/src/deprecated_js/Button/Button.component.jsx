@@ -6,9 +6,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 import "./button.scss"
-import { Icon } from "../Icon/index.js"
-import { knownIcons } from "../Icon/Icon.component.js"
-import { Spinner } from "../Spinner/index.js"
+import { Icon } from "../Icon/index"
+import { knownIcons } from "../Icon/Icon.component"
+import { Spinner } from "../Spinner/index"
 
 const btnBase = `
   jn-font-bold
