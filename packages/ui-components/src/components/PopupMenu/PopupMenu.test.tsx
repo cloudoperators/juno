@@ -35,7 +35,26 @@ describe("PopupMenu", () => {
     expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
     expect(screen.getByTestId("popupmenu")).toHaveAttribute("data-lolol", "1234")
   })
-  // renders a toggle with a custom className as passed
+  test("renders a toggle with children as passed", () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle>Toggle Me</PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
+    expect(screen.getByRole("button")).toHaveTextContent("Toggle Me")
+  })
+  test("renders a toggle with a custom className as passed", () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Toggle className="my-custom-toggle">Toggle Me</PopupMenu.Toggle>
+      </PopupMenu>
+    )
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
+    expect(screen.getByRole("button")).toHaveClass("my-custom-toggle")
+  })
   // renders a menu as passed
   // renders a menu with a custom className as passed
   // renders a menu section as passed
