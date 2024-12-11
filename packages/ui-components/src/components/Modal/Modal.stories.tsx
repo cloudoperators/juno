@@ -76,6 +76,14 @@ export const SimpleConfirmDialog = {
   },
 }
 
+export const AutoFocusDialog = {
+  render: Template,
+  args: {
+    children: <TextInput id="focusOnMe" />,
+    initialFocus: "#focusOnMe",
+  },
+}
+
 export const LargeWithTitle = {
   render: Template,
   args: {
