@@ -1,5 +1,15 @@
 # @cloudoperators/juno-ui-components
 
+## 2.35.0
+
+### Minor Changes
+
+- 3471a77: Marked AppIntro as deprecated in Storybook
+
+### Patch Changes
+
+- 87d57d7: Migrate docs to Typescript
+
 ## 2.34.0
 
 ### Minor Changes
