@@ -73,7 +73,7 @@ export const SimpleConfirmDialog = {
     children: <p>Are you sure you want to proceed?</p>,
     cancelButtonLabel: "Cancel",
     confirmButtonLabel: "Yes, Proceed",
-  }
+  },
 }
 
 export const LargeWithTitle = {
@@ -84,7 +84,7 @@ export const LargeWithTitle = {
     confirmButtonLabel: "OK",
     closeOnConfirm: true /* Only relevant for storybook, this is not a native prop of the component! */,
     children: <p>A large modal with a title</p>,
-  }
+  },
 }
 
 export const NonCloseable = {
@@ -94,7 +94,7 @@ export const NonCloseable = {
     children:
       "Use only if all else fails. If you need to inform users about something, in 99.9% of cases <Message> is the better choice.",
     closeable: false,
-  }
+  },
 }
 
 export const CloseOnBackdropClick = {
@@ -103,7 +103,7 @@ export const CloseOnBackdropClick = {
     title: "Close on Backdrop Click",
     children: <p>This Modal closes when clicking the backdrop.</p>,
     closeOnBackdropClick: true,
-  }
+  },
 }
 
 export const Login = {
@@ -127,7 +127,7 @@ export const Login = {
     modalFooter: (
       <ModalFooter confirmButtonLabel="Log In" confirmButtonIcon="accountCircle" cancelButtonLabel="Never Mind" />
     ),
-  }
+  },
 }
 
 export const CustomModalFooter = {
@@ -149,7 +149,7 @@ export const CustomModalFooter = {
         </ButtonRow>
       </ModalFooter>
     ),
-  }
+  },
 }
 
 export const TestSelectInModal = {
@@ -166,7 +166,7 @@ export const TestSelectInModal = {
         </Select>
       </>
     ),
-  }
+  },
 }
 
 export const TestComboBoxInModal = {
@@ -192,7 +192,7 @@ export const TestComboBoxInModal = {
         </ComboBox>
       </>
     ),
-  }
+  },
 }
 
 export const ModalWithALargerForm = {
@@ -240,5 +240,5 @@ export const ModalWithALargerForm = {
         </FormRow>
       </Form>
     ),
-  }
+  },
 }
