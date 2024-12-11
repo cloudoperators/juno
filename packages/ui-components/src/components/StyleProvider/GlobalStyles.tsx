@@ -9,7 +9,9 @@
  * @module GlobalStyles
  */
 import React, { useInsertionEffect } from "react"
-import globalCss from "../../global.scss"
+
+import globalCss from "../../global.scss?inline"
+
 const styles = globalCss.toString()
 
 const GLOBAL_STYLE_ID = "juno-style-provider-global-styles"

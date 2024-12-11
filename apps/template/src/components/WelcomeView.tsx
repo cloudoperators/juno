@@ -7,7 +7,7 @@ import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
 import { useWellcomeStore } from "../store"
 
-const WelcomeView = () => {
+const WelcomeView = (): JSX.Element => {
   const { welcome } = useWellcomeStore()
   return (
     <Stack alignment="center" distribution="center" direction="vertical" className="my-[10vh]">

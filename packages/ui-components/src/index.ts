@@ -4,6 +4,9 @@
  */
 
 import "./global.scss"
+import.meta.glob("./components/**/*.scss", {
+  eager: true,
+})
 export { AppBody } from "./components/AppBody/AppBody.component"
 export { AppShell } from "./components/AppShell/AppShell.component"
 export { AppShellProvider } from "./components/AppShellProvider/AppShellProvider.component"

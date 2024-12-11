@@ -141,7 +141,7 @@ export const Stack: React.FC<StackProps> = ({
   distribution = "start",
   wrap = false,
   className = "",
-  children = null,
+  children,
   ...props
 }) => {
   return (

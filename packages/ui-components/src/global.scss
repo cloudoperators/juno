@@ -1,9 +1,8 @@
 // SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 // SPDX-License-Identifier: Apache-2.0
+@use "../lib/variables";
 
 @tailwind base;
-
-@import "../lib/variables";
 
 // default base styles using the tw base directive
 @layer base {
@@ -42,7 +41,4 @@
   }
 }
 
-// this is parsed by webpack and rollup
-// in rollup we use custom loader based on glob. 
-// You must not use glob imports multiple times.
-@import './components/**/*.scss';
+

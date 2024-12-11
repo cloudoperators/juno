@@ -10,7 +10,7 @@
  */
 import React, { useInsertionEffect } from "react"
 
-import fonts from "../../fonts/plex/css/ibm-plex.scss"
+import fonts from "../../fonts/plex/css/ibm-plex.scss?inline"
 
 const STYLE_ID = "juno-style-provider-golbal-fonts"
 const Fonts = ({ inline }: FontsProps) => {

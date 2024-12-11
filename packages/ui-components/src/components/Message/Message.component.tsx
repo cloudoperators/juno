@@ -194,7 +194,7 @@ const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | nul
  */
 export const Message: React.FC<MessageProps> = ({
   title = null,
-  text = null,
+  text,
   variant = "info",
   dismissible = false,
   autoDismiss = false,
