@@ -1,5 +1,4 @@
 {
   "theme": "theme-dark",
-  "apiEndpoint": "https://api.example.com/v1",
-  "embedded": false
+  "apiEndpoint": "https://api.example.com/v1"
 }
