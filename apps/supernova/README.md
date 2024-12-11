@@ -172,7 +172,7 @@ To set the endpoint:
 
 - Configured via app prop `endpoint`, which is used during the setup of the script tag.
 
-Example:
+Example value:
 
 ```json
 "https://myalertmanager.com/api/v2"
@@ -196,21 +196,25 @@ Example value:
 
 InitialFilters are the filters that are applied when the app is loaded. The filters must be an object where the key is the label and the value are the values to filter on.
 
-Example:
+To set the inital Filters:
+
+- Configured via app prop `initialFilters`
+
+Example value:
 
 ```json
 { "cluster": ["prod-1", "prod-2"], "status": ["critical"] }
 ```
 
-To set the inital Filters:
-
-- Configured via app prop `initialFilters`
-
 ### Predefined Filters (**optional**)
 
 PredefinedFilters are groups of filters comprised of a list of filter labels and a regex that is used to filter on the values of that label. They can be thought of as filter categories where the filter logic can be more complex than simple label+values pairs. Predefined filters are defined as an array of objects, where each object is a predefined filter which contains the display name for the UI as well as a list of filter label + value regex pairs which are AND concatenated when they are being evaluated.
 
-Example:
+To set the predefined Filter:
+
+- Configured via app prop `predefinedFilters`
+
+Example value:
 
 ```json
 [
@@ -223,10 +227,6 @@ Example:
   }
 ]
 ```
-
-To set the predefined Filter:
-
-- Configured via app prop `predefinedFilters`
 
 ### Silence excluded alert labels (**optional**)
 
@@ -262,7 +262,7 @@ To set the excluded alert labels:
 
 - Configured via app prop `silenceExcludedLabels`
 
-Example:
+Example value:
 
 ```json
 ["pod", "pod_name", "instance"]
@@ -272,25 +272,23 @@ Example:
 
 Defines pre-configured silences available in the schedule silence modal for scheduling future silences. For example when setting up maintenance windows where it is known that certain alerts will fire. The format consists of a list of objects including description, editable_labels (array of strings specifying the labels that users can modify), fixed_labels (map containing fixed labels and their corresponding values), status, and title.
 
-Example:
-
-```json
-"silenceTemplates": [
-    {
-      "description": "Description of the silence template",
-      "editable_labels": ["region"],
-      "fixed_labels": {
-        "name": "Marvin",
-      },
-      "status": "active",
-      "title": "Silence"
-    }
-  ]
-```
-
 To set the silence templates:
 
 - Configured via app prop `silenceTemplates`, which is used during the setup of the script tag.
+
+Example value:
+
+```json
+{
+  "description": "Description of the silence template",
+  "editable_labels": ["region"],
+  "fixed_labels": {
+    "name": "Marvin"
+  },
+  "status": "active",
+  "title": "Silence"
+}
+```
 
 ### Theme (**optional**)
 
@@ -300,6 +298,36 @@ To set the theme:
 
 - Configured via app prop `theme`
 
+Example value:
+
+```json
+"theme-dark"
+```
+
 ### Username (**optional**)
 
-Username used for forms and API requests
+Default username for setting silences. If not provided, the field will remain empty, requiring the user to enter the username manually.
+
+To set the username:
+
+- Configured via app prop `username`
+
+Example value:
+
+```json
+"John Doe"
+```
+
+### Embedded (**optional**)
+
+Set to `true` if the app will be embedded within another app or page. When `true`, the app will not display the header or footer, rendering only the content. Default is `false`.
+
+To set the embedded mode:
+
+- Configured via app prop `embedded`
+
+Example value:
+
+```json
+false
+```
