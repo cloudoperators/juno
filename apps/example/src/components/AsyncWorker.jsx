@@ -7,15 +7,14 @@ import PropTypes from "prop-types"
 import useQueryClientFn from "../hooks/useQueryClientFn"
 import useUrlState from "../hooks/useUrlState"
 
-const AsyncWorker = ({ consumerId, mockAPI }) => {
-  useQueryClientFn(mockAPI)
+const AsyncWorker = ({ consumerId }) => {
+  useQueryClientFn()
   useUrlState(consumerId)
   return null
 }
 
 AsyncWorker.propTypes = {
   consumerId: PropTypes.string.isRequired,
-  mockAPI: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 export default AsyncWorker
