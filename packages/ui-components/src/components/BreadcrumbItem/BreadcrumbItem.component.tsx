@@ -62,7 +62,6 @@ export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLSpanElemen
  * BreadcrumbItem represents an individual item within a Breadcrumb component.
  */
 export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
-  icon = null,
   href = "#",
   label = "Item",
   ariaLabel = "",
@@ -74,7 +73,7 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
   ...props
 }) => {
   if (children) return <>{children}</>
-
+  const { icon } = props
   const iconElement = icon ? (
     <Icon icon={icon} size="18" color="jn-text-theme-default" className={label ? "jn-mr-1" : ""} />
   ) : null

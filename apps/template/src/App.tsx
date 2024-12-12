@@ -12,7 +12,7 @@ import { ErrorBoundary } from "react-error-boundary"
 interface AppProps {
   theme?: string
   embedded?: string | boolean
-  endpoint?: string | null | undefined
+  endpoint?: string
   currentHost?: string
 }
 
@@ -39,7 +39,14 @@ export const App = (props: AppProps) => {
   })
 
   const fallbackRender = ({ error }: { error: { message: string } }) => {
-    return <div className="w-1/2">{error?.message || error?.toString() || "An error occurred"}</div>
+    return (
+      <div className="w-1/2">
+        <CodeBlock className={preErrorClasses} copy={false}>
+          {error?.message || error?.toString() || "An error occurred"}
+        </CodeBlock>
+      </div>
+    )
+    // return <div className="w-1/2">{error?.message || error?.toString() || "An error occurred"}</div>
   }
 
   return (
