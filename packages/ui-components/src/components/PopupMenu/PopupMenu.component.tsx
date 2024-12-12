@@ -128,7 +128,6 @@ export interface PopupMenuItemProps extends React.ComponentProps<typeof Headless
   label?: string
 }
 
-// A Menu Section does not exist in headless ui menu, thus no need to extend an existing interface:
 export interface PopupMenuSectionProps {
   children?: React.ReactNode
   className?: string
@@ -159,9 +158,11 @@ export { PopupMenuContext }
 // POPUP MENU
 
 // TODO:
-// - document that the menu and its contents will be rendered into a portal, and therefore not be stylable via the parent element
-// - extend item to run handlers as passed, implement logic to render button or a elements as in the old menu
-// - make sure only one toggle and menu each are being considered and rendered
+// - document that the menu and its contents will be rendered into a portal (-> impossible to style via parent selector)
+// - extend item render logic to replicate HUI Menu behaviour -> allow for rendering links (via as prop)
+// - use HUI Menu Section, (Section)Title and Divider, remove our own
+// - what happens when multiple toggles and/or menu are being passed?
+// - Validate positioning/flipping behaviour in example app
 
 /** A Popup Menu component that wraps Headless UI Menu */
 const PopupMenu: React.FC<PopupMenuProps> & {
