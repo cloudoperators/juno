@@ -7,6 +7,7 @@
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
+import { Float } from "@headlessui-float/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
 
@@ -26,6 +27,7 @@ const menuStyles = `
   jn-overflow-hidden
   jn-flex
   jn-flex-col
+  jn-w-max
   jn-rounded
   jn-bg-theme-background-lvl-1
 `
@@ -34,8 +36,9 @@ const itemStyles = `
   jn-text-base
   jn-text-theme-default
   jn-flex
-  jn-items-center
   jn-w-full
+  jn-items-center
+  jn-whitespace-nowrap
   jn-pt-[0.6875rem]
   jn-pb-[0.5rem]
   jn-px-[0.875rem]
@@ -80,6 +83,10 @@ const sectionTitleStyles = `
   jn-text-xs
   jn-p-2
   jn-cursor-default
+`
+// Make sure the floating reference wrapper element around the toggle fits snug around the toggle, so the positioning of the menu is correct relative to the visible toggle:
+const floatingReferenceWrapperStyles = `
+  jn-inline-flex
 `
 
 // ----- Interfaces -----
@@ -155,8 +162,6 @@ export { PopupMenuContext }
 // - document that the menu and its contents will be rendered into a portal, and therefore not be stylable via the parent element
 // - extend item to run handlers as passed, implement logic to render button or a elements as in the old menu
 // - make sure only one toggle and menu each are being considered and rendered
-// - add tests
-// - position the menu
 
 /** A Popup Menu component that wraps Headless UI Menu */
 const PopupMenu: React.FC<PopupMenuProps> & {
@@ -213,24 +218,37 @@ const PopupMenu: React.FC<PopupMenuProps> & {
         return (
           // * Expose our context:
           <PopupMenuContext.Provider value={{ isOpen, close, menuSize }}>
-            {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
-            {!hasToggle && (
-              <PopupMenu.Toggle
-                className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${disabled ? disabledToggleStyles : defaultToggleStyles}`}
-                disabled={disabled}
-              >
-                <Icon icon={icon} />
-              </PopupMenu.Toggle>
-            )}
+            <Float as={React.Fragment} placement="bottom-start" offset={4} shift={8} flip={8} composable>
+              <Float.Reference>
+                {/* Wrap the toggle in a div that headless ui Float.Reference can reference*/}
+                <div className={`juno-popupmenu-float-reference-wrapper ${floatingReferenceWrapperStyles}`}>
+                  {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
+                  {!hasToggle && (
+                    <PopupMenu.Toggle
+                      className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${disabled ? disabledToggleStyles : defaultToggleStyles}`}
+                      disabled={disabled}
+                    >
+                      <Icon icon={icon} />
+                    </PopupMenu.Toggle>
+                  )}
 
-            {/* Render toggle children as passed: */}
-            {childrenArray.map((child) => {
-              if (React.isValidElement(child) && child.type === PopupMenuToggle) {
-                return child
-              }
-            })}
-            {/* Render the menu in our portal: */}
-            <PortalProvider.Portal>{menu}</PortalProvider.Portal>
+                  {/* Render toggle children as passed: */}
+                  {childrenArray.map((child) => {
+                    if (React.isValidElement(child) && child.type === PopupMenuToggle) {
+                      return child
+                    }
+                  })}
+                </div>
+              </Float.Reference>
+
+              {/* Render the menu in our portal: */}
+              <PortalProvider.Portal>
+                <Float.Content>
+                  {/* Wrap the floated content in a div that headless ui Float.Content can reference */}
+                  <div className={`juno-popupmenu-float-content-wrapper`}>{menu}</div>
+                </Float.Content>
+              </PortalProvider.Portal>
+            </Float>
           </PopupMenuContext.Provider>
         )
       }}
@@ -295,7 +313,7 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
       Then, if label is a string, render it. Otherwise, if children is a function, invoke it with itemBag; otherwise render children straightaway:
     */}
       {(itemBag) => (
-        <span>
+        <>
           {icon && <Icon icon={icon} size="18" className={`juno-popupmenu-item-icon ${itemIconStyles}`} />}
           {/* Make sure to test for truthy label and then check for string type, otherwise typeof label === string would alway return true due to the default empty string still being of type string: */}
           {label && typeof label === "string"
@@ -303,7 +321,7 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
             : typeof children === "function"
               ? children(itemBag) // Pass the itemBag to the render prop function
               : children}
-        </span>
+        </>
       )}
     </HeadlessMenu.Item>
   )
