@@ -1,7 +1,9 @@
 import * as React from "react"
-import { render, screen, act, fireEvent } from "@testing-library/react"
+import { render, screen, act, fireEvent, waitFor } from "@testing-library/react"
 import { describe, expect, test, vi } from "vitest"
 import { PopupMenu } from "./index"
+
+// NOTE: We run these tests asynchronously for a reason:  The PopupMenu component will do state updates on our wrapping parent component while rendering the wrapped headless-ui menu component. Also, headless-ui Float used in our component will cause state updates in our tests. In order to deal with both render-time state updates as well as state updates caused by Float, we run tests asynchronously, wrap all potentially state-updating actions in act(), and wrap all our assertions in waitFor to make sure any potentially asynchronous state updates have completed when asserting.
 
 // Mock the PortalProvider so the menu is rendered directly into a Dom node that is easily accessible in our tests:
 vi.mock("../PortalProvider", () => ({
@@ -10,6 +12,7 @@ vi.mock("../PortalProvider", () => ({
   },
 }))
 
+// Define a Custom Toggle component to be used in our tests to represent a custom component a user might pass as a toggle:
 interface CustomToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
 }
@@ -25,107 +28,107 @@ CustomToggle.displayName = "CustomToggle"
 
 describe("PopupMenu", () => {
   // ----- MENU PARENT: -----
-  test("renders a custom className to the menu parent element", () => {
+  test("renders a custom className to the menu parent element", async () => {
     render(<PopupMenu data-testid="popupmenu" className="my-custom-class" />)
     expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
-    expect(screen.getByTestId("popupmenu")).toHaveClass("my-custom-class")
+    await waitFor(() => expect(screen.getByTestId("popupmenu")).toHaveClass("my-custom-class"))
   })
-  test("renders all props to the menu parent element", () => {
+  test("renders all props to the menu parent element", async () => {
     render(<PopupMenu data-testid="popupmenu" data-lolol="1234" />)
     expect(screen.getByTestId("popupmenu")).toBeInTheDocument()
-    expect(screen.getByTestId("popupmenu")).toHaveAttribute("data-lolol", "1234")
+    await waitFor(() => expect(screen.getByTestId("popupmenu")).toHaveAttribute("data-lolol", "1234"))
   })
-  test("executes an onOpen handler as passed when the menu opens", () => {
+  test("executes an onOpen handler as passed when the menu opens", async () => {
     const onOpenSpy = vi.fn()
     render(<PopupMenu onOpen={onOpenSpy} />)
-    act(() => screen.getByRole("button").click())
-    expect(onOpenSpy).toHaveBeenCalled()
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(onOpenSpy).toHaveBeenCalled())
   })
-  test("executes an onClose handler as passed when the menu closes", () => {
+  test("executes an onClose handler as passed when the menu closes", async () => {
     const onCloseSpy = vi.fn()
     render(<PopupMenu onClose={onCloseSpy} />)
     // click first to open
-    act(() => screen.getByRole("button").click())
+    await waitFor(() => act(() => screen.getByRole("button").click()))
     // click again to close
-    act(() => screen.getByRole("button").click())
-    expect(onCloseSpy).toHaveBeenCalled()
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(onCloseSpy).toHaveBeenCalled())
   })
 
   // ----- MENU TOGGLE: -----
   // Default Toggle – implicit
-  test("renders a PopupMenu default toggle", () => {
+  test("renders a PopupMenu default toggle", async () => {
     render(<PopupMenu />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
-    expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle-default")
+    await waitFor(() => expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle"))
+    await waitFor(() => expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle-default"))
   })
-  test("renders an overflow menu per default", () => {
+  test("renders an overflow menu per default", async () => {
     render(<PopupMenu />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveAttribute("alt", "more")
+    await waitFor(() => expect(screen.getByRole("img")).toHaveAttribute("alt", "more"))
   })
-  test("renders an icon in the toggle as passed", () => {
+  test("renders an icon in the toggle as passed", async () => {
     render(<PopupMenu icon="warning" />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveAttribute("alt", "warning")
+    await waitFor(() => expect(screen.getByRole("img")).toHaveAttribute("alt", "warning"))
   })
-  test("renders a disabled default toggle as passed", () => {
+  test("renders a disabled default toggle as passed", async () => {
     render(<PopupMenu disabled />)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toBeDisabled()
+    await waitFor(() => expect(screen.getByRole("button")).toBeDisabled())
   })
-  test("renders a menu as passed when the default toggle is clicked", () => {
+  test("renders a menu as passed when the default toggle is clicked", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu />
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
+    await waitFor(() => act(() => screen.getByRole("button").click()))
     expect(screen.getByRole("menu")).toBeInTheDocument()
-    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
+    await waitFor(() => expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu"))
   })
   // Default toggle – explicit:
-  test("renders a toggle with children as passed", () => {
+  test("renders a toggle with children as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Toggle>Toggle Me</PopupMenu.Toggle>
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
-    expect(screen.getByRole("button")).toHaveTextContent("Toggle Me")
+    await waitFor(() => expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle"))
+    await waitFor(() => expect(screen.getByRole("button")).toHaveTextContent("Toggle Me"))
   })
-  test("renders a toggle as passed and ignores icon prop on parent", () => {
+  test("renders a toggle as passed and ignores icon prop on parent", async () => {
     render(
       <PopupMenu icon="warning">
         <PopupMenu.Toggle>Toggle Me</PopupMenu.Toggle>
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveTextContent("Toggle Me")
-    expect(screen.queryByRole("img")).not.toBeInTheDocument()
+    await waitFor(() => expect(screen.getByRole("button")).toHaveTextContent("Toggle Me"))
+    await waitFor(() => expect(screen.queryByRole("img")).not.toBeInTheDocument())
   })
-  test("renders a toggle with a custom className as passed", () => {
+  test("renders a toggle with a custom className as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Toggle className="my-custom-toggle">Toggle Me</PopupMenu.Toggle>
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle")
-    expect(screen.getByRole("button")).toHaveClass("my-custom-toggle")
+    await waitFor(() => expect(screen.getByRole("button")).toHaveClass("juno-popupmenu-toggle"))
+    await waitFor(() => expect(screen.getByRole("button")).toHaveClass("my-custom-toggle"))
   })
-  test("renders all arbitrary props on a Toggle", () => {
+  test("renders all arbitrary props on a Toggle", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Toggle data-lolol="123">Toggle Me</PopupMenu.Toggle>
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute("data-lolol", "123")
+    await waitFor(() => expect(screen.getByRole("button")).toHaveAttribute("data-lolol", "123"))
   })
 
-  test("runs an onClick handler on the toggle as passed", () => {
+  test("runs an onClick handler on the toggle as passed", async () => {
     const onClickSpy = vi.fn()
     render(
       <PopupMenu>
@@ -133,10 +136,10 @@ describe("PopupMenu", () => {
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
-    act(() => screen.getByRole("button").click())
-    expect(onClickSpy).toHaveBeenCalled()
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(onClickSpy).toHaveBeenCalled())
   })
-  test("renders a Toggle as a custom component as passed", () => {
+  test("renders a Toggle as a custom component as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
@@ -146,8 +149,8 @@ describe("PopupMenu", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    expect(toggle).toHaveTextContent("Toggle Me")
-    expect(toggle).toHaveClass("my-custom-toggle")
+    await waitFor(() => expect(toggle).toHaveTextContent("Toggle Me"))
+    await waitFor(() => expect(toggle).toHaveClass("my-custom-toggle"))
   })
   test("renders a functional toggle as a custom component that opens and closes the menu", async () => {
     render(
@@ -160,11 +163,10 @@ describe("PopupMenu", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await act(() => fireEvent.click(toggle))
-    const menu = screen.getByRole("menu")
-    expect(menu).toBeInTheDocument()
-    await act(() => fireEvent.click(toggle))
-    expect(screen.queryByRole("menu")).not.toBeInTheDocument()
+    await waitFor(() => act(() => fireEvent.click(toggle)))
+    await waitFor(() => expect(screen.queryByRole("menu")).toBeInTheDocument())
+    await waitFor(() => act(() => fireEvent.click(toggle)))
+    await waitFor(() => expect(screen.queryByRole("menu")).not.toBeInTheDocument())
   })
   test("renders a functional toggle as a custom component that executes the onOpen handler as passed", async () => {
     const onOpenSpy = vi.fn()
@@ -176,8 +178,8 @@ describe("PopupMenu", () => {
       </PopupMenu>
     )
     const toggle = screen.getByRole("button")
-    await act(() => fireEvent.click(toggle))
-    expect(onOpenSpy).toHaveBeenCalled()
+    await waitFor(() => act(() => fireEvent.click(toggle)))
+    await waitFor(() => expect(onOpenSpy).toHaveBeenCalled())
   })
   test("renders a functional toggle as a custom component that executes the onClose handler as passed", async () => {
     const onCloseSpy = vi.fn()
@@ -188,12 +190,11 @@ describe("PopupMenu", () => {
         </PopupMenu.Toggle>
       </PopupMenu>
     )
-    const toggle = screen.getByRole("button")
     // open the menu
-    await act(() => fireEvent.click(toggle))
+    await waitFor(() => act(() => fireEvent.click(screen.getByRole("button"))))
     // close the menu again
-    await act(() => fireEvent.click(toggle))
-    expect(onCloseSpy).toHaveBeenCalled()
+    await waitFor(() => act(() => fireEvent.click(screen.getByRole("button"))))
+    await waitFor(() => expect(onCloseSpy).toHaveBeenCalled())
   })
   test("runs a custom onClick handler on a toggle passed as a custom component", async () => {
     const onClickSpy = vi.fn()
@@ -207,9 +208,9 @@ describe("PopupMenu", () => {
     const toggle = screen.getByRole("button")
     // click the toggle
     await act(() => fireEvent.click(toggle))
-    expect(onClickSpy).toHaveBeenCalled()
+    await waitFor(() => expect(onClickSpy).toHaveBeenCalled())
   })
-  test("renders all arbitrary props on a Toggle passed as a custom component", () => {
+  test("renders all arbitrary props on a Toggle passed as a custom component", async () => {
     // This test can not (and should not) REALLY test whether a custom component can render these props, but we can test whether we pass them on correctly so they can be used by a custom component:
     render(
       <PopupMenu>
@@ -217,10 +218,10 @@ describe("PopupMenu", () => {
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute("data-lolol", "123")
+    await waitFor(() => expect(screen.getByRole("button")).toHaveAttribute("data-lolol", "123"))
   })
   // Toggle as React Fragment
-  test("renders a Toggle as a React Fragment as passed via as prop", () => {
+  test("renders a Toggle as a React Fragment as passed via as prop", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Toggle as={React.Fragment} className="my-custom-toggle" data-testid="toggle-fragment">
@@ -228,11 +229,9 @@ describe("PopupMenu", () => {
         </PopupMenu.Toggle>
       </PopupMenu>
     )
-    const toggle = screen.queryByRole("button")
-    const toggleFragment = screen.getByTestId("toggle-fragment")
-    expect(toggle).toBeInTheDocument()
-    expect(toggle).toHaveTextContent("Toggle Child")
-    expect(toggle).toBe(toggleFragment)
+    await waitFor(() => expect(screen.queryByRole("button")).toBeInTheDocument())
+    await waitFor(() => expect(screen.queryByRole("button")).toHaveTextContent("Toggle Child"))
+    await waitFor(() => expect(screen.queryByRole("button")).toBe(screen.getByTestId("toggle-fragment")))
   })
   test("renders a functional Toggle that opens and closes the menu as a React Fragment", async () => {
     render(
@@ -243,13 +242,11 @@ describe("PopupMenu", () => {
         <PopupMenu.Menu />
       </PopupMenu>
     )
-    const toggle = screen.getByRole("button")
-    expect(toggle).toBeInTheDocument()
-    await act(() => fireEvent.click(toggle))
-    const menu = screen.getByRole("menu")
-    expect(menu).toBeInTheDocument()
-    await act(() => fireEvent.click(toggle))
-    expect(screen.queryByRole("menu")).not.toBeInTheDocument()
+    await waitFor(() => expect(screen.getByRole("button")).toBeInTheDocument())
+    await waitFor(() => act(() => fireEvent.click(screen.getByRole("button"))))
+    await waitFor(() => expect(screen.getByRole("menu")).toBeInTheDocument())
+    await waitFor(() => act(() => fireEvent.click(screen.getByRole("button"))))
+    await waitFor(() => expect(screen.queryByRole("menu")).not.toBeInTheDocument())
   })
   test("runs a custom onClick handler on a Toggle that was rendered as a React Fragment", async () => {
     const onClickSpy = vi.fn()
@@ -260,61 +257,58 @@ describe("PopupMenu", () => {
         </PopupMenu.Toggle>
       </PopupMenu>
     )
-    const toggle = screen.getByRole("button")
-    expect(toggle).toBeInTheDocument()
-    await act(() => fireEvent.click(toggle))
-    expect(onClickSpy).toHaveBeenCalled()
+    await waitFor(() => expect(screen.getByRole("button")).toBeInTheDocument())
+    await waitFor(() => act(() => fireEvent.click(screen.getByRole("button"))))
+    await waitFor(() => expect(onClickSpy).toHaveBeenCalled())
   })
 
   // ----- MENU -----
-  test("renders the menu into a portal container", () => {
+  test("renders the menu into a portal container", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu />
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    const portal = screen.getByTestId("portal-container")
-    const menu = screen.getByRole("menu")
-    expect(menu).toBeInTheDocument()
-    expect(portal).toContainElement(menu)
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByRole("menu")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByTestId("portal-container")).toContainElement(screen.getByRole("menu")))
   })
-  test("renders a normal size menu by default", () => {
+  test("renders a normal size menu by default", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu />
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByRole("menu")).toBeInTheDocument()
-    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
-    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu-size-normal")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByRole("menu")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu"))
+    await waitFor(() => expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu-size-normal"))
   })
-  test("renders a small size menu as passed", () => {
+  test("renders a small size menu as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu />
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByRole("menu")).toBeInTheDocument()
-    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
-    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu-size-normal")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByRole("menu")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu"))
+    await waitFor(() => expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu-size-normal"))
   })
-  test("renders a menu with a custom className as passed", () => {
+  test("renders a menu with a custom className as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu className="my-custom-menu" />
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByRole("menu")).toBeInTheDocument()
-    expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu")
-    expect(screen.getByRole("menu")).toHaveClass("my-custom-menu")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByRole("menu")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole("menu")).toHaveClass("juno-popupmenu-menu"))
+    await waitFor(() => expect(screen.getByRole("menu")).toHaveClass("my-custom-menu"))
   })
 
   // ----- MENU ITEMS: -----
-  test("renders menu items as passed", () => {
+  test("renders menu items as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -322,11 +316,11 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item"))
   })
-  test("renders menu items with a label as passed", () => {
+  test("renders menu items with a label as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -334,12 +328,12 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item")
-    expect(screen.getByRole("menuitem")).toHaveTextContent("My Menu Item")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item"))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveTextContent("My Menu Item"))
   })
-  test("renders menu items with children as passed", () => {
+  test("renders menu items with children as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -347,12 +341,12 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item")
-    expect(screen.getByRole("menuitem")).toHaveTextContent("Item With Children")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item"))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveTextContent("Item With Children"))
   })
-  test("renders a menu item with label when both label and children were passed", () => {
+  test("renders a menu item with label when both label and children were passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -360,13 +354,13 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item")
-    expect(screen.getByRole("menuitem")).toHaveTextContent("123")
-    expect(screen.getByRole("menuitem")).not.toHaveTextContent("abc")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item"))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveTextContent("123"))
+    await waitFor(() => expect(screen.getByRole("menuitem")).not.toHaveTextContent("abc"))
   })
-  test("renders a menu item with a custom className as passed", () => {
+  test("renders a menu item with a custom className as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -374,12 +368,12 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item")
-    expect(screen.getByRole("menuitem")).toHaveClass("my-custom-item")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveClass("juno-popupmenu-item"))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveClass("my-custom-item"))
   })
-  test("renders a disabled menu item as passed", () => {
+  test("renders a disabled menu item as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -387,11 +381,11 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
+    await waitFor(() => act(() => screen.getByRole("button").click()))
     expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveAttribute("aria-disabled", "true")
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveAttribute("aria-disabled", "true"))
   })
-  test("renders a menu item with an icon as passed", () => {
+  test("renders a menu item with an icon as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -399,12 +393,12 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
+    await waitFor(() => act(() => screen.getByRole("button").click()))
     expect(screen.getByRole("menuitem")).toBeInTheDocument()
     // access the icon using the title attribute that establishes its accessible name:
-    expect(screen.getByRole("img", { name: "Warning" })).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByRole("img", { name: "Warning" })).toBeInTheDocument())
   })
-  test("renders an item with all arbitrary props", () => {
+  test("renders an item with all arbitrary props", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -412,9 +406,9 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
+    await waitFor(() => act(() => screen.getByRole("button").click()))
     expect(screen.getByRole("menuitem")).toBeInTheDocument()
-    expect(screen.getByRole("menuitem")).toHaveAttribute("data-lolol", "123")
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveAttribute("data-lolol", "123"))
   })
   test("excutes an onClick handler on the Menu Item as passed", async () => {
     const onClickSpy = vi.fn()
@@ -425,7 +419,7 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
+    await waitFor(() => act(() => screen.getByRole("button").click()))
     const item = screen.getByRole("menuitem")
     expect(item).toBeInTheDocument()
     await act(() => fireEvent.click(item))
@@ -433,7 +427,7 @@ describe("PopupMenu", () => {
   })
 
   // ----- MENU SECTION: -----
-  test("renders a menu section as passed", () => {
+  test("renders a menu section as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -441,10 +435,10 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByTestId("my-menu-section")).toBeInTheDocument()
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByTestId("my-menu-section")).toBeInTheDocument())
   })
-  test("renders a menu section with a title as passed", () => {
+  test("renders a menu section with a title as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -452,11 +446,11 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByTestId("my-menu-section")).toBeInTheDocument()
-    expect(screen.getByTestId("my-menu-section")).toHaveTextContent("My Own Menu Section")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByTestId("my-menu-section")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByTestId("my-menu-section")).toHaveTextContent("My Own Menu Section"))
   })
-  test("renders a menu section with a custom className as passed", () => {
+  test("renders a menu section with a custom className as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -464,11 +458,11 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByTestId("my-menu-section")).toBeInTheDocument()
-    expect(screen.getByTestId("my-menu-section")).toHaveClass("my-custom-class")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByTestId("my-menu-section")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByTestId("my-menu-section")).toHaveClass("my-custom-class"))
   })
-  test("renders a menu section with children as passed", () => {
+  test("renders a menu section with children as passed", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -479,15 +473,15 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
+    await waitFor(() => act(() => screen.getByRole("button").click()))
     const section = screen.getByTestId("my-menu-section")
     const insideChild = screen.getByTestId("child-inside")
     const outsideChild = screen.getByTestId("child-outside")
-    expect(section).toContainElement(insideChild)
-    // double-check the other child is not a child of the section:
-    expect(section).not.toContainElement(outsideChild)
+    await waitFor(() => expect(section).toContainElement(insideChild))
+    // explicitly double-check whether the other child is not a child of the section:
+    await waitFor(() => expect(section).not.toContainElement(outsideChild))
   })
-  test("renders a section with arbitrary props", () => {
+  test("renders a section with arbitrary props", async () => {
     render(
       <PopupMenu>
         <PopupMenu.Menu>
@@ -495,8 +489,8 @@ describe("PopupMenu", () => {
         </PopupMenu.Menu>
       </PopupMenu>
     )
-    act(() => screen.getByRole("button").click())
-    expect(screen.getByTestId("my-menu-section")).toBeInTheDocument()
-    expect(screen.getByTestId("my-menu-section")).toHaveAttribute("data-lolol", "123")
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByTestId("my-menu-section")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByTestId("my-menu-section")).toHaveAttribute("data-lolol", "123"))
   })
 })
