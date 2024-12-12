@@ -194,19 +194,17 @@ const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | nul
  */
 export const Message: React.FC<MessageProps> = ({
   title = null,
-  text,
   variant = "info",
   dismissible = false,
   autoDismiss = false,
   autoDismissTimeout = 10000,
   onDismiss,
   className = "",
-  children,
   ...props
 }) => {
   const [visible, setVisible] = useState<boolean>(true)
   const autoDismissTimeoutRef = useRef<number | null>(null)
-
+  const { text, children } = props
   const hideMessage = () => {
     setVisible(false)
     onDismiss && onDismiss()

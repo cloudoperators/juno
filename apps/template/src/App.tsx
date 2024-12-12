@@ -46,7 +46,6 @@ export const App = (props: AppProps) => {
         </CodeBlock>
       </div>
     )
-    // return <div className="w-1/2">{error?.message || error?.toString() || "An error occurred"}</div>
   }
 
   return (
