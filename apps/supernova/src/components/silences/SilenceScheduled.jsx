@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState, useMemo } from "react"
+import React, { useState, useMemo } from "react"
 import { produce } from "immer"
-import constants from "../../constants"
-import { Messages, useActions } from "@cloudoperators/juno-messages-provider"
+import { useActions } from "@cloudoperators/juno-messages-provider"
 import {
   Modal,
   Box,
@@ -19,24 +18,24 @@ import {
   FormRow,
   Stack,
   Pill,
+  Button,
   FormSection,
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
-import { useGlobalsUsername, useSilenceTemplates, useGlobalsApiEndpoint, useSilencesActions } from "../StoreProvider"
-import { post } from "../../api/client"
+import { useGlobalsUsername, useSilenceTemplates } from "../StoreProvider"
 import { parseError } from "../../helpers"
-
+import { useBoundMutation } from "../../hooks/useBoundMutation"
+import { useQueryClient } from "@tanstack/react-query"
+// import { debounce } from "../../helpers"
 import { DEFAULT_FORM_VALUES, validateForm } from "./silenceScheduledHelpers"
 
-const SilenceScheduled = (props) => {
+const SilenceScheduled = () => {
   const user = useGlobalsUsername()
-  const { addMessage, resetMessages } = useActions()
+  const { addMessage } = useActions()
   const silenceTemplates = useSilenceTemplates()
-  const apiEndpoint = useGlobalsApiEndpoint()
-  const { addLocalItem } = useSilencesActions()
+  const [error, setError] = useState(null)
 
-  // set sucess of sending the silence
-  const [success, setSuccess] = useState(null)
+  const queryClient = useQueryClient()
 
   // set the selected template
   const [selected, setSelected] = useState(null)
@@ -51,30 +50,40 @@ const SilenceScheduled = (props) => {
   // Formular which will be used to create the silence
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
 
-  // useEffect to init callback after rendering. This is needed to reopen the SilencedScheduledWrapper closing the modal
-  const [closed, setClosed] = useState(false)
-  useEffect(() => {
-    if (closed) {
-      props.callbackOnClose()
-    }
-  }, [closed])
+  const [closed, setClosed] = useState(true)
+
+  const { mutate: createSilence } = useBoundMutation("createSilences", {
+    onSuccess: (data) => {
+      console.log("sdffsd")
+      setClosed(true)
+      addMessage({
+        variant: "success",
+        text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may take up
+          to 5 minutes for the alert to show up as silenced.`,
+      })
+    },
+    onError: (error) => {
+      // add a error message in UI
+      setError(parseError(error))
+    },
+
+    onSettled: () => {
+      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
+      queryClient.invalidateQueries(["silences"])
+    },
+  })
 
   // submit
   const onSubmitForm = () => {
     // reset errors.
-    resetMessages()
-
-    setSuccess(null)
+    setError(null)
 
     // validate form and sets in case of errors messages and stops the submit
     let errorFormState = validateForm(formState)
 
     if (errorFormState) {
       setFormState(errorFormState)
-      addMessage({
-        variant: "error",
-        text: "Please fix the errors in the form",
-      })
+      setError("Please fix the errors in the form")
       return
     }
 
@@ -102,32 +111,8 @@ const SilenceScheduled = (props) => {
       })
     }
 
-    // submit silence
-    post(`${apiEndpoint}/silences`, {
-      body: JSON.stringify(silence),
-    })
-      .then((data) => {
-        setSuccess(data)
-
-        console.debug("data", data)
-
-        let newSilence = {
-          ...silence,
-          status: { ...silence.status, state: constants.SILENCE_CREATING },
-        }
-
-        addLocalItem({
-          silence: newSilence,
-          id: data.silenceID,
-          type: constants.SILENCE_CREATING,
-        })
-      })
-      .catch((error) => {
-        addMessage({
-          variant: "error",
-          text: parseError(error),
-        })
-      })
+    // calling createSilence with variable silence: newSilence
+    createSilence({ silence: silence })
   }
 
   //////
@@ -190,155 +175,160 @@ const SilenceScheduled = (props) => {
   }
 
   return (
-    <Modal
-      title="Schedule new silence"
-      size="large"
-      open={true}
-      confirmButtonLabel={success || !selected || selected?.invalid ? null : "Save"}
-      onConfirm={success || !selected || selected?.invalid ? null : onSubmitForm}
-      onCancel={() => setClosed(true)}
-    >
-      <Messages />
-
-      {success && (
-        <Message className="mb-6" variant="success">
-          A silence object with id <b>{success?.silenceID}</b> was created successfully. Please note that it may take up
-          to 5 minutes for the alert to show up as silenced.
-        </Message>
-      )}
-
-      {!success && (
+    <>
+      {silenceTemplates && silenceTemplates?.length > 0 && (
         <>
-          <Form className="mt-6">
-            {selected && selected?.invalid && (
-              <FormRow>
-                <Message text={`This silence template is invalid. ${selected.invalid}`} variant="error" />
-              </FormRow>
-            )}
+          <Button
+            onClick={(e) => {
+              e.stopPropagation()
+              setClosed(false)
+            }}
+          >
+            Schedule Silence
+          </Button>
+          {!closed && (
+            <Modal
+              title="Schedule new silence"
+              size="large"
+              open={true}
+              confirmButtonLabel={!selected || selected?.invalid ? null : "Save"}
+              onConfirm={!selected || selected?.invalid ? null : onSubmitForm}
+              onCancel={() => setClosed(true)}
+            >
+              {error && <Message text={error} variant="danger" />}
 
-            <FormRow>
-              <Select
-                required
-                label="Silence Template"
-                value={selected?.id || "Select"}
-                onValueChange={(value) => {
-                  onChangeTemplate(value)
-                }}
-              >
-                {silenceTemplates?.map((option) => (
-                  <SelectOption key={option.id} id={option.id} label={option.title} value={option.id} />
-                ))}
-              </Select>
-            </FormRow>
-
-            {selected && !selected?.invalid && (
-              <FormRow>
-                <Box>{selected?.description}</Box>
-              </FormRow>
-            )}
-          </Form>
-
-          {selected && !selected?.invalid && (
-            <Form>
-              <FormSection>
-                <FormRow>
-                  <TextInput
-                    required
-                    label="Silenced by"
-                    value={formState?.createdBy?.value}
-                    errortext={formState?.createdBy?.error}
-                    onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
-                    disabled={!!user}
-                  />
-                </FormRow>
-                <FormRow>
-                  <div className="grid gap-2 grid-cols-2">
-                    <DateTimePicker
-                      value={formState?.date?.start || defaultDate}
-                      dateFormat="Y-m-d H:i:S"
-                      label="Select a start date"
-                      enableTime
-                      time_24hr
-                      required
-                      errortext={formState?.date?.error}
-                      onChange={setStartDate}
-                      enableSeconds
-                    />
-                    <DateTimePicker
-                      value={formState?.date?.end || defaultDate}
-                      dateFormat="Y-m-d H:i:S"
-                      label="Select a end date"
-                      enableTime
-                      time_24hr
-                      required
-                      errortext={formState?.date?.error}
-                      onChange={setEndDate}
-                      enableSeconds
-                    />
-                  </div>
-                </FormRow>
-
-                <FormRow>
-                  <Textarea
-                    label="Comment"
-                    value={formState.comment.value}
-                    errortext={formState.comment.error}
-                    onChange={(e) => onInputChanged({ key: "comment", value: e.target.value })}
-                    required
-                  ></Textarea>
-                </FormRow>
-              </FormSection>
-
-              {formState?.editable_labels && Object.keys(formState?.editable_labels).length > 0 && (
-                <FormSection>
+              <Form className="mt-6">
+                {selected && selected?.invalid && (
                   <FormRow>
-                    <p>Editable Labels are labels that are editable. You can use regular expressions.</p>
+                    <Message text={`This silence template is invalid. ${selected.invalid}`} variant="error" />
                   </FormRow>
+                )}
 
+                <FormRow>
+                  <Select
+                    required
+                    label="Silence Template"
+                    value={selected?.id || "Select"}
+                    onValueChange={(value) => {
+                      onChangeTemplate(value)
+                    }}
+                  >
+                    {silenceTemplates?.map((option) => (
+                      <SelectOption key={option.id} id={option.id} label={option.title} value={option.id} />
+                    ))}
+                  </Select>
+                </FormRow>
+
+                {selected && !selected?.invalid && (
                   <FormRow>
-                    <div className="grid gap-2 grid-cols-2">
-                      {Object.keys(formState.editable_labels).map((editable_label, index) => (
-                        <TextInput
+                    <Box>{selected?.description}</Box>
+                  </FormRow>
+                )}
+              </Form>
+
+              {selected && !selected?.invalid && (
+                <Form>
+                  <FormSection>
+                    <FormRow>
+                      <TextInput
+                        required
+                        label="Silenced by"
+                        value={formState?.createdBy?.value}
+                        errortext={formState?.createdBy?.error}
+                        onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                        disabled={!!user}
+                      />
+                    </FormRow>
+                    <FormRow>
+                      <div className="grid gap-2 grid-cols-2">
+                        <DateTimePicker
+                          value={formState?.date?.start || defaultDate}
+                          dateFormat="Y-m-d H:i:S"
+                          label="Select a start date"
+                          enableTime
+                          time_24hr
                           required
-                          label={editable_label}
-                          key={index}
-                          id={editable_label}
-                          value={formState?.editable_labels[editable_label].value}
-                          errortext={formState?.editable_labels[editable_label]?.error}
-                          onChange={onChangeLabelValue}
+                          errortext={formState?.date?.error}
+                          onChange={setStartDate}
+                          enableSeconds
                         />
-                      ))}
-                    </div>
-                  </FormRow>
-                </FormSection>
-              )}
-
-              {Object.keys(formState?.fixed_labels).length > 0 && (
-                <FormSection>
-                  <FormRow>
-                    <p>Fixed Labels are labels that are not editable.</p>
-                  </FormRow>
-
-                  <FormRow>
-                    <Stack gap="2" alignment="start" wrap={true} className="mt-2">
-                      {Object.keys(formState.fixed_labels).map((label, index) => (
-                        <Pill
-                          key={index}
-                          pillKey={label}
-                          pillKeyLabel={label}
-                          pillValue={formState?.fixed_labels[label]}
-                          pillValueLabel={formState?.fixed_labels[label]}
+                        <DateTimePicker
+                          value={formState?.date?.end || defaultDate}
+                          dateFormat="Y-m-d H:i:S"
+                          label="Select a end date"
+                          enableTime
+                          time_24hr
+                          required
+                          errortext={formState?.date?.error}
+                          onChange={setEndDate}
+                          enableSeconds
                         />
-                      ))}
-                    </Stack>
-                  </FormRow>
-                </FormSection>
+                      </div>
+                    </FormRow>
+
+                    <FormRow>
+                      <Textarea
+                        label="Comment"
+                        value={formState.comment.value}
+                        errortext={formState.comment.error}
+                        onChange={(e) => onInputChanged({ key: "comment", value: e.target.value })}
+                        required
+                      ></Textarea>
+                    </FormRow>
+                  </FormSection>
+
+                  {formState?.editable_labels && Object.keys(formState?.editable_labels).length > 0 && (
+                    <FormSection>
+                      <FormRow>
+                        <p>Editable Labels are labels that are editable. You can use regular expressions.</p>
+                      </FormRow>
+
+                      <FormRow>
+                        <div className="grid gap-2 grid-cols-2">
+                          {Object.keys(formState.editable_labels).map((editable_label, index) => (
+                            <TextInput
+                              required
+                              label={editable_label}
+                              key={index}
+                              id={editable_label}
+                              value={formState?.editable_labels[editable_label].value}
+                              errortext={formState?.editable_labels[editable_label]?.error}
+                              onChange={onChangeLabelValue}
+                            />
+                          ))}
+                        </div>
+                      </FormRow>
+                    </FormSection>
+                  )}
+
+                  {Object.keys(formState?.fixed_labels).length > 0 && (
+                    <FormSection>
+                      <FormRow>
+                        <p>Fixed Labels are labels that are not editable.</p>
+                      </FormRow>
+
+                      <FormRow>
+                        <Stack gap="2" alignment="start" wrap={true} className="mt-2">
+                          {Object.keys(formState.fixed_labels).map((label, index) => (
+                            <Pill
+                              key={index}
+                              pillKey={label}
+                              pillKeyLabel={label}
+                              pillValue={formState?.fixed_labels[label]}
+                              pillValueLabel={formState?.fixed_labels[label]}
+                            />
+                          ))}
+                        </Stack>
+                      </FormRow>
+                    </FormSection>
+                  )}
+                </Form>
               )}
-            </Form>
-          )}
+            </Modal>
+          )}{" "}
         </>
       )}
-    </Modal>
+    </>
   )
 }
 

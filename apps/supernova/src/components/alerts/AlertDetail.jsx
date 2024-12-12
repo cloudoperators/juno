@@ -48,19 +48,19 @@ const AlertDetail = () => {
   const { isAlertsLoading } = useBoundQuery("alerts")
 
   return (
-    <Panel
-      heading={
-        <Stack gap="2">
-          <AlertIcon severity={alert?.labels?.severity} />
-          <span>{alert?.annotations?.summary || "Not found"}</span>
-        </Stack>
-      }
-      opened={!!alertID}
-      onClose={onPanelClose}
-      size="large"
-    >
-      <PanelBody>
-        <MessagesProvider>
+    <MessagesProvider>
+      <Panel
+        heading={
+          <Stack gap="2">
+            <AlertIcon severity={alert?.labels?.severity} />
+            <span>{alert?.annotations?.summary || "Not found"}</span>
+          </Stack>
+        }
+        opened={!!alertID}
+        onClose={onPanelClose}
+        size="large"
+      >
+        <PanelBody>
           <Messages className="pb-6 absolute" />
           <Tabs>
             <TabList>
@@ -135,11 +135,11 @@ const AlertDetail = () => {
               </Container>
             </TabPanel>
           </Tabs>
-        </MessagesProvider>
-      </PanelBody>
+        </PanelBody>
 
-      <PanelFooter>{alert && <SilenceNew alert={alert} variant="primary" />}</PanelFooter>
-    </Panel>
+        <PanelFooter>{alert && <SilenceNew alert={alert} variant="primary" />}</PanelFooter>
+      </Panel>
+    </MessagesProvider>
   )
 }
 

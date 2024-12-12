@@ -69,9 +69,7 @@ const AlertSilencesList = ({ alert }) => {
                   {
                     /// show the expire button if the silence is active or pending
                     // else show recreate button
-                    silence?.status?.state === constants.SILENCE_ACTIVE ||
-                    silence?.status?.state === constants.SILENCE_PENDING ||
-                    silence?.status?.state === constants.SILENCE_CREATING ? (
+                    silence?.status?.state === constants.SILENCE_ACTIVE ? (
                       <ExpireSilence silence={silence} fingerprint={alert.fingerprint} />
                     ) : (
                       <RecreateSilence silence={silence} fingerprint={alert.fingerprint} />

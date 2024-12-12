@@ -18,19 +18,20 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import {
   useSilencesExcludedLabels,
-  useGlobalsApiEndpoint,
   useSilencesActions,
   useAlertEnrichedLabels,
   useGlobalsUsername,
 } from "../StoreProvider"
-import { post } from "../../api/client"
+import { useActions } from "@cloudoperators/juno-messages-provider"
 import AlertDescription from "../alerts/shared/AlertDescription"
 import SilenceNewAdvanced from "./SilenceNewAdvanced"
-import { debounce } from "../../helpers"
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"
 import constants from "../../constants"
+
+import { useQueryClient } from "@tanstack/react-query"
+import { useBoundMutation } from "../../hooks/useBoundMutation"
 
 const validateForm = (values) => {
   const minCommentLength = 3
@@ -61,24 +62,22 @@ const errorHelpText = (messages) => {
 const DEFAULT_FORM_VALUES = { duration: "2", comment: "" }
 
 const SilenceNew = ({ alert, size, variant }) => {
-  const apiEndpoint = useGlobalsApiEndpoint()
+  const queryClient = useQueryClient()
   const excludedLabels = useSilencesExcludedLabels()
-  const { addLocalItem, getMappingSilences } = useSilencesActions()
+  const { getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
   const user = useGlobalsUsername()
-
+  const { addMessage } = useActions()
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
   const [expirationDate, setExpirationDate] = useState(null)
   const [showValidation, setShowValidation] = useState({})
   const [error, setError] = useState(null)
-  const [success, setSuccess] = useState(null)
 
   // Initialize form state on modal open
   // Removed alert from dependencies since we take an screenshot of the global state on opening the modal
   // This is due to if the alert changes (e.g. the alert receives a new silenceBy) while the modal is open, the form state will be reset
   useLayoutEffect(() => {
-    if (!displayNewSilence) return
     // reset form state with default values
     setFormState({
       ...formState,
@@ -93,7 +92,6 @@ const SilenceNew = ({ alert, size, variant }) => {
     setExpirationDate(latestExpirationDate(getMappingSilences(alert)))
     // reset other states
     setError(null)
-    setSuccess(null)
     setShowValidation({})
   }, [displayNewSilence])
 
@@ -108,10 +106,28 @@ const SilenceNew = ({ alert, size, variant }) => {
     return options.items
   }, [expirationDate])
 
+  const { mutate: createSilence } = useBoundMutation("createSilences", {
+    onSuccess: (data) => {
+      setDisplayNewSilence(false)
+      addMessage({
+        variant: "success",
+        text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may take up to 5 minutes for the alert to show up as silenced.`,
+      })
+    },
+    onError: (error) => {
+      // add a error message in UI
+      setError(parseError(error))
+    },
+
+    onSettled: () => {
+      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
+      queryClient.invalidateQueries(["silences"])
+    },
+  })
+
   // debounce to prevent accidental double clicks from creating multiple silences
-  const onSubmitForm = debounce(() => {
+  const onSubmitForm = () => {
     setError(null)
-    setSuccess(null)
 
     const formValidation = validateForm(formState)
     setShowValidation(formValidation)
@@ -134,25 +150,9 @@ const SilenceNew = ({ alert, size, variant }) => {
       alertFingerprint: alert.fingerprint,
     }
 
-    // submit silence
-    post(`${apiEndpoint}/silences`, {
-      body: JSON.stringify(newSilence),
-    })
-      .then((data) => {
-        setSuccess(data)
-        if (data?.silenceID) {
-          // add silence to local store
-          addLocalItem({
-            silence: newSilence,
-            id: data.silenceID,
-            type: "local",
-          })
-        }
-      })
-      .catch((error) => {
-        setError(parseError(error))
-      })
-  }, 200)
+    // calling createSilence with variable silence: newSilence
+    createSilence({ silence: newSilence })
+  }
 
   const onInputChanged = ({ key, value }) => {
     if (!value) return
@@ -186,20 +186,13 @@ const SilenceNew = ({ alert, size, variant }) => {
           title="New Silence for"
           size="large"
           open={true}
-          confirmButtonLabel={success ? null : "Save"}
+          confirmButtonLabel={"Save"}
           onCancel={() => setDisplayNewSilence(false)}
-          onConfirm={success ? null : onSubmitForm}
+          onConfirm={onSubmitForm}
         >
           {error && <Message text={error} variant="danger" />}
 
-          {success && (
-            <Message className="mb-6" variant="success">
-              A silence object with id <b>{success?.silenceID}</b> was created successfully. Please note that it may
-              take up to 5 minutes for the alert to show up as silenced.
-            </Message>
-          )}
-
-          {expirationDate && !success && (
+          {expirationDate && (
             <Message className="mb-6" variant="info">
               There is already a silence for this alert that expires at
               <b>{DateTime.fromISO(expirationDate).toLocaleString(DateTime.DATETIME_SHORT)}</b>
@@ -212,51 +205,49 @@ const SilenceNew = ({ alert, size, variant }) => {
             <AlertDescription description={alert.annotations?.description} />
           </Box>
 
-          {!success && (
-            <>
-              <SilenceNewAdvanced matchers={formState.matchers} onMatchersChanged={onMatchersChanged} />
+          <>
+            <SilenceNewAdvanced matchers={formState.matchers} onMatchersChanged={onMatchersChanged} />
 
-              <Form className="mt-6">
-                <FormRow>
-                  <TextInput
-                    required
-                    label="Silenced by"
-                    value={formState.createdBy}
-                    onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
-                    errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
-                    disabled={!!user}
-                  />
-                </FormRow>
-                <FormRow>
-                  <Textarea
-                    className="h-20"
-                    label="Description"
-                    value={formState.comment}
-                    onChange={(e) => onInputChanged({ key: "comment", value: e.target.value })}
-                    errortext={showValidation["comment"] && errorHelpText(showValidation["comment"])}
-                    required
-                  />
-                </FormRow>
-                <FormRow>
-                  <Select
-                    required
-                    label="Duration"
-                    value={formState.duration}
-                    onChange={(value) =>
-                      onInputChanged({
-                        key: "duration",
-                        value,
-                      })
-                    }
-                  >
-                    {durationOptions?.map((option) => (
-                      <SelectOption key={option.value} label={option.label} value={option.value} />
-                    ))}
-                  </Select>
-                </FormRow>
-              </Form>
-            </>
-          )}
+            <Form className="mt-6">
+              <FormRow>
+                <TextInput
+                  required
+                  label="Silenced by"
+                  value={formState.createdBy}
+                  onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                  errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
+                  disabled={!!user}
+                />
+              </FormRow>
+              <FormRow>
+                <Textarea
+                  className="h-20"
+                  label="Description"
+                  value={formState.comment}
+                  onChange={(e) => onInputChanged({ key: "comment", value: e.target.value })}
+                  errortext={showValidation["comment"] && errorHelpText(showValidation["comment"])}
+                  required
+                />
+              </FormRow>
+              <FormRow>
+                <Select
+                  required
+                  label="Duration"
+                  value={formState.duration}
+                  onChange={(value) =>
+                    onInputChanged({
+                      key: "duration",
+                      value,
+                    })
+                  }
+                >
+                  {durationOptions?.map((option) => (
+                    <SelectOption key={option.value} label={option.label} value={option.value} />
+                  ))}
+                </Select>
+              </FormRow>
+            </Form>
+          </>
         </Modal>
       )}
     </>

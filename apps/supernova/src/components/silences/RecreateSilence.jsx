@@ -105,7 +105,6 @@ const RecreateSilence = (props) => {
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
     onSuccess: (data) => {
-      console.log("sdf", data)
       addMessage({
         variant: "success",
         text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may
