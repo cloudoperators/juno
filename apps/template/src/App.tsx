@@ -53,7 +53,6 @@ export const App = (props: AppProps) => {
       <AppShell
         pageHeader="Converged Cloud | App Template"
         embedded={props.embedded === "true" || props.embedded === true}
-        fullWidthContent={false}
         sideNavigation={null}
         topNavigation={null}
       >
