@@ -5,8 +5,8 @@
 
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import { useDataListContext } from "../DataList/DataList.component.js"
-import { DataListCheckboxCell } from "../../deprecated_js/DataListCheckboxCell/DataListCheckboxCell.component"
+import { useDataListContext } from "../DataList/DataList.component"
+import { DataListCheckboxCell } from "../DataListCheckboxCell/DataListCheckboxCell.component"
 
 const datalistrowbasestyles = `
 	jn-flex

@@ -8,11 +8,11 @@ import { Breadcrumb, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-c
 
 import WelcomeView from "./WelcomeView"
 
-const AppContent = () => {
+const AppContent = (): JSX.Element => {
   return (
     <>
       <Breadcrumb>
-        <BreadcrumbItem icon="home" label="Template App Home" />
+        <BreadcrumbItem icon="home" label="Template App Home" onClick={undefined} />
       </Breadcrumb>
       <Container py>
         <WelcomeView />

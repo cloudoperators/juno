@@ -108,8 +108,7 @@ const jsonTheme = {
 /**  A basic CodeBlock component. Accepts a content prop or children. Will render a pre-wrapped code element. */
 export const CodeBlock: React.FC<CodeBlockProps> = ({
   content = "",
-  children = null,
-  heading,
+  children,
   wrap = true,
   size = "auto",
   copy = true,
@@ -119,7 +118,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 }) => {
   const [isCopied, setIsCopied] = useState(false)
   const timeoutRef = React.useRef<number | null>(null)
-
+  const { heading } = props
   React.useEffect(() => {
     return () => {
       if (timeoutRef.current) {
