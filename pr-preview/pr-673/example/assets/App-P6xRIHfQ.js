@@ -1,4 +1,4 @@
-import{r as l,g as hA,R as X,a as yt,C as Xn,Z as Wp}from"./index-C9vb3c6e.js";import"./index-B4_6gcyP.js";var bA={exports:{}},ma={};/**
+import{r as l,g as hA,R as X,a as yt,C as Xn,Z as Wp}from"./index-B6PaHjIc.js";import"./index-mo7zryRa.js";var bA={exports:{}},ma={};/**
  * @license React
  * react-jsx-runtime.production.min.js
  *
@@ -456,11 +456,11 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 `,Zx=`
   jn-text-theme-high
   jn-inline-flex
-`,Zf=({href:t="#",label:n="Item",ariaLabel:e="",active:r=!1,children:o=null,disabled:a=!1,className:i="",...s})=>{if(o)return M.jsx(M.Fragment,{children:o});const{icon:c,onClick:A}=s,u=c?M.jsx(Qe,{icon:c,size:"18",color:"jn-text-theme-default",className:n?"jn-mr-1":""}):null,g=`juno-breadcrumb-item 
+`,Zf=({href:t="#",label:n="Item",ariaLabel:e="",active:r=!1,children:o=null,disabled:a=!1,onClick:i,className:s="",...c})=>{if(o)return M.jsx(M.Fragment,{children:o});const{icon:A}=c,u=A?M.jsx(Qe,{icon:A,size:"18",color:"jn-text-theme-default",className:n?"jn-mr-1":""}):null,g=`juno-breadcrumb-item 
     ${Lx} 
     ${a?"juno-breadcrumb-item-disabled":""} 
     ${r?"juno-breadcrumb-item-active":""} 
-    ${i}`;if(r||a)return M.jsxs("span",{className:g,...s,children:[u,n]});const p=d=>{A&&!a&&A(d)};return M.jsx("span",{className:g,...s,children:M.jsxs("a",{href:t,className:Zx,"aria-label":e||n,onClick:p,children:[u,n]})})},Px=({children:t,className:n="",...e})=>{const r=l.Children.toArray(t).filter(X.isValidElement),o=r.map((a,i)=>M.jsxs(X.Fragment,{children:[M.jsx(Zf,{...a.props}),i<r.length-1&&M.jsx(Qe,{icon:"chevronRight"})]},i));return M.jsx(An,{className:`juno-breadcrumb ${n}`,gap:"1",...e,children:o})},zx=`
+    ${s}`;if(r||a)return M.jsxs("span",{className:g,...c,children:[u,n]});const p=d=>{i&&!a&&i(d)};return M.jsx("span",{className:g,...c,children:M.jsxs("a",{href:t,className:Zx,"aria-label":e||n,onClick:p,children:[u,n]})})},Px=({children:t,className:n="",...e})=>{const r=l.Children.toArray(t).filter(X.isValidElement),o=r.map((a,i)=>M.jsxs(X.Fragment,{children:[M.jsx(Zf,{...a.props}),i<r.length-1&&M.jsx(Qe,{icon:"chevronRight"})]},i));return M.jsx(An,{className:`juno-breadcrumb ${n}`,gap:"1",...e,children:o})},zx=`
   jn-animate-spin 
   jn-mr-3 
   jn-h-5 
