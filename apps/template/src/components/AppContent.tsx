@@ -12,7 +12,7 @@ const AppContent = (): JSX.Element => {
   return (
     <>
       <Breadcrumb>
-        <BreadcrumbItem icon="home" label="Template App Home" />
+        <BreadcrumbItem icon="home" label="Template App Home" onClick={undefined} />
       </Breadcrumb>
       <Container py>
         <WelcomeView />
