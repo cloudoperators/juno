@@ -199,6 +199,9 @@ const createSilencesSlice = (set, get, options) => ({
         // combine the arrays containing the labels that shouldn't be used for matching into one for easier checking
         const labelsExcludedForMatching = [...excludedLabels, ...enrichedLabels]
 
+        console.log(labelsExcludedForMatching, "sdf")
+        console.log(silences, "sdf")
+
         // Find all silences where all silence.labels are a subset of alerts.labels (excluding the excluded excludedLabels)
         return silences.filter((silence) => {
           const silenceMatchers = silence?.matchers || []

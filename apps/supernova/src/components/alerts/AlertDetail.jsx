@@ -45,7 +45,7 @@ const AlertDetail = () => {
     setShowDetailsFor(null)
   }
 
-  const { isAlertsLoading } = useBoundQuery("alerts")
+  const { isLoading: isAlertsLoading } = useBoundQuery("alerts")
 
   return (
     <MessagesProvider>
