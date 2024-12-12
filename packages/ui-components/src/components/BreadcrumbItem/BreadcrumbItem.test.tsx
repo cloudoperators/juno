@@ -83,12 +83,12 @@ describe("BreadcrumbItem", () => {
       expect(screen.getByTestId("breadcrumbitem")).toHaveClass("juno-breadcrumb-item-active")
     })
 
-    test("renders a disabled item as passed", () => {
+    test("renders a disabled item as passed", async () => {
       const onClickSpy = vi.fn()
       render(<BreadcrumbItem href="#" disabled data-testid="breadcrumbitem" onClick={onClickSpy} />)
       expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
       expect(screen.getByTestId("breadcrumbitem")).toHaveClass("juno-breadcrumb-item-disabled")
-      waitFor(() => {
+      await waitFor(() => {
         screen.getByTestId("breadcrumbitem").click()
         expect(onClickSpy).not.toHaveBeenCalled()
       })
