@@ -44,7 +44,7 @@ const ComponentInstancesList = ({ serviceCcrn }) => {
         <DataGridRow>
           <DataGridHeadCell>Name</DataGridHeadCell>
           <DataGridHeadCell>Version</DataGridHeadCell>
-          <DataGridHeadCell>Total Number of Issues</DataGridHeadCell>
+          <DataGridHeadCell>Total Number of Vulnerabilities</DataGridHeadCell>
           <DataGridHeadCell>Highest Severity</DataGridHeadCell>
         </DataGridRow>
         {isLoading ? (
@@ -56,7 +56,7 @@ const ComponentInstancesList = ({ serviceCcrn }) => {
             </DataGridCell>
           </DataGridRow>
         ) : items.length === 0 ? (
-          <HintNotFound text="No component instances available." />
+          <HintNotFound text="No pods available." />
         ) : (
           items.map((componentInstance, i) => (
             <DataGridRow key={i}>

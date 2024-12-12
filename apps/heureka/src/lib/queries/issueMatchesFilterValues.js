@@ -22,11 +22,6 @@ export default () => gql`
         filterName
         values
       }
-      issueType {
-        displayName
-        filterName
-        values
-      }
       affectedService {
         displayName
         filterName
