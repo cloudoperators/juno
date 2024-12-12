@@ -4,12 +4,7 @@
  */
 
 import { useEffect } from "react"
-import {
-  useAlertsActions,
-  useUserIsActive,
-  useSilencesActions,
-  useSilencesLocalItems,
-} from "../components/StoreProvider"
+import { useAlertsActions, useUserIsActive, useSilencesActions } from "../components/StoreProvider"
 import AlertsWorker from "../workers/alerts.js?worker&inline"
 import SilencesWorker from "../workers/silences.js?worker&inline"
 
@@ -124,25 +119,6 @@ const useAlertmanagerAPI = (apiEndpoint) => {
       watch: isUserActive,
     })
   }, [isUserActive])
-
-  // Handle re-fetching silences when local items change
-  const localItems = useSilencesLocalItems()
-  useEffect(() => {
-    // if we have no silences locally we don't need to refetch them otherwise
-    // we will end up in an infinite loop
-    if (!localItems || Object.keys(localItems).length <= 0) return
-
-    // Use setTimeout to delay the worker call delayed by 10s
-    setTimeout(() => {
-      silencesWorker.postMessage({ action: "SILENCES_FETCH" })
-    }, 10000)
-
-    return () => {
-      if (silencesWorker) {
-        silencesWorker.terminate()
-      }
-    }
-  }, [localItems])
 }
 
 export default useAlertmanagerAPI

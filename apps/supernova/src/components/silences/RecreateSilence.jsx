@@ -23,8 +23,7 @@ import { useGlobalsUsername } from "../StoreProvider"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions } from "./silenceHelpers"
-import { parseError } from "../../helpers"
-import constants from "../../constants"
+import { debounce, parseError } from "../../helpers"
 import { useQueryClient } from "@tanstack/react-query"
 
 const validateForm = (values) => {
@@ -127,7 +126,7 @@ const RecreateSilence = (props) => {
   })
 
   // debounce to prevent accidental double clicks from creating multiple silences
-  const onSubmitForm = () => {
+  const onSubmitForm = debounce(() => {
     setError(null)
     const formValidation = validateForm(formState)
     setShowValidation(formValidation)
@@ -141,14 +140,13 @@ const RecreateSilence = (props) => {
 
     const newSilence = {
       ...newFormState,
-      status: { state: constants.SILENCE_CREATING },
       startsAt: startsAt.toISOString(),
       endsAt: endsAt.toISOString(),
     }
 
     // calling createSilence with variable silence: newSilence
     createSilence({ silence: newSilence })
-  }
+  }, 200)
 
   const onInputChanged = ({ key, value }) => {
     if (!value) return

@@ -3,16 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { produce } from "immer"
-import constants from "../constants"
-
 const initialSilencesState = {
   items: [],
   itemsHash: {},
   itemsByState: {},
   excludedLabels: [],
   updatedAt: null,
-  localItems: {},
   status: "active",
   regEx: "",
 
@@ -138,89 +134,8 @@ const createSilencesSlice = (set, get, options) => ({
         })),
           false,
           "silences.setSilencesData"
-
-        // check if any local item can be removed
-        get().silences.actions.updateLocalItems()
-      },
-      /* 
-      Save temporary created silences to be able to display which alert is silenced
-      and who silenced it until the next alert fetch contains the silencedBy reference
-      */
-      addLocalItem: ({ silence, id, type }) => {
-        // enforce silences with id and alertFingerprint
-        if (!silence || !id || !type) return
-        return set(
-          produce((state) => {
-            state.silences.localItems = {
-              ...get().silences.localItems,
-              [id]: {
-                ...silence,
-                id,
-                type: type,
-              },
-            }
-          }),
-          false,
-          "silences.addLocalItem"
-        )
       },
 
-      /*
-      Remove local silences which are already referenced by an alert
-      */
-      updateLocalItems: () => {
-        const allSilences = get().silences.itemsHash
-
-        const SilencesByState = get().silences.itemsByState
-        let newLocalSilences = { ...get().silences.localItems }
-        Object.keys(newLocalSilences).forEach((key) => {
-          // if mapped to alert second logic
-          if (!newLocalSilences[key]?.alertFingerprint) {
-            // when newLocalSilences[key].silenceId with a creating state is in aktive SilencesByState, then remove it
-            if (
-              newLocalSilences[key]?.status?.state === constants.SILENCE_CREATING &&
-              (SilencesByState?.active?.find((silence) => silence?.id === newLocalSilences[key]?.id) ||
-                SilencesByState?.pending?.find((silence) => silence?.id === newLocalSilences[key]?.id))
-            ) {
-              newLocalSilences[key] = { ...newLocalSilences[key], remove: true }
-            }
-            // when newLocalSilences[key].silenceId with a expiring state is in expired SilencesByState, then remove it
-            if (
-              newLocalSilences[key]?.status?.state === constants.SILENCE_EXPIRING &&
-              SilencesByState?.expired?.find((silence) => silence?.id === newLocalSilences[key]?.id)
-            ) {
-              newLocalSilences[key] = { ...newLocalSilences[key], remove: true }
-            }
-
-            // continue to next iteration
-            return
-          }
-
-          const alert = get().alerts.actions.getAlertByFingerprint(newLocalSilences[key]?.alertFingerprint)
-          // check if the alert has already the silence reference and if the extern silence already exists
-          const silencedBy = alert?.status?.silencedBy
-          if (silencedBy?.length > 0 && silencedBy?.includes(newLocalSilences[key]?.id) && allSilences[key]) {
-            // mark to remove silence
-            newLocalSilences[key] = { ...newLocalSilences[key], remove: true }
-          }
-        })
-
-        // remove silences marked to remove
-        const reducedLocalSilences = Object.keys(newLocalSilences)
-          .filter((key) => !newLocalSilences[key]?.remove)
-          .reduce((obj, key) => {
-            obj[key] = newLocalSilences[key]
-            return obj
-          }, {})
-
-        return set(
-          produce((state) => {
-            state.silences.localItems = reducedLocalSilences
-          }),
-          false,
-          "silences.updateLocalItems"
-        )
-      },
       /* 
       Given an alert fingerprint, this function returns all silences referenced by silencingBy. It also 
       check if there are local silences with the same alert fingerprint and return them as well.
@@ -238,31 +153,7 @@ const createSilencesSlice = (set, get, options) => ({
             mappingSilences.push(externalSilences[id])
           }
         })
-
-        // add local silences
-        let localSilences = get().silences.localItems
-        Object.keys(localSilences).forEach((silenceID) => {
-          // if there is already a silence with the same id, skip it and exists as external silence
-          if (silencedBy.includes(silenceID) && externalSilences[silenceID]) return
-          // if the local silence has the same alert fingerprint, add it to the mapping silences
-          if (localSilences[silenceID]?.alertFingerprint === alert?.fingerprint) {
-            mappingSilences.push(localSilences[silenceID])
-          }
-        })
         return mappingSilences
-      },
-      /*
-      Return the state of an alert. If the alert is silenced by a local silence, the state is suppressed (processing)
-      */
-      getMappedState: (alert) => {
-        if (!alert) return
-        // get all silences (local and external)
-        const silences = get().silences.actions.getMappingSilences(alert)
-        // if there is a silence with type local, return suppressed (processing)
-        if (silences?.find((silence) => silence?.type === "local")) {
-          return { type: "suppressed", isProcessing: true }
-        }
-        return { type: alert?.status?.state, isProcessing: false }
       },
       /*
       Find all silences in itemsByState with key expired that matches all labels (key&value) from the alert but omit the labels that are excluded (excludedLabels)
@@ -301,22 +192,6 @@ const createSilencesSlice = (set, get, options) => ({
 
         // collect all silences
         let silences = [...get().silences.items]
-        const localItems = get().silences.localItems || {}
-
-        // checking if localItem need to overwrite a item or if its appended to silences
-        for (const key in localItems) {
-          const localSilence = localItems[key]
-
-          const index = silences.findIndex((silence) => silence.id === localSilence.id)
-
-          if (index !== -1) {
-            // Update the existing element
-            silences[index] = localSilence
-          } else {
-            // Add the new element
-            silences.unshift(localSilence)
-          }
-        }
 
         // collect all excluded Labels
         const excludedLabels = get().silences.excludedLabels || []

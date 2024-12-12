@@ -82,7 +82,6 @@ export const useSilencesItemsHash = () => useAppStore((state) => state.silences.
 export const useSilencesExcludedLabels = () => useAppStore((state) => state.silences.excludedLabels)
 export const useSilencesIsUpdating = () => useAppStore((state) => state.silences.isUpdating)
 export const useSilencesUpdatedAt = () => useAppStore((state) => state.silences.updatedAt)
-export const useSilencesLocalItems = () => useAppStore((state) => state.silences.localItems)
 export const useShowDetailsForSilence = () => useAppStore((state) => state.silences.showDetailsForSilence)
 export const useSilencesStatus = () => useAppStore((state) => state.silences.status)
 export const useSilencesRegEx = () => useAppStore((state) => state.silences.regEx)

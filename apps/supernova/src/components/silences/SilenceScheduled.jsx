@@ -28,6 +28,7 @@ import { useBoundMutation } from "../../hooks/useBoundMutation"
 import { useQueryClient } from "@tanstack/react-query"
 // import { debounce } from "../../helpers"
 import { DEFAULT_FORM_VALUES, validateForm } from "./silenceScheduledHelpers"
+import { debounce } from "../../helpers"
 
 const SilenceScheduled = () => {
   const user = useGlobalsUsername()
@@ -74,7 +75,7 @@ const SilenceScheduled = () => {
   })
 
   // submit
-  const onSubmitForm = () => {
+  const onSubmitForm = debounce(() => {
     // reset errors.
     setError(null)
 
@@ -113,7 +114,7 @@ const SilenceScheduled = () => {
 
     // calling createSilence with variable silence: newSilence
     createSilence({ silence: silence })
-  }
+  }, 200)
 
   //////
   ////// OnClick

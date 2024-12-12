@@ -18,13 +18,7 @@ import {
   useEndlessScrollList,
 } from "@cloudoperators/juno-ui-components"
 import constants from "../../constants"
-import {
-  useSilencesItems,
-  useSilencesActions,
-  useSilencesRegEx,
-  useSilencesStatus,
-  useSilencesLocalItems,
-} from "../StoreProvider"
+import { useSilencesItems, useSilencesActions, useSilencesRegEx, useSilencesStatus } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
 
@@ -40,7 +34,6 @@ const SilencesList = () => {
   const [visibleSilences, setVisibleSilences] = useState(silences)
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
-  const localSilences = useSilencesLocalItems()
   const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
 
   const { data } = useBoundQuery("silences")
@@ -68,31 +61,8 @@ const SilencesList = () => {
       filtered = filtered.filter((silence) => JSON.stringify(silence).toLowerCase().includes(regEx.toLowerCase))
     }
 
-    if (localSilences) {
-      //  when selected silences status is pending: if localSilence.status.state is creating add them to filtered
-      if (status === constants.SILENCE_PENDING) {
-        for (const [, localSilence] of Object.entries(localSilences)) {
-          if (localSilence.status.state === constants.SILENCE_CREATING) {
-            filtered.push(localSilence)
-          }
-        }
-      }
-
-      // when selected silences status is active: if silence.id is in localSilences add the localSilence to the shownSilences else the filtered silence
-      if (status === constants.SILENCE_ACTIVE) {
-        filtered = filtered.map((silence) => {
-          for (const [, localSilence] of Object.entries(localSilences)) {
-            if (silence.id === localSilence.id) {
-              return localSilence
-            }
-          }
-          return silence
-        })
-      }
-    }
-
     setVisibleSilences(filtered)
-  }, [status, regEx, silences, localSilences])
+  }, [status, regEx, silences])
 
   const handleSearchChange = (value) => {
     // debounce setSearchTerm to avoid unnecessary re-renders
