@@ -22,12 +22,13 @@ import {
   useAlertEnrichedLabels,
   useGlobalsUsername,
 } from "../StoreProvider"
-import { useActions } from "@cloudoperators/juno-messages-provider"
 import AlertDescription from "../alerts/shared/AlertDescription"
 import SilenceNewAdvanced from "./SilenceNewAdvanced"
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"
+
+import { debounce } from "../../helpers"
 import constants from "../../constants"
 
 import { useQueryClient } from "@tanstack/react-query"
@@ -67,12 +68,13 @@ const SilenceNew = ({ alert, size, variant }) => {
   const { getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
   const user = useGlobalsUsername()
-  const { addMessage } = useActions()
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
   const [expirationDate, setExpirationDate] = useState(null)
   const [showValidation, setShowValidation] = useState({})
   const [error, setError] = useState(null)
+
+  const [success, setSuccess] = useState(null)
 
   // Initialize form state on modal open
   // Removed alert from dependencies since we take an screenshot of the global state on opening the modal
@@ -92,6 +94,7 @@ const SilenceNew = ({ alert, size, variant }) => {
     setExpirationDate(latestExpirationDate(getMappingSilences(alert)))
     // reset other states
     setError(null)
+    setSuccess(null)
     setShowValidation({})
   }, [displayNewSilence])
 
@@ -108,11 +111,7 @@ const SilenceNew = ({ alert, size, variant }) => {
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
     onSuccess: (data) => {
-      setDisplayNewSilence(false)
-      addMessage({
-        variant: "success",
-        text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may take up to 5 minutes for the alert to show up as silenced.`,
-      })
+      setSuccess(data)
     },
     onError: (error) => {
       // add a error message in UI
@@ -126,8 +125,9 @@ const SilenceNew = ({ alert, size, variant }) => {
   })
 
   // debounce to prevent accidental double clicks from creating multiple silences
-  const onSubmitForm = () => {
+  const onSubmitForm = debounce(() => {
     setError(null)
+    setSuccess(null)
 
     const formValidation = validateForm(formState)
     setShowValidation(formValidation)
@@ -152,7 +152,7 @@ const SilenceNew = ({ alert, size, variant }) => {
 
     // calling createSilence with variable silence: newSilence
     createSilence({ silence: newSilence })
-  }
+  }, 200)
 
   const onInputChanged = ({ key, value }) => {
     if (!value) return
@@ -186,13 +186,20 @@ const SilenceNew = ({ alert, size, variant }) => {
           title="New Silence for"
           size="large"
           open={true}
-          confirmButtonLabel={"Save"}
+          confirmButtonLabel={success ? null : "Save"}
           onCancel={() => setDisplayNewSilence(false)}
-          onConfirm={onSubmitForm}
+          onConfirm={success ? null : onSubmitForm}
         >
           {error && <Message text={error} variant="danger" />}
 
-          {expirationDate && (
+          {success && (
+            <Message className="mb-6" variant="success">
+              A silence object with id <b>{success?.silenceID}</b> was created successfully. Please note that it may
+              take up to 5 minutes for the alert to show up as silenced.
+            </Message>
+          )}
+
+          {expirationDate && !success && (
             <Message className="mb-6" variant="info">
               There is already a silence for this alert that expires at
               <b>{DateTime.fromISO(expirationDate).toLocaleString(DateTime.DATETIME_SHORT)}</b>
@@ -205,49 +212,51 @@ const SilenceNew = ({ alert, size, variant }) => {
             <AlertDescription description={alert.annotations?.description} />
           </Box>
 
-          <>
-            <SilenceNewAdvanced matchers={formState.matchers} onMatchersChanged={onMatchersChanged} />
+          {!success && (
+            <>
+              <SilenceNewAdvanced matchers={formState.matchers} onMatchersChanged={onMatchersChanged} />
 
-            <Form className="mt-6">
-              <FormRow>
-                <TextInput
-                  required
-                  label="Silenced by"
-                  value={formState.createdBy}
-                  onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
-                  errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
-                  disabled={!!user}
-                />
-              </FormRow>
-              <FormRow>
-                <Textarea
-                  className="h-20"
-                  label="Description"
-                  value={formState.comment}
-                  onChange={(e) => onInputChanged({ key: "comment", value: e.target.value })}
-                  errortext={showValidation["comment"] && errorHelpText(showValidation["comment"])}
-                  required
-                />
-              </FormRow>
-              <FormRow>
-                <Select
-                  required
-                  label="Duration"
-                  value={formState.duration}
-                  onChange={(value) =>
-                    onInputChanged({
-                      key: "duration",
-                      value,
-                    })
-                  }
-                >
-                  {durationOptions?.map((option) => (
-                    <SelectOption key={option.value} label={option.label} value={option.value} />
-                  ))}
-                </Select>
-              </FormRow>
-            </Form>
-          </>
+              <Form className="mt-6">
+                <FormRow>
+                  <TextInput
+                    required
+                    label="Silenced by"
+                    value={formState.createdBy}
+                    onChange={(e) => onInputChanged({ key: "createdBy", value: e.target.value })}
+                    errortext={showValidation["createdBy"] && errorHelpText(showValidation["createdBy"])}
+                    disabled={!!user}
+                  />
+                </FormRow>
+                <FormRow>
+                  <Textarea
+                    className="h-20"
+                    label="Description"
+                    value={formState.comment}
+                    onChange={(e) => onInputChanged({ key: "comment", value: e.target.value })}
+                    errortext={showValidation["comment"] && errorHelpText(showValidation["comment"])}
+                    required
+                  />
+                </FormRow>
+                <FormRow>
+                  <Select
+                    required
+                    label="Duration"
+                    value={formState.duration}
+                    onChange={(value) =>
+                      onInputChanged({
+                        key: "duration",
+                        value,
+                      })
+                    }
+                  >
+                    {durationOptions?.map((option) => (
+                      <SelectOption key={option.value} label={option.label} value={option.value} />
+                    ))}
+                  </Select>
+                </FormRow>
+              </Form>
+            </>
+          )}
         </Modal>
       )}
     </>

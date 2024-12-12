@@ -9,7 +9,7 @@ import { useActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
 import { useBoundMutation } from "../../hooks/useBoundMutation"
 import { useQueryClient } from "@tanstack/react-query"
-// import { debounce } from "../../helpers"
+import { debounce } from "../../helpers"
 
 const ExpireSilence = (props) => {
   const { addMessage } = useActions()
@@ -39,10 +39,10 @@ const ExpireSilence = (props) => {
     },
   })
 
-  const onExpire = () => {
+  const onExpire = debounce(() => {
     deleteSilences({ id: silence.id })
     setConfirmationDialog(false)
-  }
+  }, 200)
 
   return (
     <>
