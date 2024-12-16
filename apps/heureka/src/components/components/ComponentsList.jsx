@@ -59,7 +59,7 @@ const ComponentsList = ({ items, isLoading }) => {
           ) : (
             <DataGridRow>
               <DataGridCell colSpan={10}>
-                <HintNotFound text="No components found" />
+                <HintNotFound text="No images found" />
               </DataGridCell>
             </DataGridRow>
           )}

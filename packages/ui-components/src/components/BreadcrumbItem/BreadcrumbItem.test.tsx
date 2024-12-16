@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import { describe, expect, test, vi } from "vitest"
 
 import { Button } from "../Button"
@@ -83,13 +83,15 @@ describe("BreadcrumbItem", () => {
       expect(screen.getByTestId("breadcrumbitem")).toHaveClass("juno-breadcrumb-item-active")
     })
 
-    test("renders a disabled item as passed", () => {
+    test("renders a disabled item as passed", async () => {
       const onClickSpy = vi.fn()
       render(<BreadcrumbItem href="#" disabled data-testid="breadcrumbitem" onClick={onClickSpy} />)
       expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
       expect(screen.getByTestId("breadcrumbitem")).toHaveClass("juno-breadcrumb-item-disabled")
-      screen.getByTestId("breadcrumbitem").click()
-      expect(onClickSpy).not.toHaveBeenCalled()
+      await waitFor(() => {
+        screen.getByTestId("breadcrumbitem").click()
+        expect(onClickSpy).not.toHaveBeenCalled()
+      })
     })
 
     test("renders correctly with both active and disabled states", () => {
