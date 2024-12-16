@@ -28,9 +28,13 @@ const Peaks = () => {
         <Message variant="danger">{`${error.statusCode ? `${error.statusCode}, ` : ""}${error?.message}`}</Message>
       )}
       {/* Loading indicator for page content */}
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
+      the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
+      this comment to see the full error message
       {isLoading && <Spinner variant="primary" />}
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
+      the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
+      this comment to see the full error message
       <PeaksList isLoading={isLoading} isError={isError} peaks={data} error={error} />
     </>
   )

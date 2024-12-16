@@ -11,7 +11,7 @@ import {
   useGlobalsTabIndex,
   useGlobalsCurrentPanel,
   useGlobalsCurrentModal,
-// @ts-expect-error TS(6142): Module '../components/StoreProvider' was resolved ... Remove this comment to see the full error message
+  // @ts-expect-error TS(6142): Module '../components/StoreProvider' was resolved ... Remove this comment to see the full error message
 } from "../components/StoreProvider"
 
 const DEFAULT_KEY = "exampleapp"

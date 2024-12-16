@@ -197,7 +197,7 @@ async function resolveMainClient(event: any) {
       // Find the client ID that's recorded in the
       // set of clients that have registered the worker.
       return activeClientIds.has(client.id)
-    });
+    })
 }
 
 async function getResponse(event: any, client: any, requestId: any) {
