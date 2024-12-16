@@ -8,7 +8,7 @@ import getHandlers from "./getHandlers"
 
 let worker = null
 
-export const startWorker = (options) => {
+export const startWorker = (options: any) => {
   worker = setupWorker(...getHandlers(options))
   return worker.start({
     serviceWorker: {

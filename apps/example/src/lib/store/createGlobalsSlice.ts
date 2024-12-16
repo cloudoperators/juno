@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// @ts-expect-error TS(7006): Parameter 'set' implicitly has an 'any' type.
 const createGlobalsSlice = (set, _get) => ({
   globals: {
     endpoint: "",
@@ -12,63 +13,58 @@ const createGlobalsSlice = (set, _get) => ({
     currentPanel: null,
 
     actions: {
-      setEndpoint: (newEndpoint) =>
-        set(
-          (state) => ({
-            globals: {
-              ...state.globals,
-              endpoint: newEndpoint,
-            },
-          }),
-          false,
-          "globals.setEndpoint"
-        ),
-      setTabIndex: (newTabIndex) =>
-        set(
-          (state) => ({
-            globals: {
-              ...state.globals,
-              tabIndex: newTabIndex,
-            },
-          }),
-          false,
-          "globals.setTabIndex"
-        ),
-      setCurrentModal: (newModal) =>
-        set(
-          (state) => ({
-            globals: {
-              ...state.globals,
-              currentModal: newModal,
-            },
-          }),
-          false,
-          "globals.setCurrentModal"
-        ),
-      setCurrentPanel: (newPanel) =>
-        set(
-          (state) => ({
-            globals: {
-              ...state.globals,
-              currentPanel: newPanel,
-            },
-          }),
-          false,
-          "globals.setCurrentPanel"
-        ),
-      setQueryClientFnReady: (readiness) =>
-        set(
-          (state) => ({
-            globals: {
-              ...state.globals,
-              queryClientFnReady: readiness,
-            },
-          }),
-          false,
-          "globals.setQueryClientFnReady"
-        ),
+      setEndpoint: (newEndpoint: any) => set(
+        (state: any) => ({
+          globals: {
+            ...state.globals,
+            endpoint: newEndpoint,
+          }
+        }),
+        false,
+        "globals.setEndpoint"
+      ),
+      setTabIndex: (newTabIndex: any) => set(
+        (state: any) => ({
+          globals: {
+            ...state.globals,
+            tabIndex: newTabIndex,
+          }
+        }),
+        false,
+        "globals.setTabIndex"
+      ),
+      setCurrentModal: (newModal: any) => set(
+        (state: any) => ({
+          globals: {
+            ...state.globals,
+            currentModal: newModal,
+          }
+        }),
+        false,
+        "globals.setCurrentModal"
+      ),
+      setCurrentPanel: (newPanel: any) => set(
+        (state: any) => ({
+          globals: {
+            ...state.globals,
+            currentPanel: newPanel,
+          }
+        }),
+        false,
+        "globals.setCurrentPanel"
+      ),
+      setQueryClientFnReady: (readiness: any) => set(
+        (state: any) => ({
+          globals: {
+            ...state.globals,
+            queryClientFnReady: readiness,
+          }
+        }),
+        false,
+        "globals.setQueryClientFnReady"
+      ),
     },
-  },
+  }
 })
 
 export default createGlobalsSlice

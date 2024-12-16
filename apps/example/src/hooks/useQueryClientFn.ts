@@ -5,17 +5,20 @@
 
 import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
+// @ts-expect-error TS(6142): Module '../components/StoreProvider' was resolved ... Remove this comment to see the full error message
 import { useGlobalsEndpoint, useGlobalsActions } from "../components/StoreProvider"
 
 class HTTPError extends Error {
-  constructor(code, message) {
+  statusCode: any;
+  constructor(code: any, message: any) {
     super(message || code)
     this.name = "HTTPError"
     this.statusCode = code
   }
 }
 
-const encodeUrlParamsFromObject = (options) => {
+const encodeUrlParamsFromObject = (options: any) => {
+  // @ts-expect-error TS(2365): Operator '<=' cannot be applied to types 'string[]... Remove this comment to see the full error message
   if (!options || Object.keys(options) <= 0) return ""
   let encodedOptions = Object.keys(options)
     .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(options[k])}`)
@@ -24,15 +27,15 @@ const encodeUrlParamsFromObject = (options) => {
 }
 
 // Check response status
-const checkStatus = (response) => {
+const checkStatus = (response: any) => {
   if (response.status < 400) {
     return response
   } else {
-    return response.text().then((message) => {
+    return response.text().then((message: any) => {
       var error = new HTTPError(response.status, message || response.statusText)
       error.statusCode = response.status
       return Promise.reject(error)
-    })
+    });
   }
 }
 
@@ -40,6 +43,7 @@ const checkStatus = (response) => {
 const useQueryClientFn = () => {
   const queryClient = useQueryClient()
   const endpoint = useGlobalsEndpoint()
+  // @ts-expect-error TS(2339): Property 'setQueryClientFnReady' does not exist on... Remove this comment to see the full error message
   const { setQueryClientFnReady } = useGlobalsActions()
 
   /*
@@ -64,7 +68,7 @@ const useQueryClientFn = () => {
           .then(checkStatus)
           .then((response) => {
             //  sort peaks by name
-            return response.json().then((data) => {
+            return response.json().then((data: any) => {
               // check if data is an array to sort (peaks vs peak/id)
               if (Array.isArray(data)) {
                 return data.sort((a, b) => {
@@ -72,8 +76,8 @@ const useQueryClientFn = () => {
                 })
               }
               return data
-            })
-          })
+            });
+          });
       },
     })
 

@@ -4,12 +4,14 @@
  */
 
 import { useState, useEffect } from "react"
+// @ts-expect-error TS(7016): Could not find a declaration file for module '@clo... Remove this comment to see the full error message
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import {
   useGlobalsActions,
   useGlobalsTabIndex,
   useGlobalsCurrentPanel,
   useGlobalsCurrentModal,
+// @ts-expect-error TS(6142): Module '../components/StoreProvider' was resolved ... Remove this comment to see the full error message
 } from "../components/StoreProvider"
 
 const DEFAULT_KEY = "exampleapp"
@@ -17,7 +19,7 @@ const TAB_INDEX = "t"
 const CURRENT_PANEL = "p"
 const CURRENT_MODAL = "m"
 
-const useUrlState = (key) => {
+const useUrlState = (key: any) => {
   const [isURLRead, setIsURLRead] = useState(false)
   // it is possible to have two apps instances on the same page
   // int his case the key should be different per app
@@ -27,6 +29,7 @@ const useUrlState = (key) => {
   const loggedIn = true // this state is faked for the example app so we don't need to login
 
   // globals
+  // @ts-expect-error TS(2339): Property 'setTabIndex' does not exist on type 'unk... Remove this comment to see the full error message
   const { setTabIndex, setCurrentPanel, setCurrentModal } = useGlobalsActions()
   const tabIndex = useGlobalsTabIndex()
   const currentPanel = useGlobalsCurrentPanel()

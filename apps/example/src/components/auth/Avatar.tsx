@@ -5,6 +5,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
+// @ts-expect-error TS(2307): Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { Stack } from "@cloudoperators/juno-ui-components"
 
 const avatarCss = `
@@ -15,10 +16,15 @@ rounded-full
 bg-cover 
 `
 
-const Avatar = ({ userName, url }) => {
+const Avatar = ({
+  userName,
+  url
+}: any) => {
   return (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <Stack alignment="center">
       {url && (
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <div
           style={{
             background: `url(${url}) no-repeat`,
@@ -27,6 +33,7 @@ const Avatar = ({ userName, url }) => {
           className={avatarCss}
         />
       )}
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       {userName && <span className="ml-2">{userName}</span>}
     </Stack>
   )
