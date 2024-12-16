@@ -38,10 +38,9 @@ const AppContent = () => {
 
   useEffect(() => {
     if (silencesData) {
+      console.log(silencesData)
       setSilences({
         items: silencesData?.silences,
-        itemsHash: silencesData?.silencesHash,
-        itemsByState: silencesData?.silencesBySate,
       })
     }
   }, [silencesData])

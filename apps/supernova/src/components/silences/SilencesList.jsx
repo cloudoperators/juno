@@ -42,8 +42,6 @@ const SilencesList = () => {
     if (data) {
       setSilences({
         items: data?.silences,
-        itemsHash: data?.silencesHash,
-        itemsByState: data?.silencesBySate,
       })
     }
   }, [data])

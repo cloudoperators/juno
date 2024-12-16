@@ -78,7 +78,6 @@ export const useFilterActions = () => useAppStore((state) => state.filters.actio
 
 // Silences exports
 export const useSilencesItems = () => useAppStore((state) => state.silences.items)
-export const useSilencesItemsHash = () => useAppStore((state) => state.silences.itemsHash)
 export const useSilencesExcludedLabels = () => useAppStore((state) => state.silences.excludedLabels)
 export const useSilencesIsUpdating = () => useAppStore((state) => state.silences.isUpdating)
 export const useSilencesUpdatedAt = () => useAppStore((state) => state.silences.updatedAt)

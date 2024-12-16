@@ -18,7 +18,20 @@ const ExpireSilence = (props) => {
   const queryClient = useQueryClient()
 
   const { mutate: deleteSilences } = useBoundMutation("deleteSilences", {
-    onSuccess: () => {
+    onMutate: () => {
+      queryClient.cancelQueries("silences")
+
+      //get Silences
+      getSilences
+
+      //set Silences
+      silences
+      silence
+
+      setSilences({
+        items: silencesData?.silences,
+      })
+
       // add success message in the ui
       addMessage({
         variant: "success",

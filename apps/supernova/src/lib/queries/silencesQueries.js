@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { sortSilencesByState } from "../utils"
-
 export const fetchSilences = async (endpoint) => {
   try {
     const response = await fetch(`${endpoint}/silences`)
@@ -21,20 +19,9 @@ export const fetchSilences = async (endpoint) => {
 
     const items = await response.json() // Parse JSON data
 
-    // Convert items to hash for easier access
-    const itemsHash = items.reduce((hash, silence) => {
-      hash[silence.id] = silence
-      return hash
-    }, {})
-
-    // Split items by state (active, pending, expired)
-    const itemsByState = sortSilencesByState(items)
-
     // Return the structured result
     return {
       silences: items,
-      silencesHash: itemsHash,
-      silencesByState: itemsByState,
     }
   } catch (error) {
     console.error(error)

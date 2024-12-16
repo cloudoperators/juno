@@ -5,8 +5,6 @@
 
 const initialSilencesState = {
   items: [],
-  itemsHash: {},
-  itemsByState: {},
   excludedLabels: [],
   updatedAt: null,
   status: "active",
@@ -120,15 +118,13 @@ const createSilencesSlice = (set, get, options) => ({
         return get().silences.items.find((silence) => silence.id === id)
       },
 
-      setSilences: ({ items, itemsHash, itemsByState }) => {
+      setSilences: ({ items }) => {
         if (!items) return
 
         set((state) => ({
           silences: {
             ...state.silences,
             items: items,
-            itemsHash: itemsHash,
-            itemsByState: itemsByState,
             updatedAt: Date.now(),
           },
         })),
@@ -156,12 +152,12 @@ const createSilencesSlice = (set, get, options) => ({
         return mappingSilences
       },
       /*
-      Find all silences in itemsByState with key expired that matches all labels (key&value) from the alert but omit the labels that are excluded (excludedLabels)
+      Find all silences  with key expired that matches all labels (key&value) from the alert but omit the labels that are excluded (excludedLabels)
       */
       getExpiredSilences: (alert) => {
         if (!alert) return
         const alertLabels = alert?.labels || {}
-        const silences = get().silences.itemsByState?.expired || []
+        const silences = get().silences.items.filter((silence) => silence?.status?.state === "expired") || []
         const excludedLabels = get().silences.excludedLabels || []
         const enrichedLabels = get().alerts.enrichedLabels || []
         // combine the arrays containing the labels that shouldn't be used for matching into one for easier checking

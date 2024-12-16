@@ -44,15 +44,13 @@ describe("getMappingSilences", () => {
     act(() =>
       store.result.current.silenceActions.setSilences({
         items: [silence],
-        itemsHash: { external: silence },
-        itemsByState: { active: [silence] },
       })
     )
 
     // get mapping silences
     let mappingResult = null
     act(() => (mappingResult = store.result.current.silenceActions.getMappingSilences(alert)))
-    expect(mappingResult.length).toEqual(2)
+    expect(mappingResult.length).toEqual(1)
     expect(mappingResult.map((item) => item.id)).toContainEqual("external")
   })
 
@@ -77,50 +75,20 @@ describe("getMappingSilences", () => {
       })
     )
 
+    // create extern silences adding an id to the object
+    const silence = createFakeSilenceWith({ id: "external" })
+
+    act(() =>
+      store.result.current.silenceActions.setSilences({
+        items: [silence],
+      })
+    )
+
     // get mapping silences
     let mappingResult = null
     act(() => (mappingResult = store.result.current.silenceActions.getMappingSilences(alert)))
     expect(mappingResult.length).toEqual(1)
     expect(mappingResult.map((item) => item.id)).toContainEqual("external")
-  })
-})
-
-describe("getMappedState", () => {
-  it("returns just the alert.status.state ", () => {
-    const wrapper = ({ children }) => <StoreProvider>{children}</StoreProvider>
-    const store = renderHook(
-      () => ({
-        alertActions: useAlertsActions(),
-        silenceActions: useSilencesActions(),
-      }),
-      { wrapper }
-    )
-
-    // create an alert with custom status
-    const status = createFakeAlertStatustWith({
-      silencedBy: ["external"],
-    })
-    const alert = createFakeAlertWith({ status: status, fingerprint: "123" })
-    // set the alert
-    act(() =>
-      store.result.current.alertActions.setAlertsData({
-        items: [alert],
-        counts: countAlerts([alert]),
-      })
-    )
-    // create extern silences adding an id to the object
-    const silence = createFakeSilenceWith({ id: "external" })
-    act(() =>
-      store.result.current.silenceActions.setSilences({
-        items: [silence],
-        itemsHash: { external: silence },
-        itemsByState: { active: [silence] },
-      })
-    )
-    // get mapping silences
-    let mappingResult = null
-    act(() => (mappingResult = store.result.current.silenceActions.getMappedState(alert)))
-    expect(mappingResult["type"]).toEqual(alert?.status?.state)
   })
 })
 
@@ -195,8 +163,6 @@ describe("getExpiredSilences", () => {
     act(() =>
       store.result.current.silenceActions.setSilences({
         items: [silence, silence2, silence3],
-        itemsHash: { test1: silence, test2: silence2, test3: silence3 },
-        itemsByState: { expired: [silence, silence2, silence3] },
       })
     )
     // get mapping silences
@@ -242,8 +208,6 @@ describe("getLatestMappingSilence", () => {
     act(() =>
       store.result.current.silenceActions.setSilences({
         items: [silence, silence2],
-        itemsHash: { external: silence, external2: silence2 },
-        itemsByState: { active: [silence, silence2] },
       })
     )
 
