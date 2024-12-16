@@ -54,67 +54,81 @@ const PeaksNew = ({ closeCallback }: any) => {
         <PanelFooter>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Button label="Cancel" variant="subdued" onClick={closeCallback} />
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Button label="Save" variant="primary" onClick={onSubmit} />
         </PanelFooter>
       }
     >
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <FormRow>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message
+        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
+        '--jsx' flag is provided... Remove this comment to see the full error message
         <TextInput label="Name" autoFocus onChange={(e: any) => onAttrChanged("name", e.target.value)} />
       </FormRow>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <FormRow>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message
+        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
+        '--jsx' flag is provided... Remove this comment to see the full error message
         <TextInput label="Height" onChange={(e: any) => onAttrChanged("height", e.target.value)} />
       </FormRow>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <FormRow>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message
+        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
+        '--jsx' flag is provided... Remove this comment to see the full error message
         <TextInput label="Main Range" onChange={(e: any) => onAttrChanged("range", e.target.value)} />
       </FormRow>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <FormRow>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message
+        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
+        '--jsx' flag is provided... Remove this comment to see the full error message
         <TextInput label="Region" onChange={(e: any) => onAttrChanged("region", e.target.value)} />
       </FormRow>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <FormRow>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message
+        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
+        '--jsx' flag is provided... Remove this comment to see the full error message
         <TextInput label="Country" onChange={(e: any) => onAttrChanged("country", e.target.value)} />
       </FormRow>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <FormRow>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message
+        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
+        '--jsx' flag is provided... Remove this comment to see the full error message
         <TextInput type="url" label="URL" onChange={(e: any) => onAttrChanged("url", e.target.value)} />
       </FormRow>
     </PanelBody>

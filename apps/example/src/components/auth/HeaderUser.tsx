@@ -24,16 +24,19 @@ const HeaderUser = ({ login, logout }: any) => {
         <>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <div className="mr-4">
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+            unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Avatar userName={authData?.parsed?.fullName} url={authData?.parsed?.avatarUrl?.small} />
           </div>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Button label="Logout" size="small" onClick={() => logout({ resetOIDCSession: false, silent: true })} />
         </>
       ) : (

@@ -69,11 +69,13 @@ const PeaksEdit = ({ peakId, closeCallback }: any) => {
           <PanelFooter>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+            unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Button label="Cancel" variant="subdued" onClick={closeCallback} />
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+            unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Button label="Save" variant="primary" onClick={onSubmit} />
           </PanelFooter>
         )
@@ -87,24 +89,29 @@ const PeaksEdit = ({ peakId, closeCallback }: any) => {
         <Form>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <FormRow>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+            unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <TextInput
               label="Name"
+              // @ts-expect-error TS(2339): Property 'name' does not exist on type '{}'.
               value={formState?.name}
               onChange={(e: any) => onAttrChanged("name", e.target.value)}
             />
           </FormRow>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <FormRow>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+            unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <TextInput
               label="Height"
               // @ts-expect-error TS(2339): Property 'height' does not exist on type '{}'.
@@ -114,11 +121,13 @@ const PeaksEdit = ({ peakId, closeCallback }: any) => {
           </FormRow>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <FormRow>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+            unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <TextInput
               label="Main Range"
               // @ts-expect-error TS(2339): Property 'mainrange' does not exist on type '{}'.
@@ -128,11 +137,13 @@ const PeaksEdit = ({ peakId, closeCallback }: any) => {
           </FormRow>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <FormRow>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+            unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <TextInput
               label="Region"
               // @ts-expect-error TS(2339): Property 'region' does not exist on type '{}'.
@@ -142,11 +153,13 @@ const PeaksEdit = ({ peakId, closeCallback }: any) => {
           </FormRow>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <FormRow>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+            unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <TextInput
               label="Country"
               // @ts-expect-error TS(2339): Property 'countries' does not exist on type '{}'.

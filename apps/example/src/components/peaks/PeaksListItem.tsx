@@ -48,49 +48,60 @@ const PeaksListItem = ({ peak }: any) => {
     <DataGridRow>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <DataGridCell>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message
+        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
+        '--jsx' flag is provided... Remove this comment to see the full error message
         <strong>{peak.name}</strong>
       </DataGridCell>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <DataGridCell>{peak.height}</DataGridCell>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <DataGridCell>{peak.mainrange}</DataGridCell>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <DataGridCell>{peak.region}</DataGridCell>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <DataGridCell>{peak.countries}</DataGridCell>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
+      is provided... Remove this comment to see the full error message
       <DataGridCell>
         {/* Use <Stack> to align and space elements: */}
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message
+        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
+        '--jsx' flag is provided... Remove this comment to see the full error message
         <Stack gap="1.5">
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Icon icon="edit" size="18" className="leading-none" onClick={handleEditPeakClick} />
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Icon icon="deleteForever" size="18" className="leading-none" onClick={handleDeletePeakClick} />
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
+          unless the '--jsx' flag is provided... Remove this comment to see the full error message
           {peak?.url && <Icon icon="openInNew" size="18" href={peak.url} target="_blank" className="leading-none" />}
         </Stack>
       </DataGridCell>
