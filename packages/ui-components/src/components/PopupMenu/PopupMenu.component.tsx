@@ -179,8 +179,6 @@ export { PopupMenuContext }
 
 // TODO:
 // - document that the menu and its contents will be rendered into a portal (-> impossible to style via parent selector)
-// - extend item render logic to replicate HUI Menu behaviour -> allow for rendering links (via as prop)
-// - use HUI Menu Section, (Section)Title and Divider, remove our own
 // - what happens when multiple toggles and/or menu are being passed?
 // - Validate positioning/flipping behaviour in example app
 
