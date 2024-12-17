@@ -20,7 +20,6 @@ export const AppShell: React.FC<AppShellProps> = ({
   className = "",
   contentHeading = "",
   embedded = false,
-  fullWidthContent,
   pageHeader = <PageHeader />,
   pageFooter = <PageFooter />,
   sideNavigation,
@@ -36,7 +35,7 @@ export const AppShell: React.FC<AppShellProps> = ({
       "AppShell: The contentHeading prop is obsolete and will be removed in a future version. In order to render a content heading, use a ContentHeading element as a child in your main content."
     )
   }
-
+  const { fullWidthContent } = props
   const renderHeaderContainer = (
     pageHeader?: AppShellProps["pageHeader"],
     topNavigation?: AppShellProps["topNavigation"]

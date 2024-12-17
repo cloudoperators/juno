@@ -16,7 +16,7 @@ function withOpacity(variableName) {
   }
 }
 
-module.exports = {
+export default {
   content: [
     "./src/components/**/*.{js,jsx,ts,tsx,mdx}",
     "./src/dummyComponents/*.{js,jsx,ts,tsx,mdx}",
