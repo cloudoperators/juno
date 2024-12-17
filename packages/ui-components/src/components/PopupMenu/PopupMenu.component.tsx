@@ -112,20 +112,25 @@ export interface PopupMenuToggleProps extends React.ComponentProps<typeof Headle
   className?: string
 }
 
-// Extract props directly from React.ElementType as Headless Menu Items is a dynamically typed component that cannot be extended with React.ComponentPropsWithRef:
+//Extract props directly from React.ElementType as Headless Menu Items is a dynamically typed component that cannot be extended with React.ComponentPropsWithRef:
 type HeadlessMenuItemsProps = React.ComponentPropsWithRef<React.ElementType>
 // Extend the extracted props instead:
 export interface PopupMenuMenuProps extends HeadlessMenuItemsProps {
+  as?: React.ElementType // Allow customizing the element type just as headless ui does
   className?: string
   children?: React.ReactNode
   key?: React.Key
 }
 
 export interface PopupMenuItemProps extends React.ComponentProps<typeof HeadlessMenu.Item> {
+  as?: React.ElementType // Allow customising the element type to allow for rendering items as anchor elements, just as headless ui does
   className?: string
   disabled?: boolean
+  href?: string // accept a href when rendering a link, whether or not to pass it to HUI item will behandled in the component
   icon?: keyof typeof KnownIconsEnum
   label?: string
+  rel?: string // accept rel for anchors, handle in component
+  target?: string // accepot target for links, handle in component
 }
 
 export interface PopupMenuSectionProps {
@@ -291,22 +296,28 @@ const PopupMenuMenu: React.FC<PopupMenuMenuProps> = ({ children = null, classNam
 
 // ITEM COMPONENT
 const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
+  as = "div",
   children = null,
   className = "",
   disabled = false,
+  href,
   icon = null,
   label = "",
+  rel,
+  target,
   ...props
 }) => {
   // Consume context to get the size to render:
   const { menuSize } = usePopupMenuContext()
   // Determine the appropriate set of styles per size:
   const itemSizeStyles = menuSize === "small" ? smallItemStyles : normalItemStyles
+  // Determine the compontn to render as:
   return (
     <HeadlessMenu.Item
-      as="div"
+      as={as}
       disabled={disabled}
       className={`juno-popupmenu-item ${itemStyles} ${disabled ? disabledItemStyles : actionableItemStyles} ${itemSizeStyles} ${className}`}
+      {...(as === "a" ? { href, rel, target } : {})} // Conditionally spread anchor-specific props only when renering an anchor
       {...props}
     >
       {/* 

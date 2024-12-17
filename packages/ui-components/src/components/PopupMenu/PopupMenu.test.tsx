@@ -398,6 +398,45 @@ describe("PopupMenu", () => {
     // access the icon using the title attribute that establishes its accessible name:
     await waitFor(() => expect(screen.getByRole("img", { name: "Warning" })).toBeInTheDocument())
   })
+  test("renders an item as a link as passed", async () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu>
+          <PopupMenu.Item as="a" href="https://www.google.com" />
+        </PopupMenu.Menu>
+      </PopupMenu>
+    )
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    expect(screen.getByRole("menuitem")).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByRole("menuitem").tagName).toBe("A"))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveAttribute("href", "https://www.google.com"))
+  })
+  test("renders anchor-specific props when rendering an anchor item element as passed", async () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu>
+          <PopupMenu.Item as="a" href="https://www.google.com" rel="noopener noreferrer" target="_blank" />
+        </PopupMenu.Menu>
+      </PopupMenu>
+    )
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    expect(screen.getByRole("menuitem")).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveAttribute("rel", "noopener noreferrer"))
+    await waitFor(() => expect(screen.getByRole("menuitem")).toHaveAttribute("target", "_blank"))
+  })
+  test("does not render anchor-specifi props when not rendering an anchor", async () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu>
+          <PopupMenu.Item href="https://www.google.com" rel="noopener noreferrer" target="_blank" />
+        </PopupMenu.Menu>
+      </PopupMenu>
+    )
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    expect(screen.getByRole("menuitem")).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByRole("menuitem")).not.toHaveAttribute("rel"))
+    await waitFor(() => expect(screen.getByRole("menuitem")).not.toHaveAttribute("target"))
+  })
   test("renders an item with all arbitrary props", async () => {
     render(
       <PopupMenu>

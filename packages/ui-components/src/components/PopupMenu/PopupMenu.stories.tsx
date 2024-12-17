@@ -115,12 +115,31 @@ export const WithMenuChild = {
   },
 }
 
+export const WitchChildrenAsLinks = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Pass `as` as `anchor` and supply a `href` prop in order to render PopupMenu.Item elements as links.",
+      },
+    },
+  },
+  args: {
+    ...actions("onOpen", "onClose"),
+    children: (
+      <PopupMenu.Menu>
+        <PopupMenu.Item as="a" href="https://github.com/cloudoperators/juno" label="Go to Juno on Github" />
+        <PopupMenu.Item as="a" href="https://www.sap.com" label="Got to sap.com" target="_blank" />
+      </PopupMenu.Menu>
+    ),
+  },
+}
+
 export const WithMenuWithRandomContent = {
   parameters: {
     docs: {
       description: {
         story:
-          "A `PopupMenu` may contain random elements other than `PopupMenu.Item`. In such cases you may consume the PupupMenu context using the `usePopupMenuContext` hook that contains a `close` function that can be used by custom components to close the menu if needed.",
+          "`PopupMenu.Item` elements may contain random elements other than `PopupMenu.Item`. In such cases you may consume the PupupMenu context using the `usePopupMenuContext` hook that contains a `close` function that can be used by custom components to close the menu if needed.",
       },
     },
   },
