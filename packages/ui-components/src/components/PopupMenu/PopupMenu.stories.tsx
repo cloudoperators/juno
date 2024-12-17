@@ -128,7 +128,7 @@ export const WitchChildrenAsLinks = {
     children: (
       <PopupMenu.Menu>
         <PopupMenu.Item as="a" href="https://github.com/cloudoperators/juno" label="Go to Juno on Github" />
-        <PopupMenu.Item as="a" href="https://www.sap.com" label="Got to sap.com" target="_blank" />
+        <PopupMenu.Item as="a" href="https://www.sap.com" label="Got to sap.com" target="_blank" icon="openInNew" />
       </PopupMenu.Menu>
     ),
   },
