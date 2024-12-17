@@ -140,6 +140,9 @@ const createSilencesSlice = (set, get, options) => ({
         const externalSilences = get().silences.items
         let silencedBy = alert?.status?.silencedBy || []
 
+        // ensure silencedBy is an array
+        if (!Array.isArray(silencedBy)) silencedBy = [silencedBy]
+
         const silencedBySet = new Set(silencedBy)
         const mappingSilences = externalSilences.filter((silence) => silencedBySet.has(silence.id))
 
