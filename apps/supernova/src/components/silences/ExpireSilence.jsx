@@ -11,6 +11,7 @@ import { useBoundMutation } from "../../hooks/useBoundMutation"
 import { useQueryClient } from "@tanstack/react-query"
 import { debounce } from "../../helpers"
 import { useSilencesItems, useSilencesActions } from "../StoreProvider"
+import constants from "../../constants"
 
 const ExpireSilence = (props) => {
   const { addMessage } = useActions()
@@ -21,23 +22,27 @@ const ExpireSilence = (props) => {
   const { setSilences } = useSilencesActions()
 
   const { mutate: deleteSilences } = useBoundMutation("deleteSilences", {
-    onMutate: () => {
+    onMutate: (data) => {
       queryClient.cancelQueries("silences")
 
-      const newSilences = silences.filter((item) => item.id !== silence.id)
+      const updatedSilences = silences.filter((item) => item.id === data.id)
+      let updatedSilence = updatedSilences.length > 0 ? updatedSilences[0] : null
+      updatedSilence = { ...updatedSilence, status: { state: constants.SILENCE_EXPIRED } }
 
-      console.log(silence.id + "silence.id")
+      console.log(JSON.stringify(updatedSilence))
+
+      const newSilences = [...silences.filter((item) => item?.id !== data?.id), updatedSilence]
 
       setSilences({
         items: newSilences,
       })
 
-      // add success message in the ui
       addMessage({
         variant: "success",
-        text: `Silence ${silence.id} expired successfully. Please note that it may take up to 5 minutes for the silence to show up as expired.`,
+        text: `Silence ${data?.id} expired successfully. Please note that it may take up to 5 minutes for the silence to show up as expired.`,
       })
     },
+
     onError: (error) => {
       // add a error message in UI
       addMessage({

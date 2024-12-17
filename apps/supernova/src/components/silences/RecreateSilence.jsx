@@ -18,13 +18,14 @@ import {
   Stack,
 } from "@cloudoperators/juno-ui-components"
 import { useBoundMutation } from "../../hooks/useBoundMutation"
-import { useGlobalsUsername } from "../StoreProvider"
+import { useGlobalsUsername, useSilencesItems, useSilencesActions } from "../StoreProvider"
 
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions } from "./silenceHelpers"
 import { debounce, parseError } from "../../helpers"
 import { useQueryClient } from "@tanstack/react-query"
+import constants from "../../constants"
 
 const validateForm = (values) => {
   const minCommentLength = 3
@@ -59,6 +60,9 @@ const RecreateSilence = (props) => {
 
   const { addMessage } = useActions()
   const user = useGlobalsUsername()
+
+  const silences = useSilencesItems()
+  const { setSilences } = useSilencesActions()
 
   const queryClient = useQueryClient()
 
@@ -103,13 +107,24 @@ const RecreateSilence = (props) => {
   }, [expirationDate])
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
+    onMutate: (data) => {
+      queryClient.cancelQueries("silences")
+
+      const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
+      const newSilences = [...silences, newSilence]
+
+      setSilences({
+        items: newSilences,
+      })
+
+      setDisplayNewSilence(false)
+    },
     onSuccess: (data) => {
       addMessage({
         variant: "success",
         text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may
             take up to 5 minutes for the alert to show up as silenced.`,
       })
-      setDisplayNewSilence(false)
     },
     onError: (error) => {
       // add a error message in UI
