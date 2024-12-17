@@ -10,26 +10,26 @@ import { parseError } from "../../helpers"
 import { useBoundMutation } from "../../hooks/useBoundMutation"
 import { useQueryClient } from "@tanstack/react-query"
 import { debounce } from "../../helpers"
+import { useSilencesItems, useSilencesActions } from "../StoreProvider"
 
 const ExpireSilence = (props) => {
   const { addMessage } = useActions()
   const silence = props.silence
   const [confirmationDialog, setConfirmationDialog] = useState(false)
   const queryClient = useQueryClient()
+  const silences = useSilencesItems()
+  const { setSilences } = useSilencesActions()
 
   const { mutate: deleteSilences } = useBoundMutation("deleteSilences", {
     onMutate: () => {
       queryClient.cancelQueries("silences")
 
-      //get Silences
-      getSilences
+      const newSilences = silences.filter((item) => item.id !== silence.id)
 
-      //set Silences
-      silences
-      silence
+      console.log(silence.id + "silence.id")
 
       setSilences({
-        items: silencesData?.silences,
+        items: newSilences,
       })
 
       // add success message in the ui
