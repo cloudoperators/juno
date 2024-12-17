@@ -112,7 +112,7 @@ export interface PopupMenuToggleProps extends React.ComponentProps<typeof Headle
   className?: string
 }
 
-//Extract types directly from React.ElementType as Headless Menu Items is a dynamically typed component that cannot be extended with React.ComponentPropsWithRef:
+//Extract types directly from React.ElementType as Headless Menu Items is a dynamically typed component that cannot be extended with React.ComponentPropsWithRef (such as `href` or `target` – these will be accepted when passing `as` as `a` in order to render an anchor, but not when rendering a div.):
 type HeadlessMenuItemsProps = React.ComponentPropsWithRef<React.ElementType>
 // Extend the extracted props instead:
 export interface PopupMenuMenuProps extends HeadlessMenuItemsProps {
