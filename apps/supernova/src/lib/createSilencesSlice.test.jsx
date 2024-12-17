@@ -50,6 +50,7 @@ describe("getMappingSilences", () => {
     // get mapping silences
     let mappingResult = null
     act(() => (mappingResult = store.result.current.silenceActions.getMappingSilences(alert)))
+    console.log(mappingResult + "wesdsf")
     expect(mappingResult.length).toEqual(1)
     expect(mappingResult.map((item) => item.id)).toContainEqual("external")
   })

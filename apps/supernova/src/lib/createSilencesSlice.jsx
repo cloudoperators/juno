@@ -133,22 +133,16 @@ const createSilencesSlice = (set, get, options) => ({
       },
 
       /* 
-      Given an alert fingerprint, this function returns all silences referenced by silencingBy. It also 
-      check if there are local silences with the same alert fingerprint and return them as well.
+      Given an alert fingerprint, this function returns all silences referenced by silencingBy. 
       */
       getMappingSilences: (alert) => {
         if (!alert) return
         const externalSilences = get().silences.items
         let silencedBy = alert?.status?.silencedBy || []
 
-        // ensure silencedBy is an array
-        if (!Array.isArray(silencedBy)) silencedBy = [silencedBy]
-        let mappingSilences = []
-        silencedBy.forEach((id) => {
-          if (externalSilences[id]) {
-            mappingSilences.push(externalSilences[id])
-          }
-        })
+        const silencedBySet = new Set(silencedBy)
+        const mappingSilences = externalSilences.filter((silence) => silencedBySet.has(silence.id))
+
         return mappingSilences
       },
       /*
