@@ -84,6 +84,12 @@ const sectionTitleStyles = `
   jn-p-2
   jn-cursor-default
 `
+
+const sectionSeparatorStyles = `
+  jn-h-
+  jn-bg-theme-background-lvl-3
+`
+
 // Make sure the floating reference wrapper element around the toggle fits snug around the toggle, so the positioning of the menu is correct relative to the visible toggle:
 const floatingReferenceWrapperStyles = `
   jn-inline-flex
@@ -136,7 +142,16 @@ export interface PopupMenuItemProps extends React.ComponentProps<typeof Headless
 export interface PopupMenuSectionProps {
   children?: React.ReactNode
   className?: string
-  title?: string
+}
+
+export interface PopupMenuSectionHeadingProps {
+  children?: React.ReactNode
+  className?: string
+  label?: string
+}
+
+export interface PopupMenuSectionSeparatorProps {
+  className?: string
 }
 
 // ----- Define PopupMenu context and hook -----
@@ -175,6 +190,8 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   Menu: typeof PopupMenuMenu
   Item: React.FC<PopupMenuItemProps>
   Section: React.FC<PopupMenuSectionProps>
+  SectionHeading: React.FC<PopupMenuSectionHeadingProps>
+  SectionSeparator: React.FC<PopupMenuSectionSeparatorProps>
 } = ({
   children = null,
   className = "",
@@ -340,23 +357,38 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
 }
 
 // POPUPMENU SECTION COMPONENT
-const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({
+const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children = null, className = "", ...props }) => {
+  return (
+    <section className={`juno-popupmenu-section ${sectionStyles} ${className}`} {...props}>
+      {children}
+    </section>
+  )
+}
+
+// POPUPMENU SECTION TITLE COMPONENT
+const PopupMenuSectionHeading: React.FC<PopupMenuSectionHeadingProps> = ({
   children = null,
+  label = "",
   className = "",
-  title = "",
   ...props
 }) => {
   return (
-    <div className={`juno-pop-menu-section ${sectionStyles} ${className}`} {...props}>
-      {title ? <div className={`juno-menu-section-title ${sectionTitleStyles}`}>{title}</div> : ""}
-      {children}
-    </div>
+    <header className={`juno-popupmenu-section-title ${sectionTitleStyles} ${className}`} {...props}>
+      <h1>{label && label.length ? label : children}</h1>
+    </header>
   )
+}
+
+// POPUPMENU SECTION DIVIDER COMPONENT
+const PopupMenuSectionSeparator: React.FC<PopupMenuSectionSeparatorProps> = ({ className = "", ...props }) => {
+  return <div className={`juno-popupmenu-section-divider ${sectionSeparatorStyles} ${className}`} {...props}></div>
 }
 
 PopupMenu.Toggle = PopupMenuToggle
 PopupMenu.Menu = PopupMenuMenu
 PopupMenu.Item = PopupMenuItem
 PopupMenu.Section = PopupMenuSection
+PopupMenu.SectionHeading = PopupMenuSectionHeading
+PopupMenu.SectionSeparator = PopupMenuSectionSeparator
 
 export { PopupMenu }

@@ -159,7 +159,7 @@ export const WithMenuChildWithSection = {
     docs: {
       description: {
         story:
-          "In order to better group and organize options, a PopupMenu menu may contain one or multiple sections with optional titles.",
+          "In order to better group and organize options, a PopupMenu menu may contain one or multiple sections with optional titles and dividers.",
       },
     },
   },
@@ -167,11 +167,14 @@ export const WithMenuChildWithSection = {
     ...actions("onOpen", "onClose"),
     children: (
       <PopupMenu.Menu>
-        <PopupMenu.Section title="Some Options">
+        <PopupMenu.Section>
+          <PopupMenu.SectionHeading>Section 1</PopupMenu.SectionHeading>
           <PopupMenu.Item label="Menu Item 1" />
           <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
         </PopupMenu.Section>
-        <PopupMenu.Section title="Some Other Options">
+        <PopupMenu.SectionSeparator />
+        <PopupMenu.Section>
+          <PopupMenu.SectionHeading label="Section 2" />
           <PopupMenu.Item label="Menu Item 3" />
           <PopupMenu.Item label="Menu Item 4 Disabled" disabled />
         </PopupMenu.Section>

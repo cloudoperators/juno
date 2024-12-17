@@ -477,18 +477,6 @@ describe("PopupMenu", () => {
     await waitFor(() => act(() => screen.getByRole("button").click()))
     await waitFor(() => expect(screen.getByTestId("my-menu-section")).toBeInTheDocument())
   })
-  test("renders a menu section with a title as passed", async () => {
-    render(
-      <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Section data-testid="my-menu-section" title="My Own Menu Section"></PopupMenu.Section>
-        </PopupMenu.Menu>
-      </PopupMenu>
-    )
-    await waitFor(() => act(() => screen.getByRole("button").click()))
-    await waitFor(() => expect(screen.getByTestId("my-menu-section")).toBeInTheDocument())
-    await waitFor(() => expect(screen.getByTestId("my-menu-section")).toHaveTextContent("My Own Menu Section"))
-  })
   test("renders a menu section with a custom className as passed", async () => {
     render(
       <PopupMenu>
@@ -531,5 +519,74 @@ describe("PopupMenu", () => {
     await waitFor(() => act(() => screen.getByRole("button").click()))
     await waitFor(() => expect(screen.getByTestId("my-menu-section")).toBeInTheDocument())
     await waitFor(() => expect(screen.getByTestId("my-menu-section")).toHaveAttribute("data-lolol", "123"))
+  })
+
+  // ----- MENU SECTION HEADING: -----
+  test("renders a menu section heading with a label as passed", async () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu>
+          <PopupMenu.Section>
+            <PopupMenu.SectionHeading data-testid="my-menu-section-heading" label="My Menu Section Heading" />
+          </PopupMenu.Section>
+        </PopupMenu.Menu>
+      </PopupMenu>
+    )
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByTestId("my-menu-section-heading")).toBeInTheDocument())
+    await waitFor(() =>
+      expect(screen.getByTestId("my-menu-section-heading")).toHaveTextContent("My Menu Section Heading")
+    )
+  })
+  test("renders a label section heading with children as passed", async () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu>
+          <PopupMenu.Section>
+            <PopupMenu.SectionHeading data-testid="my-menu-section-heading">
+              My Child Section Heading
+            </PopupMenu.SectionHeading>
+          </PopupMenu.Section>
+        </PopupMenu.Menu>
+      </PopupMenu>
+    )
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByTestId("my-menu-section-heading")).toBeInTheDocument())
+    await waitFor(() =>
+      expect(screen.getByTestId("my-menu-section-heading")).toHaveTextContent("My Child Section Heading")
+    )
+  })
+  test("renders a label section heading with a className as passed", async () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu>
+          <PopupMenu.Section>
+            <PopupMenu.SectionHeading
+              data-testid="my-menu-section-heading"
+              className="my-custom-menu-section-heading"
+            />
+          </PopupMenu.Section>
+        </PopupMenu.Menu>
+      </PopupMenu>
+    )
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByTestId("my-menu-section-heading")).toBeInTheDocument())
+    await waitFor(() =>
+      expect(screen.getByTestId("my-menu-section-heading")).toHaveClass("my-custom-menu-section-heading")
+    )
+  })
+  test("renders a label section heading with arbitrary props as passed", async () => {
+    render(
+      <PopupMenu>
+        <PopupMenu.Menu>
+          <PopupMenu.Section>
+            <PopupMenu.SectionHeading data-testid="my-menu-section-heading" data-lolol="123" />
+          </PopupMenu.Section>
+        </PopupMenu.Menu>
+      </PopupMenu>
+    )
+    await waitFor(() => act(() => screen.getByRole("button").click()))
+    await waitFor(() => expect(screen.getByTestId("my-menu-section-heading")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByTestId("my-menu-section-heading")).toHaveAttribute("data-lolol", "123"))
   })
 })
