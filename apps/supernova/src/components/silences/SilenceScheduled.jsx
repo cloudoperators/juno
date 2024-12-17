@@ -22,7 +22,7 @@ import {
   FormSection,
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
-import { useGlobalsUsername, useSilenceTemplates } from "../StoreProvider"
+import { useGlobalsUsername, useSilenceTemplates, useSilencesItems, useSilencesActions } from "../StoreProvider"
 import { parseError } from "../../helpers"
 import { useBoundMutation } from "../../hooks/useBoundMutation"
 import { useQueryClient } from "@tanstack/react-query"
@@ -37,6 +37,8 @@ const SilenceScheduled = () => {
   const [error, setError] = useState(null)
 
   const queryClient = useQueryClient()
+  const silences = useSilencesItems()
+  const { setSilences } = useSilencesActions()
 
   // set the selected template
   const [selected, setSelected] = useState(null)
@@ -54,8 +56,19 @@ const SilenceScheduled = () => {
   const [closed, setClosed] = useState(true)
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
+    onMutate: (data) => {
+      queryClient.cancelQueries("silences")
+
+      const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
+
+      const newSilences = [...silences, newSilence]
+
+      setSilences({
+        items: newSilences,
+      })
+    },
+
     onSuccess: (data) => {
-      console.log("sdffsd")
       setClosed(true)
       addMessage({
         variant: "success",

@@ -21,8 +21,10 @@ import {
   useSilencesActions,
   useAlertEnrichedLabels,
   useGlobalsUsername,
+  useSilencesItems,
 } from "../StoreProvider"
 import AlertDescription from "../alerts/shared/AlertDescription"
+import { useActions } from "@cloudoperators/juno-messages-provider"
 import SilenceNewAdvanced from "./SilenceNewAdvanced"
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
@@ -65,7 +67,7 @@ const DEFAULT_FORM_VALUES = { duration: "2", comment: "" }
 const SilenceNew = ({ alert, size, variant }) => {
   const queryClient = useQueryClient()
   const excludedLabels = useSilencesExcludedLabels()
-  const { getMappingSilences } = useSilencesActions()
+  const { getMappingSilences, setSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
   const user = useGlobalsUsername()
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
@@ -73,6 +75,9 @@ const SilenceNew = ({ alert, size, variant }) => {
   const [expirationDate, setExpirationDate] = useState(null)
   const [showValidation, setShowValidation] = useState({})
   const [error, setError] = useState(null)
+  const { addMessage } = useActions()
+
+  const silences = useSilencesItems()
 
   const [success, setSuccess] = useState(null)
 
@@ -110,14 +115,34 @@ const SilenceNew = ({ alert, size, variant }) => {
   }, [expirationDate])
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
+    onMutate: (data) => {
+      queryClient.cancelQueries("silences")
+
+      const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
+
+      const newSilences = [...silences, newSilence]
+
+      setSilences({
+        items: newSilences,
+      })
+
+      setDisplayNewSilence(false)
+    },
+
     onSuccess: (data) => {
-      setSuccess(data)
+      addMessage({
+        variant: "success",
+        text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may
+            take up to 5 minutes for the alert to show up as silenced.`,
+      })
     },
     onError: (error) => {
       // add a error message in UI
-      setError(parseError(error))
+      addMessage({
+        variant: "error",
+        text: parseError(error),
+      })
     },
-
     onSettled: () => {
       // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
       queryClient.invalidateQueries(["silences"])
