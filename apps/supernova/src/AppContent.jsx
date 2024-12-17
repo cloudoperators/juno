@@ -62,8 +62,8 @@ const AppContent = () => {
   }
 
   return (
-    <Container px py className="h-full  ">
-      <Messages className="pb-8" />
+    <Container px py className="h-full">
+      <Messages className="pb-6" />
 
       {activeSelectedTab === "alerts" && (
         <>
