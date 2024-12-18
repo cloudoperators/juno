@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 2.35.1
+
+### Patch Changes
+
+- baccd3c: Import components styles manually in global.scss
+- 2826334: Reintroduce Modal component stories removed during TypeScript migration
+
 ## 2.35.0
 
 ### Minor Changes
