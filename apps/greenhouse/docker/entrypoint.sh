@@ -25,7 +25,6 @@ update_json_field() {
 update_json_field "currentHost" "$CURRENT_HOST"
 update_json_field "theme" "$THEME"
 update_json_field "apiEndpoint" "$K8S_API_ENDPOINT"
-update_json_field "environment" "$ENVIRONMENT"
 update_json_field "authIssuerUrl" "$OIDC_ISSUER_URL"
 update_json_field "authClientId" "$OIDC_CLIENT_ID"
 
