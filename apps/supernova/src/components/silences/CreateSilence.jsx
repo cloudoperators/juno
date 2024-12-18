@@ -25,7 +25,7 @@ import {
 } from "../StoreProvider"
 import AlertDescription from "../alerts/shared/AlertDescription"
 import { useActions } from "@cloudoperators/juno-messages-provider"
-import SilenceNewAdvanced from "./SilenceNewAdvanced"
+import CreateSilenceAdvanced from "./CreateSilenceAdvanced"
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"
@@ -64,7 +64,7 @@ const errorHelpText = (messages) => {
 
 const DEFAULT_FORM_VALUES = { duration: "2", comment: "" }
 
-const SilenceNew = ({ alert, size, variant }) => {
+const CreateSilence = ({ alert, size, variant }) => {
   const queryClient = useQueryClient()
   const excludedLabels = useSilencesExcludedLabels()
   const { getMappingSilences, setSilences } = useSilencesActions()
@@ -239,7 +239,7 @@ const SilenceNew = ({ alert, size, variant }) => {
 
           {!success && (
             <>
-              <SilenceNewAdvanced matchers={formState.matchers} onMatchersChanged={onMatchersChanged} />
+              <CreateSilenceAdvanced matchers={formState.matchers} onMatchersChanged={onMatchersChanged} />
 
               <Form className="mt-6">
                 <FormRow>
@@ -288,4 +288,4 @@ const SilenceNew = ({ alert, size, variant }) => {
   )
 }
 
-export default SilenceNew
+export default CreateSilence

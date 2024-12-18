@@ -29,8 +29,6 @@ const ExpireSilence = (props) => {
       let updatedSilence = updatedSilences.length > 0 ? updatedSilences[0] : null
       updatedSilence = { ...updatedSilence, status: { state: constants.SILENCE_EXPIRED } }
 
-      console.log(JSON.stringify(updatedSilence))
-
       const newSilences = [...silences.filter((item) => item?.id !== data?.id), updatedSilence]
 
       setSilences({

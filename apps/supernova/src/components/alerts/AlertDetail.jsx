@@ -28,7 +28,7 @@ import AlertTimestamp from "./shared/AlertTimestamp"
 import AlertDescription from "./shared/AlertDescription"
 import AlertLinks from "./shared/AlertLinks"
 import AlertLabels from "./shared/AlertLabels"
-import SilenceNew from "../silences/SilenceNew"
+import CreateSilence from "../silences/CreateSilence"
 import AlertStatus from "./AlertStatus"
 import AlertRegion from "./shared/AlertRegion"
 import AlertSilences from "./AlertSilences"
@@ -137,7 +137,7 @@ const AlertDetail = () => {
           </Tabs>
         </PanelBody>
 
-        <PanelFooter>{alert && <SilenceNew alert={alert} variant="primary" />}</PanelFooter>
+        <PanelFooter>{alert && <CreateSilence alert={alert} variant="primary" />}</PanelFooter>
       </Panel>
     </MessagesProvider>
   )

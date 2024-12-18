@@ -1,4 +1,4 @@
-import { deleteSilences, createSilences } from "./silencesQueries"
+import { deleteSilences, createSilences } from "./silences"
 
 export const MUTATION_FUNCTIONS = {
   deleteSilences: deleteSilences,
