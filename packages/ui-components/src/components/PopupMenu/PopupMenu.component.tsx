@@ -184,12 +184,7 @@ export { PopupMenuContext }
 
 // POPUP MENU
 
-// TODO:
-// - document that the menu and its contents will be rendered into a portal (-> impossible to style via parent selector)
-// - what happens when multiple toggles and/or menu are being passed?
-// - Validate positioning/flipping behaviour in example app
-
-/** A Popup Menu component that wraps Headless UI Menu. The Menu will be rendered into a Juno Portal, so using Juno's PortalProvider (which will be included when using Juno's AppShell) is mandatory. */
+/** A Popup Menu component that wraps Headless UI Menu. The Menu will be rendered into a Juno Portal, so using Juno's PortalProvider (which is already included when using Juno's AppShell) is mandatory. */
 const PopupMenu: React.FC<PopupMenuProps> & {
   Toggle: React.FC<PopupMenuToggleProps>
   Menu: typeof PopupMenuMenu
