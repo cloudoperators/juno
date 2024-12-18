@@ -66,7 +66,7 @@ interface MenuContextType {
  DEPRECATED: Use `PopupMenu` with `PopupMenu.Item instead. A menu item to be used inside Menu.
  Can render `<a>`, `<button>`, or `<div>` based on props.
  */
-export const MenuItem: FC<MenuItemProps> = ({
+export const DeprecatedMenuItem: FC<MenuItemProps> = ({
   children = null,
   className = "",
   disabled = false,
@@ -112,9 +112,9 @@ export const MenuItem: FC<MenuItemProps> = ({
   )
 }
 
-MenuItem.displayName = "MenuItem"
+DeprecatedMenuItem.displayName = "MenuItem"
 
-export default withDeprecationWarning(
-  MenuItem,
+export const MenuItem = withDeprecationWarning(
+  DeprecatedMenuItem,
   "MenuItem is deprecated and will be removed in future versions. Use PopupMenu with PopupMenu.Item instead."
 )

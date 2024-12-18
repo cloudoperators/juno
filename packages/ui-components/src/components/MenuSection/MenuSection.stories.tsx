@@ -4,9 +4,9 @@
  */
 
 import React from "react"
-import { Menu } from "../Menu/"
-import { MenuSection } from "./"
-import { MenuItem } from "../MenuItem/"
+import { Menu } from "../Menu/Menu.component"
+import { MenuSection } from "./MenuSection.component"
+import { MenuItem } from "../MenuItem/MenuItem.component"
 
 type StoryDefinition = () => React.ReactNode
 

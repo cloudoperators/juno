@@ -35,7 +35,7 @@ export interface ContextMenuProps {
 }
 
 /** DEPRECATED: Use PopupMenu instead. */
-const ContextMenu: React.FC<ContextMenuProps> = ({
+const DeprecatedContextMenu: React.FC<ContextMenuProps> = ({
   /*icon,*/
   /*className,*/
   children = null,
@@ -91,9 +91,9 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
   )
 }
 
-ContextMenu.displayName = "ContextMenu"
+DeprecatedContextMenu.displayName = "ContextMenu"
 
-export default withDeprecationWarning(
-  ContextMenu,
+export const ContextMenu = withDeprecationWarning(
+  DeprecatedContextMenu,
   "ContextMenu is deprecated and will be removed in future versions. Use PopupMenu instead."
 )

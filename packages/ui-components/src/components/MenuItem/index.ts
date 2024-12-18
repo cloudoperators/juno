@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as MenuItem } from "./MenuItem.component"
+export { MenuItem } from "./MenuItem.component"

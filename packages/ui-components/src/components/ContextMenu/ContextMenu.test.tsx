@@ -8,7 +8,7 @@ import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, expect, test } from "vitest"
 
-import { ContextMenu } from "./index"
+import { ContextMenu } from "./ContextMenu.component"
 
 describe("ContextMenu", () => {
   test("renders a ContextMenu Toggle", () => {
