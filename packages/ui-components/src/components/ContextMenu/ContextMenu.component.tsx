@@ -7,21 +7,8 @@ import React, { useState, useEffect } from "react"
 import { Menu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
 import { autoPlacement, offset, shift, size, Boundary } from "@floating-ui/react-dom"
-
 import { Icon, KnownIcons } from "../Icon/Icon.component"
-
-/*
-TODO:
-
-* close on [ESC] (prop?)
-* close on click outside (prop?)
-* keyboard navigation: arrow up/down moves focus
-* for toggle styles (hover, active, etc.) -> expand icon (interactive) component or handle here (aka are these styles generically useful or specific to this component?)
-* a11y
-* docstrings
-* fix stories
-* don't ALWAYS render button!?!
-*/
+import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
 const menuStyles = `
   jn-overflow-hidden
@@ -47,8 +34,8 @@ export interface ContextMenuProps {
   open?: boolean
 }
 
-/** A context menu with a toggle. */
-export const ContextMenu: React.FC<ContextMenuProps> = ({
+/** DEPRECATED: Use PopupMenu instead. */
+const ContextMenu: React.FC<ContextMenuProps> = ({
   /*icon,*/
   /*className,*/
   children = null,
@@ -103,3 +90,10 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
     </Menu>
   )
 }
+
+ContextMenu.displayName = "ContextMenu"
+
+export default withDeprecationWarning(
+  ContextMenu,
+  "ContextMenu is deprecated and will be removed in future versions. Use PopupMenu instead."
+)

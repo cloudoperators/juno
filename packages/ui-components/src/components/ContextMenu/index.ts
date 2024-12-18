@@ -3,4 +3,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { ContextMenu } from "./ContextMenu.component"
+export { default as ContextMenu } from "./ContextMenu.component"
+export type { ContextMenuProps } from "./ContextMenu.component"
