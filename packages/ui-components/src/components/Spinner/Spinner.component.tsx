@@ -35,7 +35,13 @@ const defaultColor = `
 /** 
 A generic Spinner component to indicate an individual component or portion of the UI is busy processing or awaiting data. 
 To indicate full views, panels, or other larger parts of an interface are busy or waiting for data, use LoadingIndicator instead.*/
-export const Spinner = ({ variant = "default", size = null, className = "", color = "", ...props }: SpinnerProps) => {
+export const Spinner: React.FC<SpinnerProps> = ({
+  variant = "default",
+  size = null,
+  className = "",
+  color = "",
+  ...props
+}) => {
   const mode = () => {
     switch (variant) {
       case "primary":
@@ -86,7 +92,7 @@ export const Spinner = ({ variant = "default", size = null, className = "", colo
 
 type SpinnerVariant = "primary" | "danger" | "default" | "success" | "warning"
 
-export type SpinnerProps = {
+export interface SpinnerProps extends Omit<React.HTMLProps<SVGSVGElement>, "size"> {
   /** The semantic color variant of the Spinner */
   variant?: SpinnerVariant
   /** The size of the spinner: `small`, `large`, or any valid CSS length like `1.5rem`*/
@@ -95,4 +101,4 @@ export type SpinnerProps = {
   className?: string
   /** Pass a text-color class in order to apply any color to a spinner (These classes typically begin with "text-".). If passed, `color` will overwrite the semantic color as defined by `variant`. */
   color?: string
-} & Omit<React.HTMLProps<SVGSVGElement>, "size">
+}

@@ -29,7 +29,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ title = "", children = null, 
   )
 }
 
-export interface MenuSectionProps {
+export interface MenuSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The children to render in the MenuSection */
   children?: React.ReactNode
   /** Pass a custom className */

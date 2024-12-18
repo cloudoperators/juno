@@ -134,16 +134,16 @@ const justifyItems = (distribution: StackDistribution) => {
  * A Stack is a layout primitive that ensures its children are stacked either horizontally next to each other or vertically, one below the other.
  * In addition a gap can be defined which the Stack injects between its children so they have some margin from one another.
  */
-export const Stack = ({
+export const Stack: React.FC<StackProps> = ({
   direction = "horizontal",
   gap = "0",
   alignment = "stretch",
   distribution = "start",
   wrap = false,
   className = "",
-  children = null,
+  children,
   ...props
-}: StackProps) => {
+}) => {
   return (
     <div
       className={`juno-stack ${baseStack(direction, gap, wrap)} ${alignItems(alignment)} ${justifyItems(distribution)} ${className || ""}`}
@@ -194,7 +194,7 @@ export type StackGap =
   | "80"
   | "96"
 
-export type StackProps = {
+export interface StackProps extends Omit<React.HTMLProps<HTMLDivElement>, "wrap"> {
   children?: React.ReactNode
   /** Pass css class names */
   className?: string
@@ -208,4 +208,4 @@ export type StackProps = {
   wrap?: boolean
   /** Can be any valid tailwind  spacing. See here: https://tailwindcss.com/docs/customizing-spacing#default-spacing-scale */
   gap?: StackGap
-} & Omit<React.HTMLProps<HTMLDivElement>, "wrap">
+}

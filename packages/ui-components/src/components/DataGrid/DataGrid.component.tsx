@@ -55,7 +55,7 @@ export const useDataGridContext = () => React.useContext(DataGridContext)
 // TODO: allow for passing in props addItems, addItemsLabel, search, etc.:
 /** The DataGrid component is the main way to display lists of items that have a bunch of metadata that you want to display.
  */
-export const DataGrid = ({
+export const DataGrid: React.FC<DataGridProps> = ({
   columns = 1,
   columnMaxSize = "auto",
   columnMinSize = "0px",
@@ -65,7 +65,7 @@ export const DataGrid = ({
   className = "",
   children = null,
   ...props
-}: DataGridProps) => {
+}) => {
   const dataGridConf = {
     cellVerticalAlignment: cellVerticalAlignment,
     // selectable: selectable
@@ -86,7 +86,7 @@ export const DataGrid = ({
 
 export type CellVerticalAlignmentType = "center" | "top"
 
-export interface DataGridProps {
+export interface DataGridProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Set number of columns */
   columns?: number
   /** Set column max sizing. Default: auto. For equally sized columns use "1fr" */

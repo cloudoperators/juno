@@ -1,5 +1,41 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.11.3
+
+### Patch Changes
+
+- d07a3cb: Add Default Vulnerability Filter to issueMatches entity and renames tab to Vulnerabilities instead of Issues
+- Updated dependencies [3c6ad30]
+- Updated dependencies [3471a77]
+- Updated dependencies [87d57d7]
+  - @cloudoperators/juno-ui-components@2.35.0
+
+## 2.11.2
+
+### Patch Changes
+
+- 975a7d9: Updates service details query
+
+## 2.11.1
+
+### Patch Changes
+
+- 2d8da8a: This updates services query based on some minor API changes
+
+## 2.11.0
+
+### Minor Changes
+
+- 0191ac6: Refine wording to enhance clarity of the UI displayed info.
+
+### Patch Changes
+
+- Updated dependencies [8e6e94d]
+- Updated dependencies [385ebcf]
+- Updated dependencies [b99caff]
+- Updated dependencies [5d186c7]
+  - @cloudoperators/juno-ui-components@2.33.0
+
 ## 2.10.1
 
 ### Patch Changes

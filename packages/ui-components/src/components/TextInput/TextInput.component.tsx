@@ -79,7 +79,7 @@ const hintStyles = `
 A controlled Text Input.
 Also covers email, telephone, password, url derivates. 
 */
-export const TextInput = ({
+export const TextInput: React.FC<TextInputProps> = ({
   value = "",
   id = "",
   name = undefined,
@@ -103,7 +103,7 @@ export const TextInput = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}: TextInputProps) => {
+}) => {
   const isNotEmptyString = (str: unknown) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
@@ -245,7 +245,7 @@ export const TextInput = ({
 type TextInputType = "text" | "email" | "password" | "tel" | "url" | "number"
 type TextInputWidth = "full" | "auto"
 
-export interface TextInputProps {
+export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   /** Pass a name attribute */
   name?: string
   /** Pass a value */

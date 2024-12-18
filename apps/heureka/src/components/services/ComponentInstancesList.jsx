@@ -39,12 +39,12 @@ const ComponentInstancesList = ({ serviceCcrn }) => {
 
   return (
     <>
-      <ContentHeading className="mt-8 mb-2" heading="Component Instances" />
+      <ContentHeading className="mt-8 mb-2" heading="Pods" />
       <DataGrid columns={4}>
         <DataGridRow>
-          <DataGridHeadCell>Component</DataGridHeadCell>
+          <DataGridHeadCell>Name</DataGridHeadCell>
           <DataGridHeadCell>Version</DataGridHeadCell>
-          <DataGridHeadCell>Total Number of Issues</DataGridHeadCell>
+          <DataGridHeadCell>Total Number of Vulnerabilities</DataGridHeadCell>
           <DataGridHeadCell>Highest Severity</DataGridHeadCell>
         </DataGridRow>
         {isLoading ? (
@@ -56,7 +56,7 @@ const ComponentInstancesList = ({ serviceCcrn }) => {
             </DataGridCell>
           </DataGridRow>
         ) : items.length === 0 ? (
-          <HintNotFound text="No component instances available." />
+          <HintNotFound text="No pods available." />
         ) : (
           items.map((componentInstance, i) => (
             <DataGridRow key={i}>

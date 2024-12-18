@@ -23,7 +23,7 @@ const normalStyles = `
 	jn-text-base
 `
 
-export interface MenuProps {
+export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The children to render in the MenuSection */
   children?: React.ReactNode
   /** Whether the Menu will be in normal or small variant */

@@ -16,45 +16,15 @@ import { fetchData } from "../lib/apiClient"
 import { parseError } from "../lib/helpers"
 import Highlighter from "./Highlighter"
 import Violations from "./violations/violations"
-import { fetchProxy } from "@cloudoperators/juno-utils"
-import { useGlobalsMock, useGlobalsEndpoint } from "./StoreProvider"
 
 const AppContent = ({ showDebugSeverities }) => {
   const { setData, setShowDebugSeverities } = useDataActions()
   const { addMessage } = useActions()
-  const isMock = useGlobalsMock()
-  const endpoint = useGlobalsEndpoint()
-
-  useEffect(() => {
-    if (isMock) {
-      fetchProxy(`${endpoint}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        ...{ mock: true },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            addMessage({
-              variant: "error",
-              text: parseError(e.message),
-            })
-          }
-          return response.json()
-        })
-        .then((result) => {
-          setData(result)
-        })
-    }
-  }, [isMock])
 
   // LOAD DATA
   const dataRequest = useQuery({
     queryKey: ["violations"],
     queryFn: fetchData,
-    enabled: !isMock,
     refetchInterval: 5 * 60 * 1000, // 5 minutes
   })
 
@@ -82,7 +52,7 @@ const AppContent = ({ showDebugSeverities }) => {
       {/* <UrlStateManager consumerId={id || "doop"} /> */}
       <Header />
       <Messages className="mb-4" />
-      {dataRequest?.isLoading && !isMock ? <HintLoading className="tw-mt-4" /> : <Violations />}
+      {dataRequest?.isLoading ? <HintLoading className="tw-mt-4" /> : <Violations />}
       <Highlighter />
     </Container>
   )

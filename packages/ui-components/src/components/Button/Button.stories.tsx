@@ -5,15 +5,14 @@
 
 import React from "react"
 import { Button } from "./index"
-import { Icon } from "../../deprecated_js/Icon/index.js"
-import { knownIcons } from "../../deprecated_js/Icon/Icon.component.js"
+import { Icon } from "../Icon/index"
 
 export default {
   title: "Components/Button",
   component: Button,
   argTypes: {
     icon: {
-      options: ["default", ...knownIcons],
+      options: ["default"],
       control: { type: "select" },
     },
     variant: {

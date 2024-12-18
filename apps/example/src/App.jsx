@@ -9,7 +9,14 @@ import styles from "./styles.scss?inline"
 
 import MonorepoChecker from "./components/MonorepoChecker"
 
-import { AppShellProvider, AppShell, PageHeader, Container } from "@cloudoperators/juno-ui-components"
+import {
+  AppShellProvider,
+  AppShell,
+  PageHeader,
+  Container,
+  TopNavigation,
+  TopNavigationItem,
+} from "@cloudoperators/juno-ui-components"
 import { mockedSession } from "@cloudoperators/juno-oauth"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import AppContent from "./components/AppContent"
@@ -17,10 +24,6 @@ import HeaderUser from "./components/auth/HeaderUser"
 import AsyncWorker from "./components/AsyncWorker"
 import StoreProvider, { useGlobalsActions, useAuthActions } from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-
-// mock API
-import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
-import db from "./db.json"
 
 const App = (props = {}) => {
   const { setEndpoint } = useGlobalsActions()
@@ -33,7 +36,7 @@ const App = (props = {}) => {
   // used from overall in the application
   useEffect(() => {
     // set default endpoint so the useQueryClientFn can be used
-    setEndpoint(props.endpoint || window.location.origin)
+    setEndpoint(props.endpoint)
   }, [])
 
   // fetch the mocked auth object and save it globally
@@ -47,24 +50,25 @@ const App = (props = {}) => {
     })
   }, [])
 
-  // setup the mock db.json
-  useEffect(() => {
-    fetchProxyInitDB(db)
-  }, [])
-
   console.debug("[exampleapp] embedded mode:", props.embedded)
 
   return (
     <QueryClientProvider client={queryClient}>
       <MonorepoChecker></MonorepoChecker>
-      <AsyncWorker consumerId={props.id} mockAPI={true} />
+      <AsyncWorker consumerId={props.id} />
       <AppShell
+        embedded={props.embedded === "true" || props.embedded === true}
         pageHeader={
           <PageHeader heading="Converged Cloud | Example App">
             <HeaderUser login={oidc.login} logout={oidc.logout} />
           </PageHeader>
         }
-        embedded={props.embedded === "true" || props.embedded === true}
+        topNavigation={
+          <TopNavigation>
+            <TopNavigationItem icon="home" label="Home" />
+            <TopNavigationItem active label="Navigation Item" />
+          </TopNavigation>
+        }
       >
         <Container py>
           <AppContent props={props} />

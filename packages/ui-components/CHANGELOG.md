@@ -1,5 +1,49 @@
 # @cloudoperators/juno-ui-components
 
+## 2.35.0
+
+### Minor Changes
+
+- 3c6ad30: Introduce types, deprecate other components, integrate new build system
+- 3471a77: Marked AppIntro as deprecated in Storybook
+
+### Patch Changes
+
+- 87d57d7: Migrate docs to Typescript
+
+## 2.34.0
+
+### Minor Changes
+
+- e96f612: Migrate DateTimePicker to TypeScript
+- b12fa10: Migrate AppIntro to TypeScript
+- fbd1880: Finalise Typescript migration for all non-deprecated components and clean up
+- a3c43a0: Migrate the ThemeToggle component to TypeScript
+
+### Patch Changes
+
+- 6877281: Dependencies are upgraded to latest minor version.
+
+## 2.33.0
+
+### Minor Changes
+
+- 8e6e94d: Migrate the Pagination component to TypeScript
+- b99caff: Migrate ContentAreaToolbar, ContentContainer and ContentHeading components to TypeScript.
+  Deprecate ContentWrapper.
+- 5d186c7: Migrate Panel, PanelBody and PanelFooter components to TypeScript
+
+### Patch Changes
+
+- 385ebcf: Created HeaderContainer component to make PageHeader and TopNavigation sticky when scrolling the content. AppShell is also affected by this change.
+
+## 2.32.0
+
+### Minor Changes
+
+- a0ee034: Migrate SecretText to TypeScript
+- 8615024: Replace useEndlessScrollList from utils to ui-componetns and utils deprecation
+
 ## 2.31.0
 
 ### Minor Changes

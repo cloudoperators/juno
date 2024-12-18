@@ -83,7 +83,7 @@ const hintStyles = `
 type EventUpdateHandler = (_value: string | undefined) => void
 
 /** A controlled Radio component. */
-export const Radio = ({
+export const Radio: React.FC<RadioProps> = ({
   checked = false,
   className = "",
   disabled = false,
@@ -100,7 +100,7 @@ export const Radio = ({
   valid = false,
   value = undefined,
   ...props
-}: RadioProps) => {
+}) => {
   // Utility
   const isNotEmptyString = (str: React.ReactNode | string) => {
     return !(typeof str === "string" && str.trim().length === 0)
@@ -295,7 +295,7 @@ export const Radio = ({
   )
 }
 
-export interface RadioProps {
+export interface RadioProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** Whether the Radio is checked */
   checked?: boolean
   /** Pass a custom className */

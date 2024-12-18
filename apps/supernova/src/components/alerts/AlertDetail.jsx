@@ -22,7 +22,7 @@ import {
   Tab,
   TabPanel,
 } from "@cloudoperators/juno-ui-components"
-import { useShowDetailsFor, useGlobalsActions, useAlertsActions, useAlertsIsLoading } from "../StoreProvider"
+import { useShowDetailsFor, useGlobalsActions, useAlertsActions } from "../StoreProvider"
 import AlertIcon from "./shared/AlertIcon"
 import AlertTimestamp from "./shared/AlertTimestamp"
 import AlertDescription from "./shared/AlertDescription"
@@ -33,6 +33,7 @@ import AlertStatus from "./AlertStatus"
 import AlertRegion from "./shared/AlertRegion"
 import AlertSilences from "./AlertSilences"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
+import { useBoundQuery } from "../../hooks/useBoundQuery"
 
 const AlertDetail = () => {
   const alertID = useShowDetailsFor()
@@ -44,7 +45,7 @@ const AlertDetail = () => {
     setShowDetailsFor(null)
   }
 
-  const isAlertsLoading = useAlertsIsLoading()
+  const { isAlertsLoading } = useBoundQuery("alerts")
 
   return (
     <Panel

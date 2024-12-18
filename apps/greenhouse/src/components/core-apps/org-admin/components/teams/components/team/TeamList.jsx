@@ -4,10 +4,15 @@
  */
 
 import React, { useMemo } from "react"
-import { DataGrid, DataGridRow, DataGridCell, DataGridHeadCell } from "@cloudoperators/juno-ui-components"
+import {
+  DataGrid,
+  DataGridRow,
+  DataGridCell,
+  DataGridHeadCell,
+  useEndlessScrollList,
+} from "@cloudoperators/juno-ui-components"
 import TeamListItem from "./TeamListItem"
 import { useCurrentTeam, useDefaultTeam, useTeamMemberships } from "../StoreProvider"
-import { useEndlessScrollList } from "@cloudoperators/juno-utils"
 
 const TeamList = () => {
   const currentTeam = useCurrentTeam()

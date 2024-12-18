@@ -1,5 +1,39 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.14.6
+
+### Patch Changes
+
+- 454764a: Fixes an error where some error messages were not displayed
+- 454764a: Introduced react query
+- Updated dependencies [e96f612]
+- Updated dependencies [b12fa10]
+- Updated dependencies [6877281]
+- Updated dependencies [fbd1880]
+- Updated dependencies [a3c43a0]
+  - @cloudoperators/juno-ui-components@2.34.0
+
+## 0.14.5
+
+### Patch Changes
+
+- f25740e: Delete juno-utils package
+- Updated dependencies [8e6e94d]
+- Updated dependencies [385ebcf]
+- Updated dependencies [b99caff]
+- Updated dependencies [5d186c7]
+  - @cloudoperators/juno-ui-components@2.33.0
+
+## 0.14.4
+
+### Patch Changes
+
+- 8615024: Replace useEndlessScrollList from utils to ui-componetns and utils deprecation
+- Updated dependencies [a0ee034]
+- Updated dependencies [8615024]
+  - @cloudoperators/juno-ui-components@2.32.0
+  - @cloudoperators/juno-utils@1.1.15
+
 ## 0.14.3
 
 ### Patch Changes

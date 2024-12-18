@@ -9,13 +9,28 @@ import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
 import styles from "./styles.scss?inline"
 import { StoreProvider } from "./components/StoreProvider"
-import AsyncWorker from "./components/AsyncWorker"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import CustomAppShell from "./components/CustomAppShell"
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ErrorBoundary } from "react-error-boundary"
+import useUrlState from "./hooks/useUrlState"
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchInterval: 5 * 60 * 1000, // 5 minutes
+    },
+    mutations: {
+      // Add mutation defaults if needed
+    },
+  },
+})
 
 function App(props = {}) {
+  // syncs navigation relevat states with the url for deep links
+  // gets the state from the URL in the beginning
+  // sets the URL from state information
+  useUrlState()
   const preErrorClasses = `
     custom-error-pre
     border-theme-error
@@ -35,14 +50,15 @@ function App(props = {}) {
   }
 
   return (
-    <MessagesProvider>
-      <CustomAppShell>
-        <ErrorBoundary fallbackRender={fallbackRender}>
-          <AsyncWorker endpoint={props.endpoint} />
-          <AppContent props={props} />
-        </ErrorBoundary>
-      </CustomAppShell>
-    </MessagesProvider>
+    <ErrorBoundary fallbackRender={fallbackRender}>
+      <MessagesProvider>
+        <CustomAppShell>
+          <QueryClientProvider client={queryClient}>
+            <AppContent props={props} />
+          </QueryClientProvider>
+        </CustomAppShell>
+      </MessagesProvider>
+    </ErrorBoundary>
   )
 }
 

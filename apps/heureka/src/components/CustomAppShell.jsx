@@ -8,14 +8,14 @@ import { AppShell, PageHeader, TopNavigation, TopNavigationItem, Container } fro
 import { useGlobalsActions, useGlobalsActiveView, useGlobalsEmbedded } from "./StoreProvider"
 import ServicesView from "./services/ServicesView"
 import IssueMatchesView from "./issueMatches/IssueMatchesView"
-// import ComponentsView from "./components/ComponentsView"
+import ComponentsView from "./components/ComponentsView"
 import constants from "./shared/constants"
 
 // Configuration for navigation items and their respective components
 const VIEW_CONFIG = {
   Services: { label: "Services", icon: "dns", component: ServicesView },
-  IssueMatches: { label: "IssueMatches", icon: "autoAwesomeMotion", component: IssueMatchesView },
-  // Components: { label: "Components", icon: "autoAwesomeMotion", component: ComponentsView }, // Commented out to remove ComponentsView for MVP version
+  IssueMatches: { label: "Vulnerabilities", icon: "autoAwesomeMotion", component: IssueMatchesView },
+  Components: { label: "Images", icon: "autoAwesomeMotion", component: ComponentsView }, // Commented out to remove ComponentsView for MVP version
 }
 
 const CustomAppShell = ({ children }) => {

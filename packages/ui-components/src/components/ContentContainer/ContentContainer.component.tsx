@@ -5,7 +5,7 @@
 
 import React from "react"
 
-const containerStyles = `
+const baseContainerStyles = `
   jn-flex-col
   jn-grow
   jn-bg-[right_top_1rem]
@@ -14,19 +14,32 @@ const containerStyles = `
   jn-relative
 `
 
+export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Additional CSS classes for custom styling.
+   */
+  className?: string
+  /**
+   * Custom content to render within the container.
+   */
+  children?: React.ReactNode
+}
+
 /**
- * Only needed if you want to build your app's scaffold manually. In most cases it is better to use the AppShell component instead.
- * A container for app content. Will be centered on the screen when browser window is wider than the max breakpoint width.
+ * ContentContainer serves as a wrapper for app content.
+ * It is intended for manual app scaffold creation. In most cases, using the AppShell component instead is recommended.
+ *
+ * Note: When the browser window is wider than the max breakpoint width, the content within this container will be centered on the screen.
  */
-export const ContentContainer = ({ className = "", children = null, ...props }: ContentContainerProps) => {
+export const ContentContainer: React.FC<ContentContainerProps> = ({ className = "", children, ...props }) => {
   return (
-    <div className={`juno-content-container ${containerStyles} ${className}`} {...props}>
+    <div className={`juno-content-container ${baseContainerStyles} ${className}`} {...props}>
       {children}
     </div>
   )
 }
 
-export interface ContentContainerProps {
+export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Add custom class name */
   className?: string
   children?: React.ReactNode

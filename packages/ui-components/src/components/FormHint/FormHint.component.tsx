@@ -12,7 +12,7 @@ const formHintBaseStyles = `
 
 type FormHintVariant = "help" | "error" | "success"
 
-export interface FormHintProps extends React.ComponentPropsWithoutRef<"div"> {
+export interface FormHintProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The content to render as a hint for a form element.
    * If children are provided, they will take precedence over text.

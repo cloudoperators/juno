@@ -1,5 +1,27 @@
 # @cloudoperators/juno-app-example
 
+## 1.0.13
+
+### Patch Changes
+
+- f25740e: Delete juno-utils package
+- Updated dependencies [8e6e94d]
+- Updated dependencies [385ebcf]
+- Updated dependencies [b99caff]
+- Updated dependencies [5d186c7]
+  - @cloudoperators/juno-ui-components@2.33.0
+
+## 1.0.12
+
+### Patch Changes
+
+- b1503ed: Decouple juno-utils mocking logic
+- 8615024: Replace useEndlessScrollList from utils to ui-componetns and utils deprecation
+- Updated dependencies [a0ee034]
+- Updated dependencies [8615024]
+  - @cloudoperators/juno-ui-components@2.32.0
+  - @cloudoperators/juno-utils@1.1.15
+
 ## 1.0.11
 
 ### Patch Changes

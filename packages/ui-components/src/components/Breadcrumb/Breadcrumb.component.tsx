@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Children, ReactNode, ReactElement } from "react"
+import React, { Children, ReactElement } from "react"
 
 import { Icon } from "../Icon"
-import { Stack } from "../Stack"
+import { Stack } from "../Stack/Stack.component"
 import { BreadcrumbItem, BreadcrumbItemProps } from "../BreadcrumbItem/BreadcrumbItem.component"
 
-export interface BreadcrumbProps {
+export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Additional CSS styles to apply to the breadcrumb for custom styling.
    */
@@ -18,7 +18,7 @@ export interface BreadcrumbProps {
    * Optional React nodes or a collection of React nodes to be rendered as custom content.
    * The BreadcrumbItem component is typically used.
    */
-  children?: ReactNode
+  children?: React.ReactNode
 }
 
 /**
@@ -29,7 +29,7 @@ export interface BreadcrumbProps {
  * - Automatically inserts separator icons between items.
  * - Filters out invalid React elements to prevent rendering errors.
  */
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({ children = null, className = "", ...props }) => {
+export const Breadcrumb: React.FC<BreadcrumbProps> = ({ children, className = "", ...props }) => {
   const childrenArray = Children.toArray(children).filter(React.isValidElement) // Filter out invalid elements
 
   // Map each child to a BreadcrumbItem and insert separators between them, except the last one

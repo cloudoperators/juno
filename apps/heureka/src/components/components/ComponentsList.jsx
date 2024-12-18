@@ -28,7 +28,7 @@ const ComponentsList = ({ items, isLoading }) => {
           <Stack direction="vertical">
             <Tooltip triggerEvent="hover">
               <TooltipTrigger>Versions</TooltipTrigger>
-              <TooltipContent>Total Number of Component Versions</TooltipContent>
+              <TooltipContent>Total Number of Image Versions</TooltipContent>
             </Tooltip>
           </Stack>
         </DataGridHeadCell>
@@ -37,7 +37,7 @@ const ComponentsList = ({ items, isLoading }) => {
           <Stack direction="vertical">
             <Tooltip triggerEvent="hover">
               <TooltipTrigger>Instances</TooltipTrigger>
-              <TooltipContent>Total Number of Component Instances</TooltipContent>
+              <TooltipContent>Total Number of Images</TooltipContent>
             </Tooltip>
           </Stack>
         </DataGridHeadCell>
@@ -59,7 +59,7 @@ const ComponentsList = ({ items, isLoading }) => {
           ) : (
             <DataGridRow>
               <DataGridCell colSpan={10}>
-                <HintNotFound text="No components found" />
+                <HintNotFound text="No images found" />
               </DataGridCell>
             </DataGridRow>
           )}

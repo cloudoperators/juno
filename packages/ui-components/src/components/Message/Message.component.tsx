@@ -63,7 +63,7 @@ const messageVariantStyles = {
 
 export type MessageVariantType = "info" | "warning" | "danger" | "error" | "success"
 
-export interface MessageProps {
+export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Pass an optional title.
    */
@@ -112,11 +112,6 @@ export interface MessageProps {
    * Takes precedence over the text property.
    */
   children?: React.ReactNode
-
-  /**
-   * Additional arbitrary props.
-   */
-  [key: string]: any
 }
 
 const getBackgroundStyle = (variant: MessageVariantType): string => {
@@ -199,19 +194,17 @@ const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | nul
  */
 export const Message: React.FC<MessageProps> = ({
   title = null,
-  text = null,
   variant = "info",
   dismissible = false,
   autoDismiss = false,
   autoDismissTimeout = 10000,
   onDismiss,
   className = "",
-  children,
   ...props
 }) => {
   const [visible, setVisible] = useState<boolean>(true)
   const autoDismissTimeoutRef = useRef<number | null>(null)
-
+  const { text, children } = props
   const hideMessage = () => {
     setVisible(false)
     onDismiss && onDismiss()

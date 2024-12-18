@@ -11,7 +11,7 @@ const dividerStyles = `
   jn-bg-theme-background-lvl-3
 `
 
-export interface SelectDividerProps {
+export interface SelectDividerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** add a custom className */
   className?: string
 }

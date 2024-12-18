@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { NavigationItem } from "../NavigationItem/index"
+import { NavigationItem } from "../NavigationItem/NavigationItem.component"
 import { KnownIcons } from "../Icon/Icon.component.js"
 
 const sideNavItemStyles = `
@@ -30,7 +30,7 @@ const sideNavActiveItemStyles = `
 /**
 A SideNavigation item. To be used inside SideNavigation.
 */
-export const SideNavigationItem = ({
+export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
   active = false,
   ariaLabel = "",
   children,
@@ -42,7 +42,7 @@ export const SideNavigationItem = ({
   onClick,
   value = "",
   ...props
-}: SideNavigationItemProps) => {
+}) => {
   return (
     <NavigationItem
       active={active}
@@ -62,7 +62,7 @@ export const SideNavigationItem = ({
   )
 }
 
-export interface SideNavigationItemProps {
+export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the item is the currently active item */
   active?: boolean
   /** The aria label of the item */

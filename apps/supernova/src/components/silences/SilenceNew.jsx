@@ -83,7 +83,7 @@ const SilenceNew = ({ alert, size, variant }) => {
     setFormState({
       ...formState,
       ...DEFAULT_FORM_VALUES,
-      createdBy: user || "", // empty sting to prevent undefined for TextInput
+      createdBy: user || "", // empty string to prevent undefined for TextInput
       matchers: setupMatchers(alert?.labels, excludedLabels, enrichedLabels),
     })
 

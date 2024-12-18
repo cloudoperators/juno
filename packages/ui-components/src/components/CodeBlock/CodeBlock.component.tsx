@@ -106,20 +106,19 @@ const jsonTheme = {
 }
 
 /**  A basic CodeBlock component. Accepts a content prop or children. Will render a pre-wrapped code element. */
-export const CodeBlock = ({
+export const CodeBlock: React.FC<CodeBlockProps> = ({
   content = "",
-  children = null,
-  heading,
+  children,
   wrap = true,
   size = "auto",
   copy = true,
   lang = "",
   className = "",
   ...props
-}: CodeBlockProps) => {
+}) => {
   const [isCopied, setIsCopied] = useState(false)
   const timeoutRef = React.useRef<number | null>(null)
-
+  const { heading } = props
   React.useEffect(() => {
     return () => {
       if (timeoutRef.current) {
@@ -181,7 +180,7 @@ export const CodeBlock = ({
 
 type CodeBlockSize = "auto" | "small" | "medium" | "large"
 
-export interface CodeBlockProps {
+export interface CodeBlockProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "content" | "children"> {
   /** The content to render. Will override children if passed. */
   content?: string | object
   /** The children to render. Will be overridden by content prop if passed as well.  */

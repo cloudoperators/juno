@@ -19,7 +19,7 @@ const breadcrumbLinkBaseStyles = `
   jn-inline-flex
 `
 
-export interface BreadcrumbItemProps {
+export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLSpanElement> {
   /**
    * The icon type to display in the breadcrumb item.
    */
@@ -56,30 +56,24 @@ export interface BreadcrumbItemProps {
    * Custom content to render within the breadcrumb item, replacing the default content.
    */
   children?: React.ReactNode
-
-  /**
-   * Additional arbitrary props.
-   */
-  [key: string]: any
 }
 
 /**
  * BreadcrumbItem represents an individual item within a Breadcrumb component.
  */
 export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
-  icon = null,
   href = "#",
   label = "Item",
   ariaLabel = "",
   active = false,
   children = null,
-  onClick,
   disabled = false,
+  onClick,
   className = "",
   ...props
 }) => {
   if (children) return <>{children}</>
-
+  const { icon } = props
   const iconElement = icon ? (
     <Icon icon={icon} size="18" color="jn-text-theme-default" className={label ? "jn-mr-1" : ""} />
   ) : null

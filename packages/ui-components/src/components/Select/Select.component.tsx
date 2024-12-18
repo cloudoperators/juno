@@ -76,7 +76,8 @@ export type SelectContextProps = {
 }
 export const SelectContext = createContext<SelectContextProps | undefined>(undefined)
 
-export interface SelectProps {
+export interface SelectProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "value" | "defaultValue" | "onChange"> {
   /** Pass an aria-label to the Select toggle button */
   ariaLabel?: string
   /** The children to render as options. Use the SelectOption component, and SelectDivider if needed. */
@@ -107,7 +108,7 @@ export interface SelectProps {
   name?: string
   /** Handler to be executed when the selected value changes */
   // eslint-disable-next-line no-unused-vars
-  onChange?: (...args: unknown[]) => unknown
+  onChange?: (value?: string | number | string[]) => void
   /** Handle for openning of select */
   open?: boolean
   /** LEGACY: Handler to be executed when the Select value changes. Here for backwards compatibility with apps based on older versions of Select. Use onChange instead. */
@@ -140,7 +141,7 @@ export interface SelectProps {
   A Select component that can be configured to allow selecting a single item or multiple items.
   Pass a `defaultValue` to render as an uncontrolled component that tracks its open state etc internally.
 */
-export const Select = ({
+export const Select: React.FC<SelectProps> = ({
   ariaLabel = "",
   children = null,
   className = "",
@@ -168,7 +169,7 @@ export const Select = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}: SelectProps) => {
+}) => {
   const isValueNotEmpty = (
     value:
       | string
@@ -232,9 +233,9 @@ export const Select = ({
     setIsLoading(loading)
   }, [loading])
 
-  const handleChange = (value: unknown) => {
-    onChange && onChange(value || "")
-    onValueChange && onValueChange(value || "")
+  const handleChange = (value: string | number | string[]) => {
+    onChange && onChange(value)
+    onValueChange && onValueChange(value)
   }
 
   const portalContainerRef = usePortalRef()

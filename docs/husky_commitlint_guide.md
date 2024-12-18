@@ -67,7 +67,6 @@ The following scopes are permitted for commits:
 - **supernova**: Changes in the supernova app
 - **template**: Changes to the template app
 - **ui**: changes to ui-components
-- **utils**: Utility functions or modules
 - **url-state-provider**: Changes in the URL state provider
 - **version**: Versioning and release-related changes
 - **ISSUE-\<number>**: Reference to a specific issue (e.g., `ISSUE-123`)

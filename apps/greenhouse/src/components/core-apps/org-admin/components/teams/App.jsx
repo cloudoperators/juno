@@ -10,24 +10,11 @@ import styles from "./styles.scss?inline"
 import AsyncWorker from "./components/AsyncWorker"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import StoreProvider, { useStoreActions } from "./components/StoreProvider"
-import { fetchProxyInitDB } from "@cloudoperators/juno-utils"
-import db from "./db.json"
 
 const App = (props = {}) => {
-  const { initialize: initializeStore, setMock } = useStoreActions()
+  const { initialize: initializeStore } = useStoreActions()
 
-  if (props.isMock === true || props.isMock === "true") {
-    setMock(true)
-    fetchProxyInitDB(db, {
-      debug: true,
-      rewriteRoutes: {
-        "/(?:apis/greenhouse\\.sap/v1alpha1/namespaces/[^/]+/teammemberships/(.*))": "/$1",
-      },
-    })
-    initializeStore(window.location.origin, null, null, null)
-  } else {
-    initializeStore(props.apiEndpoint, props.token, props.namespace, props.userGroup)
-  }
+  initializeStore(props.apiEndpoint, props.token, props.namespace, props.userGroup)
 
   return (
     <MessagesProvider>
