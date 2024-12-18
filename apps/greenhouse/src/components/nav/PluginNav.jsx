@@ -11,6 +11,7 @@ import HeurekaIcon from "../../assets/juno_heureka.svg?react"
 import { Icon, Stack, Button } from "@cloudoperators/juno-ui-components"
 import { useAuthData, useAuthLoggedIn, useAuthActions, usePlugin } from "../../components/StoreProvider"
 import Avatar from "../Avatar"
+import useAuth from "../../hooks/useAuth"
 
 const AppIcon = ({ name }) => {
   switch (name) {
@@ -63,6 +64,8 @@ const PluginNav = () => {
   const activeApps = usePlugin().active()
   const appConfig = usePlugin().appConfig()
   const mngConfig = usePlugin().mngConfig()
+
+  const { data } = useAuth()
 
   return (
     <Stack direction="vertical" alignment="center" className={`greenhouse-nav ${navStyles}`}>

@@ -3,23 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const createGlobalsSlice = (set) => ({
+const validateURL = (string) => {
+  try {
+    new URL(string) // Try to create a URL object
+    return string // If successful, it's a valid URL
+  } catch {
+    console.warn(`Invalid URL provided: ${string}`) // Log a warning if URL is invalid
+    return "" // If an error occurs, it's not a valid URL
+  }
+}
+
+const createGlobalsSlice = (set, get, options) => ({
   globals: {
-    apiEndpoint: "",
-    assetsHost: "",
-    environment: "",
+    apiEndpoint: validateURL(options.apiEndpoint),
+    assetsHost: validateURL(options.currentHost),
     isUrlStateSetup: false,
     demoMode: false,
     demoUserToken: null,
 
     actions: {
-      setApiEndpoint: (value) =>
-        set((state) => ({ globals: { ...state.globals, apiEndpoint: value } }), false, "globals/setApiEndpoint"),
-
-      setEnvironment: (value) =>
-        set((state) => ({ globals: { ...state.globals, environment: value } }), false, "globals/setEnvironment"),
-      setAssetsHost: (value) =>
-        set((state) => ({ globals: { ...state.globals, assetsHost: value } }), false, "globals/setAssetsHost"),
       setIsUrlStateSetup: (setup) =>
         set(
           (state) => ({
