@@ -5,6 +5,7 @@
 
 import React, { createContext } from "react"
 import { Menu as HLMenu } from "@headlessui/react"
+import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
 const baseStyles = `
 	jn-overflow-hidden
@@ -36,8 +37,8 @@ interface MenuContextType {
 }
 export const MenuContext = createContext<MenuContextType | undefined>(undefined)
 
-/** A generic menu component */
-export const Menu: React.FC<MenuProps> = ({ children = null, variant = "normal", className = "", ...props }) => {
+/** DEPRECATED: Use `PopupMenu` instead. */
+const Menu: React.FC<MenuProps> = ({ children = null, variant = "normal", className = "", ...props }) => {
   return (
     <MenuContext.Provider
       value={{
@@ -62,3 +63,10 @@ export const Menu: React.FC<MenuProps> = ({ children = null, variant = "normal",
     </MenuContext.Provider>
   )
 }
+
+Menu.displayName = "Menu"
+
+export default withDeprecationWarning(
+  Menu,
+  "Menu is deprecated and will be removed in future versions. Use PopupMenu instead."
+)

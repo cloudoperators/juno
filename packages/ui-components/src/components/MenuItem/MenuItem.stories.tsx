@@ -9,8 +9,16 @@ import { Menu } from "../Menu/"
 import { Button } from "../Button/"
 
 export default {
-  title: "WiP/Menu/MenuItem",
+  title: "Deprecated/Menu/MenuItem",
   component: MenuItem,
+  parameters: {
+    menuVariant: "normal", // Default value for all stories
+    docs: {
+      description: {
+        component: "DEPRECATED. Use `PopupMenu` with `PopupMenu.Item` instead.",
+      },
+    },
+  },
   argTypes: {
     children: {
       control: false,
@@ -28,9 +36,6 @@ export default {
       )
     },
   ],
-  parameters: {
-    menuVariant: "normal", // Default value for all stories
-  },
 }
 
 export const Default = {

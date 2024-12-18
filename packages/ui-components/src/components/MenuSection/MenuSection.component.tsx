@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
 const sectionStyles = `
 	jn-bg-theme-background-lvl-1
@@ -18,8 +19,8 @@ const titleStyles = `
 	jn-text-xs
 	jn-p-2
 `
-/** Use MenuSection to structure and sub-divide MenuItems in a menu. All but the last MenuSection will render a visible divider at the bottom. Optionally, a MenuSection can have a title.*/
-export const MenuSection: React.FC<MenuSectionProps> = ({ title = "", children = null, className = "", ...props }) => {
+/** DEPRECATED: Use `PopupMenu` with `PopupMenu.Section` instead. Use MenuSection to structure and sub-divide MenuItems in a menu. All but the last MenuSection will render a visible divider at the bottom. Optionally, a MenuSection can have a title.*/
+const MenuSection: React.FC<MenuSectionProps> = ({ title = "", children = null, className = "", ...props }) => {
   return (
     <div className={`juno-menu-section ${sectionStyles} ${className}`} {...props}>
       {title ? <div className={`juno-menu-section-title ${titleStyles}`}>{title}</div> : ""}
@@ -36,3 +37,10 @@ export interface MenuSectionProps {
   /** Pass an optional section title */
   title?: string
 }
+
+MenuSection.displayName = "MenuSection"
+
+export default withDeprecationWarning(
+  MenuSection,
+  "MenuSection is deprecated and will be removed in future versions. Use PopupMenu with PopupMenu.Section instead."
+)

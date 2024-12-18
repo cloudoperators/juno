@@ -11,8 +11,15 @@ import { MenuItem } from "../MenuItem/"
 type StoryDefinition = () => React.ReactNode
 
 export default {
-  title: "WiP/Menu/MenuSection",
+  title: "Deprecated/Menu/MenuSection",
   component: MenuSection,
+  parameters: {
+    docs: {
+      description: {
+        component: "DEPRECATED: Use `PopupMenu` with `PopupMenu.Section` instead.",
+      },
+    },
+  },
   argTypes: {
     children: {
       control: false,

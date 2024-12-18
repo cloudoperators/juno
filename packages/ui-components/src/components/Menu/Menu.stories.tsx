@@ -10,8 +10,15 @@ import { MenuSection } from "../MenuSection/"
 import { Button } from "../Button/"
 
 export default {
-  title: "WiP/Menu",
+  title: "Deprecated/Menu",
   component: Menu,
+  parameters: {
+    docs: {
+      description: {
+        component: "DEPRECATED. Use `PopupMenu instead.",
+      },
+    },
+  },
   argTypes: {
     items: {
       table: {
