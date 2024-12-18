@@ -105,12 +105,19 @@ export interface PopupMenuContextType {
 }
 
 export interface PopupMenuProps extends React.ComponentProps<typeof HeadlessMenu> {
+  /** The children to render. If no PopupMenu.Toggle child is passed, PopupMenu will render a default toggle. Pass a PopupMenu.Menu child in order to have a working component. */
   children?: React.ReactNode
+  /** Add a custom className to the wrapping element. NOTE: The Menu will be rendered into a Portal outside the wrapping parent element, so the Menu and its children will be outside the scope of the parent CSS selector.*/
   className?: string
+  /** Whether the PopupMenu is disabled. */
   disabled?: boolean
+  /** The icon to render when using the default toggle. Will be ignored if a PopupMenu.Toggle child is passed. */
   icon?: keyof typeof KnownIconsEnum
+  /** The size of the menu and its items. */
   menuSize?: "normal" | "small"
+  /** Handler to run when the Menu closes. */
   onClose?: () => void
+  /** Handler to run when the Menu opens. */
   onOpen?: () => void
 }
 
@@ -182,7 +189,7 @@ export { PopupMenuContext }
 // - what happens when multiple toggles and/or menu are being passed?
 // - Validate positioning/flipping behaviour in example app
 
-/** A Popup Menu component that wraps Headless UI Menu */
+/** A Popup Menu component that wraps Headless UI Menu. The Menu will be rendered into a Juno Portal, so using Juno's PortalProvider (which will be included when using Juno's AppShell) is mandatory. */
 const PopupMenu: React.FC<PopupMenuProps> & {
   Toggle: React.FC<PopupMenuToggleProps>
   Menu: typeof PopupMenuMenu
