@@ -5,9 +5,9 @@
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 
 const globImporter = require("node-sass-glob-importer")
-const vitePluginGlob = require('vite-plugin-glob');
-import { merge } from '@storybook/manager-api';
-import svgr from "vite-plugin-svgr";
+const vitePluginGlob = require("vite-plugin-glob")
+import { merge } from "@storybook/manager-api"
+import svgr from "vite-plugin-svgr"
 
 const config = {
   stories: ["../src/docs/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -38,7 +38,7 @@ const config = {
         vitePluginGlob(),
         svgr({
           svgo: false,
-        })
+        }),
       ],
       css: {
         preprocessorOptions: {
@@ -48,13 +48,13 @@ const config = {
             },
           },
         },
-      }
+      },
     })
     return config
   },
   framework: {
     name: "@storybook/react-vite",
-    options: { },
+    options: {},
   },
   docs: {
     autodocs: true,
