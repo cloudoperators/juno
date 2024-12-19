@@ -71,6 +71,12 @@ export default [
     },
   },
   {
-    ignores: ["**/build/*", "**/dist/*", "**/vite.config.ts.timestamp-*"],
+    ignores: [
+      "**/build/*",
+      "**/dist/*",
+      "**/vite.config.ts.timestamp-*",
+      "**/src/deprecated_js/*",
+      "**/storybook-static/*",
+    ],
   },
 ]
