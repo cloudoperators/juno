@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   CodeBlock,
   Container,
@@ -22,7 +22,7 @@ import {
   Tab,
   TabPanel,
 } from "@cloudoperators/juno-ui-components"
-import { useShowDetailsFor, useGlobalsActions, useAlertsActions } from "../StoreProvider"
+import { useShowDetailsFor, useGlobalsActions, useAlertsActions, useAlertsItems } from "../StoreProvider"
 import AlertIcon from "./shared/AlertIcon"
 import AlertTimestamp from "./shared/AlertTimestamp"
 import AlertDescription from "./shared/AlertDescription"
@@ -39,13 +39,20 @@ const AlertDetail = () => {
   const alertID = useShowDetailsFor()
   const { setShowDetailsFor } = useGlobalsActions()
   const { getAlertByFingerprint } = useAlertsActions()
-  const alert = getAlertByFingerprint(alertID)
+  const [alert, setAlert] = useState(null)
+  const alerts = useAlertsItems()
 
   const onPanelClose = () => {
     setShowDetailsFor(null)
   }
 
-  const { isLoading: isAlertsLoading } = useBoundQuery("alerts")
+  const { isLoading } = useBoundQuery("alerts")
+  useEffect(() => {
+    // wait for the alerts to be loaded
+    if (alerts?.length > 0) {
+      setAlert(getAlertByFingerprint(alertID))
+    }
+  }, [alerts, alertID])
 
   return (
     <Panel
@@ -69,7 +76,7 @@ const AlertDetail = () => {
           <TabPanel>
             <Container px={false} py>
               {!alert ? (
-                isAlertsLoading ? (
+                isLoading ? (
                   <Stack gap="2">
                     <span>Loading</span>
                     <Spinner variant="primary" />

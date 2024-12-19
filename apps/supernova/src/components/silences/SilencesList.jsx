@@ -36,7 +36,7 @@ const SilencesList = () => {
   const regEx = useSilencesRegEx()
   const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
 
-  const { data } = useBoundQuery("silences")
+  const { data, isLoading } = useBoundQuery("silences")
 
   useEffect(() => {
     if (data) {
@@ -93,58 +93,67 @@ const SilencesList = () => {
 
   return (
     <>
-      <Stack direction="horizontal" className={`${filtersStyles}`}>
-        <Select
-          className="w-3/12"
-          label="Status"
-          value={status}
-          onChange={(newSilencesStatus) => {
-            setSilencesStatus(newSilencesStatus)
-          }}
-        >
-          <SelectOption value={constants.SILENCE_ACTIVE} />
-          <SelectOption value={constants.SILENCE_PENDING} />
-          <SelectOption value={constants.SILENCE_EXPIRED} />
-        </Select>
-
-        <SearchInput
-          placeholder="search term or regular expression"
-          className="ml-auto w-7/12"
-          value={regEx || ""}
-          onChange={(text) => {
-            handleSearchChange(text)
-          }}
-          onSearch={(text) => {
-            setSilencesRegEx(text)
-          }}
-          onClear={() => {
-            setSilencesRegEx(null)
-          }}
-        />
-      </Stack>
-
-      <DataGrid columns={4} minContentColumns={[0, 2, 3]} cellVerticalAlignment="top" className="silences ">
+      {isLoading ? (
+        <Stack gap="2">
+          <span>Loading</span>
+          <Spinner variant="primary" />
+        </Stack>
+      ) : (
         <>
-          <DataGridRow>
-            <DataGridHeadCell>Time intervall</DataGridHeadCell>
-            <DataGridHeadCell>Details</DataGridHeadCell>
-            <DataGridHeadCell>State</DataGridHeadCell>
-            <DataGridHeadCell>Action</DataGridHeadCell>
-          </DataGridRow>
-          {scrollListItems?.length > 0 ? (
-            iterator.map((silence) => <SilencesItem silence={silence} key={silence.id} />)
-          ) : (
-            <DataGridRow>
-              <DataGridCell colSpan={4}>
-                <Stack gap="3">
-                  <Icon icon="info" color="text-theme-info" />
-                  <div>We couldn&apos;t find any matching silences.</div>
-                </Stack>
-              </DataGridCell>
-            </DataGridRow>
-          )}
+          <Stack direction="horizontal" className={`${filtersStyles}`}>
+            <Select
+              className="w-3/12"
+              label="Status"
+              value={status}
+              onChange={(newSilencesStatus) => {
+                setSilencesStatus(newSilencesStatus)
+              }}
+            >
+              <SelectOption value={constants.SILENCE_ACTIVE} />
+              <SelectOption value={constants.SILENCE_PENDING} />
+              <SelectOption value={constants.SILENCE_EXPIRED} />
+            </Select>
+
+            <SearchInput
+              placeholder="search term or regular expression"
+              className="ml-auto w-7/12"
+              value={regEx || ""}
+              onChange={(text) => {
+                handleSearchChange(text)
+              }}
+              onSearch={(text) => {
+                setSilencesRegEx(text)
+              }}
+              onClear={() => {
+                setSilencesRegEx(null)
+              }}
+            />
+          </Stack>
+
+          <DataGrid columns={4} minContentColumns={[0, 2, 3]} cellVerticalAlignment="top" className="silences ">
+            <>
+              <DataGridRow>
+                <DataGridHeadCell>Time intervall</DataGridHeadCell>
+                <DataGridHeadCell>Details</DataGridHeadCell>
+                <DataGridHeadCell>State</DataGridHeadCell>
+                <DataGridHeadCell>Action</DataGridHeadCell>
+              </DataGridRow>
+              {scrollListItems?.length > 0 ? (
+                iterator.map((silence) => <SilencesItem silence={silence} key={silence.id} />)
+              ) : (
+                <DataGridRow>
+                  <DataGridCell colSpan={4}>
+                    <Stack gap="3">
+                      <Icon icon="info" color="text-theme-info" />
+                      <div>We couldn&apos;t find any matching silences.</div>
+                    </Stack>
+                  </DataGridCell>
+                </DataGridRow>
+              )}
+            </>
+          </DataGrid>
         </>
-      </DataGrid>
+      )}
     </>
   )
 }

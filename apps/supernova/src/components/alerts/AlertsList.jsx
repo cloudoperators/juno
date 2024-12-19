@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React from "react"
 import {
   DataGrid,
   DataGridHeadCell,
@@ -15,20 +15,10 @@ import {
   useEndlessScrollList,
 } from "@cloudoperators/juno-ui-components"
 import Alert from "./Alert"
-import { useAlertsItemsFiltered, useAlertsActions } from "../StoreProvider"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { useAlertsItemsFiltered } from "../StoreProvider"
 
 const AlertsList = () => {
   const itemsFiltered = useAlertsItemsFiltered()
-  const { setAlertsData } = useAlertsActions()
-
-  const { data, isLoading } = useBoundQuery("alerts")
-
-  useEffect(() => {
-    if (data) {
-      setAlertsData({ items: data.alerts, counts: data.counts })
-    }
-  }, [data])
 
   const { scrollListItems, iterator } = useEndlessScrollList(itemsFiltered, {
     loadingObject: (
@@ -52,19 +42,17 @@ const AlertsList = () => {
 
   return (
     <DataGrid columns={7} minContentColumns={[0, 2, 5]} cellVerticalAlignment="top" className="alerts">
-      {!isLoading && (
-        <DataGridRow>
-          <DataGridHeadCell>
-            <Icon icon="monitorHeart" />
-          </DataGridHeadCell>
-          <DataGridHeadCell>Region</DataGridHeadCell>
-          <DataGridHeadCell>Service</DataGridHeadCell>
-          <DataGridHeadCell>Description</DataGridHeadCell>
-          <DataGridHeadCell>Firing Since</DataGridHeadCell>
-          <DataGridHeadCell>Status</DataGridHeadCell>
-          <DataGridHeadCell></DataGridHeadCell>
-        </DataGridRow>
-      )}
+      <DataGridRow>
+        <DataGridHeadCell>
+          <Icon icon="monitorHeart" />
+        </DataGridHeadCell>
+        <DataGridHeadCell>Region</DataGridHeadCell>
+        <DataGridHeadCell>Service</DataGridHeadCell>
+        <DataGridHeadCell>Description</DataGridHeadCell>
+        <DataGridHeadCell>Firing Since</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+        <DataGridHeadCell></DataGridHeadCell>
+      </DataGridRow>
 
       {scrollListItems?.length > 0 ? (
         iterator.map((alert) => <Alert key={alert.fingerprint} alert={alert} />)
