@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from "react"
-import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
+import { useActions, Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { Container, Stack, Spinner } from "@cloudoperators/juno-ui-components"
 import {
   useAlertsUpdatedAt,
@@ -66,7 +66,9 @@ const AppContent = () => {
 
       {activeSelectedTab === "alerts" && (
         <>
-          <AlertDetail />
+          <MessagesProvider>
+            <AlertDetail />
+          </MessagesProvider>
           <RegionsList />
           {isAlertsLoading ? (
             <Stack gap="2">
