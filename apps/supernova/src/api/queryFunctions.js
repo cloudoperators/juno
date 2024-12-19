@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { fetchAlerts } from "./alertsQueries"
-import { fetchSilences } from "./silencesQueries"
+import { fetchAlerts } from "./alerts"
+import { fetchSilences } from "./silences"
 
 export const QUERY_FUNCTIONS = {
   alerts: fetchAlerts,

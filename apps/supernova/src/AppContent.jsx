@@ -3,10 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
+import React, { useEffect } from "react"
+import { useActions, Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { Container, Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { useAlertsUpdatedAt, useAlertsTotalCounts, useGlobalsActiveSelectedTab } from "./components/StoreProvider"
+import {
+  useAlertsUpdatedAt,
+  useAlertsTotalCounts,
+  useGlobalsActiveSelectedTab,
+  useSilencesActions,
+} from "./components/StoreProvider"
 import AlertsList from "./components/alerts/AlertsList"
 import RegionsList from "./components/regions/RegionsList"
 import StatusBar from "./components/status/StatusBar"
@@ -24,11 +29,21 @@ const AppContent = () => {
   // alerts
   const totalCounts = useAlertsTotalCounts()
   const updatedAt = useAlertsUpdatedAt()
+  const { setSilences } = useSilencesActions()
 
   const activeSelectedTab = useGlobalsActiveSelectedTab()
 
   const { error: alertsError, isLoading: isAlertsLoading } = useBoundQuery("alerts")
-  const { error: silencesError, isLoading: isSilencesLoading } = useBoundQuery("silences")
+  const { error: silencesError, data: silencesData, isLoading: isSilencesLoading } = useBoundQuery("silences")
+
+  useEffect(() => {
+    if (silencesData) {
+      setSilences({
+        items: silencesData?.silences,
+      })
+    }
+  }, [silencesData])
+
   // since the API call is done in a web worker and not logging aware, we need to show the error just in case the user is logged in
   if (silencesError) {
     addMessage({
@@ -51,7 +66,9 @@ const AppContent = () => {
 
       {activeSelectedTab === "alerts" && (
         <>
-          <AlertDetail />
+          <MessagesProvider>
+            <AlertDetail />
+          </MessagesProvider>
           <RegionsList />
           {isAlertsLoading ? (
             <Stack gap="2">

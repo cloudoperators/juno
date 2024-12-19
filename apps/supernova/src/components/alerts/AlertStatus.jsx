@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from "react"
+import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
-import { useSilencesItemsHash, useSilencesLocalItems, useSilencesActions, useAlertsItems } from "../StoreProvider"
+import { useSilencesActions, useAlertsItems } from "../StoreProvider"
 
 // Gives inhibitor which will still last the longest
 export const getInhibitor = (alertsInhibitedBy, alerts) => {
@@ -27,9 +27,7 @@ export const getInhibitor = (alertsInhibitedBy, alerts) => {
 const AlertStatus = ({ alert }) => {
   if (!alert) return null
   const alerts = useAlertsItems()
-  const allSilences = useSilencesItemsHash()
-  const localSilences = useSilencesLocalItems()
-  const { getMappingSilences, getMappedState } = useSilencesActions()
+  const { getMappingSilences } = useSilencesActions()
 
   // Gives silence which will still last the longest
   const silences = getMappingSilences(alert).sort((a, b) => new Date(b?.endsAt) - new Date(a?.endsAt))
@@ -37,24 +35,9 @@ const AlertStatus = ({ alert }) => {
 
   const inhibitor = getInhibitor(alert?.status?.inhibitedBy, alerts)
 
-  const state = useMemo(() => {
-    return getMappedState(alert)
-  }, [alert, allSilences, localSilences])
-
   return (
     <div className="cursor-default">
-      {state && (
-        <>
-          {state?.isProcessing ? (
-            <Stack direction="vertical">
-              <span>{state.type}</span>
-              <span className="text-xs text-theme-warning">processing</span>
-            </Stack>
-          ) : (
-            <span>{state.type}</span>
-          )}
-        </>
-      )}
+      {alert && <span>{alert?.status?.state}</span>}
       {inhibitor && (
         <div className="text-xs mt-2">
           <Stack direction="vertical">

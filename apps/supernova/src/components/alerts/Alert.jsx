@@ -10,7 +10,7 @@ import { DataGridCell, DataGridRow } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActions, useShowDetailsFor } from "../StoreProvider"
 import AlertLabels from "./shared/AlertLabels"
 import AlertLinks from "./shared/AlertLinks"
-import SilenceNew from "../silences/SilenceNew"
+import CreateSilence from "../silences/CreateSilence"
 import AlertIcon from "./shared/AlertIcon"
 import AlertDescription from "./shared/AlertDescription"
 import AlertTimestamp from "./shared/AlertTimestamp"
@@ -93,7 +93,7 @@ const Alert = ({ alert }, ref) => {
         <AlertStatus alert={alert} />
       </DataGridCell>
       <DataGridCell>
-        <SilenceNew alert={alert} size="small" />
+        <CreateSilence alert={alert} size="small" />
       </DataGridCell>
     </DataGridRow>
   )
