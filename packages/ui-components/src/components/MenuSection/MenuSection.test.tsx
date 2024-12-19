@@ -7,7 +7,7 @@ import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
 
-import { MenuSection } from "./"
+import { MenuSection } from "./MenuSection.component"
 
 describe("MenuSection", () => {
   test("renders a MenuSection", () => {
