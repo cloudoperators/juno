@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { defineConfig } from "vite"
+import { defineConfig, PluginOption } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 import dts from "vite-plugin-dts"
-import viteGlobPlugin from "vite-plugin-glob"
-
 import svgr from "vite-plugin-svgr"
 
 export default defineConfig({
@@ -31,13 +29,12 @@ export default defineConfig({
     outDir: "build",
   },
   plugins: [
-    viteGlobPlugin(),
     dts({
       exclude: ["./__tests__/**/*.test.ts", "vitest.setup.ts"],
       insertTypesEntry: true, // Ensure types are properly exported
       outDir: "build/types", // Specify where to output the types
-    }),
-    react(),
+    }) as PluginOption,
+    react() as PluginOption,
     svgr({
       svgrOptions: {
         ref: true,
@@ -45,6 +42,6 @@ export default defineConfig({
         titleProp: true,
       },
       include: "**/*.svg",
-    }),
+    }) as PluginOption,
   ],
 })
