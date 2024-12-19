@@ -1,6 +1,14 @@
 // SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 // SPDX-License-Identifier: Apache-2.0
 @use "../lib/variables";
+@use './components/Button/button.scss';
+@use './components/DateTimePicker/datetimepicker.scss';
+@use './components/FormattedText/formatted-text.scss';
+@use './components/InputGroup/input-group.scss';
+@use './components/SearchInput/searchinput.scss';
+@use './components/Select/select.scss';
+@use './components/TextInput/textinput.scss';
+@use './components/ThemeToggle/themeToggle.scss';
 
 @tailwind base;
 
@@ -40,5 +48,3 @@
     flex-basis: auto;
   }
 }
-
-
