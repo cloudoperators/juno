@@ -5,53 +5,58 @@
 
 import React, { useState } from "react"
 import { Button, Modal } from "@cloudoperators/juno-ui-components"
-import { useGlobalsApiEndpoint, useSilencesActions } from "../StoreProvider"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
-import constants from "../../constants"
+import { useBoundMutation } from "../../hooks/useBoundMutation"
+import { useQueryClient } from "@tanstack/react-query"
 import { debounce } from "../../helpers"
-import { del } from "../../api/client"
+import { useSilencesItems, useSilencesActions } from "../StoreProvider"
+import constants from "../../constants"
 
 const ExpireSilence = (props) => {
   const { addMessage } = useActions()
   const silence = props.silence
-  const fingerprint = props.fingerprint ? props.fingerprint : null
   const [confirmationDialog, setConfirmationDialog] = useState(false)
-  const apiEndpoint = useGlobalsApiEndpoint()
-  const { addLocalItem } = useSilencesActions()
+  const queryClient = useQueryClient()
+  const silences = useSilencesItems()
+  const { setSilences } = useSilencesActions()
 
-  // debounce to prevent accidental double clicks from firing multiple api calls
+  const { mutate: deleteSilences } = useBoundMutation("deleteSilences", {
+    onSuccess: (data) => {
+      queryClient.cancelQueries("silences")
+
+      const updatedSilences = silences.filter((item) => item.id === data.id)
+      let updatedSilence = updatedSilences.length > 0 ? updatedSilences[0] : null
+      updatedSilence = { ...updatedSilence, status: { state: constants.SILENCE_EXPIRED } }
+
+      const newSilences = [...silences.filter((item) => item?.id !== data?.id), updatedSilence]
+
+      setSilences({
+        items: newSilences,
+      })
+      addMessage({
+        variant: "success",
+        text: `Silence expired successfully. Please note that it may take up to 5 minutes for the silence to show up as expired.`,
+      })
+    },
+
+    onError: (error) => {
+      // add a error message in UI
+      addMessage({
+        variant: "error",
+        text: parseError(error),
+      })
+    },
+
+    onSettled: () => {
+      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
+      queryClient.invalidateQueries(["silences"])
+    },
+  })
+
   const onExpire = debounce(() => {
-    // submit silence
-    del(`${apiEndpoint}/silence/${silence.id}`)
-      .then(() => {
-        addMessage({
-          variant: "success",
-          text: `Silence ${silence.id} expired successfully. Please note that it may take up to 5 minutes for the silence to show up as expired.`,
-        })
-      })
-      .catch((error) => {
-        addMessage({
-          variant: "error",
-          text: parseError(error),
-        })
-      })
-
+    deleteSilences({ id: silence.id })
     setConfirmationDialog(false)
-    // set local silence to override old with expiring and refetch silences
-
-    let newSilence = {
-      ...silence,
-      status: { ...silence.status, state: constants.SILENCE_EXPIRING },
-    }
-    addLocalItem({
-      silence: newSilence,
-      id: newSilence.id,
-      type: constants.SILENCE_EXPIRING,
-      alertFingerprint: fingerprint,
-    })
-
-    return
   }, 200)
 
   return (

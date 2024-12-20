@@ -7,7 +7,7 @@ import React, { useState } from "react"
 
 import { Stack, TabNavigation, TabNavigationItem } from "@cloudoperators/juno-ui-components"
 import { useActivePredefinedFilter, useFilterActions, usePredefinedFilters } from "../StoreProvider"
-import SilenceScheduledWrapper from "../silences/SilenceScheduledWrapper"
+import SilenceScheduled from "../silences/SilenceScheduled"
 
 const PredefinedFilters = () => {
   const { setActivePredefinedFilter } = useFilterActions()
@@ -31,7 +31,7 @@ const PredefinedFilters = () => {
         </TabNavigation>
       )}
       <div className="ml-auto">
-        <SilenceScheduledWrapper />
+        <SilenceScheduled />
       </div>
     </Stack>
   )

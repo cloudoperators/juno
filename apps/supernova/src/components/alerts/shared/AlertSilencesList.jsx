@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React from "react"
 import { DateTime } from "luxon"
 import constants from "../../../constants"
 import ExpireSilence from "../../silences/ExpireSilence"
@@ -11,14 +11,12 @@ import RecreateSilence from "../../silences/RecreateSilence"
 
 import { Badge, DataGrid, DataGridCell, DataGridHeadCell, DataGridRow } from "@cloudoperators/juno-ui-components"
 
-import { useSilencesActions, useSilencesLocalItems } from "../../StoreProvider"
+import { useSilencesActions } from "../../StoreProvider"
 
 const badgeVariant = (state) => {
   switch (state) {
     case constants.SILENCE_STATE_ACTIVE:
       return "info"
-    case constants.SILENCE_CREATING:
-      return "warning"
     default:
       return "default"
   }
@@ -26,7 +24,6 @@ const badgeVariant = (state) => {
 
 const AlertSilencesList = ({ alert }) => {
   const dateFormat = { ...DateTime.DATETIME_SHORT }
-  const localItems = useSilencesLocalItems()
 
   const { getSilencesForAlert } = useSilencesActions()
   let silenceList = getSilencesForAlert(alert)
@@ -35,10 +32,6 @@ const AlertSilencesList = ({ alert }) => {
     const time = DateTime.fromISO(timestamp)
     return time.toLocaleString(dateFormat)
   }
-
-  useEffect(() => {
-    silenceList = getSilencesForAlert(alert)
-  }, [localItems])
 
   return (
     <>
@@ -69,9 +62,7 @@ const AlertSilencesList = ({ alert }) => {
                   {
                     /// show the expire button if the silence is active or pending
                     // else show recreate button
-                    silence?.status?.state === constants.SILENCE_ACTIVE ||
-                    silence?.status?.state === constants.SILENCE_PENDING ||
-                    silence?.status?.state === constants.SILENCE_CREATING ? (
+                    silence?.status?.state === constants.SILENCE_ACTIVE ? (
                       <ExpireSilence silence={silence} fingerprint={alert.fingerprint} />
                     ) : (
                       <RecreateSilence silence={silence} fingerprint={alert.fingerprint} />
