@@ -1,5 +1,23 @@
 # @cloudoperators/juno-ui-components
 
+## 2.35.1
+
+### Patch Changes
+
+- baccd3c: Import components styles manually in global.scss
+- 2826334: Reintroduce Modal component stories removed during TypeScript migration
+
+## 2.35.0
+
+### Minor Changes
+
+- 3c6ad30: Introduce types, deprecate other components, integrate new build system
+- 3471a77: Marked AppIntro as deprecated in Storybook
+
+### Patch Changes
+
+- 87d57d7: Migrate docs to Typescript
+
 ## 2.34.0
 
 ### Minor Changes
