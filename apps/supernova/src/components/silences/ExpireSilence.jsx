@@ -22,7 +22,7 @@ const ExpireSilence = (props) => {
   const { setSilences } = useSilencesActions()
 
   const { mutate: deleteSilences } = useBoundMutation("deleteSilences", {
-    onMutate: (data) => {
+    onSuccess: (data) => {
       queryClient.cancelQueries("silences")
 
       const updatedSilences = silences.filter((item) => item.id === data.id)
@@ -34,10 +34,9 @@ const ExpireSilence = (props) => {
       setSilences({
         items: newSilences,
       })
-
       addMessage({
         variant: "success",
-        text: `Silence ${data?.id} expired successfully. Please note that it may take up to 5 minutes for the silence to show up as expired.`,
+        text: `Silence expired successfully. Please note that it may take up to 5 minutes for the silence to show up as expired.`,
       })
     },
 

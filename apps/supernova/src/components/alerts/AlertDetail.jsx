@@ -66,8 +66,8 @@ const AlertDetail = () => {
       onClose={onPanelClose}
       size="large"
     >
-      <Messages className="pb-6 absolute" />
       <PanelBody>
+        <Messages className="pb-6 absolute" />
         <Tabs>
           <TabList>
             <Tab>Details</Tab>

@@ -21,6 +21,8 @@ import constants from "../../constants"
 import { useSilencesItems, useSilencesActions, useSilencesRegEx, useSilencesStatus } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { parseError } from "../../helpers"
+import { useActions } from "@cloudoperators/juno-messages-provider"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -35,8 +37,16 @@ const SilencesList = () => {
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
   const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
+  const { addMessage } = useActions()
 
-  const { data, isLoading } = useBoundQuery("silences")
+  const { data, isLoading, error } = useBoundQuery("silences")
+
+  if (error) {
+    addMessage({
+      variant: "error",
+      text: parseError(error),
+    })
+  }
 
   useEffect(() => {
     if (data) {

@@ -40,7 +40,9 @@ export const deleteSilences = async (variables) => {
     })
 
     if (!response.ok) {
-      throw new Error("Network response was not ok")
+      const errorDetails = await response.json().catch(() => null)
+      const errorMessage = errorDetails?.message || errorDetails || `Error ${response.status}: ${response.statusText}`
+      throw new Error(errorMessage)
     }
     return await response
   } catch (error) {
@@ -61,7 +63,9 @@ export const createSilences = async (variables) => {
     })
 
     if (!response.ok) {
-      throw new Error("Network response was not ok")
+      const errorDetails = await response.json().catch(() => null)
+      const errorMessage = errorDetails?.message || errorDetails || `Error ${response.status}: ${response.statusText}`
+      throw new Error(errorMessage)
     }
     return await response.json()
   } catch (error) {
