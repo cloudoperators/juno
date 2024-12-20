@@ -3,4 +3,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { MenuSection, type MenuSectionProps } from "./MenuSection.component"
+export { MenuSection } from "./MenuSection.component"
+export type { MenuSectionProps } from "./MenuSection.component"
