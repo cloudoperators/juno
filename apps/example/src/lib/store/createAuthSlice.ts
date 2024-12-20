@@ -8,7 +8,6 @@ export const AUTH_ACTIONS = {
   SIGN_OUT: "signOut",
 }
 
-// @ts-expect-error TS(7006): Parameter 'set' implicitly has an 'any' type.
 const createAuthSlice = (set, _get) => ({
   auth: {
     data: null,
@@ -17,24 +16,24 @@ const createAuthSlice = (set, _get) => ({
     error: null,
     lastAction: {},
     actions: {
-      setData: (data: any) => {
+      setData: (data) => {
         if (!data) return
         set(
-          (state: any) => ({
+          (state) => ({
             auth: {
               ...state.auth,
               isProcessing: data?.isProcessing,
               loggedIn: data?.loggedIn,
               error: data?.error,
               data: data?.auth,
-            }
+            },
           }),
           false,
           "auth/setData"
         )
       },
     },
-  }
+  },
 })
 
 export default createAuthSlice
