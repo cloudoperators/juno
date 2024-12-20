@@ -11,8 +11,8 @@ import createStore from "../lib/store"
 // @ts-expect-error TS(2554): Expected 1 arguments, but got 0.
 const StoreContext = createContext()
 const StoreProvider = ({
-  children,
-  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+ children
+// @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 }: any) => <StoreContext.Provider value={createStore()}>{children}</StoreContext.Provider>
 
 // @ts-expect-error TS(2345): Argument of type 'unknown' is not assignable to pa... Remove this comment to see the full error message

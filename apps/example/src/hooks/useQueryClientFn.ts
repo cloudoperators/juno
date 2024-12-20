@@ -9,7 +9,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { useGlobalsEndpoint, useGlobalsActions } from "../components/StoreProvider"
 
 class HTTPError extends Error {
-  statusCode: any
+  statusCode: any;
   constructor(code: any, message: any) {
     super(message || code)
     this.name = "HTTPError"
@@ -35,7 +35,7 @@ const checkStatus = (response: any) => {
       var error = new HTTPError(response.status, message || response.statusText)
       error.statusCode = response.status
       return Promise.reject(error)
-    })
+    });
   }
 }
 
@@ -76,8 +76,8 @@ const useQueryClientFn = () => {
                 })
               }
               return data
-            })
-          })
+            });
+          });
       },
     })
 

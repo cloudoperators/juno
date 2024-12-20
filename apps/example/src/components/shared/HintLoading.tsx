@@ -8,17 +8,15 @@ import PropTypes from "prop-types"
 // @ts-expect-error TS(2307): Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { Stack, Spinner } from "@cloudoperators/juno-ui-components"
 
-const HintLoading = ({ text }: any) => {
+const HintLoading = ({
+  text
+}: any) => {
   return (
     // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <Stack alignment="center">
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
-      the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <Spinner variant="primary" />
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
-      the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       {text ? <span>{text}</span> : <span>Loading...</span>}
     </Stack>
   )

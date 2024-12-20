@@ -27,14 +27,14 @@ const createAuthSlice = (set, _get) => ({
               loggedIn: data?.loggedIn,
               error: data?.error,
               data: data?.auth,
-            },
+            }
           }),
           false,
           "auth/setData"
         )
       },
     },
-  },
+  }
 })
 
 export default createAuthSlice
