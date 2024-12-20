@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.15.0
+
+### Minor Changes
+
+- 92719cf: Refactored fetch with ReactQuery and minor UI improvements
+
+### Patch Changes
+
+- Updated dependencies [2191270]
+  - @cloudoperators/juno-ui-components@2.35.2
+
 ## 0.14.6
 
 ### Patch Changes
