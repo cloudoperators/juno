@@ -8,11 +8,11 @@ import React from "react"
 import { DataList } from "./index.js"
 import { DataListRow } from "../DataListRow/index.js"
 import { DataListCell } from "../DataListCell/index.js"
-import { Default as DataListRowStory } from "../DataListRow/DataListRow.stories.js"
-import { Selectable as SelectableDataListRowStory } from "../DataListRow/DataListRow.stories.js"
-import { AutoWidth as AutoWidthDataListRowStory } from "../DataListRow/DataListRow.stories.js"
-import { PercentageWidths as PercentageWidthsDataListRowStory } from "../DataListRow/DataListRow.stories.js"
-import { GridFitted as GridFittedDataListRowStory } from "../DataListRow/DataListRow.stories.js"
+import { Default as DataListRowStory } from "../DataListRow/DataListRow.stories.jsx"
+import { Selectable as SelectableDataListRowStory } from "../DataListRow/DataListRow.stories.jsx"
+import { AutoWidth as AutoWidthDataListRowStory } from "../DataListRow/DataListRow.stories.jsx"
+import { PercentageWidths as PercentageWidthsDataListRowStory } from "../DataListRow/DataListRow.stories.jsx"
+import { GridFitted as GridFittedDataListRowStory } from "../DataListRow/DataListRow.stories.jsx"
 
 export default {
   title: "Deprecated/DataList/DataList",
