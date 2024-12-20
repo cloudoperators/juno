@@ -39,29 +39,25 @@ const PeaksList = ({ peaks }: any) => {
       <DataGridRow>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-        '--jsx' flag is provided... Remove this comment to see the full error message
+        Remove this comment to see the full error message
         <DataGridCell colSpan={LIST_COLUMNS}>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <span>Loading ...</span>
         </DataGridCell>
       </DataGridRow>
     ),
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     refFunction: (ref: any) => (
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <DataGridRow>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-        '--jsx' flag is provided... Remove this comment to see the full error message
+        Remove this comment to see the full error message
         <DataGridCell colSpan={LIST_COLUMNS} className="border-b-0 py-0">
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <span ref={ref} />
         </DataGridCell>
       </DataGridRow>
@@ -72,59 +68,49 @@ const PeaksList = ({ peaks }: any) => {
     setCurrentPanel({ type: "PeaksNew" })
   }
 
+  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
-      is provided... Remove this comment to see the full error message
+      this comment to see the full error message
       <ContentAreaToolbar>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-        '--jsx' flag is provided... Remove this comment to see the full error message
+        Remove this comment to see the full error message
         <Button icon="addCircle" onClick={handleNewPeakClick} label="Add a Peak" />
       </ContentAreaToolbar>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
-      is provided... Remove this comment to see the full error message
+      this comment to see the full error message
       <DataGrid columns={LIST_COLUMNS}>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-        '--jsx' flag is provided... Remove this comment to see the full error message
+        Remove this comment to see the full error message
         <DataGridRow>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <DataGridHeadCell>Name</DataGridHeadCell>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <DataGridHeadCell>Height</DataGridHeadCell>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <DataGridHeadCell>Main Range</DataGridHeadCell>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <DataGridHeadCell>Region</DataGridHeadCell>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <DataGridHeadCell>Country</DataGridHeadCell>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <DataGridHeadCell>Options</DataGridHeadCell>
         </DataGridRow>
         {scrollListItems?.length > 0 ? (
@@ -140,13 +126,11 @@ const PeaksList = ({ peaks }: any) => {
           <DataGridRow>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <DataGridCell colSpan={LIST_COLUMNS}>
               // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment
               to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-              provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use
-              JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+              provided... Remove this comment to see the full error message
               <HintNotFound text="No peaks found" />
             </DataGridCell>
           </DataGridRow>

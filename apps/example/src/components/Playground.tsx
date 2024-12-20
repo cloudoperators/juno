@@ -14,54 +14,44 @@ const Playground = () => {
     <div>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
-      is provided... Remove this comment to see the full error message
+      this comment to see the full error message
       <Form>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-        '--jsx' flag is provided... Remove this comment to see the full error message
+        Remove this comment to see the full error message
         <FormRow>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <ComboBox></ComboBox>
         </FormRow>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-        '--jsx' flag is provided... Remove this comment to see the full error message
+        Remove this comment to see the full error message
         <FormRow>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <Select>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <SelectOption value="China" />
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <SelectOption value="Georgia" />
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <SelectOption value="Germany" />
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <SelectOption value="Nepal" />
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <SelectOption value="Switzerland" />
           </Select>
         </FormRow>

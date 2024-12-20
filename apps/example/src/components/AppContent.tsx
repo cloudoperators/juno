@@ -52,58 +52,49 @@ const AppContent = () => {
     setTabIndex(index)
   }
 
+  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <>
       {loggedIn && !authError ? (
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <Breadcrumb>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <BreadcrumbItem icon="home" label="Example App Home" />
           </Breadcrumb>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <Container py>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <MainTabs selectedIndex={tabIndex} onSelect={onTabSelected}>
               // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment
               to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-              provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use
-              JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+              provided... Remove this comment to see the full error message
               <TabList>
                 // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment
                 to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-                provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use
-                JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                provided... Remove this comment to see the full error message
                 <Tab>Peaks</Tab>
                 // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment
                 to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-                provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use
-                JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                provided... Remove this comment to see the full error message
                 <Tab>Tab Two</Tab>
               </TabList>
               // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment
               to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-              provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use
-              JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+              provided... Remove this comment to see the full error message
               <TabPanel>
                 // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment
                 to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-                provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use
-                JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                provided... Remove this comment to see the full error message
                 <Container py px={false}>
                   {/* Set the background graphic using tailwind background image syntax as below. The image must exist at the specified location in your app */}
                   {/*<IntroBox variant="hero" heroImage="bg-[url('img/app_bg_example.svg')]">
@@ -112,57 +103,41 @@ const AppContent = () => {
                   {/* Messages always at the top of the content area or if there is a hero introbox directly underneath that */}
                   // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                   comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx'
-                  flag is provided... Remove this comment to see the full error message // @ts-expect-error TS(17004):
-                  Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error
-                  message
+                  flag is provided... Remove this comment to see the full error message
                   <Messages className="pb-6" />
                   // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                   comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx'
-                  flag is provided... Remove this comment to see the full error message // @ts-expect-error TS(17004):
-                  Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error
-                  message
+                  flag is provided... Remove this comment to see the full error message
                   <PanelManager />
                   // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                   comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx'
-                  flag is provided... Remove this comment to see the full error message // @ts-expect-error TS(17004):
-                  Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error
-                  message
+                  flag is provided... Remove this comment to see the full error message
                   <Peaks />
                 </Container>
               </TabPanel>
               // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment
               to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-              provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use
-              JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+              provided... Remove this comment to see the full error message
               <TabPanel>
                 // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment
                 to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-                provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use
-                JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                provided... Remove this comment to see the full error message
                 <Container py px={false}>
                   // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                   comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx'
-                  flag is provided... Remove this comment to see the full error message // @ts-expect-error TS(17004):
-                  Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error
-                  message
+                  flag is provided... Remove this comment to see the full error message
                   <p>Test a panel pressing the Button</p>
                   // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                   comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx'
-                  flag is provided... Remove this comment to see the full error message // @ts-expect-error TS(17004):
-                  Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error
-                  message
+                  flag is provided... Remove this comment to see the full error message
                   <Button label="Button" onClick={() => setCurrentModal("TestModal")} />
                   // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                   comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx'
-                  flag is provided... Remove this comment to see the full error message // @ts-expect-error TS(17004):
-                  Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error
-                  message
+                  flag is provided... Remove this comment to see the full error message
                   <p>Test a select</p>
                   // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                   comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx'
-                  flag is provided... Remove this comment to see the full error message // @ts-expect-error TS(17004):
-                  Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error
-                  message
+                  flag is provided... Remove this comment to see the full error message
                   <Select
                     name="filter"
                     className="filter-label-select w-64 mb-0"
@@ -171,33 +146,23 @@ const AppContent = () => {
                   >
                     // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                     comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-                    '--jsx' flag is provided... Remove this comment to see the full error message // @ts-expect-error
-                    TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full
-                    error message
+                    '--jsx' flag is provided... Remove this comment to see the full error message
                     <SelectOption value="0" label="Option 0" />
                     // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                     comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-                    '--jsx' flag is provided... Remove this comment to see the full error message // @ts-expect-error
-                    TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full
-                    error message
+                    '--jsx' flag is provided... Remove this comment to see the full error message
                     <SelectOption value="1" label="Option 1" />
                     // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                     comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-                    '--jsx' flag is provided... Remove this comment to see the full error message // @ts-expect-error
-                    TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full
-                    error message
+                    '--jsx' flag is provided... Remove this comment to see the full error message
                     <SelectOption value="2" label="Option 2" />
                     // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                     comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-                    '--jsx' flag is provided... Remove this comment to see the full error message // @ts-expect-error
-                    TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full
-                    error message
+                    '--jsx' flag is provided... Remove this comment to see the full error message
                     <SelectOption value="3" label="Option 3" />
                     // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this
                     comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-                    '--jsx' flag is provided... Remove this comment to see the full error message // @ts-expect-error
-                    TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full
-                    error message
+                    '--jsx' flag is provided... Remove this comment to see the full error message
                     <SelectOption value="4" label="Option 4" />
                   </Select>
                 </Container>
@@ -205,8 +170,7 @@ const AppContent = () => {
             </MainTabs>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <ModalManager />
           </Container>
         </>

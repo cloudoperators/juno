@@ -69,18 +69,15 @@ const App = (props = {}) => {
     <QueryClientProvider client={queryClient}>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
-      is provided... Remove this comment to see the full error message
+      this comment to see the full error message
       <MonorepoChecker></MonorepoChecker>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
-      is provided... Remove this comment to see the full error message
+      this comment to see the full error message
       <AsyncWorker consumerId={props.id} />
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
-      is provided... Remove this comment to see the full error message
+      this comment to see the full error message
       <AppShell
         // @ts-expect-error TS(2339): Property 'embedded' does not exist on type '{}'.
         embedded={props.embedded === "true" || props.embedded === true}
@@ -89,8 +86,7 @@ const App = (props = {}) => {
           <PageHeader heading="Converged Cloud | Example App">
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <HeaderUser login={oidc.login} logout={oidc.logout} />
           </PageHeader>
         }
@@ -99,26 +95,22 @@ const App = (props = {}) => {
           <TopNavigation>
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <TopNavigationItem icon="home" label="Home" />
             // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
             see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-            provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-            unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            provided... Remove this comment to see the full error message
             <TopNavigationItem active label="Navigation Item" />
           </TopNavigation>
         }
       >
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-        '--jsx' flag is provided... Remove this comment to see the full error message
+        Remove this comment to see the full error message
         <Container py>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <AppContent props={props} />
         </Container>
       </AppShell>
@@ -139,23 +131,19 @@ const StyledApp = (props: any) => {
       {/* load styles inside the shadow dom */}
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
-      is provided... Remove this comment to see the full error message
+      this comment to see the full error message
       <style>{styles.toString()}</style>
       // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
       the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove
-      this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag
-      is provided... Remove this comment to see the full error message
+      this comment to see the full error message
       <MessagesProvider>
         // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see
         the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided...
-        Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the
-        '--jsx' flag is provided... Remove this comment to see the full error message
+        Remove this comment to see the full error message
         <StoreProvider>
           // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to
           see the full error message // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is
-          provided... Remove this comment to see the full error message // @ts-expect-error TS(17004): Cannot use JSX
-          unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          provided... Remove this comment to see the full error message
           <App {...props} />
         </StoreProvider>
       </MessagesProvider>
