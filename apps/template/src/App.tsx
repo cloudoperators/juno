@@ -55,6 +55,7 @@ export const App = (props: AppProps) => {
         embedded={props.embedded === "true" || props.embedded === true}
         sideNavigation={null}
         topNavigation={null}
+        fullWidthContent={false}
       >
         <ErrorBoundary fallbackRender={fallbackRender}>
           <AppContent />
