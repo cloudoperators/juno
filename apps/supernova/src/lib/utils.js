@@ -49,23 +49,6 @@ export const humanizeString = (value) => {
   return humanized
 }
 
-// sort silences by state
-// {
-//   active: [...], pending: [...], expired:[...], ...
-// }
-export const sortSilencesByState = (silences) => {
-  const sortedSilences = {}
-
-  if (!silences || silences.length === 0) return {}
-
-  silences.forEach((silences) => {
-    const state = silences.status?.state
-    if (!sortedSilences[state]) sortedSilences[state] = [] // init
-    sortedSilences[state].push(silences)
-  })
-  return sortedSilences
-}
-
 // count alerts and create a map
 // {
 //   global: { total: number, critical: number, ...},

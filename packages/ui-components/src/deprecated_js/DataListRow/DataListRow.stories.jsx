@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import { DataListRow } from "./index.js"
 import { DataListCell } from "../DataListCell/index.js"
 import { DataListCheckboxCell } from "../DataListCheckboxCell/index.js"
-import { Default as DataListCellStory } from "../DataListCell/DataListCell.stories.js"
+import { Default as DataListCellStory } from "../DataListCell/DataListCell.stories.jsx"
 
 export default {
   title: "Deprecated/DataList/DataListRow",

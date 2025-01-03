@@ -18,19 +18,23 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import {
   useSilencesExcludedLabels,
-  useGlobalsApiEndpoint,
   useSilencesActions,
   useAlertEnrichedLabels,
   useGlobalsUsername,
+  useSilencesItems,
 } from "../StoreProvider"
-import { post } from "../../api/client"
 import AlertDescription from "../alerts/shared/AlertDescription"
-import SilenceNewAdvanced from "./SilenceNewAdvanced"
-import { debounce } from "../../helpers"
+import { useActions } from "@cloudoperators/juno-messages-provider"
+import CreateSilenceAdvanced from "./CreateSilenceAdvanced"
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"
+
+import { debounce } from "../../helpers"
 import constants from "../../constants"
+
+import { useQueryClient } from "@tanstack/react-query"
+import { useBoundMutation } from "../../hooks/useBoundMutation"
 
 const validateForm = (values) => {
   const minCommentLength = 3
@@ -60,25 +64,27 @@ const errorHelpText = (messages) => {
 
 const DEFAULT_FORM_VALUES = { duration: "2", comment: "" }
 
-const SilenceNew = ({ alert, size, variant }) => {
-  const apiEndpoint = useGlobalsApiEndpoint()
+const CreateSilence = ({ alert, size, variant }) => {
+  const queryClient = useQueryClient()
   const excludedLabels = useSilencesExcludedLabels()
-  const { addLocalItem, getMappingSilences } = useSilencesActions()
+  const { getMappingSilences, setSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
   const user = useGlobalsUsername()
-
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
   const [expirationDate, setExpirationDate] = useState(null)
   const [showValidation, setShowValidation] = useState({})
   const [error, setError] = useState(null)
+  const { addMessage } = useActions()
+
+  const silences = useSilencesItems()
+
   const [success, setSuccess] = useState(null)
 
   // Initialize form state on modal open
   // Removed alert from dependencies since we take an screenshot of the global state on opening the modal
   // This is due to if the alert changes (e.g. the alert receives a new silenceBy) while the modal is open, the form state will be reset
   useLayoutEffect(() => {
-    if (!displayNewSilence) return
     // reset form state with default values
     setFormState({
       ...formState,
@@ -108,6 +114,41 @@ const SilenceNew = ({ alert, size, variant }) => {
     return options.items
   }, [expirationDate])
 
+  const { mutate: createSilence } = useBoundMutation("createSilences", {
+    onMutate: (data) => {
+      queryClient.cancelQueries("silences")
+
+      const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
+
+      const newSilences = [...silences, newSilence]
+
+      setSilences({
+        items: newSilences,
+      })
+
+      setDisplayNewSilence(false)
+    },
+
+    onSuccess: (data) => {
+      addMessage({
+        variant: "success",
+        text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may
+            take up to 5 minutes for the alert to show up as silenced.`,
+      })
+    },
+    onError: (error) => {
+      // add a error message in UI
+      addMessage({
+        variant: "error",
+        text: parseError(error),
+      })
+    },
+    onSettled: () => {
+      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
+      queryClient.invalidateQueries(["silences"])
+    },
+  })
+
   // debounce to prevent accidental double clicks from creating multiple silences
   const onSubmitForm = debounce(() => {
     setError(null)
@@ -134,24 +175,8 @@ const SilenceNew = ({ alert, size, variant }) => {
       alertFingerprint: alert.fingerprint,
     }
 
-    // submit silence
-    post(`${apiEndpoint}/silences`, {
-      body: JSON.stringify(newSilence),
-    })
-      .then((data) => {
-        setSuccess(data)
-        if (data?.silenceID) {
-          // add silence to local store
-          addLocalItem({
-            silence: newSilence,
-            id: data.silenceID,
-            type: "local",
-          })
-        }
-      })
-      .catch((error) => {
-        setError(parseError(error))
-      })
+    // calling createSilence with variable silence: newSilence
+    createSilence({ silence: newSilence })
   }, 200)
 
   const onInputChanged = ({ key, value }) => {
@@ -214,7 +239,7 @@ const SilenceNew = ({ alert, size, variant }) => {
 
           {!success && (
             <>
-              <SilenceNewAdvanced matchers={formState.matchers} onMatchersChanged={onMatchersChanged} />
+              <CreateSilenceAdvanced matchers={formState.matchers} onMatchersChanged={onMatchersChanged} />
 
               <Form className="mt-6">
                 <FormRow>
@@ -263,4 +288,4 @@ const SilenceNew = ({ alert, size, variant }) => {
   )
 }
 
-export default SilenceNew
+export default CreateSilence

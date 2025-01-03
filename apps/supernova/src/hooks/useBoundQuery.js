@@ -4,7 +4,7 @@
  */
 
 import { useQuery } from "@tanstack/react-query"
-import { QUERY_FUNCTIONS } from "../lib/queries/queryFunctions"
+import { QUERY_FUNCTIONS } from "../api/queryFunctions"
 import { useGlobalsApiEndpoint } from "../components/StoreProvider"
 
 export const useBoundQuery = (key, { options } = {}) => {
