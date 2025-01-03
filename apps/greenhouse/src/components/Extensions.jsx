@@ -91,6 +91,7 @@ export default function Extensions() {
 
   useEffect(() => {
     if (!getPluginConfigs) return
+
     requestConfig()
 
     // fetch configs from kubernetes

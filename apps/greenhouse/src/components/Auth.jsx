@@ -7,7 +7,7 @@ import React from "react"
 import { Button, Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import { useAuthLoggedIn, useAuthIsProcessing, useAuthError, useAuthActions } from "../components/StoreProvider"
 import { useAuthentication } from "../hooks/useAuthentication"
-import useAuth from "../hooks/useAuth"
+import { useAuth } from "./AuthProvider"
 
 const currentUrl = new URL(window.location.href)
 let match = currentUrl.host.match(/^(.+)\.dashboard\..+/)
