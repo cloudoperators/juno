@@ -25,7 +25,7 @@ export const HeaderContainer: React.FC<HeaderContainerProps> = ({
     <div
       className={`
     juno-header-container 
-    ${!fullWidth ? "jn-w-full 2xl:jn-container 2xl:jn-mx-auto" : ""}
+    ${!fullWidth ? "jn-w-full 2xl:jn-container 2xl:jn-mx-auto" : "juno-header-container-fullwidth"}
     ${headerContainerStyles} 
     ${className}`}
       {...props}

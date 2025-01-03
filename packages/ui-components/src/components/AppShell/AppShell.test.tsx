@@ -23,15 +23,6 @@ describe("AppShell", () => {
     expect(screen.getByTestId("app-shell")).toHaveClass("juno-body")
   })
 
-  test("logs a deprecation warning to the console when user passed obsolete contentHeading prop", () => {
-    const consoleWarnSpy = vi.spyOn(console, "warn")
-    render(<AppShell contentHeading="My Content Heading" />)
-    expect(consoleWarnSpy).toHaveBeenCalled()
-    expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "AppShell: The contentHeading prop is obsolete and will be removed in a future version. In order to render a content heading, use a ContentHeading element as a child in your main content."
-    )
-  })
-
   test("renders an app shell with page header passed as String", () => {
     render(<AppShell data-testid="app-shell" pageHeader="My Page Header" />)
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
@@ -117,23 +108,26 @@ describe("AppShell", () => {
     expect(screen.getByRole("button")).toBeInTheDocument()
   })
 
-  // The following test whether the MainContainerInner element rendered by AppShell does the right thing depending of props passed to AppShell:
-  test("does not render a fullwidth main container in non-embedded mode by default", () => {
+  // The following test whether the MainContainerInner element rendered by AppShell does the right thing depending of props passed to AppShell
+  // They also check that the HeaderContainer within the AppShell behaves the same as the MainContainerInner
+  test("does not render a fullwidth main and header container in non-embedded mode by default", () => {
     render(
       <AppShell>
         <button></button>
       </AppShell>
     )
     expect(document.querySelector(".juno-main-inner")).not.toHaveClass("juno-main-inner-fullwidth")
+    expect(document.querySelector(".juno-header-container")).not.toHaveClass("juno-header-container-fullwidth")
   })
 
-  test("renders a fullwidth main container in non-embedded mode if passed explicitly", () => {
+  test("renders a fullwidth main and header container in non-embedded mode if passed explicitly", () => {
     render(
       <AppShell fullWidthContent={true}>
         <button></button>
       </AppShell>
     )
     expect(document.querySelector(".juno-main-inner")).toHaveClass("juno-main-inner-fullwidth")
+    expect(document.querySelector(".juno-header-container")).toHaveClass("juno-header-container-fullwidth")
   })
 
   test("renders a fullwidth main inner container in embedded mode by default", () => {
@@ -145,6 +139,16 @@ describe("AppShell", () => {
     expect(document.querySelector(".juno-main-inner")).toHaveClass("juno-main-inner-fullwidth")
   })
 
+  test("renders a fullwidth main and header container in embedded mode with topnav by default", () => {
+    render(
+      <AppShell embedded topNavigation={<TopNavigation></TopNavigation>}>
+        <button></button>
+      </AppShell>
+    )
+    expect(document.querySelector(".juno-main-inner")).toHaveClass("juno-main-inner-fullwidth")
+    expect(document.querySelector(".juno-header-container")).toHaveClass("juno-header-container-fullwidth")
+  })
+
   test("renders a non-fullwidth, size-restricted main inner container in embedded mode if passed explicitly", () => {
     render(
       <AppShell embedded fullWidthContent={false}>
@@ -152,6 +156,16 @@ describe("AppShell", () => {
       </AppShell>
     )
     expect(document.querySelector(".juno-main-inner")).not.toHaveClass("juno-main-inner-fullwidth")
+  })
+
+  test("renders a non-fullwidth, size-restricted main inner and header container in embedded mode with topnav if passed explicitly", () => {
+    render(
+      <AppShell embedded fullWidthContent={false} topNavigation={<TopNavigation></TopNavigation>}>
+        <button></button>
+      </AppShell>
+    )
+    expect(document.querySelector(".juno-main-inner")).not.toHaveClass("juno-main-inner-fullwidth")
+    expect(document.querySelector(".juno-header-container")).not.toHaveClass("juno-header-container-fullwidth")
   })
 
   test("renders a custom className", () => {
