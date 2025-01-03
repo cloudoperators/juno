@@ -1,22 +1,22 @@
-# Create your own App with Juno
+# Create your own Application with Juno
 
 ## Overview
 
-This guide will walk you through creating your own app using our [Juno UI Components](https://cloudoperators.github.io/juno), whether you want to embed it within the [Greenhouse dashboard](https://cloudoperators.github.io/greenhouse/) or have it function as a standalone application.
+This guide will walk you through creating your own application using our [Juno UI Components](https://cloudoperators.github.io/juno), whether you want to embed it within the [Greenhouse dashboard](https://cloudoperators.github.io/greenhouse/) or have it function as a standalone application.
 
 ## Prerequisites
 
 - Node.js: Vite requires Node.js version 18+ or 20+ depending if a template is being used.
 
-## Scaffolding Vite App
+## Scaffolding Vite Application
 
-Vite is a build tool designed to deliver a faster and more efficient development experience for modern web projects. We recommend using Vite to scaffold your app, as it aligns with the tooling used for other applications built with the Juno UI Components in this repository.
+Vite is a build tool designed to deliver a faster and more efficient development experience for modern web projects. We recommend using Vite to scaffold your application, as it aligns with the tooling used for other applications built with the Juno UI Components in this repository.
 
 ```bash
 npm create vite@latest my-app
 ```
 
-- Replace `my-app` with the name of your app.
+- Replace `my-app` with the name of your application.
 
 When prompted, select the following options:
 
@@ -27,7 +27,7 @@ Follow the instructions in the [Getting Started](https://vite.dev/guide/#getting
 
 ## Adding Juno UI Components
 
-To add Juno UI Components as a dependency in your app, we recommend installing them using npm. While pnpm is also a great choice, we suggest using npm to maintain consistency with the Juno project's setup.
+To add Juno UI Components as a dependency in your application, we recommend installing them using npm. While pnpm is also a great choice, we suggest using npm to maintain consistency with the Juno project's setup.
 
 ```bash
 npm add @cloudoperators/juno-ui-components
@@ -35,7 +35,7 @@ npm add @cloudoperators/juno-ui-components
 
 This will add the latest version of the Juno UI Components as a dependency in your `package.json` file.
 
-## Setting Up the App
+## Setting Up the Application
 
 To be able to make full use of the Juno design system and its components, you will need to go through the following steps:
 
@@ -65,7 +65,7 @@ Add the following to the `head` of your `index.html` file so the application can
 
 ### 2. Wrap the app with the `AppShellProvider`
 
-Open the `main.tsx` file and wrap your app component with the [AppShellProvider](https://cloudoperators.github.io/juno/?path=/docs/layout-appshellprovider--docs) component from `Juno-UI-Components` to supply the necessary context for your application. The `AppShellProvider` serves as a foundational wrapper for Juno apps, incorporating a `StyleProvider` and a `PortalProvider`, while also setting a default shadow root for the app. After this modification, your `main.tsx` file should look like this:
+Open the `main.tsx` file and wrap your application component with the [AppShellProvider](https://cloudoperators.github.io/juno/?path=/docs/layout-appshellprovider--docs) component from `Juno-UI-Components` to supply the necessary context for your application. The `AppShellProvider` serves as a foundational wrapper for Juno applications, incorporating a `StyleProvider` and a `PortalProvider`, while also setting a default shadow root for the application. After this modification, your `main.tsx` file should look like this:
 
 ```tsx
 // main.tsx
@@ -106,7 +106,7 @@ export default App
 
 ### 4. Clean up the `index.css` file
 
-Delete the default styles in the `index.css` file and replace them with the following styles to reflect the changes from `Hello World!` in your app:
+Delete the default styles in the `index.css` file and replace them with the following styles to reflect the changes from `Hello World!` in your application:
 
 ```css
 /* index.css */
@@ -115,10 +115,58 @@ h1 {
 }
 ```
 
-### 5. Run the app
+### 5. Run the Application
 
 Run the app with the following command:
 
 ```bash
 npm run dev
 ```
+
+## Building the Application
+
+When building your application, you need to decide whether you want to bundle all dependencies into your application or rely on external libraries that are provided by the host. The approach depends on whether your application is standalone or intended to run as part of a larger host environment (e.g., within the Greenhouse or Aurora dashboard).
+
+### Standalone Applications
+
+For standalone applications, all libraries should be bundled directly into the application to ensure that it can function independently without relying on an external host to provide dependencies.
+
+To bundle your dependencies with Vite, simply include them as normal dependencies in your `package.json`. Vite will automatically bundle them when you build your application.
+
+For example, in the package.json:
+
+```json
+{
+  "dependencies": {
+    "@cloudoperators/juno-ui-components": "^latest",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}
+```
+
+Once you run the build command:
+
+```bash
+npm run build
+```
+
+### Host-Dependent Applications
+
+If your application is designed to run within a host that already provides certain libraries (for example, Greenhouse provides `@cloudoperators/juno-ui-components`), those libraries should not be bundled. Instead, they should be added to the peerDependencies section of your package.json file.
+
+This ensures that the host will provide the necessary libraries, and your application will not attempt to bundle them, avoiding duplication and reducing the size of your application.
+
+For example, in the package.json:
+
+```json
+{
+  "peerDependencies": {
+    "@cloudoperators/juno-ui-components": "^latest",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}
+```
+
+By adding libraries to peerDependencies, you inform the bundler and host that these libraries will be supplied by the host and should not be bundled into the app's final build.
