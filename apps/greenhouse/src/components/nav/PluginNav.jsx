@@ -9,8 +9,10 @@ import SupernovaIcon from "../../assets/juno_supernova.svg?react"
 import DoopIcon from "../../assets/juno_doop.svg?react"
 import HeurekaIcon from "../../assets/juno_heureka.svg?react"
 import { Icon, Stack, Button } from "@cloudoperators/juno-ui-components"
-import { useAuthData, useAuthLoggedIn, useAuthActions, usePlugin } from "../../components/StoreProvider"
+import { usePlugin } from "../../components/StoreProvider"
 import Avatar from "../Avatar"
+
+import { useAuth } from "../AuthProvider"
 
 const AppIcon = ({ name }) => {
   switch (name) {
@@ -56,13 +58,12 @@ break-all
 `
 
 const PluginNav = () => {
-  const authData = useAuthData()
-  const loggedIn = useAuthLoggedIn()
-  const { login, logout } = useAuthActions()
   const setActiveApps = usePlugin().setActive
   const activeApps = usePlugin().active()
   const appConfig = usePlugin().appConfig()
   const mngConfig = usePlugin().mngConfig()
+
+  const { data: authData, loggedIn, login, logout } = useAuth()
 
   return (
     <Stack direction="vertical" alignment="center" className={`greenhouse-nav ${navStyles}`}>

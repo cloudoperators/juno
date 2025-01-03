@@ -12,8 +12,8 @@ import Plugin from "../plugin"
 export default (options) => {
   const store = createStore(
     devtools((set, get) => ({
-      ...createAuthDataSlice(set, get),
-      ...createGlobalsSlice(set, get),
+      ...createAuthDataSlice(set, get, options),
+      ...createGlobalsSlice(set, get, options),
     }))
   )
 

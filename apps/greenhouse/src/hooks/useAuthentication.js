@@ -3,12 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useEffect, useMemo } from "react"
+import React, { useEffect, useMemo } from "react"
 import { oidcSession, mockedSession } from "@cloudoperators/juno-oauth"
-import { broadcast, onGet } from "@cloudoperators/juno-communicator"
-import { useAuthActions, useAuthIsProcessing, useAuthLastAction, useAuthAppLoaded } from "../components/StoreProvider"
-
-const CONSUMER_ID = "greenhouse-dashboard"
+import { useAuthActions, useAuthIsProcessing, useAuthLastAction } from "../components/StoreProvider"
 
 function parseMockData(mockData) {
   let token
@@ -30,34 +27,23 @@ function parseMockData(mockData) {
 }
 
 // Custom hook to manage authentication
-const useAuthentication = ({ issuerURL, clientID, mock, demoMode, demoUserToken, debug, requestParams }) => {
-  // store raw auth data to broadcast it to other apps (compatibility mode)
-  const [authObject, setAuthObject] = React.useState(null)
+const useAuthentication = ({ issuerURL, clientID, mock, orgName, demoOrg, demoUserToken, requestParams }) => {
   const authIsProcessing = useAuthIsProcessing()
   const authLastAction = useAuthLastAction()
-  const authAppLoaded = useAuthAppLoaded()
-  const { setData, setAppLoaded } = useAuthActions()
-
-  // define a function to save the auth data in the store and locally for broadcasting
-  const setAuthData = useCallback(
-    (authData) => {
-      if (!setData || !setAuthObject) return
-      setData(authData)
-      setAuthObject(authData)
-    },
-    [setData, setAuthObject]
-  )
+  const { setData: setAuthData } = useAuthActions()
 
   // useMemo to initialize the OIDC session or mocked session based on the mock flag
   const oidc = useMemo(() => {
-    if (!setAuthData || !setAppLoaded) return
+    if (!setAuthData) return
 
-    setAppLoaded(true)
     // if current orgName is the demo org, we mock the auth app
-    if (demoMode) {
+    demoOrg ||= "demo"
+    if (demoOrg === orgName) {
       // we mock the auth app with default groups
+      // organization:demo just needed to be displayed in the UI
+      // role:ccloud:admin is needed to be able to fetch the UI extensions
       mock = JSON.stringify({
-        groups: ["organization:demo", "role:ccloud:admin"],
+        groups: [`organization:${demoOrg}`, "role:ccloud:admin"],
       })
     }
 
@@ -77,6 +63,13 @@ const useAuthentication = ({ issuerURL, clientID, mock, demoMode, demoUserToken,
     // If mock mode is not enabled, initialize a real OIDC session
     if (!clientID || !issuerURL) return
 
+    console.group("OIDC Session old")
+    console.log("issuerURL>>>>>>>>>>>>>>>>>>>", issuerURL)
+    console.log("clientID>>>>>>>>>>>>>>>>>>>", clientID)
+    console.log("orgName>>>>>>>>>>>>>>>>>>>", orgName)
+    console.log("requestParams>>>>>>>>>>>>>>>>>>>", requestParams)
+    console.groupEnd()
+
     return oidcSession({
       issuerURL,
       clientID,
@@ -88,7 +81,7 @@ const useAuthentication = ({ issuerURL, clientID, mock, demoMode, demoUserToken,
         setAuthData(authData)
       },
     })
-  }, [setAuthData, setAppLoaded])
+  }, [setAuthData])
 
   // useCallback to memoize the login function
   const login = React.useCallback(oidc?.login, [oidc.login])
@@ -101,30 +94,6 @@ const useAuthentication = ({ issuerURL, clientID, mock, demoMode, demoUserToken,
       silent: true,
     })
   }, [oidc.logout])
-
-  //#################### Communication Interface ####################
-  useEffect(() => {
-    // Broadcast that the auth app has been loaded
-    broadcast("AUTH_APP_LOADED", authAppLoaded, { debug, consumerID: CONSUMER_ID })
-    // Set up a listener to confirm that the auth app has been loaded
-    const watch = onGet("AUTH_APP_LOADED", () => authAppLoaded, { debug, consumerID: CONSUMER_ID })
-
-    return watch
-  }, [authAppLoaded])
-
-  // broadcast the auth object got from the OIDC session (compatibility mode)
-  useEffect(() => {
-    // Broadcast updated authentication data
-    broadcast("AUTH_UPDATE_DATA", authObject, { debug, consumerID: CONSUMER_ID })
-    // Set up a listener to provide authentication data on request
-    const unwatchGet = onGet("AUTH_GET_DATA", () => authObject, {
-      debug,
-      consumerID: CONSUMER_ID,
-    })
-
-    // Clean up the listener when the component unmounts
-    return unwatchGet
-  }, [authObject])
 
   useEffect(() => {
     if (authIsProcessing) return

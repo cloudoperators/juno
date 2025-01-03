@@ -29,14 +29,12 @@ ENV CURRENT_HOST=""
 ENV OIDC_ISSUER_URL=""
 ENV OIDC_CLIENT_ID=""
 ENV K8S_API_ENDPOINT=""
-ENV ENVIRONMENT=""
 
 # default appProps.json
 RUN cat <<EOF > /appProps.json
 {
   "currentHost": "origin",
   "apiEndpoint": "https://api.endpoint.com",
-  "environment": "dev",
   "authIssuerUrl": "https://auth.endpoint.com",
   "authClientId": "clientID"
 }
