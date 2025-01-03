@@ -6,17 +6,24 @@
 import React, { CSSProperties, ReactNode } from "react"
 import { Meta, StoryFn } from "@storybook/react"
 
-import { ContextMenu, ContextMenuProps } from "./ContextMenu.component"
+import { ContextMenu, ContextMenuProps } from "./index"
 import { Button } from "../Button/Button.component"
 import { MenuItem } from "../MenuItem/MenuItem.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 export default {
-  title: "WiP/ContextMenu/ContextMenu",
+  title: "Deprecated/ContextMenu",
   component: ContextMenu,
   argTypes: {
     children: {
       control: false,
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component: "DEPRECATED. Use PopupMenu instead.",
+      },
     },
   },
   decorators: [
