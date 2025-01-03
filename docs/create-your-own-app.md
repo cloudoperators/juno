@@ -104,6 +104,8 @@ function App() {
 export default App
 ```
 
+Consider using the `embedded` and `fullWidthContent` props when setting up the AppShell, depending on whether the application should be rendered embedded in another app/page or as a standalone application. For more information, refer to the [AppShell](https://cloudoperators.github.io/juno/?path=/docs/layout-appshell--docs) documentation.
+
 ### 4. Clean up the `index.css` file
 
 Delete the default styles in the `index.css` file and replace them with the following styles to reflect the changes from `Hello World!` in your application:
