@@ -8,7 +8,7 @@ const validateURL = (string) => {
     new URL(string) // Try to create a URL object
     return string // If successful, it's a valid URL
   } catch {
-    console.warn(`Invalid URL provided: ${string}`) // Log a warning if URL is invalid
+    console.warn(`(greenhouse) Invalid URL provided: ${string}`) // Log a warning if URL is invalid
     return "" // If an error occurs, it's not a valid URL
   }
 }
@@ -18,8 +18,6 @@ const createGlobalsSlice = (set, get, options) => ({
     apiEndpoint: validateURL(options.apiEndpoint),
     assetsHost: validateURL(options.currentHost),
     isUrlStateSetup: false,
-    demoMode: false,
-    demoUserToken: null,
 
     actions: {
       setIsUrlStateSetup: (setup) =>
