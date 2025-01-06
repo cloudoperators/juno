@@ -10,7 +10,6 @@ import Auth from "./components/Auth"
 import styles from "./styles.scss?inline"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import Extensions from "./components/Extensions"
-import AsyncWorker from "./components/AsyncWorker"
 import StoreProvider from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { AuthProvider } from "./components/AuthProvider"
@@ -42,7 +41,6 @@ const StyledShell = (props) => {
       <style>{styles.toString()}</style>
       <StoreProvider options={props}>
         <MessagesProvider>
-          <AsyncWorker />
           <Shell {...props} />
         </MessagesProvider>
       </StoreProvider>
