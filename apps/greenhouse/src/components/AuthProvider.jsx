@@ -14,22 +14,18 @@ const setOrganizationToUrl = (groups) => {
 const AuthContext = createContext()
 
 export const AuthProvider = ({ options, children }) => {
-  const [authConfig] = useState({
-    issuerURL: options?.authIssuerUrl,
-    clientID: options?.authClientId,
-    mock: options?.mockAuth || false,
-    demoOrg: options?.demoOrg || "demo",
-    demoUserToken: options?.demoUserToken,
-  })
   const [authData, setAuthData] = useState(null)
-
   const oidcRef = useRef(null)
 
   const initializeOidc = useCallback(() => {
     if (oidcRef.current) return oidcRef.current
 
-    // extract the auth properties
-    const { issuerURL, clientID, mock, demoOrg, demoUserToken } = authConfig
+    // extract auth props
+    const issuerURL = options?.authIssuerUrl
+    const clientID = options?.authClientId
+    const mock = options?.mockAuth || false
+    const demoOrg = options?.demoOrg || "demo"
+    const demoUserToken = options?.demoUserToken
 
     // extract the organization name from the URL
     const currentUrl = new URL(window.location.href)
@@ -75,6 +71,7 @@ export const AuthProvider = ({ options, children }) => {
       const requestParams = JSON.stringify({
         connector_id: !orgName ? undefined : orgName,
       })
+
       oidcRef.current = oidcSession({
         issuerURL,
         clientID,
@@ -92,7 +89,7 @@ export const AuthProvider = ({ options, children }) => {
     }
 
     throw new Error("Invalid OIDC configuration")
-  }, [authConfig])
+  }, [options])
 
   // Memoized login function
   const login = useCallback(() => {
