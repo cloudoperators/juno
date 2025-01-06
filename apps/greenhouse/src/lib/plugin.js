@@ -95,7 +95,7 @@ export const synchURL = {
     if (urlStateManager.currentState()?.[ACTIVE_APPS_KEY] === newActiveApps) return
     urlStateManager.push({ [ACTIVE_APPS_KEY]: newActiveApps })
   },
-  removeItem: (key) => {
+  removeItem: () => {
     // remove any key from the url
     // since we only update the keys we don't need to remove anything
   },
