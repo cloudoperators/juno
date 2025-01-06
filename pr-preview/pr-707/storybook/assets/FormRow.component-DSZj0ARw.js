@@ -1,4 +1,0 @@
-import{j as a}from"./jsx-runtime-D6fbYt3N.js";import"./index-DysCNOs_.js";import{P as e}from"./index-BHU3UH5b.js";const n=`
-  jn-mb-2
-`,o=({children:s=null,className:r="",...t})=>a.jsx("div",{className:`juno-form-row ${n} ${r}`,...t,children:s});o.propTypes={children:e.node,className:e.string};o.__docgenInfo={description:`A generic FormRow component.
-Used to layout and structure forms. Pass Form elements such as TextInput, Textarea, Select, or Radio and CheckboxGroups as children.`,methods:[],displayName:"FormRow",props:{children:{defaultValue:{value:"null",computed:!1},description:"The children to render in the formRow. Typically, these will be Input components such as TextInput, Textarea, Select, or Radio and CheckboxGroups",type:{name:"node"},required:!1},className:{defaultValue:{value:'""',computed:!1},description:"Add a custom className to a FormRow",type:{name:"string"},required:!1}}};export{o as F};
