@@ -27,14 +27,9 @@ export const AppShell: React.FC<AppShellProps> = ({
   ...props
 }) => {
   // Determine whether to pass set fullWidth to true in embedded mode or not:
+  // In embedded mode (i.e. embedded == true), fullWidthContent should default to true, unless explicitly passed as false.
   // In non-embedded mode, fullWidthContent should default to false, unless explicitly set to true.
-  // In embedded mode though, fullWidthContent should default to true, unless explicitly passed as false.
-  let fullWidthOrDefault
-  if (embedded) {
-    fullWidthOrDefault = fullWidthContent === false ? false : true
-  } else {
-    fullWidthOrDefault = fullWidthContent === true ? true : false
-  }
+  const fullWidthOrDefault = embedded ? fullWidthContent !== false : fullWidthContent === true
 
   return (
     <AppBody className={className} {...props}>
