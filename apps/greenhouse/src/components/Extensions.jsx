@@ -32,7 +32,7 @@ const Extension = ({ config }) => {
       if (config.url) {
         return await import(config.url)
       } else if (extensionResolvers[config.name]) {
-        console.info("===Loading extension", config.name, extensionVersions[config.name])
+        console.info("(greenhouse) extensions loading:", config.name, extensionVersions[config.name])
         return await extensionResolvers[config.name]
       } else {
         throw new Error(`Extension ${config.name} not found`)

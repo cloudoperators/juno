@@ -28,8 +28,6 @@ const useApi = () => {
   }, [apiEndpoint, authData?.JWT])
 
   const getPluginConfigs = useCallback(() => {
-    console.info(">>>>>>>>>>>>>>>>>>>>>Fetching plugin configs", client, namespace)
-
     if (!client || !namespace) return Promise.resolve({})
 
     return client
