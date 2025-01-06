@@ -15,10 +15,12 @@ const AuthContext = createContext()
 
 export const AuthProvider = ({ options, children }) => {
   const [authData, setAuthData] = useState(null)
+  const [isDemoMode, setIsDemoMode] = useState(false)
   const oidcRef = useRef(null)
 
   const initializeOidc = useCallback(() => {
     if (oidcRef.current) return oidcRef.current
+    setIsDemoMode(false)
 
     // extract auth props
     const issuerURL = options?.authIssuerUrl
@@ -35,6 +37,7 @@ export const AuthProvider = ({ options, children }) => {
     // Mock authentication data if demoOrg matches and user token provided
     if (demoOrg === orgName) {
       console.debug("Initializing new demo auth session")
+      setIsDemoMode(true)
       oidcRef.current = mockedSession({
         token: {
           groups: [`organization:${demoOrg}`, "role:ccloud:admin"],
@@ -119,6 +122,7 @@ export const AuthProvider = ({ options, children }) => {
       loggedIn: authData ? authData?.loggedIn : false,
       error: authData ? authData?.error : null,
       data: authData ? authData?.auth : null,
+      isDemoMode,
       login,
       logout,
     }),
