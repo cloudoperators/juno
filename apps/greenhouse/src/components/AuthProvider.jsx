@@ -28,10 +28,6 @@ export const AuthProvider = ({ options, children }) => {
   const initializeOidc = useCallback(() => {
     if (oidcRef.current) return oidcRef.current
 
-    console.group("AuthProvider")
-    console.log("authConfig>>>>>>>>>>>>>>>>>>>", authConfig)
-    console.groupEnd()
-
     // extract the auth properties
     const { issuerURL, clientID, mock, demoOrg, demoUserToken } = authConfig
 
@@ -42,6 +38,7 @@ export const AuthProvider = ({ options, children }) => {
 
     // Mock authentication data if demoOrg matches and user token provided
     if (demoOrg === orgName) {
+      console.debug("Initializing new demo auth session")
       oidcRef.current = mockedSession({
         token: {
           groups: [`organization:${demoOrg}`, "role:ccloud:admin"],
@@ -59,6 +56,7 @@ export const AuthProvider = ({ options, children }) => {
 
     // Check if mock mode is enabled
     if (mock === "true" || mock === true) {
+      console.debug("Initializing new mocked auth session")
       oidcRef.current = mockedSession({
         initialLogin: true,
         onUpdate: (data) => {
@@ -72,17 +70,11 @@ export const AuthProvider = ({ options, children }) => {
 
     // If mock mode is not enabled, initialize a real OIDC session
     if (issuerURL && clientID) {
+      console.debug("Initializing new OIDC session")
+
       const requestParams = JSON.stringify({
         connector_id: !orgName ? undefined : orgName,
       })
-
-      console.group("OIDC Session new")
-      console.log("issuerURL>>>>>>>>>>>>>>>>>>>", issuerURL)
-      console.log("clientID>>>>>>>>>>>>>>>>>>>", clientID)
-      console.log("orgName>>>>>>>>>>>>>>>>>>>", orgName)
-      console.log("requestParams>>>>>>>>>>>>>>>>>>>", requestParams)
-      console.groupEnd()
-
       oidcRef.current = oidcSession({
         issuerURL,
         clientID,
