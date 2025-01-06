@@ -12,6 +12,7 @@ import { ErrorBoundary } from "react-error-boundary"
 interface AppProps {
   theme?: string
   embedded?: string | boolean
+  fullWidthContent?: string | boolean
   endpoint?: string
   currentHost?: string
 }
@@ -48,6 +49,16 @@ export const App = (props: AppProps) => {
     )
   }
 
+  // ensure that the fullWidthContent prop is a boolean or undefined if not passed
+  // TODO: this is a workaround to avoid passing a string to the AppShell component but it is ugly.
+  // We should find a better way to normalize the prop to boolean in some central location. The same applies to the embedded prop.
+  const calculatedFullWidthContentValue =
+    props.fullWidthContent === "true" || props.fullWidthContent === true
+      ? true
+      : props.fullWidthContent === "false" || props.fullWidthContent === false
+        ? false
+        : undefined
+
   return (
     <QueryClientProvider client={queryClient}>
       <AppShell
@@ -55,7 +66,7 @@ export const App = (props: AppProps) => {
         embedded={props.embedded === "true" || props.embedded === true}
         sideNavigation={null}
         topNavigation={null}
-        fullWidthContent={false}
+        fullWidthContent={calculatedFullWidthContentValue}
       >
         <ErrorBoundary fallbackRender={fallbackRender}>
           <AppContent />
