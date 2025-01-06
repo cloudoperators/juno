@@ -7,7 +7,7 @@ import React from "react"
 import { Message } from "@cloudoperators/juno-ui-components"
 
 const ErrorFallback = ({ error }: { error: Error }) => (
-  <Message text={error?.message || "An error occurred"} variant="danger" />
+  <Message text={error?.message || "An error occurred"} variant="danger" onDismiss={undefined} children={undefined} />
 )
 
 export default ErrorFallback

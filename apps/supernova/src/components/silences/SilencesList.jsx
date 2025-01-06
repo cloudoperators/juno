@@ -18,15 +18,11 @@ import {
   useEndlessScrollList,
 } from "@cloudoperators/juno-ui-components"
 import constants from "../../constants"
-import {
-  useSilencesItems,
-  useSilencesActions,
-  useSilencesRegEx,
-  useSilencesStatus,
-  useSilencesLocalItems,
-} from "../StoreProvider"
+import { useSilencesItems, useSilencesActions, useSilencesRegEx, useSilencesStatus } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { parseError } from "../../helpers"
+import { useActions } from "@cloudoperators/juno-messages-provider"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -40,17 +36,22 @@ const SilencesList = () => {
   const [visibleSilences, setVisibleSilences] = useState(silences)
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
-  const localSilences = useSilencesLocalItems()
   const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
+  const { addMessage } = useActions()
 
-  const { data } = useBoundQuery("silences")
+  const { data, isLoading, error } = useBoundQuery("silences")
+
+  if (error) {
+    addMessage({
+      variant: "error",
+      text: parseError(error),
+    })
+  }
 
   useEffect(() => {
     if (data) {
       setSilences({
         items: data?.silences,
-        itemsHash: data?.silencesHash,
-        itemsByState: data?.silencesBySate,
       })
     }
   }, [data])
@@ -68,31 +69,8 @@ const SilencesList = () => {
       filtered = filtered.filter((silence) => JSON.stringify(silence).toLowerCase().includes(regEx.toLowerCase))
     }
 
-    if (localSilences) {
-      //  when selected silences status is pending: if localSilence.status.state is creating add them to filtered
-      if (status === constants.SILENCE_PENDING) {
-        for (const [, localSilence] of Object.entries(localSilences)) {
-          if (localSilence.status.state === constants.SILENCE_CREATING) {
-            filtered.push(localSilence)
-          }
-        }
-      }
-
-      // when selected silences status is active: if silence.id is in localSilences add the localSilence to the shownSilences else the filtered silence
-      if (status === constants.SILENCE_ACTIVE) {
-        filtered = filtered.map((silence) => {
-          for (const [, localSilence] of Object.entries(localSilences)) {
-            if (silence.id === localSilence.id) {
-              return localSilence
-            }
-          }
-          return silence
-        })
-      }
-    }
-
     setVisibleSilences(filtered)
-  }, [status, regEx, silences, localSilences])
+  }, [status, regEx, silences])
 
   const handleSearchChange = (value) => {
     // debounce setSearchTerm to avoid unnecessary re-renders
@@ -125,58 +103,67 @@ const SilencesList = () => {
 
   return (
     <>
-      <Stack direction="horizontal" className={`${filtersStyles}`}>
-        <Select
-          className="w-3/12"
-          label="Status"
-          value={status}
-          onChange={(newSilencesStatus) => {
-            setSilencesStatus(newSilencesStatus)
-          }}
-        >
-          <SelectOption value={constants.SILENCE_ACTIVE} />
-          <SelectOption value={constants.SILENCE_PENDING} />
-          <SelectOption value={constants.SILENCE_EXPIRED} />
-        </Select>
-
-        <SearchInput
-          placeholder="search term or regular expression"
-          className="ml-auto w-7/12"
-          value={regEx || ""}
-          onChange={(text) => {
-            handleSearchChange(text)
-          }}
-          onSearch={(text) => {
-            setSilencesRegEx(text)
-          }}
-          onClear={() => {
-            setSilencesRegEx(null)
-          }}
-        />
-      </Stack>
-
-      <DataGrid columns={4} minContentColumns={[0, 2, 3]} cellVerticalAlignment="top" className="silences ">
+      {isLoading ? (
+        <Stack gap="2">
+          <span>Loading</span>
+          <Spinner variant="primary" />
+        </Stack>
+      ) : (
         <>
-          <DataGridRow>
-            <DataGridHeadCell>Time intervall</DataGridHeadCell>
-            <DataGridHeadCell>Details</DataGridHeadCell>
-            <DataGridHeadCell>State</DataGridHeadCell>
-            <DataGridHeadCell>Action</DataGridHeadCell>
-          </DataGridRow>
-          {scrollListItems?.length > 0 ? (
-            iterator.map((silence) => <SilencesItem silence={silence} key={silence.id} />)
-          ) : (
-            <DataGridRow>
-              <DataGridCell colSpan={4}>
-                <Stack gap="3">
-                  <Icon icon="info" color="text-theme-info" />
-                  <div>We couldn&apos;t find any matching silences.</div>
-                </Stack>
-              </DataGridCell>
-            </DataGridRow>
-          )}
+          <Stack direction="horizontal" className={`${filtersStyles}`}>
+            <Select
+              className="w-3/12"
+              label="Status"
+              value={status}
+              onChange={(newSilencesStatus) => {
+                setSilencesStatus(newSilencesStatus)
+              }}
+            >
+              <SelectOption value={constants.SILENCE_ACTIVE} />
+              <SelectOption value={constants.SILENCE_PENDING} />
+              <SelectOption value={constants.SILENCE_EXPIRED} />
+            </Select>
+
+            <SearchInput
+              placeholder="search term or regular expression"
+              className="ml-auto w-7/12"
+              value={regEx || ""}
+              onChange={(text) => {
+                handleSearchChange(text)
+              }}
+              onSearch={(text) => {
+                setSilencesRegEx(text)
+              }}
+              onClear={() => {
+                setSilencesRegEx(null)
+              }}
+            />
+          </Stack>
+
+          <DataGrid columns={4} minContentColumns={[0, 2, 3]} cellVerticalAlignment="top" className="silences ">
+            <>
+              <DataGridRow>
+                <DataGridHeadCell>Time intervall</DataGridHeadCell>
+                <DataGridHeadCell>Details</DataGridHeadCell>
+                <DataGridHeadCell>State</DataGridHeadCell>
+                <DataGridHeadCell>Action</DataGridHeadCell>
+              </DataGridRow>
+              {scrollListItems?.length > 0 ? (
+                iterator.map((silence) => <SilencesItem silence={silence} key={silence.id} />)
+              ) : (
+                <DataGridRow>
+                  <DataGridCell colSpan={4}>
+                    <Stack gap="3">
+                      <Icon icon="info" color="text-theme-info" />
+                      <div>We couldn&apos;t find any matching silences.</div>
+                    </Stack>
+                  </DataGridCell>
+                </DataGridRow>
+              )}
+            </>
+          </DataGrid>
         </>
-      </DataGrid>
+      )}
     </>
   )
 }
