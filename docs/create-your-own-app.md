@@ -157,7 +157,7 @@ npm run build
 
 If your application is designed to run within a host that already provides certain libraries (for example, Greenhouse provides `@cloudoperators/juno-ui-components`), those libraries should not be bundled. Instead, they should be added to the peerDependencies section of your package.json file.
 
-This ensures that the host will provide the necessary libraries, and your application will not attempt to bundle them, avoiding duplication and reducing the size of your application.
+This ensures that the host will provide the necessary libraries, and your application will not attempt to bundle them, avoiding duplication and reducing the size of your application. Our host applications will always bundle `@cloudoperators/juno-ui-components`, `react` and `react-dom`, so you should ensure they are added to peer dependencies in your app if it is meant to run within one of those hosts.
 
 For example, in the package.json:
 
