@@ -8,6 +8,7 @@ import { createRoot } from "react-dom/client"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import useApi from "../hooks/useApi"
 import { usePlugin } from "./StoreProvider"
+import { useAuth } from "./AuthProvider"
 import { extensionResolvers, extensionVersions } from "../../extensoinsManifest"
 
 const CorePlugin = ({ config, auth }) => {
@@ -52,6 +53,7 @@ const Extension = ({ config }) => {
 }
 
 function Plugin({ config, active, id }) {
+  const { data: auth } = useAuth()
   const holder = useRef()
   const app = useRef()
 
@@ -64,7 +66,7 @@ function Plugin({ config, active, id }) {
       // create the app dom element
       app.current = document.createElement("div")
       // render the app into the dom element
-      createRoot(app.current).render(<App config={config} />)
+      createRoot(app.current).render(<App config={config} auth={auth} />)
     }
     // add or remove the app from the holder
     if (active) {
