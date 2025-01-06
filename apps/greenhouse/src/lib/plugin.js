@@ -4,7 +4,8 @@
  */
 
 import { useStore, createStore } from "zustand"
-import { devtools } from "zustand/middleware"
+import { devtools, persist } from "zustand/middleware"
+import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import produce from "immer"
 
 export const NAV_TYPES = {
@@ -77,30 +78,65 @@ const findActiveAppId = (appConfig) => {
   return [minWeightApp.id]
 }
 
+// url state manager
+const GREENHOUSE_STATE_KEY = "greenhouse-dashboard"
+const ACTIVE_APPS_KEY = "a"
+const urlStateManager = registerConsumer(GREENHOUSE_STATE_KEY)
+
+export const synchURL = {
+  getItem: () => {
+    // read from the url
+    let active = urlStateManager.currentState()?.[ACTIVE_APPS_KEY]
+    return { state: { active: [active] } }
+  },
+  setItem: (key, newValue) => {
+    // update the url
+    const newActiveApps = newValue?.state?.active?.join(",")
+    if (urlStateManager.currentState()?.[ACTIVE_APPS_KEY] === newActiveApps) return
+    urlStateManager.push({ [ACTIVE_APPS_KEY]: newActiveApps })
+  },
+  removeItem: (key) => {
+    // remove any key from the url
+    // since we only update the keys we don't need to remove anything
+  },
+}
+
 const Plugin = ({ environment, apiEndpoint, currentHost }) => {
   const store = createStore(
-    devtools(() => ({
-      active: [],
-      config: {
-        [`org-admin`]: createPluginConfig({
-          id: "org-admin",
-          core: true,
-          name: "org-admin",
-          displayName: "Organization",
-          navType: NAV_TYPES.MNG,
-          props: {
-            assetsUrl: currentHost,
-            apiEndpoint: apiEndpoint,
-            environment: environment,
+    devtools(
+      persist(
+        () => ({
+          active: [],
+          config: {
+            [`org-admin`]: createPluginConfig({
+              id: "org-admin",
+              core: true,
+              name: "org-admin",
+              displayName: "Organization",
+              navType: NAV_TYPES.MNG,
+              props: {
+                assetsUrl: currentHost,
+                apiEndpoint: apiEndpoint,
+                environment: environment,
+              },
+            }),
           },
+          appConfig: [], // kube app configs
+          mngConfig: [], // management app configs
+          isFetching: false,
+          error: null,
+          updatedAt: null,
         }),
-      },
-      appConfig: [], // kube app configs
-      mngConfig: [], // management app configs
-      isFetching: false,
-      error: null,
-      updatedAt: null,
-    }))
+        {
+          name: "plugin-state",
+          storage: {
+            getItem: synchURL.getItem,
+            setItem: synchURL.setItem,
+            removeItem: synchURL.removeItem,
+          },
+        }
+      )
+    )
   )
   const { getState, setState } = store
 

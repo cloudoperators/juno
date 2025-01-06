@@ -14,21 +14,11 @@ import StoreProvider from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { AuthProvider } from "./components/AuthProvider"
 
-const Shell = (props = {}) => {
+const Shell = () => {
   return (
-    <AuthProvider options={props}>
-      <Auth
-        clientId={props?.authClientId}
-        issuerUrl={props?.authIssuerUrl}
-        demoOrg={props?.demoOrg}
-        mock={props?.mockAuth}
-        demoUserToken={props.demoUserToken}
-      >
-        <ShellLayout>
-          <Extensions />
-        </ShellLayout>
-      </Auth>
-    </AuthProvider>
+    <ShellLayout>
+      <Extensions />
+    </ShellLayout>
   )
 }
 
@@ -39,11 +29,21 @@ const StyledShell = (props) => {
     <AppShellProvider>
       {/* load styles inside the shadow dom */}
       <style>{styles.toString()}</style>
-      <StoreProvider options={props}>
-        <MessagesProvider>
-          <Shell {...props} />
-        </MessagesProvider>
-      </StoreProvider>
+      <AuthProvider options={props}>
+        <Auth
+          clientId={props?.authClientId}
+          issuerUrl={props?.authIssuerUrl}
+          demoOrg={props?.demoOrg}
+          mock={props?.mockAuth}
+          demoUserToken={props.demoUserToken}
+        >
+          <StoreProvider options={props}>
+            <MessagesProvider>
+              <Shell {...props} />
+            </MessagesProvider>
+          </StoreProvider>
+        </Auth>
+      </AuthProvider>
     </AppShellProvider>
   )
 }
