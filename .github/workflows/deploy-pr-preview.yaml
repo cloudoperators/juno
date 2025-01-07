@@ -128,12 +128,7 @@ jobs:
       - name: Build GREENHOUSE if changes detected
         id: build-greenhouse
         if: github.event.action != 'closed' && env.IS_GREENHOUSE_CHANGED == 'true'
-        run: |
-          ./.github/scripts/build-vite-app.sh
-
-          # Specific changes for greenhouse
-          sed -i 's|/appProps.json?%VERSION%|./appProps.json|g' "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
-          sed -i "s|/index.js?%VERSION%|./$entry_file_escaped|g" "$DEPLOY_PATH/$TARGET_FOLDER/index.html"
+        run: ./.github/scripts/build-vite-app.sh
         env:
           PACKAGE_PATH: apps/greenhouse
           TARGET_FOLDER: greenhouse
