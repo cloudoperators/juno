@@ -50,7 +50,7 @@ jobs:
         if: github.event.action != 'closed'
         id: compile-envs
         run: |
-          #setup ENVs for each app to preview
+          # setup ENVs for each app to preview
           echo "IS_STORYBOOK_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}" >> $GITHUB_ENV
           echo "IS_SUPERNOVA_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}" >> $GITHUB_ENV
           echo "IS_HEUREKA_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}" >> $GITHUB_ENV
@@ -58,6 +58,8 @@ jobs:
           echo "IS_CARBON_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'carbon') }}" >> $GITHUB_ENV
           echo "IS_GREENHOUSE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'greenhouse') }}" >> $GITHUB_ENV
           echo "IS_EXAMPLE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}" >> $GITHUB_ENV
+          # setup ENVs for each app to add query params
+          echo "GREENHOUSE_QUERY_PARAMS=org=demo" >> $GITHUB_ENV
 
       - uses: actions/setup-node@v4
         if: github.event.action != 'closed'
@@ -165,6 +167,7 @@ jobs:
             CHANGED="${!CHANGED_VAR}"  # Get the value of the environment variable
 
             if [ "$CHANGED" = "true" ]; then
+              COMPONENT_QUERY_PARAMS="${component^^}_QUERY_PARAMS"
               OUTCOME_VAR="${component^^}_OUTCOME"  # Make it uppercase for the env var
               echo "==OUTCOME_VAR=="
               echo $OUTCOME_VAR
@@ -174,7 +177,7 @@ jobs:
               echo $BUILD_OUTCOME
               echo "==="              
               if [ "$BUILD_OUTCOME" == "success" ]; then
-                echo "<li><a href='./${component}/index.html' target="_blank">${component^} <span style='color:green;'>✓ Success</span></a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+                echo "<li><a href='./${component}/index.html?${COMPONENT_QUERY_PARAMS}' target="_blank">${component^} <span style='color:green;'>✓ Success</span></a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               else
                 echo "<li>${component^} <span style='color:red;'>✗ Failed</span></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               fi
