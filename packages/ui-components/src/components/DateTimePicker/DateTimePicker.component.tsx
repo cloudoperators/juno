@@ -268,7 +268,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
       enableSeconds: enableSeconds,
       enableTime: enableTime,
       hourIncrement: hourIncrement,
-      locale: (locale || undefined) as LocaleKey | Partial<CustomLocale>,
+      locale: (locale || "default") as LocaleKey | Partial<CustomLocale>,
       maxDate: (maxDate || undefined) as DateOption,
       minDate: (minDate || undefined) as DateOption,
       minuteIncrement: minuteIncrement,
@@ -420,7 +420,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }, [hourIncrement])
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("locale", locale)
+    flatpickrInstanceRef.current?.set("locale", locale || "default")
   }, [locale])
 
   useEffect(() => {
