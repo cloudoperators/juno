@@ -89,7 +89,7 @@ describe("composeAuthData", () => {
     })
 
     it("should warn about unknown properties", () => {
-      const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation()
+      const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
 
       tokenSession({ token: "validToken", options: {}, onUpdate: onUpdateMock, extraProp: true })
 
