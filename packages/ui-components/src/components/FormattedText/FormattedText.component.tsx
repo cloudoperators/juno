@@ -27,7 +27,3 @@ export const FormattedText: React.FC<FormattedTextProps> = ({
   )
 }
 
-FormattedText.defaultProps = {
-  className: "",
-  children: null,
-}
