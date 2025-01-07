@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { cleanup, render, screen, waitFor } from "@testing-library/react"
+import { cleanup, render, screen, waitFor, act } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { DateTimePicker } from "./index"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
@@ -863,8 +863,10 @@ describe("DateTimePicker", () => {
     const input = screen.getByRole("textbox")
     await waitFor(() => user.click(input))
 
-    const focusEvent = new FocusEvent("focus", { bubbles: true, composed: true })
-    document.body.dispatchEvent(focusEvent)
+    act(() => {
+      const focusEvent = new FocusEvent("focus", { bubbles: true, composed: true })
+      document.body.dispatchEvent(focusEvent)
+    })
 
     expect(mockOnClose).toHaveBeenCalled()
   })
