@@ -21,7 +21,6 @@ import {
   useSilencesActions,
   useAlertEnrichedLabels,
   useGlobalsUsername,
-  useSilencesItems,
 } from "../StoreProvider"
 import AlertDescription from "../alerts/shared/AlertDescription"
 import { useActions } from "@cloudoperators/juno-messages-provider"
@@ -67,7 +66,7 @@ const DEFAULT_FORM_VALUES = { duration: "2", comment: "" }
 const CreateSilence = ({ alert, size, variant }) => {
   const queryClient = useQueryClient()
   const excludedLabels = useSilencesExcludedLabels()
-  const { getMappingSilences, setSilences } = useSilencesActions()
+  const { getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
   const user = useGlobalsUsername()
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
@@ -76,8 +75,6 @@ const CreateSilence = ({ alert, size, variant }) => {
   const [showValidation, setShowValidation] = useState({})
   const [error, setError] = useState(null)
   const { addMessage } = useActions()
-
-  const silences = useSilencesItems()
 
   const [success, setSuccess] = useState(null)
 
@@ -115,16 +112,8 @@ const CreateSilence = ({ alert, size, variant }) => {
   }, [expirationDate])
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
-    onMutate: (data) => {
+    onMutate: () => {
       queryClient.cancelQueries("silences")
-
-      const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
-
-      const newSilences = [...silences, newSilence]
-
-      setSilences({
-        items: newSilences,
-      })
 
       setDisplayNewSilence(false)
     },

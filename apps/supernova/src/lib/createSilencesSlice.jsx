@@ -6,7 +6,6 @@
 const initialSilencesState = {
   items: [],
   excludedLabels: [],
-  updatedAt: null,
   status: "active",
   regEx: "",
 
@@ -125,7 +124,6 @@ const createSilencesSlice = (set, get, options) => ({
           silences: {
             ...state.silences,
             items: items,
-            updatedAt: Date.now(),
           },
         })),
           false,
