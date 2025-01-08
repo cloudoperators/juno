@@ -12,6 +12,6 @@ export default [
     languageOptions: { sourceType: "module" },
   },
   {
-    ignores: ["setupTests.js"],
+    ignores: ["setupTests.js", "appProps.template.ts"],
   },
 ]
