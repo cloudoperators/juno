@@ -14,11 +14,7 @@ export const TabPanel: React.FC<TabPanelProps> = ({
   children = null,
   // className = "",
 }) => {
-  return (
-    <ReactTabPanel>
-      {children}
-    </ReactTabPanel>
-  )
+  return <ReactTabPanel>{children}</ReactTabPanel>
 }
 
 // TabPanel.tabsRole = "TabPanel"

@@ -26,4 +26,3 @@ export const FormattedText: React.FC<FormattedTextProps> = ({
     </div>
   )
 }
-
