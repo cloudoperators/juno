@@ -7,6 +7,7 @@ build
 dist
 appProps.js*
 secretProps.js*
+authToken.js*
 vite.config.*.timestamp-*
 
 # act artifacts needed for testing workflows
