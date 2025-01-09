@@ -12,62 +12,83 @@ interface AuthData {
   parsed: any // Adjust this type as per the return type of parseIdTokenData
 }
 
-export const composeAuthData = (token: string, options: any): AuthData => {
+export const composeAuthData = (token: string, options: any): { authData: AuthData | null; error: Error | null } => {
   let tokenData = {}
+  let parsedData = {}
+
   try {
     tokenData = decodeIDToken(token)
-  } catch (_) {
-    console.warn(`WARNING: (OAUTH) Could not parse token: ${token}`)
+  } catch (e) {
+    return {
+      authData: null,
+      error: new Error(`Could not decode token: ${token}. ${(e as Error)?.message}`),
+    }
   }
-
   // extend tokenData with the options
   tokenData = { ...tokenData, ...options }
 
-  return {
-    JWT: token,
-    raw: tokenData,
-    refreshToken: "TOKEN",
-    parsed: parseIdTokenData(tokenData),
+  try {
+    parsedData = parseIdTokenData(tokenData)
+  } catch (e) {
+    return {
+      authData: null,
+      error: new Error(`Could not parse token: ${token}. ${(e as Error)?.message}`),
+    }
   }
+
+  return {
+    authData: {
+      JWT: token,
+      raw: tokenData,
+      refreshToken: "TOKEN",
+      parsed: parsedData,
+    },
+    error: null,
+  }
+}
+
+interface TokenSessionState {
+  auth: AuthData | null
+  error: unknown
+  loggedIn: boolean
+  isProcessing: boolean
 }
 
 interface TokenSessionReturnType {
   login: () => void
   logout: () => void
-  currentState: () => Record<string, any>
+  currentState: () => TokenSessionState
 }
 
-export default function tokenSession(params: any = {}): TokenSessionReturnType {
-  const { token, onUpdate, options, ...unknownProps } = params || {}
+interface TokenSessionParams {
+  token: string
+  options?: Record<string, any>
+  initialLogin?: boolean
+  onUpdate: (_state: TokenSessionState) => void
+}
 
-  if (typeof onUpdate !== "function") {
-    throw new Error("(OAUTH MOCK) onUpdate should be a function")
-  }
+export default function tokenSession(params: TokenSessionParams): TokenSessionReturnType {
+  const { token, onUpdate, initialLogin, options } = params || {}
 
-  if (Object.keys(unknownProps).length > 0) {
-    console.warn(
-      `WARNING: (OAUTH) unknown options: ${Object.keys(unknownProps).join(",")}. Allowed options are token, onUpdate`
-    )
-  }
+  const { authData, error } = composeAuthData(token, options)
 
-  const authData = composeAuthData(token, options)
-  let state: Record<string, any> = { auth: null, error: null, loggedIn: false, isProcessing: false }
+  const state = { auth: authData, error: error, loggedIn: false, isProcessing: false }
 
   const login = () => {
-    state = { auth: authData, error: null, loggedIn: true, isProcessing: false }
-    onUpdate(state)
+    onUpdate({ ...state, auth: authData, loggedIn: true })
   }
 
   const logout = () => {
-    state = { auth: null, error: null, loggedIn: false, isProcessing: false }
-    onUpdate(state)
+    onUpdate({ ...state, auth: null, loggedIn: false })
   }
 
-  login()
+  if (initialLogin) {
+    login()
+  }
 
   return {
     login,
     logout,
-    currentState: () => state,
+    currentState: () => ({ auth: null, error: error, loggedIn: false, isProcessing: false }),
   }
 }
