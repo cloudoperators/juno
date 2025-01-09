@@ -28,11 +28,11 @@ import CreateSilenceAdvanced from "./CreateSilenceAdvanced"
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"
+import { useQueryClient } from "@tanstack/react-query"
 
 import { debounce } from "../../helpers"
 import constants from "../../constants"
 
-import { useQueryClient } from "@tanstack/react-query"
 import { useBoundMutation } from "../../hooks/useBoundMutation"
 
 const validateForm = (values) => {
@@ -64,7 +64,6 @@ const errorHelpText = (messages) => {
 const DEFAULT_FORM_VALUES = { duration: "2", comment: "" }
 
 const CreateSilence = ({ alert, size, variant }) => {
-  const queryClient = useQueryClient()
   const excludedLabels = useSilencesExcludedLabels()
   const { getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
@@ -75,6 +74,7 @@ const CreateSilence = ({ alert, size, variant }) => {
   const [showValidation, setShowValidation] = useState({})
   const [error, setError] = useState(null)
   const { addMessage } = useActions()
+  const queryClient = useQueryClient()
 
   const [success, setSuccess] = useState(null)
 
@@ -112,10 +112,18 @@ const CreateSilence = ({ alert, size, variant }) => {
   }, [expirationDate])
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
-    onMutate: () => {
-      queryClient.cancelQueries("silences")
+    onMutate: async (newSilence) => {
+      await queryClient.cancelQueries(["silences"])
+
+      // Snapshot the previous value for rollback / optimistic update
+      const prevData = queryClient.getQueryData(["silences"])
+      const newCacheData = Array.isArray(prevData) ? [...prevData, newSilence] : [newSilence]
+      queryClient.setQueryData(["silences"], newCacheData)
 
       setDisplayNewSilence(false)
+
+      // Return the previous data for possible rollback
+      return { prevData }
     },
 
     onSuccess: (data) => {
@@ -125,15 +133,19 @@ const CreateSilence = ({ alert, size, variant }) => {
             take up to 5 minutes for the alert to show up as silenced.`,
       })
     },
-    onError: (error) => {
-      // add a error message in UI
+    onError: (error, context) => {
+      // Rollback to the previous state if an error occurs
+      if (context?.prevData) {
+        queryClient.setQueryData(["silences"], context.prevData)
+      }
+
+      // Show an error message
       addMessage({
         variant: "error",
         text: parseError(error),
       })
     },
     onSettled: () => {
-      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
       queryClient.invalidateQueries(["silences"])
     },
   })

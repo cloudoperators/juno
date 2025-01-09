@@ -24,7 +24,7 @@ const AlertsTab = () => {
     })
   }
   useEffect(() => {
-    if (data) {
+    if (data?.alerts && Array.isArray(data?.alerts)) {
       setAlertsData({ items: data.alerts, counts: data.counts })
     }
   }, [data])

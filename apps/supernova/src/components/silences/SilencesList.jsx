@@ -49,7 +49,9 @@ const SilencesList = () => {
   const [visibleSilences, setVisibleSilences] = useState(data?.silences)
 
   useEffect(() => {
-    let filtered = data?.silences.filter((silence) => silence?.status?.state === status)
+    let filtered = Array.isArray(data?.silences)
+      ? data.silences.filter((silence) => silence?.status?.state === status)
+      : []
 
     try {
       if (regEx) {
