@@ -115,10 +115,25 @@ const CreateSilence = ({ alert, size, variant }) => {
     onMutate: async (newSilence) => {
       await queryClient.cancelQueries(["silences"])
 
-      // Snapshot the previous value for rollback / optimistic update
+      console.log(newSilence)
+
+      // Snapshot the previous value for rollback
       const prevData = queryClient.getQueryData(["silences"])
-      const newCacheData = Array.isArray(prevData) ? [...prevData, newSilence] : [newSilence]
-      queryClient.setQueryData(["silences"], newCacheData)
+
+      if (!prevData || !Array.isArray(prevData.silences)) {
+        return { prevData }
+      }
+
+      const activeSilence = {
+        ...newSilence,
+        status: { state: constants.SILENCE_ACTIVE },
+      }
+
+      const newCacheData = Array.isArray(prevData.silences) ? [...prevData.silences, activeSilence] : [newSilence]
+      queryClient.setQueryData(["silences"], {
+        ...prevData,
+        silences: newCacheData,
+      })
 
       setDisplayNewSilence(false)
 
@@ -134,12 +149,11 @@ const CreateSilence = ({ alert, size, variant }) => {
       })
     },
     onError: (error, context) => {
-      // Rollback to the previous state if an error occurs
+      // Rollback to previous data
       if (context?.prevData) {
         queryClient.setQueryData(["silences"], context.prevData)
       }
 
-      // Show an error message
       addMessage({
         variant: "error",
         text: parseError(error),
