@@ -125,9 +125,14 @@ const CreateSilence = ({ alert, size, variant }) => {
       }
 
       const activeSilence = {
-        ...newSilence,
-        status: { state: constants.SILENCE_ACTIVE },
+        ...newSilence.silence,
+        status: {
+          ...newSilence.silence.status,
+          state: constants.SILENCE_ACTIVE,
+        },
       }
+
+      console.log(activeSilence)
 
       const newCacheData = Array.isArray(prevData.silences) ? [...prevData.silences, activeSilence] : [newSilence]
       queryClient.setQueryData(["silences"], {
