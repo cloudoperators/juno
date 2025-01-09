@@ -59,7 +59,7 @@ jobs:
           echo "IS_GREENHOUSE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'greenhouse') }}" >> $GITHUB_ENV
           echo "IS_EXAMPLE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}" >> $GITHUB_ENV
           # setup ENVs for each app to add query params
-          echo "GREENHOUSE_QUERY_PARAMS=\"org=demo\"" >> $GITHUB_ENV
+          echo "GREENHOUSE_QUERY_PARAMS=org=demo" >> $GITHUB_ENV
 
       - uses: actions/setup-node@v4
         if: github.event.action != 'closed'
