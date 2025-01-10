@@ -7,7 +7,7 @@ import PropTypes from "prop-types"
 import useQueryClientFn from "../hooks/useQueryClientFn"
 import useUrlState from "../hooks/useUrlState"
 
-const AsyncWorker = ({ consumerId }) => {
+const AsyncWorker = ({ consumerId }: any) => {
   useQueryClientFn()
   useUrlState(consumerId)
   return null
