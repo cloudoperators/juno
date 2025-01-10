@@ -53,7 +53,6 @@ export const useUserIsActive = () => useAppStore((state) => state.userActivity.i
 export const useUserActivityActions = () => useAppStore((state) => state.userActivity.actions)
 
 // Alert exports
-export const useAlertsItems = () => useAppStore((state) => state.alerts.items)
 export const useAlertsItemsFiltered = () => useAppStore((state) => state.alerts.itemsFiltered)
 export const useAlertsTotalCounts = () => useAppStore((state) => state.alerts.totalCounts)
 export const useAlertsSeverityCountsPerRegion = () => useAppStore((state) => state.alerts.severityCountsPerRegion)

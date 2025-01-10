@@ -5,7 +5,8 @@
 
 import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
-import { useSilencesActions, useAlertsItems } from "../StoreProvider"
+import { useSilencesActions } from "../StoreProvider"
+import { useBoundQuery } from "../../hooks/useBoundQuery"
 
 // Gives inhibitor which will still last the longest
 export const getInhibitor = (alertsInhibitedBy, alerts) => {
@@ -26,14 +27,14 @@ export const getInhibitor = (alertsInhibitedBy, alerts) => {
 
 const AlertStatus = ({ alert }) => {
   if (!alert) return null
-  const alerts = useAlertsItems()
+  const { data } = useBoundQuery("alerts")
   const { getMappingSilences } = useSilencesActions()
 
   // Gives silence which will still last the longest
   const silences = getMappingSilences(alert).sort((a, b) => new Date(b?.endsAt) - new Date(a?.endsAt))
   const silence = silences.length > 0 ? silences[0] : null
 
-  const inhibitor = getInhibitor(alert?.status?.inhibitedBy, alerts)
+  const inhibitor = getInhibitor(alert?.status?.inhibitedBy, data.alerts)
 
   return (
     <div className="cursor-default">

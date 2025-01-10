@@ -22,7 +22,7 @@ import {
   Tab,
   TabPanel,
 } from "@cloudoperators/juno-ui-components"
-import { useShowDetailsFor, useGlobalsActions, useAlertsActions, useAlertsItems } from "../StoreProvider"
+import { useShowDetailsFor, useGlobalsActions, useAlertsActions } from "../StoreProvider"
 import AlertIcon from "./shared/AlertIcon"
 import AlertTimestamp from "./shared/AlertTimestamp"
 import AlertDescription from "./shared/AlertDescription"
@@ -40,19 +40,18 @@ const AlertDetail = () => {
   const { setShowDetailsFor } = useGlobalsActions()
   const { getAlertByFingerprint } = useAlertsActions()
   const [alert, setAlert] = useState(null)
-  const alerts = useAlertsItems()
 
   const onPanelClose = () => {
     setShowDetailsFor(null)
   }
 
-  const { isLoading } = useBoundQuery("alerts")
+  const { data, isLoading } = useBoundQuery("alerts")
   useEffect(() => {
     // wait for the alerts to be loaded
-    if (alerts?.length > 0) {
+    if (data?.alerts?.length > 0) {
       setAlert(getAlertByFingerprint(alertID))
     }
-  }, [alerts, alertID])
+  }, [data, alertID])
 
   return (
     <Panel
