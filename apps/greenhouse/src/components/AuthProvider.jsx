@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo, useCallback, useRef } from "react"
+import React, { createContext, useContext, useState, useMemo, useRef } from "react"
 import { oidcSession, mockedSession } from "@cloudoperators/juno-oauth"
 
 const setOrganizationToUrl = (groups) => {
@@ -18,10 +18,9 @@ export const AuthProvider = ({ options, children }) => {
   const [isDemoMode, setIsDemoMode] = useState(false)
   const oidcRef = useRef(null)
 
-  const initializeOidc = useCallback(() => {
+  const initializeOidc = () => {
     if (oidcRef.current) return oidcRef.current
     setIsDemoMode(false)
-
     // extract auth props
     const issuerURL = options?.authIssuerUrl
     const clientID = options?.authClientId
@@ -92,18 +91,18 @@ export const AuthProvider = ({ options, children }) => {
     }
 
     throw new Error("Invalid OIDC configuration")
-  }, [options])
+  }
 
   // Memoized login function
-  const login = useCallback(() => {
+  const login = () => {
     const oidc = initializeOidc()
     if (oidc?.login) {
       oidc.login()
     }
-  }, [initializeOidc])
+  }
 
   // Memoized logout function
-  const logout = useCallback(() => {
+  const logout = () => {
     const oidc = initializeOidc()
     if (oidc?.logout) {
       oidc.logout({
@@ -112,7 +111,7 @@ export const AuthProvider = ({ options, children }) => {
       })
       setAuthData(null)
     }
-  }, [initializeOidc])
+  }
 
   initializeOidc()
 
