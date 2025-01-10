@@ -54,33 +54,55 @@ const SilenceScheduled = () => {
   const [closed, setClosed] = useState(true)
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
-    onMutate: () => {
-      queryClient.cancelQueries("silences")
+    onMutate: async (newSilence) => {
+      await queryClient.cancelQueries(["silences"])
 
-      // const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
+      // Snapshot the previous value for rollback
+      const prevData = queryClient.getQueryData(["silences"])
 
-      // const newSilences = [...silences, newSilence]
+      if (!prevData || !Array.isArray(prevData.silences)) {
+        return { prevData }
+      }
 
-      // setSilences({
-      //   items: newSilences,
-      // })
+      const activeSilence = {
+        ...newSilence.silence,
+        status: {
+          ...newSilence.silence.status,
+          state: constants.SILENCE_ACTIVE,
+        },
+      }
+
+      const newCacheData = Array.isArray(prevData.silences) ? [...prevData.silences, activeSilence] : [newSilence]
+      queryClient.setQueryData(["silences"], {
+        ...prevData,
+        silences: newCacheData,
+      })
+
+      setDisplayNewSilence(false)
+
+      // Return the previous data for possible rollback
+      return { prevData }
     },
 
     onSuccess: (data) => {
-      setClosed(true)
       addMessage({
         variant: "success",
-        text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may take up
-          to 5 minutes for the alert to show up as silenced.`,
+        text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may
+            take up to 5 minutes for the alert to show up as silenced.`,
       })
     },
-    onError: (error) => {
-      // add a error message in UI
-      setError(parseError(error))
-    },
+    onError: (error, context) => {
+      // Rollback to previous data
+      if (context?.prevData) {
+        queryClient.setQueryData(["silences"], context.prevData)
+      }
 
+      addMessage({
+        variant: "error",
+        text: parseError(error),
+      })
+    },
     onSettled: () => {
-      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
       queryClient.invalidateQueries(["silences"])
     },
   })
