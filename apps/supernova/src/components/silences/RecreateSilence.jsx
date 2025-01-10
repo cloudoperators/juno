@@ -25,6 +25,7 @@ import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions } from "./silenceHelpers"
 import { debounce, parseError } from "../../helpers"
 import { useQueryClient } from "@tanstack/react-query"
+import constants from "../../constants"
 
 const validateForm = (values) => {
   const minCommentLength = 3
@@ -103,18 +104,36 @@ const RecreateSilence = (props) => {
   }, [expirationDate])
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
-    onMutate: () => {
-      queryClient.cancelQueries("silences")
+    onMutate: async (newSilence) => {
+      await queryClient.cancelQueries(["silences"])
 
-      // const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
-      // const newSilences = [...silences, newSilence]
+      // Snapshot the previous value for rollback
+      const prevData = queryClient.getQueryData(["silences"])
 
-      // setSilences({
-      //   items: newSilences,
-      // })
+      if (!prevData || !Array.isArray(prevData.silences)) {
+        return { prevData }
+      }
+
+      const activeSilence = {
+        ...newSilence.silence,
+        status: {
+          ...newSilence.silence.status,
+          state: constants.SILENCE_ACTIVE,
+        },
+      }
+
+      const newCacheData = Array.isArray(prevData.silences) ? [...prevData.silences, activeSilence] : [newSilence]
+      queryClient.setQueryData(["silences"], {
+        ...prevData,
+        silences: newCacheData,
+      })
 
       setDisplayNewSilence(false)
+
+      // Return the previous data for possible rollback
+      return { prevData }
     },
+
     onSuccess: (data) => {
       addMessage({
         variant: "success",
@@ -122,14 +141,17 @@ const RecreateSilence = (props) => {
             take up to 5 minutes for the alert to show up as silenced.`,
       })
     },
-    onError: (error) => {
-      // add a error message in UI
+    onError: (error, context) => {
+      // Rollback to previous data
+      if (context?.prevData) {
+        queryClient.setQueryData(["silences"], context.prevData)
+      }
+
       addMessage({
         variant: "error",
         text: parseError(error),
       })
     },
-
     onSettled: () => {
       queryClient.invalidateQueries(["silences"])
     },

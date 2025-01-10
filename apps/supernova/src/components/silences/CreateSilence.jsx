@@ -115,8 +115,6 @@ const CreateSilence = ({ alert, size, variant }) => {
     onMutate: async (newSilence) => {
       await queryClient.cancelQueries(["silences"])
 
-      console.log(newSilence)
-
       // Snapshot the previous value for rollback
       const prevData = queryClient.getQueryData(["silences"])
 
@@ -131,8 +129,6 @@ const CreateSilence = ({ alert, size, variant }) => {
           state: constants.SILENCE_ACTIVE,
         },
       }
-
-      console.log(activeSilence)
 
       const newCacheData = Array.isArray(prevData.silences) ? [...prevData.silences, activeSilence] : [newSilence]
       queryClient.setQueryData(["silences"], {
