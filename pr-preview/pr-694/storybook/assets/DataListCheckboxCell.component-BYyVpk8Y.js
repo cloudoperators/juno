@@ -1,0 +1,81 @@
+import{j as s}from"./jsx-runtime-D6fbYt3N.js";import{r as t}from"./index-DysCNOs_.js";import{P as e}from"./index-BHU3UH5b.js";import{L as ee,F as y}from"./FormHint.component-BiIM_CZV.js";import{I as T}from"./Icon.component-BXxTB2S-.js";import{D as se}from"./DataListCell.component-CgEfEuwj.js";const te=t.createContext(),ne=`
+  jn-inline-flex
+  jn-items-center
+`,ae=`
+  jn-w-4
+  jn-h-4
+  jn-opacity-0
+  jn-z-50
+`,oe=`
+  jn-relative
+  jn-w-4
+  jn-h-4
+  jn-rounded-sm
+  jn-bg-theme-checkbox
+  jn-cursor-pointer
+  focus:jn-outline-none
+  focus:jn-ring-2
+  focus:jn-ring-theme-focus
+`,le=`
+  jn-ring-2
+  jn-ring-theme-focus
+`,ce=`
+  jn-absolute
+  jn-top-0
+  jn-left-0
+  jn-text-theme-checkbox-checked
+  jn-fill-current
+`,ie=`
+  jn-absolute
+  jn-w-2
+  jn-h-0.5
+  jn-top-1.5
+  jn-left-[.2rem]
+  jn-inline-block
+  jn-bg-theme-focus
+`,re=`
+  jn-pointer-events-none
+  jn-opacity-50
+  jn-cursor-not-allowed
+`,de=`
+  jn-border
+  jn-border-transparent
+`,ue=`
+  jn-border
+  jn-border-theme-error
+`,he=`
+  jn-border
+  jn-border-theme-success
+`,fe=`
+  jn-leading-0
+  jn-ml-2
+`,D=`
+  jn-ml-1
+`,g=`
+  jn-mt-0
+  jn-ml-6
+`,C=({checked:o=!1,className:b="",disabled:n=!1,errortext:a="",helptext:r="",id:A="",indeterminate:v=!1,invalid:q=!1,label:j,name:B="",onChange:$,onClick:w,required:H=!1,successtext:l="",valid:N=!1,value:d,..._})=>{const c=i=>!(typeof i=="string"&&i.trim().length===0),z=()=>"juno-checkbox-"+t.useId(),u=t.useContext(te),{selectedOptions:f,name:G,disabled:h,handleCheckboxChange:x,updateSelectedValue:O}=u||{},P=()=>u?!!(f&&f.includes(d)):!!o,[V,I]=t.useState(P()),[M,R]=t.useState(!1),[Y,S]=t.useState(!1),[m,J]=t.useState(!1),[p,K]=t.useState(!1);t.useEffect(()=>{o&&u&&O(d)},[]),t.useEffect(()=>{u||I(o)},[o]);const E=t.useMemo(()=>q||!!(a&&c(a)),[q,a]),F=t.useMemo(()=>N||!!(l&&c(l)),[N,l]);t.useEffect(()=>{R(v)},[v]),t.useEffect(()=>{J(E)},[E]),t.useEffect(()=>{K(F)},[F]);const Q=i=>{I(!V),x&&typeof x=="function"&&x(d),$&&$(i)},U=i=>{w&&w(i)},X=()=>{S(!0)},Z=()=>{S(!1)},k=()=>u?!!(f&&f.includes(d)):V,W=A||z();return s.jsxs("div",{className:"jn-checkbox-outer",children:[s.jsxs("div",{className:`jn-checkbox-wrapper ${ne}`,children:[s.jsxs("div",{className:`
+            juno-checkbox 
+            ${oe} 
+            ${Y?le:""} 
+            ${h||n?re:""} 
+            ${m?ue:""} 
+            ${p?he:""} 
+            ${m||p?"":de}
+            ${b}
+          `,..._,children:[k()?s.jsx("svg",{xmlns:"http://www.w3.org/2000/svg",className:`${ce}`,width:"16",height:"16",viewBox:"0 0 16 16",children:s.jsx("polygon",{points:"5.75 11.15 2.6 8 1.55 9.05 5.75 13.25 14.75 4.25 13.7 3.2"})}):"",s.jsx("input",{checked:k(),className:`
+              ${ae} 
+              ${m?"juno-checkbox-invalid":""} 
+              ${p?"juno-checkbox-valid":""} 
+              ${h||n?"jn-cursor-not-allowed":""}
+            `,disabled:h||n,id:W,name:G||B,onBlur:Z,onChange:Q,onClick:U,onFocus:X,type:"checkbox",value:d}),M&&!k()?s.jsx("div",{className:`${ie}`}):""]}),j&&c(j)?s.jsxs(s.Fragment,{children:[s.jsx(ee,{text:j,htmlFor:W,disabled:h||n,required:H,className:`${fe}`}),m?s.jsx(T,{icon:"dangerous",color:"jn-text-theme-error",size:"1.125rem",className:`
+                  ${D}
+                  ${h||n?"jn-opacity-50":""}
+                `}):"",p?s.jsx(T,{icon:"checkCircle",color:"jn-text-theme-success",size:"1.125rem",className:`
+                  ${D}
+                  ${n?"jn-opacity-50":""}
+                `}):""]}):""]}),a&&c(a)?s.jsx(y,{text:a,variant:"error",className:`${g}`}):"",l&&c(l)?s.jsx(y,{text:l,variant:"success",className:`${g}`}):"",r&&c(r)?s.jsx(y,{text:r,className:`${g}`}):""]})};C.propTypes={checked:e.bool,className:e.string,disabled:e.bool,errortext:e.node,helptext:e.node,id:e.string,indeterminate:e.bool,invalid:e.bool,label:e.string,name:e.string,onChange:e.func,onClick:e.func,required:e.bool,successtext:e.node,valid:e.bool,value:e.string};C.__docgenInfo={description:"",methods:[],displayName:"Checkbox",props:{checked:{defaultValue:{value:"false",computed:!1},description:"Whether the Checkbox is checked",type:{name:"bool"},required:!1},className:{defaultValue:{value:'""',computed:!1},description:"Pass a custom className",type:{name:"string"},required:!1},disabled:{defaultValue:{value:"false",computed:!1},description:"Whether the Checkbox is disabled",type:{name:"bool"},required:!1},errortext:{defaultValue:{value:'""',computed:!1},description:"A text to render when the Checkbox has an error or could not be validated",type:{name:"node"},required:!1},helptext:{defaultValue:{value:'""',computed:!1},description:"A helptext to render to explain meaning and significance of the Checkbox",type:{name:"node"},required:!1},id:{defaultValue:{value:'""',computed:!1},description:"The id of the Radio. An id will be automatically generated if not passed.",type:{name:"string"},required:!1},indeterminate:{defaultValue:{value:"false",computed:!1},description:"Whether the Checkbox is indeterminate. Applicable ONLY if the Checkbox represents multiple child Checkboxes with non--identical checked state.",type:{name:"bool"},required:!1},invalid:{defaultValue:{value:"false",computed:!1},description:"Whether the Checkbox was validated unsuccessfully",type:{name:"bool"},required:!1},name:{defaultValue:{value:'""',computed:!1},description:"The name of the Checkbox",type:{name:"string"},required:!1},required:{defaultValue:{value:"false",computed:!1},description:"Whether the Checkbox is required",type:{name:"bool"},required:!1},successtext:{defaultValue:{value:'""',computed:!1},description:"A text to render when the Checkbox was successfully validated",type:{name:"node"},required:!1},valid:{defaultValue:{value:"false",computed:!1},description:"Whether the Checkbox was successfully validated",type:{name:"bool"},required:!1},label:{description:"The label of the Checkbox",type:{name:"string"},required:!1},onChange:{description:"handler to be executed when the Checkbox changes.",type:{name:"func"},required:!1},onClick:{description:"handler to be executed when the Checkbox is clicked.",type:{name:"func"},required:!1},value:{description:"The value of the Checkbox",type:{name:"string"},required:!1}}};const me=`
+	jn-flex
+	jn-flex-col
+	jn-justify-center
+`,L=({selected:o=!1,disabled:b=!1,onChange:n,className:a="",...r})=>s.jsx(se,{className:`juno-datalist-checkbox-cell ${me} ${a}`,...r,children:s.jsx(C,{disabled:b,checked:o,onChange:n})});L.propTypes={selected:e.bool,disabled:e.bool,className:e.string,onChange:e.func};L.__docgenInfo={description:"",methods:[],displayName:"DataListCheckboxCell",props:{selected:{defaultValue:{value:"false",computed:!1},description:"Whether the item this cell belongs to is selected",type:{name:"bool"},required:!1},disabled:{defaultValue:{value:"false",computed:!1},description:"Whether the item is disabled",type:{name:"bool"},required:!1},className:{defaultValue:{value:'""',computed:!1},description:"Custom classname",type:{name:"string"},required:!1},onChange:{description:"Handler to execute when selected state changes",type:{name:"func"},required:!1}}};export{L as D};
