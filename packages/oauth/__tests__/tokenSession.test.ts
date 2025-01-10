@@ -1,43 +1,20 @@
 import { describe, it, expect, vi, beforeEach } from "vitest"
 import tokenSession, { composeAuthData } from "../src/tokenSession"
-
-// Mock the functions decodeIDToken and parseIdTokenData
-vi.mock("../src/tokenHelpers", async () => {
-  const actual = await vi.importActual("../src/tokenHelpers")
-  return {
-    ...actual,
-    decodeIDToken: vi.fn(() => ({ sub: "12345", name: "Test User", test: "test" })),
-    parseIdTokenData: vi.fn(() => ({ sub: "12345", name: "Test User" })),
-  }
-})
-import { decodeIDToken, parseIdTokenData } from "../src/tokenHelpers"
+import { testIdToken } from "./__utils__/idTokenMock"
+import * as tokenHelpers from "../src/tokenHelpers"
 
 describe("composeAuthData", () => {
-  it("should decode the token and merge with options", () => {
-    const token = "validToken"
-    const options = { role: "admin" }
-    const result = composeAuthData(token, options)
-
-    expect(result).toEqual({
-      authData: {
-        JWT: token,
-        raw: { sub: "12345", name: "Test User", test: "test", role: "admin" },
-        refreshToken: "TOKEN",
-        parsed: { sub: "12345", name: "Test User" },
-      },
-      error: null,
-    })
+  // Cleanup mocks after each test
+  afterEach(() => {
+    vi.restoreAllMocks() // Restores original implementations
   })
 
   it("should handle invalid token gracefully", () => {
-    const invalidToken = "invalidToken"
-    const options = { role: "guest" }
-
-    vi.mocked(decodeIDToken).mockImplementationOnce(() => {
+    vi.spyOn(tokenHelpers, "decodeIDToken").mockImplementation(() => {
       throw new Error("This is not a valid token error message")
     })
 
-    const result = composeAuthData(invalidToken, options)
+    const result = composeAuthData("invalidToken", {})
 
     expect(result).toEqual({
       authData: null,
@@ -45,121 +22,126 @@ describe("composeAuthData", () => {
     })
   })
 
-  it("should handle invalid parse token information gracefully", () => {
-    const invalidToken = "invalidToken"
-    const options = { role: "guest" }
+  it("should decode the token and merge with options", () => {
+    const options = { anySpecialAttribute: "miau" }
+    const result = composeAuthData(testIdToken, options)
 
-    vi.mocked(parseIdTokenData).mockImplementationOnce(() => {
+    expect(result?.authData?.JWT).toEqual(testIdToken)
+    expect(result?.authData?.raw?.anySpecialAttribute).toEqual("miau")
+    expect(result?.authData?.refreshToken).toEqual("TOKEN")
+    expect(result?.authData?.parsed).not.toEqual(null)
+  })
+
+  it("should handle invalid parse token information gracefully", () => {
+    vi.spyOn(tokenHelpers, "parseIdTokenData").mockImplementation(() => {
       throw new Error("Something happened while parsing the token")
     })
 
-    const result = composeAuthData(invalidToken, options)
+    const result = composeAuthData(testIdToken, {})
 
     expect(result).toEqual({
       authData: null,
-      error: new Error("Could not parse token: invalidToken. Something happened while parsing the token"),
+      error: new Error(`Could not parse token: ${testIdToken}. Something happened while parsing the token`),
+    })
+  })
+})
+
+describe("tokenSession", () => {
+  let onUpdateMock: any
+  beforeEach(() => {
+    onUpdateMock = vi.fn()
+  })
+
+  // Cleanup mocks after each test
+  afterEach(() => {
+    vi.restoreAllMocks() // Restores original implementations
+  })
+
+  it("should initialize the session with correct default state", () => {
+    const session = tokenSession({ token: testIdToken, onUpdate: onUpdateMock })
+
+    expect(session.currentState()).toEqual({
+      auth: null,
+      error: null,
+      loggedIn: false,
+      isProcessing: false,
+    })
+    expect(onUpdateMock).not.toHaveBeenCalled()
+  })
+
+  it("should initialize if initialLogin boolean set", () => {
+    const options = { anySpecialAttribute: "miau" }
+    const session = tokenSession({ token: testIdToken, options, initialLogin: true, onUpdate: onUpdateMock })
+
+    expect(onUpdateMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        auth: expect.objectContaining({
+          JWT: testIdToken,
+          raw: expect.objectContaining({ anySpecialAttribute: "miau" }),
+          refreshToken: "TOKEN",
+        }),
+        error: null,
+        loggedIn: true,
+        isProcessing: false,
+      })
+    )
+
+    expect(session.currentState()).toEqual({
+      auth: null,
+      error: null,
+      loggedIn: false,
+      isProcessing: false,
     })
   })
 
-  describe("tokenSession", () => {
-    let onUpdateMock: any
-
-    beforeEach(() => {
-      onUpdateMock = vi.fn()
+  it("should log in and set correctly the state", () => {
+    const { login } = tokenSession({
+      token: testIdToken,
+      onUpdate: onUpdateMock,
     })
-
-    it("should initialize the session with correct default state", () => {
-      const token = "validToken"
-      const session = tokenSession({ token, onUpdate: onUpdateMock })
-
-      expect(session.currentState()).toEqual({
-        auth: null,
-        error: null,
-        loggedIn: false,
-        isProcessing: false,
-      })
-      expect(onUpdateMock).not.toHaveBeenCalled()
-    })
-
-    it("should initialize if initialLogin boolean set", () => {
-      const token = "validToken"
-      const options = { role: "user" }
-
-      const session = tokenSession({ token, options, initialLogin: true, onUpdate: onUpdateMock })
-
-      expect(onUpdateMock).toHaveBeenCalledWith({
-        auth: {
-          JWT: token,
-          raw: { sub: "12345", name: "Test User", test: "test", role: "user" },
+    login()
+    expect(onUpdateMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        auth: expect.objectContaining({
+          JWT: testIdToken,
           refreshToken: "TOKEN",
-          parsed: { sub: "12345", name: "Test User" },
-        },
+        }),
         error: null,
         loggedIn: true,
         isProcessing: false,
       })
+    )
+  })
 
-      expect(session.currentState()).toEqual({
-        auth: null,
-        error: null,
-        loggedIn: false,
-        isProcessing: false,
-      })
+  it("should log out and reset the state", () => {
+    const { logout } = tokenSession({
+      token: testIdToken,
+      onUpdate: onUpdateMock,
+    })
+    logout()
+    expect(onUpdateMock).toHaveBeenCalledWith({
+      auth: null,
+      error: null,
+      loggedIn: false,
+      isProcessing: false,
+    })
+  })
+
+  it("should pass error from composeAuthData to the state", () => {
+    vi.spyOn(tokenHelpers, "decodeIDToken").mockImplementation(() => {
+      throw new Error("This is not a valid token error message")
     })
 
-    it("should log in and set correctly the state", () => {
-      const token = "validToken"
-      const { login } = tokenSession({
-        token: token,
-        onUpdate: onUpdateMock,
-      })
-
-      login()
-      expect(onUpdateMock).toHaveBeenCalledWith({
-        auth: {
-          JWT: token,
-          raw: { sub: "12345", name: "Test User", test: "test" },
-          refreshToken: "TOKEN",
-          parsed: { sub: "12345", name: "Test User" },
-        },
-        error: null,
-        loggedIn: true,
-        isProcessing: false,
-      })
+    const { currentState } = tokenSession({
+      token: "invalidToken",
+      onUpdate: onUpdateMock,
+      initialLogin: true,
     })
-
-    it("should log out and reset the state", () => {
-      const { logout } = tokenSession({
-        token: "validToken",
-        onUpdate: onUpdateMock,
-      })
-
-      logout()
-      expect(onUpdateMock).toHaveBeenCalledWith({
-        auth: null,
-        error: null,
-        loggedIn: false,
-        isProcessing: false,
-      })
-    })
-
-    it("should pass error from composeAuthData to the state", () => {
-      vi.mocked(decodeIDToken).mockImplementationOnce(() => {
-        throw new Error("This is not a valid token error message")
-      })
-
-      const { currentState } = tokenSession({
-        token: "invalidToken",
-        onUpdate: onUpdateMock,
-        initialLogin: true,
-      })
-
-      expect(currentState()).toEqual({
-        auth: null,
-        error: new Error("Could not decode token: invalidToken. This is not a valid token error message"),
-        loggedIn: false,
-        isProcessing: false,
-      })
+    expect(currentState()).toEqual({
+      auth: null,
+      error: new Error("Could not decode token: invalidToken. This is not a valid token error message"),
+      loggedIn: false,
+      isProcessing: false,
     })
   })
 })
