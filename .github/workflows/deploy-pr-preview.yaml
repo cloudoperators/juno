@@ -67,7 +67,7 @@ jobs:
       - name: Install dependencies
         if: github.event.action != 'closed'
         run: |
-          npm install --force
+          npm ci
 
       - name: Create a folder with all compiled apps and pkgs
         if: github.event.action != 'closed'
