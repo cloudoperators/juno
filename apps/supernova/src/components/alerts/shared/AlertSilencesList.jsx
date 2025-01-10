@@ -8,10 +8,19 @@ import { DateTime } from "luxon"
 import constants from "../../../constants"
 import ExpireSilence from "../../silences/ExpireSilence"
 import RecreateSilence from "../../silences/RecreateSilence"
+import { getSilencesForAlert } from "../../../helpers"
 
-import { Badge, DataGrid, DataGridCell, DataGridHeadCell, DataGridRow } from "@cloudoperators/juno-ui-components"
+import {
+  Badge,
+  DataGrid,
+  DataGridCell,
+  DataGridHeadCell,
+  DataGridRow,
+  Stack,
+  Spinner,
+} from "@cloudoperators/juno-ui-components"
 
-import { useSilencesActions } from "../../StoreProvider"
+import { useBoundQuery } from "../../../hooks/useBoundQuery"
 
 const badgeVariant = (state) => {
   switch (state) {
@@ -25,12 +34,30 @@ const badgeVariant = (state) => {
 const AlertSilencesList = ({ alert }) => {
   const dateFormat = { ...DateTime.DATETIME_SHORT }
 
-  const { getSilencesForAlert } = useSilencesActions()
-  let silenceList = getSilencesForAlert(alert)
-
   const formatDateTime = (timestamp) => {
     const time = DateTime.fromISO(timestamp)
     return time.toLocaleString(dateFormat)
+  }
+
+  const { error, data, isLoading } = useBoundQuery("silences")
+
+  const silences = data?.silences || []
+  const silenceList = getSilencesForAlert(alert, silences)
+
+  if (isLoading) {
+    return (
+      <Stack gap="2">
+        <span>Loading</span>
+        <Spinner variant="primary" />
+      </Stack>
+    )
+  }
+
+  if (error) {
+    addMessage({
+      variant: "error",
+      text: parseError(error),
+    })
   }
 
   return (

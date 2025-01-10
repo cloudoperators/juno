@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React from "react"
 
 import {
   Button,
@@ -12,47 +12,18 @@ import {
   DataGridCell,
   DataGridHeadCell,
   DataGridRow,
-  Stack,
-  Spinner,
 } from "@cloudoperators/juno-ui-components"
-import { useAlertsActions, useGlobalsActions, useSilencesActions } from "../StoreProvider"
+import { useAlertsActions, useGlobalsActions } from "../StoreProvider"
 import AlertDescription from "./shared/AlertDescription"
 import AlertSilencesList from "./shared/AlertSilencesList"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
 
 const AlertSilences = ({ alert }) => {
   const { getAlertByFingerprint } = useAlertsActions()
   const { setShowDetailsFor } = useGlobalsActions()
-  const { setSilences } = useSilencesActions()
-
-  // fetch silences
-  const { error, data, isLoading } = useBoundQuery("silences")
-
-  useEffect(() => {
-    if (data) {
-      setSilences({
-        items: data?.silences,
-      })
-    }
-  }, [data])
-
-  if (error) {
-    addMessage({
-      variant: "error",
-      text: parseError(error),
-    })
-  }
 
   return (
     <Container py px={false}>
-      {isLoading ? (
-        <Stack gap="2">
-          <span>Loading</span>
-          <Spinner variant="primary" />
-        </Stack>
-      ) : (
-        <AlertSilencesList alert={alert} />
-      )}
+      <AlertSilencesList alert={alert} />
 
       {alert.status.inhibitedBy.length > 0 && (
         <>
