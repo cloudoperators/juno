@@ -16,6 +16,6 @@
     "allowSyntheticDefaultImports": true,
     "types": ["vitest/globals", "@testing-library/jest-dom", "@types/react"]
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts", "./public/mockServiceWorker.ts"],
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts", "public/mockServiceWorker.js"],
   "exclude": ["node_modules", "build"]
 }
