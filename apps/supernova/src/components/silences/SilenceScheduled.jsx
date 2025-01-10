@@ -29,6 +29,7 @@ import { useQueryClient } from "@tanstack/react-query"
 // import { debounce } from "../../helpers"
 import { DEFAULT_FORM_VALUES, validateForm } from "./silenceScheduledHelpers"
 import { debounce } from "../../helpers"
+import constants from "../../constants"
 
 const SilenceScheduled = () => {
   const user = useGlobalsUsername()
@@ -78,7 +79,7 @@ const SilenceScheduled = () => {
         silences: newCacheData,
       })
 
-      setDisplayNewSilence(false)
+      setClosed(true)
 
       // Return the previous data for possible rollback
       return { prevData }
