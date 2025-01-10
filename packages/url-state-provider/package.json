@@ -39,8 +39,8 @@
     "lz-string": "^1.4.4",
     "typescript": "^5.5.4",
     "vite": "^5.4.8",
-    "vitest": "^2.1.1",
-    "vite-plugin-dts": "^4.0.3"
+    "vite-plugin-dts": "^4.0.3",
+    "vitest": "^2.1.1"
   },
   "babel": {
     "presets": [
@@ -48,6 +48,7 @@
     ]
   },
   "dependencies": {
-    "juri": "^1.0.3"
+    "juri": "^1.0.3",
+    "query-string": "^9.1.1"
   }
 }
