@@ -11,3 +11,8 @@ type LimitedNestedObject = {
 
 export type ObjectToEncode = LimitedNestedObject
 export type DecodedObject = LimitedNestedObject
+
+export type EncodeOptions = {
+  skipEmptyString?: boolean
+  skipNull?: boolean
+}

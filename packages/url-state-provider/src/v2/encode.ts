@@ -4,7 +4,7 @@
  */
 
 import queryString from "query-string"
-import { ObjectToEncode, Primitive } from "./types"
+import { EncodeOptions, ObjectToEncode, Primitive } from "./types"
 
 const isPrimitive = (value: Primitive | Primitive[]) => {
   return (
@@ -42,7 +42,7 @@ const validateObjectToEncode = (object: ObjectToEncode) => {
   return true
 }
 
-const encode = (object: ObjectToEncode) => {
+const encode = (object: ObjectToEncode, options?: EncodeOptions) => {
   if (!validateObjectToEncode(object)) {
     throw new TypeError(`Invalid object to encode`)
   }
@@ -50,6 +50,8 @@ const encode = (object: ObjectToEncode) => {
   return queryString.stringify(object, {
     arrayFormat: "comma",
     sort: false,
+    skipEmptyString: options?.skipEmptyString ?? true,
+    skipNull: options?.skipNull ?? true,
   })
 }
 

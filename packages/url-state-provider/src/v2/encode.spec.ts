@@ -8,7 +8,17 @@ import testCases from "./testCases"
 
 describe("encode", () => {
   it.each(testCases)("[$id] should successfully encode given input", ({ decoded: input, encoded: output }) => {
-    expect(encode(input)).toBe(output)
+    expect(encode(input, { skipEmptyString: false, skipNull: false })).toBe(output)
+  })
+
+  it("should remove empty string and null by default", () => {
+    expect(
+      encode({
+        key: "value",
+        null: null,
+        empty: "",
+      })
+    ).toBe("key=value")
   })
 
   it.each`
