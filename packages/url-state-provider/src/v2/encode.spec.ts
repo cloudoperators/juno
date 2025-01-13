@@ -19,7 +19,8 @@ describe("encode", () => {
     ${"not an object"}                                                              | ${false}
     ${"not an object"}                                                              | ${1}
     ${"not an object"}                                                              | ${"string"}
-    ${"not an object"}                                                              | ${/regexp/}
+    ${"is ab empty object"}                                                         | ${{}}
+    ${"a regular expression"}                                                       | ${/regexp/}
     ${"an array"}                                                                   | ${[1, 2, 3]}
     ${"a valid object but the value of each key does not conform to required type"} | ${{ a: "b", c: { d: "e" } }}
   `("should throw an error when input is $description", ({ input }) => {

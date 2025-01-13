@@ -18,7 +18,14 @@ const isPrimitive = (value: Primitive | Primitive[]) => {
 }
 
 const validateObjectToEncode = (object: ObjectToEncode) => {
-  if (object === null || typeof object !== "object" || object instanceof RegExp || Array.isArray(object)) {
+  if (
+    typeof object === "undefined" ||
+    object === null ||
+    Object.keys(object).length === 0 ||
+    typeof object !== "object" ||
+    object instanceof RegExp ||
+    Array.isArray(object)
+  ) {
     return false
   }
 
