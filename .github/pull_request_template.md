@@ -24,8 +24,10 @@
 
 <!-- Describe the steps needed to test this pull request. -->
 
-1. `npm i`
-2. `npm run TASK`
+1. `npm run clean`
+2. `npm run clean:cache`
+3. `npm i`
+4. `npm run TASK`
 
 # Checklist
 
