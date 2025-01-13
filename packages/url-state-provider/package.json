@@ -49,6 +49,6 @@
   },
   "dependencies": {
     "juri": "^1.0.3",
-    "query-string": "^9.1.1"
+    "query-string": "9.1.1"
   }
 }
