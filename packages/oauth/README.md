@@ -79,9 +79,31 @@ const App = (props = {}) => {
 }
 ```
 
-Certainly! Here's the code description in Markdown format:
+## Token Authentication Session Module
 
-````markdown
+This JavaScript module provides a token-based session management system for a client application. It uses JWT token data to manage login, logout, and session state updates, with the flexibility to extend or override token attributes.
+
+### Token Session (JWT)
+
+The default exported function tokenSession is responsible for creating and managing an authentication session based on the provided JWT token. It takes an object params as an argument, which can include properties like token, onUpdate, options, and additional unknown properties.
+
+The function processes the JWT token to parse and extend it with any provided options. It initializes the session state with properties like `auth`, `error`, `loggedIn`, and `isProcessing`. The session provides methods such as `login` and `logout` to simulate login and logout actions, while `onUpdate` is called with the updated session state.
+
+The function returns an object with methods login, logout, and currentState, allowing the client application to interact with the token-based authentication session.
+
+Here is an example of using the tokenSession function to create an authentication session with a JWT token, options, and an onUpdate callback:
+
+```javascript
+const ts = tokenSession({
+  token: jwtToken,
+  options: {
+    groups: [`organization:${demoOrg}`],
+  },
+  onUpdate: (data) => {
+    saveAuthData(data)
+})
+```
+
 ## Mocked Authentication Session Module
 
 This JavaScript module provides a mocked authentication session for a client application. It simulates the behavior of an authentication mechanism by generating a mock authentication token and handling login, logout, and token refresh actions.
@@ -105,7 +127,12 @@ const DEFAULT_MOCKED_TOKEN = {
   preferred_username: "Jane Doe",
 }
 ```
-````
+
+```javascript
+export default function tokenSession(token, params) {
+  // ... Function implementation
+}
+```
 
 #### Mocked Session
 
