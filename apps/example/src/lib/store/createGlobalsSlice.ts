@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// @ts-expect-error TS(7006): Parameter 'set' implicitly has an 'any' type.
 const createGlobalsSlice = (set, _get) => ({
   globals: {
     endpoint: "",
@@ -12,9 +17,9 @@ const createGlobalsSlice = (set, _get) => ({
     currentPanel: null,
 
     actions: {
-      setEndpoint: (newEndpoint) =>
+      setEndpoint: (newEndpoint: any) =>
         set(
-          (state) => ({
+          (state: any) => ({
             globals: {
               ...state.globals,
               endpoint: newEndpoint,
@@ -23,9 +28,9 @@ const createGlobalsSlice = (set, _get) => ({
           false,
           "globals.setEndpoint"
         ),
-      setTabIndex: (newTabIndex) =>
+      setTabIndex: (newTabIndex: any) =>
         set(
-          (state) => ({
+          (state: any) => ({
             globals: {
               ...state.globals,
               tabIndex: newTabIndex,
@@ -34,9 +39,9 @@ const createGlobalsSlice = (set, _get) => ({
           false,
           "globals.setTabIndex"
         ),
-      setCurrentModal: (newModal) =>
+      setCurrentModal: (newModal: any) =>
         set(
-          (state) => ({
+          (state: any) => ({
             globals: {
               ...state.globals,
               currentModal: newModal,
@@ -45,9 +50,9 @@ const createGlobalsSlice = (set, _get) => ({
           false,
           "globals.setCurrentModal"
         ),
-      setCurrentPanel: (newPanel) =>
+      setCurrentPanel: (newPanel: any) =>
         set(
-          (state) => ({
+          (state: any) => ({
             globals: {
               ...state.globals,
               currentPanel: newPanel,
@@ -56,9 +61,9 @@ const createGlobalsSlice = (set, _get) => ({
           false,
           "globals.setCurrentPanel"
         ),
-      setQueryClientFnReady: (readiness) =>
+      setQueryClientFnReady: (readiness: any) =>
         set(
-          (state) => ({
+          (state: any) => ({
             globals: {
               ...state.globals,
               queryClientFnReady: readiness,

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import junoConfigs from "@cloudoperators/juno-config/eslint/juno.mjs"
+import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 
 export default [
   ...junoConfigs,
@@ -12,6 +12,6 @@ export default [
     languageOptions: { sourceType: "module" },
   },
   {
-    ignores: ["setupTests.js"],
+    ignores: ["setupTests.js", "appProps.template.ts"],
   },
 ]

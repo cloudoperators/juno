@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
@@ -17,7 +20,7 @@ const TAB_INDEX = "t"
 const CURRENT_PANEL = "p"
 const CURRENT_MODAL = "m"
 
-const useUrlState = (key) => {
+const useUrlState = (key: any) => {
   const [isURLRead, setIsURLRead] = useState(false)
   // it is possible to have two apps instances on the same page
   // int his case the key should be different per app
@@ -27,6 +30,7 @@ const useUrlState = (key) => {
   const loggedIn = true // this state is faked for the example app so we don't need to login
 
   // globals
+  // @ts-ignore
   const { setTabIndex, setCurrentPanel, setCurrentModal } = useGlobalsActions()
   const tabIndex = useGlobalsTabIndex()
   const currentPanel = useGlobalsCurrentPanel()
