@@ -324,3 +324,5 @@ export {
   decode,
   encode,
 }
+
+export { encode as encodeV2, decode as decodeV2 } from "./v2"
