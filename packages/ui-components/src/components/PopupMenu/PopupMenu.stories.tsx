@@ -45,10 +45,16 @@ const StyledToggleButton = React.forwardRef<HTMLButtonElement, ButtonProps>((pro
   const { isOpen } = usePopupMenuContext()
   const { className, ...rest } = props
 
+  const openStyles = `
+    jn-bg-theme-accent
+    jn-text-theme-highest
+  `
+
   return (
     <Button
       ref={ref}
-      className={`toggle-button ${isOpen ? "toggle-button-open" : "toggle-button-closed"} ${className || ""}`}
+      className={`toggle-button ${isOpen ? `${openStyles} toggle-button-open` : "toggle-button-closed"} ${className || ""}`}
+      //style={isOpen ? { "background-color": "green" } : {}}
       {...rest} // Forward all other props like onClick, aria-expanded, etc.
     >
       {props.children || "Toggle Me!"}
