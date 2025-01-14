@@ -7,14 +7,14 @@ import { parseIdTokenData, decodeIDToken } from "./tokenHelpers"
 
 interface AuthData {
   JWT: string
-  raw: Record<string, any>
+  raw: Record<string, unknown>
   refreshToken: string
-  parsed: any // Adjust this type as per the return type of parseIdTokenData
+  parsed: ReturnType<typeof parseIdTokenData>
 }
 
 export const composeAuthData = (token: string, options: any): { authData: AuthData | null; error: Error | null } => {
-  let tokenData = {}
-  let parsedData = {}
+  let tokenData: Record<string, unknown> = {}
+  let parsedData: unknown = {}
 
   try {
     tokenData = decodeIDToken(token)
