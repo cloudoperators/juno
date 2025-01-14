@@ -1,5 +1,20 @@
 # @cloudoperators/juno-ui-components
 
+## 2.35.2
+
+### Patch Changes
+
+- 6f6b742: Fix warnings in tests
+- 212e32b: Fix errors in DateTimePicker
+- 2191270: Migrate storybook to vite
+
+## 2.35.1
+
+### Patch Changes
+
+- baccd3c: Import components styles manually in global.scss
+- 2826334: Reintroduce Modal component stories removed during TypeScript migration
+
 ## 2.35.0
 
 ### Minor Changes

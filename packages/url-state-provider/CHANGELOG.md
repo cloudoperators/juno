@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 2.2.0
+
+### Minor Changes
+
+- 2ef6e25: Exports new `encodeV2` and `decodeV2` utilities to encode js object to url query parameters in a standard way as well as to decode query parameters back to javascript object.
+
 ## 2.1.0
 
 ### Minor Changes
