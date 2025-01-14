@@ -77,7 +77,26 @@ export const Default = {
     docs: {
       description: {
         story:
-          "When no `<PopupMenu.Menu>` child is passed, the component will render but there will be no visible menu unless passed.OnOpen and onCliose handlers will be run though.",
+          "When no `<PopupMenu.Menu>` child is passed, the component will render but there will be no visible menu unless passed. This story only adds a simple placeholder for the menu for illustrational purposes. OnOpen and onClose handlers will be run though, even if no PopupMenu.Menu is passed.",
+      },
+    },
+  },
+  args: {
+    ...actions("onOpen", "onClose"),
+    children: (
+      <PopupMenu.Menu>
+        <p>Menu goes here.</p>
+      </PopupMenu.Menu>
+    ),
+  },
+}
+
+export const NoMenu = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "This story has no `PopupMenu.Menu` passed. The component should still render without any errors, and `onOpen` and `onClose` should be run regardless.",
       },
     },
   },
