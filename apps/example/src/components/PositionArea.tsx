@@ -3,25 +3,32 @@ import PropTypes from "prop-types"
 import { Radio, RadioGroup, TextInput } from "@cloudoperators/juno-ui-components"
 
 /** A container component to test positioning and alignment behaviour of components */
-const PositionArea = ({ children = null, className = "", ...props }) => {
-  const [height, setHeight] = useState("20rem")
-  const [direction, setDirection] = useState("row")
-  const [justifyContent, setJustifyContent] = useState("start")
-  const [alignItems, setAlignItems] = useState("start")
+const PositionArea = ({
+  children = null,
+  className = "",
+  ...props
+}: {
+  children?: React.ReactNode
+  className?: string
+}) => {
+  const [height, setHeight] = useState<string>("20rem")
+  const [direction, setDirection] = useState<string>("row")
+  const [justifyContent, setJustifyContent] = useState<string>("start")
+  const [alignItems, setAlignItems] = useState<string>("start")
 
-  const handleHeightChange = (event) => {
+  const handleHeightChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setHeight(event.target.value)
   }
 
-  const handleDirectionChange = (dir) => {
+  const handleDirectionChange = (dir: string) => {
     setDirection(dir)
   }
 
-  const handleMainAxisChange = (jc) => {
+  const handleMainAxisChange = (jc: string) => {
     setJustifyContent(jc)
   }
 
-  const handleCrossAxisChange = (ai) => {
+  const handleCrossAxisChange = (ai: string) => {
     setAlignItems(ai)
   }
 
@@ -61,9 +68,9 @@ const PositionArea = ({ children = null, className = "", ...props }) => {
         className={`positionarea-inner flex jn-bg-theme-background-lvl-2 jn-border-theme-background-lvl-3 ${className}`}
         style={{
           height: height,
-          "flex-direction": direction,
-          "justify-content": justifyContent,
-          "align-items": alignItems,
+          flexDirection: direction,
+          justifyContent: justifyContent,
+          alignItems: alignItems,
         }}
       >
         {children}
