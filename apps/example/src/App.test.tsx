@@ -12,14 +12,16 @@ import { screen } from "shadow-dom-testing-library"
 // Mock the styles
 vi.mock("./styles.module.scss", () => ({
   default: new Proxy(new Object(), {
+    // @ts-ignore
     toString() {
       return "/*TEST STYLES*/"
     },
   }),
 }))
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 describe("App", () => {
-  it("should render the App component", async () => {
+  it("should render the App component", () => {
     render(<App id="123" />)
     const loginTitle = screen.queryAllByShadowText(/Converged Cloud/i)
     expect(loginTitle.length > 0).toBe(true)

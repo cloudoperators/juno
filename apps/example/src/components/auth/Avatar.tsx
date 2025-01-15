@@ -15,7 +15,7 @@ rounded-full
 bg-cover 
 `
 
-const Avatar = ({ userName, url }) => {
+const Avatar = ({ userName, url }: any) => {
   return (
     <Stack alignment="center">
       {url && (

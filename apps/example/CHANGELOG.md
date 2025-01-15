@@ -1,5 +1,23 @@
 # @cloudoperators/juno-app-example
 
+## 1.1.0
+
+### Minor Changes
+
+- d37dce4: Migrate example app to Typescript
+
+### Patch Changes
+
+- Updated dependencies [89ffdc7]
+- Updated dependencies [6f6b742]
+- Updated dependencies [212e32b]
+- Updated dependencies [2ef6e25]
+- Updated dependencies [2191270]
+- Updated dependencies [f851032]
+  - @cloudoperators/juno-oauth@1.4.0
+  - @cloudoperators/juno-ui-components@2.35.2
+  - @cloudoperators/juno-url-state-provider@2.2.0
+
 ## 1.0.13
 
 ### Patch Changes

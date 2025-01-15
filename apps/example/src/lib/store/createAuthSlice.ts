@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
@@ -8,6 +11,7 @@ export const AUTH_ACTIONS = {
   SIGN_OUT: "signOut",
 }
 
+// @ts-expect-error TS(7006): Parameter 'set' implicitly has an 'any' type.
 const createAuthSlice = (set, _get) => ({
   auth: {
     data: null,
@@ -16,10 +20,10 @@ const createAuthSlice = (set, _get) => ({
     error: null,
     lastAction: {},
     actions: {
-      setData: (data) => {
+      setData: (data: any) => {
         if (!data) return
         set(
-          (state) => ({
+          (state: any) => ({
             auth: {
               ...state.auth,
               isProcessing: data?.isProcessing,
