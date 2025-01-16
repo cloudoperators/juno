@@ -15,12 +15,13 @@ import {
   useEndlessScrollList,
 } from "@cloudoperators/juno-ui-components"
 import Alert from "./Alert"
-import { useAlertsItemsFiltered } from "../StoreProvider"
+import { useAlertsQuery } from "../../hooks/useAlertsQuery"
 
 const AlertsList = () => {
-  const itemsFiltered = useAlertsItemsFiltered()
+  const { filteredItems } = useAlertsQuery()
+  console.log("sdfasfd", filteredItems)
 
-  const { scrollListItems, iterator } = useEndlessScrollList(itemsFiltered, {
+  const { scrollListItems, iterator } = useEndlessScrollList(filteredItems, {
     loadingObject: (
       <DataGridRow>
         <DataGridCell colSpan={3}>
