@@ -20,7 +20,7 @@ import {
 import constants from "../../constants"
 import { useSilencesActions, useSilencesRegEx, useSilencesStatus } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
-import { useBoundQuery } from "../../hooks/useSilencesQuery"
+import { useSilencesQuery } from "../../hooks/useSilencesQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 
@@ -37,7 +37,7 @@ const SilencesList = () => {
   const { setSilencesStatus, setSilencesRegEx } = useSilencesActions()
   const { addMessage } = useActions()
 
-  const { data, isLoading, error } = useBoundQuery("silences")
+  const { data, isLoading, error } = useSilencesQuery("silences")
 
   if (error) {
     addMessage({

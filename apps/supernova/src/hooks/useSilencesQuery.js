@@ -8,7 +8,7 @@ import { useGlobalsApiEndpoint } from "../components/StoreProvider"
 
 import { fetchSilences } from "../api/silences"
 
-export const useBoundQuery = (key, { options = {} } = {}) => {
+export const useSilencesQuery = (key, { options = {} } = {}) => {
   const queryClient = useQueryClient()
   const endpoint = useGlobalsApiEndpoint()
 

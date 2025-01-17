@@ -20,7 +20,7 @@ import {
   Spinner,
 } from "@cloudoperators/juno-ui-components"
 
-import { useBoundQuery } from "../../../hooks/useSilencesQuery"
+import { useSilencesQuery } from "../../../hooks/useSilencesQuery"
 
 const badgeVariant = (state) => {
   switch (state) {
@@ -39,7 +39,7 @@ const AlertSilencesList = ({ alert }) => {
     return time.toLocaleString(dateFormat)
   }
 
-  const { error, data, isLoading } = useBoundQuery("silences")
+  const { error, data, isLoading } = useSilencesQuery()
 
   const silences = data?.silences || []
   const silenceList = getSilencesForAlert(alert, silences)
