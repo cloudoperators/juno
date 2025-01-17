@@ -4,8 +4,6 @@
  */
 
 import React from "react"
-
-import { useAlertsRegionsFiltered, useAlertsSeverityCountsPerRegion } from "../StoreProvider"
 import Region from "./Region"
 import { useAlertsQuery } from "../../hooks/useAlertsQuery"
 
@@ -18,9 +16,7 @@ const regionsClasses = `
 `
 
 const RegionsList = () => {
-  const { isLoading } = useAlertsQuery()
-  const severityCountsPerRegion = useAlertsSeverityCountsPerRegion()
-  const regions = useAlertsRegionsFiltered()
+  const { isLoading, severityCountsPerRegion, regions } = useAlertsQuery()
 
   return (
     <>

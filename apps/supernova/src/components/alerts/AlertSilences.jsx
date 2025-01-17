@@ -13,13 +13,15 @@ import {
   DataGridHeadCell,
   DataGridRow,
 } from "@cloudoperators/juno-ui-components"
-import { useAlertsActions, useGlobalsActions } from "../StoreProvider"
+import { useGlobalsActions } from "../StoreProvider"
 import AlertDescription from "./shared/AlertDescription"
 import AlertSilencesList from "./shared/AlertSilencesList"
+import { getAlertByFingerprint } from "../../helpers"
+import { useAlertsQuery } from "../../hooks/useAlertsQuery"
 
 const AlertSilences = ({ alert }) => {
-  const { getAlertByFingerprint } = useAlertsActions()
   const { setShowDetailsFor } = useGlobalsActions()
+  const { data } = useAlertsQuery()
 
   return (
     <Container py px={false}>
@@ -36,8 +38,8 @@ const AlertSilences = ({ alert }) => {
             {alert.status.inhibitedBy.map((fingerprint) => (
               <DataGridRow key={fingerprint}>
                 <DataGridCell>
-                  <div>{getAlertByFingerprint(fingerprint)?.annotations?.summary}</div>
-                  <AlertDescription description={getAlertByFingerprint(fingerprint)?.annotations?.description} />
+                  <div>{getAlertByFingerprint(fingerprint, data)?.annotations?.summary}</div>
+                  <AlertDescription description={getAlertByFingerprint(fingerprint, data)?.annotations?.description} />
                 </DataGridCell>
                 <DataGridCell>
                   <Button size="small" onClick={() => setShowDetailsFor(fingerprint)} icon="exitToApp">

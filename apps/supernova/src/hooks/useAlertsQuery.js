@@ -35,7 +35,7 @@ export const useAlertsQuery = () => {
   // cache data for optimistic updates
   queryClient.setQueryData("alerts", data)
 
-  const { originalItems, filteredItems, counts } = useMemo(() => {
+  const { originalItems, filteredItems, counts, regions, updatedAt } = useMemo(() => {
     if (!data) return { originalItems: [], filteredItems: [], counts: {} }
 
     const { alerts } = data
@@ -66,31 +66,22 @@ export const useAlertsQuery = () => {
 
     // Count logic
     const counts = countAlerts(filtered)
+    const regions = Object.keys(counts?.regions).sort()
+    const updatedAt = Date.now()
 
-    return { originalItems: alerts, filteredItems: filtered, counts }
+    return { originalItems: alerts, filteredItems: filtered, counts, regions, updatedAt }
   }, [data, filters, predefinedFilter, searchTerm])
 
   return {
     data: originalItems,
     filteredItems,
-    counts,
+    totalCounts: counts?.global,
+    severityCountsPerRegion: counts?.regions,
+    regions: regions,
+    regionsFiltered: filteredItems?.regions,
     isLoading,
     error,
     setSearchTerm,
+    updatedAt: updatedAt,
   }
 }
-
-/*
-  return useQuery({
-    queryKey: [key],
-    queryFn: async () => {
-      const data = await fetchAlerts(endpoint)
-
-      // Update the cache
-      queryClient.setQueryData("alerts", data)
-
-      return data
-    },
-    ...options, // Include any additional options like staleTime, retry, etc.
-  }) 
-} */

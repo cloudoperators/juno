@@ -22,7 +22,7 @@ import {
   Tab,
   TabPanel,
 } from "@cloudoperators/juno-ui-components"
-import { useShowDetailsFor, useGlobalsActions, useAlertsActions } from "../StoreProvider"
+import { useShowDetailsFor, useGlobalsActions } from "../StoreProvider"
 import AlertIcon from "./shared/AlertIcon"
 import AlertTimestamp from "./shared/AlertTimestamp"
 import AlertDescription from "./shared/AlertDescription"
@@ -34,10 +34,10 @@ import AlertRegion from "./shared/AlertRegion"
 import AlertSilences from "./AlertSilences"
 import { Messages } from "@cloudoperators/juno-messages-provider"
 import { useAlertsQuery } from "../../hooks/useAlertsQuery"
+import { getAlertByFingerprint } from "../../helpers"
 const AlertDetail = () => {
   const alertID = useShowDetailsFor()
   const { setShowDetailsFor } = useGlobalsActions()
-  const { getAlertByFingerprint } = useAlertsActions()
   const [alert, setAlert] = useState(null)
 
   const onPanelClose = () => {
@@ -47,9 +47,10 @@ const AlertDetail = () => {
   const { data, isLoading } = useAlertsQuery()
 
   useEffect(() => {
+    console.log("sdfsdff", data)
     // wait for the alerts to be loaded
-    if (data?.alerts?.length > 0) {
-      setAlert(getAlertByFingerprint(alertID))
+    if (data?.length > 0) {
+      setAlert(getAlertByFingerprint(alertID, data))
     }
   }, [data, alertID])
 

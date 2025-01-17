@@ -5,6 +5,8 @@
 
 import { useSilencesExcludedLabels } from "./components/StoreProvider"
 import { useAlertEnrichedLabels } from "./components/StoreProvider"
+import { useAlertsQuery } from "./hooks/useAlertsQuery"
+
 export const parseError = (error) => {
   // check if error is JSON containing message or just string
   if (typeof error === "string") {
@@ -82,4 +84,8 @@ export const getSilencesForAlert = (alert, silences) => {
       return regex.test(alertLabelValue)
     })
   })
+}
+
+export const getAlertByFingerprint = (fingerprint, data) => {
+  return data.find((alert) => alert.fingerprint === fingerprint)
 }
