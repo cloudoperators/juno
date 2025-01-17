@@ -3,14 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { produce } from "immer"
-import { countAlerts } from "./utils"
-
 const initialAlertsState = {
   enrichedLabels: ["status"], // labels that are enriched by the alert worker
 }
 
-const createAlertsSlice = (set, get) => ({
+const createAlertsSlice = () => ({
   alerts: {
     ...initialAlertsState,
     actions: {

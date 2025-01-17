@@ -5,7 +5,6 @@
 
 import { useSilencesExcludedLabels } from "./components/StoreProvider"
 import { useAlertEnrichedLabels } from "./components/StoreProvider"
-import { useAlertsQuery } from "./hooks/useAlertsQuery"
 
 export const parseError = (error) => {
   // check if error is JSON containing message or just string
