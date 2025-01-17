@@ -33,7 +33,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { debounce } from "../../helpers"
 import constants from "../../constants"
 
-import { useBoundMutation } from "../../hooks/useBoundMutation"
+import { useSilenceMutation } from "../../hooks/useSilenceMutation"
 
 const validateForm = (values) => {
   const minCommentLength = 3
@@ -111,7 +111,7 @@ const CreateSilence = ({ alert, size, variant }) => {
     return options.items
   }, [expirationDate])
 
-  const { mutate: createSilence } = useBoundMutation("createSilences", {
+  const { mutate: createSilence } = useSilenceMutation("createSilences", {
     onMutate: async (newSilence) => {
       await queryClient.cancelQueries(["silences"])
 

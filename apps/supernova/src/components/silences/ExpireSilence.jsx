@@ -7,7 +7,7 @@ import React, { useState } from "react"
 import { Button, Modal } from "@cloudoperators/juno-ui-components"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
-import { useBoundMutation } from "../../hooks/useBoundMutation"
+import { useSilenceMutation } from "../../hooks/useSilenceMutation"
 import { useQueryClient } from "@tanstack/react-query"
 import { debounce } from "../../helpers"
 import constants from "../../constants"
@@ -17,7 +17,7 @@ const ExpireSilence = (props) => {
   const silence = props.silence
   const [confirmationDialog, setConfirmationDialog] = useState(false)
   const queryClient = useQueryClient()
-  const { mutate: deleteSilences } = useBoundMutation("deleteSilences", {
+  const { mutate: deleteSilences } = useSilenceMutation("deleteSilences", {
     onMutate: async (deletedSilence) => {
       await queryClient.cancelQueries(["silences"])
 

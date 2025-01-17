@@ -1,9 +1,8 @@
-// useBoundMutation.js
 import { useMutation } from "@tanstack/react-query"
 import { MUTATION_FUNCTIONS } from "../api/mutationFunctions"
 import { useGlobalsApiEndpoint } from "../components/StoreProvider"
 
-export const useBoundMutation = (key, options = {}) => {
+export const useSilenceMutation = (key, options = {}) => {
   const endpoint = useGlobalsApiEndpoint()
 
   const mutationFn = MUTATION_FUNCTIONS[key]

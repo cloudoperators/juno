@@ -47,7 +47,6 @@ const AlertDetail = () => {
   const { data, isLoading } = useAlertsQuery()
 
   useEffect(() => {
-    console.log("sdfsdff", data)
     // wait for the alerts to be loaded
     if (data?.length > 0) {
       setAlert(getAlertByFingerprint(alertID, data))

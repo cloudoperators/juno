@@ -3,32 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const fetchSilences = async (endpoint) => {
-  try {
-    const response = await fetch(`${endpoint}/silences`)
-
-    if (!response.ok) {
-      // Parse the error object from the response body
-      const errorObject = await response.json().catch(() => {
-        throw new Error(`Unexpected error: Unable to parse error response.`)
-      })
-
-      // Throw the error object directly
-      throw errorObject
-    }
-
-    const items = await response.json() // Parse JSON data
-
-    // Return the structured result
-    return {
-      silences: items,
-    }
-  } catch (error) {
-    console.error(error)
-    throw error // Let React Query handle the error
-  }
-}
-
 export const deleteSilences = async (variables) => {
   try {
     const response = await fetch(`${variables.endpoint}/silence/${variables.id}`, {

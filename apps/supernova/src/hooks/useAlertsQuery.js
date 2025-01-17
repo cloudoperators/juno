@@ -12,8 +12,7 @@ import {
   useFilterActions,
 } from "../components/StoreProvider"
 import { useMemo } from "react"
-import { fetchAlerts } from "../api/alerts"
-import { countAlerts } from "../lib/utils"
+import { countAlerts, sortAlerts } from "../lib/utils"
 
 export const useAlertsQuery = () => {
   const queryClient = useQueryClient()
@@ -83,5 +82,52 @@ export const useAlertsQuery = () => {
     error,
     setSearchTerm,
     updatedAt: updatedAt,
+  }
+}
+
+const fetchAlerts = async (endpoint) => {
+  let compareAlertString
+  try {
+    const response = await fetch(`${endpoint}/alerts`)
+
+    if (!response.ok) {
+      // Parse the error object from the response body
+      const errorObject = await response.json().catch(() => {
+        throw new Error(`Unexpected error: Unable to parse error response.`)
+      })
+
+      // Throw the error object directly
+      throw errorObject
+    }
+
+    const items = await response.json() // Parse JSON data
+
+    let alerts = sortAlerts(items)
+
+    // copy additional filter options to labels for easier filter selection
+    // because the alert object is nested this makes it a lot easier to filter, since we only use what is present in alert.labels
+    alerts.forEach((alert) => {
+      if (alert.labels) {
+        alert.labels.status = alert.status?.state
+      }
+    })
+
+    // check if new loaded alerts are different from the last response
+    const newCompareString = JSON.stringify(alerts)
+    if (compareAlertString !== newCompareString) {
+      compareAlertString = newCompareString
+
+      // inform listener to receive new alerts
+      return {
+        alerts: alerts,
+        counts: countAlerts(alerts),
+      }
+    } else {
+      // return null when nothing new
+      return null
+    }
+  } catch (error) {
+    console.error(error)
+    throw error // Let React Query handle the error
   }
 }

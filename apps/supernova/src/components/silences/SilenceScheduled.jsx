@@ -24,7 +24,7 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import { useGlobalsUsername, useSilenceTemplates } from "../StoreProvider"
 import { parseError } from "../../helpers"
-import { useBoundMutation } from "../../hooks/useBoundMutation"
+import { useSilenceMutation } from "../../hooks/useSilenceMutation"
 import { useQueryClient } from "@tanstack/react-query"
 // import { debounce } from "../../helpers"
 import { DEFAULT_FORM_VALUES, validateForm } from "./silenceScheduledHelpers"
@@ -54,7 +54,7 @@ const SilenceScheduled = () => {
 
   const [closed, setClosed] = useState(true)
 
-  const { mutate: createSilence } = useBoundMutation("createSilences", {
+  const { mutate: createSilence } = useSilenceMutation("createSilences", {
     onMutate: async (newSilence) => {
       await queryClient.cancelQueries(["silences"])
 

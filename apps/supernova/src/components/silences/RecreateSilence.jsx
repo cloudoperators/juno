@@ -17,7 +17,7 @@ import {
   Pill,
   Stack,
 } from "@cloudoperators/juno-ui-components"
-import { useBoundMutation } from "../../hooks/useBoundMutation"
+import { useSilenceMutation } from "../../hooks/useSilenceMutation"
 import { useGlobalsUsername } from "../StoreProvider"
 
 import { useActions } from "@cloudoperators/juno-messages-provider"
@@ -103,7 +103,7 @@ const RecreateSilence = (props) => {
     return options.items
   }, [expirationDate])
 
-  const { mutate: createSilence } = useBoundMutation("createSilences", {
+  const { mutate: createSilence } = useSilenceMutation("createSilences", {
     onMutate: async (newSilence) => {
       await queryClient.cancelQueries(["silences"])
 
