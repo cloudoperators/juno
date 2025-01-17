@@ -19,7 +19,6 @@ import { useAlertsQuery } from "../../hooks/useAlertsQuery"
 
 const AlertsList = () => {
   const { filteredItems } = useAlertsQuery()
-  console.log("sdfasfd", filteredItems)
 
   const { scrollListItems, iterator } = useEndlessScrollList(filteredItems, {
     loadingObject: (

@@ -33,8 +33,7 @@ import AlertStatus from "./AlertStatus"
 import AlertRegion from "./shared/AlertRegion"
 import AlertSilences from "./AlertSilences"
 import { Messages } from "@cloudoperators/juno-messages-provider"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
-
+import { useAlertsQuery } from "../../hooks/useAlertsQuery"
 const AlertDetail = () => {
   const alertID = useShowDetailsFor()
   const { setShowDetailsFor } = useGlobalsActions()
@@ -45,7 +44,8 @@ const AlertDetail = () => {
     setShowDetailsFor(null)
   }
 
-  const { data, isLoading } = useBoundQuery("alerts")
+  const { data, isLoading } = useAlertsQuery()
+
   useEffect(() => {
     // wait for the alerts to be loaded
     if (data?.alerts?.length > 0) {

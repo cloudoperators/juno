@@ -20,7 +20,7 @@ import {
 import constants from "../../constants"
 import { useSilencesActions, useSilencesRegEx, useSilencesStatus } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { useBoundQuery } from "../../hooks/useSilencesQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 

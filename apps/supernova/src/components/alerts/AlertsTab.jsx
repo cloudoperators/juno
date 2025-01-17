@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { useAlertsQuery } from "../../hooks/useAlertsQuery"
 import AlertsList from "./AlertsList"
 import StatusBar from "../status/StatusBar"
 import Filters from "../filters/Filters"
@@ -12,22 +12,17 @@ import { parseError } from "../../helpers"
 const AlertsTab = () => {
   const totalCounts = useAlertsTotalCounts()
   const updatedAt = useAlertsUpdatedAt()
-  const { setAlertsData } = useAlertsActions()
   const { addMessage } = useActions()
 
   // Fetch alerts data
-  const { data, isLoading, error } = useBoundQuery("alerts")
+  const { isLoading, error } = useAlertsQuery()
+
   if (error) {
     addMessage({
       variant: "error",
       text: parseError(error),
     })
   }
-  useEffect(() => {
-    if (data?.alerts && Array.isArray(data?.alerts)) {
-      setAlertsData({ items: data.alerts, counts: data.counts })
-    }
-  }, [data])
 
   return (
     <>

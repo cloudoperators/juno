@@ -4,25 +4,25 @@
  */
 
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { QUERY_FUNCTIONS } from "../api/queryFunctions"
 import { useGlobalsApiEndpoint } from "../components/StoreProvider"
+
+import { fetchSilences } from "../api/silences"
 
 export const useBoundQuery = (key, { options = {} } = {}) => {
   const queryClient = useQueryClient()
   const endpoint = useGlobalsApiEndpoint()
-  const fetchFunction = QUERY_FUNCTIONS[key]
 
-  if (!fetchFunction) {
+  if (!fetchSilences) {
     throw new Error(`No fetch function mapped for key: ${key}`)
   }
 
   return useQuery({
-    queryKey: [key],
+    queryKey: ["silences"],
     queryFn: async () => {
-      const data = await fetchFunction(endpoint)
+      const data = await fetchSilences(endpoint)
 
       // Update the cache
-      queryClient.setQueryData([key], data)
+      queryClient.setQueryData(["silences"], data)
 
       return data
     },

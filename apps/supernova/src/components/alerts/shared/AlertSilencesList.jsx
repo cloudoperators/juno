@@ -20,7 +20,7 @@ import {
   Spinner,
 } from "@cloudoperators/juno-ui-components"
 
-import { useBoundQuery } from "../../../hooks/useBoundQuery"
+import { useBoundQuery } from "../../../hooks/useSilencesQuery"
 
 const badgeVariant = (state) => {
   switch (state) {
