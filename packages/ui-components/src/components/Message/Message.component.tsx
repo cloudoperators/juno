@@ -198,7 +198,7 @@ export const Message: React.FC<MessageProps> = ({
   dismissible = false,
   autoDismiss = false,
   autoDismissTimeout = 10000,
-  onDismiss,
+  onDismiss = () => {},
   className = "",
   ...props
 }) => {
@@ -207,7 +207,9 @@ export const Message: React.FC<MessageProps> = ({
   const { text, children } = props
   const hideMessage = () => {
     setVisible(false)
-    onDismiss && onDismiss()
+    if (onDismiss) {
+      onDismiss()
+    }
   }
 
   useEffect(() => {
