@@ -10,7 +10,7 @@ import AppContent from "./components/AppContent/AppContent"
 import ErrorBoundary from "./components/ErrorBoundary"
 
 type AppProps = {
-  theme?: string
+  theme?: "theme-dark" | "theme-light"
   embedded?: string | boolean
 }
 
