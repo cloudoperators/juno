@@ -63,7 +63,7 @@ export const DataGrid: React.FC<DataGridProps> = ({
   gridColumnTemplate,
   cellVerticalAlignment = "center",
   className = "",
-  children = null,
+  children,
   ...props
 }) => {
   const dataGridConf = {

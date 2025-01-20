@@ -19,7 +19,7 @@ const portalStyles: React.CSSProperties = {
  *   </PortalProvider.Portal>
  *  ```
  */
-export const Portal = ({ children = null }: PortalProviderPortalProps) => {
+export const Portal = ({ children }: PortalProviderPortalProps) => {
   const rootRef = useContext(PortalContext)
   const [isMounted, setIsMounted] = useState(false)
 

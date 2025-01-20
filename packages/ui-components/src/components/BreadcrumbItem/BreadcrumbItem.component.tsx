@@ -66,7 +66,7 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
   label = "Item",
   ariaLabel = "",
   active = false,
-  children = null,
+  children,
   disabled = false,
   onClick,
   className = "",

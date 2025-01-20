@@ -30,7 +30,7 @@ Can alternatively render all custom children as passed.
 */
 
 export const ModalFooter: React.FC<ModalFooterProps> = ({
-  children = null,
+  children,
   confirmButtonLabel = "",
   cancelButtonLabel = "",
   confirmButtonIcon = null,

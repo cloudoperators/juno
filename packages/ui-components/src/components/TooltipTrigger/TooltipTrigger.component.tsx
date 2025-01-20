@@ -24,7 +24,7 @@ type CustomProps = React.HTMLProps<HTMLElement> & {
  * This is the trigger element for a tooltip. See Tooltip for more in-depth explanation and examples.
  */
 export const TooltipTrigger = React.forwardRef<HTMLElement, TooltipTriggerProps>(function TooltipTrigger(
-  { children = null, asChild = false, className = "", ...props },
+  { children, asChild = false, className = "", ...props },
   propRef
 ) {
   // get state

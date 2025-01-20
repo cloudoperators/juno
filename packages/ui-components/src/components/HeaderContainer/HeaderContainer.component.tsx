@@ -18,7 +18,7 @@ const headerContainerStyles = `
 export const HeaderContainer: React.FC<HeaderContainerProps> = ({
   fullWidth = false,
   className = "",
-  children = null,
+  children,
   ...props
 }) => {
   return (

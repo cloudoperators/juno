@@ -14,7 +14,7 @@ const formRowStyles = `
 A generic FormRow component.
 Used to layout and structure forms. Pass Form elements such as TextInput, Textarea, Select, or Radio and CheckboxGroups as children.
 */
-export const FormRow = ({ children = null, className = "", ...props }) => {
+export const FormRow = ({ children, className = "", ...props }) => {
   return (
     <div className={`juno-form-row ${formRowStyles} ${className}`} {...props}>
       {children}
