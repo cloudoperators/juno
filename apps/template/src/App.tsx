@@ -10,7 +10,7 @@ import AppContent from "./components/AppContent"
 import { ErrorBoundary } from "react-error-boundary"
 
 interface AppProps {
-  theme?: string
+  theme?: "theme-dark" | "theme-light"
   embedded?: string | boolean
   fullWidthContent?: string | boolean
   endpoint?: string
