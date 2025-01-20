@@ -92,7 +92,7 @@ export const Badge: React.FC<BadgeProps> = ({
   icon = false,
   text = "",
   className = "",
-  children = null,
+  children,
   ...props
 }) => {
   const iconToRender = getIcon(icon, variant)

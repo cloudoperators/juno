@@ -40,7 +40,7 @@ interface NavigationMappingItem {
 export const Navigation: React.FC<NavigationProps> = ({
   activeItem = "",
   ariaLabel = "",
-  children = null,
+  children,
   className = "",
   disabled = false,
   onActiveItemChange,
