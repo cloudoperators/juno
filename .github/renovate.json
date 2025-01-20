@@ -4,6 +4,8 @@
   "extends": ["config:best-practices"],
   "enabledManagers": ["npm", "github-actions"],
   "includePaths": ["packages/ui-components/**"],
+  "updateLockFiles": true,
+  "rangeStrategy": "update-lockfile",
   "packageRules": [
     {
       "groupName": "github actions",
@@ -18,7 +20,8 @@
       "matchFileNames": ["packages/ui-components/**"],
       "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "7 days",
-      "schedule": "every weekend"
+      "schedule": "every weekend",
+      "rangeStrategy": "pin"
     }
   ],
   "separateMinorPatch": true
