@@ -1,0 +1,5 @@
+import{j as s}from"./jsx-runtime-D6fbYt3N.js";import"./index-DysCNOs_.js";import{P as a}from"./index-BHU3UH5b.js";import{w as r}from"./withDeprecationWarning.component-Cd49MbBc.js";const l=`
+  jn-bg-theme-content-area-bg
+  jn-relative
+  jn-grow
+`,e=({className:n="",children:t=null,...o})=>s.jsx("div",{className:`juno-content-area ${l} ${n}`,...o,children:t});e.propTypes={className:a.string,children:a.node};const u=r(e,"ContentArea is deprecated and will be removed in future versions. To be future-proof, use AppShell to scaffold an app layout.");e.__docgenInfo={description:"Deprecated: This component used to be used internally by AppShell but has been removed there since. It was only needed to manually scaffold an app. Use AppShell to scaffold an app layout..",methods:[],displayName:"ContentArea",props:{className:{defaultValue:{value:'""',computed:!1},description:"Add custom class name",type:{name:"string"},required:!1},children:{defaultValue:{value:"null",computed:!1},description:"",type:{name:"node"},required:!1}}};export{u as C};
