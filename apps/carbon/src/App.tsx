@@ -10,7 +10,7 @@ import AppContent from "./components/AppContent/AppContent"
 import ErrorBoundary from "./components/ErrorBoundary"
 
 type AppProps = {
-  theme?: string
+  theme?: "theme-dark" | "theme-light"
   embedded?: string | boolean
 }
 
@@ -36,7 +36,7 @@ const extensions = [
 const App = (props: AppProps) => (
   <ErrorBoundary>
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
-      <AppShell embedded fullWidthContent={undefined} sideNavigation={undefined} topNavigation={undefined}>
+      <AppShell embedded>
         {/* load styles inside the shadow dom */}
         <style>{styles.toString()}</style>
         <AppContent extensions={extensions} />

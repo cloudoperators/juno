@@ -46,7 +46,7 @@ const NavigationItem = ({ name, title, url }: NavigationItemProps) => {
         direction="vertical"
         alignment="center"
         role="link"
-        tabIndex="0"
+        tabIndex={0}
         className={getClassName(isActive)}
       >
         {isActive && <Border />}
