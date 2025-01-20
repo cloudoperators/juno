@@ -50,4 +50,3 @@ These are the customizable application properties (appProps) that you can define
 - **mockAuth**: `true`, `false` (default), or `json` (optional). Mock the OIDC data, allowed values include pure or base64 encoded JSON.
 - **demoOrg** (optional): `"demo"`. If the organization name matches this value, the app will enter demo mode (mock authentication and demo org plugins).
 - **demoUserToken** (optional): `"token for demo user"`. Used for authentication if `demoOrg` and `demoUserToken` are set, and the organization name matches `demoOrg`.
-- **environment** (optional): `"production"`, `"qa"`, `"development"`, etc. Can be used to load different plugins for different environments.

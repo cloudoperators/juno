@@ -11,16 +11,19 @@ import { screen } from "shadow-dom-testing-library"
 import ShellLayout from "./ShellLayout"
 import StoreProvider from "../StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import { AuthProvider } from "../AuthProvider"
 
 vi.mock("@cloudoperators/juno-communicator")
 
 test("renders app", async () => {
   render(
-    <MessagesProvider>
-      <StoreProvider>
-        <ShellLayout />
-      </StoreProvider>
-    </MessagesProvider>
+    <AuthProvider options={{ mockAuth: true }}>
+      <MessagesProvider>
+        <StoreProvider>
+          <ShellLayout />
+        </StoreProvider>
+      </MessagesProvider>
+    </AuthProvider>
   )
 
   let logoTitle = screen.queryAllByShadowTitle(/Greenhouse/i)

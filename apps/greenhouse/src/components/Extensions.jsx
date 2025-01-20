@@ -8,7 +8,7 @@ import { createRoot } from "react-dom/client"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import useApi from "../hooks/useApi"
 import { usePlugin } from "./StoreProvider"
-import { useAuthData } from "./StoreProvider"
+import { useAuth } from "./AuthProvider"
 import { extensionResolvers, extensionVersions } from "../../extensoinsManifest"
 
 const CorePlugin = ({ config, auth }) => {
@@ -33,7 +33,7 @@ const Extension = ({ config }) => {
       if (config.url) {
         return await import(config.url)
       } else if (extensionResolvers[config.name]) {
-        console.info("===Loading extension", config.name, extensionVersions[config.name])
+        console.info("(greenhouse) extensions loading:", config.name, extensionVersions[config.name])
         return await extensionResolvers[config.name]
       } else {
         throw new Error(`Extension ${config.name} not found`)
@@ -53,9 +53,9 @@ const Extension = ({ config }) => {
 }
 
 function Plugin({ config, active, id }) {
+  const { data: auth } = useAuth()
   const holder = useRef()
   const app = useRef()
-  const auth = useAuthData()
 
   useEffect(() => {
     if (!holder.current) return
@@ -93,6 +93,7 @@ export default function Extensions() {
 
   useEffect(() => {
     if (!getPluginConfigs) return
+
     requestConfig()
 
     // fetch configs from kubernetes
