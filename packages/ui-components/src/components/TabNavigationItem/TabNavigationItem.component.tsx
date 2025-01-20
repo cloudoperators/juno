@@ -32,7 +32,7 @@ const tabNavActiveItemStyles = `
 export const TabNavigationItem: React.FC<TabNavigationItemProps> = ({
   active = false,
   ariaLabel,
-  children = null,
+  children,
   className = "",
   disabled = false,
   href,

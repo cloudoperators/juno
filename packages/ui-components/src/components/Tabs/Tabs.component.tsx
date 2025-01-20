@@ -23,7 +23,7 @@ Tabs are used to provide a tabbed section within the content area when combining
 */
 
 export const Tabs = ({
-  children = null,
+  children,
   defaultIndex,
   selectedIndex,
   onSelect,

@@ -75,7 +75,7 @@ export const RadioGroupContext = createContext<RadioGroupContextProps>({})
 A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.
 */
 export const RadioGroup: React.FC<RadioGroupProps> = ({
-  children = null,
+  children,
   className = "",
   disabled = false,
   errortext = "",

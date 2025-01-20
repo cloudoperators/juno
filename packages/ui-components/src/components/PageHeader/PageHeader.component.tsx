@@ -59,7 +59,7 @@ const headingStyles = `
 export const PageHeader: React.FC<PageHeaderProps> = ({
   heading = null,
   className = "",
-  children = null,
+  children,
   logo = undefined,
   onClick,
   ...props
