@@ -51,7 +51,7 @@ export const DEFAULT_THEME_NAME = "theme-dark"
 export const StyleProvider = ({
   stylesWrapper = "inline",
   theme: themeProp,
-  children,
+  children = null,
   shadowRootMode,
 }: StyleProviderProps) => {
   // Determine the default value to init the storedTheme by using the prop if passed, or default:

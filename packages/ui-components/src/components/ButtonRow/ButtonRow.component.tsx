@@ -7,7 +7,7 @@ import React from "react"
 import { Stack } from "../Stack/Stack.component"
 
 /** A container to hold one or multiple buttons and space and align them. */
-export const ButtonRow: React.FC<ButtonRowProps> = ({ children, className = "", ...props }) => {
+export const ButtonRow: React.FC<ButtonRowProps> = ({ children = null, className = "", ...props }) => {
   return (
     <Stack gap="2" distribution="end" className={`juno-button-row ${className}`} {...props}>
       {children}

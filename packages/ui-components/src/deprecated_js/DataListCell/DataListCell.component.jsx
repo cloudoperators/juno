@@ -95,7 +95,14 @@ const colsClass = (cols) => {
   }
 }
 
-export const DataListCell = ({ cols = null, width = null, auto = false, className = "", children, ...props }) => {
+export const DataListCell = ({
+  cols = null,
+  width = null,
+  auto = false,
+  className = "",
+  children = null,
+  ...props
+}) => {
   // auto cell:
   const autoStyles = {
     flexGrow: "1",

@@ -66,7 +66,7 @@ interface MenuContextType {
  Can render `<a>`, `<button>`, or `<div>` based on props.
  */
 export const MenuItem: FC<MenuItemProps> = ({
-  children,
+  children = null,
   className = "",
   disabled = false,
   href = "",

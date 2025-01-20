@@ -55,7 +55,7 @@ export const CheckboxGroupContext = createContext<CheckboxGroupContextProps | un
 export type CheckboxValue = string | undefined
 
 export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
-  children,
+  children = null,
   className = "",
   disabled = false,
   errortext = "",

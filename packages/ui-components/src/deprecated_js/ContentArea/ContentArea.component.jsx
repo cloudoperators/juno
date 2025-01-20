@@ -16,7 +16,7 @@ const containerStyles = `
 /**
  * Deprecated: This component used to be used internally by AppShell but has been removed there since. It was only needed to manually scaffold an app. Use AppShell to scaffold an app layout..
  */
-export const ContentArea = ({ className = "", children, ...props }) => {
+export const ContentArea = ({ className = "", children = null, ...props }) => {
   return (
     <div className={`juno-content-area ${containerStyles} ${className}`} {...props}>
       {children}

@@ -10,7 +10,7 @@ const DataListContext = React.createContext()
 
 export const useDataListContext = () => React.useContext(DataListContext)
 
-export const DataList = ({ selectable = false, className = "", children, ...props }) => {
+export const DataList = ({ selectable = false, className = "", children = null, ...props }) => {
   const dataListConf = {
     selectable: selectable,
   }

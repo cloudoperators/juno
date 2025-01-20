@@ -20,7 +20,7 @@ const rowselectedstyle = `
 	jn-bg-theme-datalistrow-selected
 `
 
-export const DataListRow = ({ selected, disabled, onChange, className = "", children, ...props }) => {
+export const DataListRow = ({ selected, disabled, onChange, className = "", children = null, ...props }) => {
   const dataListContext = useDataListContext() || {}
   const selectable = dataListContext.selectable
 

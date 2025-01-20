@@ -70,7 +70,7 @@ export const GridColumn: React.FC<GridColumnProps> = ({
   cols = null,
   auto = false,
   className = "",
-  children,
+  children = null,
   ...props
 }) => {
   const widthBasedStyles: React.CSSProperties = width

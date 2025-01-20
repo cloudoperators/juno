@@ -20,7 +20,7 @@ export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps
       colSpan,
       nowrap = false,
       className = "",
-      children,
+      children = null,
       ...props
     },
     ref

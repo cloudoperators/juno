@@ -25,7 +25,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   active = false,
   activeItemStyles = "",
   ariaLabel = "",
-  children,
+  children = null,
   className = "",
   disabled = false,
   icon = null,

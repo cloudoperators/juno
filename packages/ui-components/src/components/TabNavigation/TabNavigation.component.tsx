@@ -20,7 +20,7 @@ export const TabNavigationContext = createContext<TabNavigationContextType | und
 export const TabNavigation: React.FC<TabNavigationProps> = ({
   activeItem = "",
   ariaLabel,
-  children,
+  children = null,
   className = "",
   disabled = false,
   onActiveItemChange,

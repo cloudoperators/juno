@@ -30,7 +30,7 @@ const logoStyles = `
 /**
  * The page footer component renders a footer at the bottom of the website. Place as last child of AppBody.
  */
-export const PageFooter: React.FC<PageFooterProps> = ({ className = "", children, ...props }) => {
+export const PageFooter: React.FC<PageFooterProps> = ({ className = "", children = null, ...props }) => {
   return (
     <div className={`juno-pagefooter ${basePageFooter} ${className}`} role="contentinfo" {...props}>
       {children}

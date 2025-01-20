@@ -51,7 +51,7 @@ export interface ContextMenuProps {
 export const ContextMenu: React.FC<ContextMenuProps> = ({
   /*icon,*/
   /*className,*/
-  children,
+  children = null,
   open = false,
   /*...props*/
 }) => {

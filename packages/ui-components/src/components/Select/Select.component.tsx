@@ -143,7 +143,7 @@ export interface SelectProps
 */
 export const Select: React.FC<SelectProps> = ({
   ariaLabel = "",
-  children,
+  children = null,
   className = "",
   defaultValue,
   disabled = false,

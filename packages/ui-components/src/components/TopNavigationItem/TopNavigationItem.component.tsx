@@ -42,7 +42,7 @@ An individual item of a top level navigation. Place inside TopNavigation.
 export const TopNavigationItem: React.FC<TopNavigationItemProps> = ({
   active = false,
   ariaLabel,
-  children,
+  children = null,
   className = "",
   disabled = false,
   href = "",

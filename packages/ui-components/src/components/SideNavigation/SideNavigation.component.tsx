@@ -19,7 +19,7 @@ Place SideNavigationItem components as children.
 export const SideNavigation: React.FC<SideNavigationProps> = ({
   activeItem = "",
   ariaLabel,
-  children,
+  children = null,
   className = "",
   disabled = false,
   onActiveItemChange,

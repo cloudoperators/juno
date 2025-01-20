@@ -34,7 +34,7 @@ const getVariantStyles = (variant: TabsVariant) => {
 
 /** A tabList component wraps all individual Tabs inside a parent Tabs component */
 
-export const TabList = ({ variant = "content", children, ...props }: TabListProps) => {
+export const TabList = ({ variant = "content", children = null, ...props }: TabListProps) => {
   const tabsContext = useTabsContext() || {}
   const tabsVariant = tabsContext.variant || variant
 

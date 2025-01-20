@@ -33,7 +33,7 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
  * A general-use grid component.
  * Used in conjunction with GridColumn and GridRow components to create a flexible grid layout.
  */
-export const Grid: React.FC<GridProps> = ({ auto = false, children, className = "", ...props }) => {
+export const Grid: React.FC<GridProps> = ({ auto = false, children = null, className = "", ...props }) => {
   const gridStyles = auto ? autoStyles : {}
 
   return (

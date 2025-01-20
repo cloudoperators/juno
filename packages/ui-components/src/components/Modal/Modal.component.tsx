@@ -87,7 +87,7 @@ export const Modal: React.FC<ModalProps> = ({
   cancelButtonLabel = "",
   confirmButtonIcon = null,
   confirmButtonLabel = "",
-  children,
+  children = null,
   closeable = true,
   closeOnBackdropClick = false,
   closeOnEsc = true,

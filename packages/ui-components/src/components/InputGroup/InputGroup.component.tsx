@@ -64,7 +64,7 @@ const getClassNames = (baseClassName: string, variant: VariantTypes, disabled: b
  * Buttons, TextInput, and Select elements, providing a cohesive styling approach.
  */
 export const InputGroup: React.FC<InputGroupProps> = ({
-  children,
+  children = null,
   className = "",
   variant = "default",
   disabled = false,

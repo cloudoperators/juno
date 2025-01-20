@@ -20,7 +20,7 @@ Place `TopNavigationItem` elements as children.
 export const TopNavigation: React.FC<TopNavigationProps> = ({
   activeItem = "",
   ariaLabel,
-  children,
+  children = null,
   className = "",
   disabled = false,
   onActiveItemChange,

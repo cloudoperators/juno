@@ -36,7 +36,7 @@ const cellCustomStyles = (colSpan: number | undefined) => {
 }
 
 export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
-  ({ colSpan, nowrap = false, className = "", children, ...props }, ref) => {
+  ({ colSpan, nowrap = false, className = "", children = null, ...props }, ref) => {
     const dataGridContext = useDataGridContext() || {}
     const cellVerticalAlignment = dataGridContext.cellVerticalAlignment
 

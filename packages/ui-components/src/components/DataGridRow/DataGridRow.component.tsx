@@ -12,7 +12,7 @@ const rowBaseStyle = `
 // 	jn-bg-theme-datagridrow-selected
 // `
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
-  ({ /* selected, disabled,*/ className = "", children, /*onChange,*/ ...props }, ref) => {
+  ({ /* selected, disabled,*/ className = "", children = null, /*onChange,*/ ...props }, ref) => {
     // const dataGridContext = useDataGridContext() || {}
     // const selectable = dataGridContext.selectable
 

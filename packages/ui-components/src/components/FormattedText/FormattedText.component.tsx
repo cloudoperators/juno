@@ -17,7 +17,7 @@ export interface FormattedTextProps extends React.HTMLAttributes<HTMLDivElement>
  */
 export const FormattedText: React.FC<FormattedTextProps> = ({
   className = "", // Default value for className
-  children, // Default value for children
+  children = null, // Default value for children
   ...props
 }) => {
   return (

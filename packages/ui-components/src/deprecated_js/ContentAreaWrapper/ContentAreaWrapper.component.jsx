@@ -19,7 +19,7 @@ const containerStyles = `
 /**
  * Deprecated: Will be deleted!
  */
-export const ContentAreaWrapper = ({ className = "", children, ...props }) => {
+export const ContentAreaWrapper = ({ className = "", children = null, ...props }) => {
   return (
     <div className={`juno-content-area-wrapper ${containerStyles} ${className}`} {...props}>
       {children}

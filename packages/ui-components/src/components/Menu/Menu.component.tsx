@@ -37,7 +37,7 @@ interface MenuContextType {
 export const MenuContext = createContext<MenuContextType | undefined>(undefined)
 
 /** A generic menu component */
-export const Menu: React.FC<MenuProps> = ({ children, variant = "normal", className = "", ...props }) => {
+export const Menu: React.FC<MenuProps> = ({ children = null, variant = "normal", className = "", ...props }) => {
   return (
     <MenuContext.Provider
       value={{
