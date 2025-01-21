@@ -97,7 +97,6 @@ const floatingReferenceWrapperStyles = `
 
 // ----- Interfaces -----
 
-// Type the PopupMenu context
 export interface PopupMenuContextType {
   close: () => void
   isOpen: boolean
@@ -161,12 +160,10 @@ export interface PopupMenuSectionSeparatorProps {
   className?: string
 }
 
-// ----- Define PopupMenu context and hook -----
+// ----- PopupMenu context and hook -----
 
-// Context:
 const PopupMenuContext = createContext<PopupMenuContextType | null>(null)
 
-// Hook to use the context:
 export const usePopupMenuContext = () => {
   const context = useContext(PopupMenuContext)
   if (!context) {
