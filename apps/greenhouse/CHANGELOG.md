@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 0e7b79e: Synch Greenhouse with the libraries
+- 0e7b79e: Sync Greenhouse with the libraries
 
 ## 0.3.11
 
