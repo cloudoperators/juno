@@ -4,15 +4,22 @@
  */
 
 import React from "react"
-import { Menu } from "../Menu/"
-import { MenuSection } from "./"
-import { MenuItem } from "../MenuItem/"
+import { Menu } from "../Menu/Menu.component"
+import { MenuSection } from "./MenuSection.component"
+import { MenuItem } from "../MenuItem/MenuItem.component"
 
 type StoryDefinition = () => React.ReactNode
 
 export default {
-  title: "WiP/Menu/MenuSection",
+  title: "Deprecated/Menu/MenuSection",
   component: MenuSection,
+  parameters: {
+    docs: {
+      description: {
+        component: "DEPRECATED: Use `PopupMenu` with `PopupMenu.Section` instead.",
+      },
+    },
+  },
   argTypes: {
     children: {
       control: false,
