@@ -22,7 +22,7 @@ import {
   Tab,
   TabPanel,
 } from "@cloudoperators/juno-ui-components"
-import { useShowDetailsFor, useGlobalsActions, useAlertsActions, useAlertsItems } from "../StoreProvider"
+import { useShowDetailsFor, useGlobalsActions } from "../StoreProvider"
 import AlertIcon from "./shared/AlertIcon"
 import AlertTimestamp from "./shared/AlertTimestamp"
 import AlertDescription from "./shared/AlertDescription"
@@ -33,26 +33,25 @@ import AlertStatus from "./AlertStatus"
 import AlertRegion from "./shared/AlertRegion"
 import AlertSilences from "./AlertSilences"
 import { Messages } from "@cloudoperators/juno-messages-provider"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
-
+import { useAlertsQuery } from "../../hooks/useAlertsQuery"
+import { getAlertByFingerprint } from "../../helpers"
 const AlertDetail = () => {
   const alertID = useShowDetailsFor()
   const { setShowDetailsFor } = useGlobalsActions()
-  const { getAlertByFingerprint } = useAlertsActions()
   const [alert, setAlert] = useState(null)
-  const alerts = useAlertsItems()
 
   const onPanelClose = () => {
     setShowDetailsFor(null)
   }
 
-  const { isLoading } = useBoundQuery("alerts")
+  const { data, isLoading } = useAlertsQuery()
+
   useEffect(() => {
     // wait for the alerts to be loaded
-    if (alerts?.length > 0) {
-      setAlert(getAlertByFingerprint(alertID))
+    if (data?.length > 0) {
+      setAlert(getAlertByFingerprint(alertID, data))
     }
-  }, [alerts, alertID])
+  }, [data, alertID])
 
   return (
     <Panel

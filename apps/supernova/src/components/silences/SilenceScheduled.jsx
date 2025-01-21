@@ -6,7 +6,6 @@
 import React, { useState, useMemo } from "react"
 import { produce } from "immer"
 import { useActions } from "@cloudoperators/juno-messages-provider"
-import constants from "../../constants"
 import {
   Modal,
   Box,
@@ -23,13 +22,14 @@ import {
   FormSection,
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
-import { useGlobalsUsername, useSilenceTemplates, useSilencesItems, useSilencesActions } from "../StoreProvider"
+import { useGlobalsUsername, useSilenceTemplates } from "../StoreProvider"
 import { parseError } from "../../helpers"
-import { useBoundMutation } from "../../hooks/useBoundMutation"
+import { useSilenceMutation } from "../../hooks/useSilenceMutation"
 import { useQueryClient } from "@tanstack/react-query"
 // import { debounce } from "../../helpers"
 import { DEFAULT_FORM_VALUES, validateForm } from "./silenceScheduledHelpers"
 import { debounce } from "../../helpers"
+import constants from "../../constants"
 
 const SilenceScheduled = () => {
   const user = useGlobalsUsername()
@@ -38,8 +38,6 @@ const SilenceScheduled = () => {
   const [error, setError] = useState(null)
 
   const queryClient = useQueryClient()
-  const silences = useSilencesItems()
-  const { setSilences } = useSilencesActions()
 
   // set the selected template
   const [selected, setSelected] = useState(null)
@@ -56,34 +54,56 @@ const SilenceScheduled = () => {
 
   const [closed, setClosed] = useState(true)
 
-  const { mutate: createSilence } = useBoundMutation("createSilences", {
-    onMutate: (data) => {
-      queryClient.cancelQueries("silences")
+  const { mutate: createSilence } = useSilenceMutation("createSilences", {
+    onMutate: async (newSilence) => {
+      await queryClient.cancelQueries(["silences"])
 
-      const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
+      // Snapshot the previous value for rollback
+      const prevData = queryClient.getQueryData(["silences"])
 
-      const newSilences = [...silences, newSilence]
+      if (!prevData || !Array.isArray(prevData.silences)) {
+        return { prevData }
+      }
 
-      setSilences({
-        items: newSilences,
+      const activeSilence = {
+        ...newSilence.silence,
+        status: {
+          ...newSilence.silence.status,
+          state: constants.SILENCE_ACTIVE,
+        },
+      }
+
+      const newCacheData = Array.isArray(prevData.silences) ? [...prevData.silences, activeSilence] : [newSilence]
+      queryClient.setQueryData(["silences"], {
+        ...prevData,
+        silences: newCacheData,
       })
+
+      setClosed(true)
+
+      // Return the previous data for possible rollback
+      return { prevData }
     },
 
     onSuccess: (data) => {
-      setClosed(true)
       addMessage({
         variant: "success",
-        text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may take up
-          to 5 minutes for the alert to show up as silenced.`,
+        text: `A silence object with id ${data?.silenceID} was created successfully. Please note that it may
+            take up to 5 minutes for the alert to show up as silenced.`,
       })
     },
-    onError: (error) => {
-      // add a error message in UI
-      setError(parseError(error))
-    },
+    onError: (error, context) => {
+      // Rollback to previous data
+      if (context?.prevData) {
+        queryClient.setQueryData(["silences"], context.prevData)
+      }
 
+      addMessage({
+        variant: "error",
+        text: parseError(error),
+      })
+    },
     onSettled: () => {
-      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
       queryClient.invalidateQueries(["silences"])
     },
   })

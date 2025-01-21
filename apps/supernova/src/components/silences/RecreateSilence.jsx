@@ -17,8 +17,8 @@ import {
   Pill,
   Stack,
 } from "@cloudoperators/juno-ui-components"
-import { useBoundMutation } from "../../hooks/useBoundMutation"
-import { useGlobalsUsername, useSilencesItems, useSilencesActions } from "../StoreProvider"
+import { useSilenceMutation } from "../../hooks/useSilenceMutation"
+import { useGlobalsUsername } from "../StoreProvider"
 
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { DateTime } from "luxon"
@@ -60,9 +60,6 @@ const RecreateSilence = (props) => {
 
   const { addMessage } = useActions()
   const user = useGlobalsUsername()
-
-  const silences = useSilencesItems()
-  const { setSilences } = useSilencesActions()
 
   const queryClient = useQueryClient()
 
@@ -106,19 +103,37 @@ const RecreateSilence = (props) => {
     return options.items
   }, [expirationDate])
 
-  const { mutate: createSilence } = useBoundMutation("createSilences", {
-    onMutate: (data) => {
-      queryClient.cancelQueries("silences")
+  const { mutate: createSilence } = useSilenceMutation("createSilences", {
+    onMutate: async (newSilence) => {
+      await queryClient.cancelQueries(["silences"])
 
-      const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
-      const newSilences = [...silences, newSilence]
+      // Snapshot the previous value for rollback
+      const prevData = queryClient.getQueryData(["silences"])
 
-      setSilences({
-        items: newSilences,
+      if (!prevData || !Array.isArray(prevData.silences)) {
+        return { prevData }
+      }
+
+      const activeSilence = {
+        ...newSilence.silence,
+        status: {
+          ...newSilence.silence.status,
+          state: constants.SILENCE_ACTIVE,
+        },
+      }
+
+      const newCacheData = Array.isArray(prevData.silences) ? [...prevData.silences, activeSilence] : [newSilence]
+      queryClient.setQueryData(["silences"], {
+        ...prevData,
+        silences: newCacheData,
       })
 
       setDisplayNewSilence(false)
+
+      // Return the previous data for possible rollback
+      return { prevData }
     },
+
     onSuccess: (data) => {
       addMessage({
         variant: "success",
@@ -126,16 +141,18 @@ const RecreateSilence = (props) => {
             take up to 5 minutes for the alert to show up as silenced.`,
       })
     },
-    onError: (error) => {
-      // add a error message in UI
+    onError: (error, context) => {
+      // Rollback to previous data
+      if (context?.prevData) {
+        queryClient.setQueryData(["silences"], context.prevData)
+      }
+
       addMessage({
         variant: "error",
         text: parseError(error),
       })
     },
-
     onSettled: () => {
-      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
       queryClient.invalidateQueries(["silences"])
     },
   })

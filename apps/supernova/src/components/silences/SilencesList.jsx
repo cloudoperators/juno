@@ -18,9 +18,9 @@ import {
   useEndlessScrollList,
 } from "@cloudoperators/juno-ui-components"
 import constants from "../../constants"
-import { useSilencesItems, useSilencesActions, useSilencesRegEx, useSilencesStatus } from "../StoreProvider"
+import { useSilencesActions, useSilencesRegEx, useSilencesStatus } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { useSilencesQuery } from "../../hooks/useSilencesQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 
@@ -32,14 +32,12 @@ my-px
 `
 
 const SilencesList = () => {
-  const silences = useSilencesItems()
-  const [visibleSilences, setVisibleSilences] = useState(silences)
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
-  const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
+  const { setSilencesStatus, setSilencesRegEx } = useSilencesActions()
   const { addMessage } = useActions()
 
-  const { data, isLoading, error } = useBoundQuery("silences")
+  const { data, isLoading, error } = useSilencesQuery("silences")
 
   if (error) {
     addMessage({
@@ -48,16 +46,12 @@ const SilencesList = () => {
     })
   }
 
-  useEffect(() => {
-    if (data) {
-      setSilences({
-        items: data?.silences,
-      })
-    }
-  }, [data])
+  const [visibleSilences, setVisibleSilences] = useState(data?.silences)
 
   useEffect(() => {
-    let filtered = silences.filter((silence) => silence?.status?.state === status)
+    let filtered = Array.isArray(data?.silences)
+      ? data.silences.filter((silence) => silence?.status?.state === status)
+      : []
 
     try {
       if (regEx) {
@@ -70,7 +64,7 @@ const SilencesList = () => {
     }
 
     setVisibleSilences(filtered)
-  }, [status, regEx, silences])
+  }, [status, regEx, data])
 
   const handleSearchChange = (value) => {
     // debounce setSearchTerm to avoid unnecessary re-renders

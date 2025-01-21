@@ -1,35 +1,28 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
- * SPDX-License-Identifier: Apache-2.0
- */
+import { useMutation } from "@tanstack/react-query"
+import { useGlobalsApiEndpoint } from "../components/StoreProvider"
 
-export const fetchSilences = async (endpoint) => {
-  try {
-    const response = await fetch(`${endpoint}/silences`)
+export const useSilenceMutation = (key, options = {}) => {
+  const endpoint = useGlobalsApiEndpoint()
+  const mutationFns = new Map([
+    ["createSilences", createSilences],
+    ["deleteSilences", deleteSilences],
+  ])
 
-    if (!response.ok) {
-      // Parse the error object from the response body
-      const errorObject = await response.json().catch(() => {
-        throw new Error(`Unexpected error: Unable to parse error response.`)
-      })
+  // Get the corresponding mutation function for the given key
+  const mutationFn = mutationFns.get(key)
 
-      // Throw the error object directly
-      throw errorObject
-    }
-
-    const items = await response.json() // Parse JSON data
-
-    // Return the structured result
-    return {
-      silences: items,
-    }
-  } catch (error) {
-    console.error(error)
-    throw error // Let React Query handle the error
+  if (!mutationFn) {
+    throw new Error(`No mutation function mapped for key: ${key}`)
   }
+
+  return useMutation({
+    mutationFn: (variables) => mutationFn({ ...variables, endpoint }),
+    onError: options?.onError,
+    ...options,
+  })
 }
 
-export const deleteSilences = async (variables) => {
+const deleteSilences = async (variables) => {
   try {
     const response = await fetch(`${variables.endpoint}/silence/${variables.id}`, {
       method: "DELETE",
@@ -51,7 +44,7 @@ export const deleteSilences = async (variables) => {
   }
 }
 
-export const createSilences = async (variables) => {
+const createSilences = async (variables) => {
   try {
     const response = await fetch(`${variables.endpoint}/silences`, {
       method: "POST",

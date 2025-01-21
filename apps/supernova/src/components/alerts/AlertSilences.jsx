@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React from "react"
 
 import {
   Button,
@@ -12,47 +12,20 @@ import {
   DataGridCell,
   DataGridHeadCell,
   DataGridRow,
-  Stack,
-  Spinner,
 } from "@cloudoperators/juno-ui-components"
-import { useAlertsActions, useGlobalsActions, useSilencesActions } from "../StoreProvider"
+import { useGlobalsActions } from "../StoreProvider"
 import AlertDescription from "./shared/AlertDescription"
 import AlertSilencesList from "./shared/AlertSilencesList"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { getAlertByFingerprint } from "../../helpers"
+import { useAlertsQuery } from "../../hooks/useAlertsQuery"
 
 const AlertSilences = ({ alert }) => {
-  const { getAlertByFingerprint } = useAlertsActions()
   const { setShowDetailsFor } = useGlobalsActions()
-  const { setSilences } = useSilencesActions()
-
-  // fetch silences
-  const { error, data, isLoading } = useBoundQuery("silences")
-
-  useEffect(() => {
-    if (data) {
-      setSilences({
-        items: data?.silences,
-      })
-    }
-  }, [data])
-
-  if (error) {
-    addMessage({
-      variant: "error",
-      text: parseError(error),
-    })
-  }
+  const { data } = useAlertsQuery()
 
   return (
     <Container py px={false}>
-      {isLoading ? (
-        <Stack gap="2">
-          <span>Loading</span>
-          <Spinner variant="primary" />
-        </Stack>
-      ) : (
-        <AlertSilencesList alert={alert} />
-      )}
+      <AlertSilencesList alert={alert} />
 
       {alert.status.inhibitedBy.length > 0 && (
         <>
@@ -65,8 +38,8 @@ const AlertSilences = ({ alert }) => {
             {alert.status.inhibitedBy.map((fingerprint) => (
               <DataGridRow key={fingerprint}>
                 <DataGridCell>
-                  <div>{getAlertByFingerprint(fingerprint)?.annotations?.summary}</div>
-                  <AlertDescription description={getAlertByFingerprint(fingerprint)?.annotations?.description} />
+                  <div>{getAlertByFingerprint(fingerprint, data)?.annotations?.summary}</div>
+                  <AlertDescription description={getAlertByFingerprint(fingerprint, data)?.annotations?.description} />
                 </DataGridCell>
                 <DataGridCell>
                   <Button size="small" onClick={() => setShowDetailsFor(fingerprint)} icon="exitToApp">

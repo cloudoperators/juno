@@ -121,7 +121,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.setActiveFilters"
         )
-        get().alerts.actions.filterItems()
       },
 
       clearFilters: () => {
@@ -134,7 +133,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.clearActiveFilters"
         )
-        get().alerts.actions.filterItems()
       },
 
       addActiveFilter: (filterLabel, filterValue) => {
@@ -148,8 +146,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.addActiveFilter"
         )
-        // after adding a new filter key and value: filter items
-        get().alerts.actions.filterItems()
       },
 
       // add multiple values for a filter label
@@ -164,8 +160,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.addActiveFilters"
         )
-        // after adding a new filter key and value: filter items
-        get().alerts.actions.filterItems()
       },
 
       removeActiveFilter: (filterLabel, filterValue) => {
@@ -182,8 +176,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.removeActiveFilter"
         )
-        // after removing a filter: filter items
-        get().alerts.actions.filterItems()
       },
       setPausedFilters: (pausedFilters) => {
         set(
@@ -198,7 +190,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.setPausedFilters"
         )
-        get().alerts.actions.filterItems()
       },
 
       addPausedFilter: (filterLabel, filterValue) => {
@@ -211,9 +202,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.addPausedFilter"
         )
-
-        // after adding a new filter key and value: filter items
-        get().alerts.actions.filterItems()
       },
 
       removePausedFilter: (filterLabel, filterValue) => {
@@ -230,8 +218,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.removePausedFilter"
         )
-        // after removing a filter: filter items
-        get().alerts.actions.filterItems()
       },
 
       setActivePredefinedFilter: (filterName) => {
@@ -242,8 +228,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.setActivePredefinedFilter"
         )
-        // after activating predefined filter: filter items
-        get().alerts.actions.filterItems()
       },
 
       clearActivePredefinedFilter: () => {
@@ -254,8 +238,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.clearActivePredefinedFilter"
         )
-        // after clearing predefined filter: filter items
-        get().alerts.actions.filterItems()
       },
 
       togglePredefinedFilter: (filterName) => {
@@ -271,8 +253,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.togglePredefinedFilter"
         )
-        // after activating predefined filter: filter items
-        get().alerts.actions.filterItems()
       },
 
       // retieve all possible values for the given filter label from the list of items and add them to the list
@@ -315,8 +295,6 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.setSearchTerm"
         )
-        // after setting the search term: filter items
-        get().alerts.actions.filterItems()
       },
 
       // TODO:

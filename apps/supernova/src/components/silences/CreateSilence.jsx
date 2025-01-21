@@ -21,7 +21,6 @@ import {
   useSilencesActions,
   useAlertEnrichedLabels,
   useGlobalsUsername,
-  useSilencesItems,
 } from "../StoreProvider"
 import AlertDescription from "../alerts/shared/AlertDescription"
 import { useActions } from "@cloudoperators/juno-messages-provider"
@@ -29,12 +28,12 @@ import CreateSilenceAdvanced from "./CreateSilenceAdvanced"
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"
+import { useQueryClient } from "@tanstack/react-query"
 
 import { debounce } from "../../helpers"
 import constants from "../../constants"
 
-import { useQueryClient } from "@tanstack/react-query"
-import { useBoundMutation } from "../../hooks/useBoundMutation"
+import { useSilenceMutation } from "../../hooks/useSilenceMutation"
 
 const validateForm = (values) => {
   const minCommentLength = 3
@@ -65,9 +64,8 @@ const errorHelpText = (messages) => {
 const DEFAULT_FORM_VALUES = { duration: "2", comment: "" }
 
 const CreateSilence = ({ alert, size, variant }) => {
-  const queryClient = useQueryClient()
   const excludedLabels = useSilencesExcludedLabels()
-  const { getMappingSilences, setSilences } = useSilencesActions()
+  const { getMappingSilences } = useSilencesActions()
   const enrichedLabels = useAlertEnrichedLabels()
   const user = useGlobalsUsername()
   const [displayNewSilence, setDisplayNewSilence] = useState(false)
@@ -76,8 +74,7 @@ const CreateSilence = ({ alert, size, variant }) => {
   const [showValidation, setShowValidation] = useState({})
   const [error, setError] = useState(null)
   const { addMessage } = useActions()
-
-  const silences = useSilencesItems()
+  const queryClient = useQueryClient()
 
   const [success, setSuccess] = useState(null)
 
@@ -114,19 +111,35 @@ const CreateSilence = ({ alert, size, variant }) => {
     return options.items
   }, [expirationDate])
 
-  const { mutate: createSilence } = useBoundMutation("createSilences", {
-    onMutate: (data) => {
-      queryClient.cancelQueries("silences")
+  const { mutate: createSilence } = useSilenceMutation("createSilences", {
+    onMutate: async (newSilence) => {
+      await queryClient.cancelQueries(["silences"])
 
-      const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
+      // Snapshot the previous value for rollback
+      const prevData = queryClient.getQueryData(["silences"])
 
-      const newSilences = [...silences, newSilence]
+      if (!prevData || !Array.isArray(prevData.silences)) {
+        return { prevData }
+      }
 
-      setSilences({
-        items: newSilences,
+      const activeSilence = {
+        ...newSilence.silence,
+        status: {
+          ...newSilence.silence.status,
+          state: constants.SILENCE_ACTIVE,
+        },
+      }
+
+      const newCacheData = Array.isArray(prevData.silences) ? [...prevData.silences, activeSilence] : [newSilence]
+      queryClient.setQueryData(["silences"], {
+        ...prevData,
+        silences: newCacheData,
       })
 
       setDisplayNewSilence(false)
+
+      // Return the previous data for possible rollback
+      return { prevData }
     },
 
     onSuccess: (data) => {
@@ -136,15 +149,18 @@ const CreateSilence = ({ alert, size, variant }) => {
             take up to 5 minutes for the alert to show up as silenced.`,
       })
     },
-    onError: (error) => {
-      // add a error message in UI
+    onError: (error, context) => {
+      // Rollback to previous data
+      if (context?.prevData) {
+        queryClient.setQueryData(["silences"], context.prevData)
+      }
+
       addMessage({
         variant: "error",
         text: parseError(error),
       })
     },
     onSettled: () => {
-      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
       queryClient.invalidateQueries(["silences"])
     },
   })
