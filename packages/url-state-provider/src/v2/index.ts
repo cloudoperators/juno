@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import encode from "./encode"
-import decode from "./decode"
-
-export { encode, decode }
+export { default as encode } from "./encode"
+export { default as decode } from "./decode"
+export { saveStateToUrl, readStateFromUrl } from "./utils"

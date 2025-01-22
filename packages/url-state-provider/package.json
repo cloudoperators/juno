@@ -48,6 +48,7 @@
     ]
   },
   "dependencies": {
+    "history": "^5.3.0",
     "juri": "^1.0.3",
     "query-string": "9.1.1"
   }
