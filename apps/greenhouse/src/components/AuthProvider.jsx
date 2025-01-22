@@ -39,7 +39,7 @@ export const AuthProvider = ({ options, children }) => {
       setIsDemoMode(true)
       oidcRef.current = mockedSession({
         token: {
-          groups: [`organization:${demoOrg}`, "role:ccloud:admin"],
+          groups: [`organization:${demoOrg}`],
         },
         initialLogin: true,
         onUpdate: (data) => {
