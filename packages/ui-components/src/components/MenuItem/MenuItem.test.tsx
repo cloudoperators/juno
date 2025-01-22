@@ -6,8 +6,8 @@
 import * as React from "react"
 import { render, screen, act } from "@testing-library/react"
 import { describe, test, expect, vi } from "vitest"
-import { MenuItem } from "./"
-import { Menu } from "../Menu/"
+import { MenuItem } from "./MenuItem.component"
+import { Menu } from "../Menu/Menu.component"
 
 describe("MenuItem", () => {
   test("renders a menu item", () => {
