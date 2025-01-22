@@ -4,19 +4,19 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { Stack, Spinner } from "@cloudoperators/juno-ui-components"
 
-const HintLoading = ({ text }: any) => {
+interface HintLoadingProps {
+  text?: string
+}
+
+const HintLoading: React.FC<HintLoadingProps> = ({ text }) => {
   return (
     <Stack alignment="center">
       <Spinner variant="primary" />
-      {text ? <span>{text}</span> : <span>Loading...</span>}
+      <span>{text ? text : "Loading..."}</span>
     </Stack>
   )
 }
 
-HintLoading.propTypes = {
-  text: PropTypes.string,
-}
 export default HintLoading

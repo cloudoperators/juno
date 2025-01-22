@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
 const avatarCss = `
@@ -15,7 +14,12 @@ rounded-full
 bg-cover 
 `
 
-const Avatar = ({ userName, url }: any) => {
+interface AvatarProps {
+  userName?: string
+  url?: string
+}
+
+const Avatar: React.FC<AvatarProps> = ({ userName, url }) => {
   return (
     <Stack alignment="center">
       {url && (
@@ -30,11 +34,6 @@ const Avatar = ({ userName, url }: any) => {
       {userName && <span className="ml-2">{userName}</span>}
     </Stack>
   )
-}
-
-Avatar.propTypes = {
-  userName: PropTypes.string,
-  url: PropTypes.string,
 }
 
 export default Avatar

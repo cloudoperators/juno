@@ -6,7 +6,7 @@
 import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
-const WelcomeView = () => {
+const WelcomeView: React.FC = () => {
   return (
     <Stack alignment="center" distribution="center" direction="vertical" className="my-[10vh]">
       <p className="text-xl">
