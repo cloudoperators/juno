@@ -67,7 +67,7 @@ interface MenuContextType {
  Can render `<a>`, `<button>`, or `<div>` based on props.
  */
 export const DeprecatedMenuItem: FC<MenuItemProps> = ({
-  children = null,
+  children,
   className = "",
   disabled = false,
   href = "",

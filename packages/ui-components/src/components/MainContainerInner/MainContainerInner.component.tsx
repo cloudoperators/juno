@@ -22,7 +22,7 @@ const constrainWithSideNavStyles = `
 
 /** An inner wrapper to constrain page / view content width. */
 export const MainContainerInner: React.FC<MainContainerInnerProps> = ({
-  children = null,
+  children,
   fullWidth = false,
   hasSideNav = false,
   className = "",

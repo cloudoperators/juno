@@ -38,7 +38,7 @@ interface MenuContextType {
 export const MenuContext = createContext<MenuContextType | undefined>(undefined)
 
 /** DEPRECATED: Use `PopupMenu` instead. */
-const DeprecatedMenu: React.FC<MenuProps> = ({ children = null, variant = "normal", className = "", ...props }) => {
+const DeprecatedMenu: React.FC<MenuProps> = ({ children, variant = "normal", className = "", ...props }) => {
   return (
     <MenuContext.Provider
       value={{

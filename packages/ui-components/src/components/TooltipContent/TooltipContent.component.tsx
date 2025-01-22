@@ -49,7 +49,7 @@ export interface TooltipContentProps extends React.HTMLAttributes<HTMLDivElement
  * Put content for a tooltip here. See Tooltip for more in-depth explanation and examples.
  */
 export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>(function TooltipContent(
-  { className = "", children = null, ...props },
+  { className = "", children, ...props },
   propRef
 ) {
   // get tooltip state

@@ -27,7 +27,7 @@ export interface GridRowProps extends React.HTMLAttributes<HTMLDivElement> {
  * A grid row container to hold GridColumn elements inside a Grid.
  * This component ensures that its children are wrapped correctly in a flexbox layout.
  */
-export const GridRow: React.FC<GridRowProps> = ({ children = null, className = "", ...props }) => {
+export const GridRow: React.FC<GridRowProps> = ({ children, className = "", ...props }) => {
   return (
     <div className={`juno-grid-row ${baseRowStyles} ${className}`} {...props}>
       {children}

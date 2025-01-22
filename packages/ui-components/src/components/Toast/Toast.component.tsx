@@ -53,7 +53,7 @@ A Toast component. Use for short-lived, temporary/transient messaging to users r
 
 export const Toast: React.FC<ToastProps> = ({
   variant = "info",
-  children = null,
+  children,
   text = "",
   autoDismiss = false,
   autoDismissTimeout = 10000,

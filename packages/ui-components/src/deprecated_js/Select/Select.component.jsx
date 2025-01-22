@@ -77,7 +77,7 @@ export const SelectContext = createContext()
 */
 export const Select = ({
   ariaLabel = "",
-  children = null,
+  children,
   className = "",
   defaultValue,
   disabled = false,

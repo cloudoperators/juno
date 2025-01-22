@@ -38,7 +38,7 @@ export interface ContextMenuProps {
 const DeprecatedContextMenu: React.FC<ContextMenuProps> = ({
   /*icon,*/
   /*className,*/
-  children = null,
+  children,
   open = false,
   /*...props*/
 }) => {

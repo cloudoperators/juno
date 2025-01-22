@@ -58,7 +58,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   open,
   triggerEvent = "click",
   disabled = false,
-  children = null,
+  children,
   ...props
 }) => {
   // This can accept any floating ui props as options, e.g. `placement`,
