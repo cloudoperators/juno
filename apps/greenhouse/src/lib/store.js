@@ -19,22 +19,11 @@ const validateURL = (string) => {
 
 export default (options) => {
   const store = createStore(
-    devtools((set) => ({
+    devtools(() => ({
       globals: {
         apiEndpoint: validateURL(options.apiEndpoint),
         assetsHost: validateURL(options.currentHost),
         isUrlStateSetup: false,
-
-        actions: {
-          setIsUrlStateSetup: (setup) =>
-            set(
-              (state) => ({
-                globals: { ...state.globals, isUrlStateSetup: setup },
-              }),
-              false,
-              "globals/setIsUrlStateSetup"
-            ),
-        },
       },
     }))
   )

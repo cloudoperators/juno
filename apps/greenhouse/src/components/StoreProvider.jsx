@@ -21,7 +21,5 @@ export const usePlugin = () => useContext(StoreContext).plugin
 // GLOBAL
 export const useGlobalsApiEndpoint = () => useStore((s) => s.globals.apiEndpoint)
 export const useGlobalsAssetsHost = () => useStore((s) => s.globals.assetsHost)
-export const useGlobalsIsUrlStateSetup = () => useStore((state) => state.globals.isUrlStateSetup)
-export const useGlobalsActions = () => useStore((s) => s.globals.actions)
 
 export default StoreProvider

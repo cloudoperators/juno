@@ -13,8 +13,10 @@ import Extensions from "./components/Extensions"
 import StoreProvider from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { AuthProvider } from "./components/AuthProvider"
+import useUrlState from "./hooks/useUrlState"
 
 const Shell = () => {
+  useUrlState()
   return (
     <ShellLayout>
       <Extensions />

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useLayoutEffect } from "react"
+import { useEffect, useLayoutEffect, useRef } from "react"
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
-import { useAuthLoggedIn, useGlobalsIsUrlStateSetup, useGlobalsActions, usePlugin } from "../components/StoreProvider"
+import { usePlugin } from "../components/StoreProvider"
 
 // url state manager
 const GREENHOUSE_STATE_KEY = "greenhouse-dashboard"
@@ -15,33 +15,36 @@ const urlStateManager = registerConsumer(GREENHOUSE_STATE_KEY)
 const useUrlState = () => {
   const setActiveApps = usePlugin().setActive
   const activeApps = usePlugin().active()
-  const appsConfig = usePlugin().config()
-  const loggedIn = useAuthLoggedIn()
-  const isUrlStateSetup = useGlobalsIsUrlStateSetup()
-  const { setIsUrlStateSetup } = useGlobalsActions()
+
+  // A ref to track if the change comes from the URL initialization
+  const isInitializing = useRef(true)
 
   // Initial state from URL (on login)
   useLayoutEffect(() => {
-    if (!loggedIn || !appsConfig || isUrlStateSetup) return
-
     let active = urlStateManager.currentState()?.[ACTIVE_APPS_KEY]
-    if (active) setActiveApps(active.split(","))
-    setIsUrlStateSetup(true)
-  }, [loggedIn, appsConfig, setActiveApps])
+
+    if (active) {
+      setActiveApps(active.split(","))
+    }
+
+    isInitializing.current = true
+  }, [])
 
   // sync URL state
   useEffect(() => {
-    if (!loggedIn || !isUrlStateSetup) return
+    // if the app is initializing or there are no active apps, skip syncing
+    if (isInitializing.current === true) {
+      // Skip syncing during initialization
+      isInitializing.current = false // Mark initialization phase complete
+      return
+    }
 
     const newActiveApps = activeApps?.join(",")
     // if the current state is the same as the new state, don't push
-    // this prevents the history from being filled with the same state
-    // and therefore prevents the forward button from being disabled
-    // This small optimization allows the user to go back and forth!
     if (urlStateManager.currentState()?.[ACTIVE_APPS_KEY] === newActiveApps) return
 
     urlStateManager.push({ [ACTIVE_APPS_KEY]: activeApps.join(",") })
-  }, [loggedIn, activeApps])
+  }, [activeApps])
 
   useEffect(() => {
     const unregisterStateListener = urlStateManager.onChange((state) => {
