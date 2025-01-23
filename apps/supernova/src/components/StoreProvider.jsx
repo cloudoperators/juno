@@ -87,3 +87,16 @@ export const useSilencesRegEx = () => useAppStore((state) => state.silences.regE
 export const useSilenceTemplates = () => useAppStore((state) => state.silences.templates)
 
 export const useSilencesActions = () => useAppStore((state) => state.silences.actions)
+
+export const useGetStateForUrl = () =>
+  useAppStore((state) => ({
+    activeFilters: state.filters.activeFilters,
+    pausedFilters: state.filters.pausedFilters,
+    activePredefinedFilter: state.filters.activePredefinedFilter,
+    searchTerm: state.filters.searchTerm,
+    activeSelectedTab: state.globals.activeSelectedTab,
+    showDetailsFor: state.globals.showDetailsFor,
+    silencesRegExp: state.silences.regEx,
+    silencesStatus: state.silences.status,
+    showDetailsForSilence: state.silences.showDetailsForSilence,
+  }))

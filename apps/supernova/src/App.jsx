@@ -14,6 +14,7 @@ import CustomAppShell from "./components/CustomAppShell"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ErrorBoundary } from "react-error-boundary"
 import useUrlState from "./hooks/useUrlState"
+import useUrlQueryState from "./hooks/useUrlQueryState"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,10 +28,6 @@ const queryClient = new QueryClient({
 })
 
 function App(props = {}) {
-  // syncs navigation relevat states with the url for deep links
-  // gets the state from the URL in the beginning
-  // sets the URL from state information
-  useUrlState()
   const preErrorClasses = `
     custom-error-pre
     border-theme-error
@@ -62,13 +59,31 @@ function App(props = {}) {
   )
 }
 
+const AppWithOldUrlStructure = (props) => {
+  // syncs navigation relevant states with the url for deep links
+  // gets the state from the URL in the beginning
+  // sets the URL from state information
+  useUrlState()
+  return <App {...props} />
+}
+
+const AppWithNewUrlStructure = (props) => {
+  /**
+   * [TODO]
+   * move the URL state changes closer to the origins of the change
+   * so the whole app does not unnecessarily re-render.
+   */
+  useUrlQueryState()
+  return <App {...props} />
+}
+
 const StyledApp = (props) => {
   return (
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
       {/* load appstyles inside the shadow dom */}
       <style>{styles.toString()}</style>
       <StoreProvider options={props}>
-        <App {...props} />
+        {props?.enableNewUrlStructure ? <AppWithNewUrlStructure {...props} /> : <AppWithOldUrlStructure {...props} />}
       </StoreProvider>
     </AppShellProvider>
   )
