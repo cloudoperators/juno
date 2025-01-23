@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useMemo, useRef } from "react"
-import { oidcSession, mockedSession } from "@cloudoperators/juno-oauth"
+import { oidcSession, mockedSession, tokenSession } from "@cloudoperators/juno-oauth"
 
 const setOrganizationToUrl = (groups) => {
   const orgString = groups?.find((g) => g.indexOf("organization:") === 0)
@@ -62,15 +62,15 @@ export const AuthProvider = ({ options, children }) => {
 
     // Mock authentication data if demoOrg matches and user token provided
     if (demoOrg === orgName && !isMockAuth(mockAuth)) {
-      console.debug("Initializing new demo auth session", isMockAuth(mockAuth))
+      console.debug("Initializing new demo auth session")
       setIsDemoMode(true)
-      oidcRef.current = mockedSession({
-        token: {
+      oidcRef.current = tokenSession({
+        token: demoUserToken,
+        options: {
           groups: [`organization:${demoOrg}`],
         },
         initialLogin: true,
         onUpdate: (data) => {
-          if (data?.auth && demoUserToken) data.auth = { ...data.auth, JWT: demoUserToken }
           setAuthData(data)
           // set the organization name in the URL
           if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups)
