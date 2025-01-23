@@ -39,7 +39,7 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
  * Ideal for annotations, additional explanations, and remarks where a Message or InfoBox would be too visually emphasized.
  * Typically used for small text but can contain any child elements, as required.
  */
-export const Box: React.FC<BoxProps> = ({ children = null, unpad = false, className = "", ...props }) => {
+export const Box: React.FC<BoxProps> = ({ children, unpad = false, className = "", ...props }) => {
   const combinedClassName = `juno-box ${boxStyles} ${!unpad ? boxPadding : ""} ${className}`
   return (
     <div className={combinedClassName} {...props}>

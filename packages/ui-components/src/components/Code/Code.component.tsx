@@ -13,7 +13,7 @@ const codeStyles = `
 /** A basic inline <code> component.
  *   Accepts "content" prop or renders children as passed.
  */
-export const Code: React.FC<CodeProps> = ({ content = "", children = null, className = "", ...props }) => {
+export const Code: React.FC<CodeProps> = ({ content = "", children, className = "", ...props }) => {
   return (
     <code className={`juno-code ${codeStyles} ${className}`} {...props}>
       {content || children}

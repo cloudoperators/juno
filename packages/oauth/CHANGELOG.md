@@ -1,5 +1,15 @@
 # @cloudoperators/juno-oauth
 
+## 1.4.0
+
+### Minor Changes
+
+- 89ffdc7: Adds tokenSession without mixing it with the mockSession
+
+### Patch Changes
+
+- f851032: Improved types suggestion
+
 ## 1.3.0
 
 ### Minor Changes

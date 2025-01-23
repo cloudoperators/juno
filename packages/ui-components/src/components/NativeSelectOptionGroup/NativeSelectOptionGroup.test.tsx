@@ -66,6 +66,8 @@ describe("NativeSelectOptionGroup", () => {
     })
 
     test("renders with mixed children types", () => {
+      const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {})
+
       render(
         <NativeSelectOptionGroup>
           <option value="1">Option 1</option>
@@ -75,6 +77,17 @@ describe("NativeSelectOptionGroup", () => {
       expect(screen.getByRole("group")).toBeInTheDocument()
       expect(screen.getByRole("option")).toBeInTheDocument()
       expect(screen.getByText("Not an option")).toBeInTheDocument()
+
+      expect(errorSpy).toHaveBeenCalled()
+      expect(errorSpy).toHaveBeenCalledWith(
+        expect.stringContaining("cannot appear as a child of"),
+        "<span>",
+        "optgroup",
+        "",
+        "",
+        expect.stringContaining("at NativeSelectOptionGroup")
+      )
+      errorSpy.mockRestore()
     })
 
     test("renders without any children", () => {

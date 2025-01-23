@@ -11,8 +11,8 @@ import { describe, expect, test } from "vitest"
 import { ContextMenu } from "./ContextMenu.component"
 
 describe("ContextMenu", () => {
-  test("renders a ContextMenu Toggle", () => {
-    render(<ContextMenu />)
+  test("renders a ContextMenu Toggle", async () => {
+    await waitFor(() => render(<ContextMenu />))
     const iconElement = screen.getByRole("img")
 
     expect(iconElement).toHaveAccessibleName("More")

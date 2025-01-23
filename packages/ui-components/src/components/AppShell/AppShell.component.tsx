@@ -18,49 +18,27 @@ import { HeaderContainer } from "../HeaderContainer/index"
 export const AppShell: React.FC<AppShellProps> = ({
   children,
   className = "",
-  contentHeading = "",
   embedded = false,
   pageHeader = <PageHeader />,
   pageFooter = <PageFooter />,
+  fullWidthContent, // Must be undefined by default, as we need to differentiate between explicitly passed false and not passed at all.
   sideNavigation,
   topNavigation,
   ...props
 }) => {
   // Determine whether to pass set fullWidth to true in embedded mode or not:
+  // In embedded mode (i.e. embedded == true), fullWidthContent should default to true, unless explicitly passed as false.
   // In non-embedded mode, fullWidthContent should default to false, unless explicitly set to true.
-  // In embedded mode though, fullWidthContent should default to true, unless explicitly passed as false.
-
-  if (contentHeading && contentHeading.length) {
-    console.warn(
-      "AppShell: The contentHeading prop is obsolete and will be removed in a future version. In order to render a content heading, use a ContentHeading element as a child in your main content."
-    )
-  }
-  const { fullWidthContent } = props
-  const renderHeaderContainer = (
-    pageHeader?: AppShellProps["pageHeader"],
-    topNavigation?: AppShellProps["topNavigation"]
-  ) => {
-    if (!pageHeader && !topNavigation) {
-      return null
-    }
-    return (
-      <HeaderContainer fullWidth={fullWidthContent === true}>
-        {pageHeader && typeof pageHeader === "string" ? <PageHeader heading={pageHeader} /> : pageHeader}
-        {topNavigation}
-        {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
-      </HeaderContainer>
-    )
-  }
+  const fullWidthOrDefault = embedded ? fullWidthContent !== false : fullWidthContent === true
 
   return (
     <AppBody className={className} {...props}>
-      {contentHeading || ""}
       {embedded ? (
         <>
-          {topNavigation && <HeaderContainer>{topNavigation}</HeaderContainer>}
+          {topNavigation && <HeaderContainer fullWidth={fullWidthOrDefault}>{topNavigation}</HeaderContainer>}
           <MainContainer>
             <MainContainerInner
-              fullWidth={fullWidthContent === false ? false : true}
+              fullWidth={fullWidthOrDefault}
               hasSideNav={sideNavigation ? true : false}
               className={`${topNavigation ? "jn-mt-[3.875rem]" : ""}`}
             >
@@ -71,10 +49,14 @@ export const AppShell: React.FC<AppShellProps> = ({
         </>
       ) : (
         <>
-          {renderHeaderContainer(pageHeader, topNavigation)}
+          <HeaderContainer fullWidth={fullWidthOrDefault}>
+            {pageHeader && typeof pageHeader === "string" ? <PageHeader heading={pageHeader} /> : pageHeader}
+            {topNavigation}
+          </HeaderContainer>
+          {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
           <MainContainer>
             <MainContainerInner
-              fullWidth={fullWidthContent === true ? true : false}
+              fullWidth={fullWidthOrDefault}
               hasSideNav={sideNavigation ? true : false}
               className="jn-mt-[3.875rem]"
             >
@@ -101,8 +83,6 @@ export interface AppShellProps extends React.HTMLAttributes<HTMLElement> {
   topNavigation?: React.ReactNode
   /** Optional. If specified expects a `<SideNavigation>` component. If undefined no side navigation is rendered. */
   sideNavigation?: React.ReactNode
-  /** OBSOLETE: The contentHeading prop is obsolete and will be removed in a future version. In order to render a content heading, use a `<ContentHeading>` element as a child in your main content. */
-  contentHeading?: string
   /** Optional: Defaults to false. Set embedded to true if app is to be rendered embedded in another app/page.
    * In this case only the content area and children are rendered, a TopNavigation if passed, but no header/footer or remaining layout components */
   embedded?: boolean

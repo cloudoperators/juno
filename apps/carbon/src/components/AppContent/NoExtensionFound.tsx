@@ -8,9 +8,7 @@ import { Message } from "@cloudoperators/juno-ui-components"
 
 const NoExtensionFound = () => (
   <div className="p-4">
-    <Message variant="danger" onDismiss={undefined} text={undefined}>
-      No extension found!
-    </Message>
+    <Message variant="danger">No extension found!</Message>
   </div>
 )
 

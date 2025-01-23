@@ -7,6 +7,7 @@ import React, { useContext, MouseEvent, FC } from "react"
 import { Menu as HLMenu } from "@headlessui/react"
 import { MenuContext } from "../Menu/Menu.component"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
+import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
 const itemStyles = `
    jn-text-theme-default
@@ -62,11 +63,11 @@ interface MenuContextType {
 }
 
 /** 
- A menu item to be used inside Menu.
+ DEPRECATED: Use `PopupMenu` with `PopupMenu.Item instead. A menu item to be used inside Menu.
  Can render `<a>`, `<button>`, or `<div>` based on props.
  */
-export const MenuItem: FC<MenuItemProps> = ({
-  children = null,
+export const DeprecatedMenuItem: FC<MenuItemProps> = ({
+  children,
   className = "",
   disabled = false,
   href = "",
@@ -110,3 +111,10 @@ export const MenuItem: FC<MenuItemProps> = ({
     </HLMenu.Item>
   )
 }
+
+DeprecatedMenuItem.displayName = "MenuItem"
+
+export const MenuItem = withDeprecationWarning(
+  DeprecatedMenuItem,
+  "MenuItem is deprecated and will be removed in future versions. Use PopupMenu with PopupMenu.Item instead."
+)

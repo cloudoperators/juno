@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.3.12
+
+### Patch Changes
+
+- 0e7b79e: Sync Greenhouse with the libraries
+
 ## 0.3.11
 
 ### Patch Changes
