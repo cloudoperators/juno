@@ -42,11 +42,11 @@ npx turbo test
 These are the customizable application properties (appProps) that you can define in your appProps.json file:
 
 - **authIssuerUrl** (required): `"https://endpoint_url_of_the_openid_provider.com"`. Endpoint URL of the OpenID provider.
-- **authClientId** (required): `"tbd"`. OIDC client ID.
+- **authClientId** (required): `"id_of_the_oidc_client"`. OIDC client ID.
 - **theme** (optional): Overrides the default theme. Acceptable values are `"theme-light"` or `"theme-dark"` (default).
 - **embedded** (optional): Set to `true` if the app will be embedded within another app or page. When `true`, the app will not display the header or footer, rendering only the content. Default is `false`.
 - **currentHost** (required): `"URL TO ASSETS SERVER"`. This value is usually set by the Widget Loader. If the app is loaded via `import` or `importShim`, this parameter should be set.
 - **apiEndpoint** (required): `"URL TO K8S API"`. This value is necessary to communicate with the Kubernetes API.
-- **mockAuth**: `true`, `false` (default), or `json` (optional). Mock the OIDC data, allowed values include pure or base64 encoded JSON.
+- **mockAuth**: true, false (default), or JSON (optional). Simulates mock authentication; allowed values include boolean, plain JSON objects, or Base64-encoded JSON strings. When enabled, the application receives a predefined mock token with attributes such as iss, sub, aud, exp, iat, nonce, email, email_verified, groups, name, and preferred_username. These attributes will be overridden if a JSON object is provided instead of a boolean. Additionally, the organization group will be overridden with the value specified in the URL.
 - **demoOrg** (optional): `"demo"`. If the organization name matches this value, the app will enter demo mode (mock authentication and demo org plugins).
 - **demoUserToken** (optional): `"token for demo user"`. Used for authentication if `demoOrg` and `demoUserToken` are set, and the organization name matches `demoOrg`.

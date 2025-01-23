@@ -11,6 +11,32 @@ const setOrganizationToUrl = (groups) => {
   }
 }
 
+function isMockAuth(value) {
+  if (typeof value === "boolean") {
+    return value
+  }
+  if (typeof value === "string") {
+    if (value.trim().toLowerCase() === "true") {
+      return true
+    }
+    try {
+      const parsedValue = JSON.parse(atob(value) || value)
+      return parsedValue === true || parsedValue === "true"
+    } catch (_) {
+      return false
+    }
+  }
+  if (typeof value === "object" && value !== null) {
+    try {
+      JSON.stringify(value)
+      return true
+    } catch (_) {
+      return false
+    }
+  }
+  return false
+}
+
 const AuthContext = createContext()
 
 export const AuthProvider = ({ options, children }) => {
@@ -21,12 +47,13 @@ export const AuthProvider = ({ options, children }) => {
   const initializeOidc = () => {
     if (oidcRef.current) return oidcRef.current
     setIsDemoMode(false)
-    // extract auth props
-    const issuerURL = options?.authIssuerUrl
-    const clientID = options?.authClientId
-    const mock = options?.mockAuth || false
-    const demoOrg = options?.demoOrg || "demo"
-    const demoUserToken = options?.demoUserToken
+    const {
+      authIssuerUrl: issuerURL,
+      authClientId: clientID,
+      mockAuth = false,
+      demoOrg = "demo",
+      demoUserToken,
+    } = options || {}
 
     // extract the organization name from the URL
     const currentUrl = new URL(window.location.href)
@@ -34,8 +61,8 @@ export const AuthProvider = ({ options, children }) => {
     let orgName = match ? match[1] : currentUrl.searchParams.get("org")
 
     // Mock authentication data if demoOrg matches and user token provided
-    if (demoOrg === orgName) {
-      console.debug("Initializing new demo auth session")
+    if (demoOrg === orgName && !isMockAuth(mockAuth)) {
+      console.debug("Initializing new demo auth session", isMockAuth(mockAuth))
       setIsDemoMode(true)
       oidcRef.current = mockedSession({
         token: {
@@ -53,9 +80,16 @@ export const AuthProvider = ({ options, children }) => {
     }
 
     // Check if mock mode is enabled
-    if (mock === "true" || mock === true) {
+    if (isMockAuth(mockAuth)) {
       console.debug("Initializing new mocked auth session")
+
+      // override the organization name if provided in the URL
+      if (orgName && typeof mockAuth === "object" && mockAuth !== null) {
+        mockAuth.groups = [`organization:${orgName}`]
+      }
+
       oidcRef.current = mockedSession({
+        token: mockAuth,
         initialLogin: true,
         onUpdate: (data) => {
           setAuthData(data)
