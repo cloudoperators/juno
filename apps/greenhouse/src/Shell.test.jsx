@@ -14,6 +14,6 @@ import { vi } from "vitest"
 vi.mock("./components/Auth")
 
 test("renders app", () => {
-  render(<Shell mockAuth={true} />)
+  render(<Shell />)
   expect(Auth).toHaveBeenCalled()
 })
