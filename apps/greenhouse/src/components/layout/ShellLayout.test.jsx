@@ -13,8 +13,6 @@ import StoreProvider from "../StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { AuthProvider } from "../AuthProvider"
 
-vi.mock("@cloudoperators/juno-communicator")
-
 test("renders app", async () => {
   render(
     <AuthProvider options={{ mockAuth: true }}>
