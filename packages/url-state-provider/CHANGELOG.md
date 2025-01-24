@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 2.3.0
+
+### Minor Changes
+
+- 83a4a82: Exports new `saveStateToUrl` and `readStateFromUrl` utilities to save and read state from the url by using new encoder and decoder.
+
 ## 2.2.0
 
 ### Minor Changes

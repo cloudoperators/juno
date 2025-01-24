@@ -1,5 +1,13 @@
 # @cloudoperators/juno-ui-components
 
+## 2.36.0
+
+### Minor Changes
+
+- c0d37b3: add PopupMenu component
+  deprecate Menu, MenuItem, MenuSection, ContextMenu components
+- b588973: Fix vite configuration to enable type consumption from @cloudoperators/juno-ui-components and fix Icon display name
+
 ## 2.35.2
 
 ### Patch Changes
