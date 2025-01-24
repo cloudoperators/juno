@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo, useRef } from "react"
+import React, { createContext, useContext, useState, useMemo, useRef, useEffect } from "react"
 import { oidcSession, mockedSession, tokenSession } from "@cloudoperators/juno-oauth"
 
 const setOrganizationToUrl = (groups) => {
@@ -11,30 +11,28 @@ const setOrganizationToUrl = (groups) => {
   }
 }
 
-function isMockAuth(value) {
+function resolveMockAuth(value) {
   if (typeof value === "boolean") {
-    return value
+    return { isMock: value, parsedAuth: value ? {} : null }
   }
+
   if (typeof value === "string") {
     if (value.trim().toLowerCase() === "true") {
-      return true
+      return { isMock: true, parsedAuth: {} }
     }
     try {
-      const parsedValue = JSON.parse(atob(value) || value)
-      return parsedValue === true || parsedValue === "true"
-    } catch (_) {
-      return false
+      const parsed = JSON.parse(value)
+      return { isMock: true, parsedAuth: parsed }
+    } catch {
+      return { isMock: false, parsedAuth: null }
     }
   }
+
   if (typeof value === "object" && value !== null) {
-    try {
-      JSON.stringify(value)
-      return true
-    } catch (_) {
-      return false
-    }
+    return { isMock: true, parsedAuth: value }
   }
-  return false
+
+  return { isMock: false, parsedAuth: null }
 }
 
 const AuthContext = createContext()
@@ -42,10 +40,11 @@ const AuthContext = createContext()
 export const AuthProvider = ({ options, children }) => {
   const [authData, setAuthData] = useState(null)
   const [isDemoMode, setIsDemoMode] = useState(false)
-  const oidcRef = useRef(null)
+  const [oidcError, setOidcError] = useState(null)
+  const oidcInstance = useRef(null)
 
   const initializeOidc = () => {
-    if (oidcRef.current) return oidcRef.current
+    if (oidcInstance.current || oidcError) return oidcInstance.current
     setIsDemoMode(false)
     const {
       authIssuerUrl: issuerURL,
@@ -60,36 +59,45 @@ export const AuthProvider = ({ options, children }) => {
     let match = currentUrl.host.match(/^(.+)\.dashboard\..+/)
     let orgName = match ? match[1] : currentUrl.searchParams.get("org")
 
+    // extract mock params
+    const { isMock, parsedAuth } = resolveMockAuth(mockAuth)
+
     // Mock authentication data if demoOrg matches and user token provided
-    if (demoOrg === orgName && !isMockAuth(mockAuth)) {
+    if (demoOrg === orgName && !isMock) {
       console.debug("Initializing new demo auth session")
       setIsDemoMode(true)
-      oidcRef.current = tokenSession({
+      oidcInstance.current = tokenSession({
         token: demoUserToken,
         options: {
           groups: [`organization:${demoOrg}`],
         },
         initialLogin: true,
         onUpdate: (data) => {
+          if (data?.error) {
+            const error = `Error in demo mode: ${data.error}`
+            console.error(error)
+            setOidcError(error)
+            return
+          }
           setAuthData(data)
           // set the organization name in the URL
           if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups)
         },
       })
-      return oidcRef.current
+      return oidcInstance.current
     }
 
     // Check if mock mode is enabled
-    if (isMockAuth(mockAuth)) {
+    if (isMock) {
       console.debug("Initializing new mocked auth session")
 
       // override the organization name if provided in the URL
-      if (orgName && typeof mockAuth === "object" && mockAuth !== null) {
-        mockAuth.groups = [`organization:${orgName}`]
+      if (orgName) {
+        parsedAuth.groups = [`organization:${orgName}`]
       }
 
-      oidcRef.current = mockedSession({
-        token: mockAuth,
+      oidcInstance.current = mockedSession({
+        token: parsedAuth,
         initialLogin: true,
         onUpdate: (data) => {
           setAuthData(data)
@@ -97,7 +105,7 @@ export const AuthProvider = ({ options, children }) => {
           if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups)
         },
       })
-      return oidcRef.current
+      return oidcInstance.current
     }
 
     // If mock mode is not enabled, initialize a real OIDC session
@@ -108,7 +116,7 @@ export const AuthProvider = ({ options, children }) => {
         connector_id: !orgName ? undefined : orgName,
       })
 
-      oidcRef.current = oidcSession({
+      oidcInstance.current = oidcSession({
         issuerURL,
         clientID,
         initialLogin: true,
@@ -121,39 +129,39 @@ export const AuthProvider = ({ options, children }) => {
           if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups)
         },
       })
-      return oidcRef.current
+      return oidcInstance.current
     }
 
-    throw new Error("Invalid OIDC configuration")
+    const error = "Invalid OIDC configuration, issuerURL and clientID are required"
+    console.error(error)
+    setOidcError(error)
+    return
   }
 
   // Memoized login function
   const login = () => {
-    const oidc = initializeOidc()
-    if (oidc?.login) {
-      oidc.login()
-    }
+    oidcInstance.current?.login?.()
   }
 
   // Memoized logout function
   const logout = () => {
-    const oidc = initializeOidc()
-    if (oidc?.logout) {
-      oidc.logout({
-        resetOIDCSession: true,
-        silent: true,
-      })
-      setAuthData(null)
-    }
+    oidcInstance.current?.logout?.({
+      resetOIDCSession: true,
+      silent: true,
+    })
+    setAuthData(null)
+    setOidcError(null)
   }
 
-  initializeOidc()
+  useEffect(() => {
+    oidcInstance.current = initializeOidc()
+  }, [options])
 
   const contextValue = useMemo(
     () => ({
       isProcessing: authData ? authData?.isProcessing : false,
       loggedIn: authData ? authData?.loggedIn : false,
-      error: authData ? authData?.error : null,
+      error: authData ? authData?.error : oidcError,
       data: authData ? authData?.auth : null,
       isDemoMode,
       login,
