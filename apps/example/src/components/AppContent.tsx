@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
@@ -31,13 +34,11 @@ const AppContent: React.FC = () => {
   const loggedIn = useAuthLoggedIn()
   const authError = useAuthError()
   const tabIndex = useGlobalsTabIndex()
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { addMessage } = useActions()
 
   // set an error message when oidc fails
   useEffect(() => {
     if (authError) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       addMessage({
         variant: "error",
         text: JSON.stringify(authError),
