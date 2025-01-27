@@ -12,7 +12,6 @@ import React, { useEffect, useMemo } from "react"
 
 // @ts-ignore
 import styles from "./styles.scss?inline"
-import MonorepoChecker from "./components/MonorepoChecker"
 
 import {
   AppShellProvider,
@@ -63,7 +62,6 @@ const App: React.FC<AppProps> = ({ endpoint, embedded, id }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MonorepoChecker />
       {/* @ts-ignore */}
       <AsyncWorker consumerId={id} />
       <AppShell
