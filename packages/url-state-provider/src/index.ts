@@ -325,4 +325,4 @@ export {
   encode,
 }
 
-export { encode as encodeV2, decode as decodeV2 } from "./v2"
+export { encode as encodeV2, decode as decodeV2, saveStateToUrl, readStateFromUrl } from "./v2"

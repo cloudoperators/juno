@@ -15,6 +15,7 @@ import {
   TabPanel,
   Select,
   SelectOption,
+  PopupMenu,
 } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActions, useGlobalsTabIndex, useAuthLoggedIn, useAuthError } from "./StoreProvider"
 import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
@@ -23,6 +24,7 @@ import ModalManager from "./ModalManager"
 import PanelManager from "./PanelManager"
 import Peaks from "./peaks/Peaks"
 import WelcomeView from "./WelcomeView"
+import PositionArea from "./PositionArea"
 
 const AppContent: React.FC = () => {
   const { setTabIndex, setCurrentModal } = useGlobalsActions()
@@ -92,6 +94,19 @@ const AppContent: React.FC = () => {
                     <SelectOption value="4" label="Option 4" />
                   </Select>
                 </Container>
+                <PositionArea>
+                  <PopupMenu>
+                    <PopupMenu.Menu>
+                      <PopupMenu.Item label="Item 1" />
+                      <PopupMenu.Item label="Item 2" />
+                      <PopupMenu.Item label="Item 3" />
+                      <PopupMenu.Item label="Item 4" />
+                      <PopupMenu.Item label="Item 5" />
+                      <PopupMenu.Item label="Item 6" />
+                      <PopupMenu.Item label="Item 7" />
+                    </PopupMenu.Menu>
+                  </PopupMenu>
+                </PositionArea>
               </TabPanel>
             </MainTabs>
             <ModalManager />

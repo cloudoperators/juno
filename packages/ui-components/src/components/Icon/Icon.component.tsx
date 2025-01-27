@@ -837,62 +837,58 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
   }
 }
 
-export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(
-  (
-    { icon = null, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
-    ref
-  ) => {
-    // if href or onClick was passed, then we want to add the passed classes and passed arbitrary props to the button or anchor
-    // otherwise add the passed classes/props to the icon itself
-    const iconClassName = href || onClick ? "" : className
-    const iconProps = href || onClick ? {} : props
+export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(function Icon(
+  { icon = null, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
+  ref
+) {
+  // if href or onClick was passed, then we want to add the passed classes and passed arbitrary props to the button or anchor
+  // otherwise add the passed classes/props to the icon itself
+  const iconClassName = href || onClick ? "" : className
+  const iconProps = href || onClick ? {} : props
 
-    const icn = getColoredSizedIcon({
-      icon: icon || undefined,
-      color,
-      size,
-      title,
-      iconClassName,
-      ...iconProps,
-    })
+  const icn = getColoredSizedIcon({
+    icon: icon || undefined,
+    color,
+    size,
+    title,
+    iconClassName,
+    ...iconProps,
+  })
 
-    const handleClick = (event: React.MouseEvent<EventTarget>) => {
-      onClick && onClick(event)
-    }
-
-    const button = (
-      <button
-        {...(props as React.HTMLProps<HTMLButtonElement>)}
-        type="button"
-        onClick={handleClick}
-        className={`juno-icon-button ${buttonIconStyles} ${className}`}
-        aria-label={title || icon || undefined}
-        disabled={disabled}
-        ref={ref as LegacyRef<HTMLButtonElement>}
-      >
-        {icn}
-      </button>
-    )
-
-    const anchor = (
-      <a
-        {...(props as React.HTMLProps<HTMLAnchorElement>)}
-        aria-label={title || icon || undefined}
-        href={href}
-        className={`juno-icon-link ${anchorIconStyles} ${className}`}
-        ref={ref as LegacyRef<HTMLAnchorElement>}
-      >
-        {icn}
-      </a>
-    )
-
-    /* render an <a> if href was passed, otherwise render button if onClick was passes, otherwise render plain icon: */
-    /* if plain icon, add ref to the icon. In the other cases the ref goes on the anchor or button */
-    return href ? anchor : onClick ? button : <span ref={ref}>{icn}</span>
+  const handleClick = (event: React.MouseEvent<EventTarget>) => {
+    onClick && onClick(event)
   }
-)
 
-Icon.displayName = "IconTs"
+  const button = (
+    <button
+      {...(props as React.HTMLProps<HTMLButtonElement>)}
+      type="button"
+      onClick={handleClick}
+      className={`juno-icon-button ${buttonIconStyles} ${className}`}
+      aria-label={title || icon || undefined}
+      disabled={disabled}
+      ref={ref as LegacyRef<HTMLButtonElement>}
+    >
+      {icn}
+    </button>
+  )
+
+  const anchor = (
+    <a
+      {...(props as React.HTMLProps<HTMLAnchorElement>)}
+      aria-label={title || icon || undefined}
+      href={href}
+      className={`juno-icon-link ${anchorIconStyles} ${className}`}
+      ref={ref as LegacyRef<HTMLAnchorElement>}
+    >
+      {icn}
+    </a>
+  )
+
+  /* render an <a> if href was passed, otherwise render button if onClick was passes, otherwise render plain icon: */
+  /* if plain icon, add ref to the icon. In the other cases the ref goes on the anchor or button */
+  return href ? anchor : onClick ? button : <span ref={ref}>{icn}</span>
+})
 
 export interface IconProps
   extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
