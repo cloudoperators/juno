@@ -1,44 +1,83 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable no-unused-vars */
 
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useContext } from "react"
-import PropTypes from "prop-types"
-import { useStore as create } from "zustand"
+import React, { createContext, useContext, ReactNode } from "react"
+import { useStore as create, StoreApi } from "zustand"
+
 import createStore from "../lib/store"
 
-// @ts-expect-error TS(2554): Expected 1 arguments, but got 0.
-const StoreContext = createContext()
-const StoreProvider = ({ children }: any) => (
+interface AuthParsedData {
+  fullName: string
+  avatarUrl: {
+    small: string
+  }
+}
+
+interface Actions {
+  setCurrentPanel: (panel: unknown) => void
+  setCurrentModal: (modal: unknown) => void
+  setTabIndex: (index: number) => void
+}
+interface StoreState {
+  globals: {
+    endpoint: string
+    urlStateKey: string
+    tabIndex: number
+    queryClientFnReady: boolean
+    currentModal: unknown
+    currentPanel: unknown
+    actions: Actions
+  }
+  auth: {
+    data: {
+      parsed?: AuthParsedData
+    }
+    isProcessing: boolean
+    loggedIn: boolean
+    error: unknown
+    lastAction: unknown
+    actions: Actions
+  }
+}
+
+interface StoreProviderProps {
+  children: ReactNode
+}
+
+const StoreContext = createContext<StoreApi<StoreState> | null>(null)
+
+const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => (
+  // @ts-ignore
   <StoreContext.Provider value={createStore()}>{children}</StoreContext.Provider>
 )
 
-// @ts-ignore
-const useStore = (selector: any) => create(useContext(StoreContext), selector)
-
-// globals
-export const useGlobalsEndpoint = () => useStore((s: any) => s.globals.endpoint)
-export const useGlobalsUrlStateKey = () => useStore((s: any) => s.globals.urlStateKey)
-export const useGlobalsTabIndex = () => useStore((s: any) => s.globals.tabIndex)
-export const useGlobalsQueryClientFnReady = () => useStore((s: any) => s.globals.queryClientFnReady)
-export const useGlobalsCurrentModal = () => useStore((s: any) => s.globals.currentModal)
-export const useGlobalsCurrentPanel = () => useStore((s: any) => s.globals.currentPanel)
-export const useGlobalsActions = () => useStore((s: any) => s.globals.actions)
-
-// auth
-export const useAuthData = () => useStore((state: any) => state.auth.data)
-export const useAuthIsProcessing = () => useStore((state: any) => state.auth.isProcessing)
-export const useAuthLoggedIn = () => useStore((state: any) => state.auth.loggedIn)
-export const useAuthError = () => useStore((state: any) => state.auth.error)
-export const useAuthLastAction = () => useStore((state: any) => state.auth.lastAction)
-export const useAuthActions = () => useStore((state: any) => state.auth.actions)
-
-StoreProvider.propTypes = {
-  children: PropTypes.node,
+const useStore = <T,>(selector: (state: StoreState) => T) => {
+  const store = useContext(StoreContext)
+  if (!store) {
+    throw new Error("useStore must be used within a StoreProvider")
+  }
+  return create(store, selector)
 }
+
+// Globals
+export const useGlobalsEndpoint = () => useStore((s) => s.globals.endpoint)
+export const useGlobalsUrlStateKey = () => useStore((s) => s.globals.urlStateKey)
+export const useGlobalsTabIndex = () => useStore((s) => s.globals.tabIndex)
+export const useGlobalsQueryClientFnReady = () => useStore((s) => s.globals.queryClientFnReady)
+export const useGlobalsCurrentModal = () => useStore((s) => s.globals.currentModal)
+export const useGlobalsCurrentPanel = () => useStore((s) => s.globals.currentPanel)
+export const useGlobalsActions = () => useStore((s) => s.globals.actions)
+
+// Auth
+export const useAuthData = () => useStore((state) => state.auth.data)
+export const useAuthIsProcessing = () => useStore((state) => state.auth.isProcessing)
+export const useAuthLoggedIn = () => useStore((state) => state.auth.loggedIn)
+export const useAuthError = () => useStore((state) => state.auth.error)
+export const useAuthLastAction = () => useStore((state) => state.auth.lastAction)
+export const useAuthActions = () => useStore((state) => state.auth.actions)
+
 export default StoreProvider

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
@@ -21,30 +18,32 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActions, useGlobalsTabIndex, useAuthLoggedIn, useAuthError } from "./StoreProvider"
 import { useActions, Messages } from "@cloudoperators/juno-messages-provider"
+
 import ModalManager from "./ModalManager"
 import PanelManager from "./PanelManager"
 import Peaks from "./peaks/Peaks"
 import WelcomeView from "./WelcomeView"
 
-const AppContent = () => {
-  // @ts-ignore
+const AppContent: React.FC = () => {
   const { setTabIndex, setCurrentModal } = useGlobalsActions()
   const loggedIn = useAuthLoggedIn()
   const authError = useAuthError()
   const tabIndex = useGlobalsTabIndex()
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { addMessage } = useActions()
 
   // set an error message when oidc fails
   useEffect(() => {
     if (authError) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       addMessage({
         variant: "error",
         text: JSON.stringify(authError),
       })
     }
-  }, [authError])
+  }, [authError, addMessage])
 
-  const onTabSelected = (index: any) => {
+  const onTabSelected = (index: number) => {
     setTabIndex(index)
   }
 
@@ -53,23 +52,17 @@ const AppContent = () => {
       {loggedIn && !authError ? (
         <>
           <Breadcrumb>
-            {/* @ts-ignore */}
             <BreadcrumbItem icon="home" label="Example App Home" />
           </Breadcrumb>
 
           <Container py>
-            {/* @ts-ignore */}
             <MainTabs selectedIndex={tabIndex} onSelect={onTabSelected}>
-              {/* @ts-ignore */}
               <TabList>
-                {/* @ts-ignore */}
                 <Tab>Peaks</Tab>
-                {/* @ts-ignore */}
                 <Tab>Tab Two</Tab>
               </TabList>
 
               <TabPanel>
-                {/* @ts-ignore */}
                 <Container py px={false}>
                   {/* Set the background graphic using tailwind background image syntax as below. The image must exist at the specified location in your app */}
                   {/*<IntroBox variant="hero" heroImage="bg-[url('img/app_bg_example.svg')]">
@@ -82,28 +75,20 @@ const AppContent = () => {
                 </Container>
               </TabPanel>
               <TabPanel>
-                {/* @ts-ignore */}
                 <Container py px={false}>
                   <p>Test a panel pressing the Button</p>
-                  {/* @ts-ignore */}
-                  <Button label="Button" onClick={() => setCurrentModal("TestModal")} />
+                  <Button label="Button" onClick={() => setCurrentModal({ type: "TestModal" })} />
                   <p>Test a select</p>
-                  {/* @ts-ignore */}
                   <Select
                     name="filter"
                     className="filter-label-select w-64 mb-0"
                     label="Filter"
-                    onChange={(e: any) => console.debug(e)}
+                    onChange={(e) => console.debug(e)}
                   >
-                    {/* @ts-ignore */}
                     <SelectOption value="0" label="Option 0" />
-                    {/* @ts-ignore */}
                     <SelectOption value="1" label="Option 1" />
-                    {/* @ts-ignore */}
                     <SelectOption value="2" label="Option 2" />
-                    {/* @ts-ignore */}
                     <SelectOption value="3" label="Option 3" />
-                    {/* @ts-ignore */}
                     <SelectOption value="4" label="Option 4" />
                   </Select>
                 </Container>

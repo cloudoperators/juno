@@ -6,7 +6,7 @@
 import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
-const avatarCss = `
+const avatarStyles = `
 h-8
 w-8
 bg-theme-background-lvl-2
@@ -28,7 +28,7 @@ const Avatar: React.FC<AvatarProps> = ({ userName, url }) => {
             background: `url(${url}) no-repeat`,
             backgroundSize: `cover`,
           }}
-          className={avatarCss}
+          className={avatarStyles}
         />
       )}
       {userName && <span className="ml-2">{userName}</span>}

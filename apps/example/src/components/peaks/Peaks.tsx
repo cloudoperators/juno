@@ -10,23 +10,32 @@ import { Spinner, Message } from "@cloudoperators/juno-ui-components"
 import { useGlobalsQueryClientFnReady } from "../StoreProvider"
 import PeaksList from "./PeaksList"
 
-interface Error {
+interface CustomError {
+  name: string
+  message: string
   statusCode?: number
-  message?: string
 }
 
-interface Peak {
+export interface Peak {
   id: number
   name: string
   height: number
+  mainrange: string
+  region: string
+  countries: string
+  url: string
 }
 
 const Peaks: React.FC = () => {
   const queryClientFnReady = useGlobalsQueryClientFnReady()
 
-  const { isLoading, isError, data, error } = useQuery<Peak[], Error>({
-    queryKey: [`peaks`],
-    queryFn: () => fetch("/api/peaks").then((res) => res.json()), // Replace with actual data fetching.
+  const {
+    isLoading,
+    isError,
+    data = [],
+    error,
+  } = useQuery<Peak[], CustomError>({
+    queryKey: ["peaks"],
     enabled: !!queryClientFnReady,
   })
 
@@ -37,7 +46,7 @@ const Peaks: React.FC = () => {
       )}
       {/* Loading indicator for page content */}
       {isLoading && <Spinner variant="primary" />}
-      <PeaksList isLoading={isLoading} isError={isError} peaks={data} error={error} />
+      <PeaksList isLoading={isLoading} isError={isError} peaks={data} error={error ?? undefined} />
     </>
   )
 }

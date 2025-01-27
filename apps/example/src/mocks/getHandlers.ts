@@ -1,61 +1,84 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { http, HttpResponse } from "msw"
-
+import { http } from "msw"
 import db from "./db"
 
-const getPeaks = ({ endpoint }: any) => {
-  return http.get(`${endpoint}/peaks`, () => HttpResponse.json(db.peaks))
+interface Options {
+  endpoint: string
 }
 
-const getPeak = ({ endpoint }: any) => {
-  return http.get(`${endpoint}/peaks/:id`, ({ params }: any) => {
+interface Peak {
+  id: number
+  name: string
+  height: string
+  region: string
+  mainrange: string
+  countries: string
+  url?: string
+}
+
+// Mock response handling utility
+class MockHttpResponse {
+  static json = <T>(data: T) => {
+    return new Response(JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+    })
+  }
+
+  static notFound = (message: object) => {
+    return new Response(JSON.stringify(message), { status: 404 })
+  }
+}
+
+const getPeaks = ({ endpoint }: Options) => {
+  return http.get(`${endpoint}/peaks`, () => MockHttpResponse.json(db.peaks))
+}
+
+const getPeak = ({ endpoint }: Options) => {
+  return http.get(`${endpoint}/peaks/:id`, ({ params }) => {
     const { id } = params
-    const peak = db.peaks.find((peak: any) => peak.id === Number(id))
-    //@ts-ignore
-    return peak ? HttpResponse.json(peak) : HttpResponse.notFound()
+    const peak = db.peaks.find((peak: Peak) => peak.id === Number(id))
+    if (peak) {
+      return MockHttpResponse.json(peak)
+    } else {
+      return MockHttpResponse.notFound({ message: "Peak not found" })
+    }
   })
 }
 
-const deletePeak = ({ endpoint }: any) => {
-  return http.delete(`${endpoint}/peaks/:id`, ({ params }: any) => {
+const deletePeak = ({ endpoint }: Options) => {
+  return http.delete(`${endpoint}/peaks/:id`, ({ params }) => {
     const { id } = params
-    db.peaks = [...db.peaks.filter((peak: any) => peak.id !== Number(id))]
-    return HttpResponse.json({})
+    db.peaks = db.peaks.filter((peak: Peak) => peak.id !== Number(id))
+    return MockHttpResponse.json({})
   })
 }
 
-const updatePeak = ({ endpoint }: any) => {
-  return http.put(`${endpoint}/peaks/:id`, async ({ params, request }: any) => {
+const updatePeak = ({ endpoint }: Options) => {
+  return http.put(`${endpoint}/peaks/:id`, async ({ params, request }) => {
     const { id } = params
-    const updatedPeak = await request.json()
-    db.peaks = db.peaks.map((peak: any) => (peak.id === Number(id) ? updatedPeak : peak))
-    return HttpResponse.json({})
+    const updatedPeak = (await request.json()) as Peak
+    db.peaks = db.peaks.map((peak: Peak) => (peak.id === Number(id) ? updatedPeak : peak))
+    return MockHttpResponse.json({})
   })
 }
 
-const addPeak = ({ endpoint }: any) => {
-  return http.post(`${endpoint}/peaks`, async ({ request }: any) => {
-    const newPeak = await request.json()
-    const id = Math.max(...db.peaks.map((peak: any) => peak.id)) + 1
+const addPeak = ({ endpoint }: Options) => {
+  return http.post(`${endpoint}/peaks`, async ({ request }) => {
+    const newPeak = (await request.json()) as Peak
+    const id = Math.max(...db.peaks.map((peak: Peak) => peak.id)) + 1
     db.peaks = [...db.peaks, { ...newPeak, id }]
-    return HttpResponse.json({})
+    return MockHttpResponse.json({})
   })
 }
 
-export default (options: any) => [
+export default (options: Options) => [
   getPeaks(options),
   getPeak(options),
   deletePeak(options),
   updatePeak(options),
   addPeak(options),
-  // add more request handlers here
 ]
