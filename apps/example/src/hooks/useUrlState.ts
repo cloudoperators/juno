@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call*/
 
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors

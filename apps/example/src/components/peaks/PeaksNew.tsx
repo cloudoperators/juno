@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-call*/
 
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
