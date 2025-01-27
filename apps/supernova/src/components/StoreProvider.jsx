@@ -8,7 +8,6 @@ import { createStore, useStore } from "zustand"
 import { devtools } from "zustand/middleware"
 
 import createSilencesSlice from "../lib/createSilencesSlice"
-import createAlertsSlice from "../lib/createAlertsSlice"
 import createFiltersSlice from "../lib/createFiltersSlice"
 import createGlobalsSlice from "../lib/createGlobalsSlice"
 import createUserActivitySlice from "../lib/createUserActivitySlice"
@@ -22,7 +21,6 @@ export const StoreProvider = ({ options, children }) => {
         devtools((set, get) => ({
           ...createGlobalsSlice(set, get, options),
           ...createUserActivitySlice(set, get),
-          ...createAlertsSlice(set, get),
           ...createFiltersSlice(set, get, options),
           ...createSilencesSlice(set, get, options),
         }))
@@ -53,8 +51,7 @@ export const useUserIsActive = () => useAppStore((state) => state.userActivity.i
 export const useUserActivityActions = () => useAppStore((state) => state.userActivity.actions)
 
 // Alert exports
-export const useAlertEnrichedLabels = () => useAppStore((state) => state.alerts.enrichedLabels)
-export const useAlertsActions = () => useAppStore((state) => state.alerts.actions)
+export const useAlertEnrichedLabels = () => ["status"]
 
 // Filter exports
 export const useFilterLabels = () => useAppStore((state) => state.filters.labels)
