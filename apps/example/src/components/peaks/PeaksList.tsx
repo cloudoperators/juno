@@ -57,6 +57,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ peaks, isLoading, isError, error 
         </DataGridCell>
       </DataGridRow>
     ),
+    //@ts-ignore
     refFunction,
   })
 
@@ -80,6 +81,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ peaks, isLoading, isError, error 
         </DataGridRow>
         {scrollListItems.length > 0 ? (
           <>
+            {/* @ts-ignore */}
             {iterator.map((peak: Peak, index: number) => (
               <PeaksListItem key={index} peak={peak} />
             ))}
