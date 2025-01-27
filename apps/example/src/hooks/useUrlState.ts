@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
@@ -47,7 +48,6 @@ const useUrlState = (key: string | undefined) => {
     const newCurrentModal = urlStateManager.currentState()?.[CURRENT_MODAL]
 
     // SAVE the state
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     if (newTabIndex !== undefined) setTabIndex(newTabIndex)
     if (newCurrentPanel !== undefined) setCurrentPanel(newCurrentPanel)
     if (newCurrentModal !== undefined) setCurrentModal(newCurrentModal)

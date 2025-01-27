@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
+
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from "react"
+import React, { useMemo, MutableRefObject } from "react"
 import {
   Button,
   ContentAreaToolbar,
@@ -34,12 +36,12 @@ interface PeaksListProps {
 
 const LIST_COLUMNS = 6
 
-const PeaksList: React.FC<PeaksListProps> = ({ peaks }) => {
+const PeaksList: React.FC<PeaksListProps> = ({ peaks, isLoading, isError, error }) => {
   const { setCurrentPanel } = useGlobalsActions()
 
   const items = useMemo(() => peaks, [peaks])
 
-  const refFunction = (ref: React.MutableRefObject<HTMLSpanElement | null>) => (
+  const refFunction = (ref: MutableRefObject<HTMLSpanElement | null>): React.ReactElement => (
     <DataGridRow>
       <DataGridCell colSpan={LIST_COLUMNS} className="border-b-0 py-0">
         <span ref={ref} />
@@ -55,7 +57,6 @@ const PeaksList: React.FC<PeaksListProps> = ({ peaks }) => {
         </DataGridCell>
       </DataGridRow>
     ),
-    //@ts-ignore
     refFunction,
   })
 
@@ -79,8 +80,8 @@ const PeaksList: React.FC<PeaksListProps> = ({ peaks }) => {
         </DataGridRow>
         {scrollListItems.length > 0 ? (
           <>
-            {iterator.map((peak, index) => (
-              <PeaksListItem key={index} peak={peak as Peak} />
+            {iterator.map((peak: Peak, index: number) => (
+              <PeaksListItem key={index} peak={peak} />
             ))}
           </>
         ) : (

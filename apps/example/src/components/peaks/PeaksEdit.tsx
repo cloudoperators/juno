@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, ChangeEvent } from "react"
 import { Button, Form, PanelBody, PanelFooter, FormRow, TextInput } from "@cloudoperators/juno-ui-components"
 import { useQuery, useMutation, useQueryClient, QueryObserverResult } from "@tanstack/react-query"
 
@@ -117,35 +117,35 @@ const PeaksEdit: React.FC<PeaksEditProps> = ({ peakId, closeCallback }) => {
             <TextInput
               label="Name"
               value={formState.name || ""}
-              onChange={(e) => onAttrChanged("name", e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("name", e.target.value)}
             />
           </FormRow>
           <FormRow>
             <TextInput
               label="Height"
               value={formState.height || ""}
-              onChange={(e) => onAttrChanged("height", e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("height", e.target.value)}
             />
           </FormRow>
           <FormRow>
             <TextInput
               label="Main Range"
               value={formState.mainrange || ""}
-              onChange={(e) => onAttrChanged("mainrange", e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("mainrange", e.target.value)}
             />
           </FormRow>
           <FormRow>
             <TextInput
               label="Region"
               value={formState.region || ""}
-              onChange={(e) => onAttrChanged("region", e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("region", e.target.value)}
             />
           </FormRow>
           <FormRow>
             <TextInput
               label="Country"
               value={formState.countries || ""}
-              onChange={(e) => onAttrChanged("countries", e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("countries", e.target.value)}
             />
           </FormRow>
         </Form>

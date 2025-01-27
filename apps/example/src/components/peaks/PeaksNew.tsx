@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
+
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useState, ChangeEvent } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { PanelBody, PanelFooter, Button, FormRow, TextInput } from "@cloudoperators/juno-ui-components"
@@ -29,8 +31,7 @@ interface AddMessage {
 const PeaksNew: React.FC<PeaksNewProps> = ({ closeCallback }) => {
   const queryClient = useQueryClient()
   const [formState, setFormState] = useState<FormState>({})
-  // TO DO: Fix types
-  // eslint-disable-next-line no-unused-vars
+  // To do: Fix type in package
   const { addMessage } = useActions() as { addMessage: (message: AddMessage) => void }
 
   const { mutateAsync } = useMutation({
@@ -83,22 +84,42 @@ const PeaksNew: React.FC<PeaksNewProps> = ({ closeCallback }) => {
       }
     >
       <FormRow>
-        <TextInput label="Name" autoFocus onChange={(e) => onAttrChanged("name", e.target.value)} />
+        <TextInput
+          label="Name"
+          autoFocus
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("name", e.target.value)}
+        />
       </FormRow>
       <FormRow>
-        <TextInput label="Height" onChange={(e) => onAttrChanged("height", e.target.value)} />
+        <TextInput
+          label="Height"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("height", e.target.value)}
+        />
       </FormRow>
       <FormRow>
-        <TextInput label="Main Range" onChange={(e) => onAttrChanged("range", e.target.value)} />
+        <TextInput
+          label="Main Range"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("range", e.target.value)}
+        />
       </FormRow>
       <FormRow>
-        <TextInput label="Region" onChange={(e) => onAttrChanged("region", e.target.value)} />
+        <TextInput
+          label="Region"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("region", e.target.value)}
+        />
       </FormRow>
       <FormRow>
-        <TextInput label="Country" onChange={(e) => onAttrChanged("country", e.target.value)} />
+        <TextInput
+          label="Country"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("country", e.target.value)}
+        />
       </FormRow>
       <FormRow>
-        <TextInput type="url" label="URL" onChange={(e) => onAttrChanged("url", e.target.value)} />
+        <TextInput
+          type="url"
+          label="URL"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("url", e.target.value)}
+        />
       </FormRow>
     </PanelBody>
   )
