@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
@@ -17,6 +15,7 @@ interface AuthParsedData {
   }
 }
 
+/* eslint-disable no-unused-vars */
 interface Actions {
   setCurrentPanel: (panel: unknown) => void
   setCurrentModal: (modal: unknown) => void

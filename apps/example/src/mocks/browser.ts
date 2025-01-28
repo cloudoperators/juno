@@ -8,7 +8,7 @@ import getHandlers from "./getHandlers"
 
 interface StartWorkerOptions {
   endpoint: string
-  [key: string]: any
+  [key: string]: unknown
 }
 
 let worker: SetupWorkerApi | null = null

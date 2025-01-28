@@ -11,8 +11,7 @@ import { useAuthLoggedIn, useAuthData } from "../StoreProvider"
 
 interface HeaderUserProps {
   login: () => void
-  // eslint-disable-next-line no-unused-vars
-  logout: ({ resetOIDCSession, silent }: { resetOIDCSession: boolean; silent: boolean }) => void
+  logout: () => void
 }
 
 const HeaderUser: React.FC<HeaderUserProps> = ({ login, logout }) => {
@@ -26,10 +25,10 @@ const HeaderUser: React.FC<HeaderUserProps> = ({ login, logout }) => {
           <div className="mr-4">
             <Avatar userName={authData?.parsed?.fullName || ""} url={authData?.parsed?.avatarUrl?.small || ""} />
           </div>
-          <Button label="Logout" size="small" onClick={() => logout({ resetOIDCSession: false, silent: true })} />
+          <Button label="Logout" size="small" onClick={logout} />
         </>
       ) : (
-        <Button label="Login" size="small" onClick={() => login()} />
+        <Button label="Login" size="small" onClick={login} />
       )}
     </Stack>
   )
