@@ -22,7 +22,7 @@ TabPanel.tabsRole = "TabPanel"
 
 export interface TabPanelProps extends ReactTabPanelProps {
   /** The content to show/render when the associated Tab is selected */
-  children?: any
+  children?: React.ReactNode
   /** Add a custom classList to the TabPanel */
   className?: string
 }

@@ -5,7 +5,8 @@
 
 import React, { createContext } from "react"
 import { Menu as HLMenu } from "@headlessui/react"
-import { withDeprecationWarning } from "../withDeprecationWarning/index"
+
+import { withDeprecationWarning } from "../../components/withDeprecationWarning/withDeprecationWarning.component"
 
 const baseStyles = `
 	jn-overflow-hidden

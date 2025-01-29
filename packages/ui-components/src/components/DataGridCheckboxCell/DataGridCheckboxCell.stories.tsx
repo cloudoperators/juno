@@ -13,11 +13,6 @@ type StoryFunction = () => JSX.Element
 export default {
   title: "WiP/DataGrid/DataGridCheckboxCell",
   component: DataGridCheckboxCell,
-  argTypes: {
-    children: {
-      control: false,
-    },
-  },
   decorators: [
     (story: StoryFunction) => (
       <DataGrid columns={3}>

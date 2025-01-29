@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { withDeprecationWarning } from "../withDeprecationWarning/index"
+import { withDeprecationWarning } from "../../components/withDeprecationWarning/withDeprecationWarning.component"
 
 const sectionStyles = `
 	jn-bg-theme-background-lvl-1

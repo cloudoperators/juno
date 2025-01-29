@@ -54,7 +54,7 @@ Tab.tabsRole = "Tab"
 
 export interface TabProps extends ReactTabProps {
   /** The children to render inside the Tab (-button) */
-  children?: any
+  children?: React.ReactNode
   /** The Tab label (only rendered when no children are supplied) */
   label?: string
   /** Pass the name of an icon to render in the Tab. Can be any icon included with Juno. */
