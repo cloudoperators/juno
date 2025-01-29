@@ -9,18 +9,11 @@ import { render } from "@testing-library/react"
 // https://reactjsexample.com/an-extension-of-dom-testing-library-to-provide-hooks-into-the-shadow-dom/
 import Shell from "./Shell"
 import Auth from "./components/Auth"
-import StoreProvider from "./components/StoreProvider"
 import { vi } from "vitest"
 
-vi.mock("@cloudoperators/juno-communicator")
 vi.mock("./components/Auth")
 
 test("renders app", () => {
-  render(
-    <StoreProvider>
-      <Shell />
-    </StoreProvider>
-  )
-
+  render(<Shell />)
   expect(Auth).toHaveBeenCalled()
 })
