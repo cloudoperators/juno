@@ -8,7 +8,7 @@ import React from "react"
 import { Menu } from "../../deprecated_js/Menu/Menu.component"
 import { MenuItem } from "../../deprecated_js/MenuItem/MenuItem.component"
 import { MenuSection } from "../../deprecated_js/MenuSection/MenuSection.component"
-import { Button } from "../../deprecated_js/Button/Button.component"
+import { Button } from "../../components/Button/Button.component"
 
 export default {
   title: "Deprecated/Menu",
