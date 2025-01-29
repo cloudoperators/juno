@@ -15,12 +15,6 @@
   "private": true,
   "devDependencies": {
     "@cloudoperators/juno-config": "*",
-    "@cloudoperators/juno-app-doop": "*",
-    "@cloudoperators/juno-app-heureka": "*",
-    "@cloudoperators/juno-app-supernova": "*",
-    "@cloudoperators/juno-messages-provider": "*",
-    "@cloudoperators/juno-oauth": "*",
-    "@cloudoperators/juno-ui-components": "*",
     "@svgr/plugin-jsx": "^7.0.0",
     "@tailwindui/react": "^0.1.1",
     "@testing-library/react": "^16.0.1",
@@ -51,6 +45,12 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
+    "@cloudoperators/juno-app-doop": "*",
+    "@cloudoperators/juno-app-heureka": "*",
+    "@cloudoperators/juno-app-supernova": "*",
+    "@cloudoperators/juno-messages-provider": "*",
+    "@cloudoperators/juno-oauth": "*",
+    "@cloudoperators/juno-ui-components": "*",
     "@cloudoperators/juno-url-state-provider-v1": "^1.3.2"
   }
 }
