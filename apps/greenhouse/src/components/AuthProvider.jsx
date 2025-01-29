@@ -50,7 +50,7 @@ const extractOrganizationName = () => {
   return match ? match[1] : currentUrl.searchParams.get("org")
 }
 
-const initializeDemoAuth = (demoUserToken, demoOrg, setAuthData, setOidcError, setOrganizationToUrl) => {
+const initializeDemoAuth = (orgName, demoUserToken, demoOrg, setAuthData, setOidcError, setOrganizationToUrl) => {
   return tokenSession({
     token: demoUserToken,
     options: { groups: [`organization:${demoOrg}`] },
@@ -133,7 +133,14 @@ export const AuthProvider = ({ options, children }) => {
     if (demoOrg === orgName && !isMock) {
       console.debug("Initializing new demo auth session")
       setIsDemoMode(true)
-      oidcInstance.current = initializeDemoAuth(demoUserToken, demoOrg, setAuthData, setOidcError, setOrganizationToUrl)
+      oidcInstance.current = initializeDemoAuth(
+        orgName,
+        demoUserToken,
+        demoOrg,
+        setAuthData,
+        setOidcError,
+        setOrganizationToUrl
+      )
       return oidcInstance.current
     }
 
