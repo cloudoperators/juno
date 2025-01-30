@@ -6,10 +6,10 @@
 import React, { CSSProperties, ReactNode } from "react"
 import { Meta, StoryFn } from "@storybook/react"
 
-import { ContextMenu, ContextMenuProps } from "./index"
-import { Button } from "../Button/Button.component"
+import { ContextMenu, ContextMenuProps } from "./ContextMenu.component"
+import { Button } from "../../components/Button/Button.component"
 import { MenuItem } from "../MenuItem/MenuItem.component"
-import { PortalProvider } from "../PortalProvider/PortalProvider.component"
+import { PortalProvider } from "../../components/PortalProvider/PortalProvider.component"
 
 export default {
   title: "Deprecated/ContextMenu",
