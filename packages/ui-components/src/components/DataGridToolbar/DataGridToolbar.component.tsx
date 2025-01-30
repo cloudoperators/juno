@@ -32,7 +32,7 @@ export interface DataGridToolbarProps extends React.HTMLAttributes<HTMLDivElemen
   /** Pass an optional SearchInput component */
   search?: JSX.Element
   /** Children to render in the DataGridToolbar */
-  children?: JSX.Element | null
+  children?: React.ReactNode
   /** Add a classname */
   className?: string
 }

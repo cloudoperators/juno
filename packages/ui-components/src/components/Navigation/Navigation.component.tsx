@@ -137,7 +137,7 @@ export interface NavigationProps extends React.HTMLAttributes<HTMLUListElement> 
   /** The aria label of the navigation */
   ariaLabel?: string
   /** The child navigation items of the navigation  */
-  children?: React.ReactNode | React.ReactNode[]
+  children?: React.ReactNode
   /** Pass a custom className to the navigation parent element */
   className?: string
   /** Whether the navigation is disabled. Will disable all children. */
