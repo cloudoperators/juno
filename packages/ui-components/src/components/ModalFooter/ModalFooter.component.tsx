@@ -33,8 +33,8 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
   children,
   confirmButtonLabel = "",
   cancelButtonLabel = "",
-  confirmButtonIcon = null,
-  cancelButtonIcon = null,
+  confirmButtonIcon,
+  cancelButtonIcon,
   onConfirm,
   onCancel,
   className = "",
@@ -92,13 +92,13 @@ export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
   /** Custom label for the cancel button. ONLY has an effect if a `confirmButtonLabel` is passed. */
   cancelButtonLabel?: string
   /** Pass an Icon name to show on the confirming action button */
-  confirmButtonIcon?: KnownIcons | null
+  confirmButtonIcon?: KnownIcons
   /** Pass an icon name to show on the cancelling button */
-  cancelButtonIcon?: KnownIcons | null
+  cancelButtonIcon?: KnownIcons
   /** A custom className. Useful to configure flex items alignment when passing custom content as children. */
   className?: string
   /** Handler to execute once the confirming button is clicked */
-  onConfirm?: React.MouseEventHandler<EventTarget> | null
+  onConfirm?: React.MouseEventHandler<EventTarget>
   /** Handler to execute once the cancelling button is clicked */
-  onCancel?: React.MouseEventHandler<EventTarget> | null
+  onCancel?: React.MouseEventHandler<EventTarget>
 }

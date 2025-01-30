@@ -83,9 +83,9 @@ To make the modal less intrusive and effectively un-modal it, pass `closeOnBackd
 */
 export const Modal: React.FC<ModalProps> = ({
   ariaLabel,
-  cancelButtonIcon = null,
+  cancelButtonIcon,
   cancelButtonLabel = "",
-  confirmButtonIcon = null,
+  confirmButtonIcon,
   confirmButtonLabel = "",
   children,
   closeable = true,
@@ -93,7 +93,7 @@ export const Modal: React.FC<ModalProps> = ({
   closeOnEsc = true,
   heading = "",
   initialFocus,
-  modalFooter = null,
+  modalFooter,
   onConfirm,
   onCancel,
   open = false,
@@ -208,7 +208,7 @@ export const Modal: React.FC<ModalProps> = ({
                       cancelButtonLabel={cancelButtonLabel}
                       confirmButtonIcon={confirmButtonIcon}
                       cancelButtonIcon={cancelButtonIcon}
-                      onConfirm={onConfirm ? handleConfirmClick : null}
+                      onConfirm={onConfirm ? handleConfirmClick : undefined}
                       onCancel={handleCancelClick}
                     />
                   )
@@ -241,15 +241,15 @@ export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"
   /** Pass a label for the cancel button. Defaults to "Cancel" */
   cancelButtonLabel?: string
   /** Pass an Icon name to show on the confirming action button */
-  confirmButtonIcon?: KnownIcons | null
+  confirmButtonIcon?: KnownIcons
   /** Pass an icon name to show on the cancelling button */
-  cancelButtonIcon?: KnownIcons | null
+  cancelButtonIcon?: KnownIcons
   /** Whether the modal will be open */
   open?: boolean
   /** The children of the modal. These will be rendered as the modal content. To render custom buttons at the bottom, see `modalFooter` below.*/
   children?: React.ReactNode
   /** Optional. Pass a `<ModalFooter />` component with custom content as required. Will default to using the `<ModalFooter/>` component internally. */
-  modalFooter?: JSX.Element | null
+  modalFooter?: JSX.Element
   /** Whether the modal can be closed using an "X"-Button at the top right. Defaults to true. */
   closeable?: boolean
   /** Pass to remove default padding from the content area of the modal */
@@ -257,7 +257,7 @@ export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"
   /** Custom className to add to the modal */
   className?: string
   /** A handler to execute once the modal is confirmed by clicking the confrim button if exists. Note that we do not close the modal automatically. */
-  onConfirm?: React.MouseEventHandler<EventTarget> | null
+  onConfirm?: React.MouseEventHandler<EventTarget>
   /** A handler to execute once the modal is cancelled or dismissed using the x-Close button,  Cancel-button or pressing ESC */
   onCancel?: CancelEventHandler
   /** Whether the modal should be closed when the backdrop is clicked. Essentially 'un-modals' the modal. */

@@ -28,7 +28,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   children,
   className = "",
   disabled = false,
-  icon = null,
+  icon,
   inactiveItemStyles = "",
   label = "",
   href = "",
@@ -165,7 +165,7 @@ export interface NavigationItemProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the item is disabled */
   disabled?: boolean
   /** An icon to render in the item */
-  icon?: KnownIcons | null
+  icon?: KnownIcons
   /* Pass styles that apply to IN-active items only, in the event activeStyles are overwritten by defaultStyles affecting the same CSS property*/
   inactiveItemStyles?: string
   /** The label of the item. Will be rendered if no children are passed */

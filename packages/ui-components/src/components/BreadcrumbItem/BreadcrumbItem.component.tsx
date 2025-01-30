@@ -70,10 +70,10 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
   disabled = false,
   onClick,
   className = "",
+  icon,
   ...props
 }) => {
   if (children) return <>{children}</>
-  const { icon } = props
   const iconElement = icon ? (
     <Icon icon={icon} size="18" color="jn-text-theme-default" className={label ? "jn-mr-1" : ""} />
   ) : null
