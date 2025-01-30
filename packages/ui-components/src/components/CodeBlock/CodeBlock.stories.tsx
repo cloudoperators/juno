@@ -27,6 +27,9 @@ export default {
     },
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
 }

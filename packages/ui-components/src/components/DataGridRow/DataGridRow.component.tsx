@@ -44,7 +44,7 @@ export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
   // /** Whether the row/item is disabled (only relevant in a `selectable` DataGrid */
   // disabled: PropTypes.bool,
   /** Children to render in the DataGridRow */
-  children?: JSX.Element | (JSX.Element | null)[] | null
+  children?: React.ReactNode
   /** Add a classname */
   className?: string
   // /** Pass a handler to be executed when selected state changes */

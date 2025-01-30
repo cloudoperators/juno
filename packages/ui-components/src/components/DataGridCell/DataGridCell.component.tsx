@@ -62,7 +62,7 @@ export interface DataGridCellProps extends React.HTMLAttributes<HTMLDivElement> 
   /** Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;) */
   nowrap?: boolean
   /** Children to render in the DataGridCell */
-  children?: (JSX.Element[] | JSX.Element | null)[] | JSX.Element | string | null
+  children?: React.ReactNode
   /** Add a classname */
   className?: string
 }

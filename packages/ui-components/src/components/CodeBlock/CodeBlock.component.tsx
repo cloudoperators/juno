@@ -184,7 +184,7 @@ export interface CodeBlockProps extends Omit<React.HTMLAttributes<HTMLDivElement
   /** The content to render. Will override children if passed. */
   content?: string | object
   /** The children to render. Will be overridden by content prop if passed as well.  */
-  children?: React.ReactNode | object
+  children?: React.ReactNode
   /** Pass at title to render. Will look like a single tab. */
   heading?: string
   /** Set whether the code should wrap or not. Default is true. */

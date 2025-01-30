@@ -23,7 +23,7 @@ export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLSpanElemen
   /**
    * The icon type to display in the breadcrumb item.
    */
-  icon?: KnownIcons | null
+  icon?: KnownIcons
   /**
    * A URL the breadcrumb item points to for navigation.
    */

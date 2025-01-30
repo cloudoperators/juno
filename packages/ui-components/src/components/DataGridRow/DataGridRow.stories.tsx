@@ -24,6 +24,9 @@ export default {
     },
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
   decorators: [(story: StoryFunction) => <DataGrid columns={columns}>{story()}</DataGrid>],

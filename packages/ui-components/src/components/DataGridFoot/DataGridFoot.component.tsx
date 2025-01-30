@@ -15,7 +15,7 @@ export const DataGridFoot: React.FC<DataGridFootProps> = ({ className = "", chil
 
 export interface DataGridFootProps extends React.HTMLAttributes<HTMLTableSectionElement> {
   /** Children to render in the DataGridFoot */
-  children?: JSX.Element | null
+  children?: React.ReactNode
   /** Add a classname */
   className?: string
 }

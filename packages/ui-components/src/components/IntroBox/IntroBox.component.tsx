@@ -57,19 +57,17 @@ const introboxHeading = `
 
 export interface IntroBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** Pass an optional title */
-  title?: string | null
+  title?: string
   /** Pass a string of text to be rendered as contents. Alternatively, contents can be passed as children (see below) */
-  text?: string | null
+  text?: string
   /** Pass a custom class */
   variant?: "default" | "hero"
   /** optional "hero" flavor image for hero variant. Specify as css bg image string pointing to an image in your app (see template app for an example). Will always be positioned top and right */
-  heroImage?: string | null
+  heroImage?: string
   /** Pass a custom class */
   className?: string
   /** Pass child nodes to be rendered as contents */
   children?: React.ReactNode
-  /** For additional props*/
-  [key: string]: any
 }
 
 /**
