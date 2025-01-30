@@ -5,12 +5,13 @@
 
 import { useCallback, useMemo } from "react"
 import { createClient } from "sapcc-k8sclient"
-import { useAuthData, useGlobalsApiEndpoint, useGlobalsAssetsHost } from "../components/StoreProvider"
+import { useGlobalsApiEndpoint, useGlobalsAssetsHost } from "../components/StoreProvider"
 import { createPluginConfig } from "../lib/plugin"
+import { useAuth } from "../components/AuthProvider"
 
 // get plugin configs from k8s api
 const useApi = () => {
-  const authData = useAuthData()
+  const { data: authData } = useAuth()
   const apiEndpoint = useGlobalsApiEndpoint()
   const assetsHost = useGlobalsAssetsHost()
 

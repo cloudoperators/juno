@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.16.0
+
+### Minor Changes
+
+- b3be0d7: Supernova supports new URL structure behind a feature flat `enableNewUrlStructure` but this is not enabled by default but it can be enabled via app props.
+
 ## 0.15.0
 
 ### Minor Changes
