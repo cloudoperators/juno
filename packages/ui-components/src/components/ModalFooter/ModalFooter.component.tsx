@@ -85,7 +85,7 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
 }
 
 export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
-  /** Custom children to render. Anything goes. */
+  /** Custom children to render. */
   children?: React.ReactNode
   /** The label for the Confirm-button. When passed, the component will render a Confirm button and a cancel button, otherwise the component will ONLY render a Close-Button. */
   confirmButtonLabel?: string

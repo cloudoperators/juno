@@ -5,7 +5,7 @@
 
 import React from "react"
 
-const introbox = (variant: string, heroImage: string | null) => {
+const introbox = (variant: string, heroImage: string) => {
   return `
             jn-bg-theme-introbox
             jn-text-theme-default
@@ -30,7 +30,7 @@ const introboxBorder = `
     jn-border-theme-introbox
 `
 
-const introboxContent = (variant: string, heroImage: string | null) => {
+const introboxContent = (variant: string, heroImage: string) => {
   return `
         ${heroImage ? `jn-pl-4 jn-pr-56` : `jn-px-4`}
 
@@ -66,7 +66,7 @@ export interface IntroBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   heroImage?: string
   /** Pass a custom class */
   className?: string
-  /** Pass child nodes to be rendered as contents */
+  /** Pass child nodes to be rendered as content */
   children?: React.ReactNode
 }
 
@@ -75,10 +75,10 @@ export interface IntroBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>
 Use sparingly, there should never be any two or more subsequent instances of Introbox as direct siblings/neighbors on an individual view.
 */
 export const IntroBox: React.FC<IntroBoxProps> = ({
-  title = null,
-  text = null,
+  title = "",
+  text = "",
   variant = "default",
-  heroImage = null,
+  heroImage = "",
   className = "",
   children,
   ...props
