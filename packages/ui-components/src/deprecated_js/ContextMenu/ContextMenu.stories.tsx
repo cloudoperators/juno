@@ -7,8 +7,8 @@ import React, { CSSProperties, ReactNode } from "react"
 import { Meta, StoryFn } from "@storybook/react"
 
 import { ContextMenu, ContextMenuProps } from "./ContextMenu.component"
-import { Button } from "../../components/Button/Button.component"
 import { MenuItem } from "../MenuItem/MenuItem.component"
+import { Button } from "../../components/Button/Button.component"
 import { PortalProvider } from "../../components/PortalProvider/PortalProvider.component"
 
 export default {
