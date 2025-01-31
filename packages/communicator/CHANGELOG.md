@@ -1,5 +1,11 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.16
+
+### Patch Changes
+
+- 065652a: Output types to the correct directory
+
 ## 2.2.15
 
 ### Patch Changes

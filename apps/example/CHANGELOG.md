@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-example
 
+## 1.2.0
+
+### Minor Changes
+
+- 74fb4ad: Improve example app types
+
+### Patch Changes
+
+- Updated dependencies [065652a]
+  - @cloudoperators/juno-url-state-provider@2.3.1
+  - @cloudoperators/juno-messages-provider@0.2.1
+  - @cloudoperators/juno-oauth@1.4.1
+
 ## 1.1.0
 
 ### Minor Changes
