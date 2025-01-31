@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.4.0
+
+### Minor Changes
+
+- 56ef4da: Cleanup. Refactoring clear separation of mock, token and oidc session.Enhancements to dynamically determine the organization based on application properties or URL parameters
+
+### Patch Changes
+
+- Updated dependencies [b3be0d7]
+  - @cloudoperators/juno-app-supernova@0.16.0
+
 ## 0.3.12
 
 ### Patch Changes
