@@ -36,7 +36,7 @@ interface NavigationMappingItem {
 
 /** A generic Navigation component providing all the necessary functionality for a navigation. For internal use only. Not to be used directly, but to be wrapped by more role-specific / semantic navigation components such as `TabNavigation`, `TopNavigation`, `SideNavigation`. */
 export const Navigation: React.FC<NavigationProps> = ({
-  activeItem,
+  activeItem = "",
   ariaLabel = "",
   children,
   className = "",

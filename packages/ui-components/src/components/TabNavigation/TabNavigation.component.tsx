@@ -20,7 +20,7 @@ export const TabNavigationContext = createContext<TabNavigationContextType | und
 
 /** A Tab Navigation parent component. Use to wrap `<TabNavigationItem>` elements inside. For tabs with corresponding tab panels, use `<Tabs>` instead. */
 export const TabNavigation: React.FC<TabNavigationProps> = ({
-  activeItem = "",
+  activeItem,
   ariaLabel,
   children,
   className = "",
