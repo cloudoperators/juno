@@ -4,11 +4,11 @@
  */
 
 import React, { useContext, useEffect, useState } from "react"
-import { NavigationContext } from "../Navigation/Navigation.component"
-import { Icon } from "../Icon/index"
-import { KnownIcons } from "../Icon/Icon.component"
 
-type ItemKeyType = string | React.ReactNode | null
+import { NavigationContext } from "../Navigation/Navigation.component"
+import { Icon, KnownIcons } from "../Icon/Icon.component"
+
+export type ItemKeyType = React.ReactNode
 
 const itemStyles = `
   jn-flex

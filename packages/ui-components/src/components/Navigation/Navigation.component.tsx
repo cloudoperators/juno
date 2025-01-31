@@ -4,11 +4,10 @@
  */
 
 import React, { createContext, useEffect, useState } from "react"
+import { ItemKeyType } from "../NavigationItem/NavigationItem.component"
 
 // eslint-disable-next-line no-unused-vars
 type ItemChangeHandler = (value: ItemKeyType) => void
-
-type ItemKeyType = React.ReactNode
 
 // eslint-disable-next-line no-unused-vars
 type AddItemFunction = (key: ItemKeyType, children: ItemKeyType | null, label: string, value: string) => void

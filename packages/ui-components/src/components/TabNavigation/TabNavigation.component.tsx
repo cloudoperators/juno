@@ -4,7 +4,9 @@
  */
 
 import React, { createContext } from "react"
-import { Navigation } from "../Navigation/index"
+
+import { Navigation } from "../Navigation/Navigation.component"
+import { ItemKeyType } from "../NavigationItem/NavigationItem.component"
 
 const tabNavStyles = `
   jn-flex
@@ -54,8 +56,6 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
 }
 
 export type TabStyle = "main" | "content"
-
-type ItemKeyType = string | React.ReactNode
 
 // eslint-disable-next-line no-unused-vars
 type ActiveItemChangeHandler = (value: ItemKeyType) => void

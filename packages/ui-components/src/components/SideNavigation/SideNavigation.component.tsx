@@ -4,7 +4,9 @@
  */
 
 import React from "react"
+
 import { Navigation } from "../Navigation/Navigation.component"
+import { ItemKeyType } from "../NavigationItem/NavigationItem.component"
 
 const sideNavStyles = `
   jn-min-w-[7.5rem]
@@ -38,8 +40,6 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
     </Navigation>
   )
 }
-
-type ItemKeyType = string | React.ReactNode
 
 // eslint-disable-next-line no-unused-vars
 type ActiveItemChangeHandler = (value: ItemKeyType) => void

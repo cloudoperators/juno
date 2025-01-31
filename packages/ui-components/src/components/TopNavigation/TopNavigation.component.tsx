@@ -4,7 +4,9 @@
  */
 
 import React from "react"
-import { Navigation } from "../Navigation/index"
+
+import { Navigation } from "../Navigation/Navigation.component"
+import { ItemKeyType } from "../NavigationItem/NavigationItem.component"
 
 const topNavStyles = `
   jn-flex
@@ -39,8 +41,6 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({
     </Navigation>
   )
 }
-
-type ItemKeyType = string | React.ReactNode
 
 // eslint-disable-next-line no-unused-vars
 type ActiveItemChangeHandler = (value: ItemKeyType) => void
