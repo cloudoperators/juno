@@ -62,7 +62,7 @@ type ActiveItemChangeHandler = (value: ItemKeyType) => void
 
 export interface TabNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The label of the selected tab. The `activeItem` prop set on the parent will override / take precedence over any `active` prop that may be set on a child. */
-  activeItem?: string
+  activeItem?: ItemKeyType
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
   ariaLabel?: string
   /** The child `<TabNavigationItem>` elements to render. */

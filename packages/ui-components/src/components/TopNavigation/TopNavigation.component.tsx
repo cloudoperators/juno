@@ -18,7 +18,7 @@ Place `TopNavigationItem` elements as children.
 */
 
 export const TopNavigation: React.FC<TopNavigationProps> = ({
-  activeItem = "",
+  activeItem,
   ariaLabel,
   children,
   className = "",
@@ -47,7 +47,7 @@ type ActiveItemChangeHandler = (value: ItemKeyType) => void
 
 export interface TopNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The active navigation item by label */
-  activeItem?: string
+  activeItem?: ItemKeyType
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
   ariaLabel?: string
   /** The children of the Navigation. Typically these should be TopNavigationItem(s) */

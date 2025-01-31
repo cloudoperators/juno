@@ -46,7 +46,7 @@ type ActiveItemChangeHandler = (value: ItemKeyType) => void
 
 export interface SideNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The active navigation item by label */
-  activeItem?: string
+  activeItem?: ItemKeyType
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
   ariaLabel?: string
   /** The children of the Navigation. Typically these should be SideNavigationItem(s) */

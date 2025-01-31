@@ -4,12 +4,11 @@
  */
 
 import React, { createContext, useEffect, useState } from "react"
-// import { NavigationItem } from "../NavigationItem/"
 
 // eslint-disable-next-line no-unused-vars
 type ItemChangeHandler = (value: ItemKeyType) => void
 
-type ItemKeyType = string | React.ReactNode
+type ItemKeyType = React.ReactNode
 
 // eslint-disable-next-line no-unused-vars
 type AddItemFunction = (key: ItemKeyType, children: ItemKeyType | null, label: string, value: string) => void
@@ -38,32 +37,31 @@ interface NavigationMappingItem {
 
 /** A generic Navigation component providing all the necessary functionality for a navigation. For internal use only. Not to be used directly, but to be wrapped by more role-specific / semantic navigation components such as `TabNavigation`, `TopNavigation`, `SideNavigation`. */
 export const Navigation: React.FC<NavigationProps> = ({
-  activeItem = "",
+  activeItem,
   ariaLabel = "",
   children,
   className = "",
   disabled = false,
   onActiveItemChange,
-  // onChange,
   ...props
 }) => {
   const [activeItm, setActiveItm] = useState<ItemKeyType | undefined>("")
   const [items, setItems] = useState(new Map<ItemKeyType, NavigationMappingItem>())
 
-  const findItemIdByKeyValue = (valueToFind: string) => {
+  const findItemIdByKeyValue = (valueToFind: ItemKeyType) => {
     // The prioritized sequence of individual item keys to check for a value:
+    const stringValueToFind = String(valueToFind)
     const prioritizedKeys: PrioritizedKeyType[] = ["value", "children", "label"]
     const itemsKeys = Array.from(items.keys())
-    if (itemsKeys.includes(valueToFind)) {
-      // return the value if it is found in the keys of the items map
-      return valueToFind
+    if (itemsKeys.includes(stringValueToFind)) {
+      return stringValueToFind
     } else {
       // If the value is not found in the keys of the items map, search for the value in the individual items according to the sequence in prioritizedKeys. If a matching item is found, return its id or null:
       let foundItemId: ItemKeyType | undefined = undefined
       for (const key of itemsKeys) {
         const obj = items.get(key)
         prioritizedKeys.forEach((pKey: PrioritizedKeyType) => {
-          if (obj && obj[pKey] === valueToFind) {
+          if (obj && obj[pKey] === stringValueToFind) {
             foundItemId = obj.id
           }
         })
@@ -74,15 +72,14 @@ export const Navigation: React.FC<NavigationProps> = ({
 
   useEffect(() => {
     if (activeItem) {
-      const activeItemId = findItemIdByKeyValue(activeItem)
+      const activeItemId = findItemIdByKeyValue(String(activeItem))
       setActiveItm(activeItemId)
     }
   }, [activeItem])
 
-  // Re-evaluate active item when items map changes (essential to set the active item properly on first render!):
   useEffect(() => {
     if (activeItem) {
-      const activeItemId = findItemIdByKeyValue(activeItem)
+      const activeItemId = findItemIdByKeyValue(String(activeItem))
       setActiveItm(activeItemId)
     }
   }, [items])
@@ -129,11 +126,9 @@ export const Navigation: React.FC<NavigationProps> = ({
   )
 }
 
-// TODO: validate whether children are instances of NavigationItem
-
 export interface NavigationProps extends React.HTMLAttributes<HTMLUListElement> {
   /** The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem. */
-  activeItem?: string
+  activeItem?: ItemKeyType
   /** The aria label of the navigation */
   ariaLabel?: string
   /** The child navigation items of the navigation  */
