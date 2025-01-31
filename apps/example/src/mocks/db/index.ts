@@ -3,7 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import peaks from "./peaks.json"
+import peaksData from "./peaks.json"
+
+export interface Peak {
+  id: number
+  name: string
+  height: string
+  region: string
+  mainrange: string
+  countries: string
+  url?: string
+}
+
+const peaks: Peak[] = peaksData
 
 export default {
   peaks,

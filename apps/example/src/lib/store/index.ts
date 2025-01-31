@@ -5,13 +5,18 @@
 
 import { createStore } from "zustand"
 import { devtools } from "zustand/middleware"
-import createGlobalsSlice from "./createGlobalsSlice"
-import createAuthSlice from "./createAuthSlice"
+import createGlobalsSlice, { Globals } from "./createGlobalsSlice"
+import createAuthSlice, { AuthData } from "./createAuthSlice"
+
+type StoreState = Globals & AuthData
 
 export default () =>
-  createStore(
+  createStore<StoreState>(
+    // @ts-ignore
     devtools((set, get) => ({
+      // @ts-ignore
       ...createGlobalsSlice(set, get),
+      // @ts-ignore
       ...createAuthSlice(set, get),
     }))
   )
