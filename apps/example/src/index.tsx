@@ -1,17 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createRoot } from "react-dom/client"
+import { createRoot, Root } from "react-dom/client"
 import React from "react"
 
-const getCurrentUrlWithoutFilename = () => {
+// Function to get the current URL without the filename
+const getCurrentUrlWithoutFilename = (): string => {
   const currentUrl = window.location.href
   const lastSlashIndex = currentUrl.lastIndexOf("/")
   const lastSegment = currentUrl.slice(lastSlashIndex + 1)
@@ -20,7 +16,8 @@ const getCurrentUrlWithoutFilename = () => {
   return lastSegment.trim() === "" || lastSegment.includes(".") ? currentUrl.slice(0, lastSlashIndex) : currentUrl
 }
 
-const enableMocking = async (options: any) => {
+// Function to enable mocking
+const enableMocking = async (options: { endpoint: string }): Promise<void> => {
   /**
    * Note: If you do not want to enable mocking in production, you can uncomment the following lines
    * if (process.env.NODE_ENV !== "development") {
@@ -31,17 +28,36 @@ const enableMocking = async (options: any) => {
   return startWorker(options)
 }
 
-// export mount and unmount functions
-export const mount = async (container: any, options = {}) => {
-  // @ts-expect-error TS(2339): Property 'props' does not exist on type '{}'.
-  const endpoint = options?.props?.endpoint ?? getCurrentUrlWithoutFilename()
-  await enableMocking({ endpoint }) // we need to first enable mocking before rendering the application
-  const App = await import("./App")
-  // @ts-expect-error TS(2339): Property 'root' does not exist on type '(container... Remove this comment to see the full error message
-  mount.root = createRoot(container)
-  // @ts-expect-error TS(2339): Property 'root' does not exist on type '(container... Remove this comment to see the full error message
-  mount.root.render(React.createElement(App.default, { ...options?.props, endpoint }))
+interface MountOptions {
+  container: Element | DocumentFragment
+  props?: {
+    endpoint?: string
+    [key: string]: any
+  }
 }
 
-// @ts-expect-error TS(2339): Property 'root' does not exist on type '(container... Remove this comment to see the full error message
-export const unmount = () => mount.root && mount.root.unmount()
+export const mount = async (
+  container: Element | DocumentFragment,
+  options: MountOptions = { container }
+): Promise<void> => {
+  const endpoint = options.props?.endpoint ?? getCurrentUrlWithoutFilename()
+  await enableMocking({ endpoint }) // Enable mocking before rendering the application
+  const AppModule = await import("./App")
+  const App = AppModule.default
+
+  // Create a root if it does not exist
+  if (!mount.root) {
+    mount.root = createRoot(container)
+  }
+  mount.root.render(<App {...options.props} endpoint={endpoint} />)
+}
+
+// Unmount function
+export const unmount = (): void => {
+  if (mount.root) {
+    mount.root.unmount()
+  }
+}
+
+// Define the root property on the mount function to store the root instance
+mount.root = null as Root | null

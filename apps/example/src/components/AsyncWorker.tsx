@@ -3,18 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import PropTypes from "prop-types"
+import React from "react"
+
 import useQueryClientFn from "../hooks/useQueryClientFn"
 import useUrlState from "../hooks/useUrlState"
 
-const AsyncWorker = ({ consumerId }: any) => {
+interface AsyncWorkerProps {
+  consumerId: string
+}
+
+const AsyncWorker: React.FC<AsyncWorkerProps> = ({ consumerId }) => {
   useQueryClientFn()
   useUrlState(consumerId)
   return null
-}
-
-AsyncWorker.propTypes = {
-  consumerId: PropTypes.string.isRequired,
 }
 
 export default AsyncWorker

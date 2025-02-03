@@ -4,10 +4,11 @@
  */
 
 import React from "react"
+
 import { useGlobalsCurrentModal } from "./StoreProvider"
 import TestModal from "./TestModal"
 
-const ModalManager = () => {
+const ModalManager: React.FC = () => {
   const currentModal = useGlobalsCurrentModal()
 
   switch (currentModal) {
