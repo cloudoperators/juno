@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 2.3.1
+
+### Patch Changes
+
+- 065652a: Output types to the correct directory
+
 ## 2.3.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @cloudoperators/juno-k8s-client
 
+## 1.0.2
+
+### Patch Changes
+
+- 065652a: Output types to the correct directory
+
 ## 1.0.1
 
 ### Patch Changes

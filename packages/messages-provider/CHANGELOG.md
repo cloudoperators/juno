@@ -1,5 +1,11 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.1
+
+### Patch Changes
+
+- 065652a: Output types to the correct directory
+
 ## 0.2.0
 
 ### Minor Changes

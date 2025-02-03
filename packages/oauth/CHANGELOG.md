@@ -1,5 +1,11 @@
 # @cloudoperators/juno-oauth
 
+## 1.4.1
+
+### Patch Changes
+
+- 065652a: Output types to the correct directory
+
 ## 1.4.0
 
 ### Minor Changes
