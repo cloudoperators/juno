@@ -12,6 +12,9 @@
     },
     "typecheck": {
       "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/juno-messages-provider#build"]
+    },
+    "build:static": {
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/juno-messages-provider#build"]
     }
   }
 }

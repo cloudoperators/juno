@@ -26,7 +26,7 @@ on:
       - "apps/carbon/**"
       - "apps/greenhouse/**"
       - "apps/example/**"
-      - "apps/heureka_next/**"
+      - "apps/heureka-next/**"
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
@@ -59,7 +59,7 @@ jobs:
           echo "IS_CARBON_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'carbon') }}" >> $GITHUB_ENV
           echo "IS_GREENHOUSE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'greenhouse') }}" >> $GITHUB_ENV
           echo "IS_EXAMPLE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}" >> $GITHUB_ENV
-          echo "IS_HEUREKA_NEXT_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'heureka_next') }}" >> $GITHUB_ENV
+          echo "IS_HEUREKA_NEXT_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'heureka-next') }}" >> $GITHUB_ENV
           # setup ENVs for each app to add query params
           echo "GREENHOUSE_QUERY_PARAMS=org=demo" >> $GITHUB_ENV
 
@@ -153,7 +153,7 @@ jobs:
         if: github.event.action != 'closed' && env.IS_HEUREKA_NEXT_CHANGED == 'true'
         run: ./.github/scripts/build-vite-app.sh
         env:
-          PACKAGE_PATH: apps/heureka_next
+          PACKAGE_PATH: apps/heureka-next
           TARGET_FOLDER: heureka_next
           APP_PROPS_BASE64: ${{ secrets.HEUREKA_NEXT_APP_PROPS_BASE64 }}
         continue-on-error: true
@@ -173,7 +173,7 @@ jobs:
           echo "<!DOCTYPE html><head><title>PR Preview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html        
 
           # components name should map to the IS_<component>_CHANGED
-          COMPONENTS=("storybook" "supernova" "heureka" "doop" "carbon" "example" "greenhouse")
+          COMPONENTS=("storybook" "supernova" "heureka" "doop" "carbon" "example" "greenhouse" "heureka_next")
 
           for component in "${COMPONENTS[@]}"; do
             CHANGED_VAR="IS_${component^^}_CHANGED"  # Make it uppercase for the env var
