@@ -1,5 +1,11 @@
 # @cloudoperators/juno-template
 
+## 1.1.1
+
+### Patch Changes
+
+- 065652a: Output types to the correct directory
+
 ## 1.1.0
 
 ### Minor Changes
