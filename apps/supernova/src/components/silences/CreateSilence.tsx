@@ -15,7 +15,6 @@ import {
   SelectOption,
   Message,
   FormRow,
-  // @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 } from "@cloudoperators/juno-ui-components"
 import {
   useSilencesExcludedLabels,
@@ -25,7 +24,6 @@ import {
   useSilencesItems,
 } from "../StoreProvider"
 import AlertDescription from "../alerts/shared/AlertDescription"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-messages-... Remove this comment to see the full error message
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import CreateSilenceAdvanced from "./CreateSilenceAdvanced"
 // @ts-expect-error TS(2792) FIXME: Cannot find module 'luxon'. Did you mean to set th... Remove this comment to see the full error message
@@ -230,8 +228,10 @@ const CreateSilence = ({ alert, size, variant }: any) => {
           title="New Silence for"
           size="large"
           open={true}
+          // @ts-ignore
           confirmButtonLabel={success ? null : "Save"}
           onCancel={() => setDisplayNewSilence(false)}
+          // @ts-ignore
           onConfirm={success ? null : onSubmitForm}
         >
           {error && <Message text={error} variant="danger" />}

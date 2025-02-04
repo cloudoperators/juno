@@ -1,5 +1,4 @@
 import React, { useEffect, useLayoutEffect } from "react"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-url-state... Remove this comment to see the full error message
 import { readStateFromUrl, saveStateToUrl } from "@cloudoperators/juno-url-state-provider"
 import {
   useFilterLabels,

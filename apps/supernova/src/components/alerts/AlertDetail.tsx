@@ -21,7 +21,6 @@ import {
   TabList,
   Tab,
   TabPanel,
-  // @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 } from "@cloudoperators/juno-ui-components"
 import { useShowDetailsFor, useGlobalsActions, useAlertsActions, useAlertsItems } from "../StoreProvider"
 import AlertIcon from "./shared/AlertIcon"
@@ -33,7 +32,6 @@ import CreateSilence from "../silences/CreateSilence"
 import AlertStatus from "./AlertStatus"
 import AlertRegion from "./shared/AlertRegion"
 import AlertSilences from "./AlertSilences"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-messages-... Remove this comment to see the full error message
 import { Messages } from "@cloudoperators/juno-messages-provider"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
 

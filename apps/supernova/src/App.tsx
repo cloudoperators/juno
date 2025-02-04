@@ -5,13 +5,11 @@
 
 import React from "react"
 
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
 // @ts-expect-error TS(2792) FIXME: Cannot find module './styles.scss?inline'. Did you... Remove this comment to see the full error message
 import styles from "./styles.scss?inline"
 import { StoreProvider } from "./components/StoreProvider"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-messages-... Remove this comment to see the full error message
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import CustomAppShell from "./components/CustomAppShell"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -83,6 +81,7 @@ const AppWithNewUrlStructure = (props: any) => {
 
 const StyledApp = (props: any) => {
   return (
+    // @ts-ignore
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
       {/* load appstyles inside the shadow dom */}
       <style>{styles.toString()}</style>

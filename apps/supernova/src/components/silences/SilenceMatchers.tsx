@@ -5,7 +5,6 @@
 
 import React, { useMemo } from "react"
 
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { Pill, Stack } from "@cloudoperators/juno-ui-components"
 
 // Matchers can be clicked if the matcher is configurable

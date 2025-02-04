@@ -5,7 +5,6 @@
 
 import React, { useState, useMemo } from "react"
 import { produce } from "immer"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-messages-... Remove this comment to see the full error message
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import constants from "../../constants"
 import {
@@ -23,7 +22,6 @@ import {
   Button,
   FormSection,
   DateTimePicker,
-  // @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 } from "@cloudoperators/juno-ui-components"
 import { useGlobalsUsername, useSilenceTemplates, useSilencesItems, useSilencesActions } from "../StoreProvider"
 import { parseError } from "../../helpers"
@@ -317,6 +315,7 @@ function renderSilenceScheduledModal(
                       required
                       label="Silenced by"
                       value={formState?.createdBy?.value}
+                      // @ts-ignore
                       errortext={formState?.createdBy?.error}
                       onChange={(e: any) => onInputChanged({ key: "createdBy", value: e.target.value })}
                       disabled={!!user}

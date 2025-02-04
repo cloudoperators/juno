@@ -4,9 +4,7 @@
  */
 
 import React, { useState } from "react"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { Button, Modal } from "@cloudoperators/juno-ui-components"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-messages-... Remove this comment to see the full error message
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { parseError } from "../../helpers"
 import { useBoundMutation } from "../../hooks/useBoundMutation"

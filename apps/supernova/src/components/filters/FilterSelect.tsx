@@ -5,7 +5,6 @@
 
 import React, { useState } from "react"
 
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { Button, InputGroup, SelectOption, Select, Stack, SearchInput } from "@cloudoperators/juno-ui-components"
 import {
   useFilterLabels,
@@ -109,12 +108,14 @@ const FilterSelect = () => {
         {/* @ts-expect-error TS(2554): Expected 1 arguments, but got 0. // @ts-expect-error TS(2554): Expected 1 */}
         <Button onClick={() => handleFilterAdd()} icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
-      {activeFilters && Object.keys(activeFilters).length > 0 && (
-        <Button label="Clear all" onClick={() => clearFilters()} variant="subdued" />
-      )}
+      {
+        // @ts-ignore
+        renderClearButton()
+      }
       <SearchInput
         placeholder="search term or regular expression"
         className="w-96 ml-auto"
+        // @ts-ignore
         value={searchTerm || ""}
         onSearch={(value: any) => setSearchTerm(value)}
         onClear={() => setSearchTerm(null)}
@@ -122,6 +123,17 @@ const FilterSelect = () => {
       />
     </Stack>
   )
+
+  function renderClearButton(): React.ReactNode {
+    // @ts-ignore
+    return (
+      activeFilters &&
+      Object.keys(activeFilters).length > 0 && (
+        // @ts-ignore
+        <Button label="Clear all" onClick={() => clearFilters()} variant="subdued" />
+      )
+    )
+  }
 }
 
 export default FilterSelect

@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { Stack } from "@cloudoperators/juno-ui-components"
 
 import FilterSelect from "./FilterSelect"

@@ -16,12 +16,10 @@ import {
   FormRow,
   Pill,
   Stack,
-  // @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 } from "@cloudoperators/juno-ui-components"
 import { useBoundMutation } from "../../hooks/useBoundMutation"
 import { useGlobalsUsername, useSilencesItems, useSilencesActions } from "../StoreProvider"
 
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-messages-... Remove this comment to see the full error message
 import { useActions } from "@cloudoperators/juno-messages-provider"
 // @ts-expect-error TS(2792) FIXME: Cannot find module 'luxon'. Did you mean to set th... Remove this comment to see the full error message
 import { DateTime } from "luxon"

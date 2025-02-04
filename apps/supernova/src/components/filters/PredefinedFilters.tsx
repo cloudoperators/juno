@@ -5,7 +5,6 @@
 
 import React, { useState } from "react"
 
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { Stack, TabNavigation, TabNavigationItem } from "@cloudoperators/juno-ui-components"
 import { useActivePredefinedFilter, useFilterActions, usePredefinedFilters } from "../StoreProvider"
 import SilenceScheduled from "../silences/SilenceScheduled"
@@ -25,19 +24,31 @@ const PredefinedFilters = () => {
 
   return (
     <Stack>
-      {predefinedFilters && selectedItem && (
+      {
+        // @ts-ignore
+        renderPredefinedFilterTabs()
+      }
+      <div className="ml-auto">
+        <SilenceScheduled />
+      </div>
+    </Stack>
+  )
+
+  function renderPredefinedFilterTabs(): React.ReactNode {
+    // @ts-ignore
+    return (
+      predefinedFilters &&
+      selectedItem && (
+        // @ts-ignore
         <TabNavigation activeItem={selectedItem} onActiveItemChange={handleTabSelect}>
           {// @ts-ignore
           predefinedFilters?.map((filter: any) => (
             <TabNavigationItem key={filter.name} value={filter.name} label={filter.displayName} />
           ))}
         </TabNavigation>
-      )}
-      <div className="ml-auto">
-        <SilenceScheduled />
-      </div>
-    </Stack>
-  )
+      )
+    )
+  }
 }
 
 export default PredefinedFilters

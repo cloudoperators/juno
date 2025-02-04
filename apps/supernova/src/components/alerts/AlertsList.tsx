@@ -13,14 +13,14 @@ import {
   Stack,
   Spinner,
   useEndlessScrollList,
-  // @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 } from "@cloudoperators/juno-ui-components"
 import Alert from "./Alert"
 import { useAlertsItemsFiltered } from "../StoreProvider"
 
 const AlertsList = () => {
+  // @ts-ignore
   const itemsFiltered = useAlertsItemsFiltered()
-
+  // @ts-ignore
   const { scrollListItems, iterator } = useEndlessScrollList(itemsFiltered, {
     loadingObject: (
       <DataGridRow>
@@ -55,21 +55,24 @@ const AlertsList = () => {
         <DataGridHeadCell></DataGridHeadCell>
       </DataGridRow>
 
-      {scrollListItems?.length > 0 ? (
-        iterator.map((alert: any) => <Alert key={alert.fingerprint} alert={alert} />)
-      ) : (
-        <DataGridRow className="no-hover">
-          <DataGridCell colSpan={7}>
-            <Stack gap="3">
-              <Icon icon="info" color="text-theme-info" />
-              <div>
-                We couldn&apos;t find anything. It&apos;s possible that the matching alerts are not active at the
-                moment, or the chosen filters could be overly limiting.
-              </div>
-            </Stack>
-          </DataGridCell>
-        </DataGridRow>
-      )}
+      {
+        // @ts-ignore
+        scrollListItems?.length > 0 ? (
+          iterator.map((alert: any) => <Alert key={alert.fingerprint} alert={alert} />)
+        ) : (
+          <DataGridRow className="no-hover">
+            <DataGridCell colSpan={7}>
+              <Stack gap="3">
+                <Icon icon="info" color="text-theme-info" />
+                <div>
+                  We couldn&apos;t find anything. It&apos;s possible that the matching alerts are not active at the
+                  moment, or the chosen filters could be overly limiting.
+                </div>
+              </Stack>
+            </DataGridCell>
+          </DataGridRow>
+        )
+      }
     </DataGrid>
   )
 }

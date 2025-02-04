@@ -4,9 +4,7 @@
  */
 
 import React from "react"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-messages-... Remove this comment to see the full error message
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { Container } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActiveSelectedTab } from "./components/StoreProvider"
 import RegionsList from "./components/regions/RegionsList"

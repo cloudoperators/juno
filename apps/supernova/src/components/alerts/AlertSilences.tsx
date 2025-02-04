@@ -14,7 +14,6 @@ import {
   DataGridRow,
   Stack,
   Spinner,
-  // @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 } from "@cloudoperators/juno-ui-components"
 import { useAlertsActions, useGlobalsActions, useSilencesActions } from "../StoreProvider"
 import AlertDescription from "./shared/AlertDescription"

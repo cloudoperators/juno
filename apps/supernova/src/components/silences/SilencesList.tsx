@@ -16,14 +16,12 @@ import {
   Spinner,
   Icon,
   useEndlessScrollList,
-  // @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 } from "@cloudoperators/juno-ui-components"
 import constants from "../../constants"
 import { useSilencesItems, useSilencesActions, useSilencesRegEx, useSilencesStatus } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
 import { parseError } from "../../helpers"
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-messages-... Remove this comment to see the full error message
 import { useActions } from "@cloudoperators/juno-messages-provider"
 
 const filtersStyles = `
@@ -88,6 +86,7 @@ const SilencesList = () => {
     // clear timeout if we have a new value
     return () => clearTimeout(debouncedSearchTerm)
   }
+  // @ts-ignore
   const { scrollListItems, iterator } = useEndlessScrollList(visibleSilences, {
     loadingObject: (
       <DataGridRow>
@@ -134,6 +133,7 @@ const SilencesList = () => {
             <SearchInput
               placeholder="search term or regular expression"
               className="ml-auto w-7/12"
+              // @ts-ignore
               value={regEx || ""}
               onChange={(text: any) => {
                 handleSearchChange(text)
@@ -155,18 +155,22 @@ const SilencesList = () => {
                 <DataGridHeadCell>State</DataGridHeadCell>
                 <DataGridHeadCell>Action</DataGridHeadCell>
               </DataGridRow>
-              {scrollListItems?.length > 0 ? (
-                iterator.map((silence: any) => <SilencesItem silence={silence} key={silence.id} />)
-              ) : (
-                <DataGridRow>
-                  <DataGridCell colSpan={4}>
-                    <Stack gap="3">
-                      <Icon icon="info" color="text-theme-info" />
-                      <div>We couldn&apos;t find any matching silences.</div>
-                    </Stack>
-                  </DataGridCell>
-                </DataGridRow>
-              )}
+
+              {
+                // @ts-ignore
+                scrollListItems?.length > 0 ? (
+                  iterator.map((silence: any) => <SilencesItem silence={silence} key={silence.id} />)
+                ) : (
+                  <DataGridRow>
+                    <DataGridCell colSpan={4}>
+                      <Stack gap="3">
+                        <Icon icon="info" color="text-theme-info" />
+                        <div>We couldn&apos;t find any matching silences.</div>
+                      </Stack>
+                    </DataGridCell>
+                  </DataGridRow>
+                )
+              }
             </>
           </DataGrid>
         </>

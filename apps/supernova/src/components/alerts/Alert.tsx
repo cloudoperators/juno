@@ -5,7 +5,6 @@
 
 import React, { forwardRef, useRef } from "react"
 
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { DataGridCell, DataGridRow } from "@cloudoperators/juno-ui-components"
 
 import { useGlobalsActions, useShowDetailsFor } from "../StoreProvider"
