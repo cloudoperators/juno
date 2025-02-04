@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect } from "react"
+// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-url-state... Remove this comment to see the full error message
 import { readStateFromUrl, saveStateToUrl } from "@cloudoperators/juno-url-state-provider"
 import {
   useFilterLabels,
@@ -11,8 +12,11 @@ import { transformAppStateToUrlState, transformUrlStateToAppState } from "./util
 
 const useUrlQueryState = () => {
   const urlReadRef = React.useRef(false)
+  //@ts-ignore
   const { setActiveFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
+  // @ts-ignore
   const { setSilencesRegEx, setSilencesStatus } = useSilencesActions()
+  // @ts-ignore
   const { setShowDetailsFor, setActiveSelectedTab } = useGlobalsActions()
   const filterLabels = useFilterLabels()
   const appState = useGetStateForUrl()

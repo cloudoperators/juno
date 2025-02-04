@@ -8,8 +8,8 @@ const SILENCE_STATUS = "silence_status"
 const SILENCE_DETAIL = "silence_detail_for"
 
 // This utility extracts filters from the parsed query string
-const transformFiltersToAppState = ({ urlState, filterLabels, prefix }) =>
-  Object.entries(urlState).reduce((acc, [key, value]) => {
+const transformFiltersToAppState = ({ urlState, filterLabels, prefix }: any) =>
+  Object.entries(urlState).reduce((acc: any, [key, value]) => {
     const [_, filter] = key.split(prefix)
     //pick keys that are supposed to be filters
     if (key.startsWith(ACTIVE_FILTERS_PREFIX) && filterLabels.includes(filter)) {
@@ -22,8 +22,8 @@ const transformFiltersToAppState = ({ urlState, filterLabels, prefix }) =>
   }, {})
 
 // This prefixes each filter keys so it does not overlap with other keys in the URL querystring
-const transformFiltersToUrlState = ({ filters, prefix }) =>
-  Object.entries(filters).reduce((acc, [key, value]) => {
+const transformFiltersToUrlState = ({ filters, prefix }: any) =>
+  Object.entries(filters).reduce((acc: any, [key, value]) => {
     return {
       ...acc,
       [`${prefix}${key}`]: value,
@@ -31,7 +31,7 @@ const transformFiltersToUrlState = ({ filters, prefix }) =>
   }, {})
 
 // This utility transforms app state to the state that can be saved in the URL querystring
-export const transformAppStateToUrlState = (appState) => {
+export const transformAppStateToUrlState = (appState: any) => {
   const {
     activeFilters,
     searchTerm,
@@ -56,7 +56,7 @@ export const transformAppStateToUrlState = (appState) => {
 }
 
 // This utility transforms state from the URL to the app state
-export const transformUrlStateToAppState = (urlState, filterLabels) => {
+export const transformUrlStateToAppState = (urlState: any, filterLabels: any) => {
   return {
     activeFilters: transformFiltersToAppState({ urlState, filterLabels, prefix: ACTIVE_FILTERS_PREFIX }),
     searchTerm: urlState[SEARCH_TERM],
