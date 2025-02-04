@@ -161,7 +161,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       ) : (
         <pre className={`juno-code-block-pre ${preStyles(wrap)} ${sizeStyles(size)}`}>
           <code className={`${codeStyles}`} ref={theCode}>
-            {children}
+            {children ?? (typeof content === "string" ? content : null)}
           </code>
         </pre>
       )}
@@ -181,9 +181,9 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 type CodeBlockSize = "auto" | "small" | "medium" | "large"
 
 export interface CodeBlockProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "content" | "children"> {
-  /** The content to render. Will override children if passed. */
+  /** The content to render. Used when `lang` is "json". Otherwise, if children are not provided. */
   content?: string | object
-  /** The children to render. Will be overridden by content prop if passed as well.  */
+  /** The children to render. Used when `lang` is NOT "json", overriding `content`. */
   children?: React.ReactNode
   /** Pass at title to render. Will look like a single tab. */
   heading?: string
@@ -193,7 +193,7 @@ export interface CodeBlockProps extends Omit<React.HTMLAttributes<HTMLDivElement
   size?: CodeBlockSize
   /** Render a button to copy the code to the clipboard. Defaults to true */
   copy?: boolean
-  /** Pass a lang prop. Passing "json" will render a fully-featured JsonView. Will also add a data-lang-attribute to the codeblock */
+  /** Pass a lang prop. Passing "json" will render a fully-featured JsonView. Will also add a data-lang attribute to the codeblock */
   lang?: string
   /** Add a custom className to the wrapper of the CodeBlock */
   className?: string
