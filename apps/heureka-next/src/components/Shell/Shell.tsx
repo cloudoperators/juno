@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useState } from "react"
-import { AppShell, Container } from "@cloudoperators/juno-ui-components"
+import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import Navigation from "../Navigation"
 import View from "./View"
@@ -19,7 +19,11 @@ function Shell({ embedded }: AppProps) {
   }, [])
 
   return (
-    <AppShell embedded={embedded} topNavigation={<Navigation activeItem={view} onChange={handleActiveItemChange} />}>
+    <AppShell
+      embedded={embedded}
+      pageHeader={<PageHeader heading="Heureka" />}
+      topNavigation={<Navigation activeItem={view} onChange={handleActiveItemChange} />}
+    >
       {/* load styles inside the shadow dom */}
       <style>{styles.toString()}</style>
       <Container px py className="h-full">

@@ -16,6 +16,8 @@ const renderShell = () => ({
 describe("Shell", () => {
   it("should render correctly", () => {
     renderShell()
+    // assert that page header is rendered
+    expect(screen.getByText("Heureka")).toBeInTheDocument()
     // assert that the top navigation is rendered
     expect(screen.getByText("Services")).toBeInTheDocument()
     expect(screen.getByText("Vulnerabilities")).toBeInTheDocument()
