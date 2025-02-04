@@ -36,7 +36,7 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
   children,
   className = "",
   disabled = false,
-  icon = null,
+  icon,
   label = "",
   href = "",
   onClick,
@@ -72,7 +72,7 @@ export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElemen
   /** Whether the item is disabled */
   disabled?: boolean
   /** pass an icon name */
-  icon?: KnownIcons | null
+  icon?: KnownIcons
   /** The label of the item */
   label?: string
   /** Pass a custom className */

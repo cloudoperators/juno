@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+
 import { Navigation } from "../Navigation/Navigation.component"
 
 const sideNavStyles = `
@@ -39,14 +40,12 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
   )
 }
 
-type ItemKeyType = string | React.ReactNode
-
 // eslint-disable-next-line no-unused-vars
-type ActiveItemChangeHandler = (value: ItemKeyType) => void
+type ActiveItemChangeHandler = (value: React.ReactNode) => void
 
 export interface SideNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The active navigation item by label */
-  activeItem?: string
+  activeItem?: React.ReactNode
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
   ariaLabel?: string
   /** The children of the Navigation. Typically these should be SideNavigationItem(s) */

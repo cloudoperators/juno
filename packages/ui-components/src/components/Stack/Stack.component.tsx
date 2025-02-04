@@ -206,6 +206,6 @@ export interface StackProps extends Omit<React.HTMLProps<HTMLDivElement>, "wrap"
   distribution?: StackDistribution
   /** Specify whether the Stack children should be allowed to wrap or not */
   wrap?: boolean
-  /** Can be any valid tailwind  spacing. See here: https://tailwindcss.com/docs/customizing-spacing#default-spacing-scale */
+  /** Can be any valid tailwind spacing. See here: https://tailwindcss.com/docs/customizing-spacing#default-spacing-scale */
   gap?: StackGap
 }

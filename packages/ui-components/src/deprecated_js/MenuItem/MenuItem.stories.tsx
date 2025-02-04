@@ -6,7 +6,7 @@
 import React from "react"
 import { MenuItem } from "./MenuItem.component"
 import { Menu } from "../Menu/Menu.component"
-import { Button } from "../Button/Button.component"
+import { Button } from "../../components/Button/Button.component"
 
 export default {
   title: "Deprecated/Menu/MenuItem",

@@ -5,9 +5,10 @@
 
 import React, { useContext, MouseEvent, FC } from "react"
 import { Menu as HLMenu } from "@headlessui/react"
+
 import { MenuContext } from "../Menu/Menu.component"
-import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
-import { withDeprecationWarning } from "../withDeprecationWarning/index"
+import { Icon, KnownIconsEnum } from "../../components/Icon/Icon.component"
+import { withDeprecationWarning } from "../../components/withDeprecationWarning/index"
 
 const itemStyles = `
    jn-text-theme-default

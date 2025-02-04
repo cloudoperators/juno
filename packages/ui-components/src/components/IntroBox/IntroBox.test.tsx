@@ -65,7 +65,7 @@ describe("IntroBox", () => {
   })
 
   test("renders other props as passed", () => {
-    render(<IntroBox data-testid="my-introbox" name="My shiny little IntroBox" />)
-    expect(screen.getByTestId("my-introbox")).toHaveAttribute("name", "My shiny little IntroBox")
+    render(<IntroBox data-testid="my-introbox" id="unique-id" />)
+    expect(screen.getByTestId("my-introbox")).toHaveAttribute("id", "unique-id")
   })
 })

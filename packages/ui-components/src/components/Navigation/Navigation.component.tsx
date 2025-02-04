@@ -4,20 +4,17 @@
  */
 
 import React, { createContext, useEffect, useState } from "react"
-// import { NavigationItem } from "../NavigationItem/"
 
 // eslint-disable-next-line no-unused-vars
-type ItemChangeHandler = (value: ItemKeyType) => void
-
-type ItemKeyType = string | React.ReactNode
+type ItemChangeHandler = (value: React.ReactNode) => void
 
 // eslint-disable-next-line no-unused-vars
-type AddItemFunction = (key: ItemKeyType, children: ItemKeyType | null, label: string, value: string) => void
+type AddItemFunction = (key: React.ReactNode, children: React.ReactNode | null, label: string, value: string) => void
 
 type PrioritizedKeyType = "children" | "value" | "label"
 
 export interface NavigationContextType {
-  activeItem?: ItemKeyType
+  activeItem?: React.ReactNode
   addItem?: AddItemFunction
   handleActiveItemChange?: ItemChangeHandler
   navigationDisabled?: boolean
@@ -28,7 +25,7 @@ export const NavigationContext = createContext<NavigationContextType | undefined
 
 interface NavigationMappingItem {
   // store the associated key of the item in the map inside the object, so we can easily get the key later if we have to find an object by any of its keys
-  id: ItemKeyType
+  id: React.ReactNode
   value: string
   label: string
   children: React.ReactNode
@@ -44,26 +41,25 @@ export const Navigation: React.FC<NavigationProps> = ({
   className = "",
   disabled = false,
   onActiveItemChange,
-  // onChange,
   ...props
 }) => {
-  const [activeItm, setActiveItm] = useState<ItemKeyType | undefined>("")
-  const [items, setItems] = useState(new Map<ItemKeyType, NavigationMappingItem>())
+  const [activeItm, setActiveItm] = useState<React.ReactNode | undefined>("")
+  const [items, setItems] = useState(new Map<React.ReactNode, NavigationMappingItem>())
 
-  const findItemIdByKeyValue = (valueToFind: string) => {
+  const findItemIdByKeyValue = (valueToFind: React.ReactNode) => {
     // The prioritized sequence of individual item keys to check for a value:
+    const stringValueToFind = String(valueToFind)
     const prioritizedKeys: PrioritizedKeyType[] = ["value", "children", "label"]
     const itemsKeys = Array.from(items.keys())
-    if (itemsKeys.includes(valueToFind)) {
-      // return the value if it is found in the keys of the items map
-      return valueToFind
+    if (itemsKeys.includes(stringValueToFind)) {
+      return stringValueToFind
     } else {
       // If the value is not found in the keys of the items map, search for the value in the individual items according to the sequence in prioritizedKeys. If a matching item is found, return its id or null:
-      let foundItemId: ItemKeyType | undefined = undefined
+      let foundItemId: React.ReactNode | undefined = undefined
       for (const key of itemsKeys) {
         const obj = items.get(key)
         prioritizedKeys.forEach((pKey: PrioritizedKeyType) => {
-          if (obj && obj[pKey] === valueToFind) {
+          if (obj && obj[pKey] === stringValueToFind) {
             foundItemId = obj.id
           }
         })
@@ -74,21 +70,20 @@ export const Navigation: React.FC<NavigationProps> = ({
 
   useEffect(() => {
     if (activeItem) {
-      const activeItemId = findItemIdByKeyValue(activeItem)
+      const activeItemId = findItemIdByKeyValue(String(activeItem))
       setActiveItm(activeItemId)
     }
   }, [activeItem])
 
-  // Re-evaluate active item when items map changes (essential to set the active item properly on first render!):
   useEffect(() => {
     if (activeItem) {
-      const activeItemId = findItemIdByKeyValue(activeItem)
+      const activeItemId = findItemIdByKeyValue(String(activeItem))
       setActiveItm(activeItemId)
     }
   }, [items])
 
   // Key is set as established by the child item according to priority: value || children || label
-  const addItem = (key: ItemKeyType, children: React.ReactNode, label: string, value: string) => {
+  const addItem = (key: React.ReactNode, children: React.ReactNode, label: string, value: string) => {
     setItems((oldMap) =>
       new Map(oldMap).set(key, {
         id: key,
@@ -100,7 +95,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     )
   }
 
-  const handleActiveItemChange = (key: ItemKeyType) => {
+  const handleActiveItemChange = (key: React.ReactNode) => {
     setActiveItm(key)
     onActiveItemChange && onActiveItemChange(key)
   }
@@ -129,15 +124,13 @@ export const Navigation: React.FC<NavigationProps> = ({
   )
 }
 
-// TODO: validate whether children are instances of NavigationItem
-
 export interface NavigationProps extends React.HTMLAttributes<HTMLUListElement> {
   /** The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem. */
-  activeItem?: string
+  activeItem?: React.ReactNode
   /** The aria label of the navigation */
   ariaLabel?: string
   /** The child navigation items of the navigation  */
-  children?: React.ReactNode | React.ReactNode[]
+  children?: React.ReactNode
   /** Pass a custom className to the navigation parent element */
   className?: string
   /** Whether the navigation is disabled. Will disable all children. */

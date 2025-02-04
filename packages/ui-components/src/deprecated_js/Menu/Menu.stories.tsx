@@ -4,10 +4,11 @@
  */
 
 import React from "react"
-import { Menu } from "./"
-import { MenuItem } from "../MenuItem/MenuItem.component"
-import { MenuSection } from "../MenuSection/MenuSection.component"
-import { Button } from "../Button/Button.component"
+
+import { Menu } from "../../deprecated_js/Menu/Menu.component"
+import { MenuItem } from "../../deprecated_js/MenuItem/MenuItem.component"
+import { MenuSection } from "../../deprecated_js/MenuSection/MenuSection.component"
+import { Button } from "../../components/Button/Button.component"
 
 export default {
   title: "Deprecated/Menu",

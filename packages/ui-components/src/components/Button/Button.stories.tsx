@@ -19,6 +19,12 @@ export default {
       options: ["default", "primary", "primary-danger", "subdued"],
       control: { type: "select" },
     },
+    children: {
+      control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
+    },
   },
 }
 

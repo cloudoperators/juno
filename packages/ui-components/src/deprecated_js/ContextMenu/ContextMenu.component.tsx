@@ -7,8 +7,9 @@ import React, { useState, useEffect } from "react"
 import { Menu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
 import { autoPlacement, offset, shift, size, Boundary } from "@floating-ui/react-dom"
-import { Icon, KnownIcons } from "../Icon/Icon.component"
-import { withDeprecationWarning } from "../withDeprecationWarning/index"
+
+import { Icon, KnownIcons } from "../../components/Icon/Icon.component"
+import { withDeprecationWarning } from "../../components/withDeprecationWarning/withDeprecationWarning.component"
 
 const menuStyles = `
   jn-overflow-hidden

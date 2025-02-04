@@ -46,7 +46,7 @@ export const TopNavigationItem: React.FC<TopNavigationItemProps> = ({
   className = "",
   disabled = false,
   href = "",
-  icon = null,
+  icon,
   label = "",
   onClick = undefined,
   value = "",
@@ -81,7 +81,7 @@ export interface TopNavigationItemProps extends React.HTMLAttributes<HTMLElement
   /** Whether the item is disabled */
   disabled?: boolean
   /** pass an icon name */
-  icon?: KnownIcons | null
+  icon?: KnownIcons
   /** The label of the item */
   label?: string
   /** Pass a custom className */

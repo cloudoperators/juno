@@ -137,7 +137,7 @@ const NameLabel: React.FC<NameLabelProps> = ({ name }) => {
 }
 
 interface NameLabelProps {
-  name?: string | number | boolean | null
+  name?: string | number | boolean
 }
 
 // this component show the right side of the json, type + value
@@ -354,7 +354,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
   data = {},
   showRoot = false,
   toolbar = false,
-  theme = null,
+  theme,
   expanded = DEFAULT_EXPANDED,
   indentWidth = DEFAULT_INDENT_WIDTH,
   style,
@@ -436,7 +436,7 @@ export interface JsonViewerProps extends Omit<React.HTMLProps<HTMLDivElement>, "
    * @param base0E collapsed icon, types: "boolean"
    * @param base0F copy icon, type "integer"
    */
-  theme?: themes.JsonViewerTheme | ThemeType | null
+  theme?: themes.JsonViewerTheme | ThemeType
   /** expanded can be true|false or a number. The number denotes the hierarchy level to which the object is expanded. */
   expanded?: boolean | number
   // cut strings after max length is reached, default length is 100 characters, if set to true. Or specifcy a different character length. */

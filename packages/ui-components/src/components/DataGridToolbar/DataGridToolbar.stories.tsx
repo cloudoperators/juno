@@ -11,7 +11,10 @@ export default {
   component: DataGridToolbar,
   argTypes: {
     children: {
-      control: { type: "text" },
+      control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
     search: {
       control: { type: "text" },

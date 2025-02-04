@@ -4,11 +4,9 @@
  */
 
 import React, { useContext, useEffect, useState } from "react"
-import { NavigationContext } from "../Navigation/Navigation.component"
-import { Icon } from "../Icon/index"
-import { KnownIcons } from "../Icon/Icon.component"
 
-type ItemKeyType = string | React.ReactNode | null
+import { NavigationContext } from "../Navigation/Navigation.component"
+import { Icon, KnownIcons } from "../Icon/Icon.component"
 
 const itemStyles = `
   jn-flex
@@ -28,7 +26,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   children,
   className = "",
   disabled = false,
-  icon = null,
+  icon,
   inactiveItemStyles = "",
   label = "",
   href = "",
@@ -45,7 +43,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   const navigationContext = useContext(NavigationContext)
 
   // Create a unique Identifier to a) identify the active item with the parent, b) as a key in the map of items with the parent, and c) to be returned by interested event handlers.
-  const theKey: ItemKeyType = value || children || label
+  const theKey: React.ReactNode = value || children || label
 
   const {
     activeItem: activeItem,
@@ -161,11 +159,11 @@ export interface NavigationItemProps extends React.HTMLAttributes<HTMLElement> {
   /** Pass custom classNames to the item itself. */
   className?: string
   /** The child string of the item. Will override `label` when passed. */
-  children?: ItemKeyType
+  children?: React.ReactNode
   /** Whether the item is disabled */
   disabled?: boolean
   /** An icon to render in the item */
-  icon?: KnownIcons | null
+  icon?: KnownIcons
   /* Pass styles that apply to IN-active items only, in the event activeStyles are overwritten by defaultStyles affecting the same CSS property*/
   inactiveItemStyles?: string
   /** The label of the item. Will be rendered if no children are passed */

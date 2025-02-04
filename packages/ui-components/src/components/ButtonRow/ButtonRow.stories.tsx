@@ -31,7 +31,6 @@ export const Default = {
   render: Template,
 
   args: {
-    name: "Default ButtonRow",
     children: [
       <Button key="1" label="Cancel" title="Cancel" />,
       <Button key="2" label="Save" title="Save" variant="primary" />,

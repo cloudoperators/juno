@@ -30,7 +30,7 @@ const Template = ({ closeOnConfirm, ...args }: TemplateProps) => {
     <>
       <Button label="Open Modal" variant="primary" onClick={open} />
       <PortalProvider.Portal>
-        <Modal open={isOpen} onCancel={close} onConfirm={closeOnConfirm ? close : null} {...args} />
+        <Modal open={isOpen} onCancel={close} onConfirm={closeOnConfirm ? close : undefined} {...args} />
       </PortalProvider.Portal>
     </>
   )
