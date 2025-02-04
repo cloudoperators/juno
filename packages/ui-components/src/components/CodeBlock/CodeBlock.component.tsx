@@ -161,7 +161,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       ) : (
         <pre className={`juno-code-block-pre ${preStyles(wrap)} ${sizeStyles(size)}`}>
           <code className={`${codeStyles}`} ref={theCode}>
-            {(content || children) as React.ReactNode}
+            {children}
           </code>
         </pre>
       )}
