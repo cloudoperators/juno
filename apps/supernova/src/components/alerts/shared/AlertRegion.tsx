@@ -5,10 +5,7 @@
 
 import React from "react"
 
-const AlertRegion = ({
-  region,
-  cluster
-}: any) => {
+const AlertRegion = ({ region, cluster }: any) => {
   return (
     <>
       {region}

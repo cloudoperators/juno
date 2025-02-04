@@ -17,9 +17,7 @@ const cutString = (str: any) => {
   return str.length > 40 ? str.substring(0, 40) + "..." : str
 }
 
-const SilencesItem = ({
-  silence
-}: any, ref: any) => {
+const SilencesItem = ({ silence }: any, ref: any) => {
   return (
     <DataGridRow>
       <DataGridCell className="whitespace-nowrap">
@@ -54,7 +52,7 @@ const SilencesItem = ({
         }
       </DataGridCell>
     </DataGridRow>
-  );
+  )
 }
 
 export default forwardRef(SilencesItem)

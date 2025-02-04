@@ -18,11 +18,7 @@ const statusBarStyles = `
   text-theme-light
 `
 
-const StatusBar = ({
-  totalCounts,
-  isUpdating,
-  updatedAt
-}: any) => {
+const StatusBar = ({ totalCounts, isUpdating, updatedAt }: any) => {
   return (
     <Stack className={`status-bar ${statusBarStyles}`} alignment="center">
       <div>

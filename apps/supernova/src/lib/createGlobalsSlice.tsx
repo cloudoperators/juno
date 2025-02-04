@@ -24,34 +24,36 @@ const createGlobalsSlice = (set, get, options) => ({
       setIsURLRead: () =>
         set(
           (state: any) => ({
-            globals: { ...state.globals, isURLRead: true }
+            globals: { ...state.globals, isURLRead: true },
           }),
           false,
           "globals/setURLRead"
         ),
 
-      setShowDetailsFor: (alertID: any) => set(
-        (state: any) => ({
-          // if the alertID is the same as the current one, we want to close the details panel again,
-          // otherwise set the new alertID to replace the details in the panel
-          globals: {
-            ...state.globals,
-            showDetailsFor: get().globals.showDetailsFor === alertID ? null : alertID,
-          }
-        }),
-        false,
-        "globals/setShowDetailsFor"
-      ),
+      setShowDetailsFor: (alertID: any) =>
+        set(
+          (state: any) => ({
+            // if the alertID is the same as the current one, we want to close the details panel again,
+            // otherwise set the new alertID to replace the details in the panel
+            globals: {
+              ...state.globals,
+              showDetailsFor: get().globals.showDetailsFor === alertID ? null : alertID,
+            },
+          }),
+          false,
+          "globals/setShowDetailsFor"
+        ),
 
-      setActiveSelectedTab: (activeSelectedTab: any) => set(
-        (state: any) => ({
-          globals: { ...state.globals, activeSelectedTab: activeSelectedTab }
-        }),
-        false,
-        "globals/setShowDetailsFor"
-      ),
+      setActiveSelectedTab: (activeSelectedTab: any) =>
+        set(
+          (state: any) => ({
+            globals: { ...state.globals, activeSelectedTab: activeSelectedTab },
+          }),
+          false,
+          "globals/setShowDetailsFor"
+        ),
     },
-  }
+  },
 })
 
 export default createGlobalsSlice

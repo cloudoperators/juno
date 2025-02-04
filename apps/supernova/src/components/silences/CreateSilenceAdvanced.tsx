@@ -17,7 +17,7 @@ const detailsCss = (show: any) => {
 			${show ? "duration-1000 max-h-[34rem]" : `duration-300`}
 		`
     .replace(/\n/g, " ")
-    .replace(/\s+/g, " ");
+    .replace(/\s+/g, " ")
 }
 
 // @ts-expect-error TS(7031) FIXME: Binding element 'matchers' implicitly has an 'any'... Remove this comment to see the full error message

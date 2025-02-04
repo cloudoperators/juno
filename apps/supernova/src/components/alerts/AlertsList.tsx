@@ -13,7 +13,7 @@ import {
   Stack,
   Spinner,
   useEndlessScrollList,
-// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
+  // @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 } from "@cloudoperators/juno-ui-components"
 import Alert from "./Alert"
 import { useAlertsItemsFiltered } from "../StoreProvider"
@@ -32,11 +32,13 @@ const AlertsList = () => {
         </DataGridCell>
       </DataGridRow>
     ),
-    refFunction: (ref: any) => <DataGridRow>
-      <DataGridCell colSpan={3} className="border-b-0 py-0">
-        <span ref={ref} />
-      </DataGridCell>
-    </DataGridRow>,
+    refFunction: (ref: any) => (
+      <DataGridRow>
+        <DataGridCell colSpan={3} className="border-b-0 py-0">
+          <span ref={ref} />
+        </DataGridCell>
+      </DataGridRow>
+    ),
   })
 
   return (
@@ -69,7 +71,7 @@ const AlertsList = () => {
         </DataGridRow>
       )}
     </DataGrid>
-  );
+  )
 }
 
 export default AlertsList

@@ -134,5 +134,5 @@ export const sortAlerts = (items: any) => {
     )
       return a.labels?.region?.localeCompare(b.labels?.region)
     else return 1
-  });
+  })
 }

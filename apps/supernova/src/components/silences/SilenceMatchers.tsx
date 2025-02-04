@@ -9,15 +9,11 @@ import React, { useMemo } from "react"
 import { Pill, Stack } from "@cloudoperators/juno-ui-components"
 
 // Matchers can be clicked if the matcher is configurable
-const SilenceMatchers = ({
-  matchers,
-  onClickCallback,
-  closeable
-}: any) => {
+const SilenceMatchers = ({ matchers, onClickCallback, closeable }: any) => {
   // sort matchers by exclude flag
   const sortedMatchers = useMemo(() => {
     if (!matchers || matchers?.length <= 0) return []
-    return matchers.sort((a: any, b: any) => a.configurable - b.configurable);
+    return matchers.sort((a: any, b: any) => a.configurable - b.configurable)
   }, [matchers])
 
   // closeable --> display x in the pill: is true if the matcher is configurable and just in case is excluded
@@ -55,7 +51,7 @@ const SilenceMatchers = ({
         <span className="text-theme-light">No excluded matchers found</span>
       )}
     </Stack>
-  );
+  )
 }
 
 export default SilenceMatchers

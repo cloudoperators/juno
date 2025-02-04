@@ -36,11 +36,7 @@ const calculateCount = (total: any, suppressed: any) => {
   return suppressed ? total - suppressed : total
 }
 
-const RegionSeverity = ({
-  severity,
-  severityCountTotal,
-  severityCountSuppressed
-}: any) => {
+const RegionSeverity = ({ severity, severityCountTotal, severityCountSuppressed }: any) => {
   return (
     <Stack
       direction="vertical"

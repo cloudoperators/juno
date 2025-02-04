@@ -10,9 +10,7 @@ import { DateTime } from "luxon"
 // @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-ui-compon... Remove this comment to see the full error message
 import { Icon, Stack, Tooltip, TooltipContent, TooltipTrigger } from "@cloudoperators/juno-ui-components"
 
-const AlertTimestamp = ({
-  startTimestamp
-}: any) => {
+const AlertTimestamp = ({ startTimestamp }: any) => {
   const dateFormat = { ...DateTime.DATE_MED }
   const timeFormat = { ...DateTime.TIME_24_WITH_SHORT_OFFSET }
   const startTime = DateTime.fromISO(startTimestamp)

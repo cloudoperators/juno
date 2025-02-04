@@ -9,9 +9,7 @@ import { DateTime } from "luxon"
 
 //get start and end time of the silence
 
-const SilencesTimestamp = ({
-  timestamp
-}: any) => {
+const SilencesTimestamp = ({ timestamp }: any) => {
   let dt
   if (timestamp.includes("T")) {
     dt = DateTime.fromISO(timestamp)
