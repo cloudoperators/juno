@@ -137,7 +137,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
 
     const buttonLabel = progress && progressLabel ? progressLabel : label || children
 
-    const handleClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
       onClick && onClick(event)
     }
 
@@ -218,7 +218,7 @@ export interface ButtonProps
   /** Pass a className */
   className?: string
   /** Click handler  */
-  onClick?: React.MouseEventHandler<EventTarget>
+  onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
   /** Whether the button action is in progress */
   progress?: boolean
   /** Display an alternative label while the button action is in progress */

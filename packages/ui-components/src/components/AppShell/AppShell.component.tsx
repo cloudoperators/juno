@@ -76,7 +76,7 @@ export interface AppShellProps extends React.HTMLAttributes<HTMLElement> {
   /** The main content of the app. */
   children?: React.ReactNode
   /** Pass either the `<PageHeader>` component or if you don't need to add any content to the page header pass a string to be used as the app name in the standard page header. */
-  pageHeader?: string | React.ReactNode
+  pageHeader?: React.ReactNode
   /** Optional. If specified pass a `<PageFooter>` component. If undefined will use default PageFooter */
   pageFooter?: React.ReactNode
   /** Optional. If specified expects a `<TopNavigation>` component. If undefined no top navigation is rendered. */

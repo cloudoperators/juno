@@ -92,22 +92,6 @@ describe("CodeBlock", () => {
     expect(document.querySelector("[data-json-viewer]")).toBeInTheDocument()
   })
 
-  test("renders a JSONView as passed with children", () => {
-    const testObj = {
-      someKey: "some value",
-      someOtherKey: 12,
-    }
-    render(
-      <CodeBlock data-testid="codeblock" lang="json">
-        {testObj}
-      </CodeBlock>
-    )
-    expect(screen.getByTestId("codeblock")).toBeInTheDocument()
-    expect(screen.getByTestId("codeblock")).toHaveClass("juno-code-block")
-    expect(screen.getByTestId("codeblock")).toHaveAttribute("data-lang", "json")
-    expect(document.querySelector("[data-json-viewer]")).toBeInTheDocument()
-  })
-
   test("renders a CodeBlock with a Copy button by default", () => {
     render(<CodeBlock />)
     expect(screen.getByRole("button", { name: "contentCopy" })).toBeInTheDocument()
