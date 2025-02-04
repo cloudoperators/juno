@@ -17,7 +17,7 @@ export default {
       },
     },
     search: {
-      control: { type: "text" },
+      control: false,
     },
   },
 }
