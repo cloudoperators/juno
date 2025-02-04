@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.37.0
+
+### Minor Changes
+
+- c450e60: Improve TS types and documentation
+
 ## 2.36.0
 
 ### Minor Changes
