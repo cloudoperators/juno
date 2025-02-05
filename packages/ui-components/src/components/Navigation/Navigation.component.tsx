@@ -9,7 +9,7 @@ import React, { createContext, useEffect, useState } from "react"
 type ItemChangeHandler = (value: React.ReactNode) => void
 
 // eslint-disable-next-line no-unused-vars
-type AddItemFunction = (key: React.ReactNode, children: React.ReactNode | null, label: string, value: string) => void
+type AddItemFunction = (key: React.ReactNode, children: React.ReactNode, label: string, value: string) => void
 
 type PrioritizedKeyType = "children" | "value" | "label"
 
@@ -43,7 +43,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   onActiveItemChange,
   ...props
 }) => {
-  const [activeItm, setActiveItm] = useState<React.ReactNode | undefined>("")
+  const [activeItm, setActiveItm] = useState<React.ReactNode>("")
   const [items, setItems] = useState(new Map<React.ReactNode, NavigationMappingItem>())
 
   const findItemIdByKeyValue = (valueToFind: React.ReactNode) => {
@@ -55,7 +55,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       return stringValueToFind
     } else {
       // If the value is not found in the keys of the items map, search for the value in the individual items according to the sequence in prioritizedKeys. If a matching item is found, return its id or null:
-      let foundItemId: React.ReactNode | undefined = undefined
+      let foundItemId: React.ReactNode = undefined
       for (const key of itemsKeys) {
         const obj = items.get(key)
         prioritizedKeys.forEach((pKey: PrioritizedKeyType) => {

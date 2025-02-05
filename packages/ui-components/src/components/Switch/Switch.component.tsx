@@ -168,7 +168,7 @@ const getHandleSizeStyles = (size: SwitchSize): string => {
   }
 }
 
-const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: boolean): React.ReactNode | null => {
+const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: boolean): React.ReactNode => {
   const size = "1.125rem"
   const className = `${iconBaseStyles} ${disabled ? "jn-opacity-50" : ""}`
 
@@ -188,7 +188,7 @@ const renderFormHint = (
   errortext: React.ReactNode,
   successtext: React.ReactNode,
   helptext: React.ReactNode
-): React.ReactNode | null => {
+): React.ReactNode => {
   if (isNotEmptyString(errortext)) return <FormHint text={errortext} variant="error" className={hintBaseStyles} />
 
   if (isNotEmptyString(successtext)) return <FormHint text={successtext} variant="success" className={hintBaseStyles} />
