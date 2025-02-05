@@ -36,12 +36,7 @@ export const MainTabs: React.FC<MainTabsProps> = ({
 // eslint-disable-next-line no-unused-vars
 export type OnSelectHander = (value: number) => void
 
-export type MainTabElement =
-  | React.ReactElement<TabListProps>
-  | React.ReactElement<TabPanelProps>
-  | MainTabElement[]
-  | null
-  | undefined
+export type MainTabElement = React.ReactElement<TabListProps> | React.ReactElement<TabPanelProps> | MainTabElement[]
 
 export interface MainTabsProps extends Omit<React.HTMLAttributes<HTMLElement>, "onSelect"> {
   /** All the child elements of MainTabs: Tab(s) inside a TabList and TabPanel(s) */

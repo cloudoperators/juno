@@ -855,7 +855,7 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
     ...iconProps,
   })
 
-  const handleClick = (event: React.MouseEvent<EventTarget>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     onClick && onClick(event)
   }
 
@@ -899,5 +899,5 @@ export interface IconProps
   className?: string
   href?: string
   disabled?: boolean
-  onClick?: React.MouseEventHandler<EventTarget>
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
