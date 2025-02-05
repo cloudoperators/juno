@@ -30,7 +30,7 @@ interface NavigationMappingItem {
   label: string
   children: React.ReactNode
   // priority of what to actually render in each item
-  displayName: React.ReactNode | string
+  displayName: React.ReactNode
 }
 
 /** A generic Navigation component providing all the necessary functionality for a navigation. For internal use only. Not to be used directly, but to be wrapped by more role-specific / semantic navigation components such as `TabNavigation`, `TopNavigation`, `SideNavigation`. */

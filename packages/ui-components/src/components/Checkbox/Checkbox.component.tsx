@@ -111,7 +111,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   ...props
 }) => {
   // Utility
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str: React.ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -324,9 +324,9 @@ export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Whether the Checkbox is disabled */
   disabled?: boolean
   /** A text to render when the Checkbox has an error or could not be validated */
-  errortext?: React.ReactNode | string
+  errortext?: React.ReactNode
   /** A helptext to render to explain meaning and significance of the Checkbox */
-  helptext?: React.ReactNode | string
+  helptext?: React.ReactNode
   /** The id of the Radio. An id will be automatically generated if not passed. */
   id?: string
   /** Whether the Checkbox is indeterminate. Applicable ONLY if the Checkbox represents multiple child Checkboxes with non--identical checked state. */
@@ -344,7 +344,7 @@ export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Whether the Checkbox is required */
   required?: boolean
   /** A text to render when the Checkbox was successfully validated */
-  successtext?: React.ReactNode | string
+  successtext?: React.ReactNode
   /** Whether the Checkbox was successfully validated */
   valid?: boolean
   /** The value of the Checkbox */

@@ -72,7 +72,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   ...props
 }) => {
   // Utility
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str: React.ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -87,8 +87,14 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   const [isValid, setIsValid] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
 
-  const validated = useMemo(() => valid || (successtext && successtext.length ? true : false), [valid, successtext])
-  const invalidated = useMemo(() => invalid || (errortext && errortext.length ? true : false), [invalid, errortext])
+  const validated = useMemo(
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    [valid, successtext]
+  )
+  const invalidated = useMemo(
+    () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
+    [invalid, errortext]
+  )
 
   useEffect(() => {
     if (selected) {
@@ -185,9 +191,9 @@ export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivEle
   /** Whether all Checkboxes in the group are disabled */
   disabled?: boolean
   /** Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed. */
-  errortext?: string
+  errortext?: React.ReactNode
   /** A text to render to further explain meaning and significance of the group */
-  helptext?: string
+  helptext?: React.ReactNode
   /** The id of the group. If not passed, a unique id will be created and used for the group as a whole. */
   id?: string
   invalid?: boolean
@@ -202,7 +208,7 @@ export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivEle
   /** Array of values of individual selected options in the group */
   selected?: string[]
   /** Text to display in case validation is successful. When passed, will set the whole group to valid. */
-  successtext?: string
+  successtext?: React.ReactNode
   /** Whether the CheckboxGroup was successfully validated */
   valid?: boolean
 }

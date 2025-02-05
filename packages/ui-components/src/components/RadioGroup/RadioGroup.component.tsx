@@ -92,7 +92,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   ...props
 }) => {
   // Utility
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str: React.ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -107,8 +107,14 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   const [isInvalid, setIsInvalid] = useState<boolean>(false)
 
   // Validate / Invalidate the RadioGroup based on the respective props:
-  const validated = useMemo(() => valid || (successtext && successtext.length ? true : false), [valid, successtext])
-  const invalidated = useMemo(() => invalid || (errortext && errortext.length ? true : false), [invalid, errortext])
+  const validated = useMemo(
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    [valid, successtext]
+  )
+  const invalidated = useMemo(
+    () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
+    [invalid, errortext]
+  )
 
   useEffect(() => {
     setIsValid(validated)
@@ -193,9 +199,9 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   /** Whether all Radios in the group are disabled */
   disabled?: boolean
   /** Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed. */
-  errortext?: string
+  errortext?: React.ReactNode
   /** A text to render to further explain meaning and significance of the group */
-  helptext?: string
+  helptext?: React.ReactNode
   /** The id of the group. If not passed, RadioGroup will create and use a unique id for the group */
   id?: string
   /** Whether the group not be validated. */
@@ -211,7 +217,7 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   /** The value of the initially selected radio. This will override 'checked' set on any of the child radio elements. */
   selected?: string
   /** Text to display in case validation is successful. When passed, will set the whole group to valid. */
-  successtext?: string
+  successtext?: React.ReactNode
   /** Whether the RadioGroup was successfully validated */
   valid?: boolean
 }

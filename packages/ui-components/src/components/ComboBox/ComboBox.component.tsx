@@ -176,7 +176,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str: React.ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 

@@ -97,7 +97,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isNotEmptyString = (str: string) => {
+  const isNotEmptyString = (str: React.ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -326,9 +326,9 @@ export interface SecretTextProps extends Omit<React.HTMLAttributes<HTMLTextAreaE
   /** Disable the Hide/Reveal button */
   disableToggle?: boolean
   /** A small text to display information regarding any errors in the context of the Secret. */
-  errortext?: string
+  errortext?: React.ReactNode
   /** A small text to display giving more information and context about the Secret. */
-  helptext?: string
+  helptext?: React.ReactNode
   /** Pass an id  */
   id?: string
   /** Whether the Secret's content is invalid. */
@@ -366,7 +366,7 @@ export interface SecretTextProps extends Omit<React.HTMLAttributes<HTMLTextAreaE
   /** Whether the secret's content is revealed / legible. */
   reveal?: boolean
   /** A small text to display giving information in the context of the secret, e.g. when it was successfully validated or matches specific requirements, etc.  */
-  successtext?: string
+  successtext?: React.ReactNode
   /** Whether a button to toggle visibility of the SecretText's content should be rendered. */
   toggle?: boolean
   /** Whether the Secret's content was successfully validated. */
