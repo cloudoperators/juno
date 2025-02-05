@@ -281,11 +281,11 @@ export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   /** The label of the input */
   label?: string
   /** A helptext to render to explain meaning and significance of the TextInput */
-  helptext?: JSX.Element | string
+  helptext?: React.ReactNode
   /** A text to render when the TextInput was successfully validated */
-  successtext?: JSX.Element | string
+  successtext?: React.ReactNode
   /** A text to render when the TextInput has an error or could not be validated */
-  errortext?: JSX.Element | string
+  errortext?: React.ReactNode
   /** The width of the text input. Either 'full' (default) or 'auto'. */
   width?: TextInputWidth
   /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */

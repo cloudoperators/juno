@@ -139,7 +139,7 @@ export type ComboBoxContextType = {
 
 export const ComboBoxContext = createContext<ComboBoxContextType | undefined>(undefined)
 
-type OptionValuesAndLabelsKey = string | React.ReactNode
+type OptionValuesAndLabelsKey = React.ReactNode
 type OptionValuesAndLabelsValue = {
   val: string
   label?: string
@@ -176,7 +176,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str: React.ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 

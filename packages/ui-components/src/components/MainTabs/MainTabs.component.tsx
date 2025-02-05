@@ -40,7 +40,6 @@ export type MainTabElement =
   | React.ReactElement<TabListProps>
   | React.ReactElement<TabPanelProps>
   | MainTabElement[]
-  | null
   | undefined
 
 export interface MainTabsProps extends Omit<React.HTMLAttributes<HTMLElement>, "onSelect"> {

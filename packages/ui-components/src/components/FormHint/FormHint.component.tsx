@@ -23,7 +23,7 @@ export interface FormHintProps extends React.HTMLAttributes<HTMLDivElement> {
    * The text to render as a hint for a form element.
    * Overridden by children, if provided.
    */
-  text?: ReactNode | string
+  text?: ReactNode
 
   /**
    * The variant of the hint ("help", "error", or "success") determining its appearance.
