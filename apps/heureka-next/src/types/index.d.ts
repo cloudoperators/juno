@@ -5,11 +5,3 @@
 
 /// <reference types="vite-plugin-svgr/client" />
 /// <reference types="vite/client" />
-
-type AppProps = {
-  theme?: "theme-dark" | "theme-light"
-  embedded?: boolean
-}
-
-//TODO: use ItemKeyType from ui-components package when available
-type ItemKeyType = string | ReactNode

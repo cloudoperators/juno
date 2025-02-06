@@ -3,18 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useState, ReactNode } from "react"
 import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import Navigation from "../Navigation"
 import View from "./View"
+import { AppProps } from "../../App"
 import { SERVICES } from "../../constants"
 import styles from "../../styles.scss?inline"
 
 function Shell({ embedded }: AppProps) {
-  const [view, setView] = useState<ItemKeyType>(SERVICES)
+  const [view, setView] = useState<ReactNode>(SERVICES)
 
-  const handleActiveItemChange = useCallback((value: ItemKeyType) => {
+  const handleActiveItemChange = useCallback((value: ReactNode) => {
     setView(value)
   }, [])
 

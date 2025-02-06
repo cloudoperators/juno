@@ -15,8 +15,8 @@ type NavigationItemType = {
 }
 
 type NavigationPropsType = {
-  activeItem?: ItemKeyType
-  onChange?: (value: ItemKeyType) => void
+  activeItem?: ReactNode
+  onChange?: (value: ReactNode) => void
 }
 
 const navigationItems: NavigationItemType[] = [
@@ -39,16 +39,7 @@ const navigationItems: NavigationItemType[] = [
 
 const Navigation = ({ activeItem, onChange }: NavigationPropsType) => {
   return (
-    <TopNavigation
-      /**
-       * There is a type mismatch in ToggleNavigation component,
-       * where "onActiveItemChange" emits data of type "ItemKeyType"
-       * whereas "activeItem" expects the same data to be of type "string"
-       * hence we need to cast it to the "string" but in a safer way
-       */
-      activeItem={typeof activeItem === "string" ? (activeItem as string) : undefined}
-      onActiveItemChange={onChange}
-    >
+    <TopNavigation activeItem={activeItem} onActiveItemChange={onChange}>
       {navigationItems.map(({ label, icon, value }) => (
         <TopNavigationItem role="link" ariaLabel={value} key={value} label={label} value={value} icon={icon} />
       ))}
