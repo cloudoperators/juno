@@ -5,6 +5,4 @@
 
 import React from "react"
 
-const Vulnerabilities = () => <div>render vulnerabilities here...</div>
-
-export default Vulnerabilities
+export const Vulnerabilities = () => <div>render vulnerabilities here...</div>

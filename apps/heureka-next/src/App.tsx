@@ -13,12 +13,10 @@ export type AppProps = {
   embedded?: boolean
 }
 
-const App = (props: AppProps) => (
+export const App = (props: AppProps) => (
   <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
     <ErrorBoundary>
       <Shell {...props} />
     </ErrorBoundary>
   </AppShellProvider>
 )
-
-export default App

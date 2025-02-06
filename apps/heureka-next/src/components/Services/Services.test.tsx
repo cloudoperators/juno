@@ -5,7 +5,7 @@
 
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import Services from "./Services"
+import { Services } from "./Services"
 
 describe("Services", () => {
   it("should render correctly", () => {

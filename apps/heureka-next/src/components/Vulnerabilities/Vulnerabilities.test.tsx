@@ -5,7 +5,7 @@
 
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import Vulnerabilities from "./Vulnerabilities"
+import { Vulnerabilities } from "./Vulnerabilities"
 
 describe("Vulnerabilities", () => {
   it("should render correctly", () => {

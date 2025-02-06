@@ -5,6 +5,4 @@
 
 import React from "react"
 
-const Images = () => <div>render images here...</div>
-
-export default Images
+export const Images = () => <div>render images here...</div>

@@ -5,7 +5,7 @@
 
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import Images from "./Images"
+import { Images } from "./Images"
 
 describe("Images", () => {
   it("should render correctly", () => {

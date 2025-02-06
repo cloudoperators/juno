@@ -6,7 +6,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import Shell from "./Shell"
+import { Shell } from "./Shell"
 
 const renderShell = () => ({
   user: userEvent.setup(),

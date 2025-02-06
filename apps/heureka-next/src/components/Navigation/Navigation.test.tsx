@@ -6,7 +6,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import Navigation from "./Navigation"
+import { Navigation } from "./Navigation"
 import { SERVICES } from "../../constants"
 
 describe("Navigation", () => {

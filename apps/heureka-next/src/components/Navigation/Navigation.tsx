@@ -37,7 +37,7 @@ const navigationItems: NavigationItemType[] = [
   },
 ]
 
-const Navigation = ({ activeItem, onChange }: NavigationPropsType) => {
+export const Navigation = ({ activeItem, onChange }: NavigationPropsType) => {
   return (
     <TopNavigation activeItem={activeItem} onActiveItemChange={onChange}>
       {navigationItems.map(({ label, icon, value }) => (
@@ -46,5 +46,3 @@ const Navigation = ({ activeItem, onChange }: NavigationPropsType) => {
     </TopNavigation>
   )
 }
-
-export default Navigation

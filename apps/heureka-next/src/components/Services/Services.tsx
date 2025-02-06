@@ -5,6 +5,4 @@
 
 import React from "react"
 
-const Services = () => <div>render services here...</div>
-
-export default Services
+export const Services = () => <div>render services here...</div>

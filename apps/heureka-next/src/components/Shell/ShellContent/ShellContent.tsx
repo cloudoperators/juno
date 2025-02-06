@@ -9,7 +9,7 @@ import { Services } from "../../Services"
 import { Vulnerabilities } from "../../Vulnerabilities"
 import { Images } from "../../Images"
 
-const ShellContent = ({ selectedView }: { selectedView: ReactNode }) => {
+export const ShellContent = ({ selectedView }: { selectedView: ReactNode }) => {
   switch (selectedView) {
     case SERVICES:
       return <Services />
@@ -21,5 +21,3 @@ const ShellContent = ({ selectedView }: { selectedView: ReactNode }) => {
       return null
   }
 }
-
-export default ShellContent

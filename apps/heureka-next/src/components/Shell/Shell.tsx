@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useState, ReactNode } from "react"
+import React, { useState, ReactNode } from "react"
 import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { Navigation } from "../Navigation"
@@ -12,18 +12,14 @@ import { AppProps } from "../../App"
 import { SERVICES } from "../../constants"
 import styles from "../../styles.scss?inline"
 
-function Shell({ embedded }: AppProps) {
-  const [selectedView, setView] = useState<ReactNode>(SERVICES)
-
-  const handleActiveItemChange = useCallback((value: ReactNode) => {
-    setView(value)
-  }, [])
+export const Shell = ({ embedded }: AppProps) => {
+  const [selectedView, setSelectedView] = useState<ReactNode>(SERVICES)
 
   return (
     <AppShell
       embedded={embedded}
       pageHeader={<PageHeader heading="Heureka" />}
-      topNavigation={<Navigation activeItem={selectedView} onChange={handleActiveItemChange} />}
+      topNavigation={<Navigation activeItem={selectedView} onChange={setSelectedView} />}
     >
       {/* load styles inside the shadow dom */}
       <style>{styles.toString()}</style>
@@ -38,5 +34,3 @@ function Shell({ embedded }: AppProps) {
     </AppShell>
   )
 }
-
-export default Shell

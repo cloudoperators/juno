@@ -5,10 +5,8 @@
 
 import React, { ReactNode } from "react"
 import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary"
-import ErrorFallback from "./ErrorFallback"
+import { ErrorFallback } from "./ErrorFallback"
 
-const ErrorBoundary = ({ children }: { children: ReactNode }) => (
+export const ErrorBoundary = ({ children }: { children: ReactNode }) => (
   <ReactErrorBoundary fallbackRender={ErrorFallback}>{children}</ReactErrorBoundary>
 )
-
-export default ErrorBoundary
