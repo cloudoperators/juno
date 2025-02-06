@@ -25,7 +25,7 @@ export default {
 const Template = ({ children, ...args }: TemplateProps) => <TabList {...args}>{children}</TabList>
 
 interface TemplateProps {
-  children?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[] | null
+  children?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[]
 }
 
 export const Default = {
