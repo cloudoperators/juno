@@ -838,7 +838,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
 }
 
 export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(function Icon(
-  { icon = null, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
+  { icon, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
   ref
 ) {
   // if href or onClick was passed, then we want to add the passed classes and passed arbitrary props to the button or anchor

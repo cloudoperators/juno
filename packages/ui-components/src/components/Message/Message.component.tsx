@@ -193,7 +193,7 @@ const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | nul
  * Use sparingly, there should never be two or more subsequent instances of Message as direct siblings/neighbors on an individual view.
  */
 export const Message: React.FC<MessageProps> = ({
-  title = null,
+  title,
   variant = "info",
   dismissible = false,
   autoDismiss = false,

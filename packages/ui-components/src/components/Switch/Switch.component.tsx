@@ -206,7 +206,7 @@ const renderFormHint = (
 export const Switch: React.FC<SwitchProps> = ({
   name = "",
   id = "",
-  label = undefined,
+  label,
   required = false,
   size = "default",
   on = false,
@@ -217,8 +217,8 @@ export const Switch: React.FC<SwitchProps> = ({
   errortext = "",
   successtext = "",
   className = "",
-  onChange = undefined,
-  onClick = undefined,
+  onChange,
+  onClick,
   wrapperClassName = "",
   ...props
 }) => {

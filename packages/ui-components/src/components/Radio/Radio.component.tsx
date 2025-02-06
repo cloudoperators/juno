@@ -89,16 +89,16 @@ export const Radio: React.FC<RadioProps> = ({
   disabled = false,
   errortext = "",
   helptext = "",
-  id = undefined,
+  id,
   invalid = false,
-  label = undefined,
-  name = undefined,
-  onChange = undefined,
-  onClick = undefined,
+  label,
+  name,
+  onChange,
+  onClick,
   required = false,
   successtext = "",
   valid = false,
-  value = undefined,
+  value,
   ...props
 }) => {
   // Utility

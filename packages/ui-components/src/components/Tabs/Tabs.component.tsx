@@ -68,12 +68,7 @@ export type TabsVariant = "main" | "content" | "codeblocks"
 // eslint-disable-next-line no-unused-vars
 export type OnSelectHander = (value: number) => void
 
-export type TabElement =
-  | React.ReactElement<TabListProps>
-  | React.ReactElement<TabPanelProps>
-  | TabElement[]
-  | null
-  | undefined
+export type TabElement = React.ReactElement<TabListProps> | React.ReactElement<TabPanelProps> | TabElement[] | undefined
 
 export interface TabsProps extends ReactTabsProps {
   /** All the child elements of the Tabs: Tab(s) inside a TabList and TabPanel(s) */

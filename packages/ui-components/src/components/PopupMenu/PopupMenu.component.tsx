@@ -190,13 +190,13 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   SectionHeading: React.FC<PopupMenuSectionHeadingProps>
   SectionSeparator: React.FC<PopupMenuSectionSeparatorProps>
 } = ({
-  children = null,
+  children,
   className = "",
   disabled = false,
   icon = "moreVert",
   menuSize = "normal",
-  onClose = undefined,
-  onOpen = undefined,
+  onClose,
+  onOpen,
   ...props
 }) => {
   // Create a state to track headless-ui's internal open state (Note that we can track the internal state and can let headless ui update our tracking state, but we can not set it, hence there is no `open` prop on our component):
@@ -280,7 +280,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 const PopupMenuToggle: React.FC<PopupMenuToggleProps> = ({
   as = "button",
   disabled = false,
-  children = null,
+  children,
   className = "",
   ...props
 }) => (
@@ -295,7 +295,7 @@ const PopupMenuToggle: React.FC<PopupMenuToggleProps> = ({
 )
 
 // MENU COMPONENT
-const PopupMenuMenu: React.FC<PopupMenuMenuProps> = ({ children = null, className = "", ...props }) => {
+const PopupMenuMenu: React.FC<PopupMenuMenuProps> = ({ children, className = "", ...props }) => {
   // Consume context to get the size to render and the close function:
   const { menuSize } = usePopupMenuContext()
   return (
@@ -311,11 +311,11 @@ const PopupMenuMenu: React.FC<PopupMenuMenuProps> = ({ children = null, classNam
 // ITEM COMPONENT
 const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
   as = "div",
-  children = null,
+  children,
   className = "",
   disabled = false,
   href,
-  icon = null,
+  icon,
   label = "",
   rel,
   target,
@@ -354,7 +354,7 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
 }
 
 // POPUPMENU SECTION COMPONENT
-const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children = null, className = "", ...props }) => {
+const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children, className = "", ...props }) => {
   return (
     <section className={`juno-popupmenu-section ${sectionStyles} ${className}`} {...props}>
       {children}
@@ -364,7 +364,7 @@ const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children = null, cl
 
 // POPUPMENU SECTION TITLE COMPONENT
 const PopupMenuSectionHeading: React.FC<PopupMenuSectionHeadingProps> = ({
-  children = null,
+  children,
   label = "",
   className = "",
   ...props

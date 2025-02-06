@@ -57,8 +57,8 @@ export const Pill: FC<PillProps> = ({
   pillValue = "",
   pillValueLabel = "",
   closeable = false,
-  onClick = undefined,
-  onClose = undefined,
+  onClick,
+  onClose,
   className = "",
   ...props
 }) => {

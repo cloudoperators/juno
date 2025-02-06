@@ -42,7 +42,7 @@ export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Optional. Timeout in miliseconds after which the message is automatically dismissed. By default 10000 (10s).*/
   autoDismissTimeout?: number
   /** Optional. Pass a handler that will be called when the message is dismissed */
-  onDismiss?: () => unknown
+  onDismiss?: () => void
   /** Pass an optional className */
   className?: string
 }
