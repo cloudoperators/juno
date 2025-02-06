@@ -249,7 +249,7 @@ export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"
   /** The children of the modal. These will be rendered as the modal content. To render custom buttons at the bottom, see `modalFooter` below.*/
   children?: React.ReactNode
   /** Optional. Pass a `<ModalFooter />` component with custom content as required. Will default to using the `<ModalFooter/>` component internally. */
-  modalFooter?: JSX.Element
+  modalFooter?: React.ReactElement
   /** Whether the modal can be closed using an "X"-Button at the top right. Defaults to true. */
   closeable?: boolean
   /** Pass to remove default padding from the content area of the modal */

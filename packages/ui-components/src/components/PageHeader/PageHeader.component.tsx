@@ -90,10 +90,10 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 
 export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Heading (typically the name of the application) */
-  heading?: string | String | JSX.Element // Union type to avoid `any`
+  heading?: string | String | React.ReactElement // Union type to avoid `any`
   /** Add custom class name */
   className?: string
-  logo?: boolean | Boolean | JSX.Element
+  logo?: boolean | Boolean | React.ReactElement
   /** Optional: onClick handler for brand logo/page title. To be used to navigate to the home page.  */
   onClick?: React.MouseEventHandler<EventTarget>
   /** Children to render in the header such as user name, avatar, log-in/out button, etc. */

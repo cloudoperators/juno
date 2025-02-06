@@ -340,7 +340,7 @@ export const Select: React.FC<SelectProps> = ({
                   `}
                 {...props}
               >
-                {({ open, value }: { open: boolean; value: string[] }): React.JSX.Element =>
+                {({ open, value }: { open: boolean; value: string[] }): React.ReactElement =>
                   !hasError && !isLoading ? (
                     <>
                       <span className={`${truncateStyles}`}>{getDisplayValue(value)}</span>
