@@ -18,8 +18,8 @@ const mockOnValueChange = vi.fn()
 const ControlledSelectParent = ({ children, ...props }: SelectProps) => {
   const [val, setVal] = React.useState(props.value)
 
-  const handleChange = <T extends unknown>(v: T): void => {
-    setVal(v)
+  const handleChange = (val?: string | number | string[]) => {
+    setVal(val)
     props.onChange?.()
   }
 
