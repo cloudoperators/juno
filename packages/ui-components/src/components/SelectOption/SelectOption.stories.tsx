@@ -14,6 +14,9 @@ export default {
   argTypes: {
     children: {
       control: false,
+      table: {
+        type: { summary: "string" },
+      },
     },
   },
   decorators: [(story: () => null | undefined) => <PortalProvider>{story()}</PortalProvider>],

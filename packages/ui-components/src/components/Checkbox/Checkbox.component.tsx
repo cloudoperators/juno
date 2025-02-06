@@ -190,7 +190,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     onChange && onChange(event)
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLInputElement>) => {
     onClick && onClick(event)
   }
 
@@ -340,7 +340,7 @@ export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   /** handler to be executed when the Checkbox changes. */
   onChange?: React.ChangeEventHandler<HTMLInputElement>
   /** handler to be executed when the Checkbox is clicked. */
-  onClick?: React.MouseEventHandler<HTMLElement>
+  onClick?: React.MouseEventHandler<HTMLInputElement>
   /** Whether the Checkbox is required */
   required?: boolean
   /** A text to render when the Checkbox was successfully validated */

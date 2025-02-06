@@ -85,7 +85,7 @@ export interface SelectProps
   /** Pass a custom className to the internal Select toggle button */
   className?: string
   /** Pass a defaultValue to use as an uncontrolled component that handles its state internally. When setting `multiple` on the Select pass an Array instead of a string.  */
-  defaultValue?: string
+  defaultValue?: string | string[]
   /** Whether the Select is disabled */
   disabled?: boolean
   /** Whether the Select has an error, e.g. when loading options. When validated negatively, use `invalid` instead. */
@@ -125,7 +125,7 @@ export interface SelectProps
   /** Whether the Select was positively validated. Will show a green checkmark icon inside the Select toggle. */
   valid?: boolean
   /** The currently (pre-)selected value of the Select. Will trigger controlled mode. When setting `multiple` on the Select pass an Array instead of a string. */
-  value?: unknown
+  value?: string | number | string[]
   /** The label of the passed value or defaultValue. If you want to use controlled mode or pass as defaultValue in uncontrolled mode and additionally use labels for
    *  human-readable SelectOptions you need to also pass the matching label for the passed value/defaultValue so that the Select component can render itself properly. */
   valueLabel?: string
