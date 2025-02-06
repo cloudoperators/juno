@@ -5,12 +5,12 @@
 
 import React, { ReactNode } from "react"
 import { SERVICES, IMAGES, VULNERABILITIES } from "../../../constants"
-import Services from "../../Services"
-import Vulnerabilities from "../../Vulnerabilities"
-import Images from "../../Images"
+import { Services } from "../../Services"
+import { Vulnerabilities } from "../../Vulnerabilities"
+import { Images } from "../../Images"
 
-const View = ({ view }: { view: ReactNode }) => {
-  switch (view) {
+const ShellContent = ({ selectedView }: { selectedView: ReactNode }) => {
+  switch (selectedView) {
     case SERVICES:
       return <Services />
     case VULNERABILITIES:
@@ -22,4 +22,4 @@ const View = ({ view }: { view: ReactNode }) => {
   }
 }
 
-export default View
+export default ShellContent

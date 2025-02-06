@@ -5,8 +5,8 @@
 
 import React from "react"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
-import ErrorBoundary from "./components/ErrorBoundary"
-import Shell from "./components/Shell"
+import { ErrorBoundary } from "./components/ErrorBoundary"
+import { Shell } from "./components/Shell"
 
 export type AppProps = {
   theme?: "theme-dark" | "theme-light"

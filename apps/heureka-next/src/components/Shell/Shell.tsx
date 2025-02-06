@@ -6,14 +6,14 @@
 import React, { useCallback, useState, ReactNode } from "react"
 import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
-import Navigation from "../Navigation"
-import View from "./View"
+import { Navigation } from "../Navigation"
+import { ShellContent } from "./ShellContent"
 import { AppProps } from "../../App"
 import { SERVICES } from "../../constants"
 import styles from "../../styles.scss?inline"
 
 function Shell({ embedded }: AppProps) {
-  const [view, setView] = useState<ReactNode>(SERVICES)
+  const [selectedView, setView] = useState<ReactNode>(SERVICES)
 
   const handleActiveItemChange = useCallback((value: ReactNode) => {
     setView(value)
@@ -23,7 +23,7 @@ function Shell({ embedded }: AppProps) {
     <AppShell
       embedded={embedded}
       pageHeader={<PageHeader heading="Heureka" />}
-      topNavigation={<Navigation activeItem={view} onChange={handleActiveItemChange} />}
+      topNavigation={<Navigation activeItem={selectedView} onChange={handleActiveItemChange} />}
     >
       {/* load styles inside the shadow dom */}
       <style>{styles.toString()}</style>
@@ -32,7 +32,7 @@ function Shell({ embedded }: AppProps) {
           <MessagesProvider>
             <Messages />
           </MessagesProvider>
-          <View view={view} />
+          <ShellContent selectedView={selectedView} />
         </>
       </Container>
     </AppShell>
