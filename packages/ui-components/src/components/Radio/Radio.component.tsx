@@ -80,8 +80,6 @@ const hintStyles = `
   jn-ml-6
 `
 
-type EventUpdateHandler = (_value: string | undefined) => void
-
 /** A controlled Radio component. */
 export const Radio: React.FC<RadioProps> = ({
   checked = false,
@@ -98,7 +96,7 @@ export const Radio: React.FC<RadioProps> = ({
   required = false,
   successtext = "",
   valid = false,
-  value,
+  value = "",
   ...props
 }) => {
   // Utility
@@ -315,7 +313,8 @@ export interface RadioProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   /** The name attribute of the Radio. Only Radios sharing the same name attribute will work together as expected. */
   name?: string
   /** Handler to execute when the Radio changes */
-  onChange?: EventUpdateHandler
+  // eslint-disable-next-line no-unused-vars
+  onChange?: (value: string) => void
   /** Handler to execute when the Radio is clicked */
   onClick?: MouseEventHandler<HTMLElement>
   /** Whether the Radio is required */

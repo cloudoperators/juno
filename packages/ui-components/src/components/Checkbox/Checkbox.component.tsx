@@ -107,7 +107,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   required = false,
   successtext = "",
   valid = false,
-  value,
+  value = "",
   ...props
 }) => {
   // Utility

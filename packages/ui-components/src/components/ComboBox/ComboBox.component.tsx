@@ -129,7 +129,7 @@ const centeredIconStyles = `
 `
 
 //eslint-disable-next-line no-unused-vars
-type AddOptionValueAndLabelFunction = (value: string, label: string | undefined, children: React.ReactNode) => void
+type AddOptionValueAndLabelFunction = (value: string, label: string, children: React.ReactNode) => void
 
 export type ComboBoxContextType = {
   selectedValue?: string
@@ -197,7 +197,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   // This callback is for all ComboBoxOptions to send us their value, label and children so we can save them as a map in our state.
   // We need this because the Select component wants to display the selected value, label or children in the ComboBox input field
   // but from the eventHandler we only get the value, not the label or children
-  const addOptionValueAndLabel = (value: string, label: string | undefined, children: React.ReactNode) => {
+  const addOptionValueAndLabel = (value: string, label: string, children: React.ReactNode) => {
     // append new entry to optionValuesAndLabels map containing the passed value, label and children
     // use callback syntax of setState function here since we want to merge the old state with the new entry
     setOptionValuesAndLabels((oldMap) =>
