@@ -40,9 +40,6 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
   )
 }
 
-// eslint-disable-next-line no-unused-vars
-type ActiveItemChangeHandler = (value: React.ReactNode) => void
-
 export interface SideNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The active navigation item by label */
   activeItem?: React.ReactNode
@@ -55,5 +52,6 @@ export interface SideNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the navigation is disabled */
   disabled?: boolean
   /** Handler to execute when the active item changes */
-  onActiveItemChange?: ActiveItemChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onActiveItemChange?: (activeItem: React.ReactNode) => void
 }

@@ -149,12 +149,12 @@ export const TextInput: React.FC<TextInputProps> = ({
     onChange && onChange(event)
   }
 
-  const handleFocus = (event: React.FocusEvent<EventTarget>) => {
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setFocus(true)
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event: React.FocusEvent<EventTarget>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setFocus(false)
     onBlur && onBlur(event)
   }
@@ -273,9 +273,9 @@ export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   /** Pass a change handler */
   onChange?: React.ChangeEventHandler<HTMLInputElement>
   /** Pass a focus handler */
-  onFocus?: React.FocusEventHandler<EventTarget>
+  onFocus?: React.FocusEventHandler<HTMLInputElement>
   /** Pass a blur handler */
-  onBlur?: React.FocusEventHandler<EventTarget>
+  onBlur?: React.FocusEventHandler<HTMLInputElement>
   /** Specify the type attribute. Defaults to an input with no type attribute, which in turn will be treateas as type="text" by browsers. */
   type?: TextInputType
   /** The label of the input */

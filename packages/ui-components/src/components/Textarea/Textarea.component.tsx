@@ -150,12 +150,12 @@ export const Textarea: React.FC<TextareaProps> = ({
     onChange && onChange(event)
   }
 
-  const handleFocus = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleFocus = (event: React.FocusEvent<HTMLTextAreaElement>) => {
     setFocus(true)
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLTextAreaElement>) => {
     setFocus(false)
     onBlur && onBlur(event)
   }
@@ -274,9 +274,9 @@ export interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
   /** Pass a change handler */
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>
   /** Pass a focus handler */
-  onFocus?: React.ChangeEventHandler<HTMLTextAreaElement>
+  onFocus?: React.FocusEventHandler<HTMLTextAreaElement>
   /** Pass a blur handler */
-  onBlur?: React.ChangeEventHandler<HTMLTextAreaElement>
+  onBlur?: React.FocusEventHandler<HTMLTextAreaElement>
   /** A helptext to render to explain meaning and significance of the Textarea */
   helptext?: React.ReactNode
   /** A text to render when the Textarea was successfully validated */

@@ -113,7 +113,7 @@ export interface SelectProps
   open?: boolean
   /** LEGACY: Handler to be executed when the Select value changes. Here for backwards compatibility with apps based on older versions of Select. Use onChange instead. */
   // eslint-disable-next-line no-unused-vars
-  onValueChange?: (...args: unknown[]) => unknown
+  onValueChange?: (value?: string | number | string[]) => void
   /** A placeholder to render when no value has been selected. Default is "Select…". */
   placeholder?: string
   /** Whether a selection is required. Will show a small required marker next to the label. If no label is used, no marker will be visible. */
