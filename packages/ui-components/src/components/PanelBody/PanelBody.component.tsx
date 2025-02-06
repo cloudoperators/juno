@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode, HTMLAttributes } from "react"
+import React, { ReactNode, ReactElement, HTMLAttributes } from "react"
 
 const bodyContentStyles = `
   jn-px-8
@@ -26,7 +26,7 @@ export interface PanelBodyProps extends HTMLAttributes<HTMLDivElement> {
    * Optional footer component to be rendered below the main content.
    * The footer can include buttons or other control elements.
    */
-  footer?: React.ReactElement
+  footer?: ReactElement
 }
 
 /**

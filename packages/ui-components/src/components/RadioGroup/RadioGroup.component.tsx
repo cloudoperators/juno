@@ -59,7 +59,8 @@ const iconstyles = `
 	jn-top-1.5
 `
 
-type EventUpdateHandler = (_value: string | undefined) => void
+// eslint-disable-next-line no-unused-vars
+type EventUpdateHandler = (value: string) => void
 
 export interface RadioGroupContextProps {
   selectedValue?: string
@@ -132,12 +133,12 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   }, [selected])
 
   // Callback function to be passed via the group context to child Radios so they can set the value on the parent if necessary (only used ONCE during initialisation when we don't want to trigger onChange handlers yet):
-  const updateSelectedValue = (value: string | undefined) => {
+  const updateSelectedValue = (value: string) => {
     setSelectedValue(value)
   }
 
   // Handler to be passed to child Radios to execute when they change
-  const handleRadioChange = (value: string | undefined) => {
+  const handleRadioChange = (value: string) => {
     setSelectedValue(value)
     onChange && onChange(value)
   }

@@ -445,9 +445,6 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 }
 
 export type ComboBoxWidth = "full" | "auto"
-
-//eslint-disable-next-line no-unused-vars
-type OnChangeHandler = (value: string) => void
 export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children"> {
   /** The aria-label of the ComboBox. Defaults to the label if label was passed. */
   ariaLabel?: string
@@ -480,7 +477,8 @@ export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   /** A handler to execute when the ComboBox looses focus */
   onBlur?: React.FocusEventHandler<HTMLInputElement>
   /** A handler to execute when the ComboBox' selected value changes */
-  onChange?: OnChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onChange?: (value: string) => void
   /** A handler to execute when the ComboBox input receives focus */
   onFocus?: React.FocusEventHandler<HTMLInputElement>
   /** Handler to execute when the ComboBox text input value changes */

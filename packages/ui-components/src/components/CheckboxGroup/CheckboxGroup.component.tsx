@@ -40,10 +40,11 @@ const iconstyles = `
   jn-top-1.5
 `
 
-type EventUpdateHandler = (_value: string | undefined) => void
+// eslint-disable-next-line no-unused-vars
+type EventUpdateHandler = (value: string) => void
 
 export interface CheckboxGroupContextProps {
-  selectedOptions?: CheckboxValue[]
+  selectedOptions?: string[]
   handleCheckboxChange?: EventUpdateHandler
   name?: string
   updateSelectedValue?: EventUpdateHandler
@@ -51,8 +52,6 @@ export interface CheckboxGroupContextProps {
 }
 
 export const CheckboxGroupContext = createContext<CheckboxGroupContextProps | undefined>(undefined)
-
-export type CheckboxValue = string | undefined
 
 export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   children,
@@ -83,7 +82,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   const groupId = id || uniqueId()
 
   // Init state variables:
-  const [selectedOptions, setSelectedOptions] = useState<CheckboxValue[] | undefined>(selected)
+  const [selectedOptions, setSelectedOptions] = useState<string[] | undefined>(selected)
   const [isValid, setIsValid] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
 
@@ -111,7 +110,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   }, [invalidated])
 
   // Callback function to be passed via context to individual checkboxes:
-  const handleCheckboxChange = (value: CheckboxValue) => {
+  const handleCheckboxChange = (value: string) => {
     const changedValue = value
     if (selectedOptions && selectedOptions.includes(value)) {
       setSelectedOptions(
@@ -128,7 +127,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   }
 
   // Callback function to be passed via the context to child Checkboxes so they can add their value to the groups' selectedOptions array in case selected has not been set on the parent (otherwise the parent select will trump whatever is set on the child in a group context). Called ONLY ONCE during initialization of the child Checkbox when we DON't want to execute any additional onChange handlers just yet:
-  const updateSelectedValue = (value: CheckboxValue) => {
+  const updateSelectedValue = (value: string) => {
     if (!selected) {
       setSelectedOptions((selectedOptions) => [...(selectedOptions || []), value])
     }

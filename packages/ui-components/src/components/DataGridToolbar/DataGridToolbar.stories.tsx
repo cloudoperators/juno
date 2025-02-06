@@ -18,6 +18,9 @@ export default {
     },
     search: {
       control: false,
+      table: {
+        type: { summary: "ReactElement" },
+      },
     },
   },
 }
