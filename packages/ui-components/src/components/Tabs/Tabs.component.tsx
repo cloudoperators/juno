@@ -5,8 +5,6 @@
 
 import React, { useEffect, useState } from "react"
 import { Tabs as ReactTabs, TabsProps as ReactTabsProps } from "react-tabs"
-import { TabListProps } from "../TabList/TabList.component"
-import { TabPanelProps } from "../TabPanel/TabPanel.component"
 
 export interface TabsContextType {
   variant?: TabsVariant
@@ -68,11 +66,9 @@ export type TabsVariant = "main" | "content" | "codeblocks"
 // eslint-disable-next-line no-unused-vars
 export type OnSelectHander = (value: number) => void
 
-export type TabElement = React.ReactElement<TabListProps> | React.ReactElement<TabPanelProps> | TabElement[] | undefined
-
 export interface TabsProps extends ReactTabsProps {
   /** All the child elements of the Tabs: Tab(s) inside a TabList and TabPanel(s) */
-  children?: TabElement
+  children?: React.ReactNode
   /** The index of the Tab to be selected by default in "Uncontrolled Mode" (default) where Tabs handle their state internally. Do not use in "Controlled Mode".*/
   defaultIndex?: number
   /** The index of the Tab to be selected by default. This enables "Controlled Mode" where the developer takes over control of the Tabs state and behaviour. Requires onSelect to be set.*/

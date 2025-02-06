@@ -6,7 +6,6 @@
 import React from "react"
 import { TabList as ReactTabList, TabListProps as ReactTabListProps } from "react-tabs"
 import { TabsVariant, useTabsContext } from "../Tabs/Tabs.component"
-import { TabProps } from "../Tab/Tab.component"
 
 const tabListStyles = `
   jn-flex
@@ -54,5 +53,5 @@ export interface TabListProps extends ReactTabListProps {
   /** Pick the TabList style */
   variant?: TabsVariant
   /** The individual child Tabs to render */
-  children?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[]
+  children?: React.ReactNode
 }
