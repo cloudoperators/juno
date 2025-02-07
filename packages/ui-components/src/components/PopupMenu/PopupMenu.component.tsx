@@ -105,7 +105,7 @@ export interface PopupMenuContextType {
 
 export interface PopupMenuProps extends React.ComponentProps<typeof HeadlessMenu> {
   /** The children to render. If no PopupMenu.Toggle child is passed, PopupMenu will render a default toggle. Pass a PopupMenu.Menu child in order to have a working component. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Add a custom className to the wrapping element. NOTE: The Menu will be rendered into a Portal outside the wrapping parent element, so the Menu and its children will be outside the scope of the parent CSS selector.*/
   className?: string
   /** Whether the PopupMenu is disabled. */
@@ -130,7 +130,7 @@ type HeadlessMenuItemsProps = React.ComponentPropsWithRef<React.ElementType>
 export interface PopupMenuMenuProps extends HeadlessMenuItemsProps {
   as?: React.ElementType // Allow customizing the element type just as headless ui does
   className?: string
-  children?: React.ReactNode
+  children?: ReactNode
   key?: React.Key
 }
 
@@ -146,12 +146,12 @@ export interface PopupMenuItemProps extends React.ComponentProps<typeof Headless
 }
 
 export interface PopupMenuSectionProps {
-  children?: React.ReactNode
+  children?: ReactNode
   className?: string
 }
 
 export interface PopupMenuSectionHeadingProps {
-  children?: React.ReactNode
+  children?: ReactNode
   className?: string
   label?: string
 }

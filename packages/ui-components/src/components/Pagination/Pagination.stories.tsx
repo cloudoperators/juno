@@ -16,6 +16,9 @@ export default {
       options: ["default", "number", "select", "input"],
       control: { type: "select" },
     },
+    className: {
+      table: { type: "boolean" },
+    },
   },
   decorators: [
     (Story: StoryFn) => (
