@@ -29,6 +29,11 @@ export default {
     children: {
       control: false,
     },
+    onChange: {
+      type: {
+        summary: "(value: string) => void",
+      },
+    },
   },
 }
 

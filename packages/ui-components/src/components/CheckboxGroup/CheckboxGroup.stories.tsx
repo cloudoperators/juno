@@ -32,6 +32,11 @@ export default {
     selected: {
       control: false,
     },
+    onChange: {
+      type: {
+        summary: "(value: string) => void",
+      },
+    },
   },
 }
 

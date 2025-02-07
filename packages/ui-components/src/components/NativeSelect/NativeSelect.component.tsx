@@ -3,7 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, ReactNode, ChangeEvent, MouseEvent, FC } from "react"
+import React, {
+  useState,
+  useEffect,
+  ReactNode,
+  ChangeEvent,
+  ChangeEventHandler,
+  MouseEvent,
+  MouseEventHandler,
+  FC,
+} from "react"
 
 import { Icon } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/Spinner.component"
@@ -137,15 +146,15 @@ export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelect
    * Event handler for the change event of the select element.
    * Triggered when the user changes the selected option.
    */
-  // eslint-disable-next-line no-unused-vars
-  onChange?: (event: ChangeEvent<HTMLSelectElement>) => void
+
+  onChange?: ChangeEventHandler<HTMLSelectElement>
 
   /**
    * Event handler for the click event on the select element.
    * Triggered when the user clicks on the select element.
    */
-  // eslint-disable-next-line no-unused-vars
-  onClick?: (event: MouseEvent<HTMLSelectElement>) => void
+
+  onClick?: MouseEventHandler<HTMLSelectElement>
 
   /**
    * Additional CSS classes to apply to the outer wrapper of the select component for custom styling.
