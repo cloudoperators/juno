@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.16.1
+
+### Patch Changes
+
+- 326b01e: Transfer supernova to TypeScript
+- Updated dependencies [c450e60]
+  - @cloudoperators/juno-ui-components@2.37.0
+
 ## 0.16.0
 
 ### Minor Changes
