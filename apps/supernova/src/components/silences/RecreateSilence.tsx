@@ -145,7 +145,6 @@ const RecreateSilence = (props: any) => {
     },
 
     onSettled: () => {
-      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
       // @ts-ignore
       queryClient.invalidateQueries(["silences"])
     },

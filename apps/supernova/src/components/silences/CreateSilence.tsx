@@ -153,7 +153,6 @@ const CreateSilence = ({ alert, size, variant }: any) => {
       })
     },
     onSettled: () => {
-      // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
       // @ts-ignore
       queryClient.invalidateQueries(["silences"])
     },
@@ -238,11 +237,7 @@ const CreateSilence = ({ alert, size, variant }: any) => {
 
           {success && (
             <Message className="mb-6" variant="success">
-              // @ts-expect-error TS(2339): Property 'silenceID' does not exist on type 'never... Remove this comment to
-              see the full error message // @ts-expect-error TS(2339): Property 'silenceID' does not exist on type
-              'never... Remove this comment to see the full error message // @ts-expect-error TS(2339) FIXME: Property
-              'silenceID' does not exist on type 'never... Remove this comment to see the full error message take up to
-              5 minutes for the alert to show up as silenced.
+              {/* @ts-ignore TS(2339): Property 'silenceID' does not exist on type 'never... Remove this comment to */}
             </Message>
           )}
 
