@@ -22,6 +22,12 @@ export default {
         type: { summary: "string" },
       },
     },
+    onKeyPress: {
+      control: false,
+      table: {
+        type: { summary: "(controlCurrentPage?: number) => void" },
+      },
+    },
   },
   decorators: [
     (Story: StoryFn) => (
