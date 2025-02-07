@@ -24,6 +24,20 @@
     },
     "serve": {
       "dependsOn": ["@cloudoperators/juno-app-supernova#build"]
+    },
+    "typecheck": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-url-state-provider#build"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-url-state-provider#build"
+      ]
     }
   }
 }
