@@ -143,13 +143,15 @@ export const StyleProvider = ({
 
 type StyleProviderStylesWrapper = "head" | "inline" | "shadowRoot"
 
+// NOTE for theme prop: Improve the type and logic to contain only valid themes
+
 export interface StyleProviderProps {
   /** The children to render. */
   children?: ReactNode
   /** What element to render as a wrapper, respectively where to render the StyleProvider.  */
   stylesWrapper?: StyleProviderStylesWrapper
   /** The name of the theme to render. */
-  theme?: "theme-dark" | "theme-light"
+  theme?: string
   /** The mode of the shadowRoot. Only relevant when `stylesWrapper="shadowRoot"`. */
   shadowRootMode?: ShadowRootMode
 }

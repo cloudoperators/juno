@@ -53,7 +53,7 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   children,
   disabled = false,
   value = "",
-  label,
+  label = "",
   className = "",
   ...props
 }) => {
