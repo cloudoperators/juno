@@ -11,8 +11,11 @@ import { transformAppStateToUrlState, transformUrlStateToAppState } from "./util
 
 const useUrlQueryState = () => {
   const urlReadRef = React.useRef(false)
+  //@ts-ignore
   const { setActiveFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
+  // @ts-ignore
   const { setSilencesRegEx, setSilencesStatus } = useSilencesActions()
+  // @ts-ignore
   const { setShowDetailsFor, setActiveSelectedTab } = useGlobalsActions()
   const filterLabels = useFilterLabels()
   const appState = useGetStateForUrl()

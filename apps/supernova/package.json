@@ -39,6 +39,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:static": "vite build --mode static",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
     "serve": "vite preview",
     "lint": "eslint",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
