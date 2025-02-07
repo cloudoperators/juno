@@ -33,8 +33,8 @@ export default {
       control: false,
     },
     onChange: {
-      type: {
-        summary: "(value: string) => void",
+      table: {
+        type: { summary: "(value: string) => void" },
       },
     },
   },
