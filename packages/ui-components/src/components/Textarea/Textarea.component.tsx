@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useRef } from "react"
+import React, { useState, useEffect, useMemo, useId, useRef, ReactNode } from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/FormHint.component"
@@ -105,7 +105,7 @@ export const Textarea: React.FC<TextareaProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isNotEmptyString = (str: React.ReactNode) => {
+  const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -278,11 +278,11 @@ export interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
   /** Pass a blur handler */
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement>
   /** A helptext to render to explain meaning and significance of the Textarea */
-  helptext?: React.ReactNode
+  helptext?: ReactNode
   /** A text to render when the Textarea was successfully validated */
-  successtext?: React.ReactNode
+  successtext?: ReactNode
   /** A text to render when the Textarea has an error or could not be validated */
-  errortext?: React.ReactNode
+  errortext?: ReactNode
   /** The width of the textarea. Either 'full' (default) or 'auto'. */
   width?: WidthType
   /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */

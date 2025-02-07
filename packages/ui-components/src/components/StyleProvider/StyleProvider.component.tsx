@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useCallback, useEffect, useMemo, useRef } from "react"
+import React, { createContext, useCallback, useEffect, useMemo, useRef, ReactNode } from "react"
 import { ShadowRoot, ShadowRootMode } from "../ShadowRoot/ShadowRoot.component"
 import tailwindTheme from "../../../tailwind.config"
 import Fonts from "./Fonts"
@@ -75,7 +75,7 @@ export const StyleProvider = ({
   // This functionality exists to provide backwards compatibility.
   // Should be removed in perspective
   const Wrapper = useCallback(
-    ({ children }: { children: React.ReactNode }) => {
+    ({ children }: { children: ReactNode }) => {
       if (stylesWrapper === "shadowRoot") return <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot>
       return children
     },
@@ -145,11 +145,11 @@ type StyleProviderStylesWrapper = "head" | "inline" | "shadowRoot"
 
 export interface StyleProviderProps {
   /** The children to render. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** What element to render as a wrapper, respectively where to render the StyleProvider.  */
   stylesWrapper?: StyleProviderStylesWrapper
   /** The name of the theme to render. */
-  theme?: string
+  theme?: "theme-dark" | "theme-light"
   /** The mode of the shadowRoot. Only relevant when `stylesWrapper="shadowRoot"`. */
   shadowRootMode?: ShadowRootMode
 }

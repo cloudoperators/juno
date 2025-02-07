@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, createContext } from "react"
+import React, { useState, useEffect, useMemo, useId, createContext, ReactNode } from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
@@ -93,7 +93,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   ...props
 }) => {
   // Utility
-  const isNotEmptyString = (str: React.ReactNode) => {
+  const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -194,15 +194,15 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 
 export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** The children of the RadioGroup. Typically, these will be `Radio` components. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a custom className */
   className?: string
   /** Whether all Radios in the group are disabled */
   disabled?: boolean
   /** Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed. */
-  errortext?: React.ReactNode
+  errortext?: ReactNode
   /** A text to render to further explain meaning and significance of the group */
-  helptext?: React.ReactNode
+  helptext?: ReactNode
   /** The id of the group. If not passed, RadioGroup will create and use a unique id for the group */
   id?: string
   /** Whether the group not be validated. */
@@ -218,7 +218,7 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   /** The value of the initially selected radio. This will override 'checked' set on any of the child radio elements. */
   selected?: string
   /** Text to display in case validation is successful. When passed, will set the whole group to valid. */
-  successtext?: React.ReactNode
+  successtext?: ReactNode
   /** Whether the RadioGroup was successfully validated */
   valid?: boolean
 }

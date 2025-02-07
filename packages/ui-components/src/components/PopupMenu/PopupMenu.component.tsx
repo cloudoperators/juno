@@ -5,7 +5,7 @@
 
 /* eslint-disable react/prop-types */
 
-import React, { createContext, useContext, useEffect, useRef, useState } from "react"
+import React, { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
 import { Icon, KnownIconsEnum } from "../Icon/Icon.component"

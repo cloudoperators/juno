@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId } from "react"
+import React, { useState, useEffect, useMemo, useId, ReactNode } from "react"
 
 import { Label } from "../Label/Label.component"
 import { Icon } from "../Icon/Icon.component"
@@ -112,15 +112,15 @@ export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   /**
    * Help text to provide additional information about the Switch
    */
-  helptext?: React.ReactNode
+  helptext?: ReactNode
   /**
    * Text to display when the Switch has validation errors
    */
-  errortext?: React.ReactNode
+  errortext?: ReactNode
   /**
    * Text to display when the Switch has been validated successfully
    */
-  successtext?: React.ReactNode
+  successtext?: ReactNode
   /**
    * Custom class name to apply to the internal button element
    */
@@ -168,7 +168,7 @@ const getHandleSizeStyles = (size: SwitchSize): string => {
   }
 }
 
-const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: boolean): React.ReactNode => {
+const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: boolean): ReactNode => {
   const size = "1.125rem"
   const className = `${iconBaseStyles} ${disabled ? "jn-opacity-50" : ""}`
 
@@ -184,11 +184,7 @@ const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: bo
   return null
 }
 
-const renderFormHint = (
-  errortext: React.ReactNode,
-  successtext: React.ReactNode,
-  helptext: React.ReactNode
-): React.ReactNode => {
+const renderFormHint = (errortext: ReactNode, successtext: ReactNode, helptext: ReactNode): ReactNode => {
   if (isNotEmptyString(errortext)) return <FormHint text={errortext} variant="error" className={hintBaseStyles} />
 
   if (isNotEmptyString(successtext)) return <FormHint text={successtext} variant="success" className={hintBaseStyles} />

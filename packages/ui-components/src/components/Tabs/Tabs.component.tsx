@@ -63,9 +63,6 @@ Tabs.tabsRole = "Tabs"
 
 export type TabsVariant = "main" | "content" | "codeblocks"
 
-// eslint-disable-next-line no-unused-vars
-export type OnSelectHander = (value: number) => void
-
 export interface TabsProps extends ReactTabsProps {
   /** All the child elements of the Tabs: Tab(s) inside a TabList and TabPanel(s) */
   children?: React.ReactNode
@@ -74,7 +71,8 @@ export interface TabsProps extends ReactTabsProps {
   /** The index of the Tab to be selected by default. This enables "Controlled Mode" where the developer takes over control of the Tabs state and behaviour. Requires onSelect to be set.*/
   selectedIndex?: number
   /** Handler required in "Controlled Mode" */
-  onSelect?: OnSelectHander
+  // eslint-disable-next-line no-unused-vars
+  onSelect?: (value: number) => void
   /** Switch on Main Tab styles and context if needed */
   variant?: TabsVariant
   /** Add a custom className to the whole Tabs construct */

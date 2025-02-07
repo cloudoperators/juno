@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useContext, MouseEventHandler } from "react"
+import React, { useState, useEffect, useMemo, useId, useContext, MouseEventHandler, ReactNode } from "react"
 import { RadioGroupContext, RadioGroupContextProps } from "../RadioGroup/RadioGroup.component"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/Icon.component"
@@ -100,7 +100,7 @@ export const Radio: React.FC<RadioProps> = ({
   ...props
 }) => {
   // Utility
-  const isNotEmptyString = (str: React.ReactNode) => {
+  const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -301,9 +301,9 @@ export interface RadioProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   /** Whether the Radio is disabled */
   disabled?: boolean
   /** A text to render when the Radio has an error or could not be validated */
-  errortext?: React.ReactNode
+  errortext?: ReactNode
   /** A helptext to render to explain meaning and significance of the Radio */
-  helptext?: React.ReactNode
+  helptext?: ReactNode
   /** The id of the Radio. An id will be automatically generated if not passed. */
   id?: string
   /** Whether the Radio was validated unsuccessfully */
@@ -320,7 +320,7 @@ export interface RadioProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   /** Whether the Radio is required */
   required?: boolean
   /** A text to render when the Radio was successfully validated */
-  successtext?: React.ReactNode
+  successtext?: ReactNode
   /** Whether the Radio was successfully validated */
   valid?: boolean
   /** The value of the Radio */

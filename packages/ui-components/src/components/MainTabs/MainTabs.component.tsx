@@ -31,9 +31,6 @@ export const MainTabs: React.FC<MainTabsProps> = ({
   )
 }
 
-// eslint-disable-next-line no-unused-vars
-export type OnSelectHander = (value: number) => void
-
 export interface MainTabsProps extends Omit<React.HTMLAttributes<HTMLElement>, "onSelect"> {
   /** All the child elements of MainTabs: Tab(s) inside a TabList and TabPanel(s) */
   children?: React.ReactNode
@@ -42,7 +39,8 @@ export interface MainTabsProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   /** The index of the Tab to be selected by default. This enables "Controlled Mode" where the developer takes over control of the Tabs state and behaviour. Requires onSelect to be set.*/
   selectedIndex?: number
   /** Handler required in "Controlled Mode" */
-  onSelect?: OnSelectHander
+  // eslint-disable-next-line no-unused-vars
+  onSelect?: (value: number) => void
   /** Add a custom className to the whole Tabs construct */
   className?: string
 }

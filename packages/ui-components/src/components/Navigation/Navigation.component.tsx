@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useEffect, useState } from "react"
+import React, { createContext, useEffect, useState, ReactNode } from "react"
 
 // eslint-disable-next-line no-unused-vars
-type ItemChangeHandler = (value: React.ReactNode) => void
+type ItemChangeHandler = (value: ReactNode) => void
 
 // eslint-disable-next-line no-unused-vars
-type AddItemFunction = (key: React.ReactNode, children: React.ReactNode, label: string, value: string) => void
+type AddItemFunction = (key: ReactNode, children: ReactNode, label: string, value: string) => void
 
 type PrioritizedKeyType = "children" | "value" | "label"
 
 export interface NavigationContextType {
-  activeItem?: React.ReactNode
+  activeItem?: ReactNode
   addItem?: AddItemFunction
   handleActiveItemChange?: ItemChangeHandler
   navigationDisabled?: boolean
@@ -25,12 +25,12 @@ export const NavigationContext = createContext<NavigationContextType | undefined
 
 interface NavigationMappingItem {
   // store the associated key of the item in the map inside the object, so we can easily get the key later if we have to find an object by any of its keys
-  id: React.ReactNode
+  id: ReactNode
   value: string
   label: string
-  children: React.ReactNode
+  children: ReactNode
   // priority of what to actually render in each item
-  displayName: React.ReactNode
+  displayName: ReactNode
 }
 
 /** A generic Navigation component providing all the necessary functionality for a navigation. For internal use only. Not to be used directly, but to be wrapped by more role-specific / semantic navigation components such as `TabNavigation`, `TopNavigation`, `SideNavigation`. */
@@ -43,10 +43,10 @@ export const Navigation: React.FC<NavigationProps> = ({
   onActiveItemChange,
   ...props
 }) => {
-  const [activeItm, setActiveItm] = useState<React.ReactNode>("")
-  const [items, setItems] = useState(new Map<React.ReactNode, NavigationMappingItem>())
+  const [activeItm, setActiveItm] = useState<ReactNode>("")
+  const [items, setItems] = useState(new Map<ReactNode, NavigationMappingItem>())
 
-  const findItemIdByKeyValue = (valueToFind: React.ReactNode) => {
+  const findItemIdByKeyValue = (valueToFind: ReactNode) => {
     // The prioritized sequence of individual item keys to check for a value:
     const stringValueToFind = String(valueToFind)
     const prioritizedKeys: PrioritizedKeyType[] = ["value", "children", "label"]
@@ -55,7 +55,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       return stringValueToFind
     } else {
       // If the value is not found in the keys of the items map, search for the value in the individual items according to the sequence in prioritizedKeys. If a matching item is found, return its id or null:
-      let foundItemId: React.ReactNode = undefined
+      let foundItemId: ReactNode = undefined
       for (const key of itemsKeys) {
         const obj = items.get(key)
         prioritizedKeys.forEach((pKey: PrioritizedKeyType) => {
@@ -83,7 +83,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   }, [items])
 
   // Key is set as established by the child item according to priority: value || children || label
-  const addItem = (key: React.ReactNode, children: React.ReactNode, label: string, value: string) => {
+  const addItem = (key: ReactNode, children: ReactNode, label: string, value: string) => {
     setItems((oldMap) =>
       new Map(oldMap).set(key, {
         id: key,
@@ -95,7 +95,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     )
   }
 
-  const handleActiveItemChange = (key: React.ReactNode) => {
+  const handleActiveItemChange = (key: ReactNode) => {
     setActiveItm(key)
     onActiveItemChange && onActiveItemChange(key)
   }
@@ -126,11 +126,11 @@ export const Navigation: React.FC<NavigationProps> = ({
 
 export interface NavigationProps extends React.HTMLAttributes<HTMLUListElement> {
   /** The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem. */
-  activeItem?: React.ReactNode
+  activeItem?: ReactNode
   /** The aria label of the navigation */
   ariaLabel?: string
   /** The child navigation items of the navigation  */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a custom className to the navigation parent element */
   className?: string
   /** Whether the navigation is disabled. Will disable all children. */

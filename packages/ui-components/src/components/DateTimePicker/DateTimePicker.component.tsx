@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useRef, useId, useMemo, useState } from "react"
+import React, { useEffect, useRef, useId, useMemo, useState, ReactNode } from "react"
 import flatpickr from "flatpickr"
 import { FormHint } from "../FormHint/"
 import { Icon } from "../Icon"
@@ -154,7 +154,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const [isInvalid, setIsInvalid] = useState<boolean>(false)
   const [isValid, setIsValid] = useState<boolean>(false)
 
-  const hasLength = (node: React.ReactNode) => (typeof node === "string" || Array.isArray(node)) && node.length
+  const hasLength = (node: ReactNode) => (typeof node === "string" || Array.isArray(node)) && node.length
 
   const updateFlatpickrInstance = (newKeys: flatpickr.Instance | null) => {
     if (flatpickrInstanceRef.current === null) {
@@ -574,9 +574,9 @@ export interface DateTimePickerProps
   /** Whether to show a time picker.  */
   enableTime?: boolean
   /** A text to render when the DateTimePicker has an error or could not be validated. */
-  errortext?: React.ReactNode
+  errortext?: ReactNode
   /** A helptext to render to explain meaning and significance of the DateTimePicker. */
-  helptext?: React.ReactNode
+  helptext?: ReactNode
   /** The step for the hour input. Only has an effect when a time picker is enabled via `enableTime`. */
   hourIncrement?: number
   /** The id of the DateTimePicker input element. If none is passed, an automatically generated id will be used. */
@@ -664,7 +664,7 @@ export interface DateTimePickerProps
   /** The number of months to show in the date picker */
   showMonths?: number
   /** A text to render when the DateTimePicker was successfully validated */
-  successtext?: React.ReactNode
+  successtext?: ReactNode
   /** Displays time picker in 24 hour mode without AM/PM selection when enabled. Requires `enableTime` to be set, too. Default is `false`. */
   time_24hr?: boolean
   /** Whether the DateTimePicker has been successfully validated */

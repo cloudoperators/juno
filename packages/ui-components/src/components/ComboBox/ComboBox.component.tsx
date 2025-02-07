@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useId, useMemo, createContext } from "react"
+import React, { useState, useEffect, useId, useMemo, createContext, ReactNode } from "react"
 import { Combobox } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
 import { Label } from "../Label/index"
@@ -129,7 +129,7 @@ const centeredIconStyles = `
 `
 
 //eslint-disable-next-line no-unused-vars
-type AddOptionValueAndLabelFunction = (value: string, label: string, children: React.ReactNode) => void
+type AddOptionValueAndLabelFunction = (value: string, label: string, children: ReactNode) => void
 
 export type ComboBoxContextType = {
   selectedValue?: string
@@ -139,11 +139,11 @@ export type ComboBoxContextType = {
 
 export const ComboBoxContext = createContext<ComboBoxContextType | undefined>(undefined)
 
-type OptionValuesAndLabelsKey = React.ReactNode
+type OptionValuesAndLabelsKey = ReactNode
 type OptionValuesAndLabelsValue = {
   val: string
   label?: string
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const ComboBox: React.FC<ComboBoxProps> = ({
@@ -176,7 +176,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isNotEmptyString = (str: React.ReactNode) => {
+  const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -197,7 +197,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   // This callback is for all ComboBoxOptions to send us their value, label and children so we can save them as a map in our state.
   // We need this because the Select component wants to display the selected value, label or children in the ComboBox input field
   // but from the eventHandler we only get the value, not the label or children
-  const addOptionValueAndLabel = (value: string, label: string, children: React.ReactNode) => {
+  const addOptionValueAndLabel = (value: string, label: string, children: ReactNode) => {
     // append new entry to optionValuesAndLabels map containing the passed value, label and children
     // use callback syntax of setState function here since we want to merge the old state with the new entry
     setOptionValuesAndLabels((oldMap) =>
@@ -449,7 +449,7 @@ export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   /** The aria-label of the ComboBox. Defaults to the label if label was passed. */
   ariaLabel?: string
   /** The children to Render. Use `ComboBox.Option` elements. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** A custom className. Will be passed to the internal text input element of the ComboBox */
   className?: string
   /** Pass a defaultValue to use as an uncontrolled Component that will handle its state internally */
@@ -459,9 +459,9 @@ export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   /** Whether the ComboBox has an error. Note this refers to an internal error like failing to load options etc., to indicate failed validation use `invalid` instead. */
   error?: boolean
   /** An errortext to display when the ComboBox failed validation or an internal error occurred. */
-  errortext?: React.ReactNode
+  errortext?: ReactNode
   /** A helptext to render to explain meaning and significance of the ComboBox */
-  helptext?: React.ReactNode
+  helptext?: ReactNode
   /** The Id of the ComboBox. Will be assigned to the text input part of the ComboBox. If not passed, an id will be auto-generated. */
   id?: string
   /** Whether the ComboBox failed validation */
@@ -488,7 +488,7 @@ export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   /** Whether the ComboBox is required */
   required?: boolean
   /** A text to display in case the ComboBox was successfully validated. Will set the ComboBox to `valid` when passed. */
-  successtext?: React.ReactNode
+  successtext?: ReactNode
   /** Whether the option labels should be truncated in case they are longer/wider than the available space in an option or not. Default is FALSE. */
   truncateOptions?: boolean
   /** Whether the ComboBox was successfully validated */
