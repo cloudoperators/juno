@@ -17,7 +17,10 @@ export default {
       control: { type: "select" },
     },
     className: {
-      table: { type: "boolean" },
+      control: "text",
+      table: {
+        type: { summary: "string" },
+      },
     },
   },
   decorators: [

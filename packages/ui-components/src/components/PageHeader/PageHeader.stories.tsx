@@ -35,11 +35,22 @@ const meta: Meta<PageHeaderProps> = {
   argTypes: {
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
     heading: {
-      control: "text", // You can use "text", "object", or "null" depending on your use case
+      control: "text",
+      table: {
+        type: { summary: "string | ReactElement" },
+      },
     },
-    logo: { control: "boolean" }, // Control type for `logo`
+    logo: {
+      control: "boolean",
+      table: {
+        type: { summary: "boolean | ReactElement" },
+      },
+    },
   },
 }
 export default meta
