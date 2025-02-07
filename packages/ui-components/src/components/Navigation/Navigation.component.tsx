@@ -135,9 +135,6 @@ export interface NavigationProps extends React.HTMLAttributes<HTMLUListElement> 
   className?: string
   /** Whether the navigation is disabled. Will disable all children. */
   disabled?: boolean
-  /** Handler to execute when the active item changes. Alias to `onChange`. */
+  /** Handler to execute when the active item changes. */
   onActiveItemChange?: ItemChangeHandler
-  /** Handler to execute when the active item changes.Alias to `onActiveItemChange`. */
-  onChange?: React.FormEventHandler<EventTarget>
-  /** Pass the role of navigation */
 }

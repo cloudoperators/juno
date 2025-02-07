@@ -419,6 +419,8 @@ export interface JsonViewerProps extends Omit<React.HTMLProps<HTMLDivElement>, "
   showRoot?: boolean
   /** dark, light or map of colors
    *
+   * @param dark dark theme
+   * @param light light theme
    * @param base00 background
    * @param base01 NOT used
    * @param base02 border, NaN,null, undefined background
