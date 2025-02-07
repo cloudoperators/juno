@@ -237,7 +237,15 @@ const CreateSilence = ({ alert, size, variant }: any) => {
 
           {success && (
             <Message className="mb-6" variant="success">
-              {/* @ts-ignore TS(2339): Property 'silenceID' does not exist on type 'never... Remove this comment to */}
+              A silence object with id{" "}
+              <b>
+                {
+                  // @ts-ignore @ts-ignore TS(2339): Property 'silenceID' does not exist on type 'never'
+                  success?.silenceID
+                }
+              </b>{" "}
+              was created successfully. Please note that it may take up to 5 minutes for the alert to show up as
+              silenced.
             </Message>
           )}
 
