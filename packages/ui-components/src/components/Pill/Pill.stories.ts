@@ -8,7 +8,18 @@ import { Pill } from "./index.ts"
 export default {
   title: "Components/Pill",
   component: Pill,
-  argTypes: {},
+  argTypes: {
+    onClose: {
+      table: {
+        type: { summary: "(event: React.MouseEvent<HTMLElement>, id: string) => void" },
+      },
+    },
+    onClick: {
+      table: {
+        type: { summary: "(event: React.MouseEvent<HTMLElement>, id: string) => void" },
+      },
+    },
+  },
 }
 
 export const Default = {

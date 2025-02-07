@@ -6,7 +6,8 @@
 import React, { FC } from "react"
 import { Icon } from "../Icon"
 
-type EventHandler = (_event: React.MouseEvent<EventTarget>, _id: string) => void
+// eslint-disable-next-line no-unused-vars
+type EventHandler = (event: React.MouseEvent<HTMLElement>, id: string) => void
 
 const pillStyles = (onClick: boolean) => {
   return `
@@ -62,11 +63,11 @@ export const Pill: FC<PillProps> = ({
   className = "",
   ...props
 }) => {
-  const handleCloseClick = (event: React.MouseEvent<EventTarget>) => {
+  const handleCloseClick = (event: React.MouseEvent<HTMLElement>) => {
     onClose && onClose(event, uid || pillKey || pillValue)
   }
 
-  const handleClick = (event: React.MouseEvent<EventTarget>) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     onClick && onClick(event, uid || pillKey || pillValue)
   }
 
@@ -77,16 +78,16 @@ export const Pill: FC<PillProps> = ({
       ) : (
         <>
           {(pillKeyLabel || pillKey) && (
-            <span className={`pill-key ${pillKeyStyles(!!onClick)}`} onClick={(e) => handleClick(e)}>
+            <span className={`pill-key ${pillKeyStyles(!!onClick)}`} onClick={handleClick}>
               {pillKeyLabel || pillKey}
             </span>
           )}
-          <span className={`pill-value ${pillValueStyles(!!onClick)}`} onClick={(e) => handleClick(e)}>
+          <span className={`pill-value ${pillValueStyles(!!onClick)}`} onClick={handleClick}>
             {pillValueLabel || pillValue}
           </span>
         </>
       )}
-      {closeable && <Icon icon="close" size={18} onClick={(e: React.MouseEvent<EventTarget>) => handleCloseClick(e)} />}
+      {closeable && <Icon icon="close" size={18} onClick={handleCloseClick} />}
     </div>
   )
 }
@@ -99,10 +100,10 @@ export interface PillProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "o
   /** The visible label to describe the pill key. If not set pillKey is used. Optional. */
   pillKeyLabel?: string
   /** The value of filter the pill represents. Returned by the onClose callback if uid and pillKey undefined */
-  pillValue: string //.isRequired,
+  pillValue: string
   /** The visible label to describe the pill value. If not set pillValue is used. Optional. */
   pillValueLabel?: string
-  /** add custom classNames */
+  /** Add custom classNames */
   className?: string
   /** Whether the pill should be closeable */
   closeable?: boolean
