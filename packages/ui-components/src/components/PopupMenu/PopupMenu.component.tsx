@@ -8,7 +8,7 @@
 import React, { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
-import { Icon, KnownIconsEnum } from "../Icon/Icon.component"
+import { Icon, KnownIcons } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
 
 // ----- Styles -----
@@ -111,7 +111,7 @@ export interface PopupMenuProps extends React.ComponentProps<typeof HeadlessMenu
   /** Whether the PopupMenu is disabled. */
   disabled?: boolean
   /** The icon to render when using the default toggle. Will be ignored if a PopupMenu.Toggle child is passed. */
-  icon?: keyof typeof KnownIconsEnum
+  icon?: KnownIcons
   /** The size of the menu and its items. */
   menuSize?: "normal" | "small"
   /** Handler to run when the Menu closes. */
@@ -139,7 +139,7 @@ export interface PopupMenuItemProps extends React.ComponentProps<typeof Headless
   className?: string
   disabled?: boolean
   href?: string // accept a href when rendering a link, whether or not to pass it to HUI item will behandled in the component
-  icon?: keyof typeof KnownIconsEnum
+  icon?: KnownIcons
   label?: string
   rel?: string // accept rel for anchors, handle in component
   target?: string // accepot target for links, handle in component

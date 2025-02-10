@@ -126,11 +126,11 @@ export const Modal: React.FC<ModalProps> = ({
     setisCloseableOnEsc(closeOnEsc)
   }, [closeOnEsc])
 
-  const handleConfirmClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
+  const handleConfirmClick = (event: React.MouseEvent<HTMLElement>) => {
     onConfirm && onConfirm(event)
   }
 
-  const handleCancelClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
+  const handleCancelClick = (event: React.MouseEvent<HTMLElement>) => {
     setIsOpen(false)
     onCancel && onCancel(event)
   }
@@ -142,7 +142,7 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }
 
-  const handleBackdropClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
+  const handleBackdropClick = (event: React.MouseEvent<HTMLElement>) => {
     if (isCloseabelOnBackdropClick) {
       setIsOpen(false)
       onCancel && onCancel(event)
@@ -224,9 +224,6 @@ export const Modal: React.FC<ModalProps> = ({
 
 type ModalSize = "small" | "large"
 
-// eslint-disable-next-line no-unused-vars
-type CancelEventHandler = (event: React.MouseEvent<EventTarget, MouseEvent> | KeyboardEvent) => void
-
 export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
   /** The aria-label of the modal. Use only if the modal does NOT have a `title` or `heading`.  */
   ariaLabel?: string
@@ -257,9 +254,10 @@ export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"
   /** Custom className to add to the modal */
   className?: string
   /** A handler to execute once the modal is confirmed by clicking the confrim button if exists. Note that we do not close the modal automatically. */
-  onConfirm?: React.MouseEventHandler<EventTarget>
+  onConfirm?: React.MouseEventHandler<HTMLElement>
   /** A handler to execute once the modal is cancelled or dismissed using the x-Close button,  Cancel-button or pressing ESC */
-  onCancel?: CancelEventHandler
+  // eslint-disable-next-line no-unused-vars
+  onCancel?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
   /** Whether the modal should be closed when the backdrop is clicked. Essentially 'un-modals' the modal. */
   closeOnBackdropClick?: boolean
   /** Whether the modal can be closed by hitting the ESC key */

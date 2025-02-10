@@ -301,9 +301,6 @@ export const SecretText: React.FC<SecretTextProps> = ({
   )
 }
 
-//eslint-disable-next-line no-unused-vars
-type ValueChangeHandler = (value: string) => void
-
 export interface SecretTextProps extends Omit<React.HTMLAttributes<HTMLTextAreaElement>, "onCopy" | "onPaste"> {
   /** Whether the secret field should autocomplete. */
   autoComplete?: string
@@ -344,13 +341,15 @@ export interface SecretTextProps extends Omit<React.HTMLAttributes<HTMLTextAreaE
   /** A handler to execute when the user clears the Secret's content using the Clear button. */
   onClear?: () => void
   /** A handler to execute when the user copies the Secret's content to the clipboard. */
-  onCopy?: ValueChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onCopy?: (value: string) => void
   /** A handler to execute when the SecretText textarea receives focus */
   onFocus?: React.FocusEventHandler<HTMLTextAreaElement>
   /** A handler to execute when the user hides the Secret's content. */
   onHide?: () => void
   /** A handler to execute when the user pastes text from the clipboard into the SecretText. */
-  onPaste?: ValueChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onPaste?: (value: string) => void
   /** A handler to execute when the user reveals the Secret's content. */
   onReveal?: () => void
   /** A handler to execute when the visibility of the SecretText's content is toggled, i.e. this will be run when the content is revealed and when it is hidden. */
