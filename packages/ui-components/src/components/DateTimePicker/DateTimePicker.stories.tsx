@@ -78,7 +78,7 @@ export default {
       control: false,
       table: {
         type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
         },
       },
     },
@@ -86,7 +86,7 @@ export default {
       control: false,
       table: {
         type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
         },
       },
     },
@@ -94,7 +94,7 @@ export default {
       control: false,
       table: {
         type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
         },
       },
     },
@@ -102,7 +102,7 @@ export default {
       control: false,
       table: {
         type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
         },
       },
     },
@@ -110,7 +110,7 @@ export default {
       control: false,
       table: {
         type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
         },
       },
     },
@@ -118,7 +118,7 @@ export default {
       control: false,
       table: {
         type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
         },
       },
     },
@@ -126,7 +126,7 @@ export default {
       control: false,
       table: {
         type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
         },
       },
     },
@@ -134,7 +134,7 @@ export default {
       control: false,
       table: {
         type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
         },
       },
     },
@@ -142,7 +142,7 @@ export default {
       control: false,
       table: {
         type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void | (...args: any) => any",
+          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
         },
       },
     },
