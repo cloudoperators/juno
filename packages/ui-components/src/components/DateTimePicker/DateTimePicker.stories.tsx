@@ -16,33 +16,33 @@ export default {
     },
     defaultDate: {
       table: {
-        type: { summary: "DateOption | DateOption[] | string | any[] | object | number" },
+        type: { summary: "string | number | Date | DateOption[]" },
       },
     },
     defaultValue: {
       table: {
-        type: { summary: "DateOption | DateOption[] | string | any[] | object | number" },
+        type: { summary: "string | number | Date | DateOption[]" },
       },
     },
     locale: {
       table: {
-        type: { summary: "LocaleKey | Partial<CustomLocale> | string | object" },
+        type: { summary: "LocaleKey | Partial<CustomLocale>" },
       },
     },
     maxDate: {
       table: {
-        type: { summary: "DateOption | string | any[] | object | number" },
+        type: { summary: "Date | string | number" },
       },
     },
     minDate: {
       table: {
-        type: { summary: "DateOption | string | any[] | object | number" },
+        type: { summary: "Date | string | number" },
       },
     },
     value: {
       control: false,
       table: {
-        type: { summary: "DateOption | DateOption[] | string | any[] | object | number" },
+        type: { summary: "string | number | Date | DateOption[]" },
       },
     },
     errortext: {
