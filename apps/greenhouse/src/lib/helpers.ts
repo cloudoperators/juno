@@ -13,7 +13,7 @@ export const parseError = (error: any) => {
     } catch (error) {
       console.debug(error)
     }
-  // @ts-expect-error TS(2304): Cannot find name 'errMsg'.
+    // @ts-expect-error TS(2304): Cannot find name 'errMsg'.
   } else errMsg = error.toString()
   // @ts-expect-error TS(2304): Cannot find name 'errMsg'.
   return errMsg

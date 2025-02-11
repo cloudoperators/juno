@@ -11,23 +11,27 @@ const createGlobalsSlice = (set: any) => ({
     authData: null,
 
     actions: {
-      setUrlStateKey: (newUrlStateKey: any) => set((state: any) => ({
-        globals: { ...state.globals, urlStateKey: newUrlStateKey }
-      })),
+      setUrlStateKey: (newUrlStateKey: any) =>
+        set((state: any) => ({
+          globals: { ...state.globals, urlStateKey: newUrlStateKey },
+        })),
 
-      setLoggedIn: (loggedIn: any) => set((state: any) => ({
-        globals: { ...state.globals, loggedIn: loggedIn }
-      })),
+      setLoggedIn: (loggedIn: any) =>
+        set((state: any) => ({
+          globals: { ...state.globals, loggedIn: loggedIn },
+        })),
 
-      setAuthData: (authData: any) => set((state: any) => ({
-        globals: { ...state.globals, authData: authData }
-      })),
+      setAuthData: (authData: any) =>
+        set((state: any) => ({
+          globals: { ...state.globals, authData: authData },
+        })),
 
-      setEndpoint: (apiEndpoint: any) => set((state: any) => ({
-        globals: { ...state.globals, apiEndpoint: apiEndpoint }
-      })),
+      setEndpoint: (apiEndpoint: any) =>
+        set((state: any) => ({
+          globals: { ...state.globals, apiEndpoint: apiEndpoint },
+        })),
     },
-  }
+  },
 })
 
 export default createGlobalsSlice

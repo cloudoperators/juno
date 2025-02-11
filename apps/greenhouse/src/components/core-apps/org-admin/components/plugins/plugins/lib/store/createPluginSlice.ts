@@ -12,11 +12,11 @@ function sortPluginConfigItems(items: any) {
     } else {
       return a?.metadata?.uid.localeCompare(b?.metadata?.uid)
     }
-  });
+  })
 }
 
 function uniqPluginConfigItems(items: any) {
-  return items.filter((item: any, index: any, array: any) => array.indexOf(item) === index);
+  return items.filter((item: any, index: any, array: any) => array.indexOf(item) === index)
 }
 
 // @ts-expect-error TS(7006): Parameter 'set' implicitly has an 'any' type.
@@ -41,7 +41,7 @@ const createPluginSlice = (set, get) => ({
           plugin: {
             ...state.plugin,
             pluginConfig: sortedPlugins,
-          }
+          },
         }))
       },
 
@@ -54,7 +54,7 @@ const createPluginSlice = (set, get) => ({
           plugin: {
             ...state.plugin,
             pluginConfig: newItems,
-          }
+          },
         }))
       },
       modifyPluginConfigItems: (modifiedItems: any) => {
@@ -74,14 +74,14 @@ const createPluginSlice = (set, get) => ({
           plugin: {
             ...state.plugin,
             pluginConfig: newItems,
-          }
+          },
         }))
       },
       deletePluginConfigItems: (pluginConfigItems: any) => {
         const items = (get().plugin.pluginConfig || []).slice() // Get items
 
         let updatedItems = items.filter((item: any) => {
-          return !pluginConfigItems.find((pci: any) => pci.metadata.uid === item.metadata.uid);
+          return !pluginConfigItems.find((pci: any) => pci.metadata.uid === item.metadata.uid)
         })
 
         let newItems = uniqPluginConfigItems(updatedItems)
@@ -91,15 +91,16 @@ const createPluginSlice = (set, get) => ({
           plugin: {
             ...state.plugin,
             pluginConfig: newItems,
-          }
+          },
         }))
       },
 
-      setShowDetailsFor: (showDetailsFor: any) => set((state: any) => ({
-        plugin: { ...state.plugin, showDetailsFor: showDetailsFor }
-      })),
+      setShowDetailsFor: (showDetailsFor: any) =>
+        set((state: any) => ({
+          plugin: { ...state.plugin, showDetailsFor: showDetailsFor },
+        })),
     },
-  }
+  },
 })
 
 export default createPluginSlice

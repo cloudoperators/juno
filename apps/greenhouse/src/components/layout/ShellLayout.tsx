@@ -20,9 +20,7 @@ const mainStyles = `
   h-full
 `
 
-const ShellLayout = ({
-  children
-}: any) => {
+const ShellLayout = ({ children }: any) => {
   return (
     <div className={`greenhouse-shell ${shellStyles}`}>
       <PluginNav />
