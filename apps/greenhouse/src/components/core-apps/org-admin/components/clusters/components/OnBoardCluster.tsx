@@ -4,14 +4,15 @@
  */
 
 import { Markup } from "interweave"
+
 import { Container, Panel, PanelBody, Stack } from "@cloudoperators/juno-ui-components"
 import React from "react"
 import useStore from "../store"
 
 const ClusterDetail: React.FC<any> = () => {
-  const namespace = useStore((state) => state.namespace)
-  const showOnBoardCluster = useStore((state) => state.showOnBoardCluster)
-  const setShowOnBoardCluster = useStore((state) => state.setShowOnBoardCluster)
+  const namespace = useStore((state: any) => state.namespace)
+  const showOnBoardCluster = useStore((state: any) => state.showOnBoardCluster)
+  const setShowOnBoardCluster = useStore((state: any) => state.setShowOnBoardCluster)
 
   const onPanelClose = () => {
     setShowOnBoardCluster(false)

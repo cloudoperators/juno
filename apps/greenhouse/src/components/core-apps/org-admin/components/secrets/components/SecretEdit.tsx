@@ -11,11 +11,11 @@ import SecretFormButtons from "./SecretFormButtons"
 import SecretFormHeader from "./SecretFormHeader"
 
 const SecretEdit: React.FC<any> = () => {
-  const showSecretEdit = useStore((state) => state.showSecretEdit)
+  const showSecretEdit = useStore((state: any) => state.showSecretEdit)
 
-  const setShowSecretEdit = useStore((state) => state.setShowSecretEdit)
-  const setSecretDetail = useStore((state) => state.setSecretDetail)
-  const setIsSecretEditMode = useStore((state) => state.setIsSecretEditMode)
+  const setShowSecretEdit = useStore((state: any) => state.setShowSecretEdit)
+  const setSecretDetail = useStore((state: any) => state.setSecretDetail)
+  const setIsSecretEditMode = useStore((state: any) => state.setIsSecretEditMode)
 
   const onPanelClose = () => {
     setShowSecretEdit(false)

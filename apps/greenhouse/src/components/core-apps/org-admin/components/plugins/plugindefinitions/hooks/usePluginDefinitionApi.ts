@@ -15,8 +15,8 @@ export type PluginDefinitionApiResponse = {
 
 export const usePluginDefinitionApi = () => {
   const { get, create, update, deleteObject, watch } = useApi()
-  const modifyPluginDefinitions = useStore((state) => state.modifyPluginDefinitions)
-  const deletePluginDefinitions = useStore((state) => state.deletePluginDefinitions)
+  const modifyPluginDefinitions = useStore((state: any) => state.modifyPluginDefinitions)
+  const deletePluginDefinitions = useStore((state: any) => state.deletePluginDefinitions)
 
   const getPluginDefinition = (pluginDefinition: PluginDefinition): Promise<PluginDefinitionApiResponse> => {
     return get<PluginDefinition>(

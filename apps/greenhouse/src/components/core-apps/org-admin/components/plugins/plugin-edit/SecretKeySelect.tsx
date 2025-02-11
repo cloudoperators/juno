@@ -5,6 +5,7 @@
 
 import React from "react"
 import { PluginOptionValueFrom, Secret, SecretDataEntry } from "../../../types/types"
+
 import { Stack, Select, SelectOption } from "@cloudoperators/juno-ui-components"
 import usePluginDefinitionsStore from "../plugindefinitions/store"
 
@@ -18,9 +19,9 @@ interface SecretKeySelectProps {
 }
 
 export const SecretKeySelect: React.FC<SecretKeySelectProps> = (props: SecretKeySelectProps) => {
-  const secrets = usePluginDefinitionsStore((state) => state.secrets)
+  const secrets = usePluginDefinitionsStore((state: any) => state.secrets)
   const selectedSecretName = props.value?.secret?.name ?? ""
-  const selectedSecret = secrets.find((secret) => secret.metadata!.name === selectedSecretName)
+  const selectedSecret = secrets.find((secret: any) => secret.metadata!.name === selectedSecretName)
   const selectedSecretKey =
     props.value?.secret?.key != undefined &&
     selectedSecret != undefined &&
@@ -64,9 +65,10 @@ export const SecretKeySelect: React.FC<SecretKeySelectProps> = (props: SecretKey
         required={props.required}
         helptext="Select secret"
         value={selectedSecretName}
+        // @ts-ignore
         onChange={handleSecretNameChange}
       >
-        {secrets.map((secret) => {
+        {secrets.map((secret: any) => {
           return <SelectOption key={secret.metadata!.name} value={secret.metadata!.name} />
         })}
       </Select>
@@ -78,6 +80,7 @@ export const SecretKeySelect: React.FC<SecretKeySelectProps> = (props: SecretKey
         required={props.required}
         helptext="Select secret data key"
         value={selectedSecretKey}
+        // @ts-ignore
         onChange={handleSecretKeyChange}
       >
         {selectedSecret &&

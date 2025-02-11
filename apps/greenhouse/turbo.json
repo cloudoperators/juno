@@ -4,6 +4,7 @@
     "dev": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-k8s-client#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
@@ -14,6 +15,7 @@
     "build": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-k8s-client#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
@@ -24,6 +26,7 @@
     "build:static": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-k8s-client#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
@@ -35,6 +38,18 @@
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-k8s-client#build",
+        "@cloudoperators/juno-oauth#build",
+        "@cloudoperators/juno-app-supernova#build",
+        "@cloudoperators/juno-app-heureka#build",
+        "@cloudoperators/juno-app-doop#build"
+      ]
+    },
+    "typecheck": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-k8s-client#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",

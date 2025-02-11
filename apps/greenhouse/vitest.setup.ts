@@ -14,6 +14,7 @@ global.fetch = vi.fn(
     Promise.resolve({
       ok: true, // Indicates if the request was successful (status code 2xx)
       status: 200, // HTTP status code
+
       json: () => Promise.resolve({}), // Mocking the json method
     } as Response) // Cast to Response type to satisfy TypeScript
 )

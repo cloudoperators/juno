@@ -6,11 +6,12 @@
 import { useCallback } from "react"
 import useClient from "./useClient"
 import useSecretApi from "./useSecretApi"
+// @ts-expect-error TS(2792): Cannot find module '../../../../types/types'. Did ... Remove this comment to see the full error message
 import { ResultMessage } from "../../../../types/types"
 import useStore from "../store"
 
 export const useCheckAuthorized = () => {
-  const namespace = useStore((state) => state.namespace)
+  const namespace = useStore((state: any) => state.namespace)
   const { client: client } = useClient()
   const { getSecret } = useSecretApi()
 
@@ -21,7 +22,6 @@ export const useCheckAuthorized = () => {
     let result = await getSecret({ metadata: { name: "" }, kind: "Secret" })
 
     // we get back an empty secret list, if we are authorized
-    // @ts-ignore
     if (result.response?.kind == "SecretList") {
       return { ok: true, message: "" }
     }

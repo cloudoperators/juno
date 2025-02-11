@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import cluster from "cluster"
 import useStore from "../store"
 
 import {
@@ -23,9 +22,9 @@ import React from "react"
 import { useClusterApi } from "../hooks/useClusterApi"
 
 const ClusterEdit: React.FC<any> = () => {
-  const clusterInEdit = useStore((state) => state.clusterInEdit)
+  const clusterInEdit = useStore((state: any) => state.clusterInEdit)
   clusterInEdit?.spec
-  const setClusterInEdit = useStore((state) => state.setClusterInEdit)
+  const setClusterInEdit = useStore((state: any) => state.setClusterInEdit)
 
   const [submitMessage, setSubmitResultMessage] = React.useState<ResultMessage>({ message: "", ok: false })
 

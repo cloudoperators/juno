@@ -17,7 +17,7 @@ export type PluginApiResponse = {
 
 export const usePluginApi = () => {
   const { get, create, update, deleteObject } = useApi()
-  const namespace = useStore((state) => state.namespace)
+  const namespace = useStore((state: any) => state.namespace)
   const { client } = useClient()
 
   const getPlugin = (plugin: Plugin): Promise<PluginApiResponse> => {
@@ -49,7 +49,7 @@ export const usePluginApi = () => {
   }
 
   const getPluginsByLabelSelector = useCallback(
-    async (labelSelectorKey, labelSelectorValue: string): Promise<Plugin[]> => {
+    async (labelSelectorKey: any, labelSelectorValue: string): Promise<Plugin[]> => {
       let plugins: Plugin[] = []
 
       if (!client || !namespace) {
@@ -63,7 +63,7 @@ export const usePluginApi = () => {
             labelSelector: labelselector,
           },
         })
-        .then((res) => {
+        .then((res: any) => {
           if (res.kind !== "PluginList") {
             console.log("ERROR: Failed to get Plugins, did not get PluginList")
             return [] as Plugin[]
