@@ -17,7 +17,10 @@ export default {
       },
     },
     search: {
-      control: { type: "text" },
+      control: false,
+      table: {
+        type: { summary: "ReactElement" },
+      },
     },
   },
 }

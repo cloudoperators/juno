@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useRef } from "react"
+import React, { useState, useEffect, useMemo, useId, useRef, ReactNode } from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/FormHint.component"
@@ -97,15 +97,15 @@ export const Textarea: React.FC<TextareaProps> = ({
   helptext = "",
   successtext = "",
   errortext = "",
-  onChange = undefined,
-  onFocus = undefined,
-  onBlur = undefined,
-  label = undefined,
+  onChange,
+  onFocus,
+  onBlur,
+  label,
   width = "full",
   wrapperClassName = "",
   ...props
 }) => {
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -150,12 +150,12 @@ export const Textarea: React.FC<TextareaProps> = ({
     onChange && onChange(event)
   }
 
-  const handleFocus = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleFocus = (event: React.FocusEvent<HTMLTextAreaElement>) => {
     setFocus(true)
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLTextAreaElement>) => {
     setFocus(false)
     onBlur && onBlur(event)
   }
@@ -274,15 +274,15 @@ export interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
   /** Pass a change handler */
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>
   /** Pass a focus handler */
-  onFocus?: React.ChangeEventHandler<HTMLTextAreaElement>
+  onFocus?: React.FocusEventHandler<HTMLTextAreaElement>
   /** Pass a blur handler */
-  onBlur?: React.ChangeEventHandler<HTMLTextAreaElement>
+  onBlur?: React.FocusEventHandler<HTMLTextAreaElement>
   /** A helptext to render to explain meaning and significance of the Textarea */
-  helptext?: React.ReactNode | string
+  helptext?: ReactNode
   /** A text to render when the Textarea was successfully validated */
-  successtext?: React.ReactNode | string
+  successtext?: ReactNode
   /** A text to render when the Textarea has an error or could not be validated */
-  errortext?: React.ReactNode | string
+  errortext?: ReactNode
   /** The width of the textarea. Either 'full' (default) or 'auto'. */
   width?: WidthType
   /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */

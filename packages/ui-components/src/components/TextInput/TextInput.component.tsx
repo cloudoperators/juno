@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useRef } from "react"
+import React, { useState, useEffect, useMemo, useId, useRef, ReactNode } from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/FormHint.component"
@@ -82,7 +82,7 @@ Also covers email, telephone, password, url derivates.
 export const TextInput: React.FC<TextInputProps> = ({
   value = "",
   id = "",
-  name = undefined,
+  name,
   placeholder = "",
   disabled = false,
   readOnly = false,
@@ -95,11 +95,11 @@ export const TextInput: React.FC<TextInputProps> = ({
   helptext = "",
   successtext = "",
   errortext = "",
-  onChange = undefined,
-  onFocus = undefined,
-  onBlur = undefined,
-  type = undefined,
-  label = undefined,
+  onChange,
+  onFocus,
+  onBlur,
+  type,
+  label,
   width = "full",
   wrapperClassName = "",
   ...props
@@ -149,12 +149,12 @@ export const TextInput: React.FC<TextInputProps> = ({
     onChange && onChange(event)
   }
 
-  const handleFocus = (event: React.FocusEvent<EventTarget>) => {
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setFocus(true)
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event: React.FocusEvent<EventTarget>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setFocus(false)
     onBlur && onBlur(event)
   }
@@ -273,19 +273,19 @@ export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   /** Pass a change handler */
   onChange?: React.ChangeEventHandler<HTMLInputElement>
   /** Pass a focus handler */
-  onFocus?: React.FocusEventHandler<EventTarget>
+  onFocus?: React.FocusEventHandler<HTMLInputElement>
   /** Pass a blur handler */
-  onBlur?: React.FocusEventHandler<EventTarget>
+  onBlur?: React.FocusEventHandler<HTMLInputElement>
   /** Specify the type attribute. Defaults to an input with no type attribute, which in turn will be treateas as type="text" by browsers. */
   type?: TextInputType
   /** The label of the input */
   label?: string
   /** A helptext to render to explain meaning and significance of the TextInput */
-  helptext?: JSX.Element | string
+  helptext?: ReactNode
   /** A text to render when the TextInput was successfully validated */
-  successtext?: JSX.Element | string
+  successtext?: ReactNode
   /** A text to render when the TextInput has an error or could not be validated */
-  errortext?: JSX.Element | string
+  errortext?: ReactNode
   /** The width of the text input. Either 'full' (default) or 'auto'. */
   width?: TextInputWidth
   /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */

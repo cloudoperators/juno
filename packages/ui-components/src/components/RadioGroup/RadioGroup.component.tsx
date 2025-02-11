@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, createContext } from "react"
+import React, { useState, useEffect, useMemo, useId, createContext, ReactNode } from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
@@ -59,7 +59,8 @@ const iconstyles = `
 	jn-top-1.5
 `
 
-type EventUpdateHandler = (_value: string | undefined) => void
+// eslint-disable-next-line no-unused-vars
+type EventUpdateHandler = (value: string) => void
 
 export interface RadioGroupContextProps {
   selectedValue?: string
@@ -92,7 +93,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   ...props
 }) => {
   // Utility
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -107,8 +108,14 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   const [isInvalid, setIsInvalid] = useState<boolean>(false)
 
   // Validate / Invalidate the RadioGroup based on the respective props:
-  const validated = useMemo(() => valid || (successtext && successtext.length ? true : false), [valid, successtext])
-  const invalidated = useMemo(() => invalid || (errortext && errortext.length ? true : false), [invalid, errortext])
+  const validated = useMemo(
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    [valid, successtext]
+  )
+  const invalidated = useMemo(
+    () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
+    [invalid, errortext]
+  )
 
   useEffect(() => {
     setIsValid(validated)
@@ -126,12 +133,12 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   }, [selected])
 
   // Callback function to be passed via the group context to child Radios so they can set the value on the parent if necessary (only used ONCE during initialisation when we don't want to trigger onChange handlers yet):
-  const updateSelectedValue = (value: string | undefined) => {
+  const updateSelectedValue = (value: string) => {
     setSelectedValue(value)
   }
 
   // Handler to be passed to child Radios to execute when they change
-  const handleRadioChange = (value: string | undefined) => {
+  const handleRadioChange = (value: string) => {
     setSelectedValue(value)
     onChange && onChange(value)
   }
@@ -187,15 +194,15 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 
 export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** The children of the RadioGroup. Typically, these will be `Radio` components. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a custom className */
   className?: string
   /** Whether all Radios in the group are disabled */
   disabled?: boolean
   /** Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed. */
-  errortext?: string
+  errortext?: ReactNode
   /** A text to render to further explain meaning and significance of the group */
-  helptext?: string
+  helptext?: ReactNode
   /** The id of the group. If not passed, RadioGroup will create and use a unique id for the group */
   id?: string
   /** Whether the group not be validated. */
@@ -211,7 +218,7 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   /** The value of the initially selected radio. This will override 'checked' set on any of the child radio elements. */
   selected?: string
   /** Text to display in case validation is successful. When passed, will set the whole group to valid. */
-  successtext?: string
+  successtext?: ReactNode
   /** Whether the RadioGroup was successfully validated */
   valid?: boolean
 }

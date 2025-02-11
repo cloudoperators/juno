@@ -18,9 +18,11 @@ export default {
         type: { summary: "ReactNode" },
       },
     },
-    role: {
-      options: ["TabNavigation", "TopNavigation", "SideNavigation"],
-      control: { type: "select" },
+    onActiveItemChange: {
+      control: false,
+      table: {
+        type: { summary: "(value: ReactNode) => void" },
+      },
     },
   },
 }

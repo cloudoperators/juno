@@ -40,11 +40,11 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
   className = "",
   ...props
 }) => {
-  const handleConfirmClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
+  const handleConfirmClick = (event: React.MouseEvent<HTMLElement>) => {
     onConfirm && onConfirm(event)
   }
 
-  const handleCancelClick = (event: React.MouseEvent<EventTarget, MouseEvent>) => {
+  const handleCancelClick = (event: React.MouseEvent<HTMLElement>) => {
     onCancel && onCancel(event)
   }
 
@@ -98,7 +98,7 @@ export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
   /** A custom className. Useful to configure flex items alignment when passing custom content as children. */
   className?: string
   /** Handler to execute once the confirming button is clicked */
-  onConfirm?: React.MouseEventHandler<EventTarget>
+  onConfirm?: React.MouseEventHandler<HTMLElement>
   /** Handler to execute once the cancelling button is clicked */
-  onCancel?: React.MouseEventHandler<EventTarget>
+  onCancel?: React.MouseEventHandler<HTMLElement>
 }

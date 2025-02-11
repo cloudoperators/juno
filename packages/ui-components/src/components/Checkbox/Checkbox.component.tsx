@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useContext, useId } from "react"
+import React, { useState, useEffect, useMemo, useContext, useId, ReactNode } from "react"
 import { CheckboxGroupContext } from "../CheckboxGroup/CheckboxGroup.component"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
@@ -107,11 +107,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   required = false,
   successtext = "",
   valid = false,
-  value,
+  value = "",
   ...props
 }) => {
   // Utility
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -190,7 +190,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     onChange && onChange(event)
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLInputElement>) => {
     onClick && onClick(event)
   }
 
@@ -324,9 +324,9 @@ export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Whether the Checkbox is disabled */
   disabled?: boolean
   /** A text to render when the Checkbox has an error or could not be validated */
-  errortext?: React.ReactNode | string
+  errortext?: ReactNode
   /** A helptext to render to explain meaning and significance of the Checkbox */
-  helptext?: React.ReactNode | string
+  helptext?: ReactNode
   /** The id of the Radio. An id will be automatically generated if not passed. */
   id?: string
   /** Whether the Checkbox is indeterminate. Applicable ONLY if the Checkbox represents multiple child Checkboxes with non--identical checked state. */
@@ -340,11 +340,11 @@ export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   /** handler to be executed when the Checkbox changes. */
   onChange?: React.ChangeEventHandler<HTMLInputElement>
   /** handler to be executed when the Checkbox is clicked. */
-  onClick?: React.MouseEventHandler<HTMLElement>
+  onClick?: React.MouseEventHandler<HTMLInputElement>
   /** Whether the Checkbox is required */
   required?: boolean
   /** A text to render when the Checkbox was successfully validated */
-  successtext?: React.ReactNode | string
+  successtext?: ReactNode
   /** Whether the Checkbox was successfully validated */
   valid?: boolean
   /** The value of the Checkbox */

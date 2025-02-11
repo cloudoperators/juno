@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext } from "react"
+import React, { createContext, ReactNode } from "react"
 
 import { Navigation } from "../Navigation/Navigation.component"
 
@@ -56,22 +56,20 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
 
 export type TabStyle = "main" | "content"
 
-// eslint-disable-next-line no-unused-vars
-type ActiveItemChangeHandler = (value: React.ReactNode) => void
-
 export interface TabNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The label of the selected tab. The `activeItem` prop set on the parent will override / take precedence over any `active` prop that may be set on a child. */
-  activeItem?: React.ReactNode
+  activeItem?: ReactNode
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
   ariaLabel?: string
   /** The child `<TabNavigationItem>` elements to render. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** A custom className to be rendered on the tab navigation */
   className?: string
   /** Whether the tab navigation is disabled. If set to `true`, all child tab navigation item elements will be disabled. */
   disabled?: boolean
   /** A handler to execute when the active tab changes */
-  onActiveItemChange?: ActiveItemChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onActiveItemChange?: (activeItem: ReactNode) => void
   /** The stylistic variant of the Tabs: Use `main` as the first child in an `Appshell` (when manually scaffolding, as first child of `juno-content-container`). For tabs inside the page content use "content". `<TabNavigation tabStyle="main">` will have no darkened border on the bottom of inactive tabs, `tabStyle="content"` will.*/
   tabStyle?: TabStyle
 }

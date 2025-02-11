@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useEffect, useId, useMemo, useState } from "react"
+import React, { createContext, useEffect, useId, useMemo, useState, ReactNode } from "react"
 import { Listbox } from "@headlessui/react"
 import { Label } from "../Label"
 import { Icon } from "../Icon"
@@ -81,19 +81,19 @@ export interface SelectProps
   /** Pass an aria-label to the Select toggle button */
   ariaLabel?: string
   /** The children to render as options. Use the SelectOption component, and SelectDivider if needed. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a custom className to the internal Select toggle button */
   className?: string
   /** Pass a defaultValue to use as an uncontrolled component that handles its state internally. When setting `multiple` on the Select pass an Array instead of a string.  */
-  defaultValue?: string
+  defaultValue?: string | string[]
   /** Whether the Select is disabled */
   disabled?: boolean
   /** Whether the Select has an error, e.g. when loading options. When validated negatively, use `invalid` instead. */
   error?: boolean
   /** A small message rendered in red text below the Select toggle. */
-  errortext?: React.ReactNode
+  errortext?: ReactNode
   /** A small, neutral text rendered below the Select toggle to explain meaning and significance of the Select element */
-  helptext?: React.ReactNode
+  helptext?: ReactNode
   /** Pass an id to the Select toggle */
   id?: string
   /** Whether the Select has been validated unsuccessfully / negatively */
@@ -113,19 +113,19 @@ export interface SelectProps
   open?: boolean
   /** LEGACY: Handler to be executed when the Select value changes. Here for backwards compatibility with apps based on older versions of Select. Use onChange instead. */
   // eslint-disable-next-line no-unused-vars
-  onValueChange?: (...args: unknown[]) => unknown
+  onValueChange?: (value?: string | number | string[]) => void
   /** A placeholder to render when no value has been selected. Default is "Select…". */
   placeholder?: string
   /** Whether a selection is required. Will show a small required marker next to the label. If no label is used, no marker will be visible. */
   required?: boolean
   /** A note to render below the Select toggle in case the selected value has been positively validated. Will set the visible state of the Select toggle to `valid`. */
-  successtext?: React.ReactNode
+  successtext?: ReactNode
   /** Whether long texts in options will be truncated with "…" or not. Default is false. The Select toggle label will always be truncated. */
   truncateOptions?: boolean
   /** Whether the Select was positively validated. Will show a green checkmark icon inside the Select toggle. */
   valid?: boolean
   /** The currently (pre-)selected value of the Select. Will trigger controlled mode. When setting `multiple` on the Select pass an Array instead of a string. */
-  value?: unknown
+  value?: string | number | string[]
   /** The label of the passed value or defaultValue. If you want to use controlled mode or pass as defaultValue in uncontrolled mode and additionally use labels for
    *  human-readable SelectOptions you need to also pass the matching label for the passed value/defaultValue so that the Select component can render itself properly. */
   valueLabel?: string
@@ -176,7 +176,7 @@ export const Select: React.FC<SelectProps> = ({
       | number
       | boolean
       | React.ReactElement<unknown, string | React.JSXElementConstructor<unknown>>
-      | Iterable<React.ReactNode>
+      | Iterable<ReactNode>
   ): boolean => {
     return !(typeof value === "string" && value.trim().length === 0)
   }
@@ -340,7 +340,7 @@ export const Select: React.FC<SelectProps> = ({
                   `}
                 {...props}
               >
-                {({ open, value }: { open: boolean; value: string[] }): React.JSX.Element =>
+                {({ open, value }: { open: boolean; value: string[] }): React.ReactElement =>
                   !hasError && !isLoading ? (
                     <>
                       <span className={`${truncateStyles}`}>{getDisplayValue(value)}</span>
@@ -392,7 +392,7 @@ export const Select: React.FC<SelectProps> = ({
     </SelectContext.Provider>
   )
 
-  function getDisplayValue(value: string[]): React.ReactNode {
+  function getDisplayValue(value: string[]): ReactNode {
     if (multiple) {
       return getMultipleDisplayValues(value) || valueLabel || value.join(", ") || placeholder
     } else {

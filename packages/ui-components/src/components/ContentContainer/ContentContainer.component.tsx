@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 
 const baseContainerStyles = `
   jn-flex-col
@@ -22,7 +22,7 @@ export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivEleme
   /**
    * Custom content to render within the container.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
@@ -42,5 +42,5 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({ className = 
 export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Add custom class name */
   className?: string
-  children?: React.ReactNode
+  children?: ReactNode
 }

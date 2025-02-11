@@ -30,7 +30,7 @@ export const DataGridToolbar: React.FC<DataGridToolbarProps> = ({ search, classN
 
 export interface DataGridToolbarProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Pass an optional SearchInput component */
-  search?: JSX.Element
+  search?: React.ReactElement
   /** Children to render in the DataGridToolbar */
   children?: React.ReactNode
   /** Add a classname */

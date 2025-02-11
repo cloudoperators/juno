@@ -33,7 +33,7 @@ const autoColumnStyles: React.CSSProperties = {
 }
 
 // Get column class based on `cols` prop value
-const getColumnWidthStyles = (cols: number | null): string => {
+const getColumnWidthStyles = (cols: number | undefined): string => {
   if (!cols || cols < 1 || cols > 12) return columnWidthStyles[0]
   return columnWidthStyles[cols]
 }
@@ -66,8 +66,8 @@ export interface GridColumnProps extends React.HTMLAttributes<HTMLDivElement> {
  * A flexible grid column component used within a Grid.
  */
 export const GridColumn: React.FC<GridColumnProps> = ({
-  width = null,
-  cols = null,
+  width,
+  cols,
   auto = false,
   className = "",
   children,

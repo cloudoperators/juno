@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 
 const baseHeadingStyles = `
   jn-font-bold
@@ -17,7 +17,7 @@ export interface ContentHeadingProps extends React.HTMLAttributes<HTMLHeadingEle
    * Custom content to render within the container heading.
    * Takes precedence over the heading prop.
    */
-  children?: React.ReactNode
+  children?: ReactNode
   /**
    * Text for the heading. Used if children is not provided.
    * Children prop takes precedence.
@@ -44,7 +44,7 @@ export const ContentHeading: React.FC<ContentHeadingProps> = ({ heading = "", cl
 
 export interface ContentHeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   /** Optionally render children. If children are present, heading will be ignored */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Text to use as a title */
   heading?: string
   /** Add custom class name */
