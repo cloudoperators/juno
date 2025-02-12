@@ -17,6 +17,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:static": "vite build --mode static",
+    "generate:types": "graphql-codegen --config codegen.ts",
     "serve": "vite preview",
     "test": "vitest run",
     "lint": "eslint",
@@ -31,6 +32,11 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@apollo/client": "^3.11.10",
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/typescript": "^4.1.2",
+    "@graphql-codegen/typescript-operations": "^4.4.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "@cloudoperators/juno-config": "*",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.2.0",

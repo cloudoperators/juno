@@ -4,5 +4,19 @@
  */
 
 import React from "react"
+import { useGetServicesQuery } from "../../generated/graphql"
 
-export const Services = () => <div>render services here...</div>
+export const Services = () => {
+  const { data, loading, error } = useGetServicesQuery()
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error</p>
+
+  return (
+    <div>
+      {data?.Services?.edges?.map((service) => {
+        console.log("TEST NAME", service?.node.ccrn)
+        return <p>{service?.node.ccrn}</p>
+      })}
+    </div>
+  )
+}

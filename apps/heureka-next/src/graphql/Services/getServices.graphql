@@ -1,0 +1,34 @@
+query GetServices($filter: ServiceFilter, $first: Int, $after: String) {
+  Services(filter: $filter, first: $first, after: $after) {
+    edges {
+      node {
+        id
+        ccrn
+        objectMetadata {
+          componentInstanceCount
+          issueMatchCount
+        }
+        owners {
+          edges {
+            node {
+              id
+              uniqueUserId
+              name
+            }
+            cursor
+          }
+        }
+        supportGroups {
+          edges {
+            node {
+              id
+              ccrn
+            }
+            cursor
+          }
+        }
+      }
+      cursor
+    }
+  }
+}
