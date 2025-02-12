@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 import { AppBody } from "../AppBody/index"
 import { PageHeader } from "../PageHeader/index"
 import { MainContainer } from "../MainContainer/index"
@@ -74,15 +74,15 @@ export const AppShell: React.FC<AppShellProps> = ({
 
 export interface AppShellProps extends React.HTMLAttributes<HTMLElement> {
   /** The main content of the app. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass either the `<PageHeader>` component or if you don't need to add any content to the page header pass a string to be used as the app name in the standard page header. */
-  pageHeader?: React.ReactNode
+  pageHeader?: ReactNode
   /** Optional. If specified pass a `<PageFooter>` component. If undefined will use default PageFooter */
-  pageFooter?: React.ReactNode
+  pageFooter?: ReactNode
   /** Optional. If specified expects a `<TopNavigation>` component. If undefined no top navigation is rendered. */
-  topNavigation?: React.ReactNode
+  topNavigation?: ReactNode
   /** Optional. If specified expects a `<SideNavigation>` component. If undefined no side navigation is rendered. */
-  sideNavigation?: React.ReactNode
+  sideNavigation?: ReactNode
   /** Optional: Defaults to false. Set embedded to true if app is to be rendered embedded in another app/page.
    * In this case only the content area and children are rendered, a TopNavigation if passed, but no header/footer or remaining layout components */
   embedded?: boolean

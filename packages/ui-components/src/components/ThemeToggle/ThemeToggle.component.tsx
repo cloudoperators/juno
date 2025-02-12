@@ -44,7 +44,7 @@ export interface ThemeToggleProps {
    * Callback function that is called when the theme is toggled.
    */
   // eslint-disable-next-line no-unused-vars
-  onToggleTheme?: (...args: unknown[]) => void
+  onToggleTheme?: (newTheme: string) => void
 }
 
 /**

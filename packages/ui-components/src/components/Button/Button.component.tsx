@@ -106,12 +106,12 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
   (
     {
       label,
-      title = null,
+      title,
       variant,
       size = "default",
-      disabled = null,
-      href = null,
-      icon = null,
+      disabled,
+      href,
+      icon,
       className = "",
       onClick,
       children,

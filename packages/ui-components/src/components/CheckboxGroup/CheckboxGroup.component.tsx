@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, createContext, useId } from "react"
+import React, { useState, useEffect, useMemo, createContext, useId, ReactNode } from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
@@ -40,10 +40,11 @@ const iconstyles = `
   jn-top-1.5
 `
 
-type EventUpdateHandler = (_value: string | undefined) => void
+// eslint-disable-next-line no-unused-vars
+type EventUpdateHandler = (value: string) => void
 
 export interface CheckboxGroupContextProps {
-  selectedOptions?: CheckboxValue[]
+  selectedOptions?: string[]
   handleCheckboxChange?: EventUpdateHandler
   name?: string
   updateSelectedValue?: EventUpdateHandler
@@ -51,8 +52,6 @@ export interface CheckboxGroupContextProps {
 }
 
 export const CheckboxGroupContext = createContext<CheckboxGroupContextProps | undefined>(undefined)
-
-export type CheckboxValue = string | undefined
 
 export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   children,
@@ -72,7 +71,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   ...props
 }) => {
   // Utility
-  const isNotEmptyString = (str: React.ReactNode | string) => {
+  const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
@@ -83,12 +82,18 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   const groupId = id || uniqueId()
 
   // Init state variables:
-  const [selectedOptions, setSelectedOptions] = useState<CheckboxValue[] | undefined>(selected)
+  const [selectedOptions, setSelectedOptions] = useState<string[] | undefined>(selected)
   const [isValid, setIsValid] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
 
-  const validated = useMemo(() => valid || (successtext && successtext.length ? true : false), [valid, successtext])
-  const invalidated = useMemo(() => invalid || (errortext && errortext.length ? true : false), [invalid, errortext])
+  const validated = useMemo(
+    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
+    [valid, successtext]
+  )
+  const invalidated = useMemo(
+    () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
+    [invalid, errortext]
+  )
 
   useEffect(() => {
     if (selected) {
@@ -105,7 +110,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   }, [invalidated])
 
   // Callback function to be passed via context to individual checkboxes:
-  const handleCheckboxChange = (value: CheckboxValue) => {
+  const handleCheckboxChange = (value: string) => {
     const changedValue = value
     if (selectedOptions && selectedOptions.includes(value)) {
       setSelectedOptions(
@@ -122,7 +127,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   }
 
   // Callback function to be passed via the context to child Checkboxes so they can add their value to the groups' selectedOptions array in case selected has not been set on the parent (otherwise the parent select will trump whatever is set on the child in a group context). Called ONLY ONCE during initialization of the child Checkbox when we DON't want to execute any additional onChange handlers just yet:
-  const updateSelectedValue = (value: CheckboxValue) => {
+  const updateSelectedValue = (value: string) => {
     if (!selected) {
       setSelectedOptions((selectedOptions) => [...(selectedOptions || []), value])
     }
@@ -179,15 +184,15 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
 
 export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** The Checkbox children of the CheckboxGroup */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a custom className */
   className?: string
   /** Whether all Checkboxes in the group are disabled */
   disabled?: boolean
   /** Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed. */
-  errortext?: string
+  errortext?: ReactNode
   /** A text to render to further explain meaning and significance of the group */
-  helptext?: string
+  helptext?: ReactNode
   /** The id of the group. If not passed, a unique id will be created and used for the group as a whole. */
   id?: string
   invalid?: boolean
@@ -202,7 +207,7 @@ export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivEle
   /** Array of values of individual selected options in the group */
   selected?: string[]
   /** Text to display in case validation is successful. When passed, will set the whole group to valid. */
-  successtext?: string
+  successtext?: ReactNode
   /** Whether the CheckboxGroup was successfully validated */
   valid?: boolean
 }

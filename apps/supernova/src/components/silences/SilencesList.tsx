@@ -120,6 +120,7 @@ const SilencesList = () => {
             <Select
               className="w-3/12"
               label="Status"
+              // @ts-ignore
               value={status}
               onChange={(newSilencesStatus: any) => {
                 setSilencesStatus(newSilencesStatus)

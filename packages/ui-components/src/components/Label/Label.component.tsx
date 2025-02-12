@@ -49,7 +49,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
   (
     {
       text = "",
-      htmlFor = undefined,
+      htmlFor,
       required = false,
       className = "",
       disabled = false,

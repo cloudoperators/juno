@@ -80,7 +80,7 @@ export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElemen
   /** The link the item should point to. Will render the item as an anchor if passed */
   href?: string
   /** A handler to execute once the item is clicked. Will render the item as a button element if passed */
-  onClick?: React.MouseEventHandler<EventTarget>
+  onClick?: React.MouseEventHandler<HTMLElement>
   /** An optional technical identifier fort the tab. If not passed, the label will be used to identify the tab. NOTE: If value is passed, the value of the active tab MUST be used when setting the activeItem prop on the parent SideNavigation.*/
   value?: string
 }

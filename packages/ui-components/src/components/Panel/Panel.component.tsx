@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, FC, HTMLAttributes, ReactNode, MouseEvent } from "react"
+import React, { useState, useEffect, useRef, FC, HTMLAttributes, ReactNode, MouseEvent, MouseEventHandler } from "react"
 import { createPortal } from "react-dom"
 
 import { Icon } from "../Icon/Icon.component"
@@ -79,8 +79,8 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Handler called when the close button is clicked.
    */
-  // eslint-disable-next-line no-unused-vars
-  onClose?: (event: MouseEvent<HTMLElement>) => void
+
+  onClose?: MouseEventHandler<HTMLElement>
   /**
    * Additional CSS classes to apply to the panel for custom styling.
    */

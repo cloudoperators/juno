@@ -51,23 +51,24 @@ export interface SearchInputProps extends Omit<React.HTMLProps<HTMLInputElement>
   /**
    * Callback function invoked when a search is triggered, either by pressing the 'Enter' key or by clicking the search icon.
    */
-  onSearch?: (_value: string) => void
+  // eslint-disable-next-line no-unused-vars
+  onSearch?: (value: string) => void
   /**
    * Click handler for the search icon.
    */
-  onClick?: (_event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
+  onClick?: React.MouseEventHandler<HTMLElement>
   /**
    * Change handler for the search input.
    */
-  onChange?: (_event: ChangeEvent<HTMLInputElement>) => void
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
   /**
    * KeyPress handler for the search input. By default, triggers the onSearch function when the 'Enter' key is pressed.
    */
-  onKeyPress?: (_event: KeyboardEvent<HTMLInputElement>) => void
+  onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>
   /**
    * Click handler for the 'Clear' button.
    */
-  onClear?: (_event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
+  onClear?: React.MouseEventHandler<HTMLElement>
 }
 
 const getWrapperStyles = (variant: "rounded" | "hero" | "default"): string => {

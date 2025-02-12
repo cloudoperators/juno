@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 
 import { Navigation } from "../Navigation/Navigation.component"
 
@@ -41,20 +41,18 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({
   )
 }
 
-// eslint-disable-next-line no-unused-vars
-type ActiveItemChangeHandler = (value: React.ReactNode) => void
-
 export interface TopNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The active navigation item by label */
-  activeItem?: React.ReactNode
+  activeItem?: ReactNode
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
   ariaLabel?: string
   /** The children of the Navigation. Typically these should be TopNavigationItem(s) */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a custom classname. */
   className?: string
   /** Whether the navigation is disabled */
   disabled?: boolean
   /** Handler to execute when the active item changes */
-  onActiveItemChange?: ActiveItemChangeHandler
+  // eslint-disable-next-line no-unused-vars
+  onActiveItemChange?: (activeItem: ReactNode) => void
 }

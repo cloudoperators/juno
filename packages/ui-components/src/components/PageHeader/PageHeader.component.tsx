@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactElement, ReactNode } from "react"
 import DefaultLogo from "../../img/JunoUI_logo.svg"
 
 const pageHeaderStyles = `
@@ -90,12 +90,12 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 
 export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Heading (typically the name of the application) */
-  heading?: string | String | JSX.Element // Union type to avoid `any`
+  heading?: string | ReactElement
   /** Add custom class name */
   className?: string
-  logo?: boolean | Boolean | JSX.Element
+  logo?: boolean | ReactElement
   /** Optional: onClick handler for brand logo/page title. To be used to navigate to the home page.  */
-  onClick?: React.MouseEventHandler<EventTarget>
+  onClick?: React.MouseEventHandler<HTMLDivElement>
   /** Children to render in the header such as user name, avatar, log-in/out button, etc. */
-  children?: React.ReactNode
+  children?: ReactNode
 }

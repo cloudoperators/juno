@@ -60,7 +60,7 @@ const ConstrainedWidthTemplate = ({ children, ...args }: SelectProps) => {
 const ControlledTemplate = ({ value, children, ...args }: React.JSX.IntrinsicAttributes & SelectProps) => {
   const [val, setVal] = useState(value)
 
-  const handleChange = <T extends unknown>(val: T): void => {
+  const handleChange = (val?: string | number | string[]) => {
     setVal(val)
   }
 
