@@ -18,7 +18,7 @@ const StoreContext = createContext<StoreApi<AppState> | null>(null)
 type AppState = FilterSlice & Record<string, any>
 
 interface StoreProviderProps {
-  options: Record<string, any> // should be defined later on for the props
+  options?: Record<string, any> // should be defined later on for the props
   children: React.ReactNode
 }
 

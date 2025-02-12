@@ -30,9 +30,7 @@ const FilterPills = () => {
   return (
     <Stack gap="2" wrap={true}>
       {Object.entries(activeFilters).map(([key, filterItems]) => {
-        // @ts-ignore
         return filterItems?.map((item: any) =>
-          // @ts-ignore
           pausedFilters[key]?.includes(item) ? (
             <Pill
               className="bg-theme-background-lvl-4 opacity-70"

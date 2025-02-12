@@ -70,7 +70,6 @@ const SilencesList = () => {
     } catch (e) {
       console.warn("search term is not a valid regex. " + e)
 
-      // @ts-expect-error TS(2550) FIXME: Property 'includes' does not exist on type 'string... Remove this comment to see the full error message
       filtered = filtered.filter((silence: any) => JSON.stringify(silence).toLowerCase().includes(regEx.toLowerCase))
     }
 
