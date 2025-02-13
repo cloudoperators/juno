@@ -27,8 +27,7 @@ export const StoreProvider = ({ options, children }: StoreProviderProps) => {
     <StoreContext.Provider
       value={createStore<AppState>((set, get) => ({
         ...createGlobalsSlice(set, get, options),
-        // @ts-expect-error TS(2554) FIXME: Expected 1 arguments, but got 0.
-        ...createUserActivitySlice(set, get),
+        ...createUserActivitySlice(set),
         ...createAlertsSlice(set, get),
         ...createFiltersSlice(set, get, options),
         ...createSilencesSlice(set, get, options),
