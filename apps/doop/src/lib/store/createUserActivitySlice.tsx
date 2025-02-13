@@ -11,14 +11,14 @@ const createUserActivitySlice = (set: any) => ({
       setIsActive: (activity: any) => {
         set(
           (state: any) => ({
-            userActivity: { ...state.userActivity, isActive: activity }
+            userActivity: { ...state.userActivity, isActive: activity },
           }),
           false,
           "userActivity.setIsActive"
         )
       },
     },
-  }
+  },
 })
 
 export default createUserActivitySlice

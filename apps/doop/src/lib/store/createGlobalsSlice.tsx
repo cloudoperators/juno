@@ -8,11 +8,16 @@ const createGlobalsSlice = (set: any) => ({
     endpoint: "",
 
     actions: {
-      setEndpoint: (endpoint: any) => set((state: any) => ({
-        globals: { ...state.globals, endpoint: endpoint }
-      }), false, "globals/setEndpoint"),
+      setEndpoint: (endpoint: any) =>
+        set(
+          (state: any) => ({
+            globals: { ...state.globals, endpoint: endpoint },
+          }),
+          false,
+          "globals/setEndpoint"
+        ),
     },
-  }
+  },
 })
 
 export default createGlobalsSlice

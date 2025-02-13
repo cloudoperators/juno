@@ -21,12 +21,12 @@ export const parseError = (error: any) => {
 }
 
 export const camelCaseToSpaceCase = (str: any) => {
-  return str.replace(/([A-Z])/g, (c: any) => " " + c.toLowerCase());
+  return str.replace(/([A-Z])/g, (c: any) => " " + c.toLowerCase())
 }
 
 export const valueToLabel = (str: any) => {
   if (!str) return str
-  return str.replace(/([A-Z])/g, (c: any) => " " + c.toLowerCase()).replace(/_/g, " ");
+  return str.replace(/([A-Z])/g, (c: any) => " " + c.toLowerCase()).replace(/_/g, " ")
 }
 
 export function capitalize(string: any) {

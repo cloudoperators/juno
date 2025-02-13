@@ -4,9 +4,7 @@
  */
 
 // Example fetch call. Adjust as needed for your API
-export const fetchData = ({
-  meta
-}: any) => {
+export const fetchData = ({ meta }: any) => {
   return fetch(`${meta.endpoint}`, {
     method: "GET",
     headers: {
