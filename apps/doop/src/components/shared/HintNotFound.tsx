@@ -6,7 +6,7 @@
 import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
-const HintNotFound = ({ text }) => {
+const HintNotFound = ({ text }: any) => {
   return (
     <Stack alignment="center" distribution="center" direction="vertical" className="h-full">
       <span>{text}</span>

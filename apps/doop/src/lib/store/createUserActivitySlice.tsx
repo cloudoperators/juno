@@ -3,22 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const createUserActivitySlice = (set) => ({
+const createUserActivitySlice = (set: any) => ({
   userActivity: {
     isActive: true,
 
     actions: {
-      setIsActive: (activity) => {
+      setIsActive: (activity: any) => {
         set(
-          (state) => ({
-            userActivity: { ...state.userActivity, isActive: activity },
+          (state: any) => ({
+            userActivity: { ...state.userActivity, isActive: activity }
           }),
           false,
           "userActivity.setIsActive"
         )
       },
     },
-  },
+  }
 })
 
 export default createUserActivitySlice

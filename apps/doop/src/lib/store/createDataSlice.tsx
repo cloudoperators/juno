@@ -28,7 +28,7 @@ export const FILTER_TYPE_UNKNOWN = "unknown"
  * @param {Object} clusterIdentities
  * @returns
  */
-const getClusterFilterItems = (clusterIdentities) => {
+const getClusterFilterItems = (clusterIdentities: any) => {
   // Check if clusterIdentities is falsy (null or undefined), and return an empty array if true.
   if (!clusterIdentities) return []
 
@@ -43,6 +43,7 @@ const getClusterFilterItems = (clusterIdentities) => {
       const value = identities[id]
 
       // Create a filter item for the identity if it doesn't exist in filterItems.
+      // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       filterItems[id] = filterItems[id] || {
         key: `${FILTER_TYPE_CLUSTER}:${id}`,
         id: id,
@@ -52,6 +53,7 @@ const getClusterFilterItems = (clusterIdentities) => {
       }
 
       // Add the value to the filter item's values array if it's not already present.
+      // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (filterItems[id].values.indexOf(value) < 0) filterItems[id].values.push(value)
     })
 
@@ -92,10 +94,11 @@ const getClusterFilterItems = (clusterIdentities) => {
  * @param {Array} violationGroups
  * @returns an array of objects representing filter items
  */
-const getViolationFilterItems = (violationGroups, options = { showDebugSeverities: false }) => {
+const getViolationFilterItems = (violationGroups: any, options = { showDebugSeverities: false }) => {
   if (!violationGroups) return []
-  const constraints = []
-  violationGroups.forEach((v) => v.constraints.forEach((c) => constraints.push(c)))
+  const constraints: any = []
+  violationGroups.forEach((v: any) => v.constraints.forEach((c: any) => constraints.push(c)))
+  // @ts-expect-error TS(7006) FIXME: Parameter 'filterItems' implicitly has an 'any' ty... Remove this comment to see the full error message
   const entries = constraints.reduce((filterItems, constraint) => {
     if (constraint?.metadata?.severity) {
       const value = constraint.metadata.severity
@@ -110,7 +113,7 @@ const getViolationFilterItems = (violationGroups, options = { showDebugSeveritie
         if (options?.showDebugSeverities || value !== "debug") filterItems["severity"].values.push(value)
       }
     }
-    constraint?.violation_groups?.forEach((vg) => {
+    constraint?.violation_groups?.forEach((vg: any) => {
       if (vg?.pattern?.object_identity) {
         Object.keys(vg.pattern.object_identity).forEach((id) => {
           const value = vg.pattern.object_identity[id]
@@ -134,13 +137,19 @@ const getViolationFilterItems = (violationGroups, options = { showDebugSeveritie
   return Object.values(entries)
 }
 
-const filterViolations = ({ violationGroups, clusterIdentities, activeFilters, searchTerm, showDebugSeverities }) => {
+const filterViolations = ({
+  violationGroups,
+  clusterIdentities,
+  activeFilters,
+  searchTerm,
+  showDebugSeverities,
+}: any) => {
   // initialize items to all violation groups
   let items = violationGroups
   // if showDebugSeverities is false and severity is debug, filter it out
   if (!showDebugSeverities) {
-    items = items?.filter((v) => {
-      v.constraints = v.constraints?.filter((constraint) => constraint.metadata?.severity !== "debug")
+    items = items?.filter((v: any) => {
+      v.constraints = v.constraints?.filter((constraint: any) => constraint.metadata?.severity !== "debug")
       return v.constraints?.length > 0
     })
   }
@@ -153,16 +162,22 @@ const filterViolations = ({ violationGroups, clusterIdentities, activeFilters, s
     const clusterFilters = {}
 
     // separate filters by type
-    activeFilters.forEach((filter) => {
+    activeFilters.forEach((filter: any) => {
       const [type, key] = filter.key?.split(":")
       if (type === FILTER_TYPE_VIOLATION_GROUP && key === "severity") {
+        // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         severityFilters[key] = severityFilters[key] || []
+        // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         severityFilters[key].push(filter.value)
       } else if (type === FILTER_TYPE_CHECK) {
+        // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         checkFilters[key] = checkFilters[key] || []
+        // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         checkFilters[key].push(filter.value)
       } else if (type === FILTER_TYPE_CLUSTER) {
+        // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         clusterFilters[key] = clusterFilters[key] || []
+        // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         clusterFilters[key].push(filter.value)
       }
     })
@@ -171,12 +186,12 @@ const filterViolations = ({ violationGroups, clusterIdentities, activeFilters, s
     // Example: (severity:critical OR severity:warning) AND (cluster:cluster1 OR cluster:cluster2)
 
     // filter violation groups by active filters
-    violationGroups.forEach((violation) => {
+    violationGroups.forEach((violation: any) => {
       // clone the violation group
       const item = JSON.parse(JSON.stringify(violation))
 
       // collect all constraints that match the filters
-      item.constraints = item.constraints?.filter((constraint) => {
+      item.constraints = item.constraints?.filter((constraint: any) => {
         // check if any of the filters match the check
         let found = true
 
@@ -189,9 +204,10 @@ const filterViolations = ({ violationGroups, clusterIdentities, activeFilters, s
           //OR: includes
           //AND: bool &&
           // Example: (service:elektra OR service:castelum) AND (service_group:containers OR service_group:compute)
-          constraint.violation_groups = constraint.violation_groups?.filter((vg) =>
+          constraint.violation_groups = constraint.violation_groups?.filter((vg: any) =>
             Object.keys(checkFilters).reduce(
               (bool, key) =>
+                // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                 bool && vg.pattern?.object_identity && checkFilters[key]?.includes(vg.pattern.object_identity[key]),
               true
             )
@@ -204,15 +220,16 @@ const filterViolations = ({ violationGroups, clusterIdentities, activeFilters, s
         if (Object.keys(clusterFilters).length > 0) {
           // collect all clusters that match the filter
           const clusters = clusterIdentities
-            ?.filter((ci) =>
+            ?.filter((ci: any) =>
+              // @ts-ignore
               Object.keys(clusterFilters).reduce((bool, key) => bool && clusterFilters[key].includes(ci[key]), true)
             )
-            .map((ci) => ci.cluster)
+            .map((ci: any) => ci.cluster)
 
           // collect all violation groups that match the clusters
-          constraint.violation_groups = constraint.violation_groups?.filter((vg) => {
+          constraint.violation_groups = constraint.violation_groups?.filter((vg: any) => {
             // filter out instances that don't match the clusters
-            vg.instances = vg.instances.filter((i) => clusters.includes(i.cluster))
+            vg.instances = vg.instances.filter((i: any) => clusters.includes(i.cluster))
             // return true if there are any instances left
             return vg.instances.length > 0
           })
@@ -223,10 +240,11 @@ const filterViolations = ({ violationGroups, clusterIdentities, activeFilters, s
         // ############ SEVERITY FILTERS ############
         // check if severity filters includes the check's severity
         if (Object.keys(severityFilters).length > 0) {
+          // @ts-ignore
           found =
             found &&
             Object.values(severityFilters).reduce(
-              (bool, values) => bool && values.includes(constraint.metadata?.severity),
+              (bool: any, values: any) => bool && values.includes(constraint.metadata?.severity),
               true
             )
         }
@@ -242,11 +260,11 @@ const filterViolations = ({ violationGroups, clusterIdentities, activeFilters, s
 
   // filter items by search term
   if (searchTerm && items) {
-    items = items.filter((item) => {
-      const constraints = (item.constraints = item.constraints?.filter((constraint) => {
+    items = items.filter((item: any) => {
+      const constraints = (item.constraints = item.constraints?.filter((constraint: any) => {
         const { violation_groups, ...data } = constraint
         const foundInData = JSON.stringify(data).toLowerCase().includes(searchTerm.toLowerCase())
-        const vgs = violation_groups.filter((vg) => {
+        const vgs = violation_groups.filter((vg: any) => {
           const vgString = JSON.stringify(vg)
           return vgString.toLowerCase().includes(searchTerm.toLowerCase())
         })
@@ -261,33 +279,34 @@ const filterViolations = ({ violationGroups, clusterIdentities, activeFilters, s
 }
 
 // extend the violation groups with additional information
-const extendAndSortViolations = ({ items, severityWeights }) => {
+const extendAndSortViolations = ({ items, severityWeights }: any) => {
   if (!items) return []
   return items
-    .map((item) => {
+    .map((item: any) => {
       // count the number of violations
       item.violationCount = 0
       // collect all severities and sort them by severity weight
       // first severity is the highest severity
       item.severities = []
 
-      item.constraints?.forEach((constraint) => {
+      item.constraints?.forEach((constraint: any) => {
         item.violationCount += constraint.violation_groups?.length || 0
         if (item.severities.indexOf(constraint?.metadata?.severity) < 0) {
           item.severities.push(constraint?.metadata?.severity)
         }
       })
       item.severities = item.severities.sort(
-        (a, b) => (severityWeights.indexOf(a) || 100) - (severityWeights.indexOf(b) || 100)
+        (a: any, b: any) => (severityWeights.indexOf(a) || 100) - (severityWeights.indexOf(b) || 100)
       )
       return item
     })
     .sort(
-      (a, b) => (severityWeights[a.severities[0]] || 100) - (severityWeights[b.severities[0]] || 100) // sort by highest severity
+      (a: any, b: any) => (severityWeights[a.severities[0]] || 100) - (severityWeights[b.severities[0]] || 100) // sort by highest severity
     )
 }
 
 // Data slice
+// @ts-expect-error TS(7006) FIXME: Parameter 'set' implicitly has an 'any' type.
 const createDataSlice = (set, get) => ({
   data: {
     severityWeights: {
@@ -306,15 +325,15 @@ const createDataSlice = (set, get) => ({
     detailsViolationGroup: null,
 
     actions: {
-      setShowDebugSeverities: (value) => {
-        set((state) => ({
+      setShowDebugSeverities: (value: any) => {
+        set((state: any) => ({
           data: { ...state.data, showDebugSeverities: value },
         }))
       },
-      setData: (data) => {
+      setData: (data: any) => {
         if (!data) return
 
-        let clusterIdentities = []
+        let clusterIdentities: any = []
         if (data.cluster_identities) {
           clusterIdentities = Object.keys(data.cluster_identities).map((key) => ({
             cluster: key,
@@ -323,7 +342,7 @@ const createDataSlice = (set, get) => ({
         }
 
         set(
-          (state) => ({
+          (state: any) => ({
             data: {
               ...state.data,
               loaded: true,
@@ -366,7 +385,7 @@ const createDataSlice = (set, get) => ({
 
         // save the filtered items
         set(
-          (state) => ({
+          (state: any) => ({
             data: { ...state.data, filteredItems: items },
           }),
           false,
@@ -377,9 +396,9 @@ const createDataSlice = (set, get) => ({
         get().data.actions.setDetailsViolationGroup()
       },
 
-      setDetailsViolationGroupKind: (detailsViolationGroupKind) => {
+      setDetailsViolationGroupKind: (detailsViolationGroupKind: any) => {
         set(
-          (state) => ({
+          (state: any) => ({
             data: {
               ...state.data,
               detailsViolationGroupKind: detailsViolationGroupKind,
@@ -396,7 +415,7 @@ const createDataSlice = (set, get) => ({
         const activeKind = get().data.detailsViolationGroupKind
         if (!activeKind) return
         // find the active violation group in the filtered items
-        const activeViolationGroup = get().data.filteredItems?.find((i) => i.kind === activeKind)
+        const activeViolationGroup = get().data.filteredItems?.find((i: any) => i.kind === activeKind)
 
         // if the active violation group is already set, return
         if (
@@ -407,7 +426,7 @@ const createDataSlice = (set, get) => ({
           return
         // set the active violation group
         set(
-          (state) => ({
+          (state: any) => ({
             data: {
               ...state.data,
               detailsViolationGroup: activeViolationGroup,

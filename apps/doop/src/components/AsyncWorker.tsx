@@ -5,7 +5,9 @@
 
 import useUrlState from "../hooks/useUrlState"
 
-const AsyncWorker = ({ consumerId }) => {
+const AsyncWorker = ({
+ consumerId
+}: any) => {
   useUrlState(consumerId)
 
   return null

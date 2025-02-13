@@ -20,13 +20,13 @@ import { valueToLabel } from "../helpers"
 //       "value": "containers"
 //   }
 // ]
-const parseInitialFilters = (initialFilters) => {
+const parseInitialFilters = (initialFilters: any) => {
   if (typeof initialFilters !== "object" || !Object.keys(initialFilters).length) return undefined
 
   return Object.keys(initialFilters)
     .map((key) => {
       if (Array.isArray(initialFilters[key])) {
-        return initialFilters[key].map((value) => {
+        return initialFilters[key].map((value: any) => {
           return {
             key: `${FILTER_TYPE_UNKNOWN}:${key}`,
             id: key,
@@ -48,6 +48,7 @@ const parseInitialFilters = (initialFilters) => {
     .flat()
 }
 
+// @ts-expect-error TS(7006) FIXME: Parameter 'set' implicitly has an 'any' type.
 const createFiltersSlice = (set, get, options) => ({
   filters: {
     searchTerm: null,
@@ -56,10 +57,10 @@ const createFiltersSlice = (set, get, options) => ({
     actions: {
       ensureFilterType: () => {
         // map filter with unknown type to the filter labels found in the data
-        let filters = get().filters.active?.map((filter) => {
+        let filters = get().filters.active?.map((filter: any) => {
           if (filter.type === FILTER_TYPE_UNKNOWN) {
             // find the filter kez in filterEntries and override the type
-            let filterEntry = get().data.filterEntries.find((entry) => entry.id === filter.id)
+            let filterEntry = get().data.filterEntries.find((entry: any) => entry.id === filter.id)
             // override the type with the filterEntry type
             if (filterEntry) {
               filter.type = filterEntry.type
@@ -69,20 +70,32 @@ const createFiltersSlice = (set, get, options) => ({
           return filter
         })
 
-        set((state) => ({ filters: { ...state.filters, active: filters } }), false, "filters.ensureFilterType")
+        set(
+          (state: any) => ({
+            filters: { ...state.filters, active: filters },
+          }),
+          false,
+          "filters.ensureFilterType"
+        )
       },
-      set: (filters) => {
+      set: (filters: any) => {
         if (!Array.isArray(filters)) return
 
-        set((state) => ({ filters: { ...state.filters, active: filters } }), false, "filters.set")
+        set(
+          (state: any) => ({
+            filters: { ...state.filters, active: filters },
+          }),
+          false,
+          "filters.set"
+        )
         // filter items
         get().data.actions.filterItems()
       },
-      add: (key, value) => {
+      add: (key: any, value: any) => {
         set(
-          (state) => {
+          (state: any) => {
             let activeFilters = state.filters.active?.slice() || []
-            let index = activeFilters.findIndex((f) => f.key === key && f.value === value)
+            let index = activeFilters.findIndex((f: any) => f.key === key && f.value === value)
             if (index < 0) activeFilters.push({ key: key, value: value })
             return { filters: { ...state.filters, active: activeFilters } }
           },
@@ -92,11 +105,11 @@ const createFiltersSlice = (set, get, options) => ({
         // filter items
         get().data.actions.filterItems()
       },
-      remove: (key, value) => {
+      remove: (key: any, value: any) => {
         set(
-          (state) => {
+          (state: any) => {
             let activeFilters = state.filters.active?.slice() || []
-            let index = activeFilters.findIndex((f) => f.key === key && f.value === value)
+            let index = activeFilters.findIndex((f: any) => f.key === key && f.value === value)
             if (index >= 0) activeFilters.splice(index, 1)
             return { filters: { ...state.filters, active: activeFilters } }
           },
@@ -107,12 +120,20 @@ const createFiltersSlice = (set, get, options) => ({
         get().data.actions.filterItems()
       },
       removeAll: () => {
-        set((state) => ({ filters: { ...state.filters, active: [] } }), false, "filters.remove")
+        set(
+          (state: any) => ({
+            filters: { ...state.filters, active: [] },
+          }),
+          false,
+          "filters.remove"
+        )
         // filter items
         get().data.actions.filterItems()
       },
-      setSearchTerm: (searchTerm) => {
-        set((state) => ({ filters: { ...state.filters, searchTerm } }))
+      setSearchTerm: (searchTerm: any) => {
+        set((state: any) => ({
+          filters: { ...state.filters, searchTerm },
+        }))
         // filter items
         get().data.actions.filterItems()
       },

@@ -10,7 +10,7 @@ import Collapsible from "../shared/Collapsible"
 const VARIABLE_REGEX = /\u003c([^\u003e]+)\u003e/g
 const COLLAPSE_REGIONS_COUNT = 3
 
-const parseVariables = (text) => {
+const parseVariables = (text: any) => {
   return (
     <Interweave
       content={text.replaceAll(
@@ -21,7 +21,7 @@ const parseVariables = (text) => {
   )
 }
 
-const ViolationDetailsOccurrences = ({ violation }) => {
+const ViolationDetailsOccurrences = ({ violation }: any) => {
   const [showRegions, setShowRegions] = React.useState(false)
 
   return (
@@ -33,7 +33,7 @@ const ViolationDetailsOccurrences = ({ violation }) => {
       {violation?.instances?.length > COLLAPSE_REGIONS_COUNT ? (
         <Collapsible show={showRegions} maxHeight={false}>
           <div className="grid grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] gap-2">
-            {violation.instances.map((instance, i) => (
+            {violation.instances.map((instance: any, i: any) => (
               <div key={i} className="text-sm text-theme-light">
                 {instance.cluster}:{instance.name}
               </div>
@@ -42,7 +42,7 @@ const ViolationDetailsOccurrences = ({ violation }) => {
         </Collapsible>
       ) : (
         <div className="flex flex-wrap gap-2">
-          {violation.instances.map((instance, i) => (
+          {violation.instances.map((instance: any, i: any) => (
             <div key={i} className="text-sm text-theme-light">
               {instance.cluster}:{instance.name}
             </div>

@@ -12,6 +12,7 @@ import Filters from "../filters/Filters"
 
 const ViolationDetails = () => {
   const detailsViolationGroupKind = useDataDetailsViolationGroupKind()
+  // @ts-expect-error - setDetailsViolationGroupKind is not defined
   const { setDetailsViolationGroupKind } = useDataActions()
   const [showContent, setShowContent] = useState(false)
 
@@ -41,6 +42,7 @@ const ViolationDetails = () => {
             <ViolationDetailsList />
           </>
         ) : (
+          // @ts-ignore
           <>{detailsViolationGroupKind && <HintLoading />}</>
         )}
       </PanelBody>

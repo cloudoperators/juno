@@ -35,7 +35,7 @@ const SEVERITY_DATA = {
 }
 
 // StatusIcon renders the icon for the severity
-const StatusIcon = ({ severityData, title }) => (
+const StatusIcon = ({ severityData, title }: any) => (
   <Tooltip triggerEvent="hover">
     <TooltipTrigger>
       <Icon icon={severityData.icon} title={title} color={severityData.iconCss} />
@@ -46,12 +46,13 @@ const StatusIcon = ({ severityData, title }) => (
 )
 
 // ViolationSeverity renders the severity of the violation
-const ViolationSeverity = ({ severities, border, className = "" }) => {
+const ViolationSeverity = ({ severities, border, className = "" }: any) => {
   // worstSeverity is the severity with the highest weight
   const severityData = React.useMemo(() => {
     if (!severities || severities.length === 0) return null
 
     // return the severity with the highest weight
+    // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return SEVERITY_DATA[severities[0]]
   }, [severities])
 

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const parseError = (error) => {
+export const parseError = (error: any) => {
   if (!error || (typeof error === "object" && Object.keys(error).length === 0))
     return "An error occurred. There is no further information"
   let errMsg = JSON.stringify(error)
@@ -20,16 +20,16 @@ export const parseError = (error) => {
   return errMsg
 }
 
-export const camelCaseToSpaceCase = (str) => {
-  return str.replace(/([A-Z])/g, (c) => " " + c.toLowerCase())
+export const camelCaseToSpaceCase = (str: any) => {
+  return str.replace(/([A-Z])/g, (c: any) => " " + c.toLowerCase());
 }
 
-export const valueToLabel = (str) => {
+export const valueToLabel = (str: any) => {
   if (!str) return str
-  return str.replace(/([A-Z])/g, (c) => " " + c.toLowerCase()).replace(/_/g, " ")
+  return str.replace(/([A-Z])/g, (c: any) => " " + c.toLowerCase()).replace(/_/g, " ");
 }
 
-export function capitalize(string) {
+export function capitalize(string: any) {
   // Check if the string is empty or undefined
   if (!string) return string
 

@@ -17,7 +17,8 @@ import { parseError } from "../lib/helpers"
 import Highlighter from "./Highlighter"
 import Violations from "./violations/violations"
 
-const AppContent = ({ showDebugSeverities }) => {
+const AppContent = ({ showDebugSeverities }: any) => {
+  // @ts-expect-error TS(2339) FIXME: Property 'id' does not exist on type '{}'.
   const { setData, setShowDebugSeverities } = useDataActions()
   const { addMessage } = useActions()
 

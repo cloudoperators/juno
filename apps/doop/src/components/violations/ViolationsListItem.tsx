@@ -9,8 +9,9 @@ import { useDataDetailsViolationGroupKind, useDataActions } from "../StoreProvid
 import ViolationServicesCount from "./ViolationServicesCount"
 import ViolationSeverity from "./ViolationSeverity"
 
-const ViolationListItem = ({ item }) => {
+const ViolationListItem = ({ item }: any) => {
   const detailsViolationGroupKind = useDataDetailsViolationGroupKind()
+  // @ts-expect-error TS(2339) FIXME: Property 'setDetailsViolationGroupKind' does not exist on type 'any'.
   const { setDetailsViolationGroupKind } = useDataActions()
 
   return (
@@ -39,7 +40,7 @@ const ViolationListItem = ({ item }) => {
         <div>Template:</div>
         <div>
           {item?.constraints?.map(
-            (c, i) =>
+            (c: any, i: any) =>
               c.metadata?.template_source && (
                 <div key={i}>
                   <a href={c.metadata.template_source} target="_blank" className="hover:underline" rel="noreferrer">
@@ -56,7 +57,7 @@ const ViolationListItem = ({ item }) => {
         <div>Constraint:</div>
         <div>
           {item?.constraints?.map(
-            (c, i) =>
+            (c: any, i: any) =>
               c.metadata?.constraint_source && (
                 <div key={i}>
                   <a href={c.metadata.constraint_source} target="_blank" className="hover:underline" rel="noreferrer">

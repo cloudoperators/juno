@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect } from "react"
+// @ts-expect-error TS(2792) FIXME: Cannot find module '@cloudoperators/juno-url-state... Remove this comment to see the full error message
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import {
   useDataDetailsViolationGroupKind,
@@ -18,17 +19,18 @@ const ACTIVE_FILTERS = "f"
 const SEARCH_TERM = "s"
 const DETAILS_VIOLATION_GROUP = "v"
 
-const useUrlState = (key) => {
+const useUrlState = (key: any) => {
   const [isURLRead, setIsURLRead] = useState(false)
   // it is possible to have two doop apps on the page
   // int his case the key should be different per app
   const urlStateManager = registerConsumer(key || DEFAULT_KEY)
-  // filters
+  // @ts-ignore
   const { set: setActiveFilters, setSearchTerm } = useFiltersActions()
   const activeFilters = useFiltersActive()
   const searchTerm = useFiltersSearchTerm()
   // globals
   const detailsViolationGroupKind = useDataDetailsViolationGroupKind()
+  // @ts-expect-error - setDetailsViolationGroupKind is not defined
   const { setDetailsViolationGroupKind } = useDataActions()
 
   // Set initial state from URL

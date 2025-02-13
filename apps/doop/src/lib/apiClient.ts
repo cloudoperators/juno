@@ -4,7 +4,9 @@
  */
 
 // Example fetch call. Adjust as needed for your API
-export const fetchData = ({ meta }) => {
+export const fetchData = ({
+  meta
+}: any) => {
   return fetch(`${meta.endpoint}`, {
     method: "GET",
     headers: {
@@ -12,6 +14,7 @@ export const fetchData = ({ meta }) => {
       Accept: "application/json",
     },
   }).then((response) => {
+    // @ts-expect-error TS(2339) FIXME: Property 'statusCode' does not exist on type 'Resp... Remove this comment to see the full error message
     if (response.statusCode >= 400) {
       throw new Error(response.statusText)
     }

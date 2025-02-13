@@ -7,6 +7,7 @@ import React, { useLayoutEffect } from "react"
 
 import { AppShellProvider, ContentHeading } from "@cloudoperators/juno-ui-components"
 import AppContent from "./components/AppContent"
+// @ts-expect-error TS(2792) FIXME: Cannot find module './styles.scss?inline'. Did you... Remove this comment to see the full error message
 import styles from "./styles.scss?inline"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import StoreProvider from "./components/StoreProvider"
@@ -16,12 +17,14 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { useGlobalsActions } from "./components/StoreProvider"
 
 const App = (props = {}) => {
+  // @ts-expect-error TS(2339) FIXME: Property 'setEndpoint' does not exist on type '{}'.
   const { setEndpoint } = useGlobalsActions()
 
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         meta: {
+          // @ts-expect-error TS(2339) FIXME: Property 'apiEndpoint' does not exist on type '{}'... Remove this comment to see the full error message
           endpoint: props.apiEndpoint,
         },
       },
@@ -35,12 +38,16 @@ const App = (props = {}) => {
 
   return (
     <MessagesProvider>
+      {/* @ts-expect-error TS(2339): Property 'embedded' does not exist on type '{}'. // @ts-expect-error TS(2339) FIXME: */}
       <AppShell pageHeader={`Doop`} embedded={props.embedded === true}>
         <ContentHeading
+          // @ts-expect-error TS(2339) FIXME: Property 'displayName' does not exist on type '{}'... Remove this comment to see the full error message
           heading={`Decentralized Observer of Policies  ${props.displayName ? ` - ${props.displayName}` : ""}`}
         />
+        {/* @ts-expect-error TS(2339): Property 'id' does not exist on type '{}'. // @ts-expect-error TS(2339) FIXME: */}
         <AsyncWorker consumerId={props.id || "doop"} />
         <QueryClientProvider client={queryClient}>
+          {/* @ts-expect-error TS(2339): Property 'id' does not exist on type '{}'. // @ts-expect-error TS(2339) FIXME: */}
           <AppContent id={props?.id} showDebugSeverities={props.showDebugSeverities} />
         </QueryClientProvider>
       </AppShell>
@@ -48,7 +55,7 @@ const App = (props = {}) => {
   )
 }
 
-const StyledApp = (props) => {
+const StyledApp = (props: any) => {
   return (
     <AppShellProvider>
       {/* load styles inside the shadow dom */}

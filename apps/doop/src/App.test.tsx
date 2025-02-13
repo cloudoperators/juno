@@ -14,6 +14,7 @@ import { describe } from "node:test"
 // Mock the styles
 vi.mock("./styles.module.scss", () => ({
   default: new Proxy(new Object(), {
+    // @ts-expect-error TS(2304) FIXME: Cannot find name 'Proxy'.
     toString() {
       return "/*TEST STYLES*/"
     },

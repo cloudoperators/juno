@@ -8,7 +8,7 @@ import FilterPill from "../shared/FilterPill"
 import { valueToLabel } from "../../lib/helpers"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
-const ViolationDetailsPills = ({ violation }) => {
+const ViolationDetailsPills = ({ violation }: any) => {
   if (!violation?.object_identity) return null
 
   return (

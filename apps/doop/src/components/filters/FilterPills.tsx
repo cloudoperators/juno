@@ -11,22 +11,26 @@ import { valueToLabel } from "../../lib/helpers"
 
 const FilterPills = () => {
   const activeFilters = useFiltersActive()
+  // @ts-ignore
   const { remove } = useFiltersActions()
 
   if (!activeFilters) return null
 
   return (
     <Stack wrap gap="2">
-      {activeFilters.map(({ key, value, label }, i) => (
-        <Pill
-          pillKey={key?.split(":")?.[1]}
-          pillValue={value}
-          pillKeyLabel={valueToLabel(label)}
-          closeable
-          onClose={() => remove(key, value)}
-          key={i}
-        />
-      ))}
+      {
+        // @ts-ignore
+        activeFilters.map(({ key, value, label }: any, i: any) => (
+          <Pill
+            pillKey={key?.split(":")?.[1]}
+            pillValue={value}
+            pillKeyLabel={valueToLabel(label)}
+            closeable
+            onClose={() => remove(key, value)}
+            key={i}
+          />
+        ))
+      }
     </Stack>
   )
 }
