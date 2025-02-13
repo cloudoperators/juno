@@ -16,6 +16,18 @@ export default {
       options: ["default", "number", "select", "input"],
       control: { type: "select" },
     },
+    className: {
+      control: "text",
+      table: {
+        type: { summary: "string" },
+      },
+    },
+    onKeyPress: {
+      control: false,
+      table: {
+        type: { summary: "(controlCurrentPage?: number) => void" },
+      },
+    },
   },
   decorators: [
     (Story: StoryFn) => (

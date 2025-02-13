@@ -26,10 +26,10 @@ import NodeList from "./NodeList"
 import ResourceStatusIcon from "./ResourceStatusIcon"
 
 const ClusterDetail: React.FC<any> = () => {
-  const clusterDetails = useStore((state) => state.clusterDetails)
-  const showClusterDetails = useStore((state) => state.showClusterDetails)
-  const setShowClusterDetails = useStore((state) => state.setShowClusterDetails)
-  const setClusterInEdit = useStore((state) => state.setClusterInEdit)
+  const clusterDetails = useStore((state: any) => state.clusterDetails)
+  const showClusterDetails = useStore((state: any) => state.showClusterDetails)
+  const setShowClusterDetails = useStore((state: any) => state.setShowClusterDetails)
+  const setClusterInEdit = useStore((state: any) => state.setClusterInEdit)
 
   const clusterAge = useMemo(() => {
     if (clusterDetails.cluster?.metadata?.creationTimestamp) {
@@ -101,6 +101,7 @@ const ClusterDetail: React.FC<any> = () => {
                           key={labelKey}
                           pillKeyLabel={labelKey}
                           pillKey={labelKey}
+                          // @ts-ignore
                           pillkeyvalue={labelValue}
                           pillValue={labelValue}
                         />

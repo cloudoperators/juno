@@ -13,7 +13,10 @@ export default {
   component: SelectOption,
   argTypes: {
     children: {
-      control: false,
+      control: { type: "string" },
+      table: {
+        type: { summary: "string" },
+      },
     },
   },
   decorators: [(story: () => null | undefined) => <PortalProvider>{story()}</PortalProvider>],

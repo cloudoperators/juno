@@ -54,6 +54,9 @@ export default {
     },
     modalFooter: {
       control: false,
+      table: {
+        type: { summary: "ReactElement" },
+      },
     },
   },
   parameters: { actions: { argTypesRegex: null } },

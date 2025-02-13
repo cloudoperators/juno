@@ -34,18 +34,19 @@ interface PluginDefinitionDetailProps {
 }
 
 const PluginDefinitionDetail: React.FC<PluginDefinitionDetailProps> = (props: PluginDefinitionDetailProps) => {
-  const showPluginDefinitionDetails = useStore((state) => state.showPluginDefinitionDetails)
-  const setShowPluginDefinitionDetails = useStore((state) => state.setShowPluginDefinitionDetails)
+  const showPluginDefinitionDetails = useStore((state: any) => state.showPluginDefinitionDetails)
+  const setShowPluginDefinitionDetails = useStore((state: any) => state.setShowPluginDefinitionDetails)
 
-  const setShowPluginDefinitionEdit = useStore((state) => state.setShowEditForm)
+  const setShowPluginDefinitionEdit = useStore((state: any) => state.setShowEditForm)
+  // @ts-ignore
   const { setPanel } = useGlobalsActions()
   const { getPluginsByLabelSelector: getPluginsByLabelSelector } = usePluginApi()
 
   const { fetchMarkDown: fetchMarkDown } = useFetchMarkDown()
-  const setIsEditMode = useStore((state) => state.setIsPluginEditMode)
+  const setIsEditMode = useStore((state: any) => state.setIsPluginEditMode)
 
-  const setEditFormData = useStore((state) => state.setEditFormData)
-  const setEditFormState = useStore((state) => state.setEditFormState)
+  const setEditFormData = useStore((state: any) => state.setEditFormData)
+  const setEditFormState = useStore((state: any) => state.setEditFormState)
   const openEditPluginDefinition = () => {
     setShowPluginDefinitionDetails(false)
     setShowPluginDefinitionEdit(true)

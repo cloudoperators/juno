@@ -22,8 +22,8 @@ interface DownloadKubeConfigProps {
 }
 
 const DownloadKubeConfig: React.FC<DownloadKubeConfigProps> = (props: DownloadKubeConfigProps) => {
-  const setShowDownloadKubeConfig = useStore((state) => state.setShowDownloadKubeConfig)
-  const showDownloadKubeConfig = useStore((state) => state.showDownloadKubeConfig)
+  const setShowDownloadKubeConfig = useStore((state: any) => state.setShowDownloadKubeConfig)
+  const showDownloadKubeConfig = useStore((state: any) => state.showDownloadKubeConfig)
 
   const kubeConfigTemplate = KUBECONFIGTEMPLATE
   const kubeConfig = kubeConfigTemplate

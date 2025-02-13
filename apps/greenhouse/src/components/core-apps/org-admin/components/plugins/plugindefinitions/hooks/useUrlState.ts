@@ -4,6 +4,7 @@
  */
 
 import { useEffect, useState } from "react"
+// @ts-ignore
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import useStore from "../store"
 
@@ -15,11 +16,11 @@ const useUrlState = (key: string): void => {
   const urlStateManager = registerConsumer(key || DEFAULT_KEY)
 
   // auth
-  const loggedIn = useStore((state) => state.loggedIn)
+  const loggedIn = useStore((state: any) => state.loggedIn)
 
   // globals
-  const showPluginDetails = useStore((state) => state.showPluginDefinitionDetails)
-  const setShowPluginDetails = useStore((state) => state.setShowPluginDefinitionDetails)
+  const showPluginDetails = useStore((state: any) => state.showPluginDefinitionDetails)
+  const setShowPluginDetails = useStore((state: any) => state.setShowPluginDefinitionDetails)
 
   // Set initial state from URL (on login)
   useEffect(() => {

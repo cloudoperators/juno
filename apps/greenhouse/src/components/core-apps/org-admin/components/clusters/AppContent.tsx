@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+
 import { Button, ButtonRow, Container, DataGridToolbar } from "@cloudoperators/juno-ui-components"
 import ClusterDetail from "./components/ClusterDetail"
 import ClusterEdit from "./components/ClusterEdit"
@@ -12,19 +13,19 @@ import DownloadKubeConfig from "./components/DownloadKubeConfig"
 import OnBoardCluster from "./components/OnBoardCluster"
 import useStore from "./store"
 
-const AppContent = ({ expires }) => {
-  const token = useStore((state) => state.token)
-  const namespace = useStore((state) => state.namespace)
-  const clusters = useStore((state) => state.clusters)
-  const clusterDetails = useStore((state) => state.clusterDetails)
-  const showClusterDetails = useStore((state) => state.showClusterDetails)
-  const showOnBoardCluster = useStore((state) => state.showOnBoardCluster)
-  const showDownloadKubeConfig = useStore((state) => state.showDownloadKubeConfig)
-  const clusterInEdit = useStore((state) => state.clusterInEdit)
-  const apiEndpoint = useStore((state) => state.endpoint)
-  const setShowOnBoardCluster = useStore((state) => state.setShowOnBoardCluster)
-  const setShowClusterDetails = useStore((state) => state.setShowClusterDetails)
-  const setShowDownloadKubeConfig = useStore((state) => state.setShowDownloadKubeConfig)
+const AppContent = ({ expires }: any) => {
+  const token = useStore((state: any) => state.token)
+  const namespace = useStore((state: any) => state.namespace)
+  const clusters = useStore((state: any) => state.clusters)
+  const clusterDetails = useStore((state: any) => state.clusterDetails)
+  const showClusterDetails = useStore((state: any) => state.showClusterDetails)
+  const showOnBoardCluster = useStore((state: any) => state.showOnBoardCluster)
+  const showDownloadKubeConfig = useStore((state: any) => state.showDownloadKubeConfig)
+  const clusterInEdit = useStore((state: any) => state.clusterInEdit)
+  const apiEndpoint = useStore((state: any) => state.endpoint)
+  const setShowOnBoardCluster = useStore((state: any) => state.setShowOnBoardCluster)
+  const setShowClusterDetails = useStore((state: any) => state.setShowClusterDetails)
+  const setShowDownloadKubeConfig = useStore((state: any) => state.setShowDownloadKubeConfig)
 
   const openOnBoardCluster = () => {
     setShowOnBoardCluster(true)

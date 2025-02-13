@@ -62,20 +62,32 @@ export interface State {
 }
 
 // global zustand store. See how this works here: https://github.com/pmndrs/zustand
-const usePluginDefinitionsStore = create<State>((set) => ({
+const usePluginDefinitionsStore = create<State>((set: any) => ({
   endpoint: "",
   token: "",
   namespace: "",
-  initialize: (endpoint, token, namespace) => set((state) => ({ endpoint, token, namespace })),
+
+  initialize: (endpoint: any, token: any, namespace: any) =>
+    set((state: any) => ({
+      endpoint,
+      token,
+      namespace,
+    })),
+
   urlStateKey: "",
-  setUrlStateKey: (newUrlStateKey) => set((state) => ({ urlStateKey: newUrlStateKey })),
+
+  setUrlStateKey: (newUrlStateKey: any) =>
+    set((state: any) => ({
+      urlStateKey: newUrlStateKey,
+    })),
 
   pluginDefinitions: [],
-  modifyPluginDefinitions: (pds) =>
-    set((state) => {
+
+  modifyPluginDefinitions: (pds: any) =>
+    set((state: any) => {
       let newPluginDefinitions = [...state.pluginDefinitions]
-      pds.forEach((inputPluginDefinition) => {
-        const index = newPluginDefinitions.findIndex((knownPluginDefinition) => {
+      pds.forEach((inputPluginDefinition: any) => {
+        const index = newPluginDefinitions.findIndex((knownPluginDefinition: any) => {
           return knownPluginDefinition.metadata!.name === inputPluginDefinition.metadata!.name
         })
         if (index >= 0) {
@@ -86,56 +98,92 @@ const usePluginDefinitionsStore = create<State>((set) => ({
       })
       return { pluginDefinitions: newPluginDefinitions }
     }),
-  deletePluginDefinitions: (pds) =>
-    set((state) => {
-      const newPluginDefinitions = state.pluginDefinitions.filter((knownPluginDefinition) => {
-        return !pds.some((inputPluginDefinition) => {
+
+  deletePluginDefinitions: (pds: any) =>
+    set((state: any) => {
+      const newPluginDefinitions = state.pluginDefinitions.filter((knownPluginDefinition: any) => {
+        return !pds.some((inputPluginDefinition: any) => {
           return knownPluginDefinition.metadata!.name === inputPluginDefinition.metadata!.name
         })
       })
       return { pluginDefinitions: newPluginDefinitions }
     }),
+
   showPluginDefinitionDetails: false,
-  setShowPluginDefinitionDetails: (showPluginDefinitionDetails) =>
-    set((state) => ({
+
+  setShowPluginDefinitionDetails: (showPluginDefinitionDetails: any) =>
+    set((state: any) => ({
       ...state,
       showPluginDefinitionDetails: showPluginDefinitionDetails,
     })),
 
   pluginDefinitionDetail: null,
-  setPluginDefinitionDetail: (pluginDefinition) => set((state) => ({ pluginDefinitionDetail: pluginDefinition })),
+
+  setPluginDefinitionDetail: (pluginDefinition: any) =>
+    set((state: any) => ({
+      pluginDefinitionDetail: pluginDefinition,
+    })),
 
   showEditForm: false,
-  setShowEditForm: (showEditForm) => set((state) => ({ showEditForm: showEditForm })),
+
+  setShowEditForm: (showEditForm: any) =>
+    set((state: any) => ({
+      showEditForm: showEditForm,
+    })),
 
   editFormState: EditFormState.PLUGIN_CREATE,
-  setEditFormState: (editFormState) => set((state) => ({ editFormState: editFormState })),
+
+  setEditFormState: (editFormState: any) =>
+    set((state: any) => ({
+      editFormState: editFormState,
+    })),
 
   pluginToEdit: undefined,
-  setPluginToEdit: (plugin) => set((state) => ({ pluginToEdit: plugin })),
+
+  setPluginToEdit: (plugin: any) =>
+    set((state: any) => ({
+      pluginToEdit: plugin,
+    })),
 
   editFormData: {
     metadata: undefined,
     spec: undefined,
     labelSelector: undefined,
   },
-  setEditFormData: (editFormData) => set((state) => ({ editFormData: editFormData })),
+
+  setEditFormData: (editFormData: any) =>
+    set((state: any) => ({
+      editFormData: editFormData,
+    })),
 
   isFormEditMode: false,
-  setIsFormEditMode: (isEditMode) => set((state) => ({ isFormEditMode: isEditMode })),
+
+  setIsFormEditMode: (isEditMode: any) =>
+    set((state: any) => ({
+      isFormEditMode: isEditMode,
+    })),
 
   isFormPluginPresetMode: false,
-  setIsFormPluginPresetMode: (isEditMode) => set((state) => ({ isFormPluginPresetMode: isEditMode })),
+
+  setIsFormPluginPresetMode: (isEditMode: any) =>
+    set((state: any) => ({
+      isFormPluginPresetMode: isEditMode,
+    })),
 
   isPluginEditMode: false,
-  setIsPluginEditMode: (isEditMode) => set((state) => ({ isPluginEditMode: isEditMode })),
+
+  setIsPluginEditMode: (isEditMode: any) =>
+    set((state: any) => ({
+      isPluginEditMode: isEditMode,
+    })),
 
   secrets: [],
-  modifySecrets: (secrets) =>
-    set((state) => {
+
+  modifySecrets: (secrets: any) =>
+    set((state: any) => {
       let newSecrets = [...state.secrets]
-      secrets.forEach((inputSecret) => {
-        const index = newSecrets.findIndex((knownSecret) => {
+      secrets.forEach((inputSecret: any) => {
+        const index = newSecrets.findIndex((knownSecret: any) => {
           return knownSecret.metadata!.name === inputSecret.metadata!.name
         })
         if (index >= 0) {
@@ -146,22 +194,37 @@ const usePluginDefinitionsStore = create<State>((set) => ({
       })
       return { ...state, secrets: newSecrets }
     }),
-  deleteSecrets: (secrets) =>
-    set((state) => {
-      const newSecrets = state.secrets.filter((knownSecret) => {
-        return !secrets.some((inputSecret) => {
+
+  deleteSecrets: (secrets: any) =>
+    set((state: any) => {
+      const newSecrets = state.secrets.filter((knownSecret: any) => {
+        return !secrets.some((inputSecret: any) => {
           return knownSecret.metadata!.name === inputSecret.metadata!.name
         })
       })
       return { secrets: newSecrets }
     }),
+
   secretDetail: undefined,
-  setSecretDetail: (secret) => set((state) => ({ secretDetail: secret })),
+
+  setSecretDetail: (secret: any) =>
+    set((state: any) => ({
+      secretDetail: secret,
+    })),
+
   showSecretEdit: false,
-  setShowSecretEdit: (showSecretEdit) => set((state) => ({ showSecretEdit: showSecretEdit })),
+
+  setShowSecretEdit: (showSecretEdit: any) =>
+    set((state: any) => ({
+      showSecretEdit: showSecretEdit,
+    })),
 
   isSecretEditMode: false,
-  setIsSecretEditMode: (isEditMode) => set((state) => ({ isSecretEditMode: isEditMode })),
+
+  setIsSecretEditMode: (isEditMode: any) =>
+    set((state: any) => ({
+      isSecretEditMode: isEditMode,
+    })),
 }))
 
 export default usePluginDefinitionsStore

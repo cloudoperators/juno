@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+
 import { Button, Stack, TextInput, FormSection, Textarea } from "@cloudoperators/juno-ui-components"
 /*
  * This Element provides a form section for entering and editing key-value pairs.
@@ -22,7 +23,7 @@ export interface KeyValueInputProps {
 const KeyValueInput: React.FC<KeyValueInputProps> = (props: KeyValueInputProps) => {
   const dataName = props.dataName ? props.dataName : "Data"
   const isSecret = props.isSecret ? props.isSecret : false
-  const handleDataEntryChange = (key, value: string) => {
+  const handleDataEntryChange = (key: any, value: string) => {
     // key is in format dataKey.key or dataValue.key
     let keyInfo = key.split(".")
     let keyIdentifier = keyInfo[0]
@@ -75,7 +76,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = (props: KeyValueInputProps) 
               id={"dataKey." + dataKey}
               label={`${dataName} Key`}
               value={dataKey}
-              onBlur={(e) => handleDataEntryChange("dataKey." + dataKey, e.target.value)}
+              onBlur={(e: any) => handleDataEntryChange("dataKey." + dataKey, e.target.value)}
             />
 
             <Textarea
@@ -83,7 +84,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = (props: KeyValueInputProps) 
               type={isSecret ? "password" : "text"}
               label={`${dataName} Value`}
               value={props.data![dataKey]}
-              onBlur={(e) => handleDataEntryChange("dataValue." + dataKey, e.target.value)}
+              onBlur={(e: any) => handleDataEntryChange("dataValue." + dataKey, e.target.value)}
             />
             <Button icon="deleteForever" onClick={() => deleteDataEntry(dataKey)} />
           </Stack>

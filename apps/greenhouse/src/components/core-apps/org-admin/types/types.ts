@@ -4,6 +4,7 @@
  */
 
 import { components } from "./schema"
+// @ts-expect-error TS(2792): Cannot find module 'kubernetes-types/core/v1'. Did... Remove this comment to see the full error message
 import { Secret as k8sSecret } from "kubernetes-types/core/v1"
 
 export type Secret = k8sSecret

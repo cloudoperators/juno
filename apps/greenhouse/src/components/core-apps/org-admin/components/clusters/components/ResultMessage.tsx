@@ -19,6 +19,7 @@ const ResultMessageComponent: React.FC<ResultMessageProps> = (props: ResultMessa
   // if variant is not set, we deduct from ok
   if (!props.submitMessage.variant) props.submitMessage.variant = props.submitMessage.ok ? "success" : "error"
   return (
+    // @ts-expect-error TS(2686): 'React' refers to a UMD global, but the current fi... Remove this comment to see the full error message
     <Message
       autoDismissTimeout={3000}
       autoDismiss={props.submitMessage.ok}

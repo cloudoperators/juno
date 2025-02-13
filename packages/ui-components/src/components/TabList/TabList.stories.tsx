@@ -13,6 +13,9 @@ export default {
   argTypes: {
     children: {
       control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
     tabs: {
       table: {
@@ -25,7 +28,7 @@ export default {
 const Template = ({ children, ...args }: TemplateProps) => <TabList {...args}>{children}</TabList>
 
 interface TemplateProps {
-  children?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[] | null
+  children?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[]
 }
 
 export const Default = {
