@@ -6,6 +6,7 @@
 import useClient from "../plugindefinitions/hooks/useClient"
 import React, { useEffect } from "react"
 import { Cluster } from "../../../types/types"
+
 import { Select, SelectOption } from "@cloudoperators/juno-ui-components"
 import useStore from "../plugindefinitions/store"
 
@@ -19,7 +20,7 @@ interface ClusterSelectProps {
 
 const ClusterSelect: React.FC<ClusterSelectProps> = (props: ClusterSelectProps) => {
   const { client } = useClient()
-  const namespace = useStore((state) => state.namespace)
+  const namespace = useStore((state: any) => state.namespace)
   const [availableClusters, setAvailableClusters] = React.useState<Cluster[]>([])
 
   useEffect(() => {
@@ -64,6 +65,7 @@ const ClusterSelect: React.FC<ClusterSelectProps> = (props: ClusterSelectProps) 
       placeholder={props.placeholder}
       label={props.label}
       defaultValue={props.defaultValue}
+      // @ts-ignore
       onChange={handleChange}
     >
       {availableClusters.map((cluster) => {

@@ -5,6 +5,7 @@
 
 import { DataGrid, DataGridHeadCell, DataGridRow, Icon } from "@cloudoperators/juno-ui-components"
 import React from "react"
+// @ts-ignore
 import { Cluster } from "../types/types"
 import ClusterListItem from "./ClusterListItem"
 

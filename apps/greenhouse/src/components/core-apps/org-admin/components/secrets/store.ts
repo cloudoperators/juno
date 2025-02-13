@@ -4,7 +4,7 @@
  */
 
 import { create } from "zustand"
-import { Secret, UpdateObjectAction, UpdateSecretInput } from "../../types/types"
+import { Secret } from "../../types/types"
 
 export interface State {
   endpoint: string
@@ -26,20 +26,32 @@ export interface State {
 }
 
 // global zustand store. See how this works here: https://github.com/pmndrs/zustand
-const useStore = create<State>((set) => ({
+const useStore = create<State>((set: any) => ({
   endpoint: "",
   token: "",
   namespace: "",
-  initialize: (endpoint, token, namespace) => set((state) => ({ endpoint, token, namespace })),
+
+  initialize: (endpoint: any, token: any, namespace: any) =>
+    set((state: any) => ({
+      endpoint,
+      token,
+      namespace,
+    })),
+
   urlStateKey: "secret-admin",
-  setUrlStateKey: (newUrlStateKey) => set((state) => ({ urlStateKey: newUrlStateKey })),
+
+  setUrlStateKey: (newUrlStateKey: any) =>
+    set((state: any) => ({
+      urlStateKey: newUrlStateKey,
+    })),
 
   secrets: [],
-  modifySecrets: (secrets) =>
-    set((state) => {
+
+  modifySecrets: (secrets: any) =>
+    set((state: any) => {
       let newSecrets = [...state.secrets]
-      secrets.forEach((inputSecret) => {
-        const index = newSecrets.findIndex((knownSecret) => {
+      secrets.forEach((inputSecret: any) => {
+        const index = newSecrets.findIndex((knownSecret: any) => {
           return knownSecret.metadata!.name === inputSecret.metadata!.name
         })
         if (index >= 0) {
@@ -50,10 +62,11 @@ const useStore = create<State>((set) => ({
       })
       return { ...state, secrets: newSecrets }
     }),
-  deleteSecrets: (secrets) =>
-    set((state) => {
-      const newSecrets = state.secrets.filter((knownSecret) => {
-        return !secrets.some((inputSecret) => {
+
+  deleteSecrets: (secrets: any) =>
+    set((state: any) => {
+      const newSecrets = state.secrets.filter((knownSecret: any) => {
+        return !secrets.some((inputSecret: any) => {
           return knownSecret.metadata!.name === inputSecret.metadata!.name
         })
       })
@@ -61,18 +74,31 @@ const useStore = create<State>((set) => ({
     }),
 
   secretDetail: undefined,
-  setSecretDetail: (secret) => set((state) => ({ secretDetail: secret })),
+
+  setSecretDetail: (secret: any) =>
+    set((state: any) => ({
+      secretDetail: secret,
+    })),
+
   showSecretEdit: false,
-  setShowSecretEdit: (showSecretEdit) => set((state) => ({ showSecretEdit: showSecretEdit })),
+
+  setShowSecretEdit: (showSecretEdit: any) =>
+    set((state: any) => ({
+      showSecretEdit: showSecretEdit,
+    })),
 
   isSecretEditMode: false,
-  setIsSecretEditMode: (isEditMode) => set((state) => ({ isSecretEditMode: isEditMode })),
+
+  setIsSecretEditMode: (isEditMode: any) =>
+    set((state: any) => ({
+      isSecretEditMode: isEditMode,
+    })),
 }))
 
 const updateSecrets = (existingSecrets: Secret[], newSecrets: Secret[]): Secret[] => {
   let returnSecrets = existingSecrets
   newSecrets.forEach((inputSecret) => {
-    const index = existingSecrets.findIndex((knownSecret) => {
+    const index = existingSecrets.findIndex((knownSecret: any) => {
       return knownSecret.metadata!.name === inputSecret.metadata!.name
     })
     if (index >= 0) {

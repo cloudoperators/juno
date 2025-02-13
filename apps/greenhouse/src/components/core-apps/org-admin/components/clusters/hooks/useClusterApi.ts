@@ -15,9 +15,9 @@ export type ClusterApiResponse = {
 
 export const useClusterApi = () => {
   const { get, create, update, deleteObject, watch } = useApi()
-  const namespace = useStore((state) => state.namespace)
-  const modifyClusters = useStore((state) => state.modifyClusters)
-  const deleteClusters = useStore((state) => state.deleteClusters)
+  const namespace = useStore((state: any) => state.namespace)
+  const modifyClusters = useStore((state: any) => state.modifyClusters)
+  const deleteClusters = useStore((state: any) => state.deleteClusters)
 
   const getCluster = (cluster: Cluster): Promise<ClusterApiResponse> => {
     return get<Cluster>(
