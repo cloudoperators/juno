@@ -14,9 +14,9 @@ interface SecretListItemProps {
 }
 
 const SecretListItem: React.FC<SecretListItemProps> = (props: SecretListItemProps) => {
-  const setSecretDetail = useStore((state) => state.setSecretDetail)
-  const setShowSecretEdit = useStore((state) => state.setShowSecretEdit)
-  const setIsSecretEditMode = useStore((state) => state.setIsSecretEditMode)
+  const setSecretDetail = useStore((state: any) => state.setSecretDetail)
+  const setShowSecretEdit = useStore((state: any) => state.setShowSecretEdit)
+  const setIsSecretEditMode = useStore((state: any) => state.setIsSecretEditMode)
   const openDetails = () => {
     // base64 decode secret data before showing it
     let secretDetail = base64DecodeSecretData(props.secret)

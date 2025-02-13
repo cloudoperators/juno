@@ -9,7 +9,7 @@ import useClient from "./useClient"
 import useStore from "../store"
 
 export const useApi = (debug?: boolean) => {
-  const namespace = useStore((state) => state.namespace)
+  const namespace = useStore((state: any) => state.namespace)
   const { client: client } = useClient()
 
   // toggle verbosity
@@ -24,15 +24,19 @@ export const useApi = (debug?: boolean) => {
       }
 
       return await client
+        // @ts-ignore TS(2339): Property 'metadata' does not exist on type 'T'.
         .get(url + "/" + object.metadata!.name!, {
           params: params,
         })
-        .then((res) => {
+        .then((res: any) => {
+          // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
           if (res.kind !== object.kind) {
             isDebug &&
+              // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
               console.debug(`ERROR: Failed to get ${object.kind}, did not get ${object.kind}: ${JSON.stringify(res)}`)
             return {
               ok: false,
+              // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
               message: `Failed getting ${object.kind}`,
               response: res as T,
             }
@@ -40,13 +44,16 @@ export const useApi = (debug?: boolean) => {
           return {
             ok: true,
             response: res as T,
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             message: `Successfully got ${object.kind}`,
           }
         })
-        .catch((error) => {
+        .catch((error: any) => {
+          // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
           isDebug && console.debug(`ERROR: Failed to get ${object.kind}`, error)
           return {
             ok: false,
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             message: `Failed getting ${object.kind}: ${error}`,
           }
         })
@@ -62,24 +69,30 @@ export const useApi = (debug?: boolean) => {
 
       return await client
         .post(url, object)
-        .then((res) => {
+        .then((res: any) => {
+          // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
           if (res.kind !== object.kind) {
             isDebug &&
               console.debug(
+                // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
                 `ERROR: Failed to create ${object.kind}, did not get ${object.kind}: ${JSON.stringify(res)}`
               )
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             return { ok: false, message: `Failed creating ${object.kind}` }
           }
           return {
             ok: true,
             response: res as T,
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             message: `Successfully created ${object.kind}`,
           }
         })
-        .catch((error) => {
+        .catch((error: any) => {
+          // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
           isDebug && console.debug(`ERROR: Failed to create ${object.kind}`, error)
           return {
             ok: false,
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             message: `Failed creating ${object.kind}: ${error}`,
           }
         })
@@ -94,25 +107,32 @@ export const useApi = (debug?: boolean) => {
       }
 
       return await client
+        // @ts-ignore TS(2339): Property 'metadata' does not exist on type 'T'.
         .put(url + "/" + object.metadata!.name!, object)
-        .then((res) => {
+        .then((res: any) => {
+          // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
           if (res.kind !== object.kind) {
             isDebug &&
               console.debug(
+                // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
                 `ERROR: Failed to update ${object.kind}, did not get ${object.kind}: ${JSON.stringify(res)}`
               )
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             return { ok: false, message: `Failed updating ${object.kind}` }
           }
           return {
             ok: true,
             response: res as T,
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             message: `Successfully updated ${object.kind}`,
           }
         })
-        .catch((error) => {
+        .catch((error: any) => {
+          // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
           isDebug && console.debug(`ERROR: Failed to update ${object.kind}`, error)
           return {
             ok: false,
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             message: `Failed updating ${object.kind}: ${error}`,
           }
         })
@@ -128,21 +148,28 @@ export const useApi = (debug?: boolean) => {
       }
 
       return await client
+        // @ts-ignore TS(2339): Property 'metadata' does not exist on type 'T'.
         .delete(url + "/" + object.metadata!.name!, {
           params: params,
         })
-        .then((res) => {
+        .then((res: any) => {
+          // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
           if (res.kind == object.kind || (res.kind == "Status" && res.status == "Success")) {
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             return { ok: true, message: `Successfully deleted ${object.kind}` }
           }
           isDebug &&
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             console.debug(`ERROR: Failed to delete ${object.kind} did not get ${object.kind}: ${JSON.stringify(res)}`)
+          // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
           return { ok: false, message: `Failed deleting ${object.kind}` }
         })
-        .catch((error) => {
+        .catch((error: any) => {
+          // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
           isDebug && console.debug(`ERROR: Failed to delete ${object.kind}`, error)
           return {
             ok: false,
+            // @ts-ignore TS(2339): Property 'kind' does not exist on type 'T'.
             message: `Failed deleting ${object.kind}: ${error}`,
           }
         })
@@ -182,15 +209,15 @@ export const useApi = (debug?: boolean) => {
             .on(client.WATCH_ERROR, () => {
               console.debug("ERROR: Failed to watch resource")
             })
-            .on(client.WATCH_ADDED, (items) => {
+            .on(client.WATCH_ADDED, (items: any) => {
               addKind(items, kind)
               onAdded(items as T[])
             })
-            .on(client.WATCH_MODIFIED, (items) => {
+            .on(client.WATCH_MODIFIED, (items: any) => {
               addKind(items, kind)
               onModified(items as T[])
             })
-            .on(client.WATCH_DELETED, (items) => {
+            .on(client.WATCH_DELETED, (items: any) => {
               addKind(items, kind)
               onDeleted(items as T[])
             })
@@ -214,7 +241,6 @@ export const useApi = (debug?: boolean) => {
       let result = await get<AllowedApiObject>(url, object)
 
       // we get back an object list, if we are authorized
-      // @ts-ignore
       if (result.response?.kind == `${kind}List`) {
         return { ok: true, message: "" }
       }

@@ -4,6 +4,7 @@
  */
 
 import { useEffect, useState } from "react"
+// @ts-expect-error TS(2792): Cannot find module '@cloudoperators/juno-url-state... Remove this comment to see the full error message
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import useStore from "../store"
 
@@ -17,16 +18,16 @@ const useUrlState = (key: string): void => {
   const urlStateManager = registerConsumer(key || DEFAULT_KEY)
 
   // auth
-  const loggedIn = useStore((state) => state.loggedIn)
+  const loggedIn = useStore((state: any) => state.loggedIn)
 
   // globals
-  const showClusterDetails = useStore((state) => state.showClusterDetails)
-  const setShowClusterDetails = useStore((state) => state.setShowClusterDetails)
-  const showOnboardCluster = useStore((state) => state.showOnBoardCluster)
-  const setShowOnboardCluster = useStore((state) => state.setShowOnBoardCluster)
-  const clusterDetails = useStore((state) => state.clusterDetails)
-  const setClusterDetails = useStore((state) => state.setClusterDetails)
-  const setClusterDetailPlugins = useStore((state) => state.setClusterDetailPlugins)
+  const showClusterDetails = useStore((state: any) => state.showClusterDetails)
+  const setShowClusterDetails = useStore((state: any) => state.setShowClusterDetails)
+  const showOnboardCluster = useStore((state: any) => state.showOnBoardCluster)
+  const setShowOnboardCluster = useStore((state: any) => state.setShowOnBoardCluster)
+  const clusterDetails = useStore((state: any) => state.clusterDetails)
+  const setClusterDetails = useStore((state: any) => state.setClusterDetails)
+  const setClusterDetailPlugins = useStore((state: any) => state.setClusterDetailPlugins)
 
   // Set initial state from URL (on login)
   useEffect(() => {

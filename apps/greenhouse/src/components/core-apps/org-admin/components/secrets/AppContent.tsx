@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import React from "react"
+
 import { Container } from "@cloudoperators/juno-ui-components"
 import SecretEdit from "./components/SecretEdit"
 import SecretList from "./components/SecretList"
@@ -12,7 +13,7 @@ import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import useStore from "./store"
 
 const AppContent = () => {
-  const showSecretEdit = useStore((state) => state.showSecretEdit)
+  const showSecretEdit = useStore((state: any) => state.showSecretEdit)
 
   return (
     <Container>

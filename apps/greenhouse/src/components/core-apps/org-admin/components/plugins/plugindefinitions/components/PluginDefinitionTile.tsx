@@ -14,9 +14,10 @@ interface PluginDefinitionTileProps {
 }
 const allowedIconFileEndings = [".png"]
 const PluginDefinitionTile: React.FC<PluginDefinitionTileProps> = (props: PluginDefinitionTileProps) => {
+  // @ts-ignore
   const { setPanel } = useGlobalsActions()
 
-  const setPluginDefinitionDetail = useStore((state) => state.setPluginDefinitionDetail)
+  const setPluginDefinitionDetail = useStore((state: any) => state.setPluginDefinitionDetail)
 
   let iconUrl: string | undefined
   if (allowedIconFileEndings.some((ending) => props.pluginDefinition.spec?.icon?.endsWith(ending))) {
@@ -60,6 +61,7 @@ const PluginDefinitionTile: React.FC<PluginDefinitionTileProps> = (props: Plugin
 
             {!iconUrl && (
               <Icon
+                // @ts-ignore
                 icon={props.pluginDefinition.spec?.icon ?? "autoAwesomeMosaic"}
                 className="filtered fill-current text-theme-high"
                 size="50"

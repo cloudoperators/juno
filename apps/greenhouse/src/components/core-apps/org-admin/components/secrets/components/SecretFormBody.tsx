@@ -4,14 +4,15 @@
  */
 
 import React from "react"
+
 import { Form, FormRow, FormSection, TextInput } from "@cloudoperators/juno-ui-components"
 import useStore from "../store"
 import KeyValueInput from "./KeyValueInput"
 
 const SecretFormBody: React.FC = () => {
-  const setSecretDetail = useStore((state) => state.setSecretDetail)
-  const secretDetail = useStore((state) => state.secretDetail)
-  const isSecretEditMode = useStore((state) => state.isSecretEditMode)
+  const setSecretDetail = useStore((state: any) => state.setSecretDetail)
+  const secretDetail = useStore((state: any) => state.secretDetail)
+  const isSecretEditMode = useStore((state: any) => state.isSecretEditMode)
 
   const handleNameChange = (value: string) => {
     setSecretDetail({
@@ -57,7 +58,7 @@ const SecretFormBody: React.FC = () => {
             placeholder="Name of this secret"
             {...(isSecretEditMode && { disabled: true })}
             value={secretDetail?.metadata!.name}
-            onBlur={(e) => handleNameChange(e.target.value)}
+            onBlur={(e: any) => handleNameChange(e.target.value)}
           />
         </FormRow>
         <FormRow>
@@ -67,7 +68,7 @@ const SecretFormBody: React.FC = () => {
             placeholder='Type of this secret, leave empty for default "Opaque" type'
             {...(isSecretEditMode && { disabled: true })}
             value={secretDetail?.type}
-            onBlur={(e) => handleTypeChange(e.target.value)}
+            onBlur={(e: any) => handleTypeChange(e.target.value)}
           ></TextInput>
         </FormRow>
       </FormSection>

@@ -5,6 +5,7 @@
 
 import { Button, DataGridCell, DataGridHeadCell, DataGridRow, Stack } from "@cloudoperators/juno-ui-components"
 import React from "react"
+// @ts-expect-error TS(2792): Cannot find module '../types/types'. Did you mean ... Remove this comment to see the full error message
 import { Plugin } from "../types/types"
 
 interface ClusterPluginListProps {
