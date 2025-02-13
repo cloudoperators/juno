@@ -43,7 +43,7 @@ export default defineConfig(({ mode }) => {
       outDir: "build",
 
       lib: {
-        entry: "src/index.js",
+        entry: "src/index.ts",
         formats: ["es"],
         fileName: (format) => `index.js`,
       },
