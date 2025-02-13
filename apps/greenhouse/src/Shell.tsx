@@ -22,7 +22,6 @@ const Shell = () => {
   useUrlState()
   return (
     <ShellLayout>
-      // @ts-expect-error TS(2786): 'Extensions' cannot be used as a JSX component.
       <Extensions />
     </ShellLayout>
   )
