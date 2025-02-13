@@ -21,9 +21,13 @@ const createAuthDataSlice = (set, get) => ({
 
     actions: {
       setAppLoaded: (appLoaded: any) => {
-        set((state: any) => ({
-          auth: { ...state.auth, appLoaded }
-        }), false, "auth/setAppLoaded")
+        set(
+          (state: any) => ({
+            auth: { ...state.auth, appLoaded },
+          }),
+          false,
+          "auth/setAppLoaded"
+        )
       },
       setData: (data: any) => {
         if (!data) return
@@ -44,26 +48,27 @@ const createAuthDataSlice = (set, get) => ({
               loggedIn: data?.loggedIn,
               error: data?.error,
               data: data?.auth,
-            }
+            },
           }),
           false,
           "auth/setData"
         )
       },
-      setAction: (name: any) => set(
-        (state: any) => ({
-          auth: {
-            ...state.auth,
-            lastAction: { name: name, updatedAt: Date.now() },
-          }
-        }),
-        false,
-        "auth/setAction"
-      ),
+      setAction: (name: any) =>
+        set(
+          (state: any) => ({
+            auth: {
+              ...state.auth,
+              lastAction: { name: name, updatedAt: Date.now() },
+            },
+          }),
+          false,
+          "auth/setAction"
+        ),
       login: () => get().auth.actions.setAction(AUTH_ACTIONS.SIGN_ON),
       logout: () => get().auth.actions.setAction(AUTH_ACTIONS.SIGN_OUT),
     },
-  }
+  },
 })
 
 export default createAuthDataSlice

@@ -10,7 +10,7 @@ export const listOfCommaSeparatedObjs = (objs: any, prop: any) => {
   return objs
     .filter((obj: any) => obj?.node?.[prop])
     .map((obj: any) => obj?.node?.[prop])
-    .join(", ");
+    .join(", ")
 }
 
 export const formatDate = (dateStr: any) => {
