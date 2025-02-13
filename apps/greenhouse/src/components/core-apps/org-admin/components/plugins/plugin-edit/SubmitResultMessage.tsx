@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+
 import { Message } from "@cloudoperators/juno-ui-components"
 export type SubmitMessage = {
   message: string

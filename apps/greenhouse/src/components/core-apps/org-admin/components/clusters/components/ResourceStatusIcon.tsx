@@ -5,6 +5,7 @@
 
 import { Icon } from "@cloudoperators/juno-ui-components"
 import React from "react"
+// @ts-ignore
 import { ResourceStatus } from "../types/types"
 
 interface ResourceIconProps {

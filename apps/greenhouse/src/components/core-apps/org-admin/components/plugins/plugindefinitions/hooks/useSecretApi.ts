@@ -13,9 +13,9 @@ export type SecretApiResponse = ResultMessage & {
 
 export const useSecretApi = () => {
   const { get, create, update, deleteObject, watch } = useApi(false) // No debug logs on secrets
-  const namespace = useStore((state) => state.namespace)
-  const modifySecrets = useStore((state) => state.modifySecrets)
-  const deleteSecrets = useStore((state) => state.deleteSecrets)
+  const namespace = useStore((state: any) => state.namespace)
+  const modifySecrets = useStore((state: any) => state.modifySecrets)
+  const deleteSecrets = useStore((state: any) => state.deleteSecrets)
 
   const getSecret = (secret: Secret): Promise<SecretApiResponse> => {
     return get<Secret>(`/api/v1/namespaces/${namespace}/secrets`, secret) as Promise<SecretApiResponse>

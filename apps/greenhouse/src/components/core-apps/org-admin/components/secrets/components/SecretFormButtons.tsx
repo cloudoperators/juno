@@ -4,7 +4,9 @@
  */
 
 import React from "react"
+
 import { Button, Stack } from "@cloudoperators/juno-ui-components"
+
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import useSecretApi from "../hooks/useSecretApi"
 import useStore from "../store"
@@ -12,11 +14,11 @@ import { base64DecodeSecretData, base64EncodeSecretData } from "./secretUtils"
 
 const SecretFormButtons: React.FC = () => {
   const { createSecret, updateSecret, deleteSecret } = useSecretApi()
-  const secretDetail = useStore((state) => state.secretDetail)
-  const isSecretEditMode = useStore((state) => state.isSecretEditMode)
-  const setShowSecretEdit = useStore((state) => state.setShowSecretEdit)
-  const setSecretDetail = useStore((state) => state.setSecretDetail)
-  const setIsSecretEditMode = useStore((state) => state.setIsSecretEditMode)
+  const secretDetail = useStore((state: any) => state.secretDetail)
+  const isSecretEditMode = useStore((state: any) => state.isSecretEditMode)
+  const setShowSecretEdit = useStore((state: any) => state.setShowSecretEdit)
+  const setSecretDetail = useStore((state: any) => state.setSecretDetail)
+  const setIsSecretEditMode = useStore((state: any) => state.setIsSecretEditMode)
   const { addMessage } = useActions()
 
   const onDelete = async () => {

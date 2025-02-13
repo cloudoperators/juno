@@ -14,11 +14,11 @@ interface PluginListProps {
 }
 
 const PluginList: React.FC<PluginListProps> = (props: PluginListProps) => {
-  const setShowPluginEdit = useStore((state) => state.setShowEditForm)
-  const setShowPluginDefinitionDetails = useStore((state) => state.setShowPluginDefinitionDetails)
-  const setEditFormState = useStore((state) => state.setEditFormState)
-  const setEditFormData = useStore((state) => state.setEditFormData)
-
+  const setShowPluginEdit = useStore((state: any) => state.setShowEditForm)
+  const setShowPluginDefinitionDetails = useStore((state: any) => state.setShowPluginDefinitionDetails)
+  const setEditFormState = useStore((state: any) => state.setEditFormState)
+  const setEditFormData = useStore((state: any) => state.setEditFormData)
+  // @ts-ignore
   const { setPanel } = useGlobalsActions()
 
   const onPluginClick = (plugin: Plugin) => {

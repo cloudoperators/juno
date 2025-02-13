@@ -21,6 +21,7 @@ const ConditionList: React.FC<ConditionPillListProps> = (props: ConditionPillLis
               <Pill
                 pillKeyLabel={condition.type}
                 pillKey={condition.type}
+                // @ts-expect-error TS(2322): Type 'string' is not assignable to type 'never'
                 pillkeyvalue={condition.status}
                 pillValue={condition.status}
               />

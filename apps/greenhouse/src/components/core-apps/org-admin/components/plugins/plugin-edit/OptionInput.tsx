@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+
 import { Checkbox, TextInput, Textarea } from "@cloudoperators/juno-ui-components"
 import { PluginDefinitionOption, PluginOptionValue } from "../../../types/types"
 import SecretKeySelect from "./SecretKeySelect"
@@ -51,6 +52,7 @@ export const OptionInput: React.FC<OptionInputProps> = (props: OptionInputProps)
 
   switch (props.pluginDefinitionOption.type) {
     case "bool":
+      // @ts-ignore
       return <Checkbox id={id} label={label} required={required} checked={value} onBlur={handleBlur} />
     case "list":
     case "map":
@@ -62,7 +64,8 @@ export const OptionInput: React.FC<OptionInputProps> = (props: OptionInputProps)
           errortext={errortext}
           required={required}
           value={JSON.stringify(value)}
-          onChange={(e) => handleJsonValidation(e.target.value)}
+          onChange={(e: any) => handleJsonValidation(e.target.value)}
+          // @ts-ignore
           onBlur={handleBlur}
         ></Textarea>
       )
@@ -72,5 +75,6 @@ export const OptionInput: React.FC<OptionInputProps> = (props: OptionInputProps)
       type = "number"
       break
   }
+  // @ts-ignore
   return <TextInput id={id} type={type} label={label} value={value} required={required} onBlur={handleBlur} />
 }

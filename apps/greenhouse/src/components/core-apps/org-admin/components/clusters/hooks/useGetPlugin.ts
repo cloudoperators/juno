@@ -10,7 +10,7 @@ import { Cluster, Plugin } from "../../../types/types"
 import useStore from "../store"
 
 export const useGetPlugins = () => {
-  const namespace = useStore((state) => state.namespace)
+  const namespace = useStore((state: any) => state.namespace)
   const { client: client } = useClient()
   const getPluginsforCluster = useCallback(
     async (cluster: Cluster): Promise<Plugin[]> => {
@@ -28,7 +28,7 @@ export const useGetPlugins = () => {
             labelSelector: labelselector,
           },
         })
-        .then((res) => {
+        .then((res: any) => {
           if (res.kind !== "PluginList") {
             console.debug("ERROR: Failed to get Plugins for cluster, did not get PluginList")
             return [] as Plugin[]

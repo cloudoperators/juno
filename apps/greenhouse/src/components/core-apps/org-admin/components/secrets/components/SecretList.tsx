@@ -12,6 +12,7 @@ import {
   DataGridRow,
   DataGridToolbar,
 } from "@cloudoperators/juno-ui-components"
+
 import { Messages } from "@cloudoperators/juno-messages-provider"
 import React from "react"
 import useStore from "../store"
@@ -19,14 +20,14 @@ import SecretListItem from "./SecretListItem"
 import { initSecret } from "./secretUtils"
 
 const SecretList: React.FC = () => {
-  const setShowSecretEdit = useStore((state) => state.setShowSecretEdit)
-  const setSecretDetail = useStore((state) => state.setSecretDetail)
+  const setShowSecretEdit = useStore((state: any) => state.setShowSecretEdit)
+  const setSecretDetail = useStore((state: any) => state.setSecretDetail)
   const openEditSecret = () => {
     setShowSecretEdit(true)
     setSecretDetail(initSecret())
   }
 
-  const secrets = useStore((state) => state.secrets)
+  const secrets = useStore((state: any) => state.secrets)
 
   return (
     <>
@@ -42,7 +43,7 @@ const SecretList: React.FC = () => {
             <DataGridHeadCell>Keys</DataGridHeadCell>
           </DataGridRow>
 
-          {secrets.map((secret) => (
+          {secrets.map((secret: any) => (
             <SecretListItem key={secret.metadata!.name!} secret={secret} />
           ))}
         </DataGrid>
