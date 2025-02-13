@@ -5,7 +5,7 @@
 
 import { parseIdTokenData, decodeIDToken } from "./tokenHelpers"
 
-type AuthData = {
+interface AuthData {
   JWT: string
   raw: Record<string, unknown>
   refreshToken: string
@@ -47,20 +47,20 @@ export const composeAuthData = (token: string, options: any): { authData: AuthDa
   }
 }
 
-type TokenSessionState = {
+interface TokenSessionState {
   auth: AuthData | null
   error: unknown
   loggedIn: boolean
   isProcessing: boolean
 }
 
-type TokenSessionReturnType = {
+interface TokenSessionReturnType {
   login: () => void
   logout: () => void
   currentState: () => TokenSessionState
 }
 
-type TokenSessionParams = {
+interface TokenSessionParams {
   token: string
   options?: Record<string, any>
   initialLogin?: boolean
