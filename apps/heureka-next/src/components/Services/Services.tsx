@@ -11,12 +11,5 @@ export const Services = () => {
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error</p>
 
-  return (
-    <div>
-      {data?.Services?.edges?.map((service) => {
-        console.log("TEST NAME", service?.node.ccrn)
-        return <p>{service?.node.ccrn}</p>
-      })}
-    </div>
-  )
+  return <div>{data?.Services?.edges?.map((service) => <div key={service?.node.id}>{service?.node.ccrn}</div>)}</div>
 }

@@ -8,6 +8,14 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Shell } from "./Shell"
 
+/**
+ * let's mock Services because that is a dependency of Shell
+ * and has been tested independently
+ **/
+vitest.mock("../Services/Services", () => ({
+  Services: () => <div>render services here...</div>,
+}))
+
 const renderShell = () => ({
   user: userEvent.setup(),
   ...render(<Shell />),
