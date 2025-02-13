@@ -1354,33 +1354,7 @@ export type GetServicesQuery = {
     __typename?: "ServiceConnection"
     edges?: Array<{
       __typename?: "ServiceEdge"
-      cursor?: string | null
-      node: {
-        __typename?: "Service"
-        id: string
-        ccrn?: string | null
-        objectMetadata?: {
-          __typename?: "ServiceMetadata"
-          componentInstanceCount: number
-          issueMatchCount: number
-        } | null
-        owners?: {
-          __typename?: "UserConnection"
-          edges?: Array<{
-            __typename?: "UserEdge"
-            cursor?: string | null
-            node: { __typename?: "User"; id: string; uniqueUserId?: string | null; name?: string | null }
-          } | null> | null
-        } | null
-        supportGroups?: {
-          __typename?: "SupportGroupConnection"
-          edges?: Array<{
-            __typename?: "SupportGroupEdge"
-            cursor?: string | null
-            node: { __typename?: "SupportGroup"; id: string; ccrn?: string | null }
-          } | null> | null
-        } | null
-      }
+      node: { __typename?: "Service"; id: string; ccrn?: string | null }
     } | null> | null
   } | null
 }
@@ -1392,31 +1366,7 @@ export const GetServicesDocument = gql`
         node {
           id
           ccrn
-          objectMetadata {
-            componentInstanceCount
-            issueMatchCount
-          }
-          owners {
-            edges {
-              node {
-                id
-                uniqueUserId
-                name
-              }
-              cursor
-            }
-          }
-          supportGroups {
-            edges {
-              node {
-                id
-                ccrn
-              }
-              cursor
-            }
-          }
         }
-        cursor
       }
     }
   }
