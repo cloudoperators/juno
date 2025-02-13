@@ -32,6 +32,7 @@ const AlertsList = () => {
         </DataGridCell>
       </DataGridRow>
     ),
+    // @ts-ignore
     refFunction: (ref: any) => (
       <DataGridRow>
         <DataGridCell colSpan={3} className="border-b-0 py-0">
