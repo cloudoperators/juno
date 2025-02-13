@@ -48,7 +48,6 @@
   },
   "dependencies": {
     "@cloudoperators/juno-app-doop": "*",
-    "@cloudoperators/juno-k8s-client": "*",
     "@cloudoperators/juno-app-heureka": "*",
     "@cloudoperators/juno-app-supernova": "*",
     "@cloudoperators/juno-messages-provider": "*",
