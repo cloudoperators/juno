@@ -8,14 +8,14 @@ import { createStore, useStore, StoreApi } from "zustand"
 import { devtools } from "zustand/middleware"
 
 import createSilencesSlice from "../lib/createSilencesSlice"
-import createAlertsSlice from "../lib/createAlertsSlice"
+import createAlertsSlice, { AlertsSlice } from "../lib/createAlertsSlice"
 import createFiltersSlice, { FilterSlice, FilterActions } from "../lib/createFiltersSlice"
 import createGlobalsSlice from "../lib/createGlobalsSlice"
 import createUserActivitySlice from "../lib/createUserActivitySlice"
 
 const StoreContext = createContext<StoreApi<AppState> | null>(null)
 
-type AppState = FilterSlice & Record<string, any>
+type AppState = FilterSlice & AlertsSlice & Record<string, any>
 
 interface StoreProviderProps {
   options?: Record<string, any> // should be defined later on for the props
@@ -64,16 +64,17 @@ export const useUserIsActive = () => useAppStore((state: any) => state.userActiv
 export const useUserActivityActions = () => useAppStore((state: any) => state.userActivity.actions)
 
 // Alert exports
-export const useAlertsItems = () => useAppStore((state: any) => state.alerts.items)
-export const useAlertsItemsFiltered = () => useAppStore((state: any) => state.alerts.itemsFiltered)
-export const useAlertsTotalCounts = () => useAppStore((state: any) => state.alerts.totalCounts)
-export const useAlertsSeverityCountsPerRegion = () => useAppStore((state: any) => state.alerts.severityCountsPerRegion)
-export const useAlertsRegions = () => useAppStore((state: any) => state.alerts.regions)
-export const useAlertsRegionsFiltered = () => useAppStore((state: any) => state.alerts.regionsFiltered)
-export const useAlertsUpdatedAt = () => useAppStore((state: any) => state.alerts.updatedAt)
-export const useAlertEnrichedLabels = () => useAppStore((state: any) => state.alerts.enrichedLabels)
+export const useAlertsItems = () => useAppStore((state: AppState) => state.alerts.items)
+export const useAlertsItemsFiltered = () => useAppStore((state: AppState) => state.alerts.itemsFiltered)
+export const useAlertsTotalCounts = () => useAppStore((state: AppState) => state.alerts.totalCounts)
+export const useAlertsSeverityCountsPerRegion = () =>
+  useAppStore((state: AppState) => state.alerts.severityCountsPerRegion)
+export const useAlertsRegions = () => useAppStore((state: AppState) => state.alerts.regions)
+export const useAlertsRegionsFiltered = () => useAppStore((state: AppState) => state.alerts.regionsFiltered)
+export const useAlertsUpdatedAt = () => useAppStore((state: AppState) => state.alerts.updatedAt)
+export const useAlertEnrichedLabels = () => useAppStore((state: AppState) => state.alerts.enrichedLabels)
 
-export const useAlertsActions = () => useAppStore((state: any) => state.alerts.actions)
+export const useAlertsActions = () => useAppStore((state: AppState) => state.alerts.actions)
 
 // Filter exports
 export const useFilterLabels = () => useAppStore((state: AppState) => state.filters.labels)

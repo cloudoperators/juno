@@ -6,10 +6,57 @@
 import { produce } from "immer"
 import { countAlerts } from "./utils"
 
+export interface AlertsSlice {
+  alerts: AlertsState
+}
+
+interface AlertsState {
+  items: AlertItem[]
+  itemsFiltered: AlertItem[]
+  totalCounts: AlertCounts
+  severityCountsPerRegion: Record<string, SeverityCounts>
+  regions: string[]
+  regionsFiltered: string[]
+  enrichedLabels: string[]
+  updatedAt: number | null
+  actions: AlertsActions
+}
+
+export interface AlertItem {
+  fingerprint: string
+  labels: Record<string, string>
+  [key: string]: any
+}
+
+export interface AlertCounts {
+  total: number
+  critical: number
+  [key: string]: number
+}
+
+export interface SeverityCounts {
+  total: number
+  critical?: { total: number; suppressed: number }
+  warning?: { total: number; suppressed: number }
+  [key: string]: any
+}
+
+export interface AlertsActions {
+  setAlertsData: (data: {
+    items: AlertItem[]
+    counts: { global: AlertCounts; regions: Record<string, SeverityCounts> }
+  }) => void
+  filterItems: () => void
+  setFilteredItems: (items: AlertItem[]) => void
+  setRegionsFiltered: (regions: string[]) => void
+  updateFilteredCounts: () => void
+  getAlertByFingerprint: (fingerprint: string) => AlertItem | undefined
+}
+
 const initialAlertsState = {
   items: [],
   itemsFiltered: [],
-  totalCounts: {}, // { total: number, critical: number, ...},
+  totalCounts: { total: 0, critical: 0 }, // { total: number, critical: number, ...},
   severityCountsPerRegion: {}, // {"eu-de-1": { total: number, critical: {total: number, suppressed: number}, warning: {...}, ...}
   regions: [], // save all available regions from initial list here
   regionsFiltered: [], // regions list filtered by active predefined filters
@@ -17,8 +64,7 @@ const initialAlertsState = {
   updatedAt: null,
 }
 
-// @ts-expect-error TS(7006) FIXME: Parameter 'set' implicitly has an 'any' type.
-const createAlertsSlice = (set, get) => ({
+const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
   alerts: {
     ...initialAlertsState,
     actions: {
@@ -96,7 +142,7 @@ const createAlertsSlice = (set, get) => ({
               // if it doesn't match, set visible to false and break out of the loop
               activePredefinedFilter &&
                 Object.entries(activePredefinedFilter.matchers).forEach(([key, value]) => {
-                  // @ts-ignore
+                  if (typeof value !== "string") return
                   if (!new RegExp(value, "i").test(item.labels[key])) {
                     visible = false
                     return
