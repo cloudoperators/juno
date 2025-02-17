@@ -10,7 +10,6 @@ import { useActivePredefinedFilter, useFilterActions, usePredefinedFilters } fro
 import SilenceScheduled from "../silences/SilenceScheduled"
 
 const PredefinedFilters = () => {
-  // @ts-ignore
   const { setActivePredefinedFilter } = useFilterActions()
   const predefinedFilters = usePredefinedFilters()
   const activePredefinedFilter = useActivePredefinedFilter()
@@ -24,10 +23,7 @@ const PredefinedFilters = () => {
 
   return (
     <Stack>
-      {
-        // @ts-ignore
-        renderPredefinedFilterTabs()
-      }
+      {renderPredefinedFilterTabs()}
       <div className="ml-auto">
         <SilenceScheduled />
       </div>
@@ -35,7 +31,6 @@ const PredefinedFilters = () => {
   )
 
   function renderPredefinedFilterTabs(): React.ReactNode {
-    // @ts-ignore
     return (
       predefinedFilters &&
       selectedItem && (

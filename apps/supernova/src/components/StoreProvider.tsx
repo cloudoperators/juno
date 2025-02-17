@@ -4,38 +4,47 @@
  */
 
 import React, { createContext, useContext } from "react"
-import { createStore, useStore } from "zustand"
+import { createStore, useStore, StoreApi } from "zustand"
 import { devtools } from "zustand/middleware"
 
 import createSilencesSlice from "../lib/createSilencesSlice"
 import createAlertsSlice from "../lib/createAlertsSlice"
-import createFiltersSlice from "../lib/createFiltersSlice"
+import createFiltersSlice, { FilterSlice, FilterActions } from "../lib/createFiltersSlice"
 import createGlobalsSlice from "../lib/createGlobalsSlice"
 import createUserActivitySlice from "../lib/createUserActivitySlice"
 
-// @ts-expect-error TS(2554) FIXME: Expected 1 arguments, but got 0.
-const StoreContext = createContext()
+const StoreContext = createContext<StoreApi<AppState> | null>(null)
 
-export const StoreProvider = ({ options, children }: any) => {
+type AppState = FilterSlice & Record<string, any>
+
+interface StoreProviderProps {
+  options?: Record<string, any> // should be defined later on for the props
+  children: React.ReactNode
+}
+
+export const StoreProvider = ({ options, children }: StoreProviderProps) => {
   return (
     <StoreContext.Provider
-      value={createStore(
-        devtools((set, get) => ({
-          ...createGlobalsSlice(set, get, options),
-          // @ts-expect-error TS(2554) FIXME: Expected 1 arguments, but got 0.
-          ...createUserActivitySlice(set, get),
-          ...createAlertsSlice(set, get),
-          ...createFiltersSlice(set, get, options),
-          ...createSilencesSlice(set, get, options),
-        }))
-      )}
+      value={createStore<AppState>((set, get) => ({
+        ...createGlobalsSlice(set, get, options),
+        ...createUserActivitySlice(set),
+        ...createAlertsSlice(set, get),
+        ...createFiltersSlice(set, get, options),
+        ...createSilencesSlice(set, get, options),
+      }))}
     >
       {children}
     </StoreContext.Provider>
   )
 }
-// @ts-expect-error TS(2554) FIXME: Expected 1 arguments, but got 0.
-const useAppStore = (selector: any) => useStore(useContext(StoreContext), selector)
+
+const useAppStore = <T,>(selector: (state: AppState) => T): T => {
+  const store = useContext(StoreContext)
+  if (!store) {
+    throw new Error("useAppStore must be used within a StoreProvider")
+  }
+  return useStore(store, selector)
+}
 
 // atomic exports only instead of exporting whole store
 // See reasoning here: https://tkdodo.eu/blog/working-with-zustand
@@ -67,16 +76,14 @@ export const useAlertEnrichedLabels = () => useAppStore((state: any) => state.al
 export const useAlertsActions = () => useAppStore((state: any) => state.alerts.actions)
 
 // Filter exports
-export const useFilterLabels = () => useAppStore((state: any) => state.filters.labels)
-export const useActiveFilters = () => useAppStore((state: any) => state.filters.activeFilters)
-export const usePausedFilters = () => useAppStore((state: any) => state.filters.pausedFilters)
-export const useSearchTerm = () => useAppStore((state: any) => state.filters.searchTerm)
-export const useFilterLabelValues = () => useAppStore((state: any) => state.filters.filterLabelValues)
-export const usePredefinedFilters = () => useAppStore((state: any) => state.filters.predefinedFilters)
-export const useActivePredefinedFilter = () => useAppStore((state: any) => state.filters.activePredefinedFilter)
-export const useFilterPills = () => useAppStore((state: any) => state.filters.filterPills)
-
-export const useFilterActions = () => useAppStore((state: any) => state.filters.actions)
+export const useFilterLabels = () => useAppStore((state: AppState) => state.filters.labels)
+export const useActiveFilters = () => useAppStore((state: AppState) => state.filters.activeFilters)
+export const usePausedFilters = () => useAppStore((state: AppState) => state.filters.pausedFilters)
+export const useSearchTerm = () => useAppStore((state: AppState) => state.filters.searchTerm)
+export const useFilterLabelValues = () => useAppStore((state: AppState) => state.filters.filterLabelValues)
+export const usePredefinedFilters = () => useAppStore((state: AppState) => state.filters.predefinedFilters)
+export const useActivePredefinedFilter = () => useAppStore((state: AppState) => state.filters.activePredefinedFilter)
+export const useFilterActions = () => useAppStore((state: AppState) => state.filters.actions)
 
 // Silences exports
 export const useSilencesItems = () => useAppStore((state: any) => state.silences.items)
