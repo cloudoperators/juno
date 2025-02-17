@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.38.0
+
+### Minor Changes
+
+- 43fc5b7: Improve TS types and documentation again
+
 ## 2.37.0
 
 ### Minor Changes
