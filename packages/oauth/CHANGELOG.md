@@ -1,5 +1,11 @@
 # @cloudoperators/juno-oauth
 
+## 1.4.2
+
+### Patch Changes
+
+- fe294e9: Improving types and addind method documentation
+
 ## 1.4.1
 
 ### Patch Changes
