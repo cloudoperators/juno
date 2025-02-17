@@ -11,13 +11,19 @@ export interface FilterSlice {
 
 interface FilterState {
   labels: string[]
-  activeFilters: Record<string, string[]>
-  pausedFilters: Record<string, string[]>
+  activeFilters: Filter[]
+  pausedFilters: Filter[]
   filterLabelValues: Record<string, { isLoading: boolean; values?: string[] }>
   predefinedFilters: { name: string; displayName: string; matchers: Record<string, string> }[]
-  activePredefinedFilter: string | null
+  activePredefinedFilter: Filter | null
   searchTerm: string
   actions: FilterActions
+}
+
+export interface Filter {
+  name: string
+  displayName: string
+  matchers: Record<string, string>
 }
 
 export interface FilterActions {

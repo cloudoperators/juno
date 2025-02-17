@@ -5,6 +5,7 @@
 
 import { produce } from "immer"
 import { countAlerts } from "./utils"
+import { Filter } from "./createFiltersSlice"
 
 export interface AlertsSlice {
   alerts: AlertsState
@@ -102,10 +103,10 @@ const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
       },
 
       filterItems: () => {
-        let activePredefinedFilter: any = null
+        let activePredefinedFilter: Filter | null = null
         if (get().filters.predefinedFilters && get().filters.activePredefinedFilter) {
           activePredefinedFilter = get().filters.predefinedFilters.find(
-            (filter: any) => filter.name === get().filters.activePredefinedFilter
+            (filter: Filter) => filter.name === get().filters.activePredefinedFilter
           )
         }
 
@@ -142,7 +143,6 @@ const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
               // if it doesn't match, set visible to false and break out of the loop
               activePredefinedFilter &&
                 Object.entries(activePredefinedFilter.matchers).forEach(([key, value]) => {
-                  if (typeof value !== "string") return
                   if (!new RegExp(value, "i").test(item.labels[key])) {
                     visible = false
                     return
