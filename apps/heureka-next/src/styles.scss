@@ -7,3 +7,16 @@
 @tailwind utilities;
 
 /* If necessary, app styles can be added below */
+.juno-main {
+  overflow: hidden;
+}
+
+.juno-main-inner {
+  margin-top: 0;
+}
+
+.juno-content-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}

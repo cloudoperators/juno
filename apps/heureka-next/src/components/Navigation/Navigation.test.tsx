@@ -13,8 +13,7 @@ describe("Navigation", () => {
   it("should render correctly", () => {
     render(<Navigation activeItem={SERVICES} onChange={() => {}} />)
     expect(screen.getByText("Services")).toBeInTheDocument()
-    expect(screen.getByText("Vulnerabilities")).toBeInTheDocument()
-    expect(screen.getByText("Images")).toBeInTheDocument()
+    expect(screen.getByText("Issues")).toBeInTheDocument()
   })
 
   it("should call onChange", async () => {
@@ -23,8 +22,8 @@ describe("Navigation", () => {
     const onChange = vitest.fn()
     //arrange
     render(<Navigation activeItem={SERVICES} onChange={onChange} />)
-    await user.click(screen.getByRole("link", { name: "vulnerabilities" }))
+    await user.click(screen.getByRole("link", { name: "issues" }))
     //assert
-    expect(onChange).toHaveBeenCalledWith("vulnerabilities")
+    expect(onChange).toHaveBeenCalledWith("issues")
   })
 })

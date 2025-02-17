@@ -5,4 +5,4 @@
 
 import React from "react"
 
-export const Vulnerabilities = () => <div>render vulnerabilities here...</div>
+export const Issues = () => <div>render issues here...</div>
