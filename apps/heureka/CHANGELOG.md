@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.11.4
+
+### Patch Changes
+
+- 188ece2: Heureka move to TS
+- Updated dependencies [43fc5b7]
+  - @cloudoperators/juno-ui-components@2.38.0
+
 ## 2.11.3
 
 ### Patch Changes
