@@ -103,6 +103,7 @@ const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
       },
 
       filterItems: () => {
+        // the actual active predefinedFilter and not the name saved activePredefinedFilter in Zustand
         let activePredefinedFilter: Filter | null = null
         if (get().filters.predefinedFilters && get().filters.activePredefinedFilter) {
           activePredefinedFilter = get().filters.predefinedFilters.find(

@@ -9,7 +9,7 @@ import { devtools } from "zustand/middleware"
 
 import createSilencesSlice from "../lib/createSilencesSlice"
 import createAlertsSlice, { AlertsSlice } from "../lib/createAlertsSlice"
-import createFiltersSlice, { FilterSlice, FilterActions } from "../lib/createFiltersSlice"
+import createFiltersSlice, { FilterSlice } from "../lib/createFiltersSlice"
 import createGlobalsSlice from "../lib/createGlobalsSlice"
 import createUserActivitySlice from "../lib/createUserActivitySlice"
 

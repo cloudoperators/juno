@@ -14,8 +14,8 @@ interface FilterState {
   activeFilters: Record<string, string[]>
   pausedFilters: Record<string, string[]>
   filterLabelValues: Record<string, { isLoading: boolean; values?: string[] }>
-  predefinedFilters: { name: string; displayName: string; matchers: Record<string, string> }[]
-  activePredefinedFilter: Filter | null
+  predefinedFilters: Filter[]
+  activePredefinedFilter: string | null
   searchTerm: string
   actions: FilterActions
 }
