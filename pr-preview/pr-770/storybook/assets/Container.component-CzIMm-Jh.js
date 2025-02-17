@@ -1,4 +1,0 @@
-import{j as s}from"./jsx-runtime-D6fbYt3N.js";const i=(e,a)=>`
-    ${e?"jn-px-6 ":" "} 
-    ${a?" jn-py-6":""}
-  `,t=({px:e=!0,py:a=!1,className:n="",children:r,...o})=>s.jsx("div",{className:`juno-container ${i(e,a)} ${n}`,...o,children:r});try{t.displayName="Container",t.__docgenInfo={description:"A very basic layout container with padding.",displayName:"Container",props:{px:{defaultValue:{value:"true"},description:"Choose false if you don't want horizontal padding to be added.",name:"px",required:!1,type:{name:"boolean"}},py:{defaultValue:{value:"false"},description:"Set to true to add vertical padding.",name:"py",required:!1,type:{name:"boolean"}},className:{defaultValue:{value:""},description:"Add custom class name",name:"className",required:!1,type:{name:"string"}}}}}catch{}export{t as C};
