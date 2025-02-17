@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-// @ts-expect-error TS(2792): Cannot find module './styles.scss?inline'. Did you... Remove this comment to see the full error message
 import styles from "./styles.scss?inline"
 import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
