@@ -16,15 +16,15 @@ interface ClusterListItemProps {
 }
 
 const ClusterListItem: React.FC<ClusterListItemProps> = (props: ClusterListItemProps) => {
-  const setClusterDetails = useStore((state) => state.setClusterDetails)
-  const clusterDetails = useStore((state) => state.clusterDetails)
+  const setClusterDetails = useStore((state: any) => state.setClusterDetails)
+  const clusterDetails = useStore((state: any) => state.clusterDetails)
 
-  const setClusterDetailPlugins = useStore((state) => state.setClusterDetailPlugins)
-  const setShowOnBoardCluster = useStore((state) => state.setShowOnBoardCluster)
+  const setClusterDetailPlugins = useStore((state: any) => state.setClusterDetailPlugins)
+  const setShowOnBoardCluster = useStore((state: any) => state.setShowOnBoardCluster)
   const { getPluginsforCluster: getPluginsforCluster } = useGetPlugins()
 
-  const setShowClusterDetails = useStore((state) => state.setShowClusterDetails)
-  const showClusterDetails = useStore((state) => state.showClusterDetails)
+  const setShowClusterDetails = useStore((state: any) => state.setShowClusterDetails)
+  const showClusterDetails = useStore((state: any) => state.showClusterDetails)
 
   let clusterStatus = getResourceStatusFromKubernetesConditions(
     props.cluster.status?.statusConditions?.conditions ?? []

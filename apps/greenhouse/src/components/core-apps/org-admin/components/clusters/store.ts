@@ -38,20 +38,25 @@ export interface State {
 }
 
 // global zustand store. See how this works here: https://github.com/pmndrs/zustand
-const useStore = create<State>((set) => ({
+const useStore = create<State>((set: any) => ({
   endpoint: "",
   token: "",
   namespace: "",
-  initialize: (endpoint, token, namespace) => set(() => ({ endpoint, token, namespace })),
+  initialize: (endpoint: any, token: any, namespace: any) => set(() => ({ endpoint, token, namespace })),
   urlStateKey: "",
-  setUrlStateKey: (newUrlStateKey) => set((state) => ({ urlStateKey: newUrlStateKey })),
+
+  setUrlStateKey: (newUrlStateKey: any) =>
+    set((state: any) => ({
+      urlStateKey: newUrlStateKey,
+    })),
 
   clusters: [],
+
   modifyClusters: (clusters: Cluster[]) =>
-    set((state) => {
+    set((state: any) => {
       let newClusters = [...state.clusters]
       clusters.forEach((inputCluster) => {
-        const index = newClusters.findIndex((knownCluster) => {
+        const index = newClusters.findIndex((knownCluster: any) => {
           return knownCluster.metadata!.name === inputCluster.metadata!.name
         })
         if (index >= 0) {
@@ -62,9 +67,10 @@ const useStore = create<State>((set) => ({
       })
       return { ...state, clusters: newClusters }
     }),
+
   deleteClusters: (clusters: Cluster[]) =>
-    set((state) => {
-      const newClusters = state.clusters.filter((knownCluster) => {
+    set((state: any) => {
+      const newClusters = state.clusters.filter((knownCluster: any) => {
         return !clusters.some((inputCluster) => {
           return knownCluster.metadata!.name === inputCluster.metadata!.name
         })
@@ -77,8 +83,9 @@ const useStore = create<State>((set) => ({
     clusterStatus: null,
     plugins: [],
   },
+
   setClusterDetails: (cluster: Cluster | null) =>
-    set((state) => {
+    set((state: any) => {
       if (!cluster) {
         return {
           ...state,
@@ -104,7 +111,7 @@ const useStore = create<State>((set) => ({
     }),
 
   setClusterDetailPlugins: (plugins: Plugin[]) =>
-    set((state) => {
+    set((state: any) => {
       return {
         ...state,
         clusterDetails: {
@@ -115,20 +122,36 @@ const useStore = create<State>((set) => ({
     }),
 
   showClusterDetails: false,
-  setShowClusterDetails: (showClusterDetails) => set((state) => ({ ...state, showClusterDetails: showClusterDetails })),
+
+  setShowClusterDetails: (showClusterDetails: any) =>
+    set((state: any) => ({
+      ...state,
+      showClusterDetails: showClusterDetails,
+    })),
+
   showOnBoardCluster: false,
-  setShowOnBoardCluster: (showOnBoardCluster) => set((state) => ({ ...state, showOnBoardCluster: showOnBoardCluster })),
+
+  setShowOnBoardCluster: (showOnBoardCluster: any) =>
+    set((state: any) => ({
+      ...state,
+      showOnBoardCluster: showOnBoardCluster,
+    })),
 
   showDownloadKubeConfig: false,
-  setShowDownloadKubeConfig: (showDownloadKubeConfig) => {
-    set((state) => ({
+
+  setShowDownloadKubeConfig: (showDownloadKubeConfig: any) => {
+    set((state: any) => ({
       ...state,
       showDownloadKubeConfig: showDownloadKubeConfig,
     }))
   },
 
   clusterInEdit: undefined,
-  setClusterInEdit: (cluster) => set((state) => ({ clusterInEdit: cluster })),
+
+  setClusterInEdit: (cluster: any) =>
+    set((state: any) => ({
+      clusterInEdit: cluster,
+    })),
 }))
 
 export default useStore

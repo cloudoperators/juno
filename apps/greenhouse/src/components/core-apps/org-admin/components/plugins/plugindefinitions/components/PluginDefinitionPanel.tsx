@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+
 import { Panel, PanelBody } from "@cloudoperators/juno-ui-components"
 
 import PluginEdit from "../../plugin-edit/PluginEdit"
@@ -16,13 +17,13 @@ import { useGlobalsActions, usePanel } from "../../plugins/components/StoreProvi
 
 // Renders the plugin details panel
 const PluginDefinitionPanel = () => {
-  const pluginDefinitions = usePluginDefinitionsStore((state) => state.pluginDefinitions)
+  const pluginDefinitions = usePluginDefinitionsStore((state: any) => state.pluginDefinitions)
   const panel = usePanel()
 
-  const pluginDefinitionDetail = usePluginDefinitionsStore((state) => state.pluginDefinitionDetail)
+  const pluginDefinitionDetail = usePluginDefinitionsStore((state: any) => state.pluginDefinitionDetail)
 
-  const isEditMode = usePluginDefinitionsStore((state) => state.isPluginEditMode)
-
+  const isEditMode = usePluginDefinitionsStore((state: any) => state.isPluginEditMode)
+  // @ts-ignore
   const { setPanel } = useGlobalsActions()
 
   const onCloseDefinitionPanel = () => {
@@ -31,6 +32,7 @@ const PluginDefinitionPanel = () => {
 
   return (
     <Panel
+      // @ts-expect-error TS(2550): Property 'includes' does not exist on type 'string... Remove this comment to see the full error message
       opened={["showPluginDefinition", "showPluginDefinitionDetail", "editPlugin"].includes(panel)}
       onClose={onCloseDefinitionPanel}
       size="large"

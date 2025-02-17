@@ -41,21 +41,22 @@ interface PluginEditProps {
   pluginDefinition: PluginDefinition
 }
 const PluginEdit: React.FC<PluginEditProps> = (props: PluginEditProps) => {
-  const namespace = useStore((state) => state.namespace)
-  const showEditForm = useStore((state) => state.showEditForm)
-  const setShowEditForm = useStore((state) => state.setShowEditForm)
+  const namespace = useStore((state: any) => state.namespace)
+  const showEditForm = useStore((state: any) => state.showEditForm)
+  const setShowEditForm = useStore((state: any) => state.setShowEditForm)
 
-  const editFormState = useStore((state) => state.editFormState)
-  const setEditFormState = useStore((state) => state.setEditFormState)
+  const editFormState = useStore((state: any) => state.editFormState)
+  const setEditFormState = useStore((state: any) => state.setEditFormState)
 
   const isEditMode = editFormState == EditFormState.PLUGIN_EDIT || editFormState == EditFormState.PLUGIN_PRESET_EDIT
+  // @ts-ignore
   const { setPanel } = useGlobalsActions()
 
   const isPluginPreset =
     editFormState == EditFormState.PLUGIN_PRESET_CREATE || editFormState == EditFormState.PLUGIN_PRESET_EDIT
 
-  const editFormData = useStore((state) => state.editFormData)
-  const setEditFormData = useStore((state) => state.setEditFormData)
+  const editFormData = useStore((state: any) => state.editFormData)
+  const setEditFormData = useStore((state: any) => state.setEditFormData)
 
   const { createPlugin, updatePlugin, deletePlugin } = usePluginApi()
   const { getPluginPreset, createPluginPreset, updatePluginPreset, deletePluginPreset } = usePluginPresetApi()
@@ -295,7 +296,7 @@ const PluginEdit: React.FC<PluginEditProps> = (props: PluginEditProps) => {
             {props.pluginDefinition.spec?.options?.length && (
               <FormSection title="Options">
                 {props.pluginDefinition.spec?.options?.map((option, index) => {
-                  let optionValue = editFormData.spec?.optionValues?.find((o) => o.name == option.name)
+                  let optionValue = editFormData.spec?.optionValues?.find((o: any) => o.name == option.name)
                   return (
                     <FormRow key={index}>
                       <p style={{ color: "text-theme-light" }}>{option.description}</p>

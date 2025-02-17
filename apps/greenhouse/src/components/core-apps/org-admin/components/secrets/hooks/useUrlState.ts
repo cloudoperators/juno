@@ -4,6 +4,7 @@
  */
 
 import { useEffect, useState } from "react"
+// @ts-expect-error TS(2792): Cannot find module '@cloudopertors/juno-url-state... Remove this comment to see the full error message
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import useStore from "../store"
 
@@ -17,12 +18,12 @@ const useUrlState = (key: string): void => {
   const urlStateManager = registerConsumer(key || DEFAULT_KEY)
 
   // globals
-  const showSecretEdit = useStore((state) => state.showSecretEdit)
-  const setShowSecretEdit = useStore((state) => state.setShowSecretEdit)
-  const secretDetail = useStore((state) => state.secretDetail)
-  const setSecretDetail = useStore((state) => state.setSecretDetail)
-  const isSecretEditMode = useStore((state) => state.isSecretEditMode)
-  const setIsSecretEditMode = useStore((state) => state.setIsSecretEditMode)
+  const showSecretEdit = useStore((state: any) => state.showSecretEdit)
+  const setShowSecretEdit = useStore((state: any) => state.setShowSecretEdit)
+  const secretDetail = useStore((state: any) => state.secretDetail)
+  const setSecretDetail = useStore((state: any) => state.setSecretDetail)
+  const isSecretEditMode = useStore((state: any) => state.isSecretEditMode)
+  const setIsSecretEditMode = useStore((state: any) => state.setIsSecretEditMode)
 
   // Set initial state from URL (on login)
   useEffect(() => {

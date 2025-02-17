@@ -19,14 +19,13 @@ const FilterSelect = () => {
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
   const [resetKey] = useState(Date.now())
-  // @ts-ignore
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
   const activeFilters = useActiveFilters()
   const searchTerm = useSearchTerm()
 
-  const handleFilterAdd = (value: any) => {
+  const handleFilterAdd = (value?: any) => {
     if (filterLabel && (filterValue || value)) {
       // add active filter to store
       addActiveFilter(filterLabel, filterValue || value)
@@ -41,7 +40,6 @@ const FilterSelect = () => {
   const handleFilterLabelChange = (value: any) => {
     setFilterLabel(value)
     // lazy loading of all possible values for this label (only load them if we haven't already)
-    // @ts-ignore
     if (!filterLabelValues[value]?.values) {
       loadFilterLabelValues(value)
     }
@@ -62,12 +60,6 @@ const FilterSelect = () => {
     return () => clearTimeout(debouncedSearchTerm)
   }
 
-  // const handleKeyDown = (event) => {
-  //   if (event.key === "Enter") {
-  //     handleFilterValueChange()
-  //   }
-  // }
-
   return (
     <Stack alignment="center" gap="8">
       <InputGroup>
@@ -78,8 +70,7 @@ const FilterSelect = () => {
           value={filterLabel}
           onChange={(val: any) => handleFilterLabelChange(val)}
         >
-          {// @ts-ignore
-          filterLabels?.map((filter: any) => (
+          {filterLabels?.map((filter: any) => (
             <SelectOption value={filter} label={humanizeString(filter)} key={filter} />
           ))}
         </Select>
@@ -87,49 +78,38 @@ const FilterSelect = () => {
           name="filterValue"
           value={filterValue}
           onChange={(value: any) => handleFilterValueChange(value)}
-          // @ts-ignore
           disabled={filterLabelValues[filterLabel] ? false : true}
-          // @ts-ignore
           loading={filterLabelValues[filterLabel]?.isLoading}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
           key={resetKey}
         >
-          {/* @ts-ignore */}
           {filterLabelValues[filterLabel]?.values
             ?.filter(
               (
                 value: any // filter out already active values for this label
-                // @ts-ignore
               ) => !activeFilters[filterLabel]?.includes(value)
             )
             .slice(0, 100) // take only the first 100 values. This isn't a good solution TODO: fix this properly with combo box, typeahead search, lazy loading, etc.
             .map((value: any) => <SelectOption value={value} key={value} />)}
         </Select>
-        {/* @ts-expect-error TS(2554): Expected 1 arguments, but got 0. // @ts-expect-error TS(2554): Expected 1 */}
         <Button onClick={() => handleFilterAdd()} icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
-      {
-        // @ts-ignore
-        renderClearButton()
-      }
+      {renderClearButton()}
       <SearchInput
         placeholder="search term or regular expression"
         className="w-96 ml-auto"
-        // @ts-ignore
         value={searchTerm || ""}
         onSearch={(value: any) => setSearchTerm(value)}
-        onClear={() => setSearchTerm(null)}
+        onClear={() => setSearchTerm("")}
         onChange={(value: any) => handleSearchChange(value)}
       />
     </Stack>
   )
 
   function renderClearButton(): React.ReactNode {
-    // @ts-ignore
     return (
       activeFilters &&
       Object.keys(activeFilters).length > 0 && (
-        // @ts-ignore
         <Button label="Clear all" onClick={() => clearFilters()} variant="subdued" />
       )
     )
