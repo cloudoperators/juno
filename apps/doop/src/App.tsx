@@ -7,7 +7,6 @@ import React, { useLayoutEffect } from "react"
 
 import { AppShellProvider, ContentHeading } from "@cloudoperators/juno-ui-components"
 import AppContent from "./components/AppContent"
-// @ts-expect-error TS(2792) FIXME: Cannot find module './styles.scss?inline'. Did you... Remove this comment to see the full error message
 import styles from "./styles.scss?inline"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import StoreProvider from "./components/StoreProvider"
