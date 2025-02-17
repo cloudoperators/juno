@@ -5,11 +5,23 @@
 
 import React from "react"
 import { useGetServicesQuery } from "../../generated/graphql"
+import { Breadcrumb } from "../common/Breadcrumb"
+import { Filters } from "../common/Filters"
+import { List } from "../common/List"
+import { Panel } from "../common/Panel"
 
 export const Services = () => {
-  const { data, loading, error } = useGetServicesQuery()
+  const { loading, error } = useGetServicesQuery()
+
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error</p>
 
-  return <div>{data?.Services?.edges?.map((service) => <div key={service?.node.id}>{service?.node.ccrn}</div>)}</div>
+  return (
+    <>
+      <Breadcrumb />
+      <Filters />
+      <List />
+      <Panel />
+    </>
+  )
 }
