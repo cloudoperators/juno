@@ -28,7 +28,7 @@ describe("Shell", () => {
     expect(screen.getByText("Heureka")).toBeInTheDocument()
     // assert that the top navigation is rendered
     expect(screen.getByText("Services")).toBeInTheDocument()
-    expect(screen.getByText("Vulnerabilities")).toBeInTheDocument()
+    expect(screen.getByText("Issues")).toBeInTheDocument()
     expect(screen.getByText("Images")).toBeInTheDocument()
   })
 
@@ -39,8 +39,8 @@ describe("Shell", () => {
 
   it("should allow switching to other view", async () => {
     const { user } = renderShell()
-    await user.click(screen.getByText("Vulnerabilities"))
-    expect(screen.getByText("render vulnerabilities here...")).toBeInTheDocument()
+    await user.click(screen.getByText("Issues"))
+    expect(screen.getByText("render issues here...")).toBeInTheDocument()
     expect(screen.queryByText("render services here...")).not.toBeInTheDocument()
   })
 })

@@ -6,7 +6,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { ShellContent } from "./ShellContent"
-import { SERVICES, VULNERABILITIES } from "../../../constants"
+import { SERVICES, ISSUES } from "../../../constants"
 
 /**
  * let's mock Services because that is a dependency of ShellContent
@@ -22,8 +22,8 @@ describe("ShellContent", () => {
     expect(screen.getByText("render services here...")).toBeInTheDocument()
   })
 
-  it("should render vulnerabilities", () => {
-    render(<ShellContent selectedView={VULNERABILITIES} />)
-    expect(screen.getByText("render vulnerabilities here...")).toBeInTheDocument()
+  it("should render issues", () => {
+    render(<ShellContent selectedView={ISSUES} />)
+    expect(screen.getByText("render issues here...")).toBeInTheDocument()
   })
 })

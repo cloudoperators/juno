@@ -3,6 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-
-export const Images = () => <div>render images here...</div>
+export { Issues } from "./Issues"

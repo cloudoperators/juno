@@ -4,19 +4,16 @@
  */
 
 import React, { ReactNode } from "react"
-import { SERVICES, IMAGES, VULNERABILITIES } from "../../../constants"
+import { SERVICES, ISSUES } from "../../../constants"
 import { Services } from "../../Services"
-import { Vulnerabilities } from "../../Vulnerabilities"
-import { Images } from "../../Images"
+import { Issues } from "../../Issues"
 
 export const ShellContent = ({ selectedView }: { selectedView: ReactNode }) => {
   switch (selectedView) {
     case SERVICES:
       return <Services />
-    case VULNERABILITIES:
-      return <Vulnerabilities />
-    case IMAGES:
-      return <Images />
+    case ISSUES:
+      return <Issues />
     default:
       return null
   }
