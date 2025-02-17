@@ -11,8 +11,8 @@ export interface FilterSlice {
 
 interface FilterState {
   labels: string[]
-  activeFilters: Filter[]
-  pausedFilters: Filter[]
+  activeFilters: Record<string, string[]>
+  pausedFilters: Record<string, string[]>
   filterLabelValues: Record<string, { isLoading: boolean; values?: string[] }>
   predefinedFilters: { name: string; displayName: string; matchers: Record<string, string> }[]
   activePredefinedFilter: Filter | null
