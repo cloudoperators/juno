@@ -1,0 +1,24 @@
+query GetServiceFilters {
+    ServiceFilterValues {
+      serviceCcrn {
+        displayName
+        filterName
+        values
+      }
+      supportGroupCcrn {
+        displayName
+        filterName
+        values
+      }
+      uniqueUserId {
+        displayName
+        filterName
+        values
+      }
+      userName {
+        displayName
+        filterName
+        values
+      }
+    }
+}

@@ -26,20 +26,22 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "@cloudoperators/juno-ui-components": "*",
     "@cloudoperators/juno-messages-provider": "*",
+    "@cloudoperators/juno-ui-components": "*",
+    "lodash": "4.17.21",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@apollo/client": "^3.11.10",
+    "@cloudoperators/juno-config": "*",
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/typescript": "^4.1.2",
     "@graphql-codegen/typescript-operations": "^4.4.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
-    "@cloudoperators/juno-config": "*",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.2.0",
+    "@types/lodash": "^4.17.15",
     "@types/node": "20.17.16",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",

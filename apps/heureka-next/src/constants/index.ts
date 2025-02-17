@@ -4,5 +4,4 @@
  */
 
 export const SERVICES = "services"
-export const VULNERABILITIES = "vulnerabilities"
-export const IMAGES = "images"
+export const ISSUES = "issues"

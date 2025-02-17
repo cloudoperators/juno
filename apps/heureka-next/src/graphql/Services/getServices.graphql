@@ -4,7 +4,31 @@ query GetServices($filter: ServiceFilter, $first: Int, $after: String) {
       node {
         id
         ccrn
+        objectMetadata {
+          componentInstanceCount
+          issueMatchCount
+        }
+        owners {
+          edges {
+            node {
+              id
+              uniqueUserId
+              name
+            }
+            cursor
+          }
+        }
+        supportGroups {
+          edges {
+            node {
+              id
+              ccrn
+            }
+            cursor
+          }
+        }
       }
     }
+    totalCount
   }
 }
