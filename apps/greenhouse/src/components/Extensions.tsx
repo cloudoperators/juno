@@ -14,7 +14,7 @@ import { extensionResolvers, extensionVersions } from "../../extensoinsManifest"
 
 const CorePlugin = ({ config, auth }: any) => {
   // load the app lazily from the core-apps folder
-  let App = lazy(() => import(`./core-apps/${config.id}/App.jsx`))
+  let App = lazy(() => import(`./core-apps/${config.id}/App.tsx`))
   return (
     <Suspense fallback={"Loading..."}>
       <App {...config["props"]} auth={auth} />
