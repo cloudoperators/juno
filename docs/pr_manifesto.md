@@ -7,13 +7,13 @@ This document outlines the process for effective pull request management in the 
 - Ensure all changes strictly adhere to the ticket’s acceptance criteria.
 - Any deviations must be agreed upon with the Product Owner and documented as updates in the original ticket.
 
-## 2. Summarize Changes
+## 2. Summarise Changes
 
 - Provide a comprehensive summary of changes and key technical decisions, highlighting performance impacts, dependencies, and links to relevant documentation.
 - Use visuals to enhance clarity where appropriate.
 - Keep PRs concise to facilitate efficient reviews and prompt merging.
 
-## 3. Prioritize Code Quality
+## 3. Prioritise Code Quality
 
 - Develop code that is readable, efficient, and maintainable.
 - Adhere to coding best practices such as clear naming conventions, modular design, and thorough documentation for complex logic.
@@ -25,13 +25,13 @@ This document outlines the process for effective pull request management in the 
 - Share responsibility for quality assurance, ensuring that no regressions are introduced by new logic.
 - When transferring an identified issue to a new ticket, investigate the root cause, confirm it’s outside the PR’s scope, and link the tickets for traceability.
 
-## 5. Give Actionable and Prioritized Feedback
+## 5. Give Actionable and Prioritised Feedback
 
 - Offer specific and constructive feedback using the "Praise, Question, Suggest" structure:
   - **Praise** positive aspects.
   - **Question** to gain understanding.
-  - **Suggest** improvements with clear technical reasoning and examples
-- Request changes only for critical issues affecting functionality or code quality, and label other feedback as a "Question" or "Non-Blocking Improvement."
+  - **Suggest** improvements with clear technical reasoning and examples.
+- "Request changes" only for critical issues affecting functionality or code quality, and label other feedback as a "Question" or "Non-Blocking Improvement".
 
 ## 6. Take Ownership
 
@@ -39,7 +39,7 @@ This document outlines the process for effective pull request management in the 
 
 ## 7. Address Comments
 
-- Understand each PR comment take one of three actions:
+- Understand each PR comment and take one of three actions:
   - implement changes
   - ask for clarification
   - explain your reasoning for a different approach
@@ -57,4 +57,4 @@ This document outlines the process for effective pull request management in the 
 
 ## 10. Keep Learning
 
-- Recognize successful PRs and share lessons learned in regular retrospectives, strengthening a culture of ongoing collaboration and improvement.
+- Recognise successful PRs and share lessons learnt in regular retrospectives, strengthening a culture of ongoing collaboration and improvement.
