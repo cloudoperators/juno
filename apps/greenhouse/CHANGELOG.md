@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.4.2
+
+### Patch Changes
+
+- d1c4573: Fix greenhouse org admin change
+- Updated dependencies [e990a1d]
+  - @cloudoperators/juno-app-doop@2.3.4
+
 ## 0.4.1
 
 ### Patch Changes
