@@ -6,14 +6,34 @@
 import React, { useState, ReactNode } from "react"
 import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
-import { Navigation } from "../Navigation"
-import { ShellContent } from "./ShellContent"
-import { AppProps } from "../../App"
-import { SERVICES } from "../../constants"
 import styles from "../../styles.scss?inline"
+import { Navigation } from "../Navigation"
+import { IMAGES, SERVICES, VULNERABILITIES } from "../../constants"
+import { Services } from "../Services"
+import { Vulnerabilities } from "../Vulnerabilities"
+import { Images } from "../Images"
 
-export const Shell = ({ embedded }: AppProps) => {
-  const [selectedView, setSelectedView] = useState<ReactNode>(SERVICES)
+const getViewComponent = (selectedView: ReactNode) => {
+  switch (selectedView) {
+    case SERVICES:
+      return Services
+    case VULNERABILITIES:
+      return Vulnerabilities
+    case IMAGES:
+      return Images
+    default:
+      return () => null
+  }
+}
+
+type ShellProps = {
+  embedded?: boolean
+  defaultSelectedView?: ReactNode
+}
+
+export const Shell = ({ embedded, defaultSelectedView = SERVICES }: ShellProps) => {
+  const [selectedView, setSelectedView] = useState<ReactNode>(defaultSelectedView)
+  const SelectedViewComponent = getViewComponent(selectedView)
 
   return (
     <AppShell
@@ -28,7 +48,7 @@ export const Shell = ({ embedded }: AppProps) => {
           <MessagesProvider>
             <Messages />
           </MessagesProvider>
-          <ShellContent selectedView={selectedView} />
+          <SelectedViewComponent />
         </>
       </Container>
     </AppShell>

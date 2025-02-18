@@ -6,23 +6,46 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import { MockedProvider } from "@apollo/client/testing"
 import { Shell } from "./Shell"
+import { GetServicesDocument } from "../../generated/graphql"
 
-/**
- * let's mock Services because that is a dependency of Shell
- * and has been tested independently
- **/
-vitest.mock("../Services/Services", () => ({
-  Services: () => <div>render services here...</div>,
-}))
+const mocks = [
+  {
+    request: {
+      query: GetServicesDocument,
+    },
+    result: {
+      data: {
+        Services: {
+          edges: [
+            {
+              node: {
+                id: "some-id",
+                ccrn: "some-ccrn",
+                __typename: "Service",
+              },
+              __typename: "ServiceEdge",
+            },
+          ],
+          __typename: "ServiceConnection",
+        },
+      },
+    },
+  },
+]
 
 const renderShell = () => ({
   user: userEvent.setup(),
-  ...render(<Shell />),
+  ...render(
+    <MockedProvider mocks={mocks}>
+      <Shell />
+    </MockedProvider>
+  ),
 })
 
 describe("Shell", () => {
-  it("should render correctly", () => {
+  it("should render correctly", async () => {
     renderShell()
     // assert that page header is rendered
     expect(screen.getByText("Heureka")).toBeInTheDocument()
@@ -30,17 +53,13 @@ describe("Shell", () => {
     expect(screen.getByText("Services")).toBeInTheDocument()
     expect(screen.getByText("Vulnerabilities")).toBeInTheDocument()
     expect(screen.getByText("Images")).toBeInTheDocument()
-  })
-
-  it("should render services view by default", () => {
-    renderShell()
-    expect(screen.getByText("render services here...")).toBeInTheDocument()
+    // assert that the default view 'Services' is rendered
+    expect(await screen.findByText("some-ccrn")).toBeInTheDocument()
   })
 
   it("should allow switching to other view", async () => {
     const { user } = renderShell()
     await user.click(screen.getByText("Vulnerabilities"))
     expect(screen.getByText("render vulnerabilities here...")).toBeInTheDocument()
-    expect(screen.queryByText("render services here...")).not.toBeInTheDocument()
   })
 })
