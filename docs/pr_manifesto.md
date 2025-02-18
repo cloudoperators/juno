@@ -18,10 +18,10 @@ This document outlines the process for effective pull request management in the 
 - Develop code that is readable, efficient, and maintainable.
 - Adhere to coding best practices such as clear naming conventions, modular design, and thorough documentation for complex logic.
 - Follow established repository conventions and standards to ensure consistency.
-- Implement robust tests to verify functionality and support continuous maintenance.
 
 ## 4. Test Thoroughly
 
+- Implement robust tests to verify functionality and support continuous maintenance.
 - Share responsibility for quality assurance, ensuring that no regressions are introduced by new logic.
 - When transferring an identified issue to a new ticket, investigate the root cause, confirm it’s outside the PR’s scope, and link the tickets for traceability.
 
