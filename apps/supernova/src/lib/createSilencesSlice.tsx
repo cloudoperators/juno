@@ -169,7 +169,7 @@ const createSilencesSlice: (options?: Record<string, any>) => StateCreator<AppSt
       Given an alert fingerprint, this function returns all silences referenced by silencingBy. 
       */
         getMappingSilences: (alert) => {
-          if (!alert) return
+          if (!alert) return []
           const externalSilences = get().silences.items
           let silencedBy = alert?.status?.silencedBy || []
 
@@ -185,7 +185,7 @@ const createSilencesSlice: (options?: Record<string, any>) => StateCreator<AppSt
       Find all silences  with key expired that matches all labels (key&value) from the alert but omit the labels that are excluded (excludedLabels)
       */
         getExpiredSilences: (alert) => {
-          if (!alert) return
+          if (!alert) return []
           const alertLabels = alert?.labels || {}
           const silences = get().silences.items.filter((silence: any) => silence?.status?.state === "expired") || []
           const excludedLabels = get().silences.excludedLabels || []
