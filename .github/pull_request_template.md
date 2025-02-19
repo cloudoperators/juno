@@ -38,3 +38,7 @@
 - [ ] I have made corresponding changes to the documentation (if applicable).
 - [ ] My changes generate no new warnings or errors.
 - [ ] I have created a changeset for my changes.
+
+# PR Manifesto
+
+Review the [PR Manifesto](https://github.com/cloudoperators/juno/blob/main/docs/pr_manifesto.md) for best practises.
