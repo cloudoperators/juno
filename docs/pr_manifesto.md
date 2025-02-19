@@ -30,6 +30,7 @@ This document outlines the process for effective pull request management in the 
 
 ## 5. Give Actionable and Prioritised Feedback
 
+- Contribute to ongoing discussions to ensure focused communication and prevent duplication on related topics.
 - Offer specific and constructive feedback using the "Praise, Question, Suggest" structure:
   - **Praise** positive aspects.
   - **Question** to gain understanding.
