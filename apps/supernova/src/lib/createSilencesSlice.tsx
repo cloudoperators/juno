@@ -34,7 +34,7 @@ interface SilencesActions {
   getLatestMappingSilence: (alert: AlertItem) => Silence | undefined
 }
 
-interface SilencesSlice {
+export interface SilencesSlice {
   silences: SilencesState & { actions: SilencesActions }
 }
 

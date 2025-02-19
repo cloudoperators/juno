@@ -7,7 +7,7 @@ import React, { createContext, useContext } from "react"
 import { createStore, useStore, StoreApi } from "zustand"
 import { devtools } from "zustand/middleware"
 
-import createSilencesSlice from "../lib/createSilencesSlice"
+import createSilencesSlice, { SilencesSlice } from "../lib/createSilencesSlice"
 import createAlertsSlice, { AlertsSlice } from "../lib/createAlertsSlice"
 import createFiltersSlice, { FilterSlice } from "../lib/createFiltersSlice"
 import createGlobalsSlice from "../lib/createGlobalsSlice"
@@ -15,7 +15,7 @@ import createUserActivitySlice from "../lib/createUserActivitySlice"
 
 const StoreContext = createContext<StoreApi<AppState> | null>(null)
 
-export type AppState = FilterSlice & AlertsSlice & Record<string, any>
+export type AppState = FilterSlice & AlertsSlice & SilencesSlice & Record<string, any>
 
 interface StoreProviderProps {
   options?: Record<string, any> // should be defined later on for the props
