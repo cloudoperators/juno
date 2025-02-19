@@ -41,9 +41,12 @@ This document outlines the process for effective pull request management in the 
 ## 7. Address Comments
 
 - Understand each PR comment and take one of three actions:
-  - implement changes
-  - ask for clarification
-  - explain your reasoning for a different approach
+  - **Implement** changes
+  - **Ask** for clarification
+  - **Explain** your reasoning for a different approach
+  - **Defer** with reasoning (if the change isn't required) by:
+    - Creating another PR within the same ticket's scope.
+    - Creating a new ticket and linking it for traceability.
 - Ensure the person who raised the comment, or if unavailable, another reviewer, resolves it.
 
 ## 8. Collaborate and Discuss Openly
