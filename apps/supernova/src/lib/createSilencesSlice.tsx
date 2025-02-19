@@ -3,6 +3,41 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { StateCreator } from "zustand"
+import { AppState } from "../components/StoreProvider"
+import { AlertItem } from "./createAlertsSlice"
+
+interface Silence {
+  id: string
+  status?: Record<string, any>
+  matchers?: { name: string; value: string; isRegex?: boolean }[]
+  endsAt?: number
+}
+
+interface SilencesState {
+  items: Silence[]
+  excludedLabels: string[]
+  updatedAt: number | null
+  status: string
+  regEx: string
+  templates: Record<string, any>
+}
+
+interface SilencesActions {
+  setSilencesStatus: (status: string) => void
+  setSilencesRegEx: (regEx: string) => void
+  getSilenceById: (id: string) => Silence | undefined
+  setSilences: (payload: { items: Silence[] }) => void
+  getMappingSilences: (alert: AlertItem) => Silence[]
+  getExpiredSilences: (alert: AlertItem) => Silence[]
+  getSilencesForAlert: (alert: AlertItem) => Silence[]
+  getLatestMappingSilence: (alert: AlertItem) => Silence | undefined
+}
+
+interface SilencesSlice {
+  silences: SilencesState & { actions: SilencesActions }
+}
+
 const initialSilencesState = {
   items: [],
   excludedLabels: [],
@@ -89,142 +124,139 @@ const validateTemplates = (templates: any) => {
     .filter((template) => template !== null)
 }
 
-// @ts-expect-error TS(7006) FIXME: Parameter 'set' implicitly has an 'any' type.
-const createSilencesSlice = (set, get, options) => ({
-  silences: {
-    ...initialSilencesState,
+const createSilencesSlice: (options?: Record<string, any>) => StateCreator<AppState, [], [], SilencesSlice> =
+  (options) => (set, get, store) => ({
+    silences: {
+      ...initialSilencesState,
 
-    // silence templates for maintanance
-    templates: options?.silenceTemplates ? validateTemplates(options?.silenceTemplates) : [],
-    excludedLabels: validateExcludedLabels(options?.silenceExcludedLabels),
-    actions: {
-      setSilencesStatus: (status: any) =>
-        set(
-          (state: any) => ({
-            silences: { ...state.silences, status: status },
-          }),
-          false,
-          "silences.setSilencesStatus"
-        ),
-      setSilencesRegEx: (regEx: any) =>
-        set(
-          (state: any) => ({
-            silences: { ...state.silences, regEx: regEx },
-          }),
-          false,
-          "silences.setSilencesRegEx"
-        ),
+      // silence templates for maintanance
+      templates: options?.silenceTemplates ? validateTemplates(options?.silenceTemplates) : [],
+      excludedLabels: validateExcludedLabels(options?.silenceExcludedLabels),
+      actions: {
+        setSilencesStatus: (status) =>
+          set(
+            (state: any) => ({
+              silences: { ...state.silences, status: status },
+            }),
+            false
+          ),
+        setSilencesRegEx: (regEx) =>
+          set(
+            (state: any) => ({
+              silences: { ...state.silences, regEx: regEx },
+            }),
+            false
+          ),
 
-      getSilenceById: (id: any) => {
-        return get().silences.items.find((silence: any) => silence.id === id)
-      },
+        getSilenceById: (id) => {
+          return get().silences.items.find((silence: any) => silence.id === id)
+        },
 
-      setSilences: ({ items }: any) => {
-        if (!items) return
+        setSilences: ({ items }) => {
+          if (!items) return
 
-        set((state: any) => ({
-          silences: {
-            ...state.silences,
-            items: items,
-            updatedAt: Date.now(),
-          },
-        })),
-          false,
-          "silences.setSilencesData"
-      },
+          set((state: any) => ({
+            silences: {
+              ...state.silences,
+              items: items,
+              updatedAt: Date.now(),
+            },
+          })),
+            false
+        },
 
-      /* 
+        /* 
       Given an alert fingerprint, this function returns all silences referenced by silencingBy. 
       */
-      getMappingSilences: (alert: any) => {
-        if (!alert) return
-        const externalSilences = get().silences.items
-        let silencedBy = alert?.status?.silencedBy || []
+        getMappingSilences: (alert) => {
+          if (!alert) return
+          const externalSilences = get().silences.items
+          let silencedBy = alert?.status?.silencedBy || []
 
-        // ensure silencedBy is an array
-        if (!Array.isArray(silencedBy)) silencedBy = [silencedBy]
+          // ensure silencedBy is an array
+          if (!Array.isArray(silencedBy)) silencedBy = [silencedBy]
 
-        const silencedBySet = new Set(silencedBy)
-        const mappingSilences = externalSilences.filter((silence: any) => silencedBySet.has(silence.id))
+          const silencedBySet = new Set(silencedBy)
+          const mappingSilences = externalSilences.filter((silence: any) => silencedBySet.has(silence.id))
 
-        return mappingSilences
-      },
-      /*
+          return mappingSilences
+        },
+        /*
       Find all silences  with key expired that matches all labels (key&value) from the alert but omit the labels that are excluded (excludedLabels)
       */
-      getExpiredSilences: (alert: any) => {
-        if (!alert) return
-        const alertLabels = alert?.labels || {}
-        const silences = get().silences.items.filter((silence: any) => silence?.status?.state === "expired") || []
-        const excludedLabels = get().silences.excludedLabels || []
-        const enrichedLabels = get().alerts.enrichedLabels || []
-        // combine the arrays containing the labels that shouldn't be used for matching into one for easier checking
-        const labelsExcludedForMatching = [...excludedLabels, ...enrichedLabels]
+        getExpiredSilences: (alert) => {
+          if (!alert) return
+          const alertLabels = alert?.labels || {}
+          const silences = get().silences.items.filter((silence: any) => silence?.status?.state === "expired") || []
+          const excludedLabels = get().silences.excludedLabels || []
+          const enrichedLabels = get().alerts.enrichedLabels || []
+          // combine the arrays containing the labels that shouldn't be used for matching into one for easier checking
+          const labelsExcludedForMatching = [...excludedLabels, ...enrichedLabels]
 
-        // find all expired silences that matches all labels from the alert excluding the excluded excludedLabels
-        return silences.filter((silence: any) => {
-          const silenceMatchers = silence?.matchers || []
-          // check if all labels from the alert are included in the silence
-          return Object.keys(alertLabels).every((label) => {
-            // check if the label is excluded
-            if (labelsExcludedForMatching.includes(label)) return true
-            // check if the label is included in the silence
-            return silenceMatchers.some(
-              (silenceLabel: any) => silenceLabel?.name === label && silenceLabel?.value === alertLabels?.[label]
-            )
+          // find all expired silences that matches all labels from the alert excluding the excluded excludedLabels
+          return silences.filter((silence: any) => {
+            const silenceMatchers = silence?.matchers || []
+            // check if all labels from the alert are included in the silence
+            return Object.keys(alertLabels).every((label) => {
+              // check if the label is excluded
+              if (labelsExcludedForMatching.includes(label)) return true
+              // check if the label is included in the silence
+              return silenceMatchers.some(
+                (silenceLabel: any) => silenceLabel?.name === label && silenceLabel?.value === alertLabels?.[label]
+              )
+            })
           })
-        })
-      },
+        },
 
-      /*
+        /*
       Find all silences (also expired ones) in items that matches all labels (key&value) from the alert but omit the labels that are excluded (excludedLabels)
       */
-      getSilencesForAlert: (alert: any) => {
-        if (!alert) return
+        getSilencesForAlert: (alert) => {
+          if (!alert) return []
 
-        const alertLabels = alert?.labels || {}
+          const alertLabels = alert?.labels || {}
 
-        // collect all silences
-        let silences = [...get().silences.items]
+          // collect all silences
+          let silences = [...get().silences.items]
 
-        // collect all excluded Labels
-        const excludedLabels = get().silences.excludedLabels || []
-        const enrichedLabels = get().alerts.enrichedLabels || []
-        // combine the arrays containing the labels that shouldn't be used for matching into one for easier checking
-        const labelsExcludedForMatching = [...excludedLabels, ...enrichedLabels]
+          // collect all excluded Labels
+          const excludedLabels = get().silences.excludedLabels || []
+          const enrichedLabels = get().alerts.enrichedLabels || []
+          // combine the arrays containing the labels that shouldn't be used for matching into one for easier checking
+          const labelsExcludedForMatching = [...excludedLabels, ...enrichedLabels]
 
-        // Find all silences where all silence.labels are a subset of alerts.labels (excluding the excluded excludedLabels)
-        return silences.filter((silence) => {
-          const silenceMatchers = silence?.matchers || []
+          // Find all silences where all silence.labels are a subset of alerts.labels (excluding the excluded excludedLabels)
+          return silences.filter((silence) => {
+            const silenceMatchers = silence?.matchers || []
 
-          // Check if all non-excluded labels from the silence are included in the alert
-          return silenceMatchers.every((silenceLabel: any) => {
-            if (labelsExcludedForMatching.includes(silenceLabel.name)) return true
-            const alertLabelValue = alertLabels[silenceLabel.name]
+            // Check if all non-excluded labels from the silence are included in the alert
+            return silenceMatchers.every((silenceLabel: any) => {
+              if (labelsExcludedForMatching.includes(silenceLabel.name)) return true
+              const alertLabelValue = alertLabels[silenceLabel.name]
 
-            // If the label is not a regex, check if the values are equal
-            if (!silenceLabel.isRegex) {
-              return silenceLabel.value === alertLabelValue
-            }
+              // If the label is not a regex, check if the values are equal
+              if (!silenceLabel.isRegex) {
+                return silenceLabel.value === alertLabelValue
+              }
 
-            // SilenceLabel.isRegex is true so we need to check if the alertLabelValue matches the regex
-            const regex = new RegExp(silenceLabel.value)
-            return regex.test(alertLabelValue)
+              // SilenceLabel.isRegex is true so we need to check if the alertLabelValue matches the regex
+              const regex = new RegExp(silenceLabel.value)
+              return regex.test(alertLabelValue)
+            })
           })
-        })
-      },
-      /*
+        },
+        /*
         Returns the silence (including the local ones) with the latest expiration time for an alert. Useful to display when the alert will be active again.
       */
-      getLatestMappingSilence: (alert: any) => {
-        if (!alert) return
-        const silences = get().silences.actions.getMappingSilences(alert)
-        if (!silences?.length) return
-        // return the latest expired silence
-        return silences.reduce((prev: any, current: any) => (prev.endsAt > current.endsAt ? prev : current))
+        getLatestMappingSilence: (alert) => {
+          if (!alert) return
+          const silences = get().silences.actions.getMappingSilences(alert)
+          if (!silences?.length) return
+          // return the latest expired silence
+          return silences.reduce((prev: any, current: any) => (prev.endsAt > current.endsAt ? prev : current))
+        },
       },
     },
-  },
-})
+  })
 
 export default createSilencesSlice

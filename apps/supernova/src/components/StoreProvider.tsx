@@ -15,7 +15,7 @@ import createUserActivitySlice from "../lib/createUserActivitySlice"
 
 const StoreContext = createContext<StoreApi<AppState> | null>(null)
 
-type AppState = FilterSlice & AlertsSlice & Record<string, any>
+export type AppState = FilterSlice & AlertsSlice & Record<string, any>
 
 interface StoreProviderProps {
   options?: Record<string, any> // should be defined later on for the props
@@ -25,12 +25,12 @@ interface StoreProviderProps {
 export const StoreProvider = ({ options, children }: StoreProviderProps) => {
   return (
     <StoreContext.Provider
-      value={createStore<AppState>((set, get) => ({
-        ...createGlobalsSlice(set, get, options),
+      value={createStore<AppState>((set, get, store) => ({
+        ...createGlobalsSlice(options)(set, get, store),
         ...createUserActivitySlice(set),
         ...createAlertsSlice(set, get),
-        ...createFiltersSlice(set, get, options),
-        ...createSilencesSlice(set, get, options),
+        ...createFiltersSlice(options)(set, get, store),
+        ...createSilencesSlice(options)(set, get, store),
       }))}
     >
       {children}
