@@ -7,16 +7,23 @@ import React from "react"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { ErrorBoundary } from "./components/ErrorBoundary"
 import { Shell } from "./components/Shell"
+import { ApolloProvider } from "@apollo/client"
+import { getClient } from "./apollo-client"
 
 export type AppProps = {
   theme?: "theme-dark" | "theme-light"
+  apiEndpoint?: string
   embedded?: boolean
 }
 
-export const App = (props: AppProps) => (
-  <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
-    <ErrorBoundary>
-      <Shell {...props} />
-    </ErrorBoundary>
-  </AppShellProvider>
+const App = (props: AppProps) => (
+  <ApolloProvider client={getClient({ uri: props.apiEndpoint })}>
+    <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
+      <ErrorBoundary>
+        <Shell {...props} />
+      </ErrorBoundary>
+    </AppShellProvider>
+  </ApolloProvider>
 )
+
+export default App
