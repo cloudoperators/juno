@@ -44,7 +44,7 @@ This document outlines the process for effective pull request management in the 
   - **Implement** changes
   - **Ask** for clarification
   - **Explain** your reasoning for a different approach
-  - **Defer** with reasoning (if the change isn't required) by:
+  - **Defer** the change with reasoning (if not "requested") by:
     - Creating another PR within the same ticket's scope.
     - Creating a new ticket and linking it for traceability.
 - Ensure the person who raised the comment, or if unavailable, another reviewer, resolves it.
