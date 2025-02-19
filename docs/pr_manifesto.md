@@ -9,10 +9,12 @@ This document outlines the process for effective pull request management in the 
 
 ## 2. Summarise Changes
 
-- Provide a comprehensive summary of changes and key technical decisions, highlighting performance impacts, dependencies, and links to relevant documentation.
-- Include clear instructions for manual testing of complex or non-obvious edge cases.
-- Use visuals to enhance clarity where appropriate.
-- Keep PRs concise to facilitate efficient reviews and prompt merging.
+- Provide a comprehensive summary of changes and key technical decisions:
+  - Highlight performance impacts, dependencies, and links to relevant documentation.
+  - Use visuals to enhance clarity.
+  - Include clear instructions for manual testing of complex or non-obvious edge cases.
+- Keep PRs concise, well-organized, and easy to understand to enable swift reviews and merging. Remember that splitting functionality into smaller PRs can improve clarity and manageability.
+- Use Draft PRs for early feedback and collaboration on work-in-progress code. Refrain from using them as a substitute for local testing to conserve CI/CD resources.
 
 ## 3. Prioritise Code Quality
 
@@ -32,7 +34,8 @@ This document outlines the process for effective pull request management in the 
   - **Praise** positive aspects.
   - **Question** to gain understanding.
   - **Suggest** improvements with clear technical reasoning and examples.
-- "Request changes" only for critical issues affecting functionality or code quality, and label other feedback as a "Question" or "Non-Blocking Improvement".
+- Only use 'Request changes' for critical issues impacting functionality, design or code quality, marking them as a "**(Required Change)**".
+- Label all other feedback as a "**(Question)**" or "**(Non-Blocking Improvement)**".
 
 ## 6. Take Ownership
 
@@ -41,9 +44,9 @@ This document outlines the process for effective pull request management in the 
 ## 7. Address Comments
 
 - Understand each PR comment and take one of four actions:
-  - **Implement** changes
-  - **Ask** for clarification
-  - **Explain** your reasoning for a different approach
+  - **Implement** changes.
+  - **Ask** for clarification.
+  - **Explain** your reasoning for a different approach.
   - **Defer** the change with reasoning (if not "requested") by:
     - Creating another PR within the same ticket's scope.
     - Creating a new ticket and linking it for traceability.
@@ -51,13 +54,14 @@ This document outlines the process for effective pull request management in the 
 
 ## 8. Collaborate and Discuss Openly
 
-- Engage directly with reviewers to foster understanding and collaborative decision-making on technical conflicts.
+- Engage directly with reviewers through PR comments or short alignment meetings to foster understanding and collaborative decision-making on technical conflicts.
 - Reach a compromise on essential changes while keeping the scope and timeline in mind.
-- For complex PRs or unresolved issues, agree to involve additional team members in "tech therapy" sessions to gain diverse insights and make informed technical decisions as a team.
+- For complex PRs or unresolved issues, agree to involve additional team members in "Tech Therapy" sessions to gain diverse insights and make informed technical decisions as a team.
 
 ## 9. Maintain Momentum
 
 - Respond to comments and improvements promptly, maintaining an open dialogue on progress and acknowledging that complex PRs might require more time.
+- Before an extended absence, assign ownership to another team member and leave a detailed comment outlining the current progress and any outstanding issues.
 
 ## 10. Keep Learning
 
