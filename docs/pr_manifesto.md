@@ -40,7 +40,7 @@ This document outlines the process for effective pull request management in the 
 
 ## 7. Address Comments
 
-- Understand each PR comment and take one of three actions:
+- Understand each PR comment and take one of four actions:
   - **Implement** changes
   - **Ask** for clarification
   - **Explain** your reasoning for a different approach
