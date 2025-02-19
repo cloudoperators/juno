@@ -10,6 +10,7 @@ This document outlines the process for effective pull request management in the 
 ## 2. Summarise Changes
 
 - Provide a comprehensive summary of changes and key technical decisions, highlighting performance impacts, dependencies, and links to relevant documentation.
+- Include clear instructions for manual testing of complex or non-obvious edge cases.
 - Use visuals to enhance clarity where appropriate.
 - Keep PRs concise to facilitate efficient reviews and prompt merging.
 
@@ -22,7 +23,7 @@ This document outlines the process for effective pull request management in the 
 ## 4. Test Thoroughly
 
 - Implement robust tests to verify functionality and support continuous maintenance.
-- Share responsibility for quality assurance, ensuring that no regressions are introduced by new logic.
+- All contributors are responsible for the prevention of regressions by thoroughly testing new functionality, including manual runtime verification.
 - When transferring an identified issue to a new ticket, investigate the root cause, confirm it’s outside the PR’s scope, and link the tickets for traceability.
 
 ## 5. Give Actionable and Prioritised Feedback
