@@ -4,10 +4,10 @@
  */
 
 import { produce } from "immer"
+import { StateCreator } from "zustand"
 import { countAlerts } from "./utils"
 import { Filter } from "./createFiltersSlice"
 import { AppState } from "../components/StoreProvider"
-import { StateCreator } from "zustand"
 
 export interface AlertsSlice {
   alerts: AlertsState
