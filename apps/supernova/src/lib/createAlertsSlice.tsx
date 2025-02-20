@@ -6,6 +6,8 @@
 import { produce } from "immer"
 import { countAlerts } from "./utils"
 import { Filter } from "./createFiltersSlice"
+import { AppState } from "../components/StoreProvider"
+import { StateCreator } from "zustand"
 
 export interface AlertsSlice {
   alerts: AlertsState
@@ -30,9 +32,9 @@ export interface AlertItem {
 }
 
 export interface AlertCounts {
-  total: number
-  critical: number
-  [key: string]: number
+  total?: number
+  critical?: number
+  [key: string]: number | undefined
 }
 
 export interface SeverityCounts {
@@ -57,7 +59,7 @@ export interface AlertsActions {
 const initialAlertsState = {
   items: [],
   itemsFiltered: [],
-  totalCounts: { total: 0, critical: 0 }, // { total: number, critical: number, ...},
+  totalCounts: {}, // { total: number, critical: number, ...},
   severityCountsPerRegion: {}, // {"eu-de-1": { total: number, critical: {total: number, suppressed: number}, warning: {...}, ...}
   regions: [], // save all available regions from initial list here
   regionsFiltered: [], // regions list filtered by active predefined filters
@@ -65,13 +67,13 @@ const initialAlertsState = {
   updatedAt: null,
 }
 
-const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
+const createAlertsSlice: StateCreator<AppState, [], [], AlertsSlice> = (set, get) => ({
   alerts: {
     ...initialAlertsState,
     actions: {
-      setAlertsData: ({ items, counts }: any) => {
+      setAlertsData: ({ items, counts }) => {
         set(
-          produce((state: any) => {
+          produce((state: AppState) => {
             state.alerts.items = items
             state.alerts.totalCounts = counts?.global
             state.alerts.severityCountsPerRegion = counts?.regions
@@ -93,8 +95,7 @@ const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
             // reload previously loaded filter label values (they might have changed since last load)
             // state.filters.filterLabelValues = {} // -> do NOT just reset them, reload instead
           }),
-          false,
-          "alerts.setAlertsData"
+          false
         )
         // if there are already active filters or active predefined filters, filter the new list
         if (Object.keys(get().filters.activeFilters)?.length > 0 || get().filters.activePredefinedFilter) {
@@ -104,14 +105,14 @@ const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
 
       filterItems: () => {
         // the actual active predefinedFilter and not the name saved activePredefinedFilter in Zustand
-        let activePredefinedFilter: Filter | null = null
+        let activePredefinedFilter: Filter | undefined
         if (get().filters.predefinedFilters && get().filters.activePredefinedFilter) {
           activePredefinedFilter = get().filters.predefinedFilters.find(
             (filter: Filter) => filter.name === get().filters.activePredefinedFilter
           )
         }
 
-        const filteredRegions = new Set()
+        const filteredRegions: Set<string> = new Set()
 
         // reduce active filters to only those that are not paused (this will make the filter logic more intuitive)
         const unpausedActiveFilters = Object.keys(get().filters.activeFilters).reduce((acc, key) => {
@@ -129,7 +130,7 @@ const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
         }, {})
 
         set(
-          produce((state: any) => {
+          produce((state) => {
             state.alerts.itemsFiltered = state.alerts.items.filter((item: any) => {
               let visible = true
 
@@ -185,8 +186,7 @@ const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
               return visible
             })
           }),
-          false,
-          "alerts.filterItems"
+          false
         )
         get().alerts.actions.updateFilteredCounts()
         if (filteredRegions.size > 0) {
@@ -197,41 +197,38 @@ const createAlertsSlice = (set: any, get: any): AlertsSlice => ({
         }
       },
 
-      setFilteredItems: (items: any) => {
+      setFilteredItems: (items) => {
         set(
-          produce((state: any) => {
+          produce((state) => {
             state.alerts.itemsFiltered = items
           }),
-          false,
-          "alerts.setFilteredItems"
+          false
         )
         get().alerts.actions.updateFilteredCounts()
       },
 
-      setRegionsFiltered: (regions: any) => {
+      setRegionsFiltered: (regions) => {
         set(
-          produce((state: any) => {
+          produce((state) => {
             state.alerts.regionsFiltered = regions
           }),
-          false,
-          "alerts.setRegionsFiltered"
+          false
         )
       },
 
       updateFilteredCounts: () => {
         const counts = countAlerts(get().alerts.itemsFiltered)
         set(
-          produce((state: any) => {
+          produce((state) => {
             state.alerts.totalCounts = counts.global
             state.alerts.severityCountsPerRegion = counts.regions
           }),
-          false,
-          "alerts.updateFilteredCounts"
+          false
         )
       },
 
-      getAlertByFingerprint: (fingerprint: any) => {
-        return get().alerts.items.find((alert: any) => alert.fingerprint === fingerprint)
+      getAlertByFingerprint: (fingerprint) => {
+        return get().alerts.items.find((alert) => alert.fingerprint === fingerprint)
       },
     },
   },
