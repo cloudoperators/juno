@@ -26,21 +26,15 @@ interface AlertsState {
 }
 
 export interface AlertItem {
-  fingerprint: string
-  labels: Record<string, string>
   [key: string]: any
 }
 
-export interface AlertCounts {
-  total?: number
-  critical?: number
+interface AlertCounts {
   [key: string]: number | undefined
 }
 
-export interface SeverityCounts {
+interface SeverityCounts {
   total: number
-  critical?: { total: number; suppressed: number }
-  warning?: { total: number; suppressed: number }
   [key: string]: any
 }
 
