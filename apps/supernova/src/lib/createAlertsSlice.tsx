@@ -67,7 +67,7 @@ const initialAlertsState = {
   updatedAt: null,
 }
 
-const createAlertsSlice: StateCreator<AppState, [], [], AlertsSlice> = (set, get) => ({
+const createAlertsSlice: StateCreator<AppState, [], [], AlertsSlice> = (set, get, store) => ({
   alerts: {
     ...initialAlertsState,
     actions: {
