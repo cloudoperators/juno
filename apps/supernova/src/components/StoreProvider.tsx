@@ -28,7 +28,7 @@ export const StoreProvider = ({ options, children }: StoreProviderProps) => {
       value={createStore<AppState>((set, get, store) => ({
         ...createGlobalsSlice(options)(set, get, store),
         ...createUserActivitySlice(set),
-        ...createAlertsSlice(set, get),
+        ...createAlertsSlice(set, get, store),
         ...createFiltersSlice(options)(set, get, store),
         ...createSilencesSlice(options)(set, get, store),
       }))}
