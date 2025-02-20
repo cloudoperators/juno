@@ -29,12 +29,19 @@ export interface AlertItem {
   [key: string]: any
 }
 
-interface AlertCounts {
+export interface AlertCounts {
+  total?: number
+  critical?: number
+  warning?: number
+  info?: number
   [key: string]: number | undefined
 }
 
-interface SeverityCounts {
+export interface SeverityCounts {
   total: number
+  critical?: { total: number; suppressed: number }
+  warning?: { total: number; suppressed: number }
+  info?: { total: number; suppressed: number }
   [key: string]: any
 }
 
