@@ -4,7 +4,60 @@
  */
 
 import { produce } from "immer"
+import { StateCreator } from "zustand"
 import { countAlerts } from "./utils"
+import { Filter } from "./createFiltersSlice"
+import { AppState } from "../components/StoreProvider"
+
+export interface AlertsSlice {
+  alerts: AlertsState
+}
+
+interface AlertsState {
+  items: AlertItem[]
+  itemsFiltered: AlertItem[]
+  totalCounts: AlertCounts
+  severityCountsPerRegion: Record<string, SeverityCounts>
+  regions: string[]
+  regionsFiltered: string[]
+  enrichedLabels: string[]
+  updatedAt: number | null
+  actions: AlertsActions
+}
+
+export interface AlertItem {
+  fingerprint: string
+  labels: Record<string, string>
+  [key: string]: any
+}
+
+export interface AlertCounts {
+  total?: number
+  critical?: number
+  warning?: number
+  info?: number
+  [key: string]: number | undefined
+}
+
+export interface SeverityCounts {
+  total: number
+  critical?: { total: number; suppressed: number }
+  warning?: { total: number; suppressed: number }
+  info?: { total: number; suppressed: number }
+  [key: string]: any
+}
+
+export interface AlertsActions {
+  setAlertsData: (data: {
+    items: AlertItem[]
+    counts: { global: AlertCounts; regions: Record<string, SeverityCounts> }
+  }) => void
+  filterItems: () => void
+  setFilteredItems: (items: AlertItem[]) => void
+  setRegionsFiltered: (regions: string[]) => void
+  updateFilteredCounts: () => void
+  getAlertByFingerprint: (fingerprint: string) => AlertItem | undefined
+}
 
 const initialAlertsState = {
   items: [],
@@ -17,14 +70,13 @@ const initialAlertsState = {
   updatedAt: null,
 }
 
-// @ts-expect-error TS(7006) FIXME: Parameter 'set' implicitly has an 'any' type.
-const createAlertsSlice = (set, get) => ({
+const createAlertsSlice: StateCreator<AppState, [], [], AlertsSlice> = (set, get, store) => ({
   alerts: {
     ...initialAlertsState,
     actions: {
-      setAlertsData: ({ items, counts }: any) => {
+      setAlertsData: ({ items, counts }) => {
         set(
-          produce((state: any) => {
+          produce((state: AppState) => {
             state.alerts.items = items
             state.alerts.totalCounts = counts?.global
             state.alerts.severityCountsPerRegion = counts?.regions
@@ -46,8 +98,7 @@ const createAlertsSlice = (set, get) => ({
             // reload previously loaded filter label values (they might have changed since last load)
             // state.filters.filterLabelValues = {} // -> do NOT just reset them, reload instead
           }),
-          false,
-          "alerts.setAlertsData"
+          false
         )
         // if there are already active filters or active predefined filters, filter the new list
         if (Object.keys(get().filters.activeFilters)?.length > 0 || get().filters.activePredefinedFilter) {
@@ -56,14 +107,15 @@ const createAlertsSlice = (set, get) => ({
       },
 
       filterItems: () => {
-        let activePredefinedFilter: any = null
+        // the actual active predefinedFilter and not the name saved activePredefinedFilter in Zustand
+        let activePredefinedFilter: Filter | undefined
         if (get().filters.predefinedFilters && get().filters.activePredefinedFilter) {
           activePredefinedFilter = get().filters.predefinedFilters.find(
-            (filter: any) => filter.name === get().filters.activePredefinedFilter
+            (filter: Filter) => filter.name === get().filters.activePredefinedFilter
           )
         }
 
-        const filteredRegions = new Set()
+        const filteredRegions: Set<string> = new Set()
 
         // reduce active filters to only those that are not paused (this will make the filter logic more intuitive)
         const unpausedActiveFilters = Object.keys(get().filters.activeFilters).reduce((acc, key) => {
@@ -81,7 +133,7 @@ const createAlertsSlice = (set, get) => ({
         }, {})
 
         set(
-          produce((state: any) => {
+          produce((state) => {
             state.alerts.itemsFiltered = state.alerts.items.filter((item: any) => {
               let visible = true
 
@@ -96,7 +148,6 @@ const createAlertsSlice = (set, get) => ({
               // if it doesn't match, set visible to false and break out of the loop
               activePredefinedFilter &&
                 Object.entries(activePredefinedFilter.matchers).forEach(([key, value]) => {
-                  // @ts-ignore
                   if (!new RegExp(value, "i").test(item.labels[key])) {
                     visible = false
                     return
@@ -138,8 +189,7 @@ const createAlertsSlice = (set, get) => ({
               return visible
             })
           }),
-          false,
-          "alerts.filterItems"
+          false
         )
         get().alerts.actions.updateFilteredCounts()
         if (filteredRegions.size > 0) {
@@ -150,41 +200,38 @@ const createAlertsSlice = (set, get) => ({
         }
       },
 
-      setFilteredItems: (items: any) => {
+      setFilteredItems: (items) => {
         set(
-          produce((state: any) => {
+          produce((state) => {
             state.alerts.itemsFiltered = items
           }),
-          false,
-          "alerts.setFilteredItems"
+          false
         )
         get().alerts.actions.updateFilteredCounts()
       },
 
-      setRegionsFiltered: (regions: any) => {
+      setRegionsFiltered: (regions) => {
         set(
-          produce((state: any) => {
+          produce((state) => {
             state.alerts.regionsFiltered = regions
           }),
-          false,
-          "alerts.setRegionsFiltered"
+          false
         )
       },
 
       updateFilteredCounts: () => {
         const counts = countAlerts(get().alerts.itemsFiltered)
         set(
-          produce((state: any) => {
+          produce((state) => {
             state.alerts.totalCounts = counts.global
             state.alerts.severityCountsPerRegion = counts.regions
           }),
-          false,
-          "alerts.updateFilteredCounts"
+          false
         )
       },
 
-      getAlertByFingerprint: (fingerprint: any) => {
-        return get().alerts.items.find((alert: any) => alert.fingerprint === fingerprint)
+      getAlertByFingerprint: (fingerprint) => {
+        return get().alerts.items.find((alert) => alert.fingerprint === fingerprint)
       },
     },
   },

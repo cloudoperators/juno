@@ -30,13 +30,11 @@ const regionHeader = `
 `
 
 const Region = ({ region, severityCounts }: any) => {
-  //@ts-ignore
   const { addActiveFilter, removeActiveFilter } = useFilterActions()
   const activeFilters = useActiveFilters()
 
   const handleRegionClick = () => {
     // if the region is already active, remove it
-    // @ts-ignore
     if (activeFilters?.region?.includes(region)) {
       removeActiveFilter("region", region)
     } else {

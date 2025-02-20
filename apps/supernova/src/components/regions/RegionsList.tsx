@@ -18,24 +18,17 @@ const regionsClasses = `
 `
 
 const RegionsList: React.FC = () => {
-  // @ts-ignore
   const { isLoading } = useBoundQuery("alerts")
-  // @ts-ignore
   const severityCountsPerRegion = useAlertsSeverityCountsPerRegion()
-  // @ts-ignore
   const regions = useAlertsRegionsFiltered()
 
   const renderRegions = () => {
     if (!isLoading && regions) {
       return (
         <div className={`regions ${regionsClasses}`}>
-          {
-            // @ts-ignore
-            regions.map((region) => (
-              // @ts-ignore
-              <Region key={`${region}`} region={region} severityCounts={severityCountsPerRegion[region]} />
-            ))
-          }
+          {regions.map((region) => (
+            <Region key={`${region}`} region={region} severityCounts={severityCountsPerRegion[region]} />
+          ))}
         </div>
       )
     }

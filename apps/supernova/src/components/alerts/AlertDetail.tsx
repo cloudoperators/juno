@@ -34,14 +34,13 @@ import AlertRegion from "./shared/AlertRegion"
 import AlertSilences from "./AlertSilences"
 import { Messages } from "@cloudoperators/juno-messages-provider"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { AlertItem } from "../../lib/createAlertsSlice"
 
 const AlertDetail = () => {
   const alertID = useShowDetailsFor()
-  // @ts-ignore
   const { setShowDetailsFor } = useGlobalsActions()
-  // @ts-ignore
   const { getAlertByFingerprint } = useAlertsActions()
-  const [alert, setAlert] = useState(null)
+  const [alert, setAlert] = useState<AlertItem | undefined>(undefined)
   const alerts = useAlertsItems()
 
   const onPanelClose = () => {
@@ -51,7 +50,6 @@ const AlertDetail = () => {
   const { isLoading } = useBoundQuery("alerts")
   useEffect(() => {
     // wait for the alerts to be loaded
-    // @ts-ignore
     if (alerts?.length > 0) {
       setAlert(getAlertByFingerprint(alertID))
     }
@@ -61,9 +59,7 @@ const AlertDetail = () => {
     <Panel
       heading={
         <Stack gap="2">
-          {/* @ts-expect-error TS(2339): Property 'labels' does not exist on type 'never'. // @ts-expect-error TS(2339): */}
           <AlertIcon severity={alert?.labels?.severity} />
-          {/* @ts-expect-error TS(2339): Property 'annotations' does not exist on type 'nev... Remove this comment to see */}
           <span>{alert?.annotations?.summary || "Not found"}</span>
         </Stack>
       }
@@ -101,26 +97,22 @@ const AlertDetail = () => {
                     <DataGridRow>
                       <DataGridHeadCell>Firing Since</DataGridHeadCell>
                       <DataGridCell>
-                        {/* @ts-expect-error TS(2339): Property 'startsAt' does not exist on type 'never'... Remove this */}
                         <AlertTimestamp startTimestamp={alert?.startsAt} />
                       </DataGridCell>
                     </DataGridRow>
                     <DataGridRow>
                       <DataGridHeadCell>Service</DataGridHeadCell>
-                      {/*  @ts-expect-error TS(2339): Property 'labels' does not exist on type 'never'. // */}
                       <DataGridCell>{alert?.labels?.service}</DataGridCell>
                     </DataGridRow>
                     <DataGridRow>
                       <DataGridHeadCell>Region</DataGridHeadCell>
                       <DataGridCell>
-                        {/*  @ts-expect-error TS(2339): Property 'labels' does not exist on type 'never'. // */}
                         <AlertRegion region={alert?.labels?.region} cluster={alert?.labels?.cluster} />
                       </DataGridCell>
                     </DataGridRow>
                     <DataGridRow>
                       <DataGridHeadCell>Description</DataGridHeadCell>
                       <DataGridCell>
-                        {/* @ts-expect-error TS(2339): Property 'annotations' does not exist on type 'nev... Remove this */}
                         <AlertDescription description={alert?.annotations?.description} />
                       </DataGridCell>
                     </DataGridRow>
@@ -137,7 +129,6 @@ const AlertDetail = () => {
                       </DataGridCell>
                     </DataGridRow>
                   </DataGrid>
-
                   <AlertSilences alert={alert} />
                 </>
               )}
