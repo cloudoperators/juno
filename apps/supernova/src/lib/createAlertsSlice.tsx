@@ -26,6 +26,8 @@ interface AlertsState {
 }
 
 export interface AlertItem {
+  fingerprint: string
+  labels: Record<string, string>
   [key: string]: any
 }
 
