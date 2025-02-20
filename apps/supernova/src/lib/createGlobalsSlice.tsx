@@ -46,7 +46,7 @@ const createGlobalsSlice: (options?: Record<string, any>) => StateCreator<AppSta
       actions: {
         setIsURLRead: () =>
           set(
-            (state: any) => ({
+            (state) => ({
               globals: { ...state.globals, isURLRead: true },
             }),
             false
@@ -54,7 +54,7 @@ const createGlobalsSlice: (options?: Record<string, any>) => StateCreator<AppSta
 
         setShowDetailsFor: (alertID) =>
           set(
-            (state: any) => ({
+            (state) => ({
               // if the alertID is the same as the current one, we want to close the details panel again,
               // otherwise set the new alertID to replace the details in the panel
               globals: {
@@ -67,7 +67,7 @@ const createGlobalsSlice: (options?: Record<string, any>) => StateCreator<AppSta
 
         setActiveSelectedTab: (activeSelectedTab) =>
           set(
-            (state: any) => ({
+            (state) => ({
               globals: { ...state.globals, activeSelectedTab: activeSelectedTab },
             }),
             false
