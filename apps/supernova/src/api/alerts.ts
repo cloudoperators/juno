@@ -6,7 +6,7 @@
 import { sortAlerts, countAlerts } from "../lib/utils"
 let compareAlertString: any
 
-export const fetchAlerts = async (endpoint: any) => {
+export const fetchAlerts = async (endpoint: string) => {
   try {
     const response = await fetch(`${endpoint}/alerts`)
 

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const fetchSilences = async (endpoint: any) => {
+export const fetchSilences = async (endpoint: string) => {
   try {
     const response = await fetch(`${endpoint}/silences`)
 
@@ -29,7 +29,7 @@ export const fetchSilences = async (endpoint: any) => {
   }
 }
 
-export const deleteSilences = async (variables: any) => {
+export const deleteSilences = async (variables: Record<string, any>): Promise<Response> => {
   try {
     const response = await fetch(`${variables.endpoint}/silence/${variables.id}`, {
       method: "DELETE",
@@ -51,7 +51,7 @@ export const deleteSilences = async (variables: any) => {
   }
 }
 
-export const createSilences = async (variables: any) => {
+export const createSilences = async (variables: Record<string, any>): Promise<any> => {
   try {
     const response = await fetch(`${variables.endpoint}/silences`, {
       method: "POST",
