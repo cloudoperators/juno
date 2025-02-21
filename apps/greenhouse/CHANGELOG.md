@@ -1,5 +1,27 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.4.2
+
+### Patch Changes
+
+- d1c4573: Fix greenhouse org admin change
+- Updated dependencies [e990a1d]
+  - @cloudoperators/juno-app-doop@2.3.4
+
+## 0.4.1
+
+### Patch Changes
+
+- 58925a1: Move all greenhouse to TS
+- Updated dependencies [43fc5b7]
+- Updated dependencies [fe294e9]
+- Updated dependencies [4834d12]
+- Updated dependencies [188ece2]
+  - @cloudoperators/juno-ui-components@2.38.0
+  - @cloudoperators/juno-oauth@1.4.2
+  - @cloudoperators/juno-app-supernova@0.16.2
+  - @cloudoperators/juno-app-heureka@2.11.4
+
 ## 0.4.0
 
 ### Minor Changes

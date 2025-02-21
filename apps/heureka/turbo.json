@@ -21,6 +21,13 @@
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-communicator#build"
       ]
+    },
+    "typecheck": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-communicator#build"
+      ]
     }
   }
 }

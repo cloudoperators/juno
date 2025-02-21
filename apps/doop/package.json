@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-doop",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "author": "UI-Team",
   "contributors": [
     "Andreas Pfau",
@@ -40,6 +40,7 @@
     "build": "vite build",
     "build:static": "vite build --mode static",
     "serve": "vite preview",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
     "lint": "eslint",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "clean:cache": "rm -rf .turbo"

@@ -4,6 +4,46 @@
  */
 
 import { produce } from "immer"
+import { StateCreator } from "zustand"
+import { AppState } from "../components/StoreProvider"
+
+export interface FilterSlice {
+  filters: FilterState
+}
+
+interface FilterState {
+  labels: string[]
+  activeFilters: Record<string, string[]>
+  pausedFilters: Record<string, string[]>
+  filterLabelValues: Record<string, { isLoading: boolean; values?: string[] }>
+  predefinedFilters: Filter[]
+  activePredefinedFilter: string | null
+  searchTerm: string
+  actions: FilterActions
+}
+
+export interface Filter {
+  name: string
+  displayName: string
+  matchers: Record<string, string>
+}
+
+export interface FilterActions {
+  setActiveFilters: (activeFilters: Record<string, string[]>) => void
+  clearFilters: () => void
+  addActiveFilter: (filterLabel: string, filterValue: string) => void
+  addActiveFilters: (filterLabel: string, filterValues: string[]) => void
+  removeActiveFilter: (filterLabel: string, filterValue: string) => void
+  setPausedFilters: (pausedFilters: Record<string, string[]>) => void
+  addPausedFilter: (filterLabel: string, filterValue: string) => void
+  removePausedFilter: (filterLabel: string, filterValue: string) => void
+  setActivePredefinedFilter: (filterName: string) => void
+  clearActivePredefinedFilter: () => void
+  togglePredefinedFilter: (filterName: string) => void
+  loadFilterLabelValues: (filterLabel: string) => void
+  reloadFilterLabelValues: () => void
+  setSearchTerm: (searchTerm: string) => void
+}
 
 const initialFiltersState = {
   labels: ["status"], // labels to be used for filtering: [ "label1", "label2", "label3"]. Default is status which is enriched by the worker
@@ -15,7 +55,7 @@ const initialFiltersState = {
   searchTerm: "", // the search term used for full-text filtering
 }
 
-const parsePredefinedFilters = (predefinedFilters: any) => {
+const parsePredefinedFilters = (predefinedFilters: any[]): FilterState["predefinedFilters"] => {
   if (!predefinedFilters) return initialFiltersState.predefinedFilters
   if (!Array.isArray(predefinedFilters)) {
     console.warn("[supernova]::parsePredefinedFilter: predefinedFilters object is not an array")
@@ -25,9 +65,11 @@ const parsePredefinedFilters = (predefinedFilters: any) => {
   return predefinedFilters
 }
 
-const parseInitialFilters = (initialFilters: any, filterLabels: any) => {
-  // @ts-expect-error TS(2339) FIXME: Property 'initialFilters' does not exist on type '... Remove this comment to see the full error message
-  if (!initialFilters) return initialFiltersState.initialFilters
+const parseInitialFilters = (
+  initialFilters: Record<string, string[]>,
+  filterLabels: string[]
+): Record<string, string[]> => {
+  if (!initialFilters) return {}
 
   if (typeof initialFilters !== "object" || initialFilters === null) {
     console.warn("[supernova]::parseInitialFilters: initialFilters object is not an object")
@@ -66,7 +108,7 @@ const parseInitialFilters = (initialFilters: any, filterLabels: any) => {
   return initialFilters
 }
 
-const parseActivePredefinedFilter = (predefinedFilters: any) => {
+const parseActivePredefinedFilter = (predefinedFilters: any): string | null => {
   if (!predefinedFilters) return initialFiltersState.activePredefinedFilter
 
   if (!Array.isArray(predefinedFilters)) {
@@ -77,7 +119,7 @@ const parseActivePredefinedFilter = (predefinedFilters: any) => {
   return predefinedFilters[0]?.name || null
 }
 
-const parseFilterLabels = (labels: any) => {
+const parseFilterLabels = (labels: string[]): string[] => {
   // return the default labels if none are provided
   if (!labels) return initialFiltersState.labels
 
@@ -101,243 +143,210 @@ const parseFilterLabels = (labels: any) => {
   return uniqueLabels
 }
 
-// @ts-expect-error TS(7006) FIXME: Parameter 'set' implicitly has an 'any' type.
-const createFiltersSlice = (set, get, options) => ({
-  filters: {
-    ...initialFiltersState,
-    activeFilters: parseInitialFilters(options?.initialFilters, parseFilterLabels(options?.filterLabels)) || {},
-    predefinedFilters: parsePredefinedFilters(options?.predefinedFilters),
-    activePredefinedFilter: parseActivePredefinedFilter(options?.predefinedFilters),
-    labels: parseFilterLabels(options?.filterLabels),
-    actions: {
-      setActiveFilters: (activeFilters: any) => {
-        set(
-          (state: any) => {
+const createFiltersSlice: (options?: Record<string, any>) => StateCreator<AppState, [], [], FilterSlice> =
+  (options) => (set, get, store) => ({
+    filters: {
+      ...initialFiltersState,
+      activeFilters: parseInitialFilters(options?.initialFilters, parseFilterLabels(options?.filterLabels)) || {},
+      predefinedFilters: parsePredefinedFilters(options?.predefinedFilters),
+      activePredefinedFilter: parseActivePredefinedFilter(options?.predefinedFilters),
+      labels: parseFilterLabels(options?.filterLabels),
+      actions: {
+        setActiveFilters: (activeFilters: Record<string, string[]>) => {
+          set((state: any) => {
             return {
               filters: {
                 ...state.filters,
                 activeFilters,
               },
             }
-          },
-          false,
-          "filters.setActiveFilters"
-        )
-        get().alerts.actions.filterItems()
-      },
+          }, false)
+          get().alerts.actions.filterItems()
+        },
 
-      clearFilters: () => {
-        set(
-          produce((state: any) => {
-            state.filters.activeFilters = {}
-            state.filters.pausedFilters = {}
-            state.filters.filterPills = {}
-          }),
-          false,
-          "filters.clearActiveFilters"
-        )
-        get().alerts.actions.filterItems()
-      },
+        clearFilters: () => {
+          set(
+            produce((state: any) => {
+              state.filters.activeFilters = {}
+              state.filters.pausedFilters = {}
+            }),
+            false
+          )
+          get().alerts.actions.filterItems()
+        },
 
-      addActiveFilter: (filterLabel: any, filterValue: any) => {
-        set(
-          produce((state: any) => {
-            // use Set to prevent duplicate values
-            state.filters.activeFilters[filterLabel] = [
-              // @ts-expect-error TS(2552) FIXME: Cannot find name 'Set'. Did you mean 'set'?
-              ...new Set([...(state.filters.activeFilters[filterLabel] || []), filterValue]),
-            ]
-          }),
-          false,
-          "filters.addActiveFilter"
-        )
-        // after adding a new filter key and value: filter items
-        get().alerts.actions.filterItems()
-      },
+        addActiveFilter: (filterLabel: string, filterValue: string) => {
+          set(
+            produce((state: any) => {
+              // use Set to prevent duplicate values
+              state.filters.activeFilters[filterLabel] = Array.from(
+                new Set([...(state.filters.activeFilters[filterLabel] || []), filterValue])
+              )
+            }),
+            false
+          )
+          // after adding a new filter key and value: filter items
+          get().alerts.actions.filterItems()
+        },
 
-      // add multiple values for a filter label
-      addActiveFilters: (filterLabel: any, filterValues: any) => {
-        set(
-          produce((state: any) => {
-            // use Set to prevent duplicate values
-            state.filters.activeFilters[filterLabel] = [
-              // @ts-expect-error TS(2552) FIXME: Cannot find name 'Set'. Did you mean 'set'?
-              ...new Set([...(state.filters.activeFilters[filterLabel] || []), ...filterValues]),
-            ]
-          }),
-          false,
-          "filters.addActiveFilters"
-        )
-        // after adding a new filter key and value: filter items
-        get().alerts.actions.filterItems()
-      },
+        // add multiple values for a filter label
+        addActiveFilters: (filterLabel: string, filterValues: string[]) => {
+          set(
+            produce((state: any) => {
+              // use Set to prevent duplicate values
+              state.filters.activeFilters[filterLabel] = [
+                // @ts-expect-error TS(2552) FIXME: Cannot find name 'Set'. Did you mean 'set'?
+                ...new Set([...(state.filters.activeFilters[filterLabel] || []), ...filterValues]),
+              ]
+            }),
+            false
+          )
+          // after adding a new filter key and value: filter items
+          get().alerts.actions.filterItems()
+        },
 
-      removeActiveFilter: (filterLabel: any, filterValue: any) => {
-        set(
-          produce((state: any) => {
-            state.filters.activeFilters[filterLabel] = state.filters.activeFilters[filterLabel].filter(
-              (value: any) => value !== filterValue
-            )
-            // if this was the last selected value delete the whole label key
-            if (state.filters.activeFilters[filterLabel].length === 0) {
-              delete state.filters.activeFilters[filterLabel]
-            }
-          }),
-          false,
-          "filters.removeActiveFilter"
-        )
-        // after removing a filter: filter items
-        get().alerts.actions.filterItems()
-      },
-      setPausedFilters: (pausedFilters: any) => {
-        set(
-          (state: any) => {
+        removeActiveFilter: (filterLabel: string, filterValue: string) => {
+          set(
+            produce((state: any) => {
+              state.filters.activeFilters[filterLabel] = state.filters.activeFilters[filterLabel].filter(
+                (value: any) => value !== filterValue
+              )
+              // if this was the last selected value delete the whole label key
+              if (state.filters.activeFilters[filterLabel].length === 0) {
+                delete state.filters.activeFilters[filterLabel]
+              }
+            }),
+            false
+          )
+          // after removing a filter: filter items
+          get().alerts.actions.filterItems()
+        },
+        setPausedFilters: (pausedFilters: Record<string, string[]>) => {
+          set((state: any) => {
             return {
               filters: {
                 ...state.filters,
                 pausedFilters,
               },
             }
-          },
-          false,
-          "filters.setPausedFilters"
-        )
-        get().alerts.actions.filterItems()
-      },
+          }, false)
+          get().alerts.actions.filterItems()
+        },
 
-      addPausedFilter: (filterLabel: any, filterValue: any) => {
-        set(
-          produce((state: any) => {
-            // use Set to prevent duplicate values
-            // @ts-expect-error TS(2552) FIXME: Cannot find name 'Set'. Did you mean 'set'?
-            let newFilterValues = [...new Set([...(state.filters.pausedFilters[filterLabel] || []), filterValue])]
-            state.filters.pausedFilters[filterLabel] = newFilterValues
-          }),
-          false,
-          "filters.addPausedFilter"
-        )
+        addPausedFilter: (filterLabel: string, filterValue: string) => {
+          set(
+            produce((state: any) => {
+              // use Set to prevent duplicate values
+              // @ts-expect-error TS(2552) FIXME: Cannot find name 'Set'. Did you mean 'set'?
+              let newFilterValues = [...new Set([...(state.filters.pausedFilters[filterLabel] || []), filterValue])]
+              state.filters.pausedFilters[filterLabel] = newFilterValues
+            }),
+            false
+          )
 
-        // after adding a new filter key and value: filter items
-        get().alerts.actions.filterItems()
-      },
+          // after adding a new filter key and value: filter items
+          get().alerts.actions.filterItems()
+        },
 
-      removePausedFilter: (filterLabel: any, filterValue: any) => {
-        set(
-          produce((state: any) => {
-            state.filters.pausedFilters[filterLabel] = state.filters.pausedFilters[filterLabel]?.filter(
-              (value: any) => value !== filterValue
-            )
-            // if this was the last selected value delete the whole label key
-            if (state.filters.pausedFilters[filterLabel]?.length === 0) {
-              delete state.filters.pausedFilters[filterLabel]
-            }
-          }),
-          false,
-          "filters.removePausedFilter"
-        )
-        // after removing a filter: filter items
-        get().alerts.actions.filterItems()
-      },
+        removePausedFilter: (filterLabel: string, filterValue: string) => {
+          set(
+            produce((state: any) => {
+              state.filters.pausedFilters[filterLabel] = state.filters.pausedFilters[filterLabel]?.filter(
+                (value: any) => value !== filterValue
+              )
+              // if this was the last selected value delete the whole label key
+              if (state.filters.pausedFilters[filterLabel]?.length === 0) {
+                delete state.filters.pausedFilters[filterLabel]
+              }
+            }),
+            false
+          )
+          // after removing a filter: filter items
+          get().alerts.actions.filterItems()
+        },
 
-      setActivePredefinedFilter: (filterName: any) => {
-        set(
-          produce((state: any) => {
-            state.filters.activePredefinedFilter = filterName
-          }),
-          false,
-          "filters.setActivePredefinedFilter"
-        )
-        // after activating predefined filter: filter items
-        get().alerts.actions.filterItems()
-      },
-
-      clearActivePredefinedFilter: () => {
-        set(
-          produce((state: any) => {
-            state.filters.activePredefinedFilter = null
-          }),
-          false,
-          "filters.clearActivePredefinedFilter"
-        )
-        // after clearing predefined filter: filter items
-        get().alerts.actions.filterItems()
-      },
-
-      togglePredefinedFilter: (filterName: any) => {
-        set(
-          produce((state: any) => {
-            // if active predefined filter is already set and equal to the one that was clicked, clear it
-            if (state.filters.activePredefinedFilter === filterName) {
-              state.filters.activePredefinedFilter = null
-            } else {
+        setActivePredefinedFilter: (filterName: string) => {
+          set(
+            produce((state: any) => {
               state.filters.activePredefinedFilter = filterName
-            } // otherwise set the clicked filter as active
-          }),
-          false,
-          "filters.togglePredefinedFilter"
-        )
-        // after activating predefined filter: filter items
-        get().alerts.actions.filterItems()
+            }),
+            false
+          )
+          // after activating predefined filter: filter items
+          get().alerts.actions.filterItems()
+        },
+
+        clearActivePredefinedFilter: () => {
+          set(
+            produce((state: any) => {
+              state.filters.activePredefinedFilter = null
+            }),
+            false
+          )
+          // after clearing predefined filter: filter items
+          get().alerts.actions.filterItems()
+        },
+
+        togglePredefinedFilter: (filterName: string) => {
+          set(
+            produce((state: any) => {
+              // if active predefined filter is already set and equal to the one that was clicked, clear it
+              if (state.filters.activePredefinedFilter === filterName) {
+                state.filters.activePredefinedFilter = null
+              } else {
+                state.filters.activePredefinedFilter = filterName
+              } // otherwise set the clicked filter as active
+            }),
+            false
+          )
+          // after activating predefined filter: filter items
+          get().alerts.actions.filterItems()
+        },
+
+        // retieve all possible values for the given filter label from the list of items and add them to the list
+        loadFilterLabelValues: (filterLabel: string) => {
+          set(
+            produce((state: any) => {
+              state.filters.filterLabelValues[filterLabel] = { isLoading: true }
+            }),
+            false
+          )
+          set(
+            produce((state: any) => {
+              // use Set to ensure unique values
+              const values: string[] = Array.from(
+                new Set(state.alerts.items.map((item: any) => item.labels[filterLabel]))
+              )
+              // remove any "blank" values from the list, then sort
+              state.filters.filterLabelValues[filterLabel].values = values
+                .filter((value) => (value ? true : false))
+                .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+
+              state.filters.filterLabelValues[filterLabel].isLoading = false
+            }),
+            false
+          )
+        },
+
+        // for each filter label where we already loaded the values, reload them
+        reloadFilterLabelValues: () => {
+          Object.keys(get().filters.filterLabelValues).forEach((label) => {
+            get().filters.actions.loadFilterLabelValues(label)
+          })
+        },
+
+        setSearchTerm: (searchTerm: string) => {
+          set(
+            produce((state: any) => {
+              state.filters.searchTerm = searchTerm
+            }),
+            false
+          )
+          // after setting the search term: filter items
+          get().alerts.actions.filterItems()
+        },
       },
-
-      // retieve all possible values for the given filter label from the list of items and add them to the list
-      loadFilterLabelValues: (filterLabel: any) => {
-        set(
-          produce((state: any) => {
-            state.filters.filterLabelValues[filterLabel] = { isLoading: true }
-          }),
-          false,
-          "filters.loadFilterLabelValues.isLoading"
-        )
-        set(
-          produce((state: any) => {
-            // use Set to ensure unique values
-            // @ts-expect-error TS(2552) FIXME: Cannot find name 'Set'. Did you mean 'set'?
-            const values = [...new Set(state.alerts.items.map((item: any) => item.labels[filterLabel]))]
-            // remove any "blank" values from the list, then sort
-            state.filters.filterLabelValues[filterLabel].values = values
-              .filter((value) => (value ? true : false))
-              .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-
-            state.filters.filterLabelValues[filterLabel].isLoading = false
-          }),
-          false,
-          "filters.loadFilterLabelValues"
-        )
-      },
-
-      // for each filter label where we already loaded the values, reload them
-      reloadFilterLabelValues: () => {
-        Object.keys(get().filters.filterLabelValues).map((label) => {
-          get().filters.actions.loadFilterLabelValues(label)
-        })
-      },
-
-      setSearchTerm: (searchTerm: any) => {
-        set(
-          produce((state: any) => {
-            state.filters.searchTerm = searchTerm
-          }),
-          false,
-          "filters.setSearchTerm"
-        )
-        // after setting the search term: filter items
-        get().alerts.actions.filterItems()
-      },
-
-      // TODO:
-      // update previously loaded filter label values (e.g. after new items were fetched, the possible values might have changed)
-      // updateFilterLabelValues: () => {
-      //   set(
-      //     produce((state) => {
-      //       Object.keys(state.filters.filterLabelValues).map((label) =>
-
-      //       )
-      //     })
-      //   )
-      // }
     },
-  },
-})
+  })
 
 export default createFiltersSlice

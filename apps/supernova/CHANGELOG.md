@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.16.2
+
+### Patch Changes
+
+- 4834d12: reducing unnecessary @ts-ignore directives, improving type safety and code clarity in filter components
+- Updated dependencies [43fc5b7]
+  - @cloudoperators/juno-ui-components@2.38.0
+
 ## 0.16.1
 
 ### Patch Changes

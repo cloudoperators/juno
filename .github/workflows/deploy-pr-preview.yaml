@@ -155,7 +155,7 @@ jobs:
         env:
           PACKAGE_PATH: apps/heureka-next
           TARGET_FOLDER: heureka_next
-          APP_PROPS_BASE64: ${{ secrets.HEUREKA_NEXT_APP_PROPS_BASE64 }}
+          APP_PROPS_BASE64: ${{ secrets.HEUREKA_APP_PROPS_BASE64 }}
         continue-on-error: true
 
       - name: Generate index.html for Deployed Apps

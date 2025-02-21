@@ -57,7 +57,7 @@ export const humanizeString = (value: any) => {
 //   }, ...
 // }
 export const countAlerts = (alerts: any) => {
-  const counts = { global: { total: 0 }, regions: {} }
+  const counts = { global: { total: 0, critical: 0 }, regions: {} }
 
   if (!alerts || alerts.length === 0) return counts
 

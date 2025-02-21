@@ -11,30 +11,26 @@ import { useActiveFilters, usePausedFilters, useFilterActions } from "../StorePr
 const FilterPills = () => {
   const activeFilters = useActiveFilters()
   const pausedFilters = usePausedFilters()
-  // @ts-ignore
   const { removeActiveFilter, addActiveFilter, addPausedFilter, removePausedFilter } = useFilterActions()
 
-  const pauseFilter = (key: any, value: any) => {
+  const pauseFilter = (key: string, value: string) => {
     addPausedFilter(key, value)
   }
 
-  const deleteFilter = (key: any, value: any) => {
+  const deleteFilter = (key: string, value: string) => {
     removeActiveFilter(key, value)
     removePausedFilter(key, value)
   }
 
-  const activateFilter = (key: any, value: any) => {
+  const activateFilter = (key: string, value: string) => {
     addActiveFilter(key, value)
     removePausedFilter(key, value)
   }
 
   return (
     <Stack gap="2" wrap={true}>
-      {/* @ts-expect-error TS(2550): Property 'entries' does not exist on type 'ObjectC... Remove this comment to see the */}
       {Object.entries(activeFilters).map(([key, filterItems]) => {
-        // @ts-ignore
         return filterItems?.map((item: any) =>
-          // @ts-ignore
           pausedFilters[key]?.includes(item) ? (
             <Pill
               className="bg-theme-background-lvl-4 opacity-70"

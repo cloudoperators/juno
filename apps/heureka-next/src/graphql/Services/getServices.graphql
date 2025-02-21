@@ -1,0 +1,10 @@
+query GetServices($filter: ServiceFilter, $first: Int, $after: String) {
+  Services(filter: $filter, first: $first, after: $after) {
+    edges {
+      node {
+        id
+        ccrn
+      }
+    }
+  }
+}
