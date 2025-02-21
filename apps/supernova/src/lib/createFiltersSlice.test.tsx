@@ -159,7 +159,6 @@ describe("createFiltersSlice", () => {
       )
 
       act(() => {
-        // @ts-ignore
         store.result.current.actions.setSearchTerm("k8s")
       })
 
