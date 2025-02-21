@@ -12,8 +12,7 @@ This document outlines the process for effective pull request management in the 
 - Provide a comprehensive summary of changes and key technical decisions:
   - Highlight performance impacts, dependencies, and links to relevant documentation.
   - Use visuals to enhance clarity.
-  - Include clear instructions for manual testing of complex or non-obvious edge cases.
-- Keep PRs concise, well-organized, and easy to understand to enable swift reviews and merging. Remember that splitting functionality into smaller PRs can improve clarity and manageability.
+- Keep PRs concise, well-organized, and easy to understand to enable quick reviews and merging. Remember that splitting functionality into smaller PRs can improve clarity and manageability.
 - Use Draft PRs for early feedback and collaboration on work-in-progress code. Refrain from using them as a substitute for local testing to conserve CI/CD resources.
 
 ## 3. Prioritise Code Quality
@@ -31,8 +30,8 @@ This document outlines the process for effective pull request management in the 
 ## 5. Give Actionable and Prioritised Feedback
 
 - Contribute to ongoing discussions to ensure focused communication and prevent duplication on related topics.
-- Offer specific and constructive feedback using the "Praise, Question, Suggest" structure:
-  - **Praise** positive aspects.
+- Offer specific and constructive feedback using the "Value, Question, Suggest" structure:
+  - **Recognize** positive contributions and good work.
   - **Question** to gain understanding.
   - **Suggest** improvements with clear technical reasoning and examples.
 - Only use 'Request changes' for critical issues impacting functionality, design or code quality, marking them as a "**(Required Change)**".
@@ -49,7 +48,7 @@ This document outlines the process for effective pull request management in the 
   - **Ask** for clarification.
   - **Explain** your reasoning for a different approach.
   - **Defer** the change with reasoning (if not "requested") by:
-    - Creating another PR within the same ticket's scope.
+    - Opening another PR within the same ticket's scope.
     - Creating a new ticket and linking it for traceability.
 - Ensure the person who raised the comment, or if unavailable, another reviewer, resolves it.
 
