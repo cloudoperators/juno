@@ -20,8 +20,10 @@ interface SilencesState {
   updatedAt: number | null
   status: string
   regEx: string
-  templates: Record<string, any>
+  templates: SilenceTemplate[]
 }
+
+export type SilenceTemplate = Record<string, any> | null
 
 interface SilencesActions {
   setSilencesStatus: (status: string) => void
@@ -58,7 +60,7 @@ const validateExcludedLabels = (labels: any) => {
   return labels
 }
 
-const validateTemplates = (templates: any) => {
+const validateTemplates = (templates: SilenceTemplate[]) => {
   // check if the templates are an array
   if (!Array.isArray(templates)) {
     console.warn("[supernova]::validateTemplates: templates object is not an array")

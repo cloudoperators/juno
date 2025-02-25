@@ -26,7 +26,7 @@ import {
 import AlertDescription from "../alerts/shared/AlertDescription"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import CreateSilenceAdvanced from "./CreateSilenceAdvanced"
-// @ts-expect-error TS(2792) FIXME: Cannot find module 'luxon'. Did you mean to set th... Remove this comment to see the full error message
+// @ts-ignore
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"
@@ -75,7 +75,6 @@ const CreateSilence = ({ alert, size, variant }: any) => {
   const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
   const [expirationDate, setExpirationDate] = useState(null)
   const [showValidation, setShowValidation] = useState<Record<string, string[]>>({})
-  const [error, setError] = useState(null)
   const { addMessage } = useActions()
 
   const silences = useSilencesItems()
@@ -97,7 +96,6 @@ const CreateSilence = ({ alert, size, variant }: any) => {
     // may change without change in the alert
     setExpirationDate(latestExpirationDate(getMappingSilences(alert)))
     // reset other states
-    setError(null)
     setShowValidation({})
   }, [displayNewSilence])
 
@@ -147,8 +145,6 @@ const CreateSilence = ({ alert, size, variant }: any) => {
 
   // debounce to prevent accidental double clicks from creating multiple silences
   const onSubmitForm = debounce(() => {
-    setError(null)
-
     const formValidation = validateForm(formState)
     setShowValidation(formValidation)
     if (Object.keys(formValidation).length > 0) return
@@ -211,8 +207,6 @@ const CreateSilence = ({ alert, size, variant }: any) => {
           onCancel={() => setDisplayNewSilence(false)}
           onConfirm={onSubmitForm}
         >
-          {error && <Message text={error} variant="danger" />}
-
           {expirationDate && (
             <Message className="mb-6" variant="info">
               There is already a silence for this alert that expires at
