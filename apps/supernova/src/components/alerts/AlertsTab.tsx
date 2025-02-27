@@ -11,7 +11,6 @@ import { parseError } from "../../helpers"
 const AlertsTab = () => {
   const totalCounts = useAlertsTotalCounts()
   const updatedAt = useAlertsUpdatedAt()
-  // @ts-ignore FIXME: Property 'setAlertsData' does not exist on type 'unknown'.
   const { setAlertsData } = useAlertsActions()
   const { addMessage } = useActions()
 

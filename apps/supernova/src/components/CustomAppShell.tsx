@@ -10,7 +10,6 @@ import { useGlobalsEmbedded, useGlobalsActions, useGlobalsActiveSelectedTab } fr
 const CustomAppShell = ({ children }: any) => {
   const embedded = useGlobalsEmbedded()
   const activeSelectedTab = useGlobalsActiveSelectedTab()
-  // @ts-ignore
   const { setActiveSelectedTab } = useGlobalsActions()
 
   const handleTabSelect = (item: any) => {
@@ -18,7 +17,6 @@ const CustomAppShell = ({ children }: any) => {
   }
 
   const topNavigation = (
-    // @ts-ignore
     <TopNavigation activeItem={activeSelectedTab} onActiveItemChange={handleTabSelect}>
       <TopNavigationItem icon="danger" key="alerts" value="alerts" label="Alerts" />
       <TopNavigationItem icon="info" key="silences" value="silences" label="Silences" />
@@ -26,7 +24,6 @@ const CustomAppShell = ({ children }: any) => {
   )
 
   return (
-    // @ts-ignore
     <AppShell pageHeader={<PageHeader heading="Supernova" />} embedded={embedded} topNavigation={topNavigation}>
       {children}
     </AppShell>

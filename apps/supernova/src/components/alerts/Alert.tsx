@@ -40,7 +40,6 @@ const cellSeverityClasses = (severity: any) => {
 }
 
 const Alert = ({ alert }: any, ref: any) => {
-  // @ts-ignore
   const { setShowDetailsFor } = useGlobalsActions()
   const rowRef = useRef(null)
 

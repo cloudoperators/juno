@@ -26,7 +26,6 @@ import {
 import AlertDescription from "../alerts/shared/AlertDescription"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import CreateSilenceAdvanced from "./CreateSilenceAdvanced"
-// @ts-ignore
 import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"

@@ -27,7 +27,7 @@ const queryClient = new QueryClient({
   },
 })
 
-function App(props = {}) {
+function App() {
   const preErrorClasses = `
     custom-error-pre
     border-theme-error
@@ -51,8 +51,7 @@ function App(props = {}) {
       <MessagesProvider>
         <CustomAppShell>
           <QueryClientProvider client={queryClient}>
-            {/* @ts-expect-error TS(2322) FIXME: Type '{ props: {}; }' is not assignable to type 'I... Remove this comment to see the full error message */}
-            <AppContent props={props} />
+            <AppContent />
           </QueryClientProvider>
         </CustomAppShell>
       </MessagesProvider>
@@ -80,7 +79,7 @@ const AppWithNewUrlStructure = (props: any) => {
 
 const StyledApp = (props: any) => {
   return (
-    // @ts-ignore
+    // @ts-ignore > need to validate if theme is part of theme-types
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
       {/* load appstyles inside the shadow dom */}
       <style>{styles.toString()}</style>

@@ -15,12 +15,10 @@ import { useActiveFilters, useFilterLabels, useFilterActions } from "../../Store
 const AlertLabels = ({ alert, showAll }: any) => {
   const filterLabels = showAll ? Object.keys(alert?.labels) : useFilterLabels()
   const activeFilters = useActiveFilters()
-  // @ts-ignore
   const { addActiveFilter, removeActiveFilter } = useFilterActions()
 
   const handleLabelClick = (e: any, filterLabel: any, filterValue: any) => {
     // if filter isn't already active, add it
-    // @ts-ignore
     if (!activeFilters?.[filterLabel]?.includes(filterValue)) {
       e.stopPropagation()
       addActiveFilter(filterLabel, filterValue)
@@ -37,27 +35,23 @@ const AlertLabels = ({ alert, showAll }: any) => {
 
   return (
     <Stack gap="2" alignment="start" wrap={true}>
-      {
-        // @ts-ignore
-        filterLabels.map((filterLabel: any) => {
-          let value = alert?.labels?.[filterLabel]
-          // @ts-ignore
-          let isActive = activeFilters?.[filterLabel]?.includes(value)
+      {filterLabels.map((filterLabel: any) => {
+        let value = alert?.labels?.[filterLabel]
+        let isActive = activeFilters?.[filterLabel]?.includes(value)
 
-          return (
-            value && (
-              <Pill
-                key={filterLabel}
-                pillKey={filterLabel}
-                pillValue={value}
-                onClick={(e: any, _: any) => handleLabelClick(e, filterLabel, value)}
-                closeable={isActive}
-                onClose={(e: any, _: any) => handleRemoveFilter(e, filterLabel, value)}
-              />
-            )
+        return (
+          value && (
+            <Pill
+              key={filterLabel}
+              pillKey={filterLabel}
+              pillValue={value}
+              onClick={(e: any, _: any) => handleLabelClick(e, filterLabel, value)}
+              closeable={isActive}
+              onClose={(e: any, _: any) => handleRemoveFilter(e, filterLabel, value)}
+            />
           )
-        })
-      }
+        )
+      })}
     </Stack>
   )
 }

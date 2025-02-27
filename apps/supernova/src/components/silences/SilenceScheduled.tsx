@@ -68,7 +68,7 @@ const SilenceScheduled = () => {
   const { setSilences } = useSilencesActions()
 
   // set the selected template
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState<Record<string, any> | null>(null)
 
   // default time for DateTimePicker
 
@@ -161,15 +161,14 @@ const SilenceScheduled = () => {
   ////// OnClick
 
   const onChangeTemplate = (value: any) => {
-    const newSelectedOption = silenceTemplates.find((option: any) => option.id === value)
+    const newSelectedOption: Record<string, any> = silenceTemplates.find((option: any) => option.id === value)
 
     const newFormState = {
       ...DEFAULT_FORM_VALUES,
       fixed_labels: newSelectedOption?.fixed_labels || {},
       createdBy: { value: user, error: null },
       editable_labels: newSelectedOption?.editable_labels?.reduce(
-        // @ts-expect-error TS(7006) FIXME: Parameter 'acc' implicitly has an 'any' type.
-        (acc, label) => ({
+        (acc: any, label: string) => ({
           ...acc,
 
           [label]: {
@@ -243,7 +242,7 @@ function renderSilenceScheduledModal(
   silenceTemplates: SilenceTemplate,
   setClosed: React.Dispatch<React.SetStateAction<boolean>>,
   closed: boolean,
-  selected: null,
+  selected: Record<string, any> | null,
   onSubmitForm: (this: any, ...args: any[]) => void,
   error: string | null,
   onChangeTemplate: (value: any) => void,
@@ -272,18 +271,14 @@ function renderSilenceScheduledModal(
             title="Schedule new silence"
             size="large"
             open={true}
-            // @ts-expect-error TS(2339) FIXME: Property 'invalid' does not exist on type 'never'.
-            confirmButtonLabel={!selected || selected?.invalid ? null : "Save"}
-            // @ts-expect-error TS(2339) FIXME: Property 'invalid' does not exist on type 'never'.
-            onConfirm={!selected || selected?.invalid ? null : onSubmitForm}
+            confirmButtonLabel={!selected || selected?.invalid ? undefined : "Save"}
+            onConfirm={!selected || selected?.invalid ? undefined : onSubmitForm}
             onCancel={() => setClosed(true)}
           >
             {error && <Message text={error} variant="danger" />}
             <Form className="mt-6">
-              {/* @ts-expect-error TS(2339): Property 'invalid' does not exist on type 'never'. // @ts-expect-error */}
               {selected && selected?.invalid && (
                 <FormRow>
-                  {/* @ts-expect-error TS(2339): Property 'invalid' does not exist on type 'never'. // */}
                   <Message text={`This silence template is invalid. ${selected.invalid}`} variant="error" />
                 </FormRow>
               )}
@@ -291,7 +286,6 @@ function renderSilenceScheduledModal(
                 <Select
                   required
                   label="Silence Template"
-                  // @ts-expect-error TS(2339) FIXME: Property 'id' does not exist on type 'never'.
                   value={selected?.id || "Select"}
                   onValueChange={(value: any) => {
                     onChangeTemplate(value)
@@ -302,15 +296,12 @@ function renderSilenceScheduledModal(
                   ))}
                 </Select>
               </FormRow>
-              {/* @ts-expect-error TS(2339): Property 'invalid' does not exist on type 'never'. // @ts-expect-error */}
               {selected && !selected?.invalid && (
                 <FormRow>
-                  {/* @ts-expect-error TS(2339): Property 'description' does not exist on type 'nev... Remove this */}
                   <Box>{selected?.description}</Box>
                 </FormRow>
               )}
             </Form>
-            {/* @ts-expect-error TS(2339): Property 'invalid' does not exist on type 'never'. // @ts-expect-error */}
             {selected && !selected?.invalid && (
               <Form>
                 <FormSection>

@@ -18,9 +18,7 @@ import Alert from "./Alert"
 import { useAlertsItemsFiltered } from "../StoreProvider"
 
 const AlertsList = () => {
-  // @ts-ignore
   const itemsFiltered = useAlertsItemsFiltered()
-  // @ts-ignore
   const { scrollListItems, iterator } = useEndlessScrollList(itemsFiltered, {
     loadingObject: (
       <DataGridRow>
