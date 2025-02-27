@@ -1,14 +1,10 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import React from "react"
+import React, { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { Spinner, Message } from "@cloudoperators/juno-ui-components"
 
 import { useGlobalsQueryClientFnReady } from "../StoreProvider"
 import PeaksList from "./PeaksList"
+import PeaksDetailPage from "./PeaksDetailPage"
 
 interface CustomError {
   name: string
@@ -39,14 +35,27 @@ const Peaks: React.FC = () => {
     enabled: !!queryClientFnReady,
   })
 
+  const [selectedPeak, setSelectedPeak] = useState<Peak | null>(null)
+
+  const handleSelectPeak = (peak: Peak) => setSelectedPeak(peak)
+
   return (
     <>
       {isError && (
         <Message variant="danger">{`${error?.statusCode ? `${error.statusCode}, ` : ""}${error?.message}`}</Message>
       )}
-      {/* Loading indicator for page content */}
       {isLoading && <Spinner variant="primary" />}
-      <PeaksList isLoading={isLoading} isError={isError} peaks={data} error={error ?? undefined} />
+      {selectedPeak ? (
+        <PeaksDetailPage />
+      ) : (
+        <PeaksList
+          onSelect={() => ""} //handleSelectPeak
+          isLoading={isLoading}
+          isError={isError}
+          peaks={data}
+          error={error ?? undefined}
+        />
+      )}
     </>
   )
 }

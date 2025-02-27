@@ -20,6 +20,9 @@ import {
   Container,
   TopNavigation,
   TopNavigationItem,
+  ThemeToggle,
+  PageFooter,
+  Stack,
 } from "@cloudoperators/juno-ui-components"
 import { mockedSession } from "@cloudoperators/juno-oauth"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -68,15 +71,24 @@ const App: React.FC<AppProps> = ({ endpoint, embedded, id }) => {
         // @ts-ignore
         embedded={embedded === "true" || embedded === true}
         pageHeader={
-          <PageHeader heading="Converged Cloud | Example App">
+          <PageHeader heading="SAP Peak Dashboard">
             <HeaderUser login={oidc.login} logout={oidc.logout} />
+            <ThemeToggle />
           </PageHeader>
         }
         topNavigation={
           <TopNavigation>
             <TopNavigationItem icon="home" label="Home" />
-            <TopNavigationItem active label="Navigation Item" />
+            <TopNavigationItem active label="Peaks" />
           </TopNavigation>
+        }
+        pageFooter={
+          <PageFooter>
+            <Stack gap="20">
+              <div>Copyright © 2024 SAP SE, SAP affiliates and Juno contributors</div>
+              <div>Lisence Apache 2.0</div>
+            </Stack>
+          </PageFooter>
         }
       >
         <Container py>

@@ -1,7 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment*/
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
@@ -17,6 +14,14 @@ import {
   DataGridRow,
   DataGridCell,
   useEndlessScrollList,
+  SearchInput,
+  PortalProvider,
+  Modal,
+  DataGridToolbar,
+  ContentHeading,
+  Breadcrumb,
+  BreadcrumbItem,
+  Stack,
 } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "./Peaks"
@@ -70,9 +75,10 @@ const PeaksList: React.FC<PeaksListProps> = ({ peaks, isLoading, isError, error 
 
   return (
     <>
-      <ContentAreaToolbar>
-        <Button icon="addCircle" onClick={handleNewPeakClick} label="Add a Peak" />
-      </ContentAreaToolbar>
+      <ContentHeading>Peaks Overview </ContentHeading>
+      <Button icon="addCircle" onClick={handleNewPeakClick} label="Add New Peak" variant="primary" />
+      <SearchInput></SearchInput>
+      {/* 2nd data grid */}
       <DataGrid columns={LIST_COLUMNS}>
         <DataGridRow>
           <DataGridHeadCell>Name</DataGridHeadCell>
@@ -80,13 +86,13 @@ const PeaksList: React.FC<PeaksListProps> = ({ peaks, isLoading, isError, error 
           <DataGridHeadCell>Main Range</DataGridHeadCell>
           <DataGridHeadCell>Region</DataGridHeadCell>
           <DataGridHeadCell>Country</DataGridHeadCell>
-          <DataGridHeadCell>Options</DataGridHeadCell>
+          <DataGridHeadCell>Actions</DataGridHeadCell>
         </DataGridRow>
         {scrollListItems.length > 0 ? (
           <>
             {/* @ts-ignore */}
             {iterator.map((peak: Peak, index: number) => (
-              <PeaksListItem key={index} peak={peak} />
+              <PeaksListItem key={index} peak={peak} onSelect={() => ""} />
             ))}
           </>
         ) : (

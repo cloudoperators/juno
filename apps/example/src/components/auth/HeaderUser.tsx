@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Stack, Button } from "@cloudoperators/juno-ui-components"
+import { Stack, Button, PopupMenu } from "@cloudoperators/juno-ui-components"
 
 import Avatar from "./Avatar"
 import { useAuthLoggedIn, useAuthData } from "../StoreProvider"
@@ -22,10 +22,17 @@ const HeaderUser: React.FC<HeaderUserProps> = ({ login, logout }) => {
     <Stack alignment="center" className="ml-auto" distribution="end">
       {loggedIn ? (
         <>
-          <div className="mr-4">
-            <Avatar userName={authData?.parsed?.fullName || ""} url={authData?.parsed?.avatarUrl?.small || ""} />
-          </div>
-          <Button label="Logout" size="small" onClick={logout} />
+          <PopupMenu>
+            <PopupMenu.Toggle key="t">
+              <div className="mr-4">
+                <Avatar userName={authData?.parsed?.fullName || ""} url={authData?.parsed?.avatarUrl?.small || ""} />
+              </div>
+            </PopupMenu.Toggle>
+            ,
+            <PopupMenu.Menu>
+              <Button label="Logout" size="small" onClick={logout} />
+            </PopupMenu.Menu>
+          </PopupMenu>
         </>
       ) : (
         <Button label="Login" size="small" onClick={login} />
