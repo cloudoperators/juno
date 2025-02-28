@@ -10,17 +10,16 @@ import Avatar from "./Avatar"
 import { useAuthLoggedIn, useAuthData } from "../StoreProvider"
 
 interface HeaderUserProps {
-  login: () => void
   logout: () => void
 }
 
-const HeaderUser: React.FC<HeaderUserProps> = ({ login, logout }) => {
+const HeaderUser: React.FC<HeaderUserProps> = ({ logout }) => {
   const loggedIn = useAuthLoggedIn()
   const authData = useAuthData()
 
   return (
     <Stack alignment="center" className="ml-auto" distribution="end">
-      {loggedIn ? (
+      {loggedIn && (
         <>
           <PopupMenu>
             <PopupMenu.Toggle key="t">
@@ -34,8 +33,6 @@ const HeaderUser: React.FC<HeaderUserProps> = ({ login, logout }) => {
             </PopupMenu.Menu>
           </PopupMenu>
         </>
-      ) : (
-        <Button label="Login" size="small" onClick={login} />
       )}
     </Stack>
   )

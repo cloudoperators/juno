@@ -75,7 +75,7 @@ const App: React.FC<AppProps> = ({ endpoint, embedded, id }) => {
         pageHeader={
           loggedIn ? (
             <PageHeader heading="SAP Mountain Peaks Dashboard">
-              <HeaderUser login={oidc.login} logout={oidc.logout} />
+              <HeaderUser logout={oidc.logout} />
               <ThemeToggle />
             </PageHeader>
           ) : null
@@ -90,7 +90,7 @@ const App: React.FC<AppProps> = ({ endpoint, embedded, id }) => {
         }
       >
         <Container py>
-          <AppContent />
+          <AppContent login={oidc.login} />
         </Container>
       </AppShell>
     </QueryClientProvider>

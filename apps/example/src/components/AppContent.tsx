@@ -28,7 +28,11 @@ import Peaks from "./peaks/Peaks"
 import WelcomeView from "./WelcomeView"
 import Home from "./Home"
 
-const AppContent: React.FC = () => {
+interface HeaderUserProps {
+  login: () => void
+}
+
+const AppContent: React.FC<HeaderUserProps> = ({ login }) => {
   const { setTabIndex, setCurrentModal } = useGlobalsActions()
   const loggedIn = useAuthLoggedIn()
   const authError = useAuthError()
@@ -93,7 +97,7 @@ const AppContent: React.FC = () => {
           </Container>
         </>
       ) : (
-        <WelcomeView />
+        <WelcomeView login={login} />
       )}
     </>
   )
