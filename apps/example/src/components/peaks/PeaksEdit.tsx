@@ -17,6 +17,7 @@ interface FormState {
   mainrange?: string
   region?: string
   countries?: string
+  url?: string
 }
 
 interface PeaksEditProps {
@@ -101,17 +102,18 @@ const PeaksEdit: React.FC<PeaksEditProps> = ({ peakId, closeCallback }) => {
   return (
     <PanelBody
       footer={
-        peakFetch.data && (
+        !peakFetch.isLoading ? (
           <PanelFooter>
             <Button label="Cancel" variant="subdued" onClick={closeCallback} />
             <Button label="Save" variant="primary" onClick={onSubmit} />
           </PanelFooter>
-        )
+        ) : undefined
       }
     >
       {peakFetch.isLoading ? (
         <HintLoading />
       ) : (
+        //NEEDS TO BE REUSED FOR CREATE AND EDIT
         <Form>
           <FormRow>
             <TextInput
@@ -146,6 +148,13 @@ const PeaksEdit: React.FC<PeaksEditProps> = ({ peakId, closeCallback }) => {
               label="Country"
               value={formState.countries || ""}
               onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("countries", e.target.value)}
+            />
+          </FormRow>
+          <FormRow>
+            <TextInput
+              type="url"
+              label="URL"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onAttrChanged("url", e.target.value)}
             />
           </FormRow>
         </Form>

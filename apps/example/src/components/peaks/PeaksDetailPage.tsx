@@ -14,6 +14,7 @@ import {
   DataGridCell,
   DataGridHeadCell,
   Button,
+  Icon,
 } from "@cloudoperators/juno-ui-components"
 
 const PeaksDetailPage: React.FC = () => {
@@ -22,13 +23,19 @@ const PeaksDetailPage: React.FC = () => {
   }
   return (
     <>
+      {/* should be on higher level */}
       <Breadcrumb>
-        <BreadcrumbItem label="Peaks" />
-        <BreadcrumbItem label="Ama Dablam" />
+        <BreadcrumbItem label="Overview" />
+        <BreadcrumbItem active={true} label="Ama Dablam" />
       </Breadcrumb>
-      <Stack gap="6">
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
         <ContentHeading>Ama Dablam</ContentHeading>
-      </Stack>
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <Icon icon="openInNew" href={""} target="_blank" />
+          <Icon icon="edit" onClick={() => ""} />
+          <Icon icon="deleteForever" onClick={() => ""} />
+        </div>
+      </div>
       <div> Details</div>
       <DataGrid columns={2}>
         <DataGridRow>
@@ -46,16 +53,6 @@ const PeaksDetailPage: React.FC = () => {
         <DataGridRow>
           <DataGridHeadCell>Country</DataGridHeadCell>
           <DataGridCell>Nepal</DataGridCell>
-        </DataGridRow>
-        <DataGridRow>
-          <DataGridHeadCell>Actions</DataGridHeadCell>
-          <DataGridCell>
-            <Stack gap="1.5">
-              <Button icon="edit" onClick={() => ""} variant="primary" />
-              <Button icon="deleteForever" onClick={() => ""} variant="primary-danger" />
-              <Button icon="openInNew" href={""} target="_blank" />
-            </Stack>
-          </DataGridCell>
         </DataGridRow>
       </DataGrid>
     </>

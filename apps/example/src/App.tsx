@@ -31,7 +31,7 @@ import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import AppContent from "./components/AppContent"
 import HeaderUser from "./components/auth/HeaderUser"
 import AsyncWorker from "./components/AsyncWorker"
-import StoreProvider, { useGlobalsActions, useAuthActions } from "./components/StoreProvider"
+import StoreProvider, { useGlobalsActions, useAuthActions, useAuthLoggedIn } from "./components/StoreProvider"
 
 interface AppProps {
   endpoint?: string
@@ -63,6 +63,8 @@ const App: React.FC<AppProps> = ({ endpoint, embedded, id }) => {
 
   console.debug("[exampleapp] embedded mode:", embedded)
 
+  const loggedIn = useAuthLoggedIn()
+
   return (
     <QueryClientProvider client={queryClient}>
       {/* @ts-ignore */}
@@ -71,16 +73,12 @@ const App: React.FC<AppProps> = ({ endpoint, embedded, id }) => {
         // @ts-ignore
         embedded={embedded === "true" || embedded === true}
         pageHeader={
-          <PageHeader heading="SAP Peak Dashboard">
-            <HeaderUser login={oidc.login} logout={oidc.logout} />
-            <ThemeToggle />
-          </PageHeader>
-        }
-        topNavigation={
-          <TopNavigation>
-            <TopNavigationItem icon="home" label="Home" />
-            <TopNavigationItem active label="Peaks" />
-          </TopNavigation>
+          loggedIn ? (
+            <PageHeader heading="SAP Mountain Peaks Dashboard">
+              <HeaderUser login={oidc.login} logout={oidc.logout} />
+              <ThemeToggle />
+            </PageHeader>
+          ) : null
         }
         pageFooter={
           <PageFooter>

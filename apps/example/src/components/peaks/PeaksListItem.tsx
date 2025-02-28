@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React, { useState } from "react"
 import {
   DataGridCell,
@@ -8,6 +13,7 @@ import {
   Modal,
   ModalFooter,
   ButtonRow,
+  Icon,
 } from "@cloudoperators/juno-ui-components"
 // NEEDED
 // import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -68,8 +74,7 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   // }
 
   return (
-    <DataGridRow onClick={() => onSelect(peak)}>
-      {/* Use onSelect callback */}
+    <DataGridRow className={"hoverable"} onClick={() => onSelect(peak)}>
       <DataGridCell>
         <strong>{peak.name}</strong>
       </DataGridCell>
@@ -77,21 +82,22 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
       <DataGridCell>{peak.mainrange}</DataGridCell>
       <DataGridCell>{peak.region}</DataGridCell>
       <DataGridCell>{peak.countries}</DataGridCell>
-      <DataGridCell>
+      <DataGridCell style={{ paddingTop: "20px", paddingBottom: "20px" }}>
         <Stack gap="1.5">
-          <Button icon="edit" onClick={handleEditPeakClick} variant="primary" />
+          {/* Button or Icon? */}
+          {/* <Button icon="moreVert" onClick={handleEditPeakClick} /> */}
+          <Icon icon="edit" onClick={handleEditPeakClick} />
           <>
-            <Button icon="deleteForever" onClick={open} variant="primary-danger" />
+            <Icon icon="deleteForever" onClick={open} />
             <PortalProvider.Portal>
               <Modal
                 title="More Details"
                 open={isOpen}
-                onCancel={close}
                 modalFooter={
                   <ModalFooter className="jn-justify-between jn-items-center">
                     <ButtonRow>
+                      <Button onClick={close} label="Cancel" />
                       <Button label="Delete" variant="primary-danger" />
-                      <Button label="Cancel" />
                     </ButtonRow>
                   </ModalFooter>
                 }
@@ -100,7 +106,7 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
               </Modal>
             </PortalProvider.Portal>
           </>
-          {peak.url && <Button icon="openInNew" href={peak.url} target="_blank" />}
+          {peak.url && <Icon icon="openInNew" href={peak.url} target="_blank" />}
         </Stack>
       </DataGridCell>
     </DataGridRow>
