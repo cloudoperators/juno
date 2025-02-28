@@ -28,6 +28,7 @@
     "@cloudoperators/juno-ui-components": "*",
     "@tanstack/react-query": "4.28.0",
     "classnames": "^2.5.1",
+    "esbuild": "0.25.0",
     "prop-types": "15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -44,7 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react-swc": "^3.7.0",
-    "@vitest/ui": "^1.6.0",
+    "@vitest/ui": "^3.0.7",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
@@ -57,9 +58,9 @@
     "prettier": "3.1.1",
     "tailwindcss": "^3.4.12",
     "typescript": "^5.6.2",
-    "vite": "^5.4.7",
+    "vite": "^6.2.0",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^1.6.0"
+    "vitest": "^3.0.7"
   }
 }
