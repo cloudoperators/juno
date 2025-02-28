@@ -8,13 +8,14 @@ import {
   DataGridCell,
   DataGridRow,
   Stack,
-  Button,
   PortalProvider,
   Modal,
   ModalFooter,
   ButtonRow,
   Icon,
+  Button,
 } from "@cloudoperators/juno-ui-components"
+
 // NEEDED
 // import { useMutation, useQueryClient } from "@tanstack/react-query"
 
@@ -32,14 +33,6 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   // const queryClient = useQueryClient()
   const { setCurrentPanel } = useGlobalsActions()
 
-  const [isOpen, setOpen] = useState(false)
-  const open = () => {
-    setOpen(true)
-  }
-  const close = () => {
-    setOpen(false)
-  }
-
   // NEEDED
   // const { mutate } = useMutation({
   //   mutationKey: ["peakDelete"],
@@ -53,6 +46,10 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   //     return id
   //   },
   // })
+
+  const [isOpen, setOpen] = useState(false)
+  const open = () => setOpen(true)
+  const close = () => setOpen(false)
 
   const handleEditPeakClick = () => {
     setCurrentPanel({ type: "PeaksEdit", itemId: peak.id })
@@ -73,10 +70,16 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   //   )
   // }
 
+  const handlePeakNameClick = () => {
+    onSelect(peak) // Now tied to name click, not the entire row
+  }
+
   return (
-    <DataGridRow className={"hoverable"} onClick={() => onSelect(peak)}>
+    <DataGridRow className="transition ease-in-out duration-200">
       <DataGridCell>
-        <strong>{peak.name}</strong>
+        <strong className="cursor-pointer text-blue-600 hover:text-blue-800" onClick={handlePeakNameClick}>
+          {peak.name}
+        </strong>
       </DataGridCell>
       <DataGridCell>{peak.height.toString()}</DataGridCell>
       <DataGridCell>{peak.mainrange}</DataGridCell>
@@ -84,11 +87,9 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
       <DataGridCell>{peak.countries}</DataGridCell>
       <DataGridCell style={{ paddingTop: "20px", paddingBottom: "20px" }}>
         <Stack gap="1.5">
-          {/* Button or Icon? */}
-          {/* <Button icon="moreVert" onClick={handleEditPeakClick} /> */}
-          <Icon icon="edit" onClick={handleEditPeakClick} />
+          <Icon icon="edit" onClick={handleEditPeakClick} className="cursor-pointer" />
           <>
-            <Icon icon="deleteForever" onClick={open} />
+            <Icon icon="deleteForever" onClick={open} className="cursor-pointer" />
             <PortalProvider.Portal>
               <Modal
                 title="More Details"
@@ -102,11 +103,11 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
                   </ModalFooter>
                 }
               >
-                <p>Delete Ama Dablam forever?</p>
+                <p>Delete {peak.name} forever?</p>
               </Modal>
             </PortalProvider.Portal>
           </>
-          {peak.url && <Icon icon="openInNew" href={peak.url} target="_blank" />}
+          {peak.url && <Icon icon="openInNew" href={peak.url} target="_blank" className="cursor-pointer" />}
         </Stack>
       </DataGridCell>
     </DataGridRow>
