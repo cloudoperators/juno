@@ -5,7 +5,7 @@
 
 import React, { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { Spinner, Message, ContentHeading, AlertBox, Stack, Icon } from "@cloudoperators/juno-ui-components"
+import { Spinner, ContentHeading, Stack, Icon } from "@cloudoperators/juno-ui-components"
 
 import { useGlobalsQueryClientFnReady } from "../StoreProvider"
 import PeaksList from "./PeaksList"
@@ -57,9 +57,6 @@ const Peaks: React.FC = () => {
 
   return (
     <>
-      {isError && (
-        <Message variant="danger">{`${error?.statusCode ? `${error.statusCode}, ` : ""}${error?.message}`}</Message>
-      )}
       {isLoading && <Spinner variant="primary" />}
       {selectedPeak ? (
         <PeaksDetailPage />
