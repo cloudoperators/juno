@@ -79,7 +79,7 @@ const AppWithNewUrlStructure = (props: any) => {
 
 const StyledApp = (props: any) => {
   return (
-    // @ts-ignore > need to validate if theme is part of theme-types
+    // @ts-expect-error 2322 - Todo: implement a validation to give not any to "theme"
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
       {/* load appstyles inside the shadow dom */}
       <style>{styles.toString()}</style>

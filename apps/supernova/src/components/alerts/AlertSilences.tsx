@@ -34,7 +34,7 @@ const AlertSilences = ({ alert }: any) => {
   useEffect(() => {
     if (data) {
       setSilences({
-        // @ts-ignore
+        // @ts-expect-error TS(2339) FIXME: Property 'silences' does not exist on type 'any'.
         items: data?.silences,
       })
     }

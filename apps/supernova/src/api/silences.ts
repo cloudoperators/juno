@@ -51,7 +51,7 @@ export const deleteSilences = async (variables: Record<string, any>): Promise<Re
   }
 }
 
-export const createSilences = async (variables: Record<string, any>): Promise<any> => {
+export const createSilences = async (variables: Record<string, any>): Promise<Response> => {
   try {
     const response = await fetch(`${variables.endpoint}/silences`, {
       method: "POST",
