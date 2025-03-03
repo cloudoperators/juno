@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.16.4
+
+### Patch Changes
+
+- c92895d: fixed lint errors through typing, correct usage of functions
+
 ## 0.16.3
 
 ### Patch Changes
