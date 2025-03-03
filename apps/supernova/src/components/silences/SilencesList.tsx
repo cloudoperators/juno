@@ -36,7 +36,6 @@ const SilencesList = () => {
   const [visibleSilences, setVisibleSilences] = useState(silences)
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
-  // @ts-ignore
   const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
   const { addMessage } = useActions()
 
@@ -59,12 +58,10 @@ const SilencesList = () => {
   }, [data])
 
   useEffect(() => {
-    // @ts-ignore
     let filtered = silences.filter((silence: any) => silence?.status?.state === status)
 
     try {
       if (regEx) {
-        // @ts-ignore
         filtered = filtered.filter((silence: any) => JSON.stringify(silence).match(new RegExp(regEx, "i")))
       }
     } catch (e) {
@@ -120,7 +117,6 @@ const SilencesList = () => {
             <Select
               className="w-3/12"
               label="Status"
-              // @ts-ignore
               value={status}
               onChange={(newSilencesStatus: any) => {
                 setSilencesStatus(newSilencesStatus)
@@ -134,7 +130,6 @@ const SilencesList = () => {
             <SearchInput
               placeholder="search term or regular expression"
               className="ml-auto w-7/12"
-              // @ts-ignore
               value={regEx || ""}
               onChange={(text: any) => {
                 handleSearchChange(text)

@@ -32,7 +32,6 @@ describe("getMappingSilences", () => {
     const alert = createFakeAlertWith({ status: status, fingerprint: "123" })
     // set the alert
     act(() =>
-      // @ts-ignore
       store.result.current.alertActions.setAlertsData({
         items: [alert],
         counts: countAlerts([alert]),
@@ -43,7 +42,6 @@ describe("getMappingSilences", () => {
     const silence = createFakeSilenceWith({ id: "external" })
 
     act(() =>
-      // @ts-ignore
       store.result.current.silenceActions.setSilences({
         items: [silence],
       })
@@ -51,12 +49,9 @@ describe("getMappingSilences", () => {
 
     // get mapping silences
     let mappingResult = null
-    // @ts-ignore
     act(() => (mappingResult = store.result.current.silenceActions.getMappingSilences(alert)))
-    // @ts-expect-error TS(2531) FIXME: Object is possibly 'null'.
-    expect(mappingResult.length).toEqual(1)
-    // @ts-expect-error TS(2531) FIXME: Object is possibly 'null'.
-    expect(mappingResult.map((item: any) => item.id)).toContainEqual("external")
+    expect(mappingResult!.length).toEqual(1)
+    expect(mappingResult!.map((item: any) => item.id)).toContainEqual("external")
   })
 
   it("return silences also when alert silencedBy is just a string", () => {
@@ -74,7 +69,6 @@ describe("getMappingSilences", () => {
     const alert = createFakeAlertWith({ status: status, fingerprint: "123" })
     // set the alert
     act(() =>
-      // @ts-ignore
       store.result.current.alertActions.setAlertsData({
         items: [alert],
         counts: countAlerts([alert]),
@@ -85,7 +79,6 @@ describe("getMappingSilences", () => {
     const silence = createFakeSilenceWith({ id: "external" })
 
     act(() =>
-      // @ts-ignore
       store.result.current.silenceActions.setSilences({
         items: [silence],
       })
@@ -93,12 +86,9 @@ describe("getMappingSilences", () => {
 
     // get mapping silences
     let mappingResult = null
-    // @ts-ignore
     act(() => (mappingResult = store.result.current.silenceActions.getMappingSilences(alert)))
-    // @ts-expect-error TS(2531) FIXME: Object is possibly 'null'.
-    expect(mappingResult.length).toEqual(1)
-    // @ts-expect-error TS(2531) FIXME: Object is possibly 'null'.
-    expect(mappingResult.map((item: any) => item.id)).toContainEqual("external")
+    expect(mappingResult!.length).toEqual(1)
+    expect(mappingResult!.map((item: any) => item.id)).toContainEqual("external")
   })
 })
 
@@ -130,7 +120,6 @@ describe("getExpiredSilences", () => {
     })
     // set the alert
     act(() =>
-      // @ts-ignore
       store.result.current.alertActions.setAlertsData({
         items: [alert],
         counts: countAlerts([alert]),
@@ -172,19 +161,15 @@ describe("getExpiredSilences", () => {
       ],
     })
     act(() =>
-      // @ts-ignore
       store.result.current.silenceActions.setSilences({
         items: [silence, silence2, silence3],
       })
     )
     // get mapping silences
     let expResult = null
-    // @ts-ignore
     act(() => (expResult = store.result.current.silenceActions.getExpiredSilences(alert)))
-    // @ts-expect-error TS(2531) FIXME: Object is possibly 'null'.
-    expect(expResult.length).toEqual(1)
-    // @ts-expect-error TS(2531) FIXME: Object is possibly 'null'.
-    expect(expResult[0].id).toEqual("test2")
+    expect(expResult!.length).toEqual(1)
+    expect(expResult![0].id).toEqual("test2")
   })
 })
 
@@ -206,7 +191,6 @@ describe("getLatestMappingSilence", () => {
     const alert = createFakeAlertWith({ status: status, fingerprint: "123" })
     // set the alert
     act(() =>
-      // @ts-ignore
       store.result.current.alertActions.setAlertsData({
         items: [alert],
         counts: countAlerts([alert]),
@@ -222,7 +206,6 @@ describe("getLatestMappingSilence", () => {
       endsAt: "2023-06-21T20:18:28.327Z",
     })
     act(() =>
-      // @ts-ignore
       store.result.current.silenceActions.setSilences({
         items: [silence, silence2],
       })
@@ -230,10 +213,8 @@ describe("getLatestMappingSilence", () => {
 
     // get mapping silences
     let mappingResult = null
-    // @ts-ignore
     act(() => (mappingResult = store.result.current.silenceActions.getLatestMappingSilence(alert)))
-    // @ts-expect-error TS(2531) FIXME: Object is possibly 'null'.
-    expect(mappingResult.id).toEqual("external2")
+    expect(mappingResult!.id).toEqual("external2")
   })
 })
 
