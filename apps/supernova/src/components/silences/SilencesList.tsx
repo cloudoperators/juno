@@ -23,6 +23,7 @@ import SilencesItem from "./SilencesItem"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
+import { z } from "zod"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -40,6 +41,9 @@ const SilencesList = () => {
   const { addMessage } = useActions()
 
   const { data, isLoading, error } = useBoundQuery("silences")
+  const SilencesParser = z.object({
+    silences: z.any(),
+  })
 
   if (error) {
     addMessage({
@@ -50,9 +54,9 @@ const SilencesList = () => {
 
   useEffect(() => {
     if (data) {
+      const parsedData = SilencesParser.parse(data)
       setSilences({
-        // @ts-ignore
-        items: data?.silences,
+        items: parsedData?.silences,
       })
     }
   }, [data])
