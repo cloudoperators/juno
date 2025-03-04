@@ -119,7 +119,7 @@ const SilenceScheduled = () => {
     setError(null)
 
     // validate form and sets in case of errors messages and stops the submit
-    let errorFormState = validateForm(formState)
+    const errorFormState = validateForm(formState)
 
     if (errorFormState) {
       setFormState(errorFormState)

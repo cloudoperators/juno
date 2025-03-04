@@ -27,7 +27,6 @@ export default [
       "react/no-unescaped-entities": "off",
       "@typescript-eslint/await-thenable": "off",
       "react/prop-types": "off",
-      "prefer-const": "off",
       "react/jsx-no-comment-textnodes": "off",
     },
     ignores: ["vitest.config.ts", "vite.config.ts", "tailwind.config.ts"],

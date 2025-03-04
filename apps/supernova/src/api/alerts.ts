@@ -21,8 +21,7 @@ export const fetchAlerts = async (endpoint: string) => {
     }
 
     const items = await response.json() // Parse JSON data
-
-    let alerts = sortAlerts(items)
+    const alerts = sortAlerts(items)
 
     // copy additional filter options to labels for easier filter selection
     // because the alert object is nested this makes it a lot easier to filter, since we only use what is present in alert.labels

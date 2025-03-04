@@ -238,7 +238,7 @@ const createFiltersSlice: (options?: Record<string, any>) => StateCreator<AppSta
             produce((state: any) => {
               // use Set to prevent duplicate values
               // @ts-expect-error TS(2552) FIXME: Cannot find name 'Set'. Did you mean 'set'?
-              let newFilterValues = [...new Set([...(state.filters.pausedFilters[filterLabel] || []), filterValue])]
+              const newFilterValues = [...new Set([...(state.filters.pausedFilters[filterLabel] || []), filterValue])]
               state.filters.pausedFilters[filterLabel] = newFilterValues
             }),
             false

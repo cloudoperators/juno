@@ -104,7 +104,7 @@ const useUrlState = () => {
     // get silence regex search from url state
     const silenceRegExFromURL = urlStateManager.currentState()?.[SILENCE_REG_EX]
     if (silenceRegExFromURL) {
-      let decoded = atob(silenceRegExFromURL)
+      const decoded = atob(silenceRegExFromURL)
       // decode the search term from the url. It is base64 encoded to avoid issues with special characters
       if (decoded) {
         setSilencesRegEx(decoded)
