@@ -86,7 +86,6 @@ const SilencesList = () => {
     // clear timeout if we have a new value
     return () => clearTimeout(debouncedSearchTerm)
   }
-  // @ts-ignore
   const { scrollListItems, iterator } = useEndlessScrollList(visibleSilences, {
     loadingObject: (
       <DataGridRow>
@@ -156,21 +155,18 @@ const SilencesList = () => {
                 <DataGridHeadCell>Action</DataGridHeadCell>
               </DataGridRow>
 
-              {
-                // @ts-ignore
-                scrollListItems?.length > 0 ? (
-                  iterator.map((silence: any) => <SilencesItem silence={silence} key={silence.id} />)
-                ) : (
-                  <DataGridRow>
-                    <DataGridCell colSpan={4}>
-                      <Stack gap="3">
-                        <Icon icon="info" color="text-theme-info" />
-                        <div>We couldn&apos;t find any matching silences.</div>
-                      </Stack>
-                    </DataGridCell>
-                  </DataGridRow>
-                )
-              }
+              {scrollListItems?.length ? (
+                iterator.map((silence: any) => <SilencesItem silence={silence} key={silence.id} />)
+              ) : (
+                <DataGridRow>
+                  <DataGridCell colSpan={4}>
+                    <Stack gap="3">
+                      <Icon icon="info" color="text-theme-info" />
+                      <div>We couldn&apos;t find any matching silences.</div>
+                    </Stack>
+                  </DataGridCell>
+                </DataGridRow>
+              )}
             </>
           </DataGrid>
         </>
