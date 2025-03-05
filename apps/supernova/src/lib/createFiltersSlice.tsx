@@ -194,10 +194,9 @@ const createFiltersSlice: (options?: Record<string, any>) => StateCreator<AppSta
           set(
             produce((state: any) => {
               // use Set to prevent duplicate values
-              state.filters.activeFilters[filterLabel] = [
-                // @ts-expect-error TS(2552) FIXME: Cannot find name 'Set'. Did you mean 'set'?
-                ...new Set([...(state.filters.activeFilters[filterLabel] || []), ...filterValues]),
-              ]
+              state.filters.activeFilters[filterLabel] = Array.from(
+                new Set([...(state.filters.activeFilters[filterLabel] || []), ...filterValues])
+              )
             }),
             false
           )
@@ -237,8 +236,9 @@ const createFiltersSlice: (options?: Record<string, any>) => StateCreator<AppSta
           set(
             produce((state: any) => {
               // use Set to prevent duplicate values
-              // @ts-expect-error TS(2552) FIXME: Cannot find name 'Set'. Did you mean 'set'?
-              const newFilterValues = [...new Set([...(state.filters.pausedFilters[filterLabel] || []), filterValue])]
+              const newFilterValues = Array.from(
+                new Set([...(state.filters.pausedFilters[filterLabel] || []), filterValue])
+              )
               state.filters.pausedFilters[filterLabel] = newFilterValues
             }),
             false

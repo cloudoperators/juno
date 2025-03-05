@@ -10,8 +10,15 @@ import { AlertItem } from "./createAlertsSlice"
 interface Silence {
   id: string
   status?: Record<string, any>
-  matchers?: { name: string; value: string; isRegex?: boolean }[]
+  matchers?: Matcher[]
   endsAt?: number
+}
+
+export interface Matcher {
+  name: string
+  value: string
+  isRegex?: boolean
+  excluded?: boolean // added in createSilenceForm with setupMatchers
 }
 
 interface SilencesState {
