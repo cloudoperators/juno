@@ -44,7 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react-swc": "^3.7.0",
-    "@vitest/ui": "^1.6.0",
+    "@vitest/ui": "^3.0.7",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
@@ -60,6 +60,6 @@
     "vite": "^5.4.7",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^1.6.0"
+    "vitest": "^3.0.7"
   }
 }
