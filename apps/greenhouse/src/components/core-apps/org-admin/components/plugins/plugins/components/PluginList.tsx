@@ -9,14 +9,13 @@ import {
   DataGridHeadCell,
   DataGridRow,
   DataGridCell,
-  DataGridToolbar,
   Button,
-  ButtonRow,
   Icon,
   Stack,
 } from "@cloudoperators/juno-ui-components"
 import { usePluginConfig, useGlobalsActions } from "./StoreProvider"
 import Plugin from "./Plugin"
+import Toolbar from "./Toolbar"
 
 // Renders the list of plugins
 const PluginList = () => {
@@ -30,11 +29,12 @@ const PluginList = () => {
 
   return (
     <>
-      <DataGridToolbar>
-        <ButtonRow>
+      <Stack className="mb-4">
+        <div className="ml-auto">
           <Button onClick={onShowPluginDefinition}>Add Plugin</Button>
-        </ButtonRow>
-      </DataGridToolbar>
+        </div>
+      </Stack>
+      <Toolbar />
       <DataGrid columns={5} cellVerticalAlignment="top" className="plugins" minContentColumns={[0, 4]}>
         {pluginConfig && (
           <DataGridRow>
