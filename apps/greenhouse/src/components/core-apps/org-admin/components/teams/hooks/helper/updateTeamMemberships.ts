@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// @ts-expect-error TS(2792): Cannot find module 'lodash/isEqual'. Did you mean ... Remove this comment to see the full error message
 import isEqual from "lodash/isEqual"
 
 function isIterable(input: any) {
