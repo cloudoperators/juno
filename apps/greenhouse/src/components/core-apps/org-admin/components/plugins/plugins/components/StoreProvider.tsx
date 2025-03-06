@@ -49,6 +49,7 @@ export const useGlobalsActions = () => useAppStore((state: any) => state.globals
 
 /// Plugin
 export const usePluginConfig = () => useAppStore((state: any) => state.plugin.pluginConfig)
+export const useFilteredPluginConfigs = () => useAppStore((state: any) => state.plugin.filteredPluginConfigs)
 export const useShowDetailsFor = () => useAppStore((state: any) => state.plugin.showDetailsFor)
 export const useSearchTerm = () => useAppStore((state: any) => state.plugin.searchTerm)
 export const usePluginActions = () => useAppStore((state: any) => state.plugin.actions)

@@ -33,8 +33,8 @@ const Toolbar = () => {
             className="w-96 ml-auto"
             value={""}
             onSearch={(value: any) => setSearchTerm(value)}
-            // onClear={() => setSearchTerm("")}
-            // onChange={(value: any) => handleSearchChange(value)}
+            onClear={() => setSearchTerm("")}
+            onChange={(value: any) => handleSearchChange(value)}
           />
         </Stack>
       </DataGridToolbar>

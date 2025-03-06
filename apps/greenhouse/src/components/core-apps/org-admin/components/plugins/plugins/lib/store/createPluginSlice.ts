@@ -17,6 +17,7 @@ interface PluginActions {
   deletePluginConfigItems: (pluginConfigItems: any[]) => void
   setShowDetailsFor: (showDetailsFor: any | null) => void
   setSearchTerm: (searchTerm: string) => void
+  filterItems: () => void
 }
 
 export interface PluginSlice {
@@ -42,6 +43,7 @@ function uniqPluginConfigItems(items: any) {
 const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, get, store) => ({
   plugin: {
     pluginConfig: null,
+    filteredPluginConfigs: null,
     showDetailsFor: null,
     searchTerm: "",
 
@@ -63,6 +65,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
             pluginConfig: sortedPlugins,
           },
         }))
+        get().plugin.actions.filterItems()
       },
 
       addPluginConfigItems: (pluginConfigItems: any) => {
@@ -76,6 +79,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
             pluginConfig: newItems,
           },
         }))
+        get().plugin.actions.filterItems()
       },
       modifyPluginConfigItems: (modifiedItems: any) => {
         const items = (get().plugin.pluginConfig || []).slice()
@@ -96,6 +100,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
             pluginConfig: newItems,
           },
         }))
+        get().plugin.actions.filterItems()
       },
       deletePluginConfigItems: (pluginConfigItems: any) => {
         const items = (get().plugin.pluginConfig || []).slice() // Get items
@@ -113,17 +118,39 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
             pluginConfig: newItems,
           },
         }))
+        get().plugin.actions.filterItems()
       },
 
-      setShowDetailsFor: (showDetailsFor: any) =>
+      setShowDetailsFor: (showDetailsFor: any) => {
         set((state: any) => ({
           plugin: { ...state.plugin, showDetailsFor: showDetailsFor },
-        })),
+        }))
+      },
 
-      setSearchTerm: (searchTerm: string) =>
+      setSearchTerm: (searchTerm: string) => {
         set((state: any) => ({
           plugin: { ...state.plugin, searchTerm: searchTerm },
-        })),
+        }))
+        get().plugin.actions.filterItems()
+      },
+
+      filterItems: () => {
+        let items = (get().plugin.pluginConfig || []).slice()
+        const searchTerm = get().plugin.searchTerm
+
+        if (searchTerm && items) {
+          items = items.filter((item: any) => {
+            const itemString = JSON.stringify(item)
+            const re = new RegExp(searchTerm, "i")
+            if (itemString.match(re)) {
+              return true
+            } else false
+          })
+        }
+        set((state: any) => ({
+          plugin: { ...state.plugin, filteredPluginConfigs: items },
+        }))
+      },
     },
   },
 })
