@@ -32,7 +32,6 @@ const PluginDefinitionPanel = () => {
 
   return (
     <Panel
-      // @ts-expect-error TS(2550): Property 'includes' does not exist on type 'string... Remove this comment to see the full error message
       opened={["showPluginDefinition", "showPluginDefinitionDetail", "editPlugin"].includes(panel)}
       onClose={onCloseDefinitionPanel}
       size="large"
