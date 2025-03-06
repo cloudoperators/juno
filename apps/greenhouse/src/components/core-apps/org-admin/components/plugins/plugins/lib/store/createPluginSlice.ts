@@ -2,6 +2,26 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
  * SPDX-License-Identifier: Apache-2.0
  */
+import { StateCreator } from "zustand"
+
+interface PluginState {
+  pluginConfig: any[] | null
+  showDetailsFor: any | null
+  searchTerm: string
+}
+
+interface PluginActions {
+  setPluginConfig: (pluginConfig: any[]) => void
+  addPluginConfigItems: (pluginConfigItems: any[]) => void
+  modifyPluginConfigItems: (modifiedItems: any[]) => void
+  deletePluginConfigItems: (pluginConfigItems: any[]) => void
+  setShowDetailsFor: (showDetailsFor: any | null) => void
+  setSearchTerm: (searchTerm: string) => void
+}
+
+export interface PluginSlice {
+  plugin: PluginState & { actions: PluginActions }
+}
 
 function sortPluginConfigItems(items: any) {
   return items.sort((a: any, b: any) => {
@@ -19,11 +39,11 @@ function uniqPluginConfigItems(items: any) {
   return items.filter((item: any, index: any, array: any) => array.indexOf(item) === index)
 }
 
-// @ts-expect-error TS(7006): Parameter 'set' implicitly has an 'any' type.
-const createPluginSlice = (set, get) => ({
+const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, get, store) => ({
   plugin: {
     pluginConfig: null,
     showDetailsFor: null,
+    searchTerm: "",
 
     actions: {
       setPluginConfig: (pluginConfig: any) => {
@@ -98,6 +118,11 @@ const createPluginSlice = (set, get) => ({
       setShowDetailsFor: (showDetailsFor: any) =>
         set((state: any) => ({
           plugin: { ...state.plugin, showDetailsFor: showDetailsFor },
+        })),
+
+      setSearchTerm: (searchTerm: string) =>
+        set((state: any) => ({
+          plugin: { ...state.plugin, searchTerm: searchTerm },
         })),
     },
   },

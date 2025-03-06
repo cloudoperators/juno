@@ -4,18 +4,41 @@
  */
 
 import React, { createContext, useContext } from "react"
+import { createStore, useStore, StoreApi } from "zustand"
 
 import { useStore as create } from "zustand"
-import createStore from "../lib/store"
+import createPluginSlice, { PluginSlice } from "../lib/store/createPluginSlice"
+import createGlobalSlice, { GlobalsSlice } from "../lib/store/createGlobalsSlice"
 
-// @ts-expect-error TS(2554): Expected 1 arguments, but got 0.
-const StoreContext = createContext()
-const StoreProvider = ({ children }: any) => (
-  <StoreContext.Provider value={createStore()}>{children}</StoreContext.Provider>
-)
-// @ts-ignore
-const useAppStore = (selector: any) => create(useContext(StoreContext), selector)
+const StoreContext = createContext<StoreApi<AppState> | null>(null)
 
+export type AppState = PluginSlice & GlobalsSlice
+
+interface StoreProviderProps {
+  options?: Record<string, any> // should be defined later on for the props
+  children: React.ReactNode
+}
+
+export const StoreProvider = ({ options, children }: StoreProviderProps) => {
+  return (
+    <StoreContext.Provider
+      value={createStore<AppState>((set, get, store) => ({
+        ...createPluginSlice(set, get, store),
+        ...createGlobalSlice(set, get, store),
+      }))}
+    >
+      {children}
+    </StoreContext.Provider>
+  )
+}
+
+const useAppStore = <T,>(selector: (state: AppState) => T): T => {
+  const store = useContext(StoreContext)
+  if (!store) {
+    throw new Error("useAppStore must be used within a StoreProvider")
+  }
+  return useStore(store, selector)
+}
 export const useGlobalsUrlStateKey = () => useAppStore((state: any) => state.globals.urlStateKey)
 export const useApiEndpoint = () => useAppStore((state: any) => state.globals.apiEndpoint)
 export const useNamespace = () => useAppStore((state: any) => state.globals.namespace)
@@ -27,6 +50,7 @@ export const useGlobalsActions = () => useAppStore((state: any) => state.globals
 /// Plugin
 export const usePluginConfig = () => useAppStore((state: any) => state.plugin.pluginConfig)
 export const useShowDetailsFor = () => useAppStore((state: any) => state.plugin.showDetailsFor)
+export const useSearchTerm = () => useAppStore((state: any) => state.plugin.searchTerm)
 export const usePluginActions = () => useAppStore((state: any) => state.plugin.actions)
 
 export default StoreProvider
