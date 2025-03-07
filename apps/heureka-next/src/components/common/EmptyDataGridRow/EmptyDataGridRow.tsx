@@ -1,12 +1,12 @@
 import React from "react"
-import { DataGridCell, DataGridRow } from "@cloudoperators/juno-ui-components/index"
+import { DataGridCell, DataGridRow } from "@cloudoperators/juno-ui-components"
 
-type EmptyDataGridRow = {
+type EmptyDataGridRowProps = {
   colSpan: number
   children: React.ReactNode
 }
 
-export const EmptyDataGridRow = ({ colSpan, children }: EmptyDataGridRow) => (
+export const EmptyDataGridRow = ({ colSpan, children }: EmptyDataGridRowProps) => (
   <DataGridRow>
     <DataGridCell colSpan={colSpan}>{children}</DataGridCell>
   </DataGridRow>
