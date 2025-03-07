@@ -3,20 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, UseQueryResult } from "@tanstack/react-query"
 import { QUERY_FUNCTIONS } from "../api/queryFunctions"
 import { useGlobalsApiEndpoint } from "../components/StoreProvider"
 
-export const useBoundQuery = (key: keyof typeof QUERY_FUNCTIONS, { options }: any = {}) => {
+export const useBoundQuery = <T>(key: keyof typeof QUERY_FUNCTIONS, { options }: any = {}): UseQueryResult<T> => {
   const endpoint = useGlobalsApiEndpoint()
   const fetchFunction = QUERY_FUNCTIONS[key]
   if (!fetchFunction) {
     throw new Error(`No fetch function mapped for key: ${key}`)
   }
 
-  return useQuery({
-    queryKey: [key], // Pass variables into the key
-    queryFn: () => fetchFunction(endpoint), // Pass variables to the fetch function
-    ...options, // Include any additional options
+  return useQuery<T>({
+    queryKey: [key],
+    queryFn: () => fetchFunction(endpoint) as Promise<T>, // Ensure fetch function returns T
+    ...options,
   })
 }

@@ -50,7 +50,7 @@ export const getSelectOptions = (expirationDate: number) => {
 // The enrichedLabels are those that are added by the worker just for UI purposes when the alert is received.
 export const setupMatchers = (alertLabels: any, excludedLabels: string[] = [], enrichedLabels: string[] = []) => {
   if (!alertLabels || !excludedLabels) return
-  let items: any = []
+  const items: any = []
 
   Object.keys(alertLabels).forEach((label) => {
     const value = alertLabels?.[label]

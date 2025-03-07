@@ -10,12 +10,12 @@ import { devtools } from "zustand/middleware"
 import createSilencesSlice, { SilencesSlice } from "../lib/createSilencesSlice"
 import createAlertsSlice, { AlertsSlice } from "../lib/createAlertsSlice"
 import createFiltersSlice, { FilterSlice } from "../lib/createFiltersSlice"
-import createGlobalsSlice from "../lib/createGlobalsSlice"
-import createUserActivitySlice from "../lib/createUserActivitySlice"
+import createGlobalsSlice, { GlobalSlice } from "../lib/createGlobalsSlice"
+import createUserActivitySlice, { UserActivitySlice } from "../lib/createUserActivitySlice"
 
 const StoreContext = createContext<StoreApi<AppState> | null>(null)
 
-export type AppState = FilterSlice & AlertsSlice & SilencesSlice & Record<string, any>
+export type AppState = FilterSlice & AlertsSlice & SilencesSlice & GlobalSlice & UserActivitySlice
 
 interface StoreProviderProps {
   options?: Record<string, any> // should be defined later on for the props
@@ -27,7 +27,7 @@ export const StoreProvider = ({ options, children }: StoreProviderProps) => {
     <StoreContext.Provider
       value={createStore<AppState>((set, get, store) => ({
         ...createGlobalsSlice(options)(set, get, store),
-        ...createUserActivitySlice(set),
+        ...createUserActivitySlice(set, get, store),
         ...createAlertsSlice(set, get, store),
         ...createFiltersSlice(options)(set, get, store),
         ...createSilencesSlice(options)(set, get, store),

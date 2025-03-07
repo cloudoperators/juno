@@ -140,7 +140,7 @@ const RecreateSilence = (props: any) => {
     const formValidation = validateForm(formState)
     setShowValidation(formValidation)
     if (Object.keys(formValidation).length > 0) return
-    let newFormState = { ...formState }
+    const newFormState = { ...formState }
 
     // add extra attributes
     const startsAt = new Date()

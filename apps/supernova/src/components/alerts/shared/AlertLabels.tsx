@@ -36,8 +36,8 @@ const AlertLabels = ({ alert, showAll }: any) => {
   return (
     <Stack gap="2" alignment="start" wrap={true}>
       {filterLabels.map((filterLabel: any) => {
-        let value = alert?.labels?.[filterLabel]
-        let isActive = activeFilters?.[filterLabel]?.includes(value)
+        const value = alert?.labels?.[filterLabel]
+        const isActive = activeFilters?.[filterLabel]?.includes(value)
 
         return (
           value && (

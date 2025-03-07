@@ -147,7 +147,7 @@ const CreateSilence = ({ alert, size, variant }: any) => {
     const formValidation = validateForm(formState)
     setShowValidation(formValidation)
     if (Object.keys(formValidation).length > 0) return
-    let newFormState = { ...formState }
+    const newFormState = { ...formState }
     // clean up attributes in matchers and remove excluded
     if (newFormState.matchers?.length > 0) {
       newFormState.matchers = newFormState.matchers.filter((m: any) => !m.excluded).map(({ ...keepAttrs }) => keepAttrs)
@@ -176,7 +176,7 @@ const CreateSilence = ({ alert, size, variant }: any) => {
 
   const onMatchersChanged = (matcher: any) => {
     const index = formState.matchers.findIndex((item: any) => item.name == matcher.name)
-    let items = formState.matchers.slice()
+    const items = formState.matchers.slice()
     // update item
     if (index >= 0) {
       items[index] = { ...items[index], excluded: !matcher.excluded }

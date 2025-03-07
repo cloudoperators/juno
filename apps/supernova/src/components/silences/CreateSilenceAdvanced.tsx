@@ -3,9 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useState, MouseEvent } from "react"
 import { Stack, Icon } from "@cloudoperators/juno-ui-components"
 import SilenceMatchers from "./SilenceMatchers"
+import { Matcher } from "../../lib/createSilencesSlice"
+
+type OnMatchersChanged = (matchers: Matcher[]) => void
+interface SilenceNewAdvancedProps {
+  matchers: Matcher[]
+  onMatchersChanged: OnMatchersChanged
+}
 
 const detailsCss = (show: any) => {
   return `
@@ -19,12 +26,10 @@ const detailsCss = (show: any) => {
     .replace(/\s+/g, " ")
 }
 
-// @ts-expect-error TS(7031) FIXME: Binding element 'matchers' implicitly has an 'any'... Remove this comment to see the full error message
-const SilenceNewAdvanced = ({ matchers, onMatchersChanged }) => {
+const SilenceNewAdvanced = ({ matchers, onMatchersChanged }: SilenceNewAdvancedProps) => {
   const [showDetails, setShowDetails] = useState(false)
 
-  // @ts-expect-error TS(7006) FIXME: Parameter 'e' implicitly has an 'any' type.
-  const onShowDetailsClicked = (e) => {
+  const onShowDetailsClicked = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     setShowDetails(!showDetails)
   }
@@ -47,7 +52,6 @@ const SilenceNewAdvanced = ({ matchers, onMatchersChanged }) => {
               <p className="mt-2">Matchers attached to this silence</p>
               <div className="mt-2">
                 <SilenceMatchers
-                  // @ts-expect-error TS(7006) FIXME: Parameter 'm' implicitly has an 'any' type.
                   matchers={matchers.filter((m) => !m.excluded)}
                   onClickCallback={onMatchersChanged}
                   closeable={true}
@@ -61,7 +65,6 @@ const SilenceNewAdvanced = ({ matchers, onMatchersChanged }) => {
               </p>
               <div className="my-2">
                 <SilenceMatchers
-                  // @ts-expect-error TS(7006) FIXME: Parameter 'm' implicitly has an 'any' type.
                   matchers={matchers.filter((m) => m.excluded)}
                   onClickCallback={onMatchersChanged}
                   closeable={false}

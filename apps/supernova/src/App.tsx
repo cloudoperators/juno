@@ -15,6 +15,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ErrorBoundary } from "react-error-boundary"
 import useUrlState from "./hooks/useUrlState"
 import useUrlQueryState from "./hooks/useUrlQueryState"
+import { z } from "zod"
+const AppShellTheme = z.enum(["theme-dark", "theme-light"])
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -78,9 +80,10 @@ const AppWithNewUrlStructure = (props: any) => {
 }
 
 const StyledApp = (props: any) => {
+  const theme = AppShellTheme.safeParse(props.theme).success ? props.theme : "theme-dark"
+
   return (
-    // @ts-expect-error 2322 - Todo: implement a validation to give not any to "theme"
-    <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
+    <AppShellProvider theme={theme}>
       {/* load appstyles inside the shadow dom */}
       <style>{styles.toString()}</style>
       <StoreProvider options={props}>

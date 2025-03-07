@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { AlertItem, SeverityCounts } from "./createAlertsSlice"
+
 export const severityToSemanticName = (severity: any) => {
   switch (severity) {
     case "critical":
@@ -56,8 +58,18 @@ export const humanizeString = (value: any) => {
 //     "eu-de-1": { total: number, critical: {total: number, suppressed: number}, warning: {...}, ...}
 //   }, ...
 // }
-export const countAlerts = (alerts: any) => {
-  const counts = { global: { total: 0, critical: 0 }, regions: {} }
+export const countAlerts = (alerts: AlertItem[]) => {
+  const counts: {
+    global: {
+      total: number
+      critical: number
+      warning?: number
+      info?: number
+      [key: string]: number | undefined
+    }
+
+    regions: Record<string, SeverityCounts>
+  } = { global: { total: 0, critical: 0 }, regions: {} }
 
   if (!alerts || alerts.length === 0) return counts
 
@@ -71,31 +83,20 @@ export const countAlerts = (alerts: any) => {
     const state = alert.status?.state
 
     // global count per severity
-    // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    counts.global[severity] = counts.global[severity] || 0 // init
-    // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    counts.global[severity] += 1
+    counts.global[severity] = (counts.global[severity] ?? 0) + 1
 
     // count per region and severity
-    // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     counts.regions[region] = counts.regions[region] || {} // init
-    // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     counts.regions[region].total = counts.regions[region].total || 0 // init
-    // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     counts.regions[region].total += 1
 
     // total count per region and severity
-    // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     counts.regions[region][severity] = counts.regions[region][severity] || {} // init
-    // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     counts.regions[region][severity]["total"] = counts.regions[region][severity]?.total || 0 // init
-    // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     counts.regions[region][severity]["total"] += 1
     // suppressed per region and severity
     if (state === "suppressed") {
-      // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       counts.regions[region][severity].suppressed = counts.regions[region][severity]?.suppressed || 0 // init
-      // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       counts.regions[region][severity].suppressed += 1
     }
   })
