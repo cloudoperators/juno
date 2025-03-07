@@ -3,14 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { StateCreator } from "zustand"
+import { getStatusCondition } from "../../hooks/helper"
 
 interface PluginState {
   pluginConfig: any[] | null
   showDetailsFor: any | null
   searchTerm: string
+  statusConditionFilter: StatusConditionFilter
 }
 
-type StatusConditionFilter = "True" | "False" | "Unknown" | "All"
+export type StatusConditionFilter = "True" | "False" | "Unknown" | "All"
 
 interface PluginActions {
   setPluginConfig: (pluginConfig: any[]) => void
@@ -19,6 +21,7 @@ interface PluginActions {
   deletePluginConfigItems: (pluginConfigItems: any[]) => void
   setShowDetailsFor: (showDetailsFor: any | null) => void
   setSearchTerm: (searchTerm: string) => void
+  setStatusConditionFilter: (value: StatusConditionFilter) => void
   filterItems: () => void
 }
 
@@ -48,7 +51,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
     filteredPluginConfigs: null,
     showDetailsFor: null,
     searchTerm: "",
-    statusConditionFilter: "all",
+    statusConditionFilter: "All",
 
     actions: {
       setPluginConfig: (pluginConfig: any) => {
@@ -147,14 +150,27 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
       filterItems: () => {
         let items = (get().plugin.pluginConfig || []).slice()
         const searchTerm = get().plugin.searchTerm
+        const statusConditionFilter = get().plugin.statusConditionFilter
 
+        // Filter StatusCondition
+        if (statusConditionFilter && statusConditionFilter != "All" && items) {
+          items = items.filter((item: any) => {
+            if (getStatusCondition(item) == statusConditionFilter) {
+              return true
+            } else {
+              return false
+            }
+          })
+        }
+
+        // Filter SearchTerm
         if (searchTerm && items) {
           items = items.filter((item: any) => {
             const itemString = JSON.stringify(item)
             const re = new RegExp(searchTerm, "i")
             if (itemString.match(re)) {
               return true
-            } else false
+            } else return false
           })
         }
         set((state: any) => ({

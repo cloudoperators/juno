@@ -8,6 +8,7 @@ import {
   Stack,
 } from "@cloudoperators/juno-ui-components"
 import { usePluginActions } from "./StoreProvider"
+import { StatusConditionFilter } from "../lib/store/createPluginSlice"
 const filtersStyles = `
   bg-theme-background-lvl-1
   py-2
@@ -16,7 +17,8 @@ const filtersStyles = `
 `
 
 const Toolbar = () => {
-  const { setSearchTerm } = usePluginActions()
+  const { setSearchTerm, setStatusConditionFilter } = usePluginActions()
+  const statusOptions: StatusConditionFilter[] = ["All", "True", "False", "Unknown"]
   const handleSearchChange = (value: any) => {
     // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
@@ -32,21 +34,10 @@ const Toolbar = () => {
       <DataGridToolbar>
         <Stack alignment="center" gap="8" className={`filters ${filtersStyles}`}>
           <InputGroup>
-            <Select
-              required
-              label="Ready"
-              // value={formState.duration}
-              // onChange={(value: any) =>
-              //   onInputChanged({
-              //     key: "duration",
-              //     value,
-              //   })
-              // }
-            >
-              <SelectOption key="All" label="All" value="All" />
-              <SelectOption key="True" label="True" value="True" />
-              <SelectOption key="False" label="False" value="False" />
-              <SelectOption key="Unknown" label="Unknown" value="Unknown" />
+            <Select required label="Ready" value="All" onChange={(value: any) => setStatusConditionFilter(value)}>
+              {statusOptions.map((option) => (
+                <SelectOption key={option} label={option} value={option} />
+              ))}
             </Select>
           </InputGroup>
           <SearchInput
