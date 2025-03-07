@@ -8,20 +8,16 @@ import { useActions } from "@cloudoperators/juno-messages-provider"
 import PredefinedFilters from "../filters/PredefinedFilters"
 import { useAlertsUpdatedAt, useAlertsTotalCounts, useAlertsActions } from "../StoreProvider"
 import { parseError } from "../../helpers"
-import { z } from "zod"
+import { AlertsData } from "../../api/alerts"
 
 const AlertsTab = () => {
   const totalCounts = useAlertsTotalCounts()
   const updatedAt = useAlertsUpdatedAt()
   const { setAlertsData } = useAlertsActions()
   const { addMessage } = useActions()
-  const AlertParser = z.object({
-    alerts: z.any(),
-    counts: z.any(),
-  })
 
   // Fetch alerts data
-  const { data, isLoading, error } = useBoundQuery("alerts")
+  const { data, isLoading, error } = useBoundQuery<AlertsData>("alerts")
   if (error) {
     addMessage({
       variant: "error",
@@ -30,8 +26,7 @@ const AlertsTab = () => {
   }
   useEffect(() => {
     if (data) {
-      const parsedData = AlertParser.parse(data)
-      setAlertsData({ items: parsedData.alerts, counts: parsedData.counts })
+      setAlertsData({ items: data.alerts, counts: data.counts })
     }
   }, [data])
 

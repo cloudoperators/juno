@@ -21,25 +21,21 @@ import AlertSilencesList from "./shared/AlertSilencesList"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
-import { z } from "zod"
+import { SilencesData } from "../../api/silences"
 
 const AlertSilences = ({ alert }: any) => {
   const { getAlertByFingerprint } = useAlertsActions()
   const { setShowDetailsFor } = useGlobalsActions()
   const { setSilences } = useSilencesActions()
   const { addMessage } = useActions()
-  const SilencesParser = z.object({
-    silences: z.any(),
-  })
 
   // fetch silences
-  const { error, data, isLoading } = useBoundQuery("silences")
+  const { error, data, isLoading } = useBoundQuery<SilencesData>("silences")
 
   useEffect(() => {
     if (data) {
-      const parsedData = SilencesParser.parse(data)
       setSilences({
-        items: parsedData?.silences,
+        items: data?.silences,
       })
     }
   }, [data])
