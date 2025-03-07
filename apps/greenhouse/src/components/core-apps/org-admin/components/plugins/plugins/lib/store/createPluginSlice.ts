@@ -31,13 +31,18 @@ export interface PluginSlice {
 
 function sortPluginConfigItems(items: any) {
   return items.sort((a: any, b: any) => {
+    // First, sort by `disabled` status
     if (a?.spec?.disabled && !b?.spec?.disabled) {
       return 1
     } else if (!a?.spec?.disabled && b?.spec?.disabled) {
       return -1
-    } else {
-      return a?.metadata?.uid.localeCompare(b?.metadata?.uid)
     }
+
+    // Then, sort by displayName or metadata.name
+    const nameA = a?.spec?.displayName || a?.metadata?.name || ""
+    const nameB = b?.spec?.displayName || b?.metadata?.name || ""
+
+    return nameA.localeCompare(nameB)
   })
 }
 
@@ -56,15 +61,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
     actions: {
       setPluginConfig: (pluginConfig: any) => {
         // Sort plugins by id alphabetically, but put disabled plugins at the end
-        let sortedPlugins = pluginConfig.sort((a: any, b: any) => {
-          if (a?.disabled && !b?.disabled) {
-            return 1
-          } else if (!a?.disabled && b?.disabled) {
-            return -1
-          } else {
-            return a.id.localeCompare(b.id)
-          }
-        })
+        let sortedPlugins = sortPluginConfigItems(pluginConfig)
         set((state: any) => ({
           plugin: {
             ...state.plugin,
