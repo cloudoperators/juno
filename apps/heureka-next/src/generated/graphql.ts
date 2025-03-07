@@ -69,6 +69,7 @@ export type ActivityEdge = Edge & {
 
 export type ActivityFilter = {
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
   status?: InputMaybe<Array<InputMaybe<ActivityStatusValues>>>
 }
 
@@ -163,6 +164,7 @@ export type ComponentEdge = Edge & {
 
 export type ComponentFilter = {
   componentCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
 }
 
 export type ComponentFilterValue = {
@@ -215,6 +217,7 @@ export type ComponentInstanceFilter = {
   ccrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
   supportGroup?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
@@ -288,6 +291,7 @@ export type ComponentVersionFilter = {
   componentCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   componentId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
   version?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
@@ -347,6 +351,7 @@ export type EvidenceEdge = Edge & {
 
 export type EvidenceFilter = {
   placeholder?: InputMaybe<Array<InputMaybe<Scalars["Boolean"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
 }
 
 export type EvidenceInput = {
@@ -427,12 +432,14 @@ export type IssueFilter = {
   issueType?: InputMaybe<Array<InputMaybe<IssueTypes>>>
   primaryName?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
 }
 
 export type IssueInput = {
   description?: InputMaybe<Scalars["String"]["input"]>
   primaryName?: InputMaybe<Scalars["String"]["input"]>
   type?: InputMaybe<IssueTypes>
+  uuid?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type IssueMatch = Node & {
@@ -504,6 +511,7 @@ export type IssueMatchChangeEdge = Edge & {
 
 export type IssueMatchChangeFilter = {
   action?: InputMaybe<Array<InputMaybe<IssueMatchChangeActions>>>
+  state?: InputMaybe<Array<StateFilter>>
 }
 
 export type IssueMatchChangeInput = {
@@ -533,6 +541,7 @@ export type IssueMatchFilter = {
   primaryName?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
+  state?: InputMaybe<Array<StateFilter>>
   status?: InputMaybe<Array<InputMaybe<IssueMatchStatusValues>>>
   supportGroupCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
@@ -572,6 +581,18 @@ export type IssueMatchInput = {
   status?: InputMaybe<IssueMatchStatusValues>
   targetRemediationDate?: InputMaybe<Scalars["DateTime"]["input"]>
   userId?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export type IssueMatchOrderBy = {
+  by?: InputMaybe<IssueMatchOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum IssueMatchOrderByField {
+  ComponentInstanceCcrn = "componentInstanceCcrn",
+  PrimaryName = "primaryName",
+  Severity = "severity",
+  TargetRemediationDate = "targetRemediationDate",
 }
 
 export enum IssueMatchStatusValues {
@@ -633,6 +654,7 @@ export type IssueRepositoryFilter = {
   name?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
 }
 
 export type IssueRepositoryInput = {
@@ -682,6 +704,7 @@ export type IssueVariantEdge = Edge & {
 
 export type IssueVariantFilter = {
   secondaryName?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
 }
 
 export type IssueVariantInput = {
@@ -711,6 +734,7 @@ export type Mutation = {
   addServiceToActivity: Activity
   addServiceToSupportGroup: SupportGroup
   addUserToSupportGroup: SupportGroup
+  completeScannerRun: Scalars["Boolean"]["output"]
   createActivity: Activity
   createComponent: Component
   createComponentInstance: ComponentInstance
@@ -721,6 +745,7 @@ export type Mutation = {
   createIssueMatchChange: IssueMatchChange
   createIssueRepository: IssueRepository
   createIssueVariant: IssueVariant
+  createScannerRun: ScannerRun
   createService: Service
   createSupportGroup: SupportGroup
   createUser: User
@@ -801,6 +826,10 @@ export type MutationAddUserToSupportGroupArgs = {
   userId: Scalars["ID"]["input"]
 }
 
+export type MutationCompleteScannerRunArgs = {
+  uuid: Scalars["String"]["input"]
+}
+
 export type MutationCreateActivityArgs = {
   input: ActivityInput
 }
@@ -839,6 +868,10 @@ export type MutationCreateIssueRepositoryArgs = {
 
 export type MutationCreateIssueVariantArgs = {
   input: IssueVariantInput
+}
+
+export type MutationCreateScannerRunArgs = {
+  input: ScannerRunInput
 }
 
 export type MutationCreateServiceArgs = {
@@ -1014,6 +1047,11 @@ export type Node = {
   id: Scalars["ID"]["output"]
 }
 
+export enum OrderDirection {
+  Asc = "asc",
+  Desc = "desc",
+}
+
 export type Page = {
   __typename?: "Page"
   after?: Maybe<Scalars["String"]["output"]>
@@ -1093,6 +1131,7 @@ export type QueryIssueMatchesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueMatchFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>>>
 }
 
 export type QueryIssueRepositoriesArgs = {
@@ -1129,6 +1168,35 @@ export type QueryUsersArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<UserFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type ScannerRun = Node & {
+  __typename?: "ScannerRun"
+  completed: Scalars["Boolean"]["output"]
+  end_run: Scalars["DateTime"]["output"]
+  id: Scalars["ID"]["output"]
+  metadata?: Maybe<Metadata>
+  start_run: Scalars["DateTime"]["output"]
+  tag: Scalars["String"]["output"]
+  uuid: Scalars["String"]["output"]
+}
+
+export type ScannerRunConnection = Connection & {
+  __typename?: "ScannerRunConnection"
+  edges?: Maybe<Array<Maybe<ScannerRun>>>
+  pageInfo?: Maybe<PageInfo>
+  totalCount: Scalars["Int"]["output"]
+}
+
+export type ScannerRunEdge = Edge & {
+  __typename?: "ScannerRunEdge"
+  cursor?: Maybe<Scalars["String"]["output"]>
+  node: ScannerRun
+}
+
+export type ScannerRunInput = {
+  tag?: InputMaybe<Scalars["String"]["input"]>
+  uuid?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type Service = Node & {
@@ -1191,6 +1259,7 @@ export type ServiceEdge = Edge & {
 export type ServiceFilter = {
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
   supportGroupCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   type?: InputMaybe<Array<InputMaybe<Scalars["Int"]["input"]>>>
   uniqueUserId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -1251,6 +1320,11 @@ export enum SeverityValues {
   None = "None",
 }
 
+export enum StateFilter {
+  Active = "Active",
+  Deleted = "Deleted",
+}
+
 export type SupportGroup = Node & {
   __typename?: "SupportGroup"
   ccrn?: Maybe<Scalars["String"]["output"]>
@@ -1286,6 +1360,7 @@ export type SupportGroupEdge = Edge & {
 }
 
 export type SupportGroupFilter = {
+  state?: InputMaybe<Array<StateFilter>>
   supportGroupCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   userIds?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
@@ -1331,6 +1406,7 @@ export type UserEdge = Edge & {
 }
 
 export type UserFilter = {
+  state?: InputMaybe<Array<StateFilter>>
   supportGroupIds?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   uniqueUserId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   userName?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -1352,10 +1428,69 @@ export type GetServicesQuery = {
   __typename?: "Query"
   Services?: {
     __typename?: "ServiceConnection"
+    totalCount: number
     edges?: Array<{
       __typename?: "ServiceEdge"
-      node: { __typename?: "Service"; id: string; ccrn?: string | null }
+      node: {
+        __typename?: "Service"
+        id: string
+        ccrn?: string | null
+        objectMetadata?: {
+          __typename?: "ServiceMetadata"
+          componentInstanceCount: number
+          issueMatchCount: number
+        } | null
+        owners?: {
+          __typename?: "UserConnection"
+          edges?: Array<{
+            __typename?: "UserEdge"
+            cursor?: string | null
+            node: { __typename?: "User"; id: string; uniqueUserId?: string | null; name?: string | null }
+          } | null> | null
+        } | null
+        supportGroups?: {
+          __typename?: "SupportGroupConnection"
+          edges?: Array<{
+            __typename?: "SupportGroupEdge"
+            cursor?: string | null
+            node: { __typename?: "SupportGroup"; id: string; ccrn?: string | null }
+          } | null> | null
+        } | null
+      }
     } | null> | null
+  } | null
+}
+
+export type GetServiceFiltersQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetServiceFiltersQuery = {
+  __typename?: "Query"
+  ServiceFilterValues?: {
+    __typename?: "ServiceFilterValue"
+    serviceCcrn?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+    supportGroupCcrn?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+    uniqueUserId?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+    userName?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
   } | null
 }
 
@@ -1366,8 +1501,32 @@ export const GetServicesDocument = gql`
         node {
           id
           ccrn
+          objectMetadata {
+            componentInstanceCount
+            issueMatchCount
+          }
+          owners {
+            edges {
+              node {
+                id
+                uniqueUserId
+                name
+              }
+              cursor
+            }
+          }
+          supportGroups {
+            edges {
+              node {
+                id
+                ccrn
+              }
+              cursor
+            }
+          }
         }
       }
+      totalCount
     }
   }
 `
@@ -1412,3 +1571,75 @@ export type GetServicesQueryHookResult = ReturnType<typeof useGetServicesQuery>
 export type GetServicesLazyQueryHookResult = ReturnType<typeof useGetServicesLazyQuery>
 export type GetServicesSuspenseQueryHookResult = ReturnType<typeof useGetServicesSuspenseQuery>
 export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
+export const GetServiceFiltersDocument = gql`
+  query GetServiceFilters {
+    ServiceFilterValues {
+      serviceCcrn {
+        displayName
+        filterName
+        values
+      }
+      supportGroupCcrn {
+        displayName
+        filterName
+        values
+      }
+      uniqueUserId {
+        displayName
+        filterName
+        values
+      }
+      userName {
+        displayName
+        filterName
+        values
+      }
+    }
+  }
+`
+
+/**
+ * __useGetServiceFiltersQuery__
+ *
+ * To run a query within a React component, call `useGetServiceFiltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServiceFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetServiceFiltersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetServiceFiltersQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>(GetServiceFiltersDocument, options)
+}
+export function useGetServiceFiltersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>(
+    GetServiceFiltersDocument,
+    options
+  )
+}
+export function useGetServiceFiltersSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>(
+    GetServiceFiltersDocument,
+    options
+  )
+}
+export type GetServiceFiltersQueryHookResult = ReturnType<typeof useGetServiceFiltersQuery>
+export type GetServiceFiltersLazyQueryHookResult = ReturnType<typeof useGetServiceFiltersLazyQuery>
+export type GetServiceFiltersSuspenseQueryHookResult = ReturnType<typeof useGetServiceFiltersSuspenseQuery>
+export type GetServiceFiltersQueryResult = Apollo.QueryResult<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
