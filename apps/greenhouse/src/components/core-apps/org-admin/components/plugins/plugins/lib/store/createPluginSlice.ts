@@ -10,6 +10,8 @@ interface PluginState {
   searchTerm: string
 }
 
+type StatusConditionFilter = "True" | "False" | "Unknown" | "All"
+
 interface PluginActions {
   setPluginConfig: (pluginConfig: any[]) => void
   addPluginConfigItems: (pluginConfigItems: any[]) => void
@@ -46,6 +48,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
     filteredPluginConfigs: null,
     showDetailsFor: null,
     searchTerm: "",
+    statusConditionFilter: "all",
 
     actions: {
       setPluginConfig: (pluginConfig: any) => {
@@ -130,6 +133,13 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
       setSearchTerm: (searchTerm: string) => {
         set((state: any) => ({
           plugin: { ...state.plugin, searchTerm: searchTerm },
+        }))
+        get().plugin.actions.filterItems()
+      },
+
+      setStatusConditionFilter: (statusConditionFilter: StatusConditionFilter) => {
+        set((state: any) => ({
+          plugin: { ...state.plugin, statusConditionFilter: statusConditionFilter },
         }))
         get().plugin.actions.filterItems()
       },

@@ -1,5 +1,12 @@
 import React from "react"
-import { DataGridToolbar, SearchInput, InputGroup, Button, Stack, Select } from "@cloudoperators/juno-ui-components"
+import {
+  DataGridToolbar,
+  SearchInput,
+  InputGroup,
+  Select,
+  SelectOption,
+  Stack,
+} from "@cloudoperators/juno-ui-components"
 import { usePluginActions } from "./StoreProvider"
 const filtersStyles = `
   bg-theme-background-lvl-1
@@ -25,8 +32,22 @@ const Toolbar = () => {
       <DataGridToolbar>
         <Stack alignment="center" gap="8" className={`filters ${filtersStyles}`}>
           <InputGroup>
-            <Button icon="filterAlt" className="py-[0.3rem]" />
-            <Select></Select>
+            <Select
+              required
+              label="Ready"
+              // value={formState.duration}
+              // onChange={(value: any) =>
+              //   onInputChanged({
+              //     key: "duration",
+              //     value,
+              //   })
+              // }
+            >
+              <SelectOption key="All" label="All" value="All" />
+              <SelectOption key="True" label="True" value="True" />
+              <SelectOption key="False" label="False" value="False" />
+              <SelectOption key="Unknown" label="Unknown" value="Unknown" />
+            </Select>
           </InputGroup>
           <SearchInput
             placeholder="search term or regular expression"
