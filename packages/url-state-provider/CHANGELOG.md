@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 2.3.2
+
+### Patch Changes
+
+- 150b32d: adjust node and npm deps that the version is open to the top
+
 ## 2.3.1
 
 ### Patch Changes
