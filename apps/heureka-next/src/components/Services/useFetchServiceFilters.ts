@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react"
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { isEmpty, map, omit } from "lodash"
 import { FilterItem, GetServiceFiltersQuery, useGetServiceFiltersQuery } from "../../generated/graphql"
 import { Filter } from "../common/Filters/types"

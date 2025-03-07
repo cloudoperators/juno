@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Message } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
@@ -19,7 +24,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
   return (
     <div className="flex-1 flex flex-col gap-10 overflow-hidden">
       <div className="overflow-scroll">
-        <DataGrid minContentColumns={[3, 4]} columns={COLUMN_SPAN} className="clickableTable">
+        <DataGrid minContentColumns={[3, 4]} columns={COLUMN_SPAN}>
           <DataGridRow>
             <DataGridHeadCell>Service</DataGridHeadCell>
             <DataGridHeadCell>Issues count</DataGridHeadCell>

@@ -1,10 +1,10 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import React, { useCallback } from "react"
-import { Button, InputGroup, SearchInput, Stack } from "@cloudoperators/juno-ui-components/index"
+import { Button, InputGroup, SearchInput, Stack } from "@cloudoperators/juno-ui-components"
 import { FilterSelect } from "./FilterSelect"
 import { Filter, FilterSettings, SelectedFilter } from "./types"
 import { SelectedFilters } from "./SelectedFilters"
@@ -25,7 +25,7 @@ export const Filters = ({ filters, filterSettings, onFilterChange }: FiltersProp
         ),
       })
     },
-    [filterSettings.selectedFilters, onFilterChange]
+    [filterSettings, onFilterChange]
   )
 
   return (
@@ -44,8 +44,8 @@ export const Filters = ({ filters, filterSettings, onFilterChange }: FiltersProp
           label="Clear all"
           onClick={() =>
             onFilterChange({
+              ...filterSettings,
               selectedFilters: [],
-              searchTerm: "",
             })
           }
           variant="subdued"
