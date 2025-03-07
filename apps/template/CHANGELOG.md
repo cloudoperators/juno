@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.2
+
+### Patch Changes
+
+- 150b32d: adjust node and npm deps that the version is open to the top
+- Updated dependencies [150b32d]
+  - @cloudoperators/juno-ui-components@2.38.1
+
 ## 2.0.1
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-example
 
+## 1.2.1
+
+### Patch Changes
+
+- 150b32d: adjust node and npm deps that the version is open to the top
+- Updated dependencies [150b32d]
+  - @cloudoperators/juno-url-state-provider@2.3.2
+  - @cloudoperators/juno-messages-provider@0.2.2
+  - @cloudoperators/juno-ui-components@2.38.1
+  - @cloudoperators/juno-oauth@1.4.3
+
 ## 1.2.0
 
 ### Minor Changes
