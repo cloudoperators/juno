@@ -6,7 +6,6 @@
 import React, { createContext, useContext } from "react"
 import { createStore, useStore, StoreApi } from "zustand"
 
-import { useStore as create } from "zustand"
 import createPluginSlice, { PluginSlice } from "../lib/store/createPluginSlice"
 import createGlobalSlice, { GlobalsSlice } from "../lib/store/createGlobalsSlice"
 
@@ -52,6 +51,7 @@ export const usePluginConfig = () => useAppStore((state: any) => state.plugin.pl
 export const useFilteredPluginConfigs = () => useAppStore((state: any) => state.plugin.filteredPluginConfigs)
 export const useShowDetailsFor = () => useAppStore((state: any) => state.plugin.showDetailsFor)
 export const useSearchTerm = () => useAppStore((state: any) => state.plugin.searchTerm)
+export const useStatusConditionFilter = () => useAppStore((state: any) => state.plugin.statusConditionFilter)
 export const usePluginActions = () => useAppStore((state: any) => state.plugin.actions)
 
 export default StoreProvider
