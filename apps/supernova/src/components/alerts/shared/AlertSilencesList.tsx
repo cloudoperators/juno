@@ -25,7 +25,7 @@ const badgeVariant = (state: any) => {
 const AlertSilencesList = ({ alert }: any) => {
   const dateFormat = { ...DateTime.DATETIME_SHORT }
   const { getSilencesForAlert } = useSilencesActions()
-  let silenceList = getSilencesForAlert(alert)
+  const silenceList = getSilencesForAlert(alert)
 
   const formatDateTime = (timestamp: any) => {
     const time = DateTime.fromISO(timestamp)

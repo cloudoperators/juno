@@ -21,6 +21,7 @@ import AlertSilencesList from "./shared/AlertSilencesList"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
+import { SilencesData } from "../../api/silences"
 
 const AlertSilences = ({ alert }: any) => {
   const { getAlertByFingerprint } = useAlertsActions()
@@ -29,12 +30,11 @@ const AlertSilences = ({ alert }: any) => {
   const { addMessage } = useActions()
 
   // fetch silences
-  const { error, data, isLoading } = useBoundQuery("silences")
+  const { error, data, isLoading } = useBoundQuery<SilencesData>("silences")
 
   useEffect(() => {
     if (data) {
       setSilences({
-        // @ts-expect-error TS(2339) FIXME: Property 'silences' does not exist on type 'any'.
         items: data?.silences,
       })
     }
