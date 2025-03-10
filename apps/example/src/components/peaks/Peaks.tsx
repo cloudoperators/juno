@@ -45,6 +45,7 @@ const Peaks: React.FC = () => {
         <Message variant="danger">{`${error?.statusCode ? `${error.statusCode}, ` : ""}${error?.message}`}</Message>
       )}
       {/* Loading indicator for page content */}
+      {/* hello */}
       {isLoading && <Spinner variant="primary" />}
       <PeaksList isLoading={isLoading} isError={isError} peaks={data} error={error ?? undefined} />
     </>
