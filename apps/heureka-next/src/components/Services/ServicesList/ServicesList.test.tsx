@@ -5,14 +5,19 @@
 
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import { Services } from "./Services"
-import { TestProvider } from "../../mocks/TestProvider"
+import { ServicesList } from "./ServicesList"
+import { TestProvider } from "../../../mocks/TestProvider"
 
-describe("Services", () => {
+describe("ServicesList", () => {
   it("should render correctly", async () => {
     render(
       <TestProvider>
-        <Services />
+        <ServicesList
+          filterSettings={{
+            selectedFilters: [],
+            searchTerm: "",
+          }}
+        />
       </TestProvider>
     )
     expect(await screen.findByText("alpha")).toBeInTheDocument()

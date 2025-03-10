@@ -6,21 +6,17 @@
 import React, { useState, ReactNode } from "react"
 import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
-import styles from "../../styles.scss?inline"
 import { Navigation } from "../Navigation"
-import { IMAGES, SERVICES, VULNERABILITIES } from "../../constants"
+import { SERVICES, ISSUES } from "../../constants"
 import { Services } from "../Services"
-import { Vulnerabilities } from "../Vulnerabilities"
-import { Images } from "../Images"
+import { Issues } from "../Issues"
 
 const getViewComponent = (selectedView: ReactNode) => {
   switch (selectedView) {
     case SERVICES:
       return Services
-    case VULNERABILITIES:
-      return Vulnerabilities
-    case IMAGES:
-      return Images
+    case ISSUES:
+      return Issues
     default:
       return () => null
   }
@@ -41,15 +37,11 @@ export const Shell = ({ embedded, defaultSelectedView = SERVICES }: ShellProps) 
       pageHeader={<PageHeader heading="Heureka" />}
       topNavigation={<Navigation activeItem={selectedView} onChange={setSelectedView} />}
     >
-      {/* load styles inside the shadow dom */}
-      <style>{styles.toString()}</style>
-      <Container px py className="h-full">
-        <>
-          <MessagesProvider>
-            <Messages />
-          </MessagesProvider>
-          <SelectedViewComponent />
-        </>
+      <Container py px className="flex flex-1 flex-col overflow-hidden">
+        <MessagesProvider>
+          <Messages />
+        </MessagesProvider>
+        <SelectedViewComponent />
       </Container>
     </AppShell>
   )

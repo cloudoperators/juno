@@ -3,5 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const SERVICES = "services"
-export const ISSUES = "issues"
+export { FilterSelect } from "./FilterSelect"
