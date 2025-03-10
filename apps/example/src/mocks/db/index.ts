@@ -19,5 +19,5 @@ const peaks: Peak[] = peaksData
 
 export default {
   peaks,
-  // add more mocks here
+  // can add more mocks here
 }

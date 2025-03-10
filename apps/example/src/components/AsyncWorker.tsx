@@ -5,8 +5,8 @@
 
 import React from "react"
 
-import useQueryClientFn from "../hooks/useQueryClientFn"
-import useUrlState from "../hooks/useUrlState"
+import useUrlState from "./hooks/useUrlState"
+import useQueryClientFn from "./hooks/useQueryClientFn"
 
 interface AsyncWorkerProps {
   consumerId: string
