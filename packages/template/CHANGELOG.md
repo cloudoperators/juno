@@ -1,5 +1,11 @@
 # @cloudoperators/juno-template
 
+## 1.1.2
+
+### Patch Changes
+
+- 150b32d: adjust node and npm deps that the version is open to the top
+
 ## 1.1.1
 
 ### Patch Changes

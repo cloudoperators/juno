@@ -1,5 +1,11 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.17
+
+### Patch Changes
+
+- 150b32d: adjust node and npm deps that the version is open to the top
+
 ## 2.2.16
 
 ### Patch Changes

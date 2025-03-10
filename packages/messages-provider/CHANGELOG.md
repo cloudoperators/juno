@@ -1,5 +1,13 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.2
+
+### Patch Changes
+
+- 150b32d: adjust node and npm deps that the version is open to the top
+- Updated dependencies [150b32d]
+  - @cloudoperators/juno-ui-components@2.38.1
+
 ## 0.2.1
 
 ### Patch Changes
