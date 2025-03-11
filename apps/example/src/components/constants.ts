@@ -1,5 +1,5 @@
 // TO DO: Remove constants for easier searching in app
-// If kepr, rename to be more explanatory e.g. keys, labels etc.
+// If kept, rename to be more explanatory e.g. keys, labels etc.
 
 export const Pages = {
   PEAKS: "Peaks",
