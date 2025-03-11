@@ -10,8 +10,15 @@ import { AlertItem } from "./createAlertsSlice"
 interface Silence {
   id: string
   status?: Record<string, any>
-  matchers?: { name: string; value: string; isRegex?: boolean }[]
+  matchers?: Matcher[]
   endsAt?: number
+}
+
+export interface Matcher {
+  name: string
+  value: string
+  isRegex?: boolean
+  excluded?: boolean // added in createSilenceForm with setupMatchers
 }
 
 interface SilencesState {
@@ -20,8 +27,10 @@ interface SilencesState {
   updatedAt: number | null
   status: string
   regEx: string
-  templates: Record<string, any>
+  templates: SilenceTemplate[]
 }
+
+export type SilenceTemplate = Record<string, any> | null
 
 interface SilencesActions {
   setSilencesStatus: (status: string) => void
@@ -58,7 +67,7 @@ const validateExcludedLabels = (labels: any) => {
   return labels
 }
 
-const validateTemplates = (templates: any) => {
+const validateTemplates = (templates: SilenceTemplate[]) => {
   // check if the templates are an array
   if (!Array.isArray(templates)) {
     console.warn("[supernova]::validateTemplates: templates object is not an array")
@@ -217,7 +226,7 @@ const createSilencesSlice: (options?: Record<string, any>) => StateCreator<AppSt
           const alertLabels = alert?.labels || {}
 
           // collect all silences
-          let silences = [...get().silences.items]
+          const silences = [...get().silences.items]
 
           // collect all excluded Labels
           const excludedLabels = get().silences.excludedLabels || []

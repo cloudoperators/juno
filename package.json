@@ -30,6 +30,7 @@
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@types/luxon": "^3.4.2",
     "@types/node": "^20.14.11",
     "eslint": "^9.7.0",
     "husky": "^9.1.5",
@@ -45,6 +46,7 @@
   "packageManager": "^npm@10.0.0",
   "dependencies": {
     "@tanstack/react-query": "^5.62.2",
-    "workspaces": "^0.1.0"
+    "workspaces": "^0.1.0",
+    "zod": "^3.24.2"
   }
 }

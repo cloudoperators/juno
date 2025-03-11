@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-carbon",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
   "license": "Apache-2.0",
@@ -10,8 +10,8 @@
   },
   "private": true,
   "engines": {
-    "node": ">=20.0.0 <21.0.0",
-    "npm": ">=10.0.0 <11.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -44,7 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react-swc": "^3.7.0",
-    "@vitest/ui": "^1.6.0",
+    "@vitest/ui": "^3.0.7",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
@@ -60,6 +60,6 @@
     "vite": "^5.4.7",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^1.6.0"
+    "vitest": "^3.0.7"
   }
 }

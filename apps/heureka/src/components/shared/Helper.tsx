@@ -2,7 +2,6 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-// @ts-expect-error TS(2792): Cannot find module 'luxon'. Did you mean to set th... Remove this comment to see the full error message
 import { DateTime } from "luxon"
 
 export const listOfCommaSeparatedObjs = (objs: any, prop: any) => {

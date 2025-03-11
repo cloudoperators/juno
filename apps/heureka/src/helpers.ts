@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// @ts-expect-error TS(2792): Cannot find module 'luxon'. Did you mean to set th... Remove this comment to see the full error message
 import { DateTime } from "luxon"
 
 export const parseError = (error: any) => {

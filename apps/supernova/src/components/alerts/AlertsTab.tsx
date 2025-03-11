@@ -8,15 +8,16 @@ import { useActions } from "@cloudoperators/juno-messages-provider"
 import PredefinedFilters from "../filters/PredefinedFilters"
 import { useAlertsUpdatedAt, useAlertsTotalCounts, useAlertsActions } from "../StoreProvider"
 import { parseError } from "../../helpers"
+import { AlertsData } from "../../api/alerts"
+
 const AlertsTab = () => {
   const totalCounts = useAlertsTotalCounts()
   const updatedAt = useAlertsUpdatedAt()
-  // @ts-ignore FIXME: Property 'setAlertsData' does not exist on type 'unknown'.
   const { setAlertsData } = useAlertsActions()
   const { addMessage } = useActions()
 
   // Fetch alerts data
-  const { data, isLoading, error } = useBoundQuery("alerts")
+  const { data, isLoading, error } = useBoundQuery<AlertsData>("alerts")
   if (error) {
     addMessage({
       variant: "error",
@@ -25,7 +26,6 @@ const AlertsTab = () => {
   }
   useEffect(() => {
     if (data) {
-      // @ts-ignore FIXME: Property 'alerts' does not exist on type 'unknown'.
       setAlertsData({ items: data.alerts, counts: data.counts })
     }
   }, [data])

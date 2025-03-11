@@ -118,19 +118,21 @@ const createAlertsSlice: StateCreator<AppState, [], [], AlertsSlice> = (set, get
         const filteredRegions: Set<string> = new Set()
 
         // reduce active filters to only those that are not paused (this will make the filter logic more intuitive)
-        const unpausedActiveFilters = Object.keys(get().filters.activeFilters).reduce((acc, key) => {
-          // check all values of the current label key and filter out the paused ones, so that only unpaused values remain
-          const filtered = get().filters.activeFilters[key].filter(
-            (value: any) => !get().filters.pausedFilters[key]?.includes(value)
-          )
+        const unpausedActiveFilters = Object.keys(get().filters.activeFilters).reduce(
+          (acc: Record<string, string[]>, key) => {
+            // check all values of the current label key and filter out the paused ones, so that only unpaused values remain
+            const filtered = get().filters.activeFilters[key].filter(
+              (value) => !get().filters.pausedFilters[key]?.includes(value)
+            )
 
-          // if there are still values left after filtering out the paused ones, add them to the new filtered object
-          if (filtered.length > 0) {
-            // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            acc[key] = filtered
-          }
-          return acc
-        }, {})
+            // if there are still values left after filtering out the paused ones, add them to the new filtered object
+            if (filtered.length > 0) {
+              acc[key] = filtered
+            }
+            return acc
+          },
+          {}
+        )
 
         set(
           produce((state) => {
@@ -163,7 +165,6 @@ const createAlertsSlice: StateCreator<AppState, [], [], AlertsSlice> = (set, get
               // iterate over all (unpaused) active filter keys and then check if one of the selected values matches the item's value for this key
               if (visible) {
                 Object.keys(unpausedActiveFilters).forEach((key) => {
-                  // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                   if (!unpausedActiveFilters[key].includes(item.labels[key])) {
                     // if the item's label value for the current label isn't included in the active filters set visible to false, i.e. filter out item
                     // this automatically leads to different values for the same label to be OR concatenated, while different labels are AND concatenated

@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-// @ts-expect-error TS(2792) FIXME: Cannot find module 'luxon'. Did you mean to set th... Remove this comment to see the full error message
 import { DateTime } from "luxon"
 
 //get start and end time of the silence

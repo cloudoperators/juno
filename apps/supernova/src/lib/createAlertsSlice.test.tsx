@@ -39,25 +39,5 @@ describe("createAlertsSlice", () => {
       )
       expect(store.result.current.itemsFiltered).toEqual([])
     })
-
-    it("accepts and transforms to array of strings coma separated strings containing the labels to use", () => {
-      const wrapper = ({ children }: any) => <StoreProvider>{children}</StoreProvider>
-      const store = renderHook(
-        () => ({
-          actions: useAlertsActions(),
-          itemsFiltered: useAlertsItemsFiltered(),
-        }),
-        { wrapper }
-      )
-
-      let mock: any
-
-      act(() => {
-        // @ts-ignore
-        store.result.current.actions.setFilteredItems(mock)
-      })
-      // @ts-ignore
-      expect(store.result.current.enrichedLabels).toEqual(mock)
-    })
   })
 })

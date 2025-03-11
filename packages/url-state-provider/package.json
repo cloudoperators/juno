@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-url-state-provider",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Save several paths in the url. This makes it possible to manage the status of several apps such as micro frontends with the help of URL.",
   "author": "UI-Team",
   "contributors": [
@@ -14,14 +14,15 @@
   "source": "src/index.js",
   "main": "build/index.js",
   "module": "build/index.js",
+  "type": "module",
   "types": "build/index.d.ts",
   "files": [
     "build"
   ],
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20.0.0 <21.0.0",
-    "npm": ">=10.0.0 <11.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   },
   "scripts": {
     "build": "vite build",
@@ -40,7 +41,7 @@
     "typescript": "^5.5.4",
     "vite": "^5.4.8",
     "vite-plugin-dts": "^4.0.3",
-    "vitest": "^2.1.1"
+    "vitest": "^3.0.7"
   },
   "babel": {
     "presets": [

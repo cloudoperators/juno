@@ -15,7 +15,6 @@ describe("helpers", () => {
         pod: "node014",
         status: "active",
       }
-      // @ts-expect-error TS(2322) FIXME: Type 'string' is not assignable to type 'never'.
       const matchers = setupMatchers(alertLables, ["pod"], ["status"])
       expect(matchers).toEqual([
         {

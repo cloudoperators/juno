@@ -37,12 +37,9 @@ const SILENCE_DETAIL = "sd"
 
 const useUrlState = () => {
   const isURLRead = useGlobalsIsURLRead()
-  // @ts-ignore
   const { setIsURLRead } = useGlobalsActions()
-  // @ts-ignore
 
   const { setActiveFilters, setPausedFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
-  // @ts-ignore
 
   const { setSilencesRegEx, setSilencesStatus, setShowDetailsForSilence } = useSilencesActions()
   const filterLabels = useFilterLabels()
@@ -51,7 +48,6 @@ const useUrlState = () => {
   const searchTerm = useSearchTerm()
   const activePredefinedFilter = useActivePredefinedFilter()
   const activeSelectedTab = useGlobalsActiveSelectedTab()
-  // @ts-ignore
 
   const { setShowDetailsFor, setActiveSelectedTab } = useGlobalsActions()
   const detailsFor = useShowDetailsFor()
@@ -108,7 +104,7 @@ const useUrlState = () => {
     // get silence regex search from url state
     const silenceRegExFromURL = urlStateManager.currentState()?.[SILENCE_REG_EX]
     if (silenceRegExFromURL) {
-      let decoded = atob(silenceRegExFromURL)
+      const decoded = atob(silenceRegExFromURL)
       // decode the search term from the url. It is base64 encoded to avoid issues with special characters
       if (decoded) {
         setSilencesRegEx(decoded)
@@ -134,11 +130,9 @@ const useUrlState = () => {
   useEffect(() => {
     // do not synchronize the states until the url state is read and user logged in
     if (!isURLRead) return
-    // @ts-ignore
 
     // encode searchTerm before pushing it to the URL to avoid missinterpretation of special characters
     const encodedSearchTerm = btoa(searchTerm)
-    // @ts-ignore
 
     const encodedSilenceRegEx = btoa(silenceRegEx)
 
@@ -183,8 +177,6 @@ const useUrlState = () => {
       setActiveSelectedTab(state?.[ACTIVE_TAB])
       setSilencesRegEx(state?.[SILENCE_REG_EX])
       setSilencesStatus(state?.[SILENCE_STATUS])
-      // @ts-expect-error TS(2304) FIXME: Cannot find name 'setShowSilenceDetails'.
-      setShowSilenceDetails(state?.[SILENCE_DETAIL])
     })
 
     return () => {

@@ -23,6 +23,7 @@ import SilencesItem from "./SilencesItem"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
+import { SilencesData } from "../../api/silences"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -36,11 +37,10 @@ const SilencesList = () => {
   const [visibleSilences, setVisibleSilences] = useState(silences)
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
-  // @ts-ignore
   const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
   const { addMessage } = useActions()
 
-  const { data, isLoading, error } = useBoundQuery("silences")
+  const { data, isLoading, error } = useBoundQuery<SilencesData>("silences")
 
   if (error) {
     addMessage({
@@ -52,19 +52,16 @@ const SilencesList = () => {
   useEffect(() => {
     if (data) {
       setSilences({
-        // @ts-ignore
-        items: data?.silences,
+        items: data.silences,
       })
     }
   }, [data])
 
   useEffect(() => {
-    // @ts-ignore
     let filtered = silences.filter((silence: any) => silence?.status?.state === status)
 
     try {
       if (regEx) {
-        // @ts-ignore
         filtered = filtered.filter((silence: any) => JSON.stringify(silence).match(new RegExp(regEx, "i")))
       }
     } catch (e) {
@@ -85,7 +82,6 @@ const SilencesList = () => {
     // clear timeout if we have a new value
     return () => clearTimeout(debouncedSearchTerm)
   }
-  // @ts-ignore
   const { scrollListItems, iterator } = useEndlessScrollList(visibleSilences, {
     loadingObject: (
       <DataGridRow>
@@ -120,7 +116,6 @@ const SilencesList = () => {
             <Select
               className="w-3/12"
               label="Status"
-              // @ts-ignore
               value={status}
               onChange={(newSilencesStatus: any) => {
                 setSilencesStatus(newSilencesStatus)
@@ -134,7 +129,6 @@ const SilencesList = () => {
             <SearchInput
               placeholder="search term or regular expression"
               className="ml-auto w-7/12"
-              // @ts-ignore
               value={regEx || ""}
               onChange={(text: any) => {
                 handleSearchChange(text)
@@ -157,21 +151,18 @@ const SilencesList = () => {
                 <DataGridHeadCell>Action</DataGridHeadCell>
               </DataGridRow>
 
-              {
-                // @ts-ignore
-                scrollListItems?.length > 0 ? (
-                  iterator.map((silence: any) => <SilencesItem silence={silence} key={silence.id} />)
-                ) : (
-                  <DataGridRow>
-                    <DataGridCell colSpan={4}>
-                      <Stack gap="3">
-                        <Icon icon="info" color="text-theme-info" />
-                        <div>We couldn&apos;t find any matching silences.</div>
-                      </Stack>
-                    </DataGridCell>
-                  </DataGridRow>
-                )
-              }
+              {scrollListItems?.length ? (
+                iterator.map((silence: any) => <SilencesItem silence={silence} key={silence.id} />)
+              ) : (
+                <DataGridRow>
+                  <DataGridCell colSpan={4}>
+                    <Stack gap="3">
+                      <Icon icon="info" color="text-theme-info" />
+                      <div>We couldn&apos;t find any matching silences.</div>
+                    </Stack>
+                  </DataGridCell>
+                </DataGridRow>
+              )}
             </>
           </DataGrid>
         </>
