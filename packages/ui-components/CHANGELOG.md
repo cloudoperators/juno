@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.38.1
+
+### Patch Changes
+
+- 150b32d: adjust node and npm deps that the version is open to the top
+
 ## 2.38.0
 
 ### Minor Changes

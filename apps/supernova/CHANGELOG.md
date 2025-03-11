@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.16.4
+
+### Patch Changes
+
+- c92895d: fixed lint errors through typing, correct usage of functions
+- da8c585: Complete store is now typed, reduced linting issues
+- Updated dependencies [150b32d]
+  - @cloudoperators/juno-url-state-provider@2.3.2
+  - @cloudoperators/juno-messages-provider@0.2.2
+  - @cloudoperators/juno-ui-components@2.38.1
+
 ## 0.16.3
 
 ### Patch Changes
