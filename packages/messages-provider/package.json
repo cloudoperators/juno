@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-messages-provider",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Messages provider",
   "author": "UI-Team",
   "contributors": [
@@ -15,8 +15,8 @@
   ],
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20.0.0 <21.0.0",
-    "npm": ">=10.0.0 <=11.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",

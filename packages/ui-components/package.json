@@ -3,7 +3,7 @@
   "private": false,
   "source": "src/index.js",
   "style": "build/lib/variables.css",
-  "version": "2.38.0",
+  "version": "2.38.1",
   "types": "build/index.d.ts",
   "exports": {
     "./index": "./build/index.js",
@@ -28,8 +28,8 @@
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/juno-ui-components",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20.0.0 <21.0.0",
-    "npm": ">=10.0.0 <=11.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "*",

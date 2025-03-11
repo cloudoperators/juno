@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-example",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "UI-Team",
   "contributors": [
     "Arturo Reuschenbach Pucernau"
@@ -12,8 +12,8 @@
   },
   "private": true,
   "engines": {
-    "node": ">=20.0.0 <21.0.0",
-    "npm": ">=10.0.0 <=11.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "*",

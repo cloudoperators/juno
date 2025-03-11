@@ -3,6 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export interface SilencesData {
+  silences: any
+}
+
 export const fetchSilences = async (endpoint: string) => {
   try {
     const response = await fetch(`${endpoint}/silences`)

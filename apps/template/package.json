@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-template",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
   "license": "Apache-2.0",
@@ -10,8 +10,8 @@
   },
   "private": true,
   "engines": {
-    "node": ">=20.0.0 <21.0.0",
-    "npm": ">=10.0.0 <=11.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   },
   "scripts": {
     "dev": "vite",

@@ -5,42 +5,16 @@
 
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import { MockedProvider } from "@apollo/client/testing"
 import { Services } from "./Services"
-import { GetServicesDocument } from "../../generated/graphql"
-
-const mocks = [
-  {
-    request: {
-      query: GetServicesDocument,
-    },
-    result: {
-      data: {
-        Services: {
-          edges: [
-            {
-              node: {
-                id: "some-id",
-                ccrn: "some-ccrn",
-                __typename: "Service",
-              },
-              __typename: "ServiceEdge",
-            },
-          ],
-          __typename: "ServiceConnection",
-        },
-      },
-    },
-  },
-]
+import { TestProvider } from "../../mocks/TestProvider"
 
 describe("Services", () => {
   it("should render correctly", async () => {
     render(
-      <MockedProvider mocks={mocks}>
+      <TestProvider>
         <Services />
-      </MockedProvider>
+      </TestProvider>
     )
-    expect(await screen.findByText("some-ccrn")).toBeInTheDocument()
+    expect(await screen.findByText("alpha")).toBeInTheDocument()
   })
 })

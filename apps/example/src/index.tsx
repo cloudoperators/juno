@@ -3,26 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createRoot, Root } from "react-dom/client"
 import React from "react"
+import { createRoot, Root } from "react-dom/client"
 
-// Function to get the current URL without the filename
+// Get the current URL without file name
 const getCurrentUrlWithoutFilename = (): string => {
   const currentUrl = window.location.href
   const lastSlashIndex = currentUrl.lastIndexOf("/")
   const lastSegment = currentUrl.slice(lastSlashIndex + 1)
 
-  // If there is nothing after the last slash or if there is a file name then remove it
+  // Remove whitespace or file name after the last slash
   return lastSegment.trim() === "" || lastSegment.includes(".") ? currentUrl.slice(0, lastSlashIndex) : currentUrl
 }
 
-// Function to enable mocking
+// Enable mocking
 const enableMocking = async (options: { endpoint: string }): Promise<void> => {
   /**
-   * Note: If you do not want to enable mocking in production, you can uncomment the following lines
-   * if (process.env.NODE_ENV !== "development") {
-   * return
-   * }
+   * Note: If you don't want to enable mocking in production, uncomment the following line:
+   * if (process.env.NODE_ENV !== "development") return
    */
   const { startWorker } = await import("./mocks/browser")
   return startWorker(options)
@@ -45,14 +43,13 @@ export const mount = async (
   const AppModule = await import("./App")
   const App = AppModule.default
 
-  // Create a root if it does not exist
+  // Create a root if it doesn't exist
   if (!mount.root) {
     mount.root = createRoot(container)
   }
   mount.root.render(<App {...options.props} endpoint={endpoint} />)
 }
 
-// Unmount function
 export const unmount = (): void => {
   if (mount.root) {
     mount.root.unmount()
