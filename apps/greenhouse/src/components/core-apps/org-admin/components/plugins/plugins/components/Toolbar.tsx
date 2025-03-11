@@ -73,6 +73,7 @@ const Toolbar = () => {
 
   const handleValueChange = (value?: string | number | string[] | undefined) => {
     setSelectedValue(value !== undefined ? String(value) : "")
+    setLabelValueFilter({ label: selectedLabel, value: value })
   }
 
   return (

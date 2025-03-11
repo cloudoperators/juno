@@ -161,6 +161,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         let items = (get().plugin.pluginConfig || []).slice()
         const searchTerm = get().plugin.searchTerm
         const statusConditionFilter = get().plugin.statusConditionFilter
+        const labelValueFilter = get().plugin.labelValueFilter
 
         // Filter StatusCondition
         if (statusConditionFilter && statusConditionFilter != "All" && items) {
@@ -170,6 +171,14 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
             } else {
               return false
             }
+          })
+        }
+
+        // Filter by LabelValueFilter
+        if (labelValueFilter && items) {
+          items = items.filter((item: any) => {
+            const labels = item.metadata?.labels || {} // Assuming labels are stored in metadata.labels
+            return labels[labelValueFilter.label] === labelValueFilter.value
           })
         }
 
@@ -183,6 +192,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
             } else return false
           })
         }
+
         set((state: any) => ({
           plugin: { ...state.plugin, filteredPluginConfigs: items },
         }))
