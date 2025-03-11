@@ -3,5 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const SERVICES = "services"
-export const ISSUES = "issues"
+import React from "react"
+
+export const Issues = () => <div>render issues here...</div>
