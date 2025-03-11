@@ -1,5 +1,11 @@
 # @cloudoperators/juno-oauth
 
+## 1.4.3
+
+### Patch Changes
+
+- 150b32d: adjust node and npm deps that the version is open to the top
+
 ## 1.4.2
 
 ### Patch Changes

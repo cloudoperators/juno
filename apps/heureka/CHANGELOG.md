@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-heureka
 
+## 2.11.5
+
+### Patch Changes
+
+- c92895d: fixed lint errors through typing, correct usage of functions
+- Updated dependencies [150b32d]
+  - @cloudoperators/juno-messages-provider@0.2.2
+  - @cloudoperators/juno-ui-components@2.38.1
+  - @cloudoperators/juno-communicator@2.2.17
+
 ## 2.11.4
 
 ### Patch Changes
