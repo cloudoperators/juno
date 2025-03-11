@@ -4,20 +4,10 @@
  */
 
 import { http } from "msw"
-import db from "./db"
+import db, { Peak } from "./db"
 
 interface Options {
   endpoint: string
-}
-
-interface Peak {
-  id: number
-  name: string
-  height: string
-  region: string
-  mainrange: string
-  countries: string
-  url?: string
 }
 
 // Mock response handling utility
