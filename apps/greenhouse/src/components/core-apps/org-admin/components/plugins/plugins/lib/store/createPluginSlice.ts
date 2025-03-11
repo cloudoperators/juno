@@ -37,6 +37,7 @@ export interface PluginSlice {
 function sortPluginConfigItems(items: any) {
   return items.sort((a: any, b: any) => {
     // First, sort by `disabled` status
+    console.log("item", a)
     if (a?.spec?.disabled && !b?.spec?.disabled) {
       return 1
     } else if (!a?.spec?.disabled && b?.spec?.disabled) {
