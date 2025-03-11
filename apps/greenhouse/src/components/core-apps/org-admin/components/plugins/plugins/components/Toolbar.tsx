@@ -56,15 +56,15 @@ const Toolbar = () => {
 
   const handleLabelChange = (value?: string | number | string[] | undefined) => {
     setSelectedValue(undefined)
+    setLabelValueFilter(undefined)
+
     if (!labelFilters) return
 
     const selectedValue = typeof value === "string" ? value : "All"
     setSelectedLabel(selectedValue)
 
     if (selectedValue == "All") {
-      setLabelValueFilter(undefined)
       setAvailableValues([])
-      return
     } else {
       const filter = labelFilters.find((filter) => filter?.label === selectedValue)
       setAvailableValues(filter?.value || [])
@@ -108,7 +108,7 @@ const Toolbar = () => {
           <Select
             name="filterValue"
             className="filter-value-select w-96 bg-theme-background-lvl-0"
-            value={selectedValue}
+            value={selectedValue ? selectedValue : "Select..."}
             onChange={handleValueChange}
           >
             {availableValues.map((value) => (
