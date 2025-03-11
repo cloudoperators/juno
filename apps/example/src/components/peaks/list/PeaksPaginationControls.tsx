@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* eslint-disable no-unused-vars */
+
 import React from "react"
 import { Pagination } from "@cloudoperators/juno-ui-components"
 
 interface PeaksPaginationControlsProps {
   currentPage: number
-  // eslint-disable-next-line no-unused-vars
+  // @ts-ignore
   setCurrentPage: (page: number) => void
   pages: number
 }
