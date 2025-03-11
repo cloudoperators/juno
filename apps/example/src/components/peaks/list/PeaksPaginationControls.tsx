@@ -4,6 +4,7 @@
  */
 
 /* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 
 import React from "react"
 import { Pagination } from "@cloudoperators/juno-ui-components"
