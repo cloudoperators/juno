@@ -3,6 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-
-export const Vulnerabilities = () => <div>render vulnerabilities here...</div>
+export { ServicesList } from "./ServicesList"
