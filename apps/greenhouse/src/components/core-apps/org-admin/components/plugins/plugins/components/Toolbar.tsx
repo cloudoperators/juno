@@ -10,10 +10,11 @@ const filtersStyles = `
 `
 
 const Toolbar = () => {
-  const { setSearchTerm, setStatusConditionFilter } = usePluginActions()
+  const { setSearchTerm, setStatusConditionFilter, setLabelValueFilter } = usePluginActions()
   const [labelFilters, setLabelFilters] = useState<LabelValuesFilter[]>()
   const [selectedLabel, setSelectedLabel] = useState<string>("All")
   const [availableValues, setAvailableValues] = useState<string[]>([])
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined)
 
   const statusOptions: StatusConditionFilter[] = ["All", "True", "False", "Unknown"]
   const statusConditionFilter = useStatusConditionFilter()
@@ -54,13 +55,24 @@ const Toolbar = () => {
   }, [pluginConfig])
 
   const handleLabelChange = (value?: string | number | string[] | undefined) => {
+    setSelectedValue(undefined)
     if (!labelFilters) return
+
     const selectedValue = typeof value === "string" ? value : "All"
     setSelectedLabel(selectedValue)
 
-    // Find and update available values
-    const filter = labelFilters.find((filter) => filter?.label === selectedValue)
-    setAvailableValues(filter?.value || [])
+    if (selectedValue == "All") {
+      setLabelValueFilter(undefined)
+      setAvailableValues([])
+      return
+    } else {
+      const filter = labelFilters.find((filter) => filter?.label === selectedValue)
+      setAvailableValues(filter?.value || [])
+    }
+  }
+
+  const handleValueChange = (value?: string | number | string[] | undefined) => {
+    setSelectedValue(value !== undefined ? String(value) : "")
   }
 
   return (
@@ -81,7 +93,7 @@ const Toolbar = () => {
           <Select
             required
             label="Label"
-            value="Select"
+            value={selectedLabel}
             className="filter-label-select w-64 mb-0"
             onChange={handleLabelChange}
           >
@@ -92,7 +104,12 @@ const Toolbar = () => {
               ))}
           </Select>
 
-          <Select name="filterValue" className="filter-value-select w-96 bg-theme-background-lvl-0">
+          <Select
+            name="filterValue"
+            className="filter-value-select w-96 bg-theme-background-lvl-0"
+            value={selectedValue}
+            onChange={handleValueChange}
+          >
             {availableValues.map((value) => (
               <SelectOption key={value} label={value} value={value} />
             ))}
