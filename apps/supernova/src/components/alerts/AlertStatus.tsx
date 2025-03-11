@@ -20,20 +20,21 @@ export const getInhibitor = (alertsInhibitedBy: any, alerts: any) => {
   if (!inhibitedByAlerts[0]) return null
 
   // sort by biggest endsAt (most far in the future)
-  // @ts-expect-error TS(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
-  const inhibitedBy = inhibitedByAlerts.sort((a: any, b: any) => new Date(b.endsAt) - new Date(a.endsAt))
+  const inhibitedBy = inhibitedByAlerts.sort(
+    (a: any, b: any) => new Date(b.endsAt).getTime() - new Date(a.endsAt).getTime()
+  )
   return inhibitedBy[0]
 }
 
 const AlertStatus = ({ alert }: any) => {
   if (!alert) return null
   const alerts = useAlertsItems()
-  // @ts-ignore
   const { getMappingSilences } = useSilencesActions()
 
   // Gives silence which will still last the longest
-  // @ts-expect-error TS(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
-  const silences = getMappingSilences(alert).sort((a: any, b: any) => new Date(b?.endsAt) - new Date(a?.endsAt))
+  const silences = getMappingSilences(alert).sort(
+    (a: any, b: any) => new Date(b?.endsAt).getTime() - new Date(a?.endsAt).getTime()
+  )
   const silence = silences.length > 0 ? silences[0] : null
 
   const inhibitor = getInhibitor(alert?.status?.inhibitedBy, alerts)

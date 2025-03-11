@@ -19,18 +19,14 @@ const ExpireSilence = (props: any) => {
   const [confirmationDialog, setConfirmationDialog] = useState(false)
   const queryClient = useQueryClient()
   const silences = useSilencesItems()
-  // @ts-ignore
   const { setSilences } = useSilencesActions()
 
   const { mutate: deleteSilences } = useBoundMutation("deleteSilences", {
     onSuccess: (data: any) => {
-      // @ts-ignore
-      queryClient.cancelQueries("silences")
-      // @ts-ignore
+      queryClient.cancelQueries({ queryKey: ["silences"] })
       const updatedSilences = silences.filter((item: any) => item.id === data.id)
       let updatedSilence = updatedSilences.length > 0 ? updatedSilences[0] : null
       updatedSilence = { ...updatedSilence, status: { state: constants.SILENCE_EXPIRED } }
-      // @ts-ignore
       const newSilences = [...silences.filter((item: any) => item?.id !== data?.id), updatedSilence]
 
       setSilences({
@@ -51,8 +47,7 @@ const ExpireSilence = (props: any) => {
     },
 
     onSettled: () => {
-      // @ts-ignore
-      queryClient.invalidateQueries(["silences"])
+      queryClient.invalidateQueries({ queryKey: ["silences"] })
     },
   })
 

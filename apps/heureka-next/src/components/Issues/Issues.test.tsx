@@ -5,11 +5,11 @@
 
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import { Vulnerabilities } from "./Vulnerabilities"
+import { Issues } from "./Issues"
 
-describe("Vulnerabilities", () => {
+describe("Issues", () => {
   it("should render correctly", () => {
-    render(<Vulnerabilities />)
-    expect(screen.getByText("render vulnerabilities here...")).toBeInTheDocument()
+    render(<Issues />)
+    expect(screen.getByText("render issues here...")).toBeInTheDocument()
   })
 })

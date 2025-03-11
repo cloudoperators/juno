@@ -19,33 +19,30 @@ import { useAlertsActions, useGlobalsActions, useSilencesActions } from "../Stor
 import AlertDescription from "./shared/AlertDescription"
 import AlertSilencesList from "./shared/AlertSilencesList"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { parseError } from "../../helpers"
+import { useActions } from "@cloudoperators/juno-messages-provider"
+import { SilencesData } from "../../api/silences"
 
 const AlertSilences = ({ alert }: any) => {
-  // @ts-ignore
   const { getAlertByFingerprint } = useAlertsActions()
-  // @ts-ignore
   const { setShowDetailsFor } = useGlobalsActions()
-
-  // @ts-ignore
   const { setSilences } = useSilencesActions()
+  const { addMessage } = useActions()
 
   // fetch silences
-  const { error, data, isLoading } = useBoundQuery("silences")
+  const { error, data, isLoading } = useBoundQuery<SilencesData>("silences")
 
   useEffect(() => {
     if (data) {
       setSilences({
-        // @ts-expect-error TS(2339) FIXME: Property 'silences' does not exist on type 'any'.
         items: data?.silences,
       })
     }
   }, [data])
 
   if (error) {
-    // @ts-expect-error TS(2304) FIXME: Cannot find name 'addMessage'.
     addMessage({
       variant: "error",
-      // @ts-expect-error TS(2304) FIXME: Cannot find name 'parseError'.
       text: parseError(error),
     })
   }

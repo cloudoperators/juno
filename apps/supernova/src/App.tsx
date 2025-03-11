@@ -15,6 +15,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ErrorBoundary } from "react-error-boundary"
 import useUrlState from "./hooks/useUrlState"
 import useUrlQueryState from "./hooks/useUrlQueryState"
+import { z } from "zod"
+const AppShellTheme = z.enum(["theme-dark", "theme-light"])
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +29,7 @@ const queryClient = new QueryClient({
   },
 })
 
-function App(props = {}) {
+function App() {
   const preErrorClasses = `
     custom-error-pre
     border-theme-error
@@ -51,8 +53,7 @@ function App(props = {}) {
       <MessagesProvider>
         <CustomAppShell>
           <QueryClientProvider client={queryClient}>
-            {/* @ts-expect-error TS(2322) FIXME: Type '{ props: {}; }' is not assignable to type 'I... Remove this comment to see the full error message */}
-            <AppContent props={props} />
+            <AppContent />
           </QueryClientProvider>
         </CustomAppShell>
       </MessagesProvider>
@@ -79,9 +80,10 @@ const AppWithNewUrlStructure = (props: any) => {
 }
 
 const StyledApp = (props: any) => {
+  const theme = AppShellTheme.safeParse(props.theme).success ? props.theme : "theme-dark"
+
   return (
-    // @ts-ignore
-    <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
+    <AppShellProvider theme={theme}>
       {/* load appstyles inside the shadow dom */}
       <style>{styles.toString()}</style>
       <StoreProvider options={props}>

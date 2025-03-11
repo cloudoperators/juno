@@ -34,10 +34,8 @@ const PredefinedFilters = () => {
     return (
       predefinedFilters &&
       selectedItem && (
-        // @ts-ignore
         <TabNavigation activeItem={selectedItem} onActiveItemChange={handleTabSelect}>
-          {// @ts-ignore
-          predefinedFilters?.map((filter: any) => (
+          {predefinedFilters?.map((filter: any) => (
             <TabNavigationItem key={filter.name} value={filter.name} label={filter.displayName} />
           ))}
         </TabNavigation>

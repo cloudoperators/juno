@@ -1,0 +1,130 @@
+{
+  "data": {
+    "Services": {
+      "edges": [
+        {
+          "node": {
+            "id": "1",
+            "ccrn": "alpha",
+            "objectMetadata": {
+              "componentInstanceCount": 10,
+              "issueMatchCount": 1,
+              "__typename": "ServiceMetadata"
+            },
+            "owners": {
+              "edges": [],
+              "__typename": "UserConnection"
+            },
+            "supportGroups": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "1",
+                    "ccrn": "group1",
+                    "__typename": "SupportGroup"
+                  },
+                  "cursor": "1",
+                  "__typename": "SupportGroupEdge"
+                },
+                {
+                  "node": {
+                    "id": "2",
+                    "ccrn": "group2",
+                    "__typename": "SupportGroup"
+                  },
+                  "cursor": "2",
+                  "__typename": "SupportGroupEdge"
+                }
+              ],
+              "__typename": "SupportGroupConnection"
+            },
+            "__typename": "Service"
+          },
+          "__typename": "ServiceEdge"
+        },
+        {
+          "node": {
+            "id": "2",
+            "ccrn": "beta",
+            "objectMetadata": {
+              "componentInstanceCount": 20,
+              "issueMatchCount": 2,
+              "__typename": "ServiceMetadata"
+            },
+            "owners": {
+              "edges": [],
+              "__typename": "UserConnection"
+            },
+            "supportGroups": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "3",
+                    "ccrn": "group3",
+                    "__typename": "SupportGroup"
+                  },
+                  "cursor": "3",
+                  "__typename": "SupportGroupEdge"
+                },
+                {
+                  "node": {
+                    "id": "4",
+                    "ccrn": "group4",
+                    "__typename": "SupportGroup"
+                  },
+                  "cursor": "4",
+                  "__typename": "SupportGroupEdge"
+                }
+              ],
+              "__typename": "SupportGroupConnection"
+            },
+            "__typename": "Service"
+          },
+          "__typename": "ServiceEdge"
+        },
+        {
+          "node": {
+            "id": "3",
+            "ccrn": "gamma",
+            "objectMetadata": {
+              "componentInstanceCount": 30,
+              "issueMatchCount": 3,
+              "__typename": "ServiceMetadata"
+            },
+            "owners": {
+              "edges": [],
+              "__typename": "UserConnection"
+            },
+            "supportGroups": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "5",
+                    "ccrn": "group5",
+                    "__typename": "SupportGroup"
+                  },
+                  "cursor": "5",
+                  "__typename": "SupportGroupEdge"
+                },
+                {
+                  "node": {
+                    "id": "6",
+                    "ccrn": "group6",
+                    "__typename": "SupportGroup"
+                  },
+                  "cursor": "6",
+                  "__typename": "SupportGroupEdge"
+                }
+              ],
+              "__typename": "SupportGroupConnection"
+            },
+            "__typename": "Service"
+          },
+          "__typename": "ServiceEdge"
+        }
+      ],
+      "totalCount": 3,
+      "__typename": "ServiceConnection"
+    }
+  }
+}

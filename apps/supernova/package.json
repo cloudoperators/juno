@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-supernova",
-  "version": "0.16.2",
+  "version": "0.16.3",
   "author": "UI-Team",
   "contributors": [
     "Esther Schmitz",
@@ -30,7 +30,7 @@
     "sass": "^1.77.5",
     "shadow-dom-testing-library": "^1.11.3",
     "tailwindcss": "^3.3.1",
-    "vitest": "^2.1.1",
+    "vitest": "^3.0.7",
     "util": "^0.12.4",
     "zustand": "4.5.5"
   },

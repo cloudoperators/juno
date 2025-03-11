@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-// @ts-ignore
 import { DateTime } from "luxon"
 import constants from "../../../constants"
 import ExpireSilence from "../../silences/ExpireSilence"
@@ -16,8 +15,7 @@ import { useSilencesActions } from "../../StoreProvider"
 
 const badgeVariant = (state: any) => {
   switch (state) {
-    // @ts-expect-error TS(2339) FIXME: Property 'SILENCE_STATE_ACTIVE' does not exist on ... Remove this comment to see the full error message
-    case constants.SILENCE_STATE_ACTIVE:
+    case constants.SILENCE_ACTIVE:
       return "info"
     default:
       return "default"
@@ -26,9 +24,8 @@ const badgeVariant = (state: any) => {
 
 const AlertSilencesList = ({ alert }: any) => {
   const dateFormat = { ...DateTime.DATETIME_SHORT }
-  // @ts-ignore
   const { getSilencesForAlert } = useSilencesActions()
-  let silenceList = getSilencesForAlert(alert)
+  const silenceList = getSilencesForAlert(alert)
 
   const formatDateTime = (timestamp: any) => {
     const time = DateTime.fromISO(timestamp)

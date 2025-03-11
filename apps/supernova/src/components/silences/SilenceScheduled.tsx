@@ -24,26 +24,51 @@ import {
   DateTimePicker,
 } from "@cloudoperators/juno-ui-components"
 import { useGlobalsUsername, useSilenceTemplates, useSilencesItems, useSilencesActions } from "../StoreProvider"
+import { SilenceTemplate } from "../../lib/createSilencesSlice"
 import { parseError } from "../../helpers"
 import { useBoundMutation } from "../../hooks/useBoundMutation"
 import { useQueryClient } from "@tanstack/react-query"
-// import { debounce } from "../../helpers"
-import { DEFAULT_FORM_VALUES, validateForm } from "./silenceScheduledHelpers"
+import { validateForm } from "./silenceScheduledHelpers"
 import { debounce } from "../../helpers"
+
+interface FormState {
+  fixed_labels: { [key: string]: string }
+  editable_labels: { [key: string]: { value: string; error: string | null } }
+  comment: { value: string; error: null }
+  createdBy: { value: string; error: null }
+  date: { start: string | null; end: string | null; error: string | null }
+}
+
+const DEFAULT_FORM_VALUES: FormState = {
+  fixed_labels: {},
+  editable_labels: {},
+  comment: {
+    value: "",
+    error: null,
+  },
+  createdBy: {
+    value: "",
+    error: null,
+  },
+  date: {
+    start: null,
+    end: null,
+    error: null,
+  },
+}
 
 const SilenceScheduled = () => {
   const user = useGlobalsUsername()
   const { addMessage } = useActions()
   const silenceTemplates = useSilenceTemplates()
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
   const queryClient = useQueryClient()
   const silences = useSilencesItems()
-  // @ts-ignore
   const { setSilences } = useSilencesActions()
 
   // set the selected template
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState<Record<string, any> | null>(null)
 
   // default time for DateTimePicker
 
@@ -53,17 +78,15 @@ const SilenceScheduled = () => {
   }, [])
 
   // Formular which will be used to create the silence
-  const [formState, setFormState] = useState(DEFAULT_FORM_VALUES)
+  const [formState, setFormState] = useState<FormState>(DEFAULT_FORM_VALUES)
 
   const [closed, setClosed] = useState(true)
 
   const { mutate: createSilence } = useBoundMutation("createSilences", {
     onMutate: (data: any) => {
-      // @ts-ignore FIXME: Property 'silence' does not exist on type 'unknown'.
-      queryClient.cancelQueries("silences")
+      queryClient.cancelQueries({ queryKey: ["silences"] })
 
       const newSilence = { ...data.silence, status: { state: constants.SILENCE_ACTIVE } }
-      // @ts-ignore FIXME: Property 'silences' does not exist on type 'unknown'.
       const newSilences = [...silences, newSilence]
 
       setSilences({
@@ -86,8 +109,7 @@ const SilenceScheduled = () => {
 
     onSettled: () => {
       // Optionale zusätzliche Aktionen, wie das erneute Abrufen von Daten
-      // @ts-ignore
-      queryClient.invalidateQueries(["silences"])
+      queryClient.invalidateQueries({ queryKey: ["silences"] })
     },
   })
 
@@ -97,16 +119,15 @@ const SilenceScheduled = () => {
     setError(null)
 
     // validate form and sets in case of errors messages and stops the submit
-    let errorFormState = validateForm(formState)
+    const errorFormState = validateForm(formState)
 
     if (errorFormState) {
       setFormState(errorFormState)
-      // @ts-expect-error TS(2345) FIXME: Argument of type '"Please fix the errors in the fo... Remove this comment to see the full error message
       setError("Please fix the errors in the form")
       return
     }
 
-    const silence = {
+    const silence: Record<string, any> = {
       startsAt: formState.date.start,
       endsAt: formState.date.end,
       comment: formState.comment.value,
@@ -117,11 +138,9 @@ const SilenceScheduled = () => {
     for (const [key, value] of Object.entries(formState.editable_labels)) {
       const matcher = {
         name: key,
-        // @ts-expect-error TS(7006) FIXME: Parameter 'acc' implicitly has an 'any' type.
         value: value.value,
         isRegex: true,
       }
-      // @ts-ignore
       silence.matchers.push(matcher)
     }
 
@@ -131,7 +150,6 @@ const SilenceScheduled = () => {
         value: value,
         isRegex: true,
       }
-      // @ts-ignore
       silence.matchers.push(matcher)
     }
 
@@ -143,16 +161,14 @@ const SilenceScheduled = () => {
   ////// OnClick
 
   const onChangeTemplate = (value: any) => {
-    // @ts-ignore
-    const newSelectedOption = silenceTemplates.find((option: any) => option.id === value)
+    const newSelectedOption: Record<string, any> = silenceTemplates.find((option: any) => option.id === value)
 
     const newFormState = {
       ...DEFAULT_FORM_VALUES,
       fixed_labels: newSelectedOption?.fixed_labels || {},
       createdBy: { value: user, error: null },
       editable_labels: newSelectedOption?.editable_labels?.reduce(
-        // @ts-expect-error TS(7006) FIXME: Parameter 'acc' implicitly has an 'any' type.
-        (acc, label) => ({
+        (acc: any, label: string) => ({
           ...acc,
 
           [label]: {
@@ -163,7 +179,6 @@ const SilenceScheduled = () => {
         {}
       ),
     }
-    // @ts-ignore
     setFormState(newFormState)
 
     setSelected(newSelectedOption)
@@ -202,46 +217,36 @@ const SilenceScheduled = () => {
     )
   }
   return (
-    // @ts-ignore
     <>
-      {
-        /* @ts-ignore */
-        renderSilenceScheduledModal(
-          silenceTemplates,
-          setClosed,
-          closed,
-          selected,
-          onSubmitForm,
-          error,
-          onChangeTemplate,
-          formState,
-          onInputChanged,
-          user,
-          defaultDate,
-          setStartDate,
-          setEndDate,
-          onChangeLabelValue
-        )
-      }
+      {renderSilenceScheduledModal(
+        silenceTemplates,
+        setClosed,
+        closed,
+        selected,
+        onSubmitForm,
+        error,
+        onChangeTemplate,
+        formState,
+        onInputChanged,
+        user,
+        defaultDate,
+        setStartDate,
+        setEndDate,
+        onChangeLabelValue
+      )}
     </>
   )
 }
 
 function renderSilenceScheduledModal(
-  silenceTemplates: unknown,
+  silenceTemplates: SilenceTemplate,
   setClosed: React.Dispatch<React.SetStateAction<boolean>>,
   closed: boolean,
-  selected: null,
+  selected: Record<string, any> | null,
   onSubmitForm: (this: any, ...args: any[]) => void,
-  error: null,
+  error: string | null,
   onChangeTemplate: (value: any) => void,
-  formState: {
-    fixed_labels: {}
-    editable_labels: {}
-    comment: { value: string; error: null }
-    createdBy: { value: string; error: null }
-    date: { start: null; end: null; error: null }
-  },
+  formState: FormState,
   onInputChanged: ({ key, value }: any) => void,
   user: unknown,
   defaultDate: string,
@@ -251,7 +256,6 @@ function renderSilenceScheduledModal(
 ) {
   return (
     silenceTemplates &&
-    // @ts-ignore
     silenceTemplates?.length > 0 && (
       <>
         <Button
@@ -267,18 +271,14 @@ function renderSilenceScheduledModal(
             title="Schedule new silence"
             size="large"
             open={true}
-            // @ts-expect-error TS(2339) FIXME: Property 'invalid' does not exist on type 'never'.
-            confirmButtonLabel={!selected || selected?.invalid ? null : "Save"}
-            // @ts-expect-error TS(2339) FIXME: Property 'invalid' does not exist on type 'never'.
-            onConfirm={!selected || selected?.invalid ? null : onSubmitForm}
+            confirmButtonLabel={!selected || selected?.invalid ? undefined : "Save"}
+            onConfirm={!selected || selected?.invalid ? undefined : onSubmitForm}
             onCancel={() => setClosed(true)}
           >
             {error && <Message text={error} variant="danger" />}
             <Form className="mt-6">
-              {/* @ts-expect-error TS(2339): Property 'invalid' does not exist on type 'never'. // @ts-expect-error */}
               {selected && selected?.invalid && (
                 <FormRow>
-                  {/* @ts-expect-error TS(2339): Property 'invalid' does not exist on type 'never'. // */}
                   <Message text={`This silence template is invalid. ${selected.invalid}`} variant="error" />
                 </FormRow>
               )}
@@ -286,27 +286,22 @@ function renderSilenceScheduledModal(
                 <Select
                   required
                   label="Silence Template"
-                  // @ts-expect-error TS(2339) FIXME: Property 'id' does not exist on type 'never'.
                   value={selected?.id || "Select"}
                   onValueChange={(value: any) => {
                     onChangeTemplate(value)
                   }}
                 >
-                  {// @ts-ignore
-                  silenceTemplates?.map((option: any) => (
+                  {silenceTemplates?.map((option: any) => (
                     <SelectOption key={option.id} id={option.id} label={option.title} value={option.id} />
                   ))}
                 </Select>
               </FormRow>
-              {/* @ts-expect-error TS(2339): Property 'invalid' does not exist on type 'never'. // @ts-expect-error */}
               {selected && !selected?.invalid && (
                 <FormRow>
-                  {/* @ts-expect-error TS(2339): Property 'description' does not exist on type 'nev... Remove this */}
                   <Box>{selected?.description}</Box>
                 </FormRow>
               )}
             </Form>
-            {/* @ts-expect-error TS(2339): Property 'invalid' does not exist on type 'never'. // @ts-expect-error */}
             {selected && !selected?.invalid && (
               <Form>
                 <FormSection>
@@ -315,7 +310,6 @@ function renderSilenceScheduledModal(
                       required
                       label="Silenced by"
                       value={formState?.createdBy?.value}
-                      // @ts-ignore
                       errortext={formState?.createdBy?.error}
                       onChange={(e: any) => onInputChanged({ key: "createdBy", value: e.target.value })}
                       disabled={!!user}
@@ -373,9 +367,7 @@ function renderSilenceScheduledModal(
                             label={editable_label}
                             key={index}
                             id={editable_label}
-                            // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                             value={formState?.editable_labels[editable_label].value}
-                            // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                             errortext={formState?.editable_labels[editable_label]?.error}
                             onChange={onChangeLabelValue}
                           />
@@ -398,9 +390,7 @@ function renderSilenceScheduledModal(
                             key={index}
                             pillKey={label}
                             pillKeyLabel={label}
-                            // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                             pillValue={formState?.fixed_labels[label]}
-                            // @ts-expect-error TS(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                             pillValueLabel={formState?.fixed_labels[label]}
                           />
                         ))}

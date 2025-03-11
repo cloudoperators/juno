@@ -3,24 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const DEFAULT_FORM_VALUES = {
-  fixed_labels: {},
-  editable_labels: {},
-  comment: {
-    value: "",
-    error: null,
-  },
-  createdBy: {
-    value: "",
-    error: null,
-  },
-  date: {
-    start: null,
-    end: null,
-    error: null,
-  },
-}
-
 ////// Form Validation
 
 export const validateForm = (state: any) => {

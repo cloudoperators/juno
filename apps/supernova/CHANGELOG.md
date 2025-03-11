@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.16.3
+
+### Patch Changes
+
+- d595b9d: reducing unnecessary @ts-ignore directives, improving type safety and code clarity in region components and alert slice
+
 ## 0.16.2
 
 ### Patch Changes

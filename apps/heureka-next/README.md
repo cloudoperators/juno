@@ -49,6 +49,8 @@ This app will eventually become a successor to the existing Heureka app.
    ```bash
    npm run test
    ```
+   ## Note
+   We use [MockServiceWorker](https://mswjs.io/) (MSW) to intercept GraphQL requests during testing. To mock any GraphQL query or mutation, you need to provide a handler for it in the `src/mocks/handlers.ts` file.
 
 ## Contributing
 

@@ -6,7 +6,12 @@
 import { sortAlerts, countAlerts } from "../lib/utils"
 let compareAlertString: any
 
-export const fetchAlerts = async (endpoint: any) => {
+export interface AlertsData {
+  alerts: any
+  counts: any
+}
+
+export const fetchAlerts = async (endpoint: string) => {
   try {
     const response = await fetch(`${endpoint}/alerts`)
 
@@ -21,8 +26,7 @@ export const fetchAlerts = async (endpoint: any) => {
     }
 
     const items = await response.json() // Parse JSON data
-
-    let alerts = sortAlerts(items)
+    const alerts = sortAlerts(items)
 
     // copy additional filter options to labels for easier filter selection
     // because the alert object is nested this makes it a lot easier to filter, since we only use what is present in alert.labels
