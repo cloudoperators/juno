@@ -3,31 +3,60 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from "react"
+import React from "react"
 import { ContentHeading, Icon, Badge } from "@cloudoperators/juno-ui-components"
+
 import GenericCard from "../common/GenericCard"
+import { Peak } from "../../mocks/db"
+
+interface CountrySafetyCounts {
+  Safe: number
+  Caution: number
+  Unsafe: number
+}
+
+interface CountryStats {
+  peaks: Peak[]
+  highestPeak: number
+  safetyCounts: CountrySafetyCounts
+}
 
 interface CountryDashboardPageProps {
   peaks: Peak[]
+  // eslint-disable-next-line no-unused-vars
   onSelectCountry: (country: string) => void
 }
 
+// Needs refactoring
+
 const CountriesPage: React.FC<CountryDashboardPageProps> = ({ peaks, onSelectCountry }) => {
-  const countryStats = useMemo(() => {
-    return peaks.reduce((acc, peak) => {
+  const countryStats: Record<string, CountryStats> = peaks.reduce(
+    (acc, peak) => {
       if (!acc[peak.countries]) {
         acc[peak.countries] = { peaks: [], highestPeak: 0, safetyCounts: { Safe: 0, Caution: 0, Unsafe: 0 } }
       }
-      acc[peak.countries].peaks.push(peak)
-      acc[peak.countries].highestPeak = Math.max(acc[peak.countries].highestPeak, peak.height)
-      acc[peak.countries].safetyCounts[peak.safety.status] += 1
-      return acc
-    }, {})
-  }, [peaks])
+      const currentCountryStats = acc[peak.countries]
+      currentCountryStats.peaks.push(peak)
 
-  const sortedCountries = Object.entries(countryStats)
-    .sort(([, a], [, b]) => b.peaks.length - a.peaks.length)
-    .map(([country]) => country)
+      // Ensure height is a number
+      const peakHeight = typeof peak.height === "string" ? parseInt(peak.height, 10) : peak.height
+      currentCountryStats.highestPeak = Math.max(currentCountryStats.highestPeak, peakHeight)
+
+      // Use keyof for indexing
+      const safetyStatus = peak.safety.status as keyof CountrySafetyCounts
+
+      if (currentCountryStats.safetyCounts[safetyStatus] !== undefined) {
+        currentCountryStats.safetyCounts[safetyStatus] += 1
+      }
+
+      return acc
+    },
+    {} as Record<string, CountryStats>
+  )
+
+  const sortedCountries = Object.keys(countryStats).sort(
+    (a, b) => countryStats[b].peaks.length - countryStats[a].peaks.length
+  )
 
   const handleCountryClick = (country: string) => {
     onSelectCountry(country)

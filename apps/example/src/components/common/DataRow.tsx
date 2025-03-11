@@ -4,18 +4,11 @@
  */
 
 import React from "react"
-import {
-  DataGridRow,
-  DataGridCell,
-  Stack,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  Icon,
-} from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Stack } from "@cloudoperators/juno-ui-components"
+import HelpTooltip from "./HelpTooltip"
 
 interface DataRowProps {
-  label: string
+  label: React.ReactNode
   content: React.ReactNode
   tooltipText?: string
 }
@@ -25,14 +18,7 @@ const DataRow: React.FC<DataRowProps> = ({ label, content, tooltipText }) => (
     <DataGridCell>
       <Stack direction="horizontal" gap="1" alignment="center">
         <span>{label}</span>
-        {tooltipText && (
-          <Tooltip triggerEvent="hover">
-            <TooltipTrigger asChild>
-              <Icon icon="help" color="jn-global-text" size="20px" />
-            </TooltipTrigger>
-            <TooltipContent>{tooltipText}</TooltipContent>
-          </Tooltip>
-        )}
+        {tooltipText && <HelpTooltip tooltipText={tooltipText} />}
       </Stack>
     </DataGridCell>
     <DataGridCell>{content}</DataGridCell>

@@ -13,7 +13,7 @@ interface HeaderUserMenuProps {
   logout: () => void
 }
 
-const LOGOUT_BUTTON_LABEL = "Log In"
+const LOGOUT_BUTTON_LABEL = "Log Out"
 
 const HeaderUserMenu: React.FC<HeaderUserMenuProps> = ({ logout }) => {
   const loggedIn = useAuthLoggedIn()

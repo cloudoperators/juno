@@ -6,12 +6,19 @@
 import React from "react"
 import { Pagination } from "@cloudoperators/juno-ui-components"
 
-const PeaksPaginationControls = ({ currentPage, setCurrentPage, pages }) => (
+interface PeaksPaginationControlsProps {
+  currentPage: number
+  // eslint-disable-next-line no-unused-vars
+  setCurrentPage: (page: number) => void
+  pages: number
+}
+
+const PeaksPaginationControls: React.FC<PeaksPaginationControlsProps> = ({ currentPage, setCurrentPage, pages }) => (
   <div style={{ display: "flex", justifyContent: "center", padding: "1rem 0" }}>
     <Pagination
       currentPage={currentPage}
-      onPressNext={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, pages))}
-      onPressPrevious={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
+      onPressNext={() => setCurrentPage(Math.min(currentPage + 1, pages))}
+      onPressPrevious={() => setCurrentPage(Math.max(currentPage - 1, 1))}
       onSelectChange={(newPage) => setCurrentPage(newPage)}
       pages={pages}
       variant="number"

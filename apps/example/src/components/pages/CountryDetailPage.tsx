@@ -1,35 +1,48 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState } from "react"
 import { Box, CodeBlock, JsonViewer } from "@cloudoperators/juno-ui-components"
+
 import DetailLayout from "../common/DetailLayout"
 import ExpandableSection from "../common/ExpandableSection"
 
-const CountryDetailPage = ({ countryName, peaks, onBack }) => {
-  const [isJsonView, setIsJsonView] = useState(false)
+import { Peak } from "../../mocks/db"
 
-  const countryPeaks = peaks.filter((peak) => peak.countries === countryName)
+interface CountryDetailPageProps {
+  countryName: string
+  peaks: Peak[]
+  onBack: () => void
+}
+
+// Needs refactoring
+
+const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, peaks, onBack }) => {
+  const [isJsonView, setIsJsonView] = useState<boolean>(false)
+
+  const filteredCountryPeaksByName = peaks.filter((peak) => peak.countries === countryName)
 
   const metrics = [
-    { label: "Total Peaks", value: `${countryPeaks.length}` },
-    { label: "Highest Peak", value: `${Math.max(...countryPeaks.map((peak) => parseInt(peak.height, 10)))} m` },
-    { label: "Lowest Peak", value: `${Math.min(...countryPeaks.map((peak) => parseInt(peak.height, 10)))} m` },
+    { label: "Total Peaks", value: `${filteredCountryPeaksByName.length}` },
+    {
+      label: "Highest Peak",
+      value: `${Math.max(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))} m`,
+    },
+    {
+      label: "Lowest Peak",
+      value: `${Math.min(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))} m`,
+    },
   ]
 
-  const categorizedPeaks = countryPeaks.reduce(
-    (acc, peak) => {
-      const status = peak.safety.status.toLowerCase()
-      if (!acc[status]) acc[status] = []
-      acc[status].push(peak)
-      return acc
-    },
-    {} as Record<string, any[]>
-  )
+  const categorizedPeaksBySafety = filteredCountryPeaksByName.reduce<Record<string, Peak[]>>((acc, peak) => {
+    const status = peak.safety.status.toLowerCase()
+    if (!acc[status]) acc[status] = []
+    acc[status].push(peak)
+    return acc
+  }, {})
 
-  const statusHeaders = {
+  // Define headers for different statuses with correct types mapped
+  const statusHeaders: Record<
+    keyof typeof categorizedPeaksBySafety,
+    { text: string; variant: "success" | "warning" | "error" }
+  > = {
     safe: { text: "Safe Peaks", variant: "success" },
     caution: { text: "Caution Peaks", variant: "warning" },
     unsafe: { text: "Unsafe Peaks", variant: "error" },
@@ -48,7 +61,7 @@ const CountryDetailPage = ({ countryName, peaks, onBack }) => {
         <Box className="border border-gray-300 rounded-lg shadow-lg p-6">
           <CodeBlock size="large">
             <JsonViewer
-              data={countryPeaks}
+              data={filteredCountryPeaksByName}
               expanded={true}
               toolbar={true}
               title={`Raw JSON Data for Peaks in ${countryName}`}
@@ -56,12 +69,12 @@ const CountryDetailPage = ({ countryName, peaks, onBack }) => {
           </CodeBlock>
         </Box>
       ) : (
-        Object.entries(categorizedPeaks).map(([status, peaks]) => (
+        Object.entries(categorizedPeaksBySafety).map(([status, peaks]) => (
           <ExpandableSection
             key={status}
-            title={statusHeaders[status as keyof typeof statusHeaders].text}
+            title={statusHeaders[status].text}
             peaks={peaks}
-            variant={statusHeaders[status as keyof typeof statusHeaders].variant}
+            variant={statusHeaders[status].variant}
           />
         ))
       )}

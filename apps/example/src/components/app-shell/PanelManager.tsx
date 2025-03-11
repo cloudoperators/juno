@@ -9,8 +9,7 @@ import { Panel } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActions, useGlobalsCurrentPanel } from "../../store/StoreProvider"
 
 import { Panels } from "../constants"
-import EditPeak from "../peaks/actions/EditPeak"
-import AddPeak from "../peaks/actions/AddPeak"
+import PeakForm from "../peaks/list/PeakForm"
 
 type CurrentPanelType = (typeof Panels)[keyof typeof Panels]
 
@@ -21,6 +20,14 @@ interface CurrentPanel {
 
 const EDIT_HEADING = "Edit Peak"
 const ADD_HEADING = "Add a New Peak"
+const INITAL_PLACEHOLDER_PEAK_DATA = {
+  name: "Mount Sample",
+  height: "8848",
+  range: "Himalayas",
+  region: "Asia",
+  country: "Nepal/China",
+  url: "https://example.com/sample",
+}
 
 const PanelManager: React.FC = () => {
   const { setCurrentPanel } = useGlobalsActions()
@@ -41,9 +48,9 @@ const PanelManager: React.FC = () => {
   const renderPanelContent = (): React.ReactNode => {
     switch (currentPanel?.type) {
       case Panels.EDIT_PEAKS:
-        return <EditPeak peakId={currentPanel.itemId} closeCallback={closePanel} />
+        return <PeakForm initialValues={INITAL_PLACEHOLDER_PEAK_DATA} closeCallback={closePanel} />
       case Panels.ADD_PEAKS:
-        return <AddPeak closeCallback={closePanel} />
+        return <PeakForm closeCallback={closePanel} />
       default:
         return null
     }

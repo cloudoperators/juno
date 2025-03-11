@@ -4,37 +4,41 @@
  */
 
 import React, { useState } from "react"
-import { Box, CodeBlock, JsonViewer, Badge, Stack } from "@cloudoperators/juno-ui-components"
-import DetailLayout from "../common/DetailLayout"
+import { Box, CodeBlock, JsonViewer, Badge } from "@cloudoperators/juno-ui-components"
+
 import Section from "../common/Section"
 import DataRow from "../common/DataRow"
-import usePeakActions from "../hooks/usePeakActions"
 import useModal from "../hooks/useModal"
-import DeleteConfirmationModal from "../common/DeleteConfirmationModal"
+import DetailLayout from "../common/DetailLayout"
 import ActionButtons from "../common/ActionButtons"
-import { Pages } from "../constants"
+import usePeakActions from "../hooks/usePeakActions"
+import { Pages, TooltipExplanation } from "../constants"
+import DeleteConfirmationModal from "../common/DeleteConfirmationModal"
 
-const PeakDetailPage = ({ peak, onBack }) => {
-  const [isJsonView, setIsJsonView] = useState(false)
-  const { handleEdit, handleDelete } = usePeakActions(onBack)
+import { Peak } from "../../mocks/db"
+
+interface PeakDetailPageProps {
+  peak: Peak
+  onBack: () => void
+}
+
+// Needs refactoring
+
+const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ peak, onBack }) => {
+  const [isJsonView, setIsJsonView] = useState<boolean>(false)
+  const { handleEdit, handleDelete } = usePeakActions({ onBack })
   const { isModalOpen, openModal, closeModal } = useModal()
 
+  const formatHeight = (height: string | number): string => {
+    const numericHeight = typeof height === "number" ? height : parseInt(height, 10)
+    return numericHeight.toLocaleString()
+  }
+
   const metrics = [
-    { label: "Height", value: `${parseInt(peak.height, 10).toLocaleString()} m` },
+    { label: "Height", value: `${formatHeight(peak.height)} m` },
     { label: "Safety", value: peak.safety.status },
     { label: "Location", value: `${peak.region}, ${peak.countries}` },
   ]
-
-  const tooltips = {
-    safetyStatus:
-      "The safety indicator reflects climbing suitability based on height. Safe: < 6000m, Caution: 6000-7000m, Unsafe: > 8000m",
-    height: "Measured from sea level to peak.",
-    prominence: "The vertical distance between the peak and the lowest contour line encircling it but no higher peak.",
-    coordinates: "Geographical coordinates of the peak.",
-    climate: "Climate type of the region where the peak is located.",
-    localFauna: "Animals native to the area surrounding the peak.",
-    geologicOrigin: "How the geological structure of the peak was formed.",
-  }
 
   return (
     <DetailLayout
@@ -46,10 +50,10 @@ const PeakDetailPage = ({ peak, onBack }) => {
       toggleView={() => setIsJsonView(!isJsonView)}
       actionButtons={
         <ActionButtons
-          onEdit={() => handleEdit(peak.id)}
+          onEdit={() => handleEdit(+peak.id)}
           onDelete={openModal}
           linkUrl={peak.url}
-          appearance="button" // Distinct appearance for detail page
+          appearance="button"
         />
       }
     >
@@ -75,7 +79,7 @@ const PeakDetailPage = ({ peak, onBack }) => {
                     style={{ width: "70px", textAlign: "center" }}
                   />
                 }
-                tooltipText={tooltips.safetyStatus}
+                tooltipText={TooltipExplanation.SAFETY_STATUS}
               />,
               <DataRow key="recommendation" label="Recommendation" content={peak.safety.recommendation || "N/A"} />,
               <DataRow key="common-hazards" label="Common Hazards" content={peak.safety.common_hazards || "N/A"} />,
@@ -84,7 +88,12 @@ const PeakDetailPage = ({ peak, onBack }) => {
           <Section
             title="Height Information"
             rows={[
-              <DataRow key="height" label="Height" content={metrics[0].value} tooltipText={tooltips.height} />,
+              <DataRow
+                key="height"
+                label="Height"
+                content={metrics[0].value}
+                tooltipText={TooltipExplanation.HEIGHT}
+              />,
               <DataRow key="prominence" label="Prominence" content={peak.additional_info?.prominence || "N/A"} />,
             ]}
           />
@@ -161,7 +170,7 @@ const PeakDetailPage = ({ peak, onBack }) => {
       <DeleteConfirmationModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        onConfirm={() => handleDelete(peak.id)}
+        onConfirm={() => handleDelete()}
         title="Confirm Delete"
       />
     </DetailLayout>

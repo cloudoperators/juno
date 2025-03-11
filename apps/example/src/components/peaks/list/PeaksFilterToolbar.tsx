@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* eslint-disable no-unused-vars */
+
 import React from "react"
 import {
   DataGridToolbar,
@@ -17,7 +19,31 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import ViewToggleButtons from "../../common/ViewToggleButtons"
 
-const PeaksFilterToolbar = ({
+interface PeaksFilterToolbarProps {
+  filterKeys: string[]
+  filterSelections: Record<string, string[]>
+  droplistSelections: Record<string, string>
+  selectedFilterKey: string | null
+  setSelectedFilterKey: (key: string) => void
+  selectedSortKey: string | null
+  setSelectedSortKey: (key: string) => void
+  availableOptions: Record<string, string[]>
+  addFilter: (key: string, value: string) => void
+  removeFilter: (key: string, value: string) => void
+  clearAllFilters: () => void
+  setSortDirection: (direction: "asc" | "desc") => void
+  sortDirection: "asc" | "desc"
+  minHeight: string
+  setMinHeight: (value: string) => void
+  maxHeight: string
+  setMaxHeight: (value: string) => void
+  viewType: string
+  setViewType: (viewType: string) => void
+}
+
+// Big component - needs refactoring
+
+const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
   filterKeys,
   filterSelections,
   droplistSelections,
@@ -38,17 +64,16 @@ const PeaksFilterToolbar = ({
   viewType,
   setViewType,
 }) => (
-  <DataGridToolbar style={{ padding: "0 20px" }}>
-    {" "}
-    <Stack direction="horizontal" justifyContent="flex-start" alignItems="center" gap="5">
+  <DataGridToolbar>
+    <Stack direction="horizontal" distribution="evenly" alignment="center" gap="5">
       <SearchInput placeholder="Search by Name..." style={{ flexGrow: 1, minWidth: "300px" }} />
       <InputGroup>
         <Select
           style={{ minWidth: "150px" }}
           placeholder="Filter by"
-          dropdownAlignment="bottom"
+          label={selectedFilterKey ? "Filter by" : ""}
           value={selectedFilterKey || ""}
-          onChange={setSelectedFilterKey}
+          onChange={(value) => setSelectedFilterKey(value as string)}
         >
           {filterKeys.map((filterKey) => (
             <SelectOption key={filterKey} value={filterKey}>
@@ -60,12 +85,11 @@ const PeaksFilterToolbar = ({
         {selectedFilterKey && !["minHeight", "maxHeight"].includes(selectedFilterKey) && (
           <Select
             value={droplistSelections[selectedFilterKey] || ""}
-            onChange={(value) => addFilter(selectedFilterKey, value)}
+            onChange={(value) => addFilter(selectedFilterKey, value as string)}
             placeholder="Choose filter value"
             style={{ minWidth: "200px" }}
-            dropdownAlignment="bottom"
           >
-            {(availableOptions[selectedFilterKey as keyof typeof availableOptions] || []).map((option) => (
+            {(availableOptions[selectedFilterKey] || []).map((option) => (
               <SelectOption key={option} value={option} disabled={filterSelections[selectedFilterKey].includes(option)}>
                 {option}
               </SelectOption>
@@ -73,11 +97,11 @@ const PeaksFilterToolbar = ({
           </Select>
         )}
 
-        {["minHeight", "maxHeight"].includes(selectedFilterKey) && (
+        {["minHeight", "maxHeight"].includes(selectedFilterKey || "") && (
           <TextInput
             placeholder={`Enter ${selectedFilterKey!.charAt(0).toUpperCase() + selectedFilterKey!.slice(1)}`}
             value={selectedFilterKey === "minHeight" ? minHeight : maxHeight}
-            onChange={(e) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               selectedFilterKey === "minHeight" ? setMinHeight(e.target.value) : setMaxHeight(e.target.value)
             }
             style={{ minWidth: "200px" }}
@@ -86,10 +110,10 @@ const PeaksFilterToolbar = ({
       </InputGroup>
       <Select
         style={{ minWidth: "150px" }}
+        label="Sort by"
         placeholder="Sort by"
-        dropdownAlignment="bottom"
         value={selectedSortKey || ""}
-        onChange={setSelectedSortKey}
+        onChange={(value) => setSelectedSortKey(value as string)}
       >
         {filterKeys.map((filterKey) => (
           <SelectOption key={filterKey} value={filterKey}>
@@ -105,28 +129,19 @@ const PeaksFilterToolbar = ({
           Desc
         </Button>
       </InputGroup>
-      <ViewToggleButtons currentView={viewType} toggleView={setViewType} style={{ marginRight: "10px" }} />{" "}
+      <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
     </Stack>
     {(Object.entries(filterSelections).some(([_, values]) => values.length > 0) || minHeight || maxHeight) && (
-      <Stack direction="horizontal" gap="4" alignItems="center">
+      <Stack direction="horizontal" gap="4" alignment="center">
         <Stack direction="horizontal" gap="1">
           {Object.entries(filterSelections).map(
             ([key, values]) =>
               values.length > 0 && (
                 <div key={key} style={{ display: "flex", alignItems: "center" }}>
-                  {" "}
-                  <span
-                    style={{
-                      fontSize: "0.85rem",
-                      fontWeight: "normal",
-                      color: "#555",
-                      marginRight: "8px",
-                    }}
-                  >
+                  <span style={{ fontSize: "0.85rem", fontWeight: "normal", color: "#555", marginRight: "8px" }}>
                     {key.charAt(0).toUpperCase() + key.slice(1)}:
                   </span>
                   <Stack direction="horizontal" gap="1" wrap style={{ justifyContent: "flex-start" }}>
-                    {" "}
                     {values.map((value) => (
                       <Pill
                         key={`${key}:${value}`}
@@ -142,7 +157,7 @@ const PeaksFilterToolbar = ({
           {minHeight && <Pill pillValue={`Min Height: ${minHeight}`} closeable onClose={() => setMinHeight("")} />}
           {maxHeight && <Pill pillValue={`Max Height: ${maxHeight}`} closeable onClose={() => setMaxHeight("")} />}
         </Stack>
-        <Button variant="secondary" onClick={clearAllFilters}>
+        <Button variant="subdued" onClick={clearAllFilters}>
           Clear All Filters
         </Button>
       </Stack>

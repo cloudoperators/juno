@@ -13,7 +13,7 @@ interface UsePeakActions {
 const usePeakActions = ({ onBack }: UsePeakActions = {}) => {
   const { setCurrentPanel } = useGlobalsActions()
 
-  const handleEdit = (peakId: string) => {
+  const handleEdit = (peakId: number) => {
     setCurrentPanel({ type: Panels.EDIT_PEAKS, peakId })
   }
 

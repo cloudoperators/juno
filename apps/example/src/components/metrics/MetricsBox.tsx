@@ -5,8 +5,6 @@
 
 import React, { useState } from "react"
 import { Spinner, Modal, Icon } from "@cloudoperators/juno-ui-components"
-
-import { Metrics } from "../constants"
 import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
 
 import ArrowUp from "../../assets/arrow_up.svg?react"
@@ -16,7 +14,7 @@ import Mountain from "../../assets/mountain.svg?react"
 // TO DO: Make component more generic (if needed in the future) or move under peaks/ (if only specific to peaks)
 
 // TO DO: Reuse Peak type
-interface PeakDetails {
+export interface PeakDetails {
   name: string
   region: string
   country: string
@@ -34,6 +32,13 @@ export interface MetricsProps {
   peakDetails?: PeakDetails
   peakType?: (typeof Metrics)[keyof typeof Metrics]
   hoverable: boolean
+}
+
+export const Metrics = {
+  HIGHEST_PEAK: "highest",
+  LOWEST_PEAK: "lowest",
+  TOTAL_PEAKS: "total",
+  TOTAL_COUNTRIES: "place",
 }
 
 const renderIcon = (peakType?: string) => {

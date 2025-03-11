@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useState, ChangeEvent } from "react"
 import {
-  MainTabs,
   TabList,
   Tab,
   TabPanel,
@@ -34,239 +33,288 @@ import {
   Select,
 } from "@cloudoperators/juno-ui-components"
 
+interface AlertsPageState {
+  alertsEnabled: boolean
+  alertTypes: string[]
+  safetyAlertLevels: string[]
+  preferredMethod: string
+  alertFrequency: string
+  customMessage: string
+  oneTimeAlert: Date | null
+  loading: boolean
+  errorMessage: string | null
+}
+
 const switchContainerStyle: React.CSSProperties = {
   position: "absolute",
   right: "5rem",
 }
 
-const AlertsPage = () => {
-  const [alertsEnabled, setAlertsEnabled] = useState(true)
-  const [alertTypes, setAlertTypes] = useState<string[]>(["weather", "safety"])
-  const [safetyAlertLevels, setSafetyAlertLevels] = useState<string[]>(["warning", "unsafe"])
-  const [preferredMethod, setPreferredMethod] = useState("email")
-  const [alertFrequency, setAlertFrequency] = useState("daily")
-  const [customMessage, setCustomMessage] = useState("")
-  const [oneTimeAlert, setOneTimeAlert] = useState<Date | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+// Needs refactoring
 
-  const toggleSelection = (setState: React.Dispatch<React.SetStateAction<string[]>>) => (value: string) => {
-    setState((prevState) => {
-      const updatedSelection = prevState.includes(value)
-        ? prevState.filter((item) => item !== value)
-        : [...prevState, value]
-      return updatedSelection
-    })
+const AlertsPage: React.FC = () => {
+  const [state, setState] = useState<AlertsPageState>({
+    alertsEnabled: true,
+    alertTypes: ["weather", "safety"],
+    safetyAlertLevels: ["warning", "unsafe"],
+    preferredMethod: "email",
+    alertFrequency: "daily",
+    customMessage: "",
+    oneTimeAlert: null,
+    loading: false,
+    errorMessage: null,
+  })
+
+  const toggleSelection = (key: keyof AlertsPageState, value: string) => {
+    setState((prevState) => ({
+      ...prevState,
+      [key]:
+        Array.isArray(prevState[key]) && prevState[key].includes(value)
+          ? (prevState[key] as string[]).filter((item) => item !== value)
+          : [...(prevState[key] as string[]), value],
+    }))
   }
 
-  const isSaveDisabled = alertTypes.length === 0 || safetyAlertLevels.length === 0 || !alertsEnabled || loading
+  const isSaveDisabled =
+    state.alertTypes.length === 0 || state.safetyAlertLevels.length === 0 || !state.alertsEnabled || state.loading
 
   const handleSubmit = () => {
-    setLoading(true)
-    setErrorMessage(null)
+    setState((prevState) => ({ ...prevState, loading: true, errorMessage: null }))
 
     // Simulate a save delay with error
     setTimeout(() => {
-      setLoading(false)
-      setErrorMessage("Failed to save due to a server error. Check your connection and try again later.")
+      setState((prevState) => ({
+        ...prevState,
+        loading: false,
+        errorMessage: "Failed to save due to a server error. Check your connection and try again later.",
+      }))
     }, 2000)
   }
 
+  const handleAlertFrequencyChange = (value?: string | number | string[]) => {
+    if (typeof value === "string") {
+      setState((prevState) => ({ ...prevState, alertFrequency: value }))
+    }
+  }
+
   return (
-    <>
-      <Stack direction="vertical" gap="5">
-        <ContentHeading>Alert Management</ContentHeading>
-        <Tabs>
-          <TabList>
-            <Tab>Preferences</Tab>
-            <Tab>Access Key</Tab>
-          </TabList>
-          <Container px={false} py>
-            <TabPanel>
-              {/* <Container px={false} py> */}
-              {errorMessage && (
-                <Message
-                  text={errorMessage}
-                  variant="error"
-                  className="mb-5"
-                  dismissible
-                  onDismiss={() => setErrorMessage(null)}
-                />
-              )}
-              {/* Alert Form Panel */}
-              <div style={switchContainerStyle}>
-                <Switch
-                  id="alerts-toggle"
-                  label={alertsEnabled ? "Alerts ON" : "Alerts OFF"}
-                  on={alertsEnabled}
-                  onChange={() => setAlertsEnabled((prev) => !prev)}
-                  size="large"
-                />
+    <Stack direction="vertical" gap="5">
+      <ContentHeading>Alert Management</ContentHeading>
+      <Tabs>
+        <TabList>
+          <Tab>Preferences</Tab>
+          <Tab>Access Key</Tab>
+        </TabList>
+        <Container px={false} py>
+          <TabPanel>
+            {state.errorMessage && (
+              <Message
+                text={state.errorMessage}
+                variant="error"
+                className="mb-5"
+                dismissible
+                onDismiss={() => setState((prevState) => ({ ...prevState, errorMessage: null }))}
+              />
+            )}
+            {/* Alert Form Panel */}
+            <div style={switchContainerStyle}>
+              <Switch
+                id="alerts-toggle"
+                label={state.alertsEnabled ? "Alerts ON" : "Alerts OFF"}
+                on={state.alertsEnabled}
+                onChange={() => setState((prevState) => ({ ...prevState, alertsEnabled: !prevState.alertsEnabled }))}
+                size="large"
+              />
+            </div>
+
+            <Stack direction="vertical" gap="5">
+              <p>Customize how you receive alerts and notifications based on your preferences.</p>
+              <Box>
+                <Form>
+                  {/* Alert Types Section */}
+                  <FormSection title="Alert Types">
+                    <FormRow>
+                      <CheckboxGroup
+                        name="checkbox-group-alert-types"
+                        label="Select Alert Types"
+                        disabled={!state.alertsEnabled || state.loading}
+                        errortext={
+                          state.alertTypes.length === 0 ? "At least one alert type must be selected." : undefined
+                        }
+                      >
+                        <Checkbox
+                          label="Weather Alerts"
+                          value="weather"
+                          checked={state.alertTypes.includes("weather")}
+                          onChange={() => toggleSelection("alertTypes", "weather")}
+                        />
+                        <Checkbox
+                          label="Height Alerts"
+                          value="height"
+                          checked={state.alertTypes.includes("height")}
+                          onChange={() => toggleSelection("alertTypes", "height")}
+                        />
+                        <Checkbox
+                          label="Safety Alerts"
+                          value="safety"
+                          checked={state.alertTypes.includes("safety")}
+                          onChange={() => toggleSelection("alertTypes", "safety")}
+                        />
+                      </CheckboxGroup>
+                    </FormRow>
+                  </FormSection>
+
+                  {/* Safety Alerts Section */}
+                  <FormSection title="Safety Alerts">
+                    <FormRow>
+                      <CheckboxGroup
+                        name="checkbox-group-safety-alerts"
+                        label="Select Safety Alert Levels"
+                        disabled={!state.alertsEnabled || state.loading}
+                        errortext={
+                          state.safetyAlertLevels.length === 0
+                            ? "At least one safety alert level must be selected."
+                            : undefined
+                        }
+                      >
+                        <Checkbox
+                          label="Warning"
+                          value="warning"
+                          checked={state.safetyAlertLevels.includes("warning")}
+                          onChange={() => toggleSelection("safetyAlertLevels", "warning")}
+                        />
+                        <Checkbox
+                          label="Unsafe"
+                          value="unsafe"
+                          checked={state.safetyAlertLevels.includes("unsafe")}
+                          onChange={() => toggleSelection("safetyAlertLevels", "unsafe")}
+                        />
+                        <Checkbox
+                          label="Safe"
+                          value="safe"
+                          checked={state.safetyAlertLevels.includes("safe")}
+                          onChange={() => toggleSelection("safetyAlertLevels", "safe")}
+                        />
+                      </CheckboxGroup>
+                    </FormRow>
+                  </FormSection>
+
+                  {/* Preferred Alert Method */}
+                  <FormSection title="Preferred Alert Method">
+                    <FormRow>
+                      <RadioGroup
+                        onChange={(value?: string) =>
+                          setState((prevState) => ({ ...prevState, preferredMethod: value || "email" }))
+                        }
+                        selected={state.preferredMethod}
+                        disabled={!state.alertsEnabled || state.loading}
+                      >
+                        <Radio label="Email" value="email" />
+                        <Radio label="SMS" value="sms" />
+                        <Radio label="Push Notification" value="push" />
+                      </RadioGroup>
+                    </FormRow>
+                  </FormSection>
+
+                  {/* Alert Frequency */}
+                  <FormSection title="Alert Frequency">
+                    <FormRow>
+                      <Select
+                        onValueChange={handleAlertFrequencyChange}
+                        value={state.alertFrequency}
+                        disabled={!state.alertsEnabled || state.loading}
+                      >
+                        <SelectOption value="real-time">Real-Time</SelectOption>
+                        <SelectOption value="hourly">Hourly</SelectOption>
+                        <SelectOption value="daily">Daily</SelectOption>
+                        <SelectOption value="weekly">Weekly</SelectOption>
+                      </Select>
+                    </FormRow>
+                  </FormSection>
+
+                  {/* One-Time Alert Setup */}
+                  <FormSection title="One-Time Alert Setup">
+                    <FormRow>
+                      <DateTimePicker
+                        label="Schedule One-Time Alert"
+                        disable={[]}
+                        value={state.oneTimeAlert ?? undefined}
+                        onChange={(date: Date | Date[] | undefined) =>
+                          setState((prevState) => ({
+                            ...prevState,
+                            oneTimeAlert: Array.isArray(date) ? date[0] : (date ?? null),
+                          }))
+                        }
+                        disabled={!state.alertsEnabled || state.loading}
+                      />
+                    </FormRow>
+                  </FormSection>
+
+                  {/* Custom Alert Message */}
+                  <FormSection title="Custom Alert Message">
+                    <FormRow>
+                      <Textarea
+                        onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                          setState((prevState) => ({ ...prevState, customMessage: e.target.value }))
+                        }
+                        value={state.customMessage}
+                        placeholder="Enter a custom message for your alerts..."
+                        disabled={!state.alertsEnabled || state.loading}
+                      />
+                    </FormRow>
+                  </FormSection>
+
+                  <ButtonRow>
+                    <Button
+                      onClick={() =>
+                        setState({
+                          alertsEnabled: true,
+                          alertTypes: [],
+                          safetyAlertLevels: [],
+                          preferredMethod: "email",
+                          alertFrequency: "daily",
+                          customMessage: "",
+                          oneTimeAlert: null,
+                          loading: false,
+                          errorMessage: null,
+                        })
+                      }
+                    >
+                      Clear
+                    </Button>
+                    <Button variant="primary" onClick={handleSubmit} progress={state.loading} disabled={isSaveDisabled}>
+                      Save
+                    </Button>
+                  </ButtonRow>
+                </Form>
+              </Box>
+            </Stack>
+          </TabPanel>
+
+          <TabPanel>
+            {/* Alert Access Key Panel */}
+            <Stack direction="vertical" gap="5">
+              <Stack direction="horizontal" gap="2" alignment="center">
+                <Icon color="jn-text-theme-warning" icon="warning" />
+                <span>This access key is sensitive information. Keep it secure.</span>
+              </Stack>
+
+              <div>
+                Tip: You can set the alert access key as an environment variable with:{" "}
+                <Code content={`export ALERT_ACCESS_KEY='your-access-key'`} /> and use it for custom alert automations.
               </div>
 
-              <Stack direction="vertical" gap="5">
-                <p>Customize how you receive alerts and notifications based on your preferences.</p>
-                <Box>
-                  <Form>
-                    {/* Alert Types Section */}
-                    <FormSection title="Alert Types">
-                      <FormRow>
-                        <CheckboxGroup
-                          name="checkbox-group-alert-types"
-                          label="Select Alert Types"
-                          disabled={!alertsEnabled || loading}
-                          errortext={alertTypes.length === 0 ? "At least one alert type must be selected." : undefined}
-                        >
-                          <Checkbox
-                            label="Weather Alerts"
-                            value="weather"
-                            checked={alertTypes.includes("weather")}
-                            onChange={() => toggleSelection(setAlertTypes)("weather")}
-                          />
-                          <Checkbox
-                            label="Height Alerts"
-                            value="height"
-                            checked={alertTypes.includes("height")}
-                            onChange={() => toggleSelection(setAlertTypes)("height")}
-                          />
-                          <Checkbox
-                            label="Safety Alerts"
-                            value="safety"
-                            checked={alertTypes.includes("safety")}
-                            onChange={() => toggleSelection(setAlertTypes)("safety")}
-                          />
-                        </CheckboxGroup>
-                      </FormRow>
-                    </FormSection>
-
-                    {/* Safety Alerts Section */}
-                    <FormSection title="Safety Alerts">
-                      <FormRow>
-                        <CheckboxGroup
-                          name="checkbox-group-safety-alerts"
-                          label="Select Safety Alert Levels"
-                          disabled={!alertsEnabled || loading}
-                          errortext={
-                            safetyAlertLevels.length === 0
-                              ? "At least one safety alert level must be selected."
-                              : undefined
-                          }
-                        >
-                          <Checkbox
-                            label="Warning"
-                            value="warning"
-                            checked={safetyAlertLevels.includes("warning")}
-                            onChange={() => toggleSelection(setSafetyAlertLevels)("warning")}
-                          />
-                          <Checkbox
-                            label="Unsafe"
-                            value="unsafe"
-                            checked={safetyAlertLevels.includes("unsafe")}
-                            onChange={() => toggleSelection(setSafetyAlertLevels)("unsafe")}
-                          />
-                          <Checkbox
-                            label="Safe"
-                            value="safe"
-                            checked={safetyAlertLevels.includes("safe")}
-                            onChange={() => toggleSelection(setSafetyAlertLevels)("safe")}
-                          />
-                        </CheckboxGroup>
-                      </FormRow>
-                    </FormSection>
-
-                    {/* Preferred Alert Method */}
-                    <FormSection title="Preferred Alert Method">
-                      <FormRow>
-                        <RadioGroup
-                          onChange={setPreferredMethod}
-                          selected={preferredMethod}
-                          disabled={!alertsEnabled || loading}
-                        >
-                          <Radio label="Email" value="email" />
-                          <Radio label="SMS" value="sms" />
-                          <Radio label="Push Notification" value="push" />
-                        </RadioGroup>
-                      </FormRow>
-                    </FormSection>
-
-                    {/* Alert Frequency */}
-                    <FormSection title="Alert Frequency">
-                      <FormRow>
-                        <Select
-                          onValueChange={setAlertFrequency}
-                          value={alertFrequency}
-                          disabled={!alertsEnabled || loading}
-                        >
-                          <SelectOption value="real-time">Real-Time</SelectOption>
-                          <SelectOption value="hourly">Hourly</SelectOption>
-                          <SelectOption value="daily">Daily</SelectOption>
-                          <SelectOption value="weekly">Weekly</SelectOption>
-                        </Select>
-                      </FormRow>
-                    </FormSection>
-
-                    {/* One-Time Alert Setup */}
-                    <FormSection title="One-Time Alert Setup">
-                      <FormRow>
-                        <DateTimePicker
-                          label="Schedule One-Time Alert"
-                          disable={[]}
-                          value={oneTimeAlert}
-                          onChange={setOneTimeAlert}
-                          disabled={!alertsEnabled || loading}
-                        />
-                      </FormRow>
-                    </FormSection>
-
-                    {/* Custom Alert Message */}
-                    <FormSection title="Custom Alert Message">
-                      <FormRow>
-                        <Textarea
-                          onChange={(e) => setCustomMessage(e.target.value)}
-                          value={customMessage}
-                          placeholder="Enter a custom message for your alerts..."
-                          disabled={!alertsEnabled || loading}
-                        />
-                      </FormRow>
-                    </FormSection>
-
-                    <ButtonRow>
-                      <Button>Clear</Button>
-                      <Button variant="primary" onClick={handleSubmit} progress={loading} disabled={isSaveDisabled}>
-                        Save
-                      </Button>
-                    </ButtonRow>
-                  </Form>
-                </Box>
-              </Stack>
-            </TabPanel>
-
-            <TabPanel>
-              {/* Alert Access Key Panel */}
-              <Stack direction="vertical" gap="5">
-                <Stack direction="horizontal" gap="2" align="center">
-                  <Icon color="jn-text-theme-warning" icon="warning" />
-                  <span>This access key is sensitive information. Keep it secure.</span>
-                </Stack>
-
-                <div>
-                  Tip: You can set the alert access key as an environment variable with:{" "}
-                  <Code content={`export ALERT_ACCESS_KEY='your-access-key'`} /> and use it for custom alert
-                  automations.
-                </div>
-
-                <SecretText
-                  readOnly
-                  disablePaste
-                  helptext="This secret text cannot be edited."
-                  value="ssh-rsa 123456789"
-                />
-              </Stack>
-            </TabPanel>
-          </Container>
-        </Tabs>
-      </Stack>
-    </>
+              <SecretText
+                readOnly
+                disablePaste
+                helptext="This secret text cannot be edited."
+                value="ssh-rsa 123456789"
+              />
+            </Stack>
+          </TabPanel>
+        </Container>
+      </Tabs>
+    </Stack>
   )
 }
 

@@ -3,67 +3,100 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const calculateMetrics = (peaks) => {
+import { PeakMetrics } from "../../constants"
+import { Peak, Safety } from "../../../mocks/db"
+import { PeakDetails } from "../../metrics/MetricsBox"
+
+export interface PeakMetric {
+  label: string
+  value: string
+  peakDetails: PeakDetails
+  hoverable: boolean
+  peakType: string
+}
+
+export interface TotalMetric {
+  label: string
+  value: string
+  peakType: string
+}
+
+export interface Metrics {
+  totalPeaks: string
+  totalCountries: string
+  highestPeak: PeakMetric
+  lowestPeak: PeakMetric
+  totalMetrics: TotalMetric[]
+}
+
+export const calculateMetrics = (peaks: Peak[]): Metrics => {
+  const parseHeight = (height: string): number => parseInt(height.match(/(\d+)/)?.[0] || "0", 10)
+
   const totalPeaks = peaks.length.toString()
-  const totalCountries = new Set(peaks.map((peak) => peak.countries)).size.toString()
+  const countriesSet = new Set(peaks.map((peak) => peak.countries))
+  const totalCountries = countriesSet.size.toString()
+
+  const defaultSafety: Safety = {
+    status: "Unknown",
+    recommendation: "No data available.",
+    variant: "warning", // Default variant, adjust if needed
+  }
+
+  const initialPeak = peaks[0] || {
+    height: "0",
+    name: "N/A",
+    region: "",
+    countries: "",
+    safety: defaultSafety,
+  }
 
   const highestPeak = peaks.reduce(
-    (prev, current) => (parseInt(prev.height, 10) > parseInt(current.height, 10) ? prev : current),
-    peaks[0] || { height: "0", name: "N/A", region: "", countries: "" }
+    (prev, current) => (parseHeight(prev.height) > parseHeight(current.height) ? prev : current),
+    initialPeak
   )
 
   const lowestPeak = peaks.reduce(
-    (prev, current) => (parseInt(prev.height, 10) < parseInt(current.height, 10) ? prev : current),
-    peaks[0] || { height: "0", name: "N/A", region: "", countries: "" }
+    (prev, current) => (parseHeight(prev.height) < parseHeight(current.height) ? prev : current),
+    initialPeak
   )
 
-  const highestPeakDetails = `${highestPeak.height}`
-  const lowestPeakDetails = `${lowestPeak.height}`
-
-  const determineStatus = (height) => {
-    if (height < 2000) return { status: "Safe", recommendation: "Proceed with caution." }
-    if (height >= 2000 && height <= 4000)
-      return { status: "Caution", recommendation: "Moderate difficulty; caution advised." }
-    return { status: "Unsafe", recommendation: "Challenging; experienced climbers only." }
-  }
-
-  const highestPeakStatus = determineStatus(parseInt(highestPeak.height, 10))
-  const lowestPeakStatus = determineStatus(parseInt(lowestPeak.height, 10))
+  const highestSafety: Safety = highestPeak.safety ?? defaultSafety
+  const lowestSafety: Safety = lowestPeak.safety ?? defaultSafety
 
   return {
     totalPeaks,
     totalCountries,
     highestPeak: {
-      label: "Highest Peak",
-      value: highestPeakDetails,
+      label: PeakMetrics.HIGHEST,
+      value: highestPeak.height,
       peakDetails: {
         name: highestPeak.name,
         region: highestPeak.region,
         country: highestPeak.countries,
-        height: highestPeakDetails,
-        status: highestPeakStatus.status,
-        recommendation: highestPeakStatus.recommendation,
+        height: highestPeak.height,
+        status: highestSafety.status,
+        recommendation: highestSafety.recommendation,
       },
       hoverable: true,
       peakType: "highest",
     },
     lowestPeak: {
-      label: "Lowest Peak",
-      value: lowestPeakDetails,
+      label: PeakMetrics.LOWEST,
+      value: lowestPeak.height,
       peakDetails: {
         name: lowestPeak.name,
         region: lowestPeak.region,
         country: lowestPeak.countries,
-        height: lowestPeakDetails,
-        status: lowestPeakStatus.status,
-        recommendation: lowestPeakStatus.recommendation,
+        height: lowestPeak.height,
+        status: lowestSafety.status,
+        recommendation: lowestSafety.recommendation,
       },
       hoverable: true,
       peakType: "lowest",
     },
     totalMetrics: [
-      { label: "Total Peaks", value: totalPeaks, peakType: "total" },
-      { label: "Total Countries", value: totalCountries, peakType: "place" },
+      { label: PeakMetrics.TOTAL, value: totalPeaks, peakType: "total" },
+      { label: PeakMetrics.TOTAL_COUNTRIES, value: totalCountries, peakType: "place" },
     ],
   }
 }

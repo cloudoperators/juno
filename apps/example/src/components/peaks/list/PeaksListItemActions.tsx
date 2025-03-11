@@ -4,12 +4,15 @@
  */
 
 import React, { useState } from "react"
-import { Stack, PortalProvider, Toast } from "@cloudoperators/juno-ui-components"
-import DeleteConfirmationModal from "../../common/DeleteConfirmationModal"
+import { PortalProvider, Toast } from "@cloudoperators/juno-ui-components"
+
 import ActionButtons from "../../common/ActionButtons"
 import usePeakActions from "../../hooks/usePeakActions"
+import DeleteConfirmationModal from "../../common/DeleteConfirmationModal"
 
-const PeaksListItemActions = ({ peak }) => {
+import { PeaksListItemProps } from "./PeaksListItem"
+
+const PeaksListItemActions: React.FC<PeaksListItemProps> = ({ peak }) => {
   const [isOpen, setOpen] = useState(false)
   const [showToast, setShowToast] = useState(false)
 
@@ -21,7 +24,7 @@ const PeaksListItemActions = ({ peak }) => {
   const handleDeletePeak = () => {
     close()
     setShowToast(true)
-    handleDelete(peak.id)
+    handleDelete()
   }
 
   const handleToastDismiss = () => setShowToast(false)
@@ -34,14 +37,14 @@ const PeaksListItemActions = ({ peak }) => {
           isOpen={isOpen}
           onClose={close}
           onConfirm={handleDeletePeak}
-          title={`Delete ${peak?.name}?`}
+          title={`Delete ${peak.name}?`}
         />
       </PortalProvider.Portal>
       <PortalProvider.Portal>
         {showToast && (
           <Toast
             onDismiss={handleToastDismiss}
-            text={`${peak?.name} was deleted.`}
+            text={`${peak.name} was deleted.`}
             style={{ position: "fixed", top: "20px", right: "20px", zIndex: 1000 }}
           />
         )}

@@ -1,4 +1,5 @@
-// TO DO: Maybe rename to keys?
+// TO DO: Remove constants for easier searching in app
+// If kepr, rename to be more explanatory e.g. keys, labels etc.
 
 export const Pages = {
   PEAKS: "Peaks",
@@ -17,9 +18,31 @@ export const Views = {
   JSON: "json",
 }
 
-export const Metrics = {
-  HIGHEST_PEAK: "highest",
-  LOWEST_PEAK: "lowest",
-  TOTAL_PEAKS: "total",
-  TOTAL_COUNTRIES: "place",
+export const TooltipExplanation = {
+  SAFETY_STATUS:
+    "The safety indicator reflects climbing suitability based on height. Safe: < 6000m, Caution: 6000-7000m, Unsafe: > 8000m",
+  HEIGHT: "Measured from sea level to peak.",
+  PROMINENCE: "The vertical distance between the peak and the lowest contour line encircling it but no higher peak.",
+  COORDINATES: "Geographical coordinates of the peak.",
+  CLIMATE: "Climate type of the region where the peak is located.",
+  LOCAL_FAUNA: "Animals native to the area surrounding the peak.",
+  GEO_ORIGIN: "How the geological structure of the peak was formed.",
+}
+
+export const PeakFields = {
+  SAFETY: "Safety",
+  NAME: "Name",
+  HEIGHT: "Height",
+  RANGE: "Main Range",
+  REGION: "Region",
+  COUNTRY: "Country",
+  ACTIONS: "Actions",
+  URL: "URL",
+}
+
+export const PeakMetrics = {
+  TOTAL: "Total Peaks",
+  HIGHEST: "Highest Peak",
+  LOWEST: "Lowest Peak",
+  TOTAL_COUNTRIES: "Total Countries",
 }

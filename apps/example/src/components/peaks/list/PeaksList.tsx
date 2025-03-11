@@ -14,25 +14,42 @@ import {
   Badge,
   DataGridHeadCell,
 } from "@cloudoperators/juno-ui-components"
-import GenericCard from "../../common/GenericCard"
-import PeaksListItem from "./PeaksListItem"
-import HintNotFound from "../../messages/HintNotFound"
-import { Views } from "../../constants"
 
-const PeaksList = ({ viewType, paginatedItems, onSelect, isLoading }) => {
+import GenericCard from "../../common/GenericCard"
+import HintNotFound from "../../messages/HintNotFound"
+import { Views, PeakFields } from "../../constants"
+
+import { Peak } from "../../../mocks/db"
+import PeaksListItem from "./PeaksListItem"
+import HelpTooltip from "../../common/HelpTooltip"
+import { TooltipExplanation } from "../../constants"
+
+interface PeaksListProps {
+  viewType: string
+  paginatedItems: Peak[]
+  // eslint-disable-next-line no-unused-vars
+  onSelect: (peak: Peak) => void
+  isLoading: boolean
+}
+
+const NO_PEAKS_HINT = "No peaks found"
+const JSON_TITLE = "Raw JSON Data for All Peaks"
+
+const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelect, isLoading }) => {
   if (viewType === Views.JSON) {
     return (
       <CodeBlock size="large">
-        <JsonViewer data={paginatedItems} expanded={true} toolbar={true} title="Raw JSON Data for All Peaks" />
+        <JsonViewer data={paginatedItems} expanded={true} toolbar={true} title={JSON_TITLE} />
       </CodeBlock>
     )
   }
+
   if (viewType === Views.CARD) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {paginatedItems.map((peak) => (
           <GenericCard
-            key={peak.id}
+            key={String(peak.id)}
             iconElement={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,11 +67,13 @@ const PeaksList = ({ viewType, paginatedItems, onSelect, isLoading }) => {
             }
             title={`${peak.name}, ${peak.countries}`}
             badgeContainer={
-              <Badge text={peak.safety.status} variant={peak.safety.variant} icon className="cursor-pointer" />
+              peak.safety ? (
+                <Badge text={peak.safety.status} variant={peak.safety.variant} icon className="cursor-pointer" />
+              ) : null
             }
             content={
               <p>
-                <strong>Height:</strong> {peak.height}
+                <strong>{PeakFields.HEIGHT}:</strong> {peak.height}
               </p>
             }
             onClick={() => onSelect(peak)}
@@ -63,23 +82,29 @@ const PeaksList = ({ viewType, paginatedItems, onSelect, isLoading }) => {
       </div>
     )
   }
+
   return (
     <DataGrid columns={7}>
       <DataGridRow>
-        <DataGridHeadCell>Safety</DataGridHeadCell>
-        <DataGridHeadCell>Name</DataGridHeadCell>
-        <DataGridHeadCell>Height</DataGridHeadCell>
-        <DataGridHeadCell>Main Range</DataGridHeadCell>
-        <DataGridHeadCell>Region</DataGridHeadCell>
-        <DataGridHeadCell>Country</DataGridHeadCell>
-        <DataGridHeadCell>Actions</DataGridHeadCell>
+        <DataGridHeadCell>
+          <div className="flex items-center">
+            <span className="mr-2">{PeakFields.SAFETY}</span>
+            <HelpTooltip tooltipText={TooltipExplanation.SAFETY_STATUS} />
+          </div>
+        </DataGridHeadCell>
+        <DataGridHeadCell>{PeakFields.NAME}</DataGridHeadCell>
+        <DataGridHeadCell>{PeakFields.HEIGHT}</DataGridHeadCell>
+        <DataGridHeadCell>{PeakFields.RANGE}</DataGridHeadCell>
+        <DataGridHeadCell>{PeakFields.REGION}</DataGridHeadCell>
+        <DataGridHeadCell>{PeakFields.COUNTRY}</DataGridHeadCell>
+        <DataGridHeadCell>{PeakFields.ACTIONS}</DataGridHeadCell>
       </DataGridRow>
       {paginatedItems.length > 0 ? (
-        paginatedItems.map((peak) => <PeaksListItem key={peak.id} peak={peak} onSelect={onSelect} />)
+        paginatedItems.map((peak) => <PeaksListItem key={String(peak.id)} peak={peak} onSelect={onSelect} />)
       ) : (
         <DataGridRow>
           <DataGridCell colSpan={7}>
-            {isLoading ? <Spinner variant="primary" /> : <HintNotFound text="No peaks found" />}
+            {isLoading ? <Spinner variant="primary" /> : <HintNotFound text={NO_PEAKS_HINT} />}
           </DataGridCell>
         </DataGridRow>
       )}
