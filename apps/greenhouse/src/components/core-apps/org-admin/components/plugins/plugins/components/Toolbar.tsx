@@ -1,14 +1,7 @@
-import React from "react"
-import {
-  DataGridToolbar,
-  SearchInput,
-  InputGroup,
-  Select,
-  SelectOption,
-  Stack,
-} from "@cloudoperators/juno-ui-components"
-import { usePluginActions, useStatusConditionFilter } from "./StoreProvider"
-import { StatusConditionFilter } from "../lib/store/createPluginSlice"
+import React, { useState, useEffect } from "react"
+import { SearchInput, Select, SelectOption, Stack, InputGroup } from "@cloudoperators/juno-ui-components"
+import { usePluginActions, usePluginConfig, useStatusConditionFilter } from "./StoreProvider"
+import { StatusConditionFilter, LabelValuesFilter } from "../lib/store/createPluginSlice"
 const filtersStyles = `
   bg-theme-background-lvl-1
   py-2
@@ -18,16 +11,56 @@ const filtersStyles = `
 
 const Toolbar = () => {
   const { setSearchTerm, setStatusConditionFilter } = usePluginActions()
+  const [labelFilters, setLabelFilters] = useState<LabelValuesFilter[]>()
+  const [selectedLabel, setSelectedLabel] = useState<string>("All")
+  const [availableValues, setAvailableValues] = useState<string[]>([])
+
   const statusOptions: StatusConditionFilter[] = ["All", "True", "False", "Unknown"]
   const statusConditionFilter = useStatusConditionFilter()
+  const pluginConfig = usePluginConfig()
   const handleSearchChange = (value: any) => {
     // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
       setSearchTerm(value.target.value)
     }, 500)
 
-    // clear timeout if we have a new value
     return () => clearTimeout(debouncedSearchTerm)
+  }
+
+  useEffect(() => {
+    if (!pluginConfig) return
+    const labelMap = new Map<string, Set<string>>()
+
+    pluginConfig.forEach((item: any) => {
+      const labels = item?.metadata?.labels
+      if (labels && typeof labels === "object") {
+        Object.entries(labels).forEach(([key, value]) => {
+          if (!labelMap.has(key)) {
+            labelMap.set(key, new Set())
+          }
+          if (typeof value === "string") {
+            labelMap.get(key)?.add(value)
+          }
+        })
+      }
+    })
+
+    setLabelFilters(
+      Array.from(labelMap.entries()).map(([label, values]) => ({
+        label,
+        value: Array.from(values),
+      }))
+    )
+  }, [pluginConfig])
+
+  const handleLabelChange = (value?: string | number | string[] | undefined) => {
+    if (!labelFilters) return
+    const selectedValue = typeof value === "string" ? value : "All"
+    setSelectedLabel(selectedValue)
+
+    // Find and update available values
+    const filter = labelFilters.find((filter) => filter?.label === selectedValue)
+    setAvailableValues(filter?.value || [])
   }
 
   return (
@@ -48,15 +81,22 @@ const Toolbar = () => {
           <Select
             required
             label="Label"
-            value="All"
+            value="Select"
             className="filter-label-select w-64 mb-0"
-            onChange={(value: any) => setStatusConditionFilter(value)}
+            onChange={handleLabelChange}
           >
-            {statusOptions.map((option) => (
-              <SelectOption key={option} label={option} value={option} />
+            <SelectOption key="All" label="All" value="All" />
+            {labelFilters &&
+              labelFilters.map((filter) => (
+                <SelectOption key={filter?.label} label={filter?.label} value={filter?.label} />
+              ))}
+          </Select>
+
+          <Select name="filterValue" className="filter-value-select w-96 bg-theme-background-lvl-0">
+            {availableValues.map((value) => (
+              <SelectOption key={value} label={value} value={value} />
             ))}
           </Select>
-          <Select name="filterValue" className="filter-value-select w-96 bg-theme-background-lvl-0"></Select>
         </InputGroup>
       </Stack>
 

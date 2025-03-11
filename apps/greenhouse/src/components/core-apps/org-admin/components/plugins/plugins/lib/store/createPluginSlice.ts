@@ -7,12 +7,16 @@ import { getStatusCondition } from "../../hooks/helper"
 
 interface PluginState {
   pluginConfig: any[] | null
+  filteredPluginConfigs: any[] | null
   showDetailsFor: any | null
   searchTerm: string
   statusConditionFilter: StatusConditionFilter
+  labelValueFilter: LabelValueFilter
 }
 
 export type StatusConditionFilter = "True" | "False" | "Unknown" | "All"
+export type LabelValueFilter = { label: string; value: string } | undefined
+export type LabelValuesFilter = { label: string; value: string[] } | undefined
 
 interface PluginActions {
   setPluginConfig: (pluginConfig: any[]) => void
@@ -21,7 +25,8 @@ interface PluginActions {
   deletePluginConfigItems: (pluginConfigItems: any[]) => void
   setShowDetailsFor: (showDetailsFor: any | null) => void
   setSearchTerm: (searchTerm: string) => void
-  setStatusConditionFilter: (value: StatusConditionFilter) => void
+  setStatusConditionFilter: (statusConditionFilter: StatusConditionFilter) => void
+  setLabelValueFilter: (labelValueFilter: LabelValueFilter) => void
   filterItems: () => void
 }
 
@@ -57,6 +62,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
     showDetailsFor: null,
     searchTerm: "",
     statusConditionFilter: "All",
+    labelValueFilter: undefined,
 
     actions: {
       setPluginConfig: (pluginConfig: any) => {
@@ -140,6 +146,13 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
       setStatusConditionFilter: (statusConditionFilter: StatusConditionFilter) => {
         set((state: any) => ({
           plugin: { ...state.plugin, statusConditionFilter: statusConditionFilter },
+        }))
+        get().plugin.actions.filterItems()
+      },
+
+      setLabelValueFilter: (labelValueFilter: LabelValueFilter) => {
+        set((state: any) => ({
+          plugin: { ...state.plugin, labelValueFilter: labelValueFilter },
         }))
         get().plugin.actions.filterItems()
       },
