@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-// PLEASE NOTE: This file needs refactoring
-
 import { useState, useEffect } from "react"
-import { registerConsumer } from "@cloudoperators/juno-url-state-provider" // Verify this import
+import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
 
 import {
   useGlobalsActions,
@@ -17,7 +16,7 @@ import {
   useGlobalsCurrentModal,
 } from "../../store/StoreProvider"
 
-// Assume correct typings for what registerConsumer returns
+// PLEASE NOTE: This file needs refactoring
 interface UrlStateManager {
   currentState: () => Record<string, any>
   // eslint-disable-next-line no-unused-vars
@@ -29,10 +28,9 @@ const TAB_INDEX = "t"
 const CURRENT_PANEL = "p"
 const CURRENT_MODAL = "m"
 
-const useUrlState = (key: string | undefined = DEFAULT_KEY) => {
+const useUrlState = (key: string = DEFAULT_KEY) => {
   const [isURLRead, setIsURLRead] = useState(false)
 
-  // Type assertion if needed to match expected
   const urlStateManager = registerConsumer(key) as UrlStateManager
 
   const loggedIn = true // Simulated state for the example app
@@ -52,13 +50,12 @@ const useUrlState = (key: string | undefined = DEFAULT_KEY) => {
     const newCurrentPanel = currentState?.[CURRENT_PANEL]
     const newCurrentModal = currentState?.[CURRENT_MODAL]
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     if (newTabIndex !== undefined) setTabIndex(newTabIndex)
     if (newCurrentPanel !== undefined) setCurrentPanel(newCurrentPanel)
     if (newCurrentModal !== undefined) setCurrentModal(newCurrentModal)
 
     setIsURLRead(true)
-  }, [isURLRead, loggedIn, key, setTabIndex, setCurrentPanel, setCurrentModal, urlStateManager])
+  }, [isURLRead, loggedIn, setTabIndex, setCurrentPanel, setCurrentModal, urlStateManager])
 
   useEffect(() => {
     if (!isURLRead || !loggedIn) return
