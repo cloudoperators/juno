@@ -1,4 +1,5 @@
 {
-  "theme": "theme-dark",
-  "apiEndpoint": "https://api.example.com/v1"
+  "apiEndpoint": "YOUR_GRAPHQL_API_ENDPOINT",
+  "embedded": false,
+  "theme": "light"
 }

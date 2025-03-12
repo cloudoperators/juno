@@ -1,5 +1,5 @@
 <!--
-  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
   ~ SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -7,9 +7,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="src/assets/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Heureka Next</title>
+    <link rel="icon" href="src/img/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+
+    <title>Heureka</title>
     <style>
       html {
         display: flex;
@@ -28,6 +30,7 @@
       }
     </style>
   </head>
+
   <body>
     <script type="module">
       // appProps are excluded from standalone build and should be generated from outside
@@ -38,11 +41,10 @@
         })
         .then((props) => {
           import("./src/index").then((app) => {
-            app.mount(document.getElementById("root"), props)
+            app.mount(document.getElementById("root"), { props })
           })
         })
     </script>
     <div id="root"></div>
-    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

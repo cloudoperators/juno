@@ -1,14 +1,7 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
-import tsconfigPaths from "vite-tsconfig-paths"
-import svgr from "vite-plugin-svgr"
 
 export default defineConfig(({ mode }) => {
   const sharedConfig = {
@@ -18,7 +11,7 @@ export default defineConfig(({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [react(), tsconfigPaths(), svgr()],
+    plugins: [react()],
     css: {
       postcss: {
         plugins: [tailwindcss, autoprefixer],
@@ -28,7 +21,6 @@ export default defineConfig(({ mode }) => {
     server: {
       host: "0.0.0.0",
       port: parseInt(process.env.PORT || "3000"),
-      allowedHosts: true,
     },
   }
 
@@ -51,9 +43,9 @@ export default defineConfig(({ mode }) => {
       outDir: "build",
 
       lib: {
-        entry: "src/index.tsx",
+        entry: "src/index.ts",
         formats: ["es"],
-        fileName: () => `index.js`,
+        fileName: (format) => `index.js`,
       },
     },
   }

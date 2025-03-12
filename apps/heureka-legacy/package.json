@@ -1,0 +1,59 @@
+{
+  "name": "@cloudoperators/juno-app-heureka-legacy",
+  "version": "2.11.5",
+  "author": "UI-Team",
+  "contributors": [
+    "Hoda Noori, Arturo Reuschenbach Pucernau",
+    "Tilman Haupt"
+  ],
+  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka-legacy",
+  "description": "⚠️ This project is deprecated. Use heureka app.",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./build/index.js"
+  },
+  "private": true,
+  "devDependencies": {
+    "@cloudoperators/juno-config": "*",
+    "@svgr/core": "^8.0.0",
+    "@svgr/plugin-jsx": "^8.0.0",
+    "@tanstack/react-query": "5.36.2",
+    "@testing-library/react": "^16.0.1",
+    "autoprefixer": "^10.4.2",
+    "graphql-request": "^7.0.1",
+    "immer": "^10.0.0",
+    "jsdom": "^25.0.1",
+    "luxon": "^3.4.4",
+    "postcss": "^8.4.47",
+    "prop-types": "^15.8.1",
+    "react-test-renderer": "^18.2.0",
+    "sass": "^1.77.5",
+    "shadow-dom-testing-library": "^1.11.3",
+    "tailwindcss": "^3.3.1",
+    "vitest": "^3.0.7",
+    "zustand": "4.5.5"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "dev": "vite",
+    "build": "vite build",
+    "build:static": "vite build --mode static",
+    "serve": "vite preview",
+    "lint": "eslint",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
+  },
+  "importmapExtras": {
+    "zustand/middleware": "4.5.2"
+  },
+  "dependencies": {
+    "@cloudoperators/juno-communicator": "*",
+    "@cloudoperators/juno-messages-provider": "*",
+    "@cloudoperators/juno-ui-components": "*",
+    "@cloudoperators/juno-url-state-provider-v1": "^1.3.2",
+    "react-error-boundary": "^4.0.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

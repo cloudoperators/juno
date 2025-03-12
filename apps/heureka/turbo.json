@@ -2,32 +2,19 @@
   "extends": ["//"],
   "tasks": {
     "dev": {
-      "dependsOn": [
-        "@cloudoperators/juno-ui-components#build",
-        "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build"
-      ]
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/juno-messages-provider#build"]
+    },
+    "test": {
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/juno-messages-provider#build"]
     },
     "build": {
-      "dependsOn": [
-        "@cloudoperators/juno-ui-components#build",
-        "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build"
-      ]
-    },
-    "build:static": {
-      "dependsOn": [
-        "@cloudoperators/juno-ui-components#build",
-        "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build"
-      ]
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/juno-messages-provider#build"]
     },
     "typecheck": {
-      "dependsOn": [
-        "@cloudoperators/juno-ui-components#build",
-        "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build"
-      ]
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/juno-messages-provider#build"]
+    },
+    "build:static": {
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/juno-messages-provider#build"]
     }
   }
 }

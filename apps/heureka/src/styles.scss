@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
+// SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 // SPDX-License-Identifier: Apache-2.0
 
 /* Do not remove these tailwind directives. Without them styles won't work as expected */
@@ -6,18 +6,17 @@
 @tailwind components;
 @tailwind utilities;
 
-// datagrid row hover style
-// REMOVE THIS ONCE DATAGRID COMPONENT SUPPORTS HOVER
-.clickableTable {
-  .juno-datagrid-row:hover {
-    .juno-datagrid-cell {
-      @apply bg-theme-background-lvl-1;
-    }
-  }
+/* If necessary, app styles can be added below */
+.juno-main {
+  overflow: hidden;
+}
 
-  .juno-datagrid-row.active {
-    .juno-datagrid-cell {
-      @apply bg-theme-background-lvl-2;
-    }
-  }
+.juno-main-inner {
+  margin-top: 0;
+}
+
+.juno-content-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
 }
