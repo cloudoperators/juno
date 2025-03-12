@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, {useState} from "react"
+import React, { useState } from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Message } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { FilterSettings } from "../../common/Filters/types"
@@ -24,8 +24,8 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
 
   const [selectedService, setSelectedService] = useState<ServiceOverViewPanelType | null>(null)
   const handleServiceClick = (service: ServiceOverViewPanelType) => {
-    setSelectedService(service);
-  };
+    setSelectedService(service)
+  }
 
   return (
     <div className="flex-1 flex flex-col gap-10 overflow-hidden">
@@ -49,7 +49,9 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
             !loading &&
               !error &&
               services.length > 0 &&
-              services.map((item) => <ServiceListItem key={item.name} item={item} onClick={() => handleServiceClick(item)} />)
+              services.map((item) => (
+                <ServiceListItem key={item.name} item={item} onClick={() => handleServiceClick(item)} />
+              ))
           }
 
           {
@@ -80,7 +82,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
           />
         </div>
       )}
-       {selectedService && <ServicePanel service={selectedService} />}
+      {selectedService && <ServicePanel service={selectedService} />}
     </div>
   )
 }

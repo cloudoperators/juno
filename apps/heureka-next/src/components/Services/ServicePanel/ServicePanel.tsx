@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 // import { Card, CardContent, Typography, Link } from "@cloudoperators/juno-ui-components";
 
 export type ServiceOverViewPanelType = {
@@ -8,12 +8,12 @@ export type ServiceOverViewPanelType = {
     high: number
     medium: number
     low: number
-  };
+  }
   externalLink: string
 }
 
 type ServicePanelProps = {
-  service: ServiceOverViewPanelType;
+  service: ServiceOverViewPanelType
 }
 
 export const ServicePanel = ({ service }: ServicePanelProps) => {
