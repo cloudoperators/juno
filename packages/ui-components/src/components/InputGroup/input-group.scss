@@ -6,8 +6,7 @@
 .juno-input-group {
   // Remove border-radius for specific elements within the input group
   .juno-button,
-  .juno-textinput,
-  .juno-select {
+  .juno-textinput {
     // Remove border-radius for elements that are neither the first nor the last child
     &:not(:first-child, :last-child) {
       border-radius: 0;
@@ -19,6 +18,23 @@
     }
     // Adjust border-radius for the last child element
     &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  /*
+   * Adjust border-radius for the Select component
+   * that has a special case when it is supplied with a 'label'
+   * which renders before .juno-select-toggle element and in that case 
+   * it is no longer the first-child therefore we need to use 'first-of-type' pseudo selector.
+   */
+  .juno-select-toggle {
+    &:first-of-type {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:last-of-type {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
