@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
-import { SearchInput, Select, SelectOption, Stack, InputGroup } from "@cloudoperators/juno-ui-components"
+import { SearchInput, Select, SelectOption, Stack, InputGroup, Pill } from "@cloudoperators/juno-ui-components"
 import { usePluginActions, usePluginConfig, useStatusConditionFilter } from "./StoreProvider"
 import { StatusConditionFilter, LabelValuesFilter } from "../lib/store/createPluginSlice"
+import { SelectContext } from "../../../../../../../../../../packages/ui-components/build/src/components/Select/Select.component"
 const filtersStyles = `
   bg-theme-background-lvl-1
   py-2
@@ -10,7 +11,7 @@ const filtersStyles = `
 `
 
 const Toolbar = () => {
-  const { setSearchTerm, setStatusConditionFilter, setLabelValueFilter } = usePluginActions()
+  const { setSearchTerm, setStatusConditionFilter, addLabelValueFilter } = usePluginActions()
   const [labelFilters, setLabelFilters] = useState<LabelValuesFilter[]>()
   const [selectedLabel, setSelectedLabel] = useState<string>("All")
   const [availableValues, setAvailableValues] = useState<string[]>([])
@@ -56,7 +57,6 @@ const Toolbar = () => {
 
   const handleLabelChange = (value?: string | number | string[] | undefined) => {
     setSelectedValue(undefined)
-    setLabelValueFilter(undefined)
 
     if (!labelFilters) return
 
@@ -73,13 +73,13 @@ const Toolbar = () => {
 
   const handleValueChange = (value?: string | number | string[] | undefined) => {
     setSelectedValue(value !== undefined ? String(value) : "")
-    setLabelValueFilter({ label: selectedLabel, value: value })
+    addLabelValueFilter({ label: selectedLabel, value: value })
   }
 
   return (
-    <Stack alignment="center" gap="8" className={`filters ${filtersStyles}`}>
-      <Stack alignment="center" gap="4" className={`filters ${filtersStyles}`}>
-        <Select
+    <Stack direction="vertical" gap="4" className={`filters ${filtersStyles}`}>
+      <Stack alignment="center" gap="8">
+        {/* <Select
           required
           label="Ready"
           value={statusConditionFilter}
@@ -89,7 +89,7 @@ const Toolbar = () => {
           {statusOptions.map((option) => (
             <SelectOption key={option} label={option} value={option} />
           ))}
-        </Select>
+        </Select> */}
         <InputGroup>
           <Select
             required
@@ -116,16 +116,19 @@ const Toolbar = () => {
             ))}
           </Select>
         </InputGroup>
-      </Stack>
 
-      <SearchInput
-        placeholder="search term or regular expression"
-        className="w-96 ml-auto"
-        value={""}
-        onSearch={(value: any) => setSearchTerm(value)}
-        onClear={() => setSearchTerm("")}
-        onChange={(value: any) => handleSearchChange(value)}
-      />
+        <SearchInput
+          placeholder="search term or regular expression"
+          className="w-96 ml-auto"
+          value={""}
+          onSearch={(value: any) => setSearchTerm(value)}
+          onClear={() => setSearchTerm("")}
+          onChange={(value: any) => handleSearchChange(value)}
+        />
+      </Stack>
+      <Stack gap="2" wrap={true}>
+        <Pill pillKey="asdfs" pillValue="srtuz" closeable />
+      </Stack>
     </Stack>
   )
 }

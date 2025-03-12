@@ -11,7 +11,7 @@ interface PluginState {
   showDetailsFor: any | null
   searchTerm: string
   statusConditionFilter: StatusConditionFilter
-  labelValueFilter: LabelValueFilter
+  labelValuesFilters: LabelValuesFilter[] | undefined
 }
 
 export type StatusConditionFilter = "True" | "False" | "Unknown" | "All"
@@ -26,7 +26,7 @@ interface PluginActions {
   setShowDetailsFor: (showDetailsFor: any | null) => void
   setSearchTerm: (searchTerm: string) => void
   setStatusConditionFilter: (statusConditionFilter: StatusConditionFilter) => void
-  setLabelValueFilter: (labelValueFilter: LabelValueFilter) => void
+  addLabelValueFilter: (labelValueFilter: LabelValueFilter) => void
   filterItems: () => void
 }
 
@@ -37,7 +37,6 @@ export interface PluginSlice {
 function sortPluginConfigItems(items: any) {
   return items.sort((a: any, b: any) => {
     // First, sort by `disabled` status
-    console.log("item", a)
     if (a?.spec?.disabled && !b?.spec?.disabled) {
       return 1
     } else if (!a?.spec?.disabled && b?.spec?.disabled) {
@@ -63,7 +62,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
     showDetailsFor: null,
     searchTerm: "",
     statusConditionFilter: "All",
-    labelValueFilter: undefined,
+    labelValuesFilters: undefined,
 
     actions: {
       setPluginConfig: (pluginConfig: any) => {
@@ -151,10 +150,39 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         get().plugin.actions.filterItems()
       },
 
-      setLabelValueFilter: (labelValueFilter: LabelValueFilter) => {
-        set((state: any) => ({
-          plugin: { ...state.plugin, labelValueFilter: labelValueFilter },
-        }))
+      addLabelValueFilter: (labelValueFilter: LabelValueFilter) => {
+        if (!labelValueFilter) return
+
+        set((state: any) => {
+          const existingFilters = state.plugin.labelValuesFilters || []
+
+          // Check if the label already exists
+          const existingFilterIndex = existingFilters.findIndex(
+            (f: LabelValuesFilter) => f?.label === labelValueFilter.label
+          )
+
+          let updatedFilters
+
+          if (existingFilterIndex !== -1) {
+            // Label exists → Add unique value
+            updatedFilters = [...existingFilters]
+            updatedFilters[existingFilterIndex] = {
+              label: labelValueFilter.label,
+              value: Array.from(new Set([...updatedFilters[existingFilterIndex].value, labelValueFilter.value])), // Ensure uniqueness
+            }
+          } else {
+            // Label does not exist → Add new entry
+            updatedFilters = [...existingFilters, { label: labelValueFilter.label, value: [labelValueFilter.value] }]
+          }
+
+          return {
+            plugin: {
+              ...state.plugin,
+              labelValuesFilters: updatedFilters,
+            },
+          }
+        })
+
         get().plugin.actions.filterItems()
       },
 
@@ -162,7 +190,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         let items = (get().plugin.pluginConfig || []).slice()
         const searchTerm = get().plugin.searchTerm
         const statusConditionFilter = get().plugin.statusConditionFilter
-        const labelValueFilter = get().plugin.labelValueFilter
+        const labelValuesFilters = get().plugin.labelValuesFilters
 
         // Filter StatusCondition
         if (statusConditionFilter && statusConditionFilter != "All" && items) {
@@ -176,10 +204,14 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         }
 
         // Filter by LabelValueFilter
-        if (labelValueFilter && items) {
+        if (labelValuesFilters?.length && items) {
           items = items.filter((item: any) => {
-            const labels = item.metadata?.labels || {} // Assuming labels are stored in metadata.labels
-            return labels[labelValueFilter.label] === labelValueFilter.value
+            const labels = item.metadata?.labels || {}
+
+            // Check if at least one filter matches
+            return labelValuesFilters.every(
+              (filter) => filter && filter.value.some((val) => labels[filter.label] === val)
+            )
           })
         }
 
