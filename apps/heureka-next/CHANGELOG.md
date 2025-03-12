@@ -1,5 +1,11 @@
 # heureka-next
 
+## 0.3.0
+
+### Minor Changes
+
+- b087de1: Services view now lists all services and allows to filter these
+
 ## 0.2.1
 
 ### Patch Changes

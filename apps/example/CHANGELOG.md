@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-example
 
+## 2.0.0
+
+### Major Changes
+
+- 743023a: An initial example app proposal to serve as a Juno UI design and development guideline
+
 ## 1.2.1
 
 ### Patch Changes
