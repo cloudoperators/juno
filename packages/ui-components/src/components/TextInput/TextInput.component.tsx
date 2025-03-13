@@ -177,7 +177,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   const theId = id || uniqueId()
 
   return (
-    <div>
+    <div className="juno-textinput-outer-wrapper">
       <span
         className={`
           juno-textinput-wrapper 
