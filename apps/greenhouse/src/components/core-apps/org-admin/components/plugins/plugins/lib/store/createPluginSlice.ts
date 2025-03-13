@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { StateCreator } from "zustand"
-import { updateItemsWithStatusCondition } from "../../hooks/helper"
+import { getStatusCondition } from "../../hooks/helper"
 
 interface PluginState {
   pluginConfig: any[] | null
@@ -66,8 +66,6 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
       setPluginConfig: (pluginConfig: any) => {
         // Sort plugins by id alphabetically, but put disabled plugins at the end
         let sortedPlugins = sortPluginConfigItems(pluginConfig)
-        // Add StatusCondition (e.g. Ready)
-        sortedPlugins = updateItemsWithStatusCondition(sortedPlugins)
 
         set((state: any) => ({
           plugin: {
@@ -82,8 +80,6 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         const items = (get().plugin.pluginConfig || []).slice()
         let newItems = uniqPluginConfigItems([...items, ...pluginConfigItems])
         newItems = sortPluginConfigItems(newItems)
-        // Add StatusCondition (e.g. Ready)
-        newItems = updateItemsWithStatusCondition(newItems)
 
         set((state: any) => ({
           plugin: {
@@ -218,7 +214,22 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         let items = (get().plugin.pluginConfig || []).slice()
 
         const searchTerm = get().plugin.searchTerm
-        const labelValuesFilters = get().plugin.labelValuesFilters
+        let labelValuesFilters = get().plugin.labelValuesFilters
+
+        // Filter by getStatusCondition / Ready
+        if (labelValuesFilters?.length && items) {
+          const readyFilter = labelValuesFilters.find((filter) => filter?.label === "Ready")
+
+          if (readyFilter) {
+            items = items.filter((item) => {
+              const statusCondition = getStatusCondition(item)
+              return statusCondition && readyFilter.value.includes(statusCondition)
+            })
+
+            // Remove the "Ready" filter from labelValuesFilters
+            labelValuesFilters = labelValuesFilters.filter((filter) => filter?.label !== "Ready")
+          }
+        }
 
         // Filter by LabelValueFilter
         if (labelValuesFilters?.length && items) {

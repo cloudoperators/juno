@@ -23,18 +23,17 @@ describe("createPluginSlice", () => {
       act(() => {
         store.result.current.pluginActions.setPluginConfig([
           {
-            metadata: { labels: { Ready: "Unknown" } },
             spec: { displayName: "onePlugin", disabled: false },
           },
-          { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "alert", disabled: false } },
-          { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "example app", disabled: true } },
+          { spec: { displayName: "alert", disabled: false } },
+          { spec: { displayName: "example app", disabled: true } },
         ])
       })
 
       expect(store.result.current.pluginConfig).toEqual([
-        { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "alert", disabled: false } },
-        { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "onePlugin", disabled: false } },
-        { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "example app", disabled: true } },
+        { spec: { displayName: "alert", disabled: false } },
+        { spec: { displayName: "onePlugin", disabled: false } },
+        { spec: { displayName: "example app", disabled: true } },
       ])
     })
     it("test if pluginConfig is saved correctly without disabled field", () => {
@@ -49,16 +48,16 @@ describe("createPluginSlice", () => {
 
       act(() => {
         store.result.current.pluginActions.setPluginConfig([
-          { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "onePlugin", disabled: false } },
-          { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "alert" } },
-          { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "example app", disabled: true } },
+          { spec: { displayName: "onePlugin", disabled: false } },
+          { spec: { displayName: "alert" } },
+          { spec: { displayName: "example app", disabled: true } },
         ])
       })
 
       expect(store.result.current.pluginConfig).toEqual([
-        { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "alert" } },
-        { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "onePlugin", disabled: false } },
-        { metadata: { labels: { Ready: "Unknown" } }, spec: { displayName: "example app", disabled: true } },
+        { spec: { displayName: "alert" } },
+        { spec: { displayName: "onePlugin", disabled: false } },
+        { spec: { displayName: "example app", disabled: true } },
       ])
     })
   })

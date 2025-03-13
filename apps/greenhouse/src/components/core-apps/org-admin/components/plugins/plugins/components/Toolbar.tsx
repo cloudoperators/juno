@@ -37,6 +37,8 @@ const Toolbar = () => {
     if (!pluginConfig) return
     const labelMap = new Map<string, Set<string>>()
 
+    labelMap.set("Ready", new Set(["Unknown", "True", "False"]))
+
     pluginConfig.forEach((item: any) => {
       const labels = item?.metadata?.labels
       if (labels && typeof labels === "object") {
