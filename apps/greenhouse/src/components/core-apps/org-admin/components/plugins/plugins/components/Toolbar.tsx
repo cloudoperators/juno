@@ -8,6 +8,7 @@ import { SearchInput, Select, SelectOption, Stack, InputGroup, Pill } from "@clo
 import { usePluginActions, usePluginConfig, useLabelValuesFilters } from "./StoreProvider"
 import { LabelValuesFilter } from "../lib/store/createPluginSlice"
 import { SelectContext } from "../../../../../../../../../../packages/ui-components/build/src/components/Select/Select.component"
+import { getStatusCondition } from "../hooks/helper"
 const filtersStyles = `
   bg-theme-background-lvl-1
   py-2
@@ -37,9 +38,13 @@ const Toolbar = () => {
     if (!pluginConfig) return
     const labelMap = new Map<string, Set<string>>()
 
-    labelMap.set("Ready", new Set(["Unknown", "True", "False"]))
-
+    // collects all labels and states for ready.
+    const values = new Set<string>()
     pluginConfig.forEach((item: any) => {
+      const statusCondition = getStatusCondition(item)
+      if (statusCondition) {
+        values.add(statusCondition)
+      }
       const labels = item?.metadata?.labels
       if (labels && typeof labels === "object") {
         Object.entries(labels).forEach(([key, value]) => {
@@ -54,6 +59,7 @@ const Toolbar = () => {
         })
       }
     })
+    labelMap.set("Ready", values)
 
     setLabelFilters(
       Array.from(labelMap.entries()).map(([label, values]) => ({
