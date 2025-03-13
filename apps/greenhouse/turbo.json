@@ -7,7 +7,7 @@
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
-        "@cloudoperators/juno-app-heureka#build",
+        "@cloudoperators/juno-heureka-next#build",
         "@cloudoperators/juno-app-doop#build"
       ]
     },
@@ -17,7 +17,7 @@
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
-        "@cloudoperators/juno-app-heureka#build",
+        "@cloudoperators/juno-heureka-next#build",
         "@cloudoperators/juno-app-doop#build"
       ]
     },
@@ -27,7 +27,7 @@
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
-        "@cloudoperators/juno-app-heureka#build",
+        "@cloudoperators/juno-heureka-next#build",
         "@cloudoperators/juno-app-doop#build"
       ]
     },
@@ -37,7 +37,7 @@
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
-        "@cloudoperators/juno-app-heureka#build",
+        "@cloudoperators/juno-heureka-next#build",
         "@cloudoperators/juno-app-doop#build"
       ]
     },
@@ -47,7 +47,7 @@
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
-        "@cloudoperators/juno-app-heureka#build",
+        "@cloudoperators/juno-heureka-next#build",
         "@cloudoperators/juno-app-doop#build"
       ]
     }

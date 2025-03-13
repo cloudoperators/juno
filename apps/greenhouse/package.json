@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@cloudoperators/juno-app-doop": "*",
-    "@cloudoperators/juno-app-heureka": "*",
+    "@cloudoperators/juno-heureka-next": "*",
     "@cloudoperators/juno-app-supernova": "*",
     "@cloudoperators/juno-messages-provider": "*",
     "@cloudoperators/juno-oauth": "*",
