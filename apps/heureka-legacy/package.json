@@ -1,12 +1,13 @@
 {
-  "name": "@cloudoperators/juno-app-heureka",
+  "name": "@cloudoperators/juno-app-heureka-legacy",
   "version": "2.11.5",
   "author": "UI-Team",
   "contributors": [
     "Hoda Noori, Arturo Reuschenbach Pucernau",
     "Tilman Haupt"
   ],
-  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka-legacy",
+  "description": "⚠️ This project is deprecated. Use heureka app.",
   "license": "Apache-2.0",
   "exports": {
     ".": "./build/index.js"
