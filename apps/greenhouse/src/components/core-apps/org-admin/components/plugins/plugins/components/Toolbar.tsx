@@ -44,8 +44,10 @@ const Toolbar = () => {
           if (!labelMap.has(key)) {
             labelMap.set(key, new Set())
           }
-          if (typeof value === "string") {
+          if (value && typeof value === "string") {
             labelMap.get(key)?.add(value)
+          } else {
+            return
           }
         })
       }
@@ -72,7 +74,6 @@ const Toolbar = () => {
   }
 
   const handleValueChange = (value?: string | number | string[] | undefined) => {
-    setSelectedValue(value !== undefined ? String(value) : "")
     addLabelValueFilter({ label: selectedLabel, value: value })
   }
 

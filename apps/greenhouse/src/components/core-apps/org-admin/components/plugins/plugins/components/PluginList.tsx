@@ -28,7 +28,7 @@ const PluginList = () => {
 
   return (
     <>
-      <Stack className="mb-4">
+      <Stack className="mb-4 mt-4">
         <div className="ml-auto">
           <Button onClick={onShowPluginDefinition}>Add Plugin</Button>
         </div>
