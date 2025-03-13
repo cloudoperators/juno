@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { SearchInput, Select, SelectOption, Stack, InputGroup, Pill } from "@cloudoperators/juno-ui-components"
-import { usePluginActions, usePluginConfig, useStatusConditionFilter, useLabelValuesFilters } from "./StoreProvider"
-import { StatusConditionFilter, LabelValuesFilter } from "../lib/store/createPluginSlice"
+import { usePluginActions, usePluginConfig, useLabelValuesFilters } from "./StoreProvider"
+import { LabelValuesFilter } from "../lib/store/createPluginSlice"
 import { SelectContext } from "../../../../../../../../../../packages/ui-components/build/src/components/Select/Select.component"
 const filtersStyles = `
   bg-theme-background-lvl-1
@@ -11,15 +11,13 @@ const filtersStyles = `
 `
 
 const Toolbar = () => {
-  const { setSearchTerm, setStatusConditionFilter, addLabelValueFilter, removeLabelValueFilter } = usePluginActions()
+  const { setSearchTerm, addLabelValueFilter, removeLabelValueFilter } = usePluginActions()
   const labelValuesFilters = useLabelValuesFilters()
   const [labelFilters, setLabelFilters] = useState<LabelValuesFilter[]>()
   const [selectedLabel, setSelectedLabel] = useState<string>("All")
   const [availableValues, setAvailableValues] = useState<string[]>([])
   const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined)
 
-  const statusOptions: StatusConditionFilter[] = ["All", "True", "False", "Unknown"]
-  const statusConditionFilter = useStatusConditionFilter()
   const pluginConfig = usePluginConfig()
   const handleSearchChange = (value: any) => {
     // debounce setSearchTerm to avoid unnecessary re-renders
@@ -84,17 +82,6 @@ const Toolbar = () => {
   return (
     <Stack direction="vertical" gap="4" className={`filters ${filtersStyles}`}>
       <Stack alignment="center" gap="8">
-        {/* <Select
-          required
-          label="Ready"
-          value={statusConditionFilter}
-          className="filter-label-select w-32 mb-0"
-          onChange={(value: any) => setStatusConditionFilter(value)}
-        >
-          {statusOptions.map((option) => (
-            <SelectOption key={option} label={option} value={option} />
-          ))}
-        </Select> */}
         <InputGroup>
           <Select
             required
@@ -102,6 +89,7 @@ const Toolbar = () => {
             value={selectedLabel}
             className="filter-label-select w-64 mb-0"
             onChange={handleLabelChange}
+            truncateOptions
           >
             <SelectOption key="All" label="All" value="All" />
             {labelFilters &&
@@ -115,6 +103,7 @@ const Toolbar = () => {
             className="filter-value-select w-96 bg-theme-background-lvl-0"
             value={selectedValue ? selectedValue : "Select..."}
             onChange={handleValueChange}
+            truncateOptions
           >
             {availableValues.map((value) => (
               <SelectOption key={value} label={value} value={value} />

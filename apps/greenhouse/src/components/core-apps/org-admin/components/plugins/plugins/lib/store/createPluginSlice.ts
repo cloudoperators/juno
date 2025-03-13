@@ -3,18 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { StateCreator } from "zustand"
-import { getStatusCondition } from "../../hooks/helper"
+import { updateItemsWithStatusCondition } from "../../hooks/helper"
 
 interface PluginState {
   pluginConfig: any[] | null
   filteredPluginConfigs: any[] | null
   showDetailsFor: any | null
   searchTerm: string
-  statusConditionFilter: StatusConditionFilter
   labelValuesFilters: LabelValuesFilter[] | undefined
 }
 
-export type StatusConditionFilter = "True" | "False" | "Unknown" | "All"
 export type LabelValueFilter = { label: string; value: string } | undefined
 export type LabelValuesFilter = { label: string; value: string[] } | undefined
 
@@ -25,7 +23,6 @@ interface PluginActions {
   deletePluginConfigItems: (pluginConfigItems: any[]) => void
   setShowDetailsFor: (showDetailsFor: any | null) => void
   setSearchTerm: (searchTerm: string) => void
-  setStatusConditionFilter: (statusConditionFilter: StatusConditionFilter) => void
   addLabelValueFilter: (labelValueFilter: LabelValueFilter) => void
   removeLabelValueFilter: (labelValueFilter: LabelValueFilter) => void
   filterItems: () => void
@@ -69,6 +66,9 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
       setPluginConfig: (pluginConfig: any) => {
         // Sort plugins by id alphabetically, but put disabled plugins at the end
         let sortedPlugins = sortPluginConfigItems(pluginConfig)
+        // Add StatusCondition (e.g. Ready)
+        sortedPlugins = updateItemsWithStatusCondition(sortedPlugins)
+
         set((state: any) => ({
           plugin: {
             ...state.plugin,
@@ -82,6 +82,8 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         const items = (get().plugin.pluginConfig || []).slice()
         let newItems = uniqPluginConfigItems([...items, ...pluginConfigItems])
         newItems = sortPluginConfigItems(newItems)
+        // Add StatusCondition (e.g. Ready)
+        newItems = updateItemsWithStatusCondition(newItems)
 
         set((state: any) => ({
           plugin: {
@@ -140,13 +142,6 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
       setSearchTerm: (searchTerm: string) => {
         set((state: any) => ({
           plugin: { ...state.plugin, searchTerm: searchTerm },
-        }))
-        get().plugin.actions.filterItems()
-      },
-
-      setStatusConditionFilter: (statusConditionFilter: StatusConditionFilter) => {
-        set((state: any) => ({
-          plugin: { ...state.plugin, statusConditionFilter: statusConditionFilter },
         }))
         get().plugin.actions.filterItems()
       },
@@ -221,20 +216,9 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
 
       filterItems: () => {
         let items = (get().plugin.pluginConfig || []).slice()
-        const searchTerm = get().plugin.searchTerm
-        const statusConditionFilter = get().plugin.statusConditionFilter
-        const labelValuesFilters = get().plugin.labelValuesFilters
 
-        // Filter StatusCondition
-        if (statusConditionFilter && statusConditionFilter != "All" && items) {
-          items = items.filter((item: any) => {
-            if (getStatusCondition(item) == statusConditionFilter) {
-              return true
-            } else {
-              return false
-            }
-          })
-        }
+        const searchTerm = get().plugin.searchTerm
+        const labelValuesFilters = get().plugin.labelValuesFilters
 
         // Filter by LabelValueFilter
         if (labelValuesFilters?.length && items) {
