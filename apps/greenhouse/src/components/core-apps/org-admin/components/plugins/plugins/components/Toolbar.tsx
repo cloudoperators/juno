@@ -14,7 +14,7 @@ const Toolbar = () => {
   const { setSearchTerm, addLabelValueFilter, removeLabelValueFilter } = usePluginActions()
   const labelValuesFilters = useLabelValuesFilters()
   const [labelFilters, setLabelFilters] = useState<LabelValuesFilter[]>()
-  const [selectedLabel, setSelectedLabel] = useState<string>("All")
+  const [selectedLabel, setSelectedLabel] = useState<string>("")
   const [availableValues, setAvailableValues] = useState<string[]>([])
   const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined)
 
@@ -59,15 +59,11 @@ const Toolbar = () => {
 
     if (!labelFilters) return
 
-    const selectedValue = typeof value === "string" ? value : "All"
+    const selectedValue = String(value)
     setSelectedLabel(selectedValue)
 
-    if (selectedValue == "All") {
-      setAvailableValues([])
-    } else {
-      const filter = labelFilters.find((filter) => filter?.label === selectedValue)
-      setAvailableValues(filter?.value || [])
-    }
+    const filter = labelFilters.find((filter) => filter?.label === selectedValue)
+    setAvailableValues(filter?.value || [])
   }
 
   const handleValueChange = (value?: string | number | string[] | undefined) => {
@@ -91,7 +87,6 @@ const Toolbar = () => {
             onChange={handleLabelChange}
             truncateOptions
           >
-            <SelectOption key="All" label="All" value="All" />
             {labelFilters &&
               labelFilters.map((filter) => (
                 <SelectOption key={filter?.label} label={filter?.label} value={filter?.label} />
