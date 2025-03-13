@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { SearchInput, Select, SelectOption, Stack, InputGroup, Pill } from "@cloudoperators/juno-ui-components"
-import { usePluginActions, usePluginConfig, useStatusConditionFilter } from "./StoreProvider"
+import { usePluginActions, usePluginConfig, useStatusConditionFilter, useLabelValuesFilters } from "./StoreProvider"
 import { StatusConditionFilter, LabelValuesFilter } from "../lib/store/createPluginSlice"
 import { SelectContext } from "../../../../../../../../../../packages/ui-components/build/src/components/Select/Select.component"
 const filtersStyles = `
@@ -11,7 +11,8 @@ const filtersStyles = `
 `
 
 const Toolbar = () => {
-  const { setSearchTerm, setStatusConditionFilter, addLabelValueFilter } = usePluginActions()
+  const { setSearchTerm, setStatusConditionFilter, addLabelValueFilter, removeLabelValueFilter } = usePluginActions()
+  const labelValuesFilters = useLabelValuesFilters()
   const [labelFilters, setLabelFilters] = useState<LabelValuesFilter[]>()
   const [selectedLabel, setSelectedLabel] = useState<string>("All")
   const [availableValues, setAvailableValues] = useState<string[]>([])
@@ -76,6 +77,10 @@ const Toolbar = () => {
     addLabelValueFilter({ label: selectedLabel, value: value })
   }
 
+  const handleRemoveFilter = (label: string, value: string) => {
+    removeLabelValueFilter({ label: label, value: value })
+  }
+
   return (
     <Stack direction="vertical" gap="4" className={`filters ${filtersStyles}`}>
       <Stack alignment="center" gap="8">
@@ -127,7 +132,18 @@ const Toolbar = () => {
         />
       </Stack>
       <Stack gap="2" wrap={true}>
-        <Pill pillKey="asdfs" pillValue="srtuz" closeable />
+        {labelValuesFilters &&
+          labelValuesFilters.map((labelValues: LabelValuesFilter) =>
+            labelValues?.value.map((value: string, i: number) => (
+              <Pill
+                key={labelValues?.label + i}
+                pillKey={labelValues?.label}
+                pillValue={value}
+                onClose={(e: any, _: any) => handleRemoveFilter(labelValues?.label, value)}
+                closeable
+              />
+            ))
+          )}
       </Stack>
     </Stack>
   )

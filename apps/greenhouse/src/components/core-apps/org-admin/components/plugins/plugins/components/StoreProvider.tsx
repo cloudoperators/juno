@@ -53,6 +53,7 @@ export const useShowDetailsFor = () => useAppStore((state: any) => state.plugin.
 export const useSearchTerm = () => useAppStore((state: any) => state.plugin.searchTerm)
 export const useStatusConditionFilter = () => useAppStore((state: any) => state.plugin.statusConditionFilter)
 export const useLabelValueFilter = () => useAppStore((state: any) => state.plugin.labelValueFilter)
+export const useLabelValuesFilters = () => useAppStore((state: any) => state.plugin.labelValuesFilters)
 export const usePluginActions = () => useAppStore((state: any) => state.plugin.actions)
 
 export default StoreProvider

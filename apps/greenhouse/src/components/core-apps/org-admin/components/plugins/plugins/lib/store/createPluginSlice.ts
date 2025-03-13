@@ -27,6 +27,7 @@ interface PluginActions {
   setSearchTerm: (searchTerm: string) => void
   setStatusConditionFilter: (statusConditionFilter: StatusConditionFilter) => void
   addLabelValueFilter: (labelValueFilter: LabelValueFilter) => void
+  removeLabelValueFilter: (labelValueFilter: LabelValueFilter) => void
   filterItems: () => void
 }
 
@@ -183,6 +184,38 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
           }
         })
 
+        get().plugin.actions.filterItems()
+      },
+
+      removeLabelValueFilter: (labelValueFilter: LabelValueFilter) => {
+        if (!labelValueFilter) return
+        set((state: any) => {
+          const existingFilters = state.plugin.labelValuesFilters || []
+          const selectedLabelValues = existingFilters.find(
+            (filter: LabelValuesFilter) => filter?.label === labelValueFilter.label
+          )
+
+          const filteredArray = selectedLabelValues.value.filter((item: string) => item !== labelValueFilter.value)
+
+          let updatedFilters
+
+          if (filteredArray.length === 0) {
+            updatedFilters = existingFilters.filter(
+              (filter: LabelValuesFilter) => filter?.label !== labelValueFilter.label
+            )
+          } else {
+            updatedFilters = existingFilters.map((filter: LabelValuesFilter) =>
+              filter?.label === labelValueFilter.label ? { ...filter, value: filteredArray } : filter
+            )
+          }
+
+          return {
+            plugin: {
+              ...state.plugin,
+              labelValuesFilters: updatedFilters,
+            },
+          }
+        })
         get().plugin.actions.filterItems()
       },
 
