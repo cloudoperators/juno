@@ -9,6 +9,20 @@ import { InputGroup } from "./InputGroup.component"
 
 import { Button } from "../Button/Button.component"
 import { TextInput } from "../TextInput/TextInput.component"
+import { Select } from "../Select"
+import { SelectOption } from "../SelectOption"
+import { SelectProps } from "../Select/Select.component"
+import { PortalProvider } from "../PortalProvider"
+
+type StoryFunction = () => JSX.Element
+
+const SelectInput = (props: SelectProps) => (
+  <Select {...props}>
+    <SelectOption value="value1" label="Label 1" />
+    <SelectOption value="value2" label="Label 2" />
+    <SelectOption value="value3" label="Label 3" />
+  </Select>
+)
 
 export default {
   title: "WiP/InputGroup",
@@ -18,6 +32,13 @@ export default {
       control: false,
     },
   },
+  decorators: [
+    (story: StoryFunction) => (
+      <div className="jn-pb-12" style={{ minHeight: "250px" }}>
+        <PortalProvider>{story()}</PortalProvider>
+      </div>
+    ),
+  ],
 }
 
 export const Default = {
@@ -88,6 +109,18 @@ export const MultipleTextInputsWithButton = {
       <TextInput key={0} placeholder="First Name" />,
       <TextInput key={1} placeholder="Last Name" />,
       <Button key={2} label="Submit" />,
+    ],
+  },
+}
+
+export const SelectInputsWithButton = {
+  args: {
+    variant: "subdued",
+    children: [
+      <SelectInput key={0} label="Some label" />,
+      <SelectInput key={1} />,
+      <SelectInput key={2} />,
+      <Button key={3} icon="filterAlt" />,
     ],
   },
 }
