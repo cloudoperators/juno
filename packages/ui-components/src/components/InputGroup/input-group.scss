@@ -5,38 +5,50 @@
 
 .juno-input-group {
   // Remove border-radius for specific elements within the input group
+  .juno-combobox-input-wrapper,
   .juno-button,
-  .juno-textinput {
-    // Remove border-radius for elements that are neither the first nor the last child
+  .juno-select-wrapper,
+  .juno-select-toggle-wrapper,
+  .juno-textinput-outer-wrapper {
+    // Remove border-radius for elements whose parent is neither the first nor the last child
     &:not(:first-child, :last-child) {
+      // This applies to the cases where an element is not wrapped inside a parent element like in the case of a 'Button' component
       border-radius: 0;
-    }
-    // Adjust border-radius for the first child element
-    &:first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-    // Adjust border-radius for the last child element
-    &:last-child {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-  }
 
-  /*
-   * Adjust border-radius for the Select component
-   * that has a special case when it is supplied with a 'label'
-   * which renders before .juno-select-toggle element and in that case 
-   * it is no longer the first-child therefore we need to use 'first-of-type' pseudo selector.
-   */
-  .juno-select-toggle {
-    &:first-of-type {
+      .juno-select-toggle,
+      .juno-select,
+      .juno-combobox-input,
+      .juno-textinput {
+        border-radius: 0;
+      }
+    }
+    // Adjust border-radius for elements whose parent is the first child
+    &:first-child {
+      // This applies to the cases where an element is not wrapped inside a parent element like in the case of a 'Button' component
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+
+      .juno-select-toggle,
+      .juno-select,
+      .juno-combobox-input,
+      .juno-textinput {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
     }
-    &:last-of-type {
+    // Adjust border-radius for elements whose parent is the last child
+    &:last-child {
+      // This applies to the cases where an element is not wrapped inside a parent element like in the case of a 'Button' component
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+
+      .juno-select-toggle,
+      .juno-select,
+      .juno-combobox-input,
+      .juno-textinput {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
     }
   }
 
