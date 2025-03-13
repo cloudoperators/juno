@@ -73,7 +73,11 @@ We use [MockServiceWorker](https://mswjs.io/) (MSW) to intercept GraphQL request
    ```bash
    cd apps/heureka
    ```
-2. Update GraphQL types from the latest GraphQL schema:
+2. Create `.env` file if you haven't already and change configurations accordingly:
+   ```bash
+   cp .env.template .env
+   ```
+3. Update GraphQL types from the latest GraphQL schema:
    ```bash
    npm run generate:types
    ```
