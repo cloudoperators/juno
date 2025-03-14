@@ -7,8 +7,8 @@ import { StateCreator } from "zustand"
 import { getStatusCondition } from "../../hooks/helper"
 
 interface PluginState {
-  pluginConfig: any[] | null
-  filteredPluginConfigs: any[] | null
+  pluginConfig: PluginConfigItem[] | null
+  filteredPluginConfigs: PluginConfigItem[] | null
   showDetailsFor: any | null
   searchTerm: string
   labelValuesFilters: LabelValuesFilter[] | undefined
@@ -16,12 +16,26 @@ interface PluginState {
 
 export type LabelValueFilter = { label: string; value: string } | undefined
 export type LabelValuesFilter = { label: string; value: string[] } | undefined
+interface PluginConfigItem {
+  metadata: {
+    uid: string
+    labels?: { [key: string]: string }
+    name?: string
+    [key: string]: unknown
+  }
+  spec: {
+    disabled?: boolean
+    displayName?: string
+    [key: string]: unknown
+  }
+  [key: string]: unknown
+}
 
 interface PluginActions {
-  setPluginConfig: (pluginConfig: any[]) => void
-  addPluginConfigItems: (pluginConfigItems: any[]) => void
-  modifyPluginConfigItems: (modifiedItems: any[]) => void
-  deletePluginConfigItems: (pluginConfigItems: any[]) => void
+  setPluginConfig: (pluginConfig: PluginConfigItem[]) => void
+  addPluginConfigItems: (pluginConfigItems: PluginConfigItem[]) => void
+  modifyPluginConfigItems: (modifiedItems: PluginConfigItem[]) => void
+  deletePluginConfigItems: (pluginConfigItems: PluginConfigItem[]) => void
   setShowDetailsFor: (showDetailsFor: any | null) => void
   setSearchTerm: (searchTerm: string) => void
   addLabelValueFilter: (labelValueFilter: LabelValueFilter) => void
@@ -33,8 +47,8 @@ export interface PluginSlice {
   plugin: PluginState & { actions: PluginActions }
 }
 
-function sortPluginConfigItems(items: any) {
-  return items.sort((a: any, b: any) => {
+function sortPluginConfigItems(items: PluginConfigItem[]) {
+  return items.sort((a, b) => {
     // First, sort by `disabled` status
     if (a?.spec?.disabled && !b?.spec?.disabled) {
       return 1
@@ -50,8 +64,8 @@ function sortPluginConfigItems(items: any) {
   })
 }
 
-function uniqPluginConfigItems(items: any) {
-  return items.filter((item: any, index: any, array: any) => array.indexOf(item) === index)
+function uniqPluginConfigItems(items: PluginConfigItem[]) {
+  return items.filter((item, index: any, array: any) => array.indexOf(item) === index)
 }
 
 const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, get, store) => ({
@@ -64,7 +78,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
     labelValuesFilters: undefined,
 
     actions: {
-      setPluginConfig: (pluginConfig: any) => {
+      setPluginConfig: (pluginConfig) => {
         // Sort plugins by id alphabetically, but put disabled plugins at the end
         let sortedPlugins = sortPluginConfigItems(pluginConfig)
 
@@ -77,7 +91,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         get().plugin.actions.filterItems()
       },
 
-      addPluginConfigItems: (pluginConfigItems: any) => {
+      addPluginConfigItems: (pluginConfigItems) => {
         const items = (get().plugin.pluginConfig || []).slice()
         let newItems = uniqPluginConfigItems([...items, ...pluginConfigItems])
         newItems = sortPluginConfigItems(newItems)
@@ -90,7 +104,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         }))
         get().plugin.actions.filterItems()
       },
-      modifyPluginConfigItems: (modifiedItems: any) => {
+      modifyPluginConfigItems: (modifiedItems) => {
         const items = (get().plugin.pluginConfig || []).slice()
 
         const updatedItems = items.map((item: any) => {
@@ -111,7 +125,7 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         }))
         get().plugin.actions.filterItems()
       },
-      deletePluginConfigItems: (pluginConfigItems: any) => {
+      deletePluginConfigItems: (pluginConfigItems) => {
         const items = (get().plugin.pluginConfig || []).slice() // Get items
 
         let updatedItems = items.filter((item: any) => {
