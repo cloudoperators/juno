@@ -14,11 +14,10 @@ const StoreContext = createContext<StoreApi<AppState> | null>(null)
 export type AppState = PluginSlice & GlobalsSlice
 
 interface StoreProviderProps {
-  options?: Record<string, any> // should be defined later on for the props
   children: React.ReactNode
 }
 
-export const StoreProvider = ({ options, children }: StoreProviderProps) => {
+export const StoreProvider = ({ children }: StoreProviderProps) => {
   return (
     <StoreContext.Provider
       value={createStore<AppState>((set, get, store) => ({
@@ -46,7 +45,7 @@ export const useShowDefinitionPanel = () => useAppStore((state: any) => state.gl
 export const usePanel = () => useAppStore((state: any) => state.globals.panel)
 export const useGlobalsActions = () => useAppStore((state: any) => state.globals.actions)
 
-/// Plugin
+// Plugin
 export const usePluginConfig = () => useAppStore((state: any) => state.plugin.pluginConfig)
 export const useFilteredPluginConfigs = () => useAppStore((state: any) => state.plugin.filteredPluginConfigs)
 export const useShowDetailsFor = () => useAppStore((state: any) => state.plugin.showDetailsFor)

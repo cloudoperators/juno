@@ -23,7 +23,7 @@ export const useAuthData = () => useAppStore((state: any) => state.globals.authD
 
 export const useGlobalsActions = () => useAppStore((state: any) => state.globals.actions)
 
-/// Plugin
+// Plugin
 export const usePluginConfig = () => useAppStore((state: any) => state.plugin.pluginConfig)
 export const useShowDetailsFor = () => useAppStore((state: any) => state.plugin.showDetailsFor)
 
