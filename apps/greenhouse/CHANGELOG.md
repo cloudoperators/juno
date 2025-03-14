@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.0
+
+### Minor Changes
+
+- cbd4ce7: Plugin admin can now filter pluginConfigurationItems
+
+### Patch Changes
+
+- Updated dependencies [106c2a4]
+  - @cloudoperators/juno-ui-components@2.38.2
+
 ## 0.4.2
 
 ### Patch Changes
