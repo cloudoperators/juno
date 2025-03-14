@@ -9,7 +9,8 @@ import { ServiceListItem } from "./ServiceListItem"
 import { FilterSettings } from "../../common/Filters/types"
 import { useFetchServices } from "../useFetchServices"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
-import { ServicePanel } from "../ServicePanel/ServicePanel"
+import { ServicePanel, ServiceOverViewPanelType } from "../ServicePanel/ServicePanel"
+import { ServiceType } from "../Services"
 
 const COLUMN_SPAN = 6
 
@@ -23,8 +24,20 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
   })
 
   const [selectedService, setSelectedService] = useState<ServiceOverViewPanelType | null>(null)
-  const handleServiceClick = (service: ServiceOverViewPanelType) => {
-    setSelectedService(service)
+  const handleServiceClick = (service: ServiceType) => {
+    // Transform ServiceType to ServiceOverViewPanelType
+    const panelService: ServiceOverViewPanelType = {
+      imageName: service.name,
+      imageVersion: "1.0.0", // This should come from your service data
+      issues: {
+        critical: service.issuesCount.critical,
+        high: service.issuesCount.high,
+        medium: 0, // These should come from your service data
+        low: 0,
+      },
+      keppelLink: "", // This should come from your service data
+    }
+    setSelectedService(panelService)
   }
 
   return (
@@ -82,7 +95,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
           />
         </div>
       )}
-      {selectedService && <ServicePanel service={selectedService} />}
+      {selectedService && <ServicePanel services={[selectedService]} />}
     </div>
   )
 }
