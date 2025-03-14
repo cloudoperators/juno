@@ -1,8 +1,8 @@
 {
-  "name": "@cloudoperators/juno-heureka-next",
+  "name": "@cloudoperators/juno-app-heureka",
   "version": "0.3.0",
   "author": "UI-Team",
-  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka",
   "license": "Apache-2.0",
   "source": "src/index.js",
   "exports": {

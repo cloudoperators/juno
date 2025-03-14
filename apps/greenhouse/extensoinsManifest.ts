@@ -15,12 +15,12 @@ export const extensionResolvers = {
   // @ts-ignore
   supernova: import("@cloudoperators/juno-app-supernova"),
   // @ts-ignore
-  heureka: import("@cloudoperators/juno-heureka-next"),
+  heureka: import("@cloudoperators/juno-app-heureka"),
 }
 
 // here we define the versions of the extensions
 export const extensionVersions = {
   doop: packageData.dependencies["@cloudoperators/juno-app-doop"],
-  heureka: packageData.dependencies["@cloudoperators/juno-heureka-next"],
+  heureka: packageData.dependencies["@cloudoperators/juno-app-heureka"],
   supernova: packageData.dependencies["@cloudoperators/juno-app-supernova"],
 }

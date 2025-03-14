@@ -1,4 +1,4 @@
-# heureka-next
+# heureka
 
 ## 0.3.0
 
