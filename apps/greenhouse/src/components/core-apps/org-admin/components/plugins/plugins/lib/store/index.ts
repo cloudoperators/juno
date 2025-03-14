@@ -3,16 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createStore } from "zustand"
+import { create } from "zustand"
 import { devtools } from "zustand/middleware"
-import createGlobalsSlice from "./createGlobalsSlice"
-import createPluginSlice from "./createPluginSlice"
+import createGlobalsSlice, { GlobalsSlice } from "./createGlobalsSlice"
+import createPluginSlice, { PluginSlice } from "./createPluginSlice"
 
-export default () =>
-  createStore(
-    devtools((set, get) => ({
-      // @ts-expect-error TS(2554): Expected 1 arguments, but got 2.
-      ...createGlobalsSlice(set, get),
-      ...createPluginSlice(set, get),
-    }))
-  )
+type StoreState = GlobalsSlice & PluginSlice
+
+const useStore = create<StoreState>()(
+  devtools((set, get, store) => ({
+    ...createGlobalsSlice(set, get, store),
+    ...createPluginSlice(set, get, store),
+  }))
+)
+
+export default useStore

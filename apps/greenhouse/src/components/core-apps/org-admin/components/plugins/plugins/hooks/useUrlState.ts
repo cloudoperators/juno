@@ -13,7 +13,6 @@ const DETAILS_FOR = "d"
 
 const useUrlState = () => {
   const [isURLRead, setIsURLRead] = useState(false)
-  // @ts-ignore
   const { setShowDetailsFor } = usePluginActions()
   const detailsFor = useShowDetailsFor()
 

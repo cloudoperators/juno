@@ -28,9 +28,7 @@ import { buildExternalServicesUrls } from "./buildExternalServicesUrls"
 // Renders the plugin details panel
 const PluginDetail = () => {
   const pluginConfig = usePluginConfig()
-  // @ts-expect-error TS(2339): Property 'setShowDetailsFor' does not exist on type 'never'.
   const { setShowDetailsFor } = usePluginActions()
-  // @ts-expect-error TS(2339): Property 'setPanel' does not exist on type 'never'.
   const { setPanel } = useGlobalsActions()
   const panel = usePanel()
   const showDetailsFor = useShowDetailsFor()
@@ -40,7 +38,6 @@ const PluginDetail = () => {
     if (!showDetailsFor || !pluginConfig) {
       return
     }
-    // @ts-expect-error TS(2339): Property 'setPlugin' does not exist on type 'never'.
     setPlugin(pluginConfig.find((p: any) => p.metadata.uid === showDetailsFor))
   }, [showDetailsFor, pluginConfig])
 

@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -21,18 +21,19 @@ describe("createPluginSlice", () => {
       )
 
       act(() => {
-        // @ts-ignore
         store.result.current.pluginActions.setPluginConfig([
-          { id: "onePlugin", disabled: false },
-          { id: "alert", disabled: false },
-          { id: "example app", disabled: true },
+          {
+            spec: { displayName: "onePlugin", disabled: false },
+          },
+          { spec: { displayName: "alert", disabled: false } },
+          { spec: { displayName: "example app", disabled: true } },
         ])
       })
 
       expect(store.result.current.pluginConfig).toEqual([
-        { id: "alert", disabled: false },
-        { id: "onePlugin", disabled: false },
-        { id: "example app", disabled: true },
+        { spec: { displayName: "alert", disabled: false } },
+        { spec: { displayName: "onePlugin", disabled: false } },
+        { spec: { displayName: "example app", disabled: true } },
       ])
     })
     it("test if pluginConfig is saved correctly without disabled field", () => {
@@ -46,18 +47,17 @@ describe("createPluginSlice", () => {
       )
 
       act(() => {
-        // @ts-ignore
         store.result.current.pluginActions.setPluginConfig([
-          { id: "onePlugin", disabled: false },
-          { id: "alert" },
-          { id: "example app", disabled: true },
+          { spec: { displayName: "onePlugin", disabled: false } },
+          { spec: { displayName: "alert" } },
+          { spec: { displayName: "example app", disabled: true } },
         ])
       })
 
       expect(store.result.current.pluginConfig).toEqual([
-        { id: "alert" },
-        { id: "onePlugin", disabled: false },
-        { id: "example app", disabled: true },
+        { spec: { displayName: "alert" } },
+        { spec: { displayName: "onePlugin", disabled: false } },
+        { spec: { displayName: "example app", disabled: true } },
       ])
     })
   })
