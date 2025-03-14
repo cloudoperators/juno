@@ -64,7 +64,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
         </DataGrid>
       </div>
       {!!totalNumberOfPages && (
-        <div className="flex justify-center">
+        <div className="flex justify-end">
           <Pagination
             variant="number"
             currentPage={currentPage}

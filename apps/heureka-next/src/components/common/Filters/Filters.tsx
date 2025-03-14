@@ -42,6 +42,7 @@ export const Filters = ({ filters, filterSettings, onFilterChange }: FiltersProp
         />
         <Button
           label="Clear all"
+          className="ml-4"
           onClick={() =>
             onFilterChange({
               ...filterSettings,
