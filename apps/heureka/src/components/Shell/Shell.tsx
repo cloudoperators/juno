@@ -10,6 +10,7 @@ import { Navigation } from "../Navigation"
 import { SERVICES, ISSUES } from "../../constants"
 import { Services } from "../Services"
 import { Issues } from "../Issues"
+import { InitialFilters } from "../../App"
 
 const getViewComponent = (selectedView: ReactNode) => {
   switch (selectedView) {
@@ -25,9 +26,10 @@ const getViewComponent = (selectedView: ReactNode) => {
 type ShellProps = {
   embedded?: boolean
   defaultSelectedView?: ReactNode
+  initialFilters?: InitialFilters
 }
 
-export const Shell = ({ embedded, defaultSelectedView = SERVICES }: ShellProps) => {
+export const Shell = ({ embedded, defaultSelectedView = SERVICES, initialFilters }: ShellProps) => {
   const [selectedView, setSelectedView] = useState<ReactNode>(defaultSelectedView)
   const SelectedViewComponent = getViewComponent(selectedView)
 
@@ -41,7 +43,7 @@ export const Shell = ({ embedded, defaultSelectedView = SERVICES }: ShellProps) 
         <MessagesProvider>
           <Messages />
         </MessagesProvider>
-        <SelectedViewComponent />
+        <SelectedViewComponent initialFilters={initialFilters} />
       </Container>
     </AppShell>
   )
