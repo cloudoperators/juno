@@ -6,9 +6,9 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="src/assets/favicon.ico"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="src/assets/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Heureka Next</title>
     <style>
       html {
@@ -37,8 +37,8 @@
           console.warn("No appProps found, using default props", error.message)
         })
         .then((props) => {
-          import ("./src/index").then((app) => {
-            app.mount(document.getElementById("root"), {props})
+          import("./src/index").then((app) => {
+            app.mount(document.getElementById("root"), { props })
           })
         })
     </script>
