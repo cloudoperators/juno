@@ -10,10 +10,14 @@ import { AppProps } from "./App"
 
 let root: Root
 
-export const mount = (container: HTMLElement, props: AppProps = {}) => {
+type Options = {
+  props?: AppProps
+}
+
+export const mount = (container: HTMLElement, options: Options = {}) => {
   import("./App").then((App) => {
     root = createRoot(container)
-    root.render(React.createElement(App.default, props))
+    root.render(React.createElement(App.default, options?.props))
   })
 }
 

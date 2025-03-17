@@ -38,7 +38,7 @@
         })
         .then((props) => {
           import("./src/index").then((app) => {
-            app.mount(document.getElementById("root"), props)
+            app.mount(document.getElementById("root"), { props })
           })
         })
     </script>
