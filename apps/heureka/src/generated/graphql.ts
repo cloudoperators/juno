@@ -51,6 +51,7 @@ export type ActivityServicesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ServiceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>>>
 }
 
 export type ActivityConnection = Connection & {
@@ -184,12 +185,17 @@ export type ComponentInput = {
 export type ComponentInstance = Node & {
   __typename?: "ComponentInstance"
   ccrn?: Maybe<Scalars["String"]["output"]>
+  cluster?: Maybe<Scalars["String"]["output"]>
   componentVersion?: Maybe<ComponentVersion>
   componentVersionId?: Maybe<Scalars["String"]["output"]>
   count?: Maybe<Scalars["Int"]["output"]>
+  domain?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
   issueMatches?: Maybe<IssueMatchConnection>
   metadata?: Maybe<Metadata>
+  namespace?: Maybe<Scalars["String"]["output"]>
+  project?: Maybe<Scalars["String"]["output"]>
+  region?: Maybe<Scalars["String"]["output"]>
   service?: Maybe<Service>
   serviceId?: Maybe<Scalars["String"]["output"]>
 }
@@ -633,6 +639,7 @@ export type IssueRepositoryServicesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ServiceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>>>
 }
 
 export type IssueRepositoryConnection = Connection & {
@@ -745,7 +752,7 @@ export type Mutation = {
   createIssueMatchChange: IssueMatchChange
   createIssueRepository: IssueRepository
   createIssueVariant: IssueVariant
-  createScannerRun: ScannerRun
+  createScannerRun: Scalars["Boolean"]["output"]
   createService: Service
   createSupportGroup: SupportGroup
   createUser: User
@@ -762,6 +769,7 @@ export type Mutation = {
   deleteService: Scalars["String"]["output"]
   deleteSupportGroup: Scalars["String"]["output"]
   deleteUser: Scalars["String"]["output"]
+  failScannerRun: Scalars["Boolean"]["output"]
   removeComponentVersionFromIssue: Issue
   removeEvidenceFromIssueMatch: IssueMatch
   removeIssueFromActivity: Activity
@@ -938,6 +946,11 @@ export type MutationDeleteUserArgs = {
   id: Scalars["ID"]["input"]
 }
 
+export type MutationFailScannerRunArgs = {
+  message: Scalars["String"]["input"]
+  uuid: Scalars["String"]["input"]
+}
+
 export type MutationRemoveComponentVersionFromIssueArgs = {
   componentVersionId: Scalars["ID"]["input"]
   issueId: Scalars["ID"]["input"]
@@ -1085,6 +1098,8 @@ export type Query = {
   IssueRepositories?: Maybe<IssueRepositoryConnection>
   IssueVariants?: Maybe<IssueVariantConnection>
   Issues?: Maybe<IssueConnection>
+  ScannerRunTagFilterValues?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>
+  ScannerRuns?: Maybe<ScannerRunConnection>
   ServiceFilterValues?: Maybe<ServiceFilterValue>
   Services?: Maybe<ServiceConnection>
   SupportGroups?: Maybe<SupportGroupConnection>
@@ -1152,10 +1167,17 @@ export type QueryIssuesArgs = {
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
+export type QueryScannerRunsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<ScannerRunFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
 export type QueryServicesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ServiceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>>>
 }
 
 export type QuerySupportGroupsArgs = {
@@ -1183,7 +1205,7 @@ export type ScannerRun = Node & {
 
 export type ScannerRunConnection = Connection & {
   __typename?: "ScannerRunConnection"
-  edges?: Maybe<Array<Maybe<ScannerRun>>>
+  edges?: Maybe<Array<Maybe<ScannerRunEdge>>>
   pageInfo?: Maybe<PageInfo>
   totalCount: Scalars["Int"]["output"]
 }
@@ -1192,6 +1214,11 @@ export type ScannerRunEdge = Edge & {
   __typename?: "ScannerRunEdge"
   cursor?: Maybe<Scalars["String"]["output"]>
   node: ScannerRun
+}
+
+export type ScannerRunFilter = {
+  completed: Scalars["Boolean"]["input"]
+  tag?: InputMaybe<Array<Scalars["String"]["input"]>>
 }
 
 export type ScannerRunInput = {
@@ -1205,6 +1232,7 @@ export type Service = Node & {
   ccrn?: Maybe<Scalars["String"]["output"]>
   componentInstances?: Maybe<ComponentInstanceConnection>
   id: Scalars["ID"]["output"]
+  issueMatches?: Maybe<IssueMatchConnection>
   issueRepositories?: Maybe<IssueRepositoryConnection>
   metadata?: Maybe<Metadata>
   objectMetadata?: Maybe<ServiceMetadata>
@@ -1222,6 +1250,13 @@ export type ServiceComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentInstanceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type ServiceIssueMatchesArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<IssueMatchFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>>>
 }
 
 export type ServiceIssueRepositoriesArgs = {
@@ -1300,6 +1335,15 @@ export type ServiceMetadata = {
   issueMatchCount: Scalars["Int"]["output"]
 }
 
+export type ServiceOrderBy = {
+  by?: InputMaybe<ServiceOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum ServiceOrderByField {
+  Ccrn = "ccrn",
+}
+
 export type Severity = {
   __typename?: "Severity"
   cvss?: Maybe<Cvss>
@@ -1338,6 +1382,7 @@ export type SupportGroupServicesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ServiceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>>>
 }
 
 export type SupportGroupUsersArgs = {
@@ -1384,6 +1429,7 @@ export type UserServicesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ServiceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>>>
 }
 
 export type UserSupportGroupsArgs = {
@@ -1422,6 +1468,7 @@ export type GetServicesQueryVariables = Exact<{
   filter?: InputMaybe<ServiceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>> | InputMaybe<ServiceOrderBy>>
 }>
 
 export type GetServicesQuery = {
@@ -1444,7 +1491,6 @@ export type GetServicesQuery = {
           __typename?: "UserConnection"
           edges?: Array<{
             __typename?: "UserEdge"
-            cursor?: string | null
             node: { __typename?: "User"; id: string; uniqueUserId?: string | null; name?: string | null }
           } | null> | null
         } | null
@@ -1452,12 +1498,15 @@ export type GetServicesQuery = {
           __typename?: "SupportGroupConnection"
           edges?: Array<{
             __typename?: "SupportGroupEdge"
-            cursor?: string | null
             node: { __typename?: "SupportGroup"; id: string; ccrn?: string | null }
           } | null> | null
         } | null
       }
     } | null> | null
+    pageInfo?: {
+      __typename?: "PageInfo"
+      pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+    } | null
   } | null
 }
 
@@ -1495,8 +1544,8 @@ export type GetServiceFiltersQuery = {
 }
 
 export const GetServicesDocument = gql`
-  query GetServices($filter: ServiceFilter, $first: Int, $after: String) {
-    Services(filter: $filter, first: $first, after: $after) {
+  query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
+    Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
       edges {
         node {
           id
@@ -1512,7 +1561,6 @@ export const GetServicesDocument = gql`
                 uniqueUserId
                 name
               }
-              cursor
             }
           }
           supportGroups {
@@ -1521,12 +1569,17 @@ export const GetServicesDocument = gql`
                 id
                 ccrn
               }
-              cursor
             }
           }
         }
       }
       totalCount
+      pageInfo {
+        pages {
+          after
+          pageNumber
+        }
+      }
     }
   }
 `
@@ -1546,6 +1599,7 @@ export const GetServicesDocument = gql`
  *      filter: // value for 'filter'
  *      first: // value for 'first'
  *      after: // value for 'after'
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */

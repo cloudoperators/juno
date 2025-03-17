@@ -1,8 +1,8 @@
 #SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 #SPDX-License-Identifier: Apache-2.0
 
-query GetServices($filter: ServiceFilter, $first: Int, $after: String) {
-  Services(filter: $filter, first: $first, after: $after) {
+query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
+  Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
     edges {
       node {
         id
@@ -18,7 +18,6 @@ query GetServices($filter: ServiceFilter, $first: Int, $after: String) {
               uniqueUserId
               name
             }
-            cursor
           }
         }
         supportGroups {
@@ -27,11 +26,16 @@ query GetServices($filter: ServiceFilter, $first: Int, $after: String) {
               id
               ccrn
             }
-            cursor
           }
         }
       }
     }
     totalCount
+    pageInfo {
+      pages {
+        after
+        pageNumber
+      }
+    }
   }
 }

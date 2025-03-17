@@ -123,6 +123,25 @@
           "__typename": "ServiceEdge"
         }
       ],
+      "pageInfo": {
+        "pages": [
+          {
+            "after": "some_cursor==",
+            "isCurrent": true,
+            "pageNumber": 1,
+            "pageCount": 10,
+            "__typename": "Page"
+          },
+          {
+            "after": "some_cursor===",
+            "isCurrent": false,
+            "pageNumber": 2,
+            "pageCount": 10,
+            "__typename": "Page"
+          }
+        ],
+        "__typename": "PageInfo"
+      },
       "totalCount": 3,
       "__typename": "ServiceConnection"
     }

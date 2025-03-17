@@ -4,17 +4,19 @@
  */
 
 import React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, act } from "@testing-library/react"
 import { Services } from "./Services"
 import { TestProvider } from "../../mocks/TestProvider"
 
 describe("Services", () => {
   it("should render correctly", async () => {
-    render(
-      <TestProvider>
-        <Services />
-      </TestProvider>
-    )
+    await act(async () => {
+      render(
+        <TestProvider>
+          <Services />
+        </TestProvider>
+      )
+    })
     expect(await screen.findByText("alpha")).toBeInTheDocument()
   })
 })

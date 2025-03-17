@@ -5,7 +5,7 @@
 
 import { isNil } from "lodash"
 import { ApolloError } from "@apollo/client"
-import { Edge, GetServicesQuery, Service, ServiceEdge, ServiceFilter } from "../../generated/graphql"
+import { Edge, GetServicesQuery, Page, Service, ServiceEdge, ServiceFilter } from "../../generated/graphql"
 import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
 
@@ -26,11 +26,13 @@ const getServiceOwners = (serviceEdge?: ServiceEdge) => {
 
 type NormalizedServices = {
   totalCount: number
+  pages: Page[]
   services: ServiceType[]
 }
 
 export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => ({
   totalCount: data?.Services?.totalCount || 0,
+  pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
   services: isNil(data?.Services?.edges)
     ? []
     : data?.Services?.edges
