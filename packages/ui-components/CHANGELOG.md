@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 2.38.2
+
+### Patch Changes
+
+- 106c2a4: Fix InputGroup styles when there are some Select elements inside.
+
 ## 2.38.1
 
 ### Patch Changes

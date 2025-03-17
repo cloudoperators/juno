@@ -1,5 +1,13 @@
 # heureka
 
+## 0.3.1
+
+### Patch Changes
+
+- 99baa5f: Fixes broken pagination due to API change in Heureka backend.
+- Updated dependencies [106c2a4]
+  - @cloudoperators/juno-ui-components@2.38.2
+
 ## 0.3.0
 
 ### Minor Changes
