@@ -1,5 +1,11 @@
 # heureka
 
+## 0.3.2
+
+### Patch Changes
+
+- 5116cbd: Ensures app mounts correctly with props object
+
 ## 0.3.1
 
 ### Patch Changes
