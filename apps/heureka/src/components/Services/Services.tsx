@@ -27,7 +27,7 @@ export type ServiceType = {
   serviceOwners: string[]
 }
 
-const initializeFilterSettings = (initialFilters?: InitialFilters): FilterSettings => {
+const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
   const supportGroupFilters =
     initialFilters?.support_group?.map((sg) => ({ name: "supportGroupCcrn", value: sg })) ?? []
   return {
@@ -36,7 +36,7 @@ const initializeFilterSettings = (initialFilters?: InitialFilters): FilterSettin
   }
 }
 export const Services: React.FC<{ initialFilters?: InitialFilters }> = ({ initialFilters }) => {
-  const [filterSettings, setFilterSettings] = useState<FilterSettings>(initializeFilterSettings(initialFilters))
+  const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
   const { serviceFilters } = useFetchServiceFilters()
 
   return (
