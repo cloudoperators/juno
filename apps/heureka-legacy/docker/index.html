@@ -1,8 +1,13 @@
+<!--
+  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+
 <!doctype html>
 <html>
   <head>
     <title>Heureka</title>
-    <link rel="icon" sizes="any" href="favicon.ico" />
+    <link rel="icon" sizes="any" href="favicon.ico"/>
     <style>
       #root,
       body,
@@ -16,10 +21,10 @@
   <body>
     <div id="root"></div>
     <script type="module">
-      import { mount } from "./{{entry_file}}"
+      import {mount} from "./{{entry_file}}"
       const props = await fetch("./appProps.json").then((r) => r.json())
       const root = document.getElementById("root")
-      mount(root, { props })
+      mount(root, {props})
     </script>
   </body>
 </html>

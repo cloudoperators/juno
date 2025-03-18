@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 declare module "@cloudoperators/juno-ui-components" {
   // @cloudoperators/juno-ui-components#Message component
   // is not typescripted yet, so we need to define it here

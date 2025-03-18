@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React, { useEffect, useLayoutEffect } from "react"
 import { readStateFromUrl, saveStateToUrl } from "@cloudoperators/juno-url-state-provider"
 import {

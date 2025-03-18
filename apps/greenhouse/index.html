@@ -1,17 +1,17 @@
 <!--
-  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Greenhouse contributors
+  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
   ~ SPDX-License-Identifier: Apache-2.0
 -->
 
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="src/img/favicon.ico" sizes="any" />
+    <meta charset="UTF-8"/>
+    <link rel="icon" href="src/img/favicon.ico" sizes="any"/>
 
     <title>Greenhouse-Dashboard</title>
     <!-- add styles -->
-    <link rel="stylesheet" href="src/assets/styles.css" />
+    <link rel="stylesheet" href="src/assets/styles.css"/>
   </head>
   <body>
     <script type="module">
@@ -22,8 +22,8 @@
           console.warn("No appProps found, using default props", error.message)
         })
         .then((props) => {
-          import("./src/index").then((app) => {
-            app.mount(document.getElementById("root"), { props })
+          import ("./src/index").then((app) => {
+            app.mount(document.getElementById("root"), {props})
           })
         })
     </script>

@@ -1,4 +1,8 @@
-// useBoundMutation.js
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { useMutation } from "@tanstack/react-query"
 import { MUTATION_FUNCTIONS } from "../api/mutationFunctions"
 import { useGlobalsApiEndpoint } from "../components/StoreProvider"
