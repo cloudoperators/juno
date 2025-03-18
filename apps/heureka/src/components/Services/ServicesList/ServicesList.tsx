@@ -45,7 +45,6 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
           low: 0,
           none: 0,
         },
-        keppelLink: "", // This should come from your service data
         serviceName: service.name,
       }
       setSelectedService(panelService)

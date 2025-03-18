@@ -35,7 +35,6 @@ export type ServiceOverViewPanelType = {
   imageName: string
   imageVersion: string
   issueCounts: IssueCounts
-  keppelLink: string
   serviceName?: string
 }
 
@@ -60,7 +59,6 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
     imageName: version.ccrn,
     imageVersion: version.version,
     issueCounts: version.issueCounts,
-    keppelLink: "",
     serviceName: selectedService?.serviceName,
   }))
 
@@ -127,10 +125,17 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
                 <DataGridRow key={index}>
                   <DataGridCell className="break-all overflow-hidden">
                     <Stack gap="1" direction="vertical">
-                      <span>{service.imageName}</span>
+                      <Tooltip triggerEvent="hover" placement="top">
+                        <TooltipTrigger>
+                          {service.imageName?.split("/").length > 2
+                            ? "..." + service.imageName?.split("/").slice(-2).join("/")
+                            : service.imageName}
+                        </TooltipTrigger>
+                        <TooltipContent>{service.imageName}</TooltipContent>
+                      </Tooltip>
                       <Stack gap="1" alignment="center">
                         <a
-                          href={`${service.imageName}/-/manifest/${service.imageVersion}`}
+                          href={`https://${service.imageName}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="hover:underline text-sm"
@@ -144,7 +149,7 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
                     </Stack>
                   </DataGridCell>
                   <DataGridCell>
-                    <Tooltip triggerEvent="hover" placement="bottom">
+                    <Tooltip triggerEvent="hover" placement="top">
                       <TooltipTrigger>{truncateVersion(service.imageVersion)}</TooltipTrigger>
                       <TooltipContent>{service.imageVersion}</TooltipContent>
                     </Tooltip>
