@@ -33,8 +33,8 @@ const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["servi
   )
 }
 
-export const ServiceListItem = ({ item }: { item: ServiceType }) => (
-  <DataGridRow onClick={() => {}}>
+export const ServiceListItem = ({ item, onClick }: { item: ServiceType, onClick: () => void }) => (
+  <DataGridRow className={`cursor-pointer`} onClick={onClick}>
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
       {item.issuesCount.critical} | {item.issuesCount.high}

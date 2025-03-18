@@ -24,20 +24,32 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
   })
 
   const [selectedService, setSelectedService] = useState<ServiceOverViewPanelType | null>(null)
+  
+  const handlePanelClose = () => {
+    setSelectedService(null)
+  }
+
   const handleServiceClick = (service: ServiceType) => {
-    // Transform ServiceType to ServiceOverViewPanelType
-    const panelService: ServiceOverViewPanelType = {
-      imageName: service.name,
-      imageVersion: "1.0.0", // This should come from your service data
-      issues: {
-        critical: service.issuesCount.critical,
-        high: service.issuesCount.high,
-        medium: 0, // These should come from your service data
-        low: 0,
-      },
-      keppelLink: "", // This should come from your service data
+    // Toggle panel if clicking the same service, otherwise show new service
+    if (selectedService?.serviceName === service.name) {
+      setSelectedService(null)
+    } else {
+      // Transform ServiceType to ServiceOverViewPanelType
+      const panelService: ServiceOverViewPanelType = {
+        imageName: service.name,
+        imageVersion: "1.0.0", // This should come from your service data
+        issueCounts: {
+          critical: service.issuesCount.critical,
+          high: service.issuesCount.high,
+          medium: 0, // These should come from your service data
+          low: 0,
+          none: 0
+        },
+        keppelLink: "", // This should come from your service data
+        serviceName: service.name
+      }
+      setSelectedService(panelService)
     }
-    setSelectedService(panelService)
   }
 
   return (
@@ -95,7 +107,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
           />
         </div>
       )}
-      {selectedService && <ServicePanel services={[selectedService]} />}
+      {selectedService && <ServicePanel services={[selectedService]} onClose={handlePanelClose} />}
     </div>
   )
 }

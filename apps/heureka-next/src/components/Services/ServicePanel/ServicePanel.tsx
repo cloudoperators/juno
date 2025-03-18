@@ -11,10 +11,10 @@ import {
   DataGridHeadCell,
 } from "@cloudoperators/juno-ui-components"
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
-
-export type HintNotFoundProps = {
-  text: string
-}
+import { NotFoundHint } from "../../common/NotFoundHint"
+import { LoadingHint } from "../../common/LoadingHint"
+import { capitalizeFirstLetter } from "../../common/Helpers"
+import { useFetchServiceImageVersions } from "../useFetchServiceImageVersions"
 
 export type ServiceOverViewPanelType = {
   imageName: string
@@ -26,6 +26,7 @@ export type ServiceOverViewPanelType = {
     low: number
   }
   keppelLink: string
+  serviceName?: string
 }
 
 export type ServicePanelProps = {
@@ -33,16 +34,8 @@ export type ServicePanelProps = {
   isLoading?: boolean
 }
 
-const HintNotFound: React.FC<HintNotFoundProps> = ({ text }) => {
-  return (
-    <Container py px={false}>
-      <span>{text}</span>
-    </Container>
-  )
-}
-
 // Mock data for development and testing
-export const mockServices: ServiceOverViewPanelType[] = [
+/* export const mockServices: ServiceOverViewPanelType[] = [
   {
     imageName: "Authentication Service",
     imageVersion: "1.2.0",
@@ -53,6 +46,7 @@ export const mockServices: ServiceOverViewPanelType[] = [
       low: 8,
     },
     keppelLink: "https://auth-service.example.com",
+    serviceName: "1234567890",
   },
   {
     imageName: "Payment Gateway",
@@ -64,6 +58,7 @@ export const mockServices: ServiceOverViewPanelType[] = [
       low: 3,
     },
     keppelLink: "https://payment.example.com",
+    serviceName: "1234567890",
   },
   {
     imageName: "User Management",
@@ -75,6 +70,7 @@ export const mockServices: ServiceOverViewPanelType[] = [
       low: 6,
     },
     keppelLink: "https://users.example.com",
+    serviceName: "1234567890",
   },
   {
     imageName: "Notification Service",
@@ -86,22 +82,40 @@ export const mockServices: ServiceOverViewPanelType[] = [
       low: 4,
     },
     keppelLink: "https://notifications.example.com",
+    serviceName: "1234567890",
   },
-]
+] */
 
-export const ServicePanel = ({ services = mockServices, isLoading = false }: ServicePanelProps) => {
+export const ServicePanel = ({ services = [], isLoading = false }: ServicePanelProps) => {
+  const { loading, imageVersions, error } = useFetchServiceImageVersions({ 
+    serviceCcrn: services[0]?.serviceName || '',
+    pageSize: 10 
+  })
+
   function onPanelClose(): void {
     console.log("Panel closed")
   }
+  console.log(imageVersions)
 
-  const safeServices = services || []
+  const safeServices = imageVersions.map(version => ({
+    imageName: version.ccrn,
+    imageVersion: version.version,
+    issues: {
+      critical: 0,
+      high: 0,
+      medium: 0,
+      low: 0
+    },
+    keppelLink: "",
+    serviceName: services[0]?.serviceName
+  }))
 
   return (
     <MessagesProvider>
       <Panel
         heading={
           <Stack gap="2">
-            <span>Service Overview</span>
+            <span>{capitalizeFirstLetter(services[0]?.serviceName || '')} service overview</span>
           </Stack>
         }
         opened={true}
@@ -112,7 +126,7 @@ export const ServicePanel = ({ services = mockServices, isLoading = false }: Ser
           <Container py>
             <Messages />
           </Container>
-          <ContentHeading heading="Services Overview" className="mb-2" />
+          <ContentHeading heading={`${capitalizeFirstLetter(services[0]?.serviceName || '')} Image Versions`} className="mb-2" />
           <DataGrid columns={6}>
             <DataGridRow>
               <DataGridHeadCell>Component Name</DataGridHeadCell>
@@ -122,16 +136,16 @@ export const ServicePanel = ({ services = mockServices, isLoading = false }: Ser
               <DataGridHeadCell>Medium Issues</DataGridHeadCell>
               <DataGridHeadCell>Low Issues</DataGridHeadCell>
             </DataGridRow>
-            {isLoading ? (
+            {loading ? (
               <DataGridRow>
                 <DataGridCell colSpan={6}>
-                  <Container py>Loading...</Container>
+                  <LoadingHint />
                 </DataGridCell>
               </DataGridRow>
             ) : safeServices.length === 0 ? (
               <DataGridRow>
                 <DataGridCell colSpan={6}>
-                  <HintNotFound text="No services available." />
+                  <NotFoundHint text="No services available." />
                 </DataGridCell>
               </DataGridRow>
             ) : (

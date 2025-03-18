@@ -5,9 +5,10 @@
 
 import { isNil } from "lodash"
 import { ApolloError } from "@apollo/client"
-import { Edge, GetServicesQuery, Page, Service, ServiceEdge, ServiceFilter } from "../../generated/graphql"
+import { Edge, GetServicesQuery, Page, Service, ServiceEdge, ServiceFilter, GetServiceImageVersionsQuery } from "../../generated/graphql"
 import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
+import { IssueCounts } from "./ServicePanel/ServicePanel"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -75,4 +76,36 @@ export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceF
       }
       return acc
     }, {}),
+})
+
+type ServiceImageVersion = {
+  version: string
+  ccrn: string
+  issueCounts: IssueCounts
+}
+
+type NormalizedServiceImageVersions = {
+  totalCount: number
+  pages: Page[]
+  imageVersions: ServiceImageVersion[]
+}
+
+export const getNormalizedImageVersionsData = (data: GetServiceImageVersionsQuery | undefined): NormalizedServiceImageVersions => ({
+  totalCount: data?.ComponentVersions?.totalCount || 0,
+  pages: data?.ComponentVersions?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
+  imageVersions: isNil(data?.ComponentVersions?.edges)
+    ? []
+    : data?.ComponentVersions?.edges
+        ?.filter((edge) => edge !== null)
+        .map((edge): ServiceImageVersion => ({
+          version: edge?.node?.version || "",
+          ccrn: edge?.node?.component?.ccrn || "",
+          issueCounts: edge?.node?.issueCounts || {
+            critical: 0,
+            high: 0,
+            medium: 0,
+            low: 0,
+            none: 0
+          }
+        }))
 })
