@@ -20,9 +20,11 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: Use
     },
   })
 
-  const { imageVersions, totalCount, pages: pagesFromApi } = getNormalizedImageVersionsData(
-    isEmpty(data) ? previousData : data
-  )
+  const {
+    imageVersions,
+    totalCount,
+    pages: pagesFromApi,
+  } = getNormalizedImageVersionsData(isEmpty(data) ? previousData : data)
 
   useEffect(() => {
     if (currentPage && currentPage > Math.ceil(totalCount / pageSize)) {
