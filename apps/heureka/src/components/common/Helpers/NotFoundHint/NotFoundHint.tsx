@@ -11,4 +11,4 @@ export const NotFoundHint = ({ text }: NotFoundHintProps) => {
       <span>{text}</span>
     </Container>
   )
-} 
+}

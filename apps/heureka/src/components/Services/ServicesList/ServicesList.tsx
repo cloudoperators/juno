@@ -24,7 +24,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
   })
 
   const [selectedService, setSelectedService] = useState<ServiceOverViewPanelType | null>(null)
-  
+
   const handlePanelClose = () => {
     setSelectedService(null)
   }
@@ -43,10 +43,10 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
           high: service.issuesCount.high,
           medium: 0, // These should come from your service data
           low: 0,
-          none: 0
+          none: 0,
         },
         keppelLink: "", // This should come from your service data
-        serviceName: service.name
+        serviceName: service.name,
       }
       setSelectedService(panelService)
     }

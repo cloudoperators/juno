@@ -10,4 +10,4 @@ export const capitalizeFirstLetter = (str: string): string => {
 export const truncateVersion = (version: string, lastChars: number = 8): string => {
   if (version.length <= lastChars) return version
   return `...${version.slice(-lastChars)}`
-} 
+}

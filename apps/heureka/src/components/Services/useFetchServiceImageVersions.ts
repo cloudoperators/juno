@@ -26,19 +26,21 @@ const getNormalizedData = (data: any): NormalizedData => ({
     ? []
     : data?.ComponentVersions?.edges
         ?.filter((edge: any) => edge !== null)
-        .map((edge: any): ServiceImageVersion => ({
-          version: edge?.node?.version || "",
-          ccrn: edge?.node?.component?.ccrn || "",
-          issueCounts: edge?.node?.issueCounts || {
-            critical: 0,
-            high: 0,
-            medium: 0,
-            low: 0,
-            none: 0
-          }
-        })),
+        .map(
+          (edge: any): ServiceImageVersion => ({
+            version: edge?.node?.version || "",
+            ccrn: edge?.node?.component?.ccrn || "",
+            issueCounts: edge?.node?.issueCounts || {
+              critical: 0,
+              high: 0,
+              medium: 0,
+              low: 0,
+              none: 0,
+            },
+          })
+        ),
   totalCount: data?.ComponentVersions?.totalCount || 0,
-  pages: data?.ComponentVersions?.pageInfo?.pages || []
+  pages: data?.ComponentVersions?.pageInfo?.pages || [],
 })
 
 type UseFetchServiceImageVersionsProps = {
@@ -54,11 +56,15 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: Use
     variables: {
       first: pageSize,
       after: pages?.find((page) => page?.pageNumber === currentPage)?.after,
-      filter: { serviceCcrn: [serviceCcrn] }
-    }
+      filter: { serviceCcrn: [serviceCcrn] },
+    },
   })
 
-  const { imageVersions, totalCount, pages: pagesFromApi } = getNormalizedImageVersionsData(isEmpty(data) ? previousData : data)
+  const {
+    imageVersions,
+    totalCount,
+    pages: pagesFromApi,
+  } = getNormalizedImageVersionsData(isEmpty(data) ? previousData : data)
 
   useEffect(() => {
     if (currentPage && currentPage > Math.ceil(totalCount / pageSize)) {
@@ -74,6 +80,6 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: Use
     totalNumberOfPages: Math.ceil(totalCount / pageSize),
     totalCount,
     goToPage: setCurrentPage,
-    error: error?.message
+    error: error?.message,
   }
-} 
+}

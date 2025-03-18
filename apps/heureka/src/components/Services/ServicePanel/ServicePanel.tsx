@@ -23,7 +23,6 @@ import { LoadingHint } from "../../common/Helpers/LoadingHint"
 import { useFetchServiceImageVersions } from "../useFetchServiceImageVersions"
 import { capitalizeFirstLetter, truncateVersion } from "../../common/Helpers/helpers"
 
-
 export type IssueCounts = {
   critical: number
   high: number
@@ -48,20 +47,21 @@ type ServicePanelProps = {
 
 export const ServicePanel = ({ services = [], isLoading = false, onClose }: ServicePanelProps) => {
   const selectedService = services[0]
-  const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalCount } = useFetchServiceImageVersions({ 
-    serviceCcrn: selectedService?.serviceName || '',
-    pageSize: 8 
-  })
+  const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalCount } =
+    useFetchServiceImageVersions({
+      serviceCcrn: selectedService?.serviceName || "",
+      pageSize: 8,
+    })
 
   // Show total count except when loading and it's the first load for a service
   const showTotalCount = !loading || imageVersions.length > 0
 
-  const safeServices = imageVersions.map(version => ({
+  const safeServices = imageVersions.map((version) => ({
     imageName: version.ccrn,
     imageVersion: version.version,
     issueCounts: version.issueCounts,
     keppelLink: "",
-    serviceName: selectedService?.serviceName
+    serviceName: selectedService?.serviceName,
   }))
 
   // Don't render anything if no service is selected
@@ -86,8 +86,8 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
             <Messages />
           </Container>
           <Stack gap="2" distribution="between" alignment="center" className="mb-2">
-            <ContentHeading 
-              heading={`${capitalizeFirstLetter(selectedService.serviceName)} Image Versions${showTotalCount ? ` (${totalCount})` : ''}`}
+            <ContentHeading
+              heading={`${capitalizeFirstLetter(selectedService.serviceName)} Image Versions${showTotalCount ? ` (${totalCount})` : ""}`}
             />
             <Button
               variant="primary"
@@ -129,19 +129,14 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
                     <Stack gap="1" direction="vertical">
                       <span>{service.imageName}</span>
                       <Stack gap="1" alignment="center">
-                        <a 
-                          href={`${service.imageName}/-/manifest/${service.imageVersion}`} 
-                          target="_blank" 
+                        <a
+                          href={`${service.imageName}/-/manifest/${service.imageVersion}`}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="hover:underline text-sm"
                         >
                           <Stack gap="1.5" alignment="center">
-                            <Icon 
-                              icon="openInNew" 
-                              size="16"
-                              color="jn-global-text"
-                              onClick={() => {}}
-                            />
+                            <Icon icon="openInNew" size="16" color="jn-global-text" onClick={() => {}} />
                             <span>Image repository</span>
                           </Stack>
                         </a>
@@ -157,12 +152,16 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
                   <DataGridCell>
                     {service.issueCounts.critical ? (
                       <Badge icon text={service.issueCounts.critical.toString()} variant="danger" />
-                    ) : "-"}
+                    ) : (
+                      "-"
+                    )}
                   </DataGridCell>
                   <DataGridCell>
                     {service.issueCounts.high ? (
                       <Badge icon text={service.issueCounts.high.toString()} variant="warning" />
-                    ) : "-"}
+                    ) : (
+                      "-"
+                    )}
                   </DataGridCell>
                   <DataGridCell>{service.issueCounts.medium || "-"}</DataGridCell>
                   <DataGridCell>{service.issueCounts.low || "-"}</DataGridCell>
