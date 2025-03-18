@@ -1,5 +1,7 @@
 {
   "apiEndpoint": "YOUR_GRAPHQL_API_ENDPOINT",
   "embedded": false,
-  "theme": "light"
+  "initialFilters": {
+    "support_group": ["your_support_group"]
+  }
 }

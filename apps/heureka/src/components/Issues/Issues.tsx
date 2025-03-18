@@ -4,5 +4,8 @@
  */
 
 import React from "react"
+import { InitialFilters } from "../../App"
 
-export const Issues = () => <div>render issues here...</div>
+export const Issues: React.FC<{ initialFilters?: InitialFilters }> = ({ initialFilters }) => (
+  <div>render issues here...</div>
+)

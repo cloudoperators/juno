@@ -11,10 +11,15 @@ import { Shell } from "./components/Shell"
 import { ApolloProvider } from "@apollo/client"
 import { getClient } from "./apollo-client"
 
+export type InitialFilters = {
+  support_group?: string[]
+}
+
 export type AppProps = {
   theme?: "theme-dark" | "theme-light"
   apiEndpoint?: string
   embedded?: boolean
+  initialFilters?: InitialFilters
 }
 
 const App = (props: AppProps) => (

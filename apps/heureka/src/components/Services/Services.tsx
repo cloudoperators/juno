@@ -10,6 +10,7 @@ import { ServicesList } from "./ServicesList"
 import { Panel } from "../common/Panel"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
+import { InitialFilters } from "../../App"
 
 export type ServiceType = {
   id: string
@@ -26,13 +27,16 @@ export type ServiceType = {
   serviceOwners: string[]
 }
 
-const defaultFilterSettings = {
-  selectedFilters: [],
-  searchTerm: "",
+const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
+  const supportGroupFilters =
+    initialFilters?.support_group?.map((sg) => ({ name: "supportGroupCcrn", value: sg })) ?? []
+  return {
+    selectedFilters: supportGroupFilters,
+    searchTerm: "",
+  }
 }
-
-export const Services = () => {
-  const [filterSettings, setFilterSettings] = useState<FilterSettings>(defaultFilterSettings)
+export const Services: React.FC<{ initialFilters?: InitialFilters }> = ({ initialFilters }) => {
+  const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
   const { serviceFilters } = useFetchServiceFilters()
 
   return (
