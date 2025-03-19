@@ -25,6 +25,7 @@ import {
 import { useFetchServiceImageVersions } from "../useFetchServiceImageVersions"
 import { capitalizeFirstLetter, truncateVersion } from "../../common/Helpers/helpers"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
+import { ServiceType } from "../Services"
 
 export type IssueCounts = {
   critical: number
@@ -34,24 +35,16 @@ export type IssueCounts = {
   none: number
 }
 
-export type ServiceOverViewPanelType = {
-  imageName: string
-  imageVersion: string
-  issueCounts: IssueCounts
-  serviceName?: string
-}
-
 type ServicePanelProps = {
-  services: ServiceOverViewPanelType[]
+  service: ServiceType
   isLoading?: boolean
   onClose: () => void
 }
 
-export const ServicePanel = ({ services = [], isLoading = false, onClose }: ServicePanelProps) => {
-  const selectedService = services[0]
+export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePanelProps) => {
   const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalCount } =
     useFetchServiceImageVersions({
-      serviceCcrn: selectedService?.serviceName || "",
+      serviceCcrn: service?.name || "",
       pageSize: 8,
     })
 
@@ -62,11 +55,11 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
     imageName: version.ccrn,
     imageVersion: version.version,
     issueCounts: version.issueCounts,
-    serviceName: selectedService?.serviceName,
+    serviceName: service?.name,
   }))
 
   // Don't render anything if no service is selected
-  if (!selectedService?.serviceName) {
+  if (!service?.name) {
     return null
   }
 
@@ -74,7 +67,7 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
     <Panel
       heading={
         <Stack gap="2">
-          <span>{capitalizeFirstLetter(selectedService.serviceName)} Service Overview</span>
+          <span>{capitalizeFirstLetter(service.name)} Service Overview</span>
         </Stack>
       }
       opened={true}
@@ -84,7 +77,7 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
       <PanelBody>
         <Stack gap="2" distribution="between" alignment="center" className="mb-2">
           <ContentHeading
-            heading={`${capitalizeFirstLetter(selectedService.serviceName)} Image Versions${showTotalCount ? ` (${totalCount})` : ""}`}
+            heading={`${capitalizeFirstLetter(service.name)} Image Versions${showTotalCount ? ` (${totalCount})` : ""}`}
           />
           <Button
             variant="primary"

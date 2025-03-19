@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useState, useCallback } from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Message } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
-import { ServicePanel, ServiceOverViewPanelType } from "../ServicePanel/ServicePanel"
+import { ServicePanel } from "../ServicePanel/ServicePanel"
 import { ServiceType } from "../Services"
 
 const COLUMN_SPAN = 6
@@ -29,33 +29,18 @@ export const ServicesList = ({
   totalNumberOfPages,
   goToPage,
 }: ServiceListProps) => {
-  const [selectedService, setSelectedService] = useState<ServiceOverViewPanelType | null>(null)
+  const [selectedService, setSelectedService] = useState<ServiceType | null>(null)
 
   const handlePanelClose = () => {
     setSelectedService(null)
   }
 
-  const handleServiceClick = (service: ServiceType) => {
-    // Toggle panel if clicking the same service, otherwise show new service
-    if (selectedService?.serviceName === service.name) {
-      setSelectedService(null)
-    } else {
-      // Transform ServiceType to ServiceOverViewPanelType
-      const panelService: ServiceOverViewPanelType = {
-        imageName: service.name,
-        imageVersion: "1.0.0", // This should come from your service data
-        issueCounts: {
-          critical: service.issuesCount.critical,
-          high: service.issuesCount.high,
-          medium: 0, // These should come from your service data
-          low: 0,
-          none: 0,
-        },
-        serviceName: service.name,
-      }
-      setSelectedService(panelService)
-    }
-  }
+  const handleServiceClick = useCallback(
+    (service: ServiceType) => {
+      setSelectedService(service.name === selectedService?.name ? null : service)
+    },
+    [selectedService]
+  )
 
   return (
     <div className="flex-1 flex flex-col gap-10 overflow-hidden">
@@ -112,7 +97,7 @@ export const ServicesList = ({
           />
         </div>
       )}
-      {selectedService && <ServicePanel services={[selectedService]} onClose={handlePanelClose} />}
+      {selectedService && <ServicePanel service={selectedService} onClose={handlePanelClose} />}
     </div>
   )
 }

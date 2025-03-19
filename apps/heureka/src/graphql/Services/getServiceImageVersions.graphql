@@ -26,4 +26,4 @@ query GetServiceImageVersions($filter: ComponentVersionFilter, $first: Int, $aft
       }
     }
   }
-} 
+}
