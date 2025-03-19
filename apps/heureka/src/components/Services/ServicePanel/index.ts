@@ -4,4 +4,3 @@
  */
 
 export { ServicePanel } from "./ServicePanel"
-export type { ServiceOverViewPanelType } from "./ServicePanel"
