@@ -7,21 +7,28 @@ import React from "react"
 import { render, screen, act } from "@testing-library/react"
 import { ServicesList } from "./ServicesList"
 import { TestProvider } from "../../../mocks/TestProvider"
+import { PortalProvider } from "@cloudoperators/juno-ui-components"
 
 describe("ServicesList", () => {
-  it.skip("should render correctly", async () => {
+  it("should render correctly", async () => {
     await act(async () => {
       render(
-        <TestProvider>
-          <ServicesList
-            filterSettings={{
-              selectedFilters: [],
-              searchTerm: "",
-            }}
-          />
-        </TestProvider>
+        <PortalProvider>
+          <TestProvider>
+            <ServicesList
+              loading={false}
+              services={[]}
+              totalNumberOfPages={0}
+              goToPage={() => {}}
+            />
+          </TestProvider>
+        </PortalProvider>
       )
     })
-    expect(await screen.findByText("alpha")).toBeInTheDocument()
+
+    // Check for the presence of the service list headers
+    expect(await screen.findByText("Service")).toBeInTheDocument()
+    expect(await screen.findByText("Issues count")).toBeInTheDocument()
+    expect(await screen.findByText("Service details")).toBeInTheDocument()
   })
 })

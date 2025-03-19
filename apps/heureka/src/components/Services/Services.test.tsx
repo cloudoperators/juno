@@ -10,6 +10,11 @@ import { TestProvider } from "../../mocks/TestProvider"
 
 describe("Services", () => {
   it.skip("should render correctly", async () => {
+    const mockInitialFilters = {
+      support_group: ["test-group-1", "test-group-2"],
+    }
+
+  it.skip("should render correctly", async () => {
     await act(async () => {
       render(
         <TestProvider>
@@ -17,6 +22,10 @@ describe("Services", () => {
         </TestProvider>
       )
     })
-    expect(await screen.findByText("alpha")).toBeInTheDocument()
+    
+    // Check for the presence of the service list headers
+    expect(await screen.findByText("Service")).toBeInTheDocument()
+    expect(await screen.findByText("Issues count")).toBeInTheDocument()
+    expect(await screen.findByText("Service details")).toBeInTheDocument()
   })
 })
