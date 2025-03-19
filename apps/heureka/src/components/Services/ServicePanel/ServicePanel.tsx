@@ -16,12 +16,12 @@ import {
   Pagination,
   Badge,
   Icon,
+  Message,
 } from "@cloudoperators/juno-ui-components"
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import { NotFoundHint } from "../../common/Helpers/NotFoundHint"
-import { LoadingHint } from "../../common/Helpers/LoadingHint"
 import { useFetchServiceImageVersions } from "../useFetchServiceImageVersions"
 import { capitalizeFirstLetter, truncateVersion } from "../../common/Helpers/helpers"
+import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 
 export type IssueCounts = {
   critical: number
@@ -55,7 +55,7 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
   // Show total count except when loading and it's the first load for a service
   const showTotalCount = !loading || imageVersions.length > 0
 
-  const safeServices = imageVersions.map((version) => ({
+  const formattedImageVersions = imageVersions.map((version) => ({
     imageName: version.ccrn,
     imageVersion: version.version,
     issueCounts: version.issueCounts,
@@ -109,33 +109,22 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
               <DataGridHeadCell>Actions</DataGridHeadCell>
             </DataGridRow>
             {loading ? (
-              <DataGridRow>
-                <DataGridCell colSpan={7}>
-                  <LoadingHint />
-                </DataGridCell>
-              </DataGridRow>
-            ) : safeServices.length === 0 ? (
-              <DataGridRow>
-                <DataGridCell colSpan={6}>
-                  <NotFoundHint text="No image versions available." />
-                </DataGridCell>
-              </DataGridRow>
+              <EmptyDataGridRow colSpan={7}>Loading...</EmptyDataGridRow>
+            ) : formattedImageVersions?.length === 0 ? (
+              <EmptyDataGridRow colSpan={7}>No image versions available.</EmptyDataGridRow>
+            ) : error ? (
+              <EmptyDataGridRow colSpan={7}>
+                <Message variant="error">{error}</Message>
+              </EmptyDataGridRow>
             ) : (
-              safeServices.map((service, index) => (
+              formattedImageVersions.map((version, index) => (
                 <DataGridRow key={index}>
                   <DataGridCell className="break-all overflow-hidden">
                     <Stack gap="1" direction="vertical">
-                      <Tooltip triggerEvent="hover" placement="top">
-                        <TooltipTrigger>
-                          {service.imageName?.split("/").length > 2
-                            ? "..." + service.imageName?.split("/").slice(-2).join("/")
-                            : service.imageName}
-                        </TooltipTrigger>
-                        <TooltipContent>{service.imageName}</TooltipContent>
-                      </Tooltip>
+                      <span>{version.imageName}</span>
                       <Stack gap="1" alignment="center">
                         <a
-                          href={`https://${service.imageName}`}
+                          href={`https://${version.imageName}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="hover:underline text-sm"
@@ -150,26 +139,26 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
                   </DataGridCell>
                   <DataGridCell>
                     <Tooltip triggerEvent="hover" placement="top">
-                      <TooltipTrigger>{truncateVersion(service.imageVersion)}</TooltipTrigger>
-                      <TooltipContent>{service.imageVersion}</TooltipContent>
+                      <TooltipTrigger>{truncateVersion(version.imageVersion)}</TooltipTrigger>
+                      <TooltipContent>{version.imageVersion}</TooltipContent>
                     </Tooltip>
                   </DataGridCell>
                   <DataGridCell>
-                    {service.issueCounts.critical ? (
-                      <Badge icon text={service.issueCounts.critical.toString()} variant="danger" />
+                    {version.issueCounts.critical ? (
+                      <Badge icon text={version.issueCounts.critical.toString()} variant="danger" />
                     ) : (
                       "-"
                     )}
                   </DataGridCell>
                   <DataGridCell>
-                    {service.issueCounts.high ? (
-                      <Badge icon text={service.issueCounts.high.toString()} variant="warning" />
+                    {version.issueCounts.high ? (
+                      <Badge icon text={version.issueCounts.high.toString()} variant="warning" />
                     ) : (
                       "-"
                     )}
                   </DataGridCell>
-                  <DataGridCell>{service.issueCounts.medium || "-"}</DataGridCell>
-                  <DataGridCell>{service.issueCounts.low || "-"}</DataGridCell>
+                  <DataGridCell>{version.issueCounts.medium || "-"}</DataGridCell>
+                  <DataGridCell>{version.issueCounts.low || "-"}</DataGridCell>
                   <DataGridCell>
                     <Button
                       variant="primary"
