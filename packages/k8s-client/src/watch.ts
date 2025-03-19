@@ -86,12 +86,15 @@ class Watch {
   private handleEvents(events: any) {
     if (!Array.isArray(events)) events = [events]
 
+    // Pass correct "this" context to be referenced in asynchronous callbacks
+    const that = this
+
     setTimeout(() => {
       const eventsByType: Record<string, any[]> = {}
 
       events.forEach((event: any) => {
         if (event.type === BOOKMARK) {
-          this.resourceVersion = event.object.metadata.resourceVersion
+          that.resourceVersion = event.object.metadata.resourceVersion
         } else {
           if (!eventsByType[event.type]) {
             eventsByType[event.type] = []
@@ -100,7 +103,7 @@ class Watch {
         }
       })
 
-      Object.keys(eventsByType).forEach((type) => this.informListeners(type, eventsByType[type]))
+      Object.keys(eventsByType).forEach((type) => that.informListeners(type, eventsByType[type]))
     })
   }
 
@@ -117,22 +120,26 @@ class Watch {
   }
 
   start() {
-    if (this.getCurrentToken) {
-      this.refreshToken(this.getCurrentToken())
+    // Pass correct "this" context to be referenced in asynchronous callbacks
+    const that = this
+
+    if (that.getCurrentToken) {
+      that.refreshToken(that.getCurrentToken())
     }
 
-    this.getResourceVersion()
+    that
+      .getResourceVersion()
       .then((resourceVersion) => {
-        logger.debug(this.PREFIX, "current resource version", resourceVersion)
-        return request("GET", this.url, {
-          ...this.options,
+        logger.debug(that.PREFIX, "current resource version", resourceVersion)
+        return request("GET", that.url, {
+          ...that.options,
           params: {
-            ...this.options.params,
+            ...that.options.params,
             watch: 1,
             allowWatchBookmarks: true,
             resourceVersion,
           },
-          signal: this.signal,
+          signal: that.signal,
         })
       })
       .then(async (res) => {
@@ -141,10 +148,10 @@ class Watch {
         let data = ""
 
         while (!done) {
-          logger.debug(this.PREFIX, "read stream chunk")
+          logger.debug(that.PREFIX, "read stream chunk")
           const result = await reader?.read()
           done = result?.done ?? true
-          data += this.decoder.decode(result?.value || new Uint8Array())
+          data += that.decoder.decode(result?.value || new Uint8Array())
 
           const events = data.split(/\n|\r|\r\n/)
           data = events.pop() || ""
@@ -153,18 +160,18 @@ class Watch {
           events.forEach((e) => {
             const parsedEvent = JSON.parse(e)
             if (parsedEvent.type === ERROR && parsedEvent.object.code === 410) {
-              this.cancel()
+              that.cancel()
               setTimeout(() => {
-                logger.debug(this.PREFIX, "resource is gone 410", "recreate watch request!")
-                this.start()
+                logger.debug(that.PREFIX, "resource is gone 410", "recreate watch request!")
+                that.start()
               })
               return
             }
             parsedEvents.push(parsedEvent)
           })
 
-          logger.debug(this.PREFIX, "inform listeners", events)
-          this.handleEvents(parsedEvents)
+          logger.debug(that.PREFIX, "inform listeners", events)
+          that.handleEvents(parsedEvents)
         }
       })
       .catch((e) => {
@@ -172,15 +179,15 @@ class Watch {
         const status = e.code || (e.response && e.response.status)
 
         if (status === 410) {
-          logger.debug(this.PREFIX, "resource is gone 410")
-          this.resourceVersion = null
-          setTimeout(() => this.start(), 0)
+          logger.debug(that.PREFIX, "resource is gone 410")
+          that.resourceVersion = null
+          setTimeout(() => that.start(), 0)
           return
         }
 
         if ([404].includes(status)) {
-          this.handleEvents({ type: ERROR, object: e })
-          this.cancel()
+          that.handleEvents({ type: ERROR, object: e })
+          that.cancel()
           return
         }
 
@@ -188,12 +195,12 @@ class Watch {
         console.dir(e)
 
         setTimeout(() => {
-          logger.debug(this.PREFIX, "recover connection", "restart!")
-          this.start()
+          logger.debug(that.PREFIX, "recover connection", "restart!")
+          that.start()
         }, 30000)
       })
 
-    return this.cancel
+    return that.cancel
   }
 
   on(type: string, listener: Listener) {
