@@ -148,7 +148,8 @@ class Watch {
       that.refreshToken(that.getCurrentToken())
     }
 
-    this.getResourceVersion()
+    that
+      .getResourceVersion()
       .then((resourceVersion) => {
         logger.debug(that.PREFIX, "current resource version", resourceVersion)
         return request("GET", that.url, {
