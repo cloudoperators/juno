@@ -3,7 +3,6 @@ import {
   Panel,
   Stack,
   PanelBody,
-  Container,
   ContentHeading,
   DataGrid,
   DataGridRow,
@@ -18,7 +17,6 @@ import {
   Icon,
   Message,
 } from "@cloudoperators/juno-ui-components"
-import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { useFetchServiceImageVersions } from "../useFetchServiceImageVersions"
 import { capitalizeFirstLetter, truncateVersion } from "../../common/Helpers/helpers"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
@@ -68,7 +66,6 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
   }
 
   return (
-    <MessagesProvider>
       <Panel
         heading={
           <Stack gap="2">
@@ -80,10 +77,7 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
         size="large"
       >
         <PanelBody>
-          <Container py>
-            <Messages />
-          </Container>
-          <Stack gap="2" distribution="between" alignment="center" className="mb-2">
+            <Stack gap="2" distribution="between" alignment="center" className="mb-2">
             <ContentHeading
               heading={`${capitalizeFirstLetter(selectedService.serviceName)} Image Versions${showTotalCount ? ` (${totalCount})` : ""}`}
             />
@@ -188,6 +182,5 @@ export const ServicePanel = ({ services = [], isLoading = false, onClose }: Serv
           </div>
         )}
       </Panel>
-    </MessagesProvider>
   )
 }
