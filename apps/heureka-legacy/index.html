@@ -6,10 +6,10 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <link rel="icon" href="src/img/favicon.ico" sizes="any"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="src/img/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
 
     <title>Heureka</title>
     <style>
@@ -40,8 +40,8 @@
           console.warn("No appProps found, using default props", error.message)
         })
         .then((props) => {
-          import ("./src/index").then((app) => {
-            app.mount(document.getElementById("root"), {props})
+          import("./src/index").then((app) => {
+            app.mount(document.getElementById("root"), { props })
           })
         })
     </script>
