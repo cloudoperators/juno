@@ -52,24 +52,24 @@ class Watch {
     }
   }
 
-  refreshToken(newToken: string) {
+  refreshToken = (newToken: string) => {
     if (this.options.headers) {
       this.options.headers["Authorization"] = `Bearer ${newToken}`
     }
   }
 
-  private checkType(type: string) {
+  private checkType = (type: string) => {
     if (![ADDED, MODIFIED, DELETED, ERROR].includes(type)) {
       throw new Error(`Bad type: ${type}`)
     }
   }
 
-  private addListener(type: string, listener: Listener) {
+  private addListener = (type: string, listener: Listener) => {
     this.checkType(type)
     this.listeners[type].push(listener)
   }
 
-  private informListeners(type: string, items: any) {
+  private informListeners = (type: string, items: any) => {
     const listeners = this.listeners[type]
     if (listeners) {
       listeners.forEach((listener) => {
@@ -83,7 +83,7 @@ class Watch {
     }
   }
 
-  private handleEvents(events: any) {
+  private handleEvents = (events: any) => {
     if (!Array.isArray(events)) events = [events]
 
     // Pass correct "this" context to be referenced in asynchronous callbacks
@@ -107,7 +107,7 @@ class Watch {
     })
   }
 
-  private async getResourceVersion(): Promise<string | null> {
+  private getResourceVersion = async (): Promise<string | null> => {
     if (this.resourceVersion) return this.resourceVersion
 
     logger.debug(this.PREFIX, "get resource version from API")
@@ -119,7 +119,7 @@ class Watch {
     return this.resourceVersion
   }
 
-  start() {
+  start = () => {
     // Pass correct "this" context to be referenced in asynchronous callbacks
     const that = this
 
@@ -127,8 +127,7 @@ class Watch {
       that.refreshToken(that.getCurrentToken())
     }
 
-    that
-      .getResourceVersion()
+    this.getResourceVersion()
       .then((resourceVersion) => {
         logger.debug(that.PREFIX, "current resource version", resourceVersion)
         return request("GET", that.url, {
@@ -203,12 +202,12 @@ class Watch {
     return that.cancel
   }
 
-  on(type: string, listener: Listener) {
+  on = (type: string, listener: Listener) => {
     this.addListener(type, listener)
     return this
   }
 
-  cancel() {
+  cancel = () => {
     logger.debug(this.PREFIX, "cancel connection")
     this.controller.abort()
   }
