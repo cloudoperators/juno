@@ -7,7 +7,7 @@ import React from "react"
 import { InitialFilters } from "../../App"
 
 type Props = {
-  initialFilters: InitialFilters
+  initialFilters?: InitialFilters
 }
 
 export const Issues = ({ initialFilters }: Props) => <div>render issues here...</div>

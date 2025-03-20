@@ -37,7 +37,7 @@ const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
 }
 
 type Props = {
-  initialFilters: InitialFilters
+  initialFilters?: InitialFilters
 }
 
 export const Services = ({ initialFilters }: Props) => {
