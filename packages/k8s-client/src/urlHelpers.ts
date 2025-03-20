@@ -15,6 +15,8 @@ const encodeQueryData = (data: Record<string, any>): string | undefined => {
   if (!data) return
   const ret = []
   for (const key in data) {
+    // TODO: Use 'Object.hasOwn()' instead of 'Object.prototype.hasOwnProperty.call()'
+    // But: Property 'hasOwn' does not exist on type 'ObjectConstructor'. The target library should be adjusted in the tsconfig.json file (the 'lib' compiler option should be 'es2022' or later)
     if (Object.prototype.hasOwnProperty.call(data, key)) {
       const result = data[key] as string | number | boolean
       ret.push(encodeURIComponent(key) + "=" + encodeURIComponent(result))
@@ -54,7 +56,7 @@ function buildUrl(...args: (string | number | Record<string, any>)[]): string {
   })
 
   // Build the URL
-  let url = args.join("/")
+  let url = (args as Array<string | number>).join("/")
   const [protocol, rest] = url.split("://")
   if (!protocol || !rest) {
     throw new Error(`Bad URL: ${url}`)

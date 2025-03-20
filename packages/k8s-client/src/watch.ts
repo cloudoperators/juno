@@ -25,20 +25,20 @@ interface WatchOptions {
 }
 
 class Watch {
-  private listeners: Record<string, Listener[]> = {
+  private readonly listeners: Record<string, Listener[]> = {
     [ADDED]: [],
     [MODIFIED]: [],
     [DELETED]: [],
     [ERROR]: [],
   }
-  private controller: AbortController = new AbortController()
-  private signal: AbortSignal = this.controller.signal
+  private readonly controller: AbortController = new AbortController()
+  private readonly signal: AbortSignal = this.controller.signal
   private resourceVersion: string | null = null
-  private PREFIX = "watch >"
-  private decoder = new TextDecoder()
-  private url: string
-  private options: WatchOptions
-  private getCurrentToken?: () => string
+  private readonly PREFIX = "watch >"
+  private readonly decoder = new TextDecoder()
+  private readonly url: string
+  private readonly options: WatchOptions
+  private readonly getCurrentToken?: () => string
 
   constructor(url: string, options: WatchOptions = {}, getCurrentToken?: () => string) {
     this.url = url
@@ -46,7 +46,7 @@ class Watch {
     this.getCurrentToken = getCurrentToken
 
     // Use given resourceVersion if provided
-    if (options.params && options.params.resourceVersion) {
+    if (options?.params?.resourceVersion) {
       this.resourceVersion = options.params.resourceVersion
       delete options.params.resourceVersion
     }
@@ -147,7 +147,7 @@ class Watch {
           data += this.decoder.decode(result?.value || new Uint8Array())
 
           const events = data.split(/\n|\r|\r\n/)
-          data = events.pop() || ""
+          data = events.pop() ?? ""
 
           const parsedEvents: any[] = []
           events.forEach((e) => {
@@ -169,7 +169,7 @@ class Watch {
       })
       .catch((e) => {
         if (e.name === "AbortError") return
-        const status = e.code || (e.response && e.response.status)
+        const status = e.code || e?.response.status
 
         if (status === 410) {
           logger.debug(this.PREFIX, "resource is gone 410")
