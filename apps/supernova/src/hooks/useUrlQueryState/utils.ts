@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 const ACTIVE_FILTERS_PREFIX = "f_"
 const ACTIVE_PREDEFINED_FILTER = "predefined_filter"
 const DETAILS_FOR = "details_for"
