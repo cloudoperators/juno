@@ -9,12 +9,11 @@ import { Services } from "./Services"
 import { TestProvider } from "../../mocks/TestProvider"
 
 describe("Services", () => {
-  it.skip("should render correctly", async () => {
-    const mockInitialFilters = {
-      support_group: ["test-group-1", "test-group-2"],
-    }
+  const mockInitialFilters = {
+    support_group: ["test-group-1", "test-group-2"],
+  }
 
-  it.skip("should render correctly", async () => {
+  it("should render correctly", async () => {
     await act(async () => {
       render(
         <TestProvider>
