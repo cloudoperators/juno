@@ -54,26 +54,20 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
   const formattedImageVersions = imageVersions.map((version) => ({
     imageName: version.ccrn,
     imageVersion: version.version,
+    imageTag: version.tag,
     issueCounts: version.issueCounts,
     serviceName: service?.name,
   }))
 
   return (
     <Panel
-      heading={
-        <Stack gap="2">
-          <span>{capitalizeFirstLetter(service.name)} Service Overview</span>
-        </Stack>
-      }
+      heading={`${capitalizeFirstLetter(service.name)} Image Versions${showTotalCount ? ` (${totalCount})` : ""}`}
       opened={true}
       onClose={onClose}
       size="large"
     >
       <PanelBody>
-        <Stack gap="2" distribution="between" alignment="center" className="mb-2">
-          <ContentHeading
-            heading={`${capitalizeFirstLetter(service.name)} Image Versions${showTotalCount ? ` (${totalCount})` : ""}`}
-          />
+        <Stack distribution="end" className="mb-2">
           <Button
             disabled
             variant="primary"
@@ -89,7 +83,7 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
         <DataGrid columns={7}>
           <DataGridRow>
             <DataGridHeadCell>Image Name</DataGridHeadCell>
-            <DataGridHeadCell>Version</DataGridHeadCell>
+            <DataGridHeadCell>Tag</DataGridHeadCell>
             <DataGridHeadCell>Critical</DataGridHeadCell>
             <DataGridHeadCell>High</DataGridHeadCell>
             <DataGridHeadCell>Medium</DataGridHeadCell>
@@ -109,7 +103,10 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
               <DataGridRow key={index}>
                 <DataGridCell className="break-all overflow-hidden">
                   <Stack gap="1" direction="vertical">
-                    <span>{version.imageName}</span>
+                    <Stack gap="0.5" direction="vertical">
+                      <span>{version.imageName}</span>
+                      <span className="text-sm text-jn-global-text-subdued">{version.imageVersion}</span>
+                    </Stack>
                     <Stack gap="1" alignment="center">
                       <a
                         href={`https://${version.imageName}`}
@@ -119,18 +116,13 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
                       >
                         <Stack gap="1.5" alignment="center">
                           <Icon icon="openInNew" size="16" color="jn-global-text" onClick={() => {}} />
-                          <span>Image repository</span>
+                          <span>Image registery</span>
                         </Stack>
                       </a>
                     </Stack>
                   </Stack>
                 </DataGridCell>
-                <DataGridCell>
-                  <Tooltip triggerEvent="hover" placement="top">
-                    <TooltipTrigger>{truncateVersion(version.imageVersion)}</TooltipTrigger>
-                    <TooltipContent>{version.imageVersion}</TooltipContent>
-                  </Tooltip>
-                </DataGridCell>
+                <DataGridCell>{version.imageTag}</DataGridCell>
                 <DataGridCell>
                   {version.issueCounts.critical ? (
                     <Badge icon text={version.issueCounts.critical.toString()} variant="danger" />
@@ -150,7 +142,6 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
                 <DataGridCell>
                   <Button
                     disabled
-                    variant="primary"
                     size="small"
                     onClick={() => {
                       // TODO: Navigate to service details page

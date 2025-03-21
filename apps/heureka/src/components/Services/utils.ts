@@ -88,6 +88,7 @@ export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceF
 
 type ServiceImageVersion = {
   version: string
+  tag: string
   ccrn: string
   issueCounts: IssueCounts
 }
@@ -110,6 +111,7 @@ export const getNormalizedImageVersionsData = (
         .map(
           (edge): ServiceImageVersion => ({
             version: edge?.node?.version || "",
+            tag: edge?.node?.tag || "",
             ccrn: edge?.node?.component?.ccrn || "",
             issueCounts: edge?.node?.issueCounts || {
               critical: 0,
