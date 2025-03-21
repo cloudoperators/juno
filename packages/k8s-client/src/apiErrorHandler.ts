@@ -9,7 +9,7 @@ interface ApiErrorType extends Error {
   }
 }
 const apiErrorHandler = async (apiError: ApiErrorType): Promise<never> => {
-  const error = apiError.response?.data ? new Error(apiError.response.data.message || apiError.message) : apiError
+  const error = apiError.response?.data ? new Error(apiError.response.data.message ?? apiError.message) : apiError
 
   return Promise.reject(error)
 }
