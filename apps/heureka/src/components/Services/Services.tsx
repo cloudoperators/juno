@@ -11,6 +11,8 @@ import { Panel } from "../common/Panel"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
+import StatusBar from "./ServicesList/StatusBar"
+import { Stack } from "@cloudoperators/juno-ui-components"
 
 export type ServiceType = {
   id: string
@@ -40,11 +42,12 @@ export const Services: React.FC<{ initialFilters?: InitialFilters }> = ({ initia
   const { serviceFilters } = useFetchServiceFilters()
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden gap-5">
+    <>
       <Breadcrumb />
       <Filters filters={serviceFilters} filterSettings={filterSettings} onFilterChange={setFilterSettings} />
+      <StatusBar filterSettings={filterSettings} />
       <ServicesList filterSettings={filterSettings} />
       <Panel />
-    </div>
+    </>
   )
 }

@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { DataGridRow, DataGridCell, Pill } from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Pill, Badge, Stack } from "@cloudoperators/juno-ui-components"
 import { ServiceType } from "../../Services"
 
 type ServiceDetailsLabel = {
@@ -37,7 +37,10 @@ export const ServiceListItem = ({ item }: { item: ServiceType }) => (
   <DataGridRow onClick={() => {}}>
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
-      {item.issuesCount.critical} | {item.issuesCount.high}
+      <Stack gap="1">
+        <Badge icon text={`${item.issuesCount.critical}`} variant="danger" />
+        <Badge icon text={`${item.issuesCount.high}`} variant="warning" />
+      </Stack>
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />
