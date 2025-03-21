@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.1
+
+### Patch Changes
+
+- 9609183: Release Greenhouse with new version of Heureka
+- Updated dependencies [135cae5]
+- Updated dependencies [f2f264f]
+  - @cloudoperators/juno-app-heureka@0.3.3
+
 ## 0.5.0
 
 ### Minor Changes
