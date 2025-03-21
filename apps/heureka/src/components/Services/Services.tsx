@@ -36,9 +36,14 @@ const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
     searchTerm: "",
   }
 }
-export const Services: React.FC<{ initialFilters?: InitialFilters }> = ({ initialFilters }) => {
-  const { serviceFilters } = useFetchServiceFilters()
+
+type Props = {
+  initialFilters?: InitialFilters
+}
+
+export const Services = ({ initialFilters }: Props) => {
   const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
+  const { serviceFilters } = useFetchServiceFilters()
   const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
     filterSettings,
   })

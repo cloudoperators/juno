@@ -58,11 +58,6 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
     serviceName: service?.name,
   }))
 
-  // Don't render anything if no service is selected
-  if (!service?.name) {
-    return null
-  }
-
   return (
     <Panel
       heading={
@@ -80,6 +75,7 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
             heading={`${capitalizeFirstLetter(service.name)} Image Versions${showTotalCount ? ` (${totalCount})` : ""}`}
           />
           <Button
+            disabled
             variant="primary"
             size="small"
             onClick={() => {
@@ -153,6 +149,7 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
                 <DataGridCell>{version.issueCounts.low || "-"}</DataGridCell>
                 <DataGridCell>
                   <Button
+                    disabled
                     variant="primary"
                     size="small"
                     onClick={() => {
