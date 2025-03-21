@@ -16,7 +16,9 @@ const getServiceFiltersHandler = graphql.query("GetServiceFilters", () => {
   return HttpResponse.json(serviceFilters)
 })
 
-const getServiceImageVersionsHandler = graphql.query("GetServiceImageVersions", () => {
+const getServiceImageVersionsHandler = graphql.query("GetServiceImageVersions", ({ variables }) => {
+  console.log("ServiceImageVersions Query Variables:", JSON.stringify(variables, null, 2))
+  // Always return the mock data for testing
   return HttpResponse.json(serviceImageVersions)
 })
 

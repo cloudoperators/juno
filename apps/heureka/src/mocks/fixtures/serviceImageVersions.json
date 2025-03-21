@@ -1,11 +1,9 @@
 {
   "data": {
-    "ServiceImageVersions": {
+    "ComponentVersions": {
       "edges": [
         {
           "node": {
-            "id": "1",
-            "ccrn": "test-image",
             "version": "1.0.0",
             "issueCounts": {
               "critical": 1,
@@ -15,25 +13,28 @@
               "none": 0,
               "__typename": "IssueCounts"
             },
-            "__typename": "ServiceImageVersion"
+            "component": {
+              "ccrn": "test-image",
+              "__typename": "Component"
+            },
+            "__typename": "ComponentVersion"
           },
-          "__typename": "ServiceImageVersionEdge"
+          "__typename": "ComponentVersionEdge"
         }
       ],
       "pageInfo": {
         "pages": [
           {
             "after": "some_cursor==",
-            "isCurrent": true,
             "pageNumber": 1,
-            "pageCount": 1,
             "__typename": "Page"
           }
         ],
         "__typename": "PageInfo"
       },
       "totalCount": 1,
-      "__typename": "ServiceImageVersionConnection"
+      "__typename": "ComponentVersionConnection"
     }
   }
 }
+

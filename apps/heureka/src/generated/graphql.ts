@@ -1,8 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { gql } from "@apollo/client"
 import * as Apollo from "@apollo/client"
 export type Maybe<T> = T | null
@@ -153,6 +148,7 @@ export type ComponentComponentVersionsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentVersionFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>>>
 }
 
 export type ComponentConnection = Connection & {
@@ -226,6 +222,11 @@ export type ComponentInstanceEdge = Edge & {
 
 export type ComponentInstanceFilter = {
   ccrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  cluster?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  domain?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  namespace?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  project?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  region?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
@@ -273,6 +274,7 @@ export type ComponentVersion = Node & {
   issueCounts?: Maybe<SeverityCounts>
   issues?: Maybe<IssueConnection>
   metadata?: Maybe<Metadata>
+  tag?: Maybe<Scalars["String"]["output"]>
   version?: Maybe<Scalars["String"]["output"]>
 }
 
@@ -307,15 +309,27 @@ export type ComponentVersionFilter = {
   componentCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   componentId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  issueRepositoryId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
+  tag?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   version?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
 export type ComponentVersionInput = {
   componentId?: InputMaybe<Scalars["String"]["input"]>
+  tag?: InputMaybe<Scalars["String"]["input"]>
   version?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export type ComponentVersionOrderBy = {
+  by?: InputMaybe<ComponentVersionOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum ComponentVersionOrderByField {
+  Severity = "severity",
 }
 
 export type Connection = {
@@ -413,6 +427,7 @@ export type IssueComponentVersionsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentVersionFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>>>
 }
 
 export type IssueIssueMatchesArgs = {
@@ -1135,6 +1150,7 @@ export type QueryComponentVersionsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentVersionFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>>>
 }
 
 export type QueryComponentsArgs = {
@@ -1490,6 +1506,7 @@ export type GetServiceImageVersionsQueryVariables = Exact<{
   filter?: InputMaybe<ComponentVersionFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>> | InputMaybe<ComponentVersionOrderBy>>
 }>
 
 export type GetServiceImageVersionsQuery = {
@@ -1501,6 +1518,7 @@ export type GetServiceImageVersionsQuery = {
       __typename?: "ComponentVersionEdge"
       node: {
         __typename?: "ComponentVersion"
+        tag?: string | null
         version?: string | null
         issueCounts?: {
           __typename?: "SeverityCounts"
@@ -1600,10 +1618,16 @@ export type GetServiceFiltersQuery = {
 }
 
 export const GetServiceImageVersionsDocument = gql`
-  query GetServiceImageVersions($filter: ComponentVersionFilter, $first: Int, $after: String) {
-    ComponentVersions(filter: $filter, first: $first, after: $after) {
+  query GetServiceImageVersions(
+    $filter: ComponentVersionFilter
+    $first: Int
+    $after: String
+    $orderBy: [ComponentVersionOrderBy]
+  ) {
+    ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
       edges {
         node {
+          tag
           version
           issueCounts {
             critical
@@ -1643,6 +1667,7 @@ export const GetServiceImageVersionsDocument = gql`
  *      filter: // value for 'filter'
  *      first: // value for 'first'
  *      after: // value for 'after'
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */

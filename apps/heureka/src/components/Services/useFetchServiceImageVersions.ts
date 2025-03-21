@@ -5,7 +5,12 @@
 
 import { isEmpty } from "lodash"
 import { useEffect, useState } from "react"
-import { useGetServiceImageVersionsQuery, Page } from "../../generated/graphql"
+import {
+  useGetServiceImageVersionsQuery,
+  Page,
+  ComponentVersionOrderByField,
+  OrderDirection,
+} from "../../generated/graphql"
 import { getNormalizedImageVersionsData } from "./utils"
 
 type UseFetchServiceImageVersionsProps = {
@@ -22,6 +27,12 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: Use
       first: pageSize,
       after: pages?.find((page) => page?.pageNumber === currentPage)?.after,
       filter: { serviceCcrn: [serviceCcrn] },
+      orderBy: [
+        {
+          by: ComponentVersionOrderByField.Severity,
+          direction: OrderDirection.Desc,
+        },
+      ],
     },
   })
 
