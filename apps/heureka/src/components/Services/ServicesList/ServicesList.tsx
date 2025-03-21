@@ -31,9 +31,9 @@ export const ServicesList = ({
 }: ServiceListProps) => {
   const [selectedService, setSelectedService] = useState<ServiceType | null>(null)
 
-  const handlePanelClose = () => {
+  const handlePanelClose = useCallback(() => {
     setSelectedService(null)
-  }
+  }, [selectedService])
 
   const handleServiceClick = useCallback(
     (service: ServiceType) => {

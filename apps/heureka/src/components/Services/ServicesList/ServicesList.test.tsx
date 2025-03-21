@@ -4,10 +4,12 @@
  */
 
 import React from "react"
-import { render, screen, act, fireEvent } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { ServicesList } from "./ServicesList"
 import { TestProvider } from "../../../mocks/TestProvider"
 import { ServiceType } from "../Services"
+import { capitalizeFirstLetter } from "../../common/Helpers/helpers"
 
 const mockService: ServiceType = {
   id: "1",
@@ -24,21 +26,23 @@ const mockService: ServiceType = {
   serviceOwners: ["owner1", "owner2"],
 }
 
+const renderServicesList = (services: ServiceType[] = []) => ({
+  user: userEvent.setup(),
+  ...render(
+    <TestProvider>
+      <ServicesList
+        loading={false}
+        services={services}
+        totalNumberOfPages={services.length > 0 ? 1 : 0}
+        goToPage={() => {}}
+      />
+    </TestProvider>
+  ),
+})
+
 describe("ServicesList", () => {
   it("should render correctly", async () => {
-    await act(async () => {
-      render(
-          <TestProvider>
-            <ServicesList
-              loading={false}
-              services={[]}
-              totalNumberOfPages={0}
-              goToPage={() => {}}
-            />
-          </TestProvider>
-      )
-    })
-
+    renderServicesList()
 
     // Check for the presence of the service list headers
     expect(await screen.findByText("Service")).toBeInTheDocument()
@@ -48,23 +52,17 @@ describe("ServicesList", () => {
   })
 
   it("should render service panel when clicking on a service", async () => {
-    await act(async () => {
-      render(
-        <TestProvider>
-          <ServicesList loading={false} services={[mockService]} totalNumberOfPages={1} goToPage={() => {}} />
-        </TestProvider>
-      )
-    })
+    const { user } = renderServicesList([mockService])
 
     // Find and click the service row
     const serviceRow = await screen.findByText(mockService.name)
-    fireEvent.click(serviceRow)
+    await user.click(serviceRow)
 
     // Check if the panel is rendered with the service name
-    expect(screen.getByText(`${mockService.name} Service Overview`)).toBeInTheDocument()
+    expect(screen.getByText(`${capitalizeFirstLetter(mockService.name)} Service Overview`)).toBeInTheDocument()
 
     // Click again to close the panel
-    fireEvent.click(serviceRow)
-    expect(screen.queryByText(`${mockService.name} Service Overview`)).not.toBeInTheDocument()
+    await user.click(serviceRow)
+    expect(screen.queryByText(`${capitalizeFirstLetter(mockService.name)} Service Overview`)).not.toBeInTheDocument()
   })
 })
