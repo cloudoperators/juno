@@ -3,23 +3,44 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useState, useCallback } from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Message } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
-import { FilterSettings } from "../../common/Filters/types"
-import { useFetchServices } from "../useFetchServices"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
+import { ServicePanel } from "../ServicePanel/ServicePanel"
+import { ServiceType } from "../Services"
 
 const COLUMN_SPAN = 6
 
 type ServiceListProps = {
-  filterSettings: FilterSettings
+  loading: boolean
+  error?: string | null
+  services: ServiceType[]
+  currentPage?: number
+  totalNumberOfPages: number
+  goToPage: (page: number | undefined) => void
 }
 
-export const ServicesList = ({ filterSettings }: ServiceListProps) => {
-  const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
-    filterSettings,
-  })
+export const ServicesList = ({
+  loading,
+  error,
+  services,
+  currentPage,
+  totalNumberOfPages,
+  goToPage,
+}: ServiceListProps) => {
+  const [selectedService, setSelectedService] = useState<ServiceType | null>(null)
+
+  const handlePanelClose = useCallback(() => {
+    setSelectedService(null)
+  }, [selectedService])
+
+  const handleServiceClick = useCallback(
+    (service: ServiceType) => {
+      setSelectedService(service.name === selectedService?.name ? null : service)
+    },
+    [selectedService]
+  )
 
   return (
     <div className="flex-1 flex flex-col gap-10 overflow-hidden">
@@ -43,7 +64,9 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
             !loading &&
               !error &&
               services.length > 0 &&
-              services.map((item) => <ServiceListItem key={item.name} item={item} />)
+              services.map((item) => (
+                <ServiceListItem key={item.name} item={item} onClick={() => handleServiceClick(item)} />
+              ))
           }
 
           {
@@ -74,6 +97,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
           />
         </div>
       )}
+      {selectedService && <ServicePanel service={selectedService} onClose={handlePanelClose} />}
     </div>
   )
 }
