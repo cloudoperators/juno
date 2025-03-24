@@ -17,6 +17,7 @@ describe("Services", () => {
         </TestProvider>
       )
     })
+
     expect(await screen.findByText("alpha")).toBeInTheDocument()
   })
 })
