@@ -3,20 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { isEmpty } from "lodash"
 import { FilterSettings } from "../common/Filters/types"
-import { useGetServicesCountsQuery, IssueMatchFilter } from "../../generated/graphql"
-import { getNormalizedData, getActiveServiceFilter, getNormalizedError } from "./utils"
+import { useGetServicesCountsQuery, GetServicesCountsQuery, SeverityValues } from "../../generated/graphql"
+import { getActiveServiceFilter, getNormalizedError } from "./utils"
 
 type UseFetchServicesCountInput = {
   filterSettings: FilterSettings
-}
-
-enum SeverityValues {
-  Critical = "Critical",
-  High = "High",
-  Medium = "Medium",
-  Low = "Low",
-  None = "None",
 }
 
 export type ServiceCounts = {
@@ -25,22 +18,22 @@ export type ServiceCounts = {
   medium: number
   low: number
   none: number
+  totalCount: number
 }
 
-const normalizeCounts = (counts: any): ServiceCounts => {
-  const defaultCounts = {
-    critical: 0,
-    high: 0,
-    medium: 0,
-    low: 0,
-    none: 0,
+const getNormalizedData = (data: GetServicesCountsQuery | undefined | null): ServiceCounts => {
+  const counts = {
+    critical: data?.critical?.totalCount || 0,
+    high: data?.high?.totalCount || 0,
+    medium: data?.medium?.totalCount || 0,
+    low: data?.low?.totalCount || 0,
+    none: data?.none?.totalCount || 0,
   }
 
-  return Object.keys(defaultCounts).reduce((normalized, key) => {
-    // @ts-ignore since we're using dynamic keys, it should be safe here
-    normalized[key as keyof ServiceCounts] = counts?.[key]?.totalCount || defaultCounts[key]
-    return normalized
-  }, {} as ServiceCounts)
+  return {
+    ...counts,
+    totalCount: Object.values(counts).reduce((sum, count) => sum + count, 0),
+  }
 }
 
 export const useFetchServicesCounts = ({ filterSettings }: UseFetchServicesCountInput) => {
@@ -51,31 +44,41 @@ export const useFetchServicesCounts = ({ filterSettings }: UseFetchServicesCount
     supportGroupCcrn: baseFilters.supportGroupCcrn || [],
   }
 
-  const variables = (Object.values(SeverityValues) as SeverityValues[]).reduce(
-    (acc, severity) => ({
-      ...acc,
-      [severity.toLowerCase().slice(0, 3)]: {
-        ...filteredBaseFilters,
-        severity: [severity],
-      },
-    }),
-    {} as Record<string, IssueMatchFilter>
-  )
-
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>variables>>>>>>>>>>>>>>>>>>>>>>>>", variables)
-
   const {
     data: counts,
     previousData,
     loading,
     error,
   } = useGetServicesCountsQuery({
-    variables,
+    variables: {
+      crit: {
+        ...filteredBaseFilters,
+        severity: [SeverityValues.Critical],
+      },
+      high: {
+        ...filteredBaseFilters,
+        severity: [SeverityValues.High],
+      },
+      med: {
+        ...filteredBaseFilters,
+        severity: [SeverityValues.Medium],
+      },
+      low: {
+        ...filteredBaseFilters,
+        severity: [SeverityValues.Low],
+      },
+      none: {
+        ...filteredBaseFilters,
+        severity: [SeverityValues.None],
+      },
+    },
   })
+
+  const normCounts = getNormalizedData(isEmpty(counts) ? previousData : counts)
 
   return {
     loading,
-    counts: normalizeCounts(counts || previousData),
+    counts: normCounts,
     error: getNormalizedError(error),
   }
 }
