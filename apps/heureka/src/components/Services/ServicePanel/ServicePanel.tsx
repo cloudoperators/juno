@@ -61,13 +61,14 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
 
   return (
     <Panel
-      heading={`${capitalizeFirstLetter(service.name)} Image Versions${showTotalCount ? ` (${totalCount})` : ""}`}
+      heading={`${capitalizeFirstLetter(service.name)} Overview`}
       opened={true}
       onClose={onClose}
       size="large"
     >
       <PanelBody>
-        <Stack distribution="end" className="mb-2">
+        <Stack gap="2" distribution="between" alignment="center" className="mb-2">
+          <span>{showTotalCount ? `${totalCount} image versions in service` : ""}</span>
           <Button
             disabled
             variant="primary"
@@ -105,7 +106,7 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
                   <Stack gap="1" direction="vertical">
                     <Stack gap="0.5" direction="vertical">
                       <span>{version.imageName}</span>
-                      <span className="text-sm text-jn-global-text-subdued">{version.imageVersion}</span>
+                      <span className="text-sm text-theme-light">{version.imageVersion}</span>
                     </Stack>
                     <Stack gap="1" alignment="center">
                       <a
