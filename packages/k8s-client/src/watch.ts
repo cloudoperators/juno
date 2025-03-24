@@ -5,6 +5,7 @@
 
 import request from "./request"
 import * as logger from "./logger"
+import { ApiError } from "./apiErrorHandler"
 
 const ADDED = "ADDED"
 const MODIFIED = "MODIFIED"
@@ -12,13 +13,30 @@ const DELETED = "DELETED"
 const ERROR = "ERROR"
 const BOOKMARK = "BOOKMARK"
 
-type Listener = (_items: any) => void
+type Listener = (_items: unknown) => void
+
+interface WatchEvent {
+  type: string
+  object?: {
+    metadata?: {
+      resourceVersion?: string
+    }
+    code?: number
+  }
+}
+
+interface ApiResponseData {
+  items: unknown
+  metadata: {
+    resourceVersion: string | null
+  }
+}
 
 interface WatchOptions {
-  params?: Record<string, any>
+  params?: Record<string, string>
   headers?: Record<string, string>
   signal?: AbortSignal
-  body?: any
+  body?: Object | null
   mode?: RequestMode
   cache?: RequestCache
   credentials?: RequestCredentials
@@ -69,7 +87,7 @@ class Watch {
     this.listeners[type].push(listener)
   }
 
-  private informListeners = (type: string, items: any) => {
+  private informListeners = (type: string, items: unknown) => {
     const listeners = this.listeners[type]
     if (listeners) {
       listeners.forEach((listener) => {
@@ -83,7 +101,7 @@ class Watch {
     }
   }
 
-  private handleEvents = (events: any) => {
+  private handleEvents = (events: WatchEvent | WatchEvent[]) => {
     if (!Array.isArray(events)) events = [events]
 
     // Pass correct "this" context to be referenced in asynchronous callbacks
@@ -92,9 +110,9 @@ class Watch {
     setTimeout(() => {
       const eventsByType: Record<string, any[]> = {}
 
-      events.forEach((event: any) => {
+      events.forEach((event: WatchEvent) => {
         if (event.type === BOOKMARK) {
-          that.resourceVersion = event.object.metadata.resourceVersion
+          that.resourceVersion = event?.object?.metadata?.resourceVersion ?? null
         } else {
           if (!eventsByType[event.type]) {
             eventsByType[event.type] = []
@@ -111,7 +129,10 @@ class Watch {
     if (this.resourceVersion) return this.resourceVersion
 
     logger.debug(this.PREFIX, "get resource version from API")
-    const { metadata, items } = await request("GET", this.url, this.options).then((response) => response.json())
+    const { metadata, items } = (await request("GET", this.url, this.options).then((response) =>
+      // 'Body.json()' type definition expects 'any' as a return value
+      response.json()
+    )) as ApiResponseData
 
     this.resourceVersion = metadata.resourceVersion
     if (items) this.informListeners(ADDED, items)
@@ -155,10 +176,11 @@ class Watch {
           const events = data.split(/\n|\r|\r\n/)
           data = events.pop() ?? ""
 
-          const parsedEvents: any[] = []
+          const parsedEvents: WatchEvent[] = []
           events.forEach((e) => {
-            const parsedEvent = JSON.parse(e)
-            if (parsedEvent.type === ERROR && parsedEvent.object.code === 410) {
+            // 'JSON.parse' type definition expects 'any' as a return value
+            const parsedEvent = JSON.parse(e) as WatchEvent
+            if (parsedEvent.type === ERROR && parsedEvent?.object?.code === 410) {
               that.cancel()
               setTimeout(() => {
                 logger.debug(that.PREFIX, "resource is gone 410", "recreate watch request!")
@@ -173,7 +195,7 @@ class Watch {
           that.handleEvents(parsedEvents)
         }
       })
-      .catch((e) => {
+      .catch((e: ApiError) => {
         if (e.name === "AbortError") return
         const status = e.code || e?.response?.status
 
@@ -184,7 +206,7 @@ class Watch {
           return
         }
 
-        if ([404].includes(status)) {
+        if (status === 404) {
           that.handleEvents({ type: ERROR, object: e })
           that.cancel()
           return

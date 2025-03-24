@@ -17,7 +17,7 @@ interface ClientOptions {
 interface RequestOptions {
   params?: Record<string, any>
   headers?: Record<string, string>
-  body?: any
+  body?: Object | null
   signal?: AbortSignal
   mode?: RequestMode
   cache?: RequestCache
@@ -55,26 +55,26 @@ function createClient(options: ClientOptions) {
     return request("HEAD", buildUrl(apiEndpoint, path), extendOptions(options)).catch(handleApiError)
   }
 
-  function get(path: string, options: RequestOptions = {}): Promise<any> {
+  function get(path: string, options: RequestOptions = {}): Promise<unknown> {
     return request("GET", buildUrl(apiEndpoint, path), extendOptions(options))
       .then((res) => res.json())
       .catch(handleApiError)
   }
 
-  function post(path: string, data: {}, options: RequestOptions = {}): Promise<any> {
+  function post(path: string, data: {}, options: RequestOptions = {}): Promise<unknown> {
     const result = request("POST", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
     return result
   }
 
-  function put(path: string, data: {}, options: RequestOptions = {}): Promise<any> {
+  function put(path: string, data: {}, options: RequestOptions = {}): Promise<unknown> {
     return request("PUT", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
   }
 
-  function patch(path: string, data: {}, options: RequestOptions = {}): Promise<any> {
+  function patch(path: string, data: {}, options: RequestOptions = {}): Promise<unknown> {
     return request(
       "PATCH",
       buildUrl(apiEndpoint, path),
