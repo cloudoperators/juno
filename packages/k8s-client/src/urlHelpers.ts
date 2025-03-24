@@ -15,13 +15,12 @@ const encodeQueryData = (data: Record<string, any>): string | undefined => {
   if (!data) return
   const ret = []
   for (const key in data) {
-    // TODO: Use 'Object.hasOwn()' instead of 'Object.prototype.hasOwnProperty.call()'
-    // But: Property 'hasOwn' does not exist on type 'ObjectConstructor'. The target library should be adjusted in the tsconfig.json file (the 'lib' compiler option should be 'es2022' or later)
-    if (Object.prototype.hasOwnProperty.call(data, key)) {
+    if (Object.keys(data).includes(key)) {
       const result = data[key] as string | number | boolean
       ret.push(encodeURIComponent(key) + "=" + encodeURIComponent(result))
     }
   }
+
   return ret.join("&")
 }
 
