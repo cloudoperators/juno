@@ -5,7 +5,15 @@
 
 import { isNil } from "lodash"
 import { ApolloError } from "@apollo/client"
-import { Edge, GetServicesQuery, Page, Service, ServiceEdge, ServiceFilter } from "../../generated/graphql"
+import {
+  Edge,
+  GetServicesQuery,
+  Page,
+  Service,
+  ServiceEdge,
+  ServiceFilter,
+  IssueMatchConnection,
+} from "../../generated/graphql"
 import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
 
@@ -30,35 +38,60 @@ type NormalizedServices = {
   services: ServiceType[]
 }
 
-export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => ({
-  totalCount: data?.Services?.totalCount || 0,
-  pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
-  services: isNil(data?.Services?.edges)
-    ? []
-    : data?.Services?.edges
-        ?.filter((edge) => edge !== null)
-        .map((edge?: Edge): ServiceType => {
-          const node: Service | undefined = edge?.node
-          const service: ServiceType = {
-            id: node?.id?.toString() || "",
-            name: node?.ccrn || "",
-            serviceDetails: {
-              supportGroups: getSupportGroups(edge),
-            },
-            components: node?.objectMetadata?.componentInstanceCount || 0,
-            serviceOwners: getServiceOwners(edge),
-            issuesCount: {
-              critical: Math.floor(Math.random() * 10), //TODO: remove mock data when available
-              high: Math.floor(Math.random() * 10), //TODO: remove mock data when available
-            },
-            remediationDate: "2023-01-01", //TODO: remove mock data when available
-          }
-          return service
-        }),
-})
+type ExtendedService = Service & {
+  critical?: IssueMatchConnection
+  high?: IssueMatchConnection
+  medium?: IssueMatchConnection
+  low?: IssueMatchConnection
+  none?: IssueMatchConnection
+}
 
-export const getNormalizedError = (error?: ApolloError) =>
-  !isNil(error) ? error?.message || "Something went wrong" : undefined
+export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => {
+  return {
+    totalCount: data?.Services?.totalCount || 0,
+    pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    services: isNil(data?.Services?.edges)
+      ? []
+      : data?.Services?.edges
+          ?.filter((edge) => edge !== null)
+          .map((edge?: Edge): ServiceType => {
+            const node: ExtendedService | undefined = edge?.node
+            const service: ServiceType = {
+              id: node?.id?.toString() || "",
+              name: node?.ccrn || "",
+              serviceDetails: {
+                supportGroups: getSupportGroups(edge),
+              },
+              components: node?.objectMetadata?.componentInstanceCount || 0,
+              serviceOwners: getServiceOwners(edge),
+              issuesCount: {
+                critical: node?.critical?.totalCount || 0,
+                high: node?.high?.totalCount || 0,
+              },
+              remediationDate: "2023-01-01", //TODO: remove mock data when available
+            }
+            return service
+          }),
+  }
+}
+
+export const getNormalizedError = (error?: ApolloError) => {
+  if (isNil(error)) return undefined
+
+  // Extract network errors if they exist
+  const networkErrors = error.networkError as any
+  if (networkErrors?.result?.errors?.length > 0) {
+    return networkErrors.result.errors
+      .map((e: any) => {
+        const path = e.path ? ` (Path: ${e.path.join(" → ")})` : ""
+        return `${e.message}${path}`
+      })
+      .join("; ")
+  }
+
+  // Fallback to the standard error message
+  return error.message || "Something went wrong"
+}
 
 export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceFilter => ({
   search: filterSettings?.searchTerm ? [filterSettings.searchTerm] : undefined,

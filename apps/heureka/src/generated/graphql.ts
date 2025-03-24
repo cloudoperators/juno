@@ -148,6 +148,7 @@ export type ComponentComponentVersionsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentVersionFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>>>
 }
 
 export type ComponentConnection = Connection & {
@@ -273,6 +274,7 @@ export type ComponentVersion = Node & {
   issueCounts?: Maybe<SeverityCounts>
   issues?: Maybe<IssueConnection>
   metadata?: Maybe<Metadata>
+  tag?: Maybe<Scalars["String"]["output"]>
   version?: Maybe<Scalars["String"]["output"]>
 }
 
@@ -307,15 +309,27 @@ export type ComponentVersionFilter = {
   componentCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   componentId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  issueRepositoryId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
+  tag?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   version?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
 export type ComponentVersionInput = {
   componentId?: InputMaybe<Scalars["String"]["input"]>
+  tag?: InputMaybe<Scalars["String"]["input"]>
   version?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export type ComponentVersionOrderBy = {
+  by?: InputMaybe<ComponentVersionOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum ComponentVersionOrderByField {
+  Severity = "severity",
 }
 
 export type Connection = {
@@ -413,6 +427,7 @@ export type IssueComponentVersionsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentVersionFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>>>
 }
 
 export type IssueIssueMatchesArgs = {
@@ -1135,6 +1150,7 @@ export type QueryComponentVersionsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentVersionFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>>>
 }
 
 export type QueryComponentsArgs = {
@@ -1491,6 +1507,11 @@ export type GetServicesQueryVariables = Exact<{
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
   orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>> | InputMaybe<ServiceOrderBy>>
+  crit?: InputMaybe<IssueMatchFilter>
+  high?: InputMaybe<IssueMatchFilter>
+  med?: InputMaybe<IssueMatchFilter>
+  low?: InputMaybe<IssueMatchFilter>
+  none?: InputMaybe<IssueMatchFilter>
 }>
 
 export type GetServicesQuery = {
@@ -1523,6 +1544,11 @@ export type GetServicesQuery = {
             node: { __typename?: "SupportGroup"; id: string; ccrn?: string | null }
           } | null> | null
         } | null
+        critical?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
+        high?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
+        medium?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
+        low?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
+        none?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
       }
     } | null> | null
     pageInfo?: {
@@ -1583,7 +1609,17 @@ export type GetServicesCountsQuery = {
 }
 
 export const GetServicesDocument = gql`
-  query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
+  query GetServices(
+    $filter: ServiceFilter
+    $first: Int
+    $after: String
+    $orderBy: [ServiceOrderBy]
+    $crit: IssueMatchFilter
+    $high: IssueMatchFilter
+    $med: IssueMatchFilter
+    $low: IssueMatchFilter
+    $none: IssueMatchFilter
+  ) {
     Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
       edges {
         node {
@@ -1609,6 +1645,21 @@ export const GetServicesDocument = gql`
                 ccrn
               }
             }
+          }
+          critical: issueMatches(filter: $crit) {
+            totalCount
+          }
+          high: issueMatches(filter: $high) {
+            totalCount
+          }
+          medium: issueMatches(filter: $med) {
+            totalCount
+          }
+          low: issueMatches(filter: $low) {
+            totalCount
+          }
+          none: issueMatches(filter: $none) {
+            totalCount
           }
         }
       }
@@ -1639,6 +1690,11 @@ export const GetServicesDocument = gql`
  *      first: // value for 'first'
  *      after: // value for 'after'
  *      orderBy: // value for 'orderBy'
+ *      crit: // value for 'crit'
+ *      high: // value for 'high'
+ *      med: // value for 'med'
+ *      low: // value for 'low'
+ *      none: // value for 'none'
  *   },
  * });
  */
