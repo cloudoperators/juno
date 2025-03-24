@@ -12,7 +12,6 @@ import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import StatusBar from "./ServicesList/StatusBar"
-import { Stack } from "@cloudoperators/juno-ui-components"
 
 export type ServiceType = {
   id: string
