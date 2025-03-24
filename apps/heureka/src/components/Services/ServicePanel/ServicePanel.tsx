@@ -23,7 +23,7 @@ import {
   Message,
 } from "@cloudoperators/juno-ui-components"
 import { useFetchServiceImageVersions } from "../useFetchServiceImageVersions"
-import { capitalizeFirstLetter, truncateVersion } from "../../common/Helpers/helpers"
+import { capitalizeFirstLetter } from "../../common/Helpers/helpers"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { ServiceType } from "../Services"
 
@@ -60,12 +60,7 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
   }))
 
   return (
-    <Panel
-      heading={`${capitalizeFirstLetter(service.name)} Overview`}
-      opened={true}
-      onClose={onClose}
-      size="large"
-    >
+    <Panel heading={`${capitalizeFirstLetter(service.name)} Overview`} opened={true} onClose={onClose} size="large">
       <PanelBody>
         <Stack gap="2" distribution="between" alignment="center" className="mb-2">
           <span>{showTotalCount ? `${totalCount} image versions in service` : ""}</span>

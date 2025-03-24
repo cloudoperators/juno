@@ -59,10 +59,10 @@ describe("ServicesList", () => {
     await user.click(serviceRow)
 
     // Check if the panel is rendered with the service name
-    expect(screen.getByText(`${capitalizeFirstLetter(mockService.name)} Service Overview`)).toBeInTheDocument()
+    expect(screen.getByText(`${capitalizeFirstLetter(mockService.name)} Overview`)).toBeInTheDocument()
 
     // Click again to close the panel
     await user.click(serviceRow)
-    expect(screen.queryByText(`${capitalizeFirstLetter(mockService.name)} Service Overview`)).not.toBeInTheDocument()
+    expect(screen.queryByText(`${capitalizeFirstLetter(mockService.name)} Overview`)).not.toBeInTheDocument()
   })
 })
