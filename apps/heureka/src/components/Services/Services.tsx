@@ -13,6 +13,7 @@ import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import StatusBar from "./ServicesList/StatusBar"
 import { SERVICES } from "../../constants"
+import { useFetchServices } from "./useFetchServices"
 
 export type ServiceType = {
   id: string
@@ -37,9 +38,17 @@ const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
     searchTerm: "",
   }
 }
-export const Services: React.FC<{ initialFilters?: InitialFilters }> = ({ initialFilters }) => {
+
+type Props = {
+  initialFilters?: InitialFilters
+}
+
+export const Services = ({ initialFilters }: Props) => {
   const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
   const { serviceFilters } = useFetchServiceFilters()
+  const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
+    filterSettings,
+  })
 
   return (
     <>
@@ -51,7 +60,14 @@ export const Services: React.FC<{ initialFilters?: InitialFilters }> = ({ initia
         searchInputPlaceholder="search term for services name"
       />
       <StatusBar filterSettings={filterSettings} />
-      <ServicesList filterSettings={filterSettings} />
+      <ServicesList
+        loading={loading}
+        error={error}
+        services={services}
+        currentPage={currentPage}
+        totalNumberOfPages={totalNumberOfPages}
+        goToPage={goToPage}
+      />
       <Panel />
     </>
   )

@@ -1,5 +1,12 @@
 # heureka
 
+## 0.3.3
+
+### Patch Changes
+
+- 135cae5: Adds initialFilters support group as default filter in services
+- f2f264f: Make the `Services` and `Issues` component types more explicit by defining props explicitly instead of implicit. Also, migrate away from `React.FC` as it is no longer the recommended approach.
+
 ## 0.3.2
 
 ### Patch Changes

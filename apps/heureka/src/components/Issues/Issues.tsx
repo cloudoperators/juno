@@ -6,6 +6,8 @@
 import React from "react"
 import { InitialFilters } from "../../App"
 
-export const Issues: React.FC<{ initialFilters?: InitialFilters }> = ({ initialFilters }) => (
-  <div>render issues here...</div>
-)
+type Props = {
+  initialFilters?: InitialFilters
+}
+
+export const Issues = ({ initialFilters }: Props) => <div>render issues here...</div>
