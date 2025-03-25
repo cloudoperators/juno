@@ -57,7 +57,7 @@ export const ServiceListItem = ({ item, onClick }: ServiceListItemProps) => (
       ))}
     </DataGridCell>
     <DataGridCell>
-      <Icon icon="description" onClick={() => {}} />
+      <Icon icon="description" />
     </DataGridCell>
   </DataGridRow>
 )
