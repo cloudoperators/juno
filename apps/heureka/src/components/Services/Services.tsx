@@ -12,7 +12,6 @@ import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import StatusBar from "./ServicesList/StatusBar"
-import { SERVICES } from "../../constants"
 import { useFetchServices } from "./useFetchServices"
 
 export type ServiceType = {

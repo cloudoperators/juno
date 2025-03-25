@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useCallback, useEffect } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Message } from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, Pagination } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
