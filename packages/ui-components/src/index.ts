@@ -3,6 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// STYLES
+import "./global.scss"
+import.meta.glob("./components/**/*.scss", {
+  eager: true,
+})
+
+// COMPONENTS
 export { AppBody } from "./components/AppBody/AppBody.component"
 export { AppShell } from "./components/AppShell/AppShell.component"
 export { AppShellProvider } from "./components/AppShellProvider/AppShellProvider.component"
@@ -200,9 +207,3 @@ export { SelectRow } from "./deprecated_js/SelectRow"
 export { SwitchRow } from "./deprecated_js/SwitchRow"
 export { TextareaRow } from "./deprecated_js/TextareaRow"
 export { TextInputRow } from "./deprecated_js/TextInputRow"
-
-//STYLES
-import "./global.scss"
-import.meta.glob("./components/**/*.scss", {
-  eager: true,
-})
