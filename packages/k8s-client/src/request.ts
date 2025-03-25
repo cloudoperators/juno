@@ -5,7 +5,7 @@
 
 import { buildUrl } from "./urlHelpers"
 import * as logger from "./logger"
-import { ApiError } from "./apiErrorHandler"
+import { K8sApiError } from "./apiErrorHandler"
 
 // Define the shape of the options parameter
 interface RequestOptions {
@@ -25,7 +25,7 @@ const checkStatus = (response: Response): Response => {
     return response
   } else {
     const error = new Error(response.statusText || `${response.status}`)
-    ;(error as ApiError).response = response // Type assertion to attach the response to the error
+    ;(error as K8sApiError).response = response // Type assertion to attach the response to the error
     throw error
   }
 }

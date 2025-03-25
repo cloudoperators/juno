@@ -6,7 +6,7 @@
 import request from "./request"
 import { buildUrl } from "./urlHelpers"
 import { Watch, ADDED, MODIFIED, DELETED, ERROR } from "./watch"
-import handleApiError from "./apiErrorHandler"
+import handleApiError, { K8sApiError } from "./apiErrorHandler"
 
 interface ClientOptions {
   apiEndpoint: string
@@ -51,7 +51,7 @@ function createClient(options: ClientOptions) {
     }
   }
 
-  function head(path: string, options: RequestOptions = {}): Promise<Response> {
+  function head(path: string, options: RequestOptions = {}): Promise<Response | K8sApiError> {
     return request("HEAD", buildUrl(apiEndpoint, path), extendOptions(options)).catch(handleApiError)
   }
 
@@ -87,7 +87,7 @@ function createClient(options: ClientOptions) {
       .catch(handleApiError)
   }
 
-  function del(path: string, data?: {} | null, options: RequestOptions = {}): Promise<any> {
+  function del(path: string, data?: {} | null, options: RequestOptions = {}): Promise<unknown> {
     return request("DELETE", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)

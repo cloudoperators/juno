@@ -5,7 +5,7 @@
 
 import request from "./request"
 import * as logger from "./logger"
-import { ApiError } from "./apiErrorHandler"
+import { K8sApiError } from "./apiErrorHandler"
 
 const ADDED = "ADDED"
 const MODIFIED = "MODIFIED"
@@ -195,7 +195,7 @@ class Watch {
           that.handleEvents(parsedEvents)
         }
       })
-      .catch((e: ApiError) => {
+      .catch((e: K8sApiError) => {
         if (e.name === "AbortError") return
         const status = e.code || e?.response?.status
 
