@@ -52,7 +52,7 @@ export const ServiceListItem = ({ item }: { item: ServiceType }) => (
       ))}
     </DataGridCell>
     <DataGridCell>
-      <Icon icon="chevronRight" onClick={() => {}} />
+      <Icon icon="description" onClick={() => {}} />
     </DataGridCell>
   </DataGridRow>
 )

@@ -12,6 +12,7 @@ import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import StatusBar from "./ServicesList/StatusBar"
+import { SERVICES } from "../../constants"
 
 export type ServiceType = {
   id: string
@@ -43,7 +44,12 @@ export const Services: React.FC<{ initialFilters?: InitialFilters }> = ({ initia
   return (
     <>
       <Breadcrumb />
-      <Filters filters={serviceFilters} filterSettings={filterSettings} onFilterChange={setFilterSettings} />
+      <Filters
+        filters={serviceFilters}
+        filterSettings={filterSettings}
+        onFilterChange={setFilterSettings}
+        searchInputPlaceholder="search term for services name"
+      />
       <StatusBar filterSettings={filterSettings} />
       <ServicesList filterSettings={filterSettings} />
       <Panel />
