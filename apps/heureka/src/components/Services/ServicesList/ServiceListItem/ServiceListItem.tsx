@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { DataGridRow, DataGridCell, Pill, Badge, Stack } from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Pill, Badge, Stack, Icon } from "@cloudoperators/juno-ui-components"
 import { ServiceType } from "../../Services"
 
 type ServiceDetailsLabel = {
@@ -46,11 +46,13 @@ export const ServiceListItem = ({ item }: { item: ServiceType }) => (
       <ServiceDetails serviceDetails={item.serviceDetails} />
     </DataGridCell>
     <DataGridCell>{item.components}</DataGridCell>
-    <DataGridCell>{item.remediationDate}</DataGridCell>
     <DataGridCell>
       {item.serviceOwners.map((owner) => (
         <div key={owner}>{owner}</div>
       ))}
+    </DataGridCell>
+    <DataGridCell>
+      <Icon icon="chevronRight" onClick={() => {}} />
     </DataGridCell>
   </DataGridRow>
 )

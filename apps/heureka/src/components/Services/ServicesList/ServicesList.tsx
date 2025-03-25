@@ -36,14 +36,14 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
   return (
     <div className="flex-1 flex flex-col gap-10 overflow-hidden">
       <div className="overflow-scroll">
-        <DataGrid minContentColumns={[3, 4]} columns={COLUMN_SPAN}>
+        <DataGrid minContentColumns={[5]} columns={COLUMN_SPAN}>
           <DataGridRow>
             <DataGridHeadCell>Service</DataGridHeadCell>
             <DataGridHeadCell>Issues count</DataGridHeadCell>
             <DataGridHeadCell>Service details</DataGridHeadCell>
             <DataGridHeadCell>No. Components</DataGridHeadCell>
-            <DataGridHeadCell>Target remediation</DataGridHeadCell>
             <DataGridHeadCell>Service owners</DataGridHeadCell>
+            <DataGridHeadCell></DataGridHeadCell>
           </DataGridRow>
           {
             /* if request is in flight */
