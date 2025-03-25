@@ -20,3 +20,19 @@
   display: flex;
   overflow: hidden;
 }
+
+// datagrid row hover style
+// REMOVE THIS ONCE DATAGRID COMPONENT SUPPORTS HOVER
+.services {
+  .juno-datagrid-row:hover {
+    .juno-datagrid-cell {
+      @apply bg-theme-background-lvl-1;
+    }
+  }
+
+  .juno-datagrid-row.active {
+    .juno-datagrid-cell {
+      @apply bg-theme-background-lvl-2;
+    }
+  }
+}

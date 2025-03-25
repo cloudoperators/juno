@@ -4,7 +4,14 @@
  */
 
 import React, { useState, useCallback, useEffect } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Pagination } from "@cloudoperators/juno-ui-components"
+import {
+  DataGrid,
+  DataGridRow,
+  DataGridHeadCell,
+  Pagination,
+  Modal,
+  ModalFooter,
+} from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
@@ -31,17 +38,25 @@ export const ServicesList = ({
   goToPage,
 }: ServiceListProps) => {
   const { addMessage } = messageActions()
-  const [selectedService, setSelectedService] = useState<ServiceType | null>(null)
+  const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
+  const [selectedDetailService, setSelectedDetailService] = useState<ServiceType | null>(null)
 
   const handlePanelClose = useCallback(() => {
-    setSelectedService(null)
-  }, [selectedService])
+    setSelectedOverviewService(null)
+  }, [selectedOverviewService])
 
-  const handleServiceClick = useCallback(
+  const handleServiceOverviewOpen = useCallback(
     (service: ServiceType) => {
-      setSelectedService(service.name === selectedService?.name ? null : service)
+      setSelectedOverviewService(service.name === selectedOverviewService?.name ? null : service)
     },
-    [selectedService]
+    [selectedOverviewService]
+  )
+
+  const handleServiceDetailsOpen = useCallback(
+    (service: ServiceType) => {
+      setSelectedDetailService(service.name === selectedDetailService?.name ? null : service)
+    },
+    [selectedDetailService]
   )
 
   useEffect(() => {
@@ -54,40 +69,44 @@ export const ServicesList = ({
   }, [error])
 
   return (
-    <div className="flex-1 flex flex-col gap-10 overflow-hidden">
-      <div className="overflow-scroll">
-        <DataGrid minContentColumns={[5]} columns={COLUMN_SPAN}>
-          <DataGridRow>
-            <DataGridHeadCell>Service</DataGridHeadCell>
-            <DataGridHeadCell>Issues count</DataGridHeadCell>
-            <DataGridHeadCell>Service details</DataGridHeadCell>
-            <DataGridHeadCell>No. Components</DataGridHeadCell>
-            <DataGridHeadCell>Service owners</DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-          </DataGridRow>
-          {
-            /* if request is in flight */
-            loading && <EmptyDataGridRow colSpan={COLUMN_SPAN}>Loading...</EmptyDataGridRow>
-          }
+    <div className="services">
+      <DataGrid minContentColumns={[5]} columns={COLUMN_SPAN}>
+        <DataGridRow>
+          <DataGridHeadCell>Service</DataGridHeadCell>
+          <DataGridHeadCell>Issues count</DataGridHeadCell>
+          <DataGridHeadCell>Service details</DataGridHeadCell>
+          <DataGridHeadCell>No. Components</DataGridHeadCell>
+          <DataGridHeadCell>Service owners</DataGridHeadCell>
+          <DataGridHeadCell></DataGridHeadCell>
+        </DataGridRow>
+        {
+          /* if request is in flight */
+          loading && <EmptyDataGridRow colSpan={COLUMN_SPAN}>Loading...</EmptyDataGridRow>
+        }
 
-          {
-            /* if the request is fulfilled with the data */
-            !loading &&
-              !error &&
-              services.length > 0 &&
-              services.map((item) => (
-                <ServiceListItem key={item.name} item={item} onClick={() => handleServiceClick(item)} />
-              ))
-          }
+        {
+          /* if the request is fulfilled with the data */
+          !loading &&
+            !error &&
+            services.length > 0 &&
+            services.map((item) => (
+              <ServiceListItem
+                key={item.name}
+                item={item}
+                onServiceOverviewOpen={() => handleServiceOverviewOpen(item)}
+                onServiceDetailsOpen={() => handleServiceDetailsOpen(item)}
+              />
+            ))
+        }
 
-          {
-            /* if the request is fulfilled with no data */
-            !loading && !error && services.length === 0 && (
-              <EmptyDataGridRow colSpan={COLUMN_SPAN}>No services found</EmptyDataGridRow>
-            )
-          }
-        </DataGrid>
-      </div>
+        {
+          /* if the request is fulfilled with no data */
+          !loading && !error && services.length === 0 && (
+            <EmptyDataGridRow colSpan={COLUMN_SPAN}>No services found</EmptyDataGridRow>
+          )
+        }
+      </DataGrid>
+
       {!!totalNumberOfPages && (
         <div className="flex justify-end">
           <Pagination
@@ -99,7 +118,12 @@ export const ServicesList = ({
           />
         </div>
       )}
-      {selectedService && <ServicePanel service={selectedService} onClose={handlePanelClose} />}
+      {selectedOverviewService && <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} />}
+      {selectedDetailService && (
+        <Modal title="Service Details" open={true} onCancel={() => setSelectedDetailService(null)}>
+          <div>Comming soon...</div>
+        </Modal>
+      )}
     </div>
   )
 }
