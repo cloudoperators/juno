@@ -4,7 +4,7 @@
  */
 
 import { isNil } from "lodash"
-import { ApolloError, NetworkError } from "@apollo/client"
+import { ApolloError } from "@apollo/client"
 import {
   Edge,
   GetServicesQuery,
@@ -77,13 +77,23 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
   }
 }
 
+interface GraphQLError {
+  message: string
+  path?: string[]
+}
+
+interface NetworkError extends Error {
+  result?: { errors?: GraphQLError[] }
+}
+
 export const getNormalizedError = (error?: ApolloError) => {
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist
-  const networkErrors: NetworkError = error.networkError
-  if (networkErrors?.result?.errors?.length > 0) {
-    return networkErrors.result.errors
+  const networkErrors = error.networkError as NetworkError | undefined
+  const netErrors = networkErrors?.result?.errors
+  if (netErrors && netErrors?.length > 0) {
+    return netErrors
       .map((e: any) => {
         const path = e.path ? ` (Path: ${e.path.join(" → ")})` : ""
         return `${e.message}${path}`
