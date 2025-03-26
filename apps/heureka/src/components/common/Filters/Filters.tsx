@@ -10,12 +10,13 @@ import { Filter, FilterSettings, SelectedFilter } from "./types"
 import { SelectedFilters } from "./SelectedFilters"
 
 export type FiltersProps = {
+  searchInputPlaceholder?: string
   filters: Filter[]
   filterSettings: FilterSettings
   onFilterChange: (filterSettings: FilterSettings) => void
 }
 
-export const Filters = ({ filters, filterSettings, onFilterChange }: FiltersProps) => {
+export const Filters = ({ filters, filterSettings, onFilterChange, searchInputPlaceholder }: FiltersProps) => {
   const handleFilterDelete = useCallback(
     (filterToRemove: SelectedFilter) => {
       onFilterChange({
@@ -52,7 +53,7 @@ export const Filters = ({ filters, filterSettings, onFilterChange }: FiltersProp
           variant="subdued"
         />
         <SearchInput
-          placeholder={`search term for`}
+          placeholder={searchInputPlaceholder ? searchInputPlaceholder : `search term for`}
           className="w-96 ml-auto"
           onSearch={(searchTerm) => {
             onFilterChange({

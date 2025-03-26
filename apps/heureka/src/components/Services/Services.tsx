@@ -11,6 +11,7 @@ import { Panel } from "../common/Panel"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
+import IssuesCount from "./ServicesList/IssuesCount"
 import { useFetchServices } from "./useFetchServices"
 import { ServiceDetails } from "./ServiceDetails"
 import { ServiceImageVersion } from "./common/ServiceImageVersions"
@@ -66,7 +67,7 @@ export const Services = ({ initialFilters }: Props) => {
   }
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden gap-5">
+    <>
       <Breadcrumb selectedService={selectedService?.name} onNavigateHome={handleBack} />
       {selectedService ? (
         <ServiceDetails
@@ -77,7 +78,13 @@ export const Services = ({ initialFilters }: Props) => {
         />
       ) : (
         <>
-          <Filters filters={serviceFilters} filterSettings={filterSettings} onFilterChange={setFilterSettings} />
+          <Filters
+        filters={serviceFilters}
+        filterSettings={filterSettings}
+        onFilterChange={setFilterSettings}
+        searchInputPlaceholder="search term for services name"
+      />
+      <IssuesCount filterSettings={filterSettings} />
           <ServicesList
             loading={loading}
             error={error}
@@ -90,6 +97,6 @@ export const Services = ({ initialFilters }: Props) => {
           <Panel />
         </>
       )}
-    </div>
+    </>
   )
 }

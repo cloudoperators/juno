@@ -1,7 +1,17 @@
 #SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 #SPDX-License-Identifier: Apache-2.0
 
-query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
+query GetServices(
+  $filter: ServiceFilter
+  $first: Int
+  $after: String
+  $orderBy: [ServiceOrderBy]
+  $crit: IssueMatchFilter
+  $high: IssueMatchFilter
+  $med: IssueMatchFilter
+  $low: IssueMatchFilter
+  $none: IssueMatchFilter
+) {
   Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
     edges {
       node {
@@ -27,6 +37,21 @@ query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy:
               ccrn
             }
           }
+        }
+        critical: issueMatches(filter: $crit) {
+          totalCount
+        }
+        high: issueMatches(filter: $high) {
+          totalCount
+        }
+        medium: issueMatches(filter: $med) {
+          totalCount
+        }
+        low: issueMatches(filter: $low) {
+          totalCount
+        }
+        none: issueMatches(filter: $none) {
+          totalCount
         }
       }
     }

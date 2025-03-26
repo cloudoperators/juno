@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { BreadcrumbItem } from "@cloudoperators/juno-ui-components"
+import { Breadcrumb as BreadcrumContainer, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
 import { capitalizeFirstLetter } from "../Helpers/helpers"
 
 type BreadcrumbProps = {
@@ -14,14 +14,16 @@ type BreadcrumbProps = {
 
 export const Breadcrumb = ({ selectedService, onNavigateHome }: BreadcrumbProps) => {
   return (
-    <div className="flex items-center gap-2">
-      <BreadcrumbItem icon="home" label="Services" onClick={onNavigateHome} />
+    <Container py px={false}>
+      <BreadcrumContainer className="flex items-center gap-2">
+        <BreadcrumbItem icon="home" label="Services" onClick={onNavigateHome} />
       {selectedService && (
         <>
           <span>/</span>
           <BreadcrumbItem label={capitalizeFirstLetter(selectedService)} />
         </>
       )}
-    </div>
+      </BreadcrumContainer>
+    </Container>
   )
 }

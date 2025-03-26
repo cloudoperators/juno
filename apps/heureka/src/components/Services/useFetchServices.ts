@@ -5,7 +5,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { isEmpty } from "lodash"
-import { OrderDirection, Page, ServiceOrderByField, useGetServicesQuery } from "../../generated/graphql"
+import { OrderDirection, Page, ServiceOrderByField, useGetServicesQuery, SeverityValues } from "../../generated/graphql"
 import { FilterSettings } from "../common/Filters/types"
 import { getNormalizedData, getActiveServiceFilter, getNormalizedError } from "./utils"
 
@@ -34,6 +34,21 @@ export const useFetchServices = ({ filterSettings, pageSize = 10 }: UseFetchServ
           direction: OrderDirection.Asc,
         },
       ],
+      crit: {
+        severity: [SeverityValues.Critical],
+      },
+      high: {
+        severity: [SeverityValues.High],
+      },
+      med: {
+        severity: [SeverityValues.Medium],
+      },
+      low: {
+        severity: [SeverityValues.Low],
+      },
+      none: {
+        severity: [SeverityValues.None],
+      },
     },
   })
   const { services, totalCount, pages } = getNormalizedData(isEmpty(data) ? previousData : data)
