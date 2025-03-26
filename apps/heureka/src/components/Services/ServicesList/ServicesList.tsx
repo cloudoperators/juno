@@ -9,6 +9,8 @@ import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { ServicePanel } from "../ServicePanel/ServicePanel"
 import { ServiceType } from "../Services"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import { ServiceImageVersion } from "../common/ServiceImageVersions"
 
 const COLUMN_SPAN = 6
 
@@ -40,6 +42,14 @@ export const ServicesList = ({
       setSelectedService(service.name === selectedService?.name ? null : service)
     },
     [selectedService]
+  )
+
+  const handleShowDetails = useCallback(
+    (service: ServiceType, version?: ServiceImageVersion) => {
+      // TODO: Implement navigation to details page
+      console.log('Navigate to details:', service, version)
+    },
+    []
   )
 
   return (
@@ -97,7 +107,8 @@ export const ServicesList = ({
           />
         </div>
       )}
-      {selectedService && <ServicePanel service={selectedService} onClose={handlePanelClose} />}
+          
+      {selectedService && <MessagesProvider><ServicePanel service={selectedService} onClose={handlePanelClose} onShowDetails={handleShowDetails} /></MessagesProvider>}
     </div>
   )
 }

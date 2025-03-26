@@ -16,7 +16,6 @@ import {
 } from "../../generated/graphql"
 import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
-import { IssueCounts } from "./ServicePanel/ServicePanel"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
