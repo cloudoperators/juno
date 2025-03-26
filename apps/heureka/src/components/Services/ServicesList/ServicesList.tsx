@@ -4,14 +4,7 @@
  */
 
 import React, { useState, useCallback, useEffect } from "react"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  Pagination,
-  Modal,
-  ModalFooter,
-} from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Modal, Stack } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
@@ -109,7 +102,7 @@ export const ServicesList = ({
       </DataGrid>
 
       {!!totalNumberOfPages && (
-        <div className="flex justify-end">
+        <Stack distribution="end" className="mt-4">
           <Pagination
             variant="number"
             currentPage={currentPage}
@@ -117,7 +110,7 @@ export const ServicesList = ({
             onPressPrevious={goToPage}
             pages={totalNumberOfPages}
           />
-        </div>
+        </Stack>
       )}
       {selectedOverviewService && <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} />}
       {selectedDetailService && (
