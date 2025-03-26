@@ -6,6 +6,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { ServicesList } from "./ServicesList"
 import { TestProvider } from "../../../mocks/TestProvider"
 import { ServiceType } from "../Services"
@@ -30,12 +31,14 @@ const renderServicesList = (services: ServiceType[] = []) => ({
   user: userEvent.setup(),
   ...render(
     <TestProvider>
-      <ServicesList
-        loading={false}
-        services={services}
-        totalNumberOfPages={services.length > 0 ? 1 : 0}
-        goToPage={() => {}}
-      />
+      <MessagesProvider>
+        <ServicesList
+          loading={false}
+          services={services}
+          totalNumberOfPages={services.length > 0 ? 1 : 0}
+          goToPage={() => {}}
+        />
+      </MessagesProvider>
     </TestProvider>
   ),
 })
