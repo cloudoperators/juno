@@ -1,0 +1,30 @@
+#SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+#SPDX-License-Identifier: Apache-2.0
+
+query GetServiceImageVersions($filter: ComponentVersionFilter, $first: Int, $after: String, $orderBy: [ComponentVersionOrderBy]) {
+  ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
+    edges {
+      node {
+        tag
+        version
+        issueCounts {
+          critical
+          high
+          medium
+          low
+          none
+        }
+        component {
+          ccrn
+        }
+      }
+    }
+    totalCount
+    pageInfo {
+      pages {
+        after
+        pageNumber
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ import { Panel } from "../common/Panel"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
+import { useFetchServices } from "./useFetchServices"
 
 export type ServiceType = {
   id: string
@@ -43,12 +44,22 @@ type Props = {
 export const Services = ({ initialFilters }: Props) => {
   const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
   const { serviceFilters } = useFetchServiceFilters()
+  const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
+    filterSettings,
+  })
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden gap-5">
       <Breadcrumb />
       <Filters filters={serviceFilters} filterSettings={filterSettings} onFilterChange={setFilterSettings} />
-      <ServicesList filterSettings={filterSettings} />
+      <ServicesList
+        loading={loading}
+        error={error}
+        services={services}
+        currentPage={currentPage}
+        totalNumberOfPages={totalNumberOfPages}
+        goToPage={goToPage}
+      />
       <Panel />
     </div>
   )
