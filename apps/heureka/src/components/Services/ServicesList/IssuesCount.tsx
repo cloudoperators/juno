@@ -30,7 +30,7 @@ const IssuesCount = ({ filterSettings }: StatusBarProps) => {
   }, [error])
 
   return (
-    <Stack className={`status-bar bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light`} alignment="center">
+    <Stack className="status-bar bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
       <Stack gap="1">
         <div className="font-bold">All issues:</div>
         {!error && !loading && (
