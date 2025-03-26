@@ -278,6 +278,8 @@ export type ComponentVersion = Node & {
   issueCounts?: Maybe<SeverityCounts>
   issues?: Maybe<IssueConnection>
   metadata?: Maybe<Metadata>
+  organization?: Maybe<Scalars["String"]["output"]>
+  repository?: Maybe<Scalars["String"]["output"]>
   tag?: Maybe<Scalars["String"]["output"]>
   version?: Maybe<Scalars["String"]["output"]>
 }
@@ -314,6 +316,8 @@ export type ComponentVersionFilter = {
   componentId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueRepositoryId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  organization?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  repository?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
@@ -323,6 +327,8 @@ export type ComponentVersionFilter = {
 
 export type ComponentVersionInput = {
   componentId?: InputMaybe<Scalars["String"]["input"]>
+  organization?: InputMaybe<Scalars["String"]["input"]>
+  repository?: InputMaybe<Scalars["String"]["input"]>
   tag?: InputMaybe<Scalars["String"]["input"]>
   version?: InputMaybe<Scalars["String"]["input"]>
 }
@@ -1593,6 +1599,7 @@ export type GetServicesQuery = {
     } | null> | null
     pageInfo?: {
       __typename?: "PageInfo"
+      pageNumber?: number | null
       pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
     } | null
   } | null
@@ -1795,6 +1802,7 @@ export const GetServicesDocument = gql`
       }
       totalCount
       pageInfo {
+        pageNumber
         pages {
           after
           pageNumber

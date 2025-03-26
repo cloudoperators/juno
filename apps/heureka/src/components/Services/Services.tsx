@@ -12,7 +12,7 @@ import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import IssuesCount from "./ServicesList/IssuesCount"
-import { useFetchServices } from "./useFetchServices"
+import { useStore } from "../../store/StoreProvider"
 
 export type ServiceType = {
   id: string
@@ -38,16 +38,10 @@ const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
   }
 }
 
-type Props = {
-  initialFilters?: InitialFilters
-}
-
-export const Services = ({ initialFilters }: Props) => {
-  const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
+export const Services = () => {
+  const { initialFilters } = useStore()
   const { serviceFilters } = useFetchServiceFilters()
-  const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
-    filterSettings,
-  })
+  const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
 
   return (
     <>
@@ -59,14 +53,7 @@ export const Services = ({ initialFilters }: Props) => {
         searchInputPlaceholder="search term for services name"
       />
       <IssuesCount filterSettings={filterSettings} />
-      <ServicesList
-        loading={loading}
-        error={error}
-        services={services}
-        currentPage={currentPage}
-        totalNumberOfPages={totalNumberOfPages}
-        goToPage={goToPage}
-      />
+      <ServicesList filterSettings={filterSettings} />
       <Panel />
     </>
   )

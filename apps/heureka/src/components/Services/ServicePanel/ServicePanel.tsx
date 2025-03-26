@@ -8,14 +8,10 @@ import {
   Panel,
   Stack,
   PanelBody,
-  ContentHeading,
   DataGrid,
   DataGridRow,
   DataGridCell,
   DataGridHeadCell,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
   Button,
   Pagination,
   Badge,
@@ -26,6 +22,8 @@ import { useFetchServiceImageVersions } from "../useFetchServiceImageVersions"
 import { capitalizeFirstLetter } from "../../common/Helpers/helpers"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { ServiceType } from "../Services"
+import { useDispatch } from "../../../store/StoreProvider"
+import { ActionType, UserView } from "../../../store/StoreProvider/types"
 
 export type IssueCounts = {
   critical: number
@@ -41,7 +39,8 @@ type ServicePanelProps = {
   onClose: () => void
 }
 
-export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePanelProps) => {
+export const ServicePanel = ({ service, onClose }: ServicePanelProps) => {
+  const dispatch = useDispatch()
   const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalCount } =
     useFetchServiceImageVersions({
       serviceCcrn: service?.name || "",
@@ -65,13 +64,19 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
         <Stack gap="2" distribution="between" alignment="center" className="mb-2">
           <span>{showTotalCount ? `${totalCount} image versions in service` : ""}</span>
           <Button
-            disabled
             variant="primary"
             size="small"
-            onClick={() => {
-              // TODO: Navigate to service details page
-              onClose()
-            }}
+            onClick={() =>
+              dispatch({
+                type: ActionType.SelectView,
+                payload: {
+                  viewId: UserView.ServiceDetails,
+                  params: {
+                    service,
+                  },
+                },
+              })
+            }
           >
             Full Details
           </Button>
@@ -137,12 +142,19 @@ export const ServicePanel = ({ service, isLoading = false, onClose }: ServicePan
                 <DataGridCell>{version.issueCounts.low || "-"}</DataGridCell>
                 <DataGridCell>
                   <Button
-                    disabled
                     size="small"
-                    onClick={() => {
-                      // TODO: Navigate to service details page
-                      onClose()
-                    }}
+                    onClick={() =>
+                      dispatch({
+                        type: ActionType.SelectView,
+                        payload: {
+                          viewId: UserView.ServiceDetails,
+                          params: {
+                            service,
+                            imageVersion: version.imageVersion,
+                          },
+                        },
+                      })
+                    }
                   >
                     Show Details
                   </Button>

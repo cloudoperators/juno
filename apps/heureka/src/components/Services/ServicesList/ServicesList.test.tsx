@@ -27,16 +27,16 @@ const mockService: ServiceType = {
   serviceOwners: ["owner1", "owner2"],
 }
 
-const renderServicesList = (services: ServiceType[] = []) => ({
+const renderServicesList = () => ({
   user: userEvent.setup(),
   ...render(
     <TestProvider>
       <MessagesProvider>
         <ServicesList
-          loading={false}
-          services={services}
-          totalNumberOfPages={services.length > 0 ? 1 : 0}
-          goToPage={() => {}}
+          filterSettings={{
+            searchTerm: "",
+            selectedFilters: [],
+          }}
         />
       </MessagesProvider>
     </TestProvider>
@@ -55,7 +55,7 @@ describe("ServicesList", () => {
   })
 
   it("should render service panel when clicking on a service", async () => {
-    const { user } = renderServicesList([mockService])
+    const { user } = renderServicesList()
 
     // Find and click the service row
     const serviceRow = await screen.findByText(mockService.name)
