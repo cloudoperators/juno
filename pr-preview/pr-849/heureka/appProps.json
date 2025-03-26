@@ -1,0 +1,6 @@
+{
+  "apiEndpoint": "https://heureka-staging.scaleout.ap-jp-2.cloud.sap/query",
+  "initialFilters": {
+    "support_group": ["containers"]
+  }
+}
