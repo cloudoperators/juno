@@ -41,7 +41,7 @@ const renderServicesList = (services: ServiceType[] = []) => ({
           totalNumberOfPages={services.length > 0 ? 1 : 0}
           goToPage={() => {}}
           onShowDetails={() => {}}
-      />
+        />
       </MessagesProvider>
     </TestProvider>
   ),

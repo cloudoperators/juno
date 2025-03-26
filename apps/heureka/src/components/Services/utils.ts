@@ -70,7 +70,7 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
                 high: node?.high?.totalCount || 0,
                 medium: node?.medium?.totalCount || 0,
                 low: node?.low?.totalCount || 0,
-                none: node?.none?.totalCount || 0
+                none: node?.none?.totalCount || 0,
               },
               remediationDate: "2023-01-01", //TODO: remove mock data when available
             }

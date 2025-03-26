@@ -17,12 +17,12 @@ export const Breadcrumb = ({ selectedService, onNavigateHome }: BreadcrumbProps)
     <Container py px={false}>
       <BreadcrumContainer className="flex items-center gap-2">
         <BreadcrumbItem icon="home" label="Services" onClick={onNavigateHome} />
-      {selectedService && (
-        <>
-          <span>/</span>
-          <BreadcrumbItem label={capitalizeFirstLetter(selectedService)} />
-        </>
-      )}
+        {selectedService && (
+          <>
+            <span>/</span>
+            <BreadcrumbItem label={capitalizeFirstLetter(selectedService)} />
+          </>
+        )}
       </BreadcrumContainer>
     </Container>
   )

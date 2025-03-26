@@ -79,12 +79,12 @@ export const Services = ({ initialFilters }: Props) => {
       ) : (
         <>
           <Filters
-        filters={serviceFilters}
-        filterSettings={filterSettings}
-        onFilterChange={setFilterSettings}
-        searchInputPlaceholder="search term for services name"
-      />
-      <IssuesCount filterSettings={filterSettings} />
+            filters={serviceFilters}
+            filterSettings={filterSettings}
+            onFilterChange={setFilterSettings}
+            searchInputPlaceholder="search term for services name"
+          />
+          <IssuesCount filterSettings={filterSettings} />
           <ServicesList
             loading={loading}
             error={error}
