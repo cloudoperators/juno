@@ -15,11 +15,12 @@ const encodeQueryData = (data: Record<string, any>): string | undefined => {
   if (!data) return
   const ret = []
   for (const key in data) {
-    if (Object.prototype.hasOwnProperty.call(data, key)) {
+    if (Object.keys(data).includes(key)) {
       const result = data[key] as string | number | boolean
       ret.push(encodeURIComponent(key) + "=" + encodeURIComponent(result))
     }
   }
+
   return ret.join("&")
 }
 
@@ -54,7 +55,7 @@ function buildUrl(...args: (string | number | Record<string, any>)[]): string {
   })
 
   // Build the URL
-  let url = args.join("/")
+  let url = (args as Array<string | number>).join("/")
   const [protocol, rest] = url.split("://")
   if (!protocol || !rest) {
     throw new Error(`Bad URL: ${url}`)
