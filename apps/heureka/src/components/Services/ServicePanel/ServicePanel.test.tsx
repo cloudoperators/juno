@@ -11,7 +11,6 @@ import { ServicePanel } from "./ServicePanel"
 import { TestProvider } from "../../../mocks/TestProvider"
 import { ServiceType } from "../Services"
 
-
 const mockService: ServiceType = {
   id: "1",
   name: "test-service",
@@ -20,7 +19,7 @@ const mockService: ServiceType = {
     high: 2,
     medium: 0,
     low: 0,
-    none: 0
+    none: 0,
   },
   serviceDetails: {
     supportGroups: ["group1", "group2"],

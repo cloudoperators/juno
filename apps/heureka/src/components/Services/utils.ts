@@ -60,7 +60,7 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
               high: 2,
               medium: 0,
               low: 0,
-              none: 0
+              none: 0,
             },
             remediationDate: "2023-01-01", //TODO: remove mock data when available
           }
