@@ -91,8 +91,9 @@ export const ServicesList = ({
             services.length > 0 &&
             services.map((item) => (
               <ServiceListItem
-                key={item.name}
+                key={item.id}
                 item={item}
+                selectedItemId={selectedOverviewService?.id || ""}
                 onItemClick={() => handleServiceOverviewOpen(item)}
                 onServiceDetailClick={() => handleServiceDetailsOpen(item)}
               />
