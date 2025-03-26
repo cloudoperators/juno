@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useCallback, useEffect } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Modal, Stack } from "@cloudoperators/juno-ui-components"
+import React, { useCallback, useEffect, useState } from "react"
+import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
@@ -12,45 +12,46 @@ import { ServicePanel } from "../ServicePanel/ServicePanel"
 import { ServiceType } from "../Services"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { ServiceImageVersion } from "../common/ServiceImageVersions"
+import { useFetchServices } from "../useFetchServices"
+import { FilterSettings } from "../../common/Filters/types"
+import { useDispatch } from "../../../store/StoreProvider"
+import { ActionType, UserView } from "../../../store/StoreProvider/types"
 
 const COLUMN_SPAN = 6
 
 type ServiceListProps = {
-  loading: boolean
-  error?: string | null
-  services: ServiceType[]
-  currentPage?: number
-  totalNumberOfPages: number
-  goToPage: (page: number | undefined) => void
-  onShowDetails: (service: ServiceType, version?: ServiceImageVersion) => void
+  filterSettings: FilterSettings
 }
 
-export const ServicesList = ({
-  loading,
-  error,
-  services,
-  currentPage,
-  totalNumberOfPages,
-  goToPage,
-  onShowDetails,
-}: ServiceListProps) => {
+export const ServicesList = ({ filterSettings }: ServiceListProps) => {
+  const dispatch = useDispatch()
   const { addMessage } = messageActions()
   const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
+  const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
+    filterSettings,
+  })
 
   const handleServiceOverviewOpen = useCallback((service: ServiceType) => {
     setSelectedOverviewService((prev) => (prev?.id === service.id ? null : service))
   }, [])
 
-  const handleServiceDetailsOpen = useCallback(
-    (service: ServiceType) => {
-      onShowDetails(service) // Navigate to details page
-    },
-    [onShowDetails]
-  )
-
   const handlePanelClose = useCallback(() => {
     setSelectedOverviewService(null)
   }, [])
+
+  const goToServiceDetails = useCallback(
+    (service?: ServiceType) =>
+      dispatch({
+        type: ActionType.SelectView,
+        payload: {
+          viewId: UserView.ServiceDetails,
+          params: {
+            service,
+          },
+        },
+      }),
+    []
+  )
 
   useEffect(() => {
     if (error) {
@@ -82,13 +83,13 @@ export const ServicesList = ({
           !loading &&
             !error &&
             services.length > 0 &&
-            services.map((item) => (
+            services.map((item: ServiceType) => (
               <ServiceListItem
                 key={item.id}
                 item={item}
                 selected={selectedOverviewService?.id === item.id}
                 onItemClick={() => handleServiceOverviewOpen(item)}
-                onServiceDetailClick={() => handleServiceDetailsOpen(item)}
+                onServiceDetailClick={() => goToServiceDetails(item)}
               />
             ))
         }
@@ -115,7 +116,11 @@ export const ServicesList = ({
 
       {selectedOverviewService && (
         <MessagesProvider>
-          <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} onShowDetails={onShowDetails} />
+          <ServicePanel
+            service={selectedOverviewService}
+            onClose={handlePanelClose}
+            onShowDetails={goToServiceDetails}
+          />
         </MessagesProvider>
       )}
     </div>

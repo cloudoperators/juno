@@ -1616,6 +1616,7 @@ export type GetServicesQuery = {
     } | null> | null
     pageInfo?: {
       __typename?: "PageInfo"
+      pageNumber?: number | null
       pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
     } | null
   } | null
@@ -1818,6 +1819,7 @@ export const GetServicesDocument = gql`
       }
       totalCount
       pageInfo {
+        pageNumber
         pages {
           after
           pageNumber

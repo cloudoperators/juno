@@ -30,7 +30,8 @@
     "@cloudoperators/juno-ui-components": "*",
     "lodash": "4.17.21",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "use-immer": "0.11.0"
   },
   "devDependencies": {
     "@apollo/client": "3.11.10",

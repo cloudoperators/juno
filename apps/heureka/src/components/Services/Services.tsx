@@ -12,9 +12,9 @@ import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import IssuesCount from "./ServicesList/IssuesCount"
-import { useFetchServices } from "./useFetchServices"
 import { ServiceDetails } from "./ServiceDetails"
 import { ServiceImageVersion } from "./common/ServiceImageVersions"
+import { useStore } from "../../store/StoreProvider"
 
 export type ServiceType = {
   id: string
@@ -43,18 +43,12 @@ const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
   }
 }
 
-type Props = {
-  initialFilters?: InitialFilters
-}
-
-export const Services = ({ initialFilters }: Props) => {
-  const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
+export const Services = () => {
+  const { initialFilters } = useStore()
   const [selectedService, setSelectedService] = useState<ServiceType | null>(null)
   const [selectedImageVersion, setSelectedImageVersion] = useState<ServiceImageVersion | undefined>()
   const { serviceFilters } = useFetchServiceFilters()
-  const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
-    filterSettings,
-  })
+  const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
 
   const handleShowDetails = (service: ServiceType, version?: ServiceImageVersion) => {
     setSelectedService(service)
@@ -85,15 +79,7 @@ export const Services = ({ initialFilters }: Props) => {
             searchInputPlaceholder="search term for services name"
           />
           <IssuesCount filterSettings={filterSettings} />
-          <ServicesList
-            loading={loading}
-            error={error}
-            services={services}
-            currentPage={currentPage}
-            totalNumberOfPages={totalNumberOfPages}
-            goToPage={goToPage}
-            onShowDetails={handleShowDetails}
-          />
+          <ServicesList filterSettings={filterSettings} />
           <Panel />
         </>
       )}
