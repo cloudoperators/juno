@@ -4,12 +4,7 @@
  */
 
 import React from "react"
-import {
-  Panel,
-  Stack,
-  PanelBody,
-  Button,
-} from "@cloudoperators/juno-ui-components"
+import { Panel, Stack, PanelBody, Button } from "@cloudoperators/juno-ui-components"
 import { capitalizeFirstLetter } from "../../common/Helpers/helpers"
 import { ServiceType } from "../Services"
 import { ServiceImageVersion, ServiceImageVersions } from "../common/ServiceImageVersions"
@@ -31,10 +26,11 @@ export const ServicePanel = ({ service, isLoading = false, onClose, onShowDetail
     <Panel heading={`${capitalizeFirstLetter(service.name)} Overview`} opened={true} onClose={onClose} size="large">
       <PanelBody>
         <Stack className="w-full">
-          <ServiceImageVersions
-            serviceName={service.name}
-            onDetailsClick={handleDetailsClick}
-            showPagination={false}
+          <ServiceImageVersions 
+            serviceName={service.name} 
+            onDetailsClick={handleDetailsClick} 
+            showPagination={false} 
+            showDetailsColumn={true}
           />
         </Stack>
       </PanelBody>

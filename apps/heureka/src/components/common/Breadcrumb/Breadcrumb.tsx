@@ -5,11 +5,23 @@
 
 import React from "react"
 import { BreadcrumbItem } from "@cloudoperators/juno-ui-components"
+import { capitalizeFirstLetter } from "../Helpers/helpers"
 
-export const Breadcrumb = () => {
+type BreadcrumbProps = {
+  selectedService?: string
+  onNavigateHome?: () => void
+}
+
+export const Breadcrumb = ({ selectedService, onNavigateHome }: BreadcrumbProps) => {
   return (
-    <div>
-      <BreadcrumbItem icon="home" label="Services" />
+    <div className="flex items-center gap-2">
+      <BreadcrumbItem icon="home" label="Services" onClick={onNavigateHome} />
+      {selectedService && (
+        <>
+          <span>/</span>
+          <BreadcrumbItem label={capitalizeFirstLetter(selectedService)} />
+        </>
+      )}
     </div>
   )
 }

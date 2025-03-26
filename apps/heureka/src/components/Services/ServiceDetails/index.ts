@@ -1,1 +1,1 @@
-export * from "./ServiceDetails" 
+export * from "./ServiceDetails"

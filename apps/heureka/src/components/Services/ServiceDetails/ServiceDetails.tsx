@@ -8,14 +8,12 @@ import {
   Container,
   ContentHeading,
   Stack,
-  Button,
-  Icon,
-  Breadcrumb,
-  BreadcrumbItem,
+  Badge,
+  Pill,
+  Label,
 } from "@cloudoperators/juno-ui-components"
 import { ServiceType } from "../Services"
 import { ServiceImageVersion, ServiceImageVersions } from "../common/ServiceImageVersions"
-import { capitalizeFirstLetter } from "../../common/Helpers/helpers"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 
 type ServiceDetailsProps = {
@@ -25,59 +23,113 @@ type ServiceDetailsProps = {
   onShowDetails: (service: ServiceType, version?: ServiceImageVersion) => void
 }
 
-export const ServiceDetails = ({ selectedService, selectedImageVersion, onBack, onShowDetails }: ServiceDetailsProps) => {
+export const ServiceDetails = ({
+  selectedService,
+  selectedImageVersion,
+  onBack,
+  onShowDetails,
+}: ServiceDetailsProps) => {
+  // Use totalCount from selectedImageVersion if available
+  const totalIssues = selectedImageVersion?.totalCount ?? (selectedService.issuesCount?.critical || 0) + (selectedService.issuesCount?.high || 0)
+
   return (
     <MessagesProvider>
       <Container py px>
         <Messages />
-        <Stack gap="6">
-          {/* Breadcrumb navigation */}
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <Button variant="subdued" onClick={onBack}>
-                Services
-              </Button>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>
-              {capitalizeFirstLetter(selectedService.name)}
-            </BreadcrumbItem>
-          </Breadcrumb>
+        <Stack gap="8" direction="vertical" className="overflow-auto w-full">
+          {/* Service Information Section */}
+          <Stack gap="6" direction="vertical" className="w-full">
+            <ContentHeading>Service {selectedService.name} details</ContentHeading>
+            <Stack gap="4" direction="vertical">
+              {/* Service Details Row */}
+              <Stack gap="2" direction="horizontal">
+                <Label text="Service Details: "/>
+                <Stack direction="horizontal" gap="2" wrap>
+                  <Pill 
+                    pillKey="service" 
+                    pillKeyLabel="service" 
+                    pillValue={selectedService.name} 
+                    pillValueLabel={selectedService.name}
+                  />
+                  {selectedService.serviceDetails?.supportGroups?.map((group) => (
+                    <Pill 
+                      key={group} 
+                      pillKey="support_group" 
+                      pillKeyLabel="support_group" 
+                      pillValue={group} 
+                      pillValueLabel={group}
+                    />
+                  ))}
+                </Stack>
+              </Stack>
 
-          {/* Service Overview Section */}
-          <Stack gap="4">
-            <ContentHeading>Service Overview</ContentHeading>
-            <Stack gap="2">
-              <Stack gap="1" direction="horizontal" alignment="center">
-                <Icon icon="info" />
-                <span>Service Name: {selectedService.name}</span>
+              {/* Issues Count Row */}
+              <Stack gap="2" direction="horizontal">
+                <Label text="Number of Issues: "/>
+                <Stack direction="horizontal" gap="4" alignment="center">
+                  <span>{totalIssues}</span>
+                  <Stack direction="horizontal" gap="2" alignment="center">
+                    <span>Critical:</span>
+                    {selectedService.issuesCount?.critical > 0 ? (
+                      <Badge 
+                        icon="danger" 
+                        text={`${selectedService.issuesCount.critical}`} 
+                        variant="danger" 
+                      />
+                    ) : (
+                      <span>0</span>
+                    )}
+                  </Stack>
+                  <Stack direction="horizontal" gap="2" alignment="center">
+                    <span>High:</span>
+                    {selectedService.issuesCount?.high > 0 ? (
+                      <Badge 
+                        icon="warning" 
+                        text={`${selectedService.issuesCount.high}`} 
+                        variant="warning" 
+                      />
+                    ) : (
+                      <span>0</span>
+                    )}
+                  </Stack>
+                  <Stack direction="horizontal" gap="2" alignment="center">
+                    <span>Medium:</span>
+                    <span>{selectedService.issuesCount?.medium || 0}</span>
+                  </Stack>
+                  <Stack direction="horizontal" gap="2" alignment="center">
+                    <span>Low:</span>
+                    <span>{selectedService.issuesCount?.low || 0}</span>
+                  </Stack>
+                  <Stack direction="horizontal" gap="2" alignment="center">
+                    <span>None:</span>
+                    <span>{selectedService.issuesCount?.none || 0}</span>
+                  </Stack>
+                </Stack>
               </Stack>
-              <Stack gap="1" direction="horizontal" alignment="center">
-                <Icon icon="warning" />
-                <span>Critical Issues: {selectedService.issuesCount?.critical || 0}</span>
-                <span>High Issues: {selectedService.issuesCount?.high || 0}</span>
-              </Stack>
-              <Stack gap="1" direction="horizontal" alignment="center">
-                <Icon icon="accountCircle" />
-                <span>Support Groups: {selectedService.serviceDetails?.supportGroups?.join(", ")}</span>
-              </Stack>
-              <Stack gap="1" direction="horizontal" alignment="center">
-                <Icon icon="accountCircle" />
-                <span>Service Owners: {selectedService.serviceOwners?.join(", ")}</span>
+
+              {/* Owner Row */}
+              <Stack gap="2" direction="horizontal">
+                <Label text="Owner: "/>
+                <Stack direction="horizontal" gap="2">
+                  {selectedService.serviceOwners?.map((owner) => (
+                    <Pill key={owner} pillValue={owner}>{owner}</Pill>
+                  ))}
+                </Stack>
               </Stack>
             </Stack>
           </Stack>
 
           {/* Image Versions Section */}
-          <Stack gap="4">
-            <ContentHeading>Image Versions</ContentHeading>
+          <Stack className="w-full">
             <ServiceImageVersions
               serviceName={selectedService.name}
-              onDetailsClick={(version) => onShowDetails(selectedService, version)}
               className="service-details-grid"
+              showDetailsColumn={false}
+              pageSize={8}
             />
           </Stack>
         </Stack>
       </Container>
     </MessagesProvider>
   )
-} 
+}

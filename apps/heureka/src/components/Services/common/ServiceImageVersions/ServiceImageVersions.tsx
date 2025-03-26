@@ -14,6 +14,7 @@ import {
   Icon,
   Stack,
   Pagination,
+  ContentHeading,
 } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useFetchServiceImageVersions } from "../../useFetchServiceImageVersions"
@@ -30,22 +31,23 @@ export type ServiceImageVersion = {
     none: number
   }
   serviceName: string
+  totalCount?: number
 }
 
 type ServiceImageVersionsProps = {
   serviceName: string
   pageSize?: number
-  onDetailsClick: (version: ServiceImageVersion) => void
+  onDetailsClick?: (version: ServiceImageVersion) => void
   className?: string
-  showPagination?: boolean
+  showDetailsColumn?: boolean
 }
 
-export const ServiceImageVersions = ({ 
-  serviceName, 
-  pageSize = 8, 
-  onDetailsClick, 
+export const ServiceImageVersions = ({
+  serviceName,
+  pageSize = 8,
+  onDetailsClick,
   className,
-  showPagination = true,
+  showDetailsColumn = false,
 }: ServiceImageVersionsProps) => {
   const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalCount } =
     useFetchServiceImageVersions({
@@ -61,27 +63,36 @@ export const ServiceImageVersions = ({
     serviceName,
   }))
 
+  const columnCount = showDetailsColumn ? 7 : 6
+
   return (
     <Stack gap="4" direction="vertical" className="w-full">
-      {totalCount > 0 && (
-        <Stack distribution="between" alignment="center" className="w-full">
-          <span>{totalCount} image versions in service</span>
-          <Button
-            variant="primary"
-            size="small"
-            onClick={() => onDetailsClick({ 
-              imageName: "", 
-              imageVersion: "", 
-              imageTag: "", 
-              issueCounts: { critical: 0, high: 0, medium: 0, low: 0, none: 0 },
-              serviceName: serviceName 
-            })}
-          >
-            Full Details
-          </Button>
-        </Stack>
-      )}
-      <DataGrid columns={7} className={className}>
+      <Stack distribution="between" alignment="center" className="w-full">
+        {showDetailsColumn ? (
+          <>
+            <span>{totalCount} image versions in service</span>
+            <Button
+              variant="primary"
+              size="small"
+              onClick={() =>
+                onDetailsClick?.({
+                  imageName: "",
+                  imageVersion: "",
+                  imageTag: "",
+                  issueCounts: { critical: 0, high: 0, medium: 0, low: 0, none: 0 },
+                  serviceName: serviceName,
+                  totalCount: totalCount
+                })
+              }
+            >
+              Full Details
+            </Button>
+          </>
+        ) : (
+          <ContentHeading>Service Image Versions ({totalCount})</ContentHeading>
+        )}
+      </Stack>
+      <DataGrid columns={columnCount} className={className}>
         <DataGridRow>
           <DataGridHeadCell>Image Name</DataGridHeadCell>
           <DataGridHeadCell>Tag</DataGridHeadCell>
@@ -89,12 +100,12 @@ export const ServiceImageVersions = ({
           <DataGridHeadCell>High</DataGridHeadCell>
           <DataGridHeadCell>Medium</DataGridHeadCell>
           <DataGridHeadCell>Low</DataGridHeadCell>
-          <DataGridHeadCell></DataGridHeadCell>
+          {showDetailsColumn && <DataGridHeadCell></DataGridHeadCell>}
         </DataGridRow>
         {loading ? (
-          <EmptyDataGridRow colSpan={7}>Loading...</EmptyDataGridRow>
+          <EmptyDataGridRow colSpan={columnCount}>Loading...</EmptyDataGridRow>
         ) : imageVersions?.length === 0 && !error ? (
-          <EmptyDataGridRow colSpan={7}>No image versions available.</EmptyDataGridRow>
+          <EmptyDataGridRow colSpan={columnCount}>No image versions available.</EmptyDataGridRow>
         ) : (
           formattedImageVersions.map((version, index) => (
             <DataGridRow key={index}>
@@ -119,7 +130,7 @@ export const ServiceImageVersions = ({
                   </Stack>
                 </Stack>
               </DataGridCell>
-              <DataGridCell>{version.imageTag}</DataGridCell>
+              <DataGridCell className="break-all overflow-hidden">{version.imageTag}</DataGridCell>
               <DataGridCell>
                 {version.issueCounts.critical ? (
                   <Badge icon text={version.issueCounts.critical.toString()} variant="danger" />
@@ -136,14 +147,16 @@ export const ServiceImageVersions = ({
               </DataGridCell>
               <DataGridCell>{version.issueCounts.medium || "-"}</DataGridCell>
               <DataGridCell>{version.issueCounts.low || "-"}</DataGridCell>
-              <DataGridCell>
-                <Icon icon="description" onClick={() => onDetailsClick(version)}/>
-              </DataGridCell>
+              {showDetailsColumn && (
+                <DataGridCell>
+                  <Icon icon="description" onClick={() => onDetailsClick?.(version)} />
+                </DataGridCell>
+              )}
             </DataGridRow>
           ))
         )}
       </DataGrid>
-      {showPagination && totalNumberOfPages > 1 && (
+      {totalNumberOfPages > 1 && (
         <Stack distribution="end">
           <Pagination
             variant="number"
@@ -156,4 +169,4 @@ export const ServiceImageVersions = ({
       )}
     </Stack>
   )
-} 
+}

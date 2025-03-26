@@ -21,6 +21,7 @@ type ServiceListProps = {
   currentPage?: number
   totalNumberOfPages: number
   goToPage: (page: number | undefined) => void
+  onShowDetails: (service: ServiceType, version?: ServiceImageVersion) => void
 }
 
 export const ServicesList = ({
@@ -30,26 +31,19 @@ export const ServicesList = ({
   currentPage,
   totalNumberOfPages,
   goToPage,
+  onShowDetails,
 }: ServiceListProps) => {
   const [selectedService, setSelectedService] = useState<ServiceType | null>(null)
 
   const handlePanelClose = useCallback(() => {
     setSelectedService(null)
-  }, [selectedService])
+  }, [])
 
   const handleServiceClick = useCallback(
     (service: ServiceType) => {
       setSelectedService(service.name === selectedService?.name ? null : service)
     },
     [selectedService]
-  )
-
-  const handleShowDetails = useCallback(
-    (service: ServiceType, version?: ServiceImageVersion) => {
-      // TODO: Implement navigation to details page
-      console.log('Navigate to details:', service, version)
-    },
-    []
   )
 
   return (
@@ -107,8 +101,12 @@ export const ServicesList = ({
           />
         </div>
       )}
-          
-      {selectedService && <MessagesProvider><ServicePanel service={selectedService} onClose={handlePanelClose} onShowDetails={handleShowDetails} /></MessagesProvider>}
+
+      {selectedService && (
+        <MessagesProvider>
+          <ServicePanel service={selectedService} onClose={handlePanelClose} onShowDetails={onShowDetails} />
+        </MessagesProvider>
+      )}
     </div>
   )
 }

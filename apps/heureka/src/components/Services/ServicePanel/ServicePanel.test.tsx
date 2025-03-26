@@ -5,9 +5,12 @@
 
 import React from "react"
 import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import { vi } from "vitest"
 import { ServicePanel } from "./ServicePanel"
 import { TestProvider } from "../../../mocks/TestProvider"
 import { ServiceType } from "../Services"
+import { ServiceImageVersion } from "../common/ServiceImageVersions"
 
 const mockService: ServiceType = {
   id: "1",
@@ -25,43 +28,85 @@ const mockService: ServiceType = {
 }
 
 describe("ServicePanel", () => {
-  it.skip("should render correctly", async () => {
+  const mockOnClose = vi.fn()
+  const mockOnShowDetails = vi.fn()
+  const user = userEvent.setup()
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it("should render correctly", async () => {
     render(
       <TestProvider>
-        <ServicePanel service={mockService} onClose={() => {}} />
+        <ServicePanel 
+          service={mockService} 
+          onClose={mockOnClose}
+          onShowDetails={mockOnShowDetails} 
+        />
       </TestProvider>
     )
 
     // Check if panel header is rendered
-    expect(await screen.findByText("Test-service Service Overview")).toBeInTheDocument()
+    expect(await screen.findByText("Test-service Overview")).toBeInTheDocument()
 
     // Check if table headers are rendered
     expect(await screen.findByText("Image Name")).toBeInTheDocument()
-    expect(await screen.findByText("Version")).toBeInTheDocument()
+    expect(await screen.findByText("Tag")).toBeInTheDocument()
     expect(await screen.findByText("Critical")).toBeInTheDocument()
     expect(await screen.findByText("High")).toBeInTheDocument()
     expect(await screen.findByText("Medium")).toBeInTheDocument()
     expect(await screen.findByText("Low")).toBeInTheDocument()
-    expect(await screen.findByText("Actions")).toBeInTheDocument()
   })
 
-  it.skip("should render image version details", async () => {
+  it("should handle Full Details button click and navigate to service details", async () => {
     render(
       <TestProvider>
-        <ServicePanel service={mockService} onClose={() => {}} />
+        <ServicePanel 
+          service={mockService} 
+          onClose={mockOnClose}
+          onShowDetails={mockOnShowDetails} 
+        />
       </TestProvider>
     )
 
-    // Check if image details are rendered
-    expect(await screen.findByText("test-image")).toBeInTheDocument()
-    expect(await screen.findByText("1.0.0")).toBeInTheDocument()
-    expect(await screen.findByText("1")).toBeInTheDocument() // Critical issues
-    expect(await screen.findByText("2")).toBeInTheDocument() // High issues
-    expect(await screen.findByText("3")).toBeInTheDocument() // Medium issues
-    expect(await screen.findByText("4")).toBeInTheDocument() // Low issues
+    const fullDetailsButton = await screen.findByText("Full Details")
+    await user.click(fullDetailsButton)
 
-    // Check if action buttons are present
-    expect(await screen.findAllByText("Show Details")).toHaveLength(1)
-    expect(await screen.findByText("Full Details")).toBeInTheDocument()
+    expect(mockOnClose).toHaveBeenCalled()
+    expect(mockOnShowDetails).toHaveBeenCalledWith(mockService, expect.any(Object))
+  })
+
+  it("should handle details icon click and navigate to version details", async () => {
+    const mockVersion: ServiceImageVersion = {
+      imageName: "test-image",
+      imageVersion: "1.0.0",
+      imageTag: "latest",
+      issueCounts: {
+        critical: 1,
+        high: 2,
+        medium: 3,
+        low: 4,
+        none: 0
+      },
+      serviceName: "test-service"
+    }
+
+    render(
+      <TestProvider>
+        <ServicePanel 
+          service={mockService} 
+          onClose={mockOnClose}
+          onShowDetails={mockOnShowDetails} 
+        />
+      </TestProvider>
+    )
+
+    // Wait for the icon to be rendered and click it
+    const detailsIcon = await screen.findByRole('img', { name: /description/i })
+    await user.click(detailsIcon)
+
+    expect(mockOnClose).toHaveBeenCalled()
+    expect(mockOnShowDetails).toHaveBeenCalledWith(mockService, expect.any(Object))
   })
 })

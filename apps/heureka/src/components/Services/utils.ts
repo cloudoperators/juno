@@ -85,6 +85,14 @@ export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceF
     }, {}),
 })
 
+type IssueCounts = {
+  critical: number
+  high: number
+  medium: number
+  low: number
+  none: number
+}
+
 type ServiceImageVersion = {
   version: string
   tag: string
