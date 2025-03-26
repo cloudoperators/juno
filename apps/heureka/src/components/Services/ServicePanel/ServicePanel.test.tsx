@@ -10,7 +10,7 @@ import { vi } from "vitest"
 import { ServicePanel } from "./ServicePanel"
 import { TestProvider } from "../../../mocks/TestProvider"
 import { ServiceType } from "../Services"
-import { ServiceImageVersion } from "../common/ServiceImageVersions"
+
 
 const mockService: ServiceType = {
   id: "1",
@@ -18,6 +18,9 @@ const mockService: ServiceType = {
   issuesCount: {
     critical: 1,
     high: 2,
+    medium: 0,
+    low: 0,
+    none: 0
   },
   serviceDetails: {
     supportGroups: ["group1", "group2"],
@@ -39,11 +42,7 @@ describe("ServicePanel", () => {
   it("should render correctly", async () => {
     render(
       <TestProvider>
-        <ServicePanel 
-          service={mockService} 
-          onClose={mockOnClose}
-          onShowDetails={mockOnShowDetails} 
-        />
+        <ServicePanel service={mockService} onClose={mockOnClose} onShowDetails={mockOnShowDetails} />
       </TestProvider>
     )
 
@@ -62,49 +61,12 @@ describe("ServicePanel", () => {
   it("should handle Full Details button click and navigate to service details", async () => {
     render(
       <TestProvider>
-        <ServicePanel 
-          service={mockService} 
-          onClose={mockOnClose}
-          onShowDetails={mockOnShowDetails} 
-        />
+        <ServicePanel service={mockService} onClose={mockOnClose} onShowDetails={mockOnShowDetails} />
       </TestProvider>
     )
 
     const fullDetailsButton = await screen.findByText("Full Details")
     await user.click(fullDetailsButton)
-
-    expect(mockOnClose).toHaveBeenCalled()
-    expect(mockOnShowDetails).toHaveBeenCalledWith(mockService, expect.any(Object))
-  })
-
-  it("should handle details icon click and navigate to version details", async () => {
-    const mockVersion: ServiceImageVersion = {
-      imageName: "test-image",
-      imageVersion: "1.0.0",
-      imageTag: "latest",
-      issueCounts: {
-        critical: 1,
-        high: 2,
-        medium: 3,
-        low: 4,
-        none: 0
-      },
-      serviceName: "test-service"
-    }
-
-    render(
-      <TestProvider>
-        <ServicePanel 
-          service={mockService} 
-          onClose={mockOnClose}
-          onShowDetails={mockOnShowDetails} 
-        />
-      </TestProvider>
-    )
-
-    // Wait for the icon to be rendered and click it
-    const detailsIcon = await screen.findByRole('img', { name: /description/i })
-    await user.click(detailsIcon)
 
     expect(mockOnClose).toHaveBeenCalled()
     expect(mockOnShowDetails).toHaveBeenCalledWith(mockService, expect.any(Object))

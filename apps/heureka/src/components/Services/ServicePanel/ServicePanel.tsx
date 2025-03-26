@@ -26,10 +26,9 @@ export const ServicePanel = ({ service, isLoading = false, onClose, onShowDetail
     <Panel heading={`${capitalizeFirstLetter(service.name)} Overview`} opened={true} onClose={onClose} size="large">
       <PanelBody>
         <Stack className="w-full">
-          <ServiceImageVersions 
-            serviceName={service.name} 
-            onDetailsClick={handleDetailsClick} 
-            showPagination={false} 
+          <ServiceImageVersions
+            serviceName={service.name}
+            onDetailsClick={handleDetailsClick}
             showDetailsColumn={true}
           />
         </Stack>

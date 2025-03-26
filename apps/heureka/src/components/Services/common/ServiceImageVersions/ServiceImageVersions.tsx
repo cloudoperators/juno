@@ -81,7 +81,7 @@ export const ServiceImageVersions = ({
                   imageTag: "",
                   issueCounts: { critical: 0, high: 0, medium: 0, low: 0, none: 0 },
                   serviceName: serviceName,
-                  totalCount: totalCount
+                  totalCount: totalCount,
                 })
               }
             >

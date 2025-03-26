@@ -4,14 +4,7 @@
  */
 
 import React from "react"
-import {
-  Container,
-  ContentHeading,
-  Stack,
-  Badge,
-  Pill,
-  Label,
-} from "@cloudoperators/juno-ui-components"
+import { Container, ContentHeading, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
 import { ServiceType } from "../Services"
 import { ServiceImageVersion, ServiceImageVersions } from "../common/ServiceImageVersions"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
@@ -30,7 +23,9 @@ export const ServiceDetails = ({
   onShowDetails,
 }: ServiceDetailsProps) => {
   // Use totalCount from selectedImageVersion if available
-  const totalIssues = selectedImageVersion?.totalCount ?? (selectedService.issuesCount?.critical || 0) + (selectedService.issuesCount?.high || 0)
+  const totalIssues =
+    selectedImageVersion?.totalCount ??
+    (selectedService.issuesCount?.critical || 0) + (selectedService.issuesCount?.high || 0)
 
   return (
     <MessagesProvider>
@@ -43,20 +38,20 @@ export const ServiceDetails = ({
             <Stack gap="4" direction="vertical">
               {/* Service Details Row */}
               <Stack gap="2" direction="horizontal">
-                <Label text="Service Details: "/>
+                <Label text="Service Details: " />
                 <Stack direction="horizontal" gap="2" wrap>
-                  <Pill 
-                    pillKey="service" 
-                    pillKeyLabel="service" 
-                    pillValue={selectedService.name} 
+                  <Pill
+                    pillKey="service"
+                    pillKeyLabel="service"
+                    pillValue={selectedService.name}
                     pillValueLabel={selectedService.name}
                   />
                   {selectedService.serviceDetails?.supportGroups?.map((group) => (
-                    <Pill 
-                      key={group} 
-                      pillKey="support_group" 
-                      pillKeyLabel="support_group" 
-                      pillValue={group} 
+                    <Pill
+                      key={group}
+                      pillKey="support_group"
+                      pillKeyLabel="support_group"
+                      pillValue={group}
                       pillValueLabel={group}
                     />
                   ))}
@@ -65,17 +60,13 @@ export const ServiceDetails = ({
 
               {/* Issues Count Row */}
               <Stack gap="2" direction="horizontal">
-                <Label text="Number of Issues: "/>
+                <Label text="Number of Issues: " />
                 <Stack direction="horizontal" gap="4" alignment="center">
                   <span>{totalIssues}</span>
                   <Stack direction="horizontal" gap="2" alignment="center">
                     <span>Critical:</span>
                     {selectedService.issuesCount?.critical > 0 ? (
-                      <Badge 
-                        icon="danger" 
-                        text={`${selectedService.issuesCount.critical}`} 
-                        variant="danger" 
-                      />
+                      <Badge icon="danger" text={`${selectedService.issuesCount.critical}`} variant="danger" />
                     ) : (
                       <span>0</span>
                     )}
@@ -83,11 +74,7 @@ export const ServiceDetails = ({
                   <Stack direction="horizontal" gap="2" alignment="center">
                     <span>High:</span>
                     {selectedService.issuesCount?.high > 0 ? (
-                      <Badge 
-                        icon="warning" 
-                        text={`${selectedService.issuesCount.high}`} 
-                        variant="warning" 
-                      />
+                      <Badge icon="warning" text={`${selectedService.issuesCount.high}`} variant="warning" />
                     ) : (
                       <span>0</span>
                     )}
@@ -109,10 +96,12 @@ export const ServiceDetails = ({
 
               {/* Owner Row */}
               <Stack gap="2" direction="horizontal">
-                <Label text="Owner: "/>
+                <Label text="Owner: " />
                 <Stack direction="horizontal" gap="2">
                   {selectedService.serviceOwners?.map((owner) => (
-                    <Pill key={owner} pillValue={owner}>{owner}</Pill>
+                    <Pill key={owner} pillValue={owner}>
+                      {owner}
+                    </Pill>
                   ))}
                 </Stack>
               </Stack>

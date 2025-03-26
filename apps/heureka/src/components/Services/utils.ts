@@ -56,8 +56,11 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
             components: node?.objectMetadata?.componentInstanceCount || 0,
             serviceOwners: getServiceOwners(edge),
             issuesCount: {
-              critical: Math.floor(Math.random() * 10), //TODO: remove mock data when available
-              high: Math.floor(Math.random() * 10), //TODO: remove mock data when available
+              critical: 1,
+              high: 2,
+              medium: 0,
+              low: 0,
+              none: 0
             },
             remediationDate: "2023-01-01", //TODO: remove mock data when available
           }
