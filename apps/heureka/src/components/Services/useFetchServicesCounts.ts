@@ -74,11 +74,9 @@ export const useFetchServicesCounts = ({ filterSettings }: UseFetchServicesCount
     },
   })
 
-  const normCounts = getNormalizedData(isEmpty(counts) ? previousData : counts)
-
   return {
     loading,
-    counts: normCounts,
+    counts: getNormalizedData(isEmpty(counts) ? previousData : counts),
     error: getNormalizedError(error),
   }
 }
