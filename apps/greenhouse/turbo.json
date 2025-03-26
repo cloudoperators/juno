@@ -8,7 +8,8 @@
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
-        "@cloudoperators/juno-app-doop#build"
+        "@cloudoperators/juno-app-doop#build",
+        "@cloudoperators/juno-k8s-client#build"
       ]
     },
     "build": {

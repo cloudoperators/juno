@@ -122,4 +122,4 @@ function createClient(options: ClientOptions) {
   }
 }
 
-export { createClient }
+export { createClient, type RequestOptions }
