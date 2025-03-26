@@ -93,8 +93,8 @@ export const ServicesList = ({
               <ServiceListItem
                 key={item.name}
                 item={item}
-                onServiceOverviewOpen={() => handleServiceOverviewOpen(item)}
-                onServiceDetailsOpen={() => handleServiceDetailsOpen(item)}
+                onItemClick={() => handleServiceOverviewOpen(item)}
+                onServiceDetailClick={() => handleServiceDetailsOpen(item)}
               />
             ))
         }

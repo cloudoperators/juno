@@ -11,7 +11,7 @@ import { Panel } from "../common/Panel"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
-import StatusBar from "./ServicesList/StatusBar"
+import IssuesCount from "./ServicesList/IssuesCount"
 import { useFetchServices } from "./useFetchServices"
 
 export type ServiceType = {
@@ -58,7 +58,7 @@ export const Services = ({ initialFilters }: Props) => {
         onFilterChange={setFilterSettings}
         searchInputPlaceholder="search term for services name"
       />
-      <StatusBar filterSettings={filterSettings} />
+      <IssuesCount filterSettings={filterSettings} />
       <ServicesList
         loading={loading}
         error={error}

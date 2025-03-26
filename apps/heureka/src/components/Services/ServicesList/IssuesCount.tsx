@@ -7,22 +7,14 @@ import React, { useEffect } from "react"
 import { Spinner, Stack, Badge } from "@cloudoperators/juno-ui-components"
 import { FilterSettings } from "../../common/Filters/types"
 import { useFetchServicesCounts } from "../useFetchServicesCounts"
-import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
-
-const statusBarStyles = `
-  bg-theme-background-lvl-1
-  py-1.5
-  px-4
-  my-px
-  text-theme-light
-`
+import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 
 type StatusBarProps = {
   filterSettings: FilterSettings
 }
 
-const StatusBar = ({ filterSettings }: StatusBarProps) => {
-  const { addMessage } = messageActions()
+const IssuesCount = ({ filterSettings }: StatusBarProps) => {
+  const { addMessage } = useMessageActions()
 
   const { counts, error, loading } = useFetchServicesCounts({
     filterSettings,
@@ -38,7 +30,7 @@ const StatusBar = ({ filterSettings }: StatusBarProps) => {
   }, [error])
 
   return (
-    <Stack className={`status-bar ${statusBarStyles}`} alignment="center">
+    <Stack className={`status-bar bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light`} alignment="center">
       <Stack gap="1">
         <div className="font-bold">All issues:</div>
         {!error && !loading && (
@@ -56,4 +48,4 @@ const StatusBar = ({ filterSettings }: StatusBarProps) => {
   )
 }
 
-export default StatusBar
+export default IssuesCount

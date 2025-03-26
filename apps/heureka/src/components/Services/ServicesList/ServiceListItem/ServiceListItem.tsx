@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useRef } from "react"
+import React from "react"
 import { DataGridRow, DataGridCell, Pill, Badge, Stack, Icon } from "@cloudoperators/juno-ui-components"
 import { ServiceType } from "../../Services"
 
@@ -35,12 +35,12 @@ const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["servi
 
 type ServiceListItemProps = {
   item: ServiceType
-  onServiceOverviewOpen: () => void
-  onServiceDetailsOpen: () => void
+  onItemClick: () => void
+  onServiceDetailClick: () => void
 }
 
-export const ServiceListItem = ({ item, onServiceOverviewOpen, onServiceDetailsOpen }: ServiceListItemProps) => (
-  <DataGridRow className={`cursor-pointer`} onClick={onServiceOverviewOpen}>
+export const ServiceListItem = ({ item, onItemClick, onServiceDetailClick }: ServiceListItemProps) => (
+  <DataGridRow className={`cursor-pointer`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
       <Stack gap="1">
@@ -58,7 +58,7 @@ export const ServiceListItem = ({ item, onServiceOverviewOpen, onServiceDetailsO
       ))}
     </DataGridCell>
     <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-      <Icon icon="description" onClick={onServiceDetailsOpen} />
+      <Icon icon="description" onClick={onServiceDetailClick} />
     </DataGridCell>
   </DataGridRow>
 )

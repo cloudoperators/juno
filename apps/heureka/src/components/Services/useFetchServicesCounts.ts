@@ -39,7 +39,7 @@ const getNormalizedData = (data: GetServicesCountsQuery | undefined | null): Ser
 export const useFetchServicesCounts = ({ filterSettings }: UseFetchServicesCountInput) => {
   const baseFilters = getActiveServiceFilter(filterSettings)
 
-  const filteredBaseFilters = {
+  const filters = {
     affectedService: baseFilters.serviceCcrn || [],
     supportGroupCcrn: baseFilters.supportGroupCcrn || [],
   }
@@ -52,23 +52,23 @@ export const useFetchServicesCounts = ({ filterSettings }: UseFetchServicesCount
   } = useGetServicesCountsQuery({
     variables: {
       crit: {
-        ...filteredBaseFilters,
+        ...filters,
         severity: [SeverityValues.Critical],
       },
       high: {
-        ...filteredBaseFilters,
+        ...filters,
         severity: [SeverityValues.High],
       },
       med: {
-        ...filteredBaseFilters,
+        ...filters,
         severity: [SeverityValues.Medium],
       },
       low: {
-        ...filteredBaseFilters,
+        ...filters,
         severity: [SeverityValues.Low],
       },
       none: {
-        ...filteredBaseFilters,
+        ...filters,
         severity: [SeverityValues.None],
       },
     },

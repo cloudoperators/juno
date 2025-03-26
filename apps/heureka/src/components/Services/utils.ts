@@ -4,7 +4,7 @@
  */
 
 import { isNil } from "lodash"
-import { ApolloError } from "@apollo/client"
+import { ApolloError, NetworkError } from "@apollo/client"
 import {
   Edge,
   GetServicesQuery,
@@ -81,7 +81,7 @@ export const getNormalizedError = (error?: ApolloError) => {
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist
-  const networkErrors = error.networkError as any
+  const networkErrors: NetworkError = error.networkError
   if (networkErrors?.result?.errors?.length > 0) {
     return networkErrors.result.errors
       .map((e: any) => {
