@@ -35,13 +35,13 @@ const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["servi
 
 type ServiceListItemProps = {
   item: ServiceType
-  selectedItemId: string
+  selected: boolean
   onItemClick: () => void
   onServiceDetailClick: () => void
 }
 
-export const ServiceListItem = ({ item, selectedItemId, onItemClick, onServiceDetailClick }: ServiceListItemProps) => (
-  <DataGridRow className={`cursor-pointer ${selectedItemId === item?.id ? "active" : ""}`} onClick={onItemClick}>
+export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailClick }: ServiceListItemProps) => (
+  <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
       <Stack gap="1">

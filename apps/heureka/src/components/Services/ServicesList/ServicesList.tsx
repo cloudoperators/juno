@@ -86,7 +86,7 @@ export const ServicesList = ({
               <ServiceListItem
                 key={item.id}
                 item={item}
-                selectedItemId={selectedOverviewService?.id || ""}
+                selected={selectedOverviewService?.id === item.id}
                 onItemClick={() => handleServiceOverviewOpen(item)}
                 onServiceDetailClick={() => handleServiceDetailsOpen(item)}
               />
