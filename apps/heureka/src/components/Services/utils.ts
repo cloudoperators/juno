@@ -77,20 +77,32 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
   }
 }
 
-interface GraphQLError {
-  message: string
-  path?: string[]
-}
-
-interface NetworkError extends Error {
-  result?: { errors?: GraphQLError[] }
-}
-
+/**
+ * Normalizes the error from Apollo Client into a user-friendly message.
+ *
+ * This function checks if the error is a network error and if there are any
+ * GraphQL errors within it. If present, it formats them into a readable
+ * string, including the error message and the associated path (if available).
+ *
+ * The `networkErrors` is temporarily typed as `any` because the handling
+ * of Apollo Client errors is still a work in progress. This is a temporary
+ * solution until we implement a more robust typing system for all possible
+ * error types from Apollo Client. There is an existing task to address
+ * this properly, as handling and typing errors correctly is outside the
+ * scope of this current implementation. See the task for more details:
+ * https://github.com/cloudoperators/juno/issues/847
+ *
+ * @param error - The error object from Apollo Client, potentially containing
+ * network and GraphQL errors.
+ *
+ * @returns A string representation of the error message, or a fallback message
+ * if no specific error is found.
+ */
 export const getNormalizedError = (error?: ApolloError) => {
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist
-  const networkErrors = error.networkError as NetworkError | undefined
+  const networkErrors = error.networkError as any
   const netErrors = networkErrors?.result?.errors
   if (netErrors && netErrors?.length > 0) {
     return netErrors
