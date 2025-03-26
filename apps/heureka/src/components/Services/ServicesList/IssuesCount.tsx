@@ -36,8 +36,8 @@ const IssuesCount = ({ filterSettings }: StatusBarProps) => {
         {!error && !loading && (
           <>
             <div className="font-bold mr-2">{counts.totalCount}</div>
-            <Badge icon text={`${counts.critical}`} variant="danger" />
-            <Badge icon text={`${counts.high}`} variant="warning" />
+            <Badge icon="danger" text={`${counts.critical}`} variant={counts.critical > 0 ? "danger" : "default"} />
+            <Badge icon="warning" text={`${counts.high}`} variant={counts.high > 0 ? "warning" : "default"} />
           </>
         )}
       </Stack>

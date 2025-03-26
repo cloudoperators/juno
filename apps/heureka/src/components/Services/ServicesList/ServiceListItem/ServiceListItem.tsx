@@ -45,8 +45,16 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
       <Stack gap="1">
-        <Badge icon text={`${item.issuesCount.critical}`} variant="danger" />
-        <Badge icon text={`${item.issuesCount.high}`} variant="warning" />
+        <Badge
+          icon="danger"
+          text={`${item.issuesCount.critical}`}
+          variant={item.issuesCount.critical > 0 ? "danger" : "default"}
+        />
+        <Badge
+          icon="warning"
+          text={`${item.issuesCount.high}`}
+          variant={item.issuesCount.critical > 0 ? "warning" : "default"}
+        />
       </Stack>
     </DataGridCell>
     <DataGridCell>
