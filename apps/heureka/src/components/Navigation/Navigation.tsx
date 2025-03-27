@@ -23,10 +23,6 @@ const navigationItems: NavigationItemType[] = [
     label: "Services",
     value: UserView.Services,
   },
-  {
-    label: "Issues",
-    value: UserView.Issues,
-  },
 ]
 
 export const Navigation = ({ activeItem }: NavigationPropsType) => {

@@ -9,7 +9,6 @@ import { ServiceType } from "../../components/Services/Services"
 
 export enum UserView {
   Services = "services",
-  Issues = "issues",
   ServiceDetails = "service_details",
 }
 

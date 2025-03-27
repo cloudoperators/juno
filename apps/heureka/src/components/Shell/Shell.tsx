@@ -8,7 +8,6 @@ import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-compone
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { Navigation } from "../Navigation"
 import { Services } from "../Services"
-import { Issues } from "../Issues"
 import { useStore } from "../../store/StoreProvider"
 import { UserView } from "../../store/StoreProvider/types"
 import { ServiceDetails } from "../Services/ServiceDetails"
@@ -18,8 +17,6 @@ const getViewComponent = (viewId: ReactNode) => {
   switch (viewId) {
     case UserView.Services:
       return Services
-    case UserView.Issues:
-      return Issues
     case UserView.ServiceDetails:
       return ServiceDetails
     default:
