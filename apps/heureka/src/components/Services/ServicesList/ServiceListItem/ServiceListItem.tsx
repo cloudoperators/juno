@@ -67,7 +67,7 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
       ))}
     </DataGridCell>
     <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-      <Button label="Details" onClick={onServiceDetailClick} />
+      <Button label="Show Details" onClick={onServiceDetailClick} size="small" className="whitespace-nowrap" />
     </DataGridCell>
   </DataGridRow>
 )
