@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Breadcrumb as BreadcrumContainer, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
+import { Breadcrumb as BreadcrumContainer, BreadcrumbItem } from "@cloudoperators/juno-ui-components"
 
 export const Breadcrumb = () => {
   return (
