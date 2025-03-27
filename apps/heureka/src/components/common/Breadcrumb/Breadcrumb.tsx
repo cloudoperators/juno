@@ -3,23 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useCallback } from "react"
 import { Breadcrumb as BreadcrumContainer, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
 import { capitalizeFirstLetter } from "../Helpers/helpers"
+import { useDispatch, useStore } from "../../../store/StoreProvider"
+import { ActionType, ServiceDetailViewParams, UserView } from "../../../store/StoreProvider/types"
+import { isNil } from "lodash"
 
-type BreadcrumbProps = {
-  selectedService?: string
-  onNavigateHome?: () => void
-}
+export const Breadcrumb = () => {
+  const dispatch = useDispatch()
+  const { selectedView } = useStore()
 
-export const Breadcrumb = ({ selectedService, onNavigateHome }: BreadcrumbProps) => {
+  const handleClick = useCallback((viewId: UserView) => {
+    dispatch({
+      type: ActionType.SelectView,
+      payload: {
+        viewId,
+      },
+    })
+  }, [])
+
   return (
     <Container py px={false}>
       <BreadcrumContainer className="flex items-center gap-2">
-        <BreadcrumbItem icon="home" label="Services" onClick={onNavigateHome} />
-        {selectedService && (
+        <BreadcrumbItem icon="home" label="Services" onClick={() => handleClick(UserView.Services)} />
+        {selectedView.viewId === UserView.ServiceDetails && (
           <>
-            <BreadcrumbItem label={capitalizeFirstLetter(selectedService)} />
+            <BreadcrumbItem
+              label={capitalizeFirstLetter((selectedView.params as ServiceDetailViewParams).service.name)}
+            />
           </>
         )}
       </BreadcrumContainer>

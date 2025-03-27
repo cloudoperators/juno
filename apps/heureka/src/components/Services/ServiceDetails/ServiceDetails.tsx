@@ -5,30 +5,26 @@
 
 import React from "react"
 import { Container, ContentHeading, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
-import { ServiceType } from "../Services"
-import { ServiceImageVersion, ServiceImageVersions } from "../common/ServiceImageVersions"
+import { ServiceImageVersions } from "../common/ServiceImageVersions"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
+import { useStore } from "../../../store/StoreProvider"
+import { SelectServiceDetailsPayload, UserView } from "../../../store/StoreProvider/types"
+import { Breadcrumb } from "../../common/Breadcrumb"
 
-type ServiceDetailsProps = {
-  selectedService: ServiceType
-  selectedImageVersion?: ServiceImageVersion
-  onBack: () => void
-  onShowDetails: (service: ServiceType, version?: ServiceImageVersion) => void
-}
+export const ServiceDetails = () => {
+  const { selectedView } = useStore()
+  const selectedService =
+    selectedView.viewId === UserView.ServiceDetails
+      ? (selectedView as SelectServiceDetailsPayload).params.service
+      : undefined
 
-export const ServiceDetails = ({
-  selectedService,
-  selectedImageVersion,
-  onBack,
-  onShowDetails,
-}: ServiceDetailsProps) => {
-  // Use totalCount from selectedImageVersion if available
-  const totalIssues =
-    selectedImageVersion?.totalCount ??
-    (selectedService.issuesCount?.critical || 0) + (selectedService.issuesCount?.high || 0)
+  if (typeof selectedService === "undefined") {
+    return null
+  }
 
   return (
     <MessagesProvider>
+      <Breadcrumb />
       <Container py px>
         <Messages />
         <Stack gap="8" direction="vertical" className="overflow-auto w-full">
@@ -62,7 +58,7 @@ export const ServiceDetails = ({
               <Stack gap="2" direction="horizontal">
                 <Label text="Number of Issues: " />
                 <Stack direction="horizontal" gap="4" alignment="center">
-                  <span>{totalIssues}</span>
+                  {/* <span>{totalIssues}</span> */}
                   <Stack direction="horizontal" gap="2" alignment="center">
                     <span>Critical:</span>
                     {selectedService.issuesCount?.critical > 0 ? (
@@ -110,12 +106,7 @@ export const ServiceDetails = ({
 
           {/* Image Versions Section */}
           <Stack className="w-full">
-            <ServiceImageVersions
-              serviceName={selectedService.name}
-              className="service-details-grid"
-              showDetailsColumn={false}
-              pageSize={8}
-            />
+            <ServiceImageVersions service={selectedService} />
           </Stack>
         </Stack>
       </Container>

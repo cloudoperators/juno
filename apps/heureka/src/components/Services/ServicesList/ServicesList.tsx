@@ -39,19 +39,17 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
     setSelectedOverviewService(null)
   }, [])
 
-  const goToServiceDetails = useCallback(
-    (service?: ServiceType) =>
-      dispatch({
-        type: ActionType.SelectView,
-        payload: {
-          viewId: UserView.ServiceDetails,
-          params: {
-            service,
-          },
+  const goToServiceDetails = useCallback((service: ServiceType) => {
+    dispatch({
+      type: ActionType.SelectView,
+      payload: {
+        viewId: UserView.ServiceDetails,
+        params: {
+          service,
         },
-      }),
-    []
-  )
+      },
+    })
+  }, [])
 
   useEffect(() => {
     if (error) {
