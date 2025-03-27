@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { isEmpty } from "lodash"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import {
-  useGetServiceImageVersionsQuery,
   Page,
   ComponentVersionOrderByField,
   OrderDirection,
+  useGetServiceImageVersionsLazyQuery,
 } from "../../generated/graphql"
 import { getNormalizedImageVersionsData } from "./utils"
 
@@ -19,43 +18,51 @@ type UseFetchServiceImageVersionsProps = {
 }
 
 export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: UseFetchServiceImageVersionsProps) => {
-  const [currentPage, setCurrentPage] = useState<number | undefined>(1)
-  const [pages, setPages] = useState<Page[]>()
+  const pagesRef = useRef<Page[]>()
+  const [loadServiceImageVersions, { data, loading, error }] = useGetServiceImageVersionsLazyQuery()
+  const { imageVersions, totalCount, pages, pageNumber } = getNormalizedImageVersionsData(data)
 
-  const { data, previousData, loading, error } = useGetServiceImageVersionsQuery({
-    variables: {
-      first: pageSize,
-      after: pages?.find((page) => page?.pageNumber === currentPage)?.after,
-      filter: { serviceCcrn: [serviceCcrn] },
-      orderBy: [
-        {
-          by: ComponentVersionOrderByField.Severity,
-          direction: OrderDirection.Desc,
+  // let's save the pages so we can get cursor when navigating among pages
+  pagesRef.current = pages
+
+  // Fetch service image versions on demand
+  const fetchServiceImageVersions = useCallback(
+    ({ serviceCcrn, cursor }: { serviceCcrn: string; cursor?: string | null }) =>
+      loadServiceImageVersions({
+        variables: {
+          first: pageSize,
+          after: cursor,
+          filter: { serviceCcrn: [serviceCcrn] },
+          orderBy: [
+            {
+              by: ComponentVersionOrderByField.Severity,
+              direction: OrderDirection.Desc,
+            },
+          ],
         },
-      ],
-    },
-  })
+        fetchPolicy: "network-only",
+      }),
+    []
+  )
 
-  const {
-    imageVersions,
-    totalCount,
-    pages: pagesFromApi,
-  } = getNormalizedImageVersionsData(isEmpty(data) ? previousData : data)
+  // Go to a specific page
+  const goToPage = useCallback((pageNumber: number | undefined) => {
+    const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber)?.after
+    fetchServiceImageVersions({ serviceCcrn, cursor })
+  }, [])
 
+  // Fetch services whenever filter settings change
   useEffect(() => {
-    if (currentPage && currentPage > Math.ceil(totalCount / pageSize)) {
-      setCurrentPage(1)
-    }
-    setPages(pagesFromApi)
-  }, [totalCount])
+    fetchServiceImageVersions({ serviceCcrn })
+  }, [serviceCcrn])
 
   return {
     loading,
-    currentPage,
+    currentPage: pageNumber || 1,
     imageVersions,
-    totalNumberOfPages: Math.ceil(totalCount / pageSize),
+    totalNumberOfPages: Math.ceil(totalCount / pageSize) || 0,
     totalCount,
-    goToPage: setCurrentPage,
+    goToPage: goToPage,
     error: error?.message,
   }
 }

@@ -156,6 +156,7 @@ type ServiceImageVersion = {
 type NormalizedServiceImageVersions = {
   totalCount: number
   pages: Page[]
+  pageNumber: number
   imageVersions: ServiceImageVersion[]
 }
 
@@ -163,6 +164,7 @@ export const getNormalizedImageVersionsData = (
   data: GetServiceImageVersionsQuery | undefined
 ): NormalizedServiceImageVersions => ({
   totalCount: data?.ComponentVersions?.totalCount || 0,
+  pageNumber: data?.ComponentVersions?.pageInfo?.pageNumber || 1,
   pages: data?.ComponentVersions?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
   imageVersions: isNil(data?.ComponentVersions?.edges)
     ? []
