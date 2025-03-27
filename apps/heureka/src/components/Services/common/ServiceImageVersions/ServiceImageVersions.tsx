@@ -99,7 +99,7 @@ export const ServiceImageVersions = ({ service, showDetailsButtons }: ServiceIma
           <DataGridHeadCell>High</DataGridHeadCell>
           <DataGridHeadCell>Medium</DataGridHeadCell>
           <DataGridHeadCell>Low</DataGridHeadCell>
-          {showDetailsButtons && <DataGridHeadCell></DataGridHeadCell>}
+          {showDetailsButtons && <DataGridHeadCell>Actions</DataGridHeadCell>}
         </DataGridRow>
         {loading ? (
           <EmptyDataGridRow colSpan={columnCount}>Loading...</EmptyDataGridRow>

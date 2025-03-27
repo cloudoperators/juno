@@ -69,7 +69,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
           <DataGridHeadCell>Service details</DataGridHeadCell>
           <DataGridHeadCell>No. Components</DataGridHeadCell>
           <DataGridHeadCell>Service owners</DataGridHeadCell>
-          <DataGridHeadCell></DataGridHeadCell>
+          <DataGridHeadCell>Actions</DataGridHeadCell>
         </DataGridRow>
         {
           /* if request is in flight */
