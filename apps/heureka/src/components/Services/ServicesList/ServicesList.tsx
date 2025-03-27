@@ -36,25 +36,21 @@ export const ServicesList = ({
 }: ServiceListProps) => {
   const { addMessage } = messageActions()
   const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
-  const [selectedDetailService, setSelectedDetailService] = useState<ServiceType | null>(null)
 
-  const handlePanelClose = useCallback(() => {
-    setSelectedOverviewService(null)
-  }, [selectedOverviewService])
-
-  const handleServiceOverviewOpen = useCallback(
-    (service: ServiceType) => {
-      setSelectedOverviewService(service.name === selectedOverviewService?.name ? null : service)
-    },
-    [selectedOverviewService]
-  )
+  const handleServiceOverviewOpen = useCallback((service: ServiceType) => {
+    setSelectedOverviewService((prev) => (prev?.id === service.id ? null : service))
+  }, [])
 
   const handleServiceDetailsOpen = useCallback(
     (service: ServiceType) => {
-      setSelectedDetailService(service.name === selectedDetailService?.name ? null : service)
+      onShowDetails(service) // Navigate to details page
     },
-    [selectedDetailService]
+    [onShowDetails]
   )
+
+  const handlePanelClose = useCallback(() => {
+    setSelectedOverviewService(null)
+  }, [])
 
   useEffect(() => {
     if (error) {
