@@ -18,6 +18,9 @@ const mockService: ServiceType = {
   issuesCount: {
     critical: 1,
     high: 2,
+    medium: 0,
+    low: 0,
+    none: 0,
   },
   serviceDetails: {
     supportGroups: ["group1", "group2"],
@@ -37,6 +40,7 @@ const renderServicesList = (services: ServiceType[] = []) => ({
           services={services}
           totalNumberOfPages={services.length > 0 ? 1 : 0}
           goToPage={() => {}}
+          onShowDetails={() => {}}
         />
       </MessagesProvider>
     </TestProvider>

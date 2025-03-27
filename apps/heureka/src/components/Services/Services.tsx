@@ -13,6 +13,8 @@ import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import IssuesCount from "./ServicesList/IssuesCount"
 import { useFetchServices } from "./useFetchServices"
+import { ServiceDetails } from "./ServiceDetails"
+import { ServiceImageVersion } from "./common/ServiceImageVersions"
 
 export type ServiceType = {
   id: string
@@ -20,6 +22,9 @@ export type ServiceType = {
   issuesCount: {
     critical: number
     high: number
+    medium: number
+    low: number
+    none: number
   }
   serviceDetails: {
     supportGroups: string[]
@@ -44,30 +49,54 @@ type Props = {
 
 export const Services = ({ initialFilters }: Props) => {
   const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
+  const [selectedService, setSelectedService] = useState<ServiceType | null>(null)
+  const [selectedImageVersion, setSelectedImageVersion] = useState<ServiceImageVersion | undefined>()
   const { serviceFilters } = useFetchServiceFilters()
   const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
     filterSettings,
   })
 
+  const handleShowDetails = (service: ServiceType, version?: ServiceImageVersion) => {
+    setSelectedService(service)
+    setSelectedImageVersion(version)
+  }
+
+  const handleBack = () => {
+    setSelectedService(null)
+    setSelectedImageVersion(undefined)
+  }
+
   return (
     <>
-      <Breadcrumb />
-      <Filters
-        filters={serviceFilters}
-        filterSettings={filterSettings}
-        onFilterChange={setFilterSettings}
-        searchInputPlaceholder="search term for services name"
-      />
-      <IssuesCount filterSettings={filterSettings} />
-      <ServicesList
-        loading={loading}
-        error={error}
-        services={services}
-        currentPage={currentPage}
-        totalNumberOfPages={totalNumberOfPages}
-        goToPage={goToPage}
-      />
-      <Panel />
+      <Breadcrumb selectedService={selectedService?.name} onNavigateHome={handleBack} />
+      {selectedService ? (
+        <ServiceDetails
+          selectedService={selectedService}
+          selectedImageVersion={selectedImageVersion}
+          onBack={handleBack}
+          onShowDetails={handleShowDetails}
+        />
+      ) : (
+        <>
+          <Filters
+            filters={serviceFilters}
+            filterSettings={filterSettings}
+            onFilterChange={setFilterSettings}
+            searchInputPlaceholder="search term for services name"
+          />
+          <IssuesCount filterSettings={filterSettings} />
+          <ServicesList
+            loading={loading}
+            error={error}
+            services={services}
+            currentPage={currentPage}
+            totalNumberOfPages={totalNumberOfPages}
+            goToPage={goToPage}
+            onShowDetails={handleShowDetails}
+          />
+          <Panel />
+        </>
+      )}
     </>
   )
 }

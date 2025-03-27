@@ -263,6 +263,20 @@ export type ComponentInstanceInput = {
   serviceId?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type ComponentInstanceOrderBy = {
+  by?: InputMaybe<ComponentInstanceOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum ComponentInstanceOrderByField {
+  Ccrn = "ccrn",
+  Cluster = "cluster",
+  Domain = "domain",
+  Namespace = "namespace",
+  Project = "project",
+  Region = "region",
+}
+
 export enum ComponentTypeValues {
   ContainerImage = "containerImage",
   Repository = "repository",
@@ -278,6 +292,8 @@ export type ComponentVersion = Node & {
   issueCounts?: Maybe<SeverityCounts>
   issues?: Maybe<IssueConnection>
   metadata?: Maybe<Metadata>
+  organization?: Maybe<Scalars["String"]["output"]>
+  repository?: Maybe<Scalars["String"]["output"]>
   tag?: Maybe<Scalars["String"]["output"]>
   version?: Maybe<Scalars["String"]["output"]>
 }
@@ -285,6 +301,7 @@ export type ComponentVersion = Node & {
 export type ComponentVersionComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>>>
 }
 
 export type ComponentVersionIssueCountsArgs = {
@@ -314,6 +331,8 @@ export type ComponentVersionFilter = {
   componentId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueRepositoryId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  organization?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  repository?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
@@ -323,6 +342,8 @@ export type ComponentVersionFilter = {
 
 export type ComponentVersionInput = {
   componentId?: InputMaybe<Scalars["String"]["input"]>
+  organization?: InputMaybe<Scalars["String"]["input"]>
+  repository?: InputMaybe<Scalars["String"]["input"]>
   tag?: InputMaybe<Scalars["String"]["input"]>
   version?: InputMaybe<Scalars["String"]["input"]>
 }
@@ -1148,6 +1169,7 @@ export type QueryComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentInstanceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>>>
 }
 
 export type QueryComponentVersionsArgs = {
@@ -1283,6 +1305,7 @@ export type ServiceComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentInstanceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>>>
 }
 
 export type ServiceIssueMatchesArgs = {

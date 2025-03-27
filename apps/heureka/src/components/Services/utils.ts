@@ -17,7 +17,6 @@ import {
 } from "../../generated/graphql"
 import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
-import { IssueCounts } from "./ServicePanel/ServicePanel"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -69,6 +68,9 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
               issuesCount: {
                 critical: node?.critical?.totalCount || 0,
                 high: node?.high?.totalCount || 0,
+                medium: node?.medium?.totalCount || 0,
+                low: node?.low?.totalCount || 0,
+                none: node?.none?.totalCount || 0,
               },
               remediationDate: "2023-01-01", //TODO: remove mock data when available
             }
@@ -133,6 +135,14 @@ export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceF
       return acc
     }, {}),
 })
+
+type IssueCounts = {
+  critical: number
+  high: number
+  medium: number
+  low: number
+  none: number
+}
 
 type ServiceImageVersion = {
   version: string

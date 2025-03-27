@@ -10,6 +10,8 @@ import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow
 import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { ServicePanel } from "../ServicePanel/ServicePanel"
 import { ServiceType } from "../Services"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import { ServiceImageVersion } from "../common/ServiceImageVersions"
 
 const COLUMN_SPAN = 6
 
@@ -20,6 +22,7 @@ type ServiceListProps = {
   currentPage?: number
   totalNumberOfPages: number
   goToPage: (page: number | undefined) => void
+  onShowDetails: (service: ServiceType, version?: ServiceImageVersion) => void
 }
 
 export const ServicesList = ({
@@ -29,28 +32,25 @@ export const ServicesList = ({
   currentPage,
   totalNumberOfPages,
   goToPage,
+  onShowDetails,
 }: ServiceListProps) => {
   const { addMessage } = messageActions()
   const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
-  const [selectedDetailService, setSelectedDetailService] = useState<ServiceType | null>(null)
 
-  const handlePanelClose = useCallback(() => {
-    setSelectedOverviewService(null)
-  }, [selectedOverviewService])
-
-  const handleServiceOverviewOpen = useCallback(
-    (service: ServiceType) => {
-      setSelectedOverviewService(service.name === selectedOverviewService?.name ? null : service)
-    },
-    [selectedOverviewService]
-  )
+  const handleServiceOverviewOpen = useCallback((service: ServiceType) => {
+    setSelectedOverviewService((prev) => (prev?.id === service.id ? null : service))
+  }, [])
 
   const handleServiceDetailsOpen = useCallback(
     (service: ServiceType) => {
-      setSelectedDetailService(service.name === selectedDetailService?.name ? null : service)
+      onShowDetails(service) // Navigate to details page
     },
-    [selectedDetailService]
+    [onShowDetails]
   )
+
+  const handlePanelClose = useCallback(() => {
+    setSelectedOverviewService(null)
+  }, [])
 
   useEffect(() => {
     if (error) {
@@ -112,11 +112,11 @@ export const ServicesList = ({
           />
         </Stack>
       )}
-      {selectedOverviewService && <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} />}
-      {selectedDetailService && (
-        <Modal title="Service Details" open={true} onCancel={() => setSelectedDetailService(null)}>
-          <div>Comming soon...</div>
-        </Modal>
+
+      {selectedOverviewService && (
+        <MessagesProvider>
+          <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} onShowDetails={onShowDetails} />
+        </MessagesProvider>
       )}
     </div>
   )
