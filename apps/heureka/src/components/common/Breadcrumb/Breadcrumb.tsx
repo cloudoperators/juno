@@ -19,7 +19,6 @@ export const Breadcrumb = ({ selectedService, onNavigateHome }: BreadcrumbProps)
         <BreadcrumbItem icon="home" label="Services" onClick={onNavigateHome} />
         {selectedService && (
           <>
-            <span>/</span>
             <BreadcrumbItem label={capitalizeFirstLetter(selectedService)} />
           </>
         )}
