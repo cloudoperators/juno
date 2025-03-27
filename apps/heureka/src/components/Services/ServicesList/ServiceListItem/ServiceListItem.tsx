@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { DataGridRow, DataGridCell, Pill } from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Pill, Badge, Stack, Icon } from "@cloudoperators/juno-ui-components"
 import { ServiceType } from "../../Services"
 
 type ServiceDetailsLabel = {
@@ -35,24 +35,39 @@ const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["servi
 
 type ServiceListItemProps = {
   item: ServiceType
-  onClick: () => void
+  selected: boolean
+  onItemClick: () => void
+  onServiceDetailClick: () => void
 }
 
-export const ServiceListItem = ({ item, onClick }: ServiceListItemProps) => (
-  <DataGridRow className={`cursor-pointer`} onClick={onClick}>
+export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailClick }: ServiceListItemProps) => (
+  <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
-      {item.issuesCount.critical} | {item.issuesCount.high}
+      <Stack gap="1">
+        <Badge
+          icon="danger"
+          text={`${item.issuesCount.critical}`}
+          variant={item.issuesCount.critical > 0 ? "danger" : "default"}
+        />
+        <Badge
+          icon="warning"
+          text={`${item.issuesCount.high}`}
+          variant={item.issuesCount.critical > 0 ? "warning" : "default"}
+        />
+      </Stack>
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />
     </DataGridCell>
     <DataGridCell>{item.components}</DataGridCell>
-    <DataGridCell>{item.remediationDate}</DataGridCell>
     <DataGridCell>
       {item.serviceOwners.map((owner) => (
         <div key={owner}>{owner}</div>
       ))}
+    </DataGridCell>
+    <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
+      <Icon icon="description" onClick={onServiceDetailClick} />
     </DataGridCell>
   </DataGridRow>
 )

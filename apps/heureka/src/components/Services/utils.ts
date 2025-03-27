@@ -12,6 +12,7 @@ import {
   Service,
   ServiceEdge,
   ServiceFilter,
+  IssueMatchConnection,
   GetServiceImageVersionsQuery,
 } from "../../generated/graphql"
 import { ServiceType } from "./Services"
@@ -39,35 +40,82 @@ type NormalizedServices = {
   services: ServiceType[]
 }
 
-export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => ({
-  totalCount: data?.Services?.totalCount || 0,
-  pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
-  services: isNil(data?.Services?.edges)
-    ? []
-    : data?.Services?.edges
-        ?.filter((edge) => edge !== null)
-        .map((edge?: Edge): ServiceType => {
-          const node: Service | undefined = edge?.node
-          const service: ServiceType = {
-            id: node?.id?.toString() || "",
-            name: node?.ccrn || "",
-            serviceDetails: {
-              supportGroups: getSupportGroups(edge),
-            },
-            components: node?.objectMetadata?.componentInstanceCount || 0,
-            serviceOwners: getServiceOwners(edge),
-            issuesCount: {
-              critical: Math.floor(Math.random() * 10), //TODO: remove mock data when available
-              high: Math.floor(Math.random() * 10), //TODO: remove mock data when available
-            },
-            remediationDate: "2023-01-01", //TODO: remove mock data when available
-          }
-          return service
-        }),
-})
+type ExtendedService = Service & {
+  critical?: IssueMatchConnection
+  high?: IssueMatchConnection
+  medium?: IssueMatchConnection
+  low?: IssueMatchConnection
+  none?: IssueMatchConnection
+}
 
-export const getNormalizedError = (error?: ApolloError) =>
-  !isNil(error) ? error?.message || "Something went wrong" : undefined
+export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => {
+  return {
+    totalCount: data?.Services?.totalCount || 0,
+    pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    services: isNil(data?.Services?.edges)
+      ? []
+      : data?.Services?.edges
+          ?.filter((edge) => edge !== null)
+          .map((edge?: Edge): ServiceType => {
+            const node: ExtendedService | undefined = edge?.node
+            const service: ServiceType = {
+              id: node?.id?.toString() || "",
+              name: node?.ccrn || "",
+              serviceDetails: {
+                supportGroups: getSupportGroups(edge),
+              },
+              components: node?.objectMetadata?.componentInstanceCount || 0,
+              serviceOwners: getServiceOwners(edge),
+              issuesCount: {
+                critical: node?.critical?.totalCount || 0,
+                high: node?.high?.totalCount || 0,
+              },
+              remediationDate: "2023-01-01", //TODO: remove mock data when available
+            }
+            return service
+          }),
+  }
+}
+
+/**
+ * Normalizes the error from Apollo Client into a user-friendly message.
+ *
+ * This function checks if the error is a network error and if there are any
+ * GraphQL errors within it. If present, it formats them into a readable
+ * string, including the error message and the associated path (if available).
+ *
+ * The `networkErrors` is temporarily typed as `any` because the handling
+ * of Apollo Client errors is still a work in progress. This is a temporary
+ * solution until we implement a more robust typing system for all possible
+ * error types from Apollo Client. There is an existing task to address
+ * this properly, as handling and typing errors correctly is outside the
+ * scope of this current implementation. See the task for more details:
+ * https://github.com/cloudoperators/juno/issues/847
+ *
+ * @param error - The error object from Apollo Client, potentially containing
+ * network and GraphQL errors.
+ *
+ * @returns A string representation of the error message, or a fallback message
+ * if no specific error is found.
+ */
+export const getNormalizedError = (error?: ApolloError) => {
+  if (isNil(error)) return undefined
+
+  // Extract network errors if they exist
+  const networkErrors = error.networkError as any
+  const netErrors = networkErrors?.result?.errors
+  if (netErrors && netErrors?.length > 0) {
+    return netErrors
+      .map((e: any) => {
+        const path = e.path ? ` (Path: ${e.path.join(" → ")})` : ""
+        return `${e.message}${path}`
+      })
+      .join("; ")
+  }
+
+  // Fallback to the standard error message
+  return error.message || "Something went wrong"
+}
 
 export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceFilter => ({
   search: filterSettings?.searchTerm ? [filterSettings.searchTerm] : undefined,
