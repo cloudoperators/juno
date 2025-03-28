@@ -14,14 +14,7 @@ export default [
         project: ["./tsconfig.json"], // Ensure this points to your tsconfig.json
       },
     },
-    // TODO: We need to make all of this checks on again, step by step
-    rules: {
-      "@typescript-eslint/no-unsafe-assignment": "off",
-      "@typescript-eslint/no-unsafe-call": "off",
-      "@typescript-eslint/no-unsafe-argument": "off",
-      "@typescript-eslint/no-floating-promises": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off",
-    },
+    rules: {},
     ignores: ["vitest.config.ts", "vite.config.ts"],
   },
 ]

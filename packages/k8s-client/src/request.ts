@@ -5,16 +5,18 @@
 
 import { buildUrl } from "./urlHelpers"
 import * as logger from "./logger"
+import { K8sApiError } from "./apiErrorHandler"
 
 // Define the shape of the options parameter
 interface RequestOptions {
   params?: Record<string, any>
   signal?: AbortSignal
-  headers?: HeadersInit
-  body?: any
+  headers?: HeadersInit | null
+  body?: Object | null
   mode?: RequestMode
   cache?: RequestCache
   credentials?: RequestCredentials
+  [key: string]: any
 }
 
 // Check response status
@@ -23,7 +25,7 @@ const checkStatus = (response: Response): Response => {
     return response
   } else {
     const error = new Error(response.statusText || `${response.status}`)
-    ;(error as any).response = response // Type assertion to attach the response to the error
+    ;(error as K8sApiError).response = response // Type assertion to attach the response to the error
     throw error
   }
 }
@@ -41,14 +43,17 @@ function request(method: string, url: string, options: RequestOptions = {}): Pro
   if (options.params) url = buildUrl(url, options.params)
 
   // add allowed options to fetch
-  const fetchOptions: RequestInit = ["signal", "headers", "body", "mode", "cache", "credentials"].reduce(
+  const requestFields = ["signal", "headers", "body", "mode", "cache", "credentials"] as const
+
+  const fetchOptions: RequestInit = requestFields.reduce(
     (map, key) => {
-      if (options[key as keyof RequestOptions]) {
-        map[key as keyof RequestInit] = options[key as keyof RequestOptions]
+      if (options[key]) {
+        return { ...map, [key]: options[key] }
       }
+
       return map
     },
-    { credentials: "same-origin", method } as RequestInit
+    { credentials: "same-origin", method }
   )
 
   // stringify body if it's an object
