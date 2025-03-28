@@ -55,7 +55,6 @@ query GetServices(
         }
       }
     }
-    totalCount
     pageInfo {
       pageNumber
       pages {
