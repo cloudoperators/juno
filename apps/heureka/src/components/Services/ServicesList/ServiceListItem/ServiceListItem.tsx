@@ -23,13 +23,13 @@ const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["servi
   )
 
   return (
-    <span>
+    <Stack gap="2" alignment="start" wrap={true}>
       {Object.entries(serviceDetails).map(([key, value]) =>
         Array.isArray(value)
           ? value.map((item) => getPill(serviceDetailsLabels[key], item))
           : getPill(serviceDetailsLabels[key], value)
       )}
-    </span>
+    </Stack>
   )
 }
 
