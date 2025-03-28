@@ -4,11 +4,10 @@
  */
 
 import React, { useCallback } from "react"
-import { Breadcrumb as BreadcrumContainer, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
+import { Breadcrumb as BreadcrumbContainer, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
 import { capitalizeFirstLetter } from "../Helpers/helpers"
 import { useDispatch, useStore } from "../../../store/StoreProvider"
 import { ActionType, ServiceDetailViewParams, UserView } from "../../../store/StoreProvider/types"
-import { isNil } from "lodash"
 
 export const Breadcrumb = () => {
   const dispatch = useDispatch()
@@ -25,7 +24,7 @@ export const Breadcrumb = () => {
 
   return (
     <Container py px={false}>
-      <BreadcrumContainer>
+      <BreadcrumbContainer>
         <BreadcrumbItem icon="home" label="Services" onClick={() => handleClick(UserView.Services)} />
         {selectedView.viewId === UserView.ServiceDetails && (
           <>
@@ -34,7 +33,7 @@ export const Breadcrumb = () => {
             />
           </>
         )}
-      </BreadcrumContainer>
+      </BreadcrumbContainer>
     </Container>
   )
 }

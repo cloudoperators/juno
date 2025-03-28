@@ -17,6 +17,7 @@ import {
 } from "../../generated/graphql"
 import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
+import { IssuesCountsType } from "./useFetchServicesCounts"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -136,19 +137,11 @@ export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceF
     }, {}),
 })
 
-type IssueCounts = {
-  critical: number
-  high: number
-  medium: number
-  low: number
-  none: number
-}
-
 type ServiceImageVersion = {
   version: string
   tag: string
   ccrn: string
-  issueCounts: IssueCounts
+  issueCounts: IssuesCountsType
 }
 
 type NormalizedServiceImageVersions = {

@@ -10,19 +10,14 @@ import { ServicesList } from "./ServicesList"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
-import IssuesCount from "./ServicesList/IssuesCount"
 import { useStore } from "../../store/StoreProvider"
+import { IssuesCountsType } from "./useFetchServicesCounts"
+import IssuesCount from "./ServicesList/IssuesCount"
 
 export type ServiceType = {
   id: string
   name: string
-  issuesCount: {
-    critical: number
-    high: number
-    medium: number
-    low: number
-    none: number
-  }
+  issuesCount: IssuesCountsType
   serviceDetails: {
     supportGroups: string[]
   }
