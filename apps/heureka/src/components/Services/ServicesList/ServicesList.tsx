@@ -3,54 +3,52 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useCallback, useEffect } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Modal, Stack } from "@cloudoperators/juno-ui-components"
+import React, { useCallback, useEffect, useState } from "react"
+import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
-import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
+import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { ServicePanel } from "../ServicePanel/ServicePanel"
 import { ServiceType } from "../Services"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import { useFetchServices } from "../useFetchServices"
+import { FilterSettings } from "../../common/Filters/types"
+import { useDispatch } from "../../../store/StoreProvider"
+import { ActionType, UserView } from "../../../store/StoreProvider/types"
 
 const COLUMN_SPAN = 6
 
 type ServiceListProps = {
-  loading: boolean
-  error?: string | null
-  services: ServiceType[]
-  currentPage?: number
-  totalNumberOfPages: number
-  goToPage: (page: number | undefined) => void
+  filterSettings: FilterSettings
 }
 
-export const ServicesList = ({
-  loading,
-  error,
-  services,
-  currentPage,
-  totalNumberOfPages,
-  goToPage,
-}: ServiceListProps) => {
-  const { addMessage } = messageActions()
+export const ServicesList = ({ filterSettings }: ServiceListProps) => {
+  const dispatch = useDispatch()
+  const { addMessage } = useMessageActions()
   const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
-  const [selectedDetailService, setSelectedDetailService] = useState<ServiceType | null>(null)
+  const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
+    filterSettings,
+  })
+
+  const handleServiceOverviewOpen = useCallback((service: ServiceType) => {
+    setSelectedOverviewService((prev) => (prev?.id === service.id ? null : service))
+  }, [])
 
   const handlePanelClose = useCallback(() => {
     setSelectedOverviewService(null)
-  }, [selectedOverviewService])
+  }, [])
 
-  const handleServiceOverviewOpen = useCallback(
-    (service: ServiceType) => {
-      setSelectedOverviewService(service.name === selectedOverviewService?.name ? null : service)
-    },
-    [selectedOverviewService]
-  )
-
-  const handleServiceDetailsOpen = useCallback(
-    (service: ServiceType) => {
-      setSelectedDetailService(service.name === selectedDetailService?.name ? null : service)
-    },
-    [selectedDetailService]
-  )
+  const goToServiceDetails = useCallback((service: ServiceType) => {
+    dispatch({
+      type: ActionType.SelectView,
+      payload: {
+        viewId: UserView.ServiceDetails,
+        params: {
+          service,
+        },
+      },
+    })
+  }, [])
 
   useEffect(() => {
     if (error) {
@@ -70,7 +68,7 @@ export const ServicesList = ({
           <DataGridHeadCell>Service details</DataGridHeadCell>
           <DataGridHeadCell>No. Components</DataGridHeadCell>
           <DataGridHeadCell>Service owners</DataGridHeadCell>
-          <DataGridHeadCell></DataGridHeadCell>
+          <DataGridHeadCell>Actions</DataGridHeadCell>
         </DataGridRow>
         {
           /* if request is in flight */
@@ -82,13 +80,13 @@ export const ServicesList = ({
           !loading &&
             !error &&
             services.length > 0 &&
-            services.map((item) => (
+            services.map((item: ServiceType) => (
               <ServiceListItem
                 key={item.id}
                 item={item}
                 selected={selectedOverviewService?.id === item.id}
                 onItemClick={() => handleServiceOverviewOpen(item)}
-                onServiceDetailClick={() => handleServiceDetailsOpen(item)}
+                onServiceDetailClick={() => goToServiceDetails(item)}
               />
             ))
         }
@@ -112,11 +110,11 @@ export const ServicesList = ({
           />
         </Stack>
       )}
-      {selectedOverviewService && <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} />}
-      {selectedDetailService && (
-        <Modal title="Service Details" open={true} onCancel={() => setSelectedDetailService(null)}>
-          <div>Comming soon...</div>
-        </Modal>
+
+      {selectedOverviewService && (
+        <MessagesProvider>
+          <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} />
+        </MessagesProvider>
       )}
     </div>
   )

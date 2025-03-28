@@ -3,21 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, ReactNode } from "react"
+import React, { ReactNode } from "react"
 import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { Navigation } from "../Navigation"
-import { SERVICES, ISSUES } from "../../constants"
 import { Services } from "../Services"
-import { Issues } from "../Issues"
-import { InitialFilters } from "../../App"
+import { useStore } from "../../store/StoreProvider"
+import { UserView } from "../../store/StoreProvider/types"
+import { ServiceDetails } from "../Services/ServiceDetails"
 
-const getViewComponent = (selectedView: ReactNode) => {
-  switch (selectedView) {
-    case SERVICES:
+// TODO: remove this when used a Routing library
+const getViewComponent = (viewId: ReactNode) => {
+  switch (viewId) {
+    case UserView.Services:
       return Services
-    case ISSUES:
-      return Issues
+    case UserView.ServiceDetails:
+      return ServiceDetails
     default:
       return () => null
   }
@@ -25,24 +26,22 @@ const getViewComponent = (selectedView: ReactNode) => {
 
 type ShellProps = {
   embedded?: boolean
-  defaultSelectedView?: ReactNode
-  initialFilters?: InitialFilters
 }
 
-export const Shell = ({ embedded, defaultSelectedView = SERVICES, initialFilters }: ShellProps) => {
-  const [selectedView, setSelectedView] = useState<ReactNode>(defaultSelectedView)
-  const SelectedViewComponent = getViewComponent(selectedView)
+export const Shell = ({ embedded }: ShellProps) => {
+  const state = useStore()
+  const SelectedViewComponent = getViewComponent(state.selectedView?.viewId)
 
   return (
     <AppShell
       embedded={embedded}
       pageHeader={<PageHeader heading="Heureka" />}
-      topNavigation={<Navigation activeItem={selectedView} onChange={setSelectedView} />}
+      topNavigation={<Navigation activeItem={state.selectedView?.viewId} />}
     >
       <Container py px>
         <MessagesProvider>
           <Messages />
-          <SelectedViewComponent initialFilters={initialFilters} />
+          <SelectedViewComponent />
         </MessagesProvider>
       </Container>
     </AppShell>
