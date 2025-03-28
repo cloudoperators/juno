@@ -34,7 +34,6 @@ describe("ServicesList", () => {
     expect(await screen.findByText("Service")).toBeInTheDocument()
     expect(await screen.findByText("Issues count")).toBeInTheDocument()
     expect(await screen.findByText("Service details")).toBeInTheDocument()
-    
   })
 
   it("should render service panel when clicking on a service", async () => {
