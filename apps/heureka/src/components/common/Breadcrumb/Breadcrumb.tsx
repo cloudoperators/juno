@@ -4,12 +4,14 @@
  */
 
 import React from "react"
-import { BreadcrumbItem } from "@cloudoperators/juno-ui-components"
+import { Breadcrumb as BreadcrumContainer, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
 
 export const Breadcrumb = () => {
   return (
-    <div>
-      <BreadcrumbItem icon="home" label="Services" />
-    </div>
+    <Container py px={false}>
+      <BreadcrumContainer>
+        <BreadcrumbItem icon="home" label="Services" />
+      </BreadcrumContainer>
+    </Container>
   )
 }

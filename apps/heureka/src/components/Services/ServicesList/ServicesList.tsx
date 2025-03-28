@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useCallback } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Message } from "@cloudoperators/juno-ui-components"
+import React, { useState, useCallback, useEffect } from "react"
+import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Modal, Stack } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
+import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
 import { ServicePanel } from "../ServicePanel/ServicePanel"
 import { ServiceType } from "../Services"
 
@@ -29,65 +30,79 @@ export const ServicesList = ({
   totalNumberOfPages,
   goToPage,
 }: ServiceListProps) => {
-  const [selectedService, setSelectedService] = useState<ServiceType | null>(null)
+  const { addMessage } = messageActions()
+  const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
+  const [selectedDetailService, setSelectedDetailService] = useState<ServiceType | null>(null)
 
   const handlePanelClose = useCallback(() => {
-    setSelectedService(null)
-  }, [selectedService])
+    setSelectedOverviewService(null)
+  }, [selectedOverviewService])
 
-  const handleServiceClick = useCallback(
+  const handleServiceOverviewOpen = useCallback(
     (service: ServiceType) => {
-      setSelectedService(service.name === selectedService?.name ? null : service)
+      setSelectedOverviewService(service.name === selectedOverviewService?.name ? null : service)
     },
-    [selectedService]
+    [selectedOverviewService]
   )
 
+  const handleServiceDetailsOpen = useCallback(
+    (service: ServiceType) => {
+      setSelectedDetailService(service.name === selectedDetailService?.name ? null : service)
+    },
+    [selectedDetailService]
+  )
+
+  useEffect(() => {
+    if (error) {
+      addMessage({
+        variant: "error",
+        text: error,
+      })
+    }
+  }, [error])
+
   return (
-    <div className="flex-1 flex flex-col gap-10 overflow-hidden">
-      <div className="overflow-scroll">
-        <DataGrid minContentColumns={[3, 4]} columns={COLUMN_SPAN}>
-          <DataGridRow>
-            <DataGridHeadCell>Service</DataGridHeadCell>
-            <DataGridHeadCell>Issues count</DataGridHeadCell>
-            <DataGridHeadCell>Service details</DataGridHeadCell>
-            <DataGridHeadCell>No. Components</DataGridHeadCell>
-            <DataGridHeadCell>Target remediation</DataGridHeadCell>
-            <DataGridHeadCell>Service owners</DataGridHeadCell>
-          </DataGridRow>
-          {
-            /* if request is in flight */
-            loading && <EmptyDataGridRow colSpan={COLUMN_SPAN}>Loading...</EmptyDataGridRow>
-          }
+    <div className="services">
+      <DataGrid minContentColumns={[5]} columns={COLUMN_SPAN}>
+        <DataGridRow>
+          <DataGridHeadCell>Service</DataGridHeadCell>
+          <DataGridHeadCell>Issues count</DataGridHeadCell>
+          <DataGridHeadCell>Service details</DataGridHeadCell>
+          <DataGridHeadCell>No. Components</DataGridHeadCell>
+          <DataGridHeadCell>Service owners</DataGridHeadCell>
+          <DataGridHeadCell></DataGridHeadCell>
+        </DataGridRow>
+        {
+          /* if request is in flight */
+          loading && <EmptyDataGridRow colSpan={COLUMN_SPAN}>Loading...</EmptyDataGridRow>
+        }
 
-          {
-            /* if the request is fulfilled with the data */
-            !loading &&
-              !error &&
-              services.length > 0 &&
-              services.map((item) => (
-                <ServiceListItem key={item.name} item={item} onClick={() => handleServiceClick(item)} />
-              ))
-          }
+        {
+          /* if the request is fulfilled with the data */
+          !loading &&
+            !error &&
+            services.length > 0 &&
+            services.map((item) => (
+              <ServiceListItem
+                key={item.id}
+                item={item}
+                selected={selectedOverviewService?.id === item.id}
+                onItemClick={() => handleServiceOverviewOpen(item)}
+                onServiceDetailClick={() => handleServiceDetailsOpen(item)}
+              />
+            ))
+        }
 
-          {
-            /* if the request is fulfilled with no data */
-            !loading && !error && services.length === 0 && (
-              <EmptyDataGridRow colSpan={COLUMN_SPAN}>No services found</EmptyDataGridRow>
-            )
-          }
+        {
+          /* if the request is fulfilled with no data */
+          !loading && !error && services.length === 0 && (
+            <EmptyDataGridRow colSpan={COLUMN_SPAN}>No services found</EmptyDataGridRow>
+          )
+        }
+      </DataGrid>
 
-          {
-            /* if the request is fulfilled with an error */
-            !loading && error && (
-              <EmptyDataGridRow colSpan={COLUMN_SPAN}>
-                <Message variant="error">{error}</Message>
-              </EmptyDataGridRow>
-            )
-          }
-        </DataGrid>
-      </div>
       {!!totalNumberOfPages && (
-        <div className="flex justify-end">
+        <Stack distribution="end" className="mt-4">
           <Pagination
             variant="number"
             currentPage={currentPage}
@@ -95,9 +110,14 @@ export const ServicesList = ({
             onPressPrevious={goToPage}
             pages={totalNumberOfPages}
           />
-        </div>
+        </Stack>
       )}
-      {selectedService && <ServicePanel service={selectedService} onClose={handlePanelClose} />}
+      {selectedOverviewService && <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} />}
+      {selectedDetailService && (
+        <Modal title="Service Details" open={true} onCancel={() => setSelectedDetailService(null)}>
+          <div>Comming soon...</div>
+        </Modal>
+      )}
     </div>
   )
 }

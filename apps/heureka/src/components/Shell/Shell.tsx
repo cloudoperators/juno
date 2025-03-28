@@ -39,11 +39,11 @@ export const Shell = ({ embedded, defaultSelectedView = SERVICES, initialFilters
       pageHeader={<PageHeader heading="Heureka" />}
       topNavigation={<Navigation activeItem={selectedView} onChange={setSelectedView} />}
     >
-      <Container py px className="flex flex-1 flex-col overflow-hidden">
+      <Container py px>
         <MessagesProvider>
           <Messages />
+          <SelectedViewComponent initialFilters={initialFilters} />
         </MessagesProvider>
-        <SelectedViewComponent initialFilters={initialFilters} />
       </Container>
     </AppShell>
   )
