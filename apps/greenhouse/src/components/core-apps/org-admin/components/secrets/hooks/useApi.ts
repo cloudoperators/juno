@@ -10,7 +10,7 @@ import useStore from "../store"
 
 export const useApi = (debug?: boolean) => {
   const namespace = useStore((state: any) => state.namespace)
-  const { client: client } = useClient()
+  const { client } = useClient()
 
   // toggle verbosity
   const isDebug = debug ?? false

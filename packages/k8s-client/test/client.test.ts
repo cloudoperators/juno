@@ -22,9 +22,10 @@ describe("k8sClient", () => {
   describe("createClient", () => {
     describe("all required options are provided", () => {
       const options = { apiEndpoint: "test", token: "test" }
+      const result = expect(() => createClient(options))
 
       test("should not throw an error", () => {
-        expect(() => createClient(options)).not.toThrow()
+        result.not.toThrow()
       })
 
       test("should return a client object", () => {
@@ -59,16 +60,18 @@ describe("Client", () => {
       expect(client.get).toBeDefined()
     })
 
-    test("call request", () => {
-      client.get("/api/v1", { params: { key1: "value1", key2: "value2" } })
+    test("call request", async () => {
+      await client.get("/api/v1", { params: { key1: "value1", key2: "value2" } })
       expect(request).toHaveBeenLastCalledWith("GET", "https://test.com/api/v1", {
+        // linter complains of the asymmetric matcher "expect.anything()" - unsafe 'any' value assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         headers: expect.anything(),
         params: { key1: "value1", key2: "value2" },
       })
     })
 
-    test("allow to override default options", () => {
-      client.get("/api/v1", {
+    test("allow to override default options", async () => {
+      await client.get("/api/v1", {
         headers: { Authorization: "test", "Content-Type": "text" },
       })
       expect(request).toHaveBeenLastCalledWith("GET", "https://test.com/api/v1", {
@@ -82,9 +85,11 @@ describe("Client", () => {
       expect(client.post).toBeDefined()
     })
 
-    test("call request", () => {
-      client.post("/api/v1", { key1: "value1" }, { params: { key1: "value1", key2: "value2" } })
+    test("call request", async () => {
+      await client.post("/api/v1", { key1: "value1" }, { params: { key1: "value1", key2: "value2" } })
       expect(request).toHaveBeenLastCalledWith("POST", "https://test.com/api/v1", {
+        // linter complains of the asymmetric matcher "expect.anything()" - unsafe 'any' value assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         headers: expect.anything(),
         params: { key1: "value1", key2: "value2" },
         body: { key1: "value1" },
@@ -97,8 +102,8 @@ describe("Client", () => {
       expect(client.put).toBeDefined()
     })
 
-    test("call request", () => {
-      client.put("/api/v1", { key1: "value1" }, { params: { key1: "value1", key2: "value2" } })
+    test("call request", async () => {
+      await client.put("/api/v1", { key1: "value1" }, { params: { key1: "value1", key2: "value2" } })
       expect(request).toHaveBeenLastCalledWith("PUT", "https://test.com/api/v1", {
         headers: {
           Authorization: "Bearer test",
@@ -115,8 +120,8 @@ describe("Client", () => {
       expect(client.patch).toBeDefined()
     })
 
-    test("call request", () => {
-      client.patch(
+    test("call request", async () => {
+      await client.patch(
         "/api/v1",
         { key1: "value1" },
         {
@@ -139,11 +144,13 @@ describe("Client", () => {
       expect(client.delete).toBeDefined()
     })
 
-    test("call request", () => {
-      client.delete("/api/v1", null, {
+    test("call request", async () => {
+      await client.delete("/api/v1", null, {
         params: { key1: "value1", key2: "value2" },
       })
       expect(request).toHaveBeenLastCalledWith("DELETE", "https://test.com/api/v1", {
+        // linter complains of the asymmetric matcher "expect.anything()" - unsafe 'any' value assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         headers: expect.anything(),
         body: null,
         params: { key1: "value1", key2: "value2" },
@@ -156,9 +163,11 @@ describe("Client", () => {
       expect(client.head).toBeDefined()
     })
 
-    test("call request", () => {
-      client.head("/api/v1", { params: { key1: "value1", key2: "value2" } })
+    test("call request", async () => {
+      await client.head("/api/v1", { params: { key1: "value1", key2: "value2" } })
       expect(request).toHaveBeenLastCalledWith("HEAD", "https://test.com/api/v1", {
+        // linter complains of the asymmetric matcher "expect.anything()" - unsafe 'any' value assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         headers: expect.anything(),
         params: { key1: "value1", key2: "value2" },
       })
