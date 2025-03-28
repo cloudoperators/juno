@@ -4,6 +4,7 @@
  */
 
 import { useCallback, useEffect, useRef } from "react"
+import { isNil } from "lodash"
 import {
   OrderDirection,
   Page,
@@ -22,7 +23,7 @@ type UseFetchServicesInput = {
 export const useFetchServices = ({ filterSettings, pageSize = 10 }: UseFetchServicesInput) => {
   const pagesRef = useRef<Page[]>()
   const [loadServices, { data, loading, error }] = useGetServicesLazyQuery()
-  const { services, totalCount, pages, pageNumber } = getNormalizedData(data)
+  const { services, pages, pageNumber } = getNormalizedData(data)
 
   // let's save the pages so we can get cursor when navigating among pages
   pagesRef.current = pages
@@ -63,9 +64,11 @@ export const useFetchServices = ({ filterSettings, pageSize = 10 }: UseFetchServ
   )
 
   // Go to a specific page
-  const goToPage = useCallback((pageNumber: number | undefined) => {
-    const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber)?.after
-    fetchServices({ filterSettings, cursor })
+  const goToPage = useCallback((pageNumber?: number) => {
+    if (!isNil(pageNumber)) {
+      const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber - 1)?.after
+      fetchServices({ filterSettings, cursor })
+    }
   }, [])
 
   // Fetch services whenever filter settings change
@@ -77,8 +80,8 @@ export const useFetchServices = ({ filterSettings, pageSize = 10 }: UseFetchServ
     loading,
     error: getNormalizedError(error),
     services: services || [],
-    currentPage: pageNumber || 1,
-    totalNumberOfPages: Math.ceil(totalCount / pageSize) || 0,
+    currentPage: pageNumber,
+    totalNumberOfPages: pages.length || 0,
     goToPage,
   }
 }

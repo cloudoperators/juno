@@ -34,7 +34,6 @@ const getServiceOwners = (serviceEdge?: ServiceEdge) => {
 }
 
 type NormalizedServices = {
-  totalCount: number
   pageNumber: number
   pages: Page[]
   services: ServiceType[]
@@ -50,7 +49,6 @@ type ExtendedService = Service & {
 
 export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => {
   return {
-    totalCount: data?.Services?.totalCount || 0,
     pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
     pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
     services: isNil(data?.Services?.edges)

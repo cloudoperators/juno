@@ -4,6 +4,7 @@
  */
 
 import { useCallback, useEffect, useRef } from "react"
+import { isNil } from "lodash"
 import {
   Page,
   ComponentVersionOrderByField,
@@ -46,9 +47,11 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: Use
   )
 
   // Go to a specific page
-  const goToPage = useCallback((pageNumber: number | undefined) => {
-    const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber)?.after
-    fetchServiceImageVersions({ serviceCcrn, cursor })
+  const goToPage = useCallback((pageNumber?: number) => {
+    if (!isNil(pageNumber)) {
+      const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber - 1)?.after
+      fetchServiceImageVersions({ serviceCcrn, cursor })
+    }
   }, [])
 
   // Fetch services whenever filter settings change
@@ -58,9 +61,9 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: Use
 
   return {
     loading,
-    currentPage: pageNumber || 1,
-    imageVersions,
-    totalNumberOfPages: Math.ceil(totalCount / pageSize) || 0,
+    currentPage: pageNumber,
+    imageVersions: imageVersions || [],
+    totalNumberOfPages: pages.length || 0,
     totalCount,
     goToPage: goToPage,
     error: error?.message,

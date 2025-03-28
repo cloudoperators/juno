@@ -11,7 +11,6 @@ import { useActions as messageActions } from "@cloudoperators/juno-messages-prov
 import { ServicePanel } from "../ServicePanel/ServicePanel"
 import { ServiceType } from "../Services"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import { ServiceImageVersion } from "../common/ServiceImageVersions"
 import { useFetchServices } from "../useFetchServices"
 import { FilterSettings } from "../../common/Filters/types"
 import { useDispatch } from "../../../store/StoreProvider"
