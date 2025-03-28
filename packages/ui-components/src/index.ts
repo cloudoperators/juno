@@ -98,27 +98,30 @@ export { TopNavigation } from "./components/TopNavigation/TopNavigation.componen
 export { TopNavigationItem } from "./components/TopNavigationItem/TopNavigationItem.component"
 export { useEndlessScrollList } from "./hooks/useEndlessScrollList"
 
-//TYPES
+// TYPES
 export type { AppBodyProps } from "./components/AppBody/AppBody.component"
 export type { AppShellProps } from "./components/AppShell/AppShell.component"
-export type { AppShellProviderProps } from "./components/AppShellProvider/AppShellProvider.component"
-export type { BadgeProps } from "./components/Badge/Badge.component"
+export type {
+  AppShellProviderProps,
+  AppShellStyleWrapper,
+} from "./components/AppShellProvider/AppShellProvider.component"
+export type { BadgeProps, BadgeVariantType } from "./components/Badge/Badge.component"
 export type { BoxProps } from "./components/Box/Box.component"
 export type { BreadcrumbProps } from "./components/Breadcrumb/Breadcrumb.component"
 export type { BreadcrumbItemProps } from "./components/BreadcrumbItem/BreadcrumbItem.component"
 export type { ButtonProps } from "./components/Button/Button.component"
 export type { ButtonRowProps } from "./components/ButtonRow/ButtonRow.component"
 export type { CheckboxProps } from "./components/Checkbox/Checkbox.component"
-export type { CheckboxGroupProps } from "./components/CheckboxGroup/CheckboxGroup.component"
+export type { CheckboxGroupProps, CheckboxGroupContextProps } from "./components/CheckboxGroup/CheckboxGroup.component"
 export type { CodeProps } from "./components/Code/Code.component"
 export type { CodeBlockProps } from "./components/CodeBlock/CodeBlock.component"
-export type { ComboBoxProps } from "./components/ComboBox/ComboBox.component"
+export type { ComboBoxProps, ComboBoxWidth, ComboBoxContextType } from "./components/ComboBox/ComboBox.component"
 export type { ComboBoxOptionProps } from "./components/ComboBoxOption/ComboBoxOption.component"
 export type { ContentHeadingProps } from "./components/ContentHeading/ContentHeading.component"
 export type { ContentAreaToolbarProps } from "./components/ContentAreaToolbar/ContentAreaToolbar.component"
 export type { ContentContainerProps } from "./components/ContentContainer/ContentContainer.component"
 export type { ContainerProps } from "./components/Container/Container.component"
-export type { DataGridProps } from "./components/DataGrid/DataGrid.component"
+export type { DataGridProps, CellVerticalAlignmentType } from "./components/DataGrid/DataGrid.component"
 export type { DataGridCellProps } from "./components/DataGridCell/DataGridCell.component"
 export type { DataGridHeadCellProps } from "./components/DataGridHeadCell/DataGridHeadCell.component"
 export type { DataGridRowProps } from "./components/DataGridRow/DataGridRow.component"
@@ -141,7 +144,7 @@ export type { LoadingIndicatorProps } from "./components/LoadingIndicator/Loadin
 export type { MainContainerProps } from "./components/MainContainer/MainContainer.component"
 export type { MainContainerInnerProps } from "./components/MainContainerInner/MainContainerInner.component"
 export type { MainTabsProps } from "./components/MainTabs//MainTabs.component"
-export type { MessageProps } from "./components/Message/Message.component"
+export type { MessageProps, MessageVariantType } from "./components/Message/Message.component"
 export type { ModalProps } from "./components/Modal/Modal.component"
 export type { ModalFooterProps } from "./components/ModalFooter/ModalFooter.component"
 export type { NativeSelectProps } from "./components/NativeSelect/NativeSelect.component"
@@ -154,29 +157,48 @@ export type { PageFooterProps } from "./components/PageFooter/PageFooter.compone
 export type { PageHeaderProps } from "./components/PageHeader/PageHeader.component"
 export type { PaginationProps } from "./components/Pagination/Pagination.component"
 export type { PillProps } from "./components/Pill/Pill.component"
-export type { PopupMenuProps } from "./components/PopupMenu/PopupMenu.component"
+export type {
+  PopupMenuProps,
+  PopupMenuContextType,
+  PopupMenuToggleProps,
+  PopupMenuMenuProps,
+  PopupMenuItemProps,
+  PopupMenuSectionProps,
+  PopupMenuSectionHeadingProps,
+  PopupMenuSectionSeparatorProps,
+} from "./components/PopupMenu/PopupMenu.component"
 export type { PortalProviderProps } from "./components/PortalProvider/PortalProvider.component"
 export type { RadioProps } from "./components/Radio/Radio.component"
-export type { RadioGroupProps } from "./components/RadioGroup/RadioGroup.component"
+export type { RadioGroupProps, RadioGroupContextProps } from "./components/RadioGroup/RadioGroup.component"
 export type { SearchInputProps } from "./components/SearchInput/SearchInput.component"
 export type { SecretTextProps } from "./components/SecretText/SecretText.component"
 export type { SelectDividerProps } from "./components/SelectDivider/SelectDivider.component"
-export type { SelectProps } from "./components/Select/Select.component"
+export type { SelectProps, SelectContextProps } from "./components/Select/Select.component"
 export type { SelectOptionProps } from "./components/SelectOption/SelectOption.component"
-export type { ShadowRootProps } from "./components/ShadowRoot/ShadowRoot.component"
+export type { ShadowRootProps, ShadowRootMode } from "./components/ShadowRoot/ShadowRoot.component"
 export type { SideNavigationProps } from "./components/SideNavigation/SideNavigation.component"
 export type { SideNavigationItemProps } from "./components/SideNavigationItem/SideNavigationItem.component"
 export type { SpinnerProps } from "./components/Spinner/Spinner.component"
-export type { StackProps } from "./components/Stack/Stack.component"
-export type { StyleProviderProps } from "./components/StyleProvider/StyleProvider.component"
+export type {
+  StackProps,
+  StackDirection,
+  StackAlignment,
+  StackDistribution,
+  StackGap,
+} from "./components/Stack/Stack.component"
+export type { StyleProviderProps, StyleContextProps } from "./components/StyleProvider/StyleProvider.component"
 export type { SwitchProps } from "./components/Switch/Switch.component"
 export type { TabProps } from "./components/Tab/Tab.component"
 export type { TabListProps } from "./components/TabList/TabList.component"
-export type { TabNavigationProps } from "./components/TabNavigation/TabNavigation.component"
+export type {
+  TabNavigationProps,
+  TabNavigationContextType,
+  TabStyle,
+} from "./components/TabNavigation/TabNavigation.component"
 export type { TabNavigationItemProps } from "./components/TabNavigationItem/TabNavigationItem.component"
 export type { TabPanelProps } from "./components/TabPanel/TabPanel.component"
 export type { TextareaProps } from "./components/Textarea/Textarea.component"
-export type { TabsProps } from "./components/Tabs/Tabs.component"
+export type { TabsProps, TabsContextType, TabsVariant } from "./components/Tabs/Tabs.component"
 export type { TextInputProps } from "./components/TextInput/TextInput.component"
 export type { ThemeToggleProps } from "./components/ThemeToggle/ThemeToggle.component"
 export type { ToastProps } from "./components/Toast/Toast.component"
@@ -186,7 +208,7 @@ export type { TooltipTriggerProps } from "./components/TooltipTrigger/TooltipTri
 export type { TopNavigationProps } from "./components/TopNavigation/TopNavigation.component"
 export type { TopNavigationItemProps } from "./components/TopNavigationItem/TopNavigationItem.component"
 
-//DEPRECATED COMPONENTS
+// DEPRECATED COMPONENTS
 export { AppIntro } from "./deprecated_js/AppIntro/AppIntro.component"
 export { CheckboxRow } from "./deprecated_js/CheckboxRow"
 export { ContentArea } from "./deprecated_js/ContentArea/ContentArea.component"
