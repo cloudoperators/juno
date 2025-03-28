@@ -1,5 +1,11 @@
 # @cloudoperators/juno-oauth
 
+## 1.4.4
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+
 ## 1.4.3
 
 ### Patch Changes

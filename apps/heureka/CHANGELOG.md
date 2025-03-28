@@ -1,5 +1,21 @@
 # heureka
 
+## 0.4.0
+
+### Minor Changes
+
+- e4f5190: Adds service overview panel to heureka
+- 6d664e8: Add store and service details page to heureka
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+- 23b5bc9: Adds missing information to Services page
+- Updated dependencies [2277a23]
+- Updated dependencies [cde9cb5]
+  - @cloudoperators/juno-ui-components@2.39.0
+  - @cloudoperators/juno-messages-provider@0.2.3
+
 ## 0.3.3
 
 ### Patch Changes
