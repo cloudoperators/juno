@@ -198,7 +198,7 @@ class Watch {
       })
       .catch((e: K8sApiError) => {
         if (e.name === "AbortError") return
-        const status = e.code || e?.response?.status
+        const status = e.code ?? e?.response?.status
 
         if (status === 410) {
           logger.debug(that.PREFIX, "resource is gone 410")
