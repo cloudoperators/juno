@@ -113,11 +113,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
 
       {selectedOverviewService && (
         <MessagesProvider>
-          <ServicePanel
-            service={selectedOverviewService}
-            onClose={handlePanelClose}
-            onShowDetails={goToServiceDetails}
-          />
+          <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} />
         </MessagesProvider>
       )}
     </div>

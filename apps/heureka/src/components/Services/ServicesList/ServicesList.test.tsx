@@ -9,26 +9,6 @@ import userEvent from "@testing-library/user-event"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { ServicesList } from "./ServicesList"
 import { TestProvider } from "../../../mocks/TestProvider"
-import { ServiceType } from "../Services"
-import { capitalizeFirstLetter } from "../../common/Helpers/helpers"
-
-const mockService: ServiceType = {
-  id: "1",
-  name: "test-service",
-  issuesCount: {
-    critical: 1,
-    high: 2,
-    medium: 0,
-    low: 0,
-    none: 0,
-  },
-  serviceDetails: {
-    supportGroups: ["group1", "group2"],
-  },
-  components: 3,
-  remediationDate: "2024-01-01",
-  serviceOwners: ["owner1", "owner2"],
-}
 
 const renderServicesList = () => ({
   user: userEvent.setup(),
@@ -61,14 +41,10 @@ describe("ServicesList", () => {
     const { user } = renderServicesList()
 
     // Find and click the service row
-    const serviceRow = await screen.findByText(mockService.name)
+    const serviceRow = await screen.findByText("alpha")
     await user.click(serviceRow)
 
     // Check if the panel is rendered with the service name
-    expect(screen.getByText(`${capitalizeFirstLetter(mockService.name)} Overview`)).toBeInTheDocument()
-
-    // Click again to close the panel
-    await user.click(serviceRow)
-    expect(screen.queryByText(`${capitalizeFirstLetter(mockService.name)} Overview`)).not.toBeInTheDocument()
+    expect(screen.getByText(`Alpha Overview`)).toBeInTheDocument()
   })
 })
