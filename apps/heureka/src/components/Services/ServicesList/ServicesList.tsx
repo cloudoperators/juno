@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
-import { useActions as messageActions } from "@cloudoperators/juno-messages-provider"
+import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { ServicePanel } from "../ServicePanel/ServicePanel"
 import { ServiceType } from "../Services"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
@@ -24,7 +24,7 @@ type ServiceListProps = {
 
 export const ServicesList = ({ filterSettings }: ServiceListProps) => {
   const dispatch = useDispatch()
-  const { addMessage } = messageActions()
+  const { addMessage } = useMessageActions()
   const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
   const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
     filterSettings,

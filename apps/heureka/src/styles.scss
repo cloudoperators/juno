@@ -21,3 +21,8 @@
     }
   }
 }
+
+// datagrid long text in a row style
+.service-image-versions-cell {
+  @apply break-all overflow-hidden;
+}

@@ -25,7 +25,7 @@ export const Breadcrumb = () => {
 
   return (
     <Container py px={false}>
-      <BreadcrumContainer className="flex items-center gap-2">
+      <BreadcrumContainer>
         <BreadcrumbItem icon="home" label="Services" onClick={() => handleClick(UserView.Services)} />
         {selectedView.viewId === UserView.ServiceDetails && (
           <>

@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Container, ContentHeading, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
+import { ContentHeading, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
 import { ServiceImageVersions } from "../common/ServiceImageVersions"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { useStore } from "../../../store/StoreProvider"
@@ -25,7 +25,6 @@ export const ServiceDetails = () => {
   return (
     <MessagesProvider>
       <Breadcrumb />
-      <Container py px>
         <Messages />
         <Stack gap="8" direction="vertical" className="overflow-auto w-full">
           {/* Service Information Section */}
@@ -61,19 +60,19 @@ export const ServiceDetails = () => {
                   {/* <span>{totalIssues}</span> */}
                   <Stack direction="horizontal" gap="2" alignment="center">
                     <span>Critical:</span>
-                    {selectedService.issuesCount?.critical > 0 ? (
-                      <Badge icon="danger" text={`${selectedService.issuesCount.critical}`} variant="danger" />
-                    ) : (
-                      <span>0</span>
-                    )}
+                    <Badge
+                      icon="danger"
+                      text={`${selectedService.issuesCount.critical}`}
+                      variant={selectedService.issuesCount.critical > 0 ? "danger" : "default"}
+                    />
                   </Stack>
                   <Stack direction="horizontal" gap="2" alignment="center">
                     <span>High:</span>
-                    {selectedService.issuesCount?.high > 0 ? (
-                      <Badge icon="warning" text={`${selectedService.issuesCount.high}`} variant="warning" />
-                    ) : (
-                      <span>0</span>
-                    )}
+                    <Badge
+                      icon="warning"
+                      text={`${selectedService.issuesCount.high}`}
+                      variant={selectedService.issuesCount.high > 0 ? "warning" : "default"}
+                    />
                   </Stack>
                   <Stack direction="horizontal" gap="2" alignment="center">
                     <span>Medium:</span>
@@ -109,7 +108,6 @@ export const ServiceDetails = () => {
             <ServiceImageVersions service={selectedService} />
           </Stack>
         </Stack>
-      </Container>
     </MessagesProvider>
   )
 }

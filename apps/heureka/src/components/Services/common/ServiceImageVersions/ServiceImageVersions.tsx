@@ -108,7 +108,7 @@ export const ServiceImageVersions = ({ service, showDetailsButtons }: ServiceIma
         ) : (
           formattedImageVersions.map((version, index) => (
             <DataGridRow key={index}>
-              <DataGridCell className="break-all overflow-hidden">
+              <DataGridCell className="service-image-versions-cell">
                 <Stack gap="1" direction="vertical">
                   <Stack gap="0.5" direction="vertical">
                     <span>{version.imageName}</span>
@@ -129,7 +129,7 @@ export const ServiceImageVersions = ({ service, showDetailsButtons }: ServiceIma
                   </Stack>
                 </Stack>
               </DataGridCell>
-              <DataGridCell className="break-all overflow-hidden">{version.imageTag}</DataGridCell>
+              <DataGridCell className="service-image-versions-cell">{version.imageTag}</DataGridCell>
               <DataGridCell>
                 {version.issueCounts.critical ? (
                   <Badge icon text={version.issueCounts.critical.toString()} variant="danger" />
