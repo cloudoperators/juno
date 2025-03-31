@@ -39,8 +39,8 @@
     "@cloudoperators/juno-url-state-provider": "*",
     "msw": "^2.6.6",
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
     "zustand": "^4.5.2"
   },
   "scripts": {
