@@ -91,8 +91,8 @@
   },
   "peerDependencies": {
     "prop-types": "15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
   },
   "scripts": {
     "storybook": "storybook dev -p $APP_PORT --ci --no-open",
