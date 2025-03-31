@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 2.3.3
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+
 ## 2.3.2
 
 ### Patch Changes

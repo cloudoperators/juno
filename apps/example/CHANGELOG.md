@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-example
 
+## 2.0.1
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+- Updated dependencies [2277a23]
+- Updated dependencies [cde9cb5]
+  - @cloudoperators/juno-ui-components@2.39.0
+  - @cloudoperators/juno-url-state-provider@2.3.3
+  - @cloudoperators/juno-messages-provider@0.2.3
+  - @cloudoperators/juno-oauth@1.4.4
+
 ## 2.0.0
 
 ### Major Changes

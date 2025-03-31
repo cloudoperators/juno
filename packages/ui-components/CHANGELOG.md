@@ -1,5 +1,15 @@
 # @cloudoperators/juno-ui-components
 
+## 2.39.0
+
+### Minor Changes
+
+- 2277a23: Export component types for Typescript use
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+
 ## 2.38.2
 
 ### Patch Changes

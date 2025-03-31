@@ -1,5 +1,11 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.18
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+
 ## 2.2.17
 
 ### Patch Changes
