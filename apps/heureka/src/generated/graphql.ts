@@ -459,6 +459,7 @@ export type IssueIssueMatchesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueMatchFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>>>
 }
 
 export type IssueIssueVariantsArgs = {
