@@ -2,4 +2,4 @@
 "@cloudoperators/juno-app-heureka": patch
 ---
 
-Adds missing information to Services page
+Fixes spaces in breadcrumb and services list pills

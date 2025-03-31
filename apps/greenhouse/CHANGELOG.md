@@ -1,5 +1,31 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.2
+
+### Patch Changes
+
+- e4f5190: Adds service overview panel to heureka
+- fe0b5cf: Replace usage of sapcc-k8sclient with juno-k8s-client + Fix some ts errors and warnings
+- 6d664e8: Add store and service details page to heureka
+- 23b5bc9: Update heureka dependency
+- cde9cb5: Update vite version to 6.0
+- Updated dependencies [e4f5190]
+- Updated dependencies [f1463a6]
+- Updated dependencies [2bd7610]
+- Updated dependencies [fe0b5cf]
+- Updated dependencies [0110f7b]
+- Updated dependencies [6d664e8]
+- Updated dependencies [0eb6d9e]
+- Updated dependencies [2277a23]
+- Updated dependencies [cde9cb5]
+- Updated dependencies [23b5bc9]
+  - @cloudoperators/juno-app-heureka@0.4.0
+  - @cloudoperators/juno-k8s-client@1.0.3
+  - @cloudoperators/juno-ui-components@2.39.0
+  - @cloudoperators/juno-messages-provider@0.2.3
+  - @cloudoperators/juno-oauth@1.4.4
+  - @cloudoperators/juno-app-doop@2.3.5
+
 ## 0.5.1
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-carbon
 
+## 1.0.4
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+- Updated dependencies [2277a23]
+- Updated dependencies [cde9cb5]
+  - @cloudoperators/juno-ui-components@2.39.0
+
 ## 1.0.3
 
 ### Patch Changes
