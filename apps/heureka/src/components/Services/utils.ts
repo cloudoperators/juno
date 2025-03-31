@@ -17,7 +17,7 @@ import {
 } from "../../generated/graphql"
 import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
-import { IssueCounts } from "./ServicePanel/ServicePanel"
+import { IssuesCountsType } from "./useFetchServicesCounts"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -35,7 +35,7 @@ const getServiceOwners = (serviceEdge?: ServiceEdge) => {
 }
 
 type NormalizedServices = {
-  totalCount: number
+  pageNumber: number
   pages: Page[]
   services: ServiceType[]
 }
@@ -50,7 +50,7 @@ type ExtendedService = Service & {
 
 export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => {
   return {
-    totalCount: data?.Services?.totalCount || 0,
+    pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
     pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
     services: isNil(data?.Services?.edges)
       ? []
@@ -69,6 +69,9 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
               issuesCount: {
                 critical: node?.critical?.totalCount || 0,
                 high: node?.high?.totalCount || 0,
+                medium: node?.medium?.totalCount || 0,
+                low: node?.low?.totalCount || 0,
+                none: node?.none?.totalCount || 0,
               },
               remediationDate: "2023-01-01", //TODO: remove mock data when available
             }
@@ -138,12 +141,13 @@ type ServiceImageVersion = {
   version: string
   tag: string
   ccrn: string
-  issueCounts: IssueCounts
+  issueCounts: IssuesCountsType
 }
 
 type NormalizedServiceImageVersions = {
   totalCount: number
   pages: Page[]
+  pageNumber: number
   imageVersions: ServiceImageVersion[]
 }
 
@@ -151,6 +155,7 @@ export const getNormalizedImageVersionsData = (
   data: GetServiceImageVersionsQuery | undefined
 ): NormalizedServiceImageVersions => ({
   totalCount: data?.ComponentVersions?.totalCount || 0,
+  pageNumber: data?.ComponentVersions?.pageInfo?.pageNumber || 1,
   pages: data?.ComponentVersions?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
   imageVersions: isNil(data?.ComponentVersions?.edges)
     ? []

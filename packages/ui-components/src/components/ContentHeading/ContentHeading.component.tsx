@@ -41,12 +41,3 @@ export const ContentHeading: React.FC<ContentHeadingProps> = ({ heading = "", cl
     </h1>
   )
 }
-
-export interface ContentHeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  /** Optionally render children. If children are present, heading will be ignored */
-  children?: ReactNode
-  /** Text to use as a title */
-  heading?: string
-  /** Add custom class name */
-  className?: string
-}

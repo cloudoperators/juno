@@ -1,7 +1,12 @@
 #SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 #SPDX-License-Identifier: Apache-2.0
 
-query GetServiceImageVersions($filter: ComponentVersionFilter, $first: Int, $after: String, $orderBy: [ComponentVersionOrderBy]) {
+query GetServiceImageVersions(
+  $filter: ComponentVersionFilter
+  $first: Int
+  $after: String
+  $orderBy: [ComponentVersionOrderBy]
+) {
   ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
     edges {
       node {
@@ -21,6 +26,7 @@ query GetServiceImageVersions($filter: ComponentVersionFilter, $first: Int, $aft
     }
     totalCount
     pageInfo {
+      pageNumber
       pages {
         after
         pageNumber
