@@ -26,11 +26,7 @@ export const Breadcrumb = () => {
     <BreadcrumbContainer className="mb-6">
       <BreadcrumbItem icon="home" label="Services" onClick={() => handleClick(UserView.Services)} />
       {selectedView.viewId === UserView.ServiceDetails && (
-        <>
-          <BreadcrumbItem
-            label={capitalizeFirstLetter((selectedView.params as ServiceDetailViewParams).service.name)}
-          />
-        </>
+        <BreadcrumbItem label={capitalizeFirstLetter((selectedView.params as ServiceDetailViewParams).service.name)} />
       )}
     </BreadcrumbContainer>
   )
