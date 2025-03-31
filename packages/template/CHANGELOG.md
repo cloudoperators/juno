@@ -1,5 +1,11 @@
 # @cloudoperators/juno-template
 
+## 1.1.3
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+
 ## 1.1.2
 
 ### Patch Changes
