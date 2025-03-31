@@ -5,7 +5,7 @@
 
 import { useCallback, useMemo } from "react"
 // @ts-ignore
-import { createClient } from "sapcc-k8sclient"
+import { createClient } from "@cloudoperators/juno-k8s-client"
 
 import { useGlobalsApiEndpoint, useGlobalsAssetsHost } from "../components/StoreProvider"
 import { createPluginConfig } from "../lib/plugin"

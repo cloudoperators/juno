@@ -6,7 +6,7 @@
 import request from "./request"
 import { buildUrl } from "./urlHelpers"
 import { Watch, ADDED, MODIFIED, DELETED, ERROR } from "./watch"
-import handleApiError from "./apiErrorHandler"
+import handleApiError, { K8sApiError } from "./apiErrorHandler"
 
 interface ClientOptions {
   apiEndpoint: string
@@ -17,7 +17,7 @@ interface ClientOptions {
 interface RequestOptions {
   params?: Record<string, any>
   headers?: Record<string, string>
-  body?: any
+  body?: Object | null
   signal?: AbortSignal
   mode?: RequestMode
   cache?: RequestCache
@@ -51,30 +51,30 @@ function createClient(options: ClientOptions) {
     }
   }
 
-  function head(path: string, options: RequestOptions = {}): Promise<Response> {
+  function head(path: string, options: RequestOptions = {}): Promise<Response | K8sApiError> {
     return request("HEAD", buildUrl(apiEndpoint, path), extendOptions(options)).catch(handleApiError)
   }
 
-  function get(path: string, options: RequestOptions = {}): Promise<any> {
+  function get(path: string, options: RequestOptions = {}): Promise<unknown> {
     return request("GET", buildUrl(apiEndpoint, path), extendOptions(options))
       .then((res) => res.json())
       .catch(handleApiError)
   }
 
-  function post(path: string, data: {}, options: RequestOptions = {}): Promise<any> {
+  function post(path: string, data: {}, options: RequestOptions = {}): Promise<unknown> {
     const result = request("POST", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
     return result
   }
 
-  function put(path: string, data: {}, options: RequestOptions = {}): Promise<any> {
+  function put(path: string, data: {}, options: RequestOptions = {}): Promise<unknown> {
     return request("PUT", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
   }
 
-  function patch(path: string, data: {}, options: RequestOptions = {}): Promise<any> {
+  function patch(path: string, data: {}, options: RequestOptions = {}): Promise<unknown> {
     return request(
       "PATCH",
       buildUrl(apiEndpoint, path),
@@ -87,7 +87,7 @@ function createClient(options: ClientOptions) {
       .catch(handleApiError)
   }
 
-  function del(path: string, data?: {} | null, options: RequestOptions = {}): Promise<any> {
+  function del(path: string, data?: {} | null, options: RequestOptions = {}): Promise<unknown> {
     return request("DELETE", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
@@ -122,4 +122,4 @@ function createClient(options: ClientOptions) {
   }
 }
 
-export { createClient }
+export { createClient, type RequestOptions }

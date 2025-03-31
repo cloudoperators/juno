@@ -4,12 +4,12 @@
  */
 
 import { graphql, HttpResponse } from "msw"
-import servicesFixture from "./fixtures/services.json"
+import { mockServices } from "./fixtures/services"
 import serviceFilters from "./fixtures/serviceFilters.json"
 import serviceImageVersions from "./fixtures/serviceImageVersions.json"
 
 const getServicesHandler = graphql.query("GetServices", () => {
-  return HttpResponse.json(servicesFixture)
+  return HttpResponse.json(mockServices)
 })
 
 const getServiceFiltersHandler = graphql.query("GetServiceFilters", () => {

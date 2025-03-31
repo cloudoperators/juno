@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { Issues } from "./Issues"
+export * from "./ServiceDetails"

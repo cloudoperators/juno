@@ -7,20 +7,17 @@ import React, { useState } from "react"
 import { Breadcrumb } from "../common/Breadcrumb"
 import { Filters } from "../common/Filters"
 import { ServicesList } from "./ServicesList"
-import { Panel } from "../common/Panel"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
+import { useStore } from "../../store/StoreProvider"
+import { IssuesCountsType } from "./useFetchServicesCounts"
 import IssuesCount from "./ServicesList/IssuesCount"
-import { useFetchServices } from "./useFetchServices"
 
 export type ServiceType = {
   id: string
   name: string
-  issuesCount: {
-    critical: number
-    high: number
-  }
+  issuesCount: IssuesCountsType
   serviceDetails: {
     supportGroups: string[]
   }
@@ -38,36 +35,24 @@ const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
   }
 }
 
-type Props = {
-  initialFilters?: InitialFilters
-}
-
-export const Services = ({ initialFilters }: Props) => {
-  const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
+export const Services = () => {
+  const { initialFilters } = useStore()
   const { serviceFilters } = useFetchServiceFilters()
-  const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
-    filterSettings,
-  })
+  const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
 
   return (
     <>
       <Breadcrumb />
-      <Filters
-        filters={serviceFilters}
-        filterSettings={filterSettings}
-        onFilterChange={setFilterSettings}
-        searchInputPlaceholder="search term for services name"
-      />
-      <IssuesCount filterSettings={filterSettings} />
-      <ServicesList
-        loading={loading}
-        error={error}
-        services={services}
-        currentPage={currentPage}
-        totalNumberOfPages={totalNumberOfPages}
-        goToPage={goToPage}
-      />
-      <Panel />
+      <>
+        <Filters
+          filters={serviceFilters}
+          filterSettings={filterSettings}
+          onFilterChange={setFilterSettings}
+          searchInputPlaceholder="search term for services name"
+        />
+        <IssuesCount filterSettings={filterSettings} />
+        <ServicesList filterSettings={filterSettings} />
+      </>
     </>
   )
 }

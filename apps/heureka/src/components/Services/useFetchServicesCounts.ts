@@ -12,16 +12,19 @@ type UseFetchServicesCountInput = {
   filterSettings: FilterSettings
 }
 
-export type ServiceCounts = {
+export type IssuesCountsType = {
   critical: number
   high: number
   medium: number
   low: number
   none: number
+}
+
+type IssuesCountsWithTotalCountType = IssuesCountsType & {
   totalCount: number
 }
 
-const getNormalizedData = (data: GetServicesCountsQuery | undefined | null): ServiceCounts => {
+const getNormalizedData = (data: GetServicesCountsQuery | undefined | null): IssuesCountsWithTotalCountType => {
   const counts = {
     critical: data?.critical?.totalCount || 0,
     high: data?.high?.totalCount || 0,
