@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback } from "react"
-import { Breadcrumb as BreadcrumbContainer, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
+import { Breadcrumb as BreadcrumbContainer, BreadcrumbItem } from "@cloudoperators/juno-ui-components"
 import { capitalizeFirstLetter } from "../Helpers/helpers"
 import { useDispatch, useStore } from "../../../store/StoreProvider"
 import { ActionType, ServiceDetailViewParams, UserView } from "../../../store/StoreProvider/types"
@@ -23,17 +23,11 @@ export const Breadcrumb = () => {
   }, [])
 
   return (
-    <Container py px={false}>
-      <BreadcrumbContainer>
-        <BreadcrumbItem icon="home" label="Services" onClick={() => handleClick(UserView.Services)} />
-        {selectedView.viewId === UserView.ServiceDetails && (
-          <>
-            <BreadcrumbItem
-              label={capitalizeFirstLetter((selectedView.params as ServiceDetailViewParams).service.name)}
-            />
-          </>
-        )}
-      </BreadcrumbContainer>
-    </Container>
+    <BreadcrumbContainer className="mb-6">
+      <BreadcrumbItem icon="home" label="Services" onClick={() => handleClick(UserView.Services)} />
+      {selectedView.viewId === UserView.ServiceDetails && (
+        <BreadcrumbItem label={capitalizeFirstLetter((selectedView.params as ServiceDetailViewParams).service.name)} />
+      )}
+    </BreadcrumbContainer>
   )
 }
