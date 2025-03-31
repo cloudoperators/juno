@@ -14,15 +14,16 @@ import { Breadcrumb } from "../../common/Breadcrumb"
 export const ServiceDetails = () => {
   const { selectedView } = useStore()
   const [showOccurrences, setShowOccurrences] = useState(false)
-  
+
   const selectedService =
     selectedView.viewId === UserView.ServiceDetails
       ? (selectedView as SelectServiceDetailsPayload).params.service
       : undefined
 
-  const selectedImageVersion = selectedView.viewId === UserView.ServiceDetails
-    ? (selectedView as SelectServiceDetailsPayload).params.imageVersion
-    : undefined
+  const selectedImageVersion =
+    selectedView.viewId === UserView.ServiceDetails
+      ? (selectedView as SelectServiceDetailsPayload).params.imageVersion
+      : undefined
 
   if (typeof selectedService === "undefined") {
     return null
@@ -111,8 +112,8 @@ export const ServiceDetails = () => {
 
         {/* Image Versions Section */}
         <Stack className="w-full">
-          <ServiceImageVersions 
-            service={selectedService} 
+          <ServiceImageVersions
+            service={selectedService}
             onVersionSelect={(version) => {
               // This will be handled by the store through the ServiceImageVersions component
             }}
@@ -182,7 +183,7 @@ export const ServiceDetails = () => {
                   <Label text="Image Instances: " />
                   <a
                     href="#"
-                    onClick={(e) =>  {
+                    onClick={(e) => {
                       e.stopPropagation()
                       setShowOccurrences(!showOccurrences)
                     }}
@@ -194,7 +195,9 @@ export const ServiceDetails = () => {
                 {showOccurrences && (
                   <Stack gap="4" direction="vertical" className="pl-4">
                     {/* TODO: Add list of image instances details here after being available from API*/}
-                    <span className="text-theme-light">List of image instances with details will be displayed here</span>
+                    <span className="text-theme-light">
+                      List of image instances with details will be displayed here
+                    </span>
                   </Stack>
                 )}
               </Stack>
@@ -205,5 +208,3 @@ export const ServiceDetails = () => {
     </MessagesProvider>
   )
 }
-
-
