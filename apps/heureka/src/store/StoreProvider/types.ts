@@ -15,6 +15,7 @@ export enum UserView {
 export enum ActionType {
   SelectView = "select_view",
   SelectServiceComponent = "select_service_component",
+  SelectImageVersion = "select_image_version",
 }
 
 export type ServiceDetailViewParams = {
@@ -36,7 +37,12 @@ export type SelectUserViewAction = {
   payload: SelectServiceDetailsPayload | SelectUserViewActionPayload
 }
 
-export type Action = SelectUserViewAction
+export type SelectImageVersionAction = {
+  type: ActionType.SelectImageVersion
+  payload: ServiceDetailViewParams
+}
+
+export type Action = SelectUserViewAction | SelectImageVersionAction
 
 export type State = {
   selectedView: SelectServiceDetailsPayload | SelectUserViewActionPayload

@@ -11,6 +11,7 @@ query GetServiceImageVersions(
     edges {
       node {
         tag
+        repository
         version
         issueCounts {
           critical

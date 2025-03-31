@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Action, ActionType, State } from "./types"
+import { Action, ActionType, State, UserView } from "./types"
 
 /*
  * draft is a mutable copy of the current state which guarantees that our reducer is pure
@@ -15,6 +15,13 @@ export const servicesReducer = (draft: State, action: Action) => {
       draft.selectedView = {
         viewId: action.payload?.viewId,
         params: action.payload.params,
+      }
+      return
+    }
+    case ActionType.SelectImageVersion: {
+      draft.selectedView = {
+        viewId: UserView.ServiceDetails,
+        params: action.payload,
       }
       return
     }

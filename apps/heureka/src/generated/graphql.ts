@@ -240,11 +240,36 @@ export type ComponentInstanceFilter = {
 export type ComponentInstanceFilterValue = {
   __typename?: "ComponentInstanceFilterValue"
   ccrn?: Maybe<FilterItem>
+  cluster?: Maybe<FilterItem>
+  domain?: Maybe<FilterItem>
+  namespace?: Maybe<FilterItem>
+  project?: Maybe<FilterItem>
+  region?: Maybe<FilterItem>
   serviceCcrn?: Maybe<FilterItem>
   supportGroupCcrn?: Maybe<FilterItem>
 }
 
 export type ComponentInstanceFilterValueCcrnArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueClusterArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueDomainArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueNamespaceArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueProjectArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueRegionArgs = {
   filter?: InputMaybe<ComponentInstanceFilter>
 }
 
@@ -459,6 +484,7 @@ export type IssueIssueMatchesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueMatchFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>>>
 }
 
 export type IssueIssueVariantsArgs = {
@@ -1548,6 +1574,7 @@ export type GetServiceImageVersionsQuery = {
       node: {
         __typename?: "ComponentVersion"
         tag?: string | null
+        repository?: string | null
         version?: string | null
         issueCounts?: {
           __typename?: "SeverityCounts"
@@ -1685,6 +1712,7 @@ export const GetServiceImageVersionsDocument = gql`
       edges {
         node {
           tag
+          repository
           version
           issueCounts {
             critical
