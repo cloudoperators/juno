@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// NOTE: This is a custom component that doesn't exist in Juno UI. It showcases how custom theme colours can be applied.
+
 import React, { useState } from "react"
 import { Spinner, Modal, Icon } from "@cloudoperators/juno-ui-components"
 import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
@@ -44,13 +46,13 @@ export const Metrics = {
 const renderIcon = (peakType?: string) => {
   switch (peakType) {
     case Metrics.HIGHEST_PEAK:
-      return <ArrowUp className="mr-6 text-white" />
+      return <ArrowUp />
     case Metrics.LOWEST_PEAK:
-      return <ArrowDown className="mr-6 text-white" />
+      return <ArrowDown />
     case Metrics.TOTAL_PEAKS:
-      return <Mountain className="mr-6 text-white" />
+      return <Mountain />
     case Metrics.TOTAL_COUNTRIES:
-      return <Icon className="text-white text-5xl mr-6" icon="place" />
+      return <Icon className="text-theme-high text-5xl mr-6" icon="place" />
     default:
       return null
   }
@@ -72,12 +74,13 @@ const MetricsBox: React.FC<MetricsProps> = ({
     }
   }
 
-  const colorStyle = peakDetails ? getNumberColorStyle(peakDetails.status) : { color: "#FFFFFF" }
+  // Get the appropriate class name for the status
+  const colorClass = peakDetails ? getNumberColorStyle(peakDetails.status) : "text-theme-high"
 
   const baseStyles =
     "flex-1 bg-gradient-to-r from-blue-500 to-green-500 p-6 shadow-md flex items-center justify-start border"
   const hoverStyles =
-    "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-white"
+    "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-theme-high"
 
   const boxStyles = [baseStyles, hoverable && !isLoading ? hoverStyles : ""].join(" ")
 
@@ -88,7 +91,7 @@ const MetricsBox: React.FC<MetricsProps> = ({
         <PeakInfo
           label={label}
           number={number}
-          colorStyle={colorStyle}
+          colorClass={colorClass}
           isLoading={isLoading}
           peakDetails={peakDetails}
         />
@@ -96,7 +99,7 @@ const MetricsBox: React.FC<MetricsProps> = ({
 
       <PeakModal
         peakDetails={peakDetails}
-        colorStyle={colorStyle}
+        colorClass={colorClass}
         modalVisible={modalVisible}
         onClose={() => setModalVisible(false)}
       />
@@ -109,26 +112,18 @@ export default MetricsBox
 const PeakInfo: React.FC<{
   label: string
   number?: string
-  colorStyle: React.CSSProperties
+  colorClass: string
   isLoading: boolean
   peakDetails?: PeakDetails
-}> = ({ label, number, colorStyle, isLoading, peakDetails }) => (
-  <div className="text-white">
+}> = ({ label, number, colorClass, isLoading, peakDetails }) => (
+  <div className="text-theme-high">
     <span className="text-sm block">{label}</span>
     {isLoading ? (
       <Spinner />
     ) : (
       <div className="flex items-center">
-        {number && (
-          <span className="text-3xl font-extrabold" style={colorStyle}>
-            {number}
-          </span>
-        )}
-        {peakDetails?.status && (
-          <span className="text-sm font-bold ml-2" style={colorStyle}>
-            {peakDetails.status}
-          </span>
-        )}
+        {number && <span className={`text-3xl font-extrabold ${colorClass}`}>{number}</span>}
+        {peakDetails?.status && <span className={`text-sm font-bold ml-2 ${colorClass}`}>{peakDetails.status}</span>}
       </div>
     )}
   </div>
@@ -136,10 +131,10 @@ const PeakInfo: React.FC<{
 
 const PeakModal: React.FC<{
   peakDetails?: PeakDetails
-  colorStyle: React.CSSProperties
+  colorClass: string
   modalVisible: boolean
   onClose: () => void
-}> = ({ peakDetails, colorStyle, modalVisible, onClose }) =>
+}> = ({ peakDetails, colorClass, modalVisible, onClose }) =>
   modalVisible && peakDetails ? (
     <Modal
       open={modalVisible}
@@ -149,7 +144,7 @@ const PeakModal: React.FC<{
       size="large"
     >
       <h3 className="text-lg mb-3">
-        <span style={colorStyle}>{`This Peak is ${peakDetails.status}!`}</span>
+        <span className={colorClass}>{`This Peak is ${peakDetails.status}!`}</span>
       </h3>
       <>
         <div>

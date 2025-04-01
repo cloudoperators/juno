@@ -72,7 +72,7 @@ const CountriesPage: React.FC<CountryDashboardPageProps> = ({ peaks, onSelectCou
         {sortedCountries.map((country) => (
           <GenericCard
             key={country}
-            iconElement={<Icon icon="place" className="mr-2 text-blue-400 text-2xl" />}
+            iconElement={<Icon icon="place" className="mr-2" />}
             title={country}
             badgeContainer={
               <div className="flex gap-2">
@@ -80,21 +80,21 @@ const CountriesPage: React.FC<CountryDashboardPageProps> = ({ peaks, onSelectCou
                   <Badge
                     text={`${countryStats[country].safetyCounts.Safe}`}
                     variant="success"
-                    className="px-2 py-1 rounded-full text-white"
+                    className="px-2 py-1 rounded-full text-theme-highest"
                   />
                 )}
                 {countryStats[country].safetyCounts.Caution > 0 && (
                   <Badge
                     text={`${countryStats[country].safetyCounts.Caution}`}
                     variant="warning"
-                    className="px-2 py-1 rounded-full text-white"
+                    className="px-2 py-1 rounded-full text-theme-highest"
                   />
                 )}
                 {countryStats[country].safetyCounts.Unsafe > 0 && (
                   <Badge
                     text={`${countryStats[country].safetyCounts.Unsafe}`}
                     variant="error"
-                    className="px-2 py-1 rounded-full text-white"
+                    className="px-2 py-1 rounded-full text-theme-highest"
                   />
                 )}
               </div>

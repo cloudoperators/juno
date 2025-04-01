@@ -19,7 +19,7 @@ interface CurrentPanel {
 }
 
 const EDIT_HEADING = "Edit Peak"
-const ADD_HEADING = "Add a New Peak"
+const SHOW_PEAK_HEADING = "Peak Details"
 const INITAL_PLACEHOLDER_PEAK_DATA = {
   name: "Mount Sample",
   height: "8848",
@@ -38,8 +38,8 @@ const PanelManager: React.FC = () => {
     switch (currentPanel?.type) {
       case Panels.EDIT_PEAKS:
         return EDIT_HEADING
-      case Panels.ADD_PEAKS:
-        return ADD_HEADING
+      case Panels.SHOW_PEAK:
+        return SHOW_PEAK_HEADING
       default:
         return null
     }
@@ -48,9 +48,11 @@ const PanelManager: React.FC = () => {
   const renderPanelContent = (): React.ReactNode => {
     switch (currentPanel?.type) {
       case Panels.EDIT_PEAKS:
-        return <PeakForm initialValues={INITAL_PLACEHOLDER_PEAK_DATA} closeCallback={closePanel} />
-      case Panels.ADD_PEAKS:
-        return <PeakForm closeCallback={closePanel} />
+        return (
+          <PeakForm initialValues={INITAL_PLACEHOLDER_PEAK_DATA} closeCallback={closePanel} disableAutoFocus={true} />
+        )
+      case Panels.SHOW_PEAK:
+        return <div />
       default:
         return null
     }

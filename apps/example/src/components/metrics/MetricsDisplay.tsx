@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// NOTE: This is a custom component that doesn't exist in Juno UI. It showcases how custom theme colours can be applied.
+
 import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
 

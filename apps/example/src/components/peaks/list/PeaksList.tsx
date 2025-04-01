@@ -18,6 +18,7 @@ import {
 import GenericCard from "../../common/GenericCard"
 import HintNotFound from "../../messages/HintNotFound"
 import { Views, PeakFields } from "../../constants"
+import Mountain from "../../../assets/mountain.svg?react"
 
 import { Peak } from "../../../mocks/db"
 import PeaksListItem from "./PeaksListItem"
@@ -50,21 +51,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
         {paginatedItems.map((peak) => (
           <GenericCard
             key={String(peak.id)}
-            iconElement={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                stroke="#FFFFFF"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-6"
-              >
-                <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-              </svg>
-            }
+            iconElement={<Mountain />}
             title={`${peak.name}, ${peak.countries}`}
             badgeContainer={
               peak.safety ? (

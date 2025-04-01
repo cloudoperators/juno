@@ -14,7 +14,7 @@ export const Pages = {
 
 export const Panels = {
   EDIT_PEAKS: "EditPeaks",
-  ADD_PEAKS: "AddPeaks",
+  SHOW_PEAK: "ShowPeak",
 }
 
 export const Views = {

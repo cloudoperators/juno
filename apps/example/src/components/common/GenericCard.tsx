@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// NOTE: There's no Card component in Juno yet. This is a customized Box component. It showcases how custom theme colours can be applied.
+
 import React from "react"
 import { Box, Stack } from "@cloudoperators/juno-ui-components"
 
@@ -17,7 +19,7 @@ interface GenericCardProps {
 const GenericCard: React.FC<GenericCardProps> = ({ iconElement, title, badgeContainer, content, onClick }) => {
   return (
     <Box
-      className="p-6 shadow-lg transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-3 border border-gray-700 bg-gray-800 text-white"
+      className="p-6 shadow-lg transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-3 border text-theme-high"
       onClick={onClick}
     >
       <Stack direction="horizontal" distribution="between" alignment="center" gap="3" className="mb-3">
@@ -27,7 +29,7 @@ const GenericCard: React.FC<GenericCardProps> = ({ iconElement, title, badgeCont
         </Stack>
         {badgeContainer}
       </Stack>
-      <Stack direction="vertical" gap="3" className="border-t border-gray-400 pt-3 mt-3">
+      <Stack direction="vertical" gap="3" className="pt-3 mt-3 border-t border-gray-400">
         {content}
       </Stack>
     </Box>

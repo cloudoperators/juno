@@ -31,7 +31,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, var
       <Stack direction="horizontal" distribution="between" alignment="center" gap="3">
         <Stack direction="horizontal" gap="2" alignment="center">
           <h2 className="font-bold text-xl">{title}</h2>
-          <Badge variant={variant} className="px-2 py-1 rounded-full text-white">
+          <Badge variant={variant} className="px-2 py-1 rounded-full text-theme-highest">
             {peaks.length}
           </Badge>
         </Stack>

@@ -36,6 +36,8 @@ interface FormState {
 interface PeakFormProps {
   initialValues?: FormState
   closeCallback: () => void
+  hasButtons?: Boolean
+  disableAutoFocus?: Boolean
 }
 
 const Errors = {
@@ -66,7 +68,7 @@ const INITIAL_VALUES: FormState = {
   url: "",
 }
 
-const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, closeCallback }) => {
+const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, closeCallback, hasButtons = true }) => {
   const [formState, setFormState] = useState<FormState>(initialValues)
   const [errors, setErrors] = useState<Partial<FormState>>({})
   const [loading, setLoading] = useState(false)
@@ -131,7 +133,15 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
       footer={
         <PanelFooter>
           <Stack direction="horizontal" gap="2" distribution="end">
-            <Button label={Labels.CANCEL} variant="subdued" onClick={handleCloseClick} disabled={loading} />
+            <Button
+              label={Labels.CANCEL}
+              variant="subdued"
+              onClick={() => {
+                handleCloseClick()
+                closeCallback()
+              }}
+              disabled={loading}
+            />
             <Button
               label={Labels.SAVE}
               variant="primary"
@@ -147,13 +157,13 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
       <IntroBox text={Hints.MANDATORY_FIELD_SYMBOL} />
       <Form>
         {[
-          { label: PeakFields.NAME, key: "name", required: true, autoFocus: true, invalid: backendError },
+          { label: PeakFields.NAME, key: "name", required: true, invalid: backendError },
           { label: PeakFields.HEIGHT, key: "height", required: true },
           { label: PeakFields.RANGE, key: "range", required: true },
           { label: PeakFields.REGION, key: "region", required: true },
           { label: PeakFields.COUNTRY, key: "country", required: true },
           { label: PeakFields.URL, key: "url", type: "url" as TextInputType },
-        ].map(({ label, key, type = "text", required, autoFocus, invalid }) => (
+        ].map(({ label, key, type = "text", required, invalid }) => (
           <FormRow key={key}>
             <TextInput
               label={label}
@@ -165,27 +175,28 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
               maxLength={200}
               disabled={loading}
               required={required}
-              autoFocus={autoFocus}
               invalid={invalid}
             />
           </FormRow>
         ))}
       </Form>
       {/* Add icon? <Icon color="jn-text-theme-warning" icon="warning" /> */}
-      <Modal
-        title={Labels.UNSAVED_CHANGES}
-        open={isModalOpen}
-        modalFooter={
-          <ModalFooter className="jn-justify-between jn-items-center">
-            <Stack gap="2">
-              <Button label={Labels.KEEP_EDITING} variant="subdued" onClick={() => setIsModalOpen(false)} />
-              <Button label={Labels.DISCARD} variant="primary-danger" onClick={handleModalConfirm} />
-            </Stack>
-          </ModalFooter>
-        }
-      >
-        <div>{Hints.UNSAVED_CHANGES}</div>
-      </Modal>
+      {hasButtons && (
+        <Modal
+          title={Labels.UNSAVED_CHANGES}
+          open={isModalOpen}
+          modalFooter={
+            <ModalFooter className="jn-justify-between jn-items-center">
+              <Stack gap="2">
+                <Button label={Labels.KEEP_EDITING} variant="subdued" onClick={() => setIsModalOpen(false)} />
+                <Button label={Labels.DISCARD} variant="primary-danger" onClick={handleModalConfirm} />
+              </Stack>
+            </ModalFooter>
+          }
+        >
+          <div>{Hints.UNSAVED_CHANGES}</div>
+        </Modal>
+      )}
     </PanelBody>
   )
 }

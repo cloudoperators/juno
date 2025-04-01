@@ -5,7 +5,6 @@
 
 import React, { useState } from "react"
 import { Stack, ContentHeading, Button } from "@cloudoperators/juno-ui-components"
-
 import PeaksFilterToolbar from "../peaks/list/PeaksFilterToolbar"
 import PeaksList from "../peaks/list/PeaksList"
 import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
@@ -18,8 +17,8 @@ import {
   calculateAvailableOptions,
   uniqueValues,
 } from "../hooks/usePeaks"
-import { Panels } from "../constants"
 import { Peak } from "../../mocks/db"
+import CreatePeakModal from "../peaks/list/CreatePeakModal"
 
 const ITEMS_PER_PAGE = 15
 
@@ -34,6 +33,7 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ peaks, isLoading, onSelect }) => 
   const { setCurrentPanel } = useGlobalsActions()
   const [viewType, setViewType] = useState<"grid" | "card" | "json">("grid")
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const filterKeys = ["safety", "name", "mainrange", "region", "countries"]
 
@@ -62,7 +62,8 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ peaks, isLoading, onSelect }) => 
 
   // @ts-ignore
   const availableOptions = calculateAvailableOptions(peaks, uniqueValues)
-  const handleNewPeakClick = () => setCurrentPanel({ type: Panels.ADD_PEAKS })
+
+  const handleNewPeakClick = () => setIsModalOpen(true)
 
   const addFilter = (key: string, value: string) => {
     setFilterSelections((prev) => ({
@@ -116,56 +117,60 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ peaks, isLoading, onSelect }) => 
   const metrics: Metrics = calculateMetrics(peaks)
 
   return (
-    <Stack direction="vertical" gap="10">
-      <ContentHeading>Overview</ContentHeading>
-      <MetricsDisplay
-        metrics={[...metrics.totalMetrics, metrics.highestPeak, metrics.lowestPeak].map((metric) => ({
-          ...metric,
-          isLoading, // Ensure this is correctly defined and passed
-          hoverable: true, // Passed as needed
-        }))}
-      />
-
-      <Stack direction="horizontal" distribution="between" alignment="center">
-        <ContentHeading>Peak Details</ContentHeading>
-        <Button
-          icon="addCircle"
-          onClick={handleNewPeakClick}
-          label="Add New Peak"
-          variant="primary"
-          className="ml-auto"
+    <>
+      <Stack direction="vertical" gap="10">
+        <ContentHeading>Overview</ContentHeading>
+        <MetricsDisplay
+          metrics={[...metrics.totalMetrics, metrics.highestPeak, metrics.lowestPeak].map((metric) => ({
+            ...metric,
+            isLoading,
+            hoverable: true,
+          }))}
         />
+
+        <Stack direction="horizontal" distribution="between" alignment="center">
+          <ContentHeading>Peak Details</ContentHeading>
+          <Button
+            icon="addCircle"
+            onClick={handleNewPeakClick}
+            label="Add New Peak"
+            variant="primary"
+            className="ml-auto"
+          />
+        </Stack>
+
+        <Stack direction="vertical">
+          <PeaksFilterToolbar
+            filterKeys={filterKeys}
+            filterSelections={filterSelections}
+            droplistSelections={droplistSelections}
+            selectedFilterKey={selectedFilterKey}
+            setSelectedFilterKey={setSelectedFilterKey}
+            selectedSortKey={selectedSortKey}
+            setSelectedSortKey={setSelectedSortKey}
+            availableOptions={availableOptions}
+            addFilter={addFilter}
+            removeFilter={removeFilter}
+            clearAllFilters={clearAllFilters}
+            setSortDirection={setSortDirection}
+            sortDirection={sortDirection}
+            minHeight={minHeight}
+            setMinHeight={setMinHeight}
+            maxHeight={maxHeight}
+            setMaxHeight={setMaxHeight}
+            viewType={viewType}
+            // @ts-ignore
+            setViewType={(type: "grid" | "card" | "json") => setViewType(type)}
+          />
+          {/* @ts-ignore */}
+          <PeaksList viewType={viewType} paginatedItems={paginatedItems} onSelect={onSelect} isLoading={isLoading} />
+        </Stack>
+
+        <PeaksPaginationControls currentPage={currentPage} setCurrentPage={setCurrentPage} pages={pages} />
       </Stack>
 
-      <Stack direction="vertical">
-        <PeaksFilterToolbar
-          filterKeys={filterKeys}
-          filterSelections={filterSelections}
-          droplistSelections={droplistSelections}
-          selectedFilterKey={selectedFilterKey}
-          setSelectedFilterKey={setSelectedFilterKey}
-          selectedSortKey={selectedSortKey}
-          setSelectedSortKey={setSelectedSortKey}
-          availableOptions={availableOptions}
-          addFilter={addFilter}
-          removeFilter={removeFilter}
-          clearAllFilters={clearAllFilters}
-          setSortDirection={setSortDirection}
-          sortDirection={sortDirection}
-          minHeight={minHeight}
-          setMinHeight={setMinHeight}
-          maxHeight={maxHeight}
-          setMaxHeight={setMaxHeight}
-          viewType={viewType}
-          // @ts-ignore
-          setViewType={(type: "grid" | "card" | "json") => setViewType(type)}
-        />
-        {/* @ts-ignore */}
-        <PeaksList viewType={viewType} paginatedItems={paginatedItems} onSelect={onSelect} isLoading={isLoading} />
-      </Stack>
-
-      <PeaksPaginationControls currentPage={currentPage} setCurrentPage={setCurrentPage} pages={pages} />
-    </Stack>
+      <CreatePeakModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New Peak" />
+    </>
   )
 }
 
