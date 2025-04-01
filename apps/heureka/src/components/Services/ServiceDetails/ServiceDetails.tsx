@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { ContentHeading, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
 import { ServiceImageVersions, ServiceImageVersion } from "../common/ServiceImageVersions"
 import { ImageVersionDetailsPanel } from "../common/ImageVersionDetailsPanel/ImageVersionDetailsPanel"
@@ -14,23 +14,16 @@ import { Breadcrumb } from "../../common/Breadcrumb"
 
 export const ServiceDetails = () => {
   const { selectedView } = useStore()
-  const [selectedImageVersion, setSelectedImageVersion] = useState<ServiceImageVersion | null>(null)
-
   const selectedService =
     selectedView.viewId === UserView.ServiceDetails
       ? (selectedView as SelectServiceDetailsPayload).params.service
       : undefined
 
-  const selectedImageVersionFromStore =
+  const [selectedImageVersion, setSelectedImageVersion] = useState<ServiceImageVersion | null>(
     selectedView.viewId === UserView.ServiceDetails
-      ? (selectedView as SelectServiceDetailsPayload).params.imageVersion
-      : undefined
-
-  useEffect(() => {
-    if (selectedImageVersionFromStore) {
-      setSelectedImageVersion(selectedImageVersionFromStore)
-    }
-  }, [selectedImageVersionFromStore])
+      ? (selectedView as SelectServiceDetailsPayload).params.imageVersion || null
+      : null
+  )
 
   if (typeof selectedService === "undefined") {
     return null

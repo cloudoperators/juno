@@ -24,12 +24,19 @@ import { ServiceType } from "../../Services"
 
 export type ComponentInstance = {
   id: string
-  ccrn?: string | null
-  region?: string | null
-  cluster?: string | null
-  namespace?: string | null
-  domain?: string | null
-  project?: string | null
+  ccrn?: string | ""
+  region?: string | ""
+  cluster?: string | ""
+  namespace?: string | ""
+  pod?: string | ""
+  container?: string | ""
+}
+
+export type ComponentInstancesConnection = {
+  totalCount: number
+  edges: Array<{
+    node: ComponentInstance
+  } | null>
 }
 
 export type ServiceImageVersion = {
@@ -46,12 +53,7 @@ export type ServiceImageVersion = {
   }
   serviceName: string
   totalCount?: number
-  componentInstances?: {
-    totalCount: number
-    edges: Array<{
-      node: ComponentInstance
-    } | null>
-  }
+  componentInstances?: ComponentInstancesConnection
 }
 
 type ServiceImageVersionsProps = {
@@ -97,7 +99,7 @@ export const ServiceImageVersions = ({ service, showFullTable, onVersionSelect }
         },
       })
     },
-    []
+    [dispatch]
   )
 
   const showServiceDetails = useCallback(
@@ -204,17 +206,19 @@ export const ServiceImageVersions = ({ service, showFullTable, onVersionSelect }
               <DataGridCell>{version.issueCounts.medium || "-"}</DataGridCell>
               <DataGridCell>{version.issueCounts.low || "-"}</DataGridCell>
               <DataGridCell>
-                <Button
-                  size="small"
-                  label="Show Details"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    showServiceDetails({
-                      service,
-                      imageVersion: version,
-                    })
-                  }}
-                />
+                {showFullTable && (
+                  <Button
+                    size="small"
+                    label="Show Details"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      showServiceDetails({
+                        service,
+                        imageVersion: version,
+                      })
+                    }}
+                  />
+                )}
               </DataGridCell>
             </DataGridRow>
           ))

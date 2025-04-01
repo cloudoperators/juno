@@ -94,11 +94,11 @@ export const ImageVersionDetailsPanel = ({ imageVersion, onClose }: ImageVersion
                     <Stack gap="2" direction="vertical">
                       {imageVersion.componentInstances.edges.map((edge) => (
                         <Stack key={`${edge?.node?.ccrn}-${edge?.node?.id}`} gap="2" direction="vertical">
-                          <span>Region: {edge?.node?.region || "-"}</span>
-                          <span>Cluster: {edge?.node?.cluster || "-"}</span>
-                          <span>Namespace: {edge?.node?.namespace || "-"}</span>
-                          <span>Domain: {edge?.node?.domain || "-"}</span>
-                          <span>Project: {edge?.node?.project || "-"}</span>
+                          <span>{edge?.node?.region || "-"}</span>
+                          <span>{edge?.node?.cluster || "-"}</span>
+                          <span>{edge?.node?.namespace || "-"}</span>
+                          <span>{edge?.node?.pod || "-"}</span>
+                          <span>{edge?.node?.container || "-"}</span>
                         </Stack>
                       ))}
                     </Stack>

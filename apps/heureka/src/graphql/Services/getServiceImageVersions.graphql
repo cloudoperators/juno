@@ -34,8 +34,8 @@ query GetServiceImageVersions(
               region
               cluster
               namespace
-              domain
-              project
+              pod
+              container
             }
           }
           pageInfo {

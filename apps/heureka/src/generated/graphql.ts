@@ -194,12 +194,14 @@ export type ComponentInstance = Node & {
   cluster?: Maybe<Scalars["String"]["output"]>
   componentVersion?: Maybe<ComponentVersion>
   componentVersionId?: Maybe<Scalars["String"]["output"]>
+  container?: Maybe<Scalars["String"]["output"]>
   count?: Maybe<Scalars["Int"]["output"]>
   domain?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
   issueMatches?: Maybe<IssueMatchConnection>
   metadata?: Maybe<Metadata>
   namespace?: Maybe<Scalars["String"]["output"]>
+  pod?: Maybe<Scalars["String"]["output"]>
   project?: Maybe<Scalars["String"]["output"]>
   region?: Maybe<Scalars["String"]["output"]>
   service?: Maybe<Service>
@@ -229,8 +231,10 @@ export type ComponentInstanceFilter = {
   ccrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   cluster?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   componentVersionDigest?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  container?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   domain?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   namespace?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  pod?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   project?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   region?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -243,8 +247,10 @@ export type ComponentInstanceFilterValue = {
   __typename?: "ComponentInstanceFilterValue"
   ccrn?: Maybe<FilterItem>
   cluster?: Maybe<FilterItem>
+  container?: Maybe<FilterItem>
   domain?: Maybe<FilterItem>
   namespace?: Maybe<FilterItem>
+  pod?: Maybe<FilterItem>
   project?: Maybe<FilterItem>
   region?: Maybe<FilterItem>
   serviceCcrn?: Maybe<FilterItem>
@@ -259,11 +265,19 @@ export type ComponentInstanceFilterValueClusterArgs = {
   filter?: InputMaybe<ComponentInstanceFilter>
 }
 
+export type ComponentInstanceFilterValueContainerArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
 export type ComponentInstanceFilterValueDomainArgs = {
   filter?: InputMaybe<ComponentInstanceFilter>
 }
 
 export type ComponentInstanceFilterValueNamespaceArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValuePodArgs = {
   filter?: InputMaybe<ComponentInstanceFilter>
 }
 
@@ -287,9 +301,11 @@ export type ComponentInstanceInput = {
   ccrn?: InputMaybe<Scalars["String"]["input"]>
   cluster?: InputMaybe<Scalars["String"]["input"]>
   componentVersionId?: InputMaybe<Scalars["String"]["input"]>
+  container?: InputMaybe<Scalars["String"]["input"]>
   count?: InputMaybe<Scalars["Int"]["input"]>
   domain?: InputMaybe<Scalars["String"]["input"]>
   namespace?: InputMaybe<Scalars["String"]["input"]>
+  pod?: InputMaybe<Scalars["String"]["input"]>
   project?: InputMaybe<Scalars["String"]["input"]>
   region?: InputMaybe<Scalars["String"]["input"]>
   serviceId?: InputMaybe<Scalars["String"]["input"]>
@@ -303,8 +319,10 @@ export type ComponentInstanceOrderBy = {
 export enum ComponentInstanceOrderByField {
   Ccrn = "ccrn",
   Cluster = "cluster",
+  Container = "container",
   Domain = "domain",
   Namespace = "namespace",
+  Pod = "pod",
   Project = "project",
   Region = "region",
 }
@@ -1609,8 +1627,8 @@ export type GetServiceImageVersionsQuery = {
               region?: string | null
               cluster?: string | null
               namespace?: string | null
-              domain?: string | null
-              project?: string | null
+              pod?: string | null
+              container?: string | null
             }
           } | null>
           pageInfo?: {
@@ -1769,8 +1787,8 @@ export const GetServiceImageVersionsDocument = gql`
                 region
                 cluster
                 namespace
-                domain
-                project
+                pod
+                container
               }
             }
             pageInfo {
