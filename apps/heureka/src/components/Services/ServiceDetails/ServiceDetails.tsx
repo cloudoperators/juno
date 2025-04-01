@@ -113,6 +113,7 @@ export const ServiceDetails = () => {
         <Stack className="w-full">
           <ServiceImageVersions
             service={selectedService}
+            showFullTable={false}
             onVersionSelect={(version) => {
               setSelectedImageVersion(version)
             }}
