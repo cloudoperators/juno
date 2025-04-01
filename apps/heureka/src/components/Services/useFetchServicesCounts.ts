@@ -45,6 +45,8 @@ export const useFetchServicesCounts = ({ filterSettings }: UseFetchServicesCount
   const filters = {
     serviceCcrn: baseFilters.serviceCcrn || [],
     supportGroupCcrn: baseFilters.supportGroupCcrn || [],
+    serviceOwnerUsername: baseFilters.userName || [],
+    serviceOwnerUniqueUserId: baseFilters.uniqueUserId || [],
   }
 
   const {
