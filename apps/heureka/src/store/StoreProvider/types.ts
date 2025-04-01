@@ -55,7 +55,9 @@ export type SelectUserViewAction = {
 
 export type SelectImageVersionAction = {
   type: ActionType.SelectImageVersion
-  payload: ServiceDetailViewParams
+  payload: ServiceDetailViewParams & {
+    showPanel?: boolean
+  }
 }
 
 export type Action = SelectUserViewAction | SelectImageVersionAction

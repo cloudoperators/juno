@@ -86,8 +86,29 @@ export const ServiceImageVersions = ({ service, showFullTable, onVersionSelect }
 
   const columnCount = 7
 
+  const selectImageVersion = useCallback(
+    ({ service, imageVersion }: { service: ServiceType; imageVersion: ServiceImageVersion }) => {
+      dispatch({
+        type: ActionType.SelectImageVersion,
+        payload: {
+          service,
+          imageVersion,
+          showPanel: true,
+        },
+      })
+    },
+    []
+  )
+
   const showServiceDetails = useCallback(
     ({ service, imageVersion }: { service: ServiceType; imageVersion?: ServiceImageVersion }) => {
+      if (imageVersion) {
+        onVersionSelect?.(imageVersion)
+        selectImageVersion({
+          service,
+          imageVersion,
+        })
+      }
       dispatch({
         type: ActionType.SelectView,
         payload: {
@@ -99,20 +120,7 @@ export const ServiceImageVersions = ({ service, showFullTable, onVersionSelect }
         },
       })
     },
-    []
-  )
-
-  const selectImageVersion = useCallback(
-    ({ service, imageVersion }: { service: ServiceType; imageVersion: ServiceImageVersion }) => {
-      dispatch({
-        type: ActionType.SelectImageVersion,
-        payload: {
-          service,
-          imageVersion,
-        },
-      })
-    },
-    []
+    [onVersionSelect, selectImageVersion]
   )
 
   return (
@@ -197,6 +205,7 @@ export const ServiceImageVersions = ({ service, showFullTable, onVersionSelect }
               <DataGridCell>{version.issueCounts.low || "-"}</DataGridCell>
               <DataGridCell>
                 <Button
+                  size="small"
                   label="Show Details"
                   onClick={(e) => {
                     e.stopPropagation()

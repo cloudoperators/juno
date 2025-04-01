@@ -92,6 +92,7 @@ export type Cvss = {
   __typename?: "CVSS"
   base?: Maybe<CvssBase>
   environmental?: Maybe<CvssEnvironmental>
+  externalUrl?: Maybe<Scalars["String"]["output"]>
   temporal?: Maybe<CvssTemporal>
   vector?: Maybe<Scalars["String"]["output"]>
 }
@@ -227,6 +228,7 @@ export type ComponentInstanceEdge = Edge & {
 export type ComponentInstanceFilter = {
   ccrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   cluster?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  componentVersionDigest?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   domain?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   namespace?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   project?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -772,6 +774,7 @@ export enum IssueTypes {
 export type IssueVariant = Node & {
   __typename?: "IssueVariant"
   description?: Maybe<Scalars["String"]["output"]>
+  externalUrl?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
   issue?: Maybe<Issue>
   issueId?: Maybe<Scalars["String"]["output"]>
@@ -803,6 +806,7 @@ export type IssueVariantFilter = {
 
 export type IssueVariantInput = {
   description?: InputMaybe<Scalars["String"]["input"]>
+  externalUrl?: InputMaybe<Scalars["String"]["input"]>
   issueId?: InputMaybe<Scalars["String"]["input"]>
   issueRepositoryId?: InputMaybe<Scalars["String"]["input"]>
   secondaryName?: InputMaybe<Scalars["String"]["input"]>
@@ -1609,6 +1613,11 @@ export type GetServiceImageVersionsQuery = {
               project?: string | null
             }
           } | null>
+          pageInfo?: {
+            __typename?: "PageInfo"
+            pageNumber?: number | null
+            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+          } | null
         } | null
       }
     } | null>
@@ -1762,6 +1771,13 @@ export const GetServiceImageVersionsDocument = gql`
                 namespace
                 domain
                 project
+              }
+            }
+            pageInfo {
+              pageNumber
+              pages {
+                after
+                pageNumber
               }
             }
           }

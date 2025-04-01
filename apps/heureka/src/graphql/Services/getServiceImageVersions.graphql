@@ -38,6 +38,13 @@ query GetServiceImageVersions(
               project
             }
           }
+          pageInfo {
+      pageNumber
+      pages {
+        after
+        pageNumber
+      }
+    }
         }
       }
     }
