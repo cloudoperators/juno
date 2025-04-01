@@ -7,6 +7,15 @@ import { InitialFilters } from "../../App"
 import { ServiceImageVersion } from "../../components/Services/common/ServiceImageVersions"
 import { ServiceType } from "../../components/Services/Services"
 
+export type ComponentInstance = {
+  ccrn?: string | null
+  region?: string | null
+  cluster?: string | null
+  namespace?: string | null
+  domain?: string | null
+  project?: string | null
+}
+
 export enum UserView {
   Services = "services",
   ServiceDetails = "service_details",
@@ -20,7 +29,14 @@ export enum ActionType {
 
 export type ServiceDetailViewParams = {
   service: ServiceType
-  imageVersion?: ServiceImageVersion
+  imageVersion?: ServiceImageVersion & {
+    componentInstances?: {
+      totalCount: number
+      edges: Array<{
+        node: ComponentInstance
+      } | null>
+    }
+  }
 }
 
 export type UserViewParams = ServiceDetailViewParams // | ParamsForOtherViews

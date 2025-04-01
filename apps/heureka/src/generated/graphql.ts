@@ -283,8 +283,13 @@ export type ComponentInstanceFilterValueSupportGroupCcrnArgs = {
 
 export type ComponentInstanceInput = {
   ccrn?: InputMaybe<Scalars["String"]["input"]>
+  cluster?: InputMaybe<Scalars["String"]["input"]>
   componentVersionId?: InputMaybe<Scalars["String"]["input"]>
   count?: InputMaybe<Scalars["Int"]["input"]>
+  domain?: InputMaybe<Scalars["String"]["input"]>
+  namespace?: InputMaybe<Scalars["String"]["input"]>
+  project?: InputMaybe<Scalars["String"]["input"]>
+  region?: InputMaybe<Scalars["String"]["input"]>
   serviceId?: InputMaybe<Scalars["String"]["input"]>
 }
 
@@ -325,6 +330,7 @@ export type ComponentVersion = Node & {
 
 export type ComponentVersionComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<ComponentInstanceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
   orderBy?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>>>
 }
@@ -1562,6 +1568,8 @@ export type GetServiceImageVersionsQueryVariables = Exact<{
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
   orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>> | InputMaybe<ComponentVersionOrderBy>>
+  orderByCi?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>> | InputMaybe<ComponentInstanceOrderBy>>
+  filterCi?: InputMaybe<ComponentInstanceFilter>
 }>
 
 export type GetServiceImageVersionsQuery = {
@@ -1585,6 +1593,23 @@ export type GetServiceImageVersionsQuery = {
           none: number
         } | null
         component?: { __typename?: "Component"; ccrn?: string | null } | null
+        componentInstances?: {
+          __typename?: "ComponentInstanceConnection"
+          totalCount: number
+          edges: Array<{
+            __typename?: "ComponentInstanceEdge"
+            node: {
+              __typename?: "ComponentInstance"
+              id: string
+              ccrn?: string | null
+              region?: string | null
+              cluster?: string | null
+              namespace?: string | null
+              domain?: string | null
+              project?: string | null
+            }
+          } | null>
+        } | null
       }
     } | null>
     pageInfo?: {
@@ -1707,6 +1732,8 @@ export const GetServiceImageVersionsDocument = gql`
     $first: Int
     $after: String
     $orderBy: [ComponentVersionOrderBy]
+    $orderByCi: [ComponentInstanceOrderBy]
+    $filterCi: ComponentInstanceFilter
   ) {
     ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
       edges {
@@ -1723,6 +1750,20 @@ export const GetServiceImageVersionsDocument = gql`
           }
           component {
             ccrn
+          }
+          componentInstances(filter: $filterCi, orderBy: $orderByCi) {
+            totalCount
+            edges {
+              node {
+                id
+                ccrn
+                region
+                cluster
+                namespace
+                domain
+                project
+              }
+            }
           }
         }
       }
@@ -1754,6 +1795,8 @@ export const GetServiceImageVersionsDocument = gql`
  *      first: // value for 'first'
  *      after: // value for 'after'
  *      orderBy: // value for 'orderBy'
+ *      orderByCi: // value for 'orderByCi'
+ *      filterCi: // value for 'filterCi'
  *   },
  * });
  */

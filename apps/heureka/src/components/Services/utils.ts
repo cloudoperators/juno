@@ -13,6 +13,7 @@ import {
   ServiceEdge,
   ServiceFilter,
   IssueMatchConnection,
+  ComponentInstanceConnection,
   GetServiceImageVersionsQuery,
 } from "../../generated/graphql"
 import { ServiceType } from "./Services"
@@ -143,6 +144,7 @@ type ServiceImageVersion = {
   repository: string
   ccrn: string
   issueCounts: IssuesCountsType
+  componentInstances?: ComponentInstanceConnection | null
 }
 
 type NormalizedServiceImageVersions = {
@@ -175,6 +177,7 @@ export const getNormalizedImageVersionsData = (
               low: 0,
               none: 0,
             },
+            componentInstances: edge?.node?.componentInstances,
           })
         ),
 })

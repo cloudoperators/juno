@@ -22,6 +22,16 @@ import { useDispatch } from "../../../../store/StoreProvider"
 import { ActionType, UserView } from "../../../../store/StoreProvider/types"
 import { ServiceType } from "../../Services"
 
+export type ComponentInstance = {
+  id: string
+  ccrn?: string | null
+  region?: string | null
+  cluster?: string | null
+  namespace?: string | null
+  domain?: string | null
+  project?: string | null
+}
+
 export type ServiceImageVersion = {
   imageName: string
   imageVersion: string
@@ -36,15 +46,21 @@ export type ServiceImageVersion = {
   }
   serviceName: string
   totalCount?: number
+  componentInstances?: {
+    totalCount: number
+    edges: Array<{
+      node: ComponentInstance
+    } | null>
+  }
 }
 
 type ServiceImageVersionsProps = {
   service: ServiceType
-  showDetailsButtons?: boolean
+  showFullTable?: boolean
   onVersionSelect?: (version: ServiceImageVersion) => void
 }
 
-export const ServiceImageVersions = ({ service, showDetailsButtons, onVersionSelect }: ServiceImageVersionsProps) => {
+export const ServiceImageVersions = ({ service, showFullTable, onVersionSelect }: ServiceImageVersionsProps) => {
   const dispatch = useDispatch()
   const { name: serviceName } = service
   const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalCount } =
@@ -60,9 +76,15 @@ export const ServiceImageVersions = ({ service, showDetailsButtons, onVersionSel
     imageRepository: version.repository,
     issueCounts: version.issueCounts,
     serviceName,
+    componentInstances: version.componentInstances
+      ? {
+          totalCount: version.componentInstances.totalCount,
+          edges: version.componentInstances.edges,
+        }
+      : undefined,
   }))
 
-  const columnCount = showDetailsButtons ? 7 : 6
+  const columnCount = 7
 
   const showServiceDetails = useCallback(
     ({ service, imageVersion }: { service: ServiceType; imageVersion?: ServiceImageVersion }) => {
@@ -96,7 +118,7 @@ export const ServiceImageVersions = ({ service, showDetailsButtons, onVersionSel
   return (
     <Stack gap="4" direction="vertical" className="w-full">
       <Stack distribution="between" alignment="center" className="w-full">
-        {showDetailsButtons ? (
+        {showFullTable ? (
           <>
             <span>{totalCount} image versions in service</span>
             <Button variant="primary" size="small" onClick={() => showServiceDetails({ service })}>
@@ -115,7 +137,7 @@ export const ServiceImageVersions = ({ service, showDetailsButtons, onVersionSel
           <DataGridHeadCell>High</DataGridHeadCell>
           <DataGridHeadCell>Medium</DataGridHeadCell>
           <DataGridHeadCell>Low</DataGridHeadCell>
-          {showDetailsButtons && <DataGridHeadCell>Actions</DataGridHeadCell>}
+          <DataGridHeadCell></DataGridHeadCell>
         </DataGridRow>
         {loading ? (
           <EmptyDataGridRow colSpan={columnCount}>Loading...</EmptyDataGridRow>
@@ -173,20 +195,18 @@ export const ServiceImageVersions = ({ service, showDetailsButtons, onVersionSel
               </DataGridCell>
               <DataGridCell>{version.issueCounts.medium || "-"}</DataGridCell>
               <DataGridCell>{version.issueCounts.low || "-"}</DataGridCell>
-              {showDetailsButtons && (
-                <DataGridCell>
-                  <Button
-                    label="Show Details"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      showServiceDetails({
-                        service,
-                        imageVersion: version,
-                      })
-                    }}
-                  />
-                </DataGridCell>
-              )}
+              <DataGridCell>
+                <Button
+                  label="Show Details"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    showServiceDetails({
+                      service,
+                      imageVersion: version,
+                    })
+                  }}
+                />
+              </DataGridCell>
             </DataGridRow>
           ))
         )}

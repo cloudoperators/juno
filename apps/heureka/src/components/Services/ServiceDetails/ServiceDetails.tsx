@@ -184,20 +184,58 @@ export const ServiceDetails = () => {
                   <a
                     href="#"
                     onClick={(e) => {
-                      e.stopPropagation()
+                      e.preventDefault()
                       setShowOccurrences(!showOccurrences)
                     }}
                     className="hover:underline text-sm"
                   >
-                    {showOccurrences ? "Hide Occurrences" : "Show Occurrences"}
+                    {showOccurrences ? "Hide Occurrences" : "Show Occurrences"} (
+                    {selectedImageVersion.componentInstances?.totalCount || 0})
                   </a>
                 </Stack>
                 {showOccurrences && (
                   <Stack gap="4" direction="vertical" className="pl-4">
-                    {/* TODO: Add list of image instances details here after being available from API*/}
-                    <span className="text-theme-light">
-                      List of image instances with details will be displayed here
-                    </span>
+                    {selectedImageVersion.componentInstances &&
+                    selectedImageVersion.componentInstances.edges.length > 0 ? (
+                      <Stack gap="2" direction="vertical">
+                        {selectedImageVersion.componentInstances.edges.map((edge) => (
+                          <Stack key={`${edge?.node?.ccrn}-${edge?.node?.id}`} gap="2" direction="horizontal" wrap>
+                            <Pill
+                              pillKey="region"
+                              pillKeyLabel="region"
+                              pillValue={edge?.node?.region || ""}
+                              pillValueLabel={edge?.node?.region || ""}
+                            />
+                            <Pill
+                              pillKey="cluster"
+                              pillKeyLabel="cluster"
+                              pillValue={edge?.node?.cluster || ""}
+                              pillValueLabel={edge?.node?.cluster || ""}
+                            />
+                            <Pill
+                              pillKey="namespace"
+                              pillKeyLabel="namespace"
+                              pillValue={edge?.node?.namespace || ""}
+                              pillValueLabel={edge?.node?.namespace || ""}
+                            />
+                            <Pill
+                              pillKey="domain"
+                              pillKeyLabel="domain"
+                              pillValue={edge?.node?.domain || ""}
+                              pillValueLabel={edge?.node?.domain || ""}
+                            />
+                            <Pill
+                              pillKey="project"
+                              pillKeyLabel="project"
+                              pillValue={edge?.node?.project || ""}
+                              pillValueLabel={edge?.node?.project || ""}
+                            />
+                          </Stack>
+                        ))}
+                      </Stack>
+                    ) : (
+                      <span className="text-theme-light">No image instances found</span>
+                    )}
                   </Stack>
                 )}
               </Stack>

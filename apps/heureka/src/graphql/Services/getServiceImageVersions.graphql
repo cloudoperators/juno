@@ -6,6 +6,8 @@ query GetServiceImageVersions(
   $first: Int
   $after: String
   $orderBy: [ComponentVersionOrderBy]
+  $orderByCi:[ComponentInstanceOrderBy]
+  $filterCi: ComponentInstanceFilter
 ) {
   ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
     edges {
@@ -22,6 +24,20 @@ query GetServiceImageVersions(
         }
         component {
           ccrn
+        }
+        componentInstances(filter:$filterCi, orderBy:$orderByCi) {
+          totalCount
+          edges {
+            node {
+              id
+              ccrn
+              region
+              cluster
+              namespace
+              domain
+              project
+            }
+          }
         }
       }
     }
