@@ -22,58 +22,55 @@ type UseFetchServicesInput = {
 
 export const useFetchServices = ({ filterSettings, pageSize = 10 }: UseFetchServicesInput) => {
   const pagesRef = useRef<Page[]>()
-  const [loadServices, { data, loading, error }] = useGetServicesLazyQuery()
+  // Use default options into the useLazyQuery and then customize those options in the query function
+  // https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery
+  const [loadServices, { data, loading, error }] = useGetServicesLazyQuery({
+    variables: {
+      first: pageSize,
+      orderBy: [
+        {
+          by: ServiceOrderByField.Ccrn,
+          direction: OrderDirection.Asc,
+        },
+      ],
+      crit: {
+        severity: [SeverityValues.Critical],
+      },
+      high: {
+        severity: [SeverityValues.High],
+      },
+      med: {
+        severity: [SeverityValues.Medium],
+      },
+      low: {
+        severity: [SeverityValues.Low],
+      },
+      none: {
+        severity: [SeverityValues.None],
+      },
+    },
+    fetchPolicy: "network-only", // Doesn't check cache before making a network request
+  })
   const { services, pages, pageNumber } = getNormalizedData(data)
 
   // let's save the pages so we can get cursor when navigating among pages
   pagesRef.current = pages
 
-  // Fetch services on demand
-  const fetchServices = useCallback(
-    ({ filterSettings, cursor }: { filterSettings: FilterSettings; cursor?: string | null }) =>
-      loadServices({
-        variables: {
-          first: pageSize,
-          after: cursor,
-          filter: getActiveServiceFilter(filterSettings),
-          orderBy: [
-            {
-              by: ServiceOrderByField.Ccrn,
-              direction: OrderDirection.Asc,
-            },
-          ],
-          crit: {
-            severity: [SeverityValues.Critical],
-          },
-          high: {
-            severity: [SeverityValues.High],
-          },
-          med: {
-            severity: [SeverityValues.Medium],
-          },
-          low: {
-            severity: [SeverityValues.Low],
-          },
-          none: {
-            severity: [SeverityValues.None],
-          },
-        },
-        fetchPolicy: "network-only",
-      }),
-    []
-  )
-
   // Go to a specific page
-  const goToPage = useCallback((pageNumber?: number) => {
-    if (!isNil(pageNumber)) {
-      const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber - 1)?.after
-      fetchServices({ filterSettings, cursor })
-    }
-  }, [])
+  const goToPage = useCallback(
+    (pageNumber?: number) => {
+      if (!isNil(pageNumber)) {
+        // Since pagesRef is a mutable reference and does not trigger re-renders when updated, it doesn't need to be included in the dependencies array.
+        const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber - 1)?.after
+        loadServices({ variables: { filter: getActiveServiceFilter(filterSettings), after: cursor } })
+      }
+    },
+    [filterSettings]
+  )
 
   // Fetch services whenever filter settings change
   useEffect(() => {
-    fetchServices({ filterSettings })
+    loadServices({ variables: { filter: getActiveServiceFilter(filterSettings) } })
   }, [filterSettings])
 
   return {

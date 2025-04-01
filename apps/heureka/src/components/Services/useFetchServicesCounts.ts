@@ -20,7 +20,7 @@ export type IssuesCountsType = {
   none: number
 }
 
-type IssuesCountsWithTotalCountType = IssuesCountsType & {
+export type IssuesCountsWithTotalCountType = IssuesCountsType & {
   totalCount: number
 }
 
