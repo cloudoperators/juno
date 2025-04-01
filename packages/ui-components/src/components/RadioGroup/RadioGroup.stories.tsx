@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { RadioGroup } from "./RadioGroup.component"
 import { Radio } from "../Radio/Radio.component"
 
@@ -42,9 +41,6 @@ interface TemplateProps {
 }
 
 const Template = ({ children, ...args }: TemplateProps) => <RadioGroup {...args}>{children}</RadioGroup>
-Template.propTypes = {
-  children: PropTypes.node,
-}
 
 export const Default = {
   render: Template,

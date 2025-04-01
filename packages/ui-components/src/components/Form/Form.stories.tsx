@@ -57,8 +57,11 @@ export default {
   ],
 } as Meta<typeof Form>
 
-// eslint-disable-next-line react/prop-types
-const Template: StoryFn<FormProps> = ({ children, ...args }) => <Form {...args}>{children}</Form>
+interface TemplateProps {
+  children?: React.ReactNode
+}
+
+const Template: StoryFn<FormProps> = ({ children, ...args }: TemplateProps) => <Form {...args}>{children}</Form>
 
 export const Default = {
   render: Template,

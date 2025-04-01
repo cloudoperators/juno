@@ -8,8 +8,7 @@ import { StyleProvider } from "../../src/components/StyleProvider"
 import { ContentContainer } from "../../src/components/ContentContainer/index"
 import { Container } from "../../src/components/Container/index"
 import React, { useEffect } from "react"
-import PropTypes from "prop-types"
-import { _useChannel, addons } from "@storybook/preview-api"
+import { addons } from "@storybook/preview-api"
 import { getCurrentTheme, getCurrentThemeMode } from "./themes"
 
 const fixBodyBg = () => {
@@ -46,16 +45,6 @@ function Decorator(Story /*, _context*/) {
       </ContentContainer>
     </StyleProvider>
   )
-}
-
-Decorator.propTypes = {
-  args: PropTypes.object,
-  children: PropTypes.node,
-  context: PropTypes.object,
-  id: PropTypes.string,
-  kind: PropTypes.string,
-  parameters: PropTypes.object,
-  storyFn: PropTypes.func,
 }
 
 export default Decorator

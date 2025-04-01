@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { CheckboxGroup } from "./index"
 import { Checkbox } from "../Checkbox/index"
 
@@ -43,11 +42,8 @@ export default {
 interface TemplateProps {
   children: React.ReactNode
 }
-const Template = ({ children, ...args }: TemplateProps) => <CheckboxGroup {...args}>{children}</CheckboxGroup>
 
-Template.propTypes = {
-  children: PropTypes.node,
-}
+const Template = ({ children, ...args }: TemplateProps) => <CheckboxGroup {...args}>{children}</CheckboxGroup>
 
 export const Default = {
   render: Template,

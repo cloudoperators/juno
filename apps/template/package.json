@@ -27,7 +27,6 @@
   "dependencies": {
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "prop-types": "15.8.1",
     "zustand": "^4.5.2",
     "@tanstack/react-query": "4.28.0",
     "@cloudoperators/juno-ui-components": "*"

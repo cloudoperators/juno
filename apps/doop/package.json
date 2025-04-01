@@ -24,7 +24,6 @@
     "jsdom": "^25.0.1",
     "luxon": "^3.0.0",
     "postcss": "^8.4.47",
-    "prop-types": "^15.8.1",
     "react-markdown": "^9.0.0",
     "react-test-renderer": "^18.2.0",
     "sass": "^1.77.5",
