@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from "react"
-import { Panel, PanelBody, Stack, ContentHeading, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
+import { Panel, PanelBody, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
 import { ServiceImageVersion } from "../../utils"
 
 type ImageVersionDetailsPanelProps = {
