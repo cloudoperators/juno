@@ -6,8 +6,8 @@ type ServiceImageVersionsItemProps = {
   version: ServiceImageVersion
   selected: boolean
   displayDetailsButton: boolean
-  onItemClick: () => void
-  onDetailClick: (e: React.MouseEvent<HTMLDivElement>) => void
+  onItemClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
+  onDetailClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
 }
 
 const ServiceImageVersionsItem = ({

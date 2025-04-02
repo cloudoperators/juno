@@ -175,8 +175,8 @@ export const ServiceImageVersions = ({
                     imageVersion: version,
                   })
                 }}
-                onDetailClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                  e.stopPropagation()
+                onDetailClick={(event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+                  event.stopPropagation()
                   showServiceDetails({
                     service,
                     imageVersion: version,
