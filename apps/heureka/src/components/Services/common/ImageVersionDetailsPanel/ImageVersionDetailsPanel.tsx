@@ -4,8 +4,10 @@
  */
 
 import React, { useState } from "react"
-import { Panel, PanelBody, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
+import { Panel, PanelBody, Stack, Badge, Pill, Label, ContentHeading } from "@cloudoperators/juno-ui-components"
+import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { ServiceImageVersion } from "../../utils"
+import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
 
 type ImageVersionDetailsPanelProps = {
   imageVersion: ServiceImageVersion
@@ -17,108 +19,109 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
   const [showOccurrences, setShowOccurrences] = useState(false)
 
   return (
-    <Panel heading={`Image ${imageVersion.repository} Information`} opened={true} onClose={onClose} size="large">
-      <PanelBody>
-        <Stack gap="6" direction="vertical" className="w-full">
-          <Stack gap="4" direction="vertical">
-            {/* Component Details Row */}
-            <Stack gap="2" direction="horizontal">
-              <Label text="Image Details: " />
-              <Stack direction="horizontal" gap="2" wrap>
-                <Pill pillKey="tag" pillKeyLabel="tag" pillValue={imageVersion.tag} pillValueLabel={imageVersion.tag} />
-                <Pill
-                  pillKey="repository"
-                  pillKeyLabel="repository"
-                  pillValue={imageVersion.repository}
-                  pillValueLabel={imageVersion.repository}
-                />
-                <Pill
-                  pillKey="version"
-                  pillKeyLabel="version"
-                  pillValue={imageVersion.version}
-                  pillValueLabel={imageVersion.version}
-                />
-              </Stack>
-            </Stack>
-
-            {/* Issues Count Row */}
-            <Stack gap="2" direction="horizontal">
-              <Label text="Number of Issues: " />
-              <Stack direction="horizontal" gap="4" alignment="center">
-                <Stack direction="horizontal" gap="2" alignment="center">
-                  <span>Critical:</span>
-                  <Badge
-                    icon="danger"
-                    text={`${imageVersion.issueCounts?.critical || 0}`}
-                    variant={imageVersion.issueCounts?.critical > 0 ? "danger" : "default"}
+    <MessagesProvider>
+      <Messages />
+      <Panel heading={`Image ${imageVersion.repository} Information`} opened={true} onClose={onClose} size="large">
+        <PanelBody>
+          <Stack gap="6" direction="vertical" className="w-full">
+            <Stack gap="4" direction="vertical">
+              {/* Component Details Row */}
+              <Stack gap="2" direction="horizontal">
+                <Label text="Image Details: " />
+                <Stack direction="horizontal" gap="2" wrap>
+                  <Pill
+                    pillKey="tag"
+                    pillKeyLabel="tag"
+                    pillValue={imageVersion.tag}
+                    pillValueLabel={imageVersion.tag}
                   />
                   <Pill
                     pillKey="repository"
                     pillKeyLabel="repository"
-                    pillValue={imageVersion.imageRepository}
-                    pillValueLabel={imageVersion.imageRepository}
+                    pillValue={imageVersion.repository}
+                    pillValueLabel={imageVersion.repository}
                   />
                   <Pill
                     pillKey="version"
                     pillKeyLabel="version"
-                    pillValue={imageVersion.imageVersion}
-                    pillValueLabel={imageVersion.imageVersion}
+                    pillValue={imageVersion.version}
+                    pillValueLabel={imageVersion.version}
                   />
                 </Stack>
               </Stack>
-            {/* Occurrences Section */}
-            <Stack gap="2" direction="vertical">
-              <Stack gap="2" direction="horizontal" alignment="center">
-                <Label text="Image Instances: " />
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    setShowOccurrences(!showOccurrences)
-                  }}
-                  className="hover:underline text-sm"
-                >
-                  {showOccurrences ? "Hide Occurrences" : "Show Occurrences"} (
-                  {imageVersion.componetInstancesCount || 0})
-                </a>
+
+              {/* Issues Count Row */}
+              <Stack gap="2" direction="horizontal">
+                <Label text="Number of Issues: " />
+                <Stack direction="horizontal" gap="4" alignment="center">
+                  <Stack direction="horizontal" gap="2" alignment="center">
+                    <span>Critical:</span>
+                    <Badge
+                      icon="danger"
+                      text={`${imageVersion.issueCounts?.critical || 0}`}
+                      variant={imageVersion.issueCounts?.critical > 0 ? "danger" : "default"}
+                    />
+                    <Pill
+                      pillKey="repository"
+                      pillKeyLabel="repository"
+                      pillValue={imageVersion.repository}
+                      pillValueLabel={imageVersion.repository}
+                    />
+                    <Pill
+                      pillKey="version"
+                      pillKeyLabel="version"
+                      pillValue={imageVersion.version}
+                      pillValueLabel={imageVersion.version}
+                    />
+                  </Stack>
+                </Stack>
               </Stack>
-              {showOccurrences && (
-                <Stack gap="4" direction="vertical" className="pl-4">
-                  {imageVersion.componentInstances && imageVersion.componentInstances.length > 0 ? (
-                    <Stack gap="2" direction="vertical">
-                      {imageVersion.componentInstances.map((componentInstance) => (
-                        <Stack key={`${componentInstance?.ccrn}-${componentInstance?.id}`} gap="2" direction="vertical">
-                          <span>{componentInstance?.region || "-"}</span>
-                          <span>{componentInstance?.cluster || "-"}</span>
-                          <span>{componentInstance?.namespace || "-"}</span>
-                          <span>{componentInstance?.pod || "-"}</span>
-                          <span>{componentInstance?.container || "-"}</span>
-                        </Stack>
-                      ))}
-                    </Stack>
-                  ) : (
-                    <span className="text-theme-light">No image instances found</span>
-                  )}
+              {/* Occurrences Section */}
+              <Stack gap="2" direction="vertical">
+                <Stack gap="2" direction="horizontal" alignment="center">
+                  <Label text="Image Instances: " />
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setShowOccurrences(!showOccurrences)
+                    }}
+                    className="hover:underline text-sm"
+                  >
+                    {showOccurrences ? "Hide Occurrences" : "Show Occurrences"} (
+                    {imageVersion.componetInstancesCount || 0})
+                  </a>
                 </Stack>
                 {showOccurrences && (
                   <Stack gap="4" direction="vertical" className="pl-4">
-                    {imageVersion.componentInstances && imageVersion.componentInstances.edges.length > 0 ? (
+                    {imageVersion.componentInstances && imageVersion.componentInstances.length > 0 ? (
                       <Stack gap="2" direction="vertical">
-                        {imageVersion.componentInstances.edges.map((edge) => (
-                          <Stack key={`${edge?.node?.ccrn}-${edge?.node?.id}`} gap="2" direction="vertical">
-                            <span>{edge?.node?.cluster || "-"}</span>
-                            <span>{edge?.node?.pod || "-"}</span>
-                            <span>{edge?.node?.container || "-"}</span>
+                        {imageVersion.componentInstances.map((componentInstance) => (
+                          <Stack
+                            key={`${componentInstance?.ccrn}-${componentInstance?.id}`}
+                            gap="2"
+                            direction="vertical"
+                          >
+                            <span>{componentInstance?.cluster || "-"}</span>
+                            <span>{componentInstance?.pod || "-"}</span>
+                            <span>{componentInstance?.container || "-"}</span>
                           </Stack>
                         ))}
                       </Stack>
                     ) : (
-                      <span>No instances found.</span>
+                      <span className="text-theme-light">No image instances found</span>
                     )}
                   </Stack>
                 )}
               </Stack>
+
+              {/* Second Section: Issues List */}
+              <Stack gap="4" direction="vertical">
+                <ContentHeading>Issues</ContentHeading>
+                <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
+              </Stack>
             </Stack>
+          </Stack>
         </PanelBody>
       </Panel>
     </MessagesProvider>

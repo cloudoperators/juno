@@ -127,7 +127,6 @@ export const ServiceDetails = () => {
           onClose={() => setSelectedImageVersion(null)}
         />
       )}
-    </Stack>
     </MessagesProvider>
   )
 }

@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useEffect } from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell, Stack, Icon } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useFetchServiceImageVersionIssues } from "../../useFetchServiceImageVersionIssues"
 import { ImageVersionIssueListItem } from "./ImageVersionIssueListItem"
+import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 
 type ImageVersionIssuesListProps = {
   serviceCcrn: string
@@ -15,11 +16,24 @@ type ImageVersionIssuesListProps = {
 }
 
 export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersionIssuesListProps) => {
-  const { issues, loading: isLoading } = useFetchServiceImageVersionIssues({
+  const { addMessage } = useMessageActions()
+  const {
+    issues,
+    loading: isLoading,
+    error,
+  } = useFetchServiceImageVersionIssues({
     serviceCcrn,
     imageVersion,
   })
 
+  useEffect(() => {
+    if (error) {
+      addMessage({
+        variant: "error",
+        text: error,
+      })
+    }
+  }, [error])
   return (
     <Stack gap="4" direction="vertical">
       <DataGrid columns={4} minContentColumns={[0, 1, 2]}>
@@ -37,7 +51,7 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
         ) : issues.length === 0 ? (
           <EmptyDataGridRow colSpan={4}>No issues found.</EmptyDataGridRow>
         ) : (
-          issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
+          !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
         )}
       </DataGrid>
     </Stack>
