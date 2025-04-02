@@ -6,6 +6,7 @@
 import React, { useState } from "react"
 import { Panel, PanelBody, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
 import { ServiceImageVersion } from "../../utils"
+import ImageVersionOccurrences from "./ImageVersionOccurrences"
 
 type ImageVersionDetailsPanelProps = {
   imageVersion: ServiceImageVersion
@@ -13,8 +14,6 @@ type ImageVersionDetailsPanelProps = {
 }
 
 export const ImageVersionDetailsPanel = ({ imageVersion, onClose }: ImageVersionDetailsPanelProps) => {
-  const [showOccurrences, setShowOccurrences] = useState(false)
-
   return (
     <Panel heading={`Image ${imageVersion.repository} Information`} opened={true} onClose={onClose} size="large">
       <PanelBody>
@@ -68,41 +67,8 @@ export const ImageVersionDetailsPanel = ({ imageVersion, onClose }: ImageVersion
             </Stack>
 
             {/* Occurrences Section */}
-            <Stack gap="2" direction="vertical">
-              <Stack gap="2" direction="horizontal" alignment="center">
-                <Label text="Image Instances: " />
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    setShowOccurrences(!showOccurrences)
-                  }}
-                  className="hover:underline text-sm"
-                >
-                  {showOccurrences ? "Hide Occurrences" : "Show Occurrences"} (
-                  {imageVersion.componetInstancesCount || 0})
-                </a>
-              </Stack>
-              {showOccurrences && (
-                <Stack gap="4" direction="vertical" className="pl-4">
-                  {imageVersion.componentInstances && imageVersion.componentInstances.length > 0 ? (
-                    <Stack gap="2" direction="vertical">
-                      {imageVersion.componentInstances.map((componentInstance) => (
-                        <Stack key={`${componentInstance?.ccrn}-${componentInstance?.id}`} gap="2" direction="vertical">
-                          <span>{componentInstance?.region || "-"}</span>
-                          <span>{componentInstance?.cluster || "-"}</span>
-                          <span>{componentInstance?.namespace || "-"}</span>
-                          <span>{componentInstance?.pod || "-"}</span>
-                          <span>{componentInstance?.container || "-"}</span>
-                        </Stack>
-                      ))}
-                    </Stack>
-                  ) : (
-                    <span className="text-theme-light">No image instances found</span>
-                  )}
-                </Stack>
-              )}
-            </Stack>
+            <Label text={`Image Instances (${imageVersion.componetInstancesCount || 0})`} />
+            <ImageVersionOccurrences imageVersion={imageVersion} />
           </Stack>
         </Stack>
       </PanelBody>
