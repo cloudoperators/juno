@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { ServiceImageVersion } from "./ServiceImageVersions"
+import { ServiceImageVersion } from "../../utils"
 import { DataGridRow, DataGridCell, Button, Badge, Icon, Stack } from "@cloudoperators/juno-ui-components"
 
 type ServiceImageVersionsItemProps = {
@@ -27,12 +27,12 @@ const ServiceImageVersionsItem = ({
       <DataGridCell className="service-image-versions-cell">
         <Stack gap="1" direction="vertical">
           <Stack gap="0.5" direction="vertical">
-            <span>{version.imageRepository}</span>
-            <span className="text-sm text-theme-light">{version.imageVersion}</span>
+            <span>{version.repository}</span>
+            <span className="text-sm text-theme-light">{version.version}</span>
           </Stack>
           <Stack gap="1" alignment="center">
             <a
-              href={`https://${version.imageName}`}
+              href={`https://${version.ccrn}`}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline text-sm"
@@ -46,7 +46,7 @@ const ServiceImageVersionsItem = ({
           </Stack>
         </Stack>
       </DataGridCell>
-      <DataGridCell className="service-image-versions-cell">{version.imageTag}</DataGridCell>
+      <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
       <DataGridCell>
         {version.issueCounts.critical ? (
           <Badge icon text={version.issueCounts.critical.toString()} variant="danger" />

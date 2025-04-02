@@ -4,12 +4,8 @@
  */
 
 import { InitialFilters } from "../../App"
-import {
-  ServiceImageVersion,
-  ComponentInstance,
-  ComponentInstancesConnection,
-} from "../../components/Services/common/ServiceImageVersions"
 import { ServiceType } from "../../components/Services/Services"
+import { ServiceImageVersion } from "../../components/Services/utils"
 
 export enum UserView {
   Services = "services",
@@ -24,9 +20,7 @@ export enum ActionType {
 
 export type ServiceDetailViewParams = {
   service: ServiceType
-  imageVersion?: ServiceImageVersion & {
-    componentInstances?: ComponentInstancesConnection
-  }
+  imageVersion?: ServiceImageVersion
 }
 
 export type UserViewParams = ServiceDetailViewParams // | ParamsForOtherViews
