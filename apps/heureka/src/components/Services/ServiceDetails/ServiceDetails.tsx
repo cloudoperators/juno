@@ -33,98 +33,96 @@ export const ServiceDetails = () => {
     <MessagesProvider>
       <Breadcrumb />
       <Messages />
-      <Stack gap="8" direction="vertical" className="overflow-auto w-full">
-        {/* Service Information Section */}
-        <Stack gap="6" direction="vertical" className="w-full">
-          <ContentHeading>Service {selectedService.name} Information</ContentHeading>
-          <Stack gap="4" direction="vertical">
-            {/* Service Details Row */}
-            <Stack gap="2" direction="horizontal">
-              <Label text="Service Details: " />
-              <Stack direction="horizontal" gap="2" wrap>
+
+      {/* Service Information Section */}
+      <Stack gap="6" direction="vertical" className="mb-6">
+        <ContentHeading>Service {selectedService.name} Information</ContentHeading>
+        <Stack gap="4" direction="vertical">
+          {/* Service Details Row */}
+          <Stack gap="2" direction="horizontal">
+            <Label text="Service Details: " />
+            <Stack direction="horizontal" gap="2" wrap>
+              <Pill
+                pillKey="service"
+                pillKeyLabel="service"
+                pillValue={selectedService.name}
+                pillValueLabel={selectedService.name}
+              />
+              {selectedService.serviceDetails?.supportGroups?.map((group) => (
                 <Pill
-                  pillKey="service"
-                  pillKeyLabel="service"
-                  pillValue={selectedService.name}
-                  pillValueLabel={selectedService.name}
+                  key={group}
+                  pillKey="support_group"
+                  pillKeyLabel="support_group"
+                  pillValue={group}
+                  pillValueLabel={group}
                 />
-                {selectedService.serviceDetails?.supportGroups?.map((group) => (
-                  <Pill
-                    key={group}
-                    pillKey="support_group"
-                    pillKeyLabel="support_group"
-                    pillValue={group}
-                    pillValueLabel={group}
-                  />
-                ))}
-              </Stack>
+              ))}
             </Stack>
+          </Stack>
 
-            {/* Issues Count Row */}
-            <Stack gap="2" direction="horizontal">
-              <Label text="Number of Issues: " />
-              <Stack direction="horizontal" gap="4" alignment="center">
-                <Stack direction="horizontal" gap="2" alignment="center">
-                  <span>Critical:</span>
-                  <Badge
-                    icon="danger"
-                    text={`${selectedService.issuesCount.critical}`}
-                    variant={selectedService.issuesCount.critical > 0 ? "danger" : "default"}
-                  />
-                </Stack>
-                <Stack direction="horizontal" gap="2" alignment="center">
-                  <span>High:</span>
-                  <Badge
-                    icon="warning"
-                    text={`${selectedService.issuesCount.high}`}
-                    variant={selectedService.issuesCount.high > 0 ? "warning" : "default"}
-                  />
-                </Stack>
-                <Stack direction="horizontal" gap="2" alignment="center">
-                  <span>Medium:</span>
-                  <span>{selectedService.issuesCount?.medium || 0}</span>
-                </Stack>
-                <Stack direction="horizontal" gap="2" alignment="center">
-                  <span>Low:</span>
-                  <span>{selectedService.issuesCount?.low || 0}</span>
-                </Stack>
-                <Stack direction="horizontal" gap="2" alignment="center">
-                  <span>None:</span>
-                  <span>{selectedService.issuesCount?.none || 0}</span>
-                </Stack>
+          {/* Issues Count Row */}
+          <Stack gap="2" direction="horizontal">
+            <Label text="Number of Issues: " />
+            <Stack direction="horizontal" gap="4" alignment="center">
+              <Stack direction="horizontal" gap="2" alignment="center">
+                <span>Critical:</span>
+                <Badge
+                  icon="danger"
+                  text={`${selectedService.issuesCount.critical}`}
+                  variant={selectedService.issuesCount.critical > 0 ? "danger" : "default"}
+                />
               </Stack>
-            </Stack>
-
-            {/* Owner Row */}
-            <Stack gap="2" direction="horizontal">
-              <Label text="Owner: " />
-              <Stack direction="horizontal" gap="2">
-                {selectedService.serviceOwners?.map((owner) => (
-                  <Pill key={owner} pillValue={owner}>
-                    {owner}
-                  </Pill>
-                ))}
+              <Stack direction="horizontal" gap="2" alignment="center">
+                <span>High:</span>
+                <Badge
+                  icon="warning"
+                  text={`${selectedService.issuesCount.high}`}
+                  variant={selectedService.issuesCount.high > 0 ? "warning" : "default"}
+                />
+              </Stack>
+              <Stack direction="horizontal" gap="2" alignment="center">
+                <span>Medium:</span>
+                <span>{selectedService.issuesCount?.medium || 0}</span>
+              </Stack>
+              <Stack direction="horizontal" gap="2" alignment="center">
+                <span>Low:</span>
+                <span>{selectedService.issuesCount?.low || 0}</span>
+              </Stack>
+              <Stack direction="horizontal" gap="2" alignment="center">
+                <span>None:</span>
+                <span>{selectedService.issuesCount?.none || 0}</span>
               </Stack>
             </Stack>
           </Stack>
-        </Stack>
 
-        {/* Image Versions Section */}
-        <Stack className="w-full">
-          <ServiceImageVersions
-            service={selectedService}
-            showFullTable={false}
-            onVersionSelect={(version) => {
-              setSelectedImageVersion(version)
-            }}
-          />
+          {/* Owner Row */}
+          <Stack gap="2" direction="horizontal">
+            <Label text="Owner: " />
+            <Stack direction="horizontal" gap="2">
+              {selectedService.serviceOwners?.map((owner) => (
+                <Pill key={owner} pillValue={owner}>
+                  {owner}
+                </Pill>
+              ))}
+            </Stack>
+          </Stack>
         </Stack>
-
-        {/* Image Version Details Panel */}
-        {selectedImageVersion && (
-          <ImageVersionDetailsPanel imageVersion={selectedImageVersion} onClose={() => setSelectedImageVersion(null)} />
-        )}
       </Stack>
+
+      {/* Image Versions Section */}
+      <ServiceImageVersions
+        service={selectedService}
+        showFullTable={false}
+        selectedImageVersion={selectedImageVersion}
+        onVersionSelect={(version) => {
+          setSelectedImageVersion(version)
+        }}
+      />
+
+      {/* Image Version Details Panel */}
+      {selectedImageVersion && (
+        <ImageVersionDetailsPanel imageVersion={selectedImageVersion} onClose={() => setSelectedImageVersion(null)} />
+      )}
     </MessagesProvider>
   )
 }
