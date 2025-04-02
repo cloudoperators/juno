@@ -5,12 +5,13 @@
 
 import React, { useState } from "react"
 import { ContentHeading, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
-import { ServiceImageVersions, ServiceImageVersion } from "../common/ServiceImageVersions"
+import { ServiceImageVersions } from "../common/ServiceImageVersions"
 import { ImageVersionDetailsPanel } from "../common/ImageVersionDetailsPanel/ImageVersionDetailsPanel"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { useStore } from "../../../store/StoreProvider"
 import { SelectServiceDetailsPayload, UserView } from "../../../store/StoreProvider/types"
 import { Breadcrumb } from "../../common/Breadcrumb"
+import { ServiceImageVersion } from "../utils"
 
 export const ServiceDetails = () => {
   const { selectedView } = useStore()

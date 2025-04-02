@@ -32,7 +32,7 @@ const ServiceImageVersionsItem = ({
           </Stack>
           <Stack gap="1" alignment="center">
             <a
-              href={`https://${version.imageName}`}
+              href={`https://${version.ccrn}`}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline text-sm"
