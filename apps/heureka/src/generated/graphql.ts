@@ -92,6 +92,7 @@ export type Cvss = {
   __typename?: "CVSS"
   base?: Maybe<CvssBase>
   environmental?: Maybe<CvssEnvironmental>
+  externalUrl?: Maybe<Scalars["String"]["output"]>
   temporal?: Maybe<CvssTemporal>
   vector?: Maybe<Scalars["String"]["output"]>
 }
@@ -193,12 +194,14 @@ export type ComponentInstance = Node & {
   cluster?: Maybe<Scalars["String"]["output"]>
   componentVersion?: Maybe<ComponentVersion>
   componentVersionId?: Maybe<Scalars["String"]["output"]>
+  container?: Maybe<Scalars["String"]["output"]>
   count?: Maybe<Scalars["Int"]["output"]>
   domain?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
   issueMatches?: Maybe<IssueMatchConnection>
   metadata?: Maybe<Metadata>
   namespace?: Maybe<Scalars["String"]["output"]>
+  pod?: Maybe<Scalars["String"]["output"]>
   project?: Maybe<Scalars["String"]["output"]>
   region?: Maybe<Scalars["String"]["output"]>
   service?: Maybe<Service>
@@ -227,8 +230,11 @@ export type ComponentInstanceEdge = Edge & {
 export type ComponentInstanceFilter = {
   ccrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   cluster?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  componentVersionDigest?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  container?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   domain?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   namespace?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  pod?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   project?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   region?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -240,11 +246,46 @@ export type ComponentInstanceFilter = {
 export type ComponentInstanceFilterValue = {
   __typename?: "ComponentInstanceFilterValue"
   ccrn?: Maybe<FilterItem>
+  cluster?: Maybe<FilterItem>
+  container?: Maybe<FilterItem>
+  domain?: Maybe<FilterItem>
+  namespace?: Maybe<FilterItem>
+  pod?: Maybe<FilterItem>
+  project?: Maybe<FilterItem>
+  region?: Maybe<FilterItem>
   serviceCcrn?: Maybe<FilterItem>
   supportGroupCcrn?: Maybe<FilterItem>
 }
 
 export type ComponentInstanceFilterValueCcrnArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueClusterArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueContainerArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueDomainArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueNamespaceArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValuePodArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueProjectArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueRegionArgs = {
   filter?: InputMaybe<ComponentInstanceFilter>
 }
 
@@ -258,8 +299,15 @@ export type ComponentInstanceFilterValueSupportGroupCcrnArgs = {
 
 export type ComponentInstanceInput = {
   ccrn?: InputMaybe<Scalars["String"]["input"]>
+  cluster?: InputMaybe<Scalars["String"]["input"]>
   componentVersionId?: InputMaybe<Scalars["String"]["input"]>
+  container?: InputMaybe<Scalars["String"]["input"]>
   count?: InputMaybe<Scalars["Int"]["input"]>
+  domain?: InputMaybe<Scalars["String"]["input"]>
+  namespace?: InputMaybe<Scalars["String"]["input"]>
+  pod?: InputMaybe<Scalars["String"]["input"]>
+  project?: InputMaybe<Scalars["String"]["input"]>
+  region?: InputMaybe<Scalars["String"]["input"]>
   serviceId?: InputMaybe<Scalars["String"]["input"]>
 }
 
@@ -271,8 +319,10 @@ export type ComponentInstanceOrderBy = {
 export enum ComponentInstanceOrderByField {
   Ccrn = "ccrn",
   Cluster = "cluster",
+  Container = "container",
   Domain = "domain",
   Namespace = "namespace",
+  Pod = "pod",
   Project = "project",
   Region = "region",
 }
@@ -300,6 +350,7 @@ export type ComponentVersion = Node & {
 
 export type ComponentVersionComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<ComponentInstanceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
   orderBy?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>>>
 }
@@ -741,6 +792,7 @@ export enum IssueTypes {
 export type IssueVariant = Node & {
   __typename?: "IssueVariant"
   description?: Maybe<Scalars["String"]["output"]>
+  externalUrl?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
   issue?: Maybe<Issue>
   issueId?: Maybe<Scalars["String"]["output"]>
@@ -772,6 +824,7 @@ export type IssueVariantFilter = {
 
 export type IssueVariantInput = {
   description?: InputMaybe<Scalars["String"]["input"]>
+  externalUrl?: InputMaybe<Scalars["String"]["input"]>
   issueId?: InputMaybe<Scalars["String"]["input"]>
   issueRepositoryId?: InputMaybe<Scalars["String"]["input"]>
   secondaryName?: InputMaybe<Scalars["String"]["input"]>
@@ -1537,6 +1590,8 @@ export type GetServiceImageVersionsQueryVariables = Exact<{
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
   orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>> | InputMaybe<ComponentVersionOrderBy>>
+  orderByCi?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>> | InputMaybe<ComponentInstanceOrderBy>>
+  filterCi?: InputMaybe<ComponentInstanceFilter>
 }>
 
 export type GetServiceImageVersionsQuery = {
@@ -1549,6 +1604,7 @@ export type GetServiceImageVersionsQuery = {
       node: {
         __typename?: "ComponentVersion"
         tag?: string | null
+        repository?: string | null
         version?: string | null
         issueCounts?: {
           __typename?: "SeverityCounts"
@@ -1559,6 +1615,28 @@ export type GetServiceImageVersionsQuery = {
           none: number
         } | null
         component?: { __typename?: "Component"; ccrn?: string | null } | null
+        componentInstances?: {
+          __typename?: "ComponentInstanceConnection"
+          totalCount: number
+          edges: Array<{
+            __typename?: "ComponentInstanceEdge"
+            node: {
+              __typename?: "ComponentInstance"
+              id: string
+              ccrn?: string | null
+              region?: string | null
+              cluster?: string | null
+              namespace?: string | null
+              pod?: string | null
+              container?: string | null
+            }
+          } | null>
+          pageInfo?: {
+            __typename?: "PageInfo"
+            pageNumber?: number | null
+            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+          } | null
+        } | null
       }
     } | null>
     pageInfo?: {
@@ -1681,11 +1759,14 @@ export const GetServiceImageVersionsDocument = gql`
     $first: Int
     $after: String
     $orderBy: [ComponentVersionOrderBy]
+    $orderByCi: [ComponentInstanceOrderBy]
+    $filterCi: ComponentInstanceFilter
   ) {
     ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
       edges {
         node {
           tag
+          repository
           version
           issueCounts {
             critical
@@ -1696,6 +1777,27 @@ export const GetServiceImageVersionsDocument = gql`
           }
           component {
             ccrn
+          }
+          componentInstances(filter: $filterCi, orderBy: $orderByCi) {
+            totalCount
+            edges {
+              node {
+                id
+                ccrn
+                region
+                cluster
+                namespace
+                pod
+                container
+              }
+            }
+            pageInfo {
+              pageNumber
+              pages {
+                after
+                pageNumber
+              }
+            }
           }
         }
       }
@@ -1727,6 +1829,8 @@ export const GetServiceImageVersionsDocument = gql`
  *      first: // value for 'first'
  *      after: // value for 'after'
  *      orderBy: // value for 'orderBy'
+ *      orderByCi: // value for 'orderByCi'
+ *      filterCi: // value for 'filterCi'
  *   },
  * });
  */

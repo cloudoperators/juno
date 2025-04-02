@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useState } from "react"
 import { ContentHeading, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
-import { ServiceImageVersions } from "../common/ServiceImageVersions"
+import { ServiceImageVersions, ServiceImageVersion } from "../common/ServiceImageVersions"
+import { ImageVersionDetailsPanel } from "../common/ImageVersionDetailsPanel/ImageVersionDetailsPanel"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { useStore } from "../../../store/StoreProvider"
 import { SelectServiceDetailsPayload, UserView } from "../../../store/StoreProvider/types"
@@ -18,6 +19,12 @@ export const ServiceDetails = () => {
       ? (selectedView as SelectServiceDetailsPayload).params.service
       : undefined
 
+  const [selectedImageVersion, setSelectedImageVersion] = useState<ServiceImageVersion | null>(
+    selectedView.viewId === UserView.ServiceDetails
+      ? (selectedView as SelectServiceDetailsPayload).params.imageVersion || null
+      : null
+  )
+
   if (typeof selectedService === "undefined") {
     return null
   }
@@ -29,7 +36,7 @@ export const ServiceDetails = () => {
       <Stack gap="8" direction="vertical" className="overflow-auto w-full">
         {/* Service Information Section */}
         <Stack gap="6" direction="vertical" className="w-full">
-          <ContentHeading>Service {selectedService.name} details</ContentHeading>
+          <ContentHeading>Service {selectedService.name} Information</ContentHeading>
           <Stack gap="4" direction="vertical">
             {/* Service Details Row */}
             <Stack gap="2" direction="horizontal">
@@ -57,7 +64,6 @@ export const ServiceDetails = () => {
             <Stack gap="2" direction="horizontal">
               <Label text="Number of Issues: " />
               <Stack direction="horizontal" gap="4" alignment="center">
-                {/* <span>{totalIssues}</span> */}
                 <Stack direction="horizontal" gap="2" alignment="center">
                   <span>Critical:</span>
                   <Badge
@@ -105,8 +111,19 @@ export const ServiceDetails = () => {
 
         {/* Image Versions Section */}
         <Stack className="w-full">
-          <ServiceImageVersions service={selectedService} />
+          <ServiceImageVersions
+            service={selectedService}
+            showFullTable={false}
+            onVersionSelect={(version) => {
+              setSelectedImageVersion(version)
+            }}
+          />
         </Stack>
+
+        {/* Image Version Details Panel */}
+        {selectedImageVersion && (
+          <ImageVersionDetailsPanel imageVersion={selectedImageVersion} onClose={() => setSelectedImageVersion(null)} />
+        )}
       </Stack>
     </MessagesProvider>
   )

@@ -8,6 +8,7 @@ import { isNil } from "lodash"
 import {
   Page,
   ComponentVersionOrderByField,
+  ComponentInstanceOrderByField,
   OrderDirection,
   useGetServiceImageVersionsLazyQuery,
 } from "../../generated/graphql"
@@ -40,6 +41,20 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: Use
               direction: OrderDirection.Desc,
             },
           ],
+          // Add component instances ordering and filtering
+          orderByCi: [
+            {
+              by: ComponentInstanceOrderByField.Cluster,
+              direction: OrderDirection.Asc,
+            },
+            {
+              by: ComponentInstanceOrderByField.Namespace,
+              direction: OrderDirection.Asc,
+            },
+          ],
+          filterCi: {
+            serviceCcrn: [serviceCcrn],
+          },
         },
         fetchPolicy: "network-only",
       }),
