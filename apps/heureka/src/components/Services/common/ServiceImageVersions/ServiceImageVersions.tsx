@@ -7,11 +7,8 @@ import React, { useCallback } from "react"
 import {
   DataGrid,
   DataGridRow,
-  DataGridCell,
   DataGridHeadCell,
   Button,
-  Badge,
-  Icon,
   Stack,
   Pagination,
   ContentHeading,
