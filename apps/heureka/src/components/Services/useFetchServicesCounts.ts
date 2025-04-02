@@ -20,7 +20,7 @@ export type IssuesCountsType = {
   none: number
 }
 
-type IssuesCountsWithTotalCountType = IssuesCountsType & {
+export type IssuesCountsWithTotalCountType = IssuesCountsType & {
   totalCount: number
 }
 
@@ -45,6 +45,8 @@ export const useFetchServicesCounts = ({ filterSettings }: UseFetchServicesCount
   const filters = {
     serviceCcrn: baseFilters.serviceCcrn || [],
     supportGroupCcrn: baseFilters.supportGroupCcrn || [],
+    serviceOwnerUsername: baseFilters.userName || [],
+    serviceOwnerUniqueUserId: baseFilters.uniqueUserId || [],
   }
 
   const {
