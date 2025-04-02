@@ -33,12 +33,7 @@ const ToolTipBadge = ({ icon, text, variant, tooltipContent }: ToolTipBadgeType)
     <TooltipTrigger>
       <Badge icon={icon} text={text} variant={variant} />
     </TooltipTrigger>
-    <TooltipContent>
-      <Stack gap="2">
-        {icon && <Icon icon={icon} />}
-        <p>{tooltipContent}</p>
-      </Stack>
-    </TooltipContent>
+    <TooltipContent>{tooltipContent}</TooltipContent>
   </Tooltip>
 )
 
