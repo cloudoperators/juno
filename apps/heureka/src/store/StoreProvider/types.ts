@@ -4,7 +4,11 @@
  */
 
 import { InitialFilters } from "../../App"
-import { ServiceImageVersion } from "../../components/Services/common/ServiceImageVersions"
+import {
+  ServiceImageVersion,
+  ComponentInstance,
+  ComponentInstancesConnection,
+} from "../../components/Services/common/ServiceImageVersions"
 import { ServiceType } from "../../components/Services/Services"
 
 export enum UserView {
@@ -15,11 +19,14 @@ export enum UserView {
 export enum ActionType {
   SelectView = "select_view",
   SelectServiceComponent = "select_service_component",
+  SelectImageVersion = "select_image_version",
 }
 
 export type ServiceDetailViewParams = {
   service: ServiceType
-  imageVersion?: ServiceImageVersion
+  imageVersion?: ServiceImageVersion & {
+    componentInstances?: ComponentInstancesConnection
+  }
 }
 
 export type UserViewParams = ServiceDetailViewParams // | ParamsForOtherViews
@@ -36,7 +43,14 @@ export type SelectUserViewAction = {
   payload: SelectServiceDetailsPayload | SelectUserViewActionPayload
 }
 
-export type Action = SelectUserViewAction
+export type SelectImageVersionAction = {
+  type: ActionType.SelectImageVersion
+  payload: ServiceDetailViewParams & {
+    showPanel?: boolean
+  }
+}
+
+export type Action = SelectUserViewAction | SelectImageVersionAction
 
 export type State = {
   selectedView: SelectServiceDetailsPayload | SelectUserViewActionPayload
