@@ -26,3 +26,7 @@
 .service-image-versions-cell {
   @apply break-all overflow-hidden;
 }
+
+.link-hover {
+  @apply hover:underline text-sm;
+}

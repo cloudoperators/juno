@@ -3,6 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export * from "./ImageVersionDetailsPanel"
-export * from "./ImageVersionIssuesList"
-export * from "./ImageVersionIssueListItem"
+export { IssueTimestamp } from "./IssueTimestamp"
