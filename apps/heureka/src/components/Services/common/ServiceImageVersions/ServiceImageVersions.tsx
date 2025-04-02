@@ -19,40 +19,7 @@ import { useDispatch } from "../../../../store/StoreProvider"
 import { ActionType, UserView } from "../../../../store/StoreProvider/types"
 import { ServiceType } from "../../Services"
 import ServiceImageVersionsItem from "./ServiceImageVersionsItem"
-
-export type ComponentInstance = {
-  id: string
-  ccrn?: string | ""
-  region?: string | ""
-  cluster?: string | ""
-  namespace?: string | ""
-  pod?: string | ""
-  container?: string | ""
-}
-
-export type ComponentInstancesConnection = {
-  totalCount: number
-  edges: Array<{
-    node: ComponentInstance
-  } | null>
-}
-
-export type ServiceImageVersion = {
-  imageName: string
-  imageVersion: string
-  imageTag: string
-  imageRepository: string
-  issueCounts: {
-    critical: number
-    high: number
-    medium: number
-    low: number
-    none: number
-  }
-  serviceName: string
-  totalCount?: number
-  componentInstances?: ComponentInstancesConnection
-}
+import { ServiceImageVersion } from "../../utils"
 
 type ServiceImageVersionsProps = {
   service: ServiceType
@@ -60,6 +27,8 @@ type ServiceImageVersionsProps = {
   selectedImageVersion?: ServiceImageVersion | null
   onVersionSelect?: (version: ServiceImageVersion) => void
 }
+
+const COLUMN_COUNT = 7
 
 export const ServiceImageVersions = ({
   service,
@@ -74,23 +43,6 @@ export const ServiceImageVersions = ({
       serviceCcrn: serviceName || "",
       pageSize: 10,
     })
-
-  const formattedImageVersions = imageVersions.map((version) => ({
-    imageName: version.ccrn,
-    imageVersion: version.version,
-    imageTag: version.tag,
-    imageRepository: version.repository,
-    issueCounts: version.issueCounts,
-    serviceName,
-    componentInstances: version.componentInstances
-      ? {
-          totalCount: version.componentInstances.totalCount,
-          edges: version.componentInstances.edges,
-        }
-      : undefined,
-  }))
-
-  const columnCount = 7
 
   const selectImageVersion = useCallback(
     ({ service, imageVersion }: { service: ServiceType; imageVersion: ServiceImageVersion }) => {
@@ -144,7 +96,7 @@ export const ServiceImageVersions = ({
         )}
       </Stack>
       <div className="datagrid-hover">
-        <DataGrid columns={columnCount}>
+        <DataGrid columns={COLUMN_COUNT}>
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Tag</DataGridHeadCell>
@@ -155,28 +107,28 @@ export const ServiceImageVersions = ({
             <DataGridHeadCell></DataGridHeadCell>
           </DataGridRow>
           {loading ? (
-            <EmptyDataGridRow colSpan={columnCount}>Loading...</EmptyDataGridRow>
+            <EmptyDataGridRow colSpan={COLUMN_COUNT}>Loading...</EmptyDataGridRow>
           ) : imageVersions?.length === 0 && !error ? (
-            <EmptyDataGridRow colSpan={columnCount}>No image versions available.</EmptyDataGridRow>
+            <EmptyDataGridRow colSpan={COLUMN_COUNT}>No image versions available.</EmptyDataGridRow>
           ) : (
-            formattedImageVersions.map((version, index) => (
+            imageVersions.map((imageVersion, index) => (
               <ServiceImageVersionsItem
                 key={index}
-                version={version}
-                selected={selectedImageVersion?.imageVersion === version.imageVersion}
+                version={imageVersion}
+                selected={selectedImageVersion?.version === imageVersion.version}
                 displayDetailsButton={showFullTable || false}
                 onItemClick={() => {
-                  onVersionSelect?.(version)
+                  onVersionSelect?.(imageVersion)
                   selectImageVersion({
                     service,
-                    imageVersion: version,
+                    imageVersion: imageVersion,
                   })
                 }}
                 onDetailClick={(event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
                   event.stopPropagation()
                   showServiceDetails({
                     service,
-                    imageVersion: version,
+                    imageVersion: imageVersion,
                   })
                 }}
               />
