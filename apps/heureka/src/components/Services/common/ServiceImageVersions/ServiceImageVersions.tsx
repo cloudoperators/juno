@@ -122,7 +122,7 @@ export const ServiceImageVersions = ({ service, showFullTable, onVersionSelect }
         },
       })
     },
-    [onVersionSelect, selectImageVersion]
+    [onVersionSelect, selectImageVersion, dispatch]
   )
 
   return (
