@@ -60,7 +60,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
   }, [error])
 
   return (
-    <div className="services">
+    <div className="datagrid-hover">
       <DataGrid minContentColumns={[5]} columns={COLUMN_SPAN}>
         <DataGridRow>
           <DataGridHeadCell>Service</DataGridHeadCell>

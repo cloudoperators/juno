@@ -7,11 +7,8 @@ import React, { useCallback } from "react"
 import {
   DataGrid,
   DataGridRow,
-  DataGridCell,
   DataGridHeadCell,
   Button,
-  Badge,
-  Icon,
   Stack,
   Pagination,
   ContentHeading,
@@ -21,6 +18,7 @@ import { useFetchServiceImageVersions } from "../../useFetchServiceImageVersions
 import { useDispatch } from "../../../../store/StoreProvider"
 import { ActionType, UserView } from "../../../../store/StoreProvider/types"
 import { ServiceType } from "../../Services"
+import ServiceImageVersionsItem from "./ServiceImageVersionsItem"
 
 export type ComponentInstance = {
   id: string
@@ -59,10 +57,16 @@ export type ServiceImageVersion = {
 type ServiceImageVersionsProps = {
   service: ServiceType
   showFullTable?: boolean
+  selectedImageVersion?: ServiceImageVersion | null
   onVersionSelect?: (version: ServiceImageVersion) => void
 }
 
-export const ServiceImageVersions = ({ service, showFullTable, onVersionSelect }: ServiceImageVersionsProps) => {
+export const ServiceImageVersions = ({
+  service,
+  selectedImageVersion,
+  showFullTable,
+  onVersionSelect,
+}: ServiceImageVersionsProps) => {
   const dispatch = useDispatch()
   const { name: serviceName } = service
   const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalCount } =
@@ -139,91 +143,47 @@ export const ServiceImageVersions = ({ service, showFullTable, onVersionSelect }
           <ContentHeading>Service Image Versions ({totalCount})</ContentHeading>
         )}
       </Stack>
-      <DataGrid columns={columnCount}>
-        <DataGridRow>
-          <DataGridHeadCell>Image Repository</DataGridHeadCell>
-          <DataGridHeadCell>Tag</DataGridHeadCell>
-          <DataGridHeadCell>Critical</DataGridHeadCell>
-          <DataGridHeadCell>High</DataGridHeadCell>
-          <DataGridHeadCell>Medium</DataGridHeadCell>
-          <DataGridHeadCell>Low</DataGridHeadCell>
-          <DataGridHeadCell></DataGridHeadCell>
-        </DataGridRow>
-        {loading ? (
-          <EmptyDataGridRow colSpan={columnCount}>Loading...</EmptyDataGridRow>
-        ) : imageVersions?.length === 0 && !error ? (
-          <EmptyDataGridRow colSpan={columnCount}>No image versions available.</EmptyDataGridRow>
-        ) : (
-          formattedImageVersions.map((version, index) => (
-            <DataGridRow
-              key={index}
-              onClick={() => {
-                onVersionSelect?.(version)
-                selectImageVersion({
-                  service,
-                  imageVersion: version,
-                })
-              }}
-              className={`cursor-pointer ${onVersionSelect ? "active" : ""}`}
-            >
-              <DataGridCell className="service-image-versions-cell">
-                <Stack gap="1" direction="vertical">
-                  <Stack gap="0.5" direction="vertical">
-                    <span>{version.imageRepository}</span>
-                    <span className="text-sm text-theme-light">{version.imageVersion}</span>
-                  </Stack>
-                  <Stack gap="1" alignment="center">
-                    <a
-                      href={`https://${version.imageName}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline text-sm"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <Stack gap="1.5" alignment="center">
-                        <Icon icon="openInNew" size="16" color="jn-global-text" />
-                        <span>Image registery</span>
-                      </Stack>
-                    </a>
-                  </Stack>
-                </Stack>
-              </DataGridCell>
-              <DataGridCell className="service-image-versions-cell">{version.imageTag}</DataGridCell>
-              <DataGridCell>
-                {version.issueCounts.critical ? (
-                  <Badge icon text={version.issueCounts.critical.toString()} variant="danger" />
-                ) : (
-                  "-"
-                )}
-              </DataGridCell>
-              <DataGridCell>
-                {version.issueCounts.high ? (
-                  <Badge icon text={version.issueCounts.high.toString()} variant="warning" />
-                ) : (
-                  "-"
-                )}
-              </DataGridCell>
-              <DataGridCell>{version.issueCounts.medium || "-"}</DataGridCell>
-              <DataGridCell>{version.issueCounts.low || "-"}</DataGridCell>
-              <DataGridCell>
-                {showFullTable && (
-                  <Button
-                    size="small"
-                    label="Show Details"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      showServiceDetails({
-                        service,
-                        imageVersion: version,
-                      })
-                    }}
-                  />
-                )}
-              </DataGridCell>
-            </DataGridRow>
-          ))
-        )}
-      </DataGrid>
+      <div className="datagrid-hover">
+        <DataGrid columns={columnCount}>
+          <DataGridRow>
+            <DataGridHeadCell>Image Repository</DataGridHeadCell>
+            <DataGridHeadCell>Tag</DataGridHeadCell>
+            <DataGridHeadCell>Critical</DataGridHeadCell>
+            <DataGridHeadCell>High</DataGridHeadCell>
+            <DataGridHeadCell>Medium</DataGridHeadCell>
+            <DataGridHeadCell>Low</DataGridHeadCell>
+            <DataGridHeadCell></DataGridHeadCell>
+          </DataGridRow>
+          {loading ? (
+            <EmptyDataGridRow colSpan={columnCount}>Loading...</EmptyDataGridRow>
+          ) : imageVersions?.length === 0 && !error ? (
+            <EmptyDataGridRow colSpan={columnCount}>No image versions available.</EmptyDataGridRow>
+          ) : (
+            formattedImageVersions.map((version, index) => (
+              <ServiceImageVersionsItem
+                key={index}
+                version={version}
+                selected={selectedImageVersion?.imageVersion === version.imageVersion}
+                displayDetailsButton={showFullTable || false}
+                onItemClick={() => {
+                  onVersionSelect?.(version)
+                  selectImageVersion({
+                    service,
+                    imageVersion: version,
+                  })
+                }}
+                onDetailClick={(event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+                  event.stopPropagation()
+                  showServiceDetails({
+                    service,
+                    imageVersion: version,
+                  })
+                }}
+              />
+            ))
+          )}
+        </DataGrid>
+      </div>
       {totalNumberOfPages > 1 && (
         <Stack distribution="end">
           <Pagination
