@@ -8,21 +8,11 @@ import { DataGridRow, DataGridCell, Badge, Stack } from "@cloudoperators/juno-ui
 import { Icon } from "@cloudoperators/juno-ui-components"
 import { IssueIcon } from "../../../common/IssueIcon/IssueIcon"
 import { IssueTimestamp } from "../../../common/IssueTimestamp/IssueTimestamp"
-import { Issue } from "../../utils"
+import { Issue, getSeverityColor } from "../../utils"
+import { get } from "lodash"
 
 const cellSeverityClasses = (severity: string) => {
-  let borderColor = "border-text-theme-default"
-  switch (severity.toLowerCase()) {
-    case "critical":
-      borderColor = "border-theme-danger"
-      break
-    case "high":
-      borderColor = "border-theme-warning"
-      break
-    case "medium":
-      borderColor = "border-theme-info"
-      break
-  }
+  let borderColor = getSeverityColor(severity)
 
   return `
     border-l-2

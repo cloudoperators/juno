@@ -261,7 +261,11 @@ export const getSeverityColor = (severity: string): string => {
     case "high":
       return "text-theme-warning"
     case "medium":
+      return "text-theme-warning"
+    case "low":
       return "text-theme-info"
+    case "none":
+      return "text-theme-default"
     default:
       return "text-theme-default"
   }
