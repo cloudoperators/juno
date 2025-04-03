@@ -119,10 +119,13 @@ export const ServiceDetails = () => {
           setSelectedImageVersion(version)
         }}
       />
-
       {/* Image Version Details Panel */}
       {selectedImageVersion && (
-        <ImageVersionDetailsPanel imageVersion={selectedImageVersion} onClose={() => setSelectedImageVersion(null)} />
+        <ImageVersionDetailsPanel
+          imageVersion={selectedImageVersion}
+          serviceCcrn={selectedService.name}
+          onClose={() => setSelectedImageVersion(null)}
+        />
       )}
     </MessagesProvider>
   )

@@ -203,3 +203,70 @@ export const getNormalizedImageVersionsData = (
           })
         ),
 })
+
+export type Issue = {
+  severity: string
+  name: string
+  earliestTargetRemediation: string
+  description: string
+  sourceLink: string
+}
+
+type NormalizedImageVersionIssues = {
+  issues: Issue[]
+  totalCount: number
+  pages: Page[]
+  pageNumber: number
+}
+
+export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersionIssues => {
+  if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
+    return { issues: [], totalCount: 0, pages: [], pageNumber: 1 }
+  }
+
+  const issues = data.ComponentVersions.edges[0].node.issues.edges
+    .filter((edge: any) => edge?.node)
+    .map((edge: any) => {
+      const node = edge.node
+      const severity = node?.highestSeverity?.edges?.[0]?.node?.severity?.value || "-"
+      const earliestTargetRemediation =
+        node?.earliestTargetRemediationDate?.edges?.[0]?.node?.targetRemediationDate || "-"
+      const sourceLink = node?.issueVariants?.edges?.[0]?.node?.externalUrl || "-"
+
+      return {
+        severity,
+        name: node?.primaryName || "-",
+        earliestTargetRemediation,
+        description: node?.description || "-",
+        sourceLink,
+      }
+    })
+
+  const totalCount = data?.ComponentVersions?.totalCount || 0
+  const pages = (data?.ComponentVersions?.pageInfo?.pages || []).filter((p: Page | null): p is Page => p !== null)
+  const pageNumber = pages.findIndex((p: Page) => !p?.after) + 1
+
+  return {
+    issues,
+    totalCount,
+    pages,
+    pageNumber,
+  }
+}
+
+export const getSeverityColor = (severity: string): string => {
+  switch (severity.toLowerCase()) {
+    case "critical":
+      return "text-theme-danger"
+    case "high":
+      return "text-theme-warning"
+    case "medium":
+      return "text-theme-warning"
+    case "low":
+      return "text-theme-info"
+    case "none":
+      return "text-theme-default"
+    default:
+      return "text-theme-default"
+  }
+}
