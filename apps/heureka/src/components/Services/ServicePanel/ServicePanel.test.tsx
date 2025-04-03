@@ -49,7 +49,7 @@ describe("ServicePanel", () => {
     expect(await screen.findByText("Test-service Overview")).toBeInTheDocument()
 
     // Check if table headers are rendered
-    expect(await screen.findByText("Image Name")).toBeInTheDocument()
+    expect(await screen.findByText("Image Repository")).toBeInTheDocument()
     expect(await screen.findByText("Tag")).toBeInTheDocument()
     expect(await screen.findByText("Critical")).toBeInTheDocument()
     expect(await screen.findByText("High")).toBeInTheDocument()

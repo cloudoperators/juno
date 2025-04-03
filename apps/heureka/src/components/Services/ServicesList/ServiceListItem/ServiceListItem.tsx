@@ -6,6 +6,7 @@
 import React from "react"
 import { DataGridRow, DataGridCell, Pill, Badge, Stack, Button } from "@cloudoperators/juno-ui-components"
 import { ServiceType } from "../../Services"
+import { IssuesCountBadges } from "../../../common/IssuesCountBadges"
 
 type ServiceDetailsLabel = {
   [key: string]: string
@@ -44,18 +45,7 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
   <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
-      <Stack gap="1">
-        <Badge
-          icon="danger"
-          text={`${item.issuesCount.critical}`}
-          variant={item.issuesCount.critical > 0 ? "danger" : "default"}
-        />
-        <Badge
-          icon="warning"
-          text={`${item.issuesCount.high}`}
-          variant={item.issuesCount.critical > 0 ? "warning" : "default"}
-        />
-      </Stack>
+      <IssuesCountBadges counts={item.issuesCount} displayMode="criticalHigh" />
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />

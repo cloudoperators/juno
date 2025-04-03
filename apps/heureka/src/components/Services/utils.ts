@@ -137,11 +137,24 @@ export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceF
     }, {}),
 })
 
-type ServiceImageVersion = {
+type ComponentInstance = {
+  id: string
+  ccrn?: string | ""
+  region?: string | ""
+  cluster?: string | ""
+  namespace?: string | ""
+  pod?: string | ""
+  container?: string | ""
+}
+
+export type ServiceImageVersion = {
   version: string
   tag: string
+  repository: string
   ccrn: string
   issueCounts: IssuesCountsType
+  componetInstancesCount: number
+  componentInstances?: ComponentInstance[]
 }
 
 type NormalizedServiceImageVersions = {
@@ -165,6 +178,7 @@ export const getNormalizedImageVersionsData = (
           (edge): ServiceImageVersion => ({
             version: edge?.node?.version || "",
             tag: edge?.node?.tag || "",
+            repository: edge?.node?.repository || "",
             ccrn: edge?.node?.component?.ccrn || "",
             issueCounts: edge?.node?.issueCounts || {
               critical: 0,
@@ -173,6 +187,19 @@ export const getNormalizedImageVersionsData = (
               low: 0,
               none: 0,
             },
+            componetInstancesCount: edge?.node?.componentInstances?.totalCount ?? 0,
+            componentInstances:
+              edge?.node?.componentInstances?.edges
+                ?.filter((edge) => edge?.node) // Remove null edges
+                .map((edge) => ({
+                  id: edge!.node.id,
+                  ccrn: edge!.node.ccrn ?? "",
+                  region: edge!.node.region ?? "",
+                  cluster: edge!.node.cluster ?? "",
+                  namespace: edge!.node.namespace ?? "",
+                  pod: edge!.node.pod ?? "",
+                  container: edge!.node.container ?? "",
+                })) ?? [],
           })
         ),
 })

@@ -60,7 +60,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
   }, [error])
 
   return (
-    <div className="services">
+    <div className="datagrid-hover">
       <DataGrid minContentColumns={[5]} columns={COLUMN_SPAN}>
         <DataGridRow>
           <DataGridHeadCell>Service</DataGridHeadCell>
@@ -68,7 +68,7 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
           <DataGridHeadCell>Service details</DataGridHeadCell>
           <DataGridHeadCell>No. Components</DataGridHeadCell>
           <DataGridHeadCell>Service owners</DataGridHeadCell>
-          <DataGridHeadCell>Actions</DataGridHeadCell>
+          <DataGridHeadCell></DataGridHeadCell>
         </DataGridRow>
         {
           /* if request is in flight */
