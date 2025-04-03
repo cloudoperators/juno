@@ -8,9 +8,7 @@ import {
   Panel,
   PanelBody,
   Stack,
-  Badge,
   Pill,
-  Label,
   DataGrid,
   DataGridRow,
   DataGridHeadCell,
@@ -29,7 +27,7 @@ export const ImageVersionDetailsPanel = ({ imageVersion, onClose }: ImageVersion
   return (
     <Panel heading={`Image ${imageVersion.repository} Information`} opened={true} onClose={onClose} size="large">
       <PanelBody>
-        <DataGrid columns={2}>
+        <DataGrid columns={2} gridColumnTemplate="15% auto">
           <DataGridRow>
             <DataGridHeadCell>Details</DataGridHeadCell>
             <DataGridCell>
@@ -57,7 +55,7 @@ export const ImageVersionDetailsPanel = ({ imageVersion, onClose }: ImageVersion
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>
-            <DataGridHeadCell>{`Instances (${imageVersion.componetInstancesCount || 0})`}</DataGridHeadCell>
+            <DataGridHeadCell className="whitespace-nowrap">{`Instances (${imageVersion.componetInstancesCount || 0})`}</DataGridHeadCell>
             <DataGridCell>
               <ImageVersionOccurrences imageVersion={imageVersion} />
             </DataGridCell>
