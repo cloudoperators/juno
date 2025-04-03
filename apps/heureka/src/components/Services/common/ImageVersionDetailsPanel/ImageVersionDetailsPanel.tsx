@@ -29,8 +29,10 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
 
   return (
     <MessagesProvider>
-      <Messages />
       <Panel heading={`Image ${imageVersion.repository} Information`} opened={true} onClose={onClose} size="large">
+        <Container py px={false}>
+          <Messages />
+        </Container>
         <PanelBody>
           <Stack gap="6" direction="vertical" className="w-full">
             <Stack gap="4" direction="vertical">

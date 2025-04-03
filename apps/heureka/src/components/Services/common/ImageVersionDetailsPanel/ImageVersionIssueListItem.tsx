@@ -69,21 +69,12 @@ export const ImageVersionIssueListItem = ({ issue }: ImageVersionIssueListItemPr
         <IssueTimestamp targetDate={issue.earliestTargetRemediation} />
       </DataGridCell>
       <DataGridCell>
-        {isExpanded ? (
-          <Stack gap="2" direction="vertical">
-            <span>{issue.description}</span>
-            <a href="#" onClick={toggleDescription} className="link-hover">
-              Show less
-            </a>
-          </Stack>
-        ) : (
-          <Stack gap="2" direction="vertical">
-            <span>{issue.description.substring(0, 95)}...</span>
-            <a href="#" onClick={toggleDescription} className="link-hover">
-              Show more
-            </a>
-          </Stack>
-        )}
+        <Stack gap="2" direction="vertical">
+          <span>{isExpanded ? issue.description : `${issue.description.substring(0, 95)}...`}</span>
+          <a href="#" onClick={toggleDescription} className="link-hover">
+            {isExpanded ? "Show less" : "Show more"}
+          </a>
+        </Stack>
       </DataGridCell>
     </DataGridRow>
   )
