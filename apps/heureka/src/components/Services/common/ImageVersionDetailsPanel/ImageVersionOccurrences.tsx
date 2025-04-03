@@ -17,13 +17,12 @@ const ToolTipBox = ({ instance }: ToolTipBoxType) => (
   <Tooltip triggerEvent="hover">
     <TooltipTrigger>
       <Box className="text-sm text-theme-light">
-        <span>{instance?.cluster || "--"}</span>
+        <div className="whitespace-nowrap">{instance?.pod || "--"}</div>
+        <div className="whitespace-nowrap">{instance?.cluster || "--"}</div>
       </Box>
     </TooltipTrigger>
     <TooltipContent>
-      <span>Pod: {instance?.pod || "--"} </span>
-      <br />
-      <span>Container: {instance?.container || "--"}</span>
+      <span>Container: {instance?.container || "--"} </span>
     </TooltipContent>
   </Tooltip>
 )
@@ -73,7 +72,7 @@ const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps)
             <div className="mb-4">
               Namespace <b>{namespace}</b>:
             </div>
-            <div className="grid grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-4">
+            <div className="grid grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] gap-4">
               {instances.map((item, i) => (
                 <ToolTipBox key={i} instance={item} />
               ))}
