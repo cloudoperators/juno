@@ -39,7 +39,7 @@ const BoxWithTooltip = ({ instance }: ToolTipBoxType) => (
  * @param maxInstances
  * @returns
  */
-const groupInstancesByNamespace = (instances: ComponentInstance[], maxInstances: number) => {
+const groupInstances = (instances: ComponentInstance[], maxInstances: number) => {
   let instanceCount = 0
   let maxPodLength = 0
   const grouped: Record<string, Record<string, ComponentInstance[]>> = {} // Namespace -> Container -> Instances
@@ -84,7 +84,7 @@ type ImageVersionOccurrencesProps = {
 
 const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps) => {
   const [visibleInstancesCount, setVisibleInstancesCount] = useState(MAX_VISIBLE_ITEMS)
-  const { grouped, minWidth } = groupInstancesByNamespace(imageVersion.componentInstances || [], visibleInstancesCount)
+  const { grouped, minWidth } = groupInstances(imageVersion.componentInstances || [], visibleInstancesCount)
 
   useEffect(() => {
     // Reset state when myProp changes
@@ -104,7 +104,7 @@ const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps)
         Object.entries(grouped).map(([namespace, containers]) => (
           <>
             {Object.entries(containers).map(([container, instances]) => (
-              <div className="my-2" key={namespace}>
+              <div className="my-2" key={`${namespace}-${container}`}>
                 <div className="mb-4">
                   Namespace <b>{namespace}</b> - Container <b>{container}</b>
                 </div>
