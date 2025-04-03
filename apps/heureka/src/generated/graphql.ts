@@ -544,6 +544,7 @@ export type IssueFilter = {
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
+  supportGroupCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
 export type IssueInput = {
@@ -1201,6 +1202,7 @@ export type Query = {
   ComponentVersions?: Maybe<ComponentVersionConnection>
   Components?: Maybe<ComponentConnection>
   Evidences?: Maybe<EvidenceConnection>
+  IssueCounts?: Maybe<SeverityCounts>
   IssueMatchChanges?: Maybe<IssueMatchChangeConnection>
   IssueMatchFilterValues?: Maybe<IssueMatchFilterValue>
   IssueMatches?: Maybe<IssueMatchConnection>
@@ -1245,6 +1247,10 @@ export type QueryEvidencesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<EvidenceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type QueryIssueCountsArgs = {
+  filter?: InputMaybe<IssueFilter>
 }
 
 export type QueryIssueMatchChangesArgs = {
@@ -1343,6 +1349,7 @@ export type Service = Node & {
   ccrn?: Maybe<Scalars["String"]["output"]>
   componentInstances?: Maybe<ComponentInstanceConnection>
   id: Scalars["ID"]["output"]
+  issueCounts?: Maybe<SeverityCounts>
   issueMatches?: Maybe<IssueMatchConnection>
   issueRepositories?: Maybe<IssueRepositoryConnection>
   metadata?: Maybe<Metadata>
@@ -1362,6 +1369,10 @@ export type ServiceComponentInstancesArgs = {
   filter?: InputMaybe<ComponentInstanceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
   orderBy?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>>>
+}
+
+export type ServiceIssueCountsArgs = {
+  filter?: InputMaybe<IssueFilter>
 }
 
 export type ServiceIssueMatchesArgs = {
@@ -1778,7 +1789,7 @@ export const GetServiceImageVersionsDocument = gql`
           component {
             ccrn
           }
-          componentInstances(filter: $filterCi, orderBy: $orderByCi) {
+          componentInstances(filter: $filterCi, orderBy: $orderByCi, first: 1000) {
             totalCount
             edges {
               node {
