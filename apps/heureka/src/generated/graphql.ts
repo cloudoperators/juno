@@ -1596,6 +1596,73 @@ export type UserInput = {
   uniqueUserId?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type GetServiceImageVersionIssuesQueryVariables = Exact<{
+  componentVersionFilter?: InputMaybe<ComponentVersionFilter>
+  issueMatchFilter?: InputMaybe<IssueMatchFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+  after?: InputMaybe<Scalars["String"]["input"]>
+  orderBySeverity?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>> | InputMaybe<IssueMatchOrderBy>>
+  orderByTrd?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>> | InputMaybe<IssueMatchOrderBy>>
+}>
+
+export type GetServiceImageVersionIssuesQuery = {
+  __typename?: "Query"
+  ComponentVersions?: {
+    __typename?: "ComponentVersionConnection"
+    totalCount: number
+    edges: Array<{
+      __typename?: "ComponentVersionEdge"
+      node: {
+        __typename?: "ComponentVersion"
+        issues?: {
+          __typename?: "IssueConnection"
+          edges: Array<{
+            __typename?: "IssueEdge"
+            node: {
+              __typename?: "Issue"
+              primaryName?: string | null
+              description?: string | null
+              issueVariants?: {
+                __typename?: "IssueVariantConnection"
+                edges?: Array<{
+                  __typename?: "IssueVariantEdge"
+                  node: { __typename?: "IssueVariant"; externalUrl?: string | null }
+                } | null> | null
+              } | null
+              highestSeverity?: {
+                __typename?: "IssueMatchConnection"
+                totalCount: number
+                edges?: Array<{
+                  __typename?: "IssueMatchEdge"
+                  node: {
+                    __typename?: "IssueMatch"
+                    severity?: {
+                      __typename?: "Severity"
+                      value?: SeverityValues | null
+                      cvss?: { __typename?: "CVSS"; vector?: string | null; externalUrl?: string | null } | null
+                    } | null
+                  }
+                } | null> | null
+              } | null
+              earliestTargetRemediationDate?: {
+                __typename?: "IssueMatchConnection"
+                edges?: Array<{
+                  __typename?: "IssueMatchEdge"
+                  node: { __typename?: "IssueMatch"; targetRemediationDate?: any | null }
+                } | null> | null
+              } | null
+            }
+          } | null>
+        } | null
+      }
+    } | null>
+    pageInfo?: {
+      __typename?: "PageInfo"
+      pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+    } | null
+  } | null
+}
+
 export type GetServiceImageVersionsQueryVariables = Exact<{
   filter?: InputMaybe<ComponentVersionFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
@@ -1764,6 +1831,131 @@ export type GetServicesCountsQuery = {
   none?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
 }
 
+export const GetServiceImageVersionIssuesDocument = gql`
+  query GetServiceImageVersionIssues(
+    $componentVersionFilter: ComponentVersionFilter
+    $issueMatchFilter: IssueMatchFilter
+    $first: Int
+    $after: String
+    $orderBySeverity: [IssueMatchOrderBy]
+    $orderByTrd: [IssueMatchOrderBy]
+  ) {
+    ComponentVersions(filter: $componentVersionFilter) {
+      edges {
+        node {
+          issues(first: $first, after: $after) {
+            edges {
+              node {
+                issueVariants(first: 1) {
+                  edges {
+                    node {
+                      externalUrl
+                    }
+                  }
+                }
+                primaryName
+                description
+                highestSeverity: issueMatches(filter: $issueMatchFilter, first: 1, orderBy: $orderBySeverity) {
+                  totalCount
+                  edges {
+                    node {
+                      severity {
+                        value
+                        cvss {
+                          vector
+                          externalUrl
+                        }
+                      }
+                    }
+                  }
+                }
+                earliestTargetRemediationDate: issueMatches(filter: $issueMatchFilter, first: 1, orderBy: $orderByTrd) {
+                  edges {
+                    node {
+                      targetRemediationDate
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      totalCount
+      pageInfo {
+        pages {
+          after
+          pageNumber
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetServiceImageVersionIssuesQuery__
+ *
+ * To run a query within a React component, call `useGetServiceImageVersionIssuesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServiceImageVersionIssuesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetServiceImageVersionIssuesQuery({
+ *   variables: {
+ *      componentVersionFilter: // value for 'componentVersionFilter'
+ *      issueMatchFilter: // value for 'issueMatchFilter'
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      orderBySeverity: // value for 'orderBySeverity'
+ *      orderByTrd: // value for 'orderByTrd'
+ *   },
+ * });
+ */
+export function useGetServiceImageVersionIssuesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>(
+    GetServiceImageVersionIssuesDocument,
+    options
+  )
+}
+export function useGetServiceImageVersionIssuesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetServiceImageVersionIssuesQuery,
+    GetServiceImageVersionIssuesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>(
+    GetServiceImageVersionIssuesDocument,
+    options
+  )
+}
+export function useGetServiceImageVersionIssuesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>(
+    GetServiceImageVersionIssuesDocument,
+    options
+  )
+}
+export type GetServiceImageVersionIssuesQueryHookResult = ReturnType<typeof useGetServiceImageVersionIssuesQuery>
+export type GetServiceImageVersionIssuesLazyQueryHookResult = ReturnType<
+  typeof useGetServiceImageVersionIssuesLazyQuery
+>
+export type GetServiceImageVersionIssuesSuspenseQueryHookResult = ReturnType<
+  typeof useGetServiceImageVersionIssuesSuspenseQuery
+>
+export type GetServiceImageVersionIssuesQueryResult = Apollo.QueryResult<
+  GetServiceImageVersionIssuesQuery,
+  GetServiceImageVersionIssuesQueryVariables
+>
 export const GetServiceImageVersionsDocument = gql`
   query GetServiceImageVersions(
     $filter: ComponentVersionFilter
