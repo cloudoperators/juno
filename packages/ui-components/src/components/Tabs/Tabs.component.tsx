@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, ReactNode } from "react"
 import { Tabs as ReactTabs, TabsProps as ReactTabsProps } from "react-tabs"
 
 export interface TabsContextType {
@@ -65,7 +65,7 @@ export type TabsVariant = "main" | "content" | "codeblocks"
 
 export interface TabsProps extends ReactTabsProps {
   /** All the child elements of the Tabs: Tab(s) inside a TabList and TabPanel(s) */
-  children?: React.ReactNode
+  children?: ReactNode
   /** The index of the Tab to be selected by default in "Uncontrolled Mode" (default) where Tabs handle their state internally. Do not use in "Controlled Mode".*/
   defaultIndex?: number
   /** The index of the Tab to be selected by default. This enables "Controlled Mode" where the developer takes over control of the Tabs state and behaviour. Requires onSelect to be set.*/

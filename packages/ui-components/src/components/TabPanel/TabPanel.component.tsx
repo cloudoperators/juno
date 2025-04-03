@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 import { TabPanel as ReactTabPanel, TabPanelProps as ReactTabPanelProps } from "react-tabs"
 
 /**
@@ -22,7 +22,7 @@ TabPanel.tabsRole = "TabPanel"
 
 export interface TabPanelProps extends ReactTabPanelProps {
   /** The content to show/render when the associated Tab is selected */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Add a custom classList to the TabPanel */
   className?: string
 }

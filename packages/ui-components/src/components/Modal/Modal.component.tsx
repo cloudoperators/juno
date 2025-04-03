@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, useId } from "react"
+import React, { useState, useEffect, useRef, useId, ReactNode } from "react"
 import { createPortal } from "react-dom"
-import FocusTrap from "focus-trap-react"
+import { FocusTrap } from "focus-trap-react"
 import { ModalFooter } from "../ModalFooter/index"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 import { usePortalRef } from "../PortalProvider/PortalProvider.component"
@@ -170,7 +170,7 @@ export const Modal: React.FC<ModalProps> = ({
                 clickOutsideDeactivates: isCloseabelOnBackdropClick,
                 fallbackFocus: () => modalRef.current!,
                 allowOutsideClick: true,
-                escapeDeactivates: (e) => {
+                escapeDeactivates: (e: KeyboardEvent) => {
                   handleEsc(e)
                   return false
                 },
@@ -244,7 +244,7 @@ export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"
   /** Whether the modal will be open */
   open?: boolean
   /** The children of the modal. These will be rendered as the modal content. To render custom buttons at the bottom, see `modalFooter` below.*/
-  children?: React.ReactNode
+  children?: ReactNode
   /** Optional. Pass a `<ModalFooter />` component with custom content as required. Will default to using the `<ModalFooter/>` component internally. */
   modalFooter?: React.ReactElement
   /** Whether the modal can be closed using an "X"-Button at the top right. Defaults to true. */
