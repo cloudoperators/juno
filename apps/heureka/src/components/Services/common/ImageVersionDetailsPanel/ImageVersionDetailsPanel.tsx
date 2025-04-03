@@ -4,7 +4,16 @@
  */
 
 import React, { useState } from "react"
-import { Panel, PanelBody, Stack, Badge, Pill, Label, ContentHeading } from "@cloudoperators/juno-ui-components"
+import {
+  Panel,
+  PanelBody,
+  Stack,
+  Badge,
+  Pill,
+  Label,
+  ContentHeading,
+  Container,
+} from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { ServiceImageVersion } from "../../utils"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
@@ -55,24 +64,25 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
                 <Label text="Number of Issues: " />
                 <Stack direction="horizontal" gap="4" alignment="center">
                   <Stack direction="horizontal" gap="2" alignment="center">
+                    {/* <span>Total:</span> */}
                     <span>Critical:</span>
                     <Badge
                       icon="danger"
                       text={`${imageVersion.issueCounts?.critical || 0}`}
                       variant={imageVersion.issueCounts?.critical > 0 ? "danger" : "default"}
                     />
-                    <Pill
-                      pillKey="repository"
-                      pillKeyLabel="repository"
-                      pillValue={imageVersion.repository}
-                      pillValueLabel={imageVersion.repository}
+                  </Stack>
+                  <Stack direction="horizontal" gap="2" alignment="center">
+                    <span>High:</span>
+                    <Badge
+                      icon="warning"
+                      text={`${imageVersion.issueCounts?.high || 0}`}
+                      variant={imageVersion.issueCounts?.high > 0 ? "warning" : "default"}
                     />
-                    <Pill
-                      pillKey="version"
-                      pillKeyLabel="version"
-                      pillValue={imageVersion.version}
-                      pillValueLabel={imageVersion.version}
-                    />
+                  </Stack>
+                  <Stack direction="horizontal" gap="2" alignment="center">
+                    <span>Low:</span>
+                    <span>{imageVersion.issueCounts?.low || 0}</span>
                   </Stack>
                 </Stack>
               </Stack>
@@ -117,8 +127,10 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
 
               {/* Second Section: Issues List */}
               <Stack gap="4" direction="vertical">
-                <ContentHeading>Issues</ContentHeading>
-                <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
+                <Container py px={false}>
+                  <ContentHeading>Issues</ContentHeading>
+                  <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
+                </Container>
               </Stack>
             </Stack>
           </Stack>

@@ -11,19 +11,12 @@ import {
   OrderDirection,
   useGetServiceImageVersionIssuesLazyQuery,
 } from "../../generated/graphql"
+import { getNormalizedImageVersionIssues } from "./utils"
 
 type UseFetchServiceImageVersionIssuesProps = {
   serviceCcrn: string
   imageVersion: string
   pageSize?: number
-}
-
-type Issue = {
-  severity: string
-  name: string
-  earliestTargetRemediation: string
-  description: string
-  sourceLink: string
 }
 
 export const useFetchServiceImageVersionIssues = ({
@@ -33,27 +26,7 @@ export const useFetchServiceImageVersionIssues = ({
 }: UseFetchServiceImageVersionIssuesProps) => {
   const pagesRef = useRef<Page[]>()
   const [loadIssues, { data, loading, error }] = useGetServiceImageVersionIssuesLazyQuery()
-
-  const issues =
-    data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges?.map((edge) => {
-      const node = edge?.node
-      const severity = node?.highestSeverity?.edges?.[0]?.node?.severity?.value || "-"
-      const earliestTargetRemediation =
-        node?.earliestTargetRemediationDate?.edges?.[0]?.node?.targetRemediationDate || "-"
-      const sourceLink = node?.issueVariants?.edges?.[0]?.node?.externalUrl || "-"
-
-      return {
-        severity,
-        name: node?.primaryName || "-",
-        earliestTargetRemediation,
-        description: node?.description || "-",
-        sourceLink,
-      }
-    }) || []
-
-  const totalCount = data?.ComponentVersions?.totalCount || 0
-  const pages = (data?.ComponentVersions?.pageInfo?.pages || []).filter((p): p is Page => p !== null)
-  const pageNumber = pages.findIndex((p) => !p?.after) + 1
+  const { issues, totalCount, pages, pageNumber } = getNormalizedImageVersionIssues(data)
 
   // Save pages for pagination
   pagesRef.current = pages
@@ -97,7 +70,7 @@ export const useFetchServiceImageVersionIssues = ({
         fetchIssues({ serviceCcrn, imageVersion, cursor })
       }
     },
-    [serviceCcrn, imageVersion]
+    [serviceCcrn, imageVersion, pageNumber]
   )
 
   // Fetch issues whenever serviceCcrn or imageVersion changes
@@ -108,7 +81,7 @@ export const useFetchServiceImageVersionIssues = ({
   return {
     loading,
     currentPage: pageNumber,
-    issues,
+    issues: issues || [],
     totalNumberOfPages: pages.length || 0,
     totalCount,
     goToPage,

@@ -13,13 +13,11 @@ type IssueTimestampProps = {
 
 export const IssueTimestamp = ({ targetDate }: IssueTimestampProps) => {
   const dateFormat = { ...DateTime.DATE_MED }
-  const timeFormat = { ...DateTime.TIME_24_WITH_SHORT_OFFSET }
   const targetDateTime = DateTime.fromISO(targetDate)
 
   return (
     <Stack direction="vertical" gap="1">
       <div>{targetDateTime.toLocaleString(dateFormat)}</div>
-      <div>{targetDateTime.toLocaleString(timeFormat)}</div>
     </Stack>
   )
 }

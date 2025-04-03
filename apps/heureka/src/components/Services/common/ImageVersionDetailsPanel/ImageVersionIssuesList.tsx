@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Stack, Icon } from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, Container, Icon } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useFetchServiceImageVersionIssues } from "../../useFetchServiceImageVersionIssues"
 import { ImageVersionIssueListItem } from "./ImageVersionIssueListItem"
@@ -35,7 +35,7 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
     }
   }, [error])
   return (
-    <Stack gap="4" direction="vertical">
+    <Container py px={false}>
       <DataGrid columns={4} minContentColumns={[0, 1, 2]}>
         <DataGridRow>
           <DataGridHeadCell>
@@ -54,6 +54,6 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
           !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
         )}
       </DataGrid>
-    </Stack>
+    </Container>
   )
 }

@@ -5,36 +5,28 @@
 
 import React from "react"
 import { Icon } from "@cloudoperators/juno-ui-components"
+import { getSeverityColor } from "../../Services/utils"
 
 type IssueIconProps = {
   severity: string
 }
 
-export const IssueIcon = ({ severity }: IssueIconProps) => {
-  const iconColor = () => {
-    switch (severity.toLowerCase()) {
-      case "critical":
-        return "text-theme-danger"
-      case "high":
-        return "text-theme-warning"
-      case "medium":
-        return "text-theme-info"
-      default:
-        return "text-theme-default"
-    }
-  }
+const getIconForSeverity = (severity: string) => {
+  const severityLower = severity.toLowerCase()
+  const iconColor = getSeverityColor(severity)
 
-  return (
-    <>
-      {severity.toLowerCase() === "critical" ? (
-        <Icon icon="danger" color={iconColor()} />
-      ) : severity.toLowerCase() === "high" ? (
-        <Icon icon="warning" color={iconColor()} />
-      ) : severity.toLowerCase() === "medium" ? (
-        <Icon icon="info" color={iconColor()} />
-      ) : (
-        <Icon icon="errorOutline" color={iconColor()} />
-      )}
-    </>
-  )
+  if (severityLower === "critical") {
+    return <Icon icon="danger" color={iconColor} />
+  }
+  if (severityLower === "high") {
+    return <Icon icon="warning" color={iconColor} />
+  }
+  if (severityLower === "medium") {
+    return <Icon icon="info" color={iconColor} />
+  }
+  return <Icon icon="errorOutline" color={iconColor} />
+}
+
+export const IssueIcon: React.FC<IssueIconProps> = ({ severity }) => {
+  return getIconForSeverity(severity)
 }

@@ -8,14 +8,7 @@ import { DataGridRow, DataGridCell, Badge, Stack } from "@cloudoperators/juno-ui
 import { Icon } from "@cloudoperators/juno-ui-components"
 import { IssueIcon } from "../../../common/IssueIcon/IssueIcon"
 import { IssueTimestamp } from "../../../common/IssueTimestamp/IssueTimestamp"
-
-type Issue = {
-  severity: string
-  name: string
-  earliestTargetRemediation: string
-  description: string
-  sourceLink: string
-}
+import { Issue } from "../../utils"
 
 const cellSeverityClasses = (severity: string) => {
   let borderColor = "border-text-theme-default"
