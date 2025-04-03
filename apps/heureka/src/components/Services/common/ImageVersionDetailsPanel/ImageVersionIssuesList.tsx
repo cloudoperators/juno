@@ -36,7 +36,7 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
   }, [error])
   return (
     <Container py px={false}>
-      <DataGrid columns={4} minContentColumns={[0, 1, 2]}>
+      <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
         <DataGridRow>
           <DataGridHeadCell>
             <Icon icon="monitorHeart" />
