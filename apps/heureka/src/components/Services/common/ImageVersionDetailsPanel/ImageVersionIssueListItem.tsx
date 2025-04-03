@@ -55,12 +55,14 @@ export const ImageVersionIssueListItem = ({ issue }: ImageVersionIssueListItemPr
       <DataGridCell className="whitespace-nowrap">
         <Stack gap="2" direction="vertical">
           <span>{issue.name}</span>
-          <a href={issue.sourceLink} target="_blank" rel="noopener noreferrer" className="link-hover">
-            <Stack gap="1.5" alignment="center">
-              <Icon icon="openInNew" size="16" />
-              <span>Issue source</span>
-            </Stack>
-          </a>
+          {issue.sourceLink && issue.sourceLink !== "-" && (
+            <a href={issue.sourceLink} target="_blank" rel="noopener noreferrer" className="link-hover">
+              <Stack gap="1.5" alignment="center">
+                <Icon icon="openInNew" size="16" />
+                <span>Issue source</span>
+              </Stack>
+            </a>
+          )}
         </Stack>
       </DataGridCell>
       <DataGridCell className="whitespace-nowrap">
