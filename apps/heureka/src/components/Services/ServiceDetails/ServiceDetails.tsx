@@ -33,7 +33,7 @@ export const ServiceDetails = () => {
   return (
     <MessagesProvider>
       <Breadcrumb />
-      <Messages />
+      <Messages className="mb-4"/>
 
       {/* Service Information Section */}
       <Stack gap="6" direction="vertical" className="mb-6">
