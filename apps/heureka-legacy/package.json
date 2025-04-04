@@ -25,7 +25,6 @@
     "jsdom": "^25.0.1",
     "luxon": "^3.4.4",
     "postcss": "^8.4.47",
-    "prop-types": "^15.8.1",
     "react-test-renderer": "^18.2.0",
     "sass": "^1.77.5",
     "shadow-dom-testing-library": "^1.11.3",

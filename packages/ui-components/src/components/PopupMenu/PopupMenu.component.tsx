@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable react/prop-types */
-
 import React, { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react"
 import { Menu as HeadlessMenu } from "@headlessui/react"
 import { Float } from "@headlessui-float/react"
@@ -198,7 +196,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   onClose,
   onOpen,
   ...props
-}) => {
+}: PopupMenuProps) => {
   // Create a state to track headless-ui's internal open state (Note that we can track the internal state and can let headless ui update our tracking state, but we can not set it, hence there is no `open` prop on our component):
   const [isOpen, setIsOpen] = useState(false)
   const previousOpenRef = useRef(isOpen) // Track the previous value of isOpen for efficiency

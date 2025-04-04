@@ -4,9 +4,12 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 
-const DummyComponent = ({ label }) => {
+interface DummyComponentProps {
+  label: string
+}
+
+const DummyComponent = ({ label }: DummyComponentProps) => {
   return (
     <div
       className="
@@ -22,10 +25,6 @@ const DummyComponent = ({ label }) => {
       <div className="jn-m-auto">{label}</div>
     </div>
   )
-}
-
-DummyComponent.propTypes = {
-  label: PropTypes.string.isRequired,
 }
 
 export default DummyComponent
