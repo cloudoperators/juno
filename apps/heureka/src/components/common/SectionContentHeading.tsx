@@ -6,10 +6,6 @@
 import React from "react"
 import { ContentHeading } from "@cloudoperators/juno-ui-components"
 
-type IssueIconProps = {
-  severity: string
-}
-
 const SectionContentHeading = ({ children }: { children: React.ReactNode }) => {
   return <ContentHeading className="my-6">{children}</ContentHeading>
 }
