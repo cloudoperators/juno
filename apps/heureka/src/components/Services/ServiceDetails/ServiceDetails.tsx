@@ -24,6 +24,7 @@ import { SelectServiceDetailsPayload, UserView } from "../../../store/StoreProvi
 import { Breadcrumb } from "../../common/Breadcrumb"
 import { ServiceImageVersion } from "../utils"
 import { IssuesCountBadges } from "../../common/IssuesCountBadges"
+import SectionContentHeading from "../../common/SectionContentHeading"
 
 export const ServiceDetails = () => {
   const { selectedView } = useStore()
@@ -46,6 +47,8 @@ export const ServiceDetails = () => {
     <MessagesProvider>
       <Breadcrumb />
       <Messages />
+
+      <SectionContentHeading>Service {selectedService.name}</SectionContentHeading>
 
       {/* Service Information Section */}
       <DataGrid columns={2} gridColumnTemplate="10% auto" className="mb-6">
@@ -72,7 +75,7 @@ export const ServiceDetails = () => {
           </DataGridCell>
         </DataGridRow>
         <DataGridRow>
-          <DataGridHeadCell>Issues</DataGridHeadCell>
+          <DataGridHeadCell>Issues Counts</DataGridHeadCell>
           <DataGridCell>
             <IssuesCountBadges counts={selectedService.issuesCount} />
           </DataGridCell>

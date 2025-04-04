@@ -11,7 +11,7 @@ import {
   Button,
   Stack,
   Pagination,
-  ContentHeading,
+  DataGridToolbar,
 } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useFetchServiceImageVersions } from "../../useFetchServiceImageVersions"
@@ -20,6 +20,7 @@ import { ActionType, UserView } from "../../../../store/StoreProvider/types"
 import { ServiceType } from "../../Services"
 import ServiceImageVersionsItem from "./ServiceImageVersionsItem"
 import { ServiceImageVersion } from "../../utils"
+import SectionContentHeading from "../../../common/SectionContentHeading"
 
 type ServiceImageVersionsProps = {
   service: ServiceType
@@ -82,19 +83,17 @@ export const ServiceImageVersions = ({
   )
 
   return (
-    <Stack gap="4" direction="vertical" className="w-full">
-      <Stack distribution="between" alignment="center" className="w-full">
-        {showFullTable ? (
-          <>
-            <span>{totalCount} image versions in service</span>
-            <Button variant="primary" size="small" onClick={() => showServiceDetails({ service })}>
-              Full Details
-            </Button>
-          </>
-        ) : (
-          <ContentHeading>Service Image Versions ({totalCount})</ContentHeading>
-        )}
-      </Stack>
+    <>
+      <SectionContentHeading>Image Versions ({totalCount})</SectionContentHeading>
+
+      {showFullTable && (
+        <DataGridToolbar>
+          <Button size="small" onClick={() => showServiceDetails({ service })} className="whitespace-nowrap">
+            Full Details
+          </Button>
+        </DataGridToolbar>
+      )}
+
       <div className="datagrid-hover">
         <DataGrid columns={COLUMN_COUNT}>
           <DataGridRow>
@@ -147,6 +146,6 @@ export const ServiceImageVersions = ({
           />
         </Stack>
       )}
-    </Stack>
+    </>
   )
 }

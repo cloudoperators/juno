@@ -6,7 +6,6 @@
 import React from "react"
 import { Icon, KnownIcons } from "@cloudoperators/juno-ui-components"
 import { getSeverityColor } from "../../Services/utils"
-import { NONAME } from "dns"
 
 type IssueIconProps = {
   severity: string

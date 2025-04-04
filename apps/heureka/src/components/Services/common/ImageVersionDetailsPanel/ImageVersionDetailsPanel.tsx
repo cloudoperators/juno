@@ -14,13 +14,13 @@ import {
   DataGridHeadCell,
   DataGridCell,
   Container,
-  ContentHeading,
 } from "@cloudoperators/juno-ui-components"
 import { ServiceImageVersion } from "../../utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssuesCountBadges } from "../../../common/IssuesCountBadges"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
+import SectionContentHeading from "../../../common/SectionContentHeading"
 
 type ImageVersionDetailsPanelProps = {
   imageVersion: ServiceImageVersion
@@ -63,7 +63,7 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
               </DataGridCell>
             </DataGridRow>
             <DataGridRow>
-              <DataGridHeadCell>Issues</DataGridHeadCell>
+              <DataGridHeadCell>Issues Counts</DataGridHeadCell>
               <DataGridCell>
                 <IssuesCountBadges counts={imageVersion.issueCounts} />
               </DataGridCell>
@@ -77,12 +77,8 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
           </DataGrid>
 
           {/* Second Section: Issues List */}
-          <Stack gap="4" direction="vertical">
-            <Container py px={false}>
-              <ContentHeading>Issues</ContentHeading>
-              <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
-            </Container>
-          </Stack>
+          <SectionContentHeading>Issues</SectionContentHeading>
+          <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
         </PanelBody>
       </Panel>
     </MessagesProvider>
