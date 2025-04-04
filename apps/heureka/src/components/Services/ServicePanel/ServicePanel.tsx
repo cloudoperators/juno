@@ -17,7 +17,7 @@ type ServicePanelProps = {
 export const ServicePanel = ({ service, onClose }: ServicePanelProps) => (
   <Panel heading={`${capitalizeFirstLetter(service.name)} Overview`} opened={true} onClose={onClose} size="large">
     <PanelBody>
-      <ServiceImageVersions service={service} showFullTable />
+      <ServiceImageVersions service={service} displayActions />
     </PanelBody>
   </Panel>
 )

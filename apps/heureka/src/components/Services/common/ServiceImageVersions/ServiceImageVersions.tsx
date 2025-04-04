@@ -24,17 +24,17 @@ import SectionContentHeading from "../../../common/SectionContentHeading"
 
 type ServiceImageVersionsProps = {
   service: ServiceType
-  showFullTable?: boolean
+  displayActions?: boolean
   selectedImageVersion?: ServiceImageVersion | null
   onVersionSelect?: (version: ServiceImageVersion) => void
 }
 
-const COLUMN_COUNT = 7
+const COLUMN_COUNT = 4
 
 export const ServiceImageVersions = ({
   service,
   selectedImageVersion,
-  showFullTable,
+  displayActions = false,
   onVersionSelect,
 }: ServiceImageVersionsProps) => {
   const dispatch = useDispatch()
@@ -44,6 +44,7 @@ export const ServiceImageVersions = ({
       serviceCcrn: serviceName || "",
       pageSize: 10,
     })
+  const gridColumnCount = displayActions ? COLUMN_COUNT : COLUMN_COUNT - 1
 
   const selectImageVersion = useCallback(
     ({ service, imageVersion }: { service: ServiceType; imageVersion: ServiceImageVersion }) => {
@@ -86,7 +87,7 @@ export const ServiceImageVersions = ({
     <>
       <SectionContentHeading>Image Versions ({totalCount})</SectionContentHeading>
 
-      {showFullTable && (
+      {displayActions && (
         <DataGridToolbar>
           <Button size="small" onClick={() => showServiceDetails({ service })} className="whitespace-nowrap">
             Full Details
@@ -95,27 +96,24 @@ export const ServiceImageVersions = ({
       )}
 
       <div className="datagrid-hover">
-        <DataGrid columns={COLUMN_COUNT}>
+        <DataGrid columns={gridColumnCount}>
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Tag</DataGridHeadCell>
-            <DataGridHeadCell>Critical</DataGridHeadCell>
-            <DataGridHeadCell>High</DataGridHeadCell>
-            <DataGridHeadCell>Medium</DataGridHeadCell>
-            <DataGridHeadCell>Low</DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
+            <DataGridHeadCell>Issue Counts</DataGridHeadCell>
+            {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
           {loading ? (
-            <EmptyDataGridRow colSpan={COLUMN_COUNT}>Loading...</EmptyDataGridRow>
+            <EmptyDataGridRow colSpan={gridColumnCount}>Loading...</EmptyDataGridRow>
           ) : imageVersions?.length === 0 && !error ? (
-            <EmptyDataGridRow colSpan={COLUMN_COUNT}>No image versions available.</EmptyDataGridRow>
+            <EmptyDataGridRow colSpan={gridColumnCount}>No image versions available.</EmptyDataGridRow>
           ) : (
             imageVersions.map((imageVersion, index) => (
               <ServiceImageVersionsItem
                 key={index}
                 version={imageVersion}
                 selected={selectedImageVersion?.version === imageVersion.version}
-                displayDetailsButton={showFullTable || false}
+                displayDetailsButton={displayActions}
                 onItemClick={() => {
                   onVersionSelect?.(imageVersion)
                   selectImageVersion({

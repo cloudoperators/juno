@@ -85,7 +85,7 @@ export const ServiceDetails = () => {
       {/* Image Versions Section */}
       <ServiceImageVersions
         service={selectedService}
-        showFullTable={false}
+        displayActions={false}
         selectedImageVersion={selectedImageVersion}
         onVersionSelect={(version) => {
           setSelectedImageVersion(version)
