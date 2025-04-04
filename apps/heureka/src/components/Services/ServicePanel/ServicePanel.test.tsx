@@ -51,10 +51,7 @@ describe("ServicePanel", () => {
     // Check if table headers are rendered
     expect(await screen.findByText("Image Repository")).toBeInTheDocument()
     expect(await screen.findByText("Tag")).toBeInTheDocument()
-    expect(await screen.findByText("Critical")).toBeInTheDocument()
-    expect(await screen.findByText("High")).toBeInTheDocument()
-    expect(await screen.findByText("Medium")).toBeInTheDocument()
-    expect(await screen.findByText("Low")).toBeInTheDocument()
+    expect(await screen.findByText("Issue Counts")).toBeInTheDocument()
   })
 
   // TODO: enable this test after having router
