@@ -1671,6 +1671,7 @@ export type GetServiceImageVersionIssuesQuery = {
         __typename?: "ComponentVersion"
         issues?: {
           __typename?: "IssueConnection"
+          totalCount: number
           edges: Array<{
             __typename?: "IssueEdge"
             node: {
@@ -1710,6 +1711,7 @@ export type GetServiceImageVersionIssuesQuery = {
           } | null>
           pageInfo?: {
             __typename?: "PageInfo"
+            pageNumber?: number | null
             pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
           } | null
         } | null
@@ -1961,7 +1963,9 @@ export const GetServiceImageVersionIssuesDocument = gql`
                 }
               }
             }
+            totalCount
             pageInfo {
+              pageNumber
               pages {
                 after
                 pageNumber

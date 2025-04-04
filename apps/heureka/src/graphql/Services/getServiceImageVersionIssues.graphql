@@ -48,7 +48,9 @@ query GetServiceImageVersionIssues($componentVersionFilter: ComponentVersionFilt
               }
             }
           }
+          totalCount
           pageInfo {
+            pageNumber
             pages {
               after
               pageNumber

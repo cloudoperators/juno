@@ -91,7 +91,7 @@ export const useFetchServiceImageVersionIssues = ({
     issues: issues || [],
     totalNumberOfPages: pages.length || 0,
     totalCount,
-    goToPage,
+    goToPage: goToPage,
     error: getNormalizedError(error),
   }
 }

@@ -4,7 +4,15 @@
  */
 
 import React, { useEffect } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Container, Icon } from "@cloudoperators/juno-ui-components"
+import {
+  DataGrid,
+  DataGridRow,
+  DataGridHeadCell,
+  Container,
+  Icon,
+  Stack,
+  Pagination,
+} from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useFetchServiceImageVersionIssues } from "../../useFetchServiceImageVersionIssues"
 import { ImageVersionIssueListItem } from "./ImageVersionIssueListItem"
@@ -21,6 +29,10 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
     issues,
     loading: isLoading,
     error,
+    currentPage,
+    totalNumberOfPages,
+    totalCount,
+    goToPage,
   } = useFetchServiceImageVersionIssues({
     serviceCcrn,
     imageVersion,
@@ -34,6 +46,7 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
       })
     }
   }, [error])
+
   return (
     <Container py px={false}>
       <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
@@ -54,6 +67,17 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
           !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
         )}
       </DataGrid>
+      {totalNumberOfPages > 1 && totalCount > 20 && (
+        <Stack distribution="end" className="mt-4">
+          <Pagination
+            variant="number"
+            currentPage={currentPage}
+            onPressNext={goToPage}
+            onPressPrevious={goToPage}
+            pages={totalNumberOfPages}
+          />
+        </Stack>
+      )}
     </Container>
   )
 }

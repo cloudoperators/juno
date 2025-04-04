@@ -233,9 +233,10 @@ export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersi
       }
     })
 
-  const totalCount = data?.ComponentVersions?.totalCount || 0
-  const pages = (data?.ComponentVersions?.pageInfo?.pages || []).filter((p: Page | null): p is Page => p !== null)
-  const pageNumber = pages.findIndex((p: Page) => !p?.after) + 1
+  const totalCount = data?.ComponentVersions?.edges?.[0]?.node?.issues?.totalCount || 0
+  const pages =
+    data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pages?.filter((edge: any) => edge !== null) || []
+  const pageNumber = data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pageNumber || 1
 
   return {
     issues,

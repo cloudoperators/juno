@@ -12,7 +12,7 @@ import {
   OrderDirection,
   useGetServiceImageVersionsLazyQuery,
 } from "../../generated/graphql"
-import { getNormalizedImageVersionsData } from "./utils"
+import { getNormalizedImageVersionsData, getNormalizedError } from "./utils"
 
 type UseFetchServiceImageVersionsProps = {
   serviceCcrn: string
@@ -84,6 +84,6 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 20 }: Use
     totalNumberOfPages: pages.length || 0,
     totalCount,
     goToPage: goToPage,
-    error: error?.message,
+    error: getNormalizedError(error),
   }
 }
