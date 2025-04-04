@@ -50,12 +50,6 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />
     </DataGridCell>
-    <DataGridCell>{item.components}</DataGridCell>
-    <DataGridCell>
-      {item.serviceOwners.map((owner) => (
-        <div key={owner}>{owner}</div>
-      ))}
-    </DataGridCell>
     <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
       <Button label="Show Details" onClick={onServiceDetailClick} size="small" className="whitespace-nowrap" />
     </DataGridCell>

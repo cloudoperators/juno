@@ -12,12 +12,11 @@ import {
   Service,
   ServiceEdge,
   ServiceFilter,
-  IssueMatchConnection,
   GetServiceImageVersionsQuery,
 } from "../../generated/graphql"
 import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
-import { IssuesCountsType } from "./useFetchServicesCounts"
+import { IssuesCountsType } from "./useFetchServicesIssuesCounts"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -40,14 +39,6 @@ type NormalizedServices = {
   services: ServiceType[]
 }
 
-type ExtendedService = Service & {
-  critical?: IssueMatchConnection
-  high?: IssueMatchConnection
-  medium?: IssueMatchConnection
-  low?: IssueMatchConnection
-  none?: IssueMatchConnection
-}
-
 export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => {
   return {
     pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
@@ -57,7 +48,7 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
       : data?.Services?.edges
           ?.filter((edge) => edge !== null)
           .map((edge?: Edge): ServiceType => {
-            const node: ExtendedService | undefined = edge?.node
+            const node: Service | undefined = edge?.node
             const service: ServiceType = {
               id: node?.id?.toString() || "",
               name: node?.ccrn || "",
@@ -67,11 +58,11 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
               components: node?.objectMetadata?.componentInstanceCount || 0,
               serviceOwners: getServiceOwners(edge),
               issuesCount: {
-                critical: node?.critical?.totalCount || 0,
-                high: node?.high?.totalCount || 0,
-                medium: node?.medium?.totalCount || 0,
-                low: node?.low?.totalCount || 0,
-                none: node?.none?.totalCount || 0,
+                critical: node?.issueCounts?.critical || 0,
+                high: node?.issueCounts?.high || 0,
+                medium: node?.issueCounts?.medium || 0,
+                low: node?.issueCounts?.low || 0,
+                none: node?.issueCounts?.none || 0,
               },
               remediationDate: "2023-01-01", //TODO: remove mock data when available
             }

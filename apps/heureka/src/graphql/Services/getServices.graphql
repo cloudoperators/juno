@@ -6,11 +6,6 @@ query GetServices(
   $first: Int
   $after: String
   $orderBy: [ServiceOrderBy]
-  $crit: IssueMatchFilter
-  $high: IssueMatchFilter
-  $med: IssueMatchFilter
-  $low: IssueMatchFilter
-  $none: IssueMatchFilter
 ) {
   Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
     edges {
@@ -38,20 +33,12 @@ query GetServices(
             }
           }
         }
-        critical: issueMatches(filter: $crit) {
-          totalCount
-        }
-        high: issueMatches(filter: $high) {
-          totalCount
-        }
-        medium: issueMatches(filter: $med) {
-          totalCount
-        }
-        low: issueMatches(filter: $low) {
-          totalCount
-        }
-        none: issueMatches(filter: $none) {
-          totalCount
+        issueCounts {
+          critical
+          high
+          medium
+          low
+          none
         }
       }
     }

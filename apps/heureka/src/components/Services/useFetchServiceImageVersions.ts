@@ -19,7 +19,7 @@ type UseFetchServiceImageVersionsProps = {
   pageSize?: number
 }
 
-export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: UseFetchServiceImageVersionsProps) => {
+export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 20 }: UseFetchServiceImageVersionsProps) => {
   const pagesRef = useRef<Page[]>()
   const [loadServiceImageVersions, { data, loading, error }] = useGetServiceImageVersionsLazyQuery()
   const { imageVersions, totalCount, pages, pageNumber } = getNormalizedImageVersionsData(data)

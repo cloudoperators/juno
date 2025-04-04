@@ -36,7 +36,7 @@ export const Shell = ({ embedded }: ShellProps) => {
     <AppShell
       embedded={embedded}
       pageHeader={<PageHeader heading="Heureka" />}
-      topNavigation={<Navigation activeItem={state.selectedView?.viewId} />}
+      // topNavigation={<Navigation activeItem={state.selectedView?.viewId} />}
     >
       <Container py px>
         <MessagesProvider>

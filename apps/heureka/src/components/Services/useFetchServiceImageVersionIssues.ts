@@ -22,7 +22,7 @@ type UseFetchServiceImageVersionIssuesProps = {
 export const useFetchServiceImageVersionIssues = ({
   serviceCcrn,
   imageVersion,
-  pageSize = 10,
+  pageSize = 20,
 }: UseFetchServiceImageVersionIssuesProps) => {
   const pagesRef = useRef<Page[]>()
   const [loadIssues, { data, loading, error }] = useGetServiceImageVersionIssuesLazyQuery()

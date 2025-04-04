@@ -11,7 +11,7 @@ import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import { useStore } from "../../store/StoreProvider"
-import { IssuesCountsType } from "./useFetchServicesCounts"
+import { IssuesCountsType } from "./useFetchServicesIssuesCounts"
 import IssuesCount from "./ServicesList/IssuesCount"
 
 export type ServiceType = {

@@ -478,6 +478,13 @@ export type FilterItem = {
   values?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>
 }
 
+export type FilterValueItem = {
+  __typename?: "FilterValueItem"
+  displayName?: Maybe<Scalars["String"]["output"]>
+  filterName?: Maybe<Scalars["String"]["output"]>
+  values?: Maybe<Array<Maybe<ValueItem>>>
+}
+
 export type Issue = Node & {
   __typename?: "Issue"
   activities?: Maybe<ActivityConnection>
@@ -544,6 +551,7 @@ export type IssueFilter = {
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
+  supportGroupCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
 export type IssueInput = {
@@ -1201,6 +1209,7 @@ export type Query = {
   ComponentVersions?: Maybe<ComponentVersionConnection>
   Components?: Maybe<ComponentConnection>
   Evidences?: Maybe<EvidenceConnection>
+  IssueCounts?: Maybe<SeverityCounts>
   IssueMatchChanges?: Maybe<IssueMatchChangeConnection>
   IssueMatchFilterValues?: Maybe<IssueMatchFilterValue>
   IssueMatches?: Maybe<IssueMatchConnection>
@@ -1245,6 +1254,10 @@ export type QueryEvidencesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<EvidenceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type QueryIssueCountsArgs = {
+  filter?: InputMaybe<IssueFilter>
 }
 
 export type QueryIssueMatchChangesArgs = {
@@ -1423,6 +1436,7 @@ export type ServiceFilterValue = {
   serviceCcrn?: Maybe<FilterItem>
   supportGroupCcrn?: Maybe<FilterItem>
   uniqueUserId?: Maybe<FilterItem>
+  user?: Maybe<FilterValueItem>
   userName?: Maybe<FilterItem>
 }
 
@@ -1435,6 +1449,10 @@ export type ServiceFilterValueSupportGroupCcrnArgs = {
 }
 
 export type ServiceFilterValueUniqueUserIdArgs = {
+  filter?: InputMaybe<UserFilter>
+}
+
+export type ServiceFilterValueUserArgs = {
   filter?: InputMaybe<UserFilter>
 }
 
@@ -1590,6 +1608,33 @@ export type UserInput = {
   uniqueUserId?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type ValueItem = {
+  __typename?: "ValueItem"
+  display?: Maybe<Scalars["String"]["output"]>
+  value?: Maybe<Scalars["String"]["output"]>
+}
+
+export type GetServiceFiltersQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetServiceFiltersQuery = {
+  __typename?: "Query"
+  ServiceFilterValues?: {
+    __typename?: "ServiceFilterValue"
+    serviceCcrn?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+    supportGroupCcrn?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+  } | null
+}
+
 export type GetServiceImageVersionIssuesQueryVariables = Exact<{
   componentVersionFilter?: InputMaybe<ComponentVersionFilter>
   issueMatchFilter?: InputMaybe<IssueMatchFilter>
@@ -1724,11 +1769,6 @@ export type GetServicesQueryVariables = Exact<{
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
   orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>> | InputMaybe<ServiceOrderBy>>
-  crit?: InputMaybe<IssueMatchFilter>
-  high?: InputMaybe<IssueMatchFilter>
-  med?: InputMaybe<IssueMatchFilter>
-  low?: InputMaybe<IssueMatchFilter>
-  none?: InputMaybe<IssueMatchFilter>
 }>
 
 export type GetServicesQuery = {
@@ -1760,11 +1800,14 @@ export type GetServicesQuery = {
             node: { __typename?: "SupportGroup"; id: string; ccrn?: string | null }
           } | null> | null
         } | null
-        critical?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-        high?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-        medium?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-        low?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-        none?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
+        issueCounts?: {
+          __typename?: "SeverityCounts"
+          critical: number
+          high: number
+          medium: number
+          low: number
+          none: number
+        } | null
       }
     } | null> | null
     pageInfo?: {
@@ -1775,56 +1818,84 @@ export type GetServicesQuery = {
   } | null
 }
 
-export type GetServiceFiltersQueryVariables = Exact<{ [key: string]: never }>
+export type GetServicesIssuesCountsQueryVariables = Exact<{
+  filter?: InputMaybe<IssueFilter>
+}>
 
-export type GetServiceFiltersQuery = {
+export type GetServicesIssuesCountsQuery = {
   __typename?: "Query"
-  ServiceFilterValues?: {
-    __typename?: "ServiceFilterValue"
-    serviceCcrn?: {
-      __typename?: "FilterItem"
-      displayName?: string | null
-      filterName?: string | null
-      values?: Array<string | null> | null
-    } | null
-    supportGroupCcrn?: {
-      __typename?: "FilterItem"
-      displayName?: string | null
-      filterName?: string | null
-      values?: Array<string | null> | null
-    } | null
-    uniqueUserId?: {
-      __typename?: "FilterItem"
-      displayName?: string | null
-      filterName?: string | null
-      values?: Array<string | null> | null
-    } | null
-    userName?: {
-      __typename?: "FilterItem"
-      displayName?: string | null
-      filterName?: string | null
-      values?: Array<string | null> | null
-    } | null
+  IssueCounts?: {
+    __typename?: "SeverityCounts"
+    critical: number
+    high: number
+    medium: number
+    low: number
+    none: number
   } | null
 }
 
-export type GetServicesCountsQueryVariables = Exact<{
-  crit?: InputMaybe<IssueMatchFilter>
-  high?: InputMaybe<IssueMatchFilter>
-  med?: InputMaybe<IssueMatchFilter>
-  low?: InputMaybe<IssueMatchFilter>
-  none?: InputMaybe<IssueMatchFilter>
-}>
+export const GetServiceFiltersDocument = gql`
+  query GetServiceFilters {
+    ServiceFilterValues {
+      serviceCcrn {
+        displayName
+        filterName
+        values
+      }
+      supportGroupCcrn {
+        displayName
+        filterName
+        values
+      }
+    }
+  }
+`
 
-export type GetServicesCountsQuery = {
-  __typename?: "Query"
-  critical?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-  high?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-  medium?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-  low?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-  none?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
+/**
+ * __useGetServiceFiltersQuery__
+ *
+ * To run a query within a React component, call `useGetServiceFiltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServiceFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetServiceFiltersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetServiceFiltersQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>(GetServiceFiltersDocument, options)
 }
-
+export function useGetServiceFiltersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>(
+    GetServiceFiltersDocument,
+    options
+  )
+}
+export function useGetServiceFiltersSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>(
+    GetServiceFiltersDocument,
+    options
+  )
+}
+export type GetServiceFiltersQueryHookResult = ReturnType<typeof useGetServiceFiltersQuery>
+export type GetServiceFiltersLazyQueryHookResult = ReturnType<typeof useGetServiceFiltersLazyQuery>
+export type GetServiceFiltersSuspenseQueryHookResult = ReturnType<typeof useGetServiceFiltersSuspenseQuery>
+export type GetServiceFiltersQueryResult = Apollo.QueryResult<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
 export const GetServiceImageVersionIssuesDocument = gql`
   query GetServiceImageVersionIssues(
     $componentVersionFilter: ComponentVersionFilter
@@ -2068,17 +2139,7 @@ export type GetServiceImageVersionsQueryResult = Apollo.QueryResult<
   GetServiceImageVersionsQueryVariables
 >
 export const GetServicesDocument = gql`
-  query GetServices(
-    $filter: ServiceFilter
-    $first: Int
-    $after: String
-    $orderBy: [ServiceOrderBy]
-    $crit: IssueMatchFilter
-    $high: IssueMatchFilter
-    $med: IssueMatchFilter
-    $low: IssueMatchFilter
-    $none: IssueMatchFilter
-  ) {
+  query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
     Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
       edges {
         node {
@@ -2105,20 +2166,12 @@ export const GetServicesDocument = gql`
               }
             }
           }
-          critical: issueMatches(filter: $crit) {
-            totalCount
-          }
-          high: issueMatches(filter: $high) {
-            totalCount
-          }
-          medium: issueMatches(filter: $med) {
-            totalCount
-          }
-          low: issueMatches(filter: $low) {
-            totalCount
-          }
-          none: issueMatches(filter: $none) {
-            totalCount
+          issueCounts {
+            critical
+            high
+            medium
+            low
+            none
           }
         }
       }
@@ -2149,11 +2202,6 @@ export const GetServicesDocument = gql`
  *      first: // value for 'first'
  *      after: // value for 'after'
  *      orderBy: // value for 'orderBy'
- *      crit: // value for 'crit'
- *      high: // value for 'high'
- *      med: // value for 'med'
- *      low: // value for 'low'
- *      none: // value for 'none'
  *   },
  * });
  */
@@ -2179,151 +2227,67 @@ export type GetServicesQueryHookResult = ReturnType<typeof useGetServicesQuery>
 export type GetServicesLazyQueryHookResult = ReturnType<typeof useGetServicesLazyQuery>
 export type GetServicesSuspenseQueryHookResult = ReturnType<typeof useGetServicesSuspenseQuery>
 export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
-export const GetServiceFiltersDocument = gql`
-  query GetServiceFilters {
-    ServiceFilterValues {
-      serviceCcrn {
-        displayName
-        filterName
-        values
-      }
-      supportGroupCcrn {
-        displayName
-        filterName
-        values
-      }
-      uniqueUserId {
-        displayName
-        filterName
-        values
-      }
-      userName {
-        displayName
-        filterName
-        values
-      }
+export const GetServicesIssuesCountsDocument = gql`
+  query getServicesIssuesCounts($filter: IssueFilter) {
+    IssueCounts(filter: $filter) {
+      critical
+      high
+      medium
+      low
+      none
     }
   }
 `
 
 /**
- * __useGetServiceFiltersQuery__
+ * __useGetServicesIssuesCountsQuery__
  *
- * To run a query within a React component, call `useGetServiceFiltersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetServiceFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetServicesIssuesCountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServicesIssuesCountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetServiceFiltersQuery({
+ * const { data, loading, error } = useGetServicesIssuesCountsQuery({
  *   variables: {
+ *      filter: // value for 'filter'
  *   },
  * });
  */
-export function useGetServiceFiltersQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+export function useGetServicesIssuesCountsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>(GetServiceFiltersDocument, options)
-}
-export function useGetServiceFiltersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>(
-    GetServiceFiltersDocument,
+  return Apollo.useQuery<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>(
+    GetServicesIssuesCountsDocument,
     options
   )
 }
-export function useGetServiceFiltersSuspenseQuery(
+export function useGetServicesIssuesCountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>(
+    GetServicesIssuesCountsDocument,
+    options
+  )
+}
+export function useGetServicesIssuesCountsSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+    | Apollo.SuspenseQueryHookOptions<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>
 ) {
   const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>(
-    GetServiceFiltersDocument,
+  return Apollo.useSuspenseQuery<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>(
+    GetServicesIssuesCountsDocument,
     options
   )
 }
-export type GetServiceFiltersQueryHookResult = ReturnType<typeof useGetServiceFiltersQuery>
-export type GetServiceFiltersLazyQueryHookResult = ReturnType<typeof useGetServiceFiltersLazyQuery>
-export type GetServiceFiltersSuspenseQueryHookResult = ReturnType<typeof useGetServiceFiltersSuspenseQuery>
-export type GetServiceFiltersQueryResult = Apollo.QueryResult<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
-export const GetServicesCountsDocument = gql`
-  query GetServicesCounts(
-    $crit: IssueMatchFilter
-    $high: IssueMatchFilter
-    $med: IssueMatchFilter
-    $low: IssueMatchFilter
-    $none: IssueMatchFilter
-  ) {
-    critical: IssueMatches(filter: $crit) {
-      totalCount
-    }
-    high: IssueMatches(filter: $high) {
-      totalCount
-    }
-    medium: IssueMatches(filter: $med) {
-      totalCount
-    }
-    low: IssueMatches(filter: $low) {
-      totalCount
-    }
-    none: IssueMatches(filter: $none) {
-      totalCount
-    }
-  }
-`
-
-/**
- * __useGetServicesCountsQuery__
- *
- * To run a query within a React component, call `useGetServicesCountsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetServicesCountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetServicesCountsQuery({
- *   variables: {
- *      crit: // value for 'crit'
- *      high: // value for 'high'
- *      med: // value for 'med'
- *      low: // value for 'low'
- *      none: // value for 'none'
- *   },
- * });
- */
-export function useGetServicesCountsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetServicesCountsQuery, GetServicesCountsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetServicesCountsQuery, GetServicesCountsQueryVariables>(GetServicesCountsDocument, options)
-}
-export function useGetServicesCountsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetServicesCountsQuery, GetServicesCountsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetServicesCountsQuery, GetServicesCountsQueryVariables>(
-    GetServicesCountsDocument,
-    options
-  )
-}
-export function useGetServicesCountsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetServicesCountsQuery, GetServicesCountsQueryVariables>
-) {
-  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetServicesCountsQuery, GetServicesCountsQueryVariables>(
-    GetServicesCountsDocument,
-    options
-  )
-}
-export type GetServicesCountsQueryHookResult = ReturnType<typeof useGetServicesCountsQuery>
-export type GetServicesCountsLazyQueryHookResult = ReturnType<typeof useGetServicesCountsLazyQuery>
-export type GetServicesCountsSuspenseQueryHookResult = ReturnType<typeof useGetServicesCountsSuspenseQuery>
-export type GetServicesCountsQueryResult = Apollo.QueryResult<GetServicesCountsQuery, GetServicesCountsQueryVariables>
+export type GetServicesIssuesCountsQueryHookResult = ReturnType<typeof useGetServicesIssuesCountsQuery>
+export type GetServicesIssuesCountsLazyQueryHookResult = ReturnType<typeof useGetServicesIssuesCountsLazyQuery>
+export type GetServicesIssuesCountsSuspenseQueryHookResult = ReturnType<typeof useGetServicesIssuesCountsSuspenseQuery>
+export type GetServicesIssuesCountsQueryResult = Apollo.QueryResult<
+  GetServicesIssuesCountsQuery,
+  GetServicesIssuesCountsQueryVariables
+>

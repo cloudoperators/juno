@@ -4,9 +4,9 @@
  */
 
 import React, { useEffect } from "react"
-import { Spinner, Stack, Badge } from "@cloudoperators/juno-ui-components"
+import { Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import { FilterSettings } from "../../common/Filters/types"
-import { useFetchServicesCounts } from "../useFetchServicesCounts"
+import { useFetchServicesIssuesCounts } from "../useFetchServicesIssuesCounts"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { IssuesCountBadges } from "../../common/IssuesCountBadges"
 
@@ -17,7 +17,7 @@ type StatusBarProps = {
 const IssuesCount = ({ filterSettings }: StatusBarProps) => {
   const { addMessage } = useMessageActions()
 
-  const { counts, error, loading } = useFetchServicesCounts({
+  const { counts, error, loading } = useFetchServicesIssuesCounts({
     filterSettings,
   })
 
