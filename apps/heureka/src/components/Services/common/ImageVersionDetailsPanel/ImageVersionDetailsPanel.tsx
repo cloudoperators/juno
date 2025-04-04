@@ -8,15 +8,19 @@ import {
   Panel,
   PanelBody,
   Stack,
-  Badge,
   Pill,
-  Label,
-  ContentHeading,
+  DataGrid,
+  DataGridRow,
+  DataGridHeadCell,
+  DataGridCell,
   Container,
 } from "@cloudoperators/juno-ui-components"
-import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { ServiceImageVersion } from "../../utils"
+import ImageVersionOccurrences from "./ImageVersionOccurrences"
+import { IssuesCountBadges } from "../../../common/IssuesCountBadges"
+import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
+import SectionContentHeading from "../../../common/SectionContentHeading"
 
 type ImageVersionDetailsPanelProps = {
   imageVersion: ServiceImageVersion
@@ -25,21 +29,18 @@ type ImageVersionDetailsPanelProps = {
 }
 
 export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }: ImageVersionDetailsPanelProps) => {
-  const [showOccurrences, setShowOccurrences] = useState(false)
-
   return (
     <MessagesProvider>
       <Panel heading={`Image ${imageVersion.repository} Information`} opened={true} onClose={onClose} size="large">
-        <Container py px={false}>
-          <Messages />
-        </Container>
         <PanelBody>
-          <Stack gap="6" direction="vertical" className="w-full">
-            <Stack gap="4" direction="vertical">
-              {/* Component Details Row */}
-              <Stack gap="2" direction="horizontal">
-                <Label text="Image Details: " />
-                <Stack direction="horizontal" gap="2" wrap>
+          <Container py px={false}>
+            <Messages />
+          </Container>
+          <DataGrid columns={2} gridColumnTemplate="15% auto">
+            <DataGridRow>
+              <DataGridHeadCell>Details</DataGridHeadCell>
+              <DataGridCell>
+                <Stack gap="1" direction="horizontal" wrap>
                   <Pill
                     pillKey="tag"
                     pillKeyLabel="tag"
@@ -59,83 +60,25 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
                     pillValueLabel={imageVersion.version}
                   />
                 </Stack>
-              </Stack>
+              </DataGridCell>
+            </DataGridRow>
+            <DataGridRow>
+              <DataGridHeadCell>Issues Counts</DataGridHeadCell>
+              <DataGridCell>
+                <IssuesCountBadges counts={imageVersion.issueCounts} />
+              </DataGridCell>
+            </DataGridRow>
+            <DataGridRow>
+              <DataGridHeadCell className="whitespace-nowrap">{`Occurrences (${imageVersion.componetInstancesCount || 0})`}</DataGridHeadCell>
+              <DataGridCell>
+                <ImageVersionOccurrences imageVersion={imageVersion} />
+              </DataGridCell>
+            </DataGridRow>
+          </DataGrid>
 
-              {/* Issues Count Row */}
-              <Stack gap="2" direction="horizontal">
-                <Label text="Number of Issues: " />
-                <Stack direction="horizontal" gap="4" alignment="center">
-                  <Stack direction="horizontal" gap="2" alignment="center">
-                    {/* <span>Total:</span> */}
-                    <span>Critical:</span>
-                    <Badge
-                      icon="danger"
-                      text={`${imageVersion.issueCounts?.critical || 0}`}
-                      variant={imageVersion.issueCounts?.critical > 0 ? "danger" : "default"}
-                    />
-                  </Stack>
-                  <Stack direction="horizontal" gap="2" alignment="center">
-                    <span>High:</span>
-                    <Badge
-                      icon="warning"
-                      text={`${imageVersion.issueCounts?.high || 0}`}
-                      variant={imageVersion.issueCounts?.high > 0 ? "warning" : "default"}
-                    />
-                  </Stack>
-                  <Stack direction="horizontal" gap="2" alignment="center">
-                    <span>Low:</span>
-                    <span>{imageVersion.issueCounts?.low || 0}</span>
-                  </Stack>
-                </Stack>
-              </Stack>
-              {/* Occurrences Section */}
-              <Stack gap="2" direction="vertical">
-                <Stack gap="2" direction="horizontal" alignment="center">
-                  <Label text="Image Instances: " />
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setShowOccurrences(!showOccurrences)
-                    }}
-                    className="hover:underline text-sm"
-                  >
-                    {showOccurrences ? "Hide Occurrences" : "Show Occurrences"} (
-                    {imageVersion.componetInstancesCount || 0})
-                  </a>
-                </Stack>
-                {showOccurrences && (
-                  <Stack gap="4" direction="vertical" className="pl-4">
-                    {imageVersion.componentInstances && imageVersion.componentInstances.length > 0 ? (
-                      <Stack gap="2" direction="vertical">
-                        {imageVersion.componentInstances.map((componentInstance) => (
-                          <Stack
-                            key={`${componentInstance?.ccrn}-${componentInstance?.id}`}
-                            gap="2"
-                            direction="vertical"
-                          >
-                            <span>{componentInstance?.cluster || "-"}</span>
-                            <span>{componentInstance?.pod || "-"}</span>
-                            <span>{componentInstance?.container || "-"}</span>
-                          </Stack>
-                        ))}
-                      </Stack>
-                    ) : (
-                      <span className="text-theme-light">No image instances found</span>
-                    )}
-                  </Stack>
-                )}
-              </Stack>
-
-              {/* Second Section: Issues List */}
-              <Stack gap="4" direction="vertical">
-                <Container py px={false}>
-                  <ContentHeading>Issues</ContentHeading>
-                  <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
-                </Container>
-              </Stack>
-            </Stack>
-          </Stack>
+          {/* Second Section: Issues List */}
+          <SectionContentHeading>Issues</SectionContentHeading>
+          <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
         </PanelBody>
       </Panel>
     </MessagesProvider>

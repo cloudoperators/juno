@@ -6,7 +6,7 @@ query GetServiceImageVersions(
   $first: Int
   $after: String
   $orderBy: [ComponentVersionOrderBy]
-  $orderByCi:[ComponentInstanceOrderBy]
+  $orderByCi: [ComponentInstanceOrderBy]
   $filterCi: ComponentInstanceFilter
   $filterIc: IssueFilter
 ) {
@@ -26,7 +26,7 @@ query GetServiceImageVersions(
         component {
           ccrn
         }
-        componentInstances(filter:$filterCi, orderBy:$orderByCi) {
+        componentInstances(filter: $filterCi, orderBy: $orderByCi, first: 1000) {
           totalCount
           edges {
             node {

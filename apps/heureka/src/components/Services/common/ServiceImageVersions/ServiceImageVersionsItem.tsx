@@ -6,6 +6,7 @@
 import React from "react"
 import { ServiceImageVersion } from "../../utils"
 import { DataGridRow, DataGridCell, Button, Badge, Icon, Stack } from "@cloudoperators/juno-ui-components"
+import { IssuesCountBadges } from "../../../common/IssuesCountBadges"
 
 type ServiceImageVersionsItemProps = {
   version: ServiceImageVersion
@@ -48,20 +49,13 @@ const ServiceImageVersionsItem = ({
       </DataGridCell>
       <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
       <DataGridCell>
-        {version.issueCounts.critical ? (
-          <Badge icon text={version.issueCounts.critical.toString()} variant="danger" />
-        ) : (
-          "-"
-        )}
+        <IssuesCountBadges counts={version.issueCounts} />
       </DataGridCell>
-      <DataGridCell>
-        {version.issueCounts.high ? <Badge icon text={version.issueCounts.high.toString()} variant="warning" /> : "-"}
-      </DataGridCell>
-      <DataGridCell>{version.issueCounts.medium || "-"}</DataGridCell>
-      <DataGridCell>{version.issueCounts.low || "-"}</DataGridCell>
-      <DataGridCell>
-        {displayDetailsButton && <Button size="small" label="Show Details" onClick={onDetailClick} />}
-      </DataGridCell>
+      {displayDetailsButton && (
+        <DataGridCell>
+          <Button size="small" label="Show Details" onClick={onDetailClick} />
+        </DataGridCell>
+      )}
     </DataGridRow>
   )
 }

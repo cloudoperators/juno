@@ -2070,7 +2070,7 @@ export const GetServiceImageVersionsDocument = gql`
           component {
             ccrn
           }
-          componentInstances(filter: $filterCi, orderBy: $orderByCi) {
+          componentInstances(filter: $filterCi, orderBy: $orderByCi, first: 1000) {
             totalCount
             edges {
               node {
