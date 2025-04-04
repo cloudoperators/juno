@@ -7,17 +7,14 @@ import React, { useState, MouseEvent, useEffect } from "react"
 import { Box, Stack, Tooltip, TooltipTrigger, TooltipContent, Icon } from "@cloudoperators/juno-ui-components"
 import { ServiceImageVersion, ComponentInstance } from "../../utils"
 
-const MAX_VISIBLE_ITEMS = 20
-
 type ToolTipBoxType = {
   instance: ComponentInstance
 }
 
 const BoxWithTooltip = ({ instance }: ToolTipBoxType) => (
   <Box className="text-sm text-theme-light">
-    <div className="text-sm whitespace-nowrap overflow-hidden text-ellipsis">{instance?.pod || "--"}</div>
     <Stack>
-      <div className="text-sm whitespace-nowrap  w-full">{instance?.cluster || "--"}</div>
+      <div className="text-sm whitespace-nowrap overflow-hidden text-ellipsis w-full">{instance?.pod || "--"}</div>
       <Tooltip triggerEvent="hover">
         <TooltipTrigger>
           <Icon icon="info" size="18" className="cursor-pointer hover:text-theme-primary" />
@@ -35,6 +32,7 @@ const BoxWithTooltip = ({ instance }: ToolTipBoxType) => (
         </TooltipContent>
       </Tooltip>
     </Stack>
+    <div className="text-sm whitespace-nowrap">{instance?.cluster || "--"}</div>
   </Box>
 )
 
@@ -45,9 +43,7 @@ const BoxWithTooltip = ({ instance }: ToolTipBoxType) => (
  * @param maxInstances
  * @returns
  */
-const groupInstances = (instances: ComponentInstance[], maxInstances: number) => {
-  let instanceCount = 0
-  let maxPodLength = 0
+const groupInstances = (instances: ComponentInstance[]) => {
   const grouped: Record<string, Record<string, ComponentInstance[]>> = {} // Namespace -> Container -> Instances
 
   instances.forEach((instance) => {
@@ -57,14 +53,7 @@ const groupInstances = (instances: ComponentInstance[], maxInstances: number) =>
     if (!grouped[namespace]) grouped[namespace] = {}
     if (!grouped[namespace][container]) grouped[namespace][container] = []
 
-    if (instanceCount < maxInstances) {
-      grouped[namespace][container].push(instance)
-      instanceCount++
-    }
-
-    if (instance.pod) {
-      maxPodLength = Math.max(maxPodLength, instance.pod.length)
-    }
+    grouped[namespace][container].push(instance)
   })
 
   return grouped
@@ -75,24 +64,23 @@ type ImageVersionOccurrencesProps = {
 }
 
 const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps) => {
-  const [visibleInstancesCount, setVisibleInstancesCount] = useState(MAX_VISIBLE_ITEMS)
-  const grouped = groupInstances(imageVersion.componentInstances || [], visibleInstancesCount)
+  const [displayOccurrences, setDisplayOccurrences] = useState(false)
+  const grouped = groupInstances(imageVersion.componentInstances || [])
 
   useEffect(() => {
     // Reset state when myProp changes
-    setVisibleInstancesCount(MAX_VISIBLE_ITEMS) // or any other default value you want to reset to
+    setDisplayOccurrences(false)
   }, [imageVersion])
 
   const onShowMoreClicked = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
-    setVisibleInstancesCount((prev) =>
-      prev === MAX_VISIBLE_ITEMS ? imageVersion.componetInstancesCount : MAX_VISIBLE_ITEMS
-    )
+    setDisplayOccurrences(!displayOccurrences)
   }
 
   return (
-    <div>
-      {grouped &&
+    <>
+      {displayOccurrences &&
+        grouped &&
         Object.entries(grouped).map(([namespace, containers]) => (
           <>
             {Object.entries(containers).map(([container, instances]) => (
@@ -109,20 +97,16 @@ const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps)
             ))}
           </>
         ))}
-      {imageVersion.componetInstancesCount > MAX_VISIBLE_ITEMS && (
-        <div className="advance-link mt-4">
-          <a href="#" rel="noopener noreferrer" onClick={onShowMoreClicked}>
-            <Stack alignment="center">
-              {visibleInstancesCount === MAX_VISIBLE_ITEMS ? "Show more" : "Show less"}
-              <Icon
-                color="jn-global-text"
-                icon={visibleInstancesCount === MAX_VISIBLE_ITEMS ? "expandMore" : "expandLess"}
-              />
-            </Stack>
-          </a>
-        </div>
-      )}
-    </div>
+
+      <div className="advance-link">
+        <a href="#" rel="noopener noreferrer" onClick={onShowMoreClicked}>
+          <Stack alignment="center">
+            {displayOccurrences ? "Hide Occurrences" : "Display Occurrences"}
+            <Icon color="jn-global-text" icon={displayOccurrences ? "expandLess" : "expandMore"} />
+          </Stack>
+        </a>
+      </div>
+    </>
   )
 }
 
