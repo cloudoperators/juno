@@ -55,6 +55,9 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 20 }: Use
           filterCi: {
             serviceCcrn: [serviceCcrn],
           },
+          filterIc: {
+            serviceCcrn: [serviceCcrn],
+          },
         },
         fetchPolicy: "network-only",
       }),

@@ -10,6 +10,7 @@ import {
   IssueMatchOrderByField,
   OrderDirection,
   useGetServiceImageVersionIssuesLazyQuery,
+  IssueOrderByField,
 } from "../../generated/graphql"
 import { getNormalizedImageVersionIssues, getNormalizedError } from "./utils"
 
@@ -44,6 +45,12 @@ export const useFetchServiceImageVersionIssues = ({
           issueMatchFilter: {
             serviceCcrn: [serviceCcrn],
           },
+          orderByIssueSeverity: [
+            {
+              by: IssueOrderByField.Severity,
+              direction: OrderDirection.Desc,
+            },
+          ],
           orderBySeverity: [
             {
               by: IssueMatchOrderByField.Severity,

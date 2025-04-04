@@ -35,26 +35,6 @@ export const mockServices: Partial<GetServicesQueryResult> = {
               ],
               __typename: "SupportGroupConnection",
             },
-            critical: {
-              totalCount: 1,
-              __typename: "IssueMatchConnection",
-            },
-            high: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
-            },
-            medium: {
-              totalCount: 1,
-              __typename: "IssueMatchConnection",
-            },
-            low: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
-            },
-            none: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
-            },
             __typename: "Service",
           },
           __typename: "ServiceEdge",
@@ -85,26 +65,6 @@ export const mockServices: Partial<GetServicesQueryResult> = {
               ],
               __typename: "SupportGroupConnection",
             },
-            critical: {
-              totalCount: 2,
-              __typename: "IssueMatchConnection",
-            },
-            high: {
-              totalCount: 1,
-              __typename: "IssueMatchConnection",
-            },
-            medium: {
-              totalCount: 2,
-              __typename: "IssueMatchConnection",
-            },
-            low: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
-            },
-            none: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
-            },
             __typename: "Service",
           },
           __typename: "ServiceEdge",
@@ -134,26 +94,6 @@ export const mockServices: Partial<GetServicesQueryResult> = {
                 },
               ],
               __typename: "SupportGroupConnection",
-            },
-            critical: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
-            },
-            high: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
-            },
-            medium: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
-            },
-            low: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
-            },
-            none: {
-              totalCount: 0,
-              __typename: "IssueMatchConnection",
             },
             __typename: "Service",
           },

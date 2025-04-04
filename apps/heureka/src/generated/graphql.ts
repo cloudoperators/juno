@@ -49,6 +49,7 @@ export type ActivityIssuesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueOrderBy>>>
 }
 
 export type ActivityServicesArgs = {
@@ -361,7 +362,9 @@ export type ComponentVersionIssueCountsArgs = {
 
 export type ComponentVersionIssuesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<IssueFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueOrderBy>>>
 }
 
 export type ComponentVersionConnection = Connection & {
@@ -732,6 +735,16 @@ export type IssueMetadata = {
   earliestTargetRemediationDate: Scalars["DateTime"]["output"]
   issueMatchCount: Scalars["Int"]["output"]
   serviceCount: Scalars["Int"]["output"]
+}
+
+export type IssueOrderBy = {
+  by?: InputMaybe<IssueOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum IssueOrderByField {
+  PrimaryName = "primaryName",
+  Severity = "severity",
 }
 
 export type IssueRepository = Node & {
@@ -1289,6 +1302,7 @@ export type QueryIssuesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueOrderBy>>>
 }
 
 export type QueryScannerRunsArgs = {
@@ -1477,6 +1491,7 @@ export type ServiceOrderBy = {
 
 export enum ServiceOrderByField {
   Ccrn = "ccrn",
+  Severity = "severity",
 }
 
 export type Severity = {
@@ -1640,6 +1655,7 @@ export type GetServiceImageVersionIssuesQueryVariables = Exact<{
   issueMatchFilter?: InputMaybe<IssueMatchFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
+  orderByIssueSeverity?: InputMaybe<Array<InputMaybe<IssueOrderBy>> | InputMaybe<IssueOrderBy>>
   orderBySeverity?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>> | InputMaybe<IssueMatchOrderBy>>
   orderByTrd?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>> | InputMaybe<IssueMatchOrderBy>>
 }>
@@ -1692,13 +1708,13 @@ export type GetServiceImageVersionIssuesQuery = {
               } | null
             }
           } | null>
+          pageInfo?: {
+            __typename?: "PageInfo"
+            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+          } | null
         } | null
       }
     } | null>
-    pageInfo?: {
-      __typename?: "PageInfo"
-      pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
-    } | null
   } | null
 }
 
@@ -1709,6 +1725,7 @@ export type GetServiceImageVersionsQueryVariables = Exact<{
   orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>> | InputMaybe<ComponentVersionOrderBy>>
   orderByCi?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>> | InputMaybe<ComponentInstanceOrderBy>>
   filterCi?: InputMaybe<ComponentInstanceFilter>
+  filterIc?: InputMaybe<IssueFilter>
 }>
 
 export type GetServiceImageVersionsQuery = {
@@ -1902,13 +1919,14 @@ export const GetServiceImageVersionIssuesDocument = gql`
     $issueMatchFilter: IssueMatchFilter
     $first: Int
     $after: String
+    $orderByIssueSeverity: [IssueOrderBy]
     $orderBySeverity: [IssueMatchOrderBy]
     $orderByTrd: [IssueMatchOrderBy]
   ) {
     ComponentVersions(filter: $componentVersionFilter) {
       edges {
         node {
-          issues(first: $first, after: $after) {
+          issues(first: $first, after: $after, orderBy: $orderByIssueSeverity) {
             edges {
               node {
                 issueVariants(first: 1) {
@@ -1943,16 +1961,16 @@ export const GetServiceImageVersionIssuesDocument = gql`
                 }
               }
             }
+            pageInfo {
+              pages {
+                after
+                pageNumber
+              }
+            }
           }
         }
       }
       totalCount
-      pageInfo {
-        pages {
-          after
-          pageNumber
-        }
-      }
     }
   }
 `
@@ -1973,6 +1991,7 @@ export const GetServiceImageVersionIssuesDocument = gql`
  *      issueMatchFilter: // value for 'issueMatchFilter'
  *      first: // value for 'first'
  *      after: // value for 'after'
+ *      orderByIssueSeverity: // value for 'orderByIssueSeverity'
  *      orderBySeverity: // value for 'orderBySeverity'
  *      orderByTrd: // value for 'orderByTrd'
  *   },
@@ -2029,6 +2048,7 @@ export const GetServiceImageVersionsDocument = gql`
     $orderBy: [ComponentVersionOrderBy]
     $orderByCi: [ComponentInstanceOrderBy]
     $filterCi: ComponentInstanceFilter
+    $filterIc: IssueFilter
   ) {
     ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
       edges {
@@ -2036,7 +2056,7 @@ export const GetServiceImageVersionsDocument = gql`
           tag
           repository
           version
-          issueCounts {
+          issueCounts(filter: $filterIc) {
             critical
             high
             medium
@@ -2099,6 +2119,7 @@ export const GetServiceImageVersionsDocument = gql`
  *      orderBy: // value for 'orderBy'
  *      orderByCi: // value for 'orderByCi'
  *      filterCi: // value for 'filterCi'
+ *      filterIc: // value for 'filterIc'
  *   },
  * });
  */

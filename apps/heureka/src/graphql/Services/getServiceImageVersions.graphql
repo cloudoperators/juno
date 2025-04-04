@@ -8,6 +8,7 @@ query GetServiceImageVersions(
   $orderBy: [ComponentVersionOrderBy]
   $orderByCi:[ComponentInstanceOrderBy]
   $filterCi: ComponentInstanceFilter
+  $filterIc: IssueFilter
 ) {
   ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
     edges {
@@ -15,7 +16,7 @@ query GetServiceImageVersions(
         tag
         repository
         version
-        issueCounts {
+        issueCounts (filter:$filterIc) {
           critical
           high
           medium
@@ -39,12 +40,12 @@ query GetServiceImageVersions(
             }
           }
           pageInfo {
-      pageNumber
-      pages {
-        after
-        pageNumber
-      }
-    }
+            pageNumber
+            pages {
+              after
+              pageNumber  
+            }
+          }
         }
       }
     }

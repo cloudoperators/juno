@@ -23,8 +23,8 @@ export const useFetchServices = ({ filterSettings, pageSize = 20 }: UseFetchServ
       first: pageSize,
       orderBy: [
         {
-          by: ServiceOrderByField.Ccrn,
-          direction: OrderDirection.Asc,
+          by: ServiceOrderByField.Severity,
+          direction: OrderDirection.Desc,
         },
       ],
     },

@@ -14,7 +14,7 @@ import {
   KnownIcons,
   BadgeVariantType,
 } from "@cloudoperators/juno-ui-components"
-import { IssuesCountsWithTotalCountType, IssuesCountsType } from "../../Services/useFetchServicesIssueMatchesCounts"
+import { IssuesCountsWithTotalCountType, IssuesCountsType } from "../../Services/useFetchServicesIssuesCounts"
 
 type IssuesCountBadgesProps = {
   counts: IssuesCountsWithTotalCountType | IssuesCountsType
