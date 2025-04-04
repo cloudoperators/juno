@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.4
+
+### Patch Changes
+
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- cdba61c: Upgrade to vite 6.2
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [cdba61c]
+  - @cloudoperators/juno-ui-components@2.39.1
+
 ## 2.0.3
 
 ### Patch Changes

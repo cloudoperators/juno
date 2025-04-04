@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-doop
 
+## 2.3.6
+
+### Patch Changes
+
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- cdba61c: Upgrade to vite 6.2
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [cdba61c]
+  - @cloudoperators/juno-messages-provider@0.2.4
+  - @cloudoperators/juno-ui-components@2.39.1
+  - @cloudoperators/juno-communicator@2.2.19
+
 ## 2.3.5
 
 ### Patch Changes

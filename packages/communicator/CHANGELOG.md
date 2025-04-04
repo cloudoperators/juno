@@ -1,5 +1,11 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.19
+
+### Patch Changes
+
+- cdba61c: Upgrade to vite 6.2
+
 ## 2.2.18
 
 ### Patch Changes
