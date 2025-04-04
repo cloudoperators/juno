@@ -41,35 +41,35 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
 
   return (
     <>
-    <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
-      <DataGridRow>
-        <DataGridHeadCell>
-          <Icon icon="monitorHeart" />
-        </DataGridHeadCell>
-        <DataGridHeadCell>Issue</DataGridHeadCell>
-        <DataGridHeadCell>Target Date</DataGridHeadCell>
-        <DataGridHeadCell>Description</DataGridHeadCell>
-      </DataGridRow>
+      <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
+        <DataGridRow>
+          <DataGridHeadCell>
+            <Icon icon="monitorHeart" />
+          </DataGridHeadCell>
+          <DataGridHeadCell>Issue</DataGridHeadCell>
+          <DataGridHeadCell>Target Date</DataGridHeadCell>
+          <DataGridHeadCell>Description</DataGridHeadCell>
+        </DataGridRow>
 
-      {isLoading ? (
-        <EmptyDataGridRow colSpan={4}>Loading issues...</EmptyDataGridRow>
-      ) : issues.length === 0 ? (
-        <EmptyDataGridRow colSpan={4}>No issues found.</EmptyDataGridRow>
-      ) : (
-        !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
+        {isLoading ? (
+          <EmptyDataGridRow colSpan={4}>Loading issues...</EmptyDataGridRow>
+        ) : issues.length === 0 ? (
+          <EmptyDataGridRow colSpan={4}>No issues found.</EmptyDataGridRow>
+        ) : (
+          !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
+        )}
+      </DataGrid>
+      {totalNumberOfPages > 1 && totalCount > 20 && (
+        <Stack distribution="end" className="mt-4">
+          <Pagination
+            variant="number"
+            currentPage={currentPage}
+            onPressNext={goToPage}
+            onPressPrevious={goToPage}
+            pages={totalNumberOfPages}
+          />
+        </Stack>
       )}
-    </DataGrid>
-    {totalNumberOfPages > 1 && totalCount > 20 && (
-      <Stack distribution="end" className="mt-4">
-        <Pagination
-          variant="number"
-          currentPage={currentPage}
-          onPressNext={goToPage}
-          onPressPrevious={goToPage}
-          pages={totalNumberOfPages}
-        />
-      </Stack>
-    )}
     </>
   )
 }
