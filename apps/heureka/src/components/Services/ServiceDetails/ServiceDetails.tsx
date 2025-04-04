@@ -4,7 +4,18 @@
  */
 
 import React, { useState } from "react"
-import { ContentHeading, Stack, Badge, Pill, Label } from "@cloudoperators/juno-ui-components"
+import {
+  ContentHeading,
+  Stack,
+  Badge,
+  Pill,
+  Label,
+  DataGrid,
+  DataGridRow,
+  DataGridHeadCell,
+  DataGridCell,
+  Container,
+} from "@cloudoperators/juno-ui-components"
 import { ServiceImageVersions } from "../common/ServiceImageVersions"
 import { ImageVersionDetailsPanel } from "../common/ImageVersionDetailsPanel/ImageVersionDetailsPanel"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
@@ -12,6 +23,8 @@ import { useStore } from "../../../store/StoreProvider"
 import { SelectServiceDetailsPayload, UserView } from "../../../store/StoreProvider/types"
 import { Breadcrumb } from "../../common/Breadcrumb"
 import { ServiceImageVersion } from "../utils"
+import { IssuesCountBadges } from "../../common/IssuesCountBadges"
+import SectionContentHeading from "../../common/SectionContentHeading"
 
 export const ServiceDetails = () => {
   const { selectedView } = useStore()
@@ -35,14 +48,14 @@ export const ServiceDetails = () => {
       <Breadcrumb />
       <Messages />
 
+      <SectionContentHeading>Service {selectedService.name}</SectionContentHeading>
+
       {/* Service Information Section */}
-      <Stack gap="6" direction="vertical" className="mb-6">
-        <ContentHeading>Service {selectedService.name} Information</ContentHeading>
-        <Stack gap="4" direction="vertical">
-          {/* Service Details Row */}
-          <Stack gap="2" direction="horizontal">
-            <Label text="Service Details: " />
-            <Stack direction="horizontal" gap="2" wrap>
+      <DataGrid columns={2} gridColumnTemplate="10% auto" className="mb-6">
+        <DataGridRow>
+          <DataGridHeadCell>Details</DataGridHeadCell>
+          <DataGridCell>
+            <Stack gap="1" direction="horizontal" wrap>
               <Pill
                 pillKey="service"
                 pillKeyLabel="service"
@@ -59,61 +72,20 @@ export const ServiceDetails = () => {
                 />
               ))}
             </Stack>
-          </Stack>
-
-          {/* Issues Count Row */}
-          <Stack gap="2" direction="horizontal">
-            <Label text="Number of Issues: " />
-            <Stack direction="horizontal" gap="4" alignment="center">
-              <Stack direction="horizontal" gap="2" alignment="center">
-                <span>Critical:</span>
-                <Badge
-                  icon="danger"
-                  text={`${selectedService.issuesCount.critical}`}
-                  variant={selectedService.issuesCount.critical > 0 ? "danger" : "default"}
-                />
-              </Stack>
-              <Stack direction="horizontal" gap="2" alignment="center">
-                <span>High:</span>
-                <Badge
-                  icon="warning"
-                  text={`${selectedService.issuesCount.high}`}
-                  variant={selectedService.issuesCount.high > 0 ? "warning" : "default"}
-                />
-              </Stack>
-              <Stack direction="horizontal" gap="2" alignment="center">
-                <span>Medium:</span>
-                <span>{selectedService.issuesCount?.medium || 0}</span>
-              </Stack>
-              <Stack direction="horizontal" gap="2" alignment="center">
-                <span>Low:</span>
-                <span>{selectedService.issuesCount?.low || 0}</span>
-              </Stack>
-              <Stack direction="horizontal" gap="2" alignment="center">
-                <span>None:</span>
-                <span>{selectedService.issuesCount?.none || 0}</span>
-              </Stack>
-            </Stack>
-          </Stack>
-
-          {/* Owner Row */}
-          <Stack gap="2" direction="horizontal">
-            <Label text="Owner: " />
-            <Stack direction="horizontal" gap="2">
-              {selectedService.serviceOwners?.map((owner) => (
-                <Pill key={owner} pillValue={owner}>
-                  {owner}
-                </Pill>
-              ))}
-            </Stack>
-          </Stack>
-        </Stack>
-      </Stack>
+          </DataGridCell>
+        </DataGridRow>
+        <DataGridRow>
+          <DataGridHeadCell>Issues Counts</DataGridHeadCell>
+          <DataGridCell>
+            <IssuesCountBadges counts={selectedService.issuesCount} />
+          </DataGridCell>
+        </DataGridRow>
+      </DataGrid>
 
       {/* Image Versions Section */}
       <ServiceImageVersions
         service={selectedService}
-        showFullTable={false}
+        displayActions={false}
         selectedImageVersion={selectedImageVersion}
         onVersionSelect={(version) => {
           setSelectedImageVersion(version)

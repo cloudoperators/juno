@@ -11,7 +11,7 @@ import {
   Button,
   Stack,
   Pagination,
-  ContentHeading,
+  DataGridToolbar,
 } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useFetchServiceImageVersions } from "../../useFetchServiceImageVersions"
@@ -20,20 +20,21 @@ import { ActionType, UserView } from "../../../../store/StoreProvider/types"
 import { ServiceType } from "../../Services"
 import ServiceImageVersionsItem from "./ServiceImageVersionsItem"
 import { ServiceImageVersion } from "../../utils"
+import SectionContentHeading from "../../../common/SectionContentHeading"
 
 type ServiceImageVersionsProps = {
   service: ServiceType
-  showFullTable?: boolean
+  displayActions?: boolean
   selectedImageVersion?: ServiceImageVersion | null
   onVersionSelect?: (version: ServiceImageVersion) => void
 }
 
-const COLUMN_COUNT = 7
+const COLUMN_COUNT = 4
 
 export const ServiceImageVersions = ({
   service,
   selectedImageVersion,
-  showFullTable,
+  displayActions = false,
   onVersionSelect,
 }: ServiceImageVersionsProps) => {
   const dispatch = useDispatch()
@@ -43,6 +44,7 @@ export const ServiceImageVersions = ({
       serviceCcrn: serviceName || "",
       pageSize: 10,
     })
+  const gridColumnCount = displayActions ? COLUMN_COUNT : COLUMN_COUNT - 1
 
   const selectImageVersion = useCallback(
     ({ service, imageVersion }: { service: ServiceType; imageVersion: ServiceImageVersion }) => {
@@ -82,41 +84,36 @@ export const ServiceImageVersions = ({
   )
 
   return (
-    <Stack gap="4" direction="vertical" className="w-full">
-      <Stack distribution="between" alignment="center" className="w-full">
-        {showFullTable ? (
-          <>
-            <span>{totalCount} image versions in service</span>
-            <Button variant="primary" size="small" onClick={() => showServiceDetails({ service })}>
-              Full Details
-            </Button>
-          </>
-        ) : (
-          <ContentHeading>Service Image Versions ({totalCount})</ContentHeading>
-        )}
-      </Stack>
+    <>
+      <SectionContentHeading>Image Versions ({totalCount})</SectionContentHeading>
+
+      {displayActions && (
+        <DataGridToolbar>
+          <Button size="small" onClick={() => showServiceDetails({ service })} className="whitespace-nowrap">
+            Full Details
+          </Button>
+        </DataGridToolbar>
+      )}
+
       <div className="datagrid-hover">
-        <DataGrid columns={COLUMN_COUNT}>
+        <DataGrid columns={gridColumnCount}>
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Tag</DataGridHeadCell>
-            <DataGridHeadCell>Critical</DataGridHeadCell>
-            <DataGridHeadCell>High</DataGridHeadCell>
-            <DataGridHeadCell>Medium</DataGridHeadCell>
-            <DataGridHeadCell>Low</DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
+            <DataGridHeadCell>Issue Counts</DataGridHeadCell>
+            {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
           {loading ? (
-            <EmptyDataGridRow colSpan={COLUMN_COUNT}>Loading...</EmptyDataGridRow>
+            <EmptyDataGridRow colSpan={gridColumnCount}>Loading...</EmptyDataGridRow>
           ) : imageVersions?.length === 0 && !error ? (
-            <EmptyDataGridRow colSpan={COLUMN_COUNT}>No image versions available.</EmptyDataGridRow>
+            <EmptyDataGridRow colSpan={gridColumnCount}>No image versions available.</EmptyDataGridRow>
           ) : (
             imageVersions.map((imageVersion, index) => (
               <ServiceImageVersionsItem
                 key={index}
                 version={imageVersion}
                 selected={selectedImageVersion?.version === imageVersion.version}
-                displayDetailsButton={showFullTable || false}
+                displayDetailsButton={displayActions}
                 onItemClick={() => {
                   onVersionSelect?.(imageVersion)
                   selectImageVersion({
@@ -147,6 +144,6 @@ export const ServiceImageVersions = ({
           />
         </Stack>
       )}
-    </Stack>
+    </>
   )
 }

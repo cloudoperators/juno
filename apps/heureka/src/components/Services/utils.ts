@@ -137,7 +137,7 @@ export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceF
     }, {}),
 })
 
-type ComponentInstance = {
+export type ComponentInstance = {
   id: string
   ccrn?: string | ""
   region?: string | ""

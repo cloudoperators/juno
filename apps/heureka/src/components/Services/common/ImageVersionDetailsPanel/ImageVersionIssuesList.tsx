@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Container, Icon } from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, Icon } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useFetchServiceImageVersionIssues } from "../../useFetchServiceImageVersionIssues"
 import { ImageVersionIssueListItem } from "./ImageVersionIssueListItem"
@@ -35,25 +35,23 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
     }
   }, [error])
   return (
-    <Container py px={false}>
-      <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
-        <DataGridRow>
-          <DataGridHeadCell>
-            <Icon icon="monitorHeart" />
-          </DataGridHeadCell>
-          <DataGridHeadCell>Issue</DataGridHeadCell>
-          <DataGridHeadCell>Target Date</DataGridHeadCell>
-          <DataGridHeadCell>Description</DataGridHeadCell>
-        </DataGridRow>
+    <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
+      <DataGridRow>
+        <DataGridHeadCell>
+          <Icon icon="monitorHeart" />
+        </DataGridHeadCell>
+        <DataGridHeadCell>Issue</DataGridHeadCell>
+        <DataGridHeadCell>Target Date</DataGridHeadCell>
+        <DataGridHeadCell>Description</DataGridHeadCell>
+      </DataGridRow>
 
-        {isLoading ? (
-          <EmptyDataGridRow colSpan={4}>Loading issues...</EmptyDataGridRow>
-        ) : issues.length === 0 ? (
-          <EmptyDataGridRow colSpan={4}>No issues found.</EmptyDataGridRow>
-        ) : (
-          !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
-        )}
-      </DataGrid>
-    </Container>
+      {isLoading ? (
+        <EmptyDataGridRow colSpan={4}>Loading issues...</EmptyDataGridRow>
+      ) : issues.length === 0 ? (
+        <EmptyDataGridRow colSpan={4}>No issues found.</EmptyDataGridRow>
+      ) : (
+        !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
+      )}
+    </DataGrid>
   )
 }
