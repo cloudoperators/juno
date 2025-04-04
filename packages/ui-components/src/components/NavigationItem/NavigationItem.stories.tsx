@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { NavigationItem, NavigationItemProps } from "./index"
 import { Navigation } from "../Navigation/index"
 
@@ -18,9 +17,6 @@ export default {
 }
 
 const Template = ({ children, ...args }: NavigationItemProps) => <NavigationItem {...args}>{children}</NavigationItem>
-Template.propTypes = {
-  children: PropTypes.node,
-}
 
 export const DefaultWithChildren = {
   render: Template,

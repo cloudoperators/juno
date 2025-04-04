@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
 import { DocsContainer as BaseContainer } from "@storybook/addon-docs"
 import { JUNO_THEME_CHANGE } from "./constants"
 import { getCurrentTheme } from "./themes"
@@ -19,6 +18,7 @@ function Container(props) {
 
     // get channel from context and listen to our custom event
     // the event is emitted from the theme toggle tool
+    // eslint-disable-next-line react/prop-types
     const channel = props.context?.channel
     if (channel) {
       channel.on(JUNO_THEME_CHANGE, updateDocsTheme)
@@ -30,10 +30,6 @@ function Container(props) {
   }, [])
 
   return <BaseContainer {...props} theme={currentTheme} />
-}
-
-Container.propTypes = {
-  context: PropTypes.object,
 }
 
 export default Container
