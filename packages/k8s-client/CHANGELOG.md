@@ -1,5 +1,11 @@
 # @cloudoperators/juno-k8s-client
 
+## 1.0.4
+
+### Patch Changes
+
+- cdba61c: Upgrade to vite 6.2
+
 ## 1.0.3
 
 ### Patch Changes

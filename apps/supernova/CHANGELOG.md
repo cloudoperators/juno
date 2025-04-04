@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.16.5
+
+### Patch Changes
+
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [cdba61c]
+  - @cloudoperators/juno-messages-provider@0.2.4
+  - @cloudoperators/juno-ui-components@2.39.1
+  - @cloudoperators/juno-url-state-provider@2.3.4
+
 ## 0.16.4
 
 ### Patch Changes

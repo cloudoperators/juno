@@ -1,5 +1,11 @@
 # @cloudoperators/juno-oauth
 
+## 1.4.5
+
+### Patch Changes
+
+- cdba61c: Upgrade to vite 6.2
+
 ## 1.4.4
 
 ### Patch Changes
