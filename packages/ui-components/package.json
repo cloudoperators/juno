@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "*",
-    "@floating-ui/react": "0.25.4",
+    "@floating-ui/react": "0.27.6",
     "@headlessui-float/react": "0.15.0",
     "@headlessui/react": "1.7.19",
     "@material-design-icons/svg": "0.14.13",
