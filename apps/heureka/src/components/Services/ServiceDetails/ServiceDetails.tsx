@@ -46,7 +46,7 @@ export const ServiceDetails = () => {
   return (
     <MessagesProvider>
       <Breadcrumb />
-      <Messages />
+      <Messages className="mb-4" />
 
       <SectionContentHeading>Service {selectedService.name}</SectionContentHeading>
 

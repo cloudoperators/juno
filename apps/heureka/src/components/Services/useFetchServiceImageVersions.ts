@@ -12,14 +12,14 @@ import {
   OrderDirection,
   useGetServiceImageVersionsLazyQuery,
 } from "../../generated/graphql"
-import { getNormalizedImageVersionsData } from "./utils"
+import { getNormalizedImageVersionsData, getNormalizedError } from "./utils"
 
 type UseFetchServiceImageVersionsProps = {
   serviceCcrn: string
   pageSize?: number
 }
 
-export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: UseFetchServiceImageVersionsProps) => {
+export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 20 }: UseFetchServiceImageVersionsProps) => {
   const pagesRef = useRef<Page[]>()
   const [loadServiceImageVersions, { data, loading, error }] = useGetServiceImageVersionsLazyQuery()
   const { imageVersions, totalCount, pages, pageNumber } = getNormalizedImageVersionsData(data)
@@ -55,6 +55,9 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: Use
           filterCi: {
             serviceCcrn: [serviceCcrn],
           },
+          filterIc: {
+            serviceCcrn: [serviceCcrn],
+          },
         },
         fetchPolicy: "network-only",
       }),
@@ -81,6 +84,6 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: Use
     totalNumberOfPages: pages.length || 0,
     totalCount,
     goToPage: goToPage,
-    error: error?.message,
+    error: getNormalizedError(error),
   }
 }

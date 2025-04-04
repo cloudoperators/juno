@@ -10,6 +10,7 @@ import {
   IssueMatchOrderByField,
   OrderDirection,
   useGetServiceImageVersionIssuesLazyQuery,
+  IssueOrderByField,
 } from "../../generated/graphql"
 import { getNormalizedImageVersionIssues, getNormalizedError } from "./utils"
 
@@ -22,7 +23,7 @@ type UseFetchServiceImageVersionIssuesProps = {
 export const useFetchServiceImageVersionIssues = ({
   serviceCcrn,
   imageVersion,
-  pageSize = 10,
+  pageSize = 20,
 }: UseFetchServiceImageVersionIssuesProps) => {
   const pagesRef = useRef<Page[]>()
   const [loadIssues, { data, loading, error }] = useGetServiceImageVersionIssuesLazyQuery()
@@ -44,6 +45,12 @@ export const useFetchServiceImageVersionIssues = ({
           issueMatchFilter: {
             serviceCcrn: [serviceCcrn],
           },
+          orderByIssueSeverity: [
+            {
+              by: IssueOrderByField.Severity,
+              direction: OrderDirection.Desc,
+            },
+          ],
           orderBySeverity: [
             {
               by: IssueMatchOrderByField.Severity,
@@ -84,7 +91,7 @@ export const useFetchServiceImageVersionIssues = ({
     issues: issues || [],
     totalNumberOfPages: pages.length || 0,
     totalCount,
-    goToPage,
+    goToPage: goToPage,
     error: getNormalizedError(error),
   }
 }

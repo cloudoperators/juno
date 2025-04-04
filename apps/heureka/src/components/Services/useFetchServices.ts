@@ -5,13 +5,7 @@
 
 import { useCallback, useEffect, useRef } from "react"
 import { isNil } from "lodash"
-import {
-  OrderDirection,
-  Page,
-  ServiceOrderByField,
-  SeverityValues,
-  useGetServicesLazyQuery,
-} from "../../generated/graphql"
+import { OrderDirection, Page, ServiceOrderByField, useGetServicesLazyQuery } from "../../generated/graphql"
 import { FilterSettings } from "../common/Filters/types"
 import { getNormalizedData, getActiveServiceFilter, getNormalizedError } from "./utils"
 
@@ -20,7 +14,7 @@ type UseFetchServicesInput = {
   pageSize?: number
 }
 
-export const useFetchServices = ({ filterSettings, pageSize = 10 }: UseFetchServicesInput) => {
+export const useFetchServices = ({ filterSettings, pageSize = 20 }: UseFetchServicesInput) => {
   const pagesRef = useRef<Page[]>()
   // Use default options into the useLazyQuery and then customize those options in the query function
   // https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery
@@ -29,25 +23,10 @@ export const useFetchServices = ({ filterSettings, pageSize = 10 }: UseFetchServ
       first: pageSize,
       orderBy: [
         {
-          by: ServiceOrderByField.Ccrn,
-          direction: OrderDirection.Asc,
+          by: ServiceOrderByField.Severity,
+          direction: OrderDirection.Desc,
         },
       ],
-      crit: {
-        severity: [SeverityValues.Critical],
-      },
-      high: {
-        severity: [SeverityValues.High],
-      },
-      med: {
-        severity: [SeverityValues.Medium],
-      },
-      low: {
-        severity: [SeverityValues.Low],
-      },
-      none: {
-        severity: [SeverityValues.None],
-      },
     },
     fetchPolicy: "network-only", // Doesn't check cache before making a network request
   })

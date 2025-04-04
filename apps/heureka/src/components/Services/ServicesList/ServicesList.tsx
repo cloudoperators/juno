@@ -16,7 +16,7 @@ import { FilterSettings } from "../../common/Filters/types"
 import { useDispatch } from "../../../store/StoreProvider"
 import { ActionType, UserView } from "../../../store/StoreProvider/types"
 
-const COLUMN_SPAN = 6
+const COLUMN_SPAN = 4
 
 type ServiceListProps = {
   filterSettings: FilterSettings
@@ -61,13 +61,11 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
 
   return (
     <div className="datagrid-hover">
-      <DataGrid minContentColumns={[5]} columns={COLUMN_SPAN}>
+      <DataGrid minContentColumns={[3]} columns={COLUMN_SPAN}>
         <DataGridRow>
           <DataGridHeadCell>Service</DataGridHeadCell>
           <DataGridHeadCell>Issues count</DataGridHeadCell>
           <DataGridHeadCell>Service details</DataGridHeadCell>
-          <DataGridHeadCell>No. Components</DataGridHeadCell>
-          <DataGridHeadCell>Service owners</DataGridHeadCell>
           <DataGridHeadCell></DataGridHeadCell>
         </DataGridRow>
         {

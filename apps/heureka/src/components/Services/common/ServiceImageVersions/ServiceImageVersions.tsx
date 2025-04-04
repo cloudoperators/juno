@@ -42,7 +42,7 @@ export const ServiceImageVersions = ({
   const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalCount } =
     useFetchServiceImageVersions({
       serviceCcrn: serviceName || "",
-      pageSize: 10,
+      pageSize: 20,
     })
   const gridColumnCount = displayActions ? COLUMN_COUNT : COLUMN_COUNT - 1
 
@@ -133,7 +133,7 @@ export const ServiceImageVersions = ({
           )}
         </DataGrid>
       </div>
-      {totalNumberOfPages > 1 && (
+      {totalNumberOfPages > 1 && totalCount > 20 && (
         <Stack distribution="end">
           <Pagination
             variant="number"

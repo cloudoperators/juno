@@ -13,15 +13,5 @@ query GetServiceFilters {
       filterName
       values
     }
-    uniqueUserId {
-      displayName
-      filterName
-      values
-    }
-    userName {
-      displayName
-      filterName
-      values
-    }
   }
 }
