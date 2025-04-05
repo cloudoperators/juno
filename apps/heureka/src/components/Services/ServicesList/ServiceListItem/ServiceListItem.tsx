@@ -44,19 +44,29 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
   <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
-    <SeverityCount count={item.issuesCount.critical} icon="danger" variant="danger" tooltipContent="Critical Issues" />
+      <SeverityCount
+        count={item.issuesCount.critical}
+        icon="danger"
+        variant="danger"
+        tooltipContent="Critical Issues"
+      />
     </DataGridCell>
     <DataGridCell>
-    <SeverityCount count={item.issuesCount.high} icon="warning" variant="warning" tooltipContent="High Issues" />
+      <SeverityCount count={item.issuesCount.high} icon="warning" variant="warning" tooltipContent="High Issues" />
     </DataGridCell>
     <DataGridCell>
-    <SeverityCount count={item.issuesCount.medium} icon="errorOutline" variant="warning" tooltipContent="Medium Issues" />
+      <SeverityCount
+        count={item.issuesCount.medium}
+        icon="errorOutline"
+        variant="warning"
+        tooltipContent="Medium Issues"
+      />
     </DataGridCell>
     <DataGridCell>
-    <SeverityCount count={item.issuesCount.low} icon="info" variant="info" tooltipContent="Low Issues" />
+      <SeverityCount count={item.issuesCount.low} icon="info" variant="info" tooltipContent="Low Issues" />
     </DataGridCell>
     <DataGridCell>
-    <SeverityCount count={item.issuesCount.none} icon="help" variant="default" tooltipContent="None Issues" />
+      <SeverityCount count={item.issuesCount.none} icon="help" variant="default" tooltipContent="None Issues" />
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />

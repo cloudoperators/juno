@@ -6,7 +6,7 @@
 import React from "react"
 import { ServiceImageVersion } from "../../utils"
 import { DataGridRow, DataGridCell, Button, Badge, Icon, Stack } from "@cloudoperators/juno-ui-components"
-import { IssuesCountBadges } from "../../../common/IssuesCountBadges"
+import { SeverityCount } from "../../../common/IssuesCountBadges/IssuesCount"
 
 type ServiceImageVersionsItemProps = {
   version: ServiceImageVersion
@@ -49,7 +49,29 @@ const ServiceImageVersionsItem = ({
       </DataGridCell>
       <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
       <DataGridCell>
-        <IssuesCountBadges counts={version.issueCounts} />
+        <SeverityCount
+          count={version.issueCounts.critical}
+          icon="danger"
+          variant="danger"
+          tooltipContent="Critical Issues"
+        />
+      </DataGridCell>
+      <DataGridCell>
+        <SeverityCount count={version.issueCounts.high} icon="warning" variant="warning" tooltipContent="High Issues" />
+      </DataGridCell>
+      <DataGridCell>
+        <SeverityCount
+          count={version.issueCounts.medium}
+          icon="errorOutline"
+          variant="warning"
+          tooltipContent="Medium Issues"
+        />
+      </DataGridCell>
+      <DataGridCell>
+        <SeverityCount count={version.issueCounts.low} icon="info" variant="info" tooltipContent="Low Issues" />
+      </DataGridCell>
+      <DataGridCell>
+        <SeverityCount count={version.issueCounts.none} icon="help" variant="default" tooltipContent="None Issues" />
       </DataGridCell>
       {displayDetailsButton && (
         <DataGridCell>
