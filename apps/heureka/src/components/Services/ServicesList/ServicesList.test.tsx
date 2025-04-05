@@ -32,7 +32,6 @@ describe("ServicesList", () => {
 
     // Check for the presence of the service list headers
     expect(await screen.findByText("Service")).toBeInTheDocument()
-    expect(await screen.findByText("Issues count")).toBeInTheDocument()
     expect(await screen.findByText("Service details")).toBeInTheDocument()
   })
 

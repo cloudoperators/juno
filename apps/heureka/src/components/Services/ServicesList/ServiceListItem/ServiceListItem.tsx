@@ -6,8 +6,8 @@
 import React from "react"
 import { DataGridRow, DataGridCell, Pill, Badge, Stack, Button } from "@cloudoperators/juno-ui-components"
 import { ServiceType } from "../../Services"
-import { IssuesCountBadges } from "../../../common/IssuesCountBadges"
-
+// import { IssuesCountBadges } from "../../../common/IssuesCountBadges"
+import { SeverityCount } from "../../../common/IssuesCountBadges/IssuesCount"
 type ServiceDetailsLabel = {
   [key: string]: string
 }
@@ -44,9 +44,35 @@ type ServiceListItemProps = {
 export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailClick }: ServiceListItemProps) => (
   <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
-    <DataGridCell>
+    {/* <DataGridCell>
       <IssuesCountBadges counts={item.issuesCount} />
+    </DataGridCell> */}
+    <DataGridCell>
+      <SeverityCount
+        count={item.issuesCount.critical}
+        icon="danger"
+        variant="danger"
+        tooltipContent="Critical Issues"
+      />
     </DataGridCell>
+    <DataGridCell>
+      <SeverityCount count={item.issuesCount.high} icon="warning" variant="warning" tooltipContent="High Issues" />
+    </DataGridCell>
+    <DataGridCell>
+      <SeverityCount
+        count={item.issuesCount.medium}
+        icon="errorOutline"
+        variant="warning"
+        tooltipContent="Medium Issues"
+      />
+    </DataGridCell>
+    <DataGridCell>
+      <SeverityCount count={item.issuesCount.low} icon="info" variant="info" tooltipContent="Low Issues" />
+    </DataGridCell>
+    <DataGridCell>
+      <SeverityCount count={item.issuesCount.none} icon="help" variant="default" tooltipContent="None Issues" />
+    </DataGridCell>
+
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />
     </DataGridCell>

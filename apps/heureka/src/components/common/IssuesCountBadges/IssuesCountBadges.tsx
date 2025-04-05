@@ -10,7 +10,6 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-  Icon,
   KnownIcons,
   BadgeVariantType,
 } from "@cloudoperators/juno-ui-components"
