@@ -25,7 +25,7 @@ export const SeverityCount = ({ count, icon, variant, tooltipContent }: Severity
         <TooltipContent>{tooltipContent}</TooltipContent>
       </Tooltip>
     ) : (
-      <span>-</span>
+      <span>&mdash;</span>
     )}
   </>
 )

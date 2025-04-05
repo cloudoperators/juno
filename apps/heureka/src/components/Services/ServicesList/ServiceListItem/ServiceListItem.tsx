@@ -43,7 +43,7 @@ type ServiceListItemProps = {
 export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailClick }: ServiceListItemProps) => (
   <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
-    <DataGridCell>
+    <DataGridCell className="items-center">
       <SeverityCount
         count={item.issuesCount.critical}
         icon="danger"
@@ -51,10 +51,10 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
         tooltipContent="Critical Issues"
       />
     </DataGridCell>
-    <DataGridCell>
+    <DataGridCell className="items-center">
       <SeverityCount count={item.issuesCount.high} icon="warning" variant="warning" tooltipContent="High Issues" />
     </DataGridCell>
-    <DataGridCell>
+    <DataGridCell className="items-center">
       <SeverityCount
         count={item.issuesCount.medium}
         icon="errorOutline"
@@ -62,10 +62,10 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
         tooltipContent="Medium Issues"
       />
     </DataGridCell>
-    <DataGridCell>
+    <DataGridCell className="items-center">
       <SeverityCount count={item.issuesCount.low} icon="info" variant="info" tooltipContent="Low Issues" />
     </DataGridCell>
-    <DataGridCell>
+    <DataGridCell className="items-center">
       <SeverityCount count={item.issuesCount.none} icon="help" variant="default" tooltipContent="None Issues" />
     </DataGridCell>
     <DataGridCell>

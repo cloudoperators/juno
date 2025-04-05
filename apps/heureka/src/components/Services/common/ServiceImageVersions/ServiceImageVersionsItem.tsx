@@ -41,14 +41,14 @@ const ServiceImageVersionsItem = ({
             >
               <Stack gap="1.5" alignment="center">
                 <Icon icon="openInNew" size="16" color="jn-global-text" />
-                <span>Image registery</span>
+                <span>Image registry</span>
               </Stack>
             </a>
           </Stack>
         </Stack>
       </DataGridCell>
       <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
-      <DataGridCell>
+      <DataGridCell className="items-center">
         <SeverityCount
           count={version.issueCounts.critical}
           icon="danger"
@@ -56,10 +56,10 @@ const ServiceImageVersionsItem = ({
           tooltipContent="Critical Issues"
         />
       </DataGridCell>
-      <DataGridCell>
+      <DataGridCell className="items-center">
         <SeverityCount count={version.issueCounts.high} icon="warning" variant="warning" tooltipContent="High Issues" />
       </DataGridCell>
-      <DataGridCell>
+      <DataGridCell className="items-center">
         <SeverityCount
           count={version.issueCounts.medium}
           icon="errorOutline"
@@ -67,10 +67,10 @@ const ServiceImageVersionsItem = ({
           tooltipContent="Medium Issues"
         />
       </DataGridCell>
-      <DataGridCell>
+      <DataGridCell className="items-center">
         <SeverityCount count={version.issueCounts.low} icon="info" variant="info" tooltipContent="Low Issues" />
       </DataGridCell>
-      <DataGridCell>
+      <DataGridCell className="items-center">
         <SeverityCount count={version.issueCounts.none} icon="help" variant="default" tooltipContent="None Issues" />
       </DataGridCell>
       {displayDetailsButton && (
