@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useEffect, useState } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack } from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack, Spinner } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
@@ -74,7 +74,14 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
         </DataGridRow>
         {
           /* if request is in flight */
-          loading && <EmptyDataGridRow colSpan={COLUMN_SPAN}>Loading...</EmptyDataGridRow>
+          loading && (
+            <EmptyDataGridRow colSpan={COLUMN_SPAN}>
+              <Stack gap="2" alignment="center">
+                <div>Loading</div>
+                <Spinner variant="primary"></Spinner>
+              </Stack>
+            </EmptyDataGridRow>
+          )
         }
 
         {
