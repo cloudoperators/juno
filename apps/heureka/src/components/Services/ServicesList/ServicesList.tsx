@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useEffect, useState } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack } from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack, Spinner } from "@cloudoperators/juno-ui-components"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
@@ -16,7 +16,7 @@ import { FilterSettings } from "../../common/Filters/types"
 import { useDispatch } from "../../../store/StoreProvider"
 import { ActionType, UserView } from "../../../store/StoreProvider/types"
 
-const COLUMN_SPAN = 4
+const COLUMN_SPAN = 8
 
 type ServiceListProps = {
   filterSettings: FilterSettings
@@ -61,16 +61,27 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
 
   return (
     <div className="datagrid-hover">
-      <DataGrid minContentColumns={[3]} columns={COLUMN_SPAN}>
+      <DataGrid minContentColumns={[1, 2, 3, 4, 5, 7]} columns={COLUMN_SPAN}>
         <DataGridRow>
           <DataGridHeadCell>Service</DataGridHeadCell>
-          <DataGridHeadCell>Issues count</DataGridHeadCell>
+          <DataGridHeadCell></DataGridHeadCell>
+          <DataGridHeadCell></DataGridHeadCell>
+          <DataGridHeadCell></DataGridHeadCell>
+          <DataGridHeadCell></DataGridHeadCell>
+          <DataGridHeadCell></DataGridHeadCell>
           <DataGridHeadCell>Service details</DataGridHeadCell>
           <DataGridHeadCell></DataGridHeadCell>
         </DataGridRow>
         {
           /* if request is in flight */
-          loading && <EmptyDataGridRow colSpan={COLUMN_SPAN}>Loading...</EmptyDataGridRow>
+          loading && (
+            <EmptyDataGridRow colSpan={COLUMN_SPAN}>
+              <Stack gap="2" alignment="center">
+                <div>Loading</div>
+                <Spinner variant="primary"></Spinner>
+              </Stack>
+            </EmptyDataGridRow>
+          )
         }
 
         {

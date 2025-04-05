@@ -4,7 +4,15 @@
  */
 
 import React, { useEffect } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Icon, Stack, Pagination } from "@cloudoperators/juno-ui-components"
+import {
+  DataGrid,
+  DataGridRow,
+  DataGridHeadCell,
+  Icon,
+  Stack,
+  Pagination,
+  Spinner,
+} from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useFetchServiceImageVersionIssues } from "../../useFetchServiceImageVersionIssues"
 import { ImageVersionIssueListItem } from "./ImageVersionIssueListItem"
@@ -52,9 +60,14 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
         </DataGridRow>
 
         {isLoading ? (
-          <EmptyDataGridRow colSpan={4}>Loading issues...</EmptyDataGridRow>
+          <EmptyDataGridRow colSpan={4}>
+            <Stack gap="2" alignment="center">
+              <div>Loading issues</div>
+              <Spinner variant="primary"></Spinner>
+            </Stack>
+          </EmptyDataGridRow>
         ) : issues.length === 0 ? (
-          <EmptyDataGridRow colSpan={4}>No issues found.</EmptyDataGridRow>
+          <EmptyDataGridRow colSpan={4}>No issues found! 🚀</EmptyDataGridRow>
         ) : (
           !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
         )}

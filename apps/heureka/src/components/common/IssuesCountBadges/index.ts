@@ -4,3 +4,4 @@
  */
 
 export { IssuesCountBadges } from "./IssuesCountBadges"
+export { SeverityCount } from "./IssuesCount"
