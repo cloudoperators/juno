@@ -12,6 +12,7 @@ import {
   Stack,
   Pagination,
   DataGridToolbar,
+  Spinner,
 } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow/EmptyDataGridRow"
 import { useFetchServiceImageVersions } from "../../useFetchServiceImageVersions"
@@ -29,7 +30,7 @@ type ServiceImageVersionsProps = {
   onVersionSelect?: (version: ServiceImageVersion) => void
 }
 
-const COLUMN_COUNT = 4
+const COLUMN_COUNT = 8
 
 export const ServiceImageVersions = ({
   service,
@@ -96,17 +97,26 @@ export const ServiceImageVersions = ({
       )}
 
       <div className="datagrid-hover">
-        <DataGrid columns={gridColumnCount}>
+        <DataGrid columns={gridColumnCount} minContentColumns={[2, 3, 4, 5]}>
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Tag</DataGridHeadCell>
-            <DataGridHeadCell>Issue Counts</DataGridHeadCell>
+            <DataGridHeadCell></DataGridHeadCell>
+            <DataGridHeadCell></DataGridHeadCell>
+            <DataGridHeadCell></DataGridHeadCell>
+            <DataGridHeadCell></DataGridHeadCell>
+            <DataGridHeadCell></DataGridHeadCell>
             {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
           {loading ? (
-            <EmptyDataGridRow colSpan={gridColumnCount}>Loading...</EmptyDataGridRow>
+            <EmptyDataGridRow colSpan={gridColumnCount}>
+              <Stack gap="2" alignment="center">
+                <div>Loading</div>
+                <Spinner variant="primary"></Spinner>
+              </Stack>
+            </EmptyDataGridRow>
           ) : imageVersions?.length === 0 && !error ? (
-            <EmptyDataGridRow colSpan={gridColumnCount}>No image versions available.</EmptyDataGridRow>
+            <EmptyDataGridRow colSpan={gridColumnCount}>No images available.</EmptyDataGridRow>
           ) : (
             imageVersions.map((imageVersion, index) => (
               <ServiceImageVersionsItem
