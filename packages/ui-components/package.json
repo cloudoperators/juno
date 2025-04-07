@@ -98,6 +98,10 @@
     "**/react": "19.0.0",
     "**/react-dom": "19.0.0"
   },
+  "resolutions": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
   "jest": {
     "testEnvironment": "jsdom",
     "globals": {
