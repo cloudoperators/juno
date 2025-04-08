@@ -1,5 +1,35 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.3
+
+### Patch Changes
+
+- 0403e89: Adds pagination and ordering to issues list
+- 395a12a: adds an image version details info to service details page
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- 527064c: Adds issues list to image version details panel
+- ea088f6: Displays each count in a separate column within lists
+- cdba61c: Upgrade to vite 6.2
+- Updated dependencies [395a12a]
+- Updated dependencies [0403e89]
+- Updated dependencies [e2eb636]
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [1a47422]
+- Updated dependencies [02cb67a]
+- Updated dependencies [527064c]
+- Updated dependencies [ea088f6]
+- Updated dependencies [cdba61c]
+- Updated dependencies [1d4f57e]
+- Updated dependencies [fd2529a]
+- Updated dependencies [dfdfedd]
+  - @cloudoperators/juno-app-heureka@0.5.0
+  - @cloudoperators/juno-messages-provider@0.2.4
+  - @cloudoperators/juno-ui-components@3.0.0
+  - @cloudoperators/juno-app-supernova@0.16.5
+  - @cloudoperators/juno-app-doop@2.3.6
+  - @cloudoperators/juno-k8s-client@1.0.4
+  - @cloudoperators/juno-oauth@1.4.5
+
 ## 0.5.2
 
 ### Patch Changes
