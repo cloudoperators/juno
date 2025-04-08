@@ -12,7 +12,7 @@ import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import { useStore } from "../../store/StoreProvider"
 import { IssuesCountsType } from "./useFetchServicesIssuesCounts"
-import IssuesCount from "./ServicesList/IssuesCount"
+import { AllServicesIssuesCount } from "./AllServicesIssuesCount"
 
 export type ServiceType = {
   id: string
@@ -50,7 +50,7 @@ export const Services = () => {
           onFilterChange={setFilterSettings}
           searchInputPlaceholder="search term for services name"
         />
-        <IssuesCount filterSettings={filterSettings} />
+        <AllServicesIssuesCount filterSettings={filterSettings} />
         <ServicesList filterSettings={filterSettings} />
       </>
     </>

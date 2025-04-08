@@ -6,7 +6,7 @@
 import React from "react"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import styles from "./styles.scss?inline"
-import { ErrorBoundary } from "./components/ErrorBoundary"
+import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { Shell } from "./components/Shell"
 import { ApolloProvider } from "@apollo/client"
 import { getClient } from "./apollo-client"
