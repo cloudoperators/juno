@@ -16,7 +16,7 @@ import {
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
 import { useFetchServiceImageVersionIssues } from "../../../Services/useFetchServiceImageVersionIssues"
-import { ImageVersionIssueListItem } from "./ImageVersionIssueListItem/ImageVersionIssueListItem"
+import { ImageVersionIssueListItem } from "./ImageVersionIssueListItem"
 
 type ImageVersionIssuesListProps = {
   serviceCcrn: string

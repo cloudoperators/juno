@@ -7,7 +7,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import { ServicesList } from "./ServicesList"
+import { ServicesList } from "."
 import { TestProvider } from "../../../mocks/TestProvider"
 
 const renderServicesList = () => ({

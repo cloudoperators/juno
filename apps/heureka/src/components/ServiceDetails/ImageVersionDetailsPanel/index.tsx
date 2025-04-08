@@ -19,7 +19,7 @@ import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provid
 import { ServiceImageVersion } from "../../Services/utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssuesCountPerSeverityLevel } from "../../common/IssuesCountPerSeverityLevel"
-import { ImageVersionIssuesList } from "./ImageVersionIssuesList/ImageVersionIssuesList"
+import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
 import SectionContentHeading from "../../common/SectionContentHeading"
 
 type ImageVersionDetailsPanelProps = {

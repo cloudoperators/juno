@@ -5,7 +5,7 @@
 
 import React, { useEffect } from "react"
 import { render, screen } from "@testing-library/react"
-import { ErrorBoundary } from "./ErrorBoundary"
+import { ErrorBoundary } from "."
 
 const App = () => <div>Awesome App</div>
 const AppThatThrows = () => {

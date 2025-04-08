@@ -9,7 +9,7 @@ import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provid
 import { Services } from "./Services"
 import { useStore } from "../store/StoreProvider"
 import { UserView } from "../store/StoreProvider/types"
-import { ServiceDetails } from "./ServiceDetails/ServiceDetails"
+import { ServiceDetails } from "./ServiceDetails"
 
 // TODO: remove this when used a Routing library
 const getViewComponent = (viewId: ReactNode) => {
