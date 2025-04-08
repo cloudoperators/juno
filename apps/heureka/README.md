@@ -90,3 +90,23 @@ These are the customizable application properties (appProps) that you can define
 - **apiEndpoint** (required): The URL of the API endpoint the app will interact with.
 - **embedded** (optional): Set to `true` if the app will be embedded within another app or page. When `true`, the app will not display the header or footer, rendering only the content. Default is `false`.
 - **initialFilters** (optional): The initialFilters set default filters using an object that contains a key (the filter field) and a value (an array of filter criteria). For example, `{ "support_group": ["containers"] }`.
+
+## Contribution Guide for Creating React Components
+
+To ensure a well-organized codebase and maintain consistency, please follow these guidelines when creating React components:
+
+### 1. Component Placement
+
+- Always add a component close to where it is being consumed.
+- If a component is used across multiple pages, place it in the `common` directory.
+
+### 2. File Structure
+
+- Each component should reside in its own file named `ComponentName.tsx`.
+
+### 3. Child Components
+
+- If a component has child components (that are not shared among other components):
+  - Rename `ComponentName.tsx` to `ComponentName/index.tsx`.
+  - Create a `ComponentName/` directory to house the child components.
+  - Apply the same structure and rules (outlined in points 2 and 3) to the child components.
