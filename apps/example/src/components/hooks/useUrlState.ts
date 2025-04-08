@@ -4,6 +4,7 @@
  */
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 
 // PLEASE NOTE: This file needs refactoring
 
