@@ -14,9 +14,9 @@ import {
   ServiceFilter,
   GetServiceImageVersionsQuery,
 } from "../../generated/graphql"
-import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
 import { IssuesCountsType } from "./useFetchServicesIssuesCounts"
+import { ServiceType } from "../types"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
