@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 2.3.4
+
+### Patch Changes
+
+- cdba61c: Upgrade to vite 6.2
+
 ## 2.3.3
 
 ### Patch Changes
