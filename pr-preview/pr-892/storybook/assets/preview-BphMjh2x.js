@@ -1,0 +1,1 @@
+const e={parameters:{options:{storySort:{order:["Components","Forms","Layout","*","WiP","Internal"],method:"alphabetical"}},actions:{argTypesRegex:"^on[A-Z].*"},controls:{expanded:!0,matchers:{date:/Date$/}}}};export{e as default};
