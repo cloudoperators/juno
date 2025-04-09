@@ -1,5 +1,28 @@
 # heureka
 
+## 0.5.0
+
+### Minor Changes
+
+- 395a12a: adds service image version details into service details page
+- 0403e89: Adds pagination and ordering to issues list
+- 527064c: Adds issues list to image version details panel
+
+### Patch Changes
+
+- e2eb636: IssueCounts filtering has been enhanced to include a new option for filtering by ServiceOwner ID and name.
+- 1a47422: Fixes spaces in breadcrumb and services list pills
+- ea088f6: Displays each count in a separate column within lists
+- cdba61c: Upgrade to vite 6.2
+- 1d4f57e: Generalizes classes to highlight lists on hover and applies the class to all lists
+- fd2529a: Creates a standalone component to display issue counts
+- dfdfedd: Fixes the issue of missing current filters when using service
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [02cb67a]
+- Updated dependencies [cdba61c]
+  - @cloudoperators/juno-messages-provider@0.2.4
+  - @cloudoperators/juno-ui-components@3.0.0
+
 ## 0.4.0
 
 ### Minor Changes

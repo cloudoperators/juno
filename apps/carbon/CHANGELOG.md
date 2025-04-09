@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-carbon
 
+## 1.0.5
+
+### Patch Changes
+
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- cdba61c: Upgrade to vite 6.2
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [02cb67a]
+- Updated dependencies [cdba61c]
+  - @cloudoperators/juno-ui-components@3.0.0
+
 ## 1.0.4
 
 ### Patch Changes

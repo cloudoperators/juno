@@ -1,5 +1,11 @@
 # @cloudoperators/juno-template
 
+## 1.1.4
+
+### Patch Changes
+
+- cdba61c: Upgrade to vite 6.2
+
 ## 1.1.3
 
 ### Patch Changes
