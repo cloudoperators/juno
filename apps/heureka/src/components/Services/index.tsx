@@ -14,18 +14,6 @@ import { useStore } from "../../store/StoreProvider"
 import { IssuesCountsType } from "./useFetchServicesIssuesCounts"
 import { AllServicesIssuesCount } from "./AllServicesIssuesCount"
 
-export type ServiceType = {
-  id: string
-  name: string
-  issuesCount: IssuesCountsType
-  serviceDetails: {
-    supportGroups: string[]
-  }
-  components: number
-  remediationDate: string
-  serviceOwners: string[]
-}
-
 const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
   const supportGroupFilters =
     initialFilters?.support_group?.map((sg) => ({ name: "supportGroupCcrn", value: sg })) ?? []

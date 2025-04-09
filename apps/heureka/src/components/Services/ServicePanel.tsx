@@ -6,8 +6,8 @@
 import React from "react"
 import { Panel, PanelBody } from "@cloudoperators/juno-ui-components"
 import { capitalizeFirstLetter } from "../../utils"
-import { ServiceType } from "./index"
 import { ServiceImageVersions } from "../common/ServiceImageVersions"
+import { ServiceType } from "../types"
 
 type ServicePanelProps = {
   service: ServiceType

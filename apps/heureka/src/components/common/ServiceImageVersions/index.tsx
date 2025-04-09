@@ -18,10 +18,10 @@ import { EmptyDataGridRow } from "../EmptyDataGridRow"
 import { useFetchServiceImageVersions } from "../../Services/useFetchServiceImageVersions"
 import { useDispatch } from "../../../store/StoreProvider"
 import { ActionType, UserView } from "../../../store/StoreProvider/types"
-import { ServiceType } from "../../Services"
 import ServiceImageVersionsItem from "./ServiceImageVersionsItem"
 import { ServiceImageVersion } from "../../Services/utils"
 import SectionContentHeading from "../SectionContentHeading"
+import { ServiceType } from "../../types"
 
 type ServiceImageVersionsProps = {
   service: ServiceType

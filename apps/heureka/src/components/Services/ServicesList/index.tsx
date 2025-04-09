@@ -10,11 +10,11 @@ import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow"
 import { ServicePanel } from "./ServicePanel"
-import { ServiceType } from ".."
 import { useFetchServices } from "../useFetchServices"
 import { FilterSettings } from "../../common/Filters/types"
 import { useDispatch } from "../../../store/StoreProvider"
 import { ActionType, UserView } from "../../../store/StoreProvider/types"
+import { ServiceType } from "../../types"
 
 const COLUMN_SPAN = 8
 

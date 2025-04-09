@@ -9,7 +9,7 @@ import userEvent from "@testing-library/user-event"
 import { vi } from "vitest"
 import { ServicePanel } from "../ServicePanel"
 import { TestProvider } from "../../../mocks/TestProvider"
-import { ServiceType } from ".."
+import { ServiceType } from "../../types"
 
 const mockService: ServiceType = {
   id: "1",
