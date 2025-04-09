@@ -4,7 +4,7 @@
  */
 
 import { InitialFilters } from "../../App"
-import { ServiceType } from "../../components/Services/Services"
+import { ServiceType } from "../../components/Services"
 import { ServiceImageVersion } from "../../components/Services/utils"
 
 export enum UserView {

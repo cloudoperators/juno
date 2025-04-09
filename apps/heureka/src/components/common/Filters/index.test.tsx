@@ -6,7 +6,7 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { Filters, FiltersProps } from "."
+import { Filters, FiltersProps } from "./index"
 
 const filters = [
   {

@@ -5,7 +5,7 @@
 
 import React from "react"
 import { render, screen, act } from "@testing-library/react"
-import { Services } from "./Services"
+import { Services } from "./index"
 import { TestProvider } from "../../mocks/TestProvider"
 
 describe("Services", () => {
