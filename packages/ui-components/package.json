@@ -37,7 +37,6 @@
     "@headlessui-float/react": "0.15.0",
     "@headlessui/react": "1.7.19",
     "@material-design-icons/svg": "0.14.13",
-    "@mdx-js/react": "2.3.0",
     "@storybook/addon-docs": "8.4.7",
     "@storybook/addon-essentials": "8.4.7",
     "@storybook/addon-interactions": "8.4.7",
