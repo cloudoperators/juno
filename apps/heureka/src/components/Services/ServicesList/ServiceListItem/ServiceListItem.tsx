@@ -5,7 +5,7 @@
 
 import React from "react"
 import { DataGridRow, DataGridCell, Pill, Stack, Button } from "@cloudoperators/juno-ui-components"
-import { SeverityCount } from "../../../common/IssuesCountPerSeveritylevel/SeverityCount"
+import { SeverityCount } from "../../../common/SeverityCount"
 import { ServiceType } from "../../../types"
 
 type ServiceDetailsLabel = {

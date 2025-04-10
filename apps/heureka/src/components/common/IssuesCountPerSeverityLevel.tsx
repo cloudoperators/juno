@@ -4,10 +4,8 @@
  */
 
 import React from "react"
-import {
-  Stack
-} from "@cloudoperators/juno-ui-components"
-import { IssuesCountsWithTotalCountType, IssuesCountsType } from "../../Services/useFetchServicesIssuesCounts"
+import { Stack } from "@cloudoperators/juno-ui-components"
+import { IssuesCountsWithTotalCountType, IssuesCountsType } from "../Services/useFetchServicesIssuesCounts"
 import { SeverityCount } from "./SeverityCount"
 
 type IssuesCountPerSeverityLevelProps = {

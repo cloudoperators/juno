@@ -6,7 +6,7 @@
 import React from "react"
 import { ServiceImageVersion } from "../../Services/utils"
 import { DataGridRow, DataGridCell, Button, Icon, Stack } from "@cloudoperators/juno-ui-components"
-import { SeverityCount } from "../IssuesCountPerSeveritylevel/SeverityCount"
+import { SeverityCount } from "../SeverityCount"
 
 type ServiceImageVersionsItemProps = {
   version: ServiceImageVersion
@@ -57,12 +57,7 @@ const ServiceImageVersionsItem = ({
         />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <SeverityCount
-          count={version.issueCounts.high}
-          icon="warning"
-          variant="warning"
-          tooltipContent="High Issues"
-        />
+        <SeverityCount count={version.issueCounts.high} icon="warning" variant="warning" tooltipContent="High Issues" />
       </DataGridCell>
       <DataGridCell className="items-center">
         <SeverityCount

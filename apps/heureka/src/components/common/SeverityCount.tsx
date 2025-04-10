@@ -25,12 +25,7 @@ export const SeverityCount = ({ icon, count, variant, tooltipContent, className 
   count > 0 ? (
     <Tooltip triggerEvent="hover">
       <TooltipTrigger>
-        <Badge
-          icon={icon}
-          text={count.toString()}
-          variant={variant}
-          className={className}
-        />
+        <Badge icon={icon} text={count.toString()} variant={variant} className={className} />
       </TooltipTrigger>
       <TooltipContent>{tooltipContent}</TooltipContent>
     </Tooltip>
