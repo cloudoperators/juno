@@ -20,22 +20,30 @@ type IssuesCountPerSeverityLevelProps = {
   displayMode?: "all" | "criticalHigh"
 }
 
-type ToolTipBadgeType = {
+type IssuesCountBadgeType = {
   icon?: KnownIcons
-  text: string
+  count: number
   variant: BadgeVariantType
   tooltipContent: string
   className?: string
 }
 
-const ToolTipBadge = ({ icon, text, variant, tooltipContent, className }: ToolTipBadgeType) => (
-  <Tooltip triggerEvent="hover">
-    <TooltipTrigger>
-      <Badge icon={icon} text={text} variant={variant} className={className} />
-    </TooltipTrigger>
-    <TooltipContent>{tooltipContent}</TooltipContent>
-  </Tooltip>
-)
+export const IssueCountBadge = ({ icon, count, variant, tooltipContent, className }: IssuesCountBadgeType) =>
+  count > 0 ? (
+    <Tooltip triggerEvent="hover">
+      <TooltipTrigger>
+        <Badge
+          icon={count > 0 ? icon : undefined}
+          text={count > 0 ? count.toString() : "—"}
+          variant={variant}
+          className={className}
+        />
+      </TooltipTrigger>
+      <TooltipContent>{tooltipContent}</TooltipContent>
+    </Tooltip>
+  ) : (
+    <span>&mdash;</span>
+  )
 
 export const IssuesCountPerSeverityLevel = ({ counts, displayMode = "all" }: IssuesCountPerSeverityLevelProps) => {
   if (counts.critical + counts.high + counts.medium + counts.low + counts.none === 0) {
@@ -50,42 +58,42 @@ export const IssuesCountPerSeverityLevel = ({ counts, displayMode = "all" }: Iss
           <div className="font-bold mr-2">{counts.totalCount}</div>
         </>
       )}
-      <ToolTipBadge
+      <IssueCountBadge
         icon="danger"
-        text={`${counts.critical}`}
+        count={counts.critical}
         variant={counts.critical > 0 ? "danger" : "default"}
         tooltipContent="Critical Issues"
-        className={`${counts.critical > 0 ? "" : "opacity-50"}`}
+        className={counts.critical > 0 ? "" : "opacity-50"}
       />
-      <ToolTipBadge
+      <IssueCountBadge
         icon="warning"
-        text={`${counts.high}`}
+        count={counts.high}
         variant={counts.high > 0 ? "warning" : "default"}
         tooltipContent="High Issues"
-        className={`${counts.high > 0 ? "" : "opacity-50"}`}
+        className={counts.high > 0 ? "" : "opacity-50"}
       />
       {displayMode === "all" && (
         <>
-          <ToolTipBadge
+          <IssueCountBadge
             icon="errorOutline"
-            text={`${counts.medium}`}
+            count={counts.medium}
             variant={counts.medium > 0 ? "warning" : "default"}
             tooltipContent="Medium Issues"
-            className={`${counts.medium > 0 ? "" : "opacity-50"}`}
+            className={counts.medium > 0 ? "" : "opacity-50"}
           />
-          <ToolTipBadge
+          <IssueCountBadge
             icon="info"
-            text={`${counts.low}`}
+            count={counts.low}
             variant={counts.low > 0 ? "info" : "default"}
             tooltipContent="Low Issues"
-            className={`${counts.low > 0 ? "" : "opacity-50"}`}
+            className={counts.low > 0 ? "" : "opacity-50"}
           />
-          <ToolTipBadge
+          <IssueCountBadge
             icon="help"
-            text={`${counts.none}`}
+            count={counts.none}
             variant="default"
             tooltipContent="None Issues"
-            className={`${counts.none > 0 ? "" : "opacity-50"}`}
+            className={counts.none > 0 ? "" : "opacity-50"}
           />
         </>
       )}
