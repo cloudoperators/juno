@@ -6,7 +6,7 @@
 import React from "react"
 import { ServiceImageVersion } from "../../Services/utils"
 import { DataGridRow, DataGridCell, Button, Icon, Stack } from "@cloudoperators/juno-ui-components"
-import { IssueCountBadge } from "../IssuesCountPerSeverityLevel"
+import { SeverityCount } from "../IssuesCountPerSeveritylevel/SeverityCount"
 
 type ServiceImageVersionsItemProps = {
   version: ServiceImageVersion
@@ -49,7 +49,7 @@ const ServiceImageVersionsItem = ({
       </DataGridCell>
       <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
       <DataGridCell className="items-center">
-        <IssueCountBadge
+        <SeverityCount
           count={version.issueCounts.critical}
           icon="danger"
           variant="danger"
@@ -57,7 +57,7 @@ const ServiceImageVersionsItem = ({
         />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <IssueCountBadge
+        <SeverityCount
           count={version.issueCounts.high}
           icon="warning"
           variant="warning"
@@ -65,7 +65,7 @@ const ServiceImageVersionsItem = ({
         />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <IssueCountBadge
+        <SeverityCount
           count={version.issueCounts.medium}
           icon="errorOutline"
           variant="warning"
@@ -73,10 +73,10 @@ const ServiceImageVersionsItem = ({
         />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <IssueCountBadge count={version.issueCounts.low} icon="info" variant="info" tooltipContent="Low Issues" />
+        <SeverityCount count={version.issueCounts.low} icon="info" variant="info" tooltipContent="Low Issues" />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <IssueCountBadge count={version.issueCounts.none} icon="help" variant="default" tooltipContent="None Issues" />
+        <SeverityCount count={version.issueCounts.none} icon="help" variant="default" tooltipContent="None Issues" />
       </DataGridCell>
       {displayDetailsButton && (
         <DataGridCell>

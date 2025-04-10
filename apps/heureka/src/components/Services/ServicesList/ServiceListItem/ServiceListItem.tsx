@@ -5,7 +5,7 @@
 
 import React from "react"
 import { DataGridRow, DataGridCell, Pill, Stack, Button } from "@cloudoperators/juno-ui-components"
-import { IssueCountBadge } from "../../../common/IssuesCountPerSeverityLevel"
+import { SeverityCount } from "../../../common/IssuesCountPerSeveritylevel/SeverityCount"
 import { ServiceType } from "../../../types"
 
 type ServiceDetailsLabel = {
@@ -45,7 +45,7 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
   <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell className="items-center">
-      <IssueCountBadge
+      <SeverityCount
         count={item.issuesCount.critical}
         icon="danger"
         variant="danger"
@@ -53,10 +53,10 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
       />
     </DataGridCell>
     <DataGridCell className="items-center">
-      <IssueCountBadge count={item.issuesCount.high} icon="warning" variant="warning" tooltipContent="High Issues" />
+      <SeverityCount count={item.issuesCount.high} icon="warning" variant="warning" tooltipContent="High Issues" />
     </DataGridCell>
     <DataGridCell className="items-center">
-      <IssueCountBadge
+      <SeverityCount
         count={item.issuesCount.medium}
         icon="errorOutline"
         variant="warning"
@@ -64,10 +64,10 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
       />
     </DataGridCell>
     <DataGridCell className="items-center">
-      <IssueCountBadge count={item.issuesCount.low} icon="info" variant="info" tooltipContent="Low Issues" />
+      <SeverityCount count={item.issuesCount.low} icon="info" variant="info" tooltipContent="Low Issues" />
     </DataGridCell>
     <DataGridCell className="items-center">
-      <IssueCountBadge count={item.issuesCount.none} icon="help" variant="default" tooltipContent="None Issues" />
+      <SeverityCount count={item.issuesCount.none} icon="help" variant="default" tooltipContent="None Issues" />
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />

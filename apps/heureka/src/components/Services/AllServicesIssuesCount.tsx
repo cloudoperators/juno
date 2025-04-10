@@ -8,7 +8,7 @@ import { Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServicesIssuesCounts } from "./useFetchServicesIssuesCounts"
-import { IssuesCountPerSeverityLevel } from "../common/IssuesCountPerSeverityLevel"
+import { IssuesCountPerSeverityLevel } from "../common/IssuesCountPerSeveritylevel"
 
 type AllServicesIssuesCountProps = {
   filterSettings: FilterSettings
