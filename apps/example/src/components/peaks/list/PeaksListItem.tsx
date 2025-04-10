@@ -3,23 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
-import { DataGridCell, DataGridRow, Badge, Modal } from "@cloudoperators/juno-ui-components"
-
+import React from "react"
+import { DataGridCell, DataGridRow, Badge } from "@cloudoperators/juno-ui-components"
 import { Peak } from "../../../mocks/db"
 import { getNumberColorStyle } from "../utils/getNumberColor"
 import PeaksListItemActions from "./PeaksListItemActions"
+import { useGlobalsActions } from "../../../store/StoreProvider"
+import useSelectedPeak from "../../../store/createSelectedPeakSlice" // Import the hook
 
 export interface PeaksListItemProps {
   peak: Peak
-  // eslint-disable-next-line no-unused-vars
   onSelect: (peak: Peak) => void
 }
 
 const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
-  const [modalVisible, setModalVisible] = useState(false)
+  const { setCurrentPanel } = useGlobalsActions()
+  const { setSelectedPeakId } = useSelectedPeak() // Use the hook
 
-  const closeModal = () => setModalVisible(false)
+  const openPanel = () => {
+    setSelectedPeakId(String(peak.id)) // Set the selected peak ID in global state
+    setCurrentPanel({ type: "ShowPeak", itemId: peak.id })
+  }
 
   const numberColorStyle = getNumberColorStyle(peak.safety?.status || "unknown")
 
@@ -29,7 +33,7 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   return (
     <>
       <DataGridRow className={hoverStyles}>
-        <DataGridCell className={hoverStyles} onClick={() => onSelect(peak)}>
+        <DataGridCell className={hoverStyles} onClick={() => openPanel()}>
           <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
             {peak.safety && (
               <Badge
@@ -43,45 +47,26 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
           </div>
         </DataGridCell>
         <DataGridCell className={hoverStyles}>
-          <strong className="cursor-pointer text-blue-600 hover:text-blue-800" onClick={() => onSelect(peak)}>
+          <strong className="cursor-pointer text-blue-600 hover:text-blue-800" onClick={() => openPanel()}>
             {peak.name}
           </strong>
         </DataGridCell>
-        <DataGridCell className={hoverStyles} onClick={() => onSelect(peak)}>
+        <DataGridCell className={hoverStyles} onClick={() => openPanel()}>
           {peak.height}
         </DataGridCell>
-        <DataGridCell className={hoverStyles} onClick={() => onSelect(peak)}>
+        <DataGridCell className={hoverStyles} onClick={() => openPanel()}>
           {peak.mainrange}
         </DataGridCell>
-        <DataGridCell className={hoverStyles} onClick={() => onSelect(peak)}>
+        <DataGridCell className={hoverStyles} onClick={() => openPanel()}>
           {peak.region}
         </DataGridCell>
-        <DataGridCell className={hoverStyles} onClick={() => onSelect(peak)}>
+        <DataGridCell className={hoverStyles} onClick={() => openPanel()}>
           {peak.countries}
         </DataGridCell>
         <DataGridCell className={hoverStyles} style={{ paddingTop: "20px", paddingBottom: "20px" }}>
           <PeaksListItemActions peak={peak} onSelect={onSelect} />
         </DataGridCell>
       </DataGridRow>
-
-      {modalVisible && (
-        <Modal
-          open={modalVisible}
-          onCancel={closeModal}
-          closeable={true}
-          title={`Details for ${peak.name}, ${peak.countries}`}
-          size="large"
-        >
-          <h3 className="text-lg mb-3" style={numberColorStyle}>
-            {`This Peak is ${peak.safety?.status || "unknown"}!`}
-          </h3>
-          <div>
-            <p>
-              <strong>Height:</strong> {peak.height}
-            </p>
-          </div>
-        </Modal>
-      )}
     </>
   )
 }

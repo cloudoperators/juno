@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Panel } from "@cloudoperators/juno-ui-components"
+import { Badge, Panel } from "@cloudoperators/juno-ui-components"
 
 import { useGlobalsActions, useGlobalsCurrentPanel } from "../../store/StoreProvider"
 
@@ -45,6 +45,24 @@ const PanelManager: React.FC = () => {
     }
   }
 
+  // Assuming INITAL_PEAK_DATA simulates fetching peak data - replace with actual data fetch/filter logic.
+  const findPeakById = (id: string) => {
+    // Placeholder function that fetches peak by ID, replace this with actual logic for retrieving peaks
+    return {
+      id,
+      name: "Mount Sample",
+      height: "8848",
+      range: "Himalayas",
+      region: "Asia",
+      country: "Nepal/China",
+      url: "https://example.com/sample",
+      safety: {
+        status: "safe",
+        variant: "positive",
+      },
+    }
+  }
+
   const renderPanelContent = (): React.ReactNode => {
     switch (currentPanel?.type) {
       case Panels.EDIT_PEAKS:
@@ -52,7 +70,28 @@ const PanelManager: React.FC = () => {
           <PeakForm initialValues={INITAL_PLACEHOLDER_PEAK_DATA} closeCallback={closePanel} disableAutoFocus={true} />
         )
       case Panels.SHOW_PEAK:
-        return <div />
+        const peakDetails = currentPanel.itemId ? findPeakById(currentPanel.itemId) : null
+        // Show detailed information for the selected peak
+        return (
+          peakDetails && (
+            <div>
+              <h3>{peakDetails.name}</h3>
+              <p>Height: {peakDetails.height}</p>
+              <p>Range: {peakDetails.range}</p>
+              <p>Region: {peakDetails.region}</p>
+              <p>Country: {peakDetails.country}</p>
+              <a href={peakDetails.url} target="_blank" rel="noopener noreferrer">
+                More Info
+              </a>
+              <Badge
+                icon
+                text={peakDetails.safety.status}
+                variant={peakDetails.safety.variant}
+                style={{ minWidth: "70px", textAlign: "center" }}
+              />
+            </div>
+          )
+        )
       default:
         return null
     }
