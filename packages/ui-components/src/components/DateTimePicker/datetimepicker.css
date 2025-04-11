@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
-// SPDX-License-Identifier: Apache-2.0
+/* SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 .theme-dark {
   .juno-datetimepicker-input-default {
@@ -41,8 +42,8 @@
   -ms-touch-action: manipulation;
   touch-action: manipulation;
   background: var(--color-datepicker-calendar-bg);
-  // -webkit-box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08);
-  //         box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08);
+  /* -webkit-box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08); */
+           /* box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08); */
 }
 .flatpickr-calendar.open,
 .flatpickr-calendar.inline {
@@ -101,12 +102,12 @@
 }
 .flatpickr-calendar.hasTime .flatpickr-time {
   height: 40px;
-  // border-top: 1px solid #20222c;
+   /* border-top: 1px solid #20222c; */
 }
 .flatpickr-calendar.noCalendar.hasTime .flatpickr-time {
   height: auto;
 }
-// .flatpickr-calendar:before,
+/* // .flatpickr-calendar:before,
 // .flatpickr-calendar:after {
 //   position: absolute;
 //   display: block;
@@ -156,7 +157,7 @@
 // }
 // .flatpickr-calendar.arrowBottom:after {
 //   border-top-color: #3f4458;
-//}
+//} */
 .flatpickr-calendar:focus {
   outline: 0;
 }
@@ -469,7 +470,7 @@
 span.flatpickr-weekday {
   cursor: default;
   font-size: 90%;
-  // background: #3f4458;
+   /* background: #3f4458; */
   color: var(--color-text-default);
   line-height: 1;
   margin: 0;
