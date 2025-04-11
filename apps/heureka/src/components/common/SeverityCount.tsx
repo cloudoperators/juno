@@ -22,7 +22,6 @@ type SeverityCountProps = {
 }
 
 export const SeverityCount = ({ icon, count, variant, tooltipContent, displayMode }: SeverityCountProps) => {
-  console.log("count", count, displayMode)
   // For single mode with zero count, show a dash
   if (displayMode === "single" && count === 0) {
     return <span>&mdash;</span>

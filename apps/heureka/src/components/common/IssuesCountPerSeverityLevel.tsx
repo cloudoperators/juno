@@ -13,7 +13,6 @@ type IssuesCountPerSeverityLevelProps = {
 }
 
 export const IssuesCountPerSeverityLevel = ({ counts }: IssuesCountPerSeverityLevelProps) => {
-  console.log("counts", counts)
   if (counts.critical + counts.high + counts.medium + counts.low + counts.none === 0) {
     return <div>No issues found! 🚀</div>
   }
