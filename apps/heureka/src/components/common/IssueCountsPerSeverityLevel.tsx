@@ -8,11 +8,11 @@ import { Stack } from "@cloudoperators/juno-ui-components"
 import { IssuesCountsWithTotalCountType, IssuesCountsType } from "../Services/useFetchServicesIssuesCounts"
 import { SeverityCount } from "./SeverityCount"
 
-type IssuesCountPerSeverityLevelProps = {
+type IssueCountsPerSeverityLevelProps = {
   counts: IssuesCountsWithTotalCountType | IssuesCountsType
 }
 
-export const IssuesCountPerSeverityLevel = ({ counts }: IssuesCountPerSeverityLevelProps) => {
+export const IssueCountsPerSeverityLevel = ({ counts }: IssueCountsPerSeverityLevelProps) => {
   if (counts.critical + counts.high + counts.medium + counts.low + counts.none === 0) {
     return <div>No issues found! 🚀</div>
   }
