@@ -101,11 +101,7 @@ export const ServiceImageVersions = ({
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Tag</DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
+            <DataGridHeadCell colSpan={5}>Issue Counts</DataGridHeadCell>
             {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
           {loading ? (
