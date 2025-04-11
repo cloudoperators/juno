@@ -3,14 +3,14 @@
  */
 
 @import "../lib/variables";
-@import "./components/Button/button.scss";
-@import "./components/DateTimePicker/datetimepicker.scss";
-@import "./components/FormattedText/formatted-text.scss";
-@import "./components/InputGroup/input-group.scss";
-@import "./components/SearchInput/searchinput.scss";
-@import "./components/Select/select.scss";
-@import "./components/TextInput/textinput.scss";
-@import "./components/ThemeToggle/themeToggle.scss";
+@import "./components/Button/button.css";
+@import "./components/DateTimePicker/datetimepicker.css";
+@import "./components/FormattedText/formatted-text.css";
+@import "./components/InputGroup/input-group.css";
+@import "./components/SearchInput/searchinput.css";
+@import "./components/Select/select.css";
+@import "./components/TextInput/textinput.css";
+@import "./components/ThemeToggle/themeToggle.css";
 
 @tailwind base;
 
