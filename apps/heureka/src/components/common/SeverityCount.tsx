@@ -18,10 +18,10 @@ type SeverityCountProps = {
   count: number
   variant: BadgeVariantType
   tooltipContent: string
-  showDashIfZero: Boolean
+  showDashIfZero?: Boolean
 }
 
-export const SeverityCount = ({ icon, count, variant, tooltipContent, showDashIfZero }: SeverityCountProps) => {
+export const SeverityCount = ({ icon, count, variant, tooltipContent, showDashIfZero = false }: SeverityCountProps) => {
   // Show dash if count is zero and showDashIfZero is true
   if (!!showDashIfZero && count === 0) {
     return <span>&mdash;</span>
