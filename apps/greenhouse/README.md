@@ -48,5 +48,7 @@ These are the customizable application properties (appProps) that you can define
 - **currentHost** (required): `"URL TO ASSETS SERVER"`. This value is usually set by the Widget Loader. If the app is loaded via `import` or `importShim`, this parameter should be set.
 - **apiEndpoint** (required): `"URL TO K8S API"`. This value is necessary to communicate with the Kubernetes API.
 - **mockAuth**: true, false (default), or JSON (optional). Simulates mock authentication; allowed values include boolean, plain JSON objects. When enabled, the application receives a predefined mock token with attributes such as `iss`, `sub`, `aud`, `exp`, `iat`, `nonce`, `email`, `email_verified`, `groups`, `name`, and `preferred_username`. These attributes will be overridden if a JSON object is provided instead of a boolean. Additionally, the organization group will be overridden with the value specified in the URL.
-- **demoOrg** (optional): `"demo"`. If the organization name matches this value, the app will enter demo mode (mock authentication and demo org plugins).
+  **Important:** `mockAuth` takes precedence over both real and token-based authentication, regardless of the organization provided. If set, mock data will be used even when `demoOrg` and `demoUserToken` are defined.
+- **demoOrg** (optional): `"demo"`. If the organization name matches this value, the app will use the demo user token for authentication.
 - **demoUserToken** (optional): `"token for demo user"`. Used for authentication if `demoOrg` and `demoUserToken` are set, and the organization name matches `demoOrg`.
+  **Note:** This is ignored if `mockAuth` is set.
