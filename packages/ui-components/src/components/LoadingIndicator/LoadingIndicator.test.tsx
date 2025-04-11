@@ -61,10 +61,10 @@ describe("LoadingIndicator", () => {
 
   describe("Color Class Handling", () => {
     test("renders a LoadingIndicator with a color as passed", () => {
-      render(<LoadingIndicator color="jn-text-danger" />)
+      render(<LoadingIndicator color="jn:text-danger" />)
       const progressBar = screen.getByRole("progressbar")
       expect(progressBar).toBeInTheDocument()
-      expect(progressBar).toHaveClass("jn-text-danger")
+      expect(progressBar).toHaveClass("jn:text-danger")
     })
   })
 

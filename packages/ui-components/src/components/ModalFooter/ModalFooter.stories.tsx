@@ -44,7 +44,7 @@ export const Custom = {
   render: Template,
 
   args: {
-    className: "jn-justify-between jn-items-center",
+    className: "jn:justify-between jn:items-center",
     children: [
       <Stack gap="2" key="s1">
         <Icon />

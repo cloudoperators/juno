@@ -4,57 +4,57 @@
  */
 
 import React, { LegacyRef } from "react"
-import "./button.scss"
+import "./button.css"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/index"
 
 const btnBase = `
-  jn-font-bold
-  jn-inline-flex 
-  jn-justify-center 
-  jn-items-center
-  jn-rounded
-  jn-shadow-sm 
-  jn-w-auto
-  focus:jn-outline-none 
-  focus-visible:jn-ring-2
-  focus-visible:jn-ring-theme-focus
-  focus-visible:jn-ring-offset-1
-  focus-visible:jn-ring-offset-theme-focus
-  disabled:jn-opacity-50
-  disabled:jn-cursor-not-allowed
-  disabled:jn-pointer-events-none
+  jn:font-bold
+  jn:inline-flex 
+  jn:justify-center 
+  jn:items-center
+  jn:rounded
+  jn:shadow-sm 
+  jn:w-auto
+  jn:focus:outline-hidden 
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+  jn:focus-visible:ring-offset-theme-focus
+  jn:disabled:opacity-50
+  jn:disabled:cursor-not-allowed
+  jn:disabled:pointer-events-none
 `
 
 const btnSmallBase = `
-  jn-text-sm
-  jn-leading-5
+  jn:text-sm
+  jn:leading-5
 `
 
 const btnDefaultBase = `
-  jn-text-base
-  jn-leading-6
+  jn:text-base
+  jn:leading-6
 `
 
 const btnSmallDefaultPadding = `
-  jn-py-[0.3125rem]
-  jn-px-[0.5rem]
+  jn:py-[0.3125rem]
+  jn:px-[0.5rem]
 `
 
 const btnSmallSubduedPadding = `
-  jn-py-[0.25rem]
-  jn-px-[0.4375rem]
+  jn:py-[0.25rem]
+  jn:px-[0.4375rem]
 `
 
 const btnDefaultPadding = `
-  jn-py-[0.4375rem]
-  jn-px-[0.625rem] 
+  jn:py-[0.4375rem]
+  jn:px-[0.625rem] 
 `
 
 const btnDefaultSubduedPadding = `
-  jn-py-[0.375rem]
-  jn-px-[0.5625rem]
+  jn:py-[0.375rem]
+  jn:px-[0.5625rem]
 `
 
 const getButtonPadding = (size: ButtonSize, variant: ButtonVariant | undefined) => {
@@ -66,11 +66,11 @@ const getButtonPadding = (size: ButtonSize, variant: ButtonVariant | undefined) 
 }
 
 const btnIconSmall = `
-  jn-mr-2
+  jn:mr-2
 `
 
 const btnIconDefault = `
-  jn-mr-2
+  jn:mr-2
 `
 
 const iconClasses = (size: ButtonSize) => {
@@ -89,11 +89,11 @@ const progressClass = (progress: boolean) => {
 const spinnerColorClass = (variant: ButtonVariant) => {
   switch (variant) {
     case "default":
-      return "jn-text-theme-accent"
+      return "jn:text-theme-accent"
     case "primary":
-      return "jn-text-white"
+      return "jn:text-white"
     case "primary-danger":
-      return "jn-text-white"
+      return "jn:text-white"
     default:
       return ""
   }

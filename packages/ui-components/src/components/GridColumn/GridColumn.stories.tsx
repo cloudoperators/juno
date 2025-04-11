@@ -15,7 +15,7 @@ export default {
   },
   decorators: [
     (Story, context) => (
-      <div className="juno-container jn-px-6 jn-py-6">
+      <div className="juno-container jn:px-6 jn:py-6">
         <Story {...context.args} />
       </div>
     ),
@@ -23,7 +23,7 @@ export default {
 } as Meta
 
 const Template: StoryFn<GridColumnProps> = (args) => {
-  return <GridColumn {...args} className={`${args.className} jn-bg-juno-blue-3 jn-text-juno-grey-blue`} />
+  return <GridColumn {...args} className={`${args.className} jn:bg-juno-blue-3 jn:text-juno-grey-blue`} />
 }
 
 export const Default = {

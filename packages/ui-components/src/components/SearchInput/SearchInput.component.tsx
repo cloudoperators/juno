@@ -8,7 +8,7 @@ import React, { useState, useEffect, ChangeEvent, KeyboardEvent, MouseEvent, use
 import { Icon } from "../Icon"
 import { Stack } from "../Stack"
 
-import "./searchinput.scss"
+import "./searchinput.css"
 
 export interface SearchInputProps extends Omit<React.HTMLProps<HTMLInputElement>, "onClick"> {
   /**
@@ -72,58 +72,58 @@ export interface SearchInputProps extends Omit<React.HTMLProps<HTMLInputElement>
 }
 
 const getWrapperStyles = (variant: "rounded" | "hero" | "default"): string => {
-  const baseStyles = "jn-relative jn-inline-block jn-win-max"
+  const baseStyles = "jn:relative jn:inline-block jn-win-max"
   switch (variant) {
     case "rounded":
-      return `${baseStyles} jn-w-auto`
+      return `${baseStyles} jn:w-auto`
     case "hero":
-      return `${baseStyles} jn-w-full`
+      return `${baseStyles} jn:w-full`
     default:
-      return `${baseStyles} jn-w-auto`
+      return `${baseStyles} jn:w-auto`
   }
 }
 
 const getSearchStyles = (variant: "rounded" | "hero" | "default"): string => {
   const baseStyles = `
-    jn-bg-theme-textinput
-    jn-text-theme-high
-    jn-shadow
-    jn-w-full
-    focus:jn-outline-none
-    focus:jn-ring-2
-    focus:jn-ring-theme-focus
-    disabled:jn-cursor-not-allowed
-    disabled:jn-opacity-50
+    jn:bg-theme-textinput
+    jn:text-theme-high
+    jn:shadow
+    jn:w-full
+    jn:focus:outline-hidden
+    jn:focus:ring-2
+    jn:focus:ring-theme-focus
+    jn:disabled:cursor-not-allowed
+    jn:disabled:opacity-50
   `
 
-  const roundedStyles = "jn-rounded-full focus:jn-rounded-full"
+  const roundedStyles = "jn:rounded-full jn:focus:rounded-full"
   switch (variant) {
     case "rounded":
-      return `${baseStyles} ${roundedStyles} jn-text-base jn-w-auto jn-pl-3 jn-pr-16 jn-py-1`
+      return `${baseStyles} ${roundedStyles} jn:text-base jn:w-auto jn:pl-3 jn:pr-16 jn:py-1`
     case "hero":
-      return `${baseStyles} ${roundedStyles} jn-text-lg jn-w-full jn-pl-6 jn-pr-20 jn-py-2.5`
+      return `${baseStyles} ${roundedStyles} jn:text-lg jn:w-full jn:pl-6 jn:pr-20 jn:py-2.5`
     default:
-      return `${baseStyles} jn-rounded jn-text-base jn-leading-4 jn-pl-4 jn-pr-16 jn-py-2.5`
+      return `${baseStyles} jn:rounded jn:text-base jn:leading-4 jn:pl-4 jn:pr-16 jn:py-2.5`
   }
 }
 
 const getIconWrapperStyles = (variant: "rounded" | "hero" | "default"): string => {
   switch (variant) {
     case "rounded":
-      return "jn-absolute jn-inline-flex jn-right-3 jn-top-1"
+      return "jn:absolute jn:inline-flex jn:right-3 jn:top-1"
     case "hero":
-      return "jn-absolute jn-inline-flex jn-right-5"
+      return "jn:absolute jn:inline-flex jn:right-5"
     default:
-      return "jn-absolute jn-inline-flex jn-right-3 jn-top-2"
+      return "jn:absolute jn:inline-flex jn:right-3 jn:top-2"
   }
 }
 
 const getClearIconStyles = (variant: "rounded" | "hero" | "default"): string => {
   switch (variant) {
     case "hero":
-      return "jn-mr-2.5"
+      return "jn:mr-2.5"
     default:
-      return "jn-mr-2"
+      return "jn:mr-2"
   }
 }
 

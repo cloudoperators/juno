@@ -6,24 +6,24 @@
 import React from "react"
 
 const baseColumnStyles = `
-  jn-flex-grid-column
-  jn-p-grid-column
+  jn:flex-grid-column
+  jn:p-grid-column
 `
 
 const columnWidthStyles: { [key: number]: string } = {
-  0: "jn-w-grid-column-default",
-  1: "jn-w-grid-col-1",
-  2: "jn-w-grid-col-2",
-  3: "jn-w-grid-col-3",
-  4: "jn-w-grid-col-4",
-  5: "jn-w-grid-col-5",
-  6: "jn-w-grid-col-6",
-  7: "jn-w-grid-col-7",
-  8: "jn-w-grid-col-8",
-  9: "jn-w-grid-col-9",
-  10: "jn-w-grid-col-10",
-  11: "jn-w-grid-col-11",
-  12: "jn-w-grid-col-12",
+  0: "jn:w-grid-column-default",
+  1: "jn:w-grid-col-1",
+  2: "jn:w-grid-col-2",
+  3: "jn:w-grid-col-3",
+  4: "jn:w-grid-col-4",
+  5: "jn:w-grid-col-5",
+  6: "jn:w-grid-col-6",
+  7: "jn:w-grid-col-7",
+  8: "jn:w-grid-col-8",
+  9: "jn:w-grid-col-9",
+  10: "jn:w-grid-col-10",
+  11: "jn:w-grid-col-11",
+  12: "jn:w-grid-col-12",
 }
 
 const autoColumnStyles: React.CSSProperties = {

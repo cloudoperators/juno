@@ -31,7 +31,7 @@ export default {
   },
   decorators: [
     (Story: StoryFn) => (
-      <div className="jn-pb-12">
+      <div className="jn:pb-12">
         <PortalProvider>
           <Story />
         </PortalProvider>

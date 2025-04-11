@@ -12,85 +12,85 @@ import { PortalProvider } from "../PortalProvider/"
 // ----- Styles -----
 
 const defaultToggleStyles = `
-  hover:jn-text-theme-accent
-  active:jn-text-theme-accent
+  jn:hover:text-theme-accent
+  jn:active:text-theme-accent
 `
 
 const disabledToggleStyles = `
-  jn-cursor-not-allowed
-  jn-opacity-50
+  jn:cursor-not-allowed
+  jn:opacity-50
 `
 
 const menuStyles = `
-  jn-overflow-hidden
-  jn-flex
-  jn-flex-col
-  jn-w-max
-  jn-rounded
-  jn-bg-theme-background-lvl-1
+  jn:overflow-hidden
+  jn:flex
+  jn:flex-col
+  jn:w-max
+  jn:rounded
+  jn:bg-theme-background-lvl-1
 `
 
 const itemStyles = `
-  jn-text-base
-  jn-text-theme-default
-  jn-flex
-  jn-w-full
-  jn-items-center
-  jn-whitespace-nowrap
-  jn-pt-[0.6875rem]
-  jn-pb-[0.5rem]
-  jn-px-[0.875rem]
+  jn:text-base
+  jn:text-theme-default
+  jn:flex
+  jn:w-full
+  jn:items-center
+  jn:whitespace-nowrap
+  jn:pt-[0.6875rem]
+  jn:pb-[0.5rem]
+  jn:px-[0.875rem]
 `
 
 const normalItemStyles = `
-  jn-text-base
-  jn-pt-[0.6875rem]
-  jn-pb-[0.5rem]
-  jn-px-[0.875rem]
+  jn:text-base
+  jn:pt-[0.6875rem]
+  jn:pb-[0.5rem]
+  jn:px-[0.875rem]
 `
 
 const smallItemStyles = `
-  jn-text-sm
-  jn-p-2
+  jn:text-sm
+  jn:p-2
 `
 
 const actionableItemStyles = `
-  hover:jn-bg-theme-background-lvl-3
-  jn-cursor-pointer
+  jn:hover:bg-theme-background-lvl-3
+  jn:cursor-pointer
 `
 
 const disabledItemStyles = `
-  jn-cursor-not-allowed
-  jn-opacity-50
-  jn-bg-theme-background-lvl-1
+  jn:cursor-not-allowed
+  jn:opacity-50
+  jn:bg-theme-background-lvl-1
 `
 
 const itemIconStyles = `
-  jn-inline-block
-  jn-mr-2
+  jn:inline-block
+  jn:mr-2
 `
 
 const sectionStyles = `
-  jn-border-b
-  jn-border-theme-background-lvl-3
-  last:jn-border-b-0
+  jn:border-b
+  jn:border-theme-background-lvl-3
+  jn:last:border-b-0
 `
 
 const sectionTitleStyles = `
-  jn-text-theme-light
-  jn-text-xs
-  jn-p-2
-  jn-cursor-default
+  jn:text-theme-light
+  jn:text-xs
+  jn:p-2
+  jn:cursor-default
 `
 
 const sectionSeparatorStyles = `
   jn-h-
-  jn-bg-theme-background-lvl-3
+  jn:bg-theme-background-lvl-3
 `
 
 // Make sure the floating reference wrapper element around the toggle fits snug around the toggle, so the positioning of the menu is correct relative to the visible toggle:
 const floatingReferenceWrapperStyles = `
-  jn-inline-flex
+  jn:inline-flex
 `
 
 // ----- Interfaces -----

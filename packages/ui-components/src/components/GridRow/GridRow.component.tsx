@@ -6,9 +6,9 @@
 import React from "react"
 
 const baseRowStyles = `
-    jn-flex
-    jn-flex-wrap
-    jn-m-grid-row
+    jn:flex
+    jn:flex-wrap
+    jn:m-grid-row
 `
 
 export interface GridRowProps extends React.HTMLAttributes<HTMLDivElement> {

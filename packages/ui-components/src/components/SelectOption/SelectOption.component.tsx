@@ -9,45 +9,45 @@ import { SelectContext } from "../Select/Select.component"
 import { Icon } from "../Icon"
 
 const optionStyles = `
-  jn-flex
-  jn-pt-[0.6875rem]
-  jn-pb-[0.5rem]
-  jn-pr-[0.875rem]
-  jn-select-none
-  data-[headlessui-state=active]:jn-outline-none
-  data-[headlessui-state=active]:jn-ring-2
-  data-[headlessui-state=active]:jn-ring-inset
-  data-[headlessui-state=active]:jn-ring-theme-focus
-  data-[headlessui-state=active]:jn-bg-theme-background-lvl-3
+  jn:flex
+  jn:pt-[0.6875rem]
+  jn:pb-[0.5rem]
+  jn:pr-[0.875rem]
+  jn:select-none
+  jn:data-[headlessui-state=active]:outline-hidden
+  jn:data-[headlessui-state=active]:ring-2
+  jn:data-[headlessui-state=active]:ring-inset
+  jn:data-[headlessui-state=active]:ring-theme-focus
+  jn:data-[headlessui-state=active]:bg-theme-background-lvl-3
 `
 
 const unselectedOptionStyles = `
-  jn-text-theme-default
-  jn-pl-[2.375rem]
+  jn:text-theme-default
+  jn:pl-[2.375rem]
 `
 
 const selectedOptionStyles = `
-  jn-text-theme-accent
-  jn-pl-3.5
+  jn:text-theme-accent
+  jn:pl-3.5
 `
 
 const selectedIconStyles = `
-  jn-inline-block
-  jn-mr-1.5
-  jn-overflow-auto
+  jn:inline-block
+  jn:mr-1.5
+  jn:overflow-auto
 `
 
 const disabledOptionLabelStyles = `
-  jn-opacity-50
-  jn-cursor-not-allowed
+  jn:opacity-50
+  jn:cursor-not-allowed
 `
 
 const truncateOptionStyles = `
-  jn-block
-  jn-h-6
-  jn-overflow-hidden
-  jn-text-ellipsis
-  jn-whitespace-nowrap
+  jn:block
+  jn:h-6
+  jn:overflow-hidden
+  jn:text-ellipsis
+  jn:whitespace-nowrap
 `
 
 export interface SelectOptionProps extends React.HTMLAttributes<HTMLLIElement> {
@@ -83,10 +83,10 @@ export const SelectOption: React.FC<SelectOptionProps> = ({
         <li
           className={`
           juno-select-option 
-          jn-min-h-[2.5rem]
+          jn:min-h-[2.5rem]
           ${optionStyles}
           ${selected ? "juno-select-option-selected " + selectedOptionStyles : unselectedOptionStyles}
-          ${disabled ? "juno-select-option-disabled jn-opacity-50 jn-cursor-not-allowed" : ""}
+          ${disabled ? "juno-select-option-disabled jn:opacity-50 jn:cursor-not-allowed" : ""}
           ${truncateOptions ? "juno-select-option-truncate" : ""}
           ${className}
         `}

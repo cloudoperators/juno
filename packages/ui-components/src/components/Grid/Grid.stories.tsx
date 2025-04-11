@@ -20,7 +20,7 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div className="juno-container jn-px-6 jn-py-6">
+      <div className="juno-container jn:px-6 jn:py-6">
         <Story />
       </div>
     ),
@@ -28,7 +28,7 @@ export default {
 } as Meta<typeof Grid>
 
 const Template: StoryFn<GridProps> = (args) => (
-  <Grid {...args} className={`jn-bg-juno-blue-3 jn-text-juno-grey-blue ${args.className || ""}`} />
+  <Grid {...args} className={`jn:bg-juno-blue-3 jn:text-juno-grey-blue ${args.className || ""}`} />
 )
 
 export const Default = {

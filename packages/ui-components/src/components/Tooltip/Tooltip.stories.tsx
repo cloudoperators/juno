@@ -30,7 +30,7 @@ export default {
   },
   decorators: [
     (Story: React.FC) => (
-      <div className="jn-my-6 jn-flex jn-justify-center">
+      <div className="jn:my-6 jn:flex jn:justify-center">
         <Story />
       </div>
     ),

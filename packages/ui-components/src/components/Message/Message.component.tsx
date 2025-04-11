@@ -9,56 +9,56 @@ import { Icon } from "../Icon"
 import { KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
 const messageBaseStyles = `
-    jn-text-theme-high
-    jn-flex
-    jn-rounded
-    jn-leading-5
-    jn-overflow-hidden
-    jn-items-center
+    jn:text-theme-high
+    jn:flex
+    jn:rounded
+    jn:leading-5
+    jn:overflow-hidden
+    jn:items-center
 `
 
 const messageHeadingStyles = `
-    jn-font-bold
+    jn:font-bold
 `
 
 const messageContentStyles = `
-    jn-py-3
-    jn-pr-4
-    jn-ml-7
+    jn:py-3
+    jn:pr-4
+    jn:ml-7
 `
 
 const messageBorderStyles = `
-    jn-w-[4px]
-    jn-self-stretch
-    jn-border-l-4
-    jn-mr-6
-    jn-shrink-0
+    jn:w-[4px]
+    jn:self-stretch
+    jn:border-l-4
+    jn:mr-6
+    jn:shrink-0
 `
 
 const dismissButtonStyles = `
-    jn-ml-auto
-    jn-self-stretch
-    jn-flex
-    jn-flex-col
-    jn-py-2.5
-    jn-pr-2.5
+    jn:ml-auto
+    jn:self-stretch
+    jn:flex
+    jn:flex-col
+    jn:py-2.5
+    jn:pr-2.5
 `
 
 const messageVariantStyles = {
-  default: `jn-border-theme-message-default`,
-  defaultBg: `jn-bg-theme-message-default`,
+  default: `jn:border-theme-message-default`,
+  defaultBg: `jn:bg-theme-message-default`,
 
-  error: `jn-border-theme-message-error`,
-  errorBg: `jn-bg-theme-message-error`,
+  error: `jn:border-theme-message-error`,
+  errorBg: `jn:bg-theme-message-error`,
 
-  warning: `jn-border-theme-message-warning`,
-  warningBg: `jn-bg-theme-message-warning`,
+  warning: `jn:border-theme-message-warning`,
+  warningBg: `jn:bg-theme-message-warning`,
 
-  danger: `jn-border-theme-message-danger`,
-  dangerBg: `jn-bg-theme-message-danger`,
+  danger: `jn:border-theme-message-danger`,
+  dangerBg: `jn:bg-theme-message-danger`,
 
-  success: `jn-border-theme-message-success`,
-  successBg: `jn-bg-theme-message-success`,
+  success: `jn:border-theme-message-success`,
+  successBg: `jn:bg-theme-message-success`,
 }
 
 export type MessageVariantType = "info" | "warning" | "danger" | "error" | "success"
@@ -233,7 +233,7 @@ export const Message: React.FC<MessageProps> = ({
       {...props}
     >
       <div className={`juno-message-border ${messageBorderStyles} ${variantStyle}`}></div>
-      <Icon icon={iconToRender} color={`jn-text-theme-${variant}`} className="jn-shrink-0" />
+      <Icon icon={iconToRender} color={`jn-text-theme-${variant}`} className="jn:shrink-0" />
       <div className={`juno-message-content ${messageContentStyles}`}>
         {title && <h1 className={messageHeadingStyles}>{title}</h1>}
         <div>{children || text}</div>
@@ -243,7 +243,7 @@ export const Message: React.FC<MessageProps> = ({
           <Icon
             icon="close"
             onClick={hideMessage}
-            className="juno-message-close-button jn-opacity-50 hover:jn-opacity-100"
+            className="juno-message-close-button jn:opacity-50 jn:hover:opacity-100"
           />
         </div>
       )}

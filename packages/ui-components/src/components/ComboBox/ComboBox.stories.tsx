@@ -54,7 +54,7 @@ export default {
   },
   decorators: [
     (story: StoryFunction) => (
-      <div className="jn-pb-12">
+      <div className="jn:pb-12">
         <PortalProvider>{story()}</PortalProvider>
       </div>
     ),

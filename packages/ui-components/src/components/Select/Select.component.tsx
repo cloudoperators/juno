@@ -13,60 +13,60 @@ import { Float } from "@headlessui-float/react"
 import { autoPlacement, offset, shift, size } from "@floating-ui/react-dom"
 import { usePortalRef } from "../PortalProvider"
 import { createPortal } from "react-dom"
-import "./select.scss"
+import "./select.css"
 import { Boundary } from "@floating-ui/react"
 
 const labelStyles = `
   jn-no-wrap
-  jn-pointer-events-none
-  jn-top-2
-  jn-left-4
+  jn:pointer-events-none
+  jn:top-2
+  jn:left-4
 `
 
 const toggleStyles = `
-  jn-appearance-none
-  jn-h-[2.375rem]
-  jn-inline-flex
-  jn-items-center
-  jn-px-4
-  jn-rounded-3px
-  jn-select-none
-  jn-text-base
-  focus:jn-outline-none
-  focus:jn-ring-2
-  focus:jn-ring-theme-focus
+  jn:appearance-none
+  jn:h-[2.375rem]
+  jn:inline-flex
+  jn:items-center
+  jn:px-4
+  jn:rounded-3px
+  jn:select-none
+  jn:text-base
+  jn:focus:outline-hidden
+  jn:focus:ring-2
+  jn:focus:ring-theme-focus
 `
 const validToggleStyles = `
-  jn-border
-  jn-border-theme-success
+  jn:border
+  jn:border-theme-success
 `
 
 const invalidToggleStyles = `
-  jn-border
-  jn-border-theme-error
+  jn:border
+  jn:border-theme-error
 `
 
 const centeredIconStyles = `
-  jn-absolute
-  jn-top-1/2
-  jn-left-1/2
-  jn-translate-y-[-50%]
-  jn-translate-x-[-0.75rem]
+  jn:absolute
+  jn:top-1/2
+  jn:left-1/2
+  jn:translate-y-[-50%]
+  jn:translate-x-[-0.75rem]
 `
 
 const menuStyles = `
-  jn-rounded
-  jn-bg-theme-background-lvl-1
-  jn-w-full
-  jn-overflow-y-auto
+  jn:rounded
+  jn:bg-theme-background-lvl-1
+  jn:w-full
+  jn:overflow-y-auto
 `
 
 const truncateStyles = `
-  jn-block
-  jn-h-6
-  jn-overflow-hidden
-  jn-text-ellipsis
-  jn-whitespace-nowrap
+  jn:block
+  jn:h-6
+  jn:overflow-hidden
+  jn:text-ellipsis
+  jn:whitespace-nowrap
 `
 
 export type SelectContextProps = {
@@ -287,9 +287,9 @@ export const Select: React.FC<SelectProps> = ({
       <div
         className={`
           juno-select-wrapper 
-          jn-relative
-          ${width == "auto" ? "jn-inline-block" : "jn-block"}
-          ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          jn:relative
+          ${width == "auto" ? "jn:inline-block" : "jn:block"}
+          ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
           ${wrapperClassName}
         `}
       >
@@ -326,16 +326,16 @@ export const Select: React.FC<SelectProps> = ({
                 className={`
                     juno-select-toggle
                     ${variant && variant.length ? "juno-select-toggle-" + variant : "juno-select-toggle-default"}
-                    ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+                    ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
                     ${toggleStyles}
-                    ${label && isValueNotEmpty(label) ? "jn-pt-[0.4rem]" : ""}
-                    ${disabled ? "juno-select-disabled jn-opacity-50 jn-cursor-not-allowed" : ""}
-                    ${isLoading || hasError ? "jn-justify-center" : "jn-justify-between"}
+                    ${label && isValueNotEmpty(label) ? "jn:pt-[0.4rem]" : ""}
+                    ${disabled ? "juno-select-disabled jn:opacity-50 jn:cursor-not-allowed" : ""}
+                    ${isLoading || hasError ? "jn:justify-center" : "jn:justify-between"}
                     ${isInvalid ? "juno-select-invalid " + invalidToggleStyles : ""} 
                     ${isValid ? "juno-select-valid " + validToggleStyles : ""}  
                     
-                    ${isLoading ? "juno-select-loading jn-cursor-not-allowed" : ""}
-                    ${hasError ? "juno-select-error jn-cursor-not-allowed" : ""}
+                    ${isLoading ? "juno-select-loading jn:cursor-not-allowed" : ""}
+                    ${hasError ? "juno-select-error jn:cursor-not-allowed" : ""}
                     ${className}
                   `}
                 {...props}
@@ -344,9 +344,9 @@ export const Select: React.FC<SelectProps> = ({
                   !hasError && !isLoading ? (
                     <>
                       <span className={`${truncateStyles}`}>{getDisplayValue(value)}</span>
-                      <span className="jn-flex">
-                        {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : ""}
-                        {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : ""}
+                      <span className="jn:flex">
+                        {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" /> : ""}
+                        {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" /> : ""}
                         <span>
                           <Icon icon={open ? "expandLess" : "expandMore"} />
                         </span>
@@ -355,9 +355,9 @@ export const Select: React.FC<SelectProps> = ({
                   ) : (
                     <span className={`${centeredIconStyles}`}>
                       {hasError ? (
-                        <Icon icon="errorOutline" color="jn-text-theme-error" className={"jn-cursor-not-allowed"} />
+                        <Icon icon="errorOutline" color="jn:text-theme-error" className={"jn:cursor-not-allowed"} />
                       ) : isLoading ? (
-                        <Spinner className={"jn-cursor-not-allowed"} />
+                        <Spinner className={"jn:cursor-not-allowed"} />
                       ) : (
                         ""
                       )}
