@@ -32,7 +32,7 @@ describe("ServicesList", () => {
 
     // Check for the presence of the service list headers
     expect(await screen.findByText("Service")).toBeInTheDocument()
-    expect(await screen.findByText("Service details")).toBeInTheDocument()
+    expect(await screen.findByText("Details")).toBeInTheDocument()
   })
 
   it("should render service panel when clicking on a service", async () => {
