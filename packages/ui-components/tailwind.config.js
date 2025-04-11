@@ -16,8 +16,6 @@
 //   }
 // }
 
-
-
 module.exports = {
   content: [
     "./src/components/**/*.{js,jsx,ts,tsx,mdx}",
