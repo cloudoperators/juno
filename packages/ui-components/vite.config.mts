@@ -5,17 +5,19 @@
 
 import { defineConfig, PluginOption } from "vite"
 import react from "@vitejs/plugin-react"
-import tailwindcss from "tailwindcss"
-import autoprefixer from "autoprefixer"
+// import tailwindcss from "tailwindcss"
+// import autoprefixer from "autoprefixer"
+// @ts-ignore
+import tailwindcss from "@tailwindcss/vite"
 import dts from "vite-plugin-dts"
 import svgr from "vite-plugin-svgr"
 
 export default defineConfig({
-  css: {
-    postcss: {
-      plugins: [tailwindcss, autoprefixer],
-    },
-  },
+  // css: {
+  //   postcss: {
+  //     plugins: [tailwindcss],
+  //   },
+  // },
   build: {
     lib: {
       entry: "src/index.ts", // or 'src/main.ts' if TypeScript
@@ -29,6 +31,7 @@ export default defineConfig({
     outDir: "build",
   },
   plugins: [
+    tailwindcss(),
     dts({
       exclude: ["./__tests__/**/*.test.ts", "vitest.setup.ts"],
       insertTypesEntry: true, // Ensure types are properly exported

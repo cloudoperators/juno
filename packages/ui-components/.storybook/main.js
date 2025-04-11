@@ -18,14 +18,14 @@ const config = {
     "./local-preset",
     "@storybook/addon-mdx-gfm",
     "@storybook/addon-webpack5-compiler-babel",
-    {
-      name: "@storybook/addon-postcss",
-      options: {
-        postcssLoaderOptions: {
-          implementation: require("postcss"),
-        },
-      },
-    },
+    // {
+    //   name: "@storybook/addon-postcss",
+    //   options: {
+    //     postcssLoaderOptions: {
+    //       implementation: require("postcss"),
+    //     },
+    //   },
+    // },
   ],
   typescript: {
     reactDocgen: "react-docgen-typescript",

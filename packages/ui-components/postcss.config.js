@@ -4,5 +4,6 @@
  */
 
 module.exports = {
-  plugins: [require("tailwindcss"), require("autoprefixer"), require("postcss-url")({ url: "inline" })],
+  plugins: [require("@tailwindcss/postcss")],
+  // , require("postcss-url")({ url: "inline" })
 }
