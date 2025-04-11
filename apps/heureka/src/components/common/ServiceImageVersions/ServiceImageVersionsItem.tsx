@@ -50,6 +50,7 @@ const ServiceImageVersionsItem = ({
       <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
       <DataGridCell className="items-center">
         <SeverityCount
+          displayMode="single"
           count={version.issueCounts.critical}
           icon="danger"
           variant="danger"
@@ -57,10 +58,17 @@ const ServiceImageVersionsItem = ({
         />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <SeverityCount count={version.issueCounts.high} icon="warning" variant="warning" tooltipContent="High Issues" />
+        <SeverityCount
+          displayMode="single"
+          count={version.issueCounts.high}
+          icon="warning"
+          variant="warning"
+          tooltipContent="High Issues"
+        />
       </DataGridCell>
       <DataGridCell className="items-center">
         <SeverityCount
+          displayMode="single"
           count={version.issueCounts.medium}
           icon="errorOutline"
           variant="warning"
@@ -68,10 +76,22 @@ const ServiceImageVersionsItem = ({
         />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <SeverityCount count={version.issueCounts.low} icon="info" variant="info" tooltipContent="Low Issues" />
+        <SeverityCount
+          displayMode="single"
+          count={version.issueCounts.low}
+          icon="info"
+          variant="info"
+          tooltipContent="Low Issues"
+        />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <SeverityCount count={version.issueCounts.none} icon="help" variant="default" tooltipContent="None Issues" />
+        <SeverityCount
+          displayMode="single"
+          count={version.issueCounts.none}
+          icon="help"
+          variant="default"
+          tooltipContent="None Issues"
+        />
       </DataGridCell>
       {displayDetailsButton && (
         <DataGridCell>

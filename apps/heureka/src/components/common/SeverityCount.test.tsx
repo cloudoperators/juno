@@ -10,7 +10,7 @@ import { SeverityCount } from "./SeverityCount"
 describe("SeverityCount", () => {
   it("renders with count and shows badge", () => {
     render(
-      <SeverityCount icon="danger" count={5} variant="danger" tooltipContent="Critical Issues" className="test-class" />
+      <SeverityCount displayMode="single" icon="danger" count={5} variant="danger" tooltipContent="Critical Issues" />
     )
 
     // Check if the badge is rendered with the count
@@ -18,13 +18,33 @@ describe("SeverityCount", () => {
     expect(badge).toBeInTheDocument()
   })
 
-  it("renders without count and shows dash", () => {
+  it("renders without count and shows dash in single mode", () => {
     render(
-      <SeverityCount icon="danger" count={0} variant="danger" tooltipContent="Critical Issues" className="test-class" />
+      <SeverityCount displayMode="single" icon="danger" count={0} variant="danger" tooltipContent="Critical Issues" />
     )
 
     // Check if dash is rendered instead of a badge
     const dash = screen.getByText("—")
     expect(dash).toBeInTheDocument()
+  })
+
+  it("renders with zero count and shows '0' in all mode", () => {
+    render(
+      <SeverityCount displayMode="all" icon="danger" count={0} variant="danger" tooltipContent="Critical Issues" />
+    )
+
+    // Check if the badge is rendered with "0"
+    const badge = screen.getByText("0")
+    expect(badge).toBeInTheDocument()
+  })
+
+  it("renders with positive count in all mode", () => {
+    render(
+      <SeverityCount displayMode="all" icon="danger" count={3} variant="danger" tooltipContent="Critical Issues" />
+    )
+
+    // Check if the badge is rendered with the count
+    const badge = screen.getByText("3")
+    expect(badge).toBeInTheDocument()
   })
 })
