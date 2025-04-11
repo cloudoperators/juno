@@ -104,7 +104,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
         <Button label="Clear all" onClick={clearAllFilters} variant="subdued" />
 
         <SearchInput
-          placeholder="search term or regular expression"
+          placeholder="Search by name..."
           value={searchTerm || ""}
           className="w-96 ml-auto"
           onSearch={(value: string) => setSearchTerm(value)}

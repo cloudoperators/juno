@@ -4,12 +4,11 @@
  */
 
 import React from "react"
-import { Badge, Panel } from "@cloudoperators/juno-ui-components"
-
+import { Badge, Panel, DataGrid, DataGridRow, DataGridCell } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActions, useGlobalsCurrentPanel } from "../../store/StoreProvider"
-
-import { Panels } from "../constants"
-import PeakForm from "../peaks/list/PeakForm"
+import usePeaksStore from "../../store/usePeaksStore"
+import useNavigationStore from "../../store/useNavigationStore"
+import { Panels, Pages } from "../constants"
 
 type CurrentPanelType = (typeof Panels)[keyof typeof Panels]
 
@@ -18,87 +17,110 @@ interface CurrentPanel {
   itemId?: string
 }
 
-const EDIT_HEADING = "Edit Peak"
-const SHOW_PEAK_HEADING = "Peak Details"
-const INITAL_PLACEHOLDER_PEAK_DATA = {
-  name: "Mount Sample",
-  height: "8848",
-  range: "Himalayas",
-  region: "Asia",
-  country: "Nepal/China",
-  url: "https://example.com/sample",
-}
-
 const PanelManager: React.FC = () => {
-  const { setCurrentPanel } = useGlobalsActions()
+  const { setCurrentPanel, setSelectedPeak } = useGlobalsActions() // Ensure setSelectedPeak is available
   const currentPanel = useGlobalsCurrentPanel() as CurrentPanel
+  const { peaks } = usePeaksStore()
+  const { setCurrentPage } = useNavigationStore()
+
   const closePanel = (): void => setCurrentPanel(null)
 
-  const getPanelHeading = (): React.ReactNode => {
-    switch (currentPanel?.type) {
-      case Panels.EDIT_PEAKS:
-        return EDIT_HEADING
-      case Panels.SHOW_PEAK:
-        return SHOW_PEAK_HEADING
-      default:
-        return null
+  const peakDetails = currentPanel?.itemId ? peaks.find((peak) => peak.id === Number(currentPanel.itemId)) : null
+
+  const navigateToDetailPage = () => {
+    if (peakDetails) {
+      setSelectedPeak(peakDetails)
+      setCurrentPage(Pages.PEAKS)
+      closePanel()
     }
   }
 
-  // Assuming INITAL_PEAK_DATA simulates fetching peak data - replace with actual data fetch/filter logic.
-  const findPeakById = (id: string) => {
-    // Placeholder function that fetches peak by ID, replace this with actual logic for retrieving peaks
-    return {
-      id,
-      name: "Mount Sample",
-      height: "8848",
-      range: "Himalayas",
-      region: "Asia",
-      country: "Nepal/China",
-      url: "https://example.com/sample",
-      safety: {
-        status: "safe",
-        variant: "positive",
-      },
-    }
-  }
-
-  const renderPanelContent = (): React.ReactNode => {
-    switch (currentPanel?.type) {
-      case Panels.EDIT_PEAKS:
-        return (
-          <PeakForm initialValues={INITAL_PLACEHOLDER_PEAK_DATA} closeCallback={closePanel} disableAutoFocus={true} />
-        )
-      case Panels.SHOW_PEAK:
-        const peakDetails = currentPanel.itemId ? findPeakById(currentPanel.itemId) : null
-        // Show detailed information for the selected peak
-        return (
-          peakDetails && (
-            <div>
-              <h3>{peakDetails.name}</h3>
-              <p>Height: {peakDetails.height}</p>
-              <p>Range: {peakDetails.range}</p>
-              <p>Region: {peakDetails.region}</p>
-              <p>Country: {peakDetails.country}</p>
-              <a href={peakDetails.url} target="_blank" rel="noopener noreferrer">
-                More Info
-              </a>
+  const rows = peakDetails
+    ? [
+        <>
+          <DataGridRow>
+            <DataGridCell>
+              <strong>Height</strong>
+            </DataGridCell>
+            <DataGridCell>{peakDetails.height}</DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridCell>
+              <strong>Safety Status</strong>
+            </DataGridCell>
+            <DataGridCell>
               <Badge
                 icon
                 text={peakDetails.safety.status}
                 variant={peakDetails.safety.variant}
-                style={{ minWidth: "70px", textAlign: "center" }}
+                style={{ width: "70px", textAlign: "center" }}
               />
-            </div>
-          )
-        )
-      default:
-        return null
-    }
+            </DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridCell>
+              <strong>Main Range</strong>
+            </DataGridCell>
+            <DataGridCell>{peakDetails.mainrange}</DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridCell>
+              <strong>Region</strong>
+            </DataGridCell>
+            <DataGridCell>{peakDetails.region}</DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridCell>
+              <strong>Countries</strong>
+            </DataGridCell>
+            <DataGridCell>{peakDetails.countries}</DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridCell>
+              <strong>Details</strong>
+            </DataGridCell>
+            <DataGridCell>{peakDetails.details}</DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridCell>
+              <strong>More Info</strong>
+            </DataGridCell>
+            <DataGridCell>
+              <a href={peakDetails.url} target="_blank" rel="noopener noreferrer">
+                Learn more
+              </a>
+            </DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridCell colSpan={2} style={{ textAlign: "center", paddingTop: "10px" }}>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigateToDetailPage()
+                }}
+                style={{ cursor: "pointer", color: "#007BFF", textDecoration: "underline" }}
+              >
+                View Detailed Page
+              </a>
+            </DataGridCell>
+          </DataGridRow>
+        </>,
+      ]
+    : []
+
+  const renderPanelContent = (): React.ReactNode => {
+    return (
+      <DataGrid columns={2} style={{ gridTemplateColumns: "30% 70%", margin: "20px" }}>
+        {rows.map((row, index) => (
+          <React.Fragment key={index}>{row}</React.Fragment>
+        ))}
+      </DataGrid>
+    )
   }
 
   return (
-    <Panel heading={getPanelHeading()} opened={Boolean(renderPanelContent())} onClose={closePanel}>
+    <Panel heading={`${peakDetails?.name} Overview`} opened={Boolean(peakDetails)} onClose={closePanel}>
       {renderPanelContent()}
     </Panel>
   )

@@ -5,12 +5,13 @@
 
 import React, { useState, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
-
 import { useGlobalsQueryClientFnReady } from "../../store/StoreProvider"
 import useNavigationStore from "../../store/useNavigationStore"
 import { Pages } from "../constants"
-
 import { Peak } from "../../mocks/db"
+
+import usePeaksStore from "../../store/usePeaksStore"
+
 import PeaksPage from "../pages/PeaksPage"
 import AlertsPage from "../pages/AlertsPage"
 import CountriesPage from "../pages/CountriesPage"
@@ -21,9 +22,12 @@ const PageRenderer: React.FC = () => {
   const { currentPage } = useNavigationStore()
   const queryClientFnReady = useGlobalsQueryClientFnReady()
 
-  const { isLoading, data: peaks = [] } = useQuery<Peak[]>({
+  const { peaks, setPeaks } = usePeaksStore() // Access peaks state
+
+  const { isLoading, data = [] } = useQuery<Peak[]>({
     queryKey: ["peaks"],
     enabled: queryClientFnReady,
+    onSuccess: setPeaks, // Store peaks data in Zustand when fetched
   })
 
   const [selectedPeak, setSelectedPeak] = useState<Peak | null>(null)
@@ -38,12 +42,10 @@ const PageRenderer: React.FC = () => {
     setSelectedCountry(null)
   }
 
-  // When a country is selected, show the detail page
   if (currentPage === Pages.COUNTRIES && selectedCountry) {
     return <CountryDetailPage countryName={selectedCountry} peaks={peaks} onBack={clearSelections} />
   }
 
-  // When a peak is selected, show the detail page
   if (currentPage === Pages.PEAKS && selectedPeak) {
     return <PeakDetailPage peak={selectedPeak} onBack={clearSelections} />
   }
@@ -51,7 +53,7 @@ const PageRenderer: React.FC = () => {
   if (!selectedPeak && !selectedCountry) {
     switch (currentPage) {
       case Pages.PEAKS:
-        return <PeaksPage peaks={peaks} onSelect={(peak: Peak) => setSelectedPeak(peak)} isLoading={isLoading} />
+        return <PeaksPage peaks={peaks} onSelect={(peak) => setSelectedPeak(peak)} isLoading={isLoading} />
       case Pages.COUNTRIES:
         return <CountriesPage peaks={peaks} onSelectCountry={(country) => setSelectedCountry(country)} />
       case Pages.ALERTS:
