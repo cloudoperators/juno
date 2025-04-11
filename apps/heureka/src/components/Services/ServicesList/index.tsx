@@ -64,7 +64,9 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
       <DataGrid minContentColumns={[1, 2, 3, 4, 5, 7]} columns={COLUMN_SPAN}>
         <DataGridRow>
           <DataGridHeadCell>Service</DataGridHeadCell>
-          <DataGridHeadCell colSpan={5}>Issue Counts</DataGridHeadCell>
+          <DataGridHeadCell colSpan={5} className="whitespace-nowrap">
+            Issue Counts
+          </DataGridHeadCell>
           <DataGridHeadCell>Details</DataGridHeadCell>
           <DataGridHeadCell></DataGridHeadCell>
         </DataGridRow>
