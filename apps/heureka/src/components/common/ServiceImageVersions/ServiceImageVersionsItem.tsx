@@ -50,7 +50,7 @@ const ServiceImageVersionsItem = ({
       <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
       <DataGridCell className="items-center">
         <SeverityCount
-          displayMode="single"
+          showDashIfZero
           count={version.issueCounts.critical}
           icon="danger"
           variant="danger"
@@ -59,7 +59,7 @@ const ServiceImageVersionsItem = ({
       </DataGridCell>
       <DataGridCell className="items-center">
         <SeverityCount
-          displayMode="single"
+          showDashIfZero
           count={version.issueCounts.high}
           icon="warning"
           variant="warning"
@@ -68,7 +68,7 @@ const ServiceImageVersionsItem = ({
       </DataGridCell>
       <DataGridCell className="items-center">
         <SeverityCount
-          displayMode="single"
+          showDashIfZero
           count={version.issueCounts.medium}
           icon="errorOutline"
           variant="warning"
@@ -77,7 +77,7 @@ const ServiceImageVersionsItem = ({
       </DataGridCell>
       <DataGridCell className="items-center">
         <SeverityCount
-          displayMode="single"
+          showDashIfZero
           count={version.issueCounts.low}
           icon="info"
           variant="info"
@@ -86,7 +86,7 @@ const ServiceImageVersionsItem = ({
       </DataGridCell>
       <DataGridCell className="items-center">
         <SeverityCount
-          displayMode="single"
+          showDashIfZero
           count={version.issueCounts.none}
           icon="help"
           variant="default"

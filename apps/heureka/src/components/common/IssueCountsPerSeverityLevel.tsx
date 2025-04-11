@@ -26,34 +26,40 @@ export const IssueCountsPerSeverityLevel = ({ counts }: IssueCountsPerSeverityLe
         </>
       )}
       <SeverityCount
-        displayMode="all"
+        showDashIfZero={false}
         icon="danger"
         count={counts.critical}
         variant={counts.critical > 0 ? "danger" : "default"}
         tooltipContent="Critical Issues"
       />
       <SeverityCount
-        displayMode="all"
+        showDashIfZero={false}
         icon="warning"
         count={counts.high}
         variant={counts.high > 0 ? "warning" : "default"}
         tooltipContent="High Issues"
       />
       <SeverityCount
-        displayMode="all"
+        showDashIfZero={false}
         icon="errorOutline"
         count={counts.medium}
         variant={counts.medium > 0 ? "warning" : "default"}
         tooltipContent="Medium Issues"
       />
       <SeverityCount
-        displayMode="all"
+        showDashIfZero={false}
         icon="info"
         count={counts.low}
         variant={counts.low > 0 ? "info" : "default"}
         tooltipContent="Low Issues"
       />
-      <SeverityCount displayMode="all" icon="help" count={counts.none} variant="default" tooltipContent="None Issues" />
+      <SeverityCount
+        showDashIfZero={false}
+        icon="help"
+        count={counts.none}
+        variant="default"
+        tooltipContent="None Issues"
+      />
     </Stack>
   )
 }

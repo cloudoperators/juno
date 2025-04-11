@@ -18,12 +18,12 @@ type SeverityCountProps = {
   count: number
   variant: BadgeVariantType
   tooltipContent: string
-  displayMode: "all" | "single"
+  showDashIfZero: Boolean
 }
 
-export const SeverityCount = ({ icon, count, variant, tooltipContent, displayMode }: SeverityCountProps) => {
-  // For single mode with zero count, show a dash
-  if (displayMode === "single" && count === 0) {
+export const SeverityCount = ({ icon, count, variant, tooltipContent, showDashIfZero }: SeverityCountProps) => {
+  // Show dash if count is zero and showDashIfZero is true
+  if (!!showDashIfZero && count === 0) {
     return <span>&mdash;</span>
   }
 
