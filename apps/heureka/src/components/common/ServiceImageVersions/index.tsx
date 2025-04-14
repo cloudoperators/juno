@@ -97,15 +97,11 @@ export const ServiceImageVersions = ({
       )}
 
       <div className="datagrid-hover">
-        <DataGrid columns={gridColumnCount} minContentColumns={[2, 3, 4, 5]}>
+        <DataGrid columns={gridColumnCount} minContentColumns={[2, 3, 4, 5, 6]}>
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Tag</DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
+            <DataGridHeadCell colSpan={5}>Issue Counts</DataGridHeadCell>
             {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
           {loading ? (

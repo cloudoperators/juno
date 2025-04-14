@@ -13,19 +13,27 @@ import {
   BadgeVariantType,
 } from "@cloudoperators/juno-ui-components"
 
-type SeverityCountProps = { count: number; icon: KnownIcons; variant: BadgeVariantType; tooltipContent: string }
+type SeverityCountProps = {
+  icon: KnownIcons
+  count: number
+  variant: BadgeVariantType
+  tooltipContent: string
+  showDashIfZero?: Boolean
+}
 
-export const SeverityCount = ({ count, icon, variant, tooltipContent }: SeverityCountProps) => (
-  <>
-    {count > 0 ? (
-      <Tooltip triggerEvent="hover">
-        <TooltipTrigger>
-          <Badge icon={icon} text={count > 0 ? count.toString() : "-"} variant={count > 0 ? variant : "default"} />
-        </TooltipTrigger>
-        <TooltipContent>{tooltipContent}</TooltipContent>
-      </Tooltip>
-    ) : (
-      <span>&mdash;</span>
-    )}
-  </>
-)
+export const SeverityCount = ({ icon, count, variant, tooltipContent, showDashIfZero = false }: SeverityCountProps) => {
+  // Show dash if count is zero and showDashIfZero is true
+  if (!!showDashIfZero && count === 0) {
+    return <span>&mdash;</span>
+  }
+
+  // For all mode, always show the badge with the count (even if zero)
+  return (
+    <Tooltip triggerEvent="hover">
+      <TooltipTrigger>
+        <Badge icon={icon} text={count > 0 ? count.toString() : "0"} variant={count > 0 ? variant : "default"} />
+      </TooltipTrigger>
+      <TooltipContent>{tooltipContent}</TooltipContent>
+    </Tooltip>
+  )
+}

@@ -8,7 +8,7 @@ import { Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServicesIssuesCounts } from "./useFetchServicesIssuesCounts"
-import { IssuesCountPerSeverityLevel } from "../common/IssuesCountPerSeverityLevel"
+import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 
 type AllServicesIssuesCountProps = {
   filterSettings: FilterSettings
@@ -34,7 +34,7 @@ export const AllServicesIssuesCount = ({ filterSettings }: AllServicesIssuesCoun
     <Stack className="status-bar bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
       <Stack gap="1">
         {!error && !loading ? (
-          <IssuesCountPerSeverityLevel counts={counts} />
+          <IssueCountsPerSeverityLevel counts={counts} />
         ) : (
           <div className="font-bold">All issues: --</div>
         )}

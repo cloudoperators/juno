@@ -46,6 +46,7 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell className="items-center">
       <SeverityCount
+        showDashIfZero
         count={item.issuesCount.critical}
         icon="danger"
         variant="danger"
@@ -53,10 +54,17 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
       />
     </DataGridCell>
     <DataGridCell className="items-center">
-      <SeverityCount count={item.issuesCount.high} icon="warning" variant="warning" tooltipContent="High Issues" />
+      <SeverityCount
+        showDashIfZero
+        count={item.issuesCount.high}
+        icon="warning"
+        variant="warning"
+        tooltipContent="High Issues"
+      />
     </DataGridCell>
     <DataGridCell className="items-center">
       <SeverityCount
+        showDashIfZero
         count={item.issuesCount.medium}
         icon="errorOutline"
         variant="warning"
@@ -64,10 +72,22 @@ export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailCl
       />
     </DataGridCell>
     <DataGridCell className="items-center">
-      <SeverityCount count={item.issuesCount.low} icon="info" variant="info" tooltipContent="Low Issues" />
+      <SeverityCount
+        showDashIfZero
+        count={item.issuesCount.low}
+        icon="info"
+        variant="info"
+        tooltipContent="Low Issues"
+      />
     </DataGridCell>
     <DataGridCell className="items-center">
-      <SeverityCount count={item.issuesCount.none} icon="help" variant="default" tooltipContent="None Issues" />
+      <SeverityCount
+        showDashIfZero
+        count={item.issuesCount.none}
+        icon="help"
+        variant="default"
+        tooltipContent="None Issues"
+      />
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />
