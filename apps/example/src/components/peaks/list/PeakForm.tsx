@@ -31,8 +31,6 @@ interface FormState {
 interface PeakFormProps {
   initialValues?: FormState
   closeCallback: () => void
-  hasButtons?: Boolean
-  disableAutoFocus?: Boolean
 }
 
 const Errors = {
@@ -63,7 +61,7 @@ const INITIAL_VALUES: FormState = {
   url: "",
 }
 
-const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, closeCallback, hasButtons = true }) => {
+const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, closeCallback }) => {
   const [formState, setFormState] = useState<FormState>(initialValues)
   const [errors, setErrors] = useState<Partial<FormState>>({})
   const [loading, setLoading] = useState(false)
@@ -72,15 +70,15 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
   const [backendError, setBackendError] = useState(false)
   const [isSaveEnabled, setIsSaveEnabled] = useState(false)
 
-  // Function to check if form has changed
+  // Determine if the form has changed
   const isFormChanged = useCallback(
     () => JSON.stringify(formState) !== JSON.stringify(initialValues),
     [formState, initialValues]
   )
 
-  // Use debounced validation for input changes
+  // Enable Save once any form field changes
   const debouncedValidation = useDebounce(() => {
-    setIsSaveEnabled(isFormChanged()) // Enable if form has changed
+    setIsSaveEnabled(isFormChanged())
   }, 300)
 
   useEffect(() => {
@@ -92,7 +90,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
     if (key === "name") {
       setBackendError(false)
     }
-    setIsSaveEnabled(true) // Enable save button on any change
+    setIsSaveEnabled(true)
   }
 
   const handleFieldBlur = (key: keyof FormState) => {
@@ -113,6 +111,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
     }, 2000)
   }
 
+  // Handle Cancel operation, showing modal only if form has changed
   const handleCloseClick = () => {
     if (isFormChanged()) {
       setIsModalOpen(true)
@@ -121,9 +120,15 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
     }
   }
 
+  // Confirm cancellation
   const handleModalConfirm = () => {
     setIsModalOpen(false)
     closeCallback()
+  }
+
+  // Continue editing, dismiss modal
+  const handleKeepEditing = () => {
+    setIsModalOpen(false)
   }
 
   return (
@@ -131,15 +136,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
       footer={
         <PanelFooter>
           <Stack direction="horizontal" gap="2" distribution="end">
-            <Button
-              label={Labels.CANCEL}
-              variant="subdued"
-              onClick={() => {
-                handleCloseClick()
-                closeCallback()
-              }}
-              disabled={loading}
-            />
+            <Button label={Labels.CANCEL} variant="subdued" onClick={handleCloseClick} disabled={loading} />
             <Button
               label={Labels.SAVE}
               variant="primary"
@@ -155,13 +152,13 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
       <IntroBox text={Hints.MANDATORY_FIELD_SYMBOL} />
       <Form>
         {[
-          { label: PeakFields.NAME, key: "name", required: true, invalid: backendError },
+          { label: PeakFields.NAME, key: "name", required: true, autoFocus: true, invalid: backendError },
           { label: PeakFields.HEIGHT, key: "height", required: true },
           { label: PeakFields.RANGE, key: "mainrange", required: true },
           { label: PeakFields.REGION, key: "region", required: true },
           { label: PeakFields.COUNTRY, key: "countries", required: true },
           { label: PeakFields.URL, key: "url", type: "url" as TextInputType },
-        ].map(({ label, key, type = "text", required, invalid }) => (
+        ].map(({ label, key, type = "text", required, autoFocus, invalid }) => (
           <FormRow key={key}>
             <TextInput
               label={label}
@@ -173,27 +170,26 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
               maxLength={200}
               disabled={loading}
               required={required}
+              autoFocus={autoFocus}
               invalid={invalid}
             />
           </FormRow>
         ))}
       </Form>
-      {hasButtons && (
-        <Modal
-          title={Labels.UNSAVED_CHANGES}
-          open={isModalOpen}
-          modalFooter={
-            <ModalFooter style={{ justifyContent: "flex-end" }}>
-              <Stack gap="2">
-                <Button label={Labels.KEEP_EDITING} variant="subdued" onClick={() => setIsModalOpen(false)} />
-                <Button label={Labels.DISCARD} variant="primary-danger" onClick={handleModalConfirm} />
-              </Stack>
-            </ModalFooter>
-          }
-        >
-          <div>{Hints.UNSAVED_CHANGES}</div>
-        </Modal>
-      )}
+      <Modal
+        title={Labels.UNSAVED_CHANGES}
+        open={isModalOpen}
+        modalFooter={
+          <ModalFooter className="jn-justify-between jn-items-center" style={{ justifyContent: "flex-end" }}>
+            <Stack gap="2">
+              <Button label={Labels.KEEP_EDITING} variant="subdued" onClick={handleKeepEditing} />
+              <Button label={Labels.DISCARD} variant="primary-danger" onClick={handleModalConfirm} />
+            </Stack>
+          </ModalFooter>
+        }
+      >
+        <div>{Hints.UNSAVED_CHANGES}</div>
+      </Modal>
     </PanelBody>
   )
 }
