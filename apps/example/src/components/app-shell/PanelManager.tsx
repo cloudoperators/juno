@@ -4,24 +4,19 @@
  */
 
 import React from "react"
-import { Badge, Panel, DataGrid, DataGridRow, DataGridCell } from "@cloudoperators/juno-ui-components"
+import { Badge, Panel, DataGrid, DataGridRow, DataGridCell, Button } from "@cloudoperators/juno-ui-components"
 import { useGlobalsActions, useGlobalsCurrentPanel } from "../../store/StoreProvider"
 import usePeaksStore from "../../store/usePeaksStore"
 import useNavigationStore from "../../store/useNavigationStore"
-import { Panels, Pages } from "../constants"
-
-type CurrentPanelType = (typeof Panels)[keyof typeof Panels]
-
-interface CurrentPanel {
-  type: CurrentPanelType
-  itemId?: string
-}
+import useSelectedPeak from "../../store/createSelectedPeakSlice"
+import { Pages } from "../constants"
 
 const PanelManager: React.FC = () => {
-  const { setCurrentPanel, setSelectedPeak } = useGlobalsActions() // Ensure setSelectedPeak is available
+  const { setCurrentPanel } = useGlobalsActions()
   const currentPanel = useGlobalsCurrentPanel() as CurrentPanel
   const { peaks } = usePeaksStore()
   const { setCurrentPage } = useNavigationStore()
+  const { setSelectedPeakId } = useSelectedPeak()
 
   const closePanel = (): void => setCurrentPanel(null)
 
@@ -29,22 +24,23 @@ const PanelManager: React.FC = () => {
 
   const navigateToDetailPage = () => {
     if (peakDetails) {
-      setSelectedPeak(peakDetails)
-      setCurrentPage(Pages.PEAKS)
+      setSelectedPeakId(String(peakDetails.id))
+      setCurrentPage(Pages.PEAKS) // Navigate to the peaks detail page on navigation from the peak panel
       closePanel()
     }
   }
 
-  const rows = peakDetails
-    ? [
+  const renderDataGrid = (): React.ReactNode => (
+    <DataGrid columns={2} style={{ gridTemplateColumns: "30% 70%", margin: "20px" }}>
+      {peakDetails && (
         <>
-          <DataGridRow>
+          <DataGridRow key="height" style={{ padding: "10px 0" }}>
             <DataGridCell>
               <strong>Height</strong>
             </DataGridCell>
             <DataGridCell>{peakDetails.height}</DataGridCell>
           </DataGridRow>
-          <DataGridRow>
+          <DataGridRow key="safety-status" style={{ padding: "10px 0" }}>
             <DataGridCell>
               <strong>Safety Status</strong>
             </DataGridCell>
@@ -57,71 +53,62 @@ const PanelManager: React.FC = () => {
               />
             </DataGridCell>
           </DataGridRow>
-          <DataGridRow>
+          <DataGridRow key="mainrange" style={{ padding: "10px 0" }}>
             <DataGridCell>
               <strong>Main Range</strong>
             </DataGridCell>
             <DataGridCell>{peakDetails.mainrange}</DataGridCell>
           </DataGridRow>
-          <DataGridRow>
+          <DataGridRow key="region" style={{ padding: "10px 0" }}>
             <DataGridCell>
               <strong>Region</strong>
             </DataGridCell>
             <DataGridCell>{peakDetails.region}</DataGridCell>
           </DataGridRow>
-          <DataGridRow>
+          <DataGridRow key="countries" style={{ padding: "10px 0" }}>
             <DataGridCell>
               <strong>Countries</strong>
             </DataGridCell>
             <DataGridCell>{peakDetails.countries}</DataGridCell>
           </DataGridRow>
-          <DataGridRow>
+          <DataGridRow key="details" style={{ padding: "10px 0" }}>
             <DataGridCell>
               <strong>Details</strong>
             </DataGridCell>
             <DataGridCell>{peakDetails.details}</DataGridCell>
           </DataGridRow>
-          <DataGridRow>
+          <DataGridRow key="more-info" style={{ padding: "10px 0" }}>
             <DataGridCell>
               <strong>More Info</strong>
             </DataGridCell>
             <DataGridCell>
               <a href={peakDetails.url} target="_blank" rel="noopener noreferrer">
-                Learn more
+                Wikipedia
               </a>
             </DataGridCell>
           </DataGridRow>
-          <DataGridRow>
-            <DataGridCell colSpan={2} style={{ textAlign: "center", paddingTop: "10px" }}>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigateToDetailPage()
-                }}
-                style={{ cursor: "pointer", color: "#007BFF", textDecoration: "underline" }}
-              >
-                View Detailed Page
-              </a>
-            </DataGridCell>
-          </DataGridRow>
-        </>,
-      ]
-    : []
-
-  const renderPanelContent = (): React.ReactNode => {
-    return (
-      <DataGrid columns={2} style={{ gridTemplateColumns: "30% 70%", margin: "20px" }}>
-        {rows.map((row, index) => (
-          <React.Fragment key={index}>{row}</React.Fragment>
-        ))}
-      </DataGrid>
-    )
-  }
+        </>
+      )}
+    </DataGrid>
+  )
 
   return (
-    <Panel heading={`${peakDetails?.name} Overview`} opened={Boolean(peakDetails)} onClose={closePanel}>
-      {renderPanelContent()}
+    <Panel heading={`${peakDetails?.name || "Peak"} Overview`} opened={Boolean(peakDetails)} onClose={closePanel}>
+      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        {renderDataGrid()}
+        <div style={{ textAlign: "center", marginTop: "auto", padding: "30px" }}>
+          <Button
+            variant="primary"
+            onClick={(e) => {
+              e.preventDefault()
+              navigateToDetailPage() // Trigger loading of detailed peak view
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            Go to Peaks Detail Page
+          </Button>
+        </div>
+      </div>
     </Panel>
   )
 }

@@ -22,7 +22,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isOpe
     title={title}
     open={isOpen}
     modalFooter={
-      <ModalFooter>
+      <ModalFooter style={{ justifyContent: "flex-end" }}>
         <ButtonRow>
           <Button onClick={onClose} label={CANCEL_LABEL} />
           <Button onClick={onConfirm} label={DELETE_LABEL} variant="primary-danger" />

@@ -3,57 +3,58 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useGlobalsQueryClientFnReady } from "../../store/StoreProvider"
 import useNavigationStore from "../../store/useNavigationStore"
-import { Pages } from "../constants"
-import { Peak } from "../../mocks/db"
-
 import usePeaksStore from "../../store/usePeaksStore"
-
+import useSelectedPeak from "../../store/createSelectedPeakSlice"
 import PeaksPage from "../pages/PeaksPage"
 import AlertsPage from "../pages/AlertsPage"
 import CountriesPage from "../pages/CountriesPage"
 import PeakDetailPage from "../pages/PeakDetailPage"
 import CountryDetailPage from "../pages/CountryDetailPage"
+import { Pages } from "../constants"
+import { Peak } from "../../mocks/db"
 
 const PageRenderer: React.FC = () => {
   const { currentPage } = useNavigationStore()
   const queryClientFnReady = useGlobalsQueryClientFnReady()
+  const { peaks, setPeaks } = usePeaksStore()
+  const { selectedPeakId, setSelectedPeakId } = useSelectedPeak()
 
-  const { peaks, setPeaks } = usePeaksStore() // Access peaks state
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
 
   const { isLoading, data = [] } = useQuery<Peak[]>({
     queryKey: ["peaks"],
     enabled: queryClientFnReady,
-    onSuccess: setPeaks, // Store peaks data in Zustand when fetched
+    onSuccess: setPeaks,
   })
-
-  const [selectedPeak, setSelectedPeak] = useState<Peak | null>(null)
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
 
   useEffect(() => {
     clearSelections() // Clear selections when navigation changes
   }, [currentPage])
 
   const clearSelections = (): void => {
-    setSelectedPeak(null)
-    setSelectedCountry(null)
+    setSelectedPeakId(null) // Clear global peak selection
+    setSelectedCountry(null) // Clear local country selection
   }
+
+  const selectedPeak = peaks.find((peak) => peak.id === Number(selectedPeakId))
 
   if (currentPage === Pages.COUNTRIES && selectedCountry) {
     return <CountryDetailPage countryName={selectedCountry} peaks={peaks} onBack={clearSelections} />
   }
 
-  if (currentPage === Pages.PEAKS && selectedPeak) {
+  if (currentPage === Pages.PEAKS && selectedPeakId && selectedPeak) {
+    // Only show peak detail page if explicitly navigated to from a peak panel
     return <PeakDetailPage peak={selectedPeak} onBack={clearSelections} />
   }
 
   if (!selectedPeak && !selectedCountry) {
     switch (currentPage) {
       case Pages.PEAKS:
-        return <PeaksPage peaks={peaks} onSelect={(peak) => setSelectedPeak(peak)} isLoading={isLoading} />
+        return <PeaksPage peaks={peaks} onSelect={(peak) => setSelectedPeakId(String(peak.id))} isLoading={isLoading} />
       case Pages.COUNTRIES:
         return <CountriesPage peaks={peaks} onSelectCountry={(country) => setSelectedCountry(country)} />
       case Pages.ALERTS:

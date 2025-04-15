@@ -19,6 +19,7 @@ const Header: React.FC<HeaderProps> = ({ loggedIn, logout }) => {
     <>
       {loggedIn && (
         <PageHeader heading={APP_NAME}>
+          {/* Adding uncenters logo */}
           <Stack gap="5">
             <HeaderUserMenu logout={logout} />
             <ThemeToggle />

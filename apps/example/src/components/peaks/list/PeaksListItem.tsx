@@ -18,10 +18,8 @@ export interface PeaksListItemProps {
 
 const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   const { setCurrentPanel } = useGlobalsActions()
-  const { setSelectedPeakId } = useSelectedPeak() // Use the hook
 
   const openPanel = () => {
-    setSelectedPeakId(String(peak.id)) // Set the selected peak ID in global state
     setCurrentPanel({ type: "ShowPeak", itemId: peak.id })
   }
 

@@ -186,7 +186,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
           title={Labels.UNSAVED_CHANGES}
           open={isModalOpen}
           modalFooter={
-            <ModalFooter className="jn-justify-between jn-items-center">
+            <ModalFooter style={{ justifyContent: "flex-end" }} className="jn-justify-between jn-items-center">
               <Stack gap="2">
                 <Button label={Labels.KEEP_EDITING} variant="subdued" onClick={() => setIsModalOpen(false)} />
                 <Button label={Labels.DISCARD} variant="primary-danger" onClick={handleModalConfirm} />
