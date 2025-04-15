@@ -501,8 +501,6 @@ export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   loading?: boolean
   /** The name attribute of the ComboBox when used as part of a form  */
   name?: string
-  /** Whether the ComboBox can be reset to having no value selected by manually clearing the text and clicking outside of the ComboBox. Default is TRUE. When set to FALSE, the selected value can only be changed by selecting another value after the initial selection, but never back to no selected value at all. */
-  nullable?: boolean
   /** A handler to execute when the ComboBox looses focus */
   onBlur?: React.FocusEventHandler<HTMLInputElement>
   /** A handler to execute when the ComboBox' selected value changes */
