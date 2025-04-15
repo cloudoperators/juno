@@ -1,8 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState, useEffect, useCallback, ChangeEvent } from "react"
 import {
   PanelBody,
@@ -17,7 +12,7 @@ import {
   TextInput,
   FormRow,
 } from "@cloudoperators/juno-ui-components"
-import { validateFormField, validateEntireForm } from "../utils/validateFormFields"
+import { validateFormField } from "../utils/validateFormFields"
 import { PeakFields } from "../../constants"
 import { useDebounce } from "../../hooks/useDebounce"
 
@@ -72,13 +67,20 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
   const [formState, setFormState] = useState<FormState>(initialValues)
   const [errors, setErrors] = useState<Partial<FormState>>({})
   const [loading, setLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null) // Ensure it's string or null and assign correctly
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [backendError, setBackendError] = useState(false)
   const [isSaveEnabled, setIsSaveEnabled] = useState(false)
 
+  // Function to check if form has changed
+  const isFormChanged = useCallback(
+    () => JSON.stringify(formState) !== JSON.stringify(initialValues),
+    [formState, initialValues]
+  )
+
+  // Use debounced validation for input changes
   const debouncedValidation = useDebounce(() => {
-    setIsSaveEnabled(validateEntireForm(formState, errors))
+    setIsSaveEnabled(isFormChanged()) // Enable if form has changed
   }, 300)
 
   useEffect(() => {
@@ -90,6 +92,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
     if (key === "name") {
       setBackendError(false)
     }
+    setIsSaveEnabled(true) // Enable save button on any change
   }
 
   const handleFieldBlur = (key: keyof FormState) => {
@@ -109,11 +112,6 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
       setErrorMessage(Errors.INVALID_PEAK)
     }, 2000)
   }
-
-  const isFormChanged = useCallback(
-    () => JSON.stringify(formState) !== JSON.stringify(initialValues),
-    [formState, initialValues]
-  )
 
   const handleCloseClick = () => {
     if (isFormChanged()) {
@@ -159,9 +157,9 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
         {[
           { label: PeakFields.NAME, key: "name", required: true, invalid: backendError },
           { label: PeakFields.HEIGHT, key: "height", required: true },
-          { label: PeakFields.RANGE, key: "range", required: true },
+          { label: PeakFields.RANGE, key: "mainrange", required: true },
           { label: PeakFields.REGION, key: "region", required: true },
-          { label: PeakFields.COUNTRY, key: "country", required: true },
+          { label: PeakFields.COUNTRY, key: "countries", required: true },
           { label: PeakFields.URL, key: "url", type: "url" as TextInputType },
         ].map(({ label, key, type = "text", required, invalid }) => (
           <FormRow key={key}>
@@ -180,13 +178,12 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
           </FormRow>
         ))}
       </Form>
-      {/* Add icon? <Icon color="jn-text-theme-warning" icon="warning" /> */}
       {hasButtons && (
         <Modal
           title={Labels.UNSAVED_CHANGES}
           open={isModalOpen}
           modalFooter={
-            <ModalFooter style={{ justifyContent: "flex-end" }} className="jn-justify-between jn-items-center">
+            <ModalFooter style={{ justifyContent: "flex-end" }}>
               <Stack gap="2">
                 <Button label={Labels.KEEP_EDITING} variant="subdued" onClick={() => setIsModalOpen(false)} />
                 <Button label={Labels.DISCARD} variant="primary-danger" onClick={handleModalConfirm} />
