@@ -9,6 +9,23 @@ import userEvent from "@testing-library/user-event"
 import { Select } from "../Select/Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 
+class ResizeObserver {
+  observe() {
+    // do nothing
+    vi.fn()
+  }
+  unobserve() {
+    // do nothing
+    vi.fn()
+  }
+  disconnect() {
+    // do nothing
+    vi.fn()
+  }
+}
+
+window.ResizeObserver = ResizeObserver
+
 globalThis.console.warn = vi.fn()
 describe("SelectOption", () => {
   afterEach(() => {

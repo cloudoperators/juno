@@ -4,17 +4,26 @@
  */
 
 import React, { createContext, useEffect, useId, useMemo, useState, ReactNode } from "react"
-import { Listbox } from "@headlessui/react"
+import { Listbox, ListboxOptions, Label as ListboxLabel, ListboxButton } from "@headlessui/react"
 import { Label } from "../Label"
 import { Icon } from "../Icon"
 import { Spinner } from "../Spinner"
 import { FormHint } from "../FormHint"
-import { Float } from "@headlessui-float/react"
-import { autoPlacement, offset, shift, size } from "@floating-ui/react-dom"
+import {
+  useFloating,
+  autoPlacement,
+  autoUpdate,
+  offset,
+  shift,
+  size,
+  useInteractions,
+  useClick,
+  useDismiss,
+  Placement,
+} from "@floating-ui/react"
 import { usePortalRef } from "../PortalProvider"
 import { createPortal } from "react-dom"
 import "./select.scss"
-import { Boundary } from "@floating-ui/react"
 
 const labelStyles = `
   jn-no-wrap
@@ -182,6 +191,7 @@ export const Select: React.FC<SelectProps> = ({
   }
 
   const uniqueId = () => "juno-select-" + useId()
+  const [isOpen, setIsOpen] = useState(false)
 
   const theId = id || uniqueId()
   const helptextId = "juno-select-helptext-" + useId()
@@ -240,27 +250,34 @@ export const Select: React.FC<SelectProps> = ({
 
   const portalContainerRef = usePortalRef()
 
-  // Headless-UI-Float Middleware
-  // In order to quickly debug middleware state, each parameter function can be passed the state to work with, e.g.
-  // autoPlacement((state) => console.log(state), ({crossAxis: true, [params…]}))
-  const middleware = [
-    offset(4),
-    autoPlacement({
-      crossAxis: true,
-      allowedPlacements: ["bottom", "top"],
-    }),
-    size({
-      boundary: "viewport" as Boundary,
-      apply({ availableWidth, availableHeight, elements }) {
-        Object.assign(elements.floating.style, {
-          maxWidth: `${availableWidth}px`,
-          maxHeight: `${availableHeight}px`,
-          overflowY: "auto",
-        })
-      },
-    }),
-    shift(),
-  ]
+  // Floating UI setup
+  const { x, y, strategy, refs, context } = useFloating({
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    placement: "top" as Placement,
+    whileElementsMounted: autoUpdate,
+    middleware: [
+      offset(4),
+      autoPlacement({
+        crossAxis: true,
+        allowedPlacements: ["bottom", "top"],
+      }),
+      size({
+        apply({ availableWidth, availableHeight, elements }) {
+          Object.assign(elements.floating.style, {
+            maxWidth: `${availableWidth}px`,
+            maxHeight: `${availableHeight}px`,
+            width: `${elements.reference.getBoundingClientRect().width}px`,
+            overflowY: "auto",
+          })
+        },
+      }),
+      shift(),
+    ],
+  })
+
+  // Setup interactions
+  const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)])
 
   // This function is used to determine what to render for the selected options in the Select Toggle in multi-select case.
   // For each of the values, we get the respective element from the optionValuesAndLabels map, get the corresponding label or children, and filter these for empty elements to make sure we do not include any empty strings in the returned array.
@@ -302,7 +319,7 @@ export const Select: React.FC<SelectProps> = ({
           defaultValue={defaultValue}
         >
           {label && isValueNotEmpty(label) ? (
-            <Listbox.Label
+            <ListboxLabel
               as={Label}
               htmlFor={theId}
               text={label}
@@ -316,73 +333,89 @@ export const Select: React.FC<SelectProps> = ({
             ""
           )}
 
-          <Float composable adaptiveWidth middleware={middleware}>
-            <Float.Reference>
-              <Listbox.Button
-                aria-describedby={helptext ? helptextId : ""}
-                aria-label={ariaLabel || label}
-                as="button"
-                id={theId}
-                className={`
-                    juno-select-toggle
-                    ${variant && variant.length ? "juno-select-toggle-" + variant : "juno-select-toggle-default"}
-                    ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
-                    ${toggleStyles}
-                    ${label && isValueNotEmpty(label) ? "jn-pt-[0.4rem]" : ""}
-                    ${disabled ? "juno-select-disabled jn-opacity-50 jn-cursor-not-allowed" : ""}
-                    ${isLoading || hasError ? "jn-justify-center" : "jn-justify-between"}
-                    ${isInvalid ? "juno-select-invalid " + invalidToggleStyles : ""} 
-                    ${isValid ? "juno-select-valid " + validToggleStyles : ""}  
-                    
-                    ${isLoading ? "juno-select-loading jn-cursor-not-allowed" : ""}
-                    ${hasError ? "juno-select-error jn-cursor-not-allowed" : ""}
-                    ${className}
-                  `}
-                {...props}
-              >
-                {({ open, value }: { open: boolean; value: string[] }): React.ReactElement =>
-                  !hasError && !isLoading ? (
-                    <>
-                      <span className={`${truncateStyles}`}>{getDisplayValue(value)}</span>
-                      <span className="jn-flex">
-                        {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : ""}
-                        {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : ""}
-                        <span>
-                          <Icon icon={open ? "expandLess" : "expandMore"} />
-                        </span>
+          <div>
+            <ListboxButton
+              ref={refs.setReference}
+              aria-describedby={helptext ? helptextId : ""}
+              aria-label={ariaLabel || label}
+              as="button"
+              id={theId}
+              className={`
+                juno-select-toggle
+                ${variant && variant.length ? "juno-select-toggle-" + variant : "juno-select-toggle-default"}
+                ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+                ${toggleStyles}
+                ${label && isValueNotEmpty(label) ? "jn-pt-[0.4rem]" : ""}
+                ${disabled ? "juno-select-disabled jn-opacity-50 jn-cursor-not-allowed" : ""}
+                ${isLoading || hasError ? "jn-justify-center" : "jn-justify-between"}
+                ${isInvalid ? "juno-select-invalid " + invalidToggleStyles : ""} 
+                ${isValid ? "juno-select-valid " + validToggleStyles : ""}  
+                
+                ${isLoading ? "juno-select-loading jn-cursor-not-allowed" : ""}
+                ${hasError ? "juno-select-error jn-cursor-not-allowed" : ""}
+                ${className}
+              `}
+              {...getReferenceProps()}
+              {...props}
+            >
+              {({ open, value }: { open: boolean; value: string[] }): React.ReactElement => {
+                // Update our open state when Headless UI updates it
+                useEffect(() => {
+                  if (open !== isOpen) {
+                    setIsOpen(open)
+                  }
+                }, [open])
+
+                return !hasError && !isLoading ? (
+                  <>
+                    <span className={`${truncateStyles}`}>{getDisplayValue(value)}</span>
+                    <span className="jn-flex">
+                      {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : ""}
+                      {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : ""}
+                      <span>
+                        <Icon icon={open ? "expandLess" : "expandMore"} />
                       </span>
-                    </>
-                  ) : (
-                    <span className={`${centeredIconStyles}`}>
-                      {hasError ? (
-                        <Icon icon="errorOutline" color="jn-text-theme-error" className={"jn-cursor-not-allowed"} />
-                      ) : isLoading ? (
-                        <Spinner className={"jn-cursor-not-allowed"} />
-                      ) : (
-                        ""
-                      )}
                     </span>
-                  )
-                }
-              </Listbox.Button>
-            </Float.Reference>
+                  </>
+                ) : (
+                  <span className={`${centeredIconStyles}`}>
+                    {hasError ? (
+                      <Icon icon="errorOutline" color="jn-text-theme-error" className={"jn-cursor-not-allowed"} />
+                    ) : isLoading ? (
+                      <Spinner className={"jn-cursor-not-allowed"} />
+                    ) : (
+                      ""
+                    )}
+                  </span>
+                )
+              }}
+            </ListboxButton>
 
-            {createPortal(
-              <Float.Content>
-                <Listbox.Options
-                  unmount={false}
-                  className={`
-                        juno-select-menu
-                        ${menuStyles}
-                      `}
+            {isOpen &&
+              createPortal(
+                <div
+                  ref={refs.setFloating}
+                  style={{
+                    position: strategy,
+                    top: y ?? 0,
+                    left: x ?? 0,
+                    zIndex: 999,
+                  }}
+                  {...getFloatingProps()}
                 >
-                  {children}
-                </Listbox.Options>
-              </Float.Content>,
-
-              portalContainerRef ? portalContainerRef : document.body
-            )}
-          </Float>
+                  <ListboxOptions
+                    static
+                    className={`
+                    juno-select-menu
+                    ${menuStyles}
+                  `}
+                  >
+                    {children}
+                  </ListboxOptions>
+                </div>,
+                portalContainerRef ?? document.body
+              )}
+          </div>
         </Listbox>
 
         {errortext && isValueNotEmpty(errortext) ? <FormHint text={errortext} variant="error" /> : ""}

@@ -4,13 +4,23 @@
  */
 
 import React, { useState, useEffect, useId, useMemo, createContext, ReactNode } from "react"
-import { Combobox } from "@headlessui/react"
-import { Float } from "@headlessui-float/react"
+import { Combobox, ComboboxInput, ComboboxOptions, ComboboxButton } from "@headlessui/react"
+import {
+  useFloating,
+  flip,
+  offset,
+  shift,
+  size,
+  autoUpdate,
+  useInteractions,
+  useClick,
+  useDismiss,
+  Placement,
+} from "@floating-ui/react"
 import { Label } from "../Label/index"
 import { FormHint } from "../FormHint/index"
 import { Icon } from "../Icon/index"
 import { Spinner } from "../Spinner/index"
-import { flip, offset, shift, size } from "@floating-ui/react-dom"
 import { usePortalRef } from "../PortalProvider/index"
 import { createPortal } from "react-dom"
 import { ComboBoxOptionProps } from "../ComboBoxOption/ComboBoxOption.component"
@@ -160,7 +170,6 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   loading = false,
   label,
   name = "",
-  nullable = true,
   onBlur,
   onChange,
   onFocus,
@@ -182,6 +191,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   const theId = id || "juno-combobox-" + useId()
   const helptextId = "juno-combobox-helptext-" + useId()
+  const [isOpen, setIsOpen] = useState(false)
 
   const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(
     new Map<OptionValuesAndLabelsKey, OptionValuesAndLabelsValue>()
@@ -193,6 +203,32 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   const [hasFocus, setFocus] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
   const [isValid, setIsValid] = useState(false)
+
+  // Floating UI setup
+  const { x, y, strategy, refs, context } = useFloating({
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    placement: "bottom-start" as Placement,
+    middleware: [
+      offset(4),
+      shift(),
+      flip(),
+      size({
+        apply({ availableWidth, availableHeight, elements }) {
+          Object.assign(elements.floating.style, {
+            maxWidth: `${availableWidth}px`,
+            maxHeight: `${availableHeight}px`,
+            width: `${elements.reference.getBoundingClientRect().width}px`,
+            overflowY: "auto",
+          })
+        },
+      }),
+    ],
+    whileElementsMounted: autoUpdate,
+  })
+
+  // Setup interactions
+  const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)])
 
   // This callback is for all ComboBoxOptions to send us their value, label and children so we can save them as a map in our state.
   // We need this because the Select component wants to display the selected value, label or children in the ComboBox input field
@@ -250,32 +286,19 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setFocus(true)
+    setIsOpen(true)
+    // TODO: TypeError: Converting circular structure to JSON
     onFocus && onFocus(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setFocus(false)
+    setIsOpen(false)
+    // TODO: TypeError: Converting circular structure to JSON
     onBlur && onBlur(event)
   }
 
   const portalContainerRef = usePortalRef()
-
-  // Headless-UI-Float Middleware
-  const middleware = [
-    offset(4),
-    shift(),
-    flip(),
-    size({
-      rootBoundary: "viewport",
-      apply({ availableWidth, availableHeight, elements }) {
-        Object.assign(elements.floating.style, {
-          maxWidth: `${availableWidth}px`,
-          maxHeight: `${availableHeight}px`,
-          overflowY: "auto",
-        })
-      },
-    }),
-  ]
 
   const filteredChildren =
     query === ""
@@ -312,128 +335,134 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
           defaultValue={defaultValue}
           disabled={disabled || isLoading || hasError}
           name={name}
-          nullable={nullable as true}
           onChange={handleChange}
           value={selectedValue || defaultValue}
           {...props}
         >
-          <Float composable adaptiveWidth middleware={middleware}>
-            <Float.Reference>
-              <div
-                className={`
-                juno-combobox-input-wrapper
-                ${inputWrapperStyles}
-                ${disabled ? "jn-cursor-not-allowed" : ""}
-              `}
-              >
-                {label && isNotEmptyString(label) && !isLoading && !hasError ? (
-                  <Label
-                    text={label}
-                    disabled={disabled}
-                    required={required}
-                    htmlFor={theId}
-                    className={`${labelStyles}`}
-                    floating
-                    minimized={
-                      placeholder ||
-                      hasFocus ||
-                      (query && isNotEmptyString(query)) ||
-                      (selectedValue && isNotEmptyString(selectedValue))
-                        ? true
-                        : false
-                    }
-                  />
-                ) : (
-                  ""
-                )}
-
-                <Combobox.Input<OptionValuesAndLabelsKey>
-                  autoComplete="off"
-                  aria-label={ariaLabel || label}
-                  aria-describedby={helptext ? helptextId : ""}
-                  id={theId}
-                  onBlur={handleBlur}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  placeholder={!isLoading && !hasError ? placeholder : ""}
-                  displayValue={(val) =>
-                    optionValuesAndLabels.get(val)?.children?.toString() ||
-                    optionValuesAndLabels.get(val)?.label ||
-                    valueLabel ||
-                    val?.toString() ||
-                    ""
-                  } // Headless-UI expects a callback here
-                  className={`
-                  juno-combobox-input 
-                  ${inputStyles} 
-                  ${label && isNotEmptyString(label) ? withLabelInputStyles : noLabelInputStyles}
-                  ${disabled ? disabledInputStyles : ""}
-                  ${isInvalid ? "juno-combobox-invalid " + invalidStyles : ""} 
-                  ${isValid ? "juno-combobox-valid " + validStyles : ""}  
-                  ${isValid || isInvalid ? "" : defaultBorderStyles} 
-                  ${isLoading ? "juno-combobox-loading jn-cursor-not-allowed" : ""}
-                  ${hasError ? "juno-combobox-error jn-cursor-not-allowed" : ""}
-                  ${className}
-                `}
-                />
-
-                {isLoading || hasError ? (
-                  <span className={`${centeredIconStyles}`}>
-                    {isLoading ? (
-                      <Spinner className={"jn-cursor-not-allowed"} />
-                    ) : (
-                      <Icon icon="errorOutline" color="jn-text-theme-error" className={"jn-cursor-not-allowed"} />
-                    )}
-                  </span>
-                ) : isValid || isInvalid ? (
-                  <span
-                    className={`
-                        juno-combobox-icon-container 
-                        ${iconContainerStyles} 
-                        ${disabled ? "jn-opacity-50" : ""}
-                      `}
-                  >
-                    <Icon
-                      icon={isValid ? "checkCircle" : "dangerous"}
-                      color={isValid ? "jn-text-theme-success" : "jn-text-theme-error"}
-                    />
-                  </span>
-                ) : (
-                  ""
-                )}
-
-                {!hasError && !isLoading ? (
-                  <Combobox.Button
-                    className={`
-                        juno-combobox-toggle 
-                        ${buttonStyles}
-                        ${disabled ? disabledButtonStyles : ""}
-                        ${isInvalid ? "juno-combobox-toggle-invalid " + invalidButtonStyles : ""} 
-                        ${isValid ? "juno-combobox-toggle-valid " + validButtonStyles : ""}  
-                        ${isValid || isInvalid ? "" : defaultButtonStyles} 
-                      `}
-                  >
-                    {({ open }) => <Icon icon={open ? "expandLess" : "expandMore"} />}
-                  </Combobox.Button>
-                ) : null}
-              </div>
-            </Float.Reference>
-
-            {createPortal(
-              <Float.Content>
-                <Combobox.Options
-                  unmount={false}
-                  className={`
-                    juno-combobox-options 
-                    ${menuStyles}
-                  `}
-                >
-                  {filteredChildren}
-                </Combobox.Options>
-              </Float.Content>,
-              portalContainerRef ? portalContainerRef : document.body
+          <div
+            ref={refs.setReference}
+            className={`juno-combobox-input-wrapper ${inputWrapperStyles} ${disabled ? "jn-cursor-not-allowed" : ""}`}
+          >
+            {label && isNotEmptyString(label) && !isLoading && !hasError ? (
+              <Label
+                text={label}
+                disabled={disabled}
+                required={required}
+                htmlFor={theId}
+                className={`${labelStyles}`}
+                floating
+                minimized={
+                  placeholder ||
+                  hasFocus ||
+                  (query && isNotEmptyString(query)) ||
+                  (selectedValue && isNotEmptyString(selectedValue))
+                    ? true
+                    : false
+                }
+                {...getReferenceProps()}
+              />
+            ) : (
+              ""
             )}
-          </Float>
+
+            <ComboboxInput<OptionValuesAndLabelsKey>
+              autoComplete="off"
+              aria-label={ariaLabel || label}
+              aria-describedby={helptext ? helptextId : ""}
+              id={theId}
+              onBlur={handleBlur}
+              onChange={handleInputChange}
+              onFocus={handleFocus}
+              placeholder={!isLoading && !hasError ? placeholder : ""}
+              displayValue={(val) =>
+                optionValuesAndLabels.get(val)?.children?.toString() ||
+                optionValuesAndLabels.get(val)?.label ||
+                valueLabel ||
+                val?.toString() ||
+                ""
+              } // Headless-UI expects a callback here
+              className={`
+                juno-combobox-input 
+                ${inputStyles} 
+                ${label && isNotEmptyString(label) ? withLabelInputStyles : noLabelInputStyles}
+                ${disabled ? disabledInputStyles : ""}
+                ${isInvalid ? "juno-combobox-invalid " + invalidStyles : ""} 
+                ${isValid ? "juno-combobox-valid " + validStyles : ""}  
+                ${isValid || isInvalid ? "" : defaultBorderStyles} 
+                ${isLoading ? "juno-combobox-loading jn-cursor-not-allowed" : ""}
+                ${hasError ? "juno-combobox-error jn-cursor-not-allowed" : ""}
+                ${className}
+              `}
+            />
+
+            {isLoading || hasError ? (
+              <span className={`${centeredIconStyles}`}>
+                {isLoading ? (
+                  <Spinner className={"jn-cursor-not-allowed"} />
+                ) : (
+                  <Icon icon="errorOutline" color="jn-text-theme-error" className={"jn-cursor-not-allowed"} />
+                )}
+              </span>
+            ) : isValid || isInvalid ? (
+              <span
+                className={`
+                  juno-combobox-icon-container 
+                  ${iconContainerStyles} 
+                  ${disabled ? "jn-opacity-50" : ""}
+                `}
+              >
+                <Icon
+                  icon={isValid ? "checkCircle" : "dangerous"}
+                  color={isValid ? "jn-text-theme-success" : "jn-text-theme-error"}
+                />
+              </span>
+            ) : (
+              ""
+            )}
+
+            {!hasError && !isLoading ? (
+              <ComboboxButton
+                className={`
+                  juno-combobox-toggle 
+                  ${buttonStyles}
+                  ${disabled ? disabledButtonStyles : ""}
+                  ${isInvalid ? "juno-combobox-toggle-invalid " + invalidButtonStyles : ""} 
+                  ${isValid ? "juno-combobox-toggle-valid " + validButtonStyles : ""}  
+                  ${isValid || isInvalid ? "" : defaultButtonStyles} 
+                `}
+              >
+                {({ open }) => {
+                  // Update our open state when Headless UI updates it
+                  useEffect(() => {
+                    if (open !== isOpen) {
+                      setIsOpen(open)
+                    }
+                  }, [open])
+
+                  return <Icon icon={open ? "expandLess" : "expandMore"} />
+                }}
+              </ComboboxButton>
+            ) : null}
+          </div>
+          {isOpen &&
+            createPortal(
+              <div
+                ref={refs.setFloating}
+                className={`juno-combobox-options ${menuStyles}`}
+                style={{
+                  position: strategy,
+                  top: y ?? 0,
+                  left: x ?? 0,
+                  zIndex: 999,
+                }}
+                {...getFloatingProps()}
+              >
+                <ComboboxOptions static className="jn-w-full" onClick={() => setIsOpen(!isOpen)}>
+                  {filteredChildren}
+                </ComboboxOptions>
+              </div>,
+              portalContainerRef ?? document.body
+            )}
         </Combobox>
 
         {errortext && isNotEmptyString(errortext) ? <FormHint text={errortext} variant="error" /> : ""}
