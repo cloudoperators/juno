@@ -214,11 +214,11 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
       shift(),
       flip(),
       size({
-        apply({ availableWidth, availableHeight, elements }) {
+        apply({ availableWidth, availableHeight, elements, rects }) {
           Object.assign(elements.floating.style, {
             maxWidth: `${availableWidth}px`,
             maxHeight: `${availableHeight}px`,
-            width: `${elements.reference.getBoundingClientRect().width}px`,
+            minWidth: `${rects.reference.width}px`,
             overflowY: "auto",
           })
         },
@@ -453,7 +453,6 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                   position: strategy,
                   top: y ?? 0,
                   left: x ?? 0,
-                  zIndex: 999,
                 }}
                 {...getFloatingProps()}
               >
