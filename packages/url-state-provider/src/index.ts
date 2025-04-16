@@ -11,7 +11,7 @@ import juriCutlery from "juri-cutlery"
 
 const jsonURLSerializer = juriCutlery()
 const SEARCH_KEY = "__s"
-const regex = new RegExp(SEARCH_KEY + "=([^&]+)")
+const regex = new RegExp(SEARCH_KEY + "=([^&#]+)")
 
 /**
  * Variable where to host listeners for history changes

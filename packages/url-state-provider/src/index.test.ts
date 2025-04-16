@@ -156,7 +156,7 @@ describe("replace", () => {
   beforeAll(() => {
     vi.resetModules()
     delete window["__url_state_provider"]
-    window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2"
+    window.location.href = "http://localhost?test1=test1&__s=" + state + "&test2=test2#ignore_me"
     provider.replace("consumer1", { p: "/about", o: { tab: 1 } })
   })
 
@@ -189,7 +189,7 @@ describe("replace", () => {
       consumer2: { p: "/items/10", o: { tab: 2 } },
     })
 
-    expect(window.location.href).toEqual("http://localhost/?test1=test1&__s=" + newState + "&test2=test2")
+    expect(window.location.href).toEqual("http://localhost/?test1=test1&__s=" + newState + "&test2=test2#ignore_me")
   })
 
   describe("search params are empty", () => {
