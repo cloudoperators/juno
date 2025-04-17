@@ -5,7 +5,7 @@
 
 import { useLayoutEffect, useEffect } from "react"
 // @ts-ignore
-import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
+import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import {
   useFilterLabels,
   useFilterActions,
