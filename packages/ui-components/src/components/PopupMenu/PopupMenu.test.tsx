@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, cleanup } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, expect, test, vi } from "vitest"
 import { PopupMenu } from "./index"
@@ -15,6 +15,23 @@ vi.mock("../PortalProvider", () => ({
     Portal: ({ children }: { children: React.ReactNode }) => <div data-testid="portal-container">{children}</div>,
   },
 }))
+
+class ResizeObserver {
+  observe() {
+    // do nothing
+    vi.fn()
+  }
+  unobserve() {
+    // do nothing
+    vi.fn()
+  }
+  disconnect() {
+    // do nothing
+    vi.fn()
+  }
+}
+
+window.ResizeObserver = ResizeObserver
 
 // Define a Custom Toggle component to be used in our tests to represent a custom component a user might pass as a toggle:
 interface CustomToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,6 +48,11 @@ const CustomToggle = React.forwardRef<HTMLButtonElement, CustomToggleProps>(
 CustomToggle.displayName = "CustomToggle"
 
 describe("PopupMenu", () => {
+  afterEach(() => {
+    cleanup()
+    vi.clearAllMocks()
+  })
+
   // ----- MENU PARENT: -----
   test("renders a custom className to the menu parent element", () => {
     render(<PopupMenu data-testid="popupmenu" className="my-custom-class" />)

@@ -4,8 +4,8 @@
  */
 
 import React, { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react"
-import { Menu as HeadlessMenu } from "@headlessui/react"
-import { Float } from "@headlessui-float/react"
+import { Menu as HeadlessMenu, MenuButton, MenuItem, MenuItems } from "@headlessui/react"
+import { useFloating, offset, flip, shift, autoUpdate, Placement } from "@floating-ui/react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
 
@@ -201,6 +201,13 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   const [isOpen, setIsOpen] = useState(false)
   const previousOpenRef = useRef(isOpen) // Track the previous value of isOpen for efficiency
 
+  // Setup floating-ui
+  const { refs, floatingStyles, update } = useFloating({
+    placement: "bottom-start" as Placement,
+    middleware: [offset(4), flip(), shift({ padding: 8 })],
+    whileElementsMounted: autoUpdate,
+  })
+
   // Run handlers when our tracking state changes based on changes of the internal headless state, or when the handlers themselves change:
   useEffect(() => {
     if (isOpen !== previousOpenRef.current) {
@@ -230,43 +237,48 @@ const PopupMenu: React.FC<PopupMenuProps> & {
         useEffect(() => {
           if (open !== isOpen) {
             setIsOpen(open)
+            // Trigger update when open state changes to ensure proper positioning
+            if (open) {
+              update()
+            }
           }
         }, [open])
 
         return (
           // * Expose our context:
           <PopupMenuContext.Provider value={{ isOpen, close, menuSize }}>
-            <Float as={React.Fragment} placement="bottom-start" offset={4} shift={8} flip={8} composable>
-              <Float.Reference>
-                {/* Wrap the toggle in a div that headless ui Float.Reference can reference*/}
-                <div className={`juno-popupmenu-float-reference-wrapper ${floatingReferenceWrapperStyles}`}>
-                  {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
-                  {!hasToggle && (
-                    <PopupMenu.Toggle
-                      className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${disabled ? disabledToggleStyles : defaultToggleStyles}`}
-                      disabled={disabled}
-                    >
-                      <Icon icon={icon} />
-                    </PopupMenu.Toggle>
-                  )}
+            {/* Reference element that floating-ui will use for positioning */}
+            <div
+              ref={refs.setReference}
+              className={`juno-popupmenu-float-reference-wrapper ${floatingReferenceWrapperStyles}`}
+            >
+              {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
+              {!hasToggle && (
+                <PopupMenu.Toggle
+                  className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${disabled ? disabledToggleStyles : defaultToggleStyles}`}
+                  disabled={disabled}
+                >
+                  <Icon icon={icon} />
+                </PopupMenu.Toggle>
+              )}
 
-                  {/* Render toggle children as passed: */}
-                  {childrenArray.map((child) => {
-                    if (React.isValidElement(child) && child.type === PopupMenuToggle) {
-                      return child
-                    }
-                  })}
-                </div>
-              </Float.Reference>
+              {/* Render toggle children as passed: */}
+              {childrenArray.map((child, index) => {
+                if (React.isValidElement(child) && child.type === PopupMenuToggle) {
+                  return React.cloneElement(child, { key: index })
+                }
+                return null
+              })}
+            </div>
 
-              {/* Render the menu in our portal: */}
+            {/* Render the menu in our portal: */}
+            {isOpen && (
               <PortalProvider.Portal>
-                <Float.Content>
-                  {/* Wrap the floated content in a div that headless ui Float.Content can reference */}
-                  <div className={`juno-popupmenu-float-content-wrapper`}>{menu}</div>
-                </Float.Content>
+                <div ref={refs.setFloating} style={floatingStyles} className="juno-popupmenu-float-content-wrapper">
+                  {menu}
+                </div>
               </PortalProvider.Portal>
-            </Float>
+            )}
           </PopupMenuContext.Provider>
         )
       }}
@@ -282,14 +294,14 @@ const PopupMenuToggle: React.FC<PopupMenuToggleProps> = ({
   className = "",
   ...props
 }) => (
-  <HeadlessMenu.Button
+  <MenuButton
     as={as}
     className={`juno-popupmenu-toggle ${disabled && disabledToggleStyles} ${className}`}
     disabled={disabled}
     {...props}
   >
     {children}
-  </HeadlessMenu.Button>
+  </MenuButton>
 )
 
 // MENU COMPONENT
@@ -297,12 +309,12 @@ const PopupMenuMenu: React.FC<PopupMenuMenuProps> = ({ children, className = "",
   // Consume context to get the size to render and the close function:
   const { menuSize } = usePopupMenuContext()
   return (
-    <HeadlessMenu.Items
+    <MenuItems
       className={`juno-popupmenu-menu juno-popupmenu-menu-size-${menuSize} ${menuStyles} ${className}`}
       {...props}
     >
       {children}
-    </HeadlessMenu.Items>
+    </MenuItems>
   )
 }
 
@@ -325,7 +337,7 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
   const itemSizeStyles = menuSize === "small" ? smallItemStyles : normalItemStyles
   // Determine the compontn to render as:
   return (
-    <HeadlessMenu.Item
+    <MenuItem
       as={as}
       disabled={disabled}
       className={`juno-popupmenu-item ${itemStyles} ${disabled ? disabledItemStyles : actionableItemStyles} ${itemSizeStyles} ${className}`}
@@ -347,7 +359,7 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
               : children}
         </>
       )}
-    </HeadlessMenu.Item>
+    </MenuItem>
   )
 }
 

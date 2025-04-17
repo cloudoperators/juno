@@ -138,6 +138,7 @@ describe("Tooltip", () => {
     // screen.debug()
     expect(screen.getByText(/trigger/i)).toBeInTheDocument()
     expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()
+
     await waitFor(async () => {
       await userEvent.click(screen.getByText(/trigger/i))
       expect(screen.queryByText(/my content/i)).not.toBeInTheDocument()

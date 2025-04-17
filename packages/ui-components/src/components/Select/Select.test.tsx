@@ -15,6 +15,23 @@ import { SelectProps } from "./Select.component"
 const mockOnChange = vi.fn()
 const mockOnValueChange = vi.fn()
 
+class ResizeObserver {
+  observe() {
+    // do nothing
+    vi.fn()
+  }
+  unobserve() {
+    // do nothing
+    vi.fn()
+  }
+  disconnect() {
+    // do nothing
+    vi.fn()
+  }
+}
+
+window.ResizeObserver = ResizeObserver
+
 const ControlledSelectParent = ({ children, ...props }: SelectProps) => {
   const [val, setVal] = React.useState(props.value)
 
