@@ -7,9 +7,9 @@ interface FormState {
   id?: string
   name?: string
   height?: string
-  range?: string
+  mainrange?: string
   region?: string
-  country?: string
+  countries?: string
   url?: string
 }
 
@@ -52,9 +52,9 @@ export const validateFormField = (key: keyof FormState, value: string): string =
     id: () => "",
     name: validateNameField,
     height: validateHeightField,
-    range: validateNameField,
+    mainrange: validateNameField,
     region: validateNameField,
-    country: validateNameField,
+    countries: validateNameField,
     url: validateUrlField,
   }
 
@@ -62,7 +62,7 @@ export const validateFormField = (key: keyof FormState, value: string): string =
 }
 
 export const validateEntireForm = (formState: FormState, errors: FormState): boolean => {
-  const mandatoryFields: Array<keyof FormState> = ["name", "height", "range", "region", "country"]
+  const mandatoryFields: Array<keyof FormState> = ["name", "height", "mainrange", "region", "countries"]
   const mandatoryFilled = mandatoryFields.every((key) => formState[key]?.trim() !== "")
   const noErrors = Object.values(errors).every((error) => error === "")
   return mandatoryFilled && noErrors

@@ -27,9 +27,9 @@ interface FormState {
   id?: string
   name?: string
   height?: string
-  range?: string
+  mainrange?: string
   region?: string
-  country?: string
+  countries?: string
   url?: string
 }
 
@@ -60,9 +60,9 @@ const INITIAL_VALUES: FormState = {
   id: "",
   name: "",
   height: "",
-  range: "",
+  mainrange: "",
   region: "",
-  country: "",
+  countries: "",
   url: "",
 }
 

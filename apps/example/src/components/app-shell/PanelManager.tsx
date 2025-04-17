@@ -23,9 +23,9 @@ const EDIT_HEADING = "Edit Peak"
 const INITAL_PLACEHOLDER_PEAK_DATA = {
   name: "Mount Sample",
   height: "8848",
-  range: "Himalayas",
+  mainrange: "Himalayas",
   region: "Asia",
-  country: "Nepal/China",
+  countries: "Nepal/China",
   url: "https://example.com/sample",
 }
 

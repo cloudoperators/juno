@@ -1,8 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState } from "react"
 import {
   DataGridToolbar,
@@ -50,7 +45,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
   const [filterLabel, setFilterLabel] = useState<string>("")
   const [filterValue, setFilterValue] = useState<string>("")
 
-  const handleFilterChange = (label: string, value: string) => {
+  const handleFilterChange = (label: string) => {
     setFilterLabel(label)
     setFilterValue("") // Reset filterValue when changing label
   }
@@ -69,15 +64,23 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
       : []
 
   return (
-    <DataGridToolbar>
-      <Stack direction="horizontal" alignment="center" gap="8">
-        <InputGroup>
+    <DataGridToolbar className="filter-label-select ml-0 jn-ml-0">
+      <Stack
+        direction="horizontal"
+        alignment="center"
+        gap="8"
+        className="m-0 jn-ml-0"
+        style={{ justifyContent: "space-between", width: "100%", margin: 0 }} // Ensure no left margin
+      >
+        <InputGroup style={{ margin: 0 }}>
+          {/* Ensure no left margin */}
           <Select
             name="filter"
-            className="filter-label-select w-64 mb-0"
+            className="filter-label-select w-64 m-0 jn-ml-0"
             label="Filter"
             value={filterLabel}
             onChange={handleFilterChange}
+            style={{ marginLeft: 0 }}
           >
             {filterKeys.map((filterKey) => (
               <SelectOption key={filterKey} value={filterKey}>
@@ -85,10 +88,10 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
               </SelectOption>
             ))}
           </Select>
-
           <Select
             name="filterValue"
             value={filterValue}
+            label="Filter Value"
             onChange={handleFilterValueChange}
             disabled={!filterLabel}
             className="filter-value-select w-96 bg-theme-background-lvl-0"
@@ -101,7 +104,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
           </Select>
           <Button icon="filterAlt" className="py-[0.3rem]" />
         </InputGroup>
-        <Button label="Clear all" onClick={clearAllFilters} variant="subdued" />
+        <Button label="Clear All" onClick={clearAllFilters} variant="subdued" />
 
         <SearchInput
           placeholder="Search by name..."
@@ -112,7 +115,12 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
         />
         <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
       </Stack>
-      <Stack direction="horizontal" gap="4" alignment="center" style={{ justifyContent: "flex-start", width: "100%" }}>
+      <Stack
+        direction="horizontal"
+        gap="4"
+        alignment="center"
+        style={{ justifyContent: "flex-start", width: "100%", marginLeft: 0 }}
+      >
         {Object.entries(filterSelections).map(([key, values]) =>
           values.map((value, index) => (
             <Pill
