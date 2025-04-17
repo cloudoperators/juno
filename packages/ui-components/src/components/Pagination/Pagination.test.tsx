@@ -4,13 +4,35 @@
  */
 
 import React from "react"
-import { render, screen, fireEvent, act, waitFor } from "@testing-library/react"
+import { render, screen, fireEvent, act, waitFor, cleanup } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, expect, test, vi } from "vitest"
 
 import { Pagination } from "./Pagination.component"
 
+class ResizeObserver {
+  observe() {
+    // do nothing
+    vi.fn()
+  }
+  unobserve() {
+    // do nothing
+    vi.fn()
+  }
+  disconnect() {
+    // do nothing
+    vi.fn()
+  }
+}
+
+window.ResizeObserver = ResizeObserver
+
 describe("Pagination", () => {
+  afterEach(() => {
+    cleanup()
+    vi.clearAllMocks()
+  })
+
   test("renders a Pagination", () => {
     render(<Pagination data-testid="my-pagination" />)
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()

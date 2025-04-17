@@ -4,7 +4,7 @@
  */
 
 import React, { Fragment, useEffect, useContext } from "react"
-import { Combobox } from "@headlessui/react"
+import { ComboboxOption } from "@headlessui/react"
 import { ComboBoxContext } from "../ComboBox/ComboBox.component"
 import { Icon } from "../Icon/Icon.component"
 
@@ -14,11 +14,11 @@ const optionStyles = `
   jn-pb-[0.5rem]
   jn-pr-[0.875rem]
   jn-select-none
-  data-[headlessui-state=active]:jn-outline-none
-  data-[headlessui-state=active]:jn-ring-2
-  data-[headlessui-state=active]:jn-ring-inset
-  data-[headlessui-state=active]:jn-ring-theme-focus
-  data-[headlessui-state=active]:jn-bg-theme-background-lvl-3
+  data-[headlessui-state~=active]:jn-outline-none
+  data-[headlessui-state~=active]:jn-ring-2
+  data-[headlessui-state~=active]:jn-ring-inset
+  data-[headlessui-state~=active]:jn-ring-theme-focus
+  data-[headlessui-state~=active]:jn-bg-theme-background-lvl-3
 `
 
 const unselectedOptionStyles = `
@@ -74,7 +74,7 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   const theValue = value || children
 
   return (
-    <Combobox.Option value={theValue} disabled={disabled} as={Fragment}>
+    <ComboboxOption value={theValue} disabled={disabled} as={Fragment}>
       <li
         className={`
           juno-combobox-option 
@@ -95,7 +95,7 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
           {children || label || value}
         </span>
       </li>
-    </Combobox.Option>
+    </ComboboxOption>
   )
 }
 
