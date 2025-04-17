@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 3.0.1
+
+### Patch Changes
+
+- 4e8a5ef: Remove @mdx-js/react from the codebase
+- f48439c: Remove react-jss package from the codebase
+
 ## 3.0.0
 
 ### Major Changes

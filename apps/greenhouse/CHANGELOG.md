@@ -1,5 +1,25 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.4
+
+### Patch Changes
+
+- 52e148c: Refactors severity count related components
+- ee1b3ab: Reorganize components files based on how they are imported.
+- 6b5e878: - Rollback `url-state-provider` back to `v1.3.2`.
+  - `url-state-provider` will now ignore Hashed(#) part of the URL while encoding/decoding query parameters.
+  - Removed dependency of `url-state-provider-v1` in all internal applications.
+- Updated dependencies [52e148c]
+- Updated dependencies [ee1b3ab]
+- Updated dependencies [4e8a5ef]
+- Updated dependencies [f48439c]
+- Updated dependencies [6b5e878]
+  - @cloudoperators/juno-app-heureka@0.5.1
+  - @cloudoperators/juno-ui-components@3.0.1
+  - @cloudoperators/juno-url-state-provider@3.0.0
+  - @cloudoperators/juno-app-supernova@0.16.6
+  - @cloudoperators/juno-app-doop@2.3.7
+
 ## 0.5.3
 
 ### Patch Changes
