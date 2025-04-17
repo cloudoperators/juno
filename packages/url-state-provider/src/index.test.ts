@@ -3,6 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/**
+ * Because url-stat-provider-v1 was implemented in Javascript therefore this file is simply converted to .ts
+ * without fixing any type issues to keep the original solution in intact.
+ * We may consider to refactor this file but it may not advised as this solution is going to be obsolete
+ * in near future.
+ **/
 /* eslint-disable */
 // @ts-nocheck
 

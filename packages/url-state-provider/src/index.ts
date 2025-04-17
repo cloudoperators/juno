@@ -3,6 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/**
+ * Because url-stat-provider-v1 was implemented in Javascript therefore this file is simply converted to .ts
+ * without fixing any type issues to keep the original solution in intact.
+ * We may consider to refactor this file but it may not be advised as this solution is going to be obsolete
+ * in near future.
+ **/
 /* eslint-disable */
 // @ts-nocheck
 
@@ -11,7 +17,7 @@ import juriCutlery from "juri-cutlery"
 
 const jsonURLSerializer = juriCutlery()
 const SEARCH_KEY = "__s"
-const regex = new RegExp(SEARCH_KEY + "=([^&#]+)")
+const regex = new RegExp(SEARCH_KEY + "=([^&#]+)") // this regular expression ignores hashed(#) part of the URL
 
 /**
  * Variable where to host listeners for history changes
