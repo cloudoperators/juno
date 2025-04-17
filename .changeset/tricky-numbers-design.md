@@ -3,4 +3,4 @@
 "@cloudoperators/juno-app-greenhouse": patch
 ---
 
-Proposed idea ui queries
+Proposed ideal ui queries
