@@ -1,5 +1,15 @@
 # heureka
 
+## 0.5.1
+
+### Patch Changes
+
+- 52e148c: Refactors severity count related components
+- ee1b3ab: Reorganize components files based on how they are imported.
+- Updated dependencies [4e8a5ef]
+- Updated dependencies [f48439c]
+  - @cloudoperators/juno-ui-components@3.0.1
+
 ## 0.5.0
 
 ### Minor Changes
