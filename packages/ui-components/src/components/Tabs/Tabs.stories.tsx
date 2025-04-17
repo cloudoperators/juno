@@ -111,8 +111,8 @@ export const TabsWithIcons = {
     ],
     tabpanels: [
       <TabPanel key="tp-1">Warning Content</TabPanel>,
-      <TabPanel key="tp-1">Danger Content</TabPanel>,
-      <TabPanel key="tp-1">Info Content</TabPanel>,
+      <TabPanel key="tp-2">Danger Content</TabPanel>,
+      <TabPanel key="tp-3">Info Content</TabPanel>,
     ],
   },
 }
@@ -128,7 +128,6 @@ export const ControlledTabs = {
       <TabPanel key="tp-3">Content 3</TabPanel>,
     ],
     selectedIndex: 1,
-    defaultIndex: null,
     onSelect: () => {},
   },
 }

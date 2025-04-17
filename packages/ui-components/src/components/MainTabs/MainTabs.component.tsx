@@ -37,7 +37,7 @@ export interface MainTabsProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   /** The index of the Tab to be selected by default in "Uncontrolled Mode" (default) where Tabs handle their state internally. Do not use in "Controlled Mode".*/
   defaultIndex?: number
   /** The index of the Tab to be selected by default. This enables "Controlled Mode" where the developer takes over control of the Tabs state and behaviour. Requires onSelect to be set.*/
-  selectedIndex?: number
+  selectedIndex?: number | null
   /** Handler required in "Controlled Mode" */
   // eslint-disable-next-line no-unused-vars
   onSelect?: (value: number) => void
