@@ -22,7 +22,7 @@ const CorePlugin = ({ config, auth }: any) => {
   )
 }
 
-const Extension = ({ config }: any) => {
+const Extension = ({ config, auth }: any) => {
   const holder = useRef()
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Extension = ({ config }: any) => {
 
     loadExtension()
       .then((app) => {
-        app.mount(holder.current, { props: { ...config.props, embedded: true } })
+        app.mount(holder.current, { props: { ...config.props, embedded: true, token: auth?.JWT } })
       })
       .catch((error) => {
         // @ts-expect-error TS(2532): Object is possibly 'undefined'.
