@@ -1,30 +1,40 @@
 #SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 #SPDX-License-Identifier: Apache-2.0
 
-# This the list of issues for one selected service and its image version
-query GetServiceImageVersionIssues(serviceName, imageVersion){
- issues {
-    edges {
-        node {
-            Severity
-            Name
-            SourceUrl
-            EarliestTargetRemediationDate
-            Description
+# Ideal API Queries
 
+---
+
+## Queries
+
+### 1. The list of Issues for a Selected Service and Its Image Version
+
+```graphql
+query GetServiceImageVersionIssues(serviceName, imageVersion) {
+    issues {
+        edges {
+            node {
+                Severity
+                Name
+                SourceUrl
+                EarliestTargetRemediationDate
+                Description
             }
-    }
-        totalCountgit push
+        }
+        totalCount
         pageInfo {
             pageNumber
             pages {
                 after
                 pageNumber
             }
+        }
     }
-}}
+}
+```
 
-# The list of image versions for one selected service:
+### 2. The list of image versions for one selected service
+```graphql
 query GetServiceImageVersions(serviceName) {
     imageVersions {
         edges {
@@ -52,8 +62,10 @@ query GetServiceImageVersions(serviceName) {
         totalCount
     } 
 }
+```
 
-# The list of all services
+### 3. The list of all services
+```graphql
 query GetServices {
     services {
         edges {
@@ -87,3 +99,4 @@ query GetServices {
         }   
     } 
 }
+```
