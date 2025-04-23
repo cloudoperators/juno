@@ -161,6 +161,23 @@ const getIcon = (variant: MessageVariantType): KnownIcons => {
   return "default"
 }
 
+const getIconStyles = (variant: MessageVariantType) => {
+  switch (variant) {
+    case "info":
+      return "jn:text-theme-info jn:shrink-0"
+    case "warning":
+      return "jn:text-theme-warning jn:shrink-0"
+    case "danger":
+      return "jn:text-theme-danger jn:shrink-0"
+    case "error":
+      return "jn:text-theme-error jn:shrink-0"
+    case "success":
+      return "jn:text-theme-success jn:shrink-0"
+    default:
+      return "jn:text-theme-info jn:shrink-0"
+  }
+}
+
 // Initiate auto-dismiss to hide message
 const initiateAutoDismiss = (
   autoDismiss: boolean,
@@ -233,7 +250,7 @@ export const Message: React.FC<MessageProps> = ({
       {...props}
     >
       <div className={`juno-message-border ${messageBorderStyles} ${variantStyle}`}></div>
-      <Icon icon={iconToRender} color={`jn-text-theme-${variant}`} className="jn:shrink-0" />
+      <Icon icon={iconToRender} className={`${getIconStyles(variant)}`} />
       <div className={`juno-message-content ${messageContentStyles}`}>
         {title && <h1 className={messageHeadingStyles}>{title}</h1>}
         <div>{children || text}</div>
