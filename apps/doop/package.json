@@ -48,7 +48,7 @@
     "@cloudoperators/juno-communicator": "*",
     "@cloudoperators/juno-messages-provider": "*",
     "@cloudoperators/juno-ui-components": "*",
-    "@cloudoperators/juno-url-state-provider-v1": "^1.3.2",
+    "@cloudoperators/juno-url-state-provider": "*",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
   }
