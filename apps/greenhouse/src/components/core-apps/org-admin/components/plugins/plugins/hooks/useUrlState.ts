@@ -4,8 +4,7 @@
  */
 
 import { useLayoutEffect, useEffect, useState } from "react"
-// @ts-expect-error TS(2792): Cannot find module '@cloudoperators/juno-url-state... Remove this comment to see the full error message
-import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
+import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import { usePluginActions, useShowDetailsFor } from "../components/StoreProvider"
 
 const urlStateManager = registerConsumer("plugin-admin")
