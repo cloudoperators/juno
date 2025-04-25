@@ -77,7 +77,7 @@ export const ServiceDetails = () => {
         displayActions={false}
         selectedImageVersion={selectedImageVersion}
         onVersionSelect={(version) => {
-          setSelectedImageVersion(version)
+          setSelectedImageVersion(selectedImageVersion?.version === version.version ? null : version)
         }}
       />
       {/* Image Version Details Panel */}
