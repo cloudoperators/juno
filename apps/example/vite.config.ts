@@ -48,6 +48,7 @@ export default defineConfig(({ mode }) => {
     ...sharedConfig,
     build: {
       outDir: "build",
+      // TODO: Remove it later (used for debugging)
       sourcemap: true,
 
       lib: {

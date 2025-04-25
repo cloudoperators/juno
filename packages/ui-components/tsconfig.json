@@ -14,7 +14,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["vitest/globals", "vite/client", "@testing-library/jest-dom", "@types/react"]
+    "types": ["vitest/globals", "vite/client", "@testing-library/jest-dom", "@types/react"],
+    // TODO: Remove it later (used for debugging)
+    "sourceMap": true,
+    "declarationMap": true
   },
   "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts"],
   "exclude": ["node_modules", "build"]
