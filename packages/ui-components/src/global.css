@@ -1,16 +1,17 @@
 /* SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors */
 /* SPDX-License-Identifier: Apache-2.0 */
 
-@import "./components/Button/button.css" layer(base);
-@import "./components/DateTimePicker/datetimepicker.css" layer(base);
-@import "./components/FormattedText/formatted-text.css" layer(base);
-@import "./components/InputGroup/input-group.css" layer(base);
-@import "./components/SearchInput/searchinput.css" layer(base);
-@import "./components/Select/select.css" layer(base);
-@import "./components/TextInput/textinput.css" layer(base);
-@import "./components/ThemeToggle/themeToggle.css" layer(base);
-
 @import "tailwindcss" prefix(jn) source("../src");
+
+@import "./components/Button/button.css" layer(components);
+@import "./components/DateTimePicker/datetimepicker.css" layer(components);
+@import "./components/FormattedText/formatted-text.css" layer(components);
+@import "./components/InputGroup/input-group.css" layer(components);
+@import "./components/SearchInput/searchinput.css" layer(components);
+@import "./components/Select/select.css" layer(components);
+@import "./components/TextInput/textinput.css" layer(components);
+@import "./components/ThemeToggle/themeToggle.css" layer(components);
+
 
 :root,
 :host {
@@ -285,35 +286,20 @@
 .theme-light {
   /* Light mode colors: */
   --color-accent: rgb(0, 118, 203);
-
   --color-info: rgb(0, 118, 203);
-
   --color-success: rgb(79, 184, 28);
-
   --color-warning: rgb(255, 175, 0);
-
   --color-danger: rgb(199, 0, 0);
-
   --color-error: rgb(199, 0, 0);
-
   --color-juno-text-light: rgb(150, 150, 150);
-
   --color-juno-text-default: rgb(76, 76, 76);
-
   --color-juno-text-high: rgb(64, 64, 64);
-
   --color-juno-text-highest: rgb(0, 0, 0);
-
   --color-juno-text-disabled: rgb(183, 183, 183);
-
   --color-juno-primary-danger-1: rgb(235, 146, 146);
-
   --color-juno-primary-danger-2: rgb(218, 93, 93);
-
   --color-juno-primary-danger-3: rgb(213, 64, 64);
-
   --color-juno-primary-danger-4: rgb(199, 0, 0);
-
   --color-juno-primary-danger-5: rgb(165, 11, 11);
 
   /* Light Mode bg-colors: */
@@ -494,35 +480,20 @@
 /* JUNO THEME: DARK MODE */
 .theme-dark {
   --color-accent: rgb(21, 208, 224);
-
   --color-info: rgb(21, 208, 224);
-
   --color-success: rgb(59, 255, 91);
-
   --color-warning: rgb(255, 198, 0);
-
   --color-danger: rgb(255, 65, 16);
-
   --color-error: rgb(255, 65, 16);
-
   --color-juno-text-light: rgb(122, 122, 122);
-
   --color-juno-text-default: rgb(187, 187, 187);
-
   --color-juno-text-high: rgb(222, 223, 224);
-
   --color-juno-text-highest: rgb(255, 254, 253);
-
   --color-juno-text-disabled: rgb(92, 92, 92);
-
   --color-juno-primary-danger-1: rgb(231, 163, 137);
-
   --color-juno-primary-danger-2: rgb(222, 126, 91);
-
   --color-juno-primary-danger-3: rgb(208, 69, 18);
-
   --color-juno-primary-danger-4: rgb(187, 62, 16);
-
   --color-juno-primary-danger-5: rgb(164, 54, 14);
 
   /* DT Background Colors */
