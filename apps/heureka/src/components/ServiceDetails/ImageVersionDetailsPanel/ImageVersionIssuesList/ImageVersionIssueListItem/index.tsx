@@ -59,7 +59,7 @@ export const ImageVersionIssueListItem = ({ issue }: ImageVersionIssueListItemPr
       </DataGridCell>
       <DataGridCell>
         <Stack gap="2" direction="vertical">
-          <span>{isExpanded ? issue.description : `${issue.description.substring(0, 95)}...`}</span>
+          <span className={isExpanded ? "" : "whitespace-nowrap overflow-hidden text-ellipsis"}>{issue.description}</span>
           <a href="#" onClick={toggleDescription} className="link-hover">
             <Stack alignment="center">
               {isExpanded ? "Show less" : "Show more"}
