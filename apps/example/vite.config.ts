@@ -38,6 +38,7 @@ export default defineConfig(({ mode }) => {
       ...sharedConfig,
       build: {
         outDir: "build",
+        sourcemap: true,
       },
     }
   }
