@@ -47,6 +47,7 @@ export default defineConfig(({ mode }) => {
     ...sharedConfig,
     build: {
       outDir: "build",
+      sourcemap: true,
 
       lib: {
         entry: "src/index.tsx",

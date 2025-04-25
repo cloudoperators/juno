@@ -27,6 +27,7 @@ export default defineConfig({
       external: ["react", "react-dom"],
     },
     outDir: "build",
+    sourcemap: true,
   },
   plugins: [
     dts({
