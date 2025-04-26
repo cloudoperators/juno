@@ -72,12 +72,6 @@ export const SelectOption: React.FC<SelectOptionProps> = ({
     addOptionValueAndLabel: () => {},
   }
 
-  // TODO: Debugging
-  // ensure initialization of option metadata via Context (initial component rendering)
-  useEffect(() => {
-    addOptionValueAndLabel(value, label, children)
-  }, [])
-
   // send option metadata to the Select component via Context
   useEffect(() => {
     addOptionValueAndLabel(value, label, children)

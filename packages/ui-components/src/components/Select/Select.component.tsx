@@ -208,13 +208,25 @@ export const Select: React.FC<SelectProps> = ({
   const addOptionValueAndLabel = (value: unknown, label: unknown, children: unknown) => {
     // append new entry to optionValuesAndLabels map containing the passed value, label and children
     // use callback syntax of setState function here since we want to merge the old state with the new entry
-    setOptionValuesAndLabels((oldMap) =>
-      new Map(oldMap).set(value || children, {
-        val: value,
-        label: label,
-        children: children,
-        displayName: children || label || value,
-      })
+
+    // TODO: Debugging logs
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    console.log(`addOptionValueAndLabel called with value: ${value} label: ${label} children: ${children}`)
+
+    setOptionValuesAndLabels(
+      (oldMap) =>
+        new Map([
+          ...Array.from(oldMap),
+          [
+            value ?? children,
+            {
+              val: value,
+              label: label,
+              children: children,
+              displayName: children ?? label ?? value,
+            },
+          ],
+        ])
     )
   }
 
