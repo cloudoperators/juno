@@ -1,5 +1,13 @@
 # @cloudoperators/juno-ui-components
 
+## 3.0.1
+
+### Patch Changes
+
+- 9ff1784: Update react-tabs to the latest react 19 compatible version (6.1.0)
+- 4e8a5ef: Remove @mdx-js/react from the codebase
+- f48439c: Remove react-jss package from the codebase
+
 ## 3.0.0
 
 ### Major Changes
