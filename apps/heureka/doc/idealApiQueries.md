@@ -7,11 +7,11 @@ query GetServiceImageVersionIssues(serviceName, imageVersion) {
     issues {
         edges {
             node {
-                Severity
-                Name
-                SourceUrl
-                EarliestTargetRemediationDate
-                Description
+                severity
+                name
+                sourceUrl
+                earliestTargetRemediationDate
+                description
             }
         }
         totalCount
