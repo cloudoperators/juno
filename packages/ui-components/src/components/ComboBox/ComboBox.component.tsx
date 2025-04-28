@@ -283,6 +283,11 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   const handleChange = (value: string) => {
     setSelectedValue(value)
+
+    if (value) {
+      setIsOpen(false)
+    }
+
     onChange && onChange(value)
   }
 
@@ -463,7 +468,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                 }}
                 {...getFloatingProps()}
               >
-                <ComboboxOptions static className="jn-w-full" onClick={() => setIsOpen(!isOpen)}>
+                <ComboboxOptions static className="jn-w-full">
                   {filteredChildren}
                 </ComboboxOptions>
               </div>,
