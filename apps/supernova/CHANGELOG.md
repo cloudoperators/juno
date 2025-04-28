@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.16.6
+
+### Patch Changes
+
+- 6b5e878: - Rollback `url-state-provider` back to `v1.3.2`.
+  - `url-state-provider` will now ignore Hashed(#) part of the URL while encoding/decoding query parameters.
+  - Removed dependency of `url-state-provider-v1` in all internal applications.
+- Updated dependencies [9ff1784]
+- Updated dependencies [4e8a5ef]
+- Updated dependencies [f48439c]
+- Updated dependencies [6b5e878]
+  - @cloudoperators/juno-ui-components@3.0.1
+  - @cloudoperators/juno-url-state-provider@3.0.0
+
 ## 0.16.5
 
 ### Patch Changes
