@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState, useCallback } from "react"
+import React, { useEffect, useState } from "react"
 import {
   DataGrid,
   DataGridRow,
@@ -51,14 +51,6 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
     }
   }, [error])
 
-  const handleSearch = (term: string) => {
-    setSearchTerm(term)
-  }
-
-  const handleClear = () => {
-    setSearchTerm("")
-  }
-
   return (
     <>
       <Stack gap="2" className="mb-4 mt-8">
@@ -66,8 +58,10 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
         <SearchInput
           placeholder="Search for CVE number"
           className="w-96 ml-auto"
-          onSearch={handleSearch}
-          onClear={handleClear}
+          onSearch={setSearchTerm}
+          onClear={() => {
+            setSearchTerm("")
+          }}
         />
       </Stack>
       <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
