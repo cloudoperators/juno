@@ -1,5 +1,18 @@
 # heureka
 
+## 0.5.1
+
+### Patch Changes
+
+- 52e148c: Refactors severity count related components
+- ee1b3ab: Reorganize components files based on how they are imported.
+- d50e279: Improve issue description truncation in ImageVersionIssueListItem
+- 0d6c4e8: Closes image version details panel on reselect in Service Details page
+- Updated dependencies [9ff1784]
+- Updated dependencies [4e8a5ef]
+- Updated dependencies [f48439c]
+  - @cloudoperators/juno-ui-components@3.0.1
+
 ## 0.5.0
 
 ### Minor Changes
