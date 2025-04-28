@@ -1,5 +1,7 @@
 ---
 "@cloudoperators/juno-ui-components": minor
+"@cloudoperators/juno-app-heureka-legacy": patch
+"@cloudoperators/juno-app-example": patch
 "@cloudoperators/juno-app-heureka": patch
 ---
 
