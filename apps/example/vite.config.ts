@@ -38,7 +38,6 @@ export default defineConfig(({ mode }) => {
       ...sharedConfig,
       build: {
         outDir: "build",
-        sourcemap: true,
       },
     }
   }
@@ -48,8 +47,6 @@ export default defineConfig(({ mode }) => {
     ...sharedConfig,
     build: {
       outDir: "build",
-      // TODO: Remove it later (used for debugging)
-      sourcemap: true,
 
       lib: {
         entry: "src/index.tsx",

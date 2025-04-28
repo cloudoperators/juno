@@ -27,8 +27,6 @@ export default defineConfig({
       external: ["react", "react-dom"],
     },
     outDir: "build",
-    // TODO: Remove it later (used for debugging)
-    sourcemap: true,
   },
   plugins: [
     dts({
