@@ -105,6 +105,5 @@ export const Controlled = {
       <TabPanel key="tp-3">TabPanel 3</TabPanel>,
     ],
     selectedIndex: 1,
-    defaultIndex: null,
   },
 }
