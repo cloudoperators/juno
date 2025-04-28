@@ -402,30 +402,29 @@ export const Select: React.FC<SelectProps> = ({
                 )
               }}
             </ListboxButton>
-
-            {isOpen &&
-              createPortal(
-                <div
-                  ref={refs.setFloating}
-                  style={{
-                    position: strategy,
-                    top: y ?? 0,
-                    left: x ?? 0,
-                  }}
-                  {...getFloatingProps()}
-                >
-                  <ListboxOptions
-                    static
-                    className={`
+            {createPortal(
+              <div
+                ref={refs.setFloating}
+                style={{
+                  position: strategy,
+                  top: y ?? 0,
+                  left: x ?? 0,
+                  display: isOpen ? "block" : "none",
+                }}
+                {...getFloatingProps()}
+              >
+                <ListboxOptions
+                  static
+                  className={`
                     juno-select-menu
                     ${menuStyles}
                   `}
-                  >
-                    {children}
-                  </ListboxOptions>
-                </div>,
-                portalContainerRef ?? document.body
-              )}
+                >
+                  {children}
+                </ListboxOptions>
+              </div>,
+              portalContainerRef ?? document.body
+            )}
           </div>
         </Listbox>
 
