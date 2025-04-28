@@ -18,12 +18,14 @@ type UseFetchServiceImageVersionIssuesProps = {
   serviceCcrn: string
   imageVersion: string
   pageSize?: number
+  searchTerm?: string
 }
 
 export const useFetchServiceImageVersionIssues = ({
   serviceCcrn,
   imageVersion,
   pageSize = 20,
+  searchTerm,
 }: UseFetchServiceImageVersionIssuesProps) => {
   const pagesRef = useRef<Page[]>()
   const [loadIssues, { data, loading, error }] = useGetServiceImageVersionIssuesLazyQuery()
@@ -45,6 +47,7 @@ export const useFetchServiceImageVersionIssues = ({
           issueMatchFilter: {
             serviceCcrn: [serviceCcrn],
           },
+          issuesFilter: searchTerm ? { search: [searchTerm] } : undefined,
           orderByIssueSeverity: [
             {
               by: IssueOrderByField.Severity,
@@ -66,7 +69,7 @@ export const useFetchServiceImageVersionIssues = ({
         },
         fetchPolicy: "network-only",
       }),
-    []
+    [pageSize, searchTerm]
   )
 
   // Go to a specific page
@@ -77,13 +80,13 @@ export const useFetchServiceImageVersionIssues = ({
         fetchIssues({ serviceCcrn, imageVersion, cursor })
       }
     },
-    [serviceCcrn, imageVersion, pageNumber]
+    [serviceCcrn, imageVersion, fetchIssues]
   )
 
-  // Fetch issues whenever serviceCcrn or imageVersion changes
+  // Fetch issues whenever serviceCcrn, imageVersion, or searchTerm changes
   useEffect(() => {
     fetchIssues({ serviceCcrn, imageVersion })
-  }, [serviceCcrn, imageVersion])
+  }, [serviceCcrn, imageVersion, searchTerm, fetchIssues])
 
   return {
     loading,

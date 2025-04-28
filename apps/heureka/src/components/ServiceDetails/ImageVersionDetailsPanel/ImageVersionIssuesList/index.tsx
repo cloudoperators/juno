@@ -13,14 +13,12 @@ import {
   Pagination,
   Spinner,
   SearchInput,
-  ContentHeading
+  ContentHeading,
 } from "@cloudoperators/juno-ui-components"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
 import { useFetchServiceImageVersionIssues } from "../../../Services/useFetchServiceImageVersionIssues"
 import { ImageVersionIssueListItem } from "./ImageVersionIssueListItem"
-import SectionContentHeading from "../../../common/SectionContentHeading"
-import { Issue } from "../../../Services/utils"
 
 type ImageVersionIssuesListProps = {
   serviceCcrn: string
@@ -30,7 +28,6 @@ type ImageVersionIssuesListProps = {
 export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersionIssuesListProps) => {
   const { addMessage } = useMessageActions()
   const [searchTerm, setSearchTerm] = useState("")
-  const [filteredIssues, setFilteredIssues] = useState<Issue[]>([])
   const {
     issues,
     loading: isLoading,
@@ -42,6 +39,7 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
   } = useFetchServiceImageVersionIssues({
     serviceCcrn,
     imageVersion,
+    searchTerm,
   })
 
   useEffect(() => {
@@ -53,30 +51,23 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
     }
   }, [error])
 
-  useEffect(() => {
-    const filtered = issues.filter((issue) =>
-      issue.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    setFilteredIssues(filtered)
-  }, [issues, searchTerm])
-
-  const handleSearch = useCallback((term: string) => {
+  const handleSearch = (term: string) => {
     setSearchTerm(term)
-  }, [])
+  }
 
-  const handleClear = useCallback(() => {
+  const handleClear = () => {
     setSearchTerm("")
-  }, [])
+  }
 
   return (
     <>
       <Stack gap="2" className="mb-4 mt-8">
         <ContentHeading>Issues</ContentHeading>
         <SearchInput
-          placeholder="Search term for CVE number"
+          placeholder="Search for CVE number"
           className="w-96 ml-auto"
           onSearch={handleSearch}
-          onClear={handleClear}      
+          onClear={handleClear}
         />
       </Stack>
       <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
@@ -96,10 +87,10 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
               <Spinner variant="primary"></Spinner>
             </Stack>
           </EmptyDataGridRow>
-        ) : filteredIssues.length === 0 ? (
+        ) : issues.length === 0 ? (
           <EmptyDataGridRow colSpan={4}>No issues found! 🚀</EmptyDataGridRow>
         ) : (
-          !error && filteredIssues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
+          !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
         )}
       </DataGrid>
       {totalNumberOfPages > 1 && totalCount > 20 && (
