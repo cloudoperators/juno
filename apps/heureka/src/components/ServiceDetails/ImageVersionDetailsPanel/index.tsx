@@ -20,7 +20,6 @@ import { ServiceImageVersion } from "../../Services/utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
-import SectionContentHeading from "../../common/SectionContentHeading"
 
 type ImageVersionDetailsPanelProps = {
   imageVersion: ServiceImageVersion
@@ -77,7 +76,6 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
           </DataGrid>
 
           {/* Second Section: Issues List */}
-          <SectionContentHeading>Issues</SectionContentHeading>
           <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
         </PanelBody>
       </Panel>
