@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-example
 
+## 2.0.3
+
+### Patch Changes
+
+- 403b5cd: - Remove headlessui float and update headlessui to 2.1.10
+  - Fix unit tests
+- Updated dependencies [403b5cd]
+- Updated dependencies [67f53cb]
+  - @cloudoperators/juno-ui-components@3.1.0
+
 ## 2.0.2
 
 ### Patch Changes
