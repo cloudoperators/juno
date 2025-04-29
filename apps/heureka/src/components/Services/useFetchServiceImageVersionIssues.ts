@@ -18,72 +18,83 @@ type UseFetchServiceImageVersionIssuesProps = {
   serviceCcrn: string
   imageVersion: string
   pageSize?: number
+  searchTerm?: string
 }
 
 export const useFetchServiceImageVersionIssues = ({
   serviceCcrn,
   imageVersion,
   pageSize = 20,
+  searchTerm,
 }: UseFetchServiceImageVersionIssuesProps) => {
   const pagesRef = useRef<Page[]>()
-  const [loadIssues, { data, loading, error }] = useGetServiceImageVersionIssuesLazyQuery()
+  // Use default options into the useLazyQuery and then customize those options in the query function
+  // https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery
+  const [loadIssues, { data, loading, error }] = useGetServiceImageVersionIssuesLazyQuery({
+    variables: {
+      first: pageSize,
+      orderByIssueSeverity: [
+        {
+          by: IssueOrderByField.Severity,
+          direction: OrderDirection.Desc,
+        },
+      ],
+      orderBySeverity: [
+        {
+          by: IssueMatchOrderByField.Severity,
+          direction: OrderDirection.Desc,
+        },
+      ],
+      orderByTrd: [
+        {
+          by: IssueMatchOrderByField.TargetRemediationDate,
+          direction: OrderDirection.Asc,
+        },
+      ],
+    },
+    fetchPolicy: "network-only",
+  })
   const { issues, totalCount, pages, pageNumber } = getNormalizedImageVersionIssues(data)
 
   // Save pages for pagination
   pagesRef.current = pages
-
-  // Fetch issues on demand
-  const fetchIssues = useCallback(
-    ({ serviceCcrn, imageVersion, cursor }: { serviceCcrn: string; imageVersion: string; cursor?: string | null }) =>
-      loadIssues({
-        variables: {
-          first: pageSize,
-          after: cursor,
-          componentVersionFilter: {
-            version: [imageVersion],
-          },
-          issueMatchFilter: {
-            serviceCcrn: [serviceCcrn],
-          },
-          orderByIssueSeverity: [
-            {
-              by: IssueOrderByField.Severity,
-              direction: OrderDirection.Desc,
-            },
-          ],
-          orderBySeverity: [
-            {
-              by: IssueMatchOrderByField.Severity,
-              direction: OrderDirection.Desc,
-            },
-          ],
-          orderByTrd: [
-            {
-              by: IssueMatchOrderByField.TargetRemediationDate,
-              direction: OrderDirection.Asc,
-            },
-          ],
-        },
-        fetchPolicy: "network-only",
-      }),
-    []
-  )
 
   // Go to a specific page
   const goToPage = useCallback(
     (pageNumber?: number) => {
       if (!isNil(pageNumber)) {
         const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber - 1)?.after
-        fetchIssues({ serviceCcrn, imageVersion, cursor })
+        loadIssues({
+          variables: {
+            after: cursor,
+            componentVersionFilter: {
+              version: [imageVersion],
+            },
+            issueMatchFilter: {
+              serviceCcrn: [serviceCcrn],
+            },
+            issuesFilter: searchTerm ? { search: [searchTerm] } : undefined,
+          },
+        })
       }
     },
-    [serviceCcrn, imageVersion, pageNumber]
+    [serviceCcrn, imageVersion, searchTerm] // Add dependencies here
   )
 
-  // Fetch issues whenever serviceCcrn or imageVersion changes
+  // Fetch issues whenever serviceCcrn, imageVersion, or searchTerm changes
   useEffect(() => {
-    fetchIssues({ serviceCcrn, imageVersion })
-  }, [serviceCcrn, imageVersion])
+    loadIssues({
+      variables: {
+        componentVersionFilter: {
+          version: [imageVersion],
+        },
+        issueMatchFilter: {
+          serviceCcrn: [serviceCcrn],
+        },
+        issuesFilter: searchTerm ? { search: [searchTerm] } : undefined,
+      },
+    })
+  }, [serviceCcrn, imageVersion, searchTerm])
 
   return {
     loading,
