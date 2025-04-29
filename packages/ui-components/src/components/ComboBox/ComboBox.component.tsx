@@ -236,12 +236,19 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   const addOptionValueAndLabel = (value: string, label: string, children: ReactNode) => {
     // append new entry to optionValuesAndLabels map containing the passed value, label and children
     // use callback syntax of setState function here since we want to merge the old state with the new entry
-    setOptionValuesAndLabels((oldMap) =>
-      new Map(oldMap).set(value || children, {
-        val: value,
-        label: label,
-        children: children,
-      })
+    setOptionValuesAndLabels(
+      (oldMap) =>
+        new Map([
+          ...Array.from(oldMap),
+          [
+            value ?? children,
+            {
+              val: value,
+              label: label,
+              children: children,
+            },
+          ],
+        ])
     )
   }
 
@@ -276,6 +283,11 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   const handleChange = (value: string) => {
     setSelectedValue(value)
+
+    if (value) {
+      setIsOpen(false)
+    }
+
     onChange && onChange(value)
   }
 
@@ -456,7 +468,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                 }}
                 {...getFloatingProps()}
               >
-                <ComboboxOptions static className="jn-w-full" onClick={() => setIsOpen(!isOpen)}>
+                <ComboboxOptions static className="jn-w-full">
                   {filteredChildren}
                 </ComboboxOptions>
               </div>,

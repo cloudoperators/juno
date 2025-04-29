@@ -208,13 +208,21 @@ export const Select: React.FC<SelectProps> = ({
   const addOptionValueAndLabel = (value: unknown, label: unknown, children: unknown) => {
     // append new entry to optionValuesAndLabels map containing the passed value, label and children
     // use callback syntax of setState function here since we want to merge the old state with the new entry
-    setOptionValuesAndLabels((oldMap) =>
-      new Map(oldMap).set(value || children, {
-        val: value,
-        label: label,
-        children: children,
-        displayName: children || label || value,
-      })
+
+    setOptionValuesAndLabels(
+      (oldMap) =>
+        new Map([
+          ...Array.from(oldMap),
+          [
+            value ?? children,
+            {
+              val: value,
+              label: label,
+              children: children,
+              displayName: children ?? label ?? value,
+            },
+          ],
+        ])
     )
   }
 
@@ -390,30 +398,29 @@ export const Select: React.FC<SelectProps> = ({
                 )
               }}
             </ListboxButton>
-
-            {isOpen &&
-              createPortal(
-                <div
-                  ref={refs.setFloating}
-                  style={{
-                    position: strategy,
-                    top: y ?? 0,
-                    left: x ?? 0,
-                  }}
-                  {...getFloatingProps()}
-                >
-                  <ListboxOptions
-                    static
-                    className={`
+            {createPortal(
+              <div
+                ref={refs.setFloating}
+                style={{
+                  position: strategy,
+                  top: y ?? 0,
+                  left: x ?? 0,
+                  display: isOpen ? "block" : "none",
+                }}
+                {...getFloatingProps()}
+              >
+                <ListboxOptions
+                  static
+                  className={`
                     juno-select-menu
                     ${menuStyles}
                   `}
-                  >
-                    {children}
-                  </ListboxOptions>
-                </div>,
-                portalContainerRef ?? document.body
-              )}
+                >
+                  {children}
+                </ListboxOptions>
+              </div>,
+              portalContainerRef ?? document.body
+            )}
           </div>
         </Listbox>
 

@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Button, PopupMenu } from "@cloudoperators/juno-ui-components"
+import { Button, PopupMenu, PopupMenuToggle, PopupMenuOptions } from "@cloudoperators/juno-ui-components"
 
 import { useAuthLoggedIn, useAuthData } from "../../../store/StoreProvider"
 import HeaderAvatar from "./HeaderAvatar"
@@ -23,12 +23,12 @@ const HeaderUserMenu: React.FC<HeaderUserMenuProps> = ({ logout }) => {
     <>
       {loggedIn && (
         <PopupMenu>
-          <PopupMenu.Toggle>
+          <PopupMenuToggle>
             <HeaderAvatar userName={authData?.parsed?.fullName || ""} url={authData?.parsed?.avatarUrl?.small || ""} />
-          </PopupMenu.Toggle>
-          <PopupMenu.Menu>
+          </PopupMenuToggle>
+          <PopupMenuOptions>
             <Button label={LOGOUT_BUTTON_LABEL} size="small" onClick={logout} />
-          </PopupMenu.Menu>
+          </PopupMenuOptions>
         </PopupMenu>
       )}
     </>

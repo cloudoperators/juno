@@ -310,6 +310,7 @@ export type ComponentInstanceInput = {
   project?: InputMaybe<Scalars["String"]["input"]>
   region?: InputMaybe<Scalars["String"]["input"]>
   serviceId?: InputMaybe<Scalars["String"]["input"]>
+  uuid?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type ComponentInstanceOrderBy = {
@@ -546,6 +547,7 @@ export type IssueEdge = Edge & {
 }
 
 export type IssueFilter = {
+  allServices?: InputMaybe<Scalars["Boolean"]["input"]>
   componentVersionId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueMatchStatus?: InputMaybe<Array<InputMaybe<IssueMatchStatusValues>>>
   issueRepositoryId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -1424,6 +1426,7 @@ export type ServiceSupportGroupsArgs = {
 export type ServiceConnection = Connection & {
   __typename?: "ServiceConnection"
   edges?: Maybe<Array<Maybe<ServiceEdge>>>
+  issueCounts?: Maybe<SeverityCounts>
   pageInfo?: Maybe<PageInfo>
   totalCount: Scalars["Int"]["output"]
 }
@@ -1652,6 +1655,7 @@ export type GetServiceFiltersQuery = {
 
 export type GetServiceImageVersionIssuesQueryVariables = Exact<{
   componentVersionFilter?: InputMaybe<ComponentVersionFilter>
+  issuesFilter?: InputMaybe<IssueFilter>
   issueMatchFilter?: InputMaybe<IssueMatchFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
@@ -1918,6 +1922,7 @@ export type GetServiceFiltersQueryResult = Apollo.QueryResult<GetServiceFiltersQ
 export const GetServiceImageVersionIssuesDocument = gql`
   query GetServiceImageVersionIssues(
     $componentVersionFilter: ComponentVersionFilter
+    $issuesFilter: IssueFilter
     $issueMatchFilter: IssueMatchFilter
     $first: Int
     $after: String
@@ -1928,7 +1933,7 @@ export const GetServiceImageVersionIssuesDocument = gql`
     ComponentVersions(filter: $componentVersionFilter) {
       edges {
         node {
-          issues(first: $first, after: $after, orderBy: $orderByIssueSeverity) {
+          issues(first: $first, after: $after, filter: $issuesFilter, orderBy: $orderByIssueSeverity) {
             edges {
               node {
                 issueVariants(first: 1) {
@@ -1992,6 +1997,7 @@ export const GetServiceImageVersionIssuesDocument = gql`
  * const { data, loading, error } = useGetServiceImageVersionIssuesQuery({
  *   variables: {
  *      componentVersionFilter: // value for 'componentVersionFilter'
+ *      issuesFilter: // value for 'issuesFilter'
  *      issueMatchFilter: // value for 'issueMatchFilter'
  *      first: // value for 'first'
  *      after: // value for 'after'

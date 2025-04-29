@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": patch
 ---
 
-Remove react-jss package from the codebase
+fix(ui): fix DateTimePicker light mode colors

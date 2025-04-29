@@ -1,5 +1,31 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.4
+
+### Patch Changes
+
+- 52e148c: Refactors severity count related components
+- ee1b3ab: Reorganize components files based on how they are imported.
+- 85fe05e: Propagates authentication token to the extensions
+- 6b5e878: - Rollback `url-state-provider` back to `v1.3.2`.
+  - `url-state-provider` will now ignore Hashed(#) part of the URL while encoding/decoding query parameters.
+  - Removed dependency of `url-state-provider-v1` in all internal applications.
+- d50e279: Improve issue description truncation in ImageVersionIssueListItem
+- 0d6c4e8: Closes image version details panel on reselect in Service Details page
+- Updated dependencies [9ff1784]
+- Updated dependencies [52e148c]
+- Updated dependencies [ee1b3ab]
+- Updated dependencies [4e8a5ef]
+- Updated dependencies [f48439c]
+- Updated dependencies [6b5e878]
+- Updated dependencies [d50e279]
+- Updated dependencies [0d6c4e8]
+  - @cloudoperators/juno-ui-components@3.0.1
+  - @cloudoperators/juno-app-heureka@0.5.1
+  - @cloudoperators/juno-url-state-provider@3.0.0
+  - @cloudoperators/juno-app-supernova@0.16.6
+  - @cloudoperators/juno-app-doop@2.3.7
+
 ## 0.5.3
 
 ### Patch Changes

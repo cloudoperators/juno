@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import {
   DataGrid,
   DataGridRow,
@@ -12,6 +12,8 @@ import {
   Stack,
   Pagination,
   Spinner,
+  SearchInput,
+  ContentHeading,
 } from "@cloudoperators/juno-ui-components"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
@@ -25,6 +27,7 @@ type ImageVersionIssuesListProps = {
 
 export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersionIssuesListProps) => {
   const { addMessage } = useMessageActions()
+  const [searchTerm, setSearchTerm] = useState("")
   const {
     issues,
     loading: isLoading,
@@ -36,6 +39,7 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
   } = useFetchServiceImageVersionIssues({
     serviceCcrn,
     imageVersion,
+    searchTerm,
   })
 
   useEffect(() => {
@@ -49,6 +53,17 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
 
   return (
     <>
+      <Stack gap="2" className="mb-4 mt-8">
+        <ContentHeading>Issues</ContentHeading>
+        <SearchInput
+          placeholder="Search for CVE number"
+          className="w-96 ml-auto"
+          onSearch={setSearchTerm}
+          onClear={() => {
+            setSearchTerm("")
+          }}
+        />
+      </Stack>
       <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
         <DataGridRow>
           <DataGridHeadCell>
