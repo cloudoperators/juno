@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { render, screen } from "@testing-library/react"
+import { cleanup, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Filters, FiltersProps } from "./index"
 
@@ -36,14 +36,51 @@ const renderShell = ({ filters, filterSettings, onFilterChange }: FiltersProps) 
   ...render(<Filters filters={filters} filterSettings={filterSettings} onFilterChange={onFilterChange} />),
 })
 
+class ResizeObserver {
+  observe() {
+    // do nothing
+    vi.fn()
+  }
+  unobserve() {
+    // do nothing
+    vi.fn()
+  }
+  disconnect() {
+    // do nothing
+    vi.fn()
+  }
+}
+
+window.ResizeObserver = ResizeObserver
+
 describe("Filters", () => {
+  afterEach(() => {
+    cleanup()
+    vi.clearAllMocks()
+  })
+
   it("should select filter and filter value", async () => {
     const onFilterChangeSpy = vi.fn()
     const { user } = renderShell({ filters, filterSettings, onFilterChange: onFilterChangeSpy })
-    // select filter
+
+    // get filter toggle button
+    const filterToggle = screen.getByRole("button", {
+      name: /filter filter/i,
+    })
+    // expand filter select options
+    await waitFor(() => user.click(filterToggle))
+    // select filter option
     await user.click(screen.getByText("Region"))
+
+    // get filter value toggle button
+    const filterValueToggle = screen.getByRole("button", {
+      name: /select… expand more/i,
+    })
+    // expand filter value select options
+    await waitFor(() => user.click(filterValueToggle))
     // select filter value
     await user.click(screen.getByText("Europe"))
+
     expect(onFilterChangeSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
         selectedFilters: [{ name: "region", value: "Europe" }],

@@ -10,6 +10,23 @@ import userEvent from "@testing-library/user-event"
 import { ComboBox } from "../ComboBox/ComboBox.component"
 import { ComboBoxOption } from "./ComboBoxOption.component"
 
+class ResizeObserver {
+  observe() {
+    // do nothing
+    vi.fn()
+  }
+  unobserve() {
+    // do nothing
+    vi.fn()
+  }
+  disconnect() {
+    // do nothing
+    vi.fn()
+  }
+}
+
+window.ResizeObserver = ResizeObserver
+
 describe("ComboBoxOption", () => {
   afterEach(() => {
     cleanup()
