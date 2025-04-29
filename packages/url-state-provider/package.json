@@ -16,6 +16,12 @@
   "module": "build/index.js",
   "type": "module",
   "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/index.js",
+      "types": "./build/index.d.ts"
+    }
+  },
   "files": [
     "build"
   ],
