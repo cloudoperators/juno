@@ -1,5 +1,16 @@
 # @cloudoperators/juno-ui-components
 
+## 3.1.0
+
+### Minor Changes
+
+- 403b5cd: - Remove headlessui float and update headlessui to 2.1.10
+  - Fix unit tests
+
+### Patch Changes
+
+- 67f53cb: fix(ui): fix DateTimePicker light mode colors
+
 ## 3.0.1
 
 ### Patch Changes
