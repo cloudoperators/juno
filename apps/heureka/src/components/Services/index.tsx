@@ -27,7 +27,7 @@ const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
 export const Services = () => {
   const { initialFilters } = useStore()
   const { serviceFilters } = useFetchServiceFilters()
-  const { addMessage } = useMessageActions()
+  const { addMessage, resetMessages } = useMessageActions()
   const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
   const { loading, error, services, servicesIssuesCount, currentPage, totalNumberOfPages, goToPage } = useFetchServices(
     {
@@ -41,6 +41,8 @@ export const Services = () => {
         variant: "error",
         text: error,
       })
+    } else {
+      resetMessages()
     }
   }, [error])
 
