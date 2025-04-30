@@ -54,7 +54,7 @@ export const useFetchServiceImageVersionIssues = ({
     },
     fetchPolicy: "network-only",
   })
-  const { issues, totalCount, pages, pageNumber } = getNormalizedImageVersionIssues(data)
+  const { issues, total, pages, pageNumber } = getNormalizedImageVersionIssues(data)
 
   // Save pages for pagination
   pagesRef.current = pages
@@ -101,7 +101,7 @@ export const useFetchServiceImageVersionIssues = ({
     currentPage: pageNumber,
     issues: issues || [],
     totalNumberOfPages: pages.length || 0,
-    totalCount,
+    total,
     goToPage: goToPage,
     error: getNormalizedError(error),
   }

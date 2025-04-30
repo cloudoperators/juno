@@ -5,26 +5,24 @@
 
 import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
-import { IssuesCountsWithTotalCountType, IssuesCountsType } from "../Services/useFetchServicesIssuesCounts"
+import { IssuesCountsType } from "../types"
 import { SeverityCount } from "./SeverityCount"
 
 type IssueCountsPerSeverityLevelProps = {
-  counts: IssuesCountsWithTotalCountType | IssuesCountsType
+  counts: IssuesCountsType
 }
 
 export const IssueCountsPerSeverityLevel = ({ counts }: IssueCountsPerSeverityLevelProps) => {
-  if (counts.critical + counts.high + counts.medium + counts.low + counts.none === 0) {
+  if (counts.total === 0) {
     return <div>No issues found! 🚀</div>
   }
 
   return (
     <Stack gap="1">
-      {"totalCount" in counts && (
-        <>
-          <div className="font-bold">All issues:</div>
-          <div className="font-bold mr-2">{counts.totalCount}</div>
-        </>
-      )}
+      <>
+        <div className="font-bold">All issues:</div>
+        <div className="font-bold mr-2">{counts.total}</div>
+      </>
       <SeverityCount
         icon="danger"
         count={counts.critical}

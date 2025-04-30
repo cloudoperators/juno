@@ -18,6 +18,7 @@ export type IssuesCountsType = {
   medium: number
   low: number
   none: number
+  total: number
 }
 
 export type IssuesCountsWithTotalCountType = IssuesCountsType & {
