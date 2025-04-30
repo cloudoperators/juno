@@ -46,7 +46,7 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 20 }: Use
     },
     fetchPolicy: "network-only",
   })
-  const { imageVersions, totalCount, pages, pageNumber } = getNormalizedImageVersionsData(data)
+  const { imageVersions, total, pages, pageNumber } = getNormalizedImageVersionsData(data)
 
   // let's save the pages so we can get cursor when navigating among pages
   pagesRef.current = pages
@@ -93,7 +93,7 @@ export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 20 }: Use
     currentPage: pageNumber,
     imageVersions: imageVersions || [],
     totalNumberOfPages: pages.length || 0,
-    totalCount,
+    total,
     goToPage: goToPage,
     error: getNormalizedError(error),
   }
