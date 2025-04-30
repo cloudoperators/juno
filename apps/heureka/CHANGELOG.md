@@ -1,5 +1,11 @@
 # heureka
 
+## 0.5.3
+
+### Patch Changes
+
+- 3140768: Refactor Issue Count Handling and Add Total Counts per Service
+
 ## 0.5.2
 
 ### Patch Changes
