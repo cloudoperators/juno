@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.6
+
+### Patch Changes
+
+- 3140768: Refactor Issue Count Handling and Add Total Counts per Service
+- Updated dependencies [3140768]
+  - @cloudoperators/juno-app-heureka@0.5.3
+
 ## 0.5.5
 
 ### Patch Changes
