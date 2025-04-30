@@ -34,7 +34,7 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
     error,
     currentPage,
     totalNumberOfPages,
-    total,
+    totalImageVersionIssues,
     goToPage,
   } = useFetchServiceImageVersionIssues({
     serviceCcrn,
@@ -87,7 +87,7 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
           !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
         )}
       </DataGrid>
-      {totalNumberOfPages > 1 && total > 20 && (
+      {totalNumberOfPages > 1 && totalImageVersionIssues > 20 && (
         <Stack distribution="end" className="mt-4">
           <Pagination
             variant="number"

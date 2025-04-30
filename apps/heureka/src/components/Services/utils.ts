@@ -160,7 +160,7 @@ export type ServiceImageVersion = {
 }
 
 type NormalizedServiceImageVersions = {
-  total: number
+  totalImageVersions: number
   pages: Page[]
   pageNumber: number
   imageVersions: ServiceImageVersion[]
@@ -169,7 +169,7 @@ type NormalizedServiceImageVersions = {
 export const getNormalizedImageVersionsData = (
   data: GetServiceImageVersionsQuery | undefined
 ): NormalizedServiceImageVersions => ({
-  total: data?.ComponentVersions?.totalCount || 0,
+  totalImageVersions: data?.ComponentVersions?.totalCount || 0,
   pageNumber: data?.ComponentVersions?.pageInfo?.pageNumber || 1,
   pages: data?.ComponentVersions?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
   imageVersions: isNil(data?.ComponentVersions?.edges)
@@ -217,14 +217,14 @@ export type Issue = {
 
 type NormalizedImageVersionIssues = {
   issues: Issue[]
-  total: number
+  totalImageVersionIssues: number
   pages: Page[]
   pageNumber: number
 }
 
 export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersionIssues => {
   if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
-    return { issues: [], total: 0, pages: [], pageNumber: 1 }
+    return { issues: [], totalImageVersionIssues: 0, pages: [], pageNumber: 1 }
   }
 
   const issues = data.ComponentVersions.edges[0].node.issues.edges
@@ -245,14 +245,14 @@ export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersi
       }
     })
 
-  const total = data?.ComponentVersions?.edges?.[0]?.node?.issues?.totalCount || 0
+  const totalImageVersionIssues = data?.ComponentVersions?.edges?.[0]?.node?.issues?.totalCount || 0
   const pages =
     data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pages?.filter((edge: any) => edge !== null) || []
   const pageNumber = data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pageNumber || 1
 
   return {
     issues,
-    total,
+    totalImageVersionIssues,
     pages,
     pageNumber,
   }

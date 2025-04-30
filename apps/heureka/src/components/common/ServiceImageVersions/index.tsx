@@ -40,7 +40,7 @@ export const ServiceImageVersions = ({
 }: ServiceImageVersionsProps) => {
   const dispatch = useDispatch()
   const { name: serviceName } = service
-  const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, total } =
+  const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalImageVersions } =
     useFetchServiceImageVersions({
       serviceCcrn: serviceName || "",
       pageSize: 20,
@@ -86,7 +86,7 @@ export const ServiceImageVersions = ({
 
   return (
     <>
-      <SectionContentHeading>Image Versions ({total})</SectionContentHeading>
+      <SectionContentHeading>Image Versions ({totalImageVersions})</SectionContentHeading>
 
       {displayActions && (
         <DataGridToolbar>
@@ -139,7 +139,7 @@ export const ServiceImageVersions = ({
           )}
         </DataGrid>
       </div>
-      {totalNumberOfPages > 1 && total > 20 && (
+      {totalNumberOfPages > 1 && totalImageVersions > 20 && (
         <Stack distribution="end">
           <Pagination
             variant="number"
