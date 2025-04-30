@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.5
+
+### Patch Changes
+
+- 37e1bf4: Added a search bar to the issues list that allows users to filter issues by CVE name (primaryName).
+- Updated dependencies [37e1bf4]
+- Updated dependencies [403b5cd]
+- Updated dependencies [67f53cb]
+  - @cloudoperators/juno-app-heureka@0.5.2
+  - @cloudoperators/juno-ui-components@3.1.0
+
 ## 0.5.4
 
 ### Patch Changes
