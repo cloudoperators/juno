@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Breadcrumb } from "../common/Breadcrumb"
 import { Filters } from "../common/Filters"
 import { ServicesList } from "./ServicesList"
@@ -11,8 +11,9 @@ import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
 import { useStore } from "../../store/StoreProvider"
-import { IssuesCountsType } from "./useFetchServicesIssuesCounts"
 import { AllServicesIssuesCount } from "./AllServicesIssuesCount"
+import { useFetchServices } from "./useFetchServices"
+import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 
 const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
   const supportGroupFilters =
@@ -26,7 +27,24 @@ const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
 export const Services = () => {
   const { initialFilters } = useStore()
   const { serviceFilters } = useFetchServiceFilters()
+  const { addMessage, resetMessages } = useMessageActions()
   const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
+  const { loading, error, services, servicesIssuesCount, currentPage, totalNumberOfPages, goToPage } = useFetchServices(
+    {
+      filterSettings,
+    }
+  )
+
+  useEffect(() => {
+    if (error) {
+      addMessage({
+        variant: "error",
+        text: error,
+      })
+    } else {
+      resetMessages()
+    }
+  }, [error])
 
   return (
     <>
@@ -38,8 +56,15 @@ export const Services = () => {
           onFilterChange={setFilterSettings}
           searchInputPlaceholder="search term for services name"
         />
-        <AllServicesIssuesCount filterSettings={filterSettings} />
-        <ServicesList filterSettings={filterSettings} />
+        <AllServicesIssuesCount counts={servicesIssuesCount} loading={loading} error={error} />
+        <ServicesList
+          services={services}
+          loading={loading}
+          error={error}
+          currentPage={currentPage}
+          totalNumberOfPages={totalNumberOfPages}
+          goToPage={goToPage}
+        />
       </>
     </>
   )

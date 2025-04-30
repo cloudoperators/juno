@@ -3,7 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IssuesCountsType } from "../components/Services/useFetchServicesIssuesCounts"
+export type IssuesCountsType = {
+  critical: number
+  high: number
+  medium: number
+  low: number
+  none: number
+  total: number
+}
 
 // Add types here that are shared among components/pages
 export type ServiceType = {

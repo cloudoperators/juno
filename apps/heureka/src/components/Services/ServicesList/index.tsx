@@ -3,15 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useState } from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow"
 import { ServicePanel } from "./ServicePanel"
-import { useFetchServices } from "../useFetchServices"
-import { FilterSettings } from "../../common/Filters/types"
 import { useDispatch } from "../../../store/StoreProvider"
 import { ActionType, UserView } from "../../../store/StoreProvider/types"
 import { ServiceType } from "../../types"
@@ -19,16 +16,24 @@ import { ServiceType } from "../../types"
 const COLUMN_SPAN = 8
 
 type ServiceListProps = {
-  filterSettings: FilterSettings
+  services: ServiceType[]
+  loading: boolean
+  error: string | null
+  currentPage: number
+  totalNumberOfPages: number
+  goToPage: (newPage?: number | undefined) => void
 }
 
-export const ServicesList = ({ filterSettings }: ServiceListProps) => {
+export const ServicesList = ({
+  services,
+  loading,
+  error,
+  currentPage,
+  totalNumberOfPages,
+  goToPage,
+}: ServiceListProps) => {
   const dispatch = useDispatch()
-  const { addMessage } = useMessageActions()
   const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
-  const { loading, error, services, currentPage, totalNumberOfPages, goToPage } = useFetchServices({
-    filterSettings,
-  })
 
   const handleServiceOverviewOpen = useCallback((service: ServiceType) => {
     setSelectedOverviewService((prev) => (prev?.id === service.id ? null : service))
@@ -49,15 +54,6 @@ export const ServicesList = ({ filterSettings }: ServiceListProps) => {
       },
     })
   }, [])
-
-  useEffect(() => {
-    if (error) {
-      addMessage({
-        variant: "error",
-        text: error,
-      })
-    }
-  }, [error])
 
   return (
     <div className="datagrid-hover">
