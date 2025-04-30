@@ -41,7 +41,6 @@ const renderServicesList = () => ({
           currentPage={1}
           totalNumberOfPages={1}
           goToPage={() => {}}
-    
         />
       </MessagesProvider>
     </TestProvider>
