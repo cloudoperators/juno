@@ -36,7 +36,7 @@ const getServiceOwners = (serviceEdge?: ServiceEdge) => {
 type NormalizedServices = {
   pageNumber: number
   pages: Page[]
-  servicesCount: IssuesCountsType // All services issues count
+  servicesIssuesCount: IssuesCountsType // All services issues count
   services: ServiceType[]
 }
 
@@ -44,7 +44,7 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
   return {
     pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
     pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
-    servicesCount: {
+    servicesIssuesCount: {
       critical: data?.Services?.issueCounts?.critical || 0,
       high: data?.Services?.issueCounts?.high || 0,
       medium: data?.Services?.issueCounts?.medium || 0,

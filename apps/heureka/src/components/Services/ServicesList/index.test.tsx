@@ -16,10 +16,32 @@ const renderServicesList = () => ({
     <TestProvider>
       <MessagesProvider>
         <ServicesList
-          filterSettings={{
-            searchTerm: "",
-            selectedFilters: [],
-          }}
+          services={[
+            {
+              id: "1",
+              name: "alpha",
+              issuesCount: {
+                critical: 0,
+                high: 0,
+                medium: 0,
+                low: 0,
+                none: 0,
+                total: 0,
+              },
+              serviceDetails: {
+                supportGroups: [],
+              },
+              components: 0,
+              remediationDate: "",
+              serviceOwners: [],
+            },
+          ]}
+          loading={false}
+          error={""}
+          currentPage={1}
+          totalNumberOfPages={1}
+          goToPage={() => {}}
+    
         />
       </MessagesProvider>
     </TestProvider>
