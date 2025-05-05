@@ -20,6 +20,7 @@ const mockService: ServiceType = {
     medium: 0,
     low: 0,
     none: 0,
+    total: 3,
   },
   serviceDetails: {
     supportGroups: ["group1", "group2"],

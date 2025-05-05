@@ -8,6 +8,14 @@ query GetServices(
   $orderBy: [ServiceOrderBy]
 ) {
   Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
+    issueCounts {
+      critical
+      high
+      medium
+      low
+      none
+      total
+    }
     edges {
       node {
         id
@@ -39,6 +47,7 @@ query GetServices(
           medium
           low
           none
+          total
         }
       }
     }
