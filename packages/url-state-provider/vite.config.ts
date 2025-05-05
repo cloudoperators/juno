@@ -11,14 +11,10 @@ export default defineConfig({
     lib: {
       entry: "src/index.ts", // or 'src/main.ts' if TypeScript
       name: "url-state-provider", // Replace with your library's global name
-      formats: ["es", "cjs"], // Output both ESM and CommonJS formats
-      fileName: (format) => (format === "es" ? "index.js" : "index.cjs"), // Different file names for different formats
+      formats: ["es"], // Output formats: ESM and CommonJS
+      fileName: () => `index.js`, // Output file names
     },
     outDir: "build",
-    rollupOptions: {
-      // External packages that shouldn't be bundled
-      external: ["history", "juri", "query-string"],
-    },
   },
   plugins: [
     dts({
