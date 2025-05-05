@@ -1,11 +1,11 @@
 #SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 #SPDX-License-Identifier: Apache-2.0
 
-query GetServiceImageVersionIssues($componentVersionFilter: ComponentVersionFilter, $issueMatchFilter: IssueMatchFilter, $first: Int, $after: String, $orderByIssueSeverity: [IssueOrderBy], $orderBySeverity: [IssueMatchOrderBy], $orderByTrd: [IssueMatchOrderBy]) {
+query GetServiceImageVersionIssues($componentVersionFilter: ComponentVersionFilter, $issuesFilter: IssueFilter, $issueMatchFilter: IssueMatchFilter, $first: Int, $after: String, $orderByIssueSeverity: [IssueOrderBy], $orderBySeverity: [IssueMatchOrderBy], $orderByTrd: [IssueMatchOrderBy]) {
   ComponentVersions(filter: $componentVersionFilter) {
     edges {
       node {
-        issues(first: $first, after: $after, orderBy: $orderByIssueSeverity) {
+        issues(first: $first, after: $after,filter: $issuesFilter, orderBy: $orderByIssueSeverity) {
           edges {
             node {
               issueVariants(first: 1) {

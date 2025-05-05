@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import {
   DataGrid,
   DataGridRow,
@@ -12,6 +12,8 @@ import {
   Stack,
   Pagination,
   Spinner,
+  SearchInput,
+  ContentHeading,
 } from "@cloudoperators/juno-ui-components"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
@@ -25,17 +27,19 @@ type ImageVersionIssuesListProps = {
 
 export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersionIssuesListProps) => {
   const { addMessage } = useMessageActions()
+  const [searchTerm, setSearchTerm] = useState("")
   const {
     issues,
     loading: isLoading,
     error,
     currentPage,
     totalNumberOfPages,
-    totalCount,
+    totalImageVersionIssues,
     goToPage,
   } = useFetchServiceImageVersionIssues({
     serviceCcrn,
     imageVersion,
+    searchTerm,
   })
 
   useEffect(() => {
@@ -49,6 +53,17 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
 
   return (
     <>
+      <Stack gap="2" className="mb-4 mt-8">
+        <ContentHeading>Issues</ContentHeading>
+        <SearchInput
+          placeholder="Search for CVE number"
+          className="w-96 ml-auto"
+          onSearch={setSearchTerm}
+          onClear={() => {
+            setSearchTerm("")
+          }}
+        />
+      </Stack>
       <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
         <DataGridRow>
           <DataGridHeadCell>
@@ -72,7 +87,7 @@ export const ImageVersionIssuesList = ({ serviceCcrn, imageVersion }: ImageVersi
           !error && issues.map((issue, index) => <ImageVersionIssueListItem key={index} issue={issue} />)
         )}
       </DataGrid>
-      {totalNumberOfPages > 1 && totalCount > 20 && (
+      {totalNumberOfPages > 1 && totalImageVersionIssues > 20 && (
         <Stack distribution="end" className="mt-4">
           <Pagination
             variant="number"
