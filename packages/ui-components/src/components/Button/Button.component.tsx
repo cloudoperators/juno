@@ -4,7 +4,7 @@
  */
 
 import React, { LegacyRef } from "react"
-import "./button.css"
+//import "./button.css"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/index"
@@ -32,6 +32,7 @@ const btnSmallBase = `
   jn:leading-5
 `
 
+// default size typography
 const btnDefaultBase = `
   jn:text-base
   jn:leading-6
@@ -47,6 +48,7 @@ const btnSmallSubduedPadding = `
   jn:px-[0.4375rem]
 `
 
+// default size padding
 const btnDefaultPadding = `
   jn:py-[0.4375rem]
   jn:px-[0.625rem] 
@@ -57,11 +59,54 @@ const btnDefaultSubduedPadding = `
   jn:px-[0.5625rem]
 `
 
+const defaultButtonColors = `
+  jn:bg-theme-button-default
+  jn:text-theme-button-default
+  jn:hover:bg-theme-button-default-hover
+  jn:active:bg-theme-button-default-active
+`
+
+const primaryButtonColors = `
+  jn:bg-theme-button-primary
+  jn:text-theme-button-primary
+  jn:hover:bg-theme-button-primary-hover
+  jn:active:bg-theme-button-primary-active
+`
+
+const primaryDangerButtonColors = `
+  jn:bg-theme-button-primary-danger
+  jn:text-theme-button-primary-danger
+  jn:hover:bg-theme-button-primary-danger-hover
+  jn:active:bg-theme-button-primary-danger-active
+`
+
+const subduedButtonColors = `
+  jn:bg-theme-button-subdued
+  jn:text-theme-button-subdued
+  jn:hover:bg-theme-button-subdued-hover
+  jn:active:bg-theme-button-subdued-active
+`
+
 const getButtonPadding = (size: ButtonSize, variant: ButtonVariant | undefined) => {
   if (size === "small") {
     return variant === "subdued" ? `${btnSmallSubduedPadding}` : `${btnSmallDefaultPadding}`
   } else {
     return variant === "subdued" ? `${btnDefaultSubduedPadding}` : `${btnDefaultPadding}`
+  }
+}
+
+const getButtonColors = (variant: ButtonVariant) => {
+  switch (variant) {
+    case "default":
+      return defaultButtonColors
+    case "primary":
+      return primaryButtonColors
+    case "primary-danger":
+      return primaryDangerButtonColors
+    case "subdued":
+      return subduedButtonColors
+    default:
+      return defaultButtonColors
   }
 }
 
@@ -107,7 +152,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     {
       label,
       title,
-      variant,
+      variant = "default",
       size = "default",
       disabled,
       href,
@@ -121,11 +166,10 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     },
     ref
   ) => {
-    const theVariant = variant || "default"
     const titleValue = title || label || ""
 
     const buttonIcon = progress ? (
-      <Spinner size={size === "small" ? "1.125rem" : "1.5rem"} color={`${spinnerColorClass(theVariant)}`} />
+      <Spinner size={size === "small" ? "1.125rem" : "1.5rem"} color={`${spinnerColorClass(variant)}`} />
     ) : icon ? (
       <Icon
         icon={icon}
@@ -145,11 +189,12 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
       <button
         className={`
           juno-button 
-          juno-button-${theVariant} 
+          juno-button-${variant} 
           juno-button-${size}-size 
           ${btnBase} 
           ${size === "small" ? btnSmallBase : btnDefaultBase} 
           ${getButtonPadding(size, variant)}
+          ${getButtonColors(variant)}
           ${progressClass(progress)} 
           ${className}`}
         disabled={disabled || undefined}
@@ -170,11 +215,12 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
         role="button"
         className={`
           juno-button 
-          juno-button-${theVariant} 
+          juno-button-${variant} 
           juno-button-${size}-size 
           ${btnBase} 
           ${size === "small" ? btnSmallBase : btnDefaultBase}
           ${getButtonPadding(size, variant)}
+          ${getButtonColors(variant)}
           ${progressClass(progress)} 
           ${className}
         `}

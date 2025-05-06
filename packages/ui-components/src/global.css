@@ -12,7 +12,6 @@
 @import "./components/TextInput/textinput.css" layer(components);
 @import "./components/ThemeToggle/themeToggle.css" layer(components);
 
-
 :root,
 :host {
   /* Global definitions THAT WE DO NOT WANT TO GENERATE CLASSES FOR go here: */
@@ -22,16 +21,7 @@
   --grid-column-flex-shrink: 1;
   --grid-column-flex-basis: auto;
   --grid-column-default-width: 8.333333%;
-}
 
-@theme inline {
-  /* Create classes like bg-, text-, border[--whatever]: */
-  /* Reset Tailwind default colors */
-  --color-*: initial;
-
-  /* Global primitive colors we want to expose as classes: */
-
-  /* BEGIN PREVIOUS VARIABLES.CSS */
   --color-white: rgb(255, 255, 255);
   --color-black: rgb(0, 0, 0);
 
@@ -125,8 +115,15 @@
   --color-juno-primary-blue-4: rgb(15, 70, 167);
   --color-juno-primary-blue-5: rgb(0, 50, 131);
   --color-juno-primary-blue-6: rgb(0, 25, 90);
+}
 
-  /* END PREVIOUS VARIABLES.CSS */
+@theme inline {
+  /* Here we define all the classes like bg-, text-, border[--whatever] that we need Tailwind to generate: */
+
+  /* Reset Tailwind default colors */
+  --color-*: initial;
+
+  /* Global primitive colors we want to expose as classes: TODO */
 
   --font-*: initial;
   --font-sans: "IBM Plex Sans", ui-sans-serif, Arial, system-ui, sans-serif;
@@ -148,6 +145,7 @@
   --color-transparent: transparent;
 
   /* Colors we want to theme on our side */
+
   --color-theme-accent: var(--color-accent);
   --color-theme-danger: var(--color-danger);
   --color-theme-error: var(--color-error);
@@ -170,45 +168,58 @@
   --border-width-6: 6px;
   --border-width: 1px;
 
+  /* COMPONENT TOKENS: */
+  /* Here we define all the classes that represent a specific component token. */
+  /* E.g. `--background-color-theme-badge-default` will become `.bg-theme-badge-default`*/
+
   --background-color-theme-global-bg: var(--color-global-bg);
+  /* Component Background Colors: */
   --background-color-theme-badge-default: var(--color-badge-default-bg);
   --background-color-theme-box-default: var(--color-box-bg);
+
+  /* Button */
+  --background-color-theme-button-default: var(--color-button-default-bg);
+  --background-color-theme-button-default-hover: var(--color-button-default-hover-bg);
+  --background-color-theme-button-default-active: var(--color-button-default-active-bg);
+
+  --background-color-theme-checkbox: var(--color-checkbox-bg); /* -> .jn:bg-theme-checkbox */
   --background-color-theme-code-block: var(--color-codeblock-bg);
   --background-color-theme-content-area-bg: var(--color-content-area-bg);
-  --background-color-theme-panel: var(--color-panel-bg);
-  --background-color-theme-textinput: var(--color-textinput-bg);
-  --background-color-theme-textinput-autofill: var(--color-textinput-autofill-bg);
-  --background-color-theme-select: var(--color-select-bg);
-  --background-color-theme-checkbox: var(--color-checkbox-bg);
-  --background-color-theme-radio: var(--color-radio-bg);
-  --background-color-theme-radio-checked: var(--color-radio-checked-bg);
-  --background-color-theme-switch-handle: var(--color-switch-handle-bg);
-  --background-color-theme-switch-handle-checked: var(--color-switch-handle-checked-bg);
-  --background-color-theme-required: var(--color-required-bg);
-  --background-color-theme-introbox: var(--color-introbox-bg);
   --background-color-theme-datagridrow-selected: var(--color-datagridrow-selected);
   --background-color-theme-datalistrow-selected: var(--color-datalistrow-selected);
+  --background-color-theme-filters: var(--color-filters-bg);
+  --background-color-theme-filter-input: var(--color-filter-input-bg);
+  --background-color-theme-filter-input-textinput: var(--color-filter-input-textinput-bg);
+  --background-color-theme-filter-pill-key: var(--color-filter-pill-key-bg);
+  --background-color-theme-introbox: var(--color-introbox-bg);
   --background-color-theme-message-border-danger: var(--color-message-danger-border);
   --background-color-theme-message-border-default: var(--color-message-default-border);
   --background-color-theme-message-border-error: var(--color-message-error-border);
   --background-color-theme-message-border-warning: var(--color-message-warning-border);
   --background-color-theme-message-border-success: var(--color-message-success-border);
-  --background-color-theme-tab-navigation-top: var(--color-tabnavigation-top-bg);
-  --background-color-theme-filters: var(--color-filters-bg);
-  --background-color-theme-filter-input: var(--color-filter-input-bg);
-  --background-color-theme-filter-input-textinput: var(--color-filter-input-textinput-bg);
-  --background-color-theme-filter-pill-key: var(--color-filter-pill-key-bg);
   --background-color-theme-modal-backdrop: var(--color-modal-backdrop-bg);
+  --background-color-theme-panel: var(--color-panel-bg);
+  --background-color-theme-radio: var(--color-radio-bg);
+  --background-color-theme-radio-checked: var(--color-radio-checked-bg);
+  --background-color-theme-required: var(--color-required-bg);
+  --background-color-theme-select: var(--color-select-bg);
   --background-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active-bg);
+  --background-color-theme-switch-handle: var(--color-switch-handle-bg);
+  --background-color-theme-switch-handle-checked: var(--color-switch-handle-checked-bg);
+  --background-color-theme-tab-navigation-top: var(--color-tabnavigation-top-bg);
+  --background-color-theme-textinput: var(--color-textinput-bg);
+  --background-color-theme-textinput-autofill: var(--color-textinput-autofill-bg);
   --background-color-theme-topnavigation-item: var(--color-topnavigation-item-bg);
   --background-color-theme-topnavigation-item-active: var(--color-topnavigation-item-active-bg);
 
+  /* Component Background Images: */
   --background-image-theme-message-default: var(--gradient-message-default-bg);
   --background-image-theme-message-success: var(--gradient-message-success-bg);
   --background-image-theme-message-warning: var(--gradient-message-warning-bg);
   --background-image-theme-message-danger: var(--gradient-message-danger-bg);
   --background-image-theme-message-error: var(--gradient-message-error-bg);
 
+  /* Component Text Colors: */
   --text-color-theme-highest: var(--color-text-highest);
   --text-color-theme-high: var(--color-text-high);
   --text-color-theme-default: var(--color-text-default);
@@ -223,6 +234,7 @@
   --text-color-theme-checkbox-checked: var(--color-checkbox-checked-color);
   --text-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active);
 
+  /* Component Border Colors: */
   --border-color-theme-default: var(--color-default-border);
   --border-color-theme-codeblock-bar: var(--color-codeblock-bar-border);
   --border-color-theme-codeblock-tab-active: var(--color-text-default);
@@ -309,7 +321,6 @@
   --color-background-lvl-3: var(--color-juno-grey-light-7);
   --color-background-lvl-4: var(--color-juno-grey-light-9);
   --color-background-lvl-5: var(--color-juno-grey-light-10);
-
 
   /* LT Global */
   --color-global-bg: var(--color-juno-grey-light-1);
@@ -503,7 +514,6 @@
   --color-background-lvl-3: var(--color-juno-grey-blue-3);
   --color-background-lvl-4: var(--color-juno-grey-blue-2);
   --color-background-lvl-5: var(--color-juno-grey-blue-1);
-
 
   /* DT Global */
   --color-global-bg: var(--color-juno-grey-blue-10);
