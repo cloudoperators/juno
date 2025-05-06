@@ -123,7 +123,107 @@
   /* Reset Tailwind default colors */
   --color-*: initial;
 
-  /* Global primitive colors we want to expose as classes: TODO */
+  /* Global primitive colors we want to expose as classes. 
+  
+  Note these are plain duplicates from the global :root, :host scope that we want to have available globally as variables, but also as classes for straight-away use. 
+  
+  Also note that these, as they are duplicates, need changing in both scopes should we ever want to change them. 
+  */
+  --color-white: rgb(255, 255, 255);
+  --color-black: rgb(0, 0, 0);
+
+  --color-sap-grey-1: rgb(255, 255, 255);
+  --color-sap-grey-2: rgb(225, 225, 225);
+  --color-sap-grey-3: rgb(204, 204, 204);
+  --color-sap-grey-4: rgb(153, 153, 153);
+  --color-sap-grey-5: rgb(127, 127, 127);
+  --color-sap-grey-6: rgb(102, 102, 102);
+  --color-sap-grey-7: rgb(75, 75, 75);
+  --color-sap-grey-8: rgb(0, 0, 0);
+
+  --color-sap-blue-1: rgb(15, 170, 255);
+  --color-sap-blue-2: rgb(0, 143, 211);
+  --color-sap-blue-3: rgb(0, 118, 203);
+  --color-sap-blue-4: rgb(15, 70, 167);
+  --color-sap-blue-5: rgb(0, 50, 131);
+  --color-sap-blue-6: rgb(0, 25, 90);
+
+  --color-sap-gold: rgb(240, 171, 0);
+
+  --color-sap-purple-1: rgb(220, 0, 150);
+  --color-sap-purple-2: rgb(190, 0, 140);
+  --color-sap-purple-3: rgb(151, 10, 130);
+  --color-sap-purple-4: rgb(118, 10, 133);
+  --color-sap-purple-5: rgb(69, 21, 126);
+  --color-sap-purple-6: rgb(60, 20, 100);
+
+  --color-sap-green-1: rgb(188, 220, 80);
+  --color-sap-green-2: rgb(147, 201, 57);
+  --color-sap-green-3: rgb(79, 184, 28);
+  --color-sap-green-4: rgb(52, 139, 38);
+  --color-sap-green-5: rgb(36, 114, 48);
+  --color-sap-green-6: rgb(15, 75, 60);
+
+  --color-sap-orange-1: rgb(255, 175, 0);
+  --color-sap-orange-2: rgb(250, 145, 0);
+  --color-sap-orange-3: rgb(235, 115, 0);
+  --color-sap-orange-4: rgb(227, 85, 0);
+  --color-sap-orange-5: rgb(208, 69, 18);
+  --color-sap-orange-6: rgb(188, 54, 24);
+
+  --color-juno-grey-blue-1: rgb(64, 70, 75);
+  --color-juno-grey-blue-2: rgb(48, 54, 60);
+  --color-juno-grey-blue-3: rgb(41, 47, 54);
+  --color-juno-grey-blue-4: rgb(38, 44, 51);
+  --color-juno-grey-blue-5: rgb(36, 42, 49);
+  --color-juno-grey-blue-6: rgb(31, 38, 45);
+  --color-juno-grey-blue-7: rgb(28, 35, 42);
+  --color-juno-grey-blue-8: rgb(23, 30, 37);
+  --color-juno-grey-blue-9: rgb(18, 25, 32);
+  --color-juno-grey-blue-10: rgb(13, 20, 28);
+  --color-juno-grey-blue-11: rgb(0, 8, 16);
+
+  --color-juno-grey-light-1: rgb(249, 249, 249);
+  --color-juno-grey-light-2: rgb(247, 247, 247);
+  --color-juno-grey-light-3: rgb(244, 244, 244);
+  --color-juno-grey-light-4: rgb(241, 241, 241);
+  --color-juno-grey-light-5: rgb(238, 238, 238);
+  --color-juno-grey-light-6: rgb(235, 235, 235);
+  --color-juno-grey-light-7: rgb(233, 233, 233);
+  --color-juno-grey-light-8: rgb(230, 230, 230);
+  --color-juno-grey-light-9: rgb(227, 227, 227);
+  --color-juno-grey-light-10: rgb(215, 215, 215);
+
+  --color-juno-blue-1: rgb(203, 232, 247);
+  --color-juno-blue-2: rgb(165, 211, 234);
+  --color-juno-blue-3: rgb(137, 201, 232);
+  --color-juno-blue-4: rgb(67, 162, 208);
+  --color-juno-blue-5: rgb(0, 125, 184);
+  --color-juno-blue-6: rgb(30, 106, 146);
+  --color-juno-blue-7: rgb(10, 103, 153);
+  --color-juno-blue-8: rgb(7, 85, 128);
+  --color-juno-blue-9: rgb(5, 70, 105);
+  --color-juno-blue-10: rgb(3, 55, 84);
+
+  --color-juno-turquoise-1: rgb(197, 247, 255);
+  --color-juno-turquoise-2: rgb(132, 241, 255);
+  --color-juno-turquoise-3: rgb(25, 232, 250);
+  --color-juno-turquoise-4: rgb(22, 217, 234);
+  --color-juno-turquoise-5: rgb(21, 208, 224);
+  --color-juno-turquoise-6: rgb(15, 167, 180);
+  --color-juno-turquoise-7: rgb(9, 133, 144);
+  --color-juno-turquoise-8: rgb(5, 100, 109);
+  --color-juno-turquoise-9: rgb(2, 69, 75);
+  --color-juno-turquoise-10: rgb(1, 41, 4);
+
+  --color-juno-primary-blue-1: rgb(15, 170, 255);
+  --color-juno-primary-blue-2: rgb(0, 143, 211);
+  --color-juno-primary-blue-3: rgb(0, 118, 203);
+  --color-juno-primary-blue-4: rgb(15, 70, 167);
+  --color-juno-primary-blue-5: rgb(0, 50, 131);
+  --color-juno-primary-blue-6: rgb(0, 25, 90);
+
+  /* End global primitive colors */
 
   --font-*: initial;
   --font-sans: "IBM Plex Sans", ui-sans-serif, Arial, system-ui, sans-serif;
