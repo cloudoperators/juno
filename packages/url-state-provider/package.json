@@ -11,11 +11,17 @@
     "type": "git",
     "url": "git+https://github.com/cloudoperators/juno.git#main"
   },
-  "source": "src/index.js",
+  "source": "src/index.ts",
   "main": "build/index.js",
   "module": "build/index.js",
   "type": "module",
   "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/index.js",
+      "types": "./build/index.d.ts"
+    }
+  },
   "files": [
     "build"
   ],
