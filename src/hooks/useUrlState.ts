@@ -4,7 +4,7 @@
  */
 
 import { useLayoutEffect, useEffect, useState } from "react"
-import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
+import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
 import {
   useGlobalsShowPanel,
   useGlobalsActiveView,
@@ -30,7 +30,13 @@ const useUrlState = () => {
   const showServiceDetail = useGlobalsShowServiceDetail()
   const showIssueDetail = useGlobalsShowIssueDetail()
   // @ts-ignore
-  const { setShowPanel, setActiveView, setServiceDetail, setIssueDetail, syncDetailsWithURL } = useGlobalsActions()
+  const {
+    setShowPanel,
+    setActiveView,
+    setServiceDetail,
+    setIssueDetail,
+    syncDetailsWithURL,
+  } = useGlobalsActions()
   const serviceActiveFilters = useServiceActiveFilters()
   const issueMatchesActiveFilters = useIssueMatchesActiveFilters()
   const componentActiveFilters = useComponentActiveFilters()
@@ -48,7 +54,10 @@ const useUrlState = () => {
         setActiveView("Services") // Default active view
       }
 
-      setFiltersFromURL(urlState[constants.ACTIVE_FILTERS], urlState[constants.SEARCH_TERM])
+      setFiltersFromURL(
+        urlState[constants.ACTIVE_FILTERS],
+        urlState[constants.SEARCH_TERM]
+      )
 
       const currentDetailsFor = urlState[constants.DETAILS_FOR]
       // Set panel and details for service/issue
@@ -67,7 +76,14 @@ const useUrlState = () => {
     }
 
     setIsURLRead(true)
-  }, [isURLRead, setActiveView, setFiltersFromURL, setShowPanel, setServiceDetail, setIssueDetail])
+  }, [
+    isURLRead,
+    setActiveView,
+    setFiltersFromURL,
+    setShowPanel,
+    setServiceDetail,
+    setIssueDetail,
+  ])
 
   // Sync URL with the desired states
   useEffect(() => {
@@ -75,7 +91,11 @@ const useUrlState = () => {
 
     const updatedState = {
       [constants.ACTIVE_VIEW]: activeView, // Include active view
-      ...syncFiltersWithURL(issueMatchesActiveFilters, serviceActiveFilters, componentActiveFilters),
+      ...syncFiltersWithURL(
+        issueMatchesActiveFilters,
+        serviceActiveFilters,
+        componentActiveFilters
+      ),
       ...syncDetailsWithURL(showServiceDetail, showIssueDetail, detailsFor),
     }
 
@@ -101,7 +121,10 @@ const useUrlState = () => {
   useEffect(() => {
     const unregisterStateListener = urlStateManager.onChange((state: any) => {
       setActiveView(state?.[constants.ACTIVE_VIEW])
-      setFiltersFromURL(state?.[constants.ACTIVE_FILTERS], state?.[constants.SEARCH_TERM])
+      setFiltersFromURL(
+        state?.[constants.ACTIVE_FILTERS],
+        state?.[constants.SEARCH_TERM]
+      )
       setShowPanel(state?.[constants.DETAILS_FOR])
 
       // Set details for service/issue based on the URL state
