@@ -1,5 +1,11 @@
 # @cloudoperators/juno-k8s-client
 
+## 1.0.5
+
+### Patch Changes
+
+- f3be4a6: add support for common js
+
 ## 1.0.4
 
 ### Patch Changes
