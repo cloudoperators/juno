@@ -3,14 +3,21 @@
   "version": "1.0.4",
   "author": "UI-Team",
   "description": "JavaScript client for Kubernetes API",
-  "main": "build/index.js",
-  "module": "build/index.js",
-  "types": "build/types/index.d.ts",
+  "main": "build/index.cjs.js",
+  "module": "build/index.es.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.es.js",
+      "require": "./build/index.cjs.js"
+    }
+  },
   "files": [
     "build/**",
     "LICENCE"
   ],
-  "type": "module",
+
   "scripts": {
     "test": "vitest run",
     "lint": "eslint",

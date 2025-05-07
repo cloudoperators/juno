@@ -5,3 +5,5 @@
 
 export { createClient } from "./client"
 export type { RequestOptions } from "./client"
+export type { K8sApiError } from "./apiErrorHandler"
+export { ADDED, MODIFIED, DELETED, ERROR, Watch } from "./watch"
