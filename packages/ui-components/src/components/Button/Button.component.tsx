@@ -4,7 +4,6 @@
  */
 
 import React, { LegacyRef } from "react"
-//import "./button.css"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/index"
@@ -63,28 +62,40 @@ const defaultButtonColors = `
   jn:bg-theme-button-default
   jn:text-theme-button-default
   jn:hover:bg-theme-button-default-hover
+  jn:hover:text-theme-button-default-hover
   jn:active:bg-theme-button-default-active
+  jn:active:text-theme-button-default-active
 `
 
 const primaryButtonColors = `
   jn:bg-theme-button-primary
   jn:text-theme-button-primary
   jn:hover:bg-theme-button-primary-hover
+  jn:hover:text-theme-button-primary-hover
   jn:active:bg-theme-button-primary-active
+  jn_active:text-theme-button-primary-active
 `
 
 const primaryDangerButtonColors = `
   jn:bg-theme-button-primary-danger
   jn:text-theme-button-primary-danger
   jn:hover:bg-theme-button-primary-danger-hover
+  jn:hover:text-theme-button-primary-danger-hover
   jn:active:bg-theme-button-primary-danger-active
+  jn:active:text-theme-button-primary-danger-active
 `
 
 const subduedButtonColors = `
   jn:bg-theme-button-subdued
   jn:text-theme-button-subdued
+  jn:border
+  jn:border-theme-button-subdued
   jn:hover:bg-theme-button-subdued-hover
+  jn:hover:text-theme-button-subdued-hover
+  jn:hover:border-theme-button-subdued-hover
   jn:active:bg-theme-button-subdued-active
+  jn:active:text-theme-button-subdued-active
+  jn:active:border-theme-button-subdued-active
 `
 
 const getButtonPadding = (size: ButtonSize, variant: ButtonVariant | undefined) => {
