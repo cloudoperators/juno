@@ -286,10 +286,6 @@
   --background-color-theme-button-primary-hover: var(--color-button-primary-hover-bg);
   --background-color-theme-button-primary-active: var(--color-button-primary-active-bg);
 
-  --background-color-theme-button-primary-danger: var();
-  --background-color-theme-button-primary-danger-hover: var();
-  --background-color-theme-button-primary-danger-active: var();
-
   --background-color-theme-button-primary-danger: var(--color-button-primary-danger-bg);
   --background-color-theme-button-primary-danger-hover: var(--color-button-primary-danger-hover-bg);
   --background-color-theme-button-primary-danger-active: var(--color-button-primary-danger-active-bg);
