@@ -1,0 +1,109 @@
+import{j as e}from"./jsx-runtime-D-gQZ2Nk.js";import{r as a}from"./index-BXnWnNu-.js";import{L as Y}from"./Label.component-Bubk172Q.js";import{I as F}from"./Icon.component-D9q-vDfZ.js";import{F as v}from"./FormHint.component-k5YuOPZg.js";const ne=`
+  jn-mb-4
+  jn-last:mb-0
+`,te=`
+  jn-relative
+  jn-rounded
+  jn-border
+  jn-py-1
+`,se=`
+  jn-border-transparent
+`,oe=`
+  jn-border-theme-success
+  jn-px-2
+`,le=`
+  jn-border-theme-error
+  jn-px-2
+`,z=`
+  jn-absolute
+  jn-right-2
+  jn-top-1.5
+`,J=a.createContext(void 0),P=({children:c,className:R="",disabled:r=!1,errortext:n="",helptext:f="",id:A="",invalid:k=!1,label:x,name:C="",onChange:N,required:V=!1,selected:d,successtext:u="",valid:i=!1,...w})=>{const t=o=>!(typeof o=="string"&&o.trim().length===0),$=()=>"juno-checkboxgroup-"+a.useId(),h=C||$(),I=A||$(),[s,l]=a.useState(d),[b,m]=a.useState(!1),[p,S]=a.useState(!1),E=a.useMemo(()=>i||!!(u&&t(u)),[i,u]),q=a.useMemo(()=>k||!!(n&&t(n)),[k,n]);a.useEffect(()=>{d&&l(d)},[d]),a.useEffect(()=>{m(E)},[E]),a.useEffect(()=>{S(q)},[q]);const _=o=>{const j=o;s&&s.includes(o)?l(s.filter(g=>g!==j)):s&&!s.includes(o)?l(g=>[...g||[],j]):l([j]),N&&N(o)},G=o=>{d||l(j=>[...j||[],o])};return e.jsx(J.Provider,{value:{selectedOptions:s,name:h,disabled:r,handleCheckboxChange:_,updateSelectedValue:G},children:e.jsxs("div",{className:`
+          juno-checkboxgroup 
+          ${b?"juno-checkboxgroup-valid":""} 
+          ${p?"juno-checkboxgroup-invalid":""} 
+          ${ne} 
+          ${R}
+        `,id:I,role:"group",...w,children:[x&&t(x)?e.jsx(Y,{text:x,htmlFor:I,disabled:r,required:V}):"",e.jsxs("div",{className:`
+            juno-checkbox-group-options 
+            ${te} 
+            ${b?oe:""} 
+            ${p?le:""} 
+            ${b||p?"":se}
+          `,children:[p?e.jsx(F,{icon:"dangerous",color:"jn-text-theme-error",className:`${z}`}):"",b?e.jsx(F,{icon:"checkCircle",color:"jn-text-theme-success",className:`${z}`}):"",c]}),n&&t(n)?e.jsx(v,{text:n,variant:"error"}):"",u&&t(u)?e.jsx(v,{text:u,variant:"success"}):"",f&&t(f)?e.jsx(v,{text:f}):""]})})};try{P.displayName="CheckboxGroup",P.__docgenInfo={description:"",displayName:"CheckboxGroup",props:{children:{defaultValue:null,description:"The Checkbox children of the CheckboxGroup",name:"children",required:!1,type:{name:"ReactNode"}},className:{defaultValue:{value:""},description:"Pass a custom className",name:"className",required:!1,type:{name:"string"}},disabled:{defaultValue:{value:"false"},description:"Whether all Checkboxes in the group are disabled",name:"disabled",required:!1,type:{name:"boolean"}},errortext:{defaultValue:{value:""},description:"Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed.",name:"errortext",required:!1,type:{name:"ReactNode"}},helptext:{defaultValue:{value:""},description:"A text to render to further explain meaning and significance of the group",name:"helptext",required:!1,type:{name:"ReactNode"}},id:{defaultValue:{value:""},description:"The id of the group. If not passed, a unique id will be created and used for the group as a whole.",name:"id",required:!1,type:{name:"string"}},invalid:{defaultValue:{value:"false"},description:"",name:"invalid",required:!1,type:{name:"boolean"}},label:{defaultValue:null,description:"The label of the whole group.",name:"label",required:!1,type:{name:"string"}},name:{defaultValue:{value:""},description:"The name of all checkboxes in the group. If not passed, a unique name identifier will be created and used for the group as a whole.",name:"name",required:!1,type:{name:"string"}},onChange:{defaultValue:null,description:"An onChange handler to execute when the selection of options changes",name:"onChange",required:!1,type:{name:"EventUpdateHandler"}},required:{defaultValue:{value:"false"},description:"Whether a selection in the group is required",name:"required",required:!1,type:{name:"boolean"}},selected:{defaultValue:null,description:"Array of values of individual selected options in the group",name:"selected",required:!1,type:{name:"string[]"}},successtext:{defaultValue:{value:""},description:"Text to display in case validation is successful. When passed, will set the whole group to valid.",name:"successtext",required:!1,type:{name:"ReactNode"}},valid:{defaultValue:{value:"false"},description:"Whether the CheckboxGroup was successfully validated",name:"valid",required:!1,type:{name:"boolean"}}}}}catch{}const re=`
+  jn-inline-flex
+  jn-items-center
+`,ie=`
+  jn-w-4
+  jn-h-4
+  jn-opacity-0
+  jn-z-50
+`,ce=`
+  jn-relative
+  jn-w-4
+  jn-h-4
+  jn-rounded-sm
+  jn-bg-theme-checkbox
+  jn-cursor-pointer
+  focus:jn-outline-none
+  focus:jn-ring-2
+  focus:jn-ring-theme-focus
+`,de=`
+  jn-ring-2
+  jn-ring-theme-focus
+`,ue=`
+  jn-absolute
+  jn-top-0
+  jn-left-0
+  jn-text-theme-checkbox-checked
+  jn-fill-current
+`,he=`
+  jn-absolute
+  jn-w-2
+  jn-h-0.5
+  jn-top-1.5
+  jn-left-[.2rem]
+  jn-inline-block
+  jn-bg-theme-focus
+`,pe=`
+  jn-pointer-events-none
+  jn-opacity-50
+  jn-cursor-not-allowed
+`,fe=`
+  jn-border
+  jn-border-transparent
+`,me=`
+  jn-border
+  jn-border-theme-error
+`,je=`
+  jn-border
+  jn-border-theme-success
+`,xe=`
+  jn-leading-0
+  jn-ml-2
+`,D=`
+  jn-ml-1
+`,M=`
+  jn-mt-0
+  jn-ml-6
+`,U=({checked:c=!1,className:R="",disabled:r=!1,errortext:n="",helptext:f="",id:A="",indeterminate:k=!1,invalid:x=!1,label:C,name:N="",onChange:V,onClick:d,required:u=!1,successtext:i="",valid:w=!1,value:t="",...$})=>{const h=y=>!(typeof y=="string"&&y.trim().length===0),I=()=>"juno-checkbox-"+a.useId(),s=a.useContext(J),{selectedOptions:l,name:b,disabled:m,handleCheckboxChange:p,updateSelectedValue:S}=s||{},E=()=>s?!!(l&&l.includes(t)):!!c,[q,_]=a.useState(E()),[G,o]=a.useState(!1),[j,g]=a.useState(!1),[T,K]=a.useState(!1),[W,Q]=a.useState(!1);a.useEffect(()=>{c&&s&&S&&S(t)},[]),a.useEffect(()=>{s||_(c)},[c]);const L=a.useMemo(()=>x||!!(n&&h(n)),[x,n]),O=a.useMemo(()=>w||!!(i&&h(i)),[w,i]);a.useEffect(()=>{o(k)},[k]),a.useEffect(()=>{K(L)},[L]),a.useEffect(()=>{Q(O)},[O]);const X=y=>{_(!q),p&&typeof p=="function"&&p(t),V&&V(y)},Z=y=>{d&&d(y)},ee=()=>{g(!0)},ae=()=>{g(!1)},H=()=>s?!!(l&&l.includes(t)):q,B=A||I();return e.jsxs("div",{className:"jn-checkbox-outer",children:[e.jsxs("div",{className:`jn-checkbox-wrapper ${re}`,children:[e.jsxs("div",{className:`
+            juno-checkbox 
+            ${ce} 
+            ${j?de:""} 
+            ${m||r?pe:""} 
+            ${T?me:""} 
+            ${W?je:""} 
+            ${T||W?"":fe}
+            ${R}
+          `,...$,children:[H()?e.jsx("svg",{xmlns:"http://www.w3.org/2000/svg",className:`${ue}`,width:"16",height:"16",viewBox:"0 0 16 16",children:e.jsx("polygon",{points:"5.75 11.15 2.6 8 1.55 9.05 5.75 13.25 14.75 4.25 13.7 3.2"})}):"",e.jsx("input",{checked:H(),className:`
+              ${ie} 
+              ${T?"juno-checkbox-invalid":""} 
+              ${W?"juno-checkbox-valid":""} 
+              ${m||r?"jn-cursor-not-allowed":""}
+            `,disabled:m||r,id:B,name:b||N,onBlur:ae,onChange:X,onClick:Z,onFocus:ee,type:"checkbox",value:t}),G&&!H()?e.jsx("div",{className:`${he}`}):""]}),C&&h(C)?e.jsxs(e.Fragment,{children:[e.jsx(Y,{text:C,htmlFor:B,disabled:m||r,required:u,className:`${xe}`}),T?e.jsx(F,{icon:"dangerous",color:"jn-text-theme-error",size:"1.125rem",className:`
+                  ${D}
+                  ${m||r?"jn-opacity-50":""}
+                `}):"",W?e.jsx(F,{icon:"checkCircle",color:"jn-text-theme-success",size:"1.125rem",className:`
+                  ${D}
+                  ${r?"jn-opacity-50":""}
+                `}):""]}):""]}),n&&h(n)?e.jsx(v,{text:n,variant:"error",className:`${M}`}):"",i&&h(i)?e.jsx(v,{text:i,variant:"success",className:`${M}`}):"",f&&h(f)?e.jsx(v,{text:f,className:`${M}`}):""]})};try{U.displayName="Checkbox",U.__docgenInfo={description:"",displayName:"Checkbox",props:{checked:{defaultValue:{value:"false"},description:"Whether the Checkbox is checked",name:"checked",required:!1,type:{name:"boolean"}},className:{defaultValue:{value:""},description:"Pass a custom className",name:"className",required:!1,type:{name:"string"}},disabled:{defaultValue:{value:"false"},description:"Whether the Checkbox is disabled",name:"disabled",required:!1,type:{name:"boolean"}},errortext:{defaultValue:{value:""},description:"A text to render when the Checkbox has an error or could not be validated",name:"errortext",required:!1,type:{name:"ReactNode"}},helptext:{defaultValue:{value:""},description:"A helptext to render to explain meaning and significance of the Checkbox",name:"helptext",required:!1,type:{name:"ReactNode"}},id:{defaultValue:{value:""},description:"The id of the Radio. An id will be automatically generated if not passed.",name:"id",required:!1,type:{name:"string"}},indeterminate:{defaultValue:{value:"false"},description:"Whether the Checkbox is indeterminate. Applicable ONLY if the Checkbox represents multiple child Checkboxes with non--identical checked state.",name:"indeterminate",required:!1,type:{name:"boolean"}},invalid:{defaultValue:{value:"false"},description:"Whether the Checkbox was validated unsuccessfully",name:"invalid",required:!1,type:{name:"boolean"}},label:{defaultValue:null,description:"The label of the Checkbox",name:"label",required:!1,type:{name:"string"}},name:{defaultValue:{value:""},description:"The name of the Checkbox",name:"name",required:!1,type:{name:"string"}},onChange:{defaultValue:null,description:"handler to be executed when the Checkbox changes.",name:"onChange",required:!1,type:{name:"ChangeEventHandler<HTMLInputElement>"}},onClick:{defaultValue:null,description:"handler to be executed when the Checkbox is clicked.",name:"onClick",required:!1,type:{name:"MouseEventHandler<HTMLInputElement>"}},required:{defaultValue:{value:"false"},description:"Whether the Checkbox is required",name:"required",required:!1,type:{name:"boolean"}},successtext:{defaultValue:{value:""},description:"A text to render when the Checkbox was successfully validated",name:"successtext",required:!1,type:{name:"ReactNode"}},valid:{defaultValue:{value:"false"},description:"Whether the Checkbox was successfully validated",name:"valid",required:!1,type:{name:"boolean"}},value:{defaultValue:{value:""},description:"The value of the Checkbox",name:"value",required:!1,type:{name:"string"}}}}}catch{}export{U as C,P as a};
