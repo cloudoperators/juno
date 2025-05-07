@@ -1,32 +1,36 @@
 {
-  "extends": ["//"],
+  "extends": [ "//" ],
   "tasks": {
     "dev": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build"
+        "@cloudoperators/juno-communicator#build",
+        "@cloudoperators/juno-url-state-provider#build"
       ]
     },
     "typecheck": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build"
+        "@cloudoperators/juno-communicator#build",
+        "@cloudoperators/juno-url-state-provider#build"
       ]
     },
     "build": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build"
+        "@cloudoperators/juno-communicator#build",
+        "@cloudoperators/juno-url-state-provider#build"
       ]
     },
     "build:static": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build"
+        "@cloudoperators/juno-communicator#build",
+        "@cloudoperators/juno-url-state-provider#build"
       ]
     }
   }
