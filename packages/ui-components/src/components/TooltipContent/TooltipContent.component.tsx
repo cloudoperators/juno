@@ -60,7 +60,8 @@ export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>
 
   const variant = state.variant
 
-  return (
+  // ensure tooltip content is not displayed when disabled
+  return !state.disabled ? (
     <>
       {state.open && (
         <div
@@ -82,5 +83,5 @@ export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>
         </div>
       )}
     </>
-  )
+  ) : null
 })
