@@ -11,8 +11,8 @@ export default defineConfig({
     lib: {
       entry: "src/index.ts", // or 'src/main.ts' if TypeScript
       name: "k8s-client", // Replace with your library's global name
-      formats: ["es"], // Output formats: ESM and CommonJS
-      fileName: () => `index.js`, // Output file names
+      formats: ["es", "cjs"], // Output formats: ESM and CommonJS
+      fileName: (format) => `index.${format}.js`, // Output file names
     },
     outDir: "build",
   },
