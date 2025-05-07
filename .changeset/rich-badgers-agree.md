@@ -14,4 +14,4 @@
 "@cloudoperators/juno-app-doop": patch
 ---
 
-Update to vite 6.2.6 to resolve dependency vulnarebilities
+Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
