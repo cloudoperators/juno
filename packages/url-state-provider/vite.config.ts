@@ -11,8 +11,8 @@ export default defineConfig({
     lib: {
       entry: "src/index.ts", // or 'src/main.ts' if TypeScript
       name: "url-state-provider", // Replace with your library's global name
-      formats: ["es"], // Output formats: ESM and CommonJS
-      fileName: () => `index.js`, // Output file names
+      formats: ["es", "cjs"], // Output both ESM and CommonJS formats
+      fileName: (format) => `index.${format}.js`, // Output different file names for different formats
     },
     outDir: "build",
   },
