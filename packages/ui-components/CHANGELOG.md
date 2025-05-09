@@ -1,5 +1,15 @@
 # @cloudoperators/juno-ui-components
 
+## 3.1.1
+
+### Patch Changes
+
+- cdae407: - update @floating-ui/react to the latest version 0.27.8
+  - update @testing-library/\* packages to the latest versions
+  - fix unit tests
+  - ensure tooltip content is not displayed when disabled
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
 ## 3.1.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.5
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+- Updated dependencies [cdae407]
+- Updated dependencies [43d6aa0]
+  - @cloudoperators/juno-ui-components@3.1.1
+
 ## 0.2.4
 
 ### Patch Changes
