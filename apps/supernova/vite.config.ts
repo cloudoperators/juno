@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 
-export default defineConfig(({ mode }) => {
+export default ({ mode }) => {
   const sharedConfig = {
     root: "./",
 
@@ -54,4 +53,4 @@ export default defineConfig(({ mode }) => {
       },
     },
   }
-})
+}
