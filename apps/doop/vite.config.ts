@@ -3,15 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 
-export default defineConfig(({ mode }) => {
+export default ({ mode }) => {
   const sharedConfig = {
     root: "./",
-
     define: {
       "process.env": {},
     },
@@ -22,7 +20,6 @@ export default defineConfig(({ mode }) => {
         plugins: [tailwindcss, autoprefixer],
       },
     },
-
     server: {
       host: "0.0.0.0",
       port: parseInt(process.env.PORT || "3000"),
@@ -50,8 +47,8 @@ export default defineConfig(({ mode }) => {
       lib: {
         entry: "src/index.ts",
         formats: ["es"],
-        fileName: (format) => `index.js`,
+        fileName: () => `index.js`,
       },
     },
   }
-})
+}
