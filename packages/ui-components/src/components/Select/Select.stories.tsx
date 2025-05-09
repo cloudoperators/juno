@@ -7,11 +7,20 @@ import React, { useState } from "react"
 import { Select, SelectProps } from "./Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 import { PortalProvider } from "../PortalProvider"
+import { fn } from "@storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react" // Import Storybook types
+
 type StoryFunction = () => JSX.Element
 
-export default {
+// Define explicit type for the default export
+const meta: Meta<typeof Select> = {
   title: "Forms/Select/Select",
   component: Select,
+  // Add explicit spy functions for all callback props
+  args: {
+    onChange: fn(),
+    onValueChange: fn(),
+  },
   argTypes: {
     variant: {
       options: ["default", "primary", "primary-danger", "subdued"],
@@ -39,26 +48,24 @@ export default {
   ],
 }
 
-const Template = ({
-  children,
-  ...args
-}: {
-  children: React.ReactNode
-  args: React.JSX.IntrinsicAttributes & SelectProps
-}) => {
-  return <Select {...args}>{children}</Select>
+export default meta
+type Story = StoryObj<typeof Select>
+
+// Create a proper render function for Storybook
+const Template = (args: SelectProps) => {
+  return <Select {...args}>{args.children}</Select>
 }
 
-const ConstrainedWidthTemplate = ({ children, ...args }: SelectProps) => {
+const ConstrainedWidthTemplate = (args: SelectProps) => {
   return (
     <div style={{ width: "300px" }}>
-      <Select {...args}>{children}</Select>
+      <Select {...args}>{args.children}</Select>
     </div>
   )
 }
 
-const ControlledTemplate = ({ value, children, ...args }: React.JSX.IntrinsicAttributes & SelectProps) => {
-  const [val, setVal] = useState(value)
+const ControlledTemplate = (args: SelectProps) => {
+  const [val, setVal] = useState(args.value)
 
   const handleChange = (val?: string | number | string[]) => {
     setVal(val)
@@ -66,27 +73,24 @@ const ControlledTemplate = ({ value, children, ...args }: React.JSX.IntrinsicAtt
 
   return (
     <Select {...args} value={val} onChange={handleChange}>
-      {children}
+      {args.children}
     </Select>
   )
 }
 
-const BottomPositionTemplate = ({
-  parentStyles,
-  children,
-  ...args
-}: {
+// For the specialized bottom position template, we need to extend SelectProps
+interface BottomPositionProps extends SelectProps {
   parentStyles: React.CSSProperties
-  children: React.ReactNode
-  args: any
-}) => (
-  <div style={parentStyles}>
+}
+
+const BottomPositionTemplate = (args: BottomPositionProps) => (
+  <div style={args.parentStyles}>
     Bottom Positioned Select
-    <Select {...args}>{children}</Select>
+    <Select {...args}>{args.children}</Select>
   </div>
 )
 
-export const Default = {
+export const Default: Story = {
   render: Template,
   args: {
     children: [
@@ -97,7 +101,7 @@ export const Default = {
   },
 }
 
-export const Primary = {
+export const Primary: Story = {
   render: Template,
   args: {
     variant: "primary",
@@ -109,7 +113,7 @@ export const Primary = {
   },
 }
 
-export const PrimaryDanger = {
+export const PrimaryDanger: Story = {
   render: Template,
   args: {
     variant: "primary-danger",
@@ -121,7 +125,7 @@ export const PrimaryDanger = {
   },
 }
 
-export const Subdued = {
+export const Subdued: Story = {
   render: Template,
   args: {
     variant: "subdued",
@@ -133,7 +137,7 @@ export const Subdued = {
   },
 }
 
-export const WithPlaceholder = {
+export const WithPlaceholder: Story = {
   render: Template,
 
   args: {
@@ -146,7 +150,7 @@ export const WithPlaceholder = {
   },
 }
 
-export const WithLabel = {
+export const WithLabel: Story = {
   render: Template,
 
   args: {
@@ -159,7 +163,7 @@ export const WithLabel = {
   },
 }
 
-export const RequiredWithLabel = {
+export const RequiredWithLabel: Story = {
   render: Template,
 
   args: {
@@ -173,7 +177,7 @@ export const RequiredWithLabel = {
   },
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   render: Template,
 
   args: {
@@ -186,7 +190,7 @@ export const Disabled = {
   },
 }
 
-export const DisabledOption = {
+export const DisabledOption: Story = {
   render: Template,
 
   args: {
@@ -199,7 +203,7 @@ export const DisabledOption = {
   },
 }
 
-export const Valid = {
+export const Valid: Story = {
   render: Template,
 
   args: {
@@ -212,7 +216,7 @@ export const Valid = {
   },
 }
 
-export const Invalid = {
+export const Invalid: Story = {
   render: Template,
 
   args: {
@@ -225,7 +229,7 @@ export const Invalid = {
   },
 }
 
-export const WithHelptext = {
+export const WithHelptext: Story = {
   render: Template,
 
   args: {
@@ -238,7 +242,7 @@ export const WithHelptext = {
   },
 }
 
-export const WithHelptextAsNode = {
+export const WithHelptextAsNode: Story = {
   render: Template,
 
   args: {
@@ -255,7 +259,7 @@ export const WithHelptextAsNode = {
   },
 }
 
-export const WithErrortext = {
+export const WithErrortext: Story = {
   render: Template,
 
   args: {
@@ -268,7 +272,7 @@ export const WithErrortext = {
   },
 }
 
-export const WithSuccesstext = {
+export const WithSuccesstext: Story = {
   render: Template,
 
   args: {
@@ -281,7 +285,7 @@ export const WithSuccesstext = {
   },
 }
 
-export const Error = {
+export const Error: Story = {
   render: Template,
 
   args: {
@@ -294,7 +298,7 @@ export const Error = {
   },
 }
 
-export const Loading = {
+export const Loading: Story = {
   render: Template,
 
   args: {
@@ -307,7 +311,7 @@ export const Loading = {
   },
 }
 
-export const ManyOptions = {
+export const ManyOptions: Story = {
   render: Template,
 
   args: {
@@ -331,7 +335,7 @@ export const ManyOptions = {
   },
 }
 
-export const EmptyOption = {
+export const EmptyOption: Story = {
   render: Template,
 
   args: {
@@ -344,7 +348,7 @@ export const EmptyOption = {
   },
 }
 
-export const OptionsWithLabels = {
+export const OptionsWithLabels: Story = {
   render: Template,
 
   args: {
@@ -367,7 +371,7 @@ export const OptionsWithLabels = {
   },
 }
 
-export const UncontrolledSelectWithDefaultValue = {
+export const UncontrolledSelectWithDefaultValue: Story = {
   render: Template,
   args: {
     defaultValue: "Option 2",
@@ -379,7 +383,7 @@ export const UncontrolledSelectWithDefaultValue = {
   },
 }
 
-export const ControlledSelect = {
+export const ControlledSelect: Story = {
   render: ControlledTemplate,
 
   args: {
@@ -396,7 +400,7 @@ export const ControlledSelect = {
  * If you used the Select as a controlled component (by passing the `value` prop) and if your SelectOptions
  * have labels, then you'll have to pass the `valueLabel` of the selected option as well.
  * */
-export const ControlledSelectWithOptionLabels = {
+export const ControlledSelectWithOptionLabels: Story = {
   render: ControlledTemplate,
 
   args: {
@@ -410,7 +414,7 @@ export const ControlledSelectWithOptionLabels = {
   },
 }
 
-export const UncontrolledSelect = {
+export const UncontrolledSelect: Story = {
   render: Template,
 
   args: {
@@ -427,7 +431,7 @@ export const UncontrolledSelect = {
  * Similar to the controlled Select, if you used the Select as an uncontrolled component (by passing the `defaultValue` prop) and if your SelectOptions
  * have labels, then you'll have to pass the `valueLabel` of the selected option as well.
  */
-export const UncontrolledSelectWithOptionLabels = {
+export const UncontrolledSelectWithOptionLabels: Story = {
   render: Template,
 
   args: {
@@ -441,7 +445,7 @@ export const UncontrolledSelectWithOptionLabels = {
   },
 }
 
-export const TruncatedOptions = {
+export const TruncatedOptions: Story = {
   render: ConstrainedWidthTemplate,
 
   args: {
@@ -460,7 +464,7 @@ export const TruncatedOptions = {
   },
 }
 
-export const NonTruncatedOptions = {
+export const NonTruncatedOptions: Story = {
   render: ConstrainedWidthTemplate,
 
   args: {
@@ -482,7 +486,7 @@ export const NonTruncatedOptions = {
  * As an alernative to using a `value`-prop, strings as children can be passed. Though we don't recommend this approach
  * as it will likely be deprecated or changed in the future.
  * */
-export const WithChildrenOnly = {
+export const WithChildrenOnly: Story = {
   render: Template,
 
   args: {
@@ -496,7 +500,7 @@ export const WithChildrenOnly = {
   },
 }
 
-export const MultiSelect = {
+export const MultiSelect: Story = {
   render: Template,
   args: {
     multiple: true,
@@ -510,7 +514,7 @@ export const MultiSelect = {
   },
 }
 
-export const MultiSelectWithValue = {
+export const MultiSelectWithValue: Story = {
   render: ControlledTemplate,
   args: {
     multiple: true,
@@ -525,7 +529,7 @@ export const MultiSelectWithValue = {
   },
 }
 
-export const MultiSelectWithOptionValuesAndLabels = {
+export const MultiSelectWithOptionValuesAndLabels: Story = {
   render: ControlledTemplate,
   args: {
     multiple: true,
@@ -538,7 +542,10 @@ export const MultiSelectWithOptionValuesAndLabels = {
   },
 }
 
-export const BottomPositionedSelect = {
+// We need to create a specific type for the bottom positioned story
+type BottomPositionStory = StoryObj<BottomPositionProps>
+
+export const BottomPositionedSelect: BottomPositionStory = {
   render: BottomPositionTemplate,
   args: {
     parentStyles: {
