@@ -632,8 +632,15 @@
   --color-topnavigation-item-bg: var(--color-sap-grey-1);
   --color-topnavigation-item-active-bg: var(--color-juno-grey-light-3);
 
-  /* LT Datepicker */
-  --color-datepicker-calendar-bg: var(--color-background-lvl-1);
+  /* LT DateTimePicker */
+  --color-datetimepicker-calendar-bg: var(--color-background-lvl-2);
+  --color-datetimepicker-disabled-date-color: rgba(76, 76, 76, 0.4); /* Light theme text default color */
+  --color-datetimepicker-disabled-date-hover-bg: rgba(0, 118, 203, 0.5); /* Light theme accent color */
+  --color-datetimepicker-range-bg: rgb(
+    98,
+    148,
+    209
+  ); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
 }
 
 /* JUNO THEME: DARK MODE */
@@ -827,8 +834,15 @@
   --color-topnavigation-item-active: var(--color-white);
   --color-topnavigation-item-bg: var(--color-juno-grey-blue-7);
   --color-topnavigation-item-active-bg: var(--color-juno-grey-blue-5);
-  /* DT Datepicker */
-  --color-datepicker-calendar-bg: var(--color-background-lvl-1);
+  /* DT DateTimePicker */
+  --color-datetimepicker-calendar-bg: var(--color-background-lvl-1);
+  --color-datetimepicker-disabled-date-color: rgba(187, 187, 187, 0.4); /* Dark theme text default color */
+  --color-datetimepicker-disabled-date-hover-bg: rgba(21, 208, 224, 0.5); /* Dark theme accent color */
+  --color-datetimepicker-range-bg: rgb(
+    79,
+    163,
+    176
+  ); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
 }
 
 /*
