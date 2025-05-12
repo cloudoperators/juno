@@ -88,14 +88,6 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
-  "overrides": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
-  },
-  "resolutions": {
-    "react": "19.1.0",
-    " react-dom": "19.1.0"
-  },
   "scripts": {
     "storybook": "storybook dev -p $APP_PORT --ci --no-open",
     "build": "vite build",
