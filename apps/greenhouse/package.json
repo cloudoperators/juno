@@ -52,7 +52,7 @@
     "@cloudoperators/juno-app-supernova": "*",
     "@cloudoperators/juno-messages-provider": "*",
     "@cloudoperators/juno-oauth": "*",
-    "@cloudoperators/juno-ui-components": "*",
+    "@cloudoperators/juno-ui-components": "3.1.0",
     "@cloudoperators/juno-url-state-provider": "*",
     "@cloudoperators/juno-k8s-client": "*",
     "lodash": "4.17.21"

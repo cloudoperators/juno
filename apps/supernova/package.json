@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@cloudoperators/juno-messages-provider": "*",
-    "@cloudoperators/juno-ui-components": "*",
+    "@cloudoperators/juno-ui-components": "3.1.0",
     "@cloudoperators/juno-url-state-provider": "*",
     "react-error-boundary": "^4.0.13",
     "react": "^18.3.0",
