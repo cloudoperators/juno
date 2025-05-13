@@ -14,15 +14,11 @@
 name: Build Greenhouse Dashboard 💚
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
   workflow_dispatch: {}
   push:
     branches:
       - main
+      - artie-rework-greenhouse-action
     paths:
       - apps/greenhouse/CHANGELOG.md
 
