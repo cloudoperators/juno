@@ -44,9 +44,12 @@ describe("SelectOption", () => {
     expect(console.warn).toHaveBeenCalledTimes(1)
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toHaveTextContent("Option 1")
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toHaveTextContent("Option 1")
+    })
   })
 
   test("renders a SelectOption with label as passed", async () => {
@@ -59,9 +62,13 @@ describe("SelectOption", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toHaveTextContent("Option 1 Label")
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toHaveTextContent("Option 1 Label")
+    })
   })
 
   test("renders a SelectOption with children as passed", async () => {
@@ -74,9 +81,13 @@ describe("SelectOption", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toHaveTextContent("Option 1 child")
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toHaveTextContent("Option 1 child")
+    })
   })
 
   test("renders a SelectOption with children if both label and children are passed", async () => {
@@ -91,9 +102,13 @@ describe("SelectOption", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toHaveTextContent("Option 1 child")
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toHaveTextContent("Option 1 child")
+    })
   })
 
   test("renders a className as passed", async () => {
@@ -106,9 +121,13 @@ describe("SelectOption", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toHaveClass("my-fancy-class")
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toHaveClass("my-fancy-class")
+    })
   })
 
   test("renders all props as passed", async () => {
@@ -121,8 +140,12 @@ describe("SelectOption", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toHaveAttribute("data-lolol", "123")
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toHaveAttribute("data-lolol", "123")
+    })
   })
 })

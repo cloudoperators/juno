@@ -351,9 +351,13 @@ describe("Select", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).not.toHaveClass("juno-select-option-truncate")
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).not.toHaveClass("juno-select-option-truncate")
+    })
   })
 
   test("renders truncated Select Options as passed", async () => {
@@ -368,9 +372,12 @@ describe("Select", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("option")).toBeInTheDocument()
-    expect(screen.getByRole("option")).toHaveClass("juno-select-option-truncate")
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("option")).toBeInTheDocument()
+      expect(screen.getByRole("option")).toHaveClass("juno-select-option-truncate")
+    })
   })
 
   test("renders a Select with a selected value as passed", async () => {
@@ -388,10 +395,13 @@ describe("Select", () => {
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
     expect(toggle).toHaveTextContent("Option 2")
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    expect(screen.getAllByRole("option")[1]).toHaveTextContent("Option 2")
-    expect(screen.getAllByRole("option")[1]).toHaveAttribute("aria-selected", "true")
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      expect(screen.getAllByRole("option")[1]).toHaveTextContent("Option 2")
+      expect(screen.getAllByRole("option")[1]).toHaveAttribute("aria-selected", "true")
+    })
   })
 
   test("renders the valueLabel in the toggle for selected items if passed", async () => {
@@ -425,12 +435,15 @@ describe("Select", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    expect(screen.queryAllByRole("option")).toHaveLength(3)
-    expect(screen.getAllByRole("option")[0]).toHaveTextContent("Option 1")
-    expect(screen.getAllByRole("option")[1]).toHaveTextContent("Option 2")
-    expect(screen.getAllByRole("option")[2]).toHaveTextContent("Option 3")
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      expect(screen.queryAllByRole("option")).toHaveLength(3)
+      expect(screen.getAllByRole("option")[0]).toHaveTextContent("Option 1")
+      expect(screen.getAllByRole("option")[1]).toHaveTextContent("Option 2")
+      expect(screen.getAllByRole("option")[2]).toHaveTextContent("Option 3")
+    })
   })
 
   test("changes the selected value as clicked by a user", async () => {
@@ -448,11 +461,20 @@ describe("Select", () => {
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
     expect(toggle).toHaveTextContent("Select…")
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+    })
+
     const option2 = screen.getAllByRole("option")[1]
-    await waitFor(() => userEvent.click(option2))
-    expect(toggle).toHaveTextContent("Option 2")
+
+    await waitFor(async () => {
+      await userEvent.click(option2)
+
+      expect(toggle).toHaveTextContent("Option 2")
+    })
   })
 
   test("executes an onChange handler when the selected value changes", async () => {
@@ -467,10 +489,18 @@ describe("Select", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    await waitFor(() => userEvent.click(screen.getByRole("option")))
-    expect(mockOnChange).toHaveBeenCalled()
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+    })
+
+    await waitFor(async () => {
+      await userEvent.click(screen.getByRole("option"))
+
+      expect(mockOnChange).toHaveBeenCalled()
+    })
   })
 
   test("executes a legacy onValueChange handler when the Select value changes", async () => {
@@ -485,10 +515,18 @@ describe("Select", () => {
     )
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    await waitFor(() => userEvent.click(screen.getByRole("option")))
-    expect(mockOnValueChange).toHaveBeenCalled()
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+    })
+
+    await waitFor(async () => {
+      await userEvent.click(screen.getByRole("option"))
+
+      expect(mockOnValueChange).toHaveBeenCalled()
+    })
   })
 
   test("works as a controlled component", async () => {
@@ -506,11 +544,20 @@ describe("Select", () => {
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
     expect(toggle).toHaveTextContent("Option 1")
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+    })
+
     const option2 = screen.getAllByRole("option")[1]
-    await waitFor(() => userEvent.click(option2))
-    expect(toggle).toHaveTextContent("Option 2")
+
+    await waitFor(async () => {
+      await userEvent.click(option2)
+
+      expect(toggle).toHaveTextContent("Option 2")
+    })
   })
 
   test("updates value as passed", async () => {
@@ -558,11 +605,19 @@ describe("Select", () => {
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
     expect(toggle).toHaveTextContent("Option 2")
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+    })
+
     const option3 = screen.getAllByRole("option")[2]
-    await waitFor(() => userEvent.click(option3))
-    expect(toggle).toHaveTextContent("Option 3")
+
+    await waitFor(async () => {
+      await userEvent.click(option3)
+
+      expect(toggle).toHaveTextContent("Option 3")
+    })
   })
 
   test("works when options are not passed a value prop but only children", async () => {
@@ -582,15 +637,31 @@ describe("Select", () => {
     const toggle = screen.getByRole("button")
     expect(toggle).toBeInTheDocument()
     expect(toggle).toHaveTextContent("Select…")
-    await waitFor(() => userEvent.click(toggle))
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
+
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+    })
+
     const option3 = screen.getAllByRole("option")[2]
-    await waitFor(() => userEvent.click(option3))
-    expect(toggle).toHaveTextContent("Option 3")
-    await waitFor(() => userEvent.click(toggle))
-    const option1 = screen.getAllByRole("option")[0]
-    await waitFor(() => userEvent.click(option1))
-    expect(toggle).toHaveTextContent("Option 1")
+
+    await waitFor(async () => {
+      await userEvent.click(option3)
+
+      expect(toggle).toHaveTextContent("Option 3")
+    })
+    await waitFor(async () => {
+      await userEvent.click(toggle)
+
+      const option1 = screen.getAllByRole("option")[0]
+
+      await waitFor(async () => {
+        await userEvent.click(option1)
+
+        expect(toggle).toHaveTextContent("Option 1")
+      })
+    })
   })
 })
 
