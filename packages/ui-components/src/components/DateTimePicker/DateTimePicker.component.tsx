@@ -146,6 +146,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const fpRef = useRef<HTMLInputElement | null>(null) // the DOM node flatpickr instance will be bound to
   const flatpickrInstanceRef = useRef<flatpickr.Instance | null>(null) // The actual flatpickr instance
   const calendarTargetRef = useRef<HTMLDivElement | null>(null) // The DOM node the flatpickr calendar should be rendered to
+  const isCalendarClickRef = useRef<boolean>(false) // Track if click is within calendar
 
   const [theDate, setTheDate] = useState<SelectedDate>({})
   // variables starting with underscore are not linted
@@ -184,7 +185,14 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
     setIsValid(validated)
   }, [validated])
 
+  // FIX: Modified blur handler to check calendar click status
   const handleBlur = () => {
+    // Don't process blur if the click was inside the calendar
+    if (isCalendarClickRef.current) {
+      isCalendarClickRef.current = false
+      return
+    }
+
     setHasFocus(false)
     onBlur && onBlur(theDate.selectedDate, theDate.selectedDateStr)
   }
@@ -290,6 +298,27 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
     const FP = calendarTargetRef && fpRef.current && flatpickr(fpRef.current, options)
     updateFlatpickrInstance(FP)
+
+    // FIX: Add event listeners to track calendar clicks
+    if (FP && FP.calendarContainer) {
+      FP.calendarContainer.addEventListener("mousedown", () => {
+        isCalendarClickRef.current = true
+      })
+
+      // Set up event delegation for date cell clicks
+      FP.calendarContainer.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement
+        // Check if clicked element is a date cell or a child of one
+        if (target.classList.contains("flatpickr-day") || target.closest(".flatpickr-day")) {
+          // Keep input focused when clicking on calendar days
+          if (fpRef.current) {
+            setTimeout(() => {
+              fpRef.current?.focus()
+            }, 0)
+          }
+        }
+      })
+    }
   }
 
   const destroyFlatpickrInstance = () => {
