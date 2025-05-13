@@ -25,6 +25,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: "juno-app-greenhouse"
   PACKAGE_PATH: "apps/greenhouse"
+  TEST_IMAGE_VERSION: "test"
 
 jobs:
   build-and-push:
@@ -96,7 +97,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
+            # type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }} 
+            type=raw,value=${{env.TEST_IMAGE_VERSION}}
+          labels: |
+            org.opencontainers.image.description=Test description for grennhouse image
 
       # Build and push to Docker
       - name: Build and push Docker image ${{ steps.meta.outputs.tags }}
@@ -104,12 +108,12 @@ jobs:
         uses: docker/build-push-action@14487ce63c7a62a4a324b0bfb37086795e31c6c1 #v6.16.0
         with:
           context: .
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
           # remove untagged images produced for multi platform builds
           provenance: false
-          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=${{ steps.description.outputs.DESCRIPTION }}
 
       - name: Sign the published Docker image
         env:
@@ -131,7 +135,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # 0.30.0
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{env.TEST_IMAGE_VERSION}}
           ignore-unfixed: true
           format: "sarif"
           output: "trivy-results.sarif"
