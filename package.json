@@ -40,35 +40,37 @@
     "typescript": "^5.5.4"
   },
   "overrides": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "@floating-ui/react": {
+    "@cloudoperators/juno-ui-components": {
       "react": "19.1.0",
-      "react-dom": "19.1.0"
-    },
-    "@headlessui/react": {
-      "react": "19.1.0",
-      "react-dom": "19.1.0"
-    },
-    "focus-trap-react": {
-      "react": "19.1.0",
-      "react-dom": "19.1.0"
-    },
-    "@storybook/react": {
-      "react": "19.1.0",
-      "react-dom": "19.1.0"
-    },
-    "@storybook/react-vite": {
-      "react": "19.1.0",
-      "react-dom": "19.1.0"
-    },
-    "@storybook/addon-docs": {
-      "react": "19.1.0",
-      "react-dom": "19.1.0"
-    },
-    "@storybook/blocks": {
-      "react": "19.1.0",
-      "react-dom": "19.1.0"
+      "react-dom": "19.1.0",
+      "@floating-ui/react": {
+        "react": "19.1.0",
+        "react-dom": "19.1.0"
+      },
+      "@headlessui/react": {
+        "react": "19.1.0",
+        "react-dom": "19.1.0"
+      },
+      "focus-trap-react": {
+        "react": "19.1.0",
+        "react-dom": "19.1.0"
+      },
+      "@storybook/react": {
+        "react": "19.1.0",
+        "react-dom": "19.1.0"
+      },
+      "@storybook/react-vite": {
+        "react": "19.1.0",
+        "react-dom": "19.1.0"
+      },
+      "@storybook/addon-docs": {
+        "react": "19.1.0",
+        "react-dom": "19.1.0"
+      },
+      "@storybook/blocks": {
+        "react": "19.1.0",
+        "react-dom": "19.1.0"
+      }
     }
   },
   "workspaces": [
@@ -78,8 +80,6 @@
   "packageManager": "^npm@10.0.0",
   "dependencies": {
     "@tanstack/react-query": "^5.62.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
     "workspaces": "^0.1.0",
     "zod": "^3.24.2"
   }
