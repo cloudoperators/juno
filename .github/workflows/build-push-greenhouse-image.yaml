@@ -30,6 +30,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: "juno-app-greenhouse"
   PACKAGE_PATH: "apps/greenhouse"
+  DESCRIPTION: "This is the shell app for Project Greenhouse. It is the host for all apps that are part of Greenhouse."
   TEST_IMAGE_VERSION: "test"
 
 jobs:
@@ -57,13 +58,6 @@ jobs:
           GREENHOUSE_VERSION=$(jq -r '.version' package.json)
           echo "Greenhouse version is $GREENHOUSE_VERSION"
           echo "IMAGE_VERSION=$GREENHOUSE_VERSION" >> $GITHUB_OUTPUT
-
-      - name: Read description from README.md
-        id: description
-        working-directory: ${{ env.PACKAGE_PATH }}
-        run: |
-          # Concatenate CHANGELOG.md 
-          echo "DESCRIPTION=$(head -c 512 apps/greenhouse/README.md)" >> $GITHUB_OUTPUT
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -105,7 +99,15 @@ jobs:
             # type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }} 
             type=raw,value=${{env.TEST_IMAGE_VERSION}}
           labels: |
-            org.opencontainers.image.description=Test description for grennhouse image
+            org.opencontainers.image.description=${{env.DESCRIPTION}}
+            org.opencontainers.image.title=Greenhouse-UI
+            org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+            org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+          annotations: |
+            manifest:org.opencontainers.image.description=${{env.DESCRIPTION}}
+            manifest:org.opencontainers.image.title=Greenhouse-UI
+            manifest:org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+            manifest:org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
 
       # Build and push to Docker
       - name: Build and push Docker image ${{ steps.meta.outputs.tags }}
