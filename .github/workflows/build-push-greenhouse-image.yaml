@@ -19,8 +19,8 @@ on:
     branches:
       - main
       - artie-rework-greenhouse-action
-    paths:
-      - apps/greenhouse/CHANGELOG.md
+    # paths:
+    #   - apps/greenhouse/CHANGELOG.md
 
 env:
   REGISTRY: ghcr.io
