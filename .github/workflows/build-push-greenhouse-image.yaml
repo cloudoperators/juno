@@ -76,14 +76,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # and check if the image with the same version already exists
-      - name: Check if image exists ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} in registry
-        id: check-image
-        run: |
-          # If the image with this tag already exists, this command will exit with status code 1.
-          if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }}; then
-            echo "Image ${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} already exists in the registry"
-            exit 1
-          fi
+      # - name: Check if image exists ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} in registry
+      #   id: check-image
+      #   run: |
+      #     # If the image with this tag already exists, this command will exit with status code 1.
+      #     if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }}; then
+      #       echo "Image ${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} already exists in the registry"
+      #       exit 1
+      #     fi
 
       # This action enables you to SIGN and VERIFY container images using cosign
       - name: Install cosign
@@ -152,12 +152,12 @@ jobs:
         with:
           sarif_file: trivy-results.sarif
 
-  notify-on-failure:
-    if: failure()
-    needs: [build-and-push, vulnerability-scan]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
-    with:
-      title: "🚨 JUNO Greenhouse Image Failed 🚨"
-      body: "An error occurred while building the Greenhouse image for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
-    secrets:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  # notify-on-failure:
+  #   if: failure()
+  #   needs: [build-and-push, vulnerability-scan]
+  #   uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
+  #   with:
+  #     title: "🚨 JUNO Greenhouse Image Failed 🚨"
+  #     body: "An error occurred while building the Greenhouse image for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+  #   secrets:
+  #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
