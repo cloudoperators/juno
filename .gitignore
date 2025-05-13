@@ -9,7 +9,7 @@ appProps.js*
 secretProps.js*
 authToken.js*
 vite.config.*.timestamp-*
-
+.next
 # act artifacts needed for testing workflows
 .secrets
 .env
