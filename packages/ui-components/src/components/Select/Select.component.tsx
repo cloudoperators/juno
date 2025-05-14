@@ -179,14 +179,7 @@ export const Select: React.FC<SelectProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isValueNotEmpty = (
-    value:
-      | string
-      | number
-      | boolean
-      | React.ReactElement<unknown, string | React.JSXElementConstructor<unknown>>
-      | Iterable<ReactNode>
-  ): boolean => {
+  const isValueNotEmpty = (value: ReactNode): boolean => {
     return !(typeof value === "string" && value.trim().length === 0)
   }
 

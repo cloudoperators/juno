@@ -47,7 +47,7 @@ export default {
     },
   },
   decorators: [
-    (Story: StoryFn) => (
+    (Story) => (
       <div className="jn-pb-12" style={{ minHeight: "250px" }}>
         <PortalProvider>
           <Story />
@@ -61,6 +61,8 @@ interface TemplateProps {
   children?: React.ReactNode
 }
 
+// TODO: Re-write story to use CSFv3 instead of CSFv2
+// Component Story Format (CSF): https://storybook.js.org/docs/6/api/stories/csf
 const Template: StoryFn<FormProps> = ({ children, ...args }: TemplateProps) => <Form {...args}>{children}</Form>
 
 export const Default = {
