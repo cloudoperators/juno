@@ -251,16 +251,12 @@ describe("Pagination", () => {
     expect(select).toBeInTheDocument()
     expect(select).toHaveTextContent("1")
     if (select) {
-      await waitFor(async () => {
-        await userEvent.click(select)
-
-        expect(screen.getByRole("listbox")).toBeInTheDocument()
-
-        fireEvent.click(screen.getByRole("option", { name: "4" }))
-        expect(select).toHaveTextContent("4")
-        expect(mockHandleChange).toHaveBeenCalledTimes(1)
-      })
+      await waitFor(() => userEvent.click(select))
     }
+    expect(screen.getByRole("listbox")).toBeInTheDocument()
+    fireEvent.click(screen.getByRole("option", { name: "4" }))
+    expect(select).toHaveTextContent("4")
+    expect(mockHandleChange).toHaveBeenCalledTimes(1)
   })
 
   test("fires onKeyPress handler on Enter as passed for input variant", async () => {
