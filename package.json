@@ -43,6 +43,8 @@
     "@cloudoperators/juno-ui-components": {
       "react": "19.1.0",
       "react-dom": "19.1.0",
+      "@types/react": "19.1.4",
+      "@types/react-dom": "19.1.5",
       "@floating-ui/react": {
         "react": "19.1.0",
         "react-dom": "19.1.0"
@@ -53,7 +55,9 @@
       },
       "focus-trap-react": {
         "react": "19.1.0",
-        "react-dom": "19.1.0"
+        "react-dom": "19.1.0",
+        "@types/react": "19.1.4",
+        "@types/react-dom": "19.1.5"
       },
       "@storybook/react": {
         "react": "19.1.0",
@@ -65,7 +69,9 @@
       },
       "@storybook/addon-docs": {
         "react": "19.1.0",
-        "react-dom": "19.1.0"
+        "react-dom": "19.1.0",
+        "@types/react": "19.1.4",
+        "@types/react-dom": "19.1.5"
       },
       "@storybook/blocks": {
         "react": "19.1.0",
@@ -79,6 +85,10 @@
   ],
   "packageManager": "^npm@10.0.0",
   "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "@types/react": "19.1.4",
+    "@types/react-dom": "19.1.5",
     "@tanstack/react-query": "^5.62.2",
     "workspaces": "^0.1.0",
     "zod": "^3.24.2"
