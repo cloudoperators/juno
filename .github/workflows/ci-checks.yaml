@@ -115,7 +115,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run Linter
-        run: pnpm run lint
+        run: pnpm build && pnpm lint
 
   type-check:
     needs: install-dependencies
@@ -145,7 +145,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run Typecheck
-        run: pnpm run typecheck
+        run: pnpm build && pnpm typecheck
 
   format:
     needs: install-dependencies
