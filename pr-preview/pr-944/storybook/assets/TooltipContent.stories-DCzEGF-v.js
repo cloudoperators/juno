@@ -1,4 +1,0 @@
-import{j as t}from"./jsx-runtime-Cf8x2fCZ.js";import{b as n,T as a,a as p}from"./TooltipTrigger.component-B7WtPSRm.js";import"./index-yBjzXJbu.js";import"./index-DN3cvKNT.js";import"./floating-ui.react-8LoX_53u.js";import"./index-FzTzjy2T.js";import"./index-fNjTmf9T.js";import"./Icon.component-D9Yd_4fD.js";const g={title:"Components/Tooltip/TooltipContent",component:n,argTypes:{},decorators:[o=>t.jsx("div",{className:"jn-my-6 jn-flex jn-justify-center",children:t.jsxs(a,{initialOpen:!0,children:[t.jsx(p,{children:"clickMe"}),t.jsx(o,{})]})})]},l=({...o})=>t.jsx(n,{...o,children:"This is a tooltip"}),e={render:l,args:{}};var r,s,i;e.parameters={...e.parameters,docs:{...(r=e.parameters)==null?void 0:r.docs,source:{originalSource:`{
-  render: Template,
-  args: {}
-}`,...(i=(s=e.parameters)==null?void 0:s.docs)==null?void 0:i.source}}};const h=["Default"];export{e as Default,h as __namedExportsOrder,g as default};
