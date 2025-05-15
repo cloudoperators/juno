@@ -6,7 +6,6 @@
 import React from "react"
 import { Meta, StoryFn, StoryObj } from "@storybook/react"
 import { GridColumn, GridColumnProps } from "./GridColumn.component"
-import { Grid } from "../Grid/Grid.component"
 
 export default {
   title: "Layout/Grid/GridColumn",
