@@ -29,10 +29,10 @@
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@floating-ui/react": "0.27.8",
     "@headlessui/react": "2.1.10",
     "@material-design-icons/svg": "0.14.13",

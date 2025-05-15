@@ -14,7 +14,7 @@
   },
   "private": true,
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@svgr/core": "^8.0.0",
     "@svgr/plugin-jsx": "^8.0.0",
     "@tanstack/react-query": "5.36.2",
@@ -45,9 +45,9 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "@cloudoperators/juno-messages-provider": "*",
-    "@cloudoperators/juno-ui-components": "*",
-    "@cloudoperators/juno-url-state-provider": "*",
+    "@cloudoperators/juno-messages-provider": "workspace:*",
+    "@cloudoperators/juno-ui-components": "workspace:*",
+    "@cloudoperators/juno-url-state-provider": "workspace:*",
     "react-error-boundary": "^4.0.13",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"

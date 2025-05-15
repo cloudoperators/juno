@@ -19,7 +19,7 @@
   "module": "build/index.js",
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "scripts": {
     "test": "vitest run",
@@ -33,7 +33,7 @@
     "clean:cache": "rm -rf .turbo"
   },
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@types/node": "^20.11.24",
     "jsdom": "^24.1.1",
     "typescript": "^5.5.4",

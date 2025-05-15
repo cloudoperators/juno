@@ -34,7 +34,7 @@
     "client"
   ],
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.0.3"
   }

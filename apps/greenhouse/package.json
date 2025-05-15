@@ -14,7 +14,7 @@
   "module": "build/index.js",
   "private": true,
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@svgr/plugin-jsx": "^7.0.0",
     "@tailwindui/react": "^0.1.1",
     "@testing-library/react": "^16.0.1",
@@ -47,14 +47,14 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "@cloudoperators/juno-app-doop": "*",
-    "@cloudoperators/juno-app-heureka": "*",
-    "@cloudoperators/juno-app-supernova": "*",
-    "@cloudoperators/juno-messages-provider": "*",
-    "@cloudoperators/juno-oauth": "*",
-    "@cloudoperators/juno-ui-components": "*",
-    "@cloudoperators/juno-url-state-provider": "*",
-    "@cloudoperators/juno-k8s-client": "*",
+    "@cloudoperators/juno-app-doop": "workspace:*",
+    "@cloudoperators/juno-app-heureka": "workspace:*",
+    "@cloudoperators/juno-app-supernova": "workspace:*",
+    "@cloudoperators/juno-messages-provider": "workspace:*",
+    "@cloudoperators/juno-oauth": "workspace:*",
+    "@cloudoperators/juno-ui-components": "workspace:*",
+    "@cloudoperators/juno-url-state-provider": "workspace:*",
+    "@cloudoperators/juno-k8s-client": "workspace:*",
     "lodash": "4.17.21"
   }
 }
