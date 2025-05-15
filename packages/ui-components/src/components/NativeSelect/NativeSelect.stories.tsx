@@ -30,7 +30,7 @@ export default {
 
 const Template: StoryFn<NativeSelectProps> = (args) => <NativeSelect {...args} />
 
-export const Default = Template.bind({})
+export const Default: StoryFn<NativeSelectProps> = Template.bind({})
 Default.args = {
   children: [
     <NativeSelectOption key={0} value="o-1" label="Option 1" />,
@@ -39,7 +39,7 @@ Default.args = {
   ],
 }
 
-export const GroupedNativeSelect = Template.bind({})
+export const GroupedNativeSelect: StoryFn<NativeSelectProps> = Template.bind({})
 GroupedNativeSelect.args = {
   children: [
     <NativeSelectOptionGroup key={0} label="Option Group 1">
@@ -54,7 +54,7 @@ GroupedNativeSelect.args = {
   ],
 }
 
-export const DisabledNativeSelect = Template.bind({})
+export const DisabledNativeSelect: StoryFn<NativeSelectProps> = Template.bind({})
 DisabledNativeSelect.args = {
   disabled: true,
   children: [
@@ -64,7 +64,7 @@ DisabledNativeSelect.args = {
   ],
 }
 
-export const InvalidNativeSelect = Template.bind({})
+export const InvalidNativeSelect: StoryFn<NativeSelectProps> = Template.bind({})
 InvalidNativeSelect.args = {
   invalid: true,
   children: [
@@ -74,7 +74,7 @@ InvalidNativeSelect.args = {
   ],
 }
 
-export const ValidNativeSelect = Template.bind({})
+export const ValidNativeSelect: StoryFn<NativeSelectProps> = Template.bind({})
 ValidNativeSelect.args = {
   valid: true,
   children: [
@@ -84,13 +84,13 @@ ValidNativeSelect.args = {
   ],
 }
 
-export const LoadingNativeSelect = Template.bind({})
+export const LoadingNativeSelect: StoryFn<NativeSelectProps> = Template.bind({})
 LoadingNativeSelect.args = {
   loading: true,
   children: [],
 }
 
-export const NativeSelectWithError = Template.bind({})
+export const NativeSelectWithError: StoryFn<NativeSelectProps> = Template.bind({})
 NativeSelectWithError.args = {
   error: true,
   children: [],
