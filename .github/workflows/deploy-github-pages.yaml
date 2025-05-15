@@ -36,6 +36,9 @@ jobs:
       - name: Install pnpm globally
         run: npm install -g pnpm
 
+      - name: Store pnpm path
+        run: pnpm store path
+
       - name: Cache pnpm store
         uses: actions/cache@v4
         with:
