@@ -54,7 +54,7 @@
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
-    "@types/react": "18.3.12",
+    "@types/react": "18.3.8",
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "4.3.4",
     "add": "2.0.6",
@@ -99,8 +99,6 @@
     "lint": "eslint",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "test-jest": "jest",
-    "test:watch": "jest --watchAll",
     "test-vitest:watch": "vitest",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "clean:cache": "rm -rf .turbo"
