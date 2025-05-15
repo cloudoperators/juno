@@ -202,7 +202,7 @@ jobs:
             ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: pnpm install && pnpm run build
+        run: pnpm install --frozen-lockfile && pnpm build
 
       - name: Run Tests
         run: pnpm run test
