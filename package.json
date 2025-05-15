@@ -39,46 +39,6 @@
     "turbo": "^2.0.3",
     "typescript": "^5.5.4"
   },
-  "overrides": {
-    "@cloudoperators/juno-ui-components": {
-      "react": "19.1.0",
-      "react-dom": "19.1.0",
-      "@types/react": "19.1.4",
-      "@types/react-dom": "19.1.5",
-      "@floating-ui/react": {
-        "react": "19.1.0",
-        "react-dom": "19.1.0"
-      },
-      "@headlessui/react": {
-        "react": "19.1.0",
-        "react-dom": "19.1.0"
-      },
-      "focus-trap-react": {
-        "react": "19.1.0",
-        "react-dom": "19.1.0",
-        "@types/react": "19.1.4",
-        "@types/react-dom": "19.1.5"
-      },
-      "@storybook/react": {
-        "react": "19.1.0",
-        "react-dom": "19.1.0"
-      },
-      "@storybook/react-vite": {
-        "react": "19.1.0",
-        "react-dom": "19.1.0"
-      },
-      "@storybook/addon-docs": {
-        "react": "19.1.0",
-        "react-dom": "19.1.0",
-        "@types/react": "19.1.4",
-        "@types/react-dom": "19.1.5"
-      },
-      "@storybook/blocks": {
-        "react": "19.1.0",
-        "react-dom": "19.1.0"
-      }
-    }
-  },
   "workspaces": [
     "apps/*",
     "packages/*"
