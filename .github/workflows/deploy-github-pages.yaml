@@ -1,13 +1,3 @@
-# Run it locally with act (https://github.com/nektos/act)
-#  1. Install act:
-#     `brew install act`
-#  2. Create a .secret file with the following content:
-#     `GITHUB_TOKEN=your_github_token`
-#  PULL REQUEST
-#  1. Create a act_pull_request.json file in case of a pull request with the following content:
-#     `{"pull_request": {"number": <PR number>, "head": {"ref": "<PR branch name>", "sha": "PR commit sha"}, "base": {"ref": "main"}}, "repository": {"name": "juno", "owner": {"login": "cloudoperators"}}}`
-#  2. Run the following command:
-#     `act push --container-architecture linux/amd64 -P default=catthehacker/ubuntu:act-latest  -e act_push.json -W .github/workflows/deploy-github-pages.yaml`
 name: Storybook to GitHub Pages
 
 on:
@@ -16,7 +6,6 @@ on:
       - main
     paths:
       - "packages/ui-components/**"
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 permissions:
@@ -24,7 +13,7 @@ permissions:
 
 jobs:
   build-and-deploy:
-    concurrency: deploy-gh-pages-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    concurrency: deploy-gh-pages-${{ github.ref }}
     runs-on: [default]
     steps:
       - uses: actions/checkout@v4
@@ -33,12 +22,25 @@ jobs:
         with:
           node-version: "20.x"
 
+      - name: Enable Corepack (to support pnpm)
+        run: corepack enable
+
+      - name: Setup pnpm version
+        run: corepack prepare pnpm@latest --activate
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store/v3
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies
-        run: |
-          npm install --force
+        run: pnpm install --frozen-lockfile
 
       - name: Build storybook
-        run: npm -w @cloudoperators/juno-ui-components run build-storybook
+        run: pnpm -w @cloudoperators/juno-ui-components build-storybook
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

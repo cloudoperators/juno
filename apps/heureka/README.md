@@ -79,7 +79,7 @@ We use [MockServiceWorker](https://mswjs.io/) (MSW) to intercept GraphQL request
    ```
 3. Update GraphQL types from the latest GraphQL schema:
    ```bash
-   npm run generate:types
+   pnpm generate:types
    ```
 
 ## App Props

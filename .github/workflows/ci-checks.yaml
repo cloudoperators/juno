@@ -25,28 +25,34 @@ jobs:
     runs-on: [default]
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Specify the node version you need
+          node-version: "20"
 
-      - name: Cache npm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Cache pnpm store
         uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
 
   reuse-compliance:
     uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@main
 
   license-headers:
     permissions:
-      contents: write # Only used when `apply_header: true` else the permission is `read` see: https://github.com/cloudoperators/common/blob/8f15c13b6f4c1631c7e6f6dff5c3300452e9b5b6/.github/workflows/shared-license.yaml#L21-L22
+      contents: write
     uses: cloudoperators/common/.github/workflows/shared-license.yaml@main
     with:
       apply_header: false
@@ -56,113 +62,147 @@ jobs:
     runs-on: [default]
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Specify the node version you need
+          node-version: "20"
 
-      - name: Cache npm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Cache pnpm store
         uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
 
       - name: Run Linter
-        run: npm run check-licenses
+        run: pnpm run check-licenses
 
   lint:
     needs: install-dependencies
     runs-on: [default]
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Specify the node version you need
+          node-version: "20"
 
-      - name: Cache npm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Cache pnpm store
         uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
+
       - name: Run Linter
-        run: npm run lint
+        run: pnpm run lint
 
   type-check:
     needs: install-dependencies
     runs-on: [default]
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Specify the node version you need
+          node-version: "20"
 
-      - name: Cache npm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Cache pnpm store
         uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
+
       - name: Run Typecheck
-        run: npm run typecheck
+        run: pnpm run typecheck
 
   format:
     needs: install-dependencies
     runs-on: [default]
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Specify the node version you need
+          node-version: "20"
 
-      - name: Cache npm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Cache pnpm store
         uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
+
       - name: Run Prettier
-        run: npm run check-format --check "**/*.{js,jsx,ts,tsx}"
+        run: pnpm run check-format --check "**/*.{js,jsx,ts,tsx}"
 
   test:
     needs: install-dependencies
     runs-on: [default]
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Specify the node version you need
+          node-version: "20"
 
-      - name: Cache npm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Cache pnpm store
         uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: npm ci && npm run build
+        run: pnpm install && pnpm run build
+
       - name: Run Tests
-        run: npm run test
+        run: pnpm run test
