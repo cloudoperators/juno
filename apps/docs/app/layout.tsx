@@ -8,14 +8,10 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "UI Component Library",
   description: "A beautiful UI component library built with Tailwind CSS and React",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>

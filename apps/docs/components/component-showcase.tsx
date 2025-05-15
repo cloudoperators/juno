@@ -85,7 +85,7 @@ export function ComponentShowcase() {
                 onClick={() => setActiveComponent(component)}
                 className={cn(
                   "flex items-start gap-2 border-b p-4 text-left transition-colors hover:bg-muted/50",
-                  activeComponent.id === component.id && "bg-muted",
+                  activeComponent.id === component.id && "bg-muted"
                 )}
               >
                 <div>

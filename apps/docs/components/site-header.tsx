@@ -24,7 +24,7 @@ export function SiteHeader() {
               href="/docs"
               className={cn(
                 "transition-colors hover:text-foreground/80",
-                pathname === "/docs" ? "text-foreground" : "text-foreground/60",
+                pathname === "/docs" ? "text-foreground" : "text-foreground/60"
               )}
             >
               Documentation
@@ -33,7 +33,7 @@ export function SiteHeader() {
               href="/components"
               className={cn(
                 "transition-colors hover:text-foreground/80",
-                pathname?.startsWith("/components") ? "text-foreground" : "text-foreground/60",
+                pathname?.startsWith("/components") ? "text-foreground" : "text-foreground/60"
               )}
             >
               Components
@@ -42,7 +42,7 @@ export function SiteHeader() {
               href="/examples"
               className={cn(
                 "transition-colors hover:text-foreground/80",
-                pathname?.startsWith("/examples") ? "text-foreground" : "text-foreground/60",
+                pathname?.startsWith("/examples") ? "text-foreground" : "text-foreground/60"
               )}
             >
               Examples
