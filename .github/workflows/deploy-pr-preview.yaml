@@ -70,7 +70,7 @@ jobs:
         if: github.event.action != 'closed'
         run: |
           npm install -g pnpm
-          pnpm install
+          pnpm install --frozen-lockfile
 
       - name: Create a folder with all compiled apps and pkgs
         if: github.event.action != 'closed'
