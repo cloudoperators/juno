@@ -69,6 +69,7 @@ jobs:
       - name: Install dependencies
         if: github.event.action != 'closed'
         run: |
+          npm install -g pnpm
           pnpm install
 
       - name: Create a folder with all compiled apps and pkgs
