@@ -608,7 +608,7 @@
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
   /* LT Panel */
-  --color-panel-bg: rgba(252, 252, 252, 0.8);
+  --color-panel-bg: rgb(252 252 252 / 0.8);
   /* LT TabNavigation */
   --color-tabnavigation-top-bg: var(--color-juno-grey-light-5);
   --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4);
@@ -620,7 +620,7 @@
   --color-filter-pill-border: var(--color-background-lvl-4);
   --color-filter-pill-key-bg: var(--color-background-lvl-4);
   /* LT Modal */
-  --color-modal-backdrop-bg: rgba(0, 0, 0, 0.2);
+  --color-modal-backdrop-bg: rgb(0 0 0 / 0.2);
   /* LT Box */
   --color-box-bg: var(--color-background-lvl-1);
   --color-box-border: var(--color-background-lvl-3);
@@ -634,8 +634,8 @@
 
   /* LT DateTimePicker */
   --color-datetimepicker-calendar-bg: var(--color-background-lvl-2);
-  --color-datetimepicker-disabled-date-color: rgba(76, 76, 76, 0.4); /* Light theme text default color */
-  --color-datetimepicker-disabled-date-hover-bg: rgba(0, 118, 203, 0.5); /* Light theme accent color */
+  --color-datetimepicker-disabled-date-color: rgb(76 76 76 / 0.4); /* Light theme text default color */
+  --color-datetimepicker-disabled-date-hover-bg: rgb(0 118 203 / 0.5); /* Light theme accent color */
   --color-datetimepicker-range-bg: rgb(
     98,
     148,
@@ -810,7 +810,7 @@
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
   /* DT Panel */
-  --color-panel-bg: rgba(var(--color-juno-grey-blue-11), 0.75);
+  --color-panel-bg: rgb(from var(--color-juno-grey-blue-11) r g b / 0.75);
 
   /* DT TabNavigation */
   --color-tabnavigation-top-bg: var(--color-juno-grey-blue-8);
@@ -823,7 +823,7 @@
   --color-filter-pill-border: var(--color-background-lvl-4);
   --color-filter-pill-key-bg: var(--color-background-lvl-4);
   /* DT Modal */
-  --color-modal-backdrop-bg: rgba(60, 70, 75, 0.6);
+  --color-modal-backdrop-bg: rgb(60 70 75 / 0.6);
   /* DT Box */
   --color-box-bg: var(--color-background-lvl-1);
   --color-box-border: var(--color-background-lvl-3);
@@ -836,13 +836,9 @@
   --color-topnavigation-item-active-bg: var(--color-juno-grey-blue-5);
   /* DT DateTimePicker */
   --color-datetimepicker-calendar-bg: var(--color-background-lvl-1);
-  --color-datetimepicker-disabled-date-color: rgba(187, 187, 187, 0.4); /* Dark theme text default color */
-  --color-datetimepicker-disabled-date-hover-bg: rgba(21, 208, 224, 0.5); /* Dark theme accent color */
-  --color-datetimepicker-range-bg: rgb(
-    79,
-    163,
-    176
-  ); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
+  --color-datetimepicker-disabled-date-color: rgb(187 187 187 / 0.4); /* Dark theme text default color */
+  --color-datetimepicker-disabled-date-hover-bg: rgb(21 208 224 / 0.5); /* Dark theme accent color */
+  --color-datetimepicker-range-bg: rgb(79 163 176); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
 }
 
 /*
