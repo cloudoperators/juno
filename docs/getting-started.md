@@ -7,8 +7,16 @@ Welcome to the Juno platform! This guide will help you get set up and start usin
 Before you begin, ensure you have the following software installed on your machine:
 
 - **Node.js** (version 18 or higher)
-- **npm** (version 6 or higher)
+- **pnpm** (version 8 or higher)
 - **Git**
+
+> You can install pnpm globally using:
+>
+> ```bash
+> npm install -g pnpm
+> ```
+
+---
 
 ## Setup
 
@@ -22,66 +30,79 @@ Before you begin, ensure you have the following software installed on your machi
 2. **Install Dependencies:**
 
    ```bash
-   npm install -f
+   pnpm install
    ```
 
 3. **Setup Husky:**
 
    ```bash
-   npm run prepare
+   pnpm prepare
    ```
 
 4. **Available Turbo Commands:**
 
    - **Build:**
+
      ```bash
-     npm run turbo build
+     pnpm turbo build
      ```
+
    - **Lint:**
+
      ```bash
-     npm run turbo lint
+     pnpm turbo lint
      ```
+
    - **Test:**
+
      ```bash
-     npm run turbo test
+     pnpm turbo test
      ```
+
    - **Dev:**
+
      ```bash
-     npm run turbo dev
+     pnpm turbo dev
      ```
+
    - **Clean:**
+
      ```bash
-     npm run turbo clean
+     pnpm turbo clean
      ```
+
    - **Pkg:**
      To run a specific app or package, start by identifying the name in the package.json file located within the relevant app folder. Once you have the name, use it in the following command. For example, to run the exampleapp use `@cloudoperators/juno-app-example` as in the command below:
 
      ```bash
-     npm run pkg @cloudoperators/juno-app-example
+     pnpm pkg @cloudoperators/juno-app-example
      ```
 
    - **Generator:Package**
-     The npm run generate:package command is used to generate a new package in a project. When running this command, you need to provide a name for the package that starts with `@cloudoperators/juno-`.
+     The pnpm generate:package command is used to generate a new package in a project. When running this command, you need to provide a name for the package that starts with `@cloudoperators/juno-`.
+
      ```bash
-     npm run generate:package @cloudoperators/juno-NAME-OF-YOUR-PACKAGE
+     pnpm generate:package @cloudoperators/juno-NAME-OF-YOUR-PACKAGE
      ```
+
    - **Generator:App**
-     The npm run generate:app command is used to generate a new app in a project. When running this command, you need to provide a name for the app that starts with `@cloudoperators/juno-`.
+     The pnpm generate:app command is used to generate a new app in a project. When running this command, you need to provide a name for the app that starts with `@cloudoperators/juno-`.
+
      ```bash
-     npm run generate:app @cloudoperators/juno-NAME-OF-YOUR-PACKAGE
+     pnpm generate:app @cloudoperators/juno-NAME-OF-YOUR-PACKAGE
      ```
 
 You can also install Turbo globally and run the commands directly:
 
 ```bash
-npm install -g turbo
+pnpm add -g turbo
 turbo build
 ```
 
-Or just use `npx`:
+Or just use `pnpx`:
 
 ```bash
-npx turbo build
+pnpx turbo build
 ```
 
 We emphasize using Turbo commands for most tasks to ensure consistency and efficiency. The Juno project follows a monorepo pattern, facilitating shared dependencies and streamlined development across multiple packages.

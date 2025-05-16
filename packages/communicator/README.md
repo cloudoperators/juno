@@ -16,7 +16,7 @@ Additionally, the Communicator library introduces the `crossWindow` option, whic
 
 ## Install
 
-`npm add @cloudoperators/communicator"`
+`pnpm add @cloudoperators/communicator"`
 
 ## Usage
 

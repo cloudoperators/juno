@@ -24,6 +24,12 @@ With npm:
 npm install @cloudoperators/juno-k8s-client
 ```
 
+With pnpm:
+
+```
+pnpm add @cloudoperators/juno-k8s-client
+```
+
 With yarn:
 
 ```
@@ -135,7 +141,7 @@ setTimeout(podsWatch.cancel, 5 * 60 * 1000) // 5 minutes
 All dependencies of this project are expressed in its package.json file. Before you start developing, ensure that you have NPM installed, then run:
 
 ```bash
-npm install
-npm run test
-npm run build
+pnpm install
+pnpm test
+pnpm build
 ```
