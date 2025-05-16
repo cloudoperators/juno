@@ -8,29 +8,58 @@ import { decodeIDToken } from "./tokenHelpers"
 import { searchParams } from "./oidcState"
 import { paramsToUrl } from "./utils"
 
-const exchangeCode = async ({ tokenEndpoint, code, verifier, clientID }: Record<string, any>) => {
+interface TokenResponse {
+  access_token: string
+  token_type: string
+  expires_in?: number
+  refresh_token?: string
+  scope?: string
+  id_token?: string
+  [key: string]: unknown // Optional: allows unexpected fields
+}
+
+interface ExchangeCodeParams {
+  tokenEndpoint: string
+  code: string
+  verifier?: string
+  clientID: string
+}
+
+export const exchangeCode = async ({
+  tokenEndpoint,
+  code,
+  verifier,
+  clientID,
+}: ExchangeCodeParams): Promise<TokenResponse> => {
   if (!clientID) throw new Error("clientID is required")
-  const body: Record<string, any> = {
+
+  const body: Record<string, string> = {
     grant_type: "authorization_code",
-    code: code,
+    code,
     redirect_uri: window.location.origin,
     client_id: clientID,
-    code_verifier: verifier || undefined,
   }
 
-  const formBody = Object.keys(body)
-    .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(body[k])}`)
-    .join("&")
+  if (verifier) {
+    body.code_verifier = verifier
+  }
 
-  return fetch(tokenEndpoint, {
+  const formBody = new URLSearchParams(body).toString()
+
+  const response = await fetch(tokenEndpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: formBody,
-  }).then((r) => {
-    return r.json()
   })
+
+  if (!response.ok) {
+    throw new Error(`Token exchange failed: ${response.statusText}`)
+  }
+
+  const data: TokenResponse = await response.json()
+  return data
 }
 
 const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbackURL }: Record<string, any>) => {
@@ -75,10 +104,10 @@ const handleResponse = async ({ issuerURL, clientID, oidcState }: Record<string,
     verifier: oidcState.verifier,
     clientID,
   })
-  if (data?.error) throw new Error(error)
-  if (!data?.id_token) throw new Error("bad response, missing id_token")
+  if (!data?.id_token || typeof data.id_token !== "string") throw new Error("bad response, missing id_token")
 
   const tokenData = decodeIDToken(data.id_token)
+  if (!tokenData) throw new Error("bad format of id_token")
   if (!tokenData) throw new Error("bad format of id_token")
 
   return {

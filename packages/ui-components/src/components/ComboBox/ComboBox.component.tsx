@@ -326,6 +326,27 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
           }
         })
 
+  const displayValue = (
+    val:
+      | string
+      | number
+      | boolean
+      | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+      | Iterable<React.ReactNode>
+      | React.ReactPortal
+      | null
+      | undefined
+  ) => {
+    const entry = optionValuesAndLabels.get(val)
+
+    if (typeof entry?.children === "string") return entry.children
+    if (typeof entry?.label === "string") return entry.label
+    if (typeof valueLabel === "string") return valueLabel
+    if (typeof val === "string" || typeof val === "number") return val.toString()
+
+    return ""
+  }
+
   return (
     <ComboBoxContext.Provider
       value={{
@@ -364,12 +385,12 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                 className={`${labelStyles}`}
                 floating
                 minimized={
-                  placeholder ||
-                  hasFocus ||
-                  (query && isNotEmptyString(query)) ||
-                  (selectedValue && isNotEmptyString(selectedValue))
-                    ? true
-                    : false
+                  !!(
+                    placeholder ||
+                    hasFocus ||
+                    (query && isNotEmptyString(query)) ||
+                    (selectedValue && isNotEmptyString(selectedValue))
+                  )
                 }
                 {...getReferenceProps()}
               />
@@ -386,13 +407,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
               onChange={handleInputChange}
               onFocus={handleFocus}
               placeholder={!isLoading && !hasError ? placeholder : ""}
-              displayValue={(val) =>
-                optionValuesAndLabels.get(val)?.children?.toString() ||
-                optionValuesAndLabels.get(val)?.label ||
-                valueLabel ||
-                val?.toString() ||
-                ""
-              } // Headless-UI expects a callback here
+              displayValue={(val) => displayValue(val)} // Headless-UI expects a callback here
               className={`
                 juno-combobox-input 
                 ${inputStyles} 

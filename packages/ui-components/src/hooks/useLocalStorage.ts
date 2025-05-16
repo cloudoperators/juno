@@ -6,7 +6,7 @@
 import { useState } from "react"
 
 // eslint-disable-next-line no-unused-vars
-type LocalStorageSetter<T> = (v: T) => T | undefined
+type LocalStorageSetter<T> = (value: T | ((prev: T) => T)) => void
 type LocalStorageReturnType<T> = [T, LocalStorageSetter<T>]
 
 /** 
@@ -28,17 +28,17 @@ function useLocalStorage<T>(key: string, initialValue: T): LocalStorageReturnTyp
     }
   })
 
-  const setValue = (value: T) => {
+  const setValue: LocalStorageSetter<T> = (value) => {
     try {
       // Optionally allow value to be a function, so it can be used just as useState:
-      const valueToStore = value instanceof Function ? (value(storedValue) as T) : value
+      // eslint-disable-next-line no-unused-vars
+      const valueToStore: T = typeof value === "function" ? (value as (val: T) => T)(storedValue) : value
       // save to our state:
       setStoredValue(valueToStore)
       // persist to local storage:
       window.localStorage.setItem(key, JSON.stringify(valueToStore))
     } catch (error) {
       console.log("Juno Error: useLocalStorage error: ", error)
-      return initialValue
     }
   }
 
