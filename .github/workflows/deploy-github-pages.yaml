@@ -33,25 +33,24 @@ jobs:
         with:
           node-version: "20.x"
 
-      - name: Install pnpm globally
-        run: npm install -g pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
-      - name: Store pnpm path
-        run: pnpm store path
-
-      - name: Cache pnpm store
+      - name: Cache \ store
         uses: actions/cache@v4
         with:
-          path: ~/.local/share/pnpm/store/v3
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-pnpm-
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build storybook
-        run: pnpm -w @cloudoperators/juno-ui-components build-storybook
+        run: pnpm --filter @cloudoperators/juno-ui-components build-storybook
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
