@@ -403,36 +403,6 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                     placeholder={!isLoading && !hasError ? placeholder : ""}
                     displayValue={(val) => displayValue(val)} // Headless-UI expects a callback here
                     className={`
-                juno-combobox-input 
-                ${inputStyles} 
-                ${label && isNotEmptyString(label) ? withLabelInputStyles : noLabelInputStyles}
-                ${disabled ? disabledInputStyles : ""}
-                ${isInvalid ? "juno-combobox-invalid " + invalidStyles : ""} 
-                ${isValid ? "juno-combobox-valid " + validStyles : ""}  
-                ${isValid || isInvalid ? "" : defaultBorderStyles} 
-                ${isLoading ? "juno-combobox-loading jn-cursor-not-allowed" : ""}
-                ${hasError ? "juno-combobox-error jn-cursor-not-allowed" : ""}
-                ${className}
-              `}
-                  />
-
-                  <ComboboxInput<OptionValuesAndLabelsKey>
-                    autoComplete="off"
-                    aria-label={ariaLabel || label}
-                    aria-describedby={helptext ? helptextId : ""}
-                    id={theId}
-                    onBlur={handleBlur}
-                    onChange={handleInputChange}
-                    onFocus={handleFocus}
-                    placeholder={!isLoading && !hasError ? placeholder : ""}
-                    displayValue={(val) =>
-                      optionValuesAndLabels.get(val)?.children?.toString() ||
-                      optionValuesAndLabels.get(val)?.label ||
-                      valueLabel ||
-                      val?.toString() ||
-                      ""
-                    } // Headless-UI expects a callback here
-                    className={`
                       juno-combobox-input 
                       ${inputStyles} 
                       ${label && isNotEmptyString(label) ? withLabelInputStyles : noLabelInputStyles}
