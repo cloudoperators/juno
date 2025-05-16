@@ -11,9 +11,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.62.2
         version: 5.76.1(react@18.3.1)
-      workspaces:
-        specifier: ^0.1.0
-        version: 0.1.0
       zod:
         specifier: ^3.24.2
         version: 3.24.4
@@ -789,9 +786,13 @@ importers:
         version: 3.0.7(@types/debug@4.1.12)(@types/node@20.17.16)(@vitest/ui@3.0.7)(jiti@2.4.2)(jsdom@24.1.3)(msw@2.7.3(@types/node@20.17.16)(typescript@5.7.3))(sass@1.81.1)(terser@5.39.2)(yaml@2.8.0)
 
   packages/config:
+    dependencies:
+      '@eslint/js':
+        specifier: ^9.26.0
+        version: 9.26.0
     devDependencies:
       '@eslint/compat':
-        specifier: ^1.1.1
+        specifier: ^1.2.9
         version: 1.2.9(eslint@9.26.0(jiti@2.4.2))
       '@types/eslint__js':
         specifier: ^8.42.3
@@ -888,6 +889,9 @@ importers:
       '@cloudoperators/juno-config':
         specifier: workspace:*
         version: link:../config
+      '@types/node':
+        specifier: ^20.11.24
+        version: 20.17.16
       esbuild:
         specifier: ^0.17.6
         version: 0.17.19
@@ -8708,11 +8712,6 @@ packages:
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
-
-  workspaces@0.1.0:
-    resolution: {integrity: sha512-Dv34nO4bKsBcfZboS8k36sWWI2408OgS4i4kAAT7fZFn8KxktgJMdSxpd/JySn8+9HdYz5oDTnhgJxKCaCK3PA==}
-    engines: {node: '>=4.0.0'}
-    hasBin: true
 
   wouter@3.7.0:
     resolution: {integrity: sha512-ElkqESy10WgRRbdd22uQkSSO6LmG6vxI50pxPKry2TLebbdXvgtp7rJ48KafjUvsKcQQmIewxgRCGixPfk58tw==}
@@ -18608,8 +18607,6 @@ snapshots:
       string-width: 4.2.3
 
   word-wrap@1.2.5: {}
-
-  workspaces@0.1.0: {}
 
   wouter@3.7.0(react@18.3.1):
     dependencies:
