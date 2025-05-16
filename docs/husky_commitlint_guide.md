@@ -7,7 +7,7 @@ This project uses **Husky** to enforce code quality checks and **commitlint** to
 To set up Husky for the first time, you need to run the following command:
 
 ```
-npm run prepare
+pnpm run prepare
 ```
 
 This command will initialize Husky and set up the necessary Git hooks in your project. After running this command, you can proceed with configuring the hooks and their associated scripts.
@@ -95,16 +95,16 @@ To ensure that all commits adhere to the rules above, we use **Husky** to run ch
 
 Before a commit is finalized, the following checks are automatically run:
 
-1. **Linting**: Ensures that code follows our style guidelines (`npm run lint`).
-2. **Type Checking**: Ensures that there are no TypeScript type errors (`npm run typecheck`).
-3. **Formatting**: Ensures code is properly formatted with Prettier (`npm run format`).
+1. **Linting**: Ensures that code follows our style guidelines (`pnpm lint`).
+2. **Type Checking**: Ensures that there are no TypeScript type errors (`pnpm typecheck`).
+3. **Formatting**: Ensures code is properly formatted with Prettier (`pnpm format`).
 
 ### Pre-push Hook
 
 Before any code is pushed to the remote repository, the following checks are performed:
 
-1. **Linting**: Ensures code quality with ESLint (`npm run lint`).
-2. **Type Checking**: Checks TypeScript types (`npm run typecheck`).
+1. **Linting**: Ensures code quality with ESLint (`pnpm lint`).
+2. **Type Checking**: Checks TypeScript types (`pnpm typecheck`).
 3. **Testing**: Runs the test suite to ensure all tests pass (`npm test`).
 
 ### Skipping Hooks in CI

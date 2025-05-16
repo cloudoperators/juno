@@ -8,12 +8,20 @@ import { ComboBox } from "./index"
 import { ComboBoxOption } from "../ComboBoxOption/index"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 import { ComboBoxProps } from "./ComboBox.component"
+import { fn } from "@storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react" // Import Meta and StoryObj types
 
 type StoryFunction = () => React.ReactNode
 
-export default {
+const meta: Meta<typeof ComboBox> = {
   title: "Forms/ComboBox/ComboBox",
   component: ComboBox,
+  args: {
+    onBlur: fn(),
+    onChange: fn(),
+    onFocus: fn(),
+    onInputChange: fn(),
+  },
   argTypes: {
     children: {
       control: false,
@@ -61,6 +69,8 @@ export default {
   ],
 }
 
+export default meta
+
 const Template = ({ children, ...args }: ComboBoxProps) => {
   return <ComboBox {...args}>{children}</ComboBox>
 }
@@ -85,10 +95,10 @@ const ControlledTemplate = ({ value, children }: ControlledTemplateProps) => {
 
 // define prop types for ControlledTemplate
 interface ControlledTemplateProps extends ComboBoxProps {
-  value: string
+  value?: string
 }
 
-export const Default = {
+export const Default: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -145,7 +155,7 @@ export const Default = {
   },
 }
 
-export const ControlledComboBox = {
+export const ControlledComboBox: StoryObj<typeof ComboBox> = {
   render: ControlledTemplate,
 
   args: {
@@ -163,7 +173,7 @@ export const ControlledComboBox = {
   },
 }
 
-export const UncontrolledComboBox = {
+export const UncontrolledComboBox: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -181,7 +191,7 @@ export const UncontrolledComboBox = {
   },
 }
 
-export const WithLabel = {
+export const WithLabel: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -240,7 +250,7 @@ export const WithLabel = {
   },
 }
 
-export const WithLabelAndPlaceholder = {
+export const WithLabelAndPlaceholder: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -299,7 +309,7 @@ export const WithLabelAndPlaceholder = {
   },
 }
 
-export const Required = {
+export const Required: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -358,7 +368,7 @@ export const Required = {
   },
 }
 
-export const Valid = {
+export const Valid: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -417,7 +427,7 @@ export const Valid = {
   },
 }
 
-export const Invalid = {
+export const Invalid: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -476,7 +486,7 @@ export const Invalid = {
   },
 }
 
-export const Disabled = {
+export const Disabled: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -535,7 +545,7 @@ export const Disabled = {
   },
 }
 
-export const DisabledOption = {
+export const DisabledOption: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -555,7 +565,7 @@ export const DisabledOption = {
   },
 }
 
-export const WithHelpText = {
+export const WithHelpText: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -614,7 +624,7 @@ export const WithHelpText = {
   },
 }
 
-export const WithHelpTextAsNode = {
+export const WithHelpTextAsNode: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -677,7 +687,7 @@ export const WithHelpTextAsNode = {
   },
 }
 
-export const WithErrorText = {
+export const WithErrorText: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -736,7 +746,7 @@ export const WithErrorText = {
   },
 }
 
-export const WithSuccessText = {
+export const WithSuccessText: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -795,11 +805,11 @@ export const WithSuccessText = {
   },
 }
 
-export const NonNullable = {
+export const NonNullable: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
-    nullable: false,
+    // nullable: false,
     label: "Non-Nullable ComboBox",
     helptext:
       "This Select can not be reset to having no value selected. The last selected value will remian selected when emptying the input field.",
@@ -826,7 +836,7 @@ export const NonNullable = {
   },
 }
 
-export const NonTruncatedOptions = {
+export const NonTruncatedOptions: StoryObj<typeof ComboBox> = {
   render: ConstrainedWidthTemplate,
 
   args: {
@@ -843,7 +853,7 @@ export const NonTruncatedOptions = {
   },
 }
 
-export const TruncatedOptions = {
+export const TruncatedOptions: StoryObj<typeof ComboBox> = {
   render: ConstrainedWidthTemplate,
 
   args: {
@@ -861,7 +871,7 @@ export const TruncatedOptions = {
   },
 }
 
-export const OptionsWithLabels = {
+export const OptionsWithLabels: StoryObj<typeof ComboBox> = {
   render: Template,
 
   parameters: {
@@ -882,7 +892,7 @@ export const OptionsWithLabels = {
   },
 }
 
-export const Loading = {
+export const Loading: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {
@@ -900,7 +910,7 @@ export const Error = {
   },
 }
 
-export const ValueAndDefaultValue = {
+export const ValueAndDefaultValue: StoryObj<typeof ComboBox> = {
   render: Template,
 
   args: {

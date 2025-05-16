@@ -35,12 +35,14 @@ By automatically determining the most suitable encoding method, URL State Provid
 
 ## Installation
 
-You can install the URL State Provider library via npm or yarn:
+You can install the URL State Provider library via npm, pnpm or yarn:
 
 ```bash
 npm install @cloudoperators/url-state-provider
 # or
 yarn add @cloudoperators/url-state-provider
+# or
+pnpm add @cloudoperators/url-state-provider
 ```
 
 ## Usage
