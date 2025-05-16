@@ -1,5 +1,11 @@
 # @cloudoperators/juno-k8s-client
 
+## 1.0.6
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
 ## 1.0.5
 
 ### Patch Changes
