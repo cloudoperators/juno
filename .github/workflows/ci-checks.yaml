@@ -68,15 +68,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - title: "License Check"
+          - title: "license-check"
             command: "pnpm run check-licenses"
-          - title: "Lint"
+          - title: "lint"
             command: "pnpm lint"
-          - title: "Type Check"
+          - title: "type-check"
             command: "pnpm run typecheck"
-          - title: "Format Check"
+          - title: "format-check"
             command: "pnpm run check-format --check '**/*.{js,jsx,ts,tsx}'"
-          - title: "Tests"
+          - title: "tests"
             command: "pnpm build && pnpm run test"
 
     name: ${{ matrix.title }}
