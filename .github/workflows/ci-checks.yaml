@@ -70,7 +70,7 @@ jobs:
         include:
           - title: "license-check"
             command: "pnpm run check-licenses"
-          - title: "lint"
+          - title: "lint-check"
             command: "pnpm lint"
           - title: "type-check"
             command: "pnpm run typecheck"
