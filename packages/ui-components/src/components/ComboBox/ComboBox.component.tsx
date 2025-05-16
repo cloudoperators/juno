@@ -319,6 +319,17 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
           }
         })
 
+  const displayValue = (val: ReactNode) => {
+    const entry = optionValuesAndLabels.get(val)
+
+    if (typeof entry?.children === "string") return entry.children
+    if (typeof entry?.label === "string") return entry.label
+    if (typeof valueLabel === "string") return valueLabel
+    if (typeof val === "string" || typeof val === "number") return val.toString()
+
+    return ""
+  }
+
   return (
     <ComboBoxContext.Provider
       value={{
@@ -368,18 +379,42 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                       className={`${labelStyles}`}
                       floating
                       minimized={
-                        placeholder ||
-                        hasFocus ||
-                        (query && isNotEmptyString(query)) ||
-                        (selectedValue && isNotEmptyString(selectedValue))
-                          ? true
-                          : false
+                        !!(
+                          placeholder ||
+                          hasFocus ||
+                          (query && isNotEmptyString(query)) ||
+                          (selectedValue && isNotEmptyString(selectedValue))
+                        )
                       }
                       {...getReferenceProps()}
                     />
                   ) : (
                     ""
                   )}
+
+                  <ComboboxInput<OptionValuesAndLabelsKey>
+                    autoComplete="off"
+                    aria-label={ariaLabel || label}
+                    aria-describedby={helptext ? helptextId : ""}
+                    id={theId}
+                    onBlur={handleBlur}
+                    onChange={handleInputChange}
+                    onFocus={handleFocus}
+                    placeholder={!isLoading && !hasError ? placeholder : ""}
+                    displayValue={(val) => displayValue(val)} // Headless-UI expects a callback here
+                    className={`
+                juno-combobox-input 
+                ${inputStyles} 
+                ${label && isNotEmptyString(label) ? withLabelInputStyles : noLabelInputStyles}
+                ${disabled ? disabledInputStyles : ""}
+                ${isInvalid ? "juno-combobox-invalid " + invalidStyles : ""} 
+                ${isValid ? "juno-combobox-valid " + validStyles : ""}  
+                ${isValid || isInvalid ? "" : defaultBorderStyles} 
+                ${isLoading ? "juno-combobox-loading jn-cursor-not-allowed" : ""}
+                ${hasError ? "juno-combobox-error jn-cursor-not-allowed" : ""}
+                ${className}
+              `}
+                  />
 
                   <ComboboxInput<OptionValuesAndLabelsKey>
                     autoComplete="off"

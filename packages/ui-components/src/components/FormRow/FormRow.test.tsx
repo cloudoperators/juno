@@ -44,7 +44,6 @@ describe("FormSection Component Tests", () => {
       render(
         <FormSection data-testid="my-formsection">
           <div>Div Element</div>
-          {false && <span>False Element</span>}
           {null}
           <p>Paragraph Element</p>
         </FormSection>

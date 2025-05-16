@@ -48,7 +48,10 @@ export const Navigation: React.FC<NavigationProps> = ({
 
   const findItemIdByKeyValue = (valueToFind: ReactNode) => {
     // The prioritized sequence of individual item keys to check for a value:
-    const stringValueToFind = String(valueToFind)
+    const stringValueToFind =
+      typeof valueToFind === "string" || typeof valueToFind === "number"
+        ? String(valueToFind)
+        : JSON.stringify(valueToFind)
     const prioritizedKeys: PrioritizedKeyType[] = ["value", "children", "label"]
     const itemsKeys = Array.from(items.keys())
     if (itemsKeys.includes(stringValueToFind)) {
@@ -70,14 +73,14 @@ export const Navigation: React.FC<NavigationProps> = ({
 
   useEffect(() => {
     if (activeItem) {
-      const activeItemId = findItemIdByKeyValue(String(activeItem))
+      const activeItemId = findItemIdByKeyValue(String(activeItem as string | number))
       setActiveItm(activeItemId)
     }
   }, [activeItem])
 
   useEffect(() => {
     if (activeItem) {
-      const activeItemId = findItemIdByKeyValue(String(activeItem))
+      const activeItemId = findItemIdByKeyValue(String(activeItem as string | number))
       setActiveItm(activeItemId)
     }
   }, [items])
