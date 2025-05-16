@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn } from "@storybook/react"
+import { Meta, StoryFn, StoryObj } from "@storybook/react"
 import { Pagination, PaginationProps } from "./Pagination.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
@@ -44,7 +44,9 @@ export default {
 // Component Story Format (CSF): https://storybook.js.org/docs/6/api/stories/csf
 const Template: StoryFn<PaginationProps> = (args) => <Pagination {...args} />
 
-export const Default = {
+type Story = StoryObj<PaginationProps>
+
+export const Default: Story = {
   render: Template,
   args: {
     variant: "default",
@@ -53,7 +55,7 @@ export const Default = {
   },
 }
 
-export const PaginationWithNumber = {
+export const PaginationWithNumber: Story = {
   render: Template,
   args: {
     variant: "number",
@@ -62,7 +64,7 @@ export const PaginationWithNumber = {
   },
 }
 
-export const PaginationWithSelect = {
+export const PaginationWithSelect: Story = {
   render: Template,
   args: {
     variant: "select",
@@ -71,7 +73,7 @@ export const PaginationWithSelect = {
   },
 }
 
-export const PaginationWithInput = {
+export const PaginationWithInput: Story = {
   render: Template,
   args: {
     variant: "input",
@@ -80,14 +82,14 @@ export const PaginationWithInput = {
   },
 }
 
-export const DisabledPagination = {
+export const DisabledPagination: Story = {
   render: Template,
   args: {
     disabled: true,
   },
 }
 
-export const ProgressPagination = {
+export const ProgressPagination: Story = {
   render: Template,
   args: {
     progress: true,

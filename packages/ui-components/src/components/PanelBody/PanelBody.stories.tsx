@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn } from "@storybook/react"
+import { Meta, StoryFn, StoryObj } from "@storybook/react"
 import { Button } from "../Button/Button.component"
 import { Panel } from "../Panel/Panel.component"
 import { PanelBody, PanelBodyProps } from "./PanelBody.component"
@@ -53,7 +53,7 @@ const Template: StoryFn<PanelBodyProps> = (args) => (
   </div>
 )
 
-export const Body = {
+export const Body: StoryObj<PanelBodyProps> = {
   render: Template,
 
   parameters: {
@@ -67,7 +67,7 @@ export const Body = {
   args: {},
 }
 
-export const BodyWithFooter = {
+export const BodyWithFooter: StoryObj<PanelBodyProps> = {
   render: Template,
 
   parameters: {

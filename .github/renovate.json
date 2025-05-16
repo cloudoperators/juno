@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "assigneesFromCodeOwners": true,
   "extends": ["config:best-practices"],
-  "enabledManagers": ["npm", "github-actions"],
+  "enabledManagers": ["pnpm", "github-actions"],
   "includePaths": ["packages/ui-components/**"],
   "updateLockFiles": true,
   "rangeStrategy": "update-lockfile",

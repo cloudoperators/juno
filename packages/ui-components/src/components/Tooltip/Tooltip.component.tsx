@@ -17,7 +17,7 @@ const TooltipContext = React.createContext<TooltipContextType>(null)
  *
  * @returns TooltipContext
  */
-export const useTooltipState = () => {
+export const useTooltipState: () => NonNullable<TooltipContextType> = () => {
   const context = React.useContext(TooltipContext)
 
   if (context == null) {

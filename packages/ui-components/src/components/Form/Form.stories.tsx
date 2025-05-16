@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn } from "@storybook/react"
+import { Meta, StoryFn, StoryObj } from "@storybook/react"
 
 import { Form, FormProps } from "./Form.component"
 import { FormRow } from "../FormRow/FormRow.component"
@@ -65,7 +65,7 @@ interface TemplateProps {
 // Component Story Format (CSF): https://storybook.js.org/docs/6/api/stories/csf
 const Template: StoryFn<FormProps> = ({ children, ...args }: TemplateProps) => <Form {...args}>{children}</Form>
 
-export const Default = {
+export const Default: StoryObj<FormProps> = {
   render: Template,
   args: {
     title: "A Simple Form",
@@ -87,7 +87,7 @@ export const Default = {
   },
 }
 
-export const ComplexForm = {
+export const ComplexForm: StoryObj<FormProps> = {
   render: Template,
   args: {
     title: "A Complex Form",

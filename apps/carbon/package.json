@@ -11,7 +11,7 @@
   "private": true,
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -25,18 +25,20 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "@cloudoperators/juno-ui-components": "3.1.0",
+    "@cloudoperators/juno-ui-components": "workspace:*",
     "@tanstack/react-query": "4.28.0",
     "classnames": "^2.5.1",
+    "react-error-boundary": "^3.1.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "wouter": "^3.3.5",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20.16.5",
     "@types/react": "^18.3.8",
     "@types/react-dom": "^18.3.0",

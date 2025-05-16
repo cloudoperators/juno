@@ -10,8 +10,9 @@ LABEL org.opencontainers.image.licenses=Apache-2.0
 WORKDIR /app  
 
 ADD . .
+RUN npm i -g pnpm
 
-RUN npm install && npx turbo build:static --filter @cloudoperators/juno-app-supernova
+RUN pnpm install && pnpx turbo build:static --filter @cloudoperators/juno-app-supernova
 
 FROM nginx:alpine
 # we need to install jq, cause it is used in the entrypoint.sh

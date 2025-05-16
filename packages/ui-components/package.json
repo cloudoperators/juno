@@ -29,13 +29,15 @@
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@floating-ui/react": "0.27.8",
     "@headlessui/react": "2.2.2",
     "@material-design-icons/svg": "0.14.13",
+    "@storybook/preview-api": "8.6.12",
+    "@storybook/addon-actions": "8.6.12",
     "@storybook/addon-docs": "8.6.12",
     "@storybook/addon-essentials": "8.6.12",
     "@storybook/addon-interactions": "8.6.12",
@@ -97,8 +99,6 @@
     "lint": "eslint",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "test-jest": "jest",
-    "test:watch": "jest --watchAll",
     "test-vitest:watch": "vitest",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "clean:cache": "rm -rf .turbo"
