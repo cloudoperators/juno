@@ -109,5 +109,5 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run ${{ matrix.command }}
+      - name: Run "${{ matrix.command }}" command
         run: ${{ matrix.command }}
