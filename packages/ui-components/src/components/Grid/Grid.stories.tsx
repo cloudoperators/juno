@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { StoryFn, Meta } from "@storybook/react"
+import { StoryFn, Meta, StoryObj } from "@storybook/react"
 
 import { Grid, GridProps } from "./Grid.component"
 import { GridRow } from "../GridRow/GridRow.component"
@@ -31,7 +31,7 @@ const Template: StoryFn<GridProps> = (args) => (
   <Grid {...args} className={`jn-bg-juno-blue-3 jn-text-juno-grey-blue ${args.className || ""}`} />
 )
 
-export const Default = {
+export const Default: StoryObj<GridProps> = {
   render: Template,
   parameters: {
     docs: {
@@ -67,7 +67,7 @@ export const Default = {
   },
 }
 
-export const Auto = {
+export const Auto: StoryObj<GridProps> = {
   render: Template,
   parameters: {
     docs: {
@@ -106,7 +106,7 @@ export const Auto = {
   },
 }
 
-export const MixedGrid = {
+export const MixedGrid: StoryObj<GridProps> = {
   render: Template,
   args: {
     children: (
@@ -120,7 +120,7 @@ export const MixedGrid = {
   },
 }
 
-export const MixedAutoGrid = {
+export const MixedAutoGrid: StoryObj<GridProps> = {
   render: Template,
   args: {
     auto: true,
@@ -135,7 +135,7 @@ export const MixedAutoGrid = {
   },
 }
 
-export const NestedGrid = {
+export const NestedGrid: StoryObj<GridProps> = {
   render: Template,
   args: {
     children: (

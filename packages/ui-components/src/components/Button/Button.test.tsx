@@ -44,7 +44,7 @@ describe("Button", () => {
   test("onclick handler is not called when disabled", () => {
     const onClickSpy = vi.fn()
     render(<Button disabled onClick={onClickSpy} />)
-    act(() => screen.getByRole("button").click())
+    act(() => screen.getByRole("button")?.click())
     expect(onClickSpy).not.toHaveBeenCalled()
   })
 

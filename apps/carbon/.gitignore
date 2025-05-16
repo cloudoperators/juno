@@ -22,6 +22,12 @@ build
 # debug
 npm-debug.log*
 
+# pnpm store directory (optional if you use a global store)
+.pnpm-store
+
+# pnpm virtual store (used in monorepos and workspaces)
+.pnpm
+
 # local env files
 .env
 .env.local

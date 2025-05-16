@@ -28,7 +28,7 @@
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "scripts": {
     "build": "vite build",
@@ -40,7 +40,7 @@
     "clean:cache": "rm -rf .turbo"
   },
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "jsdom": "^18.0.0",
     "juri-cutlery": "^1.0.0",
     "lz-string": "^1.4.4",
