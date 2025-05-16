@@ -34,7 +34,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.11.0
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -75,7 +75,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.11.0
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -109,7 +109,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.11.0
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -143,7 +143,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.11.0
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -177,7 +177,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.11.0
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -211,7 +211,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.11.0
 
       - name: Cache pnpm store
         uses: actions/cache@v4
