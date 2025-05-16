@@ -33,7 +33,7 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
   const [visibleAmount, setVisibleAmount] = useState(20)
   const [isAddingItems, setIsAddingItems] = useState(false)
   const timeoutRef = useRef<Timeout | null>(null)
-  const observer = useRef<IntersectionObserver | undefined>()
+  const observer = useRef<IntersectionObserver | undefined>(undefined)
 
   useEffect(() => {
     // clear when component is unmounted

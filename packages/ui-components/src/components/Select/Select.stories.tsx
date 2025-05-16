@@ -4,13 +4,14 @@
  */
 
 import React, { useState } from "react"
+import type { ReactElement } from "react"
 import { Select, SelectProps } from "./Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 import { PortalProvider } from "../PortalProvider"
 import { fn } from "@storybook/test" // Import the fn function for mocking handlers
 import type { Meta, StoryObj } from "@storybook/react" // Import Storybook types
 
-type StoryFunction = () => JSX.Element
+type StoryFunction = () => ReactElement
 
 // Define explicit type for the default export
 const meta: Meta<typeof Select> = {

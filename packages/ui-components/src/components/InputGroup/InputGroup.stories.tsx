@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactElement } from "react"
 
 import { InputGroup } from "./InputGroup.component"
 
@@ -14,7 +14,7 @@ import { SelectOption } from "../SelectOption"
 import { SelectProps } from "../Select/Select.component"
 import { PortalProvider } from "../PortalProvider"
 
-type StoryFunction = () => JSX.Element
+type StoryFunction = () => ReactElement
 
 const SelectInput = (props: SelectProps) => (
   <Select {...props}>

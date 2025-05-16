@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactElement } from "react"
 import { DataGrid } from "../DataGrid/index"
 import { DataGridRow } from "../DataGridRow/index"
 import { DataGridHeadCell, DataGridHeadCellProps } from "./index"
 
-type StoryFunction = () => JSX.Element
+type StoryFunction = () => ReactElement
 
 export default {
   title: "Components/DataGrid/DataGridHeadCell",

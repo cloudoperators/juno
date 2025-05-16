@@ -38,7 +38,7 @@
     "zustand": "^4.5.2"
   },
   "dependencies": {
-    "@cloudoperators/juno-ui-components": "*"
+    "@cloudoperators/juno-ui-components": "workspace:*"
   },
   "scripts": {
     "test": "vitest run",
