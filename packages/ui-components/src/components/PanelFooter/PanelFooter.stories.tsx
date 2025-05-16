@@ -50,7 +50,17 @@ const Template: StoryFn<PanelFooterProps> = (args) => (
   </div>
 )
 
-export const Footer = {
+export const Footer: {
+  render: StoryFn<PanelFooterProps>
+  parameters: {
+    docs: {
+      description: {
+        story: string
+      }
+    }
+  }
+  args: Record<string, unknown>
+} = {
   render: Template,
 
   parameters: {

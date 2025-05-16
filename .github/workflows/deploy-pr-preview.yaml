@@ -69,7 +69,8 @@ jobs:
       - name: Install dependencies
         if: github.event.action != 'closed'
         run: |
-          npm install --force
+          npm install -g pnpm
+          pnpm install --frozen-lockfile
 
       - name: Create a folder with all compiled apps and pkgs
         if: github.event.action != 'closed'
@@ -80,7 +81,7 @@ jobs:
         id: build-storybook
         if: github.event.action != 'closed' && env.IS_STORYBOOK_CHANGED == 'true'
         run: |
-          npm -w @cloudoperators/juno-ui-components run build-storybook
+          pnpm --filter @cloudoperators/juno-ui-components run build-storybook
           cp -r ${{ env.PACKAGE_PATH }}/storybook-static ${{ env.DEPLOY_PATH }}/${{ env.TARGET_FOLDER }}
         env:
           PACKAGE_PATH: packages/ui-components

@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 import svgr from "vite-plugin-svgr"
 
-export default defineConfig(({ mode }) => {
+export default ({ mode }) => {
   const sharedConfig = {
     root: "./",
 
@@ -26,7 +25,7 @@ export default defineConfig(({ mode }) => {
 
     server: {
       host: "0.0.0.0",
-      port: parseInt(process.env.PORT || "3010"),
+      port: parseInt(process.env.PORT || "8000"),
     },
   }
 
@@ -55,4 +54,4 @@ export default defineConfig(({ mode }) => {
       },
     },
   }
-})
+}

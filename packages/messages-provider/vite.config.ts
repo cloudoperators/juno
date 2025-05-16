@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { defineConfig } from "vite"
 import dts from "vite-plugin-dts"
 import { peerDependencies } from "./package.json"
 
-export default defineConfig({
+export default {
   build: {
     lib: {
       entry: "src/index.ts", // or 'src/main.ts' if TypeScript
@@ -34,4 +33,4 @@ export default defineConfig({
       },
     }),
   ],
-})
+}

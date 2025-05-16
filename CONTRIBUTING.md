@@ -49,7 +49,7 @@ This project uses **Husky** to enforce code quality checks and **commitlint** to
 ## Setup Husky:
 
 ```bash
-npm run prepare
+pnpm prepare
 ```
 
 For more details on the specific hooks and commitlint rules used in this project, see our [Husky and Commitlint Guide](docs/husky_commitlint_guide.md).
@@ -58,13 +58,13 @@ For more details on the specific hooks and commitlint rules used in this project
 
 Before submitting your pull request, please ensure your code passes the following checks. These checks are also run in the CI workflow for every PR:
 
-- **Linting**: Make sure your code adheres to the project’s coding standards by running `npm run lint`.
-- **Prettier**: Ensure your code is properly formatted by running `npm run check-format`.
+- **Linting**: Make sure your code adheres to the project’s coding standards by running `pnpm lint`.
+- **Prettier**: Ensure your code is properly formatted by running `pnpm check-format`.
 - **Title lint**: Ensure your title is following conventional commit format, for more details please check the [workflow](.github/workflows/ci-title-lint-check.yaml)
 - **License Header**: Verify that every source file includes the correct license header as specified above.
-- **Allowed Licenses**: Ensure that any dependencies added are compliant with the list of allowed licenses (see in `package.json`). Check with `npm run check-licenses`.
+- **Allowed Licenses**: Ensure that any dependencies added are compliant with the list of allowed licenses (see in `package.json`). Check with `pnpm check-licenses`.
 - **REUSE Compliance**: Ensure that your contributions are compliant with the [REUSE guidelines](./reuse/dep5).
-- **Tests**: Make sure all tests pass. Run `npm run test` at the root level to ensure your code didn't break other packages.
+- **Tests**: Make sure all tests pass. Run `pnpm test` at the root level to ensure your code didn't break other packages.
 
 ## Issues and Planning
 

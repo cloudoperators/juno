@@ -43,6 +43,8 @@ header:
     - "**/*.mdx"
     - "**/nginx.conf"
     - ".prettierrc"
+    - pnpm-lock.yaml
+    - pnpm-workspace.yaml
     - "VERSION"
     - "**/public/mockServiceWorker.js"
     - ".prettierignore"

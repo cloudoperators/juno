@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { defineConfig, PluginOption } from "vite"
+import { PluginOption } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 import dts from "vite-plugin-dts"
 import svgr from "vite-plugin-svgr"
 
-export default defineConfig({
+export default {
   css: {
     postcss: {
       plugins: [tailwindcss, autoprefixer],
@@ -44,4 +44,4 @@ export default defineConfig({
       include: "**/*.svg",
     }) as PluginOption,
   ],
-})
+}

@@ -25,9 +25,10 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: "juno-app-greenhouse"
   PACKAGE_PATH: "apps/greenhouse"
+  DESCRIPTION: "This is the shell app for Project Greenhouse. It is the host for all apps that are part of Greenhouse."
 
 jobs:
-  build-and-push-greenhouse-image:
+  build-and-push:
     name: Build and Push Greenhouse Dashboard Image
     runs-on: [default]
 
@@ -41,7 +42,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
 
       - name: Read version from package.json
         id: read_version
@@ -52,18 +53,11 @@ jobs:
           echo "Greenhouse version is $GREENHOUSE_VERSION"
           echo "IMAGE_VERSION=$GREENHOUSE_VERSION" >> $GITHUB_OUTPUT
 
-      - name: Read description from README.md
-        id: description
-        working-directory: ${{ env.PACKAGE_PATH }}
-        run: |
-          # Concatenate CHANGELOG.md 
-          echo "DESCRIPTION=$(head -c 512 apps/greenhouse/README.md)" >> $GITHUB_OUTPUT
-
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
+        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 #v3.4.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -81,64 +75,47 @@ jobs:
 
       # This action enables you to SIGN and VERIFY container images using cosign
       - name: Install cosign
-        uses: sigstore/cosign-installer@v3.6.0
-        with:
-          cosign-release: "v2.4.0"
+        uses: sigstore/cosign-installer@3454372f43399081ed03b604cb2d021dabca52bb #v3.8.2
 
       # Set up BuildKit Docker container builder to be able to build MULTI-platform images and export cache
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 #v3.10.0
         with:
           driver-opts: |
             image=moby/buildkit:latest
 
       - name: Generate Docker metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 #v5.7.0
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
           tags: |
             type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
+          labels: |
+            org.opencontainers.image.description=${{env.DESCRIPTION}}
+            org.opencontainers.image.title=Greenhouse-UI
+            org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+            org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+          annotations: |
+            manifest:org.opencontainers.image.description=${{env.DESCRIPTION}}
+            manifest:org.opencontainers.image.title=Greenhouse-UI
+            manifest:org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
+            manifest:org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/greenhouse
 
-      # Build and load to Docker
-      - name: Build and export to Docker ${{ steps.meta.outputs.tags }}
+      # Build and push to Docker
+      - name: Build and push Docker image ${{ steps.meta.outputs.tags }}
         id: build-image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@14487ce63c7a62a4a324b0bfb37086795e31c6c1 #v6.16.0
         with:
           context: .
-          file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
-          load: true # load the image into the docker daemon to make the image available for the next steps in the workflow
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
-          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=${{ steps.description.outputs.DESCRIPTION }}
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
-          format: "sarif"
-          exit-code: "0"
-          ignore-unfixed: true
-          severity: "CRITICAL,HIGH"
-          output: "trivy-results.sarif"
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
-        if: ${{ !env.ACT }}
-        with:
-          sarif_file: trivy-results.sarif
-
-      - name: Push Docker image
-        if: ${{ !env.ACT }}
-        run: |
-          # upload all images to the registry
-          TAGS=$(echo "${{ steps.meta.outputs.tags }}")
-          printf '%s\n' "$TAGS" | while IFS= read -r tag; do
-            echo "Upload image: $tag"
-            docker push $tag 
-          done
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
+          # remove untagged images produced for multi platform builds
+          provenance: false
 
       - name: Sign the published Docker image
-        if: ${{ !env.ACT }}
         env:
           TAGS: ${{ steps.meta.outputs.tags }}
           DIGEST: ${{ steps.build-image.outputs.digest }}
@@ -146,9 +123,33 @@ jobs:
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
+  vulnerability-scan:
+    permissions:
+      contents: read
+      packages: read
+      security-events: write
+    name: Vulnerability Scan
+    needs: build-and-push
+    runs-on: [default]
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # 0.30.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+          ignore-unfixed: true
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH,MEDIUM"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@60168efe1c415ce0f5521ea06d5c2062adbeed1b # v3.28.17
+        if: always()
+        with:
+          sarif_file: trivy-results.sarif
+
   notify-on-failure:
     if: failure()
-    needs: [build-and-push-greenhouse-image]
+    needs: [build-and-push, vulnerability-scan]
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
     with:
       title: "🚨 JUNO Greenhouse Image Failed 🚨"
