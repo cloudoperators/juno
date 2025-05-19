@@ -15,8 +15,7 @@ jobs:
   release:
     name: Release
     runs-on: [default]
-
-  notify:
+  steps:
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-rework-last-workflows
     with:
       title: "Testing new release of this action!!! 🚀"
