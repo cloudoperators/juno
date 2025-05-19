@@ -1,0 +1,22 @@
+name: test
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+jobs:
+  release:
+    name: Release
+    runs-on: [default]
+
+  notify:
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-rework-last-workflows
+    with:
+      title: "Testing new release of this action!!! 🚀"
+      body: "If you see this message, the action was successful!"
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
