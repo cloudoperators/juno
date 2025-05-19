@@ -1,5 +1,11 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.20
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
 ## 2.2.19
 
 ### Patch Changes
