@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-doop
 
+## 2.3.8
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+- Updated dependencies [cdae407]
+- Updated dependencies [7230774]
+- Updated dependencies [a9e8592]
+- Updated dependencies [43d6aa0]
+  - @cloudoperators/juno-ui-components@3.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.1
+  - @cloudoperators/juno-messages-provider@0.2.5
+  - @cloudoperators/juno-communicator@2.2.20
+
 ## 2.3.7
 
 ### Patch Changes
