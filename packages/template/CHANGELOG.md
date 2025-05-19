@@ -1,5 +1,11 @@
 # @cloudoperators/juno-template
 
+## 1.1.5
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
 ## 1.1.4
 
 ### Patch Changes
