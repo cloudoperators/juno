@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from "react"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
-import { Breadcrumb } from "../common/Breadcrumb"
 import { Filters } from "../common/Filters"
 import { ServicesList } from "./ServicesList"
 import { FilterSettings } from "../common/Filters/types"
@@ -51,25 +50,22 @@ export const Services = ({ defaultSelectService, initialFilters }: ServicesProps
 
   return (
     <>
-      <Breadcrumb />
-      <>
-        <Filters
-          filters={serviceFilters}
-          filterSettings={filterSettings}
-          onFilterChange={setFilterSettings}
-          searchInputPlaceholder="search term for services name"
-        />
-        <AllServicesIssuesCount counts={servicesIssuesCount} loading={loading} error={error} />
-        <ServicesList
-          defaultSelectService={defaultSelectService}
-          services={services}
-          loading={loading}
-          error={error}
-          currentPage={currentPage}
-          totalNumberOfPages={totalNumberOfPages}
-          goToPage={goToPage}
-        />
-      </>
+      <Filters
+        filters={serviceFilters}
+        filterSettings={filterSettings}
+        onFilterChange={setFilterSettings}
+        searchInputPlaceholder="search term for services name"
+      />
+      <AllServicesIssuesCount counts={servicesIssuesCount} loading={loading} error={error} />
+      <ServicesList
+        defaultSelectService={defaultSelectService}
+        services={services}
+        loading={loading}
+        error={error}
+        currentPage={currentPage}
+        totalNumberOfPages={totalNumberOfPages}
+        goToPage={goToPage}
+      />
     </>
   )
 }

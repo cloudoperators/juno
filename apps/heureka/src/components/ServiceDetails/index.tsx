@@ -6,14 +6,13 @@
 import React, { useState } from "react"
 import { Stack, Pill, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
+import { useNavigate } from "@tanstack/react-router"
 import { ServiceImageVersions } from "../common/ServiceImageVersions"
 import { ImageVersionDetailsPanel } from "./ImageVersionDetailsPanel"
-import { Breadcrumb } from "../common/Breadcrumb"
 import { getNormalizedData, ServiceImageVersion } from "../Services/utils"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../common/SectionContentHeading"
 import { useGetServicesQuery } from "../../generated/graphql"
-import { useNavigate } from "@tanstack/react-router"
 
 type ServiceDetailsProps = {
   serviceName: string
@@ -39,7 +38,6 @@ export const ServiceDetails = ({ serviceName, imageVersion }: ServiceDetailsProp
 
   return (
     <MessagesProvider>
-      <Breadcrumb />
       <Messages className="mb-4" />
 
       <SectionContentHeading>Service {service.name}</SectionContentHeading>

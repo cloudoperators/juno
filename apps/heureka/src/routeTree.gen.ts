@@ -10,102 +10,132 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root"
-import { Route as ServicesImport } from "./routes/services"
-import { Route as IndexImport } from "./routes/index"
-import { Route as ServicesServiceImport } from "./routes/services_.$service"
+import { Route as rootRoute } from './routes/__root'
+import { Route as ServicesRouteImport } from './routes/services/route'
+import { Route as IndexImport } from './routes/index'
+import { Route as ServicesIndexImport } from './routes/services/index'
+import { Route as ServicesServiceImport } from './routes/services/$service'
 
 // Create/Update Routes
 
-const ServicesRoute = ServicesImport.update({
-  id: "/services",
-  path: "/services",
+const ServicesRouteRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRoute,
 } as any)
 
 const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
+const ServicesIndexRoute = ServicesIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ServicesRouteRoute,
+} as any)
+
 const ServicesServiceRoute = ServicesServiceImport.update({
-  id: "/services_/$service",
-  path: "/services/$service",
-  getParentRoute: () => rootRoute,
+  id: '/$service',
+  path: '/$service',
+  getParentRoute: () => ServicesRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/"
-      path: "/"
-      fullPath: "/"
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    "/services": {
-      id: "/services"
-      path: "/services"
-      fullPath: "/services"
-      preLoaderRoute: typeof ServicesImport
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRoute
     }
-    "/services_/$service": {
-      id: "/services_/$service"
-      path: "/services/$service"
-      fullPath: "/services/$service"
+    '/services/$service': {
+      id: '/services/$service'
+      path: '/$service'
+      fullPath: '/services/$service'
       preLoaderRoute: typeof ServicesServiceImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof ServicesRouteImport
+    }
+    '/services/': {
+      id: '/services/'
+      path: '/'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexImport
+      parentRoute: typeof ServicesRouteImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface ServicesRouteRouteChildren {
+  ServicesServiceRoute: typeof ServicesServiceRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
+}
+
+const ServicesRouteRouteChildren: ServicesRouteRouteChildren = {
+  ServicesServiceRoute: ServicesServiceRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
+}
+
+const ServicesRouteRouteWithChildren = ServicesRouteRoute._addFileChildren(
+  ServicesRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
-  "/services": typeof ServicesRoute
-  "/services/$service": typeof ServicesServiceRoute
+  '/': typeof IndexRoute
+  '/services': typeof ServicesRouteRouteWithChildren
+  '/services/$service': typeof ServicesServiceRoute
+  '/services/': typeof ServicesIndexRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute
-  "/services": typeof ServicesRoute
-  "/services/$service": typeof ServicesServiceRoute
+  '/': typeof IndexRoute
+  '/services/$service': typeof ServicesServiceRoute
+  '/services': typeof ServicesIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  "/": typeof IndexRoute
-  "/services": typeof ServicesRoute
-  "/services_/$service": typeof ServicesServiceRoute
+  '/': typeof IndexRoute
+  '/services': typeof ServicesRouteRouteWithChildren
+  '/services/$service': typeof ServicesServiceRoute
+  '/services/': typeof ServicesIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/services" | "/services/$service"
+  fullPaths: '/' | '/services' | '/services/$service' | '/services/'
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/services" | "/services/$service"
-  id: "__root__" | "/" | "/services" | "/services_/$service"
+  to: '/' | '/services/$service' | '/services'
+  id: '__root__' | '/' | '/services' | '/services/$service' | '/services/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ServicesRoute: typeof ServicesRoute
-  ServicesServiceRoute: typeof ServicesServiceRoute
+  ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ServicesRoute: ServicesRoute,
-  ServicesServiceRoute: ServicesServiceRoute,
+  ServicesRouteRoute: ServicesRouteRouteWithChildren,
 }
 
-export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -114,18 +144,26 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/services",
-        "/services_/$service"
+        "/services"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
     "/services": {
-      "filePath": "services.tsx"
+      "filePath": "services/route.tsx",
+      "children": [
+        "/services/$service",
+        "/services/"
+      ]
     },
-    "/services_/$service": {
-      "filePath": "services_.$service.tsx"
+    "/services/$service": {
+      "filePath": "services/$service.tsx",
+      "parent": "/services"
+    },
+    "/services/": {
+      "filePath": "services/index.tsx",
+      "parent": "/services"
     }
   }
 }
