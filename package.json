@@ -41,6 +41,8 @@
   },
   "pnpm": {
     "overrides": {
+      "react": "19.1.0",
+      "react-dom": "19.1.0",
       "@types/react": "19.1.4",
       "@types/react-dom": "19.1.5",
       "@storybook/addon-essentials@8>react": "$react19",
