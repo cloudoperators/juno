@@ -24,8 +24,8 @@ jobs:
     needs: [test] # List the jobs that should complete successfully
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
     with:
-      title: "JUNO Packages Released Successfully! 🚀"
-      body: "If you see this message, the test job was successful."
-      # rich_body: true
+      title: "Testing rich BODY! 🚀"
+      body: '[{"name": "@xx/xx", "version": "1.2.0"}, {"name": "@xx/xy", "version": "0.8.9"}]'
+      rich_body: true
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
