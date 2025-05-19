@@ -3,5 +3,7 @@
   "embedded": false,
   "initialFilters": {
     "support_group": ["your_support_group"]
-  }
+  },
+  "basePath": "/",
+  "enableHashedRouting": false
 }
