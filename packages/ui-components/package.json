@@ -91,30 +91,6 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
-  "dependencyOverrides": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "@types/react": "19.1.4",
-    "@types/react-dom": "19.1.5"
-  },
-  "pnpm": {
-    "packageExtensions": {
-      "@storybook/addon-essentials": {
-        "dependencies": {
-          "react": "19.1.0",
-          "react-dom": "19.1.0",
-          "@types/react": "19.1.4"
-        }
-      },
-      "@storybook/addon-docs": {
-        "dependencies": {
-          "react": "19.1.0",
-          "react-dom": "19.1.0",
-          "@types/react": "19.1.4"
-        }
-      }
-    }
-  },
   "scripts": {
     "storybook": "storybook dev -p $APP_PORT --ci --no-open",
     "build": "vite build",
