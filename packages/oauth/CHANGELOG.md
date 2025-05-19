@@ -1,5 +1,11 @@
 # @cloudoperators/juno-oauth
 
+## 1.4.6
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
 ## 1.4.5
 
 ### Patch Changes

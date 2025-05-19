@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 3.0.1
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
 ## 3.0.0
 
 ### Major Changes

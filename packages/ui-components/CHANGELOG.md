@@ -1,5 +1,20 @@
 # @cloudoperators/juno-ui-components
 
+## 3.1.1
+
+### Patch Changes
+
+- cdae407: - update @floating-ui/react to the latest version 0.27.8
+  - update @testing-library/\* packages to the latest versions
+  - fix unit tests
+  - ensure tooltip content is not displayed when disabled
+- 7230774: - update storybook dependencies to the latest version
+  - remove @storybook/addon-webpack5-compiler-babel
+  - run code-modes to convert remaining csf2 to csf3
+  - fix storybook implicit action args error
+- a9e8592: PopupMenu: add missing component exports
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
 ## 3.1.0
 
 ### Minor Changes
