@@ -3,15 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { StrictMode } from "react"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
+import { RouterProvider } from "@tanstack/react-router"
+import { ApolloProvider } from "@apollo/client"
 import styles from "./styles.scss?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
-import { Shell } from "./components/Shell"
-import { ApolloProvider } from "@apollo/client"
 import { getClient } from "./apollo-client"
-import { StoreProvider } from "./store/StoreProvider"
-import { UserView } from "./store/StoreProvider/types"
+import { getRouter } from "./utils"
 
 export type InitialFilters = {
   support_group?: string[]
@@ -22,6 +21,14 @@ export type AppProps = {
   apiEndpoint?: string
   embedded?: boolean
   initialFilters?: InitialFilters
+  basePath?: string
+  enableHashedRouting?: boolean
+}
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof getRouter
+  }
 }
 
 const App = (props: AppProps) => (
@@ -30,11 +37,13 @@ const App = (props: AppProps) => (
       {/* load styles inside the shadow dom */}
       <style>{styles.toString()}</style>
       <ErrorBoundary>
-        <StoreProvider
-          initialState={{ selectedView: { viewId: UserView.Services }, initialFilters: props?.initialFilters }}
-        >
-          <Shell {...props} />
-        </StoreProvider>
+        <StrictMode>
+          <RouterProvider
+            basepath={props.basePath}
+            router={getRouter({ enableHashedRouting: props.enableHashedRouting })}
+            context={{ appProps: props }}
+          />
+        </StrictMode>
       </ErrorBoundary>
     </AppShellProvider>
   </ApolloProvider>

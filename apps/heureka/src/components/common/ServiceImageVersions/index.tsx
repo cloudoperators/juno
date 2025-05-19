@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback } from "react"
+import React, { useEffect } from "react"
 import {
   DataGrid,
   DataGridRow,
@@ -16,8 +16,6 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../EmptyDataGridRow"
 import { useFetchServiceImageVersions } from "../../Services/useFetchServiceImageVersions"
-import { useDispatch } from "../../../store/StoreProvider"
-import { ActionType, UserView } from "../../../store/StoreProvider/types"
 import ServiceImageVersionsItem from "./ServiceImageVersionsItem"
 import { ServiceImageVersion } from "../../Services/utils"
 import SectionContentHeading from "../SectionContentHeading"
@@ -26,19 +24,20 @@ import { ServiceType } from "../../types"
 type ServiceImageVersionsProps = {
   service: ServiceType
   displayActions?: boolean
-  selectedImageVersion?: ServiceImageVersion | null
-  onVersionSelect?: (version: ServiceImageVersion) => void
+  defaultSelectedImageVersion?: string
+  onImageVersionItemClick?: (imageVersion: ServiceImageVersion) => void
+  onDetailsButtonClick?: (imageVersion: ServiceImageVersion | undefined) => void
 }
 
 const COLUMN_COUNT = 8
 
 export const ServiceImageVersions = ({
   service,
-  selectedImageVersion,
+  defaultSelectedImageVersion,
   displayActions = false,
-  onVersionSelect,
+  onImageVersionItemClick,
+  onDetailsButtonClick,
 }: ServiceImageVersionsProps) => {
-  const dispatch = useDispatch()
   const { name: serviceName } = service
   const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalImageVersions } =
     useFetchServiceImageVersions({
@@ -47,42 +46,18 @@ export const ServiceImageVersions = ({
     })
   const gridColumnCount = displayActions ? COLUMN_COUNT : COLUMN_COUNT - 1
 
-  const selectImageVersion = useCallback(
-    ({ service, imageVersion }: { service: ServiceType; imageVersion: ServiceImageVersion }) => {
-      dispatch({
-        type: ActionType.SelectImageVersion,
-        payload: {
-          service,
-          imageVersion,
-          showPanel: true,
-        },
-      })
-    },
-    [dispatch]
-  )
-
-  const showServiceDetails = useCallback(
-    ({ service, imageVersion }: { service: ServiceType; imageVersion?: ServiceImageVersion }) => {
+  /**
+   * when imageVersions are loaded or the default selection is changed
+   * inform parent to change the highlighted image version in the list
+   */
+  useEffect(() => {
+    if (defaultSelectedImageVersion) {
+      const imageVersion = imageVersions.find((iv) => iv.version === defaultSelectedImageVersion)
       if (imageVersion) {
-        onVersionSelect?.(imageVersion)
-        selectImageVersion({
-          service,
-          imageVersion,
-        })
+        onImageVersionItemClick?.(imageVersion)
       }
-      dispatch({
-        type: ActionType.SelectView,
-        payload: {
-          viewId: UserView.ServiceDetails,
-          params: {
-            service,
-            imageVersion,
-          },
-        },
-      })
-    },
-    [onVersionSelect, selectImageVersion, dispatch]
-  )
+    }
+  }, [imageVersions.length, defaultSelectedImageVersion])
 
   return (
     <>
@@ -90,7 +65,13 @@ export const ServiceImageVersions = ({
 
       {displayActions && (
         <DataGridToolbar>
-          <Button size="small" onClick={() => showServiceDetails({ service })} className="whitespace-nowrap">
+          <Button
+            size="small"
+            onClick={
+              () => onDetailsButtonClick?.(undefined) // we're opening service details page with no image version selected
+            }
+            className="whitespace-nowrap"
+          >
             Full Details
           </Button>
         </DataGridToolbar>
@@ -118,21 +99,14 @@ export const ServiceImageVersions = ({
               <ServiceImageVersionsItem
                 key={index}
                 version={imageVersion}
-                selected={selectedImageVersion?.version === imageVersion.version}
+                selected={imageVersion.version === defaultSelectedImageVersion}
                 displayDetailsButton={displayActions}
                 onItemClick={() => {
-                  onVersionSelect?.(imageVersion)
-                  selectImageVersion({
-                    service,
-                    imageVersion: imageVersion,
-                  })
+                  onImageVersionItemClick?.(imageVersion)
                 }}
                 onDetailClick={(event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
                   event.stopPropagation()
-                  showServiceDetails({
-                    service,
-                    imageVersion: imageVersion,
-                  })
+                  onDetailsButtonClick?.(imageVersion)
                 }}
               />
             ))

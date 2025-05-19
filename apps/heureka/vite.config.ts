@@ -8,6 +8,7 @@ import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 import tsconfigPaths from "vite-tsconfig-paths"
 import svgr from "vite-plugin-svgr"
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
 
 export default ({ mode }) => {
   const sharedConfig = {
@@ -17,7 +18,7 @@ export default ({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [react(), tsconfigPaths(), svgr()],
+    plugins: [TanStackRouterVite({ target: "react", autoCodeSplitting: true }), react(), tsconfigPaths(), svgr()],
     css: {
       postcss: {
         plugins: [tailwindcss, autoprefixer],

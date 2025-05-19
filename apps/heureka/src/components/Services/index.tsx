@@ -4,16 +4,15 @@
  */
 
 import React, { useState, useEffect } from "react"
+import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 import { Breadcrumb } from "../common/Breadcrumb"
 import { Filters } from "../common/Filters"
 import { ServicesList } from "./ServicesList"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
 import { InitialFilters } from "../../App"
-import { useStore } from "../../store/StoreProvider"
 import { AllServicesIssuesCount } from "./AllServicesIssuesCount"
 import { useFetchServices } from "./useFetchServices"
-import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
 
 const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
   const supportGroupFilters =
@@ -24,8 +23,12 @@ const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
   }
 }
 
-export const Services = () => {
-  const { initialFilters } = useStore()
+type ServicesProps = {
+  defaultSelectService?: string
+  initialFilters?: InitialFilters
+}
+
+export const Services = ({ defaultSelectService, initialFilters }: ServicesProps) => {
   const { serviceFilters } = useFetchServiceFilters()
   const { addMessage, resetMessages } = useMessageActions()
   const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
@@ -58,6 +61,7 @@ export const Services = () => {
         />
         <AllServicesIssuesCount counts={servicesIssuesCount} loading={loading} error={error} />
         <ServicesList
+          defaultSelectService={defaultSelectService}
           services={services}
           loading={loading}
           error={error}

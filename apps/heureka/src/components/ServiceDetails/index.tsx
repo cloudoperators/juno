@@ -8,27 +8,32 @@ import { Stack, Pill, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } fr
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { ServiceImageVersions } from "../common/ServiceImageVersions"
 import { ImageVersionDetailsPanel } from "./ImageVersionDetailsPanel"
-import { useStore } from "../../store/StoreProvider"
-import { SelectServiceDetailsPayload, UserView } from "../../store/StoreProvider/types"
 import { Breadcrumb } from "../common/Breadcrumb"
-import { ServiceImageVersion } from "../Services/utils"
+import { getNormalizedData, ServiceImageVersion } from "../Services/utils"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../common/SectionContentHeading"
+import { useGetServicesQuery } from "../../generated/graphql"
+import { useNavigate } from "@tanstack/react-router"
 
-export const ServiceDetails = () => {
-  const { selectedView } = useStore()
-  const selectedService =
-    selectedView.viewId === UserView.ServiceDetails
-      ? (selectedView as SelectServiceDetailsPayload).params.service
-      : undefined
+type ServiceDetailsProps = {
+  serviceName: string
+  imageVersion?: string
+}
 
-  const [selectedImageVersion, setSelectedImageVersion] = useState<ServiceImageVersion | null>(
-    selectedView.viewId === UserView.ServiceDetails
-      ? (selectedView as SelectServiceDetailsPayload).params.imageVersion || null
-      : null
-  )
+export const ServiceDetails = ({ serviceName, imageVersion }: ServiceDetailsProps) => {
+  const navigate = useNavigate()
+  const [selectedImageVersion, setSelectedImageVersion] = useState<ServiceImageVersion | undefined>()
+  const { data, loading } = useGetServicesQuery({
+    variables: {
+      filter: {
+        serviceCcrn: [serviceName],
+      },
+    },
+  })
 
-  if (typeof selectedService === "undefined") {
+  const service = getNormalizedData(data).services[0]
+
+  if (typeof service === "undefined") {
     return null
   }
 
@@ -37,7 +42,7 @@ export const ServiceDetails = () => {
       <Breadcrumb />
       <Messages className="mb-4" />
 
-      <SectionContentHeading>Service {selectedService.name}</SectionContentHeading>
+      <SectionContentHeading>Service {service.name}</SectionContentHeading>
 
       {/* Service Information Section */}
       <DataGrid columns={2} gridColumnTemplate="10% auto" className="mb-6">
@@ -45,13 +50,8 @@ export const ServiceDetails = () => {
           <DataGridHeadCell>Details</DataGridHeadCell>
           <DataGridCell>
             <Stack gap="1" direction="horizontal" wrap>
-              <Pill
-                pillKey="service"
-                pillKeyLabel="service"
-                pillValue={selectedService.name}
-                pillValueLabel={selectedService.name}
-              />
-              {selectedService.serviceDetails?.supportGroups?.map((group) => (
+              <Pill pillKey="service" pillKeyLabel="service" pillValue={service.name} pillValueLabel={service.name} />
+              {service.serviceDetails?.supportGroups?.map((group) => (
                 <Pill
                   key={group}
                   pillKey="support_group"
@@ -66,26 +66,37 @@ export const ServiceDetails = () => {
         <DataGridRow>
           <DataGridHeadCell>Issues Counts</DataGridHeadCell>
           <DataGridCell>
-            <IssueCountsPerSeverityLevel counts={selectedService.issuesCount} />
+            <IssueCountsPerSeverityLevel counts={service.issuesCount} />
           </DataGridCell>
         </DataGridRow>
       </DataGrid>
 
       {/* Image Versions Section */}
       <ServiceImageVersions
-        service={selectedService}
+        service={service}
         displayActions={false}
-        selectedImageVersion={selectedImageVersion}
-        onVersionSelect={(version) => {
-          setSelectedImageVersion(selectedImageVersion?.version === version.version ? null : version)
+        defaultSelectedImageVersion={imageVersion}
+        onImageVersionItemClick={(iv) => {
+          navigate({
+            to: "/services/$service",
+            params: { service: service.name },
+            search: { imageVersion: iv.version },
+          })
+          setSelectedImageVersion(iv)
         }}
       />
       {/* Image Version Details Panel */}
       {selectedImageVersion && (
         <ImageVersionDetailsPanel
           imageVersion={selectedImageVersion}
-          serviceCcrn={selectedService.name}
-          onClose={() => setSelectedImageVersion(null)}
+          serviceCcrn={service.name}
+          onClose={() => {
+            navigate({
+              to: "/services/$service",
+              params: { service: service.name },
+            })
+            setSelectedImageVersion(undefined)
+          }}
         />
       )}
     </MessagesProvider>
