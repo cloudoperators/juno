@@ -311,7 +311,7 @@ importers:
         specifier: 6.6.3
         version: 6.6.3
       '@testing-library/react':
-        specifier: ^16.0.1
+        specifier: ^16.3.0
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@types/react':
         specifier: 19.1.4
@@ -332,8 +332,8 @@ importers:
         specifier: ^8.4.47
         version: 8.5.1
       react-test-renderer:
-        specifier: ^18.2.0
-        version: 18.3.1(react@19.1.0)
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
       sass:
         specifier: ^1.60.0
         version: 1.81.1
