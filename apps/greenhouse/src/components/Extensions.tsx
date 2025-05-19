@@ -23,7 +23,7 @@ const CorePlugin = ({ config, auth }: any) => {
 }
 
 const Extension = ({ config, auth }: any) => {
-  const holder = useRef()
+  const holder = useRef(null)
 
   useEffect(() => {
     if (!holder.current) return
@@ -55,15 +55,14 @@ const Extension = ({ config, auth }: any) => {
       })
   }, [config])
 
-  // @ts-expect-error TS(2322): Type 'MutableRefObject<undefined>' is not assignab... Remove this comment to see the full error message
   return <div ref={holder}>Unknown</div>
 }
 
 function Plugin({ config, active, id }: any) {
   // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: auth } = useAuth()
-  const holder = useRef()
-  const app = useRef()
+  const holder = useRef(null)
+  const app = useRef<HTMLElement>(null)
 
   useEffect(() => {
     if (!holder.current) return
@@ -72,10 +71,8 @@ function Plugin({ config, active, id }: any) {
       // App is a core app or an extension
       const App = config.core ? CorePlugin : Extension
       // create the app dom element
-      // @ts-expect-error TS(2322): Type 'HTMLDivElement' is not assignable to type 'u... Remove this comment to see the full error message
       app.current = document.createElement("div")
       // render the app into the dom element
-      // @ts-expect-error TS(2345): Argument of type 'undefined' is not assignable to ... Remove this comment to see the full error message
       createRoot(app.current).render(<App config={config} auth={auth} />)
     }
     // add or remove the app from the holder
@@ -90,7 +87,6 @@ function Plugin({ config, active, id }: any) {
     }
   }, [active])
 
-  // @ts-expect-error TS(2322): Type 'MutableRefObject<undefined>' is not assignab... Remove this comment to see the full error message
   return <div id={id} ref={holder}></div>
 }
 

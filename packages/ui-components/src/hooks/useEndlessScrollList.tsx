@@ -73,8 +73,8 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
   )
   const iterator = useMemo(() => {
     return {
-      map: (elements: (value: unknown, index: number, array: unknown[]) => React.JSX.Element) => {
-        const content = scrollListItems?.map<React.JSX.Element>(elements)
+      map: (elements: (value: unknown, index: number, array: unknown[]) => React.ReactElement) => {
+        const content = scrollListItems?.map<React.ReactElement>(elements)
         return (
           <React.Fragment>
             {content}

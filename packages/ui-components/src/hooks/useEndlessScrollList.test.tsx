@@ -35,7 +35,7 @@ describe("useEndlessScrollList", () => {
       const { result } = renderHook(() => useEndlessScrollList(["1", "2", "3"]))
       const mapFunction = result.current.iterator.map(
         // eslint-disable-next-line no-unused-vars
-        (item: unknown, index: number, array: unknown[]): React.JSX.Element => item as React.JSX.Element
+        (item: unknown, index: number, array: unknown[]): React.ReactElement => item as React.ReactElement
       )
       const getById = queryByAttribute.bind(null, "id")
       const dom = render(mapFunction)
@@ -53,7 +53,7 @@ describe("useEndlessScrollList", () => {
       )
       const mapFunction = result.current.iterator.map(
         // eslint-disable-next-line no-unused-vars
-        (item: unknown, index: number, array: unknown[]): React.JSX.Element => item as React.JSX.Element
+        (item: unknown, index: number, array: unknown[]): React.ReactElement => item as React.ReactElement
       )
       const getById = queryByAttribute.bind(null, "id")
       const dom = render(mapFunction)
@@ -71,7 +71,7 @@ describe("useEndlessScrollList", () => {
       )
       const mapFunction = result.current.iterator.map(
         // eslint-disable-next-line no-unused-vars
-        (item: unknown, index: number, array: unknown[]): React.JSX.Element => item as React.JSX.Element
+        (item: unknown, index: number, array: unknown[]): React.ReactElement => item as React.ReactElement
       )
       const getById = queryByAttribute.bind(null, "id")
       const dom = render(mapFunction)
