@@ -12,13 +12,20 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    name: Release
+  test:
     runs-on: [default]
-  steps:
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-rework-last-workflows
+    steps:
+      - name: Generate filters
+        id: generate-filters
+        run: |
+          echo "Success"
+
+  notify-on-success:
+    needs: [test] # List the jobs that should complete successfully
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
     with:
-      title: "Testing new release of this action!!! 🚀"
-      body: "If you see this message, the action was successful!"
+      title: "JUNO Packages Released Successfully! 🚀"
+      body: "If you see this message, the test job was successful.""
+      # rich_body: true
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
