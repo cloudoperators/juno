@@ -141,8 +141,8 @@ For example, in the package.json:
 {
   "dependencies": {
     "@cloudoperators/juno-ui-components": "^latest",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }
 ```
@@ -165,8 +165,8 @@ For example, in the package.json:
 {
   "peerDependencies": {
     "@cloudoperators/juno-ui-components": "^latest",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }
 ```
