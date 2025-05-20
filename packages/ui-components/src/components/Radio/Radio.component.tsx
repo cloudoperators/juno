@@ -27,6 +27,7 @@ const mockradiostyles = `
   jn-h-4
   jn-rounded-full
   jn-bg-theme-radio
+  jn-cursor-pointer
 `
 
 const checkedstyles = `
@@ -170,7 +171,7 @@ export const Radio: React.FC<RadioProps> = ({
   const handleChange = () => {
     // Update the Radio's state:
     setIsChecked(!isChecked)
-    // Update parent state ONLY if parent context exists and ONLY if the Radio is checked but not reflected in the parent’s selectedValue:
+    // Update parent state ONLY if parent context exists and ONLY if the Radio is checked but not reflected in the parent's selectedValue:
     if (groupOnChange && typeof groupOnChange === "function") {
       if (groupSelectedValue !== value) {
         groupOnChange(value)
@@ -222,6 +223,7 @@ export const Radio: React.FC<RadioProps> = ({
           <input
             checked={determineChecked()}
             className={`
+              ${disabled ? "jn-cursor-not-allowed" : "jn-cursor-pointer"}
               ${inputstyles} 
               ${isInvalid ? "juno-radio-invalid" : ""} 
               ${isValid ? "juno-radio-valid" : ""}
