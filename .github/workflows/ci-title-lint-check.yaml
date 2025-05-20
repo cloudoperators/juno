@@ -13,8 +13,33 @@ jobs:
     name: Validate PR title
     runs-on: [default]
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Load config
+        # skip if the PR is from a forked repository
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        id: load_config
+        run: |
+          # Load types and scopes directly from commitlint.config.mjs and set as environment variables
+          node --experimental-modules -e "
+            import('./commitlint.config.mjs').then(({ types, scopes }) => {
+              // Write types and scopes as multiline environment variables
+              console.log('TYPES<<EOF');
+              console.log(types.join('\n'));
+              console.log('EOF');
+              
+              console.log('SCOPES<<EOF');
+              console.log(scopes.join('\n'));
+              console.log('EOF');
+            });
+          " >> $GITHUB_ENV
+          echo "Done!"
+
       - name: CI Check Title
-        uses: amannn/action-semantic-pull-request@v5
+        # skip if the PR is from a forked repository
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -22,44 +47,9 @@ jobs:
           # Configure which types are allowed (newline-delimited).
           # Default: https://github.com/commitizen/conventional-commit-types
           types: |
-            build
-            chore
-            fix
-            feat
-            merge
-            publish
-            release
-            refactor
-            research
-            style
-            test
-          # Configure which scopes are allowed (newline-delimited).
-          # These are regex patterns auto-wrapped in `^ $`.
+            ${{ env.TYPES }}
           scopes: |
-            build
-            communicator
-            config
-            carbon
-            ci
-            core
-            deps
-            docs
-            doop
-            example
-            heureka
-            greenhouse            
-            infra
-            juno
-            k8s
-            message-provider
-            npm
-            oauth
-            supernova
-            template
-            ui
-            url-state-provider
-            version
-            ISSUE-\d+
+            ${{ env.SCOPES }}
           # Configure that a scope must always be provided.
           requireScope: true
           # Configure which scopes are disallowed in PR titles (newline-delimited).
