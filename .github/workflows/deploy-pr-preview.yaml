@@ -30,6 +30,10 @@ on:
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+
 env:
   DEPLOY_PATH: tmp
 
