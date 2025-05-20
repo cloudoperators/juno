@@ -12,7 +12,7 @@ import { useStore } from "../../store/StoreProvider"
 import { SelectServiceDetailsPayload, UserView } from "../../store/StoreProvider/types"
 import { Breadcrumb } from "../common/Breadcrumb"
 import { ServiceImageVersion } from "../Services/utils"
-import { IssuesCountPerSeverityLevel } from "../common/IssuesCountPerSeverityLevel"
+import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../common/SectionContentHeading"
 
 export const ServiceDetails = () => {
@@ -66,7 +66,7 @@ export const ServiceDetails = () => {
         <DataGridRow>
           <DataGridHeadCell>Issues Counts</DataGridHeadCell>
           <DataGridCell>
-            <IssuesCountPerSeverityLevel counts={selectedService.issuesCount} />
+            <IssueCountsPerSeverityLevel counts={selectedService.issuesCount} />
           </DataGridCell>
         </DataGridRow>
       </DataGrid>
@@ -77,7 +77,7 @@ export const ServiceDetails = () => {
         displayActions={false}
         selectedImageVersion={selectedImageVersion}
         onVersionSelect={(version) => {
-          setSelectedImageVersion(version)
+          setSelectedImageVersion(selectedImageVersion?.version === version.version ? null : version)
         }}
       />
       {/* Image Version Details Panel */}

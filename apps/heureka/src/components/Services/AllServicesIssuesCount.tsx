@@ -3,38 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React from "react"
 import { Spinner, Stack } from "@cloudoperators/juno-ui-components"
-import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
-import { FilterSettings } from "../common/Filters/types"
-import { useFetchServicesIssuesCounts } from "./useFetchServicesIssuesCounts"
-import { IssuesCountPerSeverityLevel } from "../common/IssuesCountPerSeverityLevel"
+import { IssuesCountsType } from "../types"
+import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 
 type AllServicesIssuesCountProps = {
-  filterSettings: FilterSettings
+  loading: boolean
+  error: string | null
+  counts: IssuesCountsType
 }
 
-export const AllServicesIssuesCount = ({ filterSettings }: AllServicesIssuesCountProps) => {
-  const { addMessage } = useMessageActions()
-
-  const { counts, error, loading } = useFetchServicesIssuesCounts({
-    filterSettings,
-  })
-
-  useEffect(() => {
-    if (error) {
-      addMessage({
-        variant: "error",
-        text: error,
-      })
-    }
-  }, [error])
-
+export const AllServicesIssuesCount = ({ loading, error, counts }: AllServicesIssuesCountProps) => {
   return (
     <Stack className="status-bar bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
       <Stack gap="1">
         {!error && !loading ? (
-          <IssuesCountPerSeverityLevel counts={counts} />
+          <IssueCountsPerSeverityLevel counts={counts} />
         ) : (
           <div className="font-bold">All issues: --</div>
         )}

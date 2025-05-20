@@ -4,8 +4,7 @@
  */
 
 import { useState, useEffect } from "react"
-// @ts-expect-error TS(2792): Cannot find module '@cloudoperators/juno-url-state... Remove this comment to see the full error message
-import { registerConsumer } from "@cloudoperators/juno-url-state-provider-v1"
+import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import { useCurrentTeam, useDefaultTeam, useStoreActions } from "../components/StoreProvider"
 
 const URL_STATE_KEY = "greenhouse-team-admin"

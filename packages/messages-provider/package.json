@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-messages-provider",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Messages provider",
   "author": "UI-Team",
   "contributors": [
@@ -16,7 +16,7 @@
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "peerDependencies": {
     "react": "^18.3.0",
@@ -24,13 +24,15 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "typescript": "^5.6.2",
-    "vite": "^6.2.4",
+    "vite": "^6.3.5",
     "vite-plugin-dts": "^4.2.3",
     "vitest": "^3.0.7",
     "zustand": "^4.5.2"

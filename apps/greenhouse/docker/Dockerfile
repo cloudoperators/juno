@@ -14,8 +14,9 @@ WORKDIR /juno
 
 # copy all greenhouse apps to /tmp/greenhouse
 ADD . .
+RUN npm i -g pnpm
 
-RUN npm install && npx turbo build:static --filter @cloudoperators/juno-app-greenhouse
+RUN pnpm install && pnpx turbo build:static --filter @cloudoperators/juno-app-greenhouse
 
 FROM nginx:alpine
 

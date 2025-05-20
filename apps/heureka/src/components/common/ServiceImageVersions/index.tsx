@@ -40,7 +40,7 @@ export const ServiceImageVersions = ({
 }: ServiceImageVersionsProps) => {
   const dispatch = useDispatch()
   const { name: serviceName } = service
-  const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalCount } =
+  const { loading, imageVersions, error, totalNumberOfPages, currentPage, goToPage, totalImageVersions } =
     useFetchServiceImageVersions({
       serviceCcrn: serviceName || "",
       pageSize: 20,
@@ -86,7 +86,7 @@ export const ServiceImageVersions = ({
 
   return (
     <>
-      <SectionContentHeading>Image Versions ({totalCount})</SectionContentHeading>
+      <SectionContentHeading>Image Versions ({totalImageVersions})</SectionContentHeading>
 
       {displayActions && (
         <DataGridToolbar>
@@ -97,15 +97,11 @@ export const ServiceImageVersions = ({
       )}
 
       <div className="datagrid-hover">
-        <DataGrid columns={gridColumnCount} minContentColumns={[2, 3, 4, 5]}>
+        <DataGrid columns={gridColumnCount} minContentColumns={[2, 3, 4, 5, 6]}>
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Tag</DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
+            <DataGridHeadCell colSpan={5}>Issue Counts</DataGridHeadCell>
             {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
           {loading ? (
@@ -143,7 +139,7 @@ export const ServiceImageVersions = ({
           )}
         </DataGrid>
       </div>
-      {totalNumberOfPages > 1 && totalCount > 20 && (
+      {totalNumberOfPages > 1 && totalImageVersions > 20 && (
         <Stack distribution="end">
           <Pagination
             variant="number"

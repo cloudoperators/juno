@@ -4,7 +4,7 @@
  */
 
 import React, { Fragment, useContext, useEffect } from "react"
-import { Listbox } from "@headlessui/react"
+import { ListboxOption } from "@headlessui/react"
 import { SelectContext } from "../Select/Select.component"
 import { Icon } from "../Icon"
 
@@ -78,7 +78,7 @@ export const SelectOption: React.FC<SelectOptionProps> = ({
   }, [value, label, children])
 
   return (
-    <Listbox.Option as={Fragment} disabled={disabled} value={value || children}>
+    <ListboxOption as={Fragment} disabled={disabled} value={value || children}>
       {({ /*active,*/ selected }) => (
         <li
           className={`
@@ -103,6 +103,6 @@ export const SelectOption: React.FC<SelectOptionProps> = ({
           </span>
         </li>
       )}
-    </Listbox.Option>
+    </ListboxOption>
   )
 }

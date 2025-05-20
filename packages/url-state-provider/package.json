@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-url-state-provider",
-  "version": "2.3.4",
+  "version": "3.0.1",
   "description": "Save several paths in the url. This makes it possible to manage the status of several apps such as micro frontends with the help of URL.",
   "author": "UI-Team",
   "contributors": [
@@ -11,18 +11,24 @@
     "type": "git",
     "url": "git+https://github.com/cloudoperators/juno.git#main"
   },
-  "source": "src/index.js",
-  "main": "build/index.js",
-  "module": "build/index.js",
-  "type": "module",
+  "source": "src/index.ts",
+  "main": "build/index.cjs.js",
+  "module": "build/index.es.js",
   "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.es.js",
+      "require": "./build/index.cjs.js"
+    }
+  },
   "files": [
     "build"
   ],
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "scripts": {
     "build": "vite build",
@@ -34,12 +40,12 @@
     "clean:cache": "rm -rf .turbo"
   },
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "jsdom": "^18.0.0",
     "juri-cutlery": "^1.0.0",
     "lz-string": "^1.4.4",
     "typescript": "^5.5.4",
-    "vite": "^6.2.4",
+    "vite": "^6.3.5",
     "vite-plugin-dts": "^4.0.3",
     "vitest": "^3.0.7"
   },

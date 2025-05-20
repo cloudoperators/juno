@@ -4,11 +4,28 @@
  */
 
 import React from "react"
-import { render } from "@testing-library/react"
+import { render, cleanup } from "@testing-library/react"
 import { describe, it, expect, vi } from "vitest"
 import { screen } from "shadow-dom-testing-library"
 
 import App from "./App"
+
+class ResizeObserver {
+  observe() {
+    // do nothing
+    vi.fn()
+  }
+  unobserve() {
+    // do nothing
+    vi.fn()
+  }
+  disconnect() {
+    // do nothing
+    vi.fn()
+  }
+}
+
+window.ResizeObserver = ResizeObserver
 
 // Mock styles
 vi.mock("./styles.module.scss", () => ({
@@ -21,6 +38,11 @@ vi.mock("./styles.module.scss", () => ({
 }))
 
 describe("App", () => {
+  afterEach(() => {
+    cleanup()
+    vi.clearAllMocks()
+  })
+
   it("should render the App component", () => {
     render(<App id="123" />)
     const loginTitle = screen.queryAllByShadowText(/Juno UI Peaks Monitoring Dashboard/i)

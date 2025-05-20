@@ -5,7 +5,16 @@
 
 import React from "react"
 import { actions } from "@storybook/addon-actions"
-import { PopupMenu, usePopupMenuContext } from "./"
+import {
+  PopupMenu,
+  PopupMenuOptions,
+  PopupMenuToggle,
+  PopupMenuItem,
+  PopupMenuSection,
+  PopupMenuSectionHeading,
+  PopupMenuSectionSeparator,
+  usePopupMenuContext,
+} from "./"
 import { KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 import { Button, ButtonProps } from "../Button/"
@@ -16,10 +25,10 @@ export default {
   title: "WiP/PopupMenu",
   component: PopupMenu,
   subcomponents: {
-    "PopupMenu.Toggle": PopupMenu.Toggle,
-    "PopupMenu.Menu": PopupMenu.Menu,
-    "PopupMenu.Item": PopupMenu.Item,
-    "PopupMenu.Section": PopupMenu.Section,
+    PopupMenuToggle,
+    PopupMenuOptions,
+    PopupMenuItem,
+    PopupMenuSection,
   },
   argTypes: {
     children: { control: false },
@@ -77,16 +86,16 @@ export const Default = {
     docs: {
       description: {
         story:
-          "When no `<PopupMenu.Menu>` child is passed, the component will render but there will be no visible menu unless passed. This story only adds a simple placeholder for the menu for illustrational purposes. OnOpen and onClose handlers will be run though, even if no PopupMenu.Menu is passed.",
+          "When no `<PopupMenuOptions>` child is passed, the component will render but there will be no visible menu unless passed. This story only adds a simple placeholder for the menu for illustrational purposes. OnOpen and onClose handlers will be run though, even if no PopupMenuOptions is passed.",
       },
     },
   },
   args: {
     ...actions("onOpen", "onClose"),
     children: (
-      <PopupMenu.Menu>
+      <PopupMenuOptions>
         <p>Menu goes here.</p>
-      </PopupMenu.Menu>
+      </PopupMenuOptions>
     ),
   },
 }
@@ -96,7 +105,7 @@ export const NoMenu = {
     docs: {
       description: {
         story:
-          "This story has no `PopupMenu.Menu` passed. The component should still render without any errors, and `onOpen` and `onClose` should be run regardless.",
+          "This story has no `PopupMenuOptions` passed. The component should still render without any errors, and `onOpen` and `onClose` should be run regardless.",
       },
     },
   },
@@ -124,37 +133,37 @@ export const WithMenuChild = {
     docs: {
       description: {
         story:
-          "Pass at least a `<PopupMenu.Menu>` component with `<PopupMenu.Item>` elements inside to render a functional menu. A default toggle element will be rendered.",
+          "Pass at least a `<PopupMenuOptions>` component with `<PopupMenuItem>` elements inside to render a functional menu. A default toggle element will be rendered.",
       },
     },
   },
   args: {
     ...actions("onOpen", "onClose"),
     children: (
-      <PopupMenu.Menu>
-        <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
-        <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
-      </PopupMenu.Menu>
+      <PopupMenuOptions>
+        <PopupMenuItem label="Menu Item 1" />
+        <PopupMenuItem label="Menu Item 2" icon="deleteForever" />
+        <PopupMenuItem label="Menu Item 3 Disabled" disabled />
+      </PopupMenuOptions>
     ),
   },
 }
 
-export const WitchChildrenAsLinks = {
+export const WithChildrenAsLinks = {
   parameters: {
     docs: {
       description: {
-        story: "Pass `as` as `anchor` and supply a `href` prop in order to render PopupMenu.Item elements as links.",
+        story: "Pass `as` as `anchor` and supply a `href` prop in order to render PopupMenuItem elements as links.",
       },
     },
   },
   args: {
     ...actions("onOpen", "onClose"),
     children: (
-      <PopupMenu.Menu>
-        <PopupMenu.Item as="a" href="https://github.com/cloudoperators/juno" label="Go to Juno on Github" />
-        <PopupMenu.Item as="a" href="https://www.sap.com" label="Got to sap.com" target="_blank" icon="openInNew" />
-      </PopupMenu.Menu>
+      <PopupMenuOptions>
+        <PopupMenuItem as="a" href="https://github.com/cloudoperators/juno" label="Go to Juno on Github" />
+        <PopupMenuItem as="a" href="https://www.sap.com" label="Go to sap.com" target="_blank" icon="openInNew" />
+      </PopupMenuOptions>
     ),
   },
 }
@@ -164,17 +173,17 @@ export const WithMenuWithRandomContent = {
     docs: {
       description: {
         story:
-          "`PopupMenu.Item` elements may contain random elements other than `PopupMenu.Item`. In such cases you may consume the PupupMenu context using the `usePopupMenuContext` hook that contains a `close` function that can be used by custom components to close the menu if needed.",
+          "`PopupMenuItem` elements may contain random elements other than `PopupMenuItem`. In such cases you may consume the PopupMenu context using the `usePopupMenuContext` hook that contains a `close` function that can be used by custom components to close the menu if needed.",
       },
     },
   },
   args: {
     ...actions("onOpen", "onClose"),
     children: (
-      <PopupMenu.Menu>
+      <PopupMenuOptions>
         <p>Some content goes here.</p>
         <CloseButton variant="primary">Yay!</CloseButton>
-      </PopupMenu.Menu>
+      </PopupMenuOptions>
     ),
   },
 }
@@ -191,19 +200,19 @@ export const WithMenuChildWithSection = {
   args: {
     ...actions("onOpen", "onClose"),
     children: (
-      <PopupMenu.Menu>
-        <PopupMenu.Section>
-          <PopupMenu.SectionHeading>Section 1</PopupMenu.SectionHeading>
-          <PopupMenu.Item label="Menu Item 1" />
-          <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
-        </PopupMenu.Section>
-        <PopupMenu.SectionSeparator />
-        <PopupMenu.Section>
-          <PopupMenu.SectionHeading label="Section 2" />
-          <PopupMenu.Item label="Menu Item 3" />
-          <PopupMenu.Item label="Menu Item 4 Disabled" disabled />
-        </PopupMenu.Section>
-      </PopupMenu.Menu>
+      <PopupMenuOptions>
+        <PopupMenuSection>
+          <PopupMenuSectionHeading>Section 1</PopupMenuSectionHeading>
+          <PopupMenuItem label="Menu Item 1" />
+          <PopupMenuItem label="Menu Item 2" icon="deleteForever" />
+        </PopupMenuSection>
+        <PopupMenuSectionSeparator />
+        <PopupMenuSection>
+          <PopupMenuSectionHeading label="Section 2" />
+          <PopupMenuItem label="Menu Item 3" />
+          <PopupMenuItem label="Menu Item 4 Disabled" disabled />
+        </PopupMenuSection>
+      </PopupMenuOptions>
     ),
   },
 }
@@ -220,11 +229,11 @@ export const WithIcon = {
     ...actions("onOpen", "onClose"),
     icon: "warning",
     children: (
-      <PopupMenu.Menu>
-        <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
-        <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
-      </PopupMenu.Menu>
+      <PopupMenuOptions>
+        <PopupMenuItem label="Menu Item 1" />
+        <PopupMenuItem label="Menu Item 2" icon="deleteForever" />
+        <PopupMenuItem label="Menu Item 3 Disabled" disabled />
+      </PopupMenuOptions>
     ),
   },
 }
@@ -241,12 +250,12 @@ export const WithToggleAndMenuChildren = {
   args: {
     ...actions("onOpen", "onClose"),
     children: [
-      <PopupMenu.Toggle key="t">The Toggle</PopupMenu.Toggle>,
-      <PopupMenu.Menu key="m">
-        <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
-        <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
-      </PopupMenu.Menu>,
+      <PopupMenuToggle key="t">The Toggle</PopupMenuToggle>,
+      <PopupMenuOptions key="m">
+        <PopupMenuItem label="Menu Item 1" />
+        <PopupMenuItem label="Menu Item 2" icon="deleteForever" />
+        <PopupMenuItem label="Menu Item 3 Disabled" disabled />
+      </PopupMenuOptions>,
     ],
   },
 }
@@ -256,19 +265,19 @@ export const WithToggleAsButtonComponent = {
     docs: {
       description: {
         story:
-          "Pass a custom component to render `as={MyCustomComponent}` to render as a toggle. Make sure to forward refs. Note we may change the standard `<PopupMenu.Toggle>` to use our own `<Button>` component, in this case we would need a different example component here.",
+          "Pass a custom component to render `as={MyCustomComponent}` to render as a toggle. Make sure to forward refs. Note we may change the standard `<PopupMenuToggle>` to use our own `<Button>` component, in this case we would need a different example component here.",
       },
     },
   },
   args: {
     ...actions("onOpen", "onClose"),
     children: [
-      <PopupMenu.Toggle as={ToggleButton} key="t" />,
-      <PopupMenu.Menu key="m">
-        <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
-        <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
-      </PopupMenu.Menu>,
+      <PopupMenuToggle as={ToggleButton} key="t" />,
+      <PopupMenuOptions key="m">
+        <PopupMenuItem label="Menu Item 1" />
+        <PopupMenuItem label="Menu Item 2" icon="deleteForever" />
+        <PopupMenuItem label="Menu Item 3 Disabled" disabled />
+      </PopupMenuOptions>,
     ],
   },
 }
@@ -285,12 +294,12 @@ export const WithToggleAsButtonStyledByState = {
   args: {
     ...actions("onOpen", "onClose"),
     children: [
-      <PopupMenu.Toggle as={StyledToggleButton} key="t" />,
-      <PopupMenu.Menu key="m">
-        <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
-        <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
-      </PopupMenu.Menu>,
+      <PopupMenuToggle as={StyledToggleButton} key="t" />,
+      <PopupMenuOptions key="m">
+        <PopupMenuItem label="Menu Item 1" />
+        <PopupMenuItem label="Menu Item 2" icon="deleteForever" />
+        <PopupMenuItem label="Menu Item 3 Disabled" disabled />
+      </PopupMenuOptions>,
     ],
   },
 }
@@ -300,21 +309,21 @@ export const WithCustomButtonComponentAsChild = {
     docs: {
       description: {
         story:
-          "By default, `PopupMenu.Toggle` will render a `<button>` element as a toggle. When passing a custom component as a child, that will itself render a button or an element with button-like behavior, set the `PopupMenu.Toggle`'s `as` prop to `React.Fragment` to prevent rendering a button inside a button, which is invalid. When using a custom toggle component this way, make sure to forward refs and handle accessibility requirements properly.",
+          "By default, `PopupMenuToggle` will render a `<button>` element as a toggle. When passing a custom component as a child, that will itself render a button or an element with button-like behavior, set the `PopupMenuToggle`'s `as` prop to `React.Fragment` to prevent rendering a button inside a button, which is invalid. When using a custom toggle component this way, make sure to forward refs and handle accessibility requirements properly.",
       },
     },
   },
   args: {
     ...actions("onOpen", "onClose"),
     children: [
-      <PopupMenu.Toggle as={React.Fragment} key="t">
+      <PopupMenuToggle as={React.Fragment} key="t">
         <ToggleButton />
-      </PopupMenu.Toggle>,
-      <PopupMenu.Menu key="m">
-        <PopupMenu.Item label="Menu Item 1" />
-        <PopupMenu.Item label="Menu Item 2" icon="deleteForever" />
-        <PopupMenu.Item label="Menu Item 3 Disabled" disabled />
-      </PopupMenu.Menu>,
+      </PopupMenuToggle>,
+      <PopupMenuOptions key="m">
+        <PopupMenuItem label="Menu Item 1" />
+        <PopupMenuItem label="Menu Item 2" icon="deleteForever" />
+        <PopupMenuItem label="Menu Item 3 Disabled" disabled />
+      </PopupMenuOptions>,
     ],
   },
 }

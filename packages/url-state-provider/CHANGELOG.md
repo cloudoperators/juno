@@ -1,5 +1,19 @@
 # @cloudoperators/juno-url-state-provider
 
+## 3.0.1
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
+## 3.0.0
+
+### Major Changes
+
+- 6b5e878: - Rollback `url-state-provider` back to `v1.3.2`.
+  - `url-state-provider` will now ignore Hashed(#) part of the URL while encoding/decoding query parameters.
+  - Removed dependency of `url-state-provider-v1` in all internal applications.
+
 ## 2.3.4
 
 ### Patch Changes

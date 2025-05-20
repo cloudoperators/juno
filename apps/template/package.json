@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-template",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
   "license": "Apache-2.0",
@@ -11,7 +11,7 @@
   "private": true,
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -27,12 +27,13 @@
   "dependencies": {
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "react-error-boundary": "^3.1.0",
     "zustand": "^4.5.2",
     "@tanstack/react-query": "4.28.0",
     "@cloudoperators/juno-ui-components": "*"
   },
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@types/node": "^20.16.5",
@@ -54,7 +55,7 @@
     "prettier": "3.1.1",
     "tailwindcss": "^3.4.12",
     "typescript": "^5.6.2",
-    "vite": "^6.2.4",
+    "vite": "^6.3.5",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^3.0.7"
   }

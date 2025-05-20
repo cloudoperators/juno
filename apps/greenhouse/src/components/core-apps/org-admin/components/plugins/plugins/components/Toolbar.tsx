@@ -69,7 +69,7 @@ const Toolbar = () => {
     )
   }, [pluginConfig])
 
-  const handleLabelChange = (value?: string | number | string[] | undefined) => {
+  const handleLabelChange = (value?: string | number | string[]) => {
     setSelectedValue(undefined)
 
     if (!labelFilters) return
@@ -81,7 +81,7 @@ const Toolbar = () => {
     setAvailableValues(filter?.value || [])
   }
 
-  const handleValueChange = (value?: string | number | string[] | undefined) => {
+  const handleValueChange = (value?: string | number | string[]) => {
     addLabelValueFilter({ label: selectedLabel, value: value })
   }
 

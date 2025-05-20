@@ -7,7 +7,7 @@ build_folder=$(dirname $entry_file)
 package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
 
 # Run build using turbo
-npx turbo run build:static --filter $package_name -- --base ./
+pnpx turbo run build:static --filter $package_name -- --base ./
 
 # Copy build folder to deploy path
 mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"

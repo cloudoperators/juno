@@ -30,7 +30,7 @@ export const useFetchServices = ({ filterSettings, pageSize = 20 }: UseFetchServ
     },
     fetchPolicy: "network-only", // Doesn't check cache before making a network request
   })
-  const { services, pages, pageNumber } = getNormalizedData(data)
+  const { services, servicesIssuesCount, pages, pageNumber } = getNormalizedData(data)
 
   // let's save the pages so we can get cursor when navigating among pages
   pagesRef.current = pages
@@ -56,6 +56,7 @@ export const useFetchServices = ({ filterSettings, pageSize = 20 }: UseFetchServ
     loading,
     error: getNormalizedError(error),
     services: services || [],
+    servicesIssuesCount,
     currentPage: pageNumber,
     totalNumberOfPages: pages.length || 0,
     goToPage,

@@ -15,6 +15,23 @@ const mockOnChange = vi.fn()
 const mockOnFocus = vi.fn()
 const mockOnInputChange = vi.fn()
 
+class ResizeObserver {
+  observe() {
+    // do nothing
+    vi.fn()
+  }
+  unobserve() {
+    // do nothing
+    vi.fn()
+  }
+  disconnect() {
+    // do nothing
+    vi.fn()
+  }
+}
+
+window.ResizeObserver = ResizeObserver
+
 describe("ComboBox", () => {
   afterEach(() => {
     cleanup()
@@ -389,6 +406,7 @@ describe("ComboBox", () => {
     const user = await waitFor(() => userEvent.setup())
     const cbox = screen.getByRole("combobox")
     expect(cbox).toBeInTheDocument()
+
     await waitFor(() => user.type(cbox, "a"))
     expect(screen.getByRole("listbox")).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
@@ -401,11 +419,13 @@ describe("ComboBox", () => {
     expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
     expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
+
     await waitFor(() => user.clear(cbox))
     expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
     expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
+
     await waitFor(() => user.type(cbox, "1"))
     expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
     expect(screen.queryByRole("option", { name: "aab" })).not.toBeInTheDocument()

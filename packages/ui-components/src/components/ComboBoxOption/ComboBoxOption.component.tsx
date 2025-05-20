@@ -4,7 +4,7 @@
  */
 
 import React, { Fragment, useEffect, useContext } from "react"
-import { Combobox } from "@headlessui/react"
+import { ComboboxOption } from "@headlessui/react"
 import { ComboBoxContext } from "../ComboBox/ComboBox.component"
 import { Icon } from "../Icon/Icon.component"
 
@@ -74,7 +74,7 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   const theValue = value || children
 
   return (
-    <Combobox.Option value={theValue} disabled={disabled} as={Fragment}>
+    <ComboboxOption value={theValue} disabled={disabled} as={Fragment}>
       <li
         className={`
           juno-combobox-option 
@@ -95,7 +95,7 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
           {children || label || value}
         </span>
       </li>
-    </Combobox.Option>
+    </ComboboxOption>
   )
 }
 

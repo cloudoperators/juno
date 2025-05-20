@@ -1,5 +1,39 @@
 # @cloudoperators/juno-ui-components
 
+## 3.1.1
+
+### Patch Changes
+
+- cdae407: - update @floating-ui/react to the latest version 0.27.8
+  - update @testing-library/\* packages to the latest versions
+  - fix unit tests
+  - ensure tooltip content is not displayed when disabled
+- 7230774: - update storybook dependencies to the latest version
+  - remove @storybook/addon-webpack5-compiler-babel
+  - run code-modes to convert remaining csf2 to csf3
+  - fix storybook implicit action args error
+- a9e8592: PopupMenu: add missing component exports
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
+## 3.1.0
+
+### Minor Changes
+
+- 403b5cd: - Remove headlessui float and update headlessui to 2.1.10
+  - Fix unit tests
+
+### Patch Changes
+
+- 67f53cb: fix(ui): fix DateTimePicker light mode colors
+
+## 3.0.1
+
+### Patch Changes
+
+- 9ff1784: Update react-tabs to the latest react 19 compatible version (6.1.0)
+- 4e8a5ef: Remove @mdx-js/react from the codebase
+- f48439c: Remove react-jss package from the codebase
+
 ## 3.0.0
 
 ### Major Changes

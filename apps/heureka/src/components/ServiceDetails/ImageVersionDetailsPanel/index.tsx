@@ -18,9 +18,8 @@ import {
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { ServiceImageVersion } from "../../Services/utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
-import { IssuesCountPerSeverityLevel } from "../../common/IssuesCountPerSeverityLevel"
+import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
-import SectionContentHeading from "../../common/SectionContentHeading"
 
 type ImageVersionDetailsPanelProps = {
   imageVersion: ServiceImageVersion
@@ -65,7 +64,7 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
             <DataGridRow>
               <DataGridHeadCell>Issues Counts</DataGridHeadCell>
               <DataGridCell>
-                <IssuesCountPerSeverityLevel counts={imageVersion.issueCounts} />
+                <IssueCountsPerSeverityLevel counts={imageVersion.issueCounts} />
               </DataGridCell>
             </DataGridRow>
             <DataGridRow>
@@ -77,7 +76,6 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
           </DataGrid>
 
           {/* Second Section: Issues List */}
-          <SectionContentHeading>Issues</SectionContentHeading>
           <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
         </PanelBody>
       </Panel>

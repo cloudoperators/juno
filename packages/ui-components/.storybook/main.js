@@ -17,7 +17,6 @@ const config = {
     "@storybook/addon-docs",
     "./local-preset",
     "@storybook/addon-mdx-gfm",
-    "@storybook/addon-webpack5-compiler-babel",
     // {
     //   name: "@storybook/addon-postcss",
     //   options: {

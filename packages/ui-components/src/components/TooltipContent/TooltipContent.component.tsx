@@ -56,11 +56,11 @@ export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>
   const state = useTooltipState()
 
   // merge all refs
-  const ref = useMergeRefs([state.refs.setFloating, propRef])
+  const ref = useMergeRefs([state.refs?.setFloating ?? null, propRef])
 
   const variant = state.variant
-
-  return (
+  // ensure tooltip content is not displayed when disabled
+  return !state.disabled ? (
     <>
       {state.open && (
         <div
@@ -82,5 +82,5 @@ export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>
         </div>
       )}
     </>
-  )
+  ) : null
 })

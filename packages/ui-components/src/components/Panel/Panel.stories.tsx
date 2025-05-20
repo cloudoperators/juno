@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn } from "@storybook/react"
+import { Meta, StoryFn, StoryObj } from "@storybook/react"
 import { Panel, PanelProps } from "./Panel.component"
 import { PanelBody } from "../PanelBody/PanelBody.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
@@ -44,9 +44,13 @@ const Template: StoryFn<PanelProps> = (args) => (
   </div>
 )
 
-export const WithHeading = {
-  render: Template,
+type Story = StoryObj<PanelProps>
 
+export const WithHeading: Story = {
+  args: {
+    heading: "Panel Heading",
+    opened: true,
+  },
   parameters: {
     docs: {
       description: {
@@ -55,17 +59,9 @@ export const WithHeading = {
       },
     },
   },
-
-  args: {
-    heading: "Panel Heading",
-    opened: true,
-  },
 }
 
-export const Plain = {
-  render: Template,
-
-  args: {
-    opened: true,
-  },
+export const Plain: StoryFn<PanelProps> = Template.bind({})
+Plain.args = {
+  opened: true,
 }

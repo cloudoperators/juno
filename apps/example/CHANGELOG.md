@@ -1,5 +1,29 @@
 # @cloudoperators/juno-app-example
 
+## 2.0.4
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+- Updated dependencies [cdae407]
+- Updated dependencies [7230774]
+- Updated dependencies [a9e8592]
+- Updated dependencies [43d6aa0]
+  - @cloudoperators/juno-ui-components@3.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.1
+  - @cloudoperators/juno-messages-provider@0.2.5
+  - @cloudoperators/juno-oauth@1.4.6
+
+## 2.0.3
+
+### Patch Changes
+
+- 403b5cd: - Remove headlessui float and update headlessui to 2.1.10
+  - Fix unit tests
+- Updated dependencies [403b5cd]
+- Updated dependencies [67f53cb]
+  - @cloudoperators/juno-ui-components@3.1.0
+
 ## 2.0.2
 
 ### Patch Changes

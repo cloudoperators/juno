@@ -30,15 +30,28 @@ jobs:
         with:
           node-version: 20.x
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.11.0
+
+      - name: Cache \ store
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile && pnpm build
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release
+          publish: pnpm release
           title: "publish(npm): automate Package Versioning and Publishing with Changesets"
           commit: "chore(version): update versions with Changesets"
         env:

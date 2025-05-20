@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn } from "@storybook/react"
+import { Meta, StoryFn, StoryObj } from "@storybook/react"
 import { GridColumn, GridColumnProps } from "./GridColumn.component"
 
 export default {
@@ -26,14 +26,16 @@ const Template: StoryFn<GridColumnProps> = (args) => {
   return <GridColumn {...args} className={`${args.className} jn:bg-juno-blue-3 jn:text-juno-grey-blue`} />
 }
 
-export const Default = {
+type Story = StoryObj<GridColumnProps>
+
+export const Default: Story = {
   render: Template,
   args: {
     children: "Column",
   },
 }
 
-export const AutoColumn = {
+export const AutoColumn: Story = {
   render: Template,
   args: {
     auto: true,
@@ -41,7 +43,7 @@ export const AutoColumn = {
   },
 }
 
-export const WidthColumn = {
+export const WidthColumn: Story = {
   render: Template,
   args: {
     width: 50,

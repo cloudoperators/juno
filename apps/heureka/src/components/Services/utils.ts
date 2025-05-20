@@ -15,8 +15,8 @@ import {
   GetServiceImageVersionsQuery,
 } from "../../generated/graphql"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
-import { IssuesCountsType } from "./useFetchServicesIssuesCounts"
 import { ServiceType } from "../types"
+import { IssuesCountsType } from "../types"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -36,6 +36,7 @@ const getServiceOwners = (serviceEdge?: ServiceEdge) => {
 type NormalizedServices = {
   pageNumber: number
   pages: Page[]
+  servicesIssuesCount: IssuesCountsType // All services issues count
   services: ServiceType[]
 }
 
@@ -43,6 +44,15 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
   return {
     pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
     pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    servicesIssuesCount: {
+      critical: data?.Services?.issueCounts?.critical || 0,
+      high: data?.Services?.issueCounts?.high || 0,
+      medium: data?.Services?.issueCounts?.medium || 0,
+      low: data?.Services?.issueCounts?.low || 0,
+      none: data?.Services?.issueCounts?.none || 0,
+      total: data?.Services?.issueCounts?.total || 0,
+    },
+    // Filter out null edges and map to ServiceType
     services: isNil(data?.Services?.edges)
       ? []
       : data?.Services?.edges
@@ -63,6 +73,7 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
                 medium: node?.issueCounts?.medium || 0,
                 low: node?.issueCounts?.low || 0,
                 none: node?.issueCounts?.none || 0,
+                total: node?.issueCounts?.total || 0,
               },
               remediationDate: "2023-01-01", //TODO: remove mock data when available
             }
@@ -149,7 +160,7 @@ export type ServiceImageVersion = {
 }
 
 type NormalizedServiceImageVersions = {
-  totalCount: number
+  totalImageVersions: number
   pages: Page[]
   pageNumber: number
   imageVersions: ServiceImageVersion[]
@@ -158,7 +169,7 @@ type NormalizedServiceImageVersions = {
 export const getNormalizedImageVersionsData = (
   data: GetServiceImageVersionsQuery | undefined
 ): NormalizedServiceImageVersions => ({
-  totalCount: data?.ComponentVersions?.totalCount || 0,
+  totalImageVersions: data?.ComponentVersions?.totalCount || 0,
   pageNumber: data?.ComponentVersions?.pageInfo?.pageNumber || 1,
   pages: data?.ComponentVersions?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
   imageVersions: isNil(data?.ComponentVersions?.edges)
@@ -177,6 +188,7 @@ export const getNormalizedImageVersionsData = (
               medium: 0,
               low: 0,
               none: 0,
+              total: 0,
             },
             componetInstancesCount: edge?.node?.componentInstances?.totalCount ?? 0,
             componentInstances:
@@ -205,14 +217,14 @@ export type Issue = {
 
 type NormalizedImageVersionIssues = {
   issues: Issue[]
-  totalCount: number
+  totalImageVersionIssues: number
   pages: Page[]
   pageNumber: number
 }
 
 export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersionIssues => {
   if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
-    return { issues: [], totalCount: 0, pages: [], pageNumber: 1 }
+    return { issues: [], totalImageVersionIssues: 0, pages: [], pageNumber: 1 }
   }
 
   const issues = data.ComponentVersions.edges[0].node.issues.edges
@@ -233,14 +245,14 @@ export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersi
       }
     })
 
-  const totalCount = data?.ComponentVersions?.edges?.[0]?.node?.issues?.totalCount || 0
+  const totalImageVersionIssues = data?.ComponentVersions?.edges?.[0]?.node?.issues?.totalCount || 0
   const pages =
     data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pages?.filter((edge: any) => edge !== null) || []
   const pageNumber = data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pageNumber || 1
 
   return {
     issues,
-    totalCount,
+    totalImageVersionIssues,
     pages,
     pageNumber,
   }

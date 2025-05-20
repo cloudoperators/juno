@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse",
-  "version": "0.5.3",
+  "version": "0.5.7",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
   "contributors": [
@@ -14,24 +14,29 @@
   "module": "build/index.js",
   "private": true,
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@svgr/plugin-jsx": "^7.0.0",
     "@tailwindui/react": "^0.1.1",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/lodash": "4.17.16",
     "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.0",
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.2",
     "github-markdown-css": "^5.7.0",
     "immer": "^9.0.21",
+    "interweave": "^13.0.0",
     "postcss": "^8.4.47",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "react-markdown": "7.1.2",
+    "remark-gfm": "^3.0.1",
     "sass": "^1.77.5",
     "shadow-dom-testing-library": "^1.11.3",
     "tailwindcss": "^3.3.1",
     "ts-luxon": "^4.6.2",
-    "vite": "^6.2.4",
+    "vite": "^6.3.5",
     "vite-plugin-svgr": "^4.2.0",
     "vitest": "^3.0.7",
     "zustand": "4.5.5"
@@ -47,14 +52,18 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "@cloudoperators/juno-app-doop": "*",
-    "@cloudoperators/juno-app-heureka": "*",
-    "@cloudoperators/juno-app-supernova": "*",
-    "@cloudoperators/juno-messages-provider": "*",
-    "@cloudoperators/juno-oauth": "*",
-    "@cloudoperators/juno-ui-components": "*",
-    "@cloudoperators/juno-url-state-provider-v1": "^1.3.2",
-    "@cloudoperators/juno-k8s-client": "*",
-    "lodash": "4.17.21"
+    "@cloudoperators/juno-app-doop": "workspace:*",
+    "@cloudoperators/juno-app-heureka": "workspace:*",
+    "@cloudoperators/juno-app-supernova": "workspace:*",
+    "@cloudoperators/juno-k8s-client": "workspace:*",
+    "@cloudoperators/juno-messages-provider": "workspace:*",
+    "@cloudoperators/juno-oauth": "workspace:*",
+    "@cloudoperators/juno-ui-components": "workspace:*",
+    "@cloudoperators/juno-url-state-provider": "workspace:*",
+    "lodash": "4.17.21",
+    "rehype": "^13.0.2",
+    "remark": "^14.0.2",
+    "vfile": "^5.3.7",
+    "vfile-message": "^3.1.4"
   }
 }
