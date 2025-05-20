@@ -19,13 +19,14 @@ export const Breadcrumb = () => {
           key={i}
           label={match.loaderData?.crumb?.label}
           icon={match.loaderData?.crumb?.icon}
-          onClick={() =>
+          onClick={(e) => {
+            e.preventDefault()
             navigate({
               to: match.pathname,
               params: match.params,
               search: match.search,
             })
-          }
+          }}
         />
       ))}
     </BreadcrumbContainer>

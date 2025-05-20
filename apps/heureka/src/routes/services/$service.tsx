@@ -2,7 +2,7 @@ import React from "react"
 import { createFileRoute, getRouteApi } from "@tanstack/react-router"
 import { z } from "zod"
 import { ServiceDetails } from "../../components/ServiceDetails"
-import { Crumb, LoaderWithCrumb } from "../__root"
+import { LoaderWithCrumb } from "../-types"
 
 const serviceSearchSchema = z.object({
   imageVersion: z.string().optional(),
