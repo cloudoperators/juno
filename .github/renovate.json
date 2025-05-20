@@ -3,14 +3,14 @@
   "assigneesFromCodeOwners": true,
   "extends": ["config:best-practices"],
   "enabledManagers": ["pnpm", "github-actions"],
-  "includePaths": ["packages/ui-components/**"],
+  "includePaths": ["packages/ui-components/**", ".github/workflows/**"],
   "updateLockFiles": true,
   "rangeStrategy": "update-lockfile",
   "packageRules": [
     {
       "groupName": "github actions",
       "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["major", "minor"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
       "extends": ["helpers:pinGitHubActionDigests"],
       "minimumReleaseAge": "14 days"
     },
