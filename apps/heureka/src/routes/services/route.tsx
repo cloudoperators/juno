@@ -1,6 +1,6 @@
 import React from "react"
 import { createFileRoute, Outlet } from "@tanstack/react-router"
-import { LoaderWithCrumb } from "../__root"
+import { LoaderWithCrumb } from "../-types"
 
 export const Route = createFileRoute("/services")({
   loader: (): LoaderWithCrumb => ({
