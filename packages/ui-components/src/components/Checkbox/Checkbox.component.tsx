@@ -27,7 +27,7 @@ const mockcheckboxstyles = `
   jn-h-4
   jn-rounded-sm
   jn-bg-theme-checkbox
-  jn-cursor-pointer
+  hover:jn-cursor-pointer
   focus:jn-outline-none
   focus:jn-ring-2
   focus:jn-ring-theme-focus
@@ -247,7 +247,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
               ${inputstyles} 
               ${isInvalid ? "juno-checkbox-invalid" : ""} 
               ${isValid ? "juno-checkbox-valid" : ""} 
-              ${groupDisabled || disabled ? "jn-cursor-not-allowed" : ""}
+              ${groupDisabled || disabled ? "jn-cursor-not-allowed" : "hover:jn-cursor-pointer"}
             `}
             disabled={groupDisabled || disabled}
             id={theId}

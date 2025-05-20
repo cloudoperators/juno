@@ -27,7 +27,7 @@ const mockradiostyles = `
   jn-h-4
   jn-rounded-full
   jn-bg-theme-radio
-  jn-cursor-pointer
+  hover:jn-cursor-pointer
 `
 
 const checkedstyles = `
@@ -223,7 +223,7 @@ export const Radio: React.FC<RadioProps> = ({
           <input
             checked={determineChecked()}
             className={`
-              ${disabled ? "jn-cursor-not-allowed" : "jn-cursor-pointer"}
+              ${disabled ? "jn-cursor-not-allowed" : "hover:jn-cursor-pointer"}
               ${inputstyles} 
               ${isInvalid ? "juno-radio-invalid" : ""} 
               ${isValid ? "juno-radio-valid" : ""}
