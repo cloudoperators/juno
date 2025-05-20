@@ -23,8 +23,6 @@ export const Breadcrumb = () => {
             e.preventDefault()
             navigate({
               to: match.pathname,
-              params: match.params,
-              search: match.search,
             })
           }}
         />
