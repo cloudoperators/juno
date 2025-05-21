@@ -13,6 +13,7 @@ const PLUGINS = [
   { name: "teams", label: "Teams" },
   { name: "plugins", label: "Plugins", beta: true },
   { name: "secrets", label: "Secrets", beta: true },
+  { name: "dashboard", label: "Dashboard", beta: false },
 ]
 
 const SideNav = () => {

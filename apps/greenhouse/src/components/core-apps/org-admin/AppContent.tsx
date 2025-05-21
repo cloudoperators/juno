@@ -10,6 +10,7 @@ const Clusters = lazy(() => import("./components/clusters/App"))
 const Secrets = lazy(() => import("./components/secrets/App"))
 const Plugins = lazy(() => import("./components/plugins/App"))
 const Teams = lazy(() => import("./components/teams/App"))
+const Dashboard = lazy(() => import("./components/dashboard/App"))
 
 // import Plugin from "./Plugin"
 
@@ -31,8 +32,9 @@ const AppContainer = ({ apiEndpoint, auth }: any) => {
     case "teams":
       ActivePlugin = Teams
       break
+    case "dashboard":
     default:
-      ActivePlugin = Clusters
+      ActivePlugin = Dashboard
   }
   if (!auth?.JWT) return <div>Authenticating</div>
 
