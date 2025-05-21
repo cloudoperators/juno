@@ -14,12 +14,15 @@ const wrapperStyles = `
   jn-items-center
 `
 
-const inputstyles = `
-  jn-w-4
-  jn-h-4
-  jn-opacity-0
-  jn-z-50
-`
+const inputstyles = (disabled: boolean): string => {
+  return `
+    jn-w-4
+    jn-h-4
+    jn-opacity-0
+    jn-z-50
+    ${disabled ? "jn-cursor-not-allowed" : "jn-cursor-pointer"}
+  `
+}
 
 const mockcheckboxstyles = `
   jn-relative
@@ -27,7 +30,6 @@ const mockcheckboxstyles = `
   jn-h-4
   jn-rounded-sm
   jn-bg-theme-checkbox
-  hover:jn-cursor-pointer
   focus:jn-outline-none
   focus:jn-ring-2
   focus:jn-ring-theme-focus
@@ -244,10 +246,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
           <input
             checked={determineChecked()}
             className={`
-              ${inputstyles} 
+              ${inputstyles(groupDisabled || disabled)} 
               ${isInvalid ? "juno-checkbox-invalid" : ""} 
               ${isValid ? "juno-checkbox-valid" : ""} 
-              ${groupDisabled || disabled ? "jn-cursor-not-allowed" : "hover:jn-cursor-pointer"}
             `}
             disabled={groupDisabled || disabled}
             id={theId}

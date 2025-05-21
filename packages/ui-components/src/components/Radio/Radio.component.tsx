@@ -14,12 +14,15 @@ const wrapperStyles = `
   jn-items-center
 `
 
-const inputstyles = `
-  jn-w-4
-  jn-h-4
-  jn-opacity-0
-  jn-z-50
-`
+const inputstyles = (disabled: boolean): string => {
+  return `
+    jn-w-4
+    jn-h-4
+    jn-opacity-0
+    jn-z-50
+    ${disabled ? "jn-cursor-not-allowed" : "jn-cursor-pointer"}
+  `
+}
 
 const mockradiostyles = `
   jn-relative
@@ -27,7 +30,6 @@ const mockradiostyles = `
   jn-h-4
   jn-rounded-full
   jn-bg-theme-radio
-  hover:jn-cursor-pointer
 `
 
 const checkedstyles = `
@@ -223,8 +225,7 @@ export const Radio: React.FC<RadioProps> = ({
           <input
             checked={determineChecked()}
             className={`
-              ${disabled ? "jn-cursor-not-allowed" : "hover:jn-cursor-pointer"}
-              ${inputstyles} 
+              ${inputstyles(groupDisabled || disabled)} 
               ${isInvalid ? "juno-radio-invalid" : ""} 
               ${isValid ? "juno-radio-valid" : ""}
             `}
