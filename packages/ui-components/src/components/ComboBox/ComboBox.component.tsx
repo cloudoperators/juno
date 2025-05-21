@@ -330,14 +330,23 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
         })
 
   const displayValue = (val: ReactNode) => {
-    const entry = optionValuesAndLabels.get(val)
+    // Helper function to safely convert values to string
+    const safeToString = (value: any): string => {
+      if (value === null || value === undefined) {
+        return ""
+      }
 
-    if (typeof entry?.children === "string") return entry.children
-    if (typeof entry?.label === "string") return entry.label
-    if (typeof valueLabel === "string") return valueLabel
-    if (typeof val === "string" || typeof val === "number") return val.toString()
+      if (typeof value === "object") {
+        // For React elements or complex objects, use a more descriptive string
+        return String(value) !== "[object Object]" ? String(value) : ""
+      }
 
-    return ""
+      return String(value)
+    }
+
+    const option = optionValuesAndLabels.get(val)
+
+    return (option?.children && safeToString(option.children)) || option?.label || valueLabel || safeToString(val) || ""
   }
 
   return (
