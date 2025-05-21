@@ -80,17 +80,6 @@ describe("NativeSelectOptionGroup", () => {
 
       expect(errorSpy).toHaveBeenCalled()
 
-      // TODO: It doesn't seem like a good idea to evaluate the text/structure of the React.js error message (it may vary depending on the version).
-
-      // expect(errorSpy).toHaveBeenCalledWith(
-      //   expect.stringContaining("cannot appear as a child of"),
-      //   "<span>",
-      //   "optgroup",
-      //   "",
-      //   "",
-      //   expect.stringContaining("at NativeSelectOptionGroup")
-      // )
-
       errorSpy.mockRestore()
     })
 
