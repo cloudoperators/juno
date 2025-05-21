@@ -21,7 +21,7 @@ import TopNavigationBar from "./components/app-shell/Navigation"
 import StoreProvider, { useGlobalsActions, useAuthActions, useAuthLoggedIn } from "./store/StoreProvider"
 
 // @ts-ignore
-import styles from "./styles.scss?inline"
+import styles from "./styles.css?inline"
 
 interface AppProps {
   endpoint?: string
