@@ -53,7 +53,7 @@ const Extension = ({ config, auth }: any) => {
             embedded: true,
             token: auth?.JWT,
             //TODO: find a better place to add these props
-            ...(config.id === "heureka" ? { basePath: `/${config.id}`, enableHashedRouting: true } : {}),
+            ...(config.id === "heureka" ? { basePath: `/compliance`, enableHashedRouting: true } : {}),
           },
         })
       })
