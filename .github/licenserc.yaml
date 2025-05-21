@@ -53,7 +53,7 @@ header:
     - ".prettierignore"
     - "**/*.sh"
     - "packages/ui-components/src/fonts/**"
-    - "**/*.routeTree.gen.ts"
+    - "**/routeTree.gen.ts"
 
   comment: on-failure
 
