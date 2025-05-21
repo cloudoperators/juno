@@ -8,9 +8,13 @@ import { createFileRoute, getRouteApi } from "@tanstack/react-router"
 import { z } from "zod"
 import { ServiceDetails } from "../../components/ServiceDetails"
 import { LoaderWithCrumb } from "../-types"
+import { sanitizeSearchParam } from "../../utils"
 
 const serviceSearchSchema = z.object({
-  imageVersion: z.string().optional(),
+  imageVersion: z
+    .string()
+    .transform((val) => sanitizeSearchParam(val))
+    .optional(),
 })
 
 export const Route = createFileRoute("/services/$service")({
