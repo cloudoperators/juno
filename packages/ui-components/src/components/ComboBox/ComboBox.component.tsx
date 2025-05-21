@@ -283,6 +283,11 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   const handleChange = (value: string) => {
     setSelectedValue(value)
+
+    if (value) {
+      setIsOpen(false)
+    }
+
     onChange && onChange(value)
   }
 
@@ -293,12 +298,17 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setFocus(true)
+
+    if (!isOpen) {
+      setIsOpen(true)
+    }
     // TODO: TypeError: Converting circular structure to JSON
     onFocus && onFocus(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setFocus(false)
+    setIsOpen(false)
     // TODO: TypeError: Converting circular structure to JSON
     onBlur && onBlur(event)
   }
@@ -452,11 +462,11 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                         ${isValid || isInvalid ? "" : defaultButtonStyles} 
                       `}
                     >
-                      <Icon icon={open ? "expandLess" : "expandMore"} />
+                      <Icon icon={isOpen ? "expandLess" : "expandMore"} />
                     </ComboboxButton>
                   ) : null}
                 </div>
-                {open &&
+                {isOpen &&
                   createPortal(
                     <div
                       ref={refs.setFloating}
