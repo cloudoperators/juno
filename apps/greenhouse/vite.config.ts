@@ -4,10 +4,8 @@
  */
 
 import react from "@vitejs/plugin-react"
-import tailwindcss from "tailwindcss"
-import autoprefixer from "autoprefixer"
 import svgr from "vite-plugin-svgr"
-
+import tailwindcss from "tailwindcss"
 export default ({ mode }) => {
   const sharedConfig = {
     root: "./",
@@ -16,12 +14,16 @@ export default ({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [react(), svgr()],
-    css: {
-      postcss: {
-        plugins: [tailwindcss, autoprefixer],
+    plugins: [
+      {
+        name: "tailwindcss",
+        api: {
+          postcss: tailwindcss,
+        },
       },
-    },
+      react(),
+      svgr(),
+    ],
 
     server: {
       host: "0.0.0.0",
