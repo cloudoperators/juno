@@ -16,6 +16,7 @@ export const Route = createRootRouteWithContext<RouteContext>()({
 
 function Root() {
   const { appProps } = Route.useRouteContext()
+
   return (
     <AppShell embedded={appProps.embedded} pageHeader={<PageHeader heading="Heureka" />}>
       <Container py px>

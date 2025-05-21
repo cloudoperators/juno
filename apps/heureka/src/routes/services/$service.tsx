@@ -32,5 +32,6 @@ function RouteComponent() {
   const routeApi = getRouteApi("/services/$service")
   const { imageVersion } = routeApi.useSearch()
   const { service } = routeApi.useParams()
+
   return <ServiceDetails serviceName={service} imageVersion={imageVersion} />
 }
