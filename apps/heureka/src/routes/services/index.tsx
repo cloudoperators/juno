@@ -7,9 +7,13 @@ import React from "react"
 import { createFileRoute, getRouteApi } from "@tanstack/react-router"
 import { z } from "zod"
 import { Services } from "../../components/Services"
+import { sanitizeSearchParam } from "../../utils"
 
 const servicesSearchSchema = z.object({
-  service: z.string().optional(),
+  service: z
+    .string()
+    .transform((val) => sanitizeSearchParam(val))
+    .optional(),
 })
 
 export const Route = createFileRoute("/services/")({
