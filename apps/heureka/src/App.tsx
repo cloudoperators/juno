@@ -57,7 +57,7 @@ const App = (props: AppProps) => {
         <style>{styles.toString()}</style>
         <ErrorBoundary>
           <StrictMode>
-            <RouterProvider basepath={props.basePath} router={router} />
+            <RouterProvider basepath={props.basePath || "/"} router={router} />
           </StrictMode>
         </ErrorBoundary>
       </AppShellProvider>
