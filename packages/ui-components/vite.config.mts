@@ -5,24 +5,17 @@
 
 import { PluginOption } from "vite"
 import react from "@vitejs/plugin-react"
-// import tailwindcss from "tailwindcss"
-// import autoprefixer from "autoprefixer"
-// @ts-ignore
+
 import tailwindcss from "@tailwindcss/vite"
 import dts from "vite-plugin-dts"
 import svgr from "vite-plugin-svgr"
 import { defineConfig } from "vite"
 
 export default defineConfig({
-  // css: {
-  //   postcss: {
-  //     plugins: [tailwindcss],
-  //   },
-  // },
   build: {
     lib: {
       entry: "src/index.ts", // or 'src/main.ts' if TypeScript
-      name: "url-state-provider", // Replace with your library's global name
+      name: "ui-components", // Replace with your library's global name
       formats: ["es"], // Output formats: ESM and CommonJS
       fileName: () => `index.js`, // Output file names
     },
