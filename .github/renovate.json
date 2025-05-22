@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "assigneesFromCodeOwners": true,
   "extends": ["config:best-practices"],
-  "enabledManagers": ["pnpm", "github-actions"],
+  "enabledManagers": ["npm", "github-actions"],
   "includePaths": ["packages/ui-components/**", ".github/workflows/**"],
   "updateLockFiles": true,
   "rangeStrategy": "update-lockfile",
@@ -20,8 +20,7 @@
       "matchFileNames": ["packages/ui-components/**"],
       "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "7 days",
-      "schedule": "every weekend",
-      "rangeStrategy": "pin"
+      "schedule": "every weekend"
     }
   ],
   "separateMinorPatch": true
