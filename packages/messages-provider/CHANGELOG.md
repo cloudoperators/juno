@@ -1,5 +1,13 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.6
+
+### Patch Changes
+
+- 483d9ee: Update react version to 19.1.0
+- Updated dependencies [483d9ee]
+  - @cloudoperators/juno-ui-components@4.0.0
+
 ## 0.2.5
 
 ### Patch Changes

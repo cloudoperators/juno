@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-doop
 
+## 2.3.9
+
+### Patch Changes
+
+- 483d9ee: Update react version to 19.1.0
+- Updated dependencies [483d9ee]
+- Updated dependencies [483d9ee]
+  - @cloudoperators/juno-ui-components@4.0.0
+  - @cloudoperators/juno-url-state-provider@3.0.2
+  - @cloudoperators/juno-messages-provider@0.2.6
+  - @cloudoperators/juno-communicator@2.2.21
+
 ## 2.3.8
 
 ### Patch Changes

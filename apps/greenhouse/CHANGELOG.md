@@ -1,5 +1,21 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.8
+
+### Patch Changes
+
+- 483d9ee: Update react version to 19.1.0
+- Updated dependencies [483d9ee]
+- Updated dependencies [483d9ee]
+  - @cloudoperators/juno-ui-components@4.0.0
+  - @cloudoperators/juno-url-state-provider@3.0.2
+  - @cloudoperators/juno-messages-provider@0.2.6
+  - @cloudoperators/juno-k8s-client@1.0.7
+  - @cloudoperators/juno-app-supernova@0.16.8
+  - @cloudoperators/juno-oauth@1.4.7
+  - @cloudoperators/juno-app-heureka@0.5.5
+  - @cloudoperators/juno-app-doop@2.3.9
+
 ## 0.5.7
 
 ### Patch Changes
