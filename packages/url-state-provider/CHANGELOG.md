@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 3.0.2
+
+### Patch Changes
+
+- 483d9ee: Update react version to 19.1.0
+
 ## 3.0.1
 
 ### Patch Changes
