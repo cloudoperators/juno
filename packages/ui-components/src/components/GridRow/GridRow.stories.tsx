@@ -19,7 +19,7 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div className="jn-bg-juno-blue-3 jn-text-juno-grey-blue">
+      <div className="jn:bg-juno-blue-3 jn:text-juno-grey-blue">
         <Story />
       </div>
     ),

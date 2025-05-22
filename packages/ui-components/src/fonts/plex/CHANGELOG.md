@@ -11,7 +11,7 @@
 ### Added
 
 - CSS stylesheets: `css/ibm-plex-sans-jp.css` and `css/ibm-plex-sans-jp.min.css`
-- Sass entrypoint: `scss/sans-jp/index.scss`
+- Sass entrypoint: `scss/sans-jp/index.css`
 
 The upcoming major release will make chosing specific font-weights and languages easier for developers. Until then, enjoy IBM Plex Sans JP!
 
@@ -22,7 +22,7 @@ The upcoming major release will make chosing specific font-weights and languages
 ### Added
 
 - CSS stylesheets: `css/ibm-plex-sans-kr.css` and `css/ibm-plex-sans-kr.min.css`
-- Sass entrypoint: `scss/sans-kr/index.scss`
+- Sass entrypoint: `scss/sans-kr/index.css`
 
 Rendering CJK fonts performantly on the web requires many more subsets than western languages. These additional subsets result in many more `font-family` declarations. Adding these declarations to the currently generated stylesheet would cause it to double in size.
 

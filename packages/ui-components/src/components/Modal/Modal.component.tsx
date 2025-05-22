@@ -18,53 +18,53 @@ import { usePortalRef } from "../PortalProvider/PortalProvider.component"
  */
 
 const modalcontainerstyles = `
-	jn-fixed
-	jn-inset-0
-	jn-flex
-	jn-items-center
-	jn-bg-theme-modal-backdrop
-	jn-backdrop-blur-[2px]
-	jn-z-[9990]
+	jn:fixed
+	jn:inset-0
+	jn:flex
+	jn:items-center
+	jn:bg-theme-modal-backdrop
+	jn:backdrop-blur-[2px]
+	jn:z-9990
 `
 
 const modalstyles = `
-	jn-bg-theme-background-lvl-0
-	jn-relative
-	jn-rounded
-	jn-m-auto
-	jn-overflow-y-auto
-	jn-max-h-[90%]
+	jn:bg-theme-background-lvl-0
+	jn:relative
+	jn:rounded
+	jn:m-auto
+	jn:overflow-y-auto
+	jn:max-h-[90%]
 `
 
 const headerstyles = `
-	jn-flex
-	jn-py-2
-	jn-px-8
-	jn-border-b
-	jn-border-theme-background-lvl-4
-	jn-h-[2.8125rem]
+	jn:flex
+	jn:py-2
+	jn:px-8
+	jn:border-b
+	jn:border-theme-background-lvl-4
+	jn:h-[2.8125rem]
 `
 
 const titlestyles = `
-	jn-text-xl
-	jn-font-bold
+	jn:text-xl
+	jn:font-bold
 `
 
 const contentstyles = `
-	jn-min-h-[5rem]
+	jn:min-h-[5rem]
 `
 
 const contentpaddingstyles = `
-	jn-py-4
-	jn-px-8
+	jn:py-4
+	jn:px-8
 `
 
 const sizeClass = (size: ModalSize) => {
   switch (size) {
     case "large":
-      return `jn-w-[40rem]`
+      return `jn:w-[40rem]`
     default:
-      return `jn-w-[33.625rem]`
+      return `jn:w-[33.625rem]`
   }
 }
 
@@ -185,7 +185,7 @@ export const Modal: React.FC<ModalProps> = ({
                 aria-label={ariaLabel}
               >
                 <div
-                  className={`juno-modal-header ${headerstyles} ${theTitle && theTitle.length ? `jn-justify-between` : `jn-justify-end`}`}
+                  className={`juno-modal-header ${headerstyles} ${theTitle && theTitle.length ? `jn:justify-between` : `jn:justify-end`}`}
                 >
                   {title || heading ? (
                     <h1 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>

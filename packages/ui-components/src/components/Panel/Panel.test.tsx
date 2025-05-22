@@ -11,7 +11,7 @@ import { describe, expect, test, vi } from "vitest"
 import { Panel, PanelProps } from "./Panel.component"
 import { PortalProvider } from "../PortalProvider"
 
-const closedClass = "jn-translate-x-[100%]"
+const closedClass = "jn:translate-x-[100%]"
 
 const renderPanel = async (props?: PanelProps, extraProps?: any) => {
   return waitFor(() =>

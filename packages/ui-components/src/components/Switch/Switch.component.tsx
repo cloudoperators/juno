@@ -10,64 +10,64 @@ import { Icon } from "../Icon/Icon.component"
 import { FormHint } from "../FormHint/FormHint.component"
 
 const switchBaseStyles = `
-    jn-rounded-full
-    jn-relative
-    jn-p-0
-    jn-leading-0
-    jn-border
+    jn:rounded-full
+    jn:relative
+    jn:p-0
+    jn:leading-0
+    jn:border
     jn-g-theme-default
-    focus:jn-outline-none
-    focus:jn-ring-2
-    focus:jn-ring-theme-focus
-    disabled:jn-opacity-50
-    disabled:jn-cursor-not-allowed
+    jn:focus:outline-hidden
+    jn:focus:ring-2
+    jn:focus:ring-theme-focus
+    jn:disabled:opacity-50
+    jn:disabled:cursor-not-allowed
 `
 
 const borderBaseStyles = `
-    jn-border-theme-switch-default
+    jn:border-theme-switch-default
 `
 
 const switchWrapperStyles = `
-    jn-flex
-    jn-flex-row
-    jn-items-center
+    jn:flex
+    jn:flex-row
+    jn:items-center
 `
 
 const handleBaseStyles = `
-    jn-inline-block
-    jn-absolute
-    jn-top-[1px]
-    jn-rounded-full
-    jn-bg-theme-switch-handle
-    jn-border-theme-default
+    jn:inline-block
+    jn:absolute
+    jn:top-[1px]
+    jn:rounded-full
+    jn:bg-theme-switch-handle
+    jn:border-theme-default
 `
 
 const handleOnStyles = `
-    jn-right-[1px] 
-    jn-bg-theme-switch-handle-checked
+    jn:right-[1px] 
+    jn:bg-theme-switch-handle-checked
 `
 
 const handleOffStyles = `
-    jn-left-[1px]
+    jn:left-[1px]
 `
 
 const validBaseStyles = `
-    jn-border-theme-success
+    jn:border-theme-success
 `
 
 const invalidBaseStyles = `
-    jn-border-theme-error
+    jn:border-theme-error
 `
 
 const iconBaseStyles = `
-    jn-inline-block 
-    jn-ml-1 
-    jn-leading-1
-    jn-mt-[-.2rem]
+    jn:inline-block 
+    jn:ml-1 
+    jn:leading-1
+    jn:mt-[-.2rem]
 `
 
 const hintBaseStyles = `
-    jn-mt-0
+    jn:mt-0
 `
 
 type SwitchSize = "small" | "default" | "large"
@@ -149,36 +149,36 @@ const isNotEmptyString = (str: unknown): str is string => {
 const getSwitchSizeStyles = (size: SwitchSize): string => {
   switch (size) {
     case "small":
-      return "jn-w-[1.75rem] jn-h-4"
+      return "jn:w-[1.75rem] jn:h-4"
     case "large":
-      return "jn-w-[3.125rem] jn-h-[1.6875rem]"
+      return "jn:w-[3.125rem] jn:h-[1.6875rem]"
     default:
-      return "jn-w-switch-default jn-h-switch-default"
+      return "jn:w-switch-default jn:h-switch-default"
   }
 }
 
 const getHandleSizeStyles = (size: SwitchSize): string => {
   switch (size) {
     case "small":
-      return "jn-w-[0.75rem] jn-h-[0.75rem]"
+      return "jn:w-[0.75rem] jn:h-[0.75rem]"
     case "large":
-      return "jn-w-[1.4375rem] jn-h-[1.4375rem]"
+      return "jn:w-[1.4375rem] jn:h-[1.4375rem]"
     default:
-      return "jn-w-switch-handle-default jn-h-switch-handle-default"
+      return "jn:w-switch-handle-default jn:h-switch-handle-default"
   }
 }
 
 const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: boolean): ReactNode => {
   const size = "1.125rem"
-  const className = `${iconBaseStyles} ${disabled ? "jn-opacity-50" : ""}`
+  const className = `${iconBaseStyles} ${disabled ? "jn:opacity-50" : ""}`
 
   // NOTE: isValid and isInvalid are purposely seperate states
   if (isInvalid) {
-    return <Icon icon="dangerous" color="jn-text-theme-error" size={size} className={className} />
+    return <Icon icon="dangerous" color="jn:text-theme-error" size={size} className={className} />
   }
 
   if (isValid) {
-    return <Icon icon="checkCircle" color="jn-text-theme-success" size={size} className={className} />
+    return <Icon icon="checkCircle" color="jn:text-theme-success" size={size} className={className} />
   }
 
   return null
@@ -289,7 +289,7 @@ export const Switch: React.FC<SwitchProps> = ({
           ></span>
         </button>
 
-        <Label text={label} htmlFor={generatedId} className="jn-ml-2" disabled={disabled} required={required} />
+        <Label text={label} htmlFor={generatedId} className="jn:ml-2" disabled={disabled} required={required} />
 
         {renderValidationIcon(isInvalid, isValid, disabled)}
       </span>

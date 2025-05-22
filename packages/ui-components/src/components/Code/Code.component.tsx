@@ -6,8 +6,8 @@
 import React from "react"
 
 const codeStyles = `
-  jn-bg-theme-code-block
-  jn-text-sm
+  jn:bg-theme-code-block
+  jn:text-sm
 `
 
 /** A basic inline <code> component.

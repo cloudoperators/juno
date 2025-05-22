@@ -11,50 +11,50 @@ import { usePortalRef } from "../PortalProvider/PortalProvider.component"
 
 const panelStyles = (isOpen: boolean, isTransitioning: boolean, size?: PanelSize): string => {
   return `
-      jn-fixed
-      jn-right-0
-      jn-transition-transform
-      jn-ease-out
-      jn-duration-300
-      jn-inset-y-0
-      jn-z-[9989]
-      jn-grid
-      jn-grid-rows-[auto_1fr]
-      jn-bg-theme-panel
-      jn-backdrop-blur
-      jn-backdrop-saturate-150     
-      jn-shadow-md
+      jn:fixed
+      jn:right-0
+      jn:transition-transform
+      jn:ease-out
+      jn:duration-300
+      jn:inset-y-0
+      jn:z-9989
+      jn:grid
+      jn:grid-rows-[auto_1fr]
+      jn:bg-theme-panel
+      jn:backdrop-blur
+      jn:backdrop-saturate-150     
+      jn:shadow-md
       ${
         size === "large"
           ? `
-          jn-w-[90%]
-          xl:jn-w-[80%]
-          2xl:jn-w-[1228px]`
+          jn:w-[90%]
+          jn:xl:w-[80%]
+          jn:2xl:w-[1228px]`
           : `
-          jn-w-[75%]
-          xl:jn-w-[55%]
-          2xl:jn-w-[844px]`
+          jn:w-[75%]
+          jn:xl:w-[55%]
+          jn:2xl:w-[844px]`
       }
-      ${!isOpen ? `jn-translate-x-[100%]` : ""}
-      ${!isOpen && !isTransitioning ? `jn-invisible` : ""}
+      ${!isOpen ? `jn:translate-x-[100%]` : ""}
+      ${!isOpen && !isTransitioning ? `jn:invisible` : ""}
     `
     .replace(/\n/g, " ")
     .replace(/\s+/g, " ")
 }
 
-const contentWrapperStyles = `jn-overflow-auto`
+const contentWrapperStyles = `jn:overflow-auto`
 
 const panelHeaderStyles = `
-  jn-flex
-  jn-items-center
-  jn-py-4
-  jn-px-8
+  jn:flex
+  jn:items-center
+  jn:py-4
+  jn:px-8
 `
 
 const panelTitleStyles = `
-  jn-text-theme-high
-  jn-text-lg
-  jn-font-bold
+  jn:text-theme-high
+  jn:text-lg
+  jn:font-bold
 `
 
 type PanelSize = "default" | "large"
@@ -151,7 +151,7 @@ export const Panel: FC<PanelProps> = ({
         <div className={`juno-panel-title ${panelTitleStyles}`} id="juno-panel-title">
           {heading}
         </div>
-        {isCloseable && <Icon icon="close" onClick={handleClose} className="juno-panel-close jn-ml-auto" />}
+        {isCloseable && <Icon icon="close" onClick={handleClose} className="juno-panel-close jn:ml-auto" />}
       </div>
       <div className={`juno-panel-content-wrapper ${contentWrapperStyles}`}>{children}</div>
     </div>,

@@ -40,28 +40,28 @@ export const Default: Story = {
 export const Info_Colored: Story = {
   args: {
     icon: "info",
-    color: "jn-text-theme-info",
+    color: "jn:text-theme-info",
   },
 }
 
 export const Danger_Colored: Story = {
   args: {
     icon: "danger",
-    color: "jn-text-theme-danger",
+    color: "jn:text-theme-danger",
   },
 }
 
 export const Success_Colored: Story = {
   args: {
     icon: "success",
-    color: "jn-text-theme-success",
+    color: "jn:text-theme-success",
   },
 }
 
 export const Warning_Colored: Story = {
   args: {
     icon: "warning",
-    color: "jn-text-theme-warning",
+    color: "jn:text-theme-warning",
   },
 }
 

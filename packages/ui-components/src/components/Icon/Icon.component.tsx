@@ -63,31 +63,31 @@ Generic Icon component.
 */
 // hover style needs to be revisited. only works if no icon color was passed
 const anchorIconStyles = `
-	jn-text-current
-  hover:jn-text-theme-high
-  focus:jn-outline-none 
-  focus-visible:jn-ring-2
-  focus-visible:jn-ring-theme-focus
-  focus-visible:jn-ring-offset-1
-  focus-visible:jn-ring-offset-theme-focus
-	disabled:jn-opacity-50
-	disabled:jn-cursor-not-allowed
+	jn:text-current
+  jn:hover:text-theme-high
+  jn:focus:outline-hidden 
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+  jn:focus-visible:ring-offset-theme-focus
+	jn:disabled:opacity-50
+	jn:disabled:cursor-not-allowed
 `
 
 // hover style needs to be revisited. only works if no icon color was passed
 const buttonIconStyles = `
-  hover:jn-text-theme-high
-  focus:jn-outline-none 
-  focus-visible:jn-ring-2
-  focus-visible:jn-ring-theme-focus
-  focus-visible:jn-ring-offset-1
-  focus-visible:jn-ring-offset-theme-focus
-	disabled:jn-opacity-50
-	disabled:jn-cursor-not-allowed
+  jn:hover:text-theme-high
+  jn:focus:outline-hidden 
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+  jn:focus-visible:ring-offset-theme-focus
+	jn:disabled:opacity-50
+	jn:disabled:cursor-not-allowed
 `
 
 // const wrapperStyles = `
-//   jn-leading-none
+//   jn:leading-none
 // `
 // export all known icons as an array of their names to be used with PropTypes here and from other components:
 export enum KnownIconsEnum {
@@ -206,7 +206,7 @@ interface IconColorProps {
 }
 
 const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconProps }: IconColorProps) => {
-  const iconClass = `juno-icon juno-icon-${icon} jn-fill-current ${color} ${iconClassName}`
+  const iconClass = `juno-icon juno-icon-${icon} jn:fill-current ${color} ${iconClassName}`
 
   const iconEnum = KnownIconsEnum[icon || "default"]
   switch (iconEnum) {

@@ -41,7 +41,7 @@ const meta: Meta<typeof Select> = {
   },
   decorators: [
     (story: StoryFunction) => (
-      <div className="jn-pb-12" style={{ minHeight: "250px" }}>
+      <div className="jn:pb-12" style={{ minHeight: "250px" }}>
         <PortalProvider>{story()}</PortalProvider>
       </div>
     ),

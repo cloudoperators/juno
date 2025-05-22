@@ -7,7 +7,7 @@ import React from "react"
 
 import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
-import styles from "./styles.scss?inline"
+import styles from "./styles.css?inline"
 import { StoreProvider } from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import CustomAppShell from "./components/CustomAppShell"

@@ -27,6 +27,6 @@ export const SizedLoadingIndicator = {
 
 export const ColoredLoadingIndicator = {
   args: {
-    color: "jn-text-theme-info",
+    color: "jn:text-theme-info",
   },
 }
