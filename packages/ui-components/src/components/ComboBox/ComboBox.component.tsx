@@ -330,15 +330,15 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
         })
 
   const displayValue = (val: ReactNode) => {
-    // Helper function to safely convert values to string or return null if conversion would result in [object Object]
-    const safeToString = (value: any): string | null => {
+    // Helper function to safely convert values to string
+    const safeToString = (value: any): string => {
       if (value === null || value === undefined) {
-        return null
+        return ""
       }
 
-      // Return null if it would result in default object stringification
-      if (String(value) === "[object Object]") {
-        return null
+      if (typeof value === "object") {
+        // For React elements or complex objects, use a more descriptive string
+        return String(value) !== "[object Object]" ? String(value) : ""
       }
 
       return String(value)
