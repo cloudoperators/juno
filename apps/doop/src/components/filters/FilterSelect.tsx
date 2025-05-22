@@ -5,7 +5,16 @@
 
 import React, { useState } from "react"
 
-import { Button, InputGroup, SearchInput, Select, SelectOption, Stack } from "@cloudoperators/juno-ui-components"
+import {
+  Button,
+  ComboBox,
+  ComboBoxOption,
+  InputGroup,
+  SearchInput,
+  Select,
+  SelectOption,
+  Stack,
+} from "@cloudoperators/juno-ui-components"
 
 import { useFiltersActions, useFiltersSearchTerm, useFiltersActive, useDataFilterEntries } from "../StoreProvider"
 
@@ -48,7 +57,6 @@ const FilterSelect = () => {
             className="filter-label-select w-52 mb-0"
             label="Select category"
             value={selectedCategory}
-            // @ts-expect-error TS(2345) FIXME: Argument of type 'null' is not assignable to param...
             onChange={selectCategory}
           >
             {
@@ -58,7 +66,7 @@ const FilterSelect = () => {
               ))
             }
           </Select>
-          <Select
+          <ComboBox
             name="value"
             value={selectedValue}
             onChange={(value: any) => handleFilterValueChange(value)}
@@ -69,8 +77,8 @@ const FilterSelect = () => {
             {// @ts-ignore
             filterEntries
               .find((e: any) => e.key === selectedCategory)
-              ?.values.map((value: any, i: any) => <SelectOption value={value} key={i} />)}
-          </Select>
+              ?.values.map((value: any, i: any) => <ComboBoxOption value={value} key={i} />)}
+          </ComboBox>
           <Button
             onClick={() => selectedCategory && selectedValue && addFilter(selectedCategory, selectedValue)}
             icon="filterAlt"

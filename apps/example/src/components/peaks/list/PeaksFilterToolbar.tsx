@@ -16,6 +16,8 @@ import {
   InputGroup,
   Pill,
   SearchInput,
+  ComboBox,
+  ComboBoxOption,
 } from "@cloudoperators/juno-ui-components"
 import ViewToggleButtons from "../../common/ViewToggleButtons"
 
@@ -84,22 +86,22 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
           </Select>
 
           {selectedFilterKey && !["minHeight", "maxHeight"].includes(selectedFilterKey) && (
-            <Select
+            <ComboBox
               value={droplistSelections[selectedFilterKey] || ""}
               onChange={(value) => addFilter(selectedFilterKey, value as string)}
               placeholder="Choose filter value"
               style={{ minWidth: "150px" }}
             >
               {(availableOptions[selectedFilterKey] || []).map((option) => (
-                <SelectOption
+                <ComboBoxOption
                   key={option}
                   value={option}
                   disabled={filterSelections[selectedFilterKey].includes(option)}
                 >
                   {option}
-                </SelectOption>
+                </ComboBoxOption>
               ))}
-            </Select>
+            </ComboBox>
           )}
 
           {["minHeight", "maxHeight"].includes(selectedFilterKey || "") && (

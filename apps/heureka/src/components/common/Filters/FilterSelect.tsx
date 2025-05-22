@@ -5,7 +5,15 @@
 
 import React, { useCallback, useState } from "react"
 import { isEmpty } from "lodash"
-import { Button, InputGroup, SelectOption, Select, Stack } from "@cloudoperators/juno-ui-components"
+import {
+  Button,
+  InputGroup,
+  ComboBox,
+  ComboBoxOption,
+  SelectOption,
+  Select,
+  Stack,
+} from "@cloudoperators/juno-ui-components"
 import { DropdownValue, Filter, SelectedFilter } from "./types"
 
 type FilterSelectProps = {
@@ -46,14 +54,14 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
             <SelectOption value={filterName} label={displayName} key={filterName} />
           ))}
         </Select>
-        <Select
+        <ComboBox
           className="filter-value-select w-64 bg-theme-background-lvl-0"
           name="filterValue"
           value={selectedFilterValue}
           onChange={handleValueChange}
         >
-          {filterValues?.map((value) => <SelectOption value={value} key={value} />)}
-        </Select>
+          {filterValues?.map((value) => <ComboBoxOption value={value} key={value} />)}
+        </ComboBox>
         <Button icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
     </Stack>
