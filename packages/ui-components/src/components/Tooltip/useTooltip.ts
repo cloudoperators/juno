@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 /*
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { CSSProperties, useState } from "react"
 import {
   autoUpdate,
   useFloating,
@@ -43,7 +44,27 @@ export const useTooltip = ({
   open: controlledOpen,
   onOpenChange: setControlledOpen,
   disabled = false,
-}: UseTooltipProps = {}) => {
+}: UseTooltipProps = {}): {
+  floatingStyles: CSSProperties | undefined
+  open: boolean
+  setOpen: (open: boolean) => void
+  variant?: ToolTipVariant
+  disabled: boolean
+  getReferenceProps: ReturnType<typeof useInteractions>["getReferenceProps"]
+  getFloatingProps: ReturnType<typeof useInteractions>["getFloatingProps"]
+  refs?: {
+    reference: React.RefObject<HTMLElement>
+    floating: React.RefObject<HTMLElement>
+    setReference: () => void
+    setFloating: (node: HTMLElement | null) => void
+  }
+  x?: number | null
+  y?: number | null
+  strategy: "absolute" | "fixed"
+  placement: TooltipPlacement
+  middlewareData: any
+  context: any
+} => {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen)
 
   // open state and setter depending on whether we are controlled or uncontrolled
@@ -85,6 +106,17 @@ export const useTooltip = ({
       disabled,
       ...interactions,
       ...data,
+      refs: {
+        reference: data.refs.reference as React.RefObject<HTMLElement>,
+        floating: data.refs.floating as React.RefObject<HTMLElement>,
+        setReference: (node?: HTMLElement | null) => {
+          // @ts-ignore
+          data.refs.setReference(node)
+        },
+        setFloating: (node: HTMLElement | null) => {
+          data.refs.setFloating(node)
+        },
+      },
     }),
     [open, setOpen, variant, disabled, interactions, data]
   )

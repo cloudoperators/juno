@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-heureka",
-  "version": "0.3.3",
+  "version": "0.5.4",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka",
   "license": "Apache-2.0",
@@ -11,13 +11,14 @@
   "private": true,
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:static": "vite build --mode static",
     "generate:types": "graphql-codegen --config codegen.ts",
+    "postgenerate:types": "prettier --log-level warn --write ./src/generated/graphql.ts",
     "serve": "vite preview",
     "test": "vitest run",
     "lint": "eslint",
@@ -26,21 +27,25 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "@cloudoperators/juno-messages-provider": "*",
-    "@cloudoperators/juno-ui-components": "*",
+    "@cloudoperators/juno-messages-provider": "workspace:*",
+    "@cloudoperators/juno-ui-components": "workspace:*",
     "lodash": "4.17.21",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "use-immer": "0.11.0"
   },
   "devDependencies": {
     "@apollo/client": "3.11.10",
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@graphql-codegen/cli": "5.0.3",
     "@graphql-codegen/typescript": "4.1.2",
     "@graphql-codegen/typescript-operations": "4.4.0",
     "@graphql-codegen/typescript-react-apollo": "4.3.2",
+    "luxon": "^3.0.0",
+    "react-error-boundary": "^4.0.13",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.2.0",
+    "@testing-library/user-event": "14.6.1",
     "@types/lodash": "4.17.15",
     "@types/node": "20.17.16",
     "@types/react": "18.3.18",
@@ -62,7 +67,7 @@
     "prettier": "3.4.2",
     "tailwindcss": "3.4.17",
     "typescript": "5.7.3",
-    "vite": "5.4.14",
+    "vite": "6.3.5",
     "vite-tsconfig-paths": "4.3.2",
     "vitest": "3.0.7"
   }

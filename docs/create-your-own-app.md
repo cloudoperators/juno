@@ -13,7 +13,7 @@ This guide will walk you through creating your own application using our [Juno U
 Vite is a build tool designed to deliver a faster and more efficient development experience for modern web projects. We recommend using Vite to scaffold your application, as it aligns with the tooling used for other applications built with the Juno UI Components in this repository.
 
 ```bash
-npm create vite@latest my-app
+pnpm create vite@latest my-app
 ```
 
 - Replace `my-app` with the name of your application.
@@ -27,10 +27,10 @@ Follow the instructions in the [Getting Started](https://vite.dev/guide/#getting
 
 ## Adding Juno UI Components
 
-To add Juno UI Components as a dependency in your application, we recommend installing them using npm. While pnpm is also a great choice, we suggest using npm to maintain consistency with the Juno project's setup.
+To add Juno UI Components as a dependency in your application, we recommend installing them using pnpm. While pnpm is also a great choice, we suggest using pnpm to maintain consistency with the Juno project's setup.
 
 ```bash
-npm add @cloudoperators/juno-ui-components
+pnpm add @cloudoperators/juno-ui-components
 ```
 
 This will add the latest version of the Juno UI Components as a dependency in your `package.json` file.
@@ -122,7 +122,7 @@ h1 {
 Run the app with the following command:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ## Building the Application
@@ -141,8 +141,8 @@ For example, in the package.json:
 {
   "dependencies": {
     "@cloudoperators/juno-ui-components": "^latest",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
   }
 }
 ```
@@ -150,7 +150,7 @@ For example, in the package.json:
 Once you run the build command:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ### Host-Dependent Applications
@@ -165,8 +165,8 @@ For example, in the package.json:
 {
   "peerDependencies": {
     "@cloudoperators/juno-ui-components": "^latest",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
   }
 }
 ```

@@ -1,5 +1,57 @@
 # @cloudoperators/juno-app-doop
 
+## 2.3.8
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+- Updated dependencies [cdae407]
+- Updated dependencies [7230774]
+- Updated dependencies [a9e8592]
+- Updated dependencies [43d6aa0]
+  - @cloudoperators/juno-ui-components@3.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.1
+  - @cloudoperators/juno-messages-provider@0.2.5
+  - @cloudoperators/juno-communicator@2.2.20
+
+## 2.3.7
+
+### Patch Changes
+
+- 6b5e878: - Rollback `url-state-provider` back to `v1.3.2`.
+  - `url-state-provider` will now ignore Hashed(#) part of the URL while encoding/decoding query parameters.
+  - Removed dependency of `url-state-provider-v1` in all internal applications.
+- Updated dependencies [9ff1784]
+- Updated dependencies [4e8a5ef]
+- Updated dependencies [f48439c]
+- Updated dependencies [6b5e878]
+  - @cloudoperators/juno-ui-components@3.0.1
+  - @cloudoperators/juno-url-state-provider@3.0.0
+
+## 2.3.6
+
+### Patch Changes
+
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- cdba61c: Upgrade to vite 6.2
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [02cb67a]
+- Updated dependencies [cdba61c]
+  - @cloudoperators/juno-messages-provider@0.2.4
+  - @cloudoperators/juno-ui-components@3.0.0
+  - @cloudoperators/juno-communicator@2.2.19
+
+## 2.3.5
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+- Updated dependencies [2277a23]
+- Updated dependencies [cde9cb5]
+  - @cloudoperators/juno-ui-components@2.39.0
+  - @cloudoperators/juno-messages-provider@0.2.3
+  - @cloudoperators/juno-communicator@2.2.18
+
 ## 2.3.4
 
 ### Patch Changes

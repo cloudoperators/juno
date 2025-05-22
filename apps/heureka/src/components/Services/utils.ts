@@ -12,12 +12,11 @@ import {
   Service,
   ServiceEdge,
   ServiceFilter,
-  IssueMatchConnection,
   GetServiceImageVersionsQuery,
 } from "../../generated/graphql"
-import { ServiceType } from "./Services"
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
-import { IssueCounts } from "./ServicePanel/ServicePanel"
+import { ServiceType } from "../types"
+import { IssuesCountsType } from "../types"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -35,29 +34,31 @@ const getServiceOwners = (serviceEdge?: ServiceEdge) => {
 }
 
 type NormalizedServices = {
-  totalCount: number
+  pageNumber: number
   pages: Page[]
+  servicesIssuesCount: IssuesCountsType // All services issues count
   services: ServiceType[]
-}
-
-type ExtendedService = Service & {
-  critical?: IssueMatchConnection
-  high?: IssueMatchConnection
-  medium?: IssueMatchConnection
-  low?: IssueMatchConnection
-  none?: IssueMatchConnection
 }
 
 export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => {
   return {
-    totalCount: data?.Services?.totalCount || 0,
+    pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
     pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    servicesIssuesCount: {
+      critical: data?.Services?.issueCounts?.critical || 0,
+      high: data?.Services?.issueCounts?.high || 0,
+      medium: data?.Services?.issueCounts?.medium || 0,
+      low: data?.Services?.issueCounts?.low || 0,
+      none: data?.Services?.issueCounts?.none || 0,
+      total: data?.Services?.issueCounts?.total || 0,
+    },
+    // Filter out null edges and map to ServiceType
     services: isNil(data?.Services?.edges)
       ? []
       : data?.Services?.edges
           ?.filter((edge) => edge !== null)
           .map((edge?: Edge): ServiceType => {
-            const node: ExtendedService | undefined = edge?.node
+            const node: Service | undefined = edge?.node
             const service: ServiceType = {
               id: node?.id?.toString() || "",
               name: node?.ccrn || "",
@@ -67,8 +68,12 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
               components: node?.objectMetadata?.componentInstanceCount || 0,
               serviceOwners: getServiceOwners(edge),
               issuesCount: {
-                critical: node?.critical?.totalCount || 0,
-                high: node?.high?.totalCount || 0,
+                critical: node?.issueCounts?.critical || 0,
+                high: node?.issueCounts?.high || 0,
+                medium: node?.issueCounts?.medium || 0,
+                low: node?.issueCounts?.low || 0,
+                none: node?.issueCounts?.none || 0,
+                total: node?.issueCounts?.total || 0,
               },
               remediationDate: "2023-01-01", //TODO: remove mock data when available
             }
@@ -134,23 +139,38 @@ export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceF
     }, {}),
 })
 
-type ServiceImageVersion = {
+export type ComponentInstance = {
+  id: string
+  ccrn?: string | ""
+  region?: string | ""
+  cluster?: string | ""
+  namespace?: string | ""
+  pod?: string | ""
+  container?: string | ""
+}
+
+export type ServiceImageVersion = {
   version: string
   tag: string
+  repository: string
   ccrn: string
-  issueCounts: IssueCounts
+  issueCounts: IssuesCountsType
+  componetInstancesCount: number
+  componentInstances?: ComponentInstance[]
 }
 
 type NormalizedServiceImageVersions = {
-  totalCount: number
+  totalImageVersions: number
   pages: Page[]
+  pageNumber: number
   imageVersions: ServiceImageVersion[]
 }
 
 export const getNormalizedImageVersionsData = (
   data: GetServiceImageVersionsQuery | undefined
 ): NormalizedServiceImageVersions => ({
-  totalCount: data?.ComponentVersions?.totalCount || 0,
+  totalImageVersions: data?.ComponentVersions?.totalCount || 0,
+  pageNumber: data?.ComponentVersions?.pageInfo?.pageNumber || 1,
   pages: data?.ComponentVersions?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
   imageVersions: isNil(data?.ComponentVersions?.edges)
     ? []
@@ -160,6 +180,7 @@ export const getNormalizedImageVersionsData = (
           (edge): ServiceImageVersion => ({
             version: edge?.node?.version || "",
             tag: edge?.node?.tag || "",
+            repository: edge?.node?.repository || "",
             ccrn: edge?.node?.component?.ccrn || "",
             issueCounts: edge?.node?.issueCounts || {
               critical: 0,
@@ -167,7 +188,89 @@ export const getNormalizedImageVersionsData = (
               medium: 0,
               low: 0,
               none: 0,
+              total: 0,
             },
+            componetInstancesCount: edge?.node?.componentInstances?.totalCount ?? 0,
+            componentInstances:
+              edge?.node?.componentInstances?.edges
+                ?.filter((edge) => edge?.node) // Remove null edges
+                .map((edge) => ({
+                  id: edge!.node.id,
+                  ccrn: edge!.node.ccrn ?? "",
+                  region: edge!.node.region ?? "",
+                  cluster: edge!.node.cluster ?? "",
+                  namespace: edge!.node.namespace ?? "",
+                  pod: edge!.node.pod ?? "",
+                  container: edge!.node.container ?? "",
+                })) ?? [],
           })
         ),
 })
+
+export type Issue = {
+  severity: string
+  name: string
+  earliestTargetRemediation: string
+  description: string
+  sourceLink: string
+}
+
+type NormalizedImageVersionIssues = {
+  issues: Issue[]
+  totalImageVersionIssues: number
+  pages: Page[]
+  pageNumber: number
+}
+
+export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersionIssues => {
+  if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
+    return { issues: [], totalImageVersionIssues: 0, pages: [], pageNumber: 1 }
+  }
+
+  const issues = data.ComponentVersions.edges[0].node.issues.edges
+    .filter((edge: any) => edge?.node)
+    .map((edge: any) => {
+      const node = edge.node
+      const severity = node?.highestSeverity?.edges?.[0]?.node?.severity?.value || "-"
+      const earliestTargetRemediation =
+        node?.earliestTargetRemediationDate?.edges?.[0]?.node?.targetRemediationDate || "-"
+      const sourceLink = node?.issueVariants?.edges?.[0]?.node?.externalUrl || "-"
+
+      return {
+        severity,
+        name: node?.primaryName || "-",
+        earliestTargetRemediation,
+        description: node?.description || "-",
+        sourceLink,
+      }
+    })
+
+  const totalImageVersionIssues = data?.ComponentVersions?.edges?.[0]?.node?.issues?.totalCount || 0
+  const pages =
+    data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pages?.filter((edge: any) => edge !== null) || []
+  const pageNumber = data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pageNumber || 1
+
+  return {
+    issues,
+    totalImageVersionIssues,
+    pages,
+    pageNumber,
+  }
+}
+
+export const getSeverityColor = (severity: string): string => {
+  switch (severity.toLowerCase()) {
+    case "critical":
+      return "text-theme-danger"
+    case "high":
+      return "text-theme-warning"
+    case "medium":
+      return "text-theme-warning"
+    case "low":
+      return "text-theme-info"
+    case "none":
+      return "text-theme-default"
+    default:
+      return "text-theme-default"
+  }
+}

@@ -4,10 +4,17 @@
  */
 
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, cleanup } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, expect, test, vi } from "vitest"
-import { PopupMenu } from "./index"
+import {
+  PopupMenu,
+  PopupMenuOptions,
+  PopupMenuItem,
+  PopupMenuToggle,
+  PopupMenuSection,
+  PopupMenuSectionHeading,
+} from "./index"
 
 // Mock the PortalProvider so the menu is rendered directly into a Dom node that is easily accessible in our tests:
 vi.mock("../PortalProvider", () => ({
@@ -15,6 +22,23 @@ vi.mock("../PortalProvider", () => ({
     Portal: ({ children }: { children: React.ReactNode }) => <div data-testid="portal-container">{children}</div>,
   },
 }))
+
+class ResizeObserver {
+  observe() {
+    // do nothing
+    vi.fn()
+  }
+  unobserve() {
+    // do nothing
+    vi.fn()
+  }
+  disconnect() {
+    // do nothing
+    vi.fn()
+  }
+}
+
+window.ResizeObserver = ResizeObserver
 
 // Define a Custom Toggle component to be used in our tests to represent a custom component a user might pass as a toggle:
 interface CustomToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,6 +55,11 @@ const CustomToggle = React.forwardRef<HTMLButtonElement, CustomToggleProps>(
 CustomToggle.displayName = "CustomToggle"
 
 describe("PopupMenu", () => {
+  afterEach(() => {
+    cleanup()
+    vi.clearAllMocks()
+  })
+
   // ----- MENU PARENT: -----
   test("renders a custom className to the menu parent element", () => {
     render(<PopupMenu data-testid="popupmenu" className="my-custom-class" />)
@@ -87,7 +116,7 @@ describe("PopupMenu", () => {
   test("renders a menu as passed when the default toggle is clicked", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu />
+        <PopupMenuOptions />
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -99,7 +128,7 @@ describe("PopupMenu", () => {
   test("renders a toggle with children as passed", () => {
     render(
       <PopupMenu>
-        <PopupMenu.Toggle>Toggle Me</PopupMenu.Toggle>
+        <PopupMenuToggle>Toggle Me</PopupMenuToggle>
       </PopupMenu>
     )
     const button = screen.getByRole("button")
@@ -110,7 +139,7 @@ describe("PopupMenu", () => {
   test("renders a toggle as passed and ignores icon prop on parent", () => {
     render(
       <PopupMenu icon="warning">
-        <PopupMenu.Toggle>Toggle Me</PopupMenu.Toggle>
+        <PopupMenuToggle>Toggle Me</PopupMenuToggle>
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -120,7 +149,7 @@ describe("PopupMenu", () => {
   test("renders a toggle with a custom className as passed", () => {
     render(
       <PopupMenu>
-        <PopupMenu.Toggle className="my-custom-toggle">Toggle Me</PopupMenu.Toggle>
+        <PopupMenuToggle className="my-custom-toggle">Toggle Me</PopupMenuToggle>
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -130,7 +159,7 @@ describe("PopupMenu", () => {
   test("renders all arbitrary props on a Toggle", () => {
     render(
       <PopupMenu>
-        <PopupMenu.Toggle data-lolol="123">Toggle Me</PopupMenu.Toggle>
+        <PopupMenuToggle data-lolol="123">Toggle Me</PopupMenuToggle>
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -141,7 +170,7 @@ describe("PopupMenu", () => {
     const onClickSpy = vi.fn()
     render(
       <PopupMenu>
-        <PopupMenu.Toggle onClick={onClickSpy}>Toggle Me</PopupMenu.Toggle>
+        <PopupMenuToggle onClick={onClickSpy}>Toggle Me</PopupMenuToggle>
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -151,9 +180,9 @@ describe("PopupMenu", () => {
   test("renders a Toggle as a custom component as passed", () => {
     render(
       <PopupMenu>
-        <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
+        <PopupMenuToggle as={CustomToggle} className="my-custom-toggle">
           Toggle Me
-        </PopupMenu.Toggle>
+        </PopupMenuToggle>
       </PopupMenu>
     )
     const toggle = screen.getByRole("button")
@@ -164,10 +193,10 @@ describe("PopupMenu", () => {
   test("renders a functional toggle as a custom component that opens and closes the menu", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
+        <PopupMenuToggle as={CustomToggle} className="my-custom-toggle">
           Toggle Me
-        </PopupMenu.Toggle>
-        <PopupMenu.Menu />
+        </PopupMenuToggle>
+        <PopupMenuOptions />
       </PopupMenu>
     )
     const toggle = screen.getByRole("button")
@@ -181,9 +210,9 @@ describe("PopupMenu", () => {
     const onOpenSpy = vi.fn()
     render(
       <PopupMenu onOpen={onOpenSpy}>
-        <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
+        <PopupMenuToggle as={CustomToggle} className="my-custom-toggle">
           Toggle Me
-        </PopupMenu.Toggle>
+        </PopupMenuToggle>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -193,9 +222,9 @@ describe("PopupMenu", () => {
     const onCloseSpy = vi.fn()
     render(
       <PopupMenu onClose={onCloseSpy}>
-        <PopupMenu.Toggle as={CustomToggle} className="my-custom-toggle">
+        <PopupMenuToggle as={CustomToggle} className="my-custom-toggle">
           Toggle Me
-        </PopupMenu.Toggle>
+        </PopupMenuToggle>
       </PopupMenu>
     )
     const toggle = screen.getByRole("button")
@@ -209,9 +238,9 @@ describe("PopupMenu", () => {
     const onClickSpy = vi.fn()
     render(
       <PopupMenu>
-        <PopupMenu.Toggle as={CustomToggle} onClick={onClickSpy}>
+        <PopupMenuToggle as={CustomToggle} onClick={onClickSpy}>
           Toggle Me
-        </PopupMenu.Toggle>
+        </PopupMenuToggle>
       </PopupMenu>
     )
     const toggle = screen.getByRole("button")
@@ -222,7 +251,7 @@ describe("PopupMenu", () => {
     // This test can not (and should not) REALLY test whether a custom component can render these props, but we can test whether we pass them on correctly so they can be used by a custom component:
     render(
       <PopupMenu>
-        <PopupMenu.Toggle data-lolol="123">Toggle Me</PopupMenu.Toggle>
+        <PopupMenuToggle data-lolol="123">Toggle Me</PopupMenuToggle>
       </PopupMenu>
     )
     expect(screen.getByRole("button")).toBeInTheDocument()
@@ -232,9 +261,9 @@ describe("PopupMenu", () => {
   test("renders a Toggle as a React Fragment as passed via as prop", () => {
     render(
       <PopupMenu>
-        <PopupMenu.Toggle as={React.Fragment} className="my-custom-toggle" data-testid="toggle-fragment">
+        <PopupMenuToggle as={React.Fragment} className="my-custom-toggle" data-testid="toggle-fragment">
           <CustomToggle>Toggle Child</CustomToggle>
-        </PopupMenu.Toggle>
+        </PopupMenuToggle>
       </PopupMenu>
     )
     expect(screen.queryByRole("button")).toBeInTheDocument()
@@ -244,10 +273,10 @@ describe("PopupMenu", () => {
   test("renders a functional Toggle that opens and closes the menu as a React Fragment", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Toggle as={React.Fragment} className="my-custom-toggle" data-testid="toggle-fragment">
+        <PopupMenuToggle as={React.Fragment} className="my-custom-toggle" data-testid="toggle-fragment">
           <CustomToggle>Toggle Child</CustomToggle>
-        </PopupMenu.Toggle>
-        <PopupMenu.Menu />
+        </PopupMenuToggle>
+        <PopupMenuOptions />
       </PopupMenu>
     )
     const toggle = screen.getByRole("button")
@@ -260,9 +289,9 @@ describe("PopupMenu", () => {
     const onClickSpy = vi.fn()
     render(
       <PopupMenu>
-        <PopupMenu.Toggle as={React.Fragment}>
+        <PopupMenuToggle as={React.Fragment}>
           <CustomToggle onClick={onClickSpy}>Toggle Child</CustomToggle>
-        </PopupMenu.Toggle>
+        </PopupMenuToggle>
       </PopupMenu>
     )
     const toggle = screen.getByRole("button")
@@ -274,7 +303,7 @@ describe("PopupMenu", () => {
   test("renders the menu into a portal container", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu />
+        <PopupMenuOptions />
       </PopupMenu>
     )
     const button = screen.getByRole("button")
@@ -285,7 +314,7 @@ describe("PopupMenu", () => {
   test("renders a normal size menu by default", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu />
+        <PopupMenuOptions />
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -296,7 +325,7 @@ describe("PopupMenu", () => {
   test("renders a small size menu as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu />
+        <PopupMenuOptions />
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -307,7 +336,7 @@ describe("PopupMenu", () => {
   test("renders a menu with a custom className as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu className="my-custom-menu" />
+        <PopupMenuOptions className="my-custom-menu" />
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -320,9 +349,9 @@ describe("PopupMenu", () => {
   test("renders menu items as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item></PopupMenu.Item>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem></PopupMenuItem>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -332,9 +361,9 @@ describe("PopupMenu", () => {
   test("renders menu items with a label as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item label="My Menu Item"></PopupMenu.Item>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem label="My Menu Item"></PopupMenuItem>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -345,9 +374,9 @@ describe("PopupMenu", () => {
   test("renders menu items with children as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item>Item With Children</PopupMenu.Item>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem>Item With Children</PopupMenuItem>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -358,9 +387,9 @@ describe("PopupMenu", () => {
   test("renders a menu item with label when both label and children were passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item label="123">abc</PopupMenu.Item>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem label="123">abc</PopupMenuItem>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -372,9 +401,9 @@ describe("PopupMenu", () => {
   test("renders a menu item with a custom className as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item className="my-custom-item"></PopupMenu.Item>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem className="my-custom-item"></PopupMenuItem>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -385,9 +414,9 @@ describe("PopupMenu", () => {
   test("renders a disabled menu item as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item disabled></PopupMenu.Item>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem disabled></PopupMenuItem>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -397,9 +426,9 @@ describe("PopupMenu", () => {
   test("renders a menu item with an icon as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item icon="warning"></PopupMenu.Item>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem icon="warning"></PopupMenuItem>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -410,9 +439,9 @@ describe("PopupMenu", () => {
   test("renders an item as a link as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item as="a" href="https://www.google.com" />
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem as="a" href="https://www.google.com" />
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -423,9 +452,9 @@ describe("PopupMenu", () => {
   test("renders anchor-specific props when rendering an anchor item element as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item as="a" href="https://www.google.com" rel="noopener noreferrer" target="_blank" />
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem as="a" href="https://www.google.com" rel="noopener noreferrer" target="_blank" />
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -436,9 +465,9 @@ describe("PopupMenu", () => {
   test("does not render anchor-specifi props when not rendering an anchor", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item href="https://www.google.com" rel="noopener noreferrer" target="_blank" />
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem href="https://www.google.com" rel="noopener noreferrer" target="_blank" />
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -449,9 +478,9 @@ describe("PopupMenu", () => {
   test("renders an item with all arbitrary props", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item data-lolol="123" />
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem data-lolol="123" />
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -462,9 +491,9 @@ describe("PopupMenu", () => {
     const onClickSpy = vi.fn()
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item onClick={onClickSpy} />
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem onClick={onClickSpy} />
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -478,9 +507,9 @@ describe("PopupMenu", () => {
   test("renders a menu section as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Section data-testid="my-menu-section"></PopupMenu.Section>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuSection data-testid="my-menu-section"></PopupMenuSection>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -489,9 +518,9 @@ describe("PopupMenu", () => {
   test("renders a menu section with a custom className as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Section data-testid="my-menu-section" className="my-custom-class"></PopupMenu.Section>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuSection data-testid="my-menu-section" className="my-custom-class"></PopupMenuSection>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -501,12 +530,12 @@ describe("PopupMenu", () => {
   test("renders a menu section with children as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Item data-testid="child-outside">Item outside of a section</PopupMenu.Item>
-          <PopupMenu.Section data-testid="my-menu-section">
-            <PopupMenu.Item data-testid="child-inside">Item inside a section</PopupMenu.Item>
-          </PopupMenu.Section>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuItem data-testid="child-outside">Item outside of a section</PopupMenuItem>
+          <PopupMenuSection data-testid="my-menu-section">
+            <PopupMenuItem data-testid="child-inside">Item inside a section</PopupMenuItem>
+          </PopupMenuSection>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -520,9 +549,9 @@ describe("PopupMenu", () => {
   test("renders a section with arbitrary props", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Section data-testid="my-menu-section" data-lolol="123"></PopupMenu.Section>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuSection data-testid="my-menu-section" data-lolol="123"></PopupMenuSection>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -534,11 +563,11 @@ describe("PopupMenu", () => {
   test("renders a menu section heading with a label as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Section>
-            <PopupMenu.SectionHeading data-testid="my-menu-section-heading" label="My Menu Section Heading" />
-          </PopupMenu.Section>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuSection>
+            <PopupMenuSectionHeading data-testid="my-menu-section-heading" label="My Menu Section Heading" />
+          </PopupMenuSection>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -548,13 +577,13 @@ describe("PopupMenu", () => {
   test("renders a label section heading with children as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Section>
-            <PopupMenu.SectionHeading data-testid="my-menu-section-heading">
+        <PopupMenuOptions>
+          <PopupMenuSection>
+            <PopupMenuSectionHeading data-testid="my-menu-section-heading">
               My Child Section Heading
-            </PopupMenu.SectionHeading>
-          </PopupMenu.Section>
-        </PopupMenu.Menu>
+            </PopupMenuSectionHeading>
+          </PopupMenuSection>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -564,14 +593,11 @@ describe("PopupMenu", () => {
   test("renders a label section heading with a className as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Section>
-            <PopupMenu.SectionHeading
-              data-testid="my-menu-section-heading"
-              className="my-custom-menu-section-heading"
-            />
-          </PopupMenu.Section>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuSection>
+            <PopupMenuSectionHeading data-testid="my-menu-section-heading" className="my-custom-menu-section-heading" />
+          </PopupMenuSection>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))
@@ -581,11 +607,11 @@ describe("PopupMenu", () => {
   test("renders a label section heading with arbitrary props as passed", async () => {
     render(
       <PopupMenu>
-        <PopupMenu.Menu>
-          <PopupMenu.Section>
-            <PopupMenu.SectionHeading data-testid="my-menu-section-heading" data-lolol="123" />
-          </PopupMenu.Section>
-        </PopupMenu.Menu>
+        <PopupMenuOptions>
+          <PopupMenuSection>
+            <PopupMenuSectionHeading data-testid="my-menu-section-heading" data-lolol="123" />
+          </PopupMenuSection>
+        </PopupMenuOptions>
       </PopupMenu>
     )
     await userEvent.click(screen.getByRole("button"))

@@ -4,10 +4,10 @@
  */
 
 import * as React from "react"
-import { render, screen, waitFor, act } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { SecretText } from "./index"
-
+import { act } from "react-dom/test-utils"
 const mockOnChange = vi.fn()
 const mockOnClear = vi.fn()
 const mockOnCopy = vi.fn()

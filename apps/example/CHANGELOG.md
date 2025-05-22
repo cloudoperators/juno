@@ -1,5 +1,55 @@
 # @cloudoperators/juno-app-example
 
+## 2.0.4
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+- Updated dependencies [cdae407]
+- Updated dependencies [7230774]
+- Updated dependencies [a9e8592]
+- Updated dependencies [43d6aa0]
+  - @cloudoperators/juno-ui-components@3.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.1
+  - @cloudoperators/juno-messages-provider@0.2.5
+  - @cloudoperators/juno-oauth@1.4.6
+
+## 2.0.3
+
+### Patch Changes
+
+- 403b5cd: - Remove headlessui float and update headlessui to 2.1.10
+  - Fix unit tests
+- Updated dependencies [403b5cd]
+- Updated dependencies [67f53cb]
+  - @cloudoperators/juno-ui-components@3.1.0
+
+## 2.0.2
+
+### Patch Changes
+
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- cdba61c: Upgrade to vite 6.2
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [02cb67a]
+- Updated dependencies [cdba61c]
+  - @cloudoperators/juno-messages-provider@0.2.4
+  - @cloudoperators/juno-ui-components@3.0.0
+  - @cloudoperators/juno-url-state-provider@2.3.4
+  - @cloudoperators/juno-oauth@1.4.5
+
+## 2.0.1
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+- Updated dependencies [2277a23]
+- Updated dependencies [cde9cb5]
+  - @cloudoperators/juno-ui-components@2.39.0
+  - @cloudoperators/juno-url-state-provider@2.3.3
+  - @cloudoperators/juno-messages-provider@0.2.3
+  - @cloudoperators/juno-oauth@1.4.4
+
 ## 2.0.0
 
 ### Major Changes

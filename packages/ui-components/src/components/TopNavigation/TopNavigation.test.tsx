@@ -4,6 +4,7 @@
  */
 import React from "react"
 import { cleanup, render, screen, act } from "@testing-library/react"
+
 import { TopNavigation } from "./index"
 import { TopNavigationItem } from "../TopNavigationItem/index"
 

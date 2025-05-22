@@ -1,5 +1,136 @@
 # @cloudoperators/juno-ui-components
 
+## 3.1.1
+
+### Patch Changes
+
+- cdae407: - update @floating-ui/react to the latest version 0.27.8
+  - update @testing-library/\* packages to the latest versions
+  - fix unit tests
+  - ensure tooltip content is not displayed when disabled
+- 7230774: - update storybook dependencies to the latest version
+  - remove @storybook/addon-webpack5-compiler-babel
+  - run code-modes to convert remaining csf2 to csf3
+  - fix storybook implicit action args error
+- a9e8592: PopupMenu: add missing component exports
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+
+## 3.1.0
+
+### Minor Changes
+
+- 403b5cd: - Remove headlessui float and update headlessui to 2.1.10
+  - Fix unit tests
+
+### Patch Changes
+
+- 67f53cb: fix(ui): fix DateTimePicker light mode colors
+
+## 3.0.1
+
+### Patch Changes
+
+- 9ff1784: Update react-tabs to the latest react 19 compatible version (6.1.0)
+- 4e8a5ef: Remove @mdx-js/react from the codebase
+- f48439c: Remove react-jss package from the codebase
+
+## 3.0.0
+
+### Major Changes
+
+- 02cb67a: ---
+  title: 'UI Component Library v3.0.0'
+  description: 'Changelog for the major 3.0.0 release with TypeScript, React 18.3 support, and Vite optimization'
+  date: '2025-04-08'
+
+  ***
+
+  # Changelog v3.0.0
+
+  This is a major release with breaking changes. Please review the migration guide before upgrading.
+
+  ## Major Release Highlights
+
+  - **Full TypeScript Migration** - The entire library has been rewritten in TypeScript, providing improved type safety and developer experience
+  - **React 18.3.1 Support** - Updated to fully leverage the latest React features and improvements
+  - **Vite-powered Build Pipeline** - Significant performance improvements in build times and bundle size optimization
+  - **Storybook Upgrade** - Enhanced documentation and component showcasing
+
+  ## New Features
+
+  - Complete TypeScript integration with comprehensive type definitions
+  - Modern build system using Vite for faster development and optimized production builds
+  - Updated Storybook with improved documentation, search, and component navigation
+  - New component theming system with better customization options
+  - Extended accessibility compliance across all components
+
+  ## Breaking Changes
+
+  - Removed all previously deprecated components and APIs
+  - Updated component prop interfaces may require adjustments in your implementation, no prop-types support.
+  - Minimum supported React version is now 18.0.0
+  - Node.js 16+ is now required for development
+
+  ## Improvements
+
+  - Reduced bundle size by approximately 35%
+  - Improved rendering performance across all components
+  - Better tree-shaking support for more efficient application builds
+  - Enhanced focus management and keyboard navigation
+  - Component state management refactored for improved predictability
+
+  ## Developer Experience
+
+  - Improved error messages and debugging experience
+  - Comprehensive TypeScript types for better IDE integration
+  - Enhanced documentation with usage examples and migration guides
+  - New testing utilities for components
+
+  ## Documentation
+
+  - Complete overhaul of component documentation
+  - New interactive examples
+  - Improved search functionality in documentation
+
+  ## Housekeeping
+
+  - Dependency updates across the board
+  - Removed legacy polyfills and compatibility code
+  - Streamlined internal architecture
+  - Consolidated similar components into more flexible alternatives
+
+  ## Bug Fixes
+
+  - Fixed focus trap issues in modal components
+  - Resolved state management inconsistencies in form components
+  - Fixed various styling issues in dark mode
+  - Addressed multiple accessibility concerns
+
+  ## What's Next
+
+  Our team is already working on exciting new features for upcoming releases. Stay tuned for announcements about:
+
+  - Preparation for React 19 support.
+  - Performance optimizations for large-scale applications
+  - New components.
+
+  ***
+
+### Patch Changes
+
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- cdba61c: Upgrade to vite 6.2
+
+## 2.39.0
+
+### Minor Changes
+
+- 2277a23: Export component types for Typescript use
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+
 ## 2.38.2
 
 ### Patch Changes

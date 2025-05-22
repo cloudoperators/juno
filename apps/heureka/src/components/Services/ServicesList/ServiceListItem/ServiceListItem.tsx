@@ -4,8 +4,9 @@
  */
 
 import React from "react"
-import { DataGridRow, DataGridCell, Pill, Badge, Stack, Icon } from "@cloudoperators/juno-ui-components"
-import { ServiceType } from "../../Services"
+import { DataGridRow, DataGridCell, Pill, Stack, Button } from "@cloudoperators/juno-ui-components"
+import { SeverityCount } from "../../../common/SeverityCount"
+import { ServiceType } from "../../../types"
 
 type ServiceDetailsLabel = {
   [key: string]: string
@@ -23,13 +24,13 @@ const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["servi
   )
 
   return (
-    <span>
+    <Stack gap="2" alignment="start" wrap={true}>
       {Object.entries(serviceDetails).map(([key, value]) =>
         Array.isArray(value)
           ? value.map((item) => getPill(serviceDetailsLabels[key], item))
           : getPill(serviceDetailsLabels[key], value)
       )}
-    </span>
+    </Stack>
   )
 }
 
@@ -43,31 +44,56 @@ type ServiceListItemProps = {
 export const ServiceListItem = ({ item, selected, onItemClick, onServiceDetailClick }: ServiceListItemProps) => (
   <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
-    <DataGridCell>
-      <Stack gap="1">
-        <Badge
-          icon="danger"
-          text={`${item.issuesCount.critical}`}
-          variant={item.issuesCount.critical > 0 ? "danger" : "default"}
-        />
-        <Badge
-          icon="warning"
-          text={`${item.issuesCount.high}`}
-          variant={item.issuesCount.critical > 0 ? "warning" : "default"}
-        />
-      </Stack>
+    <DataGridCell className="items-center">
+      <SeverityCount
+        showDashIfZero
+        count={item.issuesCount.critical}
+        icon="danger"
+        variant="danger"
+        tooltipContent="Critical Issues"
+      />
+    </DataGridCell>
+    <DataGridCell className="items-center">
+      <SeverityCount
+        showDashIfZero
+        count={item.issuesCount.high}
+        icon="warning"
+        variant="warning"
+        tooltipContent="High Issues"
+      />
+    </DataGridCell>
+    <DataGridCell className="items-center">
+      <SeverityCount
+        showDashIfZero
+        count={item.issuesCount.medium}
+        icon="errorOutline"
+        variant="warning"
+        tooltipContent="Medium Issues"
+      />
+    </DataGridCell>
+    <DataGridCell className="items-center">
+      <SeverityCount
+        showDashIfZero
+        count={item.issuesCount.low}
+        icon="info"
+        variant="info"
+        tooltipContent="Low Issues"
+      />
+    </DataGridCell>
+    <DataGridCell className="items-center">
+      <SeverityCount
+        showDashIfZero
+        count={item.issuesCount.none}
+        icon="help"
+        variant="default"
+        tooltipContent="None Issues"
+      />
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />
     </DataGridCell>
-    <DataGridCell>{item.components}</DataGridCell>
-    <DataGridCell>
-      {item.serviceOwners.map((owner) => (
-        <div key={owner}>{owner}</div>
-      ))}
-    </DataGridCell>
     <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-      <Icon icon="description" onClick={onServiceDetailClick} />
+      <Button label="Show Details" onClick={onServiceDetailClick} size="small" className="whitespace-nowrap" />
     </DataGridCell>
   </DataGridRow>
 )

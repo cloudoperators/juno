@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from "react"
-import { Tabs as ReactTabs, TabsProps as ReactTabsProps } from "react-tabs"
+import { Tabs as ReactTabs } from "react-tabs"
 
 export interface TabsContextType {
   variant?: TabsVariant
@@ -23,7 +23,10 @@ Tabs are used to provide a tabbed section within the content area when combining
 export const Tabs = ({
   children,
   defaultIndex,
-  selectedIndex,
+  // The prop `selectedIndex` is marked as required in `UncontrolledTabs`, but its value is `undefined`.
+  // default: null
+  // https://www.npmjs.com/package/react-tabs#controlled-vs-uncontrolled-mode
+  selectedIndex = null,
   onSelect,
   variant = "content",
   className = "",
@@ -49,7 +52,7 @@ export const Tabs = ({
       <ReactTabs
         className={`juno-tabs juno-tabs-${variant} ${className}`}
         defaultIndex={defaultIndex}
-        selectedIndex={passedIndex}
+        selectedIndex={passedIndex as number}
         onSelect={handleSelect}
         {...props}
       >
@@ -63,13 +66,13 @@ Tabs.tabsRole = "Tabs"
 
 export type TabsVariant = "main" | "content" | "codeblocks"
 
-export interface TabsProps extends ReactTabsProps {
+export interface TabsProps {
   /** All the child elements of the Tabs: Tab(s) inside a TabList and TabPanel(s) */
   children?: React.ReactNode
   /** The index of the Tab to be selected by default in "Uncontrolled Mode" (default) where Tabs handle their state internally. Do not use in "Controlled Mode".*/
   defaultIndex?: number
   /** The index of the Tab to be selected by default. This enables "Controlled Mode" where the developer takes over control of the Tabs state and behaviour. Requires onSelect to be set.*/
-  selectedIndex?: number
+  selectedIndex?: number | null
   /** Handler required in "Controlled Mode" */
   // eslint-disable-next-line no-unused-vars
   onSelect?: (value: number) => void

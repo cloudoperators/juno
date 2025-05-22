@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useRef, useState } from "react"
-import { isEmpty } from "lodash"
-import { OrderDirection, Page, ServiceOrderByField, useGetServicesQuery, SeverityValues } from "../../generated/graphql"
+import { useCallback, useEffect, useRef } from "react"
+import { isNil } from "lodash"
+import { OrderDirection, Page, ServiceOrderByField, useGetServicesLazyQuery } from "../../generated/graphql"
 import { FilterSettings } from "../common/Filters/types"
 import { getNormalizedData, getActiveServiceFilter, getNormalizedError } from "./utils"
 
@@ -14,59 +14,51 @@ type UseFetchServicesInput = {
   pageSize?: number
 }
 
-export const useFetchServices = ({ filterSettings, pageSize = 10 }: UseFetchServicesInput) => {
+export const useFetchServices = ({ filterSettings, pageSize = 20 }: UseFetchServicesInput) => {
   const pagesRef = useRef<Page[]>()
-  const [currentPage, setCurrentPage] = useState<number | undefined>(1)
-  const { data, previousData, loading, error } = useGetServicesQuery({
+  // Use default options into the useLazyQuery and then customize those options in the query function
+  // https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery
+  const [loadServices, { data, loading, error }] = useGetServicesLazyQuery({
     variables: {
       first: pageSize,
-      after: pagesRef.current?.find((page) => page?.pageNumber === currentPage)?.after,
-      filter: getActiveServiceFilter(filterSettings),
-      /**
-       * TODO: make it dynamic
-       * for the moment the API only allows to order by CCRN
-       * and we're hardcoding the order direction for MVP
-       * later read it from the column header
-       */
       orderBy: [
         {
-          by: ServiceOrderByField.Ccrn,
-          direction: OrderDirection.Asc,
+          by: ServiceOrderByField.Severity,
+          direction: OrderDirection.Desc,
         },
       ],
-      crit: {
-        severity: [SeverityValues.Critical],
-      },
-      high: {
-        severity: [SeverityValues.High],
-      },
-      med: {
-        severity: [SeverityValues.Medium],
-      },
-      low: {
-        severity: [SeverityValues.Low],
-      },
-      none: {
-        severity: [SeverityValues.None],
-      },
     },
+    fetchPolicy: "network-only", // Doesn't check cache before making a network request
   })
-  const { services, totalCount, pages } = getNormalizedData(isEmpty(data) ? previousData : data)
+  const { services, servicesIssuesCount, pages, pageNumber } = getNormalizedData(data)
 
-  // reset current page if data has not much records
+  // let's save the pages so we can get cursor when navigating among pages
+  pagesRef.current = pages
+
+  // Go to a specific page
+  const goToPage = useCallback(
+    (pageNumber?: number) => {
+      if (!isNil(pageNumber)) {
+        // Since pagesRef is a mutable reference and does not trigger re-renders when updated, it doesn't need to be included in the dependencies array.
+        const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber - 1)?.after
+        loadServices({ variables: { filter: getActiveServiceFilter(filterSettings), after: cursor } })
+      }
+    },
+    [filterSettings]
+  )
+
+  // Fetch services whenever filter settings change
   useEffect(() => {
-    if (currentPage && currentPage > Math.ceil(totalCount / pageSize)) {
-      setCurrentPage(1)
-    }
-    pagesRef.current = pages
-  }, [totalCount])
+    loadServices({ variables: { filter: getActiveServiceFilter(filterSettings) } })
+  }, [filterSettings])
 
   return {
     loading,
-    currentPage,
-    services,
-    totalNumberOfPages: Math.ceil(totalCount / pageSize),
-    goToPage: setCurrentPage,
     error: getNormalizedError(error),
+    services: services || [],
+    servicesIssuesCount,
+    currentPage: pageNumber,
+    totalNumberOfPages: pages.length || 0,
+    goToPage,
   }
 }

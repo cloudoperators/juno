@@ -9,6 +9,11 @@ appProps.js*
 secretProps.js*
 authToken.js*
 vite.config.*.timestamp-*
+# pnpm virtual store directory
+.pnpm/
+
+# pnpm local package store (if configured locally)
+.pnpm-store/
 
 # act artifacts needed for testing workflows
 .secrets

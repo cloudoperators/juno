@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn } from "@storybook/react"
+import { Meta, StoryFn, StoryObj } from "@storybook/react"
 
 import { Form, FormProps } from "./Form.component"
 import { FormRow } from "../FormRow/FormRow.component"
@@ -57,10 +57,13 @@ export default {
   ],
 } as Meta<typeof Form>
 
-// eslint-disable-next-line react/prop-types
-const Template: StoryFn<FormProps> = ({ children, ...args }) => <Form {...args}>{children}</Form>
+interface TemplateProps {
+  children?: React.ReactNode
+}
 
-export const Default = {
+const Template: StoryFn<FormProps> = ({ children, ...args }: TemplateProps) => <Form {...args}>{children}</Form>
+
+export const Default: StoryObj<FormProps> = {
   render: Template,
   args: {
     title: "A Simple Form",
@@ -82,7 +85,7 @@ export const Default = {
   },
 }
 
-export const ComplexForm = {
+export const ComplexForm: StoryObj<FormProps> = {
   render: Template,
   args: {
     title: "A Complex Form",

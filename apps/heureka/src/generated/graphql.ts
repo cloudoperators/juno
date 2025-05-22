@@ -49,6 +49,7 @@ export type ActivityIssuesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueOrderBy>>>
 }
 
 export type ActivityServicesArgs = {
@@ -92,6 +93,7 @@ export type Cvss = {
   __typename?: "CVSS"
   base?: Maybe<CvssBase>
   environmental?: Maybe<CvssEnvironmental>
+  externalUrl?: Maybe<Scalars["String"]["output"]>
   temporal?: Maybe<CvssTemporal>
   vector?: Maybe<Scalars["String"]["output"]>
 }
@@ -193,12 +195,14 @@ export type ComponentInstance = Node & {
   cluster?: Maybe<Scalars["String"]["output"]>
   componentVersion?: Maybe<ComponentVersion>
   componentVersionId?: Maybe<Scalars["String"]["output"]>
+  container?: Maybe<Scalars["String"]["output"]>
   count?: Maybe<Scalars["Int"]["output"]>
   domain?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
   issueMatches?: Maybe<IssueMatchConnection>
   metadata?: Maybe<Metadata>
   namespace?: Maybe<Scalars["String"]["output"]>
+  pod?: Maybe<Scalars["String"]["output"]>
   project?: Maybe<Scalars["String"]["output"]>
   region?: Maybe<Scalars["String"]["output"]>
   service?: Maybe<Service>
@@ -227,8 +231,11 @@ export type ComponentInstanceEdge = Edge & {
 export type ComponentInstanceFilter = {
   ccrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   cluster?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  componentVersionDigest?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  container?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   domain?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   namespace?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  pod?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   project?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   region?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -240,11 +247,46 @@ export type ComponentInstanceFilter = {
 export type ComponentInstanceFilterValue = {
   __typename?: "ComponentInstanceFilterValue"
   ccrn?: Maybe<FilterItem>
+  cluster?: Maybe<FilterItem>
+  container?: Maybe<FilterItem>
+  domain?: Maybe<FilterItem>
+  namespace?: Maybe<FilterItem>
+  pod?: Maybe<FilterItem>
+  project?: Maybe<FilterItem>
+  region?: Maybe<FilterItem>
   serviceCcrn?: Maybe<FilterItem>
   supportGroupCcrn?: Maybe<FilterItem>
 }
 
 export type ComponentInstanceFilterValueCcrnArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueClusterArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueContainerArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueDomainArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueNamespaceArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValuePodArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueProjectArgs = {
+  filter?: InputMaybe<ComponentInstanceFilter>
+}
+
+export type ComponentInstanceFilterValueRegionArgs = {
   filter?: InputMaybe<ComponentInstanceFilter>
 }
 
@@ -258,9 +300,33 @@ export type ComponentInstanceFilterValueSupportGroupCcrnArgs = {
 
 export type ComponentInstanceInput = {
   ccrn?: InputMaybe<Scalars["String"]["input"]>
+  cluster?: InputMaybe<Scalars["String"]["input"]>
   componentVersionId?: InputMaybe<Scalars["String"]["input"]>
+  container?: InputMaybe<Scalars["String"]["input"]>
   count?: InputMaybe<Scalars["Int"]["input"]>
+  domain?: InputMaybe<Scalars["String"]["input"]>
+  namespace?: InputMaybe<Scalars["String"]["input"]>
+  pod?: InputMaybe<Scalars["String"]["input"]>
+  project?: InputMaybe<Scalars["String"]["input"]>
+  region?: InputMaybe<Scalars["String"]["input"]>
   serviceId?: InputMaybe<Scalars["String"]["input"]>
+  uuid?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export type ComponentInstanceOrderBy = {
+  by?: InputMaybe<ComponentInstanceOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum ComponentInstanceOrderByField {
+  Ccrn = "ccrn",
+  Cluster = "cluster",
+  Container = "container",
+  Domain = "domain",
+  Namespace = "namespace",
+  Pod = "pod",
+  Project = "project",
+  Region = "region",
 }
 
 export enum ComponentTypeValues {
@@ -278,13 +344,17 @@ export type ComponentVersion = Node & {
   issueCounts?: Maybe<SeverityCounts>
   issues?: Maybe<IssueConnection>
   metadata?: Maybe<Metadata>
+  organization?: Maybe<Scalars["String"]["output"]>
+  repository?: Maybe<Scalars["String"]["output"]>
   tag?: Maybe<Scalars["String"]["output"]>
   version?: Maybe<Scalars["String"]["output"]>
 }
 
 export type ComponentVersionComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<ComponentInstanceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>>>
 }
 
 export type ComponentVersionIssueCountsArgs = {
@@ -293,7 +363,9 @@ export type ComponentVersionIssueCountsArgs = {
 
 export type ComponentVersionIssuesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<IssueFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueOrderBy>>>
 }
 
 export type ComponentVersionConnection = Connection & {
@@ -314,6 +386,8 @@ export type ComponentVersionFilter = {
   componentId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueRepositoryId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  organization?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  repository?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
@@ -323,6 +397,8 @@ export type ComponentVersionFilter = {
 
 export type ComponentVersionInput = {
   componentId?: InputMaybe<Scalars["String"]["input"]>
+  organization?: InputMaybe<Scalars["String"]["input"]>
+  repository?: InputMaybe<Scalars["String"]["input"]>
   tag?: InputMaybe<Scalars["String"]["input"]>
   version?: InputMaybe<Scalars["String"]["input"]>
 }
@@ -406,6 +482,13 @@ export type FilterItem = {
   values?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>
 }
 
+export type FilterValueItem = {
+  __typename?: "FilterValueItem"
+  displayName?: Maybe<Scalars["String"]["output"]>
+  filterName?: Maybe<Scalars["String"]["output"]>
+  values?: Maybe<Array<Maybe<ValueItem>>>
+}
+
 export type Issue = Node & {
   __typename?: "Issue"
   activities?: Maybe<ActivityConnection>
@@ -438,6 +521,7 @@ export type IssueIssueMatchesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueMatchFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>>>
 }
 
 export type IssueIssueVariantsArgs = {
@@ -463,6 +547,7 @@ export type IssueEdge = Edge & {
 }
 
 export type IssueFilter = {
+  allServices?: InputMaybe<Scalars["Boolean"]["input"]>
   componentVersionId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueMatchStatus?: InputMaybe<Array<InputMaybe<IssueMatchStatusValues>>>
   issueRepositoryId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -471,6 +556,7 @@ export type IssueFilter = {
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
+  supportGroupCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
 export type IssueInput = {
@@ -578,6 +664,8 @@ export type IssueMatchFilter = {
   primaryName?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  serviceOwnerUniqueUserId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  serviceOwnerUsername?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
   state?: InputMaybe<Array<StateFilter>>
   status?: InputMaybe<Array<InputMaybe<IssueMatchStatusValues>>>
@@ -651,6 +739,16 @@ export type IssueMetadata = {
   serviceCount: Scalars["Int"]["output"]
 }
 
+export type IssueOrderBy = {
+  by?: InputMaybe<IssueOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum IssueOrderByField {
+  PrimaryName = "primaryName",
+  Severity = "severity",
+}
+
 export type IssueRepository = Node & {
   __typename?: "IssueRepository"
   id: Scalars["ID"]["output"]
@@ -717,6 +815,7 @@ export enum IssueTypes {
 export type IssueVariant = Node & {
   __typename?: "IssueVariant"
   description?: Maybe<Scalars["String"]["output"]>
+  externalUrl?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
   issue?: Maybe<Issue>
   issueId?: Maybe<Scalars["String"]["output"]>
@@ -748,6 +847,7 @@ export type IssueVariantFilter = {
 
 export type IssueVariantInput = {
   description?: InputMaybe<Scalars["String"]["input"]>
+  externalUrl?: InputMaybe<Scalars["String"]["input"]>
   issueId?: InputMaybe<Scalars["String"]["input"]>
   issueRepositoryId?: InputMaybe<Scalars["String"]["input"]>
   secondaryName?: InputMaybe<Scalars["String"]["input"]>
@@ -1124,6 +1224,7 @@ export type Query = {
   ComponentVersions?: Maybe<ComponentVersionConnection>
   Components?: Maybe<ComponentConnection>
   Evidences?: Maybe<EvidenceConnection>
+  IssueCounts?: Maybe<SeverityCounts>
   IssueMatchChanges?: Maybe<IssueMatchChangeConnection>
   IssueMatchFilterValues?: Maybe<IssueMatchFilterValue>
   IssueMatches?: Maybe<IssueMatchConnection>
@@ -1148,6 +1249,7 @@ export type QueryComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentInstanceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>>>
 }
 
 export type QueryComponentVersionsArgs = {
@@ -1167,6 +1269,10 @@ export type QueryEvidencesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<EvidenceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type QueryIssueCountsArgs = {
+  filter?: InputMaybe<IssueFilter>
 }
 
 export type QueryIssueMatchChangesArgs = {
@@ -1198,6 +1304,7 @@ export type QueryIssuesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<IssueOrderBy>>>
 }
 
 export type QueryScannerRunsArgs = {
@@ -1265,6 +1372,7 @@ export type Service = Node & {
   ccrn?: Maybe<Scalars["String"]["output"]>
   componentInstances?: Maybe<ComponentInstanceConnection>
   id: Scalars["ID"]["output"]
+  issueCounts?: Maybe<SeverityCounts>
   issueMatches?: Maybe<IssueMatchConnection>
   issueRepositories?: Maybe<IssueRepositoryConnection>
   metadata?: Maybe<Metadata>
@@ -1283,6 +1391,11 @@ export type ServiceComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentInstanceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>>>
+}
+
+export type ServiceIssueCountsArgs = {
+  filter?: InputMaybe<IssueFilter>
 }
 
 export type ServiceIssueMatchesArgs = {
@@ -1313,6 +1426,7 @@ export type ServiceSupportGroupsArgs = {
 export type ServiceConnection = Connection & {
   __typename?: "ServiceConnection"
   edges?: Maybe<Array<Maybe<ServiceEdge>>>
+  issueCounts?: Maybe<SeverityCounts>
   pageInfo?: Maybe<PageInfo>
   totalCount: Scalars["Int"]["output"]
 }
@@ -1339,6 +1453,7 @@ export type ServiceFilterValue = {
   serviceCcrn?: Maybe<FilterItem>
   supportGroupCcrn?: Maybe<FilterItem>
   uniqueUserId?: Maybe<FilterItem>
+  user?: Maybe<FilterValueItem>
   userName?: Maybe<FilterItem>
 }
 
@@ -1351,6 +1466,10 @@ export type ServiceFilterValueSupportGroupCcrnArgs = {
 }
 
 export type ServiceFilterValueUniqueUserIdArgs = {
+  filter?: InputMaybe<UserFilter>
+}
+
+export type ServiceFilterValueUserArgs = {
   filter?: InputMaybe<UserFilter>
 }
 
@@ -1375,6 +1494,7 @@ export type ServiceOrderBy = {
 
 export enum ServiceOrderByField {
   Ccrn = "ccrn",
+  Severity = "severity",
 }
 
 export type Severity = {
@@ -1391,6 +1511,7 @@ export type SeverityCounts = {
   low: Scalars["Int"]["output"]
   medium: Scalars["Int"]["output"]
   none: Scalars["Int"]["output"]
+  total: Scalars["Int"]["output"]
 }
 
 export type SeverityInput = {
@@ -1506,11 +1627,112 @@ export type UserInput = {
   uniqueUserId?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type ValueItem = {
+  __typename?: "ValueItem"
+  display?: Maybe<Scalars["String"]["output"]>
+  value?: Maybe<Scalars["String"]["output"]>
+}
+
+export type GetServiceFiltersQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetServiceFiltersQuery = {
+  __typename?: "Query"
+  ServiceFilterValues?: {
+    __typename?: "ServiceFilterValue"
+    serviceCcrn?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+    supportGroupCcrn?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+  } | null
+}
+
+export type GetServiceImageVersionIssuesQueryVariables = Exact<{
+  componentVersionFilter?: InputMaybe<ComponentVersionFilter>
+  issuesFilter?: InputMaybe<IssueFilter>
+  issueMatchFilter?: InputMaybe<IssueMatchFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+  after?: InputMaybe<Scalars["String"]["input"]>
+  orderByIssueSeverity?: InputMaybe<Array<InputMaybe<IssueOrderBy>> | InputMaybe<IssueOrderBy>>
+  orderBySeverity?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>> | InputMaybe<IssueMatchOrderBy>>
+  orderByTrd?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>> | InputMaybe<IssueMatchOrderBy>>
+}>
+
+export type GetServiceImageVersionIssuesQuery = {
+  __typename?: "Query"
+  ComponentVersions?: {
+    __typename?: "ComponentVersionConnection"
+    totalCount: number
+    edges: Array<{
+      __typename?: "ComponentVersionEdge"
+      node: {
+        __typename?: "ComponentVersion"
+        issues?: {
+          __typename?: "IssueConnection"
+          totalCount: number
+          edges: Array<{
+            __typename?: "IssueEdge"
+            node: {
+              __typename?: "Issue"
+              primaryName?: string | null
+              description?: string | null
+              issueVariants?: {
+                __typename?: "IssueVariantConnection"
+                edges?: Array<{
+                  __typename?: "IssueVariantEdge"
+                  node: { __typename?: "IssueVariant"; externalUrl?: string | null }
+                } | null> | null
+              } | null
+              highestSeverity?: {
+                __typename?: "IssueMatchConnection"
+                totalCount: number
+                edges?: Array<{
+                  __typename?: "IssueMatchEdge"
+                  node: {
+                    __typename?: "IssueMatch"
+                    severity?: {
+                      __typename?: "Severity"
+                      value?: SeverityValues | null
+                      cvss?: { __typename?: "CVSS"; vector?: string | null; externalUrl?: string | null } | null
+                    } | null
+                  }
+                } | null> | null
+              } | null
+              earliestTargetRemediationDate?: {
+                __typename?: "IssueMatchConnection"
+                edges?: Array<{
+                  __typename?: "IssueMatchEdge"
+                  node: { __typename?: "IssueMatch"; targetRemediationDate?: any | null }
+                } | null> | null
+              } | null
+            }
+          } | null>
+          pageInfo?: {
+            __typename?: "PageInfo"
+            pageNumber?: number | null
+            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+          } | null
+        } | null
+      }
+    } | null>
+  } | null
+}
+
 export type GetServiceImageVersionsQueryVariables = Exact<{
   filter?: InputMaybe<ComponentVersionFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
   orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>> | InputMaybe<ComponentVersionOrderBy>>
+  orderByCi?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>> | InputMaybe<ComponentInstanceOrderBy>>
+  filterCi?: InputMaybe<ComponentInstanceFilter>
+  filterIc?: InputMaybe<IssueFilter>
 }>
 
 export type GetServiceImageVersionsQuery = {
@@ -1523,6 +1745,7 @@ export type GetServiceImageVersionsQuery = {
       node: {
         __typename?: "ComponentVersion"
         tag?: string | null
+        repository?: string | null
         version?: string | null
         issueCounts?: {
           __typename?: "SeverityCounts"
@@ -1531,12 +1754,36 @@ export type GetServiceImageVersionsQuery = {
           medium: number
           low: number
           none: number
+          total: number
         } | null
         component?: { __typename?: "Component"; ccrn?: string | null } | null
+        componentInstances?: {
+          __typename?: "ComponentInstanceConnection"
+          totalCount: number
+          edges: Array<{
+            __typename?: "ComponentInstanceEdge"
+            node: {
+              __typename?: "ComponentInstance"
+              id: string
+              ccrn?: string | null
+              region?: string | null
+              cluster?: string | null
+              namespace?: string | null
+              pod?: string | null
+              container?: string | null
+            }
+          } | null>
+          pageInfo?: {
+            __typename?: "PageInfo"
+            pageNumber?: number | null
+            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+          } | null
+        } | null
       }
     } | null>
     pageInfo?: {
       __typename?: "PageInfo"
+      pageNumber?: number | null
       pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
     } | null
   } | null
@@ -1547,18 +1794,21 @@ export type GetServicesQueryVariables = Exact<{
   first?: InputMaybe<Scalars["Int"]["input"]>
   after?: InputMaybe<Scalars["String"]["input"]>
   orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>> | InputMaybe<ServiceOrderBy>>
-  crit?: InputMaybe<IssueMatchFilter>
-  high?: InputMaybe<IssueMatchFilter>
-  med?: InputMaybe<IssueMatchFilter>
-  low?: InputMaybe<IssueMatchFilter>
-  none?: InputMaybe<IssueMatchFilter>
 }>
 
 export type GetServicesQuery = {
   __typename?: "Query"
   Services?: {
     __typename?: "ServiceConnection"
-    totalCount: number
+    issueCounts?: {
+      __typename?: "SeverityCounts"
+      critical: number
+      high: number
+      medium: number
+      low: number
+      none: number
+      total: number
+    } | null
     edges?: Array<{
       __typename?: "ServiceEdge"
       node: {
@@ -1584,272 +1834,41 @@ export type GetServicesQuery = {
             node: { __typename?: "SupportGroup"; id: string; ccrn?: string | null }
           } | null> | null
         } | null
-        critical?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-        high?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-        medium?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-        low?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-        none?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
+        issueCounts?: {
+          __typename?: "SeverityCounts"
+          critical: number
+          high: number
+          medium: number
+          low: number
+          none: number
+          total: number
+        } | null
       }
     } | null> | null
     pageInfo?: {
       __typename?: "PageInfo"
+      pageNumber?: number | null
       pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
     } | null
   } | null
 }
 
-export type GetServiceFiltersQueryVariables = Exact<{ [key: string]: never }>
+export type GetServicesIssuesCountsQueryVariables = Exact<{
+  filter?: InputMaybe<IssueFilter>
+}>
 
-export type GetServiceFiltersQuery = {
+export type GetServicesIssuesCountsQuery = {
   __typename?: "Query"
-  ServiceFilterValues?: {
-    __typename?: "ServiceFilterValue"
-    serviceCcrn?: {
-      __typename?: "FilterItem"
-      displayName?: string | null
-      filterName?: string | null
-      values?: Array<string | null> | null
-    } | null
-    supportGroupCcrn?: {
-      __typename?: "FilterItem"
-      displayName?: string | null
-      filterName?: string | null
-      values?: Array<string | null> | null
-    } | null
-    uniqueUserId?: {
-      __typename?: "FilterItem"
-      displayName?: string | null
-      filterName?: string | null
-      values?: Array<string | null> | null
-    } | null
-    userName?: {
-      __typename?: "FilterItem"
-      displayName?: string | null
-      filterName?: string | null
-      values?: Array<string | null> | null
-    } | null
+  IssueCounts?: {
+    __typename?: "SeverityCounts"
+    critical: number
+    high: number
+    medium: number
+    low: number
+    none: number
   } | null
 }
 
-export type GetServicesCountsQueryVariables = Exact<{
-  crit?: InputMaybe<IssueMatchFilter>
-  high?: InputMaybe<IssueMatchFilter>
-  med?: InputMaybe<IssueMatchFilter>
-  low?: InputMaybe<IssueMatchFilter>
-  none?: InputMaybe<IssueMatchFilter>
-}>
-
-export type GetServicesCountsQuery = {
-  __typename?: "Query"
-  critical?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-  high?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-  medium?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-  low?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-  none?: { __typename?: "IssueMatchConnection"; totalCount: number } | null
-}
-
-export const GetServiceImageVersionsDocument = gql`
-  query GetServiceImageVersions(
-    $filter: ComponentVersionFilter
-    $first: Int
-    $after: String
-    $orderBy: [ComponentVersionOrderBy]
-  ) {
-    ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
-      edges {
-        node {
-          tag
-          version
-          issueCounts {
-            critical
-            high
-            medium
-            low
-            none
-          }
-          component {
-            ccrn
-          }
-        }
-      }
-      totalCount
-      pageInfo {
-        pages {
-          after
-          pageNumber
-        }
-      }
-    }
-  }
-`
-
-/**
- * __useGetServiceImageVersionsQuery__
- *
- * To run a query within a React component, call `useGetServiceImageVersionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetServiceImageVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetServiceImageVersionsQuery({
- *   variables: {
- *      filter: // value for 'filter'
- *      first: // value for 'first'
- *      after: // value for 'after'
- *      orderBy: // value for 'orderBy'
- *   },
- * });
- */
-export function useGetServiceImageVersionsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>(
-    GetServiceImageVersionsDocument,
-    options
-  )
-}
-export function useGetServiceImageVersionsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>(
-    GetServiceImageVersionsDocument,
-    options
-  )
-}
-export function useGetServiceImageVersionsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>
-) {
-  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>(
-    GetServiceImageVersionsDocument,
-    options
-  )
-}
-export type GetServiceImageVersionsQueryHookResult = ReturnType<typeof useGetServiceImageVersionsQuery>
-export type GetServiceImageVersionsLazyQueryHookResult = ReturnType<typeof useGetServiceImageVersionsLazyQuery>
-export type GetServiceImageVersionsSuspenseQueryHookResult = ReturnType<typeof useGetServiceImageVersionsSuspenseQuery>
-export type GetServiceImageVersionsQueryResult = Apollo.QueryResult<
-  GetServiceImageVersionsQuery,
-  GetServiceImageVersionsQueryVariables
->
-export const GetServicesDocument = gql`
-  query GetServices(
-    $filter: ServiceFilter
-    $first: Int
-    $after: String
-    $orderBy: [ServiceOrderBy]
-    $crit: IssueMatchFilter
-    $high: IssueMatchFilter
-    $med: IssueMatchFilter
-    $low: IssueMatchFilter
-    $none: IssueMatchFilter
-  ) {
-    Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
-      edges {
-        node {
-          id
-          ccrn
-          objectMetadata {
-            componentInstanceCount
-            issueMatchCount
-          }
-          owners {
-            edges {
-              node {
-                id
-                uniqueUserId
-                name
-              }
-            }
-          }
-          supportGroups {
-            edges {
-              node {
-                id
-                ccrn
-              }
-            }
-          }
-          critical: issueMatches(filter: $crit) {
-            totalCount
-          }
-          high: issueMatches(filter: $high) {
-            totalCount
-          }
-          medium: issueMatches(filter: $med) {
-            totalCount
-          }
-          low: issueMatches(filter: $low) {
-            totalCount
-          }
-          none: issueMatches(filter: $none) {
-            totalCount
-          }
-        }
-      }
-      totalCount
-      pageInfo {
-        pages {
-          after
-          pageNumber
-        }
-      }
-    }
-  }
-`
-
-/**
- * __useGetServicesQuery__
- *
- * To run a query within a React component, call `useGetServicesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetServicesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetServicesQuery({
- *   variables: {
- *      filter: // value for 'filter'
- *      first: // value for 'first'
- *      after: // value for 'after'
- *      orderBy: // value for 'orderBy'
- *      crit: // value for 'crit'
- *      high: // value for 'high'
- *      med: // value for 'med'
- *      low: // value for 'low'
- *      none: // value for 'none'
- *   },
- * });
- */
-export function useGetServicesQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetServicesQuery, GetServicesQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetServicesQuery, GetServicesQueryVariables>(GetServicesDocument, options)
-}
-export function useGetServicesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetServicesQuery, GetServicesQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetServicesQuery, GetServicesQueryVariables>(GetServicesDocument, options)
-}
-export function useGetServicesSuspenseQuery(
-  baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetServicesQuery, GetServicesQueryVariables>
-) {
-  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetServicesQuery, GetServicesQueryVariables>(GetServicesDocument, options)
-}
-export type GetServicesQueryHookResult = ReturnType<typeof useGetServicesQuery>
-export type GetServicesLazyQueryHookResult = ReturnType<typeof useGetServicesLazyQuery>
-export type GetServicesSuspenseQueryHookResult = ReturnType<typeof useGetServicesSuspenseQuery>
-export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
 export const GetServiceFiltersDocument = gql`
   query GetServiceFilters {
     ServiceFilterValues {
@@ -1859,16 +1878,6 @@ export const GetServiceFiltersDocument = gql`
         values
       }
       supportGroupCcrn {
-        displayName
-        filterName
-        values
-      }
-      uniqueUserId {
-        displayName
-        filterName
-        values
-      }
-      userName {
         displayName
         filterName
         values
@@ -1922,79 +1931,416 @@ export type GetServiceFiltersQueryHookResult = ReturnType<typeof useGetServiceFi
 export type GetServiceFiltersLazyQueryHookResult = ReturnType<typeof useGetServiceFiltersLazyQuery>
 export type GetServiceFiltersSuspenseQueryHookResult = ReturnType<typeof useGetServiceFiltersSuspenseQuery>
 export type GetServiceFiltersQueryResult = Apollo.QueryResult<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
-export const GetServicesCountsDocument = gql`
-  query GetServicesCounts(
-    $crit: IssueMatchFilter
-    $high: IssueMatchFilter
-    $med: IssueMatchFilter
-    $low: IssueMatchFilter
-    $none: IssueMatchFilter
+export const GetServiceImageVersionIssuesDocument = gql`
+  query GetServiceImageVersionIssues(
+    $componentVersionFilter: ComponentVersionFilter
+    $issuesFilter: IssueFilter
+    $issueMatchFilter: IssueMatchFilter
+    $first: Int
+    $after: String
+    $orderByIssueSeverity: [IssueOrderBy]
+    $orderBySeverity: [IssueMatchOrderBy]
+    $orderByTrd: [IssueMatchOrderBy]
   ) {
-    critical: IssueMatches(filter: $crit) {
-      totalCount
-    }
-    high: IssueMatches(filter: $high) {
-      totalCount
-    }
-    medium: IssueMatches(filter: $med) {
-      totalCount
-    }
-    low: IssueMatches(filter: $low) {
-      totalCount
-    }
-    none: IssueMatches(filter: $none) {
+    ComponentVersions(filter: $componentVersionFilter) {
+      edges {
+        node {
+          issues(first: $first, after: $after, filter: $issuesFilter, orderBy: $orderByIssueSeverity) {
+            edges {
+              node {
+                issueVariants(first: 1) {
+                  edges {
+                    node {
+                      externalUrl
+                    }
+                  }
+                }
+                primaryName
+                description
+                highestSeverity: issueMatches(filter: $issueMatchFilter, first: 1, orderBy: $orderBySeverity) {
+                  totalCount
+                  edges {
+                    node {
+                      severity {
+                        value
+                        cvss {
+                          vector
+                          externalUrl
+                        }
+                      }
+                    }
+                  }
+                }
+                earliestTargetRemediationDate: issueMatches(filter: $issueMatchFilter, first: 1, orderBy: $orderByTrd) {
+                  edges {
+                    node {
+                      targetRemediationDate
+                    }
+                  }
+                }
+              }
+            }
+            totalCount
+            pageInfo {
+              pageNumber
+              pages {
+                after
+                pageNumber
+              }
+            }
+          }
+        }
+      }
       totalCount
     }
   }
 `
 
 /**
- * __useGetServicesCountsQuery__
+ * __useGetServiceImageVersionIssuesQuery__
  *
- * To run a query within a React component, call `useGetServicesCountsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetServicesCountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetServiceImageVersionIssuesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServiceImageVersionIssuesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetServicesCountsQuery({
+ * const { data, loading, error } = useGetServiceImageVersionIssuesQuery({
  *   variables: {
- *      crit: // value for 'crit'
- *      high: // value for 'high'
- *      med: // value for 'med'
- *      low: // value for 'low'
- *      none: // value for 'none'
+ *      componentVersionFilter: // value for 'componentVersionFilter'
+ *      issuesFilter: // value for 'issuesFilter'
+ *      issueMatchFilter: // value for 'issueMatchFilter'
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      orderByIssueSeverity: // value for 'orderByIssueSeverity'
+ *      orderBySeverity: // value for 'orderBySeverity'
+ *      orderByTrd: // value for 'orderByTrd'
  *   },
  * });
  */
-export function useGetServicesCountsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetServicesCountsQuery, GetServicesCountsQueryVariables>
+export function useGetServiceImageVersionIssuesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetServicesCountsQuery, GetServicesCountsQueryVariables>(GetServicesCountsDocument, options)
-}
-export function useGetServicesCountsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetServicesCountsQuery, GetServicesCountsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetServicesCountsQuery, GetServicesCountsQueryVariables>(
-    GetServicesCountsDocument,
+  return Apollo.useQuery<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>(
+    GetServiceImageVersionIssuesDocument,
     options
   )
 }
-export function useGetServicesCountsSuspenseQuery(
+export function useGetServiceImageVersionIssuesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetServiceImageVersionIssuesQuery,
+    GetServiceImageVersionIssuesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>(
+    GetServiceImageVersionIssuesDocument,
+    options
+  )
+}
+export function useGetServiceImageVersionIssuesSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetServicesCountsQuery, GetServicesCountsQueryVariables>
+    | Apollo.SuspenseQueryHookOptions<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>
 ) {
   const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetServicesCountsQuery, GetServicesCountsQueryVariables>(
-    GetServicesCountsDocument,
+  return Apollo.useSuspenseQuery<GetServiceImageVersionIssuesQuery, GetServiceImageVersionIssuesQueryVariables>(
+    GetServiceImageVersionIssuesDocument,
     options
   )
 }
-export type GetServicesCountsQueryHookResult = ReturnType<typeof useGetServicesCountsQuery>
-export type GetServicesCountsLazyQueryHookResult = ReturnType<typeof useGetServicesCountsLazyQuery>
-export type GetServicesCountsSuspenseQueryHookResult = ReturnType<typeof useGetServicesCountsSuspenseQuery>
-export type GetServicesCountsQueryResult = Apollo.QueryResult<GetServicesCountsQuery, GetServicesCountsQueryVariables>
+export type GetServiceImageVersionIssuesQueryHookResult = ReturnType<typeof useGetServiceImageVersionIssuesQuery>
+export type GetServiceImageVersionIssuesLazyQueryHookResult = ReturnType<
+  typeof useGetServiceImageVersionIssuesLazyQuery
+>
+export type GetServiceImageVersionIssuesSuspenseQueryHookResult = ReturnType<
+  typeof useGetServiceImageVersionIssuesSuspenseQuery
+>
+export type GetServiceImageVersionIssuesQueryResult = Apollo.QueryResult<
+  GetServiceImageVersionIssuesQuery,
+  GetServiceImageVersionIssuesQueryVariables
+>
+export const GetServiceImageVersionsDocument = gql`
+  query GetServiceImageVersions(
+    $filter: ComponentVersionFilter
+    $first: Int
+    $after: String
+    $orderBy: [ComponentVersionOrderBy]
+    $orderByCi: [ComponentInstanceOrderBy]
+    $filterCi: ComponentInstanceFilter
+    $filterIc: IssueFilter
+  ) {
+    ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
+      edges {
+        node {
+          tag
+          repository
+          version
+          issueCounts(filter: $filterIc) {
+            critical
+            high
+            medium
+            low
+            none
+            total
+          }
+          component {
+            ccrn
+          }
+          componentInstances(filter: $filterCi, orderBy: $orderByCi, first: 1000) {
+            totalCount
+            edges {
+              node {
+                id
+                ccrn
+                region
+                cluster
+                namespace
+                pod
+                container
+              }
+            }
+            pageInfo {
+              pageNumber
+              pages {
+                after
+                pageNumber
+              }
+            }
+          }
+        }
+      }
+      totalCount
+      pageInfo {
+        pageNumber
+        pages {
+          after
+          pageNumber
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetServiceImageVersionsQuery__
+ *
+ * To run a query within a React component, call `useGetServiceImageVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServiceImageVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetServiceImageVersionsQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      orderBy: // value for 'orderBy'
+ *      orderByCi: // value for 'orderByCi'
+ *      filterCi: // value for 'filterCi'
+ *      filterIc: // value for 'filterIc'
+ *   },
+ * });
+ */
+export function useGetServiceImageVersionsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>(
+    GetServiceImageVersionsDocument,
+    options
+  )
+}
+export function useGetServiceImageVersionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>(
+    GetServiceImageVersionsDocument,
+    options
+  )
+}
+export function useGetServiceImageVersionsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetServiceImageVersionsQuery, GetServiceImageVersionsQueryVariables>(
+    GetServiceImageVersionsDocument,
+    options
+  )
+}
+export type GetServiceImageVersionsQueryHookResult = ReturnType<typeof useGetServiceImageVersionsQuery>
+export type GetServiceImageVersionsLazyQueryHookResult = ReturnType<typeof useGetServiceImageVersionsLazyQuery>
+export type GetServiceImageVersionsSuspenseQueryHookResult = ReturnType<typeof useGetServiceImageVersionsSuspenseQuery>
+export type GetServiceImageVersionsQueryResult = Apollo.QueryResult<
+  GetServiceImageVersionsQuery,
+  GetServiceImageVersionsQueryVariables
+>
+export const GetServicesDocument = gql`
+  query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
+    Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
+      issueCounts {
+        critical
+        high
+        medium
+        low
+        none
+        total
+      }
+      edges {
+        node {
+          id
+          ccrn
+          objectMetadata {
+            componentInstanceCount
+            issueMatchCount
+          }
+          owners {
+            edges {
+              node {
+                id
+                uniqueUserId
+                name
+              }
+            }
+          }
+          supportGroups {
+            edges {
+              node {
+                id
+                ccrn
+              }
+            }
+          }
+          issueCounts {
+            critical
+            high
+            medium
+            low
+            none
+            total
+          }
+        }
+      }
+      pageInfo {
+        pageNumber
+        pages {
+          after
+          pageNumber
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetServicesQuery__
+ *
+ * To run a query within a React component, call `useGetServicesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServicesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetServicesQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useGetServicesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetServicesQuery, GetServicesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetServicesQuery, GetServicesQueryVariables>(GetServicesDocument, options)
+}
+export function useGetServicesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetServicesQuery, GetServicesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetServicesQuery, GetServicesQueryVariables>(GetServicesDocument, options)
+}
+export function useGetServicesSuspenseQuery(
+  baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetServicesQuery, GetServicesQueryVariables>
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetServicesQuery, GetServicesQueryVariables>(GetServicesDocument, options)
+}
+export type GetServicesQueryHookResult = ReturnType<typeof useGetServicesQuery>
+export type GetServicesLazyQueryHookResult = ReturnType<typeof useGetServicesLazyQuery>
+export type GetServicesSuspenseQueryHookResult = ReturnType<typeof useGetServicesSuspenseQuery>
+export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
+export const GetServicesIssuesCountsDocument = gql`
+  query getServicesIssuesCounts($filter: IssueFilter) {
+    IssueCounts(filter: $filter) {
+      critical
+      high
+      medium
+      low
+      none
+    }
+  }
+`
+
+/**
+ * __useGetServicesIssuesCountsQuery__
+ *
+ * To run a query within a React component, call `useGetServicesIssuesCountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServicesIssuesCountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetServicesIssuesCountsQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useGetServicesIssuesCountsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>(
+    GetServicesIssuesCountsDocument,
+    options
+  )
+}
+export function useGetServicesIssuesCountsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>(
+    GetServicesIssuesCountsDocument,
+    options
+  )
+}
+export function useGetServicesIssuesCountsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>(
+    GetServicesIssuesCountsDocument,
+    options
+  )
+}
+export type GetServicesIssuesCountsQueryHookResult = ReturnType<typeof useGetServicesIssuesCountsQuery>
+export type GetServicesIssuesCountsLazyQueryHookResult = ReturnType<typeof useGetServicesIssuesCountsLazyQuery>
+export type GetServicesIssuesCountsSuspenseQueryHookResult = ReturnType<typeof useGetServicesIssuesCountsSuspenseQuery>
+export type GetServicesIssuesCountsQueryResult = Apollo.QueryResult<
+  GetServicesIssuesCountsQuery,
+  GetServicesIssuesCountsQueryVariables
+>

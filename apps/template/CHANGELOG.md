@@ -1,5 +1,36 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.5
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+- Updated dependencies [cdae407]
+- Updated dependencies [7230774]
+- Updated dependencies [a9e8592]
+- Updated dependencies [43d6aa0]
+  - @cloudoperators/juno-ui-components@3.1.1
+
+## 2.0.4
+
+### Patch Changes
+
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- cdba61c: Upgrade to vite 6.2
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [02cb67a]
+- Updated dependencies [cdba61c]
+  - @cloudoperators/juno-ui-components@3.0.0
+
+## 2.0.3
+
+### Patch Changes
+
+- cde9cb5: Update vite version to 6.0
+- Updated dependencies [2277a23]
+- Updated dependencies [cde9cb5]
+  - @cloudoperators/juno-ui-components@2.39.0
+
 ## 2.0.2
 
 ### Patch Changes

@@ -1,5 +1,124 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.5.7
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+- Updated dependencies [cdae407]
+- Updated dependencies [7230774]
+- Updated dependencies [a9e8592]
+- Updated dependencies [43d6aa0]
+  - @cloudoperators/juno-ui-components@3.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.1
+  - @cloudoperators/juno-messages-provider@0.2.5
+  - @cloudoperators/juno-k8s-client@1.0.6
+  - @cloudoperators/juno-oauth@1.4.6
+  - @cloudoperators/juno-app-heureka@0.5.4
+  - @cloudoperators/juno-app-doop@2.3.8
+  - @cloudoperators/juno-app-supernova@0.16.7
+
+## 0.5.6
+
+### Patch Changes
+
+- 3140768: Refactor Issue Count Handling and Add Total Counts per Service
+- Updated dependencies [3140768]
+  - @cloudoperators/juno-app-heureka@0.5.3
+
+## 0.5.5
+
+### Patch Changes
+
+- 37e1bf4: Added a search bar to the issues list that allows users to filter issues by CVE name (primaryName).
+- Updated dependencies [37e1bf4]
+- Updated dependencies [403b5cd]
+- Updated dependencies [67f53cb]
+  - @cloudoperators/juno-app-heureka@0.5.2
+  - @cloudoperators/juno-ui-components@3.1.0
+
+## 0.5.4
+
+### Patch Changes
+
+- 52e148c: Refactors severity count related components
+- ee1b3ab: Reorganize components files based on how they are imported.
+- 85fe05e: Propagates authentication token to the extensions
+- 6b5e878: - Rollback `url-state-provider` back to `v1.3.2`.
+  - `url-state-provider` will now ignore Hashed(#) part of the URL while encoding/decoding query parameters.
+  - Removed dependency of `url-state-provider-v1` in all internal applications.
+- d50e279: Improve issue description truncation in ImageVersionIssueListItem
+- 0d6c4e8: Closes image version details panel on reselect in Service Details page
+- Updated dependencies [9ff1784]
+- Updated dependencies [52e148c]
+- Updated dependencies [ee1b3ab]
+- Updated dependencies [4e8a5ef]
+- Updated dependencies [f48439c]
+- Updated dependencies [6b5e878]
+- Updated dependencies [d50e279]
+- Updated dependencies [0d6c4e8]
+  - @cloudoperators/juno-ui-components@3.0.1
+  - @cloudoperators/juno-app-heureka@0.5.1
+  - @cloudoperators/juno-url-state-provider@3.0.0
+  - @cloudoperators/juno-app-supernova@0.16.6
+  - @cloudoperators/juno-app-doop@2.3.7
+
+## 0.5.3
+
+### Patch Changes
+
+- 0403e89: Adds pagination and ordering to issues list
+- 395a12a: adds an image version details info to service details page
+- e5cf6b6: React 19 Upgrade. Phase 1 - Upgrade to React 18.3
+- 527064c: Adds issues list to image version details panel
+- ea088f6: Displays each count in a separate column within lists
+- cdba61c: Upgrade to vite 6.2
+- Updated dependencies [395a12a]
+- Updated dependencies [0403e89]
+- Updated dependencies [e2eb636]
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [1a47422]
+- Updated dependencies [02cb67a]
+- Updated dependencies [527064c]
+- Updated dependencies [ea088f6]
+- Updated dependencies [cdba61c]
+- Updated dependencies [1d4f57e]
+- Updated dependencies [fd2529a]
+- Updated dependencies [dfdfedd]
+  - @cloudoperators/juno-app-heureka@0.5.0
+  - @cloudoperators/juno-messages-provider@0.2.4
+  - @cloudoperators/juno-ui-components@3.0.0
+  - @cloudoperators/juno-app-supernova@0.16.5
+  - @cloudoperators/juno-app-doop@2.3.6
+  - @cloudoperators/juno-k8s-client@1.0.4
+  - @cloudoperators/juno-oauth@1.4.5
+
+## 0.5.2
+
+### Patch Changes
+
+- e4f5190: Adds service overview panel to heureka
+- fe0b5cf: Replace usage of sapcc-k8sclient with juno-k8s-client + Fix some ts errors and warnings
+- 6d664e8: Add store and service details page to heureka
+- 23b5bc9: Update heureka dependency
+- cde9cb5: Update vite version to 6.0
+- Updated dependencies [e4f5190]
+- Updated dependencies [f1463a6]
+- Updated dependencies [2bd7610]
+- Updated dependencies [fe0b5cf]
+- Updated dependencies [0110f7b]
+- Updated dependencies [6d664e8]
+- Updated dependencies [0eb6d9e]
+- Updated dependencies [2277a23]
+- Updated dependencies [cde9cb5]
+- Updated dependencies [23b5bc9]
+  - @cloudoperators/juno-app-heureka@0.4.0
+  - @cloudoperators/juno-k8s-client@1.0.3
+  - @cloudoperators/juno-ui-components@2.39.0
+  - @cloudoperators/juno-messages-provider@0.2.3
+  - @cloudoperators/juno-oauth@1.4.4
+  - @cloudoperators/juno-app-doop@2.3.5
+
 ## 0.5.1
 
 ### Patch Changes

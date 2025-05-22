@@ -3,11 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable react/prop-types */
-
 import React, { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react"
-import { Menu as HeadlessMenu } from "@headlessui/react"
-import { Float } from "@headlessui-float/react"
+import { Menu as HeadlessMenu, MenuButton, MenuItem, MenuItems } from "@headlessui/react"
+import { useFloating, offset, flip, shift, autoUpdate, Placement } from "@floating-ui/react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/"
 
@@ -127,7 +125,7 @@ export interface PopupMenuToggleProps extends React.ComponentProps<typeof Headle
 //Extract types directly from React.ElementType as Headless Menu Items is a dynamically typed component that cannot be extended with React.ComponentPropsWithRef (such as `href` or `target` – these will be accepted when passing `as` as `a` in order to render an anchor, but not when rendering a div.):
 type HeadlessMenuItemsProps = React.ComponentPropsWithRef<React.ElementType>
 // Extend the extracted props instead:
-export interface PopupMenuMenuProps extends HeadlessMenuItemsProps {
+export interface PopupMenuOptionsProps extends HeadlessMenuItemsProps {
   as?: React.ElementType // Allow customizing the element type just as headless ui does
   className?: string
   children?: ReactNode
@@ -182,14 +180,7 @@ export { PopupMenuContext }
 // POPUP MENU
 
 /** A Popup Menu component that wraps Headless UI Menu. The Menu will be rendered into a Juno Portal, so using Juno's PortalProvider (which is already included when using Juno's AppShell) is mandatory. */
-const PopupMenu: React.FC<PopupMenuProps> & {
-  Toggle: React.FC<PopupMenuToggleProps>
-  Menu: typeof PopupMenuMenu
-  Item: React.FC<PopupMenuItemProps>
-  Section: React.FC<PopupMenuSectionProps>
-  SectionHeading: React.FC<PopupMenuSectionHeadingProps>
-  SectionSeparator: React.FC<PopupMenuSectionSeparatorProps>
-} = ({
+const PopupMenu: React.FC<PopupMenuProps> = ({
   children,
   className = "",
   disabled = false,
@@ -198,10 +189,17 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   onClose,
   onOpen,
   ...props
-}) => {
+}: PopupMenuProps) => {
   // Create a state to track headless-ui's internal open state (Note that we can track the internal state and can let headless ui update our tracking state, but we can not set it, hence there is no `open` prop on our component):
   const [isOpen, setIsOpen] = useState(false)
   const previousOpenRef = useRef(isOpen) // Track the previous value of isOpen for efficiency
+
+  // Setup floating-ui
+  const { refs, floatingStyles, update } = useFloating({
+    placement: "bottom-start" as Placement,
+    middleware: [offset(4), flip(), shift({ padding: 8 })],
+    whileElementsMounted: autoUpdate,
+  })
 
   // Run handlers when our tracking state changes based on changes of the internal headless state, or when the handlers themselves change:
   useEffect(() => {
@@ -222,7 +220,7 @@ const PopupMenu: React.FC<PopupMenuProps> & {
   const hasToggle = childrenArray.some((child) => React.isValidElement(child) && child.type === PopupMenuToggle)
 
   // Test whether a PopupMenu.Menu child was passed:
-  const menu = childrenArray.find((child) => React.isValidElement(child) && child.type === PopupMenuMenu)
+  const menu = childrenArray.find((child) => React.isValidElement(child) && child.type === PopupMenuOptions)
 
   return (
     <HeadlessMenu as="div" className={`juno-popupmenu ${className}`} {...props}>
@@ -232,43 +230,48 @@ const PopupMenu: React.FC<PopupMenuProps> & {
         useEffect(() => {
           if (open !== isOpen) {
             setIsOpen(open)
+            // Trigger update when open state changes to ensure proper positioning
+            if (open) {
+              update()
+            }
           }
         }, [open])
 
         return (
           // * Expose our context:
           <PopupMenuContext.Provider value={{ isOpen, close, menuSize }}>
-            <Float as={React.Fragment} placement="bottom-start" offset={4} shift={8} flip={8} composable>
-              <Float.Reference>
-                {/* Wrap the toggle in a div that headless ui Float.Reference can reference*/}
-                <div className={`juno-popupmenu-float-reference-wrapper ${floatingReferenceWrapperStyles}`}>
-                  {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
-                  {!hasToggle && (
-                    <PopupMenu.Toggle
-                      className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${disabled ? disabledToggleStyles : defaultToggleStyles}`}
-                      disabled={disabled}
-                    >
-                      <Icon icon={icon} />
-                    </PopupMenu.Toggle>
-                  )}
+            {/* Reference element that floating-ui will use for positioning */}
+            <div
+              ref={refs.setReference}
+              className={`juno-popupmenu-float-reference-wrapper ${floatingReferenceWrapperStyles}`}
+            >
+              {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
+              {!hasToggle && (
+                <PopupMenuToggle
+                  className={`juno-popupmenu-toggle juno-popupmenu-toggle-default ${disabled ? disabledToggleStyles : defaultToggleStyles}`}
+                  disabled={disabled}
+                >
+                  <Icon icon={icon} />
+                </PopupMenuToggle>
+              )}
 
-                  {/* Render toggle children as passed: */}
-                  {childrenArray.map((child) => {
-                    if (React.isValidElement(child) && child.type === PopupMenuToggle) {
-                      return child
-                    }
-                  })}
-                </div>
-              </Float.Reference>
+              {/* Render toggle children as passed: */}
+              {childrenArray.map((child, index) => {
+                if (React.isValidElement(child) && child.type === PopupMenuToggle) {
+                  return React.cloneElement(child, { key: index })
+                }
+                return null
+              })}
+            </div>
 
-              {/* Render the menu in our portal: */}
+            {/* Render the menu in our portal: */}
+            {isOpen && (
               <PortalProvider.Portal>
-                <Float.Content>
-                  {/* Wrap the floated content in a div that headless ui Float.Content can reference */}
-                  <div className={`juno-popupmenu-float-content-wrapper`}>{menu}</div>
-                </Float.Content>
+                <div ref={refs.setFloating} style={floatingStyles} className="juno-popupmenu-float-content-wrapper">
+                  {menu}
+                </div>
               </PortalProvider.Portal>
-            </Float>
+            )}
           </PopupMenuContext.Provider>
         )
       }}
@@ -277,39 +280,39 @@ const PopupMenu: React.FC<PopupMenuProps> & {
 }
 
 // TOGGLE COMPONENT
-const PopupMenuToggle: React.FC<PopupMenuToggleProps> = ({
+export const PopupMenuToggle: React.FC<PopupMenuToggleProps> = ({
   as = "button",
   disabled = false,
   children,
   className = "",
   ...props
 }) => (
-  <HeadlessMenu.Button
+  <MenuButton
     as={as}
     className={`juno-popupmenu-toggle ${disabled && disabledToggleStyles} ${className}`}
     disabled={disabled}
     {...props}
   >
     {children}
-  </HeadlessMenu.Button>
+  </MenuButton>
 )
 
 // MENU COMPONENT
-const PopupMenuMenu: React.FC<PopupMenuMenuProps> = ({ children, className = "", ...props }) => {
+export const PopupMenuOptions: React.FC<PopupMenuOptionsProps> = ({ children, className = "", ...props }) => {
   // Consume context to get the size to render and the close function:
   const { menuSize } = usePopupMenuContext()
   return (
-    <HeadlessMenu.Items
+    <MenuItems
       className={`juno-popupmenu-menu juno-popupmenu-menu-size-${menuSize} ${menuStyles} ${className}`}
       {...props}
     >
       {children}
-    </HeadlessMenu.Items>
+    </MenuItems>
   )
 }
 
 // ITEM COMPONENT
-const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
+export const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
   as = "div",
   children,
   className = "",
@@ -327,7 +330,7 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
   const itemSizeStyles = menuSize === "small" ? smallItemStyles : normalItemStyles
   // Determine the compontn to render as:
   return (
-    <HeadlessMenu.Item
+    <MenuItem
       as={as}
       disabled={disabled}
       className={`juno-popupmenu-item ${itemStyles} ${disabled ? disabledItemStyles : actionableItemStyles} ${itemSizeStyles} ${className}`}
@@ -349,12 +352,12 @@ const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
               : children}
         </>
       )}
-    </HeadlessMenu.Item>
+    </MenuItem>
   )
 }
 
 // POPUPMENU SECTION COMPONENT
-const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children, className = "", ...props }) => {
+export const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children, className = "", ...props }) => {
   return (
     <section className={`juno-popupmenu-section ${sectionStyles} ${className}`} {...props}>
       {children}
@@ -363,7 +366,7 @@ const PopupMenuSection: React.FC<PopupMenuSectionProps> = ({ children, className
 }
 
 // POPUPMENU SECTION TITLE COMPONENT
-const PopupMenuSectionHeading: React.FC<PopupMenuSectionHeadingProps> = ({
+export const PopupMenuSectionHeading: React.FC<PopupMenuSectionHeadingProps> = ({
   children,
   label = "",
   className = "",
@@ -377,15 +380,8 @@ const PopupMenuSectionHeading: React.FC<PopupMenuSectionHeadingProps> = ({
 }
 
 // POPUPMENU SECTION DIVIDER COMPONENT
-const PopupMenuSectionSeparator: React.FC<PopupMenuSectionSeparatorProps> = ({ className = "", ...props }) => {
+export const PopupMenuSectionSeparator: React.FC<PopupMenuSectionSeparatorProps> = ({ className = "", ...props }) => {
   return <div className={`juno-popupmenu-section-divider ${sectionSeparatorStyles} ${className}`} {...props}></div>
 }
-
-PopupMenu.Toggle = PopupMenuToggle
-PopupMenu.Menu = PopupMenuMenu
-PopupMenu.Item = PopupMenuItem
-PopupMenu.Section = PopupMenuSection
-PopupMenu.SectionHeading = PopupMenuSectionHeading
-PopupMenu.SectionSeparator = PopupMenuSectionSeparator
 
 export { PopupMenu }

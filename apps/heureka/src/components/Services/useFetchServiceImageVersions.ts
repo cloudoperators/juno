@@ -3,59 +3,98 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { isEmpty } from "lodash"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useRef } from "react"
+import { isNil } from "lodash"
 import {
-  useGetServiceImageVersionsQuery,
   Page,
   ComponentVersionOrderByField,
+  ComponentInstanceOrderByField,
   OrderDirection,
+  useGetServiceImageVersionsLazyQuery,
 } from "../../generated/graphql"
-import { getNormalizedImageVersionsData } from "./utils"
+import { getNormalizedImageVersionsData, getNormalizedError } from "./utils"
 
 type UseFetchServiceImageVersionsProps = {
   serviceCcrn: string
   pageSize?: number
 }
 
-export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 10 }: UseFetchServiceImageVersionsProps) => {
-  const [currentPage, setCurrentPage] = useState<number | undefined>(1)
-  const [pages, setPages] = useState<Page[]>()
-
-  const { data, previousData, loading, error } = useGetServiceImageVersionsQuery({
+export const useFetchServiceImageVersions = ({ serviceCcrn, pageSize = 20 }: UseFetchServiceImageVersionsProps) => {
+  const pagesRef = useRef<Page[]>()
+  // Use default options into the useLazyQuery and then customize those options in the query function
+  // https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery
+  const [loadServiceImageVersions, { data, loading, error }] = useGetServiceImageVersionsLazyQuery({
     variables: {
       first: pageSize,
-      after: pages?.find((page) => page?.pageNumber === currentPage)?.after,
-      filter: { serviceCcrn: [serviceCcrn] },
       orderBy: [
         {
           by: ComponentVersionOrderByField.Severity,
           direction: OrderDirection.Desc,
         },
       ],
+      // Add component instances ordering and filtering
+      orderByCi: [
+        {
+          by: ComponentInstanceOrderByField.Cluster,
+          direction: OrderDirection.Asc,
+        },
+        {
+          by: ComponentInstanceOrderByField.Namespace,
+          direction: OrderDirection.Asc,
+        },
+      ],
     },
+    fetchPolicy: "network-only",
   })
+  const { imageVersions, totalImageVersions, pages, pageNumber } = getNormalizedImageVersionsData(data)
 
-  const {
-    imageVersions,
-    totalCount,
-    pages: pagesFromApi,
-  } = getNormalizedImageVersionsData(isEmpty(data) ? previousData : data)
+  // let's save the pages so we can get cursor when navigating among pages
+  pagesRef.current = pages
 
+  // Go to a specific page
+  const goToPage = useCallback(
+    (pageNumber?: number) => {
+      if (!isNil(pageNumber)) {
+        const cursor = pagesRef.current?.find((p) => p?.pageNumber === pageNumber - 1)?.after
+        loadServiceImageVersions({
+          variables: {
+            filter: { serviceCcrn: [serviceCcrn] },
+            filterCi: {
+              serviceCcrn: [serviceCcrn],
+            },
+            filterIc: {
+              serviceCcrn: [serviceCcrn],
+            },
+            after: cursor,
+          },
+        })
+      }
+    },
+    [serviceCcrn]
+  )
+
+  // Fetch services whenever filter settings change
   useEffect(() => {
-    if (currentPage && currentPage > Math.ceil(totalCount / pageSize)) {
-      setCurrentPage(1)
-    }
-    setPages(pagesFromApi)
-  }, [totalCount])
+    loadServiceImageVersions({
+      variables: {
+        filter: { serviceCcrn: [serviceCcrn] },
+        filterCi: {
+          serviceCcrn: [serviceCcrn],
+        },
+        filterIc: {
+          serviceCcrn: [serviceCcrn],
+        },
+      },
+    })
+  }, [serviceCcrn])
 
   return {
     loading,
-    currentPage,
-    imageVersions,
-    totalNumberOfPages: Math.ceil(totalCount / pageSize),
-    totalCount,
-    goToPage: setCurrentPage,
-    error: error?.message,
+    currentPage: pageNumber,
+    imageVersions: imageVersions || [],
+    totalNumberOfPages: pages.length || 0,
+    totalImageVersions,
+    goToPage: goToPage,
+    error: getNormalizedError(error),
   }
 }

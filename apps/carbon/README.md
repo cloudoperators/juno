@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-**Carbon** This is an app that will replace the curent greenhouse app. For now use it as temporary app.
+**Carbon** This app is intended to replace the current Greenhouse app. For now, please use it as a temporary solution.
 
 ## What is inside?
 

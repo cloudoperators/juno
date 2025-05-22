@@ -1,5 +1,87 @@
 # heureka
 
+## 0.5.4
+
+### Patch Changes
+
+- 43d6aa0: Update vite to the latest version (v 6.3.5) to resolve dependency vulnarebilities
+- Updated dependencies [cdae407]
+- Updated dependencies [7230774]
+- Updated dependencies [a9e8592]
+- Updated dependencies [43d6aa0]
+  - @cloudoperators/juno-ui-components@3.1.1
+  - @cloudoperators/juno-messages-provider@0.2.5
+
+## 0.5.3
+
+### Patch Changes
+
+- 3140768: Refactor Issue Count Handling and Add Total Counts per Service
+
+## 0.5.2
+
+### Patch Changes
+
+- 37e1bf4: Added a search bar to the issues list that allows users to filter issues by CVE name (primaryName).
+- 403b5cd: - Remove headlessui float and update headlessui to 2.1.10
+  - Fix unit tests
+- Updated dependencies [403b5cd]
+- Updated dependencies [67f53cb]
+  - @cloudoperators/juno-ui-components@3.1.0
+
+## 0.5.1
+
+### Patch Changes
+
+- 52e148c: Refactors severity count related components
+- ee1b3ab: Reorganize components files based on how they are imported.
+- d50e279: Improve issue description truncation in ImageVersionIssueListItem
+- 0d6c4e8: Closes image version details panel on reselect in Service Details page
+- Updated dependencies [9ff1784]
+- Updated dependencies [4e8a5ef]
+- Updated dependencies [f48439c]
+  - @cloudoperators/juno-ui-components@3.0.1
+
+## 0.5.0
+
+### Minor Changes
+
+- 395a12a: adds service image version details into service details page
+- 0403e89: Adds pagination and ordering to issues list
+- 527064c: Adds issues list to image version details panel
+
+### Patch Changes
+
+- e2eb636: IssueCounts filtering has been enhanced to include a new option for filtering by ServiceOwner ID and name.
+- 1a47422: Fixes spaces in breadcrumb and services list pills
+- ea088f6: Displays each count in a separate column within lists
+- cdba61c: Upgrade to vite 6.2
+- 1d4f57e: Generalizes classes to highlight lists on hover and applies the class to all lists
+- fd2529a: Creates a standalone component to display issue counts
+- dfdfedd: Fixes the issue of missing current filters when using service
+- Updated dependencies [e5cf6b6]
+- Updated dependencies [02cb67a]
+- Updated dependencies [cdba61c]
+  - @cloudoperators/juno-messages-provider@0.2.4
+  - @cloudoperators/juno-ui-components@3.0.0
+
+## 0.4.0
+
+### Minor Changes
+
+- e4f5190: Adds service overview panel to heureka
+- 6d664e8: Add store and service details page to heureka
+
+### Patch Changes
+
+- 2bd7610: Changes details access within services list from icon to button for better clarity
+- cde9cb5: Update vite version to 6.0
+- 23b5bc9: Adds missing information to Services page
+- Updated dependencies [2277a23]
+- Updated dependencies [cde9cb5]
+  - @cloudoperators/juno-ui-components@2.39.0
+  - @cloudoperators/juno-messages-provider@0.2.3
+
 ## 0.3.3
 
 ### Patch Changes

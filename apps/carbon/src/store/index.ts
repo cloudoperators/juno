@@ -4,7 +4,6 @@
  */
 
 import { create } from "zustand"
-import { immer } from "zustand/middleware/immer"
 
 interface WelcomeState {
   welcome: string
@@ -13,12 +12,10 @@ type Actions = {
   setWelcome: (welcome: string) => void
 }
 
-export const useWellcomeStore = create<WelcomeState & Actions>()(
-  immer((set) => ({
-    welcome: "Welcome to the template app with zustand",
-    setWelcome: (welcome: string) =>
-      set((state) => {
-        state.welcome = welcome
-      }),
-  }))
-)
+export const useWellcomeStore = create<WelcomeState & Actions>()((set) => ({
+  welcome: "Welcome to the template app with zustand",
+  setWelcome: (welcome: string) =>
+    set(() => ({
+      welcome,
+    })),
+}))

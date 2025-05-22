@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-carbon",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
   "license": "Apache-2.0",
@@ -11,7 +11,7 @@
   "private": true,
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -25,19 +25,20 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "@cloudoperators/juno-ui-components": "*",
+    "@cloudoperators/juno-ui-components": "workspace:*",
     "@tanstack/react-query": "4.28.0",
     "classnames": "^2.5.1",
-    "prop-types": "15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-error-boundary": "^3.1.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
     "wouter": "^3.3.5",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@cloudoperators/juno-config": "*",
+    "@cloudoperators/juno-config": "workspace:*",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20.16.5",
     "@types/react": "^18.3.8",
     "@types/react-dom": "^18.3.0",
@@ -57,7 +58,7 @@
     "prettier": "3.1.1",
     "tailwindcss": "^3.4.12",
     "typescript": "^5.6.2",
-    "vite": "^5.4.7",
+    "vite": "^6.3.5",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^3.0.7"

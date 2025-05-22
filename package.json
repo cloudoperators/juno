@@ -10,7 +10,7 @@
     "typecheck": "turbo run typecheck",
     "check-licenses": "npx license-checker-rseidelsohn --summary --excludePackages='spawndamnit@3.0.1' --excludePrivatePackages --onlyAllow 'MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BSD-4-Clause;CC-BY-3.0;CC-BY-4.0;BlueOak-1.0.0;CC0-1.0;0BSD;Python-2.0;BSD*;Unlicense'",
     "cleanVite": "find . -type f -name 'vite.config.*.timestamp-*' -ls -delete 2>/dev/null",
-    "clean": "npm run cleanVite && turbo run clean && rm -rf node_modules",
+    "clean": "pnpm run cleanVite && turbo run clean && rm -rf node_modules",
     "clean:cache": "turbo run clean:cache && rm -rf .turbo && rm -rf node_modules/.cache/turbo",
     "generate:package": "turbo gen workspace --type package --copy @cloudoperators/juno-package-template --name",
     "generate:app": "turbo gen workspace --type app --copy @cloudoperators/juno-app-template --name",
@@ -18,12 +18,12 @@
     "check-format": "prettier --config ./.prettierrc --check \"**/*.{js,jsx,ts,tsx,md}\" ",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "npm run build && changeset publish",
+    "release": "pnpm run build && changeset publish",
     "prepare": "husky",
     "pkg:run": "turbo run dev --filter",
-    "pkg": "npm run pkg:run --",
-    "repair": "npm i -f",
-    "reinstall": "npm run clean && npm i",
+    "pkg": "pnpm run pkg:run --",
+    "repair": "pnpm i -f",
+    "reinstall": "pnpm run clean && pnpm i",
     "pre:push": "turbo run lint typecheck"
   },
   "devDependencies": {
@@ -39,14 +39,9 @@
     "turbo": "^2.0.3",
     "typescript": "^5.5.4"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "packageManager": "^npm@10.0.0",
+  "packageManager": "pnpm@10.11.0",
   "dependencies": {
     "@tanstack/react-query": "^5.62.2",
-    "workspaces": "^0.1.0",
     "zod": "^3.24.2"
   }
 }

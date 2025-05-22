@@ -6,10 +6,12 @@
 import React from "react"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import styles from "./styles.scss?inline"
-import { ErrorBoundary } from "./components/ErrorBoundary"
+import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { Shell } from "./components/Shell"
 import { ApolloProvider } from "@apollo/client"
 import { getClient } from "./apollo-client"
+import { StoreProvider } from "./store/StoreProvider"
+import { UserView } from "./store/StoreProvider/types"
 
 export type InitialFilters = {
   support_group?: string[]
@@ -28,7 +30,11 @@ const App = (props: AppProps) => (
       {/* load styles inside the shadow dom */}
       <style>{styles.toString()}</style>
       <ErrorBoundary>
-        <Shell {...props} />
+        <StoreProvider
+          initialState={{ selectedView: { viewId: UserView.Services }, initialFilters: props?.initialFilters }}
+        >
+          <Shell {...props} />
+        </StoreProvider>
       </ErrorBoundary>
     </AppShellProvider>
   </ApolloProvider>

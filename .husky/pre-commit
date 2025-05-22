@@ -4,9 +4,9 @@
 
 # .husky/pre-commit
 
-# Now you can use npm or any Node.js commands
+# Now you can use pnpm or any Node.js commands
 
-# npm run lint
+# pnpm lint
 
-npm run lint
-npm run format
+pnpm lint
+pnpm format
