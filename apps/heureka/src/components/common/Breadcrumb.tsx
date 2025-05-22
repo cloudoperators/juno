@@ -3,34 +3,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback } from "react"
+import React from "react"
 import { Breadcrumb as BreadcrumbContainer, BreadcrumbItem } from "@cloudoperators/juno-ui-components"
-import { capitalizeFirstLetter } from "../../utils"
-import { useDispatch, useStore } from "../../store/StoreProvider"
-import { ActionType, ServiceDetailViewParams, UserView } from "../../store/StoreProvider/types"
+import { isMatch, useMatches, useNavigate } from "@tanstack/react-router"
 
 export const Breadcrumb = () => {
-  const dispatch = useDispatch()
-  const { selectedView } = useStore()
-
-  const handleClick = useCallback((viewId: UserView) => {
-    dispatch({
-      type: ActionType.SelectView,
-      payload: {
-        viewId,
-      },
-    })
-  }, [])
+  const navigate = useNavigate()
+  const matches = useMatches()
+  const matchesWithCrumbs = matches.filter((match) => isMatch(match, "loaderData.crumb"))
 
   return (
     <BreadcrumbContainer className="mb-6">
-      <BreadcrumbItem icon="home" label="Services" onClick={() => handleClick(UserView.Services)} />
-      {selectedView.viewId === UserView.ServiceDetails && (
+      {matchesWithCrumbs.map((match, i) => (
         <BreadcrumbItem
-          label={capitalizeFirstLetter((selectedView.params as ServiceDetailViewParams).service.name)}
-          disabled
+          key={i}
+          label={match.loaderData?.crumb?.label}
+          icon={match.loaderData?.crumb?.icon}
+          onClick={(e) => {
+            e.preventDefault()
+            navigate({
+              to: match.pathname,
+            })
+          }}
         />
-      )}
+      ))}
     </BreadcrumbContainer>
   )
 }
