@@ -88,7 +88,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
           {selectedFilterKey && !["minHeight", "maxHeight"].includes(selectedFilterKey) && (
             <ComboBox
               value={droplistSelections[selectedFilterKey] || ""}
-              onChange={(value) => addFilter(selectedFilterKey, value as string)}
+              onChange={(value) => addFilter(selectedFilterKey, value)}
               placeholder="Choose filter value"
               style={{ minWidth: "150px" }}
             >
