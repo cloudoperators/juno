@@ -1,0 +1,26 @@
+import{j}from"./jsx-runtime-Cf8x2fCZ.js";import{S}from"./StyleProvider.component-7hLY8MSv.js";import{I as v}from"./Icon.component-FNpDonhA.js";import"./index-yBjzXJbu.js";import"./index-DN3cvKNT.js";import"./ShadowRoot.component-GIUGqqBF.js";import"./index-FzTzjy2T.js";import"./index-fNjTmf9T.js";const x=`
+  jn:inline-flex 
+  jn:justify-center 
+  jn:items-center
+  jn:rounded
+  jn:py-[0.4375rem]
+  jn:px-[0.625rem]
+  jn:hover:text-theme-accent
+  jn:focus:outline-hidden 
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+  jn:focus-visible:ring-offset-theme-focus
+  jn:disabled:opacity-50
+  jn:disabled:cursor-not-allowed
+  jn:active:bg-theme-background-lvl-4
+`,o=({className:n="",disabled:h=!1,id:f,name:T,onToggleTheme:r,...y})=>{const a=S.useStyles();a||console.warn("Juno ThemeToggle requires a StyleProvider context in order to work. Use ThemeToggle in a Juno AppShell or include StyleProvider manually.");const{currentTheme:s,setThemeClass:l}=a||{},b=()=>{const i=s==="theme-dark"?"theme-light":"theme-dark";l&&l(i),r&&r(i)};return j.jsx(v,{className:`juno-theme-toggle ${x} ${n}`,disabled:h,icon:s==="theme-light"?"nightsStay":"wbSunny",id:f,name:T,onClick:b,...y})};try{o.displayName="ThemeToggle",o.__docgenInfo={description:`ThemeToggle is a button component that toggles between Light and Dark UI Themes.
+This component requires a StyleProvider context to function, which is automatically provided by the Juno AppShell.
+If not using the AppShell, include a StyleProvider manually.`,displayName:"ThemeToggle",props:{className:{defaultValue:{value:""},description:"Additional CSS classes for custom styling.",name:"className",required:!1,type:{name:"string"}},disabled:{defaultValue:{value:"false"},description:"If true, the ThemeToggle will be disabled and not respond to user input.",name:"disabled",required:!1,type:{name:"boolean"}},id:{defaultValue:null,description:"HTML id attribute for the ThemeToggle.",name:"id",required:!1,type:{name:"string"}},name:{defaultValue:null,description:"HTML name attribute for the ThemeToggle.",name:"name",required:!1,type:{name:"string"}},onToggleTheme:{defaultValue:null,description:"Callback function that is called when the theme is toggled.",name:"onToggleTheme",required:!1,type:{name:"((newTheme: string) => void)"}}}}}catch{}const N={title:"WIP/ThemeToggle",component:o,argTypes:{}},e={parameters:{},args:{}},t={args:{disabled:!0}};var m,d,c;e.parameters={...e.parameters,docs:{...(m=e.parameters)==null?void 0:m.docs,source:{originalSource:`{
+  parameters: {},
+  args: {}
+}`,...(c=(d=e.parameters)==null?void 0:d.docs)==null?void 0:c.source}}};var u,g,p;t.parameters={...t.parameters,docs:{...(u=t.parameters)==null?void 0:u.docs,source:{originalSource:`{
+  args: {
+    disabled: true
+  }
+}`,...(p=(g=t.parameters)==null?void 0:g.docs)==null?void 0:p.source}}};const V=["Default","Disabled"];export{e as Default,t as Disabled,V as __namedExportsOrder,N as default};
