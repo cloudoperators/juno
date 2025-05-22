@@ -52,6 +52,9 @@ jobs:
       - name: Build storybook
         run: pnpm --filter @cloudoperators/juno-ui-components build-storybook
 
+      - name: Add .nojekyll
+        run: echo > packages/ui-components/storybook-static/.nojekyll
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@6c2d9db40f9296374acc17b90404b6e8864128c8 #v4.7.3
         with:
