@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactElement } from "react"
 import { Breadcrumb, BreadcrumbItem, Container } from "@cloudoperators/juno-ui-components"
 
 import WelcomeView from "./WelcomeView"
 
-const AppContent = (): JSX.Element => {
+const AppContent = (): ReactElement => {
   return (
     <>
       <Breadcrumb>

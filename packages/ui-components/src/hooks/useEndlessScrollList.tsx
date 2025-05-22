@@ -33,7 +33,7 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
   const [visibleAmount, setVisibleAmount] = useState(20)
   const [isAddingItems, setIsAddingItems] = useState(false)
   const timeoutRef = useRef<Timeout | null>(null)
-  const observer = useRef<IntersectionObserver | undefined>()
+  const observer = useRef<IntersectionObserver | undefined>(undefined)
 
   useEffect(() => {
     // clear when component is unmounted
@@ -73,8 +73,8 @@ export const useEndlessScrollList = (items: unknown[], options: UseEndlessScroll
   )
   const iterator = useMemo(() => {
     return {
-      map: (elements: (value: unknown, index: number, array: unknown[]) => React.JSX.Element) => {
-        const content = scrollListItems?.map<React.JSX.Element>(elements)
+      map: (elements: (value: unknown, index: number, array: unknown[]) => React.ReactElement) => {
+        const content = scrollListItems?.map<React.ReactElement>(elements)
         return (
           <React.Fragment>
             {content}

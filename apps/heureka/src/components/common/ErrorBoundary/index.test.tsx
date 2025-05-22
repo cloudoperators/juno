@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React, { useEffect, ReactElement } from "react"
 import { render, screen } from "@testing-library/react"
 import { ErrorBoundary } from "./index"
 
@@ -15,7 +15,7 @@ const AppThatThrows = () => {
   return <div>App</div>
 }
 
-const renderErrorBoundary = (Component: () => JSX.Element) =>
+const renderErrorBoundary = (Component: () => React.ReactElement) =>
   render(
     <ErrorBoundary>
       <Component />

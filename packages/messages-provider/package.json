@@ -19,26 +19,26 @@
     "pnpm": ">=8.0.0"
   },
   "peerDependencies": {
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "zustand": "^4.5.2"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zustand": "^4.5.7"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^16.0.1",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "19.1.4",
+    "@types/react-dom": "19.1.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "typescript": "^5.6.2",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.2.3",
     "vitest": "^3.0.7",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.7"
   },
   "dependencies": {
-    "@cloudoperators/juno-ui-components": "*"
+    "@cloudoperators/juno-ui-components": "workspace:*"
   },
   "scripts": {
     "test": "vitest run",

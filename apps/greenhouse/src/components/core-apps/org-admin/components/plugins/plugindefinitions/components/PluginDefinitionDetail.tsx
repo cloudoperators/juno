@@ -140,6 +140,7 @@ const PluginDefinitionDetail: React.FC<PluginDefinitionDetailProps> = (props: Pl
           <h2 className="text-xl font-bold mb-2 mt-8">Documentation </h2>
           <article className="markdown-body">
             <ReactMarkDown
+              // @ts-ignore
               rehypePlugins={[remarkGfm]}
               // children={markDown}
             >

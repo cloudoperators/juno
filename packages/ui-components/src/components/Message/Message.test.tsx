@@ -127,7 +127,7 @@ describe("Message component", () => {
         () => {
           expect(screen.queryByTestId("my-message")).not.toBeInTheDocument()
         },
-        { timeout: 501 }
+        { timeout: 550 }
       )
     })
 

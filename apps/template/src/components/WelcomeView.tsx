@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactElement } from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
 import { useWellcomeStore } from "../store"
 
-const WelcomeView = (): JSX.Element => {
+const WelcomeView = (): ReactElement => {
   const { welcome } = useWellcomeStore()
   return (
     <Stack alignment="center" distribution="center" direction="vertical" className="my-[10vh]">

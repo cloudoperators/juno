@@ -27,7 +27,7 @@ export const useFetchServiceImageVersionIssues = ({
   pageSize = 20,
   searchTerm,
 }: UseFetchServiceImageVersionIssuesProps) => {
-  const pagesRef = useRef<Page[]>()
+  const pagesRef = useRef<Page[]>(null)
   // Use default options into the useLazyQuery and then customize those options in the query function
   // https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery
   const [loadIssues, { data, loading, error }] = useGetServiceImageVersionIssuesLazyQuery({
