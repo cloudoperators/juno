@@ -15,7 +15,7 @@ const AppThatThrows = () => {
   return <div>App</div>
 }
 
-const renderErrorBoundary = (Component: () => JSX.Element) =>
+const renderErrorBoundary = (Component: () => React.ReactElement) =>
   render(
     <ErrorBoundary>
       <Component />

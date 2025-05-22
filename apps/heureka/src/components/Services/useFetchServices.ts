@@ -15,7 +15,7 @@ type UseFetchServicesInput = {
 }
 
 export const useFetchServices = ({ filterSettings, pageSize = 20 }: UseFetchServicesInput) => {
-  const pagesRef = useRef<Page[]>()
+  const pagesRef = useRef<Page[]>(null)
   // Use default options into the useLazyQuery and then customize those options in the query function
   // https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery
   const [loadServices, { data, loading, error }] = useGetServicesLazyQuery({

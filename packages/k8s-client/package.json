@@ -37,7 +37,7 @@
     "@cloudoperators/juno-config": "workspace:*",
     "vite": "^6.3.5",
     "vitest": "^3.0.7",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^6.6.3",
     "vite-plugin-dts": "^4.0.3"
   }
 }

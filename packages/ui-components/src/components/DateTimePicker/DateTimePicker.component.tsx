@@ -89,54 +89,54 @@ interface SelectedDate {
 /** A all-purpose date and time picker component. Highly configurable, based on Flatpickr. */
 
 export const DateTimePicker: React.FC<DateTimePickerProps> = ({
-  allowInput,
-  allowInvalidPreload,
-  ariaDateFormat,
-  className,
-  conjunction,
-  dateFormat,
-  defaultHour,
-  defaultMinute,
-  defaultDate,
-  defaultValue,
+  allowInput = false,
+  allowInvalidPreload = false,
+  ariaDateFormat = "F j, Y",
+  className = "",
+  conjunction = ", ",
+  dateFormat = undefined,
+  defaultHour = 12,
+  defaultMinute = 0,
+  defaultDate = undefined,
+  defaultValue = "",
   disable = [],
-  disabled,
-  enableSeconds,
-  enableTime,
-  errortext,
-  helptext,
-  hourIncrement,
-  id,
-  invalid,
-  label,
-  locale,
-  maxDate,
-  minDate,
-  minuteIncrement,
-  mode,
-  monthSelectorType,
-  name,
-  noCalendar,
-  onBlur,
-  onChange,
-  onClear,
-  onClose,
-  onFocus,
-  onMonthChange,
-  onOpen,
-  onReady,
-  onYearChange,
-  placeholder,
-  required,
-  shorthandCurrentMonth,
-  showMonths,
-  successtext,
-  time_24hr,
-  valid,
-  value,
-  weekNumbers,
-  width,
-  wrapperClassName,
+  disabled = false,
+  enableSeconds = false,
+  enableTime = false,
+  errortext = "",
+  helptext = "",
+  hourIncrement = 1,
+  id = "",
+  invalid = false,
+  label = "",
+  locale = undefined,
+  maxDate = undefined,
+  minDate = undefined,
+  minuteIncrement = 1,
+  mode = "single",
+  monthSelectorType = "static",
+  name = "",
+  noCalendar = false,
+  onBlur = undefined,
+  onChange = undefined,
+  onClear = undefined,
+  onClose = undefined,
+  onFocus = undefined,
+  onMonthChange = undefined,
+  onOpen = undefined,
+  onReady = undefined,
+  onYearChange = undefined,
+  placeholder = "",
+  required = false,
+  shorthandCurrentMonth = false,
+  showMonths = 1,
+  successtext = "",
+  time_24hr = false,
+  valid = false,
+  value = "",
+  weekNumbers = false,
+  width = "full",
+  wrapperClassName = "",
   ...props
 }) => {
   // always generate auto-id string using the useId hook to avoid "more hooks than in previous render" error when removing custom id:
@@ -146,6 +146,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const fpRef = useRef<HTMLInputElement | null>(null) // the DOM node flatpickr instance will be bound to
   const flatpickrInstanceRef = useRef<flatpickr.Instance | null>(null) // The actual flatpickr instance
   const calendarTargetRef = useRef<HTMLDivElement | null>(null) // The DOM node the flatpickr calendar should be rendered to
+  const isCalendarClickRef = useRef<boolean>(false) // Track if click is within calendar
 
   const [theDate, setTheDate] = useState<SelectedDate>({})
   // variables starting with underscore are not linted
@@ -184,7 +185,14 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
     setIsValid(validated)
   }, [validated])
 
+  // FIX: Modified blur handler to check calendar click status
   const handleBlur = () => {
+    // Don't process blur if the click was inside the calendar
+    if (isCalendarClickRef.current) {
+      isCalendarClickRef.current = false
+      return
+    }
+
     setHasFocus(false)
     onBlur && onBlur(theDate.selectedDate, theDate.selectedDateStr)
   }
@@ -290,6 +298,27 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
     const FP = calendarTargetRef && fpRef.current && flatpickr(fpRef.current, options)
     updateFlatpickrInstance(FP)
+
+    // FIX: Add event listeners to track calendar clicks
+    if (FP && FP.calendarContainer) {
+      FP.calendarContainer.addEventListener("mousedown", () => {
+        isCalendarClickRef.current = true
+      })
+
+      // Set up event delegation for date cell clicks
+      FP.calendarContainer.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement
+        // Check if clicked element is a date cell or a child of one
+        if (target.classList.contains("flatpickr-day") || target.closest(".flatpickr-day")) {
+          // Keep input focused when clicking on calendar days
+          if (fpRef.current) {
+            setTimeout(() => {
+              fpRef.current?.focus()
+            }, 0)
+          }
+        }
+      })
+    }
   }
 
   const destroyFlatpickrInstance = () => {
@@ -657,57 +686,4 @@ export interface DateTimePickerProps
   width?: "full" | "auto"
   /** Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
   wrapperClassName?: string
-}
-
-// can't get rid of this, as if we transform it to a default values using vanilla JS, two tests will fail
-// the disable prop causes problems in the tests
-DateTimePicker.defaultProps = {
-  allowInput: false,
-  allowInvalidPreload: false,
-  ariaDateFormat: "F j, Y",
-  className: "",
-  conjunction: ", ",
-  dateFormat: undefined,
-  defaultHour: 12,
-  defaultMinute: 0,
-  defaultDate: undefined,
-  defaultValue: "",
-  disable: [],
-  disabled: false,
-  enableSeconds: false,
-  enableTime: false,
-  errortext: "",
-  helptext: "",
-  hourIncrement: 1,
-  id: "",
-  invalid: false,
-  label: "",
-  locale: undefined,
-  maxDate: undefined,
-  minDate: undefined,
-  minuteIncrement: 1,
-  mode: "single",
-  monthSelectorType: "static",
-  name: "",
-  noCalendar: false,
-  onBlur: undefined,
-  onChange: undefined,
-  onClear: undefined,
-  onClose: undefined,
-  onFocus: undefined,
-  onMonthChange: undefined,
-  onOpen: undefined,
-  onReady: undefined,
-  onYearChange: undefined,
-  placeholder: "",
-  required: false,
-  shorthandCurrentMonth: false,
-  showMonths: 1,
-  successtext: "",
-  time_24hr: false,
-  valid: false,
-  value: "",
-  weekNumbers: false,
-  width: "full",
-  wrapperClassName: "",
 }
