@@ -40,16 +40,6 @@ export default ({ mode }) => {
       ...sharedConfig,
       build: {
         outDir: "build",
-        assetsDir: "", // Prevents assets from being placed in a subdirectory
-        rollupOptions: {
-          output: {
-            entryFileNames: "assets/[name]-[hash].js",
-            chunkFileNames: "assets/[name]-[hash].js",
-            assetFileNames: "assets/[name]-[hash][extname]",
-            // This ensures files include a hash for cache busting
-            sanitizeFileName: (name) => name.replace(/^_+/, ""), // Remove leading underscores
-          },
-        },
       },
     }
   }
