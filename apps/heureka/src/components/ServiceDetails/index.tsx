@@ -4,7 +4,15 @@
  */
 
 import React, { useState } from "react"
-import { Stack, Pill, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
+import {
+  Stack,
+  Pill,
+  DataGrid,
+  DataGridRow,
+  DataGridHeadCell,
+  DataGridCell,
+  Spinner,
+} from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { useNavigate } from "@tanstack/react-router"
 import { ServiceImageVersions } from "../common/ServiceImageVersions"
@@ -31,6 +39,15 @@ export const ServiceDetails = ({ serviceName, imageVersion }: ServiceDetailsProp
   })
 
   const service = getNormalizedData(data).services[0]
+
+  if (loading) {
+    return (
+      <Stack gap="2" alignment="center">
+        <div>Loading</div>
+        <Spinner variant="primary"></Spinner>
+      </Stack>
+    )
+  }
 
   if (typeof service === "undefined") {
     return null
