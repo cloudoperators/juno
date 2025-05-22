@@ -4,10 +4,18 @@
  */
 
 import React, { useState, useEffect } from "react"
-import { SearchInput, Select, SelectOption, Stack, InputGroup, Pill } from "@cloudoperators/juno-ui-components"
+import {
+  SearchInput,
+  Select,
+  SelectOption,
+  ComboBox,
+  ComboBoxOption,
+  Stack,
+  InputGroup,
+  Pill,
+} from "@cloudoperators/juno-ui-components"
 import { usePluginActions, usePluginConfig, useLabelValuesFilters } from "./StoreProvider"
 import { LabelValuesFilter } from "../lib/store/createPluginSlice"
-import { SelectContext } from "../../../../../../../../../../packages/ui-components/build/src/components/Select/Select.component"
 import { getStatusCondition } from "../hooks/helper"
 const filtersStyles = `
   bg-theme-background-lvl-1
@@ -107,17 +115,16 @@ const Toolbar = () => {
               ))}
           </Select>
 
-          <Select
+          <ComboBox
             name="filterValue"
             className="filter-value-select w-96 bg-theme-background-lvl-0"
-            value={selectedValue ? selectedValue : "Select..."}
             onChange={handleValueChange}
             truncateOptions
           >
             {availableValues.map((value) => (
-              <SelectOption key={value} label={value} value={value} />
+              <ComboBoxOption key={value} value={value} />
             ))}
-          </Select>
+          </ComboBox>
         </InputGroup>
 
         <SearchInput
