@@ -88,15 +88,15 @@ const primaryDangerButtonColors = `
 const subduedButtonColors = `
   jn:bg-theme-button-subdued
   jn:text-theme-button-subdued
-  jn:border
-  jn:border-theme-button-subdued
   jn:hover:bg-theme-button-subdued-hover
   jn:hover:text-theme-button-subdued-hover
-  jn:hover:border-theme-button-subdued-hover
   jn:active:bg-theme-button-subdued-active
   jn:active:text-theme-button-subdued-active
-  jn:active:border-theme-button-subdued-active
 `
+  // jn:border
+  // jn:border-theme-button-subdued
+  // jn:hover:border-theme-button-subdued-hover
+  // jn:active:border-theme-button-subdued-active
 
 const getButtonPadding = (size: ButtonSize, variant: ButtonVariant | undefined) => {
   if (size === "small") {
