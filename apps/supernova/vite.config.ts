@@ -4,7 +4,7 @@
  */
 
 import react from "@vitejs/plugin-react"
-import tailwindcss from "tailwindcss"
+import tailwindcss from "@tailwindcss/vite"
 
 export default ({ mode }) => {
   const sharedConfig = {
@@ -14,15 +14,7 @@ export default ({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [
-      {
-        name: "tailwindcss",
-        api: {
-          postcss: tailwindcss,
-        },
-      },
-      react(),
-    ],
+    plugins: [tailwindcss(), react()],
 
     server: {
       host: "0.0.0.0",

@@ -2,7 +2,6 @@
   "name": "@cloudoperators/juno-ui-components",
   "private": false,
   "source": "src/index.js",
-  "style": "build/src/global.css",
   "version": "3.1.1",
   "types": "build/index.d.ts",
   "exports": {
@@ -10,12 +9,10 @@
     ".": "./build/index.js",
     "./juno-ui-components.css": "./build/juno-ui-components.css",
     "./lib/variables.js": "./build/lib/variables.js",
-    "./lib/styles.css": "./build/src/global.css"
+    "./theme.css": "./build/theme.css"
   },
   "files": [
-    "build/*",
-    "src/colors.css",
-    "src/global.css"
+    "build/*"
   ],
   "author": "UI-Team",
   "contributors": [
@@ -89,7 +86,8 @@
   },
   "scripts": {
     "storybook": "storybook dev -p $APP_PORT --ci --no-open",
-    "build": "vite build",
+    "build": "vite build && npm run build:css",
+    "build:css": "cp ./src/theme.css ./build/theme.css",
     "build-storybook": "storybook build",
     "dev": "vite",
     "lint": "eslint",

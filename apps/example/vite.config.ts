@@ -5,7 +5,7 @@
 import { defineConfig } from "vite"
 import svgr from "vite-plugin-svgr"
 import react from "@vitejs/plugin-react"
-import tailwindcss from "tailwindcss"
+import tailwindcss from "@tailwindcss/vite"
 
 export default defineConfig(({ mode }) => {
   const sharedConfig = {
@@ -15,16 +15,7 @@ export default defineConfig(({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [
-      {
-        name: "tailwindcss",
-        api: {
-          postcss: tailwindcss,
-        },
-      },
-      react(),
-      svgr(),
-    ],
+    plugins: [tailwindcss(), react(), svgr()],
 
     server: {
       host: "0.0.0.0",

@@ -4,46 +4,30 @@
  */
 
 @import "tailwindcss";
-@import "@cloudoperators/juno-ui-components/juno-ui-components.css";
+@import "@cloudoperators/juno-ui-components/theme.css";
+
 /* If necessary, app styles can be added below */
-@layer base {
-.inline-code {
-  @apply bg-theme-badge-default;
-  @apply text-theme-default;
-  @apply text-sm;
-  @apply rounded;
-  @apply px-1;
-  @apply py-0.5;
-}
-
-/* // datagrid row hover style
-// REMOVE THIS ONCE DATAGRID COMPONENT SUPPORTS HOVER
-// */
-.alerts {
-  .juno-datagrid-row:hover {
-    .juno-datagrid-cell {
-      @apply bg-theme-background-lvl-1;
-    }
+@theme {
+  .inline-code {
+    @apply bg-theme-badge-default text-theme-default text-sm rounded px-1 py-0.5;
   }
 
-  .juno-datagrid-row.active {
-    .juno-datagrid-cell {
-      @apply bg-theme-background-lvl-2;
-    }
-  }
-}
-
-.silences {
-  .juno-datagrid-row:hover {
-    .juno-datagrid-cell {
-      @apply bg-theme-background-lvl-1;
-    }
+  /* Datagrid row hover style
+   * REMOVE THIS ONCE DATAGRID COMPONENT SUPPORTS HOVER
+   */
+  .alerts .juno-datagrid-row:hover .juno-datagrid-cell {
+    @apply bg-theme-background-lvl-1;
   }
 
-  .juno-datagrid-row.active {
-    .juno-datagrid-cell {
-      @apply bg-theme-background-lvl-2;
-    }
+  .alerts .juno-datagrid-row.active .juno-datagrid-cell {
+    @apply bg-theme-background-lvl-2;
   }
-}
+
+  .silences .juno-datagrid-row:hover .juno-datagrid-cell {
+    @apply bg-theme-background-lvl-1;
+  }
+
+  .silences .juno-datagrid-row.active .juno-datagrid-cell {
+    @apply bg-theme-background-lvl-2;
+  }
 }

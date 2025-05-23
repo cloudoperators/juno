@@ -12,10 +12,12 @@
   "license": "Apache-2.0",
   "source": "src/index.js",
   "module": "build/index.js",
+  "type": "module",
   "private": true,
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@svgr/plugin-jsx": "^7.0.0",
+    "@tailwindcss/vite": "^4.1.7",
     "@tailwindui/react": "^0.1.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
