@@ -7,27 +7,26 @@
 @import "@cloudoperators/juno-ui-components/theme.css";
 
 /* If necessary, app styles can be added below */
-@theme {
-  .inline-code {
-    @apply bg-theme-badge-default text-theme-default text-sm rounded px-1 py-0.5;
-  }
 
-  /* Datagrid row hover style
-   * REMOVE THIS ONCE DATAGRID COMPONENT SUPPORTS HOVER
-   */
-  .alerts .juno-datagrid-row:hover .juno-datagrid-cell {
-    @apply bg-theme-background-lvl-1;
-  }
+.inline-code {
+  @apply bg-theme-badge-default text-theme-default text-sm rounded px-1 py-0.5;
+}
 
-  .alerts .juno-datagrid-row.active .juno-datagrid-cell {
-    @apply bg-theme-background-lvl-2;
-  }
+/* Datagrid row hover style
+ * REMOVE THIS ONCE DATAGRID COMPONENT SUPPORTS HOVER
+ */
+.alerts .juno-datagrid-row:hover .juno-datagrid-cell {
+  @apply bg-theme-background-lvl-1;
+}
 
-  .silences .juno-datagrid-row:hover .juno-datagrid-cell {
-    @apply bg-theme-background-lvl-1;
-  }
+.alerts .juno-datagrid-row.active .juno-datagrid-cell {
+  @apply bg-theme-background-lvl-2;
+}
 
-  .silences .juno-datagrid-row.active .juno-datagrid-cell {
-    @apply bg-theme-background-lvl-2;
-  }
+.silences .juno-datagrid-row:hover .juno-datagrid-cell {
+  @apply bg-theme-background-lvl-1;
+}
+
+.silences .juno-datagrid-row.active .juno-datagrid-cell {
+  @apply bg-theme-background-lvl-2;
 }
