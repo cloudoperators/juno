@@ -29,8 +29,7 @@ const FilterSelect = () => {
   const activeFilters = useFiltersActive() || []
 
   const handleFilterValueChange = (value: any) => {
-    // @ts-expect-error TS(2345) FIXME: Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
-    selectValue(null)
+    selectValue("")
     if (value !== null) addFilter(selectedCategory, value)
     // force key change to reset the Select component to its initial state
     // so that the placeholder is rendered again. This is a workaround to fix an open issue
@@ -57,6 +56,7 @@ const FilterSelect = () => {
             className="filter-label-select w-52 mb-0"
             label="Select category"
             value={selectedCategory}
+            // @ts-expect-error TS(2345) FIXME: Argument of type 'null' is not assignable to param...
             onChange={selectCategory}
           >
             {
