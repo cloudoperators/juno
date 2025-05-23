@@ -23,7 +23,7 @@ type FilterSelectProps = {
 
 export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
   const [selectedFilterName, setSelectedFilterName] = useState<DropdownValue>("")
-  const [selectedFilterValue, setSelectedFilterValue] = useState<DropdownValue>("")
+  const [selectedFilterValue, setSelectedFilterValue] = useState<string | undefined>("")
   const filterValues = filters.find((filter) => filter.filterName === selectedFilterName)?.values
 
   const handleValueChange = useCallback(
