@@ -3,13 +3,14 @@
 
 @import "tailwindcss" prefix(jn) source("../src");
 
-@import "./components/DateTimePicker/datetimepicker.css" layer(components);
-@import "./components/FormattedText/formatted-text.css" layer(components);
-@import "./components/InputGroup/input-group.css" layer(components);
-@import "./components/SearchInput/searchinput.css" layer(components);
-@import "./components/Select/select.css" layer(components);
-@import "./components/TextInput/textinput.css" layer(components);
-@import "./components/ThemeToggle/themeToggle.css" layer(components);
+@import "./components/DateTimePicker/datetimepicker.css" layer(utilities);
+@import "./components/FormattedText/formatted-text.css" layer(utilities);
+@import "./components/InputGroup/input-group.css" layer(utilities);
+@import "./components/SearchInput/searchinput.css" layer(utilities);
+@import "./components/Select/select.css" layer(utilities);
+@import "./components/TextInput/textinput.css" layer(utilities);
+@import "./components/ThemeToggle/themeToggle.css" layer(utilities);
+
 
 :root,
 :host {
@@ -866,6 +867,7 @@
 @utility flex-basis-auto {
   flex-basis: auto;
 }
+
 
 /* default base styles using the tw base directive */
 @layer base {

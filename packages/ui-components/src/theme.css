@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors */
 /* SPDX-License-Identifier: Apache-2.0 */
 
-@import "tailwindcss" source("../src");
+/* @import "tailwindcss" source("../src"); */
 
 :root,
 :host {
@@ -307,8 +307,7 @@
   --border-theme-button-subdued-hover: var(--color-button-subdued-hover-border);
   --border-theme-button-subdued-active: var(--color-button-subdued-active-border);
 
-  --background-color-theme-checkbox: var(--color-checkbox-bg);
-  /* -> .jn:bg-theme-checkbox */
+  --background-color-theme-checkbox: var(--color-checkbox-bg); /* -> .jn:bg-theme-checkbox */
 
   --background-color-theme-code-block: var(--color-codeblock-bg);
 
@@ -575,33 +574,23 @@
   /* LT Spinner */
   --color-spinner-primary: var(--color-accent);
   /* LT Syntax Highlighting */
-  --color-syntax-highlight-base00: var(--color-codeblock-bg);
-  /* bg */
-  --color-syntax-highlight-base01: var(--color-juno-grey-light-3);
-  /*  ? */
-  --color-syntax-highlight-base02: var(--color-sap-grey-3);
-  /*  lines and boxes */
+  --color-syntax-highlight-base00: var(--color-codeblock-bg); /* bg */
+  --color-syntax-highlight-base01: var(--color-juno-grey-light-3); /*  ? */
+  --color-syntax-highlight-base02: var(--color-sap-grey-3); /*  lines and boxes */
   --color-syntax-highlight-base03: var(--color-sap-grey-3);
   --color-syntax-highlight-base04: var(--color-sap-grey-3);
   --color-syntax-highlight-base05: var(--color-juno-text-high);
   --color-syntax-highlight-base06: red;
   --color-syntax-highlight-base07: var(--color-juno-text-high);
-  --color-syntax-highlight-base08: var(--color-juno-grey-blue-6);
-  /*  NULL */
-  --color-syntax-highlight-base09: var(--color-juno-blue-4);
-  /*  String value */
-  --color-syntax-highlight-base0A: var(--color-juno-grey-blue-6);
-  /*  NaN */
-  --color-syntax-highlight-base0B: var(--color-juno-blue-4);
-  /*  float value */
-  --color-syntax-highlight-base0C: var(--color-sap-gold);
-  /*  array index */
-  --color-syntax-highlight-base0D: var(--color-sap-gold);
-  /*  expanded icon */
+  --color-syntax-highlight-base08: var(--color-juno-grey-blue-6); /*  NULL */
+  --color-syntax-highlight-base09: var(--color-juno-blue-4); /*  String value */
+  --color-syntax-highlight-base0A: var(--color-juno-grey-blue-6); /*  NaN */
+  --color-syntax-highlight-base0B: var(--color-juno-blue-4); /*  float value */
+  --color-syntax-highlight-base0C: var(--color-sap-gold); /*  array index */
+  --color-syntax-highlight-base0D: var(--color-sap-gold); /*  expanded icon */
   --color-syntax-highlight-base0E: var(--color-juno-blue-4);
   /* LT bool + collapsed icon */
-  --color-syntax-highlight-base0F: var(--color-juno-blue-4);
-  /*  integer value */
+  --color-syntax-highlight-base0F: var(--color-juno-blue-4); /*  integer value */
   /* LT DataGrid */
   --color-datagridrow-selected: var(--color-accent);
   /* LT DataList */
@@ -637,14 +626,13 @@
 
   /* LT DateTimePicker */
   --color-datetimepicker-calendar-bg: var(--color-background-lvl-2);
-  --color-datetimepicker-disabled-date-color: rgb(76 76 76 / 0.4);
-  /* Light theme text default color */
-  --color-datetimepicker-disabled-date-hover-bg: rgb(0 118 203 / 0.5);
-  /* Light theme accent color */
-  --color-datetimepicker-range-bg: rgb(98,
-      148,
-      209);
-  /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
+  --color-datetimepicker-disabled-date-color: rgb(76 76 76 / 0.4); /* Light theme text default color */
+  --color-datetimepicker-disabled-date-hover-bg: rgb(0 118 203 / 0.5); /* Light theme accent color */
+  --color-datetimepicker-range-bg: rgb(
+    98,
+    148,
+    209
+  ); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
 }
 
 /* JUNO THEME: DARK MODE */
@@ -789,33 +777,22 @@
   /* DT Spinner */
   --color-spinner-primary: var(--color-accent);
   /* DT Syntax Highlighting */
-  --color-syntax-highlight-base00: var(--color-codeblock-bg);
-  /* bg */
-  --color-syntax-highlight-base01: var(--color-juno-grey-blue-3);
-  /*  ? */
-  --color-syntax-highlight-base02: #bbb;
-  /* lines and boxes */
+  --color-syntax-highlight-base00: var(--color-codeblock-bg); /* bg */
+  --color-syntax-highlight-base01: var(--color-juno-grey-blue-3); /*  ? */
+  --color-syntax-highlight-base02: #bbb; /* lines and boxes */
   --color-syntax-highlight-base03: var(--color-sap-grey-3);
   --color-syntax-highlight-base04: var(--color-sap-grey-3);
   --color-syntax-highlight-base05: #dedfe0;
   --color-syntax-highlight-base06: red;
   --color-syntax-highlight-base07: #dedfe0;
-  --color-syntax-highlight-base08: var(--color-juno-grey-blue-6);
-  /* NULL */
-  --color-syntax-highlight-base09: var(--color-juno-blue-4);
-  /* String value */
-  --color-syntax-highlight-base0A: var(--color-juno-grey-blue-6);
-  /* NaN */
-  --color-syntax-highlight-base0B: var(--color-juno-blue-4);
-  /* float value */
-  --color-syntax-highlight-base0C: var(--color-sap-gold);
-  /* array index */
-  --color-syntax-highlight-base0D: var(--color-sap-gold);
-  /* DT expanded icon */
-  --color-syntax-highlight-base0E: var(--color-juno-blue-4);
-  /* DT bool + collapsed icon */
-  --color-syntax-highlight-base0F: var(--color-juno-blue-4);
-  /* integer value */
+  --color-syntax-highlight-base08: var(--color-juno-grey-blue-6); /* NULL */
+  --color-syntax-highlight-base09: var(--color-juno-blue-4); /* String value */
+  --color-syntax-highlight-base0A: var(--color-juno-grey-blue-6); /* NaN */
+  --color-syntax-highlight-base0B: var(--color-juno-blue-4); /* float value */
+  --color-syntax-highlight-base0C: var(--color-sap-gold); /* array index */
+  --color-syntax-highlight-base0D: var(--color-sap-gold); /* DT expanded icon */
+  --color-syntax-highlight-base0E: var(--color-juno-blue-4); /* DT bool + collapsed icon */
+  --color-syntax-highlight-base0F: var(--color-juno-blue-4); /* integer value */
   /* DT DataGrid */
   --color-datagridrow-selected: var(--color-accent);
   /* DT DataList */
@@ -851,12 +828,9 @@
   --color-topnavigation-item-active-bg: var(--color-juno-grey-blue-5);
   /* DT DateTimePicker */
   --color-datetimepicker-calendar-bg: var(--color-background-lvl-1);
-  --color-datetimepicker-disabled-date-color: rgb(187 187 187 / 0.4);
-  /* Dark theme text default color */
-  --color-datetimepicker-disabled-date-hover-bg: rgb(21 208 224 / 0.5);
-  /* Dark theme accent color */
-  --color-datetimepicker-range-bg: rgb(79 163 176);
-  /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
+  --color-datetimepicker-disabled-date-color: rgb(187 187 187 / 0.4); /* Dark theme text default color */
+  --color-datetimepicker-disabled-date-hover-bg: rgb(21 208 224 / 0.5); /* Dark theme accent color */
+  --color-datetimepicker-range-bg: rgb(79 163 176); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
 }
 
 /*
@@ -881,14 +855,13 @@
 @utility flex-basis-0 {
   flex-basis: 0%;
 }
-
 @utility flex-basis-auto {
   flex-basis: auto;
 }
 
+
 /* default base styles using the tw base directive */
 @layer base {
-
   html,
   body,
   .juno-app-body {
