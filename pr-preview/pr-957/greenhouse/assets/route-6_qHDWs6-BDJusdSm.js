@@ -1,1 +1,0 @@
-import{j as r,O as o}from"./App-CE2IE6B_-CYa0mlDO.js";import"./index-CHopoRhc.js";import"./index-BFiRD_dG.js";const m=function(){return r.jsx(r.Fragment,{children:r.jsx(o,{})})};export{m as component};
