@@ -27,10 +27,6 @@ const FilterSelect = () => {
   const searchValue = useFiltersSearchTerm()
   const activeFilters = useFiltersActive() || []
 
-  const handleFilterValueChange = (value: any) => {
-    if (value !== null) addFilter(selectedCategory, value)
-  }
-
   const handleSearchChange = (value: any) => {
     // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
@@ -63,7 +59,7 @@ const FilterSelect = () => {
           <ComboBox
             name="value"
             value={selectedValue}
-            onChange={(value: any) => handleFilterValueChange(value)}
+            onChange={(value: string) => addFilter(selectedCategory, value)}
             disabled={!selectedCategory}
             className="filter-value-select w-80 bg-theme-background-lvl-0"
           >
