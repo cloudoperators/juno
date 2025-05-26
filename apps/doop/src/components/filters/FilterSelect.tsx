@@ -20,8 +20,7 @@ import { useFiltersActions, useFiltersSearchTerm, useFiltersActive, useDataFilte
 
 const FilterSelect = () => {
   const [selectedCategory, selectCategory] = useState("")
-  const [selectedValue, selectValue] = useState("")
-  const [resetKey, setResetKey] = useState(Date.now())
+  const [selectedValue] = useState("")
   const filterEntries = useDataFilterEntries()
   // @ts-ignore
   const { add: addFilter, removeAll, setSearchTerm } = useFiltersActions()
@@ -29,12 +28,7 @@ const FilterSelect = () => {
   const activeFilters = useFiltersActive() || []
 
   const handleFilterValueChange = (value: any) => {
-    selectValue("")
     if (value !== null) addFilter(selectedCategory, value)
-    // force key change to reset the Select component to its initial state
-    // so that the placeholder is rendered again. This is a workaround to fix an open issue
-    // in Radix UI. See: https://github.com/radix-ui/primitives/issues/1569
-    setResetKey(Date.now())
   }
 
   const handleSearchChange = (value: any) => {
@@ -72,7 +66,6 @@ const FilterSelect = () => {
             onChange={(value: any) => handleFilterValueChange(value)}
             disabled={!selectedCategory}
             className="filter-value-select w-80 bg-theme-background-lvl-0"
-            key={resetKey}
           >
             {// @ts-ignore
             filterEntries
