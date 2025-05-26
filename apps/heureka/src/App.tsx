@@ -5,7 +5,7 @@
 
 import React, { StrictMode } from "react"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
-import { createRouter, Router, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
+import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { ApolloProvider } from "@apollo/client"
 import styles from "./styles.scss?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
@@ -25,8 +25,7 @@ export type AppProps = {
   enableHashedRouting?: boolean
 }
 
-// Static router just for type registration
-const staticRouter = createRouter({
+const router = createRouter({
   routeTree,
   context: {
     appProps: undefined!,
@@ -35,12 +34,18 @@ const staticRouter = createRouter({
 
 declare module "@tanstack/react-router" {
   interface Register {
-    router: typeof staticRouter
+    router: typeof router
   }
 }
 
 const App = (props: AppProps) => {
-  const router = createRouter({
+  /*
+   * Dynamically change the type of history on the router
+   * based on the enableHashedRouting prop. This ensures that
+   * the correct history type is used when A Shell app does not
+   * want the app to use browser history.
+   */
+  router.update({
     routeTree,
     context: { appProps: props },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
