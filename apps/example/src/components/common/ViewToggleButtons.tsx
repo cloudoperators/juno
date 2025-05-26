@@ -26,7 +26,7 @@ const ViewToggleButtons: React.FC<ViewToggleButtonsProps> = ({ currentView, togg
 
   return (
     <Stack direction="horizontal" gap="2" className="ml-auto">
-      <span className="flex items-center ml-3">View:</span>
+      <span className="flex items-center">View:</span>
 
       <Button onClick={() => toggleView(Views.GRID)} disabled={isGridDisabled} variant="subdued">
         <GridIcon />

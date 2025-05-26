@@ -6,7 +6,7 @@
 // NOTE: This is a custom component that doesn't exist in Juno UI. It showcases how custom theme colours can be applied.
 
 import React, { useState } from "react"
-import { Spinner, Modal, Icon, Badge, Button, Stack } from "@cloudoperators/juno-ui-components"
+import { Spinner, Modal, Icon, Badge, Button, Stack, ModalFooter, ButtonRow } from "@cloudoperators/juno-ui-components"
 import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
 import ArrowUp from "../../assets/arrow_up.svg?react"
 import ArrowDown from "../../assets/arrow_down.svg?react"
@@ -155,6 +155,16 @@ export const PeakModal: React.FC<{
       closeable
       title={`Details for ${peakDetails.name}, ${peakDetails.country}`}
       size="large"
+      modalFooter={
+        <ModalFooter style={{ justifyContent: "flex-end" }}>
+          <ButtonRow>
+            <Button onClick={onClose} label={"Cancel"} />
+            <Button variant="primary" onClick={navigateToDetailPage}>
+              Open Detail Page
+            </Button>
+          </ButtonRow>
+        </ModalFooter>
+      }
     >
       <div className="flex flex-col space-y-3">
         <div className="flex items-center space-x-2">
@@ -172,9 +182,6 @@ export const PeakModal: React.FC<{
         <div>
           <strong>Recommendation:</strong> {peakDetails.recommendation}
         </div>
-        <Button variant="primary" onClick={navigateToDetailPage}>
-          Go to Peaks Detail Page
-        </Button>
       </div>
     </Modal>
   ) : null
