@@ -40,15 +40,11 @@ declare module "@tanstack/react-router" {
 }
 
 const App = (props: AppProps) => {
-  const router = React.useMemo(
-    () =>
-      createRouter({
-        routeTree,
-        context: { appProps: props },
-        history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
-      }),
-    [props.enableHashedRouting]
-  )
+  const router = createRouter({
+    routeTree,
+    context: { appProps: props },
+    history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
+  })
 
   return (
     <ApolloProvider client={getClient({ uri: props.apiEndpoint })}>

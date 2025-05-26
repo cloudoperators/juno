@@ -47,6 +47,7 @@ export const ServiceImageVersions = ({
   const gridColumnCount = displayActions ? COLUMN_COUNT : COLUMN_COUNT - 1
 
   /**
+   * TODO: remove this affect by refactoring ServiceImageVersions component
    * when imageVersions are loaded or the default selection is changed
    * inform parent to change the highlighted image version in the list
    */

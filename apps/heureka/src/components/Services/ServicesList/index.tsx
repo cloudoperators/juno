@@ -60,7 +60,10 @@ export const ServicesList = ({
     })
   }, [])
 
-  // Keep selectedOverviewService in sync
+  /*
+   * TODO: Refactor this component later so it gets selectedOverviewService as a prop
+   * and then we can remove this effect that keeps selectedOverviewService in sync
+   */
   useEffect(() => {
     setSelectedOverviewService(services.find((s) => s.name === defaultSelectService) || null)
   }, [defaultSelectService, services])
