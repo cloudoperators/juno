@@ -22,19 +22,17 @@ type FilterSelectProps = {
 }
 
 export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
-  const [selectedFilterName, setSelectedFilterName] = useState<DropdownValue>("")
-  const [selectedFilterValue, setSelectedFilterValue] = useState<string | undefined>("")
-  const filterValues = filters.find((filter) => filter.filterName === selectedFilterName)?.values
+  const [selectedFilterName, setSelectedFilterName] = useState<string>("")
+  const [selectedFilterValue] = useState<string>("")
+  const filterValues: string[] | undefined = filters.find((filter) => filter.filterName === selectedFilterName)?.values
 
   const handleValueChange = useCallback(
-    (value: DropdownValue) => {
+    (value: string) => {
       if (!isEmpty(selectedFilterName) && !isEmpty(value)) {
         onChange({
-          name: selectedFilterName as string, // we're sure that the value is a string
-          value: value as string, // we're sure that the value is a string
+          name: selectedFilterName,
+          value: value,
         })
-        setSelectedFilterName("")
-        setSelectedFilterValue("")
       }
     },
     [selectedFilterName, onChange]
@@ -48,7 +46,9 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
           name="filter"
           label="Filter"
           value={selectedFilterName}
-          onChange={setSelectedFilterName}
+          onChange={(value) => {
+            setSelectedFilterName(String(value))
+          }}
         >
           {filters?.map(({ displayName, filterName }) => (
             <SelectOption value={filterName} label={displayName} key={filterName} />
