@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useState } from "react"
-import { isEmpty } from "lodash"
+import { isEmpty, values } from "lodash"
 import {
   Button,
   InputGroup,
@@ -24,7 +24,11 @@ type FilterSelectProps = {
 export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
   const [selectedFilterName, setSelectedFilterName] = useState<string>("")
   const [selectedFilterValue] = useState<string>("")
-  const filterValues: string[] | undefined = filters.find((filter) => filter.filterName === selectedFilterName)?.values
+
+  // first filter gets the values, second one filters emtpy values
+  const filterValues: string[] | undefined = filters
+    .find((filter) => filter.filterName === selectedFilterName)
+    ?.values?.filter((value) => value)
 
   const handleValueChange = useCallback(
     (value: string) => {
