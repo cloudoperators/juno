@@ -6,14 +6,12 @@
 import React from "react"
 import { DataGridCell, DataGridRow, Badge } from "@cloudoperators/juno-ui-components"
 import { Peak } from "../../../mocks/db"
-import { getNumberColorStyle } from "../utils/getNumberColor"
 import PeaksListItemActions from "./PeaksListItemActions"
 import { useGlobalsActions } from "../../../store/StoreProvider"
-import useSelectedPeak from "../../../store/createSelectedPeakSlice" // Import the hook
 
 export interface PeaksListItemProps {
   peak: Peak
-  onSelect: (peak: Peak) => void
+  onSelect: () => void
 }
 
 const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
@@ -22,8 +20,6 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   const openPanel = () => {
     setCurrentPanel({ type: "ShowPeak", itemId: peak.id })
   }
-
-  const numberColorStyle = getNumberColorStyle(peak.safety?.status || "unknown")
 
   const hoverStyles =
     "p-6 transition-transform duration-500 transform group group-hover:scale-105 cursor-pointer group-hover:bg-theme-background-lvl-2 text-highest"

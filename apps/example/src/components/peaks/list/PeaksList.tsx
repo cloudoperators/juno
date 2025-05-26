@@ -80,7 +80,12 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
           </div>
         </DataGridHeadCell>
         <DataGridHeadCell>{PeakFields.NAME}</DataGridHeadCell>
-        <DataGridHeadCell>{PeakFields.HEIGHT}</DataGridHeadCell>
+        <DataGridHeadCell>
+          <div className="flex items-center">
+            <span className="mr-2">{PeakFields.HEIGHT}</span>
+            <HelpTooltip tooltipText={TooltipExplanation.HEIGHT} />
+          </div>
+        </DataGridHeadCell>
         <DataGridHeadCell>{PeakFields.RANGE}</DataGridHeadCell>
         <DataGridHeadCell>{PeakFields.REGION}</DataGridHeadCell>
         <DataGridHeadCell>{PeakFields.COUNTRY}</DataGridHeadCell>

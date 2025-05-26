@@ -107,6 +107,7 @@ const AlertsPage: React.FC = () => {
         </TabList>
         <Container px={false} py>
           <TabPanel>
+            {/* Note: This is simulated, an error occurs on purpose! */}
             {state.errorMessage && (
               <Message
                 text={state.errorMessage}

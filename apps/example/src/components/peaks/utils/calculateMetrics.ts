@@ -70,6 +70,8 @@ export const calculateMetrics = (peaks: Peak[]): Metrics => {
       label: PeakMetrics.HIGHEST,
       value: highestPeak.height,
       peakDetails: {
+        id: highestPeak.id,
+        variant: highestPeak.safety.variant,
         name: highestPeak.name,
         region: highestPeak.region,
         country: highestPeak.countries,
@@ -84,6 +86,8 @@ export const calculateMetrics = (peaks: Peak[]): Metrics => {
       label: PeakMetrics.LOWEST,
       value: lowestPeak.height,
       peakDetails: {
+        id: lowestPeak.id,
+        variant: lowestPeak.safety.variant,
         name: lowestPeak.name,
         region: lowestPeak.region,
         country: lowestPeak.countries,

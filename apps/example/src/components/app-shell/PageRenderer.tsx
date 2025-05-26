@@ -25,11 +25,17 @@ const PageRenderer: React.FC = () => {
 
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
 
-  const { isLoading, data = [] } = useQuery<Peak[]>({
+  // Query to fetch peaks mock data
+  const { isLoading, data: peaksData = [] } = useQuery<Peak[]>({
     queryKey: ["peaks"],
     enabled: queryClientFnReady,
-    onSuccess: setPeaks,
   })
+
+  useEffect(() => {
+    if (queryClientFnReady && peaksData.length > 0) {
+      setPeaks(peaksData) // Store fetched data in peaks store
+    }
+  }, [peaksData, setPeaks, queryClientFnReady])
 
   useEffect(() => {
     clearSelections() // Clear selections when navigation changes
@@ -59,6 +65,8 @@ const PageRenderer: React.FC = () => {
         return <CountriesPage peaks={peaks} onSelectCountry={(country) => setSelectedCountry(country)} />
       case Pages.ALERTS:
         return <AlertsPage />
+      default:
+        return null
     }
   }
 

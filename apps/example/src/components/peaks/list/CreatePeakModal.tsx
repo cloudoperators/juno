@@ -10,12 +10,8 @@ import PeakForm from "./PeakForm"
 interface CreatePeakModalProps {
   isOpen: boolean
   onClose: () => void
-  onConfirm: () => void
   title: string
 }
-
-const SAVE_LABEL = "Save"
-const CANCEL_LABEL = "Cancel"
 
 const CreatePeakModal: React.FC<CreatePeakModalProps> = ({ isOpen, onClose, title }) => (
   <Modal title={title} open={isOpen} modalFooter={undefined} size="large" closeable={false}>

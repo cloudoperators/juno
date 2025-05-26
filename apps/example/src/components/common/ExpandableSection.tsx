@@ -15,6 +15,8 @@ import {
   Badge,
 } from "@cloudoperators/juno-ui-components"
 import { Peak } from "../../mocks/db"
+import HelpTooltip from "./HelpTooltip"
+import { PeakFields, TooltipExplanation } from "../constants"
 
 interface ExpandableSectionProps {
   title: string
@@ -42,7 +44,12 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, var
           <DataGrid columns={4}>
             <DataGridRow>
               <DataGridHeadCell>Name</DataGridHeadCell>
-              <DataGridHeadCell>Height</DataGridHeadCell>
+              <DataGridHeadCell>
+                <div className="flex items-center">
+                  <strong className="mr-2">{PeakFields.HEIGHT}</strong>
+                  <HelpTooltip tooltipText={TooltipExplanation.HEIGHT} />
+                </div>
+              </DataGridHeadCell>
               <DataGridHeadCell>Main Range</DataGridHeadCell>
               <DataGridHeadCell>Region & Country</DataGridHeadCell>
             </DataGridRow>

@@ -6,23 +6,24 @@
 // NOTE: This is a custom component that doesn't exist in Juno UI. It showcases how custom theme colours can be applied.
 
 import React, { useState } from "react"
-import { Spinner, Modal, Icon } from "@cloudoperators/juno-ui-components"
+import { Spinner, Modal, Icon, Badge, Button, Stack } from "@cloudoperators/juno-ui-components"
 import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
-
 import ArrowUp from "../../assets/arrow_up.svg?react"
 import ArrowDown from "../../assets/arrow_down.svg?react"
 import Mountain from "../../assets/mountain.svg?react"
+import useNavigationStore from "../../store/useNavigationStore"
+import { Pages } from "../constants"
+import useSelectedPeak from "../../store/createSelectedPeakSlice"
 
-// TO DO: Make component more generic (if needed in the future) or move under peaks/ (if only specific to peaks)
-
-// TO DO: Reuse Peak type
 export interface PeakDetails {
+  id: number
   name: string
   region: string
   country: string
   height: string
   status: string
   recommendation: string
+  variant: string
 }
 
 export interface MetricsProps {
@@ -68,13 +69,14 @@ const MetricsBox: React.FC<MetricsProps> = ({
 }) => {
   const [modalVisible, setModalVisible] = useState(false)
 
+  const isClickable = peakType !== Metrics.TOTAL_PEAKS && peakType !== Metrics.TOTAL_COUNTRIES
+
   const handleBoxClick = () => {
-    if (!isLoading && peakDetails) {
+    if (!isLoading && peakDetails && isClickable) {
       setModalVisible(true)
     }
   }
 
-  // Get the appropriate class name for the status
   const colorClass = peakDetails ? getNumberColorStyle(peakDetails.status) : "text-theme-high"
 
   const baseStyles =
@@ -82,7 +84,7 @@ const MetricsBox: React.FC<MetricsProps> = ({
   const hoverStyles =
     "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-theme-high"
 
-  const boxStyles = [baseStyles, hoverable && !isLoading ? hoverStyles : ""].join(" ")
+  const boxStyles = [baseStyles, hoverable && !isLoading && isClickable ? hoverStyles : ""].join(" ")
 
   return (
     <>
@@ -98,7 +100,7 @@ const MetricsBox: React.FC<MetricsProps> = ({
       </div>
 
       <PeakModal
-        peakDetails={peakDetails}
+        peakDetails={peakDetails} // Ensure peakDetails includes ID
         colorClass={colorClass}
         modalVisible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -121,21 +123,32 @@ const PeakInfo: React.FC<{
     {isLoading ? (
       <Spinner />
     ) : (
-      <div className="flex items-center">
+      <Stack gap="2" className="flex items-center">
         {number && <span className={`text-3xl font-extrabold ${colorClass}`}>{number}</span>}
-        {peakDetails?.status && <span className={`text-sm font-bold ml-2 ${colorClass}`}>{peakDetails.status}</span>}
-      </div>
+        {peakDetails?.status && <span className={`text-sm font-bold ${colorClass}`}>{peakDetails.status}</span>}
+      </Stack>
     )}
   </div>
 )
 
-const PeakModal: React.FC<{
+export const PeakModal: React.FC<{
   peakDetails?: PeakDetails
   colorClass: string
   modalVisible: boolean
   onClose: () => void
-}> = ({ peakDetails, colorClass, modalVisible, onClose }) =>
-  modalVisible && peakDetails ? (
+}> = ({ peakDetails, colorClass, modalVisible, onClose }) => {
+  const { setCurrentPage } = useNavigationStore()
+  const { setSelectedPeakId } = useSelectedPeak()
+
+  const navigateToDetailPage = () => {
+    if (peakDetails) {
+      setSelectedPeakId(String(peakDetails.id))
+      setCurrentPage(Pages.PEAKS)
+      onClose()
+    }
+  }
+
+  return modalVisible && peakDetails ? (
     <Modal
       open={modalVisible}
       onCancel={onClose}
@@ -143,16 +156,26 @@ const PeakModal: React.FC<{
       title={`Details for ${peakDetails.name}, ${peakDetails.country}`}
       size="large"
     >
-      <h3 className="text-lg mb-3">
-        <span className={colorClass}>{`This Peak is ${peakDetails.status}!`}</span>
-      </h3>
-      <>
+      <div className="flex flex-col space-y-3">
+        <div className="flex items-center space-x-2">
+          <strong>Safety:</strong>
+          <Badge
+            icon
+            text={peakDetails.status}
+            variant={peakDetails.variant || "warning"}
+            style={{ width: "70px", textAlign: "center" }}
+          />
+        </div>
         <div>
           <strong>Height:</strong> {peakDetails.height}
         </div>
         <div>
           <strong>Recommendation:</strong> {peakDetails.recommendation}
         </div>
-      </>
+        <Button variant="primary" onClick={navigateToDetailPage}>
+          Go to Peaks Detail Page
+        </Button>
+      </div>
     </Modal>
   ) : null
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
   DataGridToolbar,
   Stack,
@@ -16,22 +16,20 @@ interface PeaksFilterToolbarProps {
   filterSelections: Record<string, string[]>
   droplistSelections: Record<string, string>
   selectedFilterKey: string | null
-  setSelectedFilterKey: (key: string) => void
+  setSelectedFilterKey: () => void
   availableOptions: Record<string, string[]>
-  addFilter: (key: string, value: string) => void
-  removeFilter: (key: string, value: string) => void
+  addFilter: () => void
+  removeFilter: () => void
   clearAllFilters: () => void
   searchTerm: string
-  setSearchTerm: (term: string) => void
+  setSearchTerm: () => void
   viewType: string
-  setViewType: (viewType: string) => void
+  setViewType: () => void
 }
 
 const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
-  filterKeys,
   filterSelections,
   droplistSelections,
-  selectedFilterKey,
   setSelectedFilterKey,
   availableOptions,
   addFilter,
@@ -42,77 +40,55 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
   viewType,
   setViewType,
 }) => {
-  const [filterLabel, setFilterLabel] = useState<string>("")
-  const [filterValue, setFilterValue] = useState<string>("")
-
-  const handleFilterChange = (label: string) => {
-    setFilterLabel(label)
-    setFilterValue("") // Reset filterValue when changing label
-  }
+  const filterLabel = "countries" // Focus on country filter only
+  const filterValue = filterSelections.countries?.[0] || ""
 
   const handleFilterValueChange = (value: string) => {
-    if (filterLabel && value) {
+    if (value) {
       addFilter(filterLabel, value)
-      setFilterValue("") // Reset filter value after adding
+      setSelectedFilterKey(value)
     }
   }
 
-  // Determine filter options based on the selected label and filter out already selected values
-  const filterOptions =
-    filterLabel !== ""
-      ? availableOptions[filterLabel]?.filter((value: string) => !filterSelections[filterLabel]?.includes(value))
-      : []
+  // Determine country options and filter out already selected values
+  const filterOptions = availableOptions[filterLabel]?.filter(
+    (value: string) => !filterSelections[filterLabel]?.includes(value)
+  )
 
   return (
-    <DataGridToolbar className="filter-label-select ml-0 jn-ml-0">
+    <DataGridToolbar className="jn-ml-0">
       <Stack
         direction="horizontal"
         alignment="center"
         gap="8"
-        className="m-0 jn-ml-0"
-        style={{ justifyContent: "space-between", width: "100%", margin: 0 }} // Ensure no left margin
+        style={{ justifyContent: "space-between", width: "100%", margin: 0 }}
       >
-        <InputGroup style={{ margin: 0 }}>
-          {/* Ensure no left margin */}
-          <Select
-            name="filter"
-            className="filter-label-select w-64 m-0 jn-ml-0"
-            label="Filter"
-            value={filterLabel}
-            onChange={handleFilterChange}
-            style={{ marginLeft: 0 }}
-          >
-            {filterKeys.map((filterKey) => (
-              <SelectOption key={filterKey} value={filterKey}>
-                {filterKey.charAt(0).toUpperCase() + filterKey.slice(1)}
-              </SelectOption>
-            ))}
-          </Select>
-          <Select
-            name="filterValue"
-            value={filterValue}
-            label="Filter Value"
-            onChange={handleFilterValueChange}
-            disabled={!filterLabel}
-            className="filter-value-select w-96 bg-theme-background-lvl-0"
-          >
-            {filterOptions.map((value: string) => (
-              <SelectOption key={value} value={value}>
-                {value}
-              </SelectOption>
-            ))}
-          </Select>
-          <Button icon="filterAlt" className="py-[0.3rem]" />
-        </InputGroup>
-        <Button label="Clear All" onClick={clearAllFilters} variant="subdued" />
-
         <SearchInput
-          placeholder="Search by name..."
+          placeholder="Search by Name..."
           value={searchTerm || ""}
-          className="w-96 ml-auto"
+          className="w-96"
           onSearch={(value: string) => setSearchTerm(value)}
           onClear={() => setSearchTerm("")}
         />
+        <Stack gap="2">
+          <InputGroup style={{ margin: 0 }}>
+            <Select
+              name="filterValue"
+              value={droplistSelections.countries || ""}
+              label="Filter by Country"
+              onChange={handleFilterValueChange}
+              className="filter-value-select w-96 bg-theme-background-lvl-0"
+            >
+              {filterOptions?.map((value: string) => (
+                <SelectOption key={value} value={value}>
+                  {value}
+                </SelectOption>
+              ))}
+            </Select>
+          </InputGroup>
+          <Button label="Clear All" onClick={clearAllFilters} variant="subdued" />
+        </Stack>
+
         <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
       </Stack>
       <Stack
@@ -121,16 +97,14 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
         alignment="center"
         style={{ justifyContent: "flex-start", width: "100%", marginLeft: 0 }}
       >
-        {Object.entries(filterSelections).map(([key, values]) =>
-          values.map((value, index) => (
-            <Pill
-              key={`${key}:${value}:${index}`}
-              pillValue={value}
-              closeable
-              onClose={() => removeFilter(key, value)}
-            />
-          ))
-        )}
+        {filterSelections.countries?.map((value, index) => (
+          <Pill
+            key={`${filterLabel}:${value}:${index}`}
+            pillValue={value}
+            closeable
+            onClose={() => removeFilter(filterLabel, value)}
+          />
+        ))}
       </Stack>
     </DataGridToolbar>
   )

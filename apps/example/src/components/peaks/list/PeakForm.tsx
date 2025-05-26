@@ -71,7 +71,6 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
   const [errors, setErrors] = useState<Partial<FormState>>({})
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [backendError, setBackendError] = useState(false)
   const [isSaveEnabled, setIsSaveEnabled] = useState(false)
 
@@ -125,17 +124,6 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
     }
   }
 
-  // Confirm cancellation
-  const handleModalConfirm = () => {
-    setIsModalOpen(false)
-    closeCallback()
-  }
-
-  // Continue editing, dismiss modal
-  const handleKeepEditing = () => {
-    setIsModalOpen(false)
-  }
-
   return (
     <PanelBody
       footer={
@@ -153,6 +141,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
         </PanelFooter>
       }
     >
+      {/* Note: This is simulated, an error occurs on purpose! */}
       {errorMessage && <Message title={Errors.CREATION_FAILURE} text={errorMessage} variant="error" className="mb-5" />}
       <IntroBox text={Hints.MANDATORY_FIELD_SYMBOL} />
       <Form>
@@ -181,20 +170,6 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
           </FormRow>
         ))}
       </Form>
-      <Modal
-        title={Labels.UNSAVED_CHANGES}
-        open={isModalOpen}
-        modalFooter={
-          <ModalFooter className="jn-justify-between jn-items-center" style={{ justifyContent: "flex-end" }}>
-            <Stack gap="2">
-              <Button label={Labels.KEEP_EDITING} variant="subdued" onClick={handleKeepEditing} />
-              <Button label={Labels.DISCARD} variant="primary-danger" onClick={handleModalConfirm} />
-            </Stack>
-          </ModalFooter>
-        }
-      >
-        <div>{Hints.UNSAVED_CHANGES}</div>
-      </Modal>
     </PanelBody>
   )
 }

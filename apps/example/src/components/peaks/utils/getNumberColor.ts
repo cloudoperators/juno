@@ -4,7 +4,7 @@
  */
 
 export const getNumberColorStyle = (status: string) => {
-  switch (status.toLowerCase()) {
+  switch (status?.toLowerCase()) {
     case "safe":
       return "text-theme-success" // Green
     case "caution":

@@ -45,7 +45,8 @@ const PeaksListItemActions: React.FC<PeaksListItemProps> = ({ peak }) => {
         {showToast && (
           <Toast
             onDismiss={handleToastDismiss}
-            text={`${peak.name} was deleted.`}
+            text={`Failed to delete ${peak.name}.`}
+            variant="error"
             style={{ position: "fixed", top: "20px", right: "20px", zIndex: 1000 }}
           />
         )}

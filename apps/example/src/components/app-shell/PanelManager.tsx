@@ -11,6 +11,8 @@ import useNavigationStore from "../../store/useNavigationStore"
 import useSelectedPeak from "../../store/createSelectedPeakSlice"
 import { Panels, Pages } from "../constants"
 import PeakForm from "../peaks/list/PeakForm"
+import { PeakFields, TooltipExplanation } from "../constants"
+import HelpTooltip from "../common/HelpTooltip"
 
 type CurrentPanelType = (typeof Panels)[keyof typeof Panels]
 
@@ -39,7 +41,6 @@ const PanelManager: React.FC = () => {
   const closePanel = (): void => setCurrentPanel(null)
 
   const peakDetails = currentPanel?.itemId ? peaks.find((peak) => peak.id === Number(currentPanel.itemId)) : null
-  console.log("HERE" + peakDetails)
   const navigateToDetailPage = () => {
     if (peakDetails) {
       setSelectedPeakId(String(peakDetails.id))
@@ -57,7 +58,6 @@ const PanelManager: React.FC = () => {
     }
   }
 
-  console.log("Peak Details:", peakDetails)
   const renderPanelContent = (): React.ReactNode => {
     switch (currentPanel?.type) {
       case Panels.EDIT_PEAKS:
@@ -67,15 +67,12 @@ const PanelManager: React.FC = () => {
           <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
             {peakDetails && (
               <DataGrid columns={2} style={{ gridTemplateColumns: "30% 70%", margin: "20px" }}>
-                <DataGridRow key="height" style={{ padding: "10px 0" }}>
-                  <DataGridCell>
-                    <strong>Height</strong>
-                  </DataGridCell>
-                  <DataGridCell>{peakDetails.height}</DataGridCell>
-                </DataGridRow>
                 <DataGridRow key="safety-status" style={{ padding: "10px 0" }}>
                   <DataGridCell>
-                    <strong>Safety Status</strong>
+                    <div className="flex items-center">
+                      <strong className="mr-2">{PeakFields.SAFETY}</strong>
+                      <HelpTooltip tooltipText={TooltipExplanation.SAFETY_STATUS} />
+                    </div>
                   </DataGridCell>
                   <DataGridCell>
                     <Badge
@@ -85,22 +82,31 @@ const PanelManager: React.FC = () => {
                       style={{ width: "70px", textAlign: "center" }}
                     />
                   </DataGridCell>
+                  <DataGridRow key="height" style={{ padding: "10px 0" }}>
+                    <DataGridCell>
+                      <div className="flex items-center">
+                        <strong className="mr-2">{PeakFields.HEIGHT}</strong>
+                        <HelpTooltip tooltipText={TooltipExplanation.HEIGHT} />
+                      </div>
+                    </DataGridCell>
+                    <DataGridCell>{peakDetails.height}</DataGridCell>
+                  </DataGridRow>
                 </DataGridRow>
                 <DataGridRow key="mainrange" style={{ padding: "10px 0" }}>
                   <DataGridCell>
-                    <strong>Main Range</strong>
+                    <strong>{PeakFields.RANGE}</strong>
                   </DataGridCell>
                   <DataGridCell>{peakDetails.mainrange}</DataGridCell>
                 </DataGridRow>
                 <DataGridRow key="region" style={{ padding: "10px 0" }}>
                   <DataGridCell>
-                    <strong>Region</strong>
+                    <strong>{PeakFields.REGION}</strong>
                   </DataGridCell>
                   <DataGridCell>{peakDetails.region}</DataGridCell>
                 </DataGridRow>
                 <DataGridRow key="countries" style={{ padding: "10px 0" }}>
                   <DataGridCell>
-                    <strong>Countries</strong>
+                    <strong>{PeakFields.COUNTRY}</strong>
                   </DataGridCell>
                   <DataGridCell>{peakDetails.countries}</DataGridCell>
                 </DataGridRow>

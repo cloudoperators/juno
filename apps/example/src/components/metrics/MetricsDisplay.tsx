@@ -16,17 +16,19 @@ interface MetricsDisplayProps {
 
 const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ metrics }) => (
   <Stack direction="horizontal" gap="6" distribution="between">
-    {metrics.map((metric, index) => (
-      <MetricsBox
-        key={index}
-        label={metric.label}
-        number={metric.value}
-        peakDetails={metric.peakDetails}
-        hoverable={metric.hoverable}
-        peakType={metric.peakType}
-        isLoading={metric.isLoading}
-      />
-    ))}
+    {metrics.map((metric, index) => {
+      return (
+        <MetricsBox
+          key={index}
+          label={metric.label}
+          number={metric.value}
+          peakDetails={metric.peakDetails}
+          hoverable={metric.hoverable}
+          peakType={metric.peakType}
+          isLoading={metric.isLoading}
+        />
+      )
+    })}
   </Stack>
 )
 
