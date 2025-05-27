@@ -10,12 +10,12 @@ import {
   Button,
   Stack,
   Message,
-  Modal,
-  ModalFooter,
   Form,
   IntroBox,
   TextInput,
   FormRow,
+  Tooltip,
+  Icon,
 } from "@cloudoperators/juno-ui-components"
 import { validateFormField } from "../utils/validateFormFields"
 import { PeakFields } from "../../constants"
@@ -45,15 +45,11 @@ const Errors = {
 
 const Hints = {
   MANDATORY_FIELD_SYMBOL: "Mandatory fields are marked with a blue circle.",
-  UNSAVED_CHANGES: "You have unsaved changes. Are you sure you want to close and discard them?",
 }
 
 const Labels = {
   CANCEL: "Cancel",
   SAVE: "Save",
-  KEEP_EDITING: "Keep Editing",
-  DISCARD: "Discard Changes",
-  UNSAVED_CHANGES: "Unsaved Changes",
 }
 
 const INITIAL_VALUES: FormState = {
@@ -72,34 +68,37 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [backendError, setBackendError] = useState(false)
+  const [isTyping, setIsTyping] = useState<Record<keyof FormState, boolean>>({})
   const [isSaveEnabled, setIsSaveEnabled] = useState(false)
 
-  // Determine if the form has changed
-  const isFormChanged = useCallback(
-    () => JSON.stringify(formState) !== JSON.stringify(initialValues),
-    [formState, initialValues]
-  )
+  const requiredFields: Array<keyof FormState> = ["name", "height", "mainrange", "region", "countries"]
 
-  // Enable Save once any form field changes
-  const debouncedValidation = useDebounce(() => {
-    setIsSaveEnabled(isFormChanged())
-  }, 300)
+  const isFormChanged = useCallback(() => {
+    return JSON.stringify(formState) !== JSON.stringify(initialValues)
+  }, [formState, initialValues])
+
+  const updateSaveEnabled = useCallback(() => {
+    const hasErrors = requiredFields.some((field) => validateFormField(field, formState[field] || ""))
+    setIsSaveEnabled(!hasErrors && isFormChanged() && !errors.url)
+  }, [formState, isFormChanged, errors.url])
+
+  const debouncedSaveUpdate = useDebounce(updateSaveEnabled, 300)
 
   useEffect(() => {
-    debouncedValidation()
-  }, [formState, debouncedValidation])
+    debouncedSaveUpdate()
+  }, [formState, errors, debouncedSaveUpdate])
 
   const handleAttrChange = (key: keyof FormState, value: string) => {
     setFormState((prevState) => ({ ...prevState, [key]: value }))
-    if (key === "name") {
-      setBackendError(false)
-    }
-    setIsSaveEnabled(true)
+    setIsTyping((prev) => ({ ...prev, [key]: true })) // Start typing
+
+    debouncedSaveUpdate()
   }
 
   const handleFieldBlur = (key: keyof FormState) => {
     const errorMsg = validateFormField(key, formState[key] || "")
     setErrors((prevErrors) => ({ ...prevErrors, [key]: errorMsg }))
+    setIsTyping((prev) => ({ ...prev, [key]: false })) // Only show error if not typing
   }
 
   const handleSubmit = () => {
@@ -107,7 +106,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
     setLoading(true)
     setErrorMessage(null)
 
-    // Simulate API call
+    // Simulate API call for error message
     setTimeout(() => {
       setLoading(false)
       setBackendError(true)
@@ -115,14 +114,13 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
     }, 2000)
   }
 
-  // Handle Cancel operation, showing modal only if form has changed
   const handleCloseClick = () => {
-    if (isFormChanged()) {
-      setIsModalOpen(true)
-    } else {
-      closeCallback()
-    }
+    closeCallback()
   }
+
+  const renderTooltip = (message: string) => (
+    <Tooltip trigger={<Icon name="info" size="small" />} position="bottom" content={<span>{message}</span>} />
+  )
 
   return (
     <PanelBody
@@ -160,12 +158,13 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
               value={formState[key as keyof FormState] || ""}
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleAttrChange(key as keyof FormState, e.target.value)}
               onBlur={() => handleFieldBlur(key as keyof FormState)}
-              errortext={errors[key as keyof FormState]}
+              errortext={!isTyping[key] && errors[key as keyof FormState] ? errors[key as keyof FormState] : undefined}
               maxLength={200}
               disabled={loading}
               required={required}
               autoFocus={autoFocus}
               invalid={invalid}
+              icon={errors[key as keyof FormState] ? renderTooltip(errors[key as keyof FormState]!) : undefined}
             />
           </FormRow>
         ))}

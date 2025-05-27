@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from "react"
-import { Box, CodeBlock, JsonViewer, Badge } from "@cloudoperators/juno-ui-components"
+import { Box, CodeBlock, JsonViewer, Badge, PortalProvider, Toast } from "@cloudoperators/juno-ui-components"
 
 import Section from "../common/Section"
 import DataRow from "../common/DataRow"
@@ -22,12 +22,11 @@ interface PeakDetailPageProps {
   onBack: () => void
 }
 
-// Needs refactoring
-
 const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ peak, onBack }) => {
   const [isJsonView, setIsJsonView] = useState<boolean>(false)
-  const { handleEdit, handleDelete } = usePeakActions({ onBack })
+  const { handleEdit, handleDelete } = usePeakActions()
   const { isModalOpen, openModal, closeModal } = useModal()
+  const [showToast, setShowToast] = useState(false)
 
   const formatHeight = (height: string | number): string => {
     const numericHeight = typeof height === "number" ? height : parseInt(height, 10)
@@ -39,6 +38,14 @@ const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ peak, onBack }) => {
     { label: "Safety", value: peak.safety.status },
     { label: "Location", value: `${peak.region}, ${peak.countries}` },
   ]
+
+  const handleDeletePeak = () => {
+    closeModal()
+    setShowToast(true)
+    handleDelete()
+  }
+
+  const handleToastDismiss = () => setShowToast(false)
 
   return (
     <DetailLayout
@@ -170,9 +177,20 @@ const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ peak, onBack }) => {
       <DeleteConfirmationModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        onConfirm={() => handleDelete()}
+        onConfirm={handleDeletePeak}
         title="Confirm Delete"
       />
+
+      <PortalProvider.Portal>
+        {showToast && (
+          <Toast
+            onDismiss={handleToastDismiss}
+            text={`Failed to delete ${peak.name}.`}
+            variant="error"
+            style={{ position: "fixed", top: "20px", right: "20px", zIndex: 1000 }}
+          />
+        )}
+      </PortalProvider.Portal>
     </DetailLayout>
   )
 }

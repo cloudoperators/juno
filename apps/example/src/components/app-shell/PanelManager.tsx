@@ -137,7 +137,7 @@ const PanelManager: React.FC = () => {
                 }}
                 style={{ cursor: "pointer" }}
               >
-                Go to Peaks Detail Page
+                Open Detail Page
               </Button>
             </div>
           </div>
