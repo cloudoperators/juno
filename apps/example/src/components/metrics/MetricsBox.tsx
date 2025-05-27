@@ -88,7 +88,7 @@ const MetricsBox: React.FC<MetricsProps> = ({
 
   return (
     <>
-      <div className={boxStyles} onClick={handleBoxClick} style={{ borderWidth: "1px", borderRadius: "0px" }}>
+      <div className={`border ${boxStyles}`} onClick={handleBoxClick}>
         {renderIcon(peakType)}
         <PeakInfo
           label={label}
@@ -156,7 +156,7 @@ export const PeakModal: React.FC<{
       title={`Details for ${peakDetails.name}, ${peakDetails.country}`}
       size="large"
       modalFooter={
-        <ModalFooter style={{ justifyContent: "flex-end" }}>
+        <ModalFooter className="flex justify-end">
           <ButtonRow>
             <Button onClick={onClose} label={"Cancel"} />
             <Button variant="primary" onClick={navigateToDetailPage}>
@@ -173,7 +173,7 @@ export const PeakModal: React.FC<{
             icon
             text={peakDetails.status}
             variant={peakDetails.variant || "warning"}
-            style={{ width: "70px", textAlign: "center" }}
+            className="w-[70px] text-center"
           />
         </div>
         <div>

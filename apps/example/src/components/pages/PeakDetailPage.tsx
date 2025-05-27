@@ -83,7 +83,7 @@ const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ peak, onBack }) => {
                     icon
                     text={peak.safety.status || "N/A"}
                     variant={peak.safety.variant || "info"}
-                    style={{ width: "70px", textAlign: "center" }}
+                    className="w-[70px] text-center"
                   />
                 }
                 tooltipText={TooltipExplanation.SAFETY_STATUS}
@@ -187,7 +187,7 @@ const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ peak, onBack }) => {
             onDismiss={handleToastDismiss}
             text={`Failed to delete ${peak.name}.`}
             variant="error"
-            style={{ position: "fixed", top: "20px", right: "20px", zIndex: 1000 }}
+            className="fixed top-5 right-5 z-50"
           />
         )}
       </PortalProvider.Portal>

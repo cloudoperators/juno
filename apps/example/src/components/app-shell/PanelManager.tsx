@@ -54,10 +54,10 @@ const PanelManager: React.FC = () => {
         return <PeakForm initialValues={peakDetails || INITAL_PLACEHOLDER_PEAK_DATA} closeCallback={closePanel} />
       case Panels.SHOW_PEAK:
         return (
-          <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+          <div className="flex flex-col h-full">
             {peakDetails && (
-              <DataGrid columns={2} style={{ gridTemplateColumns: "30% 70%", margin: "20px" }}>
-                <DataGridRow key="safety-status" style={{ padding: "10px 0" }}>
+              <DataGrid columns={2} className="grid grid-cols-[30%_70%] m-5">
+                <DataGridRow key="safety-status" className="py-2.5">
                   <DataGridCell>
                     <div className="flex items-center">
                       <strong className="mr-2">{PeakFields.SAFETY}</strong>
@@ -69,44 +69,44 @@ const PanelManager: React.FC = () => {
                       icon
                       text={peakDetails.safety.status}
                       variant={peakDetails.safety.variant}
-                      style={{ width: "70px", textAlign: "center" }}
+                      className="w-[70px] text-center"
                     />
                   </DataGridCell>
-                  <DataGridRow key="height" style={{ padding: "10px 0" }}>
-                    <DataGridCell>
-                      <div className="flex items-center">
-                        <strong className="mr-2">{PeakFields.HEIGHT}</strong>
-                        <HelpTooltip tooltipText={TooltipExplanation.HEIGHT} />
-                      </div>
-                    </DataGridCell>
-                    <DataGridCell>{peakDetails.height}</DataGridCell>
-                  </DataGridRow>
                 </DataGridRow>
-                <DataGridRow key="mainrange" style={{ padding: "10px 0" }}>
+                <DataGridRow key="height" className="py-2.5">
+                  <DataGridCell>
+                    <div className="flex items-center">
+                      <strong className="mr-2">{PeakFields.HEIGHT}</strong>
+                      <HelpTooltip tooltipText={TooltipExplanation.HEIGHT} />
+                    </div>
+                  </DataGridCell>
+                  <DataGridCell>{peakDetails.height}</DataGridCell>
+                </DataGridRow>
+                <DataGridRow key="mainrange" className="py-2.5">
                   <DataGridCell>
                     <strong>{PeakFields.RANGE}</strong>
                   </DataGridCell>
                   <DataGridCell>{peakDetails.mainrange}</DataGridCell>
                 </DataGridRow>
-                <DataGridRow key="region" style={{ padding: "10px 0" }}>
+                <DataGridRow key="region" className="py-2.5">
                   <DataGridCell>
                     <strong>{PeakFields.REGION}</strong>
                   </DataGridCell>
                   <DataGridCell>{peakDetails.region}</DataGridCell>
                 </DataGridRow>
-                <DataGridRow key="countries" style={{ padding: "10px 0" }}>
+                <DataGridRow key="countries" className="py-2.5">
                   <DataGridCell>
                     <strong>{PeakFields.COUNTRY}</strong>
                   </DataGridCell>
                   <DataGridCell>{peakDetails.countries}</DataGridCell>
                 </DataGridRow>
-                <DataGridRow key="details" style={{ padding: "10px 0" }}>
+                <DataGridRow key="details" className="py-2.5">
                   <DataGridCell>
                     <strong>Details</strong>
                   </DataGridCell>
                   <DataGridCell>{peakDetails.details}</DataGridCell>
                 </DataGridRow>
-                <DataGridRow key="more-info" style={{ padding: "10px 0" }}>
+                <DataGridRow key="more-info" className="py-2.5">
                   <DataGridCell>
                     <strong>More Info</strong>
                   </DataGridCell>
@@ -118,14 +118,14 @@ const PanelManager: React.FC = () => {
                 </DataGridRow>
               </DataGrid>
             )}
-            <div style={{ textAlign: "center", marginTop: "auto", padding: "30px" }}>
+            <div className="text-center mt-auto p-8">
               <Button
                 variant="primary"
                 onClick={(e) => {
                   e.preventDefault()
-                  navigateToDetailPage() // Navigate to detailed peak page
+                  navigateToDetailPage()
                 }}
-                style={{ cursor: "pointer" }}
+                className="cursor-pointer"
               >
                 Open Detail Page
               </Button>

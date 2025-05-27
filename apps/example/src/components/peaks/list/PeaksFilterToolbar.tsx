@@ -57,12 +57,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
 
   return (
     <DataGridToolbar className="jn-ml-0">
-      <Stack
-        direction="horizontal"
-        alignment="center"
-        gap="8"
-        style={{ justifyContent: "space-between", width: "100%", margin: 0 }}
-      >
+      <Stack direction="horizontal" alignment="center" gap="8">
         <SearchInput
           placeholder="Search by Name..."
           value={searchTerm || ""}
@@ -71,7 +66,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
           onClear={() => setSearchTerm("")}
         />
         <Stack gap="2">
-          <InputGroup style={{ margin: 0 }}>
+          <InputGroup>
             <Select
               name="filterValue"
               value={droplistSelections.countries || ""}
@@ -91,12 +86,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
 
         <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
       </Stack>
-      <Stack
-        direction="horizontal"
-        gap="4"
-        alignment="center"
-        style={{ justifyContent: "flex-start", width: "100%", marginLeft: 0 }}
-      >
+      <Stack direction="horizontal" gap="4" alignment="center" className="justify-start w-full ml-0">
         {filterSelections.countries?.map((value, index) => (
           <Pill
             key={`${filterLabel}:${value}:${index}`}

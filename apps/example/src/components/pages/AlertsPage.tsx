@@ -45,11 +45,6 @@ interface AlertsPageState {
   errorMessage: string | null
 }
 
-const switchContainerStyle: React.CSSProperties = {
-  position: "absolute",
-  right: "5rem",
-}
-
 // Needs refactoring
 
 const AlertsPage: React.FC = () => {
@@ -118,7 +113,7 @@ const AlertsPage: React.FC = () => {
               />
             )}
             {/* Alert Form Panel */}
-            <div style={switchContainerStyle}>
+            <div className="absolute right-20">
               <Switch
                 id="alerts-toggle"
                 label={state.alertsEnabled ? "Alerts ON" : "Alerts OFF"}

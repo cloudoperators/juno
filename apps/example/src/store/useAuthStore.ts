@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable no-unused-vars */
-
 import { create } from "zustand"
 
 interface AuthState {
   loggedIn: boolean
+  // eslint-disable-next-line no-unused-vars
   setLoggedIn: (loggedIn: boolean) => void
 }
 

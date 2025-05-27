@@ -28,14 +28,13 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
     <>
       <DataGridRow className={hoverStyles}>
         <DataGridCell className={hoverStyles} onClick={() => openPanel()}>
-          <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+          <div className="flex justify-start items-center">
             {peak.safety && (
               <Badge
                 icon
                 text={peak.safety.status}
                 variant={peak.safety.variant}
-                className="cursor-pointer"
-                style={{ minWidth: "70px", textAlign: "center" }}
+                className="cursor-pointer min-w-[70px] text-center"
               />
             )}
           </div>
@@ -57,7 +56,7 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
         <DataGridCell className={hoverStyles} onClick={() => openPanel()}>
           {peak.countries}
         </DataGridCell>
-        <DataGridCell className={hoverStyles} style={{ paddingTop: "20px", paddingBottom: "20px" }}>
+        <DataGridCell className={`pt-5 pb-5 ${hoverStyles}`}>
           <PeaksListItemActions peak={peak} onSelect={onSelect} />
         </DataGridCell>
       </DataGridRow>

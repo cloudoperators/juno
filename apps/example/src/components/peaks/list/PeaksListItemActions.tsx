@@ -47,7 +47,7 @@ const PeaksListItemActions: React.FC<PeaksListItemProps> = ({ peak }) => {
             onDismiss={handleToastDismiss}
             text={`Failed to delete ${peak.name}.`}
             variant="error"
-            style={{ position: "fixed", top: "20px", right: "20px", zIndex: 1000 }}
+            className="fixed top-5 right-5 z-50"
           />
         )}
       </PortalProvider.Portal>

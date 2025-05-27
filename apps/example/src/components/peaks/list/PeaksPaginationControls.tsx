@@ -16,7 +16,7 @@ interface PeaksPaginationControlsProps {
 }
 
 const PeaksPaginationControls: React.FC<PeaksPaginationControlsProps> = ({ currentPage, setCurrentPage, pages }) => (
-  <div style={{ display: "flex", justifyContent: "center", padding: "1rem 0" }}>
+  <div className="flex justify-center py-4">
     <Pagination
       currentPage={currentPage}
       onPressNext={() => setCurrentPage(Math.min(currentPage + 1, pages))}

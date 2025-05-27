@@ -11,7 +11,8 @@ h-8
 w-8
 bg-theme-background-lvl-2
 rounded-full
-bg-cover 
+bg-no-repeat
+bg-cover
 `
 
 interface HeaderAvatarProps {
@@ -25,8 +26,7 @@ const HeaderAvatar: React.FC<HeaderAvatarProps> = ({ userName, url }) => {
       {url && (
         <div
           style={{
-            background: `url(${url}) no-repeat`,
-            backgroundSize: `cover`,
+            backgroundImage: `url(${url})`,
           }}
           className={avatarStyles}
         />
