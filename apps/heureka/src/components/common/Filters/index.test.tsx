@@ -4,9 +4,10 @@
  */
 
 import React from "react"
-import { cleanup, render, screen, waitFor } from "@testing-library/react"
+import { cleanup, render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Filters, FiltersProps } from "./index"
+import { AppShellProvider } from "@cloudoperators/juno-ui-components/index"
 
 const filters = [
   {
@@ -33,7 +34,11 @@ const filterSettings = {
 
 const renderShell = ({ filters, filterSettings, onFilterChange }: FiltersProps) => ({
   user: userEvent.setup(),
-  ...render(<Filters filters={filters} filterSettings={filterSettings} onFilterChange={onFilterChange} />),
+  ...render(
+    <AppShellProvider shadowRoot={false}>
+      <Filters filters={filters} filterSettings={filterSettings} onFilterChange={onFilterChange} />
+    </AppShellProvider>
+  ),
 })
 
 class ResizeObserver {
@@ -59,34 +64,11 @@ describe("Filters", () => {
     vi.clearAllMocks()
   })
 
-  it("should select filter and filter value", async () => {
-    const onFilterChangeSpy = vi.fn()
-    const { user } = renderShell({ filters, filterSettings, onFilterChange: onFilterChangeSpy })
-
-    // get filter toggle button
-    const filterToggle = screen.getByRole("button", {
-      name: /filter filter/i,
-    })
-    // expand filter select options
-    await waitFor(() => user.click(filterToggle))
-    // select filter option
-    await user.click(screen.getByText("Region"))
-
-    // get filter value toggle button
-    const filterValueToggle = screen.getByRole("button", {
-      name: /select… expand more/i,
-    })
-    // expand filter value select options
-    await waitFor(() => user.click(filterValueToggle))
-    // select filter value
-    await user.click(screen.getByText("Europe"))
-
-    expect(onFilterChangeSpy).toHaveBeenLastCalledWith(
-      expect.objectContaining({
-        selectedFilters: [{ name: "region", value: "Europe" }],
-        searchTerm: "",
-      })
-    )
+  it("renders the component with search, select and combobox", () => {
+    renderShell({ filters, filterSettings, onFilterChange: vi.fn() })
+    expect(screen.getByTestId("select-filterValue")).toBeInTheDocument()
+    expect(screen.getByTestId("combobox-filterValue")).toBeInTheDocument()
+    expect(screen.getByTestId("searchbar")).toBeInTheDocument()
   })
 
   it("should allow filtering by text", async () => {
@@ -98,6 +80,28 @@ describe("Filters", () => {
       expect.objectContaining({
         selectedFilters: [],
         searchTerm: "Europe",
+      })
+    )
+  })
+
+  it("should select filter and filter value", async () => {
+    const onFilterChangeSpy = vi.fn()
+    const { user } = renderShell({ filters, filterSettings, onFilterChange: onFilterChangeSpy })
+
+    const filterSelect = screen.getByTestId("select-filterValue")
+    await user.click(filterSelect)
+    await user.click(screen.getByTestId("region"))
+
+    const valueComboBox = screen.getByTestId("combobox-filterValue").getElementsByClassName("juno-combobox-toggle")[0]
+    await user.click(valueComboBox)
+
+    expect(screen.getByTestId("Europe")).toBeInTheDocument()
+    await user.click(screen.getByTestId("Europe"))
+
+    expect(onFilterChangeSpy).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        selectedFilters: [{ name: "region", value: "Europe" }],
+        searchTerm: "",
       })
     )
   })

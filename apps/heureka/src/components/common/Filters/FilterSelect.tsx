@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useState } from "react"
-import { isEmpty, values } from "lodash"
+import { isEmpty } from "lodash"
 import {
   Button,
   InputGroup,
@@ -14,7 +14,7 @@ import {
   Select,
   Stack,
 } from "@cloudoperators/juno-ui-components"
-import { DropdownValue, Filter, SelectedFilter } from "./types"
+import { Filter, SelectedFilter } from "./types"
 
 type FilterSelectProps = {
   filters: Filter[]
@@ -48,6 +48,7 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
         <Select
           className="filter-label-select w-64 mb-0"
           name="filter"
+          data-testid="select-filterValue"
           label="Filter"
           value={selectedFilterName}
           onChange={(value) => {
@@ -55,16 +56,17 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
           }}
         >
           {filters?.map(({ displayName, filterName }) => (
-            <SelectOption value={filterName} label={displayName} key={filterName} />
+            <SelectOption value={filterName} label={displayName} key={filterName} data-testid={filterName} />
           ))}
         </Select>
         <ComboBox
           className="filter-value-select w-64 bg-theme-background-lvl-0"
           name="filterValue"
+          data-testid="combobox-filterValue"
           value={selectedFilterValue}
           onChange={handleValueChange}
         >
-          {filterValues?.map((value) => <ComboBoxOption value={value} key={value} />)}
+          {filterValues?.map((value) => <ComboBoxOption value={value} key={value} label={value} data-testid={value} />)}
         </ComboBox>
         <Button icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
