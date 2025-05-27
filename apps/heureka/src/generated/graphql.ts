@@ -1853,22 +1853,6 @@ export type GetServicesQuery = {
   } | null
 }
 
-export type GetServicesIssuesCountsQueryVariables = Exact<{
-  filter?: InputMaybe<IssueFilter>
-}>
-
-export type GetServicesIssuesCountsQuery = {
-  __typename?: "Query"
-  IssueCounts?: {
-    __typename?: "SeverityCounts"
-    critical: number
-    high: number
-    medium: number
-    low: number
-    none: number
-  } | null
-}
-
 export const GetServiceFiltersDocument = gql`
   query GetServiceFilters {
     ServiceFilterValues {
@@ -2280,67 +2264,3 @@ export type GetServicesQueryHookResult = ReturnType<typeof useGetServicesQuery>
 export type GetServicesLazyQueryHookResult = ReturnType<typeof useGetServicesLazyQuery>
 export type GetServicesSuspenseQueryHookResult = ReturnType<typeof useGetServicesSuspenseQuery>
 export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
-export const GetServicesIssuesCountsDocument = gql`
-  query getServicesIssuesCounts($filter: IssueFilter) {
-    IssueCounts(filter: $filter) {
-      critical
-      high
-      medium
-      low
-      none
-    }
-  }
-`
-
-/**
- * __useGetServicesIssuesCountsQuery__
- *
- * To run a query within a React component, call `useGetServicesIssuesCountsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetServicesIssuesCountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetServicesIssuesCountsQuery({
- *   variables: {
- *      filter: // value for 'filter'
- *   },
- * });
- */
-export function useGetServicesIssuesCountsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>(
-    GetServicesIssuesCountsDocument,
-    options
-  )
-}
-export function useGetServicesIssuesCountsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>(
-    GetServicesIssuesCountsDocument,
-    options
-  )
-}
-export function useGetServicesIssuesCountsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>
-) {
-  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetServicesIssuesCountsQuery, GetServicesIssuesCountsQueryVariables>(
-    GetServicesIssuesCountsDocument,
-    options
-  )
-}
-export type GetServicesIssuesCountsQueryHookResult = ReturnType<typeof useGetServicesIssuesCountsQuery>
-export type GetServicesIssuesCountsLazyQueryHookResult = ReturnType<typeof useGetServicesIssuesCountsLazyQuery>
-export type GetServicesIssuesCountsSuspenseQueryHookResult = ReturnType<typeof useGetServicesIssuesCountsSuspenseQuery>
-export type GetServicesIssuesCountsQueryResult = Apollo.QueryResult<
-  GetServicesIssuesCountsQuery,
-  GetServicesIssuesCountsQueryVariables
->

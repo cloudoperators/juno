@@ -10,6 +10,16 @@ import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { ServicesList } from "./index"
 import { TestProvider } from "../../../mocks/TestProvider"
 
+// Mock tanstack router
+vi.mock("@tanstack/react-router", () => ({
+  useNavigate: () => vi.fn(),
+  useRouter: () => ({
+    state: {},
+    navigate: vi.fn(),
+    location: { pathname: "", search: "", hash: "" },
+  }),
+}))
+
 const renderServicesList = () => ({
   user: userEvent.setup(),
   ...render(

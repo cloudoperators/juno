@@ -3,19 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useState, useEffect } from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack, Spinner } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import { useNavigate } from "@tanstack/react-router"
 import { ServiceListItem } from "./ServiceListItem"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow"
 import { ServicePanel } from "./ServicePanel"
-import { useDispatch } from "../../../store/StoreProvider"
-import { ActionType, UserView } from "../../../store/StoreProvider/types"
 import { ServiceType } from "../../types"
 
 const COLUMN_SPAN = 8
 
 type ServiceListProps = {
+  defaultSelectService?: string
   services: ServiceType[]
   loading: boolean
   error: string | null
@@ -25,6 +25,7 @@ type ServiceListProps = {
 }
 
 export const ServicesList = ({
+  defaultSelectService,
   services,
   loading,
   error,
@@ -32,28 +33,40 @@ export const ServicesList = ({
   totalNumberOfPages,
   goToPage,
 }: ServiceListProps) => {
-  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
 
-  const handleServiceOverviewOpen = useCallback((service: ServiceType) => {
+  const openServiceOverviewPanel = useCallback((service: ServiceType) => {
     setSelectedOverviewService((prev) => (prev?.id === service.id ? null : service))
-  }, [])
-
-  const handlePanelClose = useCallback(() => {
-    setSelectedOverviewService(null)
-  }, [])
-
-  const goToServiceDetails = useCallback((service: ServiceType) => {
-    dispatch({
-      type: ActionType.SelectView,
-      payload: {
-        viewId: UserView.ServiceDetails,
-        params: {
-          service,
-        },
+    navigate({
+      to: "/services",
+      search: {
+        service: service.name,
       },
     })
   }, [])
+
+  const closeServiceOverviewPanel = useCallback(() => {
+    setSelectedOverviewService(null)
+    navigate({
+      to: "/services",
+    })
+  }, [])
+
+  const goToServiceDetailsPage = useCallback((service: ServiceType) => {
+    navigate({
+      to: "/services/$service",
+      params: { service: service.name },
+    })
+  }, [])
+
+  /*
+   * TODO: Refactor this component later so it gets selectedOverviewService as a prop
+   * and then we can remove this effect that keeps selectedOverviewService in sync
+   */
+  useEffect(() => {
+    setSelectedOverviewService(services.find((s) => s.name === defaultSelectService) || null)
+  }, [defaultSelectService, services])
 
   return (
     <div className="datagrid-hover">
@@ -88,8 +101,8 @@ export const ServicesList = ({
                 key={item.id}
                 item={item}
                 selected={selectedOverviewService?.id === item.id}
-                onItemClick={() => handleServiceOverviewOpen(item)}
-                onServiceDetailClick={() => goToServiceDetails(item)}
+                onItemClick={() => openServiceOverviewPanel(item)}
+                onServiceDetailClick={() => goToServiceDetailsPage(item)}
               />
             ))
         }
@@ -116,7 +129,7 @@ export const ServicesList = ({
 
       {selectedOverviewService && (
         <MessagesProvider>
-          <ServicePanel service={selectedOverviewService} onClose={handlePanelClose} />
+          <ServicePanel service={selectedOverviewService} onClose={closeServiceOverviewPanel} />
         </MessagesProvider>
       )}
     </div>
