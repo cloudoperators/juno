@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
-import React, { useMemo } from "react"
+import React, { useEffect, useMemo } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
@@ -15,8 +15,8 @@ import Footer from "./components/app-shell/Footer"
 import Header from "./components/app-shell/header/Header"
 import Content from "./components/app-shell/Content"
 import TopNavigationBar from "./components/app-shell/Navigation"
-import StoreProvider, { useGlobalsActions } from "./store/StoreProvider"
 import useAuthStore from "./store/useAuthStore"
+import useConfigStore from "./store/useConfigStore"
 
 // @ts-ignore
 import styles from "./styles.scss?inline"
@@ -35,13 +35,15 @@ interface OIDCSession {
 
 const App: React.FC<AppProps> = ({ endpoint = "", embedded = false, id = "" }) => {
   // @ts-ignore
-  const { setEndpoint } = useGlobalsActions()
+  const { setEndpoint } = useConfigStore()
   const setLoggedIn = useAuthStore((state) => state.setLoggedIn)
   const loggedIn = useAuthStore((state) => state.loggedIn)
 
   const queryClient = useMemo(() => new QueryClient(), [])
 
-  setEndpoint(endpoint)
+  useEffect(() => {
+    setEndpoint(endpoint)
+  }, [endpoint, setEndpoint])
 
   const oidc = useMemo<OIDCSession>(
     () => ({
@@ -70,9 +72,7 @@ const StyledApp: React.FC<AppProps> = (props) => (
   <AppShellProvider>
     <style>{styles.toString()}</style>
     <MessagesProvider>
-      <StoreProvider>
-        <App {...props} />
-      </StoreProvider>
+      <App {...props} />
     </MessagesProvider>
   </AppShellProvider>
 )

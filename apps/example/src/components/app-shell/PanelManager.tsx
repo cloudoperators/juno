@@ -5,20 +5,13 @@
 
 import React from "react"
 import { Badge, Panel, DataGrid, DataGridRow, DataGridCell, Button } from "@cloudoperators/juno-ui-components"
-import { useGlobalsActions, useGlobalsCurrentPanel } from "../../store/StoreProvider"
+import useUIStore from "../../store/useUIStore"
 import usePeaksStore from "../../store/usePeaksStore"
 import useNavigationStore from "../../store/useNavigationStore"
 import { Panels, Pages } from "../constants"
 import PeakForm from "../peaks/list/PeakForm"
 import { PeakFields, TooltipExplanation } from "../constants"
 import HelpTooltip from "../common/HelpTooltip"
-
-type CurrentPanelType = (typeof Panels)[keyof typeof Panels]
-
-interface CurrentPanel {
-  type: CurrentPanelType
-  itemId?: string
-}
 
 const EDIT_HEADING = "Edit Peak"
 const INITAL_PLACEHOLDER_PEAK_DATA = {
@@ -31,8 +24,7 @@ const INITAL_PLACEHOLDER_PEAK_DATA = {
 }
 
 const PanelManager: React.FC = () => {
-  const { setCurrentPanel } = useGlobalsActions()
-  const currentPanel = useGlobalsCurrentPanel() as CurrentPanel
+  const { currentPanel, setCurrentPanel } = useUIStore()
   const { peaks, setSelectedPeakId } = usePeaksStore()
   const { setCurrentPage } = useNavigationStore()
 

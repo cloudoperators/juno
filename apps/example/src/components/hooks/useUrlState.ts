@@ -10,12 +10,7 @@
 import { useState, useEffect } from "react"
 import { registerConsumer } from "@cloudoperators/juno-url-state-provider" // Verify this import
 
-import {
-  useGlobalsActions,
-  useGlobalsTabIndex,
-  useGlobalsCurrentPanel,
-  useGlobalsCurrentModal,
-} from "../../store/StoreProvider"
+import useUIStore from "../../store/useUIStore"
 
 // Assume correct typings for what registerConsumer returns
 interface UrlStateManager {
@@ -37,10 +32,7 @@ const useUrlState = (key: string | undefined = DEFAULT_KEY) => {
 
   const loggedIn = true // Simulated state for the example app
 
-  const { setTabIndex, setCurrentPanel, setCurrentModal } = useGlobalsActions()
-  const tabIndex = useGlobalsTabIndex()
-  const currentPanel = useGlobalsCurrentPanel()
-  const currentModal = useGlobalsCurrentModal()
+  const { tabIndex, currentPanel, currentModal, setTabIndex, setCurrentPanel, setCurrentModal } = useUIStore()
 
   useEffect(() => {
     if (isURLRead || !loggedIn) return
@@ -52,7 +44,6 @@ const useUrlState = (key: string | undefined = DEFAULT_KEY) => {
     const newCurrentPanel = currentState?.[CURRENT_PANEL]
     const newCurrentModal = currentState?.[CURRENT_MODAL]
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     if (newTabIndex !== undefined) setTabIndex(newTabIndex)
     if (newCurrentPanel !== undefined) setCurrentPanel(newCurrentPanel)
     if (newCurrentModal !== undefined) setCurrentModal(newCurrentModal)

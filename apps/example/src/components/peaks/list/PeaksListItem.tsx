@@ -7,7 +7,7 @@ import React from "react"
 import { DataGridCell, DataGridRow, Badge } from "@cloudoperators/juno-ui-components"
 import { Peak } from "../../../mocks/db"
 import PeaksListItemActions from "./PeaksListItemActions"
-import { useGlobalsActions } from "../../../store/StoreProvider"
+import useUIStore from "../../../store/useUIStore"
 
 export interface PeaksListItemProps {
   peak: Peak
@@ -15,7 +15,7 @@ export interface PeaksListItemProps {
 }
 
 const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
-  const { setCurrentPanel } = useGlobalsActions()
+  const { setCurrentPanel } = useUIStore()
 
   const openPanel = () => {
     setCurrentPanel({ type: "ShowPeak", itemId: peak.id })

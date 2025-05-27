@@ -4,7 +4,7 @@ import PeaksFilterToolbar from "../peaks/list/PeaksFilterToolbar"
 import PeaksList from "../peaks/list/PeaksList"
 import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
 import MetricsDisplay from "../metrics/MetricsDisplay"
-import { useGlobalsActions } from "../../store/StoreProvider"
+import useUIStore from "../../store/useUIStore"
 import { calculateMetrics, Metrics } from "../peaks/utils/calculateMetrics"
 import { usePaginatedItems } from "../hooks/usePeaks"
 import { Peak } from "../../mocks/db"
@@ -19,7 +19,6 @@ interface PeaksPageProps {
 }
 
 const PeaksPage: React.FC<PeaksPageProps> = ({ peaks, isLoading, onSelect }) => {
-  const { setCurrentPanel } = useGlobalsActions()
   const [viewType, setViewType] = useState<"grid" | "card" | "json">("grid")
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [isModalOpen, setIsModalOpen] = useState(false)

@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { useGlobalsQueryClientFnReady } from "../../store/StoreProvider"
+import useConfigStore from "../../store/useConfigStore"
 import useNavigationStore from "../../store/useNavigationStore"
 import usePeaksStore from "../../store/usePeaksStore"
 import PeaksPage from "../pages/PeaksPage"
@@ -18,7 +18,7 @@ import { Peak } from "../../mocks/db"
 
 const PageRenderer: React.FC = () => {
   const { currentPage } = useNavigationStore()
-  const queryClientFnReady = useGlobalsQueryClientFnReady()
+  const { queryClientFnReady } = useConfigStore()
 
   const { peaks, setPeaks, selectedPeakId, setSelectedPeakId } = usePeaksStore()
 
