@@ -6,21 +6,18 @@
 import React from "react"
 import { PageHeader, Stack, ThemeToggle } from "@cloudoperators/juno-ui-components"
 import HeaderUserMenu from "./HeaderUserMenu"
-
-interface HeaderProps {
-  isUserAuthenticated: boolean
-  logout: () => void
-}
+import useAuthStore from "../../../store/useAuthStore"
 
 const APP_NAME = "Juno UI Peaks Monitoring Dashboard"
 
-const Header: React.FC<HeaderProps> = ({ isUserAuthenticated, logout }) => {
+const Header: React.FC = () => {
+  const { isUserAuthenticated } = useAuthStore()
   return (
     <>
       <PageHeader heading={APP_NAME}>
         {/* Adding uncenters logo */}
         <Stack gap="5">
-          <HeaderUserMenu logout={logout} />
+          <HeaderUserMenu />
           {isUserAuthenticated && <ThemeToggle />}
         </Stack>
       </PageHeader>

@@ -971,7 +971,7 @@
     }
   },
   {
-    "id": 31,
+    "id": 30,
     "name": "Nanga Parbat",
     "height": "8126m",
     "region": "Diamer District",
@@ -1004,7 +1004,7 @@
     }
   },
   {
-    "id": 32,
+    "id": 31,
     "name": "Table Mountain",
     "height": "1084m",
     "region": "Western Cape",
@@ -1037,7 +1037,7 @@
     }
   },
   {
-    "id": 33,
+    "id": 32,
     "name": "Ushba",
     "height": "4693m",
     "region": "Svaneti",
@@ -1070,7 +1070,7 @@
     }
   },
   {
-    "id": 34,
+    "id": 33,
     "name": "Kilimanjaro",
     "height": "5895m",
     "region": "Kilimanjaro Region",
@@ -1103,7 +1103,7 @@
     }
   },
   {
-    "id": 38,
+    "id": 34,
     "name": "Annapurna III",
     "height": "7555m",
     "region": "Gandaki Zone",
@@ -1136,7 +1136,7 @@
     }
   },
   {
-    "id": 41,
+    "id": 35,
     "name": "Annapurna IV",
     "height": "7525m",
     "region": "Gandaki Zone",
@@ -1169,7 +1169,7 @@
     }
   },
   {
-    "id": 45,
+    "id": 36,
     "name": "Gyachung Kang",
     "height": "7952m",
     "region": "Himalayas",
@@ -1202,7 +1202,7 @@
     }
   },
   {
-    "id": 46,
+    "id": 37,
     "name": "Khunyang Chhish",
     "height": "7852m",
     "region": "Gilgit-Baltistan",

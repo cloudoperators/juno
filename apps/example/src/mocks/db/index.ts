@@ -5,7 +5,7 @@
 
 import peaksData from "./peaks.json"
 
-export type Safety = {
+export interface Safety {
   status: string
   recommendation: string
   variant: "success" | "warning" | "error" | "info"

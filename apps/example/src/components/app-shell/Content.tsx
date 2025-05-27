@@ -11,7 +11,7 @@ import HeaderLoginModal from "./header/HeaderLoginModal"
 import PageRenderer from "./PageRenderer"
 import PanelManager from "./PanelManager"
 
-const AppContent: React.FC = () => {
+const Content: React.FC = () => {
   const isUserAuthenticated = useAuthStore((state) => state.isUserAuthenticated)
 
   return isUserAuthenticated ? (
@@ -29,4 +29,4 @@ const AppContent: React.FC = () => {
   )
 }
 
-export default AppContent
+export default Content
