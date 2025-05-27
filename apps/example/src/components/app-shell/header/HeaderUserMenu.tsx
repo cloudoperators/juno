@@ -5,29 +5,30 @@
 
 import React from "react"
 import { Button, PopupMenu, PopupMenuToggle, PopupMenuOptions } from "@cloudoperators/juno-ui-components"
-
-import { useAuthLoggedIn, useAuthData } from "../../../store/StoreProvider"
+import useAuthStore from "../../../store/useAuthStore"
 import HeaderAvatar from "./HeaderAvatar"
-
-interface HeaderUserMenuProps {
-  logout: () => void
-}
 
 const LOGOUT_BUTTON_LABEL = "Log Out"
 
-const HeaderUserMenu: React.FC<HeaderUserMenuProps> = ({ logout }) => {
-  const loggedIn = useAuthLoggedIn()
-  const authData = useAuthData()
+const HeaderUserMenu: React.FC = () => {
+  const { loggedIn, setLoggedIn } = useAuthStore((state) => ({
+    loggedIn: state.loggedIn,
+    setLoggedIn: state.setLoggedIn,
+  }))
+
+  const handleLogout = () => {
+    setLoggedIn(false)
+  }
 
   return (
     <>
       {loggedIn && (
         <PopupMenu>
           <PopupMenuToggle>
-            <HeaderAvatar userName={authData?.parsed?.fullName || ""} url={authData?.parsed?.avatarUrl?.small || ""} />
+            <HeaderAvatar userName={"Jane Doe"} url={"https://avatars.wdf.sap.corp/avatar/I123456?size=24"} />
           </PopupMenuToggle>
           <PopupMenuOptions>
-            <Button label={LOGOUT_BUTTON_LABEL} size="small" onClick={logout} />
+            <Button label={LOGOUT_BUTTON_LABEL} size="small" onClick={handleLogout} />
           </PopupMenuOptions>
         </PopupMenu>
       )}

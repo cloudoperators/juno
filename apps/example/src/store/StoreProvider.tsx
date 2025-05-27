@@ -8,13 +8,6 @@ import { useStore as create, StoreApi } from "zustand"
 
 import createStore from "."
 
-interface AuthParsedData {
-  fullName: string
-  avatarUrl: {
-    small: string
-  }
-}
-
 /* eslint-disable no-unused-vars */
 interface Actions {
   setCurrentPanel: (panel: unknown) => void
@@ -30,16 +23,6 @@ interface StoreState {
     queryClientFnReady: boolean
     currentModal: unknown
     currentPanel: unknown
-    actions: Actions
-  }
-  auth: {
-    data: {
-      parsed?: AuthParsedData
-    }
-    isProcessing: boolean
-    loggedIn: boolean
-    error: unknown
-    lastAction: unknown
     actions: Actions
   }
 }
@@ -65,16 +48,10 @@ const useStore = <T,>(selector: (state: StoreState) => T) => {
 
 // Globals
 export const useGlobalsEndpoint = () => useStore((s) => s.globals.endpoint)
-export const useGlobalsUrlStateKey = () => useStore((s) => s.globals.urlStateKey)
 export const useGlobalsTabIndex = () => useStore((s) => s.globals.tabIndex)
 export const useGlobalsQueryClientFnReady = () => useStore((s) => s.globals.queryClientFnReady)
 export const useGlobalsCurrentModal = () => useStore((s) => s.globals.currentModal)
 export const useGlobalsCurrentPanel = () => useStore((s) => s.globals.currentPanel)
 export const useGlobalsActions = () => useStore((s) => s.globals.actions)
-
-// Auth
-export const useAuthData = () => useStore((state) => state.auth.data)
-export const useAuthLoggedIn = () => useStore((state) => state.auth.loggedIn)
-export const useAuthActions = () => useStore((state) => state.auth.actions)
 
 export default StoreProvider

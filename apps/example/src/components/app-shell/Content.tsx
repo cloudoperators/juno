@@ -5,20 +5,14 @@
 
 import React from "react"
 import { Container, Stack } from "@cloudoperators/juno-ui-components"
-
-import { useAuthLoggedIn } from "../../store/StoreProvider"
+import useAuthStore from "../../store/useAuthStore"
 import InfoMessage from "../messages/InfoMessage"
-
 import HeaderLoginModal from "./header/HeaderLoginModal"
 import PageRenderer from "./PageRenderer"
 import PanelManager from "./PanelManager"
 
-interface AppContentProps {
-  login: () => void
-}
-
-const AppContent: React.FC<AppContentProps> = ({ login }) => {
-  const loggedIn = useAuthLoggedIn()
+const AppContent: React.FC = () => {
+  const loggedIn = useAuthStore((state) => state.loggedIn)
 
   return loggedIn ? (
     <Container>
@@ -31,7 +25,7 @@ const AppContent: React.FC<AppContentProps> = ({ login }) => {
       </Stack>
     </Container>
   ) : (
-    <HeaderLoginModal login={login} />
+    <HeaderLoginModal />
   )
 }
 

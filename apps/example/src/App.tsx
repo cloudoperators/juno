@@ -5,20 +5,18 @@
 
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React, { useEffect, useMemo } from "react"
+import React, { useMemo } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { mockedSession } from "@cloudoperators/juno-oauth"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
-
 import AsyncWorker from "./components/AsyncWorker"
 import Footer from "./components/app-shell/Footer"
 import Header from "./components/app-shell/header/Header"
 import Content from "./components/app-shell/Content"
 import TopNavigationBar from "./components/app-shell/Navigation"
-import StoreProvider, { useGlobalsActions, useAuthActions, useAuthLoggedIn } from "./store/StoreProvider"
+import StoreProvider, { useGlobalsActions } from "./store/StoreProvider"
+import useAuthStore from "./store/useAuthStore"
 
 // @ts-ignore
 import styles from "./styles.scss?inline"
@@ -38,18 +36,20 @@ interface OIDCSession {
 const App: React.FC<AppProps> = ({ endpoint = "", embedded = false, id = "" }) => {
   // @ts-ignore
   const { setEndpoint } = useGlobalsActions()
-  // @ts-ignore
-  const { setData } = useAuthActions()
+  const setLoggedIn = useAuthStore((state) => state.setLoggedIn)
+  const loggedIn = useAuthStore((state) => state.loggedIn)
 
   const queryClient = useMemo(() => new QueryClient(), [])
 
-  useEffect(() => {
-    setEndpoint(endpoint)
-  }, [endpoint, setEndpoint])
+  setEndpoint(endpoint)
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  const oidc = useMemo<OIDCSession>(() => mockedSession({ initialLogin: true, onUpdate: setData }), [setData])
-  const loggedIn = useAuthLoggedIn()
+  const oidc = useMemo<OIDCSession>(
+    () => ({
+      login: () => setLoggedIn(true),
+      logout: () => setLoggedIn(false),
+    }),
+    [setLoggedIn]
+  )
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -57,7 +57,7 @@ const App: React.FC<AppProps> = ({ endpoint = "", embedded = false, id = "" }) =
       <AppShell
         embedded={embedded}
         pageHeader={<Header loggedIn={loggedIn} logout={oidc.logout} />}
-        topNavigation={<TopNavigationBar />}
+        topNavigation={loggedIn ? <TopNavigationBar /> : null}
         pageFooter={<Footer />}
       >
         <Content login={oidc.login} />

@@ -17,15 +17,13 @@ const APP_NAME = "Juno UI Peaks Monitoring Dashboard"
 const Header: React.FC<HeaderProps> = ({ loggedIn, logout }) => {
   return (
     <>
-      {loggedIn && (
-        <PageHeader heading={APP_NAME}>
-          {/* Adding uncenters logo */}
-          <Stack gap="5">
-            <HeaderUserMenu logout={logout} />
-            <ThemeToggle />
-          </Stack>
-        </PageHeader>
-      )}
+      <PageHeader heading={APP_NAME}>
+        {/* Adding uncenters logo */}
+        <Stack gap="5">
+          <HeaderUserMenu logout={logout} />
+          {loggedIn && <ThemeToggle />}
+        </Stack>
+      </PageHeader>
     </>
   )
 }
