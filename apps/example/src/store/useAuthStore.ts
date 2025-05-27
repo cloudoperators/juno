@@ -6,14 +6,14 @@
 import { create } from "zustand"
 
 interface AuthState {
-  loggedIn: boolean
+  isUserAuthenticated: boolean
   // eslint-disable-next-line no-unused-vars
-  setLoggedIn: (loggedIn: boolean) => void
+  setIsUserAuthenticated: (isUserAuthenticated: boolean) => void
 }
 
 const useAuthStore = create<AuthState>((set) => ({
-  loggedIn: true,
-  setLoggedIn: (loggedIn) => set({ loggedIn }),
+  isUserAuthenticated: true,
+  setIsUserAuthenticated: (isUserAuthenticated) => set({ isUserAuthenticated }),
 }))
 
 export default useAuthStore

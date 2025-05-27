@@ -185,7 +185,7 @@ const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ peak, onBack }) => {
         {showToast && (
           <Toast
             onDismiss={handleToastDismiss}
-            text={`Failed to delete ${peak.name}.`}
+            text={`Failed to delete ${peak.name}. This is a simulation.s`}
             variant="error"
             className="fixed top-5 right-5 z-50"
           />

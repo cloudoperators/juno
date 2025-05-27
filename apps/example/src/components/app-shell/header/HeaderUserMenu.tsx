@@ -11,18 +11,18 @@ import HeaderAvatar from "./HeaderAvatar"
 const LOGOUT_BUTTON_LABEL = "Log Out"
 
 const HeaderUserMenu: React.FC = () => {
-  const { loggedIn, setLoggedIn } = useAuthStore((state) => ({
-    loggedIn: state.loggedIn,
-    setLoggedIn: state.setLoggedIn,
+  const { isUserAuthenticated, setIsUserAuthenticated } = useAuthStore((state) => ({
+    isUserAuthenticated: state.isUserAuthenticated,
+    setIsUserAuthenticated: state.setIsUserAuthenticated,
   }))
 
   const handleLogout = () => {
-    setLoggedIn(false)
+    setIsUserAuthenticated(false)
   }
 
   return (
     <>
-      {loggedIn && (
+      {isUserAuthenticated && (
         <PopupMenu>
           <PopupMenuToggle>
             <HeaderAvatar userName={"Jane Doe"} url={"https://avatars.wdf.sap.corp/avatar/I123456?size=24"} />

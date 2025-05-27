@@ -13,10 +13,10 @@ const WELCOME_MESSAGE = "Log in to get access to the peaks of the world!"
 const LOGIN_BUTTON_LABEL = "Log In"
 
 const HeaderLoginModal: React.FC = () => {
-  const setLoggedIn = useAuthStore((state) => state.setLoggedIn)
+  const setIsUserAuthenticated = useAuthStore((state) => state.setIsUserAuthenticated)
 
   const login = () => {
-    setLoggedIn(true)
+    setIsUserAuthenticated(true)
   }
 
   return (

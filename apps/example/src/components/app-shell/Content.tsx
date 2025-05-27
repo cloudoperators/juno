@@ -12,9 +12,9 @@ import PageRenderer from "./PageRenderer"
 import PanelManager from "./PanelManager"
 
 const AppContent: React.FC = () => {
-  const loggedIn = useAuthStore((state) => state.loggedIn)
+  const isUserAuthenticated = useAuthStore((state) => state.isUserAuthenticated)
 
-  return loggedIn ? (
+  return isUserAuthenticated ? (
     <Container>
       <PanelManager />
       <Stack direction="vertical" gap="5">

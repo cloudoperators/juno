@@ -36,8 +36,8 @@ interface OIDCSession {
 const App: React.FC<AppProps> = ({ endpoint = "", embedded = false, id = "" }) => {
   // @ts-ignore
   const { setEndpoint } = useConfigStore()
-  const setLoggedIn = useAuthStore((state) => state.setLoggedIn)
-  const loggedIn = useAuthStore((state) => state.loggedIn)
+  const setIsUserAuthenticated = useAuthStore((state) => state.setIsUserAuthenticated)
+  const isUserAuthenticated = useAuthStore((state) => state.isUserAuthenticated)
 
   const queryClient = useMemo(() => new QueryClient(), [])
 
@@ -47,10 +47,10 @@ const App: React.FC<AppProps> = ({ endpoint = "", embedded = false, id = "" }) =
 
   const oidc = useMemo<OIDCSession>(
     () => ({
-      login: () => setLoggedIn(true),
-      logout: () => setLoggedIn(false),
+      login: () => setIsUserAuthenticated(true),
+      logout: () => setIsUserAuthenticated(false),
     }),
-    [setLoggedIn]
+    [setIsUserAuthenticated]
   )
 
   return (
@@ -58,8 +58,8 @@ const App: React.FC<AppProps> = ({ endpoint = "", embedded = false, id = "" }) =
       <AsyncWorker consumerId={id} />
       <AppShell
         embedded={embedded}
-        pageHeader={<Header loggedIn={loggedIn} logout={oidc.logout} />}
-        topNavigation={loggedIn ? <TopNavigationBar /> : null}
+        pageHeader={<Header isUserAuthenticated={isUserAuthenticated} logout={oidc.logout} />}
+        topNavigation={isUserAuthenticated ? <TopNavigationBar /> : null}
         pageFooter={<Footer />}
       >
         <Content login={oidc.login} />

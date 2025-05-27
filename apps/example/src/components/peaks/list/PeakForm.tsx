@@ -40,7 +40,7 @@ interface PeakFormProps {
 
 const Errors = {
   INVALID_PEAK: "Invalid peak data. Please correct the name field and try again.",
-  CREATION_FAILURE: "Failed to add a new peak",
+  CREATION_FAILURE: "Failed to add a new peak. This is a simulation.",
 }
 
 const Hints = {

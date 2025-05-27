@@ -81,7 +81,8 @@ const AlertsPage: React.FC = () => {
       setState((prevState) => ({
         ...prevState,
         loading: false,
-        errorMessage: "Failed to save due to a server error. Check your connection and try again later.",
+        errorMessage:
+          "Failed to save due to a server error. Check your connection and try again later. This is a simulation.",
       }))
     }, 2000)
   }
