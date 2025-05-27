@@ -6,7 +6,7 @@
 import React from "react"
 import { Container, Stack } from "@cloudoperators/juno-ui-components"
 
-import { useAuthLoggedIn, useAuthError } from "../../store/StoreProvider"
+import { useAuthLoggedIn } from "../../store/StoreProvider"
 import InfoMessage from "../messages/InfoMessage"
 
 import HeaderLoginModal from "./header/HeaderLoginModal"
@@ -19,9 +19,8 @@ interface AppContentProps {
 
 const AppContent: React.FC<AppContentProps> = ({ login }) => {
   const loggedIn = useAuthLoggedIn()
-  const authError = useAuthError()
 
-  return loggedIn && !authError ? (
+  return loggedIn ? (
     <Container>
       <PanelManager />
       <Stack direction="vertical" gap="5">

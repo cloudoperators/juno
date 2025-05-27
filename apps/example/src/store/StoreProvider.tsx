@@ -74,10 +74,7 @@ export const useGlobalsActions = () => useStore((s) => s.globals.actions)
 
 // Auth
 export const useAuthData = () => useStore((state) => state.auth.data)
-export const useAuthIsProcessing = () => useStore((state) => state.auth.isProcessing)
 export const useAuthLoggedIn = () => useStore((state) => state.auth.loggedIn)
-export const useAuthError = () => useStore((state) => state.auth.error)
-export const useAuthLastAction = () => useStore((state) => state.auth.lastAction)
 export const useAuthActions = () => useStore((state) => state.auth.actions)
 
 export default StoreProvider
