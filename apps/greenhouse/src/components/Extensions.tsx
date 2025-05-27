@@ -47,7 +47,15 @@ const Extension = ({ config, auth }: any) => {
 
     loadExtension()
       .then((app) => {
-        app.mount(holder.current, { props: { ...config.props, embedded: true, token: auth?.JWT } })
+        app.mount(holder.current, {
+          props: {
+            ...config.props,
+            embedded: true,
+            token: auth?.JWT,
+            //TODO: find a better place to add these props
+            ...(config.id === "heureka" ? { basePath: `/compliance`, enableHashedRouting: true } : {}),
+          },
+        })
       })
       .catch((error) => {
         // @ts-expect-error TS(2532): Object is possibly 'undefined'.

@@ -90,6 +90,10 @@ These are the customizable application properties (appProps) that you can define
 - **apiEndpoint** (required): The URL of the API endpoint the app will interact with.
 - **embedded** (optional): Set to `true` if the app will be embedded within another app or page. When `true`, the app will not display the header or footer, rendering only the content. Default is `false`.
 - **initialFilters** (optional): The initialFilters set default filters using an object that contains a key (the filter field) and a value (an array of filter criteria). For example, `{ "support_group": ["containers"] }`.
+- **basePath** (optional, default: `/`):  
+  Specifies the root path under which the application is served. Useful for deploying the app to a subdirectory. If not provided, defaults to the root path `/`.
+- **enableHashedRouting** (optional, default: `false`):  
+  A boolean flag that, when set to `true`, enables hashed routing in the application. This means the URL will use the hash (`#`) fragment to manage client-side navigation, which can be useful for static file hosting environments or when server-side routing is not available.
 
 ## Contribution Guide for Creating React Components
 
