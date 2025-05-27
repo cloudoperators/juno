@@ -5,8 +5,16 @@
 
 import React, { useCallback, useState } from "react"
 import { isEmpty } from "lodash"
-import { Button, InputGroup, SelectOption, Select, Stack } from "@cloudoperators/juno-ui-components"
-import { DropdownValue, Filter, SelectedFilter } from "./types"
+import {
+  Button,
+  InputGroup,
+  ComboBox,
+  ComboBoxOption,
+  SelectOption,
+  Select,
+  Stack,
+} from "@cloudoperators/juno-ui-components"
+import { Filter, SelectedFilter } from "./types"
 
 type FilterSelectProps = {
   filters: Filter[]
@@ -14,19 +22,21 @@ type FilterSelectProps = {
 }
 
 export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
-  const [selectedFilterName, setSelectedFilterName] = useState<DropdownValue>("")
-  const [selectedFilterValue, setSelectedFilterValue] = useState<DropdownValue>("")
-  const filterValues = filters.find((filter) => filter.filterName === selectedFilterName)?.values
+  const [selectedFilterName, setSelectedFilterName] = useState<string>("")
+  const [selectedFilterValue] = useState<string>("")
+
+  // first filter gets the values, second one filters emtpy values
+  const filterValues: string[] | undefined = filters
+    .find((filter) => filter.filterName === selectedFilterName)
+    ?.values?.filter((value) => value)
 
   const handleValueChange = useCallback(
-    (value: DropdownValue) => {
+    (value: string) => {
       if (!isEmpty(selectedFilterName) && !isEmpty(value)) {
         onChange({
-          name: selectedFilterName as string, // we're sure that the value is a string
-          value: value as string, // we're sure that the value is a string
+          name: selectedFilterName,
+          value: value,
         })
-        setSelectedFilterName("")
-        setSelectedFilterValue("")
       }
     },
     [selectedFilterName, onChange]
@@ -38,22 +48,26 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
         <Select
           className="filter-label-select w-64 mb-0"
           name="filter"
+          data-testid="select-filterValue"
           label="Filter"
           value={selectedFilterName}
-          onChange={setSelectedFilterName}
+          onChange={(value) => {
+            setSelectedFilterName(String(value))
+          }}
         >
           {filters?.map(({ displayName, filterName }) => (
-            <SelectOption value={filterName} label={displayName} key={filterName} />
+            <SelectOption value={filterName} label={displayName} key={filterName} data-testid={filterName} />
           ))}
         </Select>
-        <Select
+        <ComboBox
           className="filter-value-select w-64 bg-theme-background-lvl-0"
           name="filterValue"
+          data-testid="combobox-filterValue"
           value={selectedFilterValue}
           onChange={handleValueChange}
         >
-          {filterValues?.map((value) => <SelectOption value={value} key={value} />)}
-        </Select>
+          {filterValues?.map((value) => <ComboBoxOption value={value} key={value} label={value} data-testid={value} />)}
+        </ComboBox>
         <Button icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
     </Stack>

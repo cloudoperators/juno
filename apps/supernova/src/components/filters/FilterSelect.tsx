@@ -5,7 +5,16 @@
 
 import React, { useState } from "react"
 
-import { Button, InputGroup, SelectOption, Select, Stack, SearchInput } from "@cloudoperators/juno-ui-components"
+import {
+  Button,
+  InputGroup,
+  SelectOption,
+  Select,
+  ComboBox,
+  ComboBoxOption,
+  Stack,
+  SearchInput,
+} from "@cloudoperators/juno-ui-components"
 import {
   useFilterLabels,
   useFilterLabelValues,
@@ -74,7 +83,7 @@ const FilterSelect = () => {
             <SelectOption value={filter} label={humanizeString(filter)} key={filter} />
           ))}
         </Select>
-        <Select
+        <ComboBox
           name="filterValue"
           value={filterValue}
           onChange={(value: any) => handleFilterValueChange(value)}
@@ -90,8 +99,8 @@ const FilterSelect = () => {
               ) => !activeFilters[filterLabel]?.includes(value)
             )
             .slice(0, 100) // take only the first 100 values. This isn't a good solution TODO: fix this properly with combo box, typeahead search, lazy loading, etc.
-            .map((value: any) => <SelectOption value={value} key={value} />)}
-        </Select>
+            .map((value: any) => <ComboBoxOption value={value} key={value} />)}
+        </ComboBox>
         <Button onClick={() => handleFilterAdd()} icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
       {renderClearButton()}
