@@ -8,7 +8,6 @@ import { Badge, Panel, DataGrid, DataGridRow, DataGridCell, Button } from "@clou
 import { useGlobalsActions, useGlobalsCurrentPanel } from "../../store/StoreProvider"
 import usePeaksStore from "../../store/usePeaksStore"
 import useNavigationStore from "../../store/useNavigationStore"
-import useSelectedPeak from "../../store/createSelectedPeakSlice"
 import { Panels, Pages } from "../constants"
 import PeakForm from "../peaks/list/PeakForm"
 import { PeakFields, TooltipExplanation } from "../constants"
@@ -34,9 +33,8 @@ const INITAL_PLACEHOLDER_PEAK_DATA = {
 const PanelManager: React.FC = () => {
   const { setCurrentPanel } = useGlobalsActions()
   const currentPanel = useGlobalsCurrentPanel() as CurrentPanel
-  const { peaks } = usePeaksStore()
+  const { peaks, setSelectedPeakId } = usePeaksStore()
   const { setCurrentPage } = useNavigationStore()
-  const { setSelectedPeakId } = useSelectedPeak()
 
   const closePanel = (): void => setCurrentPanel(null)
 

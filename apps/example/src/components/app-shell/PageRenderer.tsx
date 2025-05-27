@@ -8,7 +8,6 @@ import { useQuery } from "@tanstack/react-query"
 import { useGlobalsQueryClientFnReady } from "../../store/StoreProvider"
 import useNavigationStore from "../../store/useNavigationStore"
 import usePeaksStore from "../../store/usePeaksStore"
-import useSelectedPeak from "../../store/createSelectedPeakSlice"
 import PeaksPage from "../pages/PeaksPage"
 import AlertsPage from "../pages/AlertsPage"
 import CountriesPage from "../pages/CountriesPage"
@@ -20,8 +19,8 @@ import { Peak } from "../../mocks/db"
 const PageRenderer: React.FC = () => {
   const { currentPage } = useNavigationStore()
   const queryClientFnReady = useGlobalsQueryClientFnReady()
-  const { peaks, setPeaks } = usePeaksStore()
-  const { selectedPeakId, setSelectedPeakId } = useSelectedPeak()
+
+  const { peaks, setPeaks, selectedPeakId, setSelectedPeakId } = usePeaksStore()
 
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
 

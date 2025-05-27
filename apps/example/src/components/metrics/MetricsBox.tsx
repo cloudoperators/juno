@@ -13,7 +13,7 @@ import ArrowDown from "../../assets/arrow_down.svg?react"
 import Mountain from "../../assets/mountain.svg?react"
 import useNavigationStore from "../../store/useNavigationStore"
 import { Pages } from "../constants"
-import useSelectedPeak from "../../store/createSelectedPeakSlice"
+import usePeaksStore from "../../store/usePeaksStore"
 
 export interface PeakDetails {
   id: number
@@ -138,7 +138,7 @@ export const PeakModal: React.FC<{
   onClose: () => void
 }> = ({ peakDetails, colorClass, modalVisible, onClose }) => {
   const { setCurrentPage } = useNavigationStore()
-  const { setSelectedPeakId } = useSelectedPeak()
+  const { setSelectedPeakId } = usePeaksStore()
 
   const navigateToDetailPage = () => {
     if (peakDetails) {

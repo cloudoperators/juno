@@ -6,17 +6,12 @@
 import { createStore } from "zustand"
 import { devtools } from "zustand/middleware"
 import createGlobalsSlice, { Globals } from "./createGlobalsSlice"
-import createSelectedPeakSlice from "./createSelectedPeakSlice"
-
-type StoreState = Globals
 
 export default () =>
-  createStore<StoreState>(
+  createStore<Globals>(
     // @ts-ignore
     devtools((set, get) => ({
       // @ts-ignore
       ...createGlobalsSlice(set, get),
-      // @ts-ignore
-      ...createSelectedPeakSlice(set, get),
     }))
   )
