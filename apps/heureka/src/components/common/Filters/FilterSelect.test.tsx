@@ -4,10 +4,9 @@
  */
 
 import React from "react"
-import { describe, it, expect, vi, beforeEach } from "vitest"
-import { render, screen, fireEvent } from "@testing-library/react"
+import { describe, it, expect, vi } from "vitest"
+import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { Filter, SelectedFilter } from "./types"
 import { FilterSelect } from "./FilterSelect"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components/index"
 
@@ -30,19 +29,6 @@ const mockFilters = [
 ]
 
 const mockOnChange = vi.fn()
-
-class ResizeObserver {
-  observe() {
-    vi.fn()
-  }
-  unobserve() {
-    vi.fn()
-  }
-  disconnect() {
-    vi.fn()
-  }
-}
-window.ResizeObserver = ResizeObserver
 
 describe("FiltersSelect", () => {
   afterEach(() => {

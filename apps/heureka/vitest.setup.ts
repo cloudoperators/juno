@@ -12,6 +12,12 @@ beforeAll(() => {
   // Mock global objects if necessary
   global.window = window
   global.document = window.document
+  // Global mocks that apply to all tests
+  global.ResizeObserver = vi.fn().mockImplementation(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  }))
 
   // Start msw server to intercept requests
   server.listen({ onUnhandledRequest: "error" })

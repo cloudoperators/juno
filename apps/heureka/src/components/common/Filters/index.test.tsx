@@ -41,23 +41,6 @@ const renderShell = ({ filters, filterSettings, onFilterChange }: FiltersProps) 
   ),
 })
 
-class ResizeObserver {
-  observe() {
-    // do nothing
-    vi.fn()
-  }
-  unobserve() {
-    // do nothing
-    vi.fn()
-  }
-  disconnect() {
-    // do nothing
-    vi.fn()
-  }
-}
-
-window.ResizeObserver = ResizeObserver
-
 describe("Filters", () => {
   afterEach(() => {
     cleanup()
