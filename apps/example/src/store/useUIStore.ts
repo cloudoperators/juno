@@ -8,11 +8,11 @@
 import { create } from "zustand"
 
 interface UIState {
-  currentModal: unknown
-  currentPanel: unknown
+  currentModal: string | null
+  currentPanel: string | null
   tabIndex: number
-  setCurrentModal: (modal: unknown) => void
-  setCurrentPanel: (panel: unknown) => void
+  setCurrentModal: (modal: string) => void
+  setCurrentPanel: (panel: string) => void
   setTabIndex: (index: number) => void
 }
 

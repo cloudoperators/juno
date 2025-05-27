@@ -12,14 +12,14 @@ interface PeaksState {
   peaks: Peak[]
   selectedPeakId: string | null
   setPeaks: (peaks: Peak[]) => void
-  setSelectedPeakId: (id: string | null) => void
+  setSelectedPeakId: (id: string) => void
 }
 
 const usePeaksStore = create<PeaksState>((set) => ({
   peaks: [],
   selectedPeakId: null,
-  setPeaks: (peaks: Peak[]) => set({ peaks }),
-  setSelectedPeakId: (id: string | null) => set({ selectedPeakId: id }),
+  setPeaks: (peaks) => set({ peaks }),
+  setSelectedPeakId: (id) => set({ selectedPeakId: id }),
 }))
 
 export default usePeaksStore

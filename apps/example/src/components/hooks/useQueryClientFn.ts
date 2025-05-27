@@ -47,7 +47,7 @@ const checkStatus = (response: Response) => {
 // hook to register query defaults that depends on the queryClient and options
 const useQueryClientFn = () => {
   const queryClient = useQueryClient()
-  const { setQueryClientFnReady, endpoint } = useConfigStore()
+  const { setIsQueryClientReady, endpoint } = useConfigStore()
 
   /*
   As stated in getQueryDefaults, the order of registration of query defaults does matter. Since the first matching defaults are returned by getQueryDefaults, the registration should be made in the following order: from the least generic key to the most generic one. This way, in case of specific key, the first matching one would be the expected one.
@@ -136,9 +136,9 @@ const useQueryClientFn = () => {
       },
     })
 
-    // set queryClientFnReady to true once
-    setQueryClientFnReady(true)
-  }, [queryClient, endpoint, setQueryClientFnReady])
+    // set isQueryClientReady to true once
+    setIsQueryClientReady(true)
+  }, [queryClient, endpoint, setIsQueryClientReady])
 }
 
 export default useQueryClientFn

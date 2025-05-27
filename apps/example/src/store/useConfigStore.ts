@@ -9,16 +9,16 @@ import { create } from "zustand"
 
 interface ConfigState {
   endpoint: string
-  queryClientFnReady: boolean
+  isQueryClientReady: boolean
   setEndpoint: (newEndpoint: string) => void
-  setQueryClientFnReady: (readiness: boolean) => void
+  setIsQueryClientReady: (readiness: boolean) => void
 }
 
 const useConfigStore = create<ConfigState>((set) => ({
   endpoint: "",
-  queryClientFnReady: false,
+  isQueryClientReady: false,
   setEndpoint: (newEndpoint) => set({ endpoint: newEndpoint }),
-  setQueryClientFnReady: (readiness) => set({ queryClientFnReady: readiness }),
+  setIsQueryClientReady: (readiness) => set({ isQueryClientReady: readiness }),
 }))
 
 export default useConfigStore

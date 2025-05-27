@@ -18,7 +18,7 @@ import { Peak } from "../../mocks/db"
 
 const PageRenderer: React.FC = () => {
   const { currentPage } = useNavigationStore()
-  const { queryClientFnReady } = useConfigStore()
+  const { isQueryClientReady } = useConfigStore()
 
   const { peaks, setPeaks, selectedPeakId, setSelectedPeakId } = usePeaksStore()
 
@@ -27,14 +27,14 @@ const PageRenderer: React.FC = () => {
   // Query to fetch peaks mock data
   const { isLoading, data: peaksData = [] } = useQuery<Peak[]>({
     queryKey: ["peaks"],
-    enabled: queryClientFnReady,
+    enabled: isQueryClientReady,
   })
 
   useEffect(() => {
-    if (queryClientFnReady && peaksData.length > 0) {
+    if (isQueryClientReady && peaksData.length > 0) {
       setPeaks(peaksData) // Store fetched data in peaks store
     }
-  }, [peaksData, setPeaks, queryClientFnReady])
+  }, [peaksData, setPeaks, isQueryClientReady])
 
   useEffect(() => {
     clearSelections() // Clear selections when navigation changes
