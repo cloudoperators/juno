@@ -29,18 +29,23 @@ export const Filters = ({ filters, filterSettings, onFilterChange, searchInputPl
     [filterSettings, onFilterChange]
   )
 
+  const handleFilterAdded = (filterToAdd: SelectedFilter) => {
+    // makes sure filters are just added once
+    const foundFilter = filterSettings.selectedFilters?.filter(
+      (filter) => filter.name === filterToAdd.name && filter.value === filterToAdd.value
+    )
+    if (!foundFilter || foundFilter.length == 0) {
+      onFilterChange({
+        ...filterSettings,
+        selectedFilters: filterSettings?.selectedFilters?.concat(filterToAdd),
+      })
+    }
+  }
+
   return (
     <Stack direction="vertical" gap="4" className="bg-theme-background-lvl-1 py-2 px-4 ">
       <InputGroup>
-        <FilterSelect
-          filters={filters}
-          onChange={(selectedFilter) => {
-            onFilterChange({
-              ...filterSettings,
-              selectedFilters: filterSettings?.selectedFilters?.concat(selectedFilter),
-            })
-          }}
-        />
+        <FilterSelect filters={filters} onChange={handleFilterAdded} />
         <Button
           label="Clear all"
           className="ml-4"
