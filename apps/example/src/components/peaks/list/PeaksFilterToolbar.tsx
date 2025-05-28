@@ -55,6 +55,8 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
     (value: string) => !filterSelections[filterLabel]?.includes(value)
   )
 
+  const isDroplistSelectionEmpty = !droplistSelections.countries
+
   return (
     <DataGridToolbar className="jn-ml-0">
       <Stack direction="horizontal" alignment="center" gap="8">
@@ -65,14 +67,15 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
           onSearch={(value: string) => setSearchTerm(value)}
           onClear={() => setSearchTerm("")}
         />
-        <Stack gap="2">
+        <Stack>
           <InputGroup>
             <Select
               name="filterValue"
               value={droplistSelections.countries || ""}
-              label="Filter by Country"
+              label={isDroplistSelectionEmpty ? "" : "Filter by Country"}
               onChange={handleFilterValueChange}
               className="filter-value-select w-96 bg-theme-background-lvl-0"
+              placeholder="Filter by Country"
             >
               {filterOptions?.map((value: string) => (
                 <SelectOption key={value} value={value}>

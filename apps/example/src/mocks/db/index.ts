@@ -20,6 +20,7 @@ export interface Peak {
   mainrange: string
   countries: string
   url?: string
+  details?: string
   safety: Safety
   climate?: string
   nearest_city?: string

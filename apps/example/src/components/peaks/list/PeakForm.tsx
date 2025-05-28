@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback, ChangeEvent } from "react"
+import React, { useState, useCallback, ChangeEvent, useEffect } from "react"
 import {
   PanelBody,
   PanelFooter,
@@ -20,21 +20,12 @@ import {
 import { validateFormField } from "../utils/validateFormFields"
 import { PeakFields } from "../../constants"
 import { useDebounce } from "../../hooks/useDebounce"
+import { Peak } from "../../../mocks/db"
 
-export type TextInputType = "text" | "url"
-
-interface FormState {
-  id?: string
-  name?: string
-  height?: string
-  mainrange?: string
-  region?: string
-  countries?: string
-  url?: string
-}
+type TextInputType = "text" | "url"
 
 interface PeakFormProps {
-  initialValues?: FormState
+  initialValues?: Peak
   closeCallback: () => void
 }
 
@@ -52,26 +43,28 @@ const Labels = {
   SAVE: "Save",
 }
 
-const INITIAL_VALUES: FormState = {
-  id: "",
-  name: "",
-  height: "",
-  mainrange: "",
-  region: "",
-  countries: "",
-  url: "",
-}
-
-const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, closeCallback }) => {
-  const [formState, setFormState] = useState<FormState>(initialValues)
-  const [errors, setErrors] = useState<Partial<FormState>>({})
+const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => {
+  const [formState, setFormState] = useState<Peak>(
+    initialValues || {
+      id: "",
+      name: "",
+      height: "",
+      mainrange: "",
+      region: "",
+      countries: "",
+      url: "",
+      details: "",
+      safety: { status: "", variant: "" },
+    }
+  )
+  const [errors, setErrors] = useState<Partial<Peak>>({})
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [backendError, setBackendError] = useState(false)
-  const [isTyping, setIsTyping] = useState<Record<keyof FormState, boolean>>({})
+  const [isTyping, setIsTyping] = useState<Record<keyof Peak, boolean>>({})
   const [isSaveEnabled, setIsSaveEnabled] = useState(false)
 
-  const requiredFields: Array<keyof FormState> = ["name", "height", "mainrange", "region", "countries"]
+  const requiredFields: Array<keyof Peak> = ["name", "height", "mainrange", "region", "countries"]
 
   const isFormChanged = useCallback(() => {
     return JSON.stringify(formState) !== JSON.stringify(initialValues)
@@ -88,14 +81,13 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
     debouncedSaveUpdate()
   }, [formState, errors, debouncedSaveUpdate])
 
-  const handleAttrChange = (key: keyof FormState, value: string) => {
+  const handleAttrChange = (key: keyof Peak, value: string) => {
     setFormState((prevState) => ({ ...prevState, [key]: value }))
-    setIsTyping((prev) => ({ ...prev, [key]: true })) // Start typing
-
+    setIsTyping((prev) => ({ ...prev, [key]: true }))
     debouncedSaveUpdate()
   }
 
-  const handleFieldBlur = (key: keyof FormState) => {
+  const handleFieldBlur = (key: keyof Peak) => {
     const errorMsg = validateFormField(key, formState[key] || "")
     setErrors((prevErrors) => ({ ...prevErrors, [key]: errorMsg }))
     setIsTyping((prev) => ({ ...prev, [key]: false })) // Only show error if not typing
@@ -139,7 +131,6 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
         </PanelFooter>
       }
     >
-      {/* Note: This is simulated, an error occurs on purpose! */}
       {errorMessage && <Message title={Errors.CREATION_FAILURE} text={errorMessage} variant="error" className="mb-5" />}
       <IntroBox text={Hints.MANDATORY_FIELD_SYMBOL} />
       <Form>
@@ -153,18 +144,20 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues = INITIAL_VALUES, clo
         ].map(({ label, key, type = "text", required, autoFocus, invalid }) => (
           <FormRow key={key}>
             <TextInput
-              label={label}
-              type={type}
-              value={formState[key as keyof FormState] || ""}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleAttrChange(key as keyof FormState, e.target.value)}
-              onBlur={() => handleFieldBlur(key as keyof FormState)}
-              errortext={!isTyping[key] && errors[key as keyof FormState] ? errors[key as keyof FormState] : undefined}
-              maxLength={200}
-              disabled={loading}
-              required={required}
-              autoFocus={autoFocus}
-              invalid={invalid}
-              icon={errors[key as keyof FormState] ? renderTooltip(errors[key as keyof FormState]!) : undefined}
+              {...{
+                label,
+                type,
+                value: formState[key as keyof Peak] || "",
+                onChange: (e: ChangeEvent<HTMLInputElement>) => handleAttrChange(key as keyof Peak, e.target.value),
+                onBlur: () => handleFieldBlur(key as keyof Peak),
+                errortext: !isTyping[key] && errors[key as keyof Peak] ? errors[key as keyof Peak] : undefined,
+                maxLength: 200,
+                disabled: loading,
+                required,
+                autoFocus,
+                invalid,
+              }}
+              icon={errors[key as keyof Peak] ? renderTooltip(errors[key as keyof Peak]) : undefined}
             />
           </FormRow>
         ))}

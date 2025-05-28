@@ -3,9 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import React, { useEffect, useMemo } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
@@ -53,6 +50,7 @@ const App: React.FC<AppProps> = ({ endpoint = "", id = "" }) => {
 
 const StyledApp: React.FC<AppProps> = (props) => (
   <AppShellProvider>
+    {/* eslint-disable-next-line */}
     <style>{styles.toString()}</style>
     <MessagesProvider>
       <App {...props} />

@@ -6,10 +6,10 @@
 import React from "react"
 import { Container, Stack } from "@cloudoperators/juno-ui-components"
 
-import useAuthStore from "../../store/useAuthStore"
-import InfoMessage from "../messages/InfoMessage"
-import HeaderLoginModal from "./header/HeaderLoginModal"
 import PageRenderer from "./PageRenderer"
+import InfoMessage from "../messages/InfoMessage"
+import useAuthStore from "../../store/useAuthStore"
+import HeaderLoginModal from "./header/HeaderLoginModal"
 
 const Content: React.FC = () => {
   const isUserAuthenticated = useAuthStore((state) => state.isUserAuthenticated)

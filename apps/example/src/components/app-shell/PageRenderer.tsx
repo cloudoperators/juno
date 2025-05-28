@@ -46,19 +46,15 @@ const PageRenderer: React.FC = () => {
     clearSelections()
   }
 
-  const clearSelections = () => {
-    setSelectedCountry(null)
-  }
-
   const selectPeakById = (peakId: string) => {
     setSelectedPeakId(peakId)
     setShowPeakDetails(true)
     setCurrentPanel(null)
   }
 
-  const selectPeak = (peak: Peak) => {
-    selectPeakById(peak.id)
-  }
+  const clearSelections = () => setSelectedCountry(null)
+
+  const selectPeak = (peak: Peak) => selectPeakById(peak.id)
 
   const renderCountryPage = () => {
     if (currentPage === Pages.COUNTRIES && selectedCountry)
