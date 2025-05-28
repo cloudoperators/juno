@@ -17,17 +17,14 @@ export type FiltersProps = {
 }
 
 export const Filters = ({ filters, filterSettings, onFilterChange, searchInputPlaceholder }: FiltersProps) => {
-  const handleFilterDelete = useCallback(
-    (filterToRemove: SelectedFilter) => {
-      onFilterChange({
-        ...filterSettings,
-        selectedFilters: filterSettings.selectedFilters?.filter(
-          (filter) => !(filter.name === filterToRemove.name && filter.value === filterToRemove.value)
-        ),
-      })
-    },
-    [filterSettings, onFilterChange]
-  )
+  const handleFilterDelete = (filterToRemove: SelectedFilter) => {
+    onFilterChange({
+      ...filterSettings,
+      selectedFilters: filterSettings.selectedFilters?.filter(
+        (filter) => !(filter.name === filterToRemove.name && filter.value === filterToRemove.value)
+      ),
+    })
+  }
 
   const handleFilterAdded = (filterToAdd: SelectedFilter) => {
     // makes sure filters are just added once
