@@ -9,21 +9,22 @@ import { calculateMetrics, Metrics } from "../peaks/utils/calculateMetrics"
 import { usePaginatedItems } from "../hooks/usePeaks"
 import { Peak } from "../../mocks/db"
 import CreatePeakModal from "../peaks/list/CreatePeakModal"
+import usePeaksStore from "../../store/usePeaksStore"
 
 const ITEMS_PER_PAGE = 15
 
 interface PeaksPageProps {
-  peaks: Peak[]
   isLoading: boolean
   onSelect: (peak: Peak) => void
 }
 
-const PeaksPage: React.FC<PeaksPageProps> = ({ peaks, isLoading, onSelect }) => {
+const PeaksPage: React.FC<PeaksPageProps> = ({ isLoading, onSelect }) => {
   const [viewType, setViewType] = useState<"grid" | "card" | "json">("grid")
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [countryFilter, setCountryFilter] = useState<string>("")
+  const { peaks } = usePeaksStore()
 
   const handleNewPeakClick = () => setIsModalOpen(true)
 

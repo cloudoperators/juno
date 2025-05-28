@@ -3,11 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* eslint-disable no-unused-vars */
+
 import React from "react"
 import { ContentHeading, Icon, Badge } from "@cloudoperators/juno-ui-components"
 
 import GenericCard from "../common/GenericCard"
 import { Peak } from "../../mocks/db"
+import usePeaksStore from "../../store/usePeaksStore"
 
 interface CountrySafetyCounts {
   Safe: number
@@ -22,33 +25,32 @@ interface CountryStats {
 }
 
 interface CountryDashboardPageProps {
-  peaks: Peak[]
-  // eslint-disable-next-line no-unused-vars
   onSelectCountry: (country: string) => void
 }
 
-// Needs refactoring
+const CountriesPage: React.FC<CountryDashboardPageProps> = ({ onSelectCountry }) => {
+  const { peaks } = usePeaksStore() // Direct access from the store
 
-const CountriesPage: React.FC<CountryDashboardPageProps> = ({ peaks, onSelectCountry }) => {
-  const countryStats: Record<string, CountryStats> = peaks.reduce(
+  const countryStats = peaks.reduce(
     (acc, peak) => {
-      if (!acc[peak.countries]) {
-        acc[peak.countries] = { peaks: [], highestPeak: 0, safetyCounts: { Safe: 0, Caution: 0, Unsafe: 0 } }
+      // Process peaks and accumulate country statistics
+      const currentCountryStats = acc[peak.countries] || {
+        peaks: [],
+        highestPeak: 0,
+        safetyCounts: { Safe: 0, Caution: 0, Unsafe: 0 },
       }
-      const currentCountryStats = acc[peak.countries]
-      currentCountryStats.peaks.push(peak)
-
-      // Ensure height is a number
       const peakHeight = typeof peak.height === "string" ? parseInt(peak.height, 10) : peak.height
+
+      currentCountryStats.peaks.push(peak)
       currentCountryStats.highestPeak = Math.max(currentCountryStats.highestPeak, peakHeight)
 
-      // Use keyof for indexing
       const safetyStatus = peak.safety.status as keyof CountrySafetyCounts
 
       if (currentCountryStats.safetyCounts[safetyStatus] !== undefined) {
         currentCountryStats.safetyCounts[safetyStatus] += 1
       }
 
+      acc[peak.countries] = currentCountryStats
       return acc
     },
     {} as Record<string, CountryStats>

@@ -5,22 +5,20 @@
 
 import React, { useState } from "react"
 import { Box, CodeBlock, JsonViewer } from "@cloudoperators/juno-ui-components"
+import usePeaksStore from "../../store/usePeaksStore"
 
 import DetailLayout from "../common/DetailLayout"
 import ExpandableSection from "../common/ExpandableSection"
-
 import { Peak } from "../../mocks/db"
 
 interface CountryDetailPageProps {
   countryName: string
-  peaks: Peak[]
   onBack: () => void
 }
 
-// Needs refactoring
-
-const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, peaks, onBack }) => {
+const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, onBack }) => {
   const [isJsonView, setIsJsonView] = useState<boolean>(false)
+  const { peaks } = usePeaksStore() // Direct access to peaks
 
   const filteredCountryPeaksByName = peaks.filter((peak) => peak.countries === countryName)
 
@@ -43,7 +41,6 @@ const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, peak
     return acc
   }, {})
 
-  // Define headers for different statuses with correct types mapped
   const statusHeaders: Record<
     keyof typeof categorizedPeaksBySafety,
     { text: string; variant: "success" | "warning" | "error" }

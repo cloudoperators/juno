@@ -9,5 +9,4 @@
 // {
 //   "theme": "theme-dark",
 //   "endpoint": "https://example.com",
-//   "embedded": "true"
 // }

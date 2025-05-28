@@ -30,7 +30,7 @@ const getPeaks = ({ endpoint }: Options) => {
 const getPeak = ({ endpoint }: Options) => {
   return http.get(`${endpoint}/peaks/:id`, ({ params }) => {
     const { id } = params
-    const peak = db.peaks.find((peak: Peak) => peak.id === Number(id))
+    const peak = db.peaks.find((peak: Peak) => peak.id === id)
     if (peak) {
       return MockHttpResponse.json(peak)
     } else {
@@ -42,7 +42,7 @@ const getPeak = ({ endpoint }: Options) => {
 const deletePeak = ({ endpoint }: Options) => {
   return http.delete(`${endpoint}/peaks/:id`, ({ params }) => {
     const { id } = params
-    db.peaks = db.peaks.filter((peak: Peak) => peak.id !== Number(id))
+    db.peaks = db.peaks.filter((peak: Peak) => peak.id !== id)
     return MockHttpResponse.json({})
   })
 }
@@ -51,7 +51,7 @@ const updatePeak = ({ endpoint }: Options) => {
   return http.put(`${endpoint}/peaks/:id`, async ({ params, request }) => {
     const { id } = params
     const updatedPeak = (await request.json()) as Peak
-    db.peaks = db.peaks.map((peak: Peak) => (peak.id === Number(id) ? updatedPeak : peak))
+    db.peaks = db.peaks.map((peak: Peak) => (peak.id === id ? updatedPeak : peak))
     return MockHttpResponse.json({})
   })
 }

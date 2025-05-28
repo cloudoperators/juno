@@ -12,8 +12,9 @@ import ArrowUp from "../../assets/arrow_up.svg?react"
 import ArrowDown from "../../assets/arrow_down.svg?react"
 import Mountain from "../../assets/mountain.svg?react"
 import useNavigationStore from "../../store/useNavigationStore"
-import { Pages } from "../constants"
 import usePeaksStore from "../../store/usePeaksStore"
+import { Pages } from "../constants"
+import useUIStore from "../../store/useUIStore"
 
 export interface PeakDetails {
   id: number
@@ -68,12 +69,29 @@ const MetricsBox: React.FC<MetricsProps> = ({
   hoverable = false,
 }) => {
   const [modalVisible, setModalVisible] = useState(false)
+  const { setCurrentPage } = useNavigationStore()
+  const { setSelectedPeakId } = usePeaksStore()
+  const { setShowPeakDetails } = useUIStore() // ensure we're using the combined UI store
 
   const isClickable = peakType !== Metrics.TOTAL_PEAKS && peakType !== Metrics.TOTAL_COUNTRIES
 
   const handleBoxClick = () => {
     if (!isLoading && peakDetails && isClickable) {
+      console.log(`Opening modal for peak ID: ${peakDetails.id}`) // Debugging log
       setModalVisible(true)
+    }
+  }
+
+  const navigateToDetailPage = () => {
+    if (peakDetails) {
+      console.log(`Setting selected peak ID: ${peakDetails.id}`) // Debugging log
+      setSelectedPeakId(String(peakDetails.id)) // Ensure the peak ID is set correctly
+      console.log("Setting showPeakDetails to true") // Debugging log
+      setShowPeakDetails(true) // Trigger detail rendering
+      console.log("Navigating to Peaks page") // Debugging log
+      setCurrentPage(Pages.PEAKS) // Navigate to Peaks page
+      console.log("Closing modal") // Debugging log
+      setModalVisible(false) // Close modal
     }
   }
 
@@ -104,6 +122,7 @@ const MetricsBox: React.FC<MetricsProps> = ({
         colorClass={colorClass}
         modalVisible={modalVisible}
         onClose={() => setModalVisible(false)}
+        onOpenDetail={navigateToDetailPage}
       />
     </>
   )
@@ -136,19 +155,9 @@ export const PeakModal: React.FC<{
   colorClass: string
   modalVisible: boolean
   onClose: () => void
-}> = ({ peakDetails, colorClass, modalVisible, onClose }) => {
-  const { setCurrentPage } = useNavigationStore()
-  const { setSelectedPeakId } = usePeaksStore()
-
-  const navigateToDetailPage = () => {
-    if (peakDetails) {
-      setSelectedPeakId(String(peakDetails.id))
-      setCurrentPage(Pages.PEAKS)
-      onClose()
-    }
-  }
-
-  return modalVisible && peakDetails ? (
+  onOpenDetail: () => void
+}> = ({ peakDetails, colorClass, modalVisible, onClose, onOpenDetail }) =>
+  modalVisible && peakDetails ? (
     <Modal
       open={modalVisible}
       onCancel={onClose}
@@ -159,7 +168,7 @@ export const PeakModal: React.FC<{
         <ModalFooter className="flex justify-end">
           <ButtonRow>
             <Button onClick={onClose} label={"Cancel"} />
-            <Button variant="primary" onClick={navigateToDetailPage}>
+            <Button variant="primary" onClick={onOpenDetail}>
               Open Detail Page
             </Button>
           </ButtonRow>
@@ -185,4 +194,3 @@ export const PeakModal: React.FC<{
       </div>
     </Modal>
   ) : null
-}

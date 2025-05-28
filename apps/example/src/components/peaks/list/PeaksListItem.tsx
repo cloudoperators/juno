@@ -8,6 +8,7 @@ import { DataGridCell, DataGridRow, Badge } from "@cloudoperators/juno-ui-compon
 import { Peak } from "../../../mocks/db"
 import PeaksListItemActions from "./PeaksListItemActions"
 import useUIStore from "../../../store/useUIStore"
+import usePeaksStore from "../../../store/usePeaksStore"
 
 export interface PeaksListItemProps {
   peak: Peak
@@ -16,9 +17,11 @@ export interface PeaksListItemProps {
 
 const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   const { setCurrentPanel } = useUIStore()
+  const { setSelectedPeakId } = usePeaksStore()
 
   const openPanel = () => {
-    setCurrentPanel({ type: "ShowPeak", itemId: peak.id })
+    setCurrentPanel("ShowPeak")
+    setSelectedPeakId(peak.id)
   }
 
   const hoverStyles =

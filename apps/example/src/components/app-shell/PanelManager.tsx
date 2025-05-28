@@ -3,15 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* eslint-disable no-unused-vars */
+
 import React from "react"
 import { Badge, Panel, DataGrid, DataGridRow, DataGridCell, Button } from "@cloudoperators/juno-ui-components"
+import { Peak } from "../../mocks/db"
+
 import useUIStore from "../../store/useUIStore"
 import usePeaksStore from "../../store/usePeaksStore"
-import useNavigationStore from "../../store/useNavigationStore"
+
 import { Panels, Pages } from "../constants"
 import PeakForm from "../peaks/list/PeakForm"
-import { PeakFields, TooltipExplanation } from "../constants"
 import HelpTooltip from "../common/HelpTooltip"
+import { PeakFields, TooltipExplanation } from "../constants"
 
 const EDIT_HEADING = "Edit Peak"
 const INITAL_PLACEHOLDER_PEAK_DATA = {
@@ -23,123 +27,109 @@ const INITAL_PLACEHOLDER_PEAK_DATA = {
   url: "https://example.com/sample",
 }
 
-const PanelManager: React.FC = () => {
-  const { currentPanel, setCurrentPanel } = useUIStore()
-  const { peaks, setSelectedPeakId } = usePeaksStore()
-  const { setCurrentPage } = useNavigationStore()
+const PanelManager: React.FC<{ openDetailPageWithPeak: (peakId: string) => void; closePanel: () => void }> = ({
+  openDetailPageWithPeak,
+  closePanel,
+}) => {
+  const { currentPanel } = useUIStore()
+  const { peaks, selectedPeakId } = usePeaksStore()
 
-  const closePanel = (): void => setCurrentPanel(null)
-
-  const peakDetails = currentPanel?.itemId ? peaks.find((peak) => peak.id === Number(currentPanel.itemId)) : null
-  const navigateToDetailPage = () => {
-    if (peakDetails) {
-      setSelectedPeakId(String(peakDetails.id))
-      setCurrentPage(Pages.PEAKS) // Navigate to the peaks detail page
-      closePanel()
-    }
-  }
+  const peakDetails = selectedPeakId ? peaks.find((peak) => peak.id === selectedPeakId) : null
 
   const getPanelHeading = (): React.ReactNode => {
-    switch (currentPanel?.type) {
+    switch (currentPanel) {
       case Panels.EDIT_PEAKS:
         return EDIT_HEADING
       case Panels.SHOW_PEAK:
         return peakDetails ? `${peakDetails.name} Overview` : null
+      default:
+        return null
     }
   }
 
-  const renderPanelContent = (): React.ReactNode => {
-    switch (currentPanel?.type) {
+  const PanelContent: React.FC = () => {
+    switch (currentPanel) {
       case Panels.EDIT_PEAKS:
         return <PeakForm initialValues={peakDetails || INITAL_PLACEHOLDER_PEAK_DATA} closeCallback={closePanel} />
       case Panels.SHOW_PEAK:
-        return (
-          <div className="flex flex-col h-full">
-            {peakDetails && (
-              <DataGrid columns={2} className="grid grid-cols-[30%_70%] m-5">
-                <DataGridRow key="safety-status" className="py-2.5">
-                  <DataGridCell>
-                    <div className="flex items-center">
-                      <strong className="mr-2">{PeakFields.SAFETY}</strong>
-                      <HelpTooltip tooltipText={TooltipExplanation.SAFETY_STATUS} />
-                    </div>
-                  </DataGridCell>
-                  <DataGridCell>
-                    <Badge
-                      icon
-                      text={peakDetails.safety.status}
-                      variant={peakDetails.safety.variant}
-                      className="w-[70px] text-center"
-                    />
-                  </DataGridCell>
-                </DataGridRow>
-                <DataGridRow key="height" className="py-2.5">
-                  <DataGridCell>
-                    <div className="flex items-center">
-                      <strong className="mr-2">{PeakFields.HEIGHT}</strong>
-                      <HelpTooltip tooltipText={TooltipExplanation.HEIGHT} />
-                    </div>
-                  </DataGridCell>
-                  <DataGridCell>{peakDetails.height}</DataGridCell>
-                </DataGridRow>
-                <DataGridRow key="mainrange" className="py-2.5">
-                  <DataGridCell>
-                    <strong>{PeakFields.RANGE}</strong>
-                  </DataGridCell>
-                  <DataGridCell>{peakDetails.mainrange}</DataGridCell>
-                </DataGridRow>
-                <DataGridRow key="region" className="py-2.5">
-                  <DataGridCell>
-                    <strong>{PeakFields.REGION}</strong>
-                  </DataGridCell>
-                  <DataGridCell>{peakDetails.region}</DataGridCell>
-                </DataGridRow>
-                <DataGridRow key="countries" className="py-2.5">
-                  <DataGridCell>
-                    <strong>{PeakFields.COUNTRY}</strong>
-                  </DataGridCell>
-                  <DataGridCell>{peakDetails.countries}</DataGridCell>
-                </DataGridRow>
-                <DataGridRow key="details" className="py-2.5">
-                  <DataGridCell>
-                    <strong>Details</strong>
-                  </DataGridCell>
-                  <DataGridCell>{peakDetails.details}</DataGridCell>
-                </DataGridRow>
-                <DataGridRow key="more-info" className="py-2.5">
-                  <DataGridCell>
-                    <strong>More Info</strong>
-                  </DataGridCell>
-                  <DataGridCell>
-                    <a href={peakDetails.url} target="_blank" rel="noopener noreferrer">
-                      Wikipedia
-                    </a>
-                  </DataGridCell>
-                </DataGridRow>
-              </DataGrid>
-            )}
-            <div className="text-center mt-auto p-8">
-              <Button
-                variant="primary"
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigateToDetailPage()
-                }}
-                className="cursor-pointer"
-              >
-                Open Detail Page
-              </Button>
-            </div>
-          </div>
-        )
+        return <ShowPeakContent peakDetails={peakDetails} openDetailPageWithPeak={openDetailPageWithPeak} />
+      default:
+        return null
     }
   }
 
   return (
-    <Panel heading={getPanelHeading()} opened={Boolean(renderPanelContent())} onClose={closePanel}>
-      {renderPanelContent()}
+    <Panel heading={getPanelHeading()} opened={Boolean(currentPanel)} onClose={closePanel}>
+      <PanelContent />
     </Panel>
   )
 }
+
+const ShowPeakContent: React.FC<{ peakDetails: Peak; openDetailPageWithPeak: (peakId: string) => void }> = ({
+  peakDetails,
+  openDetailPageWithPeak,
+}) => (
+  <div className="flex flex-col h-full">
+    {peakDetails && (
+      <DataGrid columns={2} className="grid grid-cols-[30%_70%] m-5">
+        {renderDataGridRows(peakDetails)}
+      </DataGrid>
+    )}
+    <div className="text-center mt-auto p-8">
+      <Button
+        variant="primary"
+        onClick={(e) => {
+          e.preventDefault()
+          openDetailPageWithPeak(peakDetails.id.toString())
+        }}
+        className="cursor-pointer"
+      >
+        Open Detail Page
+      </Button>
+    </div>
+  </div>
+)
+
+const renderDataGridRows = (peakDetails: Peak) => {
+  const rows = [
+    {
+      key: "safety-status",
+      field: PeakFields.SAFETY,
+      content: <BadgeComponent peak={peakDetails} />,
+      tooltip: TooltipExplanation.SAFETY_STATUS,
+    },
+    { key: "height", field: PeakFields.HEIGHT, value: peakDetails.height, tooltip: TooltipExplanation.HEIGHT },
+    { key: "mainrange", field: PeakFields.RANGE, value: peakDetails.mainrange },
+    { key: "region", field: PeakFields.REGION, value: peakDetails.region },
+    { key: "countries", field: PeakFields.COUNTRY, value: peakDetails.countries },
+    { key: "details", field: "Details", value: peakDetails.details },
+    { key: "more-info", field: "More Info", link: peakDetails.url },
+  ]
+
+  return rows.map(({ key, field, content, value, tooltip, link }) => (
+    <DataGridRow key={key} className="py-2.5">
+      <DataGridCell>
+        <div className="flex items-center">
+          <strong className="mr-2">{field}</strong>
+          {tooltip && <HelpTooltip tooltipText={tooltip} />}
+        </div>
+      </DataGridCell>
+      <DataGridCell>
+        {content ||
+          (link ? (
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              View
+            </a>
+          ) : (
+            value
+          ))}
+      </DataGridCell>
+    </DataGridRow>
+  ))
+}
+
+const BadgeComponent: React.FC<{ peak: Peak }> = ({ peak }) => (
+  <Badge icon text={peak.safety.status} variant={peak.safety.variant} className="w-[70px] text-center" />
+)
 
 export default PanelManager

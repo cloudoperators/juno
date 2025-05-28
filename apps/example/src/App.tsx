@@ -12,10 +12,10 @@ import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 
 import useAuthStore from "./store/useAuthStore"
+import useConfigStore from "./store/useConfigStore"
 import AsyncWorker from "./components/AsyncWorker"
 import Footer from "./components/app-shell/Footer"
 import Content from "./components/app-shell/Content"
-import useConfigStore from "./store/useConfigStore"
 import Header from "./components/app-shell/header/Header"
 import TopNavigationBar from "./components/app-shell/Navigation"
 
@@ -24,13 +24,10 @@ import styles from "./styles.scss?inline"
 
 interface AppProps {
   endpoint?: string
-  embedded?: boolean
   id?: string
-  theme?: string
 }
 
-const App: React.FC<AppProps> = ({ endpoint = "", embedded = false, id = "" }) => {
-  // @ts-ignore
+const App: React.FC<AppProps> = ({ endpoint = "", id = "" }) => {
   const { setEndpoint } = useConfigStore()
   const isUserAuthenticated = useAuthStore((state) => state.isUserAuthenticated)
 
@@ -44,7 +41,6 @@ const App: React.FC<AppProps> = ({ endpoint = "", embedded = false, id = "" }) =
     <QueryClientProvider client={queryClient}>
       <AsyncWorker consumerId={id} />
       <AppShell
-        embedded={embedded}
         pageHeader={<Header />}
         topNavigation={isUserAuthenticated ? <TopNavigationBar /> : null}
         pageFooter={<Footer />}

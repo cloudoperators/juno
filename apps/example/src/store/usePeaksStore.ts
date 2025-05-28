@@ -12,7 +12,7 @@ interface PeaksState {
   peaks: Peak[]
   selectedPeakId: string | null
   setPeaks: (peaks: Peak[]) => void
-  setSelectedPeakId: (id: string) => void
+  setSelectedPeakId: (id: string | null) => void
 }
 
 const usePeaksStore = create<PeaksState>((set) => ({
