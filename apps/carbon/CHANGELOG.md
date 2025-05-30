@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-carbon
 
+## 1.0.7
+
+### Patch Changes
+
+- 483d9ee: Update react version to 19.1.0
+- Updated dependencies [483d9ee]
+  - @cloudoperators/juno-ui-components@4.0.0
+
 ## 1.0.6
 
 ### Patch Changes
