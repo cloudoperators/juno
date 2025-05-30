@@ -1,5 +1,11 @@
 # @cloudoperators/juno-template
 
+## 1.1.6
+
+### Patch Changes
+
+- 483d9ee: Update react version to 19.1.0
+
 ## 1.1.5
 
 ### Patch Changes
