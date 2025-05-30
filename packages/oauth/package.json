@@ -20,7 +20,6 @@
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@types/node": "^20.11.24",
-    "esbuild": "^0.17.6",
     "typescript": "^5.5.4",
     "vitest": "^3.0.7",
     "vite": "^6.3.5",
