@@ -27,6 +27,7 @@ type TextInputType = "text" | "url"
 interface PeakFormProps {
   initialValues?: Peak
   closeCallback: () => void
+  hasButtons: boolean
 }
 
 const Errors = {

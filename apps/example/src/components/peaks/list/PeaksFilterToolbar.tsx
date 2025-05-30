@@ -41,7 +41,6 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
   setViewType,
 }) => {
   const filterLabel = "countries" // Focus on country filter only
-  const filterValue = filterSelections.countries?.[0] || ""
 
   const handleFilterValueChange = (value: string) => {
     if (value) {

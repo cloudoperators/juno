@@ -8,24 +8,16 @@
 import React, { useState } from "react"
 import { Spinner, Modal, Icon, Badge, Button, Stack, ModalFooter, ButtonRow } from "@cloudoperators/juno-ui-components"
 import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
-import ArrowUp from "../../assets/arrow_up.svg?react"
-import ArrowDown from "../../assets/arrow_down.svg?react"
-import Mountain from "../../assets/mountain.svg?react"
 import useNavigationStore from "../../store/useNavigationStore"
 import usePeaksStore from "../../store/usePeaksStore"
 import { Pages } from "../constants"
 import useUIStore from "../../store/useUIStore"
 
-export interface PeakDetails {
-  id: number
-  name: string
-  region: string
-  country: string
-  height: string
-  status: string
-  recommendation: string
-  variant: string
-}
+import { Peak } from "../../mocks/db"
+
+import ArrowUp from "../../assets/arrow_up.svg?react"
+import ArrowDown from "../../assets/arrow_down.svg?react"
+import Mountain from "../../assets/mountain.svg?react"
 
 export interface MetricsProps {
   label: string
@@ -33,7 +25,7 @@ export interface MetricsProps {
   value?: string
   isLoading: boolean
   iconName?: string
-  peakDetails?: PeakDetails
+  peakDetails?: Peak
   peakType?: (typeof Metrics)[keyof typeof Metrics]
   hoverable: boolean
 }
@@ -135,7 +127,7 @@ const PeakInfo: React.FC<{
   number?: string
   colorClass: string
   isLoading: boolean
-  peakDetails?: PeakDetails
+  peakDetails?: Peak
 }> = ({ label, number, colorClass, isLoading, peakDetails }) => (
   <div className="text-theme-high">
     <span className="text-sm block">{label}</span>
@@ -151,12 +143,12 @@ const PeakInfo: React.FC<{
 )
 
 export const PeakModal: React.FC<{
-  peakDetails?: PeakDetails
+  peakDetails?: Peak
   colorClass: string
   modalVisible: boolean
   onClose: () => void
   onOpenDetail: () => void
-}> = ({ peakDetails, colorClass, modalVisible, onClose, onOpenDetail }) =>
+}> = ({ peakDetails, modalVisible, onClose, onOpenDetail }) =>
   modalVisible && peakDetails ? (
     <Modal
       open={modalVisible}

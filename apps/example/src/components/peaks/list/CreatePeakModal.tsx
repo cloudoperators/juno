@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Modal, ModalFooter, Button, ButtonRow } from "@cloudoperators/juno-ui-components"
+import { Modal } from "@cloudoperators/juno-ui-components"
 import PeakForm from "./PeakForm"
 
 interface CreatePeakModalProps {

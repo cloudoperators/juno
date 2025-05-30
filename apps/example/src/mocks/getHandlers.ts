@@ -59,7 +59,7 @@ const updatePeak = ({ endpoint }: Options) => {
 const addPeak = ({ endpoint }: Options) => {
   return http.post(`${endpoint}/peaks`, async ({ request }) => {
     const newPeak = (await request.json()) as Peak
-    const id = Math.max(...db.peaks.map((peak: Peak) => peak.id)) + 1
+    const id = (Math.max(...db.peaks.map((peak: Peak) => parseInt(peak.id, 10))) + 1).toString()
     db.peaks = [...db.peaks, { ...newPeak, id }]
     return MockHttpResponse.json({})
   })

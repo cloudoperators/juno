@@ -73,7 +73,7 @@ const DataGridRows: React.FC<{ peakDetails: Peak }> = ({ peakDetails }) => {
             {content ||
               (link ? (
                 <a href={link} target="_blank" rel="noopener noreferrer">
-                  View
+                  Wikipedia
                 </a>
               ) : (
                 value

@@ -4,7 +4,6 @@ import PeaksFilterToolbar from "../peaks/list/PeaksFilterToolbar"
 import PeaksList from "../peaks/list/PeaksList"
 import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
 import MetricsDisplay from "../metrics/MetricsDisplay"
-import useUIStore from "../../store/useUIStore"
 import { calculateMetrics, Metrics } from "../peaks/utils/calculateMetrics"
 import { usePaginatedItems } from "../hooks/usePeaks"
 import { Peak } from "../../mocks/db"
@@ -15,6 +14,7 @@ const ITEMS_PER_PAGE = 15
 
 interface PeaksPageProps {
   isLoading: boolean
+  // eslint-disable-next-line no-unused-vars
   onSelect: (peak: Peak) => void
 }
 

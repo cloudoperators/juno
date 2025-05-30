@@ -10,7 +10,7 @@ const usePeakActions = ({ onBack }: UsePeakActions = {}) => {
   const { setCurrentPanel } = useUIStore()
   const { setSelectedPeakId } = usePeaksStore()
 
-  const handleEdit = (peakId: number) => {
+  const handleEdit = (peakId: String) => {
     setCurrentPanel(Panels.EDIT_PEAKS)
     setSelectedPeakId(String(peakId))
   }

@@ -7,9 +7,24 @@ import peaksData from "./peaks.json"
 
 export interface Safety {
   status: string
+  variant: BadgeVariantType
   recommendation: string
-  variant: "success" | "warning" | "error" | "info"
   common_hazards?: string
+}
+
+export interface FirstAscent {
+  date?: string
+  by?: string
+}
+
+export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
+
+export interface AdditionalInfo {
+  prominence?: string
+  coordinates?: string
+  geologic_origin?: string
+  climbing_routes?: string[]
+  notable_ascents?: string[]
 }
 
 export interface Peak {
@@ -29,14 +44,18 @@ export interface Peak {
   best_climbing_months?: string
   has_snow?: boolean
   permit_required?: boolean
-  first_ascent?: { date?: string; by?: string }
-  additional_info?: {
-    prominence?: string
-    coordinates?: string
-    geologic_origin?: string
-    climbing_routes?: string[]
-    notable_ascents?: string[]
-  }
+  first_ascent?: FirstAscent
+  additional_info?: AdditionalInfo
+  historical_significance?: string
+  access_points?: string[]
+  nearest_airport?: string
+  flora?: string
+  protected_status?: string
+  activities?: string[]
+  tourism_rating?: number
+  physical_features?: string[]
+  local_culture?: string
+  known_hazards?: string[]
 }
 
 // @ts-ignore

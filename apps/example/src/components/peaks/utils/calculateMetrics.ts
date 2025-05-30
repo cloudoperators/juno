@@ -5,12 +5,11 @@
 
 import { PeakMetrics } from "../../constants"
 import { Peak, Safety } from "../../../mocks/db"
-import { PeakDetails } from "../../metrics/MetricsBox"
 
 export interface PeakMetric {
   label: string
   value: string
-  peakDetails: PeakDetails
+  peakDetails: Peak
   hoverable: boolean
   peakType: string
 }
@@ -39,10 +38,11 @@ export const calculateMetrics = (peaks: Peak[]): Metrics => {
   const defaultSafety: Safety = {
     status: "Unknown",
     recommendation: "No data available.",
-    variant: "warning", // Default variant, adjust if needed
+    variant: "info",
   }
 
   const initialPeak = peaks[0] || {
+    id: null,
     height: "0",
     name: "N/A",
     region: "",

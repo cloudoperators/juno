@@ -62,5 +62,4 @@ npx turbo test
 
 These are the customizable application properties (appProps) that you can define in your appProps.json file:
 
-- **theme**: `"theme-light"` or `"theme-dark"` (default).
 - **endpoint**: The API endpoint URL for the app. Empty by default.

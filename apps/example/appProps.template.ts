@@ -3,10 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// please copy this file to appProps.json (note: .json not .js)
-// and add props for your app
-// example:
+// Copy this file to appProps.json (note: .json not .js) and add props for your app
+// Example:
 // {
-//   "theme": "theme-dark",
 //   "endpoint": "https://example.com",
 // }
