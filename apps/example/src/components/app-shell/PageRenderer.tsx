@@ -24,7 +24,6 @@ const PageRenderer: React.FC = () => {
   const { currentPage } = useNavigationStore()
   const { isQueryClientReady } = useConfigStore()
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
-
   const { setPeaks, selectedPeakId, setSelectedPeakId } = usePeaksStore()
   const { setCurrentPanel, showPeakDetails, setShowPeakDetails } = useUIStore()
 

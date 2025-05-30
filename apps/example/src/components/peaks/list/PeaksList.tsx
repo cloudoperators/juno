@@ -18,12 +18,13 @@ import {
 import GenericCard from "../../common/GenericCard"
 import HintNotFound from "../../messages/HintNotFound"
 import { Views, PeakFields } from "../../constants"
-import Mountain from "../../../assets/mountain.svg?react"
 
 import { Peak } from "../../../mocks/db"
 import PeaksListItem from "./PeaksListItem"
 import HelpTooltip from "../../common/HelpTooltip"
 import { TooltipExplanation } from "../../constants"
+
+import Mountain from "../../../assets/mountain.svg?react"
 
 interface PeaksListProps {
   viewType: string

@@ -3,8 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Copy this file to appProps.json (note: .json not .js) and add props for your app
-// Example:
-// {
-//   "endpoint": "https://example.com",
-// }
+/*
+ * Configuration Setup:
+ * Copy this file's content to `appProps.json` (note: the file extension should be `.json`, not `.js`).
+ * In this file, you can define and customize application properties.
+ *
+ * Example:
+ * {
+ *   "id": "user1",
+ *   "endpoint": "https://api.example.com"
+ * }
+ */

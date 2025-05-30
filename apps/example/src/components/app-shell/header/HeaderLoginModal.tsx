@@ -5,12 +5,13 @@
 
 import React from "react"
 import { Modal, Button, Stack, Container } from "@cloudoperators/juno-ui-components"
+
 import useAuthStore from "../../../store/useAuthStore"
 import JunoUILogo from "../../../assets/juno_logo.svg?react"
 
+const LOGIN_BUTTON_LABEL = "Log In"
 const WELCOME_TITLE = "Juno UI Peaks Monitoring Dashboard"
 const WELCOME_MESSAGE = "Log in to get access to the peaks of the world!"
-const LOGIN_BUTTON_LABEL = "Log In"
 
 const HeaderLoginModal: React.FC = () => {
   const setIsUserAuthenticated = useAuthStore((state) => state.setIsUserAuthenticated)

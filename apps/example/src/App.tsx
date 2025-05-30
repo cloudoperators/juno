@@ -9,9 +9,9 @@ import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 
 import useAuthStore from "./store/useAuthStore"
-import useConfigStore from "./store/useConfigStore"
 import AsyncWorker from "./components/AsyncWorker"
 import Footer from "./components/app-shell/Footer"
+import useConfigStore from "./store/useConfigStore"
 import Content from "./components/app-shell/Content"
 import Header from "./components/app-shell/header/Header"
 import TopNavigationBar from "./components/app-shell/Navigation"
@@ -27,12 +27,11 @@ interface AppProps {
 const App: React.FC<AppProps> = ({ endpoint = "", id = "" }) => {
   const { setEndpoint } = useConfigStore()
   const isUserAuthenticated = useAuthStore((state) => state.isUserAuthenticated)
-
   const queryClient = useMemo(() => new QueryClient(), [])
 
   useEffect(() => {
     setEndpoint(endpoint)
-  }, [endpoint, setEndpoint])
+  }, [endpoint])
 
   return (
     <QueryClientProvider client={queryClient}>

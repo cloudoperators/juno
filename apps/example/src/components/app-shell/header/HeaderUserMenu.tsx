@@ -5,8 +5,9 @@
 
 import React from "react"
 import { Button, PopupMenu, PopupMenuToggle, PopupMenuOptions } from "@cloudoperators/juno-ui-components"
-import useAuthStore from "../../../store/useAuthStore"
+
 import HeaderAvatar from "./HeaderAvatar"
+import useAuthStore from "../../../store/useAuthStore"
 
 const LOGOUT_BUTTON_LABEL = "Log Out"
 
@@ -25,7 +26,7 @@ const HeaderUserMenu: React.FC = () => {
       {isUserAuthenticated && (
         <PopupMenu>
           <PopupMenuToggle>
-            <HeaderAvatar userName={"Jane Doe"} url={"https://avatars.wdf.sap.corp/avatar/I123456?size=24"} />
+            <HeaderAvatar />
           </PopupMenuToggle>
           <PopupMenuOptions>
             <Button label={LOGOUT_BUTTON_LABEL} size="small" onClick={handleLogout} />

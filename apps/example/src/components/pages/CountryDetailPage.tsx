@@ -10,6 +10,7 @@ import usePeaksStore from "../../store/usePeaksStore"
 import DetailLayout from "../common/DetailLayout"
 import ExpandableSection from "../common/ExpandableSection"
 import { Peak } from "../../mocks/db"
+import { Pages } from "../constants"
 
 interface CountryDetailPageProps {
   countryName: string
@@ -53,7 +54,7 @@ const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, onBa
   return (
     <DetailLayout
       title={`Details for ${countryName}`}
-      breadcrumbLabel="Countries"
+      breadcrumbLabel={Pages.COUNTRIES}
       onBack={onBack}
       metrics={metrics}
       isJsonView={isJsonView}

@@ -69,21 +69,16 @@ const MetricsBox: React.FC<MetricsProps> = ({
 
   const handleBoxClick = () => {
     if (!isLoading && peakDetails && isClickable) {
-      console.log(`Opening modal for peak ID: ${peakDetails.id}`) // Debugging log
       setModalVisible(true)
     }
   }
 
   const navigateToDetailPage = () => {
     if (peakDetails) {
-      console.log(`Setting selected peak ID: ${peakDetails.id}`) // Debugging log
-      setSelectedPeakId(String(peakDetails.id)) // Ensure the peak ID is set correctly
-      console.log("Setting showPeakDetails to true") // Debugging log
-      setShowPeakDetails(true) // Trigger detail rendering
-      console.log("Navigating to Peaks page") // Debugging log
-      setCurrentPage(Pages.PEAKS) // Navigate to Peaks page
-      console.log("Closing modal") // Debugging log
-      setModalVisible(false) // Close modal
+      setSelectedPeakId(String(peakDetails.id))
+      setShowPeakDetails(true)
+      setCurrentPage(Pages.PEAKS)
+      setModalVisible(false)
     }
   }
 

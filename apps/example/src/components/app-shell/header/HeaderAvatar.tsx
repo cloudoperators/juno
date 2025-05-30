@@ -15,23 +15,21 @@ bg-no-repeat
 bg-cover
 `
 
-interface HeaderAvatarProps {
-  userName?: string
-  url?: string
-}
+const DEFAULT_USERNAME = "Jane Doe"
+const DEFAULT_URL = "https://avatars.wdf.sap.corp/avatar/I123456?size=24"
 
-const HeaderAvatar: React.FC<HeaderAvatarProps> = ({ userName, url }) => {
+const HeaderAvatar: React.FC = () => {
   return (
     <Stack gap="2" alignment="center">
-      {url && (
+      {
         <div
           style={{
-            backgroundImage: `url(${url})`,
+            backgroundImage: `url(${DEFAULT_URL})`,
           }}
           className={avatarStyles}
         />
-      )}
-      {userName && <span>{userName}</span>}
+      }
+      {<span>{DEFAULT_USERNAME}</span>}
     </Stack>
   )
 }

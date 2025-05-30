@@ -6,9 +6,10 @@
 import React from "react"
 import { Container, Stack } from "@cloudoperators/juno-ui-components"
 
-import PageRenderer from "./PageRenderer"
 import InfoMessage from "../messages/InfoMessage"
 import useAuthStore from "../../store/useAuthStore"
+
+import PageRenderer from "./PageRenderer"
 import HeaderLoginModal from "./header/HeaderLoginModal"
 
 const Content: React.FC = () => {
