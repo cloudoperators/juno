@@ -1,0 +1,36 @@
+dist
+dist-ssr
+appProps.json
+*.local
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+build
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# pnpm store directory (optional if you use a global store)
+.pnpm-store
+
+# pnpm virtual store (used in monorepos and workspaces)
+.pnpm
+
+# debug
+npm-debug.log*
+
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

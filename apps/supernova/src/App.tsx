@@ -5,17 +5,17 @@
 
 import React from "react"
 
-import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
-import AppContent from "./AppContent"
-import styles from "./styles.scss?inline"
-import { StoreProvider } from "./components/StoreProvider"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import CustomAppShell from "./components/CustomAppShell"
+import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ErrorBoundary } from "react-error-boundary"
-import useUrlState from "./hooks/useUrlState"
-import useUrlQueryState from "./hooks/useUrlQueryState"
 import { z } from "zod"
+import AppContent from "./AppContent"
+import CustomAppShell from "./components/CustomAppShell"
+import { StoreProvider } from "./components/StoreProvider"
+import useUrlQueryState from "./hooks/useUrlQueryState"
+import useUrlState from "./hooks/useUrlState"
+import styles from "./styles.scss?inline"
 const AppShellTheme = z.enum(["theme-dark", "theme-light"])
 
 const queryClient = new QueryClient({
