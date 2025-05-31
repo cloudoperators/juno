@@ -20,7 +20,6 @@ export type ServiceType = {
   serviceDetails: {
     supportGroups: string[]
   }
-  components: number
   remediationDate: string
   serviceOwners: string[]
 }

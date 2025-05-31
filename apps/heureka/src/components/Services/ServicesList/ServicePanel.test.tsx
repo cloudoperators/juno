@@ -25,7 +25,6 @@ const mockService: ServiceType = {
   serviceDetails: {
     supportGroups: ["group1", "group2"],
   },
-  components: 3,
   remediationDate: "2024-01-01",
   serviceOwners: ["owner1", "owner2"],
 }
