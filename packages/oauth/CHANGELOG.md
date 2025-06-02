@@ -1,5 +1,11 @@
 # @cloudoperators/juno-oauth
 
+## 1.4.7
+
+### Patch Changes
+
+- 483d9ee: Update react version to 19.1.0
+
 ## 1.4.6
 
 ### Patch Changes
