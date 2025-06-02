@@ -7,9 +7,8 @@ import React from "react"
 import { PageHeader, Stack, ThemeToggle } from "@cloudoperators/juno-ui-components"
 
 import HeaderUserMenu from "./HeaderUserMenu"
+import { APP_NAME } from "../../constants"
 import useAuthStore from "../../../store/useAuthStore"
-
-const APP_NAME = "Juno UI Peaks Monitoring Dashboard"
 
 const Header: React.FC = () => {
   const { isUserAuthenticated } = useAuthStore()

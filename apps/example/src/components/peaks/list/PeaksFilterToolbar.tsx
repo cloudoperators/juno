@@ -15,8 +15,6 @@ import {
   Button,
   Pill,
   SearchInput,
-  ComboBox,
-  ComboBoxOption,
 } from "@cloudoperators/juno-ui-components"
 
 import ViewToggleButtons from "../../common/ViewToggleButtons"

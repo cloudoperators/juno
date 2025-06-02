@@ -30,8 +30,8 @@ const MessageContent: React.FC = () => (
 
 const TemporaryWIPContent: React.FC = () => (
   <>
-    This is an initial proposal for a Juno UI example app without Design/UX/PO input. A lot of functionality
-    doesn&apos;t work. For more information on the components, see <JunoLink />.
+    This is an initial proposal for a Juno UI example app without Design/UX/PO input. Some functionality doesn&apos;t
+    work. For more information on the components, see <JunoLink />.
   </>
 )
 

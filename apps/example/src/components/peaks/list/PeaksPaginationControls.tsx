@@ -21,7 +21,7 @@ const PeaksPaginationControls: React.FC<PeaksPaginationControlsProps> = ({ curre
       onPressPrevious={() => setCurrentPage(Math.max(currentPage - 1, 1))}
       onSelectChange={(newPage) => setCurrentPage(newPage)}
       pages={pages}
-      variant="number"
+      variant="input"
     />
   </div>
 )

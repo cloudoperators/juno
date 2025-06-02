@@ -9,8 +9,9 @@ import { Modal, Button, Stack, Container } from "@cloudoperators/juno-ui-compone
 import useAuthStore from "../../../store/useAuthStore"
 import JunoUILogo from "../../../assets/juno_logo.svg?react"
 
+import { APP_NAME } from "../../constants"
+
 const LOGIN_BUTTON_LABEL = "Log In"
-const WELCOME_TITLE = "Juno UI Peaks Monitoring Dashboard"
 const WELCOME_MESSAGE = "Log in to get access to the peaks of the world!"
 
 const HeaderLoginModal: React.FC = () => {
@@ -21,7 +22,7 @@ const HeaderLoginModal: React.FC = () => {
   }
 
   return (
-    <Modal title={WELCOME_TITLE} open={true} closeable={false} size="large">
+    <Modal title={APP_NAME} open={true} closeable={false} size="large">
       <Container py={true}>
         <Stack direction={"vertical"} gap={"8"} alignment={"center"}>
           <JunoUILogo />

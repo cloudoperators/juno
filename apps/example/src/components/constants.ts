@@ -51,3 +51,5 @@ export const PeakMetrics = {
   LOWEST: "Lowest Peak",
   TOTAL_COUNTRIES: "Total Countries",
 }
+
+export const APP_NAME = "Juno UI Peaks Monitoring Dashboard"
