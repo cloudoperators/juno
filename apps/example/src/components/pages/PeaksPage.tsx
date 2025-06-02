@@ -13,12 +13,11 @@ import usePeaksStore from "../../store/usePeaksStore"
 const ITEMS_PER_PAGE = 15
 
 interface PeaksPageProps {
-  isLoading: boolean
   // eslint-disable-next-line no-unused-vars
   onSelect: (peak: Peak) => void
 }
 
-const PeaksPage: React.FC<PeaksPageProps> = ({ isLoading, onSelect }) => {
+const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
   const [viewType, setViewType] = useState<"grid" | "card" | "json">("grid")
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -67,7 +66,6 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ isLoading, onSelect }) => {
         <MetricsDisplay
           metrics={[...metrics.totalMetrics, metrics.highestPeak, metrics.lowestPeak].map((metric) => ({
             ...metric,
-            isLoading,
             hoverable: true,
           }))}
         />
@@ -97,7 +95,7 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ isLoading, onSelect }) => {
             viewType={viewType}
             setViewType={setViewType}
           />
-          <PeaksList viewType={viewType} paginatedItems={paginatedItems} onSelect={onSelect} isLoading={isLoading} />
+          <PeaksList viewType={viewType} paginatedItems={paginatedItems} onSelect={onSelect} />
         </Stack>
         <PeaksPaginationControls currentPage={currentPage} setCurrentPage={setCurrentPage} pages={pages} />
       </Stack>

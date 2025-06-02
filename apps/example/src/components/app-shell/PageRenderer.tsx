@@ -23,11 +23,12 @@ import CountryDetailPage from "../pages/CountryDetailPage"
 const PageRenderer: React.FC = () => {
   const { currentPage } = useNavigationStore()
   const { isQueryClientReady } = useConfigStore()
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
   const { setPeaks, selectedPeakId, setSelectedPeakId } = usePeaksStore()
   const { setCurrentPanel, showPeakDetails, setShowPeakDetails } = useUIStore()
 
-  const { isLoading, data: peaksData = [] } = useQuery<Peak[]>({
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
+
+  const { data: peaksData = [] } = useQuery<Peak[]>({
     queryKey: ["peaks"],
     enabled: isQueryClientReady,
   })
@@ -51,9 +52,9 @@ const PageRenderer: React.FC = () => {
     setCurrentPanel(null)
   }
 
-  const clearSelections = () => setSelectedCountry(null)
-
   const selectPeak = (peak: Peak) => selectPeakById(peak.id)
+
+  const clearSelections = () => setSelectedCountry(null)
 
   const renderCountryPage = () => {
     if (currentPage === Pages.COUNTRIES && selectedCountry)
@@ -64,15 +65,15 @@ const PageRenderer: React.FC = () => {
 
   const renderPeaksPage = () => {
     if (showPeakDetails && selectedPeakId) return <PeakDetailPage onBack={() => setShowPeakDetails(false)} />
-    return <PeaksPage onSelect={selectPeak} isLoading={isLoading} />
+    return <PeaksPage onSelect={selectPeak} />
   }
 
   const renderPage = () => {
     switch (currentPage) {
-      case Pages.COUNTRIES:
-        return renderCountryPage()
       case Pages.PEAKS:
         return renderPeaksPage()
+      case Pages.COUNTRIES:
+        return renderCountryPage()
       case Pages.ALERTS:
         return <AlertsPage />
       default:

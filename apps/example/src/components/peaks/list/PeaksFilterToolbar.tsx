@@ -9,6 +9,7 @@ import {
   Pill,
   SearchInput,
 } from "@cloudoperators/juno-ui-components"
+
 import ViewToggleButtons from "../../common/ViewToggleButtons"
 
 interface PeaksFilterToolbarProps {

@@ -5,13 +5,13 @@
 
 import React, { useState } from "react"
 import { Box, CodeBlock, JsonViewer } from "@cloudoperators/juno-ui-components"
-import usePeaksStore from "../../store/usePeaksStore"
 
+import usePeaksStore from "../../store/usePeaksStore"
+import { Peak, BadgeVariantType } from "../../mocks/db"
+
+import { Pages } from "../constants"
 import DetailLayout from "../common/DetailLayout"
 import ExpandableSection from "../common/ExpandableSection"
-import { Peak } from "../../mocks/db"
-import { Pages } from "../constants"
-
 interface CountryDetailPageProps {
   countryName: string
   onBack: () => void
@@ -19,7 +19,7 @@ interface CountryDetailPageProps {
 
 const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, onBack }) => {
   const [isJsonView, setIsJsonView] = useState<boolean>(false)
-  const { peaks } = usePeaksStore() // Direct access to peaks
+  const { peaks } = usePeaksStore()
 
   const filteredCountryPeaksByName = peaks.filter((peak) => peak.countries === countryName)
 
@@ -42,10 +42,7 @@ const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, onBa
     return acc
   }, {})
 
-  const statusHeaders: Record<
-    keyof typeof categorizedPeaksBySafety,
-    { text: string; variant: "success" | "warning" | "error" }
-  > = {
+  const statusHeaders: Record<keyof typeof categorizedPeaksBySafety, { text: string; variant: BadgeVariantType }> = {
     safe: { text: "Safe Peaks", variant: "success" },
     caution: { text: "Caution Peaks", variant: "warning" },
     unsafe: { text: "Unsafe Peaks", variant: "error" },

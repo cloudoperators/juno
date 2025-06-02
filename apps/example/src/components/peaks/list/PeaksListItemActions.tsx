@@ -41,7 +41,7 @@ const PeaksListItemActions: React.FC<PeaksListItemProps> = ({ peak }) => {
         />
       </PortalProvider.Portal>
       <PortalProvider.Portal>
-        {/* WARNING: Provisional Toast component, not redy for use as notifications manager missing. */}
+        {/* NOTE: This uses a provisional Toast component that's not ready (missing a notifications manager). */}
         {showToast && (
           <Toast
             onDismiss={handleToastDismiss}

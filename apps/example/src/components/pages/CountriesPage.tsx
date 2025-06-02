@@ -8,8 +8,8 @@
 import React from "react"
 import { ContentHeading, Icon, Badge } from "@cloudoperators/juno-ui-components"
 
-import GenericCard from "../common/GenericCard"
 import { Peak } from "../../mocks/db"
+import GenericCard from "../common/GenericCard"
 import usePeaksStore from "../../store/usePeaksStore"
 
 interface CountrySafetyCounts {
@@ -29,7 +29,7 @@ interface CountryDashboardPageProps {
 }
 
 const CountriesPage: React.FC<CountryDashboardPageProps> = ({ onSelectCountry }) => {
-  const { peaks } = usePeaksStore() // Direct access from the store
+  const { peaks } = usePeaksStore()
 
   const countryStats = peaks.reduce(
     (acc, peak) => {

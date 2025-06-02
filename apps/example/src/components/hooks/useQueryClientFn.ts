@@ -3,17 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-
-// PLEASE NOTE: This file needs refactoring
-
 import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 
+import { Peak } from "../../mocks/db"
 import useConfigStore from "../../store/useConfigStore"
+
+interface PeakAddParams {
+  formState: Partial<Peak>
+}
+
+interface PeakActiontParams extends PeakAddParams {
+  id: string
+}
 
 class HTTPError extends Error {
   statusCode: number
@@ -24,119 +26,101 @@ class HTTPError extends Error {
   }
 }
 
-const encodeUrlParamsFromObject = (options: Record<string, any>) => {
+const encodeUrlParamsFromObject = (options: Record<string, string | number | boolean>): string => {
   if (!options || Object.keys(options).length <= 0) return ""
-  const encodedOptions = Object.keys(options)
-    .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(options[k])}`)
+
+  return Object.entries(options)
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
     .join("&")
-  return `&${encodedOptions}`
 }
 
-// Check response status
-const checkStatus = (response: Response) => {
-  if (response.status < 400) {
-    return response
-  } else {
-    return response.text().then((message) => {
-      const error = new HTTPError(response.status, message || response.statusText)
-      return Promise.reject(error)
-    })
-  }
+const checkStatus = async (response: Response): Promise<Response> => {
+  if (response.ok) return response
+  const message = await response.text()
+  throw new HTTPError(response.status, message || response.statusText)
 }
 
-// hook to register query defaults that depends on the queryClient and options
+const fetchFromEndpoint = async <T>(url: string, options?: RequestInit): Promise<T> => {
+  const response: Response = await fetch(url, options)
+  await checkStatus(response)
+  return response.json() as Promise<T>
+}
+
+// Hook to configure query defaults and mutation settings using QueryClient and endpoint configurations
 const useQueryClientFn = () => {
   const queryClient = useQueryClient()
   const { setIsQueryClientReady, endpoint } = useConfigStore()
 
   /*
-  As stated in getQueryDefaults, the order of registration of query defaults does matter. Since the first matching defaults are returned by getQueryDefaults, the registration should be made in the following order: from the least generic key to the most generic one. This way, in case of specific key, the first matching one would be the expected one.
-  */
+   * Registering defaults must follow a specific order: from least generic key to most generic.
+   * This ensures that the first default matching the specified key is returned, aiding in specificity resolution.
+   */
   useEffect(() => {
     if (!queryClient || !endpoint) return
 
     console.debug("useQueryClientFn::: setting defaults: ", endpoint)
 
     queryClient.setQueryDefaults(["peaks"], {
-      queryFn: ({ queryKey }) => {
+      queryFn: async ({ queryKey }) => {
         const [_key, id, params] = queryKey as [string, string?, Record<string, any>?]
         const query = encodeUrlParamsFromObject(params || {})
-        return fetch(`${endpoint}/peaks${id ? `/${id}` : ""}${query}`, {
+        const url = `${endpoint}/peaks${id ? `/${id}` : ""}${query}`
+
+        const data: Peak[] = await fetchFromEndpoint<Peak[]>(url, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
         })
-          .then(checkStatus)
-          .then((response) => {
-            // sort peaks by name
-            return response.json().then((data) => {
-              // check if data is an array to sort (peaks vs peak/id)
-              if (Array.isArray(data)) {
-                return data.sort((a, b) => {
-                  return a.name.localeCompare(b.name)
-                })
-              }
-              return data
-            })
-          })
+
+        return data.sort((a, b) => a.name.localeCompare(b.name))
       },
     })
 
     queryClient.setMutationDefaults(["peakAdd"], {
-      mutationFn: ({ formState }) => {
-        const sendBody = JSON.stringify(formState)
-        return fetch(`${endpoint}/peaks`, {
+      mutationFn: async ({ formState }: PeakAddParams) => {
+        const url = `${endpoint}/peaks`
+        const peakData: Peak = await fetchFromEndpoint<Peak>(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: sendBody,
+          body: JSON.stringify(formState),
         })
-          .then(checkStatus)
-          .then((response) => {
-            return response.json()
-          })
+        return peakData
       },
     })
 
     queryClient.setMutationDefaults(["peakEdit"], {
-      mutationFn: ({ id, formState }) => {
-        const sendBody = JSON.stringify(formState)
-        return fetch(`${endpoint}/peaks/${id}`, {
+      mutationFn: async ({ id, formState }: PeakActiontParams) => {
+        const url = `${endpoint}/peaks/${id}`
+        const peakData: Peak = await fetchFromEndpoint<Peak>(url, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: sendBody,
+          body: JSON.stringify(formState),
         })
-          .then(checkStatus)
-          .then((response) => {
-            return response.json()
-          })
+        return peakData
       },
     })
 
     queryClient.setMutationDefaults(["peakDelete"], {
-      mutationFn: ({ id }) => {
-        return fetch(`${endpoint}/peaks/${id}`, {
+      mutationFn: async ({ id }: PeakActiontParams) => {
+        const url = `${endpoint}/peaks/${id}`
+        await fetchFromEndpoint<void>(url, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
         })
-          .then(checkStatus)
-          .then((response) => {
-            return response.json()
-          })
       },
     })
 
-    // set isQueryClientReady to true once
     setIsQueryClientReady(true)
   }, [queryClient, endpoint, setIsQueryClientReady])
 }

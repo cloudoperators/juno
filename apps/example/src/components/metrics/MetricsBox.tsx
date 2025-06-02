@@ -7,23 +7,25 @@
 
 import React, { useState } from "react"
 import { Spinner, Modal, Icon, Badge, Button, Stack, ModalFooter, ButtonRow } from "@cloudoperators/juno-ui-components"
-import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
+
 import useNavigationStore from "../../store/useNavigationStore"
 import usePeaksStore from "../../store/usePeaksStore"
-import { Pages } from "../constants"
 import useUIStore from "../../store/useUIStore"
-
 import { Peak } from "../../mocks/db"
+
+import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
+import { Pages } from "../constants"
 
 import ArrowUp from "../../assets/arrow_up.svg?react"
 import ArrowDown from "../../assets/arrow_down.svg?react"
 import Mountain from "../../assets/mountain.svg?react"
 
+import useConfigStore from "../../store/useConfigStore"
+
 export interface MetricsProps {
   label: string
   number?: string
   value?: string
-  isLoading: boolean
   iconName?: string
   peakDetails?: Peak
   peakType?: (typeof Metrics)[keyof typeof Metrics]
@@ -52,23 +54,18 @@ const renderIcon = (peakType?: string) => {
   }
 }
 
-const MetricsBox: React.FC<MetricsProps> = ({
-  label,
-  number,
-  isLoading = false,
-  peakDetails,
-  peakType,
-  hoverable = false,
-}) => {
+const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakType, hoverable = false }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const { setCurrentPage } = useNavigationStore()
   const { setSelectedPeakId } = usePeaksStore()
-  const { setShowPeakDetails } = useUIStore() // ensure we're using the combined UI store
+  const { setShowPeakDetails } = useUIStore()
 
-  const isClickable = peakType !== Metrics.TOTAL_PEAKS && peakType !== Metrics.TOTAL_COUNTRIES
+  const { isQueryClientReady } = useConfigStore()
+
+  const isClickable = isQueryClientReady && peakType !== Metrics.TOTAL_PEAKS && peakType !== Metrics.TOTAL_COUNTRIES
 
   const handleBoxClick = () => {
-    if (!isLoading && peakDetails && isClickable) {
+    if (isClickable && peakDetails) {
       setModalVisible(true)
     }
   }
@@ -89,23 +86,17 @@ const MetricsBox: React.FC<MetricsProps> = ({
   const hoverStyles =
     "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-theme-high"
 
-  const boxStyles = [baseStyles, hoverable && !isLoading && isClickable ? hoverStyles : ""].join(" ")
+  const boxStyles = [baseStyles, hoverable && isClickable ? hoverStyles : ""].join(" ")
 
   return (
     <>
       <div className={`border ${boxStyles}`} onClick={handleBoxClick}>
         {renderIcon(peakType)}
-        <PeakInfo
-          label={label}
-          number={number}
-          colorClass={colorClass}
-          isLoading={isLoading}
-          peakDetails={peakDetails}
-        />
+        <PeakInfo label={label} number={number} colorClass={colorClass} peakDetails={peakDetails} />
       </div>
 
       <PeakModal
-        peakDetails={peakDetails} // Ensure peakDetails includes ID
+        peakDetails={peakDetails}
         colorClass={colorClass}
         modalVisible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -121,21 +112,26 @@ const PeakInfo: React.FC<{
   label: string
   number?: string
   colorClass: string
-  isLoading: boolean
   peakDetails?: Peak
-}> = ({ label, number, colorClass, isLoading, peakDetails }) => (
-  <div className="text-theme-high">
-    <span className="text-sm block">{label}</span>
-    {isLoading ? (
-      <Spinner />
-    ) : (
-      <Stack gap="2" className="flex items-center">
-        {number && <span className={`text-3xl font-extrabold ${colorClass}`}>{number}</span>}
-        {peakDetails?.status && <span className={`text-sm font-bold ${colorClass}`}>{peakDetails.status}</span>}
-      </Stack>
-    )}
-  </div>
-)
+}> = ({ label, number, colorClass, peakDetails }) => {
+  const { isQueryClientReady } = useConfigStore()
+
+  const isLoading = !peakDetails && !number && isQueryClientReady
+
+  return (
+    <div className="text-theme-high">
+      <span className="text-sm block">{label}</span>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Stack gap="2" className="flex items-center">
+          {number && <span className={`text-3xl font-extrabold ${colorClass}`}>{number}</span>}
+          {peakDetails?.status && <span className={`text-sm font-bold ${colorClass}`}>{peakDetails.status}</span>}
+        </Stack>
+      )}
+    </div>
+  )
+}
 
 export const PeakModal: React.FC<{
   peakDetails?: Peak

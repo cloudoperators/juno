@@ -14,6 +14,7 @@ import PeakForm from "../peaks/list/PeakForm"
 import { PeakDetailPanelContent } from "../peaks/list/PeakDetailsPanelContent"
 
 const EDIT_HEADING = "Edit Peak"
+const SHOW_HEADING_TEMPLATE = (peakName: string) => `${peakName} Overview`
 
 interface PanelManagerProps {
   // eslint-disable-next-line no-unused-vars
@@ -32,7 +33,7 @@ const PanelManager: React.FC<PanelManagerProps> = ({ openDetailPageWithPeak, clo
       case Panels.EDIT_PEAKS:
         return EDIT_HEADING
       case Panels.SHOW_PEAK:
-        return peakDetails ? `${peakDetails.name} Overview` : null
+        return peakDetails ? SHOW_HEADING_TEMPLATE(peakDetails.name) : null
       default:
         return null
     }
@@ -43,9 +44,7 @@ const PanelManager: React.FC<PanelManagerProps> = ({ openDetailPageWithPeak, clo
       case Panels.EDIT_PEAKS:
         return <PeakForm initialValues={peakDetails} closeCallback={closePanel} />
       case Panels.SHOW_PEAK:
-        return peakDetails ? (
-          <PeakDetailPanelContent peakDetails={peakDetails} openDetailPageWithPeak={openDetailPageWithPeak} />
-        ) : null
+        return peakDetails ? <PeakDetailPanelContent openDetailPageWithPeak={openDetailPageWithPeak} /> : null
       default:
         return null
     }

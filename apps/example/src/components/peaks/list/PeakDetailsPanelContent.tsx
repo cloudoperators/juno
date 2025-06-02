@@ -1,19 +1,27 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React from "react"
 import { DataGrid, DataGridRow, DataGridCell, Button, Badge } from "@cloudoperators/juno-ui-components"
+
 import { Peak } from "../../../mocks/db"
-import { PeakFields, TooltipExplanation } from "../../constants"
+import usePeaksStore from "../../../store/usePeaksStore"
+
 import HelpTooltip from "../../common/HelpTooltip"
+import { PeakFields, TooltipExplanation } from "../../constants"
 
 interface PeakDetailPanelContentProps {
-  peakDetails?: Peak
   // eslint-disable-next-line no-unused-vars
   openDetailPageWithPeak: (peakId: string) => void
 }
 
-const PeakDetailPanelContent: React.FC<PeakDetailPanelContentProps> = ({ peakDetails, openDetailPageWithPeak }) => {
-  if (!peakDetails) {
-    return <div>Data unavailable</div>
-  }
+const PeakDetailPanelContent: React.FC<PeakDetailPanelContentProps> = ({ openDetailPageWithPeak }) => {
+  const { peaks, selectedPeakId } = usePeaksStore()
+  const peakDetails = selectedPeakId ? peaks.find((peak) => peak.id === selectedPeakId) : undefined
+
+  if (!peakDetails) return null
 
   return (
     <div className="flex flex-col h-full">

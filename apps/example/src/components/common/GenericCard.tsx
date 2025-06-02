@@ -9,14 +9,14 @@ import React from "react"
 import { Box, Stack } from "@cloudoperators/juno-ui-components"
 
 interface GenericCardProps {
-  iconElement: React.ReactNode
   title: string
+  iconElement: React.ReactNode
   badgeContainer: React.ReactNode
   content: React.ReactNode
   onClick: () => void
 }
 
-const GenericCard: React.FC<GenericCardProps> = ({ iconElement, title, badgeContainer, content, onClick }) => {
+const GenericCard: React.FC<GenericCardProps> = ({ title, iconElement, badgeContainer, content, onClick }) => {
   return (
     <Box
       className="p-6 shadow-lg transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-3 border text-theme-high"

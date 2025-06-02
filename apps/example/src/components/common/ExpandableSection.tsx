@@ -14,15 +14,19 @@ import {
   DataGridHeadCell,
   Badge,
 } from "@cloudoperators/juno-ui-components"
-import { Peak } from "../../mocks/db"
-import HelpTooltip from "./HelpTooltip"
+
+import { Peak, BadgeVariantType } from "../../mocks/db"
 import { PeakFields, TooltipExplanation } from "../constants"
+import HelpTooltip from "./HelpTooltip"
 
 interface ExpandableSectionProps {
   title: string
   peaks: Peak[]
-  variant: "success" | "warning" | "error"
+  variant: BadgeVariantType
 }
+
+const HIDE_LABEL = "Hide"
+const SHOW_LABEL = "Show"
 
 const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, variant }) => {
   const [isOpen, setIsOpen] = useState(true)
@@ -37,21 +41,21 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, var
             {peaks.length}
           </Badge>
         </Stack>
-        <Button onClick={toggleOpen}>{isOpen ? "Hide" : "Show"}</Button>
+        <Button onClick={toggleOpen}>{isOpen ? HIDE_LABEL : SHOW_LABEL}</Button>
       </Stack>
       {isOpen && (
         <Box className="mt-4">
           <DataGrid columns={4}>
             <DataGridRow>
-              <DataGridHeadCell>Name</DataGridHeadCell>
+              <DataGridHeadCell>{PeakFields.NAME}</DataGridHeadCell>
               <DataGridHeadCell>
                 <div className="flex items-center">
                   <strong className="mr-2">{PeakFields.HEIGHT}</strong>
                   <HelpTooltip tooltipText={TooltipExplanation.HEIGHT} />
                 </div>
               </DataGridHeadCell>
-              <DataGridHeadCell>Main Range</DataGridHeadCell>
-              <DataGridHeadCell>Region & Country</DataGridHeadCell>
+              <DataGridHeadCell>{PeakFields.RANGE}</DataGridHeadCell>
+              <DataGridHeadCell>{PeakFields.REGION + " & " + PeakFields.COUNTRY}</DataGridHeadCell>
             </DataGridRow>
             {peaks.map((peak) => (
               <DataGridRow key={peak.id}>

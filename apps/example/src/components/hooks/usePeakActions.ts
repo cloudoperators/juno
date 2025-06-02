@@ -16,9 +16,7 @@ const usePeakActions = ({ onBack }: UsePeakActions = {}) => {
   }
 
   const handleDelete = () => {
-    if (onBack) {
-      onBack()
-    }
+    if (onBack) onBack()
   }
 
   return { handleEdit, handleDelete }

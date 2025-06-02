@@ -5,10 +5,12 @@
 
 import React from "react"
 import { DataGridCell, DataGridRow, Badge } from "@cloudoperators/juno-ui-components"
+
 import { Peak } from "../../../mocks/db"
-import PeaksListItemActions from "./PeaksListItemActions"
 import useUIStore from "../../../store/useUIStore"
 import usePeaksStore from "../../../store/usePeaksStore"
+
+import PeaksListItemActions from "./PeaksListItemActions"
 
 export interface PeaksListItemProps {
   peak: Peak

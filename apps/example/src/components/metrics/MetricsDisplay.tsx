@@ -25,7 +25,6 @@ const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ metrics }) => (
           peakDetails={metric.peakDetails}
           hoverable={metric.hoverable}
           peakType={metric.peakType}
-          isLoading={metric.isLoading}
         />
       )
     })}

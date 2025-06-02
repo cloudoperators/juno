@@ -24,6 +24,8 @@ import PeaksListItem from "./PeaksListItem"
 import HelpTooltip from "../../common/HelpTooltip"
 import { TooltipExplanation } from "../../constants"
 
+import useConfigStore from "../../../store/useConfigStore"
+
 import Mountain from "../../../assets/mountain.svg?react"
 
 interface PeaksListProps {
@@ -31,13 +33,13 @@ interface PeaksListProps {
   paginatedItems: Peak[]
   // eslint-disable-next-line no-unused-vars
   onSelect: (peak: Peak) => void
-  isLoading: boolean
 }
 
 const NO_PEAKS_HINT = "No peaks found"
 const JSON_TITLE = "Raw JSON Data for All Peaks"
 
-const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelect, isLoading }) => {
+const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelect }) => {
+  const { isQueryClientReady } = useConfigStore()
   if (viewType === Views.JSON) {
     return (
       <CodeBlock size="large">
@@ -97,7 +99,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
       ) : (
         <DataGridRow>
           <DataGridCell colSpan={7}>
-            {isLoading ? <Spinner variant="primary" /> : <HintNotFound text={NO_PEAKS_HINT} />}
+            {isQueryClientReady ? <Spinner variant="primary" /> : <HintNotFound text={NO_PEAKS_HINT} />}
           </DataGridCell>
         </DataGridRow>
       )}
