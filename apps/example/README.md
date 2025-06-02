@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Built with Juno](https://cloudoperators.github.io/juno/built-with-juno.svg)](https://github.com/cloudoperators/juno)
 
-The Example App serves as a demo to showcase interactions between multiple components, adhering to our best practices. Additionally, it illustrates how Juno components can be utilized in a real-world scenario.
+The **Example** App serves as a demo to showcase interactions between multiple components, adhering to our best practices. Additionally, it illustrates how Juno components can be utilized in a real-world scenario.
 
 # Usage
 
