@@ -1,0 +1,21 @@
+name: Test ✅
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+
+jobs:
+  notify-on-success:
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@artie-fix-slack-webhook-type
+    with:
+      title: "Test Slack notification!!!! 🚀"
+      body: "Test body content for the Slack notification."
+      rich_body: true
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
