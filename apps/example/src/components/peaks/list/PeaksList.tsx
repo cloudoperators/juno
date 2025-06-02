@@ -1,8 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React from "react"
 import {
   DataGrid,
@@ -15,18 +10,19 @@ import {
   DataGridHeadCell,
 } from "@cloudoperators/juno-ui-components"
 
-import GenericCard from "../../common/GenericCard"
-import HintNotFound from "../../messages/HintNotFound"
-import { Views, PeakFields } from "../../constants"
-
 import { Peak } from "../../../mocks/db"
-import PeaksListItem from "./PeaksListItem"
-import HelpTooltip from "../../common/HelpTooltip"
-import { TooltipExplanation } from "../../constants"
-
 import useConfigStore from "../../../store/useConfigStore"
 
 import Mountain from "../../../assets/mountain.svg?react"
+
+import HelpTooltip from "../../common/HelpTooltip"
+import GenericCard from "../../common/GenericCard"
+import { Views, PeakFields, TooltipExplanation } from "../../constants"
+import HintNotFound from "../../messages/HintNotFound"
+
+import PeaksListItem from "./PeaksListItem"
+
+// Needs refactoring
 
 interface PeaksListProps {
   viewType: string
@@ -40,12 +36,21 @@ const JSON_TITLE = "Raw JSON Data for All Peaks"
 
 const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelect }) => {
   const { isQueryClientReady } = useConfigStore()
+
+  if (!isQueryClientReady) {
+    return <Spinner variant="primary" />
+  }
+
   if (viewType === Views.JSON) {
     return (
       <CodeBlock size="large">
         <JsonViewer data={paginatedItems} expanded={true} toolbar={true} title={JSON_TITLE} />
       </CodeBlock>
     )
+  }
+
+  if (paginatedItems.length === 0) {
+    return <HintNotFound text={NO_PEAKS_HINT} />
   }
 
   if (viewType === Views.CARD) {
@@ -99,7 +104,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
       ) : (
         <DataGridRow>
           <DataGridCell colSpan={7}>
-            {isQueryClientReady ? <Spinner variant="primary" /> : <HintNotFound text={NO_PEAKS_HINT} />}
+            <HintNotFound text={NO_PEAKS_HINT} />
           </DataGridCell>
         </DataGridRow>
       )}

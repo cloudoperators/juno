@@ -1,14 +1,23 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React, { useState, useMemo } from "react"
 import { Stack, ContentHeading, Button } from "@cloudoperators/juno-ui-components"
-import PeaksFilterToolbar from "../peaks/list/PeaksFilterToolbar"
-import PeaksList from "../peaks/list/PeaksList"
-import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
-import MetricsDisplay from "../metrics/MetricsDisplay"
-import { calculateMetrics, Metrics } from "../peaks/utils/calculateMetrics"
-import { usePaginatedItems } from "../hooks/usePeaks"
+
 import { Peak } from "../../mocks/db"
-import CreatePeakModal from "../peaks/list/CreatePeakModal"
 import usePeaksStore from "../../store/usePeaksStore"
+
+import PeaksList from "../peaks/list/PeaksList"
+import { usePaginatedItems } from "../hooks/usePeaks"
+import MetricsDisplay from "../metrics/MetricsDisplay"
+import CreatePeakModal from "../peaks/list/CreatePeakModal"
+import PeaksFilterToolbar from "../peaks/list/PeaksFilterToolbar"
+import { calculateMetrics, Metrics } from "../peaks/utils/calculateMetrics"
+import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
+
+// Needs refactoring
 
 const ITEMS_PER_PAGE = 15
 
@@ -23,6 +32,7 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [countryFilter, setCountryFilter] = useState<string>("")
+
   const { peaks } = usePeaksStore()
 
   const handleNewPeakClick = () => setIsModalOpen(true)
@@ -42,13 +52,11 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
     }
   }
 
-  // Get unique countries for dropdown options
   const availableCountries = useMemo(() => {
     const countriesSet = new Set(peaks.map((peak) => peak.countries))
     return Array.from(countriesSet)
   }, [peaks])
 
-  // Filter peaks based on searchTerm and countryFilter
   const filteredAndSortedItems = peaks.filter((peak) => {
     const matchesSearch = peak.name.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesCountry = countryFilter ? peak.countries === countryFilter : true
@@ -58,6 +66,12 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
   const paginatedItems = usePaginatedItems(filteredAndSortedItems, currentPage, ITEMS_PER_PAGE)
   const pages = Math.ceil(filteredAndSortedItems.length / ITEMS_PER_PAGE)
   const metrics: Metrics = calculateMetrics(peaks)
+
+  const handleViewTypeChange = (newViewType: string) => {
+    if (newViewType === "grid" || newViewType === "card" || newViewType === "json") {
+      setViewType(newViewType)
+    }
+  }
 
   return (
     <>
@@ -84,7 +98,7 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
             filterKeys={["countries"]}
             filterSelections={{ countries: countryFilter ? [countryFilter] : [] }}
             droplistSelections={{ countries: countryFilter }}
-            selectedFilterKey={"countries"}
+            selectedFilterKey="countries"
             setSelectedFilterKey={setCountryFilter}
             availableOptions={{ countries: availableCountries }}
             addFilter={addFilter}
@@ -93,7 +107,7 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             viewType={viewType}
-            setViewType={setViewType}
+            setViewType={handleViewTypeChange}
           />
           <PeaksList viewType={viewType} paginatedItems={paginatedItems} onSelect={onSelect} />
         </Stack>

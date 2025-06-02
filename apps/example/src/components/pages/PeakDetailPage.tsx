@@ -6,6 +6,8 @@
 import React, { useState } from "react"
 import { Box, CodeBlock, JsonViewer, Badge, PortalProvider, Toast } from "@cloudoperators/juno-ui-components"
 
+import usePeaksStore from "../../store/usePeaksStore"
+
 import Section from "../common/Section"
 import DataRow from "../common/DataRow"
 import useModal from "../hooks/useModal"
@@ -14,7 +16,6 @@ import ActionButtons from "../common/ActionButtons"
 import usePeakActions from "../hooks/usePeakActions"
 import { Pages, TooltipExplanation } from "../constants"
 import DeleteConfirmationModal from "../common/DeleteConfirmationModal"
-import usePeaksStore from "../../store/usePeaksStore"
 
 interface PeakDetailPageProps {
   onBack: () => void
@@ -22,10 +23,11 @@ interface PeakDetailPageProps {
 
 const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ onBack }) => {
   const [isJsonView, setIsJsonView] = useState<boolean>(false)
+  const [showToast, setShowToast] = useState(false)
+
+  const { selectedPeakId, peaks } = usePeaksStore()
   const { handleEdit, handleDelete } = usePeakActions()
   const { isModalOpen, openModal, closeModal } = useModal()
-  const [showToast, setShowToast] = useState(false)
-  const { selectedPeakId, peaks } = usePeaksStore()
 
   const peakInfo = peaks.find((peak) => peak.id === selectedPeakId)!
 
@@ -58,7 +60,7 @@ const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ onBack }) => {
       toggleView={() => setIsJsonView(!isJsonView)}
       actionButtons={
         <ActionButtons
-          onEdit={() => handleEdit(Number(peakInfo.id))}
+          onEdit={() => handleEdit(peakInfo.id)}
           onDelete={openModal}
           linkUrl={peakInfo.url}
           appearance="button"

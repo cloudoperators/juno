@@ -17,10 +17,15 @@ import {
   Tooltip,
   Icon,
 } from "@cloudoperators/juno-ui-components"
-import { validateFormField } from "../utils/validateFormFields"
+
+import { Peak } from "../../../mocks/db"
+
 import { PeakFields } from "../../constants"
 import { useDebounce } from "../../hooks/useDebounce"
-import { Peak } from "../../../mocks/db"
+
+import { validateFormField } from "../utils/validateFormFields"
+
+// Needs refactoring, some TS errors ignored
 
 type TextInputType = "text" | "url"
 
@@ -45,6 +50,7 @@ const Labels = {
 
 const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => {
   const [formState, setFormState] = useState<Peak>(
+    //@ts-ignore
     initialValues || {
       id: "",
       name: "",
@@ -61,6 +67,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [backendError, setBackendError] = useState(false)
+  //@ts-ignore
   const [isTyping, setIsTyping] = useState<Record<keyof Peak, boolean>>({})
   const [isSaveEnabled, setIsSaveEnabled] = useState(false)
 
@@ -71,6 +78,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
   }, [formState, initialValues])
 
   const updateSaveEnabled = useCallback(() => {
+    //@ts-ignore
     const hasErrors = requiredFields.some((field) => validateFormField(field, formState[field] || ""))
     setIsSaveEnabled(!hasErrors && isFormChanged() && !errors.url)
   }, [formState, isFormChanged, errors.url])
@@ -88,6 +96,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
   }
 
   const handleFieldBlur = (key: keyof Peak) => {
+    //@ts-ignore
     const errorMsg = validateFormField(key, formState[key] || "")
     setErrors((prevErrors) => ({ ...prevErrors, [key]: errorMsg }))
     setIsTyping((prev) => ({ ...prev, [key]: false })) // Only show error if not typing
@@ -111,6 +120,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
   }
 
   const renderTooltip = (message: string) => (
+    //@ts-ignore
     <Tooltip trigger={<Icon name="info" size="small" />} position="bottom" content={<span>{message}</span>} />
   )
 
@@ -150,6 +160,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
                 value: formState[key as keyof Peak] || "",
                 onChange: (e: ChangeEvent<HTMLInputElement>) => handleAttrChange(key as keyof Peak, e.target.value),
                 onBlur: () => handleFieldBlur(key as keyof Peak),
+                //@ts-ignore
                 errortext: !isTyping[key] && errors[key as keyof Peak] ? errors[key as keyof Peak] : undefined,
                 maxLength: 200,
                 disabled: loading,
@@ -157,6 +168,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
                 autoFocus,
                 invalid,
               }}
+              //@ts-ignore
               icon={errors[key as keyof Peak] ? renderTooltip(errors[key as keyof Peak]) : undefined}
             />
           </FormRow>

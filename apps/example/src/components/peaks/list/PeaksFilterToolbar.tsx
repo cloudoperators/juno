@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react"
 import {
   DataGridToolbar,
@@ -12,20 +13,22 @@ import {
 
 import ViewToggleButtons from "../../common/ViewToggleButtons"
 
+// Needs refactoring
+
 interface PeaksFilterToolbarProps {
+  searchTerm: string
+  setSearchTerm: (term: string) => void
+  viewType: "grid" | "card" | "json"
+  setViewType: (viewType: string) => void
   filterKeys: string[]
   filterSelections: Record<string, string[]>
   droplistSelections: Record<string, string>
   selectedFilterKey: string | null
-  setSelectedFilterKey: () => void
+  setSelectedFilterKey: (key: string) => void
   availableOptions: Record<string, string[]>
-  addFilter: () => void
-  removeFilter: () => void
+  addFilter: (key: string, value: string) => void
+  removeFilter: (key: string, value: string) => void
   clearAllFilters: () => void
-  searchTerm: string
-  setSearchTerm: () => void
-  viewType: string
-  setViewType: () => void
 }
 
 const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
@@ -41,16 +44,16 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
   viewType,
   setViewType,
 }) => {
-  const filterLabel = "countries" // Focus on country filter only
+  const filterLabel = "countries"
 
-  const handleFilterValueChange = (value: string) => {
-    if (value) {
-      addFilter(filterLabel, value)
-      setSelectedFilterKey(value)
+  const handleFilterValueChange = (value?: string | number | string[]) => {
+    const selectedValue = typeof value === "string" ? value : ""
+    if (selectedValue) {
+      addFilter(filterLabel, selectedValue)
+      setSelectedFilterKey(selectedValue)
     }
   }
 
-  // Determine country options and filter out already selected values
   const filterOptions = availableOptions[filterLabel]?.filter(
     (value: string) => !filterSelections[filterLabel]?.includes(value)
   )

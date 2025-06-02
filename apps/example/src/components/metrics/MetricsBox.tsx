@@ -5,22 +5,23 @@
 
 // NOTE: This is a custom component that doesn't exist in Juno UI. It showcases how custom theme colours can be applied.
 
+// Needs refactoring
+
 import React, { useState } from "react"
 import { Spinner, Modal, Icon, Badge, Button, Stack, ModalFooter, ButtonRow } from "@cloudoperators/juno-ui-components"
 
-import useNavigationStore from "../../store/useNavigationStore"
-import usePeaksStore from "../../store/usePeaksStore"
-import useUIStore from "../../store/useUIStore"
 import { Peak } from "../../mocks/db"
-
-import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
-import { Pages } from "../constants"
+import useUIStore from "../../store/useUIStore"
+import usePeaksStore from "../../store/usePeaksStore"
+import useConfigStore from "../../store/useConfigStore"
+import useNavigationStore from "../../store/useNavigationStore"
 
 import ArrowUp from "../../assets/arrow_up.svg?react"
 import ArrowDown from "../../assets/arrow_down.svg?react"
 import Mountain from "../../assets/mountain.svg?react"
 
-import useConfigStore from "../../store/useConfigStore"
+import { Pages } from "../constants"
+import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
 
 export interface MetricsProps {
   label: string
@@ -79,7 +80,7 @@ const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakTy
     }
   }
 
-  const colorClass = peakDetails ? getNumberColorStyle(peakDetails.status) : "text-theme-high"
+  const colorClass = peakDetails ? getNumberColorStyle(peakDetails.safety.status) : "text-theme-high"
 
   const baseStyles =
     "flex-1 bg-gradient-to-r from-blue-500 to-green-500 p-6 shadow-md flex items-center justify-start border"
@@ -126,7 +127,9 @@ const PeakInfo: React.FC<{
       ) : (
         <Stack gap="2" className="flex items-center">
           {number && <span className={`text-3xl font-extrabold ${colorClass}`}>{number}</span>}
-          {peakDetails?.status && <span className={`text-sm font-bold ${colorClass}`}>{peakDetails.status}</span>}
+          {peakDetails?.safety.status && (
+            <span className={`text-sm font-bold ${colorClass}`}>{peakDetails.safety.status}</span>
+          )}
         </Stack>
       )}
     </div>
@@ -145,7 +148,7 @@ export const PeakModal: React.FC<{
       open={modalVisible}
       onCancel={onClose}
       closeable
-      title={`Details for ${peakDetails.name}, ${peakDetails.country}`}
+      title={`Details for ${peakDetails.name}, ${peakDetails.countries}`}
       size="large"
       modalFooter={
         <ModalFooter className="flex justify-end">
@@ -163,8 +166,8 @@ export const PeakModal: React.FC<{
           <strong>Safety:</strong>
           <Badge
             icon
-            text={peakDetails.status}
-            variant={peakDetails.variant || "warning"}
+            text={peakDetails.safety.status}
+            variant={peakDetails.safety.variant || "warning"}
             className="w-[70px] text-center"
           />
         </div>
@@ -172,7 +175,7 @@ export const PeakModal: React.FC<{
           <strong>Height:</strong> {peakDetails.height}
         </div>
         <div>
-          <strong>Recommendation:</strong> {peakDetails.recommendation}
+          <strong>Recommendation:</strong> {peakDetails.safety.recommendation}
         </div>
       </div>
     </Modal>

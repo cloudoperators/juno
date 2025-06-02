@@ -3,26 +3,31 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Peak } from "../../mocks/db"
+
 // PLEASE NOTE: Filtering and Sorting is currently for UI demo purposes and doesn't fully work
 
 interface Item {
-  [key: string]: string
   height: string
+  [key: string]: string
 }
 
 export const useFilteredAndSortedItems = (
-  items: Item[],
+  items: Peak[],
   filterSelections: Record<string, string[]>,
   minHeight: string,
   maxHeight: string,
-  sortKey: keyof Item,
+  sortKey: keyof Peak,
   sortDirection: "asc" | "desc"
-): Item[] => {
+): Peak[] => {
   let filtered = items
 
   Object.entries(filterSelections).forEach(([key, values]) => {
     if (values.length > 0) {
-      filtered = filtered.filter((item) => values.includes(item[key]))
+      filtered = filtered.filter((item) => {
+        const keyTyped = key as keyof Peak
+        return values.includes(item[keyTyped] as string)
+      })
     }
   })
 
@@ -35,13 +40,15 @@ export const useFilteredAndSortedItems = (
   }
 
   filtered.sort((a, b) =>
-    sortDirection === "asc" ? a[sortKey].localeCompare(b[sortKey]) : b[sortKey].localeCompare(a[sortKey])
+    sortDirection === "asc"
+      ? (a[sortKey] as string).localeCompare(b[sortKey] as string)
+      : (b[sortKey] as string).localeCompare(a[sortKey] as string)
   )
 
   return filtered
 }
 
-export const usePaginatedItems = (filteredItems: Item[], currentPage: number, itemsPerPage: number): Item[] => {
+export const usePaginatedItems = (filteredItems: Peak[], currentPage: number, itemsPerPage: number): Peak[] => {
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = currentPage * itemsPerPage
   return filteredItems.slice(startIndex, endIndex)
