@@ -1,5 +1,11 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.21
+
+### Patch Changes
+
+- 483d9ee: Update react version to 19.1.0
+
 ## 2.2.20
 
 ### Patch Changes
