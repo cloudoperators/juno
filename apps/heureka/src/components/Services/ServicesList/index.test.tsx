@@ -41,7 +41,6 @@ const renderServicesList = () => ({
               serviceDetails: {
                 supportGroups: [],
               },
-              components: 0,
               remediationDate: "",
               serviceOwners: [],
             },

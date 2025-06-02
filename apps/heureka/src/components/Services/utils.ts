@@ -65,7 +65,6 @@ export const getNormalizedData = (data: GetServicesQuery | undefined): Normalize
               serviceDetails: {
                 supportGroups: getSupportGroups(edge),
               },
-              components: node?.objectMetadata?.componentInstanceCount || 0,
               serviceOwners: getServiceOwners(edge),
               issuesCount: {
                 critical: node?.issueCounts?.critical || 0,
