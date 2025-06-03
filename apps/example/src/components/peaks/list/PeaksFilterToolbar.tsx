@@ -5,7 +5,7 @@
 
 /* eslint-disable no-unused-vars */
 
-import React from "react"
+import React, { useState } from "react"
 import {
   DataGridToolbar,
   Stack,
@@ -16,7 +16,6 @@ import {
   Pill,
   SearchInput,
 } from "@cloudoperators/juno-ui-components"
-
 import ViewToggleButtons from "../../common/ViewToggleButtons"
 
 // Needs refactoring
@@ -24,47 +23,32 @@ import ViewToggleButtons from "../../common/ViewToggleButtons"
 interface PeaksFilterToolbarProps {
   searchTerm: string
   setSearchTerm: (term: string) => void
+  availableCountries: string[]
+  onFilterChange: (selectedCountries: string[]) => void
   viewType: "grid" | "card" | "json"
   setViewType: (viewType: string) => void
-  filterKeys: string[]
-  filterSelections: Record<string, string[]>
-  droplistSelections: Record<string, string>
-  selectedFilterKey: string | null
-  setSelectedFilterKey: (key: string) => void
-  availableOptions: Record<string, string[]>
-  addFilter: (key: string, value: string) => void
-  removeFilter: (key: string, value: string) => void
-  clearAllFilters: () => void
 }
 
 const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
-  filterSelections,
-  droplistSelections,
-  setSelectedFilterKey,
-  availableOptions,
-  addFilter,
-  removeFilter,
-  clearAllFilters,
   searchTerm,
   setSearchTerm,
   viewType,
   setViewType,
+  availableCountries,
+  onFilterChange,
 }) => {
-  const filterLabel = "countries"
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
 
-  const handleFilterValueChange = (value?: string | number | string[]) => {
-    const selectedValue = typeof value === "string" ? value : ""
-    if (selectedValue) {
-      addFilter(filterLabel, selectedValue)
-      setSelectedFilterKey(selectedValue)
-    }
+  const handleFilterValueChange = (values: string[]) => {
+    setSelectedCountries(values)
+    onFilterChange(values) // Notify the parent component of changes
   }
 
-  const filterOptions = availableOptions[filterLabel]?.filter(
-    (value: string) => !filterSelections[filterLabel]?.includes(value)
-  )
-
-  const isDroplistSelectionEmpty = !droplistSelections.countries
+  const clearAllFilters = () => {
+    setSearchTerm("")
+    setSelectedCountries([])
+    onFilterChange([]) // Reset filters in parent component
+  }
 
   return (
     <DataGridToolbar className="jn-ml-0">
@@ -80,15 +64,16 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
           <InputGroup>
             <Select
               name="filterValue"
-              value={droplistSelections.countries || ""}
-              label={isDroplistSelectionEmpty ? "" : "Filter by Country"}
-              onChange={handleFilterValueChange}
+              value={selectedCountries}
+              label={selectedCountries.length === 0 ? "" : "Filter by Country"}
+              multiple
+              onChange={(values: string[]) => handleFilterValueChange(values)}
               className="filter-value-select w-96 bg-theme-background-lvl-0"
               placeholder="Filter by Country"
             >
-              {filterOptions?.map((value: string) => (
-                <SelectOption key={value} value={value}>
-                  {value}
+              {availableCountries.map((country: string) => (
+                <SelectOption key={country} value={country}>
+                  {country}
                 </SelectOption>
               ))}
             </Select>
@@ -98,16 +83,20 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
 
         <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
       </Stack>
-      <Stack direction="horizontal" gap="4" alignment="center" className="justify-start w-full ml-0">
-        {filterSelections.countries?.map((value, index) => (
-          <Pill
-            key={`${filterLabel}:${value}:${index}`}
-            pillValue={value}
-            closeable
-            onClose={() => removeFilter(filterLabel, value)}
-          />
-        ))}
-      </Stack>
+
+      {selectedCountries.length > 0 && (
+        <Stack direction="horizontal" gap="2" alignment="center" className="justify-start w-full ml-0">
+          <span className="text-sm font-normal text-gray-600 mr-2">Countries:</span>
+          {selectedCountries.map((country, index) => (
+            <Pill
+              key={`${country}:${index}`}
+              pillValue={country}
+              closeable
+              onClose={() => handleFilterValueChange(selectedCountries.filter((c) => c !== country))}
+            />
+          ))}
+        </Stack>
+      )}
     </DataGridToolbar>
   )
 }

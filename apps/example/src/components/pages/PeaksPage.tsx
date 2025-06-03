@@ -6,7 +6,6 @@
 import React, { useState, useMemo } from "react"
 import { Stack, ContentHeading, Button } from "@cloudoperators/juno-ui-components"
 
-import { Peak } from "../../mocks/db"
 import usePeaksStore from "../../store/usePeaksStore"
 
 import PeaksList from "../peaks/list/PeaksList"
@@ -22,8 +21,7 @@ import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
 const ITEMS_PER_PAGE = 15
 
 interface PeaksPageProps {
-  // eslint-disable-next-line no-unused-vars
-  onSelect: (peak: Peak) => void
+  onSelect: () => void
 }
 
 const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
@@ -31,26 +29,11 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string>("")
-  const [countryFilter, setCountryFilter] = useState<string>("")
+  const [countryFilters, setCountryFilters] = useState<string[]>([])
 
   const { peaks } = usePeaksStore()
 
   const handleNewPeakClick = () => setIsModalOpen(true)
-
-  const clearAllFilters = () => {
-    setSearchTerm("")
-    setCountryFilter("")
-  }
-
-  const addFilter = (key: string, value: string) => {
-    setCountryFilter(value)
-  }
-
-  const removeFilter = (key: string, value: string) => {
-    if (countryFilter === value) {
-      setCountryFilter("")
-    }
-  }
 
   const availableCountries = useMemo(() => {
     const countriesSet = new Set(peaks.map((peak) => peak.countries))
@@ -59,19 +42,13 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
 
   const filteredAndSortedItems = peaks.filter((peak) => {
     const matchesSearch = peak.name.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCountry = countryFilter ? peak.countries === countryFilter : true
+    const matchesCountry = countryFilters.length === 0 || countryFilters.includes(peak.countries)
     return matchesSearch && matchesCountry
   })
 
   const paginatedItems = usePaginatedItems(filteredAndSortedItems, currentPage, ITEMS_PER_PAGE)
   const pages = Math.ceil(filteredAndSortedItems.length / ITEMS_PER_PAGE)
   const metrics: Metrics = calculateMetrics(peaks)
-
-  const handleViewTypeChange = (newViewType: string) => {
-    if (newViewType === "grid" || newViewType === "card" || newViewType === "json") {
-      setViewType(newViewType)
-    }
-  }
 
   return (
     <>
@@ -95,19 +72,12 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
         </Stack>
         <Stack direction="vertical">
           <PeaksFilterToolbar
-            filterKeys={["countries"]}
-            filterSelections={{ countries: countryFilter ? [countryFilter] : [] }}
-            droplistSelections={{ countries: countryFilter }}
-            selectedFilterKey="countries"
-            setSelectedFilterKey={setCountryFilter}
-            availableOptions={{ countries: availableCountries }}
-            addFilter={addFilter}
-            removeFilter={removeFilter}
-            clearAllFilters={clearAllFilters}
+            availableCountries={availableCountries}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
+            onFilterChange={setCountryFilters}
             viewType={viewType}
-            setViewType={handleViewTypeChange}
+            setViewType={setViewType}
           />
           <PeaksList viewType={viewType} paginatedItems={paginatedItems} onSelect={onSelect} />
         </Stack>
