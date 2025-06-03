@@ -18,31 +18,32 @@ const isPrimitive = (value: Primitive | Primitive[]) => {
 }
 
 const validateObjectToEncode = (object: ObjectToEncode) => {
-  if (
-    typeof object === "undefined" ||
-    object === null ||
-    Object.keys(object).length === 0 ||
-    typeof object !== "object" ||
-    object instanceof RegExp ||
-    Array.isArray(object)
-  ) {
-    return false
-  }
-
   for (const key in object) {
+    if (!Object.prototype.hasOwnProperty.call(object, key)) continue
     const value = object[key]
-    if (!isPrimitive(value) && !Array.isArray(value)) {
+    if (Array.isArray(value)) {
+      // Array must be flat and contain only primitives
+      if (!value.every(isPrimitive)) {
+        return false
+      }
+    } else if (typeof value === "object" && value !== null && !(value instanceof RegExp)) {
+      // Nested object is not allowed (except RegExp)
       return false
-    }
-    if (Array.isArray(value) && !value.every(isPrimitive)) {
+    } else if (!isPrimitive(value)) {
+      // Only primitives or RegExp allowed
       return false
     }
   }
-
   return true
 }
 
 const encode = (object: ObjectToEncode, options?: EncodeOptions) => {
+  // If the object has no own properties, return an empty string for tolerance
+  if (typeof object !== "object" || object === null || Array.isArray(object) || Object.keys(object).length === 0) {
+    return ""
+  }
+
+  // Validate that the object contains only allowed types (primitives, RegExp, or flat arrays of primitives)
   if (!validateObjectToEncode(object)) {
     throw new TypeError(`Invalid object to encode`)
   }
