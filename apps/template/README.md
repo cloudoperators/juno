@@ -35,7 +35,7 @@ To use the **Template** app as a template to generate your next app, you don't n
 3. Run the following command to install the **Template** app as a global dependency:
 
 ```bash
-turbo gen workspace --type app --copy @cloudoperators/juno-app-template
+pnpx turbo gen workspace --type app --copy @cloudoperators/juno-app-template
 ```
 
 All your apps should start with `@cloudoperators/juno-` prefix.

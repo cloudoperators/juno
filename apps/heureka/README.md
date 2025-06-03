@@ -22,7 +22,7 @@ To create a static, runnable build, execute the following commands:
 
 ```bash
 cd apps/heureka
-npx turbo build:static
+pnpx turbo build:static
 ```
 
 This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy a `appProps.json` file containing the required props into the dist folder.
@@ -33,7 +33,7 @@ To build a library version for dynamic import, use the following commands:
 
 ```bash
 cd apps/heureka
-npx turbo build
+pnpx turbo build
 ```
 
 This will create a build folder with all assets. You can host this folder and load it as an MFE using dynamic import:
@@ -54,14 +54,14 @@ First, create an `appProps.json` file in the root directory of the application (
 
 ```bash
 cd apps/heureka
-npx turbo dev
+pnpx turbo dev
 ```
 
 ### Testing
 
 ```bash
 cd apps/heureka
-npx turbo test
+pnpx turbo test
 ```
 
 ** Note **

@@ -1,6 +1,6 @@
 # JavaScript client for Kubernetes API
 
-This client is designed for use in the browser (not tested in Node.js). It utilizes the fetch API and is compatible with all modern browsers. For older browsers, the fetch polyfill (github/fetch) should be used.
+This `Kubernetes client` is designed for use in the browser (not tested in Node.js). It utilizes the fetch API and is compatible with all modern browsers. For older browsers, the fetch polyfill (github/fetch) should be used.
 
 The k8sclient facilitates communication with the Kubernetes API. It minimizes data interpretation and adds only essential logic. In addition to standard HTTP methods like GET or POST, it implements the WATCH method, which establishes a stream to the server and reacts to events.
 

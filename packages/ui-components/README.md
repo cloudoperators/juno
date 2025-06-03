@@ -4,7 +4,7 @@
 
 ## Installation
 
-To add Juno UI components to your app as a development dependency, install them using pnpm:
+To add Juno UI components to your app as a development dependency, install them using pnpm. Ensure you are in the root directory of your monorepo and run:
 
 ```bash
 pnpm add @cloudoperators/juno-ui-components
