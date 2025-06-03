@@ -21,7 +21,7 @@ To use the **Template** package as a template to generate your next package, you
 3. Run the following command to install the **Template** package as a global dependency:
 
 ```bash
-turbo gen workspace --type package --copy @cloudoperators/juno-package-template
+pnpx turbo gen workspace --type package --copy @cloudoperators/juno-package-template
 ```
 
 All your pacakges should start with `@cloudoperators/juno-` prefix.

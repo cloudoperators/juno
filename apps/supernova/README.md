@@ -236,7 +236,7 @@ Consider the following example: an alert is triggered when a pod runs out of mem
 
 PodOOMKilled alarm labels example:
 
-```js
+```json
 {
   "alertname": "PodOOMKilled",
   "cluster": "eu-de-1",

@@ -14,7 +14,9 @@ The request to the ID provider proceeds as follows. Before the actual request is
 
 ## Install
 
-```pnpm add @cloudoperators/oauth````
+```bash
+pnpm add @cloudoperators/oauth
+```
 
 ## Usage
 
