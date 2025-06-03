@@ -5,32 +5,25 @@
 
 import React, { useState, useEffect } from "react"
 import { useActions as useMessageActions } from "@cloudoperators/juno-messages-provider"
+import { useNavigate } from "@tanstack/react-router"
 import { Filters } from "../common/Filters"
 import { ServicesList } from "./ServicesList"
 import { FilterSettings } from "../common/Filters/types"
 import { useFetchServiceFilters } from "./useFetchServiceFilters"
-import { InitialFilters } from "../../App"
 import { AllServicesIssuesCount } from "./AllServicesIssuesCount"
 import { useFetchServices } from "./useFetchServices"
-
-const getInitialFilters = (initialFilters?: InitialFilters): FilterSettings => {
-  const supportGroupFilters =
-    initialFilters?.support_group?.map((sg) => ({ name: "supportGroupCcrn", value: sg })) ?? []
-  return {
-    selectedFilters: supportGroupFilters,
-    searchTerm: "",
-  }
-}
+import { getFiltersForUrl } from "./utils"
 
 type ServicesProps = {
   defaultSelectService?: string
-  initialFilters?: InitialFilters
+  defaultFilterSettings: FilterSettings
 }
 
-export const Services = ({ defaultSelectService, initialFilters }: ServicesProps) => {
+export const Services = ({ defaultSelectService, defaultFilterSettings }: ServicesProps) => {
+  const navigate = useNavigate()
   const { serviceFilters } = useFetchServiceFilters()
   const { addMessage, resetMessages } = useMessageActions()
-  const [filterSettings, setFilterSettings] = useState<FilterSettings>(getInitialFilters(initialFilters))
+  const [filterSettings, setFilterSettings] = useState<FilterSettings>(defaultFilterSettings)
   const { loading, error, services, servicesIssuesCount, currentPage, totalNumberOfPages, goToPage } = useFetchServices(
     {
       filterSettings,
@@ -48,12 +41,28 @@ export const Services = ({ defaultSelectService, initialFilters }: ServicesProps
     }
   }, [error])
 
+  const handleFilterChange = (updatedFilterSettings: FilterSettings) => {
+    setFilterSettings((prev) => ({
+      ...prev,
+      selectedFilters: updatedFilterSettings.selectedFilters,
+      searchTerm: updatedFilterSettings.searchTerm,
+    }))
+
+    navigate({
+      to: "/services",
+      search: {
+        service: updatedFilterSettings.searchTerm,
+        ...getFiltersForUrl(updatedFilterSettings),
+      },
+    })
+  }
+
   return (
     <>
       <Filters
         filters={serviceFilters}
         filterSettings={filterSettings}
-        onFilterChange={setFilterSettings}
+        onFilterChange={handleFilterChange}
         searchInputPlaceholder="search term for services name"
       />
       <AllServicesIssuesCount counts={servicesIssuesCount} loading={loading} error={error} />

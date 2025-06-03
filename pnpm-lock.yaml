@@ -481,6 +481,9 @@ importers:
       '@cloudoperators/juno-ui-components':
         specifier: workspace:*
         version: link:../../packages/ui-components
+      '@cloudoperators/juno-url-state-provider':
+        specifier: workspace:*
+        version: link:../../packages/url-state-provider
       '@tanstack/react-router':
         specifier: 1.119.0
         version: 1.119.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)

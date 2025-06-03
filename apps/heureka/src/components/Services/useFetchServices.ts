@@ -44,13 +44,15 @@ export const useFetchServices = ({ filterSettings, pageSize = 20 }: UseFetchServ
         loadServices({ variables: { filter: getActiveServiceFilter(filterSettings), after: cursor } })
       }
     },
-    [filterSettings]
+    [filterSettings.searchTerm, filterSettings.selectedFilters]
   )
 
   // Fetch services whenever filter settings change
   useEffect(() => {
+    console.log(filterSettings)
+
     loadServices({ variables: { filter: getActiveServiceFilter(filterSettings) } })
-  }, [filterSettings])
+  }, [filterSettings.searchTerm, filterSettings.selectedFilters])
 
   return {
     loading,

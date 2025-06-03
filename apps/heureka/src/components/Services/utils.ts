@@ -17,6 +17,7 @@ import {
 import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
 import { IssuesCountsType } from "../types"
+import { SELECTED_FILTER_PREFIX } from "../../constants"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -271,5 +272,41 @@ export const getSeverityColor = (severity: string): string => {
       return "text-theme-default"
     default:
       return "text-theme-default"
+  }
+}
+
+/**
+ * This function converts the selected filters from the FilterSettings into a format that is accepted by the url-state-provider/v2/encode
+ * Examples:
+ * Input:
+ *   filterSettings = {
+ *     selectedFilters: [
+ *       { name: "region", value: "eu", inactive: false },
+ *       { name: "region", value: "us", inactive: false },
+ *       { name: "owner", value: "alice", inactive: false }
+ *     ]
+ *   }
+ * Output:
+ *   {
+ *     "selected_region": ["eu", "us"],
+ *     "selected_owner": "alice"
+ *   }
+ */
+export const getFiltersForUrl = (filterSettings: FilterSettings): Record<string, string | string[]> => {
+  if (!filterSettings?.selectedFilters) {
+    return {}
+  }
+
+  return {
+    searchTerm: filterSettings.searchTerm || "",
+    ...filterSettings.selectedFilters.reduce<Record<string, string | string[]>>((acc, filter) => {
+      const key = `${SELECTED_FILTER_PREFIX}${filter.name}`
+      if (acc[key]) {
+        acc[key] = Array.isArray(acc[key]) ? [...acc[key], filter.value] : [acc[key], filter.value]
+      } else {
+        acc[key] = filter.value
+      }
+      return acc
+    }, {}),
   }
 }

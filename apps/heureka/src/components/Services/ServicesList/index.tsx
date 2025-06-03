@@ -40,9 +40,7 @@ export const ServicesList = ({
     setSelectedOverviewService((prev) => (prev?.id === service.id ? null : service))
     navigate({
       to: "/services",
-      search: {
-        service: service.name,
-      },
+      search: (prev) => ({ ...prev, service: service.name }), // copy the current search params and add the selected service
     })
   }, [])
 
@@ -50,6 +48,10 @@ export const ServicesList = ({
     setSelectedOverviewService(null)
     navigate({
       to: "/services",
+      search: (prev) => {
+        const { service, ...rest } = prev
+        return { ...rest } // remove the service from the search params when closing the panel
+      },
     })
   }, [])
 

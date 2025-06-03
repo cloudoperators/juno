@@ -29,6 +29,7 @@
   "dependencies": {
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
+    "@cloudoperators/juno-url-state-provider": "workspace:*",
     "lodash": "4.17.21",
     "react": "19.1.0",
     "react-dom": "19.1.0",
