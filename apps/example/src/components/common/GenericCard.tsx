@@ -23,13 +23,13 @@ const GenericCard: React.FC<GenericCardProps> = ({ title, iconElement, badgeCont
       onClick={onClick}
     >
       <Stack direction="horizontal" distribution="between" alignment="center" gap="3" className="mb-3">
-        <Stack direction="horizontal" alignment="center" gap="2">
+        <Stack direction="horizontal" alignment="center" gap="5">
           {iconElement}
           <h3 className="text-xl font-bold text-blue-300">{title}</h3>
         </Stack>
         {badgeContainer}
       </Stack>
-      <Stack direction="vertical" gap="3" className="pt-3 mt-3 border-t border-gray-400">
+      <Stack direction="vertical" gap="3" className="pt-3 mt-3 border-t border-theme-background-lvl-5">
         {content}
       </Stack>
     </Box>

@@ -12,6 +12,8 @@ import { Peak, BadgeVariantType } from "../../mocks/db"
 import { Pages } from "../constants"
 import DetailLayout from "../common/DetailLayout"
 import ExpandableSection from "../common/ExpandableSection"
+import { Metrics } from "../metrics/MetricsBox"
+
 interface CountryDetailPageProps {
   countryName: string
   onBack: () => void
@@ -24,14 +26,16 @@ const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, onBa
   const filteredCountryPeaksByName = peaks.filter((peak) => peak.countries === countryName)
 
   const metrics = [
-    { label: "Total Peaks", value: `${filteredCountryPeaksByName.length}` },
+    { label: "Total Peaks", value: `${filteredCountryPeaksByName.length}`, peakType: Metrics.TOTAL_PEAKS },
     {
       label: "Highest Peak",
       value: `${Math.max(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))} m`,
+      peakType: Metrics.HIGHEST_PEAK,
     },
     {
       label: "Lowest Peak",
       value: `${Math.min(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))} m`,
+      peakType: Metrics.LOWEST_PEAK,
     },
   ]
 

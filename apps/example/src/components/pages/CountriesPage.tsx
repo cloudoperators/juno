@@ -76,7 +76,7 @@ const CountriesPage: React.FC<CountryDashboardPageProps> = ({ onSelectCountry })
         {sortedCountries.map((country) => (
           <GenericCard
             key={country}
-            iconElement={<Icon icon="place" className="mr-2" />}
+            iconElement={<Icon icon="place" />}
             title={country}
             badgeContainer={
               <div className="flex gap-2">

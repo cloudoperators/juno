@@ -6,17 +6,7 @@
 // Needs refactoring
 
 import React, { useState } from "react"
-import {
-  Modal,
-  Badge,
-  Button,
-  ModalFooter,
-  ButtonRow,
-  Icon,
-  Spinner,
-  Box,
-  Stack,
-} from "@cloudoperators/juno-ui-components"
+import { Modal, Badge, Button, ModalFooter, ButtonRow, Icon, Spinner, Box } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../mocks/db"
 import useUIStore from "../../store/useUIStore"
@@ -57,7 +47,7 @@ const renderIcon = (peakType?: string) => {
     case Metrics.TOTAL_PEAKS:
       return <Mountain />
     case Metrics.TOTAL_COUNTRIES:
-      return <Icon className="text-theme-high text-5xl mr-6" icon="place" />
+      return <Icon className="text-theme-high text-5xl" icon="place" />
     default:
       return null
   }
@@ -93,11 +83,14 @@ const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakTy
   return (
     <>
       <Box
-        className={`flex flex-1 items-center justify-start border p-6 shadow-md ${hoverable && isClickable ? "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-theme-high" : ""}`}
+        className={`flex border p-6 shadow-md ${hoverable && isClickable ? "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-theme-high" : ""}`}
         onClick={handleBoxClick}
+        style={{ display: "flex", alignItems: "center", width: "100%" }}
       >
-        {renderIcon(peakType)}
-        <PeakInfo label={label} number={number} colorClass={colorClass} peakDetails={peakDetails} />
+        <div className="flex justify-center items-center w-2/4">{renderIcon(peakType)}</div>
+        <div className="flex flex-col justify-center items-center w-4/4">
+          <PeakInfo label={label} number={number} colorClass={colorClass} peakDetails={peakDetails} />
+        </div>
       </Box>
 
       {modalVisible && peakDetails && (
@@ -122,22 +115,12 @@ const PeakInfo: React.FC<{
   peakDetails?: Peak
 }> = ({ label, number, colorClass, peakDetails }) => {
   const { isQueryClientReady } = useConfigStore()
-
   const isLoading = !peakDetails && !number && isQueryClientReady
 
   return (
-    <div className="text-theme-high ml-4">
-      <span className="text-sm block">{label}</span>
-      {isLoading ? (
-        <Spinner size="small" />
-      ) : (
-        <Stack gap="2" className="flex items-center">
-          {number && <span className={`text-3xl font-extrabold ${colorClass}`}>{number}</span>}
-          {peakDetails?.safety.status && (
-            <span className={`text-sm font-bold ${colorClass}`}>{peakDetails.safety.status}</span>
-          )}
-        </Stack>
-      )}
+    <div className="text-theme-high text-center flex flex-col items-center">
+      <span className="text-sm">{label}</span>
+      {isLoading ? <Spinner size="small" /> : <span className={`text-3xl font-extrabold ${colorClass}`}>{number}</span>}
     </div>
   )
 }

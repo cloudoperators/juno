@@ -13,7 +13,7 @@
   strokeWidth="2"
   strokeLinecap="round"
   strokeLinejoin="round"
-  className="mr-6 text-theme-high"
+  className="text-theme-high"
 >
   <path d="M15 6v6h4l-7 7-7-7h4V6h6z" />
 </svg>

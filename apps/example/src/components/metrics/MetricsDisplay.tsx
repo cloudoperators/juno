@@ -15,7 +15,7 @@ interface MetricsDisplayProps {
 }
 
 const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ metrics }) => (
-  <Stack direction="horizontal" gap="6" distribution="between">
+  <Stack direction="horizontal" gap="8" distribution="between">
     {metrics.map((metric, index) => {
       return (
         <MetricsBox
