@@ -55,6 +55,8 @@ const renderIcon = (peakType?: string) => {
   }
 }
 
+// NOTE: This is a custom component that doesn't exist in Juno UI.
+
 const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakType, hoverable = false }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const { setCurrentPage } = useNavigationStore()

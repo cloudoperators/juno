@@ -26,7 +26,7 @@ interface PeaksFilterToolbarProps {
   availableCountries: string[]
   onFilterChange: (selectedCountries: string[]) => void
   viewType: "grid" | "card" | "json"
-  setViewType: (viewType: string) => void
+  setViewType: (view: "grid" | "card" | "json") => void
 }
 
 const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
@@ -39,9 +39,11 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
 }) => {
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
 
-  const handleFilterValueChange = (values: string[]) => {
-    setSelectedCountries(values)
-    onFilterChange(values) // Notify the parent component of changes
+  const handleFilterValueChange = (value?: string | string[] | number) => {
+    if (Array.isArray(value)) {
+      setSelectedCountries(value)
+      onFilterChange(value) // Notify the parent component of changes
+    }
   }
 
   const clearAllFilters = () => {
@@ -52,7 +54,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
 
   return (
     <DataGridToolbar className="jn-ml-0">
-      <Stack direction="horizontal" alignment="center" gap="8">
+      <Stack direction="horizontal" alignment="center" gap="8" className="mb-2">
         <SearchInput
           placeholder="Search by Name..."
           value={searchTerm || ""}
@@ -67,7 +69,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
               value={selectedCountries}
               label={selectedCountries.length === 0 ? "" : "Filter by Country"}
               multiple
-              onChange={(values: string[]) => handleFilterValueChange(values)}
+              onChange={handleFilterValueChange}
               className="filter-value-select w-96 bg-theme-background-lvl-0"
               placeholder="Filter by Country"
             >

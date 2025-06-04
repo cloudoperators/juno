@@ -15,7 +15,7 @@ import CardIcon from "../../assets/card.svg?react"
 interface ViewToggleButtonsProps {
   currentView: (typeof Views)[keyof typeof Views]
   // eslint-disable-next-line no-unused-vars
-  toggleView: (view: (typeof Views)[keyof typeof Views]) => void
+  toggleView: (view: ViewToggleButtonsProps["currentView"]) => void
   showCardOption?: boolean
 }
 
@@ -29,17 +29,17 @@ const ViewToggleButtons: React.FC<ViewToggleButtonsProps> = ({ currentView, togg
       <span className="flex items-center">View:</span>
 
       <Button onClick={() => toggleView(Views.GRID)} disabled={isGridDisabled} variant="subdued">
-        <GridIcon />
+        <GridIcon title="List View" />
       </Button>
 
       {showCardOption && (
         <Button onClick={() => toggleView(Views.CARD)} disabled={isCardDisabled} variant="subdued">
-          <CardIcon />
+          <CardIcon title="Card View" />
         </Button>
       )}
 
       <Button onClick={() => toggleView(Views.JSON)} disabled={isJsonDisabled} variant="subdued">
-        <JsonIcon />
+        <JsonIcon title="Code View" />
       </Button>
     </Stack>
   )

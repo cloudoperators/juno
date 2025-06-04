@@ -28,6 +28,8 @@ interface ExpandableSectionProps {
 const HIDE_LABEL = "Hide"
 const SHOW_LABEL = "Show"
 
+const notificationStyle = "w-8 h-8 flex items-center justify-center rounded-full text-theme-highest"
+
 const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, variant }) => {
   const [isOpen, setIsOpen] = useState(true)
   const toggleOpen = () => setIsOpen((prev) => !prev)
@@ -37,7 +39,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, var
       <Stack direction="horizontal" distribution="between" alignment="center" gap="3">
         <Stack direction="horizontal" gap="2" alignment="center">
           <h2 className="font-bold text-xl">{title}</h2>
-          <Badge variant={variant} className="px-2 py-1 rounded-full text-theme-highest">
+          <Badge variant={variant} className={notificationStyle}>
             {peaks.length}
           </Badge>
         </Stack>

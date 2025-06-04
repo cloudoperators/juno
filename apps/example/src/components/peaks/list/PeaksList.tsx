@@ -60,7 +60,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
 
   if (viewType === Views.CARD) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
         {paginatedItems.map((peak) => (
           <GenericCard
             key={String(peak.id)}

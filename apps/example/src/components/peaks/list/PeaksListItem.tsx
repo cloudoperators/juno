@@ -27,8 +27,7 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
     setSelectedPeakId(peak.id)
   }
 
-  const hoverStyles =
-    "p-6 transition-transform duration-500 transform group group-hover:scale-105 cursor-pointer group-hover:bg-theme-background-lvl-2 text-highest"
+  const hoverStyles = "p-6 group group-hover cursor-pointer group-hover:bg-theme-background-lvl-2 text-highest"
 
   return (
     <>

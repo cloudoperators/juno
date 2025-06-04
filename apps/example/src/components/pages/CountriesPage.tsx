@@ -28,6 +28,8 @@ interface CountryDashboardPageProps {
   onSelectCountry: (country: string) => void
 }
 
+const notificationStyle = "w-8 h-8 flex items-center justify-center rounded-full text-theme-highest"
+
 const CountriesPage: React.FC<CountryDashboardPageProps> = ({ onSelectCountry }) => {
   const { peaks } = usePeaksStore()
 
@@ -82,21 +84,21 @@ const CountriesPage: React.FC<CountryDashboardPageProps> = ({ onSelectCountry })
                   <Badge
                     text={`${countryStats[country].safetyCounts.Safe}`}
                     variant="success"
-                    className="px-2 py-1 rounded-full text-theme-highest"
+                    className={notificationStyle}
                   />
                 )}
                 {countryStats[country].safetyCounts.Caution > 0 && (
                   <Badge
                     text={`${countryStats[country].safetyCounts.Caution}`}
                     variant="warning"
-                    className="px-2 py-1 rounded-full text-theme-highest"
+                    className={notificationStyle}
                   />
                 )}
                 {countryStats[country].safetyCounts.Unsafe > 0 && (
                   <Badge
                     text={`${countryStats[country].safetyCounts.Unsafe}`}
                     variant="error"
-                    className="px-2 py-1 rounded-full text-theme-highest"
+                    className={notificationStyle}
                   />
                 )}
               </div>

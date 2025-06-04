@@ -19,10 +19,7 @@ import {
 } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../../mocks/db"
-
 import { PeakFields } from "../../constants"
-import { useDebounce } from "../../hooks/useDebounce"
-
 import { validateFormField } from "../utils/validateFormFields"
 
 // Needs refactoring, some TS errors ignored
@@ -48,27 +45,28 @@ const Labels = {
   SAVE: "Save",
 }
 
+const sanitizeHeight = (height: string | undefined): string => {
+  return height ? height.replace(/\D/g, "") : ""
+}
+
 const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => {
-  const [formState, setFormState] = useState<Peak>(
-    //@ts-ignore
-    initialValues || {
-      id: "",
-      name: "",
-      height: "",
-      mainrange: "",
-      region: "",
-      countries: "",
-      url: "",
-      details: "",
-      safety: { status: "", variant: "" },
-    }
-  )
+  const [formState, setFormState] = useState<Peak>({
+    id: initialValues?.id || "",
+    name: initialValues?.name || "",
+    height: sanitizeHeight(initialValues?.height) || "",
+    mainrange: initialValues?.mainrange || "",
+    region: initialValues?.region || "",
+    countries: initialValues?.countries || "",
+    url: initialValues?.url || "",
+    details: initialValues?.details || "",
+    safety: initialValues?.safety || { status: "", variant: "info", recommendation: "", common_hazards: "" },
+  })
+
   const [errors, setErrors] = useState<Partial<Peak>>({})
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [backendError, setBackendError] = useState(false)
-  //@ts-ignore
-  const [isTyping, setIsTyping] = useState<Record<keyof Peak, boolean>>({})
+  const [hasEdited, setHasEdited] = useState(false) // Track if any field has been changed
   const [isSaveEnabled, setIsSaveEnabled] = useState(false)
 
   const requiredFields: Array<keyof Peak> = ["name", "height", "mainrange", "region", "countries"]
@@ -78,28 +76,33 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
   }, [formState, initialValues])
 
   const updateSaveEnabled = useCallback(() => {
+    if (!hasEdited) return // Ensure validation logic only kicks in after an edit
     //@ts-ignore
-    const hasErrors = requiredFields.some((field) => validateFormField(field, formState[field] || ""))
-    setIsSaveEnabled(!hasErrors && isFormChanged() && !errors.url)
-  }, [formState, isFormChanged, errors.url])
-
-  const debouncedSaveUpdate = useDebounce(updateSaveEnabled, 300)
+    const noErrors = requiredFields.every((field) => validateFormField(field, formState[field] || "") === "")
+    setIsSaveEnabled(noErrors && isFormChanged())
+  }, [formState, hasEdited, isFormChanged])
 
   useEffect(() => {
-    debouncedSaveUpdate()
-  }, [formState, errors, debouncedSaveUpdate])
+    if (hasEdited) {
+      updateSaveEnabled()
+    }
+  }, [formState, updateSaveEnabled, hasEdited])
 
   const handleAttrChange = (key: keyof Peak, value: string) => {
     setFormState((prevState) => ({ ...prevState, [key]: value }))
-    setIsTyping((prev) => ({ ...prev, [key]: true }))
-    debouncedSaveUpdate()
+    setHasEdited(true)
+
+    if (hasEdited) {
+      updateSaveEnabled() // Update save button enablement immediately after editing starts
+    }
   }
 
   const handleFieldBlur = (key: keyof Peak) => {
+    if (!hasEdited) return // Ignore blur-based validation until an edit has started
+
     //@ts-ignore
     const errorMsg = validateFormField(key, formState[key] || "")
     setErrors((prevErrors) => ({ ...prevErrors, [key]: errorMsg }))
-    setIsTyping((prev) => ({ ...prev, [key]: false })) // Only show error if not typing
   }
 
   const handleSubmit = () => {
@@ -160,8 +163,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
                 value: formState[key as keyof Peak] || "",
                 onChange: (e: ChangeEvent<HTMLInputElement>) => handleAttrChange(key as keyof Peak, e.target.value),
                 onBlur: () => handleFieldBlur(key as keyof Peak),
-                //@ts-ignore
-                errortext: !isTyping[key] && errors[key as keyof Peak] ? errors[key as keyof Peak] : undefined,
+                errortext: errors[key as keyof Peak] ? errors[key as keyof Peak] : undefined,
                 maxLength: 200,
                 disabled: loading,
                 required,
