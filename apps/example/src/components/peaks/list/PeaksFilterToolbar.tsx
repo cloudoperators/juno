@@ -62,7 +62,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
           onSearch={(value: string) => setSearchTerm(value)}
           onClear={() => setSearchTerm("")}
         />
-        <Stack className="flex flex-col items-stretch md:flex-row md:items-center gap-4 w-full">
+        <Stack className="flex flex-col items-stretch md:flex-row md:items-center gap-2 w-full">
           <InputGroup className="w-full md:w-64">
             <Select
               name="filterValue"
