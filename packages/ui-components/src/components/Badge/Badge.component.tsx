@@ -72,7 +72,7 @@ const getIcon = (icon: boolean | KnownIcons | undefined, variant: BadgeVariantTy
 
 // Get icon colour based on the variant
 const getIconColor = (icon: boolean | KnownIcons | undefined, variant: BadgeVariantType): string | undefined => {
-  if (icon === true) return `jn-text-theme-${variant}`
+  if (icon === true) return `jn:text-theme-${variant}`
   return
 }
 
@@ -97,6 +97,8 @@ export const Badge: React.FC<BadgeProps> = ({
 }) => {
   const iconToRender = getIcon(icon, variant)
   const iconColor = getIconColor(icon, variant)
+
+  console.log(iconColor)
 
   return (
     <span
