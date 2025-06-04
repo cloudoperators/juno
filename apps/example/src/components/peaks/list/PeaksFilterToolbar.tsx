@@ -54,23 +54,23 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
 
   return (
     <DataGridToolbar className="jn-ml-0">
-      <Stack direction="horizontal" alignment="center" gap="8" className="mb-2">
+      <Stack className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
         <SearchInput
           placeholder="Search by Name..."
           value={searchTerm || ""}
-          className="w-96"
+          className="w-full md:w-64 flex-shrink-0"
           onSearch={(value: string) => setSearchTerm(value)}
           onClear={() => setSearchTerm("")}
         />
-        <Stack>
-          <InputGroup>
+        <Stack className="flex flex-col items-stretch md:flex-row md:items-center gap-4 w-full">
+          <InputGroup className="w-full md:w-64">
             <Select
               name="filterValue"
               value={selectedCountries}
               label={selectedCountries.length === 0 ? "" : "Filter by Country"}
               multiple
               onChange={handleFilterValueChange}
-              className="filter-value-select w-96 bg-theme-background-lvl-0"
+              className="filter-value-select w-full md:w-64 bg-theme-background-lvl-0"
               placeholder="Filter by Country"
             >
               {availableCountries.map((country: string) => (
@@ -80,14 +80,19 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
               ))}
             </Select>
           </InputGroup>
-          <Button label="Clear All" onClick={clearAllFilters} variant="subdued" />
+          <Button
+            label="Clear All"
+            onClick={clearAllFilters}
+            variant="subdued"
+            className="w-full md:w-auto flex-shrink-0"
+          />
         </Stack>
 
         <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
       </Stack>
 
       {selectedCountries.length > 0 && (
-        <Stack direction="horizontal" gap="2" alignment="center" className="justify-start w-full ml-0">
+        <Stack direction="horizontal" gap="2" alignment="center" className="justify-start w-full ml-0 mt-2">
           <span className="text-sm font-normal text-gray-600 mr-2">Countries:</span>
           {selectedCountries.map((country, index) => (
             <Pill
