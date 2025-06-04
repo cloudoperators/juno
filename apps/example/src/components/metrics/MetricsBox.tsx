@@ -3,12 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// NOTE: This is a custom component that doesn't exist in Juno UI. It showcases how custom theme colours can be applied.
-
 // Needs refactoring
 
 import React, { useState } from "react"
-import { Spinner, Modal, Icon, Badge, Button, Stack, ModalFooter, ButtonRow } from "@cloudoperators/juno-ui-components"
+import {
+  Modal,
+  Badge,
+  Button,
+  ModalFooter,
+  ButtonRow,
+  Icon,
+  Spinner,
+  Box,
+  Stack,
+} from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../mocks/db"
 import useUIStore from "../../store/useUIStore"
@@ -55,20 +63,18 @@ const renderIcon = (peakType?: string) => {
   }
 }
 
-// NOTE: This is a custom component that doesn't exist in Juno UI.
-
 const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakType, hoverable = false }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const { setCurrentPage } = useNavigationStore()
   const { setSelectedPeakId } = usePeaksStore()
   const { setShowPeakDetails } = useUIStore()
-
   const { isQueryClientReady } = useConfigStore()
 
-  const isClickable = isQueryClientReady && peakType !== Metrics.TOTAL_PEAKS && peakType !== Metrics.TOTAL_COUNTRIES
+  const isClickable =
+    isQueryClientReady && peakType !== Metrics.TOTAL_PEAKS && peakType !== Metrics.TOTAL_COUNTRIES && peakDetails
 
   const handleBoxClick = () => {
-    if (isClickable && peakDetails) {
+    if (isClickable) {
       setModalVisible(true)
     }
   }
@@ -84,27 +90,25 @@ const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakTy
 
   const colorClass = peakDetails ? getNumberColorStyle(peakDetails.safety.status) : "text-theme-high"
 
-  const baseStyles =
-    "flex-1 bg-gradient-to-r from-blue-500 to-green-500 p-6 shadow-md flex items-center justify-start border"
-  const hoverStyles =
-    "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-theme-high"
-
-  const boxStyles = [baseStyles, hoverable && isClickable ? hoverStyles : ""].join(" ")
-
   return (
     <>
-      <div className={`border ${boxStyles}`} onClick={handleBoxClick}>
+      <Box
+        className={`flex flex-1 items-center justify-start border p-6 shadow-md ${hoverable && isClickable ? "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-theme-high" : ""}`}
+        onClick={handleBoxClick}
+      >
         {renderIcon(peakType)}
         <PeakInfo label={label} number={number} colorClass={colorClass} peakDetails={peakDetails} />
-      </div>
+      </Box>
 
-      <PeakModal
-        peakDetails={peakDetails}
-        colorClass={colorClass}
-        modalVisible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        onOpenDetail={navigateToDetailPage}
-      />
+      {modalVisible && peakDetails && (
+        <PeakModal
+          peakDetails={peakDetails}
+          colorClass={colorClass}
+          modalVisible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          onOpenDetail={navigateToDetailPage}
+        />
+      )}
     </>
   )
 }
@@ -122,10 +126,10 @@ const PeakInfo: React.FC<{
   const isLoading = !peakDetails && !number && isQueryClientReady
 
   return (
-    <div className="text-theme-high">
+    <div className="text-theme-high ml-4">
       <span className="text-sm block">{label}</span>
       {isLoading ? (
-        <Spinner />
+        <Spinner size="small" />
       ) : (
         <Stack gap="2" className="flex items-center">
           {number && <span className={`text-3xl font-extrabold ${colorClass}`}>{number}</span>}
@@ -138,7 +142,7 @@ const PeakInfo: React.FC<{
   )
 }
 
-export const PeakModal: React.FC<{
+const PeakModal: React.FC<{
   peakDetails?: Peak
   colorClass: string
   modalVisible: boolean

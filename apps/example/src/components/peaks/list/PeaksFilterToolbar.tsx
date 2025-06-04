@@ -38,6 +38,17 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
   onFilterChange,
 }) => {
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
+  const [debounceTimer, setDebounceTimer] = useState<number | undefined>(undefined)
+
+  const handleSearchChange = (value: React.ChangeEvent<HTMLInputElement>) => {
+    if (debounceTimer) {
+      clearTimeout(debounceTimer)
+    }
+    const newTimer = window.setTimeout(() => {
+      setSearchTerm(value.target.value)
+    }, 500) // 500 milliseconds debounce delay
+    setDebounceTimer(newTimer)
+  }
 
   const handleFilterValueChange = (value?: string | string[] | number) => {
     if (Array.isArray(value)) {
@@ -54,16 +65,17 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
 
   return (
     <DataGridToolbar className="jn-ml-0">
-      <Stack className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+      <Stack className="flex flex-row items-center gap-5 flex-wrap">
         <SearchInput
           placeholder="Search by Name..."
           value={searchTerm || ""}
           className="w-full md:w-64 flex-shrink-0"
-          onSearch={(value: string) => setSearchTerm(value)}
+          onInput={handleSearchChange} // Use onInput for immediate change handling
           onClear={() => setSearchTerm("")}
         />
-        <Stack className="flex flex-col items-stretch md:flex-row md:items-center gap-2 w-full">
-          <InputGroup className="w-full md:w-64">
+
+        <Stack className="flex flex-row items-center gap-2 flex-wrap">
+          <InputGroup className="flex-shrink-0 w-full md:w-64">
             <Select
               name="filterValue"
               value={selectedCountries}
@@ -80,6 +92,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
               ))}
             </Select>
           </InputGroup>
+
           <Button
             label="Clear All"
             onClick={clearAllFilters}
