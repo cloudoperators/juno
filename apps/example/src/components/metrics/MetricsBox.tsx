@@ -95,8 +95,8 @@ const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakTy
         onClick={handleBoxClick}
         style={{ display: "flex", alignItems: "center", width: "100%" }}
       >
-        <div className="flex justify-center items-center w-2/4">{renderIcon(peakType)}</div>
-        <div className="flex flex-col justify-center items-center w-4/4">
+        <div className="flex justify-center items-center w-1/4">{renderIcon(peakType)}</div>
+        <div className="flex flex-col justify-center items-center w-3/4">
           <PeakInfo label={label} number={number} colorClass={colorClass} peakDetails={peakDetails} />
         </div>
       </Box>

@@ -17,7 +17,7 @@ const Content: React.FC = () => {
 
   if (isUserAuthenticated) {
     return (
-      <Container>
+      <Container className="mt-11">
         <Stack direction="vertical" gap="5">
           <InfoMessage />
           <Container py>
