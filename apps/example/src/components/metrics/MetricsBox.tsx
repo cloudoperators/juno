@@ -17,6 +17,8 @@ import useNavigationStore from "../../store/useNavigationStore"
 import ArrowUp from "../../assets/arrow_up.svg?react"
 import ArrowDown from "../../assets/arrow_down.svg?react"
 import Mountain from "../../assets/mountain.svg?react"
+import Height from "../../assets/height.svg?react"
+import Safety from "../../assets/safety.svg?react"
 
 import { Pages } from "../constants"
 import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
@@ -36,6 +38,8 @@ export const Metrics = {
   LOWEST_PEAK: "lowest",
   TOTAL_PEAKS: "total",
   TOTAL_COUNTRIES: "place",
+  HEIGHT: "height",
+  SAFETY: "safety",
 }
 
 const renderIcon = (peakType?: string) => {
@@ -46,6 +50,10 @@ const renderIcon = (peakType?: string) => {
       return <ArrowDown />
     case Metrics.TOTAL_PEAKS:
       return <Mountain />
+    case Metrics.HEIGHT:
+      return <Height />
+    case Metrics.SAFETY:
+      return <Safety />
     case Metrics.TOTAL_COUNTRIES:
       return <Icon className="text-theme-high text-5xl" icon="place" />
     default:

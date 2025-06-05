@@ -16,6 +16,7 @@ import ActionButtons from "../common/ActionButtons"
 import usePeakActions from "../hooks/usePeakActions"
 import { Pages, TooltipExplanation } from "../constants"
 import DeleteConfirmationModal from "../common/DeleteConfirmationModal"
+import { Metrics } from "../metrics/MetricsBox"
 
 interface PeakDetailPageProps {
   onBack: () => void
@@ -31,15 +32,10 @@ const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ onBack }) => {
 
   const peakInfo = peaks.find((peak) => peak.id === selectedPeakId)!
 
-  const formatHeight = (height: string | number): string => {
-    const numericHeight = typeof height === "number" ? height : parseInt(height, 10)
-    return numericHeight.toLocaleString()
-  }
-
   const metrics = [
-    { label: "Height", value: `${formatHeight(peakInfo.height)} m` },
-    { label: "Safety", value: peakInfo.safety.status },
-    { label: "Location", value: `${peakInfo.region}, ${peakInfo.countries}` },
+    { label: "Height", value: `${peakInfo.height}`, peakType: Metrics.HEIGHT },
+    { label: "Safety", value: peakInfo.safety.status, peakType: Metrics.LOWEST_PEAK },
+    { label: "Location", value: `${peakInfo.region}, ${peakInfo.countries}`, peakType: Metrics.TOTAL_COUNTRIES },
   ]
 
   const handleDeletePeak = () => {

@@ -29,12 +29,12 @@ const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, onBa
     { label: "Total Peaks", value: `${filteredCountryPeaksByName.length}`, peakType: Metrics.TOTAL_PEAKS },
     {
       label: "Highest Peak",
-      value: `${Math.max(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))} m`,
+      value: `${Math.max(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))}m`,
       peakType: Metrics.HIGHEST_PEAK,
     },
     {
       label: "Lowest Peak",
-      value: `${Math.min(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))} m`,
+      value: `${Math.min(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))}m`,
       peakType: Metrics.LOWEST_PEAK,
     },
   ]
