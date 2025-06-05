@@ -20,10 +20,6 @@ query GetServices(
       node {
         id
         ccrn
-        objectMetadata {
-          componentInstanceCount
-          issueMatchCount
-        }
         owners {
           edges {
             node {
