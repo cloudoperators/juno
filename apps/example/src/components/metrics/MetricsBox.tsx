@@ -91,7 +91,7 @@ const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakTy
   return (
     <>
       <Box
-        className={`flex border p-6 shadow-md ${hoverable && isClickable ? "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-theme-high" : ""}`}
+        className={`flex border p-6 shadow-md ${isClickable ? "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-3 text-theme-high" : ""}`}
         onClick={handleBoxClick}
         style={{ display: "flex", alignItems: "center", width: "100%" }}
       >

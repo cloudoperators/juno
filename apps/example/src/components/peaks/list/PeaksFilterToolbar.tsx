@@ -17,6 +17,7 @@ import {
   SearchInput,
 } from "@cloudoperators/juno-ui-components"
 import ViewToggleButtons from "../../common/ViewToggleButtons"
+import CreatePeakModal from "./CreatePeakModal"
 
 // Needs refactoring
 
@@ -39,6 +40,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
 }) => {
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
   const [debounceTimer, setDebounceTimer] = useState<number | undefined>(undefined)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleSearchChange = (value: React.ChangeEvent<HTMLInputElement>) => {
     if (debounceTimer) {
@@ -46,7 +48,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
     }
     const newTimer = window.setTimeout(() => {
       setSearchTerm(value.target.value)
-    }, 500) // 500 milliseconds debounce delay
+    }, 500)
     setDebounceTimer(newTimer)
   }
 
@@ -63,61 +65,80 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
     onFilterChange([]) // Reset filters in parent component
   }
 
+  const filtersStyles = `
+  bg-theme-background-lvl-1
+  py-4
+  px-4
+  pb-4
+  pt-4
+  my-px
+`
+
+  const handleNewPeakClick = () => setIsModalOpen(true)
+
   return (
-    <DataGridToolbar className="jn-ml-0">
-      <Stack className="flex flex-row items-center gap-5 flex-wrap">
-        <SearchInput
-          placeholder="Search by Name..."
-          value={searchTerm || ""}
-          className="w-full md:w-64 flex-shrink-0"
-          onInput={handleSearchChange} // Use onInput for immediate change handling
-          onClear={() => setSearchTerm("")}
-        />
-
-        <Stack className="flex flex-row items-center gap-2 flex-wrap">
-          <InputGroup className="flex-shrink-0 w-full md:w-64">
-            <Select
-              name="filterValue"
-              value={selectedCountries}
-              label={selectedCountries.length === 0 ? "" : "Filter by Country"}
-              multiple
-              onChange={handleFilterValueChange}
-              className="filter-value-select w-full md:w-64 bg-theme-background-lvl-0"
-              placeholder="Filter by Country"
-            >
-              {availableCountries.map((country: string) => (
-                <SelectOption key={country} value={country}>
-                  {country}
-                </SelectOption>
-              ))}
-            </Select>
-          </InputGroup>
-
-          <Button
-            label="Clear All"
-            onClick={clearAllFilters}
-            variant="subdued"
-            className="w-full md:w-auto flex-shrink-0"
-          />
-        </Stack>
-
-        <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
-      </Stack>
-
-      {selectedCountries.length > 0 && (
-        <Stack direction="horizontal" gap="2" alignment="center" className="justify-start w-full ml-0 mt-2">
-          <span className="text-sm font-normal text-gray-600 mr-2">Countries:</span>
-          {selectedCountries.map((country, index) => (
-            <Pill
-              key={`${country}:${index}`}
-              pillValue={country}
-              closeable
-              onClose={() => handleFilterValueChange(selectedCountries.filter((c) => c !== country))}
+    <>
+      <Stack alignment="center" gap="8" className={filtersStyles}>
+        <Stack direction="vertical" gap="3" className="w-full">
+          <Stack gap="6" className="flex flex-row items-center flex-wrap w-full">
+            <SearchInput
+              placeholder="Search by Name..."
+              value={searchTerm || ""}
+              className="w-full md:w-80 flex-shrink-0"
+              onInput={handleSearchChange}
+              onClear={() => setSearchTerm("")}
             />
-          ))}
+            <Stack gap="2" className="flex flex-row items-center">
+              <InputGroup className="flex-shrink-0 w-full md:w-80">
+                <Select
+                  name="filterValue"
+                  value={selectedCountries}
+                  label={selectedCountries.length === 0 ? "" : "Filter by Country"}
+                  multiple
+                  onChange={handleFilterValueChange}
+                  className="filter-value-select w-full md:w-80 bg-theme-background-lvl-0"
+                  placeholder="Filter by Country"
+                >
+                  {availableCountries.map((country: string) => (
+                    <SelectOption key={country} value={country}>
+                      {country}
+                    </SelectOption>
+                  ))}
+                </Select>
+              </InputGroup>
+              <Button
+                label="Clear All"
+                onClick={clearAllFilters}
+                variant="subdued"
+                className="w-full md:w-auto flex-shrink-0"
+              />
+            </Stack>
+
+            <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
+
+            {/* Separate Stack to ensure button positioning */}
+            <Stack direction="horizontal" className="flex-grow items-center justify-end">
+              <Button icon="addCircle" onClick={handleNewPeakClick} label="Add New Peak" variant="primary" />
+            </Stack>
+
+            <CreatePeakModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New Peak" />
+          </Stack>
+          {selectedCountries.length > 0 && (
+            <Stack direction="horizontal" gap="2" alignment="start" className="w-full">
+              <span className="text-sm font-normal text-gray-600 mr-2">Countries:</span>
+              {selectedCountries.map((country, index) => (
+                <Pill
+                  key={`${country}:${index}`}
+                  pillValue={country}
+                  closeable
+                  onClose={() => handleFilterValueChange(selectedCountries.filter((c) => c !== country))}
+                />
+              ))}
+            </Stack>
+          )}
         </Stack>
-      )}
-    </DataGridToolbar>
+      </Stack>
+    </>
   )
 }
 

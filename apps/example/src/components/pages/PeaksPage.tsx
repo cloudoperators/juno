@@ -4,14 +4,13 @@
  */
 
 import React, { useState, useMemo } from "react"
-import { Stack, ContentHeading, Button } from "@cloudoperators/juno-ui-components"
+import { Stack, ContentHeading } from "@cloudoperators/juno-ui-components"
 
 import usePeaksStore from "../../store/usePeaksStore"
 
 import PeaksList from "../peaks/list/PeaksList"
 import { usePaginatedItems } from "../hooks/usePeaks"
 import MetricsDisplay from "../metrics/MetricsDisplay"
-import CreatePeakModal from "../peaks/list/CreatePeakModal"
 import PeaksFilterToolbar from "../peaks/list/PeaksFilterToolbar"
 import { calculateMetrics, Metrics } from "../peaks/utils/calculateMetrics"
 import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
@@ -27,13 +26,10 @@ interface PeaksPageProps {
 const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
   const [viewType, setViewType] = useState<"grid" | "card" | "json">("grid")
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [countryFilters, setCountryFilters] = useState<string[]>([])
 
   const { peaks } = usePeaksStore()
-
-  const handleNewPeakClick = () => setIsModalOpen(true)
 
   const availableCountries = useMemo(() => {
     const countriesSet = new Set(peaks.map((peak) => peak.countries))
@@ -62,13 +58,6 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
         />
         <Stack direction="horizontal" distribution="between" alignment="center">
           <ContentHeading>Peak Details</ContentHeading>
-          <Button
-            icon="addCircle"
-            onClick={handleNewPeakClick}
-            label="Add New Peak"
-            variant="primary"
-            className="ml-auto"
-          />
         </Stack>
         <Stack direction="vertical">
           <PeaksFilterToolbar
@@ -83,7 +72,6 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
         </Stack>
         <PeaksPaginationControls currentPage={currentPage} setCurrentPage={setCurrentPage} pages={pages} />
       </Stack>
-      <CreatePeakModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New Peak" />
     </>
   )
 }
