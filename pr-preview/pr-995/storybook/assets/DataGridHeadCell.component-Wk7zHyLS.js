@@ -1,6 +1,0 @@
-import{r as d,j as s}from"./iframe-9Ty3EMVT.js";import{b as i}from"./DataGridCell.component-DClSr13L.js";const c=`
-	jn-font-bold
-	jn-text-theme-high
-	jn-bg-theme-background-lvl-1
-	jn-border-theme-background-lvl-0
-`,e=d.forwardRef(({colSpan:a,nowrap:l=!1,className:t="",children:r,...n},o)=>s.jsx(i,{colSpan:a,nowrap:l,className:`juno-datagrid-head-cell ${c} ${t}`,role:"columnheader",ref:o,...n,children:r}));e.displayName="DataGridHeadCell";try{e.displayName="DataGridHeadCell",e.__docgenInfo={description:"",displayName:"DataGridHeadCell",props:{colSpan:{defaultValue:null,description:"Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.",name:"colSpan",required:!1,type:{name:"number"}},nowrap:{defaultValue:{value:"false"},description:"Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;)",name:"nowrap",required:!1,type:{name:"boolean"}},children:{defaultValue:null,description:"Children to render in the DataGridHeadCell",name:"children",required:!1,type:{name:"ReactNode"}},className:{defaultValue:{value:""},description:"Add a classname",name:"className",required:!1,type:{name:"string"}}}}}catch{}export{e as D};
