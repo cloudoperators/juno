@@ -28,11 +28,18 @@ export const useFilteredAndSortedItems = (
       parseInt(item.height, 10) <= parseInt(maxHeight, 10)
   )
 
-  return filtered.sort((a, b) =>
-    sortDirection === "asc"
-      ? String(a[sortKey]).localeCompare(String(b[sortKey]))
-      : String(b[sortKey]).localeCompare(String(a[sortKey]))
-  )
+  // Ensure sortKey refers to a primitive property
+  const isStringifiable = (value: unknown): value is string => typeof value === "string"
+
+  return filtered.sort((a, b) => {
+    const aValue = a[sortKey]
+    const bValue = b[sortKey]
+
+    if (isStringifiable(aValue) && isStringifiable(bValue))
+      return sortDirection === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue)
+
+    return 0 // If not stringifiable, consider equal
+  })
 }
 
 export const usePaginatedItems = (filteredItems: Peak[], currentPage: number, itemsPerPage: number): Peak[] => {
