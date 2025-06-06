@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn, StoryObj } from "@storybook/react"
+import { Meta, StoryFn, StoryObj } from "@storybook/react-vite"
 import { Pagination, PaginationProps } from "./Pagination.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 

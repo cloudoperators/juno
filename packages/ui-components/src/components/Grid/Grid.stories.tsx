@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { StoryFn, Meta, StoryObj } from "@storybook/react"
+import { StoryFn, Meta, StoryObj } from "@storybook/react-vite"
 
 import { Grid, GridProps } from "./Grid.component"
 import { GridRow } from "../GridRow/GridRow.component"

@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn, StoryObj } from "@storybook/react"
+import { Meta, StoryFn, StoryObj } from "@storybook/react-vite"
 
 import { Form, FormProps } from "./Form.component"
 import { FormRow } from "../FormRow/FormRow.component"

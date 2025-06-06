@@ -8,8 +8,8 @@ import type { ReactElement } from "react"
 import { Select, SelectProps } from "./Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 import { PortalProvider } from "../PortalProvider"
-import { fn } from "@storybook/test" // Import the fn function for mocking handlers
-import type { Meta, StoryObj } from "@storybook/react" // Import Storybook types
+import { fn } from "storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react-vite" // Import Storybook types
 
 type StoryFunction = () => ReactElement
 

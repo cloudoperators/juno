@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import type { Meta, StoryFn, StoryObj } from "@storybook/react"
+import type { Meta, StoryFn, StoryObj } from "@storybook/react-vite"
 import CustomLogoLandscape from "./custom-logo-placeholders/custom-logo-landscape.svg"
 import CustomLogoPortrait from "./custom-logo-placeholders/custom-logo-portrait.svg"
 import CustomLogoSquare from "./custom-logo-placeholders/custom-logo-square.svg"

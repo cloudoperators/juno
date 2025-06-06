@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryFn, StoryObj } from "@storybook/react"
+import { Meta, StoryFn, StoryObj } from "@storybook/react-vite"
 import { Panel, PanelProps } from "./Panel.component"
 import { PanelBody } from "../PanelBody/PanelBody.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
