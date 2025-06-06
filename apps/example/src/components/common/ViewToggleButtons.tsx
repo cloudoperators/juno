@@ -28,17 +28,32 @@ const ViewToggleButtons: React.FC<ViewToggleButtonsProps> = ({ currentView, togg
     <Stack direction="horizontal" gap="2" className="ml-auto">
       <span className="flex items-center">View:</span>
 
-      <Button onClick={() => toggleView(Views.GRID)} disabled={isGridDisabled} variant="subdued">
+      <Button
+        onClick={() => toggleView(Views.GRID)}
+        className={isGridDisabled ? "bg-theme-background-lvl-0" : ""}
+        disabled={isGridDisabled}
+        variant="subdued"
+      >
         <GridIcon title="List View" />
       </Button>
 
       {showCardOption && (
-        <Button onClick={() => toggleView(Views.CARD)} disabled={isCardDisabled} variant="subdued">
+        <Button
+          onClick={() => toggleView(Views.CARD)}
+          className={isCardDisabled ? "bg-theme-background-lvl-0" : ""}
+          disabled={isCardDisabled}
+          variant="subdued"
+        >
           <CardIcon title="Card View" />
         </Button>
       )}
 
-      <Button onClick={() => toggleView(Views.JSON)} disabled={isJsonDisabled} variant="subdued">
+      <Button
+        onClick={() => toggleView(Views.JSON)}
+        className={isJsonDisabled ? "bg-theme-background-lvl-0" : ""}
+        disabled={isJsonDisabled}
+        variant="subdued"
+      >
         <JsonIcon title="Code View" />
       </Button>
     </Stack>
