@@ -9,7 +9,7 @@ import useUIStore from "../../store/useUIStore"
 
 interface UrlStateManager {
   currentState: () => Record<string, unknown>
-  push: (state: Record<string, unknown>) => void
+  push: (_state: Record<string, unknown>) => void
 }
 
 const DEFAULT_KEY = "exampleapp"

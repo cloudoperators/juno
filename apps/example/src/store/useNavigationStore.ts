@@ -8,7 +8,7 @@ import { Pages } from "../components/constants"
 
 interface NavigationState {
   currentPage: string
-  setCurrentPage: (page: string) => void
+  setCurrentPage: (_page: string) => void
 }
 
 const useNavigationStore = create<NavigationState>((set) => ({

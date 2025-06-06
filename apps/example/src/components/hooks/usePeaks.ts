@@ -56,7 +56,7 @@ export const usePaginatedItems = (filteredItems: Peak[], currentPage: number, it
 
 export const calculateAvailableOptions = (
   items: Item[],
-  uniqueValues: (items: Item[], field: keyof Item) => string[]
+  uniqueValues: (_items: Item[], _field: keyof Item) => string[]
 ) => ({
   name: uniqueValues(items, "name"),
   mainrange: uniqueValues(items, "mainrange"),

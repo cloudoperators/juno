@@ -7,7 +7,7 @@ import { create } from "zustand"
 
 interface AuthState {
   isUserAuthenticated: boolean
-  setIsUserAuthenticated: (isUserAuthenticated: boolean) => void
+  setIsUserAuthenticated: (_isUserAuthenticated: boolean) => void
 }
 
 const useAuthStore = create<AuthState>((set) => ({

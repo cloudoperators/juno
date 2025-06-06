@@ -8,7 +8,7 @@ import { Pagination } from "@cloudoperators/juno-ui-components"
 
 interface PeaksPaginationControlsProps {
   currentPage: number
-  setCurrentPage: (page: number) => void
+  setCurrentPage: (_page: number) => void
   pages: number
 }
 

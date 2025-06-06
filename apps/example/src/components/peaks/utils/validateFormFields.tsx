@@ -13,7 +13,7 @@ interface FormState {
   url?: string
 }
 
-type ValidationFunctionType = (value: string) => string
+type ValidationFunctionType = (_value: string) => string
 
 const ErrorMessages = {
   REQUIRED: "Field is required",

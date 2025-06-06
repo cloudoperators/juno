@@ -14,7 +14,7 @@ import PeaksListItemActions from "./PeaksListItemActions"
 
 export interface PeaksListItemProps {
   peak: Peak
-  onSelect: (peak: Peak) => void
+  onSelect: (_peak: Peak) => void
 }
 
 const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {

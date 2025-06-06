@@ -32,7 +32,7 @@ import PeaksListItem from "./PeaksListItem"
 interface PeaksListProps {
   viewType: string
   paginatedItems: Peak[]
-  onSelect: (peak: Peak) => void
+  onSelect: (_peak: Peak) => void
 }
 
 const NO_PEAKS_HINT = "No peaks found"

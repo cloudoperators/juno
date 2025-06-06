@@ -17,7 +17,7 @@ const EDIT_HEADING = "Edit Peak"
 const SHOW_HEADING_TEMPLATE = (peakName: string) => `${peakName} Overview`
 
 interface PanelManagerProps {
-  openDetailPageWithPeak: (peakId: string) => void
+  openDetailPageWithPeak: (_peakId: string) => void
   closePanel: () => void
 }
 

@@ -13,7 +13,7 @@ import HelpTooltip from "../../common/HelpTooltip"
 import { PeakFields, TooltipExplanation } from "../../constants"
 
 interface PeakDetailPanelContentProps {
-  openDetailPageWithPeak: (peakId: string) => void
+  openDetailPageWithPeak: (_peakId: string) => void
 }
 
 const PeakDetailPanelContent: React.FC<PeakDetailPanelContentProps> = ({ openDetailPageWithPeak }) => {

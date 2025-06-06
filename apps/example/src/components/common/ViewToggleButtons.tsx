@@ -14,7 +14,7 @@ import CardIcon from "../../assets/card.svg?react"
 
 interface ViewToggleButtonsProps {
   currentView: (typeof Views)[keyof typeof Views]
-  toggleView: (view: ViewToggleButtonsProps["currentView"]) => void
+  toggleView: (_view: ViewToggleButtonsProps["currentView"]) => void
   showCardOption?: boolean
 }
 
