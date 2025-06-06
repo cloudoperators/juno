@@ -4,15 +4,14 @@
  */
 
 import React from "react"
-import { Meta, StoryFn, StoryObj } from "@storybook/react-vite"
+import { Meta, StoryObj } from "@storybook/react-vite"
 import { Button } from "../Button/Button.component"
 import { Panel } from "../Panel/Panel.component"
-import { PanelBody, PanelBodyProps } from "./PanelBody.component"
+import { PanelBody } from "./PanelBody.component"
 import { PanelFooter } from "../PanelFooter/PanelFooter.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
-// the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
-export default {
+const meta: Meta<typeof PanelBody> = {
   title: "Layout/Panel/PanelBody",
   component: PanelBody,
   argTypes: {
@@ -30,13 +29,26 @@ export default {
     },
   },
   decorators: [
-    (story: () => React.ReactNode) => (
+    (Story) => (
       <PortalProvider>
-        <div className="jn-contrast-100">{story()}</div>
+        <div className="jn-contrast-100">
+          <Story />
+        </div>
       </PortalProvider>
     ),
   ],
-} as Meta
+  render: (args) => (
+    <div>
+      <Panel heading="My Panel" opened>
+        <PanelBody {...args}>This is the panel body</PanelBody>
+      </Panel>
+      <div className="dummy-css-ignore jn-h-[250px]">Content Area</div>
+    </div>
+  ),
+}
+
+export default meta
+type Story = StoryObj<typeof PanelBody>
 
 const FooterExample = (
   <PanelFooter>
@@ -44,18 +56,7 @@ const FooterExample = (
   </PanelFooter>
 )
 
-const Template: StoryFn<PanelBodyProps> = (args) => (
-  <div>
-    <Panel heading="My Panel" opened>
-      <PanelBody {...args}>This is the panel body</PanelBody>
-    </Panel>
-    <div className="dummy-css-ignore jn-h-[250px]">Content Area</div>
-  </div>
-)
-
-export const Body: StoryObj<PanelBodyProps> = {
-  render: Template,
-
+export const Body: Story = {
   parameters: {
     docs: {
       description: {
@@ -63,13 +64,10 @@ export const Body: StoryObj<PanelBodyProps> = {
       },
     },
   },
-
   args: {},
 }
 
-export const BodyWithFooter: StoryObj<PanelBodyProps> = {
-  render: Template,
-
+export const BodyWithFooter: Story = {
   parameters: {
     docs: {
       description: {
@@ -77,7 +75,6 @@ export const BodyWithFooter: StoryObj<PanelBodyProps> = {
       },
     },
   },
-
   args: {
     footer: FooterExample,
   },

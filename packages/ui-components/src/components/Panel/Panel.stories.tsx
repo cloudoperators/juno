@@ -4,13 +4,13 @@
  */
 
 import React from "react"
-import { Meta, StoryFn, StoryObj } from "@storybook/react-vite"
+import { Meta, StoryObj } from "@storybook/react-vite"
 import { Panel, PanelProps } from "./Panel.component"
 import { PanelBody } from "../PanelBody/PanelBody.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 // the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
-export default {
+const meta: Meta<typeof Panel> = {
   title: "Layout/Panel/Panel",
   component: Panel,
   argTypes: {
@@ -33,17 +33,17 @@ export default {
       </PortalProvider>
     ),
   ],
-} as Meta
+  render: (args) => (
+    <div>
+      <Panel {...args}>
+        <PanelBody>Panel Body Content</PanelBody>
+      </Panel>
+      <div className="dummy-css-ignore jn-h-[150px]">Content Area</div>
+    </div>
+  ),
+}
 
-const Template: StoryFn<PanelProps> = (args) => (
-  <div>
-    <Panel {...args}>
-      <PanelBody>Panel Body Content</PanelBody>
-    </Panel>
-    <div className="dummy-css-ignore jn-h-[150px]">Content Area</div>
-  </div>
-)
-
+export default meta
 type Story = StoryObj<PanelProps>
 
 export const WithHeading: Story = {
@@ -61,7 +61,8 @@ export const WithHeading: Story = {
   },
 }
 
-export const Plain: StoryFn<PanelProps> = Template.bind({})
-Plain.args = {
-  opened: true,
+export const Plain: Story = {
+  args: {
+    opened: true,
+  },
 }
