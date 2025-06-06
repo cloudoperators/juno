@@ -57,7 +57,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, var
                 </div>
               </DataGridHeadCell>
               <DataGridHeadCell>{PeakFields.RANGE}</DataGridHeadCell>
-              <DataGridHeadCell>{PeakFields.REGION + " & " + PeakFields.COUNTRY}</DataGridHeadCell>
+              <DataGridHeadCell>{`${PeakFields.REGION} & ${PeakFields.COUNTRY}`}</DataGridHeadCell>
             </DataGridRow>
             {peaks.map((peak) => (
               <DataGridRow key={peak.id}>

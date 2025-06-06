@@ -5,6 +5,8 @@
 
 import peaksData from "./peaks.json"
 
+export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
+
 export interface Safety {
   status: string
   variant: BadgeVariantType
@@ -17,14 +19,14 @@ export interface FirstAscent {
   by?: string
 }
 
-export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
-
 export interface AdditionalInfo {
   prominence?: string
   coordinates?: string
   geologic_origin?: string
   climbing_routes?: string[]
   notable_ascents?: string[]
+  mythological_meaning?: string
+  park_status?: string
 }
 
 export interface Peak {
@@ -46,20 +48,9 @@ export interface Peak {
   permit_required?: boolean
   first_ascent?: FirstAscent
   additional_info?: AdditionalInfo
-  historical_significance?: string
-  access_points?: string[]
-  nearest_airport?: string
-  flora?: string
-  protected_status?: string
-  activities?: string[]
-  tourism_rating?: number
-  physical_features?: string[]
-  local_culture?: string
-  known_hazards?: string[]
 }
 
-// @ts-ignore
-const peaks: Peak[] = peaksData
+export const peaks: Peak[] = peaksData as Peak[]
 
 export default {
   peaks,

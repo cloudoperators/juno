@@ -5,8 +5,6 @@
 
 import { Peak } from "../../mocks/db"
 
-// PLEASE NOTE: Filtering and Sorting is currently for UI demo purposes and doesn't fully work
-
 interface Item {
   height: string
   [key: string]: string
@@ -14,38 +12,27 @@ interface Item {
 
 export const useFilteredAndSortedItems = (
   items: Peak[],
-  filterSelections: Record<string, string[]>,
+  filterSelections: Partial<Record<keyof Peak, string[]>>,
   minHeight: string,
   maxHeight: string,
   sortKey: keyof Peak,
   sortDirection: "asc" | "desc"
 ): Peak[] => {
-  let filtered = items
-
-  Object.entries(filterSelections).forEach(([key, values]) => {
-    if (values.length > 0) {
-      filtered = filtered.filter((item) => {
-        const keyTyped = key as keyof Peak
-        return values.includes(item[keyTyped] as string)
-      })
-    }
-  })
-
-  if (minHeight) {
-    filtered = filtered.filter((item) => parseInt(item.height, 10) >= parseInt(minHeight, 10))
-  }
-
-  if (maxHeight) {
-    filtered = filtered.filter((item) => parseInt(item.height, 10) <= parseInt(maxHeight, 10))
-  }
-
-  filtered.sort((a, b) =>
-    sortDirection === "asc"
-      ? (a[sortKey] as string).localeCompare(b[sortKey] as string)
-      : (b[sortKey] as string).localeCompare(a[sortKey] as string)
+  const filtered = items.filter(
+    (item) =>
+      Object.entries(filterSelections).every(([key, values]) => {
+        const typedKey = key as keyof Peak
+        return values.length === 0 || values.includes(item[typedKey] as string)
+      }) &&
+      parseInt(item.height, 10) >= parseInt(minHeight, 10) &&
+      parseInt(item.height, 10) <= parseInt(maxHeight, 10)
   )
 
-  return filtered
+  return filtered.sort((a, b) =>
+    sortDirection === "asc"
+      ? String(a[sortKey]).localeCompare(String(b[sortKey]))
+      : String(b[sortKey]).localeCompare(String(a[sortKey]))
+  )
 }
 
 export const usePaginatedItems = (filteredItems: Peak[], currentPage: number, itemsPerPage: number): Peak[] => {
@@ -57,14 +44,15 @@ export const usePaginatedItems = (filteredItems: Peak[], currentPage: number, it
 export const calculateAvailableOptions = (
   items: Item[],
   uniqueValues: (_items: Item[], _field: keyof Item) => string[]
-) => ({
-  name: uniqueValues(items, "name"),
-  mainrange: uniqueValues(items, "mainrange"),
-  region: uniqueValues(items, "region"),
-  countries: uniqueValues(items, "countries"),
-  safety: ["Safe", "Caution", "Unsafe"],
-})
-
-export const uniqueValues = (items: Item[], field: keyof Item): string[] => {
-  return Array.from(new Set(items.map((item) => item[field])))
+) => {
+  return {
+    name: uniqueValues(items, "name"),
+    mainrange: uniqueValues(items, "mainrange"),
+    region: uniqueValues(items, "region"),
+    countries: uniqueValues(items, "countries"),
+    safety: ["Safe", "Caution", "Unsafe"],
+  }
 }
+
+export const uniqueValues = (items: Item[], field: keyof Item): string[] =>
+  Array.from(new Set(items.map((item) => item[field])))

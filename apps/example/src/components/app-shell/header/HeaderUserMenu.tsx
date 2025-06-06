@@ -12,10 +12,7 @@ import useAuthStore from "../../../store/useAuthStore"
 const LOGOUT_BUTTON_LABEL = "Log Out"
 
 const HeaderUserMenu: React.FC = () => {
-  const { isUserAuthenticated, setIsUserAuthenticated } = useAuthStore((state) => ({
-    isUserAuthenticated: state.isUserAuthenticated,
-    setIsUserAuthenticated: state.setIsUserAuthenticated,
-  }))
+  const { isUserAuthenticated, setIsUserAuthenticated } = useAuthStore()
 
   const handleLogout = () => {
     setIsUserAuthenticated(false)
