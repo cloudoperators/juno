@@ -882,6 +882,12 @@
   a {
     @apply text-theme-link;
   }
+
+  /* adds pointer cursor to buttons to restore tw3 behavior */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 /* tw default values for various properties. Hardcode here right now to fix the issue that they are undefined otherwise
