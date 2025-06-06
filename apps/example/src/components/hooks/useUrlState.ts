@@ -3,25 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
-// PLEASE NOTE: This file needs refactoring
-
 import { useState, useEffect } from "react"
-import { registerConsumer } from "@cloudoperators/juno-url-state-provider" // Verify this import
+import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
+import useUIStore from "../../store/useUIStore"
 
-import {
-  useGlobalsActions,
-  useGlobalsTabIndex,
-  useGlobalsCurrentPanel,
-  useGlobalsCurrentModal,
-} from "../../store/StoreProvider"
-
-// Assume correct typings for what registerConsumer returns
 interface UrlStateManager {
-  currentState: () => Record<string, any>
-  // eslint-disable-next-line no-unused-vars
-  push: (state: Record<string, any>) => void
+  currentState: () => Record<string, unknown>
+  push: (_state: Record<string, unknown>) => void
 }
 
 const DEFAULT_KEY = "exampleapp"
@@ -32,43 +20,40 @@ const CURRENT_MODAL = "m"
 const useUrlState = (key: string | undefined = DEFAULT_KEY) => {
   const [isURLRead, setIsURLRead] = useState(false)
 
-  // Type assertion if needed to match expected
   const urlStateManager = registerConsumer(key) as UrlStateManager
 
-  const loggedIn = true // Simulated state for the example app
+  const isUserAuthenticated = true // Simulated state for the example app
 
-  const { setTabIndex, setCurrentPanel, setCurrentModal } = useGlobalsActions()
-  const tabIndex = useGlobalsTabIndex()
-  const currentPanel = useGlobalsCurrentPanel()
-  const currentModal = useGlobalsCurrentModal()
+  const { tabIndex, currentPanel, currentModal, setTabIndex, setCurrentPanel, setCurrentModal } = useUIStore()
 
   useEffect(() => {
-    if (isURLRead || !loggedIn) return
+    if (isURLRead || !isUserAuthenticated) return
 
     const currentState = urlStateManager.currentState()
     console.debug(`Setting up state from URL:`, currentState)
 
     const newTabIndex = currentState?.[TAB_INDEX]
-    const newCurrentPanel = currentState?.[CURRENT_PANEL]
-    const newCurrentModal = currentState?.[CURRENT_MODAL]
+    if (typeof newTabIndex === "number" || (typeof newTabIndex === "string" && !isNaN(Number(newTabIndex))))
+      setTabIndex(Number(newTabIndex))
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    if (newTabIndex !== undefined) setTabIndex(newTabIndex)
-    if (newCurrentPanel !== undefined) setCurrentPanel(newCurrentPanel)
-    if (newCurrentModal !== undefined) setCurrentModal(newCurrentModal)
+    const newCurrentPanel = currentState?.[CURRENT_PANEL]
+    if (typeof newCurrentPanel === "string") setCurrentPanel(newCurrentPanel)
+
+    const newCurrentModal = currentState?.[CURRENT_MODAL]
+    if (typeof newCurrentModal === "string") setCurrentModal(newCurrentModal)
 
     setIsURLRead(true)
-  }, [isURLRead, loggedIn, key, setTabIndex, setCurrentPanel, setCurrentModal, urlStateManager])
+  }, [isURLRead, isUserAuthenticated, key, setTabIndex, setCurrentPanel, setCurrentModal, urlStateManager])
 
   useEffect(() => {
-    if (!isURLRead || !loggedIn) return
+    if (!isURLRead || !isUserAuthenticated) return
 
     urlStateManager.push({
       [TAB_INDEX]: tabIndex,
       [CURRENT_PANEL]: currentPanel,
       [CURRENT_MODAL]: currentModal,
     })
-  }, [loggedIn, tabIndex, currentPanel, currentModal, isURLRead, urlStateManager])
+  }, [isUserAuthenticated, tabIndex, currentPanel, currentModal, isURLRead, urlStateManager])
 }
 
 export default useUrlState

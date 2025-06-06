@@ -3,18 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// TO DO: Use theme colours
-
 export const getNumberColorStyle = (status: string) => {
-  switch (status.toLowerCase()) {
+  switch (status?.toLowerCase()) {
     case "safe":
-      return { color: "#38A169" } // Green
+      return "text-theme-success" // Green
     case "caution":
-      return { color: "#DD6B20" } // Yellow
-    case "not safe":
+      return "text-theme-warning" // Yellow
     case "unsafe":
-      return { color: "#E53E3E" } // Red
+      return "text-theme-danger" // Red
     default:
-      return { color: "#FFFFFF" } // White
+      return "text-theme-highest" // White
   }
 }

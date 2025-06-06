@@ -14,14 +14,16 @@ export const Pages = {
 
 export const Panels = {
   EDIT_PEAKS: "EditPeaks",
-  ADD_PEAKS: "AddPeaks",
+  SHOW_PEAK: "ShowPeak",
 }
+
+export type ViewType = "grid" | "card" | "json"
 
 export const Views = {
   GRID: "grid",
   CARD: "card",
   JSON: "json",
-}
+} as const
 
 export const TooltipExplanation = {
   SAFETY_STATUS:
@@ -51,3 +53,5 @@ export const PeakMetrics = {
   LOWEST: "Lowest Peak",
   TOTAL_COUNTRIES: "Total Countries",
 }
+
+export const APP_NAME = "Juno UI Peaks Monitoring Dashboard"

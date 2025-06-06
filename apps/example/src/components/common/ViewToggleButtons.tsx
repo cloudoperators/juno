@@ -14,8 +14,7 @@ import CardIcon from "../../assets/card.svg?react"
 
 interface ViewToggleButtonsProps {
   currentView: (typeof Views)[keyof typeof Views]
-  // eslint-disable-next-line no-unused-vars
-  toggleView: (view: (typeof Views)[keyof typeof Views]) => void
+  toggleView: (_view: ViewToggleButtonsProps["currentView"]) => void
   showCardOption?: boolean
 }
 
@@ -26,20 +25,35 @@ const ViewToggleButtons: React.FC<ViewToggleButtonsProps> = ({ currentView, togg
 
   return (
     <Stack direction="horizontal" gap="2" className="ml-auto">
-      <span className="flex items-center ml-3">View:</span>
+      <span className="flex items-center">View:</span>
 
-      <Button onClick={() => toggleView(Views.GRID)} disabled={isGridDisabled} variant="subdued">
-        <GridIcon />
+      <Button
+        onClick={() => toggleView(Views.GRID)}
+        className={isGridDisabled ? "bg-theme-background-lvl-0" : ""}
+        disabled={isGridDisabled}
+        variant="subdued"
+      >
+        <GridIcon title="List View" />
       </Button>
 
       {showCardOption && (
-        <Button onClick={() => toggleView(Views.CARD)} disabled={isCardDisabled} variant="subdued">
-          <CardIcon />
+        <Button
+          onClick={() => toggleView(Views.CARD)}
+          className={isCardDisabled ? "bg-theme-background-lvl-0" : ""}
+          disabled={isCardDisabled}
+          variant="subdued"
+        >
+          <CardIcon title="Card View" />
         </Button>
       )}
 
-      <Button onClick={() => toggleView(Views.JSON)} disabled={isJsonDisabled} variant="subdued">
-        <JsonIcon />
+      <Button
+        onClick={() => toggleView(Views.JSON)}
+        className={isJsonDisabled ? "bg-theme-background-lvl-0" : ""}
+        disabled={isJsonDisabled}
+        variant="subdued"
+      >
+        <JsonIcon title="Code View" />
       </Button>
     </Stack>
   )

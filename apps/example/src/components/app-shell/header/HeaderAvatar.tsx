@@ -11,27 +11,25 @@ h-8
 w-8
 bg-theme-background-lvl-2
 rounded-full
-bg-cover 
+bg-no-repeat
+bg-cover
 `
 
-interface HeaderAvatarProps {
-  userName?: string
-  url?: string
-}
+const DEFAULT_USERNAME = "Jane Doe"
+const DEFAULT_URL = "https://avatars.wdf.sap.corp/avatar/I123456?size=24"
 
-const HeaderAvatar: React.FC<HeaderAvatarProps> = ({ userName, url }) => {
+const HeaderAvatar: React.FC = () => {
   return (
     <Stack gap="2" alignment="center">
-      {url && (
+      {
         <div
           style={{
-            background: `url(${url}) no-repeat`,
-            backgroundSize: `cover`,
+            backgroundImage: `url(${DEFAULT_URL})`,
           }}
           className={avatarStyles}
         />
-      )}
-      {userName && <span>{userName}</span>}
+      }
+      {<span>{DEFAULT_USERNAME}</span>}
     </Stack>
   )
 }

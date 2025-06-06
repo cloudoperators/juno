@@ -6,7 +6,6 @@
 import React from "react"
 import { createRoot, Root } from "react-dom/client"
 
-// Get the current URL without file name
 const getCurrentUrlWithoutFilename = (): string => {
   const currentUrl = window.location.href
   const lastSlashIndex = currentUrl.lastIndexOf("/")
@@ -16,12 +15,10 @@ const getCurrentUrlWithoutFilename = (): string => {
   return lastSegment.trim() === "" || lastSegment.includes(".") ? currentUrl.slice(0, lastSlashIndex) : currentUrl
 }
 
-// Enable mocking
 const enableMocking = async (options: { endpoint: string }): Promise<void> => {
-  /**
-   * Note: If you don't want to enable mocking in production, uncomment the following line:
-   * if (process.env.NODE_ENV !== "development") return
-   */
+  // Uncomment the next line to disable mocking in production
+  // if (process.env.NODE_ENV !== "development") return;
+
   const { startWorker } = await import("./mocks/browser")
   return startWorker(options)
 }
@@ -39,21 +36,17 @@ export const mount = async (
   options: MountOptions = { container }
 ): Promise<void> => {
   const endpoint = options.props?.endpoint ?? getCurrentUrlWithoutFilename()
-  await enableMocking({ endpoint }) // Enable mocking before rendering the application
-  const AppModule = await import("./App")
-  const App = AppModule.default
+  const { default: App } = await import("./App")
+
+  await enableMocking({ endpoint })
 
   // Create a root if it doesn't exist
-  if (!mount.root) {
-    mount.root = createRoot(container)
-  }
+  if (!mount.root) mount.root = createRoot(container)
   mount.root.render(<App {...options.props} endpoint={endpoint} />)
 }
 
 export const unmount = (): void => {
-  if (mount.root) {
-    mount.root.unmount()
-  }
+  if (mount.root) mount.root.unmount()
 }
 
 // Define the root property on the mount function to store the root instance

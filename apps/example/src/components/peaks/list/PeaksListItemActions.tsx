@@ -41,11 +41,13 @@ const PeaksListItemActions: React.FC<PeaksListItemProps> = ({ peak }) => {
         />
       </PortalProvider.Portal>
       <PortalProvider.Portal>
+        {/* NOTE: This uses a provisional Toast component that's not ready (missing a notifications manager). */}
         {showToast && (
           <Toast
             onDismiss={handleToastDismiss}
-            text={`${peak.name} was deleted.`}
-            style={{ position: "fixed", top: "20px", right: "20px", zIndex: 1000 }}
+            text={`Failed to delete ${peak.name}. This is a simulation.`}
+            variant="error"
+            className="fixed top-5 right-5 z-50"
           />
         )}
       </PortalProvider.Portal>

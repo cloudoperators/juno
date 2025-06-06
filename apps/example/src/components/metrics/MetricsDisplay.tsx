@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// NOTE: This is a custom component that doesn't exist in Juno UI. It showcases how custom theme colours can be applied.
+
 import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
@@ -13,18 +15,18 @@ interface MetricsDisplayProps {
 }
 
 const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ metrics }) => (
-  <Stack direction="horizontal" gap="6" distribution="between">
-    {metrics.map((metric, index) => (
-      <MetricsBox
-        key={index}
-        label={metric.label}
-        number={metric.value}
-        peakDetails={metric.peakDetails}
-        hoverable={metric.hoverable}
-        peakType={metric.peakType}
-        isLoading={metric.isLoading}
-      />
-    ))}
+  <Stack direction="horizontal" gap="8" distribution="between">
+    {metrics.map((metric, index) => {
+      return (
+        <MetricsBox
+          key={index}
+          label={metric.label}
+          number={metric.value}
+          peakDetails={metric.peakDetails}
+          peakType={metric.peakType}
+        />
+      )
+    })}
   </Stack>
 )
 

@@ -18,7 +18,6 @@ const Section: React.FC<SectionProps> = ({ title, rows }) => {
       <Box>
         <DataGrid columns={2} style={{ gridTemplateColumns: "30% 70%" }}>
           {rows.map((row, index) => (
-            // Ensure that each React Node is parsed and rendered
             <React.Fragment key={index}>{row}</React.Fragment>
           ))}
         </DataGrid>

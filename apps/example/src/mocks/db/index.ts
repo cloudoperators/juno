@@ -5,11 +5,28 @@
 
 import peaksData from "./peaks.json"
 
-export type Safety = {
+export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
+
+export interface Safety {
   status: string
+  variant: BadgeVariantType
   recommendation: string
-  variant: "success" | "warning" | "error" | "info"
   common_hazards?: string
+}
+
+export interface FirstAscent {
+  date?: string
+  by?: string
+}
+
+export interface AdditionalInfo {
+  prominence?: string
+  coordinates?: string
+  geologic_origin?: string
+  climbing_routes?: string[]
+  notable_ascents?: string[]
+  mythological_meaning?: string
+  park_status?: string
 }
 
 export interface Peak {
@@ -20,6 +37,7 @@ export interface Peak {
   mainrange: string
   countries: string
   url?: string
+  details?: string
   safety: Safety
   climate?: string
   nearest_city?: string
@@ -28,20 +46,12 @@ export interface Peak {
   best_climbing_months?: string
   has_snow?: boolean
   permit_required?: boolean
-  first_ascent?: { date?: string; by?: string }
-  additional_info?: {
-    prominence?: string
-    coordinates?: string
-    geologic_origin?: string
-    climbing_routes?: string[]
-    notable_ascents?: string[]
-  }
+  first_ascent?: FirstAscent
+  additional_info?: AdditionalInfo
 }
 
-// @ts-ignore
-const peaks: Peak[] = peaksData
+export const peaks: Peak[] = peaksData as Peak[]
 
 export default {
   peaks,
-  // can add more mocks here
 }

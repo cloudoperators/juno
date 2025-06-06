@@ -45,14 +45,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
         {actionButtons}
       </Stack>
 
-      <MetricsDisplay
-        metrics={metrics.map((metric) => ({
-          label: metric.label,
-          value: metric.value,
-          isLoading: false,
-          hoverable: false,
-        }))}
-      />
+      <MetricsDisplay metrics={metrics} />
 
       <ViewToggleButtons currentView={viewType} toggleView={toggleView} showCardOption={false} />
       {children}

@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useGlobalsActions } from "../../store/StoreProvider"
+import useUIStore from "../../store/useUIStore"
+import usePeaksStore from "../../store/usePeaksStore"
 import { Panels } from "../constants"
 
 interface UsePeakActions {
@@ -11,16 +12,16 @@ interface UsePeakActions {
 }
 
 const usePeakActions = ({ onBack }: UsePeakActions = {}) => {
-  const { setCurrentPanel } = useGlobalsActions()
+  const { setCurrentPanel } = useUIStore()
+  const { setSelectedPeakId } = usePeaksStore()
 
-  const handleEdit = (peakId: number) => {
-    setCurrentPanel({ type: Panels.EDIT_PEAKS, peakId })
+  const handleEdit = (peakId: String) => {
+    setCurrentPanel(Panels.EDIT_PEAKS)
+    setSelectedPeakId(String(peakId))
   }
 
   const handleDelete = () => {
-    if (onBack) {
-      onBack()
-    }
+    if (onBack) onBack()
   }
 
   return { handleEdit, handleDelete }

@@ -5,8 +5,23 @@
 
 import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 
+const customRulesConfig = {
+  rules: {
+    "no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+      },
+    ],
+  },
+}
+
 export default [
   ...junoConfigs,
+  {
+    ...customRulesConfig,
+  },
   {
     files: ["**/*.test.js"],
     languageOptions: { sourceType: "module" },

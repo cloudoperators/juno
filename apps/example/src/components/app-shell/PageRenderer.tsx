@@ -3,14 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 
-import { useGlobalsQueryClientFnReady } from "../../store/StoreProvider"
-import useNavigationStore from "../../store/useNavigationStore"
-import { Pages } from "../constants"
-
 import { Peak } from "../../mocks/db"
+import useUIStore from "../../store/useUIStore"
+import usePeaksStore from "../../store/usePeaksStore"
+import useConfigStore from "../../store/useConfigStore"
+import useNavigationStore from "../../store/useNavigationStore"
+
+import { Pages } from "../constants"
+import PanelManager from "./PanelManager"
 import PeaksPage from "../pages/PeaksPage"
 import AlertsPage from "../pages/AlertsPage"
 import CountriesPage from "../pages/CountriesPage"
@@ -19,47 +22,65 @@ import CountryDetailPage from "../pages/CountryDetailPage"
 
 const PageRenderer: React.FC = () => {
   const { currentPage } = useNavigationStore()
-  const queryClientFnReady = useGlobalsQueryClientFnReady()
+  const { isQueryClientReady } = useConfigStore()
+  const { setPeaks, selectedPeakId, setSelectedPeakId } = usePeaksStore()
+  const { setCurrentPanel, showPeakDetails, setShowPeakDetails } = useUIStore()
 
-  const { isLoading, data: peaks = [] } = useQuery<Peak[]>({
-    queryKey: ["peaks"],
-    enabled: queryClientFnReady,
-  })
-
-  const [selectedPeak, setSelectedPeak] = useState<Peak | null>(null)
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
 
+  const { data: peaksData = [] } = useQuery<Peak[]>({
+    queryKey: ["peaks"],
+    enabled: isQueryClientReady,
+  })
+
   useEffect(() => {
-    clearSelections() // Clear selections when navigation changes
+    if (peaksData.length > 0) setPeaks(peaksData)
+  }, [peaksData])
+
+  useEffect(() => {
+    setShowPeakDetails(false)
+    setSelectedCountry(null)
   }, [currentPage])
 
-  const clearSelections = (): void => {
-    setSelectedPeak(null)
-    setSelectedCountry(null)
+  const selectPeakById = (peakId: string) => {
+    setSelectedPeakId(peakId)
+    setShowPeakDetails(true)
+    setCurrentPanel(null)
   }
 
-  // When a country is selected, show the detail page
-  if (currentPage === Pages.COUNTRIES && selectedCountry) {
-    return <CountryDetailPage countryName={selectedCountry} peaks={peaks} onBack={clearSelections} />
+  const selectPeak = (peak: Peak) => selectPeakById(peak.id)
+
+  const renderCountryPage = () => {
+    if (currentPage === Pages.COUNTRIES && selectedCountry)
+      return <CountryDetailPage countryName={selectedCountry} onBack={() => setSelectedCountry(null)} />
+
+    return <CountriesPage onSelectCountry={setSelectedCountry} />
   }
 
-  // When a peak is selected, show the detail page
-  if (currentPage === Pages.PEAKS && selectedPeak) {
-    return <PeakDetailPage peak={selectedPeak} onBack={clearSelections} />
+  const renderPeaksPage = () => {
+    if (showPeakDetails && selectedPeakId) return <PeakDetailPage onBack={() => setShowPeakDetails(false)} />
+    return <PeaksPage onSelect={selectPeak} />
   }
 
-  if (!selectedPeak && !selectedCountry) {
+  const renderPage = () => {
     switch (currentPage) {
       case Pages.PEAKS:
-        return <PeaksPage peaks={peaks} onSelect={(peak: Peak) => setSelectedPeak(peak)} isLoading={isLoading} />
+        return renderPeaksPage()
       case Pages.COUNTRIES:
-        return <CountriesPage peaks={peaks} onSelectCountry={(country) => setSelectedCountry(country)} />
+        return renderCountryPage()
       case Pages.ALERTS:
         return <AlertsPage />
+      default:
+        return null
     }
   }
 
-  return null
+  return (
+    <>
+      {renderPage()}
+      <PanelManager openDetailPageWithPeak={selectPeakById} closePanel={() => setCurrentPanel(null)} />
+    </>
+  )
 }
 
 export default PageRenderer
