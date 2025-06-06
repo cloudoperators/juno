@@ -8,7 +8,6 @@ import { Pages } from "../components/constants"
 
 interface NavigationState {
   currentPage: string
-  // eslint-disable-next-line no-unused-vars
   setCurrentPage: (page: string) => void
 }
 

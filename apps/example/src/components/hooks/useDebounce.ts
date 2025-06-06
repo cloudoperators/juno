@@ -5,7 +5,6 @@
 
 import { useRef } from "react"
 
-// eslint-disable-next-line no-unused-vars
 export const useDebounce = (callback: (...args: any[]) => void, delay: number) => {
   // Create a ref to store the timeout ID which will persist across renders
   const timerRef = useRef<NodeJS.Timeout | null>(null)

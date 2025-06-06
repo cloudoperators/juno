@@ -60,14 +60,12 @@ export const calculateMetrics = (peaks: Peak[]): Metrics => {
       label: PeakMetrics.LOWEST,
       value: lowestPeak.height,
       peakDetails: lowestPeak,
-      hoverable: true,
       peakType: "lowest",
     },
     highestPeak: {
       label: PeakMetrics.HIGHEST,
       value: highestPeak.height,
       peakDetails: highestPeak,
-      hoverable: true,
       peakType: "highest",
     },
     totalMetrics: [

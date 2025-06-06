@@ -22,7 +22,7 @@ const HeaderLoginModal: React.FC = () => {
   }
 
   return (
-    <Modal title={APP_NAME} open={true} closeable={false} size="large">
+    <Modal title={APP_NAME} open closeable={false} size="large">
       <Container py={true}>
         <Stack direction={"vertical"} gap={"8"} alignment={"center"}>
           <JunoUILogo />

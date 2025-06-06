@@ -14,7 +14,6 @@ import CardIcon from "../../assets/card.svg?react"
 
 interface ViewToggleButtonsProps {
   currentView: (typeof Views)[keyof typeof Views]
-  // eslint-disable-next-line no-unused-vars
   toggleView: (view: ViewToggleButtonsProps["currentView"]) => void
   showCardOption?: boolean
 }

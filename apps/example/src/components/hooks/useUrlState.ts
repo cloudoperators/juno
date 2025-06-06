@@ -9,7 +9,6 @@ import useUIStore from "../../store/useUIStore"
 
 interface UrlStateManager {
   currentState: () => Record<string, unknown>
-  // eslint-disable-next-line no-unused-vars
   push: (state: Record<string, unknown>) => void
 }
 

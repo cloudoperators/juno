@@ -38,13 +38,9 @@ const PageRenderer: React.FC = () => {
   }, [peaksData])
 
   useEffect(() => {
-    resetViewState()
-  }, [currentPage])
-
-  const resetViewState = () => {
     setShowPeakDetails(false)
-    clearSelections()
-  }
+    setSelectedCountry(null)
+  }, [currentPage])
 
   const selectPeakById = (peakId: string) => {
     setSelectedPeakId(peakId)
@@ -54,11 +50,9 @@ const PageRenderer: React.FC = () => {
 
   const selectPeak = (peak: Peak) => selectPeakById(peak.id)
 
-  const clearSelections = () => setSelectedCountry(null)
-
   const renderCountryPage = () => {
     if (currentPage === Pages.COUNTRIES && selectedCountry)
-      return <CountryDetailPage countryName={selectedCountry} onBack={clearSelections} />
+      return <CountryDetailPage countryName={selectedCountry} onBack={() => setSelectedCountry(null)} />
 
     return <CountriesPage onSelectCountry={setSelectedCountry} />
   }

@@ -30,7 +30,6 @@ export interface MetricsProps {
   iconName?: string
   peakDetails?: Peak
   peakType?: (typeof Metrics)[keyof typeof Metrics]
-  hoverable: boolean
 }
 
 export const Metrics = {
@@ -61,7 +60,7 @@ const renderIcon = (peakType?: string) => {
   }
 }
 
-const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakType, hoverable = false }) => {
+const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakType }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const { setCurrentPage } = useNavigationStore()
   const { setSelectedPeakId } = usePeaksStore()

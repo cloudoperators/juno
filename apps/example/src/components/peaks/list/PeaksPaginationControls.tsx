@@ -8,7 +8,6 @@ import { Pagination } from "@cloudoperators/juno-ui-components"
 
 interface PeaksPaginationControlsProps {
   currentPage: number
-  // eslint-disable-next-line no-unused-vars
   setCurrentPage: (page: number) => void
   pages: number
 }

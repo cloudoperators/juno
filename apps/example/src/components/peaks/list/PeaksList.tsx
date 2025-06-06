@@ -32,7 +32,6 @@ import PeaksListItem from "./PeaksListItem"
 interface PeaksListProps {
   viewType: string
   paginatedItems: Peak[]
-  // eslint-disable-next-line no-unused-vars
   onSelect: (peak: Peak) => void
 }
 

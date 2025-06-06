@@ -56,7 +56,6 @@ export const usePaginatedItems = (filteredItems: Peak[], currentPage: number, it
 
 export const calculateAvailableOptions = (
   items: Item[],
-  // eslint-disable-next-line no-unused-vars
   uniqueValues: (items: Item[], field: keyof Item) => string[]
 ) => ({
   name: uniqueValues(items, "name"),

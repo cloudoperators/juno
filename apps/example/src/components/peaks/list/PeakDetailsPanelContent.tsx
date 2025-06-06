@@ -13,7 +13,6 @@ import HelpTooltip from "../../common/HelpTooltip"
 import { PeakFields, TooltipExplanation } from "../../constants"
 
 interface PeakDetailPanelContentProps {
-  // eslint-disable-next-line no-unused-vars
   openDetailPageWithPeak: (peakId: string) => void
 }
 

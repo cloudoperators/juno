@@ -14,7 +14,6 @@ import PeaksListItemActions from "./PeaksListItemActions"
 
 export interface PeaksListItemProps {
   peak: Peak
-  // eslint-disable-next-line no-unused-vars
   onSelect: (peak: Peak) => void
 }
 

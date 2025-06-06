@@ -23,7 +23,6 @@ const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ metrics }) => (
           label={metric.label}
           number={metric.value}
           peakDetails={metric.peakDetails}
-          hoverable={metric.hoverable}
           peakType={metric.peakType}
         />
       )

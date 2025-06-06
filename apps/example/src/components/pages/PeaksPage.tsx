@@ -53,7 +53,6 @@ const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
         <MetricsDisplay
           metrics={[...metrics.totalMetrics, metrics.highestPeak, metrics.lowestPeak].map((metric) => ({
             ...metric,
-            hoverable: true,
           }))}
         />
         <Stack direction="horizontal" distribution="between" alignment="center">

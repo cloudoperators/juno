@@ -13,7 +13,6 @@ interface FormState {
   url?: string
 }
 
-// eslint-disable-next-line no-unused-vars
 type ValidationFunctionType = (value: string) => string
 
 const ErrorMessages = {

@@ -17,7 +17,6 @@ const EDIT_HEADING = "Edit Peak"
 const SHOW_HEADING_TEMPLATE = (peakName: string) => `${peakName} Overview`
 
 interface PanelManagerProps {
-  // eslint-disable-next-line no-unused-vars
   openDetailPageWithPeak: (peakId: string) => void
   closePanel: () => void
 }
