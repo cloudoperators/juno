@@ -5,8 +5,8 @@
 
 import React from "react"
 import { TextInput } from "./index"
-import { fn } from "@storybook/test" // Import the fn function for mocking handlers
-import type { Meta, StoryObj } from "@storybook/react" // Import type definitions
+import { fn } from "storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react-vite" // Import type definitions
 
 // Define the component type
 type TextInputProps = React.ComponentProps<typeof TextInput>

@@ -8,8 +8,8 @@ import { ComboBox } from "./index"
 import { ComboBoxOption } from "../ComboBoxOption/index"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 import { ComboBoxProps } from "./ComboBox.component"
-import { fn } from "@storybook/test" // Import the fn function for mocking handlers
-import type { Meta, StoryObj } from "@storybook/react" // Import Meta and StoryObj types
+import { fn } from "storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react-vite" // Import Meta and StoryObj types
 
 type StoryFunction = () => React.ReactNode
 

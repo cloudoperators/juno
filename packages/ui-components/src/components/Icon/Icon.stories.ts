@@ -4,8 +4,8 @@
  */
 
 import { Icon } from "./index.ts"
-import { fn } from "@storybook/test" // Import the fn function for mocking handlers
-import type { Meta, StoryObj } from "@storybook/react" // Import Storybook types
+import { fn } from "storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react-vite" // Import Storybook types
 
 // Define the proper type for the default export
 const meta: Meta<typeof Icon> = {

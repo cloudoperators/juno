@@ -6,8 +6,8 @@
 import React from "react"
 import { Button } from "./index"
 import { Icon } from "../Icon/index"
-import { fn } from "@storybook/test" // Import the fn function for mocking handlers
-import type { Meta, StoryObj } from "@storybook/react" // Import Meta and StoryObj types
+import { fn } from "storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react-vite" // Import Meta and StoryObj types
 
 // Define proper types for the component
 type ButtonProps = React.ComponentProps<typeof Button>
