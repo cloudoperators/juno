@@ -49,7 +49,6 @@ const App: React.FC<AppProps> = ({ endpoint = "", id = "" }) => {
 const StyledApp: React.FC<AppProps> = (props) => (
   <AppShellProvider>
     {/* Load app styles inside the shadow DOM */}
-    {/* eslint-disable-next-line */}
     <style>{styles.toString()}</style>
     <MessagesProvider>
       <App {...props} />
