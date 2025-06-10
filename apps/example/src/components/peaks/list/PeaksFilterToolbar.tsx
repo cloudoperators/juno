@@ -3,19 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable no-unused-vars */
-
 import React, { useState } from "react"
-import {
-  DataGridToolbar,
-  Stack,
-  Select,
-  SelectOption,
-  InputGroup,
-  Button,
-  Pill,
-  SearchInput,
-} from "@cloudoperators/juno-ui-components"
+import { Stack, Select, SelectOption, InputGroup, Button, Pill, SearchInput } from "@cloudoperators/juno-ui-components"
+
 import ViewToggleButtons from "../../common/ViewToggleButtons"
 import CreatePeakModal from "./CreatePeakModal"
 
@@ -23,11 +13,11 @@ import CreatePeakModal from "./CreatePeakModal"
 
 interface PeaksFilterToolbarProps {
   searchTerm: string
-  setSearchTerm: (term: string) => void
+  setSearchTerm: (_term: string) => void
   availableCountries: string[]
-  onFilterChange: (selectedCountries: string[]) => void
+  onFilterChange: (_selectedCountries: string[]) => void
   viewType: "grid" | "card" | "json"
-  setViewType: (view: "grid" | "card" | "json") => void
+  setViewType: (_view: "grid" | "card" | "json") => void
 }
 
 const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({

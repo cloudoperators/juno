@@ -3,16 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable no-unused-vars */
-
 import { create } from "zustand"
 import { Peak } from "../mocks/db"
 
 interface PeaksState {
   peaks: Peak[]
   selectedPeakId: string | null
-  setPeaks: (peaks: Peak[]) => void
-  setSelectedPeakId: (id: string | null) => void
+  setPeaks: (_peaks: Peak[]) => void
+  setSelectedPeakId: (_id: string | null) => void
 }
 
 const usePeaksStore = create<PeaksState>((set) => ({

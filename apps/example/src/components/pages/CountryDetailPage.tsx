@@ -10,9 +10,9 @@ import usePeaksStore from "../../store/usePeaksStore"
 import { Peak, BadgeVariantType } from "../../mocks/db"
 
 import { Pages } from "../constants"
+import { Metrics } from "../metrics/MetricsBox"
 import DetailLayout from "../common/DetailLayout"
 import ExpandableSection from "../common/ExpandableSection"
-import { Metrics } from "../metrics/MetricsBox"
 
 interface CountryDetailPageProps {
   countryName: string

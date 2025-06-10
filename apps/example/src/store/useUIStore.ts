@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable no-unused-vars */
-
 import { create } from "zustand"
 
 interface UIState {
@@ -12,10 +10,10 @@ interface UIState {
   currentPanel: string | null
   showPeakDetails: boolean
   tabIndex: number
-  setCurrentModal: (modal: string | null) => void
-  setCurrentPanel: (panel: string | null) => void
-  setShowPeakDetails: (show: boolean) => void
-  setTabIndex: (index: number) => void
+  setCurrentModal: (_modal: string | null) => void
+  setCurrentPanel: (_panel: string | null) => void
+  setShowPeakDetails: (_show: boolean) => void
+  setTabIndex: (_index: number) => void
 }
 
 const useUIStore = create<UIState>((set) => ({

@@ -11,12 +11,12 @@ import usePeaksStore from "../../store/usePeaksStore"
 import Section from "../common/Section"
 import DataRow from "../common/DataRow"
 import useModal from "../hooks/useModal"
+import { Metrics } from "../metrics/MetricsBox"
 import DetailLayout from "../common/DetailLayout"
 import ActionButtons from "../common/ActionButtons"
 import usePeakActions from "../hooks/usePeakActions"
 import { Pages, TooltipExplanation } from "../constants"
 import DeleteConfirmationModal from "../common/DeleteConfirmationModal"
-import { Metrics } from "../metrics/MetricsBox"
 
 interface PeakDetailPageProps {
   onBack: () => void
@@ -34,7 +34,7 @@ const PeakDetailPage: React.FC<PeakDetailPageProps> = ({ onBack }) => {
 
   const metrics = [
     { label: "Height", value: `${peakInfo.height}`, peakType: Metrics.HEIGHT },
-    { label: "Safety", value: peakInfo.safety.status, peakType: Metrics.LOWEST_PEAK },
+    { label: "Safety", value: peakInfo.safety.status, peakType: Metrics.SAFETY },
     { label: "Location", value: `${peakInfo.region}, ${peakInfo.countries}`, peakType: Metrics.TOTAL_COUNTRIES },
   ]
 

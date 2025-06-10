@@ -3,15 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable no-unused-vars */
-
 import { create } from "zustand"
 
 interface ConfigState {
   endpoint: string
   isQueryClientReady: boolean
-  setEndpoint: (newEndpoint: string) => void
-  setIsQueryClientReady: (readiness: boolean) => void
+  setEndpoint: (_newEndpoint: string) => void
+  setIsQueryClientReady: (_readiness: boolean) => void
 }
 
 const useConfigStore = create<ConfigState>((set) => ({
