@@ -55,3 +55,6 @@ export const PeakMetrics = {
 }
 
 export const APP_NAME = "Juno UI Peaks Monitoring Dashboard"
+
+export const DEFAULT_SMALL_APP_MARGIN = "2"
+export const DEFAULT_MEDIUM_APP_MARGIN = "5"

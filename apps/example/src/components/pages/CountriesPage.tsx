@@ -8,6 +8,7 @@ import { ContentHeading, Icon, Badge, Stack } from "@cloudoperators/juno-ui-comp
 
 import GenericCard from "../common/GenericCard"
 import useCountryStats from "../hooks/useCountryStats"
+import { DEFAULT_SMALL_APP_MARGIN, DEFAULT_MEDIUM_APP_MARGIN } from "../constants"
 
 import usePeaksStore from "../../store/usePeaksStore"
 
@@ -23,7 +24,7 @@ const CountriesPage: React.FC<{ onSelectCountry: (_country: string) => void }> =
         <ContentHeading>All Countries</ContentHeading>
       </Stack>
 
-      <Stack className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Stack gap={DEFAULT_MEDIUM_APP_MARGIN} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {sortedCountries.map((country) => {
           const { safetyCounts, peaks } = countryStats[country]
           return (
@@ -32,7 +33,7 @@ const CountriesPage: React.FC<{ onSelectCountry: (_country: string) => void }> =
               iconElement={<Icon icon="place" />}
               title={country}
               badgeContainer={
-                <div className="flex gap-2">
+                <Stack gap={DEFAULT_SMALL_APP_MARGIN} className="flex">
                   {safetyCounts.Safe > 0 && (
                     <Badge text={`${safetyCounts.Safe}`} variant="success" className={notificationStyle} />
                   )}
@@ -42,7 +43,7 @@ const CountriesPage: React.FC<{ onSelectCountry: (_country: string) => void }> =
                   {safetyCounts.Unsafe > 0 && (
                     <Badge text={`${safetyCounts.Unsafe}`} variant="error" className={notificationStyle} />
                   )}
-                </div>
+                </Stack>
               }
               content={
                 <p className="text-sm text-gray-300 mb-2">

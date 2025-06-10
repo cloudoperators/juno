@@ -6,6 +6,8 @@
 import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
+import { DEFAULT_SMALL_APP_MARGIN } from "../../constants"
+
 const avatarStyles = `
 h-8
 w-8
@@ -20,7 +22,7 @@ const DEFAULT_URL = "https://avatars.wdf.sap.corp/avatar/I123456?size=24"
 
 const HeaderAvatar: React.FC = () => {
   return (
-    <Stack gap="2" alignment="center">
+    <Stack gap={DEFAULT_SMALL_APP_MARGIN} alignment="center">
       {
         <div
           style={{

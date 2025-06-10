@@ -19,7 +19,7 @@ import {
 } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../../mocks/db"
-import { PeakFields } from "../../constants"
+import { DEFAULT_SMALL_APP_MARGIN, PeakFields } from "../../constants"
 import { validateFormField } from "../utils/validateFormFields"
 
 // Needs refactoring, some TS errors ignored
@@ -131,7 +131,7 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
     <PanelBody
       footer={
         <PanelFooter>
-          <Stack direction="horizontal" gap="2" distribution="end">
+          <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} distribution="end">
             <Button label={Labels.CANCEL} variant="subdued" onClick={handleCloseClick} disabled={loading} />
             <Button
               label={Labels.SAVE}

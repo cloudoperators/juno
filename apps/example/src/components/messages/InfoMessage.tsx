@@ -35,7 +35,7 @@ const TemporaryWIPContent: React.FC = () => (
 
 const InfoMessage: React.FC = () => {
   return (
-    <Message title={TEMPORARY_WIP_TITLE} dismissible={true} variant="warning">
+    <Message title={TEMPORARY_WIP_TITLE} dismissible={true} variant="warning" className="mt-11">
       <TemporaryWIPContent />
     </Message>
   )

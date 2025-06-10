@@ -7,7 +7,7 @@ import React from "react"
 import { PageHeader, Stack, ThemeToggle } from "@cloudoperators/juno-ui-components"
 
 import HeaderUserMenu from "./HeaderUserMenu"
-import { APP_NAME } from "../../constants"
+import { APP_NAME, DEFAULT_MEDIUM_APP_MARGIN } from "../../constants"
 import useAuthStore from "../../../store/useAuthStore"
 
 const Header: React.FC = () => {
@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   return (
     <PageHeader heading={APP_NAME}>
       {/* Adding uncenters logo */}
-      <Stack gap="5">
+      <Stack gap={DEFAULT_MEDIUM_APP_MARGIN}>
         <HeaderUserMenu />
         {isUserAuthenticated && <ThemeToggle />}
       </Stack>

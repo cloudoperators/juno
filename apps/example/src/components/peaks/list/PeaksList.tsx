@@ -13,6 +13,7 @@ import {
   Spinner,
   Badge,
   DataGridHeadCell,
+  Stack,
 } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../../mocks/db"
@@ -22,7 +23,7 @@ import Mountain from "../../../assets/mountain.svg?react"
 
 import HelpTooltip from "../../common/HelpTooltip"
 import GenericCard from "../../common/GenericCard"
-import { Views, PeakFields, TooltipExplanation } from "../../constants"
+import { Views, PeakFields, TooltipExplanation, DEFAULT_MEDIUM_APP_MARGIN } from "../../constants"
 import HintNotFound from "../../messages/HintNotFound"
 
 import PeaksListItem from "./PeaksListItem"
@@ -59,7 +60,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
 
   if (viewType === Views.CARD) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+      <Stack gap={DEFAULT_MEDIUM_APP_MARGIN} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5">
         {paginatedItems.map((peak) => (
           <GenericCard
             key={String(peak.id)}
@@ -78,7 +79,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
             onClick={() => onSelect(peak)}
           />
         ))}
-      </div>
+      </Stack>
     )
   }
 

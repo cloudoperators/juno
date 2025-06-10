@@ -7,6 +7,7 @@ import React, { useState } from "react"
 import { Stack, Select, SelectOption, InputGroup, Button, Pill, SearchInput } from "@cloudoperators/juno-ui-components"
 
 import ViewToggleButtons from "../../common/ViewToggleButtons"
+import { DEFAULT_SMALL_APP_MARGIN } from "../../constants"
 import CreatePeakModal from "./CreatePeakModal"
 
 // Needs refactoring
@@ -78,7 +79,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
               onInput={handleSearchChange}
               onClear={() => setSearchTerm("")}
             />
-            <Stack gap="2" className="flex flex-row items-center">
+            <Stack gap={DEFAULT_SMALL_APP_MARGIN} className="flex flex-row items-center">
               <InputGroup className="flex-shrink-0 w-full md:w-80">
                 <Select
                   name="filterValue"
@@ -114,7 +115,7 @@ const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
             <CreatePeakModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New Peak" />
           </Stack>
           {selectedCountries.length > 0 && (
-            <Stack direction="horizontal" gap="2" alignment="start" className="w-full">
+            <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="start" className="w-full">
               <span className="text-sm font-normal text-gray-600 mr-2">Countries:</span>
               {selectedCountries.map((country, index) => (
                 <Pill

@@ -32,6 +32,7 @@ import {
   SelectOption,
   Select,
 } from "@cloudoperators/juno-ui-components"
+import { DEFAULT_SMALL_APP_MARGIN, DEFAULT_MEDIUM_APP_MARGIN } from "../constants"
 
 interface AlertsPageState {
   alertsEnabled: boolean
@@ -94,7 +95,7 @@ const AlertsPage: React.FC = () => {
   }
 
   return (
-    <Stack direction="vertical" gap="5">
+    <Stack direction="vertical" gap={DEFAULT_MEDIUM_APP_MARGIN}>
       <ContentHeading>Alert Management</ContentHeading>
       <Tabs>
         <TabList>
@@ -124,7 +125,7 @@ const AlertsPage: React.FC = () => {
               />
             </div>
 
-            <Stack direction="vertical" gap="5">
+            <Stack direction="vertical" gap={DEFAULT_MEDIUM_APP_MARGIN}>
               <p>Customize how you receive alerts and notifications based on your preferences.</p>
               <Box>
                 <Form>
@@ -290,8 +291,8 @@ const AlertsPage: React.FC = () => {
 
           <TabPanel>
             {/* Alert Access Key Panel */}
-            <Stack direction="vertical" gap="5">
-              <Stack direction="horizontal" gap="2" alignment="center">
+            <Stack direction="vertical" gap={DEFAULT_MEDIUM_APP_MARGIN}>
+              <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="center">
                 <Icon color="jn-text-theme-warning" icon="warning" />
                 <span>This access key is sensitive information. Keep it secure.</span>
               </Stack>

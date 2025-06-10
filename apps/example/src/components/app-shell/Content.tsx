@@ -9,6 +9,8 @@ import { Container, Stack } from "@cloudoperators/juno-ui-components"
 import InfoMessage from "../messages/InfoMessage"
 import useAuthStore from "../../store/useAuthStore"
 
+import { DEFAULT_MEDIUM_APP_MARGIN } from "../constants"
+
 import PageRenderer from "./PageRenderer"
 import HeaderLoginModal from "./header/HeaderLoginModal"
 
@@ -17,8 +19,8 @@ const Content: React.FC = () => {
 
   if (isUserAuthenticated) {
     return (
-      <Container className="mt-11">
-        <Stack direction="vertical" gap="5">
+      <Container>
+        <Stack direction="vertical" gap={DEFAULT_MEDIUM_APP_MARGIN}>
           <InfoMessage />
           <Container py>
             <PageRenderer />

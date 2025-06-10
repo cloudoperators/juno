@@ -6,7 +6,7 @@
 import React from "react"
 import { Button, Stack } from "@cloudoperators/juno-ui-components"
 
-import { Views } from "../constants"
+import { Views, DEFAULT_SMALL_APP_MARGIN } from "../constants"
 
 import GridIcon from "../../assets/grid.svg?react"
 import JsonIcon from "../../assets/json.svg?react"
@@ -24,7 +24,7 @@ const ViewToggleButtons: React.FC<ViewToggleButtonsProps> = ({ currentView, togg
   const isJsonDisabled = currentView === Views.JSON
 
   return (
-    <Stack direction="horizontal" gap="2" className="ml-auto">
+    <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} className="ml-auto">
       <span className="flex items-center">View:</span>
 
       <Button
