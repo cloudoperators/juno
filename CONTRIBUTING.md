@@ -31,13 +31,33 @@ The following rule governs code contributions:
 - Contributions must be licensed under the [Apache 2.0 License](./LICENSE)
 - Due to legal reasons, contributors will be asked to accept a Developer Certificate of Origin (DCO) when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
 
+## Development
+
+If you have been assigned to fix an issue or develop a new feature, please follow these steps to get started:
+
+- Fork this repository.
+- Install dependencies
+
+  ```bash
+  pnpm install
+  ```
+
+  - We use [pnpm](https://pnpm.io/) for package management. Please check the used version in the main `package.json` file under the `packageManager` field.
+  
+
+  - We use [nvm](https://github.com/nvm-sh/nvm) to manage node versions - please make sure to use the version mentioned in `.nvmrc`
+
+    ```bash
+    nvm use
+    ```
+
 ## License Header
 
 Please include the following license header at the top of every source file:
 
 ```plaintext
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 ```
