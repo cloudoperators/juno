@@ -16,7 +16,7 @@ import {
 } from "@cloudoperators/juno-ui-components"
 
 import { Peak, BadgeVariantType } from "../../mocks/db"
-import { PeakFields, TooltipExplanation } from "../constants"
+import { DEFAULT_SMALL_APP_MARGIN, PeakFields, TooltipExplanation } from "../constants"
 import HelpTooltip from "./HelpTooltip"
 
 interface ExpandableSectionProps {
@@ -37,13 +37,15 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, var
   return (
     <Box className="border border-gray-300 rounded-lg shadow-lg py-6 px-10">
       <Stack direction="horizontal" distribution="between" alignment="center" gap="3">
-        <Stack direction="horizontal" gap="2" alignment="center">
+        <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="center">
           <h2 className="font-bold text-xl">{title}</h2>
           <Badge variant={variant} className={notificationStyle}>
             {peaks.length}
           </Badge>
         </Stack>
-        <Button onClick={toggleOpen}>{isOpen ? HIDE_LABEL : SHOW_LABEL}</Button>
+        <Button size="small" onClick={toggleOpen}>
+          {isOpen ? HIDE_LABEL : SHOW_LABEL}
+        </Button>
       </Stack>
       {isOpen && (
         <Box className="mt-4">
