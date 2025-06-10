@@ -43,8 +43,6 @@ If you have been assigned to fix an issue or develop a new feature, please follo
   ```
 
   - We use [pnpm](https://pnpm.io/) for package management. Please check the used version in the main `package.json` file under the `packageManager` field.
-  
-
   - We use [nvm](https://github.com/nvm-sh/nvm) to manage node versions - please make sure to use the version mentioned in `.nvmrc`
 
     ```bash
