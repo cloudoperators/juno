@@ -22,7 +22,7 @@ This project uses many tools like:
 
 To use the **Juno Carbon App** app as a template to generate your next app, you don't need to install it inside your monorepo. Simply follow the instructions below:
 
-1. Make sure you have the latest version of Node.js installed on your machine.
+1. Make sure you you follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md#development) to install node on your machine.
 
 2. Open your terminal and navigate to the root directory of your project.
 
