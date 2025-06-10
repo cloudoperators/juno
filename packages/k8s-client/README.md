@@ -145,3 +145,11 @@ pnpm install
 pnpm test
 pnpm build
 ```
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

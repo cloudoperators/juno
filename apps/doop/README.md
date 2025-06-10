@@ -71,3 +71,11 @@ These are the customizable application properties (appProps) that you can define
 - **embedded** (optional): Set to `true` if the app will be embedded within another app or page. When `true`, the app will not display the header or footer, rendering only the content. Default is `false`.
 - **showDebugSeverities** (optional): Display debug severity levels in the log. Default is `false`.
 - **initialFilters** (optional): The initialFilters set default filters using an object that contains a key (the filter field) and a value (an array of filter criteria). For example, `{ "support_group": ["containers"] }`.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

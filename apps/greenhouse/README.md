@@ -52,3 +52,11 @@ These are the customizable application properties (appProps) that you can define
 - **demoOrg** (optional): `"demo"`. If the organization name matches this value, the app will use the demo user token for authentication.
 - **demoUserToken** (optional): `"token for demo user"`. Used for authentication if `demoOrg` and `demoUserToken` are set, and the organization name matches `demoOrg`.
   **Note:** This is ignored if `mockAuth` is set.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

@@ -59,3 +59,11 @@ pnpm --filter @cloudoperators/juno-ui-components run test
 ## Continuous Deployment to GitHub Pages
 
 Any change to this library will automatically trigger a deployment to GitHub Pages. When changes are committed to the main branch, GitHub Actions will build and test the project. If successful, the latest version of the library will be deployed to GitHub Pages.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

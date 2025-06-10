@@ -114,3 +114,11 @@ To ensure a well-organized codebase and maintain consistency, please follow thes
   - Rename `ComponentName.tsx` to `ComponentName/index.tsx`.
   - Create a `ComponentName/` directory to house the child components.
   - Apply the same structure and rules (outlined in points 2 and 3) to the child components.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

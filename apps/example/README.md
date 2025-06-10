@@ -65,3 +65,11 @@ These are the customizable application properties (appProps) that you can define
 - **theme**: `"theme-light"` or `"theme-dark"` (default).
 - **endpoint**: The API endpoint URL for the app. Empty by default.
 - **embedded**: `true`or `false` (default). Set to true if the app is to be embedded in another existing app or page. If set to true, the app will not render a page header/footer and will only render the content.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).
