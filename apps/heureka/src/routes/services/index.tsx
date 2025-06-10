@@ -11,14 +11,17 @@ import { FilterSettings, SelectedFilter } from "../../components/common/Filters/
 import { sanitizeSearchParam } from "../../utils"
 import { InitialFilters } from "../../App"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
+import { fetchServices } from "../../api/fetchServices"
+import { fetchServicesFilters } from "../../api/fetchServicesFilters"
 
 // Extract initial filters from the supplied initialFilters in the appProps
 const getInitialFilters = (initialFilters?: InitialFilters): SelectedFilter[] =>
   initialFilters?.support_group?.map((sg) => ({ name: "supportGroupCcrn", value: sg })) ?? []
 
 // Extract filters from the search parameters, looking for keys that start with SELECTED_FILTER_PREFIX
-const extractFiltersFromSearchParams = (params: ServicesSearchParams): SelectedFilter[] =>
-  Object.entries(params)
+const extractFilterSettingsFromSearchParams = (searchParams: ServicesSearchParams): FilterSettings => ({
+  searchTerm: searchParams.searchTerm,
+  selectedFilters: Object.entries(searchParams)
     .filter(([key]) => key.startsWith(SELECTED_FILTER_PREFIX))
     .flatMap(([key, value]) => {
       const name = key.slice(2)
@@ -26,7 +29,8 @@ const extractFiltersFromSearchParams = (params: ServicesSearchParams): SelectedF
         return value.map((v) => ({ name, value: v }))
       }
       return [{ name, value: value as string }]
-    })
+    }),
+})
 
 type ServicesSearchParams = z.infer<typeof servicesSearchSchema>
 
@@ -58,29 +62,57 @@ const servicesSearchSchema = z
 export const Route = createFileRoute("/services/")({
   validateSearch: servicesSearchSchema,
   component: RouteComponent,
+  beforeLoad: ({ context: { appProps }, search }) => {
+    const filterSettings = extractFilterSettingsFromSearchParams(search)
+    return {
+      filterSettings:
+        // Filters from the URL always have preference over initial filters
+        (filterSettings?.selectedFilters ?? []).length > 0
+          ? filterSettings
+          : {
+              ...filterSettings,
+              selectedFilters: getInitialFilters(appProps?.initialFilters),
+            },
+    }
+  },
+  loaderDeps: ({ search }) => {
+    const { service, ...rest } = search
+    return rest
+  },
+  shouldReload: false, // Only reload the route when the user navigates to it or when deps change
+  loader: async ({ context }) => {
+    const { queryClient, apiClient, filterSettings } = context
+    // create a promise to fetch filters
+    const filtersPromise = fetchServicesFilters({
+      queryClient,
+      apiClient,
+    })
+    // create a promise to fetch services
+    const servicesPromise = fetchServices({
+      queryClient,
+      apiClient,
+      filterSettings,
+    })
+
+    return {
+      filtersPromise,
+      servicesPromise,
+      filterSettings,
+    }
+  },
 })
 
 function RouteComponent() {
   const routeApi = getRouteApi("/services/")
-  const { appProps } = routeApi.useRouteContext()
-  const params = routeApi.useSearch()
-  const initialFilters = getInitialFilters(appProps?.initialFilters)
-  const filtersFromUrl = extractFiltersFromSearchParams(params)
+  const { service } = routeApi.useSearch()
+  const { filterSettings, filtersPromise, servicesPromise } = routeApi.useLoaderData()
 
-  const defaultFilterSettings: FilterSettings = {
-    selectedFilters:
-      // Filters from the URL always have preference over initial filters
-      filtersFromUrl.length > 0
-        ? [...filtersFromUrl]
-        : // Combine initial filters with those extracted from the URL, ensuring no duplicates
-          [
-            ...initialFilters,
-            ...filtersFromUrl.filter(
-              (filter) => !initialFilters.some((init) => init.name === filter.name && init.value === filter.value)
-            ),
-          ],
-    searchTerm: params.searchTerm,
-  }
-
-  return <Services defaultSelectService={params.service} defaultFilterSettings={defaultFilterSettings} />
+  return (
+    <Services
+      filtersPromise={filtersPromise}
+      servicesPromise={servicesPromise}
+      selectedService={service}
+      filterSettings={filterSettings}
+    />
+  )
 }

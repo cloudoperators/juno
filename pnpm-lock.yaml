@@ -484,6 +484,9 @@ importers:
       '@cloudoperators/juno-url-state-provider':
         specifier: workspace:*
         version: link:../../packages/url-state-provider
+      '@tanstack/react-query':
+        specifier: 5.80.3
+        version: 5.80.3(react@19.1.0)
       '@tanstack/react-router':
         specifier: 1.119.0
         version: 1.119.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3420,8 +3423,16 @@ packages:
   '@tanstack/query-core@5.62.2':
     resolution: {integrity: sha512-LcwVcC5qpsDpHcqlXUUL5o9SaOBwhNkGeV+B06s0GBoyBr8FqXPuXT29XzYXR36lchhnerp6XO+CWc84/vh7Zg==}
 
+  '@tanstack/query-core@5.80.2':
+    resolution: {integrity: sha512-g2Es97uwFk7omkWiH9JmtLWSA8lTUFVseIyzqbjqJEEx7qN+Hg6jbBdDvelqtakamppaJtGORQ64hEJ5S6ojSg==}
+
   '@tanstack/react-query@5.62.2':
     resolution: {integrity: sha512-fkTpKKfwTJtVPKVR+ag7YqFgG/7TRVVPzduPAUF9zRCiiA8Wu305u+KJl8rCrh98Qce77vzIakvtUyzWLtaPGA==}
+    peerDependencies:
+      react: ^18 || ^19
+
+  '@tanstack/react-query@5.80.3':
+    resolution: {integrity: sha512-psqr/QRzYfqJvgD8F2teMO6mL4hN4gzkOra9BlPplNhwByviZIhHUrWTXQEMmUdPWHNkGjA1SP6xG2+brhmIoQ==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -11659,9 +11670,16 @@ snapshots:
 
   '@tanstack/query-core@5.62.2': {}
 
+  '@tanstack/query-core@5.80.2': {}
+
   '@tanstack/react-query@5.62.2(react@19.1.0)':
     dependencies:
       '@tanstack/query-core': 5.62.2
+      react: 19.1.0
+
+  '@tanstack/react-query@5.80.3(react@19.1.0)':
+    dependencies:
+      '@tanstack/query-core': 5.80.2
       react: 19.1.0
 
   '@tanstack/react-router-devtools@1.119.1(@tanstack/react-router@1.119.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@tanstack/router-core@1.120.5)(csstype@3.1.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tiny-invariant@1.3.3)':

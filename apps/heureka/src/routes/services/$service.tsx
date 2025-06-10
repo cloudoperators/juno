@@ -6,9 +6,11 @@
 import React from "react"
 import { createFileRoute, getRouteApi } from "@tanstack/react-router"
 import { z } from "zod"
-import { ServiceDetails } from "../../components/ServiceDetails"
+import { Service } from "../../components/Service"
 import { LoaderWithCrumb } from "../-types"
 import { sanitizeSearchParam } from "../../utils"
+import { fetchImageVersions } from "../../api/fetchImageVersions"
+import { fetchService } from "../../api/fetchService"
 
 const serviceSearchSchema = z.object({
   imageVersion: z
@@ -19,12 +21,34 @@ const serviceSearchSchema = z.object({
 
 export const Route = createFileRoute("/services/$service")({
   validateSearch: serviceSearchSchema,
-  loader: ({ params }): LoaderWithCrumb => ({
-    crumb: {
-      label: params.service,
-    },
-  }),
+  shouldReload: false,
+  loaderDeps: ({ search }) => {
+    const { imageVersion, ...rest } = search
+    return { ...rest }
+  },
+  loader: ({ context, params: { service } }) => {
+    const { queryClient, apiClient } = context
+    // create a promise to fetch the service
+    const servicePromise = fetchService({
+      queryClient,
+      apiClient,
+      service,
+    })
+    // create a promise to fetch image versions
+    const imageVersionsPromise = fetchImageVersions({
+      queryClient,
+      apiClient,
+      service,
+    })
 
+    return {
+      servicePromise,
+      imageVersionsPromise,
+      crumb: {
+        label: service,
+      },
+    }
+  },
   component: RouteComponent,
 })
 
@@ -32,6 +56,14 @@ function RouteComponent() {
   const routeApi = getRouteApi("/services/$service")
   const { imageVersion } = routeApi.useSearch()
   const { service } = routeApi.useParams()
+  const { servicePromise, imageVersionsPromise } = routeApi.useLoaderData()
 
-  return <ServiceDetails serviceName={service} imageVersion={imageVersion} />
+  return (
+    <Service
+      selectedService={service}
+      selectedImageVersion={imageVersion}
+      servicePromise={servicePromise}
+      imageVersionsPromise={imageVersionsPromise}
+    />
+  )
 }

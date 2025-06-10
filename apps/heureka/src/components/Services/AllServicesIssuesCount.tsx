@@ -3,30 +3,38 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { Suspense, use } from "react"
+import { ApolloQueryResult } from "@apollo/client"
 import { Spinner, Stack } from "@cloudoperators/juno-ui-components"
-import { IssuesCountsType } from "../types"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
+import { GetServicesQuery } from "../../generated/graphql"
+import { getNormalizedData } from "./utils"
 
 type AllServicesIssuesCountProps = {
-  loading: boolean
-  error: string | null
-  counts: IssuesCountsType
+  servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
 }
 
-export const AllServicesIssuesCount = ({ loading, error, counts }: AllServicesIssuesCountProps) => {
+const IssuesCount = ({ servicesPromise }: AllServicesIssuesCountProps) => {
+  const { error, data } = use(servicesPromise)
+  const { servicesIssuesCount } = getNormalizedData(data)
+
   return (
-    <Stack className="status-bar bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
-      <Stack gap="1">
-        {!error && !loading ? (
-          <IssueCountsPerSeverityLevel counts={counts} />
-        ) : (
-          <div className="font-bold">All issues: --</div>
-        )}
-      </Stack>
-      <Stack alignment="center" className="ml-auto">
-        {loading && <Spinner size="small" className="mr-2" />}
-      </Stack>
+    <Stack gap="1">
+      {!error ? (
+        <IssueCountsPerSeverityLevel counts={servicesIssuesCount} />
+      ) : (
+        <div className="font-bold">All issues: --</div>
+      )}
+    </Stack>
+  )
+}
+
+export const AllServicesIssuesCount = ({ servicesPromise }: AllServicesIssuesCountProps) => {
+  return (
+    <Stack className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
+      <Suspense fallback={<Spinner size="small" />}>
+        <IssuesCount servicesPromise={servicesPromise} />
+      </Suspense>
     </Stack>
   )
 }

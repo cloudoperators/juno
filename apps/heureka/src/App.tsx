@@ -12,10 +12,13 @@ import styles from "./styles.scss?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 export type InitialFilters = {
   support_group?: string[]
 }
+
+const queryClient = new QueryClient()
 
 export type AppProps = {
   theme?: "theme-dark" | "theme-light"
@@ -30,6 +33,8 @@ const router = createRouter({
   routeTree,
   context: {
     appProps: undefined!,
+    apiClient: undefined!,
+    queryClient: undefined!,
   },
 })
 
@@ -40,6 +45,10 @@ declare module "@tanstack/react-router" {
 }
 
 const App = (props: AppProps) => {
+  const apiClient = getClient({
+    uri: props.apiEndpoint,
+  })
+
   /*
    * Dynamically change the type of history on the router
    * based on the enableHashedRouting prop. This ensures that
@@ -48,9 +57,8 @@ const App = (props: AppProps) => {
    */
   router.update({
     routeTree,
-    context: { appProps: props },
+    context: { appProps: props, apiClient, queryClient },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
-
     stringifySearch: (val) => {
       const encoded = encodeV2(val)
       /*
@@ -63,17 +71,19 @@ const App = (props: AppProps) => {
   })
 
   return (
-    <ApolloProvider client={getClient({ uri: props.apiEndpoint })}>
-      <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
-        {/* load styles inside the shadow dom */}
-        <style>{styles.toString()}</style>
-        <ErrorBoundary>
-          <StrictMode>
-            <RouterProvider basepath={props.basePath || "/"} router={router} />
-          </StrictMode>
-        </ErrorBoundary>
-      </AppShellProvider>
-    </ApolloProvider>
+    <QueryClientProvider client={queryClient}>
+      <ApolloProvider client={apiClient}>
+        <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
+          {/* load styles inside the shadow dom */}
+          <style>{styles.toString()}</style>
+          <ErrorBoundary>
+            <StrictMode>
+              <RouterProvider basepath={props.basePath || "/"} router={router} />
+            </StrictMode>
+          </ErrorBoundary>
+        </AppShellProvider>
+      </ApolloProvider>
+    </QueryClientProvider>
   )
 }
 

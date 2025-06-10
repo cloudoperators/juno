@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { isNil } from "lodash"
+import { isEmpty, isNil, map, omit } from "lodash"
 import { ApolloError } from "@apollo/client"
 import {
   Edge,
@@ -13,8 +13,9 @@ import {
   ServiceEdge,
   ServiceFilter,
   GetServiceImageVersionsQuery,
+  GetServiceFiltersQuery,
 } from "../../generated/graphql"
-import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
+import { Filter, FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
 import { IssuesCountsType } from "../types"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
@@ -34,14 +35,14 @@ const getServiceOwners = (serviceEdge?: ServiceEdge) => {
   )
 }
 
-type NormalizedServices = {
+export type NormalizedServicesResponse = {
   pageNumber: number
   pages: Page[]
   servicesIssuesCount: IssuesCountsType // All services issues count
   services: ServiceType[]
 }
 
-export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => {
+export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServicesResponse => {
   return {
     pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
     pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
@@ -310,3 +311,12 @@ export const getFiltersForUrl = (filterSettings: FilterSettings): Record<string,
     }, {}),
   }
 }
+
+export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | null): Filter[] =>
+  isEmpty(data) || isEmpty(data.ServiceFilterValues)
+    ? []
+    : map(omit(data.ServiceFilterValues, ["__typename"]), (filter) => ({
+        displayName: filter?.displayName || "",
+        filterName: filter?.filterName || "",
+        values: filter?.values?.filter((value) => value !== null) || [],
+      }))
