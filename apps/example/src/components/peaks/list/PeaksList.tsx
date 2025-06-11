@@ -13,29 +13,37 @@ import {
   Spinner,
   Badge,
   DataGridHeadCell,
+  Stack,
 } from "@cloudoperators/juno-ui-components"
 
-import GenericCard from "../../common/GenericCard"
-import HintNotFound from "../../messages/HintNotFound"
-import { Views, PeakFields } from "../../constants"
-
 import { Peak } from "../../../mocks/db"
-import PeaksListItem from "./PeaksListItem"
+import useConfigStore from "../../../store/useConfigStore"
+
+import Mountain from "../../../assets/mountain.svg?react"
+
 import HelpTooltip from "../../common/HelpTooltip"
-import { TooltipExplanation } from "../../constants"
+import GenericCard from "../../common/GenericCard"
+import { Views, PeakFields, TooltipExplanation, DEFAULT_MEDIUM_APP_MARGIN } from "../../constants"
+import HintNotFound from "../../messages/HintNotFound"
+
+import PeaksListItem from "./PeaksListItem"
 
 interface PeaksListProps {
   viewType: string
   paginatedItems: Peak[]
-  // eslint-disable-next-line no-unused-vars
-  onSelect: (peak: Peak) => void
-  isLoading: boolean
+  onSelect: (_peak: Peak) => void
 }
 
 const NO_PEAKS_HINT = "No peaks found"
 const JSON_TITLE = "Raw JSON Data for All Peaks"
 
-const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelect, isLoading }) => {
+const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelect }) => {
+  const { isQueryClientReady } = useConfigStore()
+
+  if (!isQueryClientReady) {
+    return <Spinner variant="primary" />
+  }
+
   if (viewType === Views.JSON) {
     return (
       <CodeBlock size="large">
@@ -44,27 +52,17 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
     )
   }
 
+  if (paginatedItems.length === 0) {
+    return <HintNotFound text={NO_PEAKS_HINT} />
+  }
+
   if (viewType === Views.CARD) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Stack gap={DEFAULT_MEDIUM_APP_MARGIN} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5">
         {paginatedItems.map((peak) => (
           <GenericCard
             key={String(peak.id)}
-            iconElement={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                stroke="#FFFFFF"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-6"
-              >
-                <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-              </svg>
-            }
+            iconElement={<Mountain />}
             title={`${peak.name}, ${peak.countries}`}
             badgeContainer={
               peak.safety ? (
@@ -79,7 +77,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
             onClick={() => onSelect(peak)}
           />
         ))}
-      </div>
+      </Stack>
     )
   }
 
@@ -93,7 +91,12 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
           </div>
         </DataGridHeadCell>
         <DataGridHeadCell>{PeakFields.NAME}</DataGridHeadCell>
-        <DataGridHeadCell>{PeakFields.HEIGHT}</DataGridHeadCell>
+        <DataGridHeadCell>
+          <div className="flex items-center">
+            <span className="mr-2">{PeakFields.HEIGHT}</span>
+            <HelpTooltip tooltipText={TooltipExplanation.HEIGHT} />
+          </div>
+        </DataGridHeadCell>
         <DataGridHeadCell>{PeakFields.RANGE}</DataGridHeadCell>
         <DataGridHeadCell>{PeakFields.REGION}</DataGridHeadCell>
         <DataGridHeadCell>{PeakFields.COUNTRY}</DataGridHeadCell>
@@ -104,7 +107,7 @@ const PeaksList: React.FC<PeaksListProps> = ({ viewType, paginatedItems, onSelec
       ) : (
         <DataGridRow>
           <DataGridCell colSpan={7}>
-            {isLoading ? <Spinner variant="primary" /> : <HintNotFound text={NO_PEAKS_HINT} />}
+            <HintNotFound text={NO_PEAKS_HINT} />
           </DataGridCell>
         </DataGridRow>
       )}

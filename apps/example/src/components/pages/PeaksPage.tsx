@@ -3,169 +3,73 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
-import { Stack, ContentHeading, Button } from "@cloudoperators/juno-ui-components"
+import React, { useState, useMemo } from "react"
+import { Stack, ContentHeading } from "@cloudoperators/juno-ui-components"
 
-import PeaksFilterToolbar from "../peaks/list/PeaksFilterToolbar"
+import usePeaksStore from "../../store/usePeaksStore"
+
 import PeaksList from "../peaks/list/PeaksList"
-import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
+import { usePaginatedItems } from "../hooks/usePeaks"
 import MetricsDisplay from "../metrics/MetricsDisplay"
-import { useGlobalsActions } from "../../store/StoreProvider"
+import PeaksFilterToolbar from "../peaks/list/PeaksFilterToolbar"
 import { calculateMetrics, Metrics } from "../peaks/utils/calculateMetrics"
-import {
-  useFilteredAndSortedItems,
-  usePaginatedItems,
-  calculateAvailableOptions,
-  uniqueValues,
-} from "../hooks/usePeaks"
-import { Panels } from "../constants"
-import { Peak } from "../../mocks/db"
+import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
 
 const ITEMS_PER_PAGE = 15
 
 interface PeaksPageProps {
-  peaks: Peak[]
-  isLoading: boolean
-  // eslint-disable-next-line no-unused-vars
-  onSelect: (peak: Peak) => void
+  onSelect: () => void
 }
 
-const PeaksPage: React.FC<PeaksPageProps> = ({ peaks, isLoading, onSelect }) => {
-  const { setCurrentPanel } = useGlobalsActions()
+const PeaksPage: React.FC<PeaksPageProps> = ({ onSelect }) => {
   const [viewType, setViewType] = useState<"grid" | "card" | "json">("grid")
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [searchTerm, setSearchTerm] = useState<string>("")
+  const [countryFilters, setCountryFilters] = useState<string[]>([])
 
-  const filterKeys = ["safety", "name", "mainrange", "region", "countries"]
+  const { peaks } = usePeaksStore()
 
-  const [filterSelections, setFilterSelections] = useState<Record<string, string[]>>({
-    name: [],
-    mainrange: [],
-    region: [],
-    countries: [],
-    safety: [],
+  const availableCountries = useMemo(() => {
+    const countriesSet = new Set(peaks.map((peak) => peak.countries))
+    return Array.from(countriesSet)
+  }, [peaks])
+
+  const filteredAndSortedItems = peaks.filter((peak) => {
+    const matchesSearch = peak.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesCountry = countryFilters.length === 0 || countryFilters.includes(peak.countries)
+    return matchesSearch && matchesCountry
   })
-
-  const [droplistSelections, setDroplistSelections] = useState<Record<string, string>>({
-    name: "",
-    mainrange: "",
-    region: "",
-    countries: "",
-    safety: "",
-  })
-
-  const [selectedFilterKey, setSelectedFilterKey] = useState<string | null>(null)
-  const [selectedSortKey, setSelectedSortKey] = useState<string>("name")
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
-
-  const [minHeight, setMinHeight] = useState<string>("")
-  const [maxHeight, setMaxHeight] = useState<string>("")
-
-  // @ts-ignore
-  const availableOptions = calculateAvailableOptions(peaks, uniqueValues)
-  const handleNewPeakClick = () => setCurrentPanel({ type: Panels.ADD_PEAKS })
-
-  const addFilter = (key: string, value: string) => {
-    setFilterSelections((prev) => ({
-      ...prev,
-      [key]: [...prev[key], value],
-    }))
-    setDroplistSelections((prev) => ({
-      ...prev,
-      [key]: value,
-    }))
-  }
-
-  const removeFilter = (key: string, value: string) => {
-    setFilterSelections((prev) => ({
-      ...prev,
-      [key]: prev[key].filter((item) => item !== value),
-    }))
-  }
-
-  const clearAllFilters = () => {
-    setFilterSelections({
-      name: [],
-      mainrange: [],
-      region: [],
-      countries: [],
-      safety: [],
-    })
-    setDroplistSelections({
-      name: "",
-      mainrange: "",
-      region: "",
-      countries: "",
-      safety: "",
-    })
-    setMinHeight("")
-    setMaxHeight("")
-  }
-
-  const filteredAndSortedItems = useFilteredAndSortedItems(
-    // @ts-ignore
-    peaks,
-    filterSelections,
-    minHeight,
-    maxHeight,
-    selectedSortKey,
-    sortDirection
-  )
 
   const paginatedItems = usePaginatedItems(filteredAndSortedItems, currentPage, ITEMS_PER_PAGE)
   const pages = Math.ceil(filteredAndSortedItems.length / ITEMS_PER_PAGE)
   const metrics: Metrics = calculateMetrics(peaks)
 
   return (
-    <Stack direction="vertical" gap="10">
-      <ContentHeading>Overview</ContentHeading>
-      <MetricsDisplay
-        metrics={[...metrics.totalMetrics, metrics.highestPeak, metrics.lowestPeak].map((metric) => ({
-          ...metric,
-          isLoading, // Ensure this is correctly defined and passed
-          hoverable: true, // Passed as needed
-        }))}
-      />
-
-      <Stack direction="horizontal" distribution="between" alignment="center">
-        <ContentHeading>Peak Details</ContentHeading>
-        <Button
-          icon="addCircle"
-          onClick={handleNewPeakClick}
-          label="Add New Peak"
-          variant="primary"
-          className="ml-auto"
+    <>
+      <Stack direction="vertical" gap="10">
+        <ContentHeading>Overview</ContentHeading>
+        <MetricsDisplay
+          metrics={[...metrics.totalMetrics, metrics.highestPeak, metrics.lowestPeak].map((metric) => ({
+            ...metric,
+          }))}
         />
+        <Stack direction="horizontal" distribution="between" alignment="center">
+          <ContentHeading>Peak Details</ContentHeading>
+        </Stack>
+        <Stack direction="vertical">
+          <PeaksFilterToolbar
+            availableCountries={availableCountries}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            onFilterChange={setCountryFilters}
+            viewType={viewType}
+            setViewType={setViewType}
+          />
+          <PeaksList viewType={viewType} paginatedItems={paginatedItems} onSelect={onSelect} />
+        </Stack>
+        <PeaksPaginationControls currentPage={currentPage} setCurrentPage={setCurrentPage} pages={pages} />
       </Stack>
-
-      <Stack direction="vertical">
-        <PeaksFilterToolbar
-          filterKeys={filterKeys}
-          filterSelections={filterSelections}
-          droplistSelections={droplistSelections}
-          selectedFilterKey={selectedFilterKey}
-          setSelectedFilterKey={setSelectedFilterKey}
-          selectedSortKey={selectedSortKey}
-          setSelectedSortKey={setSelectedSortKey}
-          availableOptions={availableOptions}
-          addFilter={addFilter}
-          removeFilter={removeFilter}
-          clearAllFilters={clearAllFilters}
-          setSortDirection={setSortDirection}
-          sortDirection={sortDirection}
-          minHeight={minHeight}
-          setMinHeight={setMinHeight}
-          maxHeight={maxHeight}
-          setMaxHeight={setMaxHeight}
-          viewType={viewType}
-          // @ts-ignore
-          setViewType={(type: "grid" | "card" | "json") => setViewType(type)}
-        />
-        {/* @ts-ignore */}
-        <PeaksList viewType={viewType} paginatedItems={paginatedItems} onSelect={onSelect} isLoading={isLoading} />
-      </Stack>
-
-      <PeaksPaginationControls currentPage={currentPage} setCurrentPage={setCurrentPage} pages={pages} />
-    </Stack>
+    </>
   )
 }
 

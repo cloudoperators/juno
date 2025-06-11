@@ -14,13 +14,21 @@ import {
   DataGridHeadCell,
   Badge,
 } from "@cloudoperators/juno-ui-components"
-import { Peak } from "../../mocks/db"
+
+import { Peak, BadgeVariantType } from "../../mocks/db"
+import { DEFAULT_SMALL_APP_MARGIN, PeakFields, TooltipExplanation } from "../constants"
+import HelpTooltip from "./HelpTooltip"
 
 interface ExpandableSectionProps {
   title: string
   peaks: Peak[]
-  variant: "success" | "warning" | "error"
+  variant: BadgeVariantType
 }
+
+const HIDE_LABEL = "Hide"
+const SHOW_LABEL = "Show"
+
+const notificationStyle = "w-8 h-8 flex items-center justify-center rounded-full text-theme-highest"
 
 const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, variant }) => {
   const [isOpen, setIsOpen] = useState(true)
@@ -29,22 +37,29 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({ title, peaks, var
   return (
     <Box className="border border-gray-300 rounded-lg shadow-lg py-6 px-10">
       <Stack direction="horizontal" distribution="between" alignment="center" gap="3">
-        <Stack direction="horizontal" gap="2" alignment="center">
+        <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="center">
           <h2 className="font-bold text-xl">{title}</h2>
-          <Badge variant={variant} className="px-2 py-1 rounded-full text-white">
+          <Badge variant={variant} className={notificationStyle}>
             {peaks.length}
           </Badge>
         </Stack>
-        <Button onClick={toggleOpen}>{isOpen ? "Hide" : "Show"}</Button>
+        <Button size="small" onClick={toggleOpen}>
+          {isOpen ? HIDE_LABEL : SHOW_LABEL}
+        </Button>
       </Stack>
       {isOpen && (
         <Box className="mt-4">
           <DataGrid columns={4}>
             <DataGridRow>
-              <DataGridHeadCell>Name</DataGridHeadCell>
-              <DataGridHeadCell>Height</DataGridHeadCell>
-              <DataGridHeadCell>Main Range</DataGridHeadCell>
-              <DataGridHeadCell>Region & Country</DataGridHeadCell>
+              <DataGridHeadCell>{PeakFields.NAME}</DataGridHeadCell>
+              <DataGridHeadCell>
+                <div className="flex items-center">
+                  <strong className="mr-2">{PeakFields.HEIGHT}</strong>
+                  <HelpTooltip tooltipText={TooltipExplanation.HEIGHT} />
+                </div>
+              </DataGridHeadCell>
+              <DataGridHeadCell>{PeakFields.RANGE}</DataGridHeadCell>
+              <DataGridHeadCell>{`${PeakFields.REGION} & ${PeakFields.COUNTRY}`}</DataGridHeadCell>
             </DataGridRow>
             {peaks.map((peak) => (
               <DataGridRow key={peak.id}>
