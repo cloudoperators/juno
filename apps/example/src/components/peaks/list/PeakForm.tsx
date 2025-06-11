@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// Needs refactoring, some TS errors ignored
+
 import React, { useState, useCallback, ChangeEvent, useEffect } from "react"
 import {
   PanelBody,
@@ -19,10 +21,8 @@ import {
 } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../../mocks/db"
-import { DEFAULT_SMALL_APP_MARGIN, PeakFields } from "../../constants"
+import { DEFAULT_SMALL_APP_MARGIN, FormLabels, ModalLabels, PeakFields } from "../../constants"
 import { validateFormField } from "../utils/validateFormFields"
-
-// Needs refactoring, some TS errors ignored
 
 type TextInputType = "text" | "url"
 
@@ -31,29 +31,13 @@ interface PeakFormProps {
   closeCallback: () => void
 }
 
-const Errors = {
-  INVALID_PEAK: "Invalid peak data. Please correct the name field and try again.",
-  CREATION_FAILURE: "Failed to add a new peak. This is a simulation.",
-}
-
-const Hints = {
-  MANDATORY_FIELD_SYMBOL: "Mandatory fields are marked with a blue circle.",
-}
-
-const Labels = {
-  CANCEL: "Cancel",
-  SAVE: "Save",
-}
-
-const sanitizeHeight = (height: string | undefined): string => {
-  return height ? height.replace(/\D/g, "") : ""
-}
+const sanitizeHeight = (height?: string): string => height?.replace(/\D/g, "") || ""
 
 const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => {
   const [formState, setFormState] = useState<Peak>({
     id: initialValues?.id || "",
     name: initialValues?.name || "",
-    height: sanitizeHeight(initialValues?.height) || "",
+    height: sanitizeHeight(initialValues?.height),
     mainrange: initialValues?.mainrange || "",
     region: initialValues?.region || "",
     countries: initialValues?.countries || "",
@@ -71,38 +55,30 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
 
   const requiredFields: Array<keyof Peak> = ["name", "height", "mainrange", "region", "countries"]
 
-  const isFormChanged = useCallback(() => {
-    return JSON.stringify(formState) !== JSON.stringify(initialValues)
-  }, [formState, initialValues])
+  const isFormChanged = useCallback(
+    () => JSON.stringify(formState) !== JSON.stringify(initialValues),
+    [formState, initialValues]
+  )
 
   const updateSaveEnabled = useCallback(() => {
     if (!hasEdited) return // Ensure validation logic only kicks in after an edit
-    //@ts-ignore
+    // @ts-ignore
     const noErrors = requiredFields.every((field) => validateFormField(field, formState[field] || "") === "")
     setIsSaveEnabled(noErrors && isFormChanged())
   }, [formState, hasEdited, isFormChanged])
 
-  useEffect(() => {
-    if (hasEdited) {
-      updateSaveEnabled()
-    }
-  }, [formState, updateSaveEnabled, hasEdited])
+  useEffect(() => updateSaveEnabled(), [formState, updateSaveEnabled, hasEdited])
 
   const handleAttrChange = (key: keyof Peak, value: string) => {
-    setFormState((prevState) => ({ ...prevState, [key]: value }))
+    setFormState((prev) => ({ ...prev, [key]: value }))
     setHasEdited(true)
-
-    if (hasEdited) {
-      updateSaveEnabled() // Update save button enablement immediately after editing starts
-    }
   }
 
   const handleFieldBlur = (key: keyof Peak) => {
-    if (!hasEdited) return // Ignore blur-based validation until an edit has started
-
-    //@ts-ignore
+    if (!hasEdited) return
+    // @ts-ignore
     const errorMsg = validateFormField(key, formState[key] || "")
-    setErrors((prevErrors) => ({ ...prevErrors, [key]: errorMsg }))
+    setErrors((prev) => ({ ...prev, [key]: errorMsg }))
   }
 
   const handleSubmit = () => {
@@ -114,27 +90,32 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
     setTimeout(() => {
       setLoading(false)
       setBackendError(true)
-      setErrorMessage(Errors.INVALID_PEAK)
+      setErrorMessage(FormLabels.INVALID_PEAK)
     }, 2000)
   }
 
-  const handleCloseClick = () => {
-    closeCallback()
-  }
-
   const renderTooltip = (message: string) => (
-    //@ts-ignore
+    // @ts-ignore
     <Tooltip trigger={<Icon name="info" size="small" />} position="bottom" content={<span>{message}</span>} />
   )
+
+  const formFields = [
+    { label: PeakFields.NAME, key: "name", required: true, autoFocus: true, invalid: backendError },
+    { label: PeakFields.HEIGHT, key: "height", required: true },
+    { label: PeakFields.RANGE, key: "mainrange", required: true },
+    { label: PeakFields.REGION, key: "region", required: true },
+    { label: PeakFields.COUNTRY, key: "countries", required: true },
+    { label: PeakFields.URL, key: "url", type: "url" as TextInputType },
+  ]
 
   return (
     <PanelBody
       footer={
         <PanelFooter>
           <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} distribution="end">
-            <Button label={Labels.CANCEL} variant="subdued" onClick={handleCloseClick} disabled={loading} />
+            <Button label={ModalLabels.CANCEL} variant="subdued" onClick={closeCallback} disabled={loading} />
             <Button
-              label={Labels.SAVE}
+              label={ModalLabels.SAVE}
               variant="primary"
               onClick={handleSubmit}
               progress={loading}
@@ -144,33 +125,28 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
         </PanelFooter>
       }
     >
-      {errorMessage && <Message title={Errors.CREATION_FAILURE} text={errorMessage} variant="error" className="mb-5" />}
-      <IntroBox text={Hints.MANDATORY_FIELD_SYMBOL} />
+      {errorMessage && (
+        <Message title={FormLabels.CREATION_FAILURE} text={errorMessage} variant="error" className="mb-5" />
+      )}
+      <IntroBox text={FormLabels.MANDATORY_FIELD_SYMBOL} />
       <Form>
-        {[
-          { label: PeakFields.NAME, key: "name", required: true, autoFocus: true, invalid: backendError },
-          { label: PeakFields.HEIGHT, key: "height", required: true },
-          { label: PeakFields.RANGE, key: "mainrange", required: true },
-          { label: PeakFields.REGION, key: "region", required: true },
-          { label: PeakFields.COUNTRY, key: "countries", required: true },
-          { label: PeakFields.URL, key: "url", type: "url" as TextInputType },
-        ].map(({ label, key, type = "text", required, autoFocus, invalid }) => (
+        {formFields.map(({ label, key, type = "text", required, autoFocus, invalid }) => (
           <FormRow key={key}>
             <TextInput
-              {...{
-                label,
-                type,
-                value: formState[key as keyof Peak] || "",
-                onChange: (e: ChangeEvent<HTMLInputElement>) => handleAttrChange(key as keyof Peak, e.target.value),
-                onBlur: () => handleFieldBlur(key as keyof Peak),
-                errortext: errors[key as keyof Peak] ? errors[key as keyof Peak] : undefined,
-                maxLength: 200,
-                disabled: loading,
-                required,
-                autoFocus,
-                invalid,
-              }}
-              //@ts-ignore
+              label={label}
+              type={type}
+              // @ts-ignore
+              value={formState[key as keyof Peak] || ""}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleAttrChange(key as keyof Peak, e.target.value)}
+              onBlur={() => handleFieldBlur(key as keyof Peak)}
+              // @ts-ignore
+              errortext={errors[key as keyof Peak]}
+              maxLength={200}
+              disabled={loading}
+              required={required}
+              autoFocus={autoFocus}
+              invalid={invalid}
+              // @ts-ignore
               icon={errors[key as keyof Peak] ? renderTooltip(errors[key as keyof Peak]) : undefined}
             />
           </FormRow>

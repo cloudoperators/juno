@@ -6,6 +6,8 @@
 // TO DO: Remove constants for easier searching in app
 // If kept, rename to be more explanatory e.g. keys, labels etc.
 
+export const APP_NAME = "Juno UI Peaks Monitoring Dashboard"
+
 export const Pages = {
   PEAKS: "Peaks",
   COUNTRIES: "Countries",
@@ -54,7 +56,16 @@ export const PeakMetrics = {
   TOTAL_COUNTRIES: "Total Countries",
 }
 
-export const APP_NAME = "Juno UI Peaks Monitoring Dashboard"
+export const FormLabels = {
+  INVALID_PEAK: "Invalid peak data. Please correct the name field and try again.",
+  CREATION_FAILURE: "Failed to add a new peak. This is a simulation.",
+  MANDATORY_FIELD_SYMBOL: "Mandatory fields are marked with a blue circle.",
+}
+
+export const ModalLabels = {
+  CANCEL: "Cancel",
+  SAVE: "Save",
+}
 
 export const DEFAULT_SMALL_APP_MARGIN = "2"
 export const DEFAULT_MEDIUM_APP_MARGIN = "5"

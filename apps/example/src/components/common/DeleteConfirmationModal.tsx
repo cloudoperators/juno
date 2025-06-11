@@ -4,7 +4,8 @@
  */
 
 import React from "react"
-import { Modal, ModalFooter, Button, ButtonRow } from "@cloudoperators/juno-ui-components"
+import { Modal, ModalFooter, Button, Stack } from "@cloudoperators/juno-ui-components"
+import { DEFAULT_SMALL_APP_MARGIN } from "../constants"
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean
@@ -22,11 +23,11 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isOpe
     title={title}
     open={isOpen}
     modalFooter={
-      <ModalFooter className="flex justify-end">
-        <ButtonRow>
+      <ModalFooter>
+        <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} distribution="end" className="w-full">
           <Button onClick={onClose} label={CANCEL_LABEL} />
           <Button onClick={onConfirm} label={DELETE_LABEL} variant="primary-danger" />
-        </ButtonRow>
+        </Stack>
       </ModalFooter>
     }
   >
