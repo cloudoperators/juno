@@ -28,8 +28,6 @@ import HintNotFound from "../../messages/HintNotFound"
 
 import PeaksListItem from "./PeaksListItem"
 
-// Needs refactoring
-
 interface PeaksListProps {
   viewType: string
   paginatedItems: Peak[]

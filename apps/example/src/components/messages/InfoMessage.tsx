@@ -19,12 +19,12 @@ const JunoLink: React.FC = () => (
   </a>
 )
 
-// const MessageContent: React.FC = () => (
-//   <>
-//     This is an example, developed to showcase how Juno UI Components can be used to build an application. Not all
-//     functionality works. See <JunoLink /> for more info.
-//   </>
-// )
+const _MessageContent: React.FC = () => (
+  <>
+    This is an example, developed to showcase how Juno UI Components can be used to build an application. Not all
+    functionality works. See <JunoLink /> for more info.
+  </>
+)
 
 const TemporaryWIPContent: React.FC = () => (
   <>

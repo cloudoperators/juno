@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Needs refactoring, some TS errors ignored
-
-import React, { useState, useCallback, ChangeEvent, useEffect } from "react"
+import React, { useState, ChangeEvent, useEffect } from "react"
 import {
   PanelBody,
   PanelFooter,
@@ -55,17 +53,20 @@ const PeakForm: React.FC<PeakFormProps> = ({ initialValues, closeCallback }) => 
 
   const requiredFields: Array<keyof Peak> = ["name", "height", "mainrange", "region", "countries"]
 
-  const isFormChanged = useCallback(
-    () => JSON.stringify(formState) !== JSON.stringify(initialValues),
-    [formState, initialValues]
-  )
+  const isFormChanged = () => JSON.stringify(formState) !== JSON.stringify(initialValues)
 
-  const updateSaveEnabled = useCallback(() => {
+  const updateSaveEnabled = () => {
     if (!hasEdited) return // Ensure validation logic only kicks in after an edit
-    // @ts-ignore
-    const noErrors = requiredFields.every((field) => validateFormField(field, formState[field] || "") === "")
+
+    // Check for errors in required fields and URL if filled
+    const noErrors =
+      // @ts-ignore
+      requiredFields.every((field) => validateFormField(field, formState[field] || "") === "") &&
+      // @ts-ignore
+      (formState.url === "" || validateFormField("url", formState.url) === "")
+
     setIsSaveEnabled(noErrors && isFormChanged())
-  }, [formState, hasEdited, isFormChanged])
+  }
 
   useEffect(() => updateSaveEnabled(), [formState, updateSaveEnabled, hasEdited])
 

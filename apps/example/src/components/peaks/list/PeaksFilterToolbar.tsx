@@ -10,8 +10,6 @@ import ViewToggleButtons from "../../common/ViewToggleButtons"
 import { DEFAULT_SMALL_APP_MARGIN } from "../../constants"
 import CreatePeakModal from "./CreatePeakModal"
 
-// Needs refactoring
-
 interface PeaksFilterToolbarProps {
   searchTerm: string
   setSearchTerm: (_term: string) => void

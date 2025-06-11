@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Needs refactoring
-
 import React, { useState } from "react"
 import { Modal, Badge, Button, ModalFooter, ButtonRow, Icon, Spinner, Box } from "@cloudoperators/juno-ui-components"
 

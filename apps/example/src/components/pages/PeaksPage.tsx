@@ -15,8 +15,6 @@ import PeaksFilterToolbar from "../peaks/list/PeaksFilterToolbar"
 import { calculateMetrics, Metrics } from "../peaks/utils/calculateMetrics"
 import PeaksPaginationControls from "../peaks/list/PeaksPaginationControls"
 
-// Needs refactoring
-
 const ITEMS_PER_PAGE = 15
 
 interface PeaksPageProps {

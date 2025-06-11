@@ -46,8 +46,6 @@ interface AlertsPageState {
   errorMessage: string | null
 }
 
-// Needs refactoring
-
 const AlertsPage: React.FC = () => {
   const [state, setState] = useState<AlertsPageState>({
     alertsEnabled: true,
