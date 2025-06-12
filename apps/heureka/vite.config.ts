@@ -8,6 +8,7 @@ import tailwindcss from "tailwindcss"
 
 import tsconfigPaths from "vite-tsconfig-paths"
 import svgr from "vite-plugin-svgr"
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
 
 export default ({ mode }) => {
   const sharedConfig = {
@@ -24,7 +25,7 @@ export default ({ mode }) => {
           postcss: tailwindcss,
         },
       },
-      ,
+      TanStackRouterVite({ target: "react", autoCodeSplitting: true }),
       react(),
       tsconfigPaths(),
       svgr(),

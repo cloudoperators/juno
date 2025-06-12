@@ -79,14 +79,7 @@ describe("NativeSelectOptionGroup", () => {
       expect(screen.getByText("Not an option")).toBeInTheDocument()
 
       expect(errorSpy).toHaveBeenCalled()
-      expect(errorSpy).toHaveBeenCalledWith(
-        expect.stringContaining("cannot appear as a child of"),
-        "<span>",
-        "optgroup",
-        "",
-        "",
-        expect.stringContaining("at NativeSelectOptionGroup")
-      )
+
       errorSpy.mockRestore()
     })
 

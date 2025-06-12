@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-**Carbon** This is an app that will replace the curent greenhouse app. For now use it as temporary app.
+**Carbon** This app is intended to replace the current Greenhouse app. For now, please use it as a temporary solution.
 
 ## What is inside?
 
@@ -22,20 +22,20 @@ This project uses many tools like:
 
 To use the **Juno Carbon App** app as a template to generate your next app, you don't need to install it inside your monorepo. Simply follow the instructions below:
 
-1. Make sure you have Node.js installed on your machine.
+1. Make sure you follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md#development) to install node on your machine.
 
 2. Open your terminal and navigate to the root directory of your project.
 
 3. It supports every command that is under the turbo.json config, for example:
 
 ```bash
-turbo lint
+pnpx turbo lint
 ```
 
 ## Contributing
 
-We welcome contributions from the community. Please follow our [contribution guidelines] to contribute to this project.
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
 
 ## License
 
-This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
+Licensed under the [Apache License](LICENSE).

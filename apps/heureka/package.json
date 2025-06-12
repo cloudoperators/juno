@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-heureka",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka",
   "license": "Apache-2.0",
@@ -30,12 +30,15 @@
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "lodash": "4.17.21",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "use-immer": "0.11.0"
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "use-immer": "0.11.0",
+    "zod": "3.24.4",
+    "@tanstack/react-router": "1.119.0",
+    "@tanstack/react-router-devtools": "1.119.1"
   },
   "devDependencies": {
-    "@apollo/client": "3.11.10",
+    "@apollo/client": "3.13.8",
     "@cloudoperators/juno-config": "workspace:*",
     "@graphql-codegen/cli": "5.0.3",
     "@graphql-codegen/typescript": "4.1.2",
@@ -48,8 +51,8 @@
     "@testing-library/user-event": "14.6.1",
     "@types/lodash": "4.17.15",
     "@types/node": "20.17.16",
-    "@types/react": "18.3.18",
-    "@types/react-dom": "18.3.5",
+    "@types/react": "19.1.4",
+    "@types/react-dom": "19.1.5",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
     "@vitejs/plugin-react-swc": "3.7.2",
@@ -69,6 +72,7 @@
     "typescript": "5.7.3",
     "vite": "6.3.5",
     "vite-tsconfig-paths": "4.3.2",
-    "vitest": "3.0.7"
+    "vitest": "3.0.7",
+    "@tanstack/router-plugin": "1.119.0"
   }
 }

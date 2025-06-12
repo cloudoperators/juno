@@ -175,6 +175,10 @@ consumer2.replace({ p: "/items/new" })
 unregisterConsumer2()
 ```
 
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
 ## License
 
-URL State Provider is licensed under the [Apache License](LICENSE).
+Licensed under the [Apache License](LICENSE).

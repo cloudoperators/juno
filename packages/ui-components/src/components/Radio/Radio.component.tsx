@@ -14,12 +14,15 @@ const wrapperStyles = `
   jn:items-center
 `
 
-const inputstyles = `
-  jn:w-4
-  jn:h-4
-  jn:opacity-0
-  jn:z-50
-`
+const inputstyles = (disabled: boolean): string => {
+  return `
+    jn:w-4
+    jn:h-4
+    jn:opacity-0
+    jn:z-50
+    ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
+  `
+}
 
 const mockradiostyles = `
   jn:relative
@@ -170,7 +173,7 @@ export const Radio: React.FC<RadioProps> = ({
   const handleChange = () => {
     // Update the Radio's state:
     setIsChecked(!isChecked)
-    // Update parent state ONLY if parent context exists and ONLY if the Radio is checked but not reflected in the parent’s selectedValue:
+    // Update parent state ONLY if parent context exists and ONLY if the Radio is checked but not reflected in the parent's selectedValue:
     if (groupOnChange && typeof groupOnChange === "function") {
       if (groupSelectedValue !== value) {
         groupOnChange(value)
@@ -222,7 +225,7 @@ export const Radio: React.FC<RadioProps> = ({
           <input
             checked={determineChecked()}
             className={`
-              ${inputstyles} 
+              ${inputstyles(groupDisabled || disabled)} 
               ${isInvalid ? "juno-radio-invalid" : ""} 
               ${isValid ? "juno-radio-valid" : ""}
             `}

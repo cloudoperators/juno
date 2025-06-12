@@ -3,179 +3,132 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* eslint-disable no-unused-vars */
+import React, { useState } from "react"
+import { Stack, Select, SelectOption, InputGroup, Button, Pill, SearchInput } from "@cloudoperators/juno-ui-components"
 
-import React from "react"
-import {
-  DataGridToolbar,
-  Stack,
-  Select,
-  SelectOption,
-  TextInput,
-  Button,
-  InputGroup,
-  Pill,
-  SearchInput,
-} from "@cloudoperators/juno-ui-components"
 import ViewToggleButtons from "../../common/ViewToggleButtons"
+import { DEFAULT_SMALL_APP_MARGIN } from "../../constants"
+import CreatePeakModal from "./CreatePeakModal"
 
 interface PeaksFilterToolbarProps {
-  filterKeys: string[]
-  filterSelections: Record<string, string[]>
-  droplistSelections: Record<string, string>
-  selectedFilterKey: string | null
-  setSelectedFilterKey: (key: string) => void
-  selectedSortKey: string | null
-  setSelectedSortKey: (key: string) => void
-  availableOptions: Record<string, string[]>
-  addFilter: (key: string, value: string) => void
-  removeFilter: (key: string, value: string) => void
-  clearAllFilters: () => void
-  setSortDirection: (direction: "asc" | "desc") => void
-  sortDirection: "asc" | "desc"
-  minHeight: string
-  setMinHeight: (value: string) => void
-  maxHeight: string
-  setMaxHeight: (value: string) => void
-  viewType: string
-  setViewType: (viewType: string) => void
+  searchTerm: string
+  setSearchTerm: (_term: string) => void
+  availableCountries: string[]
+  onFilterChange: (_selectedCountries: string[]) => void
+  viewType: "grid" | "card" | "json"
+  setViewType: (_view: "grid" | "card" | "json") => void
 }
 
-// Big component - needs refactoring
-
 const PeaksFilterToolbar: React.FC<PeaksFilterToolbarProps> = ({
-  filterKeys,
-  filterSelections,
-  droplistSelections,
-  selectedFilterKey,
-  setSelectedFilterKey,
-  selectedSortKey,
-  setSelectedSortKey,
-  availableOptions,
-  addFilter,
-  removeFilter,
-  clearAllFilters,
-  setSortDirection,
-  sortDirection,
-  minHeight,
-  setMinHeight,
-  maxHeight,
-  setMaxHeight,
+  searchTerm,
+  setSearchTerm,
   viewType,
   setViewType,
-}) => (
-  <>
-    <DataGridToolbar>
-      <Stack direction="horizontal" alignment="center" gap="5">
-        <SearchInput placeholder="Search by Name..." style={{ flexGrow: 1, minWidth: "240px" }} />
-        <InputGroup>
-          <Select
-            style={{ minWidth: "150px" }}
-            placeholder="Filter by"
-            label={selectedFilterKey ? "Filter by" : ""}
-            value={selectedFilterKey || ""}
-            onChange={(value) => setSelectedFilterKey(value as string)}
-          >
-            {filterKeys.map((filterKey) => (
-              <SelectOption key={filterKey} value={filterKey}>
-                {filterKey.charAt(0).toUpperCase() + filterKey.slice(1)}
-              </SelectOption>
-            ))}
-          </Select>
+  availableCountries,
+  onFilterChange,
+}) => {
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
+  const [debounceTimer, setDebounceTimer] = useState<number | undefined>(undefined)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-          {selectedFilterKey && !["minHeight", "maxHeight"].includes(selectedFilterKey) && (
-            <Select
-              value={droplistSelections[selectedFilterKey] || ""}
-              onChange={(value) => addFilter(selectedFilterKey, value as string)}
-              placeholder="Choose filter value"
-              style={{ minWidth: "150px" }}
-            >
-              {(availableOptions[selectedFilterKey] || []).map((option) => (
-                <SelectOption
-                  key={option}
-                  value={option}
-                  disabled={filterSelections[selectedFilterKey].includes(option)}
-                >
-                  {option}
-                </SelectOption>
-              ))}
-            </Select>
-          )}
+  const handleSearchChange = (value: React.ChangeEvent<HTMLInputElement>) => {
+    if (debounceTimer) {
+      clearTimeout(debounceTimer)
+    }
+    const newTimer = window.setTimeout(() => {
+      setSearchTerm(value.target.value)
+    }, 500)
+    setDebounceTimer(newTimer)
+  }
 
-          {["minHeight", "maxHeight"].includes(selectedFilterKey || "") && (
-            <TextInput
-              placeholder={`Enter ${selectedFilterKey!.charAt(0).toUpperCase() + selectedFilterKey!.slice(1)}`}
-              value={selectedFilterKey === "minHeight" ? minHeight : maxHeight}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                selectedFilterKey === "minHeight" ? setMinHeight(e.target.value) : setMaxHeight(e.target.value)
-              }
-              style={{ minWidth: "150px" }}
+  const handleFilterValueChange = (value?: string | string[] | number) => {
+    if (Array.isArray(value)) {
+      setSelectedCountries(value)
+      onFilterChange(value) // Notify the parent component of changes
+    }
+  }
+
+  const clearAllFilters = () => {
+    setSearchTerm("")
+    setSelectedCountries([])
+    onFilterChange([]) // Reset filters in parent component
+  }
+
+  const filtersStyles = `
+  bg-theme-background-lvl-1
+  py-4
+  px-4
+  pb-4
+  pt-4
+  my-px
+`
+
+  const handleNewPeakClick = () => setIsModalOpen(true)
+
+  return (
+    <>
+      <Stack alignment="center" gap="8" className={filtersStyles}>
+        <Stack direction="vertical" gap="3" className="w-full">
+          <Stack gap="6" className="flex flex-row items-center flex-wrap w-full">
+            <SearchInput
+              placeholder="Search by Name..."
+              value={searchTerm || ""}
+              className="w-full md:w-80 flex-shrink-0"
+              onInput={handleSearchChange}
+              onClear={() => setSearchTerm("")}
             />
-          )}
-        </InputGroup>
-        <Select
-          style={{ minWidth: "150px" }}
-          label="Sort by"
-          placeholder="Sort by"
-          value={selectedSortKey || ""}
-          onChange={(value) => setSelectedSortKey(value as string)}
-        >
-          {filterKeys.map((filterKey) => (
-            <SelectOption key={filterKey} value={filterKey}>
-              {filterKey.charAt(0).toUpperCase() + filterKey.slice(1)}
-            </SelectOption>
-          ))}
-        </Select>
-        <InputGroup style={{ flexShrink: 1 }}>
-          <Button onClick={() => setSortDirection("asc")} disabled={sortDirection === "asc"} variant="subdued">
-            Asc
-          </Button>
-          <Button onClick={() => setSortDirection("desc")} disabled={sortDirection === "desc"} variant="subdued">
-            Desc
-          </Button>
-        </InputGroup>
-        <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
-      </Stack>
-    </DataGridToolbar>
-    {(Object.entries(filterSelections).some(([_, values]) => values.length > 0) || minHeight || maxHeight) && (
-      <DataGridToolbar>
-        <Stack
-          direction="horizontal"
-          gap="4"
-          alignment="center"
-          style={{ justifyContent: "space-between", width: "100%" }}
-        >
-          <Stack direction="horizontal" gap="1" wrap style={{ justifyContent: "flex-start", flexWrap: "wrap" }}>
-            {Object.entries(filterSelections).map(
-              ([key, values]) =>
-                values.length > 0 && (
-                  <div key={key} style={{ display: "flex", alignItems: "center" }}>
-                    <span style={{ fontSize: "0.85rem", fontWeight: "normal", color: "#555", marginRight: "8px" }}>
-                      {key.charAt(0).toUpperCase() + key.slice(1)}:
-                    </span>
-                    <Stack direction="horizontal" gap="1" wrap style={{ justifyContent: "flex-start" }}>
-                      {values.map((value) => (
-                        <Pill
-                          key={`${key}:${value}`}
-                          pillValue={value}
-                          closeable
-                          onClose={() => removeFilter(key, value)}
-                        />
-                      ))}
-                    </Stack>
-                  </div>
-                )
-            )}
-            {minHeight && <Pill pillValue={`Min Height: ${minHeight}`} closeable onClose={() => setMinHeight("")} />}
-            {maxHeight && <Pill pillValue={`Max Height: ${maxHeight}`} closeable onClose={() => setMaxHeight("")} />}
+            <Stack gap={DEFAULT_SMALL_APP_MARGIN} className="flex flex-row items-center">
+              <InputGroup className="flex-shrink-0 w-full md:w-80">
+                <Select
+                  name="filterValue"
+                  value={selectedCountries}
+                  label={selectedCountries.length === 0 ? "" : "Filter by Country"}
+                  multiple
+                  onChange={handleFilterValueChange}
+                  className="filter-value-select w-full md:w-80 bg-theme-background-lvl-0"
+                  placeholder="Filter by Country"
+                >
+                  {availableCountries.map((country: string) => (
+                    <SelectOption key={country} value={country}>
+                      {country}
+                    </SelectOption>
+                  ))}
+                </Select>
+              </InputGroup>
+              <Button
+                label="Clear All"
+                onClick={clearAllFilters}
+                variant="subdued"
+                className="w-full md:w-auto flex-shrink-0"
+              />
+            </Stack>
+
+            <ViewToggleButtons currentView={viewType} toggleView={setViewType} />
+
+            {/* Separate Stack to ensure button positioning */}
+            <Stack direction="horizontal" className="flex-grow items-center justify-end">
+              <Button icon="addCircle" onClick={handleNewPeakClick} label="Add New Peak" variant="primary" />
+            </Stack>
+
+            <CreatePeakModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New Peak" />
           </Stack>
-          <Button variant="subdued" onClick={clearAllFilters}>
-            Clear All Filters
-          </Button>
+          {selectedCountries.length > 0 && (
+            <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="start" className="w-full">
+              <span className="text-sm font-normal text-gray-600 mr-2">Countries:</span>
+              {selectedCountries.map((country, index) => (
+                <Pill
+                  key={`${country}:${index}`}
+                  pillValue={country}
+                  closeable
+                  onClose={() => handleFilterValueChange(selectedCountries.filter((c) => c !== country))}
+                />
+              ))}
+            </Stack>
+          )}
         </Stack>
-      </DataGridToolbar>
-    )}
-  </>
-)
+      </Stack>
+    </>
+  )
+}
 
 export default PeaksFilterToolbar

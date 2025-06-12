@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useRef, useId } from "react"
 import { createPortal } from "react-dom"
-import FocusTrap from "focus-trap-react"
+import { FocusTrap } from "focus-trap-react"
 import { ModalFooter } from "../ModalFooter/index"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 import { usePortalRef } from "../PortalProvider/PortalProvider.component"

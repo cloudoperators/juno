@@ -6,28 +6,27 @@
 import React from "react"
 import { Button, PopupMenu, PopupMenuToggle, PopupMenuOptions } from "@cloudoperators/juno-ui-components"
 
-import { useAuthLoggedIn, useAuthData } from "../../../store/StoreProvider"
 import HeaderAvatar from "./HeaderAvatar"
-
-interface HeaderUserMenuProps {
-  logout: () => void
-}
+import useAuthStore from "../../../store/useAuthStore"
 
 const LOGOUT_BUTTON_LABEL = "Log Out"
 
-const HeaderUserMenu: React.FC<HeaderUserMenuProps> = ({ logout }) => {
-  const loggedIn = useAuthLoggedIn()
-  const authData = useAuthData()
+const HeaderUserMenu: React.FC = () => {
+  const { isUserAuthenticated, setIsUserAuthenticated } = useAuthStore()
+
+  const handleLogout = () => {
+    setIsUserAuthenticated(false)
+  }
 
   return (
     <>
-      {loggedIn && (
+      {isUserAuthenticated && (
         <PopupMenu>
           <PopupMenuToggle>
-            <HeaderAvatar userName={authData?.parsed?.fullName || ""} url={authData?.parsed?.avatarUrl?.small || ""} />
+            <HeaderAvatar />
           </PopupMenuToggle>
           <PopupMenuOptions>
-            <Button label={LOGOUT_BUTTON_LABEL} size="small" onClick={logout} />
+            <Button label={LOGOUT_BUTTON_LABEL} size="small" onClick={handleLogout} />
           </PopupMenuOptions>
         </PopupMenu>
       )}

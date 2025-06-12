@@ -1,6 +1,6 @@
 # Collection of Base Configurations for Monorepo
 
-The package name is `@cloudoperators/juno-config`.
+The package name is `@cloudoperators/juno-config` and it provides a collection of base configurations for TypeScript and ESLint to be used across multiple packages in a monorepo setup.
 
 - Typescript
 - ESlint
@@ -69,3 +69,11 @@ import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 
 export default [...junoConfigs]
 ```
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](https://github.com/cloudoperators/juno/blob/main/LICENSE).

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactElement } from "react"
 import { DataGridRow } from "./index"
 import { DataGridCell } from "../DataGridCell/index"
 import { Default as DataGridCellStory } from "../DataGridCell/DataGridCell.stories"
@@ -11,7 +11,7 @@ import { DataGrid, DataGridProps } from "../DataGrid/index"
 
 const columns = 5
 
-type StoryFunction = () => JSX.Element
+type StoryFunction = () => ReactElement
 
 export default {
   title: "Components/DataGrid/DataGridRow",

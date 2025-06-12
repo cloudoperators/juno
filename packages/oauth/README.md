@@ -14,7 +14,9 @@ The request to the ID provider proceeds as follows. Before the actual request is
 
 ## Install
 
-```pnpm add @cloudoperators/oauth````
+```bash
+pnpm add @cloudoperators/oauth
+```
 
 ## Usage
 
@@ -205,3 +207,11 @@ Create a oidc session object
   error: null // not null if odic failed
 }
 ```
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

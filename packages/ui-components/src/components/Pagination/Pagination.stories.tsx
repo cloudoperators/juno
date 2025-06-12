@@ -30,7 +30,7 @@ export default {
     },
   },
   decorators: [
-    (Story: StoryFn) => (
+    (Story) => (
       <div className="jn:pb-12">
         <PortalProvider>
           <Story />
@@ -40,6 +40,8 @@ export default {
   ],
 } as Meta<typeof Pagination>
 
+// TODO: Re-write story to use CSFv3 instead of CSFv2
+// Component Story Format (CSF): https://storybook.js.org/docs/6/api/stories/csf
 const Template: StoryFn<PaginationProps> = (args) => <Pagination {...args} />
 
 type Story = StoryObj<PaginationProps>

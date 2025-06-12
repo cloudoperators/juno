@@ -18,7 +18,7 @@ To create a static, runnable build, execute the following commands:
 
 ```bash
 cd apps/doop
-npx turbo build:static
+pnpx turbo build:static
 ```
 
 This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy a `appProps.json` file containing the required props into the dist folder.
@@ -29,7 +29,7 @@ To build a library version for dynamic import, use the following commands:
 
 ```bash
 cd apps/doop
-npx turbo build
+pnpx turbo build
 ```
 
 This will create a build folder with all assets. You can host this folder and load it as an MFE using dynamic import:
@@ -50,14 +50,14 @@ First, create an `appProps.json` file in the root directory of the application (
 
 ```bash
 cd apps/doop
-npx turbo dev
+pnpx turbo dev
 ```
 
 ### Testing
 
 ```bash
 cd apps/doop
-npx turbo test
+pnpx turbo test
 ```
 
 ## App Props
@@ -71,3 +71,11 @@ These are the customizable application properties (appProps) that you can define
 - **embedded** (optional): Set to `true` if the app will be embedded within another app or page. When `true`, the app will not display the header or footer, rendering only the content. Default is `false`.
 - **showDebugSeverities** (optional): Display debug severity levels in the log. Default is `false`.
 - **initialFilters** (optional): The initialFilters set default filters using an object that contains a key (the filter field) and a value (an array of filter criteria). For example, `{ "support_group": ["containers"] }`.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

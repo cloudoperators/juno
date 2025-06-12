@@ -179,14 +179,7 @@ export const Select: React.FC<SelectProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isValueNotEmpty = (
-    value:
-      | string
-      | number
-      | boolean
-      | React.ReactElement<unknown, string | React.JSXElementConstructor<unknown>>
-      | Iterable<ReactNode>
-  ): boolean => {
+  const isValueNotEmpty = (value: ReactNode): boolean => {
     return !(typeof value === "string" && value.trim().length === 0)
   }
 
@@ -325,29 +318,38 @@ export const Select: React.FC<SelectProps> = ({
           onChange={handleChange}
           value={value}
           defaultValue={defaultValue}
+          as="div"
         >
-          {label && isValueNotEmpty(label) ? (
-            <ListboxLabel
-              as={Label}
-              htmlFor={theId}
-              text={label}
-              className={`${labelStyles}`}
-              disabled={disabled || isLoading || hasError}
-              required={required}
-              floating
-              minimized
-            />
-          ) : (
-            ""
-          )}
-          <div>
-            <ListboxButton
-              ref={refs.setReference}
-              aria-describedby={helptext ? helptextId : ""}
-              aria-label={ariaLabel || label}
-              as="button"
-              id={theId}
-              className={`
+          {({ open }) => {
+            // Update our open state when Headless UI updates it
+            useEffect(() => {
+              setIsOpen(open)
+            }, [open])
+
+            return (
+              <>
+                {label && isValueNotEmpty(label) ? (
+                  <ListboxLabel
+                    as={Label}
+                    htmlFor={theId}
+                    text={label}
+                    className={`${labelStyles}`}
+                    disabled={disabled || isLoading || hasError}
+                    required={required}
+                    floating
+                    minimized
+                  />
+                ) : (
+                  ""
+                )}
+                <div>
+                  <ListboxButton
+                    ref={refs.setReference}
+                    aria-describedby={helptext ? helptextId : ""}
+                    aria-label={ariaLabel || label}
+                    as="button"
+                    id={theId}
+                    className={`
                     juno-select-toggle
                     ${variant && variant.length ? "juno-select-toggle-" + variant : "juno-select-toggle-default"}
                     ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
@@ -362,65 +364,68 @@ export const Select: React.FC<SelectProps> = ({
                     ${hasError ? "juno-select-error jn:cursor-not-allowed" : ""}
                     ${className}
                   `}
-              {...getReferenceProps()}
-              {...props}
-            >
-              {({ open, value }: { open: boolean; value: string[] }) => {
-                // Update our open state when Headless UI updates it
-                useEffect(() => {
-                  if (open !== isOpen) {
-                    setIsOpen(open)
-                  }
-                }, [open])
+                    {...getReferenceProps()}
+                    {...props}
+                  >
+                    {({ open, value }: { open: boolean; value: string[] }) => {
+                      // Update our open state when Headless UI updates it
+                      useEffect(() => {
+                        if (open !== isOpen) {
+                          setIsOpen(open)
+                        }
+                      }, [open])
 
-                return !hasError && !isLoading ? (
-                  <>
-                    <span className={`${truncateStyles}`}>{getDisplayValue(value)}</span>
-                    <span className="jn:flex">
-                      {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" /> : ""}
-                      {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" /> : ""}
-                      <span>
-                        <Icon icon={open ? "expandLess" : "expandMore"} />
-                      </span>
-                    </span>
-                  </>
-                ) : (
-                  <span className={`${centeredIconStyles}`}>
-                    {hasError ? (
-                      <Icon icon="errorOutline" color="jn:text-theme-error" className={"jn:cursor-not-allowed"} />
-                    ) : isLoading ? (
-                      <Spinner className={"jn:cursor-not-allowed"} />
-                    ) : (
-                      ""
-                    )}
-                  </span>
-                )
-              }}
-            </ListboxButton>
-            {createPortal(
-              <div
-                ref={refs.setFloating}
-                style={{
-                  position: strategy,
-                  top: y ?? 0,
-                  left: x ?? 0,
-                  display: isOpen ? "block" : "none",
-                }}
-                {...getFloatingProps()}
-              >
-                <ListboxOptions
-                  static
-                  className={`
-                    juno-select-menu
-                    ${menuStyles}
-                  `}
-                >
-                  {children}
-                </ListboxOptions>
-              </div>,
-              portalContainerRef ?? document.body
-            )}
-          </div>
+                      return !hasError && !isLoading ? (
+                        <>
+                          <span className={`${truncateStyles}`}>{getDisplayValue(value)}</span>
+                          <span className="jn:flex">
+                            {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" /> : ""}
+                            {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" /> : ""}
+                            <span>
+                              <Icon icon={open ? "expandLess" : "expandMore"} />
+                            </span>
+                          </span>
+                        </>
+                      ) : (
+                        <span className={`${centeredIconStyles}`}>
+                          {hasError ? (
+                            <Icon icon="errorOutline" color="jn:text-theme-error" className={"jn:cursor-not-allowed"} />
+                          ) : isLoading ? (
+                            <Spinner className={"jn:cursor-not-allowed"} />
+                          ) : (
+                            ""
+                          )}
+                        </span>
+                      )
+                    }}
+                  </ListboxButton>
+                  {createPortal(
+                    <div
+                      ref={refs.setFloating}
+                      style={{
+                        position: strategy,
+                        top: y ?? 0,
+                        left: x ?? 0,
+                        display: open ? "block" : "none",
+                      }}
+                      {...getFloatingProps()}
+                    >
+                      <ListboxOptions
+                        static
+                        className={`
+                          juno-select-menu
+                          ${menuStyles}
+                        `}
+                      >
+                        {children}
+                      </ListboxOptions>
+                    </div>,
+                    portalContainerRef ?? document.body
+                  )}
+                </div>
+              </>
+            )
+          }}
         </Listbox>
 
         {errortext && isValueNotEmpty(errortext) ? <FormHint text={errortext} variant="error" /> : ""}

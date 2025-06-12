@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse",
-  "version": "0.5.7",
+  "version": "0.6.1",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
   "contributors": [
@@ -22,23 +22,23 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/lodash": "4.17.16",
-    "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.0",
+    "@types/react": "19.1.4",
+    "@types/react-dom": "19.1.5",
     "@vitejs/plugin-react": "^4.3.3",
     "github-markdown-css": "^5.7.0",
     "immer": "^9.0.21",
     "interweave": "^13.0.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "react-markdown": "7.1.2",
-    "remark-gfm": "^3.0.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-markdown": "10.1.0",
+    "remark-gfm": " 4.0.1",
     "shadow-dom-testing-library": "^1.11.3",
     "tailwindcss": "^4.1.7",
     "ts-luxon": "^4.6.2",
     "vite": "^6.3.5",
     "vite-plugin-svgr": "^4.2.0",
     "vitest": "^3.0.7",
-    "zustand": "4.5.5"
+    "zustand": "4.5.7"
   },
   "scripts": {
     "lint": "eslint",

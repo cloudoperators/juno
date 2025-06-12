@@ -13,11 +13,6 @@ export const mockServices: Partial<GetServicesQueryResult> = {
           node: {
             id: "1",
             ccrn: "alpha",
-            objectMetadata: {
-              componentInstanceCount: 5,
-              issueMatchCount: 2,
-              __typename: "ServiceMetadata",
-            },
             owners: {
               edges: [],
               __typename: "UserConnection",
@@ -43,11 +38,6 @@ export const mockServices: Partial<GetServicesQueryResult> = {
           node: {
             id: "2",
             ccrn: "beta",
-            objectMetadata: {
-              componentInstanceCount: 10,
-              issueMatchCount: 5,
-              __typename: "ServiceMetadata",
-            },
             owners: {
               edges: [],
               __typename: "UserConnection",
@@ -73,11 +63,6 @@ export const mockServices: Partial<GetServicesQueryResult> = {
           node: {
             id: "3",
             ccrn: "gamma",
-            objectMetadata: {
-              componentInstanceCount: 0,
-              issueMatchCount: 0,
-              __typename: "ServiceMetadata",
-            },
             owners: {
               edges: [],
               __typename: "UserConnection",

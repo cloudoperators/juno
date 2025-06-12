@@ -6,34 +6,31 @@
 import React from "react"
 import { Container, Stack } from "@cloudoperators/juno-ui-components"
 
-import { useAuthLoggedIn, useAuthError } from "../../store/StoreProvider"
 import InfoMessage from "../messages/InfoMessage"
+import useAuthStore from "../../store/useAuthStore"
 
-import HeaderLoginModal from "./header/HeaderLoginModal"
+import { DEFAULT_MEDIUM_APP_MARGIN } from "../constants"
+
 import PageRenderer from "./PageRenderer"
-import PanelManager from "./PanelManager"
+import HeaderLoginModal from "./header/HeaderLoginModal"
 
-interface AppContentProps {
-  login: () => void
+const Content: React.FC = () => {
+  const isUserAuthenticated = useAuthStore((state) => state.isUserAuthenticated)
+
+  if (isUserAuthenticated) {
+    return (
+      <Container>
+        <Stack direction="vertical" gap={DEFAULT_MEDIUM_APP_MARGIN}>
+          <InfoMessage />
+          <Container py>
+            <PageRenderer />
+          </Container>
+        </Stack>
+      </Container>
+    )
+  }
+
+  return <HeaderLoginModal />
 }
 
-const AppContent: React.FC<AppContentProps> = ({ login }) => {
-  const loggedIn = useAuthLoggedIn()
-  const authError = useAuthError()
-
-  return loggedIn && !authError ? (
-    <Container>
-      <PanelManager />
-      <Stack direction="vertical" gap="5">
-        <InfoMessage />
-        <Container py>
-          <PageRenderer />
-        </Container>
-      </Stack>
-    </Container>
-  ) : (
-    <HeaderLoginModal login={login} />
-  )
-}
-
-export default AppContent
+export default Content

@@ -22,7 +22,7 @@ To create a static, runnable build, execute the following commands:
 
 ```bash
 cd apps/heureka
-npx turbo build:static
+pnpx turbo build:static
 ```
 
 This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy a `appProps.json` file containing the required props into the dist folder.
@@ -33,7 +33,7 @@ To build a library version for dynamic import, use the following commands:
 
 ```bash
 cd apps/heureka
-npx turbo build
+pnpx turbo build
 ```
 
 This will create a build folder with all assets. You can host this folder and load it as an MFE using dynamic import:
@@ -54,14 +54,14 @@ First, create an `appProps.json` file in the root directory of the application (
 
 ```bash
 cd apps/heureka
-npx turbo dev
+pnpx turbo dev
 ```
 
 ### Testing
 
 ```bash
 cd apps/heureka
-npx turbo test
+pnpx turbo test
 ```
 
 ** Note **
@@ -90,6 +90,10 @@ These are the customizable application properties (appProps) that you can define
 - **apiEndpoint** (required): The URL of the API endpoint the app will interact with.
 - **embedded** (optional): Set to `true` if the app will be embedded within another app or page. When `true`, the app will not display the header or footer, rendering only the content. Default is `false`.
 - **initialFilters** (optional): The initialFilters set default filters using an object that contains a key (the filter field) and a value (an array of filter criteria). For example, `{ "support_group": ["containers"] }`.
+- **basePath** (optional, default: `/`):  
+  Specifies the root path under which the application is served. Useful for deploying the app to a subdirectory. If not provided, defaults to the root path `/`.
+- **enableHashedRouting** (optional, default: `false`):  
+  A boolean flag that, when set to `true`, enables hashed routing in the application. This means the URL will use the hash (`#`) fragment to manage client-side navigation, which can be useful for static file hosting environments or when server-side routing is not available.
 
 ## Contribution Guide for Creating React Components
 
@@ -110,3 +114,11 @@ To ensure a well-organized codebase and maintain consistency, please follow thes
   - Rename `ComponentName.tsx` to `ComponentName/index.tsx`.
   - Create a `ComponentName/` directory to house the child components.
   - Apply the same structure and rules (outlined in points 2 and 3) to the child components.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).
