@@ -1,10 +1,17 @@
 import react from "@vitejs/plugin-react-swc"
-import { defineConfig } from "vite"
+import autoprefixer from "autoprefixer"
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  define: {
-    global: "window",
-  },
-})
+export default () => {
+  return {
+    plugins: [react()],
+    define: {
+      global: "window",
+    },
+    css: {
+      postcss: {
+        plugins: [autoprefixer],
+      },
+    },
+  }
+}

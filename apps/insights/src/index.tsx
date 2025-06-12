@@ -4,11 +4,21 @@
  */
 
 import React from "react"
-import { createRoot } from "react-dom/client"
+import { createRoot, Root } from "react-dom/client"
 import "tailwindcss/tailwind.css"
-import App from "./App"
+import { AppProps } from "./App"
 
-const container = document.getElementById("root") as HTMLDivElement
-const root = createRoot(container)
+let root: Root
 
-root.render(<App />)
+type Options = {
+  props?: AppProps
+}
+
+export const mount = (container: HTMLElement, options: Options = {}) => {
+  import("./App").then((App) => {
+    root = createRoot(container)
+    root.render(React.createElement(App.default, options?.props))
+  })
+}
+
+export const unmount = () => root?.unmount()

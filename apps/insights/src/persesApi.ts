@@ -36,5 +36,10 @@ export const queryClient = new QueryClient({
   },
 })
 
-export const muiTheme = getTheme("light")
-export const chartsTheme = generateChartsTheme(muiTheme, {})
+// Create theme functions that accept the theme mode
+export const createPersesMuiTheme = (mode: "light" | "dark" = "dark") => getTheme(mode)
+export const createPersesChartsTheme = (muiTheme: any) => generateChartsTheme(muiTheme, {})
+
+// Default exports for backward compatibility
+export const muiTheme = createPersesMuiTheme("light")
+export const chartsTheme = createPersesChartsTheme(muiTheme)
