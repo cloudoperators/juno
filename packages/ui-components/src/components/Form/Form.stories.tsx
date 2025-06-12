@@ -53,7 +53,7 @@ const meta: Meta<typeof Form> = {
 }
 
 export default meta
-type Story = StoryObj<typeof Form>
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {

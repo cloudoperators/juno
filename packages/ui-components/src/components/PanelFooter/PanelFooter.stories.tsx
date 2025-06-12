@@ -34,7 +34,7 @@ const meta: Meta<typeof PanelFooter> = {
 }
 
 export default meta
-type Story = StoryObj<typeof PanelFooter>
+type Story = StoryObj<typeof meta>
 
 export const Footer: Story = {
   render: (args) => (

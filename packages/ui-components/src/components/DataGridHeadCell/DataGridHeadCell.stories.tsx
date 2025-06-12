@@ -4,13 +4,14 @@
  */
 
 import React, { ReactElement } from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DataGrid } from "../DataGrid/index"
 import { DataGridRow } from "../DataGridRow/index"
-import { DataGridHeadCell, DataGridHeadCellProps } from "./index"
+import { DataGridHeadCell } from "./index"
 
 type StoryFunction = () => ReactElement
 
-export default {
+const meta: Meta<typeof DataGridHeadCell> = {
   title: "Components/DataGrid/DataGridHeadCell",
   component: DataGridHeadCell,
   argTypes: {
@@ -37,11 +38,10 @@ export default {
   },
 }
 
-const Template = (args: DataGridHeadCellProps) => <DataGridHeadCell {...args}></DataGridHeadCell>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   parameters: {
     docs: {
       description: {
@@ -49,15 +49,12 @@ export const Default = {
       },
     },
   },
-
   args: {
     children: ["DataGridHeadCell"],
   },
 }
 
-export const NoWrap = {
-  render: Template,
-
+export const NoWrap: Story = {
   parameters: {
     docs: {
       description: {
@@ -65,16 +62,13 @@ export const NoWrap = {
       },
     },
   },
-
   args: {
     nowrap: true,
     children: ["DataGridHeadCell does not wrap"],
   },
 }
 
-export const ColSpan = {
-  render: Template,
-
+export const ColSpan: Story = {
   parameters: {
     docs: {
       description: {
@@ -82,7 +76,6 @@ export const ColSpan = {
       },
     },
   },
-
   args: {
     colSpan: 3,
     children: ["DataGridHeadCell with colspan"],

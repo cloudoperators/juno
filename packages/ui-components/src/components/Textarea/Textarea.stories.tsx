@@ -35,7 +35,7 @@ const meta: Meta<TextareaProps> = {
 export default meta
 
 // Define story types
-type Story = StoryObj<TextareaProps>
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {

@@ -5,7 +5,7 @@
 
 import React from "react"
 import { Meta, StoryObj } from "@storybook/react-vite"
-import { Panel, PanelProps } from "./Panel.component"
+import { Panel } from "./Panel.component"
 import { PanelBody } from "../PanelBody/PanelBody.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
@@ -44,7 +44,7 @@ const meta: Meta<typeof Panel> = {
 }
 
 export default meta
-type Story = StoryObj<PanelProps>
+type Story = StoryObj<typeof meta>
 
 export const WithHeading: Story = {
   args: {

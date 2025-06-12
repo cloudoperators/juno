@@ -27,7 +27,7 @@ const HeaderOptions = () => {
   )
 }
 
-type Story = StoryObj<typeof PageHeader>
+type Story = StoryObj<typeof meta>
 
 const meta: Meta<typeof PageHeader> = {
   title: "Layout/PageHeader",

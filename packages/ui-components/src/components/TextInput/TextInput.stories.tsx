@@ -38,7 +38,7 @@ const meta: Meta<TextInputProps> = {
 export default meta
 
 // Define story types
-type Story = StoryObj<TextInputProps>
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {},

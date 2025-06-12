@@ -29,7 +29,7 @@ const meta: Meta<typeof Grid> = {
 }
 
 export default meta
-type Story = StoryObj<typeof Grid>
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   parameters: {

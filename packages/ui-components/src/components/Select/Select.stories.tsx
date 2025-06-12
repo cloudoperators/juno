@@ -50,7 +50,7 @@ const meta: Meta<typeof Select> = {
 }
 
 export default meta
-type Story = StoryObj<typeof Select>
+type Story = StoryObj<typeof meta>
 
 // Create a proper render function for Storybook
 const Template = (args: SelectProps) => {

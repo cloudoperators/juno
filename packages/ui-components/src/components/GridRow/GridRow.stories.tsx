@@ -27,7 +27,7 @@ const meta: Meta<typeof GridRow> = {
 }
 
 export default meta
-type Story = StoryObj<typeof GridRow>
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {

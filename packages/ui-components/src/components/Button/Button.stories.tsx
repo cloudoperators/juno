@@ -9,12 +9,8 @@ import { Icon } from "../Icon/index"
 import { fn } from "storybook/test" // Import the fn function for mocking handlers
 import type { Meta, StoryObj } from "@storybook/react-vite" // Import Meta and StoryObj types
 
-// Define proper types for the component
-type ButtonProps = React.ComponentProps<typeof Button>
-type ButtonStory = StoryObj<ButtonProps>
-
 // Fix the export default with proper typing
-const meta: Meta<ButtonProps> = {
+const meta: Meta<typeof Button> = {
   title: "Components/Button",
   // Add explicit spy functions for all callback props
   component: Button,
@@ -40,8 +36,9 @@ const meta: Meta<ButtonProps> = {
 }
 
 export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default: ButtonStory = {
+export const Default: Story = {
   parameters: {
     docs: {
       description: {
@@ -55,7 +52,7 @@ export const Default: ButtonStory = {
   },
 }
 
-export const Subdued: ButtonStory = {
+export const Subdued: Story = {
   parameters: {
     docs: {
       description: {
@@ -71,7 +68,7 @@ export const Subdued: ButtonStory = {
   },
 }
 
-export const Primary: ButtonStory = {
+export const Primary: Story = {
   parameters: {
     docs: {
       description: {
@@ -86,7 +83,7 @@ export const Primary: ButtonStory = {
   },
 }
 
-export const PrimaryDanger: ButtonStory = {
+export const PrimaryDanger: Story = {
   parameters: {
     docs: {
       description: {
@@ -101,20 +98,20 @@ export const PrimaryDanger: ButtonStory = {
   },
 }
 
-export const DefaultSize: ButtonStory = {
+export const DefaultSize: Story = {
   args: {
     label: "Default",
   },
 }
 
-export const Small: ButtonStory = {
+export const Small: Story = {
   args: {
     size: "small",
     label: "Small",
   },
 }
 
-export const Disabled: ButtonStory = {
+export const Disabled: Story = {
   parameters: {
     docs: {
       description: { story: "Disable any button by adding `disabled` to it." },
@@ -128,7 +125,7 @@ export const Disabled: ButtonStory = {
   },
 }
 
-export const SubduedDisabled: ButtonStory = {
+export const SubduedDisabled: Story = {
   parameters: {
     docs: {
       description: { story: "Disable any button by adding `disabled` to it." },
@@ -142,7 +139,7 @@ export const SubduedDisabled: ButtonStory = {
   },
 }
 
-export const PrimaryDisabled: ButtonStory = {
+export const PrimaryDisabled: Story = {
   parameters: {
     docs: {
       description: { story: "Disable any button by adding `disabled` to it." },
@@ -156,7 +153,7 @@ export const PrimaryDisabled: ButtonStory = {
   },
 }
 
-export const PrimaryDangerDisabled: ButtonStory = {
+export const PrimaryDangerDisabled: Story = {
   parameters: {
     docs: {
       description: {
@@ -171,7 +168,7 @@ export const PrimaryDangerDisabled: ButtonStory = {
   },
 }
 
-export const DefaultWithIcon: ButtonStory = {
+export const DefaultWithIcon: Story = {
   parameters: {
     docs: {
       description: {
@@ -187,7 +184,7 @@ export const DefaultWithIcon: ButtonStory = {
   },
 }
 
-export const SubduedWithIcon: ButtonStory = {
+export const SubduedWithIcon: Story = {
   parameters: {
     docs: {
       description: {
@@ -203,7 +200,7 @@ export const SubduedWithIcon: ButtonStory = {
   },
 }
 
-export const SmallWithIcon: ButtonStory = {
+export const SmallWithIcon: Story = {
   parameters: {
     docs: {
       description: {
@@ -218,7 +215,7 @@ export const SmallWithIcon: ButtonStory = {
   },
 }
 
-export const IconOnlyButton: ButtonStory = {
+export const IconOnlyButton: Story = {
   parameters: {
     docs: {
       description: {
@@ -231,7 +228,7 @@ export const IconOnlyButton: ButtonStory = {
   },
 }
 
-export const IconOnlyAsChild: ButtonStory = {
+export const IconOnlyAsChild: Story = {
   parameters: {
     docs: {
       description: {
@@ -245,7 +242,7 @@ export const IconOnlyAsChild: ButtonStory = {
   },
 }
 
-export const LinkAsButton: ButtonStory = {
+export const LinkAsButton: Story = {
   parameters: {
     docs: {
       description: {
@@ -262,7 +259,7 @@ export const LinkAsButton: ButtonStory = {
   },
 }
 
-export const LinkAsButtonWithIcon: ButtonStory = {
+export const LinkAsButtonWithIcon: Story = {
   parameters: {
     docs: {
       description: {
@@ -279,7 +276,7 @@ export const LinkAsButtonWithIcon: ButtonStory = {
   },
 }
 
-export const DefaultButtonInProgress: ButtonStory = {
+export const DefaultButtonInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -294,7 +291,7 @@ export const DefaultButtonInProgress: ButtonStory = {
   },
 }
 
-export const IconButtonInProgress: ButtonStory = {
+export const IconButtonInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -311,7 +308,7 @@ export const IconButtonInProgress: ButtonStory = {
   },
 }
 
-export const DefaultButtonInProgressWithProgressLabel: ButtonStory = {
+export const DefaultButtonInProgressWithProgressLabel: Story = {
   parameters: {
     docs: {
       description: {
@@ -329,7 +326,7 @@ export const DefaultButtonInProgressWithProgressLabel: ButtonStory = {
   },
 }
 
-export const SubduedButtonInProgress: ButtonStory = {
+export const SubduedButtonInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -345,7 +342,7 @@ export const SubduedButtonInProgress: ButtonStory = {
   },
 }
 
-export const PrimaryButtonWithIconInProgress: ButtonStory = {
+export const PrimaryButtonWithIconInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -361,7 +358,7 @@ export const PrimaryButtonWithIconInProgress: ButtonStory = {
   },
 }
 
-export const PrimaryDangerButtonInProgress: ButtonStory = {
+export const PrimaryDangerButtonInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -377,7 +374,7 @@ export const PrimaryDangerButtonInProgress: ButtonStory = {
   },
 }
 
-export const LinkAsButtonInProgress: ButtonStory = {
+export const LinkAsButtonInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -393,7 +390,7 @@ export const LinkAsButtonInProgress: ButtonStory = {
   },
 }
 
-export const LinkAsButtonWithIconInProgress: ButtonStory = {
+export const LinkAsButtonWithIconInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -410,7 +407,7 @@ export const LinkAsButtonWithIconInProgress: ButtonStory = {
   },
 }
 
-export const DisabledInProgress: ButtonStory = {
+export const DisabledInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -425,7 +422,7 @@ export const DisabledInProgress: ButtonStory = {
   },
 }
 
-export const PrimaryDisabledInProgress: ButtonStory = {
+export const PrimaryDisabledInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -441,7 +438,7 @@ export const PrimaryDisabledInProgress: ButtonStory = {
   },
 }
 
-export const PrimaryDangerDisabledInProgress: ButtonStory = {
+export const PrimaryDangerDisabledInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -457,7 +454,7 @@ export const PrimaryDangerDisabledInProgress: ButtonStory = {
   },
 }
 
-export const SmallInProgress: ButtonStory = {
+export const SmallInProgress: Story = {
   parameters: {
     docs: {
       description: {
