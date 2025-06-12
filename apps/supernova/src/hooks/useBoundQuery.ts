@@ -7,10 +7,13 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query"
 import { QUERY_FUNCTIONS } from "../api/queryFunctions"
 import { useGlobalsApiEndpoint } from "../components/StoreProvider"
 
-export class CorsOrNetworkError extends Error {
-  constructor(public readonly originalError: unknown) {
-    super("Possible CORS or network error.")
-    this.name = "CorsOrNetworkError"
+export class CorsNetworkError extends Error {
+  constructor(originalError: Error) {
+    super(originalError.message)
+    this.name = "CorsNetworkError"
+    if (originalError.stack) {
+      this.stack = originalError.stack
+    }
   }
 }
 
@@ -42,7 +45,7 @@ export const useBoundQuery = <T>(key: keyof typeof QUERY_FUNCTIONS, { options }:
     queryFn: () =>
       fetchFunction(endpoint).catch((err) => {
         if (isPossibleCorsError(err)) {
-          throw new CorsOrNetworkError(err)
+          throw new CorsNetworkError(err)
         }
         throw err
       }),
