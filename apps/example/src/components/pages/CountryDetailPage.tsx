@@ -6,33 +6,36 @@
 import React, { useState } from "react"
 import { Box, CodeBlock, JsonViewer } from "@cloudoperators/juno-ui-components"
 
+import usePeaksStore from "../../store/usePeaksStore"
+import { Peak, BadgeVariantType } from "../../mocks/db"
+
+import { Pages } from "../constants"
+import { Metrics } from "../metrics/MetricsBox"
 import DetailLayout from "../common/DetailLayout"
 import ExpandableSection from "../common/ExpandableSection"
 
-import { Peak } from "../../mocks/db"
-
 interface CountryDetailPageProps {
   countryName: string
-  peaks: Peak[]
   onBack: () => void
 }
 
-// Needs refactoring
-
-const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, peaks, onBack }) => {
+const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, onBack }) => {
   const [isJsonView, setIsJsonView] = useState<boolean>(false)
+  const { peaks } = usePeaksStore()
 
   const filteredCountryPeaksByName = peaks.filter((peak) => peak.countries === countryName)
 
   const metrics = [
-    { label: "Total Peaks", value: `${filteredCountryPeaksByName.length}` },
+    { label: "Total Peaks", value: `${filteredCountryPeaksByName.length}`, peakType: Metrics.TOTAL_PEAKS },
     {
       label: "Highest Peak",
-      value: `${Math.max(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))} m`,
+      value: `${Math.max(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))}m`,
+      peakType: Metrics.HIGHEST_PEAK,
     },
     {
       label: "Lowest Peak",
-      value: `${Math.min(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))} m`,
+      value: `${Math.min(...filteredCountryPeaksByName.map((peak) => (typeof peak.height === "number" ? peak.height : parseInt(peak.height, 10))))}m`,
+      peakType: Metrics.LOWEST_PEAK,
     },
   ]
 
@@ -43,11 +46,7 @@ const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, peak
     return acc
   }, {})
 
-  // Define headers for different statuses with correct types mapped
-  const statusHeaders: Record<
-    keyof typeof categorizedPeaksBySafety,
-    { text: string; variant: "success" | "warning" | "error" }
-  > = {
+  const statusHeaders: Record<keyof typeof categorizedPeaksBySafety, { text: string; variant: BadgeVariantType }> = {
     safe: { text: "Safe Peaks", variant: "success" },
     caution: { text: "Caution Peaks", variant: "warning" },
     unsafe: { text: "Unsafe Peaks", variant: "error" },
@@ -56,7 +55,7 @@ const CountryDetailPage: React.FC<CountryDetailPageProps> = ({ countryName, peak
   return (
     <DetailLayout
       title={`Details for ${countryName}`}
-      breadcrumbLabel="Countries"
+      breadcrumbLabel={Pages.COUNTRIES}
       onBack={onBack}
       metrics={metrics}
       isJsonView={isJsonView}

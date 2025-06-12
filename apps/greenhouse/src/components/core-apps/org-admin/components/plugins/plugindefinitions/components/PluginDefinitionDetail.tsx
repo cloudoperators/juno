@@ -139,13 +139,7 @@ const PluginDefinitionDetail: React.FC<PluginDefinitionDetailProps> = (props: Pl
         <Container px={false} py>
           <h2 className="text-xl font-bold mb-2 mt-8">Documentation </h2>
           <article className="markdown-body">
-            <ReactMarkDown
-              // @ts-ignore
-              rehypePlugins={[remarkGfm]}
-              // children={markDown}
-            >
-              {markDown}
-            </ReactMarkDown>
+            <ReactMarkDown rehypePlugins={[remarkGfm]}>{markDown}</ReactMarkDown>
           </article>
         </Container>
       )}

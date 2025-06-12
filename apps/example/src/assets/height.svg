@@ -5,15 +5,11 @@
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  width="30"
-  height="30"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  strokeWidth="2"
-  strokeLinecap="round"
-  strokeLinejoin="round"
+  width="28"
+  height="28"
+  viewBox="0 -960 960 960"
   className="text-theme-high"
+  fill="currentColor"
 >
-  <path d="M9 18v-6H5l7-7 7 7h-4v6H9z" />
+  <path d="M480-120 320-280l56-56 64 63v-414l-64 63-56-56 160-160 160 160-56 57-64-64v414l64-63 56 56-160 160Z"/>
 </svg>

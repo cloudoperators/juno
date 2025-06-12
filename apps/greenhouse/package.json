@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
   "contributors": [
@@ -30,8 +30,8 @@
     "postcss": "^8.4.47",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-markdown": "^9.0.0",
-    "remark-gfm": "^3.0.1",
+    "react-markdown": "10.1.0",
+    "remark-gfm": " 4.0.1",
     "sass": "^1.77.5",
     "shadow-dom-testing-library": "^1.11.3",
     "tailwindcss": "^3.3.1",
