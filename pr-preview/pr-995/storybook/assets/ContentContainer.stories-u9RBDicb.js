@@ -1,3 +1,0 @@
-import{a as o,j as s}from"./iframe-BTuQkvQ2.js";const m={title:"Internal/ContentContainer",component:o,argTypes:{children:{control:!1,table:{type:{summary:"ReactNode"}}}}},c=a=>s.jsx(o,{...a,children:"content"}),e={render:c};var t,r,n;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`{
-  render: Template
-}`,...(n=(r=e.parameters)==null?void 0:r.docs)==null?void 0:n.source}}};const p=["Centered"];export{e as Centered,p as __namedExportsOrder,m as default};
