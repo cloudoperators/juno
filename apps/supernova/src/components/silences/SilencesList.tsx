@@ -47,13 +47,19 @@ const SilencesList = () => {
     if (error instanceof CorsNetworkError) {
       addMessage({
         variant: "warning",
-        text: [
-          "Firefox detected. Please ensure that you have activated 'allow_client_cert' to enable the retrieval of alerts and silences from the API.",
-          "",
-          "1. Go to about:config (via address bar)",
-          "2. Change 'network.cors_preflight.allow_client_cert' to 'true'",
-          "3. Reload Greenhouse",
-        ].join("\n"),
+        text: (
+          <p>
+            Firefox detected. Please ensure that you have activated <b>allow_client_cert</b> to enable the retrieval of
+            alerts and silences from the API.
+            <ul>
+              <li>1. Go to about:config (via address bar)</li>
+              <li>
+                2. Change <b>network.cors_preflight.allow_client_cert</b> to <b>true</b>
+              </li>
+              <li>3. Reload Greenhouse</li>
+            </ul>
+          </p>
+        ),
       })
     }
 
