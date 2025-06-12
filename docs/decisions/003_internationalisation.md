@@ -11,7 +11,7 @@ Juno and Aurora require internationalization support to serve users in multiple 
 - Open Source Licence
 - Should integrate seamlessly with Vite build system
 - Need TypeScript compatibility
-- Should support Server-Side Rendering
+- Supports Server-Side Rendering
 - Bundle size should be optimized
 - Developer experience should be prioritized with good code readability
 
