@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { beforeAll } from "vitest"
 import * as matchers from "@testing-library/jest-dom/matchers"
+import { beforeAll } from "vitest"
 
 expect.extend(matchers)
 beforeAll(() => {

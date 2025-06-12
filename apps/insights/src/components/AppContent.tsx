@@ -4,11 +4,13 @@
  */
 
 import React, { ReactElement } from "react"
+import { PersesDashboardWrapper } from "./PersesDashboardWrapper"
 
 const AppContent = (): ReactElement => {
   return (
     <>
       <h1> I am a perses project</h1>
+      <PersesDashboardWrapper />
     </>
   )
 }
