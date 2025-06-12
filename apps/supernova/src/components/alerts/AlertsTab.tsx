@@ -23,12 +23,14 @@ const AlertsTab = () => {
 
   // Fetch alerts data
   const { data, isLoading, error } = useBoundQuery<AlertsData>("alerts")
+
   if (error) {
     addMessage({
       variant: "error",
       text: parseError(error),
     })
   }
+
   useEffect(() => {
     if (data) {
       setAlertsData({ items: data.alerts, counts: data.counts })
