@@ -71,7 +71,7 @@ Juno and Aurora require internationalization support to serve users in multiple 
 ### Drawbacks
 
 - Compilation step adds complexity to build process
-- Splitted .po files per component for are experimental
+- Splitting .po files per component is experimental
 
 ### Implementation Requirements
 
