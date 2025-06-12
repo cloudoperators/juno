@@ -464,31 +464,6 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                     ""
                   )}
 
-                  {isLoading || hasError ? (
-                    <span className={`${centeredIconStyles}`}>
-                      {isLoading ? (
-                        <Spinner className={"jn-cursor-not-allowed"} />
-                      ) : (
-                        <Icon icon="errorOutline" color="jn-text-theme-error" className={"jn-cursor-not-allowed"} />
-                      )}
-                    </span>
-                  ) : isValid || isInvalid ? (
-                    <span
-                      className={`
-                        juno-combobox-icon-container 
-                        ${iconContainerStyles} 
-                        ${disabled ? "jn-opacity-50" : ""}
-                      `}
-                    >
-                      <Icon
-                        icon={isValid ? "checkCircle" : "dangerous"}
-                        color={isValid ? "jn-text-theme-success" : "jn-text-theme-error"}
-                      />
-                    </span>
-                  ) : (
-                    ""
-                  )}
-
                   {!hasError && !isLoading ? (
                     <ComboboxButton
                       className={`
@@ -516,7 +491,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                       }}
                       {...getFloatingProps()}
                     >
-                      <ComboboxOptions static className="jn-w-full">
+                      <ComboboxOptions static className="jn:w-full">
                         {filteredChildren}
                       </ComboboxOptions>
                     </div>,
