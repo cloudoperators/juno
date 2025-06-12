@@ -6,32 +6,11 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { Services } from "../../components/Services"
-import { FilterSettings, SelectedFilter } from "../../components/common/Filters/types"
 import { sanitizeSearchParam } from "../../utils"
-import { InitialFilters } from "../../App"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
-
-// Extract initial filters from the supplied initialFilters in the appProps
-const getInitialFilters = (initialFilters?: InitialFilters): SelectedFilter[] =>
-  initialFilters?.support_group?.map((sg) => ({ name: "supportGroupCcrn", value: sg })) ?? []
-
-// Extract filters from the search parameters, looking for keys that start with SELECTED_FILTER_PREFIX
-const extractFilterSettingsFromSearchParams = (searchParams: ServicesSearchParams): FilterSettings => ({
-  searchTerm: searchParams.searchTerm,
-  selectedFilters: Object.entries(searchParams)
-    .filter(([key]) => key.startsWith(SELECTED_FILTER_PREFIX))
-    .flatMap(([key, value]) => {
-      const name = key.slice(2)
-      if (Array.isArray(value)) {
-        return value.map((v) => ({ name, value: v }))
-      }
-      return [{ name, value: value as string }]
-    }),
-})
-
-type ServicesSearchParams = z.infer<typeof servicesSearchSchema>
+import { extractFilterSettingsFromSearchParams, getInitialFilters } from "../../components/Services/utils"
 
 // Schema for validating and transforming search parameters related to /services page.
 const servicesSearchSchema = z
@@ -57,6 +36,8 @@ const servicesSearchSchema = z
       z.union([z.string(), z.array(z.string())])
     )
   )
+
+export type ServicesSearchParams = z.infer<typeof servicesSearchSchema>
 
 export const Route = createFileRoute("/services/")({
   validateSearch: servicesSearchSchema,

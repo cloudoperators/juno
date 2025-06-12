@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { use, useEffect, useState } from "react"
+import React, { use } from "react"
 import {
   Panel,
   PanelBody,
@@ -24,23 +24,12 @@ import { useLoaderData, useNavigate, useParams, useSearch } from "@tanstack/reac
 
 export const ImageVersionDetailsPanel = () => {
   const navigate = useNavigate()
-  const [opened, setOpened] = useState(false)
   const { imageVersionsPromise } = useLoaderData({ from: "/services/$service" })
   const { service } = useParams({ from: "/services/$service" })
   const { imageVersion: selectedImageVersion } = useSearch({ from: "/services/$service" })
-
   const { data } = use(imageVersionsPromise)
   const { imageVersions } = getNormalizedImageVersionsData(data)
   const imageVersion = imageVersions.find((version: ServiceImageVersion) => version.version === selectedImageVersion)
-
-  // open or close the panel based on selectedService and service
-  useEffect(() => {
-    if (selectedImageVersion && imageVersions.length > 0) {
-      setOpened(true)
-    } else {
-      setOpened(false)
-    }
-  }, [selectedImageVersion, imageVersions])
 
   if (!imageVersion) {
     return <div>Image version not found</div>
@@ -50,7 +39,7 @@ export const ImageVersionDetailsPanel = () => {
     <MessagesProvider>
       <Panel
         heading={`Image ${imageVersion.repository} Information`}
-        opened={opened}
+        opened={!!service}
         onClose={() =>
           navigate({
             to: "/services/$service",

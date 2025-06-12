@@ -15,10 +15,12 @@ import {
   GetServiceImageVersionsQuery,
   GetServiceFiltersQuery,
 } from "../../generated/graphql"
-import { Filter, FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
+import { Filter, FilterSettings, SelectedFilter, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
 import { IssuesCountsType } from "../types"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
+import { InitialFilters } from "../../App"
+import { ServicesSearchParams } from "../../routes/services"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -320,3 +322,21 @@ export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | 
         filterName: filter?.filterName || "",
         values: filter?.values?.filter((value) => value !== null) || [],
       }))
+
+// Extract initial filters from the supplied initialFilters in the appProps
+export const getInitialFilters = (initialFilters?: InitialFilters): SelectedFilter[] =>
+  initialFilters?.support_group?.map((sg) => ({ name: "supportGroupCcrn", value: sg })) ?? []
+
+// Extract filters from the search parameters, looking for keys that start with SELECTED_FILTER_PREFIX
+export const extractFilterSettingsFromSearchParams = (searchParams: ServicesSearchParams): FilterSettings => ({
+  searchTerm: searchParams.searchTerm,
+  selectedFilters: Object.entries(searchParams)
+    .filter(([key]) => key.startsWith(SELECTED_FILTER_PREFIX))
+    .flatMap(([key, value]) => {
+      const name = key.slice(2)
+      if (Array.isArray(value)) {
+        return value.map((v) => ({ name, value: v }))
+      }
+      return [{ name, value: value as string }]
+    }),
+})

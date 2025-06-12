@@ -31,23 +31,14 @@ type ImageVersionIssuesListProps = {
 export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIssuesListProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
-  const [issuesPromise, setIssuesPromise] = useState<
-    Promise<ApolloQueryResult<GetServiceImageVersionIssuesQuery>> | undefined
-  >(undefined)
 
-  // we need to recreate promise to fetch issues when search term changes
-  useEffect(() => {
-    if (service && imageVersion) {
-      const promise = fetchImageVersionIssues({
-        apiClient,
-        queryClient,
-        service,
-        imageVersion: imageVersion.version,
-        searchTerm,
-      })
-      setIssuesPromise(promise)
-    }
-  }, [service, imageVersion, searchTerm])
+  const issuesPromise = fetchImageVersionIssues({
+    apiClient,
+    queryClient,
+    service,
+    imageVersion: imageVersion.version,
+    searchTerm,
+  })
 
   return (
     <>

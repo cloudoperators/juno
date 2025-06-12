@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback } from "react"
 import { useNavigate, useRouteContext, useSearch } from "@tanstack/react-router"
 import { Panel, PanelBody } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
@@ -16,7 +16,6 @@ export const ServicePanel = () => {
   const navigate = useNavigate()
   const { queryClient, apiClient } = useRouteContext({ from: "/services/" })
   const { service } = useSearch({ from: "/services/" })
-  const [opened, setOpened] = useState(false)
 
   // create a promise to fetch image versions
   const imageVersionsPromise = service
@@ -50,20 +49,11 @@ export const ServicePanel = () => {
     [navigate, service]
   )
 
-  // open or close the panel based on service and service
-  useEffect(() => {
-    if (service) {
-      setOpened(true)
-    } else {
-      setOpened(false)
-    }
-  }, [service])
-
   return (
     <MessagesProvider>
       <Panel
         heading={!!service ? `${capitalizeFirstLetter(service)} Overview` : undefined}
-        opened={opened}
+        opened={!!service}
         onClose={closeServiceOverviewPanel}
         size="large"
       >

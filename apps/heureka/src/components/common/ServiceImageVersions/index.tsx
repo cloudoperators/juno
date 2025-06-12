@@ -44,11 +44,10 @@ export const ServiceImageVersions = ({
   return (
     <Suspense>
       <SectionContentHeading>
-        Image Versions (
-        <Suspense fallback="--">
-          <ImageVersionsTotalCount imageVersionsPromise={imageVersionsPromise} />
+        Image Versions
+        <Suspense>
+          (<ImageVersionsTotalCount imageVersionsPromise={imageVersionsPromise} />)
         </Suspense>
-        )
       </SectionContentHeading>
 
       {displayActions && (
