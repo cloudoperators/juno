@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useEffect, useState } from "react"
-import { getRouteApi } from "@tanstack/react-router"
+import { useNavigate, useRouteContext, useSearch } from "@tanstack/react-router"
 import { Panel, PanelBody } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { capitalizeFirstLetter } from "../../../utils"
@@ -12,22 +12,18 @@ import { ServiceImageVersions } from "../../common/ServiceImageVersions"
 import { ServiceImageVersion } from "../utils"
 import { fetchImageVersions } from "../../../api/fetchImageVersions"
 
-type ServicePanelProps = {
-  selectedService?: string
-}
-
-export const ServicePanel = ({ selectedService }: ServicePanelProps) => {
-  const routeApi = getRouteApi("/services/")
-  const navigate = routeApi.useNavigate()
-  const { queryClient, apiClient } = routeApi.useRouteContext()
+export const ServicePanel = () => {
+  const navigate = useNavigate()
+  const { queryClient, apiClient } = useRouteContext({ from: "/services/" })
+  const { service } = useSearch({ from: "/services/" })
   const [opened, setOpened] = useState(false)
 
   // create a promise to fetch image versions
-  const imageVersionsPromise = selectedService
+  const imageVersionsPromise = service
     ? fetchImageVersions({
         queryClient,
         apiClient,
-        service: selectedService,
+        service: service,
       })
     : undefined
 
@@ -43,36 +39,36 @@ export const ServicePanel = ({ selectedService }: ServicePanelProps) => {
 
   const goToServiceDetailsPage = useCallback(
     (imageVersion?: ServiceImageVersion) => {
-      if (selectedService) {
+      if (service) {
         navigate({
           to: "/services/$service",
-          params: { service: selectedService },
+          params: { service: service },
           search: { imageVersion: imageVersion?.version },
         })
       }
     },
-    [navigate, selectedService]
+    [navigate, service]
   )
 
-  // open or close the panel based on selectedService and service
+  // open or close the panel based on service and service
   useEffect(() => {
-    if (selectedService) {
+    if (service) {
       setOpened(true)
     } else {
       setOpened(false)
     }
-  }, [selectedService])
+  }, [service])
 
   return (
     <MessagesProvider>
       <Panel
-        heading={!!selectedService ? `${capitalizeFirstLetter(selectedService)} Overview` : undefined}
+        heading={!!service ? `${capitalizeFirstLetter(service)} Overview` : undefined}
         opened={opened}
         onClose={closeServiceOverviewPanel}
         size="large"
       >
         <PanelBody>
-          {selectedService && imageVersionsPromise && (
+          {service && imageVersionsPromise && (
             <ServiceImageVersions
               imageVersionsPromise={imageVersionsPromise}
               onDetailsButtonClick={goToServiceDetailsPage}

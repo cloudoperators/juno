@@ -5,21 +5,14 @@
 
 import React, { Suspense } from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell, Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { ApolloQueryResult } from "@apollo/client"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow"
 import { ServicePanel } from "./ServicePanel"
-import { GetServicesQuery } from "../../../generated/graphql"
 import { ServicesDataRows } from "./ServicesDataRows"
 import { ServicesPagination } from "./ServicesPagination"
 
 const COLUMN_SPAN = 8
 
-type ServiceListProps = {
-  selectedService?: string
-  servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
-}
-
-export const ServicesList = ({ servicesPromise, selectedService }: ServiceListProps) => (
+export const ServicesList = () => (
   <div className="datagrid-hover">
     <DataGrid minContentColumns={[1, 2, 3, 4, 5, 7]} columns={COLUMN_SPAN}>
       <DataGridRow>
@@ -40,12 +33,12 @@ export const ServicesList = ({ servicesPromise, selectedService }: ServiceListPr
           </EmptyDataGridRow>
         }
       >
-        <ServicesDataRows servicesPromise={servicesPromise} selectedService={selectedService} />
+        <ServicesDataRows />
       </Suspense>
     </DataGrid>
     <Suspense>
-      <ServicesPagination servicesPromise={servicesPromise} />
+      <ServicesPagination />
     </Suspense>
-    <ServicePanel selectedService={selectedService} />
+    <ServicePanel />
   </div>
 )

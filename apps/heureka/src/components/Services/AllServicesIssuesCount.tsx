@@ -5,6 +5,7 @@
 
 import React, { Suspense, use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
+import { useLoaderData } from "@tanstack/react-router"
 import { Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 import { GetServicesQuery } from "../../generated/graphql"
@@ -29,7 +30,8 @@ const IssuesCount = ({ servicesPromise }: AllServicesIssuesCountProps) => {
   )
 }
 
-export const AllServicesIssuesCount = ({ servicesPromise }: AllServicesIssuesCountProps) => {
+export const AllServicesIssuesCount = () => {
+  const { servicesPromise } = useLoaderData({ from: "/services/" })
   return (
     <Stack className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
       <Suspense fallback={<Spinner size="small" />}>

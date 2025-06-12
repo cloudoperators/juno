@@ -49,21 +49,5 @@ export const Route = createFileRoute("/services/$service")({
       },
     }
   },
-  component: RouteComponent,
+  component: Service,
 })
-
-function RouteComponent() {
-  const routeApi = getRouteApi("/services/$service")
-  const { imageVersion } = routeApi.useSearch()
-  const { service } = routeApi.useParams()
-  const { servicePromise, imageVersionsPromise } = routeApi.useLoaderData()
-
-  return (
-    <Service
-      selectedService={service}
-      selectedImageVersion={imageVersion}
-      servicePromise={servicePromise}
-      imageVersionsPromise={imageVersionsPromise}
-    />
-  )
-}

@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { createFileRoute, getRouteApi } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { Services } from "../../components/Services"
 import { FilterSettings, SelectedFilter } from "../../components/common/Filters/types"
@@ -61,7 +60,11 @@ const servicesSearchSchema = z
 
 export const Route = createFileRoute("/services/")({
   validateSearch: servicesSearchSchema,
-  component: RouteComponent,
+  loaderDeps: ({ search }) => {
+    const { service, ...rest } = search
+    return rest
+  },
+  shouldReload: false, // Only reload the route when the user navigates to it or when deps change
   beforeLoad: ({ context: { appProps }, search }) => {
     const filterSettings = extractFilterSettingsFromSearchParams(search)
     return {
@@ -75,11 +78,6 @@ export const Route = createFileRoute("/services/")({
             },
     }
   },
-  loaderDeps: ({ search }) => {
-    const { service, ...rest } = search
-    return rest
-  },
-  shouldReload: false, // Only reload the route when the user navigates to it or when deps change
   loader: async ({ context }) => {
     const { queryClient, apiClient, filterSettings } = context
     // create a promise to fetch filters
@@ -100,19 +98,5 @@ export const Route = createFileRoute("/services/")({
       filterSettings,
     }
   },
+  component: Services,
 })
-
-function RouteComponent() {
-  const routeApi = getRouteApi("/services/")
-  const { service } = routeApi.useSearch()
-  const { filterSettings, filtersPromise, servicesPromise } = routeApi.useLoaderData()
-
-  return (
-    <Services
-      filtersPromise={filtersPromise}
-      servicesPromise={servicesPromise}
-      selectedService={service}
-      filterSettings={filterSettings}
-    />
-  )
-}

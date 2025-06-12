@@ -5,24 +5,14 @@
 
 import React, { Suspense } from "react"
 import { Spinner } from "@cloudoperators/juno-ui-components/index"
-import { ApolloQueryResult } from "@apollo/client"
 import { ServicesList } from "./ServicesList"
-import { FilterSettings } from "../common/Filters/types"
 import { AllServicesIssuesCount } from "./AllServicesIssuesCount"
-import { GetServiceFiltersQuery, GetServicesQuery } from "../../generated/graphql"
 import { ServicesFilters } from "./ServicesFilters"
 
-type ServicesProps = {
-  filterSettings: FilterSettings
-  selectedService?: string
-  servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
-  filtersPromise: Promise<ApolloQueryResult<GetServiceFiltersQuery>>
-}
-
-export const Services = ({ filtersPromise, filterSettings, selectedService, servicesPromise }: ServicesProps) => (
+export const Services = () => (
   <>
     <Suspense>
-      <ServicesFilters filterSettings={filterSettings} filtersPromise={filtersPromise} />
+      <ServicesFilters />
     </Suspense>
     <Suspense
       fallback={
@@ -31,8 +21,8 @@ export const Services = ({ filtersPromise, filterSettings, selectedService, serv
         </div>
       }
     >
-      <AllServicesIssuesCount servicesPromise={servicesPromise} />
-      <ServicesList servicesPromise={servicesPromise} selectedService={selectedService} />
+      <AllServicesIssuesCount />
+      <ServicesList />
     </Suspense>
   </>
 )

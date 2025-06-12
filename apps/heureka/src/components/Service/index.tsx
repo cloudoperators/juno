@@ -5,7 +5,7 @@
 
 import React, { Suspense } from "react"
 import { ApolloQueryResult } from "@apollo/client"
-import { getRouteApi } from "@tanstack/react-router"
+import { useNavigate } from "@tanstack/react-router"
 import { Spinner } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { ServiceImageVersions } from "../common/ServiceImageVersions"
@@ -26,8 +26,7 @@ export const Service = ({
   servicePromise,
   imageVersionsPromise,
 }: ServiceProps) => {
-  const routeApi = getRouteApi("/services/$service")
-  const navigate = routeApi.useNavigate()
+  const navigate = useNavigate()
 
   return (
     <MessagesProvider>

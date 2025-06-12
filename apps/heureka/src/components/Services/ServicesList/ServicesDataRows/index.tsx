@@ -4,25 +4,18 @@
  */
 
 import React, { useCallback, use } from "react"
-import { ApolloQueryResult } from "@apollo/client"
-import { getRouteApi } from "@tanstack/react-router"
+import { useLoaderData, useNavigate, useSearch } from "@tanstack/react-router"
 import { ServiceDataRow } from "./ServiceDataRow"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
 import { ServiceType } from "../../../types"
-import { GetServicesQuery } from "../../../../generated/graphql"
 import { getNormalizedData } from "../../utils"
 
 const COLUMN_SPAN = 8
 
-type ServicesDataRows = {
-  selectedService?: string
-  servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
-}
-
-export const ServicesDataRows = ({ servicesPromise, selectedService }: ServicesDataRows) => {
-  const routeApi = getRouteApi("/services")
-  const navigate = routeApi.useNavigate()
-
+export const ServicesDataRows = () => {
+  const navigate = useNavigate()
+  const { servicesPromise } = useLoaderData({ from: "/services/" })
+  const { service } = useSearch({ from: "/services/" })
   const { error, data } = use(servicesPromise)
   const { services } = getNormalizedData(data)
 
@@ -48,7 +41,7 @@ export const ServicesDataRows = ({ servicesPromise, selectedService }: ServicesD
           <ServiceDataRow
             key={item.id}
             item={item}
-            selected={item.name === selectedService}
+            selected={item.name === service}
             onItemClick={() => openServiceOverviewPanel(item)}
             onServiceDetailClick={() => goToServiceDetailsPage(item)}
           />

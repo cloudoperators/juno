@@ -3,68 +3,73 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { act } from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { vi } from "vitest"
-import { ServicePanel } from "../ServicePanel"
-import { TestProvider } from "../../../mocks/TestProvider"
-import { ServiceType } from "../../types"
+import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
+import { PortalProvider } from "@cloudoperators/juno-ui-components/index"
+import { ServicePanel } from "./ServicePanel"
+import { getTestRouter } from "../../../mocks/getTestRouter"
+import { mockImageVersionsPromise, mockServicesPromise } from "../../../mocks/promises"
+import * as fetchImageVersions from "../../../api/fetchImageVersions"
 
-const mockService: ServiceType = {
-  id: "1",
-  name: "test-service",
-  issuesCount: {
-    critical: 1,
-    high: 2,
-    medium: 0,
-    low: 0,
-    none: 0,
-    total: 3,
-  },
-  serviceDetails: {
-    supportGroups: ["group1", "group2"],
-  },
-  remediationDate: "2024-01-01",
-  serviceOwners: ["owner1", "owner2"],
+const renderComponent = () => {
+  const rootRoute = createRootRoute({
+    component: () => <Outlet />,
+  })
+  const testRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/services/",
+    loader: async () => ({
+      servicesPromise: mockServicesPromise,
+    }),
+    component: () => (
+      <PortalProvider>
+        <ServicePanel />
+      </PortalProvider>
+    ),
+  })
+  const routeTree = rootRoute.addChildren([testRoute])
+  const router = getTestRouter({
+    routeTree,
+    history: createMemoryHistory({
+      initialEntries: ["/services?service=alpha"],
+    }),
+  })
+
+  return {
+    ...render(<RouterProvider router={router} />),
+    router,
+    user: userEvent.setup(),
+  }
 }
 
 describe("ServicePanel", () => {
-  const mockOnClose = vi.fn()
-  const mockOnShowDetails = vi.fn()
-  const user = userEvent.setup()
-
   beforeEach(() => {
-    vi.clearAllMocks()
+    vitest.spyOn(fetchImageVersions, "fetchImageVersions").mockReturnValue(mockImageVersionsPromise)
+  })
+
+  afterEach(() => {
+    vitest.clearAllMocks()
   })
 
   it("should render correctly", async () => {
-    render(
-      <TestProvider>
-        <ServicePanel service={mockService} onClose={mockOnClose} />
-      </TestProvider>
-    )
-
-    // Check if panel header is rendered
-    expect(await screen.findByText("Test-service Overview")).toBeInTheDocument()
-
-    // Check if table headers are rendered
-    expect(await screen.findByText("Image Repository")).toBeInTheDocument()
-    expect(await screen.findByText("Tag")).toBeInTheDocument()
+    await act(() => renderComponent())
+    // expect that the panel has correct service name in the heading
+    expect(screen.getByText("Alpha Overview")).toBeInTheDocument()
+    // expect that the image version is displayed
+    expect(await screen.findByText("repo1")).toBeInTheDocument()
   })
 
-  // TODO: enable this test after having router
-  it.skip("should handle Full Details button click and navigate to service details", async () => {
-    render(
-      <TestProvider>
-        <ServicePanel service={mockService} onClose={mockOnClose} />
-      </TestProvider>
-    )
+  it("should navigate to service details with no image version selected", async () => {
+    const { user, router } = await act(() => renderComponent())
+    await user.click(screen.getByText("Full Details"))
+    expect(router.state.location.href).toBe("/services/alpha")
+  })
 
-    const fullDetailsButton = await screen.findByText("Full Details")
-    await user.click(fullDetailsButton)
-
-    expect(mockOnClose).toHaveBeenCalled()
-    expect(mockOnShowDetails).toHaveBeenCalledWith(mockService, expect.any(Object))
+  it("should navigate to service details page with image version selected", async () => {
+    const { user, router } = await act(() => renderComponent())
+    await user.click(screen.getAllByText("Show Details")[0])
+    expect(router.state.location.href).toBe("/services/alpha?imageVersion=1.0.0")
   })
 })

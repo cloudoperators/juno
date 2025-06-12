@@ -5,15 +5,11 @@
 
 import React, { use } from "react"
 import { Pagination, Stack } from "@cloudoperators/juno-ui-components"
-import { ApolloQueryResult } from "@apollo/client"
-import { GetServicesQuery } from "../../../generated/graphql"
+import { useLoaderData } from "@tanstack/react-router"
 import { getNormalizedData } from "../utils"
 
-type ServicesPaginationProps = {
-  servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
-}
-
-export const ServicesPagination = ({ servicesPromise }: ServicesPaginationProps) => {
+export const ServicesPagination = () => {
+  const { servicesPromise } = useLoaderData({ from: "/services/" })
   const { data } = use(servicesPromise)
   const { pages, pageNumber } = getNormalizedData(data)
 
