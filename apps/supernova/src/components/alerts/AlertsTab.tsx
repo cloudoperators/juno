@@ -5,7 +5,7 @@
 
 import React, { useEffect } from "react"
 import { Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { useBoundQuery, CorsNetworkError } from "../../hooks/useBoundQuery"
 import AlertsList from "./AlertsList"
 import StatusBar from "../status/StatusBar"
 import Filters from "../filters/Filters"
@@ -25,6 +25,20 @@ const AlertsTab = () => {
   const { data, isLoading, error } = useBoundQuery<AlertsData>("alerts")
 
   if (error) {
+    // Extra CORS warning based on instanceof
+    if (error instanceof CorsNetworkError) {
+      addMessage({
+        variant: "warning",
+        text: [
+          "Firefox detected. Please ensure that you have activated 'allow_client_cert' to enable the retrieval of alerts and silences from the API.",
+          "",
+          "1. Go to about:config (via address bar)",
+          "2. Change 'network.cors_preflight.allow_client_cert' to 'true'",
+          "3. Reload Greenhouse",
+        ].join("\n"),
+      })
+    }
+
     addMessage({
       variant: "error",
       text: parseError(error),
