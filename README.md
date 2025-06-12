@@ -38,6 +38,7 @@ In addition to applications, Juno also includes a set of libraries that provide 
 
 ## Getting Started
 
+Before you start using Juno, please ensure you have completed the prerequisite setup described in the Development section of the [CONTRIBUTING.md](CONTRIBUTING.md#development) file, especially concerning the development environment, dependencies, and tools needed to build and run Juno applications.
 To get started with Juno, follow the instructions in the [Getting Started Guide](docs/getting-started.md). This guide covers the initial setup, installation of dependencies, and basic usage of the platform's tools and libraries.
 
 ## Documentation
