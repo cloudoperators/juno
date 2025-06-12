@@ -40,7 +40,7 @@ const renderComponent = () => {
   return {
     ...render(<RouterProvider router={router} />),
     router,
-    user: userEvent.setup(),
+    user: userEvent.setup({ delay: 0 }),
   }
 }
 
