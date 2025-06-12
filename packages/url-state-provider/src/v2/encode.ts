@@ -48,12 +48,14 @@ const encode = (object: ObjectToEncode, options?: EncodeOptions) => {
     throw new TypeError(`Invalid object to encode`)
   }
 
-  return queryString.stringify(object, {
+  const encoded = queryString.stringify(object, {
     arrayFormat: "comma",
     sort: false,
     skipEmptyString: options?.skipEmptyString ?? true,
     skipNull: options?.skipNull ?? true,
   })
+
+  return typeof encoded === "string" && encoded.length > 0 ? `?${encoded}` : ""
 }
 
 export default encode
