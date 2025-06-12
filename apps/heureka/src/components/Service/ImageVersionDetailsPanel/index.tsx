@@ -4,7 +4,6 @@
  */
 
 import React, { use, useEffect, useState } from "react"
-import { ApolloQueryResult } from "@apollo/client"
 import {
   Panel,
   PanelBody,
@@ -21,22 +20,15 @@ import { getNormalizedImageVersionsData, ServiceImageVersion } from "../../Servi
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
-import { GetServiceImageVersionsQuery } from "../../../generated/graphql"
+import { useLoaderData, useNavigate, useParams, useSearch } from "@tanstack/react-router"
 
-type ImageVersionDetailsPanelProps = {
-  selectedService: string
-  selectedImageVersion?: string
-  imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
-  onClose: () => void
-}
-
-export const ImageVersionDetailsPanel = ({
-  selectedService,
-  selectedImageVersion,
-  imageVersionsPromise,
-  onClose,
-}: ImageVersionDetailsPanelProps) => {
+export const ImageVersionDetailsPanel = () => {
+  const navigate = useNavigate()
   const [opened, setOpened] = useState(false)
+  const { imageVersionsPromise } = useLoaderData({ from: "/services/$service" })
+  const { service } = useParams({ from: "/services/$service" })
+  const { imageVersion: selectedImageVersion } = useSearch({ from: "/services/$service" })
+
   const { data } = use(imageVersionsPromise)
   const { imageVersions } = getNormalizedImageVersionsData(data)
   const imageVersion = imageVersions.find((version: ServiceImageVersion) => version.version === selectedImageVersion)
@@ -56,7 +48,17 @@ export const ImageVersionDetailsPanel = ({
 
   return (
     <MessagesProvider>
-      <Panel heading={`Image ${imageVersion.repository} Information`} opened={opened} onClose={onClose} size="large">
+      <Panel
+        heading={`Image ${imageVersion.repository} Information`}
+        opened={opened}
+        onClose={() =>
+          navigate({
+            to: "/services/$service",
+            params: { service },
+          })
+        }
+        size="large"
+      >
         <PanelBody>
           <Container py px={false}>
             <Messages />
@@ -102,8 +104,8 @@ export const ImageVersionDetailsPanel = ({
           </DataGrid>
 
           {/* Second Section: Issues List */}
-          {selectedService && selectedImageVersion && imageVersion && (
-            <ImageVersionIssuesList service={selectedService} imageVersion={imageVersion} />
+          {service && selectedImageVersion && imageVersion && (
+            <ImageVersionIssuesList service={service} imageVersion={imageVersion} />
           )}
         </PanelBody>
       </Panel>

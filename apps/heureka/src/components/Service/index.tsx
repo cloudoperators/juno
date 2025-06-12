@@ -4,29 +4,18 @@
  */
 
 import React, { Suspense } from "react"
-import { ApolloQueryResult } from "@apollo/client"
-import { useNavigate } from "@tanstack/react-router"
+import { useLoaderData, useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { Spinner } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { ServiceImageVersions } from "../common/ServiceImageVersions"
 import { ImageVersionDetailsPanel } from "./ImageVersionDetailsPanel"
-import { GetServiceImageVersionsQuery, GetServicesQuery } from "../../generated/graphql"
 import { ServiceDetails } from "./ServiceDetails"
 
-type ServiceProps = {
-  selectedService: string
-  selectedImageVersion?: string
-  servicePromise: Promise<ApolloQueryResult<GetServicesQuery>>
-  imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
-}
-
-export const Service = ({
-  selectedService,
-  selectedImageVersion,
-  servicePromise,
-  imageVersionsPromise,
-}: ServiceProps) => {
+export const Service = () => {
   const navigate = useNavigate()
+  const { servicePromise, imageVersionsPromise } = useLoaderData({ from: "/services/$service" })
+  const { service } = useParams({ from: "/services/$service" })
+  const { imageVersion } = useSearch({ from: "/services/$service" })
 
   return (
     <MessagesProvider>
@@ -35,29 +24,18 @@ export const Service = ({
         <ServiceDetails servicePromise={servicePromise} />
       </Suspense>
       <ServiceImageVersions
-        displayActions={false}
-        selectedImageVersion={selectedImageVersion}
+        selectedImageVersion={imageVersion}
         imageVersionsPromise={imageVersionsPromise}
         onImageVersionItemClick={(iv) => {
           navigate({
             to: "/services/$service",
-            params: { service: selectedService },
+            params: { service },
             search: { imageVersion: iv.version },
           })
         }}
       />
       <Suspense>
-        <ImageVersionDetailsPanel
-          selectedService={selectedService}
-          selectedImageVersion={selectedImageVersion}
-          imageVersionsPromise={imageVersionsPromise}
-          onClose={() => {
-            navigate({
-              to: "/services/$service",
-              params: { service: selectedService },
-            })
-          }}
-        />
+        <ImageVersionDetailsPanel />
       </Suspense>
     </MessagesProvider>
   )

@@ -4,15 +4,15 @@
  */
 
 import React, { StrictMode } from "react"
-import { AppShellProvider } from "@cloudoperators/juno-ui-components"
-import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { ApolloProvider } from "@apollo/client"
+import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { encodeV2, decodeV2 } from "@cloudoperators/juno-url-state-provider"
 import styles from "./styles.scss?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 export type InitialFilters = {
   support_group?: string[]
@@ -59,14 +59,7 @@ const App = (props: AppProps) => {
     routeTree,
     context: { appProps: props, apiClient, queryClient },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
-    stringifySearch: (val) => {
-      const encoded = encodeV2(val)
-      /*
-       * tanstack/react-router expects the search string to start with a '?'
-       * so we prepend it only if the encoded value is a non-empty string.
-       */
-      return typeof encoded === "string" && encoded.length > 0 ? `?${encoded}` : ""
-    },
+    stringifySearch: encodeV2,
     parseSearch: decodeV2,
   })
 

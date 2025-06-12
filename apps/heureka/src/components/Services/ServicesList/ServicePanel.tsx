@@ -70,9 +70,9 @@ export const ServicePanel = () => {
         <PanelBody>
           {service && imageVersionsPromise && (
             <ServiceImageVersions
+              displayActions
               imageVersionsPromise={imageVersionsPromise}
               onDetailsButtonClick={goToServiceDetailsPage}
-              displayActions
             />
           )}
         </PanelBody>

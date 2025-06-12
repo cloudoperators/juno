@@ -5,7 +5,7 @@
 
 import React, { Suspense, useEffect, useState } from "react"
 import { ApolloQueryResult } from "@apollo/client"
-import { getRouteApi } from "@tanstack/react-router"
+import { useRouteContext } from "@tanstack/react-router"
 import {
   DataGrid,
   DataGridRow,
@@ -29,8 +29,7 @@ type ImageVersionIssuesListProps = {
 }
 
 export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIssuesListProps) => {
-  const routeApi = getRouteApi("/services/$service")
-  const { apiClient, queryClient } = routeApi.useRouteContext()
+  const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [issuesPromise, setIssuesPromise] = useState<
     Promise<ApolloQueryResult<GetServiceImageVersionIssuesQuery>> | undefined
