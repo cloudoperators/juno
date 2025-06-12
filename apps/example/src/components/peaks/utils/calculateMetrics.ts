@@ -5,15 +5,7 @@
 
 import { PeakMetrics } from "../../constants"
 import { Peak, Safety } from "../../../mocks/db"
-import { PeakDetails } from "../../metrics/MetricsBox"
-
-export interface PeakMetric {
-  label: string
-  value: string
-  peakDetails: PeakDetails
-  hoverable: boolean
-  peakType: string
-}
+import { MetricsProps } from "../../metrics/MetricsBox"
 
 export interface TotalMetric {
   label: string
@@ -24,8 +16,8 @@ export interface TotalMetric {
 export interface Metrics {
   totalPeaks: string
   totalCountries: string
-  highestPeak: PeakMetric
-  lowestPeak: PeakMetric
+  lowestPeak: MetricsProps
+  highestPeak: MetricsProps
   totalMetrics: TotalMetric[]
 }
 
@@ -39,10 +31,11 @@ export const calculateMetrics = (peaks: Peak[]): Metrics => {
   const defaultSafety: Safety = {
     status: "Unknown",
     recommendation: "No data available.",
-    variant: "warning", // Default variant, adjust if needed
+    variant: "info",
   }
 
-  const initialPeak = peaks[0] || {
+  const initialPeak: Peak = peaks[0] || {
+    id: null,
     height: "0",
     name: "N/A",
     region: "",
@@ -50,49 +43,30 @@ export const calculateMetrics = (peaks: Peak[]): Metrics => {
     safety: defaultSafety,
   }
 
-  const highestPeak = peaks.reduce(
-    (prev, current) => (parseHeight(prev.height) > parseHeight(current.height) ? prev : current),
-    initialPeak
-  )
-
   const lowestPeak = peaks.reduce(
     (prev, current) => (parseHeight(prev.height) < parseHeight(current.height) ? prev : current),
     initialPeak
   )
 
-  const highestSafety: Safety = highestPeak.safety ?? defaultSafety
-  const lowestSafety: Safety = lowestPeak.safety ?? defaultSafety
+  const highestPeak = peaks.reduce(
+    (prev, current) => (parseHeight(prev.height) > parseHeight(current.height) ? prev : current),
+    initialPeak
+  )
 
   return {
     totalPeaks,
     totalCountries,
-    highestPeak: {
-      label: PeakMetrics.HIGHEST,
-      value: highestPeak.height,
-      peakDetails: {
-        name: highestPeak.name,
-        region: highestPeak.region,
-        country: highestPeak.countries,
-        height: highestPeak.height,
-        status: highestSafety.status,
-        recommendation: highestSafety.recommendation,
-      },
-      hoverable: true,
-      peakType: "highest",
-    },
     lowestPeak: {
       label: PeakMetrics.LOWEST,
       value: lowestPeak.height,
-      peakDetails: {
-        name: lowestPeak.name,
-        region: lowestPeak.region,
-        country: lowestPeak.countries,
-        height: lowestPeak.height,
-        status: lowestSafety.status,
-        recommendation: lowestSafety.recommendation,
-      },
-      hoverable: true,
+      peakDetails: lowestPeak,
       peakType: "lowest",
+    },
+    highestPeak: {
+      label: PeakMetrics.HIGHEST,
+      value: highestPeak.height,
+      peakDetails: highestPeak,
+      peakType: "highest",
     },
     totalMetrics: [
       { label: PeakMetrics.TOTAL, value: totalPeaks, peakType: "total" },

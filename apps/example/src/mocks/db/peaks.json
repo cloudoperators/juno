@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "name": "Aconcagua",
     "height": "6960m",
     "region": "Mendoza",
@@ -36,7 +36,7 @@
     }
   },
   {
-    "id": 2,
+    "id": "2",
     "name": "Ama Dablam",
     "height": "6812m",
     "region": "Khumbu",
@@ -70,7 +70,7 @@
     }
   },
   {
-    "id": 3,
+    "id": "3",
     "name": "Annapurna",
     "height": "8091m",
     "region": "Gandaki Zone",
@@ -104,7 +104,7 @@
     }
   },
   {
-    "id": 4,
+    "id": "4",
     "name": "Denali",
     "height": "6190m",
     "region": "Alaska",
@@ -138,7 +138,7 @@
     }
   },
   {
-    "id": 5,
+    "id": "5",
     "name": "Gasherbrum II",
     "height": "8035m",
     "region": "Baltistan",
@@ -171,7 +171,7 @@
     }
   },
   {
-    "id": 6,
+    "id": "6",
     "name": "Dufourspitze",
     "height": "4634m",
     "region": "Valais",
@@ -205,7 +205,7 @@
     }
   },
   {
-    "id": 7,
+    "id": "7",
     "name": "K2",
     "height": "8611m",
     "region": "Baltistan",
@@ -239,7 +239,7 @@
     }
   },
   {
-    "id": 8,
+    "id": "8",
     "name": "Kangchenjunga",
     "height": "8586m",
     "region": "Sikkim",
@@ -273,7 +273,7 @@
     }
   },
   {
-    "id": 9,
+    "id": "9",
     "name": "Lhotse",
     "height": "8516m",
     "region": "Khumbu",
@@ -307,7 +307,7 @@
     }
   },
   {
-    "id": 10,
+    "id": "10",
     "name": "Gasherbrum I",
     "height": "8080m",
     "region": "Baltistan",
@@ -340,7 +340,7 @@
     }
   },
   {
-    "id": 11,
+    "id": "11",
     "name": "Dhaulagiri",
     "height": "8167m",
     "region": "Dhaulagiri Zone",
@@ -373,7 +373,7 @@
     }
   },
   {
-    "id": 12,
+    "id": "12",
     "name": "Manaslu",
     "height": "8163m",
     "region": "Gandaki",
@@ -407,7 +407,7 @@
     }
   },
   {
-    "id": 13,
+    "id": "13",
     "name": "Matterhorn",
     "height": "4478m",
     "region": "Valais",
@@ -441,7 +441,7 @@
     }
   },
   {
-    "id": 14,
+    "id": "14",
     "name": "Broad Peak",
     "height": "8051m",
     "region": "Baltistan",
@@ -474,7 +474,7 @@
     }
   },
   {
-    "id": 15,
+    "id": "15",
     "name": "Ngadi Chuli",
     "height": "7871m",
     "region": "Manaslu Himal",
@@ -507,7 +507,7 @@
     }
   },
   {
-    "id": 16,
+    "id": "16",
     "name": "Everest",
     "height": "8848m",
     "region": "Himalayas",
@@ -541,7 +541,7 @@
     }
   },
   {
-    "id": 17,
+    "id": "17",
     "name": "Makalu",
     "height": "8485m",
     "region": "Mahalangur",
@@ -575,7 +575,7 @@
     }
   },
   {
-    "id": 18,
+    "id": "18",
     "name": "Ras Dashen",
     "height": "4550m",
     "region": "Amhara",
@@ -608,7 +608,7 @@
     }
   },
   {
-    "id": 19,
+    "id": "19",
     "name": "Fitz Roy",
     "height": "3405m",
     "region": "Patagonia",
@@ -642,7 +642,7 @@
     }
   },
   {
-    "id": 20,
+    "id": "20",
     "name": "Scafell Pike",
     "height": "978m",
     "region": "Cumbria",
@@ -675,7 +675,7 @@
     }
   },
   {
-    "id": 21,
+    "id": "21",
     "name": "Shishapangma",
     "height": "8027m",
     "region": "Tibet",
@@ -708,7 +708,7 @@
     }
   },
   {
-    "id": 22,
+    "id": "22",
     "name": "Teide",
     "height": "3718m",
     "region": "Canary Islands",
@@ -741,7 +741,7 @@
     }
   },
   {
-    "id": 23,
+    "id": "23",
     "name": "Toubkal",
     "height": "4167m",
     "region": "Al Haouz",
@@ -773,7 +773,7 @@
     }
   },
   {
-    "id": 24,
+    "id": "24",
     "name": "Triglav",
     "height": "2864m",
     "region": "Gorica",
@@ -806,7 +806,7 @@
     }
   },
   {
-    "id": 25,
+    "id": "25",
     "name": "Vinson Massif",
     "height": "4892m",
     "region": "Ellsworth Mountains",
@@ -839,7 +839,7 @@
     }
   },
   {
-    "id": 26,
+    "id": "26",
     "name": "Yuzhu Feng",
     "height": "6178m",
     "region": "Qaidam Basin",
@@ -872,7 +872,7 @@
     }
   },
   {
-    "id": 27,
+    "id": "27",
     "name": "Mount Cook / Aoraki",
     "height": "3724m",
     "region": "Canterbury",
@@ -905,7 +905,7 @@
     }
   },
   {
-    "id": 28,
+    "id": "28",
     "name": "Mount Khuiten",
     "height": "4374m",
     "region": "Bayan-Ölgii",
@@ -938,7 +938,7 @@
     }
   },
   {
-    "id": 29,
+    "id": "29",
     "name": "Mount Wilhelm",
     "height": "4509m",
     "region": "Chimbu",
@@ -971,41 +971,7 @@
     }
   },
   {
-    "id": 30,
-    "name": "Matterhorn",
-    "height": "4478m",
-    "region": "Valais",
-    "mainrange": "Pennine Alps",
-    "countries": "Switzerland",
-    "url": "https://en.wikipedia.org/wiki/Matterhorn",
-    "details": "Iconic pyramid-shaped peak, a symbol of the Swiss Alps.",
-    "safety": {
-      "status": "Safe",
-      "variant": "success",
-      "recommendation": "High technical skills required for climbing.",
-      "common_hazards": "Rockfall, sudden weather changes"
-    },
-    "climate": "Alpine",
-    "nearest_city": "Zermatt, Switzerland",
-    "permit_required": true,
-    "local_fauna": "Chamois, Ibex",
-    "first_ascent": {
-      "date": "1865",
-      "by": "Edward Whymper"
-    },
-    "easiest_route": "Hörnligrat",
-    "has_snow": true,
-    "best_climbing_months": "July to September",
-    "additional_info": {
-      "prominence": "1047m",
-      "coordinates": "45°58′35″N 7°39′31″E",
-      "notable_ascents": ["First climbed by Edward Whymper"],
-      "climbing_routes": ["Hörnligrat", "Italian Ridge"],
-      "geologic_origin": "Metamorphic rock, Gneiss"
-    }
-  },
-  {
-    "id": 31,
+    "id": "30",
     "name": "Nanga Parbat",
     "height": "8126m",
     "region": "Diamer District",
@@ -1038,7 +1004,7 @@
     }
   },
   {
-    "id": 32,
+    "id": "31",
     "name": "Table Mountain",
     "height": "1084m",
     "region": "Western Cape",
@@ -1071,7 +1037,7 @@
     }
   },
   {
-    "id": 33,
+    "id": "32",
     "name": "Ushba",
     "height": "4693m",
     "region": "Svaneti",
@@ -1104,7 +1070,7 @@
     }
   },
   {
-    "id": 34,
+    "id": "33",
     "name": "Kilimanjaro",
     "height": "5895m",
     "region": "Kilimanjaro Region",
@@ -1137,107 +1103,7 @@
     }
   },
   {
-    "id": 35,
-    "name": "Gasherbrum I",
-    "height": "8080m",
-    "region": "Baltistan",
-    "mainrange": "Karakoram",
-    "countries": "Pakistan",
-    "url": "https://en.wikipedia.org/wiki/Gasherbrum_I",
-    "details": "Eleventh highest mountain in the world, also known as Hidden Peak.",
-    "safety": {
-      "status": "Unsafe",
-      "variant": "error",
-      "recommendation": "Requires advanced mountaineering skills.",
-      "common_hazards": "Extreme altitude, avalanches"
-    },
-    "climate": "Nival",
-    "nearest_city": "Skardu, Pakistan",
-    "permit_required": true,
-    "local_fauna": "Blue sheep, Snow leopards",
-    "first_ascent": {
-      "date": "1958",
-      "by": "Andrew Kauffman, Pete Schoening"
-    },
-    "easiest_route": "Northwest Ridge",
-    "has_snow": true,
-    "best_climbing_months": "June to July",
-    "additional_info": {
-      "prominence": "2158m",
-      "coordinates": "35°43′26″N 76°41′47″E",
-      "notable_ascents": ["First ascended by an American expedition"],
-      "geologic_origin": "Formed by tectonic collision"
-    }
-  },
-  {
-    "id": 36,
-    "name": "Dhaulagiri",
-    "height": "8167m",
-    "region": "Dhaulagiri Zone",
-    "mainrange": "Himalayas",
-    "countries": "Nepal",
-    "url": "https://en.wikipedia.org/wiki/Dhaulagiri",
-    "details": "Seventh highest mountain, known for its massive bulk and extensive South Face.",
-    "safety": {
-      "status": "Unsafe",
-      "variant": "error",
-      "recommendation": "Challenging ascents with avalanche risks.",
-      "common_hazards": "Snowstorms, avalanches"
-    },
-    "climate": "Alpine",
-    "nearest_city": "Pokhara, Nepal",
-    "permit_required": true,
-    "local_fauna": "Langur monkeys, Himalayan tahrs",
-    "first_ascent": {
-      "date": "1960",
-      "by": "Austria/Swiss/Nepal expedition"
-    },
-    "easiest_route": "Northeast Ridge",
-    "has_snow": true,
-    "best_climbing_months": "April to May",
-    "additional_info": {
-      "prominence": "3357m",
-      "coordinates": "28°41′48″N 83°29′42″E",
-      "notable_ascents": ["Noted for its dramatic scenery"],
-      "geologic_origin": "Complex geological history within Himalayas"
-    }
-  },
-  {
-    "id": 37,
-    "name": "Denali",
-    "height": "6190m",
-    "region": "Alaska",
-    "mainrange": "Alaska Range",
-    "countries": "United States",
-    "url": "https://en.wikipedia.org/wiki/Denali",
-    "details": "Highest peak in North America, known for its severe weather and technical challenges.",
-    "safety": {
-      "status": "Safe",
-      "variant": "success",
-      "recommendation": "Extreme weather demands advanced skills.",
-      "common_hazards": "Severe cold, crevasses"
-    },
-    "climate": "Subarctic",
-    "nearest_city": "Talkeetna, Alaska",
-    "permit_required": true,
-    "local_fauna": "Grizzly bears, Dall sheep",
-    "first_ascent": {
-      "date": "1913",
-      "by": "Hudson Stuck, Harry Karstens, Walter Harper, Robert Tatum"
-    },
-    "easiest_route": "West Buttress",
-    "has_snow": true,
-    "best_climbing_months": "May to June",
-    "additional_info": {
-      "prominence": "6144m",
-      "coordinates": "63°04′10″N 151°00′27″W",
-      "notable_ascents": ["First successful ascent by Walter Harper"],
-      "climbing_routes": ["West Buttress", "Muldrow Glacier"],
-      "geologic_origin": "Tectonic uplift"
-    }
-  },
-  {
-    "id": 38,
+    "id": "34",
     "name": "Annapurna III",
     "height": "7555m",
     "region": "Gandaki Zone",
@@ -1270,75 +1136,7 @@
     }
   },
   {
-    "id": 39,
-    "name": "Lhotse",
-    "height": "8516m",
-    "region": "Khumbu",
-    "mainrange": "Himalayas",
-    "countries": "Nepal",
-    "url": "https://en.wikipedia.org/wiki/Lhotse",
-    "details": "Fourth highest mountain in the world, located near Everest.",
-    "safety": {
-      "status": "Unsafe",
-      "variant": "error",
-      "recommendation": "Technically demanding ridge climbs.",
-      "common_hazards": "Icefalls, altitude"
-    },
-    "climate": "Alpine",
-    "nearest_city": "Lukla, Nepal",
-    "permit_required": true,
-    "local_fauna": "Himalayan pheasants, Blue sheep",
-    "first_ascent": {
-      "date": "1956",
-      "by": "Ernst Reiss, Fritz Luchsinger"
-    },
-    "easiest_route": "West Face",
-    "has_snow": true,
-    "best_climbing_months": "April to May",
-    "additional_info": {
-      "prominence": "610m",
-      "coordinates": "27°57′45″N 86°55′30″E",
-      "notable_ascents": ["Known for the Lhotse Face"],
-      "climbing_routes": ["West Face", "South Col"],
-      "geologic_origin": "Linked to Everest massif"
-    }
-  },
-  {
-    "id": 40,
-    "name": "Ama Dablam",
-    "height": "6812m",
-    "region": "Khumbu",
-    "mainrange": "Himalayas",
-    "countries": "Nepal",
-    "url": "https://en.wikipedia.org/wiki/Ama_Dablam",
-    "details": "Known for its picturesque symmetry and technical climbing routes.",
-    "safety": {
-      "status": "Safe",
-      "variant": "success",
-      "recommendation": "Challenging; only climb if you're an experienced climber.",
-      "common_hazards": "Rockfall, crevasses"
-    },
-    "climate": "Alpine",
-    "nearest_city": "Namche Bazaar, Nepal",
-    "permit_required": true,
-    "local_fauna": "Snow leopards, Himalayan tahr",
-    "first_ascent": {
-      "date": "1961",
-      "by": "Mike Gill, Barry Bishop, Mike Ward, Wally Romanes"
-    },
-    "easiest_route": "Southwest Ridge",
-    "has_snow": true,
-    "best_climbing_months": "October to November",
-    "additional_info": {
-      "prominence": "2280m",
-      "coordinates": "27°51′42″N 86°51′40″E",
-      "notable_ascents": ["First ascent by Mike Gill in 1961"],
-      "mythological_meaning": "Mother's Necklace",
-      "climbing_routes": ["South Ridge", "Northeast Face"]
-    }
-  },
-  {
-    "id": 41,
+    "id": "35",
     "name": "Annapurna IV",
     "height": "7525m",
     "region": "Gandaki Zone",
@@ -1371,106 +1169,7 @@
     }
   },
   {
-    "id": 42,
-    "name": "Broad Peak",
-    "height": "8051m",
-    "region": "Baltistan",
-    "mainrange": "Karakoram",
-    "countries": "Pakistan",
-    "url": "https://en.wikipedia.org/wiki/Broad_Peak",
-    "details": "Twelfth highest mountain in the world, known for its wide summit.",
-    "safety": {
-      "status": "Unsafe",
-      "variant": "error",
-      "recommendation": "Challenges include high altitude and difficult weather.",
-      "common_hazards": "Avalanches, crevasses"
-    },
-    "climate": "Nival",
-    "nearest_city": "Skardu, Pakistan",
-    "permit_required": true,
-    "local_fauna": "Snow leopards, Markhor",
-    "first_ascent": {
-      "date": "1957",
-      "by": "Fritz Wintersteller, Marcus Schmuck, Kurt Diemberger, Hermann Buhl"
-    },
-    "easiest_route": "West Ridge",
-    "has_snow": true,
-    "best_climbing_months": "June to August",
-    "additional_info": {
-      "prominence": "1701m",
-      "coordinates": "35°48′30″N 76°34′50″E",
-      "notable_ascents": ["Known for having a broad summit ridge"],
-      "geologic_origin": "Part of the Karakoram Range"
-    }
-  },
-  {
-    "id": 43,
-    "name": "Gasherbrum I",
-    "height": "8080m",
-    "region": "Baltistan",
-    "mainrange": "Karakoram",
-    "countries": "Pakistan",
-    "url": "https://en.wikipedia.org/wiki/Gasherbrum_I",
-    "details": "Eleventh highest mountain in the world, also known as Hidden Peak.",
-    "safety": {
-      "status": "Unsafe",
-      "variant": "error",
-      "recommendation": "Requires advanced mountaineering skills.",
-      "common_hazards": "Extreme altitude, avalanches"
-    },
-    "climate": "Nival",
-    "nearest_city": "Skardu, Pakistan",
-    "permit_required": true,
-    "local_fauna": "Blue sheep, Snow leopards",
-    "first_ascent": {
-      "date": "1958",
-      "by": "Andrew Kauffman, Pete Schoening"
-    },
-    "easiest_route": "Northwest Ridge",
-    "has_snow": true,
-    "best_climbing_months": "June to July",
-    "additional_info": {
-      "prominence": "2158m",
-      "coordinates": "35°43′26″N 76°41′47″E",
-      "notable_ascents": ["First ascended by an American expedition"],
-      "geologic_origin": "Formed by tectonic collision"
-    }
-  },
-  {
-    "id": 44,
-    "name": "Gasherbrum II",
-    "height": "8035m",
-    "region": "Baltistan",
-    "mainrange": "Karakoram",
-    "countries": "Pakistan",
-    "url": "https://en.wikipedia.org/wiki/Gasherbrum_II",
-    "details": "Thirteenth highest mountain in the world, known for its accessible climb for experienced alpinists.",
-    "safety": {
-      "status": "Unsafe",
-      "variant": "error",
-      "recommendation": "Technical and high-altitude challenges.",
-      "common_hazards": "Crevasses, extreme cold"
-    },
-    "climate": "Nival",
-    "nearest_city": "Skardu, Pakistan",
-    "permit_required": true,
-    "local_fauna": "Ibex, Snow leopards",
-    "first_ascent": {
-      "date": "1956",
-      "by": "Fritz Moravec, Josef Larch, Hans Willenpart"
-    },
-    "easiest_route": "Southwest Ridge",
-    "has_snow": true,
-    "best_climbing_months": "June to July",
-    "additional_info": {
-      "prominence": "1524m",
-      "coordinates": "35°45′15″N 76°39′18″E",
-      "notable_ascents": ["Known for its relatively easier access"],
-      "geologic_origin": "Karakoram geology"
-    }
-  },
-  {
-    "id": 45,
+    "id": "36",
     "name": "Gyachung Kang",
     "height": "7952m",
     "region": "Himalayas",
@@ -1503,7 +1202,7 @@
     }
   },
   {
-    "id": 46,
+    "id": "37",
     "name": "Khunyang Chhish",
     "height": "7852m",
     "region": "Gilgit-Baltistan",
@@ -1533,141 +1232,6 @@
       "coordinates": "36°12′57″N 75°19′30″E",
       "notable_ascents": ["First climbed by Polish mountaineers"],
       "geologic_origin": "Part of the Karakoram massif"
-    }
-  },
-  {
-    "id": 47,
-    "name": "Kilimanjaro",
-    "height": "5895m",
-    "region": "Kilimanjaro Region",
-    "mainrange": "Eastern Rift mountains",
-    "countries": "Tanzania",
-    "url": "https://en.wikipedia.org/wiki/Mount_Kilimanjaro",
-    "details": "The tallest free-standing mountain in the world.",
-    "safety": {
-      "status": "Safe",
-      "variant": "success",
-      "recommendation": "Acute altitude sickness is a risk.",
-      "common_hazards": "Altitude sickness, cold temperatures"
-    },
-    "climate": "Tropical",
-    "nearest_city": "Moshi, Tanzania",
-    "permit_required": true,
-    "local_fauna": "Colobus monkeys, Elephants",
-    "first_ascent": {
-      "date": "1889",
-      "by": "Hans Meyer, Ludwig Purtscheller"
-    },
-    "easiest_route": "Marangu Route",
-    "has_snow": false,
-    "best_climbing_months": "January to March, June to October",
-    "additional_info": {
-      "prominence": "5895m",
-      "coordinates": "3°04′33″S 37°21′12″E",
-      "notable_ascents": ["Popular among trekkers worldwide"],
-      "geologic_origin": "Volcanic stratovolcano"
-    }
-  },
-  {
-    "id": 48,
-    "name": "Ama Dablam",
-    "height": "6812m",
-    "region": "Khumbu",
-    "mainrange": "Himalayas",
-    "countries": "Nepal",
-    "url": "https://en.wikipedia.org/wiki/Ama_Dablam",
-    "details": "Known for its picturesque symmetry and technical climbing routes.",
-    "safety": {
-      "status": "Safe",
-      "variant": "success",
-      "recommendation": "Challenging; only climb if you're an experienced climber.",
-      "common_hazards": "Rockfall, crevasses"
-    },
-    "climate": "Alpine",
-    "nearest_city": "Namche Bazaar, Nepal",
-    "permit_required": true,
-    "local_fauna": "Snow leopards, Himalayan tahr",
-    "first_ascent": {
-      "date": "1961",
-      "by": "Mike Gill, Barry Bishop, Mike Ward, Wally Romanes"
-    },
-    "easiest_route": "Southwest Ridge",
-    "has_snow": true,
-    "best_climbing_months": "October to November",
-    "additional_info": {
-      "prominence": "2280m",
-      "coordinates": "27°51′42″N 86°51′40″E",
-      "notable_ascents": ["First ascent by Mike Gill in 1961"],
-      "mythological_meaning": "Mother's Necklace",
-      "climbing_routes": ["South Ridge", "Northeast Face"]
-    }
-  },
-  {
-    "id": 49,
-    "name": "Matterhorn",
-    "height": "4478m",
-    "region": "Valais",
-    "mainrange": "Pennine Alps",
-    "countries": "Switzerland",
-    "url": "https://en.wikipedia.org/wiki/Matterhorn",
-    "details": "Iconic pyramid-shaped peak, a symbol of the Swiss Alps.",
-    "safety": {
-      "status": "Safe",
-      "variant": "success",
-      "recommendation": "High technical skills required for climbing.",
-      "common_hazards": "Rockfall, sudden weather changes"
-    },
-    "climate": "Alpine",
-    "nearest_city": "Zermatt, Switzerland",
-    "permit_required": true,
-    "local_fauna": "Chamois, Ibex",
-    "first_ascent": {
-      "date": "1865",
-      "by": "Edward Whymper"
-    },
-    "easiest_route": "Hörnligrat",
-    "has_snow": true,
-    "best_climbing_months": "July to September",
-    "additional_info": {
-      "prominence": "1047m",
-      "coordinates": "45°58′35″N 7°39′31″E",
-      "notable_ascents": ["First climbed by Edward Whymper"],
-      "climbing_routes": ["Hörnligrat", "Italian Ridge"],
-      "geologic_origin": "Metamorphic rock, Gneiss"
-    }
-  },
-  {
-    "id": 50,
-    "name": "Denali",
-    "height": "6190m",
-    "region": "Alaska",
-    "mainrange": "Alaska Range",
-    "countries": "United States",
-    "url": "https://en.wikipedia.org/wiki/Denali",
-    "details": "Highest peak in North America, known for its severe weather and technical challenges.",
-    "safety": {
-      "status": "Safe",
-      "variant": "success",
-      "recommendation": "Extreme weather demands advanced skills.",
-      "common_hazards": "Severe cold, crevasses"
-    },
-    "climate": "Subarctic",
-    "nearest_city": "Talkeetna, Alaska",
-    "permit_required": true,
-    "local_fauna": "Grizzly bears, Dall sheep",
-    "first_ascent": {
-      "date": "1913",
-      "by": "Hudson Stuck, Harry Karstens, Walter Harper, Robert Tatum"
-    },
-    "easiest_route": "West Buttress",
-    "has_snow": true,
-    "best_climbing_months": "May to June",
-    "additional_info": {
-      "prominence": "6144m",
-      "coordinates": "63°04′10″N 151°00′27″W",
-      "notable_ascents": ["First successful ascent by Walter Harper"],
-      "climbing_routes": ["West Buttress", "Muldrow Glacier"],
-      "geologic_origin": "Tectonic uplift"
     }
   }
 ]

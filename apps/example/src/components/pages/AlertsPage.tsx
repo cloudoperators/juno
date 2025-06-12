@@ -32,6 +32,7 @@ import {
   SelectOption,
   Select,
 } from "@cloudoperators/juno-ui-components"
+import { DEFAULT_SMALL_APP_MARGIN, DEFAULT_MEDIUM_APP_MARGIN } from "../constants"
 
 interface AlertsPageState {
   alertsEnabled: boolean
@@ -44,13 +45,6 @@ interface AlertsPageState {
   loading: boolean
   errorMessage: string | null
 }
-
-const switchContainerStyle: React.CSSProperties = {
-  position: "absolute",
-  right: "5rem",
-}
-
-// Needs refactoring
 
 const AlertsPage: React.FC = () => {
   const [state, setState] = useState<AlertsPageState>({
@@ -86,7 +80,8 @@ const AlertsPage: React.FC = () => {
       setState((prevState) => ({
         ...prevState,
         loading: false,
-        errorMessage: "Failed to save due to a server error. Check your connection and try again later.",
+        errorMessage:
+          "Failed to save due to a server error. Check your connection and try again later. This is a simulation.",
       }))
     }, 2000)
   }
@@ -98,7 +93,7 @@ const AlertsPage: React.FC = () => {
   }
 
   return (
-    <Stack direction="vertical" gap="5">
+    <Stack direction="vertical" gap={DEFAULT_MEDIUM_APP_MARGIN}>
       <ContentHeading>Alert Management</ContentHeading>
       <Tabs>
         <TabList>
@@ -107,6 +102,7 @@ const AlertsPage: React.FC = () => {
         </TabList>
         <Container px={false} py>
           <TabPanel>
+            {/* Note: This is simulated, an error occurs on purpose. */}
             {state.errorMessage && (
               <Message
                 text={state.errorMessage}
@@ -117,7 +113,7 @@ const AlertsPage: React.FC = () => {
               />
             )}
             {/* Alert Form Panel */}
-            <div style={switchContainerStyle}>
+            <div className="absolute right-20">
               <Switch
                 id="alerts-toggle"
                 label={state.alertsEnabled ? "Alerts ON" : "Alerts OFF"}
@@ -127,7 +123,7 @@ const AlertsPage: React.FC = () => {
               />
             </div>
 
-            <Stack direction="vertical" gap="5">
+            <Stack direction="vertical" gap={DEFAULT_MEDIUM_APP_MARGIN}>
               <p>Customize how you receive alerts and notifications based on your preferences.</p>
               <Box>
                 <Form>
@@ -293,8 +289,8 @@ const AlertsPage: React.FC = () => {
 
           <TabPanel>
             {/* Alert Access Key Panel */}
-            <Stack direction="vertical" gap="5">
-              <Stack direction="horizontal" gap="2" alignment="center">
+            <Stack direction="vertical" gap={DEFAULT_MEDIUM_APP_MARGIN}>
+              <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="center">
                 <Icon color="jn-text-theme-warning" icon="warning" />
                 <span>This access key is sensitive information. Keep it secure.</span>
               </Stack>

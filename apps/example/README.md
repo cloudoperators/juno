@@ -60,11 +60,28 @@ pnpx turbo test
 
 ## App Props
 
-These are the customizable application properties (appProps) that you can define in your appProps.json file:
+These are the customisable application properties that you can define in your `appProps.json` file:
 
-- **theme**: `"theme-light"` or `"theme-dark"` (default).
-- **endpoint**: The API endpoint URL for the app. Empty by default.
-- **embedded**: `true`or `false` (default). Set to true if the app is to be embedded in another existing app or page. If set to true, the app will not render a page header/footer and will only render the content.
+- **endpoint**:
+
+  - Specifies the URL for API requests.
+  - **Default**: Base URL of the current page
+  - **Example**:
+    ```json
+    {
+      "endpoint": "https://api.example.com"
+    }
+    ```
+
+- **id**:
+  - Unique identifier for user or session tracking.
+  - **Default**: Undefined
+  - **Example**:
+    ```json
+    {
+      "id": "user1"
+    }
+    ```
 
 ## Contributing
 

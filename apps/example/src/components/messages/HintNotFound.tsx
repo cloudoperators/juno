@@ -14,7 +14,7 @@ const DEFAULT_HINT = "No items found"
 
 const HintNotFound: React.FC<HintNotFoundProps> = ({ text = DEFAULT_HINT }) => {
   return (
-    <Stack alignment="center" distribution="center" direction="vertical" className="h-full">
+    <Stack alignment="center" distribution="center" direction="vertical" className="h-full mt-5">
       <span>{text}</span>
     </Stack>
   )
