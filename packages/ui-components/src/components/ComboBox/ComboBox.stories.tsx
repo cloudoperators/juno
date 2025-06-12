@@ -11,8 +11,6 @@ import { ComboBoxProps } from "./ComboBox.component"
 import { fn } from "storybook/test" // Import the fn function for mocking handlers
 import type { Meta, StoryObj } from "@storybook/react-vite" // Import Meta and StoryObj types
 
-type StoryFunction = () => React.ReactNode
-
 const meta: Meta<typeof ComboBox> = {
   title: "Forms/ComboBox/ComboBox",
   component: ComboBox,
@@ -61,9 +59,9 @@ const meta: Meta<typeof ComboBox> = {
     },
   },
   decorators: [
-    (story: StoryFunction) => (
+    (Story) => (
       <div className="jn-pb-12">
-        <PortalProvider>{story()}</PortalProvider>
+        <PortalProvider>{Story()}</PortalProvider>
       </div>
     ),
   ],

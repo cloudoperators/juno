@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement } from "react"
+import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DataGrid } from "../DataGrid/index"
 import { DataGridRow } from "../DataGridRow/index"
 import { DataGridHeadCell } from "./index"
-
-type StoryFunction = () => ReactElement
 
 const meta: Meta<typeof DataGridHeadCell> = {
   title: "Components/DataGrid/DataGridHeadCell",
@@ -23,9 +21,9 @@ const meta: Meta<typeof DataGridHeadCell> = {
     },
   },
   decorators: [
-    (story: StoryFunction) => (
+    (Story) => (
       <DataGrid columns={3}>
-        <DataGridRow>{story()}</DataGridRow>
+        <DataGridRow>{Story()}</DataGridRow>
       </DataGrid>
     ),
   ],

@@ -4,9 +4,11 @@
  */
 
 import React, { useState } from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DateTimePicker } from "./index"
+import { DateTimePickerProps } from "./DateTimePicker.component"
 
-export default {
+const meta: Meta<typeof DateTimePicker> = {
   title: "WIP/DateTimePicker/DateTimePicker",
   component: DateTimePicker,
   argTypes: {
@@ -74,106 +76,46 @@ export default {
     disable: {
       control: false,
     },
-    onBlur: {
-      control: false,
-      table: {
-        type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
-        },
-      },
-    },
-    onChange: {
-      control: false,
-      table: {
-        type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
-        },
-      },
-    },
-    onClear: {
-      control: false,
-      table: {
-        type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
-        },
-      },
-    },
-    onClose: {
-      control: false,
-      table: {
-        type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
-        },
-      },
-    },
-    onFocus: {
-      control: false,
-      table: {
-        type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
-        },
-      },
-    },
-    onReady: {
-      control: false,
-      table: {
-        type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
-        },
-      },
-    },
-    onOpen: {
-      control: false,
-      table: {
-        type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
-        },
-      },
-    },
-    onMonthChange: {
-      control: false,
-      table: {
-        type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
-        },
-      },
-    },
-    onYearChange: {
-      control: false,
-      table: {
-        type: {
-          summary: "(dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void",
-        },
-      },
-    },
+    onBlur: { control: false },
+    onChange: { control: false },
+    onClear: { control: false },
+    onClose: { control: false },
+    onFocus: { control: false },
+    onReady: { control: false },
+    onOpen: { control: false },
+    onMonthChange: { control: false },
+    onYearChange: { control: false },
   },
 }
 
-const Template = ({ ...args }) => (
-  <DateTimePicker
-    {...args}
-    onChange={() => {}}
-    onClose={() => {}}
-    onReady={() => {}}
-    onOpen={() => {}}
-    onMonthChange={() => {}}
-    onYearChange={() => {}}
-  />
-)
+export default meta
 
-export const Default = {
+type Story = StoryObj<typeof DateTimePicker>
+
+const defaultHandlers = {
+  onChange: () => {},
+  onClose: () => {},
+  onReady: () => {},
+  onOpen: () => {},
+  onMonthChange: () => {},
+  onYearChange: () => {},
+}
+
+const Template = (args: DateTimePickerProps) => <DateTimePicker {...args} {...defaultHandlers} />
+
+export const Default: Story = {
   render: Template,
   args: {},
 }
 
-export const WithLabel = {
+export const WithLabel: Story = {
   render: Template,
   args: {
     label: "Select a date",
   },
 }
 
-export const Required = {
+export const Required: Story = {
   render: Template,
   args: {
     label: "Select a date",
@@ -181,7 +123,7 @@ export const Required = {
   },
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   render: Template,
   args: {
     label: "Select a date",
@@ -189,14 +131,14 @@ export const Disabled = {
   },
 }
 
-export const WithPlaceholder = {
+export const WithPlaceholder: Story = {
   render: Template,
   args: {
     placeholder: "Select a date…",
   },
 }
 
-export const WithValue = {
+export const WithValue: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -211,7 +153,7 @@ export const WithValue = {
   },
 }
 
-export const WithDefaultDate = {
+export const WithDefaultDate: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -226,7 +168,7 @@ export const WithDefaultDate = {
   },
 }
 
-export const WithDefaultHourAndMinute = {
+export const WithDefaultHourAndMinute: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -244,7 +186,7 @@ export const WithDefaultHourAndMinute = {
   },
 }
 
-export const WithDefaultValue = {
+export const WithDefaultValue: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -259,7 +201,7 @@ export const WithDefaultValue = {
   },
 }
 
-export const WithValueAsDateString = {
+export const WithValueAsDateString: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -274,7 +216,7 @@ export const WithValueAsDateString = {
   },
 }
 
-export const WithValueAsIsoDateString = {
+export const WithValueAsIsoDateString: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -288,7 +230,7 @@ export const WithValueAsIsoDateString = {
   },
 }
 
-export const WithValueAsTimestamp = {
+export const WithValueAsTimestamp: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -302,7 +244,7 @@ export const WithValueAsTimestamp = {
   },
 }
 
-export const WithValueAsTodayShortcut = {
+export const WithValueAsTodayShortcut: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -316,7 +258,7 @@ export const WithValueAsTodayShortcut = {
   },
 }
 
-export const WithCustomDateFormat = {
+export const WithCustomDateFormat: Story = {
   render: Template,
   parameters: {},
   args: {
@@ -325,7 +267,7 @@ export const WithCustomDateFormat = {
   },
 }
 
-export const WithTime = {
+export const WithTime: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -340,7 +282,7 @@ export const WithTime = {
   },
 }
 
-export const WithTimeAndSeconds = {
+export const WithTimeAndSeconds: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -356,7 +298,7 @@ export const WithTimeAndSeconds = {
   },
 }
 
-export const WithTimeWithCustomHourIncrement = {
+export const WithTimeWithCustomHourIncrement: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -372,7 +314,7 @@ export const WithTimeWithCustomHourIncrement = {
   },
 }
 
-export const WithTimeWithCustomMinuteIncrement = {
+export const WithTimeWithCustomMinuteIncrement: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -388,7 +330,7 @@ export const WithTimeWithCustomMinuteIncrement = {
   },
 }
 
-export const With24hTime = {
+export const With24hTime: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -403,7 +345,7 @@ export const With24hTime = {
   },
 }
 
-export const ShowTwoMonths = {
+export const ShowTwoMonths: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -417,7 +359,7 @@ export const ShowTwoMonths = {
   },
 }
 
-export const WithWeekNumbers = {
+export const WithWeekNumbers: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -431,7 +373,7 @@ export const WithWeekNumbers = {
   },
 }
 
-export const WithShorthandCurrentMonth = {
+export const WithShorthandCurrentMonth: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -445,7 +387,7 @@ export const WithShorthandCurrentMonth = {
   },
 }
 
-export const WithMonthSelectorDropdown = {
+export const WithMonthSelectorDropdown: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -460,7 +402,7 @@ export const WithMonthSelectorDropdown = {
   },
 }
 
-export const AllowInput = {
+export const AllowInput: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -474,7 +416,7 @@ export const AllowInput = {
   },
 }
 
-export const Multiple = {
+export const Multiple: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -488,7 +430,7 @@ export const Multiple = {
   },
 }
 
-export const Range = {
+export const Range: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -502,7 +444,7 @@ export const Range = {
   },
 }
 
-export const TimePicker = {
+export const TimePicker: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -519,7 +461,7 @@ export const TimePicker = {
   },
 }
 
-export const WithMinDate = {
+export const WithMinDate: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -534,7 +476,7 @@ export const WithMinDate = {
   },
 }
 
-export const WithMaxDate = {
+export const WithMaxDate: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -549,7 +491,7 @@ export const WithMaxDate = {
   },
 }
 
-export const DisableDate = {
+export const DisableDate: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -564,7 +506,7 @@ export const DisableDate = {
   },
 }
 
-export const DisableByFunction = {
+export const DisableByFunction: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -587,42 +529,42 @@ export const DisableByFunction = {
   },
 }
 
-export const Valid = {
+export const Valid: Story = {
   render: Template,
   args: {
     valid: true,
   },
 }
 
-export const Invalid = {
+export const Invalid: Story = {
   render: Template,
   args: {
     invalid: true,
   },
 }
 
-export const WithErrortext = {
+export const WithErrortext: Story = {
   render: Template,
   args: {
     errortext: "This DateTimePicker has an error or is invalid.",
   },
 }
 
-export const WithSuccesstext = {
+export const WithSuccesstext: Story = {
   render: Template,
   args: {
     successtext: "This DateTimePicker was susccessfully validated.",
   },
 }
 
-export const WithHelptext = {
+export const WithHelptex: Story = {
   render: Template,
   args: {
     helptext: "Some useful information goes here.",
   },
 }
 
-export const InvalidPreload = {
+export const InvalidPreload: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -669,7 +611,7 @@ const ControlledTemplate = ({ ...args }) => {
   )
 }
 
-export const ControlledDateTimePicker = {
+export const ControlledDateTimePicker: Story = {
   render: ControlledTemplate,
   parameters: {
     docs: {

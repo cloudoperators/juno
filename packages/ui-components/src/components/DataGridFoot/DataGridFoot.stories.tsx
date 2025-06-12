@@ -7,8 +7,6 @@ import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DataGridFoot } from "./index"
 
-type StoryFunction = () => React.ReactNode
-
 const meta: Meta<typeof DataGridFoot> = {
   title: "WiP/DataGrid/DataGridFoot",
   component: DataGridFoot,
@@ -20,7 +18,7 @@ const meta: Meta<typeof DataGridFoot> = {
       },
     },
   },
-  decorators: [(story: StoryFunction) => <table>{story()}</table>],
+  decorators: [(Story) => <table>{Story()}</table>],
   parameters: {
     docs: {
       source: {
