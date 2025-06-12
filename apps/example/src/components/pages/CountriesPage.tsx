@@ -4,111 +4,58 @@
  */
 
 import React from "react"
-import { ContentHeading, Icon, Badge } from "@cloudoperators/juno-ui-components"
+import { ContentHeading, Icon, Badge, Stack } from "@cloudoperators/juno-ui-components"
 
 import GenericCard from "../common/GenericCard"
-import { Peak } from "../../mocks/db"
+import useCountryStats from "../hooks/useCountryStats"
+import { DEFAULT_SMALL_APP_MARGIN, DEFAULT_MEDIUM_APP_MARGIN } from "../constants"
 
-interface CountrySafetyCounts {
-  Safe: number
-  Caution: number
-  Unsafe: number
-}
+import usePeaksStore from "../../store/usePeaksStore"
 
-interface CountryStats {
-  peaks: Peak[]
-  highestPeak: number
-  safetyCounts: CountrySafetyCounts
-}
+const notificationStyle = "w-8 h-8 flex items-center justify-center rounded-full text-theme-highest"
 
-interface CountryDashboardPageProps {
-  peaks: Peak[]
-  // eslint-disable-next-line no-unused-vars
-  onSelectCountry: (country: string) => void
-}
-
-// Needs refactoring
-
-const CountriesPage: React.FC<CountryDashboardPageProps> = ({ peaks, onSelectCountry }) => {
-  const countryStats: Record<string, CountryStats> = peaks.reduce(
-    (acc, peak) => {
-      if (!acc[peak.countries]) {
-        acc[peak.countries] = { peaks: [], highestPeak: 0, safetyCounts: { Safe: 0, Caution: 0, Unsafe: 0 } }
-      }
-      const currentCountryStats = acc[peak.countries]
-      currentCountryStats.peaks.push(peak)
-
-      // Ensure height is a number
-      const peakHeight = typeof peak.height === "string" ? parseInt(peak.height, 10) : peak.height
-      currentCountryStats.highestPeak = Math.max(currentCountryStats.highestPeak, peakHeight)
-
-      // Use keyof for indexing
-      const safetyStatus = peak.safety.status as keyof CountrySafetyCounts
-
-      if (currentCountryStats.safetyCounts[safetyStatus] !== undefined) {
-        currentCountryStats.safetyCounts[safetyStatus] += 1
-      }
-
-      return acc
-    },
-    {} as Record<string, CountryStats>
-  )
-
-  const sortedCountries = Object.keys(countryStats).sort(
-    (a, b) => countryStats[b].peaks.length - countryStats[a].peaks.length
-  )
-
-  const handleCountryClick = (country: string) => {
-    onSelectCountry(country)
-  }
+const CountriesPage: React.FC<{ onSelectCountry: (_country: string) => void }> = ({ onSelectCountry }) => {
+  const { peaks } = usePeaksStore()
+  const { countryStats, sortedCountries } = useCountryStats(peaks)
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-4">
+    <>
+      <Stack className="flex justify-between items-center mb-4">
         <ContentHeading>All Countries</ContentHeading>
-      </div>
+      </Stack>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sortedCountries.map((country) => (
-          <GenericCard
-            key={country}
-            iconElement={<Icon icon="place" className="mr-2 text-blue-400 text-2xl" />}
-            title={country}
-            badgeContainer={
-              <div className="flex gap-2">
-                {countryStats[country].safetyCounts.Safe > 0 && (
-                  <Badge
-                    text={`${countryStats[country].safetyCounts.Safe}`}
-                    variant="success"
-                    className="px-2 py-1 rounded-full text-white"
-                  />
-                )}
-                {countryStats[country].safetyCounts.Caution > 0 && (
-                  <Badge
-                    text={`${countryStats[country].safetyCounts.Caution}`}
-                    variant="warning"
-                    className="px-2 py-1 rounded-full text-white"
-                  />
-                )}
-                {countryStats[country].safetyCounts.Unsafe > 0 && (
-                  <Badge
-                    text={`${countryStats[country].safetyCounts.Unsafe}`}
-                    variant="error"
-                    className="px-2 py-1 rounded-full text-white"
-                  />
-                )}
-              </div>
-            }
-            content={
-              <p className="text-sm text-gray-300 mb-2">
-                <span className="font-semibold">Total Peaks:</span> {countryStats[country].peaks.length}
-              </p>
-            }
-            onClick={() => handleCountryClick(country)}
-          />
-        ))}
-      </div>
-    </div>
+      <Stack gap={DEFAULT_MEDIUM_APP_MARGIN} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {sortedCountries.map((country) => {
+          const { safetyCounts, peaks } = countryStats[country]
+          return (
+            <GenericCard
+              key={country}
+              iconElement={<Icon icon="place" />}
+              title={country}
+              badgeContainer={
+                <Stack gap={DEFAULT_SMALL_APP_MARGIN} className="flex">
+                  {safetyCounts.Safe > 0 && (
+                    <Badge text={`${safetyCounts.Safe}`} variant="success" className={notificationStyle} />
+                  )}
+                  {safetyCounts.Caution > 0 && (
+                    <Badge text={`${safetyCounts.Caution}`} variant="warning" className={notificationStyle} />
+                  )}
+                  {safetyCounts.Unsafe > 0 && (
+                    <Badge text={`${safetyCounts.Unsafe}`} variant="error" className={notificationStyle} />
+                  )}
+                </Stack>
+              }
+              content={
+                <p className="text-sm text-gray-300 mb-2">
+                  <span className="font-semibold">Total Peaks:</span> {peaks.length}
+                </p>
+              }
+              onClick={() => onSelectCountry(country)}
+            />
+          )
+        })}
+      </Stack>
+    </>
   )
 }
 

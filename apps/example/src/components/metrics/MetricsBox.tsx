@@ -4,34 +4,30 @@
  */
 
 import React, { useState } from "react"
-import { Spinner, Modal, Icon } from "@cloudoperators/juno-ui-components"
-import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
+import { Modal, Badge, Button, ModalFooter, ButtonRow, Icon, Spinner, Box } from "@cloudoperators/juno-ui-components"
+
+import { Peak } from "../../mocks/db"
+import useUIStore from "../../store/useUIStore"
+import usePeaksStore from "../../store/usePeaksStore"
+import useConfigStore from "../../store/useConfigStore"
+import useNavigationStore from "../../store/useNavigationStore"
 
 import ArrowUp from "../../assets/arrow_up.svg?react"
 import ArrowDown from "../../assets/arrow_down.svg?react"
 import Mountain from "../../assets/mountain.svg?react"
+import Height from "../../assets/height.svg?react"
+import Safety from "../../assets/safety.svg?react"
 
-// TO DO: Make component more generic (if needed in the future) or move under peaks/ (if only specific to peaks)
-
-// TO DO: Reuse Peak type
-export interface PeakDetails {
-  name: string
-  region: string
-  country: string
-  height: string
-  status: string
-  recommendation: string
-}
+import { Pages } from "../constants"
+import { getNumberColorStyle } from "../peaks/utils/getNumberColor"
 
 export interface MetricsProps {
   label: string
   number?: string
   value?: string
-  isLoading: boolean
   iconName?: string
-  peakDetails?: PeakDetails
+  peakDetails?: Peak
   peakType?: (typeof Metrics)[keyof typeof Metrics]
-  hoverable: boolean
 }
 
 export const Metrics = {
@@ -39,67 +35,78 @@ export const Metrics = {
   LOWEST_PEAK: "lowest",
   TOTAL_PEAKS: "total",
   TOTAL_COUNTRIES: "place",
+  HEIGHT: "height",
+  SAFETY: "safety",
 }
 
 const renderIcon = (peakType?: string) => {
   switch (peakType) {
     case Metrics.HIGHEST_PEAK:
-      return <ArrowUp className="mr-6 text-white" />
+      return <ArrowUp />
     case Metrics.LOWEST_PEAK:
-      return <ArrowDown className="mr-6 text-white" />
+      return <ArrowDown />
     case Metrics.TOTAL_PEAKS:
-      return <Mountain className="mr-6 text-white" />
+      return <Mountain />
+    case Metrics.HEIGHT:
+      return <Height />
+    case Metrics.SAFETY:
+      return <Safety />
     case Metrics.TOTAL_COUNTRIES:
-      return <Icon className="text-white text-5xl mr-6" icon="place" />
+      return <Icon className="text-theme-high text-5xl" icon="place" />
     default:
       return null
   }
 }
 
-const MetricsBox: React.FC<MetricsProps> = ({
-  label,
-  number,
-  isLoading = false,
-  peakDetails,
-  peakType,
-  hoverable = false,
-}) => {
+const MetricsBox: React.FC<MetricsProps> = ({ label, number, peakDetails, peakType }) => {
   const [modalVisible, setModalVisible] = useState(false)
+  const { setCurrentPage } = useNavigationStore()
+  const { setSelectedPeakId } = usePeaksStore()
+  const { setShowPeakDetails } = useUIStore()
+  const { isQueryClientReady } = useConfigStore()
+
+  const isClickable =
+    isQueryClientReady && peakType !== Metrics.TOTAL_PEAKS && peakType !== Metrics.TOTAL_COUNTRIES && peakDetails
 
   const handleBoxClick = () => {
-    if (!isLoading && peakDetails) {
+    if (isClickable) {
       setModalVisible(true)
     }
   }
 
-  const colorStyle = peakDetails ? getNumberColorStyle(peakDetails.status) : { color: "#FFFFFF" }
+  const navigateToDetailPage = () => {
+    if (peakDetails) {
+      setSelectedPeakId(String(peakDetails.id))
+      setShowPeakDetails(true)
+      setCurrentPage(Pages.PEAKS)
+      setModalVisible(false)
+    }
+  }
 
-  const baseStyles =
-    "flex-1 bg-gradient-to-r from-blue-500 to-green-500 p-6 shadow-md flex items-center justify-start border"
-  const hoverStyles =
-    "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-1 text-white"
-
-  const boxStyles = [baseStyles, hoverable && !isLoading ? hoverStyles : ""].join(" ")
+  const colorClass = peakDetails ? getNumberColorStyle(peakDetails.safety.status) : "text-theme-high"
 
   return (
     <>
-      <div className={boxStyles} onClick={handleBoxClick} style={{ borderWidth: "1px", borderRadius: "0px" }}>
-        {renderIcon(peakType)}
-        <PeakInfo
-          label={label}
-          number={number}
-          colorStyle={colorStyle}
-          isLoading={isLoading}
-          peakDetails={peakDetails}
-        />
-      </div>
+      <Box
+        className={`flex border p-6 shadow-md ${isClickable ? "transition-transform duration-500 transform hover:scale-105 cursor-pointer hover:bg-theme-background-lvl-3 text-theme-high" : ""}`}
+        onClick={handleBoxClick}
+        style={{ display: "flex", alignItems: "center", width: "100%" }}
+      >
+        <div className="flex justify-center items-center w-1/4">{renderIcon(peakType)}</div>
+        <div className="flex flex-col justify-center items-center w-3/4">
+          <PeakInfo label={label} number={number} colorClass={colorClass} peakDetails={peakDetails} />
+        </div>
+      </Box>
 
-      <PeakModal
-        peakDetails={peakDetails}
-        colorStyle={colorStyle}
-        modalVisible={modalVisible}
-        onClose={() => setModalVisible(false)}
-      />
+      {modalVisible && peakDetails && (
+        <PeakModal
+          peakDetails={peakDetails}
+          colorClass={colorClass}
+          modalVisible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          onOpenDetail={navigateToDetailPage}
+        />
+      )}
     </>
   )
 }
@@ -109,55 +116,61 @@ export default MetricsBox
 const PeakInfo: React.FC<{
   label: string
   number?: string
-  colorStyle: React.CSSProperties
-  isLoading: boolean
-  peakDetails?: PeakDetails
-}> = ({ label, number, colorStyle, isLoading, peakDetails }) => (
-  <div className="text-white">
-    <span className="text-sm block">{label}</span>
-    {isLoading ? (
-      <Spinner />
-    ) : (
-      <div className="flex items-center">
-        {number && (
-          <span className="text-3xl font-extrabold" style={colorStyle}>
-            {number}
-          </span>
-        )}
-        {peakDetails?.status && (
-          <span className="text-sm font-bold ml-2" style={colorStyle}>
-            {peakDetails.status}
-          </span>
-        )}
-      </div>
-    )}
-  </div>
-)
+  colorClass: string
+  peakDetails?: Peak
+}> = ({ label, number, colorClass, peakDetails }) => {
+  const { isQueryClientReady } = useConfigStore()
+  const isLoading = !peakDetails && !number && isQueryClientReady
+
+  return (
+    <div className="text-theme-high text-center flex flex-col items-center">
+      <span className="text-sm">{label}</span>
+      {isLoading ? <Spinner size="small" /> : <span className={`text-3xl font-extrabold ${colorClass}`}>{number}</span>}
+    </div>
+  )
+}
 
 const PeakModal: React.FC<{
-  peakDetails?: PeakDetails
-  colorStyle: React.CSSProperties
+  peakDetails?: Peak
+  colorClass: string
   modalVisible: boolean
   onClose: () => void
-}> = ({ peakDetails, colorStyle, modalVisible, onClose }) =>
+  onOpenDetail: () => void
+}> = ({ peakDetails, modalVisible, onClose, onOpenDetail }) =>
   modalVisible && peakDetails ? (
     <Modal
       open={modalVisible}
       onCancel={onClose}
       closeable
-      title={`Details for ${peakDetails.name}, ${peakDetails.country}`}
+      title={`Details for ${peakDetails.name}, ${peakDetails.countries}`}
       size="large"
+      modalFooter={
+        <ModalFooter className="flex justify-end">
+          <ButtonRow>
+            <Button onClick={onClose} label={"Cancel"} />
+            <Button variant="primary" onClick={onOpenDetail}>
+              Open Detail Page
+            </Button>
+          </ButtonRow>
+        </ModalFooter>
+      }
     >
-      <h3 className="text-lg mb-3">
-        <span style={colorStyle}>{`This Peak is ${peakDetails.status}!`}</span>
-      </h3>
-      <>
+      <div className="flex flex-col space-y-3">
+        <div className="flex items-center space-x-2">
+          <strong>Safety:</strong>
+          <Badge
+            icon
+            text={peakDetails.safety.status}
+            variant={peakDetails.safety.variant || "warning"}
+            className="w-[70px] text-center"
+          />
+        </div>
         <div>
           <strong>Height:</strong> {peakDetails.height}
         </div>
         <div>
-          <strong>Recommendation:</strong> {peakDetails.recommendation}
+          <strong>Recommendation:</strong> {peakDetails.safety.recommendation}
         </div>
-      </>
+      </div>
     </Modal>
   ) : null
