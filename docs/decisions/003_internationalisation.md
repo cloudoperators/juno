@@ -80,7 +80,7 @@ Juno and Aurora require internationalization support to serve users in multiple 
 **Proposed File Structure:**
 
 ```
-├── locale/
+├── locales/
 │   ├── en/
 │   │   ├── messages.js
 │   │   └── messages.po
