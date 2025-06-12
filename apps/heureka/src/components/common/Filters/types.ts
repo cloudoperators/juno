@@ -18,7 +18,7 @@ export type Filter = {
   filterName: string
   values: string[]
 }
-// TODO: change it to UIFilterSettings
+
 export type FilterSettings = {
   selectedFilters?: SelectedFilter[]
   searchTerm?: string
