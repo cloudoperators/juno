@@ -18,7 +18,7 @@ describe("encode", () => {
         null: null,
         empty: "",
       })
-    ).toBe("key=value")
+    ).toBe("?key=value")
   })
 
   describe("returns empty string for non-object values", () => {
