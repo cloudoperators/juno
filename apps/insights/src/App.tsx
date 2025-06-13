@@ -3,7 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AppShell, AppShellProvider, Button, Container, Message } from "@cloudoperators/juno-ui-components"
+import {
+  AppShell,
+  AppShellProvider,
+  Button,
+  Container,
+  Message,
+  SideNavigation,
+  SideNavigationItem,
+} from "@cloudoperators/juno-ui-components"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 import { PersesDashboardWrapper } from "./components/PersesDashboardWrapper"
@@ -18,14 +26,6 @@ export interface AppProps {
 }
 
 export const App = (props: AppProps) => {
-  const preErrorClasses = `
-    custom-error-pre
-    border-theme-error
-    border
-    h-full
-    w-full
-    `
-
   // Create query client which it can be used from overall in the app
   // set default endpoint to fetch data
 
@@ -39,9 +39,47 @@ export const App = (props: AppProps) => {
     },
   })
 
+  // Draft navigation items
+  const navigationItems = [
+    {
+      label: "Dashboard",
+      href: "/dashboard",
+      active: true,
+    },
+    {
+      label: "Projects",
+      href: "/projects",
+    },
+    {
+      label: "Data Sources",
+      href: "/datasources",
+      beta: true,
+    },
+    {
+      label: "Variables",
+      href: "/variables",
+    },
+    {
+      label: "Akshay",
+      href: "/settings",
+    },
+  ]
+
+  const sideNavigationContent = (
+    <SideNavigation>
+      {navigationItems.map((item, index) => (
+        <SideNavigationItem key={index} label={item.label} href={item.href} active={item.active} />
+      ))}
+    </SideNavigation>
+  )
+
   return (
     <QueryClientProvider client={queryClient}>
-      <AppShell pageHeader="Greenhouse Insights" embedded={props.embedded === "true" || props.embedded === true}>
+      <AppShell
+        pageHeader="Greenhouse Insights"
+        embedded={props.embedded === "true" || props.embedded === true}
+        sideNavigation={sideNavigationContent}
+      >
         <Button label="Test Button" onClick={function Xs() {}} variant="primary" />
         <Container className="" py>
           This is a test content.
