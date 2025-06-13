@@ -39,11 +39,12 @@ const SilencesList = () => {
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
   const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
-  const { addMessage } = useActions()
+  const { addMessage, resetMessages } = useActions()
 
   const { data, isLoading, error } = useBoundQuery<SilencesData>("silences")
 
   if (error) {
+    resetMessages()
     // Extra CORS warning based on instanceof
     if (error instanceof CorsNetworkError) {
       addMessage({

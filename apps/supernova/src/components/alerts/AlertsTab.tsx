@@ -20,12 +20,13 @@ const AlertsTab = () => {
   const totalCounts = useAlertsTotalCounts()
   const updatedAt = useAlertsUpdatedAt()
   const { setAlertsData } = useAlertsActions()
-  const { addMessage } = useActions()
+  const { addMessage, resetMessages } = useActions()
 
   // Fetch alerts data
   const { data, isLoading, error } = useBoundQuery<AlertsData>("alerts")
 
   if (error) {
+    resetMessages()
     // Extra CORS warning based on instanceof
     if (error instanceof CorsNetworkError) {
       addMessage({
