@@ -18,15 +18,13 @@ export class CorsNetworkError extends Error {
 }
 
 function isPossibleCorsError(err: unknown): boolean {
-  const isFirefox = navigator.userAgent.includes("Firefox")
-
   if (!(err instanceof TypeError)) {
     return false
   }
 
   const message = (err as Error).message || ""
 
-  if (isFirefox && message.includes("NetworkError")) {
+  if (navigator.userAgent.includes("Firefox") && message.includes("NetworkError")) {
     return true
   }
 
