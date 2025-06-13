@@ -25,9 +25,11 @@ const meta: Meta<typeof PanelFooter> = {
     },
   },
   decorators: [
-    (story: () => React.ReactNode) => (
+    (Story) => (
       <PortalProvider>
-        <div className="jn-contrast-100">{story()}</div>
+        <div className="jn-contrast-100">
+          <Story />
+        </div>
       </PortalProvider>
     ),
   ],

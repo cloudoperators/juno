@@ -23,7 +23,9 @@ const meta: Meta<typeof DataGridHeadCell> = {
   decorators: [
     (Story) => (
       <DataGrid columns={3}>
-        <DataGridRow>{Story()}</DataGridRow>
+        <DataGridRow>
+          <Story />
+        </DataGridRow>
       </DataGrid>
     ),
   ],

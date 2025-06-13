@@ -18,7 +18,13 @@ const meta: Meta<typeof DataGridFoot> = {
       },
     },
   },
-  decorators: [(Story) => <table>{Story()}</table>],
+  decorators: [
+    (Story) => (
+      <table>
+        <Story />
+      </table>
+    ),
+  ],
   parameters: {
     docs: {
       source: {

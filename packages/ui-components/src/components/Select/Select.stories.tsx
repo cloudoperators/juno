@@ -40,7 +40,9 @@ const meta: Meta<typeof Select> = {
   decorators: [
     (Story) => (
       <div className="jn-pb-12" style={{ minHeight: "250px" }}>
-        <PortalProvider>{Story()}</PortalProvider>
+        <PortalProvider>
+          <Story />
+        </PortalProvider>
       </div>
     ),
   ],
