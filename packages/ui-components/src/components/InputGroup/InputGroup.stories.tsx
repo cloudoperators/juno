@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement } from "react"
+import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { InputGroup } from "./InputGroup.component"
 
@@ -14,8 +15,6 @@ import { SelectOption } from "../SelectOption"
 import { SelectProps } from "../Select/Select.component"
 import { PortalProvider } from "../PortalProvider"
 
-type StoryFunction = () => ReactElement
-
 const SelectInput = (props: SelectProps) => (
   <Select {...props}>
     <SelectOption value="value1" label="Label 1" />
@@ -24,7 +23,7 @@ const SelectInput = (props: SelectProps) => (
   </Select>
 )
 
-export default {
+const meta: Meta<typeof InputGroup> = {
   title: "WiP/InputGroup",
   component: InputGroup,
   argTypes: {
@@ -33,15 +32,20 @@ export default {
     },
   },
   decorators: [
-    (story: StoryFunction) => (
+    (Story) => (
       <div className="jn-pb-12" style={{ minHeight: "250px" }}>
-        <PortalProvider>{story()}</PortalProvider>
+        <PortalProvider>
+          <Story />
+        </PortalProvider>
       </div>
     ),
   ],
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {
     children: [
       <Button key={0} label="Button 1" />,
@@ -51,7 +55,7 @@ export const Default = {
   },
 }
 
-export const PrimaryInputGroup = {
+export const PrimaryInputGroup: Story = {
   args: {
     variant: "primary",
     children: [
@@ -62,7 +66,7 @@ export const PrimaryInputGroup = {
   },
 }
 
-export const PrimaryDangerInputGroup = {
+export const PrimaryDangerInputGroup: Story = {
   args: {
     variant: "primary-danger",
     children: [
@@ -73,7 +77,7 @@ export const PrimaryDangerInputGroup = {
   },
 }
 
-export const SubduedInputGroup = {
+export const SubduedInputGroup: Story = {
   args: {
     variant: "subdued",
     children: [
@@ -84,26 +88,26 @@ export const SubduedInputGroup = {
   },
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   args: {
     disabled: true,
     children: [<Button key={0} label="Button" />, <Button key={1} label="Button" />, <Button key={2} label="Button" />],
   },
 }
 
-export const IconButtons = {
+export const IconButtons: Story = {
   args: {
     children: [<Button key={0} icon="home" />, <Button key={1} icon="help" />, <Button key={2} icon="forum" />],
   },
 }
 
-export const TextInputWithButton = {
+export const TextInputWithButton: Story = {
   args: {
     children: [<TextInput key={0} placeholder="Enter a value…" />, <Button key={1} label="Submit" />],
   },
 }
 
-export const MultipleTextInputsWithButton = {
+export const MultipleTextInputsWithButton: Story = {
   args: {
     children: [
       <TextInput key={0} placeholder="First Name" />,
@@ -113,7 +117,7 @@ export const MultipleTextInputsWithButton = {
   },
 }
 
-export const SelectInputsWithButton = {
+export const SelectInputsWithButton: Story = {
   args: {
     variant: "subdued",
     children: [

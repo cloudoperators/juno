@@ -4,14 +4,22 @@
  */
 
 import React, { useState, useEffect } from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+
 import { MainTabs } from "./index"
 import { Tab } from "../Tab/index"
 import { TabList } from "../TabList/index"
 import { TabPanel } from "../TabPanel/index"
 import { TabPanelProps } from "../TabPanel/TabPanel.component"
 import { TabProps } from "../Tab/Tab.component"
+import { MainTabsProps } from "./MainTabs.component"
 
-export default {
+interface MainTabsStoryProps extends MainTabsProps {
+  tabs: React.ReactElement<TabProps>[]
+  tabpanels: React.ReactElement<TabPanelProps>[]
+}
+
+const meta: Meta<MainTabsStoryProps> = {
   title: "Layout/Tabs/MainTabs",
   component: MainTabs,
   argTypes: {
@@ -32,54 +40,18 @@ export default {
       },
     },
   },
-}
-
-const Template = ({ tabs, tabpanels, ...args }: TemplateProps) => (
-  <MainTabs {...args}>
-    <TabList>{tabs}</TabList>
-    {tabpanels}
-  </MainTabs>
-)
-
-interface TemplateProps {
-  tabs: React.ReactElement<TabProps>[]
-  tabpanels: React.ReactElement<TabPanelProps>[]
-}
-
-const ControlledTemplate = ({ onSelect, selectedIndex, tabs, tabpanels, ...args }: ControlledTemplateProps) => {
-  const [index, setIndex] = useState<number | undefined>(0)
-
-  useEffect(() => {
-    setIndex(selectedIndex)
-  }, [selectedIndex])
-
-  const handleSelect = (idx: number) => {
-    setIndex(idx)
-    onSelect && onSelect(idx)
-  }
-
-  return (
-    <MainTabs {...args} selectedIndex={index} onSelect={handleSelect}>
+  render: ({ tabs, tabpanels, ...args }) => (
+    <MainTabs {...args}>
       <TabList>{tabs}</TabList>
       {tabpanels}
     </MainTabs>
-  )
+  ),
 }
 
-// eslint-disable-next-line no-unused-vars
-type OnSelectHandler = (value: number) => void
+export default meta
+type Story = StoryObj<typeof meta>
 
-// prop types for ControlledTemplate
-interface ControlledTemplateProps {
-  tabs?: React.ReactElement<TabProps>[]
-  tabpanels?: React.ReactElement<TabPanelProps>[]
-  selectedIndex?: number
-  onSelect?: OnSelectHandler
-}
-
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     tabs: [<Tab key="t-1">MainTab 1</Tab>, <Tab key="t-2">MainTab 2</Tab>, <Tab key="t-3">MainTab 3</Tab>],
     tabpanels: [
@@ -90,9 +62,26 @@ export const Default = {
   },
 }
 
-export const Controlled = {
-  render: ControlledTemplate,
+export const Controlled: Story = {
+  render: ({ onSelect, selectedIndex, tabs, tabpanels, ...args }) => {
+    const [index, setIndex] = useState<number | undefined | null>(0)
 
+    useEffect(() => {
+      setIndex(selectedIndex)
+    }, [selectedIndex])
+
+    const handleSelect = (idx: number) => {
+      setIndex(idx)
+      onSelect && onSelect(idx)
+    }
+
+    return (
+      <MainTabs {...args} selectedIndex={index} onSelect={handleSelect}>
+        <TabList>{tabs}</TabList>
+        {tabpanels}
+      </MainTabs>
+    )
+  },
   args: {
     tabs: [
       <Tab key="t-1">Controlled MainTab 1</Tab>,

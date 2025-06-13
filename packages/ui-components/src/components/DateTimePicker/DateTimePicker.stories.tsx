@@ -90,7 +90,7 @@ const meta: Meta<typeof DateTimePicker> = {
 
 export default meta
 
-type Story = StoryObj<typeof DateTimePicker>
+type Story = StoryObj<typeof meta>
 
 const defaultHandlers = {
   onChange: () => {},
