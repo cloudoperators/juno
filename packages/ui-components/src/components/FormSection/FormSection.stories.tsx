@@ -4,20 +4,16 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { FormSection } from "../FormSection/FormSection.component"
 import { TextInput } from "../TextInput/TextInput.component"
 import { FormRow } from "../FormRow/FormRow.component"
 
-export default {
+const meta: Meta<typeof FormSection> = {
   title: "Forms/FormSection",
   component: FormSection,
   argTypes: {
-    items: {
-      table: {
-        disable: true,
-      },
-    },
     children: {
       control: false,
       table: {
@@ -27,15 +23,10 @@ export default {
   },
 }
 
-interface TemplateProps {
-  children?: React.ReactNode
-}
+export default meta
+type Story = StoryObj<typeof meta>
 
-const Template = ({ children, ...args }: TemplateProps) => <FormSection {...args}>{children}</FormSection>
-
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     children: [
       <FormRow key="1">
@@ -48,9 +39,7 @@ export const Default = {
   },
 }
 
-export const WithTitle = {
-  render: Template,
-
+export const WithTitle: Story = {
   args: {
     title: "Form Section With Title",
     children: [

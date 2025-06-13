@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
+
 import { IntroBox } from "./index"
 import heroImage from "../../img/app_bg_example.svg"
 
-export default {
+const meta: Meta<typeof IntroBox> = {
   title: "Components/IntroBox",
   component: IntroBox,
   argTypes: {
@@ -16,20 +18,23 @@ export default {
   },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {
     text: "Default IntroBox.",
   },
 }
 
-export const WithTitle = {
+export const WithTitle: Story = {
   args: {
     title: "IntroBox",
     text: "IntroBox with title.",
   },
 }
 
-export const Hero = {
+export const Hero: Story = {
   args: {
     title: "IntroBox",
     text: "Hero IntroBox has a larger font size and more padding",
@@ -37,7 +42,7 @@ export const Hero = {
   },
 }
 
-export const HeroWithBGImage = {
+export const HeroWithBGImage: Story = {
   args: {
     title: "IntroBox",
     text: "Hero IntroBox with background image. Background image must be referenced as a css bg image string. Import svg images with query param ?url.",

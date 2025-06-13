@@ -4,12 +4,20 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DataGrid } from "./index"
 import { DataGridRow } from "../DataGridRow/index"
 import { DataGridCell } from "../DataGridCell/index"
 import { DataGridHeadCell } from "../DataGridHeadCell/index"
 
-export default {
+const defaultColumns = 3
+
+type TemplateProps = {
+  hideHead?: boolean
+  includeColSpanRow?: boolean
+} & React.ComponentProps<typeof DataGrid>
+
+const meta: Meta<typeof DataGrid> = {
   title: "Components/DataGrid/DataGrid",
   component: DataGrid,
   argTypes: {
@@ -21,47 +29,46 @@ export default {
     },
   },
 }
+export default meta
 
-const defaultColumns = 3
+const Template = (args: TemplateProps) => {
+  const { hideHead, includeColSpanRow, columns = defaultColumns } = args
 
-interface TemplateProps {
-  hideHead: boolean
-  includeColSpanRow: boolean
-  columns: number
-}
-
-const Template = ({ hideHead, includeColSpanRow, ...args }: TemplateProps) => (
-  <>
+  return (
     <DataGrid {...args}>
-      {(!hideHead || null) && (
+      {!hideHead && (
         <DataGridRow>
-          {[...Array<unknown>(args.columns || defaultColumns)].map((_, c) => (
+          {[...Array<unknown>(columns)].map((_, c) => (
             <DataGridHeadCell key={`h_${c}`}>{`Head cell ${c}`}</DataGridHeadCell>
           ))}
         </DataGridRow>
       )}
-      {(!includeColSpanRow || null) &&
+
+      {!includeColSpanRow &&
         [...Array<unknown>(4)].map((_, r) => (
           <DataGridRow key={`b_${r}`}>
-            {[...Array<unknown>(args.columns || defaultColumns)].map((_, c) => (
+            {[...Array<unknown>(columns)].map((_, c) => (
               <DataGridCell key={`b_${r}_${c}`}>
-                {c === args.columns - 2 ? `Cell ${r}-${c} has more content than others` : `Cell ${r}-${c}`}
+                {c === columns - 2 ? `Cell ${r}-${c} has more content than others` : `Cell ${r}-${c}`}
               </DataGridCell>
             ))}
           </DataGridRow>
         ))}
-      {(includeColSpanRow || null) && (
+
+      {includeColSpanRow && (
         <DataGridRow>
-          <DataGridCell colSpan={args.columns}>This is a cell with colspan spanning all available columns</DataGridCell>
+          <DataGridCell colSpan={columns}>This is a cell with colspan spanning all available columns</DataGridCell>
         </DataGridRow>
       )}
     </DataGrid>
-  </>
-)
+  )
+}
 
-export const Default = {
+export const Default: StoryObj<TemplateProps> = {
   render: Template,
-
+  args: {
+    columns: 5,
+  },
   parameters: {
     docs: {
       description: {
@@ -69,15 +76,14 @@ export const Default = {
       },
     },
   },
-
-  args: {
-    columns: 5,
-  },
 }
 
-export const EqualColumnSize = {
+export const EqualColumnSize: StoryObj<TemplateProps> = {
   render: Template,
-
+  args: {
+    columns: 5,
+    columnMaxSize: "1fr",
+  },
   parameters: {
     docs: {
       description: {
@@ -86,16 +92,14 @@ export const EqualColumnSize = {
       },
     },
   },
-
-  args: {
-    columns: 5,
-    columnMaxSize: "1fr",
-  },
 }
 
-export const ColumnMinSize = {
+export const ColumnMinSize: StoryObj<TemplateProps> = {
   render: Template,
-
+  args: {
+    columns: 5,
+    columnMinSize: "300px",
+  },
   parameters: {
     docs: {
       description: {
@@ -104,16 +108,14 @@ export const ColumnMinSize = {
       },
     },
   },
-
-  args: {
-    columns: 5,
-    columnMinSize: "300px",
-  },
 }
 
-export const MinimumSizedColumns = {
+export const MinimumSizedColumns: StoryObj<TemplateProps> = {
   render: Template,
-
+  args: {
+    columns: 5,
+    minContentColumns: [0, 4],
+  },
   parameters: {
     docs: {
       description: {
@@ -122,16 +124,14 @@ export const MinimumSizedColumns = {
       },
     },
   },
-
-  args: {
-    columns: 5,
-    minContentColumns: [0, 4],
-  },
 }
 
-export const CustomGridTemplate = {
+export const CustomGridTemplate: StoryObj<TemplateProps> = {
   render: Template,
-
+  args: {
+    gridColumnTemplate: `20% repeat(${defaultColumns - 1}, auto)`,
+    columns: defaultColumns,
+  },
   parameters: {
     docs: {
       description: {
@@ -140,15 +140,14 @@ export const CustomGridTemplate = {
       },
     },
   },
-
-  args: {
-    gridColumnTemplate: `20% repeat(${defaultColumns - 1}, auto)`,
-  },
 }
 
-export const NoHead = {
+export const NoHead: StoryObj<TemplateProps> = {
   render: Template,
-
+  args: {
+    columns: 5,
+    hideHead: true,
+  },
   parameters: {
     docs: {
       description: {
@@ -156,26 +155,19 @@ export const NoHead = {
       },
     },
   },
-
-  args: {
-    columns: 5,
-    hideHead: true,
-  },
 }
 
-export const ColSpanCell = {
+export const ColSpanCell: StoryObj<TemplateProps> = {
   render: Template,
-
+  args: {
+    columns: 5,
+    includeColSpanRow: true,
+  },
   parameters: {
     docs: {
       description: {
         story: "With a col span cell",
       },
     },
-  },
-
-  args: {
-    columns: 5,
-    includeColSpanRow: true,
   },
 }

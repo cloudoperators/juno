@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement } from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React from "react"
 import { DataGrid } from "../DataGrid/index"
 import { DataGridRow } from "../DataGridRow/index"
-import { DataGridCell, DataGridCellProps } from "./index"
+import { DataGridCell } from "./index"
 
-type StoryFunction = () => ReactElement
-
-export default {
+const meta: Meta<typeof DataGridCell> = {
   title: "Components/DataGrid/DataGridCell",
   component: DataGridCell,
   argTypes: {
@@ -22,9 +21,11 @@ export default {
     },
   },
   decorators: [
-    (story: StoryFunction) => (
+    (Story) => (
       <DataGrid columns={3}>
-        <DataGridRow>{story()}</DataGridRow>
+        <DataGridRow>
+          <Story />
+        </DataGridRow>
       </DataGrid>
     ),
   ],
@@ -37,11 +38,10 @@ export default {
   },
 }
 
-const Template = (args: DataGridCellProps) => <DataGridCell {...args}></DataGridCell>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   parameters: {
     docs: {
       description: {
@@ -49,15 +49,12 @@ export const Default = {
       },
     },
   },
-
   args: {
     children: ["DataGridCell"],
   },
 }
 
-export const NoWrap = {
-  render: Template,
-
+export const NoWrap: Story = {
   parameters: {
     docs: {
       description: {
@@ -65,16 +62,13 @@ export const NoWrap = {
       },
     },
   },
-
   args: {
     nowrap: true,
     children: ["DataGridCell does not wrap"],
   },
 }
 
-export const ColSpan = {
-  render: Template,
-
+export const ColSpan: Story = {
   parameters: {
     docs: {
       description: {
@@ -82,7 +76,6 @@ export const ColSpan = {
       },
     },
   },
-
   args: {
     colSpan: 3,
     children: ["DataGridCell with colspan"],

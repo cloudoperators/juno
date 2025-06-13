@@ -4,20 +4,15 @@
  */
 
 import React from "react"
-
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { NativeSelect } from "./NativeSelect.component"
 import { NativeSelectOption } from "../NativeSelectOption/NativeSelectOption.component"
 import { NativeSelectOptionGroup } from "../NativeSelectOptionGroup/NativeSelectOptionGroup.component"
 
-export default {
+const meta: Meta<typeof NativeSelect> = {
   title: "Forms/NativeSelect/NativeSelect",
   component: NativeSelect,
   argTypes: {
-    options: {
-      table: {
-        disable: true,
-      },
-    },
     children: {
       control: false,
       table: {
@@ -27,7 +22,10 @@ export default {
   },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {
     children: [
       <NativeSelectOption key={0} value="o-1" label="Option 1" />,
@@ -37,7 +35,7 @@ export const Default = {
   },
 }
 
-export const GroupedNativeSelect = {
+export const GroupedNativeSelect: Story = {
   args: {
     children: [
       <NativeSelectOptionGroup key={0} label="Option Group 1">
@@ -53,7 +51,7 @@ export const GroupedNativeSelect = {
   },
 }
 
-export const DisabledNativeSelect = {
+export const DisabledNativeSelect: Story = {
   args: {
     disabled: true,
     children: [
@@ -64,7 +62,7 @@ export const DisabledNativeSelect = {
   },
 }
 
-export const InvalidNativeSelect = {
+export const InvalidNativeSelect: Story = {
   args: {
     invalid: true,
     children: [
@@ -75,7 +73,7 @@ export const InvalidNativeSelect = {
   },
 }
 
-export const ValidNativeSelect = {
+export const ValidNativeSelect: Story = {
   args: {
     valid: true,
     children: [
@@ -86,14 +84,14 @@ export const ValidNativeSelect = {
   },
 }
 
-export const LoadingNativeSelect = {
+export const LoadingNativeSelect: Story = {
   args: {
     loading: true,
     children: [],
   },
 }
 
-export const NativeSelectWithError = {
+export const NativeSelectWithError: Story = {
   args: {
     error: true,
     children: [],

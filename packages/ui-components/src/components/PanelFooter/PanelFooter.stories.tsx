@@ -4,16 +4,16 @@
  */
 
 import React from "react"
-import { Meta, StoryFn } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Button } from "../Button/Button.component"
 import { Panel } from "../Panel/Panel.component"
 import { PanelBody } from "../PanelBody/PanelBody.component"
-import { PanelFooter, PanelFooterProps } from "./PanelFooter.component"
+import { PanelFooter } from "./PanelFooter.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
 // the decorator captures the panel's fixed positioning within the iframe. otherwise it would be placed relative to the viewport which is unwieldy in storybook
-export default {
+const meta: Meta<typeof PanelFooter> = {
   title: "Layout/Panel/PanelFooter",
   component: PanelFooter,
   argTypes: {
@@ -25,44 +25,36 @@ export default {
     },
   },
   decorators: [
-    (story: () => React.ReactNode) => (
+    (Story) => (
       <PortalProvider>
-        <div className="jn-contrast-100">{story()}</div>
+        <div className="jn-contrast-100">
+          <Story />
+        </div>
       </PortalProvider>
     ),
   ],
-} as Meta
+}
 
-const Template: StoryFn<PanelFooterProps> = (args) => (
-  <div>
-    <Panel heading="My Panel" opened>
-      <PanelBody
-        footer={
-          <PanelFooter {...args}>
-            <Button>Do it</Button>
-          </PanelFooter>
-        }
-      >
-        This is the panel body
-      </PanelBody>
-    </Panel>
-    <div className="dummy-css-ignore jn-h-[250px]">Content Area</div>
-  </div>
-)
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Footer: {
-  render: StoryFn<PanelFooterProps>
-  parameters: {
-    docs: {
-      description: {
-        story: string
-      }
-    }
-  }
-  args: Record<string, unknown>
-} = {
-  render: Template,
-
+export const Footer: Story = {
+  render: (args) => (
+    <div>
+      <Panel heading="My Panel" opened>
+        <PanelBody
+          footer={
+            <PanelFooter {...args}>
+              <Button>Do it</Button>
+            </PanelFooter>
+          }
+        >
+          This is the panel body
+        </PanelBody>
+      </Panel>
+      <div className="dummy-css-ignore jn-h-[250px]">Content Area</div>
+    </div>
+  ),
   parameters: {
     docs: {
       description: {
@@ -71,6 +63,5 @@ export const Footer: {
       },
     },
   },
-
   args: {},
 }

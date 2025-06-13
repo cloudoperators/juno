@@ -4,11 +4,11 @@
  */
 
 import React from "react"
-import { Meta, StoryFn, StoryObj } from "@storybook/react"
-import { Pagination, PaginationProps } from "./Pagination.component"
+import { Meta, StoryObj } from "@storybook/react-vite"
+import { Pagination } from "./Pagination.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 
-export default {
+const meta: Meta<typeof Pagination> = {
   title: "Components/Pagination",
   component: Pagination,
   argTypes: {
@@ -38,16 +38,12 @@ export default {
       </div>
     ),
   ],
-} as Meta<typeof Pagination>
+}
 
-// TODO: Re-write story to use CSFv3 instead of CSFv2
-// Component Story Format (CSF): https://storybook.js.org/docs/6/api/stories/csf
-const Template: StoryFn<PaginationProps> = (args) => <Pagination {...args} />
-
-type Story = StoryObj<PaginationProps>
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: Template,
   args: {
     variant: "default",
     currentPage: 2,
@@ -56,7 +52,6 @@ export const Default: Story = {
 }
 
 export const PaginationWithNumber: Story = {
-  render: Template,
   args: {
     variant: "number",
     currentPage: 12,
@@ -65,7 +60,6 @@ export const PaginationWithNumber: Story = {
 }
 
 export const PaginationWithSelect: Story = {
-  render: Template,
   args: {
     variant: "select",
     currentPage: 2,
@@ -74,7 +68,6 @@ export const PaginationWithSelect: Story = {
 }
 
 export const PaginationWithInput: Story = {
-  render: Template,
   args: {
     variant: "input",
     currentPage: 3,
@@ -83,14 +76,12 @@ export const PaginationWithInput: Story = {
 }
 
 export const DisabledPagination: Story = {
-  render: Template,
   args: {
     disabled: true,
   },
 }
 
 export const ProgressPagination: Story = {
-  render: Template,
   args: {
     progress: true,
   },

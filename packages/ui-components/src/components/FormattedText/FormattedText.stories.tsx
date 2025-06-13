@@ -4,11 +4,12 @@
  */
 
 import React from "react"
+import { Meta, StoryObj } from "@storybook/react-vite"
 import { FormattedText } from "./FormattedText.component"
 import { FormattedTextProps } from "./FormattedText.component"
 
-// Remove the import statement for "ComponentStory"
-export default {
+// Define the meta information for the story
+const meta: Meta<typeof FormattedText> = {
   title: "Components/FormattedText",
   component: FormattedText,
   argTypes: {
@@ -29,6 +30,10 @@ export default {
   },
 }
 
+export default meta
+type Story = StoryObj<typeof meta>
+
+// Define the template for the story
 const Template = (args: FormattedTextProps) => (
   <FormattedText {...args}>
     <h1>Headline 1</h1>
@@ -176,13 +181,14 @@ const Template = (args: FormattedTextProps) => (
   </FormattedText>
 )
 
-export const Basic = {
+// Define the Basic story
+export const Basic: Story = {
   render: Template,
 
   parameters: {
     docs: {
       description: {
-        story: "A basic FormattedTextcomponent with various text elements.",
+        story: "A basic FormattedText component with various text elements.",
       },
     },
   },

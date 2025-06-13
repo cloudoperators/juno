@@ -4,9 +4,10 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DataGridToolbar, DataGridToolbarProps } from "./index"
 
-export default {
+const meta: Meta<typeof DataGridToolbar> = {
   title: "Components/DataGrid/DataGridToolbar",
   component: DataGridToolbar,
   argTypes: {
@@ -25,15 +26,15 @@ export default {
   },
 }
 
-const Template = (args: DataGridToolbarProps) => (
-  <DataGridToolbar {...args}>
-    <button>Add</button>
-  </DataGridToolbar>
-)
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
+  render: (args: DataGridToolbarProps) => (
+    <DataGridToolbar {...args}>
+      <button>Add</button>
+    </DataGridToolbar>
+  ),
   parameters: {
     docs: {
       description: {
@@ -41,6 +42,5 @@ export const Default = {
       },
     },
   },
-
   args: {},
 }

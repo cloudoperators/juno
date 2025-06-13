@@ -39,20 +39,8 @@
     "turbo": "^2.0.3",
     "typescript": "^5.5.4"
   },
-  "pnpm": {
-    "overrides": {
-      "@storybook/addon-essentials@8>react": "$react19",
-      "@storybook/addon-essentials@8>react-dom": "$react-dom19",
-      "@storybook/addon-docs@8>react": "$react19",
-      "@storybook/addon-docs@8>react-dom": "$react-dom19"
-    }
-  },
   "packageManager": "pnpm@10.11.0",
   "dependencies": {
-    "@storybook/addon-essentials8": "npm:@storybook/addon-essentials@^8.6.14",
-    "@storybook/addon-docs8": "npm:@storybook/addon-docs@^8.6.14",
-    "react-dom19": "npm:react-dom@^19.1.0",
-    "react19": "npm:react@^19.1.0",
     "@tanstack/react-query": "^5.62.2",
     "zod": "^3.24.2"
   }

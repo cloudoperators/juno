@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import React from "react"
 import { Radio } from "./index"
 
-export default {
+const meta: Meta<typeof Radio> = {
   title: "Forms/Radio",
   component: Radio,
   argTypes: {
@@ -22,26 +23,29 @@ export default {
   },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {
     value: "1",
   },
 }
 
-export const Checked = {
+export const Checked: Story = {
   args: {
     checked: true,
   },
 }
 
-export const WithLabel = {
+export const WithLabel: Story = {
   args: {
     id: "radio-with-label",
     label: "Radio with label",
   },
 }
 
-export const Required = {
+export const Required: Story = {
   args: {
     required: true,
     label: "Required Radio",
@@ -49,14 +53,14 @@ export const Required = {
   },
 }
 
-export const WithHelptext = {
+export const WithHelptext: Story = {
   args: {
     label: "A Radio",
     helptext: "Never comes alone",
   },
 }
 
-export const WithHelpTextAsNode = {
+export const WithHelpTextAsNode: Story = {
   args: {
     label: "A Radio",
     helptext: (
@@ -67,7 +71,7 @@ export const WithHelpTextAsNode = {
   },
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   args: {
     checked: true,
     disabled: true,
@@ -75,21 +79,21 @@ export const Disabled = {
   },
 }
 
-export const Valid = {
+export const Valid: Story = {
   args: {
     valid: true,
     label: "This Radio is valid",
   },
 }
 
-export const Invalid = {
+export const Invalid: Story = {
   args: {
     invalid: true,
     label: "This Radio is invalid",
   },
 }
 
-export const ValidWithLabel = {
+export const ValidWithLabel: Story = {
   args: {
     valid: true,
     label: "Validated Radio with label and icon",
@@ -98,7 +102,7 @@ export const ValidWithLabel = {
   },
 }
 
-export const InvalidWithLabel = {
+export const InvalidWithLabel: Story = {
   args: {
     invalid: true,
     label: "Invalidated Radio with label and icon",

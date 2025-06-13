@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import React from "react"
-import { actions } from "@storybook/addon-actions"
+import { fn } from "storybook/test"
 import {
   PopupMenu,
   PopupMenuOptions,
@@ -19,23 +20,30 @@ import { KnownIconsEnum } from "../Icon/Icon.component"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 import { Button, ButtonProps } from "../Button/"
 
-type StoryDefinition = () => React.ReactNode
-
-export default {
+const meta: Meta<typeof PopupMenu> = {
   title: "WiP/PopupMenu",
   component: PopupMenu,
   subcomponents: {
-    PopupMenuToggle,
-    PopupMenuOptions,
-    PopupMenuItem,
-    PopupMenuSection,
+    PopupMenuToggle: PopupMenuToggle as React.ComponentType<unknown>,
+    PopupMenuOptions: PopupMenuOptions as React.ComponentType<unknown>,
+    PopupMenuItem: PopupMenuItem as React.ComponentType<unknown>,
+    PopupMenuSection: PopupMenuSection as React.ComponentType<unknown>,
   },
   argTypes: {
     children: { control: false },
     icon: { options: ["moreVert", ...Object.keys(KnownIconsEnum)], control: { type: "select" } },
   },
-  decorators: [(story: StoryDefinition) => <PortalProvider>{story()}</PortalProvider>],
+  decorators: [
+    (Story) => (
+      <PortalProvider>
+        <Story />
+      </PortalProvider>
+    ),
+  ],
 }
+
+export default meta
+type Story = StoryObj<typeof meta>
 
 // ----- Helper Components -----
 
@@ -81,7 +89,7 @@ const CloseButton: React.FC<ButtonProps> = (props) => {
 
 // ----- Stories -----
 
-export const Default = {
+export const Default: Story = {
   parameters: {
     docs: {
       description: {
@@ -91,7 +99,8 @@ export const Default = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     children: (
       <PopupMenuOptions>
         <p>Menu goes here.</p>
@@ -100,7 +109,7 @@ export const Default = {
   },
 }
 
-export const NoMenu = {
+export const NoMenu: Story = {
   parameters: {
     docs: {
       description: {
@@ -110,11 +119,12 @@ export const NoMenu = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
   },
 }
 
-export const DisabledDefaultToggle = {
+export const DisabledDefaultToggle: Story = {
   parameters: {
     args: {
       description: {
@@ -123,12 +133,13 @@ export const DisabledDefaultToggle = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     disabled: true,
   },
 }
 
-export const WithMenuChild = {
+export const WithMenuChild: Story = {
   parameters: {
     docs: {
       description: {
@@ -138,7 +149,8 @@ export const WithMenuChild = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     children: (
       <PopupMenuOptions>
         <PopupMenuItem label="Menu Item 1" />
@@ -149,7 +161,7 @@ export const WithMenuChild = {
   },
 }
 
-export const WithChildrenAsLinks = {
+export const WithChildrenAsLinks: Story = {
   parameters: {
     docs: {
       description: {
@@ -158,7 +170,8 @@ export const WithChildrenAsLinks = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     children: (
       <PopupMenuOptions>
         <PopupMenuItem as="a" href="https://github.com/cloudoperators/juno" label="Go to Juno on Github" />
@@ -168,7 +181,7 @@ export const WithChildrenAsLinks = {
   },
 }
 
-export const WithMenuWithRandomContent = {
+export const WithMenuWithRandomContent: Story = {
   parameters: {
     docs: {
       description: {
@@ -178,7 +191,8 @@ export const WithMenuWithRandomContent = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     children: (
       <PopupMenuOptions>
         <p>Some content goes here.</p>
@@ -188,7 +202,7 @@ export const WithMenuWithRandomContent = {
   },
 }
 
-export const WithMenuChildWithSection = {
+export const WithMenuChildWithSection: Story = {
   parameters: {
     docs: {
       description: {
@@ -198,7 +212,8 @@ export const WithMenuChildWithSection = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     children: (
       <PopupMenuOptions>
         <PopupMenuSection>
@@ -217,7 +232,7 @@ export const WithMenuChildWithSection = {
   },
 }
 
-export const WithIcon = {
+export const WithIcon: Story = {
   parameters: {
     docs: {
       description: {
@@ -226,7 +241,8 @@ export const WithIcon = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     icon: "warning",
     children: (
       <PopupMenuOptions>
@@ -238,7 +254,7 @@ export const WithIcon = {
   },
 }
 
-export const WithToggleAndMenuChildren = {
+export const WithToggleAndMenuChildren: Story = {
   parameters: {
     docs: {
       description: {
@@ -248,7 +264,8 @@ export const WithToggleAndMenuChildren = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     children: [
       <PopupMenuToggle key="t">The Toggle</PopupMenuToggle>,
       <PopupMenuOptions key="m">
@@ -260,7 +277,7 @@ export const WithToggleAndMenuChildren = {
   },
 }
 
-export const WithToggleAsButtonComponent = {
+export const WithToggleAsButtonComponent: Story = {
   parameters: {
     docs: {
       description: {
@@ -270,7 +287,8 @@ export const WithToggleAsButtonComponent = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     children: [
       <PopupMenuToggle as={ToggleButton} key="t" />,
       <PopupMenuOptions key="m">
@@ -282,7 +300,7 @@ export const WithToggleAsButtonComponent = {
   },
 }
 
-export const WithToggleAsButtonStyledByState = {
+export const WithToggleAsButtonStyledByState: Story = {
   parameters: {
     docs: {
       description: {
@@ -292,7 +310,8 @@ export const WithToggleAsButtonStyledByState = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     children: [
       <PopupMenuToggle as={StyledToggleButton} key="t" />,
       <PopupMenuOptions key="m">
@@ -304,7 +323,7 @@ export const WithToggleAsButtonStyledByState = {
   },
 }
 
-export const WithCustomButtonComponentAsChild = {
+export const WithCustomButtonComponentAsChild: Story = {
   parameters: {
     docs: {
       description: {
@@ -314,7 +333,8 @@ export const WithCustomButtonComponentAsChild = {
     },
   },
   args: {
-    ...actions("onOpen", "onClose"),
+    onOpen: fn(),
+    onClose: fn(),
     children: [
       <PopupMenuToggle as={React.Fragment} key="t">
         <ToggleButton />

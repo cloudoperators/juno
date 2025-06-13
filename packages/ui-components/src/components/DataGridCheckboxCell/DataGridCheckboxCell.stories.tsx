@@ -3,20 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement } from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React from "react"
 import { DataGrid } from "../DataGrid/index"
 import { DataGridRow } from "../DataGridRow/index"
-import { DataGridCheckboxCell, DataGridCheckboxCellProps } from "./index"
+import { DataGridCheckboxCell } from "./index"
 
-type StoryFunction = () => ReactElement
-
-export default {
+const meta: Meta<typeof DataGridCheckboxCell> = {
   title: "WiP/DataGrid/DataGridCheckboxCell",
   component: DataGridCheckboxCell,
   decorators: [
-    (story: StoryFunction) => (
+    (Story) => (
       <DataGrid columns={3}>
-        <DataGridRow>{story()}</DataGridRow>
+        <DataGridRow>
+          <Story />
+        </DataGridRow>
       </DataGrid>
     ),
   ],
@@ -29,11 +30,10 @@ export default {
   },
 }
 
-const Template = (args: DataGridCheckboxCellProps) => <DataGridCheckboxCell {...args}></DataGridCheckboxCell>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   parameters: {
     docs: {
       description: {
@@ -41,13 +41,10 @@ export const Default = {
       },
     },
   },
-
   args: {},
 }
 
-export const Disabled = {
-  render: Template,
-
+export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
@@ -55,7 +52,6 @@ export const Disabled = {
       },
     },
   },
-
   args: {
     disabled: true,
   },

@@ -4,14 +4,11 @@
  */
 
 import React, { useState } from "react"
-import type { ReactElement } from "react"
 import { Select, SelectProps } from "./Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 import { PortalProvider } from "../PortalProvider"
-import { fn } from "@storybook/test" // Import the fn function for mocking handlers
-import type { Meta, StoryObj } from "@storybook/react" // Import Storybook types
-
-type StoryFunction = () => ReactElement
+import { fn } from "storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react-vite" // Import Storybook types
 
 // Define explicit type for the default export
 const meta: Meta<typeof Select> = {
@@ -41,16 +38,18 @@ const meta: Meta<typeof Select> = {
     },
   },
   decorators: [
-    (story: StoryFunction) => (
+    (Story) => (
       <div className="jn-pb-12" style={{ minHeight: "250px" }}>
-        <PortalProvider>{story()}</PortalProvider>
+        <PortalProvider>
+          <Story />
+        </PortalProvider>
       </div>
     ),
   ],
 }
 
 export default meta
-type Story = StoryObj<typeof Select>
+type Story = StoryObj<typeof meta>
 
 // Create a proper render function for Storybook
 const Template = (args: SelectProps) => {

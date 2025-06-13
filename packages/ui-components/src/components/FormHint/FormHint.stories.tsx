@@ -4,10 +4,11 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { FormHint } from "./FormHint.component"
 
-export default {
+const meta: Meta<typeof FormHint> = {
   title: "Forms/FormHint",
   component: FormHint,
   argTypes: {
@@ -20,23 +21,16 @@ export default {
   },
 }
 
-type TemplateProps = {
-  children: React.ReactNode
-}
+export default meta
+type Story = StoryObj<typeof meta>
 
-const Template = ({ children, ...args }: TemplateProps) => <FormHint {...args}>{children}</FormHint>
-
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     text: "A simple hint to be associated with a form input",
   },
 }
 
-export const WithChildren = {
-  render: Template,
-
+export const WithChildren: Story = {
   args: {
     children: (
       <>
@@ -46,9 +40,7 @@ export const WithChildren = {
   },
 }
 
-export const WithTextAsChildren = {
-  render: Template,
-
+export const WithTextAsChildren: Story = {
   args: {
     text: (
       <>
@@ -58,18 +50,14 @@ export const WithTextAsChildren = {
   },
 }
 
-export const ErrorVariant = {
-  render: Template,
-
+export const ErrorVariant: Story = {
   args: {
     variant: "error",
     text: "A FormHint containing an error or invalidation message",
   },
 }
 
-export const SuccessVariant = {
-  render: Template,
-
+export const SuccessVariant: Story = {
   args: {
     variant: "success",
     text: "A FormHint containg a success or validation message",

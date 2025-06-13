@@ -4,9 +4,9 @@
  */
 
 import React from "react"
-import { Meta, StoryFn, StoryObj } from "@storybook/react"
+import { Meta, StoryObj } from "@storybook/react-vite"
 
-import { Form, FormProps } from "./Form.component"
+import { Form } from "./Form.component"
 import { FormRow } from "../FormRow/FormRow.component"
 import { FormHint } from "../FormHint/FormHint.component"
 import { FormSection } from "../FormSection/FormSection.component"
@@ -30,15 +30,10 @@ import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 import { IntroBox } from "../IntroBox/IntroBox.component"
 import { Switch } from "../Switch/Switch.component"
 
-export default {
+const meta: Meta<typeof Form> = {
   title: "Forms/Form",
   component: Form,
   argTypes: {
-    items: {
-      table: {
-        disable: true,
-      },
-    },
     children: {
       control: false,
       table: {
@@ -55,18 +50,12 @@ export default {
       </div>
     ),
   ],
-} as Meta<typeof Form>
-
-interface TemplateProps {
-  children?: React.ReactNode
 }
 
-// TODO: Re-write story to use CSFv3 instead of CSFv2
-// Component Story Format (CSF): https://storybook.js.org/docs/6/api/stories/csf
-const Template: StoryFn<FormProps> = ({ children, ...args }: TemplateProps) => <Form {...args}>{children}</Form>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default: StoryObj<FormProps> = {
-  render: Template,
+export const Default: Story = {
   args: {
     title: "A Simple Form",
     children: [
@@ -87,8 +76,7 @@ export const Default: StoryObj<FormProps> = {
   },
 }
 
-export const ComplexForm: StoryObj<FormProps> = {
-  render: Template,
+export const ComplexForm: Story = {
   args: {
     title: "A Complex Form",
     children: [

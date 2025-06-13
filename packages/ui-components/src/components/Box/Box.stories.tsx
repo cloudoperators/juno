@@ -3,21 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Box } from "./index"
 
-export default {
+const meta: Meta<typeof Box> = {
   title: "Components/Box",
   component: Box,
   argTypes: {},
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {
     children: "Some content in a Box.",
   },
 }
 
-export const WithoutPadding = {
+export const WithoutPadding: Story = {
   parameters: {
     docs: {
       description: {
@@ -25,7 +29,6 @@ export const WithoutPadding = {
       },
     },
   },
-
   args: {
     children: "A Box without padding",
     unpad: true,

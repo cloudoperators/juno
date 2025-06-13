@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import React from "react"
 import { CodeBlock, CodeBlockProps } from "./CodeBlock.component"
 import { Tabs } from "../Tabs"
@@ -10,28 +11,9 @@ import { TabList } from "../TabList"
 import { Tab } from "../Tab"
 import { TabPanel } from "../TabPanel"
 
-const TabStory = {
-  args: {
-    label: "A Tab Label",
-    children: "Tab 1",
-  },
-}
-
-export default {
-  title: "Components/CodeBlock",
-  component: CodeBlock,
-  argTypes: {
-    size: {
-      options: ["auto", "small", "medium", "large"],
-      control: { type: "select" },
-    },
-    children: {
-      control: false,
-      table: {
-        type: { summary: "ReactNode" },
-      },
-    },
-  },
+interface TabsTemplateProps {
+  tabs: React.ComponentProps<typeof Tab>[]
+  codeBlocks: CodeBlockProps[]
 }
 
 const TabsTemplate = ({ tabs, codeBlocks }: TabsTemplateProps) => (
@@ -49,12 +31,27 @@ const TabsTemplate = ({ tabs, codeBlocks }: TabsTemplateProps) => (
   </Tabs>
 )
 
-interface TabsTemplateProps {
-  tabs: React.ComponentProps<typeof Tab>[]
-  codeBlocks: CodeBlockProps[]
+const meta: Meta<typeof CodeBlock> = {
+  title: "Components/CodeBlock",
+  component: CodeBlock,
+  argTypes: {
+    size: {
+      options: ["auto", "small", "medium", "large"],
+      control: { type: "select" },
+    },
+    children: {
+      control: false,
+      table: {
+        type: { summary: "ReactNode" },
+      },
+    },
+  },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   parameters: {
     docs: {
       description: {
@@ -62,13 +59,12 @@ export const Default = {
       },
     },
   },
-
   args: {
     content: "Some code goes here",
   },
 }
 
-export const DefaultWithChildren = {
+export const DefaultWithChildren: Story = {
   parameters: {
     docs: {
       description: {
@@ -76,7 +72,6 @@ export const DefaultWithChildren = {
       },
     },
   },
-
   args: {
     lang: "html",
     children: `<html lang="en">
@@ -91,7 +86,7 @@ export const DefaultWithChildren = {
   },
 }
 
-export const DefaultWithHeading = {
+export const DefaultWithHeading: Story = {
   parameters: {
     docs: {
       description: {
@@ -99,7 +94,6 @@ export const DefaultWithHeading = {
       },
     },
   },
-
   args: {
     children: `<CodeBlock>
     <p>some code here</p>
@@ -108,7 +102,7 @@ export const DefaultWithHeading = {
   },
 }
 
-export const FixedSize = {
+export const FixedSize: Story = {
   parameters: {
     docs: {
       description: {
@@ -116,7 +110,6 @@ export const FixedSize = {
       },
     },
   },
-
   args: {
     size: "small",
     content: ` -------- BEGIN CERTIFICATE -------- 
@@ -141,7 +134,7 @@ export const FixedSize = {
   },
 }
 
-export const NonWrappingCodeBlock = {
+export const NonWrappingCodeBlock: Story = {
   parameters: {
     docs: {
       description: {
@@ -149,7 +142,6 @@ export const NonWrappingCodeBlock = {
       },
     },
   },
-
   args: {
     wrap: false,
     children:
@@ -157,7 +149,7 @@ export const NonWrappingCodeBlock = {
   },
 }
 
-export const JSONView = {
+export const JSONView: Story = {
   parameters: {
     docs: {
       description: {
@@ -165,7 +157,6 @@ export const JSONView = {
       },
     },
   },
-
   args: {
     lang: "json",
     heading: "Json CodeBlock",
@@ -179,9 +170,8 @@ export const JSONView = {
   },
 }
 
-export const CodeBlocksWithTabs = {
+export const CodeBlocksWithTabs: StoryObj<TabsTemplateProps> = {
   render: TabsTemplate,
-
   parameters: {
     docs: {
       description: {
@@ -190,12 +180,11 @@ export const CodeBlocksWithTabs = {
       },
     },
   },
-
   args: {
     tabs: [
-      { ...TabStory.args, children: "UserData.jsx", key: "t-0" },
-      { ...TabStory.args, children: "data.json", key: "t-1" },
-      { ...TabStory.args, children: "UserData.html", key: "t-2" },
+      { label: "A Tab Label", children: "UserData.jsx", key: "t-0" },
+      { label: "A Tab Label", children: "data.json", key: "t-1" },
+      { label: "A Tab Label", children: "UserData.html", key: "t-2" },
     ],
     codeBlocks: [
       { content: "<UserData name='User' data={data.json} />" },
