@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React, { use, useCallback } from "react"
 import { useLoaderData, useNavigate } from "@tanstack/react-router"
 import { Filters } from "../common/Filters"
