@@ -4,15 +4,14 @@
  */
 
 .juno-input-group {
-  // Remove border-radius for specific elements within the input group
+  /* Remove border-radius for specific elements within the input group */
   .juno-combobox-input-wrapper,
   .juno-button,
   .juno-select-wrapper,
   .juno-select-toggle-wrapper,
   .juno-textinput-outer-wrapper {
-    // Remove border-radius for elements whose parent is neither the first nor the last child
     &:not(:first-child, :last-child) {
-      // This applies to the cases where an element is not wrapped inside a parent element like in the case of a 'Button' component
+      /* Element not being the first or last child */
       border-radius: 0;
 
       .juno-select-toggle,
@@ -22,9 +21,9 @@
         border-radius: 0;
       }
     }
-    // Adjust border-radius for elements whose parent is the first child
+
     &:first-child {
-      // This applies to the cases where an element is not wrapped inside a parent element like in the case of a 'Button' component
+      /* First child element */
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
 
@@ -36,9 +35,9 @@
         border-bottom-right-radius: 0;
       }
     }
-    // Adjust border-radius for elements whose parent is the last child
+
     &:last-child {
-      // This applies to the cases where an element is not wrapped inside a parent element like in the case of a 'Button' component
+      /* Last child element */
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
 
@@ -52,7 +51,7 @@
     }
   }
 
-  // Prevent double borders for identical button variants placed next to each other
+  /* Prevent double borders for adjacent buttons of the same type */
   .juno-button-default + .juno-button-default,
   .juno-button-primary + .juno-button-primary,
   .juno-button-default-primary-danger + .juno-button-primary-danger,

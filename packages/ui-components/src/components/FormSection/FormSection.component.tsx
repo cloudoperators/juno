@@ -6,14 +6,14 @@
 import React, { HTMLAttributes } from "react"
 
 const formSectionBaseStyles = `
-    jn-mb-8
+    jn:mb-8
     jn-last:mb-0
 `
 
 const headingStyles = `
-    jn-text-lg
-    jn-font-bold
-    jn-mb-4
+    jn:text-lg
+    jn:font-bold
+    jn:mb-4
 `
 
 export interface FormSectionProps extends HTMLAttributes<HTMLElement> {

@@ -6,13 +6,13 @@
 import React from "react"
 
 const headerContainerStyles = `
-  jn-flex
-  jn-flex-col
-  jn-sticky
-  jn-top-0
-  jn-z-50
-  jn-shadow-lg
-  jn-bg-theme-global-bg
+  jn:flex
+  jn:flex-col
+  jn:sticky
+  jn:top-0
+  jn:z-50
+  jn:shadow-lg
+  jn:bg-theme-global-bg
 `
 
 export const HeaderContainer: React.FC<HeaderContainerProps> = ({
@@ -25,7 +25,7 @@ export const HeaderContainer: React.FC<HeaderContainerProps> = ({
     <div
       className={`
     juno-header-container 
-    ${!fullWidth ? "jn-w-full 2xl:jn-container 2xl:jn-mx-auto" : "juno-header-container-fullwidth"}
+    ${!fullWidth ? "jn:w-full jn:2xl:container jn:2xl:mx-auto" : "juno-header-container-fullwidth"}
     ${headerContainerStyles} 
     ${className}`}
       {...props}

@@ -2,13 +2,12 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-
+import { defineConfig } from "vite"
 import svgr from "vite-plugin-svgr"
 import react from "@vitejs/plugin-react"
-import autoprefixer from "autoprefixer"
-import tailwindcss from "tailwindcss"
+import tailwindcss from "@tailwindcss/vite"
 
-export default ({ mode }) => {
+export default defineConfig(({ mode }) => {
   const sharedConfig = {
     root: "./",
 
@@ -16,12 +15,7 @@ export default ({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [react(), svgr()],
-    css: {
-      postcss: {
-        plugins: [tailwindcss, autoprefixer],
-      },
-    },
+    plugins: [tailwindcss(), react(), svgr()],
 
     server: {
       host: "0.0.0.0",
@@ -54,4 +48,4 @@ export default ({ mode }) => {
       },
     },
   }
-}
+})

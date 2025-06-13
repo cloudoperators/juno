@@ -14,7 +14,7 @@ export default {
   argTypes: {},
   decorators: [
     (Story: React.FC<TooltipContentProps>) => (
-      <div className="jn-my-6 jn-flex jn-justify-center">
+      <div className="jn:my-6 jn:flex jn:justify-center">
         <Tooltip initialOpen={true}>
           <TooltipTrigger>clickMe</TooltipTrigger>
           <Story />

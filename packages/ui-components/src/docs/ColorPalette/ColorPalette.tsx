@@ -20,11 +20,11 @@ export function ColorPalette(props: ColorPaletteProps) {
   }
 
   const theme = props.theme
-  const gridStyle = `jn-grid jn-gap-4 xl:jn-grid-cols-4 md:jn-grid-cols-3 jn-grid-cols-2 jn-mb-6`
-  const h2Style = "jn-text-xl jn-my-2 jn-font-semibold"
+  const gridStyle = `jn:grid jn:gap-4 jn:xl:grid-cols-4 jn:md:grid-cols-3 jn:grid-cols-2 jn:mb-6`
+  const h2Style = "jn:text-xl jn:my-2 jn:font-semibold"
 
   return (
-    <div className={`juno-content-area jn-p-4 jn-rounded-xl ${theme}`}>
+    <div className={`juno-content-area jn:p-4 jn:rounded-xl ${theme}`}>
       <h2 className={h2Style}>Theme colors</h2>
       <div className={gridStyle}>
         {Object.entries(getThemeColors).map((color) => (

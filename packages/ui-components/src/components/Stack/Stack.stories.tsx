@@ -63,7 +63,7 @@ export default {
 const docuClassnames = (direction: StackDirection | undefined) => {
   return `
     bg-theme-background-lvl-3
-    ${direction === "vertical" ? "jn-w-full jn-h-80" : "jn-h-24"}
+    ${direction === "vertical" ? "jn:w-full jn:h-80" : "jn:h-24"}
     `
 }
 
@@ -75,7 +75,7 @@ const Template = (args: StackProps) => (
   </Stack>
 )
 const TemplateManyChildren = (args: StackProps) => (
-  <Stack {...args} className="jn-bg-theme-background-lvl-3">
+  <Stack {...args} className="jn:bg-theme-background-lvl-3">
     {[...Array<unknown>(15)].map((_, i) => {
       return <DummyComponent key={i} label={`${i}`} />
     })}

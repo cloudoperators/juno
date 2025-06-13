@@ -6,17 +6,17 @@
 import React from "react"
 
 const boxStyles = `
-  jn-text-sm
-  jn-rounded
-  jn-bg-theme-box-default
-  jn-border
-  jn-border-theme-box-default
+  jn:text-sm
+  jn:rounded
+  jn:bg-theme-box-default
+  jn:border
+  jn:border-theme-box-default
 `
 
 // When adjusting the padding, make sure to update the tests to verify Box variations with and without padding correctly.
 const boxPadding = `
-  jn-py-1
-  jn-px-2
+  jn:py-1
+  jn:px-2
 `
 
 export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {

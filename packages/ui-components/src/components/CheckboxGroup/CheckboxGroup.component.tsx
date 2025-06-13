@@ -9,35 +9,35 @@ import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
 
 const checkboxgroupstyles = `
-  jn-mb-4
+  jn:mb-4
   jn-last:mb-0
 `
 
 const groupstyles = `
-  jn-relative
-  jn-rounded
-  jn-border
-  jn-py-1
+  jn:relative
+  jn:rounded
+  jn:border
+  jn:py-1
 `
 
 const defaultgroupstyles = `
-  jn-border-transparent
+  jn:border-transparent
 `
 
 const validgroupstyles = `
-  jn-border-theme-success
-  jn-px-2
+  jn:border-theme-success
+  jn:px-2
 `
 
 const invalidgroupstyles = `
-  jn-border-theme-error
-  jn-px-2
+  jn:border-theme-error
+  jn:px-2
 `
 
 const iconstyles = `
-  jn-absolute
-  jn-right-2
-  jn-top-1.5
+  jn:absolute
+  jn:right-2
+  jn:top-1.5
 `
 
 // eslint-disable-next-line no-unused-vars
@@ -169,8 +169,8 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
             ${isValid || isInvalid ? "" : defaultgroupstyles}
           `}
         >
-          {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" className={`${iconstyles}`} /> : ""}
-          {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" className={`${iconstyles}`} /> : ""}
+          {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" className={`${iconstyles}`} /> : ""}
+          {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" className={`${iconstyles}`} /> : ""}
 
           {children}
         </div>

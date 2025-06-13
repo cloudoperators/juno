@@ -10,77 +10,77 @@ import { Icon } from "../Icon/Icon.component"
 import { FormHint } from "../FormHint/FormHint.component"
 
 const wrapperStyles = `
-  jn-inline-flex
-  jn-items-center
+  jn:inline-flex
+  jn:items-center
 `
 
 const inputstyles = (disabled: boolean): string => {
   return `
-    jn-w-4
-    jn-h-4
-    jn-opacity-0
-    jn-z-50
-    ${disabled ? "jn-cursor-not-allowed" : "jn-cursor-pointer"}
+    jn:w-4
+    jn:h-4
+    jn:opacity-0
+    jn:z-50
+    ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
   `
 }
 
 const mockradiostyles = `
-  jn-relative
-  jn-w-4
-  jn-h-4
-  jn-rounded-full
-  jn-bg-theme-radio
+  jn:relative
+  jn:w-4
+  jn:h-4
+  jn:rounded-full
+  jn:bg-theme-radio
 `
 
 const checkedstyles = `
-  jn-absolute
-  jn-block
-  jn-bg-theme-radio-checked
-  jn-rounded-full
-  jn-w-3
-  jn-h-3
-  jn-top-[1px]
-  jn-left-[1px]
+  jn:absolute
+  jn:block
+  jn:bg-theme-radio-checked
+  jn:rounded-full
+  jn:w-3
+  jn:h-3
+  jn:top-[1px]
+  jn:left-[1px]
 `
 
 const mockfocusradiostyles = `
-  jn-outline-none
-  jn-ring-2
-  jn-ring-theme-focus
+  jn:outline-hidden
+  jn:ring-2
+  jn:ring-theme-focus
 `
 
 const mockdisabledradiostyles = `
-  jn-opacity-50
-  jn-cursor-not-allowed
+  jn:opacity-50
+  jn:cursor-not-allowed
 `
 
 const noBorderStyles = `
-  jn-border
-  jn-border-transparent
+  jn:border
+  jn:border-transparent
 `
 
 const errorstyles = `
-  jn-border
-  jn-border-theme-error
+  jn:border
+  jn:border-theme-error
 `
 
 const successstyles = `
-  jn-border
-  jn-border-theme-success
+  jn:border
+  jn:border-theme-success
 `
 
 const labelStyles = `
-  jn-leading-0
-  jn-ml-2
+  jn:leading-0
+  jn:ml-2
 `
 
 const iconStyles = `
-  jn-ml-1
+  jn:ml-1
 `
 
 const hintStyles = `
-  jn-mt-0
-  jn-ml-6
+  jn:mt-0
+  jn:ml-6
 `
 
 /** A controlled Radio component. */
@@ -253,11 +253,11 @@ export const Radio: React.FC<RadioProps> = ({
             {isInvalid ? (
               <Icon
                 icon="dangerous"
-                color="jn-text-theme-error"
+                color="jn:text-theme-error"
                 size="1.125rem"
                 className={`
                     ${iconStyles}
-                    ${disabled ? "jn-opacity-50" : ""}
+                    ${disabled ? "jn:opacity-50" : ""}
                   `}
               />
             ) : (
@@ -266,11 +266,11 @@ export const Radio: React.FC<RadioProps> = ({
             {isValid ? (
               <Icon
                 icon="checkCircle"
-                color="jn-text-theme-success"
+                color="jn:text-theme-success"
                 size="1.125rem"
                 className={`
                     ${iconStyles}
-                    ${disabled ? "jn-opacity-50" : ""}
+                    ${disabled ? "jn:opacity-50" : ""}
                   `}
               />
             ) : (

@@ -29,7 +29,7 @@ export default {
   decorators: [
     (story: () => React.ReactNode) => (
       <PortalProvider>
-        <div className="jn-contrast-100">{story()}</div>
+        <div className="jn:contrast-100">{story()}</div>
       </PortalProvider>
     ),
   ],
@@ -40,7 +40,7 @@ const Template: StoryFn<PanelProps> = (args) => (
     <Panel {...args}>
       <PanelBody>Panel Body Content</PanelBody>
     </Panel>
-    <div className="dummy-css-ignore jn-h-[150px]">Content Area</div>
+    <div className="dummy-css-ignore jn:h-[150px]">Content Area</div>
   </div>
 )
 
