@@ -17,7 +17,7 @@ export class CorsNetworkError extends Error {
   }
 }
 
-function isPossibleCorsError(err: unknown): boolean {
+function isFirefoxNetworkError(err: unknown): boolean {
   if (!(err instanceof TypeError)) {
     return false
   }
@@ -42,7 +42,7 @@ export const useBoundQuery = <T>(key: keyof typeof QUERY_FUNCTIONS, { options }:
     queryKey: [key],
     queryFn: () =>
       fetchFunction(endpoint).catch((err) => {
-        if (isPossibleCorsError(err)) {
+        if (isFirefoxNetworkError(err)) {
           throw new CorsNetworkError(err)
         }
         throw err
