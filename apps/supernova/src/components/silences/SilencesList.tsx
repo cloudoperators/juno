@@ -24,6 +24,7 @@ import { useBoundQuery, CorsNetworkError } from "../../hooks/useBoundQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { SilencesData } from "../../api/silences"
+import { FirefoxCorsWarning } from "../shared/FirefoxCorsWarning"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -47,19 +48,7 @@ const SilencesList = () => {
     if (error instanceof CorsNetworkError) {
       addMessage({
         variant: "warning",
-        text: (
-          <p>
-            Firefox detected. Please ensure that you have activated <b>allow_client_cert</b> to enable the retrieval of
-            alerts and silences from the API.
-            <ul>
-              <li>1. Go to about:config (via address bar)</li>
-              <li>
-                2. Change <b>network.cors_preflight.allow_client_cert</b> to <b>true</b>
-              </li>
-              <li>3. Reload Greenhouse</li>
-            </ul>
-          </p>
-        ),
+        text: <FirefoxCorsWarning />,
       })
     }
 
