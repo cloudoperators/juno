@@ -1,5 +1,11 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.7
+
+### Patch Changes
+
+- 7317372: Re-enables support for adding messages with ReactNodes. Restores return value from addMessage. Fixes previously skipped test.
+
 ## 0.2.6
 
 ### Patch Changes
