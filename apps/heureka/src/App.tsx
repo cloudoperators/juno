@@ -4,9 +4,11 @@
  */
 
 import React, { StrictMode } from "react"
-import { AppShellProvider } from "@cloudoperators/juno-ui-components"
-import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { ApolloProvider } from "@apollo/client"
+import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { AppShellProvider } from "@cloudoperators/juno-ui-components"
+import { encodeV2, decodeV2 } from "@cloudoperators/juno-url-state-provider"
 import styles from "./styles.scss?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
@@ -15,6 +17,8 @@ import { routeTree } from "./routeTree.gen"
 export type InitialFilters = {
   support_group?: string[]
 }
+
+const queryClient = new QueryClient()
 
 export type AppProps = {
   theme?: "theme-dark" | "theme-light"
@@ -29,6 +33,8 @@ const router = createRouter({
   routeTree,
   context: {
     appProps: undefined!,
+    apiClient: undefined!,
+    queryClient: undefined!,
   },
 })
 
@@ -39,6 +45,10 @@ declare module "@tanstack/react-router" {
 }
 
 const App = (props: AppProps) => {
+  const apiClient = getClient({
+    uri: props.apiEndpoint,
+  })
+
   /*
    * Dynamically change the type of history on the router
    * based on the enableHashedRouting prop. This ensures that
@@ -47,22 +57,26 @@ const App = (props: AppProps) => {
    */
   router.update({
     routeTree,
-    context: { appProps: props },
+    context: { appProps: props, apiClient, queryClient },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
+    stringifySearch: encodeV2,
+    parseSearch: decodeV2,
   })
 
   return (
-    <ApolloProvider client={getClient({ uri: props.apiEndpoint })}>
-      <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
-        {/* load styles inside the shadow dom */}
-        <style>{styles.toString()}</style>
-        <ErrorBoundary>
-          <StrictMode>
-            <RouterProvider basepath={props.basePath || "/"} router={router} />
-          </StrictMode>
-        </ErrorBoundary>
-      </AppShellProvider>
-    </ApolloProvider>
+    <QueryClientProvider client={queryClient}>
+      <ApolloProvider client={apiClient}>
+        <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
+          {/* load styles inside the shadow dom */}
+          <style>{styles.toString()}</style>
+          <ErrorBoundary>
+            <StrictMode>
+              <RouterProvider basepath={props.basePath || "/"} router={router} />
+            </StrictMode>
+          </ErrorBoundary>
+        </AppShellProvider>
+      </ApolloProvider>
+    </QueryClientProvider>
   )
 }
 

@@ -8,7 +8,7 @@ import { DataGridRow, DataGridCell, Stack } from "@cloudoperators/juno-ui-compon
 import { Icon } from "@cloudoperators/juno-ui-components"
 import { IssueIcon } from "./IssueIcon"
 import { IssueTimestamp } from "./IssueTimestamp"
-import { Issue, getSeverityColor } from "../../../../Services/utils"
+import { Issue, getSeverityColor } from "../../../../../Services/utils"
 
 const cellSeverityClasses = (severity: string) => {
   let borderColor = getSeverityColor(severity)
@@ -21,11 +21,11 @@ const cellSeverityClasses = (severity: string) => {
   `
 }
 
-type ImageVersionIssueListItemProps = {
+type IssuesDataRowProps = {
   issue: Issue
 }
 
-export const ImageVersionIssueListItem = ({ issue }: ImageVersionIssueListItemProps) => {
+export const IssuesDataRow = ({ issue }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const toggleDescription = (e: React.MouseEvent) => {

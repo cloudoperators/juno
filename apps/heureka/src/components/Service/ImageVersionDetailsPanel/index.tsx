@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { use } from "react"
 import {
   Panel,
   PanelBody,
@@ -16,21 +16,38 @@ import {
   Container,
 } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
-import { ServiceImageVersion } from "../../Services/utils"
+import { getNormalizedImageVersionsData, ServiceImageVersion } from "../../Services/utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
+import { useLoaderData, useNavigate, useParams, useSearch } from "@tanstack/react-router"
 
-type ImageVersionDetailsPanelProps = {
-  imageVersion: ServiceImageVersion
-  serviceCcrn: string
-  onClose: () => void
-}
+export const ImageVersionDetailsPanel = () => {
+  const navigate = useNavigate()
+  const { imageVersionsPromise } = useLoaderData({ from: "/services/$service" })
+  const { service } = useParams({ from: "/services/$service" })
+  const { imageVersion: selectedImageVersion } = useSearch({ from: "/services/$service" })
+  const { data } = use(imageVersionsPromise)
+  const { imageVersions } = getNormalizedImageVersionsData(data)
+  const imageVersion = imageVersions.find((version: ServiceImageVersion) => version.version === selectedImageVersion)
 
-export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }: ImageVersionDetailsPanelProps) => {
+  if (!imageVersion) {
+    return <div>Image version not found</div>
+  }
+
   return (
     <MessagesProvider>
-      <Panel heading={`Image ${imageVersion.repository} Information`} opened={true} onClose={onClose} size="large">
+      <Panel
+        heading={`Image ${imageVersion.repository} Information`}
+        opened={!!service}
+        onClose={() =>
+          navigate({
+            to: "/services/$service",
+            params: { service },
+          })
+        }
+        size="large"
+      >
         <PanelBody>
           <Container py px={false}>
             <Messages />
@@ -76,7 +93,9 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
           </DataGrid>
 
           {/* Second Section: Issues List */}
-          <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
+          {service && selectedImageVersion && imageVersion && (
+            <ImageVersionIssuesList service={service} imageVersion={imageVersion} />
+          )}
         </PanelBody>
       </Panel>
     </MessagesProvider>

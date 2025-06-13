@@ -33,7 +33,7 @@ const filterSettings = {
 }
 
 const renderShell = ({ filters, filterSettings, onFilterChange }: FiltersProps) => ({
-  user: userEvent.setup(),
+  user: userEvent.setup({ delay: 0 }),
   ...render(
     <AppShellProvider shadowRoot={false}>
       <Filters filters={filters} filterSettings={filterSettings} onFilterChange={onFilterChange} />

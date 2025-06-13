@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { isNil } from "lodash"
+import { isEmpty, isNil, map, omit } from "lodash"
 import { ApolloError } from "@apollo/client"
 import {
   Edge,
@@ -13,10 +13,14 @@ import {
   ServiceEdge,
   ServiceFilter,
   GetServiceImageVersionsQuery,
+  GetServiceFiltersQuery,
 } from "../../generated/graphql"
-import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
+import { Filter, FilterSettings, SelectedFilter, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
 import { IssuesCountsType } from "../types"
+import { SELECTED_FILTER_PREFIX } from "../../constants"
+import { InitialFilters } from "../../App"
+import { ServicesSearchParams } from "../../routes/services"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -33,14 +37,14 @@ const getServiceOwners = (serviceEdge?: ServiceEdge) => {
   )
 }
 
-type NormalizedServices = {
+export type NormalizedServicesResponse = {
   pageNumber: number
   pages: Page[]
   servicesIssuesCount: IssuesCountsType // All services issues count
   services: ServiceType[]
 }
 
-export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => {
+export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServicesResponse => {
   return {
     pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
     pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
@@ -273,3 +277,66 @@ export const getSeverityColor = (severity: string): string => {
       return "text-theme-default"
   }
 }
+
+/**
+ * This function converts the selected filters from the FilterSettings into a format that is accepted by the url-state-provider/v2/encode
+ * Examples:
+ * Input:
+ *   filterSettings = {
+ *     selectedFilters: [
+ *       { name: "region", value: "eu", inactive: false },
+ *       { name: "region", value: "us", inactive: false },
+ *       { name: "owner", value: "alice", inactive: false }
+ *     ]
+ *   }
+ * Output:
+ *   {
+ *     "selected_region": ["eu", "us"],
+ *     "selected_owner": "alice"
+ *   }
+ */
+export const getFiltersForUrl = (filterSettings: FilterSettings): Record<string, string | string[]> => {
+  if (!filterSettings?.selectedFilters) {
+    return {}
+  }
+
+  return {
+    searchTerm: filterSettings.searchTerm || "",
+    ...filterSettings.selectedFilters.reduce<Record<string, string | string[]>>((acc, filter) => {
+      const key = `${SELECTED_FILTER_PREFIX}${filter.name}`
+      if (acc[key]) {
+        acc[key] = Array.isArray(acc[key]) ? [...acc[key], filter.value] : [acc[key], filter.value]
+      } else {
+        acc[key] = filter.value
+      }
+      return acc
+    }, {}),
+  }
+}
+
+export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | null): Filter[] =>
+  isEmpty(data) || isEmpty(data.ServiceFilterValues)
+    ? []
+    : map(omit(data.ServiceFilterValues, ["__typename"]), (filter) => ({
+        displayName: filter?.displayName || "",
+        filterName: filter?.filterName || "",
+        values: filter?.values?.filter((value) => value !== null) || [],
+      }))
+
+// Extract initial filters from the supplied initialFilters in the appProps
+export const getInitialFilters = (initialFilters?: InitialFilters): SelectedFilter[] =>
+  initialFilters?.support_group?.map((sg) => ({ name: "supportGroupCcrn", value: sg })) ?? []
+
+// Extract filters from the search parameters, looking for keys that start with SELECTED_FILTER_PREFIX
+export const extractFilterSettingsFromSearchParams = (searchParams: ServicesSearchParams): FilterSettings => ({
+  searchTerm: searchParams.searchTerm,
+  selectedFilters: Object.entries(searchParams)
+    .filter(([key]) => key.startsWith(SELECTED_FILTER_PREFIX))
+    .flatMap(([key, value]) => {
+      const name = key.slice(2)
+      if (Array.isArray(value)) {
+        return value.map((v) => ({ name, value: v }))
+      }
+      return [{ name, value: value as string }]
+    }),
+})

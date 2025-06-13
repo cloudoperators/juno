@@ -62,7 +62,7 @@ describe("FiltersSelect", () => {
   })
 
   it("should show values in combobox when filter is selected", async () => {
-    const user = userEvent.setup()
+    const user = userEvent.setup({ delay: 0 })
     render(
       <AppShellProvider shadowRoot={false}>
         <FilterSelect filters={mockFilters} onChange={mockOnChange} />

@@ -4,10 +4,14 @@
  */
 
 import { KnownIcons } from "@cloudoperators/juno-ui-components/index"
+import { ApolloClient, NormalizedCacheObject } from "@apollo/client"
+import { QueryClient } from "@tanstack/react-query"
 import { AppProps } from "../App"
 
 export type RouteContext = {
   appProps: AppProps
+  apiClient: ApolloClient<NormalizedCacheObject>
+  queryClient: QueryClient
 }
 
 type Crumb = {
