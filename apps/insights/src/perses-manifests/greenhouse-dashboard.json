@@ -3,8 +3,8 @@
   "metadata": {
     "name": "overview",
     "createdAt": "2025-06-14T13:17:12.482451269Z",
-    "updatedAt": "2025-06-14T14:02:44.675106045Z",
-    "version": 9,
+    "updatedAt": "2025-06-14T18:57:11.027698602Z",
+    "version": 15,
     "project": "playground"
   },
   "spec": {
@@ -147,7 +147,7 @@
                 },
                 {
                   "header": "Retry Attempts",
-                  "hide": false,
+                  "hide": true,
                   "name": "value"
                 },
                 {
@@ -319,6 +319,108 @@
             }
           ]
         }
+      },
+      "TeamMembers-2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Kubeconfig Expiry"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "Remote Cluster",
+                  "hide": false,
+                  "name": "cluster"
+                },
+                {
+                  "header": "Team",
+                  "name": "team"
+                },
+                {
+                  "header": "Namespace",
+                  "hide": true,
+                  "name": "namespace"
+                },
+                {
+                  "header": "Expiring in",
+                  "hide": false,
+                  "name": "value",
+                  "format": {
+                    "unit": "seconds"
+                  }
+                },
+                {
+                  "hide": true,
+                  "name": "__name__"
+                },
+                {
+                  "hide": true,
+                  "name": "container"
+                },
+                {
+                  "hide": true,
+                  "name": "endpoint"
+                },
+                {
+                  "hide": true,
+                  "name": "instance"
+                },
+                {
+                  "hide": true,
+                  "name": "job"
+                },
+                {
+                  "hide": true,
+                  "name": "organization"
+                },
+                {
+                  "hide": true,
+                  "name": "pod"
+                },
+                {
+                  "hide": true,
+                  "name": "prometheus"
+                },
+                {
+                  "hide": true,
+                  "name": "region"
+                },
+                {
+                  "format": {
+                    "unit": "weeks"
+                  },
+                  "hide": true,
+                  "name": "timestamp"
+                },
+                {
+                  "hide": true,
+                  "name": "service"
+                },
+                {
+                  "header": "K8s Version",
+                  "name": "version"
+                }
+              ],
+              "density": "standard"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "greenhouse_cluster_kubeconfig_validity_seconds"
+                  }
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "layouts": [
@@ -342,6 +444,15 @@
               }
             },
             {
+              "x": 12,
+              "y": 0,
+              "width": 12,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/Pluginswithfailingtests"
+              }
+            },
+            {
               "x": 0,
               "y": 6,
               "width": 12,
@@ -352,11 +463,11 @@
             },
             {
               "x": 12,
-              "y": 0,
+              "y": 6,
               "width": 12,
               "height": 6,
               "content": {
-                "$ref": "#/spec/panels/Pluginswithfailingtests"
+                "$ref": "#/spec/panels/TeamMembers-2"
               }
             }
           ]

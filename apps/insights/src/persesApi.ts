@@ -1,23 +1,7 @@
 import { generateChartsTheme, getTheme } from "@perses-dev/components"
-import type { GlobalDatasourceResource } from "@perses-dev/core"
 import { type DatasourceApi } from "@perses-dev/dashboards"
 import { QueryClient } from "@tanstack/react-query"
-
-const globalDatasource: GlobalDatasourceResource = {
-  kind: "GlobalDatasource",
-  metadata: {
-    name: "default datasource",
-  },
-  spec: {
-    default: true,
-    plugin: {
-      kind: "PrometheusDatasource",
-      spec: {
-        directUrl: "https://prometheus.greenhouse.global.cloud.sap",
-      },
-    },
-  },
-}
+import { globalDatasource } from "./persesConfigLoader"
 
 export const datasourceApi: DatasourceApi = {
   buildProxyUrl: () => "",

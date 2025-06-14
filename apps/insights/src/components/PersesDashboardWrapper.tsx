@@ -7,8 +7,8 @@ import React from "react"
 import { BrowserRouter } from "react-router-dom"
 import { QueryParamProvider } from "use-query-params"
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6"
-import { dashboard } from "../dashboardLoader"
 import { createPersesChartsTheme, createPersesMuiTheme, datasourceApi } from "../persesApi"
+import { dashboard } from "../persesConfigLoader"
 import { pluginLoader } from "./PersesPluginRegistry"
 
 interface PersesDashboardWrapperProps {

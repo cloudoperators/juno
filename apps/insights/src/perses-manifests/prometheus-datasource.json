@@ -1,0 +1,15 @@
+{
+  "kind": "GlobalDatasource",
+  "metadata": {
+    "name": "default datasource"
+  },
+  "spec": {
+    "default": true,
+    "plugin": {
+      "kind": "PrometheusDatasource",
+      "spec": {
+        "directUrl": "https://prometheus.greenhouse.global.cloud.sap"
+      }
+    }
+  }
+}
