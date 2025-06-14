@@ -7,7 +7,7 @@ import React from "react"
 import { BrowserRouter } from "react-router-dom"
 import { QueryParamProvider } from "use-query-params"
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6"
-import { sampleDashboard } from "../dashboard-sample"
+import { dashboard } from "../dashboardLoader"
 import { createPersesChartsTheme, createPersesMuiTheme, datasourceApi } from "../persesApi"
 import { pluginLoader } from "./PersesPluginRegistry"
 
@@ -30,7 +30,7 @@ export function PersesDashboardWrapper({ theme = "theme-dark" }: PersesDashboard
               <ErrorBoundary FallbackComponent={ErrorAlert}>
                 <PluginRegistry pluginLoader={pluginLoader}>
                   <ViewDashboard
-                    dashboardResource={sampleDashboard}
+                    dashboardResource={dashboard}
                     datasourceApi={datasourceApi}
                     isReadonly={true}
                     isVariableEnabled={true}
