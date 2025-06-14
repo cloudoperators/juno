@@ -13,7 +13,7 @@ const globalDatasource: GlobalDatasourceResource = {
     plugin: {
       kind: "PrometheusDatasource",
       spec: {
-        directUrl: "https://prometheus.demo.prometheus.io",
+        directUrl: "https://prometheus.greenhouse.global.cloud.sap",
       },
     },
   },

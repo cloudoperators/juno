@@ -3,88 +3,216 @@ import type { DashboardResource } from "@perses-dev/core"
 export const sampleDashboard: DashboardResource = {
   kind: "Dashboard",
   metadata: {
-    name: "prometheus-overview",
-    createdAt: "0001-01-01T00:00:00Z",
-    updatedAt: "0001-01-01T00:00:00Z",
-    version: 0,
+    name: "overview",
+    createdAt: "2025-06-14T13:17:12.482451269Z",
+    updatedAt: "2025-06-14T14:07:07.264648585Z",
+    version: 10,
     project: "playground",
   },
   spec: {
     display: {
-      name: "Prometheus / Overview",
+      name: "Overview",
     },
-    variables: [
-      {
-        kind: "ListVariable",
-        spec: {
-          display: {
-            name: "job",
-            hidden: false,
-          },
-          allowAllValue: false,
-          allowMultiple: false,
-          plugin: {
-            kind: "PrometheusLabelValuesVariable",
-            spec: {
-              labelName: "job",
-              matchers: ["prometheus_build_info{}"],
-            },
-          },
-          name: "job",
-        },
-      },
-      {
-        kind: "ListVariable",
-        spec: {
-          display: {
-            name: "instance",
-            hidden: false,
-          },
-          allowAllValue: false,
-          allowMultiple: false,
-          plugin: {
-            kind: "PrometheusLabelValuesVariable",
-            spec: {
-              labelName: "instance",
-              matchers: ['prometheus_build_info{job="$job"}'],
-            },
-          },
-          name: "instance",
-        },
-      },
-    ],
     panels: {
-      "0_0": {
+      PluginWorkloadStatus: {
         kind: "Panel",
         spec: {
           display: {
-            name: "Prometheus Stats",
+            name: "Plugin Workload Status",
+          },
+          plugin: {
+            kind: "Table",
+            spec: {
+              cellSettings: [
+                {
+                  condition: {
+                    kind: "Value",
+                    spec: {
+                      value: "0",
+                    },
+                  },
+                  text: "Failing",
+                },
+                {
+                  condition: {
+                    kind: "Value",
+                    spec: {
+                      value: "1",
+                    },
+                  },
+                  text: "Ok",
+                },
+              ],
+              columnSettings: [
+                {
+                  name: "plugin",
+                },
+                {
+                  name: "pluginDefinition",
+                },
+                {
+                  header: "Status",
+                  hide: false,
+                  name: "value",
+                },
+                {
+                  hide: true,
+                  name: "__name__",
+                },
+                {
+                  hide: true,
+                  name: "cluster",
+                },
+                {
+                  hide: true,
+                  name: "container",
+                },
+                {
+                  hide: true,
+                  name: "endpoint",
+                },
+                {
+                  hide: true,
+                  name: "instance",
+                },
+                {
+                  hide: true,
+                  name: "job",
+                },
+                {
+                  hide: true,
+                  name: "pod",
+                },
+                {
+                  hide: true,
+                  name: "prometheus",
+                },
+                {
+                  hide: true,
+                  name: "region",
+                },
+                {
+                  format: {
+                    unit: "weeks",
+                  },
+                  hide: true,
+                  name: "timestamp",
+                },
+                {
+                  hide: true,
+                  name: "service",
+                },
+                {
+                  hide: true,
+                  name: "organization",
+                },
+              ],
+              density: "standard",
+            },
+          },
+          queries: [
+            {
+              kind: "TimeSeriesQuery",
+              spec: {
+                plugin: {
+                  kind: "PrometheusTimeSeriesQuery",
+                  spec: {
+                    datasource: {
+                      kind: "PrometheusDatasource",
+                      name: "kube-monitoring-prometheus",
+                    },
+                    query: "greenhouse_plugin_workload_status_up{}",
+                    seriesNameFormat: "",
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+      Pluginswithfailingtests: {
+        kind: "Panel",
+        spec: {
+          display: {
+            name: "Plugins with failing tests",
           },
           plugin: {
             kind: "Table",
             spec: {
               columnSettings: [
                 {
-                  name: "job",
-                  header: "Job",
+                  header: "Plugin",
+                  name: "plugin",
                 },
                 {
-                  name: "instance",
-                  header: "Instance",
+                  name: "pluginDefinition",
                 },
                 {
-                  name: "version",
-                  header: "Version",
-                },
-                {
+                  header: "Retry Attempts",
+                  hide: false,
                   name: "value",
-                  hide: true,
                 },
                 {
-                  name: "timestamp",
                   hide: true,
+                  name: "__name__",
+                },
+                {
+                  hide: true,
+                  name: "cluster",
+                },
+                {
+                  hide: true,
+                  name: "container",
+                },
+                {
+                  hide: true,
+                  name: "endpoint",
+                },
+                {
+                  hide: true,
+                  name: "instance",
+                },
+                {
+                  hide: true,
+                  name: "job",
+                },
+                {
+                  hide: true,
+                  name: "pod",
+                },
+                {
+                  hide: true,
+                  name: "prometheus",
+                },
+                {
+                  hide: true,
+                  name: "region",
+                },
+                {
+                  format: {
+                    unit: "weeks",
+                  },
+                  hide: true,
+                  name: "timestamp",
+                },
+                {
+                  hide: true,
+                  name: "service",
+                },
+                {
+                  hide: true,
+                  name: "organization",
+                },
+                {
+                  header: "Namespace",
+                  name: "namespace",
+                },
+                {
+                  hide: true,
+                  name: "result",
                 },
               ],
+              density: "standard",
             },
           },
           queries: [
@@ -94,7 +222,7 @@ export const sampleDashboard: DashboardResource = {
                 plugin: {
                   kind: "PrometheusTimeSeriesQuery",
                   spec: {
-                    query: 'count by (job, instance, version) (prometheus_build_info{instance="$instance",job="$job"})',
+                    query: 'greenhouse_plugin_chart_test_runs_total{result!="Success", result!="NoTests"}',
                   },
                 },
               },
@@ -102,25 +230,81 @@ export const sampleDashboard: DashboardResource = {
           ],
         },
       },
-      "1_0": {
+      TeamMembers: {
         kind: "Panel",
         spec: {
           display: {
-            name: "Target Sync",
-            description: "Monitors target synchronization time for Prometheus instances",
+            name: "Onboarded Teams Overview",
           },
           plugin: {
-            kind: "TimeSeriesChart",
+            kind: "Table",
             spec: {
-              legend: {
-                position: "bottom",
-                mode: "table",
-              },
-              yAxis: {
-                format: {
-                  unit: "seconds",
+              columnSettings: [
+                {
+                  header: "Team",
+                  name: "team",
                 },
-              },
+                {
+                  header: "Namespace",
+                  name: "namespace",
+                },
+                {
+                  header: "Members Count",
+                  name: "value",
+                },
+                {
+                  hide: true,
+                  name: "__name__",
+                },
+                {
+                  hide: true,
+                  name: "cluster",
+                },
+                {
+                  hide: true,
+                  name: "container",
+                },
+                {
+                  hide: true,
+                  name: "endpoint",
+                },
+                {
+                  hide: true,
+                  name: "instance",
+                },
+                {
+                  hide: true,
+                  name: "job",
+                },
+                {
+                  hide: true,
+                  name: "organization",
+                },
+                {
+                  hide: true,
+                  name: "pod",
+                },
+                {
+                  hide: true,
+                  name: "prometheus",
+                },
+                {
+                  hide: true,
+                  name: "region",
+                },
+                {
+                  format: {
+                    unit: "weeks",
+                  },
+                  hide: true,
+                  name: "timestamp",
+                },
+                {
+                  hide: true,
+                  name: "service",
+                },
+              ],
+              density: "standard",
             },
           },
           queries: [
@@ -130,332 +314,7 @@ export const sampleDashboard: DashboardResource = {
                 plugin: {
                   kind: "PrometheusTimeSeriesQuery",
                   spec: {
-                    query:
-                      'sum by (job, scrape_job, instance) (\n  rate(prometheus_target_sync_length_seconds_sum{instance="$instance",job="$job"}[$__rate_interval])\n)',
-                    seriesNameFormat: "{{job}} - {{instance}} - Metrics",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-      "1_1": {
-        kind: "Panel",
-        spec: {
-          display: {
-            name: "Targets",
-            description: "Shows discovered targets across Prometheus instances",
-          },
-          plugin: {
-            kind: "TimeSeriesChart",
-            spec: {
-              legend: {
-                position: "bottom",
-                mode: "table",
-              },
-            },
-          },
-          queries: [
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query: 'sum by (job, instance) (prometheus_sd_discovered_targets{instance="$instance",job="$job"})',
-                    seriesNameFormat: "{{job}} - {{instance}} - Metrics",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-      "2_0": {
-        kind: "Panel",
-        spec: {
-          display: {
-            name: "Average Scrape Interval Duration",
-            description: "Shows average interval between scrapes for Prometheus targets",
-          },
-          plugin: {
-            kind: "TimeSeriesChart",
-            spec: {
-              legend: {
-                position: "bottom",
-                mode: "table",
-              },
-              yAxis: {
-                format: {
-                  unit: "seconds",
-                },
-              },
-            },
-          },
-          queries: [
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query:
-                      '  rate(prometheus_target_interval_length_seconds_sum{instance="$instance",job="$job"}[$__rate_interval])\n/\n  rate(prometheus_target_interval_length_seconds_count{instance="$instance",job="$job"}[$__rate_interval])',
-                    seriesNameFormat: "{{job}} - {{instance}} - {{interval}} Configured",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-      "2_1": {
-        kind: "Panel",
-        spec: {
-          display: {
-            name: "Scrape failures",
-            description: "Shows scrape failure metrics for Prometheus targets",
-          },
-          plugin: {
-            kind: "TimeSeriesChart",
-            spec: {
-              legend: {
-                position: "bottom",
-                mode: "table",
-              },
-            },
-          },
-          queries: [
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query:
-                      'sum by (job, instance) (\n  rate(\n    prometheus_target_scrapes_exceeded_body_size_limit_total{instance="$instance",job="$job"}[$__rate_interval]\n  )\n)',
-                    seriesNameFormat: "exceeded body size limit: {{job}} - {{instance}} - Metrics",
-                  },
-                },
-              },
-            },
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query:
-                      'sum by (job, instance) (\n  rate(\n    prometheus_target_scrapes_exceeded_sample_limit_total{instance="$instance",job="$job"}[$__rate_interval]\n  )\n)',
-                    seriesNameFormat: "exceeded sample limit: {{job}} - {{instance}} - Metrics",
-                  },
-                },
-              },
-            },
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query:
-                      'sum by (job, instance) (\n  rate(\n    prometheus_target_scrapes_sample_duplicate_timestamp_total{instance="$instance",job="$job"}[$__rate_interval]\n  )\n)',
-                    seriesNameFormat: "duplicate timestamp: {{job}} - {{instance}} - Metrics",
-                  },
-                },
-              },
-            },
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query:
-                      'sum by (job, instance) (\n  rate(\n    prometheus_target_scrapes_sample_out_of_bounds_total{instance="$instance",job="$job"}[$__rate_interval]\n  )\n)',
-                    seriesNameFormat: "out of bounds: {{job}} - {{instance}} - Metrics",
-                  },
-                },
-              },
-            },
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query:
-                      'sum by (job, instance) (\n  rate(\n    prometheus_target_scrapes_sample_out_of_order_total{instance="$instance",job="$job"}[$__rate_interval]\n  )\n)',
-                    seriesNameFormat: "out of order: {{job}} - {{instance}} - Metrics",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-      "2_2": {
-        kind: "Panel",
-        spec: {
-          display: {
-            name: "Appended Samples",
-            description: "Shows rate of samples appended to Prometheus TSDB",
-          },
-          plugin: {
-            kind: "TimeSeriesChart",
-            spec: {
-              legend: {
-                position: "bottom",
-                mode: "table",
-              },
-            },
-          },
-          queries: [
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query:
-                      'rate(prometheus_tsdb_head_samples_appended_total{instance="$instance",job="$job"}[$__rate_interval])',
-                    seriesNameFormat: "{{job}} - {{instance}} - {{remote_name}} - {{url}}",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-      "3_0": {
-        kind: "Panel",
-        spec: {
-          display: {
-            name: "Head Series",
-            description: "Shows number of series in Prometheus TSDB head",
-          },
-          plugin: {
-            kind: "TimeSeriesChart",
-            spec: {
-              legend: {
-                position: "bottom",
-                mode: "table",
-              },
-            },
-          },
-          queries: [
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query: 'prometheus_tsdb_head_series{instance="$instance",job="$job"}',
-                    seriesNameFormat: "{{job}} - {{instance}} - Head Series",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-      "3_1": {
-        kind: "Panel",
-        spec: {
-          display: {
-            name: "Head Chunks",
-            description: "Shows number of chunks in Prometheus TSDB head",
-          },
-          plugin: {
-            kind: "TimeSeriesChart",
-            spec: {
-              legend: {
-                position: "bottom",
-                mode: "table",
-              },
-            },
-          },
-          queries: [
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query: 'prometheus_tsdb_head_chunks{instance="$instance",job="$job"}',
-                    seriesNameFormat: "{{job}} - {{instance}} - Head Chunks",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-      "4_0": {
-        kind: "Panel",
-        spec: {
-          display: {
-            name: "Query Rate",
-            description: "Shows Prometheus query rate metrics",
-          },
-          plugin: {
-            kind: "TimeSeriesChart",
-            spec: {
-              legend: {
-                position: "bottom",
-                mode: "table",
-              },
-            },
-          },
-          queries: [
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query:
-                      'rate(\n  prometheus_engine_query_duration_seconds_count{instance="$instance",job="$job",slice="inner_eval"}[$__rate_interval]\n)',
-                    seriesNameFormat: "{{job}} - {{instance}} - Query Rate",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-      "4_1": {
-        kind: "Panel",
-        spec: {
-          display: {
-            name: "Stage Duration",
-            description: "Shows duration of different Prometheus query stages",
-          },
-          plugin: {
-            kind: "TimeSeriesChart",
-            spec: {
-              legend: {
-                position: "bottom",
-                mode: "table",
-              },
-              yAxis: {
-                format: {
-                  unit: "seconds",
-                },
-              },
-            },
-          },
-          queries: [
-            {
-              kind: "TimeSeriesQuery",
-              spec: {
-                plugin: {
-                  kind: "PrometheusTimeSeriesQuery",
-                  spec: {
-                    query:
-                      'max by (slice) (\n  prometheus_engine_query_duration_seconds{instance="$instance",job="$job",quantile="0.9"}\n)',
-                    seriesNameFormat: "{{slice}} - Duration",
+                    query: "greenhouse_teammembership_members_count",
                   },
                 },
               },
@@ -469,26 +328,10 @@ export const sampleDashboard: DashboardResource = {
         kind: "Grid",
         spec: {
           display: {
-            title: "Prometheus Stats",
-          },
-          items: [
-            {
-              x: 0,
-              y: 0,
-              width: 24,
-              height: 6,
-              content: {
-                $ref: "#/spec/panels/0_0",
-              },
+            title: "Overview",
+            collapse: {
+              open: true,
             },
-          ],
-        },
-      },
-      {
-        kind: "Grid",
-        spec: {
-          display: {
-            title: "Discovery",
           },
           items: [
             {
@@ -497,7 +340,16 @@ export const sampleDashboard: DashboardResource = {
               width: 12,
               height: 6,
               content: {
-                $ref: "#/spec/panels/1_0",
+                $ref: "#/spec/panels/PluginWorkloadStatus",
+              },
+            },
+            {
+              x: 0,
+              y: 6,
+              width: 12,
+              height: 6,
+              content: {
+                $ref: "#/spec/panels/TeamMembers",
               },
             },
             {
@@ -506,106 +358,15 @@ export const sampleDashboard: DashboardResource = {
               width: 12,
               height: 6,
               content: {
-                $ref: "#/spec/panels/1_1",
-              },
-            },
-          ],
-        },
-      },
-      {
-        kind: "Grid",
-        spec: {
-          display: {
-            title: "Retrieval",
-          },
-          items: [
-            {
-              x: 0,
-              y: 0,
-              width: 8,
-              height: 6,
-              content: {
-                $ref: "#/spec/panels/2_0",
-              },
-            },
-            {
-              x: 8,
-              y: 0,
-              width: 8,
-              height: 6,
-              content: {
-                $ref: "#/spec/panels/2_1",
-              },
-            },
-            {
-              x: 16,
-              y: 0,
-              width: 8,
-              height: 6,
-              content: {
-                $ref: "#/spec/panels/2_2",
-              },
-            },
-          ],
-        },
-      },
-      {
-        kind: "Grid",
-        spec: {
-          display: {
-            title: "Storage",
-          },
-          items: [
-            {
-              x: 0,
-              y: 0,
-              width: 12,
-              height: 6,
-              content: {
-                $ref: "#/spec/panels/3_0",
-              },
-            },
-            {
-              x: 12,
-              y: 0,
-              width: 12,
-              height: 6,
-              content: {
-                $ref: "#/spec/panels/3_1",
-              },
-            },
-          ],
-        },
-      },
-      {
-        kind: "Grid",
-        spec: {
-          display: {
-            title: "Query",
-          },
-          items: [
-            {
-              x: 0,
-              y: 0,
-              width: 12,
-              height: 6,
-              content: {
-                $ref: "#/spec/panels/4_0",
-              },
-            },
-            {
-              x: 12,
-              y: 0,
-              width: 12,
-              height: 6,
-              content: {
-                $ref: "#/spec/panels/4_1",
+                $ref: "#/spec/panels/Pluginswithfailingtests",
               },
             },
           ],
         },
       },
     ],
+    variables: [],
     duration: "1h",
+    refreshInterval: "0s",
   },
 }
