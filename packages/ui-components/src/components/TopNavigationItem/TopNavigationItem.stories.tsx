@@ -4,11 +4,12 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { TopNavigation } from "../TopNavigation/index"
-import { TopNavigationItem, TopNavigationItemProps } from "./index"
+import { TopNavigationItem } from "./index"
 import { KnownIconsEnum } from "../Icon/Icon.component"
 
-export default {
+const meta: Meta<typeof TopNavigationItem> = {
   title: "Navigation/TopNavigation/TopNavigationItem",
   component: TopNavigationItem,
   argTypes: {
@@ -23,56 +24,54 @@ export default {
       control: false,
     },
   },
-  parameters: { actions: { argTypesRegex: null } },
+  parameters: {
+    actions: { argTypesRegex: null },
+  },
+  render: (args) => (
+    <TopNavigation>
+      <TopNavigationItem {...args} />
+    </TopNavigation>
+  ),
 }
 
-const Template = (args: TopNavigationItemProps) => (
-  <TopNavigation>
-    <TopNavigationItem {...args} />
-  </TopNavigation>
-)
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {
     label: "Navigation Item",
   },
 }
 
-export const Active = {
-  render: Template,
+export const Active: Story = {
   args: {
     label: "Navigation Item",
     active: true,
   },
 }
 
-export const Disabled = {
-  render: Template,
+export const Disabled: Story = {
   args: {
     disabled: true,
     label: "Disabled Item",
   },
 }
 
-export const WithIcon = {
-  render: Template,
+export const WithIcon: Story = {
   args: {
     label: "Navigation Item",
     icon: "warning",
   },
 }
 
-export const AsLink = {
-  render: Template,
+export const AsLink: Story = {
   args: {
     label: "Navigation Item",
     href: "#",
   },
 }
 
-export const WithChildren = {
-  render: Template,
+export const WithChildren: Story = {
   args: {
     value: "itm-1",
     children: "Item 1",

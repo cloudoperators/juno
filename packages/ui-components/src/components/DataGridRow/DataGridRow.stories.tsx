@@ -12,14 +12,19 @@ import { DataGrid, DataGridProps } from "../DataGrid/index"
 
 const columns = 5
 
-type TemplateProps = {
+type DataGridRowStoryProps = {
   items: DataGridProps[]
 } & React.ComponentProps<typeof DataGridRow>
 
-const meta: Meta<typeof DataGridRow> = {
+const meta: Meta<DataGridRowStoryProps> = {
   title: "Components/DataGrid/DataGridRow",
   component: DataGridRow,
   argTypes: {
+    items: {
+      table: {
+        disable: true,
+      },
+    },
     children: {
       control: false,
       table: {
@@ -45,7 +50,7 @@ const meta: Meta<typeof DataGridRow> = {
 
 export default meta
 
-export const Default: StoryObj<TemplateProps> = {
+export const Default: StoryObj<DataGridRowStoryProps> = {
   render: ({ items, ...args }) => (
     <DataGridRow {...args}>
       {items.map((item, i) => (
