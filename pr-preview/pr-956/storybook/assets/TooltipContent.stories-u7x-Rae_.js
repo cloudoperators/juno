@@ -1,4 +1,0 @@
-import{j as e}from"./iframe-CEZqkFCg.js";import{b as n,T as i,a as l}from"./TooltipTrigger.component-D59nt0y8.js";import"./floating-ui.react-C-1Dy-Wc.js";import"./Icon.component-DUX6NYcJ.js";const j={title:"Components/Tooltip/TooltipContent",component:n,argTypes:{},decorators:[r=>e.jsx("div",{className:"jn:my-6 jn:flex jn:justify-center",children:e.jsxs(i,{initialOpen:!0,children:[e.jsx(l,{children:"clickMe"}),e.jsx(r,{})]})})]},p=r=>e.jsx(n,{...r,children:"This is a tooltip"}),t={args:{},render:p};var o,s,a;t.parameters={...t.parameters,docs:{...(o=t.parameters)==null?void 0:o.docs,source:{originalSource:`{
-  args: {},
-  render: DefaultTemplate
-}`,...(a=(s=t.parameters)==null?void 0:s.docs)==null?void 0:a.source}}};const T=["Default"];export{t as Default,T as __namedExportsOrder,j as default};
