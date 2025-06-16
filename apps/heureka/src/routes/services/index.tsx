@@ -27,13 +27,12 @@ const servicesSearchSchema = z
   .catchall(
     z.preprocess(
       (val, ctx) => {
-        // Only allow keys that start with SELECTED_FILTER_PREFIX
         if (ctx.path.length > 0 && typeof ctx.path[0] === "string" && !ctx.path[0].startsWith(SELECTED_FILTER_PREFIX)) {
           return undefined
         }
         return val
       },
-      z.union([z.string(), z.array(z.string())])
+      z.union([z.string(), z.array(z.string()), z.undefined()])
     )
   )
 
