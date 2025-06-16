@@ -4,9 +4,9 @@
  */
 
 @import "tailwindcss";
-@import "@cloudoperators/juno-ui-components/juno-ui-components.css";
+@import "@cloudoperators/juno-ui-components/theme.css";
 @layer base {
-.datagrid-hover {
+  .datagrid-hover {
     .juno-datagrid-row:hover {
       .juno-datagrid-cell {
         @apply bg-theme-background-lvl-1;

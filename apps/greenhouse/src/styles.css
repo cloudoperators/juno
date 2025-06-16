@@ -4,4 +4,4 @@
  */
 
 @import "tailwindcss";
-@import "@cloudoperators/juno-ui-components/juno-ui-components.css";
+@import "@cloudoperators/juno-ui-components/theme.css";
