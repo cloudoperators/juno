@@ -56,6 +56,7 @@ export const Filters = ({ filters, filterSettings, onFilterChange, searchInputPl
           placeholder={searchInputPlaceholder ? searchInputPlaceholder : `search term for`}
           className="w-96 ml-auto"
           data-testid="searchbar"
+          value={filterSettings.searchTerm}
           onSearch={(searchTerm) => {
             onFilterChange({
               ...filterSettings,

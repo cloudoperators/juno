@@ -20,7 +20,6 @@ export const ServicesFilters = () => {
       navigate({
         to: "/services",
         search: {
-          service: updatedFilterSettings.searchTerm,
           ...getFiltersForUrl(updatedFilterSettings),
         },
       })
