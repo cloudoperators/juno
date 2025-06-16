@@ -4,10 +4,11 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { TabNavigation } from "./index"
 import { TabNavigationItem } from "../TabNavigationItem/index"
 
-export default {
+const meta: Meta<typeof TabNavigation> = {
   title: "Navigation/TabNavigation/TabNavigation",
   component: TabNavigation,
   argTypes: {
@@ -24,14 +25,10 @@ export default {
   },
 }
 
-const Template = ({ children, ...args }: TemplateProps) => <TabNavigation {...args}>{children}</TabNavigation>
+export default meta
+type Story = StoryObj<typeof meta>
 
-interface TemplateProps {
-  children?: React.ReactNode
-}
-
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {
     children: [
       <TabNavigationItem label="Item 1" key="item-1"></TabNavigationItem>,
@@ -42,8 +39,7 @@ export const Default = {
   },
 }
 
-export const Disabled = {
-  render: Template,
+export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
@@ -62,8 +58,7 @@ export const Disabled = {
   },
 }
 
-export const WithValues = {
-  render: Template,
+export const WithValues: Story = {
   parameters: {
     docs: {
       description: {
@@ -83,8 +78,7 @@ export const WithValues = {
   },
 }
 
-export const WithChildren = {
-  render: Template,
+export const WithChildren: Story = {
   parameters: {
     docs: {
       description: {

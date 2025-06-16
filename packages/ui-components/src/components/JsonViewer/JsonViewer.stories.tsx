@@ -3,17 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
+
 import { JsonViewer } from "./index.ts"
 
-export default {
+const meta: Meta<typeof JsonViewer> = {
   title: "Components/JsonViewer",
   component: JsonViewer,
-  description: "TEST",
   argTypes: {},
   parameters: {
     controls: { sort: "alpha" },
   },
 }
+
+export default meta
+type Story = StoryObj<typeof meta>
 
 const data = {
   id: 9,
@@ -49,19 +53,19 @@ const dataAsArray = [
   { arrays: "are", fun: "to", work: "with, too" },
 ]
 
-export const Default = {
+export const Default: Story = {
   args: {
     data,
   },
 }
 
-export const ArrayData = {
+export const ArrayData: Story = {
   args: {
     data: dataAsArray,
   },
 }
 
-export const Light = {
+export const Light: Story = {
   args: {
     theme: "light",
     toolbar: true,
@@ -69,14 +73,14 @@ export const Light = {
   },
 }
 
-export const Expanded = {
+export const Expanded: Story = {
   args: {
     expanded: true,
     data,
   },
 }
 
-export const WithToolbar = {
+export const WithToolbar: Story = {
   args: {
     expanded: 1,
     toolbar: true,
@@ -84,7 +88,7 @@ export const WithToolbar = {
   },
 }
 
-export const CustomTheme = {
+export const CustomTheme: Story = {
   args: {
     theme: {
       base00: "rgb(39, 40, 34)",

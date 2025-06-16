@@ -8,10 +8,8 @@ import { ComboBox } from "./index"
 import { ComboBoxOption } from "../ComboBoxOption/index"
 import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 import { ComboBoxProps } from "./ComboBox.component"
-import { fn } from "@storybook/test" // Import the fn function for mocking handlers
-import type { Meta, StoryObj } from "@storybook/react" // Import Meta and StoryObj types
-
-type StoryFunction = () => React.ReactNode
+import { fn } from "storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react-vite" // Import Meta and StoryObj types
 
 const meta: Meta<typeof ComboBox> = {
   title: "Forms/ComboBox/ComboBox",
@@ -61,15 +59,18 @@ const meta: Meta<typeof ComboBox> = {
     },
   },
   decorators: [
-    (story: StoryFunction) => (
+    (Story) => (
       <div className="jn-pb-12">
-        <PortalProvider>{story()}</PortalProvider>
+        <PortalProvider>
+          <Story />
+        </PortalProvider>
       </div>
     ),
   ],
 }
 
 export default meta
+type Story = StoryObj<typeof meta>
 
 const Template = ({ children, ...args }: ComboBoxProps) => {
   return <ComboBox {...args}>{children}</ComboBox>
@@ -98,7 +99,7 @@ interface ControlledTemplateProps extends ComboBoxProps {
   value?: string
 }
 
-export const Default: StoryObj<typeof ComboBox> = {
+export const Default: Story = {
   render: Template,
 
   args: {
@@ -155,7 +156,7 @@ export const Default: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const ControlledComboBox: StoryObj<typeof ComboBox> = {
+export const ControlledComboBox: Story = {
   render: ControlledTemplate,
 
   args: {
@@ -173,7 +174,7 @@ export const ControlledComboBox: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const UncontrolledComboBox: StoryObj<typeof ComboBox> = {
+export const UncontrolledComboBox: Story = {
   render: Template,
 
   args: {
@@ -191,7 +192,7 @@ export const UncontrolledComboBox: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const WithLabel: StoryObj<typeof ComboBox> = {
+export const WithLabel: Story = {
   render: Template,
 
   args: {
@@ -250,7 +251,7 @@ export const WithLabel: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const WithLabelAndPlaceholder: StoryObj<typeof ComboBox> = {
+export const WithLabelAndPlaceholder: Story = {
   render: Template,
 
   args: {
@@ -309,7 +310,7 @@ export const WithLabelAndPlaceholder: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const Required: StoryObj<typeof ComboBox> = {
+export const Required: Story = {
   render: Template,
 
   args: {
@@ -368,7 +369,7 @@ export const Required: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const Valid: StoryObj<typeof ComboBox> = {
+export const Valid: Story = {
   render: Template,
 
   args: {
@@ -427,7 +428,7 @@ export const Valid: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const Invalid: StoryObj<typeof ComboBox> = {
+export const Invalid: Story = {
   render: Template,
 
   args: {
@@ -486,7 +487,7 @@ export const Invalid: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const Disabled: StoryObj<typeof ComboBox> = {
+export const Disabled: Story = {
   render: Template,
 
   args: {
@@ -545,7 +546,7 @@ export const Disabled: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const DisabledOption: StoryObj<typeof ComboBox> = {
+export const DisabledOption: Story = {
   render: Template,
 
   args: {
@@ -565,7 +566,7 @@ export const DisabledOption: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const WithHelpText: StoryObj<typeof ComboBox> = {
+export const WithHelpText: Story = {
   render: Template,
 
   args: {
@@ -624,7 +625,7 @@ export const WithHelpText: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const WithHelpTextAsNode: StoryObj<typeof ComboBox> = {
+export const WithHelpTextAsNode: Story = {
   render: Template,
 
   args: {
@@ -687,7 +688,7 @@ export const WithHelpTextAsNode: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const WithErrorText: StoryObj<typeof ComboBox> = {
+export const WithErrorText: Story = {
   render: Template,
 
   args: {
@@ -746,7 +747,7 @@ export const WithErrorText: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const WithSuccessText: StoryObj<typeof ComboBox> = {
+export const WithSuccessText: Story = {
   render: Template,
 
   args: {
@@ -805,7 +806,7 @@ export const WithSuccessText: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const NonNullable: StoryObj<typeof ComboBox> = {
+export const NonNullable: Story = {
   render: Template,
 
   args: {
@@ -836,7 +837,7 @@ export const NonNullable: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const NonTruncatedOptions: StoryObj<typeof ComboBox> = {
+export const NonTruncatedOptions: Story = {
   render: ConstrainedWidthTemplate,
 
   args: {
@@ -853,7 +854,7 @@ export const NonTruncatedOptions: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const TruncatedOptions: StoryObj<typeof ComboBox> = {
+export const TruncatedOptions: Story = {
   render: ConstrainedWidthTemplate,
 
   args: {
@@ -871,7 +872,7 @@ export const TruncatedOptions: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const OptionsWithLabels: StoryObj<typeof ComboBox> = {
+export const OptionsWithLabels: Story = {
   render: Template,
 
   parameters: {
@@ -892,7 +893,7 @@ export const OptionsWithLabels: StoryObj<typeof ComboBox> = {
   },
 }
 
-export const Loading: StoryObj<typeof ComboBox> = {
+export const Loading: Story = {
   render: Template,
 
   args: {
@@ -910,7 +911,7 @@ export const Error = {
   },
 }
 
-export const ValueAndDefaultValue: StoryObj<typeof ComboBox> = {
+export const ValueAndDefaultValue: Story = {
   render: Template,
 
   args: {

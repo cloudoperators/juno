@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.2
+
+### Patch Changes
+
+- 7317372: Updates Supernova version
+- Updated dependencies [7317372]
+- Updated dependencies [7317372]
+  - @cloudoperators/juno-messages-provider@0.2.7
+  - @cloudoperators/juno-app-supernova@0.17.1
+  - @cloudoperators/juno-app-doop@2.4.1
+  - @cloudoperators/juno-app-heureka@0.6.1
+
 ## 0.6.1
 
 ### Patch Changes

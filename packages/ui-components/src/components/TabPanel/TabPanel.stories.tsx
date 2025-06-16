@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { TabPanel } from "./index"
 
-export default {
+const meta: Meta<typeof TabPanel> = {
   title: "Layout/Tabs/TabPanel",
   component: TabPanel,
   argTypes: {
@@ -18,7 +19,10 @@ export default {
   },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {
     children: "Tab panel content goes here.",
   },

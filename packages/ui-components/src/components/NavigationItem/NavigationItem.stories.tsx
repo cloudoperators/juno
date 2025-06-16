@@ -3,62 +3,62 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import React from "react"
-import { NavigationItem, NavigationItemProps } from "./index"
+import { NavigationItem } from "./index"
 import { Navigation } from "../Navigation/index"
 
-type StoryDefinition = () => React.ReactNode
-
-export default {
+const meta: Meta<typeof NavigationItem> = {
   title: "Internal/Navigation/NavigationItem",
   component: NavigationItem,
+  decorators: [
+    (Story) => (
+      <Navigation>
+        <Story />
+      </Navigation>
+    ),
+  ],
   argTypes: {},
-  decorators: [(story: StoryDefinition) => <Navigation>{story()}</Navigation>],
 }
 
-const Template = ({ children, ...args }: NavigationItemProps) => <NavigationItem {...args}>{children}</NavigationItem>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const DefaultWithChildren = {
-  render: Template,
+export const DefaultWithChildren: Story = {
   args: {
     children: "Navigation Item",
   },
 }
 
-export const WithValueAndLabel = {
-  render: Template,
+export const WithValueAndLabel: Story = {
   args: {
     value: "item-1",
     label: "Navigation Item 1",
   },
 }
 
-export const ActiveItem = {
-  render: Template,
+export const ActiveItem: Story = {
   args: {
     active: true,
     children: "Active Item",
   },
 }
 
-export const DisabledItem = {
-  render: Template,
+export const DisabledItem: Story = {
   args: {
     disabled: true,
     children: "Disabled Item",
   },
 }
 
-export const ItemAsLink = {
-  render: Template,
+export const ItemAsLink: Story = {
   args: {
     href: "https://www.sap.com",
     children: "This item is a link",
   },
 }
 
-export const DisabledLinkItem = {
-  render: Template,
+export const DisabledLinkItem: Story = {
   args: {
     href: "https://www.sap.com",
     children: "This item is a link",
@@ -66,8 +66,7 @@ export const DisabledLinkItem = {
   },
 }
 
-export const WithIcon = {
-  render: Template,
+export const WithIcon: Story = {
   args: {
     label: "With Icon",
     icon: "warning",
