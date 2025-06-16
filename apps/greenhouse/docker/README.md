@@ -22,7 +22,7 @@ There are two primary methods to run the Greenhouse container:
 To provide a custom configuration file, mount your `appProps.json` via a Docker volume:
 
 ```bash
-docker run -v /path/to/your/appProps.json:/appProps.json -p 3010:80 greenhouse
+docker run -v /path/to/your/appProps.json:/appProps.json -p 8000:80 greenhouse
 ```
 
 #### Default appProps.json values:
