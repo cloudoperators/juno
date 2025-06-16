@@ -1,5 +1,7 @@
-/* SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors */
-/* SPDX-License-Identifier: Apache-2.0 */
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 /* @import "tailwindcss" source("../src"); */
 
@@ -830,7 +832,9 @@
   --color-datetimepicker-calendar-bg: var(--color-background-lvl-1);
   --color-datetimepicker-disabled-date-color: rgb(187 187 187 / 0.4); /* Dark theme text default color */
   --color-datetimepicker-disabled-date-hover-bg: rgb(21 208 224 / 0.5); /* Dark theme accent color */
-  --color-datetimepicker-range-bg: rgb(79 163 176); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
+  --color-datetimepicker-range-bg: rgb(
+    79 163 176
+  ); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
 }
 
 /*
@@ -858,7 +862,6 @@
 @utility flex-basis-auto {
   flex-basis: auto;
 }
-
 
 /* default base styles using the tw base directive */
 @layer base {
@@ -895,68 +898,71 @@
  * context see: https://github.com/tailwindlabs/tailwindcss/issues/15005
 */
 @layer properties {
-    *,:before,:after,::backdrop {
-        --tw-translate-x: 0;
-        --tw-translate-y: 0;
-        --tw-translate-z: 0;
-        --tw-rotate-x: initial;
-        --tw-rotate-y: initial;
-        --tw-rotate-z: initial;
-        --tw-skew-x: initial;
-        --tw-skew-y: initial;
-        --tw-space-y-reverse: 0;
-        --tw-space-x-reverse: 0;
-        --tw-border-style: solid;
-        --tw-gradient-position: initial;
-        --tw-gradient-from: #0000;
-        --tw-gradient-via: #0000;
-        --tw-gradient-to: #0000;
-        --tw-gradient-stops: initial;
-        --tw-gradient-via-stops: initial;
-        --tw-gradient-from-position: 0%;
-        --tw-gradient-via-position: 50%;
-        --tw-gradient-to-position: 100%;
-        --tw-leading: initial;
-        --tw-font-weight: initial;
-        --tw-tracking: initial;
-        --tw-shadow: 0 0 #0000;
-        --tw-shadow-color: initial;
-        --tw-shadow-alpha: 100%;
-        --tw-inset-shadow: 0 0 #0000;
-        --tw-inset-shadow-color: initial;
-        --tw-inset-shadow-alpha: 100%;
-        --tw-ring-color: initial;
-        --tw-ring-shadow: 0 0 #0000;
-        --tw-inset-ring-color: initial;
-        --tw-inset-ring-shadow: 0 0 #0000;
-        --tw-ring-inset: initial;
-        --tw-ring-offset-width: 0px;
-        --tw-ring-offset-color: #fff;
-        --tw-ring-offset-shadow: 0 0 #0000;
-        --tw-outline-style: solid;
-        --tw-blur: initial;
-        --tw-brightness: initial;
-        --tw-contrast: initial;
-        --tw-grayscale: initial;
-        --tw-hue-rotate: initial;
-        --tw-invert: initial;
-        --tw-opacity: initial;
-        --tw-saturate: initial;
-        --tw-sepia: initial;
-        --tw-drop-shadow: initial;
-        --tw-drop-shadow-color: initial;
-        --tw-drop-shadow-alpha: 100%;
-        --tw-drop-shadow-size: initial;
-        --tw-backdrop-blur: initial;
-        --tw-backdrop-brightness: initial;
-        --tw-backdrop-contrast: initial;
-        --tw-backdrop-grayscale: initial;
-        --tw-backdrop-hue-rotate: initial;
-        --tw-backdrop-invert: initial;
-        --tw-backdrop-opacity: initial;
-        --tw-backdrop-saturate: initial;
-        --tw-backdrop-sepia: initial;
-        --tw-duration: initial;
-        --tw-content: ""
-    }
+  *,
+  :before,
+  :after,
+  ::backdrop {
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-translate-z: 0;
+    --tw-rotate-x: initial;
+    --tw-rotate-y: initial;
+    --tw-rotate-z: initial;
+    --tw-skew-x: initial;
+    --tw-skew-y: initial;
+    --tw-space-y-reverse: 0;
+    --tw-space-x-reverse: 0;
+    --tw-border-style: solid;
+    --tw-gradient-position: initial;
+    --tw-gradient-from: #0000;
+    --tw-gradient-via: #0000;
+    --tw-gradient-to: #0000;
+    --tw-gradient-stops: initial;
+    --tw-gradient-via-stops: initial;
+    --tw-gradient-from-position: 0%;
+    --tw-gradient-via-position: 50%;
+    --tw-gradient-to-position: 100%;
+    --tw-leading: initial;
+    --tw-font-weight: initial;
+    --tw-tracking: initial;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-color: initial;
+    --tw-shadow-alpha: 100%;
+    --tw-inset-shadow: 0 0 #0000;
+    --tw-inset-shadow-color: initial;
+    --tw-inset-shadow-alpha: 100%;
+    --tw-ring-color: initial;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-inset-ring-color: initial;
+    --tw-inset-ring-shadow: 0 0 #0000;
+    --tw-ring-inset: initial;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-outline-style: solid;
+    --tw-blur: initial;
+    --tw-brightness: initial;
+    --tw-contrast: initial;
+    --tw-grayscale: initial;
+    --tw-hue-rotate: initial;
+    --tw-invert: initial;
+    --tw-opacity: initial;
+    --tw-saturate: initial;
+    --tw-sepia: initial;
+    --tw-drop-shadow: initial;
+    --tw-drop-shadow-color: initial;
+    --tw-drop-shadow-alpha: 100%;
+    --tw-drop-shadow-size: initial;
+    --tw-backdrop-blur: initial;
+    --tw-backdrop-brightness: initial;
+    --tw-backdrop-contrast: initial;
+    --tw-backdrop-grayscale: initial;
+    --tw-backdrop-hue-rotate: initial;
+    --tw-backdrop-invert: initial;
+    --tw-backdrop-opacity: initial;
+    --tw-backdrop-saturate: initial;
+    --tw-backdrop-sepia: initial;
+    --tw-duration: initial;
+    --tw-content: "";
+  }
 }
