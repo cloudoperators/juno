@@ -30,24 +30,41 @@ describe("messages-provider", () => {
     expect(result.current.length).toBe(0)
   })
 
-  it("adds a message correctly", async () => {
+  it("adds a message correctly as string", async () => {
     const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
     const store = renderHook(() => ({ actions: useActions(), messages: useMessages() }), { wrapper })
     let actionResult = null
+
+    await act(async () => {
+      actionResult = await store.result.current.actions.addMessage({
+        variant: "error",
+        text: "this is an error",
+      })
+    })
+
+    expect(actionResult).toMatch(/message-/) //addMessage return message id if success
+    expect(store.result.current.messages.length).toBe(1)
+    expect(store.result.current.messages[0].variant).toEqual("error")
+    expect(store.result.current.messages[0].text).toEqual("this is an error")
+  })
+
+  it("adds a message correctly as react node", async () => {
+    const wrapper = ({ children }) => <MessagesProvider>{children}</MessagesProvider>
+    const store = renderHook(() => ({ actions: useActions(), messages: useMessages() }), { wrapper })
+    let actionResult = null
+    const text = <span>this is an error</span>
     await act(
       () =>
         (actionResult = store.result.current.actions.addMessage({
           variant: "error",
-          text: "this is an error",
+          text: text,
         }))
     )
 
-    waitFor(() => {
-      expect(actionResult).toMatch(/message-/) //addMessage return message id if success
-      expect(store.result.current.messages.length).toBe(1)
-      expect(store.result.current.messages[0].variant).toEqual("error")
-      expect(store.result.current.messages[0].text).toEqual("this is an error")
-    })
+    expect(actionResult).toMatch(/message-/) //addMessage return message id if success
+    expect(store.result.current.messages.length).toBe(1)
+    expect(store.result.current.messages[0].variant).toEqual("error")
+    expect(store.result.current.messages[0].text).toEqual(text)
   })
 
   it("adds a message extra props (ex. dismissible) correctly", () => {
@@ -64,13 +81,11 @@ describe("messages-provider", () => {
         }))
     )
 
-    waitFor(() => {
-      expect(actionResult).toMatch(/message-/) //addMessage return message id if success
-      expect(store.result.current.messages.length).toBe(1)
-      expect(store.result.current.messages[0].variant).toEqual("error")
-      expect(store.result.current.messages[0].text).toEqual("this is an error")
-      expect(store.result.current.messages[0].dismissible).toBeTruthy()
-    })
+    expect(actionResult).toMatch(/message-/) //addMessage return message id if success
+    expect(store.result.current.messages.length).toBe(1)
+    expect(store.result.current.messages[0].variant).toEqual("error")
+    expect(store.result.current.messages[0].text).toEqual("this is an error")
+    expect(store.result.current.messages[0].dismissible).toBeTruthy()
   })
 
   it("remove a message correctly", () => {
