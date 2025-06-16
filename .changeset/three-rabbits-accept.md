@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": patch
 ---
 
-Fix Code, FormattedText and IntroBox storybook formatting, default values and links.
+Fix Code, Message, FormattedText and IntroBox storybook formatting, default values and links.
