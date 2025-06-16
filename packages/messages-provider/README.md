@@ -12,12 +12,12 @@ This lib uses a **context** store based on Zustand to manage the messages. That 
 
 In order to run this library in your application you need to install also following libraries which are not included in the bundle:
 
-- @cloudoperators/juno-ui-components, recommended version ^2.14.1
-- react, recommended version 18.2.0
-- zustand, recommended version ^4.5.2
+- @cloudoperators/juno-ui-components
+- react
+- zustand
 
 ```bash
-yarn add zustand@4.5.2, react@18.2.0 @cloudoperators/juno-ui-components
+pnpm add zustand, react @cloudoperators/juno-ui-components
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ yarn add zustand@4.5.2, react@18.2.0 @cloudoperators/juno-ui-components
 1. Import this lib
 
    ```bash
-   yarn add @cloudoperators//messages-provider
+   pnpm add @cloudoperators//messages-provider
    ```
 
 2. Add the message **MessagesProvider**. Normally it is set on the top of your application so you can use it from everywhere underneath.
@@ -219,3 +219,11 @@ Following variants are available:
 - success
 
 Variant **info** and **success** will be automatically dismissed after 10 seconds by default.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

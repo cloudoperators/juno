@@ -1,5 +1,28 @@
 # @cloudoperators/juno-app-example
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [7317372]
+  - @cloudoperators/juno-messages-provider@0.2.7
+
+## 2.1.0
+
+### Minor Changes
+
+- 3474c87: Changed suitable Selects to ComboBox
+
+### Patch Changes
+
+- 483d9ee: Update react version to 19.1.0
+- Updated dependencies [483d9ee]
+- Updated dependencies [483d9ee]
+  - @cloudoperators/juno-ui-components@4.0.0
+  - @cloudoperators/juno-url-state-provider@3.0.2
+  - @cloudoperators/juno-messages-provider@0.2.6
+  - @cloudoperators/juno-oauth@1.4.7
+
 ## 2.0.4
 
 ### Patch Changes

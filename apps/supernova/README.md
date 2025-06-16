@@ -236,7 +236,7 @@ Consider the following example: an alert is triggered when a pod runs out of mem
 
 PodOOMKilled alarm labels example:
 
-```js
+```json
 {
   "alertname": "PodOOMKilled",
   "cluster": "eu-de-1",
@@ -331,3 +331,11 @@ Example value:
 ```json
 false
 ```
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

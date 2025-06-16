@@ -13,7 +13,7 @@ To create a static, runnable build, execute the following commands:
 
 ```bash
 cd apps/greenhouse
-npx turbo build:static
+pnpx turbo build:static
 ```
 
 This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy a `appProps.json` file containing the required props into the dist folder.
@@ -27,14 +27,14 @@ This will generate an `index.html` file along with the necessary assets in the d
 
 ```bash
 cd apps/greenhouse
-npx turbo dev
+pnpx turbo dev
 ```
 
 ### Testing
 
 ```bash
 cd apps/greenhouse
-npx turbo test
+pnpx turbo test
 ```
 
 ## App Props
@@ -52,3 +52,11 @@ These are the customizable application properties (appProps) that you can define
 - **demoOrg** (optional): `"demo"`. If the organization name matches this value, the app will use the demo user token for authentication.
 - **demoUserToken** (optional): `"token for demo user"`. Used for authentication if `demoOrg` and `demoUserToken` are set, and the organization name matches `demoOrg`.
   **Note:** This is ignored if `mockAuth` is set.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

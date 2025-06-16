@@ -16,7 +16,11 @@ Additionally, the Communicator library introduces the `crossWindow` option, whic
 
 ## Install
 
-`pnpm add @cloudoperators/communicator"`
+Ensure you have the latest version of Node.js installed on your machine. Then, you can install the Communicator library using the following command:
+
+```bash
+pnpm add @cloudoperators/communicator
+```
 
 ## Usage
 
@@ -75,3 +79,11 @@ const unwatch = onGet(
   { debug: false }
 )
 ```
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
+
+## License
+
+Licensed under the [Apache License](LICENSE).

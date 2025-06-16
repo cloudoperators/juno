@@ -13,7 +13,7 @@ const uniqueId = (prefix: string): string => {
 
 // define the MessageProps interface
 interface MessageProps {
-  text: string
+  text?: string | ReactNode // text can be a string or a ReactNode
   variant: "error" | "info" | "danger" | "success" | "warning"
   dismissible?: boolean
   autoDismiss?: boolean
@@ -45,7 +45,7 @@ const createMessagesSlice: StateCreator<MessagesSlice> = (set, get) => ({
     addMessage: (props: MessageProps) => {
       // check if a message with the same text and variant exists
       const index = get().messages.findIndex((item) => {
-        return JSON.stringify(item.text) === JSON.stringify(props.text) && item.variant === props.variant
+        return item.text === props.text && item.variant === props.variant
       })
       if (index >= 0) return
       const items = get().messages.slice()
@@ -55,6 +55,8 @@ const createMessagesSlice: StateCreator<MessagesSlice> = (set, get) => ({
       set((state) => {
         return { ...state, messages: items }
       })
+
+      return messageId // return the message id for further actions
     },
     removeMessage: (id) => {
       let items = get().messages.slice()

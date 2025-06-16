@@ -35,7 +35,7 @@ To use the **Template** app as a template to generate your next app, you don't n
 3. Run the following command to install the **Template** app as a global dependency:
 
 ```bash
-turbo gen workspace --type app --copy @cloudoperators/juno-app-template
+pnpx turbo gen workspace --type app --copy @cloudoperators/juno-app-template
 ```
 
 All your apps should start with `@cloudoperators/juno-` prefix.
@@ -44,8 +44,12 @@ That's it! You can now use the **Template** app as a template to generate your n
 
 ## Contributing
 
-We welcome contributions from the community. Please follow our [contribution guidelines] to contribute to this project.
+We welcome contributions from the community. Please follow our [contribution guidelines](../../CONTRIBUTING.md) to contribute to this project.
+
+## Contributing
+
+We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
 
 ## License
 
-This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
+Licensed under the [Apache License](LICENSE).

@@ -1,5 +1,48 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.2
+
+### Patch Changes
+
+- 7317372: Updates Supernova version
+- Updated dependencies [7317372]
+- Updated dependencies [7317372]
+  - @cloudoperators/juno-messages-provider@0.2.7
+  - @cloudoperators/juno-app-supernova@0.17.1
+  - @cloudoperators/juno-app-doop@2.4.1
+  - @cloudoperators/juno-app-heureka@0.6.1
+
+## 0.6.1
+
+### Patch Changes
+
+- d68e81a: Fix markdown rendering errors after React 19 upgrade by aligning react-markdown and remark-gfm dependencies
+
+## 0.6.0
+
+### Minor Changes
+
+- 3474c87: Changed suitable Selects to ComboBox
+
+### Patch Changes
+
+- 9dd8568: fix(heureka): removes unnecessary fields from getServices to improve performance
+- 80a30d7: Heureka now supports basic deeplinks.
+- 483d9ee: Update react version to 19.1.0
+- Updated dependencies [483d9ee]
+- Updated dependencies [3474c87]
+- Updated dependencies [9dd8568]
+- Updated dependencies [80a30d7]
+- Updated dependencies [483d9ee]
+  - @cloudoperators/juno-ui-components@4.0.0
+  - @cloudoperators/juno-app-supernova@0.17.0
+  - @cloudoperators/juno-app-heureka@0.6.0
+  - @cloudoperators/juno-app-doop@2.4.0
+  - @cloudoperators/juno-url-state-provider@3.0.2
+  - @cloudoperators/juno-messages-provider@0.2.6
+  - @cloudoperators/juno-k8s-client@1.0.7
+  - @cloudoperators/juno-oauth@1.4.7
+
 ## 0.5.7
 
 ### Patch Changes
