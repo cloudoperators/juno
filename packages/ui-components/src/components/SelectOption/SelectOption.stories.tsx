@@ -4,60 +4,62 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Select } from "../Select/Select.component"
-import { SelectOption, SelectOptionProps } from "./SelectOption.component"
+import { SelectOption } from "./SelectOption.component"
 import { PortalProvider } from "../PortalProvider"
 
-export default {
+const meta: Meta<typeof SelectOption> = {
   title: "Forms/Select/SelectOption",
   component: SelectOption,
   argTypes: {
     children: {
-      control: { type: "string" },
+      control: { type: "text" },
       table: {
         type: { summary: "string" },
       },
     },
   },
-  decorators: [(story: () => null | undefined) => <PortalProvider>{story()}</PortalProvider>],
+  decorators: [
+    (Story) => (
+      <PortalProvider>
+        <Story />
+      </PortalProvider>
+    ),
+  ],
+  render: (args) => {
+    return (
+      <Select open>
+        <SelectOption {...args} />
+      </Select>
+    )
+  },
 }
 
-const Template = (args: React.JSX.IntrinsicAttributes & SelectOptionProps) => {
-  return (
-    <Select open>
-      <SelectOption {...args} />
-    </Select>
-  )
-}
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     value: "Option 1",
   },
 }
 
-export const Disabled = {
-  render: Template,
-
+export const Disabled: Story = {
   args: {
     disabled: true,
     value: "Disabled Option",
   },
 }
 
-export const ChildrenOnly = {
-  render: Template,
-
+export const ChildrenOnly: Story = {
   args: {
+    // @ts-ignore
     children: ["Option 1"],
   },
 }
 
-export const withLabel = {
-  render: Template,
-
+export const WithLabel: Story = {
   args: {
     value: "option-1",
     label: "Option 1",

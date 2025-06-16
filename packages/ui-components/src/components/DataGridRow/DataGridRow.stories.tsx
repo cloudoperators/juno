@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement } from "react"
+import React from "react"
+import { Meta, StoryObj } from "@storybook/react-vite"
 import { DataGridRow } from "./index"
 import { DataGridCell } from "../DataGridCell/index"
 import { Default as DataGridCellStory } from "../DataGridCell/DataGridCell.stories"
@@ -11,9 +12,11 @@ import { DataGrid, DataGridProps } from "../DataGrid/index"
 
 const columns = 5
 
-type StoryFunction = () => ReactElement
+type DataGridRowStoryProps = {
+  items: DataGridProps[]
+} & React.ComponentProps<typeof DataGridRow>
 
-export default {
+const meta: Meta<DataGridRowStoryProps> = {
   title: "Components/DataGrid/DataGridRow",
   component: DataGridRow,
   argTypes: {
@@ -29,7 +32,13 @@ export default {
       },
     },
   },
-  decorators: [(story: StoryFunction) => <DataGrid columns={columns}>{story()}</DataGrid>],
+  decorators: [
+    (Story) => (
+      <DataGrid columns={columns}>
+        <Story />
+      </DataGrid>
+    ),
+  ],
   parameters: {
     docs: {
       source: {
@@ -39,30 +48,24 @@ export default {
   },
 }
 
-const Template = ({ items, ...args }: TemplateProps) => (
-  <DataGridRow {...args}>
-    {items.map((item, i) => (
-      <DataGridCell {...item} key={`${i}`} />
-    ))}
-  </DataGridRow>
-)
+export default meta
 
-interface TemplateProps {
-  items: DataGridProps[]
-}
-
-export const Default = {
-  render: Template,
-
+export const Default: StoryObj<DataGridRowStoryProps> = {
+  render: ({ items, ...args }) => (
+    <DataGridRow {...args}>
+      {items.map((item, i) => (
+        <DataGridCell {...item} key={i} />
+      ))}
+    </DataGridRow>
+  ),
+  args: {
+    items: Array(columns).fill({ ...DataGridCellStory.args }),
+  },
   parameters: {
     docs: {
       description: {
         story: "Juno DataGridRow for use in DataGrid",
       },
     },
-  },
-
-  args: {
-    items: Array(columns).fill({ ...DataGridCellStory.args }),
   },
 }

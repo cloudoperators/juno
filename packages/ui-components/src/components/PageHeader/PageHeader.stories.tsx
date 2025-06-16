@@ -4,14 +4,14 @@
  */
 
 import React from "react"
-import type { Meta, StoryFn, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import CustomLogoLandscape from "./custom-logo-placeholders/custom-logo-landscape.svg"
 import CustomLogoPortrait from "./custom-logo-placeholders/custom-logo-portrait.svg"
 import CustomLogoSquare from "./custom-logo-placeholders/custom-logo-square.svg"
 import CustomLogoLandscapePNG from "./custom-logo-placeholders/custom-logo-landscape.png"
 import CustomLogoPortraitPNG from "./custom-logo-placeholders/custom-logo-portrait.png"
 import CustomLogoSquarePNG from "./custom-logo-placeholders/custom-logo-square.png"
-import { PageHeader, PageHeaderProps } from "./index"
+import { PageHeader } from "./index"
 import { Button } from "../Button/"
 
 const CustomLogoImagePNGSquare = () => <img src={CustomLogoSquarePNG} alt="Custom Logo Square" />
@@ -27,9 +27,9 @@ const HeaderOptions = () => {
   )
 }
 
-type Story = StoryObj<PageHeaderProps>
+type Story = StoryObj<typeof meta>
 
-const meta: Meta<PageHeaderProps> = {
+const meta: Meta<typeof PageHeader> = {
   title: "Layout/PageHeader",
   component: PageHeader,
   argTypes: {
@@ -55,13 +55,7 @@ const meta: Meta<PageHeaderProps> = {
 }
 export default meta
 
-const Template: StoryFn<PageHeaderProps> = (args) => {
-  return <PageHeader {...args} />
-}
-
 export const Default: Story = {
-  render: Template,
-
   args: {
     heading: "My App",
     logo: true,
@@ -74,7 +68,6 @@ export const WithHeading: Story = {
       description: { story: "PageHeader with Heading." },
     },
   },
-
   args: {
     heading: "My Awesome App",
   },

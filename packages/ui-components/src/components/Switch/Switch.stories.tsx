@@ -4,9 +4,10 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Switch } from "./index"
 
-export default {
+const meta: Meta<typeof Switch> = {
   title: "Forms/Switch",
   component: Switch,
   argTypes: {
@@ -22,20 +23,22 @@ export default {
   },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   parameters: {
     docs: {
       description: { story: 'Default Switch. Defaults to "off".' },
     },
   },
-
   args: {
     label: "Switch",
     id: "switch-default",
   },
 }
 
-export const Small = {
+export const Small: Story = {
   args: {
     size: "small",
     label: "Small Switch",
@@ -43,7 +46,7 @@ export const Small = {
   },
 }
 
-export const Large = {
+export const Large: Story = {
   args: {
     size: "large",
     label: "Large Switch",
@@ -51,25 +54,23 @@ export const Large = {
   },
 }
 
-export const On = {
+export const On: Story = {
   parameters: {
     docs: {
       description: { story: 'Render a checked Switch by passing bool "on".' },
     },
   },
-
   args: {
     on: true,
   },
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   parameters: {
     docs: {
       description: { story: 'Disable a Switch by passing bool "disabled".' },
     },
   },
-
   args: {
     on: true,
     disabled: true,
@@ -78,7 +79,7 @@ export const Disabled = {
   },
 }
 
-export const Invalid = {
+export const Invalid: Story = {
   args: {
     invalid: true,
     label: "Invalid Switch",
@@ -86,7 +87,7 @@ export const Invalid = {
   },
 }
 
-export const Valid = {
+export const Valid: Story = {
   args: {
     valid: true,
     label: "Valid Switch",
@@ -94,14 +95,14 @@ export const Valid = {
   },
 }
 
-export const WithHelpText = {
+export const WithHelpText: Story = {
   args: {
     label: "Switch",
     helptext: "This is an explanatory text referring to the input",
   },
 }
 
-export const WithHelpTextAsNode = {
+export const WithHelpTextAsNode: Story = {
   args: {
     label: "Switch",
     helptext: (
@@ -112,14 +113,14 @@ export const WithHelpTextAsNode = {
   },
 }
 
-export const WithSuccessText = {
+export const WithSuccessText: Story = {
   args: {
     label: "Switch",
     successtext: "This field is a great success!",
   },
 }
 
-export const WithErrorText = {
+export const WithErrorText: Story = {
   args: {
     label: "Switch",
     errortext: "This field has an error",

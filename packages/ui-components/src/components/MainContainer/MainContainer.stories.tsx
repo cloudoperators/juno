@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
-import { MainContainer, MainContainerProps } from "./index"
+import { MainContainer } from "./index"
 
-export default {
+const meta: Meta<typeof MainContainer> = {
   title: "Internal/MainContainer",
   component: MainContainer,
   argTypes: {
@@ -20,11 +20,10 @@ export default {
   },
 }
 
-const Template = (args: MainContainerProps) => <MainContainer {...args}>main content</MainContainer>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Main = {
-  render: Template,
-
+export const Main: Story = {
   parameters: {
     docs: {
       description: {
@@ -33,6 +32,7 @@ export const Main = {
       },
     },
   },
-
-  args: {},
+  args: {
+    children: "main content",
+  },
 }

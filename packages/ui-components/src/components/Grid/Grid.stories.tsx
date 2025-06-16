@@ -4,13 +4,13 @@
  */
 
 import React from "react"
-import { StoryFn, Meta, StoryObj } from "@storybook/react"
+import { Meta, StoryObj } from "@storybook/react-vite"
 
-import { Grid, GridProps } from "./Grid.component"
+import { Grid } from "./Grid.component"
 import { GridRow } from "../GridRow/GridRow.component"
 import { GridColumn } from "../GridColumn/GridColumn.component"
 
-export default {
+const meta: Meta<typeof Grid> = {
   title: "Layout/Grid/Grid",
   component: Grid,
   argTypes: {
@@ -25,14 +25,13 @@ export default {
       </div>
     ),
   ],
-} as Meta<typeof Grid>
+  render: (args) => <Grid {...args} className={`jn-bg-juno-blue-3 jn-text-juno-grey-blue ${args.className || ""}`} />,
+}
 
-const Template: StoryFn<GridProps> = (args) => (
-  <Grid {...args} className={`jn-bg-juno-blue-3 jn-text-juno-grey-blue ${args.className || ""}`} />
-)
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default: StoryObj<GridProps> = {
-  render: Template,
+export const Default: Story = {
   parameters: {
     docs: {
       description: {
@@ -67,8 +66,7 @@ export const Default: StoryObj<GridProps> = {
   },
 }
 
-export const Auto: StoryObj<GridProps> = {
-  render: Template,
+export const Auto: Story = {
   parameters: {
     docs: {
       description: {
@@ -106,8 +104,7 @@ export const Auto: StoryObj<GridProps> = {
   },
 }
 
-export const MixedGrid: StoryObj<GridProps> = {
-  render: Template,
+export const MixedGrid: Story = {
   args: {
     children: (
       <GridRow>
@@ -120,8 +117,7 @@ export const MixedGrid: StoryObj<GridProps> = {
   },
 }
 
-export const MixedAutoGrid: StoryObj<GridProps> = {
-  render: Template,
+export const MixedAutoGrid: Story = {
   args: {
     auto: true,
     children: (
@@ -135,8 +131,7 @@ export const MixedAutoGrid: StoryObj<GridProps> = {
   },
 }
 
-export const NestedGrid: StoryObj<GridProps> = {
-  render: Template,
+export const NestedGrid: Story = {
   args: {
     children: (
       <GridRow>

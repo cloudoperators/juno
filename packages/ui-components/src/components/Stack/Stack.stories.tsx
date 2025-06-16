@@ -4,11 +4,11 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import DummyComponent from "../../dummyComponents/DummyComponent"
-
 import { Stack, StackDirection, StackProps } from "./Stack.component"
 
-export default {
+const meta: Meta<typeof Stack> = {
   title: "Layout/Stack",
   component: Stack,
   argTypes: {
@@ -60,6 +60,9 @@ export default {
   },
 }
 
+export default meta
+type Story = StoryObj<typeof meta>
+
 const docuClassnames = (direction: StackDirection | undefined) => {
   return `
     bg-theme-background-lvl-3
@@ -74,6 +77,7 @@ const Template = (args: StackProps) => (
     })}
   </Stack>
 )
+
 const TemplateManyChildren = (args: StackProps) => (
   <Stack {...args} className="jn-bg-theme-background-lvl-3">
     {[...Array<unknown>(15)].map((_, i) => {
@@ -82,35 +86,30 @@ const TemplateManyChildren = (args: StackProps) => (
   </Stack>
 )
 
-export const Horizontal = {
+export const Horizontal: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: { story: "Default stack direction." },
     },
   },
-
   args: {},
 }
 
-export const Vertical = {
+export const Vertical: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: { story: "Children can also be stacked vertically." },
     },
   },
-
   args: {
     direction: "vertical",
   },
 }
 
-export const GapHorizontal = {
+export const GapHorizontal: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -119,15 +118,13 @@ export const GapHorizontal = {
       },
     },
   },
-
   args: {
     gap: "4",
   },
 }
 
-export const GapVertical = {
+export const GapVertical: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -136,16 +133,14 @@ export const GapVertical = {
       },
     },
   },
-
   args: {
     direction: "vertical",
     gap: "3",
   },
 }
 
-export const HorizontalAlignmentCenter = {
+export const HorizontalAlignmentCenter: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -154,15 +149,13 @@ export const HorizontalAlignmentCenter = {
       },
     },
   },
-
   args: {
     alignment: "center",
   },
 }
 
-export const VerticalAlignmentCenter = {
+export const VerticalAlignmentCenter: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -171,16 +164,14 @@ export const VerticalAlignmentCenter = {
       },
     },
   },
-
   args: {
     direction: "vertical",
     alignment: "center",
   },
 }
 
-export const HorizontalAlignmentStart = {
+export const HorizontalAlignmentStart: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -188,15 +179,13 @@ export const HorizontalAlignmentStart = {
       },
     },
   },
-
   args: {
     alignment: "start",
   },
 }
 
-export const VerticalAlignmentStart = {
+export const VerticalAlignmentStart: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -204,16 +193,14 @@ export const VerticalAlignmentStart = {
       },
     },
   },
-
   args: {
     direction: "vertical",
     alignment: "start",
   },
 }
 
-export const HorizontalDistributionCenter = {
+export const HorizontalDistributionCenter: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -222,15 +209,13 @@ export const HorizontalDistributionCenter = {
       },
     },
   },
-
   args: {
     distribution: "center",
   },
 }
 
-export const VerticalDistributionCenter = {
+export const VerticalDistributionCenter: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -239,16 +224,14 @@ export const VerticalDistributionCenter = {
       },
     },
   },
-
   args: {
     direction: "vertical",
     distribution: "center",
   },
 }
 
-export const Centered = {
+export const Centered: Story = {
   render: Template,
-
   parameters: {
     docs: {
       description: {
@@ -257,16 +240,14 @@ export const Centered = {
       },
     },
   },
-
   args: {
     alignment: "center",
     distribution: "center",
   },
 }
 
-export const Wrap = {
+export const Wrap: Story = {
   render: TemplateManyChildren,
-
   parameters: {
     docs: {
       description: {
@@ -275,7 +256,6 @@ export const Wrap = {
       },
     },
   },
-
   args: {
     wrap: true,
     gap: "4",
