@@ -19,6 +19,7 @@ export default {
 export const Default = {
   args: {
     text: "Default IntroBox.",
+    variant: "default",
   },
 }
 
