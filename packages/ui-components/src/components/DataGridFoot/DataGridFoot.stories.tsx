@@ -38,17 +38,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: (args) => (
-    <DataGridFoot {...args}>
-      {/* {items.map((item, i) => (
-        <DataGridFootRow key={`f_${i}`}>
-          {item.items.map((cell, c) => (
-            <DataGridCell {...cell} key={`f_${i}_${c}`} />
-          ))}
-        </DataGridFootRow>
-      ))} */}
-    </DataGridFoot>
-  ),
+  render: (args) => <DataGridFoot {...args} />,
   parameters: {
     docs: {
       description: {
