@@ -1,0 +1,1 @@
+import{j as r,O as o}from"./App-BBa1ayjT-C-dxqsHh.js";import"./index-_A5-L4tM.js";import"./index-BqhN10o9.js";const m=function(){return r.jsx(r.Fragment,{children:r.jsx(o,{})})};export{m as component};
