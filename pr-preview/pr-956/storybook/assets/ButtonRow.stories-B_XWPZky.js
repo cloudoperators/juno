@@ -1,6 +1,0 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{B as s}from"./ButtonRow.component-SeFtT1qb.js";import{B as r}from"./Button.component-B1dz6aM1.js";import"./Stack.component-ou1_mGON.js";import"./index-DI7CEG0L.js";import"./Icon.component-9-Ah6ENR.js";import"./Spinner.component-HUeMJffL.js";const b={title:"Forms/ButtonRow",component:s,argTypes:{items:{table:{disable:!0}},children:{control:!1}}},m=({children:l,...i})=>t.jsx(s,{...i,children:l}),e={render:m,args:{children:[t.jsx(r,{label:"Cancel",title:"Cancel"},"1"),t.jsx(r,{label:"Save",title:"Save",variant:"primary"},"2")]}};var a,o,n;e.parameters={...e.parameters,docs:{...(a=e.parameters)==null?void 0:a.docs,source:{originalSource:`{
-  render: Template,
-  args: {
-    children: [<Button key="1" label="Cancel" title="Cancel" />, <Button key="2" label="Save" title="Save" variant="primary" />]
-  }
-}`,...(n=(o=e.parameters)==null?void 0:o.docs)==null?void 0:n.source}}};const v=["Default"];export{e as Default,v as __namedExportsOrder,b as default};
