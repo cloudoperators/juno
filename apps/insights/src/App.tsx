@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AppShell, AppShellProvider, Container, Message } from "@cloudoperators/juno-ui-components"
+import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
+import Header from "./components/Header"
 import { PersesDashboardWrapper } from "./components/PersesDashboardWrapper"
 import styles from "./styles.scss?inline"
 
@@ -34,12 +35,8 @@ export const App = (props: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <AppShell pageHeader="Greenhouse Insights" embedded={props.embedded === "true" || props.embedded === true}>
-        <Container className="" py>
-          This is a test content.
-        </Container>
-        <Message onDismiss={function Xs() {}} text="The Perses dashboard content starts from the next line." />
+        <Header />
         <PersesDashboardWrapper theme={props.theme} />
-        {/* <PersesPluginWrapper /> */}
       </AppShell>
     </QueryClientProvider>
   )

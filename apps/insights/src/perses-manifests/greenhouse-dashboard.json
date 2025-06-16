@@ -1,7 +1,7 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "overview",
+    "name": "greenhouse-insights",
     "createdAt": "2025-06-14T13:17:12.482451269Z",
     "updatedAt": "2025-06-14T18:57:11.027698602Z",
     "version": 15,
@@ -9,7 +9,7 @@
   },
   "spec": {
     "display": {
-      "name": "Overview"
+      "name": "Greenhouse Insights"
     },
     "panels": {
       "PluginWorkloadStatus": {

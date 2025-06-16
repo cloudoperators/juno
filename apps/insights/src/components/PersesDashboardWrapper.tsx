@@ -23,27 +23,29 @@ export function PersesDashboardWrapper({ theme = "theme-dark" }: PersesDashboard
 
   return (
     <>
-      <BrowserRouter>
-        <QueryParamProvider adapter={ReactRouter6Adapter}>
-          <ThemeProvider theme={muiTheme}>
-            <ChartsProvider chartsTheme={chartsTheme}>
-              <ErrorBoundary FallbackComponent={ErrorAlert}>
-                <PluginRegistry pluginLoader={pluginLoader}>
-                  <ViewDashboard
-                    dashboardResource={dashboard}
-                    datasourceApi={datasourceApi}
-                    isReadonly={true}
-                    isVariableEnabled={true}
-                    isEditing={false}
-                    isCreating={false}
-                    isDatasourceEnabled={true}
-                  />
-                </PluginRegistry>
-              </ErrorBoundary>
-            </ChartsProvider>
-          </ThemeProvider>
-        </QueryParamProvider>
-      </BrowserRouter>
+      <div style={{ marginBottom: 0 }}>
+        <BrowserRouter>
+          <QueryParamProvider adapter={ReactRouter6Adapter}>
+            <ThemeProvider theme={muiTheme}>
+              <ChartsProvider chartsTheme={chartsTheme}>
+                <ErrorBoundary FallbackComponent={ErrorAlert}>
+                  <PluginRegistry pluginLoader={pluginLoader}>
+                    <ViewDashboard
+                      dashboardResource={dashboard}
+                      datasourceApi={datasourceApi}
+                      isReadonly={true}
+                      isVariableEnabled={true}
+                      isEditing={false}
+                      isCreating={false}
+                      isDatasourceEnabled={true}
+                    />
+                  </PluginRegistry>
+                </ErrorBoundary>
+              </ChartsProvider>
+            </ThemeProvider>
+          </QueryParamProvider>
+        </BrowserRouter>
+      </div>
     </>
   )
 }
