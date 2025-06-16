@@ -22,7 +22,6 @@ export const fetchService = ({
       apiClient.query({
         query: GetServicesDocument,
         variables: {
-          first: 1,
           orderBy: [
             {
               by: ServiceOrderByField.Severity,

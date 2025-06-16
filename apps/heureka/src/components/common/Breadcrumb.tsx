@@ -18,7 +18,7 @@ export const Breadcrumb = () => {
         const { pathname, loaderData } = match
 
         // crumb information needs to be there
-        if (!loaderData || !("crumb" in loaderData)) return null
+        if (!loaderData?.crumb) return null
 
         const { crumb } = loaderData
 

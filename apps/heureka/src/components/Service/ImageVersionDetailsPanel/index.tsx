@@ -15,13 +15,13 @@ import {
   DataGridCell,
   Container,
 } from "@cloudoperators/juno-ui-components"
-import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
+import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { ApolloQueryResult } from "@apollo/client"
+import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 import { getNormalizedImageVersionsResponse, ServiceImageVersion } from "../../Services/utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
-import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { GetServiceImageVersionsQuery } from "../../../generated/graphql"
 
 type ImageVersionDetailsPanelProps = {
