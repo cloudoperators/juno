@@ -7,7 +7,7 @@ import React, { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { IssuesDataRow } from "./IssuesDataRow"
-import { getNormalizedImageVersionIssues } from "../../../../Services/utils"
+import { getNormalizedImageVersionIssuesResponse } from "../../../../Services/utils"
 import { GetServiceImageVersionIssuesQuery } from "../../../../../generated/graphql"
 
 type IssuesDataRowsProps = {
@@ -16,7 +16,7 @@ type IssuesDataRowsProps = {
 
 export const IssuesDataRows = ({ issuesPromise }: IssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
-  const { issues } = getNormalizedImageVersionIssues(data)
+  const { issues } = getNormalizedImageVersionIssuesResponse(data)
 
   if (error) {
     return <EmptyDataGridRow colSpan={4}>Error loading issues: {error.message}</EmptyDataGridRow>

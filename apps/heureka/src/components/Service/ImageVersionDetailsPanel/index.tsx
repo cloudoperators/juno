@@ -16,19 +16,24 @@ import {
   Container,
 } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
-import { getNormalizedImageVersionsData, ServiceImageVersion } from "../../Services/utils"
+import { ApolloQueryResult } from "@apollo/client"
+import { getNormalizedImageVersionsResponse, ServiceImageVersion } from "../../Services/utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
-import { useLoaderData, useNavigate, useParams, useSearch } from "@tanstack/react-router"
+import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
+import { GetServiceImageVersionsQuery } from "../../../generated/graphql"
 
-export const ImageVersionDetailsPanel = () => {
+type ImageVersionDetailsPanelProps = {
+  imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
+}
+
+export const ImageVersionDetailsPanel = ({ imageVersionsPromise }: ImageVersionDetailsPanelProps) => {
   const navigate = useNavigate()
-  const { imageVersionsPromise } = useLoaderData({ from: "/services/$service" })
   const { service } = useParams({ from: "/services/$service" })
   const { imageVersion: selectedImageVersion } = useSearch({ from: "/services/$service" })
   const { data } = use(imageVersionsPromise)
-  const { imageVersions } = getNormalizedImageVersionsData(data)
+  const { imageVersions } = getNormalizedImageVersionsResponse(data)
   const imageVersion = imageVersions.find((version: ServiceImageVersion) => version.version === selectedImageVersion)
 
   if (!imageVersion) {

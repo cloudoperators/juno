@@ -9,7 +9,7 @@ import { useLoaderData } from "@tanstack/react-router"
 import { Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 import { GetServicesQuery } from "../../generated/graphql"
-import { getNormalizedData } from "./utils"
+import { getNormalizedServicesResponse } from "./utils"
 
 type AllServicesIssuesCountProps = {
   servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
@@ -17,7 +17,7 @@ type AllServicesIssuesCountProps = {
 
 const IssuesCount = ({ servicesPromise }: AllServicesIssuesCountProps) => {
   const { error, data } = use(servicesPromise)
-  const { servicesIssuesCount } = getNormalizedData(data)
+  const { servicesIssuesCount } = getNormalizedServicesResponse(data)
 
   return (
     <Stack gap="1">

@@ -4,20 +4,25 @@
  */
 
 import React, { useCallback, use } from "react"
-import { useLoaderData, useNavigate, useSearch } from "@tanstack/react-router"
+import { useNavigate, useSearch } from "@tanstack/react-router"
 import { ServiceDataRow } from "./ServiceDataRow"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
 import { ServiceType } from "../../../types"
-import { getNormalizedData } from "../../utils"
+import { getNormalizedServicesResponse } from "../../utils"
+import { ApolloQueryResult } from "@apollo/client"
+import { GetServicesQuery } from "../../../../generated/graphql"
 
 const COLUMN_SPAN = 8
 
-export const ServicesDataRows = () => {
+type ServicesDataRowsProps = {
+  servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
+}
+
+export const ServicesDataRows = ({ servicesPromise }: ServicesDataRowsProps) => {
   const navigate = useNavigate()
-  const { servicesPromise } = useLoaderData({ from: "/services/" })
   const { service } = useSearch({ from: "/services/" })
   const { error, data } = use(servicesPromise)
-  const { services } = getNormalizedData(data)
+  const { services } = getNormalizedServicesResponse(data)
 
   const openServiceOverviewPanel = useCallback((service: ServiceType) => {
     navigate({

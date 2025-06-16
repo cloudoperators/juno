@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, useEffect, useState } from "react"
-import { ApolloQueryResult } from "@apollo/client"
+import React, { Suspense, useState } from "react"
 import { useRouteContext } from "@tanstack/react-router"
 import {
   DataGrid,
@@ -17,11 +16,10 @@ import {
   ContentHeading,
 } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
-import { ServiceImageVersion } from "../../../Services/utils"
-import { GetServiceImageVersionIssuesQuery } from "../../../../generated/graphql"
+import { getNormalizedImageVersionIssuesResponse, ServiceImageVersion } from "../../../Services/utils"
 import { fetchImageVersionIssues } from "../../../../api/fetchImageVersionIssues"
 import { IssuesDataRows } from "./IssuesDataRows"
-import { IssuesPagination } from "./IssuesPagination"
+import { CursorPagination } from "../../../common/CursorPagination"
 
 type ImageVersionIssuesListProps = {
   service: string
@@ -31,6 +29,7 @@ type ImageVersionIssuesListProps = {
 export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIssuesListProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
+  const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
 
   const issuesPromise = fetchImageVersionIssues({
     apiClient,
@@ -38,6 +37,7 @@ export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIs
     service,
     imageVersion: imageVersion.version,
     searchTerm,
+    after: pageCursor,
   })
 
   return (
@@ -80,7 +80,11 @@ export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIs
       </DataGrid>
       {issuesPromise && (
         <Suspense>
-          <IssuesPagination issuesPromise={issuesPromise} />
+          <CursorPagination
+            dataPromise={issuesPromise}
+            dataNormalizationMethod={getNormalizedImageVersionIssuesResponse}
+            goToPage={setPageCursor}
+          />
         </Suspense>
       )}
     </>

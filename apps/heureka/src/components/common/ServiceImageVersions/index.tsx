@@ -15,12 +15,12 @@ import {
   Spinner,
 } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../EmptyDataGridRow"
-import { ServiceImageVersion } from "../../Services/utils"
+import { getNormalizedImageVersionsResponse, ServiceImageVersion } from "../../Services/utils"
 import SectionContentHeading from "../SectionContentHeading"
 import { GetServiceImageVersionsQuery } from "../../../generated/graphql"
 import { ImageVersionsTotalCount } from "./ImageVersionsTotalCount"
 import { ImageVersionsDataRows } from "./ImageVersionsDataRows"
-import { ImageVersionsPagination } from "./ImageVersionsPagination"
+import { CursorPagination } from "../CursorPagination"
 
 type ServiceImageVersionsProps = {
   imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
@@ -28,6 +28,7 @@ type ServiceImageVersionsProps = {
   selectedImageVersion?: string
   onImageVersionItemClick?: (imageVersion: ServiceImageVersion) => void
   onDetailsButtonClick?: (imageVersion: ServiceImageVersion | undefined) => void
+  goToPage: (after?: string | null) => void
 }
 
 const DEFAULT_COLUMNS_COUNT = 8
@@ -38,6 +39,7 @@ export const ServiceImageVersions = ({
   displayActions = false,
   onImageVersionItemClick,
   onDetailsButtonClick,
+  goToPage,
 }: ServiceImageVersionsProps) => {
   const columnsCount = displayActions ? DEFAULT_COLUMNS_COUNT : DEFAULT_COLUMNS_COUNT - 1
 
@@ -94,7 +96,11 @@ export const ServiceImageVersions = ({
         </DataGrid>
       </div>
       <Suspense>
-        <ImageVersionsPagination imageVersionsPromise={imageVersionsPromise} />
+        <CursorPagination
+          dataNormalizationMethod={getNormalizedImageVersionsResponse}
+          dataPromise={imageVersionsPromise}
+          goToPage={goToPage}
+        />
       </Suspense>
     </Suspense>
   )

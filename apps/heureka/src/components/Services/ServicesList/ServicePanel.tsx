@@ -16,6 +16,7 @@ export const ServicePanel = () => {
   const navigate = useNavigate()
   const { queryClient, apiClient } = useRouteContext({ from: "/services/" })
   const { service } = useSearch({ from: "/services/" })
+  const [currentPageCursor, setCurrentPageCursor] = React.useState<string | null | undefined>(undefined)
 
   // create a promise to fetch image versions
   const imageVersionsPromise = service
@@ -23,6 +24,7 @@ export const ServicePanel = () => {
         queryClient,
         apiClient,
         service: service,
+        after: currentPageCursor,
       })
     : undefined
 
@@ -63,6 +65,7 @@ export const ServicePanel = () => {
               displayActions
               imageVersionsPromise={imageVersionsPromise}
               onDetailsButtonClick={goToServiceDetailsPage}
+              goToPage={setCurrentPageCursor}
             />
           )}
         </PanelBody>

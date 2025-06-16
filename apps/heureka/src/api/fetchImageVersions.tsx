@@ -15,15 +15,17 @@ import { RouteContext } from "../routes/-types"
 
 type FetchImageVersionsParams = Pick<RouteContext, "queryClient" | "apiClient"> & {
   service: string
+  after?: string | null
 }
 
 export const fetchImageVersions = ({
   queryClient,
   apiClient,
   service,
+  after,
 }: FetchImageVersionsParams): Promise<ApolloQueryResult<GetServiceImageVersionsQuery>> => {
   return queryClient.ensureQueryData({
-    queryKey: ["imageVersions", service],
+    queryKey: ["imageVersions", service, after],
     queryFn: () =>
       apiClient.query({
         query: GetServiceImageVersionsDocument,
@@ -52,6 +54,7 @@ export const fetchImageVersions = ({
               direction: OrderDirection.Asc,
             },
           ],
+          after,
         },
       }),
   })

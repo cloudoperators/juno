@@ -6,7 +6,7 @@
 import React, { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
 import { Stack, Pill, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
-import { getNormalizedData } from "../Services/utils"
+import { getNormalizedServicesResponse } from "../Services/utils"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../common/SectionContentHeading"
 import { GetServicesQuery } from "../../generated/graphql"
@@ -17,7 +17,7 @@ type ServiceDetailsProps = {
 
 export const ServiceDetails = ({ servicePromise }: ServiceDetailsProps) => {
   const { data } = use(servicePromise)
-  const service = getNormalizedData(data).services[0]
+  const service = getNormalizedServicesResponse(data).services[0]
 
   return (
     <>

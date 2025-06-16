@@ -33,16 +33,9 @@ export const Route = createFileRoute("/services/$service")({
       apiClient,
       service,
     })
-    // create a promise to fetch image versions
-    const imageVersionsPromise = fetchImageVersions({
-      queryClient,
-      apiClient,
-      service,
-    })
 
     return {
       servicePromise,
-      imageVersionsPromise,
       crumb: {
         label: service,
       },

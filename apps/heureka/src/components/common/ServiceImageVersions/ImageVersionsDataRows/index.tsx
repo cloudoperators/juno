@@ -7,7 +7,7 @@ import React, { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
 import { EmptyDataGridRow } from "../../EmptyDataGridRow"
 import { ImageVersionsDataRow } from "./ImageVersionsDataRow"
-import { getNormalizedImageVersionsData, ServiceImageVersion } from "../../../Services/utils"
+import { getNormalizedImageVersionsResponse, ServiceImageVersion } from "../../../Services/utils"
 import { GetServiceImageVersionsQuery } from "../../../../generated/graphql"
 
 type ImageVersionsDataRows = {
@@ -28,7 +28,7 @@ export const ImageVersionsDataRows = ({
   onImageVersionItemClick,
 }: ImageVersionsDataRows) => {
   const { error, data } = use(imageVersionsPromise)
-  const { imageVersions } = getNormalizedImageVersionsData(data)
+  const { imageVersions } = getNormalizedImageVersionsResponse(data)
 
   return (
     <>

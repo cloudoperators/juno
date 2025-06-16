@@ -44,7 +44,7 @@ export type NormalizedServicesResponse = {
   services: ServiceType[]
 }
 
-export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServicesResponse => {
+export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined): NormalizedServicesResponse => {
   return {
     pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
     pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
@@ -169,7 +169,7 @@ type NormalizedServiceImageVersions = {
   imageVersions: ServiceImageVersion[]
 }
 
-export const getNormalizedImageVersionsData = (
+export const getNormalizedImageVersionsResponse = (
   data: GetServiceImageVersionsQuery | undefined
 ): NormalizedServiceImageVersions => ({
   totalImageVersions: data?.ComponentVersions?.totalCount || 0,
@@ -225,7 +225,7 @@ type NormalizedImageVersionIssues = {
   pageNumber: number
 }
 
-export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersionIssues => {
+export const getNormalizedImageVersionIssuesResponse = (data: any): NormalizedImageVersionIssues => {
   if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
     return { issues: [], totalImageVersionIssues: 0, pages: [], pageNumber: 1 }
   }
