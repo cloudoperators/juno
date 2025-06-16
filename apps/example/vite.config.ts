@@ -2,12 +2,11 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-import { defineConfig } from "vite"
 import svgr from "vite-plugin-svgr"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 
-export default defineConfig(({ mode }) => {
+export default ({ mode }) => {
   const sharedConfig = {
     root: "./",
 
@@ -48,4 +47,4 @@ export default defineConfig(({ mode }) => {
       },
     },
   }
-})
+}
