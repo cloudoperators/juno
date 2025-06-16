@@ -4,32 +4,24 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { SideNavigation } from "./index"
 import { SideNavigationItem } from "../SideNavigationItem/SideNavigationItem.component"
 
-export default {
+const meta: Meta<typeof SideNavigation> = {
   title: "Navigation/SideNavigation/SideNavigation",
   component: SideNavigation,
   argTypes: {
-    items: {
-      table: {
-        disable: true,
-      },
-    },
     children: {
       control: false,
     },
   },
 }
 
-const Template = ({ children, ...args }: TemplateProps) => <SideNavigation {...args}>{children}</SideNavigation>
+export default meta
+type Story = StoryObj<typeof meta>
 
-interface TemplateProps {
-  children?: React.ReactNode
-}
-
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {
     children: [
       <SideNavigationItem key="item-1" label="Item 1" />,
@@ -40,8 +32,7 @@ export const Default = {
   },
 }
 
-export const Disabled = {
-  render: Template,
+export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
@@ -59,8 +50,7 @@ export const Disabled = {
   },
 }
 
-export const WithValues = {
-  render: Template,
+export const WithValues: Story = {
   parameters: {
     docs: {
       description: {
@@ -80,8 +70,7 @@ export const WithValues = {
   },
 }
 
-export const WithChildren = {
-  render: Template,
+export const WithChildren: Story = {
   parameters: {
     docs: {
       description: {

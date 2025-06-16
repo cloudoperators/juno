@@ -4,13 +4,26 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Tooltip } from "./index"
 import { TooltipContent } from "../TooltipContent/index"
 import { TooltipTrigger } from "../TooltipTrigger/index"
 import { Icon } from "../Icon/index"
 import { ToolTipVariant, TooltipPlacement } from "./ToolTip.types"
 
-export default {
+interface TooltipStoryProps {
+  placement?: TooltipPlacement
+  variant?: ToolTipVariant
+  initialOpen?: boolean
+  open?: boolean
+  triggerEvent?: "click" | "hover"
+  disabled?: boolean
+  text?: string
+  triggerText?: string
+  children?: React.ReactNode
+}
+
+const meta: Meta<TooltipStoryProps> = {
   title: "Components/Tooltip/Tooltip",
   component: Tooltip,
   argTypes: {
@@ -29,7 +42,7 @@ export default {
     },
   },
   decorators: [
-    (Story: React.FC) => (
+    (Story) => (
       <div className="jn:my-6 jn:flex jn:justify-center">
         <Story />
       </div>
@@ -37,18 +50,11 @@ export default {
   ],
 }
 
-interface TemplateProps {
-  placement?: TooltipPlacement
-  variant?: ToolTipVariant
-  initialOpen?: boolean
-  open?: boolean
-  triggerEvent?: "click" | "hover"
-  disabled?: boolean
-  text?: string
-  triggerText?: string
-}
+export default meta
+type Story = StoryObj<TooltipStoryProps>
 
-const Template = ({
+// Reusable render templates
+const DefaultTemplate = ({
   placement,
   variant,
   initialOpen,
@@ -58,7 +64,7 @@ const Template = ({
   text,
   triggerText,
   ...args
-}: TemplateProps) => {
+}: TooltipStoryProps) => {
   return (
     <Tooltip
       initialOpen={initialOpen}
@@ -69,7 +75,6 @@ const Template = ({
       disabled={disabled}
     >
       <TooltipTrigger>
-        {/* Wrap the triggerText in a JSX element */}
         <span key="tooltip-trigger-text">{triggerText}</span>
       </TooltipTrigger>
       <TooltipContent {...args}>{text}</TooltipContent>
@@ -77,7 +82,7 @@ const Template = ({
   )
 }
 
-const TemplateAsChildAnchor = ({
+const AsChildIconTemplate = ({
   initialOpen,
   placement,
   variant,
@@ -86,7 +91,7 @@ const TemplateAsChildAnchor = ({
   disabled,
   text,
   ...args
-}: TemplateProps) => {
+}: TooltipStoryProps) => {
   return (
     <Tooltip
       initialOpen={initialOpen}
@@ -104,7 +109,7 @@ const TemplateAsChildAnchor = ({
   )
 }
 
-const TemplateButtonAsChildAnchor = ({
+const AsChildButtonTemplate = ({
   initialOpen,
   placement,
   variant,
@@ -113,7 +118,7 @@ const TemplateButtonAsChildAnchor = ({
   disabled,
   text,
   ...args
-}: TemplateProps) => {
+}: TooltipStoryProps) => {
   return (
     <Tooltip
       initialOpen={initialOpen}
@@ -125,7 +130,6 @@ const TemplateButtonAsChildAnchor = ({
     >
       <TooltipTrigger asChild={true}>
         <TooltipTrigger>
-          {/* Wrap the triggerText in a JSX element */}
           <button>hover me</button>
         </TooltipTrigger>
       </TooltipTrigger>
@@ -134,33 +138,28 @@ const TemplateButtonAsChildAnchor = ({
   )
 }
 
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     text: "A default tooltip",
     triggerText: "click me",
     initialOpen: true,
   },
+  render: DefaultTemplate,
 }
 
-export const Hover = {
-  render: Template,
-
+export const Hover: Story = {
   args: {
     text: "A default tooltip opened on hover",
     triggerText: "hover me",
     triggerEvent: "hover",
   },
+  render: DefaultTemplate,
 }
 
-export const AsChildTooltipTrigger = {
-  render: TemplateAsChildAnchor,
-
+export const AsChildTooltipTrigger: Story = {
   args: {
     text: "A Tooltip with asChild Icon trigger",
   },
-
   parameters: {
     docs: {
       description: {
@@ -169,16 +168,14 @@ export const AsChildTooltipTrigger = {
       },
     },
   },
+  render: AsChildIconTemplate,
 }
 
-export const ButtonAsChildTooltipTrigger = {
-  render: TemplateButtonAsChildAnchor,
-
+export const ButtonAsChildTooltipTrigger: Story = {
   args: {
     text: "A Tooltip with asChild Button trigger",
     triggerEvent: "hover",
   },
-
   parameters: {
     docs: {
       description: {
@@ -187,63 +184,58 @@ export const ButtonAsChildTooltipTrigger = {
       },
     },
   },
+  render: AsChildButtonTemplate,
 }
 
-export const InfoTooltip = {
-  render: TemplateAsChildAnchor,
-
+export const InfoTooltip: Story = {
   args: {
     variant: "info",
     text: "An Info Tooltip",
     open: true,
   },
+  render: AsChildIconTemplate,
 }
 
-export const WarningTooltip = {
-  render: TemplateAsChildAnchor,
-
+export const WarningTooltip: Story = {
   args: {
     variant: "warning",
     text: "A Warning Tooltip",
     open: true,
   },
+  render: AsChildIconTemplate,
 }
 
-export const ErrorTooltip = {
-  render: TemplateAsChildAnchor,
-
+export const ErrorTooltip: Story = {
   args: {
     variant: "error",
     text: "An Error Tooltip",
     open: true,
   },
+  render: AsChildIconTemplate,
 }
 
-export const DangerTooltip = {
-  render: TemplateAsChildAnchor,
-
+export const DangerTooltip: Story = {
   args: {
     variant: "danger",
     text: "A Danger Tooltip.",
     open: true,
   },
+  render: AsChildIconTemplate,
 }
 
-export const SuccessTooltip = {
-  render: TemplateAsChildAnchor,
-
+export const SuccessTooltip: Story = {
   args: {
     variant: "success",
     text: "A Success Tooltip",
     open: true,
   },
+  render: AsChildIconTemplate,
 }
 
-export const Disabled = {
-  render: TemplateAsChildAnchor,
-
+export const Disabled: Story = {
   args: {
     text: "A disabled tooltip",
     disabled: true,
   },
+  render: AsChildIconTemplate,
 }

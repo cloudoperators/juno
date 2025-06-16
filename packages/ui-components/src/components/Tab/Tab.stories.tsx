@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Tab } from "./index"
 import { KnownIconsEnum } from "../Icon/Icon.component"
 
-export default {
+const meta: Meta<typeof Tab> = {
   title: "Layout/Tabs/Tab",
   component: Tab,
   argTypes: {
@@ -23,14 +24,17 @@ export default {
   },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {
     label: "A Tab Label",
     children: "Tab 1",
   },
 }
 
-export const WithIcon = {
+export const WithIcon: Story = {
   args: {
     children: "Tab with Icon",
     icon: "danger",

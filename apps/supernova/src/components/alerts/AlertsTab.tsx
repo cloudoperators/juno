@@ -5,7 +5,7 @@
 
 import React, { useEffect } from "react"
 import { Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { useBoundQuery, CorsNetworkError } from "../../hooks/useBoundQuery"
 import AlertsList from "./AlertsList"
 import StatusBar from "../status/StatusBar"
 import Filters from "../filters/Filters"
@@ -14,21 +14,33 @@ import PredefinedFilters from "../filters/PredefinedFilters"
 import { useAlertsUpdatedAt, useAlertsTotalCounts, useAlertsActions } from "../StoreProvider"
 import { parseError } from "../../helpers"
 import { AlertsData } from "../../api/alerts"
+import { FirefoxCorsWarning } from "../shared/FirefoxCorsWarning"
 
 const AlertsTab = () => {
   const totalCounts = useAlertsTotalCounts()
   const updatedAt = useAlertsUpdatedAt()
   const { setAlertsData } = useAlertsActions()
-  const { addMessage } = useActions()
+  const { addMessage, resetMessages } = useActions()
 
   // Fetch alerts data
   const { data, isLoading, error } = useBoundQuery<AlertsData>("alerts")
+
   if (error) {
+    resetMessages()
+    // Extra CORS warning based on instanceof
+    if (error instanceof CorsNetworkError) {
+      addMessage({
+        variant: "warning",
+        text: <FirefoxCorsWarning />,
+      })
+    }
+
     addMessage({
       variant: "error",
       text: parseError(error),
     })
   }
+
   useEffect(() => {
     if (data) {
       setAlertsData({ items: data.alerts, counts: data.counts })

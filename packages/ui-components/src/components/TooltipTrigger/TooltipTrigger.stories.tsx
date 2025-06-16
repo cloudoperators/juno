@@ -4,17 +4,19 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Tooltip } from "../Tooltip/index"
 import { TooltipContent } from "../TooltipContent/index"
+import { TooltipTriggerProps } from "./TooltipTrigger.component"
 import { TooltipTrigger } from "./index"
 import { Icon } from "../Icon/index"
 
-export default {
+const meta: Meta<typeof TooltipTrigger> = {
   title: "Components/Tooltip/TooltipTrigger",
   component: TooltipTrigger,
   argTypes: {},
   decorators: [
-    (Story: React.ComponentType) => (
+    (Story) => (
       <div className="jn:my-6 jn:flex jn:justify-center">
         <Tooltip initialOpen={true}>
           <Story />
@@ -25,11 +27,15 @@ export default {
   ],
 }
 
-const Template = ({ ...args }) => {
+export default meta
+type Story = StoryObj<typeof meta>
+
+// Reusable templates
+const DefaultTemplate = (args: TooltipTriggerProps) => {
   return <TooltipTrigger {...args}>clickMe</TooltipTrigger>
 }
 
-const TemplateAsChildAnchor = ({ ...args }) => {
+const AsChildTemplate = (args: TooltipTriggerProps) => {
   return (
     <TooltipTrigger asChild={true} {...args}>
       <Icon />
@@ -37,16 +43,13 @@ const TemplateAsChildAnchor = ({ ...args }) => {
   )
 }
 
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {},
+  render: DefaultTemplate,
 }
 
-export const AsChildTooltipTrigger = {
-  render: TemplateAsChildAnchor,
-
+export const AsChildTooltipTrigger: Story = {
   args: {},
-
   parameters: {
     docs: {
       description: {
@@ -55,4 +58,5 @@ export const AsChildTooltipTrigger = {
       },
     },
   },
+  render: AsChildTemplate,
 }

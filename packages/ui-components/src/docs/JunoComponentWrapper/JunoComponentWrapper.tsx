@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from "react"
 import { StyleProvider } from "../../components/StyleProvider/StyleProvider.component"
-import { addons } from "@storybook/preview-api"
+import { addons } from "storybook/preview-api"
 
 const STORAGE_KEY = "__junoThemeMode"
 const getCurrentThemeMode = () => localStorage.getItem(STORAGE_KEY) || "dark"

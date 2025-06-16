@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { AppShell, AppShellProps } from "./index"
 import { PageHeader } from "../PageHeader/index"
 import { PageFooter } from "../PageFooter/index"
@@ -16,7 +17,7 @@ import { TabNavigationItem } from "../TabNavigationItem/index"
 import { ContentHeading } from "../ContentHeading/index"
 import { Container } from "../Container/index"
 
-export default {
+const meta: Meta<typeof AppShell> = {
   title: "Layout/AppShell",
   component: AppShell,
   argTypes: {
@@ -38,13 +39,16 @@ export default {
   },
 }
 
+export default meta
+type Story = StoryObj<typeof meta>
+
 const Template = ({ children, ...args }: AppShellProps) => (
   <AppShell {...args}>
     <Container py={true}>{children}</Container>
   </AppShell>
 )
 
-export const Default = {
+export const Default: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -58,7 +62,7 @@ export const Default = {
   },
 }
 
-export const Embedded = {
+export const Embedded: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -74,7 +78,7 @@ export const Embedded = {
   },
 }
 
-export const EmbeddedWithTopNav = {
+export const EmbeddedWithTopNav: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -96,7 +100,7 @@ export const EmbeddedWithTopNav = {
   },
 }
 
-export const EmbeddedWithSideNav = {
+export const EmbeddedWithSideNav: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -119,7 +123,7 @@ export const EmbeddedWithSideNav = {
   },
 }
 
-export const AppName = {
+export const AppName: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -134,7 +138,7 @@ export const AppName = {
   },
 }
 
-export const CustomPageHeader = {
+export const CustomPageHeader: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -149,7 +153,7 @@ export const CustomPageHeader = {
   },
 }
 
-export const CustomPageFooter = {
+export const CustomPageFooter: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -164,7 +168,7 @@ export const CustomPageFooter = {
   },
 }
 
-export const WithSideNavigation = {
+export const WithSideNavigation: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -185,7 +189,7 @@ export const WithSideNavigation = {
   },
 }
 
-export const WithTopNavigation = {
+export const WithTopNavigation: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -205,7 +209,7 @@ export const WithTopNavigation = {
   },
 }
 
-export const WithSideAndTopNavigation = {
+export const WithSideAndTopNavigation: Story = {
   render: Template,
   parameters: {
     docs: {
@@ -232,7 +236,7 @@ export const WithSideAndTopNavigation = {
   },
 }
 
-export const WithTabNavigation = {
+export const WithTabNavigation: Story = {
   render: Template,
   parameters: {},
   args: {

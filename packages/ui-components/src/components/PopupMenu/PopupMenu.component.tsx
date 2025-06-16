@@ -118,7 +118,7 @@ export interface PopupMenuProps extends React.ComponentProps<typeof HeadlessMenu
   onOpen?: () => void
 }
 
-export interface PopupMenuToggleProps extends React.ComponentProps<typeof HeadlessMenu.Button> {
+export interface PopupMenuToggleProps extends React.ComponentProps<typeof MenuButton> {
   className?: string
 }
 
@@ -132,7 +132,7 @@ export interface PopupMenuOptionsProps extends HeadlessMenuItemsProps {
   key?: React.Key
 }
 
-export interface PopupMenuItemProps extends React.ComponentProps<typeof HeadlessMenu.Item> {
+export interface PopupMenuItemProps extends React.ComponentProps<typeof MenuItem> {
   as?: React.ElementType // Allow customising the element type to allow for rendering items as anchor elements, just as headless ui does
   className?: string
   disabled?: boolean

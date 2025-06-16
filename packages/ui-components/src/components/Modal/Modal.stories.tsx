@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import React, { useState } from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Modal, ModalProps } from "./Modal.component"
 import { ModalFooter } from "../ModalFooter/index"
 import { Button } from "../Button/index"
@@ -17,6 +18,10 @@ import { Select } from "../Select/index"
 import { SelectOption } from "../SelectOption/index"
 import { ComboBox } from "../ComboBox/index"
 import { ComboBoxOption } from "../ComboBoxOption/index"
+
+type TemplateProps = {
+  closeOnConfirm?: boolean
+} & ModalProps
 
 const Template = ({ closeOnConfirm, ...args }: TemplateProps) => {
   const [isOpen, setOpen] = useState(false)
@@ -36,13 +41,7 @@ const Template = ({ closeOnConfirm, ...args }: TemplateProps) => {
   )
 }
 
-type TemplateProps = {
-  closeOnConfirm: boolean
-} & ModalProps
-
-type StoryFunction = () => React.ReactNode
-
-export default {
+const meta: Meta<typeof Modal> = {
   title: "Components/Modal/Modal",
   component: Modal,
   argTypes: {
@@ -59,18 +58,29 @@ export default {
       },
     },
   },
-  parameters: { actions: { argTypesRegex: null } },
-  decorators: [(story: StoryFunction) => <PortalProvider>{story()}</PortalProvider>],
+  parameters: {
+    actions: { argTypesRegex: null },
+  },
+  decorators: [
+    (Story) => (
+      <PortalProvider>
+        <Story />
+      </PortalProvider>
+    ),
+  ],
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   render: Template,
   args: {
     children: <p>A default modal.</p>,
   },
 }
 
-export const SimpleConfirmDialog = {
+export const SimpleConfirmDialog: Story = {
   render: Template,
   args: {
     children: <p>Are you sure you want to proceed?</p>,
@@ -79,7 +89,7 @@ export const SimpleConfirmDialog = {
   },
 }
 
-export const AutoFocusDialog = {
+export const AutoFocusDialog: Story = {
   render: Template,
   args: {
     children: <TextInput id="focusOnMe" />,
@@ -87,18 +97,19 @@ export const AutoFocusDialog = {
   },
 }
 
-export const LargeWithTitle = {
+export const LargeWithTitle: Story = {
   render: Template,
   args: {
     size: "large",
     title: "Large Modal",
     confirmButtonLabel: "OK",
+    // @ts-ignore
     closeOnConfirm: true /* Only relevant for storybook, this is not a native prop of the component! */,
     children: <p>A large modal with a title</p>,
   },
 }
 
-export const NonCloseable = {
+export const NonCloseable: Story = {
   render: Template,
   args: {
     title: "Non-Closeable Modal",
@@ -108,7 +119,7 @@ export const NonCloseable = {
   },
 }
 
-export const CloseOnBackdropClick = {
+export const CloseOnBackdropClick: Story = {
   render: Template,
   args: {
     title: "Close on Backdrop Click",
@@ -117,7 +128,7 @@ export const CloseOnBackdropClick = {
   },
 }
 
-export const Login = {
+export const Login: Story = {
   render: Template,
   args: {
     title: "Log In",
@@ -141,7 +152,7 @@ export const Login = {
   },
 }
 
-export const CustomModalFooter = {
+export const CustomModalFooter: Story = {
   render: Template,
   args: {
     title: "Modal with Custom ModalFooter",
@@ -163,7 +174,7 @@ export const CustomModalFooter = {
   },
 }
 
-export const TestSelectInModal = {
+export const TestSelectInModal: Story = {
   render: Template,
   args: {
     title: "Modal with Select inside",
@@ -180,7 +191,7 @@ export const TestSelectInModal = {
   },
 }
 
-export const TestComboBoxInModal = {
+export const TestComboBoxInModal: Story = {
   render: Template,
   args: {
     title: "Modal with CombBox inside",
@@ -206,7 +217,7 @@ export const TestComboBoxInModal = {
   },
 }
 
-export const ModalWithALargerForm = {
+export const ModalWithALargerForm: Story = {
   render: Template,
   args: {
     title: "Register",

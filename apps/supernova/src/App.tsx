@@ -29,8 +29,7 @@ const queryClient = new QueryClient({
   },
 })
 
-function App() {
-  const preErrorClasses = `
+const preErrorClasses = `
     custom-error-pre
     border-theme-error
     border
@@ -38,16 +37,17 @@ function App() {
     w-full
     `
 
-  const fallbackRender = ({ error }: any) => {
-    return (
-      <div className="w-1/2">
-        <CodeBlock className={preErrorClasses} copy={false}>
-          {error?.message || error?.toString() || "An error occurred"}
-        </CodeBlock>
-      </div>
-    )
-  }
+const fallbackRender = ({ error }: any) => {
+  return (
+    <div className="w-1/2">
+      <CodeBlock className={preErrorClasses} copy={false}>
+        {error?.message || error?.toString() || "An error occurred"}
+      </CodeBlock>
+    </div>
+  )
+}
 
+function App() {
   return (
     <ErrorBoundary fallbackRender={fallbackRender}>
       <MessagesProvider>
