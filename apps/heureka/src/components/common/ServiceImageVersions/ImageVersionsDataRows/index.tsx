@@ -30,28 +30,27 @@ export const ImageVersionsDataRows = ({
   const { error, data } = use(imageVersionsPromise)
   const { imageVersions } = getNormalizedImageVersionsResponse(data)
 
-  return (
-    <>
-      {!error &&
-        imageVersions.length > 0 &&
-        imageVersions.map((imageVersion: ServiceImageVersion) => (
-          <ImageVersionsDataRow
-            key={imageVersion.version}
-            version={imageVersion}
-            selected={imageVersion.version === selectedImageVersion}
-            displayDetailsButton={displayDetailsButton}
-            onItemClick={() => {
-              onImageVersionItemClick?.(imageVersion)
-            }}
-            onDetailClick={(event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
-              event.stopPropagation()
-              onDetailsButtonClick?.(imageVersion)
-            }}
-          />
-        ))}
-      {!error && imageVersions.length === 0 && (
-        <EmptyDataGridRow colSpan={columnSpan}>No services found</EmptyDataGridRow>
-      )}
-    </>
-  )
+  if (error) {
+    return <EmptyDataGridRow colSpan={columnSpan}>Error loading image versions.</EmptyDataGridRow>
+  }
+
+  if (imageVersions.length === 0) {
+    return <EmptyDataGridRow colSpan={columnSpan}>No image version found</EmptyDataGridRow>
+  }
+
+  return imageVersions.map((imageVersion: ServiceImageVersion) => (
+    <ImageVersionsDataRow
+      key={imageVersion.version}
+      version={imageVersion}
+      selected={imageVersion.version === selectedImageVersion}
+      displayDetailsButton={displayDetailsButton}
+      onItemClick={() => {
+        onImageVersionItemClick?.(imageVersion)
+      }}
+      onDetailClick={(event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+        event.stopPropagation()
+        onDetailsButtonClick?.(imageVersion)
+      }}
+    />
+  ))
 }

@@ -22,9 +22,9 @@ export const IssuesDataRows = ({ issuesPromise }: IssuesDataRowsProps) => {
     return <EmptyDataGridRow colSpan={4}>Error loading issues: {error.message}</EmptyDataGridRow>
   }
 
-  return issues.length > 0 ? (
-    issues.map((issue) => <IssuesDataRow key={issue.name} issue={issue} />)
-  ) : (
-    <EmptyDataGridRow colSpan={4}>No issues found! 🚀</EmptyDataGridRow>
-  )
+  if (issues.length === 0) {
+    return <EmptyDataGridRow colSpan={4}>No issues found! 🚀</EmptyDataGridRow>
+  }
+
+  return issues.map((issue) => <IssuesDataRow key={issue.name} issue={issue} />)
 }

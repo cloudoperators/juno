@@ -38,21 +38,21 @@ export const ServicesDataRows = ({ servicesPromise }: ServicesDataRowsProps) => 
     })
   }, [])
 
-  return (
-    <>
-      {!error &&
-        services.length > 0 &&
-        services.map((item: ServiceType) => (
-          <ServiceDataRow
-            key={item.id}
-            item={item}
-            selected={item.name === service}
-            onItemClick={() => openServiceOverviewPanel(item)}
-            onServiceDetailClick={() => goToServiceDetailsPage(item)}
-          />
-        ))}
+  if (error) {
+    return <EmptyDataGridRow colSpan={COLUMN_SPAN}>Error loading services</EmptyDataGridRow>
+  }
 
-      {!error && services.length === 0 && <EmptyDataGridRow colSpan={COLUMN_SPAN}>No services found</EmptyDataGridRow>}
-    </>
-  )
+  if (services.length === 0) {
+    return <EmptyDataGridRow colSpan={COLUMN_SPAN}>No service found</EmptyDataGridRow>
+  }
+
+  return services.map((item: ServiceType) => (
+    <ServiceDataRow
+      key={item.id}
+      item={item}
+      selected={item.name === service}
+      onItemClick={() => openServiceOverviewPanel(item)}
+      onServiceDetailClick={() => goToServiceDetailsPage(item)}
+    />
+  ))
 }
