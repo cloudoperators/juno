@@ -35,10 +35,16 @@ export const Filters = ({ filters, filterSettings, onFilterChange, searchInputPl
         <FilterSelect
           filters={filters}
           onChange={(selectedFilter) => {
-            onFilterChange({
-              ...filterSettings,
-              selectedFilters: filterSettings?.selectedFilters?.concat(selectedFilter),
-            })
+            const filterExists = filterSettings.selectedFilters?.some(
+              (filter) => filter.name === selectedFilter.name && filter.value === selectedFilter.value
+            )
+            //only add the filter if it does not already exist
+            if (!filterExists) {
+              onFilterChange({
+                ...filterSettings,
+                selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
+              })
+            }
           }}
         />
         <Button

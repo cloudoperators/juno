@@ -340,3 +340,14 @@ export const extractFilterSettingsFromSearchParams = (searchParams: ServicesSear
       return [{ name, value: value as string }]
     }),
 })
+
+export const sanitizeFilterSettings = (filters: Filter[], filterSettings: FilterSettings): FilterSettings => {
+  const validFilters = filterSettings.selectedFilters?.filter((selected) => {
+    const filter = filters.find((f) => f.filterName === selected.name)
+    return filter && selected.value.trim() && filter.values.includes(selected.value)
+  })
+  return {
+    ...filterSettings,
+    selectedFilters: validFilters,
+  }
+}

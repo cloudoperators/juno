@@ -3,17 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { use, useCallback } from "react"
+import React, { useCallback } from "react"
 import { useLoaderData, useNavigate } from "@tanstack/react-router"
 import { Filters } from "../common/Filters"
 import { FilterSettings } from "../common/Filters/types"
-import { getFiltersForUrl, getNormalizedFilters } from "./utils"
+import { getFiltersForUrl } from "./utils"
 
 export const ServicesFilters = () => {
   const navigate = useNavigate()
-  const { filtersPromise, filterSettings } = useLoaderData({ from: "/services/" })
-  const { data } = use(filtersPromise)
-  const filters = getNormalizedFilters(data)
+  const { filters, filterSettings } = useLoaderData({ from: "/services/" })
 
   const handleFilterChange = useCallback(
     (updatedFilterSettings: FilterSettings) => {

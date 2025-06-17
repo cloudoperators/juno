@@ -10,7 +10,12 @@ import { sanitizeSearchParam } from "../../utils"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
-import { extractFilterSettingsFromSearchParams, getInitialFilters } from "../../components/Services/utils"
+import {
+  extractFilterSettingsFromSearchParams,
+  getInitialFilters,
+  getNormalizedFilters,
+  sanitizeFilterSettings,
+} from "../../components/Services/utils"
 
 // Schema for validating and transforming search parameters related to /services page.
 const servicesSearchSchema = z
@@ -61,7 +66,7 @@ export const Route = createFileRoute("/services/")({
   loader: async ({ context }) => {
     const { queryClient, apiClient, filterSettings } = context
     // create a promise to fetch filters
-    const filtersPromise = fetchServicesFilters({
+    const filtersResult = await fetchServicesFilters({
       queryClient,
       apiClient,
     })
@@ -72,10 +77,12 @@ export const Route = createFileRoute("/services/")({
       filterSettings,
     })
 
+    const filters = getNormalizedFilters(filtersResult.data)
+
     return {
-      filtersPromise,
+      filters,
       servicesPromise,
-      filterSettings,
+      filterSettings: sanitizeFilterSettings(filters, filterSettings), // we need to only apply filters that backend supports hence this sanitization
     }
   },
   component: Services,

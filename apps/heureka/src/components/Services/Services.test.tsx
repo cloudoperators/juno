@@ -8,9 +8,22 @@ import { render, screen, act } from "@testing-library/react"
 import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
 import { PortalProvider } from "@cloudoperators/juno-ui-components/index"
 import { Services } from "./index"
-import { FilterSettings } from "../common/Filters/types"
+import { Filter, FilterSettings } from "../common/Filters/types"
 import { getTestRouter } from "../../mocks/getTestRouter"
-import { mockFiltersPromise, mockServicesPromise } from "../../mocks/promises"
+import { mockServicesPromise } from "../../mocks/promises"
+
+const mockFilters: Filter[] = [
+  {
+    displayName: "Support Group",
+    filterName: "support_group",
+    values: ["containers", "platform", "network"],
+  },
+  {
+    displayName: "Environment",
+    filterName: "environment",
+    values: ["prod", "dev", "test"],
+  },
+]
 
 const mockFilterSettings: FilterSettings = {
   searchTerm: "",
@@ -26,7 +39,7 @@ const renderComponent = () => {
     path: "/services/",
     loader: async () => ({
       servicesPromise: mockServicesPromise,
-      filtersPromise: mockFiltersPromise,
+      filters: mockFilters,
       filterSettings: mockFilterSettings,
     }),
     component: () => (

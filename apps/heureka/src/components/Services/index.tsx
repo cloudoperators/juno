@@ -11,9 +11,7 @@ import { ServicesFilters } from "./ServicesFilters"
 
 export const Services = () => (
   <>
-    <Suspense>
-      <ServicesFilters />
-    </Suspense>
+    <ServicesFilters />
     <Suspense
       fallback={
         <div className="flex justify-center items-center h-full pt-10">
