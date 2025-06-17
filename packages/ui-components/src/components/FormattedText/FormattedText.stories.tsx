@@ -51,7 +51,7 @@ const Template = (args: FormattedTextProps) => (
       <ul>
         <li>
           Consectetur adipiscing elit
-          <a href="https://ui.juno.global.cloud.sap" rel="nofollow">
+          <a href="https://cloudoperators.github.io/juno" rel="nofollow">
             Link
           </a>
         </li>
