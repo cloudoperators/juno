@@ -98,8 +98,6 @@ export const Badge: React.FC<BadgeProps> = ({
   const iconToRender = getIcon(icon, variant)
   const iconColor = getIconColor(icon, variant)
 
-  console.log(iconColor)
-
   return (
     <span
       className={`

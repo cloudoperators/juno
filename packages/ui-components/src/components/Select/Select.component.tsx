@@ -26,7 +26,7 @@ import { createPortal } from "react-dom"
 import "./select.css"
 
 const labelStyles = `
-  jn-no-wrap
+  jn:no-wrap
   jn:pointer-events-none
   jn:top-2
   jn:left-4

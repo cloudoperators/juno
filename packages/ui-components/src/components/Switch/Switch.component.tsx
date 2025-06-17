@@ -15,7 +15,7 @@ const switchBaseStyles = `
     jn:p-0
     jn:leading-0
     jn:border
-    jn-g-theme-default
+    jn:g-theme-default
     jn:focus:outline-hidden
     jn:focus:ring-2
     jn:focus:ring-theme-focus

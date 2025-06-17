@@ -74,7 +74,7 @@ export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>
           {variant && (
             <Icon
               icon={getIcon(variant)}
-              color={`jn-text-theme-${variant}`}
+              color={`jn:text-theme-${variant}`}
               className={`juno-tooltip-popover-icon ${popoverIconStyles}`}
             />
           )}

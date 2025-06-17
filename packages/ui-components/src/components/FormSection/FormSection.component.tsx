@@ -7,7 +7,7 @@ import React, { HTMLAttributes } from "react"
 
 const formSectionBaseStyles = `
     jn:mb-8
-    jn-last:mb-0
+    jn:last:mb-0
 `
 
 const headingStyles = `

@@ -84,7 +84,7 @@ const sectionTitleStyles = `
 `
 
 const sectionSeparatorStyles = `
-  jn-h-
+  jn:h-
   jn:bg-theme-background-lvl-3
 `
 

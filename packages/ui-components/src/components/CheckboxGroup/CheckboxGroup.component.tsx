@@ -10,7 +10,7 @@ import { FormHint } from "../FormHint/index"
 
 const checkboxgroupstyles = `
   jn:mb-4
-  jn-last:mb-0
+  jn:last:mb-0
 `
 
 const groupstyles = `

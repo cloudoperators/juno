@@ -52,7 +52,7 @@ const generateTailwindThemeClassesJson = () => {
   //   const colors: Record<string, string> = {}
   //   Object.keys(theme).forEach((colorName) => {
   //     if (allowList.includes(colorName)) {
-  //       colors[colorName] = `jn-bg-theme-${colorName}`
+  //       colors[colorName] = `jn:bg-theme-${colorName}`
   //     }
   //   })
   //   return colors
@@ -63,7 +63,7 @@ const generateTailwindThemeClassesJson = () => {
   //   const colors: Record<string, string> = {}
   //   Object.keys(theme).forEach((colorName) => {
   //     if (allowList.includes(colorName)) {
-  //       colors[colorName] = `jn-text-theme-${colorName}`
+  //       colors[colorName] = `jn:text-theme-${colorName}`
   //     }
   //   })
   //   return colors
@@ -88,12 +88,12 @@ const generateTailwindThemeClassesJson = () => {
   //   const colors: Record<string, string> = {}
   //   Object.keys(colorList).forEach((colorName) => {
   //     if (allowList.includes(colorName)) {
-  //       colors[colorName] = `jn-bg-${colorName}`
+  //       colors[colorName] = `jn:bg-${colorName}`
   //       const colorfam = Object.keys(colorList[colorName as keyof typeof colorList])
   //       if (colorfam) {
   //         colorfam.map((subcolor) => {
   //           if (subcolor != "DEFAULT") {
-  //             colors[`${colorName}-${subcolor}`] = `jn-bg-${colorName}-${subcolor}`
+  //             colors[`${colorName}-${subcolor}`] = `jn:bg-${colorName}-${subcolor}`
   //           }
   //         })
   //       }
