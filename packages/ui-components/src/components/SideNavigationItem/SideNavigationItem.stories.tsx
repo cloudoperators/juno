@@ -4,13 +4,12 @@
  */
 
 import React from "react"
-import { SideNavigationItem, SideNavigationItemProps } from "./index"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { SideNavigationItem } from "./index"
 import { SideNavigation } from "../SideNavigation/index"
 import { KnownIconsEnum } from "../Icon/Icon.component"
 
-type StoryDefinition = () => React.ReactNode
-
-export default {
+const meta: Meta<typeof SideNavigationItem> = {
   title: "Navigation/SideNavigation/SideNavigationItem",
   component: SideNavigationItem,
   argTypes: {
@@ -25,53 +24,56 @@ export default {
       control: false,
     },
   },
-  parameters: { actions: { argTypesRegex: null } },
-  decorators: [(story: StoryDefinition) => <SideNavigation>{story()}</SideNavigation>],
+  parameters: {
+    actions: { argTypesRegex: null },
+  },
+  decorators: [
+    (Story) => (
+      <SideNavigation>
+        <Story />
+      </SideNavigation>
+    ),
+  ],
 }
 
-const Template = (args: SideNavigationItemProps) => <SideNavigationItem {...args} />
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {
     label: "Navigation Item",
   },
 }
 
-export const Active = {
-  render: Template,
+export const Active: Story = {
   args: {
     label: "Active Navigation Item",
     active: true,
   },
 }
 
-export const Disabled = {
-  render: Template,
+export const Disabled: Story = {
   args: {
     label: "Disabled Navigation Item",
     disabled: true,
   },
 }
 
-export const WithIcon = {
-  render: Template,
+export const WithIcon: Story = {
   args: {
     label: "Navigation Item With Icon",
     icon: "warning",
   },
 }
 
-export const AsLink = {
-  render: Template,
+export const AsLink: Story = {
   args: {
     label: "Navigation Item as Anchor",
     href: "#",
   },
 }
 
-export const WithChildren = {
-  render: Template,
+export const WithChildren: Story = {
   args: {
     value: "itm-1",
     children: "Item 1",

@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { KnownIconsEnum } from "../Icon/Icon.component"
 import { Badge } from "./"
 
-export default {
+const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
   parameters: {
@@ -23,27 +24,31 @@ export default {
   },
 }
 
-export const WithDefaultIcon = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const WithDefaultIcon: Story = {
   args: {
     text: "With Icon",
     icon: true, // Default icon based on variant
   },
 }
 
-export const WithAnyIcon = {
+export const WithAnyIcon: Story = {
   args: {
     text: "Deleted",
     icon: "deleteForever",
   },
 }
 
-export const Info = {
+export const Info: Story = {
   args: {
     variant: "info",
     text: "Info",
   },
 }
-export const InfoWithIcon = {
+
+export const InfoWithIcon: Story = {
   args: {
     variant: "info",
     text: "Info",
@@ -51,13 +56,14 @@ export const InfoWithIcon = {
   },
 }
 
-export const Success = {
+export const Success: Story = {
   args: {
     variant: "success",
     text: "Success",
   },
 }
-export const SuccessWithIcon = {
+
+export const SuccessWithIcon: Story = {
   args: {
     variant: "success",
     text: "Success",
@@ -65,13 +71,14 @@ export const SuccessWithIcon = {
   },
 }
 
-export const Warning = {
+export const Warning: Story = {
   args: {
     variant: "warning",
     text: "Warning",
   },
 }
-export const WarningWithIcon = {
+
+export const WarningWithIcon: Story = {
   args: {
     variant: "warning",
     text: "Warning",
@@ -79,13 +86,14 @@ export const WarningWithIcon = {
   },
 }
 
-export const Danger = {
+export const Danger: Story = {
   args: {
     variant: "danger",
     text: "Danger",
   },
 }
-export const DangerWithIcon = {
+
+export const DangerWithIcon: Story = {
   args: {
     variant: "danger",
     text: "Danger",
@@ -93,13 +101,14 @@ export const DangerWithIcon = {
   },
 }
 
-export const Error = {
+export const Error: Story = {
   args: {
     variant: "error",
     text: "Error",
   },
 }
-export const ErrorWithIcon = {
+
+export const ErrorWithIcon: Story = {
   args: {
     variant: "error",
     text: "Error",

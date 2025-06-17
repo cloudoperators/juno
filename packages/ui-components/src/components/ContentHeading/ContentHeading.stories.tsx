@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { ContentHeading, ContentHeadingProps } from "./ContentHeading.component"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { ContentHeading } from "./ContentHeading.component"
 
-export default {
+const meta: Meta<typeof ContentHeading> = {
   title: "Internal/ContentHeading",
   component: ContentHeading,
   argTypes: {
@@ -19,10 +19,10 @@ export default {
   },
 }
 
-const Template = (args: ContentHeadingProps) => <ContentHeading {...args} />
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {
     heading: "My Page Heading",
   },
