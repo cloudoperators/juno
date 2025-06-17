@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Checkbox } from "./index"
 
-export default {
+const meta: Meta<typeof Checkbox> = {
   title: "Forms/Checkbox/Checkbox",
   component: Checkbox,
   argTypes: {
@@ -21,54 +22,57 @@ export default {
   },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {},
 }
 
-export const Checked = {
+export const Checked: Story = {
   args: {
     checked: true,
   },
 }
 
-export const WithLabel = {
+export const WithLabel: Story = {
   args: {
     label: "Checkbox with Label",
   },
 }
 
-export const Required = {
+export const Required: Story = {
   args: {
     required: true,
     label: "Required Checkbox",
   },
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   args: {
     disabled: true,
   },
 }
 
-export const Indeterminate = {
+export const Indeterminate: Story = {
   args: {
     indeterminate: true,
   },
 }
 
-export const Valid = {
+export const Valid: Story = {
   args: {
     valid: true,
   },
 }
 
-export const Invalid = {
+export const Invalid: Story = {
   args: {
     invalid: true,
   },
 }
 
-export const ValidWithLabel = {
+export const ValidWithLabel: Story = {
   args: {
     valid: true,
     label: "Validated checkbox with label and icon",
@@ -77,7 +81,7 @@ export const ValidWithLabel = {
   },
 }
 
-export const InvalidWithLabel = {
+export const InvalidWithLabel: Story = {
   args: {
     invalid: true,
     label: "Invalidated checkbox with label and icon",
@@ -86,7 +90,7 @@ export const InvalidWithLabel = {
   },
 }
 
-export const IndeterminateWithLabel = {
+export const IndeterminateWithLabel: Story = {
   args: {
     indeterminate: true,
     label: "Indeterminate checkbox with label",

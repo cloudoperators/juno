@@ -4,20 +4,21 @@
  */
 
 import React from "react"
-
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { NativeSelect } from "../NativeSelect/NativeSelect.component"
 import { NativeSelectOption } from "../NativeSelectOption/NativeSelectOption.component"
 import { NativeSelectOptionGroup, NativeSelectOptionGroupProps } from "./NativeSelectOptionGroup.component"
 
-export default {
+const Template = ({ children, ...args }: NativeSelectOptionGroupProps) => (
+  <NativeSelect>
+    <NativeSelectOptionGroup {...args}>{children}</NativeSelectOptionGroup>
+  </NativeSelect>
+)
+
+const meta: Meta<typeof NativeSelectOptionGroup> = {
   title: "Forms/NativeSelect/NativeSelectOptionGroup",
   component: NativeSelectOptionGroup,
   argTypes: {
-    options: {
-      table: {
-        disable: true,
-      },
-    },
     children: {
       control: false,
       table: {
@@ -27,15 +28,11 @@ export default {
   },
 }
 
-const Template: React.FC<NativeSelectOptionGroupProps> = ({ children, ...args }) => (
-  <NativeSelect>
-    <NativeSelectOptionGroup {...args}>{children}</NativeSelectOptionGroup>
-  </NativeSelect>
-)
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
+export const Default: Story = {
   render: Template,
-
   args: {
     label: "My option group",
     children: [
@@ -46,9 +43,8 @@ export const Default = {
   },
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   render: Template,
-
   args: {
     label: "My disabled option group",
     children: [

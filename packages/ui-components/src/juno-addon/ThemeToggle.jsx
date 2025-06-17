@@ -4,10 +4,10 @@
  */
 
 import React from "react"
-import { addons, types } from "@storybook/manager-api"
+import { addons, types } from "storybook/manager-api"
 const ADDON_ID = "juno-addon"
 const TOOL_ID = `${ADDON_ID}/theme-toggle`
-import { IconButton } from "@storybook/components"
+import { IconButton } from "storybook/internal/components"
 import { SunIcon, MoonIcon } from "@storybook/icons"
 import { JUNO_THEME_CHANGE } from "./constants"
 import { dark, getCurrentThemeMode, light, setCurrentThemeMode } from "./themes"
