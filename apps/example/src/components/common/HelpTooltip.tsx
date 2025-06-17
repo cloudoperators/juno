@@ -13,7 +13,7 @@ interface HelpTooltipProps {
 const HelpTooltip: React.FC<HelpTooltipProps> = ({ tooltipText }) => (
   <Tooltip triggerEvent="hover">
     <TooltipTrigger asChild>
-      <Icon icon="help" color="jn:global-text" size="20px" />
+      <Icon icon="help" color="jn-global-text" size="20px" />
     </TooltipTrigger>
     <TooltipContent>{tooltipText}</TooltipContent>
   </Tooltip>

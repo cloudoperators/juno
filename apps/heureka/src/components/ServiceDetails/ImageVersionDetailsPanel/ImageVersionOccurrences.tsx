@@ -102,7 +102,7 @@ const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps)
         <a href="#" rel="noopener noreferrer" onClick={onShowMoreClicked}>
           <Stack alignment="center">
             {displayOccurrences ? "Hide Occurrences" : "Display Occurrences"}
-            <Icon color="jn:global-text" icon={displayOccurrences ? "expandLess" : "expandMore"} />
+            <Icon color="jn-global-text" icon={displayOccurrences ? "expandLess" : "expandMore"} />
           </Stack>
         </a>
       </div>
