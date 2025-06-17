@@ -24,12 +24,11 @@ const ViolationDetailsList = () => {
 
   const items = React.useMemo(() => {
     if (!detailsViolationGroup) return null
-    let uidCounter = 0
 
     // @ts-ignore
     return detailsViolationGroup.constraints.reduce((items: any, constraint: any) => {
       items.push({
-        id: `doc-${constraint.name}-${uidCounter++}`,
+        id: `doc-${constraint.name}-${Date.now()}`,
         type: "doc",
         title: constraint.name,
         severity: constraint.metadata.severity,
