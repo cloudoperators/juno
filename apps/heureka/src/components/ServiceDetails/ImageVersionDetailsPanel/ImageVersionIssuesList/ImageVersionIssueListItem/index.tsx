@@ -65,7 +65,7 @@ export const ImageVersionIssueListItem = ({ issue }: ImageVersionIssueListItemPr
           <a href="#" onClick={toggleDescription} className="link-hover">
             <Stack alignment="center">
               {isExpanded ? "Show less" : "Show more"}
-              <Icon color="jn-global-text" icon={isExpanded ? "expandLess" : "expandMore"} />
+              <Icon color="jn:global-text" icon={isExpanded ? "expandLess" : "expandMore"} />
             </Stack>
           </a>
         </Stack>

@@ -40,7 +40,7 @@ const ServiceImageVersionsItem = ({
               onClick={(e) => e.stopPropagation()}
             >
               <Stack gap="1.5" alignment="center">
-                <Icon icon="openInNew" size="16" color="jn-global-text" />
+                <Icon icon="openInNew" size="16" color="jn:global-text" />
                 <span>Image registry</span>
               </Stack>
             </a>
