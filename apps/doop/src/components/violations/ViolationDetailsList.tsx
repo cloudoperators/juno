@@ -24,9 +24,12 @@ const ViolationDetailsList = () => {
 
   const items = React.useMemo(() => {
     if (!detailsViolationGroup) return null
+    let uidCounter = 0
+
     // @ts-ignore
     return detailsViolationGroup.constraints.reduce((items: any, constraint: any) => {
       items.push({
+        id: `doc-${constraint.name}-${uidCounter++}`,
         type: "doc",
         title: constraint.name,
         severity: constraint.metadata.severity,
@@ -77,7 +80,7 @@ const ViolationDetailsList = () => {
                         <div className="info-box text-theme-high">
                           <h1 className="mb-4 mt-0 text-2xl">{capitalize(item.title)}</h1>
                           {item.data ? (
-                            <ReactMarkdown urlTransform={(href: any) => href.replace(/^\((.+)\)$/, "$1")}>
+                            <ReactMarkdown key={item.id} urlTransform={(href: any) => href.replace(/^\((.+)\)$/, "$1")}>
                               {item.data}
                             </ReactMarkdown>
                           ) : (
