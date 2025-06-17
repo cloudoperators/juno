@@ -10,4 +10,5 @@
 "@cloudoperators/juno-app-carbon": patch
 ---
 
-Update typescript version to the latest v.5.8.3
+ - Update typescript version to the latest v.5.8.3
+ - Update typescript definitions for node
