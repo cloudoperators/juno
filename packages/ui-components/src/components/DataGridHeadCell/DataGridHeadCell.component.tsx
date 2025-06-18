@@ -7,10 +7,10 @@ import React, { forwardRef } from "react"
 import { DataGridCell } from "../DataGridCell/index"
 
 const headCellBaseStyles = `
-	jn-font-bold
-	jn-text-theme-high
-	jn-bg-theme-background-lvl-1
-	jn-border-theme-background-lvl-0
+	jn:font-bold
+	jn:text-theme-high
+	jn:bg-theme-background-lvl-1
+	jn:border-theme-background-lvl-0
 `
 
 export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps>(

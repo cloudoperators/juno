@@ -16,7 +16,7 @@ import Content from "./components/app-shell/Content"
 import Header from "./components/app-shell/header/Header"
 import TopNavigationBar from "./components/app-shell/Navigation"
 
-import styles from "./styles.scss?inline"
+import styles from "./styles.css?inline"
 
 interface AppProps {
   endpoint?: string

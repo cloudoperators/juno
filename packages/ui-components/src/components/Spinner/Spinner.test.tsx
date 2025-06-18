@@ -16,45 +16,45 @@ describe("Spinner", () => {
   test("renders a default color spinner", () => {
     render(<Spinner />)
     expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveClass("jn-text-theme-on-default")
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-on-default")
   })
 
   test("renders a primary color spinner", () => {
     render(<Spinner variant="primary" />)
     expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveClass("jn-text-theme-accent")
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-accent")
   })
 
   test("renders a warning color spinner", () => {
     render(<Spinner variant="warning" />)
     expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveClass("jn-text-theme-warning")
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-warning")
   })
 
   test("renders a danger color spinner", () => {
     render(<Spinner variant="danger" />)
     expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveClass("jn-text-theme-danger")
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-danger")
   })
 
   test("renders a success color spinner", () => {
     render(<Spinner variant="success" />)
     expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveClass("jn-text-theme-success")
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-success")
   })
 
   test("renders a custom colored spinner", () => {
-    render(<Spinner variant="success" color="jn-text-theme-button-primary" />)
+    render(<Spinner variant="success" color="jn:text-theme-button-primary" />)
     expect(screen.getByRole("progressbar")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).not.toHaveClass("jn-text-theme-success")
-    expect(screen.getByRole("progressbar")).toHaveClass("jn-text-theme-button-primary")
+    expect(screen.getByRole("progressbar")).not.toHaveClass("jn:text-theme-success")
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-button-primary")
   })
 
   test("renders a default sized Spinner", () => {
     render(<Spinner id="spinner" />)
     const spinner = screen.getByRole("progressbar")
-    expect(spinner).toHaveClass("jn-h-5")
-    expect(spinner).toHaveClass("jn-w-5")
+    expect(spinner).toHaveClass("jn:h-5")
+    expect(spinner).toHaveClass("jn:w-5")
     // this test is semi-brittle: in case we begin to use the style attribute on spinner this will break:
     expect(spinner).not.toHaveAttribute("style")
   })

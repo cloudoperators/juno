@@ -27,7 +27,7 @@ const meta: Meta<typeof PanelFooter> = {
   decorators: [
     (Story) => (
       <PortalProvider>
-        <div className="jn-contrast-100">
+        <div className="jn:contrast-100">
           <Story />
         </div>
       </PortalProvider>
@@ -52,7 +52,7 @@ export const Footer: Story = {
           This is the panel body
         </PanelBody>
       </Panel>
-      <div className="dummy-css-ignore jn-h-[250px]">Content Area</div>
+      <div className="dummy-css-ignore jn:h-[250px]">Content Area</div>
     </div>
   ),
   parameters: {

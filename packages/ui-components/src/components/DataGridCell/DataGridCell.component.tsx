@@ -9,21 +9,21 @@ import { useDataGridContext, CellVerticalAlignmentType } from "../DataGrid/DataG
 
 const cellBaseStyles = (nowrap: boolean, cellVerticalAlignment: CellVerticalAlignmentType | undefined) => {
   return `
-		${nowrap ? "jn-whitespace-nowrap" : ""}
+		${nowrap ? "jn:whitespace-nowrap" : ""}
 		${
       cellVerticalAlignment === "center"
         ? `
-				jn-justify-center
-				jn-flex
-				jn-flex-col		
+				jn:justify-center
+				jn:flex
+				jn:flex-col		
 			`
         : ""
     }
-		jn-px-5
-		jn-py-3
-		jn-border-b
-		jn-border-theme-background-lvl-2
-		jn-h-full
+		jn:px-5
+		jn:py-3
+		jn:border-b
+		jn:border-theme-background-lvl-2
+		jn:h-full
 	`
 }
 

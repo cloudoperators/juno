@@ -159,9 +159,9 @@ export const CustomModalFooter: Story = {
     size: "large",
     children: <p>This Modal renders a custom footer with three buttons and a custom hint.</p>,
     modalFooter: (
-      <ModalFooter className="jn-justify-between jn-items-center">
+      <ModalFooter className="jn:justify-between jn:items-center">
         <span>
-          <Icon icon="info" className="jn-mr-1" />
+          <Icon icon="info" className="jn:mr-1" />
           Have some custom content
         </span>
         <ButtonRow>

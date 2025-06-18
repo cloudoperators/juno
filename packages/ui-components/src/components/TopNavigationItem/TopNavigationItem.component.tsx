@@ -8,32 +8,32 @@ import { NavigationItem } from "../NavigationItem/index"
 import { KnownIcons } from "../Icon/Icon.component"
 
 const topNavItemStyles = `
-  jn-flex
-  jn-items-center
-  jn-grow-0
-  jn-box-border
-  jn-justify-start
-  jn-text-theme-default
-  jn-font-bold
-  jn-leading-6
-  jn-py-[0.875rem]
-  jn-px-[1.9rem]
-  jn-text-theme-default
-  jn-bg-theme-topnavigation-item
-  hover:jn-text-theme-high
-  hover:jn-bg-theme-topnavigation-item-active
-  active:jn-text-theme-high
-  active:jn-bg-theme-topnavigation-item-active
-  focus-visible:jn-outline-none
-  focus-visible:jn-ring-2
-  focus-visible:jn-ring-theme-focus
+  jn:flex
+  jn:items-center
+  jn:grow-0
+  jn:box-border
+  jn:justify-start
+  jn:text-theme-default
+  jn:font-bold
+  jn:leading-6
+  jn:py-[0.875rem]
+  jn:px-[1.9rem]
+  jn:text-theme-default
+  jn:bg-theme-topnavigation-item
+  jn:hover:text-theme-high
+  jn:hover:bg-theme-topnavigation-item-active
+  jn:active:text-theme-high
+  jn:active:bg-theme-topnavigation-item-active
+  jn:focus-visible:outline-hidden
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
 `
 
 const topNavActiveItemStyles = `
-  jn-font-bold
-  jn-text-theme-high
-  jn-bg-theme-topnavigation-item-active
-  jn-border-b-[3px]
+  jn:font-bold
+  jn:text-theme-high
+  jn:bg-theme-topnavigation-item-active
+  jn:border-b-[3px]
 `
 
 /**

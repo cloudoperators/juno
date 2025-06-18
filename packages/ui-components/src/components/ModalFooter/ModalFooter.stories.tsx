@@ -48,7 +48,7 @@ export const Configure: Story = {
 export const Custom: Story = {
   render: Template,
   args: {
-    className: "jn-justify-between jn-items-center",
+    className: "jn:justify-between jn:items-center",
     children: [
       <Stack gap="2" key="s1">
         <Icon />

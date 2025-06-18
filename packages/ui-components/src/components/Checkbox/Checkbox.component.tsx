@@ -10,87 +10,88 @@ import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
 
 const wrapperStyles = `
-  jn-inline-flex
-  jn-items-center
+  jn:inline-flex
+  jn:items-center
 `
 
 const inputstyles = (disabled: boolean): string => {
   return `
-    jn-w-4
-    jn-h-4
-    jn-opacity-0
-    jn-z-50
-    ${disabled ? "jn-cursor-not-allowed" : "jn-cursor-pointer"}
+    jn:w-4
+    jn:h-4
+    jn:opacity-0
+    jn:z-50
+    ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
   `
 }
 
 const mockcheckboxstyles = `
-  jn-relative
-  jn-w-4
-  jn-h-4
-  jn-rounded-sm
-  jn-bg-theme-checkbox
-  focus:jn-outline-none
-  focus:jn-ring-2
-  focus:jn-ring-theme-focus
+  jn:relative
+  jn:w-4
+  jn:h-4
+  jn:rounded-sm
+  jn:bg-theme-checkbox
+  jn:cursor-pointer
+  jn:focus:outline-hidden
+  jn:focus:ring-2
+  jn:focus:ring-theme-focus
 `
 
 const mockfocusstyles = `
-  jn-ring-2
-  jn-ring-theme-focus
+  jn:ring-2
+  jn:ring-theme-focus
 `
 
 const mockcheckmarkstyles = `
-  jn-absolute
-  jn-top-0
-  jn-left-0
-  jn-text-theme-checkbox-checked
-  jn-fill-current
+  jn:absolute
+  jn:top-0
+  jn:left-0
+  jn:text-theme-checkbox-checked
+  jn:fill-current
 `
 
 const mockindeterminatestyles = `
-  jn-absolute
-  jn-w-2
-  jn-h-0.5
-  jn-top-1.5
-  jn-left-[.2rem]
-  jn-inline-block
-  jn-bg-theme-focus
+  jn:absolute
+  jn:w-2
+  jn:h-0.5
+  jn:top-1.5
+  jn:left-[.2rem]
+  jn:inline-block
+  jn:bg-theme-focus
 `
 
 const mockdisabledstyles = `
-  jn-pointer-events-none
-  jn-opacity-50
-  jn-cursor-not-allowed
+  jn:pointer-events-none
+  jn:opacity-50
+  jn:cursor-not-allowed
 `
 
 const noBorderStyles = `
-  jn-border
-  jn-border-transparent
+  jn:border
+  jn:border-transparent
 `
 
 const errorstyles = `
-  jn-border
-  jn-border-theme-error
+  jn:border
+  jn:border-theme-error
 `
 
 const successstyles = `
-  jn-border
-  jn-border-theme-success
+  jn:border
+  jn:border-theme-success
 `
 
 const labelStyles = `
-  jn-leading-0
-  jn-ml-2
+  jn:leading-0
+  jn:ml-2
 `
 
 const iconStyles = `
-  jn-ml-1
+  jn:ml-1
 `
 
 const hintStyles = `
-  jn-mt-0
-  jn-ml-6
+  jn:mt-0
+  jn:ml-6
 `
 
 export const Checkbox: React.FC<CheckboxProps> = ({
@@ -274,11 +275,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             {isInvalid ? (
               <Icon
                 icon="dangerous"
-                color="jn-text-theme-error"
+                color="jn:text-theme-error"
                 size="1.125rem"
                 className={`
                   ${iconStyles}
-                  ${groupDisabled || disabled ? "jn-opacity-50" : ""}
+                  ${groupDisabled || disabled ? "jn:opacity-50" : ""}
                 `}
               />
             ) : (
@@ -287,11 +288,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             {isValid ? (
               <Icon
                 icon="checkCircle"
-                color="jn-text-theme-success"
+                color="jn:text-theme-success"
                 size="1.125rem"
                 className={`
                   ${iconStyles}
-                  ${disabled ? "jn-opacity-50" : ""}
+                  ${disabled ? "jn:opacity-50" : ""}
                 `}
               />
             ) : (

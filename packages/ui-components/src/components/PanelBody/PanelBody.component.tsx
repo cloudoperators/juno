@@ -6,8 +6,8 @@
 import React, { ReactNode, ReactElement, HTMLAttributes } from "react"
 
 const bodyContentStyles = `
-  jn-px-8
-  jn-py-4
+  jn:px-8
+  jn:py-4
 `
 
 export interface PanelBodyProps extends HTMLAttributes<HTMLDivElement> {

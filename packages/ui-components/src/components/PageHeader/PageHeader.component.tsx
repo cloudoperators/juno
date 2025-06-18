@@ -7,47 +7,47 @@ import React, { ReactElement, ReactNode } from "react"
 import DefaultLogo from "../../img/JunoUI_logo.svg"
 
 const pageHeaderStyles = `
-  jn-min-h-[3.25rem]
-  jn-bg-juno-grey-blue-11
-  jn-sticky
-  jn-top-0
-  jn-px-6
-  jn-py-3
-  jn-z-50
+  jn:min-h-[3.25rem]
+  jn:bg-juno-grey-blue-11
+  jn:sticky
+  jn:top-0
+  jn:px-6
+  jn:py-3
+  jn:z-50
 `
 
 const pageHeaderInnerStyles = `
-  jn-grid
-  jn-grid-cols-[minmax(0,max-content),1fr]
-  jn-gap-3
-  jn-h-7
-  jn-w-full
-  jn-items-center
+  jn:grid
+  jn:grid-cols-[minmax(0,max-content)_1fr]
+  jn:gap-3
+  jn:h-7
+  jn:w-full
+  jn:items-center
 `
 
 const logoContainerStyles = `
-  jn-h-7
-  jn-max-w-xs
-  [&>*]:jn-w-min
-  [&>*]:jn-max-w-xs
-  [&>*]:jn-h-7
-  [&>*]:jn-object-contain
+  jn:h-7
+  jn:max-w-xs
+  jn:*:w-min
+  jn:*:max-w-xs
+  jn:*:h-7
+  jn:*:object-contain
 `
 
 const contentContainerStyles = `
-  jn-grid
-  jn-grid-cols-[1fr,minmax(0,max-content)]
+  jn:grid
+  jn:grid-cols-[1fr_minmax(0,max-content)]
 `
 
 const optionsStyles = `
-  jn-flex
-  jn-flex-row
-  jn-items-center
+  jn:flex
+  jn:flex-row
+  jn:items-center
 `
 
 const headingStyles = `
-  jn-text-lg
-  jn-text-theme-high
+  jn:text-lg
+  jn:text-theme-high
 `
 
 /**
@@ -76,7 +76,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         </div>
         <div className={`juno-pageheader-content-container ${contentContainerStyles}`}>
           <div
-            className={`juno-pageheader-heading ${headingStyles} ${typeof onClick === "function" ? "jn-cursor-pointer" : ""}`}
+            className={`juno-pageheader-heading ${headingStyles} ${typeof onClick === "function" ? "jn:cursor-pointer" : ""}`}
             onClick={onClick}
           >
             {heading && heading}

@@ -32,6 +32,6 @@ export const SizedLoadingIndicator: Story = {
 
 export const ColoredLoadingIndicator: Story = {
   args: {
-    color: "jn-text-theme-info",
+    color: "jn:text-theme-info",
   },
 }

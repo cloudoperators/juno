@@ -15,11 +15,11 @@ import { Select } from "../Select/Select.component"
 import { SelectOption } from "../SelectOption/SelectOption.component"
 
 const paginationStyles = `
-  jn-flex
-  jn-gap-[0.375rem]
-  jn-items-center
+  jn:flex
+  jn:gap-[0.375rem]
+  jn:items-center
 `
-const spinnerStyles = `jn-ml-3`
+const spinnerStyles = `jn:ml-3`
 
 const inputStyles = `justify-normal`
 
