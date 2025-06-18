@@ -171,6 +171,8 @@ jobs:
 
   notify-on-failure:
     if: failure()
+    permissions:
+      contents: read
     needs: [build-and-push, vulnerability-scan]
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
     with:
