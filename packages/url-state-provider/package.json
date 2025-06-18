@@ -44,7 +44,7 @@
     "jsdom": "^18.0.0",
     "juri-cutlery": "^1.0.0",
     "lz-string": "^1.4.4",
-    "typescript": "^5.5.4",
+    "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.0.3",
     "vitest": "^3.0.7"
