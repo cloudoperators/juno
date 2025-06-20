@@ -1,5 +1,16 @@
 # heureka
 
+## 0.7.0
+
+### Minor Changes
+
+- b693d90: Heureka now supports filters in deeplinks.
+
+### Patch Changes
+
+- Updated dependencies [b693d90]
+  - @cloudoperators/juno-url-state-provider@3.0.3
+
 ## 0.6.2
 
 ### Patch Changes

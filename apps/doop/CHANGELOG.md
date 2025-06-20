@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-doop
 
+## 2.4.3
+
+### Patch Changes
+
+- Updated dependencies [b693d90]
+  - @cloudoperators/juno-url-state-provider@3.0.3
+
 ## 2.4.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 3.0.3
+
+### Patch Changes
+
+- b693d90: Heureka now supports filters in deeplinks.
+
 ## 3.0.2
 
 ### Patch Changes
