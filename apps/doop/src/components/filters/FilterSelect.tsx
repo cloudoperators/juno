@@ -19,8 +19,8 @@ import {
 import { useFiltersActions, useFiltersSearchTerm, useFiltersActive, useDataFilterEntries } from "../StoreProvider"
 
 const FilterSelect = () => {
-  const [selectedCategory, selectCategory] = useState("")
-  const [selectedValue] = useState("")
+  const [filterLabel, setFilterLabel] = useState("")
+  const [filterValue, setFilterValue] = useState("")
   const filterEntries = useDataFilterEntries()
   // @ts-ignore
   const { add: addFilter, removeAll, setSearchTerm } = useFiltersActions()
@@ -37,6 +37,13 @@ const FilterSelect = () => {
     return () => clearTimeout(debouncedSearchTerm)
   }
 
+  const handleFilterValueChange = (value: string) => {
+    setFilterValue(value) // update the filter value state to trigger re-render on ComboBox
+    if (filterLabel.trim() !== "" && value.trim() !== "") {
+      addFilter(filterLabel, value) // add the filter to the active filters
+    }
+  }
+
   return (
     <Stack alignment="center" gap="8" distribution="between">
       <Stack gap="2">
@@ -45,9 +52,9 @@ const FilterSelect = () => {
             name="category"
             className="filter-label-select w-52 mb-0"
             label="Select category"
-            value={selectedCategory}
+            value={filterLabel}
             // @ts-expect-error TS(2345) FIXME: Argument of type 'null' is not assignable to param...
-            onChange={selectCategory}
+            onChange={setFilterLabel}
           >
             {
               // @ts-ignore
@@ -57,22 +64,17 @@ const FilterSelect = () => {
             }
           </Select>
           <ComboBox
+            key={filterValue}
             name="value"
-            value={selectedValue}
-            onChange={(value: string) => addFilter(selectedCategory, value)}
-            disabled={!selectedCategory}
+            onChange={(value: string) => handleFilterValueChange(value)}
+            disabled={!filterLabel}
             className="filter-value-select w-80 bg-theme-background-lvl-0"
           >
             {// @ts-ignore
             filterEntries
-              .find((e: any) => e.key === selectedCategory)
+              .find((e: any) => e.key === filterLabel)
               ?.values.map((value: any, i: any) => <ComboBoxOption value={value} key={i} />)}
           </ComboBox>
-          <Button
-            onClick={() => selectedCategory && selectedValue && addFilter(selectedCategory, selectedValue)}
-            icon="filterAlt"
-            className="py-[0.3rem]"
-          />
         </InputGroup>
         {
           // @ts-ignore
