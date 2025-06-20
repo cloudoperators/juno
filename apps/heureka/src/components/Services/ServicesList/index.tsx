@@ -3,70 +3,45 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useState, useEffect } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Pagination, Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import { useNavigate } from "@tanstack/react-router"
-import { ServiceListItem } from "./ServiceListItem"
+import React, { Suspense, useCallback, useEffect, useState } from "react"
+import { DataGrid, DataGridRow, DataGridHeadCell, Stack, Spinner } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow"
 import { ServicePanel } from "./ServicePanel"
-import { ServiceType } from "../../types"
+import { ServicesDataRows } from "./ServicesDataRows"
+import { CursorPagination } from "../../common/CursorPagination"
+import { useLoaderData, useRouteContext } from "@tanstack/react-router"
+import { fetchServices } from "../../../api/fetchServices"
+import { getNormalizedServicesResponse } from "../utils"
 
 const COLUMN_SPAN = 8
 
-type ServiceListProps = {
-  defaultSelectService?: string
-  services: ServiceType[]
-  loading: boolean
-  error: string | null
-  currentPage: number
-  totalNumberOfPages: number
-  goToPage: (newPage?: number | undefined) => void
-}
+export const ServicesList = () => {
+  const { queryClient, apiClient } = useRouteContext({ from: "/services/" })
+  const { servicesPromise: pageLevelServicesPromise, filterSettings } = useLoaderData({ from: "/services/" })
+  const [servicesPromise, setServicesPromise] = useState(pageLevelServicesPromise)
 
-export const ServicesList = ({
-  defaultSelectService,
-  services,
-  loading,
-  error,
-  currentPage,
-  totalNumberOfPages,
-  goToPage,
-}: ServiceListProps) => {
-  const navigate = useNavigate()
-  const [selectedOverviewService, setSelectedOverviewService] = useState<ServiceType | null>(null)
-
-  const openServiceOverviewPanel = useCallback((service: ServiceType) => {
-    setSelectedOverviewService((prev) => (prev?.id === service.id ? null : service))
-    navigate({
-      to: "/services",
-      search: {
-        service: service.name,
-      },
-    })
-  }, [])
-
-  const closeServiceOverviewPanel = useCallback(() => {
-    setSelectedOverviewService(null)
-    navigate({
-      to: "/services",
-    })
-  }, [])
-
-  const goToServiceDetailsPage = useCallback((service: ServiceType) => {
-    navigate({
-      to: "/services/$service",
-      params: { service: service.name },
-    })
-  }, [])
+  // fetch services for a specific page
+  const goToPage = useCallback(
+    (after?: string | null) => {
+      const promise = fetchServices({
+        queryClient,
+        apiClient,
+        filterSettings,
+        after,
+      })
+      setServicesPromise(promise)
+    },
+    [setServicesPromise, queryClient, apiClient, filterSettings]
+  )
 
   /*
-   * TODO: Refactor this component later so it gets selectedOverviewService as a prop
-   * and then we can remove this effect that keeps selectedOverviewService in sync
+   * If pageLevelServicesPromise is changed because of changed filter settings for example,
+   * we need to update the servicesPromise state to trigger a re-render.
+   * ¯\_(ツ)_/¯
    */
   useEffect(() => {
-    setSelectedOverviewService(services.find((s) => s.name === defaultSelectService) || null)
-  }, [defaultSelectService, services])
+    setServicesPromise(pageLevelServicesPromise)
+  }, [setServicesPromise, pageLevelServicesPromise])
 
   return (
     <div className="datagrid-hover">
@@ -79,59 +54,27 @@ export const ServicesList = ({
           <DataGridHeadCell>Details</DataGridHeadCell>
           <DataGridHeadCell></DataGridHeadCell>
         </DataGridRow>
-        {
-          /* if request is in flight */
-          loading && (
+        <Suspense
+          fallback={
             <EmptyDataGridRow colSpan={COLUMN_SPAN}>
               <Stack gap="2" alignment="center">
                 <div>Loading</div>
                 <Spinner variant="primary"></Spinner>
               </Stack>
             </EmptyDataGridRow>
-          )
-        }
-
-        {
-          /* if the request is fulfilled with the data */
-          !loading &&
-            !error &&
-            services.length > 0 &&
-            services.map((item: ServiceType) => (
-              <ServiceListItem
-                key={item.id}
-                item={item}
-                selected={selectedOverviewService?.id === item.id}
-                onItemClick={() => openServiceOverviewPanel(item)}
-                onServiceDetailClick={() => goToServiceDetailsPage(item)}
-              />
-            ))
-        }
-
-        {
-          /* if the request is fulfilled with no data */
-          !loading && !error && services.length === 0 && (
-            <EmptyDataGridRow colSpan={COLUMN_SPAN}>No services found</EmptyDataGridRow>
-          )
-        }
+          }
+        >
+          <ServicesDataRows servicesPromise={servicesPromise} />
+        </Suspense>
       </DataGrid>
-
-      {!!totalNumberOfPages && (
-        <Stack distribution="end" className="mt-4">
-          <Pagination
-            variant="number"
-            currentPage={currentPage}
-            onPressNext={goToPage}
-            onPressPrevious={goToPage}
-            pages={totalNumberOfPages}
-          />
-        </Stack>
-      )}
-
-      {selectedOverviewService && (
-        <MessagesProvider>
-          <ServicePanel service={selectedOverviewService} onClose={closeServiceOverviewPanel} />
-        </MessagesProvider>
-      )}
+      <Suspense>
+        <CursorPagination
+          dataPromise={servicesPromise}
+          goToPage={goToPage}
+          dataNormalizationMethod={getNormalizedServicesResponse}
+        />
+      </Suspense>
+      <ServicePanel />
     </div>
   )
 }

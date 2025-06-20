@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { createFileRoute, getRouteApi } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
-import { ServiceDetails } from "../../components/ServiceDetails"
+import { Service } from "../../components/Service"
 import { LoaderWithCrumb } from "../-types"
 import { sanitizeSearchParam } from "../../utils"
+import { fetchImageVersions } from "../../api/fetchImageVersions"
+import { fetchService } from "../../api/fetchService"
 
 const serviceSearchSchema = z.object({
   imageVersion: z
@@ -19,19 +20,26 @@ const serviceSearchSchema = z.object({
 
 export const Route = createFileRoute("/services/$service")({
   validateSearch: serviceSearchSchema,
-  loader: ({ params }): LoaderWithCrumb => ({
-    crumb: {
-      label: params.service,
-    },
-  }),
+  shouldReload: false,
+  loaderDeps: ({ search }) => {
+    const { imageVersion, ...rest } = search
+    return { ...rest }
+  },
+  loader: ({ context, params: { service } }) => {
+    const { queryClient, apiClient } = context
+    // create a promise to fetch the service
+    const servicePromise = fetchService({
+      queryClient,
+      apiClient,
+      service,
+    })
 
-  component: RouteComponent,
+    return {
+      servicePromise,
+      crumb: {
+        label: service,
+      },
+    }
+  },
+  component: Service,
 })
-
-function RouteComponent() {
-  const routeApi = getRouteApi("/services/$service")
-  const { imageVersion } = routeApi.useSearch()
-  const { service } = routeApi.useParams()
-
-  return <ServiceDetails serviceName={service} imageVersion={imageVersion} />
-}
