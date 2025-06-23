@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices"],
   "enabledManagers": ["npm", "github-actions"],
-  "includePaths": ["packages/ui-components/**", ".github/workflows/**"],
+  "includePaths": ["packages/ui-components/**", "apps/heureka/**", ".github/workflows/**"],
   "updateLockFiles": true,
   "rangeStrategy": "update-lockfile",
   "packageRules": [
