@@ -15,7 +15,6 @@ import {
 import StoreProvider from "./StoreProvider"
 
 import AppContent from "./AppContent"
-// @ts-expect-error TS(2792): Cannot find module './styles.scss?inline'. Did you... Remove this comment to see the full error message
 import styles from "./styles.scss?inline"
 import OrgInfo from "./components/OrgInfo"
 import SideNav from "./components/SideNav"

@@ -7,7 +7,6 @@ import React from "react"
 
 import ShellLayout from "./components/layout/ShellLayout"
 import Auth from "./components/Auth"
-// @ts-expect-error TS(2792): Cannot find module './styles.scss?inline'. Did you... Remove this comment to see the full error message
 import styles from "./styles.css?inline"
 
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
