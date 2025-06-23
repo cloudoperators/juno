@@ -4,7 +4,7 @@
  */
 
 import react from "@vitejs/plugin-react"
-import tailwindcss from "tailwindcss"
+import tailwindcss from "@tailwindcss/vite"
 import tsconfigPaths from "vite-tsconfig-paths"
 
 export default ({ mode }) => {
@@ -15,16 +15,7 @@ export default ({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [
-      {
-        name: "tailwindcss",
-        api: {
-          postcss: tailwindcss,
-        },
-      },
-      react(),
-      tsconfigPaths(),
-    ],
+    plugins: [tailwindcss(), react(), tsconfigPaths()],
 
     server: {
       host: "0.0.0.0",
