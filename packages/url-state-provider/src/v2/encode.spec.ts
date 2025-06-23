@@ -18,22 +18,35 @@ describe("encode", () => {
         null: null,
         empty: "",
       })
-    ).toBe("key=value")
+    ).toBe("?key=value")
   })
 
-  it.each`
-    description                                                                     | input
-    ${"not an object"}                                                              | ${null}
-    ${"not an object"}                                                              | ${undefined}
-    ${"not an object"}                                                              | ${true}
-    ${"not an object"}                                                              | ${false}
-    ${"not an object"}                                                              | ${1}
-    ${"not an object"}                                                              | ${"string"}
-    ${"is ab empty object"}                                                         | ${{}}
-    ${"a regular expression"}                                                       | ${/regexp/}
-    ${"an array"}                                                                   | ${[1, 2, 3]}
-    ${"a valid object but the value of each key does not conform to required type"} | ${{ a: "b", c: { d: "e" } }}
-  `("should throw an error when input is $description", ({ input }) => {
-    expect(() => encode(input)).toThrowError("Invalid object to encode")
+  describe("returns empty string for non-object values", () => {
+    it.each`
+      description                    | input
+      ${"not an object (null)"}      | ${null}
+      ${"not an object (undefined)"} | ${undefined}
+      ${"not an object (true)"}      | ${true}
+      ${"not an object (false)"}     | ${false}
+      ${"not an object (number)"}    | ${1}
+      ${"not an object (string)"}    | ${"string"}
+      ${"is an empty object"}        | ${{}}
+      ${"a regular expression"}      | ${/regexp/}
+      ${"an array"}                  | ${[1, 2, 3]}
+    `("returns '' when input is $description", ({ input }) => {
+      expect(encode(input)).toBe("")
+    })
+  })
+
+  describe("throws error for invalid object values", () => {
+    it.each`
+      description                    | input
+      ${"nested object as value"}    | ${{ a: "b", c: { d: "e" } }}
+      ${"array of objects as value"} | ${{ a: [{ b: 1 }] }}
+      ${"function as value"}         | ${{ a: () => {} }}
+      ${"symbol as value"}           | ${{ a: Symbol("s") }}
+    `("throws error when input is $description", ({ input }) => {
+      expect(() => encode(input)).toThrowError("Invalid object to encode")
+    })
   })
 })

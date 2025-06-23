@@ -3,76 +3,67 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { act } from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
+import { PortalProvider } from "@cloudoperators/juno-ui-components/index"
+import * as fetchImageVersions from "../../../api/fetchImageVersions"
 import { ServicesList } from "./index"
-import { TestProvider } from "../../../mocks/TestProvider"
+import { getTestRouter } from "../../../mocks/getTestRouter"
+import { mockImageVersionsPromise, mockServicesPromise } from "../../../mocks/promises"
 
-// Mock tanstack router
-vi.mock("@tanstack/react-router", () => ({
-  useNavigate: () => vi.fn(),
-  useRouter: () => ({
-    state: {},
-    navigate: vi.fn(),
-    location: { pathname: "", search: "", hash: "" },
-  }),
-}))
+const renderComponent = () => {
+  const rootRoute = createRootRoute({
+    component: () => <Outlet />,
+  })
+  const testRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/services/",
+    loader: async () => ({
+      servicesPromise: mockServicesPromise,
+    }),
+    component: () => (
+      <PortalProvider>
+        <ServicesList />
+      </PortalProvider>
+    ),
+  })
+  const routeTree = rootRoute.addChildren([testRoute])
+  const router = getTestRouter({
+    routeTree,
+    history: createMemoryHistory({
+      initialEntries: ["/services/"],
+    }),
+  })
 
-const renderServicesList = () => ({
-  user: userEvent.setup(),
-  ...render(
-    <TestProvider>
-      <MessagesProvider>
-        <ServicesList
-          services={[
-            {
-              id: "1",
-              name: "alpha",
-              issuesCount: {
-                critical: 0,
-                high: 0,
-                medium: 0,
-                low: 0,
-                none: 0,
-                total: 0,
-              },
-              serviceDetails: {
-                supportGroups: [],
-              },
-              remediationDate: "",
-              serviceOwners: [],
-            },
-          ]}
-          loading={false}
-          error={""}
-          currentPage={1}
-          totalNumberOfPages={1}
-          goToPage={() => {}}
-        />
-      </MessagesProvider>
-    </TestProvider>
-  ),
-})
+  return {
+    ...render(<RouterProvider router={router} />),
+    router,
+    user: userEvent.setup({ delay: 0 }),
+  }
+}
 
 describe("ServicesList", () => {
   it("should render correctly", async () => {
-    renderServicesList()
-
-    // Check for the presence of the service list headers
-    expect(await screen.findByText("Service")).toBeInTheDocument()
-    expect(await screen.findByText("Details")).toBeInTheDocument()
+    await act(() => renderComponent())
+    expect(screen.getByText("alpha")).toBeInTheDocument()
   })
 
   it("should render service panel when clicking on a service", async () => {
-    const { user } = renderServicesList()
+    vitest.spyOn(fetchImageVersions, "fetchImageVersions").mockReturnValue(mockImageVersionsPromise)
+    const { user, router } = await act(() => renderComponent())
 
-    // Find and click the service row
-    const serviceRow = await screen.findByText("alpha")
-    await user.click(serviceRow)
+    //click on the service
+    await user.click(await screen.findByText("alpha"))
 
-    // Check if the panel is rendered with the service name
-    expect(screen.getByText(`Alpha Overview`)).toBeInTheDocument()
+    //expect the url to change
+    expect(router.state.location.href).toBe("/services?service=alpha")
+
+    // expect the service panel to be opened
+    expect(screen.getByText("Alpha Overview")).toBeInTheDocument()
+
+    // expect the image version to be displayed
+    expect(await screen.findByText("repo1")).toBeInTheDocument()
   })
 })

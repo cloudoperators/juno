@@ -23,7 +23,7 @@ type FilterSelectProps = {
 
 export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
   const [selectedFilterName, setSelectedFilterName] = useState<string>("")
-  const [selectedFilterValue] = useState<string>("")
+  const [selectedFilterValue, setSelectedFilterValue] = useState<string>("")
 
   // first filter gets the values, second one filters emtpy values
   const filterValues: string[] | undefined = filters
@@ -37,9 +37,10 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
           name: selectedFilterName,
           value: value,
         })
+        setSelectedFilterValue("") // clear the value after selection
       }
     },
-    [selectedFilterName, onChange]
+    [selectedFilterName, setSelectedFilterValue, onChange]
   )
 
   return (
