@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { use } from "react"
 import {
   Panel,
   PanelBody,
@@ -15,22 +15,44 @@ import {
   DataGridCell,
   Container,
 } from "@cloudoperators/juno-ui-components"
+import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
+import { ApolloQueryResult } from "@apollo/client"
 import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
-import { ServiceImageVersion } from "../../Services/utils"
+import { getNormalizedImageVersionsResponse, ServiceImageVersion } from "../../Services/utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
+import { GetServiceImageVersionsQuery } from "../../../generated/graphql"
 
 type ImageVersionDetailsPanelProps = {
-  imageVersion: ServiceImageVersion
-  serviceCcrn: string
-  onClose: () => void
+  imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
 }
 
-export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }: ImageVersionDetailsPanelProps) => {
+export const ImageVersionDetailsPanel = ({ imageVersionsPromise }: ImageVersionDetailsPanelProps) => {
+  const navigate = useNavigate()
+  const { service } = useParams({ from: "/services/$service" })
+  const { imageVersion: selectedImageVersion } = useSearch({ from: "/services/$service" })
+  const { data } = use(imageVersionsPromise)
+  const { imageVersions } = getNormalizedImageVersionsResponse(data)
+  const imageVersion = imageVersions.find((version: ServiceImageVersion) => version.version === selectedImageVersion)
+
+  if (!imageVersion) {
+    return <div>Image version not found</div>
+  }
+
   return (
     <MessagesProvider>
-      <Panel heading={`Image ${imageVersion.repository} Information`} opened={true} onClose={onClose} size="large">
+      <Panel
+        heading={`Image ${imageVersion.repository} Information`}
+        opened={!!service}
+        onClose={() =>
+          navigate({
+            to: "/services/$service",
+            params: { service },
+          })
+        }
+        size="large"
+      >
         <PanelBody>
           <Container py px={false}>
             <Messages />
@@ -76,7 +98,9 @@ export const ImageVersionDetailsPanel = ({ imageVersion, serviceCcrn, onClose }:
           </DataGrid>
 
           {/* Second Section: Issues List */}
-          <ImageVersionIssuesList serviceCcrn={serviceCcrn} imageVersion={imageVersion.version} />
+          {service && selectedImageVersion && imageVersion && (
+            <ImageVersionIssuesList service={service} imageVersion={imageVersion} />
+          )}
         </PanelBody>
       </Panel>
     </MessagesProvider>

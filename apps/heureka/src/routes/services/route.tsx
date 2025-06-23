@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { createFileRoute, Outlet } from "@tanstack/react-router"
 import { LoaderWithCrumb } from "../-types"
 
@@ -14,13 +13,5 @@ export const Route = createFileRoute("/services")({
       icon: "home",
     },
   }),
-  component: RouteComponent,
+  component: Outlet,
 })
-
-function RouteComponent() {
-  return (
-    <>
-      <Outlet />
-    </>
-  )
-}

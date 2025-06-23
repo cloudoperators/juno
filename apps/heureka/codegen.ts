@@ -40,7 +40,7 @@ const config: CodegenConfig = {
         },
       ],
       config: {
-        withHooks: true,
+        withHooks: false,
         withHOC: false,
         withComponent: false,
       },
