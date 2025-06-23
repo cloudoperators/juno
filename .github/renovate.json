@@ -20,6 +20,14 @@
       "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "7 days",
       "schedule": "every weekend"
+    },
+    {
+      "groupName": "dependencies for heureka",
+      "matchDatasources": ["npm"],
+      "matchFileNames": ["apps/heureka/**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "minimumReleaseAge": "7 days",
+      "schedule": "every weekend"
     }
   ],
   "separateMinorPatch": true
