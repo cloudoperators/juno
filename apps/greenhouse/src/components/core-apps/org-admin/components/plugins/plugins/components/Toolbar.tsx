@@ -119,7 +119,7 @@ const Toolbar = () => {
             </Select>
 
             <ComboBox
-              key={filterValue}
+              key={filterValue} // to force re-render on value change and reset the input
               name="filterValue"
               className="filter-value-select w-96 bg-theme-background-lvl-0"
               onChange={handleValueChange}

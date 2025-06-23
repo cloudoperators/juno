@@ -73,7 +73,7 @@ const FilterSelect = () => {
           ))}
         </Select>
         <ComboBox
-          key={filterValue}
+          key={filterValue} // to force re-render on value change and reset the input
           name="filterValue"
           onChange={(value: string) => handleFilterValueChange(value)}
           disabled={filterLabelValues[filterLabel] ? false : true}
