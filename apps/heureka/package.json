@@ -2,6 +2,7 @@
   "name": "@cloudoperators/juno-app-heureka",
   "version": "0.6.2",
   "author": "UI-Team",
+  "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka",
   "license": "Apache-2.0",
   "source": "src/index.js",
