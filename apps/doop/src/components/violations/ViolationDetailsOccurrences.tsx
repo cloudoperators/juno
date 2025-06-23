@@ -42,9 +42,9 @@ const ViolationDetailsOccurrences = ({ violation }: any) => {
         </Collapsible>
       ) : (
         <div className="flex flex-wrap gap-2">
-          {violation.instances.map((instance: any, i: any) => (
+          {violation?.instances?.map((instance: any, i: any) => (
             <div key={i} className="text-sm text-theme-light">
-              {instance.cluster}:{instance.name}
+              {(instance?.cluster || "") + ":" + (instance?.name || "")}
             </div>
           ))}
         </div>
