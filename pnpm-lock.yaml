@@ -715,6 +715,9 @@ importers:
       '@cloudoperators/juno-config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@tailwindcss/vite':
+        specifier: ^4.1.7
+        version: 4.1.10(vite@6.3.5(@types/node@20.17.16)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.6.3
@@ -736,6 +739,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.21.0
         version: 6.21.0(eslint@8.57.1)(typescript@5.8.3)
+      '@vitejs/plugin-react':
+        specifier: ^4.4.1
+        version: 4.6.0(vite@6.3.5(@types/node@20.17.16)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       '@vitejs/plugin-react-swc':
         specifier: ^3.7.0
         version: 3.7.2(@swc/helpers@0.5.17)(vite@6.3.5(@types/node@20.17.16)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
