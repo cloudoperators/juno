@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
+    "@tailwindcss/vite": "^4.1.7",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
@@ -47,6 +48,7 @@
     "@types/react-dom": "19.1.5",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "@vitejs/plugin-react": "^4.4.1",
     "@vitejs/plugin-react-swc": "^3.7.0",
     "@vitest/ui": "^3.0.7",
     "autoprefixer": "^10.4.20",

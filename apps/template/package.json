@@ -5,6 +5,7 @@
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
   "license": "Apache-2.0",
   "source": "src/index.js",
+  "type": "module",
   "exports": {
     ".": "./build/index.js"
   },
