@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect } from "react"
 import { Button, InputGroup, SearchInput, Stack } from "@cloudoperators/juno-ui-components"
 import { FilterSelect } from "./FilterSelect"
 import { Filter, FilterSettings, SelectedFilter } from "./types"
@@ -35,10 +35,16 @@ export const Filters = ({ filters, filterSettings, onFilterChange, searchInputPl
         <FilterSelect
           filters={filters}
           onChange={(selectedFilter) => {
-            onFilterChange({
-              ...filterSettings,
-              selectedFilters: filterSettings?.selectedFilters?.concat(selectedFilter),
-            })
+            const filterExists = filterSettings.selectedFilters?.some(
+              (filter) => filter.name === selectedFilter.name && filter.value === selectedFilter.value
+            )
+            //only add the filter if it does not already exist
+            if (!filterExists) {
+              onFilterChange({
+                ...filterSettings,
+                selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
+              })
+            }
           }}
         />
         <Button
@@ -56,6 +62,7 @@ export const Filters = ({ filters, filterSettings, onFilterChange, searchInputPl
           placeholder={searchInputPlaceholder ? searchInputPlaceholder : `search term for`}
           className="w-96 ml-auto"
           data-testid="searchbar"
+          value={filterSettings.searchTerm}
           onSearch={(searchTerm) => {
             onFilterChange({
               ...filterSettings,
