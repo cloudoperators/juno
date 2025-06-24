@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.17.3
+
+### Patch Changes
+
+- Updated dependencies [b693d90]
+  - @cloudoperators/juno-url-state-provider@3.0.3
+
 ## 0.17.2
 
 ### Patch Changes
