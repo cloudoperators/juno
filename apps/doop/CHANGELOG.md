@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-doop
 
+## 2.4.3
+
+### Patch Changes
+
+- 86e0be2: Add unique id to items for stable ReactMarkdown rendering and fix inconsistent instance content
+- Updated dependencies [b693d90]
+  - @cloudoperators/juno-url-state-provider@3.0.3
+
 ## 2.4.2
 
 ### Patch Changes
