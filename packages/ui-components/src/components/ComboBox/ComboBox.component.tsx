@@ -225,6 +225,14 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   const isInvalid = useMemo(() => invalid || (errortext && isNotEmptyString(errortext)), [invalid, errortext])
   const isValid = useMemo(() => valid || (successtext && isNotEmptyString(successtext)), [valid, successtext])
 
+  const contextValue = useMemo(
+    () => ({
+      selectedValue,
+      truncateOptions,
+    }),
+    [selectedValue, truncateOptions]
+  )
+
   // useEffect that runs whenever `children` changes
   // It parses the `children` components (expected to be ComboBox options), extracts their props,
   // and builds a Map of option values and their associated labels/props.
@@ -325,12 +333,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   }
 
   return (
-    <ComboBoxContext.Provider
-      value={{
-        selectedValue,
-        truncateOptions,
-      }}
-    >
+    <ComboBoxContext.Provider value={contextValue}>
       <div
         className={`
           juno-combobox-wrapper
