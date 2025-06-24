@@ -1,5 +1,7 @@
 export {
-  default as useComboboxOptions,
+  default as useComboBoxMappedOptions,
   type OptionValuesAndLabelsKey,
   type OptionValuesAndLabelsValue,
-} from "./useComboBoxOptions"
+} from "./useComboBoxMappedOptions"
+
+export { default as useComboBoxFloating, type UseComboBoxFloatingReturn } from "./useComboBoxFloating"

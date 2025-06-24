@@ -1,0 +1,57 @@
+import React from "react"
+import {
+  useFloating,
+  flip,
+  offset,
+  shift,
+  size,
+  autoUpdate,
+  useInteractions,
+  useClick,
+  useDismiss,
+  Placement,
+  UseFloatingReturn,
+  UseInteractionsReturn,
+} from "@floating-ui/react"
+
+export type UseComboBoxFloatingReturn = Pick<UseFloatingReturn, "x" | "y" | "strategy" | "refs"> &
+  Pick<UseInteractionsReturn, "getReferenceProps" | "getFloatingProps">
+
+/**
+ * Custom hook for ComboBox floating UI functionality.
+ * Provides positioning, interaction handling, and responsive sizing for dropdown menus.
+ */
+function useComboBoxFloating(
+  isOpen: boolean,
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+): UseComboBoxFloatingReturn {
+  // Floating UI setup
+  const { x, y, strategy, refs, context } = useFloating({
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    placement: "bottom-start" as Placement,
+    middleware: [
+      offset(4),
+      shift(),
+      flip(),
+      size({
+        apply({ availableWidth, availableHeight, elements, rects }) {
+          Object.assign(elements.floating.style, {
+            maxWidth: `${availableWidth}px`,
+            maxHeight: `${availableHeight}px`,
+            minWidth: `${rects.reference.width}px`,
+            overflowY: "auto",
+          })
+        },
+      }),
+    ],
+    whileElementsMounted: autoUpdate,
+  })
+
+  // Setup interactions
+  const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)])
+
+  return { x, y, strategy, refs, getReferenceProps, getFloatingProps }
+}
+
+export default useComboBoxFloating

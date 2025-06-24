@@ -5,18 +5,6 @@
 
 import React, { useState, useEffect, useId, useMemo, createContext, ReactNode } from "react"
 import { Combobox, ComboboxInput, ComboboxOptions, ComboboxButton } from "@headlessui/react"
-import {
-  useFloating,
-  flip,
-  offset,
-  shift,
-  size,
-  autoUpdate,
-  useInteractions,
-  useClick,
-  useDismiss,
-  Placement,
-} from "@floating-ui/react"
 import { Label } from "../Label/index"
 import { FormHint } from "../FormHint/index"
 import { Icon } from "../Icon/index"
@@ -24,7 +12,7 @@ import { Spinner } from "../Spinner/index"
 import { usePortalRef } from "../PortalProvider/index"
 import { createPortal } from "react-dom"
 import { ComboBoxOptionProps } from "../ComboBoxOption/ComboBoxOption.component"
-import { useComboboxOptions, OptionValuesAndLabelsKey } from "./hooks"
+import { useComboBoxMappedOptions, OptionValuesAndLabelsKey, useComboBoxFloating } from "./hooks"
 
 const inputWrapperStyles = `
   jn-relative
@@ -183,37 +171,12 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   const helptextId = "juno-combobox-helptext-" + useId()
   const [isOpen, setIsOpen] = useState(false)
 
-  const { optionValuesAndLabels } = useComboboxOptions(children)
+  const { optionValuesAndLabels } = useComboBoxMappedOptions(children)
+  const { x, y, strategy, refs, getReferenceProps, getFloatingProps } = useComboBoxFloating(isOpen, setIsOpen)
 
   const [query, setQuery] = useState("")
   const [selectedValue, setSelectedValue] = useState(value)
   const [hasFocus, setFocus] = useState(false)
-
-  // Floating UI setup
-  const { x, y, strategy, refs, context } = useFloating({
-    open: isOpen,
-    onOpenChange: setIsOpen,
-    placement: "bottom-start" as Placement,
-    middleware: [
-      offset(4),
-      shift(),
-      flip(),
-      size({
-        apply({ availableWidth, availableHeight, elements, rects }) {
-          Object.assign(elements.floating.style, {
-            maxWidth: `${availableWidth}px`,
-            maxHeight: `${availableHeight}px`,
-            minWidth: `${rects.reference.width}px`,
-            overflowY: "auto",
-          })
-        },
-      }),
-    ],
-    whileElementsMounted: autoUpdate,
-  })
-
-  // Setup interactions
-  const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)])
 
   const isInvalid = useMemo(() => invalid || Boolean(errortext && isNotEmptyString(errortext)), [invalid, errortext])
   const isValid = useMemo(() => valid || Boolean(successtext && isNotEmptyString(successtext)), [valid, successtext])
