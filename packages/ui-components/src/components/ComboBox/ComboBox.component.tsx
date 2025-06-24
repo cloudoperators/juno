@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useId, useMemo, createContext, ReactNode } from "react"
+import React, { useState, useEffect, useId, useMemo, createContext, ReactNode, ReactElement } from "react"
 import { Combobox, ComboboxInput, ComboboxOptions, ComboboxButton } from "@headlessui/react"
 import {
   useFloating,
@@ -138,13 +138,9 @@ const centeredIconStyles = `
   jn-translate-x-[-0.75rem]
 `
 
-//eslint-disable-next-line no-unused-vars
-type AddOptionValueAndLabelFunction = (value: string, label: string, children: ReactNode) => void
-
 export type ComboBoxContextType = {
   selectedValue?: string
   truncateOptions: boolean
-  addOptionValueAndLabel: AddOptionValueAndLabelFunction
 }
 
 export const ComboBoxContext = createContext<ComboBoxContextType | undefined>(undefined)
@@ -226,30 +222,39 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   // Setup interactions
   const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)])
 
-  // This callback is for all ComboBoxOptions to send us their value, label and children so we can save them as a map in our state.
-  // We need this because the Select component wants to display the selected value, label or children in the ComboBox input field
-  // but from the eventHandler we only get the value, not the label or children
-  const addOptionValueAndLabel = (value: string, label: string, children: ReactNode) => {
-    // append new entry to optionValuesAndLabels map containing the passed value, label and children
-    // use callback syntax of setState function here since we want to merge the old state with the new entry
-    setOptionValuesAndLabels(
-      (oldMap) =>
-        new Map([
-          ...Array.from(oldMap),
-          [
-            value ?? children,
-            {
-              val: value,
-              label: label,
-              children: children,
-            },
-          ],
-        ])
-    )
-  }
-
   const isInvalid = useMemo(() => invalid || (errortext && isNotEmptyString(errortext)), [invalid, errortext])
   const isValid = useMemo(() => valid || (successtext && isNotEmptyString(successtext)), [valid, successtext])
+
+  // useEffect that runs whenever `children` changes
+  // It parses the `children` components (expected to be ComboBox options), extracts their props,
+  // and builds a Map of option values and their associated labels/props.
+  useEffect(() => {
+    // Convert children to an array and map each one to a key-value pair
+    const options = React.Children.toArray(children).map((child) => {
+      let childProps: ComboBoxOptionProps = {}
+
+      // Check if the child is a valid React element and extract its props
+      if (React.isValidElement(child)) {
+        childProps = child.props as ComboBoxOptionProps
+      }
+
+      // Destructure needed props from the child
+      const { value, label, children } = childProps
+
+      // Return a tuple: key is `value` or `children`, value is the associated props object
+      return [
+        value ?? children,
+        {
+          val: value,
+          label: label,
+          children: children,
+        },
+      ]
+    }) as Iterable<readonly [React.ReactNode, OptionValuesAndLabelsValue]>
+
+    // Store the resulting key-value pairs in a Map and update state
+    setOptionValuesAndLabels(new Map(options))
+  }, [children])
 
   const handleChange = (value: string) => {
     setSelectedValue(value)
@@ -322,9 +327,8 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   return (
     <ComboBoxContext.Provider
       value={{
-        selectedValue: selectedValue,
-        truncateOptions: truncateOptions,
-        addOptionValueAndLabel: addOptionValueAndLabel,
+        selectedValue,
+        truncateOptions,
       }}
     >
       <div
@@ -481,7 +485,7 @@ export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   /** The aria-label of the ComboBox. Defaults to the label if label was passed. */
   ariaLabel?: string
   /** The children to Render. Use `ComboBox.Option` elements. */
-  children?: ReactNode
+  children?: ReactElement<ComboBoxOptionProps>[] | ReactElement<ComboBoxOptionProps>
   /** A custom className. Will be passed to the internal text input element of the ComboBox */
   className?: string
   /** Pass a defaultValue to use as an uncontrolled Component that will handle its state internally */
