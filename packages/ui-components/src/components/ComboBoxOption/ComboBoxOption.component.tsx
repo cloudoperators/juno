@@ -14,11 +14,11 @@ const optionStyles = `
   jn:pb-[0.5rem]
   jn:pr-[0.875rem]
   jn:select-none
-  jn:data-[headlessui-state=active]:outline-hidden
-  jn:data-[headlessui-state=active]:ring-2
-  jn:data-[headlessui-state=active]:ring-inset
-  jn:data-[headlessui-state=active]:ring-theme-focus
-  jn:data-[headlessui-state=active]:bg-theme-background-lvl-3
+  jn:hover:outline-hidden
+  jn:hover:ring-2
+  jn:hover:ring-inset
+  jn:hover:ring-theme-focus
+  jn:hover:bg-theme-background-lvl-3
 `
 
 const unselectedOptionStyles = `
