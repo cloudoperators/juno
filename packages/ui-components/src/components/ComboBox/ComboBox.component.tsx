@@ -162,12 +162,12 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   className = "",
   defaultValue = "",
   disabled = false,
-  error = false,
+  error: hasError = false,
   errortext = "",
   helptext = "",
   id = "",
   invalid = false,
-  loading = false,
+  loading: isLoading = false,
   label,
   name = "",
   onBlur,
@@ -198,11 +198,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   )
   const [query, setQuery] = useState("")
   const [selectedValue, setSelectedValue] = useState(value)
-  const [isLoading, setIsLoading] = useState(false)
-  const [hasError, setHasError] = useState(false)
   const [hasFocus, setFocus] = useState(false)
-  const [isInvalid, setIsInvalid] = useState(false)
-  const [isValid, setIsValid] = useState(false)
 
   // Floating UI setup
   const { x, y, strategy, refs, context } = useFloating({
@@ -252,34 +248,8 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
     )
   }
 
-  const invalidated = useMemo(
-    () => invalid || (errortext && isNotEmptyString(errortext) ? true : false),
-    [invalid, errortext]
-  )
-  const validated = useMemo(
-    () => valid || (successtext && isNotEmptyString(successtext) ? true : false),
-    [valid, successtext]
-  )
-
-  useEffect(() => {
-    setSelectedValue(value)
-  }, [value])
-
-  useEffect(() => {
-    setHasError(error)
-  }, [error])
-
-  useEffect(() => {
-    setIsLoading(loading)
-  }, [loading])
-
-  useEffect(() => {
-    setIsInvalid(invalidated)
-  }, [invalidated])
-
-  useEffect(() => {
-    setIsValid(validated)
-  }, [validated])
+  const isInvalid = useMemo(() => invalid || (errortext && isNotEmptyString(errortext)), [invalid, errortext])
+  const isValid = useMemo(() => valid || (successtext && isNotEmptyString(successtext)), [valid, successtext])
 
   const handleChange = (value: string) => {
     setSelectedValue(value)
