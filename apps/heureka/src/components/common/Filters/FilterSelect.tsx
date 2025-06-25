@@ -38,7 +38,6 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
           name: selectedFilterName,
           value: value,
         })
-        setSelectedFilterValue("") // clear the value after selection
       }
     },
     [selectedFilterName, setSelectedFilterValue, onChange]
