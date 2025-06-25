@@ -1,5 +1,11 @@
 # heureka
 
+## 0.7.2
+
+### Patch Changes
+
+- 45814a5: Remove unnecessary message in service detail page when there is no image version selected.
+
 ## 0.7.1
 
 ### Patch Changes
