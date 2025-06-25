@@ -8,14 +8,14 @@ import { JsonViewer } from "../JsonViewer"
 import { Icon } from "../Icon"
 
 const wrapperStyles = `
-  jn-bg-theme-code-block
-  jn-rounded
+  jn:bg-theme-code-block
+  jn:rounded
 `
 
 const preStyles = (wrap: boolean) => {
   return `
-    jn-p-6
-    ${wrap ? "jn-break-words jn-break-all jn-whitespace-pre-wrap" : "jn-overflow-x-auto"}
+    jn:p-6
+    ${wrap ? "jn:break-words jn:break-all jn:whitespace-pre-wrap" : "jn:overflow-x-auto"}
   `
 }
 
@@ -24,20 +24,20 @@ const sizeStyles = (size: CodeBlockSize) => {
     case "small":
       return `
         juno-codeblock-pre-small
-        jn-max-h-64
-        jn-overflow-y-auto
+        jn:max-h-64
+        jn:overflow-y-auto
       `
     case "medium":
       return `
         juno-codeblock-pre-medium
-        jn-max-h-[32rem]
-        jn-overflow-y-auto
+        jn:max-h-[32rem]
+        jn:overflow-y-auto
       `
     case "large":
       return `
         juno-codeblock-pre-large
-        jn-max-h-[56rem]
-        jn-overflow-y-auto
+        jn:max-h-[56rem]
+        jn:overflow-y-auto
       `
     default:
       return ``
@@ -45,39 +45,39 @@ const sizeStyles = (size: CodeBlockSize) => {
 }
 
 const codeStyles = `
-  jn-bg-theme-code-block
-  jn-text-sm
+  jn:bg-theme-code-block
+  jn:text-sm
 `
 
 const headingStyles = `
-  jn-text-sm
-  jn-border-b-[1px]
-  jn-border-theme-codeblock-bar 
-  jn-h-[3.4375rem]
-  jn-flex
+  jn:text-sm
+  jn:border-b-[1px]
+  jn:border-theme-codeblock-bar 
+  jn:h-[3.4375rem]
+  jn:flex
 `
 
 const headingInnerStyles = `
-  jn-flex
-  jn-font-bold
-  jn-px-[1.5625rem]
-  jn-items-center
+  jn:flex
+  jn:font-bold
+  jn:px-[1.5625rem]
+  jn:items-center
 `
 
 const bottomBarStyles = `
-  jn-flex 
-  jn-justify-end 
-  jn-px-3
-  jn-py-2 
-  jn-border-t-[1px]
-  jn-border-theme-codeblock-bar
+  jn:flex 
+  jn:justify-end 
+  jn:px-3
+  jn:py-2 
+  jn:border-t-[1px]
+  jn:border-theme-codeblock-bar
 `
 
 const copyTextStyles = `
-  jn-font-bold 
-  jn-text-sm 
-  jn-mr-4 
-  jn-mt-1
+  jn:font-bold 
+  jn:text-sm 
+  jn:mr-4 
+  jn:mt-1
 `
 
 const jsonViewStyles = {

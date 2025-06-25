@@ -29,7 +29,7 @@ const meta: Meta<typeof Panel> = {
   decorators: [
     (Story) => (
       <PortalProvider>
-        <div className="jn-contrast-100">
+        <div className="jn:contrast-100">
           <Story />
         </div>
       </PortalProvider>
@@ -40,7 +40,7 @@ const meta: Meta<typeof Panel> = {
       <Panel {...args}>
         <PanelBody>Panel Body Content</PanelBody>
       </Panel>
-      <div className="dummy-css-ignore jn-h-[150px]">Content Area</div>
+      <div className="dummy-css-ignore jn:h-[150px]">Content Area</div>
     </div>
   ),
 }

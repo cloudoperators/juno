@@ -15,13 +15,13 @@ const meta: Meta<typeof GridColumn> = {
   },
   decorators: [
     (Story, context) => (
-      <div className="juno-container jn-px-6 jn-py-6">
+      <div className="juno-container jn:px-6 jn:py-6">
         <Story {...context.args} />
       </div>
     ),
   ],
   render: (args) => {
-    return <GridColumn {...args} className={`${args.className} jn-bg-juno-blue-3 jn-text-juno-grey-blue`} />
+    return <GridColumn {...args} className={`${args.className} jn:bg-juno-blue-3 jn:text-juno-grey-blue`} />
   },
 }
 

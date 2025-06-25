@@ -1,5 +1,18 @@
 # heureka
 
+## 0.7.2
+
+### Patch Changes
+
+- 45814a5: Remove unnecessary message in service detail page when there is no image version selected.
+
+## 0.7.1
+
+### Patch Changes
+
+- def4143: Heureka static bundle now allows to change appProps.json URL based on the target environment.
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+
 ## 0.7.0
 
 ### Minor Changes

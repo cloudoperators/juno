@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import {
   Button,
@@ -27,24 +27,11 @@ import { humanizeString } from "../../lib/utils"
 const FilterSelect = () => {
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
-  const [resetKey] = useState(Date.now())
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
   const activeFilters = useActiveFilters()
   const searchTerm = useSearchTerm()
-
-  const handleFilterAdd = (value?: any) => {
-    if (filterLabel && (filterValue || value)) {
-      // add active filter to store
-      addActiveFilter(filterLabel, filterValue || value)
-
-      // reset filterValue
-      setFilterValue("")
-    } else {
-      // TODO: show error -> please select filter/value
-    }
-  }
 
   const handleFilterLabelChange = (value: any) => {
     setFilterLabel(value)
@@ -54,9 +41,16 @@ const FilterSelect = () => {
     }
   }
 
-  const handleFilterValueChange = (value: any) => {
-    setFilterValue(value)
-    handleFilterAdd(value)
+  const handleFilterValueChange = (value: string) => {
+    setFilterValue(value) // update the filter value state to trigger re-render on ComboBox
+    if (filterLabel.trim() !== "" && value.trim() !== "") {
+      addActiveFilter(filterLabel, value) // add the filter to the active filters
+    }
+    // TODO: remove this after ComboBox supports resetting its value after onChange
+    // set timeout to allow ComboBox to update its value after onChange
+    setTimeout(() => {
+      setFilterValue("")
+    }, 0)
   }
 
   const handleSearchChange = (value: any) => {
@@ -84,13 +78,12 @@ const FilterSelect = () => {
           ))}
         </Select>
         <ComboBox
-          name="filterValue"
           value={filterValue}
-          onChange={(value: any) => handleFilterValueChange(value)}
+          name="filterValue"
+          onChange={(value: string) => handleFilterValueChange(value)}
           disabled={filterLabelValues[filterLabel] ? false : true}
           loading={filterLabelValues[filterLabel]?.isLoading}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
-          key={resetKey}
         >
           {filterLabelValues[filterLabel]?.values
             ?.filter(
@@ -101,7 +94,6 @@ const FilterSelect = () => {
             .slice(0, 100) // take only the first 100 values. This isn't a good solution TODO: fix this properly with combo box, typeahead search, lazy loading, etc.
             .map((value: any) => <ComboBoxOption value={value} key={value} />)}
         </ComboBox>
-        <Button onClick={() => handleFilterAdd()} icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
       {renderClearButton()}
       <SearchInput

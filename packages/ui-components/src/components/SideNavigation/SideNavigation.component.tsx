@@ -8,8 +8,8 @@ import React, { ReactNode } from "react"
 import { Navigation } from "../Navigation/Navigation.component"
 
 const sideNavStyles = `
-  jn-min-w-[7.5rem]
-  jn-max-w-[20rem]
+  jn:min-w-[7.5rem]
+  jn:max-w-[20rem]
 `
 
 /**

@@ -8,7 +8,7 @@ import React, { createContext, ReactNode } from "react"
 import { Navigation } from "../Navigation/Navigation.component"
 
 const tabNavStyles = `
-  jn-flex
+  jn:flex
 `
 
 export interface TabNavigationContextType {

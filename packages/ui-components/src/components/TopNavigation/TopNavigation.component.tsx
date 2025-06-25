@@ -8,9 +8,9 @@ import React, { ReactNode } from "react"
 import { Navigation } from "../Navigation/Navigation.component"
 
 const topNavStyles = `
-  jn-flex
-  jn-bg-theme-background-lvl-1
-  jn-gap-0
+  jn:flex
+  jn:bg-theme-background-lvl-1
+  jn:gap-0
 `
 
 /**

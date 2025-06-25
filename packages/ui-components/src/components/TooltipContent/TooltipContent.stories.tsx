@@ -15,7 +15,7 @@ const meta: Meta<typeof TooltipContent> = {
   argTypes: {},
   decorators: [
     (Story) => (
-      <div className="jn-my-6 jn-flex jn-justify-center">
+      <div className="jn:my-6 jn:flex jn:justify-center">
         <Tooltip initialOpen={true}>
           <TooltipTrigger>clickMe</TooltipTrigger>
           <Story />
