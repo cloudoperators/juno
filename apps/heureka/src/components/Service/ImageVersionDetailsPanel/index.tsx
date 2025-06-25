@@ -37,7 +37,7 @@ export const ImageVersionDetailsPanel = ({ imageVersionsPromise }: ImageVersionD
   const imageVersion = imageVersions.find((version: ServiceImageVersion) => version.version === selectedImageVersion)
 
   if (!imageVersion) {
-    return <div>Image version not found</div>
+    return null
   }
 
   return (
