@@ -93,6 +93,11 @@ const Toolbar = () => {
     if (filterLabel.trim() !== "" && value.trim() !== "") {
       addLabelValueFilter({ label: filterLabel, value: value })
     }
+    // TODO: remove this after ComboBox supports resetting its value after onChange
+    // set timeout to allow ComboBox to update its value after onChange
+    setTimeout(() => {
+      addLabelValueFilter("")
+    }, 0)
   }
 
   const handleRemoveFilter = (label: string, value: string) => {
@@ -119,7 +124,7 @@ const Toolbar = () => {
             </Select>
 
             <ComboBox
-              key={filterValue} // to force re-render on value change and reset the input
+              value={filterValue}
               name="filterValue"
               className="filter-value-select w-96 bg-theme-background-lvl-0"
               onChange={handleValueChange}

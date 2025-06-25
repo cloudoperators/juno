@@ -46,6 +46,11 @@ const FilterSelect = () => {
     if (filterLabel.trim() !== "" && value.trim() !== "") {
       addActiveFilter(filterLabel, value) // add the filter to the active filters
     }
+    // TODO: remove this after ComboBox supports resetting its value after onChange
+    // set timeout to allow ComboBox to update its value after onChange
+    setTimeout(() => {
+      setFilterValue("")
+    }, 0)
   }
 
   const handleSearchChange = (value: any) => {
@@ -73,7 +78,7 @@ const FilterSelect = () => {
           ))}
         </Select>
         <ComboBox
-          key={filterValue} // to force re-render on value change and reset the input
+          value={filterValue}
           name="filterValue"
           onChange={(value: string) => handleFilterValueChange(value)}
           disabled={filterLabelValues[filterLabel] ? false : true}

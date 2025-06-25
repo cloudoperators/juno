@@ -31,6 +31,11 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
           value: value,
         })
       }
+      // TODO: remove this after ComboBox supports resetting its value after onChange
+      // set timeout to allow ComboBox to update its value after onChange
+      setTimeout(() => {
+        setSelectedFilterValue("")
+      }, 0)
     },
     [selectedFilterName, setSelectedFilterValue, onChange]
   )
@@ -56,7 +61,7 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
           className="filter-value-select w-64 bg-theme-background-lvl-0"
           name="filterValue"
           data-testid="combobox-filterValue"
-          key={selectedFilterValue} // to force re-render on value change and reset the input
+          value={selectedFilterValue}
           disabled={!selectedFilterName}
           onChange={handleValueChange}
         >
