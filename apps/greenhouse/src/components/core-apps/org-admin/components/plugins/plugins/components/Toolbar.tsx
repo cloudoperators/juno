@@ -13,6 +13,7 @@ import {
   Stack,
   InputGroup,
   Pill,
+  Button,
 } from "@cloudoperators/juno-ui-components"
 import { usePluginActions, usePluginConfig, useLabelValuesFilters } from "./StoreProvider"
 import { LabelValuesFilter } from "../lib/store/createPluginSlice"
@@ -25,12 +26,12 @@ const filtersStyles = `
 `
 
 const Toolbar = () => {
-  const { setSearchTerm, addLabelValueFilter, removeLabelValueFilter } = usePluginActions()
+  const { setSearchTerm, addLabelValueFilter, removeLabelValueFilter, removeAllFilters } = usePluginActions()
   const labelValuesFilters = useLabelValuesFilters()
   const [labelFilters, setLabelFilters] = useState<LabelValuesFilter[]>()
-  const [selectedLabel, setSelectedLabel] = useState<string>("")
   const [availableValues, setAvailableValues] = useState<string[]>([])
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined)
+  const [filterLabel, setFilterLabel] = useState("")
+  const [filterValue, setFilterValue] = useState("")
 
   const pluginConfig = usePluginConfig()
   const handleSearchChange = (value: any) => {
@@ -78,19 +79,25 @@ const Toolbar = () => {
   }, [pluginConfig])
 
   const handleLabelChange = (value?: string | number | string[]) => {
-    setSelectedValue(undefined)
-
     if (!labelFilters) return
 
     const selectedValue = String(value)
-    setSelectedLabel(selectedValue)
+    setFilterLabel(selectedValue)
 
     const filter = labelFilters.find((filter) => filter?.label === selectedValue)
     setAvailableValues(filter?.value || [])
   }
 
-  const handleValueChange = (value?: string | number | string[]) => {
-    addLabelValueFilter({ label: selectedLabel, value: value })
+  const handleValueChange = (value: string) => {
+    setFilterValue(value) // update the filter value state to trigger re-render on ComboBox
+    if (filterLabel.trim() !== "" && value.trim() !== "") {
+      addLabelValueFilter({ label: filterLabel, value: value })
+    }
+    // TODO: remove this after ComboBox supports resetting its value after onChange
+    // set timeout to allow ComboBox to update its value after onChange
+    setTimeout(() => {
+      addLabelValueFilter("")
+    }, 0)
   }
 
   const handleRemoveFilter = (label: string, value: string) => {
@@ -100,33 +107,37 @@ const Toolbar = () => {
   return (
     <Stack direction="vertical" gap="4" className={`filters ${filtersStyles}`}>
       <Stack alignment="center" gap="8">
-        <InputGroup>
-          <Select
-            required
-            label="Label"
-            value={selectedLabel}
-            className="filter-label-select w-64 mb-0"
-            onChange={handleLabelChange}
-            truncateOptions
-          >
-            {labelFilters &&
-              labelFilters.map((filter) => (
-                <SelectOption key={filter?.label} label={filter?.label} value={filter?.label} />
+        <Stack gap="2">
+          <InputGroup>
+            <Select
+              required
+              label="Label"
+              value={filterLabel}
+              className="filter-label-select w-64 mb-0"
+              onChange={handleLabelChange}
+              truncateOptions
+            >
+              {labelFilters &&
+                labelFilters.map((filter) => (
+                  <SelectOption key={filter?.label} label={filter?.label} value={filter?.label} />
+                ))}
+            </Select>
+
+            <ComboBox
+              value={filterValue}
+              name="filterValue"
+              className="filter-value-select w-96 bg-theme-background-lvl-0"
+              onChange={handleValueChange}
+              disabled={!filterLabel}
+              truncateOptions
+            >
+              {availableValues.map((value) => (
+                <ComboBoxOption key={value} value={value} />
               ))}
-          </Select>
-
-          <ComboBox
-            name="filterValue"
-            className="filter-value-select w-96 bg-theme-background-lvl-0"
-            onChange={handleValueChange}
-            truncateOptions
-          >
-            {availableValues.map((value) => (
-              <ComboBoxOption key={value} value={value} />
-            ))}
-          </ComboBox>
-        </InputGroup>
-
+            </ComboBox>
+          </InputGroup>
+          {labelValuesFilters?.length > 0 && <Button label="Clear all" onClick={removeAllFilters} variant="subdued" />}
+        </Stack>
         <SearchInput
           placeholder="search term or regular expression"
           className="w-96 ml-auto"
