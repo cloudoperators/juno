@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.5
+
+### Patch Changes
+
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+- Updated dependencies [def4143]
+- Updated dependencies [198dd13]
+  - @cloudoperators/juno-app-heureka@0.7.1
+  - @cloudoperators/juno-app-supernova@0.17.4
+  - @cloudoperators/juno-app-doop@2.4.4
+
 ## 0.6.4
 
 ### Patch Changes
