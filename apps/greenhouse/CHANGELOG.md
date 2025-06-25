@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.4
+
+### Patch Changes
+
+- 86e0be2: Upgrade doop extension
+- b693d90: Heureka now supports filters in deeplinks.
+- Updated dependencies [86e0be2]
+- Updated dependencies [b693d90]
+  - @cloudoperators/juno-app-doop@2.4.3
+  - @cloudoperators/juno-app-heureka@0.7.0
+  - @cloudoperators/juno-url-state-provider@3.0.3
+  - @cloudoperators/juno-app-supernova@0.17.3
+
 ## 0.6.3
 
 ### Patch Changes
