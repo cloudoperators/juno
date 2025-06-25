@@ -4,4 +4,4 @@ export {
   type OptionValuesAndLabelsValue,
 } from "./useComboBoxMappedOptions"
 
-export { default as useComboBoxFloating, type UseComboBoxFloatingReturn } from "./useComboBoxFloating"
+export { default as useComboBoxFloating, type ComboBoxFloatingReturn } from "./useComboBoxFloating"

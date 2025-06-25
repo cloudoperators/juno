@@ -14,7 +14,7 @@ import {
   UseInteractionsReturn,
 } from "@floating-ui/react"
 
-export type UseComboBoxFloatingReturn = Pick<UseFloatingReturn, "x" | "y" | "strategy" | "refs"> &
+export type ComboBoxFloatingReturn = Pick<UseFloatingReturn, "x" | "y" | "strategy" | "refs"> &
   Pick<UseInteractionsReturn, "getReferenceProps" | "getFloatingProps">
 
 /**
@@ -24,7 +24,7 @@ export type UseComboBoxFloatingReturn = Pick<UseFloatingReturn, "x" | "y" | "str
 function useComboBoxFloating(
   isOpen: boolean,
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-): UseComboBoxFloatingReturn {
+): ComboBoxFloatingReturn {
   // Floating UI setup
   const { x, y, strategy, refs, context } = useFloating({
     open: isOpen,

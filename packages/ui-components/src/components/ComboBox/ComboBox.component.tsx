@@ -171,7 +171,10 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   const helptextId = "juno-combobox-helptext-" + useId()
   const [isOpen, setIsOpen] = useState(false)
 
+  // Option mapping
   const { optionValuesAndLabels } = useComboBoxMappedOptions(children)
+
+  // Floating UI management
   const { x, y, strategy, refs, getReferenceProps, getFloatingProps } = useComboBoxFloating(isOpen, setIsOpen)
 
   const [query, setQuery] = useState("")

@@ -29,8 +29,8 @@ function useComboBoxMappedOptions(children: ReactNode) {
       let childProps: ComboBoxOptionProps = {}
 
       // Check if the child is a valid React element and extract its props
-      if (React.isValidElement(child)) {
-        childProps = child.props as ComboBoxOptionProps
+      if (React.isValidElement<ComboBoxOptionProps>(child)) {
+        childProps = child.props
       }
 
       // Destructure needed props from the child
