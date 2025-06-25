@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
-// SPDX-License-Identifier: Apache-2.0
+/* SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 .theme-dark {
   .juno-datetimepicker-input-default {
@@ -40,9 +41,9 @@
   box-sizing: border-box;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
-  background: var(--color-datepicker-calendar-bg);
-  // -webkit-box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08);
-  //         box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08);
+  background: var(--color-datetimepicker-calendar-bg);
+  /* -webkit-box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08); */
+  /* box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08); */
 }
 .flatpickr-calendar.open,
 .flatpickr-calendar.inline {
@@ -101,12 +102,12 @@
 }
 .flatpickr-calendar.hasTime .flatpickr-time {
   height: 40px;
-  // border-top: 1px solid #20222c;
+  /* border-top: 1px solid #20222c; */
 }
 .flatpickr-calendar.noCalendar.hasTime .flatpickr-time {
   height: auto;
 }
-// .flatpickr-calendar:before,
+/* // .flatpickr-calendar:before,
 // .flatpickr-calendar:after {
 //   position: absolute;
 //   display: block;
@@ -156,7 +157,7 @@
 // }
 // .flatpickr-calendar.arrowBottom:after {
 //   border-top-color: #3f4458;
-//}
+//} */
 .flatpickr-calendar:focus {
   outline: 0;
 }
@@ -399,6 +400,8 @@
 }
 .flatpickr-current-month input.cur-year:focus {
   outline: 0;
+  background: var(--color-accent);
+  color: #fff;
 }
 .flatpickr-current-month input.cur-year[disabled],
 .flatpickr-current-month input.cur-year[disabled]:hover {
@@ -409,7 +412,7 @@
 }
 .flatpickr-current-month .flatpickr-monthDropdown-months {
   appearance: menulist;
-  background: var(--color-datepicker-calendar-bg);
+  background: var(--color-datetimepicker-calendar-bg);
   border: none;
   border-radius: 0;
   box-sizing: border-box;
@@ -558,7 +561,12 @@ span.flatpickr-weekday {
 .flatpickr-day.nextMonthDay.inRange,
 .flatpickr-day.today.inRange,
 .flatpickr-day.prevMonthDay.today.inRange,
-.flatpickr-day.nextMonthDay.today.inRange,
+.flatpickr-day.nextMonthDay.today.inRange {
+  cursor: pointer;
+  outline: 0;
+  color: #fff;
+  background: var(--color-datetimepicker-range-bg);
+}
 .flatpickr-day:hover,
 .flatpickr-day.prevMonthDay:hover,
 .flatpickr-day.nextMonthDay:hover,
@@ -616,8 +624,8 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
-  -webkit-box-shadow: -10px 0 0 #80cbc4;
-  box-shadow: -10px 0 0 #80cbc4;
+  -webkit-box-shadow: -10px 0 0 var(--color-datetimepicker-range-bg);
+  box-shadow: -10px 0 0 var(--color-datetimepicker-range-bg);
 }
 .flatpickr-day.selected.startRange.endRange,
 .flatpickr-day.startRange.startRange.endRange,
@@ -627,11 +635,11 @@ span.flatpickr-weekday {
 .flatpickr-day.inRange {
   border-radius: 0;
   -webkit-box-shadow:
-    -5px 0 0 #646c8c,
-    5px 0 0 #646c8c;
+    -5px 0 0 var(--color-datetimepicker-range-bg),
+    5px 0 0 var(--color-datetimepicker-range-bg);
   box-shadow:
-    -5px 0 0 #646c8c,
-    5px 0 0 #646c8c;
+    -5px 0 0 var(--color-datetimepicker-range-bg),
+    5px 0 0 var(--color-datetimepicker-range-bg);
 }
 .flatpickr-day.flatpickr-disabled,
 .flatpickr-day.flatpickr-disabled:hover,
@@ -653,11 +661,11 @@ span.flatpickr-weekday {
 .flatpickr-day.week.selected {
   border-radius: 0;
   -webkit-box-shadow:
-    -5px 0 0 #80cbc4,
-    5px 0 0 #80cbc4;
+    -5px 0 0 var(--color-datetimepicker-range-bg),
+    5px 0 0 var(--color-datetimepicker-range-bg);
   box-shadow:
-    -5px 0 0 #80cbc4,
-    5px 0 0 #80cbc4;
+    -5px 0 0 var(--color-datetimepicker-range-bg),
+    5px 0 0 var(--color-datetimepicker-range-bg);
 }
 .flatpickr-day.hidden {
   visibility: hidden;
@@ -734,10 +742,10 @@ span.flatpickr-weekday {
   float: left;
 }
 .flatpickr-time .numInputWrapper span.arrowUp:after {
-  border-bottom-color: rgba(255, 255, 255, 0.95);
+  border-bottom-color: var(--color-text-default);
 }
 .flatpickr-time .numInputWrapper span.arrowDown:after {
-  border-top-color: rgba(255, 255, 255, 0.95);
+  border-top-color: var(--color-text-default);
 }
 .flatpickr-time.hasSeconds .numInputWrapper {
   width: 26%;

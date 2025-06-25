@@ -5,7 +5,7 @@
 
 import React, { createContext, useCallback, useEffect, useMemo, useRef, ReactNode } from "react"
 import { ShadowRoot, ShadowRootMode } from "../ShadowRoot/ShadowRoot.component"
-import tailwindTheme from "../../../tailwind.config"
+// import tailwindTheme from "../../../tailwind.config"
 import Fonts from "./Fonts"
 import GlobalStyles, { styles } from "./GlobalStyles"
 import useLocalStorage from "../../hooks/useLocalStorage"
@@ -19,7 +19,7 @@ type RemoveCssClassFunc = (value: string) => void
 
 export interface StyleContextProps {
   styles: string
-  theme: object
+  // theme: object
   currentTheme: string
   setThemeClass: SetThemeClassFunc
   addCssClass: AddClassFunc
@@ -124,7 +124,7 @@ export const StyleProvider = ({
         <StylesContext.Provider
           value={{
             styles,
-            theme: tailwindTheme,
+            // theme: tailwindTheme,
             currentTheme: currentTheme.current,
             setThemeClass,
             addCssClass,

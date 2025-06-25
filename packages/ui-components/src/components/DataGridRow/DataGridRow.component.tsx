@@ -6,10 +6,10 @@
 import React, { forwardRef } from "react"
 
 const rowBaseStyle = `
-	jn-contents
+	jn:contents
 `
 // const rowSelectedStyle = `
-// 	jn-bg-theme-datagridrow-selected
+// 	jn:bg-theme-datagridrow-selected
 // `
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
   ({ /* selected, disabled,*/ className = "", children, /*onChange,*/ ...props }, ref) => {

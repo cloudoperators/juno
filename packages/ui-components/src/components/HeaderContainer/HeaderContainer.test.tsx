@@ -17,7 +17,7 @@ describe("HeaderContainer", () => {
   test("renders a header container which has sticky class", () => {
     render(<HeaderContainer data-testid="my-header-container" />)
     expect(screen.getByTestId("my-header-container")).toBeInTheDocument()
-    expect(screen.getByTestId("my-header-container")).toHaveClass("jn-sticky")
+    expect(screen.getByTestId("my-header-container")).toHaveClass("jn:sticky")
   })
 
   test("renders a custom className as passed", () => {

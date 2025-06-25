@@ -2,6 +2,7 @@
   "name": "@cloudoperators/juno-app-doop",
   "version": "2.4.4",
   "author": "UI-Team",
+  "type": "module",
   "contributors": [
     "Andreas Pfau",
     "Arturo Reuschenbach Pucernau"
@@ -17,10 +18,12 @@
     "@svgr/core": "^8.0.0",
     "@svgr/plugin-jsx": "^8.0.0",
     "@tanstack/react-query": "5.62.2",
+    "@tailwindcss/vite": "^4.1.7",
     "@testing-library/jest-dom": "^6.6.3",
     "@types/react": "19.1.4",
     "@types/react-dom": "19.1.5",
     "@testing-library/react": "^16.3.0",
+    "@vitejs/plugin-react": "^4.4.1",
     "autoprefixer": "^10.4.2",
     "interweave": "^13.1.0",
     "jsdoc": "^4.0.2",
@@ -29,9 +32,8 @@
     "postcss": "^8.4.47",
     "react-markdown": "^9.0.0",
     "react-test-renderer": "^19.1.0",
-    "sass": "^1.77.5",
     "shadow-dom-testing-library": "^1.11.3",
-    "tailwindcss": "^3.3.1",
+    "tailwindcss": "^4.1.7",
     "vite": "^6.3.5",
     "vitest": "^3.0.7",
     "zustand": "4.5.7"

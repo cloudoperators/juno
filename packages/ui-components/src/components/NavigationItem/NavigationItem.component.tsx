@@ -9,13 +9,13 @@ import { NavigationContext } from "../Navigation/Navigation.component"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 
 const itemStyles = `
-  jn-flex
-  jn-items-center
+  jn:flex
+  jn:items-center
 `
 
 const disabledStyles = `
-  jn-opacity-50
-  jn-cursor-not-allowed
+  jn:opacity-50
+  jn:cursor-not-allowed
 `
 
 /** A generic Navigation Item component. For internal use only. Use to wrap more semantic, role-specific navigation item components such as `SidenavigationItem`, `TabNavigationItem` , `TopNavigationItem` around. */
@@ -114,7 +114,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
           onClick={handleClick}
           {...props}
         >
-          {icon ? <Icon icon={icon} size="18" className={"jn-mr-2"} /> : ""}
+          {icon ? <Icon icon={icon} size="18" className={"jn:mr-2"} /> : ""}
           {children || label || value}
         </a>
       ) : (
@@ -141,7 +141,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
           onClick={handleClick}
           {...props}
         >
-          {icon ? <Icon icon={icon} size="18" className={"jn-mr-2"} /> : ""}
+          {icon ? <Icon icon={icon} size="18" className={"jn:mr-2"} /> : ""}
           {children || label || value}
         </button>
       )}

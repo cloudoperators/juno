@@ -27,25 +27,25 @@ describe("MainContainerInner", () => {
   test("renders the expected width-constraining responsive classes if not fullwidth and there is no sidenav", () => {
     render(<MainContainerInner data-testid="main-inner" fullWidth={false} hasSideNav={false} />)
     expect(screen.getByTestId("main-inner")).toBeInTheDocument()
-    expect(screen.getByTestId("main-inner")).toHaveClass("2xl:jn-container")
-    expect(screen.getByTestId("main-inner")).toHaveClass("2xl:jn-mx-auto")
+    expect(screen.getByTestId("main-inner")).toHaveClass("jn:2xl:container")
+    expect(screen.getByTestId("main-inner")).toHaveClass("jn:2xl:mx-auto")
   })
 
   test("renders the expected width-constraining responsive classes if not fullwidth and there is a sidenav", () => {
     render(<MainContainerInner data-testid="main-inner" fullWidth={false} hasSideNav={true} />)
     expect(screen.getByTestId("main-inner")).toBeInTheDocument()
-    expect(screen.getByTestId("main-inner")).toHaveClass("3xl:jn-container")
-    expect(screen.getByTestId("main-inner")).toHaveClass("3xl:jn-mx-auto")
+    expect(screen.getByTestId("main-inner")).toHaveClass("jn:3xl:container")
+    expect(screen.getByTestId("main-inner")).toHaveClass("jn:3xl:mx-auto")
   })
 
   test("does not render any width-constraining responsive classes if in fullwidth mode", () => {
     render(<MainContainerInner data-testid="main-inner" fullWidth={true} />)
     expect(screen.getByTestId("main-inner")).toBeInTheDocument()
     expect(screen.getByTestId("main-inner")).toHaveClass("juno-main-inner-fullwidth")
-    expect(screen.getByTestId("main-inner")).not.toHaveClass("2xl:jn-container")
-    expect(screen.getByTestId("main-inner")).not.toHaveClass("2xl:jn-mx-auto")
-    expect(screen.getByTestId("main-inner")).not.toHaveClass("3xl:jn-container")
-    expect(screen.getByTestId("main-inner")).not.toHaveClass("3xl:jn-mx-auto")
+    expect(screen.getByTestId("main-inner")).not.toHaveClass("jn:2xl:container")
+    expect(screen.getByTestId("main-inner")).not.toHaveClass("jn:2xl:mx-auto")
+    expect(screen.getByTestId("main-inner")).not.toHaveClass("jn:3xl:container")
+    expect(screen.getByTestId("main-inner")).not.toHaveClass("jn:3xl:mx-auto")
   })
 
   test("renders a custom className", () => {
