@@ -7,8 +7,6 @@
 @import "@cloudoperators/juno-ui-components/theme.css";
 
 /* If necessary, app styles can be added below */
-@layer base {
-/* If necessary, app styles can be added below */
 
 .plugins {
   .juno-datagrid-row:hover {
@@ -31,5 +29,4 @@
 
 .markdown-body {
   background-color: transparent !important;
-}
 }

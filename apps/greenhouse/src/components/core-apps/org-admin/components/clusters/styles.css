@@ -7,8 +7,6 @@
 @import "@cloudoperators/juno-ui-components/theme.css";
 
 /* If necessary, app styles can be added below */
-@layer base {
-/* If necessary, app styles can be added below */
 
 .clusters {
   .juno-datagrid-row:hover {
@@ -22,5 +20,4 @@
       @apply bg-theme-background-lvl-2;
     }
   }
-}
 }

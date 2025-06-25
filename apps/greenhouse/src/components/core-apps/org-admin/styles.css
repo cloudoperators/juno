@@ -7,10 +7,7 @@
 @import "@cloudoperators/juno-ui-components/theme.css";
 
 /* If necessary, app styles can be added below */
-@layer base {
-/* If necessary, app styles can be added below */
 
 .svg-bg-test {
   background: url("assets/juno-danger.svg");
-}
 }

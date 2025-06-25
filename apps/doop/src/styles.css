@@ -5,32 +5,33 @@
 
 @import "tailwindcss";
 @import "@cloudoperators/juno-ui-components/theme.css";
-@layer base {
-  .info-box {
-    h4 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      padding-top: 10px;
-    }
 
-    p {
-      padding-bottom: 10px;
-    }
+/* If necessary, app styles can be added below */
+
+.info-box {
+  h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    padding-top: 10px;
   }
 
-  /* datagrid row hover style
+  p {
+    padding-bottom: 10px;
+  }
+}
+
+/* datagrid row hover style
     *  REMOVE THIS ONCE DATAGRID COMPONENT SUPPORTS HOVER
   */
-  .violations-list .juno-datagrid-row:hover {
-    .juno-datagrid-cell {
-      @apply bg-theme-background-lvl-1;
-    }
+.violations-list .juno-datagrid-row:hover {
+  .juno-datagrid-cell {
+    @apply bg-theme-background-lvl-1;
   }
+}
 
-  .juno-datagrid-row.active {
-    .juno-datagrid-cell {
-      @apply bg-theme-background-lvl-2;
-    }
+.juno-datagrid-row.active {
+  .juno-datagrid-cell {
+    @apply bg-theme-background-lvl-2;
   }
 }

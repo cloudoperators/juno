@@ -5,26 +5,25 @@
 
 @import "tailwindcss";
 @import "@cloudoperators/juno-ui-components/theme.css";
-@layer base {
-  .datagrid-hover {
-    .juno-datagrid-row:hover {
-      .juno-datagrid-cell {
-        @apply bg-theme-background-lvl-1;
-      }
-    }
 
-    .juno-datagrid-row.active {
-      .juno-datagrid-cell {
-        @apply bg-theme-background-lvl-2;
-      }
+.datagrid-hover {
+  .juno-datagrid-row:hover {
+    .juno-datagrid-cell {
+      @apply bg-theme-background-lvl-1;
     }
   }
 
-  .service-image-versions-cell {
-    @apply break-all overflow-hidden;
+  .juno-datagrid-row.active {
+    .juno-datagrid-cell {
+      @apply bg-theme-background-lvl-2;
+    }
   }
+}
 
-  .link-hover {
-    @apply hover:underline text-sm;
-  }
+.service-image-versions-cell {
+  @apply break-all overflow-hidden;
+}
+
+.link-hover {
+  @apply hover:underline text-sm;
 }
