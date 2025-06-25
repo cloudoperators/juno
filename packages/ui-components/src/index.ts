@@ -4,8 +4,8 @@
  */
 
 // STYLES
-import "./global.scss"
-import.meta.glob("./components/**/*.scss", {
+import "./global.css"
+import.meta.glob("./components/**/*.css", {
   eager: true,
 })
 

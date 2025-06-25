@@ -6,9 +6,9 @@ The **Juno UI Theme Switcher** is a Storybook addon designed specifically for Ju
 
 ## How It Works
 
-### 1. Conversion of Variables.scss
+### 1. Conversion of Variables.css
 
-The process begins with the conversion of the `Variables.scss` file into CSS. The resulting CSS file is then placed in a static folder named "assets." This conversion and file placement take place within the `main.js` file. The `Variables.css` file contains color variables for both dark and light modes.
+The process begins with the conversion of the `Variables.css` file into CSS. The resulting CSS file is then placed in a static folder named "assets." This conversion and file placement take place within the `main.js` file. The `Variables.css` file contains color variables for both dark and light modes.
 
 ### 2. Theme Selection
 

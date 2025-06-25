@@ -12,7 +12,7 @@ import App from "./App"
 import { describe } from "node:test"
 
 // Mock the styles
-vi.mock("./styles.module.scss", () => ({
+vi.mock("./styles.module.css", () => ({
   default: new Proxy(new Object(), {
     // @ts-expect-error TS(2304) FIXME: Cannot find name 'Proxy'.
     toString() {
