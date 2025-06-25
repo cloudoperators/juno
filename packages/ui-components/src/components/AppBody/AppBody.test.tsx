@@ -17,13 +17,13 @@ describe("AppBody", () => {
   test("renders an app body with flex column", () => {
     render(<AppBody data-testid="app-body" />)
     expect(screen.getByTestId("app-body")).toBeInTheDocument()
-    expect(screen.getByTestId("app-body")).toHaveClass("jn-flex-col")
+    expect(screen.getByTestId("app-body")).toHaveClass("jn:flex-col")
   })
 
   test("renders an app body with full height", () => {
     render(<AppBody data-testid="app-body" />)
     expect(screen.getByTestId("app-body")).toBeInTheDocument()
-    expect(screen.getByTestId("app-body")).toHaveClass("jn-h-full")
+    expect(screen.getByTestId("app-body")).toHaveClass("jn:h-full")
   })
 
   test("renders children as passed", () => {

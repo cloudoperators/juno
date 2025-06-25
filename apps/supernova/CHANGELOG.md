@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.17.4
+
+### Patch Changes
+
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+
 ## 0.17.3
 
 ### Patch Changes

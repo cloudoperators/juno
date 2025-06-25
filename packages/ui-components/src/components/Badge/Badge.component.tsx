@@ -7,25 +7,25 @@ import React from "react"
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
 const badgeBaseStyles = `
-  jn-rounded
-  jn-text-sm
-  jn-text-theme-default
-  jn-py-0.5
-  jn-px-1
-  jn-justify-center
-  jn-items-center
+  jn:rounded
+  jn:text-sm
+  jn:text-theme-default
+  jn:py-0.5
+  jn:px-1
+  jn:justify-center
+  jn:items-center
 `
 
 const badgeVariantStyles = {
-  default: "jn-bg-theme-badge-default",
-  info: "jn-bg-theme-info/25",
-  success: "jn-bg-theme-success/25",
-  warning: "jn-bg-theme-warning/25",
-  danger: "jn-bg-theme-danger/25",
-  error: "jn-bg-theme-error/25",
+  default: "jn:bg-theme-badge-default",
+  info: "jn:bg-theme-info/25",
+  success: "jn:bg-theme-success/25",
+  warning: "jn:bg-theme-warning/25",
+  danger: "jn:bg-theme-danger/25",
+  error: "jn:bg-theme-error/25",
 }
 
-const iconStyles = "jn-mr-1 jn-items-center"
+const iconStyles = "jn:mr-1 jn:items-center"
 
 export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
 
@@ -72,7 +72,7 @@ const getIcon = (icon: boolean | KnownIcons | undefined, variant: BadgeVariantTy
 
 // Get icon colour based on the variant
 const getIconColor = (icon: boolean | KnownIcons | undefined, variant: BadgeVariantType): string | undefined => {
-  if (icon === true) return `jn-text-theme-${variant}`
+  if (icon === true) return `jn:text-theme-${variant}`
   return
 }
 
@@ -105,7 +105,7 @@ export const Badge: React.FC<BadgeProps> = ({
         juno-badge-${variant} 
         ${badgeBaseStyles} 
         ${getVariantStyle(variant)} 
-        ${icon ? "jn-inline-flex" : ""} 
+        ${icon ? "jn:inline-flex" : ""} 
         ${className}`}
       {...props}
     >

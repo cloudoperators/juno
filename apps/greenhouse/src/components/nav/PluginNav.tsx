@@ -4,13 +4,9 @@
  */
 
 import React from "react"
-// @ts-expect-error TS(2792): Cannot find module '../../assets/greenhouse_logo.s... Remove this comment to see the full error message
 import GreenhouseLogo from "../../assets/greenhouse_logo.svg?react"
-// @ts-expect-error TS(2792): Cannot find module '../../assets/juno_supernova.sv... Remove this comment to see the full error message
 import SupernovaIcon from "../../assets/juno_supernova.svg?react"
-// @ts-expect-error TS(2792): Cannot find module '../../assets/juno_doop.svg?rea... Remove this comment to see the full error message
 import DoopIcon from "../../assets/juno_doop.svg?react"
-// @ts-expect-error TS(2792): Cannot find module '../../assets/juno_heureka.svg?... Remove this comment to see the full error message
 import HeurekaIcon from "../../assets/juno_heureka.svg?react"
 
 import { Icon, Stack, Button } from "@cloudoperators/juno-ui-components"

@@ -7,7 +7,7 @@ import React, { useLayoutEffect } from "react"
 
 import { AppShellProvider, ContentHeading } from "@cloudoperators/juno-ui-components"
 import AppContent from "./components/AppContent"
-import styles from "./styles.scss?inline"
+import styles from "./styles.css?inline"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import StoreProvider from "./components/StoreProvider"
 import AsyncWorker from "./components/AsyncWorker"

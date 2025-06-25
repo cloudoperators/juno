@@ -6,7 +6,7 @@
 import React from "react"
 
 const formRowBaseStyles = `
-  jn-mb-2
+  jn:mb-2
 `
 
 export interface FormRowProps extends React.HTMLAttributes<HTMLDivElement> {

@@ -9,17 +9,17 @@ import { ButtonRow } from "../ButtonRow/index"
 import { KnownIcons } from "../Icon/Icon.component"
 
 const modalfooterstyles = `
-	jn-flex
-	jn-flex-row
-	jn-border-t
-	jn-border-theme-background-lvl-4
-	jn-py-2
-	jn-px-8
+	jn:flex
+	jn:flex-row
+	jn:border-t
+	jn:border-theme-background-lvl-4
+	jn:py-2
+	jn:px-8
 `
 
 const defaultmodalfooterstyles = `
-	jn-justify-end
-	jn-gap-3.5
+	jn:justify-end
+	jn:gap-3.5
 `
 
 /**

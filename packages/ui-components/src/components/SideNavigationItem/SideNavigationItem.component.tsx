@@ -8,23 +8,23 @@ import { NavigationItem } from "../NavigationItem/NavigationItem.component"
 import { KnownIcons } from "../Icon/Icon.component.js"
 
 const sideNavItemStyles = `
-  jn-flex
-  jn-items-center
-  jn-w-full
-  jn-py-1.5
-  jn-px-8
-  jn-text-theme-default
-  jn-font-bold
-  jn-cursor-pointer
-  focus-visible:jn-outline-none
-  focus-visible:jn-ring-2
-  focus-visible:jn-ring-theme-focus
+  jn:flex
+  jn:items-center
+  jn:w-full
+  jn:py-1.5
+  jn:px-8
+  jn:text-theme-default
+  jn:font-bold
+  jn:cursor-pointer
+  jn:focus-visible:outline-hidden
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
 `
 
 const sideNavActiveItemStyles = `
-  jn-font-bold
-  jn-text-theme-sidenavigation-item-active
-  jn-bg-theme-sidenavigation-item-active
+  jn:font-bold
+  jn:text-theme-sidenavigation-item-active
+  jn:bg-theme-sidenavigation-item-active
 `
 
 /**

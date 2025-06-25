@@ -1,5 +1,24 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.6
+
+### Patch Changes
+
+- 0c09a23: Patch greenhouse to get latest version of Heureka.
+- Updated dependencies [45814a5]
+  - @cloudoperators/juno-app-heureka@0.7.2
+
+## 0.6.5
+
+### Patch Changes
+
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+- Updated dependencies [def4143]
+- Updated dependencies [198dd13]
+  - @cloudoperators/juno-app-heureka@0.7.1
+  - @cloudoperators/juno-app-supernova@0.17.4
+  - @cloudoperators/juno-app-doop@2.4.4
+
 ## 0.6.4
 
 ### Patch Changes

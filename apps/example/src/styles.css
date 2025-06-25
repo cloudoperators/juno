@@ -3,9 +3,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export default {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
+@import "tailwindcss";
+@import "@cloudoperators/juno-ui-components/theme.css";

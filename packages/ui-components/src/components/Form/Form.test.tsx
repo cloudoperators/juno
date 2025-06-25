@@ -51,7 +51,7 @@ describe("Form Component Tests", () => {
     test("applies default styles", () => {
       const { container } = render(<Form />)
       expect(container.firstChild).toHaveClass("juno-form")
-      expect(container.firstChild).toHaveClass("jn-mb-8")
+      expect(container.firstChild).toHaveClass("jn:mb-8")
     })
   })
 

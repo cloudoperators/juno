@@ -5,15 +5,7 @@
 
 import React, { useCallback, useState } from "react"
 import { isEmpty } from "lodash"
-import {
-  Button,
-  InputGroup,
-  ComboBox,
-  ComboBoxOption,
-  SelectOption,
-  Select,
-  Stack,
-} from "@cloudoperators/juno-ui-components"
+import { InputGroup, ComboBox, ComboBoxOption, SelectOption, Select, Stack } from "@cloudoperators/juno-ui-components"
 import { Filter, SelectedFilter } from "./types"
 
 type FilterSelectProps = {
@@ -32,13 +24,18 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
 
   const handleValueChange = useCallback(
     (value: string) => {
+      setSelectedFilterValue(value) // update the filter value state to trigger re-render on ComboBox
       if (!isEmpty(selectedFilterName) && !isEmpty(value)) {
         onChange({
           name: selectedFilterName,
           value: value,
         })
-        setSelectedFilterValue("") // clear the value after selection
       }
+      // TODO: remove this after ComboBox supports resetting its value after onChange
+      // set timeout to allow ComboBox to update its value after onChange
+      setTimeout(() => {
+        setSelectedFilterValue("")
+      }, 0)
     },
     [selectedFilterName, setSelectedFilterValue, onChange]
   )
@@ -65,11 +62,11 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
           name="filterValue"
           data-testid="combobox-filterValue"
           value={selectedFilterValue}
+          disabled={!selectedFilterName}
           onChange={handleValueChange}
         >
           {filterValues?.map((value) => <ComboBoxOption value={value} key={value} label={value} data-testid={value} />)}
         </ComboBox>
-        <Button icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
     </Stack>
   )
