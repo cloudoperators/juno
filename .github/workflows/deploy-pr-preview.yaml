@@ -38,6 +38,7 @@ permissions:
 env:
   DEPLOY_PATH: tmp
   NODE_VERSION: "22.16.0"
+  PREVIEW_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}
 
 jobs:
   run-detect-changes:
@@ -117,6 +118,7 @@ jobs:
           PACKAGE_PATH: apps/heureka
           TARGET_FOLDER: heureka
           APP_PROPS_BASE64: ${{ secrets.HEUREKA_APP_PROPS_BASE64 }}
+          PREVIEW_URL: ${{ env.PREVIEW_URL }}
         continue-on-error: true
 
       - name: Build DOOP if changes detected
