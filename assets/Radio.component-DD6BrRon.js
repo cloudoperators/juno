@@ -1,0 +1,100 @@
+import{r as a,j as e}from"./iframe-357CoNpC.js";import{L as D}from"./Label.component-jVgqyWPH.js";import{I as _}from"./Icon.component-BneaDTI7.js";import{F as g}from"./FormHint.component-D-OhGCsj.js";const Z=`
+	jn:mb-4
+	jn:last:mb-0
+`,ee=`
+	jn:relative
+	jn:rounded
+	jn:border
+	jn:py-1
+`,ae=`
+	jn:border-transparent
+`,te=`
+	jn:border-theme-success
+	jn:px-2
+`,ne=`
+	jn:border-theme-error
+	jn:px-2
+`,P=`
+	jn:absolute
+	jn:right-2
+	jn:top-1.5
+`,k=a.createContext({}),z=({children:o,className:I="",disabled:i=!1,errortext:t="",helptext:p="",id:S="",invalid:v=!1,label:m="",name:E,onChange:x,required:V=!1,selected:h,successtext:n="",valid:R=!1,...l})=>{const d=s=>!(typeof s=="string"&&s.trim().length===0),r=()=>"juno-radiogroup-"+a.useId(),G=E||r(),j=S||r(),[u,f]=a.useState(h),[y,N]=a.useState(!1),[c,T]=a.useState(!1),b=a.useMemo(()=>R||!!(n&&d(n)),[R,n]),q=a.useMemo(()=>v||!!(t&&d(t)),[v,t]);a.useEffect(()=>{N(b)},[b]),a.useEffect(()=>{T(q)},[q]),a.useEffect(()=>{h&&f(h)},[h]);const W=s=>{f(s)},w=s=>{f(s),x&&x(s)};return e.jsx(k.Provider,{value:{selectedValue:u,name:G,onChange:w,updateSelectedValue:W,disabled:i},children:e.jsxs("div",{className:`
+          juno-radiogroup 
+          ${Z} 
+          ${y?"juno-radiogroup-valid":""} 
+          ${c?"juno-radiogroup-invalid":""} 
+          ${I}
+        `,id:j,role:"radiogroup",...l,children:[m&&d(m)?e.jsx(D,{text:m,htmlFor:j,disabled:i,required:V}):"",e.jsxs("div",{className:`
+            juno-checkbox-group-options 
+            ${ee} 
+            ${y?te:""} 
+            ${c?ne:""} 
+            ${y||c?"":ae}
+          `,children:[c?e.jsx(_,{icon:"dangerous",color:"jn:text-theme-error",className:`${P}`}):"",y?e.jsx(_,{icon:"checkCircle",color:"jn:text-theme-success",className:`${P}`}):"",o]}),t&&d(t)?e.jsx(g,{text:t,variant:"error"}):"",n&&d(n)?e.jsx(g,{text:n,variant:"success"}):"",p&&d(p)?e.jsx(g,{text:p}):""]})})};try{k.displayName="RadioGroupContext",k.__docgenInfo={description:"",displayName:"RadioGroupContext",props:{}}}catch{}try{z.displayName="RadioGroup",z.__docgenInfo={description:"A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.",displayName:"RadioGroup",props:{children:{defaultValue:null,description:"The children of the RadioGroup. Typically, these will be `Radio` components.",name:"children",required:!1,type:{name:"ReactNode"}},className:{defaultValue:{value:""},description:"Pass a custom className",name:"className",required:!1,type:{name:"string"}},disabled:{defaultValue:{value:"false"},description:"Whether all Radios in the group are disabled",name:"disabled",required:!1,type:{name:"boolean"}},errortext:{defaultValue:{value:""},description:"Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed.",name:"errortext",required:!1,type:{name:"ReactNode"}},helptext:{defaultValue:{value:""},description:"A text to render to further explain meaning and significance of the group",name:"helptext",required:!1,type:{name:"ReactNode"}},id:{defaultValue:{value:""},description:"The id of the group. If not passed, RadioGroup will create and use a unique id for the group",name:"id",required:!1,type:{name:"string"}},invalid:{defaultValue:{value:"false"},description:"Whether the group not be validated.",name:"invalid",required:!1,type:{name:"boolean"}},label:{defaultValue:{value:""},description:"Label for the group of radios as a whole. Passing a label is mandatory in order to denote a selection in the set is required by passing the `required` prop.",name:"label",required:!1,type:{name:"string"}},name:{defaultValue:null,description:"The name of all radios in a group. If not passed, RadioGroup will create and use a unique name identifier for its child Radios",name:"name",required:!1,type:{name:"string"}},onChange:{defaultValue:null,description:"An onChange handler to execute when the selected option changes",name:"onChange",required:!1,type:{name:"EventUpdateHandler"}},required:{defaultValue:{value:"false"},description:"Whether a selection on the RadioGroup is required",name:"required",required:!1,type:{name:"boolean"}},selected:{defaultValue:null,description:"The value of the initially selected radio. This will override 'checked' set on any of the child radio elements.",name:"selected",required:!1,type:{name:"string"}},successtext:{defaultValue:{value:""},description:"Text to display in case validation is successful. When passed, will set the whole group to valid.",name:"successtext",required:!1,type:{name:"ReactNode"}},valid:{defaultValue:{value:"false"},description:"Whether the RadioGroup was successfully validated",name:"valid",required:!1,type:{name:"boolean"}}}}}catch{}const se=`
+  jn:inline-flex
+  jn:items-center
+`,oe=o=>`
+    jn:w-4
+    jn:h-4
+    jn:opacity-0
+    jn:z-50
+    ${o?"jn:cursor-not-allowed":"jn:cursor-pointer"}
+  `,ie=`
+  jn:relative
+  jn:w-4
+  jn:h-4
+  jn:rounded-full
+  jn:bg-theme-radio
+`,le=`
+  jn:absolute
+  jn:block
+  jn:bg-theme-radio-checked
+  jn:rounded-full
+  jn:w-3
+  jn:h-3
+  jn:top-[1px]
+  jn:left-[1px]
+`,re=`
+  jn:outline-hidden
+  jn:ring-2
+  jn:ring-theme-focus
+`,de=`
+  jn:opacity-50
+  jn:cursor-not-allowed
+`,ue=`
+  jn:border
+  jn:border-transparent
+`,ce=`
+  jn:border
+  jn:border-theme-error
+`,pe=`
+  jn:border
+  jn:border-theme-success
+`,me=`
+  jn:leading-0
+  jn:ml-2
+`,B=`
+  jn:ml-1
+`,A=`
+  jn:mt-0
+  jn:ml-6
+`,O=({checked:o=!1,className:I="",disabled:i=!1,errortext:t="",helptext:p="",id:S,invalid:v=!1,label:m,name:E,onChange:x,onClick:V,required:h=!1,successtext:n="",valid:R=!1,value:l="",...d})=>{const r=C=>!(typeof C=="string"&&C.trim().length===0),G=()=>"juno-radio-"+a.useId(),j=a.useContext(k),{selectedValue:u,onChange:f,name:y,updateSelectedValue:N,disabled:c}=j||{},T=()=>j?u===l:!!o,[b,q]=a.useState(()=>T()),[W,w]=a.useState(!1),[s,U]=a.useState(!1),[$,J]=a.useState(!1),F=a.useMemo(()=>v||!!(t&&r(t)),[v,t]),H=a.useMemo(()=>R||!!(n&&r(n)),[R,n]);a.useEffect(()=>{U(F)},[F]),a.useEffect(()=>{J(H)},[H]),a.useEffect(()=>{o&&j&&u===void 0&&N&&N(l)},[]),a.useEffect(()=>{u||q(o)},[o]);const K=()=>{q(!b),f&&typeof f=="function"&&u!==l&&f(l),x&&x(l)},M=()=>u?u===l:b,Q=C=>{V&&V(C)},X=()=>{w(!0)},Y=()=>{w(!1)},L=S||G();return e.jsxs("div",{className:"jn-radio-outer",children:[e.jsxs("div",{className:`juno-radio-wrapper ${se}`,children:[e.jsxs("div",{className:`
+             juno-radio 
+             ${ie} 
+             ${W?re:""} 
+             ${i?de:""} 
+             ${s?ce:""} 
+             ${$?pe:""} 
+             ${s||$?"":ue}
+             ${I}
+           `,...d,children:[e.jsx("input",{checked:M(),className:`
+              ${oe(c||i)} 
+              ${s?"juno-radio-invalid":""} 
+              ${$?"juno-radio-valid":""}
+            `,disabled:c||i,id:L,onBlur:Y,onChange:K,onClick:Q,onFocus:X,name:y||E,type:"radio",value:l}),M()?e.jsx("span",{className:`${le}`}):""]}),m&&r(m)?e.jsxs(e.Fragment,{children:[e.jsx(D,{className:`${me}`,disabled:c||i,htmlFor:L,required:h,text:m}),s?e.jsx(_,{icon:"dangerous",color:"jn:text-theme-error",size:"1.125rem",className:`
+                    ${B}
+                    ${i?"jn:opacity-50":""}
+                  `}):"",$?e.jsx(_,{icon:"checkCircle",color:"jn:text-theme-success",size:"1.125rem",className:`
+                    ${B}
+                    ${i?"jn:opacity-50":""}
+                  `}):""]}):""]}),t&&r(t)?e.jsx(g,{text:t,variant:"error",className:`${A}`}):"",n&&r(n)?e.jsx(g,{text:n,variant:"success",className:`${A}`}):"",p&&r(p)?e.jsx(g,{text:p,className:`${A}`}):""]})};try{O.displayName="Radio",O.__docgenInfo={description:"A controlled Radio component.",displayName:"Radio",props:{checked:{defaultValue:{value:"false"},description:"Whether the Radio is checked",name:"checked",required:!1,type:{name:"boolean"}},className:{defaultValue:{value:""},description:"Pass a custom className",name:"className",required:!1,type:{name:"string"}},disabled:{defaultValue:{value:"false"},description:"Whether the Radio is disabled",name:"disabled",required:!1,type:{name:"boolean"}},errortext:{defaultValue:{value:""},description:"A text to render when the Radio has an error or could not be validated",name:"errortext",required:!1,type:{name:"ReactNode"}},helptext:{defaultValue:{value:""},description:"A helptext to render to explain meaning and significance of the Radio",name:"helptext",required:!1,type:{name:"ReactNode"}},id:{defaultValue:null,description:"The id of the Radio. An id will be automatically generated if not passed.",name:"id",required:!1,type:{name:"string"}},invalid:{defaultValue:{value:"false"},description:"Whether the Radio was validated unsuccessfully",name:"invalid",required:!1,type:{name:"boolean"}},label:{defaultValue:null,description:"The label of the Radio",name:"label",required:!1,type:{name:"string"}},name:{defaultValue:null,description:"The name attribute of the Radio. Only Radios sharing the same name attribute will work together as expected.",name:"name",required:!1,type:{name:"string"}},onChange:{defaultValue:null,description:"Handler to execute when the Radio changes",name:"onChange",required:!1,type:{name:"((value: string) => void)"}},onClick:{defaultValue:null,description:"Handler to execute when the Radio is clicked",name:"onClick",required:!1,type:{name:"MouseEventHandler<HTMLElement>"}},required:{defaultValue:{value:"false"},description:"Whether the Radio is required",name:"required",required:!1,type:{name:"boolean"}},successtext:{defaultValue:{value:""},description:"A text to render when the Radio was successfully validated",name:"successtext",required:!1,type:{name:"ReactNode"}},valid:{defaultValue:{value:"false"},description:"Whether the Radio was successfully validated",name:"valid",required:!1,type:{name:"boolean"}},value:{defaultValue:{value:""},description:"The value of the Radio",name:"value",required:!1,type:{name:"string"}}}}}catch{}export{z as R,O as a};
