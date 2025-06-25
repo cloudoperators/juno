@@ -21,6 +21,7 @@ export const scopes = [
   "communicator",
   "config",
   "ci",
+  "apps",
   "core",
   "carbon",
   "greenhouse",
