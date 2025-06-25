@@ -4,43 +4,38 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { ComboBox } from "../ComboBox/ComboBox.component"
-import { ComboBoxOption, ComboBoxOptionProps } from "./ComboBoxOption.component"
+import { ComboBoxOption } from "./ComboBoxOption.component"
 
-export default {
+const meta: Meta<typeof ComboBoxOption> = {
   title: "Forms/ComboBox/ComboBoxOption",
   component: ComboBoxOption,
   argTypes: {},
-}
-
-const Template = (args: ComboBoxOptionProps) => {
-  return (
+  render: (args) => (
     <ComboBox>
       <ComboBoxOption {...args} />
     </ComboBox>
-  )
+  ),
 }
 
-export const Default = {
-  render: Template,
+export default meta
+type Story = StoryObj<typeof meta>
 
+export const Default: Story = {
   args: {
     value: "Option 1",
   },
 }
 
-export const Disabled = {
-  render: Template,
-
+export const Disabled: Story = {
   args: {
     disabled: true,
     value: "Disabled Option",
   },
 }
 
-export const ChildrenOnly = {
-  render: Template,
-
+export const ChildrenOnly: Story = {
   args: {
     children: "Option 1",
   },

@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { ModalFooter } from "./index"
 import { Button } from "../Button/index"
 import { ButtonRow } from "../ButtonRow/index"
@@ -15,7 +16,7 @@ const Template = (args: ModalFooterProps) => {
   return <ModalFooter {...args}></ModalFooter>
 }
 
-export default {
+const meta: Meta<ModalFooterProps> = {
   title: "Components/Modal/ModalFooter",
   component: ModalFooter,
   argTypes: {
@@ -23,26 +24,29 @@ export default {
       control: false,
     },
   },
-  parameters: { actions: { argTypesRegex: null } },
+  parameters: {
+    actions: { argTypesRegex: null },
+  },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   render: Template,
   args: {},
 }
 
-export const Configure = {
+export const Configure: Story = {
   render: Template,
-
   args: {
     confirmButtonLabel: "Confirm Action",
     cancelButtonLabel: "Cancel Action",
   },
 }
 
-export const Custom = {
+export const Custom: Story = {
   render: Template,
-
   args: {
     className: "jn-justify-between jn-items-center",
     children: [

@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
+
 import { Message } from "./"
 
-export default {
+const meta: Meta<typeof Message> = {
   title: "Components/Message",
   component: Message,
   argTypes: {
@@ -15,15 +17,19 @@ export default {
   },
 }
 
+export default meta
+type Story = StoryObj<typeof meta>
+
 // Default message
-export const Default = {
+export const Default: Story = {
   args: {
     text: "Default Message.",
+    variant: "info",
   },
 }
 
 // Message with title
-export const WithTitle = {
+export const WithTitle: Story = {
   args: {
     title: "Message",
     text: "Message with title.",
@@ -31,28 +37,28 @@ export const WithTitle = {
 }
 
 // Message variants
-export const Warning = {
+export const Warning: Story = {
   args: {
     variant: "warning",
     text: "Warning Message.",
   },
 }
 
-export const Error = {
+export const Error: Story = {
   args: {
     variant: "error",
     text: "Error Message.",
   },
 }
 
-export const Danger = {
+export const Danger: Story = {
   args: {
     variant: "danger",
     text: "Danger Message.",
   },
 }
 
-export const Success = {
+export const Success: Story = {
   args: {
     variant: "success",
     text: "Success Message.",
@@ -60,7 +66,7 @@ export const Success = {
 }
 
 // Dismissible message
-export const Dismissible = {
+export const Dismissible: Story = {
   args: {
     text: "Dismissible Message.",
     dismissible: true,

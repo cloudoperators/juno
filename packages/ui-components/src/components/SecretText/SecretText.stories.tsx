@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { SecretText } from "./SecretText.component"
 
-export default {
+const meta: Meta<typeof SecretText> = {
   title: "Forms/SecretText",
   component: SecretText,
   argTypes: {
@@ -40,25 +40,21 @@ export default {
   },
 }
 
-const Template = ({ ...args }) => {
-  return <SecretText {...args} />
-}
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {},
 }
 
-export const withValue = {
-  render: Template,
+export const WithValue: Story = {
   args: {
     value:
       "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArvLhT1yR4G3l0aTmUjP6ktK8xVJcQoZi/s5NQq5Z9ENJkZnQ+2lPkhslk/qf3AQHfw5QrI2vQjN5CvX0b8LS5yX+TYEkFpeQZD6b2CqY3OJVTzH1eENBoM1yTlgZe9UdU6wYuR+9p/JrDJ8KjzOG6uToINt6XodR9nMFLAnZHSqQoP/M2w1PCoWXgF5VtRt1UOcMZJX1C8KRdzvF4X6YBY4tMX1FfH5/Uj2Kn6h8u38fUqsn2wrAVzpPnSXPU1eHsdJZGn4dd+3Q8p0K9rwnX1LrF57ZxKxe/mKm",
   },
 }
 
-export const revealWithValue = {
-  render: Template,
+export const RevealWithValue: Story = {
   args: {
     reveal: true,
     value:
@@ -74,15 +70,13 @@ export const revealWithValue = {
   },
 }
 
-export const WithLabel = {
-  render: Template,
+export const WithLabel: Story = {
   args: {
     label: "Secret things",
   },
 }
 
-export const WithValueWithLabel = {
-  render: Template,
+export const WithValueWithLabel: Story = {
   args: {
     label: "Secret things",
     value:
@@ -90,16 +84,14 @@ export const WithValueWithLabel = {
   },
 }
 
-export const RequiredWithLabel = {
-  render: Template,
+export const RequiredWithLabel: Story = {
   args: {
     required: true,
     label: "Secret things",
   },
 }
 
-export const NoClearNoToggleNoPaste = {
-  render: Template,
+export const NoClearNoToggleNoPaste: Story = {
   args: {
     value: "It's a secret.",
     clear: false,
@@ -108,14 +100,13 @@ export const NoClearNoToggleNoPaste = {
   },
 }
 
-export const Disabled = {
-  render: Template,
+export const Disabled: Story = {
   args: {
     disabled: true,
   },
 }
 
-export const ReadOnly = {
+export const ReadOnly: Story = {
   parameters: {
     docs: {
       description: {
@@ -124,7 +115,6 @@ export const ReadOnly = {
       },
     },
   },
-  render: Template,
   args: {
     readOnly: true,
     disablePaste: true,

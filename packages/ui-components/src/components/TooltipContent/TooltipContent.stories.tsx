@@ -4,16 +4,17 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Tooltip } from "../Tooltip/index"
 import { TooltipContent, TooltipContentProps } from "./TooltipContent.component"
 import { TooltipTrigger } from "../TooltipTrigger/index"
 
-export default {
+const meta: Meta<typeof TooltipContent> = {
   title: "Components/Tooltip/TooltipContent",
   component: TooltipContent,
   argTypes: {},
   decorators: [
-    (Story: React.FC<TooltipContentProps>) => (
+    (Story) => (
       <div className="jn-my-6 jn-flex jn-justify-center">
         <Tooltip initialOpen={true}>
           <TooltipTrigger>clickMe</TooltipTrigger>
@@ -24,11 +25,15 @@ export default {
   ],
 }
 
-const Template: React.FC<TooltipContentProps> = ({ ...args }) => {
+export default meta
+type Story = StoryObj<typeof meta>
+
+// Reusable template
+const DefaultTemplate = (args: TooltipContentProps) => {
   return <TooltipContent {...args}>This is a tooltip</TooltipContent>
 }
 
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {},
+  render: DefaultTemplate,
 }

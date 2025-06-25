@@ -20,10 +20,11 @@ import {
 import constants from "../../constants"
 import { useSilencesItems, useSilencesActions, useSilencesRegEx, useSilencesStatus } from "../StoreProvider"
 import SilencesItem from "./SilencesItem"
-import { useBoundQuery } from "../../hooks/useBoundQuery"
+import { useBoundQuery, CorsNetworkError } from "../../hooks/useBoundQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { SilencesData } from "../../api/silences"
+import { FirefoxCorsWarning } from "../shared/FirefoxCorsWarning"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -38,11 +39,20 @@ const SilencesList = () => {
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
   const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
-  const { addMessage } = useActions()
+  const { addMessage, resetMessages } = useActions()
 
   const { data, isLoading, error } = useBoundQuery<SilencesData>("silences")
 
   if (error) {
+    resetMessages()
+    // Extra CORS warning based on instanceof
+    if (error instanceof CorsNetworkError) {
+      addMessage({
+        variant: "warning",
+        text: <FirefoxCorsWarning />,
+      })
+    }
+
     addMessage({
       variant: "error",
       text: parseError(error),

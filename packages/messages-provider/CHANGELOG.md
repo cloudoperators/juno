@@ -1,5 +1,19 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.8
+
+### Patch Changes
+
+- Updated dependencies [5488568]
+- Updated dependencies [6ef7f8d]
+  - @cloudoperators/juno-ui-components@4.0.1
+
+## 0.2.7
+
+### Patch Changes
+
+- 7317372: Re-enables support for adding messages with ReactNodes. Restores return value from addMessage. Fixes previously skipped test.
+
 ## 0.2.6
 
 ### Patch Changes

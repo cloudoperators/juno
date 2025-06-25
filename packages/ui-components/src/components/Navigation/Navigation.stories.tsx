@@ -4,10 +4,13 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Navigation, NavigationProps } from "./index"
 import { NavigationItem } from "../NavigationItem/index"
 
-export default {
+const Template = ({ children, ...props }: NavigationProps) => <Navigation {...props}>{children}</Navigation>
+
+const meta: Meta<NavigationProps> = {
   title: "Internal/Navigation",
   component: Navigation,
   argTypes: {
@@ -26,9 +29,10 @@ export default {
   },
 }
 
-const Template = ({ children, ...props }: NavigationProps) => <Navigation {...props}>{children}</Navigation>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const DefaultWithChildren = {
+export const DefaultWithChildren: Story = {
   render: Template,
   args: {
     activeItem: "Item 1",
@@ -43,7 +47,7 @@ export const DefaultWithChildren = {
   },
 }
 
-export const WithValuesAndLabels = {
+export const WithValuesAndLabels: Story = {
   render: Template,
   args: {
     children: [
@@ -54,7 +58,7 @@ export const WithValuesAndLabels = {
   },
 }
 
-export const WithValuesLabelsAndChildren = {
+export const WithValuesLabelsAndChildren: Story = {
   render: Template,
   args: {
     children: [
@@ -71,7 +75,7 @@ export const WithValuesLabelsAndChildren = {
   },
 }
 
-export const ValuesOnly = {
+export const ValuesOnly: Story = {
   render: Template,
   args: {
     children: [
@@ -82,7 +86,7 @@ export const ValuesOnly = {
   },
 }
 
-export const WithActiveItemByValue = {
+export const WithActiveItemByValue: Story = {
   render: Template,
   args: {
     activeItem: "item-2",
@@ -94,8 +98,7 @@ export const WithActiveItemByValue = {
   },
 }
 
-// TODO:
-export const WithActiveItemByLabel = {
+export const WithActiveItemByLabel: Story = {
   render: Template,
   args: {
     activeItem: "Item 2",
@@ -107,8 +110,7 @@ export const WithActiveItemByLabel = {
   },
 }
 
-// TODO:
-export const WithActiveItemByChild = {
+export const WithActiveItemByChild: Story = {
   render: Template,
   args: {
     activeItem: "Item 2",
@@ -126,7 +128,7 @@ export const WithActiveItemByChild = {
   },
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   render: Template,
   args: {
     disabled: true,
@@ -140,7 +142,7 @@ export const Disabled = {
   },
 }
 
-export const ItemsAsLinks = {
+export const ItemsAsLinks: Story = {
   render: Template,
   args: {
     children: [

@@ -1,5 +1,29 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.17.3
+
+### Patch Changes
+
+- Updated dependencies [b693d90]
+  - @cloudoperators/juno-url-state-provider@3.0.3
+
+## 0.17.2
+
+### Patch Changes
+
+- Updated dependencies [5488568]
+- Updated dependencies [6ef7f8d]
+  - @cloudoperators/juno-ui-components@4.0.1
+  - @cloudoperators/juno-messages-provider@0.2.8
+
+## 0.17.1
+
+### Patch Changes
+
+- 7317372: Restore Firefox warning for allow_client_cert flag in Supernova
+- Updated dependencies [7317372]
+  - @cloudoperators/juno-messages-provider@0.2.7
+
 ## 0.17.0
 
 ### Minor Changes

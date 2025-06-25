@@ -7,6 +7,30 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query"
 import { QUERY_FUNCTIONS } from "../api/queryFunctions"
 import { useGlobalsApiEndpoint } from "../components/StoreProvider"
 
+export class CorsNetworkError extends Error {
+  constructor(originalError: Error) {
+    super(originalError.message)
+    this.name = "CorsNetworkError"
+    if (originalError.stack) {
+      this.stack = originalError.stack
+    }
+  }
+}
+
+function isFirefoxNetworkError(err: unknown): boolean {
+  if (!(err instanceof TypeError)) {
+    return false
+  }
+
+  const message = (err as Error).message || ""
+
+  if (navigator.userAgent.includes("Firefox") && message.includes("NetworkError")) {
+    return true
+  }
+
+  return false
+}
+
 export const useBoundQuery = <T>(key: keyof typeof QUERY_FUNCTIONS, { options }: any = {}): UseQueryResult<T> => {
   const endpoint = useGlobalsApiEndpoint()
   const fetchFunction = QUERY_FUNCTIONS[key]
@@ -16,7 +40,13 @@ export const useBoundQuery = <T>(key: keyof typeof QUERY_FUNCTIONS, { options }:
 
   return useQuery<T>({
     queryKey: [key],
-    queryFn: () => fetchFunction(endpoint) as Promise<T>, // Ensure fetch function returns T
+    queryFn: () =>
+      fetchFunction(endpoint).catch((err) => {
+        if (isFirefoxNetworkError(err)) {
+          throw new CorsNetworkError(err)
+        }
+        throw err
+      }),
     ...options,
   })
 }

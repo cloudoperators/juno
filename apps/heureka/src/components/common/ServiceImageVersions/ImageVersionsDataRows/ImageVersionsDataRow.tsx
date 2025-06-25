@@ -4,25 +4,25 @@
  */
 
 import React from "react"
-import { ServiceImageVersion } from "../../Services/utils"
+import { ServiceImageVersion } from "../../../Services/utils"
 import { DataGridRow, DataGridCell, Button, Icon, Stack } from "@cloudoperators/juno-ui-components"
-import { SeverityCount } from "../SeverityCount"
+import { SeverityCount } from "../../SeverityCount"
 
-type ServiceImageVersionsItemProps = {
+type ImageVersionsDataRowProps = {
   version: ServiceImageVersion
   selected: boolean
-  displayDetailsButton: boolean
+  displayDetailsButton?: boolean
   onItemClick: React.MouseEventHandler<HTMLDivElement>
   onDetailClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
 }
 
-const ServiceImageVersionsItem = ({
+export const ImageVersionsDataRow = ({
   version,
   selected = false,
   displayDetailsButton = true,
   onItemClick,
   onDetailClick,
-}: ServiceImageVersionsItemProps) => {
+}: ImageVersionsDataRowProps) => {
   return (
     <DataGridRow onClick={onItemClick} className={`cursor-pointer ${selected ? "active" : ""}`}>
       <DataGridCell className="service-image-versions-cell">
@@ -101,5 +101,3 @@ const ServiceImageVersionsItem = ({
     </DataGridRow>
   )
 }
-
-export default ServiceImageVersionsItem

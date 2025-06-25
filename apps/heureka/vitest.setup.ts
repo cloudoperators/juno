@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { beforeAll, afterEach, afterAll } from "vitest"
+import { beforeAll } from "vitest"
 import * as matchers from "@testing-library/jest-dom/matchers"
-import { server } from "./src/mocks/server"
 
 expect.extend(matchers)
 beforeAll(() => {
@@ -18,13 +17,4 @@ beforeAll(() => {
     unobserve: vi.fn(),
     disconnect: vi.fn(),
   }))
-
-  // Start msw server to intercept requests
-  server.listen({ onUnhandledRequest: "error" })
 })
-
-// Reset handlers after each test
-afterEach(() => server.resetHandlers())
-
-// Stop msw server
-afterAll(() => server.close())

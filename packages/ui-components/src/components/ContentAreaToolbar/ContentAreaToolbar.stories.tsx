@@ -4,12 +4,13 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Button } from "../Button/Button.component"
 import { ContentAreaToolbar } from "./ContentAreaToolbar.component"
 import { ContentAreaToolbarProps } from "./ContentAreaToolbar.component"
 
-export default {
+const meta: Meta<typeof ContentAreaToolbar> = {
   title: "Layout/ContentAreaToolbar",
   component: ContentAreaToolbar,
   argTypes: {
@@ -22,12 +23,13 @@ export default {
   },
 }
 
-const Template = (args: ContentAreaToolbarProps) => (
-  <ContentAreaToolbar {...args}>
-    <Button>Main Action</Button>
-  </ContentAreaToolbar>
-)
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Basic = {
-  render: Template,
+export const Basic: Story = {
+  render: (args: ContentAreaToolbarProps) => (
+    <ContentAreaToolbar {...args}>
+      <Button>Main Action</Button>
+    </ContentAreaToolbar>
+  ),
 }
