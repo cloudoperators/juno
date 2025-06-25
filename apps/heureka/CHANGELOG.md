@@ -1,5 +1,12 @@
 # heureka
 
+## 0.7.1
+
+### Patch Changes
+
+- def4143: Heureka static bundle now allows to change appProps.json URL based on the target environment.
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+
 ## 0.7.0
 
 ### Minor Changes
