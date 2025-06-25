@@ -5,15 +5,7 @@
 
 import React, { useCallback, useState } from "react"
 import { isEmpty } from "lodash"
-import {
-  Button,
-  InputGroup,
-  ComboBox,
-  ComboBoxOption,
-  SelectOption,
-  Select,
-  Stack,
-} from "@cloudoperators/juno-ui-components"
+import { InputGroup, ComboBox, ComboBoxOption, SelectOption, Select, Stack } from "@cloudoperators/juno-ui-components"
 import { Filter, SelectedFilter } from "./types"
 
 type FilterSelectProps = {
