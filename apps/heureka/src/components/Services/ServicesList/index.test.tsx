@@ -47,7 +47,7 @@ const renderComponent = () => {
 describe("ServicesList", () => {
   it("should render correctly", async () => {
     await act(() => renderComponent())
-    expect(screen.getByText("alpha")).toBeInTheDocument()
+    expect(await screen.findByText("alpha")).toBeInTheDocument()
   })
 
   it("should render service panel when clicking on a service", async () => {
@@ -61,7 +61,7 @@ describe("ServicesList", () => {
     expect(router.state.location.href).toBe("/services?service=alpha")
 
     // expect the service panel to be opened
-    expect(screen.getByText("Alpha Overview")).toBeInTheDocument()
+    expect(await screen.findByText("Alpha Overview")).toBeInTheDocument()
 
     // expect the image version to be displayed
     expect(await screen.findByText("repo1")).toBeInTheDocument()
