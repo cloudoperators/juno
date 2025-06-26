@@ -15,8 +15,11 @@ export type OptionValuesAndLabelsValue = {
  * Custom hook that processes ComboBox option children elements and extracts their
  * values, labels, and content into a structured Map for easy lookup and rendering.
  * Automatically updates when the children prop changes.
+ *
+ * @param children - Specifies it expects React children with ComboBoxOption components
+ * @returns - Explains the returned Map structure and its purpose for lookups
  */
-function useComboBoxMappedOptions(children: ReactNode) {
+function useComboBoxOptionMapping(children: ReactNode) {
   const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(
     new Map<OptionValuesAndLabelsKey, OptionValuesAndLabelsValue>()
   )
@@ -56,4 +59,4 @@ function useComboBoxMappedOptions(children: ReactNode) {
   }
 }
 
-export default useComboBoxMappedOptions
+export default useComboBoxOptionMapping

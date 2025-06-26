@@ -11,8 +11,12 @@ import { Icon } from "../Icon/index"
 import { Spinner } from "../Spinner/index"
 import { usePortalRef } from "../PortalProvider/index"
 import { createPortal } from "react-dom"
-import { ComboBoxOptionProps } from "../ComboBoxOption/ComboBoxOption.component"
-import { useComboBoxMappedOptions, OptionValuesAndLabelsKey, useComboBoxFloating } from "./hooks"
+import {
+  useComboBoxOptionMapping,
+  OptionValuesAndLabelsKey,
+  useComboBoxFloating,
+  useComboBoxOptionFiltering,
+} from "./hooks"
 
 const inputWrapperStyles = `
   jn:relative
@@ -134,13 +138,6 @@ export type ComboBoxContextType = {
 
 export const ComboBoxContext = createContext<ComboBoxContextType | undefined>(undefined)
 
-// Optimized option data interface for better performance
-interface OptimizedOptionData {
-  child: React.ReactElement<ComboBoxOptionProps>
-  searchText: string
-  key: string
-}
-
 export const ComboBox: React.FC<ComboBoxProps> = ({
   ariaLabel,
   children,
@@ -178,16 +175,18 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   const theId = id || "juno-combobox-" + useId()
   const helptextId = "juno-combobox-helptext-" + useId()
   const [isOpen, setIsOpen] = useState(false)
-
-  // Option mapping
-  const { optionValuesAndLabels } = useComboBoxMappedOptions(children)
-
-  // Floating UI management
-  const { x, y, strategy, refs, getReferenceProps, getFloatingProps } = useComboBoxFloating(isOpen, setIsOpen)
-
   const [query, setQuery] = useState("")
   const [selectedValue, setSelectedValue] = useState(value)
   const [hasFocus, setFocus] = useState(false)
+
+  // Option mapping
+  const { optionValuesAndLabels } = useComboBoxOptionMapping(children)
+
+  // Option filtering
+  const { filteredChildren } = useComboBoxOptionFiltering(children, query, debounceDelay)
+
+  // Floating UI management
+  const { x, y, strategy, refs, getReferenceProps, getFloatingProps } = useComboBoxFloating(isOpen, setIsOpen)
 
   const isInvalid = useMemo(() => invalid || Boolean(errortext && isNotEmptyString(errortext)), [invalid, errortext])
   const isValid = useMemo(() => valid || Boolean(successtext && isNotEmptyString(successtext)), [valid, successtext])
@@ -199,57 +198,6 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
     }),
     [selectedValue, truncateOptions]
   )
-
-  // Pre-process options once when children change
-  const processedOptions = useMemo(() => {
-    const options: OptimizedOptionData[] = []
-
-    React.Children.forEach(children, (child, index) => {
-      if (React.isValidElement<ComboBoxOptionProps>(child)) {
-        // Pre-compute the search text once instead of on every filter
-        const searchText = (
-          child.props.children?.toString() ||
-          child.props.label ||
-          child.props.value ||
-          ""
-        ).toLowerCase()
-
-        options.push({
-          child,
-          searchText,
-          key: child.key || `option-${index}`,
-        })
-      }
-    })
-
-    return options
-  }, [children])
-
-  // Debounced filtering to avoid excessive re-renders
-  const [debouncedQuery, setDebouncedQuery] = useState("")
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(query)
-    }, debounceDelay)
-
-    return () => clearTimeout(timer)
-  }, [query, debounceDelay])
-
-  // Memoized filtering with efficient string matching
-  const filteredOptions = useMemo(() => {
-    if (!debouncedQuery.trim()) {
-      return processedOptions
-    }
-
-    const normalizedQuery = debouncedQuery.toLowerCase()
-
-    // Use a more efficient filtering approach
-    return processedOptions.filter((option) => option.searchText.includes(normalizedQuery))
-  }, [processedOptions, debouncedQuery])
-
-  // Extract filtered children only when needed
-  const filteredChildren = useMemo(() => filteredOptions.map((option) => option.child), [filteredOptions])
 
   // Optimized change handlers
   const handleChange = useCallback(

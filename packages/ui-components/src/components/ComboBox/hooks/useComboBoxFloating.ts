@@ -20,6 +20,10 @@ export type ComboBoxFloatingReturn = Pick<UseFloatingReturn, "x" | "y" | "strate
 /**
  * Custom hook for ComboBox floating UI functionality.
  * Provides positioning, interaction handling, and responsive sizing for dropdown menus.
+ *
+ * @param isOpen - Explains it controls dropdown visibility state
+ * @param setIsOpen - Describes the state setter function's purpose
+ * @returns - Details what the returned object contains (positioning, refs, prop getters)
  */
 function useComboBoxFloating(
   isOpen: boolean,
