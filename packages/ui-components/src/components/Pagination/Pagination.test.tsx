@@ -88,30 +88,31 @@ describe("Pagination", () => {
   })
 
   test("renders a select variant Pagination as passed", async () => {
-    await waitFor(() =>
-      render(
-        <PortalProvider>
-          <Pagination variant="select" data-testid="my-pagination" />
-        </PortalProvider>
-      )
+    render(
+      <PortalProvider>
+        <Pagination variant="select" data-testid="my-pagination" />
+      </PortalProvider>
     )
 
-    expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
-    expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-select")
-    expect(screen.queryAllByRole("button")).toHaveLength(3)
-    expect(screen.queryAllByRole("textbox")).toHaveLength(0)
-    expect(document.querySelector("button.juno-select-toggle")).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
+      expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-select")
+      expect(screen.queryAllByRole("button")).toHaveLength(3)
+      expect(screen.queryAllByRole("textbox")).toHaveLength(0)
+      expect(document.querySelector("button.juno-select-toggle")).toBeInTheDocument()
+    })
   })
 
   test("renders Pagination (select) with currentPage higher than totalPages", async () => {
-    await waitFor(() =>
-      render(
-        <PortalProvider>
-          <Pagination variant="select" currentPage={12} totalPages={6} data-testid="my-pagination" />
-        </PortalProvider>
-      )
+    render(
+      <PortalProvider>
+        <Pagination variant="select" currentPage={12} totalPages={6} data-testid="my-pagination" />
+      </PortalProvider>
     )
-    expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
+
+    await waitFor(() => {
+      expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
+    })
   })
 
   test("renders an input variant Pagination as passed", () => {
