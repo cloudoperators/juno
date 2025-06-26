@@ -13,6 +13,7 @@ import styles from "./styles.css?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
+import { sanitizeSearchString } from "./utils"
 
 export type InitialFilters = {
   support_group?: string[]
@@ -60,7 +61,15 @@ const App = (props: AppProps) => {
     context: { appProps: props, apiClient, queryClient },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
     stringifySearch: encodeV2,
-    parseSearch: decodeV2,
+    parseSearch: (searchStr) =>
+      decodeV2(
+        /*
+         * TODO: remove this when the issue is fixed from greenhouse side
+         * Sanitize search params to remove "?org=SOME_ORG" part.
+         * Check function definition to see more details.
+         */
+        sanitizeSearchString(searchStr)
+      ),
   })
 
   return (

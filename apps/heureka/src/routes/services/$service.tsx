@@ -7,15 +7,10 @@ import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { Service } from "../../components/Service"
 import { LoaderWithCrumb } from "../-types"
-import { sanitizeSearchParam } from "../../utils"
-import { fetchImageVersions } from "../../api/fetchImageVersions"
 import { fetchService } from "../../api/fetchService"
 
 const serviceSearchSchema = z.object({
-  imageVersion: z
-    .string()
-    .transform((val) => sanitizeSearchParam(val))
-    .optional(),
+  imageVersion: z.string().optional(),
 })
 
 export const Route = createFileRoute("/services/$service")({

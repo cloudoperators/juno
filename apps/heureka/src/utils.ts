@@ -14,9 +14,9 @@ export const capitalizeFirstLetter = (str: string): string => {
  * that could be a bug in tanstack router when it parses query params from hash history
  * therefore this function removes the "?org=SOME_ORG" part from the query param as a workaround.
  */
-export const sanitizeSearchParam = (param?: string) => {
-  if (param && param.includes("?org=")) {
-    return param.split("?org=")[0]
+export const sanitizeSearchString = (str: string) => {
+  if (str && str.includes("?org=")) {
+    return str.split("?org=")[0]
   }
-  return param
+  return str
 }
