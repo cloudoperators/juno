@@ -65,6 +65,6 @@ const renderComponent = () => {
 describe("Services", () => {
   it("should render correctly", async () => {
     await act(async () => renderComponent())
-    expect(screen.getByText("alpha")).toBeInTheDocument()
+    expect(await screen.findByText("alpha")).toBeInTheDocument()
   })
 })
