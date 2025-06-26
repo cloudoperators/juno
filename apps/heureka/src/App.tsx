@@ -13,7 +13,6 @@ import styles from "./styles.css?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
-import { sanitizeSearchString } from "./utils"
 
 export type InitialFilters = {
   support_group?: string[]
@@ -61,15 +60,26 @@ const App = (props: AppProps) => {
     context: { appProps: props, apiClient, queryClient },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
     stringifySearch: encodeV2,
-    parseSearch: (searchStr) =>
-      decodeV2(
-        /*
-         * TODO: remove this when the issue is fixed from greenhouse side
-         * Sanitize search params to remove "?org=SOME_ORG" part.
-         * Check function definition to see more details.
-         */
-        sanitizeSearchString(searchStr)
-      ),
+    parseSearch: (searchString) => {
+      if (!props.enableHashedRouting) {
+        return decodeV2(searchString)
+      }
+
+      /*
+       * In case of hashed routing Tanstack router returns URL search params of the entire URL rather than just from the hashed part.
+       * We'll have to extract the query part from the hash because otherwise in embedded mode the app will be taking search params from the shell app as well.
+       * Sanitize the search string to avoid leaking shell app params.
+       */
+      const hash = window.location.hash
+      const queryIndex = hash.indexOf("?")
+      if (queryIndex !== -1) {
+        const queryString = hash.substring(queryIndex)
+        return decodeV2(queryString)
+      }
+
+      // If no query part is found, return an empty object
+      return {}
+    },
   })
 
   return (
