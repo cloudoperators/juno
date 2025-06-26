@@ -145,6 +145,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   ariaLabel,
   children,
   className = "",
+  debounceDelay = 150,
   defaultValue = "",
   disabled = false,
   error: hasError = false,
@@ -230,10 +231,10 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedQuery(query)
-    }, 150) // 150ms debounce - adjust based on your needs
+    }, debounceDelay)
 
     return () => clearTimeout(timer)
-  }, [query])
+  }, [query, debounceDelay])
 
   // Memoized filtering with efficient string matching
   const filteredOptions = useMemo(() => {
@@ -460,7 +461,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                       }}
                       {...getFloatingProps()}
                     >
-                      <ComboboxOptions static className="jn:w-full">
+                      <ComboboxOptions static className="jn-w-full">
                         {filteredChildren}
                       </ComboboxOptions>
                     </div>,
@@ -483,6 +484,8 @@ export type ComboBoxWidth = "full" | "auto"
 export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children"> {
   /** The aria-label of the ComboBox. Defaults to the label if label was passed. */
   ariaLabel?: string
+  /** Debounce delay in milliseconds for filtering. Defaults to 150ms. Set to 0 to disable debouncing. */
+  debounceDelay?: number
   /** The children to Render. Use `ComboBox.Option` elements. */
   children?: ReactNode
   /** A custom className. Will be passed to the internal text input element of the ComboBox */

@@ -42,7 +42,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox />
+          {/* Disable debounce for testing */}
+          <ComboBox debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -55,7 +56,7 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox name="my-wonderful-combobox">
+          <ComboBox name="my-wonderful-combobox" debounceDelay={0}>
             <ComboBoxOption value="Option 1">Option 1</ComboBoxOption>
           </ComboBox>
         </AppShellProvider>
@@ -72,7 +73,7 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox label="My Label" />
+          <ComboBox label="My Label" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -84,7 +85,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox>
+          {/* Disable debounce for testing */}
+          <ComboBox debounceDelay={0}>
             <ComboBoxOption value="Option 1">Option 1</ComboBoxOption>
           </ComboBox>
         </AppShellProvider>
@@ -107,7 +109,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox id="My Id" />
+          {/* Disable debounce for testing */}
+          <ComboBox id="My Id" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -119,7 +122,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox label="the label" />
+          {/* Disable debounce for testing */}
+          <ComboBox label="the label" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -135,7 +139,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox ariaLabel="my aria-label" />
+          {/* Disable debounce for testing */}
+          <ComboBox ariaLabel="my aria-label" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -147,7 +152,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox label="My Label" />
+          {/* Disable debounce for testing */}
+          <ComboBox label="My Label" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -159,7 +165,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox placeholder="My Placeholder" />
+          {/* Disable debounce for testing */}
+          <ComboBox placeholder="My Placeholder" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -171,7 +178,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox disabled />
+          {/* Disable debounce for testing */}
+          <ComboBox disabled debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -183,7 +191,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox label="My Required ComboBox" required />
+          {/* Disable debounce for testing */}
+          <ComboBox label="My Required ComboBox" required debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -195,7 +204,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox valid />
+          {/* Disable debounce for testing */}
+          <ComboBox valid debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -208,7 +218,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox successtext="Great Success!" />
+          {/* Disable debounce for testing */}
+          <ComboBox successtext="Great Success!" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -221,7 +232,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox invalid />
+          {/* Disable debounce for testing */}
+          <ComboBox invalid debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -234,7 +246,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox errortext="Oh Snap!" />
+          {/* Disable debounce for testing */}
+          <ComboBox errortext="Oh Snap!" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -247,7 +260,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox helptext="A helptext goes here" />
+          {/* Disable debounce for testing */}
+          <ComboBox helptext="A helptext goes here" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -260,7 +274,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox errortext="An errortext goes here" />
+          {/* Disable debounce for testing */}
+          <ComboBox errortext="An errortext goes here" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -273,7 +288,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox successtext="A successtext goes here" />
+          {/* Disable debounce for testing */}
+          <ComboBox successtext="A successtext goes here" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -286,7 +302,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox loading />
+          {/* Disable debounce for testing */}
+          <ComboBox loading debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -298,7 +315,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox error />
+          {/* Disable debounce for testing */}
+          <ComboBox error debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -310,7 +328,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox onBlur={mockOnBlur} />
+          {/* Disable debounce for testing */}
+          <ComboBox onBlur={mockOnBlur} debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -327,7 +346,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox onChange={mockOnChange}>
+          {/* Disable debounce for testing */}
+          <ComboBox onChange={mockOnChange} debounceDelay={0}>
             <ComboBoxOption value="option 1">Option 1</ComboBoxOption>
             <ComboBoxOption value="option 2">Option 2</ComboBoxOption>
           </ComboBox>
@@ -351,7 +371,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox onFocus={mockOnFocus} />
+          {/* Disable debounce for testing */}
+          <ComboBox onFocus={mockOnFocus} debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -367,7 +388,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox onInputChange={mockOnInputChange}>
+          {/* Disable debounce for testing */}
+          <ComboBox onInputChange={mockOnInputChange} debounceDelay={0}>
             <ComboBoxOption value="something">Something</ComboBoxOption>
             <ComboBoxOption value="something else">Something else</ComboBoxOption>
           </ComboBox>
@@ -386,7 +408,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox>
+          <ComboBox debounceDelay={0}>
+            {/* Disable debounce for testing */}
             <ComboBoxOption value="aaa" name="aaa">
               aaa
             </ComboBoxOption>
@@ -403,70 +426,43 @@ describe("ComboBox", () => {
         </AppShellProvider>
       )
     )
+
     const user = await waitFor(() => userEvent.setup())
     const cbox = screen.getByRole("combobox")
     expect(cbox).toBeInTheDocument()
 
-    // Type "a" and wait for debounce
     await waitFor(() => user.type(cbox, "a"))
+    expect(screen.getByRole("listbox")).toBeInTheDocument()
+    expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
+    expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
+    expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
 
-    // Wait for debounce delay (150ms + small buffer)
-    await waitFor(
-      () => {
-        expect(screen.getByRole("listbox")).toBeInTheDocument()
-        expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
-        expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
-        expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-        expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
-      },
-      { timeout: 300 } // 300ms timeout to account for 150ms debounce + buffer
-    )
-
-    // Type "b" (this will make the input "ab") and wait for debounce
     await waitFor(() => user.type(cbox, "b"))
+    expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
+    expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
+    expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
 
-    await waitFor(
-      () => {
-        expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
-        expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
-        expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-        expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
-      },
-      { timeout: 300 }
-    )
-
-    // Clear the input and wait for debounce
     await waitFor(() => user.clear(cbox))
+    expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
+    expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
+    expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
+    expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
 
-    await waitFor(
-      () => {
-        expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
-        expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
-        expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-        expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
-      },
-      { timeout: 300 }
-    )
-
-    // Type "1" and wait for debounce
     await waitFor(() => user.type(cbox, "1"))
-
-    await waitFor(
-      () => {
-        expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
-        expect(screen.queryByRole("option", { name: "aab" })).not.toBeInTheDocument()
-        expect(screen.queryByRole("option", { name: "abc" })).not.toBeInTheDocument()
-        expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
-      },
-      { timeout: 300 }
-    )
+    expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "aab" })).not.toBeInTheDocument()
+    expect(screen.queryByRole("option", { name: "abc" })).not.toBeInTheDocument()
+    expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
   })
 
   test("selects an option when the user clicks it and closes the menu", async () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox>
+          {/* Disable debounce for testing */}
+          <ComboBox debounceDelay={0}>
             <ComboBoxOption value="aaa" name="aaa">
               aaa
             </ComboBoxOption>
@@ -503,7 +499,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox value="aab">
+          {/* Disable debounce for testing */}
+          <ComboBox value="aab" debounceDelay={0}>
             <ComboBoxOption value="aaa" name="aaa">
               aaa
             </ComboBoxOption>
@@ -539,7 +536,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox defaultValue="abc">
+          {/* Disable debounce for testing */}
+          <ComboBox defaultValue="abc" debounceDelay={0}>
             <ComboBoxOption>aaa</ComboBoxOption>
             <ComboBoxOption>aab</ComboBoxOption>
             <ComboBoxOption>abc</ComboBoxOption>
@@ -569,7 +567,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox defaultValue="option 1" value="option 2">
+          {/* Disable debounce for testing */}
+          <ComboBox defaultValue="option 1" value="option 2" debounceDelay={0}>
             <ComboBoxOption value="option 1" />
             <ComboBoxOption value="option 2" />
           </ComboBox>
@@ -582,7 +581,8 @@ describe("ComboBox", () => {
   })
 
   test("renders a wrapperClassName to the outer wrapping <div> element", () => {
-    render(<ComboBox wrapperClassName="my-wrapper-class" />)
+    // Disable debounce for testing
+    render(<ComboBox wrapperClassName="my-wrapper-class" debounceDelay={0} />)
     expect(document.querySelector(".juno-combobox-wrapper")).toBeInTheDocument()
     expect(document.querySelector(".juno-combobox-wrapper")).toHaveClass("my-wrapper-class")
   })
@@ -591,7 +591,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox className="my-combobox" />
+          {/* Disable debounce for testing */}
+          <ComboBox className="my-combobox" debounceDelay={0} />
         </AppShellProvider>
       )
     )
@@ -606,7 +607,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox data-lolo="1234" />
+          {/* Disable debounce for testing */}
+          <ComboBox data-lolo="1234" debounceDelay={0} />
         </AppShellProvider>
       )
     )
