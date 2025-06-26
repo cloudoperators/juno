@@ -56,14 +56,14 @@ describe("ServicePanel", () => {
   it("should render correctly", async () => {
     await act(() => renderComponent())
     // expect that the panel has correct service name in the heading
-    expect(screen.getByText("Alpha Overview")).toBeInTheDocument()
+    expect(await screen.findByText("Alpha Overview")).toBeInTheDocument()
     // expect that the image version is displayed
     expect(await screen.findByText("repo1")).toBeInTheDocument()
   })
 
   it("should navigate to service details with no image version selected", async () => {
     const { user, router } = await act(() => renderComponent())
-    await user.click(screen.getByText("Full Details"))
+    await user.click(await screen.findByText("Full Details"))
     expect(router.state.location.href).toBe("/services/alpha")
   })
 
