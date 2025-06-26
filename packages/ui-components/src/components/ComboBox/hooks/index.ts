@@ -7,3 +7,5 @@ export {
 export { default as useComboBoxFloating, type ComboBoxFloatingReturn } from "./useComboBoxFloating"
 
 export { default as useComboBoxOptionFiltering } from "./useComboBoxOptionFiltering"
+
+export { default as useComboBoxState } from "./useComboBoxState"

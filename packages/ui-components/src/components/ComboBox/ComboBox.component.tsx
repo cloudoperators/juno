@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useId, useMemo, createContext, ReactNode, useCallback } from "react"
+import React, { useEffect, useId, useMemo, createContext, ReactNode, useCallback } from "react"
 import { Combobox, ComboboxInput, ComboboxOptions, ComboboxButton } from "@headlessui/react"
 import { Label } from "../Label/index"
 import { FormHint } from "../FormHint/index"
@@ -12,11 +12,13 @@ import { Spinner } from "../Spinner/index"
 import { usePortalRef } from "../PortalProvider/index"
 import { createPortal } from "react-dom"
 import {
-  useComboBoxOptionMapping,
   OptionValuesAndLabelsKey,
+  useComboBoxOptionMapping,
+  useComboBoxState,
   useComboBoxFloating,
   useComboBoxOptionFiltering,
 } from "./hooks"
+import { isNotEmptyString, safeToString } from "./utils"
 
 const inputWrapperStyles = `
   jn:relative
@@ -168,16 +170,22 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const isNotEmptyString = (str: ReactNode) => {
-    return !(typeof str === "string" && str.trim().length === 0)
-  }
-
   const theId = id || "juno-combobox-" + useId()
   const helptextId = "juno-combobox-helptext-" + useId()
-  const [isOpen, setIsOpen] = useState(false)
-  const [query, setQuery] = useState("")
-  const [selectedValue, setSelectedValue] = useState(value)
-  const [hasFocus, setFocus] = useState(false)
+
+  // State management
+  const {
+    isOpen,
+    setIsOpen,
+    query,
+    setQuery,
+    hasFocus,
+    setFocus,
+    selectedValue,
+    setSelectedValue,
+    isInvalid,
+    isValid,
+  } = useComboBoxState(value, errortext, successtext, invalid, valid)
 
   // Option mapping
   const { optionValuesAndLabels } = useComboBoxOptionMapping(children)
@@ -187,9 +195,6 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   // Floating UI management
   const { x, y, strategy, refs, getReferenceProps, getFloatingProps } = useComboBoxFloating(isOpen, setIsOpen)
-
-  const isInvalid = useMemo(() => invalid || Boolean(errortext && isNotEmptyString(errortext)), [invalid, errortext])
-  const isValid = useMemo(() => valid || Boolean(successtext && isNotEmptyString(successtext)), [valid, successtext])
 
   const contextValue = useMemo(
     () => ({
@@ -252,19 +257,6 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   // Memoized display value calculation
   const displayValue = useCallback(
     (val: ReactNode) => {
-      // Helper function to safely convert values to string
-      const safeToString = (value: any): string => {
-        if (value === null || value === undefined) {
-          return ""
-        }
-
-        if (typeof value === "object") {
-          return String(value) !== "[object Object]" ? String(value) : ""
-        }
-
-        return String(value)
-      }
-
       const option = optionValuesAndLabels.get(val)
       return (
         (option?.children && safeToString(option.children)) || option?.label || valueLabel || safeToString(val) || ""
