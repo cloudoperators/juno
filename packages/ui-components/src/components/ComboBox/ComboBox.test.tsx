@@ -407,30 +407,59 @@ describe("ComboBox", () => {
     const cbox = screen.getByRole("combobox")
     expect(cbox).toBeInTheDocument()
 
+    // Type "a" and wait for debounce
     await waitFor(() => user.type(cbox, "a"))
-    expect(screen.getByRole("listbox")).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-    expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
 
+    // Wait for debounce delay (150ms + small buffer)
+    await waitFor(
+      () => {
+        expect(screen.getByRole("listbox")).toBeInTheDocument()
+        expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
+        expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
+        expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
+        expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
+      },
+      { timeout: 300 } // 300ms timeout to account for 150ms debounce + buffer
+    )
+
+    // Type "b" (this will make the input "ab") and wait for debounce
     await waitFor(() => user.type(cbox, "b"))
-    expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-    expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
 
+    await waitFor(
+      () => {
+        expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
+        expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
+        expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
+        expect(screen.queryByRole("option", { name: "123" })).not.toBeInTheDocument()
+      },
+      { timeout: 300 }
+    )
+
+    // Clear the input and wait for debounce
     await waitFor(() => user.clear(cbox))
-    expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
 
+    await waitFor(
+      () => {
+        expect(screen.getByRole("option", { name: "aaa" })).toBeInTheDocument()
+        expect(screen.getByRole("option", { name: "aab" })).toBeInTheDocument()
+        expect(screen.getByRole("option", { name: "abc" })).toBeInTheDocument()
+        expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
+      },
+      { timeout: 300 }
+    )
+
+    // Type "1" and wait for debounce
     await waitFor(() => user.type(cbox, "1"))
-    expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
-    expect(screen.queryByRole("option", { name: "aab" })).not.toBeInTheDocument()
-    expect(screen.queryByRole("option", { name: "abc" })).not.toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
+
+    await waitFor(
+      () => {
+        expect(screen.queryByRole("option", { name: "aaa" })).not.toBeInTheDocument()
+        expect(screen.queryByRole("option", { name: "aab" })).not.toBeInTheDocument()
+        expect(screen.queryByRole("option", { name: "abc" })).not.toBeInTheDocument()
+        expect(screen.getByRole("option", { name: "123" })).toBeInTheDocument()
+      },
+      { timeout: 300 }
+    )
   })
 
   test("selects an option when the user clicks it and closes the menu", async () => {

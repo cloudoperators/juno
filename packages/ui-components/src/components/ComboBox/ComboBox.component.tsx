@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useId, useMemo, createContext, ReactNode } from "react"
+import React, { useState, useEffect, useId, useMemo, createContext, ReactNode, useCallback } from "react"
 import { Combobox, ComboboxInput, ComboboxOptions, ComboboxButton } from "@headlessui/react"
 import { Label } from "../Label/index"
 import { FormHint } from "../FormHint/index"
@@ -134,6 +134,13 @@ export type ComboBoxContextType = {
 
 export const ComboBoxContext = createContext<ComboBoxContextType | undefined>(undefined)
 
+// Optimized option data interface for better performance
+interface OptimizedOptionData {
+  child: React.ReactElement<ComboBoxOptionProps>
+  searchText: string
+  key: string
+}
+
 export const ComboBox: React.FC<ComboBoxProps> = ({
   ariaLabel,
   children,
@@ -192,73 +199,130 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
     [selectedValue, truncateOptions]
   )
 
-  const handleChange = (value: string) => {
-    setSelectedValue(value)
+  // Pre-process options once when children change
+  const processedOptions = useMemo(() => {
+    const options: OptimizedOptionData[] = []
 
-    if (value) {
+    React.Children.forEach(children, (child, index) => {
+      if (React.isValidElement<ComboBoxOptionProps>(child)) {
+        // Pre-compute the search text once instead of on every filter
+        const searchText = (
+          child.props.children?.toString() ||
+          child.props.label ||
+          child.props.value ||
+          ""
+        ).toLowerCase()
+
+        options.push({
+          child,
+          searchText,
+          key: child.key || `option-${index}`,
+        })
+      }
+    })
+
+    return options
+  }, [children])
+
+  // Debounced filtering to avoid excessive re-renders
+  const [debouncedQuery, setDebouncedQuery] = useState("")
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query)
+    }, 150) // 150ms debounce - adjust based on your needs
+
+    return () => clearTimeout(timer)
+  }, [query])
+
+  // Memoized filtering with efficient string matching
+  const filteredOptions = useMemo(() => {
+    if (!debouncedQuery.trim()) {
+      return processedOptions
+    }
+
+    const normalizedQuery = debouncedQuery.toLowerCase()
+
+    // Use a more efficient filtering approach
+    return processedOptions.filter((option) => option.searchText.includes(normalizedQuery))
+  }, [processedOptions, debouncedQuery])
+
+  // Extract filtered children only when needed
+  const filteredChildren = useMemo(() => filteredOptions.map((option) => option.child), [filteredOptions])
+
+  // Optimized change handlers
+  const handleChange = useCallback(
+    (value: string) => {
+      setSelectedValue(value)
+
+      if (value) {
+        setIsOpen(false)
+      }
+
+      onChange?.(value)
+    },
+    [onChange]
+  )
+
+  const handleInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newQuery = event?.target?.value || ""
+      setQuery(newQuery)
+
+      // Only trigger onInputChange if it exists
+      onInputChange?.(event)
+    },
+    [onInputChange]
+  )
+
+  const handleFocus = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      setFocus(true)
+
+      if (!isOpen) {
+        setIsOpen(true)
+      }
+
+      onFocus?.(event)
+    },
+    [isOpen, onFocus]
+  )
+
+  const handleBlur = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      setFocus(false)
       setIsOpen(false)
-    }
 
-    onChange && onChange(value)
-  }
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event?.target?.value)
-    onInputChange && onInputChange(event)
-  }
-
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    setFocus(true)
-
-    if (!isOpen) {
-      setIsOpen(true)
-    }
-    // TODO: TypeError: Converting circular structure to JSON
-    onFocus && onFocus(event)
-  }
-
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    setFocus(false)
-    setIsOpen(false)
-    // TODO: TypeError: Converting circular structure to JSON
-    onBlur && onBlur(event)
-  }
+      onBlur?.(event)
+    },
+    [onBlur]
+  )
 
   const portalContainerRef = usePortalRef()
 
-  const filteredChildren =
-    query === ""
-      ? React.Children.toArray(children)
-      : React.Children.toArray(children).filter((child) => {
-          if (React.isValidElement<ComboBoxOptionProps>(child)) {
-            // ensure that we filter on the value that is displayed to the user. Apply the same logic as when rendering
-            // the options, i.e. match children if present, if not match label, lastly if neither label nor children exist, then check value
-            const optionDisplayValue = child.props.children?.toString() || child.props.label || child.props.value
-            return optionDisplayValue?.toLowerCase().includes(query.toLowerCase())
-          } else {
-            return false
-          }
-        })
+  // Memoized display value calculation
+  const displayValue = useCallback(
+    (val: ReactNode) => {
+      // Helper function to safely convert values to string
+      const safeToString = (value: any): string => {
+        if (value === null || value === undefined) {
+          return ""
+        }
 
-  const displayValue = (val: ReactNode) => {
-    // Helper function to safely convert values to string
-    const safeToString = (value: any): string => {
-      if (value === null || value === undefined) {
-        return ""
+        if (typeof value === "object") {
+          return String(value) !== "[object Object]" ? String(value) : ""
+        }
+
+        return String(value)
       }
 
-      if (typeof value === "object") {
-        // For React elements or complex objects, use a more descriptive string
-        return String(value) !== "[object Object]" ? String(value) : ""
-      }
-
-      return String(value)
-    }
-
-    const option = optionValuesAndLabels.get(val)
-
-    return (option?.children && safeToString(option.children)) || option?.label || valueLabel || safeToString(val) || ""
-  }
+      const option = optionValuesAndLabels.get(val)
+      return (
+        (option?.children && safeToString(option.children)) || option?.label || valueLabel || safeToString(val) || ""
+      )
+    },
+    [optionValuesAndLabels, valueLabel]
+  )
 
   return (
     <ComboBoxContext.Provider value={contextValue}>
@@ -325,7 +389,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                     onChange={handleInputChange}
                     onFocus={handleFocus}
                     placeholder={!isLoading && !hasError ? placeholder : ""}
-                    displayValue={(val) => displayValue(val)} // Headless-UI expects a callback here
+                    displayValue={displayValue}
                     className={`
                       juno-combobox-input 
                       ${inputStyles} 
