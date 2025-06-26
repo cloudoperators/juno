@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Fragment, useContext } from "react"
+import React, { Fragment } from "react"
 import { ComboboxOption } from "@headlessui/react"
-import { ComboBoxContext } from "../ComboBox/ComboBox.component"
+import { useComboBoxContext } from "../ComboBox/context"
 import { Icon } from "../Icon/Icon.component"
 
 const optionStyles = `
@@ -57,7 +57,7 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   className = "",
   ...props
 }) => {
-  const comboBoxContext = useContext(ComboBoxContext)
+  const comboBoxContext = useComboBoxContext()
   const { selectedValue, truncateOptions } = comboBoxContext || {}
 
   const theValue = value || children

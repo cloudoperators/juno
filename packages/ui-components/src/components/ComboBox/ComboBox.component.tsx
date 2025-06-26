@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useId, useMemo, createContext, ReactNode, useCallback } from "react"
+import React, { useEffect, useId, ReactNode, useCallback } from "react"
 import { Combobox, ComboboxInput, ComboboxOptions, ComboboxButton } from "@headlessui/react"
 import { Label } from "../Label/index"
 import { FormHint } from "../FormHint/index"
@@ -19,6 +19,7 @@ import {
   useComboBoxOptionFiltering,
 } from "./hooks"
 import { isNotEmptyString, safeToString } from "./utils"
+import { ComboBoxProvider, useComboBoxContextValue } from "./context"
 
 const inputWrapperStyles = `
   jn:relative
@@ -133,13 +134,6 @@ const centeredIconStyles = `
   jn:translate-x-[-0.75rem]
 `
 
-export type ComboBoxContextType = {
-  selectedValue?: string
-  truncateOptions: boolean
-}
-
-export const ComboBoxContext = createContext<ComboBoxContextType | undefined>(undefined)
-
 export const ComboBox: React.FC<ComboBoxProps> = ({
   ariaLabel,
   children,
@@ -196,13 +190,8 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   // Floating UI management
   const { x, y, strategy, refs, getReferenceProps, getFloatingProps } = useComboBoxFloating(isOpen, setIsOpen)
 
-  const contextValue = useMemo(
-    () => ({
-      selectedValue,
-      truncateOptions,
-    }),
-    [selectedValue, truncateOptions]
-  )
+  // Context value creation
+  const contextValue = useComboBoxContextValue(selectedValue, truncateOptions)
 
   // Optimized change handlers
   const handleChange = useCallback(
@@ -266,7 +255,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   )
 
   return (
-    <ComboBoxContext.Provider value={contextValue}>
+    <ComboBoxProvider value={contextValue}>
       <div
         className={`
           juno-combobox-wrapper
@@ -416,7 +405,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
         {successtext && isNotEmptyString(successtext) ? <FormHint text={successtext} variant="success" /> : ""}
         {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} id={helptextId} /> : ""}
       </div>
-    </ComboBoxContext.Provider>
+    </ComboBoxProvider>
   )
 }
 
