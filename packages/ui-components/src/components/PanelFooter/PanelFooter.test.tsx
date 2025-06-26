@@ -20,7 +20,7 @@ describe("PanelFooter component tests", () => {
     test("renders a panel footer with flex layout", () => {
       render(<PanelFooter data-testid="panel-footer" />)
       expect(screen.getByTestId("panel-footer")).toBeInTheDocument()
-      expect(screen.getByTestId("panel-footer")).toHaveClass("jn-flex")
+      expect(screen.getByTestId("panel-footer")).toHaveClass("jn:flex")
     })
 
     test("renders without any props", () => {
@@ -46,7 +46,7 @@ describe("PanelFooter component tests", () => {
     test("applies default styles", () => {
       const { container } = render(<PanelFooter />)
       expect(container.firstChild).toHaveClass("juno-panel-footer")
-      expect(container.firstChild).toHaveClass("jn-flex")
+      expect(container.firstChild).toHaveClass("jn:flex")
     })
   })
 

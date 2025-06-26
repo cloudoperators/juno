@@ -63,8 +63,8 @@ const StyledToggleButton = React.forwardRef<HTMLButtonElement, ButtonProps>((pro
   const { className, ...rest } = props
 
   const openStyles = `
-    jn-bg-theme-accent
-    jn-text-theme-highest
+    jn:bg-theme-accent
+    jn:text-theme-highest
   `
 
   return (

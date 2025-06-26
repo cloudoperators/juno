@@ -7,7 +7,7 @@ import * as React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { SecretText } from "./index"
-import { act } from "react-dom/test-utils"
+
 const mockOnChange = vi.fn()
 const mockOnClear = vi.fn()
 const mockOnCopy = vi.fn()
@@ -231,7 +231,7 @@ describe("SecretText", () => {
     const secretTextarea = screen.getByRole<HTMLTextAreaElement>("textbox")
     const clearButton = screen.getByRole("button", { name: "Clear" })
     expect(secretTextarea.value).toBe("some secret text")
-    await act(async () => user.click(clearButton))
+    await user.click(clearButton)
     expect(secretTextarea.value).toBe("")
   })
 
@@ -240,7 +240,7 @@ describe("SecretText", () => {
     const user = userEvent.setup()
     const toggle = screen.getByRole("button", { name: "Reveal" })
     expect(document.querySelector(".juno-secret-cover")).toBeInTheDocument()
-    await act(async () => user.click(toggle))
+    await user.click(toggle)
     expect(document.querySelector(".juno-secret-cover")).not.toBeInTheDocument()
   })
 
@@ -248,7 +248,7 @@ describe("SecretText", () => {
     const user = userEvent.setup()
     render(<SecretText value="some secret text" />)
     const copyButton = screen.getByRole("button", { name: "Copy" })
-    await act(async () => user.click(copyButton))
+    await user.click(copyButton)
     const textInClipboard = await navigator.clipboard.readText()
     expect(textInClipboard).toBe("some secret text")
   })
@@ -259,7 +259,7 @@ describe("SecretText", () => {
     render(<SecretText />)
     const pasteButton = screen.getByRole("button", { name: "Paste" })
     const secretTextarea = screen.getByRole<HTMLTextAreaElement>("textbox")
-    await act(async () => user.click(pasteButton))
+    await user.click(pasteButton)
     await waitFor(() => {
       expect(secretTextarea.value).toBe("text in clipboard")
     })
@@ -269,7 +269,7 @@ describe("SecretText", () => {
     render(<SecretText reveal />)
     const user = userEvent.setup()
     const textarea = screen.getByRole<HTMLTextAreaElement>("textbox")
-    await act(async () => user.type(textarea, "some nice text here"))
+    await user.type(textarea, "some nice text here")
     expect(textarea.value).toBe("some nice text here")
   })
 
@@ -283,7 +283,7 @@ describe("SecretText", () => {
     render(<SecretText value="abc" readOnly />)
     const user = userEvent.setup()
     const textarea = screen.getByRole<HTMLTextAreaElement>("textbox")
-    await act(async () => user.type(textarea, "some nice text here"))
+    await user.type(textarea, "some nice text here")
     expect(textarea.value).toBe("abc")
   })
 
@@ -291,7 +291,7 @@ describe("SecretText", () => {
     render(<SecretText reveal onChange={mockOnChange} />)
     const user = userEvent.setup()
     const textarea = screen.getByRole("textbox")
-    await act(async () => user.type(textarea, "a"))
+    await user.type(textarea, "a")
     expect(mockOnChange).toHaveBeenCalled()
   })
 
@@ -299,7 +299,7 @@ describe("SecretText", () => {
     render(<SecretText value="some secret text" onClear={mockOnClear} />)
     const user = userEvent.setup()
     const clearButton = screen.getByRole("button", { name: "Clear" })
-    await act(async () => user.click(clearButton))
+    await user.click(clearButton)
     expect(mockOnClear).toHaveBeenCalled()
   })
 
@@ -307,7 +307,7 @@ describe("SecretText", () => {
     render(<SecretText value="some secret text" onCopy={mockOnCopy} />)
     const user = userEvent.setup()
     const copyButton = screen.getByRole("button", { name: "Copy" })
-    await act(async () => user.click(copyButton))
+    await user.click(copyButton)
     expect(mockOnCopy).toHaveBeenCalled()
   })
 
@@ -316,7 +316,7 @@ describe("SecretText", () => {
     await navigator.clipboard.writeText("text in clipboard")
     render(<SecretText onPaste={mockOnPaste} />)
     const pasteButton = screen.getByRole("button", { name: "Paste" })
-    await act(async () => user.click(pasteButton))
+    await user.click(pasteButton)
     await waitFor(() => {
       expect(mockOnPaste).toHaveBeenCalled()
     })
@@ -326,7 +326,7 @@ describe("SecretText", () => {
     render(<SecretText value="some secret text" onReveal={mockOnReveal} />)
     const user = userEvent.setup()
     const toggleButton = screen.getByRole("button", { name: "Reveal" })
-    await act(async () => user.click(toggleButton))
+    await user.click(toggleButton)
     expect(mockOnReveal).toHaveBeenCalled()
   })
 
@@ -334,7 +334,7 @@ describe("SecretText", () => {
     render(<SecretText value="some secret text" onHide={mockOnHide} reveal />)
     const user = userEvent.setup()
     const toggleButton = screen.getByRole("button", { name: "Hide" })
-    await act(async () => user.click(toggleButton))
+    await user.click(toggleButton)
     expect(mockOnHide).toHaveBeenCalled()
   })
 
@@ -343,10 +343,10 @@ describe("SecretText", () => {
     const user = userEvent.setup()
     const toggleButton = screen.getByRole("button", { name: "Reveal" })
     // reveal the secret
-    await act(async () => user.click(toggleButton))
+    await user.click(toggleButton)
     expect(mockOnToggle).toHaveBeenCalled()
     // hide the secret again
-    await act(async () => user.click(toggleButton))
+    await user.click(toggleButton)
     expect(mockOnToggle).toHaveBeenCalled()
   })
 

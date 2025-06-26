@@ -207,7 +207,7 @@ const Toolbar: React.FC = () => {
       </span>
 
       <SearchInput
-        className="jn-me-1"
+        className="jn:me-1"
         style={{
           backgroundColor: colors.toolbar.background,
           color: colors.toolbar.foreground,

@@ -6,9 +6,9 @@
 import React from "react"
 
 const containerStyles = `
-  jn-flex
-  jn-flex-col
-  jn-h-full
+  jn:flex
+  jn:flex-col
+  jn:h-full
 `
 
 /**

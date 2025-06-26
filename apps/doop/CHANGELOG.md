@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-doop
 
+## 2.4.4
+
+### Patch Changes
+
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+
 ## 2.4.3
 
 ### Patch Changes
