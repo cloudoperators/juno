@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.8
+
+### Patch Changes
+
+- 4dedb33: Upgrade to tailwind 4.0 and related changes
+- Updated dependencies [01245c8]
+- Updated dependencies [4dedb33]
+  - @cloudoperators/juno-ui-components@5.0.0
+
 ## 2.0.7
 
 ### Patch Changes
