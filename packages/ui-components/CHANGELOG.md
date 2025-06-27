@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 5.0.1
+
+### Patch Changes
+
+- 8d344a6: Fix the rest of unit test errors
+
 ## 5.0.0
 
 ### Major Changes

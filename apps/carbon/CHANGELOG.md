@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-carbon
 
+## 1.0.10
+
+### Patch Changes
+
+- 2da3003: - Update typescript version to the latest v.5.8.3
+  - Update typescript definitions for node
+- Updated dependencies [8d344a6]
+  - @cloudoperators/juno-ui-components@5.0.1
+
 ## 1.0.9
 
 ### Patch Changes

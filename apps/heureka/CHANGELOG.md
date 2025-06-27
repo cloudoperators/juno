@@ -1,5 +1,18 @@
 # heureka
 
+## 0.7.4
+
+### Patch Changes
+
+- 2da3003: - Update typescript version to the latest v.5.8.3
+  - Update typescript definitions for node
+- 5513d4b: Remove jn classname prefixes for Example, Greenhouse and Heureka
+- Updated dependencies [2da3003]
+- Updated dependencies [8d344a6]
+  - @cloudoperators/juno-url-state-provider@3.0.4
+  - @cloudoperators/juno-messages-provider@0.2.10
+  - @cloudoperators/juno-ui-components@5.0.1
+
 ## 0.7.3
 
 ### Patch Changes
