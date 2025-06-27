@@ -35,30 +35,30 @@ describe("FiltersSelect", () => {
     vi.clearAllMocks()
   })
 
-  it("should render the component with filter select dropdown", () => {
+  it("should render the component with filter select dropdown", async () => {
     render(
       <AppShellProvider shadowRoot={false}>
         <FilterSelect filters={mockFilters} onChange={mockOnChange} />
       </AppShellProvider>
     )
 
-    const filterSelect = screen.getByTestId("select-filterValue")
+    const filterSelect = await screen.findByTestId("select-filterValue")
     expect(filterSelect).toBeInTheDocument()
 
-    const valueComboBox = screen.getByTestId("combobox-filterValue")
+    const valueComboBox = await screen.findByTestId("combobox-filterValue")
     expect(valueComboBox).toBeInTheDocument()
   })
 
-  it("displays all filter options in the select dropdown", () => {
+  it("displays all filter options in the select dropdown", async () => {
     render(
       <AppShellProvider shadowRoot={false}>
         <FilterSelect filters={mockFilters} onChange={mockOnChange} />
       </AppShellProvider>
     )
 
-    expect(screen.getByTestId("category")).toBeInTheDocument()
-    expect(screen.getByTestId("status")).toBeInTheDocument()
-    expect(screen.getByTestId("region")).toBeInTheDocument()
+    expect(await screen.findByTestId("category")).toBeInTheDocument()
+    expect(await screen.findByTestId("status")).toBeInTheDocument()
+    expect(await screen.findByTestId("region")).toBeInTheDocument()
   })
 
   it("should show values in combobox when filter is selected", async () => {
@@ -69,15 +69,15 @@ describe("FiltersSelect", () => {
       </AppShellProvider>
     )
 
-    const filterSelect = screen.getByTestId("select-filterValue")
+    const filterSelect = await screen.findByTestId("select-filterValue")
     await user.click(filterSelect)
-    await user.click(screen.getByTestId("region"))
+    await user.click(await screen.findByTestId("region"))
 
-    const valueComboBox = screen.getByTestId("combobox-filterValue").getElementsByClassName("juno-combobox-toggle")[0]
-    await user.click(valueComboBox)
+    const valueComboBox = await screen.findByTestId("combobox-filterValue")
+    await user.click(valueComboBox.getElementsByClassName("juno-combobox-toggle")[0])
 
-    expect(screen.getByTestId("Asia")).toBeInTheDocument()
-    expect(screen.getByTestId("America")).toBeInTheDocument()
-    expect(screen.getByTestId("Europe")).toBeInTheDocument()
+    expect(await screen.findByTestId("Asia")).toBeInTheDocument()
+    expect(await screen.findByTestId("America")).toBeInTheDocument()
+    expect(await screen.findByTestId("Europe")).toBeInTheDocument()
   })
 })

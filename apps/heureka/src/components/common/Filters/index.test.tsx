@@ -47,18 +47,20 @@ describe("Filters", () => {
     vi.clearAllMocks()
   })
 
-  it("renders the component with search, select and combobox", () => {
+  it("renders the component with search, select and combobox", async () => {
     renderShell({ filters, filterSettings, onFilterChange: vi.fn() })
-    expect(screen.getByTestId("select-filterValue")).toBeInTheDocument()
-    expect(screen.getByTestId("combobox-filterValue")).toBeInTheDocument()
-    expect(screen.getByTestId("searchbar")).toBeInTheDocument()
+    expect(await screen.findByTestId("select-filterValue")).toBeInTheDocument()
+    expect(await screen.findByTestId("combobox-filterValue")).toBeInTheDocument()
+    expect(await screen.findByTestId("searchbar")).toBeInTheDocument()
   })
 
   it("should allow filtering by text", async () => {
     const onFilterChangeSpy = vi.fn()
     const { user } = renderShell({ filters, filterSettings, onFilterChange: onFilterChangeSpy })
-    await user.type(screen.getByRole("searchbox"), "Europe")
-    await user.click(screen.getByRole("button", { name: "Search" }))
+    const searchbox = await screen.findByRole("searchbox")
+    await user.type(searchbox, "Europe")
+    const searchButton = await screen.findByRole("button", { name: "Search" })
+    await user.click(searchButton)
     expect(onFilterChangeSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
         selectedFilters: [],
@@ -71,15 +73,16 @@ describe("Filters", () => {
     const onFilterChangeSpy = vi.fn()
     const { user } = renderShell({ filters, filterSettings, onFilterChange: onFilterChangeSpy })
 
-    const filterSelect = screen.getByTestId("select-filterValue")
+    const filterSelect = await screen.findByTestId("select-filterValue")
     await user.click(filterSelect)
-    await user.click(screen.getByTestId("region"))
+    await user.click(await screen.findByTestId("region"))
 
-    const valueComboBox = screen.getByTestId("combobox-filterValue").getElementsByClassName("juno-combobox-toggle")[0]
-    await user.click(valueComboBox)
+    const valueComboBox = await screen.findByTestId("combobox-filterValue")
 
-    expect(screen.getByTestId("Europe")).toBeInTheDocument()
-    await user.click(screen.getByTestId("Europe"))
+    await user.click(valueComboBox.getElementsByClassName("juno-combobox-toggle")[0])
+
+    expect(await screen.findByTestId("Europe")).toBeInTheDocument()
+    await user.click(await screen.findByTestId("Europe"))
 
     expect(onFilterChangeSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({

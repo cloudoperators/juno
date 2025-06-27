@@ -6,9 +6,9 @@
 import React from "react"
 
 const mainStyles = `
-  jn-flex
-  jn-grow
-  jn-bg-theme-global-bg
+  jn:flex
+  jn:grow
+  jn:bg-theme-global-bg
 `
 
 /**

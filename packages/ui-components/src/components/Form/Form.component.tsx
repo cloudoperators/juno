@@ -6,13 +6,13 @@
 import React, { ReactNode, FormHTMLAttributes } from "react"
 
 const formBaseStyles = `
-  jn-mb-8
+  jn:mb-8
 `
 
 const formTitleStyles = `
-  jn-text-2xl
-  jn-font-bold
-  jn-mb-4
+  jn:text-2xl
+  jn:font-bold
+  jn:mb-4
 `
 
 export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {

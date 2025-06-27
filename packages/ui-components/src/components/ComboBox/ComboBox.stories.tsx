@@ -60,7 +60,7 @@ const meta: Meta<typeof ComboBox> = {
   },
   decorators: [
     (Story) => (
-      <div className="jn-pb-12">
+      <div className="jn:pb-12">
         <PortalProvider>
           <Story />
         </PortalProvider>

@@ -1,5 +1,28 @@
 # heureka
 
+## 0.7.3
+
+### Patch Changes
+
+- 4dedb33: Upgrade to tailwind 4.0 and related changes
+- Updated dependencies [01245c8]
+- Updated dependencies [4dedb33]
+  - @cloudoperators/juno-ui-components@5.0.0
+  - @cloudoperators/juno-messages-provider@0.2.9
+
+## 0.7.2
+
+### Patch Changes
+
+- 45814a5: Remove unnecessary message in service detail page when there is no image version selected.
+
+## 0.7.1
+
+### Patch Changes
+
+- def4143: Heureka static bundle now allows to change appProps.json URL based on the target environment.
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+
 ## 0.7.0
 
 ### Minor Changes

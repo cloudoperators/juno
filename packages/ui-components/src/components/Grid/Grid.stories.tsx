@@ -20,12 +20,12 @@ const meta: Meta<typeof Grid> = {
   },
   decorators: [
     (Story) => (
-      <div className="juno-container jn-px-6 jn-py-6">
+      <div className="juno-container jn:px-6 jn:py-6">
         <Story />
       </div>
     ),
   ],
-  render: (args) => <Grid {...args} className={`jn-bg-juno-blue-3 jn-text-juno-grey-blue ${args.className || ""}`} />,
+  render: (args) => <Grid {...args} className={`jn:bg-juno-blue-3 jn:text-juno-grey-blue ${args.className || ""}`} />,
 }
 
 export default meta

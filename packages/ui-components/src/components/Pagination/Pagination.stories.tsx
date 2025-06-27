@@ -31,7 +31,7 @@ const meta: Meta<typeof Pagination> = {
   },
   decorators: [
     (Story) => (
-      <div className="jn-pb-12">
+      <div className="jn:pb-12">
         <PortalProvider>
           <Story />
         </PortalProvider>

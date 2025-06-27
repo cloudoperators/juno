@@ -1,5 +1,21 @@
 # @cloudoperators/juno-app-doop
 
+## 2.4.5
+
+### Patch Changes
+
+- 4dedb33: Upgrade to tailwind 4.0 and related changes
+- Updated dependencies [01245c8]
+- Updated dependencies [4dedb33]
+  - @cloudoperators/juno-ui-components@5.0.0
+  - @cloudoperators/juno-messages-provider@0.2.9
+
+## 2.4.4
+
+### Patch Changes
+
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+
 ## 2.4.3
 
 ### Patch Changes

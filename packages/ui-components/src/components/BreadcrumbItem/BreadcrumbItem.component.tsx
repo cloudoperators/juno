@@ -7,16 +7,16 @@ import React from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 
 const breadcrumbItemBaseStyles = `
-  jn-text-sm
-  jn-text-theme-high
-  jn-flex
-  jn-gap-1
-  jn-items-center
+  jn:text-sm
+  jn:text-theme-high
+  jn:flex
+  jn:gap-1
+  jn:items-center
 `
 
 const breadcrumbLinkBaseStyles = `
-  jn-text-theme-high
-  jn-inline-flex
+  jn:text-theme-high
+  jn:inline-flex
 `
 
 export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -75,7 +75,7 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
 }) => {
   if (children) return <>{children}</>
   const iconElement = icon ? (
-    <Icon icon={icon} size="18" color="jn-text-theme-default" className={label ? "jn-mr-1" : ""} />
+    <Icon icon={icon} size="18" color="jn:text-theme-default" className={label ? "jn:mr-1" : ""} />
   ) : null
 
   const combinedClassName = `juno-breadcrumb-item 

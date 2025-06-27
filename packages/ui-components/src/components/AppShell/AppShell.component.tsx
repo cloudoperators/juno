@@ -40,7 +40,7 @@ export const AppShell: React.FC<AppShellProps> = ({
             <MainContainerInner
               fullWidth={fullWidthOrDefault}
               hasSideNav={sideNavigation ? true : false}
-              className={`${topNavigation ? "jn-mt-[3.875rem]" : ""}`}
+              className={`${topNavigation ? "jn:mt-[3.875rem]" : ""}`}
             >
               {sideNavigation && sideNavigation}
               <ContentContainer>{children}</ContentContainer>
@@ -58,7 +58,7 @@ export const AppShell: React.FC<AppShellProps> = ({
             <MainContainerInner
               fullWidth={fullWidthOrDefault}
               hasSideNav={sideNavigation ? true : false}
-              className="jn-mt-[3.875rem]"
+              className="jn:mt-[3.875rem]"
             >
               {sideNavigation}
               <ContentContainer>{children}</ContentContainer>
