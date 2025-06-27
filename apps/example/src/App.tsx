@@ -16,8 +16,6 @@ import Content from "./components/app-shell/Content"
 import Header from "./components/app-shell/header/Header"
 import TopNavigationBar from "./components/app-shell/Navigation"
 
-//TRIGGER DEPLOYMENT
-
 import styles from "./styles.scss?inline"
 
 interface AppProps {
