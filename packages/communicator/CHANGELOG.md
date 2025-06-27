@@ -1,5 +1,12 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.22
+
+### Patch Changes
+
+- 2da3003: - Update typescript version to the latest v.5.8.3
+  - Update typescript definitions for node
+
 ## 2.2.21
 
 ### Patch Changes
