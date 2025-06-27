@@ -27,7 +27,7 @@
     "autoprefixer": "^10.4.2",
     "interweave": "^13.1.0",
     "jsdoc": "^4.0.2",
-    "jsdom": "^25.0.1",
+    "jsdom": "^26.1.0",
     "luxon": "^3.0.0",
     "postcss": "^8.4.47",
     "react-markdown": "^9.0.0",
