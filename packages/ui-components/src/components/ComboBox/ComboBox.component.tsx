@@ -11,6 +11,7 @@ import { Icon } from "../Icon/index"
 import { Spinner } from "../Spinner/index"
 import { usePortalRef } from "../PortalProvider/index"
 import { createPortal } from "react-dom"
+import { cn } from "../../utils"
 import {
   OptionValuesAndLabelsKey,
   useComboBoxOptionMapping,
@@ -20,119 +21,6 @@ import {
 } from "./hooks"
 import { isNotEmptyString, safeToString } from "./utils"
 import { ComboBoxProvider, useComboBoxContextValue } from "./context"
-
-const inputWrapperStyles = `
-  jn:relative
-`
-
-const labelStyles = `
-  jn:pointer-events-none
-  jn:top-2
-  jn:left-[0.9375rem]
-`
-
-const inputStyles = `
-  jn:rounded-3px
-  jn:bg-theme-textinput
-  jn:text-theme-textinput
-  jn:border
-  jn:text-base
-  jn:leading-4
-  jn:w-full
-  jn:px-4
-  jn:h-textinput
-  jn:text-left
-  jn:overflow-hidden
-  jn:text-ellipsis
-  jn:whitespace-nowrap
-  jn:focus:outline-hidden
-  jn:focus:ring-2
-  jn:focus:ring-theme-focus
-`
-
-const withLabelInputStyles = `
-  jn:pt-[1.125rem] 
-  jn:pb-1
-`
-
-const noLabelInputStyles = `
-  jn:py-4
-`
-
-const disabledInputStyles = `
-  jn:cursor-not-allowed
-  jn:pointer-events-none
-  jn:opacity-50
-`
-
-const defaultBorderStyles = `
-  jn:border-theme-textinput-default
-`
-
-const validStyles = `
-  jn:border-theme-success
-`
-
-const invalidStyles = `
-  jn:border-theme-error
-`
-
-const buttonStyles = `
-  jn:absolute
-  jn:top-0
-  jn:right-0
-  jn:h-textinput
-  jn:w-6
-  jn:h-4
-  jn:border-l-0
-  jn:border-y-[1px]
-  jn:border-r-[1px]
-  jn:rounded-tr
-  jn:rounded-br
-  jn:appearance-none
-  jn:bg-theme-textinput
-  jn:text-theme-textinput
-`
-
-const defaultButtonStyles = `
-  jn:border-theme-textinput-default
-`
-
-const invalidButtonStyles = `
-  jn:border-theme-error
-`
-
-const validButtonStyles = `
-  jn:border-theme-success
-`
-
-const disabledButtonStyles = `
-  jn:cursor-not-allowed
-  jn:pointer-events-none
-  jn:bg-transparent
-  jn:opacity-50
-`
-
-const menuStyles = `
-  jn:rounded
-  jn:bg-theme-background-lvl-1
-  jn:w-full
-  jn:overflow-y-auto
-`
-
-const iconContainerStyles = `
-  jn:absolute
-  jn:top-[.4rem]
-  jn:right-6
-`
-
-const centeredIconStyles = `
-  jn:absolute
-  jn:top-1/2
-  jn:left-1/2
-  jn:translate-y-[-50%]
-  jn:translate-x-[-0.75rem]
-`
 
 export const ComboBox: React.FC<ComboBoxProps> = ({
   ariaLabel,
@@ -257,13 +145,12 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   return (
     <ComboBoxProvider value={contextValue}>
       <div
-        className={`
-          juno-combobox-wrapper
-          jn:relative
-          ${width == "auto" ? "jn:inline-block" : "jn:block"}
-          ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
-          ${wrapperClassName}
-        `}
+        className={cn(
+          "juno-combobox-wrapper",
+          "jn:relative",
+          width === "auto" ? "jn:inline-block jn:w-auto" : "jn:block jn:w-full",
+          wrapperClassName
+        )}
       >
         <Combobox
           defaultValue={defaultValue}
@@ -286,11 +173,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
               <>
                 <div
                   ref={refs.setReference}
-                  className={`
-                juno-combobox-input-wrapper
-                ${inputWrapperStyles}
-                ${disabled ? "jn:cursor-not-allowed" : ""}
-              `}
+                  className={cn("juno-combobox-input-wrapper", "jn:relative", disabled && "jn:cursor-not-allowed")}
                 >
                   {label && isNotEmptyString(label) && !isLoading && !hasError ? (
                     <Label
@@ -298,7 +181,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                       disabled={disabled}
                       required={required}
                       htmlFor={theId}
-                      className={`${labelStyles}`}
+                      className="jn:pointer-events-none jn:top-2 jn:left-[0.9375rem]"
                       floating
                       minimized={
                         !!(
@@ -324,35 +207,52 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                     onFocus={handleFocus}
                     placeholder={!isLoading && !hasError ? placeholder : ""}
                     displayValue={displayValue}
-                    className={`
-                  juno-combobox-input 
-                  ${inputStyles} 
-                  ${label && isNotEmptyString(label) ? withLabelInputStyles : noLabelInputStyles}
-                  ${disabled ? disabledInputStyles : ""}
-                  ${isInvalid ? "juno-combobox-invalid " + invalidStyles : ""} 
-                  ${isValid ? "juno-combobox-valid " + validStyles : ""}  
-                  ${isValid || isInvalid ? "" : defaultBorderStyles} 
-                  ${isLoading ? "juno-combobox-loading jn:cursor-not-allowed" : ""}
-                  ${hasError ? "juno-combobox-error jn:cursor-not-allowed" : ""}
-                  ${className}
-                `}
+                    className={cn(
+                      "juno-combobox-input",
+                      "jn:rounded-3px",
+                      "jn:bg-theme-textinput",
+                      "jn:text-theme-textinput",
+                      "jn:border",
+                      "jn:text-base",
+                      "jn:leading-4",
+                      "jn:w-full",
+                      "jn:px-4",
+                      "jn:h-textinput",
+                      "jn:text-left",
+                      "jn:overflow-hidden",
+                      "jn:text-ellipsis",
+                      "jn:whitespace-nowrap",
+                      "jn:focus:outline-hidden",
+                      "jn:focus:ring-2",
+                      "jn:focus:ring-theme-focus",
+                      label && isNotEmptyString(label) ? "jn:pt-[1.125rem] jn:pb-1" : "jn:py-4",
+                      disabled && "jn:cursor-not-allowed jn:pointer-events-none jn:opacity-50",
+                      isInvalid && "juno-combobox-invalid jn:border-theme-error",
+                      isValid && "juno-combobox-valid jn:border-theme-success",
+                      !isValid && !isInvalid && "jn:border-theme-textinput-default",
+                      isLoading && "juno-combobox-loading jn:cursor-not-allowed",
+                      hasError && "juno-combobox-error jn:cursor-not-allowed",
+                      className
+                    )}
                   />
 
                   {isLoading || hasError ? (
-                    <span className={`${centeredIconStyles}`}>
+                    <span className="jn:absolute jn:top-1/2 jn:left-1/2 jn:translate-y-[-50%] jn:translate-x-[-0.75rem]">
                       {isLoading ? (
-                        <Spinner className={"jn:cursor-not-allowed"} />
+                        <Spinner className="jn:cursor-not-allowed" />
                       ) : (
-                        <Icon icon="errorOutline" color="jn:text-theme-error" className={"jn:cursor-not-allowed"} />
+                        <Icon icon="errorOutline" color="jn:text-theme-error" className="jn:cursor-not-allowed" />
                       )}
                     </span>
                   ) : isValid || isInvalid ? (
                     <span
-                      className={`
-                        juno-combobox-icon-container 
-                        ${iconContainerStyles} 
-                        ${disabled ? "jn:opacity-50" : ""}
-                      `}
+                      className={cn(
+                        "juno-combobox-icon-container",
+                        "jn:absolute",
+                        "jn:top-[.4rem]",
+                        "jn:right-6",
+                        disabled && "jn:opacity-50"
+                      )}
                     >
                       <Icon
                         icon={isValid ? "checkCircle" : "dangerous"}
@@ -365,14 +265,27 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
                   {!hasError && !isLoading ? (
                     <ComboboxButton
-                      className={`
-                        juno-combobox-toggle 
-                        ${buttonStyles}
-                        ${disabled ? disabledButtonStyles : ""}
-                        ${isInvalid ? "juno-combobox-toggle-invalid " + invalidButtonStyles : ""} 
-                        ${isValid ? "juno-combobox-toggle-valid " + validButtonStyles : ""}  
-                        ${isValid || isInvalid ? "" : defaultButtonStyles} 
-                      `}
+                      className={cn(
+                        "juno-combobox-toggle",
+                        "jn:absolute",
+                        "jn:top-0",
+                        "jn:right-0",
+                        "jn:h-textinput",
+                        "jn:w-6",
+                        "jn:h-4",
+                        "jn:border-l-0",
+                        "jn:border-y-[1px]",
+                        "jn:border-r-[1px]",
+                        "jn:rounded-tr",
+                        "jn:rounded-br",
+                        "jn:appearance-none",
+                        "jn:bg-theme-textinput",
+                        "jn:text-theme-textinput",
+                        disabled && "jn:cursor-not-allowed jn:pointer-events-none jn:bg-transparent jn:opacity-50",
+                        isInvalid && "juno-combobox-toggle-invalid jn:border-theme-error",
+                        isValid && "juno-combobox-toggle-valid jn:border-theme-success",
+                        !isValid && !isInvalid && "jn:border-theme-textinput-default"
+                      )}
                     >
                       <Icon icon={isOpen ? "expandLess" : "expandMore"} />
                     </ComboboxButton>
@@ -382,7 +295,13 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                   createPortal(
                     <div
                       ref={refs.setFloating}
-                      className={`juno-combobox-options ${menuStyles}`}
+                      className={cn(
+                        "juno-combobox-options",
+                        "jn:rounded",
+                        "jn:bg-theme-background-lvl-1",
+                        "jn:w-full",
+                        "jn:overflow-y-auto"
+                      )}
                       style={{
                         position: strategy,
                         top: y ?? 0,
