@@ -56,6 +56,7 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
+          {/* Disable debounce for testing */}
           <ComboBox name="my-wonderful-combobox" debounceDelay={0}>
             <ComboBoxOption value="Option 1">Option 1</ComboBoxOption>
           </ComboBox>
@@ -73,6 +74,7 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
+          {/* Disable debounce for testing */}
           <ComboBox label="My Label" debounceDelay={0} />
         </AppShellProvider>
       )
@@ -408,8 +410,8 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
+          {/* Disable debounce for testing */}
           <ComboBox debounceDelay={0}>
-            {/* Disable debounce for testing */}
             <ComboBoxOption value="aaa" name="aaa">
               aaa
             </ComboBoxOption>
