@@ -553,7 +553,12 @@ describe("ComboBox", () => {
   })
 
   test("renders a wrapperClassName to the outer wrapping <div> element", () => {
-    render(<ComboBox wrapperClassName="my-wrapper-class" />)
+    render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox wrapperClassName="my-wrapper-class" />
+      </AppShellProvider>
+    )
+
     expect(document.querySelector(".juno-combobox-wrapper")).toBeInTheDocument()
     expect(document.querySelector(".juno-combobox-wrapper")).toHaveClass("my-wrapper-class")
   })
