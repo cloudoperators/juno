@@ -68,17 +68,18 @@ const App = (props: AppProps) => {
       /*
        * In case of hashed routing Tanstack router returns URL search params of the entire URL rather than just from the hashed part.
        * We'll have to extract the query part from the hash because otherwise in embedded mode the app will be taking search params from the shell app as well.
-       * Sanitize the search string to avoid leaking shell app params.
+       * Sanitize the search string by extracting the substring between the first '?' and the next '?' (if any), keeping the first '?'.
+       * https://github.com/TanStack/router/issues/4370
+       * http://localhost:3000/?preHashParam=prehashtest#/services?postHashParam1=test1?preHashParam=prehashtest
+       * searchString = "?postHashParam1=test1?preHashParam=prehashtest"
+       * searchStringFromHash = "?postHashParam1=test1"
        */
-      const hash = window.location.hash
-      const queryIndex = hash.indexOf("?")
-      if (queryIndex !== -1) {
-        const queryString = hash.substring(queryIndex)
-        return decodeV2(queryString)
-      }
+      const postHashParams = searchString.indexOf("?")
+      if (postHashParams === -1) return {} // If no query part is found, return an empty object
+      const preHashParams = searchString.indexOf("?", postHashParams + 1)
+      const searchStringFromHash = searchString.slice(postHashParams, preHashParams === -1 ? undefined : preHashParams)
 
-      // If no query part is found, return an empty object
-      return {}
+      return decodeV2(searchStringFromHash)
     },
   })
 
