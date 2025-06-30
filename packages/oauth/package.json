@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-oauth",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "author": "UI-Team",
   "description": "Authenticates user via OIDC",
   "main": "build/index.js",
@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@types/node": "^20.11.24",
-    "typescript": "^5.5.4",
+    "@types/node": "^24.0.3",
+    "typescript": "^5.8.3",
     "vitest": "^3.0.7",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.0.3"

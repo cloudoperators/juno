@@ -1,5 +1,39 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.8
+
+### Patch Changes
+
+- 15ce372: Heureka now sanitizes URL search string which fixes the issue in the embedded mode where the app was unable to apply filters from the hased part of the URL.
+- 5513d4b: Remove jn classname prefixes for Example, Greenhouse and Heureka
+- Updated dependencies [15ce372]
+- Updated dependencies [2da3003]
+- Updated dependencies [1d30fb5]
+- Updated dependencies [8d344a6]
+- Updated dependencies [5513d4b]
+  - @cloudoperators/juno-app-heureka@0.7.4
+  - @cloudoperators/juno-url-state-provider@3.0.4
+  - @cloudoperators/juno-messages-provider@0.2.10
+  - @cloudoperators/juno-oauth@1.4.8
+  - @cloudoperators/juno-ui-components@5.0.1
+  - @cloudoperators/juno-app-supernova@0.17.6
+  - @cloudoperators/juno-app-doop@2.4.6
+  - @cloudoperators/juno-k8s-client@1.0.7
+
+## 0.6.7
+
+### Patch Changes
+
+- 4dedb33: Upgrade to tailwind 4.0 and related changes
+- Updated dependencies [01245c8]
+- Updated dependencies [4dedb33]
+- Updated dependencies [4dedb33]
+  - @cloudoperators/juno-ui-components@5.0.0
+  - @cloudoperators/juno-app-supernova@0.17.5
+  - @cloudoperators/juno-app-heureka@0.7.3
+  - @cloudoperators/juno-app-doop@2.4.5
+  - @cloudoperators/juno-messages-provider@0.2.9
+
 ## 0.6.6
 
 ### Patch Changes

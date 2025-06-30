@@ -1,5 +1,13 @@
 # @cloudoperators/juno-url-state-provider
 
+## 3.0.4
+
+### Patch Changes
+
+- 2da3003: - Update typescript version to the latest v.5.8.3
+  - Update typescript definitions for node
+- 1d30fb5: Fix jsdom css parsing error (update jsdom dependencies)
+
 ## 3.0.3
 
 ### Patch Changes
