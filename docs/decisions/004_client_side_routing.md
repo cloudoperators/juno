@@ -28,6 +28,10 @@ We adopted the following architecture for client-side routing and state:
    - The router can optionally use hashed history (`#` URLs) when the prop `enableHashedRouting` is set to `true`. It defaults to `false`.
    - This supports deployments where traditional URL rewriting is not available (e.g., GitHub Pages or an External Dashboard).
 
+   - > **Note:**  
+     > TanStack Router has a known [issue/behavior](https://github.com/TanStack/router/issues/4370#issuecomment-3012344925) in **hashed routing mode** where it includes query parameters from the entire URL—not just the hash fragment—when supplying the `searchString`.  
+     > If your application depends on extracting query parameters specifically from the **hash fragment**, you’ll need to handle this manually in the `parseSearch` method within your router configuration.
+
 3. **Data Loading and Caching**:
 
    - We use **TanStack Query** for invoking API calls and caching their results.
