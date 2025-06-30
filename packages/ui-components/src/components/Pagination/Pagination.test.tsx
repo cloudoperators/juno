@@ -7,6 +7,7 @@ import React from "react"
 import { render, screen, fireEvent, act, waitFor, cleanup } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, expect, test, vi } from "vitest"
+import { PortalProvider } from "../PortalProvider/index"
 
 import { Pagination } from "./Pagination.component"
 
@@ -86,22 +87,32 @@ describe("Pagination", () => {
     expect(paginationElement.querySelector(".page-value")).not.toBeInTheDocument()
   })
 
-  test("renders a select variant Pagination as passed", () => {
-    act(() => {
-      render(<Pagination variant="select" data-testid="my-pagination" />)
+  test("renders a select variant Pagination as passed", async () => {
+    render(
+      <PortalProvider>
+        <Pagination variant="select" data-testid="my-pagination" />
+      </PortalProvider>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
+      expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-select")
+      expect(screen.queryAllByRole("button")).toHaveLength(3)
+      expect(screen.queryAllByRole("textbox")).toHaveLength(0)
+      expect(document.querySelector("button.juno-select-toggle")).toBeInTheDocument()
     })
-    expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
-    expect(screen.getByTestId("my-pagination")).toHaveClass("juno-pagination-select")
-    expect(screen.queryAllByRole("button")).toHaveLength(3)
-    expect(screen.queryAllByRole("textbox")).toHaveLength(0)
-    expect(document.querySelector("button.juno-select-toggle")).toBeInTheDocument()
   })
 
-  test("renders Pagination (select) with currentPage higher than totalPages", () => {
-    act(() => {
-      render(<Pagination variant="select" currentPage={12} totalPages={6} data-testid="my-pagination" />)
+  test("renders Pagination (select) with currentPage higher than totalPages", async () => {
+    render(
+      <PortalProvider>
+        <Pagination variant="select" currentPage={12} totalPages={6} data-testid="my-pagination" />
+      </PortalProvider>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
     })
-    expect(screen.getByTestId("my-pagination")).toHaveTextContent("6")
   })
 
   test("renders an input variant Pagination as passed", () => {
@@ -246,7 +257,13 @@ describe("Pagination", () => {
 
   test("fires onChange handler as passed when Select changes for select variant", async () => {
     const mockHandleChange = vi.fn()
-    render(<Pagination variant="select" currentPage={1} pages={6} onSelectChange={mockHandleChange} />)
+
+    render(
+      <PortalProvider>
+        <Pagination variant="select" currentPage={1} pages={6} onSelectChange={mockHandleChange} />
+      </PortalProvider>
+    )
+
     const select = document.querySelector("button.juno-select-toggle")
     expect(select).toBeInTheDocument()
     expect(select).toHaveTextContent("1")
@@ -301,7 +318,11 @@ describe("Pagination", () => {
   })
 
   test("renders disabled Pagination (select) as passed", () => {
-    render(<Pagination disabled variant="select" />)
+    render(
+      <PortalProvider>
+        <Pagination disabled variant="select" />
+      </PortalProvider>
+    )
 
     // Check that only two buttons (Previous and Next) are rendered
     expect(screen.getAllByRole("button")).toHaveLength(3)
@@ -324,7 +345,12 @@ describe("Pagination", () => {
   })
 
   test("renders Pagination (select) in progress as passed", () => {
-    render(<Pagination progress variant="select" />)
+    render(
+      <PortalProvider>
+        <Pagination progress variant="select" />
+      </PortalProvider>
+    )
+
     expect(screen.getAllByRole("button")).toHaveLength(2)
     expect(document.querySelector(".juno-spinner")).toBeInTheDocument()
   })
@@ -407,10 +433,15 @@ describe("Pagination", () => {
     expect(screen.getByRole("textbox")).toHaveValue("")
   })
 
-  test("renders Pagination (select) with undefined currentPage prop as passed", () => {
-    act(() => {
-      render(<Pagination variant="select" currentPage={undefined} />)
-    })
+  test("renders Pagination (select) with undefined currentPage prop as passed", async () => {
+    await waitFor(() =>
+      render(
+        <PortalProvider>
+          <Pagination variant="select" currentPage={undefined} />
+        </PortalProvider>
+      )
+    )
+
     expect(document.querySelector("button.juno-select-toggle")).toHaveValue("")
   })
 
@@ -432,10 +463,15 @@ describe("Pagination", () => {
     expect(screen.getByRole("textbox")).toHaveValue("")
   })
 
-  test("renders Pagination (select) with undefined totalPages prop as passed", () => {
-    act(() => {
-      render(<Pagination variant="select" totalPages={undefined} />)
-    })
+  test("renders Pagination (select) with undefined totalPages prop as passed", async () => {
+    await waitFor(() =>
+      render(
+        <PortalProvider>
+          <Pagination variant="select" totalPages={undefined} />
+        </PortalProvider>
+      )
+    )
+
     expect(document.querySelector("button.juno-select-toggle")).toHaveValue("")
   })
 
