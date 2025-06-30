@@ -6,7 +6,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { Services } from "../../components/Services"
-import { sanitizeSearchParam } from "../../utils"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
@@ -20,14 +19,8 @@ import {
 // Schema for validating and transforming search parameters related to /services page.
 const servicesSearchSchema = z
   .object({
-    service: z
-      .string()
-      .transform((val) => sanitizeSearchParam(val))
-      .optional(),
-    searchTerm: z
-      .string()
-      .transform((val) => sanitizeSearchParam(val))
-      .optional(),
+    service: z.string().optional(),
+    searchTerm: z.string().optional(),
   })
   .catchall(
     z.preprocess(
