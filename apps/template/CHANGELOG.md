@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.9
+
+### Patch Changes
+
+- 2da3003: - Update typescript version to the latest v.5.8.3
+  - Update typescript definitions for node
+- 1d30fb5: Fix jsdom css parsing error (update jsdom dependencies)
+- Updated dependencies [1d30fb5]
+- Updated dependencies [8d344a6]
+  - @cloudoperators/juno-ui-components@5.0.1
+
 ## 2.0.8
 
 ### Patch Changes

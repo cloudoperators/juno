@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-example
 
+## 2.1.5
+
+### Patch Changes
+
+- 1d30fb5: Fix jsdom css parsing error (update jsdom dependencies)
+- 5513d4b: Remove jn classname prefixes for Example, Greenhouse and Heureka
+- Updated dependencies [2da3003]
+- Updated dependencies [1d30fb5]
+- Updated dependencies [8d344a6]
+  - @cloudoperators/juno-url-state-provider@3.0.4
+  - @cloudoperators/juno-messages-provider@0.2.10
+  - @cloudoperators/juno-oauth@1.4.8
+  - @cloudoperators/juno-ui-components@5.0.1
+
 ## 2.1.4
 
 ### Patch Changes

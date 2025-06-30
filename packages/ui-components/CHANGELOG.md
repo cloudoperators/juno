@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 5.0.1
+
+### Patch Changes
+
+- 1d30fb5: Fix jsdom css parsing error (update jsdom dependencies)
+- 8d344a6: Fix the rest of unit test errors
+
 ## 5.0.0
 
 ### Major Changes
