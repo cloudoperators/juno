@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "jsdom": "^18.0.0",
+    "jsdom": "^26.1.0",
     "juri-cutlery": "^1.0.0",
     "lz-string": "^1.4.4",
     "typescript": "^5.8.3",

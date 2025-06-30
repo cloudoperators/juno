@@ -27,7 +27,7 @@
     "@vitejs/plugin-react": "^4.4.1",
     "immer": "^10.0.0",
     "interweave": "^13.0.0",
-    "jsdom": "^25.0.1",
+    "jsdom": "^26.1.0",
     "luxon": "^3.0.0",
     "postcss": "^8.4.47",
     "react-test-renderer": "^19.1.0",
