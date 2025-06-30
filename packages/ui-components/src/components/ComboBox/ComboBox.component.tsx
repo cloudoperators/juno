@@ -18,6 +18,7 @@ import {
   useComboBoxState,
   useComboBoxFloating,
   useComboBoxOptionFiltering,
+  useComboBoxValidation,
 } from "./hooks"
 import { ComboBoxProvider, useComboBoxContextValue } from "./context"
 
@@ -55,18 +56,8 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   const helptextId = "juno-combobox-helptext-" + useId()
 
   // State management
-  const {
-    isOpen,
-    setIsOpen,
-    query,
-    setQuery,
-    hasFocus,
-    setFocus,
-    selectedValue,
-    setSelectedValue,
-    isInvalid,
-    isValid,
-  } = useComboBoxState(value, errortext, successtext, invalid, valid)
+  const { isOpen, setIsOpen, query, setQuery, hasFocus, setFocus, selectedValue, setSelectedValue } =
+    useComboBoxState(value)
 
   // Option mapping
   const { optionValuesAndLabels } = useComboBoxOptionMapping(children)
@@ -76,6 +67,9 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   // Floating UI management
   const { x, y, strategy, refs, getReferenceProps, getFloatingProps } = useComboBoxFloating(isOpen, setIsOpen)
+
+  // Validation
+  const { isInvalid, isValid } = useComboBoxValidation(errortext, successtext, invalid, valid)
 
   // Context value creation
   const contextValue = useComboBoxContextValue(selectedValue, truncateOptions)
