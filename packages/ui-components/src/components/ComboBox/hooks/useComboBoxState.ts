@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { ComboBoxState } from "../types"
 
 /**
  * Custom hook for managing combobox/dropdown component state.
@@ -16,7 +17,7 @@ import { useState } from "react"
  * - hasFocus: Boolean indicating if the combobox has focus
  * - setFocus: Function to update focus state
  */
-function useComboBoxState(initialValue: string) {
+function useComboBoxState(initialValue: string): ComboBoxState {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [selectedValue, setSelectedValue] = useState(initialValue)

@@ -10,12 +10,8 @@ import {
   useClick,
   useDismiss,
   Placement,
-  UseFloatingReturn,
-  UseInteractionsReturn,
 } from "@floating-ui/react"
-
-export type ComboBoxFloatingReturn = Pick<UseFloatingReturn, "x" | "y" | "strategy" | "refs"> &
-  Pick<UseInteractionsReturn, "getReferenceProps" | "getFloatingProps">
+import { ComboBoxFloating } from "../types"
 
 /**
  * Custom hook for ComboBox floating UI functionality.
@@ -28,7 +24,7 @@ export type ComboBoxFloatingReturn = Pick<UseFloatingReturn, "x" | "y" | "strate
 function useComboBoxFloating(
   isOpen: boolean,
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-): ComboBoxFloatingReturn {
+): ComboBoxFloating {
   // Floating UI setup
   const { x, y, strategy, refs, context } = useFloating({
     open: isOpen,

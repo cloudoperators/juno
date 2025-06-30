@@ -1,5 +1,6 @@
 import { useMemo, ReactNode } from "react"
 import { isNotEmptyString } from "../../../utils"
+import { ComboBoxValidation } from "../types"
 
 /**
  * Custom hook for managing validation state.
@@ -14,7 +15,12 @@ import { isNotEmptyString } from "../../../utils"
  * - isInvalid: Computed boolean indicating invalid state (based on invalid prop or errortext)
  * - isValid: Computed boolean indicating valid state (based on valid prop or successtext)
  */
-function useComboBoxValidation(errortext: ReactNode, successtext: ReactNode, invalid: boolean, valid: boolean) {
+function useComboBoxValidation(
+  errortext: ReactNode,
+  successtext: ReactNode,
+  invalid: boolean,
+  valid: boolean
+): ComboBoxValidation {
   const isInvalid = useMemo(() => invalid || Boolean(errortext && isNotEmptyString(errortext)), [invalid, errortext])
   const isValid = useMemo(() => valid || Boolean(successtext && isNotEmptyString(successtext)), [valid, successtext])
 

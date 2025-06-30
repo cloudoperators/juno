@@ -1,5 +1,6 @@
 import React, { useState, useEffect, ReactNode } from "react"
 import { ComboBoxOptionProps } from "../../ComboBoxOption/ComboBoxOption.component"
+import { ComboBoxMappedOptions } from "../types"
 
 /** Key type for the options Map - can be the option's value or its children content */
 export type OptionValuesAndLabelsKey = ReactNode
@@ -19,7 +20,7 @@ export type OptionValuesAndLabelsValue = {
  * @param children - Specifies it expects React children with ComboBoxOption components
  * @returns - Explains the returned Map structure and its purpose for lookups
  */
-function useComboBoxOptionMapping(children: ReactNode) {
+function useComboBoxOptionMapping(children: ReactNode): ComboBoxMappedOptions {
   const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(
     new Map<OptionValuesAndLabelsKey, OptionValuesAndLabelsValue>()
   )

@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { cn, isNotEmptyString } from "../../utils"
-import { ComboBoxWidth } from "./ComboBox.component"
+import { ComboBoxWidth } from "./types"
 
 const inputWrapperStyles = `
   jn:relative

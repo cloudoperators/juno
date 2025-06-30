@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, ReactNode } from "react"
 import { ComboBoxOptionProps } from "../../ComboBoxOption/ComboBoxOption.component"
+import { ComboBoxFilteredOptions } from "../types"
 
 // Optimized option data interface for better performance
 interface OptimizedOptionData {
@@ -20,7 +21,11 @@ interface OptimizedOptionData {
  * @param debounceDelay - Delay in milliseconds for debouncing the search query
  * @returns Object containing filtered children that match the search query
  */
-function useCustomHook(children: ReactNode, query: string, debounceDelay: number) {
+function useComboBoxOptionFiltering(
+  children: ReactNode,
+  query: string,
+  debounceDelay: number
+): ComboBoxFilteredOptions {
   // Pre-process options once when children change
   const processedOptions = useMemo(() => {
     const options: OptimizedOptionData[] = []
@@ -29,16 +34,16 @@ function useCustomHook(children: ReactNode, query: string, debounceDelay: number
       if (React.isValidElement<ComboBoxOptionProps>(child)) {
         // Pre-compute the search text once instead of on every filter
         const searchText = (
-          child.props.children?.toString() ||
-          child.props.label ||
-          child.props.value ||
+          child.props.children?.toString() ??
+          child.props.label ??
+          child.props.value ??
           ""
         ).toLowerCase()
 
         options.push({
           child,
           searchText,
-          key: child.key || `option-${index}`,
+          key: child.key ?? `option-${index}`,
         })
       }
     })
@@ -77,4 +82,4 @@ function useCustomHook(children: ReactNode, query: string, debounceDelay: number
   }
 }
 
-export default useCustomHook
+export default useComboBoxOptionFiltering
