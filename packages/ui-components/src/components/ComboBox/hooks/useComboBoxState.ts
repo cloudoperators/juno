@@ -1,5 +1,5 @@
 import { useState, useMemo, ReactNode } from "react"
-import { isNotEmptyString } from "../utils"
+import { isNotEmptyString } from "../../../utils"
 
 /**
  * Custom hook for managing combobox/dropdown component state with validation support.

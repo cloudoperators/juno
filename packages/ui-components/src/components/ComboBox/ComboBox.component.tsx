@@ -11,7 +11,7 @@ import { Icon } from "../Icon/index"
 import { Spinner } from "../Spinner/index"
 import { usePortalRef } from "../PortalProvider/index"
 import { createPortal } from "react-dom"
-import { cn } from "../../utils"
+import { cn, isNotEmptyString, safeToString } from "../../utils"
 import {
   OptionValuesAndLabelsKey,
   useComboBoxOptionMapping,
@@ -19,7 +19,6 @@ import {
   useComboBoxFloating,
   useComboBoxOptionFiltering,
 } from "./hooks"
-import { isNotEmptyString, safeToString } from "./utils"
 import { ComboBoxProvider, useComboBoxContextValue } from "./context"
 
 export const ComboBox: React.FC<ComboBoxProps> = ({
