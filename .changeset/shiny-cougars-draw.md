@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": patch
 ---
 
-Fix unit tests output
+Fix the rest of unit test errors

@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-messages-provider",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Messages provider",
   "author": "UI-Team",
   "contributors": [
@@ -31,7 +31,7 @@
     "@types/react-dom": "19.1.5",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "typescript": "^5.6.2",
+    "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.2.3",
     "vitest": "^3.0.7",

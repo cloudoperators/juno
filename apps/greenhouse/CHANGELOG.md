@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.7
+
+### Patch Changes
+
+- 4dedb33: Upgrade to tailwind 4.0 and related changes
+- Updated dependencies [01245c8]
+- Updated dependencies [4dedb33]
+- Updated dependencies [4dedb33]
+  - @cloudoperators/juno-ui-components@5.0.0
+  - @cloudoperators/juno-app-supernova@0.17.5
+  - @cloudoperators/juno-app-heureka@0.7.3
+  - @cloudoperators/juno-app-doop@2.4.5
+  - @cloudoperators/juno-messages-provider@0.2.9
+
 ## 0.6.6
 
 ### Patch Changes
