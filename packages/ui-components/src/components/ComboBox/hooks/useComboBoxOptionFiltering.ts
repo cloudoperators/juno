@@ -77,9 +77,7 @@ function useComboBoxOptionFiltering(
   // Extract filtered children only when needed
   const filteredChildren = useMemo(() => filteredOptions.map((option) => option.child), [filteredOptions])
 
-  return {
-    filteredChildren,
-  }
+  return filteredChildren
 }
 
 export default useComboBoxOptionFiltering

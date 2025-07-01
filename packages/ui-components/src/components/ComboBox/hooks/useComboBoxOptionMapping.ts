@@ -55,9 +55,7 @@ function useComboBoxOptionMapping(children: ReactNode): ComboBoxMappedOptions {
     setOptionValuesAndLabels(new Map(options))
   }, [children])
 
-  return {
-    optionValuesAndLabels,
-  }
+  return optionValuesAndLabels
 }
 
 export default useComboBoxOptionMapping

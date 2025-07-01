@@ -58,7 +58,10 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   ...props
 }) => {
   const comboBoxContext = useComboBoxContext()
-  const { selectedValue, truncateOptions } = comboBoxContext || {}
+  const {
+    derivedProps: { truncateOptions },
+    state: { selectedValue },
+  } = comboBoxContext || {}
 
   const theValue = value || children
 

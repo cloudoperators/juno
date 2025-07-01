@@ -1,8 +1,40 @@
 import { useContext, createContext, useMemo } from "react"
+import {
+  ComboBoxFilteredOptions,
+  ComboBoxFloating,
+  ComboBoxMappedOptions,
+  ComboBoxProps,
+  ComboBoxState,
+  ComboBoxValidation,
+} from "../types"
 
 export type ComboBoxContextValue = {
-  selectedValue?: string
-  truncateOptions: boolean
+  /** Unique identifier for the input element */
+  inputElementId: string
+
+  /** Identifier for the help text element */
+  helpTextId: string
+
+  /** Processed and normalized props passed to the ComboBox component */
+  derivedProps: ComboBoxProps
+
+  /** Remaining HTML attributes to be spread on the root element, excluding controlled props */
+  restProps: Omit<React.HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children">
+
+  /** Current state of the ComboBox including open/closed status, selected value, and focus state */
+  state: ComboBoxState
+
+  /** Floating UI positioning data and methods for dropdown placement and positioning */
+  floating: ComboBoxFloating
+
+  /** Validation state and error handling information for the ComboBox input */
+  validation: ComboBoxValidation
+
+  /** Processed and transformed options data ready for rendering in the dropdown */
+  mappedOptions: ComboBoxMappedOptions
+
+  /** Subset of mapped options that match the current search/filter criteria */
+  filteredOptions: ComboBoxFilteredOptions
 }
 
 export const ComboBoxContext = createContext<ComboBoxContextValue | null>(null)
@@ -20,13 +52,30 @@ export const useComboBoxContext = (): ComboBoxContextValue => {
   return context
 }
 
-export const useComboBoxContextValue = (selectedValue: string, truncateOptions: boolean) => {
+export const useComboBoxContextValue = (
+  inputElementId: string,
+  helpTextId: string,
+  derivedProps: ComboBoxProps,
+  restProps: Omit<React.HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children">,
+  state: ComboBoxState,
+  floating: ComboBoxFloating,
+  validation: ComboBoxValidation,
+  mappedOptions: ComboBoxMappedOptions,
+  filteredOptions: ComboBoxFilteredOptions
+): ComboBoxContextValue => {
   const contextValue = useMemo(
     () => ({
-      selectedValue,
-      truncateOptions,
+      inputElementId,
+      helpTextId,
+      derivedProps,
+      restProps,
+      state,
+      floating,
+      validation,
+      mappedOptions,
+      filteredOptions,
     }),
-    [selectedValue, truncateOptions]
+    [inputElementId, helpTextId, derivedProps, restProps, state, floating, validation, mappedOptions, filteredOptions]
   )
 
   return contextValue

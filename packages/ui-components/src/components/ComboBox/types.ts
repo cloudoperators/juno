@@ -80,10 +80,6 @@ export type ComboBoxValidation = {
   isValid: boolean
 }
 
-export type ComboBoxFilteredOptions = {
-  filteredChildren: React.ReactElement[]
-}
+export type ComboBoxFilteredOptions = React.ReactElement[]
 
-export type ComboBoxMappedOptions = {
-  optionValuesAndLabels: Map<React.ReactNode, { val: string; label?: string; children: ReactNode }>
-}
+export type ComboBoxMappedOptions = Map<React.ReactNode, { val: string; label?: string; children: ReactNode }>

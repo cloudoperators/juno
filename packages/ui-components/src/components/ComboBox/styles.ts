@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 import { cn, isNotEmptyString } from "../../utils"
 import { ComboBoxWidth } from "./types"
+import { useComboBoxContext } from "./context"
 
 const inputWrapperStyles = `
   jn:relative
@@ -114,7 +115,7 @@ const centeredIconStyles = `
   jn:translate-y-[-50%]
   jn:translate-x-[-0.75rem]
 `
-const getMainWrapperStyles = (width: ComboBoxWidth, wrapperClassName?: string) =>
+const getOuterWrapperStyles = (width?: ComboBoxWidth, wrapperClassName?: string) =>
   cn(
     "juno-combobox-wrapper",
     "jn:relative",
@@ -123,17 +124,17 @@ const getMainWrapperStyles = (width: ComboBoxWidth, wrapperClassName?: string) =
     wrapperClassName
   )
 
-const getInputWrapperStyles = (disabled: boolean) =>
+const getInputWrapperStyles = (disabled?: boolean) =>
   cn("juno-combobox-input-wrapper", inputWrapperStyles, disabled && "jn:cursor-not-allowed")
 
 const getLabelStyles = () => cn(labelStyles)
 
 const getInputStyles = (
-  disabled: boolean,
   isInvalid: boolean,
   isValid: boolean,
-  isLoading: boolean,
-  hasError: boolean,
+  hasError?: boolean,
+  isLoading?: boolean,
+  disabled?: boolean,
   label?: string,
   className?: string
 ) =>
@@ -154,10 +155,10 @@ const getInputStyles = (
 
 const getCenteredIconStyles = () => cn(centeredIconStyles)
 
-const getIconContainerStyles = (disabled: boolean) =>
+const getIconContainerStyles = (disabled?: boolean) =>
   cn("juno-combobox-icon-container", iconContainerStyles, disabled && "jn:opacity-50")
 
-const getToggleStyles = (disabled: boolean, isValid: boolean, isInvalid: boolean) =>
+const getToggleStyles = (isValid: boolean, isInvalid: boolean, disabled?: boolean) =>
   cn(
     "juno-combobox-toggle",
     buttonStyles,
@@ -179,18 +180,8 @@ const getMenuStyles = () => cn("juno-combobox-options", menuStyles)
  * It uses Tailwind CSS classes with a custom 'jn:' prefix and applies conditional styling
  * based on the component's current state and props.
  *
- * @param disabled - Whether the ComboBox is disabled
- * @param isInvalid - Whether the ComboBox has invalid input
- * @param isValid - Whether the ComboBox has valid input
- * @param isLoading - Whether the ComboBox is in a loading state
- * @param hasError - Whether the ComboBox has an error state
- * @param width - The width configuration ('auto' for inline-block, other values for full width)
- * @param label - Optional label text for the ComboBox
- * @param className - Optional additional CSS classes for the input element
- * @param wrapperClassName - Optional additional CSS classes for the main wrapper
- *
  * @returns Object containing memoized CSS class strings for different ComboBox elements:
- *   - mainWrapperStyles: Classes for the outermost wrapper container
+ *   - outerWrapperStyles: Classes for the outermost wrapper container
  *   - inputWrapperStyles: Classes for the input wrapper container
  *   - inputStyles: Classes for the main input element
  *   - labelStyles: Classes for the floating label
@@ -199,26 +190,21 @@ const getMenuStyles = () => cn("juno-combobox-options", menuStyles)
  *   - toggleStyles: Classes for the dropdown toggle button
  *   - menuStyles: Classes for the dropdown menu container
  */
-function useComboBoxStyles(
-  disabled: boolean,
-  isInvalid: boolean,
-  isValid: boolean,
-  isLoading: boolean,
-  hasError: boolean,
-  width: ComboBoxWidth,
-  label?: string,
-  className?: string,
-  wrapperClassName?: string
-) {
+function useComboBoxStyles() {
+  const {
+    derivedProps: { disabled, loading: isLoading, error: hasError, width = "full", label, className, wrapperClassName },
+    validation: { isInvalid, isValid },
+  } = useComboBoxContext()
+
   const styles = useMemo(
     () => ({
-      mainWrapperStyles: getMainWrapperStyles(width, wrapperClassName),
+      outerWrapperStyles: getOuterWrapperStyles(width, wrapperClassName),
       inputWrapperStyles: getInputWrapperStyles(disabled),
-      inputStyles: getInputStyles(disabled, isInvalid, isValid, isLoading, hasError, label, className),
+      inputStyles: getInputStyles(isInvalid, isValid, hasError, isLoading, disabled, label, className),
       labelStyles: getLabelStyles(),
       centeredIconStyles: getCenteredIconStyles(),
       iconContainerStyles: getIconContainerStyles(disabled),
-      toggleStyles: getToggleStyles(disabled, isInvalid, isInvalid),
+      toggleStyles: getToggleStyles(isInvalid, isInvalid, disabled),
       menuStyles: getMenuStyles(),
     }),
     [width, wrapperClassName, disabled, isInvalid, isValid, isLoading, hasError, label, className]
