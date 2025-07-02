@@ -29,7 +29,6 @@ export const ComboBoxContent: React.FC<ComboBoxContentProps> = ({ children }) =>
 
   return (
     <Combobox
-      // @ts-ignore
       defaultValue={defaultValue}
       disabled={disabled || isLoading || hasError}
       name={name}

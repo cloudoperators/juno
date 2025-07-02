@@ -24,7 +24,7 @@ export type ComboBoxContextValue = {
   derivedProps: ComboBoxProps
 
   /** Remaining HTML attributes to be spread on the root element, excluding controlled props */
-  restProps: Omit<React.HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children">
+  restProps: Omit<React.HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children" | keyof ComboBoxProps>
 
   /** Current state of the ComboBox including open/closed status, selected value, and focus state */
   state: ComboBoxState
