@@ -1,0 +1,10 @@
+{
+  "apiEndpoint": "https://heureka-staging.scaleout.ap-jp-2.cloud.sap/query",
+  "embedded": false,
+  "theme": "theme-dark",
+  "initialFilters": {
+    "support_group": ["containers"]
+  },
+  "basePath": "/juno/pr-preview/pr-1060/heureka/",
+  "enableHashedRouting": false
+}
