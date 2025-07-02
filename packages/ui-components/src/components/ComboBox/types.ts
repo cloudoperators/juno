@@ -70,18 +70,28 @@ export type ComboBoxFloating = Pick<UseFloatingReturn, "x" | "y" | "strategy" | 
   Pick<UseInteractionsReturn, "getReferenceProps" | "getFloatingProps">
 
 export type ComboBoxState = {
+  /** Boolean indicating if the dropdown is open */
   isOpen: boolean
+  /** Function to toggle dropdown open/close state */
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  /** Current search/filter query string */
   query: string
+  /** Function to update the search query */
   setQuery: React.Dispatch<React.SetStateAction<string>>
+  /** Currently selected value */
   selectedValue: string
+  /** Function to update the selected value */
   setSelectedValue: React.Dispatch<React.SetStateAction<string>>
+  /** Boolean indicating if the combobox has focus */
   hasFocus: boolean
+  /** Function to update focus state */
   setFocus: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type ComboBoxValidation = {
+  /** Computed boolean indicating invalid state (based on invalid prop or errortext) */
   isInvalid: boolean
+  /** Computed boolean indicating valid state (based on valid prop or successtext) */
   isValid: boolean
 }
 

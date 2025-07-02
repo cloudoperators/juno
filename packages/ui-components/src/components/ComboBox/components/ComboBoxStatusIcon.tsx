@@ -17,9 +17,9 @@ const ComboBoxStatusIcon: React.FC = () => {
 
   const { centeredIconStyles, iconContainerStyles } = useComboBoxStyles()
 
-  return (
-    <>
-      {isLoading || hasError ? (
+  const renderStatusIcon = () => {
+    if (isLoading || hasError) {
+      return (
         <span className={centeredIconStyles}>
           {isLoading ? (
             <Spinner className="jn:cursor-not-allowed" />
@@ -27,18 +27,24 @@ const ComboBoxStatusIcon: React.FC = () => {
             <Icon icon="errorOutline" color="jn:text-theme-error" className="jn:cursor-not-allowed" />
           )}
         </span>
-      ) : isValid || isInvalid ? (
+      )
+    }
+
+    if (isValid || isInvalid) {
+      return (
         <span className={iconContainerStyles}>
           <Icon
             icon={isValid ? "checkCircle" : "dangerous"}
             color={isValid ? "jn:text-theme-success" : "jn:text-theme-error"}
           />
         </span>
-      ) : (
-        ""
-      )}
-    </>
-  )
+      )
+    }
+
+    return null
+  }
+
+  return <>{renderStatusIcon()}</>
 }
 
 export default ComboBoxStatusIcon

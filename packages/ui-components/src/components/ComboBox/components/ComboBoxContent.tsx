@@ -7,10 +7,10 @@ import React, { ReactNode, useEffect, useCallback } from "react"
 import { Combobox } from "@headlessui/react"
 import { useComboBoxContext } from "../context"
 
-interface ComboBoxWrapperProps {
+interface ComboBoxContentProps {
   children: ReactNode
 }
-const ComboBoxContent: React.FC<ComboBoxWrapperProps> = ({ children }) => {
+const ComboBoxContent: React.FC<ComboBoxContentProps> = ({ children }) => {
   const {
     state: { selectedValue, isOpen, setIsOpen, setSelectedValue },
     derivedProps: { defaultValue, disabled, loading: isLoading, error: hasError, name, onChange },

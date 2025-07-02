@@ -38,7 +38,7 @@ export type ComboBoxContextValue = {
   /** Processed and transformed options data ready for rendering in the dropdown */
   mappedOptions: ComboBoxMappedOptions
 
-  /** Subset of mapped options that match the current search/filter criteria */
+  /** Subset of options (children) that match the current search/filter criteria */
   filteredOptions: ComboBoxFilteredOptions
 }
 

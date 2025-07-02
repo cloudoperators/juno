@@ -55,7 +55,8 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   wrapperClassName = "",
   ...props
 }) => {
-  const inputElementId = id || "juno-combobox-" + useId()
+  const generatedId = useId()
+  const inputElementId = id || "juno-combobox-" + generatedId
   const helpTextId = "juno-combobox-helptext-" + useId()
 
   // State management
