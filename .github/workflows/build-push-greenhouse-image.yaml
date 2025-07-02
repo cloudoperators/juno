@@ -91,6 +91,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
           tags: |
             type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
+            type=sha,enable=true,format=short,prefix=
           labels: |
             org.opencontainers.image.description=${{env.DESCRIPTION}}
             org.opencontainers.image.title=Greenhouse-UI
