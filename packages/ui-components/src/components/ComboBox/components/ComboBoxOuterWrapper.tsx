@@ -9,10 +9,8 @@ import useComboBoxStyles from "../styles"
 interface ComboBoxOuterWrapperProps {
   children: ReactNode
 }
-const ComboBoxOuterWrapper: React.FC<ComboBoxOuterWrapperProps> = ({ children }) => {
+export const ComboBoxOuterWrapper: React.FC<ComboBoxOuterWrapperProps> = ({ children }) => {
   const { outerWrapperStyles } = useComboBoxStyles()
 
   return <div className={outerWrapperStyles}>{children}</div>
 }
-
-export default ComboBoxOuterWrapper

@@ -26,7 +26,7 @@ import { ComboBoxFloating } from "../types"
  * @param setIsOpen - Describes the state setter function's purpose
  * @returns - Details what the returned object contains (positioning, refs, prop getters)
  */
-function useComboBoxFloating(
+export function useComboBoxFloating(
   isOpen: boolean,
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 ): ComboBoxFloating {
@@ -58,5 +58,3 @@ function useComboBoxFloating(
 
   return { x, y, strategy, refs, getReferenceProps, getFloatingProps }
 }
-
-export default useComboBoxFloating

@@ -26,7 +26,7 @@ interface OptimizedOptionData {
  * @param debounceDelay - Delay in milliseconds for debouncing the search query
  * @returns Object containing filtered children that match the search query
  */
-function useComboBoxOptionFiltering(
+export function useComboBoxOptionFiltering(
   children: ReactNode,
   query: string,
   debounceDelay: number
@@ -84,5 +84,3 @@ function useComboBoxOptionFiltering(
 
   return filteredChildren
 }
-
-export default useComboBoxOptionFiltering

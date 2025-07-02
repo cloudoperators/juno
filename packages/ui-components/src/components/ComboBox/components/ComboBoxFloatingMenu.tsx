@@ -5,12 +5,12 @@
 
 import React from "react"
 import { ComboboxOptions } from "@headlessui/react"
-import { usePortalRef } from "../../PortalProvider/index"
 import { createPortal } from "react-dom"
+import { usePortalRef } from "../../PortalProvider/index"
 import { useComboBoxContext } from "../context"
 import useComboBoxStyles from "../styles"
 
-const ComboBoxFloatingMenu: React.FC = () => {
+export const ComboBoxFloatingMenu: React.FC = () => {
   const {
     state: { isOpen },
     floating: { refs, strategy, x, y, getFloatingProps },

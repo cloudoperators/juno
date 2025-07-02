@@ -10,7 +10,7 @@ import useComboBoxStyles from "../styles"
 interface ComboBoxInputWrapperProps {
   children: ReactNode
 }
-const ComboBoxInputWrapper: React.FC<ComboBoxInputWrapperProps> = ({ children }) => {
+export const ComboBoxInputWrapper: React.FC<ComboBoxInputWrapperProps> = ({ children }) => {
   const { inputWrapperStyles } = useComboBoxStyles()
 
   const {
@@ -23,5 +23,3 @@ const ComboBoxInputWrapper: React.FC<ComboBoxInputWrapperProps> = ({ children })
     </div>
   )
 }
-
-export default ComboBoxInputWrapper

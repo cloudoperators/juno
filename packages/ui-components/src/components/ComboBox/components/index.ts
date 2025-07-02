@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as ComboBoxInput } from "./ComboBoxInput"
-export { default as ComboBoxLabel } from "./ComboBoxLabel"
-export { default as ComboBoxStatusIcon } from "./ComboBoxStatusIcon"
-export { default as ComboBoxStatusMessage } from "./ComboBoxStatusMessage"
-export { default as ComboBoxToggleButton } from "./ComboBoxToggleButton"
-export { default as ComboBoxFloatingMenu } from "./ComboBoxFloatingMenu"
-export { default as ComboBoxContent } from "./ComboBoxContent"
-export { default as ComboBoxOuterWrapper } from "./ComboBoxOuterWrapper"
-export { default as ComboBoxInputWrapper } from "./ComboBoxInputWrapper"
+export { ComboBoxInput } from "./ComboBoxInput"
+export { ComboBoxLabel } from "./ComboBoxLabel"
+export { ComboBoxStatusIcon } from "./ComboBoxStatusIcon"
+export { ComboBoxStatusMessage } from "./ComboBoxStatusMessage"
+export { ComboBoxToggleButton } from "./ComboBoxToggleButton"
+export { ComboBoxFloatingMenu } from "./ComboBoxFloatingMenu"
+export { ComboBoxContent } from "./ComboBoxContent"
+export { ComboBoxOuterWrapper } from "./ComboBoxOuterWrapper"
+export { ComboBoxInputWrapper } from "./ComboBoxInputWrapper"

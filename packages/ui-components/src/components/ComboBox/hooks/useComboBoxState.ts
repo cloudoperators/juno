@@ -22,7 +22,7 @@ import { ComboBoxState } from "../types"
  * - hasFocus: Boolean indicating if the combobox has focus
  * - setFocus: Function to update focus state
  */
-function useComboBoxState(initialValue: string): ComboBoxState {
+export function useComboBoxState(initialValue: string): ComboBoxState {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [selectedValue, setSelectedValue] = useState(initialValue)
@@ -39,5 +39,3 @@ function useComboBoxState(initialValue: string): ComboBoxState {
     setFocus,
   }
 }
-
-export default useComboBoxState

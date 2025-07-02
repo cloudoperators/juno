@@ -25,7 +25,7 @@ export type OptionValuesAndLabelsValue = {
  * @param children - Specifies it expects React children with ComboBoxOption components
  * @returns - Explains the returned Map structure and its purpose for lookups
  */
-function useComboBoxOptionMapping(children: ReactNode): ComboBoxMappedOptions {
+export function useComboBoxOptionMapping(children: ReactNode): ComboBoxMappedOptions {
   const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(
     new Map<OptionValuesAndLabelsKey, OptionValuesAndLabelsValue>()
   )
@@ -62,5 +62,3 @@ function useComboBoxOptionMapping(children: ReactNode): ComboBoxMappedOptions {
 
   return optionValuesAndLabels
 }
-
-export default useComboBoxOptionMapping

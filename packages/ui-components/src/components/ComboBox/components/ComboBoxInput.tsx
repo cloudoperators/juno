@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, ReactNode } from "react"
+import React, { ReactNode } from "react"
 import { ComboboxInput } from "@headlessui/react"
 import { OptionValuesAndLabelsKey } from "../hooks"
 import { useComboBoxContext } from "../context"
 import { safeToString } from "../../../utils"
 import useComboBoxStyles from "../styles"
 
-const ComboBoxInput: React.FC = () => {
+export const ComboBoxInput: React.FC = () => {
   const {
     inputElementId,
     helpTextId,
@@ -32,50 +32,35 @@ const ComboBoxInput: React.FC = () => {
 
   const { inputStyles } = useComboBoxStyles()
 
-  const handleInputChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newQuery = event?.target?.value || ""
-      setQuery(newQuery)
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = event?.target?.value || ""
+    setQuery(newQuery)
 
-      // Only trigger onInputChange if it exists
-      onInputChange?.(event)
-    },
-    [onInputChange]
-  )
+    // Only trigger onInputChange if it exists
+    onInputChange?.(event)
+  }
 
-  const handleFocus = useCallback(
-    (event: React.FocusEvent<HTMLInputElement>) => {
-      setFocus(true)
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    setFocus(true)
 
-      if (!isOpen) {
-        setIsOpen(true)
-      }
+    if (!isOpen) {
+      setIsOpen(true)
+    }
 
-      onFocus?.(event)
-    },
-    [isOpen, onFocus]
-  )
+    onFocus?.(event)
+  }
 
-  const handleBlur = useCallback(
-    (event: React.FocusEvent<HTMLInputElement>) => {
-      setFocus(false)
-      setIsOpen(false)
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    setFocus(false)
+    setIsOpen(false)
 
-      onBlur?.(event)
-    },
-    [onBlur]
-  )
+    onBlur?.(event)
+  }
 
-  // Memoized display value calculation
-  const displayValue = useCallback(
-    (val: ReactNode) => {
-      const option = mappedOptions.get(val)
-      return (
-        (option?.children && safeToString(option.children)) || option?.label || valueLabel || safeToString(val) || ""
-      )
-    },
-    [mappedOptions, valueLabel]
-  )
+  const displayValue = (val: ReactNode) => {
+    const option = mappedOptions.get(val)
+    return (option?.children && safeToString(option.children)) || option?.label || valueLabel || safeToString(val) || ""
+  }
 
   return (
     <ComboboxInput<OptionValuesAndLabelsKey>
@@ -92,5 +77,3 @@ const ComboBoxInput: React.FC = () => {
     />
   )
 }
-
-export default ComboBoxInput

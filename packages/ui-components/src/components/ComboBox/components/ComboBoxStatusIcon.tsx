@@ -9,7 +9,7 @@ import { Icon } from "../../Icon/index"
 import { useComboBoxContext } from "../context"
 import useComboBoxStyles from "../styles"
 
-const ComboBoxStatusIcon: React.FC = () => {
+export const ComboBoxStatusIcon: React.FC = () => {
   const {
     derivedProps: { loading: isLoading, error: hasError },
     validation: { isInvalid, isValid },
@@ -46,5 +46,3 @@ const ComboBoxStatusIcon: React.FC = () => {
 
   return <>{renderStatusIcon()}</>
 }
-
-export default ComboBoxStatusIcon

@@ -3,32 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode, useEffect, useCallback } from "react"
+import React, { ReactNode, useEffect } from "react"
 import { Combobox } from "@headlessui/react"
 import { useComboBoxContext } from "../context"
 
 interface ComboBoxContentProps {
   children: ReactNode
 }
-const ComboBoxContent: React.FC<ComboBoxContentProps> = ({ children }) => {
+export const ComboBoxContent: React.FC<ComboBoxContentProps> = ({ children }) => {
   const {
     state: { selectedValue, isOpen, setIsOpen, setSelectedValue },
     derivedProps: { defaultValue, disabled, loading: isLoading, error: hasError, name, onChange },
     restProps,
   } = useComboBoxContext()
 
-  const handleChange = useCallback(
-    (value: string) => {
-      setSelectedValue(value)
+  const handleChange = (value: string) => {
+    setSelectedValue(value)
 
-      if (value) {
-        setIsOpen(false)
-      }
+    if (value) {
+      setIsOpen(false)
+    }
 
-      onChange?.(value)
-    },
-    [onChange]
-  )
+    onChange?.(value)
+  }
 
   return (
     <Combobox
@@ -54,5 +51,3 @@ const ComboBoxContent: React.FC<ComboBoxContentProps> = ({ children }) => {
     </Combobox>
   )
 }
-
-export default ComboBoxContent

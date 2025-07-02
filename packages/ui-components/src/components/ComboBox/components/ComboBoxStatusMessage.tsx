@@ -8,7 +8,7 @@ import { FormHint } from "../../FormHint/index"
 import { isNotEmptyString } from "../../../utils"
 import { useComboBoxContext } from "../context"
 
-const ComboBoxStatusMessage: React.FC = () => {
+export const ComboBoxStatusMessage: React.FC = () => {
   const {
     helpTextId,
     derivedProps: { helptext, successtext, errortext },
@@ -22,5 +22,3 @@ const ComboBoxStatusMessage: React.FC = () => {
     </>
   )
 }
-
-export default ComboBoxStatusMessage

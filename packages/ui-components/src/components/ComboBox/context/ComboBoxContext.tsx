@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useContext, createContext, useMemo } from "react"
+import { useContext, createContext } from "react"
 import {
   ComboBoxFilteredOptions,
   ComboBoxFloating,
@@ -68,20 +68,17 @@ export const useComboBoxContextValue = (
   mappedOptions: ComboBoxMappedOptions,
   filteredOptions: ComboBoxFilteredOptions
 ): ComboBoxContextValue => {
-  const contextValue = useMemo(
-    () => ({
-      inputElementId,
-      helpTextId,
-      derivedProps,
-      restProps,
-      state,
-      floating,
-      validation,
-      mappedOptions,
-      filteredOptions,
-    }),
-    [inputElementId, helpTextId, derivedProps, restProps, state, floating, validation, mappedOptions, filteredOptions]
-  )
+  const contextValue = {
+    inputElementId,
+    helpTextId,
+    derivedProps,
+    restProps,
+    state,
+    floating,
+    validation,
+    mappedOptions,
+    filteredOptions,
+  }
 
   return contextValue
 }

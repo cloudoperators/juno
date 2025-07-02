@@ -20,7 +20,7 @@ import { ComboBoxValidation } from "../types"
  * - isInvalid: Computed boolean indicating invalid state (based on invalid prop or errortext)
  * - isValid: Computed boolean indicating valid state (based on valid prop or successtext)
  */
-function useComboBoxValidation(
+export function useComboBoxValidation(
   errortext: ReactNode,
   successtext: ReactNode,
   invalid: boolean,
@@ -34,5 +34,3 @@ function useComboBoxValidation(
     isValid,
   }
 }
-
-export default useComboBoxValidation

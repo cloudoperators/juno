@@ -9,7 +9,7 @@ import { useComboBoxContext } from "../context"
 import { isNotEmptyString } from "../../../utils"
 import useComboBoxStyles from "../styles"
 
-const ComboBoxLabel: React.FC = () => {
+export const ComboBoxLabel: React.FC = () => {
   const {
     inputElementId,
     derivedProps: { label, placeholder, loading: isLoading, error: hasError, required, disabled },
@@ -45,5 +45,3 @@ const ComboBoxLabel: React.FC = () => {
     </>
   )
 }
-
-export default ComboBoxLabel

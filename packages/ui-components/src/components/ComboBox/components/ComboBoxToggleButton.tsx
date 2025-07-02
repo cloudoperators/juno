@@ -9,7 +9,7 @@ import { Icon } from "../../Icon/index"
 import { useComboBoxContext } from "../context"
 import useComboBoxStyles from "../styles"
 
-const ComboBoxToggleButton: React.FC = () => {
+export const ComboBoxToggleButton: React.FC = () => {
   const {
     derivedProps: { error: hasError, loading: isLoading },
     state: { isOpen },
@@ -27,5 +27,3 @@ const ComboBoxToggleButton: React.FC = () => {
     </>
   )
 }
-
-export default ComboBoxToggleButton
