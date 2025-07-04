@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Fragment, useEffect, useContext } from "react"
+import React, { Fragment } from "react"
 import { ComboboxOption } from "@headlessui/react"
-import { ComboBoxContext } from "../ComboBox/ComboBox.component"
+import { useComboBoxContext } from "../ComboBox/context"
 import { Icon } from "../Icon/Icon.component"
 
 const optionStyles = `
@@ -57,19 +57,11 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   className = "",
   ...props
 }) => {
-  const comboBoxContext = useContext(ComboBoxContext)
+  const comboBoxContext = useComboBoxContext()
   const {
-    selectedValue: selectedValue,
-    truncateOptions: truncateOptions,
-    addOptionValueAndLabel: addOptionValueAndLabel,
+    derivedProps: { truncateOptions },
+    state: { selectedValue },
   } = comboBoxContext || {}
-
-  // send option metadata to the ComboBox parent component via Context
-  useEffect(() => {
-    if (addOptionValueAndLabel) {
-      addOptionValueAndLabel(value, label, children)
-    }
-  }, [value, label, children])
 
   const theValue = value || children
 
