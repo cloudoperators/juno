@@ -48,7 +48,7 @@
     "@graphql-codegen/typescript-operations": "4.4.1",
     "@graphql-codegen/typescript-react-apollo": "4.3.3",
     "@tanstack/router-plugin": "1.119.0",
-    "@tailwindcss/vite": "^4.1.10",
+    "@tailwindcss/vite": "^4.1.11",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.2.0",
     "@testing-library/user-event": "14.6.1",

@@ -17,7 +17,7 @@
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@svgr/plugin-jsx": "^7.0.0",
-    "@tailwindcss/vite": "^4.1.7",
+    "@tailwindcss/vite": "^4.1.11",
     "@tailwindui/react": "^0.1.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
