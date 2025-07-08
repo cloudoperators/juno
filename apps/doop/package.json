@@ -35,7 +35,7 @@
     "shadow-dom-testing-library": "^1.11.3",
     "tailwindcss": "^4.1.7",
     "vite": "^7.0.3",
-    "vitest": "^3.0.7",
+    "vitest": "^3.2.4",
     "zustand": "4.5.7"
   },
   "scripts": {
