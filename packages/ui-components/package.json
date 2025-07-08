@@ -42,7 +42,7 @@
     "@testing-library/user-event": "14.6.1",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
-    "@vitejs/plugin-react": "4.4.1",
+    "@vitejs/plugin-react": "^4.6.0",
     "add": "2.0.6",
     "autoprefixer": "10.4.21",
     "css-loader": "6.11.0",

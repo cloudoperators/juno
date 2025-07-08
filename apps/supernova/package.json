@@ -24,7 +24,7 @@
     "@testing-library/react": "^16.0.1",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
-    "@vitejs/plugin-react": "^4.4.1",
+    "@vitejs/plugin-react": "^4.6.0",
     "immer": "^10.0.0",
     "interweave": "^13.0.0",
     "jsdom": "^26.1.0",

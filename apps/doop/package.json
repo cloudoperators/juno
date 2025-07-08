@@ -23,7 +23,7 @@
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@testing-library/react": "^16.3.0",
-    "@vitejs/plugin-react": "^4.4.1",
+    "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.2",
     "interweave": "^13.1.0",
     "jsdoc": "^4.0.2",
