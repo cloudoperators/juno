@@ -33,7 +33,7 @@
     "react-test-renderer": "^19.1.0",
     "shadow-dom-testing-library": "^1.11.3",
     "tailwindcss": "^4.1.7",
-    "vite": "^6.3.5",
+    "vite": "^7.0.3",
     "vitest": "^3.0.7"
   },
   "dependencies": {

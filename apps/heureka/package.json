@@ -75,7 +75,7 @@
     "tailwindcss": "^4.1.10",
     "react-error-boundary": "^4.0.13",
     "typescript": "^5.8.3",
-    "vite": "6.3.5",
+    "vite": "^7.0.3",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "4.3.2",
     "vitest": "3.0.9"
