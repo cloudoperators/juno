@@ -65,7 +65,7 @@
     "ts-loader": "9.5.2",
     "typescript": "^5.8.3",
     "vite": "^7.0.3",
-    "vite-plugin-dts": "4.3.0",
+    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-glob": "0.3.2",
     "vite-plugin-svgr": "4.3.0",
     "vite-tsconfig-paths": "5.1.4",
