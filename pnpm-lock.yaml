@@ -152,7 +152,7 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
       vite-plugin-svgr:
-        specifier: ^4.2.0
+        specifier: ^4.3.0
         version: 4.3.0(rollup@4.40.2)(typescript@5.8.3)(vite@7.0.3(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       vite-tsconfig-paths:
         specifier: ^5.1.4
@@ -443,7 +443,7 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
       vite-plugin-svgr:
-        specifier: ^4.2.0
+        specifier: ^4.3.0
         version: 4.3.0(rollup@4.40.2)(typescript@5.8.3)(vite@7.0.3(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       vitest:
         specifier: ^3.2.4
@@ -594,7 +594,7 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
       vite-plugin-svgr:
-        specifier: ^4.2.0
+        specifier: ^4.3.0
         version: 4.3.0(rollup@4.40.2)(typescript@5.8.3)(vite@7.0.3(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       vite-tsconfig-paths:
         specifier: ^5.1.4
@@ -1079,13 +1079,13 @@ importers:
         specifier: ^4.5.4
         version: 4.5.4(@types/node@24.0.4)(rollup@4.40.2)(typescript@5.8.3)(vite@7.0.3(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       vite-plugin-glob:
-        specifier: 0.3.2
+        specifier: ^0.3.2
         version: 0.3.2
       vite-plugin-svgr:
-        specifier: 4.3.0
+        specifier: ^4.3.0
         version: 4.3.0(rollup@4.40.2)(typescript@5.8.3)(vite@7.0.3(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       vite-tsconfig-paths:
-        specifier: 5.1.4
+        specifier: ^5.1.4
         version: 5.1.4(typescript@5.8.3)(vite@7.0.3(@types/node@24.0.4)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       vitest:
         specifier: ^3.2.4

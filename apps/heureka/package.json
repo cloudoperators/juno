@@ -76,7 +76,7 @@
     "react-error-boundary": "^4.0.13",
     "typescript": "^5.8.3",
     "vite": "^7.0.3",
-    "vite-plugin-svgr": "^4.2.0",
+    "vite-plugin-svgr": "^4.3.0",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
   }
