@@ -77,6 +77,8 @@ export const Default: Story = {
   render: Template,
   args: {
     children: <p>A default modal.</p>,
+    disableConfirmButton: false,
+    disableCancelButton: false,
   },
 }
 
