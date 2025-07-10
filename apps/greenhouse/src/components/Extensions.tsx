@@ -54,6 +54,7 @@ const Extension = ({ config, auth }: any) => {
             token: auth?.JWT,
             //TODO: find a better place to add these props
             ...(config.id === "heureka" ? { basePath: `/compliance`, enableHashedRouting: true } : {}),
+            ...(config.id === "doop" ? { basePath: `/doop`, enableHashedRouting: true } : {}),
           },
         })
       })
