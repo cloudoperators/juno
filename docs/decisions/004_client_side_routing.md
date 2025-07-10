@@ -60,8 +60,10 @@ We adopted the following architecture for client-side routing and state:
 
    - `/products`  
      Loads the main **Products** page.
-- `/products/product-a`
-   Loads the page for **Product A**
+
+   - `/products/product-a`  
+     Loads the page for **Product A**
+
    ##### Optional UI Elements via Search Params
 
    - `/products?overview=product-a`  
