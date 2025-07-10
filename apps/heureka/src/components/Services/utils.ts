@@ -334,4 +334,3 @@ export const sanitizeFilterSettings = (filters: Filter[], filterSettings: Filter
     selectedFilters: validFilters,
   }
 }
-

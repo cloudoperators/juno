@@ -18,10 +18,7 @@ import {
 const vulnerabilitiesSearchSchema = z
   .object({
     vulnerability: z.string().optional(),
-    searchTerm: z.preprocess(
-      (val) => (typeof val === "number" ? val.toString() : val),
-      z.string().optional()
-    ),
+    searchTerm: z.preprocess((val) => (typeof val === "number" ? val.toString() : val), z.string().optional()),
   })
   .catchall(
     z.preprocess(
@@ -69,4 +66,4 @@ export const Route = createFileRoute("/vulnerabilities/")({
     }
   },
   component: Vulnerabilities,
-}) 
+})

@@ -14,4 +14,4 @@ export const Route = createFileRoute("/vulnerabilities")({
     },
   }),
   component: Outlet,
-}) 
+})

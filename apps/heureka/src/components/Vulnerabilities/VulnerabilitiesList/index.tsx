@@ -5,14 +5,7 @@
 
 import React, { Suspense, useCallback, useEffect, useState } from "react"
 import { useRouteContext, useLoaderData } from "@tanstack/react-router"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  Icon,
-  Stack,
-  Spinner,
-} from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, Icon, Stack, Spinner } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../common/EmptyDataGridRow"
 import { getNormalizedVulnerabilitiesResponse } from "../utils"
 import { fetchVulnerabilities } from "../../../api/fetchVulnerabilities"
@@ -21,7 +14,9 @@ import { CursorPagination } from "../../common/CursorPagination"
 
 export const VulnerabilitiesList = () => {
   const { queryClient, apiClient } = useRouteContext({ from: "/vulnerabilities/" })
-  const { vulnerabilitiesPromise: pageLevelVulnerabilitiesPromise, filterSettings } = useLoaderData({ from: "/vulnerabilities/" })
+  const { vulnerabilitiesPromise: pageLevelVulnerabilitiesPromise, filterSettings } = useLoaderData({
+    from: "/vulnerabilities/",
+  })
   const [vulnerabilitiesPromise, setVulnerabilitiesPromise] = useState(pageLevelVulnerabilitiesPromise)
 
   // fetch vulnerabilities for a specific page
@@ -82,4 +77,4 @@ export const VulnerabilitiesList = () => {
       </Suspense>
     </>
   )
-} 
+}

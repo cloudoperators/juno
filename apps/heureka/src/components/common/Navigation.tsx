@@ -26,7 +26,7 @@ const navigationItems: NavigationItemType[] = [
   },
   {
     label: "Vulnerabilities",
-    value: "vulnerabilities", 
+    value: "vulnerabilities",
     path: "/vulnerabilities",
   },
 ]
@@ -35,34 +35,34 @@ export const Navigation = ({ activeItem }: NavigationPropsType) => {
   const navigate = useNavigate()
   const location = useLocation()
   const isVulnerabilitiesActive = location.pathname.includes("vulnerabilities")
-  
+
   // Store search parameters for each route type
   const searchParamsRef = useRef<Record<string, any>>({
     services: {},
-    vulnerabilities: {}
+    vulnerabilities: {},
   })
 
   const handleItemClick = (path: string) => {
     const currentPath = location.pathname
     const currentSearch = location.search
-    
+
     // Store current search parameters for the current route type
     if (currentPath.includes("services")) {
       searchParamsRef.current.services = currentSearch
     } else if (currentPath.includes("vulnerabilities")) {
       searchParamsRef.current.vulnerabilities = currentSearch
     }
-    
+
     // Navigate to the target path with its stored search parameters
     if (path.includes("services")) {
-      navigate({ 
+      navigate({
         to: path,
-        search: searchParamsRef.current.services
+        search: searchParamsRef.current.services,
       })
     } else if (path.includes("vulnerabilities")) {
-      navigate({ 
+      navigate({
         to: path,
-        search: searchParamsRef.current.vulnerabilities
+        search: searchParamsRef.current.vulnerabilities,
       })
     }
   }
@@ -70,15 +70,15 @@ export const Navigation = ({ activeItem }: NavigationPropsType) => {
   return (
     <TopNavigation activeItem={isVulnerabilitiesActive ? "vulnerabilities" : "services"}>
       {navigationItems.map(({ label, value, path }) => (
-        <TopNavigationItem 
-          role="link" 
-          ariaLabel={value} 
-          key={value} 
-          label={label} 
+        <TopNavigationItem
+          role="link"
+          ariaLabel={value}
+          key={value}
+          label={label}
           value={value}
           onClick={() => handleItemClick(path)}
         />
       ))}
     </TopNavigation>
   )
-} 
+}

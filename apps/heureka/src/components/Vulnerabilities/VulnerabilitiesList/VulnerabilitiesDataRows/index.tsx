@@ -26,7 +26,5 @@ export const VulnerabilitiesDataRows = ({ vulnerabilitiesPromise }: Vulnerabilit
     return <EmptyDataGridRow colSpan={5}>No vulnerabilities found! 🚀</EmptyDataGridRow>
   }
 
-  return vulnerabilities.map((vuln: Vulnerability) => (
-    <VulnerabilityDataRow key={vuln.name} vulnerability={vuln} />
-  ))
-} 
+  return vulnerabilities.map((vuln: Vulnerability) => <VulnerabilityDataRow key={vuln.name} vulnerability={vuln} />)
+}

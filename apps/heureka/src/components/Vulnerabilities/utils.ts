@@ -101,15 +101,15 @@ export function getNormalizedVulnerabilitiesResponse(data: any): NormalizedVulne
       servicesCount: edge.node.services?.totalCount || 0,
     })) || []
   const totalVulnerabilities = data?.Vulnerabilities?.totalCount || 0
-  
+
   const pageInfo = data?.Vulnerabilities?.pageInfo
   const pages = pageInfo?.pages || []
   const pageNumber = pageInfo?.pageNumber || 1
-  
-  return { 
+
+  return {
     vulnerabilities,
     totalVulnerabilities,
     pages,
-    pageNumber
+    pageNumber,
   }
-} 
+}

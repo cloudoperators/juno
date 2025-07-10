@@ -33,4 +33,4 @@ export const VulnerabilitiesFilters = () => {
       searchInputPlaceholder="search term for vulnerability name"
     />
   )
-} 
+}
