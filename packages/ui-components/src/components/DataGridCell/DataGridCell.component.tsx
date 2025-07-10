@@ -39,10 +39,12 @@ export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
   ({ colSpan, nowrap = false, className = "", children, ...props }, ref) => {
     const dataGridContext = useDataGridContext() || {}
     const cellVerticalAlignment = dataGridContext.cellVerticalAlignment
+    const rowHoverStyles =
+      "jn:group jn:group-hover jn:group-hover:cursor-pointer jn:group-hover:bg-theme-background-lvl-2"
 
     return (
       <div
-        className={`juno-datagrid-cell ${cellBaseStyles(nowrap, cellVerticalAlignment)} ${className}`}
+        className={`juno-datagrid-cell ${cellBaseStyles(nowrap, cellVerticalAlignment)} ${className} ${rowHoverStyles}`}
         style={cellCustomStyles(colSpan)}
         role="gridcell"
         ref={ref}

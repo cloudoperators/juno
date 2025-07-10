@@ -8,11 +8,19 @@ import React, { forwardRef } from "react"
 const rowBaseStyle = `
 	jn:contents
 `
+
+const rowHoverStyles = `
+  jn:group
+  jn:group-hover
+  jn:group-hover:cursor-pointer
+  jn:group-hover:bg-theme-background-lvl-2
+`
+
 // const rowSelectedStyle = `
 // 	jn:bg-theme-datagridrow-selected
 // `
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
-  ({ /* selected, disabled,*/ className = "", children, /*onChange,*/ ...props }, ref) => {
+  ({ /* selected, disabled,*/ hover = false, className = "", children, /*onChange,*/ ...props }, ref) => {
     // const dataGridContext = useDataGridContext() || {}
     // const selectable = dataGridContext.selectable
 
@@ -27,8 +35,10 @@ export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
     // }
 
     //  ${ selectable && isSelected ? rowSelectedStyle : '' }
+    const finalStyle = `${rowBaseStyle} ${hover ? "" : ""}`
+
     return (
-      <div className={`juno-datagrid-row ${rowBaseStyle} ${className}`} role="row" ref={ref} {...props}>
+      <div className={`juno-datagrid-row ${finalStyle} ${className}`} role="row" ref={ref} {...props}>
         {/* { selectable ? <DataGridCheckboxCell selected={selected} disabled={disabled} onChange={toggleSelected} /> : null } */}
         {children}
       </div>
@@ -43,6 +53,8 @@ export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
   // selected: PropTypes.bool,
   // /** Whether the row/item is disabled (only relevant in a `selectable` DataGrid */
   // disabled: PropTypes.bool,
+  /** Determines whether the DataGridRow should apply hover styles */
+  hover?: boolean
   /** Children to render in the DataGridRow */
   children?: React.ReactNode
   /** Add a classname */
