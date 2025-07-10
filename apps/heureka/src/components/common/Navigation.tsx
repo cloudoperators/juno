@@ -34,7 +34,7 @@ const navigationItems: NavigationItemType[] = [
 export const Navigation = ({ activeItem }: NavigationPropsType) => {
   const navigate = useNavigate()
   const location = useLocation()
-  const isVulnerabilitiesActive = location.pathname.includes("vulnerabilities")
+  const isVulnerabilitiesActive = location.pathname.toLowerCase().includes("vulnerabilities")
 
   // Store search parameters for each route type
   const searchParamsRef = useRef<Record<string, any>>({
@@ -47,9 +47,9 @@ export const Navigation = ({ activeItem }: NavigationPropsType) => {
     const currentSearch = location.search
 
     // Store current search parameters for the current route type
-    if (currentPath.includes("services")) {
+    if (currentPath.toLowerCase().includes("services")) {
       searchParamsRef.current.services = currentSearch
-    } else if (currentPath.includes("vulnerabilities")) {
+    } else if (currentPath.toLowerCase().includes("vulnerabilities")) {
       searchParamsRef.current.vulnerabilities = currentSearch
     }
 
