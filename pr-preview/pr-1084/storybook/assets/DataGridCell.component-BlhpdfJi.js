@@ -1,0 +1,26 @@
+import{e as h,j as s,r as f}from"./iframe-DJtUQ70b.js";const g=`
+	jn:grid
+	jn:items-stretch
+`,v=(e,a,r,t,n)=>{let l;if(n&&n.length>0)return l={gridTemplateColumns:n},l;let o="";return t&&Array.isArray(t)&&t.length>0?[...Array(e)].map((d,c)=>{o+=t.includes(c)?"min-content ":`minmax(${r}, ${a}) `}):o=`repeat(${e}, minmax(${r}, ${a}))`,l={gridTemplateColumns:o},l},y=h.createContext({}),w=()=>h.useContext(y),p=({columns:e=1,columnMaxSize:a="auto",columnMinSize:r="0px",minContentColumns:t,gridColumnTemplate:n,cellVerticalAlignment:l="center",className:o="",children:i,...d})=>{const c={cellVerticalAlignment:l};return s.jsx(y.Provider,{value:c,children:s.jsx("div",{className:`juno-datagrid ${g} ${o}`,style:v(e,a,r,t,n),role:"grid",...d,children:i})})};try{p.displayName="DataGrid",p.__docgenInfo={description:"The DataGrid component is the main way to display lists of items that have a bunch of metadata that you want to display.",displayName:"DataGrid",props:{columns:{defaultValue:{value:"1"},description:"Set number of columns",name:"columns",required:!1,type:{name:"number"}},columnMaxSize:{defaultValue:{value:"auto"},description:'Set column max sizing. Default: auto. For equally sized columns use "1fr"',name:"columnMaxSize",required:!1,type:{name:"string"}},columnMinSize:{defaultValue:{value:"0px"},description:"Set column minimum size. Default: 0px",name:"columnMinSize",required:!1,type:{name:"string"}},minContentColumns:{defaultValue:null,description:"Specify which columns should be sized by minimum content size (i.e. as small as possible). Pass an array of column numbers (first column is 0)",name:"minContentColumns",required:!1,type:{name:"number[]"}},gridColumnTemplate:{defaultValue:null,description:`Set the grid column template in CSS grid 'grid-template-columns' notation. If this prop is passed, all other template props (columns, columnMaxSize,
+columnMinSize, minContentColumns) are ignored. The easiest case where you might need this is e.g. if you want to set specific column widths for some
+or all columns, e.g. "20% auto auto 10%" (The first column is set to 20%, the next two to auto size, the last to 10%).`,name:"gridColumnTemplate",required:!1,type:{name:"string"}},cellVerticalAlignment:{defaultValue:{value:"center"},description:`Set the vertical alignment for all GridCells. Default: center. PLEASE NOTE: the center alignment is achieved by using a flexbox column layout,
+which means that all child elements of the cell will be stacked vertically. To avoid this, wrap the elements in their own div`,name:"cellVerticalAlignment",required:!1,type:{name:"enum",value:[{value:'"center"'},{value:'"top"'}]}},children:{defaultValue:null,description:"Children to render in the DataGrid",name:"children",required:!1,type:{name:"ReactNode"}},className:{defaultValue:{value:""},description:"Add a class name",name:"className",required:!1,type:{name:"string"}}}}}catch{}const j=`
+	jn:contents
+`,x=`
+  jn:group
+  jn:group-hover
+  jn:group-hover:cursor-pointer
+  jn:group-hover:bg-theme-background-lvl-2
+`,u=f.forwardRef(({hover:e=!1,className:a="",children:r,...t},n)=>{const l=`${j} ${e?x:""}`;return s.jsx("div",{className:`juno-datagrid-row ${l} ${a}`,role:"row",ref:n,...t,children:r})});u.displayName="DataGridRow";try{u.displayName="DataGridRow",u.__docgenInfo={description:"",displayName:"DataGridRow",props:{hover:{defaultValue:{value:"false"},description:"Determines whether the DataGridRow should apply hover styles",name:"hover",required:!1,type:{name:"boolean"}},children:{defaultValue:null,description:"Children to render in the DataGridRow",name:"children",required:!1,type:{name:"ReactNode"}},className:{defaultValue:{value:""},description:"Add a classname",name:"className",required:!1,type:{name:"string"}}}}}catch{}const b=(e,a)=>`
+		${e?"jn:whitespace-nowrap":""}
+		${a==="center"?`
+				jn:justify-center
+				jn:flex
+				jn:flex-col		
+			`:""}
+		jn:px-5
+		jn:py-3
+		jn:border-b
+		jn:border-theme-background-lvl-2
+		jn:h-full
+	`,_=e=>{let a;return e&&(a={gridColumn:`span ${e} / span ${e}`}),a},m=f.forwardRef(({colSpan:e,nowrap:a=!1,className:r="",children:t,...n},l)=>{const i=(w()||{}).cellVerticalAlignment;return s.jsx("div",{className:`juno-datagrid-cell ${b(a,i)} ${r} jn:group jn:group-hover jn:group-hover:cursor-pointer jn:group-hover:bg-theme-background-lvl-2`,style:_(e),role:"gridcell",ref:l,...n,children:t})});m.displayName="DataGridCell";try{m.displayName="DataGridCell",m.__docgenInfo={description:"",displayName:"DataGridCell",props:{colSpan:{defaultValue:null,description:"Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.",name:"colSpan",required:!1,type:{name:"number"}},nowrap:{defaultValue:{value:"false"},description:"Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;)",name:"nowrap",required:!1,type:{name:"boolean"}},children:{defaultValue:null,description:"Children to render in the DataGridCell",name:"children",required:!1,type:{name:"ReactNode"}},className:{defaultValue:{value:""},description:"Add a classname",name:"className",required:!1,type:{name:"string"}}}}}catch{}export{p as D,u as a,m as b};
