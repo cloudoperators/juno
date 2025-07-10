@@ -34,7 +34,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: Template,
-  args: {},
+  args: { disableConfirmButton: false, disableCancelButton: false },
 }
 
 export const Configure: Story = {
@@ -42,6 +42,16 @@ export const Configure: Story = {
   args: {
     confirmButtonLabel: "Confirm Action",
     cancelButtonLabel: "Cancel Action",
+  },
+}
+
+export const ConfigureWithDisabledButtons: Story = {
+  render: Template,
+  args: {
+    confirmButtonLabel: "Confirm Action",
+    cancelButtonLabel: "Cancel Action",
+    disableConfirmButton: true,
+    disableCancelButton: true,
   },
 }
 
