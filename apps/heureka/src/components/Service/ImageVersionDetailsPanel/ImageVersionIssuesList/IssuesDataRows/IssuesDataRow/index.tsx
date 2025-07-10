@@ -6,9 +6,10 @@
 import React, { useState } from "react"
 import { DataGridRow, DataGridCell, Stack } from "@cloudoperators/juno-ui-components"
 import { Icon } from "@cloudoperators/juno-ui-components"
-import { IssueIcon } from "./IssueIcon"
-import { IssueTimestamp } from "./IssueTimestamp"
-import { Issue, getSeverityColor } from "../../../../../Services/utils"
+import { IssueIcon } from "../../../../../common/IssueIcon"
+import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
+import { Issue } from "../../../../../Services/utils"
+import { getSeverityColor } from "../../../../../../utils"
 
 const cellSeverityClasses = (severity: string) => {
   let borderColor = getSeverityColor(severity)

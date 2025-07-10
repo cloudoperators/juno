@@ -10,69 +10,97 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root"
-import { Route as ServicesRouteImport } from "./routes/services/route"
-import { Route as IndexImport } from "./routes/index"
-import { Route as ServicesIndexImport } from "./routes/services/index"
-import { Route as ServicesServiceImport } from "./routes/services/$service"
+import { Route as rootRoute } from './routes/__root'
+import { Route as VulnerabilitiesRouteImport } from './routes/vulnerabilities/route'
+import { Route as ServicesRouteImport } from './routes/services/route'
+import { Route as IndexImport } from './routes/index'
+import { Route as VulnerabilitiesIndexImport } from './routes/vulnerabilities/index'
+import { Route as ServicesIndexImport } from './routes/services/index'
+import { Route as ServicesServiceImport } from './routes/services/$service'
 
 // Create/Update Routes
 
+const VulnerabilitiesRouteRoute = VulnerabilitiesRouteImport.update({
+  id: '/vulnerabilities',
+  path: '/vulnerabilities',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ServicesRouteRoute = ServicesRouteImport.update({
-  id: "/services",
-  path: "/services",
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRoute,
 } as any)
 
 const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
+const VulnerabilitiesIndexRoute = VulnerabilitiesIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => VulnerabilitiesRouteRoute,
+} as any)
+
 const ServicesIndexRoute = ServicesIndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => ServicesRouteRoute,
 } as any)
 
 const ServicesServiceRoute = ServicesServiceImport.update({
-  id: "/$service",
-  path: "/$service",
+  id: '/$service',
+  path: '/$service',
   getParentRoute: () => ServicesRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/"
-      path: "/"
-      fullPath: "/"
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    "/services": {
-      id: "/services"
-      path: "/services"
-      fullPath: "/services"
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRoute
     }
-    "/services/$service": {
-      id: "/services/$service"
-      path: "/$service"
-      fullPath: "/services/$service"
+    '/vulnerabilities': {
+      id: '/vulnerabilities'
+      path: '/vulnerabilities'
+      fullPath: '/vulnerabilities'
+      preLoaderRoute: typeof VulnerabilitiesRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/services/$service': {
+      id: '/services/$service'
+      path: '/$service'
+      fullPath: '/services/$service'
       preLoaderRoute: typeof ServicesServiceImport
       parentRoute: typeof ServicesRouteImport
     }
-    "/services/": {
-      id: "/services/"
-      path: "/"
-      fullPath: "/services/"
+    '/services/': {
+      id: '/services/'
+      path: '/'
+      fullPath: '/services/'
       preLoaderRoute: typeof ServicesIndexImport
       parentRoute: typeof ServicesRouteImport
+    }
+    '/vulnerabilities/': {
+      id: '/vulnerabilities/'
+      path: '/'
+      fullPath: '/vulnerabilities/'
+      preLoaderRoute: typeof VulnerabilitiesIndexImport
+      parentRoute: typeof VulnerabilitiesRouteImport
     }
   }
 }
@@ -89,49 +117,84 @@ const ServicesRouteRouteChildren: ServicesRouteRouteChildren = {
   ServicesIndexRoute: ServicesIndexRoute,
 }
 
-const ServicesRouteRouteWithChildren = ServicesRouteRoute._addFileChildren(ServicesRouteRouteChildren)
+const ServicesRouteRouteWithChildren = ServicesRouteRoute._addFileChildren(
+  ServicesRouteRouteChildren,
+)
+
+interface VulnerabilitiesRouteRouteChildren {
+  VulnerabilitiesIndexRoute: typeof VulnerabilitiesIndexRoute
+}
+
+const VulnerabilitiesRouteRouteChildren: VulnerabilitiesRouteRouteChildren = {
+  VulnerabilitiesIndexRoute: VulnerabilitiesIndexRoute,
+}
+
+const VulnerabilitiesRouteRouteWithChildren =
+  VulnerabilitiesRouteRoute._addFileChildren(VulnerabilitiesRouteRouteChildren)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
-  "/services": typeof ServicesRouteRouteWithChildren
-  "/services/$service": typeof ServicesServiceRoute
-  "/services/": typeof ServicesIndexRoute
+  '/': typeof IndexRoute
+  '/services': typeof ServicesRouteRouteWithChildren
+  '/vulnerabilities': typeof VulnerabilitiesRouteRouteWithChildren
+  '/services/$service': typeof ServicesServiceRoute
+  '/services/': typeof ServicesIndexRoute
+  '/vulnerabilities/': typeof VulnerabilitiesIndexRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute
-  "/services/$service": typeof ServicesServiceRoute
-  "/services": typeof ServicesIndexRoute
+  '/': typeof IndexRoute
+  '/services/$service': typeof ServicesServiceRoute
+  '/services': typeof ServicesIndexRoute
+  '/vulnerabilities': typeof VulnerabilitiesIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  "/": typeof IndexRoute
-  "/services": typeof ServicesRouteRouteWithChildren
-  "/services/$service": typeof ServicesServiceRoute
-  "/services/": typeof ServicesIndexRoute
+  '/': typeof IndexRoute
+  '/services': typeof ServicesRouteRouteWithChildren
+  '/vulnerabilities': typeof VulnerabilitiesRouteRouteWithChildren
+  '/services/$service': typeof ServicesServiceRoute
+  '/services/': typeof ServicesIndexRoute
+  '/vulnerabilities/': typeof VulnerabilitiesIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/services" | "/services/$service" | "/services/"
+  fullPaths:
+    | '/'
+    | '/services'
+    | '/vulnerabilities'
+    | '/services/$service'
+    | '/services/'
+    | '/vulnerabilities/'
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/services/$service" | "/services"
-  id: "__root__" | "/" | "/services" | "/services/$service" | "/services/"
+  to: '/' | '/services/$service' | '/services' | '/vulnerabilities'
+  id:
+    | '__root__'
+    | '/'
+    | '/services'
+    | '/vulnerabilities'
+    | '/services/$service'
+    | '/services/'
+    | '/vulnerabilities/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
+  VulnerabilitiesRouteRoute: typeof VulnerabilitiesRouteRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ServicesRouteRoute: ServicesRouteRouteWithChildren,
+  VulnerabilitiesRouteRoute: VulnerabilitiesRouteRouteWithChildren,
 }
 
-export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -140,7 +203,8 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/services"
+        "/services",
+        "/vulnerabilities"
       ]
     },
     "/": {
@@ -153,6 +217,12 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
         "/services/"
       ]
     },
+    "/vulnerabilities": {
+      "filePath": "vulnerabilities/route.tsx",
+      "children": [
+        "/vulnerabilities/"
+      ]
+    },
     "/services/$service": {
       "filePath": "services/$service.tsx",
       "parent": "/services"
@@ -160,6 +230,10 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
     "/services/": {
       "filePath": "services/index.tsx",
       "parent": "/services"
+    },
+    "/vulnerabilities/": {
+      "filePath": "vulnerabilities/index.tsx",
+      "parent": "/vulnerabilities"
     }
   }
 }

@@ -8,6 +8,7 @@ import { createRootRouteWithContext, Outlet } from "@tanstack/react-router"
 import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-components/index"
 import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { Breadcrumb } from "../components/common/Breadcrumb"
+import { Navigation } from "../components/common/Navigation"
 import { RouteContext } from "./-types"
 
 export const Route = createRootRouteWithContext<RouteContext>()({
@@ -19,6 +20,7 @@ function Root() {
 
   return (
     <AppShell embedded={appProps.embedded} pageHeader={<PageHeader heading="Heureka" />}>
+      <Navigation />
       <Container py px>
         <MessagesProvider>
           <Messages />
