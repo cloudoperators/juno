@@ -89,6 +89,17 @@ export const SimpleConfirmDialog: Story = {
   },
 }
 
+export const SimpleConfirmDialogWithDisabledButtons: Story = {
+  render: Template,
+  args: {
+    children: <p>Are you sure you want to proceed?</p>,
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Yes, Proceed",
+    disableConfirmButton: true,
+    disableCancelButton: true,
+  },
+}
+
 export const AutoFocusDialog: Story = {
   render: Template,
   args: {

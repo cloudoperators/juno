@@ -45,6 +45,16 @@ export const Configure: Story = {
   },
 }
 
+export const ConfigureWithDisabledButtons: Story = {
+  render: Template,
+  args: {
+    confirmButtonLabel: "Confirm Action",
+    cancelButtonLabel: "Cancel Action",
+    disableConfirmButton: true,
+    disableCancelButton: true,
+  },
+}
+
 export const Custom: Story = {
   render: Template,
   args: {

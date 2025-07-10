@@ -30,14 +30,16 @@ Can alternatively render all custom children as passed.
 */
 
 export const ModalFooter: React.FC<ModalFooterProps> = ({
+  className = "",
   children,
   confirmButtonLabel = "",
   cancelButtonLabel = "",
   confirmButtonIcon,
   cancelButtonIcon,
+  disableConfirmButton = false,
+  disableCancelButton = false,
   onConfirm,
   onCancel,
-  className = "",
   ...props
 }) => {
   const handleConfirmClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -61,11 +63,13 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
             variant="primary"
             label={confirmButtonLabel || "Confirm"}
             icon={confirmButtonIcon || undefined}
+            disabled={disableConfirmButton}
             onClick={handleConfirmClick}
           />
           <Button
             variant="subdued"
             label={cancelButtonLabel || "Cancel"}
+            disabled={disableCancelButton}
             icon={cancelButtonIcon || undefined}
             onClick={handleCancelClick}
           />
@@ -74,9 +78,10 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
         <ButtonRow>
           <Button
             variant="subdued"
-            onClick={handleCancelClick}
             label={cancelButtonLabel || "Close"}
+            disabled={disableCancelButton}
             icon={cancelButtonIcon || undefined}
+            onClick={handleCancelClick}
           />
         </ButtonRow>
       )}
@@ -85,6 +90,8 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
 }
 
 export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
+  /** A custom className. Useful to configure flex items alignment when passing custom content as children. */
+  className?: string
   /** Custom children to render. */
   children?: React.ReactNode
   /** The label for the Confirm-button. When passed, the component will render a Confirm button and a cancel button, otherwise the component will ONLY render a Close-Button. */
@@ -95,8 +102,10 @@ export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
   confirmButtonIcon?: KnownIcons
   /** Pass an icon name to show on the cancelling button */
   cancelButtonIcon?: KnownIcons
-  /** A custom className. Useful to configure flex items alignment when passing custom content as children. */
-  className?: string
+  /** Determines whether the confirm action button should be disabled */
+  disableConfirmButton?: boolean
+  /** Determines whether the cancel action button should be disabled */
+  disableCancelButton?: boolean
   /** Handler to execute once the confirming button is clicked */
   onConfirm?: React.MouseEventHandler<HTMLElement>
   /** Handler to execute once the cancelling button is clicked */
