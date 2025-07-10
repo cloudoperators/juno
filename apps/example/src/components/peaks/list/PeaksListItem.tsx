@@ -28,11 +28,9 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
     setSelectedPeakId(peak.id)
   }
 
-  const hoverStyles = "p-6 group group-hover cursor-pointer group-hover:bg-theme-background-lvl-2 text-highest"
-
   return (
-    <DataGridRow className={hoverStyles}>
-      <DataGridCell className={hoverStyles} onClick={openPanel}>
+    <DataGridRow hover>
+      <DataGridCell onClick={openPanel}>
         <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="center">
           {peak.safety && (
             <Badge
@@ -44,22 +42,14 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
           )}
         </Stack>
       </DataGridCell>
-      <DataGridCell className={hoverStyles} onClick={openPanel}>
+      <DataGridCell onClick={openPanel}>
         <strong className="cursor-pointer text-blue-600 hover:text-blue-800">{peak.name}</strong>
       </DataGridCell>
-      <DataGridCell className={hoverStyles} onClick={openPanel}>
-        {peak.height}
-      </DataGridCell>
-      <DataGridCell className={hoverStyles} onClick={openPanel}>
-        {peak.mainrange}
-      </DataGridCell>
-      <DataGridCell className={hoverStyles} onClick={openPanel}>
-        {peak.region}
-      </DataGridCell>
-      <DataGridCell className={hoverStyles} onClick={openPanel}>
-        {peak.countries}
-      </DataGridCell>
-      <DataGridCell className={`pt-5 pb-5 ${hoverStyles}`}>
+      <DataGridCell onClick={openPanel}>{peak.height}</DataGridCell>
+      <DataGridCell onClick={openPanel}>{peak.mainrange}</DataGridCell>
+      <DataGridCell onClick={openPanel}>{peak.region}</DataGridCell>
+      <DataGridCell onClick={openPanel}>{peak.countries}</DataGridCell>
+      <DataGridCell className={`pt-5 pb-5`}>
         <PeaksListItemActions peak={peak} onSelect={onSelect} />
       </DataGridCell>
     </DataGridRow>
