@@ -351,4 +351,38 @@ describe("Modal", () => {
     )
     expect(screen.getByRole("dialog")).toHaveAttribute("name", "My little Modal")
   })
+
+  test("renders a disabled confirm action button and ensures onConfirm is not triggered", async () => {
+    await waitFor(() =>
+      render(
+        <PortalProvider>
+          <Modal open onConfirm={mockOnConfirm} confirmButtonLabel="Proceed" disableConfirmButton />
+        </PortalProvider>
+      )
+    )
+
+    const confirmButton = screen.getByRole("button", { name: "Proceed" })
+    expect(confirmButton).toBeInTheDocument()
+    expect(confirmButton).toHaveAttribute("disabled")
+
+    await waitFor(() => userEvent.click(confirmButton))
+    expect(mockOnConfirm).not.toHaveBeenCalled()
+  })
+
+  test("renders a disabled cancel action button and ensures onCancel is not triggered", async () => {
+    await waitFor(() =>
+      render(
+        <PortalProvider>
+          <Modal open onCancel={mockOnCancel} cancelButtonLabel="Cancel" disableCancelButton />
+        </PortalProvider>
+      )
+    )
+
+    const cancelButton = screen.getByRole("button", { name: "Cancel" })
+    expect(cancelButton).toBeInTheDocument()
+    expect(cancelButton).toHaveAttribute("disabled")
+
+    await waitFor(() => userEvent.click(cancelButton))
+    expect(mockOnCancel).not.toHaveBeenCalled()
+  })
 })
