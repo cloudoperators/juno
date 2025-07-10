@@ -35,7 +35,7 @@ export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
     // }
 
     //  ${ selectable && isSelected ? rowSelectedStyle : '' }
-    const finalStyle = `${rowBaseStyle} ${hover ? "" : ""}`
+    const finalStyle = `${rowBaseStyle} ${hover ? rowHoverStyles : ""}`
 
     return (
       <div className={`juno-datagrid-row ${finalStyle} ${className}`} role="row" ref={ref} {...props}>
