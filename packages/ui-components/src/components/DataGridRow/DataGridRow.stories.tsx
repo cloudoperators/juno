@@ -59,6 +59,7 @@ export const Default: StoryObj<DataGridRowStoryProps> = {
     </DataGridRow>
   ),
   args: {
+    hoverable: false,
     items: Array(columns).fill({ ...DataGridCellStory.args }),
   },
   parameters: {

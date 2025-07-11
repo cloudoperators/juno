@@ -8,10 +8,10 @@ import "./data-grid-row.css"
 
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
   ({ hoverable = false, className = "", children, ...props }, ref) => {
-    const finalClassNames = `${hoverable ? "juno-datagrid-group" : ""} juno-datagrid-row ${className}`
+    const finalStyles = `${hoverable ? "juno-datagrid-group" : ""} juno-datagrid-row ${className}`
 
     return (
-      <div className={finalClassNames} role="row" ref={ref} {...props}>
+      <div className={finalStyles} role="row" ref={ref} {...props}>
         {children}
       </div>
     )
@@ -21,10 +21,10 @@ export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
 DataGridRow.displayName = "DataGridRow"
 
 export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Determines whether the DataGridRow should apply hover styles */
+  /** Determines whether the DataGridRow should apply hover styles. */
   hoverable?: boolean
-  /** Children to render*/
-  children?: React.ReactNode
-  /** Extra styles to apply*/
+  /** Additional custom CSS class names that can be applied to the DataGridRow.  */
   className?: string
+  /** The children elements or components that will be rendered within the DataGridRow. */
+  children?: React.ReactNode
 }
