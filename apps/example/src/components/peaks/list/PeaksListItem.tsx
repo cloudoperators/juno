@@ -49,7 +49,7 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
       <DataGridCell onClick={openPanel}>{peak.mainrange}</DataGridCell>
       <DataGridCell onClick={openPanel}>{peak.region}</DataGridCell>
       <DataGridCell onClick={openPanel}>{peak.countries}</DataGridCell>
-      <DataGridCell className={`pt-5 pb-5`}>
+      <DataGridCell className={"pt-5 pb-5"}>
         <PeaksListItemActions peak={peak} onSelect={onSelect} />
       </DataGridCell>
     </DataGridRow>

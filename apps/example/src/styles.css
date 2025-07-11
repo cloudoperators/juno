@@ -3,5 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+@import "@cloudoperators/juno-ui-components/juno-ui-components.css";
 @import "tailwindcss";
 @import "@cloudoperators/juno-ui-components/theme.css";
