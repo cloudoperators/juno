@@ -8,7 +8,7 @@ import "./data-grid-row.css"
 
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
   ({ hoverable = false, className = "", children, ...props }, ref) => {
-    const finalClassNames = `${hoverable ? "juno-datagrid-group" : ""} juno-datagrid-row jn:contents ${className}`
+    const finalClassNames = `${hoverable ? "juno-datagrid-group" : ""} juno-datagrid-row ${className}`
 
     return (
       <div className={finalClassNames} role="row" ref={ref} {...props}>
