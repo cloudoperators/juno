@@ -25,6 +25,6 @@ export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean
   /** Additional custom CSS class names that can be applied to the DataGridRow.  */
   className?: string
-  /** The children elements or components that will be rendered within the DataGridRow. */
+  /** Elements or components that will be rendered within the DataGridRow. */
   children?: React.ReactNode
 }
