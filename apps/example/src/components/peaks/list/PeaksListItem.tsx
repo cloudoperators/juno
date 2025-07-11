@@ -29,8 +29,8 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   }
 
   return (
-    <DataGridRow hover>
-      <DataGridCell onClick={openPanel}>
+    <DataGridRow hoverable>
+      <DataGridCell onClick={openPanel} className="p-6 text-highest">
         <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="center">
           {peak.safety && (
             <Badge
