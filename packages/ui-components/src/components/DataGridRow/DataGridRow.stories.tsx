@@ -69,3 +69,31 @@ export const Default: StoryObj<DataGridRowStoryProps> = {
     },
   },
 }
+
+export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
+  render: ({ items, ...args }) => (
+    <>
+      <DataGridRow hoverable {...args}>
+        {items.map((item, i) => (
+          <DataGridCell {...item} key={i} />
+        ))}
+      </DataGridRow>
+      <DataGridRow hoverable {...args}>
+        {items.map((item, i) => (
+          <DataGridCell {...item} key={i} />
+        ))}
+      </DataGridRow>
+    </>
+  ),
+  args: {
+    items: Array(columns).fill({ ...DataGridCellStory.args }),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When `hoverable` is set, the entire DataGridRow exhibits visual feedback on hover, enhancing interactivity.",
+      },
+    },
+  },
+}
