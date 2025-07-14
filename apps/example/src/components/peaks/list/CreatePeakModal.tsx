@@ -14,7 +14,7 @@ interface CreatePeakModalProps {
 }
 
 const CreatePeakModal: React.FC<CreatePeakModalProps> = ({ isOpen, title, onClose }) => (
-  <Modal title={title} open={isOpen} modalFooter={undefined} size="large" closeable={false}>
+  <Modal title={title} open={isOpen} size="large" closeable={false}>
     <PeakForm closeCallback={onClose} />
   </Modal>
 )

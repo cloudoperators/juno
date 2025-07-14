@@ -77,6 +77,8 @@ export const Default: Story = {
   render: Template,
   args: {
     children: <p>A default modal.</p>,
+    disableConfirmButton: false,
+    disableCancelButton: false,
   },
 }
 
@@ -86,6 +88,17 @@ export const SimpleConfirmDialog: Story = {
     children: <p>Are you sure you want to proceed?</p>,
     cancelButtonLabel: "Cancel",
     confirmButtonLabel: "Yes, Proceed",
+  },
+}
+
+export const SimpleConfirmDialogWithDisabledButtons: Story = {
+  render: Template,
+  args: {
+    children: <p>Are you sure you want to proceed?</p>,
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Yes, Proceed",
+    disableConfirmButton: true,
+    disableCancelButton: true,
   },
 }
 

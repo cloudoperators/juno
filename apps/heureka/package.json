@@ -48,7 +48,7 @@
     "@graphql-codegen/typescript-operations": "4.4.1",
     "@graphql-codegen/typescript-react-apollo": "4.3.3",
     "@tanstack/router-plugin": "1.119.0",
-    "@tailwindcss/vite": "^4.1.10",
+    "@tailwindcss/vite": "^4.1.11",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.2.0",
     "@testing-library/user-event": "14.6.1",
@@ -58,9 +58,9 @@
     "@types/react-dom": "19.1.6",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
-    "@vitejs/plugin-react-swc": "3.7.2",
-    "@vitejs/plugin-react": "^4.4.1",
-    "@vitest/ui": "3.0.9",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "@vitejs/plugin-react": "^4.6.0",
+    "@vitest/ui": "^3.2.4",
     "autoprefixer": "10.4.21",
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.0",
@@ -75,9 +75,9 @@
     "tailwindcss": "^4.1.10",
     "react-error-boundary": "^4.0.13",
     "typescript": "^5.8.3",
-    "vite": "6.3.5",
-    "vite-plugin-svgr": "^4.2.0",
-    "vite-tsconfig-paths": "4.3.2",
-    "vitest": "3.0.9"
+    "vite": "^7.0.3",
+    "vite-plugin-svgr": "^4.3.0",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
   }
 }
