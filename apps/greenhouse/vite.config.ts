@@ -6,6 +6,8 @@
 import react from "@vitejs/plugin-react"
 import svgr from "vite-plugin-svgr"
 import tailwindcss from "@tailwindcss/vite"
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
+
 export default ({ mode }) => {
   const sharedConfig = {
     root: "./",
@@ -14,7 +16,7 @@ export default ({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [tailwindcss(), react(), svgr()],
+    plugins: [tailwindcss(), TanStackRouterVite({ target: "react", autoCodeSplitting: true }), react(), svgr()],
 
     server: {
       host: "0.0.0.0",

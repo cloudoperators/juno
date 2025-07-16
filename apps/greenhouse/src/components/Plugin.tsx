@@ -5,10 +5,6 @@
 
 import React, { useEffect, useRef, lazy, Suspense } from "react"
 import { createRoot } from "react-dom/client"
-
-import { useActions } from "@cloudoperators/juno-messages-provider"
-import useApi from "../hooks/useApi"
-import { usePlugin } from "./StoreProvider"
 import { useAuth } from "./AuthProvider"
 import { extensionResolvers, extensionVersions } from "../../extensoinsManifest"
 
@@ -52,9 +48,7 @@ const Extension = ({ config, auth }: any) => {
             ...config.props,
             embedded: true,
             token: auth?.JWT,
-            //TODO: find a better place to add these props
-            ...(config.id === "heureka" ? { basePath: `/compliance`, enableHashedRouting: true } : {}),
-            ...(config.id === "doop" ? { basePath: `/doop`, enableHashedRouting: true } : {}),
+            basePath: `/apps/${config.id}`,
           },
         })
       })
@@ -99,38 +93,4 @@ function Plugin({ config, active, id }: any) {
   return <div id={id} ref={holder}></div>
 }
 
-export default function Extensions() {
-  const { getPluginConfigs } = useApi()
-  const requestConfig = usePlugin().requestConfig
-  const receiveConfig = usePlugin().receiveConfig
-  const receiveError = usePlugin().receiveError
-  const isFetching = usePlugin().isFetching()
-  const config = usePlugin().config()
-  const activeApps = usePlugin().active()
-  const { addMessage } = useActions()
-
-  useEffect(() => {
-    if (!getPluginConfigs) return
-
-    requestConfig()
-
-    // fetch configs from kubernetes
-    getPluginConfigs()
-      .then((kubernetesConfig: any) => {
-        receiveConfig(kubernetesConfig)
-      })
-      .catch((error: any) => {
-        // error fetching configs
-        receiveError(error.message)
-        addMessage({
-          variant: "error",
-          text: error.message,
-        })
-      })
-  }, [getPluginConfigs])
-
-  if (isFetching) return <div>Loading...</div>
-  return Object.keys(config).map((id) => (
-    <Plugin key={id} id={id} config={config[id]} active={activeApps?.[0] === id} />
-  ))
-}
+export default Plugin
