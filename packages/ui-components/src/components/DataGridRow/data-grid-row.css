@@ -7,7 +7,6 @@
   display: contents;
 }
 
-/* Persistent active state */
 .datagrid-row-active > * {
   background-color: var(--color-background-lvl-2);
 }
@@ -15,9 +14,4 @@
 .datagrid-row-hoverable:hover > * {
   cursor: pointer;
   background-color: var(--color-background-lvl-1);
-}
-
-/* Transient active state e.g. onclick */
-.datagrid-row-hoverable:active > * {
-  background-color: var(--color-background-lvl-2);
 }
