@@ -3,15 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-.juno-datagrid-row {
+.datagrid-row {
   display: contents;
 }
 
-.juno-datagrid-row-hoverable:hover > * {
+/* Persistent active state */
+.datagrid-row-active > * {
+  background-color: var(--color-background-lvl-2);
+}
+
+.datagrid-row-hoverable:hover > * {
   cursor: pointer;
   background-color: var(--color-background-lvl-1);
 }
 
-.juno-datagrid-row-hoverable:active > * {
+/* Transient active state e.g. onclick */
+.datagrid-row-hoverable:active > * {
   background-color: var(--color-background-lvl-2);
 }

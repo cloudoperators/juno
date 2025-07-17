@@ -59,7 +59,8 @@ export const Default: StoryObj<DataGridRowStoryProps> = {
     </DataGridRow>
   ),
   args: {
-    hoverable: false,
+    isHoverable: false,
+    isActive: false,
     items: Array(columns).fill({ ...DataGridCellStory.args }),
   },
   parameters: {
@@ -74,12 +75,12 @@ export const Default: StoryObj<DataGridRowStoryProps> = {
 export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
   render: ({ items, ...args }) => (
     <>
-      <DataGridRow hoverable {...args}>
+      <DataGridRow isHoverable {...args}>
         {items.map((item, i) => (
           <DataGridCell {...item} key={i} />
         ))}
       </DataGridRow>
-      <DataGridRow hoverable {...args}>
+      <DataGridRow isHoverable {...args}>
         {items.map((item, i) => (
           <DataGridCell {...item} key={i} />
         ))}
@@ -93,7 +94,34 @@ export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
     docs: {
       description: {
         story:
-          "When `hoverable` is set, the entire DataGridRow exhibits visual feedback on hover, enhancing interactivity.",
+          "When `isHoverable` is set, the entire DataGridRow exhibits visual feedback on hover, enhancing interactivity.",
+      },
+    },
+  },
+}
+
+export const ActiveRow: StoryObj<DataGridRowStoryProps> = {
+  render: ({ items, ...args }) => (
+    <>
+      <DataGridRow isActive {...args}>
+        {items.map((item, i) => (
+          <DataGridCell {...item} key={i} />
+        ))}
+      </DataGridRow>
+      <DataGridRow {...args}>
+        {items.map((item, i) => (
+          <DataGridCell {...item} key={i} />
+        ))}
+      </DataGridRow>
+    </>
+  ),
+  args: {
+    items: Array(columns).fill({ ...DataGridCellStory.args }),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "When `isActive` is set, the DataGridRow persists to be active.",
       },
     },
   },

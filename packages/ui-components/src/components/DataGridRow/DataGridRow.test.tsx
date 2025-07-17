@@ -19,19 +19,28 @@ describe("DataGridRow", () => {
     expect(screen.getByRole("row")).toHaveClass("my-custom-class")
   })
 
-  it("applies the hoverable class when hoverable is true", () => {
-    render(<DataGridRow hoverable>Content</DataGridRow>)
+  it("applies the hoverable class when true", () => {
+    render(<DataGridRow isHoverable>Content</DataGridRow>)
     const row = screen.getByRole("row")
 
-    expect(row).toHaveClass("juno-datagrid-row")
-    expect(row).toHaveClass("juno-datagrid-row-hoverable")
+    expect(row).toHaveClass("datagrid-row")
+    expect(row).toHaveClass("datagrid-row-hoverable")
   })
 
-  it("does not apply the hoverable class when hoverable is false", () => {
+  it("applies the active class when true", () => {
+    render(<DataGridRow isActive>Content</DataGridRow>)
+    const row = screen.getByRole("row")
+
+    expect(row).toHaveClass("datagrid-row")
+    expect(row).toHaveClass("datagrid-row-active")
+  })
+
+  it("does not apply the hoverable or active class when disabled", () => {
     render(<DataGridRow>Content</DataGridRow>)
     const row = screen.getByRole("row")
 
-    expect(row).toHaveClass("juno-datagrid-row")
-    expect(row).not.toHaveClass("juno-datagrid-row-hoverable")
+    expect(row).toHaveClass("datagrid-row")
+    expect(row).not.toHaveClass("datagrid-row-hoverable")
+    expect(row).not.toHaveClass("datagrid-row-active")
   })
 })
