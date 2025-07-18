@@ -49,6 +49,9 @@ export const ImageVersionsDataRow = ({
       </DataGridCell>
       <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
       <DataGridCell className="items-center">
+        <span>{version.componetInstancesCount || 0}</span>
+      </DataGridCell>
+      <DataGridCell className="items-center">
         <SeverityCount
           showDashIfZero
           count={version.issueCounts.critical}
