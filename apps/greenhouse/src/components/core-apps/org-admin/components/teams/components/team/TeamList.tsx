@@ -26,7 +26,7 @@ const TeamList = () => {
     // @ts-ignore
     const matchingTeam = teamMemberships.find((item: any) => item.metadata.name === selectedTeam)
 
-    return matchingTeam?.spec?.members || []
+    return matchingTeam?.status?.members || []
   }, [selectedTeam, teamMemberships])
 
   const { scrollListItems, iterator } = useEndlessScrollList(team, {
