@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.11
+
+### Patch Changes
+
+- cd2a9c7: Heureka: Add vulnerabilities list view
+- Updated dependencies [92a17f7]
+- Updated dependencies [cd2a9c7]
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-app-heureka@0.8.0
+  - @cloudoperators/juno-app-doop@2.4.8
+  - @cloudoperators/juno-app-supernova@0.17.8
+  - @cloudoperators/juno-messages-provider@0.2.12
+
 ## 0.6.10
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @cloudoperators/juno-ui-components
 
+## 5.1.1
+
+### Patch Changes
+
+- 92a17f7: - Remove all `jn:` prefixes (intended for internal use only) from external documentation.
+
+  - Remove `PortalProvider` from `Modal` external code snippets.
+  - Remove `undefined` classname from `GridColumn`.
+
+  [Issue #1016](https://github.com/cloudoperators/juno/issues/1016)
+
 ## 5.1.0
 
 ### Minor Changes

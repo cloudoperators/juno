@@ -1,5 +1,17 @@
 # heureka
 
+## 0.8.0
+
+### Minor Changes
+
+- cd2a9c7: Heureka: Add vulnerabilities list view
+
+### Patch Changes
+
+- Updated dependencies [92a17f7]
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-messages-provider@0.2.12
+
 ## 0.7.5
 
 ### Patch Changes

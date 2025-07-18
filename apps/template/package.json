@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-template",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
   "license": "Apache-2.0",
