@@ -31,7 +31,7 @@ type ServiceImageVersionsProps = {
   goToPage: (after?: string | null) => void
 }
 
-const DEFAULT_COLUMNS_COUNT = 8
+const DEFAULT_COLUMNS_COUNT = 9
 
 export const ServiceImageVersions = ({
   imageVersionsPromise,
@@ -67,10 +67,11 @@ export const ServiceImageVersions = ({
       )}
 
       <div className="datagrid-hover">
-        <DataGrid columns={columnsCount} minContentColumns={[2, 3, 4, 5, 6]}>
+        <DataGrid columns={columnsCount} minContentColumns={[2, 3, 4, 5, 6, 7]}>
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Tag</DataGridHeadCell>
+            <DataGridHeadCell>Occurrences</DataGridHeadCell>
             <DataGridHeadCell colSpan={5}>Issue Counts</DataGridHeadCell>
             {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
