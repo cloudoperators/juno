@@ -92,6 +92,7 @@ jobs:
           tags: |
             type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
             type=sha,enable=true,format=short,prefix=
+            type=raw,value=${{ github.sha }}
           labels: |
             org.opencontainers.image.description=${{env.DESCRIPTION}}
             org.opencontainers.image.title=Greenhouse-UI
