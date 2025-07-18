@@ -30,7 +30,7 @@ export const VulnerabilitiesFilters = () => {
       filters={filters}
       filterSettings={filterSettings}
       onFilterChange={handleFilterChange}
-      searchInputPlaceholder="search term for vulnerability name"
+      searchInputPlaceholder="search term for vulnerabilities name"
     />
   )
 }

@@ -49,7 +49,7 @@ export const VulnerabilitiesList = () => {
           <DataGridHeadCell>
             <Icon icon="monitorHeart" />
           </DataGridHeadCell>
-          <DataGridHeadCell>Issue</DataGridHeadCell>
+          <DataGridHeadCell>Vulnerability</DataGridHeadCell>
           <DataGridHeadCell>Services</DataGridHeadCell>
           <DataGridHeadCell>Target Date</DataGridHeadCell>
           <DataGridHeadCell>Description</DataGridHeadCell>
