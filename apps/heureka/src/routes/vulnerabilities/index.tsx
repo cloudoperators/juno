@@ -49,7 +49,9 @@ export const Route = createFileRoute("/vulnerabilities/")({
   },
   loader: async ({ context }) => {
     const { queryClient, apiClient, filterSettings } = context
-    const filtersResult = await fetchVulnerabilityFilters({
+
+    // Dispatch both requests in parallel
+    const filtersPromise = fetchVulnerabilityFilters({
       queryClient,
       apiClient,
     })
@@ -58,7 +60,11 @@ export const Route = createFileRoute("/vulnerabilities/")({
       apiClient,
       filterSettings,
     })
+
+    // Wait for filters to resolve (needed for sanitization)
+    const filtersResult = await filtersPromise
     const filters = getNormalizedFilters(filtersResult.data)
+
     return {
       filters,
       vulnerabilitiesPromise,
