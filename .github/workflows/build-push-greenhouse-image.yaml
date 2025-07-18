@@ -31,7 +31,8 @@ jobs:
   build-and-push:
     name: Build and Push Greenhouse Dashboard Image
     runs-on: [default]
-
+    outputs:
+      failed: ${{ steps.set-failure-output.outputs.failed }}
     permissions:
       contents: read
       packages: write
@@ -92,6 +93,7 @@ jobs:
           tags: |
             type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
             type=sha,enable=true,format=short,prefix=
+            type=raw,value=${{ github.sha }}
           labels: |
             org.opencontainers.image.description=${{env.DESCRIPTION}}
             org.opencontainers.image.title=Greenhouse-UI
@@ -124,6 +126,11 @@ jobs:
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
+      - name: Set failure output
+        id: set-failure-output
+        if: failure()
+        run: echo "failed=build-and-push" >> $GITHUB_OUTPUT
+
   vulnerability-scan:
     permissions:
       contents: read
@@ -132,6 +139,8 @@ jobs:
     name: Vulnerability Scan
     needs: build-and-push
     runs-on: [default]
+    outputs:
+      failed: ${{ steps.set-failure-output.outputs.failed }}
     steps:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@76071ef0d7ec797419534a183b498b4d6366cf37 # 0.31.0
@@ -163,6 +172,11 @@ jobs:
         with:
           sarif_file: trivy-results.sarif
 
+      - name: Set failure output
+        id: set-failure-output
+        if: failure()
+        run: echo "failed=vulnerability-scan" >> $GITHUB_OUTPUT
+
   notify-on-failure:
     if: failure()
     permissions:
@@ -171,6 +185,13 @@ jobs:
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
     with:
       title: "🚨 JUNO Greenhouse Image Failed 🚨"
-      body: "An error occurred while building the Greenhouse image for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+      body: |
+        An error occurred while building the Greenhouse image for the branch `${{ github.head_ref || github.ref_name }}`.
+
+        ❌ Failing jobs:
+        - ${{ needs.build-and-push.outputs.failed }}
+        - ${{ needs.vulnerability-scan.outputs.failed }}
+
+        <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
