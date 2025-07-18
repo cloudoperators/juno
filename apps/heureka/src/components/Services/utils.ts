@@ -261,23 +261,6 @@ export const getNormalizedImageVersionIssuesResponse = (data: any): NormalizedIm
   }
 }
 
-export const getSeverityColor = (severity: string): string => {
-  switch (severity.toLowerCase()) {
-    case "critical":
-      return "text-theme-danger"
-    case "high":
-      return "text-theme-warning"
-    case "medium":
-      return "text-theme-warning"
-    case "low":
-      return "text-theme-info"
-    case "none":
-      return "text-theme-default"
-    default:
-      return "text-theme-default"
-  }
-}
-
 /**
  * This function converts the selected filters from the FilterSettings into a format that is accepted by the url-state-provider/v2/encode
  * Examples:

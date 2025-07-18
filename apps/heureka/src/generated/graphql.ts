@@ -1625,6 +1625,7 @@ export type SupportGroupInput = {
 
 export type User = Node & {
   __typename?: "User"
+  email?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
   metadata?: Maybe<Metadata>
   name?: Maybe<Scalars["String"]["output"]>
@@ -1668,6 +1669,7 @@ export type UserFilter = {
 }
 
 export type UserInput = {
+  email?: InputMaybe<Scalars["String"]["input"]>
   name?: InputMaybe<Scalars["String"]["input"]>
   type?: InputMaybe<Scalars["String"]["input"]>
   uniqueUserId?: InputMaybe<Scalars["String"]["input"]>
@@ -1935,6 +1937,65 @@ export type GetServicesQuery = {
   } | null
 }
 
+export type GetVulnerabilitiesQueryVariables = Exact<{
+  filter?: InputMaybe<VulnerabilityFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+  after?: InputMaybe<Scalars["String"]["input"]>
+}>
+
+export type GetVulnerabilitiesQuery = {
+  __typename?: "Query"
+  Vulnerabilities?: {
+    __typename?: "VulnerabilityConnection"
+    totalCount: number
+    edges: Array<{
+      __typename?: "VulnerabilityEdge"
+      node: {
+        __typename?: "Vulnerability"
+        severity?: SeverityValues | null
+        name?: string | null
+        sourceUrl?: string | null
+        earliestTargetRemediationDate?: any | null
+        description?: string | null
+        services?: {
+          __typename?: "ServiceConnection"
+          totalCount: number
+          edges?: Array<{
+            __typename?: "ServiceEdge"
+            node: { __typename?: "Service"; ccrn?: string | null }
+          } | null> | null
+        } | null
+      }
+    } | null>
+    pageInfo?: {
+      __typename?: "PageInfo"
+      pageNumber?: number | null
+      pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+    } | null
+  } | null
+}
+
+export type GetVulnerabilityFiltersQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetVulnerabilityFiltersQuery = {
+  __typename?: "Query"
+  VulnerabilityFilterValues?: {
+    __typename?: "VulnerabilityFilterValue"
+    supportGroup?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+    severity?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+  } | null
+}
+
 export const GetServiceFiltersDocument = gql`
   query GetServiceFilters {
     ServiceFilterValues {
@@ -2138,3 +2199,58 @@ export const GetServicesDocument = gql`
   }
 `
 export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
+export const GetVulnerabilitiesDocument = gql`
+  query GetVulnerabilities($filter: VulnerabilityFilter, $first: Int, $after: String) {
+    Vulnerabilities(filter: $filter, first: $first, after: $after) {
+      edges {
+        node {
+          severity
+          name
+          sourceUrl
+          earliestTargetRemediationDate
+          description
+          services {
+            totalCount
+            edges {
+              node {
+                ccrn
+              }
+            }
+          }
+        }
+      }
+      totalCount
+      pageInfo {
+        pageNumber
+        pages {
+          after
+          pageNumber
+        }
+      }
+    }
+  }
+`
+export type GetVulnerabilitiesQueryResult = Apollo.QueryResult<
+  GetVulnerabilitiesQuery,
+  GetVulnerabilitiesQueryVariables
+>
+export const GetVulnerabilityFiltersDocument = gql`
+  query GetVulnerabilityFilters {
+    VulnerabilityFilterValues {
+      supportGroup {
+        displayName
+        filterName
+        values
+      }
+      severity {
+        displayName
+        filterName
+        values
+      }
+    }
+  }
+`
+export type GetVulnerabilityFiltersQueryResult = Apollo.QueryResult<
+  GetVulnerabilityFiltersQuery,
+  GetVulnerabilityFiltersQueryVariables
+>
