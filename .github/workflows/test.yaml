@@ -12,6 +12,8 @@ jobs:
   build-and-push:
     name: Build and Push Some Image
     runs-on: [default]
+    outputs:
+      failed: ${{ steps.set-failure-output.outcome }}
 
     steps:
       - name: produce an error
@@ -24,6 +26,8 @@ jobs:
   vulnerability-scan:
     name: Build and Push Some Image
     runs-on: [default]
+    outputs:
+      failed: ${{ steps.set-failure-output.outcome }}
 
     steps:
       - name: produce an error
