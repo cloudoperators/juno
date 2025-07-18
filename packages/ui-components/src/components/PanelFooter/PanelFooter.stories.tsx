@@ -61,6 +61,12 @@ export const Footer: Story = {
         story:
           "A container for panel footer elements, typically buttons. Add the footer to the PanelBody component via its `footer` parameter.",
       },
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
     },
   },
   args: {},

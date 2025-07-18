@@ -37,6 +37,16 @@ const meta: Meta<typeof PanelBody> = {
       </PortalProvider>
     ),
   ],
+  parameters: {
+    docs: {
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
+    },
+  },
   render: (args) => (
     <div>
       <Panel heading="My Panel" opened>

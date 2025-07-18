@@ -60,6 +60,14 @@ const meta: Meta<typeof Modal> = {
   },
   parameters: {
     actions: { argTypesRegex: null },
+    docs: {
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
+    },
   },
   decorators: [
     (Story) => (

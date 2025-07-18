@@ -22,6 +22,12 @@ const meta: Meta<typeof Icon> = {
         component:
           "A generic icon component. Accepts text color classes for color. Please note that the 'jn:' prefix for tailwind classes is only necessary within the juno ui design system itself. When using icons in your own applications use the normal tailwind-generated text color classes starting with 'text-'",
       },
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
     },
   },
 }

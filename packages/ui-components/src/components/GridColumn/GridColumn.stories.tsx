@@ -20,8 +20,18 @@ const meta: Meta<typeof GridColumn> = {
       </div>
     ),
   ],
+  parameters: {
+    docs: {
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
+    },
+  },
   render: (args) => {
-    return <GridColumn {...args} className={`${args.className} jn:bg-juno-blue-3 jn:text-juno-grey-blue`} />
+    return <GridColumn {...args} className={"jn:bg-juno-blue-3 jn:text-juno-grey-blue"} />
   },
 }
 
