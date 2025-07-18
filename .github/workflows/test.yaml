@@ -13,7 +13,7 @@ jobs:
     name: Build and Push Some Image
     runs-on: [default]
     outputs:
-      failed: ${{ steps.set-failure-output.outcome }}
+      failed: ${{ steps.set-failure-output.outputs.failed }}
 
     steps:
       - name: produce an error
@@ -27,7 +27,7 @@ jobs:
     name: Build and Push Some Image
     runs-on: [default]
     outputs:
-      failed: ${{ steps.set-failure-output.outcome }}
+      failed: ${{ steps.set-failure-output.outputs.failed }}
 
     steps:
       - name: produce an error
