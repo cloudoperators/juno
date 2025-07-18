@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.10
+
+### Patch Changes
+
+- becdd90: The Greenhouse TeamMembership is being deprecated, the users assigned to a Team are now in the Team.status.members[].
+
 ## 0.6.9
 
 ### Patch Changes
