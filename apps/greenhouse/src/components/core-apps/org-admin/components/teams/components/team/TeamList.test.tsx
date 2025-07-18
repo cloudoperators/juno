@@ -53,7 +53,7 @@ describe("TeamList Component", () => {
     // @ts-expect-error TS(2339): Property 'mockReturnValue' does not exist on type ... Remove this comment to see the full error message
     useDefaultTeam.mockReturnValue("someTeam")
     // @ts-expect-error TS(2339): Property 'mockReturnValue' does not exist on type ... Remove this comment to see the full error message
-    useTeamMemberships.mockReturnValue([{ metadata: { name: "someTeam" }, spec: { members: mockTeamMembers } }])
+    useTeamMemberships.mockReturnValue([{ metadata: { name: "someTeam" }, status: { members: mockTeamMembers } }])
 
     render(<TeamList />)
 
