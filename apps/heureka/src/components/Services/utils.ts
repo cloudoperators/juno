@@ -158,7 +158,7 @@ export type ServiceImageVersion = {
   repository: string
   ccrn: string
   issueCounts: IssuesCountsType
-  componetInstancesCount: number
+  componentInstancesCount: number
   componentInstances?: ComponentInstance[]
 }
 
@@ -193,7 +193,7 @@ export const getNormalizedImageVersionsResponse = (
               none: 0,
               total: 0,
             },
-            componetInstancesCount: edge?.node?.componentInstances?.totalCount ?? 0,
+            componentInstancesCount: edge?.node?.componentInstances?.totalCount ?? 0,
             componentInstances:
               edge?.node?.componentInstances?.edges
                 ?.filter((edge) => edge?.node) // Remove null edges
