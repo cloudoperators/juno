@@ -55,7 +55,7 @@ header:
     - "packages/ui-components/src/fonts/**"
     - "**/routeTree.gen.ts"
     - .nvmrc
-    - "**/codegen.ts"
+    - "**/generated/**"
 
   comment: on-failure
 
