@@ -1,5 +1,22 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.11
+
+### Patch Changes
+
+- 6d972a5: Displays number of service image version instances in service details page (this count is also available in service image version details panel)
+- cd2a9c7: Heureka: Add vulnerabilities list view
+- 610e2e3: Updates types based on schema breaking changes to adjust severity filter type.
+- Updated dependencies [92a17f7]
+- Updated dependencies [6d972a5]
+- Updated dependencies [cd2a9c7]
+- Updated dependencies [610e2e3]
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-app-heureka@0.8.0
+  - @cloudoperators/juno-app-doop@2.4.8
+  - @cloudoperators/juno-app-supernova@0.17.8
+  - @cloudoperators/juno-messages-provider@0.2.12
+
 ## 0.6.10
 
 ### Patch Changes

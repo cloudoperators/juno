@@ -1,5 +1,19 @@
 # heureka
 
+## 0.8.0
+
+### Minor Changes
+
+- cd2a9c7: Heureka: Add vulnerabilities list view
+
+### Patch Changes
+
+- 6d972a5: Displays number of service image version instances in service details page (this count is also available in service image version details panel)
+- 610e2e3: Updates types based on schema breaking changes to adjust severity filter type.
+- Updated dependencies [92a17f7]
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-messages-provider@0.2.12
+
 ## 0.7.5
 
 ### Patch Changes
