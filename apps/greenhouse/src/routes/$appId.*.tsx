@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import Plugin from "../components/Plugin"
 import { usePlugin } from "../components/StoreProvider"
 
-export const Route = createFileRoute("/apps/$appId/*")({
+export const Route = createFileRoute("/$appId/*")({
   component: RouteComponent,
 })
 

@@ -13,7 +13,7 @@ function RouteComponent() {
   React.useEffect(() => {
     if (activeApps.length > 0) {
       // Navigate to the active app by keeping the current search params
-      navigate({ to: `/apps/${activeApps[0]}/*`, search: (prev) => ({ ...prev }) })
+      navigate({ to: `/${activeApps[0]}/*`, search: (prev) => ({ ...prev }) })
     }
   }, [navigate])
 }
