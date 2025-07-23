@@ -1,0 +1,1 @@
+import{R as n}from"./index-CM1oY8yN.js";import{u as a,a as s}from"./Shell-hjvJ7dTM.js";import"./index-2gp-Wejt.js";const r=function(){const t=a().active(),o=s({from:"/"});n.useEffect(()=>{t.length>0&&o({to:`/${t[0]}/*`,search:e=>({...e})})},[o])};export{r as component};
