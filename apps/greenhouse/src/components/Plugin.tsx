@@ -48,7 +48,7 @@ const Extension = ({ config, auth }: any) => {
             ...config.props,
             embedded: true,
             token: auth?.JWT,
-            basePath: `/apps/${config.id}`,
+            basePath: `/${config.id}`,
           },
         })
       })
