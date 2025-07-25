@@ -4,32 +4,16 @@
  */
 
 import React, { forwardRef } from "react"
+import "./data-grid-row.css"
 
-const rowBaseStyle = `
-	jn:contents
-`
-// const rowSelectedStyle = `
-// 	jn:bg-theme-datagridrow-selected
-// `
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
-  ({ /* selected, disabled,*/ className = "", children, /*onChange,*/ ...props }, ref) => {
-    // const dataGridContext = useDataGridContext() || {}
-    // const selectable = dataGridContext.selectable
+  ({ isHoverable = false, isActive = false, className = "", children, ...props }, ref) => {
+    const finalStyles = `${isHoverable ? "datagrid-row-hoverable" : ""} 
+                         ${isActive ? "datagrid-row-active" : ""} 
+                         datagrid-row ${className}`
 
-    // const [isSelected, setIsSelected] = useState(false)
-    // useEffect( () => {
-    // 	setIsSelected(selected)
-    // }, [selected])
-
-    // const toggleSelected = (event) => {
-    // 	setIsSelected(!isSelected)
-    // 	onChange(event)
-    // }
-
-    //  ${ selectable && isSelected ? rowSelectedStyle : '' }
     return (
-      <div className={`juno-datagrid-row ${rowBaseStyle} ${className}`} role="row" ref={ref} {...props}>
-        {/* { selectable ? <DataGridCheckboxCell selected={selected} disabled={disabled} onChange={toggleSelected} /> : null } */}
+      <div className={finalStyles} role="row" ref={ref} {...props}>
         {children}
       </div>
     )
@@ -39,14 +23,25 @@ export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
 DataGridRow.displayName = "DataGridRow"
 
 export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
-  // /** Whether the row / item is selected (only relevant in a `selectable` DataGrid */
-  // selected: PropTypes.bool,
-  // /** Whether the row/item is disabled (only relevant in a `selectable` DataGrid */
-  // disabled: PropTypes.bool,
-  /** Children to render in the DataGridRow */
-  children?: React.ReactNode
-  /** Add a classname */
+  /**
+   * Determines whether the DataGridRow should apply hover styles,
+   * providing visual feedback when hovered over.
+   */
+  isHoverable?: boolean
+
+  /**
+   * Indicates if the DataGridRow should be in an active state,
+   * applying styles for persistent selection or activation.
+   */
+  isActive?: boolean
+
+  /**
+   * Additional custom CSS class names that can be applied to the DataGridRow.
+   */
   className?: string
-  // /** Pass a handler to be executed when selected state changes */
-  // onChange: PropTypes.func,
+
+  /**
+   * Elements or components that will be rendered within the DataGridRow.
+   */
+  children?: React.ReactNode
 }
