@@ -1,6 +1,6 @@
 # JavaScript client for Kubernetes API
 
-This `Kubernetes client` is designed for use in the browser (not tested in Node.js). It utilizes the fetch API and is compatible with all modern browsers. For older browsers, the fetch polyfill (github/fetch) should be used.
+This `Kubernetes client` is designed for use in both browser and Node.js environments. It utilizes the fetch API and is compatible with all modern browsers. For older browsers, the fetch polyfill (github/fetch) should be used.
 
 The k8sclient facilitates communication with the Kubernetes API. It minimizes data interpretation and adds only essential logic. In addition to standard HTTP methods like GET or POST, it implements the WATCH method, which establishes a stream to the server and reacts to events.
 
@@ -36,7 +36,62 @@ With yarn:
 yarn add @cloudoperators/juno-k8s-client
 ```
 
+# Configuration Options
+
+When creating a client, you can pass the following options:
+
+| Option        | Type    | Required | Description                                        |
+| ------------- | ------- | -------- | -------------------------------------------------- |
+| `apiEndpoint` | string  | Yes      | The Kubernetes API server endpoint                 |
+| `token`       | string  | Yes      | Bearer token for authentication                    |
+| `ignoreSsl`   | boolean | No       | Ignore SSL certificate verification (Node.js only) |
+
+## SSL Certificate Handling
+
+The `ignoreSsl` option allows you to bypass SSL certificate verification when connecting to Kubernetes APIs with self-signed or invalid certificates.
+
+**⚠️ Security Warning**: Only use `ignoreSsl: true` in development environments or with trusted internal APIs. Never disable SSL verification in production.
+
+**Browser Limitation**: The `ignoreSsl` option is only supported in Node.js environments. In browser environments, this option is ignored for security reasons, as browsers handle SSL certificate validation automatically.
+
+```js
+import { createClient } from "@cloudoperators/juno-k8s-client"
+
+// For internal/development APIs with self-signed certificates (Node.js only)
+const apiClient = createClient({
+  apiEndpoint: "https://internal-k8s-api.company.com",
+  token: "BEARER-TOKEN",
+  ignoreSsl: true, // Only works in Node.js
+})
+```
+
 # Example Code (ES6)
+
+## Basic client creation
+
+```js
+import { createClient } from "@cloudoperators/juno-k8s-client"
+
+const apiEndpoint = "https://k8s-api.com"
+let token = "BEARER-TOKEN"
+
+const apiClient = createClient({ apiEndpoint, token })
+```
+
+## Client with SSL ignore (Node.js only)
+
+```js
+import { createClient } from "@cloudoperators/juno-k8s-client"
+
+const apiEndpoint = "https://internal-k8s-api.company.com"
+let token = "BEARER-TOKEN"
+
+const apiClient = createClient({
+  apiEndpoint,
+  token,
+  ignoreSsl: true, // For internal APIs with self-signed certificates
+})
+```
 
 ## List all pods
 
@@ -49,8 +104,28 @@ const apiEndpoint = "https://k8s-api.com"
 let token = "BEARER-TOKEN"
 
 const apiClient = createClient({ apiEndpoint, token })
-
 apiClient.get("/api/v1/pods").then((data) => console.log(data))
+```
+
+## List pods with query parameters
+
+```js
+import { createClient } from "@cloudoperators/juno-k8s-client"
+
+const apiEndpoint = "https://k8s-api.com"
+let token = "BEARER-TOKEN"
+
+const apiClient = createClient({ apiEndpoint, token })
+
+// Get pods with label selector
+apiClient
+  .get("/api/v1/namespaces/default/pods", {
+    params: {
+      labelSelector: "app=nginx",
+      fieldSelector: "status.phase=Running",
+    },
+  })
+  .then((data) => console.log(data))
 ```
 
 ## Create a new namespace
@@ -64,7 +139,6 @@ const apiEndpoint = "https://k8s-api.com"
 let token = "BEARER-TOKEN"
 
 const apiClient = createClient({ apiEndpoint, token })
-
 apiClient.post("/api/v1/namespaces", {
   apiVersion: "v1",
   kind: "Namespace",
@@ -87,8 +161,29 @@ const apiEndpoint = "https://k8s-api.com"
 let token = "BEARER-TOKEN"
 
 const apiClient = createClient({ apiEndpoint, token })
-
 apiClient.delete("/api/v1/namespaces/my_namespace")
+```
+
+## Per-request SSL override (Node.js only)
+
+You can also override SSL behavior on a per-request basis:
+
+```js
+import { createClient } from "@cloudoperators/juno-k8s-client"
+
+const apiEndpoint = "https://k8s-api.com"
+let token = "BEARER-TOKEN"
+
+// Client with SSL verification enabled by default
+const apiClient = createClient({ apiEndpoint, token, ignoreSsl: false })
+
+// Most requests use SSL verification
+apiClient.get("/api/v1/pods")
+
+// But you can override for specific requests (Node.js only)
+apiClient.get("/api/v1/secrets", {
+  ignoreSsl: true, // This request ignores SSL
+})
 ```
 
 ## Refresh Token
@@ -102,11 +197,10 @@ const apiEndpoint = "https://k8s-api.com"
 let token = "BEARER-TOKEN"
 
 const apiClient = createClient({ apiEndpoint, token })
-
 apiClient.refreshToken("NEW-TOKEN")
 ```
 
-### Watch
+## Watch
 
 The watch call establishes a persistent connection to the Kubernetes API server and listens for changes to the specified resource. In this example, we're watching for changes to pods ("/api/v1/pods").
 
@@ -135,6 +229,81 @@ podsWatch.start()
 // Optionally, set a timeout to cancel the watch call after a certain period
 setTimeout(podsWatch.cancel, 5 * 60 * 1000) // 5 minutes
 ```
+
+## Watch with SSL ignore (Node.js only)
+
+```javascript
+import { createClient } from "@cloudoperators/juno-k8s-client"
+
+const apiEndpoint = "https://internal-k8s-api.company.com"
+let token = "BEARER-TOKEN"
+
+const apiClient = createClient({
+  apiEndpoint,
+  token,
+  ignoreSsl: true, // For internal APIs
+})
+
+const podsWatch = apiClient
+  .watch("/api/v1/pods", {
+    params: { watch: "true" },
+    ignoreSsl: true, // Can also be set per-request
+  })
+  .on(apiClient.WATCH_ERROR, () => console.log("ERROR"))
+  .on(apiClient.WATCH_ADDED, (items) => console.log("Added:", items))
+
+podsWatch.start()
+```
+
+# Common Use Cases
+
+## Internal Kubernetes Clusters
+
+For internal clusters with self-signed certificates (Node.js environments):
+
+```js
+const apiClient = createClient({
+  apiEndpoint: "https://rancher.internal.company.com/k8s/clusters/c-12345",
+  token: process.env.K8S_TOKEN,
+  ignoreSsl: true, // Safe for internal networks
+})
+```
+
+## Development Environment
+
+```js
+const apiClient = createClient({
+  apiEndpoint: "https://localhost:6443",
+  token: "dev-token",
+  ignoreSsl: process.env.NODE_ENV === "development", // Only in development
+})
+```
+
+## Production Environment
+
+```js
+const apiClient = createClient({
+  apiEndpoint: "https://prod-k8s-api.company.com",
+  token: process.env.K8S_TOKEN,
+  // ignoreSsl should not be used in production
+})
+```
+
+# Environment Support
+
+## Browser Environment
+
+- ✅ Full HTTP methods support (GET, POST, PUT, PATCH, DELETE, HEAD)
+- ✅ Watch functionality
+- ✅ Token refresh
+- ❌ `ignoreSsl` option (ignored for security reasons)
+
+## Node.js Environment
+
+- ✅ Full HTTP methods support
+- ✅ Watch functionality
+- ✅ Token refresh
+- ✅ `ignoreSsl` option with HTTPS agent support
 
 # Development
 

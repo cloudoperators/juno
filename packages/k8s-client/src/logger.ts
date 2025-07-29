@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const PREFIX = "k8sClient:"
+const PREFIX = "[k8sClient]:"
 
 type ConsoleType = "log" | "error" | "debug" | "info"
 // Define a type that describes the arguments to be passed to the console methods
