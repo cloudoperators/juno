@@ -17,7 +17,7 @@ interface ClientOptions {
 }
 
 function createClient(options: ClientOptions) {
-  const { apiEndpoint, ignoreSsl = false } = options
+  const { apiEndpoint, ignoreSsl = false, debug = false } = options
   let token = options.token
 
   if (!apiEndpoint || !token) {
@@ -25,7 +25,7 @@ function createClient(options: ClientOptions) {
   }
 
   // Log warning when SSL verification is disabled
-  if (ignoreSsl && options.debug === true) {
+  if (ignoreSsl && debug === true) {
     console.warn(`⚠️  K8s Client: SSL certificate verification disabled for ${apiEndpoint}`)
     console.warn(`🔒 This should only be used in development or secure internal networks`)
   }
@@ -43,6 +43,8 @@ function createClient(options: ClientOptions) {
     }
 
     return {
+      debug,
+      ignoreSsl,
       ...defaultOptions,
       ...options,
       headers,

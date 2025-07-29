@@ -108,6 +108,7 @@ describe("request", () => {
 
   describe("Request Options", () => {
     test("provide only allowed options to fetch", async () => {
+      globalThis.window = undefined!
       await request("GET", testUrl, {
         signal: "test" as unknown as AbortSignal,
         headers: { key1: "value1" },
@@ -159,6 +160,7 @@ describe("request", () => {
 
   describe("SSL Ignore Functionality", () => {
     test("should create HTTPS agent when ignoreSsl is true for HTTPS URL", async () => {
+      globalThis.window = undefined!
       await request("GET", testUrl, {
         ignoreSsl: true,
         headers: { Authorization: "Bearer token" },
@@ -221,6 +223,7 @@ describe("request", () => {
     })
 
     test("should filter out ignoreSsl from fetch options", async () => {
+      globalThis.window = undefined!
       await request("POST", testUrl, {
         body: { data: "test" },
         headers: { "Content-Type": "application/json" },
@@ -235,6 +238,7 @@ describe("request", () => {
     })
 
     test("should handle mixed requests with different SSL settings", async () => {
+      globalThis.window = undefined!
       // First request with SSL verification (default)
       await request("GET", testUrl, {
         headers: { Accept: "application/json" },
@@ -262,6 +266,7 @@ describe("request", () => {
     test("should work with all HTTP methods and ignoreSsl", async () => {
       const methods = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"]
       const testBody = { test: "data" }
+      globalThis.window = undefined!
 
       for (const method of methods) {
         vi.clearAllMocks()
@@ -293,6 +298,7 @@ describe("request", () => {
     })
 
     test("should handle JSON body serialization with ignoreSsl", async () => {
+      globalThis.window = undefined!
       const requestBody = {
         name: "test-resource",
         spec: { replicas: 3 },
@@ -315,6 +321,7 @@ describe("request", () => {
     })
 
     test("should handle string body without modification with ignoreSsl", async () => {
+      globalThis.window = undefined!
       const stringBody = "raw string data"
 
       await request("POST", testUrl, {
@@ -331,6 +338,7 @@ describe("request", () => {
     })
 
     test("should handle URL parameters with ignoreSsl", async () => {
+      globalThis.window = undefined!
       await request("GET", testUrl, {
         params: {
           labelSelector: "app=nginx",

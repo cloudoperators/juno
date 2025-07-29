@@ -327,6 +327,7 @@ describe("k8sClient", () => {
     })
 
     test("should pass ignoreSsl to request when making HTTP calls", async () => {
+      globalThis.window = undefined!
       const client = createClient({
         apiEndpoint: "https://internal-k8s.company.com",
         token: "test-token",
@@ -350,6 +351,7 @@ describe("k8sClient", () => {
     })
 
     test("should allow per-request SSL override", async () => {
+      globalThis.window = undefined!
       const client = createClient({
         apiEndpoint: "https://k8s-api.company.com",
         token: "test-token",

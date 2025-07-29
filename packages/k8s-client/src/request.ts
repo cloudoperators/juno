@@ -49,6 +49,7 @@ function request(method: string, url: string, options: RequestOptions = {}): Pro
 
   // Create HTTPS agent if SSL should be ignored for HTTPS URLs
   let agent: https.Agent | undefined
+
   if (ignoreSsl && url.startsWith("https:") && typeof window === "undefined") {
     agent = new https.Agent({
       rejectUnauthorized: false,
