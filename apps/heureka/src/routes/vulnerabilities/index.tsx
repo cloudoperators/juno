@@ -42,7 +42,8 @@ export const Route = createFileRoute("/vulnerabilities/")({
   },
   shouldReload: false,
   beforeLoad: ({ search }) => {
-    const filterSettings = extractFilterSettingsFromSearchParams(search)
+    const { vulnerability, ...restSearch } = search
+    const filterSettings = extractFilterSettingsFromSearchParams(restSearch)
     return {
       filterSettings,
     }

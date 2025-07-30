@@ -81,6 +81,11 @@ export type Vulnerability = {
   sourceUrl: string | null
   description: string | null
   servicesCount: number
+  services?: VulnerabilityService[]
+}
+
+export type VulnerabilityService = {
+  ccrn: string
 }
 
 export type NormalizedVulnerabilities = {
@@ -90,16 +95,33 @@ export type NormalizedVulnerabilities = {
   pageNumber: number
 }
 
+export type NormalizedVulnerabilityServices = {
+  services: VulnerabilityService[]
+  pages: Page[]
+  totalServices: number
+  pageNumber: number
+}
+
 export function getNormalizedVulnerabilitiesResponse(data: any): NormalizedVulnerabilities {
   const vulnerabilities =
-    data?.Vulnerabilities?.edges?.map((edge: any) => ({
-      name: edge.node.name,
-      severity: edge.node.severity,
-      earliestTargetRemediationDate: edge.node.earliestTargetRemediationDate,
-      sourceUrl: edge.node.sourceUrl,
-      description: edge.node.description,
-      servicesCount: edge.node.services?.totalCount || 0,
-    })) || []
+    data?.Vulnerabilities?.edges?.map((edge: any) => {
+      // Normalize services
+      const services = edge.node.services?.edges
+        ?.filter((serviceEdge: any) => serviceEdge?.node)
+        ?.map((serviceEdge: any) => ({
+          ccrn: serviceEdge.node.ccrn || "",
+        })) || []
+
+      return {
+        name: edge.node.name,
+        severity: edge.node.severity,
+        earliestTargetRemediationDate: edge.node.earliestTargetRemediationDate,
+        sourceUrl: edge.node.sourceUrl,
+        description: edge.node.description,
+        servicesCount: edge.node.services?.totalCount || 0,
+        services,
+      }
+    }) || []
   const totalVulnerabilities = data?.Vulnerabilities?.totalCount || 0
 
   const pageInfo = data?.Vulnerabilities?.pageInfo
@@ -109,6 +131,27 @@ export function getNormalizedVulnerabilitiesResponse(data: any): NormalizedVulne
   return {
     vulnerabilities,
     totalVulnerabilities,
+    pages,
+    pageNumber,
+  }
+}
+
+export function getNormalizedVulnerabilityServicesResponse(data: any): NormalizedVulnerabilityServices {
+  const services = data?.Vulnerabilities?.edges?.[0]?.node?.services?.edges
+    ?.filter((serviceEdge: any) => serviceEdge?.node)
+    ?.map((serviceEdge: any) => ({
+      ccrn: serviceEdge.node.ccrn || "",
+    })) || []
+
+  const totalServices = data?.Vulnerabilities?.edges?.[0]?.node?.services?.totalCount || 0
+
+  const pageInfo = data?.Vulnerabilities?.edges?.[0]?.node?.services?.pageInfo
+  const pages = pageInfo?.pages || []
+  const pageNumber = pageInfo?.pageNumber || 1
+
+  return {
+    services,
+    totalServices,
     pages,
     pageNumber,
   }
