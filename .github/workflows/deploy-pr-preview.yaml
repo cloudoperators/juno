@@ -129,6 +129,7 @@ jobs:
           PACKAGE_PATH: apps/doop
           TARGET_FOLDER: doop
           APP_PROPS_BASE64: ${{ secrets.DOOP_APP_PROPS_BASE64 }}
+          PREVIEW_URL: ${{ env.PREVIEW_URL }}
         continue-on-error: true
 
       - name: Build CARBON if changes detected
