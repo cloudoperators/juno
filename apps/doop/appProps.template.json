@@ -4,5 +4,7 @@
   "displayName": "MyApp",
   "apiEndpoint": "https://api.example.com/v1",
   "embedded": false,
-  "showDebugSeverities": false
+  "showDebugSeverities": false,
+  "enableHashedRouting": false,
+  "basePath": "/"
 }
