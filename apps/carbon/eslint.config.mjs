@@ -3,41 +3,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import junoConfigs from '@cloudoperators/juno-config/eslint/juno-typescript.mjs'
+import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 
 export default [
   ...junoConfigs,
   {
-    files: ['test/__mocks__/svgLib.js', 'src/**/*.test.js'],
-    languageOptions: { sourceType: 'module' }
-  },
-
-  {
-    ignores: ['setupTests.js']
-  },
-  {
-    extends: [
-      'eslint:recommended',
-      'plugin:react/recommended',
-      'plugin:@typescript-eslint/eslint-recommended',
-      'plugin:@typescript-eslint/recommended',
-      'plugin:prettier/recommended',
-      'plugin:tailwindcss/recommended'
-    ]
-  },
-
-  { plugins: ['react', 'react-hooks', '@typescript-eslint', 'tailwindcss'] },
-  {
+    files: ["**/*.ts", "**/*.mjs", "**/*.tsx"],
+    languageOptions: { sourceType: "module" },
     rules: {
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      'react/prop-types': 'off',
-      'react/react-in-jsx-scope': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-      'tailwindcss/classnames-order': 'warn',
-      'tailwindcss/no-custom-classname': 'warn',
-      'tailwindcss/no-contradicting-classname': 'error'
-    }
-  }
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/restrict-plus-operands": "off",
+      "@typescript-eslint/await-thenable": "off",
+      "prefer-const": "off",
+      "no-unsafe-optional-chaining": "off",
+      "@typescript-eslint/restrict-template-expressions": "off",
+      "react/prop-types": "off",
+      "no-unused-vars": "off",
+    },
+  },
+  {
+    ignores: ["setupTests.js", "appProps.template.ts"],
+  },
 ]
