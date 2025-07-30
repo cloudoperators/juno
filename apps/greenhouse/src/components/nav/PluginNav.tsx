@@ -68,6 +68,10 @@ const PluginNav = () => {
   // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: authData, loggedIn, login, logout } = useAuth()
 
+  const navigateToApp = (appId: string) => {
+    navigate({ to: `/${appId}`, replace: false, search: (prev) => ({ ...prev }) })
+  }
+
   return (
     <Stack direction="vertical" alignment="center" className={`greenhouse-nav ${navStyles}`}>
       <GreenhouseLogo className="mb-6" title="Greenhouse" />
@@ -81,7 +85,7 @@ const PluginNav = () => {
           role="button"
           // @ts-ignore
           tabIndex="0"
-          onClick={() => navigate({ to: `/${appConf.id}`, replace: false })}
+          onClick={() => navigateToApp(appConf.id)}
         >
           <AppIcon name={appConf.name} />
           <span className={appNameStyles}>{appConf.displayName}</span>
@@ -104,7 +108,7 @@ const PluginNav = () => {
             role="button"
             // @ts-ignore
             tabIndex="0"
-            onClick={() => navigate({ to: `/${appConf.id}`, replace: false })}
+            onClick={() => navigateToApp(appConf.id)}
           >
             <AppIcon name={appConf.name} />
             <span className={appNameStyles}>{appConf.displayName}</span>
