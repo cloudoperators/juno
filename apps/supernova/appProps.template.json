@@ -6,5 +6,7 @@
   "silenceExcludedLabels": [],
   "silenceTemplates": [],
   "theme": "theme-dark",
-  "username": "Jane Doe"
+  "username": "Jane Doe",
+  "enableHashedRouting": false,
+  "baseUrl": "/"
 }
