@@ -1,0 +1,1 @@
+import{R as n}from"./index-DDvYANvY.js";import{u as a,a as s}from"./Shell-DzP_O3fB.js";import"./index-CXsPR0_r.js";const r=function(){const t=a().active(),o=s({from:"/"});n.useEffect(()=>{t.length>0&&o({to:`/${t[0]}/*`,search:e=>({...e})})},[o])};export{r as component};
