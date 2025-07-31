@@ -1,4 +1,5 @@
 # JavaScript client for Kubernetes API
+
 This `Kubernetes client` is designed for use in both browser and Node.js environments. It utilizes the fetch API and is compatible with all modern browsers. For older browsers, the fetch polyfill (github/fetch) should be used.
 
 The k8sclient facilitates communication with the Kubernetes API. It minimizes data interpretation and adds only essential logic. In addition to standard HTTP methods like GET or POST, it implements the WATCH method, which establishes a stream to the server and reacts to events.
@@ -6,8 +7,9 @@ The k8sclient facilitates communication with the Kubernetes API. It minimizes da
 All functions return Promise objects and can therefore be processed with a chain of then calls. Potential errors can be caught using the catch method and will be of type `K8sApiError`.
 
 The client requires a Kubernetes API endpoint and a token. Once both parameters are provided, the following functions are available:
+
 - head
-- get  
+- get
 - post
 - put
 - patch
@@ -15,31 +17,38 @@ The client requires a Kubernetes API endpoint and a token. Once both parameters 
 - watch
 
 # Installation
+
 With npm:
+
 ```
 npm install @cloudoperators/juno-k8s-client
 ```
+
 With pnpm:
+
 ```
 pnpm add @cloudoperators/juno-k8s-client
 ```
+
 With yarn:
+
 ```
 yarn add @cloudoperators/juno-k8s-client
 ```
 
 # Configuration Options
+
 When creating a client, you can pass the following options:
 
-| Option        | Type    | Required | Description                                        |
-| ------------- | ------- | -------- | -------------------------------------------------- |
-| `apiEndpoint` | string  | Yes      | The Kubernetes API server endpoint                 |
-| `token`       | string  | Yes      | Bearer token for authentication                    |
-| `ignoreSsl`   | boolean | No       | Ignore SSL certificate verification (Node.js only) |
+| Option        | Type    | Required | Description                                         |
+| ------------- | ------- | -------- | --------------------------------------------------- |
+| `apiEndpoint` | string  | Yes      | The Kubernetes API server endpoint                  |
+| `token`       | string  | Yes      | Bearer token for authentication                     |
+| `ignoreSsl`   | boolean | No       | Ignore SSL certificate verification (Node.js only)  |
 | `debug`       | boolean | No       | Enable debug logging for API requests and responses |
 
-
 ## SSL Certificate Handling
+
 The `ignoreSsl` option allows you to bypass SSL certificate verification when connecting to Kubernetes APIs with self-signed or invalid certificates.
 
 **⚠️ Security Warning**: Only use `ignoreSsl: true` in development environments or with trusted internal APIs. Never disable SSL verification in production.
@@ -58,6 +67,7 @@ const apiClient = createClient({
 ```
 
 # Error Handling
+
 All API errors thrown by this client implement the `K8sApiError` interface:
 
 ```typescript
@@ -81,6 +91,7 @@ This provides detailed information about Kubernetes API errors, including status
 # Example Code (ES6)
 
 ## Basic client creation
+
 ```js
 import { createClient } from "@cloudoperators/juno-k8s-client"
 
@@ -90,6 +101,7 @@ const apiClient = createClient({ apiEndpoint, token })
 ```
 
 ## Client with SSL ignore (Node.js only)
+
 ```js
 import { createClient } from "@cloudoperators/juno-k8s-client"
 
@@ -103,6 +115,7 @@ const apiClient = createClient({
 ```
 
 ## List all pods
+
 In this code snippet, we use the get method to fetch all pods from the Kubernetes API endpoint. The retrieved data is then logged to the console.
 
 ```js
@@ -124,6 +137,7 @@ apiClient
 ```
 
 ## List pods with query parameters
+
 ```js
 import { createClient } from "@cloudoperators/juno-k8s-client"
 
@@ -152,6 +166,7 @@ apiClient
 ```
 
 ## Create a new namespace
+
 You can use this example to create a new namespace in the Kubernetes cluster.
 
 ```js
@@ -184,6 +199,7 @@ apiClient
 ```
 
 ## Delete a namespace
+
 The following example demonstrates how to delete a namespace in the Kubernetes cluster.
 
 ```js
@@ -209,6 +225,7 @@ apiClient
 ```
 
 ## Per-request SSL override (Node.js only)
+
 You can also override SSL behavior on a per-request basis:
 
 ```js
@@ -237,6 +254,7 @@ apiClient
 ```
 
 ## Refresh Token
+
 Use this example to refresh the authentication token.
 
 ```js
@@ -255,6 +273,7 @@ try {
 ```
 
 ## Watch
+
 The watch call establishes a persistent connection to the Kubernetes API server and listens for changes to the specified resource. In this example, we're watching for changes to pods ("/api/v1/pods").
 
 The watch call should be **explicitly started** using `podsWatch.start()` to begin listening for changes, and it can be **cancelled** using `podsWatch.cancel()` when it's no longer needed.
@@ -275,7 +294,7 @@ const podsWatch = apiClient
     console.error("Watch error occurred:", error.message)
     console.error("Error reason:", error.reason)
     console.error("Error code:", error.code)
-    
+
     // Handle specific error cases
     if (error.code === 401) {
       console.error("Authentication failed - token may be expired")
@@ -297,6 +316,7 @@ setTimeout(podsWatch.cancel, 5 * 60 * 1000) // 5 minutes
 ```
 
 ## Watch with SSL ignore (Node.js only)
+
 ```javascript
 import { createClient } from "@cloudoperators/juno-k8s-client"
 
@@ -327,6 +347,7 @@ podsWatch.start()
 # Common Use Cases
 
 ## Internal Kubernetes Clusters
+
 For internal clusters with self-signed certificates (Node.js environments):
 
 ```js
@@ -349,6 +370,7 @@ apiClient
 ```
 
 ## Development Environment
+
 ```js
 const apiClient = createClient({
   apiEndpoint: "https://localhost:6443",
@@ -357,19 +379,18 @@ const apiClient = createClient({
 })
 
 // Development-specific error handling
-apiClient
-  .get("/api/v1/namespaces")
-  .catch((error) => {
-    if (process.env.NODE_ENV === "development") {
-      console.warn("Development API error:", error.message)
-      console.warn("This might be expected in dev environment")
-    } else {
-      console.error("Production API error:", error)
-    }
-  })
+apiClient.get("/api/v1/namespaces").catch((error) => {
+  if (process.env.NODE_ENV === "development") {
+    console.warn("Development API error:", error.message)
+    console.warn("This might be expected in dev environment")
+  } else {
+    console.error("Production API error:", error)
+  }
+})
 ```
 
 ## Production Environment
+
 ```js
 const apiClient = createClient({
   apiEndpoint: "https://prod-k8s-api.company.com",
@@ -378,28 +399,27 @@ const apiClient = createClient({
 })
 
 // Production error handling with monitoring
-apiClient
-  .get("/api/v1/pods")
-  .catch((error) => {
-    // Log detailed error information for monitoring
-    console.error("Production API Error:", {
-      message: error.message,
-      status: error.status,
-      reason: error.reason,
-      code: error.code,
-      apiVersion: error.apiVersion,
-      kind: error.kind,
-      timestamp: new Date().toISOString()
-    })
-    
-    // Send to monitoring service
-    // monitoringService.reportError(error)
+apiClient.get("/api/v1/pods").catch((error) => {
+  // Log detailed error information for monitoring
+  console.error("Production API Error:", {
+    message: error.message,
+    status: error.status,
+    reason: error.reason,
+    code: error.code,
+    apiVersion: error.apiVersion,
+    kind: error.kind,
+    timestamp: new Date().toISOString(),
   })
+
+  // Send to monitoring service
+  // monitoringService.reportError(error)
+})
 ```
 
 # Environment Support
 
 ## Browser Environment
+
 - ✅ Full HTTP methods support (GET, POST, PUT, PATCH, DELETE, HEAD)
 - ✅ Watch functionality
 - ✅ Token refresh
@@ -407,13 +427,15 @@ apiClient
 - ❌ `ignoreSsl` option (ignored for security reasons)
 
 ## Node.js Environment
+
 - ✅ Full HTTP methods support
-- ✅ Watch functionality  
+- ✅ Watch functionality
 - ✅ Token refresh
 - ✅ Complete error handling with `K8sApiError`
 - ✅ `ignoreSsl` option with HTTPS agent support
 
 # Development
+
 All dependencies of this project are expressed in its package.json file. Before you start developing, ensure that you have NPM installed, then run:
 
 ```bash
@@ -423,7 +445,9 @@ pnpm build
 ```
 
 ## Contributing
+
 We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
 
 ## License
+
 Licensed under the [Apache License](LICENSE).
