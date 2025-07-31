@@ -16,6 +16,6 @@
     "allowSyntheticDefaultImports": true,
     "types": ["vitest/globals", "@testing-library/jest-dom", "@types/react"]
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts"],
-  "exclude": ["node_modules", "build", "codegen.ts"]
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts", "codegen.ts"],
+  "exclude": ["node_modules", "build"]
 }
