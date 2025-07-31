@@ -4,33 +4,41 @@
  */
 
 import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
+import reactHooksPlugin from "eslint-plugin-react-hooks"
 
 export default [
   ...junoConfigs,
   {
-    files: ["test/__mocks__/svgLib.js", "src/**/*.test.js"],
-    languageOptions: { sourceType: "module" },
-  },
-
-  {
-    ignores: ["setupTests.js"],
-  },
-  {
-    extends: [
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:prettier/recommended",
-      "plugin:tailwindcss/recommended",
-    ],
-  },
-
-  { plugins: ["react", "react-hooks", "@typescript-eslint", "tailwindcss"] },
-  {
-    rules: {
-      "react-hooks/rules-of-hooks": "error",
-      "tailwindcss/no-contradicting-classname": "error",
+    files: ["**/*.ts", "**/*.tsx"],
+    plugins: {
+      "react-hooks": reactHooksPlugin,
     },
+    rules: {
+      "prefer-const": "off",
+      "no-unused-vars": "off",
+      "no-extra-boolean-cast": "off",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "react/no-unused-vars": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "off",
+      "tailwindcss/classnames-order": "off",
+      "tailwindcss/no-custom-classname": "off",
+      "tailwindcss/no-contradicting-classname": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/no-redundant-type-constituents": "off",
+      "@typescript-eslint/restrict-template-expressions": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unnecessary-type-assertion": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-misused-promises": "off",
+      "@typescript-eslint/require-await": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+    },
+    ignores: ["vitest.config.ts", "vite.config.ts", "vitest.setup.ts", "tailwind.config.ts"],
   },
 ]
