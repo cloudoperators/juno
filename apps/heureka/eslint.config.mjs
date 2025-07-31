@@ -14,7 +14,9 @@ export default [
       "react-hooks": reactHooksPlugin,
     },
     rules: {
+      "prefer-const": "off",
       "no-unused-vars": "off",
+      "no-extra-boolean-cast": "off",
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "react/no-unused-vars": "off",
@@ -35,8 +37,6 @@ export default [
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/require-await": "off",
-      "no-extra-boolean-cast": "off",
-      "prefer-const": "off",
     },
     ignores: ["vitest.config.ts", "vite.config.ts", "vitest.setup.ts", "tailwind.config.ts"],
   },

@@ -49,7 +49,6 @@ export default [
   {
     rules: {
       // ignore unused vars starting with _
-      // "no-unused-vars": "off",
       "no-unused-vars": [
         "error",
         {

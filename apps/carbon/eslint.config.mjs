@@ -5,12 +5,11 @@
 
 import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 import reactHooksPlugin from "eslint-plugin-react-hooks"
-import tailwindcssConfig from "eslint-plugin-tailwindcss/lib" // Directly use the config
+import tailwindcssPlugin from "eslint-plugin-tailwindcss/lib/config/recommended.js"
 import typescriptPlugin from "@typescript-eslint/eslint-plugin"
 
 export default [
   ...junoConfigs,
-  ...tailwindcssConfig.configs, // Include Tailwind CSS configs
   {
     files: ["test/__mocks__/svgLib.js", "src/**/*.test.js"],
     ignores: ["setupTests.js"],
@@ -27,6 +26,7 @@ export default [
     ],
     plugins: {
       "react-hooks": reactHooksPlugin,
+      tailwindcss: tailwindcssPlugin,
       "@typescript-eslint": typescriptPlugin,
     },
     rules: {
