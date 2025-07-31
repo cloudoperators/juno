@@ -37,6 +37,7 @@ export default [
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/require-await": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
     },
     ignores: ["vitest.config.ts", "vite.config.ts", "vitest.setup.ts", "tailwind.config.ts"],
   },
