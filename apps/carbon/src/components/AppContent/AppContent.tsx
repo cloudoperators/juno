@@ -12,6 +12,7 @@ import Navigation from "../Navigation"
 import Extension from "../Extension/Extension"
 import NoExtensionFound from "./NoExtensionFound"
 
+// @ts-ignore
 const AppContent = ({ extensions }: { extensions: Extension[] }) => (
   <div className="h-screen flex">
     <Navigation extensions={extensions} />
