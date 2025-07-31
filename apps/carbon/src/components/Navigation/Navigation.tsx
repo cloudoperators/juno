@@ -14,6 +14,7 @@ const Navigation = ({ extensions }: { extensions: Array<Extension> }) => (
       <GreenhouseLogo className="mb-6" />
     </Stack>
     {extensions.map((extensionProps) => (
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       <NavigationItem key={extensionProps.name} {...extensionProps} />
     ))}
   </Stack>
