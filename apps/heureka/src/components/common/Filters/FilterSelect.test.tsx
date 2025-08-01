@@ -49,7 +49,7 @@ describe("FiltersSelect", () => {
     expect(valueComboBox).toBeInTheDocument()
   })
 
-  it.skip("displays all filter options in the select dropdown", async () => {
+  it("displays all filter options in the select dropdown", async () => {
     render(
       <AppShellProvider shadowRoot={false}>
         <FilterSelect filters={mockFilters} onChange={mockOnChange} />
@@ -61,7 +61,7 @@ describe("FiltersSelect", () => {
     expect(await screen.findByTestId("region")).toBeInTheDocument()
   })
 
-  it.skip("should show values in combobox when filter is selected", async () => {
+  it("should show values in combobox when filter is selected", async () => {
     const user = userEvent.setup({ delay: 0 })
     render(
       <AppShellProvider shadowRoot={false}>
