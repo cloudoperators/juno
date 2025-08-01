@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.12
+
+### Patch Changes
+
+- 1afa941: Upgraded license-checker-rseidelsohn to `4.4.2` (latest) and and eslint to `9.31.0` (latest)
+  - @cloudoperators/juno-ui-components@5.1.1
+
 ## 2.0.11
 
 ### Patch Changes
