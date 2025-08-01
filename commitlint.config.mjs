@@ -32,7 +32,7 @@ export const scopes = [
   "heureka",
   "infra",
   "juno",
-  "k8s",
+  "kubernetes",
   "message-provider",
   "main",
   "npm",
