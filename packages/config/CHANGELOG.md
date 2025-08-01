@@ -1,5 +1,13 @@
 # @cloudoperators/juno-config
 
+## 0.0.5
+
+### Patch Changes
+
+- 1afa941: Upgraded license-checker-rseidelsohn to `4.4.2` (latest) and and eslint to `9.31.0` (latest)
+- f4ea7a5: Upgraded @eslint/js to `9.31.0` (latest) and fixed [Vulnerability #93](https://github.com/cloudoperators/juno/security/dependabot/93) and [Vulnerability #94](https://github.com/cloudoperators/juno/security/dependabot/94).
+- f75fa32: Upgraded @eslint to `9.31.0` (latest) and fixed [Vulnerability #93](https://github.com/cloudoperators/juno/security/dependabot/93) and [Vulnerability #94](https://github.com/cloudoperators/juno/security/dependabot/94).
+
 ## 0.0.4
 
 ### Patch Changes

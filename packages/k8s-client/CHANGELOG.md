@@ -1,5 +1,11 @@
 # @cloudoperators/juno-k8s-client
 
+## 1.1.0
+
+### Minor Changes
+
+- 40d8dd8: Add ignoreSsl and debug options. ignoreSsl can be used only in node environment
+
 ## 1.0.8
 
 ### Patch Changes
