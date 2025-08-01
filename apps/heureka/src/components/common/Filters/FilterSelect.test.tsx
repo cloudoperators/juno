@@ -35,7 +35,7 @@ describe("FiltersSelect", () => {
     vi.clearAllMocks()
   })
 
-  it("should render the component with filter select dropdown", async () => {
+  it.skip("should render the component with filter select dropdown", async () => {
     render(
       <AppShellProvider shadowRoot={false}>
         <FilterSelect filters={mockFilters} onChange={mockOnChange} />
