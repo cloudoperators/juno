@@ -44,7 +44,7 @@ export default ({ mode }) => {
       lib: {
         entry: "src/index.tsx",
         formats: ["es"],
-        fileName: (format) => `index.js`,
+        fileName: (_format) => `index.js`,
       },
     },
   }

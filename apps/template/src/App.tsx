@@ -43,6 +43,7 @@ export const App = (props: AppProps) => {
     return (
       <div className="w-1/2">
         <CodeBlock className={preErrorClasses} copy={false}>
+          {/* eslint-disable @typescript-eslint/no-base-to-string */}
           {error?.message || error?.toString() || "An error occurred"}
         </CodeBlock>
       </div>

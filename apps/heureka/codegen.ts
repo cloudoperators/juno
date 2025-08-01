@@ -4,6 +4,7 @@
  */
 
 import { CodegenConfig } from "@graphql-codegen/cli"
+//@ts-ignore
 import * as dotenv from "dotenv"
 
 // Load environment variables from .env file
