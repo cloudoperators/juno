@@ -24,7 +24,11 @@ const AlertLinks = ({ alert, className }: any) => {
       {alert?.labels?.playbook && (
         <a
           className="underline"
-          href={`https://operations.global.cloud.sap/${alert?.labels?.playbook}`}
+          href={
+            alert.labels.playbook.startsWith("http")
+              ? alert.labels.playbook
+              : `https://operations.global.cloud.sap/${alert.labels.playbook}`
+          }
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
