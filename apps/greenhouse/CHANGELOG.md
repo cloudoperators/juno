@@ -1,5 +1,28 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.12
+
+### Patch Changes
+
+- a87c074: feat(supernova): support absolute urls in playbook links
+- 052b8b1: Skips an unstable test in FilterSelect component temporarily
+- 0db8cd2: Skips all Filters related tests temporarily in Heureka
+- e185313: Handles null values for a vulnerability severity
+- Updated dependencies [40d8dd8]
+- Updated dependencies [a87c074]
+- Updated dependencies [1afa941]
+- Updated dependencies [052b8b1]
+- Updated dependencies [0db8cd2]
+- Updated dependencies [e185313]
+  - @cloudoperators/juno-k8s-client@1.1.0
+  - @cloudoperators/juno-app-supernova@0.17.9
+  - @cloudoperators/juno-app-heureka@0.8.1
+  - @cloudoperators/juno-app-doop@2.4.8
+  - @cloudoperators/juno-messages-provider@0.2.12
+  - @cloudoperators/juno-oauth@1.4.9
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
 ## 0.6.11
 
 ### Patch Changes

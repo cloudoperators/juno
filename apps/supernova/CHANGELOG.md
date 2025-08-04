@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.17.9
+
+### Patch Changes
+
+- a87c074: feat(supernova): support absolute urls in playbook links
+  - @cloudoperators/juno-messages-provider@0.2.12
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
 ## 0.17.8
 
 ### Patch Changes
