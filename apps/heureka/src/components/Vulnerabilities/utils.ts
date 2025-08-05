@@ -106,11 +106,12 @@ export function getNormalizedVulnerabilitiesResponse(data: any): NormalizedVulne
   const vulnerabilities =
     data?.Vulnerabilities?.edges?.map((edge: any) => {
       // Normalize services
-      const services = edge.node.services?.edges
-        ?.filter((serviceEdge: any) => serviceEdge?.node)
-        ?.map((serviceEdge: any) => ({
-          ccrn: serviceEdge.node.ccrn || "",
-        })) || []
+      const services =
+        edge.node.services?.edges
+          ?.filter((serviceEdge: any) => serviceEdge?.node)
+          ?.map((serviceEdge: any) => ({
+            ccrn: serviceEdge.node.ccrn || "",
+          })) || []
 
       return {
         name: edge.node.name,
@@ -137,11 +138,12 @@ export function getNormalizedVulnerabilitiesResponse(data: any): NormalizedVulne
 }
 
 export function getNormalizedVulnerabilityServicesResponse(data: any): NormalizedVulnerabilityServices {
-  const services = data?.Vulnerabilities?.edges?.[0]?.node?.services?.edges
-    ?.filter((serviceEdge: any) => serviceEdge?.node)
-    ?.map((serviceEdge: any) => ({
-      ccrn: serviceEdge.node.ccrn || "",
-    })) || []
+  const services =
+    data?.Vulnerabilities?.edges?.[0]?.node?.services?.edges
+      ?.filter((serviceEdge: any) => serviceEdge?.node)
+      ?.map((serviceEdge: any) => ({
+        ccrn: serviceEdge.node.ccrn || "",
+      })) || []
 
   const totalServices = data?.Vulnerabilities?.edges?.[0]?.node?.services?.totalCount || 0
 

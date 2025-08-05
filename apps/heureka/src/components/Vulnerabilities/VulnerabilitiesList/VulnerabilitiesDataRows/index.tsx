@@ -21,12 +21,15 @@ export const VulnerabilitiesDataRows = ({ vulnerabilitiesPromise }: Vulnerabilit
   const { error, data } = use(vulnerabilitiesPromise)
   const { vulnerabilities } = getNormalizedVulnerabilitiesResponse(data)
 
-  const openVulnerabilityPanel = useCallback((vuln: Vulnerability) => {
-    navigate({
-      to: "/vulnerabilities",
-      search: (prev) => ({ ...prev, vulnerability: vuln.name }),
-    })
-  }, [navigate])
+  const openVulnerabilityPanel = useCallback(
+    (vuln: Vulnerability) => {
+      navigate({
+        to: "/vulnerabilities",
+        search: (prev) => ({ ...prev, vulnerability: vuln.name }),
+      })
+    },
+    [navigate]
+  )
 
   if (error) {
     return <EmptyDataGridRow colSpan={5}>Error loading vulnerabilities: {error.message}</EmptyDataGridRow>
@@ -37,9 +40,9 @@ export const VulnerabilitiesDataRows = ({ vulnerabilitiesPromise }: Vulnerabilit
   }
 
   return vulnerabilities.map((vuln: Vulnerability) => (
-    <VulnerabilityDataRow 
-      key={vuln.name} 
-      vulnerability={vuln} 
+    <VulnerabilityDataRow
+      key={vuln.name}
+      vulnerability={vuln}
       selected={vuln.name === vulnerability}
       onItemClick={() => openVulnerabilityPanel(vuln)}
     />
