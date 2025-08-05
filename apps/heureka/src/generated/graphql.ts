@@ -204,6 +204,7 @@ export type ComponentInstance = Node & {
   metadata?: Maybe<Metadata>
   namespace?: Maybe<Scalars["String"]["output"]>
   parentId?: Maybe<Scalars["String"]["output"]>
+  parentId?: Maybe<Scalars["String"]["output"]>
   pod?: Maybe<Scalars["String"]["output"]>
   project?: Maybe<Scalars["String"]["output"]>
   region?: Maybe<Scalars["String"]["output"]>
@@ -239,6 +240,7 @@ export type ComponentInstanceFilter = {
   context?: InputMaybe<Array<InputMaybe<Scalars["Json"]["input"]>>>
   domain?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   namespace?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  parentId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   parentId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   pod?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   project?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -324,6 +326,7 @@ export type ComponentInstanceInput = {
   domain?: InputMaybe<Scalars["String"]["input"]>
   namespace?: InputMaybe<Scalars["String"]["input"]>
   parentId?: InputMaybe<Scalars["String"]["input"]>
+  parentId?: InputMaybe<Scalars["String"]["input"]>
   pod?: InputMaybe<Scalars["String"]["input"]>
   project?: InputMaybe<Scalars["String"]["input"]>
   region?: InputMaybe<Scalars["String"]["input"]>
@@ -355,9 +358,12 @@ export enum ComponentInstanceTypes {
   FloatingIp = "FloatingIp",
   Project = "Project",
   ProjectConfiguration = "ProjectConfiguration",
+  ProjectConfiguration = "ProjectConfiguration",
   RbacPolicy = "RbacPolicy",
   RecordSet = "RecordSet",
+  RecordSet = "RecordSet",
   SecurityGroup = "SecurityGroup",
+  SecurityGroupRule = "SecurityGroupRule",
   SecurityGroupRule = "SecurityGroupRule",
   Server = "Server",
   Unknown = "Unknown",
@@ -1620,6 +1626,7 @@ export type SupportGroupEdge = Edge & {
 
 export type SupportGroupFilter = {
   issueIds?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  issueIds?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
   supportGroupCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   userIds?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -1697,6 +1704,7 @@ export type Vulnerability = Node & {
   severity?: Maybe<SeverityValues>
   sourceUrl?: Maybe<Scalars["String"]["output"]>
   supportGroups?: Maybe<SupportGroupConnection>
+  supportGroups?: Maybe<SupportGroupConnection>
 }
 
 export type VulnerabilityServicesArgs = {
@@ -1709,8 +1717,14 @@ export type VulnerabilitySupportGroupsArgs = {
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
+export type VulnerabilitySupportGroupsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
 export type VulnerabilityConnection = Connection & {
   __typename?: "VulnerabilityConnection"
+  counts?: Maybe<SeverityCounts>
   counts?: Maybe<SeverityCounts>
   edges: Array<Maybe<VulnerabilityEdge>>
   pageInfo?: Maybe<PageInfo>
@@ -1728,11 +1742,14 @@ export type VulnerabilityFilter = {
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
+  service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
   supportGroup?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
 export type VulnerabilityFilterValue = {
   __typename?: "VulnerabilityFilterValue"
+  service?: Maybe<FilterItem>
   service?: Maybe<FilterItem>
   severity?: Maybe<FilterItem>
   supportGroup?: Maybe<FilterItem>
@@ -1959,6 +1976,8 @@ export type GetVulnerabilitiesQueryVariables = Exact<{
   after?: InputMaybe<Scalars["String"]["input"]>
   firstServices?: InputMaybe<Scalars["Int"]["input"]>
   afterServices?: InputMaybe<Scalars["String"]["input"]>
+  firstServices?: InputMaybe<Scalars["Int"]["input"]>
+  afterServices?: InputMaybe<Scalars["String"]["input"]>
 }>
 
 export type GetVulnerabilitiesQuery = {
@@ -1982,6 +2001,11 @@ export type GetVulnerabilitiesQuery = {
             __typename?: "ServiceEdge"
             node: { __typename?: "Service"; ccrn?: string | null }
           } | null> | null
+          pageInfo?: {
+            __typename?: "PageInfo"
+            pageNumber?: number | null
+            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+          } | null
           pageInfo?: {
             __typename?: "PageInfo"
             pageNumber?: number | null
@@ -2230,6 +2254,13 @@ export const GetVulnerabilitiesDocument = gql`
     $firstServices: Int
     $afterServices: String
   ) {
+  query GetVulnerabilities(
+    $filter: VulnerabilityFilter
+    $first: Int
+    $after: String
+    $firstServices: Int
+    $afterServices: String
+  ) {
     Vulnerabilities(filter: $filter, first: $first, after: $after) {
       edges {
         node {
@@ -2239,10 +2270,18 @@ export const GetVulnerabilitiesDocument = gql`
           earliestTargetRemediationDate
           description
           services(first: $firstServices, after: $afterServices) {
+          services(first: $firstServices, after: $afterServices) {
             totalCount
             edges {
               node {
                 ccrn
+              }
+            }
+            pageInfo {
+              pageNumber
+              pages {
+                after
+                pageNumber
               }
             }
             pageInfo {

@@ -90,7 +90,7 @@ export const ImageVersionDetailsPanel = ({ imageVersionsPromise }: ImageVersionD
               </DataGridCell>
             </DataGridRow>
             <DataGridRow>
-              <DataGridHeadCell className="whitespace-nowrap">{`Occurrences (${imageVersion.componetInstancesCount || 0})`}</DataGridHeadCell>
+              <DataGridHeadCell className="whitespace-nowrap">{`Occurrences (${imageVersion.componentInstancesCount || 0})`}</DataGridHeadCell>
               <DataGridCell>
                 <ImageVersionOccurrences imageVersion={imageVersion} />
               </DataGridCell>

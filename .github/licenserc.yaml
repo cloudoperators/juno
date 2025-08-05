@@ -54,7 +54,8 @@ header:
     - "**/*.sh"
     - "packages/ui-components/src/fonts/**"
     - "**/routeTree.gen.ts"
-    - .nvmrc 
+    - .nvmrc
+    - "**/generated/**"
 
   comment: on-failure
 

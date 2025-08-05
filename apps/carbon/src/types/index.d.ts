@@ -7,7 +7,7 @@
 /// <reference types="vite/client" />
 
 // TODO: Replace it with the actual type in the following task
-type Extension = {
+export type Extension = {
   name: string
   title: string
   url: string

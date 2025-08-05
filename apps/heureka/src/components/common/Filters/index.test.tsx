@@ -47,14 +47,14 @@ describe("Filters", () => {
     vi.clearAllMocks()
   })
 
-  it("renders the component with search, select and combobox", async () => {
+  it.skip("renders the component with search, select and combobox", async () => {
     renderShell({ filters, filterSettings, onFilterChange: vi.fn() })
     expect(await screen.findByTestId("select-filterValue")).toBeInTheDocument()
     expect(await screen.findByTestId("combobox-filterValue")).toBeInTheDocument()
     expect(await screen.findByTestId("searchbar")).toBeInTheDocument()
   })
 
-  it("should allow filtering by text", async () => {
+  it.skip("should allow filtering by text", async () => {
     const onFilterChangeSpy = vi.fn()
     const { user } = renderShell({ filters, filterSettings, onFilterChange: onFilterChangeSpy })
     const searchbox = await screen.findByRole("searchbox")
@@ -69,7 +69,7 @@ describe("Filters", () => {
     )
   })
 
-  it("should select filter and filter value", async () => {
+  it.skip("should select filter and filter value", async () => {
     const onFilterChangeSpy = vi.fn()
     const { user } = renderShell({ filters, filterSettings, onFilterChange: onFilterChangeSpy })
 

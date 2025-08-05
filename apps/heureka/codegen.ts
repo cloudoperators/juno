@@ -4,21 +4,8 @@
  */
 
 import { CodegenConfig } from "@graphql-codegen/cli"
+//@ts-ignore
 import * as dotenv from "dotenv"
-import * as fs from "fs"
-import * as path from "path"
-import * as yaml from "js-yaml"
-
-// Load and parse the license config
-const licenseConfigPath = path.resolve(__dirname, "..", "..", ".github", "licenserc.yaml")
-const licenseYaml = fs.readFileSync(licenseConfigPath, "utf8")
-const licenseContent = (yaml.load(licenseYaml) as any)?.header?.license?.content?.trim() || ""
-
-// Format as a block comment
-const formattedLicenseHeader = `/*\n${licenseContent
-  .split("\n")
-  .map((line) => ` * ${line}`)
-  .join("\n")}\n */`
 
 // Load environment variables from .env file
 dotenv.config()
@@ -29,16 +16,7 @@ const config: CodegenConfig = {
 
   generates: {
     "src/generated/graphql.ts": {
-      plugins: [
-        "typescript",
-        "typescript-operations",
-        "typescript-react-apollo",
-        {
-          add: {
-            content: formattedLicenseHeader,
-          },
-        },
-      ],
+      plugins: ["typescript", "typescript-operations", "typescript-react-apollo"],
       config: {
         withHooks: false,
         withHOC: false,
