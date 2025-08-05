@@ -7,13 +7,20 @@ import React, { forwardRef } from "react"
 import "./data-grid-row.css"
 
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
-  ({ isHoverable = false, isActive = false, className = "", children, ...props }, ref) => {
-    const finalStyles = `${isHoverable ? "datagrid-row-hoverable" : ""} 
-                         ${isActive ? "datagrid-row-active" : ""} 
-                         datagrid-row ${className}`
+  ({ isActive = false, onClick, className = "", children, ...props }, ref) => {
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+      if (onClick) onClick(event)
+    }
+
+    const finalStyles = `
+      datagrid-row
+      ${isActive ? "datagrid-row-active" : ""}
+      ${onClick ? "datagrid-row-hoverable" : ""}
+      ${className}
+    `
 
     return (
-      <div className={finalStyles} role="row" ref={ref} {...props}>
+      <div className={finalStyles} role="row" ref={ref} onClick={handleClick} {...props}>
         {children}
       </div>
     )
@@ -24,16 +31,15 @@ DataGridRow.displayName = "DataGridRow"
 
 export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * Determines whether the DataGridRow should apply hover styles,
-   * providing visual feedback when hovered over.
-   */
-  isHoverable?: boolean
-
-  /**
    * Indicates if the DataGridRow should be in an active state,
    * applying styles for persistent selection or activation.
    */
   isActive?: boolean
+
+  /**
+   * Row click handler
+   */
+  onClick?: (_event: React.MouseEvent<HTMLDivElement>) => void
 
   /**
    * Additional custom CSS class names that can be applied to the DataGridRow.

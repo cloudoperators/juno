@@ -29,8 +29,8 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   }
 
   return (
-    <DataGridRow hoverable>
-      <DataGridCell onClick={openPanel} className="p-6 text-highest">
+    <DataGridRow onClick={openPanel}>
+      <DataGridCell className="p-6 text-highest">
         <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="center">
           {peak.safety && (
             <Badge
@@ -42,13 +42,13 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
           )}
         </Stack>
       </DataGridCell>
-      <DataGridCell onClick={openPanel}>
+      <DataGridCell>
         <strong className="cursor-pointer text-blue-600 hover:text-blue-800">{peak.name}</strong>
       </DataGridCell>
-      <DataGridCell onClick={openPanel}>{peak.height}</DataGridCell>
-      <DataGridCell onClick={openPanel}>{peak.mainrange}</DataGridCell>
-      <DataGridCell onClick={openPanel}>{peak.region}</DataGridCell>
-      <DataGridCell onClick={openPanel}>{peak.countries}</DataGridCell>
+      <DataGridCell>{peak.height}</DataGridCell>
+      <DataGridCell>{peak.mainrange}</DataGridCell>
+      <DataGridCell>{peak.region}</DataGridCell>
+      <DataGridCell>{peak.countries}</DataGridCell>
       <DataGridCell className={"pt-5 pb-5"}>
         <PeaksListItemActions peak={peak} onSelect={onSelect} />
       </DataGridCell>
