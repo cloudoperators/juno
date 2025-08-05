@@ -12,7 +12,7 @@
 
 import { Route as rootRoute } from "./routes/__root"
 import { Route as IndexImport } from "./routes/index"
-import { Route as AppIdImport } from "./routes/$appId.*"
+import { Route as ExtensionIdImport } from "./routes/$extensionId.*"
 
 // Create/Update Routes
 
@@ -22,9 +22,9 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AppIdRoute = AppIdImport.update({
-  id: "/$appId/*",
-  path: "/$appId/*",
+const ExtensionIdRoute = ExtensionIdImport.update({
+  id: "/$extensionId/*",
+  path: "/$extensionId/*",
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +39,11 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    "/$appId/*": {
-      id: "/$appId/*"
-      path: "/$appId/*"
-      fullPath: "/$appId/*"
-      preLoaderRoute: typeof AppIdImport
+    "/$extensionId/*": {
+      id: "/$extensionId/*"
+      path: "/$extensionId/*"
+      fullPath: "/$extensionId/*"
+      preLoaderRoute: typeof ExtensionIdImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +53,37 @@ declare module "@tanstack/react-router" {
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute
-  "/$appId/*": typeof AppIdRoute
+  "/$extensionId/*": typeof ExtensionIdRoute
 }
 
 export interface FileRoutesByTo {
   "/": typeof IndexRoute
-  "/$appId/*": typeof AppIdRoute
+  "/$extensionId/*": typeof ExtensionIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   "/": typeof IndexRoute
-  "/$appId/*": typeof AppIdRoute
+  "/$extensionId/*": typeof ExtensionIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/$appId/*"
+  fullPaths: "/" | "/$extensionId/*"
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/$appId/*"
-  id: "__root__" | "/" | "/$appId/*"
+  to: "/" | "/$extensionId/*"
+  id: "__root__" | "/" | "/$extensionId/*"
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppIdRoute: typeof AppIdRoute
+  ExtensionIdRoute: typeof ExtensionIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppIdRoute: AppIdRoute,
+  ExtensionIdRoute: ExtensionIdRoute,
 }
 
 export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
@@ -95,14 +95,14 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/$appId/*"
+        "/$extensionId/*"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/$appId/*": {
-      "filePath": "$appId.*.tsx"
+    "/$extensionId/*": {
+      "filePath": "$extensionId.*.tsx"
     }
   }
 }
