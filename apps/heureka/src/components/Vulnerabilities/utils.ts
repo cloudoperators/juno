@@ -82,6 +82,7 @@ export type Vulnerability = {
   description: string | null
   servicesCount: number
   services?: VulnerabilityService[]
+  supportGroups?: string[]
 }
 
 export type VulnerabilityService = {
@@ -113,6 +114,13 @@ export function getNormalizedVulnerabilitiesResponse(data: any): NormalizedVulne
             ccrn: serviceEdge.node.ccrn || "",
           })) || []
 
+      // Normalize support groups
+      const supportGroups =
+        edge.node.supportGroups?.edges
+          ?.filter((groupEdge: any) => groupEdge?.node)
+          ?.map((groupEdge: any) => groupEdge.node.ccrn || "")
+          .filter(Boolean) || []
+
       return {
         name: edge.node.name,
         severity: edge.node.severity,
@@ -121,6 +129,7 @@ export function getNormalizedVulnerabilitiesResponse(data: any): NormalizedVulne
         description: edge.node.description,
         servicesCount: edge.node.services?.totalCount || 0,
         services,
+        supportGroups,
       }
     }) || []
   const totalVulnerabilities = data?.Vulnerabilities?.totalCount || 0

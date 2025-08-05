@@ -1984,6 +1984,13 @@ export type GetVulnerabilitiesQuery = {
             pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
           } | null
         } | null
+        supportGroups?: {
+          __typename?: "SupportGroupConnection"
+          edges?: Array<{
+            __typename?: "SupportGroupEdge"
+            node: { __typename?: "SupportGroup"; ccrn?: string | null }
+          } | null> | null
+        } | null
       }
     } | null>
     pageInfo?: {
@@ -2246,6 +2253,13 @@ export const GetVulnerabilitiesDocument = gql`
               pages {
                 after
                 pageNumber
+              }
+            }
+          }
+          supportGroups {
+            edges {
+              node {
+                ccrn
               }
             }
           }
