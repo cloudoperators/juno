@@ -8,6 +8,7 @@ import * as supernova from "@cloudoperators/juno-app-supernova"
 import * as doop from "@cloudoperators/juno-app-doop"
 import * as heureka from "@cloudoperators/juno-app-heureka"
 import * as admin from "../components/core-apps/org-admin"
+import { AppProps } from "../Shell"
 
 const getApp = (appName: string) => {
   switch (appName) {
@@ -28,9 +29,10 @@ type ExtensionProps = {
   id: string
   config: any
   auth: any
+  appProps: AppProps
 }
 
-function Extension({ id, config, auth }: ExtensionProps) {
+function Extension({ id, config, auth, appProps }: ExtensionProps) {
   const appContainerRef = useRef<HTMLDivElement>(null)
   const app = getApp(config.name)
 
@@ -47,6 +49,7 @@ function Extension({ id, config, auth }: ExtensionProps) {
               embedded: true,
               token: auth?.JWT,
               basePath: `/${config.id}`,
+              enableHashedRouting: appProps?.enableHashedRouting || false,
             }
           : { auth: auth }),
       },
