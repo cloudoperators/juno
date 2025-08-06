@@ -19,11 +19,12 @@ function RouteComponent() {
   // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: auth } = useAuth()
   const { extensionId } = Route.useParams()
+  const { appProps } = Route.useRouteContext()
   const appConfig = config[extensionId]
 
   if (!appConfig) {
     return null
   }
 
-  return <Extension id={extensionId} config={appConfig} auth={auth} />
+  return <Extension id={extensionId} config={appConfig} auth={auth} appProps={appProps} />
 }

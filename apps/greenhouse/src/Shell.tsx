@@ -4,7 +4,7 @@
  */
 
 import React, { StrictMode } from "react"
-import { createRouter, RouterProvider } from "@tanstack/react-router"
+import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { decodeV2, encodeV2 } from "@cloudoperators/juno-url-state-provider"
@@ -52,6 +52,7 @@ const StyledShell = (props: AppProps) => {
     routeTree,
     context: { appProps: props },
     stringifySearch: encodeV2,
+    history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
     parseSearch: (searchString) => {
       if (!props.enableHashedRouting) {
         return decodeV2(searchString)
