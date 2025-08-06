@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { usePlugin } from "../components/StoreProvider"
 
@@ -15,10 +14,6 @@ function RouteComponent() {
   const activeApps = usePlugin().active()
   const navigate = useNavigate({ from: "/" })
 
-  React.useEffect(() => {
-    if (activeApps.length > 0) {
-      // Navigate to the active app by keeping the current search params
-      navigate({ to: `/${activeApps[0]}`, search: (prev) => ({ ...prev }) })
-    }
-  }, [navigate])
+  // Navigate to the active app by keeping the current search params
+  return activeApps.length > 0 ? navigate({ to: `/${activeApps[0]}`, search: (prev) => ({ ...prev }) }) : null
 }
