@@ -1,0 +1,1 @@
+import{u as e,a}from"./Shell-BxAZohum.js";import"./index-Bg7nse4l.js";import"./index-CrW3tj9f.js";const c=function(){const t=e().active(),o=a({from:"/"});return t.length>0?o({to:`/${t[0]}`,search:n=>({...n})}):null};export{c as component};
