@@ -33,6 +33,13 @@ query GetVulnerabilities(
             }
           }
         }
+        supportGroups{
+          edges{
+            node{
+              ccrn
+            }
+          }
+        }
       }
     }
     totalCount

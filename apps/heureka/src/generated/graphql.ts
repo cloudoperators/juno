@@ -1720,6 +1720,7 @@ export type VulnerabilityEdge = Edge & {
 }
 
 export type VulnerabilityFilter = {
+  name?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
@@ -1983,6 +1984,13 @@ export type GetVulnerabilitiesQuery = {
             pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
           } | null
         } | null
+        supportGroups?: {
+          __typename?: "SupportGroupConnection"
+          edges?: Array<{
+            __typename?: "SupportGroupEdge"
+            node: { __typename?: "SupportGroup"; ccrn?: string | null }
+          } | null> | null
+        } | null
       }
     } | null>
     pageInfo?: {
@@ -2245,6 +2253,13 @@ export const GetVulnerabilitiesDocument = gql`
               pages {
                 after
                 pageNumber
+              }
+            }
+          }
+          supportGroups {
+            edges {
+              node {
+                ccrn
               }
             }
           }

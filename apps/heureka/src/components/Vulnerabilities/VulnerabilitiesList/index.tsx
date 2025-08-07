@@ -11,6 +11,7 @@ import { getNormalizedVulnerabilitiesResponse } from "../utils"
 import { fetchVulnerabilities } from "../../../api/fetchVulnerabilities"
 import { VulnerabilitiesDataRows } from "./VulnerabilitiesDataRows"
 import { CursorPagination } from "../../common/CursorPagination"
+import { VulnerabilityPanel } from "./VulnerabilityDetailsPanel"
 
 export const VulnerabilitiesList = () => {
   const { queryClient, apiClient } = useRouteContext({ from: "/vulnerabilities/" })
@@ -43,7 +44,7 @@ export const VulnerabilitiesList = () => {
   }, [setVulnerabilitiesPromise, pageLevelVulnerabilitiesPromise])
 
   return (
-    <>
+    <div className="datagrid-hover">
       <DataGrid columns={5} minContentColumns={[0, 1, 2, 3]} cellVerticalAlignment="top">
         <DataGridRow>
           <DataGridHeadCell>
@@ -75,6 +76,7 @@ export const VulnerabilitiesList = () => {
           dataNormalizationMethod={getNormalizedVulnerabilitiesResponse}
         />
       </Suspense>
-    </>
+      <VulnerabilityPanel />
+    </div>
   )
 }
