@@ -1,5 +1,6 @@
 {
   "endpoint": "https://ccloud.alertmanager.greenhouse-qa.eu-nl-1.cloud.sap/api/v2",
+  "enableHashedRouting": true,
   "filterLabels": [
     "app",
     "cluster",
