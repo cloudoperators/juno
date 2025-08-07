@@ -1,5 +1,11 @@
 # heureka
 
+## 0.8.2
+
+### Patch Changes
+
+- 6ce69e4: feat(heureka): adds vulnerability details panel
+
 ## 0.8.1
 
 ### Patch Changes
