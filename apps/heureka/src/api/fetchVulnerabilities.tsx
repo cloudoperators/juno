@@ -32,7 +32,7 @@ export const fetchVulnerabilities = ({
           first: 20,
           after,
           filter,
-          firstServices: 10,
+          firstServices: 134, // Get all services to avoid pagination
           afterServices,
         },
       }),
