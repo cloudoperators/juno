@@ -12,6 +12,7 @@ import { getActiveVulnerabilityFilter } from "../components/Vulnerabilities/util
 type FetchVulnerabilitiesParams = Pick<RouteContext, "queryClient" | "apiClient"> & {
   filterSettings: FilterSettings
   after?: string | null
+  afterServices?: string | null
 }
 
 export const fetchVulnerabilities = ({
@@ -19,10 +20,11 @@ export const fetchVulnerabilities = ({
   apiClient,
   filterSettings,
   after,
+  afterServices,
 }: FetchVulnerabilitiesParams): Promise<ApolloQueryResult<GetVulnerabilitiesQuery>> => {
   const filter = getActiveVulnerabilityFilter(filterSettings)
   return queryClient.ensureQueryData({
-    queryKey: ["vulnerabilities", JSON.stringify(filter), after],
+    queryKey: ["vulnerabilities", JSON.stringify(filter), after, afterServices],
     queryFn: () =>
       apiClient.query({
         query: GetVulnerabilitiesDocument,
@@ -30,8 +32,8 @@ export const fetchVulnerabilities = ({
           first: 20,
           after,
           filter,
-          firstServices: 10,
-          afterServices: null,
+          firstServices: 134, // Get all services to avoid pagination
+          afterServices,
         },
       }),
   })
