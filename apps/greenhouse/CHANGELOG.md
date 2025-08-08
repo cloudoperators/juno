@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.6.13
+
+### Patch Changes
+
+- 6ce69e4: feat(heureka): adds vulnerability details panel
+- Updated dependencies [6ce69e4]
+  - @cloudoperators/juno-app-heureka@0.8.2
+
 ## 0.6.12
 
 ### Patch Changes
