@@ -20,7 +20,7 @@ export const IssueCountsPerSeverityLevel = ({ counts }: IssueCountsPerSeverityLe
   return (
     <Stack gap="1">
       <>
-        <div className="font-bold">All issues:</div>
+        <div className="font-bold">All vulnerabilities:</div>
         <div className="font-bold mr-2">{counts.total}</div>
       </>
       <SeverityCount

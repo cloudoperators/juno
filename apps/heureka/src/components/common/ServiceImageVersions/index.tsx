@@ -72,7 +72,7 @@ export const ServiceImageVersions = ({
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Tag</DataGridHeadCell>
             <DataGridHeadCell>Occurrences</DataGridHeadCell>
-            <DataGridHeadCell colSpan={5}>Issue Counts</DataGridHeadCell>
+            <DataGridHeadCell colSpan={5}>Vulnerability Counts</DataGridHeadCell>
             {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
           <Suspense

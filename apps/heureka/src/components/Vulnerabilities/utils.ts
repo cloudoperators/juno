@@ -5,6 +5,7 @@ import { FilterSettings } from "../common/Filters/types"
 import { GetVulnerabilityFiltersQuery, Page, GetVulnerabilitiesQuery } from "../../generated/graphql"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { VulnerabilitiesSearchParams } from "../../routes/vulnerabilities"
+import { IssuesCountsType } from "../types"
 
 export function getActiveVulnerabilityFilter(filterSettings: FilterSettings) {
   const filter: any = {}
@@ -94,6 +95,7 @@ export type NormalizedVulnerabilities = {
   pages: Page[]
   totalVulnerabilities: number
   pageNumber: number
+  vulnerabilitiesCounts: IssuesCountsType
 }
 
 export type NormalizedVulnerabilityServices = {
@@ -134,11 +136,21 @@ export function getNormalizedVulnerabilitiesResponse(
       }
     }) || []
 
+  const counts = (data?.Vulnerabilities as any)?.counts
+
   return {
     vulnerabilities,
-    totalVulnerabilities: data?.Vulnerabilities?.totalCount || 0,
+    totalVulnerabilities: counts?.total || 0,
     pages: data?.Vulnerabilities?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
     pageNumber: data?.Vulnerabilities?.pageInfo?.pageNumber || 1,
+    vulnerabilitiesCounts: {
+      critical: counts?.critical || 0,
+      high: counts?.high || 0,
+      medium: counts?.medium || 0,
+      low: counts?.low || 0,
+      none: counts?.none || 0,
+      total: counts?.total || 0,
+    },
   }
 }
 
