@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import { useMatches, useNavigate } from "@tanstack/react-router"
 import GreenhouseLogo from "../../assets/greenhouse_logo.svg?react"
 import SupernovaIcon from "../../assets/juno_supernova.svg?react"
 import DoopIcon from "../../assets/juno_doop.svg?react"
@@ -59,13 +60,17 @@ break-all
 `
 
 const PluginNav = () => {
-  const setActiveApps = usePlugin().setActive
-  const activeApps = usePlugin().active()
   const appConfig = usePlugin().appConfig()
   const mngConfig = usePlugin().mngConfig()
-
+  const navigate = useNavigate({ from: "/" })
+  const matches = useMatches()
+  const activeApp = matches.find((match) => match.routeId === "/$extensionId/*")?.params.extensionId
   // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: authData, loggedIn, login, logout } = useAuth()
+
+  const navigateToApp = (appId: string) => {
+    navigate({ to: `/${appId}`, search: (prev) => ({ ...prev }) })
+  }
 
   return (
     <Stack direction="vertical" alignment="center" className={`greenhouse-nav ${navStyles}`}>
@@ -76,11 +81,11 @@ const PluginNav = () => {
           key={`apps-${i}`}
           direction="vertical"
           alignment="center"
-          className={`greenhouse-nav-item ${navItem(activeApps.indexOf(appConf.id) >= 0)}`}
+          className={`greenhouse-nav-item ${navItem(activeApp === appConf.id)}`}
           role="button"
           // @ts-ignore
           tabIndex="0"
-          onClick={() => setActiveApps([appConf.id])}
+          onClick={() => navigateToApp(appConf.id)}
         >
           <AppIcon name={appConf.name} />
           <span className={appNameStyles}>{appConf.displayName}</span>
@@ -99,11 +104,11 @@ const PluginNav = () => {
             gap="3"
             alignment="center"
             key={`mng-apps-${i}`}
-            className={`greenhouse-nav-item ${navItem(activeApps.indexOf(appConf.id) >= 0)}`}
+            className={`greenhouse-nav-item ${navItem(activeApp === appConf.id)}`}
             role="button"
             // @ts-ignore
             tabIndex="0"
-            onClick={() => setActiveApps([appConf.id])}
+            onClick={() => navigateToApp(appConf.id)}
           >
             <AppIcon name={appConf.name} />
             <span className={appNameStyles}>{appConf.displayName}</span>
