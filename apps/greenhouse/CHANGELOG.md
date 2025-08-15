@@ -1,5 +1,20 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.0
+
+### Minor Changes
+
+- 3589b0c: All apps support client side routing using tanstack router.
+
+### Patch Changes
+
+- 3f9fcbb: Added vulnerability counts per severity above the list
+- Updated dependencies [3f9fcbb]
+- Updated dependencies [3589b0c]
+  - @cloudoperators/juno-app-heureka@0.8.3
+  - @cloudoperators/juno-app-supernova@0.18.0
+  - @cloudoperators/juno-app-doop@2.5.0
+
 ## 0.6.13
 
 ### Patch Changes

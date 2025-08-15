@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.18.0
+
+### Minor Changes
+
+- 3589b0c: All apps support client side routing using tanstack router.
+
 ## 0.17.9
 
 ### Patch Changes
