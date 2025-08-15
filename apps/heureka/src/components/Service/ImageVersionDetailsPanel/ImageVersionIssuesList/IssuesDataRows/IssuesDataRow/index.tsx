@@ -50,7 +50,7 @@ export const IssuesDataRow = ({ issue }: IssuesDataRowProps) => {
             <a href={issue.sourceLink} target="_blank" rel="noopener noreferrer" className="link-hover">
               <Stack gap="1.5" alignment="center">
                 <Icon icon="openInNew" size="16" />
-                <span>Issue source</span>
+                <span>Vulnerability source</span>
               </Stack>
             </a>
           )}
