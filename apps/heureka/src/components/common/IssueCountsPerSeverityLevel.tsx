@@ -14,40 +14,40 @@ type IssueCountsPerSeverityLevelProps = {
 
 export const IssueCountsPerSeverityLevel = ({ counts }: IssueCountsPerSeverityLevelProps) => {
   if (counts.total === 0) {
-    return <div>No issues found! 🚀</div>
+    return <div>No vulnerabilities found! 🚀</div>
   }
 
   return (
     <Stack gap="1">
       <>
-        <div className="font-bold">All issues:</div>
+        <div className="font-bold">All vulnerabilities:</div>
         <div className="font-bold mr-2">{counts.total}</div>
       </>
       <SeverityCount
         icon="danger"
         count={counts.critical}
         variant={counts.critical > 0 ? "danger" : "default"}
-        tooltipContent="Critical Issues"
+        tooltipContent="Critical Vulnerabilities"
       />
       <SeverityCount
         icon="warning"
         count={counts.high}
         variant={counts.high > 0 ? "warning" : "default"}
-        tooltipContent="High Issues"
+        tooltipContent="High Vulnerabilities"
       />
       <SeverityCount
         icon="errorOutline"
         count={counts.medium}
         variant={counts.medium > 0 ? "warning" : "default"}
-        tooltipContent="Medium Issues"
+        tooltipContent="Medium Vulnerabilities"
       />
       <SeverityCount
         icon="info"
         count={counts.low}
         variant={counts.low > 0 ? "info" : "default"}
-        tooltipContent="Low Issues"
+        tooltipContent="Low Vulnerabilities"
       />
-      <SeverityCount icon="help" count={counts.none} variant="default" tooltipContent="None Issues" />
+      <SeverityCount icon="help" count={counts.none} variant="default" tooltipContent="None Vulnerabilities" />
     </Stack>
   )
 }

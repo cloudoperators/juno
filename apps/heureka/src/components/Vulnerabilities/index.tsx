@@ -7,6 +7,7 @@ import React, { Suspense } from "react"
 import { Spinner } from "@cloudoperators/juno-ui-components/index"
 import { VulnerabilitiesList } from "./VulnerabilitiesList"
 import { VulnerabilitiesFilters } from "./VulnerabilitiesFilters"
+import { AllVulnerabilitiesCount } from "./AllVulnerabilitiesCount"
 
 export const Vulnerabilities = () => (
   <>
@@ -18,6 +19,7 @@ export const Vulnerabilities = () => (
         </div>
       }
     >
+      <AllVulnerabilitiesCount />
       <VulnerabilitiesList />
     </Suspense>
   </>
