@@ -187,7 +187,6 @@ export const XLWithForm: Story = {
     cancelButtonLabel: "Cancel",
     confirmButtonLabel: "Register now",
     children: <ReusableForm />,
-    render: Template,
   },
 }
 
@@ -200,7 +199,6 @@ export const XXLWithForm: Story = {
     cancelButtonLabel: "Cancel",
     confirmButtonLabel: "Register now",
     children: <ReusableForm />,
-    render: Template,
   },
 }
 
