@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-doop
 
+## 2.5.0
+
+### Minor Changes
+
+- 3589b0c: All apps support client side routing using tanstack router.
+
 ## 2.4.8
 
 ### Patch Changes
