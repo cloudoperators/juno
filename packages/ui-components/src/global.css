@@ -317,6 +317,8 @@
   --border-theme-button-subdued-hover: var(--color-button-subdued-hover-border);
   --border-theme-button-subdued-active: var(--color-button-subdued-active-border);
 
+  --background-color-theme-card-default: var(--color-card-background-default);
+
   --background-color-theme-checkbox: var(--color-checkbox-bg); /* -> .jn:bg-theme-checkbox */
 
   --background-color-theme-code-block: var(--color-codeblock-bg);
@@ -377,6 +379,8 @@
   --border-color-theme-default: var(--color-default-border);
 
   --border-color-theme-box-default: var(--color-box-border);
+
+  --border-color-theme-card-default: var(--color-card-border-default);
 
   --border-color-theme-codeblock-bar: var(--color-codeblock-bar-border);
   --border-color-theme-codeblock-tab-active: var(--color-text-default);
@@ -442,6 +446,9 @@
   --margin-grid-row: 0 var(--grid-row-margin-x);
 
   --flex-grid-column: var(--grid-column-flex-grow) var(--grid-column-flex-shrink) var(--grid-column-flex-basis);
+
+  --juno-box-shadow-default: var(--box-shadow-default);
+  --juno-box-shadow-hover: var(--box-shadow-hover);
 }
 
 /* JUNO THEME: LIGHT MODE */
@@ -569,6 +576,9 @@
   --color-textinput-autofill-label: var(--color-juno-text-default);
   /* LT Select */
   --color-select-bg: var(--color-background-lvl-3);
+  /* LT Card */
+  --color-card-background-default: var(--color-white);
+  --color-card-border-default: var(--color-juno-grey-light-7);
   /* LT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -633,7 +643,6 @@
   --color-topnavigation-item-active: var(--color-black);
   --color-topnavigation-item-bg: var(--color-sap-grey-1);
   --color-topnavigation-item-active-bg: var(--color-juno-grey-light-3);
-
   /* LT DateTimePicker */
   --color-datetimepicker-calendar-bg: var(--color-background-lvl-2);
   --color-datetimepicker-disabled-date-color: rgb(76 76 76 / 0.4); /* Light theme text default color */
@@ -643,6 +652,9 @@
     148,
     209
   ); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
+  /* LT Box Shadow */
+  --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
+  --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.3)), 0 2px 8px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* JUNO THEME: DARK MODE */
@@ -771,6 +783,9 @@
   --color-textinput-autofill-label: var(--color-black);
   /* DT Select */
   --color-select-bg: var(--color-background-lvl-4);
+  /* DT Card */
+  --color-card-background-default: var(--color-juno-grey-blue-10);
+  --color-card-border-default: var(--color-juno-grey-blue-3);
   /* DT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -843,6 +858,9 @@
   --color-datetimepicker-range-bg: rgb(
     79 163 176
   ); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
+  /* DT Box Shadow */
+  --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
+  --box-shadow-hover: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
 }
 
 /*
