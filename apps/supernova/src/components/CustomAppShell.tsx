@@ -5,15 +5,19 @@
 
 import React from "react"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
+import { useNavigate } from "@tanstack/react-router"
 import { useGlobalsEmbedded, useGlobalsActions, useGlobalsActiveSelectedTab } from "./StoreProvider"
 
 const CustomAppShell = ({ children }: any) => {
+  const navigate = useNavigate()
   const embedded = useGlobalsEmbedded()
   const activeSelectedTab = useGlobalsActiveSelectedTab()
   const { setActiveSelectedTab } = useGlobalsActions()
 
   const handleTabSelect = (item: any) => {
+    // TODO: consider using url state and not persisting this state on global store
     setActiveSelectedTab(item)
+    navigate({ to: "/", search: (prev) => ({ ...prev, activeTab: item }) })
   }
 
   const topNavigation = (

@@ -35,8 +35,10 @@ import AlertSilences from "./AlertSilences"
 import { Messages } from "@cloudoperators/juno-messages-provider"
 import { useBoundQuery } from "../../hooks/useBoundQuery"
 import { AlertItem } from "../../lib/createAlertsSlice"
+import { useNavigate } from "@tanstack/react-router"
 
 const AlertDetail = () => {
+  const navigate = useNavigate()
   const alertID = useShowDetailsFor()
   const { setShowDetailsFor } = useGlobalsActions()
   const { getAlertByFingerprint } = useAlertsActions()
@@ -45,6 +47,13 @@ const AlertDetail = () => {
 
   const onPanelClose = () => {
     setShowDetailsFor(null)
+    navigate({
+      to: "/",
+      search: (prev) => {
+        const { detailsFor, ...rest } = prev
+        return { ...rest } // unset detailsFor from the url search params
+      },
+    })
   }
 
   const { isLoading } = useBoundQuery("alerts")

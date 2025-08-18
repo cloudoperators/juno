@@ -25,6 +25,7 @@ import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { SilencesData } from "../../api/silences"
 import { FirefoxCorsWarning } from "../shared/FirefoxCorsWarning"
+import { useNavigate } from "@tanstack/react-router"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -34,6 +35,7 @@ my-px
 `
 
 const SilencesList = () => {
+  const navigate = useNavigate()
   const silences = useSilencesItems()
   const [visibleSilences, setVisibleSilences] = useState(silences)
   const status = useSilencesStatus()
@@ -87,6 +89,7 @@ const SilencesList = () => {
     // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
       setSilencesRegEx(value.target.value)
+      navigate({ to: "/", search: (prev) => ({ ...prev, silencesRegEx: value.target.value }) })
     }, 500)
 
     // clear timeout if we have a new value
@@ -129,6 +132,7 @@ const SilencesList = () => {
               value={status}
               onChange={(newSilencesStatus: any) => {
                 setSilencesStatus(newSilencesStatus)
+                navigate({ to: "/", search: (prev) => ({ ...prev, silencesStatus: newSilencesStatus }) })
               }}
             >
               <SelectOption value={constants.SILENCE_ACTIVE} />
@@ -145,9 +149,17 @@ const SilencesList = () => {
               }}
               onSearch={(text: any) => {
                 setSilencesRegEx(text)
+                navigate({ to: "/", search: (prev) => ({ ...prev, silencesRegEx: text }) })
               }}
               onClear={() => {
                 setSilencesRegEx(null)
+                navigate({
+                  to: "/",
+                  search: (prev) => {
+                    const { silencesRegEx, ...rest } = prev // unset silencesRegEx from the url search params
+                    return { ...rest }
+                  },
+                })
               }}
             />
           </Stack>

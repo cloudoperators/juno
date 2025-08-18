@@ -58,6 +58,7 @@
     "@tanstack/react-router-devtools": "1.119.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-error-boundary": "^4.0.13"
+    "react-error-boundary": "^4.0.13",
+    "zod": "3.24.4"
   }
 }
