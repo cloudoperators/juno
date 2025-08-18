@@ -1,5 +1,11 @@
 # heureka
 
+## 0.8.3
+
+### Patch Changes
+
+- 3f9fcbb: Added vulnerability counts per severity above the list
+
 ## 0.8.2
 
 ### Patch Changes
