@@ -8,13 +8,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
 import { z } from "zod"
 import { ErrorBoundary } from "react-error-boundary"
-import { decodeV2, encodeV2 } from "@cloudoperators/juno-url-state-provider"
+import { decodeV2, encodeV2, registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import styles from "./styles.css?inline"
 import { StoreProvider } from "./components/StoreProvider"
 import { routeTree } from "./routeTree.gen"
-import { extractSearchStringFromHashFragment } from "./lib/urlStateUtils"
+import { convertAppStateToUrlState, extractSearchStringFromHashFragment, readLegacyUrlState } from "./lib/urlStateUtils"
 
 // Create a new router instance
 const router = createRouter({
@@ -76,6 +76,8 @@ const fallbackRender = ({ error }: any) => {
   )
 }
 
+const urlStateManager = registerConsumer("supernova")
+
 function App(props: AppProps) {
   /*
    * Dynamically change the type of history on the router
@@ -97,21 +99,21 @@ function App(props: AppProps) {
       // If the search string is empty, return an empty object
       if (!searchStringToDecode) return {}
 
-      // If the search string contains old state with key "__s", we need special handling:
-      // - We shouldn't use decodeV2 directly on the full string
-      // - Instead, we extract the "__s" parameter separately
-      // - The "__s" parameter contains state encoded by the old package format
-      // - We'll handle parsing it separately on index route
+      /**
+       * To make new URL state compatible with the legacy URL state,
+       * we need to extract the legacy URL state from the search string
+       * and convert it to the new URL state format.
+       */
       const searchParams = new URLSearchParams(searchStringToDecode)
       const legacyUrlState = searchParams.get("__s") // This is used to extract the search params from the hash fragment
+      let newUrlState = {}
       if (legacyUrlState !== null) {
+        newUrlState = convertAppStateToUrlState(readLegacyUrlState(urlStateManager.currentState()))
         searchParams.delete("__s") // Remove the old state from the search params
       }
 
-      // convert searchParams to search string
       const searchStringWithoutLegacyUrlState = searchParams.toString()
-
-      return { ...decodeV2(searchStringWithoutLegacyUrlState), legacyUrlState: legacyUrlState || undefined }
+      return { ...decodeV2(searchStringWithoutLegacyUrlState), ...newUrlState }
     },
   })
 

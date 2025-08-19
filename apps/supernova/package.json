@@ -9,6 +9,7 @@
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/supernova",
   "license": "Apache-2.0",
+  "source": "src/index.js",
   "type": "module",
   "exports": {
     ".": "./build/index.js"
@@ -42,7 +43,7 @@
   "scripts": {
     "test": "vitest run",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --mode development",
     "build:static": "vite build --mode static",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "serve": "vite preview",
