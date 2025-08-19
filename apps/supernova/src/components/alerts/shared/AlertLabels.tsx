@@ -28,7 +28,7 @@ const AlertLabels = ({ alert, showAll }: any) => {
       addActiveFilter(filterLabel, filterValue)
       // add filter to URL state
       navigate({
-        to: "/",
+        to: "/alerts",
         search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, filterValue),
       })
     } else {
@@ -41,7 +41,7 @@ const AlertLabels = ({ alert, showAll }: any) => {
     e.stopPropagation()
     removeActiveFilter(filterLabel, filterValue)
     navigate({
-      to: "/",
+      to: "/alerts",
       search: (prev) => removeFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, filterValue),
     })
   }

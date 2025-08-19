@@ -89,7 +89,7 @@ const SilencesList = () => {
     // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
       setSilencesRegEx(value.target.value)
-      navigate({ to: "/", search: (prev) => ({ ...prev, silencesRegEx: value.target.value }) })
+      navigate({ to: "/silences", search: (prev) => ({ ...prev, silencesRegEx: value.target.value }) })
     }, 500)
 
     // clear timeout if we have a new value
@@ -132,7 +132,7 @@ const SilencesList = () => {
               value={status}
               onChange={(newSilencesStatus: any) => {
                 setSilencesStatus(newSilencesStatus)
-                navigate({ to: "/", search: (prev) => ({ ...prev, silencesStatus: newSilencesStatus }) })
+                navigate({ to: "/silences", search: (prev) => ({ ...prev, silencesStatus: newSilencesStatus }) })
               }}
             >
               <SelectOption value={constants.SILENCE_ACTIVE} />
@@ -149,12 +149,12 @@ const SilencesList = () => {
               }}
               onSearch={(text: any) => {
                 setSilencesRegEx(text)
-                navigate({ to: "/", search: (prev) => ({ ...prev, silencesRegEx: text }) })
+                navigate({ to: "/silences", search: (prev) => ({ ...prev, silencesRegEx: text }) })
               }}
               onClear={() => {
                 setSilencesRegEx(null)
                 navigate({
-                  to: "/",
+                  to: "/silences",
                   search: (prev) => {
                     const { silencesRegEx, ...rest } = prev // unset silencesRegEx from the url search params
                     return { ...rest }

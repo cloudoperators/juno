@@ -11,4 +11,5 @@ const constants = {
 
 export const ACTIVE_FILTERS_PREFIX = "f_"
 export const PAUSED_FILTERS_PREFIX = "pf_"
+export const DEFAULT_ACTIVE_ROUTE = "/alerts"
 export default constants

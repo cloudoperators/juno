@@ -9,7 +9,6 @@ const ACTIVE_PREDEFINED_FILTER = "p"
 const DETAILS_FOR = "d"
 const SEARCH_TERM = "s"
 const ACTIVE_TAB = "t"
-/// silences
 const SILENCE_REG_EX = "r"
 const SILENCE_STATUS = "st"
 
@@ -72,7 +71,6 @@ export const convertAppStateToUrlState = (appState: any) => {
   return {
     ...activeFiltersForUrl,
     ...pausedFiltersForUrl,
-    activeTab: appState.activeTab,
     searchTerm: appState.searchTerm,
     detailsFor: appState.detailsFor,
     silenceRegEx: appState.silenceRegEx,
@@ -103,7 +101,6 @@ export const convertUrlStateToAppState = (urlState: any) => {
     activeFilters: getFiltersForApp("f_", urlState),
     pausedFilters: getFiltersForApp("pf_", urlState),
     activePredefinedFilter: urlState.activePredefinedFilter,
-    activeTab: urlState.activeTab,
     searchTerm: urlState.searchTerm,
     detailsFor: urlState.detailsFor,
     silenceRegEx: urlState.silenceRegEx,

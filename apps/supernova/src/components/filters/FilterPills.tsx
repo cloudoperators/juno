@@ -22,7 +22,7 @@ const FilterPills = () => {
 
     // update filters in the URL state
     navigate({
-      to: "/",
+      to: "/alerts",
       search: (prev) => ({
         ...prev,
         // add to paused filters
@@ -37,7 +37,7 @@ const FilterPills = () => {
 
     // update filters in the URL state
     navigate({
-      to: "/",
+      to: "/alerts",
       search: (prev) => {
         // remove from both active and paused filters
         const searchParamsWithoutActiveFilter = removeFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${key}`, value)
@@ -57,7 +57,7 @@ const FilterPills = () => {
 
     // update filters in the URL state
     navigate({
-      to: "/",
+      to: "/alerts",
       search: (prev) => removeFilter({ ...prev }, `${PAUSED_FILTERS_PREFIX}${key}`, value), // remove from paused filters
     })
   }

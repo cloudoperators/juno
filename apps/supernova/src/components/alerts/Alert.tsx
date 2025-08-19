@@ -63,7 +63,7 @@ const Alert = ({ alert }: any, ref: any) => {
     e.stopPropagation()
     e.preventDefault()
     setShowDetailsFor(alert?.fingerprint)
-    navigate({ to: "/", search: (prev) => ({ ...prev, detailsFor: alert?.fingerprint }) })
+    navigate({ to: "/alerts", search: (prev) => ({ ...prev, detailsFor: alert?.fingerprint }) })
   }
 
   return (

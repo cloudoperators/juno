@@ -5,13 +5,7 @@
 
 import React from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import {
-  createBrowserHistory,
-  createHashHistory,
-  createRouter,
-  parseSearchWith,
-  RouterProvider,
-} from "@tanstack/react-router"
+import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
 import { z } from "zod"
 import { ErrorBoundary } from "react-error-boundary"
 import { decodeV2, encodeV2 } from "@cloudoperators/juno-url-state-provider"
@@ -109,15 +103,15 @@ function App(props: AppProps) {
       // - The "__s" parameter contains state encoded by the old package format
       // - We'll handle parsing it separately on index route
       const searchParams = new URLSearchParams(searchStringToDecode)
-      const oldState = searchParams.get("__s") // This is used to extract the search params from the hash fragment
-      if (oldState !== null) {
+      const legacyUrlState = searchParams.get("__s") // This is used to extract the search params from the hash fragment
+      if (legacyUrlState !== null) {
         searchParams.delete("__s") // Remove the old state from the search params
       }
 
       // convert searchParams to search string
-      const searchStringWithoutOldState = searchParams.toString()
+      const searchStringWithoutLegacyUrlState = searchParams.toString()
 
-      return { ...decodeV2(searchStringWithoutOldState), oldState: oldState || undefined }
+      return { ...decodeV2(searchStringWithoutLegacyUrlState), legacyUrlState: legacyUrlState || undefined }
     },
   })
 

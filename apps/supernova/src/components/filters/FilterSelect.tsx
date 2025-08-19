@@ -52,7 +52,7 @@ const FilterSelect = () => {
 
       // add filter to URL state
       navigate({
-        to: "/",
+        to: "/alerts",
         search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, value),
       })
     }
@@ -68,7 +68,7 @@ const FilterSelect = () => {
     const debouncedSearchTerm = setTimeout(() => {
       setSearchTerm(value.target.value)
       navigate({
-        to: "/",
+        to: "/alerts",
         search: (prev) => ({
           ...prev,
           searchTerm: value.target.value.trim(),
@@ -121,7 +121,7 @@ const FilterSelect = () => {
         onClear={() => {
           setSearchTerm("")
           navigate({
-            to: "/",
+            to: "/alerts",
             search: (prev) => ({
               ...prev,
               searchTerm: "",
@@ -143,7 +143,7 @@ const FilterSelect = () => {
             clearFilters()
             // Remove active and paused filters from URL state
             navigate({
-              to: "/",
+              to: "/alerts",
               search: (prev) =>
                 Object.entries(prev).reduce((acc: Record<string, string | string[]>, [key, value]) => {
                   if (value && !key.startsWith("f_") && !key.startsWith("pf_")) {

@@ -42,13 +42,13 @@ const Region = ({ region, severityCounts }: any) => {
     if (activeFilters?.region?.includes(region)) {
       removeActiveFilter("region", region)
       navigate({
-        to: "/",
+        to: "/alerts",
         search: (prev) => removeFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}region`, region), // remove region filter from URL state
       })
     } else {
       addActiveFilter("region", region)
       navigate({
-        to: "/",
+        to: "/alerts",
         search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}region`, region), // remove region filter from URL state
       })
     }

@@ -48,7 +48,7 @@ const AlertDetail = () => {
   const onPanelClose = () => {
     setShowDetailsFor(null)
     navigate({
-      to: "/",
+      to: "/alerts",
       search: (prev) => {
         const { detailsFor, ...rest } = prev
         return { ...rest } // unset detailsFor from the url search params
