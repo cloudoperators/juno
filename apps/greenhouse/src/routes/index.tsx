@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useLayoutEffect } from "react"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { usePlugin } from "../components/StoreProvider"
 
@@ -14,6 +15,11 @@ function RouteComponent() {
   const activeApps = usePlugin().active()
   const navigate = useNavigate({ from: "/" })
 
-  // Navigate to the active app by keeping the current search params
-  return activeApps.length > 0 ? navigate({ to: `/${activeApps[0]}`, search: (prev) => ({ ...prev }) }) : null
+  // Before the first render, we want to redirect to the first active app
+  useLayoutEffect(() => {
+    if (activeApps.length > 0) {
+      navigate({ to: `/${activeApps[0]}`, search: (prev) => ({ ...prev }) })
+    }
+  }, [activeApps])
+  return null
 }
