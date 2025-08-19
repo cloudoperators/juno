@@ -9,4 +9,6 @@ const constants = {
   SILENCE_EXPIRED: "expired",
 }
 
+export const ACTIVE_FILTERS_PREFIX = "f_"
+export const PAUSED_FILTERS_PREFIX = "pf_"
 export default constants

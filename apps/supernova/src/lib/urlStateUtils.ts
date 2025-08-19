@@ -110,3 +110,52 @@ export const convertUrlStateToAppState = (urlState: any) => {
     silenceStatus: urlState.silenceStatus,
   }
 }
+
+// removes a specific filter from the filters object and returns a new object
+export const removeFilter = (filters: any, filterKey: string, filterValue: string) => {
+  // if filter has more than one value, remove the specific value
+  if (Array.isArray(filters?.[filterKey])) {
+    const updatedFilters: any = {
+      ...filters,
+      [filterKey]: filters?.[filterKey].filter((value: string) => value !== filterValue),
+    }
+    if (updatedFilters?.[filterKey]?.length === 0) {
+      delete updatedFilters[filterKey]
+    }
+    return updatedFilters
+  }
+
+  // if filter is a single value, remove the filter key
+  const updatedFilters = { ...filters }
+  if (updatedFilters?.[filterKey] === filterValue) delete updatedFilters[filterKey]
+
+  return updatedFilters
+}
+
+// adds a specific filter to the filters object and returns a new object
+export const addFilter = (filters: any, filterKey: string, filterValue: string) => {
+  // if the filter already exists, add the value to the existing array
+  if (filters?.[filterKey] && Array.isArray(filters[filterKey])) {
+    // Create a Set from existing values to remove duplicates
+    const filterSet = new Set(filters[filterKey])
+    // Add the new value
+    filterSet.add(filterValue)
+    // Convert back to array
+    return {
+      ...filters,
+      [filterKey]: Array.from(filterSet),
+    }
+  }
+  // If the filter is a single value, convert it to an array
+  if (filters?.[filterKey] && typeof filters[filterKey] === "string") {
+    return {
+      ...filters,
+      [filterKey]: [filters[filterKey], filterValue],
+    }
+  }
+  // If the filter does not exist, create a new key with the value
+  return {
+    ...filters,
+    [filterKey]: filterValue,
+  }
+}

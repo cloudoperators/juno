@@ -10,6 +10,7 @@ import { z } from "zod"
 import AppContent from "../AppContent"
 import { convertAppStateToUrlState, convertUrlStateToAppState, readLegacyUrlState } from "../lib/urlStateUtils"
 import { useFilterActions, useGlobalsActions, useSilencesActions } from "../components/StoreProvider"
+import { ACTIVE_FILTERS_PREFIX, PAUSED_FILTERS_PREFIX } from "../constants"
 
 const urlStateManager = registerConsumer("supernova")
 
@@ -22,7 +23,12 @@ const searchSchema = z
   .catchall(
     z.preprocess(
       (val, ctx) => {
-        if (ctx.path.length > 0 && typeof ctx.path[0] === "string" && !ctx.path[0].startsWith("f_")) {
+        if (
+          ctx.path.length > 0 &&
+          typeof ctx.path[0] === "string" &&
+          !ctx.path[0].startsWith(ACTIVE_FILTERS_PREFIX) &&
+          !ctx.path[0].startsWith(PAUSED_FILTERS_PREFIX)
+        ) {
           return undefined
         }
         return val
@@ -35,8 +41,8 @@ export const Route = createFileRoute("/")({
   validateSearch: searchSchema,
   beforeLoad: ({ search }) => {
     const { oldState, ...rest } = search
-    const appState = convertUrlStateToAppState(rest)
-    return { ...appState }
+    const appStateFromUrl = convertUrlStateToAppState(rest)
+    return { appStateFromUrl }
   },
   component: RouteComponent,
 })
@@ -45,14 +51,16 @@ function RouteComponent() {
   const navigate = Route.useNavigate()
   const { oldState } = Route.useSearch()
   const {
-    activeFilters,
-    pausedFilters,
-    activePredefinedFilter,
-    searchTerm,
-    activeTab,
-    detailsFor,
-    silenceRegEx,
-    silenceStatus,
+    appStateFromUrl: {
+      activeFilters,
+      pausedFilters,
+      activePredefinedFilter,
+      searchTerm,
+      activeTab,
+      detailsFor,
+      silenceRegEx,
+      silenceStatus,
+    },
   } = Route.useRouteContext()
   const { setShowDetailsFor, setActiveSelectedTab } = useGlobalsActions()
   const { setActiveFilters, setPausedFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()

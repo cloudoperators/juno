@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import {
   Button,
@@ -23,8 +23,12 @@ import {
   useSearchTerm,
 } from "../StoreProvider"
 import { humanizeString } from "../../lib/utils"
+import { useNavigate } from "@tanstack/react-router"
+import { addFilter } from "../../lib/urlStateUtils"
+import { ACTIVE_FILTERS_PREFIX } from "../../constants"
 
 const FilterSelect = () => {
+  const navigate = useNavigate()
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
@@ -45,6 +49,12 @@ const FilterSelect = () => {
     setFilterValue(value) // update the filter value state to trigger re-render on ComboBox
     if (filterLabel.trim() !== "" && value.trim() !== "") {
       addActiveFilter(filterLabel, value) // add the filter to the active filters
+
+      // add filter to URL state
+      navigate({
+        to: "/",
+        search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, value),
+      })
     }
     // TODO: remove this after ComboBox supports resetting its value after onChange
     // set timeout to allow ComboBox to update its value after onChange
@@ -57,6 +67,13 @@ const FilterSelect = () => {
     // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
       setSearchTerm(value.target.value)
+      navigate({
+        to: "/",
+        search: (prev) => ({
+          ...prev,
+          searchTerm: value.target.value.trim(),
+        }),
+      })
     }, 500)
 
     // clear timeout if we have a new value
@@ -101,7 +118,16 @@ const FilterSelect = () => {
         className="w-96 ml-auto"
         value={searchTerm || ""}
         onSearch={(value: any) => setSearchTerm(value)}
-        onClear={() => setSearchTerm("")}
+        onClear={() => {
+          setSearchTerm("")
+          navigate({
+            to: "/",
+            search: (prev) => ({
+              ...prev,
+              searchTerm: "",
+            }),
+          })
+        }}
         onChange={(value: any) => handleSearchChange(value)}
       />
     </Stack>
@@ -111,7 +137,24 @@ const FilterSelect = () => {
     return (
       activeFilters &&
       Object.keys(activeFilters).length > 0 && (
-        <Button label="Clear all" onClick={() => clearFilters()} variant="subdued" />
+        <Button
+          label="Clear all"
+          onClick={() => {
+            clearFilters()
+            // Remove active and paused filters from URL state
+            navigate({
+              to: "/",
+              search: (prev) =>
+                Object.entries(prev).reduce((acc: Record<string, string | string[]>, [key, value]) => {
+                  if (value && !key.startsWith("f_") && !key.startsWith("pf_")) {
+                    acc[key] = value
+                  }
+                  return acc
+                }, {}),
+            })
+          }}
+          variant="subdued"
+        />
       )
     )
   }
