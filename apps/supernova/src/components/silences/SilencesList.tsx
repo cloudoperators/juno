@@ -40,7 +40,7 @@ const SilencesList = () => {
   const [visibleSilences, setVisibleSilences] = useState(silences)
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
-  const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
+  const { setSilences } = useSilencesActions()
   const { addMessage, resetMessages } = useActions()
 
   const { data, isLoading, error } = useBoundQuery<SilencesData>("silences")
@@ -86,9 +86,7 @@ const SilencesList = () => {
   }, [status, regEx, silences])
 
   const handleSearchChange = (value: any) => {
-    // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
-      setSilencesRegEx(value.target.value)
       navigate({ to: "/silences", search: (prev) => ({ ...prev, silencesRegEx: value.target.value }) })
     }, 500)
 
@@ -131,7 +129,7 @@ const SilencesList = () => {
               label="Status"
               value={status}
               onChange={(newSilencesStatus: any) => {
-                setSilencesStatus(newSilencesStatus)
+                // setSilencesStatus(newSilencesStatus)
                 navigate({ to: "/silences", search: (prev) => ({ ...prev, silencesStatus: newSilencesStatus }) })
               }}
             >
@@ -148,11 +146,11 @@ const SilencesList = () => {
                 handleSearchChange(text)
               }}
               onSearch={(text: any) => {
-                setSilencesRegEx(text)
+                // setSilencesRegEx(text)
                 navigate({ to: "/silences", search: (prev) => ({ ...prev, silencesRegEx: text }) })
               }}
               onClear={() => {
-                setSilencesRegEx(null)
+                // setSilencesRegEx(null)
                 navigate({
                   to: "/silences",
                   search: (prev) => {

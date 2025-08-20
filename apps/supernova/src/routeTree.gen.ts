@@ -8,49 +8,49 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root"
-import { Route as SilencesRouteImport } from "./routes/silences"
-import { Route as AlertsRouteImport } from "./routes/alerts"
-import { Route as IndexRouteImport } from "./routes/index"
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SilencesRouteImport } from './routes/silences'
+import { Route as AlertsRouteImport } from './routes/alerts'
+import { Route as IndexRouteImport } from './routes/index'
 
 const SilencesRoute = SilencesRouteImport.update({
-  id: "/silences",
-  path: "/silences",
+  id: '/silences',
+  path: '/silences',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AlertsRoute = AlertsRouteImport.update({
-  id: "/alerts",
-  path: "/alerts",
+  id: '/alerts',
+  path: '/alerts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
-  "/alerts": typeof AlertsRoute
-  "/silences": typeof SilencesRoute
+  '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/silences': typeof SilencesRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute
-  "/alerts": typeof AlertsRoute
-  "/silences": typeof SilencesRoute
+  '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/silences': typeof SilencesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  "/": typeof IndexRoute
-  "/alerts": typeof AlertsRoute
-  "/silences": typeof SilencesRoute
+  '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/silences': typeof SilencesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/alerts" | "/silences"
+  fullPaths: '/' | '/alerts' | '/silences'
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/alerts" | "/silences"
-  id: "__root__" | "/" | "/alerts" | "/silences"
+  to: '/' | '/alerts' | '/silences'
+  id: '__root__' | '/' | '/alerts' | '/silences'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -59,26 +59,26 @@ export interface RootRouteChildren {
   SilencesRoute: typeof SilencesRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/silences": {
-      id: "/silences"
-      path: "/silences"
-      fullPath: "/silences"
+    '/silences': {
+      id: '/silences'
+      path: '/silences'
+      fullPath: '/silences'
       preLoaderRoute: typeof SilencesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/alerts": {
-      id: "/alerts"
-      path: "/alerts"
-      fullPath: "/alerts"
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
       preLoaderRoute: typeof AlertsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/": {
-      id: "/"
-      path: "/"
-      fullPath: "/"
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -90,4 +90,6 @@ const rootRouteChildren: RootRouteChildren = {
   AlertsRoute: AlertsRoute,
   SilencesRoute: SilencesRoute,
 }
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()

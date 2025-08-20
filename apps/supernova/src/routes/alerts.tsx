@@ -38,7 +38,20 @@ const searchSchema = z
 
 export const Route = createFileRoute("/alerts")({
   validateSearch: searchSchema,
-  beforeLoad: ({ search }) => ({ appStateFromUrl: convertUrlStateToAppState(search) }),
+  beforeLoad: ({ search }) => {
+    // extract alerts specific state from the URL search params
+    const { activeFilters, pausedFilters, activePredefinedFilter, searchTerm, showDetailsFor } =
+      convertUrlStateToAppState(search)
+    return {
+      appStateFromUrl: {
+        activeFilters,
+        pausedFilters,
+        activePredefinedFilter,
+        searchTerm,
+        showDetailsFor,
+      },
+    }
+  },
   component: RouteComponent,
 })
 
