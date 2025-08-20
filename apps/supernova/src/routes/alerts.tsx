@@ -18,6 +18,7 @@ const searchSchema = z
   .object({
     searchTerm: z.string().optional(),
     showDetailsFor: z.string().optional(),
+    predefinedFilter: z.string().optional(),
   })
   .catchall(
     z.preprocess(
@@ -40,13 +41,13 @@ export const Route = createFileRoute("/alerts")({
   validateSearch: searchSchema,
   beforeLoad: ({ search }) => {
     // extract alerts specific state from the URL search params
-    const { activeFilters, pausedFilters, activePredefinedFilter, searchTerm, showDetailsFor } =
+    const { activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor } =
       convertUrlStateToAppState(search)
     return {
       appStateFromUrl: {
         activeFilters,
         pausedFilters,
-        activePredefinedFilter,
+        predefinedFilter,
         searchTerm,
         showDetailsFor,
       },
@@ -57,7 +58,7 @@ export const Route = createFileRoute("/alerts")({
 
 function RouteComponent() {
   const {
-    appStateFromUrl: { activeFilters, pausedFilters, activePredefinedFilter, searchTerm, showDetailsFor },
+    appStateFromUrl: { activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor },
   } = Route.useRouteContext()
   const { setShowDetailsFor } = useGlobalsActions()
   const { setActiveFilters, setPausedFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
@@ -69,10 +70,10 @@ function RouteComponent() {
   useLayoutEffect(() => {
     setActiveFilters(activeFilters)
     setPausedFilters(pausedFilters)
-    setActivePredefinedFilter(activePredefinedFilter)
+    setActivePredefinedFilter(predefinedFilter)
     setSearchTerm(searchTerm)
     setShowDetailsFor(showDetailsFor)
-  }, [activeFilters, pausedFilters, activePredefinedFilter, searchTerm, showDetailsFor])
+  }, [activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor])
 
   return (
     <>
