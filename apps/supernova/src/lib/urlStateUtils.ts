@@ -17,7 +17,7 @@ export const readLegacyUrlState = (state: any) => {
   const pausedFilters = state?.[PAUSED_FILTERS]
   const searchTerm = state?.[SEARCH_TERM]
   const activePredefinedFilter = state?.[ACTIVE_PREDEFINED_FILTER]
-  const detailsFor = state?.[DETAILS_FOR]
+  const showDetailsFor = state?.[DETAILS_FOR]
   const activeTab = state?.[ACTIVE_TAB]
   const silenceRegEx = state?.[SILENCE_REG_EX]
   const silenceStatus = state?.[SILENCE_STATUS]
@@ -27,7 +27,7 @@ export const readLegacyUrlState = (state: any) => {
     pausedFilters,
     searchTerm,
     activePredefinedFilter,
-    detailsFor,
+    showDetailsFor,
     activeTab,
     silenceRegEx,
     silenceStatus,
@@ -72,7 +72,7 @@ export const convertAppStateToUrlState = (appState: any) => {
     ...activeFiltersForUrl,
     ...pausedFiltersForUrl,
     searchTerm: appState.searchTerm,
-    detailsFor: appState.detailsFor,
+    showDetailsFor: appState.showDetailsFor,
     silenceRegEx: appState.silenceRegEx,
     silenceStatus: appState.silenceStatus,
     silenceDetailsFor: appState.silenceDetailsFor,
@@ -102,7 +102,7 @@ export const convertUrlStateToAppState = (urlState: any) => {
     pausedFilters: getFiltersForApp("pf_", urlState),
     activePredefinedFilter: urlState.activePredefinedFilter,
     searchTerm: urlState.searchTerm,
-    detailsFor: urlState.detailsFor,
+    showDetailsFor: urlState.showDetailsFor,
     silenceRegEx: urlState.silenceRegEx,
     silenceStatus: urlState.silenceStatus,
   }

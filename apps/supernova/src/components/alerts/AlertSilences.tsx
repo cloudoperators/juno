@@ -79,7 +79,7 @@ const AlertSilences = ({ alert }: any) => {
                     size="small"
                     onClick={() => {
                       setShowDetailsFor(fingerprint)
-                      navigate({ to: "/", search: (prev) => ({ ...prev, detailsFor: fingerprint }) })
+                      navigate({ to: "/", search: (prev) => ({ ...prev, showDetailsFor: fingerprint }) })
                     }}
                     icon="exitToApp"
                   >

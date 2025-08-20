@@ -42,7 +42,6 @@ const cellSeverityClasses = (severity: any) => {
 
 const Alert = ({ alert }: any, ref: any) => {
   const navigate = useNavigate()
-  const { setShowDetailsFor } = useGlobalsActions()
   const rowRef = useRef(null)
 
   const handleShowDetails = (e: any) => {
@@ -62,8 +61,7 @@ const Alert = ({ alert }: any, ref: any) => {
 
     e.stopPropagation()
     e.preventDefault()
-    setShowDetailsFor(alert?.fingerprint)
-    navigate({ to: "/alerts", search: (prev) => ({ ...prev, detailsFor: alert?.fingerprint }) })
+    navigate({ to: "/alerts", search: (prev) => ({ ...prev, showDetailsFor: alert?.fingerprint }) })
   }
 
   return (

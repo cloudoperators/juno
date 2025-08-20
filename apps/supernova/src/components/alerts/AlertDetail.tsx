@@ -50,8 +50,8 @@ const AlertDetail = () => {
     navigate({
       to: "/alerts",
       search: (prev) => {
-        const { detailsFor, ...rest } = prev
-        return { ...rest } // unset detailsFor from the url search params
+        const { showDetailsFor, ...rest } = prev
+        return { ...rest } // unset showDetailsFor from the url search params
       },
     })
   }

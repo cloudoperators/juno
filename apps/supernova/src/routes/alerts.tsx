@@ -17,6 +17,7 @@ import { useGlobalsActions, useFilterActions } from "../components/StoreProvider
 const searchSchema = z
   .object({
     searchTerm: z.string().optional(),
+    showDetailsFor: z.string().optional(),
   })
   .catchall(
     z.preprocess(
@@ -43,7 +44,7 @@ export const Route = createFileRoute("/alerts")({
 
 function RouteComponent() {
   const {
-    appStateFromUrl: { activeFilters, pausedFilters, activePredefinedFilter, searchTerm, detailsFor },
+    appStateFromUrl: { activeFilters, pausedFilters, activePredefinedFilter, searchTerm, showDetailsFor },
   } = Route.useRouteContext()
   const { setShowDetailsFor } = useGlobalsActions()
   const { setActiveFilters, setPausedFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
@@ -57,8 +58,8 @@ function RouteComponent() {
     setPausedFilters(pausedFilters)
     setActivePredefinedFilter(activePredefinedFilter)
     setSearchTerm(searchTerm)
-    setShowDetailsFor(detailsFor)
-  }, [activeFilters, pausedFilters, activePredefinedFilter, searchTerm, detailsFor])
+    setShowDetailsFor(showDetailsFor)
+  }, [activeFilters, pausedFilters, activePredefinedFilter, searchTerm, showDetailsFor])
 
   return (
     <>
