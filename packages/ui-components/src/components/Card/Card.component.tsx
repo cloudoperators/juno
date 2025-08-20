@@ -11,7 +11,7 @@ const cardStyles = `
   jn:bg-theme-card-default
   jn:border
   jn:border-theme-card-default
-  jn:shadow-juno-box-default
+  jn:shadow-theme-default
 `
 
 const cardPadding = "jn:p-4"

@@ -17,13 +17,13 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    children: "Some content in a Card.",
+    children: "Some content in a Card with padding.",
+    padding: true,
   },
 }
 
-export const WithPadding: Story = {
+export const WithoutPadding: Story = {
   args: {
-    children: "A Card with padding.",
-    padding: true,
+    children: "A Card without padding.",
   },
 }

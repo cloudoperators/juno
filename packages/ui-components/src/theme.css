@@ -439,8 +439,8 @@
 
   --flex-grid-column: var(--grid-column-flex-grow) var(--grid-column-flex-shrink) var(--grid-column-flex-basis);
 
-  --juno-box-shadow-default: var(--box-shadow-default);
-  --juno-box-shadow-hover: var(--box-shadow-hover);
+  --shadow-theme-default: var(--box-shadow-default);
+  --shadow-theme-default-hover: var(--box-shadow-hover);
 }
 
 /* JUNO THEME: LIGHT MODE */
