@@ -64,7 +64,7 @@ const PluginNav = () => {
   const mngConfig = usePlugin().mngConfig()
   const navigate = useNavigate({ from: "/" })
   const matches = useMatches()
-  const activeApp = matches.find((match) => match.routeId === "/$extensionId/*")?.params.extensionId
+  const activeApp = matches.find((match) => match.routeId === "/$extensionId/$")?.params.extensionId
   // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: authData, loggedIn, login, logout } = useAuth()
 

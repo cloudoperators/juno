@@ -3,9 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router"
+import React from "react"
+import { createRootRouteWithContext } from "@tanstack/react-router"
 import { QueryClient } from "@tanstack/react-query"
 import { AppProps } from "../App"
+import CustomAppShell from "../components/CustomAppShell"
+import AppContent from "../AppContent"
 
 export type RouteContext = {
   appProps: AppProps
@@ -13,5 +16,13 @@ export type RouteContext = {
 }
 
 export const Route = createRootRouteWithContext<RouteContext>()({
-  component: Outlet,
+  component: RootComponent,
 })
+
+function RootComponent() {
+  return (
+    <CustomAppShell>
+      <AppContent />
+    </CustomAppShell>
+  )
+}

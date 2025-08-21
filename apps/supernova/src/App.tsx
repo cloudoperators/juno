@@ -4,20 +4,17 @@
  */
 
 import React from "react"
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
-import { decodeV2, encodeV2 } from "@cloudoperators/juno-url-state-provider"
+import { z } from "zod"
+import { ErrorBoundary } from "react-error-boundary"
+import { decodeV2, encodeV2, registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import styles from "./styles.css?inline"
 import { StoreProvider } from "./components/StoreProvider"
-import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import CustomAppShell from "./components/CustomAppShell"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ErrorBoundary } from "react-error-boundary"
-import useUrlState from "./hooks/useUrlState"
-import useUrlQueryState from "./hooks/useUrlQueryState"
-import { z } from "zod"
 import { routeTree } from "./routeTree.gen"
+import { convertAppStateToUrlState, extractSearchStringFromHashFragment, readLegacyUrlState } from "./lib/urlStateUtils"
 
 // Create a new router instance
 const router = createRouter({
@@ -79,6 +76,8 @@ const fallbackRender = ({ error }: any) => {
   )
 }
 
+const urlStateManager = registerConsumer("supernova")
+
 function App(props: AppProps) {
   /*
    * Dynamically change the type of history on the router
@@ -92,57 +91,41 @@ function App(props: AppProps) {
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
     stringifySearch: encodeV2,
     parseSearch: (searchString) => {
-      if (!props.enableHashedRouting) {
-        return decodeV2(searchString)
+      // If the app is using hashed routing, we need to correctly extract the search string from the hash fragment
+      const searchStringToDecode = !props.enableHashedRouting
+        ? searchString
+        : extractSearchStringFromHashFragment(searchString)
+
+      // If the search string is empty, return an empty object
+      if (!searchStringToDecode) return {}
+
+      /**
+       * To make new URL state compatible with the legacy URL state,
+       * we need to extract the legacy URL state from the search string
+       * and convert it to the new URL state format.
+       */
+      const searchParams = new URLSearchParams(searchStringToDecode)
+      const legacyUrlState = searchParams.get("__s") // This is used to extract the search params from the hash fragment
+      let newUrlState = {}
+      if (legacyUrlState !== null) {
+        newUrlState = convertAppStateToUrlState(readLegacyUrlState(urlStateManager.currentState()))
+        searchParams.delete("__s") // Remove the old state from the search params
       }
 
-      /*
-       * In case of hashed routing Tanstack router returns URL search params of the entire URL rather than just from the hashed part.
-       * We'll have to extract the query part from the hash because otherwise in embedded mode the app will be taking search params from the shell app as well.
-       * Sanitize the search string by extracting the substring between the first '?' and the next '?' (if any), keeping the first '?'.
-       * https://github.com/TanStack/router/issues/4370
-       * http://localhost:3000/?preHashParam=prehashtest#/services?postHashParam1=test1?preHashParam=prehashtest
-       * searchString = "?postHashParam1=test1?preHashParam=prehashtest"
-       * searchStringFromHash = "?postHashParam1=test1"
-       */
-      const postHashParams = searchString.indexOf("?")
-      if (postHashParams === -1) return {} // If no query part is found, return an empty object
-      const preHashParams = searchString.indexOf("?", postHashParams + 1)
-      const searchStringFromHash = searchString.slice(postHashParams, preHashParams === -1 ? undefined : preHashParams)
-
-      return decodeV2(searchStringFromHash)
+      const searchStringWithoutLegacyUrlState = searchParams.toString()
+      return { ...decodeV2(searchStringWithoutLegacyUrlState), ...newUrlState }
     },
   })
 
   return (
     <ErrorBoundary fallbackRender={fallbackRender}>
       <MessagesProvider>
-        <CustomAppShell>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider basepath={props.basePath || "/"} router={router} />
-          </QueryClientProvider>
-        </CustomAppShell>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider basepath={props.basePath || "/"} router={router} />
+        </QueryClientProvider>
       </MessagesProvider>
     </ErrorBoundary>
   )
-}
-
-const AppWithOldUrlStructure = (props: any) => {
-  // syncs navigation relevant states with the url for deep links
-  // gets the state from the URL in the beginning
-  // sets the URL from state information
-  useUrlState()
-  return <App {...props} />
-}
-
-const AppWithNewUrlStructure = (props: any) => {
-  /**
-   * [TODO]
-   * move the URL state changes closer to the origins of the change
-   * so the whole app does not unnecessarily re-render.
-   */
-  useUrlQueryState()
-  return <App {...props} />
 }
 
 const StyledApp = (props: any) => {
@@ -153,7 +136,7 @@ const StyledApp = (props: any) => {
       {/* load appstyles inside the shadow dom */}
       <style>{styles.toString()}</style>
       <StoreProvider options={props}>
-        {props?.enableNewUrlStructure ? <AppWithNewUrlStructure {...props} /> : <AppWithOldUrlStructure {...props} />}
+        <App {...props} />
       </StoreProvider>
     </AppShellProvider>
   )

@@ -10,7 +10,6 @@ import { AppProps } from "../Shell"
 import ShellLayout from "../components/layout/ShellLayout"
 import useApi from "../hooks/useApi"
 import { usePlugin } from "../components/StoreProvider"
-import useUrlState from "../hooks/useUrlState"
 
 export type RouteContext = {
   appProps: AppProps
@@ -21,7 +20,6 @@ export const Route = createRootRouteWithContext<RouteContext>()({
 })
 
 function RootComponent() {
-  useUrlState()
   const { getPluginConfigs } = useApi()
   const requestConfig = usePlugin().requestConfig
   const receiveConfig = usePlugin().receiveConfig
