@@ -70,7 +70,9 @@ const meta: Meta<typeof Modal> = {
   decorators: [
     (Story) => (
       <PortalProvider>
-        <Story />
+        <div className="jn:m-20 jn:flex jn:justify-center">
+          <Story />
+        </div>
       </PortalProvider>
     ),
   ],
