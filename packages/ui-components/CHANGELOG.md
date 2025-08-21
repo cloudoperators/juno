@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 5.2.0
+
+### Minor Changes
+
+- b7fe310: Added a basic `Card` component.
+
 ## 5.1.1
 
 ### Patch Changes

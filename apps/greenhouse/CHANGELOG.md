@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.1
+
+### Patch Changes
+
+- 8a44efa: Supernova old url state is now converted to new URL state and for other apps tanstack router dependencies are updated.
+- c2a617e: Update nginx.conf so the client side routing works.
+- Updated dependencies [8a44efa]
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-app-supernova@0.19.0
+  - @cloudoperators/juno-app-heureka@0.8.4
+  - @cloudoperators/juno-app-doop@2.5.1
+  - @cloudoperators/juno-ui-components@5.2.0
+  - @cloudoperators/juno-messages-provider@0.2.13
+
 ## 0.7.0
 
 ### Minor Changes
