@@ -66,7 +66,7 @@ const sizeClass = (size: ModalSize) => {
     case "xl":
       return `jn:w-[76.75rem]`
     case "2xl":
-      return `jn:w-[80%] jn:max-w-[112.5rem]`
+      return `jn:w-[80%] jn:min-w-[85rem] jn:max-w-[112.5rem]`
     default:
       return `jn:w-[33.625rem]`
   }
