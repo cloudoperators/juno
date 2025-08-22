@@ -12,7 +12,7 @@ import RegionsList from "../components/regions/RegionsList"
 import AlertsTab from "../components/alerts/AlertsTab"
 import { ACTIVE_FILTERS_PREFIX, PAUSED_FILTERS_PREFIX } from "../constants"
 import { convertUrlStateToAppState } from "../lib/urlStateUtils"
-import { useGlobalsActions, useFilterActions } from "../components/StoreProvider"
+import { useGlobalsActions, useFilterActions, useActiveFilters } from "../components/StoreProvider"
 
 const searchSchema = z
   .object({
@@ -61,6 +61,7 @@ function RouteComponent() {
     appStateFromUrl: { activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor },
   } = Route.useRouteContext()
   const { setShowDetailsFor } = useGlobalsActions()
+  const existingActiveFilters = useActiveFilters()
   const { setActiveFilters, setPausedFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
 
   /**
@@ -68,7 +69,7 @@ function RouteComponent() {
    * we can directly consume it from the route context anywhere
    * */
   useLayoutEffect(() => {
-    setActiveFilters(activeFilters)
+    setActiveFilters({ ...existingActiveFilters, ...activeFilters }) // combine existing/initial filters with filters from URL state
     setPausedFilters(pausedFilters)
     setActivePredefinedFilter(predefinedFilter)
     setSearchTerm(searchTerm)
