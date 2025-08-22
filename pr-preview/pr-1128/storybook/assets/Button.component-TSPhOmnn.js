@@ -1,0 +1,86 @@
+import{e as _,j as l}from"./iframe-sRp0gZ7A.js";import{I}from"./Icon.component-BzGEdsVM.js";import{S as L}from"./Spinner.component-DNc0JO-H.js";const y=`
+  jn:font-bold
+  jn:inline-flex 
+  jn:justify-center 
+  jn:items-center
+  jn:rounded
+  jn:shadow-sm 
+  jn:w-auto
+  jn:focus:outline-hidden 
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+  jn:focus-visible:ring-offset-theme-focus
+  jn:disabled:opacity-50
+  jn:disabled:cursor-not-allowed
+  jn:disabled:pointer-events-none
+`,g=`
+  jn:text-sm
+  jn:leading-5
+`,x=`
+  jn:text-base
+  jn:leading-6
+`,M=`
+  jn:py-[0.3125rem]
+  jn:px-[0.5rem]
+`,k=`
+  jn:py-[0.25rem]
+  jn:px-[0.4375rem]
+`,D=`
+  jn:py-[0.4375rem]
+  jn:px-[0.625rem] 
+`,P=`
+  jn:py-[0.375rem]
+  jn:px-[0.5625rem]
+`,$=`
+  jn:bg-theme-button-default
+  jn:text-theme-button-default
+  jn:hover:bg-theme-button-default-hover
+  jn:hover:text-theme-button-default-hover
+  jn:active:bg-theme-button-default-active
+  jn:active:text-theme-button-default-active
+`,T=`
+  jn:bg-theme-button-primary
+  jn:text-theme-button-primary
+  jn:hover:bg-theme-button-primary-hover
+  jn:hover:text-theme-button-primary-hover
+  jn:active:bg-theme-button-primary-active
+  jn_active:text-theme-button-primary-active
+`,A=`
+  jn:bg-theme-button-primary-danger
+  jn:text-theme-button-primary-danger
+  jn:hover:bg-theme-button-primary-danger-hover
+  jn:hover:text-theme-button-primary-danger-hover
+  jn:active:bg-theme-button-primary-danger-active
+  jn:active:text-theme-button-primary-danger-active
+`,H=`
+  jn:bg-theme-button-subdued
+  jn:text-theme-button-subdued
+  jn:hover:bg-theme-button-subdued-hover
+  jn:hover:text-theme-button-subdued-hover
+  jn:active:bg-theme-button-subdued-active
+  jn:active:text-theme-button-subdued-active
+`,C=(e,a)=>e==="small"?a==="subdued"?`${k}`:`${M}`:a==="subdued"?`${P}`:`${D}`,w=e=>{switch(e){case"default":return $;case"primary":return T;case"primary-danger":return A;case"subdued":return H;default:return $}},E=`
+  jn:mr-2
+`,O=`
+  jn:mr-2
+`,R=e=>e==="small"?`${E}`:`${O}`,B=e=>e?"in-progress":"",W=e=>{switch(e){case"default":return"jn:text-theme-accent";case"primary":return"jn:text-white";case"primary-danger":return"jn:text-white";default:return""}},s=_.forwardRef(({label:e,title:a,variant:n="default",size:t="default",disabled:i,href:d,icon:c,className:m="",onClick:o,children:v,progress:u=!1,progressLabel:b="",...p},f)=>{const r=a||e||"",h=u?l.jsx(L,{size:t==="small"?"1.125rem":"1.5rem",color:`${W(n)}`}):c?l.jsx(I,{icon:c,title:r,className:`juno-button-icon ${e||v?R(t):""} `,size:t==="small"?"1.125rem":"1.5rem"}):null,j=u&&b?b:e||v,V=N=>{o&&o(N)},q=l.jsxs("button",{className:`
+          juno-button 
+          juno-button-${n} 
+          juno-button-${t}-size 
+          ${y} 
+          ${t==="small"?g:x} 
+          ${C(t,n)}
+          ${w(n)}
+          ${B(u)} 
+          ${m}`,disabled:i||void 0,onClick:V,ref:f,...p,type:"button",title:r,children:[h,j]}),S=l.jsxs("a",{href:d||void 0,role:"button",className:`
+          juno-button 
+          juno-button-${n} 
+          juno-button-${t}-size 
+          ${y} 
+          ${t==="small"?g:x}
+          ${C(t,n)}
+          ${w(n)}
+          ${B(u)} 
+          ${m}
+        `,disabled:i,onClick:o,ref:f,...p,title:r,children:[h,j]});return d?S:q});s.displayName="Button";try{s.displayName="Button",s.__docgenInfo={description:"The basic button component. Use this for `onClick` interactions.",displayName:"Button",props:{size:{defaultValue:{value:"default"},description:"Leave empty for default size",name:"size",required:!1,type:{name:"enum",value:[{value:'"default"'},{value:'"small"'}]}},disabled:{defaultValue:null,description:"Whether the button is disabled",name:"disabled",required:!1,type:{name:"boolean"}},href:{defaultValue:null,description:"Optionally specify an href. This will turn the Button into an <a> element",name:"href",required:!1,type:{name:"string"}},label:{defaultValue:null,description:"Button label can be passed like this or as children",name:"label",required:!1,type:{name:"string"}},className:{defaultValue:{value:""},description:"Pass a className",name:"className",required:!1,type:{name:"string"}},title:{defaultValue:null,description:"Specify title for accessibility. Gets value of label if no title specified",name:"title",required:!1,type:{name:"string"}},onClick:{defaultValue:null,description:"Click handler",name:"onClick",required:!1,type:{name:"MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>"}},icon:{defaultValue:null,description:"Pass the name of an icon the button should show. Can be any icon included with Juno.",name:"icon",required:!1,type:{name:"enum",value:[{value:'"info"'},{value:'"warning"'},{value:'"danger"'},{value:'"error"'},{value:'"success"'},{value:'"search"'},{value:'"accessTime"'},{value:'"accountCircle"'},{value:'"addCircle"'},{value:'"autoAwesomeMosaic"'},{value:'"autoAwesomeMotion"'},{value:'"bolt"'},{value:'"calendarToday"'},{value:'"cancel"'},{value:'"check"'},{value:'"checkCircle"'},{value:'"chevronLeft"'},{value:'"chevronRight"'},{value:'"close"'},{value:'"comment"'},{value:'"contentCopy"'},{value:'"dangerous"'},{value:'"default"'},{value:'"deleteForever"'},{value:'"description"'},{value:'"dns"'},{value:'"download"'},{value:'"edit"'},{value:'"errorOutline"'},{value:'"exitToApp"'},{value:'"expandLess"'},{value:'"expandMore"'},{value:'"filterAlt"'},{value:'"forum"'},{value:'"help"'},{value:'"home"'},{value:'"manageAccounts"'},{value:'"monitorHeart"'},{value:'"moreVert"'},{value:'"nightsStay"'},{value:'"notificationsOff"'},{value:'"openInBrowser"'},{value:'"openInNew"'},{value:'"place"'},{value:'"severityLow"'},{value:'"severityMedium"'},{value:'"severityHigh"'},{value:'"severityCritical"'},{value:'"upload"'},{value:'"wbSunny"'},{value:'"widgets"'}]}},variant:{defaultValue:{value:"default"},description:"Choose a variant for your purpose. May leave empty to get default button.",name:"variant",required:!1,type:{name:"enum",value:[{value:'"default"'},{value:'"primary"'},{value:'"primary-danger"'},{value:'"subdued"'}]}},progress:{defaultValue:{value:"false"},description:"Whether the button action is in progress",name:"progress",required:!1,type:{name:"boolean"}},progressLabel:{defaultValue:{value:""},description:"Display an alternative label while the button action is in progress",name:"progressLabel",required:!1,type:{name:"string"}}}}}catch{}export{s as B};
