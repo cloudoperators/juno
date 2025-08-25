@@ -1,5 +1,13 @@
 # heureka
 
+## 0.8.5
+
+### Patch Changes
+
+- Updated dependencies [1020d89]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-messages-provider@0.2.14
+
 ## 0.8.4
 
 ### Patch Changes
