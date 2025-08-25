@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.2
+
+### Patch Changes
+
+- 9e9669f: When navigating to other app, do not copy url state of the previous app.
+- Updated dependencies [1020d89]
+- Updated dependencies [9e9669f]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-app-supernova@0.19.1
+  - @cloudoperators/juno-app-doop@2.5.2
+  - @cloudoperators/juno-app-heureka@0.8.5
+  - @cloudoperators/juno-messages-provider@0.2.14
+
 ## 0.7.1
 
 ### Patch Changes
