@@ -14,6 +14,15 @@ export default {
       fileName: (format) => `index.${format}.js`, // Output file names
     },
     outDir: "build",
+    rollupOptions: {
+      // Treat these as externals - they won't be bundled
+      external: ["https"],
+      output: {
+        globals: {
+          https: "https",
+        },
+      },
+    },
   },
   plugins: [
     dts({

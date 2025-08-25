@@ -9,10 +9,8 @@ import https from "https"
 
 // Mock https module with proper return value
 vi.mock("https", () => ({
-  default: {
-    Agent: vi.fn(),
-  },
   Agent: vi.fn(),
+  default: { Agent: vi.fn() },
 }))
 
 const testUrl = "https://apiEndpoint.com"
@@ -26,13 +24,6 @@ describe("request", () => {
     mockFetch = vi.fn()
     mockFetch.mockResolvedValue({ status: 200 } as Response)
     global.fetch = mockFetch
-
-    // Mock https.Agent for SSL tests
-    const mockAgent = {} as https.Agent
-    Object.defineProperty(https, "Agent", {
-      value: vi.fn().mockImplementation(() => mockAgent),
-      writable: true,
-    })
   })
 
   afterEach(() => {
