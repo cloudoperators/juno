@@ -3,20 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { createFileRoute } from "@tanstack/react-router"
-import AppContent from "../components/AppContent"
+import { createFileRoute, redirect } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/")({
-  component: RouteComponent,
+  loader: () => redirect({ to: "/violations", search: (prev) => ({ ...prev }) }), // redirect to the default /violations page
 })
-
-function RouteComponent() {
-  const { appProps } = Route.useRouteContext()
-
-  return (
-    <>
-      <AppContent id={appProps?.id} showDebugSeverities={appProps.showDebugSeverities} />
-    </>
-  )
-}

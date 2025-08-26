@@ -6,6 +6,7 @@
 const createGlobalsSlice = (set: any) => ({
   globals: {
     endpoint: "",
+    isUrlRead: false,
 
     actions: {
       setEndpoint: (endpoint: any) =>
@@ -15,6 +16,13 @@ const createGlobalsSlice = (set: any) => ({
           }),
           false,
           "globals/setEndpoint"
+        ),
+      setIsUrlRead: () =>
+        set(
+          (state: any) => ({
+            globals: { ...state.globals, isUrlRead: true },
+          }),
+          false
         ),
     },
   },
