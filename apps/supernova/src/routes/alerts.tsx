@@ -11,11 +11,16 @@ import AlertDetail from "../components/alerts/AlertDetail"
 import RegionsList from "../components/regions/RegionsList"
 import AlertsTab from "../components/alerts/AlertsTab"
 import { ACTIVE_FILTERS_PREFIX, PAUSED_FILTERS_PREFIX } from "../constants"
-import { convertUrlStateToAppState } from "../lib/urlStateUtils"
-import { useGlobalsActions, useFilterActions, useActiveFilters } from "../components/StoreProvider"
+import { convertUrlStateToAppState, getFiltersForUrl } from "../lib/urlStateUtils"
+import { useGlobalsActions, useFilterActions, useGlobalsInitialFiltersApplied } from "../components/StoreProvider"
 
 const searchSchema = z
   .object({
+    /**
+     * TODO: remove it when no longer needed
+     * but we need to keep "org" search parameter due to it's significance in the shell app.
+     */
+    org: z.string().optional(),
     searchTerm: z.string().optional(),
     showDetailsFor: z.string().optional(),
     predefinedFilter: z.string().optional(),
@@ -58,10 +63,12 @@ export const Route = createFileRoute("/alerts")({
 
 function RouteComponent() {
   const {
+    appProps: { initialFilters },
     appStateFromUrl: { activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor },
   } = Route.useRouteContext()
-  const { setShowDetailsFor } = useGlobalsActions()
-  const existingActiveFilters = useActiveFilters()
+  const navigate = Route.useNavigate()
+  const initialFiltersApplied = useGlobalsInitialFiltersApplied()
+  const { setShowDetailsFor, setInitialFiltersApplied } = useGlobalsActions()
   const { setActiveFilters, setPausedFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
 
   /**
@@ -69,11 +76,21 @@ function RouteComponent() {
    * we can directly consume it from the route context anywhere
    * */
   useLayoutEffect(() => {
-    setActiveFilters({ ...existingActiveFilters, ...activeFilters }) // combine existing/initial filters with filters from URL state
-    setPausedFilters(pausedFilters)
-    setActivePredefinedFilter(predefinedFilter)
-    setSearchTerm(searchTerm)
-    setShowDetailsFor(showDetailsFor)
+    // we only want to apply initial filters only once when url does not contain any filter
+    if (!initialFiltersApplied && Object.keys(activeFilters).length === 0 && Object.keys(initialFilters).length > 0) {
+      setInitialFiltersApplied()
+      navigate({
+        to: "/alerts",
+        replace: true,
+        search: (prev) => ({ ...prev, ...getFiltersForUrl(ACTIVE_FILTERS_PREFIX, initialFilters) }),
+      })
+    } else {
+      setActiveFilters(activeFilters)
+      setPausedFilters(pausedFilters)
+      setActivePredefinedFilter(predefinedFilter)
+      setSearchTerm(searchTerm)
+      setShowDetailsFor(showDetailsFor)
+    }
   }, [activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor])
 
   return (

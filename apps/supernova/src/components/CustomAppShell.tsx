@@ -15,7 +15,13 @@ const CustomAppShell = ({ children }: any) => {
 
   const handleTabSelect = (link: React.ReactNode) => {
     if (typeof link === "string") {
-      navigate({ to: link })
+      navigate({
+        to: link,
+        search: (prev) => {
+          const { org } = prev
+          return { org } // preserve only the "org" search parameter when navigating
+        },
+      })
     }
   }
 
