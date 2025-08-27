@@ -5,6 +5,9 @@ import { FilterSettings } from "../common/Filters/types"
 import { GetVulnerabilityFiltersQuery, Page, GetVulnerabilitiesQuery } from "../../generated/graphql"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { VulnerabilitiesSearchParams } from "../../routes/vulnerabilities"
+import { IssuesCountsType } from "../types"
+
+const DEFAULT_COUNT = 0
 
 export function getActiveVulnerabilityFilter(filterSettings: FilterSettings) {
   const filter: any = {}
@@ -94,6 +97,7 @@ export type NormalizedVulnerabilities = {
   pages: Page[]
   totalVulnerabilities: number
   pageNumber: number
+  vulnerabilitiesCounts: IssuesCountsType
 }
 
 export type NormalizedVulnerabilityServices = {
@@ -128,17 +132,27 @@ export function getNormalizedVulnerabilitiesResponse(
         earliestTargetRemediationDate: edge?.node?.earliestTargetRemediationDate || "",
         sourceUrl: edge?.node?.sourceUrl || "",
         description: edge?.node?.description || "",
-        servicesCount: edge?.node?.services?.totalCount || 0,
+        servicesCount: edge?.node?.services?.totalCount || DEFAULT_COUNT,
         services,
         supportGroups,
       }
     }) || []
 
+  const counts = (data?.Vulnerabilities as any)?.counts
+
   return {
     vulnerabilities,
-    totalVulnerabilities: data?.Vulnerabilities?.totalCount || 0,
+    totalVulnerabilities: counts?.total || DEFAULT_COUNT,
     pages: data?.Vulnerabilities?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
     pageNumber: data?.Vulnerabilities?.pageInfo?.pageNumber || 1,
+    vulnerabilitiesCounts: {
+      critical: counts?.critical || DEFAULT_COUNT,
+      high: counts?.high || DEFAULT_COUNT,
+      medium: counts?.medium || DEFAULT_COUNT,
+      low: counts?.low || DEFAULT_COUNT,
+      none: counts?.none || DEFAULT_COUNT,
+      total: counts?.total || DEFAULT_COUNT,
+    },
   }
 }
 

@@ -50,7 +50,7 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
         count={item.issuesCount.critical}
         icon="danger"
         variant="danger"
-        tooltipContent="Critical Issues"
+        tooltipContent="Critical Vulnerabilities"
       />
     </DataGridCell>
     <DataGridCell className="items-center">
@@ -59,7 +59,7 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
         count={item.issuesCount.high}
         icon="warning"
         variant="warning"
-        tooltipContent="High Issues"
+        tooltipContent="High Vulnerabilities"
       />
     </DataGridCell>
     <DataGridCell className="items-center">
@@ -68,7 +68,7 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
         count={item.issuesCount.medium}
         icon="errorOutline"
         variant="warning"
-        tooltipContent="Medium Issues"
+        tooltipContent="Medium Vulnerabilities"
       />
     </DataGridCell>
     <DataGridCell className="items-center">
@@ -77,7 +77,7 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
         count={item.issuesCount.low}
         icon="info"
         variant="info"
-        tooltipContent="Low Issues"
+        tooltipContent="Low Vulnerabilities"
       />
     </DataGridCell>
     <DataGridCell className="items-center">
@@ -86,7 +86,7 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
         count={item.issuesCount.none}
         icon="help"
         variant="default"
-        tooltipContent="None Issues"
+        tooltipContent="None Vulnerabilities"
       />
     </DataGridCell>
     <DataGridCell>

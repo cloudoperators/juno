@@ -1,5 +1,17 @@
 # @cloudoperators/juno-ui-components
 
+## 5.3.0
+
+### Minor Changes
+
+- 1020d89: Add `xl` and `2xl` sizes to `Modal`.
+
+## 5.2.0
+
+### Minor Changes
+
+- b7fe310: Added a basic `Card` component.
+
 ## 5.1.1
 
 ### Patch Changes

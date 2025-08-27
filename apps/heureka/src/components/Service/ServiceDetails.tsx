@@ -24,7 +24,7 @@ export const ServiceDetails = ({ servicePromise }: ServiceDetailsProps) => {
       <SectionContentHeading>Service {service.name}</SectionContentHeading>
 
       {/* Service Information Section */}
-      <DataGrid columns={2} gridColumnTemplate="10% auto" className="mb-6">
+      <DataGrid columns={2} gridColumnTemplate="20% auto" className="mb-6">
         <DataGridRow>
           <DataGridHeadCell>Details</DataGridHeadCell>
           <DataGridCell>
@@ -43,7 +43,7 @@ export const ServiceDetails = ({ servicePromise }: ServiceDetailsProps) => {
           </DataGridCell>
         </DataGridRow>
         <DataGridRow>
-          <DataGridHeadCell>Issues Counts</DataGridHeadCell>
+          <DataGridHeadCell>Vulnerabilities Counts</DataGridHeadCell>
           <DataGridCell>
             <IssueCountsPerSeverityLevel counts={service.issuesCount} />
           </DataGridCell>
