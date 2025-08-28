@@ -25,6 +25,16 @@ const meta: Meta<typeof Grid> = {
       </div>
     ),
   ],
+  parameters: {
+    docs: {
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
+    },
+  },
   render: (args) => <Grid {...args} className={`jn:bg-juno-blue-3 jn:text-juno-grey-blue ${args.className || ""}`} />,
 }
 

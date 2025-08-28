@@ -6,8 +6,11 @@
 import React from "react"
 
 import { Stack } from "@cloudoperators/juno-ui-components"
+import { useNavigate } from "@tanstack/react-router"
 import RegionSeverity from "./RegionSeverity"
 import { useFilterActions, useActiveFilters } from "../StoreProvider"
+import { addFilter, removeFilter } from "../../lib/urlStateUtils"
+import { ACTIVE_FILTERS_PREFIX } from "../../constants"
 
 const regionStyles = `
   grid
@@ -30,6 +33,7 @@ const regionHeader = `
 `
 
 const Region = ({ region, severityCounts }: any) => {
+  const navigate = useNavigate()
   const { addActiveFilter, removeActiveFilter } = useFilterActions()
   const activeFilters = useActiveFilters()
 
@@ -37,8 +41,16 @@ const Region = ({ region, severityCounts }: any) => {
     // if the region is already active, remove it
     if (activeFilters?.region?.includes(region)) {
       removeActiveFilter("region", region)
+      navigate({
+        to: "/alerts",
+        search: (prev) => removeFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}region`, region), // remove region filter from URL state
+      })
     } else {
       addActiveFilter("region", region)
+      navigate({
+        to: "/alerts",
+        search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}region`, region), // remove region filter from URL state
+      })
     }
   }
 

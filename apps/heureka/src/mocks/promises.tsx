@@ -4,7 +4,14 @@
  */
 
 import { ApolloQueryResult } from "@apollo/client"
-import { GetServiceFiltersQuery, GetServiceImageVersionsQuery, GetServicesQuery } from "../generated/graphql"
+import {
+  GetServiceFiltersQuery,
+  GetServiceImageVersionsQuery,
+  GetServicesQuery,
+  GetVulnerabilitiesQuery,
+  GetVulnerabilityFiltersQuery,
+  SeverityValues,
+} from "../generated/graphql"
 
 // This mock simulates the response for services query
 export const mockServicesPromise: Promise<ApolloQueryResult<GetServicesQuery>> = Promise.resolve({
@@ -124,3 +131,81 @@ export const mockImageVersionsPromise: Promise<ApolloQueryResult<GetServiceImage
   error: undefined,
   partial: false,
 })
+
+// This mock simulates the response for vulnerabilities query
+export const mockVulnerabilitiesPromise: Promise<ApolloQueryResult<GetVulnerabilitiesQuery>> = Promise.resolve({
+  data: {
+    Vulnerabilities: {
+      edges: [
+        {
+          node: {
+            id: "1",
+            name: "CVE-2024-1234",
+            severity: SeverityValues.Critical,
+            sourceUrl: "https://nvd.nist.gov/vuln/detail/CVE-2024-1234",
+            earliestTargetRemediationDate: "2024-12-31T23:59:59Z",
+            description:
+              "A critical vulnerability in the authentication system that allows unauthorized access to sensitive data.",
+            services: {
+              totalCount: 5,
+              edges: [{ node: { ccrn: "alpha" } }, { node: { ccrn: "beta" } }],
+              pageInfo: { pageNumber: 1, pages: [], __typename: "PageInfo" },
+              __typename: "ServiceConnection",
+            },
+            __typename: "Vulnerability",
+          },
+          __typename: "VulnerabilityEdge",
+        },
+        {
+          node: {
+            id: "2",
+            name: "CVE-2024-5678",
+            severity: SeverityValues.High,
+            sourceUrl: "https://nvd.nist.gov/vuln/detail/CVE-2024-5678",
+            earliestTargetRemediationDate: "2024-11-30T23:59:59Z",
+            description: "A high severity vulnerability in the database layer that could lead to data exposure.",
+            services: {
+              totalCount: 3,
+              edges: [{ node: { ccrn: "gamma" } }],
+              pageInfo: { pageNumber: 1, pages: [], __typename: "PageInfo" },
+              __typename: "ServiceConnection",
+            },
+            __typename: "Vulnerability",
+          },
+          __typename: "VulnerabilityEdge",
+        },
+      ],
+      totalCount: 2,
+      pageInfo: { pageNumber: 1, pages: [], __typename: "PageInfo" },
+      __typename: "VulnerabilityConnection",
+    },
+  },
+  loading: false,
+  networkStatus: 7,
+  error: undefined,
+  partial: false,
+})
+
+// This mock simulates the response for vulnerability filters query
+export const mockVulnerabilityFiltersPromise: Promise<ApolloQueryResult<GetVulnerabilityFiltersQuery>> =
+  Promise.resolve({
+    data: {
+      VulnerabilityFilterValues: {
+        supportGroup: {
+          displayName: "Support Group",
+          filterName: "supportGroup",
+          values: ["containers", "platform", "network"],
+        },
+        severity: {
+          displayName: "Severity",
+          filterName: "severity",
+          values: ["Critical", "High", "Medium", "Low", "None"],
+        },
+        __typename: "VulnerabilityFilterValue",
+      },
+    },
+    loading: false,
+    networkStatus: 7,
+    error: undefined,
+    partial: false,
+  })

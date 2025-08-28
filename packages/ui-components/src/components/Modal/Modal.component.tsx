@@ -63,6 +63,10 @@ const sizeClass = (size: ModalSize) => {
   switch (size) {
     case "large":
       return `jn:w-[40rem]`
+    case "xl":
+      return `jn:w-[76.75rem]`
+    case "2xl":
+      return `jn:w-[80%] jn:min-w-[85rem] jn:max-w-[112.5rem]`
     default:
       return `jn:w-[33.625rem]`
   }
@@ -226,7 +230,7 @@ export const Modal: React.FC<ModalProps> = ({
   )
 }
 
-type ModalSize = "small" | "large"
+type ModalSize = "small" | "large" | "xl" | "2xl"
 
 export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
   /** The title of the modal. This will be rendering as the heading of the modal, and the modal's `arial-labelledby` attribute will reference the title/heading element. If the modal does not have `title` or `heading`, use `ariaLabel` to provide an accessible name for the modal. */

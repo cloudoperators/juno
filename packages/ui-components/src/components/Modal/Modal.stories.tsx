@@ -34,9 +34,7 @@ const Template = ({ closeOnConfirm, ...args }: TemplateProps) => {
   return (
     <>
       <Button label="Open Modal" variant="primary" onClick={open} />
-      <PortalProvider.Portal>
-        <Modal open={isOpen} onCancel={close} onConfirm={closeOnConfirm ? close : undefined} {...args} />
-      </PortalProvider.Portal>
+      <Modal open={isOpen} onCancel={close} onConfirm={closeOnConfirm ? close : undefined} {...args} />
     </>
   )
 }
@@ -60,11 +58,21 @@ const meta: Meta<typeof Modal> = {
   },
   parameters: {
     actions: { argTypesRegex: null },
+    docs: {
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
+    },
   },
   decorators: [
     (Story) => (
       <PortalProvider>
-        <Story />
+        <div className="jn:m-20 jn:flex jn:justify-center">
+          <Story />
+        </div>
       </PortalProvider>
     ),
   ],
@@ -110,15 +118,89 @@ export const AutoFocusDialog: Story = {
   },
 }
 
-export const LargeWithTitle: Story = {
+const ReusableForm = () => (
+  <Form>
+    <FormRow>
+      <TextInput label="First Name" id="firstname" />
+    </FormRow>
+    <FormRow>
+      <TextInput label="Last Name" id="lastname" />
+    </FormRow>
+    <FormRow>
+      <TextInput label="Email" id="email" type="email" />
+    </FormRow>
+    <FormRow>
+      <TextInput label="Password" id="password" type="password" />
+    </FormRow>
+    <FormRow>
+      <TextInput label="Retype Password" id="retype-password" type="password" />
+    </FormRow>
+    <FormRow>
+      <Select label="Role">
+        <SelectOption>Private Person</SelectOption>
+        <SelectOption>Small Business</SelectOption>
+      </Select>
+    </FormRow>
+    <FormRow>
+      <ComboBox label="Country">
+        <ComboBoxOption value="germany" key="DE">
+          Germany
+        </ComboBoxOption>
+        <ComboBoxOption value="uk" key="UK">
+          United Kingdom
+        </ComboBoxOption>
+        <ComboBoxOption value="us" key="US">
+          USA
+        </ComboBoxOption>
+      </ComboBox>
+    </FormRow>
+  </Form>
+)
+
+export const DefaultWithForm: Story = {
+  render: Template,
+  args: {
+    title: "Default Modal Form",
+    initialFocus: "#firstname",
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Register now",
+    children: <ReusableForm />,
+  },
+}
+
+export const LargeWithForm: Story = {
   render: Template,
   args: {
     size: "large",
-    title: "Large Modal",
-    confirmButtonLabel: "OK",
-    // @ts-ignore
-    closeOnConfirm: true /* Only relevant for storybook, this is not a native prop of the component! */,
-    children: <p>A large modal with a title</p>,
+    title: "Large Modal Form",
+    initialFocus: "#firstname",
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Register now",
+    children: <ReusableForm />,
+  },
+}
+
+export const XLWithForm: Story = {
+  render: Template,
+  args: {
+    size: "xl",
+    title: "XL With Form",
+    initialFocus: "#firstname",
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Register now",
+    children: <ReusableForm />,
+  },
+}
+
+export const XXLWithForm: Story = {
+  render: Template,
+  args: {
+    size: "2xl",
+    title: "2XL With Form",
+    initialFocus: "#firstname",
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Register now",
+    children: <ReusableForm />,
   },
 }
 
@@ -226,54 +308,6 @@ export const TestComboBoxInModal: Story = {
           </ComboBoxOption>
         </ComboBox>
       </>
-    ),
-  },
-}
-
-export const ModalWithALargerForm: Story = {
-  render: Template,
-  args: {
-    title: "Register",
-    initialFocus: "#firstname",
-    cancelButtonLabel: "Cancel",
-    confirmButtonLabel: "Register now",
-    children: (
-      <Form>
-        <FormRow>
-          <TextInput label="First Name" id="firstname" />
-        </FormRow>
-        <FormRow>
-          <TextInput label="Last Name" id="lastname" />
-        </FormRow>
-        <FormRow>
-          <TextInput label="Email" id="email" type="email" />
-        </FormRow>
-        <FormRow>
-          <TextInput label="Password" id="password" type="password" />
-        </FormRow>
-        <FormRow>
-          <TextInput label="Retype Password" id="retype-password" type="password" />
-        </FormRow>
-        <FormRow>
-          <Select label="Role">
-            <SelectOption>Private Person</SelectOption>
-            <SelectOption>Small Business</SelectOption>
-          </Select>
-        </FormRow>
-        <FormRow>
-          <ComboBox label="Country">
-            <ComboBoxOption value="germany" key="DE">
-              Germany
-            </ComboBoxOption>
-            <ComboBoxOption value="uk" key="UK">
-              United Kingdom
-            </ComboBoxOption>
-            <ComboBoxOption value="us" key="US">
-              USA
-            </ComboBoxOption>
-          </ComboBox>
-        </FormRow>
-      </Form>
     ),
   },
 }

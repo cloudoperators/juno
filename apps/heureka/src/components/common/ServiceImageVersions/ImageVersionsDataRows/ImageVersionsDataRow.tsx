@@ -49,12 +49,15 @@ export const ImageVersionsDataRow = ({
       </DataGridCell>
       <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
       <DataGridCell className="items-center">
+        <span>{version.componentInstancesCount || 0}</span>
+      </DataGridCell>
+      <DataGridCell className="items-center">
         <SeverityCount
           showDashIfZero
           count={version.issueCounts.critical}
           icon="danger"
           variant="danger"
-          tooltipContent="Critical Issues"
+          tooltipContent="Critical Vulnerabilities"
         />
       </DataGridCell>
       <DataGridCell className="items-center">
@@ -63,7 +66,7 @@ export const ImageVersionsDataRow = ({
           count={version.issueCounts.high}
           icon="warning"
           variant="warning"
-          tooltipContent="High Issues"
+          tooltipContent="High Vulnerabilities"
         />
       </DataGridCell>
       <DataGridCell className="items-center">
@@ -72,7 +75,7 @@ export const ImageVersionsDataRow = ({
           count={version.issueCounts.medium}
           icon="errorOutline"
           variant="warning"
-          tooltipContent="Medium Issues"
+          tooltipContent="Medium Vulnerabilities"
         />
       </DataGridCell>
       <DataGridCell className="items-center">
@@ -81,7 +84,7 @@ export const ImageVersionsDataRow = ({
           count={version.issueCounts.low}
           icon="info"
           variant="info"
-          tooltipContent="Low Issues"
+          tooltipContent="Low Vulnerabilities"
         />
       </DataGridCell>
       <DataGridCell className="items-center">
@@ -90,7 +93,7 @@ export const ImageVersionsDataRow = ({
           count={version.issueCounts.none}
           icon="help"
           variant="default"
-          tooltipContent="None Issues"
+          tooltipContent="None Vulnerabilities"
         />
       </DataGridCell>
       {displayDetailsButton && (

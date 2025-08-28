@@ -1,5 +1,56 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.14
+
+### Patch Changes
+
+- Updated dependencies [1020d89]
+  - @cloudoperators/juno-ui-components@5.3.0
+
+## 0.2.13
+
+### Patch Changes
+
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-ui-components@5.2.0
+
+## 0.2.12
+
+### Patch Changes
+
+- Updated dependencies [92a17f7]
+  - @cloudoperators/juno-ui-components@5.1.1
+
+## 0.2.11
+
+### Patch Changes
+
+- 5ad5d5b: **Core Build Tools**
+
+  - vite: Updated to `7.0.3` (latest)
+  - vite-tsconfig-paths: Updated to `5.1.4` (latest)
+  - vite-plugin-dts: Updated to `4.5.4` (latest)
+
+  **Testing Framework**
+
+  - vitest: Updated to `3.2.4` (latest)
+  - @vitest/ui: Updated to `3.2.4` (latest)
+
+  **React Plugins**
+
+  - @vitejs/plugin-react: Updated to `4.6.0` (latest)
+  - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
+
+  **Additional Plugins**
+
+  - vite-plugin-svgr: Updated to `4.3.0` (latest)
+  - @tailwindcss/vite: Updated to `4.1.11` (latest)
+
+- Updated dependencies [5ad5d5b]
+- Updated dependencies [ca74897]
+- Updated dependencies [9453d27]
+  - @cloudoperators/juno-ui-components@5.1.0
+
 ## 0.2.10
 
 ### Patch Changes

@@ -57,7 +57,7 @@ export const ImageVersionDetailsPanel = ({ imageVersionsPromise }: ImageVersionD
           <Container py px={false}>
             <Messages />
           </Container>
-          <DataGrid columns={2} gridColumnTemplate="15% auto">
+          <DataGrid columns={2} gridColumnTemplate="20% auto">
             <DataGridRow>
               <DataGridHeadCell>Details</DataGridHeadCell>
               <DataGridCell>
@@ -84,13 +84,13 @@ export const ImageVersionDetailsPanel = ({ imageVersionsPromise }: ImageVersionD
               </DataGridCell>
             </DataGridRow>
             <DataGridRow>
-              <DataGridHeadCell>Issues Counts</DataGridHeadCell>
+              <DataGridHeadCell>Vulnerabilities Counts</DataGridHeadCell>
               <DataGridCell>
                 <IssueCountsPerSeverityLevel counts={imageVersion.issueCounts} />
               </DataGridCell>
             </DataGridRow>
             <DataGridRow>
-              <DataGridHeadCell className="whitespace-nowrap">{`Occurrences (${imageVersion.componetInstancesCount || 0})`}</DataGridHeadCell>
+              <DataGridHeadCell className="whitespace-nowrap">{`Occurrences (${imageVersion.componentInstancesCount || 0})`}</DataGridHeadCell>
               <DataGridCell>
                 <ImageVersionOccurrences imageVersion={imageVersion} />
               </DataGridCell>

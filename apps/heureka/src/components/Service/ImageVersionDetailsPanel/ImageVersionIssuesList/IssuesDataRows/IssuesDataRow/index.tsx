@@ -6,9 +6,10 @@
 import React, { useState } from "react"
 import { DataGridRow, DataGridCell, Stack } from "@cloudoperators/juno-ui-components"
 import { Icon } from "@cloudoperators/juno-ui-components"
-import { IssueIcon } from "./IssueIcon"
-import { IssueTimestamp } from "./IssueTimestamp"
-import { Issue, getSeverityColor } from "../../../../../Services/utils"
+import { IssueIcon } from "../../../../../common/IssueIcon"
+import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
+import { Issue } from "../../../../../Services/utils"
+import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 
 const cellSeverityClasses = (severity: string) => {
   let borderColor = getSeverityColor(severity)
@@ -27,6 +28,7 @@ type IssuesDataRowProps = {
 
 export const IssuesDataRow = ({ issue }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
+  const { needsExpansion, textRef } = useTextOverflow(issue.description)
 
   const toggleDescription = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -48,7 +50,7 @@ export const IssuesDataRow = ({ issue }: IssuesDataRowProps) => {
             <a href={issue.sourceLink} target="_blank" rel="noopener noreferrer" className="link-hover">
               <Stack gap="1.5" alignment="center">
                 <Icon icon="openInNew" size="16" />
-                <span>Issue source</span>
+                <span>Vulnerability source</span>
               </Stack>
             </a>
           )}
@@ -59,15 +61,17 @@ export const IssuesDataRow = ({ issue }: IssuesDataRowProps) => {
       </DataGridCell>
       <DataGridCell>
         <Stack gap="2" direction="vertical">
-          <span className={isExpanded ? "" : "whitespace-nowrap overflow-hidden text-ellipsis"}>
+          <span ref={textRef} className={isExpanded ? "" : "whitespace-nowrap overflow-hidden text-ellipsis"}>
             {issue.description}
           </span>
-          <a href="#" onClick={toggleDescription} className="link-hover">
-            <Stack alignment="center">
-              {isExpanded ? "Show less" : "Show more"}
-              <Icon color="global-text" icon={isExpanded ? "expandLess" : "expandMore"} />
-            </Stack>
-          </a>
+          {issue.description && needsExpansion && (
+            <a href="#" onClick={toggleDescription} className="link-hover">
+              <Stack alignment="center">
+                {isExpanded ? "Show less" : "Show more"}
+                <Icon color="global-text" icon={isExpanded ? "expandLess" : "expandMore"} />
+              </Stack>
+            </a>
+          )}
         </Stack>
       </DataGridCell>
     </DataGridRow>

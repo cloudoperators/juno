@@ -1,5 +1,81 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.1
+
+### Patch Changes
+
+- 9e9669f: Combine initial filters from appProps with fitlers from the url state.
+- Updated dependencies [1020d89]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-messages-provider@0.2.14
+
+## 0.19.0
+
+### Minor Changes
+
+- 8a44efa: Supernova old url state is now converted to new URL state and for other apps tanstack router dependencies are updated.
+
+### Patch Changes
+
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-ui-components@5.2.0
+  - @cloudoperators/juno-messages-provider@0.2.13
+
+## 0.18.0
+
+### Minor Changes
+
+- 3589b0c: All apps support client side routing using tanstack router.
+
+## 0.17.9
+
+### Patch Changes
+
+- a87c074: feat(supernova): support absolute urls in playbook links
+  - @cloudoperators/juno-messages-provider@0.2.12
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
+## 0.17.8
+
+### Patch Changes
+
+- Updated dependencies [92a17f7]
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-messages-provider@0.2.12
+
+## 0.17.7
+
+### Patch Changes
+
+- 5ad5d5b: **Core Build Tools**
+
+  - vite: Updated to `7.0.3` (latest)
+  - vite-tsconfig-paths: Updated to `5.1.4` (latest)
+  - vite-plugin-dts: Updated to `4.5.4` (latest)
+
+  **Testing Framework**
+
+  - vitest: Updated to `3.2.4` (latest)
+  - @vitest/ui: Updated to `3.2.4` (latest)
+
+  **React Plugins**
+
+  - @vitejs/plugin-react: Updated to `4.6.0` (latest)
+  - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
+
+  **Additional Plugins**
+
+  - vite-plugin-svgr: Updated to `4.3.0` (latest)
+  - @tailwindcss/vite: Updated to `4.1.11` (latest)
+
+- Updated dependencies [5ad5d5b]
+- Updated dependencies [ca74897]
+- Updated dependencies [9453d27]
+  - @cloudoperators/juno-messages-provider@0.2.11
+  - @cloudoperators/juno-ui-components@5.1.0
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
 ## 0.17.6
 
 ### Patch Changes

@@ -9,7 +9,7 @@ interface WelcomeState {
   welcome: string
 }
 type Actions = {
-  setWelcome: (welcome: string) => void
+  setWelcome: (_welcome: string) => void
 }
 
 export const useWellcomeStore = create<WelcomeState & Actions>()((set) => ({

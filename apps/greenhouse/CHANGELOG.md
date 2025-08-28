@@ -1,5 +1,138 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.2
+
+### Patch Changes
+
+- 9e9669f: When navigating to other app, do not copy url state of the previous app.
+- Updated dependencies [1020d89]
+- Updated dependencies [9e9669f]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-app-supernova@0.19.1
+  - @cloudoperators/juno-app-doop@2.5.2
+  - @cloudoperators/juno-app-heureka@0.8.5
+  - @cloudoperators/juno-messages-provider@0.2.14
+
+## 0.7.1
+
+### Patch Changes
+
+- 8a44efa: Supernova old url state is now converted to new URL state and for other apps tanstack router dependencies are updated.
+- c2a617e: Update nginx.conf so the client side routing works.
+- Updated dependencies [8a44efa]
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-app-supernova@0.19.0
+  - @cloudoperators/juno-app-heureka@0.8.4
+  - @cloudoperators/juno-app-doop@2.5.1
+  - @cloudoperators/juno-ui-components@5.2.0
+  - @cloudoperators/juno-messages-provider@0.2.13
+
+## 0.7.0
+
+### Minor Changes
+
+- 3589b0c: All apps support client side routing using tanstack router.
+
+### Patch Changes
+
+- 3f9fcbb: Added vulnerability counts per severity above the list
+- Updated dependencies [3f9fcbb]
+- Updated dependencies [3589b0c]
+  - @cloudoperators/juno-app-heureka@0.8.3
+  - @cloudoperators/juno-app-supernova@0.18.0
+  - @cloudoperators/juno-app-doop@2.5.0
+
+## 0.6.13
+
+### Patch Changes
+
+- 6ce69e4: feat(heureka): adds vulnerability details panel
+- Updated dependencies [6ce69e4]
+  - @cloudoperators/juno-app-heureka@0.8.2
+
+## 0.6.12
+
+### Patch Changes
+
+- a87c074: feat(supernova): support absolute urls in playbook links
+- 052b8b1: Skips an unstable test in FilterSelect component temporarily
+- 0db8cd2: Skips all Filters related tests temporarily in Heureka
+- e185313: Handles null values for a vulnerability severity
+- Updated dependencies [40d8dd8]
+- Updated dependencies [a87c074]
+- Updated dependencies [1afa941]
+- Updated dependencies [052b8b1]
+- Updated dependencies [0db8cd2]
+- Updated dependencies [e185313]
+  - @cloudoperators/juno-k8s-client@1.1.0
+  - @cloudoperators/juno-app-supernova@0.17.9
+  - @cloudoperators/juno-app-heureka@0.8.1
+  - @cloudoperators/juno-app-doop@2.4.8
+  - @cloudoperators/juno-messages-provider@0.2.12
+  - @cloudoperators/juno-oauth@1.4.9
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
+## 0.6.11
+
+### Patch Changes
+
+- 6d972a5: Displays number of service image version instances in service details page (this count is also available in service image version details panel)
+- cd2a9c7: Heureka: Add vulnerabilities list view
+- 610e2e3: Updates types based on schema breaking changes to adjust severity filter type.
+- Updated dependencies [92a17f7]
+- Updated dependencies [6d972a5]
+- Updated dependencies [cd2a9c7]
+- Updated dependencies [610e2e3]
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-app-heureka@0.8.0
+  - @cloudoperators/juno-app-doop@2.4.8
+  - @cloudoperators/juno-app-supernova@0.17.8
+  - @cloudoperators/juno-messages-provider@0.2.12
+
+## 0.6.10
+
+### Patch Changes
+
+- becdd90: The Greenhouse TeamMembership is being deprecated, the users assigned to a Team are now in the Team.status.members[].
+
+## 0.6.9
+
+### Patch Changes
+
+- 5ad5d5b: **Core Build Tools**
+
+  - vite: Updated to `7.0.3` (latest)
+  - vite-tsconfig-paths: Updated to `5.1.4` (latest)
+  - vite-plugin-dts: Updated to `4.5.4` (latest)
+
+  **Testing Framework**
+
+  - vitest: Updated to `3.2.4` (latest)
+  - @vitest/ui: Updated to `3.2.4` (latest)
+
+  **React Plugins**
+
+  - @vitejs/plugin-react: Updated to `4.6.0` (latest)
+  - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
+
+  **Additional Plugins**
+
+  - vite-plugin-svgr: Updated to `4.3.0` (latest)
+  - @tailwindcss/vite: Updated to `4.1.11` (latest)
+
+- Updated dependencies [5ad5d5b]
+- Updated dependencies [ca74897]
+- Updated dependencies [9453d27]
+  - @cloudoperators/juno-app-doop@2.4.7
+  - @cloudoperators/juno-app-heureka@0.7.5
+  - @cloudoperators/juno-app-supernova@0.17.7
+  - @cloudoperators/juno-k8s-client@1.0.8
+  - @cloudoperators/juno-messages-provider@0.2.11
+  - @cloudoperators/juno-oauth@1.4.9
+  - @cloudoperators/juno-ui-components@5.1.0
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
 ## 0.6.8
 
 ### Patch Changes

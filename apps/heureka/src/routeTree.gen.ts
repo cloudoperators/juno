@@ -8,76 +8,128 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from "./routes/__root"
+import { Route as VulnerabilitiesRouteRouteImport } from "./routes/vulnerabilities/route"
+import { Route as ServicesRouteRouteImport } from "./routes/services/route"
+import { Route as IndexRouteImport } from "./routes/index"
+import { Route as VulnerabilitiesIndexRouteImport } from "./routes/vulnerabilities/index"
+import { Route as ServicesIndexRouteImport } from "./routes/services/index"
+import { Route as ServicesServiceRouteImport } from "./routes/services/$service"
 
-import { Route as rootRoute } from "./routes/__root"
-import { Route as ServicesRouteImport } from "./routes/services/route"
-import { Route as IndexImport } from "./routes/index"
-import { Route as ServicesIndexImport } from "./routes/services/index"
-import { Route as ServicesServiceImport } from "./routes/services/$service"
-
-// Create/Update Routes
-
-const ServicesRouteRoute = ServicesRouteImport.update({
+const VulnerabilitiesRouteRoute = VulnerabilitiesRouteRouteImport.update({
+  id: "/vulnerabilities",
+  path: "/vulnerabilities",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRouteRoute = ServicesRouteRouteImport.update({
   id: "/services",
   path: "/services",
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: "/",
   path: "/",
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const ServicesIndexRoute = ServicesIndexImport.update({
+const VulnerabilitiesIndexRoute = VulnerabilitiesIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => VulnerabilitiesRouteRoute,
+} as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => ServicesRouteRoute,
 } as any)
-
-const ServicesServiceRoute = ServicesServiceImport.update({
+const ServicesServiceRoute = ServicesServiceRouteImport.update({
   id: "/$service",
   path: "/$service",
   getParentRoute: () => ServicesRouteRoute,
 } as any)
 
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  "/": typeof IndexRoute
+  "/services": typeof ServicesRouteRouteWithChildren
+  "/vulnerabilities": typeof VulnerabilitiesRouteRouteWithChildren
+  "/services/$service": typeof ServicesServiceRoute
+  "/services/": typeof ServicesIndexRoute
+  "/vulnerabilities/": typeof VulnerabilitiesIndexRoute
+}
+export interface FileRoutesByTo {
+  "/": typeof IndexRoute
+  "/services/$service": typeof ServicesServiceRoute
+  "/services": typeof ServicesIndexRoute
+  "/vulnerabilities": typeof VulnerabilitiesIndexRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  "/": typeof IndexRoute
+  "/services": typeof ServicesRouteRouteWithChildren
+  "/vulnerabilities": typeof VulnerabilitiesRouteRouteWithChildren
+  "/services/$service": typeof ServicesServiceRoute
+  "/services/": typeof ServicesIndexRoute
+  "/vulnerabilities/": typeof VulnerabilitiesIndexRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: "/" | "/services" | "/vulnerabilities" | "/services/$service" | "/services/" | "/vulnerabilities/"
+  fileRoutesByTo: FileRoutesByTo
+  to: "/" | "/services/$service" | "/services" | "/vulnerabilities"
+  id: "__root__" | "/" | "/services" | "/vulnerabilities" | "/services/$service" | "/services/" | "/vulnerabilities/"
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
+  VulnerabilitiesRouteRoute: typeof VulnerabilitiesRouteRouteWithChildren
+}
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/": {
-      id: "/"
-      path: "/"
-      fullPath: "/"
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
+    "/vulnerabilities": {
+      id: "/vulnerabilities"
+      path: "/vulnerabilities"
+      fullPath: "/vulnerabilities"
+      preLoaderRoute: typeof VulnerabilitiesRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     "/services": {
       id: "/services"
       path: "/services"
       fullPath: "/services"
-      preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof ServicesRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    "/services/$service": {
-      id: "/services/$service"
-      path: "/$service"
-      fullPath: "/services/$service"
-      preLoaderRoute: typeof ServicesServiceImport
-      parentRoute: typeof ServicesRouteImport
+    "/": {
+      id: "/"
+      path: "/"
+      fullPath: "/"
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/vulnerabilities/": {
+      id: "/vulnerabilities/"
+      path: "/"
+      fullPath: "/vulnerabilities/"
+      preLoaderRoute: typeof VulnerabilitiesIndexRouteImport
+      parentRoute: typeof VulnerabilitiesRouteRoute
     }
     "/services/": {
       id: "/services/"
       path: "/"
       fullPath: "/services/"
-      preLoaderRoute: typeof ServicesIndexImport
-      parentRoute: typeof ServicesRouteImport
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof ServicesRouteRoute
+    }
+    "/services/$service": {
+      id: "/services/$service"
+      path: "/$service"
+      fullPath: "/services/$service"
+      preLoaderRoute: typeof ServicesServiceRouteImport
+      parentRoute: typeof ServicesRouteRoute
     }
   }
 }
-
-// Create and export the route tree
 
 interface ServicesRouteRouteChildren {
   ServicesServiceRoute: typeof ServicesServiceRoute
@@ -91,76 +143,21 @@ const ServicesRouteRouteChildren: ServicesRouteRouteChildren = {
 
 const ServicesRouteRouteWithChildren = ServicesRouteRoute._addFileChildren(ServicesRouteRouteChildren)
 
-export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
-  "/services": typeof ServicesRouteRouteWithChildren
-  "/services/$service": typeof ServicesServiceRoute
-  "/services/": typeof ServicesIndexRoute
+interface VulnerabilitiesRouteRouteChildren {
+  VulnerabilitiesIndexRoute: typeof VulnerabilitiesIndexRoute
 }
 
-export interface FileRoutesByTo {
-  "/": typeof IndexRoute
-  "/services/$service": typeof ServicesServiceRoute
-  "/services": typeof ServicesIndexRoute
+const VulnerabilitiesRouteRouteChildren: VulnerabilitiesRouteRouteChildren = {
+  VulnerabilitiesIndexRoute: VulnerabilitiesIndexRoute,
 }
 
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  "/": typeof IndexRoute
-  "/services": typeof ServicesRouteRouteWithChildren
-  "/services/$service": typeof ServicesServiceRoute
-  "/services/": typeof ServicesIndexRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/services" | "/services/$service" | "/services/"
-  fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/services/$service" | "/services"
-  id: "__root__" | "/" | "/services" | "/services/$service" | "/services/"
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
-}
+const VulnerabilitiesRouteRouteWithChildren = VulnerabilitiesRouteRoute._addFileChildren(
+  VulnerabilitiesRouteRouteChildren
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ServicesRouteRoute: ServicesRouteRouteWithChildren,
+  VulnerabilitiesRouteRoute: VulnerabilitiesRouteRouteWithChildren,
 }
-
-export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/services"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/services": {
-      "filePath": "services/route.tsx",
-      "children": [
-        "/services/$service",
-        "/services/"
-      ]
-    },
-    "/services/$service": {
-      "filePath": "services/$service.tsx",
-      "parent": "/services"
-    },
-    "/services/": {
-      "filePath": "services/index.tsx",
-      "parent": "/services"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
+export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()

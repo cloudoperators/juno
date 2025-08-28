@@ -31,22 +31,24 @@ export const Filters = ({ filters, filterSettings, onFilterChange, searchInputPl
 
   return (
     <Stack direction="vertical" gap="4" className="bg-theme-background-lvl-1 py-2 px-4 ">
-      <InputGroup>
-        <FilterSelect
-          filters={filters}
-          onChange={(selectedFilter) => {
-            const filterExists = filterSettings.selectedFilters?.some(
-              (filter) => filter.name === selectedFilter.name && filter.value === selectedFilter.value
-            )
-            //only add the filter if it does not already exist
-            if (!filterExists) {
-              onFilterChange({
-                ...filterSettings,
-                selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
-              })
-            }
-          }}
-        />
+      <Stack alignment="center" gap="4">
+        <InputGroup>
+          <FilterSelect
+            filters={filters}
+            onChange={(selectedFilter) => {
+              const filterExists = filterSettings.selectedFilters?.some(
+                (filter) => filter.name === selectedFilter.name && filter.value === selectedFilter.value
+              )
+              //only add the filter if it does not already exist
+              if (!filterExists) {
+                onFilterChange({
+                  ...filterSettings,
+                  selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
+                })
+              }
+            }}
+          />
+        </InputGroup>
         <Button
           label="Clear all"
           className="ml-4"
@@ -76,7 +78,7 @@ export const Filters = ({ filters, filterSettings, onFilterChange, searchInputPl
             })
           }
         />
-      </InputGroup>
+      </Stack>
       {filterSettings.selectedFilters && filterSettings.selectedFilters.length > 0 && (
         <SelectedFilters selectedFilters={filterSettings.selectedFilters} onDelete={handleFilterDelete} />
       )}
