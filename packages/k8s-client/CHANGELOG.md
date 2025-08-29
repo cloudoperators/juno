@@ -1,5 +1,11 @@
 # @cloudoperators/juno-k8s-client
 
+## 1.1.1
+
+### Patch Changes
+
+- 5ae0f8c: Update the bundler configuration to enable importing HTTPS packages in the production environment.
+
 ## 1.1.0
 
 ### Minor Changes
