@@ -4,13 +4,18 @@
  */
 
 import React, { useLayoutEffect } from "react"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, retainSearchParams } from "@tanstack/react-router"
 import { z } from "zod"
 import SilencesList from "../components/silences/SilencesList"
 import { convertUrlStateToAppState } from "../lib/urlStateUtils"
 import { useSilencesActions } from "../components/StoreProvider"
 
 const searchSchema = z.object({
+  /**
+   * TODO: remove it when no longer needed
+   * but we need to keep "org" search parameter due to it's significance in the shell app.
+   */
+  org: z.string().optional(),
   silencesRegEx: z.string().optional(),
   silencesStatus: z.string().optional(),
 })
