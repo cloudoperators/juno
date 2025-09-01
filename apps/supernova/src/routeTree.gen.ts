@@ -8,79 +8,88 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SilencesRouteImport } from './routes/silences'
+import { Route as AlertsRouteImport } from './routes/alerts'
+import { Route as IndexRouteImport } from './routes/index'
 
-import { Route as rootRoute } from "./routes/__root"
-import { Route as IndexImport } from "./routes/index"
-
-// Create/Update Routes
-
-const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => rootRoute,
+const SilencesRoute = SilencesRouteImport.update({
+  id: '/silences',
+  path: '/silences',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
-// Populate the FileRoutesByPath interface
-
-declare module "@tanstack/react-router" {
-  interface FileRoutesByPath {
-    "/": {
-      id: "/"
-      path: "/"
-      fullPath: "/"
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-  }
-}
-
-// Create and export the route tree
-
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
+  '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/silences': typeof SilencesRoute
 }
-
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute
+  '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/silences': typeof SilencesRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  "/": typeof IndexRoute
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/silences': typeof SilencesRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/"
+  fullPaths: '/' | '/alerts' | '/silences'
   fileRoutesByTo: FileRoutesByTo
-  to: "/"
-  id: "__root__" | "/"
+  to: '/' | '/alerts' | '/silences'
+  id: '__root__' | '/' | '/alerts' | '/silences'
   fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  SilencesRoute: typeof SilencesRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/silences': {
+      id: '/silences'
+      path: '/silences'
+      fullPath: '/silences'
+      preLoaderRoute: typeof SilencesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  SilencesRoute: SilencesRoute,
 }
-
-export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()

@@ -3,18 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { createFileRoute } from "@tanstack/react-router"
-import AppContent from "../AppContent"
+import { createFileRoute, redirect } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/")({
-  component: RouteComponent,
+  loader: () => redirect({ to: "/alerts", search: (prev) => ({ ...prev }) }), // redirect to the default /services page
 })
-
-function RouteComponent() {
-  return (
-    <>
-      <AppContent />
-    </>
-  )
-}

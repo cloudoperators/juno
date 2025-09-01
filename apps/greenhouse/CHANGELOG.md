@@ -1,5 +1,39 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.3
+
+### Patch Changes
+
+- Updated dependencies [5ae0f8c]
+  - @cloudoperators/juno-k8s-client@1.1.1
+
+## 0.7.2
+
+### Patch Changes
+
+- 9e9669f: When navigating to other app, do not copy url state of the previous app.
+- Updated dependencies [1020d89]
+- Updated dependencies [9e9669f]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-app-supernova@0.19.1
+  - @cloudoperators/juno-app-doop@2.5.2
+  - @cloudoperators/juno-app-heureka@0.8.5
+  - @cloudoperators/juno-messages-provider@0.2.14
+
+## 0.7.1
+
+### Patch Changes
+
+- 8a44efa: Supernova old url state is now converted to new URL state and for other apps tanstack router dependencies are updated.
+- c2a617e: Update nginx.conf so the client side routing works.
+- Updated dependencies [8a44efa]
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-app-supernova@0.19.0
+  - @cloudoperators/juno-app-heureka@0.8.4
+  - @cloudoperators/juno-app-doop@2.5.1
+  - @cloudoperators/juno-ui-components@5.2.0
+  - @cloudoperators/juno-messages-provider@0.2.13
+
 ## 0.7.0
 
 ### Minor Changes

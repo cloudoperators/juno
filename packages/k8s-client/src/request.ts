@@ -2,10 +2,10 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-import https from "https"
 import { buildUrl } from "./urlHelpers"
 import * as logger from "./logger"
 import { K8sApiError } from "./apiErrorHandler"
+import https from "https"
 
 // Define the shape of the options parameter
 interface RequestOptions {
@@ -16,8 +16,8 @@ interface RequestOptions {
   mode?: RequestMode
   cache?: RequestCache
   credentials?: RequestCredentials
-  ignoreSsl?: boolean // New option to ignore SSL certificate validation
-  debug?: boolean // Optional debug flag
+  ignoreSsl?: boolean
+  debug?: boolean
   [key: string]: any
 }
 
@@ -27,8 +27,28 @@ const checkStatus = (response: Response): Response => {
     return response
   } else {
     const error = new Error(response.statusText || `${response.status}`)
-    ;(error as K8sApiError).response = response // Type assertion to attach the response to the error
+    ;(error as K8sApiError).response = response
     throw error
+  }
+}
+
+// Helper function to create HTTPS agent only in Node.js
+function createHttpsAgent(ignoreSsl: boolean, url: string): https.Agent | undefined {
+  if (!ignoreSsl || !url.startsWith("https:") || typeof window !== "undefined") {
+    return undefined
+  }
+
+  try {
+    if (!https?.Agent) {
+      return undefined
+    }
+
+    return new https.Agent({
+      rejectUnauthorized: false,
+    })
+  } catch (_error) {
+    // https module not available (browser environment or bundle)
+    return undefined
   }
 }
 
@@ -41,57 +61,50 @@ const checkStatus = (response: Response): Response => {
  * @return {Promise<Response>} The response promise.
  */
 function request(method: string, url: string, options: RequestOptions = {}): Promise<Response> {
-  // add params to url
+  // Add params to url
   if (options.params) url = buildUrl(url, options.params)
 
   // Handle SSL ignore option
-  const { ignoreSsl, ...restOptions } = options
+  const { ignoreSsl, debug, ...restOptions } = options
 
-  // Create HTTPS agent if SSL should be ignored for HTTPS URLs
-  let agent: https.Agent | undefined
+  // Create HTTPS agent if needed (Node.js only)
+  const agent = createHttpsAgent(ignoreSsl || false, url)
 
-  if (ignoreSsl && url.startsWith("https:") && typeof window === "undefined") {
-    agent = new https.Agent({
-      rejectUnauthorized: false,
-    })
-
-    // Log warning when SSL verification is disabled
-    if (process.env.NODE_ENV !== "test" && options.debug === true) {
-      // Avoid spam in tests
-      logger.debug(`⚠️  SSL verification disabled for request to: ${url}`)
-    }
+  // Log warning when SSL verification is disabled
+  if (agent && debug === true && process.env.NODE_ENV !== "test") {
+    logger.debug(`⚠️  SSL verification disabled for request to: ${url}`)
   }
 
-  // add allowed options to fetch (excluding ignoreSsl as it's handled separately)
+  // Add allowed options to fetch (excluding ignoreSsl as it's handled separately)
   const requestFields = ["signal", "headers", "body", "mode", "cache", "credentials"] as const
-  const fetchOptions: RequestInit & { agent?: https.Agent } = requestFields.reduce(
+  const fetchOptions: RequestInit & { agent?: typeof agent } = requestFields.reduce(
     (map, key) => {
       if (restOptions[key]) {
         return { ...map, [key]: restOptions[key] }
       }
       return map
     },
-    { credentials: "same-origin", method } as RequestInit & { agent?: https.Agent }
+    { credentials: "same-origin", method } as RequestInit & { agent?: typeof agent }
   )
 
-  // Add agent if SSL should be ignored (Node.js environment only)
+  // Add agent if available
   if (agent) {
     fetchOptions.agent = agent
   }
 
-  // stringify body if it's an object
+  // Stringify body if it's an object
   if (fetchOptions.body && typeof fetchOptions.body !== "string") {
     fetchOptions.body = JSON.stringify(fetchOptions.body)
   }
 
-  if (options.debug === true) {
+  if (debug === true) {
     logger.debug("fetch >", url, {
       ...fetchOptions,
       agent: agent ? "HTTPS Agent (SSL ignored)" : fetchOptions.agent,
     })
   }
 
-  // make the call
+  // Make the call
   return fetch(url, fetchOptions).then(checkStatus)
 }
 

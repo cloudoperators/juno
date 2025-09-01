@@ -10,7 +10,7 @@ import { usePlugin } from "../components/StoreProvider"
 import { useAuth } from "../components/AuthProvider"
 import Extension from "../components/Extension"
 
-export const Route = createFileRoute("/$extensionId/*")({
+export const Route = createFileRoute("/$extensionId/$")({
   component: RouteComponent,
 })
 

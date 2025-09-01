@@ -6,13 +6,17 @@
 import React from "react"
 
 import { Pill, Stack } from "@cloudoperators/juno-ui-components"
+import { useNavigate } from "@tanstack/react-router"
 
 import { useActiveFilters, useFilterLabels, useFilterActions } from "../../StoreProvider"
+import { addFilter, removeFilter } from "../../../lib/urlStateUtils"
+import { ACTIVE_FILTERS_PREFIX } from "../../../constants"
 
 /**
  * For each of the given alert's labels which is included in the configured filterLabels render a Pill showing filterLabel and filterValue
  */
 const AlertLabels = ({ alert, showAll }: any) => {
+  const navigate = useNavigate()
   const filterLabels = showAll ? Object.keys(alert?.labels) : useFilterLabels()
   const activeFilters = useActiveFilters()
   const { addActiveFilter, removeActiveFilter } = useFilterActions()
@@ -22,6 +26,11 @@ const AlertLabels = ({ alert, showAll }: any) => {
     if (!activeFilters?.[filterLabel]?.includes(filterValue)) {
       e.stopPropagation()
       addActiveFilter(filterLabel, filterValue)
+      // add filter to URL state
+      navigate({
+        to: "/alerts",
+        search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, filterValue),
+      })
     } else {
       // otherwise remove it
       handleRemoveFilter(e, filterLabel, filterValue)
@@ -31,6 +40,10 @@ const AlertLabels = ({ alert, showAll }: any) => {
   const handleRemoveFilter = (e: any, filterLabel: any, filterValue: any) => {
     e.stopPropagation()
     removeActiveFilter(filterLabel, filterValue)
+    navigate({
+      to: "/alerts",
+      search: (prev) => removeFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, filterValue),
+    })
   }
 
   return (

@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-supernova",
-  "version": "0.18.0",
+  "version": "0.19.1",
   "author": "UI-Team",
   "contributors": [
     "Esther Schmitz",
@@ -9,6 +9,7 @@
   ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/supernova",
   "license": "Apache-2.0",
+  "source": "src/index.js",
   "type": "module",
   "exports": {
     ".": "./build/index.js"
@@ -20,7 +21,7 @@
     "@svgr/plugin-jsx": "^8.0.0",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-query": "5.62.2",
-    "@tanstack/router-plugin": "1.119.0",
+    "@tanstack/router-plugin": "1.131.25",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/react": "19.1.8",
@@ -42,7 +43,7 @@
   "scripts": {
     "test": "vitest run",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --mode development",
     "build:static": "vite build --mode static",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "serve": "vite preview",
@@ -54,10 +55,11 @@
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.119.0",
-    "@tanstack/react-router-devtools": "1.119.1",
+    "@tanstack/react-router": "1.131.25",
+    "@tanstack/react-router-devtools": "1.131.25",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-error-boundary": "^4.0.13"
+    "react-error-boundary": "^4.0.13",
+    "zod": "3.24.4"
   }
 }

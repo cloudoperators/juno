@@ -1,5 +1,22 @@
 # @cloudoperators/juno-app-doop
 
+## 2.5.2
+
+### Patch Changes
+
+- Updated dependencies [1020d89]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-messages-provider@0.2.14
+
+## 2.5.1
+
+### Patch Changes
+
+- 8a44efa: Supernova old url state is now converted to new URL state and for other apps tanstack router dependencies are updated.
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-ui-components@5.2.0
+  - @cloudoperators/juno-messages-provider@0.2.13
+
 ## 2.5.0
 
 ### Minor Changes

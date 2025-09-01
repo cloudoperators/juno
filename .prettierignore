@@ -5,3 +5,5 @@
 node_modules
 dist
 build
+# Ignore generated route tree files in all apps
+**/routeTree.gen.ts

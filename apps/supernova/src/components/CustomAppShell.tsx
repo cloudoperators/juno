@@ -5,21 +5,24 @@
 
 import React from "react"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useGlobalsEmbedded, useGlobalsActions, useGlobalsActiveSelectedTab } from "./StoreProvider"
+import { useLocation, useNavigate } from "@tanstack/react-router"
+import { useGlobalsEmbedded } from "./StoreProvider"
 
 const CustomAppShell = ({ children }: any) => {
+  const navigate = useNavigate()
+  const location = useLocation()
   const embedded = useGlobalsEmbedded()
-  const activeSelectedTab = useGlobalsActiveSelectedTab()
-  const { setActiveSelectedTab } = useGlobalsActions()
 
-  const handleTabSelect = (item: any) => {
-    setActiveSelectedTab(item)
+  const handleTabSelect = (link: React.ReactNode) => {
+    if (typeof link === "string") {
+      navigate({ to: link })
+    }
   }
 
   const topNavigation = (
-    <TopNavigation activeItem={activeSelectedTab} onActiveItemChange={handleTabSelect}>
-      <TopNavigationItem icon="danger" key="alerts" value="alerts" label="Alerts" />
-      <TopNavigationItem icon="info" key="silences" value="silences" label="Silences" />
+    <TopNavigation activeItem={location.pathname} onActiveItemChange={handleTabSelect}>
+      <TopNavigationItem icon="danger" key="/alerts" value="/alerts" label="Alerts" />
+      <TopNavigationItem icon="info" key="/silences" value="/silences" label="Silences" />
     </TopNavigation>
   )
 
