@@ -20,7 +20,7 @@ describe("DataGridRow", () => {
   })
 
   it("applies the hoverable class when true", () => {
-    render(<DataGridRow isHoverable>Content</DataGridRow>)
+    render(<DataGridRow>Content</DataGridRow>)
     const row = screen.getByRole("row")
 
     expect(row).toHaveClass("datagrid-row")

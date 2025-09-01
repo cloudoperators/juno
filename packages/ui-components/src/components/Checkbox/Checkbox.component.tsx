@@ -260,6 +260,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             onFocus={handleFocus}
             type="checkbox"
             value={value}
+            data-interactive-element
           />
           {isIndeterminate && !determineChecked() ? <div className={`${mockindeterminatestyles}`}></div> : ""}
         </div>

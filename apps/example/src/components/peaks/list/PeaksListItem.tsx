@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { DataGridCell, DataGridRow, Badge, Stack } from "@cloudoperators/juno-ui-components"
+import { DataGridCell, DataGridRow, Badge, Stack, Button } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../../mocks/db"
 import useUIStore from "../../../store/useUIStore"
@@ -50,7 +50,7 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
       <DataGridCell>{peak.region}</DataGridCell>
       <DataGridCell>{peak.countries}</DataGridCell>
       <DataGridCell className={"pt-5 pb-5"}>
-        <PeaksListItemActions peak={peak} onSelect={onSelect} />
+        <Button onClick={console.log("hello")} />
       </DataGridCell>
     </DataGridRow>
   )
