@@ -49,7 +49,7 @@ export const ServicesList = () => {
         <DataGridRow>
           <DataGridHeadCell>Service</DataGridHeadCell>
           <DataGridHeadCell colSpan={5} className="whitespace-nowrap">
-            Issue Counts
+            Vulnerability Counts
           </DataGridHeadCell>
           <DataGridHeadCell>Details</DataGridHeadCell>
           <DataGridHeadCell></DataGridHeadCell>

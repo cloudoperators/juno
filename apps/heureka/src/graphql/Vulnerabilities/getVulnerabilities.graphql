@@ -11,6 +11,15 @@ query GetVulnerabilities(
   # The vulnerabilities list is ordered by severity per default
   # The services list per CVE is ordered by name per default
   Vulnerabilities(filter: $filter, first: $first, after: $after) {
+    # Vulnerabilities counts per severity
+    counts {
+      critical
+      high
+      medium
+      low
+      none
+      total
+    }
     edges {
       node {
         severity
@@ -33,9 +42,15 @@ query GetVulnerabilities(
             }
           }
         }
+        supportGroups{
+          edges{
+            node{
+              ccrn
+            }
+          }
+        }
       }
     }
-    totalCount
     pageInfo {
       pageNumber
       pages {

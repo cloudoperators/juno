@@ -43,7 +43,7 @@ export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIs
   return (
     <>
       <Stack gap="2" className="mb-4 mt-8">
-        <ContentHeading>Issues</ContentHeading>
+        <ContentHeading>Vulnerabilities</ContentHeading>
         <SearchInput
           placeholder="Search for CVE number"
           className="w-96 ml-auto"
@@ -58,7 +58,7 @@ export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIs
           <DataGridHeadCell>
             <Icon icon="monitorHeart" />
           </DataGridHeadCell>
-          <DataGridHeadCell>Issue</DataGridHeadCell>
+          <DataGridHeadCell>Vulnerability</DataGridHeadCell>
           <DataGridHeadCell>Target Date</DataGridHeadCell>
           <DataGridHeadCell>Description</DataGridHeadCell>
         </DataGridRow>
@@ -68,7 +68,7 @@ export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIs
             fallback={
               <EmptyDataGridRow colSpan={4}>
                 <Stack gap="2" alignment="center">
-                  <div>Loading issues</div>
+                  <div>Loading vulnerabilities</div>
                   <Spinner variant="primary"></Spinner>
                 </Stack>
               </EmptyDataGridRow>

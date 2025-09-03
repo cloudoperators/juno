@@ -15,8 +15,18 @@
   </head>
   <body>
     <script type="module">
-      // appProps are excluded from standalone build and should be generated from outside
-      fetch("./appProps.json")
+      /*
+       * The `VITE_APP_PROPS_URL` can vary depending on the deployment environment.
+       *
+       * Examples:
+       * - For a standard static build, this variable is typically undefined,
+       *   and the app expects `appProps.json` to be located at the server root "/".
+       * - For deployments like GitHub Pages, it can be set to a subdirectory path
+       *   (e.g., a pull request-specific folder) where the static build is hosted.
+       */
+      const { VITE_APP_PROPS_URL } = import.meta.env
+      const appPropsUrl = VITE_APP_PROPS_URL || "/appProps.json"
+      fetch(appPropsUrl)
         .then((res) => res.json())
         .catch((error) => {
           console.warn("No appProps found, using default props", error.message)

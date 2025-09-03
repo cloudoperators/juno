@@ -1,5 +1,34 @@
 # heureka
 
+## 0.8.5
+
+### Patch Changes
+
+- Updated dependencies [1020d89]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-messages-provider@0.2.14
+
+## 0.8.4
+
+### Patch Changes
+
+- 8a44efa: Supernova old url state is now converted to new URL state and for other apps tanstack router dependencies are updated.
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-ui-components@5.2.0
+  - @cloudoperators/juno-messages-provider@0.2.13
+
+## 0.8.3
+
+### Patch Changes
+
+- 3f9fcbb: Added vulnerability counts per severity above the list
+
+## 0.8.2
+
+### Patch Changes
+
+- 6ce69e4: feat(heureka): adds vulnerability details panel
+
 ## 0.8.1
 
 ### Patch Changes

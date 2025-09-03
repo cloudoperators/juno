@@ -16,6 +16,7 @@ import AlertDescription from "./shared/AlertDescription"
 import AlertTimestamp from "./shared/AlertTimestamp"
 import AlertStatus from "./AlertStatus"
 import AlertRegion from "./shared/AlertRegion"
+import { useNavigate } from "@tanstack/react-router"
 
 const cellSeverityClasses = (severity: any) => {
   let borderColor = "border-text-theme-default"
@@ -40,7 +41,7 @@ const cellSeverityClasses = (severity: any) => {
 }
 
 const Alert = ({ alert }: any, ref: any) => {
-  const { setShowDetailsFor } = useGlobalsActions()
+  const navigate = useNavigate()
   const rowRef = useRef(null)
 
   const handleShowDetails = (e: any) => {
@@ -60,7 +61,7 @@ const Alert = ({ alert }: any, ref: any) => {
 
     e.stopPropagation()
     e.preventDefault()
-    setShowDetailsFor(alert?.fingerprint)
+    navigate({ to: "/alerts", search: (prev) => ({ ...prev, showDetailsFor: alert?.fingerprint }) })
   }
 
   return (

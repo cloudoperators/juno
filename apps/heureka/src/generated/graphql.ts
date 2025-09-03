@@ -698,6 +698,7 @@ export type IssueMatchEdge = Edge & {
 
 export type IssueMatchFilter = {
   componentCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  componentInstanceId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   id?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueType?: InputMaybe<Array<InputMaybe<IssueTypes>>>
   primaryName?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -1365,6 +1366,7 @@ export type QuerySupportGroupsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<SupportGroupFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<SupportGroupOrderBy>>>
 }
 
 export type QueryUsersArgs = {
@@ -1468,6 +1470,7 @@ export type ServiceSupportGroupsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<SupportGroupFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<SupportGroupOrderBy>>>
 }
 
 export type ServiceConnection = Connection & {
@@ -1625,6 +1628,15 @@ export type SupportGroupInput = {
   ccrn?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type SupportGroupOrderBy = {
+  by?: InputMaybe<SupportGroupOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum SupportGroupOrderByField {
+  Ccrn = "ccrn",
+}
+
 export type User = Node & {
   __typename?: "User"
   email?: Maybe<Scalars["String"]["output"]>
@@ -1648,6 +1660,7 @@ export type UserSupportGroupsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<SupportGroupFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<SupportGroupOrderBy>>>
 }
 
 export type UserConnection = Connection & {
@@ -1720,6 +1733,7 @@ export type VulnerabilityEdge = Edge & {
 }
 
 export type VulnerabilityFilter = {
+  name?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
@@ -1960,7 +1974,15 @@ export type GetVulnerabilitiesQuery = {
   __typename?: "Query"
   Vulnerabilities?: {
     __typename?: "VulnerabilityConnection"
-    totalCount: number
+    counts?: {
+      __typename?: "SeverityCounts"
+      critical: number
+      high: number
+      medium: number
+      low: number
+      none: number
+      total: number
+    } | null
     edges: Array<{
       __typename?: "VulnerabilityEdge"
       node: {
@@ -1982,6 +2004,13 @@ export type GetVulnerabilitiesQuery = {
             pageNumber?: number | null
             pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
           } | null
+        } | null
+        supportGroups?: {
+          __typename?: "SupportGroupConnection"
+          edges?: Array<{
+            __typename?: "SupportGroupEdge"
+            node: { __typename?: "SupportGroup"; ccrn?: string | null }
+          } | null> | null
         } | null
       }
     } | null>
@@ -2226,6 +2255,14 @@ export const GetVulnerabilitiesDocument = gql`
     $afterServices: String
   ) {
     Vulnerabilities(filter: $filter, first: $first, after: $after) {
+      counts {
+        critical
+        high
+        medium
+        low
+        none
+        total
+      }
       edges {
         node {
           severity
@@ -2248,9 +2285,15 @@ export const GetVulnerabilitiesDocument = gql`
               }
             }
           }
+          supportGroups {
+            edges {
+              node {
+                ccrn
+              }
+            }
+          }
         }
       }
-      totalCount
       pageInfo {
         pageNumber
         pages {

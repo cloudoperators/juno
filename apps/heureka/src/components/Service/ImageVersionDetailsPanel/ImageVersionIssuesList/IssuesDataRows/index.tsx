@@ -19,11 +19,11 @@ export const IssuesDataRows = ({ issuesPromise }: IssuesDataRowsProps) => {
   const { issues } = getNormalizedImageVersionIssuesResponse(data)
 
   if (error) {
-    return <EmptyDataGridRow colSpan={4}>Error loading issues: {error.message}</EmptyDataGridRow>
+    return <EmptyDataGridRow colSpan={4}>Error loading vulnerabilities: {error.message}</EmptyDataGridRow>
   }
 
   if (issues.length === 0) {
-    return <EmptyDataGridRow colSpan={4}>No issues found! 🚀</EmptyDataGridRow>
+    return <EmptyDataGridRow colSpan={4}>No vulnerabilities found! 🚀</EmptyDataGridRow>
   }
 
   return issues.map((issue) => <IssuesDataRow key={issue.name} issue={issue} />)

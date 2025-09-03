@@ -4,18 +4,47 @@
  */
 
 import React from "react"
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
+import { z } from "zod"
+import { ErrorBoundary } from "react-error-boundary"
+import { decodeV2, encodeV2, registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
-import AppContent from "./AppContent"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import styles from "./styles.css?inline"
 import { StoreProvider } from "./components/StoreProvider"
-import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import CustomAppShell from "./components/CustomAppShell"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ErrorBoundary } from "react-error-boundary"
-import useUrlState from "./hooks/useUrlState"
-import useUrlQueryState from "./hooks/useUrlQueryState"
-import { z } from "zod"
+import { routeTree } from "./routeTree.gen"
+import { convertAppStateToUrlState, extractSearchStringFromHashFragment, readLegacyUrlState } from "./lib/urlStateUtils"
+
+// Create a new router instance
+const router = createRouter({
+  routeTree,
+  context: {
+    appProps: undefined!,
+    queryClient: undefined!,
+  },
+})
+
+// Register the router instance for type safety
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router
+  }
+}
+
+export type AppProps = {
+  endpoint: string
+  filterLabels: string[]
+  initialFilters: Record<string, any>
+  predefinedFilters: Record<string, any>
+  silenceExcludedLabels: string[]
+  silenceTemplates: any[]
+  theme: "theme-dark" | "theme-light"
+  username: string
+  enableHashedRouting?: boolean
+  basePath?: string
+}
+
 const AppShellTheme = z.enum(["theme-dark", "theme-light"])
 
 const queryClient = new QueryClient({
@@ -47,36 +76,56 @@ const fallbackRender = ({ error }: any) => {
   )
 }
 
-function App() {
+const urlStateManager = registerConsumer("supernova")
+
+function App(props: AppProps) {
+  /*
+   * Dynamically change the type of history on the router
+   * based on the enableHashedRouting prop. This ensures that
+   * the correct history type is used when A Shell app does not
+   * want the app to use browser history.
+   */
+  router.update({
+    routeTree,
+    context: { appProps: props, queryClient },
+    history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
+    stringifySearch: encodeV2,
+    parseSearch: (searchString) => {
+      // If the app is using hashed routing, we need to correctly extract the search string from the hash fragment
+      const searchStringToDecode = !props.enableHashedRouting
+        ? searchString
+        : extractSearchStringFromHashFragment(searchString)
+
+      // If the search string is empty, return an empty object
+      if (!searchStringToDecode) return {}
+
+      /**
+       * To make new URL state compatible with the legacy URL state,
+       * we need to extract the legacy URL state from the search string
+       * and convert it to the new URL state format.
+       */
+      const searchParams = new URLSearchParams(searchStringToDecode)
+      const legacyUrlState = searchParams.get("__s") // This is used to extract the search params from the hash fragment
+      let newUrlState = {}
+      if (legacyUrlState !== null) {
+        newUrlState = convertAppStateToUrlState(readLegacyUrlState(urlStateManager.currentState()))
+        searchParams.delete("__s") // Remove the old state from the search params
+      }
+
+      const searchStringWithoutLegacyUrlState = searchParams.toString()
+      return { ...decodeV2(searchStringWithoutLegacyUrlState), ...newUrlState }
+    },
+  })
+
   return (
     <ErrorBoundary fallbackRender={fallbackRender}>
       <MessagesProvider>
-        <CustomAppShell>
-          <QueryClientProvider client={queryClient}>
-            <AppContent />
-          </QueryClientProvider>
-        </CustomAppShell>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider basepath={props.basePath || "/"} router={router} />
+        </QueryClientProvider>
       </MessagesProvider>
     </ErrorBoundary>
   )
-}
-
-const AppWithOldUrlStructure = (props: any) => {
-  // syncs navigation relevant states with the url for deep links
-  // gets the state from the URL in the beginning
-  // sets the URL from state information
-  useUrlState()
-  return <App {...props} />
-}
-
-const AppWithNewUrlStructure = (props: any) => {
-  /**
-   * [TODO]
-   * move the URL state changes closer to the origins of the change
-   * so the whole app does not unnecessarily re-render.
-   */
-  useUrlQueryState()
-  return <App {...props} />
 }
 
 const StyledApp = (props: any) => {
@@ -87,7 +136,7 @@ const StyledApp = (props: any) => {
       {/* load appstyles inside the shadow dom */}
       <style>{styles.toString()}</style>
       <StoreProvider options={props}>
-        {props?.enableNewUrlStructure ? <AppWithNewUrlStructure {...props} /> : <AppWithOldUrlStructure {...props} />}
+        <App {...props} />
       </StoreProvider>
     </AppShellProvider>
   )
