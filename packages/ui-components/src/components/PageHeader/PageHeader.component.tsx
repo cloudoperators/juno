@@ -7,26 +7,39 @@ import React, { ReactElement, ReactNode } from "react"
 import DefaultLogo from "../../img/JunoUI_logo.svg"
 
 const pageHeaderStyles = `
-  jn:min-h-[3.25rem]
-  jn:bg-juno-grey-blue-11
+  jn:bg-theme-pageheader
+  jn:border-theme-pageheader
+  jn:border-b-[1px]
   jn:sticky
   jn:top-0
-  jn:px-6
-  jn:py-3
+  jn:px-[1.25rem]
+  jn:py-[0.25rem]
+  jn:h-[3.25rem]
   jn:z-50
+  jn:flex
+  jn:items-center
+  jn:justify-between
 `
 
 const pageHeaderInnerStyles = `
-  jn:grid
-  jn:grid-cols-[minmax(0,max-content)_1fr]
-  jn:gap-3
-  jn:h-7
-  jn:w-full
+  jn:flex
+  jn:flex-row
+  jn:justify-between
   jn:items-center
+  jn:w-full
+  jn:h-full
+  jn:full
+  jn:gap-2
+`
+
+const logoAndTitleContainerStyles = `
+  jn:flex
+  jn:flex-row
+  jn:items-center
+  jn:gap-2
 `
 
 const logoContainerStyles = `
-  jn:h-7
   jn:max-w-xs
   jn:*:w-min
   jn:*:max-w-xs
@@ -34,20 +47,18 @@ const logoContainerStyles = `
   jn:*:object-contain
 `
 
-const contentContainerStyles = `
-  jn:grid
-  jn:grid-cols-[1fr_minmax(0,max-content)]
+const applicationNameStyles = `
+  jn:text-theme-pageheader-appname-default
+  jn:text-lg
+  jn:text-theme-high
 `
 
 const optionsStyles = `
   jn:flex
   jn:flex-row
   jn:items-center
-`
-
-const headingStyles = `
-  jn:text-lg
-  jn:text-theme-high
+  jn:gap-2
+  jn:justify-end
 `
 
 /**
@@ -57,45 +68,96 @@ const headingStyles = `
  */
 
 export const PageHeader: React.FC<PageHeaderProps> = ({
-  heading,
+  heading = "",
+  applicationName = "",
+  href = "",
   className = "",
   children,
   logo,
   onClick,
   ...props
 }) => {
+  const renderLogo = () => {
+    const logoElement =
+      typeof logo === "function" || (React.isValidElement(logo) && logo)
+        ? logo
+        : (logo === true || logo === undefined) && <DefaultLogo data-testid="default-logo" alt={""} />
+
+    return (
+      <div className={`juno-pageheader-logo-container ${logoContainerStyles}`} role={onClick ? "button" : undefined}>
+        {logoElement}
+      </div>
+    )
+  }
+
+  const renderApplicationName = () => (
+    <div className={`juno-pageheader-application-name ${applicationNameStyles}`} role={onClick ? "button" : undefined}>
+      {applicationName.trim() || heading}
+    </div>
+  )
+
+  const renderContentContainer = () => (
+    <div className={`juno-pageheader-content-container`}>
+      <div className={`juno-pageheader-options ${optionsStyles}`}>{children}</div>
+    </div>
+  )
+
+  const renderLogoAndTitle = () => (
+    <div
+      onClick={onClick}
+      className={`juno-pageheader-logo-title ${logoAndTitleContainerStyles} ${onClick ? "jn:cursor-pointer" : ""}`}
+    >
+      {renderLogo()}
+      {renderApplicationName()}
+    </div>
+  )
+
   return (
     <div className={`juno-pageheader theme-dark ${pageHeaderStyles} ${className}`} role="banner" {...props}>
       <div className={`juno-pageheader-inner ${pageHeaderInnerStyles}`}>
-        <div className={`juno-pageheader-logo-container ${logoContainerStyles}`}>
-          {
-            typeof logo === "function" || // Render if logo is a function (component)
-              (React.isValidElement(logo) && logo) || // Render if logo is a valid React element
-              ((logo === true || logo === undefined) && <DefaultLogo data-testid="default-logo" alt={""} />) // Render default logo if logo is true or undefined
-          }
-        </div>
-        <div className={`juno-pageheader-content-container ${contentContainerStyles}`}>
-          <div
-            className={`juno-pageheader-heading ${headingStyles} ${typeof onClick === "function" ? "jn:cursor-pointer" : ""}`}
-            onClick={onClick}
-          >
-            {heading && heading}
-          </div>
-          <div className={`juno-pageheader-options ${optionsStyles}`}>{children}</div>
-        </div>
+        {typeof onClick !== "function" && href ? (
+          <a href={href}>
+            {renderLogoAndTitle()}
+            {renderContentContainer()}
+          </a>
+        ) : (
+          <>
+            {renderLogoAndTitle()}
+            {renderContentContainer()}
+          </>
+        )}
       </div>
     </div>
   )
 }
 
 export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Heading (typically the name of the application) */
+  /**
+   * Name of the application.
+   */
+  applicationName?: string
+  /**
+   * DEPRECATED PROP - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.
+   */
   heading?: string | ReactElement
-  /** Add custom class name */
+  /**
+   * Link to open when applicationName or logo is clicked. If `onClick` is provided, it will take precedence.
+   */
+  href?: string
+  /**
+   * Custom class names.
+   */
   className?: string
+  /**
+   * Application logo.
+   */
   logo?: boolean | ReactElement
-  /** Optional: onClick handler for brand logo/page title. To be used to navigate to the home page.  */
+  /**
+   * Handler executed when `applicationName` or `logo` are clicked.
+   */
   onClick?: React.MouseEventHandler<HTMLDivElement>
-  /** Children to render in the header such as user name, avatar, log-in/out button, etc. */
+  /**
+   * Children to render in the header such as user name, avatar, log-in/out button, etc.
+   */
   children?: ReactNode
 }
