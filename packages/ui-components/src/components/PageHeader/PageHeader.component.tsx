@@ -62,9 +62,10 @@ const optionsStyles = `
 `
 
 /**
- * The PageHeader component renders a header to the application.
- * In order to customize the header Logo, PageHeader accepts a `logo` prop that expects a custom component: `logo={<CustomLogo />}` Ideally, the custom logo component should return an `<img />` or an inline `<svg>` element. When using `svg`, make sure the file does not contain any unnecessary cruft. `Svgo` is a great tool to optimize `svg` files. Make sure the `viewBox` element is not removed when optimizing a file for usage a a header logo.
- * Pass as prop to AppShell so it gets slotted into the correct place in the layout. If building your layout manually without AppShell place as first child of AppBody.
+ * The `PageHeader` component renders a header for an application with customisable `logo`, `title` and other options.
+ * Ideally, the custom logo component should return an `<img />` or an inline `<svg>` element.
+ * When using SVG, ensure the file is optimized to eliminate any superfluous elements or data that can contribute to increased file size and reduced performance. `Svgo` is a great tool to optimize `svg` files. Make sure the `viewBox` element is not removed when optimizing a file for usage a a header logo.
+ * Pass as prop to `AppShell` so it gets slotted into the correct place in the layout. If building your layout manually without `AppShell` place as first child of AppBody.
  */
 
 export const PageHeader: React.FC<PageHeaderProps> = ({
@@ -72,60 +73,39 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   applicationName = "",
   href = "",
   className = "",
+  logo = true,
   children,
-  logo,
   onClick,
   ...props
 }) => {
-  const renderLogo = () => {
-    const logoElement =
-      typeof logo === "function" || (React.isValidElement(logo) && logo)
-        ? logo
-        : (logo === true || logo === undefined) && <DefaultLogo data-testid="default-logo" alt={""} />
-
-    return (
-      <div className={`juno-pageheader-logo-container ${logoContainerStyles}`} role={onClick ? "button" : undefined}>
-        {logoElement}
-      </div>
-    )
-  }
-
-  const renderApplicationName = () => (
-    <div className={`juno-pageheader-application-name ${applicationNameStyles}`} role={onClick ? "button" : undefined}>
-      {applicationName.trim() || heading}
-    </div>
-  )
-
-  const renderContentContainer = () => (
-    <div className={`juno-pageheader-content-container`}>
-      <div className={`juno-pageheader-options ${optionsStyles}`}>{children}</div>
-    </div>
-  )
+  const Logo = typeof logo === "function" || React.isValidElement(logo) ? logo : logo && <DefaultLogo alt="" />
 
   const renderLogoAndTitle = () => (
     <div
       onClick={onClick}
       className={`juno-pageheader-logo-title ${logoAndTitleContainerStyles} ${onClick ? "jn:cursor-pointer" : ""}`}
+      role={onClick ? "button" : undefined}
     >
-      {renderLogo()}
-      {renderApplicationName()}
+      <div className={`juno-pageheader-logo-container ${logoContainerStyles}`}>{Logo}</div>
+      <div className={`juno-pageheader-application-name ${applicationNameStyles}`}>
+        {applicationName.trim() || heading}
+      </div>
     </div>
+  )
+
+  const contentWrapper = (
+    <>
+      {renderLogoAndTitle()}
+      <div className={`juno-pageheader-content-container`}>
+        <div className={`juno-pageheader-options ${optionsStyles}`}>{children}</div>
+      </div>
+    </>
   )
 
   return (
     <div className={`juno-pageheader theme-dark ${pageHeaderStyles} ${className}`} role="banner" {...props}>
       <div className={`juno-pageheader-inner ${pageHeaderInnerStyles}`}>
-        {typeof onClick !== "function" && href ? (
-          <a href={href}>
-            {renderLogoAndTitle()}
-            {renderContentContainer()}
-          </a>
-        ) : (
-          <>
-            {renderLogoAndTitle()}
-            {renderContentContainer()}
-          </>
-        )}
+        {href ? <a href={href}>{contentWrapper}</a> : contentWrapper}
       </div>
     </div>
   )

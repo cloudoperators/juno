@@ -26,7 +26,7 @@ const meta: Meta<typeof PageHeader> = {
         type: { summary: "ReactNode" },
       },
     },
-    heading: {
+    applicationName: {
       control: "text",
       table: {
         type: { summary: "string | ReactElement" },
@@ -44,21 +44,20 @@ export default meta
 
 export const Default: Story = {
   args: {
-    heading: "My App",
-    logo: true,
+    applicationName: "My App",
     onClick: undefined,
   },
 }
 
-export const WithHeading: Story = {
+export const WithapplicationName: Story = {
   args: {
-    heading: "My Awesome App",
+    applicationName: "My Awesome App",
   },
 }
 
-export const WithHeadingAndChildren: Story = {
+export const WithapplicationNameAndChildren: Story = {
   args: {
-    heading: "My Awesome App",
+    applicationName: "My Awesome App",
     children: (
       <>
         <span>Jane Doe</span>
@@ -68,7 +67,7 @@ export const WithHeadingAndChildren: Story = {
   },
 }
 
-export const NoHeadingWithChildren: Story = {
+export const NoapplicationNameWithChildren: Story = {
   args: {
     children: (
       <>
@@ -82,7 +81,7 @@ export const NoHeadingWithChildren: Story = {
 export const NoLogo: Story = {
   args: {
     logo: false,
-    heading: "My Awesome App",
+    applicationName: "My Awesome App",
     children: (
       <>
         <span>Jane Doe</span>
@@ -95,7 +94,7 @@ export const NoLogo: Story = {
 export const WithCustomLogoSquareInline: Story = {
   args: {
     logo: <CustomLogoSquare alt={""} />,
-    heading: "My Awesome App",
+    applicationName: "My Awesome App",
     children: (
       <>
         <span>Jane Doe</span>
@@ -108,7 +107,7 @@ export const WithCustomLogoSquareInline: Story = {
 export const WithCustomLogoLandscapeInline: Story = {
   args: {
     logo: <CustomLogoLandscape alt={""} />,
-    heading: "My Awesome App",
+    applicationName: "My Awesome App",
     children: (
       <>
         <span>Jane Doe</span>
@@ -121,14 +120,14 @@ export const WithCustomLogoLandscapeInline: Story = {
 export const WithCustomLogoPortraitInline: Story = {
   args: {
     logo: <CustomLogoPortrait alt={""} />,
-    heading: "My Awesome App",
+    applicationName: "My Awesome App",
   },
 }
 
 export const WithCustomLogoPNGSquare: Story = {
   args: {
     logo: <img src={CustomLogoSquarePNG} alt="Custom Logo Square" />,
-    heading: "My Awesome App",
+    applicationName: "My Awesome App",
     children: (
       <>
         <span>Jane Doe</span>
@@ -141,7 +140,7 @@ export const WithCustomLogoPNGSquare: Story = {
 export const WithCustomLogoPNGLandscape: Story = {
   args: {
     logo: <img src={CustomLogoLandscapePNG} alt="Custom Logo Landscape" />,
-    heading: "My Awesome App",
+    applicationName: "My Awesome App",
     children: (
       <>
         <span>Jane Doe</span>
@@ -154,7 +153,7 @@ export const WithCustomLogoPNGLandscape: Story = {
 export const WithCustomLogoPNGPortrait: Story = {
   args: {
     logo: <img src={CustomLogoPortraitPNG} alt="Custom Logo Portrait" />,
-    heading: "My Awesome App",
+    applicationName: "My Awesome App",
     children: (
       <>
         <span>Jane Doe</span>
