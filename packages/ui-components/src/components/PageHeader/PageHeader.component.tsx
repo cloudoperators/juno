@@ -78,7 +78,10 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   onClick,
   ...props
 }) => {
-  const Logo = typeof logo === "function" || React.isValidElement(logo) ? logo : logo && <DefaultLogo alt="" />
+  const Logo =
+    typeof logo === "function" || React.isValidElement(logo)
+      ? logo
+      : logo && <DefaultLogo alt="" data-testid="default-logo" />
 
   const renderLogoAndTitle = () => (
     <div
