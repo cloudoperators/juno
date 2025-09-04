@@ -332,6 +332,7 @@
   --background-color-theme-message-border-success: var(--color-message-success-border);
   --background-color-theme-modal-backdrop: var(--color-modal-backdrop-bg);
   --background-color-theme-panel: var(--color-panel-bg);
+  --background-color-theme-pageheader: var(--color-pageheader-background);
   --background-color-theme-radio: var(--color-radio-bg);
   --background-color-theme-radio-checked: var(--color-radio-checked-bg);
   --background-color-theme-required: var(--color-required-bg);
@@ -365,6 +366,9 @@
   --text-color-theme-textinput-autofill: var(--color-textinput-autofill-text);
   --text-color-theme-textinput-autofill-label: var(--color-textinput-autofill-label);
   --text-color-theme-checkbox-checked: var(--color-checkbox-checked-color);
+  --text-color-theme-pageheader-appname-active: var(--color-pageheader-appname-text-active);
+  --text-color-theme-pageheader-appname-default: var(--color-pageheader-appname-text-default);
+  --text-color-theme-pageheader-appname-hover: var(--color-pageheader-appname-text-hover);
   --text-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active);
 
   /* Component Border Colors: */
@@ -391,6 +395,8 @@
   --border-color-theme-message-success: var(--color-message-success-border);
 
   --border-color-theme-panel: var(--color-panel-border);
+
+  --border-color-theme-pageheader: var(--color-pageheader-border);
 
   --border-color-theme-switch-default: var(--color-switch-default-border);
   --border-color-theme-switch-hover: var(--color-switch-hover-border);
@@ -613,6 +619,12 @@
   --color-codeblock-bar-border: var(--color-background-lvl-4);
   /* LT Panel */
   --color-panel-bg: rgb(252 252 252 / 0.8);
+  /* LT PageHeader */
+  --color-pageheader-background: var(--color-white);
+  --color-pageheader-border: var(--color-juno-grey-light-7);
+  --color-pageheader-appname-text-default: var(--color-text-highest);
+  --color-pageheader-appname-text-hover: var(--color-text-highest);
+  --color-pageheader-appname-text-active: var(--color-text-highest);
   /* LT TabNavigation */
   --color-tabnavigation-top-bg: var(--color-juno-grey-light-5);
   --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4);
@@ -820,7 +832,12 @@
   --color-codeblock-bar-border: var(--color-background-lvl-4);
   /* DT Panel */
   --color-panel-bg: rgb(from var(--color-juno-grey-blue-11) r g b / 0.75);
-
+  /* DT PageHeader */
+  --color-pageheader-background: var(--color-juno-grey-blue-11);
+  --color-pageheader-border: var(--color-juno-grey-blue-3);
+  --color-pageheader-appname-text-default: var(--color-text-highest);
+  --color-pageheader-appname-text-hover: var(--color-text-highest);
+  --color-pageheader-appname-text-active: var(--color-text-highest);
   /* DT TabNavigation */
   --color-tabnavigation-top-bg: var(--color-juno-grey-blue-8);
   --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4);
