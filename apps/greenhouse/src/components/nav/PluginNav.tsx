@@ -69,7 +69,13 @@ const PluginNav = () => {
   const { data: authData, loggedIn, login, logout } = useAuth()
 
   const navigateToApp = (appId: string) => {
-    navigate({ to: `/${appId}` })
+    navigate({
+      to: `/${appId}`,
+      search: (prev: { org?: string }) => {
+        const { org } = prev
+        return { org } // preserve only the "org" search parameter when navigating
+      },
+    })
   }
 
   return (

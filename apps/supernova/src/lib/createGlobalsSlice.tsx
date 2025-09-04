@@ -15,13 +15,13 @@ interface GlobalState {
   showDetailsFor: string | null
   apiEndpoint?: string
   activeSelectedTab: string
-  isURLRead: boolean
+  initialFiltersApplied: boolean
   username?: string
   actions: GlobalActions
 }
 
 export interface GlobalActions {
-  setIsURLRead: () => void
+  setInitialFiltersApplied: () => void
   setShowDetailsFor: (alertID: string | null) => void
   setActiveSelectedTab: (activeSelectedTab: string) => void
 }
@@ -40,14 +40,14 @@ const createGlobalsSlice: (options?: Record<string, any>) => StateCreator<AppSta
       showDetailsFor: null,
       apiEndpoint: options?.endpoint,
       activeSelectedTab: "alerts",
-      isURLRead: false,
+      initialFiltersApplied: false,
       username: options?.username,
 
       actions: {
-        setIsURLRead: () =>
+        setInitialFiltersApplied: () =>
           set(
             (state) => ({
-              globals: { ...state.globals, isURLRead: true },
+              globals: { ...state.globals, initialFiltersApplied: true },
             }),
             false
           ),
