@@ -169,7 +169,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       {copy ? (
         <div className={`juno-codeblock-bottombar ${bottomBarStyles}`}>
           <span className={`${copyTextStyles}`}>{isCopied ? "Copied!" : ""}</span>
-          <Icon icon="contentCopy" onClick={handleCopyClick} />
+          <Icon icon="contentCopy" onClick={handleCopyClick} data-row-stop-propagation />
         </div>
       ) : (
         ""

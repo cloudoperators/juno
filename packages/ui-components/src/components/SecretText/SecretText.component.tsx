@@ -223,6 +223,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
           readOnly={readOnly}
           valid={valid}
           value={val}
+          data-row-stop-propagation
           {...props}
         />
       </div>
@@ -250,6 +251,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
               onClick={handleClearClick}
               disabled={disabled || disableClear || !val.length ? true : undefined}
               title="Clear"
+              data-row-stop-propagation
             >
               Clear
             </Button>

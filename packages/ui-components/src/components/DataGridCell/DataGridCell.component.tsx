@@ -43,7 +43,7 @@ export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
       const target = event.target as HTMLElement
       // If there's child interactive elements, prioritise their event handlers
-      if (target.closest("[data-interactive-element]")) event.stopPropagation()
+      if (target.closest("[data-row-stop-propagation]")) event.stopPropagation()
     }
 
     return (

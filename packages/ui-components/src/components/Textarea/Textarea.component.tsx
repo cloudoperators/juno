@@ -223,6 +223,7 @@ export const Textarea: React.FC<TextareaProps> = ({
             ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
             ${className}
           `}
+          data-row-stop-propagation
           {...props}
         />
         <Icons disabled={disabled} />

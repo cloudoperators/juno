@@ -280,6 +280,7 @@ export const Switch: React.FC<SwitchProps> = ({
             ${isValid ? "juno-switch-valid " + validBaseStyles : ""} 
             ${isValid || isInvalid ? "" : borderBaseStyles} 
             ${className}`}
+          data-row-stop-propagation
           {...props}
         >
           <span
@@ -289,7 +290,14 @@ export const Switch: React.FC<SwitchProps> = ({
           ></span>
         </button>
 
-        <Label text={label} htmlFor={generatedId} className="jn:ml-2" disabled={disabled} required={required} />
+        <Label
+          text={label}
+          htmlFor={generatedId}
+          className="jn:ml-2"
+          disabled={disabled}
+          required={required}
+          data-row-stop-propagation
+        />
 
         {renderValidationIcon(isInvalid, isValid, disabled)}
       </span>

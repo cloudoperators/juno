@@ -198,10 +198,10 @@ const Toolbar: React.FC = () => {
       }}
     >
       <span style={{ display: "flex" }}>
-        <span style={{ cursor: "pointer" }} onClick={() => onExpandAll && onExpandAll(true)}>
+        <span style={{ cursor: "pointer" }} onClick={() => onExpandAll && onExpandAll(true)} data-row-stop-propagation>
           <ExpandAllIcon />
         </span>
-        <span style={{ cursor: "pointer" }} onClick={() => onExpandAll && onExpandAll(false)}>
+        <span style={{ cursor: "pointer" }} onClick={() => onExpandAll && onExpandAll(false)} data-row-stop-propagation>
           <CollapseAllIcon />
         </span>
       </span>
@@ -227,6 +227,7 @@ const ExpandButton: React.FC<ExpandButtonProps> = ({ children, isExpanded, setIs
       onClick={() => {
         setIsExpanded(!isExpanded)
       }}
+      data-row-stop-propagation
     >
       {children}
     </span>

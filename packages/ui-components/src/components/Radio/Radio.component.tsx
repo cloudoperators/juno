@@ -238,8 +238,9 @@ export const Radio: React.FC<RadioProps> = ({
             name={groupName || name}
             type="radio"
             value={value}
+            data-row-stop-propagation
           />
-          {determineChecked() ? <span className={`${checkedstyles}`}></span> : ""}
+          {determineChecked() ? <span className={`${checkedstyles}`} data-row-stop-propagation></span> : ""}
         </div>
         {label && isNotEmptyString(label) ? (
           <>
