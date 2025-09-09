@@ -1,5 +1,13 @@
 # @cloudoperators/juno-ui-components
 
+## 5.4.0
+
+### Minor Changes
+
+- 55014f5: Updated `PageHeader` component's styling, API, theming support and documentation
+  - Added `applicationName`, deprecated `heading`.
+  - Added `href`, used if `onClick` not supplied.
+
 ## 5.3.0
 
 ### Minor Changes

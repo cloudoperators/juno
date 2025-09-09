@@ -2,7 +2,7 @@
   "name": "@cloudoperators/juno-ui-components",
   "private": false,
   "source": "src/index.js",
-  "version": "5.3.0",
+  "version": "5.4.0",
   "types": "build/index.d.ts",
   "exports": {
     "./index": "./build/index.js",
