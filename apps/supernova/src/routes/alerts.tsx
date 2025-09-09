@@ -67,8 +67,8 @@ function RouteComponent() {
     appStateFromUrl: { activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor },
   } = Route.useRouteContext()
   const navigate = Route.useNavigate()
-  const initialFiltersApplied = useGlobalsInitialFiltersApplied()
-  const { setShowDetailsFor, setInitialFiltersApplied } = useGlobalsActions()
+  const isUrlRead = useGlobalsInitialFiltersApplied()
+  const { setShowDetailsFor, setIsUrlRead } = useGlobalsActions()
   const { setActiveFilters, setPausedFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
 
   /**
@@ -77,8 +77,8 @@ function RouteComponent() {
    * */
   useLayoutEffect(() => {
     // we only want to apply initial filters only once when url does not contain any filter
-    if (!initialFiltersApplied && Object.keys(activeFilters).length === 0 && Object.keys(initialFilters).length > 0) {
-      setInitialFiltersApplied()
+    if (!isUrlRead && Object.keys(activeFilters).length === 0 && Object.keys(initialFilters).length > 0) {
+      setIsUrlRead()
       navigate({
         to: "/alerts",
         replace: true,
@@ -90,6 +90,7 @@ function RouteComponent() {
       setActivePredefinedFilter(predefinedFilter)
       setSearchTerm(searchTerm)
       setShowDetailsFor(showDetailsFor)
+      setIsUrlRead()
     }
   }, [activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor])
 
