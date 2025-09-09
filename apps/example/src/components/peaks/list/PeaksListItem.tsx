@@ -10,8 +10,6 @@ import {
   Badge,
   Stack,
   Button,
-  BreadcrumbItem,
-  Breadcrumb,
   CodeBlock,
   Checkbox,
   NativeSelect,
@@ -23,9 +21,6 @@ import {
   Switch,
   Textarea,
   TextInput,
-  Panel,
-  PanelBody,
-  Modal,
   Pill,
   Icon,
   CheckboxGroup,
@@ -48,14 +43,12 @@ import usePeaksStore from "../../../store/usePeaksStore"
 
 import { DEFAULT_SMALL_APP_MARGIN } from "../../constants"
 
-import PeaksListItemActions from "./PeaksListItemActions"
-
 export interface PeaksListItemProps {
   peak: Peak
   onSelect: (_peak: Peak) => void
 }
 
-const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
+const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak }) => {
   const { setCurrentPanel } = useUIStore()
   const { setSelectedPeakId } = usePeaksStore()
 
