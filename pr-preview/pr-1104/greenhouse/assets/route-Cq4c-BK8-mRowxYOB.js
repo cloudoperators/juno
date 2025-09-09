@@ -1,0 +1,1 @@
+import{O as o}from"./App-DauZruEj-DpxlQKN8.js";import"./index-Cscck6QC.js";import"./_extensionId._-dE6wRexP.js";import"./Shell-BPiNClG-.js";import"./index-BgesHL6F.js";const n=o;export{n as component};
