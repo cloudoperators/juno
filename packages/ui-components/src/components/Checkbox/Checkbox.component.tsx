@@ -230,6 +230,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             ${className}
           `}
           {...props}
+          data-row-stop-propagation
         >
           {determineChecked() ? (
             <svg
@@ -260,7 +261,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             onFocus={handleFocus}
             type="checkbox"
             value={value}
-            data-row-stop-propagation
           />
           {isIndeterminate && !determineChecked() ? <div className={`${mockindeterminatestyles}`}></div> : ""}
         </div>

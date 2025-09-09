@@ -29,6 +29,17 @@ import {
   Pill,
   Icon,
   CheckboxGroup,
+  ComboBoxOption,
+  ComboBox,
+  DateTimePicker,
+  RadioGroup,
+  Select,
+  SelectOption,
+  PopupMenu,
+  PopupMenuOptions,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
 } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../../mocks/db"
@@ -51,11 +62,6 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
   const openPanel = () => {
     setCurrentPanel("ShowPeak")
     setSelectedPeakId(peak.id)
-  }
-
-  const handleGroupChange = () => {
-    console.log("Checkbox group values updated:", "xsss")
-    alert("Checkbox Group!")
   }
 
   return (
@@ -81,14 +87,48 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
       <DataGridCell>{peak.countries}</DataGridCell>
       <DataGridCell className={"pt-5 pb-5"}>
         {/* Pass in additional props (...props) */}
-        <Button label="Default" onDoubleClick={() => alert("Button!")} />
-        <Checkbox onDoubleClick={() => alert("Button!")} />
-        <CheckboxGroup onChange={handleGroupChange}>
+        <Button label="Double Click" onDoubleClick={() => alert("Button!")} />
+        <Checkbox label="Double Click" onDoubleClick={() => alert("Double Clicked!")} />
+        <CheckboxGroup onChange={() => alert("Checkbox Group!")}>
           <Checkbox label="Option 1" value="val-1" />
           <Checkbox label="Option 2" value="val-2" />
           <Checkbox label="Option 3" value="val-3" />
         </CheckboxGroup>
         <CodeBlock content="Some code goes here" />
+        <ComboBox
+          onBlur={function Ofe() {}}
+          onChange={() => alert("ComboBox!")}
+          onFocus={function Ofe() {}}
+          onInputChange={function Ofe() {}}
+        >
+          <ComboBoxOption value="Rhubarb">Rhubarb</ComboBoxOption>
+          <ComboBoxOption value="Carrots">Carrots</ComboBoxOption>
+          <ComboBoxOption value="Spinach">Spinach</ComboBoxOption>
+          <ComboBoxOption value="Tomatoes">Tomatoes</ComboBoxOption>
+          <ComboBoxOption value="Cucumbers">Cucumbers</ComboBoxOption>
+          <ComboBoxOption value="Cauliflower">Cauliflower</ComboBoxOption>
+          <ComboBoxOption value="Eggplant">Eggplant</ComboBoxOption>
+          <ComboBoxOption value="Zucchini">Zucchini</ComboBoxOption>
+          <ComboBoxOption value="Brussels sprouts">Brussels Sprouts</ComboBoxOption>
+          <ComboBoxOption value="Horseradish">Horseradish</ComboBoxOption>
+          <ComboBoxOption value="Green beans">Green Beans</ComboBoxOption>
+          <ComboBoxOption value="Mushrooms">Mushrooms</ComboBoxOption>
+          <ComboBoxOption value="Leek">Leek</ComboBoxOption>
+          <ComboBoxOption value="Artichokes">Artichokes</ComboBoxOption>
+          <ComboBoxOption value="Peas">Peas</ComboBoxOption>
+          <ComboBoxOption value="Potatoes">Potatoes</ComboBoxOption>
+        </ComboBox>
+        <DateTimePicker
+          onBlur={function Ofe() {}}
+          onChange={function Ofe() {}} // Reviewers: Issue? Why DateTimePicket event fires on load?
+          onClear={function Ofe() {}}
+          onClose={function Ofe() {}}
+          onFocus={function Ofe() {}}
+          onMonthChange={function Ofe() {}}
+          onOpen={function Ofe() {}}
+          onReady={function Ofe() {}}
+          onYearChange={function Ofe() {}}
+        />
         <JsonViewer
           data={{
             array: [],
@@ -125,6 +165,11 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
           <NativeSelectOption label="Option 3" value="o-3" />
         </NativeSelect>
         <Radio onChange={function Ofe() {}} onClick={() => alert("Radio!")} value="1" />
+        <RadioGroup onChange={() => alert("Radio Group!")}>
+          <Radio label="Option 1" value="default-1" />
+          <Radio label="Option 2" value="default-2" />
+          <Radio label="Option 3" value="default-3" />
+        </RadioGroup>
         <SearchInput
           onChange={function Ofe() {}}
           onClear={function Ofe() {}}
@@ -132,10 +177,39 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak, onSelect }) => {
           onKeyPress={function Ofe() {}}
           onSearch={function Ofe() {}}
         />
+        <SecretText
+          onBlur={function Ofe() {}}
+          onChange={function Ofe() {}}
+          onClear={function Ofe() {}}
+          onCopy={function Ofe() {}}
+          onFocus={function Ofe() {}}
+          onHide={function Ofe() {}}
+          onPaste={function Ofe() {}}
+          onReveal={function Ofe() {}}
+          onToggle={function Ofe() {}}
+        />
+        {/* Reviewers: Event fires here on click of option */}
+        <Select onChange={function Ofe() {}} onValueChange={function Ofe() {}}>
+          <SelectOption value="Option 1" />
+          <SelectOption value="Option 2" />
+          <SelectOption value="Option 3" />
+        </Select>
         <Switch id="switch-default" label="Switch" onChange={function Ofe() {}} onClick={() => alert("Switch!")} />
         <Textarea onBlur={function Ofe() {}} onChange={function Ofe() {}} onFocus={function Ofe() {}} />
         <TextInput onBlur={function Ofe() {}} onChange={function Ofe() {}} onFocus={function Ofe() {}} />
-        <Icon color="jn-global-text" icon="help" onClick={() => alert("Icon!")} />
+        <Tooltip initialOpen>
+          <TooltipTrigger>
+            <span>click me</span>
+          </TooltipTrigger>
+          <TooltipContent>A default tooltip</TooltipContent>
+        </Tooltip>
+        <PopupMenu onClose={function Ofe() {}} onOpen={function Ofe() {}}>
+          <PopupMenuOptions>
+            {/* Menu item doesn't block event */}
+            <button>Menu goes here.</button>
+          </PopupMenuOptions>
+        </PopupMenu>
+        <Icon color="text-theme-success" icon="success" onClick={() => alert("Icon!")} />
         <Pill
           closeable
           onClick={() => alert("Pill Clicked!")}

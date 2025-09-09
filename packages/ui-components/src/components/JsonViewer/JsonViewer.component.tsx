@@ -198,10 +198,10 @@ const Toolbar: React.FC = () => {
       }}
     >
       <span style={{ display: "flex" }}>
-        <span style={{ cursor: "pointer" }} onClick={() => onExpandAll && onExpandAll(true)} data-row-stop-propagation>
+        <span style={{ cursor: "pointer" }} onClick={() => onExpandAll && onExpandAll(true)}>
           <ExpandAllIcon />
         </span>
-        <span style={{ cursor: "pointer" }} onClick={() => onExpandAll && onExpandAll(false)} data-row-stop-propagation>
+        <span style={{ cursor: "pointer" }} onClick={() => onExpandAll && onExpandAll(false)}>
           <CollapseAllIcon />
         </span>
       </span>
@@ -227,7 +227,6 @@ const ExpandButton: React.FC<ExpandButtonProps> = ({ children, isExpanded, setIs
       onClick={() => {
         setIsExpanded(!isExpanded)
       }}
-      data-row-stop-propagation
     >
       {children}
     </span>
@@ -398,6 +397,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
           ...style,
         }}
         {...props}
+        data-row-stop-propagation
       >
         {toolbar && <Toolbar />}
         <JsonData name={showRoot ? "root" : false} value={data} />

@@ -244,6 +244,7 @@ const PopupMenu: React.FC<PopupMenuProps> = ({
             <div
               ref={refs.setReference}
               className={`juno-popupmenu-float-reference-wrapper ${floatingReferenceWrapperStyles}`}
+              data-row-stop-propagation
             >
               {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
               {!hasToggle && (
@@ -336,6 +337,7 @@ export const PopupMenuItem: React.FC<PopupMenuItemProps> = ({
       className={`juno-popupmenu-item ${itemStyles} ${disabled ? disabledItemStyles : actionableItemStyles} ${itemSizeStyles} ${className}`}
       {...(as === "a" ? { href, rel, target } : {})} // Conditionally spread anchor-specific props only when renering an anchor
       {...props}
+      data-row-stop-propagation
     >
       {/* 
       To render the item content, provide an itemBag context to the headless ui API. This includes properties like active, disabled, close. 

@@ -220,6 +220,7 @@ export const Radio: React.FC<RadioProps> = ({
              ${isInvalid || isValid ? "" : noBorderStyles}
              ${className}
            `}
+          data-row-stop-propagation
           {...props}
         >
           <input
@@ -238,9 +239,8 @@ export const Radio: React.FC<RadioProps> = ({
             name={groupName || name}
             type="radio"
             value={value}
-            data-row-stop-propagation
           />
-          {determineChecked() ? <span className={`${checkedstyles}`} data-row-stop-propagation></span> : ""}
+          {determineChecked() ? <span className={`${checkedstyles}`}></span> : ""}
         </div>
         {label && isNotEmptyString(label) ? (
           <>

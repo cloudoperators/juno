@@ -148,6 +148,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       className={`juno-code-block ${wrapperStyles} ${lang ? `juno-code-block-lang-${lang}` : ""} ${className}`}
       data-lang={lang || null}
       {...props}
+      data-row-stop-propagation
     >
       {heading && heading.length ? (
         <div className={`juno-codeblock-heading ${headingStyles}`}>
@@ -169,7 +170,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       {copy ? (
         <div className={`juno-codeblock-bottombar ${bottomBarStyles}`}>
           <span className={`${copyTextStyles}`}>{isCopied ? "Copied!" : ""}</span>
-          <Icon icon="contentCopy" onClick={handleCopyClick} data-row-stop-propagation />
+          <Icon icon="contentCopy" onClick={handleCopyClick} />
         </div>
       ) : (
         ""
