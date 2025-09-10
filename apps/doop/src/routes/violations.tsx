@@ -4,7 +4,7 @@
  */
 
 import React, { useLayoutEffect } from "react"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, retainSearchParams } from "@tanstack/react-router"
 import { z } from "zod"
 import AppContent from "../components/AppContent"
 import { convertUrlStateToAppState, getFiltersForUrl } from "../lib/urlStateUtils"
@@ -15,15 +15,10 @@ import {
   useGlobalsActions,
   useGlobalsInitialFiltersApplied,
 } from "../components/StoreProvider"
-import { parse } from "path"
 import { parseInitialFilters } from "../lib/store/createFiltersSlice"
 
 const searchSchema = z
   .object({
-    /**
-     * TODO: remove it when no longer needed
-     * but we need to keep "org" search parameter due to it's significance in the shell app.
-     */
     org: z.string().optional(),
     searchTerm: z.string().optional(),
     violationGroup: z.string().optional(),
@@ -42,6 +37,13 @@ const searchSchema = z
 
 export const Route = createFileRoute("/violations")({
   validateSearch: searchSchema,
+  search: {
+    /**
+     * TODO: remove it when no longer needed
+     * but we need to keep "org" search parameter due to it's significance in the shell app.
+     */
+    middlewares: [retainSearchParams(["org"])],
+  },
   beforeLoad: ({ search }) => {
     // extract alerts specific state from the URL search params
     const { activeFilters, searchTerm, violationGroup } = convertUrlStateToAppState(search)

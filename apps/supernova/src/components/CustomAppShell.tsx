@@ -17,10 +17,6 @@ const CustomAppShell = ({ children }: any) => {
     if (typeof link === "string") {
       navigate({
         to: link,
-        search: (prev) => {
-          const { org } = prev
-          return { org } // preserve only the "org" search parameter when navigating
-        },
       })
     }
   }

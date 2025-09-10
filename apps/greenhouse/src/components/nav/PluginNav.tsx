@@ -71,10 +71,6 @@ const PluginNav = () => {
   const navigateToApp = (appId: string) => {
     navigate({
       to: `/${appId}`,
-      search: (prev: { org?: string }) => {
-        const { org } = prev
-        return { org } // preserve only the "org" search parameter when navigating
-      },
     })
   }
 

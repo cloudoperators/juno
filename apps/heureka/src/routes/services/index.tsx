@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, retainSearchParams } from "@tanstack/react-router"
 import { z } from "zod"
 import { Services } from "../../components/Services"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
@@ -19,6 +19,7 @@ import {
 // Schema for validating and transforming search parameters related to /services page.
 const servicesSearchSchema = z
   .object({
+    org: z.string().optional(),
     service: z.string().optional(),
     searchTerm: z.string().optional(),
   })
@@ -38,6 +39,13 @@ export type ServicesSearchParams = z.infer<typeof servicesSearchSchema>
 
 export const Route = createFileRoute("/services/")({
   validateSearch: servicesSearchSchema,
+  search: {
+    /**
+     * TODO: remove it when no longer needed
+     * but we need to keep "org" search parameter due to it's significance in the shell app.
+     */
+    middlewares: [retainSearchParams(["org"])],
+  },
   loaderDeps: ({ search }) => {
     const { service, ...rest } = search
     return rest
