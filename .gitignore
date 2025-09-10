@@ -20,6 +20,3 @@ vite.config.*.timestamp-*
 .env
 act_*.json
 .secret
-# Ignore generated route tree files in all apps
-# as it will auto generate on build or starting an application
-**/routeTree.gen.ts
