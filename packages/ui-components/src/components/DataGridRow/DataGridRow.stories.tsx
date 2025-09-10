@@ -59,7 +59,7 @@ export const Default: StoryObj<DataGridRowStoryProps> = {
     </DataGridRow>
   ),
   args: {
-    isActive: false,
+    isSelected: false,
     items: Array(columns).fill({ ...DataGridCellStory.args }),
   },
   parameters: {
@@ -102,7 +102,7 @@ export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
 export const ActiveRow: StoryObj<DataGridRowStoryProps> = {
   render: ({ items, ...args }) => (
     <>
-      <DataGridRow isActive {...args}>
+      <DataGridRow isSelected {...args}>
         {items.map((item, i) => (
           <DataGridCell {...item} key={i} />
         ))}
@@ -120,7 +120,7 @@ export const ActiveRow: StoryObj<DataGridRowStoryProps> = {
   parameters: {
     docs: {
       description: {
-        story: "When `isActive` is set, the DataGridRow persists to be active.",
+        story: "When `isSelected` is set, the DataGridRow persists to be active.",
       },
     },
   },

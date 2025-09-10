@@ -7,14 +7,14 @@ import React, { forwardRef } from "react"
 import "./data-grid-row.css"
 
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
-  ({ isActive = false, onClick, className = "", children, ...props }, ref) => {
+  ({ isSelected = false, onClick, className = "", children, ...props }, ref) => {
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
       if (onClick) onClick(event)
     }
 
     const finalStyles = `
       datagrid-row
-      ${isActive ? "datagrid-row-active" : ""}
+      ${isSelected ? "datagrid-row-active" : ""}
       ${onClick ? "datagrid-row-hoverable" : ""}
       ${className}
     `
@@ -34,7 +34,7 @@ export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
    * Indicates if the DataGridRow should be in an active state,
    * applying styles for persistent selection or activation.
    */
-  isActive?: boolean
+  isSelected?: boolean
 
   /**
    * Row click handler

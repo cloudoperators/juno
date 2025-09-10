@@ -19,8 +19,8 @@ describe("DataGridRow", () => {
     expect(screen.getByRole("row")).toHaveClass("my-custom-class")
   })
 
-  it("applies the hoverable class when true", () => {
-    render(<DataGridRow>Content</DataGridRow>)
+  it("applies the hoverable class when onClick passed", () => {
+    render(<DataGridRow onClick={() => {}}>Content</DataGridRow>)
     const row = screen.getByRole("row")
 
     expect(row).toHaveClass("datagrid-row")
@@ -28,7 +28,7 @@ describe("DataGridRow", () => {
   })
 
   it("applies the active class when true", () => {
-    render(<DataGridRow isActive>Content</DataGridRow>)
+    render(<DataGridRow isSelected>Content</DataGridRow>)
     const row = screen.getByRole("row")
 
     expect(row).toHaveClass("datagrid-row")
