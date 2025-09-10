@@ -396,10 +396,24 @@ export const SeverityHigh: Story = {
   },
 }
 
+export const SeverityVeryHigh: Story = {
+  args: {
+    ...Default.args,
+    icon: "severityVeryHigh",
+  },
+}
+
 export const SeverityCritical: Story = {
   args: {
     ...Default.args,
     icon: "severityCritical",
+  },
+}
+
+export const SeverityUnknown: Story = {
+  args: {
+    ...Default.args,
+    icon: "severityUnknown",
   },
 }
 

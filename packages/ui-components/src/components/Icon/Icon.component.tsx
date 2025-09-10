@@ -52,7 +52,9 @@ import Search from "@material-design-icons/svg/outlined/search.svg"
 import SeverityLow from "./icons/juno_severity_low.svg"
 import SeverityMedium from "./icons/juno_severity_medium.svg"
 import SeverityHigh from "./icons/juno_severity_high.svg"
+import SeverityVeryHigh from "./icons/juno_severity_very_high.svg"
 import SeverityCritical from "./icons/juno_severity_critical.svg"
+import SeverityUnknown from "./icons/juno_severity_unknown.svg"
 import Upload from "@material-design-icons/svg/filled/upload.svg"
 import Warning from "@material-design-icons/svg/filled/warning.svg"
 import WBSunny from "@material-design-icons/svg/outlined/wb_sunny.svg"
@@ -182,7 +184,11 @@ export enum KnownIconsEnum {
   // eslint-disable-next-line no-unused-vars
   severityHigh = "severityHigh",
   // eslint-disable-next-line no-unused-vars
+  severityVeryHigh = "severityVeryHigh",
+  // eslint-disable-next-line no-unused-vars
   severityCritical = "severityCritical",
+  // eslint-disable-next-line no-unused-vars
+  severityUnknown = "severityUnknown",
   // eslint-disable-next-line no-unused-vars
   success = "success",
   // eslint-disable-next-line no-unused-vars
@@ -738,6 +744,18 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
+    case KnownIconsEnum.severityVeryHigh:
+      return (
+        <SeverityVeryHigh
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="Severity very high"
+          title={title ? title : "Severity Very High"}
+          role="img"
+          {...iconProps}
+        />
+      )
     case KnownIconsEnum.severityCritical:
       return (
         <SeverityCritical
@@ -746,6 +764,18 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           className={iconClass}
           alt="Severity critical"
           title={title ? title : "Severity Critical"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.severityUnknown:
+      return (
+        <SeverityUnknown
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="Severity unknown"
+          title={title ? title : "Severity Unknown"}
           role="img"
           {...iconProps}
         />

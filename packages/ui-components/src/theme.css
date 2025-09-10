@@ -304,6 +304,7 @@
   --color-theme-button-subdued: var(--color-button-subdued-text);
   --color-theme-button-sundued-hover: var(--color-button-subdued-hover-text);
   --color-theme-button-sundued-active: var(--color-button-subdued-active-text);
+
   /* TODO Border Color */
   --border-theme-button-subdued: 1px solid var(--color-button-subdued-border);
   --border-theme-button-subdued-hover: var(--color-button-subdued-hover-border);
@@ -458,6 +459,11 @@
   --color-warning: rgb(255, 175, 0);
   --color-danger: rgb(199, 0, 0);
   --color-error: rgb(199, 0, 0);
+  --color-severity-critical: rgb(165, 11, 11);
+  --color-severity-very-high: rgb(223, 0, 0);
+  --color-severity-high: rgb(244, 89, 0);
+  --color-severity-medium: rgb(243, 138, 0);
+  --color-severity-low: rgb(255, 229, 0);
   --color-juno-text-light: rgb(150, 150, 150);
   --color-juno-text-default: rgb(76, 76, 76);
   --color-juno-text-high: rgb(64, 64, 64);
@@ -548,6 +554,14 @@
   --color-icon-info: var(--color-accent);
   --color-icon-success: var(--color-sap-green);
   --color-icon-warning: var(--color-warning);
+  --color-icon-severity-critical: rgb(165, 11, 11);
+  --color-icon-severity-very-high: rgb(223, 0, 0);
+  --color-icon-severity-high: rgb(244, 89, 0);
+  --color-icon-severity-medium: rgb(243, 138, 0);
+  --color-icon-severity-low: rgb(255, 229, 0);
+  --color-icon-severity-none: var(--color-text-disabled);
+  --color-icon-severity-unknown: var(--color-text-light);
+
   /* LT Message */
   --color-message-danger-border: var(--color-danger);
   --gradient-message-danger-bg: linear-gradient(90deg, rgb(255, 231, 224) 0%, rgb(255, 180, 158) 100%);
@@ -669,6 +683,11 @@
   --color-warning: rgb(255, 198, 0);
   --color-danger: rgb(255, 65, 16);
   --color-error: rgb(255, 65, 16);
+  --color-severity-critical: rgb(255, 18, 20);
+  --color-severity-very-high: rgb(255, 68, 16);
+  --color-severity-high: rgb(255, 110, 13);
+  --color-severity-medium: rgb(255, 164, 8);
+  --color-severity-low: rgb(255, 247, 1);
   --color-juno-text-light: rgb(122, 122, 122);
   --color-juno-text-default: rgb(187, 187, 187);
   --color-juno-text-high: rgb(222, 223, 224);
@@ -762,6 +781,7 @@
   --color-icon-info: var(--color-accent);
   --color-icon-success: var(--color-sap-green-5);
   --color-icon-warning: var(--color-warning);
+
   /* DT Message */
   --color-message-danger-border: var(--color-danger);
   --gradient-message-danger-bg: linear-gradient(90deg, rgb(57, 39, 38) 0%, rgb(124, 48, 30) 100%);
