@@ -16,6 +16,7 @@ import {
   useGlobalsInitialFiltersApplied,
 } from "../components/StoreProvider"
 import { parseInitialFilters } from "../lib/store/createFiltersSlice"
+import { isObjectWithKeys } from "../lib/helpers"
 
 const searchSchema = z
   .object({
@@ -79,7 +80,7 @@ function RouteComponent() {
    * */
   useLayoutEffect(() => {
     // we only want to apply initial filters only once when url does not contain any filter
-    if (!isUrlRead && Object.keys(activeFilters).length === 0 && Object.keys(initialFilters || {}).length > 0) {
+    if (!isUrlRead && !isObjectWithKeys(activeFilters) && isObjectWithKeys(initialFilters)) {
       setIsUrlRead()
       navigate({
         to: "/violations",

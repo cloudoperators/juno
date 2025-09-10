@@ -13,6 +13,7 @@ import AlertsTab from "../components/alerts/AlertsTab"
 import { ACTIVE_FILTERS_PREFIX, PAUSED_FILTERS_PREFIX } from "../constants"
 import { convertUrlStateToAppState, getFiltersForUrl } from "../lib/urlStateUtils"
 import { useGlobalsActions, useFilterActions, useGlobalsInitialFiltersApplied } from "../components/StoreProvider"
+import { isObjectWithKeys } from "../lib/utils"
 
 const searchSchema = z
   .object({
@@ -80,7 +81,7 @@ function RouteComponent() {
    * */
   useLayoutEffect(() => {
     // we only want to apply initial filters only once when url does not contain any filter
-    if (!isUrlRead && Object.keys(activeFilters).length === 0 && Object.keys(initialFilters).length > 0) {
+    if (!isUrlRead && !isObjectWithKeys(activeFilters) && isObjectWithKeys(initialFilters)) {
       setIsUrlRead()
       navigate({
         to: "/alerts",
