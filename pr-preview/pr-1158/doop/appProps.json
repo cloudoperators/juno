@@ -1,0 +1,5 @@
+{
+  "apiEndpoint": "https://doop-api.global.cloud.sap/v2/violations",
+  "initialFilters": { "support_group": ["containers"] },
+  "enableHashedRouting": true
+}
