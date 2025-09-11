@@ -188,13 +188,13 @@ export enum KnownIconsEnum {
   // eslint-disable-next-line no-unused-vars
   severityCritical = "severityCritical",
   // eslint-disable-next-line no-unused-vars
-  sortShortWideArrowUp = "sort_short-wide_arrow-up",
+  sortShortWideArrowUp = "sortShortWideArrowUp",
   // eslint-disable-next-line no-unused-vars
-  sortShortWideArrowDown = "sort_short-wide_arrow-down",
+  sortShortWideArrowDown = "sortShortWideArrowDown",
   // eslint-disable-next-line no-unused-vars
-  sortWideShortArrowUp = "sort_wide-short_arrow-up",
+  sortWideShortArrowUp = "sortWideShortArrowUp",
   // eslint-disable-next-line no-unused-vars
-  sortWideShortArrowDown = "sort_wide-short_arrow-down",
+  sortWideShortArrowDown = "sortWideShortArrowDown",
   // eslint-disable-next-line no-unused-vars
   success = "success",
   // eslint-disable-next-line no-unused-vars
