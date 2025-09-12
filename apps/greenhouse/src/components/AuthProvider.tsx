@@ -11,7 +11,8 @@ const setOrganizationToUrl = (groups: any) => {
   if (orgString) {
     const name = orgString.split(":")[1]
     let url = new URL(window.location.href)
-    url.searchParams.set("org", name)
+    // set the org as the first path segment
+    url.pathname = `/${name}`
     // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
     window.history.replaceState(null, null, url.href)
   }
@@ -54,8 +55,17 @@ function resolveMockAuth(value: any) {
 
 const extractOrganizationName = () => {
   const currentUrl = new URL(window.location.href)
+
+  // Try to extract from subdomain
   let match = currentUrl.host.match(/^(.+)\.dashboard\..+/)
-  return match ? match[1] : currentUrl.searchParams.get("org")
+  if (match) return match[1]
+
+  // Try to extract from the first path segment
+  const pathParts = currentUrl.pathname.split("/").filter(Boolean)
+  if (pathParts.length > 0) return pathParts[0]
+
+  // Return null if no organization found
+  return undefined
 }
 
 const initializeDemoAuth = (

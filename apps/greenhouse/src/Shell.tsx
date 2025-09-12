@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { StrictMode } from "react"
+import React, { StrictMode, useEffect, useLayoutEffect } from "react"
 import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
@@ -11,7 +11,7 @@ import { decodeV2, encodeV2 } from "@cloudoperators/juno-url-state-provider"
 import Auth from "./components/Auth"
 import styles from "./styles.css?inline"
 import StoreProvider from "./components/StoreProvider"
-import { AuthProvider } from "./components/AuthProvider"
+import { AuthProvider, useAuth } from "./components/AuthProvider"
 import { routeTree } from "./routeTree.gen"
 
 // Create a new router instance
@@ -39,9 +39,20 @@ export type AppProps = {
   enableHashedRouting?: boolean
 }
 
-const StyledShell = (props: AppProps) => {
-  props = { ...props, currentHost: props.currentHost === "origin" ? window.location.origin : props.currentHost }
+const getBasePath = (auth: any) => {
+  // Determine if org is part of the domain
+  const currentUrl = new URL(window.location.href)
+  const organizationIsPartOfDomain = currentUrl.host.match(/^(.+)\.dashboard\..+/)
+  if (organizationIsPartOfDomain) {
+    return "/"
+  }
+  // If the organization is not part of the domain, extract it from the auth token
+  const orgString = auth?.data?.raw.groups?.find((g: any) => g.indexOf("organization:") === 0)
+  return orgString ? orgString.split(":")[1] : undefined
+}
 
+function App(props: AppProps) {
+  const auth = useAuth()
   /*
    * Dynamically change the type of history on the router
    * based on the enableHashedRouting prop. This ensures that
@@ -49,7 +60,7 @@ const StyledShell = (props: AppProps) => {
    * want the app to use browser history.
    */
   router.update({
-    routeTree,
+    basepath: getBasePath(auth),
     context: { appProps: props },
     stringifySearch: encodeV2,
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
@@ -57,7 +68,6 @@ const StyledShell = (props: AppProps) => {
       if (!props.enableHashedRouting) {
         return decodeV2(searchString)
       }
-
       /*
        * In case of hashed routing Tanstack router returns URL search params of the entire URL rather than just from the hashed part.
        * We'll have to extract the query part from the hash because otherwise in embedded mode the app will be taking search params from the shell app as well.
@@ -75,6 +85,11 @@ const StyledShell = (props: AppProps) => {
       return decodeV2(searchStringFromHash)
     },
   })
+  return <RouterProvider router={router} />
+}
+
+const StyledShell = (props: AppProps) => {
+  props = { ...props, currentHost: props.currentHost === "origin" ? window.location.origin : props.currentHost }
 
   return (
     <AppShellProvider>
@@ -91,7 +106,7 @@ const StyledShell = (props: AppProps) => {
           <StoreProvider options={props}>
             <MessagesProvider>
               <StrictMode>
-                <RouterProvider basepath="/" router={router} />
+                <App {...props} />
               </StrictMode>
             </MessagesProvider>
           </StoreProvider>
