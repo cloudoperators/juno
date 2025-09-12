@@ -430,6 +430,34 @@ export const Success: Story = {
   },
 }
 
+export const SortShortWideArrowUp: Story = {
+  args: {
+    ...Default.args,
+    icon: "sortShortWideArrowUp",
+  },
+}
+
+export const SortShortWideArrowDown: Story = {
+  args: {
+    ...Default.args,
+    icon: "sortShortWideArrowDown",
+  },
+}
+
+export const SortWideShortArrowUp: Story = {
+  args: {
+    ...Default.args,
+    icon: "sortWideShortArrowUp",
+  },
+}
+
+export const SortWideShortArrowDown: Story = {
+  args: {
+    ...Default.args,
+    icon: "sortWideShortArrowDown",
+  },
+}
+
 export const Upload: Story = {
   args: {
     ...Default.args,
