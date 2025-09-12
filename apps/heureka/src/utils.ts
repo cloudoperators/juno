@@ -4,6 +4,7 @@
  */
 
 import { useState, useRef, useEffect } from "react"
+import { KnownIcons } from "@cloudoperators/juno-ui-components"
 
 export const capitalizeFirstLetter = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -11,19 +12,27 @@ export const capitalizeFirstLetter = (str: string): string => {
 
 export const getSeverityColor = (severity: string): string => {
   switch (severity.toLowerCase()) {
-    case "critical":
-      return "text-theme-danger"
-    case "high":
-      return "text-theme-warning"
-    case "medium":
-      return "text-theme-warning"
-    case "low":
-      return "text-theme-info"
-    case "none":
-      return "text-theme-default"
+    case "severityCritical":
+      return "text-theme-severity-critical"
+    case "severityHigh":
+      return "text-theme-severity-high"
+    case "severityMedium":
+      return "text-theme-severity-medium"
+    case "severityLow":
+      return "text-theme-severity-low"
+    case "severityUnknown":
+      return "text-theme-severity-unknown"
     default:
       return "text-theme-default"
   }
+}
+
+export const iconMap: Record<string, KnownIcons> = {
+  critical: "severityCritical",
+  high: "severityHigh",
+  medium: "severityMedium",
+  low: "severityLow",
+  none: "severityUnknown",
 }
 
 /**
