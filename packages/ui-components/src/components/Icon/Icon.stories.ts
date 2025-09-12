@@ -379,6 +379,7 @@ export const SeverityLow: Story = {
   args: {
     ...Default.args,
     icon: "severityLow",
+    color: "jn:text-theme-severity-low",
   },
 }
 
@@ -386,6 +387,7 @@ export const SeverityMedium: Story = {
   args: {
     ...Default.args,
     icon: "severityMedium",
+    color: "jn:text-theme-severity-medium",
   },
 }
 
@@ -393,6 +395,7 @@ export const SeverityHigh: Story = {
   args: {
     ...Default.args,
     icon: "severityHigh",
+    color: "jn:text-theme-severity-high",
   },
 }
 
@@ -400,6 +403,7 @@ export const SeverityVeryHigh: Story = {
   args: {
     ...Default.args,
     icon: "severityVeryHigh",
+    color: "jn:text-theme-severity-very-high",
   },
 }
 
@@ -407,6 +411,7 @@ export const SeverityCritical: Story = {
   args: {
     ...Default.args,
     icon: "severityCritical",
+    color: "jn:text-theme-severity-critical",
   },
 }
 
@@ -414,6 +419,7 @@ export const SeverityUnknown: Story = {
   args: {
     ...Default.args,
     icon: "severityUnknown",
+    color: "jn:text-theme-severity-unknown",
   },
 }
 
