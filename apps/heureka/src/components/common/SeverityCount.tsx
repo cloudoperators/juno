@@ -11,6 +11,7 @@ import {
   TooltipContent,
   KnownIcons,
   BadgeVariantType,
+  Icon,
 } from "@cloudoperators/juno-ui-components"
 
 type SeverityCountProps = {
@@ -39,12 +40,9 @@ export const SeverityCount = ({
   return (
     <Tooltip triggerEvent="hover">
       <TooltipTrigger>
-        <Badge
-          icon={icon}
-          className={color}
-          text={count > 0 ? count.toString() : "0"}
-          variant={count > 0 ? variant : "default"}
-        />
+        <Badge text={count > 0 ? count.toString() : "0"} variant={count > 0 ? variant : "default"}>
+          <Icon icon={"severityHigh"} color={color}></Icon>
+        </Badge>
       </TooltipTrigger>
       <TooltipContent>{tooltipContent}</TooltipContent>
     </Tooltip>
