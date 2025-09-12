@@ -193,6 +193,7 @@ export enum KnownIconsEnum {
   severityCritical = "severityCritical",
   // eslint-disable-next-line no-unused-vars
   severityUnknown = "severityUnknown",
+  // eslint-disable-next-line no-unused-vars
   sortShortWideArrowUp = "sortShortWideArrowUp",
   // eslint-disable-next-line no-unused-vars
   sortShortWideArrowDown = "sortShortWideArrowDown",
