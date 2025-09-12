@@ -714,7 +714,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity low"
+          alt="severity low"
           title={title ? title : "Severity Low"}
           role="img"
           {...iconProps}
@@ -726,7 +726,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity medium"
+          alt="severity medium"
           title={title ? title : "Severity Medium"}
           role="img"
           {...iconProps}
@@ -738,7 +738,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity high"
+          alt="severity high"
           title={title ? title : "Severity High"}
           role="img"
           {...iconProps}
@@ -750,7 +750,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity very high"
+          alt="severity very high"
           title={title ? title : "Severity Very High"}
           role="img"
           {...iconProps}
@@ -762,7 +762,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity critical"
+          alt="severity critical"
           title={title ? title : "Severity Critical"}
           role="img"
           {...iconProps}
@@ -774,7 +774,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity unknown"
+          alt="severity unknown"
           title={title ? title : "Severity Unknown"}
           role="img"
           {...iconProps}
