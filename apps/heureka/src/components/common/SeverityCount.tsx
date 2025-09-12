@@ -15,13 +15,21 @@ import {
 
 type SeverityCountProps = {
   icon: KnownIcons
+  color: string
   count: number
   variant: BadgeVariantType
   tooltipContent: string
   showDashIfZero?: Boolean
 }
 
-export const SeverityCount = ({ icon, count, variant, tooltipContent, showDashIfZero = false }: SeverityCountProps) => {
+export const SeverityCount = ({
+  icon,
+  color,
+  count,
+  variant,
+  tooltipContent,
+  showDashIfZero = false,
+}: SeverityCountProps) => {
   // Show dash if count is zero and showDashIfZero is true
   if (!!showDashIfZero && count === 0) {
     return <span>&mdash;</span>
@@ -31,7 +39,12 @@ export const SeverityCount = ({ icon, count, variant, tooltipContent, showDashIf
   return (
     <Tooltip triggerEvent="hover">
       <TooltipTrigger>
-        <Badge icon={icon} text={count > 0 ? count.toString() : "0"} variant={count > 0 ? variant : "default"} />
+        <Badge
+          icon={icon}
+          className={color}
+          text={count > 0 ? count.toString() : "0"}
+          variant={count > 0 ? variant : "default"}
+        />
       </TooltipTrigger>
       <TooltipContent>{tooltipContent}</TooltipContent>
     </Tooltip>

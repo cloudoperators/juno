@@ -48,7 +48,8 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.critical}
-        icon="danger"
+        icon="severityCritical"
+        color="text-theme-severity-critical"
         variant="danger"
         tooltipContent="Critical Vulnerabilities"
       />
@@ -57,7 +58,8 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.high}
-        icon="warning"
+        icon="severityHigh"
+        color="text-theme-severity-high"
         variant="warning"
         tooltipContent="High Vulnerabilities"
       />
@@ -66,7 +68,8 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.medium}
-        icon="errorOutline"
+        icon="severityMedium"
+        color="text-theme-severity-medium"
         variant="warning"
         tooltipContent="Medium Vulnerabilities"
       />
@@ -75,7 +78,8 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.low}
-        icon="info"
+        icon="severityLow"
+        color="text-theme-severity-low"
         variant="info"
         tooltipContent="Low Vulnerabilities"
       />
@@ -84,7 +88,8 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.none}
-        icon="help"
+        icon="severityUnknown"
+        color="text-theme-severity-unknown"
         variant="default"
         tooltipContent="None Vulnerabilities"
       />

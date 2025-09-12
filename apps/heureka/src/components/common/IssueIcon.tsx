@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Icon, KnownIcons } from "@cloudoperators/juno-ui-components"
+import { Icon } from "@cloudoperators/juno-ui-components"
 import { getSeverityColor, iconMap } from "../../utils"
 
 type IssueIconProps = {
