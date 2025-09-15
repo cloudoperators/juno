@@ -12,15 +12,15 @@ export const capitalizeFirstLetter = (str: string): string => {
 
 export const getSeverityColor = (severity: string): string => {
   switch (severity.toLowerCase()) {
-    case "critical":
+    case "severityCritical":
       return "text-theme-severity-critical"
-    case "high":
+    case "severityHigh":
       return "text-theme-severity-high"
-    case "medium":
+    case "severityMedium":
       return "text-theme-severity-medium"
-    case "low":
+    case "severityLow":
       return "text-theme-severity-low"
-    case "none":
+    case "severityUnknown":
       return "text-theme-severity-unknown"
     default:
       return "text-theme-default"
