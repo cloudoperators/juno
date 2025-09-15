@@ -55,7 +55,7 @@ export const ImageVersionsDataRow = ({
         <SeverityCount
           showDashIfZero
           count={version.issueCounts.critical}
-          icon="danger"
+          icon="severityCritical"
           variant="danger"
           tooltipContent="Critical Vulnerabilities"
         />
@@ -64,7 +64,7 @@ export const ImageVersionsDataRow = ({
         <SeverityCount
           showDashIfZero
           count={version.issueCounts.high}
-          icon="warning"
+          icon="severityHigh"
           variant="warning"
           tooltipContent="High Vulnerabilities"
         />
@@ -73,7 +73,7 @@ export const ImageVersionsDataRow = ({
         <SeverityCount
           showDashIfZero
           count={version.issueCounts.medium}
-          icon="errorOutline"
+          icon="severityMedium"
           variant="warning"
           tooltipContent="Medium Vulnerabilities"
         />
@@ -82,7 +82,7 @@ export const ImageVersionsDataRow = ({
         <SeverityCount
           showDashIfZero
           count={version.issueCounts.low}
-          icon="info"
+          icon="severityLow"
           variant="info"
           tooltipContent="Low Vulnerabilities"
         />
@@ -91,7 +91,7 @@ export const ImageVersionsDataRow = ({
         <SeverityCount
           showDashIfZero
           count={version.issueCounts.none}
-          icon="help"
+          icon="severityUnknown"
           variant="default"
           tooltipContent="None Vulnerabilities"
         />

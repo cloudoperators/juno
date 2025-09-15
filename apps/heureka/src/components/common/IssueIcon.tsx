@@ -4,8 +4,8 @@
  */
 
 import React from "react"
-import { Icon, KnownIcons } from "@cloudoperators/juno-ui-components"
-import { getSeverityColor } from "../../utils"
+import { Icon } from "@cloudoperators/juno-ui-components"
+import { getSeverityColor, iconMap } from "../../utils"
 
 type IssueIconProps = {
   severity: string
@@ -13,15 +13,7 @@ type IssueIconProps = {
 
 const getIconForSeverity = (severity: string) => {
   const severityLower = severity.toLowerCase()
-  const iconColor = getSeverityColor(severity)
-
-  const iconMap: Record<string, KnownIcons> = {
-    critical: "danger",
-    high: "warning",
-    medium: "errorOutline",
-    low: "info",
-    none: "help",
-  }
+  const iconColor = getSeverityColor(severityLower)
 
   return <Icon icon={iconMap[severityLower] || "help"} color={iconColor} />
 }
