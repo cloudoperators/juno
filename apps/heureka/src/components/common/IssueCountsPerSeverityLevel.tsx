@@ -25,35 +25,30 @@ export const IssueCountsPerSeverityLevel = ({ counts }: IssueCountsPerSeverityLe
       </>
       <SeverityCount
         icon="severityCritical"
-        color="text-theme-severity-critical"
         count={counts.critical}
         variant={counts.critical > 0 ? "danger" : "default"}
         tooltipContent="Critical Vulnerabilities"
       />
       <SeverityCount
         icon="severityHigh"
-        color="text-theme-severity-high"
         count={counts.high}
         variant={counts.high > 0 ? "warning" : "default"}
         tooltipContent="High Vulnerabilities"
       />
       <SeverityCount
         icon="severityMedium"
-        color="text-theme-severity-medium"
         count={counts.medium}
         variant={counts.medium > 0 ? "warning" : "default"}
         tooltipContent="Medium Vulnerabilities"
       />
       <SeverityCount
         icon="severityLow"
-        color="text-theme-severity-low"
         count={counts.low}
         variant={counts.low > 0 ? "info" : "default"}
         tooltipContent="Low Vulnerabilities"
       />
       <SeverityCount
         icon="severityUnknown"
-        color="text-theme-severity-unknown"
         count={counts.none}
         variant="default"
         tooltipContent="None Vulnerabilities"
