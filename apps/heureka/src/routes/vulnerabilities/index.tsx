@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createFileRoute, retainSearchParams } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { Vulnerabilities } from "../../components/Vulnerabilities"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
@@ -17,7 +17,6 @@ import {
 
 const vulnerabilitiesSearchSchema = z
   .object({
-    org: z.string().optional(),
     vulnerability: z.string().optional(),
     searchTerm: z.preprocess((val) => (typeof val === "number" ? val.toString() : val), z.string().optional()),
   })
@@ -37,13 +36,6 @@ export type VulnerabilitiesSearchParams = z.infer<typeof vulnerabilitiesSearchSc
 
 export const Route = createFileRoute("/vulnerabilities/")({
   validateSearch: vulnerabilitiesSearchSchema,
-  search: {
-    /**
-     * TODO: remove it when no longer needed
-     * but we need to keep "org" search parameter due to it's significance in the shell app.
-     */
-    middlewares: [retainSearchParams(["org"])],
-  },
   loaderDeps: ({ search }) => {
     const { vulnerability, ...rest } = search
     return rest

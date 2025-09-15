@@ -4,7 +4,7 @@
  */
 
 import React, { useLayoutEffect } from "react"
-import { createFileRoute, retainSearchParams } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import AlertDetail from "../components/alerts/AlertDetail"
@@ -17,7 +17,6 @@ import { isObjectWithKeys } from "../lib/utils"
 
 const searchSchema = z
   .object({
-    org: z.string().optional(),
     searchTerm: z.string().optional(),
     showDetailsFor: z.string().optional(),
     predefinedFilter: z.string().optional(),
@@ -41,13 +40,6 @@ const searchSchema = z
 
 export const Route = createFileRoute("/alerts")({
   validateSearch: searchSchema,
-  search: {
-    /**
-     * TODO: remove it when no longer needed
-     * but we need to keep "org" search parameter due to it's significance in the shell app.
-     */
-    middlewares: [retainSearchParams(["org"])],
-  },
   beforeLoad: ({ search }) => {
     // extract alerts specific state from the URL search params
     const { activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor } =

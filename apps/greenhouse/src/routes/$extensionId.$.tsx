@@ -4,30 +4,13 @@
  */
 
 import React from "react"
-import { createFileRoute, retainSearchParams } from "@tanstack/react-router"
-import { z } from "zod"
+import { createFileRoute } from "@tanstack/react-router"
 
 import { usePlugin } from "../components/StoreProvider"
 import { useAuth } from "../components/AuthProvider"
 import Extension from "../components/Extension"
 
-const searchSchema = z.object({
-  /**
-   * TODO: remove it when no longer needed
-   * but we need to keep "org" search parameter due to it's significance in the shell app.
-   */
-  org: z.string().optional(),
-})
-
 export const Route = createFileRoute("/$extensionId/$")({
-  validateSearch: searchSchema,
-  search: {
-    /**
-     * TODO: remove it when no longer needed
-     * but we need to keep "org" search parameter due to it's significance in the shell app.
-     */
-    middlewares: [retainSearchParams(["org"])],
-  },
   component: RouteComponent,
 })
 
