@@ -40,8 +40,8 @@ export const SeverityCount = ({
   return (
     <Tooltip triggerEvent="hover">
       <TooltipTrigger>
-        <Badge text={count > 0 ? count.toString() : "0"} variant={count > 0 ? variant : "default"}>
-          <Icon icon={icon} color={color}></Icon>
+        <Badge icon={icon} text={count > 0 ? count.toString() : "0"} variant={count > 0 ? variant : "default"}>
+          {/* <Icon icon={icon} color={color}></Icon> */}
         </Badge>
       </TooltipTrigger>
       <TooltipContent>{tooltipContent}</TooltipContent>
