@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { StrictMode, useEffect, useLayoutEffect } from "react"
+import React, { StrictMode } from "react"
 import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import { decodeV2, encodeV2 } from "@cloudoperators/juno-url-state-provider"
 import Auth from "./components/Auth"
 import styles from "./styles.css?inline"
 import StoreProvider from "./components/StoreProvider"
@@ -62,28 +61,7 @@ function App(props: AppProps) {
   router.update({
     basepath: getBasePath(auth),
     context: { appProps: props },
-    stringifySearch: encodeV2,
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
-    parseSearch: (searchString) => {
-      if (!props.enableHashedRouting) {
-        return decodeV2(searchString)
-      }
-      /*
-       * In case of hashed routing Tanstack router returns URL search params of the entire URL rather than just from the hashed part.
-       * We'll have to extract the query part from the hash because otherwise in embedded mode the app will be taking search params from the shell app as well.
-       * Sanitize the search string by extracting the substring between the first '?' and the next '?' (if any), keeping the first '?'.
-       * https://github.com/TanStack/router/issues/4370
-       * http://localhost:3000/?preHashParam=prehashtest#/services?postHashParam1=test1?preHashParam=prehashtest
-       * searchString = "?postHashParam1=test1?preHashParam=prehashtest"
-       * searchStringFromHash = "?postHashParam1=test1"
-       */
-      const postHashParams = searchString.indexOf("?")
-      if (postHashParams === -1) return {} // If no query part is found, return an empty object
-      const preHashParams = searchString.indexOf("?", postHashParams + 1)
-      const searchStringFromHash = searchString.slice(postHashParams, preHashParams === -1 ? undefined : preHashParams)
-
-      return decodeV2(searchStringFromHash)
-    },
   })
   return <RouterProvider router={router} />
 }
