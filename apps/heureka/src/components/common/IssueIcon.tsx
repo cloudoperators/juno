@@ -13,7 +13,7 @@ type IssueIconProps = {
 
 const getIconForSeverity = (severity: string) => {
   const severityLower = severity.toLowerCase()
-  const iconColor = getSeverityColor(severity)
+  const iconColor = getSeverityColor(severityLower)
 
   return <Icon icon={iconMap[severityLower] || "help"} color={iconColor} />
 }
