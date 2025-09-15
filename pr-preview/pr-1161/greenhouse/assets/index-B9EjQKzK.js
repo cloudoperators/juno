@@ -1,0 +1,1 @@
+import{r as a}from"./index-BvBv7a3s.js";import{u as n,a as r}from"./Shell-MnUmmBZ9.js";import"./index-CLsx4s5C.js";function c(){const t=n().active(),o=r({from:"/"});return a.useLayoutEffect(()=>{t.length>0&&o({to:`/${t[0]}`,search:e=>({...e})})},[t]),null}export{c as component};
