@@ -70,7 +70,7 @@ jobs:
           echo "IS_GREENHOUSE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'greenhouse') || contains(needs.run-detect-changes.outputs.changes, 'heureka') }}" >> $GITHUB_ENV
           echo "IS_EXAMPLE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}" >> $GITHUB_ENV
           # setup ENVs for each app to add query params
-          echo "GREENHOUSE_QUERY_PARAMS=org=demo" >> $GITHUB_ENV
+          echo "GREENHOUSE_BASE_PATH=/demo" >> $GITHUB_ENV
 
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 #v4.4.0
         if: github.event.action != 'closed'
@@ -184,6 +184,7 @@ jobs:
 
             if [ "$CHANGED" = "true" ]; then
               COMPONENT_QUERY_PARAMS="${component^^}_QUERY_PARAMS"
+              COMPONENT_BASE_PATH="${component^^}_BASE_PATH"
               OUTCOME_VAR="${component^^}_OUTCOME"  # Make it uppercase for the env var
               echo "==OUTCOME_VAR=="
               echo $OUTCOME_VAR
@@ -193,7 +194,7 @@ jobs:
               echo $BUILD_OUTCOME
               echo "==="              
               if [ "$BUILD_OUTCOME" == "success" ]; then
-                echo "<li><a href='./${component}/index.html?${!COMPONENT_QUERY_PARAMS}' target="_blank">${component^} <span style='color:green;'>✓ Success</span></a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
+                echo "<li><a href='./${component}/index.html${!COMPONENT_BASE_PATH}?${!COMPONENT_QUERY_PARAMS}' target="_blank">${component^} <span style='color:green;'>✓ Success</span></a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               else
                 echo "<li>${component^} <span style='color:red;'>✗ Failed</span></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               fi
