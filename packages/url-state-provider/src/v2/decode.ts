@@ -11,6 +11,7 @@ const decode = (string: string): DecodedObject =>
     arrayFormat: "comma",
     parseBooleans: true,
     parseNumbers: true,
+    sort: false,
   })
 
 export default decode
