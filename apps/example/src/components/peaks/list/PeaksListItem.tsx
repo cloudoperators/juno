@@ -35,6 +35,8 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
+  PopupMenuToggle,
+  PopupMenuItem,
 } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../../mocks/db"
@@ -113,7 +115,7 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak }) => {
         </ComboBox>
         <DateTimePicker
           onBlur={function Ofe() {}}
-          onChange={function Ofe() {}} // Reviewers: Issue? Why DateTimePicket event fires on load?
+          onChange={function Ofe() {}}
           onClear={function Ofe() {}}
           onClose={function Ofe() {}}
           onFocus={function Ofe() {}}
@@ -181,7 +183,6 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak }) => {
           onReveal={function Ofe() {}}
           onToggle={function Ofe() {}}
         />
-        {/* Reviewers: Event fires here on click of option */}
         <Select onChange={function Ofe() {}} onValueChange={function Ofe() {}}>
           <SelectOption value="Option 1" />
           <SelectOption value="Option 2" />
@@ -197,12 +198,15 @@ const PeaksListItem: React.FC<PeaksListItemProps> = ({ peak }) => {
           <TooltipContent>A default tooltip</TooltipContent>
         </Tooltip>
         <PopupMenu onClose={function Ofe() {}} onOpen={function Ofe() {}}>
+          <PopupMenuToggle>Toggle Me</PopupMenuToggle>
           <PopupMenuOptions>
-            {/* Menu item doesn't block event */}
             <button>Menu goes here.</button>
+            <PopupMenuItem label="Menu Item 1" />
+            <PopupMenuItem icon="deleteForever" label="Menu Item 2" />
+            <PopupMenuItem disabled label="Menu Item 3 Disabled" />
           </PopupMenuOptions>
         </PopupMenu>
-        <Icon color="text-theme-success" icon="success" onClick={() => alert("Icon!")} />
+        <Icon color="text-theme-success" icon="success" />
         <Pill
           closeable
           onClick={() => alert("Pill Clicked!")}

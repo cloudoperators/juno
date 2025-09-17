@@ -301,7 +301,6 @@ export const Select: React.FC<SelectProps> = ({
         truncateOptions: truncateOptions,
         addOptionValueAndLabel: addOptionValueAndLabel,
       }}
-      data-row-stop-propagation
     >
       <div
         className={`
@@ -418,6 +417,7 @@ export const Select: React.FC<SelectProps> = ({
                           juno-select-menu
                           ${menuStyles}
                         `}
+                        data-row-stop-propagation
                       >
                         {children}
                       </ListboxOptions>
