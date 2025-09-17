@@ -11,8 +11,14 @@ const setOrganizationToUrl = (groups: any, enableHashedRouting: boolean) => {
   if (orgString) {
     const name = orgString.split(":")[1]
     let url = new URL(window.location.href)
-    const pathWithOrg = `/${name}`
+
+    // Check if the organization name is already in the URL path or hash then don't change it
+    const currentPath = enableHashedRouting ? url.hash.replace("#/", "") : url.pathname
+    const currentFirstSegment = currentPath.split("/").filter(Boolean)[0]
+    if (name === currentFirstSegment) return
+
     // if enableHashedRouting is true, set the hash, otherwise set the pathname
+    const pathWithOrg = `/${name}`
     if (enableHashedRouting) {
       url.hash = pathWithOrg
     } else {
