@@ -1,0 +1,7 @@
+import{e as c,j as e}from"./iframe-CbeOvx6e.js";import{S as l,a}from"./SelectOption.component-sO9EhvmN.js";import{P as d}from"./PortalProvider.component-BLGbJap6.js";import"./portal-BF2gclax.js";import"./frozen-CDjrEVj1.js";import"./use-text-value-2PwCwone.js";import"./Label.component-CI742BtA.js";import"./Icon.component-B8jZzrlX.js";import"./Spinner.component-Wa88E4pd.js";import"./FormHint.component-DjeRh_pK.js";import"./floating-ui.react-DXqBQfQ2.js";const n=`
+  jn:h-px 
+  jn:w-full
+  jn:bg-theme-background-lvl-3
+`,r=c.forwardRef(({className:t="",...o},i)=>e.jsx("div",{className:`juno-select-divider ${n} ${t}`,ref:i,...o}));r.displayName="SelectDivider";try{r.displayName="SelectDivider",r.__docgenInfo={description:"A visual border/divider between SelectOptions or SelectGroups",displayName:"SelectDivider",props:{className:{defaultValue:{value:""},description:"add a custom className",name:"className",required:!1,type:{name:"string"}}}}}catch{}const h={title:"Forms/Select/SelectDivider",component:r,argTypes:{},decorators:[t=>e.jsx(d,{children:e.jsx(t,{})})],render:()=>e.jsxs(l,{open:!0,children:[e.jsx(a,{value:"1",children:"1"}),e.jsx(r,{}),e.jsx(a,{value:"3",children:"3"})]})},s={args:{}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+  args: {}
+}`,...s.parameters?.docs?.source}}};const D=["Default"];export{s as Default,D as __namedExportsOrder,h as default};
