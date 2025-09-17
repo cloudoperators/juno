@@ -12,7 +12,7 @@ import { Issue } from "../../../../../Services/utils"
 import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 
 const cellSeverityClasses = (severity: string) => {
-  let borderColor = getSeverityColor(severity)
+  const borderColor = getSeverityColor(severity.toLowerCase())
 
   return `
     border-l-2

@@ -11,6 +11,7 @@ import {
   TooltipContent,
   KnownIcons,
   BadgeVariantType,
+  Icon,
 } from "@cloudoperators/juno-ui-components"
 
 type SeverityCountProps = {

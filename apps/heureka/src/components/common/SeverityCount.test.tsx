@@ -9,7 +9,15 @@ import { SeverityCount } from "./SeverityCount"
 
 describe("SeverityCount", () => {
   it("renders with count and shows badge", () => {
-    render(<SeverityCount showDashIfZero icon="danger" count={5} variant="danger" tooltipContent="Critical Issues" />)
+    render(
+      <SeverityCount
+        showDashIfZero
+        icon="severityCritical"
+        count={5}
+        variant="danger"
+        tooltipContent="Critical Issues"
+      />
+    )
 
     // Check if the badge is rendered with the count
     const badge = screen.getByText("5")
@@ -17,7 +25,15 @@ describe("SeverityCount", () => {
   })
 
   it("renders without count and shows dash in single mode", () => {
-    render(<SeverityCount showDashIfZero icon="danger" count={0} variant="danger" tooltipContent="Critical Issues" />)
+    render(
+      <SeverityCount
+        showDashIfZero
+        icon="severityCritical"
+        count={0}
+        variant="danger"
+        tooltipContent="Critical Issues"
+      />
+    )
 
     // Check if dash is rendered instead of a badge
     const dash = screen.getByText("—")
@@ -25,7 +41,7 @@ describe("SeverityCount", () => {
   })
 
   it("renders with zero count and shows '0' in all mode", () => {
-    render(<SeverityCount icon="danger" count={0} variant="danger" tooltipContent="Critical Issues" />)
+    render(<SeverityCount icon="severityCritical" count={0} variant="danger" tooltipContent="Critical Issues" />)
 
     // Check if the badge is rendered with "0"
     const badge = screen.getByText("0")
@@ -33,7 +49,7 @@ describe("SeverityCount", () => {
   })
 
   it("renders with positive count in all mode", () => {
-    render(<SeverityCount icon="danger" count={3} variant="danger" tooltipContent="Critical Issues" />)
+    render(<SeverityCount icon="severityCritical" count={3} variant="danger" tooltipContent="Critical Issues" />)
 
     // Check if the badge is rendered with the count
     const badge = screen.getByText("3")

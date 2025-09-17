@@ -52,7 +52,13 @@ import Search from "@material-design-icons/svg/outlined/search.svg"
 import SeverityLow from "./icons/juno_severity_low.svg"
 import SeverityMedium from "./icons/juno_severity_medium.svg"
 import SeverityHigh from "./icons/juno_severity_high.svg"
+import SeverityVeryHigh from "./icons/juno_severity_very_high.svg"
 import SeverityCritical from "./icons/juno_severity_critical.svg"
+import SeverityUnknown from "./icons/juno_severity_unknown.svg"
+import SortShortWideArrowUp from "./icons/sort_short-wide_arrow-up.svg"
+import SortShortWideArrowDown from "./icons/sort_short-wide_arrow-down.svg"
+import SortWideShortArrowUp from "./icons/sort_wide-short_arrow-up.svg"
+import SortWideShortArrowDown from "./icons/sort_wide-short_arrow-down.svg"
 import Upload from "@material-design-icons/svg/filled/upload.svg"
 import Warning from "@material-design-icons/svg/filled/warning.svg"
 import WBSunny from "@material-design-icons/svg/outlined/wb_sunny.svg"
@@ -182,7 +188,19 @@ export enum KnownIconsEnum {
   // eslint-disable-next-line no-unused-vars
   severityHigh = "severityHigh",
   // eslint-disable-next-line no-unused-vars
+  severityVeryHigh = "severityVeryHigh",
+  // eslint-disable-next-line no-unused-vars
   severityCritical = "severityCritical",
+  // eslint-disable-next-line no-unused-vars
+  severityUnknown = "severityUnknown",
+  // eslint-disable-next-line no-unused-vars
+  sortShortWideArrowUp = "sortShortWideArrowUp",
+  // eslint-disable-next-line no-unused-vars
+  sortShortWideArrowDown = "sortShortWideArrowDown",
+  // eslint-disable-next-line no-unused-vars
+  sortWideShortArrowUp = "sortWideShortArrowUp",
+  // eslint-disable-next-line no-unused-vars
+  sortWideShortArrowDown = "sortWideShortArrowDown",
   // eslint-disable-next-line no-unused-vars
   success = "success",
   // eslint-disable-next-line no-unused-vars
@@ -708,7 +726,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity low"
+          alt="severity low"
           title={title ? title : "Severity Low"}
           role="img"
           {...iconProps}
@@ -720,7 +738,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity medium"
+          alt="severity medium"
           title={title ? title : "Severity Medium"}
           role="img"
           {...iconProps}
@@ -732,8 +750,20 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity high"
+          alt="severity high"
           title={title ? title : "Severity High"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.severityVeryHigh:
+      return (
+        <SeverityVeryHigh
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="severity very high"
+          title={title ? title : "Severity Very High"}
           role="img"
           {...iconProps}
         />
@@ -744,8 +774,20 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="Severity critical"
+          alt="severity critical"
           title={title ? title : "Severity Critical"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.severityUnknown:
+      return (
+        <SeverityUnknown
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="severity unknown"
+          title={title ? title : "Severity Unknown"}
           role="img"
           {...iconProps}
         />
@@ -758,6 +800,54 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           className={iconClass}
           alt="success"
           title={title ? title : "Success"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.sortShortWideArrowUp:
+      return (
+        <SortShortWideArrowUp
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="sort short wide arrow up"
+          title={title ? title : "Sort Short Wide Arrow Up"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.sortShortWideArrowDown:
+      return (
+        <SortShortWideArrowDown
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="sort short wide arrow down"
+          title={title ? title : "Sort Short Wide Arrow Down"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.sortWideShortArrowUp:
+      return (
+        <SortWideShortArrowUp
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="sort wide short arrow up"
+          title={title ? title : "Sort Wide Short Arrow Up"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.sortWideShortArrowDown:
+      return (
+        <SortWideShortArrowDown
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="sort wide short arrow down"
+          title={title ? title : "Sort Wide Short Arrow Down"}
           role="img"
           {...iconProps}
         />
