@@ -5,7 +5,7 @@
 
 import React from "react"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useNavigate, useMatches } from "@tanstack/react-router"
+import { useNavigate, useMatches, useRouter } from "@tanstack/react-router"
 import { useGlobalsEmbedded } from "./StoreProvider"
 
 type NavigationItemType = {
@@ -30,6 +30,7 @@ const navigationItems: NavigationItemType[] = [
 const CustomAppShell = ({ children }: any) => {
   const navigate = useNavigate()
   const matches = useMatches()
+  const router = useRouter()
   const embedded = useGlobalsEmbedded()
 
   const handleTabSelect = (link: React.ReactNode) => {
@@ -41,7 +42,7 @@ const CustomAppShell = ({ children }: any) => {
   }
 
   const getActiveItem = () => {
-    const currentPath = matches[matches.length - 1].pathname
+    const currentPath = matches[matches.length - 1].id
     const activeItem = navigationItems.find((item) => currentPath.includes(item.value))
     return activeItem ? activeItem.value : ""
   }
