@@ -83,7 +83,9 @@ function RouteComponent() {
     } else {
       setActiveFilters(activeFilters)
       setPausedFilters(pausedFilters)
-      setActivePredefinedFilter(predefinedFilter)
+      if (predefinedFilter) {
+        setActivePredefinedFilter(predefinedFilter)
+      }
       setSearchTerm(searchTerm)
       setShowDetailsFor(showDetailsFor)
       setIsUrlRead()
