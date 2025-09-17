@@ -1,0 +1,44 @@
+import{r as e,e as f,j as t}from"./iframe-BRZcYXSx.js";const v=({title:l,titleId:n,...a},r)=>e.createElement("svg",{xmlns:"http://www.w3.org/2000/svg",width:49,height:41,fill:"none",viewBox:"0 0 49 41",alt:"Juno UI",ref:r,"aria-labelledby":n,...a},l?e.createElement("title",{id:n},l):null,e.createElement("path",{fill:"#0FA7B4",d:"M11.093 16 4 20.095l7.093 4.105 7.093-4.105L11.093 16Z"}),e.createElement("path",{fill:"#000",fillRule:"evenodd",d:"m11.093 16.346 6.793 3.922v7.844l-6.793 3.922L4.3 28.112v-7.844l6.793-3.922ZM4 20.095 11.093 16l7.093 4.095v8.19l-7.093 4.095L4 28.285v-8.19Z",clipRule:"evenodd"}),e.createElement("path",{fill:"#05646D",d:"M11.093 24.19v8.19l7.093-4.095v-8.19l-7.093 4.095Z"}),e.createElement("path",{fill:"#05646D",d:"M11.093 24.19v8.19l7.093-4.095v-8.19l-7.093 4.095Z"}),e.createElement("path",{fill:"#098590",d:"M11.093 24.19v8.19L4 28.285v-8.19l7.093 4.095Z"}),e.createElement("path",{fill:"#15D0E0",fillRule:"evenodd",d:"M18.186 20.095 11.093 16 4 20.095v8.19l7.093 4.095 7.093-4.095v-8.19Zm-7.093-3.749 6.493 3.75-6.493 3.757L4.6 20.095l6.494-3.749Zm-.3 8.017L4.3 20.614v7.498l6.493 3.748v-7.497Zm7.093-3.749-6.493 3.749v7.497l6.492-3.748v-7.498Z",clipRule:"evenodd"}),e.createElement("path",{fill:"#098590",d:"M24.402 36.76V20.38l-14.185-8.19v8.226l7.065 4.079v8.155l7.12 4.11Z"}),e.createElement("path",{fill:"#0FA7B4",d:"m38.587 20.388-7.08 4.087v-8.19l7.08-4.087v-.008l-14.185 8.19v16.38l14.185-8.19v-8.182Z"}),e.createElement("path",{fill:"#05646D",d:"M31.591 16.337v.064-8.254l-7.093 4.095 7.093 4.095Z"}),e.createElement("path",{fill:"#02454B",d:"M31.51 16.285v8.19l7.092-4.095-7.093-4.095Z"}),e.createElement("path",{fill:"#15D0E0",d:"M37.092 8 30 12.095v8.19l7.092 4.095 7.093-4.095v-8.19L37.092 8Z"}),e.createElement("path",{fill:"#0FA7B4",d:"M37.092 16.19v8.19l7.093-4.095v-8.19l-7.093 4.095Z"}),e.createElement("path",{fill:"#098590",d:"M37.092 16.19v8.19L30 20.285v-8.19l7.092 4.095Z"}),e.createElement("path",{fill:"url(#a)",fillRule:"evenodd",d:"M44.185 12.095 37.092 8 30 12.095v8.19l7.092 4.095 7.093-4.095v-8.19Zm-7.093-3.749 6.493 3.75-6.493 3.757-6.493-3.758 6.493-3.749Zm-.3 8.017-6.493-3.749v7.497l6.493 3.75v-7.498Zm7.093-3.749-6.493 3.749v7.497l6.493-3.748v-7.498Z",clipRule:"evenodd"}),e.createElement("path",{fill:"#0FA7B4",d:"m31.502 32.65-7.1 4.15V20.4l7.1-4.11v16.36Z"}),e.createElement("path",{fill:"#15D0E0",d:"m24.502 12.25 7 4.04-7.1 4.11-14.2-8.2 14.2-8.2 7.2 4.15-7.1 4.1Z"}),e.createElement("path",{fill:"url(#b)",fillRule:"evenodd",d:"M31.602 8.15 24.402 4l-14.184 8.191h-.001v.001l-.014.008.013.008v8.147l7.066 4.08v8.19l7.12 4.135V28.7v8.1l5.52-3.226 8.665-5.003v-5.054l-.3.173v4.707l-6.77 3.91.033-7.51 3.133-1.808-.3-.173-2.831 1.634v-.011h-.044v-8.154l1.19-.687v-.008l-1.203.695-6.773-3.908.006-.01-.214-.124 7.088-4.093Zm-6.9 28.127v-7.576l6.506-3.717v.011l.042-.024-.034 7.509-1.446.835-5.068 2.962Zm0-7.921 6.506-3.718v-7.84l-6.506 3.756v7.802Zm6.3-20.206-6.787 3.92-6.577-3.817 6.764-3.907 6.6 3.804Zm-7.096 4.087-6.568-3.811-6.535 3.774 6.199 3.58 6.904-3.543Zm.294.185-6.889 3.537 7.09 4.095 6.501-3.764-6.702-3.868Zm-6.618 20.055V24.26l-7.066-4.08v-7.47l13.586 7.844V36.24l-6.52-3.764Z",clipRule:"evenodd"}),e.createElement("path",{fill:"url(#c)",d:"m34.376 14.622.007.004 4.204-2.428v-.008l-4.21 2.432Z"}),e.createElement("defs",null,e.createElement("linearGradient",{id:"a",x1:24.093,x2:23.823,y1:36.799,y2:3.998,gradientUnits:"userSpaceOnUse"},e.createElement("stop",{stopColor:"#05646D"}),e.createElement("stop",{offset:.613,stopColor:"#15D0E0"}),e.createElement("stop",{offset:1,stopColor:"#098590"})),e.createElement("linearGradient",{id:"b",x1:26.402,x2:15.344,y1:-1,y2:32.206,gradientUnits:"userSpaceOnUse"},e.createElement("stop",{stopColor:"#127E88"}),e.createElement("stop",{offset:.539,stopColor:"#44F0FF"}),e.createElement("stop",{offset:1,stopColor:"#0B717A"})),e.createElement("linearGradient",{id:"c",x1:26.402,x2:15.344,y1:-1,y2:32.206,gradientUnits:"userSpaceOnUse"},e.createElement("stop",{stopColor:"#127E88"}),e.createElement("stop",{offset:.539,stopColor:"#44F0FF"}),e.createElement("stop",{offset:1,stopColor:"#0B717A"})))),h=e.forwardRef(v),g=`
+  jn:bg-theme-pageheader
+  jn:border-theme-pageheader
+  jn:border-b-[1px]
+  jn:sticky
+  jn:top-0
+  jn:px-[1.25rem]
+  jn:py-[0.25rem]
+  jn:h-[3.25rem]
+  jn:z-50
+  jn:flex
+  jn:items-center
+  jn:justify-between
+`,j=`
+  jn:flex
+  jn:flex-row
+  jn:justify-between
+  jn:items-center
+  jn:w-full
+  jn:h-full
+  jn:full
+  jn:gap-2
+`,E=`
+  jn:flex
+  jn:flex-row
+  jn:items-center
+  jn:gap-2
+`,x=`
+  jn:max-w-xs
+  jn:*:w-min
+  jn:*:max-w-xs
+  jn:*:h-7
+  jn:*:object-contain
+`,y=`
+  jn:text-theme-pageheader-appname-default
+  jn:text-lg
+  jn:text-theme-high
+`,Z=`
+  jn:flex
+  jn:flex-row
+  jn:items-center
+  jn:gap-2
+  jn:justify-end
+`,d=({heading:l="",applicationName:n="",href:a="",className:r="",logo:o=!0,children:c,onClick:i,...p})=>{const m=typeof o=="function"||f.isValidElement(o)?o:o&&t.jsx(h,{alt:"","data-testid":"default-logo"}),u=()=>t.jsxs("div",{onClick:i,className:`juno-pageheader-logo-title ${E} ${i?"jn:cursor-pointer":""}`,role:i?"button":void 0,children:[t.jsx("div",{className:`juno-pageheader-logo-container ${x}`,children:m}),t.jsx("div",{className:`juno-pageheader-application-name ${y}`,children:n.trim()||l})]}),s=t.jsxs(t.Fragment,{children:[u(),t.jsx("div",{className:"juno-pageheader-content-container",children:t.jsx("div",{className:`juno-pageheader-options ${Z}`,children:c})})]});return t.jsx("div",{className:`juno-pageheader theme-dark ${g} ${r}`,role:"banner",...p,children:t.jsx("div",{className:`juno-pageheader-inner ${j}`,children:a?t.jsx("a",{href:a,children:s}):s})})};try{d.displayName="PageHeader",d.__docgenInfo={description:"The `PageHeader` component renders a header for an application with customisable `logo`, `title` and other options.\nIdeally, the custom logo component should return an `<img />` or an inline `<svg>` element.\nWhen using SVG, ensure the file is optimized to eliminate any superfluous elements or data that can contribute to increased file size and reduced performance. `Svgo` is a great tool to optimize `svg` files. Make sure the `viewBox` element is not removed when optimizing a file for usage a a header logo.\nPass as prop to `AppShell` so it gets slotted into the correct place in the layout. If building your layout manually without `AppShell` place as first child of AppBody.",displayName:"PageHeader",props:{applicationName:{defaultValue:{value:""},description:"Name of the application.",name:"applicationName",required:!1,type:{name:"string"}},heading:{defaultValue:{value:""},description:"DEPRECATED PROP - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.",name:"heading",required:!1,type:{name:"string | ReactElement<unknown, string | JSXElementConstructor<any>>"}},href:{defaultValue:{value:""},description:"Link to open when applicationName or logo is clicked. If `onClick` is provided, it will take precedence.",name:"href",required:!1,type:{name:"string"}},className:{defaultValue:{value:""},description:"Custom class names.",name:"className",required:!1,type:{name:"string"}},logo:{defaultValue:{value:"true"},description:"Application logo.",name:"logo",required:!1,type:{name:"boolean | ReactElement<unknown, string | JSXElementConstructor<any>>"}},onClick:{defaultValue:null,description:"Handler executed when `applicationName` or `logo` are clicked.",name:"onClick",required:!1,type:{name:"MouseEventHandler<HTMLDivElement>"}},children:{defaultValue:null,description:"Children to render in the header such as user name, avatar, log-in/out button, etc.",name:"children",required:!1,type:{name:"ReactNode"}}}}}catch{}export{d as P};
