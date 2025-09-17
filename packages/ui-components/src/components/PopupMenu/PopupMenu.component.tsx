@@ -223,7 +223,7 @@ const PopupMenu: React.FC<PopupMenuProps> = ({
   const menu = childrenArray.find((child) => React.isValidElement(child) && child.type === PopupMenuOptions)
 
   return (
-    <HeadlessMenu as="div" className={`juno-popupmenu ${className}`} {...props}>
+    <HeadlessMenu as="div" className={`juno-popupmenu ${className}`} {...props} data-row-stop-propagation>
       {/* Update our open state when the open render prop from headless ui menu changes, so we can run the handlers when our tracking state changes: */}
       {({ open, close }) => {
         // Set our tracking open state outside of rendering cycle. Trying to set the state during render will cause an error:
@@ -244,7 +244,6 @@ const PopupMenu: React.FC<PopupMenuProps> = ({
             <div
               ref={refs.setReference}
               className={`juno-popupmenu-float-reference-wrapper ${floatingReferenceWrapperStyles}`}
-              data-row-stop-propagation
             >
               {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
               {!hasToggle && (
@@ -305,6 +304,7 @@ export const PopupMenuOptions: React.FC<PopupMenuOptionsProps> = ({ children, cl
   return (
     <MenuItems
       className={`juno-popupmenu-menu juno-popupmenu-menu-size-${menuSize} ${menuStyles} ${className}`}
+      data-row-stop-propagation
       {...props}
     >
       {children}
