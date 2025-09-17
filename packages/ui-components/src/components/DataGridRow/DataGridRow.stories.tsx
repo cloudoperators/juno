@@ -9,6 +9,7 @@ import { DataGridRow } from "./index"
 import { DataGridCell } from "../DataGridCell/index"
 import { Default as DataGridCellStory } from "../DataGridCell/DataGridCell.stories"
 import { DataGrid, DataGridProps } from "../DataGrid/index"
+import { Button } from "../Button"
 
 const columns = 5
 
@@ -61,6 +62,7 @@ export const Default: StoryObj<DataGridRowStoryProps> = {
   args: {
     isSelected: false,
     items: Array(columns).fill({ ...DataGridCellStory.args }),
+    onClick: undefined,
   },
   parameters: {
     docs: {
@@ -99,7 +101,51 @@ export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
   },
 }
 
-export const ActiveRow: StoryObj<DataGridRowStoryProps> = {
+export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProps> = {
+  render: ({ items, ...args }) => (
+    <>
+      <DataGridRow {...args}>
+        {items.map((item, i) => (
+          <DataGridCell {...item} key={i} />
+        ))}
+      </DataGridRow>
+      <DataGridRow {...args} onClick={() => alert("DataGridRow Event!")}>
+        <DataGridCell>
+          {/* Button with a data attribute to control event propagation */}
+          <Button
+            label="Trigger Juno UI `Button` Event"
+            onClick={() =>
+              alert("Only the `Button` event has been triggered! `data-row-stop-propagation` is NOT required.")
+            }
+          />
+        </DataGridCell>
+        <DataGridCell>
+          <button
+            data-row-stop-propagation
+            onClick={() =>
+              alert("Only the custom button event has been triggered! `data-row-stop-propagation` is required.")
+            }
+          >
+            Trigger Custom Button Event
+          </button>
+        </DataGridCell>
+      </DataGridRow>
+    </>
+  ),
+  args: {
+    items: Array(columns).fill({ ...DataGridCellStory.args }),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "You can enhance the `DataGrid` by incorporating interactive elements like `Button`, `Icon`, `Select`, etc. These components are designed to manage event propagation by default, ensuring interaction events are prioritized over row events. For custom elements, apply the attribute as illustrated in the example to prevent unintended event propagation.",
+      },
+    },
+  },
+}
+
+export const SelectedRow: StoryObj<DataGridRowStoryProps> = {
   render: ({ items, ...args }) => (
     <>
       <DataGridRow isSelected {...args}>

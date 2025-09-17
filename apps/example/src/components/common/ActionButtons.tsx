@@ -21,7 +21,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ onEdit, onDelete, linkUrl
     isButton ? (
       <Button icon={icon} {...actionProps} variant="subdued" />
     ) : (
-      <Icon icon={icon} {...actionProps} className="cursor-pointer" data-row-stop-propagation />
+      <Icon icon={icon} {...actionProps} className="cursor-pointer" />
     )
 
   const isButtonAppearance = appearance !== ICON_APPEARANCE
