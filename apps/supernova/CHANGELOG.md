@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.4
+
+### Patch Changes
+
+- 071ad50: `org` url search param is retained in the URL as well as initialFilters are applied from the app props.
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-url-state-provider@3.0.6
+
 ## 0.19.3
 
 ### Patch Changes
