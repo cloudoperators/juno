@@ -220,6 +220,7 @@ export const Radio: React.FC<RadioProps> = ({
              ${isInvalid || isValid ? "" : noBorderStyles}
              ${className}
            `}
+          data-row-stop-propagation
           {...props}
         >
           <input

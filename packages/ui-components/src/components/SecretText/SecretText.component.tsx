@@ -176,6 +176,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
         juno-secret-wrapper  
         ${wrapperClassName}  
       `}
+      data-row-stop-propagation
     >
       <div
         className={`
