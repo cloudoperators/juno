@@ -50,7 +50,7 @@ const useAppStore = <T,>(selector: (state: AppState) => T): T => {
 // See reasoning here: https://tkdodo.eu/blog/working-with-zustand
 
 // Globals exports
-export const useGlobalsIsURLRead = () => useAppStore((s: any) => s.globals.isURLRead)
+export const useGlobalsInitialFiltersApplied = () => useAppStore((s: any) => s.globals.isUrlRead)
 export const useGlobalsEmbedded = () => useAppStore((state: any) => state.globals.embedded)
 export const useShowDetailsFor = () => useAppStore((state: any) => state.globals.showDetailsFor)
 export const useGlobalsApiEndpoint = () => useAppStore((state: any) => state.globals.apiEndpoint)

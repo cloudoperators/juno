@@ -139,7 +139,7 @@ describe("AuthProvider", () => {
       )
     })
 
-    it("initializes demo auth session when demoOrg matches org in URL as query param", () => {
+    it("initializes demo auth session when demoOrg matches org in URL pathname", () => {
       const demoOrg = "demoArturo"
 
       const tokenSession = vi.fn()
@@ -149,7 +149,7 @@ describe("AuthProvider", () => {
       // @ts-expect-error TS(2790): The operand of a 'delete' operator must be optiona... Remove this comment to see the full error message
       delete window.location
       // @ts-expect-error TS(2322): Type 'URL' is not assignable to type '(string | Lo... Remove this comment to see the full error message
-      window.location = new URL(`https://dashboard.example.com/?org=${demoOrg}`)
+      window.location = new URL(`https://dashboard.example.com/${demoOrg}`)
 
       const wrapper = ({ children }: any) => (
         <AuthProvider options={{ demoOrg: demoOrg, demoUserToken: "demoToken" }}>{children}</AuthProvider>
