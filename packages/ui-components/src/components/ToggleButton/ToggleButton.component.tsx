@@ -4,11 +4,11 @@
  */
 
 import React, { useState, useEffect } from "react"
-import { Button, ButtonProps } from "../Button"
+import { Button } from "../Button"
 
-type Option<T> = T | { value: T; label?: React.ReactNode }
+type Option<T> = T | { value: T; label?: React.ReactNode; icon?: KnownIcons }
 
-interface ToggleButtonProps<T extends string | number> extends Omit<ButtonProps, "onClick" | "onChange" | "value"> {
+export interface ToggleButtonProps<T> {
   options: Option<T>[]
   value?: T
   onChange?: (_value: T) => void
@@ -38,25 +38,18 @@ export const ToggleButton = <T extends string | number>({
     const nextValue = getValue(options[nextIndex])
 
     setCurrentValue(nextValue)
-    if (onChange) onChange(nextValue)
+    if (onChange) {
+      onChange(nextValue)
+    }
   }
 
-  const getLabel = (): string | undefined => {
+  const getLabel = (): React.ReactNode => {
     if (renderLabel) {
-      const renderedLabel = renderLabel(currentValue)
-      if (typeof renderedLabel === "string") {
-        return renderedLabel
-      }
+      return renderLabel(currentValue)
     }
-
     const currentOption = options.find((opt) => getValue(opt) === currentValue)
-
-    if (currentOption && typeof currentOption === "object" && typeof currentOption.label === "string") {
-      return currentOption.label
-    }
-
-    return currentValue?.toString()
+    return typeof currentOption === "object" ? currentOption.label : currentOption
   }
 
-  return <Button {...buttonProps} label={getLabel()} onClick={onButtonClick} variant="primary" />
+  return <Button {...buttonProps} label={getLabel()} onClick={onButtonClick} />
 }
