@@ -1,5 +1,19 @@
 # heureka
 
+## 0.9.0
+
+### Minor Changes
+
+- 62c1184: Update severity icons.
+
+### Patch Changes
+
+- Updated dependencies [ee9a9ce]
+- Updated dependencies [fe485e4]
+- Updated dependencies [1ff669a]
+  - @cloudoperators/juno-ui-components@5.5.0
+  - @cloudoperators/juno-messages-provider@0.2.16
+
 ## 0.8.6
 
 ### Patch Changes
