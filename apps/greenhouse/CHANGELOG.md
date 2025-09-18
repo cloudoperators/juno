@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.6
+
+### Patch Changes
+
+- 071ad50: `org` url search param is retained when navigating to other apps.
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-app-doop@2.6.0
+  - @cloudoperators/juno-url-state-provider@3.0.6
+  - @cloudoperators/juno-app-supernova@0.19.4
+  - @cloudoperators/juno-app-heureka@0.9.1
+
 ## 0.7.5
 
 ### Patch Changes

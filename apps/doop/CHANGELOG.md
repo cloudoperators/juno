@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.0
+
+### Minor Changes
+
+- 071ad50: Legacy url state is converted to new url state and "org" url search parameter is retained.
+
+### Patch Changes
+
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-url-state-provider@3.0.6
+
 ## 2.5.4
 
 ### Patch Changes

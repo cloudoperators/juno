@@ -1,5 +1,13 @@
 # heureka
 
+## 0.9.1
+
+### Patch Changes
+
+- 071ad50: `org` url search param is retained when navigating among pages.
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-url-state-provider@3.0.6
+
 ## 0.9.0
 
 ### Minor Changes

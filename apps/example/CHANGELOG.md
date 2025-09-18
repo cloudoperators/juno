@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-example
 
+## 2.2.6
+
+### Patch Changes
+
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-url-state-provider@3.0.6
+
 ## 2.2.5
 
 ### Patch Changes
