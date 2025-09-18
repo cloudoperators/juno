@@ -35,8 +35,13 @@ export const extractSearchStringFromHashFragment = (searchString: string) => {
   return searchString.slice(postHashParams, preHashParams === -1 ? undefined : preHashParams)
 }
 
-export const getFiltersForUrl = (prefix: string, filters: any) =>
-  filters.reduce((acc: Record<string, string | string[]>, filter: any) => {
+export const getFiltersForUrl = (prefix: string, filters: any) => {
+  // Handle non-array inputs
+  if (!Array.isArray(filters)) {
+    return {}
+  }
+
+  return filters.reduce((acc: Record<string, string | string[]>, filter: any) => {
     // if the filter key already exists, convert the value to an array and add the new value
     if (acc[`${prefix}${filter.key}`]) {
       if (Array.isArray(acc[`${prefix}${filter.key}`])) {
@@ -49,6 +54,7 @@ export const getFiltersForUrl = (prefix: string, filters: any) =>
     }
     return acc
   }, {})
+}
 
 export const convertAppStateToUrlState = (appState: any) => {
   const activeFiltersForUrl = getFiltersForUrl("f_", appState.activeFilters || {})
