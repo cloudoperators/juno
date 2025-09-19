@@ -4,11 +4,12 @@
  */
 
 import React, { useState, useEffect } from "react"
-import { Button } from "../Button"
+import { Button, ButtonProps } from "../Button"
+import { KnownIcons } from "../Icon/Icon.component"
 
 type Option<T> = T | { value: T; label?: React.ReactNode; icon?: KnownIcons }
 
-export interface ToggleButtonProps<T> {
+export interface ToggleButtonProps<T> extends Omit<ButtonProps, "onChange" | "value"> {
   options: Option<T>[]
   value?: T
   onChange?: (_value: T) => void
@@ -20,7 +21,7 @@ export const ToggleButton = <T extends string | number>({
   value: controlledValue,
   onChange,
   renderLabel,
-  ...buttonProps
+  ...props
 }: ToggleButtonProps<T>) => {
   const getValue = (option: Option<T>): T => (typeof option === "object" ? option.value : option)
   const initialValue = controlledValue !== undefined ? controlledValue : getValue(options[0])
@@ -51,5 +52,5 @@ export const ToggleButton = <T extends string | number>({
     return typeof currentOption === "object" ? currentOption.label : currentOption
   }
 
-  return <Button {...buttonProps} label={getLabel()} onClick={onButtonClick} />
+  return <Button {...props} label={getLabel()} onClick={onButtonClick} />
 }

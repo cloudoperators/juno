@@ -34,6 +34,13 @@ const meta: Meta<typeof ToggleButton> = {
       action: "toggleChanged",
       description: "Callback for whenever the toggle changes.",
     },
+    variant: {
+      control: {
+        type: "select",
+        options: ["primary", "default", "primary-danger", "subdued"],
+      },
+      description: "Variant styling for the button.",
+    },
   },
 }
 
@@ -55,6 +62,25 @@ export const Default: Story = {
   },
 }
 
+export const WithObjectOptions: Story = {
+  args: {
+    options: [
+      { value: "Theme 1", label: "Light Theme" },
+      { value: "Theme 2", label: "Dark Theme" },
+      { value: "Theme 3", label: "Colorful Theme" },
+    ],
+    value: "Theme 1",
+    onChange: (value) => console.log("Theme changed to:", value),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "ToggleButton using options with value-label objects.",
+      },
+    },
+  },
+}
+
 export const Disabled: Story = {
   args: {
     options: ["Option 1", "Option 2", "Option 3"],
@@ -71,20 +97,17 @@ export const Disabled: Story = {
   },
 }
 
-export const WithObjectOptions: Story = {
+export const PrimaryVariant: Story = {
   args: {
-    options: [
-      { value: "Theme 1", label: "Light Theme" },
-      { value: "Theme 2", label: "Dark Theme" },
-      { value: "Theme 3", label: "Colorful Theme" },
-    ],
-    value: "Theme 1",
-    onChange: (value) => console.log("Theme changed to:", value),
+    options: ["Option A", "Option B", "Option C"],
+    value: "Option A",
+    variant: "primary",
+    onChange: (value) => console.log("Changed to:", value),
   },
   parameters: {
     docs: {
       description: {
-        story: "ToggleButton using options with value-label objects.",
+        story: "ToggleButton rendered with primary variant styling.",
       },
     },
   },
