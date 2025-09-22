@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, ReactNode } from "react"
+import React, { useState, ReactNode } from "react"
 import { Button, ButtonProps } from "../Button"
 
 type Option<T> = T | { value: T; label?: ReactNode }
@@ -17,20 +17,15 @@ interface ToggleButtonProps<T extends string | number> extends Omit<ButtonProps,
 
 export const ToggleButton = <T extends string | number>({
   options,
-  value: controlledValue,
+  value,
   onChange,
   renderLabel,
   ...props
 }: ToggleButtonProps<T>) => {
   const extractValue = (option: Option<T>): T => (typeof option === "object" ? option.value : option)
 
-  const [currentValue, setCurrentValue] = useState<T>(controlledValue ?? extractValue(options[0]))
-
-  useEffect(() => {
-    if (controlledValue !== undefined) {
-      setCurrentValue(controlledValue)
-    }
-  }, [controlledValue])
+  const initialValue = value !== undefined ? value : extractValue(options[0])
+  const [currentValue, setCurrentValue] = useState<T>(initialValue)
 
   const handleButtonClick = () => {
     const currentIndex = options.findIndex((opt) => extractValue(opt) === currentValue)
