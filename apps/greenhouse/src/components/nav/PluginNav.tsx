@@ -69,7 +69,9 @@ const PluginNav = () => {
   const { data: authData, loggedIn, login, logout } = useAuth()
 
   const navigateToApp = (appId: string) => {
-    navigate({ to: `/${appId}` })
+    navigate({
+      to: `/${appId}`,
+    })
   }
 
   return (

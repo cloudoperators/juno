@@ -5,24 +5,53 @@
 
 import React from "react"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useLocation, useNavigate } from "@tanstack/react-router"
+import { useNavigate, useMatches, useRouter } from "@tanstack/react-router"
 import { useGlobalsEmbedded } from "./StoreProvider"
+
+type NavigationItemType = {
+  label: string
+  value: string
+  icon: "danger" | "info"
+}
+
+const navigationItems: NavigationItemType[] = [
+  {
+    label: "Alerts",
+    value: "/alerts",
+    icon: "danger",
+  },
+  {
+    label: "Silences",
+    value: "/silences",
+    icon: "info",
+  },
+]
 
 const CustomAppShell = ({ children }: any) => {
   const navigate = useNavigate()
-  const location = useLocation()
+  const matches = useMatches()
+  const router = useRouter()
   const embedded = useGlobalsEmbedded()
 
   const handleTabSelect = (link: React.ReactNode) => {
     if (typeof link === "string") {
-      navigate({ to: link })
+      navigate({
+        to: link,
+      })
     }
   }
 
+  const getActiveItem = () => {
+    const currentPath = matches[matches.length - 1].id
+    const activeItem = navigationItems.find((item) => currentPath.includes(item.value))
+    return activeItem ? activeItem.value : ""
+  }
+
   const topNavigation = (
-    <TopNavigation activeItem={location.pathname} onActiveItemChange={handleTabSelect}>
-      <TopNavigationItem icon="danger" key="/alerts" value="/alerts" label="Alerts" />
-      <TopNavigationItem icon="info" key="/silences" value="/silences" label="Silences" />
+    <TopNavigation activeItem={getActiveItem()} onActiveItemChange={handleTabSelect}>
+      {navigationItems.map((item) => (
+        <TopNavigationItem icon={item.icon} key={item.value} value={item.value} label={item.label} />
+      ))}
     </TopNavigation>
   )
 

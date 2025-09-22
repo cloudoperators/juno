@@ -20,7 +20,7 @@ import { valueToLabel } from "../helpers"
 //       "value": "containers"
 //   }
 // ]
-const parseInitialFilters = (initialFilters: any) => {
+export const parseInitialFilters = (initialFilters: any) => {
   if (typeof initialFilters !== "object" || !Object.keys(initialFilters).length) return undefined
 
   return Object.keys(initialFilters)
