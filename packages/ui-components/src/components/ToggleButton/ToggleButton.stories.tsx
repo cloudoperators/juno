@@ -3,8 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
+
 import { ToggleButton } from "./ToggleButton.component"
+import { Icon } from "../Icon"
+import { KnownIcons } from "../Icon/Icon.component"
 
 const meta: Meta<typeof ToggleButton> = {
   title: "Components/ToggleButton",
@@ -76,6 +80,25 @@ export const WithObjectOptions: Story = {
     docs: {
       description: {
         story: "ToggleButton using options with value-label objects.",
+      },
+    },
+  },
+}
+
+export const IconRendering: Story = {
+  args: {
+    options: ["sortShortWideArrowUp", "sortShortWideArrowDown"],
+    value: "sortShortWideArrowDown",
+    onChange: (value) => console.log("Changed to:", value),
+    renderLabel: (value) => {
+      return <Icon icon={value as KnownIcons} size={24} />
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "ToggleButton that uses renderLabel to render icons based on toggle value. Note: For sorting, you can use the SortButton component.",
       },
     },
   },

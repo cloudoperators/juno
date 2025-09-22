@@ -3,17 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, ReactNode } from "react"
 import { Button, ButtonProps } from "../Button"
-import { KnownIcons } from "../Icon/Icon.component"
 
-type Option<T> = T | { value: T; label?: React.ReactNode; icon?: KnownIcons }
+type Option<T> = T | { value: T; label?: ReactNode }
 
-export interface ToggleButtonProps<T> extends Omit<ButtonProps, "onChange" | "value"> {
+interface ToggleButtonProps<T extends string | number> extends Omit<ButtonProps, "onChange" | "value"> {
   options: Option<T>[]
   value?: T
   onChange?: (_value: T) => void
-  renderLabel?: (_value: T) => React.ReactNode
+  renderLabel?: (_value: T) => ReactNode
 }
 
 export const ToggleButton = <T extends string | number>({
@@ -23,9 +22,9 @@ export const ToggleButton = <T extends string | number>({
   renderLabel,
   ...props
 }: ToggleButtonProps<T>) => {
-  const getValue = (option: Option<T>): T => (typeof option === "object" ? option.value : option)
-  const initialValue = controlledValue !== undefined ? controlledValue : getValue(options[0])
-  const [currentValue, setCurrentValue] = useState<T>(initialValue)
+  const extractValue = (option: Option<T>): T => (typeof option === "object" ? option.value : option)
+
+  const [currentValue, setCurrentValue] = useState<T>(controlledValue ?? extractValue(options[0]))
 
   useEffect(() => {
     if (controlledValue !== undefined) {
@@ -33,24 +32,25 @@ export const ToggleButton = <T extends string | number>({
     }
   }, [controlledValue])
 
-  const onButtonClick = () => {
-    const currentIndex = options.findIndex((opt) => getValue(opt) === currentValue)
-    const nextIndex = (currentIndex + 1) % options.length
-    const nextValue = getValue(options[nextIndex])
+  const handleButtonClick = () => {
+    const currentIndex = options.findIndex((opt) => extractValue(opt) === currentValue)
+    const nextValue = extractValue(options[(currentIndex + 1) % options.length])
 
     setCurrentValue(nextValue)
-    if (onChange) {
-      onChange(nextValue)
-    }
+    onChange?.(nextValue)
   }
 
-  const getLabel = (): React.ReactNode => {
-    if (renderLabel) {
-      return renderLabel(currentValue)
-    }
-    const currentOption = options.find((opt) => getValue(opt) === currentValue)
-    return typeof currentOption === "object" ? currentOption.label : currentOption
-  }
+  const currentOption = options.find((opt) => extractValue(opt) === currentValue)
 
-  return <Button {...props} label={getLabel()} onClick={onButtonClick} />
+  const displayLabel = renderLabel
+    ? renderLabel(currentValue)
+    : typeof currentOption === "object"
+      ? (currentOption.label ?? "")
+      : currentOption
+
+  return (
+    <Button {...props} onClick={handleButtonClick}>
+      {displayLabel}
+    </Button>
+  )
 }

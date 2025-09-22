@@ -5,23 +5,23 @@
 
 import React from "react"
 import { ToggleButton } from "../ToggleButton/ToggleButton.component"
-import { Icon, KnownIcons } from "../Icon/Icon.component"
+import { Icon } from "../Icon/Icon.component"
+import { ButtonProps } from "../Button"
 
-interface SortButtonProps {
-  order?: string
+interface SortButtonProps extends Omit<ButtonProps, "value" | "onChange"> {
+  order?: "asc" | "desc"
   onOrderChange?: (_order: string) => void
 }
 
 export const SortButton: React.FC<SortButtonProps> = ({ order = "desc", onOrderChange, ...props }) => {
-  const options: { value: string }[] = [{ value: "sortShortWideArrowUp" }, { value: "sortShortWideArrowDown" }]
+  const options = [
+    { value: "asc", label: <Icon icon="sortShortWideArrowUp" /> },
+    { value: "desc", label: <Icon icon="sortShortWideArrowDown" /> },
+  ]
 
-  const handleChange = (value: string) => {
-    if (onOrderChange) {
-      onOrderChange(value)
-    }
+  const handleChange = (newOrder: string) => {
+    onOrderChange?.(newOrder)
   }
 
-  return (
-    <ToggleButton options={options} onChange={handleChange} renderLabel={(value) => <Icon icon={value} />} {...props} />
-  )
+  return <ToggleButton options={options} value={order} onChange={handleChange} {...props} />
 }
