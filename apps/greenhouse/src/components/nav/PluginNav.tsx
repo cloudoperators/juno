@@ -70,7 +70,7 @@ const PluginNav = () => {
   const { data: authData, loggedIn, login, logout } = useAuth()
 
   const navigateToApp = (appId: string) => {
-    // save the url state of the current app
+    // Save the current app's URL state to restore it later
     if (activeApp) {
       visitedApps.current[activeApp] = matches[matches.length - 1].search
     }

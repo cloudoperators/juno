@@ -1,7 +1,5 @@
 ---
 "@cloudoperators/juno-app-greenhouse": patch
-"@cloudoperators/juno-app-supernova": patch
-"@cloudoperators/juno-app-doop": patch
 ---
 
-Addressed issues found while testing new client side routing and url state.
+Greenhouse now preserves the URL state of the currently opened app when navigating to another app and restores it back when that app is visited again.

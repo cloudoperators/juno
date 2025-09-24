@@ -34,7 +34,7 @@ const CustomAppShell = ({ children }: any) => {
   const embedded = useGlobalsEmbedded()
 
   const handleTabSelect = (link: React.ReactNode) => {
-    // save the url state of the current page
+    // Save the current pages's URL state to restore it later
     const currentPath = matches[matches.length - 1].id
     visitedPages.current[currentPath] = matches[matches.length - 1].search
 
