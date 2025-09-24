@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.1
+
+### Patch Changes
+
+- 061c843: Selected `violationGroup` is now persisted on URL state and removed from it when the panel is closed.
+
 ## 2.6.0
 
 ### Minor Changes
