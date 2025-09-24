@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useRef } from "react"
+import { useNavigate, useMatches, AnySchema } from "@tanstack/react-router"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useNavigate, useMatches, useRouter } from "@tanstack/react-router"
 import { useGlobalsEmbedded } from "./StoreProvider"
 
 type NavigationItemType = {
@@ -28,15 +28,20 @@ const navigationItems: NavigationItemType[] = [
 ]
 
 const CustomAppShell = ({ children }: any) => {
+  const visitedPages = useRef<Record<string, AnySchema>>({})
   const navigate = useNavigate()
   const matches = useMatches()
-  const router = useRouter()
   const embedded = useGlobalsEmbedded()
 
   const handleTabSelect = (link: React.ReactNode) => {
+    // save the url state of the current page
+    const currentPath = matches[matches.length - 1].id
+    visitedPages.current[currentPath] = matches[matches.length - 1].search
+
     if (typeof link === "string") {
       navigate({
         to: link,
+        search: visitedPages.current[link] ?? {}, // restore the url state of the target page
       })
     }
   }
