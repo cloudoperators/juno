@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { useMatches, useNavigate } from "@tanstack/react-router"
+import React, { useRef } from "react"
+import { AnySchema, useMatches, useNavigate } from "@tanstack/react-router"
 import GreenhouseLogo from "../../assets/greenhouse_logo.svg?react"
 import SupernovaIcon from "../../assets/juno_supernova.svg?react"
 import DoopIcon from "../../assets/juno_doop.svg?react"
@@ -60,6 +60,7 @@ break-all
 `
 
 const PluginNav = () => {
+  const visitedApps = useRef<Record<string, AnySchema>>({})
   const appConfig = usePlugin().appConfig()
   const mngConfig = usePlugin().mngConfig()
   const navigate = useNavigate({ from: "/" })
@@ -69,8 +70,13 @@ const PluginNav = () => {
   const { data: authData, loggedIn, login, logout } = useAuth()
 
   const navigateToApp = (appId: string) => {
+    // Save the current app's URL state to restore it later
+    if (activeApp) {
+      visitedApps.current[activeApp] = matches[matches.length - 1].search
+    }
     navigate({
       to: `/${appId}`,
+      search: visitedApps.current[appId] ?? {}, // restore the url state of the target app
     })
   }
 

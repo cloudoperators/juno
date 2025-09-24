@@ -4,10 +4,11 @@
  */
 
 import React, { forwardRef, useRef } from "react"
+import { useNavigate, useSearch } from "@tanstack/react-router"
 
 import { DataGridCell, DataGridRow } from "@cloudoperators/juno-ui-components"
 
-import { useGlobalsActions, useShowDetailsFor } from "../StoreProvider"
+import { useShowDetailsFor } from "../StoreProvider"
 import AlertLabels from "./shared/AlertLabels"
 import AlertLinks from "./shared/AlertLinks"
 import CreateSilence from "../silences/CreateSilence"
@@ -16,7 +17,6 @@ import AlertDescription from "./shared/AlertDescription"
 import AlertTimestamp from "./shared/AlertTimestamp"
 import AlertStatus from "./AlertStatus"
 import AlertRegion from "./shared/AlertRegion"
-import { useNavigate } from "@tanstack/react-router"
 
 const cellSeverityClasses = (severity: any) => {
   let borderColor = "border-text-theme-default"
@@ -42,6 +42,9 @@ const cellSeverityClasses = (severity: any) => {
 
 const Alert = ({ alert }: any, ref: any) => {
   const navigate = useNavigate()
+  const { showDetailsFor } = useSearch({
+    from: "/alerts",
+  })
   const rowRef = useRef(null)
 
   const handleShowDetails = (e: any) => {
@@ -61,7 +64,14 @@ const Alert = ({ alert }: any, ref: any) => {
 
     e.stopPropagation()
     e.preventDefault()
-    navigate({ to: "/alerts", search: (prev) => ({ ...prev, showDetailsFor: alert?.fingerprint }) })
+    navigate({
+      to: "/alerts",
+      search: (prev) => ({
+        ...prev,
+        // if the alert is already open, close it, otherwise open the new one
+        showDetailsFor: showDetailsFor !== alert?.fingerprint ? alert?.fingerprint : undefined,
+      }),
+    })
   }
 
   return (
