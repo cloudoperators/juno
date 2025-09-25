@@ -109,7 +109,9 @@ const FilterSelect = () => {
               ) => !activeFilters[filterLabel]?.includes(value)
             )
             .slice(0, 100) // take only the first 100 values. This isn't a good solution TODO: fix this properly with combo box, typeahead search, lazy loading, etc.
-            .map((value: any) => <ComboBoxOption value={value} key={value} />)}
+            .map((value: any) => (
+              <ComboBoxOption value={value} key={value} />
+            ))}
         </ComboBox>
       </InputGroup>
       {renderClearButton()}
