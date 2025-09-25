@@ -1,5 +1,43 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.7
+
+### Patch Changes
+
+- 061c843: Greenhouse now preserves the URL state of the currently opened app when navigating to another app and restores it back when that app is visited again.
+- Updated dependencies [061c843]
+- Updated dependencies [061c843]
+  - @cloudoperators/juno-app-supernova@0.19.5
+  - @cloudoperators/juno-app-doop@2.6.1
+
+## 0.7.6
+
+### Patch Changes
+
+- 071ad50: `org` url search param is retained when navigating to other apps.
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-app-doop@2.6.0
+  - @cloudoperators/juno-url-state-provider@3.0.6
+  - @cloudoperators/juno-app-supernova@0.19.4
+  - @cloudoperators/juno-app-heureka@0.9.1
+
+## 0.7.5
+
+### Patch Changes
+
+- Updated dependencies [ee9a9ce]
+- Updated dependencies [62c1184]
+- Updated dependencies [fe485e4]
+- Updated dependencies [1ff669a]
+  - @cloudoperators/juno-ui-components@5.5.0
+  - @cloudoperators/juno-app-heureka@0.9.0
+  - @cloudoperators/juno-app-doop@2.5.4
+  - @cloudoperators/juno-app-supernova@0.19.3
+  - @cloudoperators/juno-messages-provider@0.2.16
+
 ## 0.7.4
 
 ### Patch Changes

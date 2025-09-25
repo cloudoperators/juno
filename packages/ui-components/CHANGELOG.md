@@ -1,5 +1,16 @@
 # @cloudoperators/juno-ui-components
 
+## 5.5.0
+
+### Minor Changes
+
+- fe485e4: Update severity icon design and add icons for very high and unknown severity.
+- 1ff669a: Added sort icons to Icon component.
+
+### Patch Changes
+
+- ee9a9ce: Clean up unused dependencies in @cloudoperators/juno-ui-components package
+
 ## 5.4.0
 
 ### Minor Changes

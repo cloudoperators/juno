@@ -15,6 +15,7 @@ import styles from "./styles.css?inline"
 import { StoreProvider } from "./components/StoreProvider"
 import { routeTree } from "./routeTree.gen"
 import { convertAppStateToUrlState, extractSearchStringFromHashFragment, readLegacyUrlState } from "./lib/urlStateUtils"
+import { isObjectWithKeys } from "./lib/utils"
 
 // Create a new router instance
 const router = createRouter({

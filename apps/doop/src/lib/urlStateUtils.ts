@@ -4,33 +4,18 @@
  */
 
 const ACTIVE_FILTERS = "f"
-const PAUSED_FILTERS = "pf"
-const ACTIVE_PREDEFINED_FILTER = "p"
-const DETAILS_FOR = "d"
 const SEARCH_TERM = "s"
-const ACTIVE_TAB = "t"
-const SILENCE_REG_EX = "r"
-const SILENCE_STATUS = "st"
+const DETAILS_VIOLATION_GROUP = "v"
 
 export const readLegacyUrlState = (state: any) => {
   const activeFilters = state?.[ACTIVE_FILTERS]
-  const pausedFilters = state?.[PAUSED_FILTERS]
   const searchTerm = state?.[SEARCH_TERM]
-  const predefinedFilter = !isNaN(state?.[ACTIVE_PREDEFINED_FILTER]) ? state?.[ACTIVE_PREDEFINED_FILTER] : undefined // for some reason old state return NaN if the value not present
-  const showDetailsFor = !isNaN(state?.[DETAILS_FOR]) ? state?.[DETAILS_FOR] : undefined // for some reason old state return NaN if the value not present
-  const activeTab = state?.[ACTIVE_TAB]
-  const silencesRegEx = state?.[SILENCE_REG_EX]
-  const silencesStatus = state?.[SILENCE_STATUS]
+  const violationGroup = state?.[DETAILS_VIOLATION_GROUP]
 
   return {
     activeFilters,
-    pausedFilters,
     searchTerm,
-    predefinedFilter,
-    showDetailsFor,
-    activeTab,
-    silencesStatus,
-    silencesRegEx,
+    violationGroup,
   }
 }
 
@@ -51,60 +36,65 @@ export const extractSearchStringFromHashFragment = (searchString: string) => {
 }
 
 export const getFiltersForUrl = (prefix: string, filters: any) => {
-  return {
-    ...Object.entries(filters)
-      .map(([key, value]) => {
-        if (value === undefined || value === null) return {}
-        if (Array.isArray(value)) {
-          return { [`${prefix}${key}`]: value }
-        }
-        return { [`${prefix}${key}`]: value }
-      })
-      .reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+  // Handle non-array inputs
+  if (!Array.isArray(filters)) {
+    return {}
   }
+
+  return filters.reduce((acc: Record<string, string | string[]>, filter: any) => {
+    // if the filter key already exists, convert the value to an array and add the new value
+    if (acc[`${prefix}${filter.key}`]) {
+      if (Array.isArray(acc[`${prefix}${filter.key}`])) {
+        ;(acc[`${prefix}${filter.key}`] as string[]).push(filter.value)
+      } else {
+        acc[`${prefix}${filter.key}`] = [acc[`${prefix}${filter.key}`], filter.value]
+      }
+    } else {
+      acc[`${prefix}${filter.key}`] = filter.value
+    }
+    return acc
+  }, {})
 }
 
 export const convertAppStateToUrlState = (appState: any) => {
   const activeFiltersForUrl = getFiltersForUrl("f_", appState.activeFilters || {})
-  const pausedFiltersForUrl = getFiltersForUrl("pf_", appState.pausedFilters || {})
 
   return {
     ...activeFiltersForUrl,
-    ...pausedFiltersForUrl,
-    predefinedFilter: appState.predefinedFilter,
-    searchTerm: appState.searchTerm,
-    showDetailsFor: appState.showDetailsFor,
-    silenceRegEx: appState.silenceRegEx,
-    silenceStatus: appState.silenceStatus,
+    searchTerm: appState.searchTerm || undefined,
+    violationGroup: appState.violationGroup || undefined,
   }
 }
 
 export const getFiltersForApp = (prefix: string, urlState: Record<string, string | string[]>) => {
   return Object.entries(urlState)
     .filter(([key]) => key.startsWith(prefix))
-    .reduce((acc: Record<string, string[]>, [key, value]) => {
+    .reduce((acc: Array<{ key: string; value: string }>, [key, value]) => {
       const filterKey = key.replace(prefix, "")
       if (value === undefined || value === null) return acc
+      // if the value is an array, add each value as a separate filter
       if (Array.isArray(value)) {
-        acc[filterKey] = value.map((v) => v.trim())
-      } else if (typeof value === "string") {
-        acc[filterKey] = [value.trim()]
-      } else {
-        return acc
+        acc = [
+          ...acc,
+          ...value.map((v) => ({
+            key: filterKey,
+            value: v.trim(),
+          })),
+        ]
+      }
+      // if the value is a string, add it as a single filter
+      else if (typeof value === "string") {
+        acc.push({ key: filterKey, value: value.trim() })
       }
       return acc
-    }, {})
+    }, [])
 }
 
 export const convertUrlStateToAppState = (urlState: any) => {
   return {
     activeFilters: getFiltersForApp("f_", urlState),
-    pausedFilters: getFiltersForApp("pf_", urlState),
-    predefinedFilter: urlState.predefinedFilter,
     searchTerm: urlState.searchTerm,
-    showDetailsFor: urlState.showDetailsFor,
-    silencesRegEx: urlState.silencesRegEx,
-    silencesStatus: urlState.silencesStatus,
+    violationGroup: urlState.violationGroup,
   }
 }
 

@@ -4,6 +4,7 @@
  */
 
 import React, { Suspense, useEffect, useRef } from "react"
+import { useRouter } from "@tanstack/react-router"
 import * as supernova from "@cloudoperators/juno-app-supernova"
 import * as doop from "@cloudoperators/juno-app-doop"
 import * as heureka from "@cloudoperators/juno-app-heureka"
@@ -33,6 +34,7 @@ type ExtensionProps = {
 }
 
 function Extension({ id, config, auth, appProps }: ExtensionProps) {
+  const router = useRouter()
   const appContainerRef = useRef<HTMLDivElement>(null)
   const app = getApp(config.name)
 
@@ -48,7 +50,7 @@ function Extension({ id, config, auth, appProps }: ExtensionProps) {
           ? {
               embedded: true,
               token: auth?.JWT,
-              basePath: `/${config.id}`,
+              basePath: `${router.basepath}/${config.id}`,
               enableHashedRouting: appProps?.enableHashedRouting || false,
             }
           : { auth: auth }),

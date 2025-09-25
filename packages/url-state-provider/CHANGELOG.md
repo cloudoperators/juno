@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 3.0.6
+
+### Patch Changes
+
+- 071ad50: Disable sorting when decoding url search params.
+
 ## 3.0.5
 
 ### Patch Changes

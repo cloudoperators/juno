@@ -8,40 +8,40 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root"
-import { Route as IndexRouteImport } from "./routes/index"
-import { Route as ExtensionIdSplatRouteImport } from "./routes/$extensionId.$"
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as ExtensionIdSplatRouteImport } from './routes/$extensionId.$'
 
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExtensionIdSplatRoute = ExtensionIdSplatRouteImport.update({
-  id: "/$extensionId/$",
-  path: "/$extensionId/$",
+  id: '/$extensionId/$',
+  path: '/$extensionId/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
-  "/$extensionId/$": typeof ExtensionIdSplatRoute
+  '/': typeof IndexRoute
+  '/$extensionId/$': typeof ExtensionIdSplatRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute
-  "/$extensionId/$": typeof ExtensionIdSplatRoute
+  '/': typeof IndexRoute
+  '/$extensionId/$': typeof ExtensionIdSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  "/": typeof IndexRoute
-  "/$extensionId/$": typeof ExtensionIdSplatRoute
+  '/': typeof IndexRoute
+  '/$extensionId/$': typeof ExtensionIdSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/$extensionId/$"
+  fullPaths: '/' | '/$extensionId/$'
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/$extensionId/$"
-  id: "__root__" | "/" | "/$extensionId/$"
+  to: '/' | '/$extensionId/$'
+  id: '__root__' | '/' | '/$extensionId/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -49,19 +49,19 @@ export interface RootRouteChildren {
   ExtensionIdSplatRoute: typeof ExtensionIdSplatRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/"
-      path: "/"
-      fullPath: "/"
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/$extensionId/$": {
-      id: "/$extensionId/$"
-      path: "/$extensionId/$"
-      fullPath: "/$extensionId/$"
+    '/$extensionId/$': {
+      id: '/$extensionId/$'
+      path: '/$extensionId/$'
+      fullPath: '/$extensionId/$'
       preLoaderRoute: typeof ExtensionIdSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -72,4 +72,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ExtensionIdSplatRoute: ExtensionIdSplatRoute,
 }
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
