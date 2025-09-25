@@ -2,11 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices"],
   "enabledManagers": ["npm", "github-actions"],
-  "includePaths": [
-    "packages/ui-components/**",
-    "apps/heureka/**",
-    ".github/workflows/**"
-  ],
+  "includePaths": ["packages/**", "apps/**", ".github/workflows/**"],
   "rangeStrategy": "update-lockfile",
   "packageRules": [
     {
@@ -17,17 +13,17 @@
       "minimumReleaseAge": "14 days"
     },
     {
-      "groupName": "dependencies for ui-components",
+      "groupName": "dependencies for packages",
       "matchDatasources": ["npm"],
-      "matchFileNames": ["packages/ui-components/**"],
+      "matchFileNames": ["packages/**"],
       "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "7 days",
       "schedule": "every weekend"
     },
     {
-      "groupName": "dependencies for heureka",
+      "groupName": "dependencies for apps",
       "matchDatasources": ["npm"],
-      "matchFileNames": ["apps/heureka/**"],
+      "matchFileNames": ["apps/**"],
       "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "7 days",
       "schedule": "every weekend"
