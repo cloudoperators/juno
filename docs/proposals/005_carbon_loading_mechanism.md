@@ -174,7 +174,6 @@ External extensions need to be retrieved, built, and tested as part of the build
 ### Pros and Cons
 
 - **Pros**:
-
   - **All Dependencies Resolved at Build Time**: ensures that all extensions, whether internal or external, are fully resolved during the build process. This eliminates CORS issues and prevents individual extension outages.
   - **Flexibility in Extension Locations**: supports local paths for extensions (e.g., `extensions/xyz/index.js`) for tightly integrated functionalities. Allows external extensions to be hosted on CDNs, enabling scalable and efficient delivery.
   - **Error Management**:
@@ -248,7 +247,6 @@ Kubernetes setup for deploying a shell app and multiple extensions as Docker ima
 
 2. **Extension Deployments**
    Each extension is deployed as an independent Kubernetes Deployment or Pod, with its own Service exposing its functionality.
-
    - Extensions expose either their bundled files or entry points (e.g., APIs or HTML for iFrame-based rendering).
    - Ports are predefined and consistently used across deployments to simplify integration.
 
@@ -300,7 +298,6 @@ Kubernetes setup for deploying a shell app and multiple extensions as Docker ima
 ### Pros and Cons
 
 - **Pros**:
-
   - **Lightweight Shell App**: Keeps the shell application lightweight by utilizing resources hosted externally.
   - **Centralized Management**: A single manifest file simplifies the management of extensions by providing centralized information for runtime loading.
   - **Fault Isolation**: Faulty extensions do not affect the deployment of others, allowing independent rollbacks.

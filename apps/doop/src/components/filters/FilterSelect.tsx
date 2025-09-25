@@ -94,7 +94,9 @@ const FilterSelect = () => {
             {// @ts-ignore
             filterEntries
               .find((e: any) => e.key === filterLabel)
-              ?.values.map((value: any, i: any) => <ComboBoxOption value={value} key={i} />)}
+              ?.values.map((value: any, i: any) => (
+                <ComboBoxOption value={value} key={i} />
+              ))}
           </ComboBox>
         </InputGroup>
         {
