@@ -24,7 +24,7 @@ export const ToggleButton = <T extends string | number>({
 }: ToggleButtonProps<T>) => {
   const extractValue = (option: Option<T>): T => (typeof option === "object" ? option.value : option)
 
-  const [currentValue, setCurrentValue] = useState<T>(controlledValue ?? extractValue(options[0]))
+  const [currentValue, setCurrentValue] = useState<T>(value ?? extractValue(options[0]))
 
   useEffect(() => {
     if (value !== undefined) {
