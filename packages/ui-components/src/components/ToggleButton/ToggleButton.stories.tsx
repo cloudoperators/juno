@@ -5,7 +5,6 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-
 import { ToggleButton } from "./ToggleButton.component"
 import { Icon } from "../Icon"
 import { KnownIcons } from "../Icon/Icon.component"
