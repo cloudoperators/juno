@@ -4,11 +4,15 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { fn } from "storybook/test"
 import { SortButton } from "./SortButton.component"
 
 const meta: Meta<typeof SortButton> = {
   title: "Components/SortButton",
   component: SortButton,
+  args: {
+    onOrderChange: fn(),
+  },
   argTypes: {
     order: {
       control: {
