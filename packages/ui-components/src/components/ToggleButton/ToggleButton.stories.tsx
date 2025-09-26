@@ -5,7 +5,6 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { fn } from "storybook/test"
 import { ToggleButton } from "./ToggleButton.component"
 import { Icon } from "../Icon"
 import { KnownIcons } from "../Icon/Icon.component"
@@ -13,10 +12,6 @@ import { KnownIcons } from "../Icon/Icon.component"
 const meta: Meta<typeof ToggleButton> = {
   title: "Components/ToggleButton",
   component: ToggleButton,
-  args: {
-    onChange: fn(),
-    renderLabel: fn(),
-  },
   argTypes: {
     options: {
       control: {
