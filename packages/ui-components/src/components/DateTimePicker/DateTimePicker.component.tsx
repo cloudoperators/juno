@@ -488,6 +488,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
       ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
       ${wrapperClassName}
     `}
+      data-row-stop-propagation
     >
       <div className={`juno-datetimepicker-input-wrapper ${inputWrapperStyles}`}>
         <input

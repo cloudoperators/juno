@@ -148,6 +148,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       className={`juno-code-block ${wrapperStyles} ${lang ? `juno-code-block-lang-${lang}` : ""} ${className}`}
       data-lang={lang || null}
       {...props}
+      data-row-stop-propagation
     >
       {heading && heading.length ? (
         <div className={`juno-codeblock-heading ${headingStyles}`}>
