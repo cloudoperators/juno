@@ -41,13 +41,13 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "jsdom": "^26.1.0",
-    "juri-cutlery": "^1.0.0",
-    "lz-string": "^1.4.4",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.3",
-    "vite-plugin-dts": "^4.5.4",
-    "vitest": "^3.2.4"
+    "jsdom": "26.1.0",
+    "juri-cutlery": "1.0.0",
+    "lz-string": "1.5.0",
+    "typescript": "5.9.2",
+    "vite": "7.1.7",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "3.2.4"
   },
   "babel": {
     "presets": [
