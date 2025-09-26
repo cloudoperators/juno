@@ -123,4 +123,19 @@ describe("ToggleButton Component", () => {
     expect(button).toHaveTextContent("option1")
     expect(handleChange).toHaveBeenCalledWith("option1")
   })
+
+  it("updates display when value prop is changed", async () => {
+    const options = ["option1", "option2"]
+    const { rerender } = render(<ToggleButton options={options} value="option1" />)
+
+    const button = screen.getByRole("button")
+    expect(button).toHaveTextContent("option1")
+
+    rerender(<ToggleButton options={options} value="option2" />)
+    expect(button).toHaveTextContent("option2")
+    await userEvent.click(button)
+    expect(button).toHaveTextContent("option1")
+    await userEvent.click(button)
+    expect(button).toHaveTextContent("option2")
+  })
 })
