@@ -27,15 +27,15 @@
   },
   "dependencies": {
     "@cloudoperators/juno-ui-components": "workspace:*",
-    "@tailwindcss/vite": "^4.1.11",
+    "@tailwindcss/vite": "4.1.13",
     "@tanstack/react-query": "5.62.2",
-    "@vitejs/plugin-react": "^4.6.0",
-    "classnames": "^2.5.1",
+    "@vitejs/plugin-react": "4.7.0",
+    "classnames": "2.5.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-error-boundary": "^3.1.0",
-    "wouter": "^3.3.5",
-    "zustand": "^4.5.7"
+    "react-error-boundary": "3.1.4",
+    "wouter": "3.7.1",
+    "zustand": "4.5.7"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
