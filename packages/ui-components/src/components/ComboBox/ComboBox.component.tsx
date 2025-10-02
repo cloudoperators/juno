@@ -365,6 +365,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
           ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
           ${wrapperClassName}
         `}
+        data-row-stop-propagation
       >
         <Combobox
           defaultValue={defaultValue}

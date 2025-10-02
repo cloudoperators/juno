@@ -154,6 +154,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
         id={groupId}
         role="group"
         {...props}
+        data-row-stop-propagation
       >
         {label && isNotEmptyString(label) ? (
           <Label text={label} htmlFor={groupId} disabled={disabled} required={required} />
@@ -168,6 +169,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
             ${isInvalid ? invalidgroupstyles : ""} 
             ${isValid || isInvalid ? "" : defaultgroupstyles}
           `}
+          data-row-stop-propagation
         >
           {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" className={`${iconstyles}`} /> : ""}
           {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" className={`${iconstyles}`} /> : ""}
