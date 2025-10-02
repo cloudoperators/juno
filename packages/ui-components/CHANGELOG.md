@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 5.6.0
+
+### Minor Changes
+
+- 900b0be: Added `ToggleButton` and `SortButton` components.
+
 ## 5.5.0
 
 ### Minor Changes
