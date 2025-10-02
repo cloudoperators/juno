@@ -63,9 +63,9 @@
     "@tanstack/react-router": "1.131.25",
     "@tanstack/react-router-devtools": "1.131.25",
     "lodash": "4.17.21",
-    "rehype": "^13.0.2",
-    "remark": "^14.0.2",
-    "vfile": "^5.3.7",
-    "vfile-message": "^3.1.4"
+    "rehype": "13.0.2",
+    "remark": "14.0.3",
+    "vfile": "5.3.7",
+    "vfile-message": "3.1.4"
   }
 }

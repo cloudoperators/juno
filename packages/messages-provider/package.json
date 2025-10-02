@@ -19,9 +19,9 @@
     "pnpm": ">=8.0.0"
   },
   "peerDependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "zustand": "^4.5.7"
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "zustand": "4.5.7"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
