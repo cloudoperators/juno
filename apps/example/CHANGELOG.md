@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-example
 
+## 2.2.8
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+- Updated dependencies [e53d025]
+  - @cloudoperators/juno-url-state-provider@3.0.7
+
 ## 2.2.7
 
 ### Patch Changes

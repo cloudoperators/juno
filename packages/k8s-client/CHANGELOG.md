@@ -1,5 +1,11 @@
 # @cloudoperators/juno-k8s-client
 
+## 1.1.2
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+
 ## 1.1.1
 
 ### Patch Changes
