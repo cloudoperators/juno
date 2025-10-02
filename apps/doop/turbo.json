@@ -5,7 +5,6 @@
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-url-state-provider#build"
       ]
     },
@@ -13,7 +12,6 @@
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-url-state-provider#build"
       ]
     },
@@ -21,7 +19,6 @@
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-url-state-provider#build"
       ]
     },
@@ -29,7 +26,6 @@
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
         "@cloudoperators/juno-messages-provider#build",
-        "@cloudoperators/juno-communicator#build",
         "@cloudoperators/juno-url-state-provider#build"
       ]
     }

@@ -33,12 +33,9 @@
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tanstack/react-query": "5.89.0",
     "@tanstack/react-router": "1.131.25",
-    "@tanstack/react-router-devtools": "1.131.25",
     "lodash": "4.17.21",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "use-immer": "0.11.0",
-    "zod": "3.25.76"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@apollo/client": "3.14.0",
@@ -58,7 +55,6 @@
     "@types/react-dom": "19.1.6",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
-    "@vitejs/plugin-react-swc": "3.11.0",
     "@vitejs/plugin-react": "4.7.0",
     "@vitest/ui": "3.2.4",
     "autoprefixer": "10.4.21",
