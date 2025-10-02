@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.9
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+- Updated dependencies [e53d025]
+  - @cloudoperators/juno-url-state-provider@3.0.7
+  - @cloudoperators/juno-k8s-client@1.1.2
+  - @cloudoperators/juno-app-supernova@0.19.7
+  - @cloudoperators/juno-app-heureka@0.9.3
+  - @cloudoperators/juno-app-doop@2.6.3
+
 ## 0.7.8
 
 ### Patch Changes

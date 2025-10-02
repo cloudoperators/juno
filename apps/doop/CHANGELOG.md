@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.3
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+- Updated dependencies [e53d025]
+  - @cloudoperators/juno-url-state-provider@3.0.7
+
 ## 2.6.2
 
 ### Patch Changes
