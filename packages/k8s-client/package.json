@@ -37,7 +37,6 @@
     "@cloudoperators/juno-config": "workspace:*",
     "vite": "7.1.7",
     "vitest": "3.2.4",
-    "@testing-library/jest-dom": "6.8.0",
     "vite-plugin-dts": "4.5.4"
   }
 }
