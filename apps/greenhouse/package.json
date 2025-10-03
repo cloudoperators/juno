@@ -17,18 +17,18 @@
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@tailwindcss/vite": "4.1.13",
-    "@tanstack/router-plugin": "1.131.25",
+    "@tanstack/router-plugin": "1.131.50",
     "@testing-library/jest-dom": "6.8.0",
     "@testing-library/react": "16.3.0",
-    "@types/lodash": "4.17.16",
-    "@types/react": "19.1.8",
-    "@types/react-dom": "19.1.6",
+    "@types/lodash": "4.17.20",
+    "@types/react": "19.1.14",
+    "@types/react-dom": "19.1.9",
     "@vitejs/plugin-react": "4.7.0",
     "github-markdown-css": "5.8.1",
     "immer": "9.0.21",
     "interweave": "13.1.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "react-markdown": "10.1.0",
     "remark-gfm": " 4.0.1",
     "shadow-dom-testing-library": "1.13.1",
@@ -58,7 +58,7 @@
     "@cloudoperators/juno-oauth": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.131.25",
+    "@tanstack/react-router": "1.131.50",
     "lodash": "4.17.21"
   }
 }
