@@ -107,10 +107,10 @@ const validateTemplates = (templates: SilenceTemplate[]) => {
         ) {
           let brokenElement = "Following elements are not well formed: "
 
-          ;(brokenElement += typeof template?.title !== "string" ? "title " : ""),
+          ;((brokenElement += typeof template?.title !== "string" ? "title " : ""),
             (brokenElement += typeof template?.description !== "string" ? "description " : ""),
             (brokenElement += typeof template?.fixed_labels !== "object" ? "fixed_labels " : ""),
-            (brokenElement += !Array.isArray(template?.editable_labels) ? "editable_labels " : "")
+            (brokenElement += !Array.isArray(template?.editable_labels) ? "editable_labels " : ""))
           return {
             id: "elem" + index,
             title: typeof template?.title === "string" ? template?.title : "Invalid template",
@@ -163,15 +163,14 @@ const createSilencesSlice: (options?: Record<string, any>) => StateCreator<AppSt
 
         setSilences: ({ items }) => {
           if (!items) return
-
-          set((state: any) => ({
+          ;(set((state: any) => ({
             silences: {
               ...state.silences,
               items: items,
               updatedAt: Date.now(),
             },
           })),
-            false
+            false)
         },
 
         /* 

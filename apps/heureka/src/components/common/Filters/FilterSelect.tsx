@@ -65,7 +65,9 @@ export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
           disabled={!selectedFilterName}
           onChange={handleValueChange}
         >
-          {filterValues?.map((value) => <ComboBoxOption value={value} key={value} label={value} data-testid={value} />)}
+          {filterValues?.map((value) => (
+            <ComboBoxOption value={value} key={value} label={value} data-testid={value} />
+          ))}
         </ComboBox>
       </InputGroup>
     </Stack>

@@ -1,5 +1,46 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.7
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+- Updated dependencies [e53d025]
+  - @cloudoperators/juno-url-state-provider@3.0.7
+
+## 0.19.6
+
+### Patch Changes
+
+- Updated dependencies [900b0be]
+  - @cloudoperators/juno-ui-components@5.6.0
+  - @cloudoperators/juno-messages-provider@0.2.17
+
+## 0.19.5
+
+### Patch Changes
+
+- 061c843: - Selected alert in url state gets removed when panel closes.
+  - Supernova now preserves the URL state of the currently opened page when navigating to another page and restores it back when that page is visited again.
+
+## 0.19.4
+
+### Patch Changes
+
+- 071ad50: `org` url search param is retained in the URL as well as initialFilters are applied from the app props.
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-url-state-provider@3.0.6
+
+## 0.19.3
+
+### Patch Changes
+
+- Updated dependencies [ee9a9ce]
+- Updated dependencies [fe485e4]
+- Updated dependencies [1ff669a]
+  - @cloudoperators/juno-ui-components@5.5.0
+  - @cloudoperators/juno-messages-provider@0.2.16
+
 ## 0.19.2
 
 ### Patch Changes
@@ -57,23 +98,19 @@
 ### Patch Changes
 
 - 5ad5d5b: **Core Build Tools**
-
   - vite: Updated to `7.0.3` (latest)
   - vite-tsconfig-paths: Updated to `5.1.4` (latest)
   - vite-plugin-dts: Updated to `4.5.4` (latest)
 
   **Testing Framework**
-
   - vitest: Updated to `3.2.4` (latest)
   - @vitest/ui: Updated to `3.2.4` (latest)
 
   **React Plugins**
-
   - @vitejs/plugin-react: Updated to `4.6.0` (latest)
   - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
 
   **Additional Plugins**
-
   - vite-plugin-svgr: Updated to `4.3.0` (latest)
   - @tailwindcss/vite: Updated to `4.1.11` (latest)
 

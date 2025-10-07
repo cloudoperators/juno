@@ -1,5 +1,66 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.9
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+- Updated dependencies [e53d025]
+  - @cloudoperators/juno-url-state-provider@3.0.7
+  - @cloudoperators/juno-k8s-client@1.1.2
+  - @cloudoperators/juno-app-supernova@0.19.7
+  - @cloudoperators/juno-app-heureka@0.9.3
+  - @cloudoperators/juno-app-doop@2.6.3
+
+## 0.7.8
+
+### Patch Changes
+
+- Updated dependencies [900b0be]
+  - @cloudoperators/juno-ui-components@5.6.0
+  - @cloudoperators/juno-app-doop@2.6.2
+  - @cloudoperators/juno-app-heureka@0.9.2
+  - @cloudoperators/juno-app-supernova@0.19.6
+  - @cloudoperators/juno-messages-provider@0.2.17
+
+## 0.7.7
+
+### Patch Changes
+
+- 061c843: Greenhouse now preserves the URL state of the currently opened app when navigating to another app and restores it back when that app is visited again.
+- Updated dependencies [061c843]
+- Updated dependencies [061c843]
+  - @cloudoperators/juno-app-supernova@0.19.5
+  - @cloudoperators/juno-app-doop@2.6.1
+
+## 0.7.6
+
+### Patch Changes
+
+- 071ad50: `org` url search param is retained when navigating to other apps.
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-app-doop@2.6.0
+  - @cloudoperators/juno-url-state-provider@3.0.6
+  - @cloudoperators/juno-app-supernova@0.19.4
+  - @cloudoperators/juno-app-heureka@0.9.1
+
+## 0.7.5
+
+### Patch Changes
+
+- Updated dependencies [ee9a9ce]
+- Updated dependencies [62c1184]
+- Updated dependencies [fe485e4]
+- Updated dependencies [1ff669a]
+  - @cloudoperators/juno-ui-components@5.5.0
+  - @cloudoperators/juno-app-heureka@0.9.0
+  - @cloudoperators/juno-app-doop@2.5.4
+  - @cloudoperators/juno-app-supernova@0.19.3
+  - @cloudoperators/juno-messages-provider@0.2.16
+
 ## 0.7.4
 
 ### Patch Changes
@@ -119,23 +180,19 @@
 ### Patch Changes
 
 - 5ad5d5b: **Core Build Tools**
-
   - vite: Updated to `7.0.3` (latest)
   - vite-tsconfig-paths: Updated to `5.1.4` (latest)
   - vite-plugin-dts: Updated to `4.5.4` (latest)
 
   **Testing Framework**
-
   - vitest: Updated to `3.2.4` (latest)
   - @vitest/ui: Updated to `3.2.4` (latest)
 
   **React Plugins**
-
   - @vitejs/plugin-react: Updated to `4.6.0` (latest)
   - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
 
   **Additional Plugins**
-
   - vite-plugin-svgr: Updated to `4.3.0` (latest)
   - @tailwindcss/vite: Updated to `4.1.11` (latest)
 

@@ -1,5 +1,22 @@
 # @cloudoperators/juno-ui-components
 
+## 5.6.0
+
+### Minor Changes
+
+- 900b0be: Added `ToggleButton` and `SortButton` components.
+
+## 5.5.0
+
+### Minor Changes
+
+- fe485e4: Update severity icon design and add icons for very high and unknown severity.
+- 1ff669a: Added sort icons to Icon component.
+
+### Patch Changes
+
+- ee9a9ce: Clean up unused dependencies in @cloudoperators/juno-ui-components package
+
 ## 5.4.0
 
 ### Minor Changes
@@ -25,7 +42,6 @@
 ### Patch Changes
 
 - 92a17f7: - Remove all `jn:` prefixes (intended for internal use only) from external documentation.
-
   - Remove `PortalProvider` from `Modal` external code snippets.
   - Remove `undefined` classname from `GridColumn`.
 
@@ -41,23 +57,19 @@
 ### Patch Changes
 
 - 5ad5d5b: **Core Build Tools**
-
   - vite: Updated to `7.0.3` (latest)
   - vite-tsconfig-paths: Updated to `5.1.4` (latest)
   - vite-plugin-dts: Updated to `4.5.4` (latest)
 
   **Testing Framework**
-
   - vitest: Updated to `3.2.4` (latest)
   - @vitest/ui: Updated to `3.2.4` (latest)
 
   **React Plugins**
-
   - @vitejs/plugin-react: Updated to `4.6.0` (latest)
   - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
 
   **Additional Plugins**
-
   - vite-plugin-svgr: Updated to `4.3.0` (latest)
   - @tailwindcss/vite: Updated to `4.1.11` (latest)
 
@@ -188,7 +200,6 @@
   ```
 
   ## 🔄 Migration Checklist
-
   - [ ] Remove all `jn-` and `jn:` prefixes from class names
   - [ ] Delete `tailwind.config.js`
   - [ ] Create/update `styles.css` with required imports
@@ -201,7 +212,6 @@
   - [ ] Test your application thoroughly
 
   ## ⚠️ Important Notes
-
   - **This is a breaking change** - test thoroughly after migration
   - **Update incrementally** - migrate one component/file at a time if needed
   - **Check for any custom CSS** that might depend on the old configuration
@@ -209,14 +219,12 @@
   ## 🆘 Troubleshooting
 
   If you encounter issues:
-
   1. Ensure all `jn-` prefixes are removed
   2. Verify your `styles.css` has the correct imports
   3. Check that the Vite plugin is properly configured
   4. Clear your build cache: `rm -rf node_modules/.vite`
 
   ## 📚 Additional Resources
-
   - [Tailwind CSS 4 Documentation](https://tailwindcss.com/docs)
   - [Tailwind CSS 4 Migration Guide](https://tailwindcss.com/docs/upgrade-guide)
 
@@ -253,7 +261,6 @@
   If you're using React 18 or below, please continue using the `3.x` versions of this package.
 
   ### 🔧 Changes
-
   - Upgraded peer dependencies to:
     - `react@^19.1.0`
     - `react-dom@^19.1.0`
@@ -315,14 +322,12 @@
   This is a major release with breaking changes. Please review the migration guide before upgrading.
 
   ## Major Release Highlights
-
   - **Full TypeScript Migration** - The entire library has been rewritten in TypeScript, providing improved type safety and developer experience
   - **React 18.3.1 Support** - Updated to fully leverage the latest React features and improvements
   - **Vite-powered Build Pipeline** - Significant performance improvements in build times and bundle size optimization
   - **Storybook Upgrade** - Enhanced documentation and component showcasing
 
   ## New Features
-
   - Complete TypeScript integration with comprehensive type definitions
   - Modern build system using Vite for faster development and optimized production builds
   - Updated Storybook with improved documentation, search, and component navigation
@@ -330,14 +335,12 @@
   - Extended accessibility compliance across all components
 
   ## Breaking Changes
-
   - Removed all previously deprecated components and APIs
   - Updated component prop interfaces may require adjustments in your implementation, no prop-types support.
   - Minimum supported React version is now 18.0.0
   - Node.js 16+ is now required for development
 
   ## Improvements
-
   - Reduced bundle size by approximately 35%
   - Improved rendering performance across all components
   - Better tree-shaking support for more efficient application builds
@@ -345,27 +348,23 @@
   - Component state management refactored for improved predictability
 
   ## Developer Experience
-
   - Improved error messages and debugging experience
   - Comprehensive TypeScript types for better IDE integration
   - Enhanced documentation with usage examples and migration guides
   - New testing utilities for components
 
   ## Documentation
-
   - Complete overhaul of component documentation
   - New interactive examples
   - Improved search functionality in documentation
 
   ## Housekeeping
-
   - Dependency updates across the board
   - Removed legacy polyfills and compatibility code
   - Streamlined internal architecture
   - Consolidated similar components into more flexible alternatives
 
   ## Bug Fixes
-
   - Fixed focus trap issues in modal components
   - Resolved state management inconsistencies in form components
   - Fixed various styling issues in dark mode
@@ -374,7 +373,6 @@
   ## What's Next
 
   Our team is already working on exciting new features for upcoming releases. Stay tuned for announcements about:
-
   - Preparation for React 19 support.
   - Performance optimizations for large-scale applications
   - New components.
@@ -590,7 +588,6 @@
 ### Minor Changes
 
 - 68e3984: feat(ui): add pageheader custom logo
-
   - add `logo` prop that accepts a custom logo as a component to be rendered in a slot
   - move grid layout for pageheader for robust logo placement and sizing
 
@@ -649,7 +646,6 @@
   feat(ui) Appshell: render TopNavigation in embedded node if passed
 
 - d4014b6: `wrapperClassName` prop added to the following components:
-
   - ComboBox
   - DateTimePicker
   - NativeSelect
