@@ -11,7 +11,6 @@ import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
 import {
   extractFilterSettingsFromSearchParams,
-  getInitialFilters,
   getNormalizedFilters,
   sanitizeFilterSettings,
 } from "../../components/Services/utils"
@@ -42,18 +41,11 @@ export const Route = createFileRoute("/services/")({
     const { service, ...rest } = search
     return rest
   },
-  shouldReload: false, // Only reload the route when the user navigates to it or when deps change
-  beforeLoad: ({ context: { appProps }, search }) => {
+  shouldReload: true, // Reload the route when search params change
+  beforeLoad: ({ search }) => {
     const filterSettings = extractFilterSettingsFromSearchParams(search)
     return {
-      filterSettings:
-        // Filters from the URL always have preference over initial filters
-        (filterSettings?.selectedFilters ?? []).length > 0
-          ? filterSettings
-          : {
-              ...filterSettings,
-              selectedFilters: getInitialFilters(appProps?.initialFilters),
-            },
+      filterSettings,
     }
   },
   loader: async ({ context }) => {

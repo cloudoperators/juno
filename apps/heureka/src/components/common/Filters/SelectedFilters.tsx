@@ -16,7 +16,7 @@ export const SelectedFilters = ({ selectedFilters, onDelete }: SelectedFiltersPr
   <Stack gap="2" wrap={true}>
     {selectedFilters?.map((filter) => (
       <Pill
-        key={`${name}:${filter.value}`}
+        key={`${filter.name}:${filter.value}`}
         closeable
         pillKey={filter.name}
         pillValue={filter.value}

@@ -8,6 +8,7 @@ import { useLoaderData, useNavigate } from "@tanstack/react-router"
 import { Filters } from "../common/Filters"
 import { FilterSettings } from "../common/Filters/types"
 import { getFiltersForUrl } from "./utils"
+import { SELECTED_FILTER_PREFIX } from "../../constants"
 
 export const VulnerabilitiesFilters = () => {
   const navigate = useNavigate()
@@ -17,12 +18,24 @@ export const VulnerabilitiesFilters = () => {
     (updatedFilterSettings: FilterSettings) => {
       navigate({
         to: "/vulnerabilities",
-        search: {
-          ...getFiltersForUrl(updatedFilterSettings),
+        search: (prev) => {
+          // Get the new filter URL params
+          const newFilterParams = getFiltersForUrl(updatedFilterSettings)
+
+          // Remove all existing filter params from prev
+          const cleanedPrev = Object.fromEntries(
+            Object.entries(prev).filter(([key]) => !key.startsWith(SELECTED_FILTER_PREFIX))
+          )
+
+          // Merge with new filter params
+          return {
+            ...cleanedPrev,
+            ...newFilterParams,
+          }
         },
       })
     },
-    [filterSettings, navigate]
+    [navigate]
   )
 
   return (
