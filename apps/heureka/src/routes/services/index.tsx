@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createFileRoute, redirect } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { Services } from "../../components/Services"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
@@ -16,8 +16,6 @@ import {
   getInitialFilters,
   getNormalizedFilters,
   sanitizeFilterSettings,
-  getInitialFilters,
-  getFiltersForUrl,
 } from "../../components/Services/utils"
 
 // Schema for validating and transforming search parameters related to /services page.
@@ -46,43 +44,19 @@ export const Route = createFileRoute("/services/")({
     const { service, ...rest } = search
     return rest
   },
-  shouldReload: true, // Reload the route when search params change
-  beforeLoad: ({ search, context }) => {
-    const { appProps } = context
-    let filterSettings = extractFilterSettingsFromSearchParams(search)
-    
-    // Only apply initial filters if this is a completely clean URL (no search params at all)
-    const hasAnySearchParams = Object.keys(search).length > 0
-    const wasInitialized = sessionStorage.getItem('services-filters-initialized') === 'true'
-    
-    console.log("beforeLoad - hasAnySearchParams:", hasAnySearchParams, "wasInitialized:", wasInitialized)
-    
-    if (
-      !hasAnySearchParams &&
-      !wasInitialized &&
-      (appProps?.initialFilters?.support_group?.length ?? 0) > 0
-    ) {
-      console.log("Applying initial filters and redirecting")
-      const initialFilters = getInitialFilters(appProps.initialFilters)
-      filterSettings = {
-        searchTerm: "",
-        selectedFilters: [...(filterSettings.selectedFilters || []), ...initialFilters],
-      }
-      
-      // Set the flag IMMEDIATELY when applying initial filters
-      sessionStorage.setItem('services-filters-initialized', 'true')
-      
-      // Redirect to URL with initial filters
-      const newSearchParams = getFiltersForUrl(filterSettings)
-      throw redirect({
-        to: "/services",
-        search: newSearchParams,
-        replace: true,
-      })
+  shouldReload: false, // Only reload the route when the user navigates to it or when deps change
+  beforeLoad: ({ context: { appProps }, search }) => {
+    const filterSettings = extractFilterSettingsFromSearchParams(search)
+    return {
+      filterSettings:
+        // Filters from the URL always have preference over initial filters
+        (filterSettings?.selectedFilters ?? []).length > 0
+          ? filterSettings
+          : {
+              ...filterSettings,
+              selectedFilters: getInitialFilters(appProps?.initialFilters),
+            },
     }
-    
-    // Pass filterSettings to the loader context
-    return { ...context, filterSettings }
   },
   loader: async ({ context }) => {
     const { queryClient, apiClient, filterSettings } = context
