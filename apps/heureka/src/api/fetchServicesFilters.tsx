@@ -4,16 +4,27 @@
  */
 
 import { ApolloQueryResult } from "@apollo/client"
-import { GetServiceFiltersDocument, GetServiceFiltersQuery } from "../generated/graphql"
+import { GetServiceFiltersDocument, GetServiceFiltersQuery, ServiceFilter, SupportGroupFilter } from "../generated/graphql"
 import { RouteContext } from "../routes/-types"
 
-type FetchServicesFiltersParams = Pick<RouteContext, "queryClient" | "apiClient">
+type FetchServicesFiltersParams = Pick<RouteContext, "queryClient" | "apiClient"> & {
+  serviceFilter?: ServiceFilter
+  supportGroupFilter?: SupportGroupFilter
+}
 
 export const fetchServicesFilters = ({
   queryClient,
   apiClient,
+  serviceFilter,
+  supportGroupFilter,
 }: FetchServicesFiltersParams): Promise<ApolloQueryResult<GetServiceFiltersQuery>> =>
   queryClient.ensureQueryData({
-    queryKey: ["serviceFilters"],
-    queryFn: () => apiClient.query({ query: GetServiceFiltersDocument }),
+    queryKey: ["serviceFilters", serviceFilter, supportGroupFilter],
+    queryFn: () => apiClient.query({ 
+      query: GetServiceFiltersDocument,
+      variables: {
+        serviceFilter,
+        supportGroupFilter,
+      },
+    }),
   })

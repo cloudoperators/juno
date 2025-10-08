@@ -1,14 +1,14 @@
 #SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 #SPDX-License-Identifier: Apache-2.0
 
-query GetServiceFilters {
+query GetServiceFilters ($serviceFilter:ServiceFilter, $supportGroupFilter: SupportGroupFilter) {
   ServiceFilterValues {
-    serviceCcrn {
+    serviceCcrn (filter: $serviceFilter) {
       displayName
       filterName
       values
     }
-    supportGroupCcrn {
+    supportGroupCcrn (filter: $supportGroupFilter) {
       displayName
       filterName
       values

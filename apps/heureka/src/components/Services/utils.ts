@@ -334,3 +334,41 @@ export const sanitizeFilterSettings = (filters: Filter[], filterSettings: Filter
     selectedFilters: validFilters,
   }
 }
+
+/**
+ * Builds a ServiceFilter object from the current filter settings
+ * Used to filter support group options based on selected services
+ * When user selects services, we want to show only support groups that contain those services
+ */
+export const buildServiceFilter = (filterSettings: FilterSettings) => {
+  const selectedServices = filterSettings?.selectedFilters?.filter(
+    (filter) => filter.name === "serviceCcrn"
+  )
+  
+  if (!selectedServices || selectedServices.length === 0) {
+    return undefined
+  }
+  
+  return {
+    serviceCcrn: selectedServices.map((service) => service.value),
+  }
+}
+
+/**
+ * Builds a SupportGroupFilter object from the current filter settings
+ * Used to filter service options based on selected support groups
+ * When user selects support groups, we want to show only services that belong to those support groups
+ */
+export const buildSupportGroupFilter = (filterSettings: FilterSettings) => {
+  const selectedSupportGroups = filterSettings?.selectedFilters?.filter(
+    (filter) => filter.name === "supportGroupCcrn"
+  )
+  
+  if (!selectedSupportGroups || selectedSupportGroups.length === 0) {
+    return undefined
+  }
+  
+  return {
+    supportGroupCcrn: selectedSupportGroups.map((group) => group.value),
+  }
+}

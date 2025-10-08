@@ -168,6 +168,7 @@ export type ComponentEdge = Edge & {
 
 export type ComponentFilter = {
   componentCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
 }
 
@@ -526,6 +527,45 @@ export type FilterValueItem = {
   displayName?: Maybe<Scalars["String"]["output"]>
   filterName?: Maybe<Scalars["String"]["output"]>
   values?: Maybe<Array<Maybe<ValueItem>>>
+}
+
+export type Image = Node & {
+  __typename?: "Image"
+  id: Scalars["ID"]["output"]
+  imageRegistryUrl?: Maybe<Scalars["String"]["output"]>
+  pageInfo?: Maybe<PageInfo>
+  repository?: Maybe<Scalars["String"]["output"]>
+  versions?: Maybe<ComponentVersionConnection>
+  vulnerabilities?: Maybe<VulnerabilityConnection>
+  vulnerabilityCounts?: Maybe<SeverityCounts>
+}
+
+export type ImageVersionsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type ImageVulnerabilitiesArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type ImageConnection = Connection & {
+  __typename?: "ImageConnection"
+  counts?: Maybe<SeverityCounts>
+  edges: Array<Maybe<ImageEdge>>
+  pageInfo?: Maybe<PageInfo>
+  totalCount: Scalars["Int"]["output"]
+}
+
+export type ImageEdge = Edge & {
+  __typename?: "ImageEdge"
+  cursor?: Maybe<Scalars["String"]["output"]>
+  node: Image
+}
+
+export type ImageFilter = {
+  service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
 export type Issue = Node & {
@@ -1264,6 +1304,7 @@ export type Query = {
   ComponentVersions?: Maybe<ComponentVersionConnection>
   Components?: Maybe<ComponentConnection>
   Evidences?: Maybe<EvidenceConnection>
+  Images?: Maybe<ImageConnection>
   IssueCounts?: Maybe<SeverityCounts>
   IssueMatchChanges?: Maybe<IssueMatchChangeConnection>
   IssueMatchFilterValues?: Maybe<IssueMatchFilterValue>
@@ -1310,6 +1351,12 @@ export type QueryComponentsArgs = {
 export type QueryEvidencesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<EvidenceFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type QueryImagesArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<ImageFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
@@ -1420,6 +1467,7 @@ export type Service = Node & {
   activities?: Maybe<ActivityConnection>
   ccrn?: Maybe<Scalars["String"]["output"]>
   componentInstances?: Maybe<ComponentInstanceConnection>
+  domain?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
   issueCounts?: Maybe<SeverityCounts>
   issueMatches?: Maybe<IssueMatchConnection>
@@ -1427,6 +1475,7 @@ export type Service = Node & {
   metadata?: Maybe<Metadata>
   objectMetadata?: Maybe<ServiceMetadata>
   owners?: Maybe<UserConnection>
+  region?: Maybe<Scalars["String"]["output"]>
   supportGroups?: Maybe<SupportGroupConnection>
 }
 
@@ -1489,6 +1538,8 @@ export type ServiceEdge = Edge & {
 }
 
 export type ServiceFilter = {
+  domain?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  region?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
@@ -1500,11 +1551,21 @@ export type ServiceFilter = {
 
 export type ServiceFilterValue = {
   __typename?: "ServiceFilterValue"
+  domain?: Maybe<FilterItem>
+  region?: Maybe<FilterItem>
   serviceCcrn?: Maybe<FilterItem>
   supportGroupCcrn?: Maybe<FilterItem>
   uniqueUserId?: Maybe<FilterItem>
   user?: Maybe<FilterValueItem>
   userName?: Maybe<FilterItem>
+}
+
+export type ServiceFilterValueDomainArgs = {
+  filter?: InputMaybe<ServiceFilter>
+}
+
+export type ServiceFilterValueRegionArgs = {
+  filter?: InputMaybe<ServiceFilter>
 }
 
 export type ServiceFilterValueServiceCcrnArgs = {
@@ -1529,6 +1590,8 @@ export type ServiceFilterValueUserNameArgs = {
 
 export type ServiceInput = {
   ccrn?: InputMaybe<Scalars["String"]["input"]>
+  domain?: InputMaybe<Scalars["String"]["input"]>
+  region?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type ServiceMetadata = {
@@ -1747,7 +1810,10 @@ export type VulnerabilityFilterValue = {
   supportGroup?: Maybe<FilterItem>
 }
 
-export type GetServiceFiltersQueryVariables = Exact<{ [key: string]: never }>
+export type GetServiceFiltersQueryVariables = Exact<{
+  serviceFilter?: InputMaybe<ServiceFilter>
+  supportGroupFilter?: InputMaybe<SupportGroupFilter>
+}>
 
 export type GetServiceFiltersQuery = {
   __typename?: "Query"
@@ -2044,14 +2110,14 @@ export type GetVulnerabilityFiltersQuery = {
 }
 
 export const GetServiceFiltersDocument = gql`
-  query GetServiceFilters {
+  query GetServiceFilters($serviceFilter: ServiceFilter, $supportGroupFilter: SupportGroupFilter) {
     ServiceFilterValues {
-      serviceCcrn {
+      serviceCcrn(filter: $serviceFilter) {
         displayName
         filterName
         values
       }
-      supportGroupCcrn {
+      supportGroupCcrn(filter: $supportGroupFilter) {
         displayName
         filterName
         values

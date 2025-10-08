@@ -10,6 +10,8 @@ import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
 import {
+  buildServiceFilter,
+  buildSupportGroupFilter,
   extractFilterSettingsFromSearchParams,
   getInitialFilters,
   getNormalizedFilters,
@@ -58,10 +60,19 @@ export const Route = createFileRoute("/services/")({
   },
   loader: async ({ context }) => {
     const { queryClient, apiClient, filterSettings } = context
-    // create a promise to fetch filters
+    
+    // Build filter objects for dependent filtering
+    const serviceFilter = buildServiceFilter(filterSettings)
+    const supportGroupFilter = buildSupportGroupFilter(filterSettings)
+    
+    // For dependent filtering:
+    // - When support groups are selected, filter service options
+    // - When services are selected, filter support group options
     const filtersResult = await fetchServicesFilters({
       queryClient,
       apiClient,
+      serviceFilter,
+      supportGroupFilter,
     })
     // create a promise to fetch services
     const servicesPromise = fetchServices({
