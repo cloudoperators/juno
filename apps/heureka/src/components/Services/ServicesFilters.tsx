@@ -8,6 +8,7 @@ import { useLoaderData, useNavigate } from "@tanstack/react-router"
 import { Filters } from "../common/Filters"
 import { FilterSettings } from "../common/Filters/types"
 import { getFiltersForUrl } from "./utils"
+import { SELECTED_FILTER_PREFIX } from "../../constants"
 
 export const ServicesFilters = () => {
   const navigate = useNavigate()
@@ -17,9 +18,32 @@ export const ServicesFilters = () => {
     (updatedFilterSettings: FilterSettings) => {
       navigate({
         to: "/services",
-        search: {
-          ...getFiltersForUrl(updatedFilterSettings),
+        search: (prev) => {
+          // Get the new filter URL params
+          const newFilterParams = getFiltersForUrl(updatedFilterSettings)
+
+          // Remove all existing filter params from prev
+          const cleanedPrev = Object.fromEntries(
+            Object.entries(prev).filter(([key]) => 
+              !key.startsWith(SELECTED_FILTER_PREFIX) && 
+              key !== "searchTerm"
+            )
+          )
+
+          // Clean up empty values from newFilterParams
+          const cleanedNewParams = Object.fromEntries(
+            Object.entries(newFilterParams).filter(([key, value]) => {
+              if (key === "searchTerm" && (!value || value === "")) return false
+              return value !== undefined && value !== null && value !== ""
+            })
+          )
+
+          return {
+            ...cleanedPrev,
+            ...cleanedNewParams,
+          }
         },
+        replace: true,
       })
     },
     [filterSettings, navigate]
