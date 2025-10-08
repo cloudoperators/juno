@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useEffect } from "react"
+import React, { useCallback } from "react"
 import { Button, InputGroup, SearchInput, Stack } from "@cloudoperators/juno-ui-components"
 import { FilterSelect } from "./FilterSelect"
 import { Filter, FilterSettings, SelectedFilter } from "./types"

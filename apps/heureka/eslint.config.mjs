@@ -16,10 +16,10 @@ export default [
     rules: {
       "prefer-const": "off",
       "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error",
       "no-extra-boolean-cast": "off",
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
-      "react/no-unused-vars": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "off",
       "tailwindcss/classnames-order": "off",
@@ -39,6 +39,6 @@ export default [
       "@typescript-eslint/require-await": "off",
       "@typescript-eslint/no-unsafe-argument": "off",
     },
-    ignores: ["vitest.config.ts", "vite.config.ts", "vitest.setup.ts", "tailwind.config.ts"],
+    ignores: ["vitest.config.ts", "vite.config.ts", "vitest.setup.ts", "tailwind.config.ts", "**/routeTree.gen.ts"],
   },
 ]
