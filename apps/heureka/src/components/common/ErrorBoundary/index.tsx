@@ -4,9 +4,24 @@
  */
 
 import React, { ReactNode } from "react"
-import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary"
-import { ErrorFallback } from "./ErrorFallback"
+import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from "react-error-boundary"
+import { ErrorMessage } from "./ErrorMessage"
 
-export const ErrorBoundary = ({ children }: { children: ReactNode }) => (
-  <ReactErrorBoundary fallbackRender={ErrorFallback}>{children}</ReactErrorBoundary>
+export const ErrorBoundary = ({
+  children,
+  displayErrorMessage,
+  fallbackRender,
+  resetKeys,
+}: {
+  children: ReactNode
+  displayErrorMessage?: boolean
+  fallbackRender?: (props: FallbackProps) => ReactNode
+  resetKeys?: any
+}) => (
+  <ReactErrorBoundary
+    resetKeys={resetKeys}
+    fallbackRender={!!displayErrorMessage ? fallbackRender || ErrorMessage : () => null}
+  >
+    {children}
+  </ReactErrorBoundary>
 )
