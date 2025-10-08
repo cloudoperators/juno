@@ -33,7 +33,7 @@ A good rule of thumb is to use active voice as long as we can avoid introducing 
 
 ## Avoid Substantiations
 
-Sustantiations often feel very formal and unwelcoming, also they are much more common in German than in English, where users will perceive this somewhat negative connotation even more. Avoid, and if you can: use a verb.
+Substantiations often feel very formal and unwelcoming, also they are much more common in German than in English, where users will perceive this somewhat negative connotation even more. Avoid, and if you can: use a verb.
 
 “Creating an instance may take up to …” is better than “The creation of an instance may take up to …”.
 
@@ -51,7 +51,7 @@ Our users conduct serious and responsible work, thus we should treat them accord
 
 ## Be Precise, Use just Enough Jargon
 
-We speak to technically minded, professional users, and the very subject of applications built with Juno is very technical. This allows and even requires us to speak in a precise, technical manner. Rule of thumb: We are humans speaking to humans, so do not use technical or social jargon where not necessary. We are professionalks speaking to professionals and we mutually respect each other accrdingly, so we never sound patronizing. When writing, imagine you’re speaking to a capable peer.
+We speak to technically minded, professional users, and the very subject of applications built with Juno is very technical. This allows and even requires us to speak in a precise, technical manner. Rule of thumb: We are humans speaking to humans, so do not use technical or social jargon where not necessary. We are professionals speaking to professionals and we mutually respect each other accrdingly, so we never sound patronizing. When writing, imagine you’re speaking to a capable peer.
 However, if a certain term that may be regarded as jargon is established lingo in our field of expertise, or in the context of underlying products and solutions, such as Kubernetes, etc., by all means use it to communicate as clearly and non-ambiguously as possible.
 In any event, precison over verbosity.
 
@@ -104,7 +104,7 @@ Do not capitalize unless first or last word:
 
 The first and last word of a heading or title is always capitalized.
 
-Numerals such as "One", "Nine", "Thousands" are capitalized. For compound numerals only the first part is capitalized: "Twenty-one".
+Written numerals such as "One", "Nine", "Thousands" are capitalized. For compound numerals only the first part is capitalized: "Twenty-one".
 
 Never use All-caps, ever.
 
@@ -178,7 +178,7 @@ Save
 Stop
 OK (Use when clicking a button means acknowledgement, otherwise only if nothing else really works)
 
-You may use an elipsis to indicate another step will be needed to complete an action, such as a modal with options will open.
+You may use an ellipsis to indicate another step will be needed to complete an action, such as a modal with options will open.
 
 When referring to a button label in copy, use quotation marks and the exact case as in the label:
 
@@ -198,7 +198,7 @@ We’re polite by respecting the time and professionalism of our users, but as a
 
 ## If in Doubt, Ask Us : )
 
-When you’re in doubt how to speak/write/sound in a given context, please feel free to reach out to us at the design team. We will do our best to support you and our users, and we may learn something along the way, too, that may inform our work and these guidelins going forward.
+When you’re in doubt how to speak/write/sound in a given context, please feel free to reach out to us at the design team. We will do our best to support you and our users, and we may learn something along the way, too, that may inform our work and these guidelines going forward.
 
 ## References
 
