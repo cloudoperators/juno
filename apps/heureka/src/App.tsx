@@ -7,7 +7,7 @@ import React, { StrictMode } from "react"
 import { ApolloProvider } from "@apollo/client"
 import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { AppShellProvider } from "@cloudoperators/juno-ui-components"
+import { AppShell, AppShellProvider, PageHeader } from "@cloudoperators/juno-ui-components"
 import { encodeV2, decodeV2 } from "@cloudoperators/juno-url-state-provider"
 import styles from "./styles.css?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
@@ -89,11 +89,15 @@ const App = (props: AppProps) => {
         <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
           {/* load styles inside the shadow dom */}
           <style>{styles.toString()}</style>
-          <ErrorBoundary>
-            <StrictMode>
-              <RouterProvider basepath={props.basePath || "/"} router={router} />
-            </StrictMode>
-          </ErrorBoundary>
+          <StrictMode>
+            <AppShell embedded={props.embedded} pageHeader={<PageHeader heading="Heureka" />}>
+              <ErrorBoundary>
+                <StrictMode>
+                  <RouterProvider basepath={props.basePath || "/"} router={router} />
+                </StrictMode>
+              </ErrorBoundary>
+            </AppShell>
+          </StrictMode>
         </AppShellProvider>
       </ApolloProvider>
     </QueryClientProvider>

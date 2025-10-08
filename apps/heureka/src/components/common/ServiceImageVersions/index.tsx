@@ -5,22 +5,16 @@
 
 import React, { Suspense } from "react"
 import { ApolloQueryResult } from "@apollo/client"
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  Button,
-  Stack,
-  DataGridToolbar,
-  Spinner,
-} from "@cloudoperators/juno-ui-components"
-import { EmptyDataGridRow } from "../EmptyDataGridRow"
+import { DataGrid, DataGridRow, DataGridHeadCell, Button, DataGridToolbar } from "@cloudoperators/juno-ui-components"
 import { getNormalizedImageVersionsResponse, ServiceImageVersion } from "../../Services/utils"
 import SectionContentHeading from "../SectionContentHeading"
 import { GetServiceImageVersionsQuery } from "../../../generated/graphql"
 import { ImageVersionsTotalCount } from "./ImageVersionsTotalCount"
 import { ImageVersionsDataRows } from "./ImageVersionsDataRows"
 import { CursorPagination } from "../CursorPagination"
+import { LoadingDataRow } from "../LoadingDataRow"
+import { ErrorBoundary } from "../ErrorBoundary"
+import { getErrorDataRowComponent } from "../getErrorDataRow"
 
 type ServiceImageVersionsProps = {
   imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
@@ -44,12 +38,14 @@ export const ServiceImageVersions = ({
   const columnsCount = displayActions ? DEFAULT_COLUMNS_COUNT : DEFAULT_COLUMNS_COUNT - 1
 
   return (
-    <Suspense>
+    <>
       <SectionContentHeading>
         Image Versions
-        <Suspense>
-          (<ImageVersionsTotalCount imageVersionsPromise={imageVersionsPromise} />)
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense>
+            (<ImageVersionsTotalCount imageVersionsPromise={imageVersionsPromise} />)
+          </Suspense>
+        </ErrorBoundary>
       </SectionContentHeading>
 
       {displayActions && (
@@ -75,34 +71,33 @@ export const ServiceImageVersions = ({
             <DataGridHeadCell colSpan={5}>Vulnerability Counts</DataGridHeadCell>
             {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
-          <Suspense
-            fallback={
-              <EmptyDataGridRow colSpan={columnsCount}>
-                <Stack gap="2" alignment="center">
-                  <div>Loading</div>
-                  <Spinner variant="primary"></Spinner>
-                </Stack>
-              </EmptyDataGridRow>
-            }
+          <ErrorBoundary
+            displayErrorMessage
+            resetKeys={[imageVersionsPromise]}
+            fallbackRender={getErrorDataRowComponent({ colspan: columnsCount })}
           >
-            <ImageVersionsDataRows
-              columnSpan={columnsCount}
-              displayDetailsButton={displayActions}
-              imageVersionsPromise={imageVersionsPromise}
-              selectedImageVersion={selectedImageVersion}
-              onDetailsButtonClick={onDetailsButtonClick}
-              onImageVersionItemClick={onImageVersionItemClick}
-            />
-          </Suspense>
+            <Suspense fallback={<LoadingDataRow colSpan={columnsCount} />}>
+              <ImageVersionsDataRows
+                columnSpan={columnsCount}
+                displayDetailsButton={displayActions}
+                imageVersionsPromise={imageVersionsPromise}
+                selectedImageVersion={selectedImageVersion}
+                onDetailsButtonClick={onDetailsButtonClick}
+                onImageVersionItemClick={onImageVersionItemClick}
+              />
+            </Suspense>
+          </ErrorBoundary>
         </DataGrid>
       </div>
-      <Suspense>
-        <CursorPagination
-          dataNormalizationMethod={getNormalizedImageVersionsResponse}
-          dataPromise={imageVersionsPromise}
-          goToPage={goToPage}
-        />
-      </Suspense>
-    </Suspense>
+      <ErrorBoundary>
+        <Suspense>
+          <CursorPagination
+            dataNormalizationMethod={getNormalizedImageVersionsResponse}
+            dataPromise={imageVersionsPromise}
+            goToPage={goToPage}
+          />
+        </Suspense>
+      </ErrorBoundary>
+    </>
   )
 }

@@ -10,6 +10,7 @@ import { Spinner, Stack } from "@cloudoperators/juno-ui-components"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 import { GetServicesQuery } from "../../generated/graphql"
 import { getNormalizedServicesResponse } from "./utils"
+import { ErrorBoundary } from "../common/ErrorBoundary"
 
 type AllServicesIssuesCountProps = {
   servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
@@ -33,10 +34,12 @@ const IssuesCount = ({ servicesPromise }: AllServicesIssuesCountProps) => {
 export const AllServicesIssuesCount = () => {
   const { servicesPromise } = useLoaderData({ from: "/services/" })
   return (
-    <Stack className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
-      <Suspense fallback={<Spinner size="small" />}>
-        <IssuesCount servicesPromise={servicesPromise} />
-      </Suspense>
-    </Stack>
+    <ErrorBoundary>
+      <Stack className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
+        <Suspense fallback={<Spinner size="small" />}>
+          <IssuesCount servicesPromise={servicesPromise} />
+        </Suspense>
+      </Stack>
+    </ErrorBoundary>
   )
 }
