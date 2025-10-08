@@ -13,7 +13,8 @@ import {
   ServiceEdge,
   ServiceFilter,
   GetServiceImageVersionsQuery,
-  GetServiceFiltersQuery,
+  GetServiceFilterValuesQuery,
+  GetSupportGroupFilterValuesQuery,
 } from "../../generated/graphql"
 import { Filter, FilterSettings, SelectedFilter, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
@@ -297,7 +298,7 @@ export const getFiltersForUrl = (filterSettings: FilterSettings): Record<string,
   }
 }
 
-export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | null): Filter[] =>
+export const getNormalizedFilters = (data: GetServiceFilterValuesQuery | undefined | null): Filter[] =>
   isEmpty(data) || isEmpty(data.ServiceFilterValues)
     ? []
     : map(omit(data.ServiceFilterValues, ["__typename"]), (filter) => ({
@@ -305,6 +306,35 @@ export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | 
         filterName: filter?.filterName || "",
         values: filter?.values?.filter((value) => value !== null) || [],
       }))
+
+export const getNormalizedFiltersFromSeparateResults = (
+  serviceFiltersData: GetServiceFilterValuesQuery | undefined | null,
+  supportGroupFiltersData: GetSupportGroupFilterValuesQuery | undefined | null
+): Filter[] => {
+  const filters: Filter[] = []
+  
+  // Get service filters from GetServiceFilterValues (unfiltered services)
+  if (serviceFiltersData?.ServiceFilterValues?.serviceCcrn) {
+    const serviceFilter = serviceFiltersData.ServiceFilterValues.serviceCcrn
+    filters.push({
+      displayName: serviceFilter.displayName || "",
+      filterName: serviceFilter.filterName || "",
+      values: serviceFilter.values?.filter((value) => value !== null) || [],
+    })
+  }
+  
+  // Get support group filters from GetSupportGroupFilterValues (unfiltered support groups)
+  if (supportGroupFiltersData?.ServiceFilterValues?.supportGroupCcrn) {
+    const supportGroupFilter = supportGroupFiltersData.ServiceFilterValues.supportGroupCcrn
+    filters.push({
+      displayName: supportGroupFilter.displayName || "",
+      filterName: supportGroupFilter.filterName || "",
+      values: supportGroupFilter.values?.filter((value) => value !== null) || [],
+    })
+  }
+  
+  return filters
+}
 
 // Extract initial filters from the supplied initialFilters in the appProps
 export const getInitialFilters = (initialFilters?: InitialFilters): SelectedFilter[] =>

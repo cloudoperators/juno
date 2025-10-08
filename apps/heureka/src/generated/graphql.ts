@@ -1810,12 +1810,11 @@ export type VulnerabilityFilterValue = {
   supportGroup?: Maybe<FilterItem>
 }
 
-export type GetServiceFiltersQueryVariables = Exact<{
-  serviceFilter?: InputMaybe<ServiceFilter>
+export type GetServiceFilterValuesQueryVariables = Exact<{
   supportGroupFilter?: InputMaybe<SupportGroupFilter>
 }>
 
-export type GetServiceFiltersQuery = {
+export type GetServiceFilterValuesQuery = {
   __typename?: "Query"
   ServiceFilterValues?: {
     __typename?: "ServiceFilterValue"
@@ -2028,6 +2027,29 @@ export type GetServicesQuery = {
   } | null
 }
 
+export type GetSupportGroupFilterValuesQueryVariables = Exact<{
+  serviceFilter?: InputMaybe<ServiceFilter>
+}>
+
+export type GetSupportGroupFilterValuesQuery = {
+  __typename?: "Query"
+  ServiceFilterValues?: {
+    __typename?: "ServiceFilterValue"
+    serviceCcrn?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+    supportGroupCcrn?: {
+      __typename?: "FilterItem"
+      displayName?: string | null
+      filterName?: string | null
+      values?: Array<string | null> | null
+    } | null
+  } | null
+}
+
 export type GetVulnerabilitiesQueryVariables = Exact<{
   filter?: InputMaybe<VulnerabilityFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
@@ -2109,10 +2131,10 @@ export type GetVulnerabilityFiltersQuery = {
   } | null
 }
 
-export const GetServiceFiltersDocument = gql`
-  query GetServiceFilters($serviceFilter: ServiceFilter, $supportGroupFilter: SupportGroupFilter) {
+export const GetServiceFilterValuesDocument = gql`
+  query GetServiceFilterValues($supportGroupFilter: SupportGroupFilter) {
     ServiceFilterValues {
-      serviceCcrn(filter: $serviceFilter) {
+      serviceCcrn {
         displayName
         filterName
         values
@@ -2125,7 +2147,10 @@ export const GetServiceFiltersDocument = gql`
     }
   }
 `
-export type GetServiceFiltersQueryResult = Apollo.QueryResult<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+export type GetServiceFilterValuesQueryResult = Apollo.QueryResult<
+  GetServiceFilterValuesQuery,
+  GetServiceFilterValuesQueryVariables
+>
 export const GetServiceImageVersionIssuesDocument = gql`
   query GetServiceImageVersionIssues(
     $componentVersionFilter: ComponentVersionFilter
@@ -2312,6 +2337,26 @@ export const GetServicesDocument = gql`
   }
 `
 export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
+export const GetSupportGroupFilterValuesDocument = gql`
+  query GetSupportGroupFilterValues($serviceFilter: ServiceFilter) {
+    ServiceFilterValues {
+      serviceCcrn(filter: $serviceFilter) {
+        displayName
+        filterName
+        values
+      }
+      supportGroupCcrn {
+        displayName
+        filterName
+        values
+      }
+    }
+  }
+`
+export type GetSupportGroupFilterValuesQueryResult = Apollo.QueryResult<
+  GetSupportGroupFilterValuesQuery,
+  GetSupportGroupFilterValuesQueryVariables
+>
 export const GetVulnerabilitiesDocument = gql`
   query GetVulnerabilities(
     $filter: VulnerabilityFilter

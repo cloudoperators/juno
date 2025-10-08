@@ -8,13 +8,15 @@ import { z } from "zod"
 import { Services } from "../../components/Services"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchServices } from "../../api/fetchServices"
-import { fetchServicesFilters } from "../../api/fetchServicesFilters"
+import { fetchServiceFilters } from "../../api/fetchServiceFilterValues"
+import { fetchSupportGroupFilters } from "../../api/fetchSupportGroupFilterValues"
 import {
   buildServiceFilter,
   buildSupportGroupFilter,
   extractFilterSettingsFromSearchParams,
   getInitialFilters,
   getNormalizedFilters,
+  getNormalizedFiltersFromSeparateResults,
   sanitizeFilterSettings,
 } from "../../components/Services/utils"
 
@@ -61,19 +63,26 @@ export const Route = createFileRoute("/services/")({
   loader: async ({ context }) => {
     const { queryClient, apiClient, filterSettings } = context
     
-    // Build filter objects for dependent filtering
+    // Build filter objects for independent filtering
     const serviceFilter = buildServiceFilter(filterSettings)
     const supportGroupFilter = buildSupportGroupFilter(filterSettings)
     
-    // For dependent filtering:
-    // - When support groups are selected, filter service options
-    // - When services are selected, filter support group options
-    const filtersResult = await fetchServicesFilters({
-      queryClient,
-      apiClient,
-      serviceFilter,
-      supportGroupFilter,
-    })
+    // Fetch filters with correct filtering logic:
+    // - GetServiceFilterValues: Returns unfiltered services + support groups filtered by selected support groups
+    // - GetSupportGroupFilterValues: Returns services filtered by selected services + unfiltered support groups
+    const [serviceFiltersResult, supportGroupFiltersResult] = await Promise.all([
+      fetchServiceFilters({
+        queryClient,
+        apiClient,
+        supportGroupFilter: supportGroupFilter, // Filter support groups by selected support groups
+      }),
+      fetchSupportGroupFilters({
+        queryClient,
+        apiClient,
+        serviceFilter: serviceFilter, // Filter services by selected services
+      })
+    ])
+    
     // create a promise to fetch services
     const servicesPromise = fetchServices({
       queryClient,
@@ -81,7 +90,7 @@ export const Route = createFileRoute("/services/")({
       filterSettings,
     })
 
-    const filters = getNormalizedFilters(filtersResult.data)
+    const filters = getNormalizedFiltersFromSeparateResults(serviceFiltersResult.data, supportGroupFiltersResult.data)
 
     return {
       filters,
