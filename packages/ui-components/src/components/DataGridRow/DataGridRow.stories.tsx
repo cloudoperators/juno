@@ -107,7 +107,7 @@ export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProp
       <DataGridRow {...args} onClick={() => alert("DataGridRow Event!")}>
         <DataGridCell>
           <Button
-            label="Trigger Juno UI `Button` Event"
+            label="Trigger button event only"
             onClick={(e) => {
               e.stopPropagation()
               alert("Only the `Button` event has been triggered!")
@@ -124,7 +124,7 @@ export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProp
     docs: {
       description: {
         story:
-          "You can enhance `DataGridRow` by incorporating interactive elements such as `Button`. Remember to add `event.stopPropogation()`.",
+          "You can enhance `DataGridRow` by incorporating interactive elements such as `Button`. Remember to add `event.stopPropogation()` to the event handler of the interactive element.",
       },
     },
   },
