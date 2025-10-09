@@ -7,7 +7,7 @@
   display: contents;
 }
 
-.datagrid-row-active > * {
+.datagrid-row-selected > * {
   background-color: var(--color-background-lvl-2);
 }
 

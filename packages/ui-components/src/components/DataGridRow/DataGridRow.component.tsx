@@ -14,7 +14,7 @@ export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
 
     const finalStyles = `
       datagrid-row
-      ${isSelected ? "datagrid-row-active" : ""}
+      ${isSelected ? "datagrid-row-selected" : ""}
       ${onClick ? "datagrid-row-hoverable" : ""}
       ${className}
     `

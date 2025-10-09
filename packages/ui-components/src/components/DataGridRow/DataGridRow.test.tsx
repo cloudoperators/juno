@@ -32,7 +32,7 @@ describe("DataGridRow", () => {
     const row = screen.getByRole("row")
 
     expect(row).toHaveClass("datagrid-row")
-    expect(row).toHaveClass("datagrid-row-active")
+    expect(row).toHaveClass("datagrid-row-selected")
   })
 
   it("does not apply the hoverable or active class when disabled", () => {
@@ -41,6 +41,6 @@ describe("DataGridRow", () => {
 
     expect(row).toHaveClass("datagrid-row")
     expect(row).not.toHaveClass("datagrid-row-hoverable")
-    expect(row).not.toHaveClass("datagrid-row-active")
+    expect(row).not.toHaveClass("datagrid-row-selected")
   })
 })
