@@ -56,7 +56,7 @@ export const getFiltersForUrl = (prefix: string, filters: any) => {
       .map(([key, value]) => {
         if (value === undefined || value === null) return {}
         if (Array.isArray(value)) {
-          return { [`${prefix}${key}`]: value.join(",") }
+          return { [`${prefix}${key}`]: value }
         }
         return { [`${prefix}${key}`]: value }
       })

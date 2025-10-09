@@ -45,7 +45,6 @@ You can customize the Supernova application using the following environment vari
 - **`ENDPOINT`**: Specifies the URL for the Alertmanager API endpoint that the application will interact with.
 
 - **`THEME`**: Determines the visual theme of the application. Available options:
-
   - `theme-light`: Light theme.
   - `theme-dark`: Dark theme.
 
@@ -62,7 +61,6 @@ You can customize the Supernova application using the following environment vari
 ```
 
 - **`SILENCE_TEMPLATE`**: An array of pre-defined silence templates that can be used to schedule maintenance windows. Each template is an object with the following properties:
-
   - **`description`**: A brief description of the template.
   - **`editable_labels`**: An array of strings specifying the labels that users can modify.
   - **`fixed_labels`**: A map containing fixed labels and their corresponding values.

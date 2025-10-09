@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-doop",
-  "version": "2.5.3",
+  "version": "2.6.3",
   "author": "UI-Team",
   "type": "module",
   "contributors": [
@@ -15,28 +15,21 @@
   "private": true,
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@svgr/core": "^8.0.0",
-    "@svgr/plugin-jsx": "^8.0.0",
     "@tanstack/react-query": "5.62.2",
-    "@tailwindcss/vite": "^4.1.11",
+    "@tailwindcss/vite": "4.1.13",
     "@tanstack/router-plugin": "1.131.25",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
+    "@testing-library/jest-dom": "6.8.0",
+    "@testing-library/react": "16.3.0",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
-    "@vitejs/plugin-react": "^4.6.0",
-    "autoprefixer": "^10.4.2",
-    "interweave": "^13.1.0",
-    "jsdoc": "^4.0.2",
-    "jsdom": "^26.1.0",
-    "luxon": "^3.0.0",
-    "postcss": "^8.4.47",
-    "react-markdown": "^9.0.0",
-    "react-test-renderer": "^19.1.0",
-    "shadow-dom-testing-library": "^1.11.3",
-    "tailwindcss": "^4.1.7",
-    "vite": "^7.0.3",
-    "vitest": "^3.2.4",
+    "@vitejs/plugin-react": "4.7.0",
+    "interweave": "13.1.1",
+    "jsdom": "26.1.0",
+    "react-markdown": "9.1.0",
+    "shadow-dom-testing-library": "1.13.1",
+    "tailwindcss": "4.1.13",
+    "vite": "7.1.7",
+    "vitest": "3.2.4",
     "zustand": "4.5.7"
   },
   "scripts": {
@@ -51,12 +44,10 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "@cloudoperators/juno-communicator": "workspace:*",
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tanstack/react-router": "1.131.25",
-    "@tanstack/react-router-devtools": "1.131.25",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   }

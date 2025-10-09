@@ -20,4 +20,3 @@ vite.config.*.timestamp-*
 .env
 act_*.json
 .secret
-

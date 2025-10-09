@@ -4,22 +4,46 @@
  */
 
 import { useLayoutEffect } from "react"
+import { z } from "zod"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
+import { registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import { usePlugin } from "../components/StoreProvider"
 
+const ACTIVE_APPS_KEY = "a"
+const urlStateManager = registerConsumer("greenhouse-dashboard")
+const searchSchema = z.object({
+  __s: z.string().optional(),
+  activeApps: z.string().optional(),
+})
+
 export const Route = createFileRoute("/")({
+  validateSearch: searchSchema,
+  beforeLoad: () => {
+    // Try to read active app from legacy URL state
+    const legacyState = urlStateManager.currentState()
+    const activeApps = legacyState?.[ACTIVE_APPS_KEY]
+    const parsedActiveApps = activeApps?.split(",") || []
+    return {
+      activeApp: parsedActiveApps.length > 0 ? parsedActiveApps[0] : "",
+    }
+  },
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const activeApps = usePlugin().active()
   const navigate = useNavigate({ from: "/" })
+  const { activeApp: activeAppFromUrlState } = Route.useRouteContext()
+  const activeAppsFromAppState = usePlugin().active()
+  const { __s } = Route.useSearch()
 
-  // Before the first render, we want to redirect to the first active app
+  // Before the first render, we want to redirect to the active app
   useLayoutEffect(() => {
-    if (activeApps.length > 0) {
-      navigate({ to: `/${activeApps[0]}`, search: (prev) => ({ ...prev }) })
+    // If there's an active app in the URL state, use it; otherwise, fall back to the first active app from the app state
+    const activeApp = activeAppFromUrlState ? activeAppFromUrlState : activeAppsFromAppState[0]
+    if (activeApp) {
+      navigate({ to: `/${activeApp}`, search: (prev) => ({ ...prev, __s }) }) // copy legacy url state(__s) for the app to read it
     }
-  }, [activeApps])
+  }, [activeAppFromUrlState, activeAppsFromAppState])
+
   return null
 }

@@ -9,8 +9,10 @@ import { useDataDetailsViolationGroupKind, useDataActions } from "../StoreProvid
 import HintLoading from "../shared/HintLoading"
 import ViolationDetailsList from "./ViolationDetailsList"
 import Filters from "../filters/Filters"
+import { useNavigate } from "@tanstack/react-router"
 
 const ViolationDetails = () => {
+  const navigate = useNavigate()
   const detailsViolationGroupKind = useDataDetailsViolationGroupKind()
   // @ts-expect-error - setDetailsViolationGroupKind is not defined
   const { setDetailsViolationGroupKind } = useDataActions()
@@ -31,6 +33,10 @@ const ViolationDetails = () => {
       heading={`Check: ${detailsViolationGroupKind}`}
       onClose={() => {
         setDetailsViolationGroupKind(null)
+        navigate({
+          to: "/violations",
+          search: (prev) => ({ ...prev, violationGroup: undefined }),
+        })
       }}
       opened={!!detailsViolationGroupKind}
       size="large"

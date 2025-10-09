@@ -26,7 +26,6 @@ Every pull request that involves a change to a package should include a changese
 
 3. **Choose the Version Bump Type**  
    After selecting the package, you will be asked to choose the type of version bump:
-
    - **Major**: For breaking changes that are incompatible with the previous version. We strongly suggest not to pick this one for most of the cases.
    - **Minor**: For adding new features that are backward-compatible.
    - **Patch**: For bug fixes or minor changes that are backward-compatible.

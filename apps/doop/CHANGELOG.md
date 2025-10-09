@@ -1,5 +1,48 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.3
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+- Updated dependencies [e53d025]
+  - @cloudoperators/juno-url-state-provider@3.0.7
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies [900b0be]
+  - @cloudoperators/juno-ui-components@5.6.0
+  - @cloudoperators/juno-messages-provider@0.2.17
+
+## 2.6.1
+
+### Patch Changes
+
+- 061c843: Selected `violationGroup` is now persisted on URL state and removed from it when the panel is closed.
+
+## 2.6.0
+
+### Minor Changes
+
+- 071ad50: Legacy url state is converted to new url state and "org" url search parameter is retained.
+
+### Patch Changes
+
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-url-state-provider@3.0.6
+
+## 2.5.4
+
+### Patch Changes
+
+- Updated dependencies [ee9a9ce]
+- Updated dependencies [fe485e4]
+- Updated dependencies [1ff669a]
+  - @cloudoperators/juno-ui-components@5.5.0
+  - @cloudoperators/juno-messages-provider@0.2.16
+
 ## 2.5.3
 
 ### Patch Changes
@@ -44,23 +87,19 @@
 ### Patch Changes
 
 - 5ad5d5b: **Core Build Tools**
-
   - vite: Updated to `7.0.3` (latest)
   - vite-tsconfig-paths: Updated to `5.1.4` (latest)
   - vite-plugin-dts: Updated to `4.5.4` (latest)
 
   **Testing Framework**
-
   - vitest: Updated to `3.2.4` (latest)
   - @vitest/ui: Updated to `3.2.4` (latest)
 
   **React Plugins**
-
   - @vitejs/plugin-react: Updated to `4.6.0` (latest)
   - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
 
   **Additional Plugins**
-
   - vite-plugin-svgr: Updated to `4.3.0` (latest)
   - @tailwindcss/vite: Updated to `4.1.11` (latest)
 

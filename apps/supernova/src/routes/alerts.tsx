@@ -11,8 +11,9 @@ import AlertDetail from "../components/alerts/AlertDetail"
 import RegionsList from "../components/regions/RegionsList"
 import AlertsTab from "../components/alerts/AlertsTab"
 import { ACTIVE_FILTERS_PREFIX, PAUSED_FILTERS_PREFIX } from "../constants"
-import { convertUrlStateToAppState } from "../lib/urlStateUtils"
-import { useGlobalsActions, useFilterActions, useActiveFilters } from "../components/StoreProvider"
+import { convertUrlStateToAppState, getFiltersForUrl } from "../lib/urlStateUtils"
+import { useGlobalsActions, useFilterActions, useGlobalsInitialFiltersApplied } from "../components/StoreProvider"
+import { isObjectWithKeys } from "../lib/utils"
 
 const searchSchema = z
   .object({
@@ -58,10 +59,12 @@ export const Route = createFileRoute("/alerts")({
 
 function RouteComponent() {
   const {
+    appProps: { initialFilters },
     appStateFromUrl: { activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor },
   } = Route.useRouteContext()
-  const { setShowDetailsFor } = useGlobalsActions()
-  const existingActiveFilters = useActiveFilters()
+  const navigate = Route.useNavigate()
+  const isUrlRead = useGlobalsInitialFiltersApplied()
+  const { setShowDetailsFor, setIsUrlRead } = useGlobalsActions()
   const { setActiveFilters, setPausedFilters, setActivePredefinedFilter, setSearchTerm } = useFilterActions()
 
   /**
@@ -69,11 +72,24 @@ function RouteComponent() {
    * we can directly consume it from the route context anywhere
    * */
   useLayoutEffect(() => {
-    setActiveFilters({ ...existingActiveFilters, ...activeFilters }) // combine existing/initial filters with filters from URL state
-    setPausedFilters(pausedFilters)
-    setActivePredefinedFilter(predefinedFilter)
-    setSearchTerm(searchTerm)
-    setShowDetailsFor(showDetailsFor)
+    // we only want to apply initial filters only once when url does not contain any filter
+    if (!isUrlRead && !isObjectWithKeys(activeFilters) && isObjectWithKeys(initialFilters)) {
+      setIsUrlRead()
+      navigate({
+        to: "/alerts",
+        replace: true,
+        search: (prev) => ({ ...prev, ...getFiltersForUrl(ACTIVE_FILTERS_PREFIX, initialFilters) }),
+      })
+    } else {
+      setActiveFilters(activeFilters)
+      setPausedFilters(pausedFilters)
+      if (predefinedFilter) {
+        setActivePredefinedFilter(predefinedFilter)
+      }
+      setSearchTerm(searchTerm)
+      setShowDetailsFor(showDetailsFor)
+      setIsUrlRead()
+    }
   }, [activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor])
 
   return (

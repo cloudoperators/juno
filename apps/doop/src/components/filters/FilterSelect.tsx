@@ -15,12 +15,16 @@ import {
   SelectOption,
   Stack,
 } from "@cloudoperators/juno-ui-components"
+import { useNavigate } from "@tanstack/react-router"
 
 import { useFiltersActions, useFiltersSearchTerm, useFiltersActive, useDataFilterEntries } from "../StoreProvider"
+import { ACTIVE_FILTERS_PREFIX } from "../../constants"
+import { addFilter as addFilterToUrlState } from "../../lib/urlStateUtils"
 
 const FilterSelect = () => {
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
+  const navigate = useNavigate()
   const filterEntries = useDataFilterEntries()
   // @ts-ignore
   const { add: addFilter, removeAll, setSearchTerm } = useFiltersActions()
@@ -30,7 +34,14 @@ const FilterSelect = () => {
   const handleSearchChange = (value: any) => {
     // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
-      setSearchTerm(value.target.value)
+      setSearchTerm(value.target.value.trim())
+      navigate({
+        to: "/violations",
+        search: (prev) => ({
+          ...prev,
+          searchTerm: value.target.value.trim(),
+        }),
+      })
     }, 500)
 
     // clear timeout if we have a new value
@@ -41,6 +52,11 @@ const FilterSelect = () => {
     setFilterValue(value) // update the filter value state to trigger re-render on ComboBox
     if (filterLabel.trim() !== "" && value.trim() !== "") {
       addFilter(filterLabel, value) // add the filter to the active filters
+      // add filter to URL state
+      navigate({
+        to: "/violations",
+        search: (prev) => addFilterToUrlState({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, value),
+      })
     }
     // TODO: remove this after ComboBox supports resetting its value after onChange
     // set timeout to allow ComboBox to update its value after onChange
@@ -78,12 +94,33 @@ const FilterSelect = () => {
             {// @ts-ignore
             filterEntries
               .find((e: any) => e.key === filterLabel)
-              ?.values.map((value: any, i: any) => <ComboBoxOption value={value} key={i} />)}
+              ?.values.map((value: any, i: any) => (
+                <ComboBoxOption value={value} key={i} />
+              ))}
           </ComboBox>
         </InputGroup>
         {
           // @ts-ignore
-          activeFilters.length > 0 && <Button label="Clear all" onClick={removeAll} variant="subdued" />
+          activeFilters.length > 0 && (
+            <Button
+              label="Clear all"
+              onClick={() => {
+                removeAll()
+                // Remove active and paused filters from URL state
+                navigate({
+                  to: "/violations",
+                  search: (prev) =>
+                    Object.entries(prev).reduce((acc: Record<string, string | string[]>, [key, value]) => {
+                      if (value && !key.startsWith(ACTIVE_FILTERS_PREFIX)) {
+                        acc[key] = value
+                      }
+                      return acc
+                    }, {}),
+                })
+              }}
+              variant="subdued"
+            />
+          )
         }
       </Stack>
 
@@ -92,7 +129,16 @@ const FilterSelect = () => {
         // @ts-expect-error TS(2345) FIXME: Argument of type 'null' is not assignable to param...
         value={searchValue || ""}
         onChange={(value: any) => handleSearchChange(value)}
-        onClear={() => setSearchTerm(null)}
+        onClear={() => {
+          setSearchTerm(null)
+          navigate({
+            to: "/violations",
+            search: (prev) => ({
+              ...prev,
+              searchTerm: "",
+            }),
+          })
+        }}
       />
     </Stack>
   )

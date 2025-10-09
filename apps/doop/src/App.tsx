@@ -7,15 +7,15 @@ import React, { StrictMode, useLayoutEffect } from "react"
 
 import { AppShellProvider, ContentHeading } from "@cloudoperators/juno-ui-components"
 import { RouterProvider, createBrowserHistory, createHashHistory, createRouter } from "@tanstack/react-router"
-import { decodeV2, encodeV2 } from "@cloudoperators/juno-url-state-provider"
+import { decodeV2, encodeV2, registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import styles from "./styles.css?inline"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import StoreProvider from "./components/StoreProvider"
-import AsyncWorker from "./components/AsyncWorker"
 import { AppShell } from "@cloudoperators/juno-ui-components"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { useGlobalsActions } from "./components/StoreProvider"
 import { routeTree } from "./routeTree.gen"
+import { convertAppStateToUrlState, extractSearchStringFromHashFragment, readLegacyUrlState } from "./lib/urlStateUtils"
 
 // Create a new router instance
 const router = createRouter({
@@ -41,7 +41,10 @@ export type AppProps = {
   basePath?: string
   enableHashedRouting?: boolean
   showDebugSeverities?: boolean
+  initialFilters?: Record<string, string[]>
 }
+
+const urlStateManager = registerConsumer("doop")
 
 const App = (props: AppProps = {}) => {
   // @ts-expect-error TS(2339) FIXME: Property 'setEndpoint' does not exist on type '{}'.
@@ -69,25 +72,30 @@ const App = (props: AppProps = {}) => {
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
     stringifySearch: encodeV2,
     parseSearch: (searchString) => {
-      if (!props.enableHashedRouting) {
-        return decodeV2(searchString)
+      // If the app is using hashed routing, we need to correctly extract the search string from the hash fragment
+      const searchStringToDecode = !props.enableHashedRouting
+        ? searchString
+        : extractSearchStringFromHashFragment(searchString)
+
+      // If the search string is empty, return an empty object
+      if (!searchStringToDecode) return {}
+
+      /**
+       * To make new URL state compatible with the legacy URL state,
+       * we need to extract the legacy URL state from the search string
+       * and convert it to the new URL state format.
+       */
+      const searchParams = new URLSearchParams(searchStringToDecode)
+      const legacyUrlState = searchParams.get("__s") // This is used to extract the search params from the hash fragment
+      let newUrlState = {}
+      if (legacyUrlState !== null) {
+        newUrlState = convertAppStateToUrlState(readLegacyUrlState(urlStateManager.currentState()))
+        searchParams.delete("__s") // Remove the old state from the search params
       }
 
-      /*
-       * In case of hashed routing Tanstack router returns URL search params of the entire URL rather than just from the hashed part.
-       * We'll have to extract the query part from the hash because otherwise in embedded mode the app will be taking search params from the shell app as well.
-       * Sanitize the search string by extracting the substring between the first '?' and the next '?' (if any), keeping the first '?'.
-       * https://github.com/TanStack/router/issues/4370
-       * http://localhost:3000/?preHashParam=prehashtest#/services?postHashParam1=test1?preHashParam=prehashtest
-       * searchString = "?postHashParam1=test1?preHashParam=prehashtest"
-       * searchStringFromHash = "?postHashParam1=test1"
-       */
-      const postHashParams = searchString.indexOf("?")
-      if (postHashParams === -1) return {} // If no query part is found, return an empty object
-      const preHashParams = searchString.indexOf("?", postHashParams + 1)
-      const searchStringFromHash = searchString.slice(postHashParams, preHashParams === -1 ? undefined : preHashParams)
+      const searchStringWithoutLegacyUrlState = searchParams.toString()
 
-      return decodeV2(searchStringFromHash)
+      return { ...decodeV2(searchStringWithoutLegacyUrlState), ...newUrlState, legacyUrlState }
     },
   })
 
@@ -103,7 +111,6 @@ const App = (props: AppProps = {}) => {
           // @ts-expect-error TS(2339) FIXME: Property 'displayName' does not exist on type '{}'... Remove this comment to see the full error message
           heading={`Decentralized Observer of Policies  ${props.displayName ? ` - ${props.displayName}` : ""}`}
         />
-        <AsyncWorker consumerId={props.id || "doop"} />
         <QueryClientProvider client={queryClient}>
           <StrictMode>
             <RouterProvider basepath={props.basePath || "/"} router={router} />

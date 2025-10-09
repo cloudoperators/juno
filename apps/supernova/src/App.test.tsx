@@ -16,8 +16,19 @@ vi.mock("./hooks/useAlertmanagerAPI", () => ({
 
 describe("App", () => {
   it("should render the App component", async () => {
+    const mockProps = {
+      endpoint: "http://localhost:3000",
+      filterLabels: [],
+      initialFilters: {},
+      predefinedFilters: {},
+      silenceExcludedLabels: [],
+      silenceTemplates: [],
+      theme: "theme-dark" as const,
+      username: "testuser",
+    }
+
     act(() => {
-      render(<App id="123" />)
+      render(<App {...mockProps} />)
     })
     const loginTitle = await screen.findAllByShadowText(/SUPERNOVA/i)
     expect(loginTitle.length > 0).toBe(true)
