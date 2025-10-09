@@ -164,7 +164,6 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
         `}
         id={groupId}
         role="radiogroup"
-        data-row-stop-propagation
         {...props}
       >
         {label && isNotEmptyString(label) ? (

@@ -397,7 +397,6 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
           ...style,
         }}
         {...props}
-        data-row-stop-propagation
       >
         {toolbar && <Toolbar />}
         <JsonData name={showRoot ? "root" : false} value={data} />

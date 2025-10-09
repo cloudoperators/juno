@@ -211,7 +211,6 @@ export const TextInput: React.FC<TextInputProps> = ({
             ${className}
           `}
           {...props}
-          data-row-stop-propagation
         />
         {label && label.length ? (
           <Label

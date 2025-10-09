@@ -310,7 +310,6 @@ export const Select: React.FC<SelectProps> = ({
           ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
           ${wrapperClassName}
         `}
-        data-row-stop-propagation
       >
         <Listbox
           disabled={disabled || isLoading || hasError}
@@ -417,7 +416,6 @@ export const Select: React.FC<SelectProps> = ({
                           juno-select-menu
                           ${menuStyles}
                         `}
-                        data-row-stop-propagation
                       >
                         {children}
                       </ListboxOptions>

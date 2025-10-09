@@ -72,7 +72,7 @@ export const Pill: FC<PillProps> = ({
   }
 
   return (
-    <div className={`juno-pill ${pillStyles(!!onClick)} ${className}`} {...props} data-row-stop-propagation>
+    <div className={`juno-pill ${pillStyles(!!onClick)} ${className}`} {...props}>
       {!pillValue && !pillValueLabel ? (
         <span className={`${pillValueStyles(false)}`}>set pillValue or pillValueLabel</span>
       ) : (

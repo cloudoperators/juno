@@ -247,7 +247,6 @@ export const NativeSelect: FC<NativeSelectProps> = ({
         onChange={handleChange}
         onClick={handleClick}
         disabled={disabled || isLoading || hasError}
-        data-row-stop-propagation
         {...props}
       >
         {children}

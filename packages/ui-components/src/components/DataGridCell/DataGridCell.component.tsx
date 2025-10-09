@@ -40,19 +40,12 @@ export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
     const dataGridContext = useDataGridContext() || {}
     const cellVerticalAlignment = dataGridContext.cellVerticalAlignment
 
-    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-      const target = event.target as HTMLElement
-      // If there's child interactive elements, prioritise their event handlers
-      if (target.closest("[data-row-stop-propagation]")) event.stopPropagation()
-    }
-
     return (
       <div
         className={`juno-datagrid-cell ${cellBaseStyles(nowrap, cellVerticalAlignment)} ${className}`}
         style={cellCustomStyles(colSpan)}
         role="gridcell"
         ref={ref}
-        onClick={handleClick}
         {...props}
       >
         {children}

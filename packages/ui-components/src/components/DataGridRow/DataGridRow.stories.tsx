@@ -102,32 +102,17 @@ export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
 }
 
 export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProps> = {
-  render: ({ items, ...args }) => (
+  render: ({ ...args }) => (
     <>
-      <DataGridRow {...args}>
-        {items.map((item, i) => (
-          <DataGridCell {...item} key={i} />
-        ))}
-      </DataGridRow>
       <DataGridRow {...args} onClick={() => alert("DataGridRow Event!")}>
         <DataGridCell>
-          {/* Button with a data attribute to control event propagation */}
           <Button
             label="Trigger Juno UI `Button` Event"
-            onClick={() =>
-              alert("Only the `Button` event has been triggered! `data-row-stop-propagation` is NOT required.")
-            }
+            onClick={(e) => {
+              e.stopPropagation()
+              alert("Only the `Button` event has been triggered!")
+            }}
           />
-        </DataGridCell>
-        <DataGridCell>
-          <button
-            data-row-stop-propagation
-            onClick={() =>
-              alert("Only the custom button event has been triggered! `data-row-stop-propagation` is required.")
-            }
-          >
-            Trigger Custom Button Event
-          </button>
         </DataGridCell>
       </DataGridRow>
     </>
@@ -139,7 +124,7 @@ export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProp
     docs: {
       description: {
         story:
-          "You can enhance the `DataGrid` by incorporating interactive elements like `Button`, `Icon`, `Select`, etc. These components are designed to manage event propagation by default, ensuring interaction events are prioritized over row events. For custom elements, apply the attribute as illustrated in the example to prevent unintended event propagation.",
+          "You can enhance `DataGridRow` by incorporating interactive elements such as `Button`. Remember to add `event.stopPropogation()`.",
       },
     },
   },
@@ -166,7 +151,7 @@ export const SelectedRow: StoryObj<DataGridRowStoryProps> = {
   parameters: {
     docs: {
       description: {
-        story: "When `isSelected` is set, the DataGridRow persists to be active.",
+        story: "When `isSelected` is set, the entire `DataGridRow` persists to be active.",
       },
     },
   },

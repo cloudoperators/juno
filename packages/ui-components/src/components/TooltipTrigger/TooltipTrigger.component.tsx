@@ -58,7 +58,6 @@ export const TooltipTrigger = React.forwardRef<HTMLElement, TooltipTriggerProps>
       data-state={state.open ? "open" : "closed"}
       {...state.getReferenceProps(props)}
       className={`${className} ${state.disabled && " jn:cursor-default"}`}
-      data-row-stop-propagation
     >
       {children}
     </button>

@@ -205,7 +205,6 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           className={`juno-search-input ${getSearchStyles(variant)}`}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
-          data-row-stop-propagation
           {...props}
         />
         <div className={getIconWrapperStyles(variant)}>
@@ -217,16 +216,9 @@ export const SearchInput: React.FC<SearchInputProps> = ({
               className={getClearIconStyles(variant)}
               onClick={handleClearClick}
               disabled={disabled}
-              data-row-stop-propagation
             />
           )}
-          <Icon
-            icon="search"
-            title="Search"
-            onClick={handleSearchClick}
-            disabled={disabled}
-            data-row-stop-propagation
-          />
+          <Icon icon="search" title="Search" onClick={handleSearchClick} disabled={disabled} />
         </div>
       </Stack>
     </div>

@@ -214,7 +214,6 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
         {...(props as React.HTMLProps<HTMLButtonElement>)}
         type="button"
         title={titleValue}
-        data-row-stop-propagation
       >
         {buttonIcon}
         {buttonLabel}
@@ -241,7 +240,6 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
         ref={ref as LegacyRef<HTMLAnchorElement>}
         {...(props as React.HTMLProps<HTMLAnchorElement>)}
         title={titleValue}
-        data-row-stop-propagation
       >
         {buttonIcon}
         {buttonLabel}

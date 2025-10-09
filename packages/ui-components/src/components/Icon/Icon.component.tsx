@@ -958,7 +958,6 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
       aria-label={title || icon || undefined}
       disabled={disabled}
       ref={ref as LegacyRef<HTMLButtonElement>}
-      data-row-stop-propagation
     >
       {icn}
     </button>

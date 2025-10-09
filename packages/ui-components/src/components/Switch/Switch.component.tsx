@@ -262,7 +262,6 @@ export const Switch: React.FC<SwitchProps> = ({
           ${switchWrapperStyles}
           ${wrapperClassName}
         `}
-        data-row-stop-propagation
       >
         <button
           type="button"

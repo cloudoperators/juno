@@ -230,7 +230,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             ${className}
           `}
           {...props}
-          data-row-stop-propagation
         >
           {determineChecked() ? (
             <svg
