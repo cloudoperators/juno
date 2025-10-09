@@ -107,10 +107,6 @@ const App = (props: AppProps = {}) => {
   return (
     <MessagesProvider>
       <AppShell pageHeader={`Doop`} embedded={props.embedded === true}>
-        <ContentHeading
-          // @ts-expect-error TS(2339) FIXME: Property 'displayName' does not exist on type '{}'... Remove this comment to see the full error message
-          heading={`Decentralized Observer of Policies  ${props.displayName ? ` - ${props.displayName}` : ""}`}
-        />
         <QueryClientProvider client={queryClient}>
           <StrictMode>
             <RouterProvider basepath={props.basePath || "/"} router={router} />
