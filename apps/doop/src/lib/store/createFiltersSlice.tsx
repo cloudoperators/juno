@@ -135,8 +135,6 @@ const createFiltersSlice = (set, get, options) => ({
           filters: { ...state.filters, searchTerm },
         }))
 
-        // console.log(">>>>>>>>>>>>>>>>>>>>searchTerm", searchTerm)
-
         // filter items
         get().data.actions.filterItems()
       },
