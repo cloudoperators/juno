@@ -25,11 +25,7 @@ export const ServicesFilters = () => {
     const hasUrlFilters = Array.from(urlParams.keys()).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
     const hasAnySearchParams = urlParams.toString().length > 0
 
-    if (
-      !hasUrlFilters &&
-      !hasAnySearchParams &&
-      appProps?.initialFilters?.support_group?.length
-    ) {
+    if (!hasUrlFilters && !hasAnySearchParams && appProps?.initialFilters?.support_group?.length) {
       const initialFilters = getInitialFilters(appProps.initialFilters)
 
       if (initialFilters.length > 0) {
