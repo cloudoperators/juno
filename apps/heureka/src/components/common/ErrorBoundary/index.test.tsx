@@ -5,38 +5,92 @@
 
 import React, { useEffect } from "react"
 import { render, screen } from "@testing-library/react"
+import { FallbackProps } from "react-error-boundary"
 import { ErrorBoundary } from "./index"
 
-const App = () => <div>Awesome App</div>
-const AppThatThrows = () => {
+const Component = () => <div>Some Component</div>
+const ComponentThatThrows = () => {
   useEffect(() => {
-    throw new Error()
+    throw new Error("Test error message")
   }, [])
-  return <div>App</div>
+  return <div>Will not render</div>
 }
 
-const renderErrorBoundary = (Component: () => React.ReactElement) =>
-  render(
-    <ErrorBoundary>
-      <Component />
-    </ErrorBoundary>
-  )
+const CustomFallback = ({ error }: FallbackProps) => <div>Custom fallback: {error?.message}</div>
 
 describe("ErrorBoundary", () => {
-  it("should render App", () => {
-    renderErrorBoundary(App)
-    expect(screen.getByText("Awesome App")).toBeInTheDocument()
+  let consoleSpy: any
+
+  beforeEach(() => {
+    // mock console.error to suppress the error message being printed to the console
+    consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {})
   })
 
-  it("should render error page", () => {
-    // mock console.error to suppress the error message being printed to the console
-    const suppressedConsoleError = vi.spyOn(console, "error").mockImplementation(() => {})
-
-    renderErrorBoundary(AppThatThrows)
-    expect(screen.getByText("An error occurred")).toBeInTheDocument()
-    expect(screen.queryByText("Awesome App")).not.toBeInTheDocument()
-
+  afterEach(() => {
     // restore console.error to its original implementation
-    suppressedConsoleError.mockRestore()
+    consoleSpy.mockRestore()
+  })
+
+  it("should render children when no error occurs", () => {
+    render(
+      <ErrorBoundary>
+        <Component />
+      </ErrorBoundary>
+    )
+    expect(screen.getByText("Some Component")).toBeInTheDocument()
+  })
+
+  describe("when error occurs", () => {
+    it("should render null when displayErrorMessage is false", () => {
+      const { container } = render(
+        <ErrorBoundary displayErrorMessage={false}>
+          <ComponentThatThrows />
+        </ErrorBoundary>
+      )
+      expect(container.firstChild).toBeNull()
+      expect(screen.queryByText("Some Component")).not.toBeInTheDocument()
+    })
+
+    it("should render null when displayErrorMessage is undefined", () => {
+      const { container } = render(
+        <ErrorBoundary>
+          <ComponentThatThrows />
+        </ErrorBoundary>
+      )
+      expect(container.firstChild).toBeNull()
+      expect(screen.queryByText("Some Component")).not.toBeInTheDocument()
+    })
+
+    it("should render default ErrorMessage when displayErrorMessage is true and no fallback provided", () => {
+      render(
+        <ErrorBoundary displayErrorMessage={true}>
+          <ComponentThatThrows />
+        </ErrorBoundary>
+      )
+      expect(screen.getByText("Error: Test error message")).toBeInTheDocument()
+      expect(screen.queryByText("Some Component")).not.toBeInTheDocument()
+    })
+
+    it("should render custom fallback when displayErrorMessage is true and fallback is provided", () => {
+      render(
+        <ErrorBoundary displayErrorMessage={true} fallbackRender={CustomFallback}>
+          <ComponentThatThrows />
+        </ErrorBoundary>
+      )
+      expect(screen.getByText("Custom fallback: Test error message")).toBeInTheDocument()
+      expect(screen.queryByText("Error: Test error message")).not.toBeInTheDocument()
+      expect(screen.queryByText("Some Component")).not.toBeInTheDocument()
+    })
+
+    it("should render null when displayErrorMessage is false even if fallback is provided", () => {
+      const { container } = render(
+        <ErrorBoundary displayErrorMessage={false} fallbackRender={CustomFallback}>
+          <ComponentThatThrows />
+        </ErrorBoundary>
+      )
+      expect(container.firstChild).toBeNull()
+      expect(screen.queryByText("Custom fallback: Test error message")).not.toBeInTheDocument()
+      expect(screen.queryByText("Some Component")).not.toBeInTheDocument()
+    })
   })
 })

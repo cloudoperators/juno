@@ -11,15 +11,16 @@ import {
   DataGridHeadCell,
   Icon,
   Stack,
-  Spinner,
   SearchInput,
   ContentHeading,
 } from "@cloudoperators/juno-ui-components"
-import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
 import { getNormalizedImageVersionIssuesResponse, ServiceImageVersion } from "../../../Services/utils"
 import { fetchImageVersionIssues } from "../../../../api/fetchImageVersionIssues"
 import { IssuesDataRows } from "./IssuesDataRows"
 import { CursorPagination } from "../../../common/CursorPagination"
+import { ErrorBoundary } from "../../../common/ErrorBoundary"
+import { getErrorDataRowComponent } from "../../../common/getErrorDataRow"
+import { LoadingDataRow } from "../../../common/LoadingDataRow"
 
 type ImageVersionIssuesListProps = {
   service: string
@@ -64,28 +65,27 @@ export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIs
         </DataGridRow>
 
         {issuesPromise && (
-          <Suspense
-            fallback={
-              <EmptyDataGridRow colSpan={4}>
-                <Stack gap="2" alignment="center">
-                  <div>Loading vulnerabilities</div>
-                  <Spinner variant="primary"></Spinner>
-                </Stack>
-              </EmptyDataGridRow>
-            }
+          <ErrorBoundary
+            displayErrorMessage
+            fallbackRender={getErrorDataRowComponent({ colspan: 4 })}
+            resetKeys={[issuesPromise]}
           >
-            <IssuesDataRows issuesPromise={issuesPromise} />
-          </Suspense>
+            <Suspense fallback={<LoadingDataRow colSpan={4} />}>
+              <IssuesDataRows issuesPromise={issuesPromise} />
+            </Suspense>
+          </ErrorBoundary>
         )}
       </DataGrid>
       {issuesPromise && (
-        <Suspense>
-          <CursorPagination
-            dataPromise={issuesPromise}
-            dataNormalizationMethod={getNormalizedImageVersionIssuesResponse}
-            goToPage={setPageCursor}
-          />
-        </Suspense>
+        <ErrorBoundary resetKeys={[issuesPromise]}>
+          <Suspense>
+            <CursorPagination
+              dataPromise={issuesPromise}
+              dataNormalizationMethod={getNormalizedImageVersionIssuesResponse}
+              goToPage={setPageCursor}
+            />
+          </Suspense>
+        </ErrorBoundary>
       )}
     </>
   )

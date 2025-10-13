@@ -5,29 +5,25 @@
 
 import React from "react"
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router"
-import { AppShell, Container, PageHeader } from "@cloudoperators/juno-ui-components/index"
-import { Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import { Container } from "@cloudoperators/juno-ui-components/index"
 import { Breadcrumb } from "../components/common/Breadcrumb"
 import { Navigation } from "../components/common/Navigation"
 import { RouteContext } from "./-types"
+import { ErrorMessage } from "../components/common/ErrorBoundary/ErrorMessage"
 
 export const Route = createRootRouteWithContext<RouteContext>()({
   component: Root,
+  errorComponent: Root,
 })
 
-function Root() {
-  const { appProps } = Route.useRouteContext()
-
+function Root({ error }: { error?: Error }) {
   return (
-    <AppShell embedded={appProps.embedded} pageHeader={<PageHeader heading="Heureka" />}>
+    <>
       <Navigation />
       <Container py px>
-        <MessagesProvider>
-          <Messages />
-          <Breadcrumb />
-          <Outlet />
-        </MessagesProvider>
+        <Breadcrumb />
+        {error ? <ErrorMessage error={error} /> : <Outlet />}
       </Container>
-    </AppShell>
+    </>
   )
 }

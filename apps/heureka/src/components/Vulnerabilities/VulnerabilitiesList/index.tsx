@@ -5,13 +5,15 @@
 
 import React, { Suspense, useCallback, useEffect, useState } from "react"
 import { useRouteContext, useLoaderData } from "@tanstack/react-router"
-import { DataGrid, DataGridRow, DataGridHeadCell, Icon, Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { EmptyDataGridRow } from "../../common/EmptyDataGridRow"
+import { DataGrid, DataGridRow, DataGridHeadCell, Icon } from "@cloudoperators/juno-ui-components"
 import { getNormalizedVulnerabilitiesResponse } from "../utils"
 import { fetchVulnerabilities } from "../../../api/fetchVulnerabilities"
 import { VulnerabilitiesDataRows } from "./VulnerabilitiesDataRows"
 import { CursorPagination } from "../../common/CursorPagination"
 import { VulnerabilityPanel } from "./VulnerabilityDetailsPanel"
+import { LoadingDataRow } from "../../common/LoadingDataRow"
+import { ErrorBoundary } from "../../common/ErrorBoundary"
+import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
 
 export const VulnerabilitiesList = () => {
   const { queryClient, apiClient } = useRouteContext({ from: "/vulnerabilities/" })
@@ -55,27 +57,25 @@ export const VulnerabilitiesList = () => {
           <DataGridHeadCell>Target Date</DataGridHeadCell>
           <DataGridHeadCell>Description</DataGridHeadCell>
         </DataGridRow>
-
-        <Suspense
-          fallback={
-            <EmptyDataGridRow colSpan={5}>
-              <Stack gap="2" alignment="center">
-                <div>Loading vulnerabilities</div>
-                <Spinner variant="primary"></Spinner>
-              </Stack>
-            </EmptyDataGridRow>
-          }
+        <ErrorBoundary
+          displayErrorMessage
+          resetKeys={[vulnerabilitiesPromise]}
+          fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
         >
-          <VulnerabilitiesDataRows vulnerabilitiesPromise={vulnerabilitiesPromise} />
-        </Suspense>
+          <Suspense fallback={<LoadingDataRow colSpan={5} />}>
+            <VulnerabilitiesDataRows vulnerabilitiesPromise={vulnerabilitiesPromise} />
+          </Suspense>
+        </ErrorBoundary>
       </DataGrid>
-      <Suspense>
-        <CursorPagination
-          dataPromise={vulnerabilitiesPromise}
-          goToPage={goToPage}
-          dataNormalizationMethod={getNormalizedVulnerabilitiesResponse}
-        />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense>
+          <CursorPagination
+            dataPromise={vulnerabilitiesPromise}
+            goToPage={goToPage}
+            dataNormalizationMethod={getNormalizedVulnerabilitiesResponse}
+          />
+        </Suspense>
+      </ErrorBoundary>
       <VulnerabilityPanel />
     </div>
   )

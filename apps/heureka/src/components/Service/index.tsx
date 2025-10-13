@@ -6,13 +6,13 @@
 import React, { Suspense, useEffect, useState } from "react"
 import { useLoaderData, useNavigate, useParams, useRouteContext, useSearch } from "@tanstack/react-router"
 import { Spinner } from "@cloudoperators/juno-ui-components"
-import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
+import { ApolloQueryResult } from "@apollo/client"
 import { ServiceImageVersions } from "../common/ServiceImageVersions"
 import { ImageVersionDetailsPanel } from "./ImageVersionDetailsPanel"
 import { ServiceDetails } from "./ServiceDetails"
 import { fetchImageVersions } from "../../api/fetchImageVersions"
 import { GetServiceImageVersionsQuery } from "../../generated/graphql"
-import { ApolloQueryResult } from "@apollo/client"
+import { ErrorBoundary } from "../common/ErrorBoundary"
 
 export const Service = () => {
   const navigate = useNavigate()
@@ -37,28 +37,33 @@ export const Service = () => {
   }, [pageCursor])
 
   return (
-    <MessagesProvider>
-      <Messages className="mb-4" />
-      <Suspense fallback={<Spinner className="mt-4" />}>
-        <ServiceDetails servicePromise={servicePromise} />
-      </Suspense>
+    <>
+      <ErrorBoundary displayErrorMessage>
+        <Suspense fallback={<Spinner className="mt-4" />}>
+          <ServiceDetails servicePromise={servicePromise} />
+        </Suspense>
+      </ErrorBoundary>
       {imageVersionsPromise && (
-        <ServiceImageVersions
-          selectedImageVersion={imageVersion}
-          imageVersionsPromise={imageVersionsPromise}
-          onImageVersionItemClick={(iv) => {
-            navigate({
-              to: "/services/$service",
-              params: { service },
-              search: { imageVersion: iv.version },
-            })
-          }}
-          goToPage={setPageCursor}
-        />
+        <>
+          <ServiceImageVersions
+            selectedImageVersion={imageVersion}
+            imageVersionsPromise={imageVersionsPromise}
+            onImageVersionItemClick={(iv) => {
+              navigate({
+                to: "/services/$service",
+                params: { service },
+                search: { imageVersion: iv.version },
+              })
+            }}
+            goToPage={setPageCursor}
+          />
+          <ErrorBoundary>
+            <Suspense>
+              <ImageVersionDetailsPanel imageVersionsPromise={imageVersionsPromise} />
+            </Suspense>
+          </ErrorBoundary>
+        </>
       )}
-      <Suspense>
-        {imageVersionsPromise && <ImageVersionDetailsPanel imageVersionsPromise={imageVersionsPromise} />}
-      </Suspense>
-    </MessagesProvider>
+    </>
   )
 }

@@ -10,6 +10,7 @@ import { ApolloQueryResult } from "@apollo/client"
 import { GetVulnerabilitiesQuery } from "../../generated/graphql"
 import { getNormalizedVulnerabilitiesResponse } from "./utils"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
+import { ErrorBoundary } from "../common/ErrorBoundary"
 
 type AllVulnerabilitiesCountProps = {
   vulnerabilitiesPromise: Promise<ApolloQueryResult<GetVulnerabilitiesQuery>>
@@ -34,10 +35,12 @@ export const AllVulnerabilitiesCount = () => {
   const { vulnerabilitiesPromise } = useLoaderData({ from: "/vulnerabilities/" })
 
   return (
-    <Stack className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
-      <Suspense fallback={<Spinner size="small" />}>
-        <VulnerabilitiesCount vulnerabilitiesPromise={vulnerabilitiesPromise} />
-      </Suspense>
-    </Stack>
+    <ErrorBoundary>
+      <Stack className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
+        <Suspense fallback={<Spinner size="small" />}>
+          <VulnerabilitiesCount vulnerabilitiesPromise={vulnerabilitiesPromise} />
+        </Suspense>
+      </Stack>
+    </ErrorBoundary>
   )
 }
