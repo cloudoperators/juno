@@ -39,7 +39,8 @@ export type ServicesSearchParams = z.infer<typeof servicesSearchSchema>
 export const Route = createFileRoute("/services/")({
   validateSearch: servicesSearchSchema,
   loaderDeps: ({ search }) => {
-    const { service, ...rest } = search
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { service, ...rest } = search // we're omitting 'service' from the deps so route does not reload when it changes
     return rest
   },
   shouldReload: false, // Only reload the route when the user navigates to it or when deps change

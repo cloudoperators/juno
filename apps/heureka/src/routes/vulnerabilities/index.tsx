@@ -37,17 +37,14 @@ export type VulnerabilitiesSearchParams = z.infer<typeof vulnerabilitiesSearchSc
 export const Route = createFileRoute("/vulnerabilities/")({
   validateSearch: vulnerabilitiesSearchSchema,
   loaderDeps: ({ search }) => {
-    const { vulnerability, ...rest } = search
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { vulnerability, ...rest } = search // we're omitting 'service' from the deps so route does not reload when it changes
     return rest
   },
   shouldReload: false,
-  beforeLoad: ({ search }) => {
-    const { vulnerability, ...restSearch } = search
-    const filterSettings = extractFilterSettingsFromSearchParams(restSearch)
-    return {
-      filterSettings,
-    }
-  },
+  beforeLoad: ({ search }) => ({
+    filterSettings: extractFilterSettingsFromSearchParams(search),
+  }),
   loader: async ({ context }) => {
     const { queryClient, apiClient, filterSettings } = context
 
