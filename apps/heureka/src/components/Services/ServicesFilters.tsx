@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useEffect } from "react"
-import { useLoaderData, useNavigate, useRouteContext } from "@tanstack/react-router"
+import React, { useCallback, useLayoutEffect } from "react"
+import { useLoaderData, useNavigate, useRouteContext, useSearch } from "@tanstack/react-router"
 import { Filters } from "../common/Filters"
 import { FilterSettings } from "../common/Filters/types"
 import { getFiltersForUrl, getInitialFilters } from "./utils"
@@ -15,17 +15,17 @@ export const ServicesFilters = () => {
   const navigate = useNavigate()
   const { filters, filterSettings } = useLoaderData({ from: "/services/" })
   const { appProps } = useRouteContext({ from: "/services/" })
+  const search = useSearch({ from: "/services/" })
   const { hasAppliedInitialFilters, markInitialFiltersApplied } = useStore()
 
   // Use store to track initial filters across tab navigation - prevents re-application when switching between services/vulnerabilities tabs
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (hasAppliedInitialFilters) return
 
-    const urlParams = new URLSearchParams(window.location.search)
-    const hasUrlFilters = Array.from(urlParams.keys()).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
-    const hasAnySearchParams = urlParams.toString().length > 0
+    // Use parsed search params from TanStack Router instead of window.location.search
+    const hasUrlFilters = Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
 
-    if (!hasUrlFilters && !hasAnySearchParams && appProps?.initialFilters?.support_group?.length) {
+    if (!hasUrlFilters && appProps?.initialFilters?.support_group?.length) {
       const initialFilters = getInitialFilters(appProps.initialFilters)
 
       if (initialFilters.length > 0) {
@@ -40,7 +40,7 @@ export const ServicesFilters = () => {
         markInitialFiltersApplied()
       }
     }
-  }, [navigate, appProps, hasAppliedInitialFilters, markInitialFiltersApplied])
+  }, [navigate, appProps, hasAppliedInitialFilters, markInitialFiltersApplied, search])
 
   const handleFilterChange = useCallback(
     (updatedFilterSettings: FilterSettings) => {
