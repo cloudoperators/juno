@@ -9,13 +9,13 @@ import { Filters } from "../common/Filters"
 import { FilterSettings } from "../common/Filters/types"
 import { getFiltersForUrl, getInitialFilters } from "./utils"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
-import { useInitialFilters } from "../../store/InitialFiltersContext"
+import { useStore } from "../../store/StoreProvider"
 
 export const ServicesFilters = () => {
   const navigate = useNavigate()
   const { filters, filterSettings } = useLoaderData({ from: "/services/" })
   const { appProps } = useRouteContext({ from: "/services/" })
-  const { hasAppliedInitialFilters, markInitialFiltersApplied } = useInitialFilters()
+  const { hasAppliedInitialFilters, markInitialFiltersApplied } = useStore()
 
   // Use store to track initial filters across tab navigation - prevents re-application when switching between services/vulnerabilities tabs
   useEffect(() => {

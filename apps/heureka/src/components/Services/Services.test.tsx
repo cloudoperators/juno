@@ -11,7 +11,7 @@ import { Services } from "./index"
 import { Filter, FilterSettings } from "../common/Filters/types"
 import { getTestRouter } from "../../mocks/getTestRouter"
 import { mockServicesPromise } from "../../mocks/promises"
-import { InitialFiltersProvider } from "../../store/InitialFiltersContext"
+import { StoreProvider } from "../../store/StoreProvider"
 
 const mockFilters: Filter[] = [
   {
@@ -45,9 +45,9 @@ const renderComponent = () => {
     }),
     component: () => (
       <PortalProvider>
-        <InitialFiltersProvider>
+        <StoreProvider>
           <Services />
-        </InitialFiltersProvider>
+        </StoreProvider>
       </PortalProvider>
     ),
   })
