@@ -285,8 +285,24 @@
   --background-color-theme-badge-default: var(--color-badge-default-bg);
   --background-color-theme-box-default: var(--color-box-bg);
 
-  /* Button */
-  /* Button Background */
+  /* Side Navigation Background Colors */
+  --background-color-theme-sidenav: var(--color-sidenav-background);
+  --background-color-theme-sidenav-list: var(--color-sidenav-list-background);
+
+  /* Side Navigation */ /* Item Background Colors */
+  --background-color-theme-sidenav-item-default: var(--color-sidenav-item-background-default);
+  --background-color-theme-sidenav-item-hover: var(--color-sidenav-item-background-hover);
+  --background-color-theme-sidenav-item-active: var(--color-sidenav-item-background-active);
+  --background-color-theme-sidenav-item-selected: var(--color-sidenav-item-background-selected);
+
+  /* Side Navigation */ /* Item Text Colors */
+  --text-color-theme-sidenav-item-default: var(--color-sidenav-item-text-default);
+  --text-color-theme-sidenav-item-hover: var(--color-sidenav-item-text-hover);
+  --text-color-theme-sidenav-item-active: var(--color-sidenav-item-text-active);
+  --text-color-theme-sidenav-item-selected: var(--color-sidenav-item-text-selected);
+  --border-color-theme-sidenav-item-selected: var(--color-sidenav-item-border-selected);
+
+  /* Button */ /* Button Background */
   --background-color-theme-button-default: var(--color-button-default-bg);
   --background-color-theme-button-default-hover: var(--color-button-default-hover-bg);
   --background-color-theme-button-default-active: var(--color-button-default-active-bg);
@@ -422,6 +438,8 @@
   --border-color-theme-tab-content-inactive-bottom: var(--color-background-lvl-4);
 
   --border-color-theme-textinput-default: var(--color-textinput-default-border);
+
+  --border-color-theme-sidenav: var(--color-sidenav-border);
 
   --padding-xs: 0.25rem;
   --padding-sm: 0.5rem;
@@ -672,6 +690,18 @@
   /* LT SideNavigation */
   --color-sidenavigation-item-active: var(--color-black);
   --color-sidenavigation-item-active-bg: var(--color-background-lvl-0);
+  --color-sidenav-background: var(--color-white);
+  --color-sidenav-border: var(--color-juno-grey-light-7);
+  --color-sidenav-list-background: var(--color-white);
+  --color-sidenav-item-background-default: var(--color-white);
+  --color-sidenav-item-background-hover: var(--color-juno-grey-light-1);
+  --color-sidenav-item-background-active: var(--color-juno-grey-light-7);
+  --color-sidenav-item-background-selected: var(--color-juno-grey-light-7);
+  --color-sidenav-item-text-default: var(--color-juno-text-high);
+  --color-sidenav-item-text-hover: var(--color-juno-text-high);
+  --color-sidenav-item-text-active: var(--color-juno-text-high);
+  --color-sidenav-item-text-selected: var(--color-juno-text-high);
+  --color-sidenav-item-border-selected: var(--color-theme-accent);
   /* LT TopNavigation */
   --color-topnavigation-item-active: var(--color-black);
   --color-topnavigation-item-bg: var(--color-sap-grey-1);
@@ -899,6 +929,18 @@
   /* DT SideNavigation */
   --color-sidenavigation-item-active: var(--color-white);
   --color-sidenavigation-item-active-bg: var(--color-background-lvl-0);
+  --color-sidenav-background: var(--color-juno-grey-blue-10);
+  --color-sidenav-border: var(--color-juno-grey-blue-3);
+  --color-sidenav-list-background: var(--color-juno-grey-blue-10);
+  --color-sidenav-item-background-default: var(--color-juno-grey-blue-10);
+  --color-sidenav-item-background-hover: var(--color-juno-grey-blue-5);
+  --color-sidenav-item-background-active: var(--color-juno-grey-blue-7);
+  --color-sidenav-item-background-selected: var(--color-juno-grey-blue-7);
+  --color-sidenav-item-text-default: var(--color-juno-text-high);
+  --color-sidenav-item-text-hover: var(--color-juno-text-high);
+  --color-sidenav-item-text-active: var(--color-juno-text-high);
+  --color-sidenav-item-text-selected: var(--color-juno-text-high);
+  --color-sidenav-item-border-selected: var(--color-theme-accent);
   /* DT TopNavigation */
   --color-topnavigation-item-active: var(--color-white);
   --color-topnavigation-item-bg: var(--color-juno-grey-blue-7);

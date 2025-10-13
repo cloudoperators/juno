@@ -80,8 +80,8 @@ describe("SideNavigation", () => {
   test("renders an active navigation item as passed by value", () => {
     render(
       <SideNavigation activeItem="i-2">
-        <SideNavigationItem label="Item 1" value="i-1" />
-        <SideNavigationItem label="Item 2" value="i-2" />
+        <SideNavigationItem label="Item 1" />
+        <SideNavigationItem label="Item 2" />
       </SideNavigation>
     )
     expect(screen.getByRole("navigation")).toBeInTheDocument()
@@ -97,7 +97,7 @@ describe("SideNavigation", () => {
   test("renders the active item as passed to the parent if conflicting with active prop passed to child item", () => {
     render(
       <SideNavigation activeItem="Item 2">
-        <SideNavigationItem label="Item 1" active />
+        <SideNavigationItem label="Item 1" selected />
         <SideNavigationItem label="Item 2" />
       </SideNavigation>
     )
@@ -133,7 +133,7 @@ describe("SideNavigation", () => {
   test("rerenders the active item as passed to the parent if conflicting with new state of active prop passed to child item, 4 items", () => {
     const { rerender } = render(
       <SideNavigation activeItem="Item 2">
-        <SideNavigationItem label="Item 1" active />
+        <SideNavigationItem label="Item 1" selected />
         <SideNavigationItem label="Item 2" />
         <SideNavigationItem label="Item 3" />
       </SideNavigation>
@@ -145,7 +145,7 @@ describe("SideNavigation", () => {
       <SideNavigation activeItem="Item 2">
         <SideNavigationItem label="Item 1" />
         <SideNavigationItem label="Item 2" />
-        <SideNavigationItem label="Item 3" active />
+        <SideNavigationItem label="Item 3" selected />
       </SideNavigation>
     )
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass("juno-navigation-item-active")
