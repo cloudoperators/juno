@@ -87,7 +87,7 @@ function RouteComponent() {
   useLayoutEffect(() => {
     if (hasAppliedInitialFilters) return
 
-    // Use parsed search params from TanStack Router instead of window.location.search
+    // Use parsed search params from TanStack Router
     const hasUrlFilters = Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
 
     if (!hasUrlFilters && appProps?.initialFilters?.support_group?.length) {

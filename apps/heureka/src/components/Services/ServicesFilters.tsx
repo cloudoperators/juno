@@ -10,7 +10,6 @@ import { FilterSettings } from "../common/Filters/types"
 import { getFiltersForUrl } from "./utils"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 
-
 export const ServicesFilters = () => {
   const navigate = useNavigate()
   const { filters, filterSettings } = useLoaderData({ from: "/services/" })
