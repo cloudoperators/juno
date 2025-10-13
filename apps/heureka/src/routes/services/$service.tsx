@@ -6,7 +6,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { Service } from "../../components/Service"
-import { LoaderWithCrumb } from "../-types"
 import { fetchService } from "../../api/fetchService"
 
 const serviceSearchSchema = z.object({
@@ -17,7 +16,8 @@ export const Route = createFileRoute("/services/$service")({
   validateSearch: serviceSearchSchema,
   shouldReload: false,
   loaderDeps: ({ search }) => {
-    const { imageVersion, ...rest } = search
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { imageVersion, ...rest } = search // we're omitting 'imageVersion' from the deps so route does not reload when it changes
     return { ...rest }
   },
   loader: ({ context, params: { service } }) => {

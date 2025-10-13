@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode, useRef } from "react"
+import React, { useRef } from "react"
 import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
 import { useNavigate, useLocation } from "@tanstack/react-router"
 
@@ -11,11 +11,6 @@ type NavigationItemType = {
   label: string
   value: string
   path: string
-}
-
-type NavigationPropsType = {
-  activeItem?: ReactNode
-  onChange?: (value: ReactNode) => void
 }
 
 const navigationItems: NavigationItemType[] = [
@@ -31,7 +26,7 @@ const navigationItems: NavigationItemType[] = [
   },
 ]
 
-export const Navigation = ({ activeItem }: NavigationPropsType) => {
+export const Navigation = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const isVulnerabilitiesActive = location.pathname.toLowerCase().includes("vulnerabilities")
