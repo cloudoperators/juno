@@ -42,7 +42,7 @@ export const Route = createFileRoute("/services/")({
     const { service, ...rest } = search // we're omitting 'service' from the deps so route does not reload when it changes
     return rest
   },
-  shouldReload: false, // Only reload when loaderDeps change
+  shouldReload: false, // Only reload the route when the user navigates to it or when deps change
   beforeLoad: ({ search }) => {
     const filterSettings = extractFilterSettingsFromSearchParams(search)
     return {
