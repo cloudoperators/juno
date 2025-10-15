@@ -30,10 +30,7 @@ const getClassName = (isActive: boolean) => {
     py-3
     cursor-pointer
     
-    ${isActive 
-      ? "bg-theme-global-bg text-white"
-      : "hover:text-theme-high"
-    }
+    ${isActive ? "bg-theme-global-bg text-white" : "hover:text-theme-high"}
   `
 }
 
