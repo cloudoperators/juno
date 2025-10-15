@@ -21,7 +21,7 @@ Patterns and rules for handling errors consistently across our applications.
 
 ### Unauthenticated (not logged in, 401)
 
-The user is trying to access a route or URL they are not authorized for, or they are not even logged in at the time.
+The user is trying to access a route or URL which requires authentication without being logged in at the time.
 
 #### What To Do
 
