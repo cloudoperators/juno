@@ -4,26 +4,40 @@
  */
 
 import React from "react"
-import { DateTime } from "luxon"
 
 import { Icon, Stack, Tooltip, TooltipContent, TooltipTrigger } from "@cloudoperators/juno-ui-components"
 
 const AlertTimestamp = ({ startTimestamp }: any) => {
-  const dateFormat = { ...DateTime.DATE_MED }
-  const timeFormat = { ...DateTime.TIME_24_WITH_SHORT_OFFSET }
-  const startTime = DateTime.fromISO(startTimestamp)
-  const daysFiring = DateTime.now().diff(startTime, "days")
+  const startTime = new Date(startTimestamp)
+  const now = new Date()
+  
+  // Calculate days difference
+  const diffInMs = now.getTime() - startTime.getTime()
+  const daysFiring = diffInMs / (1000 * 60 * 60 * 24)
+
+  const formattedDate = startTime.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  })
+
+  const formattedTime = startTime.toLocaleString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZoneName: 'short'
+  })
 
   return (
     <Stack direction="vertical" gap="1">
-      <div>{startTime.toLocaleString(dateFormat)}</div>
-      <div>{startTime.toLocaleString(timeFormat)}</div>
-      {daysFiring.days > 7 && (
+      <div>{formattedDate}</div>
+      <div>{formattedTime}</div>
+      {daysFiring > 7 && (
         <Tooltip variant="warning" triggerEvent="hover">
           <TooltipTrigger asChild>
             <Icon icon="warning" color="text-theme-warning" />
           </TooltipTrigger>
-          <TooltipContent>{`Alert has been firing for ${Math.round(daysFiring.days)} days`}</TooltipContent>
+          <TooltipContent>{`Alert has been firing for ${Math.round(daysFiring)} days`}</TooltipContent>
         </Tooltip>
       )}
     </Stack>
