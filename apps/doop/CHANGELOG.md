@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.4
+
+### Patch Changes
+
+- 5261dfd: Prevent mutations form original violationGroups data when filtering and improved debouncing of search filter
+- Updated dependencies [d3f9442]
+  - @cloudoperators/juno-ui-components@5.7.0
+  - @cloudoperators/juno-messages-provider@0.2.18
+
 ## 2.6.3
 
 ### Patch Changes
