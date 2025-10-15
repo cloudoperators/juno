@@ -35,7 +35,7 @@ The user is athenticated and trying to see a page they are not authorized to see
 
 Show Error page, navigation should reflect current route/url, but we inform them they are not authorized to see what's here.
 
-### Aunthorized content, unauthorized action
+### Authorized content, unauthorized action
 
 The user is logged in and authorized to see the content they are looking at, and we have rendered functional UI elements for that action/feature, but they do not have permission for an action they tried to initiate.
 
