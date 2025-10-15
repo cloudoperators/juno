@@ -59,3 +59,43 @@ export const useTextOverflow = (text: string | null) => {
 
   return { needsExpansion, textRef }
 }
+
+/**
+ * Utility functions to replace lodash dependencies
+ */
+
+// Replace _.isEmpty()
+export const isEmpty = (value: any): boolean => {
+  if (value == null) return true
+  if (typeof value === "string" || Array.isArray(value)) return value.length === 0
+  if (typeof value === "object") return Object.keys(value).length === 0
+  return false
+}
+
+// Replace _.isNil()
+export const isNil = (value: any): value is null | undefined => {
+  return value == null
+}
+
+// Replace _.omit()
+export const omit = <T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {
+  const result = { ...obj }
+  keys.forEach((key) => {
+    delete result[key]
+  })
+  return result
+}
+
+// Replace _.map() for objects - transforms object values
+export const mapObject = <T, U>(obj: Record<string, T>, iteratee: (value: T, key: string) => U): Record<string, U> => {
+  const result: Record<string, U> = {}
+  Object.entries(obj).forEach(([key, value]) => {
+    result[key] = iteratee(value, key)
+  })
+  return result
+}
+
+// Replace _.map() for arrays (though native Array.map is preferred)
+export const map = <T, U>(array: T[], iteratee: (item: T, index: number) => U): U[] => {
+  return array.map(iteratee)
+}
