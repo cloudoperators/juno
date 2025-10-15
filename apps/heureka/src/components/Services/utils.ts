@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { isEmpty, isNil, map, omit } from "lodash"
+import { isEmpty, isNil, map, omit } from "../../utils"
 import { ApolloError } from "@apollo/client"
 import {
   Edge,
@@ -298,9 +298,9 @@ export const getFiltersForUrl = (filterSettings: FilterSettings): Record<string,
 }
 
 export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | null): Filter[] =>
-  isEmpty(data) || isEmpty(data.ServiceFilterValues)
+  isEmpty(data) || isEmpty(data?.ServiceFilterValues)
     ? []
-    : map(omit(data.ServiceFilterValues, ["__typename"]), (filter) => ({
+    : map(Object.values(omit(data!.ServiceFilterValues!, ["__typename"])), (filter) => ({
         displayName: filter?.displayName || "",
         filterName: filter?.filterName || "",
         values: filter?.values?.filter((value) => value !== null) || [],
