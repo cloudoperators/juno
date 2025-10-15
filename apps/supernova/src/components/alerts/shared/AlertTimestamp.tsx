@@ -10,22 +10,22 @@ import { Icon, Stack, Tooltip, TooltipContent, TooltipTrigger } from "@cloudoper
 const AlertTimestamp = ({ startTimestamp }: any) => {
   const startTime = new Date(startTimestamp)
   const now = new Date()
-  
+
   // Calculate days difference
   const diffInMs = now.getTime() - startTime.getTime()
   const daysFiring = diffInMs / (1000 * 60 * 60 * 24)
 
-  const formattedDate = startTime.toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
+  const formattedDate = startTime.toLocaleDateString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   })
 
-  const formattedTime = startTime.toLocaleString('en-GB', {
-    hour: '2-digit',
-    minute: '2-digit',
+  const formattedTime = startTime.toLocaleString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: false,
-    timeZoneName: 'short'
+    timeZoneName: "short",
   })
 
   return (
