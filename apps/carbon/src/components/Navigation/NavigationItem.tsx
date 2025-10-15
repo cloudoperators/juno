@@ -36,7 +36,6 @@ type NavigationItemProps = {
 }
 
 const NavigationItem = ({ name, title, url }: NavigationItemProps) => {
-  const [isActive] = useRoute(url)
   return (
     <Stack
       key={name}
@@ -45,9 +44,9 @@ const NavigationItem = ({ name, title, url }: NavigationItemProps) => {
       alignment="center"
       role="link"
       tabIndex={0}
-      className={getClassName(isActive)}
+      className={getClassName(true)}
     >
-      {isActive && <Border />}
+      {<Border />}
       <AppIcon name={name} />
       <span className="select-none break-all text-xs">{title}</span>
     </Stack>
