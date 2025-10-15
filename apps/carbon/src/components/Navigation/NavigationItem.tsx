@@ -35,7 +35,7 @@ type NavigationItemProps = {
   url: string
 }
 
-const NavigationItem = ({ name, title, url }: NavigationItemProps) => {
+const NavigationItem = ({ name, title }: NavigationItemProps) => {
   return (
     <Stack
       key={name}
