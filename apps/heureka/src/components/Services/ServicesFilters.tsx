@@ -8,6 +8,7 @@ import { useLoaderData, useNavigate } from "@tanstack/react-router"
 import { Filters } from "../common/Filters"
 import { FilterSettings } from "../common/Filters/types"
 import { getFiltersForUrl } from "./utils"
+import { SELECTED_FILTER_PREFIX } from "../../constants"
 
 export const ServicesFilters = () => {
   const navigate = useNavigate()
@@ -17,12 +18,19 @@ export const ServicesFilters = () => {
     (updatedFilterSettings: FilterSettings) => {
       navigate({
         to: "/services",
-        search: {
-          ...getFiltersForUrl(updatedFilterSettings),
+        search: (prev) => {
+          const newFilterParams = getFiltersForUrl(updatedFilterSettings)
+          const cleanedPrev = Object.fromEntries(
+            Object.entries(prev).filter(([key]) => !key.startsWith(SELECTED_FILTER_PREFIX))
+          )
+          return {
+            ...cleanedPrev,
+            ...newFilterParams,
+          }
         },
       })
     },
-    [filterSettings, navigate]
+    [navigate]
   )
 
   return (

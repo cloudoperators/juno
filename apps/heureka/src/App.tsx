@@ -13,6 +13,7 @@ import styles from "./styles.css?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
+import { StoreProvider } from "./store/StoreProvider"
 
 export type InitialFilters = {
   support_group?: string[]
@@ -91,7 +92,9 @@ const App = (props: AppProps) => {
           <style>{styles.toString()}</style>
           <ErrorBoundary>
             <StrictMode>
-              <RouterProvider basepath={props.basePath || "/"} router={router} />
+              <StoreProvider>
+                <RouterProvider basepath={props.basePath || "/"} router={router} />
+              </StoreProvider>
             </StrictMode>
           </ErrorBoundary>
         </AppShellProvider>

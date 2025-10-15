@@ -2,7 +2,10 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-
+import React, { useLayoutEffect } from "react"
+import { useNavigate, useRouteContext, useSearch } from "@tanstack/react-router"
+import { getFiltersForUrl, getInitialFilters } from "../../components/Services/utils"
+import { useStore } from "../../store/StoreProvider"
 import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { Services } from "../../components/Services"
@@ -11,7 +14,6 @@ import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
 import {
   extractFilterSettingsFromSearchParams,
-  getInitialFilters,
   getNormalizedFilters,
   sanitizeFilterSettings,
 } from "../../components/Services/utils"
@@ -44,17 +46,10 @@ export const Route = createFileRoute("/services/")({
     return rest
   },
   shouldReload: false, // Only reload the route when the user navigates to it or when deps change
-  beforeLoad: ({ context: { appProps }, search }) => {
+  beforeLoad: ({ search }) => {
     const filterSettings = extractFilterSettingsFromSearchParams(search)
     return {
-      filterSettings:
-        // Filters from the URL always have preference over initial filters
-        (filterSettings?.selectedFilters ?? []).length > 0
-          ? filterSettings
-          : {
-              ...filterSettings,
-              selectedFilters: getInitialFilters(appProps?.initialFilters),
-            },
+      filterSettings,
     }
   },
   loader: async ({ context }) => {
@@ -79,5 +74,38 @@ export const Route = createFileRoute("/services/")({
       filterSettings: sanitizeFilterSettings(filters, filterSettings), // we need to only apply filters that backend supports hence this sanitization
     }
   },
-  component: Services,
+  component: RouteComponent,
 })
+
+function RouteComponent() {
+  const navigate = useNavigate()
+  const { appProps } = useRouteContext({ from: "/services/" })
+  const search = useSearch({ from: "/services/" })
+  const { hasAppliedInitialFilters, markInitialFiltersApplied } = useStore()
+
+  // Use store to track initial filters across tab navigation - prevents re-application when switching between services/vulnerabilities tabs
+  useLayoutEffect(() => {
+    if (hasAppliedInitialFilters) return
+
+    // Use parsed search params from TanStack Router
+    const hasUrlFilters = Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
+
+    if (!hasUrlFilters && appProps?.initialFilters?.support_group?.length) {
+      const initialFilters = getInitialFilters(appProps.initialFilters)
+
+      if (initialFilters.length > 0) {
+        navigate({
+          to: "/services",
+          search: getFiltersForUrl({
+            searchTerm: "",
+            selectedFilters: initialFilters,
+          }),
+          replace: true,
+        })
+        markInitialFiltersApplied()
+      }
+    }
+  }, [navigate, appProps, hasAppliedInitialFilters, markInitialFiltersApplied, search])
+
+  return <Services />
+}
