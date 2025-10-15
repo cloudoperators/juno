@@ -80,18 +80,18 @@ const CreateSilence = ({ alert, size, variant }: any) => {
   // Format date/time helper function
   const formatDateTime = (timestamp: string) => {
     const date = new Date(timestamp)
-    
-    const formattedDate = date.toLocaleDateString('en-GB', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+
+    const formattedDate = date.toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     })
 
-    const formattedTime = date.toLocaleString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
+    const formattedTime = date.toLocaleString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
       hour12: false,
-      timeZoneName: 'short'
+      timeZoneName: "short",
     })
 
     return `${formattedDate} ${formattedTime}`

@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import { DateTime } from "luxon"
 
 import { Spinner, Stack } from "@cloudoperators/juno-ui-components"
 
@@ -17,6 +16,17 @@ const statusBarStyles = `
 `
 
 const StatusBar = ({ totalCounts, isUpdating, updatedAt }: any) => {
+  const formatTime = (timestamp: number) => {
+    const date = new Date(timestamp)
+    return date.toLocaleString('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second:'2-digit', 
+      hour12: false,
+      timeZoneName: 'short'
+    })
+  }
+
   return (
     <Stack className={`status-bar ${statusBarStyles}`} alignment="center">
       <div>
@@ -27,10 +37,7 @@ const StatusBar = ({ totalCounts, isUpdating, updatedAt }: any) => {
       </div>
       <Stack alignment="center" className="ml-auto">
         {isUpdating && <Spinner size="small" className="mr-2" />}
-        {updatedAt &&
-          `updated ${DateTime.fromMillis(updatedAt).toLocaleString({
-            ...DateTime.TIME_24_WITH_SHORT_OFFSET,
-          })}`}
+        {updatedAt && `updated ${formatTime(updatedAt)}`}
       </Stack>
     </Stack>
   )
