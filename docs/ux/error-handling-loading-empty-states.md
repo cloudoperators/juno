@@ -38,7 +38,7 @@ Show Error page, navigation should reflect current route/url, but we inform them
 ### Authorized content, unauthorized action
 
 The user is logged in and authorized to see the content they are looking at, and we have rendered functional UI elements for that action/feature, but they do not have permission for an action they tried to initiate.
-
+If we know that the user does not have the correct permissions to initiate an action refer to "ui-for-unauthorized-users.md" for guidance and decision matrix.
 -> render disabled elements, communicate why
 -> render functional elements, show respective error once action was initiated
 
