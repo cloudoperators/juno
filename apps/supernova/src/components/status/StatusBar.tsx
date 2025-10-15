@@ -18,12 +18,12 @@ const statusBarStyles = `
 const StatusBar = ({ totalCounts, isUpdating, updatedAt }: any) => {
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp)
-    return date.toLocaleString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second:'2-digit', 
+    return date.toLocaleString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
       hour12: false,
-      timeZoneName: 'short'
+      timeZoneName: "short",
     })
   }
 
