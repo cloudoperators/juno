@@ -10,6 +10,8 @@ import { Navigation } from "../Navigation/Navigation.component"
 const sideNavStyles = `
   jn:min-w-[7.5rem]
   jn:max-w-[20rem]
+  jn:bg-theme-sidenav
+  jn:border-theme-sidenav
 `
 
 /**
@@ -45,13 +47,12 @@ export interface SideNavigationProps extends React.HTMLAttributes<HTMLElement> {
   activeItem?: ReactNode
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
   ariaLabel?: string
-  /** The children of the Navigation. Typically these should be SideNavigationItem(s) */
-  children?: ReactNode
+  /** The children of the Navigation. These should be SideNavigationItem(s) */
+  children?: React.ReactNode
   /** Pass custom classname. */
   className?: string
   /** Whether the navigation is disabled */
   disabled?: boolean
   /** Handler to execute when the active item changes */
-  // eslint-disable-next-line no-unused-vars
-  onActiveItemChange?: (activeItem: ReactNode) => void
+  onActiveItemChange?: (_activeItem: ReactNode) => void
 }

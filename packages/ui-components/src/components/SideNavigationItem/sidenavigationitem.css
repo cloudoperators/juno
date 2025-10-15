@@ -1,0 +1,47 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+.juno-sidenavigation-item {
+  border-radius: 0.25rem;
+  color: var(--color-sidenav-item-text-default);
+}
+
+.juno-sidenavigation-item:hover {
+  color: var(--color-sidenav-item-text-hover);
+}
+
+.juno-sidenavigation-item:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.juno-sidenavigation-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.juno-sidenavigation-item.selected {
+  background-color: var(--color-sidenav-item-background-selected);
+  border-left: 0.25rem solid var(--color-accent); /* Correct? Therem colour (dark) not mentioned in design */
+}
+
+.juno-side-navigation-children {
+  margin-left: 0.625rem;
+}
+
+/* Explicit better? Or need descendent? */
+.juno-sidenavigation-item-content.level-1 {
+  font-weight: bold;
+}
+
+.juno-sidenavigation-item-content.level-2 {
+  margin-left: 1.5rem;
+  font-weight: 500;
+}
+
+.juno-sidenavigation-item-content.level-3 {
+  margin-left: 2.25rem;
+  font-weight: 500;
+}
