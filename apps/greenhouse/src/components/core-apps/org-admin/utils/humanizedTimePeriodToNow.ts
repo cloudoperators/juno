@@ -13,15 +13,15 @@ const humanizedTimePeriodToNow = (jsDateAllowedInput: string | number | Date): s
   const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60))
 
   const parts: string[] = []
-  
+
   if (days > 0) {
-    parts.push(`${days} ${days === 1 ? 'day' : 'days'}`)
+    parts.push(`${days} ${days === 1 ? "day" : "days"}`)
   }
   if (hours > 0) {
-    parts.push(`${hours} ${hours === 1 ? 'hour' : 'hours'}`)
+    parts.push(`${hours} ${hours === 1 ? "hour" : "hours"}`)
   }
   if (minutes > 0) {
-    parts.push(`${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`)
+    parts.push(`${minutes} ${minutes === 1 ? "minute" : "minutes"}`)
   }
 
   return parts.length > 0 ? parts.join(", ") : "0 minutes"

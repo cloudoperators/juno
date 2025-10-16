@@ -15,8 +15,8 @@ const SilencesTimestamp = ({ timestamp }: any) => {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
-      timeZone: "Europe/Berlin", 
-      timeZoneName: "short", 
+      timeZone: "Europe/Berlin",
+      timeZoneName: "short",
     })
   }
 
