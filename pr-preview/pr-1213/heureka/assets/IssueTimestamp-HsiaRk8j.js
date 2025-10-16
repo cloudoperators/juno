@@ -1,1 +1,0 @@
-import{j as t,K as a}from"./App-CD0VMf51.js";const s=({targetDate:e})=>{const r=new Date(e).toLocaleDateString("en-GB",{year:"numeric",month:"short",day:"numeric"});return t.jsx(a,{direction:"vertical",gap:"1",children:t.jsx("div",{children:r})})};export{s as I};
