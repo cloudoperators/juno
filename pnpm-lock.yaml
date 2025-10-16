@@ -24,9 +24,6 @@ importers:
       '@commitlint/config-conventional':
         specifier: 19.8.1
         version: 19.8.1
-      '@types/luxon':
-        specifier: 3.7.1
-        version: 3.7.1
       '@types/node':
         specifier: 24.3.2
         version: 24.3.2
@@ -394,9 +391,6 @@ importers:
       tailwindcss:
         specifier: 4.1.13
         version: 4.1.13
-      ts-luxon:
-        specifier: 4.6.2
-        version: 4.6.2
       vite:
         specifier: 7.1.7
         version: 7.1.7(@types/node@24.3.2)(jiti@2.5.1)(lightningcss@1.30.1)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
@@ -518,9 +512,6 @@ importers:
       jsdom:
         specifier: 26.1.0
         version: 26.1.0
-      luxon:
-        specifier: 3.7.2
-        version: 3.7.2
       postcss:
         specifier: 8.5.6
         version: 8.5.6
@@ -609,9 +600,6 @@ importers:
       jsdom:
         specifier: 26.1.0
         version: 26.1.0
-      luxon:
-        specifier: 3.7.2
-        version: 3.7.2
       shadow-dom-testing-library:
         specifier: 1.13.1
         version: 1.13.1(@testing-library/dom@10.4.0)
@@ -3349,9 +3337,6 @@ packages:
   '@types/lodash@4.17.19':
     resolution: {integrity: sha512-NYqRyg/hIQrYPT9lbOeYc3kIRabJDn/k4qQHIXUpx88CBDww2fD15Sg5kbXlW86zm2XEW4g0QxkTI3/Kfkc7xQ==}
 
-  '@types/luxon@3.7.1':
-    resolution: {integrity: sha512-H3iskjFIAn5SlJU7OuxUmTEpebK6TKB8rxZShDslBMZJ5u9S//KM1sbdAisiSrqwLQncVjnpi2OK2J51h+4lsg==}
-
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
 
@@ -5478,10 +5463,6 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  luxon@3.7.2:
-    resolution: {integrity: sha512-vtEhXh/gNjI9Yg1u4jX/0YVPMvxzHuGgCm6tC5kZyb08yjGWGnqAjGJvcXbqQR2P3MyMEFnRbpcdFS6PBcLqew==}
-    engines: {node: '>=12'}
-
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
@@ -6809,10 +6790,6 @@ packages:
 
   ts-log@2.2.7:
     resolution: {integrity: sha512-320x5Ggei84AxzlXp91QkIGSw5wgaLT6GeAH0KsqDmRZdVWW2OiSeVvElVoatk3f7nicwXlElXsoFkARiGE2yg==}
-
-  ts-luxon@4.6.2:
-    resolution: {integrity: sha512-I35AoZtDQ0O49rJh7tNyECISB6nhtdOzeFZSZzIxWSSUwnmgPOJK2wZr3fK0WVmKcmWPvDGSa+GKwWXFs4prjA==}
-    engines: {node: '>=13'}
 
   tsconfck@3.1.5:
     resolution: {integrity: sha512-CLDfGgUp7XPswWnezWwsCRxNmgQjhYq3VXHM0/XIRxhVrKw0M1if9agzryh1QS3nxjCROvV+xWxoJO1YctzzWg==}
@@ -10200,8 +10177,6 @@ snapshots:
 
   '@types/lodash@4.17.19': {}
 
-  '@types/luxon@3.7.1': {}
-
   '@types/mdast@4.0.4':
     dependencies:
       '@types/unist': 3.0.3
@@ -12654,8 +12629,6 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  luxon@3.7.2: {}
-
   lz-string@1.5.0: {}
 
   magic-string@0.26.7:
@@ -14293,8 +14266,6 @@ snapshots:
       tslib: 2.8.1
 
   ts-log@2.2.7: {}
-
-  ts-luxon@4.6.2: {}
 
   tsconfck@3.1.5(typescript@5.9.2):
     optionalDependencies:
