@@ -4,20 +4,23 @@
  */
 
 import React from "react"
-import { DateTime } from "luxon"
-
-//get start and end time of the silence
 
 const SilencesTimestamp = ({ timestamp }: any) => {
-  let dt
-  if (timestamp.includes("T")) {
-    dt = DateTime.fromISO(timestamp)
-  } else {
-    dt = DateTime.fromSQL(timestamp)
+  const formatDateTime = (timestamp: any) => {
+    const date = new Date(timestamp)
+    return date.toLocaleString("en-GB", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "Europe/Berlin", 
+      timeZoneName: "short", 
+    })
   }
 
-  const formattedTime = dt.toFormat("yyyy-LL-dd HH:mm Z")
-
-  return <div>{formattedTime}</div>
+  return <div>{formatDateTime(timestamp)}</div>
 }
+
 export default SilencesTimestamp
