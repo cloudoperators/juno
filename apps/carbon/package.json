@@ -29,7 +29,6 @@
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@tailwindcss/vite": "4.1.13",
     "@vitejs/plugin-react": "4.7.0",
-    "classnames": "2.5.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-error-boundary": "4.1.2",
