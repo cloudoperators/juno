@@ -5,7 +5,6 @@
 
 import React from "react"
 import { Stack } from "@cloudoperators/juno-ui-components"
-import classNames from "classnames"
 import SupernovaIcon from "../../assets/juno_supernova.svg?react"
 import DoopIcon from "../../assets/juno_doop.svg?react"
 import HeurekaIcon from "../../assets/juno_heureka.svg?react"
@@ -23,11 +22,16 @@ const AppIcon = ({ name }: { name: string }) => {
 
 const Border = () => <div className="absolute w-1 h-full top-0 left-0 bg-white" />
 
-const getClassName = (isActive: boolean) =>
-  classNames("relative px-5 py-3 cursor-pointer", {
-    "bg-theme-global-bg text-white": isActive,
-    "hover:text-theme-high": !isActive,
-  })
+const getClassName = (isActive: boolean) => {
+  return `
+    relative
+    px-5
+    py-3
+    cursor-pointer
+    
+    ${isActive ? "bg-theme-global-bg text-white" : "hover:text-theme-high"}
+  `
+}
 
 type NavigationItemProps = {
   name: string
