@@ -3,20 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, ReactNode, useContext, createContext } from "react"
+import React, { useState, useEffect, useContext, createContext, ReactElement } from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 import "./sidenavigationitem.css"
 
 const LevelContext = createContext<number>(0)
 
-// Keep all styles in css file?
 const sideNavItemStyles = `
   jn:flex
-  jn:justify-between 
+  jn:justify-between
   jn:px-[0.5rem]
   jn:py-[0.1875rem]
-  jn:text-theme-sidenav
   jn:w-full
+  jn:text-theme-sidenav
+  jn:h-[30px]
 `
 
 const leftStyles = `
@@ -36,7 +36,7 @@ export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElemen
   ariaLabel?: string
 
   /** Represents nested components or text content within the item. */
-  children?: ReactNode
+  children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[] | string
 
   /** Marks the item as non-interactive if set to true. */
   /* Required? Design doc suggests so, requirements don't? Can also be managed by useContext hook */
@@ -89,11 +89,12 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
   ...props
 }) => {
   const [isOpen, setIsOpen] = useState(open)
-
   const level = useContext(LevelContext)
 
-  /* Removing child object past level 3, not ideal */
-  if (typeof children !== "string" && level + 1 === 3) children = null
+  // Sync internal state with external prop changes
+  useEffect(() => {
+    setIsOpen(open)
+  }, [open])
 
   const handleToggleOpen = (e: React.MouseEvent<HTMLElement>) => {
     if (disabled) return
@@ -115,6 +116,7 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
     typeof children !== "string" && React.Children.count(children) > 0 ? (
       <span onClick={handleToggleOpen} role="button" tabIndex={0}>
         <Icon
+          size="24"
           className={`
           juno-sidenavigation-item
           ${disabled ? disabledStyles : ""}`}
@@ -125,9 +127,9 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
 
   const renderLeft = () => (
     <span className={leftStyles}>
-      {icon && level === 0 ? <Icon icon={icon} size="18" /> : null}
+      {icon && level === 0 ? <Icon icon={icon} size="24" /> : null}
       {/* Add spacing before label which expands by level */}
-      <div className={`juno-sidenavigation-item-content level-${level + 1}`}>{label || children}</div>
+      <div className={`juno-sidenavigation-item level-${level + 1}`}>{label || children}</div>
     </span>
   )
 
@@ -143,6 +145,7 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
     ${sideNavItemStyles}
     ${disabled ? disabledStyles : ""}
     ${selected ? "selected" : ""}
+    ${onClick || href || children ? "jn:cursor-pointer" : "jn:cursor-default"}
   `
 
   return (

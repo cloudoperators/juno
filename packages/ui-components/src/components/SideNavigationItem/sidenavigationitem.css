@@ -5,6 +5,7 @@
 
 .juno-sidenavigation-item {
   border-radius: 0.25rem;
+  border-left: 0.25rem solid transparent;
   color: var(--color-sidenav-item-text-default);
 }
 
@@ -24,24 +25,19 @@
 
 .juno-sidenavigation-item.selected {
   background-color: var(--color-sidenav-item-background-selected);
-  border-left: 0.25rem solid var(--color-accent); /* Correct? Therem colour (dark) not mentioned in design */
+  border-left: 0.25rem solid var(--color-accent);
 }
 
-.juno-side-navigation-children {
-  margin-left: 0.625rem;
-}
-
-/* Explicit better? Or need descendent? */
-.juno-sidenavigation-item-content.level-1 {
+.juno-sidenavigation-item.level-1 {
   font-weight: bold;
 }
 
-.juno-sidenavigation-item-content.level-2 {
+.juno-sidenavigation-item.level-2 {
   margin-left: 1.5rem;
   font-weight: 500;
 }
 
-.juno-sidenavigation-item-content.level-3 {
+.juno-sidenavigation-item.level-3 {
   margin-left: 2.25rem;
   font-weight: 500;
 }

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode } from "react"
-
+import React, { ReactElement, ReactNode } from "react"
 import { Navigation } from "../Navigation/Navigation.component"
+import { SideNavigationListProps } from "../SideNavigationList"
 
 const sideNavStyles = `
   jn:min-w-[7.5rem]
@@ -48,7 +48,7 @@ export interface SideNavigationProps extends React.HTMLAttributes<HTMLElement> {
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
   ariaLabel?: string
   /** The children of the Navigation. These should be SideNavigationItem(s) */
-  children?: React.ReactNode
+  children?: ReactElement<SideNavigationListProps> | ReactElement<SideNavigationListProps>[]
   /** Pass custom classname. */
   className?: string
   /** Whether the navigation is disabled */

@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { ReactElement, useEffect, useState } from "react"
 import { Icon } from "../Icon"
+import { SideNavigationItemProps } from "../SideNavigationItem"
 
 const sideNavGroupStyles = `
   jn:flex
@@ -23,7 +24,7 @@ const disabledStyles = `
 
 export interface SideNavigationGroupProps {
   /** Represents the nested components within the navigation group. */
-  children?: React.ReactNode
+  children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[]
   /** Indicates if the navigation group is non-interactive when set to true. */
   disabled?: boolean
   /** Text label displayed for the navigation group. */
@@ -47,6 +48,11 @@ export const SideNavigationGroup: React.FC<SideNavigationGroupProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(open)
 
+  // Sync internal state with external prop changes
+  useEffect(() => {
+    setIsOpen(open)
+  }, [open])
+
   const handleToggleOpen = (e: React.MouseEvent<HTMLElement>) => {
     if (disabled) return
     e.stopPropagation() //Prevent event bubbling when expanding/collapsing
@@ -57,6 +63,7 @@ export const SideNavigationGroup: React.FC<SideNavigationGroupProps> = ({
     children && React.Children.count(children) > 0 ? (
       <span onClick={handleToggleOpen} role="button" tabIndex={0}>
         <Icon
+          size="24"
           className={`
             juno-sidenavigation-item
             ${disabled ? disabledStyles : ""}`}

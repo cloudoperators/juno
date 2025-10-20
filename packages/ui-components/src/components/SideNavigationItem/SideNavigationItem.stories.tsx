@@ -102,7 +102,8 @@ export const Expandable: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Demonstrates an expandable SideNavigationItem with nested child items.",
+        story:
+          "Demonstrates an expandable SideNavigationItem with nested child items. Note: Styling is supported for three nested levels only (recommended). Beyond this, custom styling is required.",
       },
     },
   },
@@ -116,16 +117,11 @@ export const ExpandableWithIcon: Story = {
       <>
         <SideNavigationItem label="Child Item 1" />
         <SideNavigationItem label="Child Item 2" icon="addCircle">
-          <SideNavigationItem label="Sub-Child Item 1">
-            <SideNavigationItem label="Sub-Sub-Child Item 1" />
-          </SideNavigationItem>
-          <SideNavigationItem label="Sub-Child Item 2" icon="addCircle" />
-        </SideNavigationItem>
-        <SideNavigationItem label="Child Item 1" />
-        <SideNavigationItem label="Child Item 2">
-          <SideNavigationItem label="Sub-Child Item 1" />
+          <SideNavigationItem label="Sub-Child Item 1" icon="addCircle" />
           <SideNavigationItem label="Sub-Child Item 2" />
         </SideNavigationItem>
+        <SideNavigationItem label="Child Item 1" />
+        <SideNavigationItem label="Child Item 2" />
       </>
     ),
   },
@@ -133,7 +129,7 @@ export const ExpandableWithIcon: Story = {
     docs: {
       description: {
         story:
-          "Demonstrates an expandable SideNavigationItem with nested child items with icon. Note: Only the 1st level can contain an icon.",
+          "Demonstrates an expandable SideNavigationItem with nested child items with icon. Note: Only the first level can contain an icon.",
       },
     },
   },

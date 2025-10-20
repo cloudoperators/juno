@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactElement } from "react"
+import { SideNavigationGroupProps } from "../SideNavigationGroup"
 import { SideNavigationItemProps } from "../SideNavigationItem/SideNavigationItem.component"
 
 const sideNavListStyles = `
@@ -13,7 +14,11 @@ const sideNavListStyles = `
 
 // Do we have to enforce or just allow ReactNode?
 export interface SideNavigationListProps {
-  children: React.ReactElement<SideNavigationItemProps> | React.ReactElement<SideNavigationItemProps>[]
+  children:
+    | ReactElement<SideNavigationItemProps>
+    | ReactElement<SideNavigationItemProps>[]
+    | ReactElement<SideNavigationGroupProps>
+    | ReactElement<SideNavigationGroupProps>[]
 }
 
 export const SideNavigationList: React.FC<SideNavigationListProps> = ({ children }) => {
