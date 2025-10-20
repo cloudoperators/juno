@@ -5,8 +5,8 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { SideNavigationGroup } from "./index"
-import { SideNavigation } from "../SideNavigation"
+import { SideNavigationGroup } from "./SideNavigationGroup.component"
+import { SideNavigation } from "../SideNavigation/SideNavigation.component"
 import { SideNavigationItem } from "../SideNavigationItem"
 
 const meta: Meta<typeof SideNavigationGroup> = {
@@ -35,6 +35,13 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     label: "Group",
+  },
+}
+
+export const Disabled: Story = {
+  args: {
+    label: "Group",
+    disabled: true,
   },
 }
 

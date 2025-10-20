@@ -84,8 +84,6 @@ export const NavigationWithGroups: Story = {
   },
 }
 
-// Add more complex examples to showcase different functionalities
-
 export const InteractiveNavigation: Story = {
   render: (args) => (
     <SideNavigation {...args} onActiveItemChange={(item) => console.log("Active item changed:", item)}>

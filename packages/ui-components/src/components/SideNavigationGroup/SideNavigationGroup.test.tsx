@@ -76,10 +76,15 @@ describe("SideNavigationGroup", () => {
   })
 
   test("disables interaction and applies disabled styles", () => {
-    render(<SideNavigationGroup label="Disabled Group" disabled />)
+    render(
+      <SideNavigationGroup label="Disabled Group" disabled>
+        <SideNavigationItem label="Child Item" />
+      </SideNavigationGroup>
+    )
 
-    const expandIcon = screen.queryByRole("button", { hidden: true })
-    expect(expandIcon).toBeInTheDocument()
-    expect(expandIcon).toHaveClass("jn:opacity-50 jn:cursor-not-allowed")
+    const groupContainer = screen.getByText("Disabled Group").closest("div")
+
+    expect(groupContainer).toBeInTheDocument()
+    expect(groupContainer).toHaveClass("jn:opacity-50 jn:cursor-not-allowed")
   })
 })

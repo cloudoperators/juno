@@ -66,14 +66,14 @@ export const SideNavigationGroup: React.FC<SideNavigationGroupProps> = ({
           size="24"
           className={`
             juno-sidenavigation-item
-            ${disabled ? disabledStyles : ""}`}
+            `}
           icon={isOpen ? "expandMore" : "chevronRight"}
         />
       </span>
     ) : null
 
   const renderGroup = () => (
-    <div className={`juno-sidenavigation-group ` + sideNavGroupStyles}>
+    <div className={`${disabled ? disabledStyles : ""} juno-sidenavigation-group ${sideNavGroupStyles}`}>
       <span className="font-bold text-sm">{label}</span>
       {renderExpandIcon()}
     </div>
