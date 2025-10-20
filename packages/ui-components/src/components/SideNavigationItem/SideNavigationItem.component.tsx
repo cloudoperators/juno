@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useContext, createContext, ReactElement } from "react"
+import React, { useState, useEffect, useContext, createContext, ReactElement, ReactNode } from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 import "./sidenavigationitem.css"
 
@@ -49,7 +49,7 @@ export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElemen
   icon?: KnownIcons
 
   /** Text label displayed for the navigation item. */
-  label?: string
+  label?: ReactNode
 
   /** Function handler triggered upon item click. */
   onClick?: React.MouseEventHandler<HTMLElement>
@@ -153,7 +153,7 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
       {href ? (
         <a
           aria-current={selected ? "page" : undefined}
-          aria-label={ariaLabel || label}
+          aria-label={ariaLabel}
           className={combinedClassNames}
           href={!disabled ? href : undefined}
           onClick={handleMainClick}
@@ -164,7 +164,7 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
       ) : (
         <button
           aria-current={selected ? "page" : undefined}
-          aria-label={ariaLabel || label}
+          aria-label={ariaLabel}
           className={combinedClassNames}
           onClick={!disabled ? handleMainClick : undefined}
           {...props}

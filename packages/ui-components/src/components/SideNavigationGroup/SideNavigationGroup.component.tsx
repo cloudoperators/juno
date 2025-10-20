@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement, useEffect, useState } from "react"
+import React, { ReactElement, ReactNode, useEffect, useState } from "react"
 import { Icon } from "../Icon"
 import { SideNavigationItemProps } from "../SideNavigationItem"
 
@@ -27,8 +27,8 @@ export interface SideNavigationGroupProps {
   children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[]
   /** Indicates if the navigation group is non-interactive when set to true. */
   disabled?: boolean
-  /** Text label displayed for the navigation group. */
-  label: string
+  /** Label displayed for the navigation group. */
+  label: ReactNode
   /** Controls whether the navigation group is expanded by default. */
   open?: boolean
 }
