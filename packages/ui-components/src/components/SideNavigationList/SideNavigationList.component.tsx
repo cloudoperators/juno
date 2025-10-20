@@ -12,7 +12,6 @@ const sideNavListStyles = `
   jn:space-y-[0.25rem]
 `
 
-// Do we have to enforce or just allow ReactNode?
 export interface SideNavigationListProps {
   children:
     | ReactElement<SideNavigationItemProps>
