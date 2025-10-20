@@ -26,7 +26,6 @@ import {
 import AlertDescription from "../alerts/shared/AlertDescription"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import CreateSilenceAdvanced from "./CreateSilenceAdvanced"
-import { DateTime } from "luxon"
 import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
 import { parseError } from "../../helpers"
 
@@ -77,6 +76,26 @@ const CreateSilence = ({ alert, size, variant }: any) => {
   const { addMessage } = useActions()
 
   const silences = useSilencesItems()
+
+  // Format date/time helper function
+  const formatDateTime = (timestamp: string) => {
+    const date = new Date(timestamp)
+
+    const formattedDate = date.toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
+
+    const formattedTime = date.toLocaleString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZoneName: "short",
+    })
+
+    return `${formattedDate} ${formattedTime}`
+  }
 
   // Initialize form state on modal open
   // Removed alert from dependencies since we take an screenshot of the global state on opening the modal
@@ -209,7 +228,7 @@ const CreateSilence = ({ alert, size, variant }: any) => {
           {expirationDate && (
             <Message className="mb-6" variant="info">
               There is already a silence for this alert that expires at
-              <b>{DateTime.fromISO(expirationDate).toLocaleString(DateTime.DATETIME_SHORT)}</b>
+              <b> {formatDateTime(expirationDate)}</b>
             </Message>
           )}
 
