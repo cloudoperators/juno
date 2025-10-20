@@ -35,7 +35,7 @@ export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElemen
   /** Provides an accessibility label for the navigation item. */
   ariaLabel?: string
 
-  /** Represents nested components or text content within the item. */
+  /** Represents nested components. If a string is passed, it will be treated as a label.*/
   children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[] | string
 
   /** Marks the item as non-interactive if set to true. */
@@ -48,7 +48,7 @@ export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElemen
   /** Defines the icon to display alongside the label. */
   icon?: KnownIcons
 
-  /** Text label displayed for the navigation item. */
+  /** Text label displayed for the navigation item. Takes precedence over a label passed as children. */
   label?: ReactNode
 
   /** Function handler triggered upon item click. */
@@ -172,7 +172,7 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
           {renderItem()}
         </button>
       )}
-      {isOpen && children}
+      {isOpen && typeof children !== "string" && children}
     </LevelContext.Provider>
   )
 }
