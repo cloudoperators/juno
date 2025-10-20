@@ -114,7 +114,7 @@ export const EmbeddedWithSideNav: Story = {
     embedded: true,
     sideNavigation: (
       <SideNavigation>
-        <SideNavigationItem active label="Item 1" />
+        <SideNavigationItem selected label="Item 1" />
         <SideNavigationItem label="Item 2" />
         <SideNavigationItem label="Item 3" />
       </SideNavigation>
@@ -180,7 +180,7 @@ export const WithSideNavigation: Story = {
   args: {
     sideNavigation: (
       <SideNavigation>
-        <SideNavigationItem active label="Item 1" />
+        <SideNavigationItem selected label="Item 1" />
         <SideNavigationItem label="Item 2" />
         <SideNavigationItem label="Item 3" />
       </SideNavigation>
@@ -227,7 +227,7 @@ export const WithSideAndTopNavigation: Story = {
     ),
     sideNavigation: (
       <SideNavigation>
-        <SideNavigationItem active label="Item 1" />
+        <SideNavigationItem selected label="Item 1" />
         <SideNavigationItem label="Item 2" />
         <SideNavigationItem label="Item 3" />
       </SideNavigation>
