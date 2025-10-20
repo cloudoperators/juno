@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+
 import { SideNavigation, SideNavigationItem, Badge } from "@cloudoperators/juno-ui-components"
 import { useActivePlugin, useActions } from "../StoreProvider"
 
@@ -21,14 +22,13 @@ const SideNav = () => {
 
   return (
     <SideNavigation>
-      {PLUGINS.map((plugin, index) => (
-        <SideNavigationItem
-          key={index}
-          selected={plugin.name === active}
-          label={plugin.label}
-          icon={"info"}
-          onClick={() => setActive(plugin.name)}
-        />
+      {PLUGINS.map((plugin) => (
+        <SideNavigationItem key={plugin.name} selected={plugin.name === active} onClick={() => setActive(plugin.name)}>
+          <div className="plugin-container">
+            <span>{plugin.label}</span>
+            {plugin.beta && <Badge text="beta" variant="info" />}
+          </div>
+        </SideNavigationItem>
       ))}
     </SideNavigation>
   )
