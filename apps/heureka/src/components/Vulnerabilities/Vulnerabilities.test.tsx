@@ -10,7 +10,7 @@ import { PortalProvider } from "@cloudoperators/juno-ui-components/index"
 import { Vulnerabilities } from "./index"
 import { Filter, FilterSettings } from "../common/Filters/types"
 import { getTestRouter } from "../../mocks/getTestRouter"
-import { mockVulnerabilitiesPromise, mockVulnerabilityFiltersPromise } from "../../mocks/promises"
+import { mockVulnerabilitiesPromise } from "../../mocks/promises"
 
 const mockFilters: Filter[] = [
   {

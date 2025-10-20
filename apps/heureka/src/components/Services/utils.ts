@@ -279,22 +279,22 @@ export const getNormalizedImageVersionIssuesResponse = (data: any): NormalizedIm
  *   }
  */
 export const getFiltersForUrl = (filterSettings: FilterSettings): Record<string, string | string[]> => {
-  if (!filterSettings?.selectedFilters) {
-    return {}
+  const result: Record<string, string | string[]> = {
+    searchTerm: filterSettings.searchTerm || "",
   }
 
-  return {
-    searchTerm: filterSettings.searchTerm || "",
-    ...filterSettings.selectedFilters.reduce<Record<string, string | string[]>>((acc, filter) => {
+  if (filterSettings?.selectedFilters && filterSettings.selectedFilters.length > 0) {
+    filterSettings.selectedFilters.forEach((filter) => {
       const key = `${SELECTED_FILTER_PREFIX}${filter.name}`
-      if (acc[key]) {
-        acc[key] = Array.isArray(acc[key]) ? [...acc[key], filter.value] : [acc[key], filter.value]
+      if (result[key]) {
+        result[key] = Array.isArray(result[key]) ? [...result[key], filter.value] : [result[key], filter.value]
       } else {
-        acc[key] = filter.value
+        result[key] = filter.value
       }
-      return acc
-    }, {}),
+    })
   }
+
+  return result
 }
 
 export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | null): Filter[] =>

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 
 import {
   Button,
@@ -30,22 +30,23 @@ const FilterSelect = () => {
   const { add: addFilter, removeAll, setSearchTerm } = useFiltersActions()
   const searchValue = useFiltersSearchTerm()
   const activeFilters = useFiltersActive() || []
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const handleSearchChange = (value: any) => {
-    // debounce setSearchTerm to avoid unnecessary re-renders
-    const debouncedSearchTerm = setTimeout(() => {
-      setSearchTerm(value.target.value.trim())
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const term = e.target.value.trim()
+
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+
+    debounceRef.current = setTimeout(() => {
+      setSearchTerm(term)
       navigate({
         to: "/violations",
         search: (prev) => ({
           ...prev,
-          searchTerm: value.target.value.trim(),
+          searchTerm: term,
         }),
       })
     }, 500)
-
-    // clear timeout if we have a new value
-    return () => clearTimeout(debouncedSearchTerm)
   }
 
   const handleFilterValueChange = (value: string) => {

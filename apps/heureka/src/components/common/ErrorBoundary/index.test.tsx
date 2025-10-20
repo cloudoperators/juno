@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, ReactElement } from "react"
+import React, { useEffect } from "react"
 import { render, screen } from "@testing-library/react"
 import { ErrorBoundary } from "./index"
 

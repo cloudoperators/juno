@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices"],
   "enabledManagers": ["npm", "github-actions"],
-  "includePaths": ["packages/**", "apps/**", ".github/workflows/**"],
+  "includePaths": ["packages/**", "apps/**", "./package.json", ".github/workflows/**"],
   "rangeStrategy": "update-lockfile",
   "packageRules": [
     {
@@ -13,17 +13,9 @@
       "minimumReleaseAge": "14 days"
     },
     {
-      "groupName": "dependencies for packages",
+      "groupName": "npm dependencies",
       "matchDatasources": ["npm"],
-      "matchFileNames": ["packages/**"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "minimumReleaseAge": "7 days",
-      "schedule": "every weekend"
-    },
-    {
-      "groupName": "dependencies for apps",
-      "matchDatasources": ["npm"],
-      "matchFileNames": ["apps/**"],
+      "matchFileNames": ["packages/**", "apps/**", "./package.json"],
       "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "7 days",
       "schedule": "every weekend"

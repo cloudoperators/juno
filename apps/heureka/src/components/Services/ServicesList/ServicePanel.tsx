@@ -32,6 +32,7 @@ export const ServicePanel = () => {
     navigate({
       to: "/services",
       search: (prev) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { service, ...rest } = prev
         return { ...rest }
       },
