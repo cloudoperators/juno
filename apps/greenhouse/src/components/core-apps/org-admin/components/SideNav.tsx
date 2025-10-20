@@ -22,12 +22,13 @@ const SideNav = () => {
   return (
     <SideNavigation>
       {PLUGINS.map((plugin, index) => (
-        <SideNavigationItem key={index} active={plugin.name === active} onClick={() => setActive(plugin.name)}>
-          <>
-            {plugin.label}
-            {plugin.beta && <Badge text="beta" variant="info" />}
-          </>
-        </SideNavigationItem>
+        <SideNavigationItem
+          key={index}
+          selected={plugin.name === active}
+          label={plugin.label}
+          icon={"info"}
+          onClick={() => setActive(plugin.name)}
+        />
       ))}
     </SideNavigation>
   )
