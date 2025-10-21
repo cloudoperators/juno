@@ -19,7 +19,7 @@ on:
 
 jobs:
   notify:
-    runs-on: [default]
+    runs-on: [ ubuntu-latest ]
     steps:
       - name: Set Slack Payload
         env:

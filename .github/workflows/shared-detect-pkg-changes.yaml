@@ -25,7 +25,7 @@ on:
       runs-on:
         description: "The runner to use for the job"
         required: false
-        default: "default"
+        default: "ubuntu-latest"
         type: string
     outputs:
       changes:
