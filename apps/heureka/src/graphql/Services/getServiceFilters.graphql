@@ -3,12 +3,12 @@
 
 query GetServiceFilters {
   ServiceFilterValues {
-    serviceCcrn {
+    service {
       displayName
       filterName
       values
     }
-    supportGroupCcrn {
+    supportGroup {
       displayName
       filterName
       values
