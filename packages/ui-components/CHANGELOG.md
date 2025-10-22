@@ -1,5 +1,13 @@
 # @cloudoperators/juno-ui-components
 
+## 5.7.0
+
+### Minor Changes
+
+- 0cf6a97: Redesign SideNavigation and SideNavigationItem, adding SideNavigationList and SideNavigationGroup.
+- d3f9442: Add hover functionality in DataGridRow Juno UI Component and implement the solution in Example App.
+  [Issue #1015](https://github.com/cloudoperators/juno/issues/1015)
+
 ## 5.6.0
 
 ### Minor Changes

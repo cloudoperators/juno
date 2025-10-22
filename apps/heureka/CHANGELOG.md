@@ -1,5 +1,15 @@
 # heureka
 
+## 0.9.4
+
+### Patch Changes
+
+- f8b9234: Implements initial filter URL synchronization with removable filter pills and adds context store to prevent re-application during tab navigation.
+- Updated dependencies [0cf6a97]
+- Updated dependencies [d3f9442]
+  - @cloudoperators/juno-ui-components@5.7.0
+  - @cloudoperators/juno-messages-provider@0.2.18
+
 ## 0.9.3
 
 ### Patch Changes

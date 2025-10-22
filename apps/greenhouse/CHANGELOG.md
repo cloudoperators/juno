@@ -1,5 +1,21 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.10
+
+### Patch Changes
+
+- f8b9234: Implements initial filter URL synchronization with removable filter pills and adds context store to prevent re-application during tab navigation.
+- ce2fa02: Keep alerts plugin backward compatible after plugin name hamonization happened in the backend.
+- Updated dependencies [0cf6a97]
+- Updated dependencies [5261dfd]
+- Updated dependencies [f8b9234]
+- Updated dependencies [d3f9442]
+  - @cloudoperators/juno-ui-components@5.7.0
+  - @cloudoperators/juno-app-doop@2.6.4
+  - @cloudoperators/juno-app-heureka@0.9.4
+  - @cloudoperators/juno-app-supernova@0.19.8
+  - @cloudoperators/juno-messages-provider@0.2.18
+
 ## 0.7.9
 
 ### Patch Changes
