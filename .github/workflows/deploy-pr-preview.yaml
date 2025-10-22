@@ -47,7 +47,7 @@ jobs:
     uses: ./.github/workflows/shared-detect-pkg-changes.yaml
     with:
       paths: "packages apps"
-      runs-on: [ ubuntu-latest ]
+      runs-on: ubuntu-latest
 
   build-deploy:
     # skip if the PR is from a forked repository
