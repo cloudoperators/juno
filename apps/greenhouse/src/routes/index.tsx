@@ -16,6 +16,18 @@ const searchSchema = z.object({
   activeApps: z.string().optional(),
 })
 
+/**
+ * Backend has harmonized name of alerts plugin across all organizations
+ * which is now "alerts" instead of "alerts-<orgId>" which affects backward
+ * compatibility in case people had bookmarked links with the old name.
+ * In order to stay backward compatible we need to map "alerts-<orgId>" to "alerts".
+ * This method will be removed once we stop supporting legacy URLs.
+ **/
+const getBackwardCompatibleApp = (appId: string) => {
+  if (!appId) return ""
+  return /^alerts-.+/.test(appId) ? "alerts" : appId
+}
+
 export const Route = createFileRoute("/")({
   validateSearch: searchSchema,
   beforeLoad: () => {
@@ -24,7 +36,7 @@ export const Route = createFileRoute("/")({
     const activeApps = legacyState?.[ACTIVE_APPS_KEY]
     const parsedActiveApps = activeApps?.split(",") || []
     return {
-      activeApp: parsedActiveApps.length > 0 ? parsedActiveApps[0] : "",
+      activeApp: parsedActiveApps.length > 0 ? getBackwardCompatibleApp(parsedActiveApps[0]) : "",
     }
   },
   component: RouteComponent,
