@@ -1,5 +1,16 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.11
+
+### Patch Changes
+
+- 5931aab: Update tanstack router to fix issue where the basepath would be overwritten while redirection.
+- Updated dependencies [5931aab]
+- Updated dependencies [5931aab]
+  - @cloudoperators/juno-app-supernova@0.19.9
+  - @cloudoperators/juno-app-heureka@0.9.5
+  - @cloudoperators/juno-app-doop@2.6.5
+
 ## 0.7.10
 
 ### Patch Changes

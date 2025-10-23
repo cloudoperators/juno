@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.5
+
+### Patch Changes
+
+- 5931aab: Update tanstack router to fix issue where the basepath would be overwritten while redirection.
+
 ## 2.6.4
 
 ### Patch Changes
