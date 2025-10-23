@@ -50,7 +50,7 @@ function Extension({ id, config, auth, appProps }: ExtensionProps) {
           ? {
               embedded: true,
               token: auth?.JWT,
-              basePath: `${router.basepath}/${config.id}`,
+              basePath: `${router.basepath === "/" ? "" : router.basepath}/${config.id}`,
               enableHashedRouting: appProps?.enableHashedRouting || false,
             }
           : { auth: auth }),

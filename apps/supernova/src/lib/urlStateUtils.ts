@@ -16,8 +16,8 @@ export const readLegacyUrlState = (state: any) => {
   const activeFilters = state?.[ACTIVE_FILTERS]
   const pausedFilters = state?.[PAUSED_FILTERS]
   const searchTerm = state?.[SEARCH_TERM]
-  const predefinedFilter = !isNaN(state?.[ACTIVE_PREDEFINED_FILTER]) ? state?.[ACTIVE_PREDEFINED_FILTER] : undefined // for some reason old state return NaN if the value not present
-  const showDetailsFor = !isNaN(state?.[DETAILS_FOR]) ? state?.[DETAILS_FOR] : undefined // for some reason old state return NaN if the value not present
+  const predefinedFilter = state?.[ACTIVE_PREDEFINED_FILTER]
+  const showDetailsFor = state?.[DETAILS_FOR]
   const activeTab = state?.[ACTIVE_TAB]
   const silencesRegEx = state?.[SILENCE_REG_EX]
   const silencesStatus = state?.[SILENCE_STATUS]
