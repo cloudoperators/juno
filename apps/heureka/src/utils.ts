@@ -94,8 +94,3 @@ export const mapObject = <T, U>(obj: Record<string, T>, iteratee: (value: T, key
   })
   return result
 }
-
-// Replace _.map() for arrays (though native Array.map is preferred)
-export const map = <T, U>(array: T[], iteratee: (item: T, index: number) => U): U[] => {
-  return array.map(iteratee)
-}
