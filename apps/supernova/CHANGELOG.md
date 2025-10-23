@@ -1,5 +1,21 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.9
+
+### Patch Changes
+
+- 5931aab: - Update tanstack router to fix issue where the basepath would be overwritten while redirection.
+  - Remove manual normalization part of legacy state to `undefined` that is no longer needed with latest version of the router.
+
+## 0.19.8
+
+### Patch Changes
+
+- Updated dependencies [0cf6a97]
+- Updated dependencies [d3f9442]
+  - @cloudoperators/juno-ui-components@5.7.0
+  - @cloudoperators/juno-messages-provider@0.2.18
+
 ## 0.19.7
 
 ### Patch Changes

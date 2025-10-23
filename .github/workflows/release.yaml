@@ -18,7 +18,7 @@ permissions:
 jobs:
   release:
     name: Release
-    runs-on: [default]
+    runs-on: [ ubuntu-latest ]
     outputs:
       published: ${{ steps.changesets.outputs.published }}
       publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}

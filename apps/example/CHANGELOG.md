@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-example
 
+## 2.3.0
+
+### Minor Changes
+
+- d3f9442: Add hover functionality in DataGridRow Juno UI Component and implement the solution in Example App.
+  [Issue #1015](https://github.com/cloudoperators/juno/issues/1015)
+
+### Patch Changes
+
+- Updated dependencies [0cf6a97]
+- Updated dependencies [d3f9442]
+  - @cloudoperators/juno-ui-components@5.7.0
+  - @cloudoperators/juno-messages-provider@0.2.18
+
 ## 2.2.8
 
 ### Patch Changes

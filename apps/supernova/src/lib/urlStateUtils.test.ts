@@ -40,18 +40,6 @@ describe("readLegacyUrlState", () => {
       silencesRegEx: "regexPattern",
     })
   })
-
-  it("should handle NaN values for predefinedFilter and showDetailsFor", () => {
-    const state = {
-      p: NaN,
-      d: NaN,
-    }
-
-    const result = readLegacyUrlState(state)
-
-    expect(result.predefinedFilter).toBeUndefined()
-    expect(result.showDetailsFor).toBeUndefined()
-  })
 })
 
 describe("getFiltersForUrl", () => {

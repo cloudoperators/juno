@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse",
-  "version": "0.7.9",
+  "version": "0.7.11",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
   "contributors": [
@@ -17,7 +17,7 @@
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@tailwindcss/vite": "4.1.13",
-    "@tanstack/router-plugin": "1.131.25",
+    "@tanstack/router-plugin": "1.133.22",
     "@testing-library/jest-dom": "6.8.0",
     "@testing-library/react": "16.3.0",
     "@types/lodash": "4.17.16",
@@ -57,7 +57,7 @@
     "@cloudoperators/juno-oauth": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.131.25",
+    "@tanstack/react-router": "1.133.22",
     "lodash": "4.17.21"
   }
 }

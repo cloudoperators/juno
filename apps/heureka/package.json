@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-heureka",
-  "version": "0.9.3",
+  "version": "0.9.5",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka",
@@ -32,7 +32,7 @@
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tanstack/react-query": "5.89.0",
-    "@tanstack/react-router": "1.131.25",
+    "@tanstack/react-router": "1.133.22",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
@@ -43,7 +43,7 @@
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-operations": "4.6.1",
     "@graphql-codegen/typescript-react-apollo": "4.3.3",
-    "@tanstack/router-plugin": "1.131.25",
+    "@tanstack/router-plugin": "1.133.22",
     "@tailwindcss/vite": "4.1.13",
     "@testing-library/jest-dom": "6.8.0",
     "@testing-library/react": "16.3.0",

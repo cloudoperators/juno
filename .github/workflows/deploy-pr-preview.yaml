@@ -47,13 +47,13 @@ jobs:
     uses: ./.github/workflows/shared-detect-pkg-changes.yaml
     with:
       paths: "packages apps"
-      runs-on: default
+      runs-on: ubuntu-latest
 
   build-deploy:
     # skip if the PR is from a forked repository
     if: github.event.pull_request.head.repo.full_name == github.repository
     needs: [run-detect-changes]
-    runs-on: [default]
+    runs-on: [ ubuntu-latest ]
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 #v4.3.0
 
