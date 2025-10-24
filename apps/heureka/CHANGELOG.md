@@ -1,5 +1,11 @@
 # heureka
 
+## 0.9.5
+
+### Patch Changes
+
+- 5931aab: Update tanstack router to fix issue where the basepath would be overwritten while redirection.
+
 ## 0.9.4
 
 ### Patch Changes
