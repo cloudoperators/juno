@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import { DateTime } from "luxon"
 import constants from "../../../constants"
 import ExpireSilence from "../../silences/ExpireSilence"
 import RecreateSilence from "../../silences/RecreateSilence"
@@ -23,13 +22,19 @@ const badgeVariant = (state: any) => {
 }
 
 const AlertSilencesList = ({ alert }: any) => {
-  const dateFormat = { ...DateTime.DATETIME_SHORT }
   const { getSilencesForAlert } = useSilencesActions()
   const silenceList = getSilencesForAlert(alert)
 
-  const formatDateTime = (timestamp: any) => {
-    const time = DateTime.fromISO(timestamp)
-    return time.toLocaleString(dateFormat)
+  const formatDateTime = (timestamp: VarDate) => {
+    const date = new Date(timestamp)
+    return date.toLocaleString("en-GB", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    })
   }
 
   return (

@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-import { DateTime } from "luxon"
 import { Stack } from "@cloudoperators/juno-ui-components"
 
 type IssueTimestampProps = {
@@ -12,12 +11,17 @@ type IssueTimestampProps = {
 }
 
 export const IssueTimestamp = ({ targetDate }: IssueTimestampProps) => {
-  const dateFormat = { ...DateTime.DATE_MED }
-  const targetDateTime = DateTime.fromISO(targetDate)
+  const targetDateTime = new Date(targetDate)
+
+  const formattedDate = targetDateTime.toLocaleDateString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })
 
   return (
     <Stack direction="vertical" gap="1">
-      <div>{targetDateTime.toLocaleString(dateFormat)}</div>
+      <div>{formattedDate}</div>
     </Stack>
   )
 }
