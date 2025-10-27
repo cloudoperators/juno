@@ -1,0 +1,1 @@
+import{j as e,K as n}from"./App-DIu-kE-u-BolVbxlh.js";const i=({targetDate:r})=>{const t=new Date(r).toLocaleDateString("en-GB",{year:"numeric",month:"short",day:"numeric"});return e.jsx(n,{direction:"vertical",gap:"1",children:e.jsx("div",{children:t})})};export{i as s};
