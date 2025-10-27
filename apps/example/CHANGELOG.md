@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-example
 
+## 2.3.1
+
+### Patch Changes
+
+- f82caaa: Harmonized conflicting versions of dependencies.
+- Updated dependencies [f82caaa]
+  - @cloudoperators/juno-ui-components@5.7.1
+  - @cloudoperators/juno-messages-provider@0.2.19
+
 ## 2.3.0
 
 ### Minor Changes

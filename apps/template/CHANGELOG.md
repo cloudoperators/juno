@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.19
+
+### Patch Changes
+
+- f82caaa: Harmonized conflicting versions of dependencies.
+- Updated dependencies [f82caaa]
+  - @cloudoperators/juno-ui-components@5.7.1
+
 ## 2.0.18
 
 ### Patch Changes
