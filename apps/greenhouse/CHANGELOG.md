@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.12
+
+### Patch Changes
+
+- f82caaa: Harmonized conflicting versions of dependencies.
+- Updated dependencies [f82caaa]
+- Updated dependencies [f82caaa]
+- Updated dependencies [f82caaa]
+  - @cloudoperators/juno-app-doop@2.6.6
+  - @cloudoperators/juno-ui-components@5.7.1
+  - @cloudoperators/juno-app-heureka@0.9.6
+  - @cloudoperators/juno-app-supernova@0.19.10
+  - @cloudoperators/juno-messages-provider@0.2.19
+
 ## 0.7.11
 
 ### Patch Changes

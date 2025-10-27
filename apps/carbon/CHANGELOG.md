@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-carbon
 
+## 1.0.21
+
+### Patch Changes
+
+- f82caaa: - Removed `wouter` and `classnames` dependencies.
+  - Harmonized conflicting versions of dependencies.
+- Updated dependencies [f82caaa]
+  - @cloudoperators/juno-ui-components@5.7.1
+
 ## 1.0.20
 
 ### Patch Changes

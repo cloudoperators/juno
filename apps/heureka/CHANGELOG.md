@@ -1,5 +1,14 @@
 # heureka
 
+## 0.9.6
+
+### Patch Changes
+
+- f82caaa: Removed `luxon`, `@lodash` and `@types/lodash` dependencies.
+- Updated dependencies [f82caaa]
+  - @cloudoperators/juno-ui-components@5.7.1
+  - @cloudoperators/juno-messages-provider@0.2.19
+
 ## 0.9.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 5.7.1
+
+### Patch Changes
+
+- f82caaa: Harmonized conflicting versions of dependencies.
+
 ## 5.7.0
 
 ### Minor Changes

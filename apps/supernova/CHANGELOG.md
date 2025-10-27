@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.10
+
+### Patch Changes
+
+- f82caaa: - Removed `luxon` dependency.
+  - Harmonized conflicting versions of dependencies.
+- Updated dependencies [f82caaa]
+  - @cloudoperators/juno-ui-components@5.7.1
+  - @cloudoperators/juno-messages-provider@0.2.19
+
 ## 0.19.9
 
 ### Patch Changes
