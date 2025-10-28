@@ -10,7 +10,7 @@ import { ButtonProps } from "../Button"
 
 type OrderType = "asc" | "desc"
 
-interface SortButtonProps extends Omit<ButtonProps, "value" | "onChange"> {
+export interface SortButtonProps extends Omit<ButtonProps, "value" | "onChange"> {
   order?: OrderType
   onChange?: (_order: OrderType) => void
   options?: { value: OrderType; label: React.ReactNode }[]

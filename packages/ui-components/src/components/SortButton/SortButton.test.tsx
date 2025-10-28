@@ -7,7 +7,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, it, expect, vi } from "vitest"
-import { SortButton } from "./SortButton.component"
+import { SortButton, SortButtonProps } from "./SortButton.component"
 
 vi.mock("../Icon/Icon.component", () => ({
   Icon: ({ icon }: { icon: string }) => <span>{icon}</span>,
@@ -70,5 +70,25 @@ describe("SortButton Component", () => {
 
     expect(handleOrderChange).not.toHaveBeenCalled()
     expect(button).toHaveTextContent("sortShortWideArrowDown")
+  })
+
+  it("renders and uses custom options correctly", async () => {
+    const handleOrderChange = vi.fn()
+    const customOptions: SortButtonProps["options"] = [
+      { value: "asc", label: <span>Custom Asc Icon</span> },
+      { value: "desc", label: <span>Custom Desc Icon</span> },
+    ]
+
+    render(<SortButton order="asc" onChange={handleOrderChange} options={customOptions} />)
+
+    const button = screen.getByRole("button")
+
+    expect(button).toBeInTheDocument()
+    expect(button).toHaveTextContent("Custom Asc Icon")
+
+    await userEvent.click(button)
+
+    expect(handleOrderChange).toHaveBeenCalledWith("desc")
+    expect(button).toHaveTextContent("Custom Desc Icon")
   })
 })

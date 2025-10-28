@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": minor
 ---
 
-Align `order` and `onChange` input types, change `onOrderChange` to `onChange` and allow `options` override.
+Aligned `order` and `onChange` input types, changed `onOrderChange` to `onChange`, allowed `options` override and exported missing types for recent components (`ToggleButtonProps`, `SortButtonProps`, `SideNavigationListProps`, `SideNavigationGroupProps`).
