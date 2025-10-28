@@ -31,16 +31,33 @@ describe("Modal", () => {
     expect(screen.getByRole("dialog")).toHaveClass("juno-modal")
   })
 
-  test("renders a title as passed", async () => {
-    await waitFor(() =>
-      render(
-        <PortalProvider>
-          <Modal title="My Modal" open />
-        </PortalProvider>
-      )
+  test("renders a string title correctly", () => {
+    render(
+      <PortalProvider>
+        <Modal open title="String Title" />
+      </PortalProvider>
     )
-    expect(screen.getByRole("dialog")).toBeInTheDocument()
-    expect(screen.getByRole("dialog")).toHaveTextContent("My Modal")
+    const dialog = screen.getByRole("dialog")
+    const titleElement = screen.getByText("String Title")
+    expect(dialog).toBeInTheDocument()
+    expect(titleElement).toBeInTheDocument()
+    expect(titleElement).toHaveAttribute("id")
+    expect(dialog).toHaveAttribute("aria-labelledby", titleElement.getAttribute("id"))
+  })
+
+  test("renders a ReactNode title correctly", () => {
+    render(
+      <PortalProvider>
+        <Modal open title={<div>Node Title</div>} />
+      </PortalProvider>
+    )
+
+    const dialog = screen.getByRole("dialog")
+    const titleWrapper = screen.getByText("Node Title").closest("h1")
+
+    expect(dialog).toBeInTheDocument()
+    expect(titleWrapper).toBeInTheDocument()
+    expect(dialog).toHaveAttribute("aria-labelledby", titleWrapper?.id)
   })
 
   test("renders a title when a 'heading' prop is passed", async () => {
