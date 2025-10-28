@@ -281,14 +281,15 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
     setIsValid(validated)
   }, [validated])
 
-  const handleChange = (value: string) => {
-    setSelectedValue(value)
+  const handleChange = (value: string | null) => {
+    const stringValue = value || ""
+    setSelectedValue(stringValue)
 
-    if (value) {
+    if (stringValue) {
       setIsOpen(false)
     }
 
-    onChange && onChange(value)
+    onChange && onChange(stringValue)
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
