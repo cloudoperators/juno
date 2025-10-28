@@ -3,17 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ApolloQueryResult } from "@apollo/client"
-import { GetServiceFiltersDocument, GetServiceFiltersQuery } from "../generated/graphql"
+import { GetServiceFiltersDocument } from "../generated/graphql"
 import { RouteContext } from "../routes/-types"
+import { getNormalizedFilters } from "../components/Services/utils"
 
 type FetchServicesFiltersParams = Pick<RouteContext, "queryClient" | "apiClient">
 
-export const fetchServicesFilters = ({
-  queryClient,
-  apiClient,
-}: FetchServicesFiltersParams): Promise<ApolloQueryResult<GetServiceFiltersQuery>> =>
+export const fetchServicesFilters = ({ queryClient, apiClient }: FetchServicesFiltersParams) =>
   queryClient.ensureQueryData({
     queryKey: ["serviceFilters"],
-    queryFn: () => apiClient.query({ query: GetServiceFiltersDocument }),
+    queryFn: () => apiClient.query({ query: GetServiceFiltersDocument }).then((res) => getNormalizedFilters(res.data)),
   })
