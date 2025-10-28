@@ -32,7 +32,7 @@ describe("SortButton Component", () => {
 
   it("handles order change when clicked", async () => {
     const handleOrderChange = vi.fn()
-    render(<SortButton order="asc" onOrderChange={handleOrderChange} />)
+    render(<SortButton order="asc" onChange={handleOrderChange} />)
     const button = screen.getByRole("button")
 
     await userEvent.click(button)
@@ -43,7 +43,7 @@ describe("SortButton Component", () => {
 
   it("handles multiple clicks correctly", async () => {
     const handleOrderChange = vi.fn()
-    render(<SortButton order="desc" onOrderChange={handleOrderChange} />)
+    render(<SortButton order="desc" onChange={handleOrderChange} />)
     const button = screen.getByRole("button")
 
     await userEvent.click(button)
@@ -63,7 +63,7 @@ describe("SortButton Component", () => {
 
   it("does not toggle when disabled", async () => {
     const handleOrderChange = vi.fn()
-    render(<SortButton disabled order="desc" onOrderChange={handleOrderChange} />)
+    render(<SortButton disabled order="desc" onChange={handleOrderChange} />)
     const button = screen.getByRole("button")
 
     await userEvent.click(button)
