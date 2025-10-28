@@ -385,4 +385,25 @@ describe("Modal", () => {
     await waitFor(() => userEvent.click(cancelButton))
     expect(mockOnCancel).not.toHaveBeenCalled()
   })
+
+  test("renders a disabled close button in the modal header and ensures it is not clickable", async () => {
+    await waitFor(() =>
+      render(
+        <PortalProvider>
+          <Modal open onCancel={mockOnCancel} disableCloseButton />
+        </PortalProvider>
+      )
+    )
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument()
+    const closeButton = screen.getByRole("button", { name: "close" })
+
+    expect(closeButton).toBeInTheDocument()
+    expect(closeButton).toHaveAttribute("disabled")
+
+    await waitFor(() => userEvent.click(closeButton))
+
+    expect(mockOnCancel).not.toHaveBeenCalled()
+    expect(screen.getByRole("dialog")).toBeInTheDocument()
+  })
 })

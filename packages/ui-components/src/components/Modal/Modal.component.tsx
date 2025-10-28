@@ -94,6 +94,7 @@ export const Modal: React.FC<ModalProps> = ({
   closeable = true,
   closeOnEsc = true,
   closeOnBackdropClick = false,
+  disableCloseButton,
   size = "small",
   unpad = false,
   className = "",
@@ -200,7 +201,7 @@ export const Modal: React.FC<ModalProps> = ({
                   ) : (
                     ""
                   )}
-                  {isCloseable ? <Icon icon="close" onClick={handleCancelClick} /> : ""}
+                  {isCloseable && !disableCloseButton ? <Icon icon="close" onClick={handleCancelClick} /> : ""}
                 </div>
                 <div className={`juno-modal-content ${contentstyles} ${unpad ? "" : contentpaddingstyles}`}>
                   {children}
@@ -249,6 +250,8 @@ export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"
   closeOnEsc?: boolean
   /** The Modal size */
   closeOnBackdropClick?: boolean
+  /** Determines whether the close button should be disabled */
+  disableCloseButton?: boolean
   /** Whether the modal can be closed by hitting the ESC key */
   size?: ModalSize
   /** Pass to remove default padding from the content area of the modal */
