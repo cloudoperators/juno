@@ -190,7 +190,9 @@ export const Modal: React.FC<ModalProps> = ({
                 aria-labelledby={modalTitleId}
                 aria-label={ariaLabel}
               >
-                <div className={`juno-modal-header ${headerstyles} jn:justify-between`}>
+                <div
+                  className={`juno-modal-header ${headerstyles} ${modalTitle ? `jn:justify-between` : `jn:justify-end`}`}
+                >
                   {title || heading ? (
                     <h1 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
                       {title || heading}
