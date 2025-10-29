@@ -223,6 +223,15 @@ export const CloseOnBackdropClick: Story = {
   },
 }
 
+export const DisabledCloseButton: Story = {
+  render: Template,
+  args: {
+    title: "Disabled Close Button Modal",
+    children: <p>This Modal has a disabled close button.</p>,
+    disableCloseButton: true,
+  },
+}
+
 export const Login: Story = {
   render: Template,
   args: {

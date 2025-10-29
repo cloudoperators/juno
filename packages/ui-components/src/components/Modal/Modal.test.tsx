@@ -382,11 +382,13 @@ describe("Modal", () => {
     expect(cancelButton).toBeInTheDocument()
     expect(cancelButton).toHaveAttribute("disabled")
 
+    expect(screen.getByRole("button", { name: "close" })).toBeDisabled()
+
     await waitFor(() => userEvent.click(cancelButton))
     expect(mockOnCancel).not.toHaveBeenCalled()
   })
 
-  test("renders a modal without a close button in the header when disableCloseButton is true", async () => {
+  test("renders a modal with no disabled close button if disableCloseButton is true", async () => {
     await waitFor(() =>
       render(
         <PortalProvider>
@@ -394,16 +396,7 @@ describe("Modal", () => {
         </PortalProvider>
       )
     )
-
     expect(screen.getByRole("dialog")).toBeInTheDocument()
-
-    // Ensure header close button doesn't exist
-    const closeButton = screen.queryByRole("button", { name: "close" })
-    expect(closeButton).not.toBeInTheDocument()
-
-    // Confirm that the modal remains open and the cancel handler was not called
-    expect(screen.getByRole("dialog")).toBeInTheDocument()
-    await userEvent.click(closeButton!)
-    expect(mockOnCancel).not.toHaveBeenCalled()
+    expect(screen.getByRole("button", { name: "close" })).toBeDisabled()
   })
 })

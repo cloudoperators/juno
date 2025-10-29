@@ -201,7 +201,15 @@ export const Modal: React.FC<ModalProps> = ({
                   ) : (
                     ""
                   )}
-                  {isCloseable && !disableCloseButton ? <Icon icon="close" onClick={handleCancelClick} /> : ""}
+                  {isCloseable ? (
+                    <Icon
+                      icon="close"
+                      onClick={handleCancelClick}
+                      disabled={disableCancelButton || disableCloseButton}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className={`juno-modal-content ${contentstyles} ${unpad ? "" : contentpaddingstyles}`}>
                   {children}
