@@ -22,6 +22,7 @@ const SideNav = () => {
 
   return (
     <SideNavigation>
+      {/* Test Line */}
       {PLUGINS.map((plugin) => (
         <SideNavigationItem
           label={
