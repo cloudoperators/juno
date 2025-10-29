@@ -7,26 +7,34 @@ import React, { createContext, useContext, useState, useMemo, useRef, useEffect 
 import { oidcSession, mockedSession, tokenSession } from "@cloudoperators/juno-oauth"
 
 const setOrganizationToUrl = (groups: any, enableHashedRouting: boolean) => {
-  const orgString = groups?.find((g: any) => g.indexOf("organization:") === 0)
-  if (orgString) {
-    const name = orgString.split(":")[1]
-    let url = new URL(window.location.href)
+  const orgName = groups?.find((g: any) => g.startsWith("organization:"))?.split(":")[1]
 
-    // Check if the organization name is already in the URL path or hash then don't change it
-    const currentPath = enableHashedRouting ? url.hash.replace("#/", "") : url.pathname
-    const currentFirstSegment = currentPath.split("/").filter(Boolean)[0]
-    if (name === currentFirstSegment) return
+  if (!orgName) return
 
-    // if enableHashedRouting is true, set the hash, otherwise set the pathname
-    const pathWithOrg = `/${name}`
-    if (enableHashedRouting) {
-      url.hash = pathWithOrg
-    } else {
-      url.pathname = pathWithOrg
-    }
-    // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
-    window.history.replaceState(null, null, url.href)
+  let url = new URL(window.location.href)
+  const isNonDevEnv = url.host.includes("dashboard.")
+
+  // In non-dev environments, set the organization as subdomain
+  if (isNonDevEnv) {
+    url.hostname = `${orgName}.dashboard.${url.hostname.replace(/^[^.]+\./, "")}`
+    window.location.href = url.href
+    return
   }
+
+  // Check if the organization name is already in the URL path or hash then don't change it
+  const currentPath = enableHashedRouting ? url.hash.replace("#/", "") : url.pathname
+  const currentFirstSegment = currentPath.split("/").filter(Boolean)[0]
+  if (orgName === currentFirstSegment) return
+
+  // if enableHashedRouting is true, set the hash, otherwise set the pathname
+  const pathWithOrg = `/${orgName}`
+  if (enableHashedRouting) {
+    url.hash = pathWithOrg
+  } else {
+    url.pathname = pathWithOrg
+  }
+  // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
+  window.history.replaceState(null, null, url.href)
 }
 
 function resolveMockAuth(value: any) {
