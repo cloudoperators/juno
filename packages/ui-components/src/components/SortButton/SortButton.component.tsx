@@ -8,20 +8,30 @@ import { ToggleButton } from "../ToggleButton/ToggleButton.component"
 import { Icon } from "../Icon/Icon.component"
 import { ButtonProps } from "../Button"
 
-interface SortButtonProps extends Omit<ButtonProps, "value" | "onChange"> {
-  order?: "asc" | "desc"
-  onOrderChange?: (_order: string) => void
+type OrderType = "asc" | "desc"
+
+export interface SortButtonProps extends Omit<ButtonProps, "value" | "onChange"> {
+  order?: OrderType
+  onChange?: (_order: OrderType) => void
+  /**
+   * Deprecated: Will be removed in the next major release, use onChange instead.
+   */
+  onOrderChange?: (_order: OrderType) => void
+  options?: { value: OrderType; label: React.ReactNode }[]
 }
 
-export const SortButton: React.FC<SortButtonProps> = ({ order = "desc", onOrderChange, ...props }) => {
-  const options = [
+export const SortButton: React.FC<SortButtonProps> = ({
+  order = "desc",
+  onChange,
+  options = [
     { value: "asc", label: <Icon icon="sortShortWideArrowUp" /> },
     { value: "desc", label: <Icon icon="sortShortWideArrowDown" /> },
-  ]
-
-  const handleChange = (newOrder: string) => {
-    onOrderChange?.(newOrder)
+  ],
+  ...props
+}) => {
+  const handleChange = (newOrder: OrderType) => {
+    onChange?.(newOrder)
   }
 
-  return <ToggleButton options={options} value={order} onChange={handleChange} {...props} />
+  return <ToggleButton<OrderType> options={options} value={order} onChange={handleChange} {...props} />
 }

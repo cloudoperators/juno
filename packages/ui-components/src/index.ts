@@ -190,7 +190,10 @@ export type { SelectProps, SelectContextProps } from "./components/Select/Select
 export type { SelectOptionProps } from "./components/SelectOption/SelectOption.component"
 export type { ShadowRootProps, ShadowRootMode } from "./components/ShadowRoot/ShadowRoot.component"
 export type { SideNavigationProps } from "./components/SideNavigation/SideNavigation.component"
+export type { SideNavigationGroupProps } from "./components/SideNavigationGroup/SideNavigationGroup.component"
 export type { SideNavigationItemProps } from "./components/SideNavigationItem/SideNavigationItem.component"
+export type { SideNavigationListProps } from "./components/SideNavigationList/SideNavigationList.component"
+export type { SortButtonProps } from "./components/SortButton/SortButton.component"
 export type { SpinnerProps } from "./components/Spinner/Spinner.component"
 export type {
   StackProps,
@@ -215,10 +218,9 @@ export type { TabsProps, TabsContextType, TabsVariant } from "./components/Tabs/
 export type { TextInputProps } from "./components/TextInput/TextInput.component"
 export type { ThemeToggleProps } from "./components/ThemeToggle/ThemeToggle.component"
 export type { ToastProps } from "./components/Toast/Toast.component"
+export type { ToggleButtonProps } from "./components/ToggleButton/ToggleButton.component"
 export type { TooltipProps } from "./components/Tooltip/Tooltip.component"
 export type { TooltipContentProps } from "./components/TooltipContent/TooltipContent.component"
 export type { TooltipTriggerProps } from "./components/TooltipTrigger/TooltipTrigger.component"
 export type { TopNavigationProps } from "./components/TopNavigation/TopNavigation.component"
 export type { TopNavigationItemProps } from "./components/TopNavigationItem/TopNavigationItem.component"
-
-// DEPRECATED COMPONENTS
