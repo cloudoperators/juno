@@ -13,6 +13,8 @@ type OrderType = "asc" | "desc"
 export interface SortButtonProps extends Omit<ButtonProps, "value" | "onChange"> {
   order?: OrderType
   onChange?: (_order: OrderType) => void
+  // Will be deprected in next major release, use onChange instead
+  onOrderChange?: (_order: OrderType) => void
   options?: { value: OrderType; label: React.ReactNode }[]
 }
 
