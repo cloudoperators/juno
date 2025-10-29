@@ -369,7 +369,7 @@ describe("Modal", () => {
     expect(mockOnConfirm).not.toHaveBeenCalled()
   })
 
-  test("renders a disabled cancel action button and ensures onCancel is not triggered", async () => {
+  test("renders a disabled cancel action button, ensures onCancel isn't triggered and that the close button is disabled", async () => {
     await waitFor(() =>
       render(
         <PortalProvider>
@@ -388,7 +388,7 @@ describe("Modal", () => {
     expect(mockOnCancel).not.toHaveBeenCalled()
   })
 
-  test("renders a modal with no disabled close button if disableCloseButton is true", async () => {
+  test("renders a modal with a disabled close button if disableCloseButton is true", async () => {
     await waitFor(() =>
       render(
         <PortalProvider>
