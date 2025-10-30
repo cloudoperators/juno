@@ -3,24 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense } from "react"
-import { Spinner } from "@cloudoperators/juno-ui-components/index"
+import React from "react"
 import { ServicesList } from "./ServicesList"
 import { AllServicesIssuesCount } from "./AllServicesIssuesCount"
 import { ServicesFilters } from "./ServicesFilters"
+import { ErrorBoundary } from "../common/ErrorBoundary"
 
 export const Services = () => (
   <>
     <ServicesFilters />
-    <Suspense
-      fallback={
-        <div className="flex justify-center items-center h-full pt-10">
-          <Spinner size="small" />
-        </div>
-      }
-    >
+    <ErrorBoundary>
       <AllServicesIssuesCount />
       <ServicesList />
-    </Suspense>
+    </ErrorBoundary>
   </>
 )
