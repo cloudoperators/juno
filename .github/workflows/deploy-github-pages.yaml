@@ -16,8 +16,7 @@ on:
     branches:
       - main
     paths:
-      - "packages/ui-components/**"
-  workflow_dispatch:
+      - packages/ui-components/CHANGELOG.md
 
 permissions:
   contents: write
