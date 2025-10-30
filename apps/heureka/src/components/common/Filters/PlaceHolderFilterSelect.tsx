@@ -6,15 +6,21 @@
 import React from "react"
 import { Stack, InputGroup, Select, ComboBox } from "@cloudoperators/juno-ui-components/index"
 
-export const LoadingFilterSelect = () => (
+export type PlaceHolderFilterSelectProps = {
+  loading?: boolean
+  error?: Error
+}
+
+export const PlaceHolderFilterSelect = ({ loading, error }: PlaceHolderFilterSelectProps) => (
   <Stack alignment="center" gap="8">
     <InputGroup>
       <Select
-        loading
+        loading={loading}
         className="filter-label-select w-64 mb-0"
         name="filter"
         data-testid="select-filterValue"
         label="Filter"
+        errortext={error ? error.message || "Error loading filters" : undefined}
       ></Select>
       <ComboBox
         disabled

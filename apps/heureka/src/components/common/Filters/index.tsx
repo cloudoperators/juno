@@ -8,7 +8,7 @@ import { Button, InputGroup, SearchInput, Stack } from "@cloudoperators/juno-ui-
 import { FilterSelect } from "./FilterSelect"
 import { Filter, FilterSettings, SelectedFilter } from "./types"
 import { SelectedFilters } from "./SelectedFilters"
-import { LoadingFilterSelect } from "./LoadingFilterSelect"
+import { PlaceHolderFilterSelect } from "./PlaceHolderFilterSelect"
 import { ErrorBoundary } from "../ErrorBoundary"
 
 export type FiltersProps = {
@@ -33,10 +33,10 @@ export const Filters = ({ filtersPromise, filterSettings, onFilterChange, search
 
   return (
     <Stack direction="vertical" gap="4" className="bg-theme-background-lvl-1 py-2 px-4 ">
-      <Stack alignment="center" gap="4">
+      <Stack alignment="start" gap="4">
         <InputGroup>
-          <ErrorBoundary displayErrorMessage>
-            <Suspense fallback={<LoadingFilterSelect />}>
+          <ErrorBoundary displayErrorMessage fallbackRender={(props) => <PlaceHolderFilterSelect {...props} />}>
+            <Suspense fallback={<PlaceHolderFilterSelect loading />}>
               <FilterSelect
                 filtersPromise={filtersPromise}
                 onChange={(selectedFilter) => {
