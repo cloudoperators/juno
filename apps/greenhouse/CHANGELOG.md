@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.14
+
+### Patch Changes
+
+- Updated dependencies [6b45b16]
+  - @cloudoperators/juno-app-heureka@0.9.8
+
 ## 0.7.13
 
 ### Patch Changes
