@@ -1,5 +1,11 @@
 # heureka
 
+## 0.9.8
+
+### Patch Changes
+
+- 6b45b16: Heureka now gracefully handles fatal errors which would prevent app layout from being invisible.
+
 ## 0.9.7
 
 ### Patch Changes
