@@ -9,11 +9,7 @@ import { Vulnerabilities } from "../../components/Vulnerabilities"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchVulnerabilities } from "../../api/fetchVulnerabilities"
 import { fetchVulnerabilityFilters } from "../../api/fetchVulnerabilityFilters"
-import {
-  extractFilterSettingsFromSearchParams,
-  getNormalizedFilters,
-  sanitizeFilterSettings,
-} from "../../components/Vulnerabilities/utils"
+import { extractFilterSettingsFromSearchParams } from "../../components/Vulnerabilities/utils"
 
 const vulnerabilitiesSearchSchema = z
   .object({
@@ -42,12 +38,9 @@ export const Route = createFileRoute("/vulnerabilities/")({
     return rest
   },
   shouldReload: false,
-  beforeLoad: ({ search }) => ({
-    filterSettings: extractFilterSettingsFromSearchParams(search),
-  }),
-  loader: async ({ context }) => {
-    const { queryClient, apiClient, filterSettings } = context
-
+  loader: async ({ context, deps }) => {
+    const { queryClient, apiClient } = context
+    const filterSettings = extractFilterSettingsFromSearchParams(deps)
     // Dispatch both requests in parallel
     const filtersPromise = fetchVulnerabilityFilters({
       queryClient,
@@ -58,15 +51,10 @@ export const Route = createFileRoute("/vulnerabilities/")({
       apiClient,
       filterSettings,
     })
-
-    // Wait for filters to resolve (needed for sanitization)
-    const filtersResult = await filtersPromise
-    const filters = getNormalizedFilters(filtersResult.data)
-
     return {
-      filters,
+      filtersPromise,
       vulnerabilitiesPromise,
-      filterSettings: sanitizeFilterSettings(filters, filterSettings),
+      filterSettings,
     }
   },
   component: Vulnerabilities,

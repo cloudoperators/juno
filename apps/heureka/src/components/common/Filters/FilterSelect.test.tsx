@@ -7,10 +7,10 @@ import React from "react"
 import { describe, it, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { FilterSelect } from "./FilterSelect"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components/index"
+import { FilterSelect } from "./FilterSelect"
 
-const mockFilters = [
+const mockFiltersPromise = Promise.resolve([
   {
     displayName: "Category",
     filterName: "category",
@@ -26,7 +26,7 @@ const mockFilters = [
     filterName: "region",
     values: ["America", "Europe", "Asia"],
   },
-]
+])
 
 const mockOnChange = vi.fn()
 
@@ -38,7 +38,7 @@ describe("FiltersSelect", () => {
   it.skip("should render the component with filter select dropdown", async () => {
     render(
       <AppShellProvider shadowRoot={false}>
-        <FilterSelect filters={mockFilters} onChange={mockOnChange} />
+        <FilterSelect filtersPromise={mockFiltersPromise} onChange={mockOnChange} />
       </AppShellProvider>
     )
 
@@ -52,7 +52,7 @@ describe("FiltersSelect", () => {
   it.skip("displays all filter options in the select dropdown", async () => {
     render(
       <AppShellProvider shadowRoot={false}>
-        <FilterSelect filters={mockFilters} onChange={mockOnChange} />
+        <FilterSelect filtersPromise={mockFiltersPromise} onChange={mockOnChange} />
       </AppShellProvider>
     )
 
@@ -65,7 +65,7 @@ describe("FiltersSelect", () => {
     const user = userEvent.setup({ delay: 0 })
     render(
       <AppShellProvider shadowRoot={false}>
-        <FilterSelect filters={mockFilters} onChange={mockOnChange} />
+        <FilterSelect filtersPromise={mockFiltersPromise} onChange={mockOnChange} />
       </AppShellProvider>
     )
 
