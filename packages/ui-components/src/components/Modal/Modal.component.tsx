@@ -161,7 +161,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   const modalRef = useRef<HTMLDivElement | null>(null)
 
-  const modalTitle = title ?? heading
+  const modalTitle = title || heading
   const hasTitle = Boolean(modalTitle)
   const modalTitleId = hasTitle ? uniqueId() : undefined
 

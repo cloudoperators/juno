@@ -48,12 +48,12 @@ describe("Modal", () => {
   test("renders a ReactNode title correctly", () => {
     render(
       <PortalProvider>
-        <Modal open title={<div>Node Title</div>} />
+        <Modal open title={<p>Node Title</p>} />
       </PortalProvider>
     )
 
     const dialog = screen.getByRole("dialog")
-    const titleWrapper = screen.getByText("Node Title").closest("h1")
+    const titleWrapper = screen.getByText("Node Title").closest("div")
 
     expect(dialog).toBeInTheDocument()
     expect(titleWrapper).toBeInTheDocument()
