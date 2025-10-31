@@ -13,6 +13,7 @@
 @import "./components/TextInput/textinput.css" layer(utilities);
 @import "./components/ThemeToggle/themeToggle.css" layer(utilities);
 @import "./components/DataGridRow/data-grid-row.css" layer(utilities);
+@import "./components/SideNavigationItem/sidenavigationitem.css" layer(utilities);
 
 :root,
 :host {

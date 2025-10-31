@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { SortButton } from "./SortButton.component"
+import { Icon } from "../Icon"
 
 const meta: Meta<typeof SortButton> = {
   title: "Components/SortButton",
@@ -21,7 +23,7 @@ const meta: Meta<typeof SortButton> = {
       control: "boolean",
       description: "Whether the sort button is disabled.",
     },
-    onOrderChange: {
+    onChange: {
       action: "orderChanged",
       description: "Callback triggered when the sort order changes.",
     },
@@ -34,7 +36,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     order: "desc",
-    onOrderChange: (order) => console.log("Sort order changed to:", order),
+    onChange: (order) => console.log("Sort order changed to:", order),
   },
   parameters: {
     docs: {
@@ -49,12 +51,31 @@ export const Disabled: Story = {
   args: {
     order: "asc",
     disabled: true,
-    onOrderChange: (order) => console.log("Attempted to change sort order to:", order),
+    onChange: (order) => console.log("Attempted to change sort order to:", order),
   },
   parameters: {
     docs: {
       description: {
         story: "SortButton in a disabled state, showing the initial sorting direction.",
+      },
+    },
+  },
+}
+
+export const CustomOptions: Story = {
+  args: {
+    order: "asc",
+    options: [
+      { value: "asc", label: <Icon icon="expandMore" /> },
+      { value: "desc", label: <Icon icon="expandLess" /> },
+    ],
+    onChange: (order) => console.log("Sort order changed to:", order),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "SortButton with custom icons. Note: This is an example of passing custom icons. These specific icons are not recommended foor sorting.",
       },
     },
   },

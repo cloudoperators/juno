@@ -8,7 +8,7 @@ import { Button, ButtonProps } from "../Button"
 
 type Option<T> = T | { value: T; label?: ReactNode }
 
-interface ToggleButtonProps<T extends string | number> extends Omit<ButtonProps, "onChange" | "value"> {
+export interface ToggleButtonProps<T extends string | number> extends Omit<ButtonProps, "onChange" | "value"> {
   options: Option<T>[]
   value?: T
   onChange?: (_value: T) => void

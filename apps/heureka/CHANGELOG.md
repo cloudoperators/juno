@@ -1,5 +1,20 @@
 # heureka
 
+## 0.9.8
+
+### Patch Changes
+
+- 6b45b16: Heureka now gracefully handles fatal errors which would prevent app layout from being invisible.
+
+## 0.9.7
+
+### Patch Changes
+
+- Updated dependencies [2125722]
+- Updated dependencies [42ad17d]
+  - @cloudoperators/juno-ui-components@5.8.0
+  - @cloudoperators/juno-messages-provider@0.2.20
+
 ## 0.9.6
 
 ### Patch Changes

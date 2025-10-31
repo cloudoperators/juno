@@ -12,11 +12,7 @@ import { Services } from "../../components/Services"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
-import {
-  extractFilterSettingsFromSearchParams,
-  getNormalizedFilters,
-  sanitizeFilterSettings,
-} from "../../components/Services/utils"
+import { extractFilterSettingsFromSearchParams } from "../../components/Services/utils"
 
 // Schema for validating and transforming search parameters related to /services page.
 const servicesSearchSchema = z
@@ -46,32 +42,22 @@ export const Route = createFileRoute("/services/")({
     return rest
   },
   shouldReload: false, // Only reload the route when the user navigates to it or when deps change
-  beforeLoad: ({ search }) => {
-    const filterSettings = extractFilterSettingsFromSearchParams(search)
-    return {
-      filterSettings,
-    }
-  },
-  loader: async ({ context }) => {
-    const { queryClient, apiClient, filterSettings } = context
-    // create a promise to fetch filters
-    const filtersResult = await fetchServicesFilters({
+  loader: ({ context, deps }) => {
+    const { queryClient, apiClient } = context
+    const filterSettings = extractFilterSettingsFromSearchParams(deps)
+    const filtersPromise = fetchServicesFilters({
       queryClient,
       apiClient,
     })
-    // create a promise to fetch services
     const servicesPromise = fetchServices({
       queryClient,
       apiClient,
       filterSettings,
     })
-
-    const filters = getNormalizedFilters(filtersResult.data)
-
     return {
-      filters,
+      filtersPromise,
       servicesPromise,
-      filterSettings: sanitizeFilterSettings(filters, filterSettings), // we need to only apply filters that backend supports hence this sanitization
+      filterSettings,
     }
   },
   component: RouteComponent,
