@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 5.8.1
+
+### Patch Changes
+
+- 86e6188: Import side-navigation-item.css into global.css to fix styling in apps and add style definitions to theme.css.
+
 ## 5.8.0
 
 ### Minor Changes
