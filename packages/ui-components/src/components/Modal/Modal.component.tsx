@@ -161,9 +161,27 @@ export const Modal: React.FC<ModalProps> = ({
 
   const modalRef = useRef<HTMLDivElement | null>(null)
 
-  const modalTitle = title || heading
+  const modalTitle = title ?? heading
   const hasTitle = Boolean(modalTitle)
   const modalTitleId = hasTitle ? uniqueId() : undefined
+
+  const renderModalTitle = () => {
+    if (modalTitle === null || modalTitle === undefined || modalTitle === false) {
+      return null
+    }
+    if (typeof modalTitle === "string") {
+      return (
+        <h1 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
+          {modalTitle}
+        </h1>
+      )
+    }
+    return (
+      <div className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
+        {modalTitle}
+      </div>
+    )
+  }
 
   return (
     <>
@@ -193,13 +211,7 @@ export const Modal: React.FC<ModalProps> = ({
                 <div
                   className={`juno-modal-header ${headerstyles} ${modalTitle ? `jn:justify-between` : `jn:justify-end`}`}
                 >
-                  {title || heading ? (
-                    <h1 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
-                      {title || heading}
-                    </h1>
-                  ) : (
-                    ""
-                  )}
+                  {renderModalTitle()}
                   {isCloseable ? <Icon icon="close" onClick={handleCancelClick} aria-label="close" /> : ""}
                 </div>
                 <div className={`juno-modal-content ${contentstyles} ${unpad ? "" : contentpaddingstyles}`}>
