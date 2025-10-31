@@ -8,13 +8,7 @@ import { useNavigate, useMatches, AnySchema } from "@tanstack/react-router"
 import { AppShell, PageHeader, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
 import { useGlobalsEmbedded } from "./StoreProvider"
 
-type NavigationItemType = {
-  label: string
-  value: string
-  icon: "danger" | "info"
-}
-
-const navigationItems: NavigationItemType[] = [
+const navigationItems = [
   {
     label: "Alerts",
     value: "/alerts",
@@ -25,7 +19,22 @@ const navigationItems: NavigationItemType[] = [
     value: "/silences",
     icon: "info",
   },
-]
+] as const
+
+type NavigationItem = (typeof navigationItems)[number]
+
+const isValidNavigationValue = (value: unknown): value is NavigationItem["value"] => {
+  return typeof value === "string" && navigationItems.some((item) => item.value === value)
+}
+
+const getDefaultSearchParams = (path: NavigationItem["value"]) => {
+  switch (path) {
+    case "/silences":
+      return { silencesStatus: "active" }
+    default:
+      return {}
+  }
+}
 
 const CustomAppShell = ({ children }: any) => {
   const visitedPages = useRef<Record<string, AnySchema>>({})
@@ -34,14 +43,17 @@ const CustomAppShell = ({ children }: any) => {
   const embedded = useGlobalsEmbedded()
 
   const handleTabSelect = (link: React.ReactNode) => {
-    // Save the current pages's URL state to restore it later
-    const currentPath = matches[matches.length - 1].id
-    visitedPages.current[currentPath] = matches[matches.length - 1].search
-
-    if (typeof link === "string") {
+    // Type guard to ensure link is a valid NavigationItem value
+    if (isValidNavigationValue(link)) {
+      const currentPath = matches[matches.length - 1].id
+      // Save the current pages's URL state to restore it later
+      visitedPages.current[currentPath] = matches[matches.length - 1].search
       navigate({
         to: link,
-        search: visitedPages.current[link] ?? {}, // restore the url state of the target page
+        search: {
+          ...getDefaultSearchParams(link),
+          ...visitedPages.current[link],
+        },
       })
     }
   }
