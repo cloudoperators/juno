@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.12
+
+### Patch Changes
+
+- 1bc71b6: Apply default "active" filter in /silences page.
+- Updated dependencies [86e6188]
+  - @cloudoperators/juno-ui-components@5.8.1
+  - @cloudoperators/juno-messages-provider@0.2.21
+
 ## 0.19.11
 
 ### Patch Changes
