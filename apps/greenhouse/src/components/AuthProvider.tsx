@@ -12,11 +12,10 @@ const setOrganizationToUrl = (groups: any, enableHashedRouting: boolean) => {
   if (!orgName) return
 
   let url = new URL(window.location.href)
-  const isNonDevEnv = url.host.includes("dashboard.")
 
   // In non-dev environments, set the organization as subdomain
-  if (isNonDevEnv) {
-    url.hostname = `${orgName}.dashboard.${url.hostname.replace(/^[^.]+\./, "")}`
+  if (!import.meta.env.DEV) {
+    url.hostname = `${orgName}.${url.hostname}`
     window.location.href = url.href
     return
   }
