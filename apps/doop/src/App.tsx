@@ -93,7 +93,12 @@ const App = (props: AppProps = {}) => {
         searchParams.delete("__s") // Remove the old state from the search params
       }
 
-      const searchStringWithoutLegacyUrlState = searchParams.toString()
+      /**
+       * We need to decode because calling .toString() on URLSearchParams
+       * returns encoded string which escapes certain values like comma(,)
+       * and the original intention is we use decoderV2 on the raw string
+       * */
+      const searchStringWithoutLegacyUrlState = decodeURIComponent(searchParams.toString())
 
       return { ...decodeV2(searchStringWithoutLegacyUrlState), ...newUrlState, legacyUrlState }
     },
