@@ -4,14 +4,16 @@
  */
 
 import React, { Suspense, useCallback, useEffect, useState } from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { EmptyDataGridRow } from "../../common/EmptyDataGridRow"
+import { DataGrid, DataGridRow, DataGridHeadCell } from "@cloudoperators/juno-ui-components"
 import { ServicePanel } from "./ServicePanel"
 import { ServicesDataRows } from "./ServicesDataRows"
 import { CursorPagination } from "../../common/CursorPagination"
 import { useLoaderData, useRouteContext } from "@tanstack/react-router"
 import { fetchServices } from "../../../api/fetchServices"
 import { getNormalizedServicesResponse } from "../utils"
+import { ErrorBoundary } from "../../common/ErrorBoundary"
+import { LoadingDataRow } from "../../common/LoadingDataRow"
+import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
 
 const COLUMN_SPAN = 8
 
@@ -54,26 +56,25 @@ export const ServicesList = () => {
           <DataGridHeadCell>Details</DataGridHeadCell>
           <DataGridHeadCell></DataGridHeadCell>
         </DataGridRow>
-        <Suspense
-          fallback={
-            <EmptyDataGridRow colSpan={COLUMN_SPAN}>
-              <Stack gap="2" alignment="center">
-                <div>Loading</div>
-                <Spinner variant="primary"></Spinner>
-              </Stack>
-            </EmptyDataGridRow>
-          }
+        <ErrorBoundary
+          displayErrorMessage
+          fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
+          resetKeys={[servicesPromise]}
         >
-          <ServicesDataRows servicesPromise={servicesPromise} />
-        </Suspense>
+          <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>
+            <ServicesDataRows servicesPromise={servicesPromise} />
+          </Suspense>
+        </ErrorBoundary>
       </DataGrid>
-      <Suspense>
-        <CursorPagination
-          dataPromise={servicesPromise}
-          goToPage={goToPage}
-          dataNormalizationMethod={getNormalizedServicesResponse}
-        />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense>
+          <CursorPagination
+            dataPromise={servicesPromise}
+            goToPage={goToPage}
+            dataNormalizationMethod={getNormalizedServicesResponse}
+          />
+        </Suspense>
+      </ErrorBoundary>
       <ServicePanel />
     </div>
   )

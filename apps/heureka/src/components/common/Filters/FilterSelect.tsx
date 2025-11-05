@@ -3,22 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useState } from "react"
+import React, { use, useCallback, useState } from "react"
 import { isEmpty } from "../../../utils"
 import { InputGroup, ComboBox, ComboBoxOption, SelectOption, Select, Stack } from "@cloudoperators/juno-ui-components"
 import { Filter, SelectedFilter } from "./types"
 
 type FilterSelectProps = {
-  filters: Filter[]
+  filtersPromise: Promise<Filter[]>
   onChange: (filter: SelectedFilter) => void
 }
 
-export const FilterSelect = ({ filters, onChange }: FilterSelectProps) => {
+export const FilterSelect = ({ filtersPromise, onChange }: FilterSelectProps) => {
   const [selectedFilterName, setSelectedFilterName] = useState<string>("")
   const [selectedFilterValue, setSelectedFilterValue] = useState<string>("")
-
+  const filters = use(filtersPromise)
   // first filter gets the values, second one filters emtpy values
-  const filterValues: string[] | undefined = filters
+  const filterValues = filters
     .find((filter) => filter.filterName === selectedFilterName)
     ?.values?.filter((value) => value)
 

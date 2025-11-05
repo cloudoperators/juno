@@ -6,11 +6,11 @@
 import React, { useCallback } from "react"
 import { useNavigate, useRouteContext, useSearch } from "@tanstack/react-router"
 import { Panel, PanelBody } from "@cloudoperators/juno-ui-components"
-import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { capitalizeFirstLetter } from "../../../utils"
 import { ServiceImageVersions } from "../../common/ServiceImageVersions"
 import { ServiceImageVersion } from "../utils"
 import { fetchImageVersions } from "../../../api/fetchImageVersions"
+import { ErrorBoundary } from "../../common/ErrorBoundary"
 
 export const ServicePanel = () => {
   const navigate = useNavigate()
@@ -53,14 +53,14 @@ export const ServicePanel = () => {
   )
 
   return (
-    <MessagesProvider>
-      <Panel
-        heading={!!service ? `${capitalizeFirstLetter(service)} Overview` : undefined}
-        opened={!!service}
-        onClose={closeServiceOverviewPanel}
-        size="large"
-      >
-        <PanelBody>
+    <Panel
+      heading={!!service ? `${capitalizeFirstLetter(service)} Overview` : undefined}
+      opened={!!service}
+      onClose={closeServiceOverviewPanel}
+      size="large"
+    >
+      <PanelBody>
+        <ErrorBoundary>
           {service && imageVersionsPromise && (
             <ServiceImageVersions
               displayActions
@@ -69,8 +69,8 @@ export const ServicePanel = () => {
               goToPage={setCurrentPageCursor}
             />
           )}
-        </PanelBody>
-      </Panel>
-    </MessagesProvider>
+        </ErrorBoundary>
+      </PanelBody>
+    </Panel>
   )
 }

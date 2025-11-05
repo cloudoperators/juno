@@ -1,5 +1,24 @@
 # @cloudoperators/juno-ui-components
 
+## 5.8.1
+
+### Patch Changes
+
+- 86e6188: Import side-navigation-item.css into global.css to fix styling in apps and add style definitions to theme.css.
+
+## 5.8.0
+
+### Minor Changes
+
+- 2125722: In `SortButton`:
+  - Aligned `order` and `onChange` input types
+  - Introduced `onOrderChange`, keeping `onChange` as deprecated prop for backward compatibility until next release.
+  - Allowed `options` override and exported missing types for recent components (`ToggleButtonProps`, `SortButtonProps`, `SideNavigationListProps`, `SideNavigationGroupProps`).
+
+### Patch Changes
+
+- 42ad17d: Fixes a type issue with the Combobox onChange handler introduced after upgrading @headlessui/react.
+
 ## 5.7.1
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, useId } from "react"
+import React, { useState, useEffect, useRef, useId, ReactNode } from "react"
 import { createPortal } from "react-dom"
 import { FocusTrap } from "focus-trap-react"
 import { ModalFooter } from "../ModalFooter/index"
@@ -46,8 +46,8 @@ const headerstyles = `
 `
 
 const titlestyles = `
-	jn:text-xl
-	jn:font-bold
+  jn:text-xl
+  jn:font-bold
 `
 
 const contentstyles = `
@@ -162,9 +162,27 @@ export const Modal: React.FC<ModalProps> = ({
 
   const modalRef = useRef<HTMLDivElement | null>(null)
 
-  const theTitle = title || heading
+  const modalTitle = title || heading
+  const hasTitle = Boolean(modalTitle)
+  const modalTitleId = hasTitle ? uniqueId() : undefined
 
-  const modalTitleId = uniqueId()
+  const renderModalTitle = () => {
+    if (modalTitle === null || modalTitle === undefined || modalTitle === false) {
+      return null
+    }
+    if (typeof modalTitle === "string") {
+      return (
+        <h1 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
+          {modalTitle}
+        </h1>
+      )
+    }
+    return (
+      <div className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
+        {modalTitle}
+      </div>
+    )
+  }
 
   return (
     <>
@@ -177,7 +195,7 @@ export const Modal: React.FC<ModalProps> = ({
                 clickOutsideDeactivates: isCloseabelOnBackdropClick,
                 fallbackFocus: () => modalRef.current!,
                 allowOutsideClick: true,
-                escapeDeactivates: (e) => {
+                escapeDeactivates: (e: KeyboardEvent) => {
                   handleEsc(e)
                   return false
                 },
@@ -188,19 +206,13 @@ export const Modal: React.FC<ModalProps> = ({
                 role="dialog"
                 ref={modalRef}
                 {...props}
-                aria-labelledby={theTitle && theTitle.length ? modalTitleId : undefined}
+                aria-labelledby={modalTitleId}
                 aria-label={ariaLabel}
               >
                 <div
-                  className={`juno-modal-header ${headerstyles} ${theTitle && theTitle.length ? `jn:justify-between` : `jn:justify-end`}`}
+                  className={`juno-modal-header ${headerstyles} ${modalTitle ? `jn:justify-between` : `jn:justify-end`}`}
                 >
-                  {title || heading ? (
-                    <h1 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
-                      {title || heading}
-                    </h1>
-                  ) : (
-                    ""
-                  )}
+                  {renderModalTitle()}
                   {isCloseable ? (
                     <Icon
                       icon="close"
@@ -241,11 +253,11 @@ export const Modal: React.FC<ModalProps> = ({
 
 type ModalSize = "small" | "large" | "xl" | "2xl"
 
-export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
+export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size" | "title"> {
   /** The title of the modal. This will be rendering as the heading of the modal, and the modal's `arial-labelledby` attribute will reference the title/heading element. If the modal does not have `title` or `heading`, use `ariaLabel` to provide an accessible name for the modal. */
-  title?: string
-  /** Also the title of the modal, just for API flexibility. If both `title` and `heading` are passed, `title` will win. */
-  heading?: string
+  title?: ReactNode
+  /** Also the title of the modal, just for API flexibility. If both `title` and `heading` are passed, `title` will take precedence. */
+  heading?: ReactNode
   /** The aria-label of the modal. Use only if the modal does NOT have a `title` or `heading`.  */
   ariaLabel?: string
   /** By default, the first element in the tab order of the Modal content will be focussed. To specify an element to be focussed when the modal opens, pass an element, DOM node, or selector string. */

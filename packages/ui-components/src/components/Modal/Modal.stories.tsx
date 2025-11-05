@@ -304,7 +304,7 @@ export const TestSelectInModal: Story = {
 export const TestComboBoxInModal: Story = {
   render: Template,
   args: {
-    title: "Modal with CombBox inside",
+    title: <p>Hello</p>,
     size: "small",
     children: (
       <>

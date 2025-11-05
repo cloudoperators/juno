@@ -1,11 +1,12 @@
 // SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { FilterSettings } from "../common/Filters/types"
+import { Filter, FilterSettings } from "../common/Filters/types"
 import { GetVulnerabilityFiltersQuery, Page, GetVulnerabilitiesQuery } from "../../generated/graphql"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { VulnerabilitiesSearchParams } from "../../routes/vulnerabilities"
 import { IssuesCountsType } from "../types"
+import { isEmpty, omit } from "../../utils"
 
 const DEFAULT_COUNT = 0
 
@@ -37,17 +38,14 @@ export function extractFilterSettingsFromSearchParams(searchParams: Vulnerabilit
   }
 }
 
-export function getNormalizedFilters(data: GetVulnerabilityFiltersQuery | undefined) {
-  if (!data?.VulnerabilityFilterValues) return []
-  const filterValues = data.VulnerabilityFilterValues
-  return Object.entries(filterValues)
-    .filter(([, v]) => v && (v as any).values?.length)
-    .map(([filterName, v]: any) => ({
-      filterName,
-      displayName: (v as any).displayName,
-      values: (v as any).values?.filter((value: any) => value !== null) || [],
-    }))
-}
+export const getNormalizedFilters = (data: GetVulnerabilityFiltersQuery | undefined | null): Filter[] =>
+  isEmpty(data) || isEmpty(data?.VulnerabilityFilterValues)
+    ? []
+    : Object.values(omit(data!.VulnerabilityFilterValues!, ["__typename"])).map((filter) => ({
+        displayName: filter?.displayName || "",
+        filterName: filter?.filterName || "",
+        values: filter?.values?.filter((value) => value !== null) || [],
+      }))
 
 export function sanitizeFilterSettings(filters: any, filterSettings: FilterSettings) {
   // Only keep filters that are supported by the backend
