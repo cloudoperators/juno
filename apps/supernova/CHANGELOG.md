@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.13
+
+### Patch Changes
+
+- 463d791: Call `decodeURIComponent` in order to unescape certain characters that were escaped by `URLSearchParams.toString()`.
+- Updated dependencies [25a91ac]
+  - @cloudoperators/juno-ui-components@5.8.2
+  - @cloudoperators/juno-messages-provider@0.2.22
+
 ## 0.19.12
 
 ### Patch Changes
