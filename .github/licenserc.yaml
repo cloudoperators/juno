@@ -16,14 +16,17 @@ header:
       SPDX-License-Identifier: Apache-2\.0
 # REUSE-IgnoreEnd
   paths: # `paths` are the path list that will be checked
-    - "apps/**/*.ts"
-    - "packages/**/*.ts"
-    - "apps/**/*.tsx"
-    - "packages/**/*.tsx"
-    - "apps/**/*.js"
-    - "packages/**/*.js"
-    - "apps/**/*.jsx"
-    - "packages/**/*.jsx"
+  # TypeScript
+  - "apps/*/src/**/*.ts"
+  - "packages/*/src/**/*.ts"
+  - "apps/*/src/**/*.tsx"
+  - "packages/*/src/**/*.tsx"
+
+  # JavaScript
+  - "apps/*/src/**/*.js"
+  - "packages/*/src/**/*.js"
+  - "apps/*/src/**/*.jsx"
+  - "packages/*/src/**/*.jsx"
 
   paths-ignore:
     - "**/routeTree.gen.ts"
