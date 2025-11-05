@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 5.8.2
+
+### Patch Changes
+
+- 25a91ac: Change `title` and `heading` type to `ReactNode` and fix alignement for `Modal`.
+
 ## 5.8.1
 
 ### Patch Changes
