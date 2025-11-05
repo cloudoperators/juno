@@ -1,3 +1,9 @@
+# How to run it locally:
+#  1. Install license-eye:
+#     `brew install license-eye`
+#  2. Run license-eye:
+#     `license-eye --config .github/licenserc.yaml header check`
+
 # REUSE-IgnoreStart
 header:
   license:
@@ -9,55 +15,21 @@ header:
       SPDX-FileCopyrightText: [0-9]+ SAP SE or an SAP affiliate company and Juno contributors
       SPDX-License-Identifier: Apache-2\.0
 # REUSE-IgnoreEnd
-  paths: # `paths` are the path list that will be checked (and fixed) by license-eye, default is ['**'].
-    - "**"
+  paths: # `paths` are the path list that will be checked
+    - "apps/**/*.ts"
+    - "packages/**/*.ts"
+    - "apps/**/*.tsx"
+    - "packages/**/*.tsx"
+    - "apps/**/*.js"
+    - "packages/**/*.js"
+    - "apps/**/*.jsx"
+    - "packages/**/*.jsx"
 
   paths-ignore:
-    - ".github/**"
-    - "REUSE.toml"
-    - "apis/**"
-    - "assets/**"
-    - ".npmignore"
-    - ".npmignore"
-    - "**/*.npmrc"
-    - ".npmrc"
-    - "CODEOWNERS"
-    - "bin/**"
-    - "ci/**"
-    - "config/**"
-    - "docker/**"
-    - "docs/**"
-    - "e2e/**"
-    - "**/*.md"
-    - "LICENSE"
-    - "**/LICENSE"
-    - "**/*.gitignore"
-    - "**/*.dockerignore"
-    - "**/*.helmignore"
-    - "**/*.tpl"
-    - "**/go.mod"
-    - "**/go.sum"
-    - "**/*.lock"
-    - "**/*.json"
-    - "**/.gitkeep"
-    - "**/*.txt"
-    - "*Dockerfile*"
-    - "Makefile"
-    - "**/*.map"
-    - "**/*.mdx"
-    - "**/nginx.conf"
-    - ".prettierrc"
-    - pnpm-lock.yaml
-    - pnpm-workspace.yaml
-    - "VERSION"
-    - "**/public/mockServiceWorker.js"
-    - ".prettierignore"
-    - "**/*.sh"
-    - "packages/ui-components/src/fonts/**"
     - "**/routeTree.gen.ts"
-    - .nvmrc
+    - "**/mockServiceWorker.js"
     - "**/generated/**"
-
+    
   comment: on-failure
 
   # license-location-threshold specifies the index threshold where the license header can be located,
