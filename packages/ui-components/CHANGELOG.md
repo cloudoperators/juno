@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 5.9.0
+
+### Minor Changes
+
+- 8ea0089: Allow disabling of close button with `disableCloseButton` in `Modal`.
+
 ## 5.8.2
 
 ### Patch Changes
