@@ -12,7 +12,7 @@ import { SELECTED_FILTER_PREFIX } from "../../constants"
 
 export const VulnerabilitiesFilters = () => {
   const navigate = useNavigate()
-  const { filters, filterSettings } = useLoaderData({ from: "/vulnerabilities/" })
+  const { filtersPromise, filterSettings } = useLoaderData({ from: "/vulnerabilities/" })
 
   const handleFilterChange = useCallback(
     (updatedFilterSettings: FilterSettings) => {
@@ -40,7 +40,7 @@ export const VulnerabilitiesFilters = () => {
 
   return (
     <Filters
-      filters={filters}
+      filtersPromise={filtersPromise}
       filterSettings={filterSettings}
       onFilterChange={handleFilterChange}
       searchInputPlaceholder="search term for vulnerabilities name"

@@ -1,5 +1,40 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.14
+
+### Patch Changes
+
+- Updated dependencies [8ea0089]
+  - @cloudoperators/juno-ui-components@5.9.0
+  - @cloudoperators/juno-messages-provider@0.2.23
+
+## 0.19.13
+
+### Patch Changes
+
+- 463d791: Call `decodeURIComponent` in order to unescape certain characters that were escaped by `URLSearchParams.toString()`.
+- Updated dependencies [25a91ac]
+  - @cloudoperators/juno-ui-components@5.8.2
+  - @cloudoperators/juno-messages-provider@0.2.22
+
+## 0.19.12
+
+### Patch Changes
+
+- 1bc71b6: Apply default "active" filter in /silences page.
+- Updated dependencies [86e6188]
+  - @cloudoperators/juno-ui-components@5.8.1
+  - @cloudoperators/juno-messages-provider@0.2.21
+
+## 0.19.11
+
+### Patch Changes
+
+- Updated dependencies [2125722]
+- Updated dependencies [42ad17d]
+  - @cloudoperators/juno-ui-components@5.8.0
+  - @cloudoperators/juno-messages-provider@0.2.20
+
 ## 0.19.10
 
 ### Patch Changes

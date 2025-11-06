@@ -12,7 +12,7 @@ import { SELECTED_FILTER_PREFIX } from "../../constants"
 
 export const ServicesFilters = () => {
   const navigate = useNavigate()
-  const { filters, filterSettings } = useLoaderData({ from: "/services/" })
+  const { filtersPromise, filterSettings } = useLoaderData({ from: "/services/" })
 
   const handleFilterChange = useCallback(
     (updatedFilterSettings: FilterSettings) => {
@@ -35,7 +35,7 @@ export const ServicesFilters = () => {
 
   return (
     <Filters
-      filters={filters}
+      filtersPromise={filtersPromise}
       filterSettings={filterSettings}
       onFilterChange={handleFilterChange}
       searchInputPlaceholder="search term for services name"

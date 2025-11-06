@@ -1,5 +1,60 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.17
+
+### Patch Changes
+
+- e93df1a: For non-development environment always put organization name as subdomain.
+- Updated dependencies [8ea0089]
+  - @cloudoperators/juno-ui-components@5.9.0
+  - @cloudoperators/juno-app-doop@2.6.10
+  - @cloudoperators/juno-app-heureka@0.9.11
+  - @cloudoperators/juno-app-supernova@0.19.14
+  - @cloudoperators/juno-messages-provider@0.2.23
+
+## 0.7.16
+
+### Patch Changes
+
+- Updated dependencies [463d791]
+- Updated dependencies [25a91ac]
+  - @cloudoperators/juno-app-supernova@0.19.13
+  - @cloudoperators/juno-app-doop@2.6.9
+  - @cloudoperators/juno-ui-components@5.8.2
+  - @cloudoperators/juno-app-heureka@0.9.10
+  - @cloudoperators/juno-messages-provider@0.2.22
+
+## 0.7.15
+
+### Patch Changes
+
+- Updated dependencies [1bc71b6]
+- Updated dependencies [86e6188]
+  - @cloudoperators/juno-app-supernova@0.19.12
+  - @cloudoperators/juno-ui-components@5.8.1
+  - @cloudoperators/juno-app-doop@2.6.8
+  - @cloudoperators/juno-app-heureka@0.9.9
+  - @cloudoperators/juno-messages-provider@0.2.21
+
+## 0.7.14
+
+### Patch Changes
+
+- Updated dependencies [6b45b16]
+  - @cloudoperators/juno-app-heureka@0.9.8
+
+## 0.7.13
+
+### Patch Changes
+
+- Updated dependencies [2125722]
+- Updated dependencies [42ad17d]
+  - @cloudoperators/juno-ui-components@5.8.0
+  - @cloudoperators/juno-app-doop@2.6.7
+  - @cloudoperators/juno-app-heureka@0.9.7
+  - @cloudoperators/juno-app-supernova@0.19.11
+  - @cloudoperators/juno-messages-provider@0.2.20
+
 ## 0.7.12
 
 ### Patch Changes
