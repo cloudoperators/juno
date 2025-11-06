@@ -8,6 +8,7 @@ import DefaultLogo from "../../img/JunoUI_logo.svg"
 
 const pageHeaderStyles = `
   jn:bg-theme-pageheader
+  jn:text-theme-pageheader
   jn:border-theme-pageheader
   jn:border-b-[1px]
   jn:sticky
@@ -106,7 +107,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   )
 
   return (
-    <div className={`juno-pageheader theme-dark ${pageHeaderStyles} ${className}`} role="banner" {...props}>
+    <div className={`juno-pageheader ${pageHeaderStyles} ${className}`} role="banner" {...props}>
       <div className={`juno-pageheader-inner ${pageHeaderInnerStyles}`}>
         {href ? <a href={href}>{contentWrapper}</a> : contentWrapper}
       </div>
