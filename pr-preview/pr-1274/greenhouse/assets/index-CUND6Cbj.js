@@ -1,1 +1,0 @@
-import{r as c}from"./index-Dw6Hcc5u.js";import{u as n,R as a,a as u}from"./Shell-CGsk4xaz.js";import"./index-D6MkoIGU.js";function v(){const s=n({from:"/"}),{activeApp:t}=a.useRouteContext(),e=u().active(),{__s:p}=a.useSearch();return c.useLayoutEffect(()=>{const o=t||e[0];o&&s({to:`/${o}`,search:r=>({...r,__s:p})})},[t,e]),null}export{v as component};
