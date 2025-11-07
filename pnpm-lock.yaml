@@ -262,8 +262,8 @@ importers:
         specifier: 7.0.0
         version: 7.0.0(typescript@5.9.3)
       '@svgr/plugin-jsx':
-        specifier: 7.0.0
-        version: 7.0.0
+        specifier: 8.1.0
+        version: 8.1.0(@svgr/core@7.0.0(typescript@5.9.3))
       '@tanstack/react-query':
         specifier: 5.90.5
         version: 5.90.5(react@19.2.0)
@@ -2976,16 +2976,8 @@ packages:
     resolution: {integrity: sha512-8QqtOQT5ACVlmsvKOJNEaWmRPmcojMOzCz4Hs2BGG/toAp/K38LcsMRyLp349glq5AzJbCEeimEoxaX6v/fLrA==}
     engines: {node: '>=14'}
 
-  '@svgr/hast-util-to-babel-ast@7.0.0':
-    resolution: {integrity: sha512-42Ej9sDDEmsJKjrfQ1PHmiDiHagh/u9AHO9QWbeNx4KmD9yS5d1XHmXUNINfUcykAU+4431Cn+k6Vn5mWBYimQ==}
-    engines: {node: '>=14'}
-
   '@svgr/hast-util-to-babel-ast@8.0.0':
     resolution: {integrity: sha512-EbDKwO9GpfWP4jN9sGdYwPBU0kdomaPIL2Eu4YwmgP+sJeXT+L7bMwJUBnhzfH8Q2qMBqZ4fJwpCyYsAN3mt2Q==}
-    engines: {node: '>=14'}
-
-  '@svgr/plugin-jsx@7.0.0':
-    resolution: {integrity: sha512-SWlTpPQmBUtLKxXWgpv8syzqIU8XgFRvyhfkam2So8b3BE0OS0HPe5UfmlJ2KIC+a7dpuuYovPR2WAQuSyMoPw==}
     engines: {node: '>=14'}
 
   '@svgr/plugin-jsx@8.1.0':
@@ -9829,21 +9821,17 @@ snapshots:
       - supports-color
       - typescript
 
-  '@svgr/hast-util-to-babel-ast@7.0.0':
-    dependencies:
-      '@babel/types': 7.28.4
-      entities: 4.5.0
-
   '@svgr/hast-util-to-babel-ast@8.0.0':
     dependencies:
       '@babel/types': 7.28.4
       entities: 4.5.0
 
-  '@svgr/plugin-jsx@7.0.0':
+  '@svgr/plugin-jsx@8.1.0(@svgr/core@7.0.0(typescript@5.9.3))':
     dependencies:
       '@babel/core': 7.28.4
-      '@svgr/babel-preset': 7.0.0(@babel/core@7.28.4)
-      '@svgr/hast-util-to-babel-ast': 7.0.0
+      '@svgr/babel-preset': 8.1.0(@babel/core@7.28.4)
+      '@svgr/core': 7.0.0(typescript@5.9.3)
+      '@svgr/hast-util-to-babel-ast': 8.0.0
       svg-parser: 2.0.4
     transitivePeerDependencies:
       - supports-color
