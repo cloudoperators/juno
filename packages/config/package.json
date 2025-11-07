@@ -10,7 +10,7 @@
     "@eslint/compat": "1.4.0",
     "@types/eslint__js": "8.42.3",
     "eslint": "9.38.0",
-    "eslint-config-prettier": "9.1.2",
+    "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.4",
     "eslint-plugin-react": "7.37.5",
     "globals": "15.15.0",
