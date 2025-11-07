@@ -30,7 +30,7 @@
     "tailwindcss": "4.1.15",
     "vite": "7.1.11",
     "vitest": "3.2.4",
-    "zustand": "4.5.7"
+    "zustand": "5.0.8"
   },
   "scripts": {
     "test": "vitest run",

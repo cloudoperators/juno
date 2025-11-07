@@ -67,8 +67,8 @@ importers:
         specifier: 4.1.2
         version: 4.1.2(react@19.2.0)
       zustand:
-        specifier: 4.5.7
-        version: 4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)
+        specifier: 5.0.8
+        version: 5.0.8(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))
     devDependencies:
       '@cloudoperators/juno-config':
         specifier: workspace:*
@@ -219,8 +219,8 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.9.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
       zustand:
-        specifier: 4.5.7
-        version: 4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)
+        specifier: 5.0.8
+        version: 5.0.8(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))
 
   apps/example:
     dependencies:
@@ -252,8 +252,8 @@ importers:
         specifier: 4.5.0
         version: 4.5.0(rollup@4.50.1)(typescript@5.9.3)(vite@7.1.11(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       zustand:
-        specifier: 4.5.7
-        version: 4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)
+        specifier: 5.0.8
+        version: 5.0.8(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))
     devDependencies:
       '@cloudoperators/juno-config':
         specifier: workspace:*
@@ -395,8 +395,8 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.9.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
       zustand:
-        specifier: 4.5.7
-        version: 4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)
+        specifier: 5.0.8
+        version: 5.0.8(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))
 
   apps/heureka:
     dependencies:
@@ -598,8 +598,8 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.9.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
       zustand:
-        specifier: 4.5.7
-        version: 4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)
+        specifier: 5.0.8
+        version: 5.0.8(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))
 
   apps/template:
     dependencies:
@@ -619,8 +619,8 @@ importers:
         specifier: 4.1.2
         version: 4.1.2(react@19.2.0)
       zustand:
-        specifier: 4.5.7
-        version: 4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)
+        specifier: 5.0.8
+        version: 5.0.8(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))
     devDependencies:
       '@cloudoperators/juno-config':
         specifier: workspace:*
@@ -811,8 +811,8 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.9.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
       zustand:
-        specifier: 4.5.7
-        version: 4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)
+        specifier: 5.0.8
+        version: 5.0.8(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))
 
   packages/oauth:
     dependencies:
@@ -7311,19 +7311,22 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
-  zustand@4.5.7:
-    resolution: {integrity: sha512-CHOUy7mu3lbD6o6LJLfllpjkzhHXSBlX8B9+qPddUsIfeF5S/UZ5q0kmCsnRqT1UHFQZchNFDDzMbQsuesHWlw==}
-    engines: {node: '>=12.7.0'}
+  zustand@5.0.8:
+    resolution: {integrity: sha512-gyPKpIaxY9XcO2vSMrLbiER7QMAMGOQZVRdJ6Zi782jkbzZygq5GI9nG8g+sMgitRtndwaBSl7uiqC49o1SSiw==}
+    engines: {node: '>=12.20.0'}
     peerDependencies:
-      '@types/react': '>=16.8'
+      '@types/react': '>=18.0.0'
       immer: '>=9.0.6'
-      react: '>=16.8'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
     peerDependenciesMeta:
       '@types/react':
         optional: true
       immer:
         optional: true
       react:
+        optional: true
+      use-sync-external-store:
         optional: true
 
   zwitch@2.0.4:
@@ -14903,12 +14906,11 @@ snapshots:
 
   zod@3.25.76: {}
 
-  zustand@4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0):
-    dependencies:
-      use-sync-external-store: 1.5.0(react@19.2.0)
+  zustand@5.0.8(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0)):
     optionalDependencies:
       '@types/react': 19.2.2
       immer: 10.2.0
       react: 19.2.0
+      use-sync-external-store: 1.5.0(react@19.2.0)
 
   zwitch@2.0.4: {}
