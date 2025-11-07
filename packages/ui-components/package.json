@@ -46,7 +46,7 @@
     "flatpickr": "4.6.13",
     "focus-trap-react": "11.0.4",
     "jsdom": "26.1.0",
-    "node-sass-glob-importer": "3.0.2",
+    "node-sass-glob-importer": "5.3.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-tabs": "6.1.0",
