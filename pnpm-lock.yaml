@@ -259,8 +259,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/config
       '@svgr/core':
-        specifier: 7.0.0
-        version: 7.0.0(typescript@5.9.3)
+        specifier: 8.1.0
+        version: 8.1.0(typescript@5.9.3)
       '@svgr/plugin-jsx':
         specifier: 7.0.0
         version: 7.0.0
@@ -2967,10 +2967,6 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
-
-  '@svgr/core@7.0.0':
-    resolution: {integrity: sha512-ztAoxkaKhRVloa3XydohgQQCb0/8x9T63yXovpmHzKMkHO6pkjdsIAWKOS4bE95P/2quVh1NtjSKlMRNzSBffw==}
-    engines: {node: '>=14'}
 
   '@svgr/core@8.1.0':
     resolution: {integrity: sha512-8QqtOQT5ACVlmsvKOJNEaWmRPmcojMOzCz4Hs2BGG/toAp/K38LcsMRyLp349glq5AzJbCEeimEoxaX6v/fLrA==}
@@ -9807,16 +9803,6 @@ snapshots:
       '@svgr/babel-plugin-svg-em-dimensions': 8.0.0(@babel/core@7.28.4)
       '@svgr/babel-plugin-transform-react-native-svg': 8.1.0(@babel/core@7.28.4)
       '@svgr/babel-plugin-transform-svg-component': 8.0.0(@babel/core@7.28.4)
-
-  '@svgr/core@7.0.0(typescript@5.9.3)':
-    dependencies:
-      '@babel/core': 7.28.4
-      '@svgr/babel-preset': 7.0.0(@babel/core@7.28.4)
-      camelcase: 6.3.0
-      cosmiconfig: 8.3.6(typescript@5.9.3)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
 
   '@svgr/core@8.1.0(typescript@5.9.3)':
     dependencies:
