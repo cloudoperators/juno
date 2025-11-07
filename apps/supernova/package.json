@@ -27,7 +27,7 @@
     "@vitejs/plugin-react": "4.7.0",
     "immer": "10.2.0",
     "interweave": "13.1.1",
-    "jsdom": "26.1.0",
+    "jsdom": "27.1.0",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.1.15",
     "vite": "7.1.11",
