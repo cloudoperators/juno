@@ -41,7 +41,7 @@
     "@testing-library/user-event": "14.6.1",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "@vitejs/plugin-react": "4.7.0",
+    "@vitejs/plugin-react": "5.1.0",
     "eslint-plugin-storybook": "9.1.13",
     "flatpickr": "4.6.13",
     "focus-trap-react": "11.0.4",

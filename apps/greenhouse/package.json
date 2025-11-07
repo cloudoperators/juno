@@ -23,7 +23,7 @@
     "@types/lodash": "4.17.20",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "@vitejs/plugin-react": "4.7.0",
+    "@vitejs/plugin-react": "5.1.0",
     "github-markdown-css": "5.8.1",
     "immer": "10.2.0",
     "interweave": "13.1.1",
