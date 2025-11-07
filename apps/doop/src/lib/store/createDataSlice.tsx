@@ -142,7 +142,10 @@ const createDataSlice = (set, get) => ({
           false,
           "data/setData"
         )
-        get().filters.actions.ensureFilterType()
+        // Only ensure filter type if it hasn't been ensured yet
+        if (!get().globals.isFilterTypeEnsured) {
+          get().filters.actions.ensureFilterType()
+        }
         // filter items
         get().data.actions.filterItems()
       },

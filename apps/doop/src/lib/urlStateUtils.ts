@@ -3,9 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { valueToLabel } from "./helpers"
+
 const ACTIVE_FILTERS = "f"
 const SEARCH_TERM = "s"
 const DETAILS_VIOLATION_GROUP = "v"
+
+export type Filter = {
+  id: string
+  type: string
+  key: string
+  value: string
+  label: string
+}
 
 export const readLegacyUrlState = (state: any) => {
   const activeFilters = state?.[ACTIVE_FILTERS]
@@ -69,22 +79,27 @@ export const convertAppStateToUrlState = (appState: any) => {
 export const getFiltersForApp = (prefix: string, urlState: Record<string, string | string[]>) => {
   return Object.entries(urlState)
     .filter(([key]) => key.startsWith(prefix))
-    .reduce((acc: Array<{ key: string; value: string }>, [key, value]) => {
+    .reduce((acc: Array<Filter>, [key, value]) => {
       const filterKey = key.replace(prefix, "")
+      const [type, id] = filterKey.split(":")
+
       if (value === undefined || value === null) return acc
       // if the value is an array, add each value as a separate filter
       if (Array.isArray(value)) {
         acc = [
           ...acc,
           ...value.map((v) => ({
+            id,
+            type,
             key: filterKey,
             value: v.trim(),
+            label: id,
           })),
         ]
       }
       // if the value is a string, add it as a single filter
       else if (typeof value === "string") {
-        acc.push({ key: filterKey, value: value.trim() })
+        acc.push({ id, type, key: filterKey, value: value.trim(), label: id })
       }
       return acc
     }, [])

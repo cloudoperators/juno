@@ -158,9 +158,9 @@ describe("getFiltersForApp", () => {
     const result = getFiltersForApp("f_", urlState)
 
     expect(result).toEqual([
-      { key: "status", value: "active" },
-      { key: "status", value: "pending" },
-      { key: "severity", value: "high" },
+      { id: undefined, type: "status", key: "status", value: "active", label: undefined },
+      { id: undefined, type: "status", key: "status", value: "pending", label: undefined },
+      { id: undefined, type: "severity", key: "severity", value: "high", label: undefined },
     ])
   })
 
@@ -176,7 +176,7 @@ describe("getFiltersForApp", () => {
 
     const result = getFiltersForApp("f_", urlState)
 
-    expect(result).toEqual([{ key: "status", value: "active" }])
+    expect(result).toEqual([{ id: undefined, type: "status", key: "status", value: "active", label: undefined }])
   })
 
   it("should only include keys with matching prefix", () => {
@@ -188,7 +188,7 @@ describe("getFiltersForApp", () => {
 
     const result = getFiltersForApp("f_", urlState)
 
-    expect(result).toEqual([{ key: "status", value: "active" }])
+    expect(result).toEqual([{ id: undefined, type: "status", key: "status", value: "active", label: undefined }])
   })
 })
 
@@ -205,9 +205,9 @@ describe("convertUrlStateToAppState", () => {
 
     expect(result).toEqual({
       activeFilters: [
-        { key: "status", value: "active" },
-        { key: "status", value: "pending" },
-        { key: "severity", value: "high" },
+        { id: undefined, type: "status", key: "status", value: "active", label: undefined },
+        { id: undefined, type: "status", key: "status", value: "pending", label: undefined },
+        { id: undefined, type: "severity", key: "severity", value: "high", label: undefined },
       ],
       searchTerm: "error",
       violationGroup: "group123",
