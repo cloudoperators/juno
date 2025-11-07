@@ -36,7 +36,7 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
-    "@apollo/client": "3.14.0",
+    "@apollo/client": "4.0.9",
     "@cloudoperators/juno-config": "workspace:*",
     "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/typescript": "4.1.6",
