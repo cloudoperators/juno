@@ -7,8 +7,8 @@ import React from "react"
 
 const containerStyles = (px: boolean, py: boolean) => {
   return `
-    ${px ? "jn-px-6 " : " "} 
-    ${py ? " jn-py-6" : ""}
+    ${px ? "jn:px-6 " : " "} 
+    ${py ? " jn:py-6" : ""}
   `
 }
 

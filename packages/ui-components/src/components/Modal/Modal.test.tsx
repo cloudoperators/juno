@@ -31,16 +31,33 @@ describe("Modal", () => {
     expect(screen.getByRole("dialog")).toHaveClass("juno-modal")
   })
 
-  test("renders a title as passed", async () => {
-    await waitFor(() =>
-      render(
-        <PortalProvider>
-          <Modal title="My Modal" open />
-        </PortalProvider>
-      )
+  test("renders a string title correctly", () => {
+    render(
+      <PortalProvider>
+        <Modal open title="String Title" />
+      </PortalProvider>
     )
-    expect(screen.getByRole("dialog")).toBeInTheDocument()
-    expect(screen.getByRole("dialog")).toHaveTextContent("My Modal")
+    const dialog = screen.getByRole("dialog")
+    const titleElement = screen.getByText("String Title")
+    expect(dialog).toBeInTheDocument()
+    expect(titleElement).toBeInTheDocument()
+    expect(titleElement).toHaveAttribute("id")
+    expect(dialog).toHaveAttribute("aria-labelledby", titleElement.getAttribute("id"))
+  })
+
+  test("renders a ReactNode title correctly", () => {
+    render(
+      <PortalProvider>
+        <Modal open title={<p>Node Title</p>} />
+      </PortalProvider>
+    )
+
+    const dialog = screen.getByRole("dialog")
+    const titleWrapper = screen.getByText("Node Title").closest("div")
+
+    expect(dialog).toBeInTheDocument()
+    expect(titleWrapper).toBeInTheDocument()
+    expect(dialog).toHaveAttribute("aria-labelledby", titleWrapper?.id)
   })
 
   test("renders a title when a 'heading' prop is passed", async () => {
@@ -350,5 +367,53 @@ describe("Modal", () => {
       )
     )
     expect(screen.getByRole("dialog")).toHaveAttribute("name", "My little Modal")
+  })
+
+  test("renders a disabled confirm action button and ensures onConfirm is not triggered", async () => {
+    await waitFor(() =>
+      render(
+        <PortalProvider>
+          <Modal open onConfirm={mockOnConfirm} confirmButtonLabel="Proceed" disableConfirmButton />
+        </PortalProvider>
+      )
+    )
+
+    const confirmButton = screen.getByRole("button", { name: "Proceed" })
+    expect(confirmButton).toBeInTheDocument()
+    expect(confirmButton).toHaveAttribute("disabled")
+
+    await waitFor(() => userEvent.click(confirmButton))
+    expect(mockOnConfirm).not.toHaveBeenCalled()
+  })
+
+  test("renders a disabled cancel action button, ensures onCancel isn't triggered and that the close button is disabled", async () => {
+    await waitFor(() =>
+      render(
+        <PortalProvider>
+          <Modal open onCancel={mockOnCancel} cancelButtonLabel="Cancel" disableCancelButton />
+        </PortalProvider>
+      )
+    )
+
+    const cancelButton = screen.getByRole("button", { name: "Cancel" })
+    expect(cancelButton).toBeInTheDocument()
+    expect(cancelButton).toHaveAttribute("disabled")
+
+    expect(screen.getByRole("button", { name: "close" })).toBeDisabled()
+
+    await waitFor(() => userEvent.click(cancelButton))
+    expect(mockOnCancel).not.toHaveBeenCalled()
+  })
+
+  test("renders a modal with a disabled close button if disableCloseButton is true", async () => {
+    await waitFor(() =>
+      render(
+        <PortalProvider>
+          <Modal open onCancel={mockOnCancel} disableCloseButton />
+        </PortalProvider>
+      )
+    )
+    expect(screen.getByRole("dialog")).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "close" })).toBeDisabled()
   })
 })

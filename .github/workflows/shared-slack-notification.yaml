@@ -19,7 +19,7 @@ on:
 
 jobs:
   notify:
-    runs-on: [default]
+    runs-on: [ ubuntu-latest ]
     steps:
       - name: Set Slack Payload
         env:
@@ -58,7 +58,7 @@ jobs:
           )" >> $GITHUB_ENV
 
       - name: Send a Slack notification if a publish happens
-        uses: slackapi/slack-github-action@b0fa283ad8fea605de13dc3f449259339835fc52 # v2.1.0
+        uses: slackapi/slack-github-action@91efab103c0de0a537f72a35f6b8cda0ee76bf0a # v2.1.1
         with:
           payload: ${{ env.FULL_PAYLOAD }}
           webhook-type: incoming-webhook

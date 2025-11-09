@@ -332,6 +332,34 @@ Example value:
 false
 ```
 
+### Enable Hashed Routing (**optional**)
+
+Set to `true` to enable hash-based routing instead of the default browser history routing. This is useful when the app is embedded within another application or when the hosting environment doesn't support browser history API. When enabled, routes will use hash fragments (e.g., `#/alerts` instead of `/alerts`). Default is `false`.
+
+To enable hashed routing:
+
+- Configured via app prop `enableHashedRouting`
+
+Example value:
+
+```json
+true
+```
+
+### Base Path (**optional**)
+
+Specifies the base path for the application routing. This is useful when the app is deployed in a subdirectory or when it needs to be prefixed with a specific path. The base path will be prepended to all route paths. Default is `"/"`.
+
+To set the base path:
+
+- Configured via app prop `basePath`
+
+Example value:
+
+```json
+"/greenhouse/supernova"
+```
+
 ## Contributing
 
 We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.

@@ -63,7 +63,6 @@ pnpx turbo test
 These are the customisable application properties that you can define in your `appProps.json` file:
 
 - **endpoint**:
-
   - Specifies the URL for API requests.
   - **Default**: Base URL of the current page
   - **Example**:

@@ -17,7 +17,7 @@ describe("MainContainer", () => {
   test("renders a main container with flex grow", () => {
     render(<MainContainer />)
     expect(screen.getByRole("main")).toBeInTheDocument()
-    expect(screen.getByRole("main")).toHaveClass("jn-grow")
+    expect(screen.getByRole("main")).toHaveClass("jn:grow")
   })
 
   test("renders children as passed", () => {

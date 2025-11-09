@@ -3,31 +3,70 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-
-import ShellLayout from "./components/layout/ShellLayout"
-import Auth from "./components/Auth"
-// @ts-expect-error TS(2792): Cannot find module './styles.scss?inline'. Did you... Remove this comment to see the full error message
-import styles from "./styles.scss?inline"
-
+import React, { StrictMode } from "react"
+import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
-import Extensions from "./components/Extensions"
-import StoreProvider from "./components/StoreProvider"
-
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import { AuthProvider } from "./components/AuthProvider"
-import useUrlState from "./hooks/useUrlState"
+import Auth from "./components/Auth"
+import styles from "./styles.css?inline"
+import StoreProvider from "./components/StoreProvider"
+import { AuthProvider, useAuth } from "./components/AuthProvider"
+import { routeTree } from "./routeTree.gen"
 
-const Shell = () => {
-  useUrlState()
-  return (
-    <ShellLayout>
-      <Extensions />
-    </ShellLayout>
-  )
+// Create a new router instance
+const router = createRouter({
+  routeTree,
+  context: {
+    appProps: undefined!,
+  },
+})
+
+// Register the router instance for type safety
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router
+  }
 }
 
-const StyledShell = (props: any) => {
+export type AppProps = {
+  authClientId?: string
+  authIssuerUrl?: string
+  demoOrg?: string
+  mockAuth?: boolean
+  demoUserToken?: string
+  currentHost?: string
+  enableHashedRouting?: boolean
+}
+
+const getBasePath = (auth: any) => {
+  // Determine if org is part of the domain
+  const currentUrl = new URL(window.location.href)
+  const organizationIsPartOfDomain = currentUrl.host.match(/^(.+)\.dashboard\..+/)
+  if (organizationIsPartOfDomain) {
+    return "/"
+  }
+  // If the organization is not part of the domain, extract it from the auth token
+  const orgString = auth?.data?.raw.groups?.find((g: any) => g.indexOf("organization:") === 0)
+  return orgString ? orgString.split(":")[1] : undefined
+}
+
+function App(props: AppProps) {
+  const auth = useAuth()
+  /*
+   * Dynamically change the type of history on the router
+   * based on the enableHashedRouting prop. This ensures that
+   * the correct history type is used when A Shell app does not
+   * want the app to use browser history.
+   */
+  router.update({
+    basepath: getBasePath(auth),
+    context: { appProps: props },
+    history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
+  })
+  return <RouterProvider router={router} />
+}
+
+const StyledShell = (props: AppProps) => {
   props = { ...props, currentHost: props.currentHost === "origin" ? window.location.origin : props.currentHost }
 
   return (
@@ -44,7 +83,9 @@ const StyledShell = (props: any) => {
         >
           <StoreProvider options={props}>
             <MessagesProvider>
-              <Shell {...props} />
+              <StrictMode>
+                <App {...props} />
+              </StrictMode>
             </MessagesProvider>
           </StoreProvider>
         </Auth>

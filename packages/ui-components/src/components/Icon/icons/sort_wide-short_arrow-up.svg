@@ -1,0 +1,14 @@
+<!--
+  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-icon="sort_wide-short_arrow-up">
+<rect width="24" height="24" fill="none" />
+<path d="M12 3H23V6H12V3Z" />
+<path d="M12 8H20V11H12V8Z" />
+<path d="M12 13H17V16H12V13Z" />
+<path d="M12 21H15V18H12V21Z" />
+<path d="M4 21H7V8H4V21Z" />
+<path d="M10 8H1L5.5 3L10 8Z" />
+</svg>

@@ -4,12 +4,12 @@
  */
 
 import React from "react"
-import { StoryFn, Meta } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { GridRow } from "./GridRow.component"
 import { GridColumn } from "../GridColumn/GridColumn.component"
 
-export default {
+const meta: Meta<typeof GridRow> = {
   title: "Layout/Grid/GridRow",
   component: GridRow,
   argTypes: {
@@ -19,17 +19,17 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div className="jn-bg-juno-blue-3 jn-text-juno-grey-blue">
+      <div className="jn:bg-juno-blue-3 jn:text-juno-grey-blue">
         <Story />
       </div>
     ),
   ],
-} as Meta<typeof GridRow>
+}
 
-const Template: StoryFn<typeof GridRow> = (args) => <GridRow {...args} />
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {
     children: [
       <GridColumn key="1">Column</GridColumn>,
@@ -46,4 +46,4 @@ export const Default = {
       <GridColumn key="12">Column</GridColumn>,
     ],
   },
-} as Meta<typeof GridRow>
+}

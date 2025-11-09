@@ -4,10 +4,11 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { StyleProvider } from "./index"
 import { StyleProviderProps } from "./StyleProvider.component"
 
-export default {
+const meta: Meta<typeof StyleProvider> = {
   title: "Layout/StyleProvider",
   component: StyleProvider,
   argTypes: {
@@ -23,37 +24,36 @@ export default {
   },
 }
 
+export default meta
+type Story = StoryObj<typeof meta>
+
 const Template = (args: StyleProviderProps) => (
   <StyleProvider {...args}>{args.children || args.stylesWrapper || "undefined"}</StyleProvider>
 )
 
-export const AddStylesToHead = {
+export const AddStylesToHead: Story = {
   render: Template,
-
   args: {
     stylesWrapper: "head",
   },
 }
 
-export const AddInlineStyles = {
+export const AddInlineStyles: Story = {
   render: Template,
-
   args: {
     stylesWrapper: "inline",
   },
 }
 
-export const AddStylesToShadowRoot = {
+export const AddStylesToShadowRoot: Story = {
   render: Template,
-
   args: {
     stylesWrapper: "shadowRoot",
   },
 }
 
-export const WithLightTheme = {
+export const WithLightTheme: Story = {
   render: Template,
-
   args: {
     stylesWrapper: "shadowRoot",
     theme: "theme-light",

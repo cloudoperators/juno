@@ -6,30 +6,30 @@
 import React from "react"
 
 const spinnerBaseStyles = `
-  jn-animate-spin 
-  jn-mr-3 
-  jn-h-5 
-  jn-w-5 
+  jn:animate-spin 
+  jn:mr-3 
+  jn:h-5 
+  jn:w-5 
 `
 
 const primary = `
-  jn-text-theme-accent
+  jn:text-theme-accent
 `
 
 const danger = `
-  jn-text-theme-danger 
+  jn:text-theme-danger 
 `
 
 const success = `
-  jn-text-theme-success
+  jn:text-theme-success
 `
 
 const warning = `
-  jn-text-theme-warning  
+  jn:text-theme-warning  
 `
 
 const defaultColor = `
-  jn-text-theme-on-default
+  jn:text-theme-on-default
 `
 
 /** 
@@ -80,9 +80,9 @@ export const Spinner: React.FC<SpinnerProps> = ({
       role="progressbar"
       {...props}
     >
-      <circle className="jn-opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+      <circle className="jn:opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
       <path
-        className="jn-opacity-75"
+        className="jn:opacity-75"
         fill="currentColor"
         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
       ></path>

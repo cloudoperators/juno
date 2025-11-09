@@ -4,10 +4,11 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Container, ContainerProps } from "./index"
 
-export default {
+const meta: Meta<typeof Container> = {
   title: "Layout/Container",
   component: Container,
   argTypes: {
@@ -28,11 +29,11 @@ export default {
   },
 }
 
-const Template = (args: ContainerProps) => <Container {...args}>Content goes here</Container>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Basic = {
-  render: Template,
-
+export const Basic: Story = {
+  render: (args: ContainerProps) => <Container {...args}>Content goes here</Container>,
   parameters: {
     docs: {
       description: {
@@ -41,13 +42,11 @@ export const Basic = {
       },
     },
   },
-
   args: {},
 }
 
-export const WithVerticalPadding = {
-  render: Template,
-
+export const WithVerticalPadding: Story = {
+  render: (args: ContainerProps) => <Container {...args}>Content goes here</Container>,
   parameters: {
     docs: {
       description: {
@@ -56,7 +55,6 @@ export const WithVerticalPadding = {
       },
     },
   },
-
   args: {
     py: true,
   },

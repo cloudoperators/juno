@@ -5,19 +5,15 @@
 
 import React from "react"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-// @ts-expect-error TS(2792): Cannot find module 'github-markdown-css/github-mar... Remove this comment to see the full error message
 import markdownDark from "github-markdown-css/github-markdown-dark.css?inline"
-// @ts-expect-error TS(2792): Cannot find module 'github-markdown-css/github-mar... Remove this comment to see the full error message
 import markdownLight from "github-markdown-css/github-markdown-light.css?inline"
-// @ts-expect-error TS(2792): Cannot find module 'github-markdown-css/github-mar... Remove this comment to see the full error message
 import markdown from "github-markdown-css/github-markdown.css?inline"
 import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
 import usePluginDefinitionsStore from "./plugindefinitions/store"
 import AsyncWorker from "./plugins/components/AsyncWorker"
 import StoreProvider, { useGlobalsActions } from "./plugins/components/StoreProvider"
-// @ts-expect-error TS(2792): Cannot find module './styles.scss?inline'. Did you... Remove this comment to see the full error message
-import styles from "./styles.scss?inline"
+import styles from "./styles.css?inline"
 
 const URL_STATE_KEY = "plugin-admin"
 

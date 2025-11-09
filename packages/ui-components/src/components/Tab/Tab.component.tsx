@@ -9,26 +9,26 @@ import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 
 const tabStyles = `
-  jn-flex
-  jn-font-bold
-  jn-px-[1.5625rem]
-  jn-items-center
-  jn-cursor-pointer
-  focus:jn-outline-none 
+  jn:flex
+  jn:font-bold
+  jn:px-[1.5625rem]
+  jn:items-center
+  jn:cursor-pointer
+  jn:focus:outline-hidden 
 `
 
 const disabledTabStyles = `
-  jn-pointer-events-none
-  jn-opacity-50
+  jn:pointer-events-none
+  jn:opacity-50
 `
 
 const selectedTabStyles = `
-  jn-border-b-[3px]
-  jn-border-theme-tab-active-bottom
+  jn:border-b-[3px]
+  jn:border-theme-tab-active-bottom
 `
 
 const iconStyles = `
-  jn-mr-2
+  jn:mr-2
 `
 
 /** A Tab Component representing an individual Tab inside a wrapping TabList inside a wrapping Tabs component. Not to be used standalone outside of the mentioned parent components.

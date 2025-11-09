@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Pill } from "./index.ts"
 
-export default {
+const meta: Meta<typeof Pill> = {
   title: "Components/Pill",
   component: Pill,
   argTypes: {
@@ -22,7 +23,10 @@ export default {
   },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {
     pillKey: "os",
     pillKeyLabel: "OS",
@@ -31,7 +35,7 @@ export const Default = {
   },
 }
 
-export const Closeable = {
+export const Closeable: Story = {
   args: {
     pillKey: "os",
     pillKeyLabel: "OS",
@@ -41,14 +45,14 @@ export const Closeable = {
   },
 }
 
-export const ValueOnly = {
+export const ValueOnly: Story = {
   args: {
     pillValue: "mac_os",
     pillValueLabel: "Mac OS",
   },
 }
 
-export const ValueOnlyCloseable = {
+export const ValueOnlyCloseable: Story = {
   args: {
     pillValue: "mac_os",
     pillValueLabel: "Mac OS",

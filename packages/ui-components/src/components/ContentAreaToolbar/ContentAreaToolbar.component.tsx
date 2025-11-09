@@ -6,12 +6,12 @@
 import React from "react"
 
 const baseToolbarStyles = `
-  jn-bg-theme-background-lvl-1
-  jn-py-3
-  jn-px-6
-  jn-flex
-  jn-items-center
-  jn-justify-end
+  jn:bg-theme-background-lvl-1
+  jn:py-3
+  jn:px-6
+  jn:flex
+  jn:items-center
+  jn:justify-end
 `
 
 export interface ContentAreaToolbarProps extends React.HTMLAttributes<HTMLDivElement> {

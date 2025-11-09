@@ -51,7 +51,6 @@ The **Carbon** platform needs a flexible mechanism for loading and managing vari
 **Unified Configuration Approach**
 
 - **Manifest-Driven Configuration:** A manifest file or configuration source should define how each extension is loaded. The manifest includes the app’s entry points, dependencies, routes, and initialization parameters. It should specify:
-
   - Type of extension (colocated, remote, iframe, etc.)
   - URL or file location for remote extensions
   - Props, parameters, or API endpoints the extension will require

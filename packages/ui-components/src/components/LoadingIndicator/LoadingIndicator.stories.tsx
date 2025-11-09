@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
+
 import { LoadingIndicator } from "./"
 
-export default {
+const meta: Meta<typeof LoadingIndicator> = {
   title: "Components/LoadingIndicator",
   component: LoadingIndicator,
   argTypes: {
@@ -13,20 +15,33 @@ export default {
       control: { type: "number" },
     },
   },
+  parameters: {
+    docs: {
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
+    },
+  },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {},
 }
 
-export const SizedLoadingIndicator = {
+export const SizedLoadingIndicator: Story = {
   args: {
     size: "300",
   },
 }
 
-export const ColoredLoadingIndicator = {
+export const ColoredLoadingIndicator: Story = {
   args: {
-    color: "jn-text-theme-info",
+    color: "jn:text-theme-info",
   },
 }

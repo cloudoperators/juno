@@ -8,25 +8,25 @@ import { TabList as ReactTabList, TabListProps as ReactTabListProps } from "reac
 import { TabsVariant, useTabsContext } from "../Tabs/Tabs.component"
 
 const tabListStyles = `
-  jn-flex
-  jn-h-[3.4375rem]
+  jn:flex
+  jn:h-[3.4375rem]
 `
 
 const getVariantStyles = (variant: TabsVariant) => {
   switch (variant) {
     case "main":
-      return `jn-bg-theme-tab-navigation-top`
+      return `jn:bg-theme-tab-navigation-top`
     case "codeblocks":
       return `
-        jn-text-sm
-        jn-bg-theme-code-block
-        jn-border-b-[1px]
-        jn-border-theme-codeblock-bar 
+        jn:text-sm
+        jn:bg-theme-code-block
+        jn:border-b-[1px]
+        jn:border-theme-codeblock-bar 
       `
     default:
       return `
-        jn-border-b-[1px] 
-        jn-border-theme-tab-navigation-content-bottom
+        jn:border-b-[1px] 
+        jn:border-theme-tab-navigation-content-bottom
       `
   }
 }

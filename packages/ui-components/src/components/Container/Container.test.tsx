@@ -21,22 +21,22 @@ describe("Container", () => {
   test("renders a container with horizontal padding by default", () => {
     render(<Container data-testid="container" />)
     expect(screen.getByTestId("container")).toBeInTheDocument()
-    expect(screen.getByTestId("container")).toHaveClass("jn-px-6")
-    expect(screen.getByTestId("container")).not.toHaveClass("jn-py-6")
+    expect(screen.getByTestId("container")).toHaveClass("jn:px-6")
+    expect(screen.getByTestId("container")).not.toHaveClass("jn:py-6")
   })
 
   test("renders a container without horizontal padding as passed", () => {
     render(<Container data-testid="container" px={false} />)
     expect(screen.getByTestId("container")).toBeInTheDocument()
-    expect(screen.getByTestId("container")).not.toHaveClass("jn-px-6")
-    expect(screen.getByTestId("container")).not.toHaveClass("jn-py-6")
+    expect(screen.getByTestId("container")).not.toHaveClass("jn:px-6")
+    expect(screen.getByTestId("container")).not.toHaveClass("jn:py-6")
   })
 
   test("renders a container with vertical padding as passed", () => {
     render(<Container data-testid="container" py={true} />)
     expect(screen.getByTestId("container")).toBeInTheDocument()
-    expect(screen.getByTestId("container")).toHaveClass("jn-px-6")
-    expect(screen.getByTestId("container")).toHaveClass("jn-py-6")
+    expect(screen.getByTestId("container")).toHaveClass("jn:px-6")
+    expect(screen.getByTestId("container")).toHaveClass("jn:py-6")
   })
 
   test("renders a custom className", () => {

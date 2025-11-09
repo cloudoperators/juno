@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { FILTER_TYPE_UNKNOWN } from "./createDataSlice"
+import { FILTER_TYPE_UNKNOWN } from "../filterViolations"
 import { valueToLabel } from "../helpers"
 
 // converts standardized filters object:
@@ -20,7 +20,7 @@ import { valueToLabel } from "../helpers"
 //       "value": "containers"
 //   }
 // ]
-const parseInitialFilters = (initialFilters: any) => {
+export const parseInitialFilters = (initialFilters: any) => {
   if (typeof initialFilters !== "object" || !Object.keys(initialFilters).length) return undefined
 
   return Object.keys(initialFilters)
@@ -125,7 +125,7 @@ const createFiltersSlice = (set, get, options) => ({
             filters: { ...state.filters, active: [] },
           }),
           false,
-          "filters.remove"
+          "filters.remove_all"
         )
         // filter items
         get().data.actions.filterItems()
@@ -134,6 +134,7 @@ const createFiltersSlice = (set, get, options) => ({
         set((state: any) => ({
           filters: { ...state.filters, searchTerm },
         }))
+
         // filter items
         get().data.actions.filterItems()
       },

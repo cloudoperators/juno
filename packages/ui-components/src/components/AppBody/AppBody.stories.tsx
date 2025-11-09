@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { AppBody } from "./index.ts"
-import { AppBodyProps } from "./AppBody.component.tsx"
 
-export default {
+const meta: Meta<typeof AppBody> = {
   title: "Internal/AppBody",
   component: AppBody,
   argTypes: {
@@ -18,11 +17,10 @@ export default {
   },
 }
 
-const Template = (args: AppBodyProps) => <AppBody {...args}></AppBody>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Body = {
-  render: Template,
-
+export const Body: Story = {
   parameters: {
     docs: {
       description: {
@@ -31,6 +29,5 @@ export const Body = {
       },
     },
   },
-
   args: {},
 }

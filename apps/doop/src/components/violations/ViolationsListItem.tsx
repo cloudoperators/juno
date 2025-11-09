@@ -4,12 +4,17 @@
  */
 
 import React from "react"
+import { useNavigate, useSearch } from "@tanstack/react-router"
 import { Stack, Badge, DataGridRow, DataGridCell, Icon } from "@cloudoperators/juno-ui-components"
 import { useDataDetailsViolationGroupKind, useDataActions } from "../StoreProvider"
 import ViolationServicesCount from "./ViolationServicesCount"
 import ViolationSeverity from "./ViolationSeverity"
 
 const ViolationListItem = ({ item }: any) => {
+  const navigate = useNavigate()
+  const { violationGroup } = useSearch({
+    from: "/violations",
+  })
   const detailsViolationGroupKind = useDataDetailsViolationGroupKind()
   // @ts-expect-error TS(2339) FIXME: Property 'setDetailsViolationGroupKind' does not exist on type 'any'.
   const { setDetailsViolationGroupKind } = useDataActions()
@@ -17,11 +22,18 @@ const ViolationListItem = ({ item }: any) => {
   return (
     <DataGridRow
       className={`cursor-pointer ${detailsViolationGroupKind === item?.kind ? "active" : ""}`}
-      onClick={() =>
+      onClick={() => {
         detailsViolationGroupKind === item.kind
           ? setDetailsViolationGroupKind(null)
           : setDetailsViolationGroupKind(item?.kind)
-      }
+        navigate({
+          to: "/violations",
+          search: (prev) => ({
+            ...prev,
+            violationGroup: violationGroup !== item?.kind ? item?.kind : undefined,
+          }),
+        })
+      }}
     >
       <DataGridCell className="pl-0">
         <ViolationSeverity severities={item?.severities} className="pl-5" border />

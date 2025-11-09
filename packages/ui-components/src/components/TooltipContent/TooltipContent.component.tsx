@@ -11,22 +11,22 @@ import { useTooltipState } from "../Tooltip/Tooltip.component"
 import { ToolTipVariant } from "../Tooltip/ToolTip.types"
 
 const popoverStyles = `
-    jn-bg-theme-background-lvl-1
-    jn-text-theme-high 
-    jn-inline-flex	
-  jn-items-center
-    jn-p-2
-    jn-rounded
-    jn-drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]
+    jn:bg-theme-background-lvl-1
+    jn:text-theme-high 
+    jn:inline-flex	
+  jn:items-center
+    jn:p-2
+    jn:rounded
+    jn:drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]
 `
 
 const popoverTextStyles = `
-    jn-mx-4
-    jn-max-w-full
+    jn:mx-4
+    jn:max-w-full
 `
 
 const popoverIconStyles = `
-    jn-shrink-0
+    jn:shrink-0
 `
 
 const getIcon = (variant: ToolTipVariant) => {
@@ -74,7 +74,7 @@ export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>
           {variant && (
             <Icon
               icon={getIcon(variant)}
-              color={`jn-text-theme-${variant}`}
+              color={`jn:text-theme-${variant}`}
               className={`juno-tooltip-popover-icon ${popoverIconStyles}`}
             />
           )}

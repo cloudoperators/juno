@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { create } from "@storybook/theming/create"
+import { create } from "storybook/theming/create"
 import { LOGO_DARK_DATA_URL, LOGO_LIGHT_DATA_URL, STORAGE_KEY } from "./constants"
 import { version } from "../../package.json"
 

@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Code } from "./index"
 
-export default {
+const meta: Meta<typeof Code> = {
   title: "Components/Code",
   component: Code,
   argTypes: {
@@ -18,7 +19,10 @@ export default {
   },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   parameters: {
     docs: {
       description: {
@@ -26,13 +30,12 @@ export const Default = {
       },
     },
   },
-
   args: {
     content: "<span>Some code passed as content prop.</span>",
   },
 }
 
-export const WithChildren = {
+export const WithChildren: Story = {
   parameters: {
     docs: {
       description: {
@@ -40,7 +43,6 @@ export const WithChildren = {
       },
     },
   },
-
   args: {
     children: "<Code>Some code with children</Code>",
   },

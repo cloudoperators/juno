@@ -6,5 +6,11 @@
 import { createFileRoute, redirect } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/")({
-  loader: () => redirect({ to: "/services" }), // redirect to the default /services page
+  beforeLoad: () => {
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
+    throw redirect({
+      to: "/services",
+      search: (prev) => ({ ...prev }),
+    })
+  },
 })

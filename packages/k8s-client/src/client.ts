@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import request from "./request"
+import request, { RequestOptions } from "./request"
 import { buildUrl } from "./urlHelpers"
 import { Watch, ADDED, MODIFIED, DELETED, ERROR } from "./watch"
 import handleApiError, { K8sApiError } from "./apiErrorHandler"
@@ -11,25 +11,23 @@ import handleApiError, { K8sApiError } from "./apiErrorHandler"
 interface ClientOptions {
   apiEndpoint: string
   token: string
+  ignoreSsl?: boolean // New option to ignore SSL certificate validation
+  debug?: boolean // Optional debug flag
   [key: string]: any // To allow additional properties if needed
 }
 
-interface RequestOptions {
-  params?: Record<string, any>
-  headers?: Record<string, string>
-  body?: Object | null
-  signal?: AbortSignal
-  mode?: RequestMode
-  cache?: RequestCache
-  credentials?: RequestCredentials
-}
-
 function createClient(options: ClientOptions) {
-  const { apiEndpoint } = options
+  const { apiEndpoint, ignoreSsl = false, debug = false } = options
   let token = options.token
 
   if (!apiEndpoint || !token) {
     throw new Error(`Bad options: ${JSON.stringify(options, null, 4)}. Please provide apiEndpoint and token`)
+  }
+
+  // Log warning when SSL verification is disabled
+  if (ignoreSsl && debug === true) {
+    console.warn(`⚠️  K8s Client: SSL certificate verification disabled for ${apiEndpoint}`)
+    console.warn(`🔒 This should only be used in development or secure internal networks`)
   }
 
   const defaultHeaders = () => ({
@@ -45,6 +43,8 @@ function createClient(options: ClientOptions) {
     }
 
     return {
+      debug,
+      ignoreSsl,
       ...defaultOptions,
       ...options,
       headers,

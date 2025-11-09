@@ -7,72 +7,72 @@ import React, { useState, useEffect, useMemo, useId, useRef, ReactNode } from "r
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/FormHint.component"
-import "./textinput.scss"
+import "./textinput.css"
 
 const textinputstyles = `
-  jn-bg-theme-textinput
-  jn-text-theme-textinput
-  jn-border
-  jn-text-base
-  jn-leading-4
-  jn-px-4
-  jn-h-textinput
-  jn-rounded-3px
-  focus:jn-outline-none
-  focus:jn-ring-2
-  focus:jn-ring-theme-focus
-  disabled:jn-opacity-50
-  autofill:jn-bg-theme-textinput-autofill
-  autofill:jn-text-theme-textinput-autofill
+  jn:bg-theme-textinput
+  jn:text-theme-textinput
+  jn:border
+  jn:text-base
+  jn:leading-4
+  jn:px-4
+  jn:h-textinput
+  jn:rounded-3px
+  jn:focus:outline-hidden
+  jn:focus:ring-2
+  jn:focus:ring-theme-focus
+  jn:disabled:opacity-50
+  jn:autofill:bg-theme-textinput-autofill
+  jn:autofill:text-theme-textinput-autofill
   peer
 `
 
 const defaultborderstyles = `
-  jn-border-theme-textinput-default
+  jn:border-theme-textinput-default
 `
 
 const invalidstyles = `
-  jn-border-theme-error
+  jn:border-theme-error
 `
 
 const validstyles = `
-  jn-border-theme-success
+  jn:border-theme-success
 `
 
 const withLabelStyles = `
-  jn-pt-[1.125rem] 
-  jn-pb-1
+  jn:pt-[1.125rem] 
+  jn:pb-1
 `
 
 const noLabelStyles = `
-  jn-py-4
+  jn:py-4
 `
 
 const wrapperStyles = `
-  jn-inline-block
-  jn-relative
+  jn:inline-block
+  jn:relative
 `
 
 const labelStyles = `
-  peer-autofill:jn-text-theme-textinput-autofill-label
-  jn-pointer-events-none
-  jn-top-2
-  jn-left-[0.9375rem]
+  jn:peer-autofill:text-theme-textinput-autofill-label
+  jn:pointer-events-none
+  jn:top-2
+  jn:left-[0.9375rem]
 `
 
 const iconcontainerstyles = `
-  jn-inline-flex
-  jn-absolute
-  jn-top-[.4rem]
-  jn-right-3
+  jn:inline-flex
+  jn:absolute
+  jn:top-[.4rem]
+  jn:right-3
 `
 
 const disablediconstyles = `
-  jn-opacity-50
+  jn:opacity-50
 `
 
 const hintStyles = `
-  jn-mt-0
+  jn:mt-0
 `
 
 /** 
@@ -165,8 +165,8 @@ export const TextInput: React.FC<TextInputProps> = ({
         <div
           className={`juno-textinput-row-icon-container ${iconcontainerstyles} ${disabled ? disablediconstyles : ""}`}
         >
-          {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : null}
-          {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : null}
+          {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" /> : null}
+          {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" /> : null}
         </div>
       )
     } else {
@@ -182,8 +182,8 @@ export const TextInput: React.FC<TextInputProps> = ({
         className={`
           juno-textinput-wrapper 
           ${wrapperStyles}
-          ${width == "auto" ? "jn-inline-block" : "jn-block"}
-          ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          ${width == "auto" ? "jn:inline-block" : "jn:block"}
+          ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
           ${wrapperClassName}
           `}
       >
@@ -207,7 +207,7 @@ export const TextInput: React.FC<TextInputProps> = ({
             ${isInvalid ? "juno-textinput-invalid " + invalidstyles : ""} 
             ${isValid ? "juno-textinput-valid " + validstyles : ""}  
             ${isValid || isInvalid ? "" : defaultborderstyles} 
-            ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+            ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
             ${className}
           `}
           {...props}

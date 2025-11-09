@@ -6,8 +6,8 @@
 import React from "react"
 
 const dataGridStyles = `
-	jn-grid
-	jn-items-stretch
+	jn:grid
+	jn:items-stretch
 `
 
 const gridTemplate = (

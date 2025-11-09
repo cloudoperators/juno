@@ -22,15 +22,15 @@ describe("Box Component", () => {
     test("renders a padded Box by default", () => {
       render(<Box data-testid="box" />)
       expect(screen.getByTestId("box")).toBeInTheDocument()
-      expect(screen.getByTestId("box")).toHaveClass("jn-py-1")
-      expect(screen.getByTestId("box")).toHaveClass("jn-px-2")
+      expect(screen.getByTestId("box")).toHaveClass("jn:py-1")
+      expect(screen.getByTestId("box")).toHaveClass("jn:px-2")
     })
 
     test("renders a Box without padding when 'unpad' is true", () => {
       render(<Box data-testid="box" unpad />)
       expect(screen.getByTestId("box")).toBeInTheDocument()
-      expect(screen.getByTestId("box")).not.toHaveClass("jn-py-1")
-      expect(screen.getByTestId("box")).not.toHaveClass("jn-px-2")
+      expect(screen.getByTestId("box")).not.toHaveClass("jn:py-1")
+      expect(screen.getByTestId("box")).not.toHaveClass("jn:px-2")
     })
   })
 

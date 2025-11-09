@@ -1,0 +1,61 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+.juno-input-group {
+  /* Remove border-radius for specific elements within the input group */
+  .juno-combobox-input-wrapper,
+  .juno-button,
+  .juno-select-wrapper,
+  .juno-select-toggle-wrapper,
+  .juno-textinput-outer-wrapper {
+    &:not(:first-child, :last-child) {
+      /* Element not being the first or last child */
+      border-radius: 0;
+
+      .juno-select-toggle,
+      .juno-select,
+      .juno-combobox-input,
+      .juno-textinput {
+        border-radius: 0;
+      }
+    }
+
+    &:first-child {
+      /* First child element */
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+
+      .juno-select-toggle,
+      .juno-select,
+      .juno-combobox-input,
+      .juno-textinput {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &:last-child {
+      /* Last child element */
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      .juno-select-toggle,
+      .juno-select,
+      .juno-combobox-input,
+      .juno-textinput {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+
+  /* Prevent double borders for adjacent buttons of the same type */
+  .juno-button-default + .juno-button-default,
+  .juno-button-primary + .juno-button-primary,
+  .juno-button-default-primary-danger + .juno-button-primary-danger,
+  .juno-button-subdued + .juno-button-subdued {
+    border-left: 0;
+  }
+}

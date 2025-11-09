@@ -6,10 +6,10 @@
 import React, { ReactNode } from "react"
 
 const baseHeadingStyles = `
-  jn-font-bold
-  jn-text-lg
-  jn-text-theme-high
-  jn-pb-2
+  jn:font-bold
+  jn:text-lg
+  jn:text-theme-high
+  jn:pb-2
 `
 
 export interface ContentHeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {

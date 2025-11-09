@@ -4,11 +4,12 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Message } from "../Message"
-import { AppShellProvider, AppShellProviderProps } from "./AppShellProvider.component"
+import { AppShellProvider } from "./AppShellProvider.component"
 import { CodeBlock } from "../CodeBlock"
 
-export default {
+const meta: Meta<typeof AppShellProvider> = {
   title: "Layout/AppShellProvider",
   component: AppShellProvider,
   argTypes: {
@@ -18,11 +19,10 @@ export default {
   },
 }
 
-const Template = (args: AppShellProviderProps) => <AppShellProvider {...args}>{args.children}</AppShellProvider>
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     children: [
       <Message key={0}>Juno styles are added inline</Message>,
@@ -41,9 +41,7 @@ export const Default = {
   },
 }
 
-export const NoShadowRoot = {
-  render: Template,
-
+export const NoShadowRoot: Story = {
   args: {
     shadowRoot: false,
     children: [
@@ -63,9 +61,7 @@ export const NoShadowRoot = {
   },
 }
 
-export const StylesInHead = {
-  render: Template,
-
+export const StylesInHead: Story = {
   args: {
     shadowRoot: false,
     stylesWrapper: "head",
@@ -86,9 +82,7 @@ export const StylesInHead = {
   },
 }
 
-export const StylesInline = {
-  render: Template,
-
+export const StylesInline: Story = {
   args: {
     shadowRoot: false,
     stylesWrapper: "inline",
@@ -109,9 +103,7 @@ export const StylesInline = {
   },
 }
 
-export const ThemeLight = {
-  render: Template,
-
+export const ThemeLight: Story = {
   args: {
     theme: "theme-light",
     children: [

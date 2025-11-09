@@ -4,11 +4,12 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { FormRow } from "./FormRow.component"
 import { TextInput } from "../TextInput/TextInput.component"
 
-export default {
+const meta: Meta<typeof FormRow> = {
   title: "Forms/FormRow",
   component: FormRow,
   argTypes: {
@@ -21,15 +22,10 @@ export default {
   },
 }
 
-interface TemplateProps {
-  children?: React.ReactNode
-}
+export default meta
+type Story = StoryObj<typeof meta>
 
-const Template = ({ children, ...args }: TemplateProps) => <FormRow {...args}>{children}</FormRow>
-
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     children: [<TextInput label="TextInput in a FormRow" placeholder="Your input here…" key="1" />],
   },

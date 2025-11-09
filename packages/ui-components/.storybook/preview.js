@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/** @type { import('@storybook/react').Preview } */
+/** @type { import('@storybook/react-vite').Preview } */
 const preview = {
   parameters: {
     options: {
@@ -20,6 +20,8 @@ const preview = {
       },
     },
   },
+
+  tags: ["autodocs"],
 }
 
 export default preview

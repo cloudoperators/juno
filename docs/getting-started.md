@@ -40,7 +40,6 @@ Before you begin, ensure you have the following software installed on your machi
    ```
 
 4. **Available Turbo Commands:**
-
    - **Build:**
 
      ```bash

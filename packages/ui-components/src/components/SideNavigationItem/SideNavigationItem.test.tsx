@@ -4,115 +4,86 @@
  */
 
 import React from "react"
-import { render, screen, cleanup, act } from "@testing-library/react"
-import { SideNavigation } from "../SideNavigation/index"
-import { SideNavigationItem } from "./index"
-
-const mockOnClick = vi.fn()
+import { render, screen, cleanup, fireEvent } from "@testing-library/react"
+import { SideNavigationItem } from "./SideNavigationItem.component"
 
 describe("SideNavigationItem", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
-  test("renders a SideNavigationItem", () => {
-    render(<SideNavigationItem data-testid="side-nav-item" />)
-    expect(screen.getByTestId("side-nav-item")).toBeInTheDocument()
-    expect(screen.getByTestId("side-nav-item")).toHaveClass("juno-sidenavigation-item")
+  it("renders with default properties", () => {
+    render(<SideNavigationItem label="Home" />)
+    const itemElement = screen.getByText("Home")
+    expect(itemElement).toBeInTheDocument()
   })
 
-  test("renders a label as passed", () => {
-    render(<SideNavigationItem label="My Label" />)
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveTextContent("My Label")
+  it("applies disabled styles when disabled", () => {
+    render(<SideNavigationItem label="Home" disabled />)
+    const itemElement = screen.getByRole("button")
+    expect(itemElement).toHaveClass("jn:opacity-50 jn:cursor-not-allowed")
   })
 
-  test("renders children as passed", () => {
-    render(<SideNavigationItem>The Item Is A Child</SideNavigationItem>)
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveTextContent("The Item Is A Child")
+  it("executes onClick handler when clicked", () => {
+    const handleClick = vi.fn()
+    render(<SideNavigationItem label="Clickable Item" onClick={handleClick} />)
+    const clickableElement = screen.getByRole("button")
+
+    fireEvent.click(clickableElement)
+    expect(handleClick).toHaveBeenCalledTimes(1)
   })
 
-  test("renders an aria-label as passed", () => {
-    render(<SideNavigationItem ariaLabel="My ARIA-Label" />)
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveAttribute("aria-label", "My ARIA-Label")
+  it("renders href as link and navigates correctly", () => {
+    const href = "http://example.com"
+    render(<SideNavigationItem label="External Link" href={href} />)
+    const linkElement = screen.getByRole("link")
+    expect(linkElement).toHaveAttribute("href", href)
   })
 
-  test("renders an aria-label as passed, role link", () => {
-    render(<SideNavigationItem href="#" ariaLabel="hey nav item!" />)
-    expect(screen.getByRole("link")).toHaveAttribute("aria-label", "hey nav item!")
-  })
-
-  test("renders a disabled item as passed", () => {
-    render(<SideNavigationItem disabled />)
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toBeDisabled()
-    expect(screen.getByRole("button")).toHaveAttribute("aria-disabled", "true")
-  })
-
-  test("renders an icon as passed", () => {
-    render(<SideNavigationItem icon="warning" />)
-    expect(screen.getByRole("img")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveAttribute("alt", "warning")
-  })
-
-  test("renders as a link when a href prop is passed", () => {
-    render(<SideNavigationItem href="#" />)
-    expect(screen.getByRole("link")).toBeInTheDocument()
-    expect(screen.getByRole("link")).toHaveClass("juno-sidenavigation-item")
-  })
-
-  test("renders as a button when an onClick prop is passed", () => {
+  it("toggles open state when clicked", () => {
     render(
-      <SideNavigationItem
-        onClick={() => {
-          console.log("click")
-        }}
-      />
+      <SideNavigationItem label="Messages" open={false}>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
     )
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass("juno-sidenavigation-item")
+
+    const expandButton = screen.getAllByRole("button")[0] // To ensure correct element targeting
+    fireEvent.click(expandButton)
+
+    const childElement = screen.getByText("Inbox")
+    expect(childElement).toBeInTheDocument()
   })
 
-  test("renders an active NavigationItem as passed", () => {
-    render(<SideNavigationItem data-testid="side-nav-item" active />)
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass("juno-sidenavigation-item")
-    expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-active")
-    expect(screen.getByRole("button")).toHaveAttribute("aria-selected", "true")
-  })
-
-  test("rerenders the active attribute of a navigation item", () => {
-    const { rerender } = render(<SideNavigationItem data-testid="side-nav-item" active={true} />)
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-active")
-    rerender(<SideNavigationItem data-testid="side-nav-item" active={false} />)
-    expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).not.toHaveClass("juno-sidenavigation-item-active")
-  })
-
-  test("executes an onClick handler as passed", () => {
+  it("does not toggle if disabled", () => {
     render(
-      <SideNavigation>
-        <SideNavigationItem onClick={mockOnClick} label="My Item" />
-      </SideNavigation>
+      <SideNavigationItem label="Disabled Messages" disabled>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
     )
-    expect(screen.getByRole("button", { name: "My Item" })).toBeInTheDocument()
-    act(() => {
-      screen.getByRole("button", { name: "My Item" }).click()
-    })
-    expect(mockOnClick).toHaveBeenCalled()
+
+    const expandButton = screen.getAllByRole("button")[0] // To ensure correct element targeting
+    fireEvent.click(expandButton)
+
+    const childElement = screen.queryByText("Inbox")
+    expect(childElement).not.toBeInTheDocument()
   })
 
-  test("renders custom classNames as passed", () => {
-    render(<SideNavigationItem data-testid="side-nav-item" className="my-custom-class" />)
-    expect(screen.getByTestId("side-nav-item")).toHaveClass("my-custom-class")
+  it("renders with selected styles when selected", () => {
+    render(<SideNavigationItem label="Selected Item" selected />)
+    const itemElement = screen.getByRole("button")
+    expect(itemElement).toHaveClass("selected")
   })
 
-  test("renders all props as passed", () => {
-    render(<SideNavigationItem data-testid="side-nav-item" data-lol="Prop goes here" />)
-    expect(screen.getByTestId("side-nav-item")).toHaveAttribute("data-lol", "Prop goes here")
+  it("renders Icon when icon prop is provided", () => {
+    render(<SideNavigationItem label="Item with Icon" icon="home" />)
+    // Check for the icon presence, depending on how Icon renders
+    const iconElement = screen.getByRole("img") // Adjust role based on actual implementation
+    expect(iconElement).toBeInTheDocument()
+  })
+
+  it("handles aria-label correctly", () => {
+    render(<SideNavigationItem label="Aria Item" ariaLabel="Custom Aria Label" />)
+    const itemElement = screen.getByRole("button")
+    expect(itemElement).toHaveAttribute("aria-label", "Custom Aria Label")
   })
 })

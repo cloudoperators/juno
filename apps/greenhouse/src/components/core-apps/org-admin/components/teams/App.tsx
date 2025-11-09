@@ -6,8 +6,7 @@
 import React from "react"
 import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
 import AppContent from "./AppContent"
-// @ts-expect-error TS(2792): Cannot find module './styles.scss?inline'. Did you... Remove this comment to see the full error message
-import styles from "./styles.scss?inline"
+import styles from "./styles.css?inline"
 import AsyncWorker from "./components/AsyncWorker"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import StoreProvider, { useStoreActions } from "./components/StoreProvider"

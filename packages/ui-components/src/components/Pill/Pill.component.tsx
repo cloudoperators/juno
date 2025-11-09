@@ -11,40 +11,40 @@ type EventHandler = (event: React.MouseEvent<HTMLElement>, id: string) => void
 
 const pillStyles = (onClick: boolean) => {
   return `
-    jn-inline-flex
-    jn-basis-auto
-    jn-shrink
-    jn-items-center
-    jn-flex-nowrap
-    jn-text-xs
-    jn-p-px
-    jn-border
-    jn-rounded
-    jn-border-theme-background-lvl-4
-    jn-group
-    ${onClick ? "jn-cursor-pointer" : ""}
+    jn:inline-flex
+    jn:basis-auto
+    jn:shrink
+    jn:items-center
+    jn:flex-nowrap
+    jn:text-xs
+    jn:p-px
+    jn:border
+    jn:rounded
+    jn:border-theme-background-lvl-4
+    jn:group
+    ${onClick ? "jn:cursor-pointer" : ""}
   `
 }
 
 const pillKeyStyles = (onClick: boolean) => {
   return `
-    jn-bg-theme-background-lvl-4
-    jn-text-theme-high
-    ${onClick ? "group-hover:jn-text-theme-highest" : ""}
-    jn-px-1
-    jn-py-0.5
-    jn-rounded-sm
-    jn-inline-block
+    jn:bg-theme-background-lvl-4
+    jn:text-theme-high
+    ${onClick ? "jn:group-hover:text-theme-highest" : ""}
+    jn:px-1
+    jn:py-0.5
+    jn:rounded-sm
+    jn:inline-block
   `
 }
 
 const pillValueStyles = (onClick: boolean) => {
   return `
-    jn-px-1
-    jn-py-0.5
-    jn-text-theme-high
-    ${onClick ? "group-hover:jn-text-theme-highest" : ""}
-    jn-inline-block
+    jn:px-1
+    jn:py-0.5
+    jn:text-theme-high
+    ${onClick ? "jn:group-hover:text-theme-highest" : ""}
+    jn:inline-block
   `
 }
 

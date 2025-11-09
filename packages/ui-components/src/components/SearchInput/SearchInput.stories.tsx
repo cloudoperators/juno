@@ -3,31 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { SearchInput } from "./"
 
-export default {
+const meta: Meta<typeof SearchInput> = {
   title: "Components/SearchInput",
   component: SearchInput,
   argTypes: {},
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   args: {},
 }
 
-export const Rounded = {
+export const Rounded: Story = {
   args: {
     variant: "rounded",
   },
 }
 
-export const Hero = {
+export const Hero: Story = {
   args: {
     variant: "hero",
   },
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   args: {
     disabled: true,
   },

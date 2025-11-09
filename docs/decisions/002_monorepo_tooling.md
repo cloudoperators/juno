@@ -19,13 +19,10 @@ The decision to adopt a monorepo is driven by the following considerations:
 To achieve these goals, the following decisions have been made:
 
 1. **Dependency Management:**
-
    - Within the monorepo, internal dependencies are marked with `*` to streamline development processes. This notation signifies that the referenced packages are internal to the monorepo. When preparing a package for publication, these `*` placeholders are replaced temporarily with the appropriate version numbers before the packages are published to npm.
 
 2. **Tool Adoption:**
-
    - Adoption of [`turborepo`](https://turbo.build/) is proposed to optimize task management and leverage caching for performance improvements.
 
 3. **Release Management:**
-
    - The [`changeset`](https://www.npmjs.com/package/@changesets/cli) CLI tool will be used to manage versioning and changelogs for packages within the monorepo. For more details check our: [Release Guidelines](releases_guidelines.md)

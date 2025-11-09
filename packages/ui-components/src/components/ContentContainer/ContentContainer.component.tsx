@@ -6,12 +6,12 @@
 import React, { ReactNode } from "react"
 
 const baseContainerStyles = `
-  jn-flex-col
-  jn-grow
-  jn-bg-[right_top_1rem]
-  jn-bg-no-repeat
-  jn-bg-theme-content-area-bg
-  jn-relative
+  jn:flex-col
+  jn:grow
+  jn:bg-[right_top_1rem]
+  jn:bg-no-repeat
+  jn:bg-theme-content-area-bg
+  jn:relative
 `
 
 export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivElement> {

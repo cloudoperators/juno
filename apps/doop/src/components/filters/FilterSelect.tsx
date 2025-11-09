@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 
 import {
   Button,
@@ -15,26 +15,55 @@ import {
   SelectOption,
   Stack,
 } from "@cloudoperators/juno-ui-components"
+import { useNavigate } from "@tanstack/react-router"
 
 import { useFiltersActions, useFiltersSearchTerm, useFiltersActive, useDataFilterEntries } from "../StoreProvider"
+import { ACTIVE_FILTERS_PREFIX } from "../../constants"
+import { addFilter as addFilterToUrlState } from "../../lib/urlStateUtils"
 
 const FilterSelect = () => {
-  const [selectedCategory, selectCategory] = useState("")
-  const [selectedValue] = useState("")
+  const [filterLabel, setFilterLabel] = useState("")
+  const [filterValue, setFilterValue] = useState("")
+  const navigate = useNavigate()
   const filterEntries = useDataFilterEntries()
   // @ts-ignore
   const { add: addFilter, removeAll, setSearchTerm } = useFiltersActions()
   const searchValue = useFiltersSearchTerm()
   const activeFilters = useFiltersActive() || []
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const handleSearchChange = (value: any) => {
-    // debounce setSearchTerm to avoid unnecessary re-renders
-    const debouncedSearchTerm = setTimeout(() => {
-      setSearchTerm(value.target.value)
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const term = e.target.value.trim()
+
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+
+    debounceRef.current = setTimeout(() => {
+      setSearchTerm(term)
+      navigate({
+        to: "/violations",
+        search: (prev) => ({
+          ...prev,
+          searchTerm: term,
+        }),
+      })
     }, 500)
+  }
 
-    // clear timeout if we have a new value
-    return () => clearTimeout(debouncedSearchTerm)
+  const handleFilterValueChange = (value: string) => {
+    setFilterValue(value) // update the filter value state to trigger re-render on ComboBox
+    if (filterLabel.trim() !== "" && value.trim() !== "") {
+      addFilter(filterLabel, value) // add the filter to the active filters
+      // add filter to URL state
+      navigate({
+        to: "/violations",
+        search: (prev) => addFilterToUrlState({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, value),
+      })
+    }
+    // TODO: remove this after ComboBox supports resetting its value after onChange
+    // set timeout to allow ComboBox to update its value after onChange
+    setTimeout(() => {
+      setFilterValue("")
+    }, 0)
   }
 
   return (
@@ -45,9 +74,9 @@ const FilterSelect = () => {
             name="category"
             className="filter-label-select w-52 mb-0"
             label="Select category"
-            value={selectedCategory}
+            value={filterLabel}
             // @ts-expect-error TS(2345) FIXME: Argument of type 'null' is not assignable to param...
-            onChange={selectCategory}
+            onChange={setFilterLabel}
           >
             {
               // @ts-ignore
@@ -57,26 +86,42 @@ const FilterSelect = () => {
             }
           </Select>
           <ComboBox
+            value={filterValue}
             name="value"
-            value={selectedValue}
-            onChange={(value: string) => addFilter(selectedCategory, value)}
-            disabled={!selectedCategory}
+            onChange={(value: string) => handleFilterValueChange(value)}
+            disabled={!filterLabel}
             className="filter-value-select w-80 bg-theme-background-lvl-0"
           >
             {// @ts-ignore
             filterEntries
-              .find((e: any) => e.key === selectedCategory)
-              ?.values.map((value: any, i: any) => <ComboBoxOption value={value} key={i} />)}
+              .find((e: any) => e.key === filterLabel)
+              ?.values.map((value: any, i: any) => (
+                <ComboBoxOption value={value} key={i} />
+              ))}
           </ComboBox>
-          <Button
-            onClick={() => selectedCategory && selectedValue && addFilter(selectedCategory, selectedValue)}
-            icon="filterAlt"
-            className="py-[0.3rem]"
-          />
         </InputGroup>
         {
           // @ts-ignore
-          activeFilters.length > 0 && <Button label="Clear all" onClick={removeAll} variant="subdued" />
+          activeFilters.length > 0 && (
+            <Button
+              label="Clear all"
+              onClick={() => {
+                removeAll()
+                // Remove active and paused filters from URL state
+                navigate({
+                  to: "/violations",
+                  search: (prev) =>
+                    Object.entries(prev).reduce((acc: Record<string, string | string[]>, [key, value]) => {
+                      if (value && !key.startsWith(ACTIVE_FILTERS_PREFIX)) {
+                        acc[key] = value
+                      }
+                      return acc
+                    }, {}),
+                })
+              }}
+              variant="subdued"
+            />
+          )
         }
       </Stack>
 
@@ -85,7 +130,16 @@ const FilterSelect = () => {
         // @ts-expect-error TS(2345) FIXME: Argument of type 'null' is not assignable to param...
         value={searchValue || ""}
         onChange={(value: any) => handleSearchChange(value)}
-        onClear={() => setSearchTerm(null)}
+        onClear={() => {
+          setSearchTerm(null)
+          navigate({
+            to: "/violations",
+            search: (prev) => ({
+              ...prev,
+              searchTerm: "",
+            }),
+          })
+        }}
       />
     </Stack>
   )

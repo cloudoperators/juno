@@ -7,18 +7,18 @@ import React from "react"
 
 const introbox = (variant: string, heroImage: string) => {
   return `
-            jn-bg-theme-introbox
-            jn-text-theme-default
-            jn-flex
-            jn-rounded-l
-            jn-overflow-hidden
-            jn-mb-8
+            jn:bg-theme-introbox
+            jn:text-theme-default
+            jn:flex
+            jn:rounded-l
+            jn:overflow-hidden
+            jn:mb-8
 
             ${
               variant === "hero" && heroImage
                 ? `
-                    jn-bg-right-top
-                    jn-bg-no-repeat
+                    jn:bg-right-top
+                    jn:bg-no-repeat
                 `
                 : ""
             }
@@ -26,33 +26,33 @@ const introbox = (variant: string, heroImage: string) => {
 }
 
 const introboxBorder = `
-    jn-border-l-4
-    jn-border-theme-introbox
+    jn:border-l-4
+    jn:border-theme-introbox
 `
 
 const introboxContent = (variant: string, heroImage: string) => {
   return `
-        ${heroImage ? `jn-pl-4 jn-pr-56` : `jn-px-4`}
+        ${heroImage ? `jn:pl-4 jn:pr-56` : `jn:px-4`}
 
         ${
           variant === "hero"
             ? `
-            jn-text-xl
-            jn-min-h-[8rem]
-            jn-py-4
-            jn-flex
-            jn-flex-col
-            jn-justify-center
+            jn:text-xl
+            jn:min-h-[8rem]
+            jn:py-4
+            jn:flex
+            jn:flex-col
+            jn:justify-center
         `
             : `
-            jn-py-3
+            jn:py-3
         `
         }
     `
 }
 
 const introboxHeading = `
-    jn-font-bold
+    jn:font-bold
 `
 
 export interface IntroBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {

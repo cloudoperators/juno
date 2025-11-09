@@ -4,18 +4,14 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { RadioGroup } from "./RadioGroup.component"
 import { Radio } from "../Radio/Radio.component"
 
-export default {
+const meta: Meta<typeof RadioGroup> = {
   title: "Forms/Radio/RadioGroup",
   component: RadioGroup,
   argTypes: {
-    items: {
-      table: {
-        disable: true,
-      },
-    },
     errortext: {
       control: false,
     },
@@ -36,15 +32,10 @@ export default {
   },
 }
 
-interface TemplateProps {
-  children: React.ReactNode
-}
+export default meta
+type Story = StoryObj<typeof meta>
 
-const Template = ({ children, ...args }: TemplateProps) => <RadioGroup {...args}>{children}</RadioGroup>
-
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     children: [
       <Radio value="default-1" label="Option 1" key="1" />,
@@ -54,9 +45,7 @@ export const Default = {
   },
 }
 
-export const Selected = {
-  render: Template,
-
+export const Selected: Story = {
   args: {
     name: "group-selected-radiogroup",
     selected: "selected-2",
@@ -68,9 +57,7 @@ export const Selected = {
   },
 }
 
-export const IndividuallyChecked = {
-  render: Template,
-
+export const IndividuallyChecked: Story = {
   args: {
     name: "individually-checked-radiogroup",
     children: [
@@ -81,9 +68,7 @@ export const IndividuallyChecked = {
   },
 }
 
-export const WithLabel = {
-  render: Template,
-
+export const WithLabel: Story = {
   args: {
     name: "labelled-radiogroup",
     selected: "labelled-1",
@@ -96,9 +81,7 @@ export const WithLabel = {
   },
 }
 
-export const Required = {
-  render: Template,
-
+export const Required: Story = {
   args: {
     name: "required-radiogroup",
     selected: "required-1",
@@ -112,9 +95,7 @@ export const Required = {
   },
 }
 
-export const Disabled = {
-  render: Template,
-
+export const Disabled: Story = {
   args: {
     name: "disabled-radiogroup",
     selected: "disabled-1",
@@ -128,9 +109,7 @@ export const Disabled = {
   },
 }
 
-export const Valid = {
-  render: Template,
-
+export const Valid: Story = {
   args: {
     name: "valid-radiogroup",
     selected: "",
@@ -144,9 +123,7 @@ export const Valid = {
   },
 }
 
-export const Invalid = {
-  render: Template,
-
+export const Invalid: Story = {
   args: {
     name: "invalid-radiogroup",
     selected: "",
@@ -160,9 +137,7 @@ export const Invalid = {
   },
 }
 
-export const WithHelptext = {
-  render: Template,
-
+export const WithHelptext: Story = {
   args: {
     name: "with-helptext",
     selected: "",
@@ -176,9 +151,7 @@ export const WithHelptext = {
   },
 }
 
-export const WithHelptextAsNode = {
-  render: Template,
-
+export const WithHelptextAsNode: Story = {
   args: {
     name: "with-helptext-as-node",
     selected: "",
@@ -196,9 +169,7 @@ export const WithHelptextAsNode = {
   },
 }
 
-export const WithSuccess = {
-  render: Template,
-
+export const WithSuccess: Story = {
   args: {
     name: "success-radiogroup",
     selected: "success-1",
@@ -212,9 +183,7 @@ export const WithSuccess = {
   },
 }
 
-export const WithError = {
-  render: Template,
-
+export const WithError: Story = {
   args: {
     name: "error-radiogroup",
     selected: "error-1",

@@ -42,12 +42,12 @@ describe("GridColumn", () => {
 
     test("applies column width class based on 'cols' prop", () => {
       render(<GridColumn data-testid="my-grid-column" cols={6} />)
-      expect(screen.getByTestId("my-grid-column")).toHaveClass("jn-w-grid-col-6")
+      expect(screen.getByTestId("my-grid-column")).toHaveClass("jn:w-grid-col-6")
     })
 
     test("handles invalid 'cols' values gracefully", () => {
       render(<GridColumn data-testid="my-invalid-cols-grid-column" cols={15} />)
-      expect(screen.getByTestId("my-invalid-cols-grid-column")).toHaveClass("jn-w-grid-column-default")
+      expect(screen.getByTestId("my-invalid-cols-grid-column")).toHaveClass("jn:w-grid-column-default")
     })
   })
 

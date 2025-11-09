@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { isNil } from "lodash"
+import { isEmpty, isNil, omit } from "../../utils"
 import { ApolloError } from "@apollo/client"
 import {
   Edge,
@@ -13,10 +13,14 @@ import {
   ServiceEdge,
   ServiceFilter,
   GetServiceImageVersionsQuery,
+  GetServiceFiltersQuery,
 } from "../../generated/graphql"
-import { FilterSettings, ServiceFilterReduced } from "../common/Filters/types"
+import { Filter, FilterSettings, SelectedFilter, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
 import { IssuesCountsType } from "../types"
+import { SELECTED_FILTER_PREFIX } from "../../constants"
+import { InitialFilters } from "../../App"
+import { ServicesSearchParams } from "../../routes/services"
 
 const getSupportGroups = (serviceEdge?: ServiceEdge) => {
   return (
@@ -33,14 +37,14 @@ const getServiceOwners = (serviceEdge?: ServiceEdge) => {
   )
 }
 
-type NormalizedServices = {
+export type NormalizedServicesResponse = {
   pageNumber: number
   pages: Page[]
   servicesIssuesCount: IssuesCountsType // All services issues count
   services: ServiceType[]
 }
 
-export const getNormalizedData = (data: GetServicesQuery | undefined): NormalizedServices => {
+export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined): NormalizedServicesResponse => {
   return {
     pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
     pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
@@ -154,7 +158,7 @@ export type ServiceImageVersion = {
   repository: string
   ccrn: string
   issueCounts: IssuesCountsType
-  componetInstancesCount: number
+  componentInstancesCount: number
   componentInstances?: ComponentInstance[]
 }
 
@@ -165,7 +169,7 @@ type NormalizedServiceImageVersions = {
   imageVersions: ServiceImageVersion[]
 }
 
-export const getNormalizedImageVersionsData = (
+export const getNormalizedImageVersionsResponse = (
   data: GetServiceImageVersionsQuery | undefined
 ): NormalizedServiceImageVersions => ({
   totalImageVersions: data?.ComponentVersions?.totalCount || 0,
@@ -189,7 +193,7 @@ export const getNormalizedImageVersionsData = (
               none: 0,
               total: 0,
             },
-            componetInstancesCount: edge?.node?.componentInstances?.totalCount ?? 0,
+            componentInstancesCount: edge?.node?.componentInstances?.totalCount ?? 0,
             componentInstances:
               edge?.node?.componentInstances?.edges
                 ?.filter((edge) => edge?.node) // Remove null edges
@@ -221,7 +225,7 @@ type NormalizedImageVersionIssues = {
   pageNumber: number
 }
 
-export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersionIssues => {
+export const getNormalizedImageVersionIssuesResponse = (data: any): NormalizedImageVersionIssues => {
   if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
     return { issues: [], totalImageVersionIssues: 0, pages: [], pageNumber: 1 }
   }
@@ -257,19 +261,76 @@ export const getNormalizedImageVersionIssues = (data: any): NormalizedImageVersi
   }
 }
 
-export const getSeverityColor = (severity: string): string => {
-  switch (severity.toLowerCase()) {
-    case "critical":
-      return "text-theme-danger"
-    case "high":
-      return "text-theme-warning"
-    case "medium":
-      return "text-theme-warning"
-    case "low":
-      return "text-theme-info"
-    case "none":
-      return "text-theme-default"
-    default:
-      return "text-theme-default"
+/**
+ * This function converts the selected filters from the FilterSettings into a format that is accepted by the url-state-provider/v2/encode
+ * Examples:
+ * Input:
+ *   filterSettings = {
+ *     selectedFilters: [
+ *       { name: "region", value: "eu", inactive: false },
+ *       { name: "region", value: "us", inactive: false },
+ *       { name: "owner", value: "alice", inactive: false }
+ *     ]
+ *   }
+ * Output:
+ *   {
+ *     "selected_region": ["eu", "us"],
+ *     "selected_owner": "alice"
+ *   }
+ */
+export const getFiltersForUrl = (filterSettings: FilterSettings): Record<string, string | string[]> => {
+  const result: Record<string, string | string[]> = {
+    searchTerm: filterSettings.searchTerm || "",
+  }
+
+  if (filterSettings?.selectedFilters && filterSettings.selectedFilters.length > 0) {
+    filterSettings.selectedFilters.forEach((filter) => {
+      const key = `${SELECTED_FILTER_PREFIX}${filter.name}`
+      if (result[key]) {
+        result[key] = Array.isArray(result[key]) ? [...result[key], filter.value] : [result[key], filter.value]
+      } else {
+        result[key] = filter.value
+      }
+    })
+  }
+
+  return result
+}
+
+export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | null): Filter[] =>
+  isEmpty(data) || isEmpty(data?.ServiceFilterValues)
+    ? []
+    : Object.values(omit(data!.ServiceFilterValues!, ["__typename"])).map((filter) => ({
+        displayName: filter?.displayName || "",
+        filterName: filter?.filterName || "",
+        values: filter?.values?.filter((value) => value !== null) || [],
+      }))
+
+// Extract initial filters from the supplied initialFilters in the appProps
+export const getInitialFilters = (initialFilters?: InitialFilters): SelectedFilter[] =>
+  initialFilters?.support_group?.map((sg) => ({ name: "supportGroupCcrn", value: sg })) ?? []
+
+// Extract filters from the search parameters, looking for keys that start with SELECTED_FILTER_PREFIX
+export const extractFilterSettingsFromSearchParams = (searchParams: ServicesSearchParams): FilterSettings => ({
+  searchTerm: searchParams.searchTerm,
+  selectedFilters: Object.entries(searchParams)
+    .filter(([key]) => key.startsWith(SELECTED_FILTER_PREFIX))
+    .flatMap(([key, value]) => {
+      const name = key.slice(2)
+      if (Array.isArray(value)) {
+        return value.map((v) => ({ name, value: v }))
+      }
+      return [{ name, value: value as string }]
+    }),
+})
+
+export const sanitizeFilterSettings = (filters: Filter[], filterSettings: FilterSettings): FilterSettings => {
+  const validFilters = filterSettings.selectedFilters?.filter((selected) => {
+    const filter = filters.find((f) => f.filterName === selected.name)
+    return filter && selected.value.trim() && filter.values.includes(selected.value)
+  })
+  return {
+    ...filterSettings,
+    selectedFilters: validFilters,
   }
 }

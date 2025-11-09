@@ -6,18 +6,18 @@
 import React from "react"
 
 const mainInnerStyles = `
-  jn-flex
-  jn-grow
+  jn:flex
+  jn:grow
 `
 
 const constrainStyles = `
-  2xl:jn-container
-  2xl:jn-mx-auto
+  jn:2xl:container
+  jn:2xl:mx-auto
 `
 
 const constrainWithSideNavStyles = `
-  3xl:jn-container
-  3xl:jn-mx-auto
+  jn:3xl:container
+  jn:3xl:mx-auto
 `
 
 /** An inner wrapper to constrain page / view content width. */

@@ -4,15 +4,10 @@
  */
 
 import React from "react"
-import { ShadowRoot, ShadowRootProps } from "./ShadowRoot.component"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { ShadowRoot } from "./ShadowRoot.component"
 
-const Template = (args: ShadowRootProps) => (
-  <ShadowRoot {...args}>
-    <h1>Welcome</h1>
-  </ShadowRoot>
-)
-
-export default {
+const meta: Meta<typeof ShadowRoot> = {
   title: "Layout/ShadowRoot",
   component: ShadowRoot,
   argTypes: {
@@ -20,11 +15,17 @@ export default {
       control: false,
     },
   },
+  render: (args) => (
+    <ShadowRoot {...args}>
+      <h1>Welcome</h1>
+    </ShadowRoot>
+  ),
 }
 
-export const EncapsulateStyles = {
-  render: Template,
+export default meta
+type Story = StoryObj<typeof meta>
 
+export const EncapsulateStyles: Story = {
   args: {
     mode: "closed",
   },

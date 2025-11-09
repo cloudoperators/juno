@@ -25,6 +25,7 @@ import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { SilencesData } from "../../api/silences"
 import { FirefoxCorsWarning } from "../shared/FirefoxCorsWarning"
+import { useNavigate } from "@tanstack/react-router"
 
 const filtersStyles = `
 bg-theme-background-lvl-1
@@ -34,11 +35,12 @@ my-px
 `
 
 const SilencesList = () => {
+  const navigate = useNavigate()
   const silences = useSilencesItems()
   const [visibleSilences, setVisibleSilences] = useState(silences)
   const status = useSilencesStatus()
   const regEx = useSilencesRegEx()
-  const { setSilences, setSilencesStatus, setSilencesRegEx } = useSilencesActions()
+  const { setSilences } = useSilencesActions()
   const { addMessage, resetMessages } = useActions()
 
   const { data, isLoading, error } = useBoundQuery<SilencesData>("silences")
@@ -84,9 +86,8 @@ const SilencesList = () => {
   }, [status, regEx, silences])
 
   const handleSearchChange = (value: any) => {
-    // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
-      setSilencesRegEx(value.target.value)
+      navigate({ to: "/silences", search: (prev) => ({ ...prev, silencesRegEx: value.target.value }) })
     }, 500)
 
     // clear timeout if we have a new value
@@ -128,7 +129,8 @@ const SilencesList = () => {
               label="Status"
               value={status}
               onChange={(newSilencesStatus: any) => {
-                setSilencesStatus(newSilencesStatus)
+                // setSilencesStatus(newSilencesStatus)
+                navigate({ to: "/silences", search: (prev) => ({ ...prev, silencesStatus: newSilencesStatus }) })
               }}
             >
               <SelectOption value={constants.SILENCE_ACTIVE} />
@@ -144,10 +146,18 @@ const SilencesList = () => {
                 handleSearchChange(text)
               }}
               onSearch={(text: any) => {
-                setSilencesRegEx(text)
+                // setSilencesRegEx(text)
+                navigate({ to: "/silences", search: (prev) => ({ ...prev, silencesRegEx: text }) })
               }}
               onClear={() => {
-                setSilencesRegEx(null)
+                // setSilencesRegEx(null)
+                navigate({
+                  to: "/silences",
+                  search: (prev) => {
+                    const { silencesRegEx, ...rest } = prev // unset silencesRegEx from the url search params
+                    return { ...rest }
+                  },
+                })
               }}
             />
           </Stack>

@@ -225,6 +225,18 @@ const createPluginSlice: StateCreator<PluginSlice, [], [], PluginSlice> = (set, 
         get().plugin.actions.filterItems()
       },
 
+      removeAllFilters: () => {
+        set((state: any) => {
+          return {
+            plugin: {
+              ...state.plugin,
+              labelValuesFilters: [],
+            },
+          }
+        })
+        get().plugin.actions.filterItems()
+      },
+
       filterItems: () => {
         let items = (get().plugin.pluginConfig || []).slice()
 

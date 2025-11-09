@@ -4,13 +4,12 @@
  */
 
 import React from "react"
-import { SideNavigationItem, SideNavigationItemProps } from "./index"
-import { SideNavigation } from "../SideNavigation/index"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { SideNavigation } from "../SideNavigation/SideNavigation.component"
+import { SideNavigationItem } from "./SideNavigationItem.component"
 import { KnownIconsEnum } from "../Icon/Icon.component"
 
-type StoryDefinition = () => React.ReactNode
-
-export default {
+const meta: Meta<typeof SideNavigationItem> = {
   title: "Navigation/SideNavigation/SideNavigationItem",
   component: SideNavigationItem,
   argTypes: {
@@ -25,55 +24,138 @@ export default {
       control: false,
     },
   },
-  parameters: { actions: { argTypesRegex: null } },
-  decorators: [(story: StoryDefinition) => <SideNavigation>{story()}</SideNavigation>],
+  parameters: {
+    actions: { argTypesRegex: null },
+  },
+  decorators: [
+    (Story) => (
+      <SideNavigation>
+        <Story />
+      </SideNavigation>
+    ),
+  ],
 }
 
-const Template = (args: SideNavigationItemProps) => <SideNavigationItem {...args} />
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {
     label: "Navigation Item",
   },
 }
 
-export const Active = {
-  render: Template,
+export const Active: Story = {
   args: {
     label: "Active Navigation Item",
-    active: true,
+    selected: true,
   },
 }
 
-export const Disabled = {
-  render: Template,
+export const Disabled: Story = {
   args: {
-    label: "Disabled Navigation Item",
+    label: "Active Navigation Item",
     disabled: true,
+    href: "#",
   },
 }
 
-export const WithIcon = {
-  render: Template,
+export const WithIcon: Story = {
   args: {
     label: "Navigation Item With Icon",
-    icon: "warning",
+    icon: "addCircle",
   },
 }
 
-export const AsLink = {
-  render: Template,
+export const AsLink: Story = {
   args: {
     label: "Navigation Item as Anchor",
     href: "#",
   },
 }
 
-export const WithChildren = {
-  render: Template,
+export const WithChildren: Story = {
   args: {
-    value: "itm-1",
+    label: "itm-1",
     children: "Item 1",
+  },
+}
+
+export const Expandable: Story = {
+  args: {
+    label: "Expandable Navigation Item",
+    children: (
+      <>
+        <SideNavigationItem label="Child Item 1" />
+        <SideNavigationItem label="Child Item 2">
+          <SideNavigationItem label="Sub-Child Item 1" />
+          <SideNavigationItem label="Sub-Child Item 2" />
+        </SideNavigationItem>
+        <SideNavigationItem label="Child Item 1" />
+        <SideNavigationItem label="Child Item 2">
+          <SideNavigationItem label="Sub-Child Item 1" />
+          <SideNavigationItem label="Sub-Child Item 2" />
+        </SideNavigationItem>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates an expandable SideNavigationItem with nested child items. Note: Styling is supported for three nested levels only (recommended). Beyond this, custom styling is required.",
+      },
+    },
+  },
+}
+
+export const ExpandableWithIcon: Story = {
+  args: {
+    label: "Expandable Navigation Item",
+    icon: "error",
+    children: (
+      <>
+        <SideNavigationItem label="Child Item 1" />
+        <SideNavigationItem label="Child Item 2" icon="addCircle">
+          <SideNavigationItem label="Sub-Child Item 1" icon="addCircle" />
+          <SideNavigationItem label="Sub-Child Item 2" />
+        </SideNavigationItem>
+        <SideNavigationItem label="Child Item 1" />
+        <SideNavigationItem label="Child Item 2" />
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates an expandable SideNavigationItem with nested child items with icon. Note: Only the first level can contain an icon.",
+      },
+    },
+  },
+}
+
+export const DisabledWithExpandable: Story = {
+  args: {
+    label: "1st Level Item",
+    icon: "error",
+    disabled: true,
+    children: (
+      <>
+        <SideNavigationItem label="2nd Level Item" href="#" icon="addCircle" />
+        <SideNavigationItem label="2nd Level Item" icon="addCircle">
+          <SideNavigationItem label="3rd Level Item" icon="addCircle">
+            <SideNavigationItem label="4th Level Item" href="#" icon="addCircle" />
+          </SideNavigationItem>
+        </SideNavigationItem>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Demonstrates an expandable SideNavigationItem with nested child items with icons.",
+      },
+    },
   },
 }

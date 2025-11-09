@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import "../../src/global.scss"
+import "../../src/global.css"
 import { StyleProvider } from "../../src/components/StyleProvider"
 import { ContentContainer } from "../../src/components/ContentContainer/index"
 import { Container } from "../../src/components/Container/index"
 import React, { useEffect } from "react"
-import { addons } from "@storybook/preview-api"
+import { addons } from "storybook/preview-api"
 import { getCurrentTheme, getCurrentThemeMode } from "./themes"
 
 const fixBodyBg = () => {

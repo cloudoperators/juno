@@ -92,7 +92,7 @@ const Plugin = (props: any) => {
         )}
       </DataGridCell>
       <DataGridCell>
-        <Icon color="jn-global-text" icon="edit" onClick={onPluginClick} />
+        <Icon color="global-text" icon="edit" onClick={onPluginClick} />
       </DataGridCell>
     </DataGridRow>
   )

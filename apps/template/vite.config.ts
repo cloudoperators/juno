@@ -4,9 +4,7 @@
  */
 
 import react from "@vitejs/plugin-react"
-import tailwindcss from "tailwindcss"
-import autoprefixer from "autoprefixer"
-
+import tailwindcss from "@tailwindcss/vite"
 import tsconfigPaths from "vite-tsconfig-paths"
 
 export default ({ mode }) => {
@@ -17,12 +15,7 @@ export default ({ mode }) => {
       "process.env": {},
     },
 
-    plugins: [react(), tsconfigPaths()],
-    css: {
-      postcss: {
-        plugins: [tailwindcss, autoprefixer],
-      },
-    },
+    plugins: [tailwindcss(), react(), tsconfigPaths()],
 
     server: {
       host: "0.0.0.0",
@@ -51,7 +44,7 @@ export default ({ mode }) => {
       lib: {
         entry: "src/index.tsx",
         formats: ["es"],
-        fileName: (format) => `index.js`,
+        fileName: (_format) => `index.js`,
       },
     },
   }

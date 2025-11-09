@@ -4,10 +4,10 @@
  */
 
 import React from "react"
-import { Meta, StoryFn, StoryObj } from "@storybook/react"
-import { GridColumn, GridColumnProps } from "./GridColumn.component"
+import { Meta, StoryObj } from "@storybook/react-vite"
+import { GridColumn } from "./GridColumn.component"
 
-export default {
+const meta: Meta<typeof GridColumn> = {
   title: "Layout/Grid/GridColumn",
   component: GridColumn,
   argTypes: {
@@ -15,28 +15,36 @@ export default {
   },
   decorators: [
     (Story, context) => (
-      <div className="juno-container jn-px-6 jn-py-6">
+      <div className="juno-container jn:px-6 jn:py-6">
         <Story {...context.args} />
       </div>
     ),
   ],
-} as Meta
-
-const Template: StoryFn<GridColumnProps> = (args) => {
-  return <GridColumn {...args} className={`${args.className} jn-bg-juno-blue-3 jn-text-juno-grey-blue`} />
+  parameters: {
+    docs: {
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
+    },
+  },
+  render: (args) => {
+    return <GridColumn {...args} className={"jn:bg-juno-blue-3 jn:text-juno-grey-blue"} />
+  },
 }
 
-type Story = StoryObj<GridColumnProps>
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: Template,
   args: {
     children: "Column",
   },
 }
 
 export const AutoColumn: Story = {
-  render: Template,
   args: {
     auto: true,
     children: "Auto Column",
@@ -44,7 +52,6 @@ export const AutoColumn: Story = {
 }
 
 export const WidthColumn: Story = {
-  render: Template,
   args: {
     width: 50,
     children: "Column 50%",

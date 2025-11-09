@@ -4,29 +4,37 @@
  */
 
 import React from "react"
-import { SelectDivider, SelectDividerProps } from "./SelectDivider.component"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { SelectDivider } from "./SelectDivider.component"
 import { Select } from "../Select"
 import { SelectOption } from "../SelectOption"
 import { PortalProvider } from "../PortalProvider"
 
-export default {
+const meta: Meta<typeof SelectDivider> = {
   title: "Forms/Select/SelectDivider",
   component: SelectDivider,
   argTypes: {},
-  decorators: [(story: () => React.ReactNode) => <PortalProvider>{story()}</PortalProvider>],
+  decorators: [
+    (Story) => (
+      <PortalProvider>
+        <Story />
+      </PortalProvider>
+    ),
+  ],
+  render: () => {
+    return (
+      <Select open>
+        <SelectOption value="1">1</SelectOption>
+        <SelectDivider />
+        <SelectOption value="3">3</SelectOption>
+      </Select>
+    )
+  },
 }
 
-const Template: React.FC<SelectDividerProps> = () => {
-  return (
-    <Select open>
-      <SelectOption value="1">1</SelectOption>
-      <SelectDivider />
-      <SelectOption value="3">3</SelectOption>
-    </Select>
-  )
-}
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
+export const Default: Story = {
   args: {},
 }

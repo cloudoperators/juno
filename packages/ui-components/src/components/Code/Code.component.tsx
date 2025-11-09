@@ -6,11 +6,11 @@
 import React from "react"
 
 const codeStyles = `
-  jn-bg-theme-code-block
-  jn-text-sm
+  jn:bg-theme-code-block
+  jn:text-sm
 `
 
-/** A basic inline <code> component.
+/** A basic inline `<code>` component.
  *   Accepts "content" prop or renders children as passed.
  */
 export const Code: React.FC<CodeProps> = ({ content = "", children, className = "", ...props }) => {

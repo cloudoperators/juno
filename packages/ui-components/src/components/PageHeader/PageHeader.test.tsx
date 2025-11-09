@@ -17,16 +17,24 @@ describe("PageHeader", () => {
     expect(screen.getByRole("banner")).toHaveClass("juno-pageheader")
   })
 
-  test("renders a Page Header with heading as passed", () => {
-    render(<PageHeader heading="My Test Heading" />)
+  test("renders a Page Header with applicationName taking precedence over heading", () => {
+    render(<PageHeader applicationName="My Test App" heading="My Test Heading" />)
     expect(screen.getByRole("banner")).toBeInTheDocument()
-    expect(screen.getByRole("banner")).toHaveTextContent("My Test Heading")
+    expect(screen.getByRole("banner")).toHaveTextContent("My Test App")
+  })
+
+  test("renders without a title if applicationName and heading are undefined", () => {
+    render(<PageHeader />)
+    const banner = screen.getByRole("banner")
+    expect(banner).toBeInTheDocument()
+    const titleElement = screen.queryByRole("heading")
+    expect(titleElement).not.toBeInTheDocument()
   })
 
   test("renders children as passed", () => {
     render(
       <PageHeader>
-        <button></button>
+        <button />
       </PageHeader>
     )
     expect(screen.getByRole("banner")).toBeInTheDocument()
@@ -39,10 +47,9 @@ describe("PageHeader", () => {
     expect(element).toBeInTheDocument()
   })
 
-  test("does not render any logo as passed", () => {
+  test("does not render any logo when logo is passed as false", () => {
     render(<PageHeader logo={false} />)
     expect(screen.getByRole("banner")).toBeInTheDocument()
-    expect(screen.queryByAltText("Juno UI")).not.toBeInTheDocument()
     const logoContainer = document.querySelector(".juno-pageheader-logo-container")
     expect(logoContainer).toBeInTheDocument()
     expect(logoContainer).toBeEmptyDOMElement()
@@ -67,10 +74,22 @@ describe("PageHeader", () => {
     expect(screen.getByRole("banner")).toHaveAttribute("data-lolol", "some-prop")
   })
 
-  test("click on heading fires onClick handler as passed", async () => {
+  test("click on application name fires onClick handler if passed", async () => {
     const handleClick = vi.fn()
-    render(<PageHeader onClick={handleClick} heading="My Heading" />)
-    await userEvent.click(screen.getByText("My Heading"))
+    render(<PageHeader onClick={handleClick} applicationName="My App" />)
+    await userEvent.click(screen.getByText("My App"))
     expect(handleClick).toHaveBeenCalledTimes(1)
+  })
+
+  test("href executes when onClick is not passed", () => {
+    render(<PageHeader href="http://example.com" applicationName="My App" />)
+    const linkElement = screen.getByRole("link", { name: /My App/i })
+    expect(linkElement).toHaveAttribute("href", "http://example.com")
+  })
+
+  test("renders without children gracefully", () => {
+    render(<PageHeader />)
+    expect(screen.getByRole("banner")).toBeInTheDocument()
+    expect(screen.queryByRole("button")).not.toBeInTheDocument()
   })
 })

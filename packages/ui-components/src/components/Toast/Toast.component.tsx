@@ -7,17 +7,17 @@ import React, { useEffect, useState } from "react"
 import { Icon } from "../Icon/index"
 
 const toastStyles = `
-    jn-bg-theme-background-lvl-1
-    jn-text-theme-high 
-    jn-inline-flex	
-    jn-items-start
-    jn-p-2
-    jn-mb-8
-    jn-rounded
+    jn:bg-theme-background-lvl-1
+    jn:text-theme-high 
+    jn:inline-flex	
+    jn:items-start
+    jn:p-2
+    jn:mb-8
+    jn:rounded
 `
 const toastStylesText = `
-    jn-mx-4
-    jn-max-w-full
+    jn:mx-4
+    jn:max-w-full
 `
 
 // get the appropriate icon for messasge tyope by MUI name:
@@ -88,12 +88,12 @@ export const Toast: React.FC<ToastProps> = ({
     <>
       {visible && (
         <div className={`juno-toast juno-toast-${variant} ${toastStyles} ${className}`} {...props}>
-          <Icon icon={getMuiIcon(variant)} color={"jn-text-theme-" + variant} className="jn-shrink-0" />
+          <Icon icon={getMuiIcon(variant)} color={"jn:text-theme-" + variant} className="jn:shrink-0" />
           <div className={`juno-toast-text ${toastStylesText}`}>{children ? children : text}</div>
           <Icon
             icon="close"
             onClick={hideMessage}
-            className="juno-message-close-button jn-opacity-50 hover:jn-opacity-100 jn-shrink-0"
+            className="juno-message-close-button jn:opacity-50 jn:hover:opacity-100 jn:shrink-0"
           />
         </div>
       )}

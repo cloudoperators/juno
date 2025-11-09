@@ -291,7 +291,7 @@ const AlertsPage: React.FC = () => {
             {/* Alert Access Key Panel */}
             <Stack direction="vertical" gap={DEFAULT_MEDIUM_APP_MARGIN}>
               <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} alignment="center">
-                <Icon color="jn-text-theme-warning" icon="warning" />
+                <Icon color="text-theme-warning" icon="warning" />
                 <span>This access key is sensitive information. Keep it secure.</span>
               </Stack>
 

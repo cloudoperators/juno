@@ -3,20 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { ThemeToggle } from "./ThemeToggle.component"
 
-export default {
+const meta: Meta<typeof ThemeToggle> = {
   title: "WIP/ThemeToggle",
   component: ThemeToggle,
   argTypes: {},
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   parameters: {},
   args: {},
 }
 
-export const Disabled = {
+export const Disabled: Story = {
   args: {
     disabled: true,
   },

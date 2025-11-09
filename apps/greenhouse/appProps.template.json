@@ -2,5 +2,6 @@
   "authIssuerUrl": "https://auth.backend.com/",
   "authClientId": "client-id",
   "currentHost": "https://assets.server.com/",
-  "apiEndpoint": "https://api.greenhouse.com/"
+  "apiEndpoint": "https://api.greenhouse.com/",
+  "enableHashedRouting": false
 }

@@ -13,7 +13,7 @@ type TestCase = {
 
 const testCases: TestCase[] = [
   {
-    encoded: "aString=someId1&aNumber=2&aBoolean=true&aNull&anEmptyString=&anArray=1,true,something",
+    encoded: "?aString=someId1&aNumber=2&aBoolean=true&aNull&anEmptyString=&anArray=1,true,something",
     decoded: {
       aString: "someId1",
       aNumber: 2,
@@ -24,15 +24,15 @@ const testCases: TestCase[] = [
     },
   },
   {
-    encoded: "aStringWithSpaces=some%20id%20and",
+    encoded: "?aStringWithSpaces=some%20id%20and",
     decoded: { aStringWithSpaces: "some id and" },
   },
   {
-    encoded: "regularExpression=%2Fw3schools%2Fi",
+    encoded: "?regularExpression=%2Fw3schools%2Fi",
     decoded: { regularExpression: /w3schools/i },
   },
   {
-    encoded: "aStringWithSpecialCharacter=A%26B",
+    encoded: "?aStringWithSpecialCharacter=A%26B",
     decoded: { aStringWithSpecialCharacter: "A&B" },
   },
 ]

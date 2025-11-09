@@ -4,8 +4,8 @@
  */
 
 import { Icon } from "./index.ts"
-import { fn } from "@storybook/test" // Import the fn function for mocking handlers
-import type { Meta, StoryObj } from "@storybook/react" // Import Storybook types
+import { fn } from "storybook/test" // Import the fn function for mocking handlers
+import type { Meta, StoryObj } from "@storybook/react-vite" // Import Storybook types
 
 // Define the proper type for the default export
 const meta: Meta<typeof Icon> = {
@@ -19,8 +19,13 @@ const meta: Meta<typeof Icon> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "A generic icon component. Accepts text color classes for color. Please note that the 'jn-' prefix for tailwind classes is only necessary within the juno ui design system itself. When using icons in your own applications use the normal tailwing-generated text color classes starting with 'text-'",
+        component: "A generic icon component. Accepts text color classes for color.",
+      },
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
       },
     },
   },
@@ -28,7 +33,7 @@ const meta: Meta<typeof Icon> = {
 
 export default meta
 
-type Story = StoryObj<typeof Icon>
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
@@ -40,28 +45,28 @@ export const Default: Story = {
 export const Info_Colored: Story = {
   args: {
     icon: "info",
-    color: "jn-text-theme-info",
+    color: "jn:text-theme-info",
   },
 }
 
 export const Danger_Colored: Story = {
   args: {
     icon: "danger",
-    color: "jn-text-theme-danger",
+    color: "jn:text-theme-danger",
   },
 }
 
 export const Success_Colored: Story = {
   args: {
     icon: "success",
-    color: "jn-text-theme-success",
+    color: "jn:text-theme-success",
   },
 }
 
 export const Warning_Colored: Story = {
   args: {
     icon: "warning",
-    color: "jn-text-theme-warning",
+    color: "jn:text-theme-warning",
   },
 }
 
@@ -374,6 +379,7 @@ export const SeverityLow: Story = {
   args: {
     ...Default.args,
     icon: "severityLow",
+    color: "jn:text-theme-severity-low",
   },
 }
 
@@ -381,6 +387,7 @@ export const SeverityMedium: Story = {
   args: {
     ...Default.args,
     icon: "severityMedium",
+    color: "jn:text-theme-severity-medium",
   },
 }
 
@@ -388,6 +395,15 @@ export const SeverityHigh: Story = {
   args: {
     ...Default.args,
     icon: "severityHigh",
+    color: "jn:text-theme-severity-high",
+  },
+}
+
+export const SeverityVeryHigh: Story = {
+  args: {
+    ...Default.args,
+    icon: "severityVeryHigh",
+    color: "jn:text-theme-severity-very-high",
   },
 }
 
@@ -395,6 +411,15 @@ export const SeverityCritical: Story = {
   args: {
     ...Default.args,
     icon: "severityCritical",
+    color: "jn:text-theme-severity-critical",
+  },
+}
+
+export const SeverityUnknown: Story = {
+  args: {
+    ...Default.args,
+    icon: "severityUnknown",
+    color: "jn:text-theme-severity-unknown",
   },
 }
 
@@ -402,6 +427,34 @@ export const Success: Story = {
   args: {
     ...Default.args,
     icon: "success",
+  },
+}
+
+export const SortShortWideArrowUp: Story = {
+  args: {
+    ...Default.args,
+    icon: "sortShortWideArrowUp",
+  },
+}
+
+export const SortShortWideArrowDown: Story = {
+  args: {
+    ...Default.args,
+    icon: "sortShortWideArrowDown",
+  },
+}
+
+export const SortWideShortArrowUp: Story = {
+  args: {
+    ...Default.args,
+    icon: "sortWideShortArrowUp",
+  },
+}
+
+export const SortWideShortArrowDown: Story = {
+  args: {
+    ...Default.args,
+    icon: "sortWideShortArrowDown",
   },
 }
 

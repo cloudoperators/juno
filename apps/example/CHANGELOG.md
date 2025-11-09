@@ -1,5 +1,200 @@
 # @cloudoperators/juno-app-example
 
+## 2.3.5
+
+### Patch Changes
+
+- Updated dependencies [8ea0089]
+  - @cloudoperators/juno-ui-components@5.9.0
+  - @cloudoperators/juno-messages-provider@0.2.23
+
+## 2.3.4
+
+### Patch Changes
+
+- Updated dependencies [25a91ac]
+  - @cloudoperators/juno-ui-components@5.8.2
+  - @cloudoperators/juno-messages-provider@0.2.22
+
+## 2.3.3
+
+### Patch Changes
+
+- Updated dependencies [86e6188]
+  - @cloudoperators/juno-ui-components@5.8.1
+  - @cloudoperators/juno-messages-provider@0.2.21
+
+## 2.3.2
+
+### Patch Changes
+
+- Updated dependencies [2125722]
+- Updated dependencies [42ad17d]
+  - @cloudoperators/juno-ui-components@5.8.0
+  - @cloudoperators/juno-messages-provider@0.2.20
+
+## 2.3.1
+
+### Patch Changes
+
+- f82caaa: Harmonized conflicting versions of dependencies.
+- Updated dependencies [f82caaa]
+  - @cloudoperators/juno-ui-components@5.7.1
+  - @cloudoperators/juno-messages-provider@0.2.19
+
+## 2.3.0
+
+### Minor Changes
+
+- d3f9442: Add hover functionality in DataGridRow Juno UI Component and implement the solution in Example App.
+  [Issue #1015](https://github.com/cloudoperators/juno/issues/1015)
+
+### Patch Changes
+
+- Updated dependencies [0cf6a97]
+- Updated dependencies [d3f9442]
+  - @cloudoperators/juno-ui-components@5.7.0
+  - @cloudoperators/juno-messages-provider@0.2.18
+
+## 2.2.8
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+- Updated dependencies [e53d025]
+  - @cloudoperators/juno-url-state-provider@3.0.7
+
+## 2.2.7
+
+### Patch Changes
+
+- Updated dependencies [900b0be]
+  - @cloudoperators/juno-ui-components@5.6.0
+  - @cloudoperators/juno-messages-provider@0.2.17
+
+## 2.2.6
+
+### Patch Changes
+
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-url-state-provider@3.0.6
+
+## 2.2.5
+
+### Patch Changes
+
+- Updated dependencies [ee9a9ce]
+- Updated dependencies [fe485e4]
+- Updated dependencies [1ff669a]
+  - @cloudoperators/juno-ui-components@5.5.0
+  - @cloudoperators/juno-messages-provider@0.2.16
+
+## 2.2.4
+
+### Patch Changes
+
+- Updated dependencies [55014f5]
+  - @cloudoperators/juno-ui-components@5.4.0
+  - @cloudoperators/juno-messages-provider@0.2.15
+
+## 2.2.3
+
+### Patch Changes
+
+- Updated dependencies [1020d89]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-messages-provider@0.2.14
+
+## 2.2.2
+
+### Patch Changes
+
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-ui-components@5.2.0
+  - @cloudoperators/juno-messages-provider@0.2.13
+
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies [92a17f7]
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-messages-provider@0.2.12
+
+## 2.2.0
+
+### Minor Changes
+
+- 9453d27: Allow Buttons to be Disabled in Modal and ModalFooter Juno UI Components.
+  [Issue #1010](https://github.com/cloudoperators/juno/issues/1010)
+
+### Patch Changes
+
+- 5ad5d5b: **Core Build Tools**
+  - vite: Updated to `7.0.3` (latest)
+  - vite-tsconfig-paths: Updated to `5.1.4` (latest)
+  - vite-plugin-dts: Updated to `4.5.4` (latest)
+
+  **Testing Framework**
+  - vitest: Updated to `3.2.4` (latest)
+  - @vitest/ui: Updated to `3.2.4` (latest)
+
+  **React Plugins**
+  - @vitejs/plugin-react: Updated to `4.6.0` (latest)
+  - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
+
+  **Additional Plugins**
+  - vite-plugin-svgr: Updated to `4.3.0` (latest)
+  - @tailwindcss/vite: Updated to `4.1.11` (latest)
+
+- Updated dependencies [5ad5d5b]
+- Updated dependencies [ca74897]
+- Updated dependencies [9453d27]
+  - @cloudoperators/juno-messages-provider@0.2.11
+  - @cloudoperators/juno-oauth@1.4.9
+  - @cloudoperators/juno-ui-components@5.1.0
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
+## 2.1.5
+
+### Patch Changes
+
+- 1d30fb5: Fix jsdom css parsing error (update jsdom dependencies)
+- 5513d4b: Remove jn classname prefixes for Example, Greenhouse and Heureka
+- Updated dependencies [2da3003]
+- Updated dependencies [1d30fb5]
+- Updated dependencies [8d344a6]
+  - @cloudoperators/juno-url-state-provider@3.0.4
+  - @cloudoperators/juno-messages-provider@0.2.10
+  - @cloudoperators/juno-oauth@1.4.8
+  - @cloudoperators/juno-ui-components@5.0.1
+
+## 2.1.4
+
+### Patch Changes
+
+- 4dedb33: Upgrade to tailwind 4.0 and related changes
+- Updated dependencies [01245c8]
+- Updated dependencies [4dedb33]
+  - @cloudoperators/juno-ui-components@5.0.0
+  - @cloudoperators/juno-messages-provider@0.2.9
+
+## 2.1.3
+
+### Patch Changes
+
+- Updated dependencies [b693d90]
+  - @cloudoperators/juno-url-state-provider@3.0.3
+
+## 2.1.2
+
+### Patch Changes
+
+- Updated dependencies [5488568]
+- Updated dependencies [6ef7f8d]
+  - @cloudoperators/juno-ui-components@4.0.1
+  - @cloudoperators/juno-messages-provider@0.2.8
+
 ## 2.1.1
 
 ### Patch Changes

@@ -18,77 +18,77 @@ import { Icon } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/Spinner.component"
 
 const selectBaseClasses = `
-  jn-w-full
-  jn-bg-theme-select
-  jn-text-theme-high
-  jn-appearance-none
-  jn-text-base
-  jn-pl-4
-  jn-h-[2.375rem]
-  jn-rounded-3px
-  jn-bg-icon-arrow-down
-  jn-bg-right
-  jn-bg-no-repeat
-  focus:jn-outline-none
-  focus:jn-ring-2
-  focus:jn-ring-theme-focus
-  disabled:jn-opacity-50
+  jn:w-full
+  jn:bg-theme-select
+  jn:text-theme-high
+  jn:appearance-none
+  jn:text-base
+  jn:pl-4
+  jn:h-[2.375rem]
+  jn:rounded-3px
+  jn:bg-icon-arrow-down
+  jn:bg-right
+  jn:bg-no-repeat
+  jn:focus:outline-hidden
+  jn:focus:ring-2
+  jn:focus:ring-theme-focus
+  jn:disabled:opacity-50
 `
 
-const wrapperBaseClasses = `jn-relative`
+const wrapperBaseClasses = `jn:relative`
 
 const iconBaseClasses = `
-  jn-absolute
-  jn-flex
-  jn-right-2
-  jn-top-1.5
-  jn-pointer-events-none
+  jn:absolute
+  jn:flex
+  jn:right-2
+  jn:top-1.5
+  jn:pointer-events-none
 `
 
-const iconDisabledClasses = `jn-opacity-50`
+const iconDisabledClasses = `jn:opacity-50`
 
-const borderErrorClasses = `jn-border jn-border-theme-error`
-const borderSuccessClasses = `jn-border jn-border-theme-success`
+const borderErrorClasses = `jn:border jn:border-theme-error`
+const borderSuccessClasses = `jn:border jn:border-theme-success`
 
 const stateClasses = {
   loading: `
-    jn-absolute
-    jn-top-0
-    jn-right-0
-    jn-bottom-0
-    jn-left-0
-    jn-text-center
-    jn-bg-theme-select
-    jn-text-theme-high
-    jn-text-base
-    jn-rounded-3px
-    jn-flex
-    jn-flex-col
-    jn-justify-center
-    jn-select-none
-    jn-cursor-not-allowed
+    jn:absolute
+    jn:top-0
+    jn:right-0
+    jn:bottom-0
+    jn:left-0
+    jn:text-center
+    jn:bg-theme-select
+    jn:text-theme-high
+    jn:text-base
+    jn:rounded-3px
+    jn:flex
+    jn:flex-col
+    jn:justify-center
+    jn:select-none
+    jn:cursor-not-allowed
   `,
   error: `
-    jn-absolute
-    jn-top-0
-    jn-right-0
-    jn-bottom-0
-    jn-left-0
-    jn-text-center
-    jn-bg-theme-select
-    jn-text-theme-high
-    jn-text-base
-    jn-rounded-3px
-    jn-flex
-    jn-flex-col
-    jn-justify-center
-    jn-select-none
-    jn-cursor-not-allowed
+    jn:absolute
+    jn:top-0
+    jn:right-0
+    jn:bottom-0
+    jn:left-0
+    jn:text-center
+    jn:bg-theme-select
+    jn:text-theme-high
+    jn:text-base
+    jn:rounded-3px
+    jn:flex
+    jn:flex-col
+    jn:justify-center
+    jn:select-none
+    jn:cursor-not-allowed
   `,
-  loadingSpinner: `jn-ml-auto jn-mr-auto`,
-  errorIcon: `jn-ml-auto jn-mr-auto`,
-  paddingIconRight: `jn-pr-[3.75rem]`,
-  paddingDefaultRight: `jn-pr-9`,
+  loadingSpinner: `jn:ml-auto jn:mr-auto`,
+  errorIcon: `jn:ml-auto jn:mr-auto`,
+  paddingIconRight: `jn:pr-[3.75rem]`,
+  paddingDefaultRight: `jn:pr-9`,
 }
 
 export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -182,14 +182,14 @@ const SelectIcons: FC<{
   if (hasError) {
     return (
       <div className={`juno-select-error-text ${stateClasses.error}`}>
-        <Icon icon="errorOutline" color="jn-text-theme-error" className={stateClasses.errorIcon} />
+        <Icon icon="errorOutline" color="jn:text-theme-error" className={stateClasses.errorIcon} />
       </div>
     )
   }
   return (
     <div className={`${iconBaseClasses} ${disabled ? iconDisabledClasses : ""}`}>
-      {isInvalid && <Icon icon="dangerous" color="jn-text-theme-error" />}
-      {isValid && <Icon icon="checkCircle" color="jn-text-theme-success" />}
+      {isInvalid && <Icon icon="dangerous" color="jn:text-theme-error" />}
+      {isValid && <Icon icon="checkCircle" color="jn:text-theme-success" />}
       <Icon icon="expandMore" />
     </div>
   )

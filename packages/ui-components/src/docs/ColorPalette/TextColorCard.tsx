@@ -18,23 +18,23 @@ export function TextColorCard(props: TextColorCardProps) {
   }
 
   const colorContainerStyle = `
-    jn-h-16 
+    jn:h-16 
     ${props.colorClass}
-    jn-font-extrabold
-    jn-text-6xl
-    jn-px-auto
-    jn-text-center
+    jn:font-extrabold
+    jn:text-6xl
+    jn:px-auto
+    jn:text-center
   `
 
   return (
-    <div className="jn-rounded-lg jn-border jn-border-theme-light">
-      <div className="jn-p-3 jn-text-theme-highest">
+    <div className="jn:rounded-lg jn:border jn:border-theme-light">
+      <div className="jn:p-3 jn:text-theme-highest">
         <p>{props.colorName}</p>
       </div>
       <div className={colorContainerStyle}>
         <p>Juno</p>
       </div>
-      <div className="jn-px-3 jn-py-4">
+      <div className="jn:px-3 jn:py-4">
         <p>theme-{props.colorName}</p>
       </div>
     </div>

@@ -8,24 +8,24 @@ import React from "react"
 import { StyleProvider } from "../StyleProvider/StyleProvider.component"
 import { Icon } from "../Icon/Icon.component"
 
-import "./themeToggle.scss"
+import "./themeToggle.css"
 
 const toggleStyles = `
-  jn-inline-flex 
-  jn-justify-center 
-  jn-items-center
-  jn-rounded
-  jn-py-[0.4375rem]
-  jn-px-[0.625rem]
-  hover:jn-text-theme-accent
-  focus:jn-outline-none 
-  focus-visible:jn-ring-2
-  focus-visible:jn-ring-theme-focus
-  focus-visible:jn-ring-offset-1
-  focus-visible:jn-ring-offset-theme-focus
-  disabled:jn-opacity-50
-  disabled:jn-cursor-not-allowed
-  active:jn-bg-theme-background-lvl-4
+  jn:inline-flex 
+  jn:justify-center 
+  jn:items-center
+  jn:rounded
+  jn:py-[0.4375rem]
+  jn:px-[0.625rem]
+  jn:hover:text-theme-accent
+  jn:focus:outline-hidden 
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+  jn:focus-visible:ring-offset-theme-focus
+  jn:disabled:opacity-50
+  jn:disabled:cursor-not-allowed
+  jn:active:bg-theme-background-lvl-4
 `
 
 export interface ThemeToggleProps {

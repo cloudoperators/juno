@@ -78,4 +78,58 @@ describe("ModalFooter", () => {
     render(<ModalFooter data-testid="my-modal-footer" name="My little ModalFooter" />)
     expect(screen.getByTestId("my-modal-footer")).toHaveAttribute("name", "My little ModalFooter")
   })
+
+  describe("Disabled Button Tests", () => {
+    test("renders a disabled confirm action button when disableConfirmButton is true and ensures onConfirm isn't triggered", () => {
+      const onClickSpy = vi.fn()
+      render(<ModalFooter confirmButtonLabel="Confirm" onConfirm={onClickSpy} disableConfirmButton />)
+
+      const confirmButton = screen.getByRole("button", { name: "Confirm" })
+      expect(confirmButton).toBeInTheDocument()
+      expect(confirmButton).toHaveAttribute("disabled")
+
+      act(() => confirmButton.click())
+      expect(onClickSpy).not.toHaveBeenCalled()
+    })
+
+    test("renders a disabled cancel action button when disableCancelButton is true and ensures onCancel isn't triggered", () => {
+      const onClickSpy = vi.fn()
+      render(<ModalFooter cancelButtonLabel="Cancel" onCancel={onClickSpy} disableCancelButton />)
+
+      const cancelButton = screen.getByRole("button", { name: "Cancel" })
+      expect(cancelButton).toBeInTheDocument()
+      expect(cancelButton).toHaveAttribute("disabled")
+
+      act(() => cancelButton.click())
+      expect(onClickSpy).not.toHaveBeenCalled()
+    })
+
+    test("renders disabled confirm and cancel buttons and ensures onConfirm and onCancel aren't triggered", () => {
+      const onConfirmSpy = vi.fn()
+      const onCancelSpy = vi.fn()
+
+      render(
+        <ModalFooter
+          confirmButtonLabel="Confirm"
+          cancelButtonLabel="Cancel"
+          onConfirm={onConfirmSpy}
+          onCancel={onCancelSpy}
+          disableConfirmButton
+          disableCancelButton
+        />
+      )
+
+      const confirmButton = screen.getByRole("button", { name: "Confirm" })
+      expect(confirmButton).toBeInTheDocument()
+      expect(confirmButton).toHaveAttribute("disabled")
+      act(() => confirmButton.click())
+      expect(onConfirmSpy).not.toHaveBeenCalled()
+
+      const cancelButton = screen.getByRole("button", { name: "Cancel" })
+      expect(cancelButton).toBeInTheDocument()
+      expect(cancelButton).toHaveAttribute("disabled")
+      act(() => cancelButton.click())
+      expect(onCancelSpy).not.toHaveBeenCalled()
+    })
+  })
 })

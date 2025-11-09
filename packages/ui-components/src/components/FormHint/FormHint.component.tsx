@@ -6,8 +6,8 @@
 import React, { ReactNode } from "react"
 
 const formHintBaseStyles = `
-  jn-text-xs
-  jn-mt-1
+  jn:text-xs
+  jn:mt-1
 `
 
 type FormHintVariant = "help" | "error" | "success"
@@ -39,11 +39,11 @@ export interface FormHintProps extends React.HTMLAttributes<HTMLDivElement> {
 const getVariantStyles = (variant: FormHintVariant): string => {
   switch (variant) {
     case "success":
-      return "jn-text-theme-success"
+      return "jn:text-theme-success"
     case "error":
-      return "jn-text-theme-error"
+      return "jn:text-theme-error"
     default:
-      return "jn-text-theme-light"
+      return "jn:text-theme-light"
   }
 }
 

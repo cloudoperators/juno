@@ -7,7 +7,6 @@ This standalone UI uses the Heureka API which aims to:
 
 - Track the overall state of our technology landscape
 - Establish a unified and complete Patch Management Process, including:
-
   - Maintaining and tracking vulnerabilities and affected components
   - Documenting the remediation, classification, and impact of vulnerabilities
   - Recording changes related to vulnerability patching and component updates

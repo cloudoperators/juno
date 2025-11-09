@@ -19,3 +19,6 @@ vite.config.*.timestamp-*
 .secrets
 .env
 act_*.json
+.secret
+
+.out-of-code-insights

@@ -1,5 +1,387 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.17
+
+### Patch Changes
+
+- e93df1a: For non-development environment always put organization name as subdomain.
+- Updated dependencies [8ea0089]
+  - @cloudoperators/juno-ui-components@5.9.0
+  - @cloudoperators/juno-app-doop@2.6.10
+  - @cloudoperators/juno-app-heureka@0.9.11
+  - @cloudoperators/juno-app-supernova@0.19.14
+  - @cloudoperators/juno-messages-provider@0.2.23
+
+## 0.7.16
+
+### Patch Changes
+
+- Updated dependencies [463d791]
+- Updated dependencies [25a91ac]
+  - @cloudoperators/juno-app-supernova@0.19.13
+  - @cloudoperators/juno-app-doop@2.6.9
+  - @cloudoperators/juno-ui-components@5.8.2
+  - @cloudoperators/juno-app-heureka@0.9.10
+  - @cloudoperators/juno-messages-provider@0.2.22
+
+## 0.7.15
+
+### Patch Changes
+
+- Updated dependencies [1bc71b6]
+- Updated dependencies [86e6188]
+  - @cloudoperators/juno-app-supernova@0.19.12
+  - @cloudoperators/juno-ui-components@5.8.1
+  - @cloudoperators/juno-app-doop@2.6.8
+  - @cloudoperators/juno-app-heureka@0.9.9
+  - @cloudoperators/juno-messages-provider@0.2.21
+
+## 0.7.14
+
+### Patch Changes
+
+- Updated dependencies [6b45b16]
+  - @cloudoperators/juno-app-heureka@0.9.8
+
+## 0.7.13
+
+### Patch Changes
+
+- Updated dependencies [2125722]
+- Updated dependencies [42ad17d]
+  - @cloudoperators/juno-ui-components@5.8.0
+  - @cloudoperators/juno-app-doop@2.6.7
+  - @cloudoperators/juno-app-heureka@0.9.7
+  - @cloudoperators/juno-app-supernova@0.19.11
+  - @cloudoperators/juno-messages-provider@0.2.20
+
+## 0.7.12
+
+### Patch Changes
+
+- f82caaa: Harmonized conflicting versions of dependencies.
+- Updated dependencies [f82caaa]
+- Updated dependencies [f82caaa]
+- Updated dependencies [f82caaa]
+  - @cloudoperators/juno-app-doop@2.6.6
+  - @cloudoperators/juno-ui-components@5.7.1
+  - @cloudoperators/juno-app-heureka@0.9.6
+  - @cloudoperators/juno-app-supernova@0.19.10
+  - @cloudoperators/juno-messages-provider@0.2.19
+
+## 0.7.11
+
+### Patch Changes
+
+- 5931aab: Update tanstack router to fix issue where the basepath would be overwritten while redirection.
+- Updated dependencies [5931aab]
+- Updated dependencies [5931aab]
+  - @cloudoperators/juno-app-supernova@0.19.9
+  - @cloudoperators/juno-app-heureka@0.9.5
+  - @cloudoperators/juno-app-doop@2.6.5
+
+## 0.7.10
+
+### Patch Changes
+
+- f8b9234: Implements initial filter URL synchronization with removable filter pills and adds context store to prevent re-application during tab navigation.
+- ce2fa02: Keep alerts plugin backward compatible after plugin name hamonization happened in the backend.
+- Updated dependencies [0cf6a97]
+- Updated dependencies [5261dfd]
+- Updated dependencies [f8b9234]
+- Updated dependencies [d3f9442]
+  - @cloudoperators/juno-ui-components@5.7.0
+  - @cloudoperators/juno-app-doop@2.6.4
+  - @cloudoperators/juno-app-heureka@0.9.4
+  - @cloudoperators/juno-app-supernova@0.19.8
+  - @cloudoperators/juno-messages-provider@0.2.18
+
+## 0.7.9
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+- Updated dependencies [e53d025]
+  - @cloudoperators/juno-url-state-provider@3.0.7
+  - @cloudoperators/juno-k8s-client@1.1.2
+  - @cloudoperators/juno-app-supernova@0.19.7
+  - @cloudoperators/juno-app-heureka@0.9.3
+  - @cloudoperators/juno-app-doop@2.6.3
+
+## 0.7.8
+
+### Patch Changes
+
+- Updated dependencies [900b0be]
+  - @cloudoperators/juno-ui-components@5.6.0
+  - @cloudoperators/juno-app-doop@2.6.2
+  - @cloudoperators/juno-app-heureka@0.9.2
+  - @cloudoperators/juno-app-supernova@0.19.6
+  - @cloudoperators/juno-messages-provider@0.2.17
+
+## 0.7.7
+
+### Patch Changes
+
+- 061c843: Greenhouse now preserves the URL state of the currently opened app when navigating to another app and restores it back when that app is visited again.
+- Updated dependencies [061c843]
+- Updated dependencies [061c843]
+  - @cloudoperators/juno-app-supernova@0.19.5
+  - @cloudoperators/juno-app-doop@2.6.1
+
+## 0.7.6
+
+### Patch Changes
+
+- 071ad50: `org` url search param is retained when navigating to other apps.
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-app-doop@2.6.0
+  - @cloudoperators/juno-url-state-provider@3.0.6
+  - @cloudoperators/juno-app-supernova@0.19.4
+  - @cloudoperators/juno-app-heureka@0.9.1
+
+## 0.7.5
+
+### Patch Changes
+
+- Updated dependencies [ee9a9ce]
+- Updated dependencies [62c1184]
+- Updated dependencies [fe485e4]
+- Updated dependencies [1ff669a]
+  - @cloudoperators/juno-ui-components@5.5.0
+  - @cloudoperators/juno-app-heureka@0.9.0
+  - @cloudoperators/juno-app-doop@2.5.4
+  - @cloudoperators/juno-app-supernova@0.19.3
+  - @cloudoperators/juno-messages-provider@0.2.16
+
+## 0.7.4
+
+### Patch Changes
+
+- Updated dependencies [55014f5]
+  - @cloudoperators/juno-ui-components@5.4.0
+  - @cloudoperators/juno-app-doop@2.5.3
+  - @cloudoperators/juno-app-heureka@0.8.6
+  - @cloudoperators/juno-app-supernova@0.19.2
+  - @cloudoperators/juno-messages-provider@0.2.15
+
+## 0.7.3
+
+### Patch Changes
+
+- Updated dependencies [5ae0f8c]
+  - @cloudoperators/juno-k8s-client@1.1.1
+
+## 0.7.2
+
+### Patch Changes
+
+- 9e9669f: When navigating to other app, do not copy url state of the previous app.
+- Updated dependencies [1020d89]
+- Updated dependencies [9e9669f]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-app-supernova@0.19.1
+  - @cloudoperators/juno-app-doop@2.5.2
+  - @cloudoperators/juno-app-heureka@0.8.5
+  - @cloudoperators/juno-messages-provider@0.2.14
+
+## 0.7.1
+
+### Patch Changes
+
+- 8a44efa: Supernova old url state is now converted to new URL state and for other apps tanstack router dependencies are updated.
+- c2a617e: Update nginx.conf so the client side routing works.
+- Updated dependencies [8a44efa]
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-app-supernova@0.19.0
+  - @cloudoperators/juno-app-heureka@0.8.4
+  - @cloudoperators/juno-app-doop@2.5.1
+  - @cloudoperators/juno-ui-components@5.2.0
+  - @cloudoperators/juno-messages-provider@0.2.13
+
+## 0.7.0
+
+### Minor Changes
+
+- 3589b0c: All apps support client side routing using tanstack router.
+
+### Patch Changes
+
+- 3f9fcbb: Added vulnerability counts per severity above the list
+- Updated dependencies [3f9fcbb]
+- Updated dependencies [3589b0c]
+  - @cloudoperators/juno-app-heureka@0.8.3
+  - @cloudoperators/juno-app-supernova@0.18.0
+  - @cloudoperators/juno-app-doop@2.5.0
+
+## 0.6.13
+
+### Patch Changes
+
+- 6ce69e4: feat(heureka): adds vulnerability details panel
+- Updated dependencies [6ce69e4]
+  - @cloudoperators/juno-app-heureka@0.8.2
+
+## 0.6.12
+
+### Patch Changes
+
+- a87c074: feat(supernova): support absolute urls in playbook links
+- 052b8b1: Skips an unstable test in FilterSelect component temporarily
+- 0db8cd2: Skips all Filters related tests temporarily in Heureka
+- e185313: Handles null values for a vulnerability severity
+- Updated dependencies [40d8dd8]
+- Updated dependencies [a87c074]
+- Updated dependencies [1afa941]
+- Updated dependencies [052b8b1]
+- Updated dependencies [0db8cd2]
+- Updated dependencies [e185313]
+  - @cloudoperators/juno-k8s-client@1.1.0
+  - @cloudoperators/juno-app-supernova@0.17.9
+  - @cloudoperators/juno-app-heureka@0.8.1
+  - @cloudoperators/juno-app-doop@2.4.8
+  - @cloudoperators/juno-messages-provider@0.2.12
+  - @cloudoperators/juno-oauth@1.4.9
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
+## 0.6.11
+
+### Patch Changes
+
+- 6d972a5: Displays number of service image version instances in service details page (this count is also available in service image version details panel)
+- cd2a9c7: Heureka: Add vulnerabilities list view
+- 610e2e3: Updates types based on schema breaking changes to adjust severity filter type.
+- Updated dependencies [92a17f7]
+- Updated dependencies [6d972a5]
+- Updated dependencies [cd2a9c7]
+- Updated dependencies [610e2e3]
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-app-heureka@0.8.0
+  - @cloudoperators/juno-app-doop@2.4.8
+  - @cloudoperators/juno-app-supernova@0.17.8
+  - @cloudoperators/juno-messages-provider@0.2.12
+
+## 0.6.10
+
+### Patch Changes
+
+- becdd90: The Greenhouse TeamMembership is being deprecated, the users assigned to a Team are now in the Team.status.members[].
+
+## 0.6.9
+
+### Patch Changes
+
+- 5ad5d5b: **Core Build Tools**
+  - vite: Updated to `7.0.3` (latest)
+  - vite-tsconfig-paths: Updated to `5.1.4` (latest)
+  - vite-plugin-dts: Updated to `4.5.4` (latest)
+
+  **Testing Framework**
+  - vitest: Updated to `3.2.4` (latest)
+  - @vitest/ui: Updated to `3.2.4` (latest)
+
+  **React Plugins**
+  - @vitejs/plugin-react: Updated to `4.6.0` (latest)
+  - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
+
+  **Additional Plugins**
+  - vite-plugin-svgr: Updated to `4.3.0` (latest)
+  - @tailwindcss/vite: Updated to `4.1.11` (latest)
+
+- Updated dependencies [5ad5d5b]
+- Updated dependencies [ca74897]
+- Updated dependencies [9453d27]
+  - @cloudoperators/juno-app-doop@2.4.7
+  - @cloudoperators/juno-app-heureka@0.7.5
+  - @cloudoperators/juno-app-supernova@0.17.7
+  - @cloudoperators/juno-k8s-client@1.0.8
+  - @cloudoperators/juno-messages-provider@0.2.11
+  - @cloudoperators/juno-oauth@1.4.9
+  - @cloudoperators/juno-ui-components@5.1.0
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
+## 0.6.8
+
+### Patch Changes
+
+- 15ce372: Heureka now sanitizes URL search string which fixes the issue in the embedded mode where the app was unable to apply filters from the hased part of the URL.
+- 5513d4b: Remove jn classname prefixes for Example, Greenhouse and Heureka
+- Updated dependencies [15ce372]
+- Updated dependencies [2da3003]
+- Updated dependencies [1d30fb5]
+- Updated dependencies [8d344a6]
+- Updated dependencies [5513d4b]
+  - @cloudoperators/juno-app-heureka@0.7.4
+  - @cloudoperators/juno-url-state-provider@3.0.4
+  - @cloudoperators/juno-messages-provider@0.2.10
+  - @cloudoperators/juno-oauth@1.4.8
+  - @cloudoperators/juno-ui-components@5.0.1
+  - @cloudoperators/juno-app-supernova@0.17.6
+  - @cloudoperators/juno-app-doop@2.4.6
+  - @cloudoperators/juno-k8s-client@1.0.7
+
+## 0.6.7
+
+### Patch Changes
+
+- 4dedb33: Upgrade to tailwind 4.0 and related changes
+- Updated dependencies [01245c8]
+- Updated dependencies [4dedb33]
+- Updated dependencies [4dedb33]
+  - @cloudoperators/juno-ui-components@5.0.0
+  - @cloudoperators/juno-app-supernova@0.17.5
+  - @cloudoperators/juno-app-heureka@0.7.3
+  - @cloudoperators/juno-app-doop@2.4.5
+  - @cloudoperators/juno-messages-provider@0.2.9
+
+## 0.6.6
+
+### Patch Changes
+
+- 0c09a23: Patch greenhouse to get latest version of Heureka.
+- Updated dependencies [45814a5]
+  - @cloudoperators/juno-app-heureka@0.7.2
+
+## 0.6.5
+
+### Patch Changes
+
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+- Updated dependencies [def4143]
+- Updated dependencies [198dd13]
+  - @cloudoperators/juno-app-heureka@0.7.1
+  - @cloudoperators/juno-app-supernova@0.17.4
+  - @cloudoperators/juno-app-doop@2.4.4
+
+## 0.6.4
+
+### Patch Changes
+
+- 86e0be2: Upgrade doop extension
+- b693d90: Heureka now supports filters in deeplinks.
+- Updated dependencies [86e0be2]
+- Updated dependencies [b693d90]
+  - @cloudoperators/juno-app-doop@2.4.3
+  - @cloudoperators/juno-app-heureka@0.7.0
+  - @cloudoperators/juno-url-state-provider@3.0.3
+  - @cloudoperators/juno-app-supernova@0.17.3
+
+## 0.6.3
+
+### Patch Changes
+
+- Updated dependencies [5488568]
+- Updated dependencies [6ef7f8d]
+  - @cloudoperators/juno-ui-components@4.0.1
+  - @cloudoperators/juno-app-doop@2.4.2
+  - @cloudoperators/juno-app-heureka@0.6.2
+  - @cloudoperators/juno-app-supernova@0.17.2
+  - @cloudoperators/juno-messages-provider@0.2.8
+
 ## 0.6.2
 
 ### Patch Changes

@@ -9,68 +9,68 @@ import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/FormHint.component"
 
 const wrapperStyles = `
-  jn-inline-block
-  jn-relative
+  jn:inline-block
+  jn:relative
 `
 
 const textareastyles = `
-  jn-bg-theme-textinput
-  jn-text-theme-textinput
-  jn-border
-  jn-text-base
-  jn-leading-4
-  jn-px-4
-  jn-rounded-3px
-  jn-align-top
-  focus:jn-outline-none
-  focus:jn-ring-2
-  focus:jn-ring-theme-focus
-  disabled:jn-opacity-50
-  disabled:jn-cursor-not-allowed
+  jn:bg-theme-textinput
+  jn:text-theme-textinput
+  jn:border
+  jn:text-base
+  jn:leading-4
+  jn:px-4
+  jn:rounded-3px
+  jn:align-top
+  jn:focus:outline-hidden
+  jn:focus:ring-2
+  jn:focus:ring-theme-focus
+  jn:disabled:opacity-50
+  jn:disabled:cursor-not-allowed
 `
 
 const defaultborderstyles = `
-  jn-border-theme-textinput-default
+  jn:border-theme-textinput-default
 `
 
 const invalidstyles = `
-  jn-border-theme-error
+  jn:border-theme-error
 `
 
 const validstyles = `
-  jn-border-theme-success
+  jn:border-theme-success
 `
 
 const withLabelStyles = `
-  jn-pt-[1.125rem] 
-  jn-pb-1
+  jn:pt-[1.125rem] 
+  jn:pb-1
 `
 
 const noLabelStyles = `
-  jn-py-4
+  jn:py-4
 `
 
 const labelStyles = `
-  jn-pointer-events-none
-  jn-top-2
-  jn-left-[0.9375rem]
-  jn-pr-4
-  jn-bg-theme-textinput
+  jn:pointer-events-none
+  jn:top-2
+  jn:left-[0.9375rem]
+  jn:pr-4
+  jn:bg-theme-textinput
 `
 
 const iconcontainerstyles = `
-  jn-inline-flex
-  jn-absolute
-  jn-top-[.4rem]
-  jn-right-3
+  jn:inline-flex
+  jn:absolute
+  jn:top-[.4rem]
+  jn:right-3
 `
 
 const disablediconstyles = `
-  jn-opacity-50
+  jn:opacity-50
 `
 
 const hintStyles = `
-  jn-mt-0
+  jn:mt-0
 `
 
 interface IconsProps {
@@ -166,8 +166,8 @@ export const Textarea: React.FC<TextareaProps> = ({
         <div
           className={`juno-textinput-row-icon-container ${iconcontainerstyles} ${disabled ? disablediconstyles : ""}`}
         >
-          {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : null}
-          {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : null}
+          {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" /> : null}
+          {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" /> : null}
         </div>
       )
     } else {
@@ -183,8 +183,8 @@ export const Textarea: React.FC<TextareaProps> = ({
         className={`
           juno-textarea-wrapper 
           ${wrapperStyles}
-          ${width == "auto" ? "jn-inline-block" : "jn-block"}
-          ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+          ${width == "auto" ? "jn:inline-block" : "jn:block"}
+          ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
           ${wrapperClassName}
         `}
       >
@@ -220,7 +220,7 @@ export const Textarea: React.FC<TextareaProps> = ({
             ${isInvalid ? "juno-textarea-invalid " + invalidstyles : ""} 
             ${isValid ? "juno-textarea-valid " + validstyles : ""}  
             ${isValid || isInvalid ? "" : defaultborderstyles} 
-            ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+            ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
             ${className}
           `}
           {...props}

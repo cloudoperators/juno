@@ -5,7 +5,6 @@
 
 import React from "react"
 import { createRoot, Root } from "react-dom/client"
-import "tailwindcss/tailwind.css"
 import { AppProps } from "./App"
 
 let root: Root

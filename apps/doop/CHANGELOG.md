@@ -1,5 +1,221 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.10
+
+### Patch Changes
+
+- Updated dependencies [8ea0089]
+  - @cloudoperators/juno-ui-components@5.9.0
+  - @cloudoperators/juno-messages-provider@0.2.23
+
+## 2.6.9
+
+### Patch Changes
+
+- 463d791: Call `decodeURIComponent` in order to unescape certain characters that were escaped by `URLSearchParams.toString()`.
+- Updated dependencies [25a91ac]
+  - @cloudoperators/juno-ui-components@5.8.2
+  - @cloudoperators/juno-messages-provider@0.2.22
+
+## 2.6.8
+
+### Patch Changes
+
+- Updated dependencies [86e6188]
+  - @cloudoperators/juno-ui-components@5.8.1
+  - @cloudoperators/juno-messages-provider@0.2.21
+
+## 2.6.7
+
+### Patch Changes
+
+- Updated dependencies [2125722]
+- Updated dependencies [42ad17d]
+  - @cloudoperators/juno-ui-components@5.8.0
+  - @cloudoperators/juno-messages-provider@0.2.20
+
+## 2.6.6
+
+### Patch Changes
+
+- f82caaa: Harmonized conflicting versions of dependencies.
+- Updated dependencies [f82caaa]
+  - @cloudoperators/juno-ui-components@5.7.1
+  - @cloudoperators/juno-messages-provider@0.2.19
+
+## 2.6.5
+
+### Patch Changes
+
+- 5931aab: Update tanstack router to fix issue where the basepath would be overwritten while redirection.
+
+## 2.6.4
+
+### Patch Changes
+
+- 5261dfd: Prevent mutations form original violationGroups data when filtering and improved debouncing of search filter
+- Updated dependencies [0cf6a97]
+- Updated dependencies [d3f9442]
+  - @cloudoperators/juno-ui-components@5.7.0
+  - @cloudoperators/juno-messages-provider@0.2.18
+
+## 2.6.3
+
+### Patch Changes
+
+- e53d025: Removed unused dependencies.
+- Updated dependencies [e53d025]
+  - @cloudoperators/juno-url-state-provider@3.0.7
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies [900b0be]
+  - @cloudoperators/juno-ui-components@5.6.0
+  - @cloudoperators/juno-messages-provider@0.2.17
+
+## 2.6.1
+
+### Patch Changes
+
+- 061c843: Selected `violationGroup` is now persisted on URL state and removed from it when the panel is closed.
+
+## 2.6.0
+
+### Minor Changes
+
+- 071ad50: Legacy url state is converted to new url state and "org" url search parameter is retained.
+
+### Patch Changes
+
+- Updated dependencies [071ad50]
+  - @cloudoperators/juno-url-state-provider@3.0.6
+
+## 2.5.4
+
+### Patch Changes
+
+- Updated dependencies [ee9a9ce]
+- Updated dependencies [fe485e4]
+- Updated dependencies [1ff669a]
+  - @cloudoperators/juno-ui-components@5.5.0
+  - @cloudoperators/juno-messages-provider@0.2.16
+
+## 2.5.3
+
+### Patch Changes
+
+- Updated dependencies [55014f5]
+  - @cloudoperators/juno-ui-components@5.4.0
+  - @cloudoperators/juno-messages-provider@0.2.15
+
+## 2.5.2
+
+### Patch Changes
+
+- Updated dependencies [1020d89]
+  - @cloudoperators/juno-ui-components@5.3.0
+  - @cloudoperators/juno-messages-provider@0.2.14
+
+## 2.5.1
+
+### Patch Changes
+
+- 8a44efa: Supernova old url state is now converted to new URL state and for other apps tanstack router dependencies are updated.
+- Updated dependencies [b7fe310]
+  - @cloudoperators/juno-ui-components@5.2.0
+  - @cloudoperators/juno-messages-provider@0.2.13
+
+## 2.5.0
+
+### Minor Changes
+
+- 3589b0c: All apps support client side routing using tanstack router.
+
+## 2.4.8
+
+### Patch Changes
+
+- Updated dependencies [92a17f7]
+  - @cloudoperators/juno-ui-components@5.1.1
+  - @cloudoperators/juno-messages-provider@0.2.12
+
+## 2.4.7
+
+### Patch Changes
+
+- 5ad5d5b: **Core Build Tools**
+  - vite: Updated to `7.0.3` (latest)
+  - vite-tsconfig-paths: Updated to `5.1.4` (latest)
+  - vite-plugin-dts: Updated to `4.5.4` (latest)
+
+  **Testing Framework**
+  - vitest: Updated to `3.2.4` (latest)
+  - @vitest/ui: Updated to `3.2.4` (latest)
+
+  **React Plugins**
+  - @vitejs/plugin-react: Updated to `4.6.0` (latest)
+  - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
+
+  **Additional Plugins**
+  - vite-plugin-svgr: Updated to `4.3.0` (latest)
+  - @tailwindcss/vite: Updated to `4.1.11` (latest)
+
+- Updated dependencies [5ad5d5b]
+- Updated dependencies [ca74897]
+- Updated dependencies [9453d27]
+  - @cloudoperators/juno-communicator@2.2.23
+  - @cloudoperators/juno-messages-provider@0.2.11
+  - @cloudoperators/juno-ui-components@5.1.0
+  - @cloudoperators/juno-url-state-provider@3.0.5
+
+## 2.4.6
+
+### Patch Changes
+
+- 1d30fb5: Fix jsdom css parsing error (update jsdom dependencies)
+- Updated dependencies [2da3003]
+- Updated dependencies [1d30fb5]
+- Updated dependencies [8d344a6]
+  - @cloudoperators/juno-url-state-provider@3.0.4
+  - @cloudoperators/juno-messages-provider@0.2.10
+  - @cloudoperators/juno-communicator@2.2.22
+  - @cloudoperators/juno-ui-components@5.0.1
+
+## 2.4.5
+
+### Patch Changes
+
+- 4dedb33: Upgrade to tailwind 4.0 and related changes
+- Updated dependencies [01245c8]
+- Updated dependencies [4dedb33]
+  - @cloudoperators/juno-ui-components@5.0.0
+  - @cloudoperators/juno-messages-provider@0.2.9
+
+## 2.4.4
+
+### Patch Changes
+
+- 198dd13: Fix ComboBox Reset Behavior After Selection
+
+## 2.4.3
+
+### Patch Changes
+
+- 86e0be2: Add unique id to items for stable ReactMarkdown rendering and fix inconsistent instance content
+- Updated dependencies [b693d90]
+  - @cloudoperators/juno-url-state-provider@3.0.3
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies [5488568]
+- Updated dependencies [6ef7f8d]
+  - @cloudoperators/juno-ui-components@4.0.1
+  - @cloudoperators/juno-messages-provider@0.2.8
+
 ## 2.4.1
 
 ### Patch Changes

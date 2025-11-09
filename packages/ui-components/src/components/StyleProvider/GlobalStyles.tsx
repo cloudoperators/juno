@@ -10,7 +10,7 @@
  */
 import React, { useInsertionEffect } from "react"
 
-import globalCss from "../../global.scss?inline"
+import globalCss from "../../global.css?inline"
 
 const styles = globalCss.toString()
 

@@ -6,9 +6,9 @@
 import React from "react"
 
 const dividerStyles = `
-  jn-h-px 
-  jn-w-full
-  jn-bg-theme-background-lvl-3
+  jn:h-px 
+  jn:w-full
+  jn:bg-theme-background-lvl-3
 `
 
 export interface SelectDividerProps extends React.HTMLAttributes<HTMLDivElement> {

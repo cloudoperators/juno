@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Spinner } from "./index"
 
-export default {
+const meta: Meta<typeof Spinner> = {
   title: "Components/Spinner",
   component: Spinner,
   argTypes: {
@@ -16,41 +17,50 @@ export default {
   },
 }
 
-export const Primary = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Primary: Story = {
   args: {
     variant: "primary",
   },
 }
 
-export const Danger = {
-  args: { variant: "danger" },
+export const Danger: Story = {
+  args: {
+    variant: "danger",
+  },
 }
 
-export const Success = {
-  args: { variant: "success" },
+export const Success: Story = {
+  args: {
+    variant: "success",
+  },
 }
 
-export const Warning = {
-  args: { variant: "warning" },
+export const Warning: Story = {
+  args: {
+    variant: "warning",
+  },
 }
 
-export const Light = {
+export const Light: Story = {
   args: {},
 }
 
-export const WithCustomColor = {
+export const WithCustomColor: Story = {
   args: {
     color: "text-theme-button-primary",
   },
 }
 
-export const Small = {
+export const Small: Story = {
   args: {
     size: "small",
   },
 }
 
-export const Large = {
+export const Large: Story = {
   args: {
     size: "large",
   },

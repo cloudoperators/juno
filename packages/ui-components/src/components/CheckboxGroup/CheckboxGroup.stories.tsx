@@ -4,18 +4,14 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { CheckboxGroup } from "./index"
 import { Checkbox } from "../Checkbox/index"
 
-export default {
+const meta: Meta<typeof CheckboxGroup> = {
   title: "Forms/Checkbox/CheckboxGroup",
   component: CheckboxGroup,
   argTypes: {
-    items: {
-      table: {
-        disable: true,
-      },
-    },
     errortext: {
       control: false,
     },
@@ -39,15 +35,10 @@ export default {
   },
 }
 
-interface TemplateProps {
-  children: React.ReactNode
-}
+export default meta
+type Story = StoryObj<typeof meta>
 
-const Template = ({ children, ...args }: TemplateProps) => <CheckboxGroup {...args}>{children}</CheckboxGroup>
-
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     children: [
       <Checkbox value="val-1" label="Option 1" key="1" />,
@@ -57,9 +48,7 @@ export const Default = {
   },
 }
 
-export const Selected = {
-  render: Template,
-
+export const Selected: Story = {
   args: {
     selected: ["val-2"],
     children: [
@@ -70,9 +59,7 @@ export const Selected = {
   },
 }
 
-export const IndividuallyChecked = {
-  render: Template,
-
+export const IndividuallyChecked: Story = {
   args: {
     children: [
       <Checkbox value="val-1" label="Option 1" key="1" />,
@@ -83,9 +70,7 @@ export const IndividuallyChecked = {
   },
 }
 
-export const WithLabel = {
-  render: Template,
-
+export const WithLabel: Story = {
   args: {
     name: "Labelled ChechboxGroup",
     label: "A Labelled CheckboxGroup",
@@ -97,9 +82,7 @@ export const WithLabel = {
   },
 }
 
-export const Required = {
-  render: Template,
-
+export const Required: Story = {
   args: {
     name: "Required Labelled ChechboxGroup",
     label: "A Required, Labelled CheckboxGroup",
@@ -112,9 +95,7 @@ export const Required = {
   },
 }
 
-export const Disabled = {
-  render: Template,
-
+export const Disabled: Story = {
   args: {
     label: "A disabled CheckboxGroup",
     disabled: true,
@@ -126,9 +107,7 @@ export const Disabled = {
   },
 }
 
-export const ValidCheckboxGroup = {
-  render: Template,
-
+export const ValidCheckboxGroup: Story = {
   args: {
     name: "valid-checkbox-group",
     label: "A valid CheckboxGroup",
@@ -141,9 +120,7 @@ export const ValidCheckboxGroup = {
   },
 }
 
-export const WithHelptext = {
-  render: Template,
-
+export const WithHelptext: Story = {
   args: {
     name: "checkbox-group-with-helptext",
     label: "A CheckboxGroup with helptext",
@@ -156,9 +133,7 @@ export const WithHelptext = {
   },
 }
 
-export const WithHelptextAsNode = {
-  render: Template,
-
+export const WithHelptextAsNode: Story = {
   args: {
     name: "checkbox-group-with-helptext-as-node",
     label: "A CheckboxGroup with helptext as node",
@@ -175,9 +150,7 @@ export const WithHelptextAsNode = {
   },
 }
 
-export const WithSuccesstext = {
-  render: Template,
-
+export const WithSuccesstext: Story = {
   args: {
     name: "checkbox-group-with-success",
     label: "A CheckboxGroup with successful validation",
@@ -190,9 +163,7 @@ export const WithSuccesstext = {
   },
 }
 
-export const InvalidCheckboxGroup = {
-  render: Template,
-
+export const InvalidCheckboxGroup: Story = {
   args: {
     name: "invalid-checkbox-group",
     label: "An invalid CheckboxGroup",
@@ -205,9 +176,7 @@ export const InvalidCheckboxGroup = {
   },
 }
 
-export const WithErrortext = {
-  render: Template,
-
+export const WithErrortext: Story = {
   args: {
     name: "checkbox-group-with-error",
     label: "A CheckboxGroup with an Error",

@@ -36,3 +36,6 @@ export function capitalize(string: any) {
   // Capitalize the first character and concatenate it with the rest of the string
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
+
+export const isObjectWithKeys = (value: any) =>
+  value !== null && typeof value === "object" && Object.keys(value).length > 0

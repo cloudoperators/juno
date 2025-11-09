@@ -22,7 +22,7 @@ export const useAPI = () => {
   const watchTeamMembers = useCallback(() => {
     if (!client || !namespace) return
 
-    const watch = client.watch(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/teammemberships`)
+    const watch = client.watch(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/teams`)
 
     watch.on(client.WATCH_ERROR, (e: any) => {
       console.log("ERROR: Failed to watch resource", e)

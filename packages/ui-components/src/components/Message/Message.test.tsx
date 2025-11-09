@@ -58,19 +58,19 @@ describe("Message component", () => {
     test("renders an info Message by default if no variant is provided", () => {
       render(<Message data-testid="my-message" />)
       expect(screen.getByTestId("my-message")).toHaveClass("juno-message-info")
-      expect(screen.getByRole("img")).toHaveClass("jn-text-theme-info")
+      expect(screen.getByRole("img")).toHaveClass("jn:text-theme-info")
     })
 
     test("renders a success Message with the correct classes", () => {
       render(<Message data-testid="my-message" variant={"success"} />)
       expect(screen.getByTestId("my-message")).toHaveClass("juno-message-success")
-      expect(screen.getByRole("img")).toHaveClass("jn-text-theme-success")
+      expect(screen.getByRole("img")).toHaveClass("jn:text-theme-success")
     })
 
     test("renders an error Message with the correct classes", () => {
       render(<Message data-testid="my-message" variant={"error"} />)
       expect(screen.getByTestId("my-message")).toHaveClass("juno-message-error")
-      expect(screen.getByRole("img")).toHaveClass("jn-text-theme-error")
+      expect(screen.getByRole("img")).toHaveClass("jn:text-theme-error")
     })
   })
 
@@ -78,7 +78,7 @@ describe("Message component", () => {
     test("ensures the icon cannot shrink", () => {
       render(<Message data-testid="my-message" />)
       expect(screen.getByTestId("my-message")).toHaveClass("juno-message-info")
-      expect(screen.getByRole("img")).toHaveClass("jn-shrink-0")
+      expect(screen.getByRole("img")).toHaveClass("jn:shrink-0")
     })
   })
 

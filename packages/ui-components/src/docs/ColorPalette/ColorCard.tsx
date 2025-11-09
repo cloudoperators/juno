@@ -20,16 +20,16 @@ export function ColorCard(props: ColorCardProps) {
   }
 
   const colorContainerStyle = `
-    jn-h-16 ${props.colorClass}
+    jn:h-16 ${props.colorClass}
   `
 
   return (
-    <div className="jn-rounded-lg jn-border ">
-      <div className="jn-p-3 jn-text-theme-highest">
+    <div className="jn:rounded-lg jn:border ">
+      <div className="jn:p-3 jn:text-theme-highest">
         <p>{props.colorName}</p>
       </div>
       <div className={colorContainerStyle}></div>
-      <div className="jn-px-3 jn-py-4 ">
+      <div className="jn:px-3 jn:py-4 ">
         <p>
           {props.prefix ? props.prefix : ""}
           {props.colorName}

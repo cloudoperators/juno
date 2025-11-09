@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { ModalFooter } from "./index"
 import { Button } from "../Button/index"
 import { ButtonRow } from "../ButtonRow/index"
@@ -15,7 +16,7 @@ const Template = (args: ModalFooterProps) => {
   return <ModalFooter {...args}></ModalFooter>
 }
 
-export default {
+const meta: Meta<ModalFooterProps> = {
   title: "Components/Modal/ModalFooter",
   component: ModalFooter,
   argTypes: {
@@ -23,28 +24,41 @@ export default {
       control: false,
     },
   },
-  parameters: { actions: { argTypesRegex: null } },
+  parameters: {
+    actions: { argTypesRegex: null },
+  },
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   render: Template,
-  args: {},
+  args: { disableConfirmButton: false, disableCancelButton: false },
 }
 
-export const Configure = {
+export const Configure: Story = {
   render: Template,
-
   args: {
     confirmButtonLabel: "Confirm Action",
     cancelButtonLabel: "Cancel Action",
   },
 }
 
-export const Custom = {
+export const ConfigureWithDisabledButtons: Story = {
   render: Template,
-
   args: {
-    className: "jn-justify-between jn-items-center",
+    confirmButtonLabel: "Confirm Action",
+    cancelButtonLabel: "Cancel Action",
+    disableConfirmButton: true,
+    disableCancelButton: true,
+  },
+}
+
+export const Custom: Story = {
+  render: Template,
+  args: {
+    className: "jn:justify-between jn:items-center",
     children: [
       <Stack gap="2" key="s1">
         <Icon />
@@ -56,5 +70,15 @@ export const Custom = {
         <Button variant="subdued" label="Surprise Me!" key="b-3" />
       </ButtonRow>,
     ],
+  },
+  parameters: {
+    docs: {
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
+    },
   },
 }

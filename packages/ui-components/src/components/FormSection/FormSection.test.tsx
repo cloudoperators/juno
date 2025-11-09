@@ -55,7 +55,7 @@ describe("FormRow Component Tests", () => {
     test("applies default styles", () => {
       const { container } = render(<FormRow data-testid="my-form-row-default-styles" />)
       expect(container.firstChild).toHaveClass("juno-form-row")
-      expect(container.firstChild).toHaveClass("jn-mb-2")
+      expect(container.firstChild).toHaveClass("jn:mb-2")
     })
   })
 

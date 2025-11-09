@@ -4,7 +4,7 @@
  */
 
 import "./ThemeToggle"
-import { addons } from "@storybook/manager-api"
+import { addons } from "storybook/manager-api"
 import { getCurrentTheme } from "./themes"
 import { ICON_DATA_URL } from "./constants"
 

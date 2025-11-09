@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { DocsContainer as BaseContainer } from "@storybook/addon-docs"
+import { DocsContainer as BaseContainer } from "@storybook/addon-docs/blocks"
 import { JUNO_THEME_CHANGE } from "./constants"
 import { getCurrentTheme } from "./themes"
 

@@ -14,19 +14,28 @@ export const Breadcrumb = () => {
 
   return (
     <BreadcrumbContainer className="mb-6">
-      {matchesWithCrumbs.map((match, i) => (
-        <BreadcrumbItem
-          key={i}
-          label={match.loaderData?.crumb?.label}
-          icon={match.loaderData?.crumb?.icon}
-          onClick={(e) => {
-            e.preventDefault()
-            navigate({
-              to: match.pathname,
-            })
-          }}
-        />
-      ))}
+      {matchesWithCrumbs.map((match, i) => {
+        const { pathname, loaderData } = match
+
+        // crumb information needs to be there
+        if (!loaderData?.crumb) return null
+
+        const { crumb } = loaderData
+
+        return (
+          <BreadcrumbItem
+            key={i}
+            label={crumb?.label}
+            icon={"icon" in crumb ? crumb.icon : undefined}
+            onClick={(e) => {
+              e.preventDefault()
+              navigate({
+                to: pathname,
+              })
+            }}
+          />
+        )
+      })}
     </BreadcrumbContainer>
   )
 }

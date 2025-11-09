@@ -22,8 +22,10 @@ import { useBoundQuery } from "../../hooks/useBoundQuery"
 import { parseError } from "../../helpers"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { SilencesData } from "../../api/silences"
+import { useNavigate } from "@tanstack/react-router"
 
 const AlertSilences = ({ alert }: any) => {
+  const navigate = useNavigate()
   const { getAlertByFingerprint } = useAlertsActions()
   const { setShowDetailsFor } = useGlobalsActions()
   const { setSilences } = useSilencesActions()
@@ -73,7 +75,14 @@ const AlertSilences = ({ alert }: any) => {
                   <AlertDescription description={getAlertByFingerprint(fingerprint)?.annotations?.description} />
                 </DataGridCell>
                 <DataGridCell>
-                  <Button size="small" onClick={() => setShowDetailsFor(fingerprint)} icon="exitToApp">
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      setShowDetailsFor(fingerprint)
+                      navigate({ to: "/", search: (prev) => ({ ...prev, showDetailsFor: fingerprint }) })
+                    }}
+                    icon="exitToApp"
+                  >
                     Go to details
                   </Button>
                 </DataGridCell>

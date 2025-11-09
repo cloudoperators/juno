@@ -1,5 +1,300 @@
 # @cloudoperators/juno-ui-components
 
+## 5.9.0
+
+### Minor Changes
+
+- 8ea0089: Allow disabling of close button with `disableCloseButton` in `Modal`.
+
+## 5.8.2
+
+### Patch Changes
+
+- 25a91ac: Change `title` and `heading` type to `ReactNode` and fix alignement for `Modal`.
+
+## 5.8.1
+
+### Patch Changes
+
+- 86e6188: Import side-navigation-item.css into global.css to fix styling in apps and add style definitions to theme.css.
+
+## 5.8.0
+
+### Minor Changes
+
+- 2125722: In `SortButton`:
+  - Aligned `order` and `onChange` input types
+  - Introduced `onOrderChange`, keeping `onChange` as deprecated prop for backward compatibility until next release.
+  - Allowed `options` override and exported missing types for recent components (`ToggleButtonProps`, `SortButtonProps`, `SideNavigationListProps`, `SideNavigationGroupProps`).
+
+### Patch Changes
+
+- 42ad17d: Fixes a type issue with the Combobox onChange handler introduced after upgrading @headlessui/react.
+
+## 5.7.1
+
+### Patch Changes
+
+- f82caaa: Harmonized conflicting versions of dependencies.
+
+## 5.7.0
+
+### Minor Changes
+
+- 0cf6a97: Redesign SideNavigation and SideNavigationItem, adding SideNavigationList and SideNavigationGroup.
+- d3f9442: Add hover functionality in DataGridRow Juno UI Component and implement the solution in Example App.
+  [Issue #1015](https://github.com/cloudoperators/juno/issues/1015)
+
+## 5.6.0
+
+### Minor Changes
+
+- 900b0be: Added `ToggleButton` and `SortButton` components.
+
+## 5.5.0
+
+### Minor Changes
+
+- fe485e4: Update severity icon design and add icons for very high and unknown severity.
+- 1ff669a: Added sort icons to Icon component.
+
+### Patch Changes
+
+- ee9a9ce: Clean up unused dependencies in @cloudoperators/juno-ui-components package
+
+## 5.4.0
+
+### Minor Changes
+
+- 55014f5: Updated `PageHeader` component's styling, API, theming support and documentation
+  - Added `applicationName`, deprecated `heading`.
+  - Added `href`, used if `onClick` not supplied.
+
+## 5.3.0
+
+### Minor Changes
+
+- 1020d89: Add `xl` and `2xl` sizes to `Modal`.
+
+## 5.2.0
+
+### Minor Changes
+
+- b7fe310: Added a basic `Card` component.
+
+## 5.1.1
+
+### Patch Changes
+
+- 92a17f7: - Remove all `jn:` prefixes (intended for internal use only) from external documentation.
+  - Remove `PortalProvider` from `Modal` external code snippets.
+  - Remove `undefined` classname from `GridColumn`.
+
+  [Issue #1016](https://github.com/cloudoperators/juno/issues/1016)
+
+## 5.1.0
+
+### Minor Changes
+
+- 9453d27: Allow Buttons to be Disabled in Modal and ModalFooter Juno UI Components.
+  [Issue #1010](https://github.com/cloudoperators/juno/issues/1010)
+
+### Patch Changes
+
+- 5ad5d5b: **Core Build Tools**
+  - vite: Updated to `7.0.3` (latest)
+  - vite-tsconfig-paths: Updated to `5.1.4` (latest)
+  - vite-plugin-dts: Updated to `4.5.4` (latest)
+
+  **Testing Framework**
+  - vitest: Updated to `3.2.4` (latest)
+  - @vitest/ui: Updated to `3.2.4` (latest)
+
+  **React Plugins**
+  - @vitejs/plugin-react: Updated to `4.6.0` (latest)
+  - @vitejs/plugin-react-swc: Updated to `3.10.2` (latest)
+
+  **Additional Plugins**
+  - vite-plugin-svgr: Updated to `4.3.0` (latest)
+  - @tailwindcss/vite: Updated to `4.1.11` (latest)
+
+- ca74897: Update core UI dependencies (Storybook, Floating UI, Focus Trap React, Headless UI)
+
+## 5.0.1
+
+### Patch Changes
+
+- 1d30fb5: Fix jsdom css parsing error (update jsdom dependencies)
+- 8d344a6: Fix the rest of unit test errors
+
+## 5.0.0
+
+### Major Changes
+
+- 4dedb33: # Migration Guide: Tailwind CSS 4 Update
+
+  ## 🚀 Major Changes
+
+  This release includes a **BREAKING CHANGE** migration to Tailwind CSS 4. Please follow this guide carefully to update your application.
+
+  ## 📋 Required Changes
+
+  ### 1. Remove JN Prefixes
+
+  **Remove all `jn-` and `jn:` prefixes** from your class names throughout your application.
+
+  ```diff
+  - <div className="jn-bg-blue-500 jn:hover:bg-blue-600">
+  + <div className="bg-blue-500 hover:bg-blue-600">
+
+  - <div className="jn-flex jn-items-center jn:md:flex-col">
+  + <div className="flex items-center md:flex-col">
+  ```
+
+  ### 2. Update Tailwind Configuration
+
+  **Remove `tailwind.config.js`** entirely and replace it with a simple CSS import approach.
+
+  #### Before
+
+  ```javascript
+  // tailwind.config.js - DELETE THIS FILE
+  module.exports = {
+    // ... your config
+  }
+  ```
+
+  #### After
+
+  Create or update your main `styles.css` file:
+
+  ```css
+  /* styles.css */
+  @import "tailwindcss";
+  @import "@cloudoperators/juno-ui-components/theme.css";
+  ```
+
+  ### 3. Convert SCSS to CSS
+
+  **Rename and convert all `.scss` files to `.css`** files:
+
+  ```diff
+  - styles.scss
+  + styles.css
+
+  - components.scss
+  + components.css
+  ```
+
+  Update your import statements:
+
+  ```diff
+  - import './styles.scss'
+  + import './styles.css'
+  ```
+
+  ### 4. Remove PostCSS Dependencies
+
+  **Remove the following packages** from your `package.json`:
+
+  ```bash
+  npm uninstall autoprefixer postcss
+  ```
+
+  ```diff
+  {
+    "devDependencies": {
+  -   "autoprefixer": "^10.x.x",
+  -   "postcss": "^8.x.x"
+    }
+  }
+  ```
+
+  ### 5. Update Vite Configuration
+
+  **Install the new Tailwind Vite plugin:**
+
+  ```bash
+  npm install -D @tailwindcss/vite@^4.1.7
+  ```
+
+  **Update your `vite.config.js`:**
+
+  ```javascript
+  import { defineConfig } from "vite"
+  import tailwindcss from "@tailwindcss/vite"
+
+  export default defineConfig({
+    plugins: [
+      tailwindcss(),
+      // ... your other plugins
+    ],
+  })
+  ```
+
+  **Remove PostCSS configuration** if you have a `postcss.config.js`:
+
+  ```diff
+  - // postcss.config.js - DELETE THIS FILE
+  - module.exports = {
+  -   plugins: {
+  -     tailwindcss: {},
+  -     autoprefixer: {},
+  -   },
+  - }
+  ```
+
+  ## 🔄 Migration Checklist
+  - [ ] Remove all `jn-` and `jn:` prefixes from class names
+  - [ ] Delete `tailwind.config.js`
+  - [ ] Create/update `styles.css` with required imports
+  - [ ] Convert all `.scss` files to `.css`
+  - [ ] Update import statements for renamed CSS files
+  - [ ] Uninstall `autoprefixer` and `postcss` packages
+  - [ ] Install `@tailwindcss/vite@^4.1.7`
+  - [ ] Update `vite.config.js` with new plugin
+  - [ ] Delete `postcss.config.js` (if exists)
+  - [ ] Test your application thoroughly
+
+  ## ⚠️ Important Notes
+  - **This is a breaking change** - test thoroughly after migration
+  - **Update incrementally** - migrate one component/file at a time if needed
+  - **Check for any custom CSS** that might depend on the old configuration
+
+  ## 🆘 Troubleshooting
+
+  If you encounter issues:
+  1. Ensure all `jn-` prefixes are removed
+  2. Verify your `styles.css` has the correct imports
+  3. Check that the Vite plugin is properly configured
+  4. Clear your build cache: `rm -rf node_modules/.vite`
+
+  ## 📚 Additional Resources
+  - [Tailwind CSS 4 Documentation](https://tailwindcss.com/docs)
+  - [Tailwind CSS 4 Migration Guide](https://tailwindcss.com/docs/upgrade-guide)
+
+  ***
+
+  For questions or issues with this migration, please refer to the project documentation or open an issue.
+
+### Patch Changes
+
+- 01245c8: Fix unit tests output
+
+## 4.0.1
+
+### Patch Changes
+
+- 5488568: - Upgraded `@storybook/react` and related Storybook packages to version 9.x.x
+  - Updated configuration files to align with v9 requirements
+  - Resolved any breaking changes and deprecated API usage
+  - Updated story files for v9 compatibility
+  - Refreshed `.storybook/main.js` and `.storybook/preview.js` configurations
+  - Removed overrides of Storybook dependencies in `package.json` or workspace configuration
+  - Updated typescript to the latest version
+  - Replaced CSF v2 stories with CSF v3
+- 6ef7f8d: Fix Code, Message, FormattedText and IntroBox storybook formatting, default values and links.
+
 ## 4.0.0
 
 ### Major Changes
@@ -11,7 +306,6 @@
   If you're using React 18 or below, please continue using the `3.x` versions of this package.
 
   ### 🔧 Changes
-
   - Upgraded peer dependencies to:
     - `react@^19.1.0`
     - `react-dom@^19.1.0`
@@ -73,14 +367,12 @@
   This is a major release with breaking changes. Please review the migration guide before upgrading.
 
   ## Major Release Highlights
-
   - **Full TypeScript Migration** - The entire library has been rewritten in TypeScript, providing improved type safety and developer experience
   - **React 18.3.1 Support** - Updated to fully leverage the latest React features and improvements
   - **Vite-powered Build Pipeline** - Significant performance improvements in build times and bundle size optimization
   - **Storybook Upgrade** - Enhanced documentation and component showcasing
 
   ## New Features
-
   - Complete TypeScript integration with comprehensive type definitions
   - Modern build system using Vite for faster development and optimized production builds
   - Updated Storybook with improved documentation, search, and component navigation
@@ -88,14 +380,12 @@
   - Extended accessibility compliance across all components
 
   ## Breaking Changes
-
   - Removed all previously deprecated components and APIs
   - Updated component prop interfaces may require adjustments in your implementation, no prop-types support.
   - Minimum supported React version is now 18.0.0
   - Node.js 16+ is now required for development
 
   ## Improvements
-
   - Reduced bundle size by approximately 35%
   - Improved rendering performance across all components
   - Better tree-shaking support for more efficient application builds
@@ -103,27 +393,23 @@
   - Component state management refactored for improved predictability
 
   ## Developer Experience
-
   - Improved error messages and debugging experience
   - Comprehensive TypeScript types for better IDE integration
   - Enhanced documentation with usage examples and migration guides
   - New testing utilities for components
 
   ## Documentation
-
   - Complete overhaul of component documentation
   - New interactive examples
   - Improved search functionality in documentation
 
   ## Housekeeping
-
   - Dependency updates across the board
   - Removed legacy polyfills and compatibility code
   - Streamlined internal architecture
   - Consolidated similar components into more flexible alternatives
 
   ## Bug Fixes
-
   - Fixed focus trap issues in modal components
   - Resolved state management inconsistencies in form components
   - Fixed various styling issues in dark mode
@@ -132,7 +418,6 @@
   ## What's Next
 
   Our team is already working on exciting new features for upcoming releases. Stay tuned for announcements about:
-
   - Preparation for React 19 support.
   - Performance optimizations for large-scale applications
   - New components.
@@ -348,7 +633,6 @@
 ### Minor Changes
 
 - 68e3984: feat(ui): add pageheader custom logo
-
   - add `logo` prop that accepts a custom logo as a component to be rendered in a slot
   - move grid layout for pageheader for robust logo placement and sizing
 
@@ -407,7 +691,6 @@
   feat(ui) Appshell: render TopNavigation in embedded node if passed
 
 - d4014b6: `wrapperClassName` prop added to the following components:
-
   - ComboBox
   - DateTimePicker
   - NativeSelect

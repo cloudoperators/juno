@@ -137,3 +137,6 @@ export const sortAlerts = (items: any) => {
     else return 1
   })
 }
+
+export const isObjectWithKeys = (value: any) =>
+  value !== null && typeof value === "object" && Object.keys(value).length > 0

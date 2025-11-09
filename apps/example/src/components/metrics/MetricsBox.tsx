@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from "react"
-import { Modal, Badge, Button, ModalFooter, ButtonRow, Icon, Spinner, Box } from "@cloudoperators/juno-ui-components"
+import { Modal, Badge, Icon, Spinner, Box } from "@cloudoperators/juno-ui-components"
 
 import { Peak } from "../../mocks/db"
 import useUIStore from "../../store/useUIStore"
@@ -139,21 +139,13 @@ const PeakModal: React.FC<{
 }> = ({ peakDetails, modalVisible, onClose, onOpenDetail }) =>
   modalVisible && peakDetails ? (
     <Modal
-      open={modalVisible}
-      onCancel={onClose}
-      closeable
       title={`Details for ${peakDetails.name}, ${peakDetails.countries}`}
+      open={modalVisible}
+      closeable
+      confirmButtonLabel="Open Detail Page"
+      onConfirm={onOpenDetail}
+      onCancel={onClose}
       size="large"
-      modalFooter={
-        <ModalFooter className="flex justify-end">
-          <ButtonRow>
-            <Button onClick={onClose} label={"Cancel"} />
-            <Button variant="primary" onClick={onOpenDetail}>
-              Open Detail Page
-            </Button>
-          </ButtonRow>
-        </ModalFooter>
-      }
     >
       <div className="flex flex-col space-y-3">
         <div className="flex items-center space-x-2">

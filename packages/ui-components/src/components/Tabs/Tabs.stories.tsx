@@ -4,13 +4,24 @@
  */
 
 import React, { useState, useEffect } from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Tabs } from "./index"
 import { Tab, TabProps } from "../Tab/Tab.component"
 import { TabList } from "../TabList/index"
 import { TabPanel } from "../TabPanel/index"
 import { TabPanelProps } from "../TabPanel/TabPanel.component"
 
-export default {
+interface TabsStoryProps {
+  variant?: "content" | "main"
+  children?: React.ReactNode
+  selectedIndex?: number
+  // eslint-disable-next-line no-unused-vars
+  onSelect?: (index: number) => void
+  tabs?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[]
+  tabpanels?: React.ReactElement<TabPanelProps> | React.ReactElement<TabPanelProps>[]
+}
+
+const meta: Meta<TabsStoryProps> = {
   title: "Layout/Tabs/Tabs",
   component: Tabs,
   argTypes: {
@@ -37,53 +48,18 @@ export default {
       },
     },
   },
-}
-
-const Template = ({ tabs, tabpanels, ...args }: TemplateProps) => (
-  <Tabs {...args}>
-    <TabList>{tabs}</TabList>
-    {tabpanels}
-  </Tabs>
-)
-
-interface TemplateProps {
-  tabs?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[]
-  tabpanels?: React.ReactElement<TabPanelProps> | React.ReactElement<TabPanelProps>[]
-}
-
-const ControlledTemplate = ({ selectedIndex, onSelect, tabs, tabpanels, ...args }: ControlledTemplateProps) => {
-  const [i, setI] = useState<number | undefined>(0)
-
-  useEffect(() => {
-    setI(selectedIndex)
-  }, [selectedIndex])
-
-  const handleSelect = (idx: number) => {
-    setI(idx)
-    onSelect && onSelect(idx)
-  }
-
-  return (
-    <Tabs {...args} selectedIndex={i} onSelect={handleSelect}>
+  render: ({ tabs, tabpanels, ...args }) => (
+    <Tabs {...args}>
       <TabList>{tabs}</TabList>
       {tabpanels}
     </Tabs>
-  )
+  ),
 }
 
-// eslint-disable-next-line no-unused-vars
-type OnSelectHandler = (value: number) => void
+export default meta
+type Story = StoryObj<TabsStoryProps>
 
-interface ControlledTemplateProps {
-  selectedIndex?: number
-  onSelect?: OnSelectHandler
-  tabs?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[]
-  tabpanels?: React.ReactElement<TabPanelProps> | React.ReactElement<TabPanelProps>[]
-}
-
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     tabs: [<Tab key="t-1">Tab 1</Tab>, <Tab key="t-2">Tab 2</Tab>, <Tab key="t-3">Tab 3</Tab>],
     tabpanels: [
@@ -94,9 +70,7 @@ export const Default = {
   },
 }
 
-export const TabsWithIcons = {
-  render: Template,
-
+export const TabsWithIcons: Story = {
   args: {
     tabs: [
       <Tab key="t-1" icon="warning">
@@ -117,9 +91,26 @@ export const TabsWithIcons = {
   },
 }
 
-export const ControlledTabs = {
-  render: ControlledTemplate,
+export const ControlledTabs: Story = {
+  render: ({ selectedIndex, onSelect, tabs, tabpanels, ...args }) => {
+    const [i, setI] = useState<number | undefined>(selectedIndex || 0)
 
+    useEffect(() => {
+      setI(selectedIndex)
+    }, [selectedIndex])
+
+    const handleSelect = (idx: number) => {
+      setI(idx)
+      onSelect && onSelect(idx)
+    }
+
+    return (
+      <Tabs {...args} selectedIndex={i} onSelect={handleSelect}>
+        <TabList>{tabs}</TabList>
+        {tabpanels}
+      </Tabs>
+    )
+  },
   args: {
     tabs: [<Tab key="t-1">Tab 1</Tab>, <Tab key="t-2">Tab 2</Tab>, <Tab key="t-3">Tab 3</Tab>],
     tabpanels: [

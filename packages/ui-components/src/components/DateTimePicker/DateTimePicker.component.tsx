@@ -11,7 +11,7 @@ import { Label } from "../Label"
 import { Options, DateOption, DateLimit } from "flatpickr/dist/types/options"
 import { key as LocaleKey, CustomLocale } from "flatpickr/dist/types/locale"
 
-import "./datetimepicker.scss"
+import "./datetimepicker.css"
 
 /* 
 TODO:
@@ -21,64 +21,64 @@ TODO:
 */
 
 const inputWrapperStyles = `
-  jn-relative
+  jn:relative
 `
 
 const inputStyles = `
-  jn-bg-theme-textinput
-  jn-bg-no-repeat
-  jn-bg-[top_0.375rem_right_1rem]
-  jn-text-theme-textinput
-  jn-fill-theme-textinput-default
-  jn-border
-  jn-text-base
-  jn-leading-4
-  jn-px-4
-  jn-h-textinput
-  jn-rounded-3px
-  focus:jn-outline-none
-  focus:jn-ring-2
-  focus:jn-ring-theme-focus
-  disabled:jn-opacity-50
-  disabled:jn-cursor-not-allowed
-  autofill:jn-bg-theme-textinput-autofill
-  autofill:jn-text-theme-textinput-autofill
+  jn:bg-theme-textinput
+  jn:bg-no-repeat
+  jn:bg-[top_0.375rem_right_1rem]
+  jn:text-theme-textinput
+  jn:fill-theme-textinput-default
+  jn:border
+  jn:text-base
+  jn:leading-4
+  jn:px-4
+  jn:h-textinput
+  jn:rounded-3px
+  jn:focus:outline-hidden
+  jn:focus:ring-2
+  jn:focus:ring-theme-focus
+  jn:disabled:opacity-50
+  jn:disabled:cursor-not-allowed
+  jn:autofill:bg-theme-textinput-autofill
+  jn:autofill:text-theme-textinput-autofill
 `
 
 const inputWithLabelStyles = `
-  jn-pt-[1.125rem] 
-  jn-pb-1
+  jn:pt-[1.125rem] 
+  jn:pb-1
 `
 
 const inputWithoutLabelStyles = `
-  jn-py-4
+  jn:py-4
 `
 
 const inputDefaultBorderStyles = `
-  jn-border-theme-textinput-default
+  jn:border-theme-textinput-default
 `
 
 const inputInvalidStyles = `
-  jn-border-theme-error
+  jn:border-theme-error
 `
 
 const inputValidStyles = `
-  jn-border-theme-success
+  jn:border-theme-success
 `
 
 const labelStyles = `
-  peer-autofill:jn-text-theme-textinput-autofill-label
-  jn-pointer-events-none
-  jn-top-2
-  jn-left-[0.9375rem]
+  jn:peer-autofill:text-theme-textinput-autofill-label
+  jn:pointer-events-none
+  jn:top-2
+  jn:left-[0.9375rem]
 `
 
 const iconContainerStyles = `
-  jn-absolute
-  jn-inline-flex
-  jn-top-2
-  jn-right-[2.75rem]
-  jn-gap-1.5
+  jn:absolute
+  jn:inline-flex
+  jn:top-2
+  jn:right-[2.75rem]
+  jn:gap-1.5
 `
 
 interface SelectedDate {
@@ -484,8 +484,8 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
     <div
       className={`
       juno-datetimepicker-wrapper
-      ${width == "auto" ? "jn-inline-block" : "jn-block"}
-      ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+      ${width == "auto" ? "jn:inline-block" : "jn:block"}
+      ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
       ${wrapperClassName}
     `}
     >
@@ -498,7 +498,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
             ${isInvalid ? "juno-datetimepicker-input-invalid " + inputInvalidStyles : ""} 
             ${isValid ? "juno-datetimepicker-input-valid" + inputValidStyles : ""}  
             ${isValid || isInvalid ? "" : inputDefaultBorderStyles} 
-            ${width == "auto" ? "jn-w-auto" : "jn-w-full"}
+            ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
             ${enableTime && noCalendar ? "juno-datetimepicker-input-timepicker" : "juno-datetimepicker-input-default"}
             ${className}
           `}
@@ -536,19 +536,19 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
           ) : (
             ""
           )}
-          {isInvalid ? <Icon icon="dangerous" color="jn-text-theme-error" /> : ""}
-          {isValid ? <Icon icon="checkCircle" color="jn-text-theme-success" /> : ""}
+          {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" /> : ""}
+          {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" /> : ""}
         </div>
       </div>
       <div ref={calendarTargetRef}></div>
 
-      {errortext && hasLength(errortext) ? <FormHint text={errortext} variant="error" className="jn-mt-0" /> : ""}
+      {errortext && hasLength(errortext) ? <FormHint text={errortext} variant="error" className="jn:mt-0" /> : ""}
       {successtext && hasLength(successtext) ? (
-        <FormHint text={successtext} variant="success" className="jn-mt-0" />
+        <FormHint text={successtext} variant="success" className="jn:mt-0" />
       ) : (
         ""
       )}
-      {helptext && hasLength(helptext) ? <FormHint text={helptext} className="jn-mt-0" /> : ""}
+      {helptext && hasLength(helptext) ? <FormHint text={helptext} className="jn:mt-0" /> : ""}
     </div>
   )
 }

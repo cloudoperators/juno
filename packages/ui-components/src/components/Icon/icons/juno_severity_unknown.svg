@@ -1,0 +1,8 @@
+<!--
+  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-icon="severity-unknown">
+<path d="M4.5 12C4.5 7.86 7.86 4.5 12 4.5C16.14 4.5 19.5 7.86 19.5 12C19.5 16.14 16.14 19.5 12 19.5C7.86 19.5 4.5 16.14 4.5 12ZM12 16.5C14.4825 16.5 16.5 14.4825 16.5 12C16.5 9.5175 14.4825 7.5 12 7.5C9.5175 7.5 7.5 9.5175 7.5 12C7.5 14.4825 9.5175 16.5 12 16.5Z" />
+</svg>

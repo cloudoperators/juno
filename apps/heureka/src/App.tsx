@@ -4,17 +4,22 @@
  */
 
 import React, { StrictMode } from "react"
-import { AppShellProvider } from "@cloudoperators/juno-ui-components"
-import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { ApolloProvider } from "@apollo/client"
-import styles from "./styles.scss?inline"
+import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { AppShell, AppShellProvider, PageHeader } from "@cloudoperators/juno-ui-components"
+import { encodeV2, decodeV2 } from "@cloudoperators/juno-url-state-provider"
+import styles from "./styles.css?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
+import { StoreProvider } from "./store/StoreProvider"
 
 export type InitialFilters = {
   support_group?: string[]
 }
+
+const queryClient = new QueryClient()
 
 export type AppProps = {
   theme?: "theme-dark" | "theme-light"
@@ -29,6 +34,8 @@ const router = createRouter({
   routeTree,
   context: {
     appProps: undefined!,
+    apiClient: undefined!,
+    queryClient: undefined!,
   },
 })
 
@@ -39,6 +46,10 @@ declare module "@tanstack/react-router" {
 }
 
 const App = (props: AppProps) => {
+  const apiClient = getClient({
+    uri: props.apiEndpoint,
+  })
+
   /*
    * Dynamically change the type of history on the router
    * based on the enableHashedRouting prop. This ensures that
@@ -47,22 +58,52 @@ const App = (props: AppProps) => {
    */
   router.update({
     routeTree,
-    context: { appProps: props },
+    context: { appProps: props, apiClient, queryClient },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
+    stringifySearch: encodeV2,
+    parseSearch: (searchString) => {
+      if (!props.enableHashedRouting) {
+        return decodeV2(searchString)
+      }
+
+      /*
+       * In case of hashed routing Tanstack router returns URL search params of the entire URL rather than just from the hashed part.
+       * We'll have to extract the query part from the hash because otherwise in embedded mode the app will be taking search params from the shell app as well.
+       * Sanitize the search string by extracting the substring between the first '?' and the next '?' (if any), keeping the first '?'.
+       * https://github.com/TanStack/router/issues/4370
+       * http://localhost:3000/?preHashParam=prehashtest#/services?postHashParam1=test1?preHashParam=prehashtest
+       * searchString = "?postHashParam1=test1?preHashParam=prehashtest"
+       * searchStringFromHash = "?postHashParam1=test1"
+       */
+      const postHashParams = searchString.indexOf("?")
+      if (postHashParams === -1) return {} // If no query part is found, return an empty object
+      const preHashParams = searchString.indexOf("?", postHashParams + 1)
+      const searchStringFromHash = searchString.slice(postHashParams, preHashParams === -1 ? undefined : preHashParams)
+
+      return decodeV2(searchStringFromHash)
+    },
   })
 
   return (
-    <ApolloProvider client={getClient({ uri: props.apiEndpoint })}>
-      <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
-        {/* load styles inside the shadow dom */}
-        <style>{styles.toString()}</style>
-        <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ApolloProvider client={apiClient}>
+        <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
+          {/* load styles inside the shadow dom */}
+          <style>{styles.toString()}</style>
           <StrictMode>
-            <RouterProvider basepath={props.basePath || "/"} router={router} />
+            <AppShell embedded={props.embedded} pageHeader={<PageHeader heading="Heureka" />}>
+              <ErrorBoundary>
+                <StrictMode>
+                  <StoreProvider>
+                    <RouterProvider basepath={props.basePath || "/"} router={router} />
+                  </StoreProvider>
+                </StrictMode>
+              </ErrorBoundary>
+            </AppShell>
           </StrictMode>
-        </ErrorBoundary>
-      </AppShellProvider>
-    </ApolloProvider>
+        </AppShellProvider>
+      </ApolloProvider>
+    </QueryClientProvider>
   )
 }
 

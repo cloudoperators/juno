@@ -40,6 +40,8 @@ interface WatchOptions {
   mode?: RequestMode
   cache?: RequestCache
   credentials?: RequestCredentials
+  ignoreSsl?: boolean // Allow per-request SSL override
+  debug?: boolean // Optional debug flag
 }
 
 class Watch {

@@ -12,84 +12,84 @@ import React from "react"
 const gapSize = (gap: StackGap) => {
   switch (gap) {
     case "0":
-      return "jn-gap-0"
+      return "jn:gap-0"
     case "px":
-      return "jn-gap-px"
+      return "jn:gap-px"
     case "0.5":
-      return "jn-gap-0.5"
+      return "jn:gap-0.5"
     case "1":
-      return "jn-gap-1"
+      return "jn:gap-1"
     case "1.5":
-      return "jn-gap-1.5"
+      return "jn:gap-1.5"
     case "2":
-      return "jn-gap-2"
+      return "jn:gap-2"
     case "2.5":
-      return "jn-gap-2.5"
+      return "jn:gap-2.5"
     case "3":
-      return "jn-gap-3"
+      return "jn:gap-3"
     case "3.5":
-      return "jn-gap-3.5"
+      return "jn:gap-3.5"
     case "4":
-      return "jn-gap-4"
+      return "jn:gap-4"
     case "5":
-      return "jn-gap-5"
+      return "jn:gap-5"
     case "6":
-      return "jn-gap-6"
+      return "jn:gap-6"
     case "7":
-      return "jn-gap-7"
+      return "jn:gap-7"
     case "8":
-      return "jn-gap-8"
+      return "jn:gap-8"
     case "9":
-      return "jn-gap-9"
+      return "jn:gap-9"
     case "10":
-      return "jn-gap-10"
+      return "jn:gap-10"
     case "11":
-      return "jn-gap-11"
+      return "jn:gap-11"
     case "12":
-      return "jn-gap-12"
+      return "jn:gap-12"
     case "14":
-      return "jn-gap-14"
+      return "jn:gap-14"
     case "16":
-      return "jn-gap-16"
+      return "jn:gap-16"
     case "20":
-      return "jn-gap-20"
+      return "jn:gap-20"
     case "24":
-      return "jn-gap-24"
+      return "jn:gap-24"
     case "28":
-      return "jn-gap-28"
+      return "jn:gap-28"
     case "32":
-      return "jn-gap-32"
+      return "jn:gap-32"
     case "36":
-      return "jn-gap-36"
+      return "jn:gap-36"
     case "40":
-      return "jn-gap-40"
+      return "jn:gap-40"
     case "44":
-      return "jn-gap-44"
+      return "jn:gap-44"
     case "48":
-      return "jn-gap-48"
+      return "jn:gap-48"
     case "52":
-      return "jn-gap-52"
+      return "jn:gap-52"
     case "56":
-      return "jn-gap-56"
+      return "jn:gap-56"
     case "60":
-      return "jn-gap-60"
+      return "jn:gap-60"
     case "64":
-      return "jn-gap-64"
+      return "jn:gap-64"
     case "72":
-      return "jn-gap-72"
+      return "jn:gap-72"
     case "80":
-      return "jn-gap-80"
+      return "jn:gap-80"
     case "96":
-      return "jn-gap-96"
+      return "jn:gap-96"
     default:
-      return "jn-gap-0"
+      return "jn:gap-0"
   }
 }
 
 const baseStack = (direction: StackDirection, gap: StackGap, wrap: boolean) => {
   return `
-      ${direction === "vertical" ? "jn-flex jn-flex-col" : "jn-flex jn-flex-row"}
-      ${wrap && "jn-flex-wrap"}
+      ${direction === "vertical" ? "jn:flex jn:flex-col" : "jn:flex jn:flex-row"}
+      ${wrap && "jn:flex-wrap"}
       ${gapSize(gap)}
     `
 }
@@ -97,15 +97,15 @@ const baseStack = (direction: StackDirection, gap: StackGap, wrap: boolean) => {
 const alignItems = (alignment: StackAlignment) => {
   switch (alignment) {
     case "start":
-      return "jn-items-start"
+      return "jn:items-start"
     case "end":
-      return "jn-items-end"
+      return "jn:items-end"
     case "center":
-      return "jn-items-center"
+      return "jn:items-center"
     case "baseline":
-      return "jn-items-baseline"
+      return "jn:items-baseline"
     case "stretch":
-      return "jn-items-stretch"
+      return "jn:items-stretch"
     default:
       return ""
   }
@@ -114,17 +114,17 @@ const alignItems = (alignment: StackAlignment) => {
 const justifyItems = (distribution: StackDistribution) => {
   switch (distribution) {
     case "start":
-      return "jn-justify-start"
+      return "jn:justify-start"
     case "end":
-      return "jn-justify-end"
+      return "jn:justify-end"
     case "center":
-      return "jn-justify-center"
+      return "jn:justify-center"
     case "between":
-      return "jn-justify-between"
+      return "jn:justify-between"
     case "around":
-      return "jn-justify-around"
+      return "jn:justify-around"
     case "evenly":
-      return "jn-justify-evenly"
+      return "jn:justify-evenly"
     default:
       return ""
   }

@@ -9,23 +9,23 @@ import { TabNavigationContext } from "../TabNavigation/TabNavigation.component"
 import { KnownIcons } from "../Icon/Icon.component.js"
 
 const tabNavItemStyles = `
-  jn-flex
-  jn-items-center
-  jn-text-theme-default
-  jn-font-bold
-  jn-py-[0.875rem]
-  jn-px-[1.5625rem]
-  jn-border-b-[3px]
-  focus-visible:jn-outline-none
-  focus-visible:jn-ring-2
-  focus-visible:jn-ring-theme-focus
+  jn:flex
+  jn:items-center
+  jn:text-theme-default
+  jn:font-bold
+  jn:py-[0.875rem]
+  jn:px-[1.5625rem]
+  jn:border-b-[3px]
+  jn:focus-visible:outline-hidden
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
 `
 
 const tabNavActiveItemStyles = `
-  jn-text-theme-high
-  jn-font-bold
-  jn-border-b-[3px]
-  jn-border-theme-tab-active-bottom
+  jn:text-theme-high
+  jn:font-bold
+  jn:border-b-[3px]
+  jn:border-theme-tab-active-bottom
 `
 
 /** An individual Tab Navigation Item. Use wrapped in a `<TabNavigation>` parent component. */
@@ -59,7 +59,7 @@ export const TabNavigationItem: React.FC<TabNavigationItemProps> = ({
       href={href}
       icon={icon}
       inactiveItemStyles={`${
-        tabStyle === "content" ? "jn-border-theme-tab-content-inactive-bottom" : "jn-border-transparent"
+        tabStyle === "content" ? "jn:border-theme-tab-content-inactive-bottom" : "jn:border-transparent"
       }`}
       label={label}
       onClick={onClick}

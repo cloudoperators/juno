@@ -4,10 +4,11 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { TabList } from "./TabList.component"
-import { Tab, TabProps } from "../Tab/Tab.component"
+import { Tab } from "../Tab/Tab.component"
 
-export default {
+const meta: Meta<typeof TabList> = {
   title: "Layout/Tabs/TabList",
   component: TabList,
   argTypes: {
@@ -17,23 +18,13 @@ export default {
         type: { summary: "ReactNode" },
       },
     },
-    tabs: {
-      table: {
-        disable: true,
-      },
-    },
   },
 }
 
-const Template = ({ children, ...args }: TemplateProps) => <TabList {...args}>{children}</TabList>
+export default meta
+type Story = StoryObj<typeof meta>
 
-interface TemplateProps {
-  children?: React.ReactElement<TabProps> | React.ReactElement<TabProps>[]
-}
-
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
   args: {
     children: [
       <Tab key="t-1" label="Tab 1" />,
@@ -44,9 +35,7 @@ export const Default = {
   },
 }
 
-export const MainTabList = {
-  render: Template,
-
+export const MainTabList: Story = {
   args: {
     variant: "main",
     children: [

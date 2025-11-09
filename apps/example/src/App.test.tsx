@@ -28,7 +28,7 @@ class ResizeObserver {
 window.ResizeObserver = ResizeObserver
 
 // Mock styles
-vi.mock("./styles.module.scss", () => ({
+vi.mock("./styles.module.css", () => ({
   default: new Proxy(
     {},
     {

@@ -23,28 +23,19 @@ import {
   useSearchTerm,
 } from "../StoreProvider"
 import { humanizeString } from "../../lib/utils"
+import { useNavigate } from "@tanstack/react-router"
+import { addFilter } from "../../lib/urlStateUtils"
+import { ACTIVE_FILTERS_PREFIX } from "../../constants"
 
 const FilterSelect = () => {
+  const navigate = useNavigate()
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
-  const [resetKey] = useState(Date.now())
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
   const activeFilters = useActiveFilters()
   const searchTerm = useSearchTerm()
-
-  const handleFilterAdd = (value?: any) => {
-    if (filterLabel && (filterValue || value)) {
-      // add active filter to store
-      addActiveFilter(filterLabel, filterValue || value)
-
-      // reset filterValue
-      setFilterValue("")
-    } else {
-      // TODO: show error -> please select filter/value
-    }
-  }
 
   const handleFilterLabelChange = (value: any) => {
     setFilterLabel(value)
@@ -54,15 +45,35 @@ const FilterSelect = () => {
     }
   }
 
-  const handleFilterValueChange = (value: any) => {
-    setFilterValue(value)
-    handleFilterAdd(value)
+  const handleFilterValueChange = (value: string) => {
+    setFilterValue(value) // update the filter value state to trigger re-render on ComboBox
+    if (filterLabel.trim() !== "" && value.trim() !== "") {
+      addActiveFilter(filterLabel, value) // add the filter to the active filters
+
+      // add filter to URL state
+      navigate({
+        to: "/alerts",
+        search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, value),
+      })
+    }
+    // TODO: remove this after ComboBox supports resetting its value after onChange
+    // set timeout to allow ComboBox to update its value after onChange
+    setTimeout(() => {
+      setFilterValue("")
+    }, 0)
   }
 
   const handleSearchChange = (value: any) => {
     // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
       setSearchTerm(value.target.value)
+      navigate({
+        to: "/alerts",
+        search: (prev) => ({
+          ...prev,
+          searchTerm: value.target.value.trim(),
+        }),
+      })
     }, 500)
 
     // clear timeout if we have a new value
@@ -84,13 +95,12 @@ const FilterSelect = () => {
           ))}
         </Select>
         <ComboBox
-          name="filterValue"
           value={filterValue}
-          onChange={(value: any) => handleFilterValueChange(value)}
+          name="filterValue"
+          onChange={(value: string) => handleFilterValueChange(value)}
           disabled={filterLabelValues[filterLabel] ? false : true}
           loading={filterLabelValues[filterLabel]?.isLoading}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
-          key={resetKey}
         >
           {filterLabelValues[filterLabel]?.values
             ?.filter(
@@ -99,9 +109,10 @@ const FilterSelect = () => {
               ) => !activeFilters[filterLabel]?.includes(value)
             )
             .slice(0, 100) // take only the first 100 values. This isn't a good solution TODO: fix this properly with combo box, typeahead search, lazy loading, etc.
-            .map((value: any) => <ComboBoxOption value={value} key={value} />)}
+            .map((value: any) => (
+              <ComboBoxOption value={value} key={value} />
+            ))}
         </ComboBox>
-        <Button onClick={() => handleFilterAdd()} icon="filterAlt" className="py-[0.3rem]" />
       </InputGroup>
       {renderClearButton()}
       <SearchInput
@@ -109,7 +120,16 @@ const FilterSelect = () => {
         className="w-96 ml-auto"
         value={searchTerm || ""}
         onSearch={(value: any) => setSearchTerm(value)}
-        onClear={() => setSearchTerm("")}
+        onClear={() => {
+          setSearchTerm("")
+          navigate({
+            to: "/alerts",
+            search: (prev) => ({
+              ...prev,
+              searchTerm: "",
+            }),
+          })
+        }}
         onChange={(value: any) => handleSearchChange(value)}
       />
     </Stack>
@@ -119,7 +139,24 @@ const FilterSelect = () => {
     return (
       activeFilters &&
       Object.keys(activeFilters).length > 0 && (
-        <Button label="Clear all" onClick={() => clearFilters()} variant="subdued" />
+        <Button
+          label="Clear all"
+          onClick={() => {
+            clearFilters()
+            // Remove active and paused filters from URL state
+            navigate({
+              to: "/alerts",
+              search: (prev) =>
+                Object.entries(prev).reduce((acc: Record<string, string | string[]>, [key, value]) => {
+                  if (value && !key.startsWith("f_") && !key.startsWith("pf_")) {
+                    acc[key] = value
+                  }
+                  return acc
+                }, {}),
+            })
+          }}
+          variant="subdued"
+        />
       )
     )
   }

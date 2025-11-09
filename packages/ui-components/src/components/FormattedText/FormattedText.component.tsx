@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import "./formatted-text.scss"
+import "./formatted-text.css"
 
 export interface FormattedTextProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Add custom class name */

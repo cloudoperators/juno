@@ -6,15 +6,15 @@
 import React, { ReactNode, HTMLAttributes } from "react"
 
 const panelFooterBaseStyles = `
-  jn-border-t
-  jn-border-t-theme-background-lvl-2
-  jn-px-8
-  jn-py-4
-  jn-flex
-  jn-items-center
-  jn-justify-end
-  jn-gap-3
-  jn-w-full
+  jn:border-t
+  jn:border-t-theme-background-lvl-2
+  jn:px-8
+  jn:py-4
+  jn:flex
+  jn:items-center
+  jn:justify-end
+  jn:gap-3
+  jn:w-full
 `
 
 export interface PanelFooterProps extends HTMLAttributes<HTMLDivElement> {

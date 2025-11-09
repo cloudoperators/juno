@@ -12,50 +12,50 @@ import { Stack } from "../Stack/index"
 import { Label } from "../Label/index"
 
 const innerWrapperStyles = `
-  jn-relative
+  jn:relative
 `
 
 const labelStyles = `
-  jn-pointer-events-none
-  jn-top-2
-  jn-left-[0.9375rem]
-  jn-pr-4
-  jn-bg-theme-textinput
-  jn-z-20
+  jn:pointer-events-none
+  jn:top-2
+  jn:left-[0.9375rem]
+  jn:pr-4
+  jn:bg-theme-textinput
+  jn:z-20
 `
 
 const coverStyles = `
-  jn-absolute
-  jn-top-0
-  jn-left-0
-  jn-right-0
-  jn-bottom-0
-  jn-cursor-not-allowed
-  jn-backdrop-blur-[4px]
-  jn-bg-theme-background-lvl-2/30
-  jn-z-10
-  jn-flex
-  jn-justify-center
-  jn-items-center
+  jn:absolute
+  jn:top-0
+  jn:left-0
+  jn:right-0
+  jn:bottom-0
+  jn:cursor-not-allowed
+  jn:backdrop-blur-[4px]
+  jn:bg-theme-background-lvl-2/30
+  jn:z-10
+  jn:flex
+  jn:justify-center
+  jn:items-center
 `
 
 const copyConfirmMessageStyles = `
-  jn-bg-theme-background-lvl-1
-  jn-font-bold
-  jn-px-3
-  jn-py-1
-  jn-rounded
+  jn:bg-theme-background-lvl-1
+  jn:font-bold
+  jn:px-3
+  jn:py-1
+  jn:rounded
 `
 
 const textareaStyles = `
-  jn-break-all
-  jn-min-h-[7.5rem]
+  jn:break-all
+  jn:min-h-[7.5rem]
 `
 
 const hintStyles = ``
 
 const actionStyles = `
-  jn-h-[1.875rem]
+  jn:h-[1.875rem]
 `
 
 /** A component to hold a secret text, e.g. an SSH key, and conceal or reveal as needed. */
@@ -211,7 +211,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
 
         <Textarea
           autoComplete={autoComplete}
-          className={`juno-secret-textarea jn-font-mono ${textareaStyles} ${className}`}
+          className={`juno-secret-textarea jn:font-mono ${textareaStyles} ${className}`}
           disabled={disabled}
           id={theId}
           invalid={invalid}
@@ -228,7 +228,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
       </div>
 
       <Stack>
-        <div className="jn-grow">
+        <div className="jn:grow">
           {errortext && isNotEmptyString(errortext) ? (
             <FormHint text={errortext} variant="error" className={`${hintStyles}`} />
           ) : (
@@ -242,7 +242,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
           {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} className={`${hintStyles}`} /> : ""}
         </div>
 
-        <ButtonRow className="jn-secret-actions jn-justify-self-end jn-mt-2">
+        <ButtonRow className="jn-secret-actions jn:justify-self-end jn:mt-2">
           {clear && !readOnly ? (
             <Button
               size="small"

@@ -25,12 +25,15 @@ on:
       runs-on:
         description: "The runner to use for the job"
         required: false
-        default: "default"
+        default: "ubuntu-latest"
         type: string
     outputs:
       changes:
         description: "List of found changes in the paths"
         value: ${{ jobs.detect-changes.outputs.changes }}
+
+permissions:
+  contents: read
 
 jobs:
   detect-changes:
@@ -45,7 +48,7 @@ jobs:
           echo "===="
 
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 #v4.3.0
 
       - name: Generate filters
         id: generate-filters

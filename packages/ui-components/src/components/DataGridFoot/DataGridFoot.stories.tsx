@@ -4,11 +4,10 @@
  */
 
 import React from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DataGridFoot } from "./index"
 
-type StoryFunction = () => React.ReactNode
-
-export default {
+const meta: Meta<typeof DataGridFoot> = {
   title: "WiP/DataGrid/DataGridFoot",
   component: DataGridFoot,
   argTypes: {
@@ -19,7 +18,13 @@ export default {
       },
     },
   },
-  decorators: [(story: StoryFunction) => <table>{story()}</table>],
+  decorators: [
+    (Story) => (
+      <table>
+        <Story />
+      </table>
+    ),
+  ],
   parameters: {
     docs: {
       source: {
@@ -29,21 +34,11 @@ export default {
   },
 }
 
-const Template = ({ /*items,*/ ...args }) => (
-  <DataGridFoot {...args}>
-    {/* {items.map((item, i) => (
-      <DataGridFootRow key={`f_${i}`}>
-        {item.items.map((cell, c) => (
-          <DataGridCell {...cell} key={`f_${i}_${c}`} />
-        ))}
-      </DataGridFootRow>
-    ))} */}
-  </DataGridFoot>
-)
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Default = {
-  render: Template,
-
+export const Default: Story = {
+  render: (args) => <DataGridFoot {...args} />,
   parameters: {
     docs: {
       description: {
@@ -51,6 +46,5 @@ export const Default = {
       },
     },
   },
-
   args: {},
 }

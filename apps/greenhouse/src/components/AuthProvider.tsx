@@ -6,15 +6,34 @@
 import React, { createContext, useContext, useState, useMemo, useRef, useEffect } from "react"
 import { oidcSession, mockedSession, tokenSession } from "@cloudoperators/juno-oauth"
 
-const setOrganizationToUrl = (groups: any) => {
-  const orgString = groups?.find((g: any) => g.indexOf("organization:") === 0)
-  if (orgString) {
-    const name = orgString.split(":")[1]
-    let url = new URL(window.location.href)
-    url.searchParams.set("org", name)
-    // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
-    window.history.replaceState(null, null, url.href)
+const setOrganizationToUrl = (groups: any, enableHashedRouting: boolean) => {
+  const orgName = groups?.find((g: any) => g.startsWith("organization:"))?.split(":")[1]
+
+  if (!orgName) return
+
+  let url = new URL(window.location.href)
+
+  // In non-dev environments, set the organization as subdomain
+  if (!import.meta.env.DEV) {
+    url.hostname = `${orgName}.${url.hostname}`
+    window.location.href = url.href
+    return
   }
+
+  // Check if the organization name is already in the URL path or hash then don't change it
+  const currentPath = enableHashedRouting ? url.hash.replace("#/", "") : url.pathname
+  const currentFirstSegment = currentPath.split("/").filter(Boolean)[0]
+  if (orgName === currentFirstSegment) return
+
+  // if enableHashedRouting is true, set the hash, otherwise set the pathname
+  const pathWithOrg = `/${orgName}`
+  if (enableHashedRouting) {
+    url.hash = pathWithOrg
+  } else {
+    url.pathname = pathWithOrg
+  }
+  // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
+  window.history.replaceState(null, null, url.href)
 }
 
 function resolveMockAuth(value: any) {
@@ -52,16 +71,23 @@ function resolveMockAuth(value: any) {
   return result
 }
 
-const extractOrganizationName = () => {
+const extractOrganizationName = (enableHashedRouting: boolean) => {
   const currentUrl = new URL(window.location.href)
+
+  // Try to extract from subdomain
   let match = currentUrl.host.match(/^(.+)\.dashboard\..+/)
-  return match ? match[1] : currentUrl.searchParams.get("org")
+  if (match) return match[1]
+  // If enableHashedRouting is true, take path from the hashed part of the URL otherwise take it from the pathname
+  const path = enableHashedRouting ? currentUrl.hash.replace("#/", "") : currentUrl.pathname
+  const pathParts = path.split("/").filter(Boolean)
+  return pathParts.length > 0 ? pathParts[0] : undefined
 }
 
 const initializeDemoAuth = (
   orgName: any,
   demoUserToken: any,
   demoOrg: any,
+  enableHashedRouting: boolean,
   setAuthData: any,
   setOidcError: any,
   setOrganizationToUrl: any
@@ -79,12 +105,18 @@ const initializeDemoAuth = (
       }
       setAuthData(data)
       // set the organization name in the URL
-      if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups)
+      if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups, enableHashedRouting)
     },
   })
 }
 
-const initializeMockAuth = (parsedAuth: any, orgName: any, setAuthData: any, setOrganizationToUrl: any) => {
+const initializeMockAuth = (
+  parsedAuth: any,
+  orgName: any,
+  enableHashedRouting: boolean,
+  setAuthData: any,
+  setOrganizationToUrl: any
+) => {
   if (orgName) {
     parsedAuth.groups = [`organization:${orgName}`]
   }
@@ -95,7 +127,7 @@ const initializeMockAuth = (parsedAuth: any, orgName: any, setAuthData: any, set
     onUpdate: (data: any) => {
       setAuthData(data)
       // set the organization name in the URL
-      if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups)
+      if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups, enableHashedRouting)
     },
   })
 }
@@ -104,6 +136,7 @@ const initializeRealOidc = (
   issuerURL: any,
   clientID: any,
   orgName: any,
+  enableHashedRouting: boolean,
   setAuthData: any,
   setOrganizationToUrl: any
 ) => {
@@ -121,7 +154,7 @@ const initializeRealOidc = (
     onUpdate: (data: any) => {
       setAuthData(data)
       // set the organization name in the URL
-      if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups)
+      if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups, enableHashedRouting)
     },
   })
 }
@@ -144,9 +177,10 @@ export const AuthProvider = ({ options, children }: any) => {
       mockAuth = false,
       demoOrg = "demo",
       demoUserToken,
+      enableHashedRouting,
     } = options || {}
 
-    const orgName = extractOrganizationName()
+    const orgName = extractOrganizationName(enableHashedRouting)
 
     // extract mock params
     const { isMock, parsedAuth } = resolveMockAuth(mockAuth)
@@ -160,6 +194,7 @@ export const AuthProvider = ({ options, children }: any) => {
         orgName,
         demoUserToken,
         demoOrg,
+        enableHashedRouting,
         setAuthData,
         setOidcError,
         setOrganizationToUrl
@@ -170,14 +205,27 @@ export const AuthProvider = ({ options, children }: any) => {
     // Check if mock mode is enabled
     if (isMock) {
       console.debug("Initializing new mocked auth session")
-      oidcInstance.current = initializeMockAuth(parsedAuth, orgName, setAuthData, setOrganizationToUrl)
+      oidcInstance.current = initializeMockAuth(
+        parsedAuth,
+        orgName,
+        enableHashedRouting,
+        setAuthData,
+        setOrganizationToUrl
+      )
       return oidcInstance.current
     }
 
     // If mock mode is not enabled, initialize a real OIDC session
     if (issuerURL && clientID) {
       console.debug("Initializing new OIDC session")
-      oidcInstance.current = initializeRealOidc(issuerURL, clientID, orgName, setAuthData, setOrganizationToUrl)
+      oidcInstance.current = initializeRealOidc(
+        issuerURL,
+        clientID,
+        orgName,
+        enableHashedRouting,
+        setAuthData,
+        setOrganizationToUrl
+      )
       return oidcInstance.current
     }
 

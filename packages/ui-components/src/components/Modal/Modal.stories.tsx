@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import React, { useState } from "react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Modal, ModalProps } from "./Modal.component"
 import { ModalFooter } from "../ModalFooter/index"
 import { Button } from "../Button/index"
@@ -18,6 +19,10 @@ import { SelectOption } from "../SelectOption/index"
 import { ComboBox } from "../ComboBox/index"
 import { ComboBoxOption } from "../ComboBoxOption/index"
 
+type TemplateProps = {
+  closeOnConfirm?: boolean
+} & ModalProps
+
 const Template = ({ closeOnConfirm, ...args }: TemplateProps) => {
   const [isOpen, setOpen] = useState(false)
   const open = () => {
@@ -29,20 +34,12 @@ const Template = ({ closeOnConfirm, ...args }: TemplateProps) => {
   return (
     <>
       <Button label="Open Modal" variant="primary" onClick={open} />
-      <PortalProvider.Portal>
-        <Modal open={isOpen} onCancel={close} onConfirm={closeOnConfirm ? close : undefined} {...args} />
-      </PortalProvider.Portal>
+      <Modal open={isOpen} onCancel={close} onConfirm={closeOnConfirm ? close : undefined} {...args} />
     </>
   )
 }
 
-type TemplateProps = {
-  closeOnConfirm: boolean
-} & ModalProps
-
-type StoryFunction = () => React.ReactNode
-
-export default {
+const meta: Meta<typeof Modal> = {
   title: "Components/Modal/Modal",
   component: Modal,
   argTypes: {
@@ -59,18 +56,41 @@ export default {
       },
     },
   },
-  parameters: { actions: { argTypesRegex: null } },
-  decorators: [(story: StoryFunction) => <PortalProvider>{story()}</PortalProvider>],
+  parameters: {
+    actions: { argTypesRegex: null },
+    docs: {
+      source: {
+        transform: (source: string): string => {
+          // Remove :jn prefix for docs, internal use only
+          return source.replace(/jn:/g, "")
+        },
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <PortalProvider>
+        <div className="jn:m-20 jn:flex jn:justify-center">
+          <Story />
+        </div>
+      </PortalProvider>
+    ),
+  ],
 }
 
-export const Default = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   render: Template,
   args: {
     children: <p>A default modal.</p>,
+    disableConfirmButton: false,
+    disableCancelButton: false,
   },
 }
 
-export const SimpleConfirmDialog = {
+export const SimpleConfirmDialog: Story = {
   render: Template,
   args: {
     children: <p>Are you sure you want to proceed?</p>,
@@ -79,7 +99,23 @@ export const SimpleConfirmDialog = {
   },
 }
 
-export const AutoFocusDialog = {
+export const SimpleConfirmDialogWithDisabledButtons: Story = {
+  render: Template,
+  args: {
+    children: (
+      <p>
+        This modal has a disabled Confirm and Cancel button. Note that disableCancelButton also disables the top-right
+        Close button.
+      </p>
+    ),
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Yes, Proceed",
+    disableConfirmButton: true,
+    disableCancelButton: true,
+  },
+}
+
+export const AutoFocusDialog: Story = {
   render: Template,
   args: {
     children: <TextInput id="focusOnMe" />,
@@ -87,18 +123,93 @@ export const AutoFocusDialog = {
   },
 }
 
-export const LargeWithTitle = {
+const ReusableForm = () => (
+  <Form>
+    <FormRow>
+      <TextInput label="First Name" id="firstname" />
+    </FormRow>
+    <FormRow>
+      <TextInput label="Last Name" id="lastname" />
+    </FormRow>
+    <FormRow>
+      <TextInput label="Email" id="email" type="email" />
+    </FormRow>
+    <FormRow>
+      <TextInput label="Password" id="password" type="password" />
+    </FormRow>
+    <FormRow>
+      <TextInput label="Retype Password" id="retype-password" type="password" />
+    </FormRow>
+    <FormRow>
+      <Select label="Role">
+        <SelectOption>Private Person</SelectOption>
+        <SelectOption>Small Business</SelectOption>
+      </Select>
+    </FormRow>
+    <FormRow>
+      <ComboBox label="Country">
+        <ComboBoxOption value="germany" key="DE">
+          Germany
+        </ComboBoxOption>
+        <ComboBoxOption value="uk" key="UK">
+          United Kingdom
+        </ComboBoxOption>
+        <ComboBoxOption value="us" key="US">
+          USA
+        </ComboBoxOption>
+      </ComboBox>
+    </FormRow>
+  </Form>
+)
+
+export const DefaultWithForm: Story = {
   render: Template,
   args: {
-    size: "large",
-    title: "Large Modal",
-    confirmButtonLabel: "OK",
-    closeOnConfirm: true /* Only relevant for storybook, this is not a native prop of the component! */,
-    children: <p>A large modal with a title</p>,
+    title: "Default Modal Form",
+    initialFocus: "#firstname",
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Register now",
+    children: <ReusableForm />,
   },
 }
 
-export const NonCloseable = {
+export const LargeWithForm: Story = {
+  render: Template,
+  args: {
+    size: "large",
+    title: "Large Modal Form",
+    initialFocus: "#firstname",
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Register now",
+    children: <ReusableForm />,
+  },
+}
+
+export const XLWithForm: Story = {
+  render: Template,
+  args: {
+    size: "xl",
+    title: "XL With Form",
+    initialFocus: "#firstname",
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Register now",
+    children: <ReusableForm />,
+  },
+}
+
+export const XXLWithForm: Story = {
+  render: Template,
+  args: {
+    size: "2xl",
+    title: "2XL With Form",
+    initialFocus: "#firstname",
+    cancelButtonLabel: "Cancel",
+    confirmButtonLabel: "Register now",
+    children: <ReusableForm />,
+  },
+}
+
+export const NonCloseable: Story = {
   render: Template,
   args: {
     title: "Non-Closeable Modal",
@@ -108,7 +219,7 @@ export const NonCloseable = {
   },
 }
 
-export const CloseOnBackdropClick = {
+export const CloseOnBackdropClick: Story = {
   render: Template,
   args: {
     title: "Close on Backdrop Click",
@@ -117,7 +228,17 @@ export const CloseOnBackdropClick = {
   },
 }
 
-export const Login = {
+export const DisabledCloseButton: Story = {
+  render: Template,
+  args: {
+    title: "Disabled Close Button Modal",
+    children: <p>This Modal has a disabled top-right close button.</p>,
+    disableCloseButton: true,
+    cancelButtonLabel: "Cancel",
+  },
+}
+
+export const Login: Story = {
   render: Template,
   args: {
     title: "Log In",
@@ -141,16 +262,16 @@ export const Login = {
   },
 }
 
-export const CustomModalFooter = {
+export const CustomModalFooter: Story = {
   render: Template,
   args: {
     title: "Modal with Custom ModalFooter",
     size: "large",
     children: <p>This Modal renders a custom footer with three buttons and a custom hint.</p>,
     modalFooter: (
-      <ModalFooter className="jn-justify-between jn-items-center">
+      <ModalFooter className="jn:justify-between jn:items-center">
         <span>
-          <Icon icon="info" className="jn-mr-1" />
+          <Icon icon="info" className="jn:mr-1" />
           Have some custom content
         </span>
         <ButtonRow>
@@ -163,7 +284,7 @@ export const CustomModalFooter = {
   },
 }
 
-export const TestSelectInModal = {
+export const TestSelectInModal: Story = {
   render: Template,
   args: {
     title: "Modal with Select inside",
@@ -180,10 +301,10 @@ export const TestSelectInModal = {
   },
 }
 
-export const TestComboBoxInModal = {
+export const TestComboBoxInModal: Story = {
   render: Template,
   args: {
-    title: "Modal with CombBox inside",
+    title: <p>Hello</p>,
     size: "small",
     children: (
       <>
@@ -202,54 +323,6 @@ export const TestComboBoxInModal = {
           </ComboBoxOption>
         </ComboBox>
       </>
-    ),
-  },
-}
-
-export const ModalWithALargerForm = {
-  render: Template,
-  args: {
-    title: "Register",
-    initialFocus: "#firstname",
-    cancelButtonLabel: "Cancel",
-    confirmButtonLabel: "Register now",
-    children: (
-      <Form>
-        <FormRow>
-          <TextInput label="First Name" id="firstname" />
-        </FormRow>
-        <FormRow>
-          <TextInput label="Last Name" id="lastname" />
-        </FormRow>
-        <FormRow>
-          <TextInput label="Email" id="email" type="email" />
-        </FormRow>
-        <FormRow>
-          <TextInput label="Password" id="password" type="password" />
-        </FormRow>
-        <FormRow>
-          <TextInput label="Retype Password" id="retype-password" type="password" />
-        </FormRow>
-        <FormRow>
-          <Select label="Role">
-            <SelectOption>Private Person</SelectOption>
-            <SelectOption>Small Business</SelectOption>
-          </Select>
-        </FormRow>
-        <FormRow>
-          <ComboBox label="Country">
-            <ComboBoxOption value="germany" key="DE">
-              Germany
-            </ComboBoxOption>
-            <ComboBoxOption value="uk" key="UK">
-              United Kingdom
-            </ComboBoxOption>
-            <ComboBoxOption value="us" key="US">
-              USA
-            </ComboBoxOption>
-          </ComboBox>
-        </FormRow>
-      </Form>
     ),
   },
 }

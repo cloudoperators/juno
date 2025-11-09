@@ -3,15 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import React from "react"
 import { createPortal } from "react-dom"
-import { PortalProvider, usePortalRef, PortalProviderProps } from "./PortalProvider.component"
+import { PortalProvider, usePortalRef } from "./PortalProvider.component"
 import { Button } from "../Button/index"
 
-export default {
+const meta: Meta<typeof PortalProvider> = {
   title: "WiP/PortalProvider",
   component: PortalProvider,
-  subcomponents: { "PortalProvider.Portal": PortalProvider.Portal },
+  subcomponents: {
+    "PortalProvider.Portal": PortalProvider.Portal as React.ComponentType<unknown>,
+  },
   tags: ["autodocs"],
   argTypes: {
     children: {
@@ -20,6 +23,9 @@ export default {
   },
 }
 
+export default meta
+type Story = StoryObj<typeof meta>
+
 const PortalMessage = () => {
   const portalRef = usePortalRef()
   if (!portalRef) return null
@@ -27,13 +33,7 @@ const PortalMessage = () => {
   return createPortal(content, portalRef)
 }
 
-interface TemplateProps extends PortalProviderProps {
-  children?: React.ReactNode
-}
-const Template = ({ children, ...args }: TemplateProps) => <PortalProvider {...args}>{children}</PortalProvider>
-
-export const WithPortalComponent = {
-  render: Template,
+export const WithPortalComponent: Story = {
   args: {
     children: (
       <PortalProvider.Portal>
@@ -43,8 +43,7 @@ export const WithPortalComponent = {
   },
 }
 
-export const WithHook = {
-  render: Template,
+export const WithHook: Story = {
   args: {
     children: (
       <>
@@ -55,8 +54,7 @@ export const WithHook = {
   },
 }
 
-export const MultiplePortals = {
-  render: Template,
+export const MultiplePortals: Story = {
   args: {
     children: (
       <>

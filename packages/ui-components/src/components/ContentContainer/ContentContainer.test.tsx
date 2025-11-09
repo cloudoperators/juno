@@ -19,13 +19,13 @@ describe("ContentContainer", () => {
   test("renders a content container with flex col layout", () => {
     render(<ContentContainer data-testid="content-container" />)
     expect(screen.getByTestId("content-container")).toBeInTheDocument()
-    expect(screen.getByTestId("content-container")).toHaveClass("jn-flex-col")
+    expect(screen.getByTestId("content-container")).toHaveClass("jn:flex-col")
   })
 
   test("renders a content container with flex grow", () => {
     render(<ContentContainer data-testid="content-container" />)
     expect(screen.getByTestId("content-container")).toBeInTheDocument()
-    expect(screen.getByTestId("content-container")).toHaveClass("jn-grow")
+    expect(screen.getByTestId("content-container")).toHaveClass("jn:grow")
   })
 
   test("renders without any props", () => {

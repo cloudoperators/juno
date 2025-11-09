@@ -3,14 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-// @ts-expect-error TS(2792): Cannot find module '../../assets/greenhouse_logo.s... Remove this comment to see the full error message
+import React, { useRef } from "react"
+import { AnySchema, useMatches, useNavigate } from "@tanstack/react-router"
 import GreenhouseLogo from "../../assets/greenhouse_logo.svg?react"
-// @ts-expect-error TS(2792): Cannot find module '../../assets/juno_supernova.sv... Remove this comment to see the full error message
 import SupernovaIcon from "../../assets/juno_supernova.svg?react"
-// @ts-expect-error TS(2792): Cannot find module '../../assets/juno_doop.svg?rea... Remove this comment to see the full error message
 import DoopIcon from "../../assets/juno_doop.svg?react"
-// @ts-expect-error TS(2792): Cannot find module '../../assets/juno_heureka.svg?... Remove this comment to see the full error message
 import HeurekaIcon from "../../assets/juno_heureka.svg?react"
 
 import { Icon, Stack, Button } from "@cloudoperators/juno-ui-components"
@@ -63,13 +60,25 @@ break-all
 `
 
 const PluginNav = () => {
-  const setActiveApps = usePlugin().setActive
-  const activeApps = usePlugin().active()
+  const visitedApps = useRef<Record<string, AnySchema>>({})
   const appConfig = usePlugin().appConfig()
   const mngConfig = usePlugin().mngConfig()
-
+  const navigate = useNavigate({ from: "/" })
+  const matches = useMatches()
+  const activeApp = matches.find((match) => match.routeId === "/$extensionId/$")?.params.extensionId
   // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: authData, loggedIn, login, logout } = useAuth()
+
+  const navigateToApp = (appId: string) => {
+    // Save the current app's URL state to restore it later
+    if (activeApp) {
+      visitedApps.current[activeApp] = matches[matches.length - 1].search
+    }
+    navigate({
+      to: `/${appId}`,
+      search: visitedApps.current[appId] ?? {}, // restore the url state of the target app
+    })
+  }
 
   return (
     <Stack direction="vertical" alignment="center" className={`greenhouse-nav ${navStyles}`}>
@@ -80,11 +89,11 @@ const PluginNav = () => {
           key={`apps-${i}`}
           direction="vertical"
           alignment="center"
-          className={`greenhouse-nav-item ${navItem(activeApps.indexOf(appConf.id) >= 0)}`}
+          className={`greenhouse-nav-item ${navItem(activeApp === appConf.id)}`}
           role="button"
           // @ts-ignore
           tabIndex="0"
-          onClick={() => setActiveApps([appConf.id])}
+          onClick={() => navigateToApp(appConf.id)}
         >
           <AppIcon name={appConf.name} />
           <span className={appNameStyles}>{appConf.displayName}</span>
@@ -103,11 +112,11 @@ const PluginNav = () => {
             gap="3"
             alignment="center"
             key={`mng-apps-${i}`}
-            className={`greenhouse-nav-item ${navItem(activeApps.indexOf(appConf.id) >= 0)}`}
+            className={`greenhouse-nav-item ${navItem(activeApp === appConf.id)}`}
             role="button"
             // @ts-ignore
             tabIndex="0"
-            onClick={() => setActiveApps([appConf.id])}
+            onClick={() => navigateToApp(appConf.id)}
           >
             <AppIcon name={appConf.name} />
             <span className={appNameStyles}>{appConf.displayName}</span>

@@ -5,7 +5,7 @@
 
 import { useStore, createStore } from "zustand"
 import { devtools } from "zustand/middleware"
-import produce from "immer"
+import { produce } from "immer"
 
 export const NAV_TYPES = {
   APP: "app",

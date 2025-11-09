@@ -167,7 +167,6 @@ export default NewItemForm
 
 - **addMessage**: adds a message to the store
   Accepts an object containing:
-
   - variant (string). Variants are defined below.
   - text (string or object)
 
