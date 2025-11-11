@@ -5,74 +5,51 @@
 
 import React, { useRef } from "react"
 import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
-import { useNavigate, useLocation } from "@tanstack/react-router"
+import { useNavigate, useMatches, AnySchema } from "@tanstack/react-router"
 
 type NavigationItemType = {
   label: string
   value: string
-  path: string
 }
 
 const navigationItems: NavigationItemType[] = [
   {
     label: "Services",
-    value: "services",
-    path: "/services",
+    value: "/services/",
   },
   {
     label: "Vulnerabilities",
-    value: "vulnerabilities",
-    path: "/vulnerabilities",
+    value: "/vulnerabilities/",
   },
 ]
 
 export const Navigation = () => {
+  const visitedPages = useRef<Record<string, AnySchema>>({})
   const navigate = useNavigate()
-  const location = useLocation()
-  const isVulnerabilitiesActive = location.pathname.toLowerCase().includes("vulnerabilities")
+  const matches = useMatches()
 
-  // Store search parameters for each route type
-  const searchParamsRef = useRef<Record<string, any>>({
-    services: {},
-    vulnerabilities: {},
-  })
-
-  const handleItemClick = (path: string) => {
-    const currentPath = location.pathname
-    const currentSearch = location.search
-
-    // Store current search parameters for the current route type
-    if (currentPath.toLowerCase().includes("services")) {
-      searchParamsRef.current.services = currentSearch
-    } else if (currentPath.toLowerCase().includes("vulnerabilities")) {
-      searchParamsRef.current.vulnerabilities = currentSearch
-    }
-
-    // Navigate to the target path with its stored search parameters
-    if (path.includes("services")) {
+  const handleTabSelect = (link: React.ReactNode) => {
+    // Save the current pages's URL state to restore it later
+    const currentPath = matches[matches.length - 1].routeId
+    visitedPages.current[currentPath] = matches[matches.length - 1].search
+    if (typeof link === "string") {
       navigate({
-        to: path,
-        search: searchParamsRef.current.services,
-      })
-    } else if (path.includes("vulnerabilities")) {
-      navigate({
-        to: path,
-        search: searchParamsRef.current.vulnerabilities,
+        to: link,
+        search: visitedPages.current[link] ?? {}, // restore the url state of the target page
       })
     }
   }
 
+  const getActiveItem = () => {
+    const currentPath = matches[matches.length - 1].routeId
+    const activeItem = navigationItems.find((item) => currentPath.includes(item.value))
+    return activeItem ? activeItem.value : ""
+  }
+
   return (
-    <TopNavigation activeItem={isVulnerabilitiesActive ? "vulnerabilities" : "services"}>
-      {navigationItems.map(({ label, value, path }) => (
-        <TopNavigationItem
-          role="link"
-          ariaLabel={value}
-          key={value}
-          label={label}
-          value={value}
-          onClick={() => handleItemClick(path)}
-        />
+    <TopNavigation activeItem={getActiveItem()} onActiveItemChange={handleTabSelect}>
+      {navigationItems.map(({ label, value }) => (
+        <TopNavigationItem role="link" ariaLabel={value} key={value} label={label} value={value} />
       ))}
     </TopNavigation>
   )

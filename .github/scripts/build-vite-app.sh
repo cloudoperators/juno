@@ -8,7 +8,7 @@ package_name=$(jq -r '.name' $PACKAGE_PATH/package.json)
 app_props_url=$PREVIEW_URL/$TARGET_FOLDER/appProps.json
 
 # Run build using turbo
-VITE_APP_PROPS_URL=$app_props_url pnpx turbo run build:static --filter $package_name -- --base ./
+NODE_ENV=$NODE_ENV VITE_APP_PROPS_URL=$app_props_url pnpx turbo run build:static --filter $package_name -- --base ./
 
 # Copy build folder to deploy path
 mkdir -p "$DEPLOY_PATH/$TARGET_FOLDER"

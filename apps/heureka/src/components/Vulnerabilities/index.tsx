@@ -3,24 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense } from "react"
-import { Spinner } from "@cloudoperators/juno-ui-components/index"
+import React from "react"
 import { VulnerabilitiesList } from "./VulnerabilitiesList"
 import { VulnerabilitiesFilters } from "./VulnerabilitiesFilters"
 import { AllVulnerabilitiesCount } from "./AllVulnerabilitiesCount"
+import { ErrorBoundary } from "../common/ErrorBoundary"
 
 export const Vulnerabilities = () => (
   <>
     <VulnerabilitiesFilters />
-    <Suspense
-      fallback={
-        <div className="flex justify-center items-center h-full pt-10">
-          <Spinner size="small" />
-        </div>
-      }
-    >
+    <ErrorBoundary>
       <AllVulnerabilitiesCount />
       <VulnerabilitiesList />
-    </Suspense>
+    </ErrorBoundary>
   </>
 )

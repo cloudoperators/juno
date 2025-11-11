@@ -102,7 +102,12 @@ export const SimpleConfirmDialog: Story = {
 export const SimpleConfirmDialogWithDisabledButtons: Story = {
   render: Template,
   args: {
-    children: <p>Are you sure you want to proceed?</p>,
+    children: (
+      <p>
+        This modal has a disabled Confirm and Cancel button. Note that disableCancelButton also disables the top-right
+        Close button.
+      </p>
+    ),
     cancelButtonLabel: "Cancel",
     confirmButtonLabel: "Yes, Proceed",
     disableConfirmButton: true,
@@ -223,6 +228,16 @@ export const CloseOnBackdropClick: Story = {
   },
 }
 
+export const DisabledCloseButton: Story = {
+  render: Template,
+  args: {
+    title: "Disabled Close Button Modal",
+    children: <p>This Modal has a disabled top-right close button.</p>,
+    disableCloseButton: true,
+    cancelButtonLabel: "Cancel",
+  },
+}
+
 export const Login: Story = {
   render: Template,
   args: {
@@ -289,7 +304,7 @@ export const TestSelectInModal: Story = {
 export const TestComboBoxInModal: Story = {
   render: Template,
   args: {
-    title: "Modal with CombBox inside",
+    title: <p>Hello</p>,
     size: "small",
     children: (
       <>
