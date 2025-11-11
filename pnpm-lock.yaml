@@ -64,8 +64,8 @@ importers:
         specifier: 19.2.0
         version: 19.2.0(react@19.2.0)
       react-error-boundary:
-        specifier: 4.1.2
-        version: 4.1.2(react@19.2.0)
+        specifier: 6.0.0
+        version: 6.0.0(react@19.2.0)
       zustand:
         specifier: 4.5.7
         version: 4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)
@@ -504,8 +504,8 @@ importers:
         specifier: 3.6.2
         version: 3.6.2
       react-error-boundary:
-        specifier: 4.1.2
-        version: 4.1.2(react@19.2.0)
+        specifier: 6.0.0
+        version: 6.0.0(react@19.2.0)
       tailwindcss:
         specifier: 4.1.15
         version: 4.1.15
@@ -546,8 +546,8 @@ importers:
         specifier: 19.2.0
         version: 19.2.0(react@19.2.0)
       react-error-boundary:
-        specifier: 4.1.2
-        version: 4.1.2(react@19.2.0)
+        specifier: 6.0.0
+        version: 6.0.0(react@19.2.0)
     devDependencies:
       '@cloudoperators/juno-config':
         specifier: workspace:*
@@ -616,8 +616,8 @@ importers:
         specifier: 19.2.0
         version: 19.2.0(react@19.2.0)
       react-error-boundary:
-        specifier: 4.1.2
-        version: 4.1.2(react@19.2.0)
+        specifier: 6.0.0
+        version: 6.0.0(react@19.2.0)
       zustand:
         specifier: 4.5.7
         version: 4.5.7(@types/react@19.2.2)(immer@10.2.0)(react@19.2.0)
@@ -6113,8 +6113,8 @@ packages:
     peerDependencies:
       react: ^19.2.0
 
-  react-error-boundary@4.1.2:
-    resolution: {integrity: sha512-GQDxZ5Jd+Aq/qUxbCm1UtzmL/s++V7zKgE8yMktJiCQXCCFZnMZh9ng+6/Ne6PjNSXH0L9CjeOEREfRnq6Duag==}
+  react-error-boundary@6.0.0:
+    resolution: {integrity: sha512-gdlJjD7NWr0IfkPlaREN2d9uUZUlksrfOx7SX62VRerwXbMY6ftGCIZua1VG1aXFNOimhISsTq+Owp725b9SiA==}
     peerDependencies:
       react: '>=16.13.1'
 
@@ -13559,7 +13559,7 @@ snapshots:
       react: 19.2.0
       scheduler: 0.27.0
 
-  react-error-boundary@4.1.2(react@19.2.0):
+  react-error-boundary@6.0.0(react@19.2.0):
     dependencies:
       '@babel/runtime': 7.28.4
       react: 19.2.0
