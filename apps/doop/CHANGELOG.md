@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.11
+
+### Patch Changes
+
+- 502da5f: After switching to the new URL structure, resolved filter types in Doop were not being reflected in the URL, causing filtering issues. This update makes sure that the URL updates once filter data is resolved.
+
 ## 2.6.10
 
 ### Patch Changes
