@@ -121,7 +121,7 @@ export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   applicationName?: string
   /**
-   * DEPRECATED PROP - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.
+   * Deprecated - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.
    */
   heading?: string | ReactElement
   /**
