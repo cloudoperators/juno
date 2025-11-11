@@ -4,15 +4,18 @@
  */
 
 import { valueToLabel } from "./helpers"
+import { FilterType } from "./filterViolations"
 
 const ACTIVE_FILTERS = "f"
 const SEARCH_TERM = "s"
 const DETAILS_VIOLATION_GROUP = "v"
 
+type FilterKey = `${FilterType}:${string}`
+
 export type Filter = {
   id: string
-  type: string
-  key: string
+  type: FilterType
+  key: FilterKey
   value: string
   label: string
 }
@@ -80,8 +83,8 @@ export const getFiltersForApp = (prefix: string, urlState: Record<string, string
   return Object.entries(urlState)
     .filter(([key]) => key.startsWith(prefix))
     .reduce((acc: Array<Filter>, [key, value]) => {
-      const filterKey = key.replace(prefix, "")
-      const [type, id] = filterKey.split(":")
+      const filterKey = key.replace(prefix, "") as FilterKey
+      const [type, id] = filterKey.split(":") as [FilterType, string]
 
       if (value === undefined || value === null) return acc
       // if the value is an array, add each value as a separate filter
@@ -93,13 +96,13 @@ export const getFiltersForApp = (prefix: string, urlState: Record<string, string
             type,
             key: filterKey,
             value: v.trim(),
-            label: id,
+            label: valueToLabel(id),
           })),
         ]
       }
       // if the value is a string, add it as a single filter
       else if (typeof value === "string") {
-        acc.push({ id, type, key: filterKey, value: value.trim(), label: id })
+        acc.push({ id, type, key: filterKey, value: value.trim(), label: valueToLabel(id) })
       }
       return acc
     }, [])
