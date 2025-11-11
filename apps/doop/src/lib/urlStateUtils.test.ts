@@ -57,26 +57,26 @@ describe("readLegacyUrlState", () => {
 describe("getFiltersForUrl", () => {
   it("should convert filter array to URL format with prefix", () => {
     const filters = [
-      { key: "status", value: "active" },
-      { key: "severity", value: "high" },
-      { key: "status", value: "pending" },
+      { key: "check:support_group", value: "active" },
+      { key: "cluster:severity", value: "high" },
+      { key: "check:support_group", value: "pending" },
     ]
 
     const result = getFiltersForUrl("f_", filters)
 
     expect(result).toEqual({
-      f_status: ["active", "pending"],
-      f_severity: "high",
+      "f_check:support_group": ["active", "pending"],
+      "f_cluster:severity": "high",
     })
   })
 
   it("should handle single filter", () => {
-    const filters = [{ key: "status", value: "active" }]
+    const filters = [{ key: "check:support_group", value: "active" }]
 
     const result = getFiltersForUrl("f_", filters)
 
     expect(result).toEqual({
-      f_status: "active",
+      "f_check:support_group": "active",
     })
   })
 
@@ -87,15 +87,15 @@ describe("getFiltersForUrl", () => {
 
   it("should handle multiple values for same key", () => {
     const filters = [
-      { key: "type", value: "error" },
-      { key: "type", value: "warning" },
-      { key: "type", value: "info" },
+      { key: "violationGroup:type", value: "error" },
+      { key: "violationGroup:type", value: "warning" },
+      { key: "violationGroup:type", value: "info" },
     ]
 
     const result = getFiltersForUrl("f_", filters)
 
     expect(result).toEqual({
-      f_type: ["error", "warning", "info"],
+      "f_violationGroup:type": ["error", "warning", "info"],
     })
   })
 })
@@ -104,9 +104,9 @@ describe("convertAppStateToUrlState", () => {
   it("should convert complete app state to URL state", () => {
     const appState = {
       activeFilters: [
-        { key: "support_group", value: "a" },
-        { key: "support_group", value: "b" },
-        { key: "severity", value: "high" },
+        { key: "check:support_group", value: "a" },
+        { key: "check:support_group", value: "b" },
+        { key: "cluster:severity", value: "high" },
       ],
       searchTerm: "error",
       violationGroup: "group123",
@@ -115,8 +115,8 @@ describe("convertAppStateToUrlState", () => {
     const result = convertAppStateToUrlState(appState)
 
     expect(result).toEqual({
-      f_support_group: ["a", "b"],
-      f_severity: "high",
+      "f_check:support_group": ["a", "b"],
+      "f_cluster:severity": "high",
       searchTerm: "error",
       violationGroup: "group123",
     })
@@ -149,18 +149,17 @@ describe("convertAppStateToUrlState", () => {
 describe("getFiltersForApp", () => {
   it("should extract filters with prefix from URL state", () => {
     const urlState = {
-      f_status: ["active", "pending"],
-      f_severity: "high",
-      pf_type: "warning",
+      "f_check:support_group": ["active", "pending"],
+      "f_cluster:severity": "high",
       searchTerm: "test",
     }
 
     const result = getFiltersForApp("f_", urlState)
 
     expect(result).toEqual([
-      { id: undefined, type: "status", key: "status", value: "active", label: undefined },
-      { id: undefined, type: "status", key: "status", value: "pending", label: undefined },
-      { id: undefined, type: "severity", key: "severity", value: "high", label: undefined },
+      { id: "support_group", type: "check", key: "check:support_group", value: "active", label: "support group" },
+      { id: "support_group", type: "check", key: "check:support_group", value: "pending", label: "support group" },
+      { id: "severity", type: "cluster", key: "cluster:severity", value: "high", label: "severity" },
     ])
   })
 
@@ -171,32 +170,35 @@ describe("getFiltersForApp", () => {
 
   it("should ignore undefined and null values", () => {
     const urlState = {
-      f_status: "active",
+      "f_check:support_group": "active",
     }
 
     const result = getFiltersForApp("f_", urlState)
 
-    expect(result).toEqual([{ id: undefined, type: "status", key: "status", value: "active", label: undefined }])
+    expect(result).toEqual([
+      { id: "support_group", type: "check", key: "check:support_group", value: "active", label: "support group" },
+    ])
   })
 
   it("should only include keys with matching prefix", () => {
     const urlState = {
-      f_status: "active",
-      pf_type: "warning",
+      "f_check:support_group": "active",
       searchTerm: "test",
     }
 
     const result = getFiltersForApp("f_", urlState)
 
-    expect(result).toEqual([{ id: undefined, type: "status", key: "status", value: "active", label: undefined }])
+    expect(result).toEqual([
+      { id: "support_group", type: "check", key: "check:support_group", value: "active", label: "support group" },
+    ])
   })
 })
 
 describe("convertUrlStateToAppState", () => {
   it("should convert URL state to app state", () => {
     const urlState = {
-      f_status: ["active", "pending"],
-      f_severity: "high",
+      "f_check:support_group": ["active", "pending"],
+      "f_cluster:severity": "high",
       searchTerm: "error",
       violationGroup: "group123",
     }
@@ -205,9 +207,9 @@ describe("convertUrlStateToAppState", () => {
 
     expect(result).toEqual({
       activeFilters: [
-        { id: undefined, type: "status", key: "status", value: "active", label: undefined },
-        { id: undefined, type: "status", key: "status", value: "pending", label: undefined },
-        { id: undefined, type: "severity", key: "severity", value: "high", label: undefined },
+        { id: "support_group", type: "check", key: "check:support_group", value: "active", label: "support group" },
+        { id: "support_group", type: "check", key: "check:support_group", value: "pending", label: "support group" },
+        { id: "severity", type: "cluster", key: "cluster:severity", value: "high", label: "severity" },
       ],
       searchTerm: "error",
       violationGroup: "group123",
