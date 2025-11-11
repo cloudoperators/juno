@@ -142,7 +142,14 @@ const createDataSlice = (set, get) => ({
           false,
           "data/setData"
         )
-        get().filters.actions.ensureFilterType()
+        /*
+         * Initial filters are marked as unknown until data is loaded.
+         * Once data is available, filter types are determined and updated.
+         * Type checking is only enforced if it hasn't been previously validated.
+         */
+        if (!get().globals.isFilterTypeEnsured) {
+          get().filters.actions.ensureFilterType()
+        }
         // filter items
         get().data.actions.filterItems()
       },
