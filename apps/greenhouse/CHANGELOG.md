@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.17
+
+### Patch Changes
+
+- e93df1a: For non-development environment always put organization name as subdomain.
+- Updated dependencies [8ea0089]
+  - @cloudoperators/juno-ui-components@5.9.0
+  - @cloudoperators/juno-app-doop@2.6.10
+  - @cloudoperators/juno-app-heureka@0.9.11
+  - @cloudoperators/juno-app-supernova@0.19.14
+  - @cloudoperators/juno-messages-provider@0.2.23
+
 ## 0.7.16
 
 ### Patch Changes
