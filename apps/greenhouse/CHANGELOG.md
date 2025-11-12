@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.18
+
+### Patch Changes
+
+- Updated dependencies [502da5f]
+  - @cloudoperators/juno-app-doop@2.6.11
+
 ## 0.7.17
 
 ### Patch Changes

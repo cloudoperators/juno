@@ -3,9 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { valueToLabel } from "./helpers"
+import { FilterType } from "./filterViolations"
+
 const ACTIVE_FILTERS = "f"
 const SEARCH_TERM = "s"
 const DETAILS_VIOLATION_GROUP = "v"
+
+type FilterKey = `${FilterType}:${string}`
+
+export type Filter = {
+  id: string
+  type: FilterType
+  key: FilterKey
+  value: string
+  label: string
+}
 
 export const readLegacyUrlState = (state: any) => {
   const activeFilters = state?.[ACTIVE_FILTERS]
@@ -69,22 +82,27 @@ export const convertAppStateToUrlState = (appState: any) => {
 export const getFiltersForApp = (prefix: string, urlState: Record<string, string | string[]>) => {
   return Object.entries(urlState)
     .filter(([key]) => key.startsWith(prefix))
-    .reduce((acc: Array<{ key: string; value: string }>, [key, value]) => {
-      const filterKey = key.replace(prefix, "")
+    .reduce((acc: Array<Filter>, [key, value]) => {
+      const filterKey = key.replace(prefix, "") as FilterKey
+      const [type, id] = filterKey.split(":") as [FilterType, string]
+
       if (value === undefined || value === null) return acc
       // if the value is an array, add each value as a separate filter
       if (Array.isArray(value)) {
         acc = [
           ...acc,
           ...value.map((v) => ({
+            id,
+            type,
             key: filterKey,
             value: v.trim(),
+            label: valueToLabel(id),
           })),
         ]
       }
       // if the value is a string, add it as a single filter
       else if (typeof value === "string") {
-        acc.push({ key: filterKey, value: value.trim() })
+        acc.push({ id, type, key: filterKey, value: value.trim(), label: valueToLabel(id) })
       }
       return acc
     }, [])

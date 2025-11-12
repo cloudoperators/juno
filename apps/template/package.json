@@ -28,7 +28,7 @@
   "dependencies": {
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-error-boundary": "4.1.2",
+    "react-error-boundary": "6.0.0",
     "zustand": "4.5.7",
     "@tanstack/react-query": "5.90.5",
     "@cloudoperators/juno-ui-components": "workspace:*"

@@ -19,6 +19,7 @@ const useStore = (selector: any) => create(useContext(StoreContext), selector)
 export const useGlobalsEndpoint = () => useStore((s: any) => s.globals.endpoint)
 export const useGlobalsActions = () => useStore((s: any) => s.globals.actions)
 export const useGlobalsInitialFiltersApplied = () => useStore((s: any) => s.globals.isUrlRead)
+export const useGlobalsIsFilterTypeEnsured = () => useStore((s: any) => s.globals.isFilterTypeEnsured)
 
 // user activity
 export const useUserActivityIsActive = () => useStore((s: any) => s.userActivity.isActive)

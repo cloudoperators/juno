@@ -77,6 +77,9 @@ const createFiltersSlice = (set, get, options) => ({
           false,
           "filters.ensureFilterType"
         )
+
+        // Set the flag after all filters have been processed
+        get().globals.actions.setIsFilterTypeEnsured()
       },
       set: (filters: any) => {
         if (!Array.isArray(filters)) return
