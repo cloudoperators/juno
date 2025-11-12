@@ -666,9 +666,9 @@
   --color-pageheader-background: var(--color-juno-grey-blue-11);
   --color-pageheader-border: var(--color-juno-grey-light-7);
   --color-pageheader-text: var(--color-text-highest);
-  --color-pageheader-appname-text-default: var(--color-text-highest);
-  --color-pageheader-appname-text-hover: var(--color-text-highest);
-  --color-pageheader-appname-text-active: var(--color-text-highest);
+  --color-pageheader-appname-text-default: rgb(255, 254, 253);
+  --color-pageheader-appname-text-hover: rgb(255, 254, 253);
+  --color-pageheader-appname-text-active: rgb(255, 254, 253);
   /* LT TabNavigation */
   --color-tabnavigation-top-bg: var(--color-juno-grey-light-5);
   --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4);
