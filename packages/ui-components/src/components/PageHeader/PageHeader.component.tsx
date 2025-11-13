@@ -59,7 +59,6 @@ const optionsStyles = `
   jn:items-center
   jn:gap-2
   jn:justify-end
-  jn:text-theme-pageheader
 `
 
 /**
