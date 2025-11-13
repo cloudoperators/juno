@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": patch
 ---
 
-Improve PageHeader theming
+Improved `PageHeader` theming by using theme token classes instead of forcing dark theme and made minor API documentation changes.
