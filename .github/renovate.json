@@ -4,6 +4,7 @@
   "enabledManagers": ["npm", "github-actions"],
   "includePaths": ["packages/**", "apps/**", "./package.json", ".github/workflows/**"],
   "rangeStrategy": "update-lockfile",
+  "respectLatest": false,
   "packageRules": [
     {
       "groupName": "github actions",
@@ -18,7 +19,17 @@
       "matchFileNames": ["packages/**", "apps/**", "./package.json"],
       "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "7 days",
+      "respectLatest": false,
       "schedule": "every weekend"
+    },
+    {
+      "groupName": "npm major updates",
+      "matchDatasources": ["npm"],
+      "matchFileNames": ["packages/**", "apps/**", "./package.json"],
+      "matchUpdateTypes": ["major"],
+      "recreateWhen": "never",
+      "minimumReleaseAge": "30 days",
+      "respectLatest": false
     }
   ],
   "separateMinorPatch": true
