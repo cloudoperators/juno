@@ -51,7 +51,7 @@ const logoContainerStyles = `
 const applicationNameStyles = `
   jn:text-theme-pageheader-appname-default
   jn:text-lg
-  jn:text-theme-high
+  jn:text-theme-pageheader
 `
 
 const optionsStyles = `
