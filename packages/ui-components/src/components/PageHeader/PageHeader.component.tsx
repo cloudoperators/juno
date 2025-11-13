@@ -51,7 +51,6 @@ const logoContainerStyles = `
 const applicationNameStyles = `
   jn:text-theme-pageheader-appname-default
   jn:text-lg
-  jn:text-theme-pageheader
 `
 
 const optionsStyles = `
@@ -60,6 +59,7 @@ const optionsStyles = `
   jn:items-center
   jn:gap-2
   jn:justify-end
+  jn:text-theme-pageheader
 `
 
 /**

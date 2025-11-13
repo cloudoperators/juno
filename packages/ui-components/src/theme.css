@@ -665,7 +665,7 @@
   /* LT PageHeader */
   --color-pageheader-background: var(--color-juno-grey-blue-11);
   --color-pageheader-border: var(--color-juno-grey-light-7);
-  --color-pageheader-text: var(--color-text-highest);
+  --color-pageheader-text: rgb(255, 254, 253);
   --color-pageheader-appname-text-default: rgb(255, 254, 253);
   --color-pageheader-appname-text-hover: rgb(255, 254, 253);
   --color-pageheader-appname-text-active: rgb(255, 254, 253);
