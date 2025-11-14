@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 5.9.1
+
+### Patch Changes
+
+- 3c0478b: Improved `PageHeader` theming by using theme token classes instead of forcing dark theme and made minor API documentation changes.
+
 ## 5.9.0
 
 ### Minor Changes
