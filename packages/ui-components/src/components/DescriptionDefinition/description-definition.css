@@ -1,0 +1,18 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+.dd-container {
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.dd {
+  align-items: center;
+  background-color: var(--color-dd-background);
+  color: var(--color-dd-text);
+  display: flex;
+  height: 2rem;
+  padding: 0.5rem;
+}

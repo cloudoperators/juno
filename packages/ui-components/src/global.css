@@ -14,6 +14,9 @@
 @import "./components/ThemeToggle/themeToggle.css" layer(utilities);
 @import "./components/DataGridRow/data-grid-row.css" layer(utilities);
 @import "./components/SideNavigationItem/sidenavigationitem.css" layer(utilities);
+@import "./components/DescriptionList/description-list.css" layer(utilities);
+@import "./components/DescriptionTerm/description-term.css" layer(utilities);
+@import "./components/DescriptionDefinition/description-definition.css" layer(utilities);
 
 :root,
 :host {
@@ -720,6 +723,12 @@
   /* LT Box Shadow */
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
   --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.3)), 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+  /* LT Description - DescriptionList, DescriptionTerm, DescriptionDefinition */
+  --color-dt-background: var(--color-background-lvl-1);
+  --color-dt-text: var(--color-text-high);
+  --color-dd-background: var(--color-transparent);
+  --color-dd-text: var(--color-text-high);
+  --color-dd-dt-border: var(--color-border-default);
 }
 
 /* JUNO THEME: DARK MODE */
@@ -957,6 +966,12 @@
   /* DT Box Shadow */
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
   --box-shadow-hover: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
+  /* DT Description - DescriptionList, DescriptionTerm, DescriptionDefinition */
+  --color-dt-background: var(--color-background-lvl-0);
+  --color-dt-text: var(--color-text-high);
+  --color-dd-background: var(--color-transparent);
+  --color-dd-text: var(--color-text-high);
+  --color-dd-dt-border: var(--color-border-default);
 }
 
 /*

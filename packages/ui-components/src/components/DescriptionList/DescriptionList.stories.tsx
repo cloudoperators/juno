@@ -5,48 +5,43 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { DescriptionList } from "./DescriptionList.component"
-import { DescriptionTerm } from "../DescriptionTerm/DescriptionTerm.component"
+import { DL } from "./DescriptionList.component"
+import { DT } from "../DescriptionTerm/DescriptionTerm.component"
+import { DD } from "../DescriptionDefinition/DescriptionDefinition.component"
 
-const meta: Meta<typeof DescriptionList> = {
-  title: "Navigation/SideNavigation/SideNavigationList",
-  component: DescriptionList,
-  decorators: [
-    (Story) => (
-      <SideNavigation>
-        <Story />
-      </SideNavigation>
-    ),
-  ],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "The SideNavigationList component organizes SideNavigationItems in a structured list format, supporting hierarchical navigation capabilities.",
-      },
+const meta: Meta<typeof DL> = {
+  title: "Components/Description/DescriptionList",
+  component: DL,
+  argTypes: {
+    children: {
+      control: false,
+      description: "Elements containing DescriptionTerm and DescriptionDefinition components.",
     },
   },
 }
 
 export default meta
-type Story = StoryObj<typeof DescriptionList>
+type Story = StoryObj<typeof DL>
 
-export const NestedNavigationExample: Story = {
-  render: () => (
-    <DescriptionList>
-      <DescriptionTerm />
-      <DescriptionTerm label="Settings">
-        <DescriptionTerm label="Profile" icon="home" />
-        <DescriptionTerm label="Preferences" />
-      </DescriptionTerm>
-    </DescriptionList>
+export const Default: Story = {
+  render: (args) => (
+    <DL {...args}>
+      <DT>Term 1</DT>
+      <DD>Description for term 1.</DD>
+      <DT>Term 2</DT>
+      <DD>Description for term 2.</DD>
+    </DL>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Illustrates a nested navigation structure using SideNavigationItems and SideNavigationGroups, enabling complex hierarchies and visual organization within side navigation menus.",
-      },
-    },
-  },
+}
+
+export const MultipleDefinitions: Story = {
+  render: (args) => (
+    <DL {...args}>
+      <DT>Term 1</DT>
+      <DD>First description for term 1.</DD>
+      <DD>Second description for term 1.</DD>
+      <DT>Term 2</DT>
+      <DD>Only description for term 2.</DD>
+    </DL>
+  ),
 }

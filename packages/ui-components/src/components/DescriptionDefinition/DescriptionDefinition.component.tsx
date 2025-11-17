@@ -3,17 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement, ReactNode } from "react"
-
-const descDefStyles = `
-  jn:space-y-[0.25rem]
-`
+import React, { ReactNode } from "react"
+import "./description-definition.css"
 
 export interface DescriptionDefinitionProps {
-  children?: ReactElement<ReactNode> | ReactElement<ReactNode>[]
+  /**
+   * Content to be displayed as the description, accommodating text or more complex nodes to explain or define the associated term.
+   */
+  children: ReactNode
+  /**
+   * Additional class names for applying custom styles or overriding default styles on the <dd> element.
+   */
   className?: string
 }
 
-export const DescriptionDefinition: React.FC<DescriptionDefinitionProps> = ({ children }) => {
-  return <dd className={`list-none p-0 m-0 ${descDefStyles}`}>{children}</dd>
-}
+/**
+ * Represents the definition or description in a description list, rendering as an HTML <dd> element.
+ * Pairs with DescriptionTerm to complete the term-description association, offering flexible content styling.
+ */
+export const DescriptionDefinition: React.FC<DescriptionDefinitionProps> = ({ children, className = "" }) => (
+  <div className="dd-container">
+    <dd className={`dd ${className}`}>{children}</dd>
+  </div>
+)
+
+export const DD = DescriptionDefinition

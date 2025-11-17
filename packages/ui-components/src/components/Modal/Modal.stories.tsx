@@ -115,6 +115,35 @@ export const SimpleConfirmDialogWithDisabledButtons: Story = {
   },
 }
 
+export const DisabledCloseButton: Story = {
+  render: Template,
+  args: {
+    title: "Disabled Close Button Modal",
+    children: <p>This Modal has a disabled top-right close button.</p>,
+    disableCloseButton: true,
+    cancelButtonLabel: "Cancel",
+  },
+}
+
+export const NonCloseable: Story = {
+  render: Template,
+  args: {
+    title: "Non-Closeable Modal",
+    children:
+      "Use only if all else fails. If you need to inform users about something, in 99.9% of cases <Message> is the better choice.",
+    closeable: false,
+  },
+}
+
+export const CloseOnBackdropClick: Story = {
+  render: Template,
+  args: {
+    title: "Close on Backdrop Click",
+    children: <p>This Modal closes when clicking the backdrop.</p>,
+    closeOnBackdropClick: true,
+  },
+}
+
 export const AutoFocusDialog: Story = {
   render: Template,
   args: {
@@ -206,35 +235,6 @@ export const XXLWithForm: Story = {
     cancelButtonLabel: "Cancel",
     confirmButtonLabel: "Register now",
     children: <ReusableForm />,
-  },
-}
-
-export const NonCloseable: Story = {
-  render: Template,
-  args: {
-    title: "Non-Closeable Modal",
-    children:
-      "Use only if all else fails. If you need to inform users about something, in 99.9% of cases <Message> is the better choice.",
-    closeable: false,
-  },
-}
-
-export const CloseOnBackdropClick: Story = {
-  render: Template,
-  args: {
-    title: "Close on Backdrop Click",
-    children: <p>This Modal closes when clicking the backdrop.</p>,
-    closeOnBackdropClick: true,
-  },
-}
-
-export const DisabledCloseButton: Story = {
-  render: Template,
-  args: {
-    title: "Disabled Close Button Modal",
-    children: <p>This Modal has a disabled top-right close button.</p>,
-    disableCloseButton: true,
-    cancelButtonLabel: "Cancel",
   },
 }
 
