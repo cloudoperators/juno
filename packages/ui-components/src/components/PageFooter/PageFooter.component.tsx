@@ -4,43 +4,44 @@
  */
 
 import React from "react"
-import CCloudShape from "../../img/ccloud_shape.svg"
+import "./page-footer.css"
 
-const basePageFooter = `
+const basePageFooterStyles = `
   jn:flex
   jn:shrink-0
   jn:grow-0
   jn:basis-auto
   jn:relative
-  jn:bg-theme-global-bg
   jn:min-h-[3.25rem]
-  jn:pl-6
-  jn:pr-24
-  jn:py-5
   jn:z-50
+  jn:px-6
+  jn:py-5
+  jn:border-t
+  jn:bg-theme-pagefooter
+  jn:text-theme-pagefooter
+  jn:bg-theme-pagefooter
 `
-
-const logoStyles = `
-  jn:h-[2.625rem]
-  jn:absolute
-  jn:right-0
-  jn:bottom-0
-`
-
-/**
- * The page footer component renders a footer at the bottom of the website. Place as last child of AppBody.
- */
-export const PageFooter: React.FC<PageFooterProps> = ({ className = "", children, ...props }) => {
-  return (
-    <div className={`juno-pagefooter ${basePageFooter} ${className}`} role="contentinfo" {...props}>
-      {children}
-      <CCloudShape className={logoStyles} alt="cloud shape" />
-    </div>
-  )
-}
 
 export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Add custom class name */
+  /** Additional custom styling class name for the footer container */
   className?: string
+  /** The content to render inside the footer, typically links or informational text */
   children?: React.ReactNode
+  /** Optional copyright notice to display within the footer */
+  copyright?: string
+}
+
+/**
+ * PageFooter component renders a footer at the bottom of the page.
+ * It consists of a flexible content area for children and an optional copyright section.
+ * Usage:
+ * The component can be used to add legal disclaimers, links, or other contextual information at the page's footer.
+ */
+export const PageFooter: React.FC<PageFooterProps> = ({ className = "", children, copyright = "", ...props }) => {
+  return (
+    <div className={`juno-pagefooter ${basePageFooterStyles} ${className}`} role="contentinfo" {...props}>
+      <div className={"juno-pagefooter-children"}>{children}</div>
+      {copyright && <div className="juno-pagefooter-copyright">{copyright}</div>}
+    </div>
+  )
 }
