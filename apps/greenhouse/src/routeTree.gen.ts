@@ -9,13 +9,43 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminTeamsRouteImport } from './routes/admin/teams'
+import { Route as AdminPluginsRouteImport } from './routes/admin/plugins'
+import { Route as AdminClustersRouteImport } from './routes/admin/clusters'
 import { Route as ExtensionIdSplatRouteImport } from './routes/$extensionId.$'
 
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminTeamsRoute = AdminTeamsRouteImport.update({
+  id: '/teams',
+  path: '/teams',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminPluginsRoute = AdminPluginsRouteImport.update({
+  id: '/plugins',
+  path: '/plugins',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminClustersRoute = AdminClustersRouteImport.update({
+  id: '/clusters',
+  path: '/clusters',
+  getParentRoute: () => AdminRouteRoute,
 } as any)
 const ExtensionIdSplatRoute = ExtensionIdSplatRouteImport.update({
   id: '/$extensionId/$',
@@ -25,38 +55,109 @@ const ExtensionIdSplatRoute = ExtensionIdSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
+  '/admin/clusters': typeof AdminClustersRoute
+  '/admin/plugins': typeof AdminPluginsRoute
+  '/admin/teams': typeof AdminTeamsRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$extensionId/$': typeof ExtensionIdSplatRoute
+  '/admin/clusters': typeof AdminClustersRoute
+  '/admin/plugins': typeof AdminPluginsRoute
+  '/admin/teams': typeof AdminTeamsRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
+  '/admin/clusters': typeof AdminClustersRoute
+  '/admin/plugins': typeof AdminPluginsRoute
+  '/admin/teams': typeof AdminTeamsRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$extensionId/$'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/$extensionId/$'
+    | '/admin/clusters'
+    | '/admin/plugins'
+    | '/admin/teams'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$extensionId/$'
-  id: '__root__' | '/' | '/$extensionId/$'
+  to:
+    | '/'
+    | '/$extensionId/$'
+    | '/admin/clusters'
+    | '/admin/plugins'
+    | '/admin/teams'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/$extensionId/$'
+    | '/admin/clusters'
+    | '/admin/plugins'
+    | '/admin/teams'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
   ExtensionIdSplatRoute: typeof ExtensionIdSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/teams': {
+      id: '/admin/teams'
+      path: '/teams'
+      fullPath: '/admin/teams'
+      preLoaderRoute: typeof AdminTeamsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/plugins': {
+      id: '/admin/plugins'
+      path: '/plugins'
+      fullPath: '/admin/plugins'
+      preLoaderRoute: typeof AdminPluginsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/clusters': {
+      id: '/admin/clusters'
+      path: '/clusters'
+      fullPath: '/admin/clusters'
+      preLoaderRoute: typeof AdminClustersRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
     '/$extensionId/$': {
       id: '/$extensionId/$'
@@ -68,8 +169,27 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteRouteChildren {
+  AdminClustersRoute: typeof AdminClustersRoute
+  AdminPluginsRoute: typeof AdminPluginsRoute
+  AdminTeamsRoute: typeof AdminTeamsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminClustersRoute: AdminClustersRoute,
+  AdminPluginsRoute: AdminPluginsRoute,
+  AdminTeamsRoute: AdminTeamsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
   ExtensionIdSplatRoute: ExtensionIdSplatRoute,
 }
 export const routeTree = rootRouteImport
