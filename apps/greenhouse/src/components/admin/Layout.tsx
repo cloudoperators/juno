@@ -11,17 +11,14 @@ const navigationItems = [
   {
     label: "Clusters",
     value: "/admin/clusters",
-    icon: "dns",
   },
   {
     label: "Teams",
     value: "/admin/teams",
-    icon: "dns",
   },
   {
     label: "Plugins",
     value: "/admin/plugins",
-    icon: "dns",
   },
 ] as const
 
@@ -60,7 +57,7 @@ export const Layout = ({ children }: any) => {
   const topNavigation = (
     <TopNavigation activeItem={getActiveItem()} onActiveItemChange={handleTabSelect}>
       {navigationItems.map((item) => (
-        <TopNavigationItem icon={item.icon} key={item.value} value={item.value} label={item.label} />
+        <TopNavigationItem key={item.value} value={item.value} label={item.label} />
       ))}
     </TopNavigation>
   )
