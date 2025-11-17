@@ -1,4 +1,5 @@
 .juno-pagefooter {
+  font-size: 0.875;
   padding: 1rem 2rem 0 2rem;
   border-color: var(--color-pagefooter-border);
 }
@@ -25,20 +26,24 @@
   position: relative;
 }
 
-.juno-pagefooter-items-inline > li::after {
+.juno-pagefooter-items-inline > li:not(:last-child)::after {
   content: "|";
   margin-left: 0.38rem;
   margin-right: 0.38rem;
-  color: var(--color-pagefooter-item-default);
 }
 
 .juno-pagefooter-items-inline > li:last-child::after {
   content: "";
+  margin-right: 0;
 }
 
 .juno-pagefooter-item {
   color: var(--color-pagefooter-item-default);
   flex: 1;
+  min-width: 12.5rem;
+  max-width: 21.875rem;
+  line-height: 1.25rem;
+  margin-bottom: 0.13rem;
 }
 
 .juno-pagefooter-item:hover {
@@ -48,6 +53,7 @@
 
 .juno-pagefooter-item:active {
   color: var(--color-pagefooter-item-active);
+  text-decoration: none;
 }
 
 .juno-pagefooter-children {

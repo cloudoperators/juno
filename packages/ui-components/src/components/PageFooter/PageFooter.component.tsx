@@ -17,7 +17,6 @@ const basePageFooterStyles = `
   jn:px-6
   jn:py-5
   jn:border-t
-  jn:bg-theme-pagefooter
   jn:text-theme-pagefooter
   jn:bg-theme-pagefooter
 `
@@ -25,7 +24,9 @@ const basePageFooterStyles = `
 export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Additional custom styling class name for the footer container */
   className?: string
-  /** The content to render inside the footer, typically links or informational text */
+  /** The content to render inside the footer, typically links or informational text
+   * Use a list structure (e.g., <ul> with <li>) for grouped content or links, as in examples.
+   */
   children?: React.ReactNode
   /** Optional copyright notice to display within the footer */
   copyright?: string
