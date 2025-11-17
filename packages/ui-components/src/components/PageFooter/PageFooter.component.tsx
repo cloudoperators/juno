@@ -25,8 +25,8 @@ export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Additional custom styling class name for the footer container */
   className?: string
   /** The content to render inside the footer, typically links or informational text
-   * Use a list structure (e.g., <ul> with <li>) for grouped content or links, as in examples.
-   *    * Available CSS classes for styling:
+   * Use a list structure e.g. `<ul>` with `<li>` for grouped content or links, as in examples.
+   * Available CSS classes for styling:
    * - `.juno-pagefooter-title`: Style for a title element within a column.
    * - `.juno-pagefooter-items`: Style for a list of items.
    * - `.juno-pagefooter-items-inline`: Style for a single line list with pipe separators.
