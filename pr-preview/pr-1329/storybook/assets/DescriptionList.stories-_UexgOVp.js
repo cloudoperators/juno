@@ -1,0 +1,20 @@
+import{j as e}from"./iframe-Cwn8CgYt.js";import{D as o}from"./DescriptionTerm.component-DeD1RCzq.js";import{D as r}from"./DescriptionDefinition.component-BwMgU9Du.js";import"./preload-helper-PPVm8Dsz.js";const a=({children:t,alignTerms:l="right",className:c=""})=>e.jsx("dl",{className:`dl ${c}`,"data-testid":"description-list",style:{justifyContent:l==="right"?"flex-start":"flex-end"},children:t}),i=a;try{a.displayName="DescriptionList",a.__docgenInfo={description:`A wrapper component that semantically represents a list of terms and their corresponding descriptions using HTML <dl> elements.
+This component enforces structure by expecting child elements of DescriptionTerm or DescriptionDefinition,
+aligning them according to the specified terms alignment.`,displayName:"DescriptionList",props:{children:{defaultValue:null,description:`Child components must be either DescriptionTerm or DescriptionDefinition to maintain semantic structure.
+Supports multiple instances to create a detailed list of terms and definitions.`,name:"children",required:!0,type:{name:"ReactElement<DescriptionTermProps | DescriptionDefinitionProps, string | JSXElementConstructor<any>> | ReactElement<...>[]"}},alignTerms:{defaultValue:{value:"right"},description:"Determines the alignment of terms within the list. Align terms to the left or right based on preference for display style.",name:"alignTerms",required:!1,type:{name:"enum",value:[{value:'"left"'},{value:'"right"'}]}},className:{defaultValue:{value:""},description:"Additional custom class names to apply styles to the <dl> element or to extend styling from the design system.",name:"className",required:!1,type:{name:"string"}}}}}catch{}try{i.displayName="DL",i.__docgenInfo={description:"",displayName:"DL",props:{children:{defaultValue:null,description:`Child components must be either DescriptionTerm or DescriptionDefinition to maintain semantic structure.
+Supports multiple instances to create a detailed list of terms and definitions.`,name:"children",required:!0,type:{name:"ReactElement<DescriptionTermProps | DescriptionDefinitionProps, string | JSXElementConstructor<any>> | ReactElement<...>[]"}},alignTerms:{defaultValue:{value:"right"},description:"Determines the alignment of terms within the list. Align terms to the left or right based on preference for display style.",name:"alignTerms",required:!1,type:{name:"enum",value:[{value:'"left"'},{value:'"right"'}]}},className:{defaultValue:{value:""},description:"Additional custom class names to apply styles to the <dl> element or to extend styling from the design system.",name:"className",required:!1,type:{name:"string"}}}}}catch{}const u={title:"Components/Description/DescriptionList",component:i,argTypes:{children:{control:!1,description:"Elements containing DescriptionTerm and DescriptionDefinition components."}}},n={render:t=>e.jsxs(i,{...t,children:[e.jsx(o,{children:"Term 1"}),e.jsx(r,{children:"Description for term 1."}),e.jsx(o,{children:"Term 2"}),e.jsx(r,{children:"Description for term 2."})]})},s={render:t=>e.jsxs(i,{...t,children:[e.jsx(o,{children:"Term 1"}),e.jsx(r,{children:"First description for term 1."}),e.jsx(r,{children:"Second description for term 1."}),e.jsx(o,{children:"Term 2"}),e.jsx(r,{children:"Only description for term 2."})]})};n.parameters={...n.parameters,docs:{...n.parameters?.docs,source:{originalSource:`{
+  render: args => <DL {...args}>
+      <DT>Term 1</DT>
+      <DD>Description for term 1.</DD>
+      <DT>Term 2</DT>
+      <DD>Description for term 2.</DD>
+    </DL>
+}`,...n.parameters?.docs?.source}}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+  render: args => <DL {...args}>
+      <DT>Term 1</DT>
+      <DD>First description for term 1.</DD>
+      <DD>Second description for term 1.</DD>
+      <DT>Term 2</DT>
+      <DD>Only description for term 2.</DD>
+    </DL>
+}`,...s.parameters?.docs?.source}}};const f=["Default","MultipleDefinitions"];export{n as Default,s as MultipleDefinitions,f as __namedExportsOrder,u as default};
