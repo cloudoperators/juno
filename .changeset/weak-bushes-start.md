@@ -2,4 +2,4 @@
 "@cloudoperators/juno-app-greenhouse": patch
 ---
 
-Created basic layout and sub pages for new admin area.
+Created basic layout and sub pages `/plugins`, `/teams` and `/clusters` for new admin area.
