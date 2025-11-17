@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
+import { useNavigate } from "@tanstack/react-router"
 import { Container } from "@cloudoperators/juno-ui-components"
 import { Messages } from "@cloudoperators/juno-messages-provider"
 
 import { useActions } from "@cloudoperators/juno-messages-provider"
-import { useDataActions } from "./StoreProvider"
+import { useDataActions, useFiltersActive, useGlobalsIsFilterTypeEnsured } from "./StoreProvider"
 import Header from "./Header"
 import HintLoading from "./shared/HintLoading"
 import { useQuery } from "@tanstack/react-query"
@@ -16,11 +17,17 @@ import { fetchData } from "../lib/apiClient"
 import { parseError } from "../lib/helpers"
 import Highlighter from "./Highlighter"
 import Violations from "./violations/violations"
+import { ACTIVE_FILTERS_PREFIX } from "../constants"
+import { getFiltersForUrl } from "../lib/urlStateUtils"
 
 const AppContent = ({ showDebugSeverities }: any) => {
   // @ts-expect-error TS(2339) FIXME: Property 'id' does not exist on type '{}'.
   const { setData, setShowDebugSeverities } = useDataActions()
   const { addMessage } = useActions()
+  const activeFilters = useFiltersActive()
+  const hasProcessedFilters = useRef(false)
+  const isFilterTypeEnsured = useGlobalsIsFilterTypeEnsured()
+  const navigate = useNavigate()
 
   // LOAD DATA
   const dataRequest = useQuery({
@@ -47,6 +54,18 @@ const AppContent = ({ showDebugSeverities }: any) => {
       setData(dataRequest.data)
     }
   }, [dataRequest, setData, addMessage, setShowDebugSeverities])
+
+  /**
+   * When the data is loaded and the filter types have been ensured,
+   * update the URL to reflect the current active filters with correctly resolved types.
+   * */
+  useEffect(() => {
+    if (isFilterTypeEnsured && !hasProcessedFilters.current) {
+      hasProcessedFilters.current = true
+      const filtersForUrl = getFiltersForUrl(ACTIVE_FILTERS_PREFIX, activeFilters)
+      navigate({ to: "/violations", replace: true, search: () => ({ ...filtersForUrl }) })
+    }
+  }, [isFilterTypeEnsured, activeFilters])
 
   return (
     <Container py>
