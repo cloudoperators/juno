@@ -5,9 +5,18 @@
 
 import React from "react"
 import { createFileRoute } from "@tanstack/react-router"
+import { Crumb } from "../-types"
 
 export const Route = createFileRoute("/admin/teams")({
   component: RouteComponent,
+  loader: () => {
+    const crumb: Crumb = {
+      label: "Teams",
+    }
+    return {
+      crumb,
+    }
+  },
 })
 
 function RouteComponent() {

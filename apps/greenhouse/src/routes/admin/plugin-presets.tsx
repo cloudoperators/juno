@@ -5,11 +5,20 @@
 
 import React from "react"
 import { createFileRoute } from "@tanstack/react-router"
+import { Crumb } from "../-types"
 
-export const Route = createFileRoute("/admin/plugins")({
+export const Route = createFileRoute("/admin/plugin-presets")({
   component: RouteComponent,
+  loader: async () => {
+    const crumb: Crumb = {
+      label: "Plugin Presets",
+    }
+    return {
+      crumb,
+    }
+  },
 })
 
 function RouteComponent() {
-  return <div>Hello "/admin/plugins"!</div>
+  return <div>Hello "/admin/plugins-presets"!</div>
 }

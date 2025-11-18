@@ -13,7 +13,7 @@ import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminTeamsRouteImport } from './routes/admin/teams'
-import { Route as AdminPluginsRouteImport } from './routes/admin/plugins'
+import { Route as AdminPluginPresetsRouteImport } from './routes/admin/plugin-presets'
 import { Route as AdminClustersRouteImport } from './routes/admin/clusters'
 import { Route as ExtensionIdSplatRouteImport } from './routes/$extensionId.$'
 
@@ -37,9 +37,9 @@ const AdminTeamsRoute = AdminTeamsRouteImport.update({
   path: '/teams',
   getParentRoute: () => AdminRouteRoute,
 } as any)
-const AdminPluginsRoute = AdminPluginsRouteImport.update({
-  id: '/plugins',
-  path: '/plugins',
+const AdminPluginPresetsRoute = AdminPluginPresetsRouteImport.update({
+  id: '/plugin-presets',
+  path: '/plugin-presets',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminClustersRoute = AdminClustersRouteImport.update({
@@ -58,7 +58,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
   '/admin/clusters': typeof AdminClustersRoute
-  '/admin/plugins': typeof AdminPluginsRoute
+  '/admin/plugin-presets': typeof AdminPluginPresetsRoute
   '/admin/teams': typeof AdminTeamsRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -66,7 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$extensionId/$': typeof ExtensionIdSplatRoute
   '/admin/clusters': typeof AdminClustersRoute
-  '/admin/plugins': typeof AdminPluginsRoute
+  '/admin/plugin-presets': typeof AdminPluginPresetsRoute
   '/admin/teams': typeof AdminTeamsRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -76,7 +76,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
   '/admin/clusters': typeof AdminClustersRoute
-  '/admin/plugins': typeof AdminPluginsRoute
+  '/admin/plugin-presets': typeof AdminPluginPresetsRoute
   '/admin/teams': typeof AdminTeamsRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -87,7 +87,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/$extensionId/$'
     | '/admin/clusters'
-    | '/admin/plugins'
+    | '/admin/plugin-presets'
     | '/admin/teams'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -95,7 +95,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$extensionId/$'
     | '/admin/clusters'
-    | '/admin/plugins'
+    | '/admin/plugin-presets'
     | '/admin/teams'
     | '/admin'
   id:
@@ -104,7 +104,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/$extensionId/$'
     | '/admin/clusters'
-    | '/admin/plugins'
+    | '/admin/plugin-presets'
     | '/admin/teams'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -145,11 +145,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTeamsRouteImport
       parentRoute: typeof AdminRouteRoute
     }
-    '/admin/plugins': {
-      id: '/admin/plugins'
-      path: '/plugins'
-      fullPath: '/admin/plugins'
-      preLoaderRoute: typeof AdminPluginsRouteImport
+    '/admin/plugin-presets': {
+      id: '/admin/plugin-presets'
+      path: '/plugin-presets'
+      fullPath: '/admin/plugin-presets'
+      preLoaderRoute: typeof AdminPluginPresetsRouteImport
       parentRoute: typeof AdminRouteRoute
     }
     '/admin/clusters': {
@@ -171,14 +171,14 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteRouteChildren {
   AdminClustersRoute: typeof AdminClustersRoute
-  AdminPluginsRoute: typeof AdminPluginsRoute
+  AdminPluginPresetsRoute: typeof AdminPluginPresetsRoute
   AdminTeamsRoute: typeof AdminTeamsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminClustersRoute: AdminClustersRoute,
-  AdminPluginsRoute: AdminPluginsRoute,
+  AdminPluginPresetsRoute: AdminPluginPresetsRoute,
   AdminTeamsRoute: AdminTeamsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }

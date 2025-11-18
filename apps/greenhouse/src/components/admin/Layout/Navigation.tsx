@@ -1,13 +1,13 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import React, { useRef } from "react"
 import { useNavigate, useMatches, AnySchema } from "@tanstack/react-router"
-import { AppShell, TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
+import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
 
-const navigationItems = [
+export const navigationItems = [
   {
     label: "Clusters",
     value: "/admin/clusters",
@@ -17,19 +17,20 @@ const navigationItems = [
     value: "/admin/teams",
   },
   {
-    label: "Plugins",
-    value: "/admin/plugins",
+    label: "Plugin Presets",
+    value: "/admin/plugin-presets",
   },
 ] as const
 
 type NavigationItem = (typeof navigationItems)[number]
+type VisitedPages = Partial<Record<NavigationItem["value"], AnySchema>>
 
 const isValidNavigationValue = (value: unknown): value is NavigationItem["value"] => {
   return typeof value === "string" && navigationItems.some((item) => item.value === value)
 }
 
-export const Layout = ({ children }: any) => {
-  const visitedPages = useRef<Record<string, AnySchema>>({})
+export const Navigation = () => {
+  const visitedPages = useRef<VisitedPages>({})
   const navigate = useNavigate()
   const matches = useMatches()
 
@@ -38,7 +39,9 @@ export const Layout = ({ children }: any) => {
     if (isValidNavigationValue(link)) {
       const currentPath = matches[matches.length - 1].id
       // Save the current pages's URL state to restore it later
-      visitedPages.current[currentPath] = matches[matches.length - 1].search
+      if (isValidNavigationValue(currentPath)) {
+        visitedPages.current[currentPath] = matches[matches.length - 1].search
+      }
       navigate({
         to: link,
         search: {
@@ -54,17 +57,11 @@ export const Layout = ({ children }: any) => {
     return activeItem ? activeItem.value : ""
   }
 
-  const topNavigation = (
+  return (
     <TopNavigation activeItem={getActiveItem()} onActiveItemChange={handleTabSelect}>
       {navigationItems.map((item) => (
         <TopNavigationItem key={item.value} value={item.value} label={item.label} />
       ))}
     </TopNavigation>
-  )
-
-  return (
-    <AppShell embedded topNavigation={topNavigation}>
-      {children}
-    </AppShell>
   )
 }
