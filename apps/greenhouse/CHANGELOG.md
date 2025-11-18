@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.7.19
+
+### Patch Changes
+
+- 63a4867: Created basic layout and sub pages `/plugins`, `/teams` and `/clusters` for new admin area.
+- Updated dependencies [3c0478b]
+  - @cloudoperators/juno-ui-components@5.9.1
+  - @cloudoperators/juno-app-doop@2.6.12
+  - @cloudoperators/juno-app-heureka@0.9.12
+  - @cloudoperators/juno-app-supernova@0.19.15
+  - @cloudoperators/juno-messages-provider@0.2.24
+
 ## 0.7.18
 
 ### Patch Changes
