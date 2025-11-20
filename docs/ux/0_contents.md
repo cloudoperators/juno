@@ -1,3 +1,6 @@
+
+![Juno UX/UI Documentation Header Illustration Placeholder](images/header-illustration-placeholder.png)
+
 # Juno UI UX Documentation
 
 *This is a WIP outline of the Juno UX/UI documentation. The contents is created along the outline, while the outline may be subject to change.*
