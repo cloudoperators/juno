@@ -4,12 +4,14 @@
  */
 
 import React from "react"
-import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
+import { SideNavigation, SideNavigationItemProps } from "@cloudoperators/juno-ui-components"
+import { SideNavigationItem } from "@cloudoperators/juno-ui-components"
+import { SideNavigationList } from "@cloudoperators/juno-ui-components"
 
 import { Pages } from "../constants"
 import useNavigationStore from "../../store/useNavigationStore"
 
-const TopNavigationComponent: React.FC = () => {
+const SideNavigationComponent: React.FC = () => {
   const { currentPage, setCurrentPage } = useNavigationStore()
 
   const handleActiveItemChange = (newPage: React.ReactNode): void => {
@@ -18,14 +20,31 @@ const TopNavigationComponent: React.FC = () => {
     }
   }
 
-  const renderNavigationItems = (): React.ReactNode[] =>
-    // Convert page key constants to an array and map each to a TopNavigationItem component
-    Object.values(Pages).map((page) => <TopNavigationItem key={page} label={page} value={page} />)
+  const renderNavigationItems = (): React.ReactElement<SideNavigationItemProps>[] =>
+    // Convert page key constants to an array and map each to a SideNavigationItem component
+    Object.values(Pages).map((page) => (
+      <SideNavigationItem
+        key={page}
+        label={page}
+        selected={currentPage === page}
+        onClick={() => handleActiveItemChange(page)}
+        icon="help"
+      >
+        <SideNavigationList>
+          <SideNavigationItem label="Item 1" icon="addCircle" href="#" />
+          <SideNavigationItem label="Item 2" icon="addCircle">
+            <SideNavigationItem label="Sub-Child 1" />
+            <SideNavigationItem label="Sub-Child 2" />
+          </SideNavigationItem>
+        </SideNavigationList>
+      </SideNavigationItem>
+    ))
 
   return (
-    <TopNavigation activeItem={currentPage} onActiveItemChange={handleActiveItemChange}>
-      {renderNavigationItems()}
-    </TopNavigation>
+    <SideNavigation activeItem={currentPage} onActiveItemChange={handleActiveItemChange} ariaLabel="Main Navigation">
+      <SideNavigationList>{renderNavigationItems()}</SideNavigationList>
+    </SideNavigation>
   )
 }
-export default TopNavigationComponent
+
+export default SideNavigationComponent
