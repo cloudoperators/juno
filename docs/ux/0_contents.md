@@ -12,34 +12,34 @@ As long as the outline may change any minute, do not add numbers to the respecti
 
 1. Getting Started
 2. Foundations
-   2.1 Core Concepts
-   2.2 Layout Fundamentals
-   2.3 Navigation Fundamentals
-   2.4 The AppShell
+    2.1 Core Concepts
+    2.2 Layout Fundamentals
+    2.3 Navigation Fundamentals
+    2.4 The AppShell
 3. Layout And Application Structure
-   3.1 Juno Layout
-   3.2 Embedded Applications
-   3.3 Legacy Applications
+    3.1 Juno Layout
+    3.2 Embedded Applications
+    3.3 Legacy Applications
 4. Patterns
-   4.1 Page And User Flow
-   4.2 Authentication And Access
-   4.2.1 Log In
-   [4.2.2 UI For Unauthorized Users](ui-for-unauthorized-users.md)
-   4.3 Displaying and Interacting With Data
-   4.4 Wizard Pattern
-   4.5 Inline Adding And Deleting Items
-   4.6 Modals
-   4.7 PopupMenus
-   4.8 Messages & Notifications
+    4.1 Page And User Flow
+    4.2 Authentication And Access
+    4.2.1 Log In
+    [4.2.2 UI For Unauthorized Users](ui-for-unauthorized-users.md)
+    4.3 Displaying and Interacting With Data
+    4.4 Wizard Pattern
+    4.5 Inline Adding And Deleting Items
+    4.6 Modals
+    4.7 PopupMenus
+    4.8 Messages & Notifications
 5. Application Design Guidelines
-   5.1 Interaction Guidelines
-   [5.2 UX Writing / Content Guidelines](ux-writing-content-design.md)
-   [5.3 Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
+    5.1 Interaction Guidelines
+    [5.2 UX Writing / Content Guidelines](ux-writing-content-design.md)
+    [5.3 Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
 6. Versioning, Deprecation Policy
 7. Resources
-   7.1 Github Repository
-   7.2 Storybook
-   7.3 Figma
-   7.4 Example App
+    7.1 Github Repository
+    7.2 Storybook
+    7.3 Figma
+    7.4 Example App
 8. Appendix
-   8.1 Terminology/Glossary
+    8.1 Terminology/Glossary
