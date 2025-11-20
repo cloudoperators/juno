@@ -1,6 +1,6 @@
 [← Back to Contents Overview](0_contents.md)
 
-# Intorduction
+# Introduction
 
 ## What is Juno?
 
