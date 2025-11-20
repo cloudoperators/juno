@@ -25,7 +25,7 @@ As long as the outline may change any minute, do not add numbers to the respecti
    3.1 Page And User Flow
    3.2 Authentication And Access
    3.2.1 Log In
-   3.2.2 Unauthorized Users
+   3.2.2 [UI For Unauthorized Users](ui-for-unauthorized-users.md)
    3.3 Displaying and Interacting With Data
    3.4 Wizard Pattern
    3.5 Inline Adding And Deleting Items
