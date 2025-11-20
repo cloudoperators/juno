@@ -8,39 +8,38 @@ As long as the outline may change any minute, do not add numbers to the respecti
 
 ## Contents
 
-0. Introduction
-   0.1 What is Juno?
-   0.2 Who This Documentation is For
-   0.3 Getting Started
-1. Foundations
-   1.1 Core Concepts
-   1.2 Layout Fundamentals
-   1.3 Navigation Fundamentals
-   1.4 The AppShell
-2. Layout And Application Structure
-   2.1 Juno Layout
-   2.2 Embedded Applications
-   2.3 Legacy Applications
-3. Patterns
-   3.1 Page And User Flow
-   3.2 Authentication And Access
-   3.2.1 Log In
-   3.2.2 [UI For Unauthorized Users](ui-for-unauthorized-users.md)
-   3.3 Displaying and Interacting With Data
-   3.4 Wizard Pattern
-   3.5 Inline Adding And Deleting Items
-   3.6 Modals
-   3.7 PopupMenus
-   3.8 Messages & Notifications
-4. Application Design Guidelines
-   4.1 Interaction Guidelines
-   4.2 [UX Writing / Content Guidelines](ux-writing-content-design.md)
-   4.3 [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
-5. Versioning, Deprecation Policy
-6. Resources
-   6.1 Github Repository
-   6.2 Storybook
-   6.3 Figma
-   6.4 Example App
-7. Appendix
-   7.1 Terminology/Glossary
+[0. Introduction](introduction.md)
+
+1. Getting Started
+2. Foundations
+   2.1 Core Concepts
+   2.2 Layout Fundamentals
+   2.3 Navigation Fundamentals
+   2.4 The AppShell
+3. Layout And Application Structure
+   3.1 Juno Layout
+   3.2 Embedded Applications
+   3.3 Legacy Applications
+4. Patterns
+   4.1 Page And User Flow
+   4.2 Authentication And Access
+   4.2.1 Log In
+   [4.2.2 UI For Unauthorized Users](ui-for-unauthorized-users.md)
+   4.3 Displaying and Interacting With Data
+   4.4 Wizard Pattern
+   4.5 Inline Adding And Deleting Items
+   4.6 Modals
+   4.7 PopupMenus
+   4.8 Messages & Notifications
+5. Application Design Guidelines
+   5.1 Interaction Guidelines
+   [5.2 UX Writing / Content Guidelines](ux-writing-content-design.md)
+   [5.3 Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
+6. Versioning, Deprecation Policy
+7. Resources
+   7.1 Github Repository
+   7.2 Storybook
+   7.3 Figma
+   7.4 Example App
+8. Appendix
+   8.1 Terminology/Glossary
