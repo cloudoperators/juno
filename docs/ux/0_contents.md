@@ -34,7 +34,8 @@ As long as the outline may change any minute, do not add numbers to the respecti
    3.8 Messages & Notifications
 4. Application Design Guidelines
    4.1 Interaction Guidelines
-   4.2 UX Writing / Content Guidelines
+   4.2 [UX Writing / Content Guidelines](ux-writing-content-design.md)
+   4.3 [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
 5. Versioning, Deprecation Policy
 6. Resources
    6.1 Github Repository
