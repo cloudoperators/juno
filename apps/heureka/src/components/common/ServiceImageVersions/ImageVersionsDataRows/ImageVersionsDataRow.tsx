@@ -56,7 +56,7 @@ export const ImageVersionsDataRow = ({
           showDashIfZero
           count={version.issueCounts.critical}
           icon="severityCritical"
-          variant="danger"
+          color="text-theme-severity-critical"
           tooltipContent="Critical Vulnerabilities"
         />
       </DataGridCell>
@@ -65,7 +65,7 @@ export const ImageVersionsDataRow = ({
           showDashIfZero
           count={version.issueCounts.high}
           icon="severityHigh"
-          variant="warning"
+          color="text-theme-severity-high"
           tooltipContent="High Vulnerabilities"
         />
       </DataGridCell>
@@ -74,7 +74,7 @@ export const ImageVersionsDataRow = ({
           showDashIfZero
           count={version.issueCounts.medium}
           icon="severityMedium"
-          variant="warning"
+          color="text-theme-severity-medium"
           tooltipContent="Medium Vulnerabilities"
         />
       </DataGridCell>
@@ -83,7 +83,7 @@ export const ImageVersionsDataRow = ({
           showDashIfZero
           count={version.issueCounts.low}
           icon="severityLow"
-          variant="info"
+          color="text-theme-severity-low"
           tooltipContent="Low Vulnerabilities"
         />
       </DataGridCell>
@@ -92,7 +92,7 @@ export const ImageVersionsDataRow = ({
           showDashIfZero
           count={version.issueCounts.none}
           icon="severityUnknown"
-          variant="default"
+          color="text-theme-severity-unknown"
           tooltipContent="None Vulnerabilities"
         />
       </DataGridCell>
