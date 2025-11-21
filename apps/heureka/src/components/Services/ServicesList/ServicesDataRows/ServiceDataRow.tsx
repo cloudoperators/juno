@@ -44,7 +44,7 @@ type ServiceDataRowProps = {
 export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailClick }: ServiceDataRowProps) => (
   <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
-    <DataGridCell className="items-center">
+    <DataGridCell>
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.critical}
@@ -53,7 +53,7 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
         tooltipContent="Critical Vulnerabilities"
       />
     </DataGridCell>
-    <DataGridCell className="items-center">
+    <DataGridCell>
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.high}
@@ -62,7 +62,7 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
         tooltipContent="High Vulnerabilities"
       />
     </DataGridCell>
-    <DataGridCell className="items-center">
+    <DataGridCell>
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.medium}
@@ -71,7 +71,7 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
         tooltipContent="Medium Vulnerabilities"
       />
     </DataGridCell>
-    <DataGridCell className="items-center">
+    <DataGridCell>
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.low}
@@ -80,7 +80,7 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
         tooltipContent="Low Vulnerabilities"
       />
     </DataGridCell>
-    <DataGridCell className="items-center">
+    <DataGridCell>
       <SeverityCount
         showDashIfZero
         count={item.issuesCount.none}
