@@ -41,7 +41,14 @@ describe("SeverityCount", () => {
   })
 
   it("renders with zero count and shows '0' in all mode", () => {
-    render(<SeverityCount icon="severityCritical" count={0} color="text-theme-severity-critical" tooltipContent="Critical Issues" />)
+    render(
+      <SeverityCount
+        icon="severityCritical"
+        count={0}
+        color="text-theme-severity-critical"
+        tooltipContent="Critical Issues"
+      />
+    )
 
     // Check if the count "0" is rendered
     const count = screen.getByText("0")
@@ -49,7 +56,14 @@ describe("SeverityCount", () => {
   })
 
   it("renders with positive count in all mode", () => {
-    render(<SeverityCount icon="severityCritical" count={3} color="text-theme-severity-critical" tooltipContent="Critical Issues" />)
+    render(
+      <SeverityCount
+        icon="severityCritical"
+        count={3}
+        color="text-theme-severity-critical"
+        tooltipContent="Critical Issues"
+      />
+    )
 
     // Check if the count is rendered
     const count = screen.getByText("3")

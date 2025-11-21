@@ -4,14 +4,7 @@
  */
 
 import React from "react"
-import {
-  Icon,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  KnownIcons,
-  Stack,
-} from "@cloudoperators/juno-ui-components"
+import { Icon, Tooltip, TooltipTrigger, TooltipContent, KnownIcons, Stack } from "@cloudoperators/juno-ui-components"
 
 type SeverityCountProps = {
   icon: KnownIcons
@@ -31,7 +24,7 @@ export const SeverityCount = ({ icon, count, color, tooltipContent, showDashIfZe
   return (
     <Tooltip triggerEvent="hover">
       <TooltipTrigger>
-        <Stack gap="0.5" direction="horizontal" alignment="center">
+        <Stack gap="0.5" direction="horizontal" alignment="start">
           <Icon icon={icon} color={count > 0 ? color : "text-theme-default"} />
           <span>{count > 0 ? count.toString() : "0"}</span>
         </Stack>
