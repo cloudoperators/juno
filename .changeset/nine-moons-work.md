@@ -3,4 +3,4 @@
 "@cloudoperators/juno-app-heureka": patch
 ---
 
-Change the severity icon color to avoid badges in Heureka
+Replace Badge with Icon component in SeverityCount for better icon and color control
