@@ -9,16 +9,16 @@ import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-compon
 
 export const navigationItems = [
   {
+    label: "Plugin Presets",
+    value: "/admin/plugin-presets",
+  },
+  {
     label: "Clusters",
     value: "/admin/clusters",
   },
   {
     label: "Teams",
     value: "/admin/teams",
-  },
-  {
-    label: "Plugin Presets",
-    value: "/admin/plugin-presets",
   },
 ] as const
 
