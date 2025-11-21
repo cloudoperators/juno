@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { createFileRoute, Outlet } from "@tanstack/react-router"
-import { Layout as AdminLayout } from "../../components/admin/Layout"
+import { createFileRoute } from "@tanstack/react-router"
+import { Layout } from "../../components/admin/Layout"
 import { Crumb } from "../-types"
 
 export const Route = createFileRoute("/admin")({
-  component: RouteComponent,
+  component: Layout,
+  errorComponent: Layout,
   loader: () => {
     const crumb: Crumb = {
       label: "Admin",
@@ -20,11 +20,3 @@ export const Route = createFileRoute("/admin")({
     }
   },
 })
-
-function RouteComponent() {
-  return (
-    <AdminLayout>
-      <Outlet />
-    </AdminLayout>
-  )
-}
