@@ -53,11 +53,9 @@ export const SeverityCount = ({ severity, count, tooltipContent }: SeverityCount
   return (
     <Tooltip triggerEvent="hover">
       <TooltipTrigger>
-        <Stack alignment="start" distribution="start">
-          <Stack gap="0.5" alignment="start">
-            <Icon icon={icon} color={count > 0 ? color : "text-theme-disabled"} />
-            <span>{count > 0 ? count.toString() : "—"}</span>
-          </Stack>
+        <Stack alignment="start">
+          <Icon icon={icon} color={count > 0 ? color : "text-theme-disabled"} />
+          <span>{count > 0 ? count.toString() : "—"}</span>
         </Stack>
       </TooltipTrigger>
       <TooltipContent>{tooltipContent}</TooltipContent>
