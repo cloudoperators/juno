@@ -23,31 +23,11 @@ export const IssueCountsPerSeverityLevel = ({ counts }: IssueCountsPerSeverityLe
         <div className="font-bold">All vulnerabilities:</div>
         <div className="font-bold mr-2">{counts.total}</div>
       </>
-      <SeverityCount
-        severity="critical"
-        count={counts.critical}
-        tooltipContent="Critical Vulnerabilities"
-      />
-      <SeverityCount
-        severity="high"
-        count={counts.high}
-        tooltipContent="High Vulnerabilities"
-      />
-      <SeverityCount
-        severity="medium"
-        count={counts.medium}
-        tooltipContent="Medium Vulnerabilities"
-      />
-      <SeverityCount
-        severity="low"
-        count={counts.low}
-        tooltipContent="Low Vulnerabilities"
-      />
-      <SeverityCount
-        severity="unknown"
-        count={counts.none}
-        tooltipContent="None Vulnerabilities"
-      />
+      <SeverityCount severity="critical" count={counts.critical} tooltipContent="Critical Vulnerabilities" />
+      <SeverityCount severity="high" count={counts.high} tooltipContent="High Vulnerabilities" />
+      <SeverityCount severity="medium" count={counts.medium} tooltipContent="Medium Vulnerabilities" />
+      <SeverityCount severity="low" count={counts.low} tooltipContent="Low Vulnerabilities" />
+      <SeverityCount severity="unknown" count={counts.none} tooltipContent="None Vulnerabilities" />
     </Stack>
   )
 }

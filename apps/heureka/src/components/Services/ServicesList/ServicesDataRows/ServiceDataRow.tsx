@@ -45,39 +45,19 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
   <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
-      <SeverityCount
-        severity="critical"
-        count={item.issuesCount.critical}
-        tooltipContent="Critical Vulnerabilities"
-      />
+      <SeverityCount severity="critical" count={item.issuesCount.critical} tooltipContent="Critical Vulnerabilities" />
     </DataGridCell>
     <DataGridCell>
-      <SeverityCount
-        severity="high"
-        count={item.issuesCount.high}
-        tooltipContent="High Vulnerabilities"
-      />
+      <SeverityCount severity="high" count={item.issuesCount.high} tooltipContent="High Vulnerabilities" />
     </DataGridCell>
     <DataGridCell>
-      <SeverityCount
-        severity="medium"
-        count={item.issuesCount.medium}
-        tooltipContent="Medium Vulnerabilities"
-      />
+      <SeverityCount severity="medium" count={item.issuesCount.medium} tooltipContent="Medium Vulnerabilities" />
     </DataGridCell>
     <DataGridCell>
-      <SeverityCount
-        severity="low"
-        count={item.issuesCount.low}
-        tooltipContent="Low Vulnerabilities"
-      />
+      <SeverityCount severity="low" count={item.issuesCount.low} tooltipContent="Low Vulnerabilities" />
     </DataGridCell>
     <DataGridCell>
-      <SeverityCount
-        severity="unknown"
-        count={item.issuesCount.none}
-        tooltipContent="None Vulnerabilities"
-      />
+      <SeverityCount severity="unknown" count={item.issuesCount.none} tooltipContent="None Vulnerabilities" />
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />

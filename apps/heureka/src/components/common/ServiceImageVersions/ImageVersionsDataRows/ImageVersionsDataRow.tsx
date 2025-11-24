@@ -59,32 +59,16 @@ export const ImageVersionsDataRow = ({
         />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <SeverityCount
-          severity="high"
-          count={version.issueCounts.high}
-          tooltipContent="High Vulnerabilities"
-        />
+        <SeverityCount severity="high" count={version.issueCounts.high} tooltipContent="High Vulnerabilities" />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <SeverityCount
-          severity="medium"
-          count={version.issueCounts.medium}
-          tooltipContent="Medium Vulnerabilities"
-        />
+        <SeverityCount severity="medium" count={version.issueCounts.medium} tooltipContent="Medium Vulnerabilities" />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <SeverityCount
-          severity="low"
-          count={version.issueCounts.low}
-          tooltipContent="Low Vulnerabilities"
-        />
+        <SeverityCount severity="low" count={version.issueCounts.low} tooltipContent="Low Vulnerabilities" />
       </DataGridCell>
       <DataGridCell className="items-center">
-        <SeverityCount
-          severity="unknown"
-          count={version.issueCounts.none}
-          tooltipContent="None Vulnerabilities"
-        />
+        <SeverityCount severity="unknown" count={version.issueCounts.none} tooltipContent="None Vulnerabilities" />
       </DataGridCell>
       {displayDetailsButton && (
         <DataGridCell>
