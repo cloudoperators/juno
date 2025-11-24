@@ -7,26 +7,57 @@ import React from "react"
 import { Icon, Tooltip, TooltipTrigger, TooltipContent, KnownIcons, Stack } from "@cloudoperators/juno-ui-components"
 
 type SeverityCountProps = {
-  icon: KnownIcons
+  severity: "critical" | "high" | "medium" | "low" | "unknown"
   count: number
-  color: string
   tooltipContent: string
-  showDashIfZero?: Boolean
 }
 
-export const SeverityCount = ({ icon, count, color, tooltipContent, showDashIfZero = false }: SeverityCountProps) => {
-  // Show dash if count is zero and showDashIfZero is true
-  if (!!showDashIfZero && count === 0) {
-    return <span>&mdash;</span>
+const getSeverityIcon = (severity: SeverityCountProps["severity"]): KnownIcons => {
+  switch (severity) {
+    case "critical":
+      return "severityCritical"
+    case "high":
+      return "severityHigh"
+    case "medium":
+      return "severityMedium"
+    case "low":
+      return "severityLow"
+    case "unknown":
+      return "severityUnknown"
+    default:
+      return "severityUnknown"
   }
+}
 
-  // For all mode, always show the icon with the count (even if zero)
+const getSeverityColor = (severity: SeverityCountProps["severity"]): string => {
+  switch (severity) {
+    case "critical":
+      return "text-theme-severity-critical"
+    case "high":
+      return "text-theme-severity-high"
+    case "medium":
+      return "text-theme-severity-medium"
+    case "low":
+      return "text-theme-severity-low"
+    case "unknown":
+      return "text-theme-severity-unknown"
+    default:
+      return "text-theme-severity-unknown"
+  }
+}
+
+export const SeverityCount = ({ severity, count, tooltipContent }: SeverityCountProps) => {
+  const icon = getSeverityIcon(severity)
+  const color = getSeverityColor(severity)
+
   return (
     <Tooltip triggerEvent="hover">
       <TooltipTrigger>
-        <Stack gap="0.5" alignment="start">
-          <Icon icon={icon} color={count > 0 ? color : "text-theme-default"} />
-          <span>{count > 0 ? count.toString() : "0"}</span>
+        <Stack alignment="start" distribution="start">
+          <Stack gap="0.5" alignment="start">
+            <Icon icon={icon} color={count > 0 ? color : "text-theme-disabled"} />
+            <span>{count > 0 ? count.toString() : "—"}</span>
+          </Stack>
         </Stack>
       </TooltipTrigger>
       <TooltipContent>{tooltipContent}</TooltipContent>

@@ -46,46 +46,36 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
     <DataGridCell>{item.name}</DataGridCell>
     <DataGridCell>
       <SeverityCount
-        showDashIfZero
+        severity="critical"
         count={item.issuesCount.critical}
-        icon="severityCritical"
-        color="text-theme-severity-critical"
         tooltipContent="Critical Vulnerabilities"
       />
     </DataGridCell>
     <DataGridCell>
       <SeverityCount
-        showDashIfZero
+        severity="high"
         count={item.issuesCount.high}
-        icon="severityHigh"
-        color="text-theme-severity-high"
         tooltipContent="High Vulnerabilities"
       />
     </DataGridCell>
     <DataGridCell>
       <SeverityCount
-        showDashIfZero
+        severity="medium"
         count={item.issuesCount.medium}
-        icon="severityMedium"
-        color="text-theme-severity-medium"
         tooltipContent="Medium Vulnerabilities"
       />
     </DataGridCell>
     <DataGridCell>
       <SeverityCount
-        showDashIfZero
+        severity="low"
         count={item.issuesCount.low}
-        icon="severityLow"
-        color="text-theme-severity-low"
         tooltipContent="Low Vulnerabilities"
       />
     </DataGridCell>
     <DataGridCell>
       <SeverityCount
-        showDashIfZero
+        severity="unknown"
         count={item.issuesCount.none}
-        icon="severityUnknown"
-        color="text-theme-severity-unknown"
         tooltipContent="None Vulnerabilities"
       />
     </DataGridCell>
