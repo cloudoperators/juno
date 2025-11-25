@@ -398,7 +398,7 @@
   --text-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active);
 
   /* Component Border Colors: */
-  --border-color-theme-default: var(--color-default-border);
+  --border-color-theme-default: var(--color-dd-dt-border);
 
   --border-color-theme-box-default: var(--color-box-border);
 
@@ -721,6 +721,7 @@
   --color-dd-background: var(--color-transparent);
   --color-dd-text: var(--color-text-high);
   --color-dd-dt-border: var(--color-border-default);
+  --color-border-default: var(--color-juno-grey-blue-3);
 }
 
 /* JUNO THEME: DARK MODE */
@@ -965,6 +966,7 @@
   --color-dd-background: var(--color-transparent);
   --color-dd-text: var(--color-text-high);
   --color-dd-dt-border: var(--color-border-default);
+  --color-border-default: var(--color-juno-grey-light-7);
 }
 
 /*

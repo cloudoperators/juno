@@ -35,7 +35,7 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({ children, alig
   <dl
     className={`dl ${className}`}
     data-testid="description-list"
-    style={{ justifyContent: alignTerms === "right" ? "flex-start" : "flex-end" }}
+    style={{ justifyContent: alignTerms === "right" ? "flex-end" : "flex-start" }}
   >
     {children}
   </dl>
