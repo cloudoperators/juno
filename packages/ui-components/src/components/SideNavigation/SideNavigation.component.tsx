@@ -10,8 +10,7 @@ import { SideNavigationListProps } from "../SideNavigationList"
 const sideNavStyles = `
   jn:pl-1
   jn:pr-1
-  jn:min-w-[16rem]
-  jn:max-w-[20rem]
+  jn:w-[16rem]
   jn:bg-theme-sidenav
   jn:border-theme-sidenav
 `
