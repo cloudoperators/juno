@@ -21,8 +21,8 @@
     2.4 The AppShell
 3. Layout And Application Structure
     3.1 Juno Layout
-    [3.2 Embedded Applications](embedded-applications.md)
-    3.3 Legacy Applications
+    [3.2 Embedded ApplicationLayout](embedded-application-layout.md)
+    [3.3 Legacy Application Layout](legacy-application-layout.md)
 4. Patterns
     4.1 Page And User Flow
     4.2 Authentication And Access
