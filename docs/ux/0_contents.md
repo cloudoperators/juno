@@ -18,7 +18,7 @@
     2.1 Core Concepts
     [2.2 Layout Fundamentals](layout-fundamentals.md)
     [2.3 Navigation Fundamentals](navigation-fundamentals.md)
-    2.4 The AppShell
+    [2.4 The AppShell](the-appshell.md)
 3. Layout And Application Structure
     3.1 Juno Layout
     [3.2 Embedded ApplicationLayout](embedded-application-layout.md)
