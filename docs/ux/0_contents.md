@@ -1,5 +1,5 @@
 
-![Juno UX/UI Documentation Header Illustration Placeholder](images/header-illustration-placeholder.png)
+![Juno UX/UI Documentation Header Illustration Placeholder](images/juno_uxui_docu_banner.png)
 
 # Juno UI UX Documentation
 
@@ -16,12 +16,12 @@
 1. Getting Started
 2. Foundations
     2.1 Core Concepts
-    2.2 Layout Fundamentals
+    [2.2 Layout Fundamentals](layout-fundamentals.md)
     2.3 Navigation Fundamentals
     2.4 The AppShell
 3. Layout And Application Structure
     3.1 Juno Layout
-    3.2 Embedded Applications
+    [3.2 Embedded Applications](embedded-applications.md)
     3.3 Legacy Applications
 4. Patterns
     4.1 Page And User Flow
