@@ -1,3 +1,5 @@
+[← Back to Contents Overview](0_contents.md)
+
 # UI Elements for Non-Authorized Users
 
 For users that are not authorized to use a certain element on the UI, do we
