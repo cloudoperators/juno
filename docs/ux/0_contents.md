@@ -14,7 +14,7 @@
 [0. Introduction](introduction.md)
 
 1. Getting Started
-2. Foundations
+[2. Foundations](foundations.md)
     [2.1 Core Concepts](core-concepts.md)
     [2.2 Layout Fundamentals](layout-fundamentals.md)
     [2.3 Navigation Fundamentals](navigation-fundamentals.md)
