@@ -12,7 +12,7 @@
 ## Contents
 
 0. [Introduction](introduction.md)
-1. Getting Started
+1. [Getting Started With Juno UI Components](getting-started-with-juno-ui-components.md)
 2. [Foundations](foundations.md)
     1. [Core Concepts](core-concepts.md)
     2. [Layout Fundamentals](layout-fundamentals.md)
@@ -25,7 +25,7 @@
 4. Patterns
     1. Page And User Flow
     2. Authentication And Access
-        1. Log In
+        1. Sign In
         2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
     3. Displaying and Interacting With Data
     4. Wizard Pattern
