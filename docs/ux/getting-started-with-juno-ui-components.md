@@ -6,4 +6,4 @@ Once installation and technical set-up of an app was successful, you can begin t
 
 Once you have included AppShell as described [here](../create-your-own-app.md), you can import the components that you need and start building.
 
-An overwiew of all available components and their APIs can be found in the [Juno UI Components Storybook](https://cloudoperators.github.io/juno/).
+An overview of all available components and their APIs can be found in the [Juno UI Components Storybook](https://cloudoperators.github.io/juno/).
