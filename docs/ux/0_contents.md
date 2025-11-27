@@ -2,11 +2,12 @@
 
 # Juno UI UX Documentation
 
-_This is a WIP outline of the Juno UX/UI documentation. The contents is created along the outline, while the outline may be subject to change._
-
-_Existing sections will be linked in the ToC below, non-linked sections are still to be created._
-
-_As long as the outline may change any minute, do not add numbers to the respective file names, we can add these later once we have established confidence in a structure and its ability to scale._
+> [!NOTE]  
+> This is a WIP outline of the Juno UX/UI documentation. The contents is created along the outline, while the outline may be subject to change.
+>
+> Existing sections will be linked in the ToC below, non-linked sections are still to be created.\_
+>
+> As long as the outline may change any minute, do not add numbers to the respective file names, we can add these later once we have established confidence in a structure and its ability to scale.
 
 ## Contents
 
