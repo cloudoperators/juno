@@ -2,7 +2,7 @@
 
 # The AppShell
 
-The AppShell is a core component of Juno UI Components, aiming at making bootstrapping and building Juno-based applications as easy as possible.
+The AppShell is a core component of Juno UI Components, aimed at making bootstrapping and building Juno-based applications as easy as possible.
 
 Out of the box, AppShell provides application authors and developers with the necessary layout mechanisms, styles, CSS-variables, and context providers needed to build fully functional, compliant Juno applications.
 
