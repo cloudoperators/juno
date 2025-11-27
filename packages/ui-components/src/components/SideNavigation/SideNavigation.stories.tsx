@@ -65,6 +65,7 @@ export const NavigationWithGroups: Story = {
           <SideNavigationItem label="Sub-Child 1" />
           <SideNavigationItem label="Sub-Child 2" />
         </SideNavigationItem>
+        <SideNavigationItem label="Item 3" href="#" />
         <SideNavigationGroup label="Group Example">
           <SideNavigationItem label="Grouped Item 1" />
           <SideNavigationItem label="Grouped Item 2">

@@ -22,7 +22,6 @@ const sideNavItemStyles = `
 const leftStyles = `
   jn:flex
   jn:items-center
-  jn:space-x-[0.25rem]
   jn:w-full 
 `
 
