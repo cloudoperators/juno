@@ -7,5 +7,5 @@ dist
 build
 # Ignore generated route tree files in all apps
 **/routeTree.gen.ts
-# ignore .md files in docs/ux as prettier breaks indented lists
-docs/ux
+# ignore .md files in docs as prettier breaks indented lists
+docs/**/*.md
