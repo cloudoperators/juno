@@ -10,7 +10,7 @@ Juno aims to provide maximum flexibility for users. Owing to the technical natur
 
 ## Consistency
 
-Juno aims to provide components, patterns and guidleines to allow for creating consistent user interfaces and experiences.
+Juno aims to provide components, patterns and guidelines to allow for creating consistent user interfaces and experiences.
 
 ## Extensibility
 
