@@ -1,6 +1,6 @@
 [← Back to Contents Overview](0_contents.md)
 
-# Embedded Applications
+# Embedded Application Layout
 
 Any Juno application can potentially be rendered in a Host / Shell app that hosts one or multiple “child” applications. When rendered into a host Shell app, we call the child apps “embedded apps” or apps in “embedded mode”.
 
