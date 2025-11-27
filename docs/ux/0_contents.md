@@ -11,23 +11,22 @@
 
 ## Contents
 
-[0. Introduction](introduction.md)
-
+0. [Introduction](introduction.md)
 1. Getting Started
-[2. Foundations](foundations.md)
-    [2.1 Core Concepts](core-concepts.md)
-    [2.2 Layout Fundamentals](layout-fundamentals.md)
-    [2.3 Navigation Fundamentals](navigation-fundamentals.md)
-    [2.4 The AppShell](the-appshell.md)
+2. [Foundations](foundations.md)
+    2.1 [Core Concepts](core-concepts.md)
+    2.2 [Layout Fundamentals](layout-fundamentals.md)
+    2.3 [Navigation Fundamentals](navigation-fundamentals.md)
+    2.4 [The AppShell](the-appshell.md)
 3. Layout And Application Structure
     3.1 Juno Layout
-    [3.2 Embedded ApplicationLayout](embedded-application-layout.md)
-    [3.3 Legacy Application Layout](legacy-application-layout.md)
+    3.2 [Embedded ApplicationLayout](embedded-application-layout.md)
+    3.3 [Legacy Application Layout](legacy-application-layout.md)
 4. Patterns
     4.1 Page And User Flow
     4.2 Authentication And Access
     4.2.1 Log In
-    [4.2.2 UI For Unauthorized Users](ui-for-unauthorized-users.md)
+    4.2.2 [UI For Unauthorized Users](ui-for-unauthorized-users.md)
     4.3 Displaying and Interacting With Data
     4.4 Wizard Pattern
     4.5 Inline Adding And Deleting Items
@@ -36,8 +35,8 @@
     4.8 Messages & Notifications
 5. Application Design Guidelines
     5.1 Interaction Guidelines
-    [5.2 UX Writing / Content Guidelines](ux-writing-content-design.md)
-    [5.3 Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
+    5.2 [UX Writing / Content Guidelines](ux-writing-content-design.md)
+    5.3 [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
 6. Versioning, Deprecation Policy
 7. Resources
     7.1 Github Repository
