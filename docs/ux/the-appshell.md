@@ -6,7 +6,7 @@ The AppShell is a core component of Juno UI Components, aimed at making bootstra
 
 Out of the box, AppShell provides application authors and developers with the necessary layout mechanisms, styles, CSS-variables, and context providers needed to build fully functional, compliant Juno applications.
 
-Using AppShell as the starting point for new applications is very much recommended.
+Using AppShell as the starting point for new applications is highly recommended.
 
 Not using AppShell to begin building a new application is possible, but comes at a relatively high price since application developers will have to include layout components, styles, context providers for styling, UI themes, portals, etc. themselves.
 
