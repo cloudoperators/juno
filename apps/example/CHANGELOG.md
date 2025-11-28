@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-example
 
+## 2.4.0
+
+### Minor Changes
+
+- fbbe5ad: - Added `SideNavigation` to Example App and fixed layout in `AppShell`.
+  - Aligned `MainContainerInner` constraints with the current `SideNavigation` size.
+  - Fixed padding of `SideNavigation` and alignment of each `SideNavigationItem`.
+
+### Patch Changes
+
+- Updated dependencies [fbbe5ad]
+  - @cloudoperators/juno-ui-components@5.10.0
+  - @cloudoperators/juno-messages-provider@0.2.25
+
 ## 2.3.6
 
 ### Patch Changes
