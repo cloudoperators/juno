@@ -7,9 +7,10 @@ import React, { StrictMode } from "react"
 import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import { createClient } from "@cloudoperators/juno-k8s-client"
 import Auth from "./components/Auth"
 import styles from "./styles.css?inline"
-import StoreProvider from "./components/StoreProvider"
+import StoreProvider, { useGlobalsApiEndpoint } from "./components/StoreProvider"
 import { AuthProvider, useAuth } from "./components/AuthProvider"
 import { routeTree } from "./routeTree.gen"
 
@@ -18,6 +19,7 @@ const router = createRouter({
   routeTree,
   context: {
     appProps: undefined!,
+    apiClient: null,
   },
 })
 
@@ -52,6 +54,13 @@ const getBasePath = (auth: any) => {
 
 function App(props: AppProps) {
   const auth = useAuth()
+  const apiEndpoint = useGlobalsApiEndpoint()
+  // @ts-expect-error - useAuth return type is not properly typed
+  const token = auth?.data?.JWT
+  // Create k8s client if apiEndpoint and token are available
+  // @ts-expect-error - apiEndpoint type needs to be properly typed as string
+  const apiClient = apiEndpoint && token ? createClient({ apiEndpoint, token }) : null
+
   /*
    * Dynamically change the type of history on the router
    * based on the enableHashedRouting prop. This ensures that
@@ -60,7 +69,7 @@ function App(props: AppProps) {
    */
   router.update({
     basepath: getBasePath(auth),
-    context: { appProps: props },
+    context: { appProps: props, apiClient },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
   })
   return <RouterProvider router={router} />

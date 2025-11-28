@@ -3,22 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { createFileRoute } from "@tanstack/react-router"
 import { Crumb } from "../-types"
+import { PluginPresets } from "../../components/admin/PluginPresets"
+import { fetchPluginPresets } from "../../components/admin/api/plugin-presets"
 
 export const Route = createFileRoute("/admin/plugin-presets")({
-  component: RouteComponent,
-  loader: async () => {
+  component: PluginPresets,
+  loader: async ({ context: { apiClient } }) => {
     const crumb: Crumb = {
       label: "Plugin Presets",
     }
+    const pluginPresetsPromise = fetchPluginPresets(apiClient, "ccloud")
+
     return {
       crumb,
+      pluginPresetsPromise: pluginPresetsPromise,
     }
   },
 })
-
-function RouteComponent() {
-  return <div>Hello "/admin/plugins-presets"!</div>
-}
