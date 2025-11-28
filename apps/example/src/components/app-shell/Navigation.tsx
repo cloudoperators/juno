@@ -28,16 +28,7 @@ const SideNavigationComponent: React.FC = () => {
         label={page}
         selected={currentPage === page}
         onClick={() => handleActiveItemChange(page)}
-        icon="help"
-      >
-        <SideNavigationList>
-          <SideNavigationItem label="Item 1" icon="addCircle" href="#" />
-          <SideNavigationItem label="Item 2" icon="addCircle">
-            <SideNavigationItem label="Sub-Child 1" />
-            <SideNavigationItem label="Sub-Child 2" />
-          </SideNavigationItem>
-        </SideNavigationList>
-      </SideNavigationItem>
+      />
     ))
 
   return (
