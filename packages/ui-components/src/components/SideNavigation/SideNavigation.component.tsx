@@ -12,6 +12,7 @@ const sideNavStyles = `
   jn:py-[1rem]
   jn:w-[16rem]
   jn:bg-theme-sidenav
+  jn:border-r
   jn:border-theme-sidenav
 `
 
