@@ -31,7 +31,7 @@
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tanstack/react-query": "5.90.10",
-    "@tanstack/react-router": "1.134.20",
+    "@tanstack/react-router": "1.139.0",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
@@ -42,7 +42,7 @@
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-operations": "4.6.1",
     "@graphql-codegen/typescript-react-apollo": "4.3.3",
-    "@tanstack/router-plugin": "1.134.20",
+    "@tanstack/router-plugin": "1.139.0",
     "@tailwindcss/vite": "4.1.17",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.0",
