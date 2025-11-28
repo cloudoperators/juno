@@ -63,7 +63,9 @@ export const NavigationWithGroups: Story = {
         <SideNavigationItem label="Item 1" icon="addCircle" selected={true} href="#" />
         <SideNavigationItem label="Item 2" icon="addCircle">
           <SideNavigationItem label="Sub-Child 1" />
-          <SideNavigationItem label="Sub-Child 2" />
+          <SideNavigationItem label="Sub-Child 2">
+            <SideNavigationItem label="Sub-Child 2" />
+          </SideNavigationItem>
         </SideNavigationItem>
         <SideNavigationItem label="Item 3" href="#" />
         <SideNavigationGroup label="Group Example">
