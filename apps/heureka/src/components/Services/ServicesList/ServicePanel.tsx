@@ -47,7 +47,7 @@ export const ServicePanel = () => {
         navigate({
           to: "/services/$service",
           params: { service: service },
-          search: { imageVersion: image?.repository },
+          search: { image: image?.repository },
         })
       }
     },

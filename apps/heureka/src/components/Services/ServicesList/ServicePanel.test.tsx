@@ -70,6 +70,6 @@ describe("ServicePanel", () => {
   it("should navigate to service details page with image version selected", async () => {
     const { user, router } = await act(() => renderComponent())
     await user.click(screen.getAllByText("Show Details")[0])
-    expect(router.state.location.href).toBe("/services/alpha?imageVersion=1.0.0")
+    expect(router.state.location.href).toBe("/services/alpha?image=1.0.0")
   })
 })

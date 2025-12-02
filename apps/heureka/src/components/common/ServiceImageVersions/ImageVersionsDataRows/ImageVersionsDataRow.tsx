@@ -30,7 +30,9 @@ export const ImageVersionsDataRow = ({
           <Stack gap="0.5" direction="vertical">
             <span>{version.repository}</span>
             {version.versionsCount !== undefined && version.versionsCount > 0 && (
-              <span className="text-sm text-theme-light">{version.versionsCount} version{version.versionsCount !== 1 ? 's' : ''}</span>
+              <span className="text-sm text-theme-light">
+                {version.versionsCount} version{version.versionsCount !== 1 ? "s" : ""}
+              </span>
             )}
           </Stack>
           <Stack gap="1" alignment="center">
@@ -56,7 +58,9 @@ export const ImageVersionsDataRow = ({
         </Stack>
       </DataGridCell>
       <DataGridCell className="service-image-versions-cell">
-        {version.versionsCount !== undefined ? `${version.versionsCount} version${version.versionsCount !== 1 ? 's' : ''}` : '-'}
+        {version.versionsCount !== undefined
+          ? `${version.versionsCount} version${version.versionsCount !== 1 ? "s" : ""}`
+          : "-"}
       </DataGridCell>
       <DataGridCell className="items-center">
         <span>{version.componentInstancesCount || 0}</span>

@@ -166,7 +166,7 @@ export type ServiceImage = {
 }
 
 type NormalizedServiceImages = {
-  totalImages: number 
+  totalImages: number
   pages: Page[]
   pageNumber: number
   images: ServiceImage[]
@@ -179,15 +179,15 @@ export const getNormalizedImagesResponse = (
   if (data && "Images" in data) {
     const imagesData = data as GetImagesQuery
     const images: ServiceImage[] = []
-    
+
     imagesData?.Images?.edges?.forEach((imageEdge) => {
       if (!imageEdge?.node) return
-      
+
       const image = imageEdge.node
       const repository = image.repository || ""
       const versionsCount = image.versions?.edges?.length || 0
       const firstVersion = image.versions?.edges?.[0]?.node?.version || ""
-      
+
       // Create one row per Image (not per version)
       images?.push({
         version: firstVersion, // Show first version or empty
@@ -208,7 +208,7 @@ export const getNormalizedImagesResponse = (
         versionsCount,
       })
     })
-    
+
     return {
       totalImages: imagesData?.Images?.totalCount || 0,
       pageNumber: imagesData?.Images?.pageInfo?.pageNumber || 1,
@@ -216,7 +216,7 @@ export const getNormalizedImagesResponse = (
       images,
     }
   }
-  
+
   // Fallback for undefined data or unsupported query types
   return {
     totalImages: 0,
@@ -246,7 +246,7 @@ export const getNormalizedImageVulnerabilitiesResponse = (data: any): Normalized
   if (data && "Images" in data) {
     const imagesData = data as GetImagesQuery
     const imageNode = imagesData?.Images?.edges?.[0]?.node
-    
+
     if (!imageNode?.vulnerabilities?.edges) {
       return { issues: [], totalImageVulnerabilities: 0, pages: [], pageNumber: 1 }
     }
@@ -277,7 +277,7 @@ export const getNormalizedImageVulnerabilitiesResponse = (data: any): Normalized
       pageNumber,
     }
   }
-  
+
   // Handle GetServiceImageVersionIssuesQuery structure (legacy - for backward compatibility)
   if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
     return { issues: [], totalImageVulnerabilities: 0, pages: [], pageNumber: 1 }

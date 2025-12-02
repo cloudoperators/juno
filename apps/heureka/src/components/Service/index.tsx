@@ -19,11 +19,9 @@ export const Service = () => {
   const { queryClient, apiClient } = useRouteContext({ from: "/services/$service" })
   const { servicePromise } = useLoaderData({ from: "/services/$service" })
   const { service } = useParams({ from: "/services/$service" })
-  const { imageVersion: selectedImageRepository } = useSearch({ from: "/services/$service" })
+  const { image: selectedImageRepository } = useSearch({ from: "/services/$service" })
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
-  const [imagesPromise, setImagesPromise] = useState<
-    Promise<ApolloQueryResult<GetImagesQuery>> | undefined
-  >(undefined)
+  const [imagesPromise, setImagesPromise] = useState<Promise<ApolloQueryResult<GetImagesQuery>> | undefined>(undefined)
 
   // refetch images only when the page cursor changes
   useEffect(() => {
@@ -54,7 +52,7 @@ export const Service = () => {
               navigate({
                 to: "/services/$service",
                 params: { service },
-                search: { imageVersion: image.repository },
+                search: { image: image.repository },
               })
             }}
             goToPage={setPageCursor}

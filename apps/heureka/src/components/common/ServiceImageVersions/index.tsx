@@ -40,7 +40,7 @@ export const ServiceImageVersions = ({
   return (
     <>
       <SectionContentHeading>
-        Image Versions
+        Images{" "}
         <ErrorBoundary>
           <Suspense>
             (<ImageVersionsTotalCount imagesPromise={imagesPromise} />)

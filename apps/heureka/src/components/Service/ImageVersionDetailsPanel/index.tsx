@@ -29,7 +29,7 @@ type ImageVersionDetailsPanelProps = {
 export const ImageVersionDetailsPanel = ({ imagesPromise }: ImageVersionDetailsPanelProps) => {
   const navigate = useNavigate()
   const { service } = useParams({ from: "/services/$service" })
-  const { imageVersion: selectedImageRepository } = useSearch({ from: "/services/$service" })
+  const { image: selectedImageRepository } = useSearch({ from: "/services/$service" })
   const { data } = use(imagesPromise)
   const { images } = getNormalizedImagesResponse(data)
   const image = images.find((img: ServiceImage) => img.repository === selectedImageRepository)
@@ -88,9 +88,7 @@ export const ImageVersionDetailsPanel = ({ imagesPromise }: ImageVersionDetailsP
         </DataGrid>
 
         {/* Second Section: Issues List */}
-        {service && selectedImageRepository && image && (
-          <ImageVersionIssuesList service={service} image={image} />
-        )}
+        {service && selectedImageRepository && image && <ImageVersionIssuesList service={service} image={image} />}
       </PanelBody>
     </Panel>
   )
