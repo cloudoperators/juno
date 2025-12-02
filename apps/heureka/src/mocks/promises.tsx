@@ -5,6 +5,7 @@
 
 import { ApolloQueryResult } from "@apollo/client"
 import {
+  GetImagesQuery,
   GetServiceFiltersQuery,
   GetServiceImageVersionsQuery,
   GetServicesQuery,
@@ -65,7 +66,59 @@ export const mockFiltersPromise: Promise<ApolloQueryResult<GetServiceFiltersQuer
   partial: false,
 })
 
-// This mock simulates the response for service image versions query
+// This mock simulates the response for images query
+export const mockImagesPromise: Promise<ApolloQueryResult<GetImagesQuery>> = Promise.resolve({
+  data: {
+    Images: {
+      totalCount: 1,
+      edges: [
+        {
+          node: {
+            id: "img-1",
+            repository: "repo1",
+            imageRegistryUrl: "https://registry.example.com/repo1",
+            vulnerabilityCounts: {
+              critical: 0,
+              high: 0,
+              medium: 0,
+              low: 0,
+              none: 1,
+              total: 1,
+              __typename: "SeverityCounts",
+            },
+            versions: {
+              edges: [
+                {
+                  node: {
+                    id: "v1",
+                    version: "1.0.0",
+                    __typename: "ComponentVersion",
+                  },
+                  __typename: "ComponentVersionEdge",
+                },
+              ],
+              __typename: "ComponentVersionConnection",
+            },
+            __typename: "Image",
+          },
+          __typename: "ImageEdge",
+        },
+      ],
+      pageInfo: {
+        pageNumber: 1,
+        pages: [],
+        __typename: "PageInfo",
+      },
+      __typename: "ImageConnection",
+    },
+  },
+  loading: false,
+  networkStatus: 7,
+  error: undefined,
+  partial: false,
+})
+
+// This mock simulates the response for service image versions query (legacy)
 export const mockImageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>> = Promise.resolve({
   data: {
     ComponentVersions: {

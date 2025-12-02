@@ -8,10 +8,10 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
 import { PortalProvider } from "@cloudoperators/juno-ui-components/index"
-import * as fetchImageVersions from "../../../api/fetchImageVersions"
+import * as fetchImages from "../../../api/fetchImages"
 import { ServicesList } from "./index"
 import { getTestRouter } from "../../../mocks/getTestRouter"
-import { mockImageVersionsPromise, mockServicesPromise } from "../../../mocks/promises"
+import { mockImagesPromise, mockServicesPromise } from "../../../mocks/promises"
 
 const renderComponent = () => {
   const rootRoute = createRootRoute({
@@ -51,7 +51,7 @@ describe("ServicesList", () => {
   })
 
   it("should render service panel when clicking on a service", async () => {
-    vitest.spyOn(fetchImageVersions, "fetchImageVersions").mockReturnValue(mockImageVersionsPromise)
+    vitest.spyOn(fetchImages, "fetchImages").mockReturnValue(mockImagesPromise)
     const { user, router } = await act(() => renderComponent())
 
     //click on the service
