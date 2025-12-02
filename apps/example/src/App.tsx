@@ -14,7 +14,7 @@ import Footer from "./components/app-shell/Footer"
 import useConfigStore from "./store/useConfigStore"
 import Content from "./components/app-shell/Content"
 import Header from "./components/app-shell/header/Header"
-import TopNavigationBar from "./components/app-shell/Navigation"
+import SideNavigationComponent from "./components/app-shell/Navigation"
 
 import styles from "./styles.css?inline"
 
@@ -37,7 +37,7 @@ const App: React.FC<AppProps> = ({ endpoint = "", id = "" }) => {
       <AsyncWorker consumerId={id} />
       <AppShell
         pageHeader={<Header />}
-        topNavigation={isUserAuthenticated ? <TopNavigationBar /> : null}
+        sideNavigation={isUserAuthenticated ? <SideNavigationComponent /> : null}
         pageFooter={<Footer />}
       >
         <Content />
