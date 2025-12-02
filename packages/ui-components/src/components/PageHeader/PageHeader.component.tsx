@@ -90,9 +90,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       role={onClick ? "button" : undefined}
     >
       <div className={`juno-pageheader-logo-container ${logoContainerStyles}`}>{Logo}</div>
-      <div className={`juno-pageheader-application-name ${applicationNameStyles}`}>
-        {applicationName.trim() || heading}
-      </div>
+      <div className={`juno-pageheader-application-name ${applicationNameStyles}`}>{applicationName || heading}</div>
     </div>
   )
 
@@ -118,9 +116,9 @@ export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Name of the application.
    */
-  applicationName?: string
+  applicationName?: string | ReactElement
   /**
-   * Deprecated - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.
+   * @deprecated - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.
    */
   heading?: string | ReactElement
   /**
