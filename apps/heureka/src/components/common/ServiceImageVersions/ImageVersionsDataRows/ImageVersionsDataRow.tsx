@@ -4,12 +4,12 @@
  */
 
 import React from "react"
-import { ServiceImageVersion } from "../../../Services/utils"
+import { ServiceImage } from "../../../Services/utils"
 import { DataGridRow, DataGridCell, Button, Icon, Stack } from "@cloudoperators/juno-ui-components"
 import { SeverityCount } from "../../SeverityCount"
 
 type ImageVersionsDataRowProps = {
-  version: ServiceImageVersion
+  version: ServiceImage
   selected: boolean
   displayDetailsButton?: boolean
   onItemClick: React.MouseEventHandler<HTMLDivElement>
@@ -29,25 +29,35 @@ export const ImageVersionsDataRow = ({
         <Stack gap="1" direction="vertical">
           <Stack gap="0.5" direction="vertical">
             <span>{version.repository}</span>
-            <span className="text-sm text-theme-light">{version.version}</span>
+            {version.versionsCount !== undefined && version.versionsCount > 0 && (
+              <span className="text-sm text-theme-light">{version.versionsCount} version{version.versionsCount !== 1 ? 's' : ''}</span>
+            )}
           </Stack>
           <Stack gap="1" alignment="center">
-            <a
-              href={`https://${version.ccrn}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-sm"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Stack gap="1.5" alignment="center">
-                <Icon icon="openInNew" size="16" color="global-text" />
-                <span>Image registry</span>
-              </Stack>
-            </a>
+            {version.imageRegistryUrl && (
+              <a
+                href={
+                  version.imageRegistryUrl.startsWith("http://") || version.imageRegistryUrl.startsWith("https://")
+                    ? version.imageRegistryUrl
+                    : `https://${version.imageRegistryUrl}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline text-sm"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Stack gap="1.5" alignment="center">
+                  <Icon icon="openInNew" size="16" color="global-text" />
+                  <span>Image registry</span>
+                </Stack>
+              </a>
+            )}
           </Stack>
         </Stack>
       </DataGridCell>
-      <DataGridCell className="service-image-versions-cell">{version.tag}</DataGridCell>
+      <DataGridCell className="service-image-versions-cell">
+        {version.versionsCount !== undefined ? `${version.versionsCount} version${version.versionsCount !== 1 ? 's' : ''}` : '-'}
+      </DataGridCell>
       <DataGridCell className="items-center">
         <span>{version.componentInstancesCount || 0}</span>
       </DataGridCell>

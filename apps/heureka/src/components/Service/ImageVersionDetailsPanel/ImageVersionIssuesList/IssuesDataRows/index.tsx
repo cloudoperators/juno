@@ -7,24 +7,30 @@ import React, { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { IssuesDataRow } from "./IssuesDataRow"
-import { getNormalizedImageVersionIssuesResponse } from "../../../../Services/utils"
-import { GetServiceImageVersionIssuesQuery } from "../../../../../generated/graphql"
+import { getNormalizedImageVulnerabilitiesResponse } from "../../../../Services/utils"
+import { GetImagesQuery } from "../../../../../generated/graphql"
 
 type IssuesDataRowsProps = {
-  issuesPromise: Promise<ApolloQueryResult<GetServiceImageVersionIssuesQuery>>
+  issuesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
+  searchTerm?: string
 }
 
-export const IssuesDataRows = ({ issuesPromise }: IssuesDataRowsProps) => {
+export const IssuesDataRows = ({ issuesPromise, searchTerm }: IssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
-  const { issues } = getNormalizedImageVersionIssuesResponse(data)
+  const { issues } = getNormalizedImageVulnerabilitiesResponse(data)
 
   if (error) {
     return <EmptyDataGridRow colSpan={4}>Error loading vulnerabilities: {error.message}</EmptyDataGridRow>
   }
 
-  if (issues.length === 0) {
+  // Filter issues by search term (client-side filtering)
+  const filteredIssues = searchTerm
+    ? issues.filter((issue) => issue.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    : issues
+
+  if (filteredIssues.length === 0) {
     return <EmptyDataGridRow colSpan={4}>No vulnerabilities found! 🚀</EmptyDataGridRow>
   }
 
-  return issues.map((issue) => <IssuesDataRow key={issue.name} issue={issue} />)
+  return filteredIssues.map((issue) => <IssuesDataRow key={issue.name} issue={issue} />)
 }

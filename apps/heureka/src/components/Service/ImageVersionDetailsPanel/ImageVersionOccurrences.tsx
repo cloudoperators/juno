@@ -5,7 +5,7 @@
 
 import React, { useState, MouseEvent, useEffect } from "react"
 import { Box, Stack, Tooltip, TooltipTrigger, TooltipContent, Icon } from "@cloudoperators/juno-ui-components"
-import { ServiceImageVersion, ComponentInstance } from "../../Services/utils"
+import { ServiceImage, ComponentInstance } from "../../Services/utils"
 
 type ToolTipBoxType = {
   instance: ComponentInstance
@@ -60,7 +60,7 @@ const groupInstances = (instances: ComponentInstance[]) => {
 }
 
 type ImageVersionOccurrencesProps = {
-  imageVersion: ServiceImageVersion
+  imageVersion: ServiceImage
 }
 
 const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps) => {

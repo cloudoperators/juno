@@ -5,15 +5,15 @@
 
 import { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
-import { getNormalizedImageVersionsResponse } from "../../Services/utils"
-import { GetServiceImageVersionsQuery } from "../../../generated/graphql"
+import { getNormalizedImagesResponse } from "../../Services/utils"
+import { GetImagesQuery } from "../../../generated/graphql"
 
 type ImageVersionsTotalCountProps = {
-  imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
+  imagesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
 }
 
-export const ImageVersionsTotalCount = ({ imageVersionsPromise }: ImageVersionsTotalCountProps) => {
-  const { data } = use(imageVersionsPromise)
-  const { totalImageVersions } = getNormalizedImageVersionsResponse(data)
-  return totalImageVersions
+export const ImageVersionsTotalCount = ({ imagesPromise }: ImageVersionsTotalCountProps) => {
+  const { data } = use(imagesPromise)
+  const { totalImages } = getNormalizedImagesResponse(data)
+  return totalImages
 }

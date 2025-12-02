@@ -7,49 +7,49 @@ import React, { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
 import { EmptyDataGridRow } from "../../EmptyDataGridRow"
 import { ImageVersionsDataRow } from "./ImageVersionsDataRow"
-import { getNormalizedImageVersionsResponse, ServiceImageVersion } from "../../../Services/utils"
-import { GetServiceImageVersionsQuery } from "../../../../generated/graphql"
+import { getNormalizedImagesResponse, ServiceImage } from "../../../Services/utils"
+import { GetImagesQuery } from "../../../../generated/graphql"
 
 type ImageVersionsDataRows = {
   columnSpan: number
-  selectedImageVersion?: string
+  selectedImage?: string
   displayDetailsButton?: boolean
-  imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
-  onDetailsButtonClick?: (imageVersion: ServiceImageVersion | undefined) => void
-  onImageVersionItemClick?: (imageVersion: ServiceImageVersion) => void
+  imagesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
+  onDetailsButtonClick?: (image: ServiceImage | undefined) => void
+  onImageItemClick?: (image: ServiceImage) => void
 }
 
 export const ImageVersionsDataRows = ({
   columnSpan,
-  selectedImageVersion,
+  selectedImage,
   displayDetailsButton,
-  imageVersionsPromise,
+  imagesPromise,
   onDetailsButtonClick,
-  onImageVersionItemClick,
+  onImageItemClick,
 }: ImageVersionsDataRows) => {
-  const { error, data } = use(imageVersionsPromise)
-  const { imageVersions } = getNormalizedImageVersionsResponse(data)
+  const { error, data } = use(imagesPromise)
+  const { images } = getNormalizedImagesResponse(data)
 
   if (error) {
-    return <EmptyDataGridRow colSpan={columnSpan}>Error loading image versions.</EmptyDataGridRow>
+    return <EmptyDataGridRow colSpan={columnSpan}>Error loading images.</EmptyDataGridRow>
   }
 
-  if (imageVersions.length === 0) {
-    return <EmptyDataGridRow colSpan={columnSpan}>No image version found</EmptyDataGridRow>
+  if (images.length === 0) {
+    return <EmptyDataGridRow colSpan={columnSpan}>No image found</EmptyDataGridRow>
   }
 
-  return imageVersions.map((imageVersion: ServiceImageVersion) => (
+  return images.map((image: ServiceImage) => (
     <ImageVersionsDataRow
-      key={imageVersion.version}
-      version={imageVersion}
-      selected={imageVersion.version === selectedImageVersion}
+      key={image.repository}
+      version={image}
+      selected={image.repository === selectedImage}
       displayDetailsButton={displayDetailsButton}
       onItemClick={() => {
-        onImageVersionItemClick?.(imageVersion)
+        onImageItemClick?.(image)
       }}
       onDetailClick={(event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
         event.stopPropagation()
-        onDetailsButtonClick?.(imageVersion)
+        onDetailsButtonClick?.(image)
       }}
     />
   ))

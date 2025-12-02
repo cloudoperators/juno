@@ -8,8 +8,8 @@ import { useNavigate, useRouteContext, useSearch } from "@tanstack/react-router"
 import { Panel, PanelBody } from "@cloudoperators/juno-ui-components"
 import { capitalizeFirstLetter } from "../../../utils"
 import { ServiceImageVersions } from "../../common/ServiceImageVersions"
-import { ServiceImageVersion } from "../utils"
-import { fetchImageVersions } from "../../../api/fetchImageVersions"
+import { ServiceImage } from "../utils"
+import { fetchImages } from "../../../api/fetchImages"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
 
 export const ServicePanel = () => {
@@ -18,12 +18,14 @@ export const ServicePanel = () => {
   const { service } = useSearch({ from: "/services/" })
   const [currentPageCursor, setCurrentPageCursor] = React.useState<string | null | undefined>(undefined)
 
-  // create a promise to fetch image versions
-  const imageVersionsPromise = service
-    ? fetchImageVersions({
+  // create a promise to fetch images
+  const imagesPromise = service
+    ? fetchImages({
         queryClient,
         apiClient,
-        service: service,
+        filter: {
+          service: [service],
+        },
         after: currentPageCursor,
       })
     : undefined
@@ -40,12 +42,12 @@ export const ServicePanel = () => {
   }, [navigate])
 
   const goToServiceDetailsPage = useCallback(
-    (imageVersion?: ServiceImageVersion) => {
+    (image?: ServiceImage) => {
       if (service) {
         navigate({
           to: "/services/$service",
           params: { service: service },
-          search: { imageVersion: imageVersion?.version },
+          search: { imageVersion: image?.repository },
         })
       }
     },
@@ -61,10 +63,10 @@ export const ServicePanel = () => {
     >
       <PanelBody>
         <ErrorBoundary>
-          {service && imageVersionsPromise && (
+          {service && imagesPromise && (
             <ServiceImageVersions
               displayActions
-              imageVersionsPromise={imageVersionsPromise}
+              imagesPromise={imagesPromise}
               onDetailsButtonClick={goToServiceDetailsPage}
               goToPage={setCurrentPageCursor}
             />

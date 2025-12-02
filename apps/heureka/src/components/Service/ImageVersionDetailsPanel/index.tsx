@@ -16,31 +16,31 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { ApolloQueryResult } from "@apollo/client"
-import { getNormalizedImageVersionsResponse, ServiceImageVersion } from "../../Services/utils"
+import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
-import { GetServiceImageVersionsQuery } from "../../../generated/graphql"
+import { GetImagesQuery } from "../../../generated/graphql"
 
 type ImageVersionDetailsPanelProps = {
-  imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
+  imagesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
 }
 
-export const ImageVersionDetailsPanel = ({ imageVersionsPromise }: ImageVersionDetailsPanelProps) => {
+export const ImageVersionDetailsPanel = ({ imagesPromise }: ImageVersionDetailsPanelProps) => {
   const navigate = useNavigate()
   const { service } = useParams({ from: "/services/$service" })
-  const { imageVersion: selectedImageVersion } = useSearch({ from: "/services/$service" })
-  const { data } = use(imageVersionsPromise)
-  const { imageVersions } = getNormalizedImageVersionsResponse(data)
-  const imageVersion = imageVersions.find((version: ServiceImageVersion) => version.version === selectedImageVersion)
+  const { imageVersion: selectedImageRepository } = useSearch({ from: "/services/$service" })
+  const { data } = use(imagesPromise)
+  const { images } = getNormalizedImagesResponse(data)
+  const image = images.find((img: ServiceImage) => img.repository === selectedImageRepository)
 
-  if (!imageVersion) {
+  if (!image) {
     return null
   }
 
   return (
     <Panel
-      heading={`Image ${imageVersion.repository} Information`}
+      heading={`Image ${image.repository} Information`}
       opened={!!service}
       onClose={() =>
         navigate({
@@ -56,39 +56,40 @@ export const ImageVersionDetailsPanel = ({ imageVersionsPromise }: ImageVersionD
             <DataGridHeadCell>Details</DataGridHeadCell>
             <DataGridCell>
               <Stack gap="1" direction="horizontal" wrap>
-                <Pill pillKey="tag" pillKeyLabel="tag" pillValue={imageVersion.tag} pillValueLabel={imageVersion.tag} />
                 <Pill
                   pillKey="repository"
                   pillKeyLabel="repository"
-                  pillValue={imageVersion.repository}
-                  pillValueLabel={imageVersion.repository}
+                  pillValue={image.repository}
+                  pillValueLabel={image.repository}
                 />
-                <Pill
-                  pillKey="version"
-                  pillKeyLabel="version"
-                  pillValue={imageVersion.version}
-                  pillValueLabel={imageVersion.version}
-                />
+                {image.versionsCount !== undefined && image.versionsCount > 0 && (
+                  <Pill
+                    pillKey="versions"
+                    pillKeyLabel="versions"
+                    pillValue={image.versionsCount.toString()}
+                    pillValueLabel={image.versionsCount.toString()}
+                  />
+                )}
               </Stack>
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell>Vulnerabilities Counts</DataGridHeadCell>
             <DataGridCell>
-              <IssueCountsPerSeverityLevel counts={imageVersion.issueCounts} />
+              <IssueCountsPerSeverityLevel counts={image.issueCounts} />
             </DataGridCell>
           </DataGridRow>
           <DataGridRow>
-            <DataGridHeadCell className="whitespace-nowrap">{`Occurrences (${imageVersion.componentInstancesCount || 0})`}</DataGridHeadCell>
+            <DataGridHeadCell className="whitespace-nowrap">{`Occurrences (${image.componentInstancesCount || 0})`}</DataGridHeadCell>
             <DataGridCell>
-              <ImageVersionOccurrences imageVersion={imageVersion} />
+              <ImageVersionOccurrences imageVersion={image} />
             </DataGridCell>
           </DataGridRow>
         </DataGrid>
 
         {/* Second Section: Issues List */}
-        {service && selectedImageVersion && imageVersion && (
-          <ImageVersionIssuesList service={service} imageVersion={imageVersion} />
+        {service && selectedImageRepository && image && (
+          <ImageVersionIssuesList service={service} image={image} />
         )}
       </PanelBody>
     </Panel>

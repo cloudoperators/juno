@@ -6,9 +6,9 @@
 import React, { Suspense } from "react"
 import { ApolloQueryResult } from "@apollo/client"
 import { DataGrid, DataGridRow, DataGridHeadCell, Button, DataGridToolbar } from "@cloudoperators/juno-ui-components"
-import { getNormalizedImageVersionsResponse, ServiceImageVersion } from "../../Services/utils"
+import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
 import SectionContentHeading from "../SectionContentHeading"
-import { GetServiceImageVersionsQuery } from "../../../generated/graphql"
+import { GetImagesQuery } from "../../../generated/graphql"
 import { ImageVersionsTotalCount } from "./ImageVersionsTotalCount"
 import { ImageVersionsDataRows } from "./ImageVersionsDataRows"
 import { CursorPagination } from "../CursorPagination"
@@ -17,21 +17,21 @@ import { ErrorBoundary } from "../ErrorBoundary"
 import { getErrorDataRowComponent } from "../getErrorDataRow"
 
 type ServiceImageVersionsProps = {
-  imageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>>
+  imagesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
   displayActions?: boolean
-  selectedImageVersion?: string
-  onImageVersionItemClick?: (imageVersion: ServiceImageVersion) => void
-  onDetailsButtonClick?: (imageVersion: ServiceImageVersion | undefined) => void
+  selectedImage?: string
+  onImageItemClick?: (image: ServiceImage) => void
+  onDetailsButtonClick?: (image: ServiceImage | undefined) => void
   goToPage: (after?: string | null) => void
 }
 
 const DEFAULT_COLUMNS_COUNT = 9
 
 export const ServiceImageVersions = ({
-  imageVersionsPromise,
-  selectedImageVersion,
+  imagesPromise,
+  selectedImage,
   displayActions = false,
-  onImageVersionItemClick,
+  onImageItemClick,
   onDetailsButtonClick,
   goToPage,
 }: ServiceImageVersionsProps) => {
@@ -43,7 +43,7 @@ export const ServiceImageVersions = ({
         Image Versions
         <ErrorBoundary>
           <Suspense>
-            (<ImageVersionsTotalCount imageVersionsPromise={imageVersionsPromise} />)
+            (<ImageVersionsTotalCount imagesPromise={imagesPromise} />)
           </Suspense>
         </ErrorBoundary>
       </SectionContentHeading>
@@ -66,24 +66,24 @@ export const ServiceImageVersions = ({
         <DataGrid columns={columnsCount} minContentColumns={[2, 3, 4, 5, 6, 7]}>
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
-            <DataGridHeadCell>Tag</DataGridHeadCell>
+            <DataGridHeadCell>Versions</DataGridHeadCell>
             <DataGridHeadCell>Occurrences</DataGridHeadCell>
             <DataGridHeadCell colSpan={5}>Vulnerability Counts</DataGridHeadCell>
             {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>
           <ErrorBoundary
             displayErrorMessage
-            resetKeys={[imageVersionsPromise]}
+            resetKeys={[imagesPromise]}
             fallbackRender={getErrorDataRowComponent({ colspan: columnsCount })}
           >
             <Suspense fallback={<LoadingDataRow colSpan={columnsCount} />}>
               <ImageVersionsDataRows
                 columnSpan={columnsCount}
                 displayDetailsButton={displayActions}
-                imageVersionsPromise={imageVersionsPromise}
-                selectedImageVersion={selectedImageVersion}
+                imagesPromise={imagesPromise}
+                selectedImage={selectedImage}
                 onDetailsButtonClick={onDetailsButtonClick}
-                onImageVersionItemClick={onImageVersionItemClick}
+                onImageItemClick={onImageItemClick}
               />
             </Suspense>
           </ErrorBoundary>
@@ -92,8 +92,8 @@ export const ServiceImageVersions = ({
       <ErrorBoundary>
         <Suspense>
           <CursorPagination
-            dataNormalizationMethod={getNormalizedImageVersionsResponse}
-            dataPromise={imageVersionsPromise}
+            dataNormalizationMethod={getNormalizedImagesResponse}
+            dataPromise={imagesPromise}
             goToPage={goToPage}
           />
         </Suspense>
