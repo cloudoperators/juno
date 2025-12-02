@@ -17,7 +17,6 @@ import {
 import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { ApolloQueryResult } from "@apollo/client"
 import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
-import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
 import { GetImagesQuery } from "../../../generated/graphql"
@@ -77,12 +76,6 @@ export const ImageVersionDetailsPanel = ({ imagesPromise }: ImageVersionDetailsP
             <DataGridHeadCell>Vulnerabilities Counts</DataGridHeadCell>
             <DataGridCell>
               <IssueCountsPerSeverityLevel counts={image.issueCounts} />
-            </DataGridCell>
-          </DataGridRow>
-          <DataGridRow>
-            <DataGridHeadCell className="whitespace-nowrap">{`Occurrences (${image.componentInstancesCount || 0})`}</DataGridHeadCell>
-            <DataGridCell>
-              <ImageVersionOccurrences imageVersion={image} />
             </DataGridCell>
           </DataGridRow>
         </DataGrid>

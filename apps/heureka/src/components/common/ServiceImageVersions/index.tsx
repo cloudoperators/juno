@@ -25,7 +25,7 @@ type ServiceImageVersionsProps = {
   goToPage: (after?: string | null) => void
 }
 
-const DEFAULT_COLUMNS_COUNT = 9
+const DEFAULT_COLUMNS_COUNT = 8
 
 export const ServiceImageVersions = ({
   imagesPromise,
@@ -67,7 +67,6 @@ export const ServiceImageVersions = ({
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Versions</DataGridHeadCell>
-            <DataGridHeadCell>Occurrences</DataGridHeadCell>
             <DataGridHeadCell colSpan={5}>Vulnerability Counts</DataGridHeadCell>
             {displayActions && <DataGridHeadCell></DataGridHeadCell>}
           </DataGridRow>

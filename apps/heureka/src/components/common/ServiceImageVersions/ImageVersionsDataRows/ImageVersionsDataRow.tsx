@@ -62,9 +62,6 @@ export const ImageVersionsDataRow = ({
           ? `${version.versionsCount} version${version.versionsCount !== 1 ? "s" : ""}`
           : "-"}
       </DataGridCell>
-      <DataGridCell className="items-center">
-        <span>{version.componentInstancesCount || 0}</span>
-      </DataGridCell>
       {/* Due to UX designer feedback, when showing counts with severity icons in datagrid cells,
           we override the default padding (5px horizontal, 3px vertical) and instead only use px-2 */}
       <DataGridCell className="items-center !px-2">
@@ -87,8 +84,8 @@ export const ImageVersionsDataRow = ({
         <SeverityCount severity="unknown" count={version.issueCounts.none} tooltipContent="None Vulnerabilities" />
       </DataGridCell>
       {displayDetailsButton && (
-        <DataGridCell>
-          <Button size="small" label="Show Details" onClick={onDetailClick} />
+        <DataGridCell className="cursor-default" onClick={(e) => e.stopPropagation()}>
+          <Button size="small" label="Show Details" onClick={onDetailClick} className="whitespace-nowrap" />
         </DataGridCell>
       )}
     </DataGridRow>
