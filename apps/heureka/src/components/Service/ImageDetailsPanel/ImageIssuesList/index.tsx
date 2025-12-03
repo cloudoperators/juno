@@ -22,12 +22,12 @@ import { ErrorBoundary } from "../../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../../common/getErrorDataRow"
 import { LoadingDataRow } from "../../../common/LoadingDataRow"
 
-type ImageVersionIssuesListProps = {
+type ImageIssuesListProps = {
   service: string
   image: ServiceImage
 }
 
-export const ImageVersionIssuesList = ({ service, image }: ImageVersionIssuesListProps) => {
+export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)

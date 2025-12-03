@@ -18,14 +18,14 @@ import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { ApolloQueryResult } from "@apollo/client"
 import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
-import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
+import { ImageIssuesList } from "./ImageIssuesList"
 import { GetImagesQuery } from "../../../generated/graphql"
 
-type ImageVersionDetailsPanelProps = {
+type ImageDetailsPanelProps = {
   imagesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
 }
 
-export const ImageVersionDetailsPanel = ({ imagesPromise }: ImageVersionDetailsPanelProps) => {
+export const ImageDetailsPanel = ({ imagesPromise }: ImageDetailsPanelProps) => {
   const navigate = useNavigate()
   const { service } = useParams({ from: "/services/$service" })
   const { image: selectedImageRepository } = useSearch({ from: "/services/$service" })
@@ -81,7 +81,7 @@ export const ImageVersionDetailsPanel = ({ imagesPromise }: ImageVersionDetailsP
         </DataGrid>
 
         {/* Second Section: Issues List */}
-        {service && selectedImageRepository && image && <ImageVersionIssuesList service={service} image={image} />}
+        {service && selectedImageRepository && image && <ImageIssuesList service={service} image={image} />}
       </PanelBody>
     </Panel>
   )

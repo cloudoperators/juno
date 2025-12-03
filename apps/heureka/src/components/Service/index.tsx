@@ -8,7 +8,7 @@ import { useLoaderData, useNavigate, useParams, useRouteContext, useSearch } fro
 import { Spinner } from "@cloudoperators/juno-ui-components"
 import { ApolloQueryResult } from "@apollo/client"
 import { ServiceImages } from "../common/ServiceImages"
-import { ImageVersionDetailsPanel } from "./ImageVersionDetailsPanel"
+import { ImageDetailsPanel } from "./ImageDetailsPanel"
 import { ServiceDetails } from "./ServiceDetails"
 import { fetchImages } from "../../api/fetchImages"
 import { GetImagesQuery } from "../../generated/graphql"
@@ -59,7 +59,7 @@ export const Service = () => {
           />
           <ErrorBoundary>
             <Suspense>
-              <ImageVersionDetailsPanel imagesPromise={imagesPromise} />
+              <ImageDetailsPanel imagesPromise={imagesPromise} />
             </Suspense>
           </ErrorBoundary>
         </>

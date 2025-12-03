@@ -264,9 +264,8 @@ export const getNormalizedImageVulnerabilitiesResponse = (data: any): Normalized
         }
       })
 
-    // Note: GetImages query doesn't return totalCount for vulnerabilities, so we use edges.length
     // If pagination info is available, use it; otherwise calculate from edges
-    const totalImageVulnerabilities = imageNode.vulnerabilities.edges.length
+    const totalImageVulnerabilities = imageNode?.vulnerabilityCounts?.total ?? 0
     const pages = imageNode.vulnerabilities.pageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
     const pageNumber = imageNode.vulnerabilities.pageInfo?.pageNumber || 1
 
@@ -278,7 +277,6 @@ export const getNormalizedImageVulnerabilitiesResponse = (data: any): Normalized
     }
   }
 
-  // Handle GetServiceImageVersionIssuesQuery structure (legacy - for backward compatibility)
   if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
     return { issues: [], totalImageVulnerabilities: 0, pages: [], pageNumber: 1 }
   }
