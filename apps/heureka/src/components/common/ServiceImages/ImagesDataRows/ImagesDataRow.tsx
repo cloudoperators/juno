@@ -24,7 +24,7 @@ export const ImagesDataRow = ({
   onDetailClick,
 }: ImagesDataRowProps) => {
   return (
-    <DataGridRow onClick={onItemClick} className={`cursor-pointer ${selected ? "active" : ""}`}>
+    <DataGridRow onClick={onItemClick} className="cursor-pointer" isSelected={selected}>
       <DataGridCell className="service-image-versions-cell">
         <Stack gap="1" direction="vertical">
           <Stack gap="0.5" direction="vertical">

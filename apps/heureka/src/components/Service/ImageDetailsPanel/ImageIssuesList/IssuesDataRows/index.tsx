@@ -23,7 +23,7 @@ export const IssuesDataRows = ({ issuesPromise, searchTerm }: IssuesDataRowsProp
     return <EmptyDataGridRow colSpan={4}>Error loading vulnerabilities: {error.message}</EmptyDataGridRow>
   }
 
-   // Filter issues by search term (client-side filtering)
+  // Filter issues by search term (client-side filtering)
   const filteredIssues = searchTerm
     ? issues.filter((issue) => issue.name.toLowerCase().includes(searchTerm.toLowerCase()))
     : issues
