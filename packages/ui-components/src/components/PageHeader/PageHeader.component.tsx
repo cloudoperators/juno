@@ -90,7 +90,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       role={onClick ? "button" : undefined}
     >
       <div className={`juno-pageheader-logo-container ${logoContainerStyles}`}>{Logo}</div>
-      <div className={`juno-pageheader-application-name ${applicationNameStyles}`}>{applicationName || heading}</div>
+      <div className={`juno-pageheader-application-name ${applicationNameStyles}`}>
+        {typeof applicationName === "string" ? applicationName.trim() : applicationName || heading}
+      </div>
     </div>
   )
 
