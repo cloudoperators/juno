@@ -8,7 +8,7 @@ import { ServiceImage } from "../../../Services/utils"
 import { DataGridRow, DataGridCell, Button, Icon, Stack } from "@cloudoperators/juno-ui-components"
 import { SeverityCount } from "../../SeverityCount"
 
-type ImageVersionsDataRowProps = {
+type ImagesDataRowProps = {
   version: ServiceImage
   selected: boolean
   displayDetailsButton?: boolean
@@ -16,13 +16,13 @@ type ImageVersionsDataRowProps = {
   onDetailClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
 }
 
-export const ImageVersionsDataRow = ({
+export const ImagesDataRow = ({
   version,
   selected = false,
   displayDetailsButton = true,
   onItemClick,
   onDetailClick,
-}: ImageVersionsDataRowProps) => {
+}: ImagesDataRowProps) => {
   return (
     <DataGridRow onClick={onItemClick} className={`cursor-pointer ${selected ? "active" : ""}`}>
       <DataGridCell className="service-image-versions-cell">

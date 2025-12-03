@@ -8,11 +8,11 @@ import { ApolloQueryResult } from "@apollo/client"
 import { getNormalizedImagesResponse } from "../../Services/utils"
 import { GetImagesQuery } from "../../../generated/graphql"
 
-type ImageVersionsTotalCountProps = {
+type ImagesTotalCountProps = {
   imagesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
 }
 
-export const ImageVersionsTotalCount = ({ imagesPromise }: ImageVersionsTotalCountProps) => {
+export const ImagesTotalCount = ({ imagesPromise }: ImagesTotalCountProps) => {
   const { data } = use(imagesPromise)
   const { totalImages } = getNormalizedImagesResponse(data)
   return totalImages

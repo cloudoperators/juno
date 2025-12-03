@@ -6,11 +6,11 @@
 import React, { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
 import { EmptyDataGridRow } from "../../EmptyDataGridRow"
-import { ImageVersionsDataRow } from "./ImageVersionsDataRow"
+import { ImagesDataRow } from "./ImagesDataRow"
 import { getNormalizedImagesResponse, ServiceImage } from "../../../Services/utils"
 import { GetImagesQuery } from "../../../../generated/graphql"
 
-type ImageVersionsDataRows = {
+type ImagesDataRows = {
   columnSpan: number
   selectedImage?: string
   displayDetailsButton?: boolean
@@ -19,14 +19,14 @@ type ImageVersionsDataRows = {
   onImageItemClick?: (image: ServiceImage) => void
 }
 
-export const ImageVersionsDataRows = ({
+export const ImagesDataRows = ({
   columnSpan,
   selectedImage,
   displayDetailsButton,
   imagesPromise,
   onDetailsButtonClick,
   onImageItemClick,
-}: ImageVersionsDataRows) => {
+}: ImagesDataRows) => {
   const { error, data } = use(imagesPromise)
   const { images } = getNormalizedImagesResponse(data)
 
@@ -39,7 +39,7 @@ export const ImageVersionsDataRows = ({
   }
 
   return images.map((image: ServiceImage) => (
-    <ImageVersionsDataRow
+    <ImagesDataRow
       key={image.repository}
       version={image}
       selected={image.repository === selectedImage}

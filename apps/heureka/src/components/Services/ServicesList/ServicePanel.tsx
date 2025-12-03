@@ -7,7 +7,7 @@ import React, { useCallback } from "react"
 import { useNavigate, useRouteContext, useSearch } from "@tanstack/react-router"
 import { Panel, PanelBody } from "@cloudoperators/juno-ui-components"
 import { capitalizeFirstLetter } from "../../../utils"
-import { ServiceImageVersions } from "../../common/ServiceImageVersions"
+import { ServiceImages } from "../../common/ServiceImages"
 import { ServiceImage } from "../utils"
 import { fetchImages } from "../../../api/fetchImages"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
@@ -64,7 +64,7 @@ export const ServicePanel = () => {
       <PanelBody>
         <ErrorBoundary>
           {service && imagesPromise && (
-            <ServiceImageVersions
+            <ServiceImages
               displayActions
               imagesPromise={imagesPromise}
               onDetailsButtonClick={goToServiceDetailsPage}

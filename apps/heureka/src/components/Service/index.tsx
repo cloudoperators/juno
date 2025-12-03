@@ -7,7 +7,7 @@ import React, { Suspense, useEffect, useState } from "react"
 import { useLoaderData, useNavigate, useParams, useRouteContext, useSearch } from "@tanstack/react-router"
 import { Spinner } from "@cloudoperators/juno-ui-components"
 import { ApolloQueryResult } from "@apollo/client"
-import { ServiceImageVersions } from "../common/ServiceImageVersions"
+import { ServiceImages } from "../common/ServiceImages"
 import { ImageVersionDetailsPanel } from "./ImageVersionDetailsPanel"
 import { ServiceDetails } from "./ServiceDetails"
 import { fetchImages } from "../../api/fetchImages"
@@ -45,7 +45,7 @@ export const Service = () => {
       </ErrorBoundary>
       {imagesPromise && (
         <>
-          <ServiceImageVersions
+          <ServiceImages
             selectedImage={selectedImageRepository}
             imagesPromise={imagesPromise}
             onImageItemClick={(image) => {

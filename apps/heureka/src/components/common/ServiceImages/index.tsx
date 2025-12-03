@@ -9,14 +9,14 @@ import { DataGrid, DataGridRow, DataGridHeadCell, Button, DataGridToolbar } from
 import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
 import SectionContentHeading from "../SectionContentHeading"
 import { GetImagesQuery } from "../../../generated/graphql"
-import { ImageVersionsTotalCount } from "./ImageVersionsTotalCount"
-import { ImageVersionsDataRows } from "./ImageVersionsDataRows"
+import { ImagesTotalCount } from "./ImagesTotalCount"
+import { ImagesDataRows } from "./ImagesDataRows"
 import { CursorPagination } from "../CursorPagination"
 import { LoadingDataRow } from "../LoadingDataRow"
 import { ErrorBoundary } from "../ErrorBoundary"
 import { getErrorDataRowComponent } from "../getErrorDataRow"
 
-type ServiceImageVersionsProps = {
+type ServiceImagesProps = {
   imagesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
   displayActions?: boolean
   selectedImage?: string
@@ -27,14 +27,14 @@ type ServiceImageVersionsProps = {
 
 const DEFAULT_COLUMNS_COUNT = 8
 
-export const ServiceImageVersions = ({
+export const ServiceImages = ({
   imagesPromise,
   selectedImage,
   displayActions = false,
   onImageItemClick,
   onDetailsButtonClick,
   goToPage,
-}: ServiceImageVersionsProps) => {
+}: ServiceImagesProps) => {
   const columnsCount = displayActions ? DEFAULT_COLUMNS_COUNT : DEFAULT_COLUMNS_COUNT - 1
 
   return (
@@ -43,7 +43,7 @@ export const ServiceImageVersions = ({
         Images{" "}
         <ErrorBoundary>
           <Suspense>
-            (<ImageVersionsTotalCount imagesPromise={imagesPromise} />)
+            (<ImagesTotalCount imagesPromise={imagesPromise} />)
           </Suspense>
         </ErrorBoundary>
       </SectionContentHeading>
@@ -76,7 +76,7 @@ export const ServiceImageVersions = ({
             fallbackRender={getErrorDataRowComponent({ colspan: columnsCount })}
           >
             <Suspense fallback={<LoadingDataRow colSpan={columnsCount} />}>
-              <ImageVersionsDataRows
+              <ImagesDataRows
                 columnSpan={columnsCount}
                 displayDetailsButton={displayActions}
                 imagesPromise={imagesPromise}
