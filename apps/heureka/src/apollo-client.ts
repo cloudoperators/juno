@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ApolloClient, InMemoryCache } from "@apollo/client"
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client"
 
 type ClientOptions = {
   uri?: string
@@ -14,7 +14,7 @@ export const getClient = ({ uri }: ClientOptions) => {
     throw new Error("No API endpoint provided.")
   }
   return new ApolloClient({
-    uri,
+    link: new HttpLink({ uri }),
     cache: new InMemoryCache(),
   })
 }
