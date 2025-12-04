@@ -106,7 +106,7 @@ export const getNormalizedServicesResponse = (data: unknown): NormalizedServices
  * @returns A string representation of the error message, or a fallback message
  * if no specific error is found.
  */
-export const getNormalizedError = (error?: { networkError?: any; message?: string }) => {
+export const getNormalizedError = (error?: { networkError?: unknown; message?: string }) => {
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist

@@ -14,6 +14,8 @@ export const fetchServicesFilters = ({ queryClient, apiClient }: FetchServicesFi
     queryKey: ["serviceFilters"],
     queryFn: () =>
       apiClient
-        .query({ query: GetServiceFiltersDocument })
-        .then((res) => getNormalizedFilters(res.data as GetServiceFiltersQuery)),
+        .query<GetServiceFiltersQuery>({
+          query: GetServiceFiltersDocument,
+        })
+        .then((res) => getNormalizedFilters(res.data)),
   })
