@@ -73,8 +73,8 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 - Give user feedback with as much detail as possible using Messages (use Notifications once NotificationManager is implemented).
 - Do not interfere with or block other, potentially later initiated user actions.
 - Provide shortcuts/links to retry where and if possible.
-- TODO: (Avoid blocking UI elements, such as modals waiting for async action to complete, etc. vs Create modal with lots of data entered, when this creaton fails, keep modal open with entered data);
-- TODO: If asychrous / transient state persists, show busy state ("Creating"). If too long/timeout/positive result not to expect, change to static error state.
+- TODO: (Avoid blocking UI elements, such as modals waiting for async action to complete, etc. vs Create modal with lots of data entered, when this creation fails, keep modal open with entered data);
+- TODO: If async / transient state persists, show busy state ("Creating"). If too long/timeout/positive result not to expect, change to static error state.
 
 -> TODO: Concept and Implement NotificationsManager
 
