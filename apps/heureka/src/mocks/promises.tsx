@@ -5,8 +5,8 @@
 
 import { ApolloQueryResult } from "@apollo/client"
 import {
+  GetImagesQuery,
   GetServiceFiltersQuery,
-  GetServiceImageVersionsQuery,
   GetServicesQuery,
   GetVulnerabilitiesQuery,
   GetVulnerabilityFiltersQuery,
@@ -67,18 +67,18 @@ export const mockFiltersPromise: Promise<ApolloQueryResult<GetServiceFiltersQuer
   dataState: "complete" as const,
 })
 
-// This mock simulates the response for service image versions query
-export const mockImageVersionsPromise: Promise<ApolloQueryResult<GetServiceImageVersionsQuery>> = Promise.resolve({
+// This mock simulates the response for images query
+export const mockImagesPromise: Promise<ApolloQueryResult<GetImagesQuery>> = Promise.resolve({
   data: {
-    ComponentVersions: {
+    Images: {
       totalCount: 1,
       edges: [
         {
           node: {
-            tag: "v1.0.0",
+            id: "img-1",
             repository: "repo1",
-            version: "1.0.0",
-            issueCounts: {
+            imageRegistryUrl: "https://registry.example.com/repo1",
+            vulnerabilityCounts: {
               critical: 0,
               high: 0,
               medium: 0,
@@ -87,37 +87,22 @@ export const mockImageVersionsPromise: Promise<ApolloQueryResult<GetServiceImage
               total: 1,
               __typename: "SeverityCounts",
             },
-            component: {
-              ccrn: "alpha",
-              __typename: "Component",
-            },
-            componentInstances: {
-              totalCount: 1,
+            versions: {
               edges: [
                 {
                   node: {
-                    id: "ci-1",
-                    ccrn: "alpha",
-                    region: "eu",
-                    cluster: "cluster-1",
-                    namespace: "ns1",
-                    pod: "pod-1",
-                    container: "container-1",
-                    __typename: "ComponentInstance",
+                    id: "v1",
+                    version: "1.0.0",
+                    __typename: "ComponentVersion",
                   },
-                  __typename: "ComponentInstanceEdge",
+                  __typename: "ComponentVersionEdge",
                 },
               ],
-              pageInfo: {
-                pageNumber: 1,
-                pages: [],
-                __typename: "PageInfo",
-              },
-              __typename: "ComponentInstanceConnection",
+              __typename: "ComponentVersionConnection",
             },
-            __typename: "ComponentVersion",
+            __typename: "Image",
           },
-          __typename: "ComponentVersionEdge",
+          __typename: "ImageEdge",
         },
       ],
       pageInfo: {
@@ -125,7 +110,7 @@ export const mockImageVersionsPromise: Promise<ApolloQueryResult<GetServiceImage
         pages: [],
         __typename: "PageInfo",
       },
-      __typename: "ComponentVersionConnection",
+      __typename: "ImageConnection",
     },
   },
   loading: false,

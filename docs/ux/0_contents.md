@@ -30,7 +30,7 @@
    3. Displaying and Interacting With Data
    4. Wizard Pattern
    5. Inline Adding And Deleting Items
-   6. Modals
+   6. [Modals](modals.md)
    7. PopupMenus
    8. Messages & Notifications
 5. Application Design Guidelines
