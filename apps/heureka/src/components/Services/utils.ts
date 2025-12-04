@@ -4,7 +4,6 @@
  */
 
 import { isEmpty, isNil, omit } from "../../utils"
-import { ApolloError } from "@apollo/client"
 import {
   Edge,
   GetServicesQuery,
@@ -45,22 +44,23 @@ export type NormalizedServicesResponse = {
   services: ServiceType[]
 }
 
-export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined): NormalizedServicesResponse => {
+export const getNormalizedServicesResponse = (data: unknown): NormalizedServicesResponse => {
+  const typedData = data as GetServicesQuery | undefined
   return {
-    pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
-    pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    pageNumber: typedData?.Services?.pageInfo?.pageNumber || 1,
+    pages: typedData?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
     servicesIssuesCount: {
-      critical: data?.Services?.issueCounts?.critical || 0,
-      high: data?.Services?.issueCounts?.high || 0,
-      medium: data?.Services?.issueCounts?.medium || 0,
-      low: data?.Services?.issueCounts?.low || 0,
-      none: data?.Services?.issueCounts?.none || 0,
-      total: data?.Services?.issueCounts?.total || 0,
+      critical: typedData?.Services?.issueCounts?.critical || 0,
+      high: typedData?.Services?.issueCounts?.high || 0,
+      medium: typedData?.Services?.issueCounts?.medium || 0,
+      low: typedData?.Services?.issueCounts?.low || 0,
+      none: typedData?.Services?.issueCounts?.none || 0,
+      total: typedData?.Services?.issueCounts?.total || 0,
     },
     // Filter out null edges and map to ServiceType
-    services: isNil(data?.Services?.edges)
+    services: isNil(typedData?.Services?.edges)
       ? []
-      : data?.Services?.edges
+      : typedData?.Services?.edges
           ?.filter((edge) => edge !== null)
           .map((edge?: Edge): ServiceType => {
             const node: Service | undefined = edge?.node
@@ -107,7 +107,7 @@ export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined
  * @returns A string representation of the error message, or a fallback message
  * if no specific error is found.
  */
-export const getNormalizedError = (error?: ApolloError) => {
+export const getNormalizedError = (error?: { networkError?: unknown; message?: string }) => {
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist
@@ -172,12 +172,12 @@ type NormalizedServiceImages = {
   images: ServiceImage[]
 }
 
-export const getNormalizedImagesResponse = (
-  data: GetServiceImageVersionsQuery | GetImagesQuery | undefined
-): NormalizedServiceImages => {
+export const getNormalizedImagesResponse = (data: unknown): NormalizedServiceImages => {
+  const typedData = data as GetServiceImageVersionsQuery | GetImagesQuery | undefined
+
   // Handle GetImagesQuery structure - return Images directly (not flattened versions)
-  if (data && "Images" in data) {
-    const imagesData = data as GetImagesQuery
+  if (typedData && "Images" in typedData) {
+    const imagesData = typedData as GetImagesQuery
     const images: ServiceImage[] = []
 
     imagesData?.Images?.edges?.forEach((imageEdge) => {

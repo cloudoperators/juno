@@ -4,7 +4,7 @@
  */
 
 import React, { StrictMode } from "react"
-import { ApolloProvider } from "@apollo/client"
+import { ApolloProvider } from "@apollo/client/react"
 import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { AppShell, AppShellProvider, PageHeader } from "@cloudoperators/juno-ui-components"

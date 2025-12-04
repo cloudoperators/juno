@@ -2356,7 +2356,7 @@ export const GetImagesDocument = gql`
     }
   }
 `
-export type GetImagesQueryResult = Apollo.QueryResult<GetImagesQuery, GetImagesQueryVariables>
+export type GetImagesQueryResult = Apollo.ApolloQueryResult<GetImagesQuery>
 export const GetServiceFiltersDocument = gql`
   query GetServiceFilters {
     ServiceFilterValues {
@@ -2373,7 +2373,7 @@ export const GetServiceFiltersDocument = gql`
     }
   }
 `
-export type GetServiceFiltersQueryResult = Apollo.QueryResult<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
+export type GetServiceFiltersQueryResult = Apollo.ApolloQueryResult<GetServiceFiltersQuery>
 export const GetServiceImageVersionIssuesDocument = gql`
   query GetServiceImageVersionIssues(
     $componentVersionFilter: ComponentVersionFilter
@@ -2438,10 +2438,7 @@ export const GetServiceImageVersionIssuesDocument = gql`
     }
   }
 `
-export type GetServiceImageVersionIssuesQueryResult = Apollo.QueryResult<
-  GetServiceImageVersionIssuesQuery,
-  GetServiceImageVersionIssuesQueryVariables
->
+export type GetServiceImageVersionIssuesQueryResult = Apollo.ApolloQueryResult<GetServiceImageVersionIssuesQuery>
 export const GetServiceImageVersionsDocument = gql`
   query GetServiceImageVersions(
     $filter: ComponentVersionFilter
@@ -2503,10 +2500,7 @@ export const GetServiceImageVersionsDocument = gql`
     }
   }
 `
-export type GetServiceImageVersionsQueryResult = Apollo.QueryResult<
-  GetServiceImageVersionsQuery,
-  GetServiceImageVersionsQueryVariables
->
+export type GetServiceImageVersionsQueryResult = Apollo.ApolloQueryResult<GetServiceImageVersionsQuery>
 export const GetServicesDocument = gql`
   query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
     Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
@@ -2559,7 +2553,7 @@ export const GetServicesDocument = gql`
     }
   }
 `
-export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
+export type GetServicesQueryResult = Apollo.ApolloQueryResult<GetServicesQuery>
 export const GetVulnerabilitiesDocument = gql`
   query GetVulnerabilities(
     $filter: VulnerabilityFilter
@@ -2618,10 +2612,7 @@ export const GetVulnerabilitiesDocument = gql`
     }
   }
 `
-export type GetVulnerabilitiesQueryResult = Apollo.QueryResult<
-  GetVulnerabilitiesQuery,
-  GetVulnerabilitiesQueryVariables
->
+export type GetVulnerabilitiesQueryResult = Apollo.ApolloQueryResult<GetVulnerabilitiesQuery>
 export const GetVulnerabilityFiltersDocument = gql`
   query GetVulnerabilityFilters {
     VulnerabilityFilterValues {
@@ -2638,7 +2629,4 @@ export const GetVulnerabilityFiltersDocument = gql`
     }
   }
 `
-export type GetVulnerabilityFiltersQueryResult = Apollo.QueryResult<
-  GetVulnerabilityFiltersQuery,
-  GetVulnerabilityFiltersQueryVariables
->
+export type GetVulnerabilityFiltersQueryResult = Apollo.ApolloQueryResult<GetVulnerabilityFiltersQuery>

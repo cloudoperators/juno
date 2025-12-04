@@ -48,6 +48,7 @@ export const mockServicesPromise: Promise<ApolloQueryResult<GetServicesQuery>> =
   networkStatus: 7,
   error: undefined,
   partial: false,
+  dataState: "complete" as const,
 })
 
 // This mock simulates the response for service filters query
@@ -63,6 +64,7 @@ export const mockFiltersPromise: Promise<ApolloQueryResult<GetServiceFiltersQuer
   networkStatus: 7,
   error: undefined,
   partial: false,
+  dataState: "complete" as const,
 })
 
 // This mock simulates the response for images query
@@ -115,6 +117,7 @@ export const mockImagesPromise: Promise<ApolloQueryResult<GetImagesQuery>> = Pro
   networkStatus: 7,
   error: undefined,
   partial: false,
+  dataState: "complete" as const,
 })
 
 // This mock simulates the response for vulnerabilities query
@@ -169,6 +172,7 @@ export const mockVulnerabilitiesPromise: Promise<ApolloQueryResult<GetVulnerabil
   networkStatus: 7,
   error: undefined,
   partial: false,
+  dataState: "complete" as const,
 })
 
 // This mock simulates the response for vulnerability filters query
@@ -193,4 +197,5 @@ export const mockVulnerabilityFiltersPromise: Promise<ApolloQueryResult<GetVulne
     networkStatus: 7,
     error: undefined,
     partial: false,
+    dataState: "complete" as const,
   })
