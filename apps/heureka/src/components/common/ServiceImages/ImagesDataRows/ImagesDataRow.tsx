@@ -47,6 +47,8 @@ export const ImagesDataRow = ({
                 rel="noopener noreferrer"
                 className="hover:underline text-sm"
                 onClick={(e) => e.stopPropagation()}
+                aria-label={`Open image registry for ${version.repository} (opens in a new tab)`}
+                title={`Open image registry for ${version.repository} (opens in a new tab)`}
               >
                 <Stack gap="1.5" alignment="center">
                   <Icon icon="openInNew" size="16" color="global-text" />

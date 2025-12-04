@@ -3,17 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { use } from "react"
+import React, { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
 import { getNormalizedImagesResponse } from "../../Services/utils"
 import { GetImagesQuery } from "../../../generated/graphql"
 
 type ImagesTotalCountProps = {
   imagesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
+  className?: string
 }
 
-export const ImagesTotalCount = ({ imagesPromise }: ImagesTotalCountProps) => {
+export const ImagesTotalCount = ({ imagesPromise, className }: ImagesTotalCountProps) => {
   const { data } = use(imagesPromise)
   const { totalImages } = getNormalizedImagesResponse(data)
-  return totalImages
+  return <span className={className}>{totalImages}</span>
 }

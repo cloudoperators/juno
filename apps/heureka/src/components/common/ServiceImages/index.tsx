@@ -40,10 +40,10 @@ export const ServiceImages = ({
   return (
     <>
       <SectionContentHeading>
-        Images{" "}
+        Images
         <ErrorBoundary>
           <Suspense>
-            (<ImagesTotalCount imagesPromise={imagesPromise} />)
+            (<ImagesTotalCount imagesPromise={imagesPromise} className="ml-1" />)
           </Suspense>
         </ErrorBoundary>
       </SectionContentHeading>
