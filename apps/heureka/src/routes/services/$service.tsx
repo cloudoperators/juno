@@ -9,7 +9,7 @@ import { Service } from "../../components/Service"
 import { fetchService } from "../../api/fetchService"
 
 const serviceSearchSchema = z.object({
-  imageVersion: z.string().optional(),
+  image: z.string().optional(),
 })
 
 export const Route = createFileRoute("/services/$service")({
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/services/$service")({
   shouldReload: false,
   loaderDeps: ({ search }) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { imageVersion, ...rest } = search // we're omitting 'imageVersion' from the deps so route does not reload when it changes
+    const { image, ...rest } = search // we're omitting 'image' from the deps so route does not reload when it changes
     return { ...rest }
   },
   loader: ({ context, params: { service } }) => {

@@ -28,16 +28,16 @@
   border-left: 0.25rem solid var(--color-accent);
 }
 
-.juno-sidenavigation-item.level-1 {
+.level-1 {
   font-weight: bold;
 }
 
-.juno-sidenavigation-item.level-2 {
-  margin-left: 1.5rem;
+.level-2 {
+  margin-left: 1.75rem;
   font-weight: 500;
 }
 
-.juno-sidenavigation-item.level-3 {
-  margin-left: 2.25rem;
+.level-3 {
+  margin-left: 2.5rem;
   font-weight: 500;
 }

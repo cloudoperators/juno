@@ -4,7 +4,6 @@
  */
 
 import { isEmpty, isNil, omit } from "../../utils"
-import { ApolloError } from "@apollo/client"
 import {
   Edge,
   GetServicesQuery,
@@ -14,6 +13,7 @@ import {
   ServiceFilter,
   GetServiceImageVersionsQuery,
   GetServiceFiltersQuery,
+  GetImagesQuery,
 } from "../../generated/graphql"
 import { Filter, FilterSettings, SelectedFilter, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
@@ -44,22 +44,23 @@ export type NormalizedServicesResponse = {
   services: ServiceType[]
 }
 
-export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined): NormalizedServicesResponse => {
+export const getNormalizedServicesResponse = (data: unknown): NormalizedServicesResponse => {
+  const typedData = data as GetServicesQuery | undefined
   return {
-    pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
-    pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    pageNumber: typedData?.Services?.pageInfo?.pageNumber || 1,
+    pages: typedData?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
     servicesIssuesCount: {
-      critical: data?.Services?.issueCounts?.critical || 0,
-      high: data?.Services?.issueCounts?.high || 0,
-      medium: data?.Services?.issueCounts?.medium || 0,
-      low: data?.Services?.issueCounts?.low || 0,
-      none: data?.Services?.issueCounts?.none || 0,
-      total: data?.Services?.issueCounts?.total || 0,
+      critical: typedData?.Services?.issueCounts?.critical || 0,
+      high: typedData?.Services?.issueCounts?.high || 0,
+      medium: typedData?.Services?.issueCounts?.medium || 0,
+      low: typedData?.Services?.issueCounts?.low || 0,
+      none: typedData?.Services?.issueCounts?.none || 0,
+      total: typedData?.Services?.issueCounts?.total || 0,
     },
     // Filter out null edges and map to ServiceType
-    services: isNil(data?.Services?.edges)
+    services: isNil(typedData?.Services?.edges)
       ? []
-      : data?.Services?.edges
+      : typedData?.Services?.edges
           ?.filter((edge) => edge !== null)
           .map((edge?: Edge): ServiceType => {
             const node: Service | undefined = edge?.node
@@ -106,7 +107,7 @@ export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined
  * @returns A string representation of the error message, or a fallback message
  * if no specific error is found.
  */
-export const getNormalizedError = (error?: ApolloError) => {
+export const getNormalizedError = (error?: { networkError?: unknown; message?: string }) => {
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist
@@ -152,63 +153,78 @@ export type ComponentInstance = {
   container?: string | ""
 }
 
-export type ServiceImageVersion = {
+export type ServiceImage = {
   version: string
   tag: string
   repository: string
+  imageRegistryUrl: string
   ccrn: string
   issueCounts: IssuesCountsType
   componentInstancesCount: number
   componentInstances?: ComponentInstance[]
+  versionsCount?: number // Number of versions for this image
 }
 
-type NormalizedServiceImageVersions = {
-  totalImageVersions: number
+type NormalizedServiceImages = {
+  totalImages: number
   pages: Page[]
   pageNumber: number
-  imageVersions: ServiceImageVersion[]
+  images: ServiceImage[]
 }
 
-export const getNormalizedImageVersionsResponse = (
-  data: GetServiceImageVersionsQuery | undefined
-): NormalizedServiceImageVersions => ({
-  totalImageVersions: data?.ComponentVersions?.totalCount || 0,
-  pageNumber: data?.ComponentVersions?.pageInfo?.pageNumber || 1,
-  pages: data?.ComponentVersions?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
-  imageVersions: isNil(data?.ComponentVersions?.edges)
-    ? []
-    : data?.ComponentVersions?.edges
-        ?.filter((edge) => edge !== null)
-        .map(
-          (edge): ServiceImageVersion => ({
-            version: edge?.node?.version || "",
-            tag: edge?.node?.tag || "",
-            repository: edge?.node?.repository || "",
-            ccrn: edge?.node?.component?.ccrn || "",
-            issueCounts: edge?.node?.issueCounts || {
-              critical: 0,
-              high: 0,
-              medium: 0,
-              low: 0,
-              none: 0,
-              total: 0,
-            },
-            componentInstancesCount: edge?.node?.componentInstances?.totalCount ?? 0,
-            componentInstances:
-              edge?.node?.componentInstances?.edges
-                ?.filter((edge) => edge?.node) // Remove null edges
-                .map((edge) => ({
-                  id: edge!.node.id,
-                  ccrn: edge!.node.ccrn ?? "",
-                  region: edge!.node.region ?? "",
-                  cluster: edge!.node.cluster ?? "",
-                  namespace: edge!.node.namespace ?? "",
-                  pod: edge!.node.pod ?? "",
-                  container: edge!.node.container ?? "",
-                })) ?? [],
-          })
-        ),
-})
+export const getNormalizedImagesResponse = (data: unknown): NormalizedServiceImages => {
+  const typedData = data as GetServiceImageVersionsQuery | GetImagesQuery | undefined
+
+  // Handle GetImagesQuery structure - return Images directly (not flattened versions)
+  if (typedData && "Images" in typedData) {
+    const imagesData = typedData as GetImagesQuery
+    const images: ServiceImage[] = []
+
+    imagesData?.Images?.edges?.forEach((imageEdge) => {
+      if (!imageEdge?.node) return
+
+      const image = imageEdge.node
+      const repository = image.repository || ""
+      const versionsCount = image.versions?.edges?.length || 0
+      const firstVersion = image.versions?.edges?.[0]?.node?.version || ""
+
+      // Create one row per Image (not per version)
+      images?.push({
+        version: firstVersion, // Show first version or empty
+        tag: firstVersion, // Using first version as tag
+        repository,
+        imageRegistryUrl: image.imageRegistryUrl || "",
+        ccrn: image.id || "",
+        issueCounts: image.vulnerabilityCounts || {
+          critical: 0,
+          high: 0,
+          medium: 0,
+          low: 0,
+          none: 0,
+          total: 0,
+        },
+        componentInstancesCount: 0, // Not available in GetImages query
+        componentInstances: [],
+        versionsCount,
+      })
+    })
+
+    return {
+      totalImages: imagesData?.Images?.totalCount || 0,
+      pageNumber: imagesData?.Images?.pageInfo?.pageNumber || 1,
+      pages: imagesData?.Images?.pageInfo?.pages?.filter((edge): edge is Page => edge !== null) || [],
+      images,
+    }
+  }
+
+  // Fallback for undefined data or unsupported query types
+  return {
+    totalImages: 0,
+    pageNumber: 1,
+    pages: [],
+    images: [],
+  }
+}
 
 export type Issue = {
   severity: string
@@ -218,16 +234,51 @@ export type Issue = {
   sourceLink: string
 }
 
-type NormalizedImageVersionIssues = {
+type NormalizedServiceImageVulnerabilities = {
   issues: Issue[]
-  totalImageVersionIssues: number
+  totalImageVulnerabilities: number
   pages: Page[]
   pageNumber: number
 }
 
-export const getNormalizedImageVersionIssuesResponse = (data: any): NormalizedImageVersionIssues => {
+export const getNormalizedImageVulnerabilitiesResponse = (data: any): NormalizedServiceImageVulnerabilities => {
+  // Handle GetImagesQuery structure
+  if (data && "Images" in data) {
+    const imagesData = data as GetImagesQuery
+    const imageNode = imagesData?.Images?.edges?.[0]?.node
+
+    if (!imageNode?.vulnerabilities?.edges) {
+      return { issues: [], totalImageVulnerabilities: 0, pages: [], pageNumber: 1 }
+    }
+
+    const issues = imageNode.vulnerabilities.edges
+      .filter((edge: any) => edge?.node)
+      .map((edge: any) => {
+        const node = edge.node
+        return {
+          severity: node?.severity || "-",
+          name: node?.name || "-",
+          earliestTargetRemediation: node?.earliestTargetRemediationDate || "-",
+          description: node?.description || "-",
+          sourceLink: node?.sourceUrl || "-",
+        }
+      })
+
+    // If pagination info is available, use it; otherwise calculate from edges
+    const totalImageVulnerabilities = imageNode?.vulnerabilityCounts?.total ?? 0
+    const pages = imageNode.vulnerabilities.pageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
+    const pageNumber = imageNode.vulnerabilities.pageInfo?.pageNumber || 1
+
+    return {
+      issues,
+      totalImageVulnerabilities,
+      pages,
+      pageNumber,
+    }
+  }
+
   if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
-    return { issues: [], totalImageVersionIssues: 0, pages: [], pageNumber: 1 }
+    return { issues: [], totalImageVulnerabilities: 0, pages: [], pageNumber: 1 }
   }
 
   const issues = data.ComponentVersions.edges[0].node.issues.edges
@@ -248,14 +299,14 @@ export const getNormalizedImageVersionIssuesResponse = (data: any): NormalizedIm
       }
     })
 
-  const totalImageVersionIssues = data?.ComponentVersions?.edges?.[0]?.node?.issues?.totalCount || 0
+  const totalImageVulnerabilities = data?.ComponentVersions?.edges?.[0]?.node?.issues?.totalCount || 0
   const pages =
     data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pages?.filter((edge: any) => edge !== null) || []
   const pageNumber = data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pageNumber || 1
 
   return {
     issues,
-    totalImageVersionIssues,
+    totalImageVulnerabilities,
     pages,
     pageNumber,
   }

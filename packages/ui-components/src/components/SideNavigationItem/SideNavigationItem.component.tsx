@@ -22,7 +22,6 @@ const sideNavItemStyles = `
 const leftStyles = `
   jn:flex
   jn:items-center
-  jn:space-x-[0.25rem]
   jn:w-full 
 `
 
@@ -118,7 +117,6 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
         <Icon
           size="24"
           className={`
-          juno-sidenavigation-item
           ${disabled ? disabledStyles : ""}`}
           icon={isOpen ? "expandMore" : "chevronRight"}
         />
@@ -127,9 +125,9 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
 
   const renderLeft = () => (
     <span className={leftStyles}>
-      {icon && level === 0 ? <Icon icon={icon} size="24" /> : null}
+      {icon && level === 0 ? <Icon className={"jn:mr-[0.25rem]"} icon={icon} size="24" /> : null}
       {/* Add spacing before label which expands by level */}
-      <div className={`juno-sidenavigation-item level-${level + 1}`}>{label || children}</div>
+      <div className={`level-${level + 1}`}>{label || children}</div>
     </span>
   )
 
