@@ -19,7 +19,7 @@
    3. [Navigation Fundamentals](navigation-fundamentals.md)
    4. [The AppShell](the-appshell.md)
 3. Layout And Application Structure
-   1. Juno Layout
+   1. [Juno Layout](juno-layout.md)
    2. [Embedded ApplicationLayout](embedded-application-layout.md)
    3. [Legacy Application Layout](legacy-application-layout.md)
 4. Patterns
