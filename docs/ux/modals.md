@@ -90,4 +90,4 @@ Use titles that clearly state the action and the affected object or entity:
 
 ## Modal Accessibility
 
-Modals should trap keyboard focus so it cycles within the Modal and never leaves it until the Modal is closed. A Modal should generally have `role="dialog"` assigned.
+Modals should trap keyboard focus so it cycles within the focusable elements inside the Modal, and never leaves until the Modal is closed. A Modal should generally have `role="dialog"` assigned.
