@@ -91,7 +91,7 @@ const App = (props: AppProps) => {
           {/* load styles inside the shadow dom */}
           <style>{styles.toString()}</style>
           <StrictMode>
-            <AppShell embedded={props.embedded} pageHeader={<PageHeader heading="Heureka" />}>
+            <AppShell embedded={props.embedded} pageHeader={<PageHeader applicationName="Heureka" />}>
               <ErrorBoundary>
                 <StrictMode>
                   <StoreProvider>
