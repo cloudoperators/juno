@@ -4,7 +4,6 @@
  */
 
 import { isEmpty, isNil, omit } from "../../utils"
-import type { ApolloError } from "@apollo/client/errors"
 import {
   Edge,
   GetServicesQuery,
@@ -106,7 +105,7 @@ export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined
  * @returns A string representation of the error message, or a fallback message
  * if no specific error is found.
  */
-export const getNormalizedError = (error?: ApolloError) => {
+export const getNormalizedError = (error?: { networkError?: any; message?: string }) => {
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist
