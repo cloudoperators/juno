@@ -20,7 +20,7 @@ export const CursorPagination = <T,>({
   dataNormalizationMethod: applyDataNormalizationMethod,
 }: CursorPaginationProps<T>) => {
   const { data } = use(dataPromise)
-  const { pages, pageNumber } = applyDataNormalizationMethod(data)
+  const { pages, pageNumber } = applyDataNormalizationMethod(data as T)
 
   const handlePageChange = useCallback(
     (page?: number) => {

@@ -4,7 +4,7 @@
  */
 
 import { isEmpty, isNil, omit } from "../../utils"
-import { ApolloError } from "@apollo/client"
+import type { ApolloError } from "@apollo/client/errors"
 import {
   Edge,
   GetServicesQuery,

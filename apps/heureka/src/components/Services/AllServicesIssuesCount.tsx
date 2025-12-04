@@ -18,7 +18,7 @@ type AllServicesIssuesCountProps = {
 
 const IssuesCount = ({ servicesPromise }: AllServicesIssuesCountProps) => {
   const { error, data } = use(servicesPromise)
-  const { servicesIssuesCount } = getNormalizedServicesResponse(data)
+  const { servicesIssuesCount } = getNormalizedServicesResponse(data as GetServicesQuery | undefined)
 
   return (
     <Stack gap="1">

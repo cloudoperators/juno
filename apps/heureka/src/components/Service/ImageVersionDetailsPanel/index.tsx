@@ -31,7 +31,7 @@ export const ImageVersionDetailsPanel = ({ imageVersionsPromise }: ImageVersionD
   const { service } = useParams({ from: "/services/$service" })
   const { imageVersion: selectedImageVersion } = useSearch({ from: "/services/$service" })
   const { data } = use(imageVersionsPromise)
-  const { imageVersions } = getNormalizedImageVersionsResponse(data)
+  const { imageVersions } = getNormalizedImageVersionsResponse(data as GetServiceImageVersionsQuery | undefined)
   const imageVersion = imageVersions.find((version: ServiceImageVersion) => version.version === selectedImageVersion)
 
   if (!imageVersion) {

@@ -19,7 +19,7 @@ export const VulnerabilitiesDataRows = ({ vulnerabilitiesPromise }: Vulnerabilit
   const navigate = useNavigate()
   const { vulnerability } = useSearch({ from: "/vulnerabilities/" })
   const { error, data } = use(vulnerabilitiesPromise)
-  const { vulnerabilities } = getNormalizedVulnerabilitiesResponse(data)
+  const { vulnerabilities } = getNormalizedVulnerabilitiesResponse(data as GetVulnerabilitiesQuery | undefined)
 
   const openVulnerabilityPanel = useCallback(
     (vuln: Vulnerability) => {
