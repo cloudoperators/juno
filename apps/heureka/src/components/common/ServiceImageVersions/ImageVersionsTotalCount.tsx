@@ -14,6 +14,6 @@ type ImageVersionsTotalCountProps = {
 
 export const ImageVersionsTotalCount = ({ imageVersionsPromise }: ImageVersionsTotalCountProps) => {
   const { data } = use(imageVersionsPromise)
-  const { totalImageVersions } = getNormalizedImageVersionsResponse(data as GetServiceImageVersionsQuery | undefined)
+  const { totalImageVersions } = getNormalizedImageVersionsResponse(data)
   return totalImageVersions
 }

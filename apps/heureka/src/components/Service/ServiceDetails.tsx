@@ -17,7 +17,7 @@ type ServiceDetailsProps = {
 
 export const ServiceDetails = ({ servicePromise }: ServiceDetailsProps) => {
   const { data } = use(servicePromise)
-  const service = getNormalizedServicesResponse(data as GetServicesQuery | undefined).services[0]
+  const service = getNormalizedServicesResponse(data).services[0]
 
   return (
     <>

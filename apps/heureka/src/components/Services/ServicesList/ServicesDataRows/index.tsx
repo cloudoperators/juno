@@ -22,7 +22,7 @@ export const ServicesDataRows = ({ servicesPromise }: ServicesDataRowsProps) => 
   const navigate = useNavigate()
   const { service } = useSearch({ from: "/services/" })
   const { error, data } = use(servicesPromise)
-  const { services } = getNormalizedServicesResponse(data as GetServicesQuery | undefined)
+  const { services } = getNormalizedServicesResponse(data)
 
   const openServiceOverviewPanel = useCallback((service: ServiceType) => {
     navigate({

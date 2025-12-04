@@ -28,7 +28,7 @@ export const ImageVersionsDataRows = ({
   onImageVersionItemClick,
 }: ImageVersionsDataRows) => {
   const { error, data } = use(imageVersionsPromise)
-  const { imageVersions } = getNormalizedImageVersionsResponse(data as GetServiceImageVersionsQuery | undefined)
+  const { imageVersions } = getNormalizedImageVersionsResponse(data)
 
   if (error) {
     return <EmptyDataGridRow colSpan={columnSpan}>Error loading image versions.</EmptyDataGridRow>

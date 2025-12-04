@@ -18,7 +18,7 @@ type AllVulnerabilitiesCountProps = {
 
 const VulnerabilitiesCount = ({ vulnerabilitiesPromise }: AllVulnerabilitiesCountProps) => {
   const { error, data } = use(vulnerabilitiesPromise)
-  const { vulnerabilitiesCounts } = getNormalizedVulnerabilitiesResponse(data as GetVulnerabilitiesQuery | undefined)
+  const { vulnerabilitiesCounts } = getNormalizedVulnerabilitiesResponse(data)
 
   return (
     <Stack gap="1">
