@@ -84,9 +84,9 @@ Avoid titles that are vague, alarmist, overly generic, or that fail to indicate 
 Use titles that clearly state the action and the affected object or entity:
 
 - "Delete Object 12aB9"
-- "Remove User ArnoldS from Project"
+- "Remove User 'ArnoldS' from Project"
 - "Add Organization 'frontend-devs' to Project"
-- “Revoke API Key ‘dev-key-03’”
+- "Revoke API Key 'dev-key-03'"
 
 ## Modal Accessibility
 
