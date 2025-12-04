@@ -42,7 +42,7 @@ type ServiceDataRowProps = {
 }
 
 export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailClick }: ServiceDataRowProps) => (
-  <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
+  <DataGridRow className="cursor-pointer" isSelected={selected} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
     {/* Due to UX designer feedback, when showing counts with severity icons in datagrid cells,
         we override the default padding (5px horizontal, 3px vertical) and instead only use px-2 */}
