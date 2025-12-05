@@ -22,7 +22,6 @@ export const IssuesDataRows = ({ issuesPromise }: IssuesDataRowsProps) => {
     return <EmptyDataGridRow colSpan={4}>Error loading vulnerabilities: {error.message}</EmptyDataGridRow>
   }
 
-  // Filtering is now handled by the API via vulFilter
   if (issues.length === 0) {
     return <EmptyDataGridRow colSpan={4}>No vulnerabilities found! 🚀</EmptyDataGridRow>
   }

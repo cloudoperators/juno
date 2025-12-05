@@ -32,7 +32,6 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
 
-  // Build vulFilter from search term - API-side filtering
   const vulFilter = searchTerm ? { search: [searchTerm] } : undefined
 
   const issuesPromise = fetchImages({
