@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   const { isUserAuthenticated } = useAuthStore()
 
   return (
-    <PageHeader heading={APP_NAME}>
+    <PageHeader applicationName={APP_NAME}>
       {/* Adding uncenters logo */}
       <Stack gap={DEFAULT_MEDIUM_APP_MARGIN}>
         <HeaderUserMenu />
