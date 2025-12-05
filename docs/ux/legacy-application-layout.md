@@ -6,4 +6,6 @@ In some applications built with earlier versions of Juno, the top level navigati
 
 **Using a horizontal header navigation as top level navigation is non-compliant and strongly discouraged.**
 
+Ideally, all applications should upgrade to a more recent version of Juno and adapt current layout rules, however this is not feasible in all cases.
+
 Support for this type of navigation could be dropped with any new major release of Juno at any time.
