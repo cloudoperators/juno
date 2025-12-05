@@ -32,8 +32,9 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
 
-  // Include searchTerm in query key to ensure proper caching
-  // Note: Search is handled client-side since GetImages query doesn't support vulnerability search
+  // Build vulFilter from search term - API-side filtering
+  const vulFilter = searchTerm ? { search: [searchTerm] } : undefined
+
   const issuesPromise = fetchImages({
     apiClient,
     queryClient,
@@ -43,6 +44,7 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
     },
     firstVulnerabilities: 20,
     afterVulnerabilities: pageCursor,
+    vulFilter,
   })
 
   return (
@@ -72,10 +74,10 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
           <ErrorBoundary
             displayErrorMessage
             fallbackRender={getErrorDataRowComponent({ colspan: 4 })}
-            resetKeys={[issuesPromise, searchTerm]}
+            resetKeys={[issuesPromise]}
           >
             <Suspense fallback={<LoadingDataRow colSpan={4} />}>
-              <IssuesDataRows issuesPromise={issuesPromise} searchTerm={searchTerm} />
+              <IssuesDataRows issuesPromise={issuesPromise} />
             </Suspense>
           </ErrorBoundary>
         )}

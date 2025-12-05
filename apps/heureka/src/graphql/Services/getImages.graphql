@@ -2,7 +2,8 @@
 #SPDX-License-Identifier: Apache-2.0
 
 query GetImages(
-    $filter: ImageFilter
+    $imgFilter: ImageFilter
+    $vulFilter: VulnerabilityFilter
     $first: Int
     $after: String
     $firstVulnerabilities: Int
@@ -13,7 +14,7 @@ query GetImages(
   # This query is designed for listing the Images of a Service
   # - It's ordered by Vulnerability Count per default, then by Repository
   # - Default page size is 10, but can be overridden by the $first parameter
-  Images(first: $first, after: $after, filter: $filter) {
+  Images(first: $first, after: $after, filter: $imgFilter) {
     # Counts will result in a subquery. Request only if needed.
     # Counts number of Vulnerabilities per severity
     counts{
@@ -53,7 +54,7 @@ query GetImages(
         # - Only returns Issues with at least one IssueMatch with status "new"
         # - It's ordered by severity per default
         # - Default page size is 10, but can be overridden by the $first parameter
-        vulnerabilities(first: $firstVulnerabilities, after: $afterVulnerabilities){
+        vulnerabilities(first: $firstVulnerabilities, after: $afterVulnerabilities, filter:$vulFilter){
           edges{
             node{
               id

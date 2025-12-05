@@ -11,7 +11,6 @@ import {
   Service,
   ServiceEdge,
   ServiceFilter,
-  GetServiceImageVersionsQuery,
   GetServiceFiltersQuery,
   GetImagesQuery,
 } from "../../generated/graphql"
@@ -173,7 +172,7 @@ type NormalizedServiceImages = {
 }
 
 export const getNormalizedImagesResponse = (data: unknown): NormalizedServiceImages => {
-  const typedData = data as GetServiceImageVersionsQuery | GetImagesQuery | undefined
+  const typedData = data as GetImagesQuery | undefined
 
   // Handle GetImagesQuery structure - return Images directly (not flattened versions)
   if (typedData && "Images" in typedData) {
