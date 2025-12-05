@@ -46,7 +46,7 @@ export const AppShell: React.FC<AppShellProps> = ({
       ) : (
         <>
           <HeaderContainer fullWidth={fullWidthOrDefault}>
-            {pageHeader && typeof pageHeader === "string" ? <PageHeader heading={pageHeader} /> : pageHeader}
+            {pageHeader && typeof pageHeader === "string" ? <PageHeader applicationName={pageHeader} /> : pageHeader}
             {topNavigation}
           </HeaderContainer>
           {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
