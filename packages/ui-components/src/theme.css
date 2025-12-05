@@ -961,7 +961,7 @@
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
   --box-shadow-hover: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
   /* DT Description - DescriptionList, DescriptionTerm, DescriptionDefinition */
-  --color-dt-background: var(--color-background-lvl-1);
+  --color-dt-background: var(--color-background-lvl-0);
   --color-dt-text: var(--color-text-high);
   --color-dd-background: var(--color-transparent);
   --color-dd-text: var(--color-text-high);

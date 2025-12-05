@@ -5,13 +5,13 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { DL } from "./DescriptionList.component"
+import { DescriptionList } from "./DescriptionList.component"
 import { DT } from "../DescriptionTerm/DescriptionTerm.component"
 import { DD } from "../DescriptionDefinition/DescriptionDefinition.component"
 
-const meta: Meta<typeof DL> = {
+const meta: Meta<typeof DescriptionList> = {
   title: "Components/DescriptionList",
-  component: DL,
+  component: DescriptionList,
   argTypes: {
     children: {
       control: false,
@@ -20,14 +20,14 @@ const meta: Meta<typeof DL> = {
 }
 
 export default meta
-type Story = StoryObj<typeof DL>
+type Story = StoryObj<typeof DescriptionList>
 
 export const Default: Story = {
   render: (args) => (
-    <DL {...args}>
+    <DescriptionList {...args}>
       <DT>Warranty</DT>
       <DD>2 years limited warranty with options for extension.</DD>
-    </DL>
+    </DescriptionList>
   ),
 }
 
@@ -36,19 +36,19 @@ export const Default: Story = {
  */
 export const MultipleDefinitions: Story = {
   render: (args) => (
-    <DL {...args}>
+    <DescriptionList {...args}>
       <DT>Shipping</DT>
       <DD>Standard shipping: 5-7 business days.</DD>
       <DD>Express shipping: 2-3 business days.</DD>
       <DT>Payment Options</DT>
       <DD>Credit/Debit cards, PayPal, and bank transfer.</DD>
-    </DL>
+    </DescriptionList>
   ),
 }
 
 export const GroupedDefinitions: Story = {
   render: (args) => (
-    <DL {...args}>
+    <DescriptionList {...args}>
       <div>
         <DT>Privacy Policy</DT>
         <DD>We value your privacy and ensure data protection.</DD>
@@ -59,7 +59,7 @@ export const GroupedDefinitions: Story = {
         <DT>Terms of Service</DT>
         <DD>By using our services, you agree to our terms.</DD>
       </div>
-    </DL>
+    </DescriptionList>
   ),
 }
 
@@ -68,7 +68,7 @@ export const GroupedDefinitions: Story = {
  */
 export const UserProfileDetails: Story = {
   render: (args) => (
-    <DL {...args}>
+    <DescriptionList {...args}>
       <div>
         <DT>Full Name</DT>
         <DD>John Doe</DD>
@@ -87,6 +87,6 @@ export const UserProfileDetails: Story = {
         <DD>Language: English</DD>
         <DD>Theme: Dark</DD>
       </div>
-    </DL>
+    </DescriptionList>
   ),
 }

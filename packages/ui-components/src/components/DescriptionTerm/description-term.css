@@ -5,7 +5,6 @@
 
 .dt {
   background-color: var(--color-dt-background);
-  border-bottom: 1px solid var(--color-dd-dt-border);
   font-weight: bold;
   color: var(--color-dt-text);
   display: flex;

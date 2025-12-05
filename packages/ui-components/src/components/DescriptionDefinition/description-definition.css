@@ -5,7 +5,6 @@
 
 .dd {
   background-color: var(--color-dd-background);
-  border-bottom: 1px solid var(--color-dd-dt-border);
   color: var(--color-dd-text);
   display: flex;
   align-items: center;

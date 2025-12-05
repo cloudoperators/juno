@@ -22,9 +22,7 @@ export interface DescriptionTermProps {
  * Used to denote terms, headers, or keys in a semantic way, allowing for flexible styling.
  */
 export const DescriptionTerm: React.FC<DescriptionTermProps> = ({ children, className = "" }) => (
-  <div className="dt-container">
-    <dt className={`dt ${className}`}>{children}</dt>
-  </div>
+  <dt className={`dt jn:border-b-[1px] jn:border-theme-default ${className}`}>{children}</dt>
 )
 
 export const DT = DescriptionTerm

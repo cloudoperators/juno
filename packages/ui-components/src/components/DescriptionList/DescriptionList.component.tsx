@@ -16,6 +16,7 @@ export interface DescriptionListProps {
   children:
     | ReactElement<DescriptionTermProps | DescriptionDefinitionProps>
     | Array<ReactElement<DescriptionTermProps | DescriptionDefinitionProps>>
+    | ReactElement<"div">
   /**
    * Determines the alignment of terms within the list. Align terms to the left or right based on preference for display style.
    */
