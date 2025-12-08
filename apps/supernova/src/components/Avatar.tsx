@@ -13,7 +13,7 @@ bg-theme-background-lvl-2
 rounded-full
 bg-cover 
 `
-
+//HELLO
 const Avatar = ({ userName, url }: any) => {
   return (
     <Stack alignment="center">

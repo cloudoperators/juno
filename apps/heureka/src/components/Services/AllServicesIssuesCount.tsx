@@ -11,7 +11,7 @@ import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLev
 import { GetServicesQuery } from "../../generated/graphql"
 import { getNormalizedServicesResponse } from "./utils"
 import { ErrorBoundary } from "../common/ErrorBoundary"
-
+//HELLO
 type AllServicesIssuesCountProps = {
   servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
 }
