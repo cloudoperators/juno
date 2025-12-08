@@ -10,8 +10,8 @@ import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvid
 import { PortalProvider } from "@cloudoperators/juno-ui-components/index"
 import { ServicePanel } from "./ServicePanel"
 import { getTestRouter } from "../../../mocks/getTestRouter"
-import { mockImageVersionsPromise, mockServicesPromise } from "../../../mocks/promises"
-import * as fetchImageVersions from "../../../api/fetchImageVersions"
+import { mockImagesPromise, mockServicesPromise } from "../../../mocks/promises"
+import * as fetchImages from "../../../api/fetchImages"
 
 const renderComponent = () => {
   const rootRoute = createRootRoute({
@@ -46,7 +46,7 @@ const renderComponent = () => {
 
 describe("ServicePanel", () => {
   beforeEach(() => {
-    vitest.spyOn(fetchImageVersions, "fetchImageVersions").mockReturnValue(mockImageVersionsPromise)
+    vitest.spyOn(fetchImages, "fetchImages").mockReturnValue(mockImagesPromise)
   })
 
   afterEach(() => {
@@ -67,9 +67,9 @@ describe("ServicePanel", () => {
     expect(router.state.location.href).toBe("/services/alpha")
   })
 
-  it("should navigate to service details page with image version selected", async () => {
+  it("should navigate to service details page with image selected", async () => {
     const { user, router } = await act(() => renderComponent())
     await user.click(screen.getAllByText("Show Details")[0])
-    expect(router.state.location.href).toBe("/services/alpha?imageVersion=1.0.0")
+    expect(router.state.location.href).toBe("/services/alpha?image=repo1")
   })
 })

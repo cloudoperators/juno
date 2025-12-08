@@ -1,5 +1,20 @@
 # heureka
 
+## 0.9.13
+
+### Patch Changes
+
+- a8d78e5: Replace Badge with Icon component in SeverityCount for better icon and color control
+- Updated dependencies [fbbe5ad]
+  - @cloudoperators/juno-ui-components@5.10.0
+
+## 0.9.12
+
+### Patch Changes
+
+- Updated dependencies [3c0478b]
+  - @cloudoperators/juno-ui-components@5.9.1
+
 ## 0.9.11
 
 ### Patch Changes

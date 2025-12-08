@@ -8,6 +8,7 @@ import DefaultLogo from "../../img/JunoUI_logo.svg"
 
 const pageHeaderStyles = `
   jn:bg-theme-pageheader
+  jn:text-theme-pageheader
   jn:border-theme-pageheader
   jn:border-b-[1px]
   jn:sticky
@@ -50,7 +51,6 @@ const logoContainerStyles = `
 const applicationNameStyles = `
   jn:text-theme-pageheader-appname-default
   jn:text-lg
-  jn:text-theme-high
 `
 
 //TRIGGER TEST PIPELINE
@@ -93,7 +93,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
     >
       <div className={`juno-pageheader-logo-container ${logoContainerStyles}`}>{Logo}</div>
       <div className={`juno-pageheader-application-name ${applicationNameStyles}`}>
-        {applicationName.trim() || heading}
+        {typeof applicationName === "string" ? applicationName.trim() : applicationName || heading}
       </div>
     </div>
   )
@@ -108,7 +108,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   )
 
   return (
-    <div className={`juno-pageheader theme-dark ${pageHeaderStyles} ${className}`} role="banner" {...props}>
+    <div className={`juno-pageheader ${pageHeaderStyles} ${className}`} role="banner" {...props}>
       <div className={`juno-pageheader-inner ${pageHeaderInnerStyles}`}>
         {href ? <a href={href}>{contentWrapper}</a> : contentWrapper}
       </div>
@@ -120,9 +120,9 @@ export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Name of the application.
    */
-  applicationName?: string
+  applicationName?: string | ReactElement
   /**
-   * DEPRECATED PROP - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.
+   * @deprecated - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.
    */
   heading?: string | ReactElement
   /**

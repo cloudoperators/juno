@@ -70,10 +70,12 @@ export const StyleProvider = ({
   // Store a reference to the container element:
   const container = useRef<HTMLDivElement>(null)
 
-  // Deprecated!
-  // Only necessary in case the stylesWrapper is set to shadowRoot.
-  // This functionality exists to provide backwards compatibility.
-  // Should be removed in perspective
+  /**
+   * @deprecated: Will be removed in the next major release.
+   * Only necessary in case the stylesWrapper is set to shadowRoot.
+   * This functionality exists to provide backwards compatibility.
+   * Should be removed in perspective
+   */
   const Wrapper = useCallback(
     ({ children }: { children: ReactNode }) => {
       if (stylesWrapper === "shadowRoot") return <ShadowRoot mode={shadowRootMode}>{children}</ShadowRoot>

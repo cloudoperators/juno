@@ -14,7 +14,7 @@ export interface SortButtonProps extends Omit<ButtonProps, "value" | "onChange">
   order?: OrderType
   onChange?: (_order: OrderType) => void
   /**
-   * Deprecated: Will be removed in the next major release, use onChange instead.
+   * @deprecated: Will be removed in the next major release, use onChange instead.
    */
   onOrderChange?: (_order: OrderType) => void
   options?: { value: OrderType; label: React.ReactNode }[]

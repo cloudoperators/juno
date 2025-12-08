@@ -148,7 +148,7 @@ export const CustomPageHeader: Story = {
     },
   },
   args: {
-    pageHeader: <PageHeader heading="My Custom Header" />,
+    pageHeader: <PageHeader applicationName="My Custom Header" />,
     children: [<ContentHeading key="1">My Page</ContentHeading>, <p key="2">Content goes here</p>],
   },
 }

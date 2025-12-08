@@ -4,7 +4,7 @@
  */
 
 import { QueryClient } from "@tanstack/react-query"
-import { ApolloClient, InMemoryCache } from "@apollo/client"
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client"
 import { createRouter, createMemoryHistory, RouterOptions } from "@tanstack/react-router"
 
 export const getTestRouter = ({ routeTree, history }: RouterOptions<any, any, any, any, any>) => {
@@ -18,7 +18,7 @@ export const getTestRouter = ({ routeTree, history }: RouterOptions<any, any, an
     },
   })
   const apolloClient = new ApolloClient({
-    uri: "/",
+    link: new HttpLink({ uri: "/" }),
     cache: new InMemoryCache(),
     defaultOptions: {
       watchQuery: {
