@@ -1,0 +1,34 @@
+name: "Dependency Review"
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+  security-events: read
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v4
+
+      - name: "Run Dependency Review"
+        uses: actions/dependency-review-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Fail if high or severe vulnerabilities found
+          fail-on-severity: high
+
+      # Format results
+      - name: "Process Dependency Review Results"
+        if: failure()
+        run: |
+          echo "Reviewing Dependencies Results"
+          cat dependency-review-result.json | jq '.'
