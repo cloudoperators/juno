@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Run Dependency Review"
-        uses: actions/dependency-review-action@v3
+        uses: actions/dependency-review-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # Fail if high or severe vulnerabilities found
