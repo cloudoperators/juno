@@ -1,6 +1,15 @@
 name: "Dependency Review"
 
-on: [pull_request]
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+    paths:
+      - "**/package-lock.json"
+      - "**/package.json"
 
 permissions:
   contents: read
@@ -11,23 +20,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout Repository"
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@v4
 
       - name: "Run Dependency Review"
+        id: dep-review
         uses: actions/dependency-review-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # Fail if high or severe vulnerabilities found
           fail-on-severity: low
 
       - name: "List Files for Debugging"
         run: ls -laR # Recursively list all files and directories
 
-      # Format results
+      - name: "Log All Possible Outputs"
+        run: |
+          echo "Available outputs:"
+          echo "${{ toJson( steps.dep-review.outputs ) }}"  # Log outputs if they exist
+
       - name: "Log All Vulnerabilities"
         run: |
           echo "Logging all vulnerabilities..."
-          # Example: If the action outputs a JSON, ensure it is captured
           if test -f dependency-review-report.json; then
             jq '.' dependency-review-report.json
           else
