@@ -28,13 +28,3 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-severity: low
-
-      - name: "List Files for Debugging"
-        run: ls -laR # Recursively list all files and directories
-
-      # Format results
-      - name: "Process Dependency Review Results"
-        if: failure()
-        run: |
-          echo "Reviewing Dependencies Results"
-          cat dependency-review-result.json | jq '.'
