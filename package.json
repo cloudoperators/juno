@@ -4,7 +4,6 @@
   "name": "juno",
   "scripts": {
     "build": "turbo run build",
-    "yo": "turbo run build",
     "dev": ". ./check-concurrency.sh && turbo run dev --concurrency=$CONCURRENCY",
     "lint": "turbo run lint",
     "test": "turbo run test",
@@ -32,7 +31,7 @@
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@types/node": "24.3.2",
-    "eslint": "9.22.0",
+    "eslint": "9.35.0",
     "husky": "9.1.7",
     "license-checker-rseidelsohn": "4.4.2",
     "prettier": "3.6.2",
