@@ -7,6 +7,9 @@ on:
       - edited
       - synchronize
       - reopened
+    paths:
+      - "**/package-lock.json"
+      - "**/package.json"
 
 permissions:
   contents: read
@@ -24,7 +27,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # Fail if high or severe vulnerabilities found
-          fail-on-severity: high
+          fail-on-severity: low
 
       # Format results
       - name: "Log All Vulnerabilities"
