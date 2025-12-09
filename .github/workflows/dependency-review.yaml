@@ -22,16 +22,33 @@ jobs:
       - name: "Checkout Repository"
         uses: actions/checkout@v4
 
-      - name: "Run Dependency Review"
+      - name: "Run Dependency Review with Debug Logs"
         uses: actions/dependency-review-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # Fail if high or severe vulnerabilities found
           fail-on-severity: low
+        env:
+          DEBUG: true
 
-      # Format results
-      - name: "Process Dependency Review Results"
+      - name: "Print Dependency Review Results"
+        # Print the results if the action fails
         if: failure()
         run: |
           echo "Reviewing Dependencies Results"
-          cat dependency-review-result.json | jq '.'
+          # Verify the output file actually exists
+          if test -f dependency-review-result.json; then
+            cat dependency-review-result.json | jq '.'
+          else
+            echo "Dependency review result file not found."
+          fi
+
+      # Additional debug output
+      - name: "Print Debug Information"
+        run: |
+          echo "Workflow run debug information:"
+          echo "Event: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "SHA: ${{ github.sha }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "GitHub Context:"
+          echo ${{ toJson(github) }}
