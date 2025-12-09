@@ -46,7 +46,7 @@ export type NormalizedServicesResponse = {
 
 export const getNormalizedServicesResponse = (data: unknown): NormalizedServicesResponse => {
   const typedData = data as GetServicesQuery | undefined
-  // Filter out null edges and map to ServiceType
+    // Filter out null edges and map to ServiceType
   const servicesEdges = typedData?.Services?.edges
   const services =
     !servicesEdges || servicesEdges.length === 0
