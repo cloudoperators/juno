@@ -1,15 +1,6 @@
 name: "Dependency Review"
 
-on:
-  pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
-      - reopened
-    paths:
-      - "**/package-lock.json"
-      - "**/package.json"
+on: [pull_request]
 
 permissions:
   contents: read
@@ -23,11 +14,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Run Dependency Review"
-        uses: actions/dependency-review-action@v3
+        uses: actions/dependency-review-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # Fail if high or severe vulnerabilities found
           fail-on-severity: low
+
+      - name: "List Files for Debugging"
+        run: ls -laR # Recursively list all files and directories
 
       # Format results
       - name: "Log All Vulnerabilities"
