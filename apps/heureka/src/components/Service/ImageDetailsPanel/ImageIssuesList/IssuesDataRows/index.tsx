@@ -16,15 +16,17 @@ type IssuesDataRowsProps = {
 
 export const IssuesDataRows = ({ issuesPromise }: IssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
-  const { issues } = getNormalizedImageVulnerabilitiesResponse(data)
+  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(data)
 
   if (error) {
     return <EmptyDataGridRow colSpan={4}>Error loading vulnerabilities: {error.message}</EmptyDataGridRow>
   }
 
-  if (issues.length === 0) {
+  if (vulnerabilities.length === 0) {
     return <EmptyDataGridRow colSpan={4}>No vulnerabilities found! 🚀</EmptyDataGridRow>
   }
 
-  return issues.map((issue) => <IssuesDataRow key={issue.name} issue={issue} />)
+  return vulnerabilities.map((vulnerability) => (
+    <IssuesDataRow key={vulnerability.id || vulnerability.name} issue={vulnerability} />
+  ))
 }

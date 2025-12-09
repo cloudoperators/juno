@@ -75,7 +75,7 @@ export const ImageDetailsPanel = ({ imagesPromise }: ImageDetailsPanelProps) => 
           <DataGridRow>
             <DataGridHeadCell>Vulnerabilities Counts</DataGridHeadCell>
             <DataGridCell>
-              <IssueCountsPerSeverityLevel counts={image.issueCounts} />
+              <IssueCountsPerSeverityLevel counts={image.vulnerabilityCounts} />
             </DataGridCell>
           </DataGridRow>
         </DataGrid>

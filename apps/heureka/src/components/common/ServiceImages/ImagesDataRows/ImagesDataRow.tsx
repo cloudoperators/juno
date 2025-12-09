@@ -69,21 +69,29 @@ export const ImagesDataRow = ({
       <DataGridCell className="items-center !px-2">
         <SeverityCount
           severity="critical"
-          count={version.issueCounts.critical}
+          count={version.vulnerabilityCounts.critical}
           tooltipContent="Critical Vulnerabilities"
         />
       </DataGridCell>
       <DataGridCell className="items-center !px-2">
-        <SeverityCount severity="high" count={version.issueCounts.high} tooltipContent="High Vulnerabilities" />
+        <SeverityCount severity="high" count={version.vulnerabilityCounts.high} tooltipContent="High Vulnerabilities" />
       </DataGridCell>
       <DataGridCell className="items-center !px-2">
-        <SeverityCount severity="medium" count={version.issueCounts.medium} tooltipContent="Medium Vulnerabilities" />
+        <SeverityCount
+          severity="medium"
+          count={version.vulnerabilityCounts.medium}
+          tooltipContent="Medium Vulnerabilities"
+        />
       </DataGridCell>
       <DataGridCell className="items-center !px-2">
-        <SeverityCount severity="low" count={version.issueCounts.low} tooltipContent="Low Vulnerabilities" />
+        <SeverityCount severity="low" count={version.vulnerabilityCounts.low} tooltipContent="Low Vulnerabilities" />
       </DataGridCell>
       <DataGridCell className="items-center !px-2">
-        <SeverityCount severity="unknown" count={version.issueCounts.none} tooltipContent="None Vulnerabilities" />
+        <SeverityCount
+          severity="unknown"
+          count={version.vulnerabilityCounts.none}
+          tooltipContent="None Vulnerabilities"
+        />
       </DataGridCell>
       {displayDetailsButton && (
         <DataGridCell className="cursor-default" onClick={(e) => e.stopPropagation()}>
