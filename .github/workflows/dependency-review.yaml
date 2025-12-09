@@ -27,7 +27,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # Fail if high or severe vulnerabilities found
-          fail-on-severity: high
+          fail-on-severity: low
 
       # Format results
       - name: "Process Dependency Review Results"
