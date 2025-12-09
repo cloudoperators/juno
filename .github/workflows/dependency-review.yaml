@@ -7,9 +7,6 @@ on:
       - edited
       - synchronize
       - reopened
-    paths:
-      - "**/package-lock.json"
-      - "**/package.json"
 
 permissions:
   contents: read
@@ -23,12 +20,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Run Dependency Review"
-        id: dependency-review
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fail-on-severity: low
+          # Fail if high or severe vulnerabilities found
+          fail-on-severity: high
 
+      # Format results
       - name: "Log All Vulnerabilities"
         run: |
           echo "Logging all vulnerabilities..."
@@ -39,14 +37,3 @@ jobs:
             echo "Dependency review report not found or no output generated."
           fi
         continue-on-error: true # Continue even if file does not exist
-
-      # Additional steps for context verification or reporting
-      - name: "Print Debug Information"
-        run: |
-          echo "GitHub Context:"
-          echo "Event: ${{ github.event_name }}"
-          echo "Actor: ${{ github.actor }}"
-          echo "SHA: ${{ github.sha }}"
-          echo "Ref: ${{ github.ref }}"
-          echo "GitHub Context JSON:"
-          echo ${{ toJson(github) }}
