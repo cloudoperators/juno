@@ -26,7 +26,7 @@ jobs:
         id: dep-review
         uses: actions/dependency-review-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-severity: low
 
       - name: "List Files for Debugging"
