@@ -4,6 +4,7 @@
   "name": "juno",
   "scripts": {
     "build": "turbo run build",
+    "yo": "turbo run build",
     "dev": ". ./check-concurrency.sh && turbo run dev --concurrency=$CONCURRENCY",
     "lint": "turbo run lint",
     "test": "turbo run test",
