@@ -32,17 +32,9 @@ jobs:
       - name: "List Files for Debugging"
         run: ls -laR # Recursively list all files and directories
 
-      - name: "Log All Possible Outputs"
+      # Format results
+      - name: "Process Dependency Review Results"
+        if: failure()
         run: |
-          echo "Available outputs:"
-          echo "${{ toJson( steps.dep-review.outputs ) }}"  # Log outputs if they exist
-
-      - name: "Log All Vulnerabilities"
-        run: |
-          echo "Logging all vulnerabilities..."
-          if test -f dependency-review-report.json; then
-            jq '.' dependency-review-report.json
-          else
-            echo "Dependency review report not found or no output generated."
-          fi
-        continue-on-error: true # Continue even if file does not exist
+          echo "Reviewing Dependencies Results"
+          cat dependency-review-result.json | jq '.'
