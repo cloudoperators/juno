@@ -46,7 +46,7 @@ export type NormalizedServicesResponse = {
 
 export const getNormalizedServicesResponse = (data: unknown): NormalizedServicesResponse => {
   const typedData = data as GetServicesQuery | undefined
-    // Filter out null edges and map to ServiceType
+  // Filter out null edges and map to ServiceType
   const servicesEdges = typedData?.Services?.edges
   const services =
     !servicesEdges || servicesEdges.length === 0
@@ -75,13 +75,14 @@ export const getNormalizedServicesResponse = (data: unknown): NormalizedServices
             return service
           }) || []
 
-  // When edges is [] or pageInfo is null, there are no results
+  // When edges is [] or pageInfo is null/invalid, there are no results
   const pageInfo = typedData?.Services?.pageInfo
-  const hasNoResults = services.length === 0 || !pageInfo
+  const isInvalidPage = pageInfo?.isValidPage === false
+  const hasNoResults = services.length === 0 || !pageInfo || isInvalidPage
 
   return {
     pageNumber: pageInfo?.pageNumber || 1,
-    pages: pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    pages: isInvalidPage ? [] : pageInfo?.pages?.filter((edge) => edge !== null) || [],
     servicesIssuesCount: {
       critical: typedData?.Services?.issueCounts?.critical || 0,
       high: typedData?.Services?.issueCounts?.high || 0,
@@ -207,9 +208,7 @@ export const getNormalizedImagesResponse = (
 
   // Extract types from GetImagesQuery structure
   type ImageEdge = NonNullable<NonNullable<GetImagesQuery["Images"]>["edges"]>[0]
-  type VersionEdge = NonNullable<
-    NonNullable<NonNullable<NonNullable<ImageEdge>["node"]>["versions"]>["edges"]
-  >[0]
+  type VersionEdge = NonNullable<NonNullable<NonNullable<NonNullable<ImageEdge>["node"]>["versions"]>["edges"]>[0]
 
   const imagesEdges = imagesData.Images.edges
   const images: ServiceImage[] = (imagesEdges || [])
@@ -219,8 +218,7 @@ export const getNormalizedImagesResponse = (
       const versionsEdges = image.versions?.edges || []
       const versions: ImageVersion[] = versionsEdges
         .filter(
-          (versionEdge): versionEdge is NonNullable<VersionEdge> =>
-            versionEdge !== null && versionEdge.node !== null
+          (versionEdge): versionEdge is NonNullable<VersionEdge> => versionEdge !== null && versionEdge.node !== null
         )
         .map((versionEdge) => ({
           id: versionEdge.node.id || "",
@@ -294,6 +292,7 @@ export const getNormalizedImageVulnerabilitiesResponse = (
   const imageNode = imagesData.Images.edges[0].node
   const vulnerabilitiesEdges = imageNode.vulnerabilities?.edges || []
   const vulnerabilitiesPageInfo = imageNode.vulnerabilities?.pageInfo
+  const isInvalidPage = vulnerabilitiesPageInfo?.isValidPage === false
 
   // Extract the type for vulnerability edge from GetImagesQuery structure
   type VulnerabilityEdge = NonNullable<
@@ -319,11 +318,11 @@ export const getNormalizedImageVulnerabilitiesResponse = (
     })
 
   const totalImageVulnerabilities = imageNode.vulnerabilityCounts?.total ?? 0
-  const pages = vulnerabilitiesPageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
+  const pages = isInvalidPage ? [] : vulnerabilitiesPageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
   const pageNumber = vulnerabilitiesPageInfo?.pageNumber || 1
 
-  // When vulnerabilities.edges is [] or vulnerabilities.pageInfo is null, there are no results
-  const hasNoResults = vulnerabilities.length === 0 || !vulnerabilitiesPageInfo
+  // When vulnerabilities.edges is [] or vulnerabilities.pageInfo is null/invalid, there are no results
+  const hasNoResults = vulnerabilities.length === 0 || !vulnerabilitiesPageInfo || isInvalidPage
 
   return {
     vulnerabilities,
