@@ -730,12 +730,13 @@
   --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.3)), 0 2px 8px 0 rgba(0, 0, 0, 0.3);
   /* LT PageFooter */
   --color-pagefooter-text: var(--color-text-light);
-  --color-pagefooter-background: var(--color-transparent);
+  --color-pagefooter-background: var(--color-white);
   --color-pagefooter-border: var(--color-border-default);
   --color-pagefooter-title: var(--color-text-default);
   --color-pagefooter-item-default: var(--color-text-light);
   --color-pagefooter-item-hover: var(--color-text-light);
   --color-pagefooter-item-active: var(--color-accent);
+  --color-border-default: var(--color-juno-grey-light-7);
 }
 
 /* JUNO THEME: DARK MODE */
@@ -976,12 +977,13 @@
   --box-shadow-hover: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
   /* DT PageFooter */
   --color-pagefooter-text: var(--color-text-light);
-  --color-pagefooter-background: var(--color-transparent);
+  --color-pagefooter-background: var(--color-juno-grey-blue-10);
   --color-pagefooter-border: var(--color-border-default);
   --color-pagefooter-title: var(--color-text-default);
   --color-pagefooter-item-default: var(--color-text-light);
   --color-pagefooter-item-hover: var(--color-text-light);
   --color-pagefooter-item-active: var(--color-accent);
+  --color-border-default: var(--color-juno-grey-blue-3);
 }
 
 /*

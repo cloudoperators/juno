@@ -1,9 +1,12 @@
 ---
-"@cloudoperators/juno-ui-components": minor
+"@cloudoperators/juno-ui-components": major
 ---
 
-Feat: Add DescriptionList, DescriptionTerm, and DescriptionDefinition components
+Feat: Enhance `PageFooter` Component for Flexible Theming and Accessibility
 
-- Implement HTML `<dl>`, `<dt>`, and `<dd>` rendering for consistent metadata display.
-- Provide alias exports (DL, DT, DD) for quicker usage.
-- Enable flexible child handling with multi-node and grouping support.
+- Customizable Branding: Removed hardcoded cloud illustration, allowing CSS-based branding customization.
+- Conditional Copyright Notice: Added a `copyright` prop for optional right-side rendering.
+- Responsive Grid Layout: Updated `children` rendering to support single/multiple items with defined spacing.
+- Accessibility Improvements: Integrated ARIA roles and attributes (role="group", aria-labelledby) for better semantic clarity.
+- Theming Consistency: Implemented design tokens, accommodating `light` and `dark` modes.
+- Integration: Added `PageFooter` to Example App.

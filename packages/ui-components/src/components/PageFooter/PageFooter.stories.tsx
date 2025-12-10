@@ -30,18 +30,6 @@ export default {
 
 const Template = (args: PageFooterProps) => <PageFooter {...args}></PageFooter>
 
-export const Simple = {
-  render: Template,
-  parameters: {
-    docs: {
-      description: {
-        story: "A basic example of the PageFooter component without any children or custom content.",
-      },
-    },
-  },
-  args: {},
-}
-
 export const WithCustomCopyright = {
   render: Template,
   parameters: {

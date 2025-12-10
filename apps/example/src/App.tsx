@@ -6,11 +6,10 @@
 import React, { useEffect, useMemo } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
-import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components"
+import { AppShell, AppShellProvider, PageFooter } from "@cloudoperators/juno-ui-components"
 
 import useAuthStore from "./store/useAuthStore"
 import AsyncWorker from "./components/AsyncWorker"
-import Footer from "./components/app-shell/Footer"
 import useConfigStore from "./store/useConfigStore"
 import Content from "./components/app-shell/Content"
 import Header from "./components/app-shell/header/Header"
@@ -32,13 +31,15 @@ const App: React.FC<AppProps> = ({ endpoint = "", id = "" }) => {
     setEndpoint(endpoint)
   }, [endpoint])
 
+  const COPYRIGHT_TEXT = "Copyright © 2024 SAP SE, SAP affiliates and Juno contributors"
+
   return (
     <QueryClientProvider client={queryClient}>
       <AsyncWorker consumerId={id} />
       <AppShell
         pageHeader={<Header />}
         sideNavigation={isUserAuthenticated ? <SideNavigationComponent /> : null}
-        pageFooter={<Footer />}
+        pageFooter={<PageFooter copyright={COPYRIGHT_TEXT}></PageFooter>}
       >
         <Content />
       </AppShell>
