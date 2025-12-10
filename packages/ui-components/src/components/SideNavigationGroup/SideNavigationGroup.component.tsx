@@ -15,6 +15,8 @@ const sideNavGroupStyles = `
   jn:text-theme-default
   jn:w-full
   jn:rounded
+  jn:border-l-[0.25rem]
+  jn:border-transparent
 `
 
 const disabledStyles = `

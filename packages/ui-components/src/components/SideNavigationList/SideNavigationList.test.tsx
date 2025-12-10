@@ -41,9 +41,9 @@ describe("SideNavigationList", () => {
     const item2 = screen.getByText("Item 2")
 
     expect(item1).toBeInTheDocument()
-    expect(item1).toHaveClass("juno-sidenavigation-item")
+    expect(item1).toHaveClass("level-1")
 
     expect(item2).toBeInTheDocument()
-    expect(item2).toHaveClass("juno-sidenavigation-item")
+    expect(item2).toHaveClass("level-1")
   })
 })

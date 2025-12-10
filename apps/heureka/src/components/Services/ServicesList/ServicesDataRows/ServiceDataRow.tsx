@@ -42,52 +42,24 @@ type ServiceDataRowProps = {
 }
 
 export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailClick }: ServiceDataRowProps) => (
-  <DataGridRow className={`cursor-pointer ${selected ? "active" : ""}`} onClick={onItemClick}>
+  <DataGridRow className="cursor-pointer" isSelected={selected} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
-    <DataGridCell className="items-center">
-      <SeverityCount
-        showDashIfZero
-        count={item.issuesCount.critical}
-        icon="severityCritical"
-        variant="danger"
-        tooltipContent="Critical Vulnerabilities"
-      />
+    {/* Due to UX designer feedback, when showing counts with severity icons in datagrid cells,
+        we override the default padding (5px horizontal, 3px vertical) and instead only use px-2 */}
+    <DataGridCell className="!px-2">
+      <SeverityCount severity="critical" count={item.issuesCount.critical} tooltipContent="Critical Vulnerabilities" />
     </DataGridCell>
-    <DataGridCell className="items-center">
-      <SeverityCount
-        showDashIfZero
-        count={item.issuesCount.high}
-        icon="severityHigh"
-        variant="warning"
-        tooltipContent="High Vulnerabilities"
-      />
+    <DataGridCell className="!px-2">
+      <SeverityCount severity="high" count={item.issuesCount.high} tooltipContent="High Vulnerabilities" />
     </DataGridCell>
-    <DataGridCell className="items-center">
-      <SeverityCount
-        showDashIfZero
-        count={item.issuesCount.medium}
-        icon="severityMedium"
-        variant="warning"
-        tooltipContent="Medium Vulnerabilities"
-      />
+    <DataGridCell className="!px-2">
+      <SeverityCount severity="medium" count={item.issuesCount.medium} tooltipContent="Medium Vulnerabilities" />
     </DataGridCell>
-    <DataGridCell className="items-center">
-      <SeverityCount
-        showDashIfZero
-        count={item.issuesCount.low}
-        icon="severityLow"
-        variant="info"
-        tooltipContent="Low Vulnerabilities"
-      />
+    <DataGridCell className="!px-2">
+      <SeverityCount severity="low" count={item.issuesCount.low} tooltipContent="Low Vulnerabilities" />
     </DataGridCell>
-    <DataGridCell className="items-center">
-      <SeverityCount
-        showDashIfZero
-        count={item.issuesCount.none}
-        icon="severityUnknown"
-        variant="default"
-        tooltipContent="None Vulnerabilities"
-      />
+    <DataGridCell className="!px-2">
+      <SeverityCount severity="unknown" count={item.issuesCount.none} tooltipContent="None Vulnerabilities" />
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />

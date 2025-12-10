@@ -14,31 +14,35 @@ import {
   SearchInput,
   ContentHeading,
 } from "@cloudoperators/juno-ui-components"
-import { getNormalizedImageVersionIssuesResponse, ServiceImageVersion } from "../../../Services/utils"
-import { fetchImageVersionIssues } from "../../../../api/fetchImageVersionIssues"
+import { getNormalizedImageVulnerabilitiesResponse, ServiceImage } from "../../../Services/utils"
+import { fetchImages } from "../../../../api/fetchImages"
 import { IssuesDataRows } from "./IssuesDataRows"
 import { CursorPagination } from "../../../common/CursorPagination"
 import { ErrorBoundary } from "../../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../../common/getErrorDataRow"
 import { LoadingDataRow } from "../../../common/LoadingDataRow"
 
-type ImageVersionIssuesListProps = {
+type ImageIssuesListProps = {
   service: string
-  imageVersion: ServiceImageVersion
+  image: ServiceImage
 }
 
-export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIssuesListProps) => {
+export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
 
-  const issuesPromise = fetchImageVersionIssues({
+  // Include searchTerm in query key to ensure proper caching
+  // Note: Search is handled client-side since GetImages query doesn't support vulnerability search
+  const issuesPromise = fetchImages({
     apiClient,
     queryClient,
-    service,
-    imageVersion: imageVersion.version,
-    searchTerm,
-    after: pageCursor,
+    filter: {
+      service: [service],
+      repository: [image.repository],
+    },
+    firstVulnerabilities: 20,
+    afterVulnerabilities: pageCursor,
   })
 
   return (
@@ -68,10 +72,10 @@ export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIs
           <ErrorBoundary
             displayErrorMessage
             fallbackRender={getErrorDataRowComponent({ colspan: 4 })}
-            resetKeys={[issuesPromise]}
+            resetKeys={[issuesPromise, searchTerm]}
           >
             <Suspense fallback={<LoadingDataRow colSpan={4} />}>
-              <IssuesDataRows issuesPromise={issuesPromise} />
+              <IssuesDataRows issuesPromise={issuesPromise} searchTerm={searchTerm} />
             </Suspense>
           </ErrorBoundary>
         )}
@@ -81,7 +85,7 @@ export const ImageVersionIssuesList = ({ service, imageVersion }: ImageVersionIs
           <Suspense>
             <CursorPagination
               dataPromise={issuesPromise}
-              dataNormalizationMethod={getNormalizedImageVersionIssuesResponse}
+              dataNormalizationMethod={getNormalizedImageVulnerabilitiesResponse}
               goToPage={setPageCursor}
             />
           </Suspense>

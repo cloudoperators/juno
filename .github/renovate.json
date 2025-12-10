@@ -19,7 +19,6 @@
       "matchFileNames": ["packages/**", "apps/**", "./package.json"],
       "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "7 days",
-      "respectLatest": false,
       "schedule": "every weekend"
     },
     {
@@ -28,8 +27,7 @@
       "matchFileNames": ["packages/**", "apps/**", "./package.json"],
       "matchUpdateTypes": ["major"],
       "recreateWhen": "never",
-      "minimumReleaseAge": "30 days",
-      "respectLatest": false
+      "minimumReleaseAge": "30 days"
     }
   ],
   "separateMinorPatch": true
