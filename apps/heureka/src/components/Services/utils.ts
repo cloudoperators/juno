@@ -75,14 +75,13 @@ export const getNormalizedServicesResponse = (data: unknown): NormalizedServices
             return service
           }) || []
 
-  // When edges is [] or pageInfo is null/invalid, there are no results
+  // When edges is [] or pageInfo is null, there are no results
   const pageInfo = typedData?.Services?.pageInfo
-  const isInvalidPage = pageInfo?.isValidPage === false
-  const hasNoResults = services.length === 0 || !pageInfo || isInvalidPage
+  const hasNoResults = services.length === 0 || !pageInfo
 
   return {
     pageNumber: pageInfo?.pageNumber || 1,
-    pages: isInvalidPage ? [] : pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    pages: pageInfo?.pages?.filter((edge) => edge !== null) || [],
     servicesIssuesCount: {
       critical: typedData?.Services?.issueCounts?.critical || 0,
       high: typedData?.Services?.issueCounts?.high || 0,
@@ -292,7 +291,6 @@ export const getNormalizedImageVulnerabilitiesResponse = (
   const imageNode = imagesData.Images.edges[0].node
   const vulnerabilitiesEdges = imageNode.vulnerabilities?.edges || []
   const vulnerabilitiesPageInfo = imageNode.vulnerabilities?.pageInfo
-  const isInvalidPage = vulnerabilitiesPageInfo?.isValidPage === false
 
   // Extract the type for vulnerability edge from GetImagesQuery structure
   type VulnerabilityEdge = NonNullable<
@@ -318,11 +316,11 @@ export const getNormalizedImageVulnerabilitiesResponse = (
     })
 
   const totalImageVulnerabilities = imageNode.vulnerabilityCounts?.total ?? 0
-  const pages = isInvalidPage ? [] : vulnerabilitiesPageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
+  const pages = vulnerabilitiesPageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
   const pageNumber = vulnerabilitiesPageInfo?.pageNumber || 1
 
-  // When vulnerabilities.edges is [] or vulnerabilities.pageInfo is null/invalid, there are no results
-  const hasNoResults = vulnerabilities.length === 0 || !vulnerabilitiesPageInfo || isInvalidPage
+  // When vulnerabilities.edges is [] or vulnerabilities.pageInfo is null, there are no results
+  const hasNoResults = vulnerabilities.length === 0 || !vulnerabilitiesPageInfo
 
   return {
     vulnerabilities,
