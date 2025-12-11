@@ -38,10 +38,6 @@
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
    3. [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
 6. Versioning, Deprecation Policy
-7. Resources
-   1. Github Repository
-   2. Storybook
-   3. Figma
-   4. Example App
-8. Appendix
+   [7. Resources](resources.md)
+7. Appendix
    1. Terminology/Glossary
