@@ -10,7 +10,7 @@ Generally, the layout of a Juno application consists of at least three building 
 
 ### Page Header
 
-The primary, global anchor of an application. As a minimum, the Page Header should contain the name of the platform, application, or product it represents. It provides vital orientation for the user and is a fundamental element of any kind of brand, and thus is a mandatory element.
+The primary, global anchor of an application. As a minimum, the Page Header should contain the name of the platform, application, or product it represents. It provides vital orientation for the user and is a fundamental element of any kind of brand and platform identity, and thus is a mandatory element.
 In all but the most simplistic applications, in addition to the name of the application or platform, the header may also house the following elements:
 
 - Application or company logo (left)
