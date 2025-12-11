@@ -18,11 +18,11 @@
    2. [Layout Fundamentals](layout-fundamentals.md)
    3. [Navigation Fundamentals](navigation-fundamentals.md)
    4. [The AppShell](the-appshell.md)
-3. Layout And Application Structure
+3. [Layout And Application Structure](layout-and-application-structure.md)
    1. [Juno Layout](juno-layout.md)
    2. [Embedded ApplicationLayout](embedded-application-layout.md)
    3. [Legacy Application Layout](legacy-application-layout.md)
-4. Patterns
+4. [UX Patterns](ux-patterns-md)
    1. Page And User Flow
    2. Authentication And Access
       1. Sign In
@@ -33,15 +33,11 @@
    6. [Modals](modals.md)
    7. PopupMenus
    8. Messages & Notifications
-5. Application Design Guidelines
+5. [Application Design Guidelines](application-design-guidelines.md)
    1. Interaction Guidelines
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
    3. [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
 6. Versioning, Deprecation Policy
-7. Resources
-   1. Github Repository
-   2. Storybook
-   3. Figma
-   4. Example App
-8. Appendix
+   [7. Resources](resources.md)
+7. Appendix
    1. Terminology/Glossary
