@@ -16,7 +16,7 @@ type IssuesDataRowsProps = {
 
 export const IssuesDataRows = ({ issuesPromise }: IssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
-  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(data)
+  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(data as GetImagesQuery | undefined)
 
   if (error) {
     return <EmptyDataGridRow colSpan={4}>Error loading vulnerabilities: {error.message}</EmptyDataGridRow>

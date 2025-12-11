@@ -191,11 +191,9 @@ type NormalizedServiceImages = {
 
 export const getNormalizedImagesResponse = (
   // Apollo Client's use() hook can return DeepPartialObject<GetImagesQuery> during loading
-  // We accept unknown and cast to GetImagesQuery - the function handles partial data gracefully
-  data: unknown
+  data: GetImagesQuery | undefined
 ): NormalizedServiceImages => {
-  const imagesData = data as GetImagesQuery | undefined
-  if (!imagesData?.Images) {
+  if (!data?.Images) {
     return {
       totalImages: 0,
       pageNumber: 1,
@@ -209,7 +207,7 @@ export const getNormalizedImagesResponse = (
   type ImageEdge = NonNullable<NonNullable<GetImagesQuery["Images"]>["edges"]>[0]
   type VersionEdge = NonNullable<NonNullable<NonNullable<NonNullable<ImageEdge>["node"]>["versions"]>["edges"]>[0]
 
-  const imagesEdges = imagesData.Images.edges
+  const imagesEdges = data.Images.edges
   const images: ServiceImage[] = (imagesEdges || [])
     .filter((edge): edge is NonNullable<ImageEdge> => edge !== null && edge.node !== null)
     .map((edge) => {
@@ -243,11 +241,11 @@ export const getNormalizedImagesResponse = (
       }
     })
 
-  const pageInfo = imagesData.Images.pageInfo
+  const pageInfo = data.Images.pageInfo
   const hasNoResults = images.length === 0 || !pageInfo
 
   return {
-    totalImages: imagesData.Images.totalCount || 0,
+    totalImages: data.Images.totalCount || 0,
     pageNumber: pageInfo?.pageNumber || 1,
     pages: pageInfo?.pages?.filter((edge): edge is Page => edge !== null) || [],
     images,
@@ -274,11 +272,9 @@ type NormalizedServiceImageVulnerabilities = {
 
 export const getNormalizedImageVulnerabilitiesResponse = (
   // Apollo Client's use() hook can return DeepPartialObject<GetImagesQuery> during loading
-  // We accept unknown and cast to GetImagesQuery - the function handles partial data gracefully
-  data: unknown
+  data: GetImagesQuery | undefined
 ): NormalizedServiceImageVulnerabilities => {
-  const imagesData = data as GetImagesQuery | undefined
-  if (!imagesData?.Images?.edges?.[0]?.node) {
+  if (!data?.Images?.edges?.[0]?.node) {
     return {
       vulnerabilities: [],
       totalImageVulnerabilities: 0,
@@ -288,7 +284,7 @@ export const getNormalizedImageVulnerabilitiesResponse = (
     }
   }
 
-  const imageNode = imagesData.Images.edges[0].node
+  const imageNode = data.Images.edges[0].node
   const vulnerabilitiesEdges = imageNode.vulnerabilities?.edges || []
   const vulnerabilitiesPageInfo = imageNode.vulnerabilities?.pageInfo
 
