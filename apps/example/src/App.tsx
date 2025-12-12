@@ -39,7 +39,7 @@ const App: React.FC<AppProps> = ({ endpoint = "", id = "" }) => {
       <AppShell
         pageHeader={<Header />}
         sideNavigation={isUserAuthenticated ? <SideNavigationComponent /> : null}
-        pageFooter={<PageFooter copyright={COPYRIGHT_TEXT}></PageFooter>}
+        pageFooter={<PageFooter copyright={COPYRIGHT_TEXT} />}
       >
         <Content />
       </AppShell>

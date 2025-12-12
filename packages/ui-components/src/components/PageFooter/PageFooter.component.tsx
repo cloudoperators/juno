@@ -14,9 +14,6 @@ const basePageFooterStyles = `
   jn:relative
   jn:min-h-[3.25rem]
   jn:z-50
-  jn:px-6
-  jn:py-5
-  jn:border-t
   jn:text-theme-pagefooter
   jn:bg-theme-pagefooter
 `
