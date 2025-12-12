@@ -15,6 +15,6 @@ type ImagesTotalCountProps = {
 
 export const ImagesTotalCount = ({ imagesPromise, className }: ImagesTotalCountProps) => {
   const { data } = use(imagesPromise)
-  const { totalImages } = getNormalizedImagesResponse(data)
+  const { totalImages } = getNormalizedImagesResponse(data as GetImagesQuery | undefined)
   return <span className={className}>{totalImages}</span>
 }

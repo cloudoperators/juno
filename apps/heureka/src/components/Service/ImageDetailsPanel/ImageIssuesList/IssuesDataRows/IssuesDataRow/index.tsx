@@ -8,7 +8,7 @@ import { DataGridRow, DataGridCell, Stack } from "@cloudoperators/juno-ui-compon
 import { Icon } from "@cloudoperators/juno-ui-components"
 import { IssueIcon } from "../../../../../common/IssueIcon"
 import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
-import { Issue } from "../../../../../Services/utils"
+import { ImageVulnerability } from "../../../../../Services/utils"
 import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 
 const cellSeverityClasses = (severity: string) => {
@@ -23,7 +23,7 @@ const cellSeverityClasses = (severity: string) => {
 }
 
 type IssuesDataRowProps = {
-  issue: Issue
+  issue: ImageVulnerability
 }
 
 export const IssuesDataRow = ({ issue }: IssuesDataRowProps) => {
@@ -46,8 +46,8 @@ export const IssuesDataRow = ({ issue }: IssuesDataRowProps) => {
       <DataGridCell className="whitespace-nowrap">
         <Stack gap="2" direction="vertical">
           <span>{issue.name}</span>
-          {issue.sourceLink && issue.sourceLink !== "-" && (
-            <a href={issue.sourceLink} target="_blank" rel="noopener noreferrer" className="link-hover">
+          {issue.sourceUrl && issue.sourceUrl !== "-" && (
+            <a href={issue.sourceUrl} target="_blank" rel="noopener noreferrer" className="link-hover">
               <Stack gap="1.5" alignment="center">
                 <Icon icon="openInNew" size="16" />
                 <span>Vulnerability source</span>
@@ -57,7 +57,7 @@ export const IssuesDataRow = ({ issue }: IssuesDataRowProps) => {
         </Stack>
       </DataGridCell>
       <DataGridCell className="whitespace-nowrap">
-        <IssueTimestamp targetDate={issue.earliestTargetRemediation} />
+        <IssueTimestamp targetDate={issue.earliestTargetRemediationDate} />
       </DataGridCell>
       <DataGridCell>
         <Stack gap="2" direction="vertical">

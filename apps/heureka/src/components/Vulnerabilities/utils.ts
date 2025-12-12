@@ -96,6 +96,7 @@ export type NormalizedVulnerabilities = {
   totalVulnerabilities: number
   pageNumber: number
   vulnerabilitiesCounts: IssuesCountsType
+  totalCount: number
 }
 
 export type NormalizedVulnerabilityServices = {
@@ -137,9 +138,10 @@ export function getNormalizedVulnerabilitiesResponse(data: unknown): NormalizedV
 
   const counts = (typedData?.Vulnerabilities as any)?.counts
 
+  const totalVulnerabilities = counts?.total || DEFAULT_COUNT
   return {
     vulnerabilities,
-    totalVulnerabilities: counts?.total || DEFAULT_COUNT,
+    totalVulnerabilities,
     pages: typedData?.Vulnerabilities?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
     pageNumber: typedData?.Vulnerabilities?.pageInfo?.pageNumber || 1,
     vulnerabilitiesCounts: {
@@ -148,8 +150,9 @@ export function getNormalizedVulnerabilitiesResponse(data: unknown): NormalizedV
       medium: counts?.medium || DEFAULT_COUNT,
       low: counts?.low || DEFAULT_COUNT,
       none: counts?.none || DEFAULT_COUNT,
-      total: counts?.total || DEFAULT_COUNT,
+      total: totalVulnerabilities,
     },
+    totalCount: totalVulnerabilities,
   }
 }
 
