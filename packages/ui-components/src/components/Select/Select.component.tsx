@@ -354,7 +354,7 @@ export const Select: React.FC<SelectProps> = ({
                     ${variant && variant.length ? "juno-select-toggle-" + variant : "juno-select-toggle-default"}
                     ${width == "auto" ? "jn:w-auto" : "jn:w-full"}
                     ${toggleStyles}
-                    ${label && isValueNotEmpty(label) ? "jn:pt-[0.4rem]" : ""}
+                    
                     ${disabled ? "juno-select-disabled jn:opacity-50 jn:cursor-not-allowed" : ""}
                     ${isLoading || hasError ? "jn:justify-center" : "jn:justify-between"}
                     ${isInvalid ? "juno-select-invalid " + invalidToggleStyles : ""} 
@@ -377,7 +377,11 @@ export const Select: React.FC<SelectProps> = ({
 
                       return !hasError && !isLoading ? (
                         <>
-                          <span className={`${truncateStyles}`}>{getDisplayValue(value)}</span>
+                          <span
+                            className={`${truncateStyles} + ${label && isValueNotEmpty(label) ? "jn:mt-[0.85rem]" : ""}`}
+                          >
+                            {getDisplayValue(value)}
+                          </span>
                           <span className="jn:flex">
                             {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" /> : ""}
                             {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" /> : ""}
