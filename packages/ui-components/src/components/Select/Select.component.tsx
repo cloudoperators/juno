@@ -378,7 +378,7 @@ export const Select: React.FC<SelectProps> = ({
                       return !hasError && !isLoading ? (
                         <>
                           <span
-                            className={`${truncateStyles} + ${label && isValueNotEmpty(label) ? "jn:mt-[0.85rem]" : ""}`}
+                            className={`${truncateStyles} ${label && isValueNotEmpty(label) ? "jn:mt-[0.85rem]" : ""}`}
                           >
                             {getDisplayValue(value)}
                           </span>
