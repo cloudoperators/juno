@@ -4,7 +4,7 @@
  */
 
 import { ApolloQueryResult } from "@apollo/client"
-import { GetImagesDocument, GetImagesQuery, ImageFilter } from "../generated/graphql"
+import { GetImagesDocument, GetImagesQuery, ImageFilter, VulnerabilityFilter } from "../generated/graphql"
 import { RouteContext } from "../routes/-types"
 
 type FetchImagesParams = Pick<RouteContext, "queryClient" | "apiClient"> & {
@@ -15,6 +15,7 @@ type FetchImagesParams = Pick<RouteContext, "queryClient" | "apiClient"> & {
   afterVulnerabilities?: string | null
   firstVersions?: number
   afterVersions?: string | null
+  vulFilter?: VulnerabilityFilter
 }
 
 export const fetchImages = ({
@@ -27,14 +28,25 @@ export const fetchImages = ({
   afterVulnerabilities,
   firstVersions,
   afterVersions,
+  vulFilter,
 }: FetchImagesParams): Promise<ApolloQueryResult<GetImagesQuery>> => {
   return queryClient.ensureQueryData({
-    queryKey: ["images", filter, after, firstVulnerabilities, afterVulnerabilities, firstVersions, afterVersions],
+    queryKey: [
+      "images",
+      filter,
+      after,
+      firstVulnerabilities,
+      afterVulnerabilities,
+      firstVersions,
+      afterVersions,
+      vulFilter,
+    ],
     queryFn: () =>
-      apiClient.query({
+      apiClient.query<GetImagesQuery>({
         query: GetImagesDocument,
         variables: {
-          filter,
+          imgFilter: filter,
+          vulFilter,
           first,
           after,
           firstVulnerabilities,
