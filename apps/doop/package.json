@@ -16,7 +16,7 @@
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@tanstack/react-query": "5.90.12",
-    "@tailwindcss/vite": "4.1.17",
+    "@tailwindcss/vite": "4.1.18",
     "@tanstack/router-plugin": "1.139.14",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.0",
@@ -27,7 +27,7 @@
     "jsdom": "26.1.0",
     "react-markdown": "10.1.0",
     "shadow-dom-testing-library": "1.13.1",
-    "tailwindcss": "4.1.17",
+    "tailwindcss": "4.1.18",
     "vite": "7.2.7",
     "vitest": "3.2.4",
     "zustand": "4.5.7"
@@ -48,7 +48,7 @@
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tanstack/react-router": "1.139.16",
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   }
 }
