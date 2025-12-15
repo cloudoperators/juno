@@ -30,10 +30,10 @@
   "dependencies": {
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-query": "5.90.11",
-    "@tanstack/react-router": "1.139.7",
-    "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "@tanstack/react-query": "5.90.12",
+    "@tanstack/react-router": "1.139.16",
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
   },
   "devDependencies": {
     "@apollo/client": "4.0.9",
@@ -42,7 +42,7 @@
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-operations": "4.6.1",
     "@graphql-codegen/typescript-react-apollo": "4.3.3",
-    "@tanstack/router-plugin": "1.139.7",
+    "@tanstack/router-plugin": "1.139.14",
     "@tailwindcss/vite": "4.1.17",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.0",
@@ -67,7 +67,7 @@
     "tailwindcss": "4.1.17",
     "react-error-boundary": "6.0.0",
     "typescript": "5.9.3",
-    "vite": "7.2.4",
+    "vite": "7.2.7",
     "vite-plugin-svgr": "4.5.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
