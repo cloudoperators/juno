@@ -29,8 +29,8 @@
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@tailwindcss/vite": "4.1.17",
     "@vitejs/plugin-react": "4.7.0",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "react-error-boundary": "6.0.0",
     "zustand": "4.5.7"
   },
@@ -59,7 +59,7 @@
     "prettier": "3.6.2",
     "tailwindcss": "4.1.17",
     "typescript": "5.9.3",
-    "vite": "7.2.4",
+    "vite": "7.2.7",
     "vite-plugin-svgr": "4.5.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
