@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 5.12.0
+
+### Minor Changes
+
+- 8dbe8e1: Added Icon for language
+
 ## 5.11.0
 
 ### Minor Changes
