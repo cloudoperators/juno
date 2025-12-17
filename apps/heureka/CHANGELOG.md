@@ -1,5 +1,13 @@
 # heureka
 
+## 0.9.15
+
+### Patch Changes
+
+- 0ebf229: implements API-Side Vulnerability Search for Service Images
+- Updated dependencies [8dbe8e1]
+  - @cloudoperators/juno-ui-components@5.12.0
+
 ## 0.9.14
 
 ### Patch Changes

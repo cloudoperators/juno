@@ -312,6 +312,13 @@ export const Info: Story = {
   },
 }
 
+export const Language: Story = {
+  args: {
+    ...Default.args,
+    icon: "language",
+  },
+}
+
 export const Manage_Accounts: Story = {
   args: {
     ...Default.args,

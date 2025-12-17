@@ -19,10 +19,10 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@types/node": "24.10.1",
+    "@types/node": "24.10.4",
     "typescript": "5.9.3",
     "vitest": "3.2.4",
-    "vite": "7.2.4",
+    "vite": "7.2.7",
     "vite-plugin-dts": "4.5.4"
   },
   "dependencies": {

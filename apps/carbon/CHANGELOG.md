@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-carbon
 
+## 1.0.29
+
+### Patch Changes
+
+- Updated dependencies [8dbe8e1]
+  - @cloudoperators/juno-ui-components@5.12.0
+
 ## 1.0.28
 
 ### Patch Changes
