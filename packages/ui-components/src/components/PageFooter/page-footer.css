@@ -72,7 +72,7 @@
 
 .juno-pagefooter-children > * {
   flex-grow: 1; /* Allows each child to grow and fill the container equally */
-  min-width: 22rem;
+  max-width: 22rem;
 }
 
 .juno-pagefooter-copyright {
