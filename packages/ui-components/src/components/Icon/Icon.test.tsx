@@ -183,6 +183,12 @@ describe("Icon (typescript)", () => {
     expect(screen.getByRole("img")).toHaveAttribute("alt", "error")
   })
 
+  test("renders an language icon", () => {
+    render(<Icon icon="language" />)
+    expect(screen.getByRole("img")).toBeInTheDocument()
+    expect(screen.getByRole("img")).toHaveAttribute("alt", "language")
+  })
+
   test("renders an outlined error icon", () => {
     render(<Icon icon="errorOutline" />)
     expect(screen.getByRole("img")).toBeInTheDocument()

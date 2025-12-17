@@ -28,7 +28,7 @@ export const ImagesDataRows = ({
   onImageItemClick,
 }: ImagesDataRows) => {
   const { error, data } = use(imagesPromise)
-  const { images } = getNormalizedImagesResponse(data)
+  const { images } = getNormalizedImagesResponse(data as GetImagesQuery | undefined)
 
   if (error) {
     return <EmptyDataGridRow colSpan={columnSpan}>Error loading images.</EmptyDataGridRow>

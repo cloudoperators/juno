@@ -1,5 +1,22 @@
 # heureka
 
+## 0.9.15
+
+### Patch Changes
+
+- 0ebf229: implements API-Side Vulnerability Search for Service Images
+- Updated dependencies [8dbe8e1]
+  - @cloudoperators/juno-ui-components@5.12.0
+
+## 0.9.14
+
+### Patch Changes
+
+- eafad00: migrates from an imageVersion centric to an image centric views in support group member journey
+- 0d19596: upgrades apollo client to v4 with all necessary code changes
+- Updated dependencies [d73d9a2]
+  - @cloudoperators/juno-ui-components@5.11.0
+
 ## 0.9.13
 
 ### Patch Changes

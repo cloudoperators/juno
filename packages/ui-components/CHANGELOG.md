@@ -1,5 +1,19 @@
 # @cloudoperators/juno-ui-components
 
+## 5.12.0
+
+### Minor Changes
+
+- 8dbe8e1: Added Icon for language
+
+## 5.11.0
+
+### Minor Changes
+
+- d73d9a2: - Added @deprecated jsdoc label to `PageHeader`, `SortButton` and `StyleProvider` components.
+  - Changed `applicationName` type in `PageHeader` from `string` to `string | ReactElement`.
+  - Replaced deprecated `heading` with `applicationName` in all apps.
+
 ## 5.10.0
 
 ### Minor Changes

@@ -12,25 +12,21 @@ import { GetImagesQuery } from "../../../../../generated/graphql"
 
 type IssuesDataRowsProps = {
   issuesPromise: Promise<ApolloQueryResult<GetImagesQuery>>
-  searchTerm?: string
 }
 
-export const IssuesDataRows = ({ issuesPromise, searchTerm }: IssuesDataRowsProps) => {
+export const IssuesDataRows = ({ issuesPromise }: IssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
-  const { issues } = getNormalizedImageVulnerabilitiesResponse(data)
+  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(data as GetImagesQuery | undefined)
 
   if (error) {
     return <EmptyDataGridRow colSpan={4}>Error loading vulnerabilities: {error.message}</EmptyDataGridRow>
   }
 
-  // Filter issues by search term (client-side filtering)
-  const filteredIssues = searchTerm
-    ? issues.filter((issue) => issue.name.toLowerCase().includes(searchTerm.toLowerCase()))
-    : issues
-
-  if (filteredIssues.length === 0) {
+  if (vulnerabilities.length === 0) {
     return <EmptyDataGridRow colSpan={4}>No vulnerabilities found! 🚀</EmptyDataGridRow>
   }
 
-  return filteredIssues.map((issue) => <IssuesDataRow key={issue.name} issue={issue} />)
+  return vulnerabilities.map((vulnerability) => (
+    <IssuesDataRow key={vulnerability.id || vulnerability.name} issue={vulnerability} />
+  ))
 }

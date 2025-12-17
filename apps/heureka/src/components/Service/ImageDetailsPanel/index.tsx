@@ -30,7 +30,7 @@ export const ImageDetailsPanel = ({ imagesPromise }: ImageDetailsPanelProps) => 
   const { service } = useParams({ from: "/services/$service" })
   const { image: selectedImageRepository } = useSearch({ from: "/services/$service" })
   const { data } = use(imagesPromise)
-  const { images } = getNormalizedImagesResponse(data)
+  const { images } = getNormalizedImagesResponse(data as GetImagesQuery | undefined)
   const image = images.find((img: ServiceImage) => img.repository === selectedImageRepository)
 
   if (!image) {
@@ -75,7 +75,7 @@ export const ImageDetailsPanel = ({ imagesPromise }: ImageDetailsPanelProps) => 
           <DataGridRow>
             <DataGridHeadCell>Vulnerabilities Counts</DataGridHeadCell>
             <DataGridCell>
-              <IssueCountsPerSeverityLevel counts={image.issueCounts} />
+              <IssueCountsPerSeverityLevel counts={image.vulnerabilityCounts} />
             </DataGridCell>
           </DataGridRow>
         </DataGrid>

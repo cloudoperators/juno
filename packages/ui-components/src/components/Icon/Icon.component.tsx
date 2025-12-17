@@ -20,6 +20,7 @@ import CheckCircle from "@material-design-icons/svg/filled/check_circle.svg"
 import ChevronLeft from "@material-design-icons/svg/outlined/chevron_left.svg"
 import ChevronRight from "@material-design-icons/svg/outlined/chevron_right.svg"
 import Close from "@material-design-icons/svg/filled/close.svg"
+import Comment from "@material-design-icons/svg/filled/comment.svg"
 import ContentCopy from "@material-design-icons/svg/outlined/content_copy.svg"
 import Danger from "./icons/juno-danger.svg"
 import Dangerous from "@material-design-icons/svg/filled/dangerous.svg"
@@ -38,7 +39,7 @@ import Forum from "@material-design-icons/svg/filled/forum.svg"
 import Help from "@material-design-icons/svg/filled/help.svg"
 import Home from "./icons/home_sharp.svg"
 import Info from "@material-design-icons/svg/filled/info.svg"
-import Comment from "@material-design-icons/svg/filled/comment.svg"
+import Language from "@material-design-icons/svg/filled/language.svg"
 import ManageAccounts from "@material-design-icons/svg/filled/manage_accounts.svg"
 import MonitorHeart from "@material-design-icons/svg/outlined/monitor_heart.svg"
 import MoreVert from "@material-design-icons/svg/outlined/more_vert.svg"
@@ -163,6 +164,8 @@ export enum KnownIconsEnum {
   home = "home",
   // eslint-disable-next-line no-unused-vars
   info = "info",
+  // eslint-disable-next-line no-unused-vars
+  language = "language",
   // eslint-disable-next-line no-unused-vars
   manageAccounts = "manageAccounts",
   // eslint-disable-next-line no-unused-vars
@@ -608,6 +611,18 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           className={iconClass}
           alt="info"
           title={title ? title : "Info"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.language:
+      return (
+        <Language
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="language"
+          title={title ? title : "Language"}
           role="img"
           {...iconProps}
         />
