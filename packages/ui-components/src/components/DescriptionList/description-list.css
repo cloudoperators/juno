@@ -4,7 +4,19 @@
  */
 
 .dl {
-  display: flex;
-  flex-direction: row;
-  gap: 0.25rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 0.5rem;
+}
+
+.dl > div {
+  display: contents;
+}
+
+.dl > div > .dt {
+  grid-column: 1;
+}
+
+.dl > div > .dd {
+  grid-column: 2;
 }

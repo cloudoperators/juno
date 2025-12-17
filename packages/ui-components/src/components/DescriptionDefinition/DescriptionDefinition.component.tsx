@@ -22,7 +22,7 @@ export interface DescriptionDefinitionProps {
  * Pairs with DescriptionTerm to complete the term-description association, offering flexible content styling.
  */
 export const DescriptionDefinition: React.FC<DescriptionDefinitionProps> = ({ children, className = "" }) => (
-  <dd className={`dd jn:border-b-[1px] jn:border-theme-default ${className}`}>{children}</dd>
+  <dd className={`dd ${className}`}>{children}</dd>
 )
 
 export const DD = DescriptionDefinition

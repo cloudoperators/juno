@@ -4,11 +4,12 @@
  */
 
 .dd {
+  display: grid;
+  align-items: center;
+  border-bottom: 1px solid var(--color-dd-dt-border);
   background-color: var(--color-dd-background);
   color: var(--color-dd-text);
-  display: flex;
-  align-items: center;
-  height: 2rem;
-  padding: 0.5rem;
   gap: 0.25rem;
+  grid-column: 2;
+  height: 2rem;
 }

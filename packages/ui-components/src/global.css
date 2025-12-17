@@ -731,7 +731,7 @@
   --color-dd-background: var(--color-transparent);
   --color-dd-text: var(--color-text-high);
   --color-dd-dt-border: var(--color-border-default);
-  --color-border-default: var(--color-juno-grey-blue-3);
+  --color-border-default: var(--color-juno-grey-light-7);
 }
 
 /* JUNO THEME: DARK MODE */
@@ -976,7 +976,7 @@
   --color-dd-background: var(--color-transparent);
   --color-dd-text: var(--color-text-high);
   --color-dd-dt-border: var(--color-border-default);
-  --color-border-default: var(--color-juno-grey-light-7);
+  --color-border-default: var(--color-juno-grey-blue-3);
 }
 
 /*
