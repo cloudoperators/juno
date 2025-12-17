@@ -1,0 +1,22 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+.dl {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 0.5rem;
+}
+
+.dl > div {
+  display: contents;
+}
+
+.dl > div > .dt {
+  grid-column: 1;
+}
+
+.dl > div > .dd {
+  grid-column: 2;
+}
