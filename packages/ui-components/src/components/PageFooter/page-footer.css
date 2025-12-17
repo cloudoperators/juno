@@ -41,7 +41,7 @@
   color: var(--color-pagefooter-item-default);
   flex: 1;
   min-width: 12.5rem;
-  max-width: 21.875rem;
+  max-width: 22rem;
   line-height: 1.25rem;
   margin-bottom: 0.13rem;
 }
