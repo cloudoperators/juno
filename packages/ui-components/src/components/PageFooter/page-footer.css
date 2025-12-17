@@ -61,11 +61,17 @@
   padding-bottom: 1rem;
   border-top: 1px solid var(--color-pagefooter-border);
   display: flex;
+  gap: 6.75rem;
 }
 
 .juno-pagefooter-children {
   display: flex;
   gap: 1rem;
+  flex-grow: 1;
+}
+
+.juno-pagefooter-children > * {
+  flex-grow: 1; /* Allows each child to grow and fill the container equally */
 }
 
 .juno-pagefooter-copyright {

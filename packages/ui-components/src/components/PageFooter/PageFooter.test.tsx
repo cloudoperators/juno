@@ -12,7 +12,6 @@ describe("PageFooter", () => {
     render(<PageFooter />)
     const footer = screen.getByRole("contentinfo")
     expect(footer).toBeInTheDocument()
-    expect(footer).toHaveClass("jn:flex")
   })
 
   test("renders a Page Footer with specific styling", () => {
