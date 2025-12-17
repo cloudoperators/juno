@@ -41,7 +41,7 @@
   color: var(--color-pagefooter-item-default);
   flex: 1;
   min-width: 12.5rem;
-  max-width: 22rem;
+  max-width: 21.875rem;
   line-height: 1.25rem;
   margin-bottom: 0.13rem;
 }
@@ -72,6 +72,7 @@
 
 .juno-pagefooter-children > * {
   flex-grow: 1; /* Allows each child to grow and fill the container equally */
+  min-width: 22rem;
 }
 
 .juno-pagefooter-copyright {
