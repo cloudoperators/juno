@@ -1,7 +1,7 @@
 .juno-pagefooter {
   font-size: 0.875rem;
-  padding: 1rem 2rem 0 2rem;
-  border: 1px solid var(--color-pagefooter-border);
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .juno-pagefooter-title {
@@ -54,6 +54,13 @@
 .juno-pagefooter-item:active {
   color: var(--color-pagefooter-item-active);
   text-decoration: none;
+}
+
+.juno-content {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-top: 1px solid var(--color-pagefooter-border);
+  display: flex;
 }
 
 .juno-pagefooter-children {
