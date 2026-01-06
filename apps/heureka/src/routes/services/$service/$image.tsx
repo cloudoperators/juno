@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React, { Suspense } from "react"
 import { createFileRoute } from "@tanstack/react-router"
 import { ImageDetails } from "../../../components/Service/ImageDetails"
 import { fetchImages } from "../../../api/fetchImages"
-import { Suspense } from "react"
 import { Spinner } from "@cloudoperators/juno-ui-components"
 import { ErrorBoundary } from "../../../components/common/ErrorBoundary"
 

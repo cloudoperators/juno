@@ -5,11 +5,11 @@
 
 import React, { use } from "react"
 import { Stack, Pill, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
-import { getNormalizedImagesResponse, ServiceImage } from "../Services/utils"
-import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
-import SectionContentHeading from "../common/SectionContentHeading"
-import { ImageIssuesList } from "./ImageDetailsPanel/ImageIssuesList"
-import { GetImagesQuery, GetImagesQueryResult } from "../../generated/graphql"
+import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
+import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
+import SectionContentHeading from "../../common/SectionContentHeading"
+import { ImageIssuesList } from "./ImageIssuesList"
+import { GetImagesQuery, GetImagesQueryResult } from "../../../generated/graphql"
 
 type ImageDetailsProps = {
   imagesPromise: Promise<GetImagesQueryResult>
