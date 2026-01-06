@@ -42,7 +42,7 @@ export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
 export const PageFooter: React.FC<PageFooterProps> = ({ className = "", children, copyright = "", ...props }) => {
   return (
     <div className={`juno-pagefooter ${basePageFooterStyles} ${className}`} role="contentinfo" {...props}>
-      <div className="juno-content">
+      <div className="juno-pagefooter-content">
         <div className={"juno-pagefooter-children"}>{children}</div>
         {copyright && <div className="juno-pagefooter-copyright">{copyright}</div>}
       </div>
