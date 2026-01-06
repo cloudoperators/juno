@@ -44,11 +44,19 @@ export const ServicePanel = () => {
   const goToServiceDetailsPage = useCallback(
     (image?: ServiceImage) => {
       if (service) {
-        navigate({
-          to: "/services/$service",
-          params: { service: service },
-          search: { image: image?.repository },
-        })
+        if (image) {
+          // Navigate to image details page
+          navigate({
+            to: "/services/$service/$image",
+            params: { service: service, image: image.repository },
+          })
+        } else {
+          // Navigate to service details page (no specific image)
+          navigate({
+            to: "/services/$service",
+            params: { service: service },
+          })
+        }
       }
     },
     [navigate, service]
