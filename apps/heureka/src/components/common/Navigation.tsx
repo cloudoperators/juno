@@ -12,6 +12,12 @@ type NavigationItemType = {
   value: string
 }
 
+type SavedRouteState = {
+  routeId?: string
+  params?: Record<string, string>
+  search?: AnySchema
+}
+
 const navigationItems: NavigationItemType[] = [
   {
     label: "Services",
@@ -24,19 +30,70 @@ const navigationItems: NavigationItemType[] = [
 ]
 
 export const Navigation = () => {
-  const visitedPages = useRef<Record<string, AnySchema>>({})
+  const visitedPages = useRef<Record<string, SavedRouteState>>({})
   const navigate = useNavigate()
   const matches = useMatches()
 
   const handleTabSelect = (link: React.ReactNode) => {
-    // Save the current pages's URL state to restore it later
-    const currentPath = matches[matches.length - 1].routeId
-    visitedPages.current[currentPath] = matches[matches.length - 1].search
+    // Save the current page's URL state (route, params, search) to restore it later
+    const currentMatch = matches[matches.length - 1]
+    const currentRouteId = currentMatch.routeId
+    const currentParams = currentMatch.params
+    const currentSearch = currentMatch.search
+
+    // Determine which tab this route belongs to
+    const currentTab = navigationItems.find((item) => currentRouteId.includes(item.value))
+    if (currentTab) {
+      visitedPages.current[currentTab.value] = {
+        routeId: currentRouteId,
+        params: currentParams as Record<string, string>,
+        search: currentSearch,
+      }
+    }
+
     if (typeof link === "string") {
-      navigate({
-        to: link,
-        search: visitedPages.current[link] ?? {}, // restore the url state of the target page
-      })
+      const savedState = visitedPages.current[link]
+      if (savedState) {
+        // Restore the saved route state
+        const savedRouteId = savedState.routeId || ""
+        const savedParams = savedState.params || {}
+        const savedSearch = savedState.search || {}
+
+        // Check if it's a service detail route with image
+        if (savedRouteId.includes("/services/$service/$image") && savedParams.service && savedParams.image) {
+          navigate({
+            to: "/services/$service/$image",
+            params: {
+              service: savedParams.service,
+              image: savedParams.image,
+            },
+            search: savedSearch,
+          })
+        }
+        // Check if it's a service detail route
+        else if (savedRouteId.includes("/services/$service") && savedParams.service) {
+          navigate({
+            to: "/services/$service",
+            params: {
+              service: savedParams.service,
+            },
+            search: savedSearch,
+          })
+        }
+        // Otherwise, just restore search params on base route (like service overview panel)
+        else {
+          navigate({
+            to: link,
+            search: savedSearch,
+          })
+        }
+      } else {
+        // No saved state, navigate to base route
+        navigate({
+          to: link,
+          search: {},
+        })
+      }
     }
   }
 
