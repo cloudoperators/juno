@@ -3,24 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback } from "react"
+import React, { useCallback, useMemo, useState } from "react"
 import { useNavigate, useRouteContext, useSearch } from "@tanstack/react-router"
 import { Panel, PanelBody } from "@cloudoperators/juno-ui-components"
-import { capitalizeFirstLetter } from "../../../utils"
 import { ServiceImages } from "../../common/ServiceImages"
-import { ServiceImage } from "../utils"
 import { fetchImages } from "../../../api/fetchImages"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
+import { ServiceImage } from "../utils"
+
+const capitalizeFirstLetter = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
 
 export const ServicePanel = () => {
   const navigate = useNavigate()
   const { queryClient, apiClient } = useRouteContext({ from: "/services/" })
   const { service } = useSearch({ from: "/services/" })
-  const [currentPageCursor, setCurrentPageCursor] = React.useState<string | null | undefined>(undefined)
+  const [currentPageCursor, setCurrentPageCursor] = useState<string | null | undefined>(undefined)
 
-  // create a promise to fetch images
-  const imagesPromise = service
-    ? fetchImages({
+  // Create a promise for images that changes with pagination
+  const imagesPromise = useMemo(() => {
+    if (service) {
+      return fetchImages({
         queryClient,
         apiClient,
         filter: {
@@ -28,14 +32,16 @@ export const ServicePanel = () => {
         },
         after: currentPageCursor,
       })
-    : undefined
+    }
+    return undefined
+  }, [service, currentPageCursor, queryClient, apiClient])
 
   const closeServiceOverviewPanel = useCallback(() => {
     navigate({
       to: "/services",
       search: (prev) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { service, ...rest } = prev
+        const { service, ...rest } = prev // we're omitting 'service' from the deps so route does not reload when it changes
         return { ...rest }
       },
     })
@@ -47,7 +53,7 @@ export const ServicePanel = () => {
         if (image) {
           // Navigate to image details page
           navigate({
-            to: "/services/$service/$image",
+            to: "/services/$service/images/$image",
             params: { service: service, image: image.repository },
           })
         } else {
@@ -70,7 +76,7 @@ export const ServicePanel = () => {
       size="large"
     >
       <PanelBody>
-        <ErrorBoundary>
+        <ErrorBoundary displayErrorMessage>
           {service && imagesPromise && (
             <ServiceImages
               displayActions

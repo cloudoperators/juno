@@ -13,9 +13,8 @@ type NavigationItemType = {
 }
 
 type SavedRouteState = {
-  routeId?: string
-  params?: Record<string, string>
-  search?: AnySchema
+  search: AnySchema
+  params: Record<string, string>
 }
 
 const navigationItems: NavigationItemType[] = [
@@ -34,41 +33,40 @@ export const Navigation = () => {
   const navigate = useNavigate()
   const matches = useMatches()
 
+  const persistCurrentPageState = () => {
+    const currentPath = matches[matches.length - 1].routeId
+    // Get the first segment of the current path (e.g., "/services/" from "/services/$services/$image")
+    const firstSegment = currentPath.split("/").slice(0, 2).join("/") + "/"
+
+    // Remove any existing entries that start with the same segment
+    Object.keys(visitedPages.current).forEach((path) => {
+      if (path.startsWith(firstSegment)) {
+        delete visitedPages.current[path]
+      }
+    })
+
+    visitedPages.current[currentPath] = {
+      search: matches[matches.length - 1].search,
+      params: matches[matches.length - 1].params,
+    }
+  }
+
   const handleTabSelect = (link: React.ReactNode) => {
+    // Ensure the activeItem is a string before proceeding
     if (typeof link !== "string") return
 
-    // Save the current page's URL state (routeId, params, and search) to restore it later
-    const currentMatch = matches?.[matches?.length - 1]
-    const currentPath = currentMatch?.routeId
+    // Save the current pages's URL state to restore it later
+    persistCurrentPageState()
 
-    // Find the base path that matches the current route
-    const currentBasePath = navigationItems.find((item) => currentPath.includes(item.value))?.value
-    if (currentBasePath) {
-      visitedPages.current[currentBasePath] = {
-        routeId: currentPath,
-        params: currentMatch.params,
-        search: currentMatch.search,
-      }
-    }
+    // Check if we have previously visited a page that starts with the target link
+    const previouslyVisitedPath = Object.keys(visitedPages.current).filter((path) => path.startsWith(link))
+    const to = previouslyVisitedPath.length > 0 ? previouslyVisitedPath[0] : link
 
-    // Restore the saved state for the target page
-    const savedState = visitedPages.current[link]
-    const navigationOptions: {
-      to: string
-      params?: Record<string, string>
-      search?: AnySchema
-    } = {
-      // Use saved routeId if available and it matches the base path, otherwise use the base path
-      to: savedState?.routeId && savedState.routeId.includes(link) ? savedState.routeId : link,
-      search: savedState?.search ?? {},
-    }
-
-    // Add params if they exist in the saved state
-    if (savedState?.params && Object.keys(savedState.params).length > 0) {
-      navigationOptions.params = savedState.params
-    }
-
-    navigate(navigationOptions)
+    navigate({
+      to,
+      params: visitedPages.current[to]?.params ?? {},
+      search: visitedPages.current[to]?.search ?? {},
+    })
   }
 
   const getActiveItem = () => {

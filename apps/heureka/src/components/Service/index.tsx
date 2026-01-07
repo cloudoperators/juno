@@ -22,7 +22,7 @@ export const Service = () => {
 
   // Check if we're on a child route (image details page)
   const matchRoute = useMatchRoute()
-  const isOnImageDetailsPage = matchRoute({ to: "/services/$service/$image" })
+  const isOnImageDetailsPage = matchRoute({ to: "/services/$service/images/$image" })
 
   // refetch images only when the page cursor changes
   useEffect(() => {
@@ -55,7 +55,7 @@ export const Service = () => {
           imagesPromise={imagesPromise}
           onImageItemClick={(image) => {
             navigate({
-              to: "/services/$service/$image",
+              to: "/services/$service/images/$image",
               params: { service, image: image.repository },
             })
           }}

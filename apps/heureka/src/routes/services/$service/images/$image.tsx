@@ -5,12 +5,12 @@
 
 import React, { Suspense } from "react"
 import { createFileRoute } from "@tanstack/react-router"
-import { ImageDetails } from "../../../components/Service/ImageDetails"
-import { fetchImages } from "../../../api/fetchImages"
+import { ImageDetails } from "../../../../components/Service/ImageDetails"
+import { fetchImages } from "../../../../api/fetchImages"
 import { Spinner } from "@cloudoperators/juno-ui-components"
-import { ErrorBoundary } from "../../../components/common/ErrorBoundary"
+import { ErrorBoundary } from "../../../../components/common/ErrorBoundary"
 
-export const Route = createFileRoute("/services/$service/$image")({
+export const Route = createFileRoute("/services/$service/images/$image")({
   shouldReload: false,
   loader: ({ context, params: { service, image } }) => {
     const { queryClient, apiClient } = context
