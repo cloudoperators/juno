@@ -1,1 +1,0 @@
-import{j as s,V as a,e as t}from"./Shell-B-ngUku6.js";const m=({error:e})=>{const n=e.name?`${e.name}: `:"Error: ",r=e.message||"Something went wrong";return s.jsxs(a,{gap:"2",alignment:"center",children:[s.jsx(t,{icon:"danger",className:"text-theme-danger"}),s.jsxs("span",{children:[n,r]})]})};export{m as E};
