@@ -70,6 +70,6 @@ describe("ServicePanel", () => {
   it("should navigate to image details page when image is selected", async () => {
     const { user, router } = await act(() => renderComponent())
     await user.click(screen.getAllByText("Show Details")[0])
-    expect(router.state.location.href).toBe("/services/alpha/repo1")
+    expect(router.state.location.href).toBe("/services/alpha/images/repo1")
   })
 })
