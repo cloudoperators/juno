@@ -40,7 +40,7 @@ export const Navigation = () => {
     // Save the current page's URL state (routeId, params, and search) to restore it later
     const currentMatch = matches?.[matches?.length - 1]
     const currentPath = currentMatch?.routeId
-    
+
     // Find the base path that matches the current route
     const currentBasePath = navigationItems.find((item) => currentPath.includes(item.value))?.value
     if (currentBasePath) {
