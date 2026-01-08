@@ -1,1 +1,0 @@
-import{j as t,V as a}from"./App-C-33FumB.js";const s=({targetDate:e})=>{const r=new Date(e).toLocaleDateString("en-GB",{year:"numeric",month:"short",day:"numeric"});return t.jsx(a,{direction:"vertical",gap:"1",children:t.jsx("div",{children:r})})};export{s as I};
