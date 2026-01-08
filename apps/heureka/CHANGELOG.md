@@ -1,5 +1,13 @@
 # heureka
 
+## 0.9.16
+
+### Patch Changes
+
+- 0d62d35: Adds image details page and removes image details panel
+- Updated dependencies [b886342]
+  - @cloudoperators/juno-ui-components@6.0.0
+
 ## 0.9.15
 
 ### Patch Changes
