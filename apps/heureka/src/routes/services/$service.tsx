@@ -4,30 +4,34 @@
  */
 
 import { createFileRoute } from "@tanstack/react-router"
-import { z } from "zod"
 import { Service } from "../../components/Service"
 import { fetchService } from "../../api/fetchService"
-
-const serviceSearchSchema = z.object({
-  image: z.string().optional(),
-})
+import { NetworkStatus } from "@apollo/client"
+import { GetServicesQueryResult } from "../../generated/graphql"
 
 export const Route = createFileRoute("/services/$service")({
-  validateSearch: serviceSearchSchema,
   shouldReload: false,
-  loaderDeps: ({ search }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { image, ...rest } = search // we're omitting 'image' from the deps so route does not reload when it changes
-    return { ...rest }
-  },
-  loader: ({ context, params: { service } }) => {
+  loader: ({ context, params: { service }, location }) => {
     const { queryClient, apiClient } = context
-    // create a promise to fetch the service
-    const servicePromise = fetchService({
-      queryClient,
-      apiClient,
-      service,
-    })
+
+    // Skip fetching service if we're on the image details page or version details page
+    // Check if the pathname includes "/images/" which indicates we're on an image details or version details route
+    const isOnImageOrVersionDetailsPage = location.pathname.includes("/images/")
+
+    // Return a no-op promise if on image or version details page to avoid unnecessary fetch
+    // ServiceDetails component won't render on these pages, so this promise won't be used
+    const servicePromise: Promise<GetServicesQueryResult> = isOnImageOrVersionDetailsPage
+      ? Promise.resolve({
+          data: { Services: { edges: [], totalCount: 0, pageInfo: null } },
+          loading: false,
+          networkStatus: NetworkStatus.ready,
+          partial: false,
+        } as unknown as GetServicesQueryResult)
+      : fetchService({
+          queryClient,
+          apiClient,
+          service,
+        })
 
     return {
       servicePromise,
