@@ -4,22 +4,11 @@
  */
 
 import { createFileRoute } from "@tanstack/react-router"
-import { z } from "zod"
 import { Service } from "../../components/Service"
 import { fetchService } from "../../api/fetchService"
 
-const serviceSearchSchema = z.object({
-  image: z.string().optional(),
-})
-
 export const Route = createFileRoute("/services/$service")({
-  validateSearch: serviceSearchSchema,
   shouldReload: false,
-  loaderDeps: ({ search }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { image, ...rest } = search // we're omitting 'image' from the deps so route does not reload when it changes
-    return { ...rest }
-  },
   loader: ({ context, params: { service } }) => {
     const { queryClient, apiClient } = context
     // create a promise to fetch the service

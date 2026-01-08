@@ -4,14 +4,12 @@
  */
 
 import React, { Suspense, useEffect, useState } from "react"
-import { useLoaderData, useNavigate, useParams, useRouteContext, useSearch } from "@tanstack/react-router"
+import { Outlet, useLoaderData, useMatchRoute, useNavigate, useParams, useRouteContext } from "@tanstack/react-router"
 import { Spinner } from "@cloudoperators/juno-ui-components"
-import { ApolloQueryResult } from "@apollo/client"
 import { ServiceImages } from "../common/ServiceImages"
-import { ImageDetailsPanel } from "./ImageDetailsPanel"
 import { ServiceDetails } from "./ServiceDetails"
 import { fetchImages } from "../../api/fetchImages"
-import { GetImagesQuery } from "../../generated/graphql"
+import { GetImagesQueryResult } from "../../generated/graphql"
 import { ErrorBoundary } from "../common/ErrorBoundary"
 
 export const Service = () => {
@@ -19,9 +17,12 @@ export const Service = () => {
   const { queryClient, apiClient } = useRouteContext({ from: "/services/$service" })
   const { servicePromise } = useLoaderData({ from: "/services/$service" })
   const { service } = useParams({ from: "/services/$service" })
-  const { image: selectedImageRepository } = useSearch({ from: "/services/$service" })
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
-  const [imagesPromise, setImagesPromise] = useState<Promise<ApolloQueryResult<GetImagesQuery>> | undefined>(undefined)
+  const [imagesPromise, setImagesPromise] = useState<Promise<GetImagesQueryResult> | undefined>(undefined)
+
+  // Check if we're on a child route (image details page)
+  const matchRoute = useMatchRoute()
+  const isOnImageDetailsPage = matchRoute({ to: "/services/$service/images/$image" })
 
   // refetch images only when the page cursor changes
   useEffect(() => {
@@ -36,6 +37,12 @@ export const Service = () => {
     setImagesPromise(promise)
   }, [pageCursor, service, queryClient, apiClient])
 
+  // If we're on a child route (image details), just render the outlet
+  if (isOnImageDetailsPage) {
+    return <Outlet />
+  }
+
+  // Otherwise, render the service details and images list
   return (
     <>
       <ErrorBoundary displayErrorMessage>
@@ -44,25 +51,16 @@ export const Service = () => {
         </Suspense>
       </ErrorBoundary>
       {imagesPromise && (
-        <>
-          <ServiceImages
-            selectedImage={selectedImageRepository}
-            imagesPromise={imagesPromise}
-            onImageItemClick={(image) => {
-              navigate({
-                to: "/services/$service",
-                params: { service },
-                search: { image: image.repository },
-              })
-            }}
-            goToPage={setPageCursor}
-          />
-          <ErrorBoundary>
-            <Suspense>
-              <ImageDetailsPanel imagesPromise={imagesPromise} />
-            </Suspense>
-          </ErrorBoundary>
-        </>
+        <ServiceImages
+          imagesPromise={imagesPromise}
+          onImageItemClick={(image) => {
+            navigate({
+              to: "/services/$service/images/$image",
+              params: { service, image: image.repository },
+            })
+          }}
+          goToPage={setPageCursor}
+        />
       )}
     </>
   )
