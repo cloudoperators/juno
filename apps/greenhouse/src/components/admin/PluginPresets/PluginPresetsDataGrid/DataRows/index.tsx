@@ -38,8 +38,12 @@ export const DataRows = ({ pluginPresetsPromise, colSpan }: DataRowsProps) => {
           <DataGridCell>{preset.metadata?.name}</DataGridCell>
           <DataGridCell>
             <span className="flex items-center gap-1">
-              {preset.spec?.plugin?.pluginDefinitionRef.name || preset.spec?.plugin?.pluginDefinition}{" "}
-              <Icon size="18" icon="openInNew" />
+              {preset.spec?.plugin?.pluginDefinitionRef.name || preset.spec?.plugin?.pluginDefinition}
+              {!!preset.spec?.plugin?.pluginDefinition && (
+                <a target="__blank" href={preset.spec?.plugin?.pluginDefinition}>
+                  <Icon size="18" icon="openInNew" />
+                </a>
+              )}
             </span>
           </DataGridCell>
           <DataGridCell>{!isReady(preset) ? getReadyCondition(preset)?.message : ""}</DataGridCell>
