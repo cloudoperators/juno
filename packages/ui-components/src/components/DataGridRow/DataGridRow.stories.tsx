@@ -94,8 +94,7 @@ export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
   parameters: {
     docs: {
       description: {
-        story:
-          "When `onClick` is set, the entire DataGridRow exhibits visual feedback on hover, enhancing interactivity.",
+        story: "When `onClick` is set in `DataGridRow`, it exhibits visual feedback on hover, enhancing interactivity.",
       },
     },
   },
