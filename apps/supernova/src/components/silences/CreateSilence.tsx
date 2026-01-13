@@ -280,7 +280,7 @@ const CreateSilence = ({ alert, size, variant }: any) => {
                       key={option.value}
                       label={formatDuration(option.value)}
                       value={String(option.value)}
-                    /> // Use formatted label
+                    />
                   ))}
                 </Select>
               </FormRow>
