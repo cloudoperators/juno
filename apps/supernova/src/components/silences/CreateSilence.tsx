@@ -97,6 +97,8 @@ const CreateSilence = ({ alert, size, variant }: any) => {
     return `${formattedDate} ${formattedTime}`
   }
 
+  const formatDuration = (duration: number) => `${duration}h`
+
   // Initialize form state on modal open
   // Removed alert from dependencies since we take an screenshot of the global state on opening the modal
   // This is due to if the alert changes (e.g. the alert receives a new silenceBy) while the modal is open, the form state will be reset
@@ -274,7 +276,11 @@ const CreateSilence = ({ alert, size, variant }: any) => {
                   }
                 >
                   {durationOptions?.map((option) => (
-                    <SelectOption key={option.value} label={option.label} value={String(option.value)} />
+                    <SelectOption
+                      key={option.value}
+                      label={formatDuration(option.value)}
+                      value={String(option.value)}
+                    /> // Use formatted label
                   ))}
                 </Select>
               </FormRow>
