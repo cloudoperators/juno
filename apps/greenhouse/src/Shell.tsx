@@ -80,7 +80,6 @@ function App(props: AppProps) {
     context: { appProps: props, apiClient, organization },
     stringifySearch: encodeV2,
     parseSearch: decodeV2,
-    // If the app is using hashed routing, we need to correctly extract the search string from the hash fragment
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
   })
   return <RouterProvider router={router} />

@@ -24,8 +24,10 @@ export const DataRows = ({ pluginPresetsPromise, colSpan }: DataRowsProps) => {
 
   return (
     <>
-      {pluginPresets.map((preset: PluginPreset, idx: number) => (
-        <DataGridRow key={idx} onClick={() => {}}>
+      {pluginPresets.map((preset: PluginPreset) => (
+        <DataGridRow key={preset.metadata?.name} onClick={() => {
+          /* Navigate to details page - to be implemented */
+        }}>
           <DataGridCell>
             <Icon
               icon={isReady(preset) ? "checkCircle" : "error"}

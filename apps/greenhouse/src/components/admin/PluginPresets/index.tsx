@@ -24,8 +24,8 @@ export const PluginPresets = () => {
         <PluginPresetsStats statsPromise={statsPromise} />
       </Container>
       <Container px={false} py>
-        {/* <PluginPresetsFilters /> */}
-        {/* <PluginPresetsMetaInfo /> */}
+        <PluginPresetsFilters />
+        <PluginPresetsMetaInfo />
         <PluginPresetsDataGrid pluginPresetsPromise={pluginPresetsPromise} />
       </Container>
     </>
