@@ -26,7 +26,7 @@ import {
 import AlertDescription from "../alerts/shared/AlertDescription"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import CreateSilenceAdvanced from "./CreateSilenceAdvanced"
-import { latestExpirationDate, getSelectOptions, setupMatchers } from "./silenceHelpers"
+import { latestExpirationDate, getSelectOptions, setupMatchers, DEFAULT_DURATION_OPTIONS } from "./silenceHelpers"
 import { parseError } from "../../helpers"
 
 import { debounce } from "../../helpers"
@@ -61,7 +61,7 @@ const errorHelpText = (messages: any) => {
   ))
 }
 
-const DEFAULT_FORM_VALUES: Record<string, any> = { duration: 2, comment: "" }
+const DEFAULT_FORM_VALUES: Record<string, any> = { duration: DEFAULT_DURATION_OPTIONS[0].label, comment: "" }
 
 const CreateSilence = ({ alert, size, variant }: any) => {
   const queryClient = useQueryClient()
