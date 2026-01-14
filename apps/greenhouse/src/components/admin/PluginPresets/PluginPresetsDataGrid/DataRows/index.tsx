@@ -45,7 +45,7 @@ export const DataRows = ({ pluginPresetsPromise, colSpan }: DataRowsProps) => {
             <span className="flex items-center gap-1">
               {preset.spec?.plugin?.pluginDefinitionRef.name || preset.spec?.plugin?.pluginDefinition}
               {!!preset.spec?.plugin?.pluginDefinition && (
-                <a target="__blank" href={preset.spec?.plugin?.pluginDefinition}>
+                <a target="_blank" href={preset.spec?.plugin?.pluginDefinition}>
                   <Icon size="18" icon="openInNew" />
                 </a>
               )}
@@ -55,8 +55,8 @@ export const DataRows = ({ pluginPresetsPromise, colSpan }: DataRowsProps) => {
           <DataGridCell>
             <ReadinessConditions conditions={preset.status?.statusConditions?.conditions || []} />
           </DataGridCell>
-          <DataGridCell className="whitespace-nowrap">
-            <Button size="small" variant="primary">
+          <DataGridCell nowrap>
+            <Button size="small" variant="primary" className="w-fit">
               View details
             </Button>
           </DataGridCell>

@@ -34,7 +34,7 @@ const applyFilterSettings = (pluginPresets: PluginPreset[], filterSettings?: Fil
   return pluginPresets
 }
 
-const applySortting = (pluginPresets: PluginPreset[]): PluginPreset[] => {
+const applySorting = (pluginPresets: PluginPreset[]): PluginPreset[] => {
   return pluginPresets.sort((a, b) => {
     // First, sort by ready status (non-ready presets first)
     const aReady = isReady(a)
@@ -64,5 +64,5 @@ export const fetchPluginPresets = async ({
   filterSettings?: FilterSettings
 }): Promise<PluginPreset[]> => {
   const response = await apiClient.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/pluginpresets`)
-  return Array.isArray(response?.items) ? applySortting(applyFilterSettings(response.items, filterSettings)) : []
+  return Array.isArray(response?.items) ? applySorting(applyFilterSettings(response.items, filterSettings)) : []
 }

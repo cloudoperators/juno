@@ -4,15 +4,19 @@
  */
 
 import React from "react"
-import { Container, ContentHeading } from "@cloudoperators/juno-ui-components"
-import { useLoaderData } from "@tanstack/react-router"
+import { Container, ContentHeading, DataGridToolbar, Button, Stack } from "@cloudoperators/juno-ui-components"
+import { useLoaderData, useRouter } from "@tanstack/react-router"
 import { PluginPresetsDataGrid } from "./PluginPresetsDataGrid"
 import { PluginPresetsFilters } from "./PluginPresetsFilters"
-import { PluginPresetsMetaInfo } from "./PluginPresetsMetaInfo"
 import { PluginPresetsStats } from "./PluginPresetsStats"
 
 export const PluginPresets = () => {
-  const { pluginPresetsPromise, statsPromise } = useLoaderData({ from: "/admin/plugin-presets" })
+  const router = useRouter()
+  const { pluginPresetsPromise, statsPromise, lastUpdatedAt } = useLoaderData({ from: "/admin/plugin-presets" })
+
+  const handleRefresh = () => {
+    router.invalidate()
+  }
 
   return (
     <>
@@ -25,7 +29,14 @@ export const PluginPresets = () => {
       </Container>
       <Container px={false} py>
         <PluginPresetsFilters />
-        <PluginPresetsMetaInfo />
+        <DataGridToolbar>
+          <Stack>
+            <Stack alignment="center">
+              {lastUpdatedAt && `Last update: ${new Date(lastUpdatedAt).toLocaleString()}`}
+              <Button size="small" label="Refresh" className="ml-4" onClick={handleRefresh} variant="subdued" />
+            </Stack>
+          </Stack>
+        </DataGridToolbar>
         <PluginPresetsDataGrid pluginPresetsPromise={pluginPresetsPromise} />
       </Container>
     </>
