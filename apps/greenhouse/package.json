@@ -57,7 +57,7 @@
     "@cloudoperators/juno-oauth": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.144.0",
+    "@tanstack/react-router": "1.145.7",
     "lodash": "4.17.21"
   }
 }
