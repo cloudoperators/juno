@@ -202,7 +202,7 @@ export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
     docs: {
       description: {
         story:
-          "When `onClick` is set, the entire `DataGridRow` exhibits visual feedback on hover, enhancing interactivity. See [DataGridRow](?path=/docs/components-datagrid-datagridrow--docs) for more info.",
+          "When `onClick` is set, the entire DataGridRow exhibits visual feedback on hover, enhancing interactivity.",
       },
     },
   },
@@ -223,13 +223,17 @@ export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProp
           <DataGridCell key={`cell_name_${rowIndex}`}>{`Name-${rowIndex + 1}`}</DataGridCell>
           <DataGridCell key={`cell_status_${rowIndex}`}>{`Status-${rowIndex + 1}`}</DataGridCell>
           <DataGridCell key={`cell_button_${rowIndex}`}>
-            <Button
-              label="Details"
-              onClick={(e) => {
-                e.stopPropagation()
-                alert(`Button clicked in Row ${rowIndex + 1}.`)
-              }}
-            />
+            {rowIndex === 0 ? (
+              <Button
+                label="Trigger button event only"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  alert(`Button clicked in Row 1`)
+                }}
+              />
+            ) : (
+              `None`
+            )}
           </DataGridCell>
         </DataGridRow>
       ))}
