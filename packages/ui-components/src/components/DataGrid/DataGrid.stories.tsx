@@ -11,7 +11,6 @@ import { DataGrid } from "./DataGrid.component"
 import { DataGridRow } from "../DataGridRow"
 import { DataGridCell } from "../DataGridCell"
 import { DataGridHeadCell } from "../DataGridHeadCell"
-import { Default as DataGridCellStory } from "../DataGridCell/DataGridCell.stories"
 
 const defaultColumns = 3
 
@@ -182,19 +181,22 @@ export const ColSpanCell: StoryObj<TemplateProps> = {
 export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
   render: (args) => (
     <DataGrid columns={defaultColumns}>
-      <DataGridRow {...args} onClick={() => alert("Row clicked (HoverableRow)")}>
-        {args.items.map((item, i) => (
-          <DataGridCell key={i}>{item.content}</DataGridCell>
-        ))}
+      <DataGridRow>
+        <DataGridHeadCell>ID</DataGridHeadCell>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
       </DataGridRow>
+      {Array.from({ length: 4 }, (_, rowIndex) => (
+        <DataGridRow {...args} key={`row_${rowIndex}`} onClick={() => alert(`Row ${rowIndex + 1} clicked.`)}>
+          <DataGridCell key={`cell_id_${rowIndex}`}>{`ID-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_name_${rowIndex}`}>{`Name-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_status_${rowIndex}`}>{`Status-${rowIndex + 1}`}</DataGridCell>
+        </DataGridRow>
+      ))}
     </DataGrid>
   ),
   args: {
-    items: Array(defaultColumns)
-      .fill(null)
-      .map((_, i) => ({
-        content: `Cell Content ${i + 1}`,
-      })),
+    items: [],
   },
   parameters: {
     docs: {
@@ -208,25 +210,33 @@ export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
 
 export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProps> = {
   render: (args) => (
-    <DataGrid columns={defaultColumns}>
-      <DataGridRow {...args} onClick={() => alert("DataGridRow Event (HoverableRowWithInteractableElements)!")}>
-        <DataGridCell>
-          <Button
-            label="Trigger button event only"
-            onClick={(e) => {
-              e.stopPropagation()
-              alert("Only the `Button` event has been triggered!")
-            }}
-          />
-        </DataGridCell>
-        {args.items.slice(1).map((item, i) => (
-          <DataGridCell {...item} key={i} />
-        ))}
+    <DataGrid columns={defaultColumns + 1}>
+      <DataGridRow>
+        <DataGridHeadCell>ID</DataGridHeadCell>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+        <DataGridHeadCell>Action</DataGridHeadCell>
       </DataGridRow>
+      {Array.from({ length: 4 }, (_, rowIndex) => (
+        <DataGridRow {...args} key={`row_${rowIndex}`} onClick={() => alert(`Row ${rowIndex + 1} clicked.`)}>
+          <DataGridCell key={`cell_id_${rowIndex}`}>{`ID-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_name_${rowIndex}`}>{`Name-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_status_${rowIndex}`}>{`Status-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_button_${rowIndex}`}>
+            <Button
+              label="Details"
+              onClick={(e) => {
+                e.stopPropagation()
+                alert(`Button clicked in Row ${rowIndex + 1}.`)
+              }}
+            />
+          </DataGridCell>
+        </DataGridRow>
+      ))}
     </DataGrid>
   ),
   args: {
-    items: Array(defaultColumns).fill(<DataGridCell {...DataGridCellStory.args} />),
+    items: [],
   },
   parameters: {
     docs: {
