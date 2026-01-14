@@ -77,7 +77,7 @@ export const Default: StoryObj<DataGridRowStoryProps> = {
 // If making changes, update in DataGrid story too
 export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
   render: (args) => (
-    <DataGrid columns={3} gridColumnTemplate="150px 150px 150px">
+    <DataGrid columns={3} gridColumnTemplate="270px 270px 270px">
       <DataGridRow>
         <DataGridHeadCell>ID</DataGridHeadCell>
         <DataGridHeadCell>Name</DataGridHeadCell>
@@ -113,7 +113,7 @@ export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
 // If making changes, update in DataGrid story too
 export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProps> = {
   render: (args) => (
-    <DataGrid columns={4} gridColumnTemplate="150px 150px 150px 150px">
+    <DataGrid columns={4} gridColumnTemplate="210px 210px 210px 210px">
       <DataGridRow>
         <DataGridHeadCell>ID</DataGridHeadCell>
         <DataGridHeadCell>Name</DataGridHeadCell>
