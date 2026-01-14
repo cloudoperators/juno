@@ -8,51 +8,46 @@ import { render, screen } from "@testing-library/react"
 import { SeverityCount } from "./SeverityCount"
 
 describe("SeverityCount", () => {
-  it("renders with count and shows badge", () => {
-    render(
-      <SeverityCount
-        showDashIfZero
-        icon="severityCritical"
-        count={5}
-        variant="danger"
-        tooltipContent="Critical Issues"
-      />
-    )
+  it("renders with count and shows icon", () => {
+    render(<SeverityCount severity="critical" count={5} tooltipContent="Critical Issues" />)
 
-    // Check if the badge is rendered with the count
-    const badge = screen.getByText("5")
-    expect(badge).toBeInTheDocument()
+    // Check if the count is rendered
+    const count = screen.getByText("5")
+    expect(count).toBeInTheDocument()
+    // Check if icon is rendered
+    const icon = screen.getByRole("img")
+    expect(icon).toBeInTheDocument()
   })
 
-  it("renders without count and shows dash in single mode", () => {
-    render(
-      <SeverityCount
-        showDashIfZero
-        icon="severityCritical"
-        count={0}
-        variant="danger"
-        tooltipContent="Critical Issues"
-      />
-    )
+  it("renders with zero count and shows icon with dash", () => {
+    render(<SeverityCount severity="critical" count={0} tooltipContent="Critical Issues" />)
 
-    // Check if dash is rendered instead of a badge
+    // Check if dash is rendered
     const dash = screen.getByText("—")
     expect(dash).toBeInTheDocument()
+    // Check if icon is also rendered
+    const icon = screen.getByRole("img")
+    expect(icon).toBeInTheDocument()
   })
 
-  it("renders with zero count and shows '0' in all mode", () => {
-    render(<SeverityCount icon="severityCritical" count={0} variant="danger" tooltipContent="Critical Issues" />)
+  it("renders with positive count", () => {
+    render(<SeverityCount severity="high" count={3} tooltipContent="High Issues" />)
 
-    // Check if the badge is rendered with "0"
-    const badge = screen.getByText("0")
-    expect(badge).toBeInTheDocument()
+    // Check if the count is rendered
+    const count = screen.getByText("3")
+    expect(count).toBeInTheDocument()
+    // Check if icon is rendered
+    const icon = screen.getByRole("img")
+    expect(icon).toBeInTheDocument()
   })
 
-  it("renders with positive count in all mode", () => {
-    render(<SeverityCount icon="severityCritical" count={3} variant="danger" tooltipContent="Critical Issues" />)
+  it("maps severity to correct icon and color", () => {
+    const { rerender } = render(<SeverityCount severity="critical" count={1} tooltipContent="Test" />)
+    let icon = screen.getByRole("img")
+    expect(icon).toHaveClass("juno-icon-severityCritical")
 
-    // Check if the badge is rendered with the count
-    const badge = screen.getByText("3")
-    expect(badge).toBeInTheDocument()
+    rerender(<SeverityCount severity="medium" count={1} tooltipContent="Test" />)
+    icon = screen.getByRole("img")
+    expect(icon).toHaveClass("juno-icon-severityMedium")
   })
 })

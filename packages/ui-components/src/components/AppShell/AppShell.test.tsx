@@ -33,7 +33,7 @@ describe("AppShell", () => {
     render(
       <AppShell
         data-testid="app-shell"
-        pageHeader={<PageHeader data-testid="page-header" heading="My Page Header" />}
+        pageHeader={<PageHeader data-testid="page-header" applicationName="My Page Header" />}
       />
     )
     expect(screen.getByTestId("app-shell")).toBeInTheDocument()
@@ -87,7 +87,7 @@ describe("AppShell", () => {
       <AppShell
         data-testid="app-shell"
         embedded={true}
-        pageHeader={<PageHeader data-testid="page-header" heading="My Page Heading" />}
+        pageHeader={<PageHeader data-testid="page-header" applicationName="My Page Heading" />}
         pageFooter={<PageFooter data-testid="page-footer">My Page Footer</PageFooter>}
       />
     )

@@ -1,0 +1,103 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React from "react"
+import { ServiceImage } from "../../../Services/utils"
+import { DataGridRow, DataGridCell, Button, Icon, Stack } from "@cloudoperators/juno-ui-components"
+import { SeverityCount } from "../../SeverityCount"
+
+type ImagesDataRowProps = {
+  version: ServiceImage
+  selected: boolean
+  displayDetailsButton?: boolean
+  onItemClick: React.MouseEventHandler<HTMLDivElement>
+  onDetailClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
+}
+
+export const ImagesDataRow = ({
+  version,
+  selected = false,
+  displayDetailsButton = true,
+  onItemClick,
+  onDetailClick,
+}: ImagesDataRowProps) => {
+  return (
+    <DataGridRow onClick={onItemClick} className="cursor-pointer" isSelected={selected}>
+      <DataGridCell className="service-image-versions-cell">
+        <Stack gap="1" direction="vertical">
+          <Stack gap="0.5" direction="vertical">
+            <span>{version.repository}</span>
+            {version.versionsCount !== undefined && version.versionsCount > 0 && (
+              <span className="text-sm text-theme-light">
+                {version.versionsCount} version{version.versionsCount !== 1 ? "s" : ""}
+              </span>
+            )}
+          </Stack>
+          <Stack gap="1" alignment="center">
+            {version.imageRegistryUrl && (
+              <a
+                href={
+                  version.imageRegistryUrl.startsWith("http://") || version.imageRegistryUrl.startsWith("https://")
+                    ? version.imageRegistryUrl
+                    : `https://${version.imageRegistryUrl}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline text-sm"
+                onClick={(e) => e.stopPropagation()}
+                aria-label={`Open image registry for ${version.repository} (opens in a new tab)`}
+                title={`Open image registry for ${version.repository} (opens in a new tab)`}
+              >
+                <Stack gap="1.5" alignment="center">
+                  <Icon icon="openInNew" size="16" color="global-text" />
+                  <span>Image registry</span>
+                </Stack>
+              </a>
+            )}
+          </Stack>
+        </Stack>
+      </DataGridCell>
+      <DataGridCell className="service-image-versions-cell">
+        {version.versionsCount !== undefined
+          ? `${version.versionsCount} version${version.versionsCount !== 1 ? "s" : ""}`
+          : "-"}
+      </DataGridCell>
+      {/* Due to UX designer feedback, when showing counts with severity icons in datagrid cells,
+          we override the default padding (5px horizontal, 3px vertical) and instead only use px-2 */}
+      <DataGridCell className="items-center !px-2">
+        <SeverityCount
+          severity="critical"
+          count={version.vulnerabilityCounts.critical}
+          tooltipContent="Critical Vulnerabilities"
+        />
+      </DataGridCell>
+      <DataGridCell className="items-center !px-2">
+        <SeverityCount severity="high" count={version.vulnerabilityCounts.high} tooltipContent="High Vulnerabilities" />
+      </DataGridCell>
+      <DataGridCell className="items-center !px-2">
+        <SeverityCount
+          severity="medium"
+          count={version.vulnerabilityCounts.medium}
+          tooltipContent="Medium Vulnerabilities"
+        />
+      </DataGridCell>
+      <DataGridCell className="items-center !px-2">
+        <SeverityCount severity="low" count={version.vulnerabilityCounts.low} tooltipContent="Low Vulnerabilities" />
+      </DataGridCell>
+      <DataGridCell className="items-center !px-2">
+        <SeverityCount
+          severity="unknown"
+          count={version.vulnerabilityCounts.none}
+          tooltipContent="None Vulnerabilities"
+        />
+      </DataGridCell>
+      {displayDetailsButton && (
+        <DataGridCell className="cursor-default" onClick={(e) => e.stopPropagation()}>
+          <Button size="small" label="Show Details" onClick={onDetailClick} className="whitespace-nowrap" />
+        </DataGridCell>
+      )}
+    </DataGridRow>
+  )
+}

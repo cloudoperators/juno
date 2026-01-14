@@ -4,14 +4,12 @@
  */
 
 import React, { Suspense, useEffect, useState } from "react"
-import { useLoaderData, useNavigate, useParams, useRouteContext, useSearch } from "@tanstack/react-router"
+import { Outlet, useLoaderData, useMatchRoute, useNavigate, useParams, useRouteContext } from "@tanstack/react-router"
 import { Spinner } from "@cloudoperators/juno-ui-components"
-import { ApolloQueryResult } from "@apollo/client"
-import { ServiceImageVersions } from "../common/ServiceImageVersions"
-import { ImageVersionDetailsPanel } from "./ImageVersionDetailsPanel"
+import { ServiceImages } from "../common/ServiceImages"
 import { ServiceDetails } from "./ServiceDetails"
-import { fetchImageVersions } from "../../api/fetchImageVersions"
-import { GetServiceImageVersionsQuery } from "../../generated/graphql"
+import { fetchImages } from "../../api/fetchImages"
+import { GetImagesQueryResult } from "../../generated/graphql"
 import { ErrorBoundary } from "../common/ErrorBoundary"
 
 export const Service = () => {
@@ -19,23 +17,32 @@ export const Service = () => {
   const { queryClient, apiClient } = useRouteContext({ from: "/services/$service" })
   const { servicePromise } = useLoaderData({ from: "/services/$service" })
   const { service } = useParams({ from: "/services/$service" })
-  const { imageVersion } = useSearch({ from: "/services/$service" })
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
-  const [imageVersionsPromise, setImageVersionsPromise] = useState<
-    Promise<ApolloQueryResult<GetServiceImageVersionsQuery>> | undefined
-  >(undefined)
+  const [imagesPromise, setImagesPromise] = useState<Promise<GetImagesQueryResult> | undefined>(undefined)
 
-  // refetch image versions only when the page cursor changes
+  // Check if we're on a child route (image details page)
+  const matchRoute = useMatchRoute()
+  const isOnImageDetailsPage = matchRoute({ to: "/services/$service/images/$image" })
+
+  // refetch images only when the page cursor changes
   useEffect(() => {
-    const promise = fetchImageVersions({
+    const promise = fetchImages({
       queryClient,
       apiClient,
-      service,
+      filter: {
+        service: [service],
+      },
       after: pageCursor,
     })
-    setImageVersionsPromise(promise)
-  }, [pageCursor])
+    setImagesPromise(promise)
+  }, [pageCursor, service, queryClient, apiClient])
 
+  // If we're on a child route (image details), just render the outlet
+  if (isOnImageDetailsPage) {
+    return <Outlet />
+  }
+
+  // Otherwise, render the service details and images list
   return (
     <>
       <ErrorBoundary displayErrorMessage>
@@ -43,26 +50,17 @@ export const Service = () => {
           <ServiceDetails servicePromise={servicePromise} />
         </Suspense>
       </ErrorBoundary>
-      {imageVersionsPromise && (
-        <>
-          <ServiceImageVersions
-            selectedImageVersion={imageVersion}
-            imageVersionsPromise={imageVersionsPromise}
-            onImageVersionItemClick={(iv) => {
-              navigate({
-                to: "/services/$service",
-                params: { service },
-                search: { imageVersion: iv.version },
-              })
-            }}
-            goToPage={setPageCursor}
-          />
-          <ErrorBoundary>
-            <Suspense>
-              <ImageVersionDetailsPanel imageVersionsPromise={imageVersionsPromise} />
-            </Suspense>
-          </ErrorBoundary>
-        </>
+      {imagesPromise && (
+        <ServiceImages
+          imagesPromise={imagesPromise}
+          onImageItemClick={(image) => {
+            navigate({
+              to: "/services/$service/images/$image",
+              params: { service, image: image.repository },
+            })
+          }}
+          goToPage={setPageCursor}
+        />
       )}
     </>
   )

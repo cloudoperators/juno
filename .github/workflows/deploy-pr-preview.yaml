@@ -55,7 +55,7 @@ jobs:
     needs: [run-detect-changes]
     runs-on: [ ubuntu-latest ]
     steps:
-      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 #v4.3.0
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
       - name: Precompile ENVs
         if: github.event.action != 'closed'
@@ -72,7 +72,7 @@ jobs:
           # setup ENVs for each app to add query params
           echo "GREENHOUSE_BASE_PATH=#/demo" >> $GITHUB_ENV
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 #v4.4.0
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         if: github.event.action != 'closed'
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -204,7 +204,7 @@ jobs:
 
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
-      - uses: rossjrw/pr-preview-action@9f77b1d057b494e662c50b8ca40ecc63f21e0887 # v1.6.2
+      - uses: rossjrw/pr-preview-action@8ff09e486b4c23709012eedd3b42e9f0b95dd0c5 # v1.6.3
         with:
           source-dir: ${{ env.DEPLOY_PATH }}/
           preview-branch: gh-pages

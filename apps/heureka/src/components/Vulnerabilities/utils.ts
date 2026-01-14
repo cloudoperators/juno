@@ -96,6 +96,7 @@ export type NormalizedVulnerabilities = {
   totalVulnerabilities: number
   pageNumber: number
   vulnerabilitiesCounts: IssuesCountsType
+  totalCount: number
 }
 
 export type NormalizedVulnerabilityServices = {
@@ -105,11 +106,10 @@ export type NormalizedVulnerabilityServices = {
   pageNumber: number
 }
 
-export function getNormalizedVulnerabilitiesResponse(
-  data: GetVulnerabilitiesQuery | undefined
-): NormalizedVulnerabilities {
+export function getNormalizedVulnerabilitiesResponse(data: unknown): NormalizedVulnerabilities {
+  const typedData = data as GetVulnerabilitiesQuery | undefined
   const vulnerabilities =
-    data?.Vulnerabilities?.edges?.map((edge) => {
+    typedData?.Vulnerabilities?.edges?.map((edge) => {
       // Normalize services
       const services =
         edge?.node.services?.edges
@@ -136,36 +136,37 @@ export function getNormalizedVulnerabilitiesResponse(
       }
     }) || []
 
-  const counts = (data?.Vulnerabilities as any)?.counts
+  const counts = (typedData?.Vulnerabilities as any)?.counts
 
+  const totalVulnerabilities = counts?.total || DEFAULT_COUNT
   return {
     vulnerabilities,
-    totalVulnerabilities: counts?.total || DEFAULT_COUNT,
-    pages: data?.Vulnerabilities?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
-    pageNumber: data?.Vulnerabilities?.pageInfo?.pageNumber || 1,
+    totalVulnerabilities,
+    pages: typedData?.Vulnerabilities?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    pageNumber: typedData?.Vulnerabilities?.pageInfo?.pageNumber || 1,
     vulnerabilitiesCounts: {
       critical: counts?.critical || DEFAULT_COUNT,
       high: counts?.high || DEFAULT_COUNT,
       medium: counts?.medium || DEFAULT_COUNT,
       low: counts?.low || DEFAULT_COUNT,
       none: counts?.none || DEFAULT_COUNT,
-      total: counts?.total || DEFAULT_COUNT,
+      total: totalVulnerabilities,
     },
+    totalCount: totalVulnerabilities,
   }
 }
 
-export function getNormalizedVulnerabilityServicesResponse(
-  data: GetVulnerabilitiesQuery | undefined
-): NormalizedVulnerabilityServices {
+export function getNormalizedVulnerabilityServicesResponse(data: unknown): NormalizedVulnerabilityServices {
+  const typedData = data as GetVulnerabilitiesQuery | undefined
   const services =
-    data?.Vulnerabilities?.edges?.[0]?.node?.services?.edges
+    typedData?.Vulnerabilities?.edges?.[0]?.node?.services?.edges
       ?.filter((serviceEdge) => serviceEdge?.node)
       ?.map((serviceEdge) => ({
         ccrn: serviceEdge?.node?.ccrn || "",
       })) || []
 
-  const totalServices = data?.Vulnerabilities?.edges?.[0]?.node?.services?.totalCount || 0
-  const pageInfo = data?.Vulnerabilities?.edges?.[0]?.node?.services?.pageInfo
+  const totalServices = typedData?.Vulnerabilities?.edges?.[0]?.node?.services?.totalCount || 0
+  const pageInfo = typedData?.Vulnerabilities?.edges?.[0]?.node?.services?.pageInfo
 
   return {
     services,

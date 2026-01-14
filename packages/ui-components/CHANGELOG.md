@@ -1,5 +1,33 @@
 # @cloudoperators/juno-ui-components
 
+## 5.12.0
+
+### Minor Changes
+
+- 8dbe8e1: Added Icon for language
+
+## 5.11.0
+
+### Minor Changes
+
+- d73d9a2: - Added @deprecated jsdoc label to `PageHeader`, `SortButton` and `StyleProvider` components.
+  - Changed `applicationName` type in `PageHeader` from `string` to `string | ReactElement`.
+  - Replaced deprecated `heading` with `applicationName` in all apps.
+
+## 5.10.0
+
+### Minor Changes
+
+- fbbe5ad: - Added `SideNavigation` to Example App and fixed layout in `AppShell`.
+  - Aligned `MainContainerInner` constraints with the current `SideNavigation` size.
+  - Fixed padding of `SideNavigation` and alignment of each `SideNavigationItem`.
+
+## 5.9.1
+
+### Patch Changes
+
+- 3c0478b: Improved `PageHeader` theming by using theme token classes instead of forcing dark theme and made minor API documentation changes.
+
 ## 5.9.0
 
 ### Minor Changes

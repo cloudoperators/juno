@@ -8,9 +8,11 @@ import { Navigation } from "../Navigation/Navigation.component"
 import { SideNavigationListProps } from "../SideNavigationList"
 
 const sideNavStyles = `
-  jn:min-w-[7.5rem]
-  jn:max-w-[20rem]
+  jn:px-[1.25rem]
+  jn:py-[1rem]
+  jn:w-[16rem]
   jn:bg-theme-sidenav
+  jn:border-r
   jn:border-theme-sidenav
 `
 

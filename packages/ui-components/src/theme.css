@@ -329,6 +329,10 @@
   --color-theme-button-sundued-hover: var(--color-button-subdued-hover-text);
   --color-theme-button-sundued-active: var(--color-button-subdued-active-text);
 
+  /* PageFooter */
+  --text-color-theme-pagefooter: var(--color-pagefooter-text);
+  --background-color-theme-pagefooter: var(--color-pagefooter-background);
+
   /* TODO Border Color */
   --border-theme-button-subdued: 1px solid var(--color-button-subdued-border);
   --border-theme-button-subdued-hover: var(--color-button-subdued-hover-border);
@@ -391,6 +395,7 @@
   --text-color-theme-textinput-autofill: var(--color-textinput-autofill-text);
   --text-color-theme-textinput-autofill-label: var(--color-textinput-autofill-label);
   --text-color-theme-checkbox-checked: var(--color-checkbox-checked-color);
+  --text-color-theme-pageheader: var(--color-pageheader-text);
   --text-color-theme-pageheader-appname-active: var(--color-pageheader-appname-text-active);
   --text-color-theme-pageheader-appname-default: var(--color-pageheader-appname-text-default);
   --text-color-theme-pageheader-appname-hover: var(--color-pageheader-appname-text-hover);
@@ -662,11 +667,12 @@
   /* LT Panel */
   --color-panel-bg: rgb(252 252 252 / 0.8);
   /* LT PageHeader */
-  --color-pageheader-background: var(--color-white);
+  --color-pageheader-background: var(--color-juno-grey-blue-11);
   --color-pageheader-border: var(--color-juno-grey-light-7);
-  --color-pageheader-appname-text-default: var(--color-text-highest);
-  --color-pageheader-appname-text-hover: var(--color-text-highest);
-  --color-pageheader-appname-text-active: var(--color-text-highest);
+  --color-pageheader-text: rgb(255, 254, 253);
+  --color-pageheader-appname-text-default: rgb(255, 254, 253);
+  --color-pageheader-appname-text-hover: rgb(255, 254, 253);
+  --color-pageheader-appname-text-active: rgb(255, 254, 253);
   /* LT TabNavigation */
   --color-tabnavigation-top-bg: var(--color-juno-grey-light-5);
   --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4);
@@ -713,6 +719,15 @@
   /* LT Box Shadow */
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
   --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.3)), 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+  /* LT PageFooter */
+  --color-pagefooter-text: var(--color-text-light);
+  --color-pagefooter-background: var(--color-white);
+  --color-pagefooter-border: var(--color-border-default);
+  --color-pagefooter-title: var(--color-text-default);
+  --color-pagefooter-item-default: var(--color-text-light);
+  --color-pagefooter-item-hover: var(--color-text-light);
+  --color-pagefooter-item-active: var(--color-accent);
+  --color-border-default: var(--color-juno-grey-light-7);
 }
 
 /* JUNO THEME: DARK MODE */
@@ -903,6 +918,7 @@
   /* DT PageHeader */
   --color-pageheader-background: var(--color-juno-grey-blue-11);
   --color-pageheader-border: var(--color-juno-grey-blue-3);
+  --color-pageheader-text: var(--color-text-highest);
   --color-pageheader-appname-text-default: var(--color-text-highest);
   --color-pageheader-appname-text-hover: var(--color-text-highest);
   --color-pageheader-appname-text-active: var(--color-text-highest);
@@ -950,6 +966,15 @@
   /* DT Box Shadow */
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
   --box-shadow-hover: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
+  /* DT PageFooter */
+  --color-pagefooter-text: var(--color-text-light);
+  --color-pagefooter-background: var(--color-juno-grey-blue-10);
+  --color-pagefooter-border: var(--color-border-default);
+  --color-pagefooter-title: var(--color-text-default);
+  --color-pagefooter-item-default: var(--color-text-light);
+  --color-pagefooter-item-hover: var(--color-text-light);
+  --color-pagefooter-item-active: var(--color-accent);
+  --color-border-default: var(--color-juno-grey-blue-3);
 }
 
 /*

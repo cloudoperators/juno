@@ -168,6 +168,7 @@ export type ComponentEdge = Edge & {
 
 export type ComponentFilter = {
   componentCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  componentVersionRepository?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
 }
@@ -200,6 +201,7 @@ export type ComponentInstance = Node & {
   issueMatches?: Maybe<IssueMatchConnection>
   metadata?: Maybe<Metadata>
   namespace?: Maybe<Scalars["String"]["output"]>
+  parent?: Maybe<ComponentInstance>
   parentId?: Maybe<Scalars["String"]["output"]>
   pod?: Maybe<Scalars["String"]["output"]>
   project?: Maybe<Scalars["String"]["output"]>
@@ -547,6 +549,7 @@ export type ImageVersionsArgs = {
 
 export type ImageVulnerabilitiesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<VulnerabilityFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
@@ -565,6 +568,7 @@ export type ImageEdge = Edge & {
 }
 
 export type ImageFilter = {
+  repository?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
@@ -964,6 +968,7 @@ export type Mutation = {
   createIssueMatchChange: IssueMatchChange
   createIssueRepository: IssueRepository
   createIssueVariant: IssueVariant
+  createRemediation: Remediation
   createScannerRun: Scalars["Boolean"]["output"]
   createService: Service
   createSupportGroup: SupportGroup
@@ -978,6 +983,7 @@ export type Mutation = {
   deleteIssueMatchChange: Scalars["String"]["output"]
   deleteIssueRepository: Scalars["String"]["output"]
   deleteIssueVariant: Scalars["String"]["output"]
+  deleteRemediation: Scalars["String"]["output"]
   deleteService: Scalars["String"]["output"]
   deleteSupportGroup: Scalars["String"]["output"]
   deleteUser: Scalars["String"]["output"]
@@ -1000,6 +1006,7 @@ export type Mutation = {
   updateIssueMatchChange: IssueMatchChange
   updateIssueRepository: IssueRepository
   updateIssueVariant: IssueVariant
+  updateRemediation: Remediation
   updateService: Service
   updateSupportGroup: SupportGroup
   updateUser: User
@@ -1090,6 +1097,10 @@ export type MutationCreateIssueVariantArgs = {
   input: IssueVariantInput
 }
 
+export type MutationCreateRemediationArgs = {
+  input: RemediationInput
+}
+
 export type MutationCreateScannerRunArgs = {
   input: ScannerRunInput
 }
@@ -1143,6 +1154,10 @@ export type MutationDeleteIssueRepositoryArgs = {
 }
 
 export type MutationDeleteIssueVariantArgs = {
+  id: Scalars["ID"]["input"]
+}
+
+export type MutationDeleteRemediationArgs = {
   id: Scalars["ID"]["input"]
 }
 
@@ -1253,6 +1268,11 @@ export type MutationUpdateIssueVariantArgs = {
   input: IssueVariantInput
 }
 
+export type MutationUpdateRemediationArgs = {
+  id: Scalars["ID"]["input"]
+  input: RemediationInput
+}
+
 export type MutationUpdateServiceArgs = {
   id: Scalars["ID"]["input"]
   input: ServiceInput
@@ -1312,6 +1332,7 @@ export type Query = {
   IssueRepositories?: Maybe<IssueRepositoryConnection>
   IssueVariants?: Maybe<IssueVariantConnection>
   Issues?: Maybe<IssueConnection>
+  Remediations?: Maybe<RemediationConnection>
   ScannerRunTagFilterValues?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>
   ScannerRuns?: Maybe<ScannerRunConnection>
   ServiceFilterValues?: Maybe<ServiceFilterValue>
@@ -1396,6 +1417,12 @@ export type QueryIssuesArgs = {
   orderBy?: InputMaybe<Array<InputMaybe<IssueOrderBy>>>
 }
 
+export type QueryRemediationsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<RemediationFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
 export type QueryScannerRunsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ScannerRunFilter>
@@ -1426,6 +1453,59 @@ export type QueryVulnerabilitiesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<VulnerabilityFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type Remediation = Node & {
+  __typename?: "Remediation"
+  description?: Maybe<Scalars["String"]["output"]>
+  expirationDate?: Maybe<Scalars["DateTime"]["output"]>
+  id: Scalars["ID"]["output"]
+  image?: Maybe<Scalars["String"]["output"]>
+  imageId?: Maybe<Scalars["ID"]["output"]>
+  metadata?: Maybe<Metadata>
+  remediatedBy?: Maybe<Scalars["String"]["output"]>
+  remediationDate?: Maybe<Scalars["DateTime"]["output"]>
+  service?: Maybe<Scalars["String"]["output"]>
+  serviceId?: Maybe<Scalars["ID"]["output"]>
+  type?: Maybe<RemediationTypeValues>
+  vulnerability?: Maybe<Scalars["String"]["output"]>
+  vulnerabilityId?: Maybe<Scalars["ID"]["output"]>
+}
+
+export type RemediationConnection = Connection & {
+  __typename?: "RemediationConnection"
+  edges?: Maybe<Array<Maybe<RemediationEdge>>>
+  pageInfo?: Maybe<PageInfo>
+  totalCount: Scalars["Int"]["output"]
+}
+
+export type RemediationEdge = Edge & {
+  __typename?: "RemediationEdge"
+  cursor?: Maybe<Scalars["String"]["output"]>
+  node: Remediation
+}
+
+export type RemediationFilter = {
+  image?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
+  type?: InputMaybe<Array<InputMaybe<RemediationTypeValues>>>
+  vulnerability?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+}
+
+export type RemediationInput = {
+  description?: InputMaybe<Scalars["String"]["input"]>
+  expirationDate?: InputMaybe<Scalars["DateTime"]["input"]>
+  image?: InputMaybe<Scalars["String"]["input"]>
+  remediatedBy?: InputMaybe<Scalars["String"]["input"]>
+  remediationDate?: InputMaybe<Scalars["DateTime"]["input"]>
+  service?: InputMaybe<Scalars["String"]["input"]>
+  type?: InputMaybe<RemediationTypeValues>
+  vulnerability?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export enum RemediationTypeValues {
+  FalsePositive = "false_positive",
 }
 
 export type ScannerRun = Node & {
@@ -1476,6 +1556,7 @@ export type Service = Node & {
   objectMetadata?: Maybe<ServiceMetadata>
   owners?: Maybe<UserConnection>
   region?: Maybe<Scalars["String"]["output"]>
+  remediations?: Maybe<RemediationConnection>
   supportGroups?: Maybe<SupportGroupConnection>
 }
 
@@ -1512,6 +1593,12 @@ export type ServiceIssueRepositoriesArgs = {
 export type ServiceOwnersArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<UserFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type ServiceRemediationsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<RemediationFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
@@ -1810,6 +1897,94 @@ export type VulnerabilityFilterValue = {
   supportGroup?: Maybe<FilterItem>
 }
 
+export type GetImagesQueryVariables = Exact<{
+  imgFilter?: InputMaybe<ImageFilter>
+  vulFilter?: InputMaybe<VulnerabilityFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+  after?: InputMaybe<Scalars["String"]["input"]>
+  firstVulnerabilities?: InputMaybe<Scalars["Int"]["input"]>
+  afterVulnerabilities?: InputMaybe<Scalars["String"]["input"]>
+  firstVersions?: InputMaybe<Scalars["Int"]["input"]>
+  afterVersions?: InputMaybe<Scalars["String"]["input"]>
+}>
+
+export type GetImagesQuery = {
+  __typename?: "Query"
+  Images?: {
+    __typename?: "ImageConnection"
+    totalCount: number
+    counts?: {
+      __typename?: "SeverityCounts"
+      critical: number
+      high: number
+      medium: number
+      low: number
+      none: number
+      total: number
+    } | null
+    edges: Array<{
+      __typename?: "ImageEdge"
+      node: {
+        __typename?: "Image"
+        id: string
+        repository?: string | null
+        imageRegistryUrl?: string | null
+        vulnerabilityCounts?: {
+          __typename?: "SeverityCounts"
+          critical: number
+          high: number
+          medium: number
+          low: number
+          none: number
+          total: number
+        } | null
+        versions?: {
+          __typename?: "ComponentVersionConnection"
+          edges: Array<{
+            __typename?: "ComponentVersionEdge"
+            node: { __typename?: "ComponentVersion"; id: string; version?: string | null }
+          } | null>
+        } | null
+        vulnerabilities?: {
+          __typename?: "VulnerabilityConnection"
+          edges: Array<{
+            __typename?: "VulnerabilityEdge"
+            node: {
+              __typename?: "Vulnerability"
+              id: string
+              severity?: SeverityValues | null
+              name?: string | null
+              sourceUrl?: string | null
+              earliestTargetRemediationDate?: any | null
+              description?: string | null
+            }
+          } | null>
+          pageInfo?: {
+            __typename?: "PageInfo"
+            pageNumber?: number | null
+            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+          } | null
+        } | null
+      }
+    } | null>
+    pageInfo?: {
+      __typename?: "PageInfo"
+      hasNextPage?: boolean | null
+      hasPreviousPage?: boolean | null
+      isValidPage?: boolean | null
+      pageNumber?: number | null
+      nextPageAfter?: string | null
+      pages?: Array<{
+        __typename?: "Page"
+        after?: string | null
+        isCurrent?: boolean | null
+        pageNumber?: number | null
+        pageCount?: number | null
+      } | null> | null
+    } | null
+  } | null
+}
+
 export type GetServiceFiltersQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetServiceFiltersQuery = {
@@ -1827,141 +2002,6 @@ export type GetServiceFiltersQuery = {
       displayName?: string | null
       filterName?: string | null
       values?: Array<string | null> | null
-    } | null
-  } | null
-}
-
-export type GetServiceImageVersionIssuesQueryVariables = Exact<{
-  componentVersionFilter?: InputMaybe<ComponentVersionFilter>
-  issuesFilter?: InputMaybe<IssueFilter>
-  issueMatchFilter?: InputMaybe<IssueMatchFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-  after?: InputMaybe<Scalars["String"]["input"]>
-  orderByIssueSeverity?: InputMaybe<Array<InputMaybe<IssueOrderBy>> | InputMaybe<IssueOrderBy>>
-  orderBySeverity?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>> | InputMaybe<IssueMatchOrderBy>>
-  orderByTrd?: InputMaybe<Array<InputMaybe<IssueMatchOrderBy>> | InputMaybe<IssueMatchOrderBy>>
-}>
-
-export type GetServiceImageVersionIssuesQuery = {
-  __typename?: "Query"
-  ComponentVersions?: {
-    __typename?: "ComponentVersionConnection"
-    totalCount: number
-    edges: Array<{
-      __typename?: "ComponentVersionEdge"
-      node: {
-        __typename?: "ComponentVersion"
-        issues?: {
-          __typename?: "IssueConnection"
-          totalCount: number
-          edges: Array<{
-            __typename?: "IssueEdge"
-            node: {
-              __typename?: "Issue"
-              primaryName?: string | null
-              description?: string | null
-              issueVariants?: {
-                __typename?: "IssueVariantConnection"
-                edges?: Array<{
-                  __typename?: "IssueVariantEdge"
-                  node: { __typename?: "IssueVariant"; externalUrl?: string | null }
-                } | null> | null
-              } | null
-              highestSeverity?: {
-                __typename?: "IssueMatchConnection"
-                totalCount: number
-                edges?: Array<{
-                  __typename?: "IssueMatchEdge"
-                  node: {
-                    __typename?: "IssueMatch"
-                    severity?: {
-                      __typename?: "Severity"
-                      value?: SeverityValues | null
-                      cvss?: { __typename?: "CVSS"; vector?: string | null; externalUrl?: string | null } | null
-                    } | null
-                  }
-                } | null> | null
-              } | null
-              earliestTargetRemediationDate?: {
-                __typename?: "IssueMatchConnection"
-                edges?: Array<{
-                  __typename?: "IssueMatchEdge"
-                  node: { __typename?: "IssueMatch"; targetRemediationDate?: any | null }
-                } | null> | null
-              } | null
-            }
-          } | null>
-          pageInfo?: {
-            __typename?: "PageInfo"
-            pageNumber?: number | null
-            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
-          } | null
-        } | null
-      }
-    } | null>
-  } | null
-}
-
-export type GetServiceImageVersionsQueryVariables = Exact<{
-  filter?: InputMaybe<ComponentVersionFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-  after?: InputMaybe<Scalars["String"]["input"]>
-  orderBy?: InputMaybe<Array<InputMaybe<ComponentVersionOrderBy>> | InputMaybe<ComponentVersionOrderBy>>
-  orderByCi?: InputMaybe<Array<InputMaybe<ComponentInstanceOrderBy>> | InputMaybe<ComponentInstanceOrderBy>>
-  filterCi?: InputMaybe<ComponentInstanceFilter>
-  filterIc?: InputMaybe<IssueFilter>
-}>
-
-export type GetServiceImageVersionsQuery = {
-  __typename?: "Query"
-  ComponentVersions?: {
-    __typename?: "ComponentVersionConnection"
-    totalCount: number
-    edges: Array<{
-      __typename?: "ComponentVersionEdge"
-      node: {
-        __typename?: "ComponentVersion"
-        tag?: string | null
-        repository?: string | null
-        version?: string | null
-        issueCounts?: {
-          __typename?: "SeverityCounts"
-          critical: number
-          high: number
-          medium: number
-          low: number
-          none: number
-          total: number
-        } | null
-        component?: { __typename?: "Component"; ccrn?: string | null } | null
-        componentInstances?: {
-          __typename?: "ComponentInstanceConnection"
-          totalCount: number
-          edges: Array<{
-            __typename?: "ComponentInstanceEdge"
-            node: {
-              __typename?: "ComponentInstance"
-              id: string
-              ccrn?: string | null
-              region?: string | null
-              cluster?: string | null
-              namespace?: string | null
-              pod?: string | null
-              container?: string | null
-            }
-          } | null>
-          pageInfo?: {
-            __typename?: "PageInfo"
-            pageNumber?: number | null
-            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
-          } | null
-        } | null
-      }
-    } | null>
-    pageInfo?: {
-      __typename?: "PageInfo"
-      pageNumber?: number | null
-      pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
     } | null
   } | null
 }
@@ -2106,6 +2146,86 @@ export type GetVulnerabilityFiltersQuery = {
   } | null
 }
 
+export const GetImagesDocument = gql`
+  query GetImages(
+    $imgFilter: ImageFilter
+    $vulFilter: VulnerabilityFilter
+    $first: Int
+    $after: String
+    $firstVulnerabilities: Int
+    $afterVulnerabilities: String
+    $firstVersions: Int
+    $afterVersions: String
+  ) {
+    Images(first: $first, after: $after, filter: $imgFilter) {
+      counts {
+        critical
+        high
+        medium
+        low
+        none
+        total
+      }
+      edges {
+        node {
+          id
+          repository
+          imageRegistryUrl
+          vulnerabilityCounts {
+            critical
+            high
+            medium
+            low
+            none
+            total
+          }
+          versions(first: $firstVersions, after: $afterVersions) {
+            edges {
+              node {
+                id
+                version
+              }
+            }
+          }
+          vulnerabilities(first: $firstVulnerabilities, after: $afterVulnerabilities, filter: $vulFilter) {
+            edges {
+              node {
+                id
+                severity
+                name
+                sourceUrl
+                earliestTargetRemediationDate
+                description
+              }
+            }
+            pageInfo {
+              pageNumber
+              pages {
+                after
+                pageNumber
+              }
+            }
+          }
+        }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        isValidPage
+        pageNumber
+        nextPageAfter
+        pages {
+          after
+          isCurrent
+          pageNumber
+          pageCount
+        }
+      }
+    }
+  }
+`
+export type GetImagesQueryResult = Apollo.ApolloQueryResult<GetImagesQuery>
 export const GetServiceFiltersDocument = gql`
   query GetServiceFilters {
     ServiceFilterValues {
@@ -2122,140 +2242,7 @@ export const GetServiceFiltersDocument = gql`
     }
   }
 `
-export type GetServiceFiltersQueryResult = Apollo.QueryResult<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
-export const GetServiceImageVersionIssuesDocument = gql`
-  query GetServiceImageVersionIssues(
-    $componentVersionFilter: ComponentVersionFilter
-    $issuesFilter: IssueFilter
-    $issueMatchFilter: IssueMatchFilter
-    $first: Int
-    $after: String
-    $orderByIssueSeverity: [IssueOrderBy]
-    $orderBySeverity: [IssueMatchOrderBy]
-    $orderByTrd: [IssueMatchOrderBy]
-  ) {
-    ComponentVersions(filter: $componentVersionFilter) {
-      edges {
-        node {
-          issues(first: $first, after: $after, filter: $issuesFilter, orderBy: $orderByIssueSeverity) {
-            edges {
-              node {
-                issueVariants(first: 1) {
-                  edges {
-                    node {
-                      externalUrl
-                    }
-                  }
-                }
-                primaryName
-                description
-                highestSeverity: issueMatches(filter: $issueMatchFilter, first: 1, orderBy: $orderBySeverity) {
-                  totalCount
-                  edges {
-                    node {
-                      severity {
-                        value
-                        cvss {
-                          vector
-                          externalUrl
-                        }
-                      }
-                    }
-                  }
-                }
-                earliestTargetRemediationDate: issueMatches(filter: $issueMatchFilter, first: 1, orderBy: $orderByTrd) {
-                  edges {
-                    node {
-                      targetRemediationDate
-                    }
-                  }
-                }
-              }
-            }
-            totalCount
-            pageInfo {
-              pageNumber
-              pages {
-                after
-                pageNumber
-              }
-            }
-          }
-        }
-      }
-      totalCount
-    }
-  }
-`
-export type GetServiceImageVersionIssuesQueryResult = Apollo.QueryResult<
-  GetServiceImageVersionIssuesQuery,
-  GetServiceImageVersionIssuesQueryVariables
->
-export const GetServiceImageVersionsDocument = gql`
-  query GetServiceImageVersions(
-    $filter: ComponentVersionFilter
-    $first: Int
-    $after: String
-    $orderBy: [ComponentVersionOrderBy]
-    $orderByCi: [ComponentInstanceOrderBy]
-    $filterCi: ComponentInstanceFilter
-    $filterIc: IssueFilter
-  ) {
-    ComponentVersions(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
-      edges {
-        node {
-          tag
-          repository
-          version
-          issueCounts(filter: $filterIc) {
-            critical
-            high
-            medium
-            low
-            none
-            total
-          }
-          component {
-            ccrn
-          }
-          componentInstances(filter: $filterCi, orderBy: $orderByCi, first: 1000) {
-            totalCount
-            edges {
-              node {
-                id
-                ccrn
-                region
-                cluster
-                namespace
-                pod
-                container
-              }
-            }
-            pageInfo {
-              pageNumber
-              pages {
-                after
-                pageNumber
-              }
-            }
-          }
-        }
-      }
-      totalCount
-      pageInfo {
-        pageNumber
-        pages {
-          after
-          pageNumber
-        }
-      }
-    }
-  }
-`
-export type GetServiceImageVersionsQueryResult = Apollo.QueryResult<
-  GetServiceImageVersionsQuery,
-  GetServiceImageVersionsQueryVariables
->
+export type GetServiceFiltersQueryResult = Apollo.ApolloQueryResult<GetServiceFiltersQuery>
 export const GetServicesDocument = gql`
   query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
     Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
@@ -2308,7 +2295,7 @@ export const GetServicesDocument = gql`
     }
   }
 `
-export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
+export type GetServicesQueryResult = Apollo.ApolloQueryResult<GetServicesQuery>
 export const GetVulnerabilitiesDocument = gql`
   query GetVulnerabilities(
     $filter: VulnerabilityFilter
@@ -2367,10 +2354,7 @@ export const GetVulnerabilitiesDocument = gql`
     }
   }
 `
-export type GetVulnerabilitiesQueryResult = Apollo.QueryResult<
-  GetVulnerabilitiesQuery,
-  GetVulnerabilitiesQueryVariables
->
+export type GetVulnerabilitiesQueryResult = Apollo.ApolloQueryResult<GetVulnerabilitiesQuery>
 export const GetVulnerabilityFiltersDocument = gql`
   query GetVulnerabilityFilters {
     VulnerabilityFilterValues {
@@ -2387,7 +2371,4 @@ export const GetVulnerabilityFiltersDocument = gql`
     }
   }
 `
-export type GetVulnerabilityFiltersQueryResult = Apollo.QueryResult<
-  GetVulnerabilityFiltersQuery,
-  GetVulnerabilityFiltersQueryVariables
->
+export type GetVulnerabilityFiltersQueryResult = Apollo.ApolloQueryResult<GetVulnerabilityFiltersQuery>

@@ -7,6 +7,7 @@ const createGlobalsSlice = (set: any) => ({
   globals: {
     endpoint: "",
     isUrlRead: false,
+    isFilterTypeEnsured: false,
 
     actions: {
       setEndpoint: (endpoint: any) =>
@@ -21,6 +22,13 @@ const createGlobalsSlice = (set: any) => ({
         set(
           (state: any) => ({
             globals: { ...state.globals, isUrlRead: true },
+          }),
+          false
+        ),
+      setIsFilterTypeEnsured: () =>
+        set(
+          (state: any) => ({
+            globals: { ...state.globals, isFilterTypeEnsured: true },
           }),
           false
         ),

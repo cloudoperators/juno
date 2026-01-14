@@ -4,7 +4,6 @@
  */
 
 import { isEmpty, isNil, omit } from "../../utils"
-import { ApolloError } from "@apollo/client"
 import {
   Edge,
   GetServicesQuery,
@@ -12,8 +11,8 @@ import {
   Service,
   ServiceEdge,
   ServiceFilter,
-  GetServiceImageVersionsQuery,
   GetServiceFiltersQuery,
+  GetImagesQuery,
 } from "../../generated/graphql"
 import { Filter, FilterSettings, SelectedFilter, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
@@ -42,25 +41,18 @@ export type NormalizedServicesResponse = {
   pages: Page[]
   servicesIssuesCount: IssuesCountsType // All services issues count
   services: ServiceType[]
+  totalCount: number
 }
 
-export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined): NormalizedServicesResponse => {
-  return {
-    pageNumber: data?.Services?.pageInfo?.pageNumber || 1,
-    pages: data?.Services?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
-    servicesIssuesCount: {
-      critical: data?.Services?.issueCounts?.critical || 0,
-      high: data?.Services?.issueCounts?.high || 0,
-      medium: data?.Services?.issueCounts?.medium || 0,
-      low: data?.Services?.issueCounts?.low || 0,
-      none: data?.Services?.issueCounts?.none || 0,
-      total: data?.Services?.issueCounts?.total || 0,
-    },
-    // Filter out null edges and map to ServiceType
-    services: isNil(data?.Services?.edges)
+export const getNormalizedServicesResponse = (data: unknown): NormalizedServicesResponse => {
+  const typedData = data as GetServicesQuery | undefined
+  // Filter out null edges and map to ServiceType
+  const servicesEdges = typedData?.Services?.edges
+  const services =
+    !servicesEdges || servicesEdges.length === 0
       ? []
-      : data?.Services?.edges
-          ?.filter((edge) => edge !== null)
+      : servicesEdges
+          .filter((edge) => edge !== null)
           .map((edge?: Edge): ServiceType => {
             const node: Service | undefined = edge?.node
             const service: ServiceType = {
@@ -81,7 +73,26 @@ export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined
               remediationDate: "2023-01-01", //TODO: remove mock data when available
             }
             return service
-          }),
+          }) || []
+
+  // When edges is [] or pageInfo is null, there are no results
+  const pageInfo = typedData?.Services?.pageInfo
+  const hasNoResults = services.length === 0 || !pageInfo
+
+  return {
+    pageNumber: pageInfo?.pageNumber || 1,
+    pages: pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    servicesIssuesCount: {
+      critical: typedData?.Services?.issueCounts?.critical || 0,
+      high: typedData?.Services?.issueCounts?.high || 0,
+      medium: typedData?.Services?.issueCounts?.medium || 0,
+      low: typedData?.Services?.issueCounts?.low || 0,
+      none: typedData?.Services?.issueCounts?.none || 0,
+      total: typedData?.Services?.issueCounts?.total || 0,
+    },
+    services,
+    // When edges is [] or pageInfo is null, totalCount should be 0
+    totalCount: hasNoResults ? 0 : services.length,
   }
 }
 
@@ -106,7 +117,7 @@ export const getNormalizedServicesResponse = (data: GetServicesQuery | undefined
  * @returns A string representation of the error message, or a fallback message
  * if no specific error is found.
  */
-export const getNormalizedError = (error?: ApolloError) => {
+export const getNormalizedError = (error?: { networkError?: unknown; message?: string }) => {
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist
@@ -142,6 +153,12 @@ export const getActiveServiceFilter = (filterSettings: FilterSettings): ServiceF
     }, {}),
 })
 
+export type ImageVersion = {
+  id: string
+  version: string
+}
+
+// ComponentInstance is not available in GetImages query but kept for backward compatibility
 export type ComponentInstance = {
   id: string
   ccrn?: string | ""
@@ -152,112 +169,161 @@ export type ComponentInstance = {
   container?: string | ""
 }
 
-export type ServiceImageVersion = {
-  version: string
-  tag: string
+export type ServiceImage = {
+  id: string
   repository: string
-  ccrn: string
-  issueCounts: IssuesCountsType
-  componentInstancesCount: number
-  componentInstances?: ComponentInstance[]
+  imageRegistryUrl: string
+  vulnerabilityCounts: IssuesCountsType
+  versionsCount: number // Number of versions for this image
+  firstVersion: string // First version from the versions list
+  versions: ImageVersion[] // List of versions for this image
+  vulnerabilities?: ImageVulnerability[] // Not available in GetImages query
+  componentInstances?: ComponentInstance[] // Not available in GetImages query
 }
 
-type NormalizedServiceImageVersions = {
-  totalImageVersions: number
+type NormalizedServiceImages = {
+  totalImages: number
   pages: Page[]
   pageNumber: number
-  imageVersions: ServiceImageVersion[]
+  images: ServiceImage[]
+  totalCount: number
 }
 
-export const getNormalizedImageVersionsResponse = (
-  data: GetServiceImageVersionsQuery | undefined
-): NormalizedServiceImageVersions => ({
-  totalImageVersions: data?.ComponentVersions?.totalCount || 0,
-  pageNumber: data?.ComponentVersions?.pageInfo?.pageNumber || 1,
-  pages: data?.ComponentVersions?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
-  imageVersions: isNil(data?.ComponentVersions?.edges)
-    ? []
-    : data?.ComponentVersions?.edges
-        ?.filter((edge) => edge !== null)
-        .map(
-          (edge): ServiceImageVersion => ({
-            version: edge?.node?.version || "",
-            tag: edge?.node?.tag || "",
-            repository: edge?.node?.repository || "",
-            ccrn: edge?.node?.component?.ccrn || "",
-            issueCounts: edge?.node?.issueCounts || {
-              critical: 0,
-              high: 0,
-              medium: 0,
-              low: 0,
-              none: 0,
-              total: 0,
-            },
-            componentInstancesCount: edge?.node?.componentInstances?.totalCount ?? 0,
-            componentInstances:
-              edge?.node?.componentInstances?.edges
-                ?.filter((edge) => edge?.node) // Remove null edges
-                .map((edge) => ({
-                  id: edge!.node.id,
-                  ccrn: edge!.node.ccrn ?? "",
-                  region: edge!.node.region ?? "",
-                  cluster: edge!.node.cluster ?? "",
-                  namespace: edge!.node.namespace ?? "",
-                  pod: edge!.node.pod ?? "",
-                  container: edge!.node.container ?? "",
-                })) ?? [],
-          })
-        ),
-})
-
-export type Issue = {
-  severity: string
-  name: string
-  earliestTargetRemediation: string
-  description: string
-  sourceLink: string
-}
-
-type NormalizedImageVersionIssues = {
-  issues: Issue[]
-  totalImageVersionIssues: number
-  pages: Page[]
-  pageNumber: number
-}
-
-export const getNormalizedImageVersionIssuesResponse = (data: any): NormalizedImageVersionIssues => {
-  if (!data?.ComponentVersions?.edges?.[0]?.node?.issues?.edges) {
-    return { issues: [], totalImageVersionIssues: 0, pages: [], pageNumber: 1 }
+export const getNormalizedImagesResponse = (
+  // Apollo Client's use() hook can return DeepPartialObject<GetImagesQuery> during loading
+  data: GetImagesQuery | undefined
+): NormalizedServiceImages => {
+  if (!data?.Images) {
+    return {
+      totalImages: 0,
+      pageNumber: 1,
+      pages: [],
+      images: [],
+      totalCount: 0,
+    }
   }
 
-  const issues = data.ComponentVersions.edges[0].node.issues.edges
-    .filter((edge: any) => edge?.node)
-    .map((edge: any) => {
-      const node = edge.node
-      const severity = node?.highestSeverity?.edges?.[0]?.node?.severity?.value || "-"
-      const earliestTargetRemediation =
-        node?.earliestTargetRemediationDate?.edges?.[0]?.node?.targetRemediationDate || "-"
-      const sourceLink = node?.issueVariants?.edges?.[0]?.node?.externalUrl || "-"
+  // Extract types from GetImagesQuery structure
+  type ImageEdge = NonNullable<NonNullable<GetImagesQuery["Images"]>["edges"]>[0]
+  type VersionEdge = NonNullable<NonNullable<NonNullable<NonNullable<ImageEdge>["node"]>["versions"]>["edges"]>[0]
+
+  const imagesEdges = data.Images.edges
+  const images: ServiceImage[] = (imagesEdges || [])
+    .filter((edge): edge is NonNullable<ImageEdge> => edge !== null && edge.node !== null)
+    .map((edge) => {
+      const image = edge.node
+      const versionsEdges = image.versions?.edges || []
+      const versions: ImageVersion[] = versionsEdges
+        .filter(
+          (versionEdge): versionEdge is NonNullable<VersionEdge> => versionEdge !== null && versionEdge.node !== null
+        )
+        .map((versionEdge) => ({
+          id: versionEdge.node.id || "",
+          version: versionEdge.node.version || "",
+        }))
+      const firstVersion = versions[0]?.version || ""
 
       return {
-        severity,
-        name: node?.primaryName || "-",
-        earliestTargetRemediation,
-        description: node?.description || "-",
-        sourceLink,
+        id: image.id || "",
+        repository: image.repository || "",
+        imageRegistryUrl: image.imageRegistryUrl || "",
+        vulnerabilityCounts: image.vulnerabilityCounts || {
+          critical: 0,
+          high: 0,
+          medium: 0,
+          low: 0,
+          none: 0,
+          total: 0,
+        },
+        versionsCount: versions.length,
+        firstVersion,
+        versions,
       }
     })
 
-  const totalImageVersionIssues = data?.ComponentVersions?.edges?.[0]?.node?.issues?.totalCount || 0
-  const pages =
-    data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pages?.filter((edge: any) => edge !== null) || []
-  const pageNumber = data?.ComponentVersions?.edges?.[0]?.node?.issues?.pageInfo?.pageNumber || 1
+  const pageInfo = data.Images.pageInfo
+  const hasNoResults = images.length === 0 || !pageInfo
 
   return {
-    issues,
-    totalImageVersionIssues,
+    totalImages: data.Images.totalCount || 0,
+    pageNumber: pageInfo?.pageNumber || 1,
+    pages: pageInfo?.pages?.filter((edge): edge is Page => edge !== null) || [],
+    images,
+    totalCount: hasNoResults ? 0 : images.length,
+  }
+}
+
+export type ImageVulnerability = {
+  id: string
+  severity: string
+  name: string
+  earliestTargetRemediationDate: string
+  description: string
+  sourceUrl: string
+}
+
+type NormalizedServiceImageVulnerabilities = {
+  vulnerabilities: ImageVulnerability[]
+  totalImageVulnerabilities: number
+  pages: Page[]
+  pageNumber: number
+  totalCount: number
+}
+
+export const getNormalizedImageVulnerabilitiesResponse = (
+  // Apollo Client's use() hook can return DeepPartialObject<GetImagesQuery> during loading
+  data: GetImagesQuery | undefined
+): NormalizedServiceImageVulnerabilities => {
+  if (!data?.Images?.edges?.[0]?.node) {
+    return {
+      vulnerabilities: [],
+      totalImageVulnerabilities: 0,
+      pages: [],
+      pageNumber: 1,
+      totalCount: 0,
+    }
+  }
+
+  const imageNode = data.Images.edges[0].node
+  const vulnerabilitiesEdges = imageNode.vulnerabilities?.edges || []
+  const vulnerabilitiesPageInfo = imageNode.vulnerabilities?.pageInfo
+
+  // Extract the type for vulnerability edge from GetImagesQuery structure
+  type VulnerabilityEdge = NonNullable<
+    NonNullable<NonNullable<NonNullable<GetImagesQuery["Images"]>["edges"]>[0]>["node"]
+  >["vulnerabilities"] extends infer V
+    ? V extends { edges: Array<infer E | null> }
+      ? E
+      : never
+    : never
+
+  const vulnerabilities: ImageVulnerability[] = vulnerabilitiesEdges
+    .filter((edge): edge is NonNullable<VulnerabilityEdge> => edge !== null && edge.node !== null)
+    .map((edge) => {
+      const node = edge.node
+      return {
+        id: node.id || "",
+        severity: node.severity || "",
+        name: node.name || "",
+        earliestTargetRemediationDate: node.earliestTargetRemediationDate || "",
+        description: node.description || "",
+        sourceUrl: node.sourceUrl || "",
+      }
+    })
+
+  const totalImageVulnerabilities = imageNode.vulnerabilityCounts?.total ?? 0
+  const pages = vulnerabilitiesPageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
+  const pageNumber = vulnerabilitiesPageInfo?.pageNumber || 1
+
+  // When vulnerabilities.edges is [] or vulnerabilities.pageInfo is null, there are no results
+  const hasNoResults = vulnerabilities.length === 0 || !vulnerabilitiesPageInfo
+
+  return {
+    vulnerabilities,
+    totalImageVulnerabilities,
     pages,
     pageNumber,
+    totalCount: hasNoResults ? 0 : vulnerabilities.length,
   }
 }
 

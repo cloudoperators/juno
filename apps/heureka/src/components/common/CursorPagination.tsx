@@ -10,7 +10,7 @@ import { Page } from "../../generated/graphql"
 
 type CursorPaginationProps<T> = {
   dataPromise: Promise<ApolloQueryResult<T>>
-  dataNormalizationMethod: (data: T) => { pages: Page[]; pageNumber: number }
+  dataNormalizationMethod: (data: T) => { pages: Page[]; pageNumber: number; totalCount: number }
   goToPage: (after?: string | null) => void
 }
 
@@ -20,7 +20,7 @@ export const CursorPagination = <T,>({
   dataNormalizationMethod: applyDataNormalizationMethod,
 }: CursorPaginationProps<T>) => {
   const { data } = use(dataPromise)
-  const { pages, pageNumber } = applyDataNormalizationMethod(data)
+  const { pages, pageNumber, totalCount } = applyDataNormalizationMethod(data as T)
 
   const handlePageChange = useCallback(
     (page?: number) => {
@@ -31,6 +31,12 @@ export const CursorPagination = <T,>({
     },
     [pages, goToPage]
   )
+
+  // Hide pagination when there are no results
+  // Check both totalCount and pages.length to handle edge cases
+  if (totalCount === 0 || pages.length === 0) {
+    return null
+  }
 
   return (
     <Stack distribution="end" className="mt-4">

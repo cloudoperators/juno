@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as VulnerabilitiesIndexRouteImport } from './routes/vulnerabilities/index'
 import { Route as ServicesIndexRouteImport } from './routes/services/index'
 import { Route as ServicesServiceRouteImport } from './routes/services/$service'
+import { Route as ServicesServiceImagesImageRouteImport } from './routes/services/$service/images/$image'
 
 const VulnerabilitiesRouteRoute = VulnerabilitiesRouteRouteImport.update({
   id: '/vulnerabilities',
@@ -46,29 +47,38 @@ const ServicesServiceRoute = ServicesServiceRouteImport.update({
   path: '/$service',
   getParentRoute: () => ServicesRouteRoute,
 } as any)
+const ServicesServiceImagesImageRoute =
+  ServicesServiceImagesImageRouteImport.update({
+    id: '/images/$image',
+    path: '/images/$image',
+    getParentRoute: () => ServicesServiceRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
   '/vulnerabilities': typeof VulnerabilitiesRouteRouteWithChildren
-  '/services/$service': typeof ServicesServiceRoute
+  '/services/$service': typeof ServicesServiceRouteWithChildren
   '/services/': typeof ServicesIndexRoute
   '/vulnerabilities/': typeof VulnerabilitiesIndexRoute
+  '/services/$service/images/$image': typeof ServicesServiceImagesImageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/services/$service': typeof ServicesServiceRoute
+  '/services/$service': typeof ServicesServiceRouteWithChildren
   '/services': typeof ServicesIndexRoute
   '/vulnerabilities': typeof VulnerabilitiesIndexRoute
+  '/services/$service/images/$image': typeof ServicesServiceImagesImageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
   '/vulnerabilities': typeof VulnerabilitiesRouteRouteWithChildren
-  '/services/$service': typeof ServicesServiceRoute
+  '/services/$service': typeof ServicesServiceRouteWithChildren
   '/services/': typeof ServicesIndexRoute
   '/vulnerabilities/': typeof VulnerabilitiesIndexRoute
+  '/services/$service/images/$image': typeof ServicesServiceImagesImageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,8 +89,14 @@ export interface FileRouteTypes {
     | '/services/$service'
     | '/services/'
     | '/vulnerabilities/'
+    | '/services/$service/images/$image'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/services/$service' | '/services' | '/vulnerabilities'
+  to:
+    | '/'
+    | '/services/$service'
+    | '/services'
+    | '/vulnerabilities'
+    | '/services/$service/images/$image'
   id:
     | '__root__'
     | '/'
@@ -89,6 +105,7 @@ export interface FileRouteTypes {
     | '/services/$service'
     | '/services/'
     | '/vulnerabilities/'
+    | '/services/$service/images/$image'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -141,16 +158,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesServiceRouteImport
       parentRoute: typeof ServicesRouteRoute
     }
+    '/services/$service/images/$image': {
+      id: '/services/$service/images/$image'
+      path: '/images/$image'
+      fullPath: '/services/$service/images/$image'
+      preLoaderRoute: typeof ServicesServiceImagesImageRouteImport
+      parentRoute: typeof ServicesServiceRoute
+    }
   }
 }
 
+interface ServicesServiceRouteChildren {
+  ServicesServiceImagesImageRoute: typeof ServicesServiceImagesImageRoute
+}
+
+const ServicesServiceRouteChildren: ServicesServiceRouteChildren = {
+  ServicesServiceImagesImageRoute: ServicesServiceImagesImageRoute,
+}
+
+const ServicesServiceRouteWithChildren = ServicesServiceRoute._addFileChildren(
+  ServicesServiceRouteChildren,
+)
+
 interface ServicesRouteRouteChildren {
-  ServicesServiceRoute: typeof ServicesServiceRoute
+  ServicesServiceRoute: typeof ServicesServiceRouteWithChildren
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
 const ServicesRouteRouteChildren: ServicesRouteRouteChildren = {
-  ServicesServiceRoute: ServicesServiceRoute,
+  ServicesServiceRoute: ServicesServiceRouteWithChildren,
   ServicesIndexRoute: ServicesIndexRoute,
 }
 

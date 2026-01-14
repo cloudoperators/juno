@@ -1,5 +1,43 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.15
+
+### Patch Changes
+
+- Updated dependencies [8dbe8e1]
+  - @cloudoperators/juno-ui-components@5.12.0
+  - @cloudoperators/juno-messages-provider@0.2.27
+
+## 2.6.14
+
+### Patch Changes
+
+- Updated dependencies [d73d9a2]
+  - @cloudoperators/juno-ui-components@5.11.0
+  - @cloudoperators/juno-messages-provider@0.2.26
+
+## 2.6.13
+
+### Patch Changes
+
+- Updated dependencies [fbbe5ad]
+  - @cloudoperators/juno-ui-components@5.10.0
+  - @cloudoperators/juno-messages-provider@0.2.25
+
+## 2.6.12
+
+### Patch Changes
+
+- Updated dependencies [3c0478b]
+  - @cloudoperators/juno-ui-components@5.9.1
+  - @cloudoperators/juno-messages-provider@0.2.24
+
+## 2.6.11
+
+### Patch Changes
+
+- 502da5f: After switching to the new URL structure, resolved filter types in Doop were not being reflected in the URL, causing filtering issues. This update makes sure that the URL updates once filter data is resolved.
+
 ## 2.6.10
 
 ### Patch Changes

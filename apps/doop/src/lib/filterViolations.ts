@@ -6,9 +6,15 @@
 import { valueToLabel } from "./helpers"
 
 export const FILTER_TYPE_CLUSTER = "cluster"
-const FILTER_TYPE_VIOLATION_GROUP = "violationGroup"
-const FILTER_TYPE_CHECK = "check"
+export const FILTER_TYPE_VIOLATION_GROUP = "violationGroup"
+export const FILTER_TYPE_CHECK = "check"
 export const FILTER_TYPE_UNKNOWN = "unknown"
+
+export type FilterType =
+  | typeof FILTER_TYPE_CLUSTER
+  | typeof FILTER_TYPE_VIOLATION_GROUP
+  | typeof FILTER_TYPE_CHECK
+  | typeof FILTER_TYPE_UNKNOWN
 
 const filterOutDebugSeverities = (violationGroups: any[]) => {
   if (!violationGroups) return []
