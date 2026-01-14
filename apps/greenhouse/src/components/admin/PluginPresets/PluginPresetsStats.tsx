@@ -57,7 +57,7 @@ export const PluginPresetsStats: React.FC<PluginPresetsStatsProps> = ({ statsPro
   <Stack direction="vertical" gap="4">
     <h3>PluginPreset Health Distribution</h3>
     <Stack direction="horizontal" gap="4" className="w-full">
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback="Loading...">
         <PluginPresetsStatsContent statsPromise={statsPromise} />
       </Suspense>
     </Stack>
