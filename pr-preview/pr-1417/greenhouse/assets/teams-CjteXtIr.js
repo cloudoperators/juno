@@ -1,0 +1,1 @@
+import{j as o}from"./Shell-DD05ydgL.js";import"./index-C_Suwlm1.js";import"./index-PYaZyjvU.js";function m(){return o.jsx("div",{children:'Hello "/admin/teams"!'})}export{m as component};
