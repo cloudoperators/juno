@@ -18,7 +18,7 @@ interface PluginPresetsDataGridProps {
 }
 
 export const PluginPresetsDataGrid = ({ pluginPresetsPromise }: PluginPresetsDataGridProps) => (
-  <DataGrid minContentColumns={[0, 1, 5]} columns={COLUMN_SPAN}>
+  <DataGrid minContentColumns={[0, 1, 6]} columns={COLUMN_SPAN}>
     <DataGridRow>
       <DataGridHeadCell>
         <Icon icon="monitorHeart" />
