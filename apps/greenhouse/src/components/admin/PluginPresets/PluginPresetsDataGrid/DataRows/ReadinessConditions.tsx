@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Badge, Stack, Tooltip, TooltipTrigger, TooltipContent } from "@cloudoperators/juno-ui-components"
+import { Badge, Tooltip, TooltipTrigger, TooltipContent, Stack } from "@cloudoperators/juno-ui-components"
 import { createConditionAbbreviation } from "../../../utils"
 
 const CONDITION_VARIANTS = {
@@ -24,7 +24,7 @@ const ConditionBadge: React.FC<{ condition: ReadinessCondition }> = ({ condition
   return (
     <Tooltip triggerEvent="hover">
       <TooltipTrigger asChild>
-        <Badge text={displayValue} icon={variant !== "success"} variant={variant} data-variant={variant} />
+        <Badge icon text={displayValue} variant={variant} />
       </TooltipTrigger>
       <TooltipContent>{condition.type}</TooltipContent>
     </Tooltip>
@@ -36,15 +36,11 @@ type ReadinessConditionsProps = {
 }
 
 const ReadinessConditions: React.FC<ReadinessConditionsProps> = ({ conditions }) => (
-  <div>
-    <Stack gap="2">
-      <Stack gap="1">
-        {conditions.map((condition) => (
-          <ConditionBadge key={condition.type} condition={condition} />
-        ))}
-      </Stack>
-    </Stack>
-  </div>
+  <Stack gap="2">
+    {conditions.map((condition) => (
+      <ConditionBadge key={condition.type} condition={condition} />
+    ))}
+  </Stack>
 )
 
 export default ReadinessConditions
