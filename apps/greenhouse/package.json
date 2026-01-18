@@ -17,7 +17,7 @@
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@tailwindcss/vite": "4.1.18",
-    "@tanstack/router-plugin": "1.145.10",
+    "@tanstack/router-plugin": "1.147.3",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.1",
     "@types/lodash": "4.17.21",
@@ -57,7 +57,7 @@
     "@cloudoperators/juno-oauth": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.144.0",
+    "@tanstack/react-router": "1.147.3",
     "lodash": "4.17.21"
   }
 }
