@@ -4,7 +4,7 @@
  */
 
 import { PluginPresetSearchParams } from "../../routes/admin/plugin-presets"
-import { FilterSettings } from "./common/Filters/types"
+import { FilterSettings } from "./common/types"
 import { SELECTED_FILTER_PREFIX } from "./constants"
 import { PluginPreset } from "./types/k8sTypes"
 

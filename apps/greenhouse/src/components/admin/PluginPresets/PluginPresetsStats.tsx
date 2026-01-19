@@ -5,8 +5,12 @@
 
 import React, { Suspense } from "react"
 import { Card, Stack, Spinner } from "@cloudoperators/juno-ui-components"
-import { PluginPresetStat } from "../api/plugin-presets/fetchPluginPresetsStats"
-
+import {
+  fetchPluginPresetsStats,
+  FETCH_PLUGIN_PRESETS_STATS_CACHE_KEY,
+} from "../api/plugin-presets/fetchPluginPresetsStats"
+import { useRouteContext } from "@tanstack/react-router"
+import { useSuspenseQuery } from "@tanstack/react-query"
 interface StatCardProps {
   label: string
   value: number | string
@@ -41,25 +45,27 @@ const StatCard: React.FC<StatCardProps> = ({ label, value, subtext, variant = "d
   )
 }
 
-const PluginPresetsStatsContent: React.FC<{ statsPromise: Promise<PluginPresetStat[]> }> = ({ statsPromise }) => {
-  const stats = React.use(statsPromise)
+const PluginPresetsStatsContent: React.FC = () => {
+  const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets" })
+  const { data: stats } = useSuspenseQuery({
+    queryKey: [FETCH_PLUGIN_PRESETS_STATS_CACHE_KEY, organization],
+    queryFn: () => fetchPluginPresetsStats({ apiClient, namespace: organization }),
+  })
 
   return stats.map((stat, index) => (
     <StatCard key={index} label={stat.label} value={stat.value} subtext={stat.subtext} variant={stat.variant} />
   ))
 }
 
-type PluginPresetsStatsProps = {
-  statsPromise: Promise<PluginPresetStat[]>
-}
-
-export const PluginPresetsStats: React.FC<PluginPresetsStatsProps> = ({ statsPromise }) => (
-  <Stack direction="vertical" gap="4">
-    <h3>PluginPreset Health Distribution</h3>
-    <Stack direction="horizontal" gap="4" className="w-full">
-      <Suspense fallback="Loading...">
-        <PluginPresetsStatsContent statsPromise={statsPromise} />
-      </Suspense>
+export const PluginPresetsStats = () => {
+  return (
+    <Stack direction="vertical" gap="4">
+      <h3>PluginPreset Health Distribution</h3>
+      <Stack direction="horizontal" gap="4" className="w-full">
+        <Suspense fallback="Loading...">
+          <PluginPresetsStatsContent />
+        </Suspense>
+      </Stack>
     </Stack>
-  </Stack>
-)
+  )
+}

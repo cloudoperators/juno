@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Filter } from "../../common/Filters/types"
+import { Filter } from "../../common/types"
 import { PluginPreset } from "../../types/k8sTypes"
 
 const getPluginPresetDefinitionValues = (presets: PluginPreset[]) =>
@@ -24,6 +24,8 @@ const extractPluginPresetFilters = (pluginPresets: PluginPreset[]) => {
     },
   ]
 }
+
+export const FETCH_PLUGIN_PRESETS_FILTERS_CACHE_KEY = "pluginPresetsFilters"
 
 export const fetchPluginPresetsFilters = async ({
   apiClient,

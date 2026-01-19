@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { FilterSettings } from "../../common/Filters/types"
+import { FilterSettings } from "../../common/types"
 import { PluginPreset } from "../../types/k8sTypes"
 import { isReady } from "../../utils"
 
@@ -53,6 +53,8 @@ const applySorting = (pluginPresets: PluginPreset[]): PluginPreset[] => {
     return 0
   })
 }
+
+export const FETCH_PLUGIN_PRESETS_CACHE_KEY = "pluginPresets"
 
 export const fetchPluginPresets = async ({
   apiClient,

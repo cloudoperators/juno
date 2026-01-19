@@ -3,33 +3,74 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { act } from "react"
 import { render, screen } from "@testing-library/react"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import {
+  createMemoryHistory,
+  createRootRoute,
+  createRoute,
+  createRouter,
+  Outlet,
+  RouterProvider,
+} from "@tanstack/react-router"
 import { describe, expect, test } from "vitest"
-import { act } from "react"
 import { PluginPresetsStats } from "./PluginPresetsStats"
-import { PluginPresetStat } from "../api/plugin-presets/fetchPluginPresetsStats"
+import { mockPluginPresets } from "../__mocks__/pluginPresets"
+
+const renderComponent = async (mockPromise: Promise<any>) => {
+  const rootRoute = createRootRoute({
+    component: () => <Outlet />,
+  })
+  const testRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/admin/plugin-presets",
+    component: () => (
+      <QueryClientProvider
+        client={
+          new QueryClient({
+            defaultOptions: {
+              queries: {
+                retry: false,
+              },
+            },
+          })
+        }
+      >
+        <PluginPresetsStats />
+      </QueryClientProvider>
+    ),
+  })
+  const routeTree = rootRoute.addChildren([testRoute])
+  const router = createRouter({
+    routeTree: routeTree,
+    defaultPendingMinMs: 0,
+    context: {
+      apiClient: {
+        get() {
+          return mockPromise
+        },
+      },
+    },
+    history: createMemoryHistory({
+      initialEntries: ["/admin/plugin-presets"],
+    }),
+  })
+  return await act(async () => render(<RouterProvider router={router} />))
+}
 
 describe("PluginPresetsStats", () => {
-  const mockStats: PluginPresetStat[] = [
-    { label: "Total Presets", value: 127, variant: "default" },
-    { label: "Ready Presets", value: 98, subtext: "of 127", variant: "success" },
-  ]
-
-  test("should render stat value", async () => {
-    const mockStatsPromise = Promise.resolve(mockStats)
-    await act(async () => {
-      render(<PluginPresetsStats statsPromise={mockStatsPromise} />)
-    })
-    expect(screen.getByText("127")).toBeInTheDocument()
-    expect(screen.getByText("98")).toBeInTheDocument()
-  })
-
-  test("should render stat subtext", async () => {
-    const mockStatsPromise = Promise.resolve(mockStats)
-    await act(async () => {
-      render(<PluginPresetsStats statsPromise={mockStatsPromise} />)
-    })
-    expect(screen.getByText("of 127")).toBeInTheDocument()
+  test("should render stat values", async () => {
+    await renderComponent(Promise.resolve(mockPluginPresets))
+    // Verify all stat labels are rendered
+    expect(screen.getByText("Total Presets")).toBeInTheDocument()
+    expect(screen.getByText("5")).toBeInTheDocument() // Total Presets
+    expect(screen.getByText("Plugin Definitions")).toBeInTheDocument()
+    expect(screen.getByText("1")).toBeInTheDocument() // Plugin Definitions
+    expect(screen.getByText("Ready Presets")).toBeInTheDocument()
+    expect(screen.getByText("3")).toBeInTheDocument() // Ready Presets
+    expect(screen.getByText("Failing Presets")).toBeInTheDocument()
+    expect(screen.getByText("2")).toBeInTheDocument() // Failing Presets
+    expect(screen.getAllByText("of 5").length).toBe(2) // Subtext for Ready and Failing Presets
   })
 })

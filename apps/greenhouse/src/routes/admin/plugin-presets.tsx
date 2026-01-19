@@ -5,11 +5,7 @@
 
 import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
-import { Crumb } from "../-types"
 import { PluginPresets } from "../../components/admin/PluginPresets"
-import { fetchPluginPresets } from "../../components/admin/api/plugin-presets/fetchPluginPresets"
-import { fetchPluginPresetsFilters } from "../../components/admin/api/plugin-presets/fetchPluginPresetsFilters"
-import { fetchPluginPresetsStats } from "../../components/admin/api/plugin-presets/fetchPluginPresetsStats"
 import { SELECTED_FILTER_PREFIX } from "../../components/admin/constants"
 import { extractFilterSettingsFromSearchParams } from "../../components/admin/utils"
 
@@ -37,22 +33,10 @@ export const Route = createFileRoute("/admin/plugin-presets")({
   loaderDeps: (search) => ({
     ...search,
   }),
-  loader: async ({ context: { apiClient, organization }, deps: { search } }) => {
-    const crumb: Crumb = {
+  loader: ({ deps: { search } }) => ({
+    crumb: {
       label: "Plugin Presets",
-    }
-    const filterSettings = extractFilterSettingsFromSearchParams(search)
-    const pluginPresetsPromise = fetchPluginPresets({ apiClient, namespace: organization, filterSettings })
-    const filtersPromise = fetchPluginPresetsFilters({ apiClient, namespace: organization })
-    const statsPromise = fetchPluginPresetsStats({ apiClient, namespace: organization })
-
-    return {
-      crumb,
-      pluginPresetsPromise,
-      filtersPromise,
-      statsPromise,
-      filterSettings,
-      lastUpdatedAt: Date.now(),
-    }
-  },
+    },
+    filterSettings: extractFilterSettingsFromSearchParams(search),
+  }),
 })

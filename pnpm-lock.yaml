@@ -324,6 +324,9 @@ importers:
       '@cloudoperators/juno-url-state-provider':
         specifier: workspace:*
         version: link:../../packages/url-state-provider
+      '@tanstack/react-query':
+        specifier: 5.90.16
+        version: 5.90.16(react@19.2.3)
       '@tanstack/react-router':
         specifier: 1.144.0
         version: 1.144.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)

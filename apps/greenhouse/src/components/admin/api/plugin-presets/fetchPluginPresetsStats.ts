@@ -22,6 +22,8 @@ const getPluginPresetDefinitionValues = (presets: PluginPreset[]) =>
     )
   ).filter((value): value is string => !!value)
 
+export const FETCH_PLUGIN_PRESETS_STATS_CACHE_KEY = "pluginPresetsStats"
+
 export const fetchPluginPresetsStats = async ({
   apiClient,
   namespace,

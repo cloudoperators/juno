@@ -5,6 +5,7 @@
 
 import React, { StrictMode } from "react"
 import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { decodeV2, encodeV2 } from "@cloudoperators/juno-url-state-provider"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
@@ -14,6 +15,9 @@ import styles from "./styles.css?inline"
 import StoreProvider, { useGlobalsApiEndpoint } from "./components/StoreProvider"
 import { AuthProvider, useAuth } from "./components/AuthProvider"
 import { routeTree } from "./routeTree.gen"
+
+// Create a new query client instance
+const queryClient = new QueryClient()
 
 // Create a new router instance
 const router = createRouter({
@@ -101,11 +105,13 @@ const StyledShell = (props: AppProps) => {
           demoUserToken={props.demoUserToken}
         >
           <StoreProvider options={props}>
-            <MessagesProvider>
-              <StrictMode>
-                <App {...props} />
-              </StrictMode>
-            </MessagesProvider>
+            <QueryClientProvider client={queryClient}>
+              <MessagesProvider>
+                <StrictMode>
+                  <App {...props} />
+                </StrictMode>
+              </MessagesProvider>
+            </QueryClientProvider>
           </StoreProvider>
         </Auth>
       </AuthProvider>

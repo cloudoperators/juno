@@ -3,22 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { use, useCallback, useState } from "react"
+import React, { useCallback, useState } from "react"
 import { InputGroup, ComboBox, ComboBoxOption, SelectOption, Select, Stack } from "@cloudoperators/juno-ui-components"
-import { isEmpty } from "../../utils"
+import { isEmpty } from "../utils"
 import { Filter, SelectedFilter } from "./types"
+import { ErrorMessage } from "./ErrorBoundary/ErrorMessage"
 
 type FilterSelectProps = {
-  filtersPromise: Promise<Filter[]>
+  filters?: Filter[]
+  isLoading?: boolean
+  error?: Error | null
   onChange: (filter: SelectedFilter) => void
 }
 
-export const FilterSelect = ({ filtersPromise, onChange }: FilterSelectProps) => {
+export const FilterSelect = ({ filters, isLoading, error, onChange }: FilterSelectProps) => {
   const [selectedFilterId, setSelectedFilterId] = useState<string>("")
   const [selectedFilterValue, setSelectedFilterValue] = useState<string>("")
-  const filters = use(filtersPromise)
   // first filter gets the values, second one filters emtpy values
-  const filterValues = filters.find((filter) => filter.id === selectedFilterId)?.values?.filter((value) => value)
+  const filterValues = filters?.find((filter) => filter.id === selectedFilterId)?.values?.filter((value) => value)
 
   const handleValueChange = useCallback(
     (value: string) => {
@@ -47,6 +49,8 @@ export const FilterSelect = ({ filtersPromise, onChange }: FilterSelectProps) =>
           data-testid="select-filterValue"
           label="Filter"
           value={selectedFilterId}
+          loading={isLoading}
+          errortext={error ? <ErrorMessage error={error} /> : undefined}
           onChange={(value) => {
             setSelectedFilterId(String(value))
           }}
@@ -61,7 +65,9 @@ export const FilterSelect = ({ filtersPromise, onChange }: FilterSelectProps) =>
           data-testid="combobox-filterValue"
           value={selectedFilterValue}
           disabled={!selectedFilterId}
-          onChange={handleValueChange}
+          onChange={(value) => {
+            handleValueChange(String(value))
+          }}
         >
           {filterValues?.map((value) => (
             <ComboBoxOption value={value} key={value} label={value} data-testid={value} />
