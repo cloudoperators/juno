@@ -4,7 +4,7 @@
  */
 
 import React, { Suspense } from "react"
-import { Card, Stack, Spinner } from "@cloudoperators/juno-ui-components"
+import { Card, Stack } from "@cloudoperators/juno-ui-components"
 import {
   fetchPluginPresetsStats,
   FETCH_PLUGIN_PRESETS_STATS_CACHE_KEY,
