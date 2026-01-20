@@ -12,14 +12,15 @@ import {
   Stack,
   ContentHeading,
 } from "@cloudoperators/juno-ui-components"
-import { GetImageVersionsQueryResult } from "../../../../generated/graphql"
+import { ObservableQuery } from "@apollo/client"
+import { GetImageVersionsQuery } from "../../../../generated/graphql"
 import { ImageVersionIssuesDataRows } from "./ImageVersionIssuesDataRows"
 import { ErrorBoundary } from "../../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../../common/getErrorDataRow"
 import { LoadingDataRow } from "../../../common/LoadingDataRow"
 
 type ImageVersionIssuesListProps = {
-  issuesPromise: Promise<GetImageVersionsQueryResult>
+  issuesPromise: Promise<ObservableQuery.Result<GetImageVersionsQuery>>
   service: string
   image: string
 }

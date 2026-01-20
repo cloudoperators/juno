@@ -3,12 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  GetImageVersionsDocument,
-  GetImageVersionsQuery,
-  GetImageVersionsQueryResult,
-  ImageVersionFilter,
-} from "../generated/graphql"
+import { ObservableQuery } from "@apollo/client"
+import { GetImageVersionsDocument, GetImageVersionsQuery, ImageVersionFilter } from "../generated/graphql"
 import { RouteContext } from "../routes/-types"
 
 type FetchImageVersionsParams = Pick<RouteContext, "queryClient" | "apiClient"> & {
@@ -31,7 +27,7 @@ export const fetchImageVersions = ({
   afterVulnerabilities,
   firstOccurences,
   afterOccurences,
-}: FetchImageVersionsParams): Promise<GetImageVersionsQueryResult> => {
+}: FetchImageVersionsParams): Promise<ObservableQuery.Result<GetImageVersionsQuery>> => {
   const queryKey = [
     "imageVersions",
     filter,

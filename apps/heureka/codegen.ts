@@ -21,6 +21,11 @@ const config: CodegenConfig = {
         withHooks: false,
         withHOC: false,
         withComponent: false,
+        // Apollo Client v4 removed several legacy exported helper types (e.g. QueryResult, MutationFunction).
+        // Prevent codegen from generating those helper type aliases so the generated file stays compatible.
+        withResultType: false,
+        withMutationFn: false,
+        withMutationOptionsType: false,
       },
     },
   },

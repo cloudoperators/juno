@@ -6,10 +6,11 @@
 import React, { Suspense, useEffect, useState } from "react"
 import { Outlet, useLoaderData, useMatchRoute, useNavigate, useParams, useRouteContext } from "@tanstack/react-router"
 import { Spinner } from "@cloudoperators/juno-ui-components"
+import { ObservableQuery } from "@apollo/client"
 import { ServiceImages } from "../common/ServiceImages"
 import { ServiceDetails } from "./ServiceDetails"
 import { fetchImages } from "../../api/fetchImages"
-import { GetImagesQueryResult } from "../../generated/graphql"
+import { GetImagesQuery } from "../../generated/graphql"
 import { ErrorBoundary } from "../common/ErrorBoundary"
 
 export const Service = () => {
@@ -18,7 +19,9 @@ export const Service = () => {
   const { servicePromise } = useLoaderData({ from: "/services/$service" })
   const { service } = useParams({ from: "/services/$service" })
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
-  const [imagesPromise, setImagesPromise] = useState<Promise<GetImagesQueryResult> | undefined>(undefined)
+  const [imagesPromise, setImagesPromise] = useState<Promise<ObservableQuery.Result<GetImagesQuery>> | undefined>(
+    undefined
+  )
 
   // Check if we're on a child route (image details page or version details page)
   const matchRoute = useMatchRoute()

@@ -18,10 +18,11 @@ import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../../common/SectionContentHeading"
 import { ImageIssuesList } from "./ImageIssuesList"
-import { GetImagesQuery, GetImagesQueryResult } from "../../../generated/graphql"
+import { ObservableQuery } from "@apollo/client"
+import { GetImagesQuery } from "../../../generated/graphql"
 
 type ImageDetailsProps = {
-  imagesPromise: Promise<GetImagesQueryResult>
+  imagesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>
   imageRepository: string
   service: string
 }

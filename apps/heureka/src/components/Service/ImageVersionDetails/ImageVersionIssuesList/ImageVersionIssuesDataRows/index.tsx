@@ -4,13 +4,14 @@
  */
 
 import React, { use } from "react"
-import { GetImageVersionsQueryResult } from "../../../../../generated/graphql"
+import { ObservableQuery } from "@apollo/client"
+import { GetImageVersionsQuery } from "../../../../../generated/graphql"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { IssuesDataRow } from "../../../ImageDetails/ImageIssuesList/IssuesDataRows/IssuesDataRow"
 import { getNormalizedImageVersionDetailsResponse } from "../../../../Services/utils"
 
 type ImageVersionIssuesDataRowsProps = {
-  issuesPromise: Promise<GetImageVersionsQueryResult>
+  issuesPromise: Promise<ObservableQuery.Result<GetImageVersionsQuery>>
   service: string
   image: string
 }

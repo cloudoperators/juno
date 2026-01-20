@@ -3,12 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  GetRemediationsDocument,
-  GetRemediationsQuery,
-  GetRemediationsQueryResult,
-  RemediationFilter,
-} from "../generated/graphql"
+import { ObservableQuery } from "@apollo/client"
+import { GetRemediationsDocument, GetRemediationsQuery, RemediationFilter } from "../generated/graphql"
 import { RouteContext } from "../routes/-types"
 
 type FetchRemediationsParams = Pick<RouteContext, "queryClient" | "apiClient"> & {
@@ -19,7 +15,7 @@ export const fetchRemediations = ({
   queryClient,
   apiClient,
   filter,
-}: FetchRemediationsParams): Promise<GetRemediationsQueryResult> => {
+}: FetchRemediationsParams): Promise<ObservableQuery.Result<GetRemediationsQuery>> => {
   const queryKey = ["remediations", filter]
 
   return queryClient.ensureQueryData({

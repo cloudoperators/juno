@@ -10,10 +10,11 @@ import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../../common/SectionContentHeading"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
-import { GetImageVersionsQuery, GetImageVersionsQueryResult } from "../../../generated/graphql"
+import { ObservableQuery } from "@apollo/client"
+import { GetImageVersionsQuery } from "../../../generated/graphql"
 
 type ImageVersionDetailsProps = {
-  imageVersionsPromise: Promise<GetImageVersionsQueryResult>
+  imageVersionsPromise: Promise<ObservableQuery.Result<GetImageVersionsQuery>>
   imageVersion: string
   service: string
   imageRepository: string

@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client"
-import * as Apollo from "@apollo/client"
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
@@ -2409,29 +2408,11 @@ export const CreateRemediationDocument = gql`
     }
   }
 `
-export type CreateRemediationMutationFn = Apollo.MutationFunction<
-  CreateRemediationMutation,
-  CreateRemediationMutationVariables
->
-export type CreateRemediationMutationResult = Apollo.MutationResult<CreateRemediationMutation>
-export type CreateRemediationMutationOptions = Apollo.BaseMutationOptions<
-  CreateRemediationMutation,
-  CreateRemediationMutationVariables
->
 export const DeleteRemediationDocument = gql`
   mutation DeleteRemediation($id: ID!) {
     deleteRemediation(id: $id)
   }
 `
-export type DeleteRemediationMutationFn = Apollo.MutationFunction<
-  DeleteRemediationMutation,
-  DeleteRemediationMutationVariables
->
-export type DeleteRemediationMutationResult = Apollo.MutationResult<DeleteRemediationMutation>
-export type DeleteRemediationMutationOptions = Apollo.BaseMutationOptions<
-  DeleteRemediationMutation,
-  DeleteRemediationMutationVariables
->
 export const GetRemediationsDocument = gql`
   query GetRemediations($filter: RemediationFilter) {
     Remediations(filter: $filter) {
@@ -2449,7 +2430,6 @@ export const GetRemediationsDocument = gql`
     }
   }
 `
-export type GetRemediationsQueryResult = Apollo.QueryResult<GetRemediationsQuery, GetRemediationsQueryVariables>
 export const GetImageVersionsDocument = gql`
   query GetImageVersions(
     $filter: ImageVersionFilter
@@ -2530,7 +2510,6 @@ export const GetImageVersionsDocument = gql`
     }
   }
 `
-export type GetImageVersionsQueryResult = Apollo.QueryResult<GetImageVersionsQuery, GetImageVersionsQueryVariables>
 export const GetImagesDocument = gql`
   query GetImages(
     $imgFilter: ImageFilter
@@ -2610,7 +2589,6 @@ export const GetImagesDocument = gql`
     }
   }
 `
-export type GetImagesQueryResult = Apollo.QueryResult<GetImagesQuery, GetImagesQueryVariables>
 export const GetServiceFiltersDocument = gql`
   query GetServiceFilters {
     ServiceFilterValues {
@@ -2627,7 +2605,6 @@ export const GetServiceFiltersDocument = gql`
     }
   }
 `
-export type GetServiceFiltersQueryResult = Apollo.QueryResult<GetServiceFiltersQuery, GetServiceFiltersQueryVariables>
 export const GetServicesDocument = gql`
   query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
     Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
@@ -2680,7 +2657,6 @@ export const GetServicesDocument = gql`
     }
   }
 `
-export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>
 export const GetVulnerabilitiesDocument = gql`
   query GetVulnerabilities(
     $filter: VulnerabilityFilter
@@ -2739,10 +2715,6 @@ export const GetVulnerabilitiesDocument = gql`
     }
   }
 `
-export type GetVulnerabilitiesQueryResult = Apollo.QueryResult<
-  GetVulnerabilitiesQuery,
-  GetVulnerabilitiesQueryVariables
->
 export const GetVulnerabilityFiltersDocument = gql`
   query GetVulnerabilityFilters {
     VulnerabilityFilterValues {
@@ -2759,7 +2731,3 @@ export const GetVulnerabilityFiltersDocument = gql`
     }
   }
 `
-export type GetVulnerabilityFiltersQueryResult = Apollo.QueryResult<
-  GetVulnerabilityFiltersQuery,
-  GetVulnerabilityFiltersQueryVariables
->
