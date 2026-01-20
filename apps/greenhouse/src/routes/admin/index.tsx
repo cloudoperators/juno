@@ -9,7 +9,7 @@ export const Route = createFileRoute("/admin/")({
   beforeLoad: () => {
     // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw redirect({
-      to: "/admin/clusters",
+      to: "/admin/plugin-presets",
       search: (prev) => ({ ...prev }),
     })
   },

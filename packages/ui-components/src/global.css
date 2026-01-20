@@ -632,7 +632,7 @@
   --color-select-bg: var(--color-background-lvl-3);
   /* LT Card */
   --color-card-background-default: var(--color-white);
-  --color-card-border-default: var(--color-juno-grey-light-7);
+  --color-card-border-default: var(--color-border-default);
   /* LT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -881,7 +881,7 @@
   --color-select-bg: var(--color-background-lvl-4);
   /* DT Card */
   --color-card-background-default: var(--color-juno-grey-blue-10);
-  --color-card-border-default: var(--color-juno-grey-blue-3);
+  --color-card-border-default: var(--color-border-default);
   /* DT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
