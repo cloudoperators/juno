@@ -6,7 +6,6 @@
 import React from "react"
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router"
 import { Container } from "@cloudoperators/juno-ui-components/index"
-import { Messages } from "@cloudoperators/juno-messages-provider"
 import { Breadcrumb } from "../components/common/Breadcrumb"
 import { Navigation } from "../components/common/Navigation"
 import { RouteContext } from "./-types"
@@ -23,7 +22,6 @@ function Root({ error }: { error?: Error }) {
       <Navigation />
       <Container py px>
         <Breadcrumb />
-        <Messages className="mb-4" />
         {error ? <ErrorMessage error={error} /> : <Outlet />}
       </Container>
     </>

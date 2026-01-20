@@ -103,7 +103,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         </div>
         <div>
           <Textarea
-            label="Description *"
+            label="Description"
             placeholder="Add a description explaining why this is a false positive..."
             value={description}
             onChange={handleDescriptionChange}

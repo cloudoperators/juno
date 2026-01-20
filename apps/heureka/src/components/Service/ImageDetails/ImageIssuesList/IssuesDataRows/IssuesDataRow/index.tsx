@@ -38,8 +38,8 @@ type IssuesDataRowProps = {
   service: string
   image: string
   showFalsePositiveAction?: boolean
-  onFalsePositiveSuccess?: () => void
-  onFalsePositiveError?: (error: Error) => void
+  onFalsePositiveSuccess?: (cveNumber: string) => void
+  onFalsePositiveError?: (error: Error, cveNumber: string) => void
 }
 
 export const IssuesDataRow = ({
@@ -52,8 +52,12 @@ export const IssuesDataRow = ({
 }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { needsExpansion, textRef } = useTextOverflow(issue.description)
+  const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
+
+  if (!issue || !issue.name) {
+    return null
+  }
 
   const toggleDescription = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -71,10 +75,12 @@ export const IssuesDataRow = ({
       // Invalidate queries to refresh the data
       queryClient.invalidateQueries({ queryKey: ["images"] })
       queryClient.invalidateQueries({ queryKey: ["remediations"] })
-      onFalsePositiveSuccess?.()
+      const cveNumber = issue?.name || "unknown"
+      onFalsePositiveSuccess?.(cveNumber)
     } catch (error) {
       console.error("Failed to create remediation:", error)
-      onFalsePositiveError?.(error instanceof Error ? error : new Error("Failed to create remediation"))
+      const cveNumber = issue?.name || "unknown"
+      onFalsePositiveError?.(error instanceof Error ? error : new Error("Failed to create remediation"), cveNumber)
     }
   }
 

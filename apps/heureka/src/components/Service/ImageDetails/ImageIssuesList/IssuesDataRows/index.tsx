@@ -14,8 +14,8 @@ type IssuesDataRowsProps = {
   issuesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>
   service: string
   image: string
-  onFalsePositiveSuccess: () => void
-  onFalsePositiveError: (error: Error) => void
+  onFalsePositiveSuccess: (cveNumber: string) => void
+  onFalsePositiveError: (error: Error, cveNumber: string) => void
 }
 
 export const IssuesDataRows = ({
@@ -36,14 +36,16 @@ export const IssuesDataRows = ({
     return <EmptyDataGridRow colSpan={5}>No vulnerabilities found! 🚀</EmptyDataGridRow>
   }
 
-  return vulnerabilities.map((vulnerability) => (
-    <IssuesDataRow
-      key={vulnerability.id || vulnerability.name}
-      issue={vulnerability}
-      service={service}
-      image={image}
-      onFalsePositiveSuccess={onFalsePositiveSuccess}
-      onFalsePositiveError={onFalsePositiveError}
-    />
-  ))
+  return vulnerabilities
+    .filter((vulnerability) => vulnerability && vulnerability.name)
+    .map((vulnerability) => (
+      <IssuesDataRow
+        key={vulnerability.id || vulnerability.name}
+        issue={vulnerability}
+        service={service}
+        image={image}
+        onFalsePositiveSuccess={onFalsePositiveSuccess}
+        onFalsePositiveError={onFalsePositiveError}
+      />
+    ))
 }

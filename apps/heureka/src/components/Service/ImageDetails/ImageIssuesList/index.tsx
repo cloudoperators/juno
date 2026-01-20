@@ -17,7 +17,7 @@ import {
   Tab,
   TabPanel,
 } from "@cloudoperators/juno-ui-components"
-import { useActions } from "@cloudoperators/juno-messages-provider"
+import { useActions, Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { getNormalizedImageVulnerabilitiesResponse, ServiceImage } from "../../../Services/utils"
 import { fetchImages } from "../../../../api/fetchImages"
 import { fetchRemediations } from "../../../../api/fetchRemediations"
@@ -33,9 +33,126 @@ type ImageIssuesListProps = {
   image: ServiceImage
 }
 
+const VulnerabilitiesTabContent = ({
+  service,
+  image,
+  setSearchTerm,
+  setPageCursor,
+  issuesPromise,
+  onFalsePositiveSuccess,
+  onFalsePositiveError,
+}: {
+  service: string
+  image: ServiceImage
+  setSearchTerm: (term: string | undefined) => void
+  setPageCursor: (cursor: string | null | undefined) => void
+  issuesPromise: ReturnType<typeof fetchImages>
+  onFalsePositiveSuccess: (cveNumber: string) => void
+  onFalsePositiveError: (error: Error, cveNumber: string) => void
+}) => {
+  return (
+    <>
+      <Messages className="mb-4 mt-4" />
+      <Stack gap="2" className="mb-4 mt-4">
+        <SearchInput
+          placeholder="Search for CVE number"
+          className="w-96 ml-auto"
+          onSearch={(search) => setSearchTerm(search || "")}
+          onClear={() => {
+            setSearchTerm("")
+          }}
+        />
+      </Stack>
+      <DataGrid columns={5} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
+        <DataGridRow>
+          <DataGridHeadCell>
+            <Icon icon="monitorHeart" />
+          </DataGridHeadCell>
+          <DataGridHeadCell>Vulnerability</DataGridHeadCell>
+          <DataGridHeadCell>Target Date</DataGridHeadCell>
+          <DataGridHeadCell>Description</DataGridHeadCell>
+          <DataGridHeadCell>Actions</DataGridHeadCell>
+        </DataGridRow>
+
+        {issuesPromise && (
+          <ErrorBoundary
+            displayErrorMessage
+            fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
+            resetKeys={[issuesPromise]}
+          >
+            <Suspense fallback={<LoadingDataRow colSpan={5} />}>
+              <IssuesDataRows
+                issuesPromise={issuesPromise}
+                service={service}
+                image={image.repository}
+                onFalsePositiveSuccess={onFalsePositiveSuccess}
+                onFalsePositiveError={onFalsePositiveError}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        )}
+      </DataGrid>
+      {issuesPromise && (
+        <ErrorBoundary resetKeys={[issuesPromise]}>
+          <Suspense>
+            <CursorPagination
+              dataPromise={issuesPromise}
+              dataNormalizationMethod={getNormalizedImageVulnerabilitiesResponse}
+              goToPage={setPageCursor}
+            />
+          </Suspense>
+        </ErrorBoundary>
+      )}
+    </>
+  )
+}
+
+const RemediatedVulnerabilitiesTabContent = ({
+  remediationsPromise,
+  onRevertSuccess,
+  onRevertError,
+}: {
+  remediationsPromise: ReturnType<typeof fetchRemediations>
+  onRevertSuccess: (cveNumber: string) => void
+  onRevertError: (error: Error, cveNumber: string) => void
+}) => {
+  return (
+    <>
+      <Messages className="mb-4 mt-4" />
+      <div className="mt-4">
+        <DataGrid columns={4} minContentColumns={[0, 1, 3]} cellVerticalAlignment="top">
+          <DataGridRow>
+            <DataGridHeadCell>
+              <Icon icon="monitorHeart" />
+            </DataGridHeadCell>
+            <DataGridHeadCell>Vulnerability</DataGridHeadCell>
+            <DataGridHeadCell>Description</DataGridHeadCell>
+            <DataGridHeadCell>Actions</DataGridHeadCell>
+          </DataGridRow>
+
+          {remediationsPromise && (
+            <ErrorBoundary
+              displayErrorMessage
+              fallbackRender={getErrorDataRowComponent({ colspan: 4 })}
+              resetKeys={[remediationsPromise]}
+            >
+              <Suspense fallback={<LoadingDataRow colSpan={4} />}>
+                <RemediatedIssuesDataRows
+                  remediationsPromise={remediationsPromise}
+                  onRevertSuccess={onRevertSuccess}
+                  onRevertError={onRevertError}
+                />
+              </Suspense>
+            </ErrorBoundary>
+          )}
+        </DataGrid>
+      </div>
+    </>
+  )
+}
+
 export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
-  const { addMessage } = useActions()
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
@@ -63,39 +180,73 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
     },
   })
 
-  const handleFalsePositiveSuccess = useCallback(() => {
-    addMessage({
-      variant: "success",
-      text: "Vulnerability marked as false positive successfully.",
-    })
-  }, [addMessage])
+  const VulnerabilitiesTab = () => {
+    const { addMessage } = useActions()
 
-  const handleFalsePositiveError = useCallback(
-    (error: Error) => {
-      addMessage({
-        variant: "error",
-        text: `Failed to mark as false positive: ${error.message}`,
-      })
-    },
-    [addMessage]
-  )
+    const handleFalsePositiveSuccess = useCallback(
+      (cveNumber: string) => {
+        addMessage({
+          variant: "success",
+          text: `Vulnerability ${cveNumber} marked as false positive successfully.`,
+        })
+      },
+      [addMessage]
+    )
 
-  const handleRevertSuccess = useCallback(() => {
-    addMessage({
-      variant: "success",
-      text: "False positive reverted successfully.",
-    })
-  }, [addMessage])
+    const handleFalsePositiveError = useCallback(
+      (error: Error, cveNumber: string) => {
+        addMessage({
+          variant: "error",
+          text: `Failed to mark ${cveNumber} as false positive: ${error.message}`,
+        })
+      },
+      [addMessage]
+    )
 
-  const handleRevertError = useCallback(
-    (error: Error) => {
-      addMessage({
-        variant: "error",
-        text: `Failed to revert false positive: ${error.message}`,
-      })
-    },
-    [addMessage]
-  )
+    return (
+      <VulnerabilitiesTabContent
+        service={service}
+        image={image}
+        setSearchTerm={setSearchTerm}
+        setPageCursor={setPageCursor}
+        issuesPromise={issuesPromise}
+        onFalsePositiveSuccess={handleFalsePositiveSuccess}
+        onFalsePositiveError={handleFalsePositiveError}
+      />
+    )
+  }
+
+  const RemediatedVulnerabilitiesTab = () => {
+    const { addMessage } = useActions()
+
+    const handleRevertSuccess = useCallback(
+      (cveNumber: string) => {
+        addMessage({
+          variant: "success",
+          text: `False positive for ${cveNumber} reverted successfully.`,
+        })
+      },
+      [addMessage]
+    )
+
+    const handleRevertError = useCallback(
+      (error: Error, cveNumber: string) => {
+        addMessage({
+          variant: "error",
+          text: `Failed to revert false positive for ${cveNumber}: ${error.message}`,
+        })
+      },
+      [addMessage]
+    )
+
+    return (
+      <RemediatedVulnerabilitiesTabContent
+        remediationsPromise={remediationsPromise}
+        onRevertSuccess={handleRevertSuccess}
+        onRevertError={handleRevertError}
+      />
+    )
+  }
 
   return (
     <>
@@ -105,85 +256,14 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
           <Tab label="Remediated Vulnerabilities" />
         </TabList>
         <TabPanel>
-          <Stack gap="2" className="mb-4 mt-4">
-            <SearchInput
-              placeholder="Search for CVE number"
-              className="w-96 ml-auto"
-              onSearch={(search) => setSearchTerm(search || "")}
-              onClear={() => {
-                setSearchTerm("")
-              }}
-            />
-          </Stack>
-          <DataGrid columns={5} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
-            <DataGridRow>
-              <DataGridHeadCell>
-                <Icon icon="monitorHeart" />
-              </DataGridHeadCell>
-              <DataGridHeadCell>Vulnerability</DataGridHeadCell>
-              <DataGridHeadCell>Target Date</DataGridHeadCell>
-              <DataGridHeadCell>Description</DataGridHeadCell>
-              <DataGridHeadCell>Actions</DataGridHeadCell>
-            </DataGridRow>
-
-            {issuesPromise && (
-              <ErrorBoundary
-                displayErrorMessage
-                fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
-                resetKeys={[issuesPromise]}
-              >
-                <Suspense fallback={<LoadingDataRow colSpan={5} />}>
-                  <IssuesDataRows
-                    issuesPromise={issuesPromise}
-                    service={service}
-                    image={image.repository}
-                    onFalsePositiveSuccess={handleFalsePositiveSuccess}
-                    onFalsePositiveError={handleFalsePositiveError}
-                  />
-                </Suspense>
-              </ErrorBoundary>
-            )}
-          </DataGrid>
-          {issuesPromise && (
-            <ErrorBoundary resetKeys={[issuesPromise]}>
-              <Suspense>
-                <CursorPagination
-                  dataPromise={issuesPromise}
-                  dataNormalizationMethod={getNormalizedImageVulnerabilitiesResponse}
-                  goToPage={setPageCursor}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          )}
+          <MessagesProvider>
+            <VulnerabilitiesTab />
+          </MessagesProvider>
         </TabPanel>
         <TabPanel>
-          <div className="mb-4 mt-4" />
-          <DataGrid columns={4} minContentColumns={[0, 1, 3]} cellVerticalAlignment="top">
-            <DataGridRow>
-              <DataGridHeadCell>
-                <Icon icon="monitorHeart" />
-              </DataGridHeadCell>
-              <DataGridHeadCell>Vulnerability</DataGridHeadCell>
-              <DataGridHeadCell>Description</DataGridHeadCell>
-              <DataGridHeadCell>Actions</DataGridHeadCell>
-            </DataGridRow>
-
-            {remediationsPromise && (
-              <ErrorBoundary
-                displayErrorMessage
-                fallbackRender={getErrorDataRowComponent({ colspan: 4 })}
-                resetKeys={[remediationsPromise]}
-              >
-                <Suspense fallback={<LoadingDataRow colSpan={4} />}>
-                  <RemediatedIssuesDataRows
-                    remediationsPromise={remediationsPromise}
-                    onRevertSuccess={handleRevertSuccess}
-                    onRevertError={handleRevertError}
-                  />
-                </Suspense>
-              </ErrorBoundary>
-            )}
-          </DataGrid>
+          <MessagesProvider>
+            <RemediatedVulnerabilitiesTab />
+          </MessagesProvider>
         </TabPanel>
       </Tabs>
     </>

@@ -14,8 +14,8 @@ import { deleteRemediation } from "../../../../../api/deleteRemediation"
 
 type RemediatedIssuesDataRowsProps = {
   remediationsPromise: Promise<ObservableQuery.Result<GetRemediationsQuery>>
-  onRevertSuccess: () => void
-  onRevertError: (error: Error) => void
+  onRevertSuccess: (cveNumber: string) => void
+  onRevertError: (error: Error, cveNumber: string) => void
 }
 
 export const RemediatedIssuesDataRows = ({
@@ -27,16 +27,16 @@ export const RemediatedIssuesDataRows = ({
   const { remediatedVulnerabilities } = getNormalizedRemediationsResponse(data as GetRemediationsQuery | undefined)
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
 
-  const handleRevert = async (remediationId: string) => {
+  const handleRevert = async (remediationId: string, cveNumber: string) => {
     try {
       await deleteRemediation({ apiClient, remediationId })
       // Invalidate queries to refresh the data
       queryClient.invalidateQueries({ queryKey: ["remediations"] })
       queryClient.invalidateQueries({ queryKey: ["images"] })
-      onRevertSuccess()
+      onRevertSuccess(cveNumber)
     } catch (error) {
       console.error("Failed to delete remediation:", error)
-      onRevertError(error instanceof Error ? error : new Error("Failed to revert false positive"))
+      onRevertError(error instanceof Error ? error : new Error("Failed to revert false positive"), cveNumber)
       throw error
     }
   }
@@ -52,7 +52,11 @@ export const RemediatedIssuesDataRows = ({
   return (
     <>
       {remediatedVulnerabilities.map((remediation) => (
-        <RemediatedIssueDataRow key={remediation.remediationId} remediation={remediation} onRevert={handleRevert} />
+        <RemediatedIssueDataRow
+          key={remediation.remediationId}
+          remediation={remediation}
+          onRevert={(remediationId) => handleRevert(remediationId, remediation.vulnerability || "N/A")}
+        />
       ))}
     </>
   )
