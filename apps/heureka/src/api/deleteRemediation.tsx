@@ -11,7 +11,7 @@ import {
 } from "../generated/graphql"
 
 type DeleteRemediationParams = {
-  apiClient: ApolloClient<unknown>
+  apiClient: ApolloClient
   remediationId: string
 }
 

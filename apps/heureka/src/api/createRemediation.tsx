@@ -12,7 +12,7 @@ import {
 } from "../generated/graphql"
 
 type CreateRemediationParams = {
-  apiClient: ApolloClient<unknown>
+  apiClient: ApolloClient
   input: RemediationInput
 }
 

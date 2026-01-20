@@ -14,11 +14,9 @@ import { deleteRemediation } from "../../../../../api/deleteRemediation"
 
 type RemediatedIssuesDataRowsProps = {
   remediationsPromise: Promise<ObservableQuery.Result<GetRemediationsQuery>>
-  service: string
-  image: string
 }
 
-export const RemediatedIssuesDataRows = ({ remediationsPromise, service, image }: RemediatedIssuesDataRowsProps) => {
+export const RemediatedIssuesDataRows = ({ remediationsPromise }: RemediatedIssuesDataRowsProps) => {
   const { error, data } = use(remediationsPromise)
   const { remediatedVulnerabilities } = getNormalizedRemediationsResponse(data as GetRemediationsQuery | undefined)
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
@@ -46,13 +44,7 @@ export const RemediatedIssuesDataRows = ({ remediationsPromise, service, image }
   return (
     <>
       {remediatedVulnerabilities.map((remediation) => (
-        <RemediatedIssueDataRow
-          key={remediation.remediationId}
-          remediation={remediation}
-          service={service}
-          image={image}
-          onRevert={handleRevert}
-        />
+        <RemediatedIssueDataRow key={remediation.remediationId} remediation={remediation} onRevert={handleRevert} />
       ))}
     </>
   )

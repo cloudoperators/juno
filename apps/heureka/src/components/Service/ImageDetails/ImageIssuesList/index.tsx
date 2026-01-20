@@ -63,24 +63,22 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
 
   return (
     <>
-      <Stack gap="2" className="mb-4 mt-8">
-        {selectedTabIndex === 0 && (
-          <SearchInput
-            placeholder="Search for CVE number"
-            className="w-96 ml-auto"
-            onSearch={(search) => setSearchTerm(search || "")}
-            onClear={() => {
-              setSearchTerm("")
-            }}
-          />
-        )}
-      </Stack>
       <Tabs selectedIndex={selectedTabIndex} onSelect={setSelectedTabIndex} variant="content">
         <TabList>
           <Tab label="Vulnerabilities" />
           <Tab label="Remediated Vulnerabilities" />
         </TabList>
         <TabPanel>
+          <Stack gap="2" className="mb-4 mt-4">
+            <SearchInput
+              placeholder="Search for CVE number"
+              className="w-96 ml-auto"
+              onSearch={(search) => setSearchTerm(search || "")}
+              onClear={() => {
+                setSearchTerm("")
+              }}
+            />
+          </Stack>
           <DataGrid columns={5} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
             <DataGridRow>
               <DataGridHeadCell>
@@ -117,6 +115,7 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
           )}
         </TabPanel>
         <TabPanel>
+          <div className="mb-4 mt-4" />
           <DataGrid columns={4} minContentColumns={[0, 1, 3]} cellVerticalAlignment="top">
             <DataGridRow>
               <DataGridHeadCell>
@@ -134,11 +133,7 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
                 resetKeys={[remediationsPromise]}
               >
                 <Suspense fallback={<LoadingDataRow colSpan={4} />}>
-                  <RemediatedIssuesDataRows
-                    remediationsPromise={remediationsPromise}
-                    service={service}
-                    image={image.repository}
-                  />
+                  <RemediatedIssuesDataRows remediationsPromise={remediationsPromise} />
                 </Suspense>
               </ErrorBoundary>
             )}

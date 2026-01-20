@@ -52,7 +52,7 @@ export const ImageVersionsList = ({ versions, service, imageRepository }: ImageV
                 className="link-hover"
               >
                 <Stack gap="2" direction="horizontal" alignment="center">
-                  <Icon icon="code" size="16" />
+                  <Icon icon="info" size="16" />
                   <span>{version.version}</span>
                 </Stack>
               </a>
