@@ -109,7 +109,8 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
             onChange={handleDescriptionChange}
             rows={4}
             required
-            error={descriptionError || undefined}
+            invalid={!!descriptionError}
+            errortext={descriptionError || ""}
           />
         </div>
       </Stack>
