@@ -9,6 +9,7 @@ import { ImageVersionDetails } from "../../../../../../components/Service/ImageV
 import { fetchImageVersions } from "../../../../../../api/fetchImageVersions"
 import { Spinner } from "@cloudoperators/juno-ui-components"
 import { ErrorBoundary } from "../../../../../../components/common/ErrorBoundary"
+import { getShortSha256 } from "../../../../../../utils"
 
 export const Route = createFileRoute("/services/$service/images/$image/versions/$version")({
   shouldReload: false,
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/services/$service/images/$image/versions/
     return {
       imageVersionsPromise,
       crumb: {
-        label: version,
+        label: getShortSha256(version),
       },
     }
   },

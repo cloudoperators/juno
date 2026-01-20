@@ -12,6 +12,7 @@ import SectionContentHeading from "../../common/SectionContentHeading"
 import { ImageVersionIssuesList } from "./ImageVersionIssuesList"
 import { ObservableQuery } from "@apollo/client"
 import { GetImageVersionsQuery } from "../../../generated/graphql"
+import { getShortSha256 } from "../../../utils"
 
 type ImageVersionDetailsProps = {
   imageVersionsPromise: Promise<ObservableQuery.Result<GetImageVersionsQuery>>
@@ -46,33 +47,10 @@ export const ImageVersionDetails = ({
     )
   }
 
-  // Format version string: show first 9 chars after "sha", then "...", then last 5 chars
-  const formatVersion = (version: string): string => {
-    if (!version) return version
-
-    // Check if it starts with "sha" (e.g., "sha256:...")
-    const shaMatch = version.match(/^(sha[^:]*:)(.+)$/)
-    if (shaMatch) {
-      const prefix = shaMatch[1] // e.g., "sha256:"
-      const hash = shaMatch[2] // The actual hash part
-
-      if (hash.length <= 14) {
-        // If hash is short enough, return as is
-        return version
-      }
-
-      // Show first 9 chars of hash, then "...", then last 5 chars
-      return `${prefix}${hash.substring(0, 9)}...${hash.substring(hash.length - 5)}`
-    }
-
-    // If it doesn't match the pattern, return as is
-    return version
-  }
-
   return (
     <>
       <SectionContentHeading>
-        Image {imageVersion.repository || imageRepository} - Version {formatVersion(imageVersion.version)}
+        Image {imageVersion.repository || imageRepository} - Version {getShortSha256(imageVersion.version)}
       </SectionContentHeading>
 
       <DataGrid columns={2} gridColumnTemplate="20% auto" className="mb-6">
