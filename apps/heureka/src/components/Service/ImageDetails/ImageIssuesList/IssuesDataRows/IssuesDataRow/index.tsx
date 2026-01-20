@@ -38,13 +38,22 @@ type IssuesDataRowProps = {
   service: string
   image: string
   showFalsePositiveAction?: boolean
+  onFalsePositiveSuccess?: () => void
+  onFalsePositiveError?: (error: Error) => void
 }
 
-export const IssuesDataRow = ({ issue, service, image, showFalsePositiveAction = true }: IssuesDataRowProps) => {
+export const IssuesDataRow = ({
+  issue,
+  service,
+  image,
+  showFalsePositiveAction = true,
+  onFalsePositiveSuccess,
+  onFalsePositiveError,
+}: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { needsExpansion, textRef } = useTextOverflow(issue.description)
-  const { apiClient } = useRouteContext({ from: "/services/$service" })
+  const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
 
   const toggleDescription = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -59,10 +68,13 @@ export const IssuesDataRow = ({ issue, service, image, showFalsePositiveAction =
     try {
       await createRemediation({ apiClient, input })
       setIsModalOpen(false)
-      // Optionally show a success message or refresh data
+      // Invalidate queries to refresh the data
+      queryClient.invalidateQueries({ queryKey: ["images"] })
+      queryClient.invalidateQueries({ queryKey: ["remediations"] })
+      onFalsePositiveSuccess?.()
     } catch (error) {
       console.error("Failed to create remediation:", error)
-      // Optionally show an error message
+      onFalsePositiveError?.(error instanceof Error ? error : new Error("Failed to create remediation"))
     }
   }
 

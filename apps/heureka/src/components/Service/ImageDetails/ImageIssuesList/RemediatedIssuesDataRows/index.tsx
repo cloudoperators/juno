@@ -14,9 +14,15 @@ import { deleteRemediation } from "../../../../../api/deleteRemediation"
 
 type RemediatedIssuesDataRowsProps = {
   remediationsPromise: Promise<ObservableQuery.Result<GetRemediationsQuery>>
+  onRevertSuccess: () => void
+  onRevertError: (error: Error) => void
 }
 
-export const RemediatedIssuesDataRows = ({ remediationsPromise }: RemediatedIssuesDataRowsProps) => {
+export const RemediatedIssuesDataRows = ({
+  remediationsPromise,
+  onRevertSuccess,
+  onRevertError,
+}: RemediatedIssuesDataRowsProps) => {
   const { error, data } = use(remediationsPromise)
   const { remediatedVulnerabilities } = getNormalizedRemediationsResponse(data as GetRemediationsQuery | undefined)
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
@@ -27,8 +33,10 @@ export const RemediatedIssuesDataRows = ({ remediationsPromise }: RemediatedIssu
       // Invalidate queries to refresh the data
       queryClient.invalidateQueries({ queryKey: ["remediations"] })
       queryClient.invalidateQueries({ queryKey: ["images"] })
+      onRevertSuccess()
     } catch (error) {
       console.error("Failed to delete remediation:", error)
+      onRevertError(error instanceof Error ? error : new Error("Failed to revert false positive"))
       throw error
     }
   }

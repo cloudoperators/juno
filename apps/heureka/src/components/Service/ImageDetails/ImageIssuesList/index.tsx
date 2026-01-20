@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, useState } from "react"
+import React, { Suspense, useState, useCallback } from "react"
 import { useRouteContext } from "@tanstack/react-router"
 import {
   DataGrid,
@@ -17,6 +17,7 @@ import {
   Tab,
   TabPanel,
 } from "@cloudoperators/juno-ui-components"
+import { useActions } from "@cloudoperators/juno-messages-provider"
 import { getNormalizedImageVulnerabilitiesResponse, ServiceImage } from "../../../Services/utils"
 import { fetchImages } from "../../../../api/fetchImages"
 import { fetchRemediations } from "../../../../api/fetchRemediations"
@@ -34,6 +35,7 @@ type ImageIssuesListProps = {
 
 export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
+  const { addMessage } = useActions()
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
@@ -60,6 +62,40 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
       image: [image.repository],
     },
   })
+
+  const handleFalsePositiveSuccess = useCallback(() => {
+    addMessage({
+      variant: "success",
+      text: "Vulnerability marked as false positive successfully.",
+    })
+  }, [addMessage])
+
+  const handleFalsePositiveError = useCallback(
+    (error: Error) => {
+      addMessage({
+        variant: "error",
+        text: `Failed to mark as false positive: ${error.message}`,
+      })
+    },
+    [addMessage]
+  )
+
+  const handleRevertSuccess = useCallback(() => {
+    addMessage({
+      variant: "success",
+      text: "False positive reverted successfully.",
+    })
+  }, [addMessage])
+
+  const handleRevertError = useCallback(
+    (error: Error) => {
+      addMessage({
+        variant: "error",
+        text: `Failed to revert false positive: ${error.message}`,
+      })
+    },
+    [addMessage]
+  )
 
   return (
     <>
@@ -97,7 +133,13 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
                 resetKeys={[issuesPromise]}
               >
                 <Suspense fallback={<LoadingDataRow colSpan={5} />}>
-                  <IssuesDataRows issuesPromise={issuesPromise} service={service} image={image.repository} />
+                  <IssuesDataRows
+                    issuesPromise={issuesPromise}
+                    service={service}
+                    image={image.repository}
+                    onFalsePositiveSuccess={handleFalsePositiveSuccess}
+                    onFalsePositiveError={handleFalsePositiveError}
+                  />
                 </Suspense>
               </ErrorBoundary>
             )}
@@ -133,7 +175,11 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
                 resetKeys={[remediationsPromise]}
               >
                 <Suspense fallback={<LoadingDataRow colSpan={4} />}>
-                  <RemediatedIssuesDataRows remediationsPromise={remediationsPromise} />
+                  <RemediatedIssuesDataRows
+                    remediationsPromise={remediationsPromise}
+                    onRevertSuccess={handleRevertSuccess}
+                    onRevertError={handleRevertError}
+                  />
                 </Suspense>
               </ErrorBoundary>
             )}

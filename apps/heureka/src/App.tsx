@@ -9,6 +9,7 @@ import { createRouter, RouterProvider, createHashHistory, createBrowserHistory }
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { AppShell, AppShellProvider, PageHeader } from "@cloudoperators/juno-ui-components"
 import { encodeV2, decodeV2 } from "@cloudoperators/juno-url-state-provider"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import styles from "./styles.css?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
@@ -87,21 +88,23 @@ const App = (props: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ApolloProvider client={apiClient}>
-        <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
-          {/* load styles inside the shadow dom */}
-          <style>{styles.toString()}</style>
-          <StrictMode>
-            <AppShell embedded={props.embedded} pageHeader={<PageHeader applicationName="Heureka" />}>
-              <ErrorBoundary>
-                <StrictMode>
-                  <StoreProvider>
-                    <RouterProvider basepath={props.basePath || "/"} router={router} />
-                  </StoreProvider>
-                </StrictMode>
-              </ErrorBoundary>
-            </AppShell>
-          </StrictMode>
-        </AppShellProvider>
+        <MessagesProvider>
+          <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
+            {/* load styles inside the shadow dom */}
+            <style>{styles.toString()}</style>
+            <StrictMode>
+              <AppShell embedded={props.embedded} pageHeader={<PageHeader applicationName="Heureka" />}>
+                <ErrorBoundary>
+                  <StrictMode>
+                    <StoreProvider>
+                      <RouterProvider basepath={props.basePath || "/"} router={router} />
+                    </StoreProvider>
+                  </StrictMode>
+                </ErrorBoundary>
+              </AppShell>
+            </StrictMode>
+          </AppShellProvider>
+        </MessagesProvider>
       </ApolloProvider>
     </QueryClientProvider>
   )

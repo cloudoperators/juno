@@ -14,9 +14,17 @@ type IssuesDataRowsProps = {
   issuesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>
   service: string
   image: string
+  onFalsePositiveSuccess: () => void
+  onFalsePositiveError: (error: Error) => void
 }
 
-export const IssuesDataRows = ({ issuesPromise, service, image }: IssuesDataRowsProps) => {
+export const IssuesDataRows = ({
+  issuesPromise,
+  service,
+  image,
+  onFalsePositiveSuccess,
+  onFalsePositiveError,
+}: IssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
   const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(data as GetImagesQuery | undefined)
 
@@ -29,6 +37,13 @@ export const IssuesDataRows = ({ issuesPromise, service, image }: IssuesDataRows
   }
 
   return vulnerabilities.map((vulnerability) => (
-    <IssuesDataRow key={vulnerability.id || vulnerability.name} issue={vulnerability} service={service} image={image} />
+    <IssuesDataRow
+      key={vulnerability.id || vulnerability.name}
+      issue={vulnerability}
+      service={service}
+      image={image}
+      onFalsePositiveSuccess={onFalsePositiveSuccess}
+      onFalsePositiveError={onFalsePositiveError}
+    />
   ))
 }
