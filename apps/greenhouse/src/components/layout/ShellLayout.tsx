@@ -16,7 +16,7 @@ const shellStyles = `
 const mainStyles = `
   py-4
   pl-4
-  bg-theme-global-bg
+  bg-theme-content-area-bg
   h-full
 `
 

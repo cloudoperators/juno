@@ -5,19 +5,27 @@
 
 import React, { StrictMode } from "react"
 import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { decodeV2, encodeV2 } from "@cloudoperators/juno-url-state-provider"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
+import { createClient } from "@cloudoperators/juno-k8s-client"
 import Auth from "./components/Auth"
 import styles from "./styles.css?inline"
-import StoreProvider from "./components/StoreProvider"
+import StoreProvider, { useGlobalsApiEndpoint } from "./components/StoreProvider"
 import { AuthProvider, useAuth } from "./components/AuthProvider"
 import { routeTree } from "./routeTree.gen"
+
+// Create a new query client instance
+const queryClient = new QueryClient()
 
 // Create a new router instance
 const router = createRouter({
   routeTree,
   context: {
     appProps: undefined!,
+    apiClient: null,
+    organization: undefined!,
   },
 })
 
@@ -50,8 +58,21 @@ const getBasePath = (auth: any) => {
   return orgString ? orgString.split(":")[1] : undefined
 }
 
+const getOrganization = (auth: unknown) => {
+  // @ts-expect-error - auth?.data type needs to be properly defined
+  return auth?.data?.raw?.groups?.find((g: any) => g.startsWith("organization:"))?.split(":")[1]
+}
+
 function App(props: AppProps) {
   const auth = useAuth()
+  const apiEndpoint = useGlobalsApiEndpoint()
+  // @ts-expect-error - useAuth return type is not properly typed
+  const token = auth?.data?.JWT
+  // Create k8s client if apiEndpoint and token are available
+  // @ts-expect-error - apiEndpoint type needs to be properly typed as string
+  const apiClient = apiEndpoint && token ? createClient({ apiEndpoint, token }) : null
+  const organization = getOrganization(auth)
+
   /*
    * Dynamically change the type of history on the router
    * based on the enableHashedRouting prop. This ensures that
@@ -60,7 +81,9 @@ function App(props: AppProps) {
    */
   router.update({
     basepath: getBasePath(auth),
-    context: { appProps: props },
+    context: { appProps: props, apiClient, organization },
+    stringifySearch: encodeV2,
+    parseSearch: decodeV2,
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
   })
   return <RouterProvider router={router} />
@@ -82,11 +105,13 @@ const StyledShell = (props: AppProps) => {
           demoUserToken={props.demoUserToken}
         >
           <StoreProvider options={props}>
-            <MessagesProvider>
-              <StrictMode>
-                <App {...props} />
-              </StrictMode>
-            </MessagesProvider>
+            <QueryClientProvider client={queryClient}>
+              <MessagesProvider>
+                <StrictMode>
+                  <App {...props} />
+                </StrictMode>
+              </MessagesProvider>
+            </QueryClientProvider>
           </StoreProvider>
         </Auth>
       </AuthProvider>

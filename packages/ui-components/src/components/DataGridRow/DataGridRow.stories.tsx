@@ -10,6 +10,7 @@ import { DataGridCell } from "../DataGridCell/index"
 import { Default as DataGridCellStory } from "../DataGridCell/DataGridCell.stories"
 import { DataGrid, DataGridProps } from "../DataGrid/index"
 import { Button } from "../Button"
+import { DataGridHeadCell } from "../DataGridHeadCell"
 
 const columns = 5
 
@@ -73,52 +74,82 @@ export const Default: StoryObj<DataGridRowStoryProps> = {
   },
 }
 
+// If making changes, update in DataGrid story too
 export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
-  render: ({ items, ...args }) => (
-    <>
-      <DataGridRow {...args}>
-        {items.map((item, i) => (
-          <DataGridCell {...item} key={i} />
-        ))}
+  render: (args) => (
+    <DataGrid columns={3} gridColumnTemplate="270px 270px 270px">
+      <DataGridRow>
+        <DataGridHeadCell>ID</DataGridHeadCell>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
       </DataGridRow>
-      <DataGridRow {...args}>
-        {items.map((item, i) => (
-          <DataGridCell {...item} key={i} />
-        ))}
-      </DataGridRow>
-    </>
+      {Array.from({ length: 4 }, (_, rowIndex) => (
+        <DataGridRow
+          {...args}
+          key={`row_${rowIndex}`}
+          onClick={() => alert(`Row ${rowIndex + 1} clicked (HoverableRow)`)}
+        >
+          <DataGridCell key={`cell_id_${rowIndex}`}>{`ID-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_name_${rowIndex}`}>{`Name-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_status_${rowIndex}`}>{`Status-${rowIndex + 1}`}</DataGridCell>
+        </DataGridRow>
+      ))}
+    </DataGrid>
   ),
   args: {
-    items: Array(columns).fill({ ...DataGridCellStory.args }),
+    items: Array.from({ length: 3 }, (_, i) => ({
+      content: `Cell Content ${i + 1}`,
+    })),
   },
   parameters: {
     docs: {
       description: {
-        story:
-          "When `onClick` is set, the entire DataGridRow exhibits visual feedback on hover, enhancing interactivity.",
+        story: "When `onClick` is set in `DataGridRow`, it exhibits visual feedback on hover, enhancing interactivity.",
       },
     },
   },
 }
 
+// If making changes, update in DataGrid story too
 export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProps> = {
-  render: ({ ...args }) => (
-    <>
-      <DataGridRow {...args} onClick={() => alert("DataGridRow Event!")}>
-        <DataGridCell>
-          <Button
-            label="Trigger button event only"
-            onClick={(e) => {
-              e.stopPropagation()
-              alert("Only the `Button` event has been triggered!")
-            }}
-          />
-        </DataGridCell>
+  render: (args) => (
+    <DataGrid columns={4} gridColumnTemplate="210px 210px 210px 210px">
+      <DataGridRow>
+        <DataGridHeadCell>ID</DataGridHeadCell>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+        <DataGridHeadCell>Action</DataGridHeadCell>
       </DataGridRow>
-    </>
+      {Array.from({ length: 4 }, (_, rowIndex) => (
+        <DataGridRow
+          {...args}
+          key={`row_${rowIndex}`}
+          onClick={() => alert(`DataGridRow Event for Row ${rowIndex + 1}!`)}
+        >
+          <DataGridCell key={`cell_id_${rowIndex}`}>{`ID-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_name_${rowIndex}`}>{`Name-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_status_${rowIndex}`}>{`Status-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_button_${rowIndex}`}>
+            {rowIndex === 0 ? (
+              <Button
+                label="Trigger button event only"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  alert(`Button clicked in Row 1`)
+                }}
+              />
+            ) : (
+              `None`
+            )}
+          </DataGridCell>
+        </DataGridRow>
+      ))}
+    </DataGrid>
   ),
   args: {
-    items: Array(columns).fill({ ...DataGridCellStory.args }),
+    items: Array.from({ length: 3 }, (_, i) => ({
+      content: `Cell Content ${i + 1}`,
+    })),
   },
   parameters: {
     docs: {

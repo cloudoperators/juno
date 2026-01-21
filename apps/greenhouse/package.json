@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse",
-  "version": "0.7.22",
+  "version": "0.7.23",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
   "contributors": [
@@ -20,6 +20,7 @@
     "@tanstack/router-plugin": "1.145.10",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.1",
+    "@testing-library/user-event": "14.6.1",
     "@types/lodash": "4.17.21",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
@@ -29,6 +30,7 @@
     "interweave": "13.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-error-boundary": "6.0.0",
     "react-markdown": "10.1.0",
     "remark-gfm": " 4.0.1",
     "shadow-dom-testing-library": "1.13.1",
@@ -57,6 +59,7 @@
     "@cloudoperators/juno-oauth": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
+    "@tanstack/react-query": "5.90.16",
     "@tanstack/react-router": "1.144.0",
     "lodash": "4.17.21"
   }

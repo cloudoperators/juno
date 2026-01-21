@@ -53,7 +53,12 @@ const DataGridContext = React.createContext<DataGridContextType>({})
 export const useDataGridContext = () => React.useContext(DataGridContext)
 
 // TODO: allow for passing in props addItems, addItemsLabel, search, etc.:
-/** The DataGrid component is the main way to display lists of items that have a bunch of metadata that you want to display.
+/**
+ * The `DataGrid` component is primarily used to display lists of items that contain substantial metadata.
+ *
+ * **For advanced features and interactions**, please refer to the [DataGridRow](?path=/docs/components-datagrid-datagridrow--docs) component, which includes:
+ * - **Clickable row functionality & interactive styling:** Allows for custom behavior when a row is clicked. This also enables responsive styling, such as **hover effects**, for better user experience.
+ * - **Selected row styling:** Provides styling to integrate active rows.
  */
 export const DataGrid: React.FC<DataGridProps> = ({
   columns = 1,
