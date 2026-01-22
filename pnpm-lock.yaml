@@ -615,21 +615,12 @@ importers:
       '@cloudoperators/juno-ui-components':
         specifier: workspace:*
         version: link:../../packages/ui-components
-      '@tanstack/react-query':
-        specifier: 5.90.16
-        version: 5.90.16(react@19.2.3)
       react:
         specifier: 19.2.3
         version: 19.2.3
       react-dom:
         specifier: 19.2.3
         version: 19.2.3(react@19.2.3)
-      react-error-boundary:
-        specifier: 6.0.2
-        version: 6.0.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      zustand:
-        specifier: 4.5.7
-        version: 4.5.7(@types/react@19.2.7)(immer@10.2.0)(react@19.2.3)
     devDependencies:
       '@cloudoperators/juno-config':
         specifier: workspace:*
@@ -9990,65 +9981,65 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.4
 
-  '@svgr/babel-plugin-add-jsx-attribute@8.0.0(@babel/core@7.28.4)':
+  '@svgr/babel-plugin-add-jsx-attribute@8.0.0(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.28.4
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-remove-jsx-attribute@7.0.0(@babel/core@7.28.4)':
     dependencies:
       '@babel/core': 7.28.4
 
-  '@svgr/babel-plugin-remove-jsx-attribute@8.0.0(@babel/core@7.28.4)':
+  '@svgr/babel-plugin-remove-jsx-attribute@8.0.0(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.28.4
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-remove-jsx-empty-expression@7.0.0(@babel/core@7.28.4)':
     dependencies:
       '@babel/core': 7.28.4
 
-  '@svgr/babel-plugin-remove-jsx-empty-expression@8.0.0(@babel/core@7.28.4)':
+  '@svgr/babel-plugin-remove-jsx-empty-expression@8.0.0(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.28.4
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-replace-jsx-attribute-value@7.0.0(@babel/core@7.28.4)':
     dependencies:
       '@babel/core': 7.28.4
 
-  '@svgr/babel-plugin-replace-jsx-attribute-value@8.0.0(@babel/core@7.28.4)':
+  '@svgr/babel-plugin-replace-jsx-attribute-value@8.0.0(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.28.4
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-svg-dynamic-title@7.0.0(@babel/core@7.28.4)':
     dependencies:
       '@babel/core': 7.28.4
 
-  '@svgr/babel-plugin-svg-dynamic-title@8.0.0(@babel/core@7.28.4)':
+  '@svgr/babel-plugin-svg-dynamic-title@8.0.0(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.28.4
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-svg-em-dimensions@7.0.0(@babel/core@7.28.4)':
     dependencies:
       '@babel/core': 7.28.4
 
-  '@svgr/babel-plugin-svg-em-dimensions@8.0.0(@babel/core@7.28.4)':
+  '@svgr/babel-plugin-svg-em-dimensions@8.0.0(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.28.4
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-transform-react-native-svg@7.0.0(@babel/core@7.28.4)':
     dependencies:
       '@babel/core': 7.28.4
 
-  '@svgr/babel-plugin-transform-react-native-svg@8.1.0(@babel/core@7.28.4)':
+  '@svgr/babel-plugin-transform-react-native-svg@8.1.0(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.28.4
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-transform-svg-component@7.0.0(@babel/core@7.28.4)':
     dependencies:
       '@babel/core': 7.28.4
 
-  '@svgr/babel-plugin-transform-svg-component@8.0.0(@babel/core@7.28.4)':
+  '@svgr/babel-plugin-transform-svg-component@8.0.0(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.28.4
+      '@babel/core': 7.28.5
 
   '@svgr/babel-preset@7.0.0(@babel/core@7.28.4)':
     dependencies:
@@ -10062,17 +10053,17 @@ snapshots:
       '@svgr/babel-plugin-transform-react-native-svg': 7.0.0(@babel/core@7.28.4)
       '@svgr/babel-plugin-transform-svg-component': 7.0.0(@babel/core@7.28.4)
 
-  '@svgr/babel-preset@8.1.0(@babel/core@7.28.4)':
+  '@svgr/babel-preset@8.1.0(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.28.4
-      '@svgr/babel-plugin-add-jsx-attribute': 8.0.0(@babel/core@7.28.4)
-      '@svgr/babel-plugin-remove-jsx-attribute': 8.0.0(@babel/core@7.28.4)
-      '@svgr/babel-plugin-remove-jsx-empty-expression': 8.0.0(@babel/core@7.28.4)
-      '@svgr/babel-plugin-replace-jsx-attribute-value': 8.0.0(@babel/core@7.28.4)
-      '@svgr/babel-plugin-svg-dynamic-title': 8.0.0(@babel/core@7.28.4)
-      '@svgr/babel-plugin-svg-em-dimensions': 8.0.0(@babel/core@7.28.4)
-      '@svgr/babel-plugin-transform-react-native-svg': 8.1.0(@babel/core@7.28.4)
-      '@svgr/babel-plugin-transform-svg-component': 8.0.0(@babel/core@7.28.4)
+      '@babel/core': 7.28.5
+      '@svgr/babel-plugin-add-jsx-attribute': 8.0.0(@babel/core@7.28.5)
+      '@svgr/babel-plugin-remove-jsx-attribute': 8.0.0(@babel/core@7.28.5)
+      '@svgr/babel-plugin-remove-jsx-empty-expression': 8.0.0(@babel/core@7.28.5)
+      '@svgr/babel-plugin-replace-jsx-attribute-value': 8.0.0(@babel/core@7.28.5)
+      '@svgr/babel-plugin-svg-dynamic-title': 8.0.0(@babel/core@7.28.5)
+      '@svgr/babel-plugin-svg-em-dimensions': 8.0.0(@babel/core@7.28.5)
+      '@svgr/babel-plugin-transform-react-native-svg': 8.1.0(@babel/core@7.28.5)
+      '@svgr/babel-plugin-transform-svg-component': 8.0.0(@babel/core@7.28.5)
 
   '@svgr/core@7.0.0(typescript@5.9.3)':
     dependencies:
@@ -10086,8 +10077,8 @@ snapshots:
 
   '@svgr/core@8.1.0(typescript@5.9.3)':
     dependencies:
-      '@babel/core': 7.28.4
-      '@svgr/babel-preset': 8.1.0(@babel/core@7.28.4)
+      '@babel/core': 7.28.5
+      '@svgr/babel-preset': 8.1.0(@babel/core@7.28.5)
       camelcase: 6.3.0
       cosmiconfig: 8.3.6(typescript@5.9.3)
       snake-case: 3.0.4
@@ -10116,8 +10107,8 @@ snapshots:
 
   '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0(typescript@5.9.3))':
     dependencies:
-      '@babel/core': 7.28.4
-      '@svgr/babel-preset': 8.1.0(@babel/core@7.28.4)
+      '@babel/core': 7.28.5
+      '@svgr/babel-preset': 8.1.0(@babel/core@7.28.5)
       '@svgr/core': 8.1.0(typescript@5.9.3)
       '@svgr/hast-util-to-babel-ast': 8.0.0
       svg-parser: 2.0.4
