@@ -4,15 +4,18 @@
  */
 
 import React from "react"
+import { FallbackProps } from "react-error-boundary"
 import { Icon, Stack } from "@cloudoperators/juno-ui-components"
 
 type ErrorMessageProps = {
   error: Error
-}
+} | FallbackProps
 
 export const ErrorMessage = ({ error }: ErrorMessageProps) => {
-  const errorName = error.name ? `${error.name}: ` : "Error: "
-  const errorMessage = error.message || "Something went wrong"
+  // Handle both direct Error prop and FallbackProps from react-error-boundary
+  const errorObj = error as Error
+  const errorName = errorObj.name ? `${errorObj.name}: ` : "Error: "
+  const errorMessage = errorObj.message || "Something went wrong"
 
   return (
     <Stack gap="2" alignment="center">
