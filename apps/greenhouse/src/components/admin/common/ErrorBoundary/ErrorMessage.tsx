@@ -7,9 +7,11 @@ import React from "react"
 import { FallbackProps } from "react-error-boundary"
 import { Icon, Stack } from "@cloudoperators/juno-ui-components"
 
-type ErrorMessageProps = {
-  error: Error
-} | FallbackProps
+type ErrorMessageProps =
+  | {
+      error: Error
+    }
+  | FallbackProps
 
 export const ErrorMessage = ({ error }: ErrorMessageProps) => {
   // Handle both direct Error prop and FallbackProps from react-error-boundary
