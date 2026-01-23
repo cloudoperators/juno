@@ -615,21 +615,12 @@ importers:
       '@cloudoperators/juno-ui-components':
         specifier: workspace:*
         version: link:../../packages/ui-components
-      '@tanstack/react-query':
-        specifier: 5.90.16
-        version: 5.90.16(react@19.2.3)
       react:
         specifier: 19.2.3
         version: 19.2.3
       react-dom:
         specifier: 19.2.3
         version: 19.2.3(react@19.2.3)
-      react-error-boundary:
-        specifier: 6.0.2
-        version: 6.0.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      zustand:
-        specifier: 4.5.7
-        version: 4.5.7(@types/react@19.2.7)(immer@10.2.0)(react@19.2.3)
     devDependencies:
       '@cloudoperators/juno-config':
         specifier: workspace:*

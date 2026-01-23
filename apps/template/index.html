@@ -9,12 +9,50 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="src/assets/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      React 18, TypeScript, Vitest, Testing Library, TailwindCSS 3, Vite, Eslint, Juno UI components and Prettier
-      boilerplate
-    </title>
+    <title>Juno Template App</title>
+    <style>
+      html {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        flex-grow: 1;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      #root {
+        display: inline;
+      }
+    </style>
   </head>
   <body>
+    <script type="module">
+      /*
+       * The `VITE_APP_PROPS_URL` can vary depending on the deployment environment.
+       *
+       * Examples:
+       * - For a standard static build, this variable is typically undefined,
+       *   and the app expects `appProps.json` to be located at the server root "/".
+       * - For deployments like GitHub Pages, it can be set to a subdirectory path
+       *   (e.g., a pull request-specific folder) where the static build is hosted.
+       */
+
+      const { VITE_APP_PROPS_URL } = import.meta.env
+      const appPropsUrl = VITE_APP_PROPS_URL || "/appProps.json"
+      fetch(appPropsUrl)
+        .then((res) => res.json())
+        .catch((error) => {
+          console.warn("No appProps found, using default props", error.message)
+        })
+        .then((props) => {
+          import("./src/index").then((app) => {
+            app.mount(document.getElementById("root"), { props })
+          })
+        })
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
   </body>
