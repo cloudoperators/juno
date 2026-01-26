@@ -61,6 +61,6 @@
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tanstack/react-query": "5.90.16",
     "@tanstack/react-router": "1.150.0",
-    "lodash": "4.17.21"
+    "lodash": "4.17.23"
   }
 }
