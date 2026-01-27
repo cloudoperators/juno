@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+//Trigger
+
 import React from "react"
 
-const containerStyles = `
+const containerStyless = `
   jn:flex
   jn:flex-col
   jn:h-full
@@ -17,7 +19,7 @@ const containerStyles = `
  */
 export const AppBody: React.FC<AppBodyProps> = ({ className = "", children, ...props }) => {
   return (
-    <div className={`juno-body ${containerStyles} ${className}`} {...props}>
+    <div className={`juno-body ${containerStyless} ${className}`} {...props}>
       {children}
     </div>
   )
