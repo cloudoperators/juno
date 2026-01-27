@@ -14,9 +14,20 @@
 import React from "react"
 
 const AppContent: React.FC = () => {
+  const { VITE_PR_NUMBER, VITE_PR_COMMIT_SHA } = import.meta.env
+  const repoUrl = "https://github.com/cloudoperators/juno"
+
   return (
     <div>
-      Following previews are available:
+      PR{" "}
+      <a href={`${repoUrl}/pull/${VITE_PR_NUMBER}`} target="_blank" rel="noopener noreferrer">
+        #{VITE_PR_NUMBER}
+      </a>{" "}
+      (commit{" "}
+      <a href={`${repoUrl}/commit/${VITE_PR_COMMIT_SHA}`} target="_blank" rel="noopener noreferrer">
+        {VITE_PR_COMMIT_SHA?.slice(-7)}
+      </a>
+      )
       <br />
       <br />
       <ul>
