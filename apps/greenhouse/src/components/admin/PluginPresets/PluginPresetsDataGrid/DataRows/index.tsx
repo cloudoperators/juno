@@ -6,21 +6,22 @@
 import React from "react"
 import { DataGridRow, DataGridCell, Button, Icon } from "@cloudoperators/juno-ui-components"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { useRouteContext, useSearch } from "@tanstack/react-router"
+import { useRouteContext, useSearch, useNavigate } from "@tanstack/react-router"
 import { fetchPluginPresets, FETCH_PLUGIN_PRESETS_CACHE_KEY } from "../../../api/plugin-presets/fetchPluginPresets"
 import { extractFilterSettingsFromSearchParams } from "../../../utils"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
 import { PluginPreset } from "../../../types/k8sTypes"
 import { getReadyCondition, isReady } from "../../../utils"
-import ReadinessConditions from "./ReadinessConditions"
+import ReadinessConditions from "../../../common/ReadinessConditions"
 
 interface DataRowsProps {
   colSpan: number
 }
 
 export const DataRows = ({ colSpan }: DataRowsProps) => {
-  const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets" })
-  const search = useSearch({ from: "/admin/plugin-presets" })
+  const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets/" })
+  const search = useSearch({ from: "/admin/plugin-presets/" })
+  const navigate = useNavigate()
   const filterSettings = extractFilterSettingsFromSearchParams(search)
 
   const { data: pluginPresets } = useSuspenseQuery({
@@ -32,15 +33,17 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
     return <EmptyDataGridRow colSpan={colSpan}>No plugin presets found.</EmptyDataGridRow>
   }
 
+  const handleRowClick = (presetName: string) => {
+    navigate({
+      to: "/admin/plugin-presets/$pluginPresetName",
+      params: { pluginPresetName: presetName },
+    })
+  }
+
   return (
     <>
       {pluginPresets.map((preset: PluginPreset) => (
-        <DataGridRow
-          key={preset.metadata?.name}
-          onClick={() => {
-            /* Navigate to details page - to be implemented */
-          }}
-        >
+        <DataGridRow key={preset.metadata?.name} onClick={() => handleRowClick(preset.metadata?.name || "")}>
           <DataGridCell>
             <Icon
               icon={isReady(preset) ? "checkCircle" : "error"}

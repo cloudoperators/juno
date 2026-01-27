@@ -14,7 +14,7 @@ import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
 const COLUMN_SPAN = 7
 
 export const PluginPresetsDataGrid = () => {
-  const { filterSettings } = useLoaderData({ from: "/admin/plugin-presets" })
+  const { filterSettings } = useLoaderData({ from: "/admin/plugin-presets/" })
   return (
     <DataGrid minContentColumns={[0, 1, 6]} columns={COLUMN_SPAN}>
       <DataGridRow>

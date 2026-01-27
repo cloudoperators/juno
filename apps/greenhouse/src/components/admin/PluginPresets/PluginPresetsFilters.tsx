@@ -20,7 +20,7 @@ import { FilterSelect } from "../common/FilterSelect"
 export const PluginPresetsFilters = () => {
   const navigate = useNavigate()
   const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets" })
-  const { filterSettings } = useLoaderData({ from: "/admin/plugin-presets" })
+  const { filterSettings } = useLoaderData({ from: "/admin/plugin-presets/" })
   const {
     data: filters,
     isLoading,

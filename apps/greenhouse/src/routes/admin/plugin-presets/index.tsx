@@ -1,13 +1,13 @@
 /*
- * SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
-import { PluginPresets } from "../../components/admin/PluginPresets"
-import { SELECTED_FILTER_PREFIX } from "../../components/admin/constants"
-import { extractFilterSettingsFromSearchParams } from "../../components/admin/utils"
+import { PluginPresets } from "../../../components/admin/PluginPresets"
+import { SELECTED_FILTER_PREFIX } from "../../../components/admin/constants"
+import { extractFilterSettingsFromSearchParams } from "../../../components/admin/utils"
 
 const searchParamsSchema = z
   .object({
@@ -27,16 +27,13 @@ const searchParamsSchema = z
 
 export type PluginPresetSearchParams = z.infer<typeof searchParamsSchema>
 
-export const Route = createFileRoute("/admin/plugin-presets")({
+export const Route = createFileRoute("/admin/plugin-presets/")({
   component: PluginPresets,
   validateSearch: (search: Record<string, unknown>) => searchParamsSchema.parse(search),
   loaderDeps: (search) => ({
     ...search,
   }),
   loader: ({ deps: { search } }) => ({
-    crumb: {
-      label: "Plugin Presets",
-    },
     filterSettings: extractFilterSettingsFromSearchParams(search),
   }),
 })
