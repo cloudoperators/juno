@@ -1,0 +1,45 @@
+import{r as s,e as u,j as t}from"./iframe-DnjCMMu2.js";import{J as y}from"./JsonViewer.component-DxiGnTD8.js";import{I as x}from"./Icon.component-CgXwGdZP.js";const v=`
+  jn:bg-theme-code-block
+  jn:rounded
+`,k=e=>`
+    jn:p-6
+    ${e?"jn:break-words jn:break-all jn:whitespace-pre-wrap":"jn:overflow-x-auto"}
+  `,w=e=>{switch(e){case"small":return`
+        juno-codeblock-pre-small
+        jn:max-h-64
+        jn:overflow-y-auto
+      `;case"medium":return`
+        juno-codeblock-pre-medium
+        jn:max-h-[32rem]
+        jn:overflow-y-auto
+      `;case"large":return`
+        juno-codeblock-pre-large
+        jn:max-h-[56rem]
+        jn:overflow-y-auto
+      `;default:return""}},C=`
+  jn:bg-theme-code-block
+  jn:text-sm
+`,S=`
+  jn:text-sm
+  jn:border-b-[1px]
+  jn:border-theme-codeblock-bar 
+  jn:h-[3.4375rem]
+  jn:flex
+`,N=`
+  jn:flex
+  jn:font-bold
+  jn:px-[1.5625rem]
+  jn:items-center
+`,$=`
+  jn:flex 
+  jn:justify-end 
+  jn:px-3
+  jn:py-2 
+  jn:border-t-[1px]
+  jn:border-theme-codeblock-bar
+`,V=`
+  jn:font-bold 
+  jn:text-sm 
+  jn:mr-4 
+  jn:mt-1
+`,B={fontFamily:"IBM Plex Mono",fontSize:"0.875rem",padding:"1.5rem"},T={base00:"var(--color-syntax-highlight-base00)",base01:"var(--color-syntax-highlight-base01)",base02:"var(--color-syntax-highlight-base02)",base03:"var(--color-syntax-highlight-base03)",base04:"var(--color-syntax-highlight-base04)",base05:"var(--color-syntax-highlight-base05)",base06:"var(--color-syntax-highlight-base06)",base07:"var(--color-syntax-highlight-base07)",base08:"var(--color-syntax-highlight-base08)",base09:"var(--color-syntax-highlight-base09)",base0A:"var(--color-syntax-highlight-base0A)",base0B:"var(--color-syntax-highlight-base0B)",base0C:"var(--color-syntax-highlight-base0C)",base0D:"var(--color-syntax-highlight-base0D)",base0E:"var(--color-syntax-highlight-base0E)",base0F:"var(--color-syntax-highlight-base0F)"},h=({content:e="",children:n,wrap:m=!0,size:p="auto",copy:b=!0,lang:a="",className:g="",...l})=>{const[j,i]=s.useState(!1),o=u.useRef(null),{heading:r}=l;u.useEffect(()=>()=>{o.current&&clearTimeout(o.current)},[]);const c=s.useRef(null),f=s.useCallback(()=>{const d=a==="json"?JSON.stringify(e||n):c.current?.textContent;d&&navigator.clipboard.writeText(d).catch(()=>{console.warn("Cannot copy text to clipboard")}),i(!0),o.current&&clearTimeout(o.current),o.current=window.setTimeout(()=>i(!1),1e3)},[e,n,a]);return t.jsxs("div",{className:`juno-code-block ${v} ${a?`juno-code-block-lang-${a}`:""} ${g}`,"data-lang":a||null,...l,children:[r&&r.length?t.jsx("div",{className:`juno-codeblock-heading ${S}`,children:t.jsx("span",{className:`${N}`,children:r})}):"",a==="json"?t.jsx(y,{data:e,expanded:3,theme:T,style:B}):t.jsx("pre",{className:`juno-code-block-pre ${k(m)} ${w(p)}`,children:t.jsx("code",{className:`${C}`,ref:c,children:n??(typeof e=="string"?e:null)})}),b?t.jsxs("div",{className:`juno-codeblock-bottombar ${$}`,children:[t.jsx("span",{className:`${V}`,children:j?"Copied!":""}),t.jsx(x,{icon:"contentCopy",onClick:f})]}):""]})};try{h.displayName="CodeBlock",h.__docgenInfo={description:"The `CodeBlock` component renders a block of preformatted code or content. It offers features such\nas optional wrapping, copying to clipboard, and syntax highlighting for JSON content via a custom viewer.",displayName:"CodeBlock",props:{content:{defaultValue:{value:""},description:'The content to render. Used when `lang` is "json". Overrides children if not specified.\nDefaults to an empty string or object.',name:"content",required:!1,type:{name:"string | object"}},children:{defaultValue:null,description:'Elements or text to render inside the code block. Used when `lang` is not "json", overriding `content`.',name:"children",required:!1,type:{name:"ReactNode"}},heading:{defaultValue:null,description:"Optional caption or title to render, styled like a tab.",name:"heading",required:!1,type:{name:"string"}},wrap:{defaultValue:{value:"true"},description:"Determines whether the code should wrap.",name:"wrap",required:!1,type:{name:"boolean"}},size:{defaultValue:{value:"auto"},description:"Specifies the size of the CodeBlock.",name:"size",required:!1,type:{name:"enum",value:[{value:'"auto"'},{value:'"small"'},{value:'"medium"'},{value:'"large"'}]}},copy:{defaultValue:{value:"true"},description:"Enables or disables the copy-to-clipboard option.",name:"copy",required:!1,type:{name:"boolean"}},lang:{defaultValue:{value:""},description:'Language for the content. "json" will render a structured JsonView. Adds a data-lang attribute.',name:"lang",required:!1,type:{name:"string"}},className:{defaultValue:{value:""},description:"Additional CSS classes for customizing the CodeBlock styling.",name:"className",required:!1,type:{name:"string"}}}}}catch{}export{h as C};
