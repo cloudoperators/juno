@@ -20,11 +20,6 @@ on:
       - closed
     paths:
       - "packages/ui-components/**"
-      - "apps/supernova/**"
-      - "apps/heureka/**"
-      - "apps/doop/**"
-      - "apps/carbon/**"
-      - "apps/greenhouse/**"
       - "apps/example/**"
 
 # Limit the concurrency of entire workflow
@@ -53,7 +48,7 @@ jobs:
     # skip if the PR is from a forked repository
     if: github.event.pull_request.head.repo.full_name == github.repository
     needs: [run-detect-changes]
-    runs-on: [ ubuntu-latest ]
+    runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
@@ -63,14 +58,7 @@ jobs:
         run: |
           # setup ENVs for each app to preview
           echo "IS_STORYBOOK_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}" >> $GITHUB_ENV
-          echo "IS_SUPERNOVA_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'supernova') }}" >> $GITHUB_ENV
-          echo "IS_HEUREKA_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'heureka') }}" >> $GITHUB_ENV
-          echo "IS_DOOP_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'doop') }}" >> $GITHUB_ENV
-          echo "IS_CARBON_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'carbon') }}" >> $GITHUB_ENV
-          echo "IS_GREENHOUSE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'greenhouse') || contains(needs.run-detect-changes.outputs.changes, 'heureka') }}" >> $GITHUB_ENV
           echo "IS_EXAMPLE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}" >> $GITHUB_ENV
-          # setup ENVs for each app to add query params
-          echo "GREENHOUSE_BASE_PATH=#/demo" >> $GITHUB_ENV
 
       - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         if: github.event.action != 'closed'
@@ -99,61 +87,6 @@ jobs:
           TARGET_FOLDER: storybook
         continue-on-error: true
 
-      - name: Build SUPERNOVA if changes detected
-        id: build-supernova
-        if: github.event.action != 'closed' && env.IS_SUPERNOVA_CHANGED == 'true'
-        run: |
-          ./.github/scripts/build-vite-app.sh
-        env:
-          PACKAGE_PATH: apps/supernova
-          TARGET_FOLDER: supernova
-          APP_PROPS_BASE64: ${{ secrets.SUPERNOVA_APP_PROPS_BASE64 }}
-          PREVIEW_URL: ${{ env.PREVIEW_URL }}
-        continue-on-error: true
-
-      - name: Build HEUREKA if changes detected
-        id: build-heureka
-        if: github.event.action != 'closed' && env.IS_HEUREKA_CHANGED == 'true'
-        run: ./.github/scripts/build-vite-app.sh
-        env:
-          PACKAGE_PATH: apps/heureka
-          TARGET_FOLDER: heureka
-          APP_PROPS_BASE64: ${{ secrets.HEUREKA_APP_PROPS_BASE64 }}
-          PREVIEW_URL: ${{ env.PREVIEW_URL }}
-        continue-on-error: true
-
-      - name: Build DOOP if changes detected
-        id: build-doop
-        if: github.event.action != 'closed' && env.IS_DOOP_CHANGED == 'true'
-        run: ./.github/scripts/build-vite-app.sh
-        env:
-          PACKAGE_PATH: apps/doop
-          TARGET_FOLDER: doop
-          APP_PROPS_BASE64: ${{ secrets.DOOP_APP_PROPS_BASE64 }}
-          PREVIEW_URL: ${{ env.PREVIEW_URL }}
-        continue-on-error: true
-
-      - name: Build CARBON if changes detected
-        id: build-carbon
-        if: github.event.action != 'closed' && env.IS_CARBON_CHANGED == 'true'
-        run: ./.github/scripts/build-vite-app.sh
-        env:
-          PACKAGE_PATH: apps/carbon
-          TARGET_FOLDER: carbon
-        continue-on-error: true
-
-      - name: Build GREENHOUSE if changes detected
-        id: build-greenhouse
-        if: github.event.action != 'closed' && env.IS_GREENHOUSE_CHANGED == 'true'
-        run: ./.github/scripts/build-vite-app.sh
-        env:
-          PACKAGE_PATH: apps/greenhouse
-          TARGET_FOLDER: greenhouse
-          APP_PROPS_BASE64: ${{ secrets.GREENHOUSE_APP_PROPS_BASE64 }}
-          PREVIEW_URL: ${{ env.PREVIEW_URL }}
-          NODE_ENV: development
-        continue-on-error: true
-
       - name: Build EXAMPLE if changes detected
         id: build-example
         if: github.event.action != 'closed' && env.IS_EXAMPLE_CHANGED == 'true'
@@ -167,17 +100,12 @@ jobs:
         if: github.event.action != 'closed'
         env:
           STORYBOOK_OUTCOME: "${{ steps.build-storybook.outcome }}"
-          SUPERNOVA_OUTCOME: "${{ steps.build-supernova.outcome }}"
-          HEUREKA_OUTCOME: "${{ steps.build-heureka.outcome }}"
-          DOOP_OUTCOME: "${{ steps.build-doop.outcome }}"
-          CARBON_OUTCOME: "${{ steps.build-carbon.outcome }}"
-          GREENHOUSE_OUTCOME: "${{ steps.build-greenhouse.outcome }}"
           EXAMPLE_OUTCOME: "${{ steps.build-example.outcome }}"
         run: |
           echo "<!DOCTYPE html><head><title>PR Preview</title></head><html><body><h1>Deployed Packages for PR ${GITHUB_HEAD_REF}</h1><ul>" > ${{ env.DEPLOY_PATH }}/index.html        
 
           # components name should map to the IS_<component>_CHANGED
-          COMPONENTS=("storybook" "supernova" "heureka" "doop" "carbon" "example" "greenhouse")
+          COMPONENTS=("storybook" "example")
 
           for component in "${COMPONENTS[@]}"; do
             CHANGED_VAR="IS_${component^^}_CHANGED"  # Make it uppercase for the env var
