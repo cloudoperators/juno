@@ -21,7 +21,23 @@ const Wrapper: React.FC<WrapperProps> = ({ children, shadowRoot, shadowRootMode 
 }
 
 /**
- * This provider acts as a wrapper for Juno apps. It renders a StyleProvider and PortalProvider
+ * The `AppShellProvider` component serves as a wrapper for Juno apps. It integrates both
+ * `StyleProvider` and `PortalProvider`, offering consistent theming and managing portals across the app.
+ * This provider can optionally render within a `ShadowRoot` to encapsulate styles independently.
+ *
+ * @component
+ * @param {boolean} [shadowRoot] Determines if the app should be encapsulated within a `ShadowRoot`.
+ * This is useful for isolating styles and components, especially when embedding the app.
+ * Defaults to `true`.
+ * @param {string} [shadowRootMode] Sets the mode of the `ShadowRoot`. Common values are `"open"` or `"closed"`.
+ * Defaults to `"open"`.
+ * @param {AppShellStyleWrapper} [stylesWrapper] Specifies where stylesheets are imported.
+ * Relevant only if `shadowRoot` is `false`. Must be `"inline"` if using a `ShadowRoot`.
+ * Defaults to `"inline"`.
+ * @param {string} [theme] Chooses between light or dark theme variants: `"theme-dark"` or `"theme-light"`.
+ * Uses the globally defined default theme if none specified.
+ * @param {React.ReactNode} [children] React nodes or a collection of nodes to be rendered within the provider.
+ * @returns {React.ReactElement} A JSX element wrapping provided children with style and portal management configurations.
  */
 export const AppShellProvider: React.FC<AppShellProviderProps> = ({
   shadowRoot = true,
@@ -42,17 +58,37 @@ export const AppShellProvider: React.FC<AppShellProviderProps> = ({
 export type AppShellStyleWrapper = "head" | "inline"
 
 interface WrapperProps {
-  /** React nodes or a collection of React nodes to be rendered as content. */
+  /**
+   * React nodes or a collection of React nodes to be rendered as content.
+   */
   children?: React.ReactNode
-  /** Whether the app is rendered inside a ShadowRoot. Only choose false if the app is meant to run as a stand-alone application. */
+
+  /**
+   * Determines whether the app is rendered inside a `ShadowRoot`.
+   * Only set to `false` if the app runs as a standalone application.
+   * @default true
+   */
   shadowRoot?: boolean
-  /** Shadow root mode */
+
+  /**
+   * Specifies the mode of the `ShadowRoot`.
+   * @default "open"
+   */
   shadowRootMode?: ShadowRootMode
 }
 
 export interface AppShellProviderProps extends WrapperProps {
-  /** Where app stylesheets are imported. This is only relevant if shadowRoot === false. If you use a ShadowRoot the styles must be inline. */
+  /**
+   * Specifies where app stylesheets are imported.
+   * This is relevant only if `shadowRoot` is `false`. Must be `"inline"` if using a `ShadowRoot`.
+   * @default "inline"
+   */
   stylesWrapper?: AppShellStyleWrapper
-  /** theme: theme-dark or theme-light */
+
+  /**
+   * Determines the theme of the application, choosing between `"theme-dark"` or `"theme-light"`.
+   * Defaults to the global default theme name.
+   * @default DEFAULT_THEME_NAME
+   */
   theme?: "theme-dark" | "theme-light"
 }

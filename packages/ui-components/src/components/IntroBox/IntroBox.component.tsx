@@ -56,24 +56,55 @@ const introboxHeading = `
 `
 
 export interface IntroBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
-  /** Pass an optional title */
+  /**
+   * Pass an optional title.
+   * @default ""
+   */
   title?: string
-  /** Pass a string of text to be rendered as contents. Alternatively, contents can be passed as children (see below) */
+
+  /**
+   * Pass a string of text to be rendered as contents. Alternatively, contents can be passed as children (see below).
+   * @default ""
+   */
   text?: string
-  /** Pass a custom class */
+
+  /**
+   * Pass a variant style to affect the layout of the intro box.
+   * @default "default"
+   */
   variant?: "default" | "hero"
-  /** optional "hero" flavor image for hero variant. Specify as css bg image string pointing to an image in your app (see template app for an example). Will always be positioned top and right */
+
+  /**
+   * Optional "hero" flavor image for hero variant. Specify as css bg image string pointing to an image.
+   */
   heroImage?: string
-  /** Pass a custom class */
+
+  /**
+   * Pass a custom class or classes for styling the intro box.
+   * @default ""
+   */
   className?: string
-  /** Pass child nodes to be rendered as content */
+
+  /**
+   * Pass child nodes to be rendered as content, taking precedence over `text`.
+   */
   children?: React.ReactNode
 }
 
 /**
-* An Introbox holds generally important information to help understand the contents, purpose, or state of a whole page or view, or individual sections on longer pages.
-Use sparingly, there should never be any two or more subsequent instances of Introbox as direct siblings/neighbors on an individual view.
-*/
+ * The `IntroBox` component presents important information about the contents,
+ * purpose, or state of a page or view, using distinct styles for emphasis.
+ * Supports "hero" variant with optional background images.
+ *
+ * @component
+ * @param {string} [title] Optional title for the intro box. Defaults to an empty string.
+ * @param {string} [text] Content text within the intro box, overridden by `children`. Defaults to an empty string.
+ * @param {"default" | "hero"} [variant] Style variant of the intro box, affecting layout and visuals. Defaults to "default".
+ * @param {string} [heroImage] Optional background image for the "hero" variant, specified as a CSS background image string.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Content elements to render inside the intro box, taking precedence over `text`.
+ * @returns {React.ReactElement} A styled component for presenting introductory information or alerts.
+ */
 export const IntroBox: React.FC<IntroBoxProps> = ({
   title = "",
   text = "",

@@ -31,32 +31,33 @@ export type BadgeVariantType = "default" | "info" | "success" | "warning" | "dan
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   /**
-   * Specify an optional semantic variant that determines the appearance of a badge.
+   * Specify a semantic variant that determines the appearance of the badge.
+   * @default "default"
    */
   variant?: BadgeVariantType
 
   /**
-   * Optional.
-   * If true, an icon corresponding to the variant will be displayed.
-   * If a string is provided and it's a valid icon name, that icon will be displayed.
+   * Determines whether to display an icon. If set to `true`, an icon related
+   * to the variant will be used. If a valid string representing a known icon
+   * is provided, that icon will be displayed.
+   * @default false
    */
   icon?: boolean | KnownIcons
 
   /**
-   * Pass an optional string of text to be rendered as content.
-   * Alternatively, content can be passed as children (see below).
-   * If children are provided, they will take precedence.
+   * The optional text content of the badge. If children are provided, they take precedence.
    */
   text?: string
 
   /**
-   * Pass an optional CSS class to apply to the message.
+   * Additional CSS class to apply to the badge.
+   * @default ""
    */
   className?: string
 
   /**
-   * Pass optional React nodes or a collection of React nodes to be rendered as content.
-   * Takes precedence over the text property.
+   * React nodes or a collection of React nodes to be rendered as content, taking
+   * precedence over the `text` property.
    */
   children?: React.ReactNode
 }
@@ -83,9 +84,17 @@ const isValidIcon = (icon: string): icon is KnownIcons => {
 }
 
 /**
- * A Badge is used to visually represent properties or states of an entity.
- * It supports multiple semantic versions, each with distinct styling.
- * Optionally, an icon can be included to further emphasize the meaning.
+ * The `Badge` component visually represents properties or states of an entity.
+ * It supports multiple semantic variants, each with distinct styling. An optional
+ * icon can be included to further emphasize meaning.
+ *
+ * @component
+ * @param {BadgeVariantType} [variant="default"] A semantic variant for the badge style.
+ * @param {boolean | KnownIcons} [icon=false] When true, displays an icon related to the variant. Accepts a valid icon string.
+ * @param {string} [text] String content to display within the badge. Children take precedence.
+ * @param {string} [className] Additional class names for styling the badge.
+ * @param {React.ReactNode} [children] Nodes to render inside the badge, taking precedence over `text`.
+ * @returns {React.ReactElement} A styled badge element indicating a property or state.
  */
 export const Badge: React.FC<BadgeProps> = ({
   variant = "default",

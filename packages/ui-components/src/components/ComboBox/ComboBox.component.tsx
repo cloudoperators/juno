@@ -156,6 +156,40 @@ type OptionValuesAndLabelsValue = {
   children: ReactNode
 }
 
+/**
+ * The `ComboBox` component is a customizable, accessible, and interactive dropdown component, allowing users to select from a list of options.
+ * It features dynamic filtering and optional asynchronous loading for extended functionality.
+ *
+ * @component
+ * @param {string} [ariaLabel] ARIA label, defaults to the `label` if provided.
+ * @param {ReactNode} [children] Use with `ComboBox.Option` to render dropdown options.
+ * @param {string} [className] CSS classes applied to the combo box. Defaults to an empty string.
+ * @param {string} [defaultValue] Uncontrolled initial value for internal state handling.
+ * @param {boolean} [disabled] Specifies if the combobox is disabled. The default is `false`.
+ * @param {boolean} [error] Internal error indicator; differs from validation `invalid`. The default is `false`.
+ * @param {ReactNode} [errortext] Text displayed on validation failure or internal error.
+ * @param {ReactNode} [helptext] Informative text explaining the ComboBox's purposes.
+ * @param {string} [id] ID assigned to the Text Input, auto-generated if unspecified.
+ * @param {boolean} [invalid] Validation state identifying invalidities. The default is `false`.
+ * @param {string} [label] ComboBox label text.
+ * @param {boolean} [loading] Loading indicator for asynchronous data fetching. The default is `false`.
+ * @param {string} [name] Form attribute representing the ComboBox.
+ * @param {function} [onBlur] Event handler for input losing focus.
+ * @param {function} [onChange] Handler for changing selection.
+ * @param {function} [onFocus] Event handler for input focus event.
+ * @param {function} [onInputChange] Handler for text input alterations.
+ * @param {string} [placeholder] Placeholder for the input field. Defaults to `"Select…"`.
+ * @param {boolean} [required] Whether a value selection is required. The default is `false`.
+ * @param {ReactNode} [successtext] Text displayed upon successful validation.
+ * @param {boolean} [truncateOptions] Sets whether to truncate options when space is limited. The default is `false`.
+ * @param {boolean} [valid] Specifies successful validation. The default is `false`.
+ * @param {string} [value] Controlled mode selected value.
+ * @param {string} [valueLabel] Label for value or defaultValue.
+ * @param {ComboBoxWidth} [width] Specifies input width: "full" or "auto". The default is `"full"`.
+ * @param {string} [wrapperClassName] Custom class for styling the outermost wrapper. Defaults to an empty string.
+ * @returns {React.ReactElement} An interactive ComboBox component with advanced behaviors.
+ */
+
 export const ComboBox: React.FC<ComboBoxProps> = ({
   ariaLabel,
   children,
@@ -513,57 +547,112 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
 export type ComboBoxWidth = "full" | "auto"
 export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children"> {
-  /** The aria-label of the ComboBox. Defaults to the label if label was passed. */
+  /** ARIA label for accessibility. Defaults to label if provided. */
   ariaLabel?: string
-  /** The children to Render. Use `ComboBox.Option` elements. */
+
+  /** Children to render, typically using `ComboBox.Option`. */
   children?: ReactNode
-  /** A custom className. Will be passed to the internal text input element of the ComboBox */
+
+  /**
+   * Additional class names for styling.
+   * @default ""
+   */
   className?: string
-  /** Pass a defaultValue to use as an uncontrolled Component that will handle its state internally */
+
+  /** Default value for ComboBox, applicable in uncontrolled mode. */
   defaultValue?: string
-  /** Whether the ComboBox is disabled */
+
+  /**
+   * Indicates if ComboBox is disabled.
+   * @default false
+   */
   disabled?: boolean
-  /** Whether the ComboBox has an error. Note this refers to an internal error like failing to load options etc., to indicate failed validation use `invalid` instead. */
+
+  /**
+   * Indicates internal ComboBox error. Use `invalid` for validation failures.
+   * @default false
+   */
   error?: boolean
-  /** An errortext to display when the ComboBox failed validation or an internal error occurred. */
+
+  /** Text displayed for validation errors or internal issues. */
   errortext?: ReactNode
-  /** A helptext to render to explain meaning and significance of the ComboBox */
+
+  /** Additional context or instructions displayed below the ComboBox. */
   helptext?: ReactNode
-  /** The Id of the ComboBox. Will be assigned to the text input part of the ComboBox. If not passed, an id will be auto-generated. */
+
+  /** ID for ComboBox. If unspecified, auto-generated. */
   id?: string
-  /** Whether the ComboBox failed validation */
+
+  /**
+   * Identifies invalid ComboBox state.
+   * @default false
+   */
   invalid?: boolean
-  /** The label of the ComboBox */
+
+  /** ComboBox label text. */
   label?: string
-  /** Whether the ComboBox is busy loading options */
+
+  /**
+   * Loading state for asynchronous actions.
+   * @default false
+   */
   loading?: boolean
-  /** The name attribute of the ComboBox when used as part of a form  */
+
+  /** Name attribute when used within a form. */
   name?: string
-  /** A handler to execute when the ComboBox looses focus */
+
+  /** Handler for when the ComboBox loses focus. */
   onBlur?: React.FocusEventHandler<HTMLInputElement>
-  /** A handler to execute when the ComboBox' selected value changes */
-  // eslint-disable-next-line no-unused-vars
-  onChange?: (value: string) => void
-  /** A handler to execute when the ComboBox input receives focus */
+
+  /** Handler for changes in the ComboBox selection. */
+  onChange?: (_value: string) => void
+
+  /** Handler for when the ComboBox input gains focus. */
   onFocus?: React.FocusEventHandler<HTMLInputElement>
-  /** Handler to execute when the ComboBox text input value changes */
+
+  /** Handler for changes in the ComboBox's text input value. */
   onInputChange?: React.ChangeEventHandler<HTMLInputElement>
-  /** A placeholder to render in the text input */
+
+  /** Placeholder text for ComboBox input.
+   * @default "Select…"
+   */
   placeholder?: string
-  /** Whether the ComboBox is required */
+
+  /**
+   * Flags the ComboBox as a required field.
+   * @default false
+   */
   required?: boolean
-  /** A text to display in case the ComboBox was successfully validated. Will set the ComboBox to `valid` when passed. */
+
+  /** Text shown upon successful validation of the ComboBox. */
   successtext?: ReactNode
-  /** Whether the option labels should be truncated in case they are longer/wider than the available space in an option or not. Default is FALSE. */
+
+  /**
+   * Controls option text truncation in the dropdown.
+   * @default false
+   */
   truncateOptions?: boolean
-  /** Whether the ComboBox was successfully validated */
+
+  /**
+   * Specifies successful validation state.
+   * @default false
+   */
   valid?: boolean
-  /** The selected value of the ComboBox in Controlled Mode. */
+
+  /** Controlled value for ComboBox in managed state. */
   value?: string
-  /** The label of the passed value or defaultValue. If you want to use controlled mode or pass as defaultValue in uncontrolled mode and additionally use labels for human-readable SelectOptions, you need to also pass the matching label for the passed value/defaultValue so that the Select component can render itself properly */
+
+  /** Label corresponding to the selected or default value for display. */
   valueLabel?: string
-  /** The width of the text input. Either 'full' (default) or 'auto'. */
+
+  /**
+   * Width determination for input: "full" or "auto".
+   * @default "full"
+   */
   width?: ComboBoxWidth
-  /** Pass a custom classname to the wrapping <div> element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning. */
+
+  /** Custom styling classes for the ComboBox's wrapper.
+   * @default ""
+   */
   wrapperClassName?: string
 }

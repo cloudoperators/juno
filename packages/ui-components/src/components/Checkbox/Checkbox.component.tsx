@@ -94,6 +94,32 @@ const hintStyles = `
   jn:ml-6
 `
 
+/**
+ * The `Checkbox` component is a versatile form element that allows users to
+ * select one or multiple options. It can display states such as checked,
+ * indeterminate, invalid, and valid, and integrates with a checkbox group context
+ * for collective state management. This component supports labels, icons,
+ * error/success indicators, and custom event handlers.
+ *
+ * @component
+ * @param {boolean} [checked=false] Specifies if the Checkbox is checked.
+ * @param {string} [className] Custom CSS classes for styling the Checkbox.
+ * @param {boolean} [disabled=false] Specifies if the Checkbox is disabled.
+ * @param {ReactNode} [errortext] Text displayed when there is an error or validation issue.
+ * @param {ReactNode} [helptext] Additional text to explain the purpose and importance of the Checkbox.
+ * @param {string} [id] The Checkbox's ID. Automatically generated if not provided.
+ * @param {boolean} [indeterminate=false] Specifies if the Checkbox is in an indeterminate state.
+ * @param {boolean} [invalid=false] Indicates if the Checkbox has failed validation.
+ * @param {string} [label] The label text for the Checkbox.
+ * @param {string} [name] The name attribute of the Checkbox.
+ * @param {function} [onChange] Event handler for when the Checkbox value changes.
+ * @param {function} [onClick] Event handler for when the Checkbox is clicked.
+ * @param {boolean} [required=false] Sets if the Checkbox is a required field.
+ * @param {ReactNode} [successtext] Text displayed when the Checkbox passes validation.
+ * @param {boolean} [valid=false] Indicates if the Checkbox has successfully passed validation.
+ * @param {string} [value] The value attribute of the Checkbox.
+ * @returns {React.ReactElement} A standard Checkbox component with custom behavior and styling.
+ */
 export const Checkbox: React.FC<CheckboxProps> = ({
   checked = false,
   className = "",
@@ -319,36 +345,90 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 }
 
 export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether the Checkbox is checked */
+  /**
+   * Specifies if the Checkbox is checked.
+   * @default false
+   */
   checked?: boolean
-  /** Pass a custom className */
+
+  /**
+   * Custom CSS class for styling the Checkbox.
+   * @default ""
+   */
   className?: string
-  /** Whether the Checkbox is disabled */
+
+  /**
+   * Specifies if the Checkbox is disabled.
+   * @default false
+   */
   disabled?: boolean
-  /** A text to render when the Checkbox has an error or could not be validated */
+
+  /**
+   * Text to display when the Checkbox has an error.
+   */
   errortext?: ReactNode
-  /** A helptext to render to explain meaning and significance of the Checkbox */
+
+  /**
+   * Help text explaining the significance of the Checkbox.
+   */
   helptext?: ReactNode
-  /** The id of the Radio. An id will be automatically generated if not passed. */
+
+  /**
+   * The ID of the Checkbox. Auto-generated if not provided.
+   */
   id?: string
-  /** Whether the Checkbox is indeterminate. Applicable ONLY if the Checkbox represents multiple child Checkboxes with non--identical checked state. */
+
+  /**
+   * Specifies if the Checkbox is in an indeterminate state; used for mixed states.
+   * @default false
+   */
   indeterminate?: boolean
-  /** Whether the Checkbox was validated unsuccessfully */
+
+  /**
+   * Indicates whether the Checkbox validation failed.
+   * @default false
+   */
   invalid?: boolean
-  /** The label of the Checkbox */
+
+  /**
+   * The label text for the Checkbox.
+   */
   label?: string
-  /** The name of the Checkbox */
+
+  /**
+   * The name attribute of the Checkbox.
+   */
   name?: string
-  /** handler to be executed when the Checkbox changes. */
+
+  /**
+   * Event handler for change events on the Checkbox.
+   */
   onChange?: React.ChangeEventHandler<HTMLInputElement>
-  /** handler to be executed when the Checkbox is clicked. */
+
+  /**
+   * Event handler for click events on the Checkbox.
+   */
   onClick?: React.MouseEventHandler<HTMLInputElement>
-  /** Whether the Checkbox is required */
+
+  /**
+   * Specifies if the Checkbox is required for form validation.
+   * @default false
+   */
   required?: boolean
-  /** A text to render when the Checkbox was successfully validated */
+
+  /**
+   * Text to display when the Checkbox passes validation.
+   */
   successtext?: ReactNode
-  /** Whether the Checkbox was successfully validated */
+
+  /**
+   * Indicates whether the Checkbox validation succeeded.
+   * @default false
+   */
   valid?: boolean
-  /** The value of the Checkbox */
+
+  /**
+   * The value attribute of the Checkbox.
+   */
   value?: string
 }

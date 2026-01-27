@@ -105,7 +105,20 @@ const jsonTheme = {
   base0F: "var(--color-syntax-highlight-base0F)", // integer value
 }
 
-/**  A basic CodeBlock component. Accepts a content prop or children. Will render a pre-wrapped code element. */
+/**
+ * The `CodeBlock` component renders a block of preformatted code or content. It offers features such
+ * as optional wrapping, copying to clipboard, and syntax highlighting for JSON content via a custom viewer.
+ *
+ * @component
+ * @param {string | object} [content] The content displayed when `lang` is "json". It overrides `children` if specified. Defaults to an empty string or object.
+ * @param {React.ReactNode} [children] Elements or text to render inside the code block.
+ * @param {boolean} [wrap] Determines if the code content should wrap. The default is `true`.
+ * @param {CodeBlockSize} [size] Specifies the height of the code block. The default is `"auto"`.
+ * @param {boolean} [copy] Enables or disables the copy-to-clipboard functionality. The default is `true`.
+ * @param {string} [lang] Indicates the coding language. Passing "json" will render a JsonView and adds a language data attribute.
+ * @param {string} [className] Additional CSS classes for styling the code block. Defaults to an empty string.
+ * @returns {React.ReactElement} A formatted block of code with options for display and interaction.
+ */
 export const CodeBlock: React.FC<CodeBlockProps> = ({
   content = "",
   children,
@@ -181,20 +194,48 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 type CodeBlockSize = "auto" | "small" | "medium" | "large"
 
 export interface CodeBlockProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "content" | "children"> {
-  /** The content to render. Used when `lang` is "json". Otherwise, if children are not provided. */
+  /**
+   * The content to render. Used when `lang` is "json". Overrides children if not specified.
+   * Defaults to an empty string or object.
+   */
   content?: string | object
-  /** The children to render. Used when `lang` is NOT "json", overriding `content`. */
+
+  /**
+   * Elements or text to render inside the code block. Used when `lang` is not "json", overriding `content`.
+   */
   children?: React.ReactNode
-  /** Pass at title to render. Will look like a single tab. */
+
+  /**
+   * Optional caption or title to render, styled like a tab.
+   */
   heading?: string
-  /** Set whether the code should wrap or not. Default is true. */
+
+  /**
+   * Determines whether the code should wrap.
+   * @default true
+   */
   wrap?: boolean
-  /** Set the size of the CodeBlock. Default is "auto" */
+
+  /**
+   * Specifies the size of the CodeBlock.
+   * @default "auto"
+   */
   size?: CodeBlockSize
-  /** Render a button to copy the code to the clipboard. Defaults to true */
+
+  /**
+   * Enables or disables the copy-to-clipboard option.
+   * @default true
+   */
   copy?: boolean
-  /** Pass a lang prop. Passing "json" will render a fully-featured JsonView. Will also add a data-lang attribute to the codeblock */
+
+  /**
+   * Language for the content. "json" will render a structured JsonView. Adds a data-lang attribute.
+   */
   lang?: string
-  /** Add a custom className to the wrapper of the CodeBlock */
+
+  /**
+   * Additional CSS classes for customizing the CodeBlock styling.
+   * @default ""
+   */
   className?: string
 }

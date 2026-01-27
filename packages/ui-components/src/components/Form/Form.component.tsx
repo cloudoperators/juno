@@ -18,11 +18,13 @@ const formTitleStyles = `
 export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
   /**
    * Title for the form.
+   * @default ""
    */
   title?: string
 
   /**
    * Additional CSS classes to apply to the form for custom styling.
+   * @default ""
    */
   className?: string
 
@@ -34,8 +36,15 @@ export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 /**
- * A Form component used to encapsulate FormSections and/or FormGroups.
- * Can be used to build complex forms with structured sections.
+ * The `Form` component is designed to encapsulate form sections and groups,
+ * providing a structured way to build complex forms. It can include a title and
+ * supports additional styling through custom CSS classes.
+ *
+ * @component
+ * @param {string} [title] Title for the form, displayed at the top.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Content within the form, typically form elements like `FormSection` or `FormGroup`.
+ * @returns {React.ReactElement} A structured form component for building complex forms.
  */
 export const Form: React.FC<FormProps> = ({ title = "", className = "", children, ...props }) => {
   return (

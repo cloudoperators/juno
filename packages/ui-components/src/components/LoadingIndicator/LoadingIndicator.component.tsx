@@ -8,11 +8,12 @@ import Loading from "./loading-indicator.svg"
 
 export interface LoadingIndicatorProps extends React.SVGAttributes<SVGElement> {
   /**
-   * The size of the LoadingIndicator in pixels.
-   * Must be a positive number value.
-   * If a string, must be a valid number
+   * The size of the LoadingIndicator in pixels. Must be a positive number value.
+   * If a string, must be a valid number.
+   * @default 96
    */
   size?: string | number
+
   /**
    * A custom class that can be applied to change the color of the LoadingIndicator.
    * By default, the LoadingIndicator will use the color of the current context.
@@ -20,8 +21,10 @@ export interface LoadingIndicatorProps extends React.SVGAttributes<SVGElement> {
    * Additionally, you can pass any other class that contains a "color:" CSS declaration.
    */
   color?: string
+
   /**
    * Additional CSS classes for custom styling.
+   * @default ""
    */
   className?: string
 }
@@ -29,10 +32,16 @@ export interface LoadingIndicatorProps extends React.SVGAttributes<SVGElement> {
 const defaultSize = 96
 
 /**
- * Use this loading indicator to indicate that a full page, a significant portion of a page, or a panel is loading.
- * For more generic use cases, including individual components and micro-interactions, use the Spinner component instead.
+ * The `LoadingIndicator` visually represents ongoing loading processes for pages,
+ * large sections, or panels, offering custom size and color adjustments.
+ * It's suitable for prominent loading displays rather than granular elements.
+ *
+ * @component
+ * @param {string | number} [size] Specifies the indicator size in pixels. Defaults to `96`.
+ * @param {string} [color] Sets the loading indicator's color, flexible via contextual or explicit CSS classes.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @returns {React.ReactElement} A visual loading indicator for prominent operations.
  */
-
 export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
   size = defaultSize,
   color = "",

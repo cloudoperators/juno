@@ -33,7 +33,20 @@ interface NavigationMappingItem {
   displayName: ReactNode
 }
 
-/** A generic Navigation component providing all the necessary functionality for a navigation. For internal use only. Not to be used directly, but to be wrapped by more role-specific / semantic navigation components such as `TabNavigation`, `TopNavigation`, `SideNavigation`. */
+/**
+ * A generic `Navigation` component that offers context-managed item selection,
+ * designed for internal use with semantic wrappers like `SideNavigation`,
+ * `TabNavigation`, and `TopNavigation`.
+ *
+ * @component
+ * @param {ReactNode} [activeItem] Currently active item within the navigation context.
+ * @param {string} [ariaLabel] Descriptive label for navigation, aiding accessibility.
+ * @param {ReactNode} [children] Navigation items rendered within the container.
+ * @param {string} [className] Custom class names for styling navigation elements. Defaults to an empty string.
+ * @param {boolean} [disabled] Disables navigation state and its children. Defaults to `false`.
+ * @param {ItemChangeHandler} [onActiveItemChange] Callback fired on active item updates.
+ * @returns {React.ReactElement} A flexible navigation component serving organized item management.
+ */
 export const Navigation: React.FC<NavigationProps> = ({
   activeItem = "",
   ariaLabel = "",
@@ -128,16 +141,35 @@ export const Navigation: React.FC<NavigationProps> = ({
 }
 
 export interface NavigationProps extends React.HTMLAttributes<HTMLUListElement> {
-  /** The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem. */
+  /**
+   * The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem.
+   */
   activeItem?: ReactNode
-  /** The aria label of the navigation */
+
+  /**
+   * The aria label of the navigation for accessibility purposes.
+   */
   ariaLabel?: string
-  /** The child navigation items of the navigation  */
+
+  /**
+   * The child navigation items to be rendered within the navigation component.
+   */
   children?: ReactNode
-  /** Pass a custom className to the navigation parent element */
+
+  /**
+   * Pass a custom className to the navigation parent element.
+   * @default ""
+   */
   className?: string
-  /** Whether the navigation is disabled. Will disable all children. */
+
+  /**
+   * Whether the navigation is disabled, affecting interactivity for all children.
+   * @default false
+   */
   disabled?: boolean
-  /** Handler to execute when the active item changes. */
+
+  /**
+   * Handler to execute when the active item changes.
+   */
   onActiveItemChange?: ItemChangeHandler
 }

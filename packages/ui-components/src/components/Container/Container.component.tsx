@@ -13,7 +13,15 @@ const containerStyles = (px: boolean, py: boolean) => {
 }
 
 /**
- * A very basic layout container with padding.
+ * The `Container` component serves as a basic layout container with configurable padding options,
+ * providing structure and spacing within layouts.
+ *
+ * @component
+ * @param {boolean} [px] Whether horizontal padding should be applied. The default is `true`.
+ * @param {boolean} [py] Whether vertical padding should be applied. The default is `false`.
+ * @param {string} [className] Additional CSS classes for styling the container. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Content to render inside the container.
+ * @returns {React.ReactElement} A padded container for content layout.
  */
 export const Container: React.FC<ContainerProps> = ({ px = true, py = false, className = "", children, ...props }) => {
   return (
@@ -24,11 +32,23 @@ export const Container: React.FC<ContainerProps> = ({ px = true, py = false, cla
 }
 
 export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Choose false if you don't want horizontal padding to be added. */
+  /**
+   * Specifies whether horizontal padding should be added.
+   * @default true
+   */
   px?: boolean
-  /** Set to true to add vertical padding. */
+
+  /**
+   * Specifies whether vertical padding should be added.
+   * @default false
+   */
   py?: boolean
-  /** Add custom class name */
+
+  /** Additional custom class names for styling the container.
+   * @default ""
+   */
   className?: string
+
+  /** Elements or components to render within the Container. */
   children?: React.ReactNode
 }

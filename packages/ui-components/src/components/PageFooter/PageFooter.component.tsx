@@ -18,9 +18,12 @@ const basePageFooterStyles = `
 `
 
 export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Additional custom styling class name for the footer container */
+  /**
+   * Additional custom styling class name for the footer container.
+   * @default ""
+   */
   className?: string
-  /** The content to render inside the footer, typically links or informational text
+  /** The content to render inside the footer, typically links or informational text.
    * Use a list structure e.g. `<ul>` with `<li>` for grouped content or links, as in examples.
    * Available CSS classes for styling:
    * - `.juno-pagefooter-title`: Style for a title element within a column.
@@ -29,15 +32,22 @@ export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
    * - `.juno-pagefooter-item`: Style for individual list items.
    */
   children?: React.ReactNode
-  /** Optional copyright notice to display within the footer */
+  /**
+   * Optional copyright notice to display within the footer.
+   * @default ""
+   */
   copyright?: string
 }
 
 /**
- * PageFooter component renders a footer at the bottom of the page.
- * It consists of a flexible content area for children and an optional copyright section.
- * Usage:
- * The component can be used to add legal disclaimers, links, or other contextual information at the page's footer.
+ * `PageFooter` component renders a footer at the bottom of the page.
+ * It can include links, informational text, and an optional copyright notice.
+ *
+ * @component
+ * @param {string} [className=""] - Additional custom styling class name for the footer container.
+ * @param {React.ReactNode} [children] - Content to render inside the footer.
+ * @param {string} [copyright=""] - Optional copyright notice to display within the footer.
+ * @returns {React.ReactElement} A footer component with flexible content and optional copyright section.
  */
 export const PageFooter: React.FC<PageFooterProps> = ({ className = "", children, copyright = "", ...props }) => {
   return (

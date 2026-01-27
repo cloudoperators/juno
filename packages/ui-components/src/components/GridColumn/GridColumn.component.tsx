@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 
 const baseColumnStyles = `
   jn:flex-grid-column
@@ -43,27 +43,43 @@ export interface GridColumnProps extends React.HTMLAttributes<HTMLDivElement> {
    * The number of columns to span the column over.
    */
   cols?: number
+
   /**
    * The width in percent.
    * If a width is given, it will override the 'cols' prop.
    */
   width?: number
+
   /**
    * Determines whether the column should set an auto width.
+   * @default false
    */
   auto?: boolean
+
   /**
    * Additional CSS classes to apply to the grid column for custom styling.
+   * @default ""
    */
   className?: string
+
   /**
    * Content to be rendered inside the column.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
- * A flexible grid column component used within a Grid.
+ * The `GridColumn` component represents an individual column within a `Grid`,
+ * providing options for span and width adjustments. It supports flexible styling
+ * for responsive layout.
+ *
+ * @component
+ * @param {number} [cols] Number of columns to span across. Overrides default width.
+ * @param {number} [width] Percentage width, supersedes `cols` if specified.
+ * @param {boolean} [auto] Sets column to auto width for flexible layout. Defaults to `false`.
+ * @param {string} [className] Additional CSS classes for styling. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Content to be rendered inside the column.
+ * @returns {React.ReactElement} A configurable grid column for layout customization.
  */
 export const GridColumn: React.FC<GridColumnProps> = ({
   width,

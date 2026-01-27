@@ -21,23 +21,35 @@ const boxPadding = `
 
 export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * Child elements to be rendered inside the Box.
+   * The child elements to be rendered inside the Box.
    */
   children?: React.ReactNode
+
   /**
-   * If true, padding is removed.
+   * Determines whether the Box should render without padding.
+   * When true, padding is removed.
+   * @default false
    */
   unpad?: boolean
+
   /**
-   * Additional CSS styles to apply to the Box.
+   * Additional CSS classes to apply to the Box component.
+   * @default ""
    */
   className?: string
 }
 
 /**
- * A generic Box component with optional padding and a light border.
- * Ideal for annotations, additional explanations, and remarks where a Message or InfoBox would be too visually emphasized.
- * Typically used for small text but can contain any child elements, as required.
+ * The `Box` component is a versatile container with optional padding and a subtle border.
+ * It is perfect for annotations, supplementary explanations, and remarks where more visually
+ * pronounced components like a MessageBox or InfoBox would be excessive.
+ * This component typically displays small text but can contain any child elements as required.
+ *
+ * @component
+ * @param {React.ReactNode} [children] Content to be rendered within the Box.
+ * @param {boolean} [unpad=false] If true, padding is removed from the Box.
+ * @param {string} [className=""] Custom class names for additional styling of the Box.
+ * @returns {React.ReactElement} A flexible Box component with optional padding.
  */
 export const Box: React.FC<BoxProps> = ({ children, unpad = false, className = "", ...props }) => {
   const combinedClassName = `juno-box ${boxStyles} ${!unpad ? boxPadding : ""} ${className}`
