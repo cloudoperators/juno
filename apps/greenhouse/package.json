@@ -30,7 +30,7 @@
     "interweave": "13.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-error-boundary": "6.0.0",
+    "react-error-boundary": "6.1.0",
     "react-markdown": "10.1.0",
     "remark-gfm": " 4.0.1",
     "shadow-dom-testing-library": "1.13.1",

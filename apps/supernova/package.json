@@ -52,6 +52,6 @@
     "@tanstack/react-router": "1.150.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-error-boundary": "6.0.2"
+    "react-error-boundary": "6.1.0"
   }
 }
