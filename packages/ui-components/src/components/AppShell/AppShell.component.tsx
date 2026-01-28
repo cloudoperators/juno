@@ -14,6 +14,7 @@ import { HeaderContainer } from "../HeaderContainer/index"
 
 /**
  * Body of the app. Treat this like the body tag of an html page.
+ * @see {@link AppShellProps}
  */
 export const AppShell: React.FC<AppShellProps> = ({
   children,
