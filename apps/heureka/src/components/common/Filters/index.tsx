@@ -35,7 +35,10 @@ export const Filters = ({ filtersPromise, filterSettings, onFilterChange, search
     <Stack direction="vertical" gap="4" className="bg-theme-background-lvl-1 py-2 px-4 ">
       <Stack alignment="start" gap="4">
         <InputGroup>
-          <ErrorBoundary displayErrorMessage fallbackRender={(props) => <PlaceHolderFilterSelect {...props} />}>
+          <ErrorBoundary
+            displayErrorMessage
+            fallbackRender={(props) => <PlaceHolderFilterSelect error={props.error as Error} />}
+          >
             <Suspense fallback={<PlaceHolderFilterSelect loading />}>
               <FilterSelect
                 filtersPromise={filtersPromise}
