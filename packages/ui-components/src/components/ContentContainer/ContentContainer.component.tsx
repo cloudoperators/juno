@@ -16,20 +16,23 @@ const baseContainerStyles = `
 
 export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * Additional CSS classes for custom styling.
+   * Additional CSS class names for styling the content container.
+   * @default ""
    */
   className?: string
-  /**
-   * Custom content to render within the container.
-   */
+
+  /** Components or elements to render inside the content container. */
   children?: ReactNode
 }
 
 /**
- * ContentContainer serves as a wrapper for app content.
- * It is intended for manual app scaffold creation. In most cases, using the AppShell component instead is recommended.
+ * The `ContentContainer` serves as a wrapper for application content, designed for manual layout creation.
+ * It can center content when the browser window is wider than the max breakpoint.
  *
- * Note: When the browser window is wider than the max breakpoint width, the content within this container will be centered on the screen.
+ * @component
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @param {React.ReactNode} [children] The content to render within the container.
+ * @returns {React.ReactElement} A flexible content container for app layouts.
  */
 export const ContentContainer: React.FC<ContentContainerProps> = ({ className = "", children, ...props }) => {
   return (

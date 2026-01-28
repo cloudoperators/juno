@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { HTMLAttributes } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const formSectionBaseStyles = `
     jn:mb-8
@@ -19,11 +19,13 @@ const headingStyles = `
 export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
   /**
    * Title for the form section.
+   * @default ""
    */
   title?: string
 
   /**
    * Additional CSS classes to apply to the form section for custom styling.
+   * @default ""
    */
   className?: string
 
@@ -31,11 +33,18 @@ export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
    * Content to be rendered within the form section.
    * This can include form elements and other React nodes.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
- * FormSection component for grouping form elements within complex forms.
+ * The `FormSection` component groups related form elements within a section,
+ * offering a title and customizable styling. It assists in organizing content within forms.
+ *
+ * @component
+ * @param {string} [title] Section title, displayed at the top. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Content to be rendered within the form section, can include form elements.
+ * @param {string} [className] Additional CSS classes for styling the form section. Defaults to an empty string.
+ * @returns {React.ReactElement} A component for grouping form elements within a defined section.
  */
 export const FormSection: React.FC<FormSectionProps> = ({ title = "", children, className = "", ...props }) => {
   return (

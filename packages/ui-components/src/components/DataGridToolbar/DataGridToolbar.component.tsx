@@ -18,7 +18,16 @@ const childrenWrapperStyles = `
 	jn:ml-auto
 `
 
-/** This is the toolbar for use with a DataGrid. This is the place where you would put buttons and other controls that affect the items in the DataGrid (e.g. triggering batch actions). Optionally a search input can be added. */
+/**
+ * `DataGridToolbar` provides an action bar for a `DataGrid`, designed to hold controls like buttons and search inputs
+ * for performing group operations and interfacing with the grid content.
+ *
+ * @component
+ * @param {React.ReactElement} [search] Optional search input component for filtering grid content.
+ * @param {React.ReactNode} [children] Controls or elements to render within the toolbar.
+ * @param {string} [className] Additional CSS classes for styling. Defaults to an empty string.
+ * @returns {React.ReactElement} A toolbar component for data grids with customizable actions.
+ */
 export const DataGridToolbar: React.FC<DataGridToolbarProps> = ({ search, className = "", children, ...props }) => {
   return (
     <div className={`juno-datagrid-toolbar ${datagridtoolbarstyles} ${className}`} {...props}>
@@ -29,10 +38,19 @@ export const DataGridToolbar: React.FC<DataGridToolbarProps> = ({ search, classN
 }
 
 export interface DataGridToolbarProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Pass an optional SearchInput component */
+  /**
+   * An optional `SearchInput` component for inclusion in the toolbar.
+   */
   search?: React.ReactElement
-  /** Children to render in the DataGridToolbar */
+
+  /**
+   * Elements or components to render within the DataGridToolbar.
+   */
   children?: React.ReactNode
-  /** Add a classname */
+
+  /**
+   * Custom CSS class names for styling the toolbar.
+   * @default ""
+   */
   className?: string
 }

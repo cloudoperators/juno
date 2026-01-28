@@ -21,18 +21,30 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    * Components or elements to be rendered as content.
    */
   children?: React.ReactNode
+
   /**
-   * Optional padding.
+   * Optional padding for the Card component.
+   * @default false
    */
   padding?: boolean
+
   /**
-   * Additional CSS styles.
+   * Additional CSS styles to apply.
+   * @default ""
    */
   className?: string
 }
 
 /**
- * A generic Card component with optional padding.
+ * The `Card` component acts as a versatile container for various types of content, providing
+ * an optional padding feature for additional layout flexibility. It is commonly used for
+ * displaying information or grouping elements, allowing for consistent styling and shadow effects.
+ *
+ * @component
+ * @param {React.ReactNode} [children] Components or elements to be rendered within the Card.
+ * @param {boolean} [padding=false] Determines if padding should be applied to the Card.
+ * @param {string} [className] Additional CSS classes for custom styling.
+ * @returns {React.ReactElement} A customizable Card component for content display.
  */
 export const Card: React.FC<CardProps> = ({ children, padding = false, className = "", ...props }) => {
   const combinedClassName = `juno-card ${cardStyles} ${padding ? cardPadding : ""} ${className}`

@@ -15,17 +15,22 @@ export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
    * This can be any React node or a collection of React nodes such as Buttons, TextInput, and Select elements.
    */
   children?: React.ReactNode
+
   /**
    * Additional CSS class name(s) to apply to the InputGroup for custom styling.
+   * @default ""
    */
   className?: string
+
   /**
    * The variant style to apply to the group and its children.
    */
   variant?: VariantTypes
+
   /**
    * If true, all elements within the InputGroup will be disabled.
    * Individual elements can override this setting if needed.
+   * @default false
    */
   disabled?: boolean
 }
@@ -33,10 +38,17 @@ export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
 type InheritedProps = { variant?: VariantTypes; disabled?: boolean }
 
 /**
- * Clones a child element with inherited variant and disabled props.
- * Individual child props will override inherited ones if specified.
+ * The `InputGroup` component visually groups related elements such as buttons,
+ * text inputs, and select elements, providing cohesive styling and optional
+ * variant and disabled states.
  *
- * @returns A cloned child element with the variant and disabled props applied.
+ * @component
+ * @param {React.ReactNode} [children] Elements to be rendered within the `InputGroup`.
+ * Typical uses include form controls like `Button`, `TextInput`, and `Select`.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @param {VariantTypes} [variant] Styling variant for the group and its children, such as "default", "primary", etc.
+ * @param {boolean} [disabled] If true, all elements within the `InputGroup` are disabled. Defaults to `false`.
+ * @returns {React.ReactElement} A styled grouping component for input-related elements.
  */
 const cloneElementWithInheritedProps = (
   child: ReactNode,

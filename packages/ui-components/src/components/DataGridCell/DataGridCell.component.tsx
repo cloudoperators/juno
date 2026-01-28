@@ -35,6 +35,17 @@ const cellCustomStyles = (colSpan: number | undefined) => {
   return styles
 }
 
+/**
+ * `DataGridCell` is a versatile layout component for `DataGrid`, supporting cell-specific configurations
+ * like column span and wrapping. It adapts orientation based on grid context.
+ *
+ * @component
+ * @param {number} [colSpan] Defines how many columns the cell should span.
+ * @param {boolean} [nowrap] Prevents content wrapping within the cell. Defaults to `false`.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Content or components to render inside the DataGridCell.
+ * @returns {React.ReactElement} A configurable grid cell with optional spanning and wrapping.
+ */
 export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
   ({ colSpan, nowrap = false, className = "", children, ...props }, ref) => {
     const dataGridContext = useDataGridContext() || {}
@@ -56,6 +67,25 @@ export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
 
 DataGridCell.displayName = "DataGridCell"
 
+export interface DataGridCellProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Defines the number of columns the cell spans. */
+  colSpan?: number
+
+  /**
+   * If set, content within the cell will not wrap.
+   * @default false
+   */
+  nowrap?: boolean
+
+  /** Components or elements to render within the DataGridCell. */
+  children?: React.ReactNode
+
+  /**
+   * Additional CSS class names for custom styling.
+   * @default ""
+   */
+  className?: string
+}
 export interface DataGridCellProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.  */
   colSpan?: number

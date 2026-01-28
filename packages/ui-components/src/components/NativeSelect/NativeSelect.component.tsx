@@ -95,6 +95,7 @@ export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelect
   /**
    * Name of the select element.
    * Used as a key for the selected value if a form is submitted.
+   * @default "Unnamed Select"
    */
   name?: string
 
@@ -105,6 +106,7 @@ export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelect
 
   /**
    * Additional CSS classes to apply to the select element for custom styling.
+   * @default ""
    */
   className?: string
 
@@ -117,28 +119,33 @@ export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelect
 
   /**
    * Disables the select element, making it unclickable.
+   * @default false
    */
   disabled?: boolean
 
   /**
    * Highlights the select element as invalid, indicating incorrect user input or validation errors.
+   * @default false
    */
   invalid?: boolean
 
   /**
    * Highlights the select element as valid, indicating correct user input or successful validation.
+   * @default false
    */
   valid?: boolean
 
   /**
    * Displays a loading indicator over the select element.
    * Used for async operations like fetching data.
+   * @default false
    */
   loading?: boolean
 
   /**
    * Displays an error state over the select element, such as during data fetching errors.
    * Should not be used for validation errors.
+   * @default false
    */
   error?: boolean
 
@@ -146,18 +153,17 @@ export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelect
    * Event handler for the change event of the select element.
    * Triggered when the user changes the selected option.
    */
-
   onChange?: ChangeEventHandler<HTMLSelectElement>
 
   /**
    * Event handler for the click event on the select element.
    * Triggered when the user clicks on the select element.
    */
-
   onClick?: MouseEventHandler<HTMLSelectElement>
 
   /**
    * Additional CSS classes to apply to the outer wrapper of the select component for custom styling.
+   * @default ""
    */
   wrapperClassName?: string
 }
@@ -196,9 +202,24 @@ const SelectIcons: FC<{
 }
 
 /**
- * A basic, uncontrolled native HTML select component.
- * Takes NativeSelectOption and NativeSelectOptionGroup children as options.
- * Handles states such as loading, valid, invalid, and error.
+ * The `NativeSelect` component is a basic HTML select element with extra features
+ * such as styles and loading/error states. It supports native select options while
+ * offering customization for validation indicators.
+ *
+ * @component
+ * @param {string} [name] Key/name associated with the select value during form submissions.
+ * @param {string} [id] Identifier for the select element to ensure unique accessibility.
+ * @param {string} [className] CSS class names for styling the select element. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Options or groups rendered within the select element. Defaults to empty.
+ * @param {boolean} [disabled] Disables component interactions, rendering it unclickable. Defaults to `false`.
+ * @param {boolean} [invalid] Highlights the select element for invalid input or validation errors. Defaults to `false`.
+ * @param {boolean} [valid] Signifies successful input or validation, with visual highlights. Defaults to `false`.
+ * @param {boolean} [loading] Displays a loading state over the select during asynchronous operations. Defaults to `false`.
+ * @param {boolean} [error] Shows error status, commonly for data-fetching issues, not validation errors. Defaults to `false`.
+ * @param {ChangeEventHandler<HTMLSelectElement>} [onChange] Response to changes in selection amongst options.
+ * @param {MouseEventHandler<HTMLSelectElement>} [onClick] Handler for click events on the select dropdown.
+ * @param {string} [wrapperClassName] CSS class names for styling the outer wrapper around the component. Defaults to an empty string.
+ * @returns {React.ReactElement} A configurable and interactive native select component.
  */
 export const NativeSelect: FC<NativeSelectProps> = ({
   name = "Unnamed Select",

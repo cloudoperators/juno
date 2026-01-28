@@ -18,13 +18,20 @@ export interface FormRowProps extends React.HTMLAttributes<HTMLDivElement> {
 
   /**
    * Additional CSS classes to apply to the FormRow for custom styling.
+   * @default ""
    */
   className?: string
 }
 
 /**
- * A generic FormRow component used to layout and structure form elements.
- * It serves as a container for form elements such as TextInput, Textarea, Select, Radio, CheckboxGroups etc.
+ * The `FormRow` component structures individual form elements within a row layout.
+ * It serves as a container for inputs like `TextInput`, `Textarea`, and others,
+ * supporting custom styling with class names.
+ *
+ * @component
+ * @param {React.ReactNode} [children] Content rendered inside the FormRow, typically form elements.
+ * @param {string} [className] Custom CSS classes for styling the FormRow. Defaults to an empty string.
+ * @returns {React.ReactElement} A container for form row elements with support for custom styles.
  */
 export const FormRow: React.FC<FormRowProps> = ({ children, className = "", ...props }) => {
   return (

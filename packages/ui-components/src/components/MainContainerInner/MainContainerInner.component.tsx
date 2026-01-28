@@ -15,7 +15,16 @@ const constrainStyles = `
   jn:2xl:mx-auto
 `
 
-/** An inner wrapper to constrain page / view content width. */
+/**
+ * `MainContainerInner` offers a structured inner wrapper for page content, enabling width constraints
+ * or full-width rendering as needed.
+ *
+ * @component
+ * @param {React.ReactNode} [children] Components or content to render within the container.
+ * @param {boolean} [fullWidth] Indicates if content should be full-width. Defaults to `false`.
+ * @param {string} [className] Additional CSS class names for stylized rendering. Defaults to an empty string.
+ * @returns {React.ReactElement} A structured inner container for page content.
+ */
 export const MainContainerInner: React.FC<MainContainerInnerProps> = ({
   children,
   fullWidth = false,
@@ -37,10 +46,20 @@ export const MainContainerInner: React.FC<MainContainerInnerProps> = ({
 }
 
 export interface MainContainerInnerProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** The children to render */
+  /**
+   * The children to render within the container.
+   */
   children?: React.ReactNode
-  /** Whether the page/view content will stretch over the full width of the viewport or not. Default is `false`. */
+
+  /**
+   * Determines if content stretches to full viewport width.
+   * @default false
+   */
   fullWidth?: boolean
-  /** Add a custom class */
+
+  /**
+   * Custom CSS class names for stylized rendering.
+   * @default ""
+   */
   className?: string
 }

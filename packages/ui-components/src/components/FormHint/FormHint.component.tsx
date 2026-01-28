@@ -22,16 +22,19 @@ export interface FormHintProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The text to render as a hint for a form element.
    * Overridden by children, if provided.
+   * @default ""
    */
   text?: ReactNode
 
   /**
    * The variant of the hint ("help", "error", or "success") determining its appearance.
+   * @default "help"
    */
   variant?: FormHintVariant
 
   /**
    * Additional CSS classes to apply to the form hint for custom styling.
+   * @default ""
    */
   className?: string
 }
@@ -48,7 +51,15 @@ const getVariantStyles = (variant: FormHintVariant): string => {
 }
 
 /**
- * A FormHint component used to provide contextual help, error, or success messages associated with form elements.
+ * The `FormHint` component provides contextual messages associated with form elements,
+ * such as help, error, or success messages. It adjusts appearance based on the variant specified.
+ *
+ * @component
+ * @param {React.ReactNode} [children] Content to display as the hint, takes precedence over `text`.
+ * @param {React.ReactNode} [text] Text for the hint, overridden by `children` if present. Defaults to an empty string.
+ * @param {FormHintVariant} [variant] Visual style of the hint: "help", "error", or "success". Defaults to `"help"`.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @returns {React.ReactElement} A form hint element with contextual styling.
  */
 export const FormHint: React.FC<FormHintProps> = ({
   children,

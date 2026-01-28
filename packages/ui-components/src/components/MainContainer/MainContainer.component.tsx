@@ -12,8 +12,13 @@ const mainStyles = `
 `
 
 /**
- * Only needed if you want to build your app's scaffold manually. In most cases it is better to use the AppShell component instead.
- * The main container for app content.
+ * The `MainContainer` is the core container for application content, ideal for manual scaffold setups.
+ * In most instances, `AppShell` offers a comprehensive layout alternative.
+ *
+ * @component
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Content or components arranged within the main container.
+ * @returns {React.ReactElement} A styled container for app content, useful for manual setup.
  */
 export const MainContainer: React.FC<MainContainerProps> = ({ className = "", children, ...props }) => {
   return (
@@ -24,7 +29,14 @@ export const MainContainer: React.FC<MainContainerProps> = ({ className = "", ch
 }
 
 export interface MainContainerProps extends React.HTMLAttributes<HTMLElement> {
-  /** Add custom class name */
+  /**
+   * Custom CSS class names for styling the main container.
+   * @default ""
+   */
   className?: string
+
+  /**
+   * Components or content to render within the main container.
+   */
   children?: React.ReactNode
 }

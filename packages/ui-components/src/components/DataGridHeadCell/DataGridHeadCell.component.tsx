@@ -13,6 +13,17 @@ const headCellBaseStyles = `
 	jn:border-theme-background-lvl-0
 `
 
+/**
+ * `DataGridHeadCell` is designed for use within a `DataGrid` header, defining column attributes and appearance.
+ * It accommodates configurations like sorting (future implementation) and display styles.
+ *
+ * @component
+ * @param {number} [colSpan] Specifies the column span for the header cell.
+ * @param {boolean} [nowrap] Determines if content within the header cell should wrap. Defaults to `false`.
+ * @param {string} [className] Additional CSS classes for styling. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Header content to render within the cell.
+ * @returns {React.ReactElement} A styled header cell for data grids with options for configuration.
+ */
 export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps>(
   (
     {

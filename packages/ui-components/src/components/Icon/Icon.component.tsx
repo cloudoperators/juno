@@ -942,6 +942,21 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
   }
 }
 
+/**
+ * The `Icon` component provides a versatile way to render SVG icons with customizable size,
+ * color, and accessibility features. Icons can be interactive through click events or embedded links.
+ *
+ * @component
+ * @param {KnownIcons} [icon] The name of the icon to render, from the predefined set.
+ * @param {string} [color] Specifies the color to apply to the icon.
+ * @param {string | number} [size] Determines the size of the icon, in pixels or rem.
+ * @param {string} [title] Accessibility title attribute for the icon, providing context.
+ * @param {string} [className] Additional CSS class names for styling. Defaults to an empty string.
+ * @param {string} [href] URL for navigation when icon is clicked, rendering as an anchor if specified.
+ * @param {boolean} [disabled] Sets icon to a disabled state, preventing interaction. Defaults to `false`.
+ * @param {function} [onClick] Handler for click events when rendering as a button element.
+ * @returns {React.ReactElement} A customizable SVG icon component with interactive capabilities.
+ */
 export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(function Icon(
   { icon, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
   ref
@@ -997,12 +1012,32 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
 
 export interface IconProps
   extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
+  /** The name of the icon to render. */
   icon?: KnownIcons
+
+  /** Specifies the color of the icon. */
   color?: string
+
+  /** Determines the size of the icon, either a number or string representing pixels/rem. */
   size?: string | number
+
+  /** Accessibility title for the icon, useful for screen readers. */
   title?: string
+
+  /** Additional CSS class names for custom styling.
+   * @default ""
+   */
   className?: string
+
+  /** URL for navigation via anchor element when clicked. */
   href?: string
+
+  /**
+   * Determines if the icon is interactive or not.
+   * @default false
+   */
   disabled?: boolean
+
+  /** Click event handler for icon interaction, applicable to button elements. */
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }

@@ -49,6 +49,19 @@ const truncateOptionStyles = `
   jn:whitespace-nowrap
 `
 
+/**
+ * `ComboBoxOption` is a component used within a `ComboBox` to represent each selectable option.
+ * It displays the option's label and value, and indicates the selected state with styles or an icon.
+ *
+ * @component
+ * @param {string} [children] Text or element to render inside the ComboBoxOption. Should be a string when specified.
+ * @param {boolean} [disabled] If true, the option is disabled and not selectable. Defaults to `false`.
+ * @param {string} [value] The value of the option, used to identify the selection.
+ * @param {string} [label] The label for the option, displayed if `children` is not used.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @returns {React.ReactElement} A selectable option component for use within a ComboBox.
+ */
+
 export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   children,
   disabled = false,
@@ -100,14 +113,26 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
 }
 
 export interface ComboBoxOptionProps extends React.HTMLProps<HTMLLIElement> {
-  /** Content to render inside the ComboBoxOption. Is specified should be string. */
+  /**
+   * Content to render inside the ComboBoxOption. Should be specified as a string.
+   */
   children?: string
-  /** If option is disabled. */
+
+  /**
+   * If true, the option is disabled and not selectable.
+   * @default false
+   */
   disabled?: boolean
-  /** Option value. */
+
+  /** The value to be submitted if this option is selected. */
   value?: string
-  /** Option label. */
+
+  /** The label text for the option, displayed when `children` is not provided. */
   label?: string
-  /** CSS class for the option. */
+
+  /**
+   * CSS class names for custom styling.
+   * @default ""
+   */
   className?: string
 }

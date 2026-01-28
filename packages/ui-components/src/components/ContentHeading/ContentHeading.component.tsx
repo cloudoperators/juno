@@ -14,25 +14,33 @@ const baseHeadingStyles = `
 
 export interface ContentHeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   /**
-   * Custom content to render within the container heading.
-   * Takes precedence over the heading prop.
+   * Custom content to render within the heading.
+   * Takes precedence over the `heading` prop.
    */
   children?: ReactNode
+
   /**
-   * Text for the heading. Used if children is not provided.
-   * Children prop takes precedence.
+   * Text for the heading, used if `children` is not provided.
+   * Note that the `children` prop takes precedence over this prop.
    */
   heading?: string
+
   /**
-   * Additional CSS classes for custom styling.
+   * Custom CSS classes for styling the heading.
+   * @default ""
    */
   className?: string
 }
 
 /**
- * ContentHeading represents the main heading of a page or view.
- * It can be used within an `<AppShell>` component or, if scaffolding manually, within a `<ContentContainer>` component.
- * The heading text can be provided either via the `heading` prop or by passing it as `children`.
+ * The `ContentHeading` represents the primary heading of a page or view, usable within a `<ContentContainer>`
+ * or `<AppShell>`. The heading can be defined via the `heading` prop or the `children` prop.
+ *
+ * @component
+ * @param {React.ReactNode} [children] Custom content for the heading, which takes precedence over the `heading` prop.
+ * @param {string} [heading] The text for the heading, used if `children` is not provided.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @returns {React.ReactElement} A styled main heading component for pages or views.
  */
 export const ContentHeading: React.FC<ContentHeadingProps> = ({ heading = "", className = "", children, ...props }) => {
   return (

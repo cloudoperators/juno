@@ -62,10 +62,18 @@ const optionsStyles = `
 `
 
 /**
- * The `PageHeader` component renders a header for an application with customisable `logo`, `title` and other options.
- * Ideally, the custom logo component should return an `<img />` or an inline `<svg>` element.
- * When using SVG, ensure the file is optimized to eliminate any superfluous elements or data that can contribute to increased file size and reduced performance. `Svgo` is a great tool to optimize `svg` files. Make sure the `viewBox` element is not removed when optimizing a file for usage a a header logo.
- * Pass as prop to `AppShell` so it gets slotted into the correct place in the layout. If building your layout manually without `AppShell` place as first child of AppBody.
+ * `PageHeader` component renders the top header of an application.
+ * It includes customizable `logo`, `title`, and other options.
+ *
+ * @component
+ * @param {string | ReactElement} [applicationName=""] - Name of the application.
+ * @param {string | ReactElement} [heading=""] - Deprecated, replaced by `applicationName`.
+ * @param {string} [href=""] - Link to open when applicationName or logo is clicked.
+ * @param {string} [className=""] - Custom class names for styling.
+ * @param {boolean | ReactElement} [logo=true] - Application logo to display.
+ * @param {React.MouseEventHandler<HTMLDivElement>} [onClick] - Handler executed when `applicationName` or `logo` are clicked.
+ * @param {ReactNode} [children] - Children to render in the header such as user name, avatar, etc.
+ * @returns {React.ReactElement} Header component with application name, logo, and additional children.
  */
 
 export const PageHeader: React.FC<PageHeaderProps> = ({
@@ -117,30 +125,35 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Name of the application.
+   * @default ""
    */
   applicationName?: string | ReactElement
   /**
-   * @deprecated - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.
+   * Deprecated - Replaced by `applicationName`. If `applicationName` is provided, it takes precedence.
+   * @default ""
    */
   heading?: string | ReactElement
   /**
-   * Link to open when applicationName or logo is clicked. If `onClick` is provided, it will take precedence.
+   * Link to open when applicationName or logo is clicked.
+   * @default ""
    */
   href?: string
   /**
    * Custom class names.
+   * @default ""
    */
   className?: string
   /**
    * Application logo.
+   * @default true
    */
   logo?: boolean | ReactElement
   /**
-   * Handler executed when `applicationName` or `logo` are clicked.
+   * Handler executed on click of `applicationName` or `logo`.
    */
   onClick?: React.MouseEventHandler<HTMLDivElement>
   /**
-   * Children to render in the header such as user name, avatar, log-in/out button, etc.
+   * Children to render in header like user info, avatar, log-in/out button, etc.
    */
   children?: ReactNode
 }

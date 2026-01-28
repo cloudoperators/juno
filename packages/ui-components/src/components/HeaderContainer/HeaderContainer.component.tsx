@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 
 const headerContainerStyles = `
   jn:flex
@@ -15,6 +15,16 @@ const headerContainerStyles = `
   jn:bg-theme-global-bg
 `
 
+/**
+ * The `HeaderContainer` component serves as a fixed, styled container at the top
+ * of a page or view, supporting full-width or constrained layouts.
+ *
+ * @component
+ * @param {boolean} [fullWidth] Specifies if the content should stretch to full viewport width. Defaults to `false`.
+ * @param {string} [className] Additional CSS classes for styling the header container. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Content wrapped within the header container.
+ * @returns {React.ReactElement} A configurable container for header content.
+ */
 export const HeaderContainer: React.FC<HeaderContainerProps> = ({
   fullWidth = false,
   className = "",
@@ -36,9 +46,20 @@ export const HeaderContainer: React.FC<HeaderContainerProps> = ({
 }
 
 export interface HeaderContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether the page/view content will stretch over the full width of the viewport or not. Default is `false`. */
+  /**
+   * Whether the page/view content will stretch over the full width of the viewport or not.
+   * @default false
+   */
   fullWidth?: boolean
-  /** Add custom class name */
+
+  /**
+   * Custom CSS class name to apply to the header container.
+   * @default ""
+   */
   className?: string
-  children?: React.ReactNode
+
+  /**
+   * Content to be rendered within the header container.
+   */
+  children?: ReactNode
 }

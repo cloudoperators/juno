@@ -53,6 +53,29 @@ export interface CheckboxGroupContextProps {
 
 export const CheckboxGroupContext = createContext<CheckboxGroupContextProps | undefined>(undefined)
 
+/**
+ * The `CheckboxGroup` component provides a context-managed grouping of checkbox elements.
+ * It manages the collective state for checkboxes, allowing for individual or batch validation
+ * and selection. It supports states such as disabled, valid, and invalid, and offers customization
+ * for error and success messages. It also furnishes a grouped label and help text for a unified UI.
+ *
+ * @component
+ * @param {ReactNode} [children] The Checkbox components contained within this group.
+ * @param {string} [className] Custom CSS classes for styling the CheckboxGroup.
+ * @param {boolean} [disabled=false] Disables all checkboxes within the group.
+ * @param {ReactNode} [errortext] Message displayed when validation fails or an error is present.
+ * @param {ReactNode} [helptext] Additional text providing explanation of the group's purpose.
+ * @param {string} [id] The unique group ID. Generated automatically if unspecified.
+ * @param {boolean} [invalid=false] Whether the CheckboxGroup is currently invalidated.
+ * @param {string} [label] The label associated with the CheckboxGroup.
+ * @param {string} [name] Name attribute for the entire group. A unique identifier is generated if unspecified.
+ * @param {function} [onChange] Event handler for changes in selection.
+ * @param {boolean} [required=false] Indicates if selection is mandatory in the group.
+ * @param {string[]} [selected] Array of selected option values within the group.
+ * @param {ReactNode} [successtext] Message displayed when validation is successful.
+ * @param {boolean} [valid=false] Whether the CheckboxGroup has been successfully validated.
+ * @returns {React.ReactElement} A context-enabled CheckboxGroup component with built-in state management.
+ */
 export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   children,
   className = "",
@@ -183,31 +206,63 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
 }
 
 export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
-  /** The Checkbox children of the CheckboxGroup */
+  /** The Checkbox children of the CheckboxGroup. */
   children?: ReactNode
-  /** Pass a custom className */
+
+  /**
+   * Custom class names for styling the CheckboxGroup.
+   * @default ""
+   */
   className?: string
-  /** Whether all Checkboxes in the group are disabled */
+
+  /**
+   * Disables all checkboxes in the group.
+   * @default false
+   */
   disabled?: boolean
-  /** Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed. */
+
+  /** Text displayed if validation fails or there is an error. Indicates group invalidity when set. */
   errortext?: ReactNode
-  /** A text to render to further explain meaning and significance of the group */
+
+  /** Additional text explaining the significance of this group. */
   helptext?: ReactNode
-  /** The id of the group. If not passed, a unique id will be created and used for the group as a whole. */
+
+  /** The group's ID. Automatically generated if not provided. */
   id?: string
+
+  /**
+   * Indicates if the CheckboxGroup is marked as invalid.
+   * @default false
+   */
   invalid?: boolean
-  /** The label of the whole group. */
+
+  /** The label text for the CheckboxGroup. */
   label?: string
-  /** The name of all checkboxes in the group. If not passed, a unique name identifier will be created and used for the group as a whole. */
+
+  /**
+   * Name for all checkboxes in the group. Generated if not supplied.
+   * @default A unique identifier
+   */
   name?: string
-  /** An onChange handler to execute when the selection of options changes */
+
+  /** Event handler triggered when any checkbox selection changes. */
   onChange?: EventUpdateHandler
-  /** Whether a selection in the group is required */
+
+  /**
+   * Specifies if a selection is required in this group.
+   * @default false
+   */
   required?: boolean
-  /** Array of values of individual selected options in the group */
+
+  /** Array of values representing the initially selected checkboxes in the group. */
   selected?: string[]
-  /** Text to display in case validation is successful. When passed, will set the whole group to valid. */
+
+  /** Text displayed upon successful validation, which marks the group as valid. */
   successtext?: ReactNode
-  /** Whether the CheckboxGroup was successfully validated */
+
+  /**
+   * Specifies if the CheckboxGroup has been successfully validated.
+   * @default false
+   */
   valid?: boolean
 }

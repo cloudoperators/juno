@@ -65,12 +65,12 @@ export type MessageVariantType = "info" | "warning" | "danger" | "error" | "succ
 
 export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * Pass an optional title.
+   * Optional title for the message.
    */
   title?: string
 
   /**
-   * Pass an optional string of text to be rendered as content.
+   * Optional string of text to be rendered as content.
    * Alternatively, content can be passed as children (see below).
    * If children are provided, they will take precedence.
    */
@@ -78,22 +78,26 @@ export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
 
   /**
    * Specify an optional semantic variant that determines the appearance of a message.
+   * @default "info"
    */
   variant?: MessageVariantType
 
   /**
    * Optional. If true, the message will have a 'close' button to dismiss it.
+   * @default false
    */
   dismissible?: boolean
 
   /**
    * Optional. If true, the message will be automatically dismissed after the default or passed autoDismissTimeout.
+   * @default false
    */
   autoDismiss?: boolean
 
   /**
    * Optional. The timeout in milliseconds after which the message auto-dismisses.
    * By default 10000 (10s).
+   * @default 10000
    */
   autoDismissTimeout?: number
 
@@ -104,6 +108,7 @@ export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
 
   /**
    * Pass an optional CSS class to apply to the message.
+   * @default ""
    */
   className?: string
 
@@ -206,8 +211,20 @@ const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | nul
 }
 
 /**
- * A Message holds generally important information to help understand the contents, purpose, or state of a whole page or view.
- * Use sparingly, there should never be two or more subsequent instances of Message as direct siblings/neighbors on an individual view.
+ * The `Message` component displays important information or alerts concerning the content,
+ * page state, or the view's purpose, with support for dismissible and auto-dismiss features.
+ *
+ * @component
+ * @param {string} [title] Optional title representing message thrust. Defaults to none.
+ * @param {string} [text] Default content text to show within the message, overridden by `children`.
+ * @param {MessageVariantType} [variant] Styling variant, determining semantic appearance. Defaults to `"info"`.
+ * @param {boolean} [dismissible] Enables dismissal functionality with close button. Defaults to `false`.
+ * @param {boolean} [autoDismiss] Toggles automatic dismissal after a timeout. Defaults to `false`.
+ * @param {number} [autoDismissTimeout] Specifies timeout in milliseconds for auto-dismiss; default is `10000`.
+ * @param {function} [onDismiss] Callback for when message is dismissed.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Nodes or components to render as message content, taking precedence over `text`.
+ * @returns {React.ReactElement} A contextual message component with optional interactions.
  */
 export const Message: React.FC<MessageProps> = ({
   title,

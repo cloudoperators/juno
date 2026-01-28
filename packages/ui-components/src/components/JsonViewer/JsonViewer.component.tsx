@@ -349,7 +349,23 @@ interface JsonDataProps extends React.HTMLAttributes<HTMLDivElement> {
   nestedLevel?: number
 }
 
-/** A component to render json data in a nice way. */
+/**
+ * The `JsonViewer` component provides a structured visualization of JSON data,
+ * with support for syntax highlighting, collapsible elements, and search functionality.
+ * Tailorable themes and display settings are available for user customization.
+ *
+ * @component
+ * @param {string | object | object[]} [data] JSON data to render; essential for visualizing complex structures.
+ * @param {object} [style] Custom styles for the viewer.
+ * @param {boolean} [toolbar] Toggles display of options such as expansion control and search.
+ * @param {boolean} [showRoot] Displays the root node key, useful for distinguishing hierarchical data. Defaults to `false`.
+ * @param {ThemeType | JsonViewerTheme} [theme] Preset or custom theme for styling the JSON viewer.
+ * @param {boolean | number} [expanded] Controls default expansion level for JSON objects. Defaults to `1`.
+ * @param {boolean | number} [truncate] Maximum length for truncating strings; the default is 100 characters.
+ * @param {number} [indentWidth] Width for indentation in pixels. Defaults to `4`.
+ * @param {string} [className] Additional CSS classes for custom styling.
+ * @returns {React.ReactElement} A configurable and interactive JSON data viewer.
+ */
 export const JsonViewer: React.FC<JsonViewerProps> = ({
   data = {},
   showRoot = false,
@@ -408,17 +424,26 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
 type ThemeType = "dark" | "light"
 
 export interface JsonViewerProps extends Omit<React.HTMLProps<HTMLDivElement>, "data"> {
-  /** Pass a valid json. Required.  */
-  // data: PropTypes.object.isRequired,
+  /**
+   * JSON data to render; essential for visualizing complex structures.
+   */
   data: string | object | object[]
-  /** pass a styles object */
+
+  /** Pass a styles object for inline customizations. */
   style?: object
-  /** show toolbar */
+
+  /**
+   * Toggles toolbar display, including expansion and search functionalities.
+   * @default false
+   */
   toolbar?: boolean
-  /** show root key */
+
+  /**
+   * Displays the root node key for hierarchical clarity.
+   * @default false
+   */
   showRoot?: boolean
-  /** dark, light or map of colors
-   *
+  /** Preset theme (dark/light) or map of colors for custom styling.
    * @param dark dark theme
    * @param light light theme
    * @param base00 background
@@ -439,12 +464,26 @@ export interface JsonViewerProps extends Omit<React.HTMLProps<HTMLDivElement>, "
    * @param base0F copy icon, type "integer"
    */
   theme?: themes.JsonViewerTheme | ThemeType
-  /** expanded can be true|false or a number. The number denotes the hierarchy level to which the object is expanded. */
+  /**
+   * Default expansion level for JSON objects, set as true, false, or a numeric level.
+   * @default 1
+   */
   expanded?: boolean | number
-  // cut strings after max length is reached, default length is 100 characters, if set to true. Or specifcy a different character length. */
+
+  /**
+   * Max length for truncating strings within displayed JSON data; defaults to 100 characters if true.
+   */
   truncate?: boolean | number
-  /* indent width */
+
+  /**
+   * Pixel width for indentation.
+   * @default 4
+   */
   indentWidth?: number
-  /* add custom classes */
+
+  /**
+   * Additional CSS classes for styled customization.
+   * @default ""
+   */
   className?: string
 }

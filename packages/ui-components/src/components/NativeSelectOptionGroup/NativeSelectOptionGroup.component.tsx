@@ -15,11 +15,13 @@ export interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttribut
   /**
    * Determines whether the option group is disabled.
    * If true, all options within the group will also be disabled.
+   * @default false
    */
   disabled?: boolean
 
   /**
    * Additional CSS classes to apply to the option group for custom styling.
+   * @default ""
    */
   className?: string
 
@@ -31,8 +33,15 @@ export interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttribut
 }
 
 /**
- * The NativeSelectOptionGroup component groups related options within a dropdown list.
- * It should be used inside the <NativeSelect> component to group <NativeSelectOption> components.
+ * The `NativeSelectOptionGroup` categorizes related options within a dropdown list,
+ * enhancing semantic groupings for larger datasets in `NativeSelect`.
+ *
+ * @component
+ * @param {string} [label] Group heading displayed for item contextualization within dropdown.
+ * @param {boolean} [disabled] Quando true, a group and each item within it are blocked from selection. Defaults to `false`.
+ * @param {string} [className] CSS classes applied for tailored style. Defaults to an empty string.
+ * @param {React.ReactNode} [children] `NativeSelectOption` components or items to be housed within the group.
+ * @returns {React.ReactElement} A component grouping related options for dropdown selections.
  */
 export const NativeSelectOptionGroup: React.FC<NativeSelectOptionGroupProps> = ({
   label = "",

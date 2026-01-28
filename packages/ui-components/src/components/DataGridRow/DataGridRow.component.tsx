@@ -6,6 +6,17 @@
 import React, { forwardRef } from "react"
 import "./data-grid-row.css"
 
+/**
+ * `DataGridRow` represents a row in a `DataGrid`, supporting interactions such as selection and click handling.
+ * It provides styles for active states and custom behavior when interacted with.
+ *
+ * @component
+ * @param {boolean} [isSelected] Specifies if the row should appear selected. Defaults to `false`.
+ * @param {function} [onClick] Row click handler to execute custom actions.
+ * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
+ * @param {React.ReactNode} [children] Elements or components to render within the row.
+ * @returns {React.ReactElement} An interactive grid row component with selectable and clickable features.
+ */
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
   ({ isSelected = false, onClick, className = "", children, ...props }, ref) => {
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
