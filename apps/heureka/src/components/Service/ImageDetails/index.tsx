@@ -3,16 +3,26 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { use } from "react"
-import { Stack, Pill, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
+import React, { use, useState } from "react"
+import {
+  Stack,
+  Pill,
+  DataGrid,
+  DataGridRow,
+  DataGridHeadCell,
+  DataGridCell,
+  Icon,
+} from "@cloudoperators/juno-ui-components"
+import { useNavigate } from "@tanstack/react-router"
 import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../../common/SectionContentHeading"
 import { ImageIssuesList } from "./ImageIssuesList"
-import { GetImagesQuery, GetImagesQueryResult } from "../../../generated/graphql"
+import { ObservableQuery } from "@apollo/client"
+import { GetImagesQuery } from "../../../generated/graphql"
 
 type ImageDetailsProps = {
-  imagesPromise: Promise<GetImagesQueryResult>
+  imagesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>
   imageRepository: string
   service: string
 }
@@ -21,10 +31,23 @@ export const ImageDetails = ({ imagesPromise, imageRepository, service }: ImageD
   const { data } = use(imagesPromise)
   const { images } = getNormalizedImagesResponse(data as GetImagesQuery | undefined)
   const image = images.find((img: ServiceImage) => img.repository === imageRepository)
+  const [showAllVersions, setShowAllVersions] = useState(false)
+  const navigate = useNavigate()
 
   if (!image) {
     return null
   }
+
+  const handleVersionClick = (version: string) => {
+    navigate({
+      to: "/services/$service/images/$image/versions/$version",
+      params: { service, image: imageRepository, version },
+    })
+  }
+
+  const versions = image.versions || []
+  const displayedVersions = showAllVersions ? versions : versions.slice(0, 3)
+  const hasMoreVersions = versions.length > 3
 
   return (
     <>
@@ -59,6 +82,58 @@ export const ImageDetails = ({ imagesPromise, imageRepository, service }: ImageD
             <IssueCountsPerSeverityLevel counts={image.vulnerabilityCounts} />
           </DataGridCell>
         </DataGridRow>
+        {versions.length > 0 && (
+          <DataGridRow>
+            <DataGridHeadCell>Versions ({versions.length})</DataGridHeadCell>
+            <DataGridCell>
+              <Stack gap="2" direction="vertical">
+                {displayedVersions.map((version) => (
+                  <a
+                    key={version.id}
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleVersionClick(version.version)
+                    }}
+                    className="link-hover"
+                  >
+                    <span>{version.version}</span>
+                  </a>
+                ))}
+                {hasMoreVersions && !showAllVersions && (
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setShowAllVersions(true)
+                    }}
+                    className="link-hover"
+                  >
+                    <Stack alignment="center" direction="horizontal" gap="1">
+                      <span>Show all</span>
+                      <Icon color="global-text" icon="expandMore" />
+                    </Stack>
+                  </a>
+                )}
+                {hasMoreVersions && showAllVersions && (
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setShowAllVersions(false)
+                    }}
+                    className="link-hover"
+                  >
+                    <Stack alignment="center" direction="horizontal" gap="1">
+                      <span>Show less</span>
+                      <Icon color="global-text" icon="expandLess" />
+                    </Stack>
+                  </a>
+                )}
+              </Stack>
+            </DataGridCell>
+          </DataGridRow>
+        )}
       </DataGrid>
 
       {/* Issues List Section */}

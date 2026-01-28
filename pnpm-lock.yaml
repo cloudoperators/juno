@@ -409,6 +409,9 @@ importers:
 
   apps/heureka:
     dependencies:
+      '@cloudoperators/juno-messages-provider':
+        specifier: workspace:*
+        version: link:../../packages/messages-provider
       '@cloudoperators/juno-ui-components':
         specifier: workspace:*
         version: link:../../packages/ui-components

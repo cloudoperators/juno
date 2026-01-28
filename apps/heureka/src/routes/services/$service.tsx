@@ -6,17 +6,32 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { Service } from "../../components/Service"
 import { fetchService } from "../../api/fetchService"
+import { NetworkStatus, ObservableQuery } from "@apollo/client"
+import { GetServicesQuery } from "../../generated/graphql"
 
 export const Route = createFileRoute("/services/$service")({
   shouldReload: false,
-  loader: ({ context, params: { service } }) => {
+  loader: ({ context, params: { service }, location }) => {
     const { queryClient, apiClient } = context
-    // create a promise to fetch the service
-    const servicePromise = fetchService({
-      queryClient,
-      apiClient,
-      service,
-    })
+
+    // Skip fetching service if we're on the image details page or version details page
+    // Check if the pathname includes "/images/" which indicates we're on an image details or version details route
+    const isOnImageOrVersionDetailsPage = location.pathname.includes("/images/")
+
+    // Return a no-op promise if on image or version details page to avoid unnecessary fetch
+    // ServiceDetails component won't render on these pages, so this promise won't be used
+    const servicePromise: Promise<ObservableQuery.Result<GetServicesQuery>> = isOnImageOrVersionDetailsPage
+      ? Promise.resolve({
+          data: { Services: { edges: [], totalCount: 0, pageInfo: null } },
+          loading: false,
+          networkStatus: NetworkStatus.ready,
+          partial: false,
+        } as unknown as ObservableQuery.Result<GetServicesQuery>)
+      : fetchService({
+          queryClient,
+          apiClient,
+          service,
+        })
 
     return {
       servicePromise,
