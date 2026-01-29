@@ -8,7 +8,7 @@ Practically any UI element could be used to toggle a PopupMenu, such as Buttons,
 
 ## Overflow Menu
 
-An established Popup menu pattern used in many user interfaces is the OverflowMenu, a specific combination of a PopupMenu and a toggle icon of three vertically aligned dots. It is to be used mostly in cases where there is not enough space to show all available options (hence the name), so these are housed in a menu that only appears once a users clicks the toggle. It can also be used to have the options/actions available, but keep the default view clear of those, making them seem less important or distracting as if they were permanently visible.
+An established Popup menu pattern used in many user interfaces is the OverflowMenu, a specific combination of a PopupMenu and a toggle icon of three vertically aligned dots. It is to be used mostly in cases where there is not enough space to show all available options (hence the name), so these are housed in a menu that only appears once a user clicks the toggle. It can also be used to have the options/actions available, but keep the default view clear of those, making them seem less important or distracting as if they were permanently visible.
 
 ### When to use an OverflowMenu
 
