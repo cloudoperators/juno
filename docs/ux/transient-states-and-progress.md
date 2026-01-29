@@ -54,7 +54,7 @@ An element to visualize current progress towards a finite or infinite goal. Cons
 
 - the operation in progress is a Batch operation (affects multiple entities or elements)
 - the operation in progress can be represented numerically in terms of target value and current value
-- the operation could be represented numerically in terms of % completed, even though the current valuer is unknown, but the target value is (default animation to N %, then wait)
+- the operation could be represented numerically in terms of % completed, even though the current value is unknown, but the target value is (default animation to N %, then wait)
 
 ### Use an Indefinite Progress Bar when:
 
