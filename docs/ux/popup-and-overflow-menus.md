@@ -25,6 +25,6 @@ Do NOT use an overflow item when:
 
 When using a PopupMenu, always make sure:
 
-- the options in the menu are labelled in way that leaves no doubt as to what the item will do once clicked
+- the options in the menu are labelled in a way that leaves no doubt as to what the item will do once clicked
 - the reference to the toggle/item the options/actions refer to is clear (it can be helpful to include the referenced element in the labels of the options/actions ("Edit Item XYZ" rather than "Edit")
 - it is obvious to the user the toggle element is interactive/houses options
