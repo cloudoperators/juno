@@ -37,6 +37,7 @@
    1. Interaction Guidelines
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
    3. [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
+   4. [Transient States And Progress](transient-states-and-progress.md)
 6. Versioning, Deprecation Policy
    [7. Resources](resources.md)
 7. Appendix
