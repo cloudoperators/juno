@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-carbon",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
@@ -31,7 +31,7 @@
     "@vitejs/plugin-react": "4.7.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-error-boundary": "6.0.2",
+    "react-error-boundary": "6.1.0",
     "zustand": "4.5.7"
   },
   "devDependencies": {
@@ -56,7 +56,7 @@
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-tailwindcss": "3.18.2",
     "jsdom": "26.1.0",
-    "prettier": "3.7.4",
+    "prettier": "3.8.0",
     "tailwindcss": "4.1.18",
     "typescript": "5.9.3",
     "vite": "7.3.1",

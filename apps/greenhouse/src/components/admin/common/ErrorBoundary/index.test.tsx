@@ -16,7 +16,7 @@ const ComponentThatThrows = () => {
   return <div>Will not render</div>
 }
 
-const CustomFallback = ({ error }: FallbackProps) => <div>Custom fallback: {error?.message}</div>
+const CustomFallback = ({ error }: FallbackProps) => <div>Custom fallback: {(error as Error)?.message}</div>
 
 describe("ErrorBoundary", () => {
   let consoleSpy: any
