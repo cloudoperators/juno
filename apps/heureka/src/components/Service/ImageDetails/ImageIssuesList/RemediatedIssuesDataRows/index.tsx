@@ -8,55 +8,41 @@ import { ObservableQuery } from "@apollo/client"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { RemediatedIssueDataRow } from "./RemediatedIssueDataRow"
 import { getNormalizedRemediationsResponse } from "../../../../Services/utils"
+import { getNormalizedImageVulnerabilitiesResponse } from "../../../../Services/utils"
 import { GetRemediationsQuery } from "../../../../../generated/graphql"
-import { useRouteContext } from "@tanstack/react-router"
-import { deleteRemediation } from "../../../../../api/deleteRemediation"
+import { GetImagesQuery } from "../../../../../generated/graphql"
+
+const COLUMN_SPAN = 4
 
 type RemediatedIssuesDataRowsProps = {
+  issuesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>
   remediationsPromise: Promise<ObservableQuery.Result<GetRemediationsQuery>>
-  onRevertSuccess: (cveNumber: string) => void
-  onRevertError: (error: Error, cveNumber: string) => void
 }
 
-export const RemediatedIssuesDataRows = ({
-  remediationsPromise,
-  onRevertSuccess,
-  onRevertError,
-}: RemediatedIssuesDataRowsProps) => {
-  const { error, data } = use(remediationsPromise)
-  const { remediatedVulnerabilities } = getNormalizedRemediationsResponse(data as GetRemediationsQuery | undefined)
-  const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
-
-  const handleRevert = async (remediationId: string, cveNumber: string) => {
-    try {
-      await deleteRemediation({ apiClient, remediationId })
-      // Invalidate queries to refresh the data
-      queryClient.invalidateQueries({ queryKey: ["remediations"] })
-      queryClient.invalidateQueries({ queryKey: ["images"] })
-      onRevertSuccess(cveNumber)
-    } catch (error) {
-      console.error("Failed to delete remediation:", error)
-      onRevertError(error instanceof Error ? error : new Error("Failed to revert false positive"), cveNumber)
-      throw error
-    }
+export const RemediatedIssuesDataRows = ({ issuesPromise, remediationsPromise }: RemediatedIssuesDataRowsProps) => {
+  const issuesResult = use(issuesPromise)
+  const remediationsResult = use(remediationsPromise)
+  const { error: issuesError, data: issuesData } = issuesResult
+  const { data: remediationsData } = remediationsResult
+  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(issuesData as GetImagesQuery | undefined)
+  // Keep remediations loaded for future remediation-actions panel
+  getNormalizedRemediationsResponse(remediationsData as GetRemediationsQuery | undefined)
+  if (issuesError) {
+    return (
+      <EmptyDataGridRow colSpan={COLUMN_SPAN}>
+        Error loading remediated vulnerabilities: {issuesError.message}
+      </EmptyDataGridRow>
+    )
   }
 
-  if (error) {
-    return <EmptyDataGridRow colSpan={4}>Error loading remediated vulnerabilities: {error.message}</EmptyDataGridRow>
-  }
-
-  if (remediatedVulnerabilities.length === 0) {
-    return <EmptyDataGridRow colSpan={4}>No remediated vulnerabilities found!</EmptyDataGridRow>
+  if (vulnerabilities.length === 0) {
+    return <EmptyDataGridRow colSpan={COLUMN_SPAN}>No remediated vulnerabilities found!</EmptyDataGridRow>
   }
 
   return (
     <>
-      {remediatedVulnerabilities.map((remediation) => (
-        <RemediatedIssueDataRow
-          key={remediation.remediationId}
-          remediation={remediation}
-          onRevert={(remediationId) => handleRevert(remediationId, remediation.vulnerability || "N/A")}
-        />
+      {vulnerabilities.map((issue) => (
+        <RemediatedIssueDataRow key={issue.id} issue={issue} />
       ))}
     </>
   )

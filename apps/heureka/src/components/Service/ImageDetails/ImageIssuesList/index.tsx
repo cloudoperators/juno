@@ -117,15 +117,15 @@ const VulnerabilitiesTabContent = ({
 }
 
 const RemediatedVulnerabilitiesTabContent = ({
+  issuesPromise,
   remediationsPromise,
+  setPageCursor,
   successMessage,
-  onRevertSuccess,
-  onRevertError,
 }: {
+  issuesPromise: ReturnType<typeof fetchImages>
   remediationsPromise: ReturnType<typeof fetchRemediations>
+  setPageCursor: (cursor: string | null | undefined) => void
   successMessage: string | null
-  onRevertSuccess: (cveNumber: string) => void
-  onRevertError: (error: Error, cveNumber: string) => void
 }) => {
   return (
     <>
@@ -136,32 +136,39 @@ const RemediatedVulnerabilitiesTabContent = ({
       )}
       <Messages className="mb-4 mt-4" />
       <div className="mt-4">
-        <DataGrid columns={4} minContentColumns={[0, 1, 3]} cellVerticalAlignment="top">
+        <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
           <DataGridRow>
             <DataGridHeadCell>
               <Icon icon="monitorHeart" />
             </DataGridHeadCell>
             <DataGridHeadCell>Vulnerability</DataGridHeadCell>
+            <DataGridHeadCell>Target Date</DataGridHeadCell>
             <DataGridHeadCell>Description</DataGridHeadCell>
-            <DataGridHeadCell>Actions</DataGridHeadCell>
           </DataGridRow>
 
-          {remediationsPromise && (
+          {issuesPromise && (
             <ErrorBoundary
               displayErrorMessage
               fallbackRender={getErrorDataRowComponent({ colspan: 4 })}
-              resetKeys={[remediationsPromise]}
+              resetKeys={[issuesPromise, remediationsPromise]}
             >
               <Suspense fallback={<LoadingDataRow colSpan={4} />}>
-                <RemediatedIssuesDataRows
-                  remediationsPromise={remediationsPromise}
-                  onRevertSuccess={onRevertSuccess}
-                  onRevertError={onRevertError}
-                />
+                <RemediatedIssuesDataRows issuesPromise={issuesPromise} remediationsPromise={remediationsPromise} />
               </Suspense>
             </ErrorBoundary>
           )}
         </DataGrid>
+        {issuesPromise && (
+          <ErrorBoundary resetKeys={[issuesPromise]}>
+            <Suspense>
+              <CursorPagination
+                dataPromise={issuesPromise}
+                dataNormalizationMethod={getNormalizedImageVulnerabilitiesResponse}
+                goToPage={setPageCursor}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        )}
       </div>
     </>
   )
@@ -173,14 +180,16 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
+  const [remediatedPageCursor, setRemediatedPageCursor] = useState<string | null | undefined>(undefined)
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
   const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useState<string | null>(null)
   const [remediatedSuccessMessage, setRemediatedSuccessMessage] = useState<string | null>(null)
 
-  const vulFilter = {
+  const openVulFilter = {
     status: "open",
     ...(searchTerm ? { search: [searchTerm] } : {}),
   }
+  const remediatedVulFilter = { status: "remediated" }
 
   const issuesPromise = fetchImages({
     apiClient,
@@ -191,7 +200,19 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
     },
     firstVulnerabilities: 20,
     afterVulnerabilities: pageCursor,
-    vulFilter: vulFilter as VulnerabilityFilter,
+    vulFilter: openVulFilter as VulnerabilityFilter,
+  })
+
+  const remediatedIssuesPromise = fetchImages({
+    apiClient,
+    queryClient,
+    filter: {
+      service: [service],
+      repository: [image.repository],
+    },
+    firstVulnerabilities: 20,
+    afterVulnerabilities: remediatedPageCursor,
+    vulFilter: remediatedVulFilter as VulnerabilityFilter,
   })
 
   const remediationsPromise = fetchRemediations({
@@ -252,33 +273,12 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   }
 
   const RemediatedVulnerabilitiesTab = () => {
-    const { addMessage } = useActions()
-
-    const handleRevertSuccess = useCallback(
-      (cveNumber: string) => {
-        const text = `False positive for ${cveNumber} reverted successfully.`
-        addMessage({ variant: "success", text })
-        setRemediatedSuccessMessage(text)
-      },
-      [addMessage]
-    )
-
-    const handleRevertError = useCallback(
-      (error: Error, cveNumber: string) => {
-        addMessage({
-          variant: "error",
-          text: `Failed to revert false positive for ${cveNumber}: ${error.message}`,
-        })
-      },
-      [addMessage]
-    )
-
     return (
       <RemediatedVulnerabilitiesTabContent
+        issuesPromise={remediatedIssuesPromise}
         remediationsPromise={remediationsPromise}
+        setPageCursor={setRemediatedPageCursor}
         successMessage={remediatedSuccessMessage}
-        onRevertSuccess={handleRevertSuccess}
-        onRevertError={handleRevertError}
       />
     )
   }
@@ -287,7 +287,7 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
     <>
       <Tabs selectedIndex={selectedTabIndex} onSelect={setSelectedTabIndex} variant="content">
         <TabList>
-          <Tab label="Vulnerabilities" />
+          <Tab label="Active Vulnerabilities" />
           <Tab label="Remediated Vulnerabilities" />
         </TabList>
         <TabPanel>

@@ -5,13 +5,14 @@
 
 import React, { useState } from "react"
 import { Modal, ModalFooter, Button, Stack, Textarea } from "@cloudoperators/juno-ui-components"
-import { RemediationInput, RemediationTypeValues } from "../../../../generated/graphql"
+import { RemediationInput, RemediationTypeValues, SeverityValues } from "../../../../generated/graphql"
 
 type FalsePositiveModalProps = {
   open: boolean
   onClose: () => void
   onConfirm: (input: RemediationInput) => Promise<void>
   vulnerability: string
+  severity?: string
   service: string
   image: string
 }
@@ -19,11 +20,19 @@ type FalsePositiveModalProps = {
 const CONFIRM_LABEL = "Mark as False Positive"
 const CANCEL_LABEL = "Cancel"
 
+const toSeverityValue = (severity: string): SeverityValues | undefined => {
+  if (!severity) return undefined
+  const normalized = severity.charAt(0).toUpperCase() + severity.slice(1).toLowerCase()
+  const value = normalized as SeverityValues
+  return Object.values(SeverityValues).includes(value) ? value : undefined
+}
+
 export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   open,
   onClose,
   onConfirm,
   vulnerability,
+  severity,
   service,
   image,
 }) => {
@@ -47,6 +56,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         service,
         image,
         description: description.trim(),
+        ...(severity && { severity: toSeverityValue(severity) }),
       }
       await onConfirm(input)
       setDescription("")

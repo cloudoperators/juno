@@ -144,6 +144,7 @@ export const IssuesDataRow = ({
           onClose={handleModalClose}
           onConfirm={handleModalConfirm}
           vulnerability={issue.name}
+          severity={issue.severity}
           service={service}
           image={image}
         />

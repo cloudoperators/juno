@@ -4,74 +4,73 @@
  */
 
 import React, { useState } from "react"
-import {
-  DataGridRow,
-  DataGridCell,
-  Stack,
-  PopupMenu,
-  PopupMenuOptions,
-  PopupMenuItem,
-} from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Stack } from "@cloudoperators/juno-ui-components"
 import { Icon } from "@cloudoperators/juno-ui-components"
-import { RemediatedVulnerability } from "../../../../../Services/utils"
-import { useTextOverflow } from "../../../../../../utils"
+import { IssueIcon } from "../../../../../common/IssueIcon"
+import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
+import { ImageVulnerability } from "../../../../../Services/utils"
+import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 
-const cellSeverityClasses = () => {
-  // For remediated vulnerabilities, we don't have severity info
-  // Using a neutral border color
+const cellSeverityClasses = (severity: string) => {
+  const borderColor = getSeverityColor(severity.toLowerCase())
   return `
     border-l-2
-    border-theme-default
+    ${borderColor}
     h-full
     pl-5
   `
 }
 
 type RemediatedIssueDataRowProps = {
-  remediation: RemediatedVulnerability
-  onRevert: (remediationId: string) => Promise<void>
+  issue: ImageVulnerability
 }
 
-export const RemediatedIssueDataRow = ({ remediation, onRevert }: RemediatedIssueDataRowProps) => {
+export const RemediatedIssueDataRow = ({ issue }: RemediatedIssueDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
-  const [isReverting, setIsReverting] = useState(false)
-  const { needsExpansion, textRef } = useTextOverflow(remediation.description || "")
+  const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
 
   const toggleDescription = (e: React.MouseEvent) => {
     e.preventDefault()
     setIsExpanded(!isExpanded)
   }
 
-  const handleRevertClick = async () => {
-    setIsReverting(true)
-    try {
-      await onRevert(remediation.remediationId)
-    } catch (error) {
-      console.error("Failed to revert remediation:", error)
-    } finally {
-      setIsReverting(false)
-    }
+  if (!issue?.name) {
+    return null
   }
 
   return (
     <DataGridRow>
       <DataGridCell className="pl-0">
-        <div className={cellSeverityClasses()}>
-          <Icon icon="checkCircle" color="success" />
+        <div className={cellSeverityClasses(issue.severity)}>
+          <IssueIcon severity={issue.severity} />
         </div>
       </DataGridCell>
 
       <DataGridCell className="whitespace-nowrap">
         <Stack gap="2" direction="vertical">
-          <span>{remediation.vulnerability || "N/A"}</span>
+          <span>{issue.name}</span>
+          {issue.sourceUrl && issue.sourceUrl !== "-" && (
+            <a href={issue.sourceUrl} target="_blank" rel="noopener noreferrer" className="link-hover">
+              <Stack gap="1.5" alignment="center">
+                <Icon icon="openInNew" size="16" />
+                <span>Vulnerability source</span>
+              </Stack>
+            </a>
+          )}
         </Stack>
       </DataGridCell>
-      <DataGridCell>
+      <DataGridCell className="whitespace-nowrap">
+        <IssueTimestamp targetDate={issue.earliestTargetRemediationDate} />
+      </DataGridCell>
+      <DataGridCell className="min-w-0">
         <Stack gap="2" direction="vertical">
-          <span ref={textRef} className={isExpanded ? "" : "whitespace-nowrap overflow-hidden text-ellipsis"}>
-            {remediation.description || "No description available"}
+          <span
+            ref={textRef}
+            className={isExpanded ? "" : "whitespace-nowrap overflow-hidden text-ellipsis max-w-full"}
+          >
+            {issue.description}
           </span>
-          {remediation.description && needsExpansion && (
+          {issue.description && needsExpansion && (
             <a href="#" onClick={toggleDescription} className="link-hover">
               <Stack alignment="center">
                 {isExpanded ? "Show less" : "Show more"}
@@ -80,17 +79,6 @@ export const RemediatedIssueDataRow = ({ remediation, onRevert }: RemediatedIssu
             </a>
           )}
         </Stack>
-      </DataGridCell>
-      <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-        <PopupMenu icon="moreVert" className="whitespace-nowrap" disabled={isReverting}>
-          <PopupMenuOptions>
-            <PopupMenuItem
-              label={isReverting ? "Reverting..." : "Revert false positive"}
-              onClick={handleRevertClick}
-              disabled={isReverting}
-            />
-          </PopupMenuOptions>
-        </PopupMenu>
       </DataGridCell>
     </DataGridRow>
   )

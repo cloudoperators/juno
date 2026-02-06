@@ -12,6 +12,7 @@ mutation CreateRemediation($input: RemediationInput!) {
     remediationDate
     service
     serviceId
+    severity
     type
     vulnerability
     vulnerabilityId
