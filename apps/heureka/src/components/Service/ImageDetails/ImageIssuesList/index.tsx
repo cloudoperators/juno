@@ -20,6 +20,7 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import { useActions, Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { getNormalizedImageVulnerabilitiesResponse, ServiceImage } from "../../../Services/utils"
+import type { VulnerabilityFilter } from "../../../../generated/graphql"
 import { fetchImages } from "../../../../api/fetchImages"
 import { fetchRemediations } from "../../../../api/fetchRemediations"
 import { IssuesDataRows } from "./IssuesDataRows"
@@ -176,7 +177,7 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useState<string | null>(null)
   const [remediatedSuccessMessage, setRemediatedSuccessMessage] = useState<string | null>(null)
 
-  const vulFilter: { status: string; search?: string[] } = {
+  const vulFilter = {
     status: "open",
     ...(searchTerm ? { search: [searchTerm] } : {}),
   }
@@ -190,7 +191,7 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
     },
     firstVulnerabilities: 20,
     afterVulnerabilities: pageCursor,
-    vulFilter,
+    vulFilter: vulFilter as VulnerabilityFilter,
   })
 
   const remediationsPromise = fetchRemediations({
