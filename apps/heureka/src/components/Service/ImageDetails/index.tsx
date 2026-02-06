@@ -15,6 +15,7 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import { useNavigate } from "@tanstack/react-router"
 import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
+import { getShortSha256 } from "../../../utils"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../../common/SectionContentHeading"
 import { ImageIssuesList } from "./ImageIssuesList"
@@ -91,13 +92,14 @@ export const ImageDetails = ({ imagesPromise, imageRepository, service }: ImageD
                   <a
                     key={version.id}
                     href="#"
+                    title={version.version}
                     onClick={(e) => {
                       e.preventDefault()
                       handleVersionClick(version.version)
                     }}
                     className="link-hover"
                   >
-                    <span>{version.version}</span>
+                    <span>{getShortSha256(version.version)}</span>
                   </a>
                 ))}
                 {hasMoreVersions && !showAllVersions && (

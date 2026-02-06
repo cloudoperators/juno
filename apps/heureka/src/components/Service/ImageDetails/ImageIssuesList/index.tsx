@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, useState, useCallback } from "react"
+import React, { Suspense, useState, useCallback, useEffect } from "react"
 import { useRouteContext } from "@tanstack/react-router"
 import {
   DataGrid,
@@ -16,6 +16,7 @@ import {
   TabList,
   Tab,
   TabPanel,
+  Message,
 } from "@cloudoperators/juno-ui-components"
 import { useActions, Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { getNormalizedImageVulnerabilitiesResponse, ServiceImage } from "../../../Services/utils"
@@ -39,6 +40,7 @@ const VulnerabilitiesTabContent = ({
   setSearchTerm,
   setPageCursor,
   issuesPromise,
+  successMessage,
   onFalsePositiveSuccess,
   onFalsePositiveError,
 }: {
@@ -47,11 +49,17 @@ const VulnerabilitiesTabContent = ({
   setSearchTerm: (term: string | undefined) => void
   setPageCursor: (cursor: string | null | undefined) => void
   issuesPromise: ReturnType<typeof fetchImages>
+  successMessage: string | null
   onFalsePositiveSuccess: (cveNumber: string) => void
   onFalsePositiveError: (error: Error, cveNumber: string) => void
 }) => {
   return (
     <>
+      {successMessage && (
+        <div className="mb-4 mt-4">
+          <Message text={successMessage} variant="success" />
+        </div>
+      )}
       <Messages className="mb-4 mt-4" />
       <Stack gap="2" className="mb-4 mt-4">
         <SearchInput
@@ -109,15 +117,22 @@ const VulnerabilitiesTabContent = ({
 
 const RemediatedVulnerabilitiesTabContent = ({
   remediationsPromise,
+  successMessage,
   onRevertSuccess,
   onRevertError,
 }: {
   remediationsPromise: ReturnType<typeof fetchRemediations>
+  successMessage: string | null
   onRevertSuccess: (cveNumber: string) => void
   onRevertError: (error: Error, cveNumber: string) => void
 }) => {
   return (
     <>
+      {successMessage && (
+        <div className="mb-4 mt-4">
+          <Message text={successMessage} variant="success" />
+        </div>
+      )}
       <Messages className="mb-4 mt-4" />
       <div className="mt-4">
         <DataGrid columns={4} minContentColumns={[0, 1, 3]} cellVerticalAlignment="top">
@@ -151,13 +166,20 @@ const RemediatedVulnerabilitiesTabContent = ({
   )
 }
 
+const SUCCESS_MESSAGE_DURATION_MS = 5000
+
 export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
+  const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useState<string | null>(null)
+  const [remediatedSuccessMessage, setRemediatedSuccessMessage] = useState<string | null>(null)
 
-  const vulFilter = searchTerm ? { search: [searchTerm] } : undefined
+  const vulFilter: { status: string; search?: string[] } = {
+    status: "open",
+    ...(searchTerm ? { search: [searchTerm] } : {}),
+  }
 
   const issuesPromise = fetchImages({
     apiClient,
@@ -180,15 +202,26 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
     },
   })
 
+  useEffect(() => {
+    if (!vulnerabilitiesSuccessMessage) return
+    const timer = setTimeout(() => setVulnerabilitiesSuccessMessage(null), SUCCESS_MESSAGE_DURATION_MS)
+    return () => clearTimeout(timer)
+  }, [vulnerabilitiesSuccessMessage])
+
+  useEffect(() => {
+    if (!remediatedSuccessMessage) return
+    const timer = setTimeout(() => setRemediatedSuccessMessage(null), SUCCESS_MESSAGE_DURATION_MS)
+    return () => clearTimeout(timer)
+  }, [remediatedSuccessMessage])
+
   const VulnerabilitiesTab = () => {
     const { addMessage } = useActions()
 
     const handleFalsePositiveSuccess = useCallback(
       (cveNumber: string) => {
-        addMessage({
-          variant: "success",
-          text: `Vulnerability ${cveNumber} marked as false positive successfully.`,
-        })
+        const text = `Vulnerability ${cveNumber} marked as false positive successfully.`
+        addMessage({ variant: "success", text })
+        setVulnerabilitiesSuccessMessage(text)
       },
       [addMessage]
     )
@@ -210,6 +243,7 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
         setSearchTerm={setSearchTerm}
         setPageCursor={setPageCursor}
         issuesPromise={issuesPromise}
+        successMessage={vulnerabilitiesSuccessMessage}
         onFalsePositiveSuccess={handleFalsePositiveSuccess}
         onFalsePositiveError={handleFalsePositiveError}
       />
@@ -221,10 +255,9 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
 
     const handleRevertSuccess = useCallback(
       (cveNumber: string) => {
-        addMessage({
-          variant: "success",
-          text: `False positive for ${cveNumber} reverted successfully.`,
-        })
+        const text = `False positive for ${cveNumber} reverted successfully.`
+        addMessage({ variant: "success", text })
+        setRemediatedSuccessMessage(text)
       },
       [addMessage]
     )
@@ -242,6 +275,7 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
     return (
       <RemediatedVulnerabilitiesTabContent
         remediationsPromise={remediationsPromise}
+        successMessage={remediatedSuccessMessage}
         onRevertSuccess={handleRevertSuccess}
         onRevertError={handleRevertError}
       />

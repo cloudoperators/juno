@@ -21,7 +21,6 @@ export type Activity = Node & {
   __typename?: "Activity"
   evidences?: Maybe<EvidenceConnection>
   id: Scalars["ID"]["output"]
-  issueMatchChanges?: Maybe<IssueMatchChangeConnection>
   issues?: Maybe<IssueConnection>
   metadata?: Maybe<Metadata>
   services?: Maybe<ServiceConnection>
@@ -31,12 +30,6 @@ export type Activity = Node & {
 export type ActivityEvidencesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<EvidenceFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type ActivityIssueMatchChangesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<IssueMatchChangeFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
@@ -711,7 +704,6 @@ export type IssueMatch = Node & {
   id: Scalars["ID"]["output"]
   issue: Issue
   issueId?: Maybe<Scalars["String"]["output"]>
-  issueMatchChanges?: Maybe<IssueMatchChangeConnection>
   metadata?: Maybe<Metadata>
   remediationDate?: Maybe<Scalars["DateTime"]["output"]>
   severity?: Maybe<Severity>
@@ -731,52 +723,6 @@ export type IssueMatchEvidencesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<EvidenceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type IssueMatchIssueMatchChangesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<IssueMatchChangeFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type IssueMatchChange = Node & {
-  __typename?: "IssueMatchChange"
-  action?: Maybe<IssueMatchChangeActions>
-  activity: Activity
-  activityId?: Maybe<Scalars["String"]["output"]>
-  id: Scalars["ID"]["output"]
-  issueMatch: IssueMatch
-  issueMatchId?: Maybe<Scalars["String"]["output"]>
-  metadata?: Maybe<Metadata>
-}
-
-export enum IssueMatchChangeActions {
-  Add = "add",
-  Remove = "remove",
-}
-
-export type IssueMatchChangeConnection = Connection & {
-  __typename?: "IssueMatchChangeConnection"
-  edges?: Maybe<Array<Maybe<IssueMatchChangeEdge>>>
-  pageInfo?: Maybe<PageInfo>
-  totalCount: Scalars["Int"]["output"]
-}
-
-export type IssueMatchChangeEdge = Edge & {
-  __typename?: "IssueMatchChangeEdge"
-  cursor?: Maybe<Scalars["String"]["output"]>
-  node: IssueMatchChange
-}
-
-export type IssueMatchChangeFilter = {
-  action?: InputMaybe<Array<InputMaybe<IssueMatchChangeActions>>>
-  state?: InputMaybe<Array<StateFilter>>
-}
-
-export type IssueMatchChangeInput = {
-  action?: InputMaybe<IssueMatchChangeActions>
-  activityId?: InputMaybe<Scalars["String"]["input"]>
-  issueMatchId?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type IssueMatchConnection = Connection & {
@@ -1017,7 +963,6 @@ export type Mutation = {
   createEvidence: Evidence
   createIssue: Issue
   createIssueMatch: IssueMatch
-  createIssueMatchChange: IssueMatchChange
   createIssueRepository: IssueRepository
   createIssueVariant: IssueVariant
   createRemediation: Remediation
@@ -1032,7 +977,6 @@ export type Mutation = {
   deleteEvidence: Scalars["String"]["output"]
   deleteIssue: Scalars["String"]["output"]
   deleteIssueMatch: Scalars["String"]["output"]
-  deleteIssueMatchChange: Scalars["String"]["output"]
   deleteIssueRepository: Scalars["String"]["output"]
   deleteIssueVariant: Scalars["String"]["output"]
   deleteRemediation: Scalars["String"]["output"]
@@ -1055,7 +999,6 @@ export type Mutation = {
   updateEvidence: Evidence
   updateIssue: Issue
   updateIssueMatch: IssueMatch
-  updateIssueMatchChange: IssueMatchChange
   updateIssueRepository: IssueRepository
   updateIssueVariant: IssueVariant
   updateRemediation: Remediation
@@ -1137,10 +1080,6 @@ export type MutationCreateIssueMatchArgs = {
   input: IssueMatchInput
 }
 
-export type MutationCreateIssueMatchChangeArgs = {
-  input: IssueMatchChangeInput
-}
-
 export type MutationCreateIssueRepositoryArgs = {
   input: IssueRepositoryInput
 }
@@ -1194,10 +1133,6 @@ export type MutationDeleteIssueArgs = {
 }
 
 export type MutationDeleteIssueMatchArgs = {
-  id: Scalars["ID"]["input"]
-}
-
-export type MutationDeleteIssueMatchChangeArgs = {
   id: Scalars["ID"]["input"]
 }
 
@@ -1305,11 +1240,6 @@ export type MutationUpdateIssueMatchArgs = {
   input: IssueMatchInput
 }
 
-export type MutationUpdateIssueMatchChangeArgs = {
-  id: Scalars["ID"]["input"]
-  input: IssueMatchChangeInput
-}
-
 export type MutationUpdateIssueRepositoryArgs = {
   id: Scalars["ID"]["input"]
   input: IssueRepositoryInput
@@ -1411,7 +1341,6 @@ export type Query = {
   ImageVersions?: Maybe<ImageVersionConnection>
   Images?: Maybe<ImageConnection>
   IssueCounts?: Maybe<SeverityCounts>
-  IssueMatchChanges?: Maybe<IssueMatchChangeConnection>
   IssueMatchFilterValues?: Maybe<IssueMatchFilterValue>
   IssueMatches?: Maybe<IssueMatchConnection>
   IssueRepositories?: Maybe<IssueRepositoryConnection>
@@ -1477,12 +1406,6 @@ export type QueryIssueCountsArgs = {
   filter?: InputMaybe<IssueFilter>
 }
 
-export type QueryIssueMatchChangesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<IssueMatchChangeFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
 export type QueryIssueMatchesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueMatchFilter>
@@ -1519,6 +1442,7 @@ export type QueryRemediationsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<RemediationFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<RemediationOrderBy>>>
 }
 
 export type QueryScannerRunsArgs = {
@@ -1565,6 +1489,7 @@ export type Remediation = Node & {
   remediationDate?: Maybe<Scalars["DateTime"]["output"]>
   service?: Maybe<Scalars["String"]["output"]>
   serviceId?: Maybe<Scalars["ID"]["output"]>
+  severity?: Maybe<SeverityValues>
   type?: Maybe<RemediationTypeValues>
   vulnerability?: Maybe<Scalars["String"]["output"]>
   vulnerabilityId?: Maybe<Scalars["ID"]["output"]>
@@ -1585,7 +1510,9 @@ export type RemediationEdge = Edge & {
 
 export type RemediationFilter = {
   image?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
   state?: InputMaybe<Array<StateFilter>>
   type?: InputMaybe<Array<InputMaybe<RemediationTypeValues>>>
   vulnerability?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -1598,12 +1525,26 @@ export type RemediationInput = {
   remediatedBy?: InputMaybe<Scalars["String"]["input"]>
   remediationDate?: InputMaybe<Scalars["DateTime"]["input"]>
   service?: InputMaybe<Scalars["String"]["input"]>
+  severity?: InputMaybe<SeverityValues>
   type?: InputMaybe<RemediationTypeValues>
   vulnerability?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type RemediationOrderBy = {
+  by?: InputMaybe<RemediationOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum RemediationOrderByField {
+  Severity = "severity",
+  Vulnerability = "vulnerability",
+}
+
 export enum RemediationTypeValues {
   FalsePositive = "false_positive",
+  Mitigation = "mitigation",
+  Rescore = "rescore",
+  RiskAccepted = "risk_accepted",
 }
 
 export type ScannerRun = Node & {
@@ -1698,6 +1639,7 @@ export type ServiceRemediationsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<RemediationFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<RemediationOrderBy>>>
 }
 
 export type ServiceSupportGroupsArgs = {
@@ -1985,6 +1927,7 @@ export type VulnerabilityFilter = {
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
+  status?: InputMaybe<VulnerabilityStatus>
   supportGroup?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
@@ -1993,6 +1936,12 @@ export type VulnerabilityFilterValue = {
   service?: Maybe<FilterItem>
   severity?: Maybe<FilterItem>
   supportGroup?: Maybe<FilterItem>
+}
+
+export enum VulnerabilityStatus {
+  All = "all",
+  Open = "open",
+  Remediated = "remediated",
 }
 
 export type CreateRemediationMutationVariables = Exact<{
