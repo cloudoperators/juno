@@ -43,7 +43,6 @@ const VulnerabilitiesTabContent = ({
   issuesPromise,
   successMessage,
   onFalsePositiveSuccess,
-  onFalsePositiveError,
 }: {
   service: string
   image: ServiceImage
@@ -52,7 +51,6 @@ const VulnerabilitiesTabContent = ({
   issuesPromise: ReturnType<typeof fetchImages>
   successMessage: string | null
   onFalsePositiveSuccess: (cveNumber: string) => void
-  onFalsePositiveError: (error: Error, cveNumber: string) => void
 }) => {
   return (
     <>
@@ -95,7 +93,6 @@ const VulnerabilitiesTabContent = ({
                 service={service}
                 image={image.repository}
                 onFalsePositiveSuccess={onFalsePositiveSuccess}
-                onFalsePositiveError={onFalsePositiveError}
               />
             </Suspense>
           </ErrorBoundary>
@@ -248,16 +245,6 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
       [addMessage]
     )
 
-    const handleFalsePositiveError = useCallback(
-      (error: Error, cveNumber: string) => {
-        addMessage({
-          variant: "error",
-          text: `Failed to mark ${cveNumber} as false positive: ${error.message}`,
-        })
-      },
-      [addMessage]
-    )
-
     return (
       <VulnerabilitiesTabContent
         service={service}
@@ -267,7 +254,6 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
         issuesPromise={issuesPromise}
         successMessage={vulnerabilitiesSuccessMessage}
         onFalsePositiveSuccess={handleFalsePositiveSuccess}
-        onFalsePositiveError={handleFalsePositiveError}
       />
     )
   }

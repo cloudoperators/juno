@@ -39,7 +39,6 @@ type IssuesDataRowProps = {
   image: string
   showFalsePositiveAction?: boolean
   onFalsePositiveSuccess?: (cveNumber: string) => void
-  onFalsePositiveError?: (error: Error, cveNumber: string) => void
 }
 
 export const IssuesDataRow = ({
@@ -48,10 +47,10 @@ export const IssuesDataRow = ({
   image,
   showFalsePositiveAction = true,
   onFalsePositiveSuccess,
-  onFalsePositiveError,
 }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [createError, setCreateError] = useState<string | null>(null)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
 
@@ -69,6 +68,7 @@ export const IssuesDataRow = ({
   }
 
   const handleModalConfirm = async (input: RemediationInput) => {
+    setCreateError(null)
     try {
       await createRemediation({ apiClient, input })
       setIsModalOpen(false)
@@ -78,13 +78,12 @@ export const IssuesDataRow = ({
       const cveNumber = issue?.name || "unknown"
       onFalsePositiveSuccess?.(cveNumber)
     } catch (error) {
-      console.error("Failed to create remediation:", error)
-      const cveNumber = issue?.name || "unknown"
-      onFalsePositiveError?.(error instanceof Error ? error : new Error("Failed to create remediation"), cveNumber)
+      setCreateError(error instanceof Error ? error.message : "Failed to create remediation")
     }
   }
 
   const handleModalClose = () => {
+    setCreateError(null)
     setIsModalOpen(false)
   }
 
@@ -132,7 +131,7 @@ export const IssuesDataRow = ({
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
             <PopupMenu icon="moreVert" className="whitespace-nowrap">
               <PopupMenuOptions>
-                <PopupMenuItem label="False-positive" onClick={handleFalsePositiveClick} />
+                <PopupMenuItem label="Mark False Positive" onClick={handleFalsePositiveClick} />
               </PopupMenuOptions>
             </PopupMenu>
           </DataGridCell>
@@ -147,6 +146,7 @@ export const IssuesDataRow = ({
           severity={issue.severity}
           service={service}
           image={image}
+          errorMessage={createError}
         />
       )}
     </>

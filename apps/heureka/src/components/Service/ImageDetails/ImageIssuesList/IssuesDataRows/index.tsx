@@ -15,16 +15,9 @@ type IssuesDataRowsProps = {
   service: string
   image: string
   onFalsePositiveSuccess: (cveNumber: string) => void
-  onFalsePositiveError: (error: Error, cveNumber: string) => void
 }
 
-export const IssuesDataRows = ({
-  issuesPromise,
-  service,
-  image,
-  onFalsePositiveSuccess,
-  onFalsePositiveError,
-}: IssuesDataRowsProps) => {
+export const IssuesDataRows = ({ issuesPromise, service, image, onFalsePositiveSuccess }: IssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
   const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(data as GetImagesQuery | undefined)
 
@@ -45,7 +38,6 @@ export const IssuesDataRows = ({
         service={service}
         image={image}
         onFalsePositiveSuccess={onFalsePositiveSuccess}
-        onFalsePositiveError={onFalsePositiveError}
       />
     ))
 }

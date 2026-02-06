@@ -4,7 +4,15 @@
  */
 
 import React, { useState } from "react"
-import { Modal, ModalFooter, Button, Stack, Textarea } from "@cloudoperators/juno-ui-components"
+import {
+  Modal,
+  ModalFooter,
+  Button,
+  Stack,
+  Textarea,
+  DateTimePicker,
+  Message,
+} from "@cloudoperators/juno-ui-components"
 import { RemediationInput, RemediationTypeValues, SeverityValues } from "../../../../generated/graphql"
 
 type FalsePositiveModalProps = {
@@ -15,6 +23,8 @@ type FalsePositiveModalProps = {
   severity?: string
   service: string
   image: string
+  /** Error message to show when createRemediation fails. Shown above the form content. */
+  errorMessage?: string | null
 }
 
 const CONFIRM_LABEL = "Mark as False Positive"
@@ -35,8 +45,10 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   severity,
   service,
   image,
+  errorMessage,
 }) => {
   const [description, setDescription] = useState<string>("")
+  const [expirationDate, setExpirationDate] = useState<Date | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [descriptionError, setDescriptionError] = useState<string>("")
 
@@ -57,12 +69,14 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         image,
         description: description.trim(),
         ...(severity && { severity: toSeverityValue(severity) }),
+        ...(expirationDate && { expirationDate: expirationDate.toISOString() }),
       }
       await onConfirm(input)
       setDescription("")
+      setExpirationDate(null)
     } catch (error) {
       console.error("Failed to create remediation:", error)
-      // Error handling is done in the parent component
+      // Error is shown in modal via errorMessage from parent
     } finally {
       setIsSubmitting(false)
     }
@@ -70,6 +84,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
 
   const handleClose = () => {
     setDescription("")
+    setExpirationDate(null)
     setDescriptionError("")
     onClose()
   }
@@ -102,6 +117,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
       }
     >
       <Stack gap="4" direction="vertical">
+        {errorMessage && <Message text={errorMessage} variant="error" />}
         <div>
           <strong>Vulnerability:</strong> {vulnerability}
         </div>
@@ -110,6 +126,15 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         </div>
         <div>
           <strong>Image:</strong> {image}
+        </div>
+        <div>
+          <DateTimePicker
+            label="Expiration Date"
+            value={expirationDate ?? undefined}
+            onChange={(dates) => setExpirationDate(dates?.[0] ?? null)}
+            minDate="today"
+            helptext="Optional. When this false positive should no longer be considered valid."
+          />
         </div>
         <div>
           <Textarea
