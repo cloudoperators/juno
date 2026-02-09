@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { TabPanel as ReactTabPanel, TabPanelProps as ReactTabPanelProps } from "react-tabs"
+import React, { HTMLProps } from "react"
+import { TabPanel as ReactTabPanel } from "react-tabs"
 
 /**
 The TabPanel holds content related to a Tab in a TabList in a wrapping Tab component. Not to be used standalone / outside a Tabs wrapper.
@@ -20,9 +20,10 @@ export const TabPanel = ({ children, className = "", ...props }: TabPanelProps) 
 
 TabPanel.tabsRole = "TabPanel"
 
-export interface TabPanelProps extends ReactTabPanelProps {
+export interface TabPanelProps extends HTMLProps<HTMLDivElement> {
   /** The content to show/render when the associated Tab is selected */
   children?: React.ReactNode
-  /** Add a custom classList to the TabPanel */
-  className?: string
+  /** Whether the tab panel is currently selected/active */
+  forceRender?: boolean | undefined
+  selectedClassName?: string | undefined
 }

@@ -8,8 +8,9 @@ import flatpickr from "flatpickr"
 import { FormHint } from "../FormHint/"
 import { Icon } from "../Icon"
 import { Label } from "../Label"
-import { Options, DateOption, DateLimit } from "flatpickr/dist/types/options"
-import { key as LocaleKey, CustomLocale } from "flatpickr/dist/types/locale"
+import type { DateOption, DateLimit, LocaleKey, CustomLocale, DateChangeHandler } from "./DateTimePicker.types"
+import { mapDateOption, mapDateLimits, mapLocale } from "./DateTimePicker.mappers"
+import { Options } from "flatpickr/dist/types/options"
 
 import "./datetimepicker.css"
 
@@ -197,31 +198,55 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
     onBlur && onBlur(theDate.selectedDate, theDate.selectedDateStr)
   }
 
-  const handleChange = (selectedDate: Date[], dateStr: string, _instance: flatpickr.Instance) => {
+  const handleChange: InternalDateChangeHandler = (
+    selectedDate: Date[],
+    dateStr: string,
+    _instance: flatpickr.Instance
+  ) => {
     setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr })
     onChange && onChange(selectedDate, dateStr)
   }
 
-  const handleClose = (selectedDate: Date[], dateStr: string, _instance: flatpickr.Instance) => {
+  const handleClose: InternalDateChangeHandler = (
+    selectedDate: Date[],
+    dateStr: string,
+    _instance: flatpickr.Instance
+  ) => {
     setIsOpen(false)
     onClose && onClose(selectedDate, dateStr)
   }
 
-  const handleMonthChange = (selectedDate: Date[], dateStr: string, _instance: flatpickr.Instance) => {
+  const handleMonthChange: InternalDateChangeHandler = (
+    selectedDate: Date[],
+    dateStr: string,
+    _instance: flatpickr.Instance
+  ) => {
     setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr })
     onMonthChange && onMonthChange(selectedDate, dateStr)
   }
 
-  const handleOpen = (selectedDate: Date[], dateStr: string, _instance: flatpickr.Instance) => {
+  const handleOpen: InternalDateChangeHandler = (
+    selectedDate: Date[],
+    dateStr: string,
+    _instance: flatpickr.Instance
+  ) => {
     setIsOpen(true)
     onOpen && onOpen(selectedDate, dateStr)
   }
 
-  const handleReady = (selectedDate: Date[], dateStr: string, _instance: flatpickr.Instance) => {
+  const handleReady: InternalDateChangeHandler = (
+    selectedDate: Date[],
+    dateStr: string,
+    _instance: flatpickr.Instance
+  ) => {
     onReady && onReady(selectedDate, dateStr)
   }
 
-  const handleYearChange = (selectedDate: Date[], dateStr: string, _instance: flatpickr.Instance) => {
+  const handleYearChange: InternalDateChangeHandler = (
+    selectedDate: Date[],
+    dateStr: string,
+    _instance: flatpickr.Instance
+  ) => {
     setTheDate({ selectedDate: selectedDate, selectedDateStr: dateStr })
     onYearChange && onYearChange(selectedDate, dateStr)
   }
@@ -272,13 +297,13 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
       defaultDate: defaultDate || defaultValue,
       defaultHour: defaultHour,
       defaultMinute: defaultMinute,
-      disable: disable,
+      disable: disable.length > 0 ? mapDateLimits(disable) : [],
       enableSeconds: enableSeconds,
       enableTime: enableTime,
       hourIncrement: hourIncrement,
-      locale: locale || "default",
-      maxDate: maxDate || undefined,
-      minDate: minDate || undefined,
+      locale: locale ? mapLocale(locale) : "default",
+      maxDate: maxDate ? mapDateOption(maxDate) : undefined,
+      minDate: minDate ? mapDateOption(minDate) : undefined,
       minuteIncrement: minuteIncrement,
       mode: mode,
       monthSelectorType,
@@ -441,7 +466,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }, [dateFormat])
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("disable", disable)
+    flatpickrInstanceRef.current?.set("disable", disable.length > 0 ? mapDateLimits(disable) : [])
   }, [disable])
 
   useEffect(() => {
@@ -449,15 +474,15 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }, [hourIncrement])
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("locale", locale || "default")
+    flatpickrInstanceRef.current?.set("locale", locale ? mapLocale(locale) : "default")
   }, [locale])
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("maxDate", maxDate)
+    flatpickrInstanceRef.current?.set("maxDate", maxDate ? mapDateOption(maxDate) : undefined)
   }, [maxDate])
 
   useEffect(() => {
-    flatpickrInstanceRef.current?.set("minDate", minDate)
+    flatpickrInstanceRef.current?.set("minDate", minDate ? mapDateOption(minDate) : undefined)
   }, [minDate])
 
   useEffect(() => {
@@ -470,10 +495,15 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   // Update the flatpickr instance whenever the value prop (or any of its aliases) changes, and force the flatpickr instance to fire onChange event. These props may contain an array of one or multiple objects. These will never pass React's identity comparison, and will be regarded as a new object with any render regardless of their contents, thus creating an endless loop by updating the flatpickr instance updating the parent state (via onChange above) updating the flatpickr instance (…). We prevent this by checking on the stringified versions of the props in the dependency array.
   useEffect(() => {
-    flatpickrInstanceRef.current?.setDate(
-      (value || defaultDate || defaultValue) as DateOption | DateOption[],
-      true // enforce firing change event that in turn will update our state via handleChange.
-    )
+    const dateValue = value || defaultDate || defaultValue
+    if (dateValue) {
+      const flatpickrValue = Array.isArray(dateValue) ? dateValue.map(mapDateOption) : mapDateOption(dateValue)
+
+      flatpickrInstanceRef.current?.setDate(
+        flatpickrValue,
+        true // enforce firing change event that in turn will update our state via handleChange.
+      )
+    }
   }, [stringifiedValue, stringifiedDefaultDate, stringifiedDefaultValue])
 
   useEffect(() => {
@@ -553,8 +583,8 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   )
 }
 
-// eslint-disable-next-line no-unused-vars
-type DateChangeHandler = (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
+// Internal type that includes flatpickr instance for internal use
+type InternalDateChangeHandler = (_selectedDate: Date[], _dateStr: string, _instance: flatpickr.Instance) => void
 
 export interface DateTimePickerProps
   extends Omit<React.HTMLAttributes<HTMLInputElement>, "defaultValue" | "onFocus" | "onBlur" | "onChange"> {
@@ -585,7 +615,7 @@ export interface DateTimePickerProps
   /**
    * Pass an array of dates, date strings, date ranges or functions to disable dates. More on disabling dates: https://flatpickr.js.org/examples/#disabling-specific-dates
    */
-  disable?: DateLimit<DateOption>[]
+  disable?: DateLimit[]
   /** Whether the DateTimePicker is disabled */
   disabled?: boolean
   /** Whether to show seconds when showing a time picker. */

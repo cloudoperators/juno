@@ -101,7 +101,7 @@ export interface PopupMenuContextType {
   menuSize: "normal" | "small"
 }
 
-export interface PopupMenuProps extends React.ComponentProps<typeof HeadlessMenu> {
+export interface PopupMenuProps {
   /** The children to render. If no PopupMenu.Toggle child is passed, PopupMenu will render a default toggle. Pass a PopupMenu.Menu child in order to have a working component. */
   children?: ReactNode
   /** Add a custom className to the wrapping element. NOTE: The Menu will be rendered into a Portal outside the wrapping parent element, so the Menu and its children will be outside the scope of the parent CSS selector.*/
@@ -112,14 +112,36 @@ export interface PopupMenuProps extends React.ComponentProps<typeof HeadlessMenu
   icon?: KnownIcons
   /** The size of the menu and its items. */
   menuSize?: "normal" | "small"
+  /** Additional props passed to the root element */
+  id?: string
+  role?: string
+  "aria-label"?: string
+  "aria-labelledby"?: string
   /** Handler to run when the Menu closes. */
   onClose?: () => void
   /** Handler to run when the Menu opens. */
   onOpen?: () => void
 }
 
-export interface PopupMenuToggleProps extends React.ComponentProps<typeof MenuButton> {
+export interface PopupMenuToggleProps {
+  /** Element type to render as */
+  as?: React.ElementType
+  /** CSS class names */
   className?: string
+  /** Whether the toggle is disabled */
+  disabled?: boolean
+  /** Children to render inside the toggle */
+  children?: ReactNode
+  /** Additional HTML attributes */
+  id?: string
+  "aria-expanded"?: boolean
+  "aria-haspopup"?: boolean
+  "aria-label"?: string
+  "aria-labelledby"?: string
+  role?: string
+  type?: string
+  /** Click handler */
+  onClick?: (_event: React.MouseEvent) => void
 }
 
 //Extract types directly from React.ElementType as Headless Menu Items is a dynamically typed component that cannot be extended with React.ComponentPropsWithRef (such as `href` or `target` – these will be accepted when passing `as` as `a` in order to render an anchor, but not when rendering a div.):
@@ -132,15 +154,33 @@ export interface PopupMenuOptionsProps extends HeadlessMenuItemsProps {
   key?: React.Key
 }
 
-export interface PopupMenuItemProps extends React.ComponentProps<typeof MenuItem> {
-  as?: React.ElementType // Allow customising the element type to allow for rendering items as anchor elements, just as headless ui does
+export interface PopupMenuItemProps {
+  /** Element type to render as (e.g., 'div', 'a', 'button') */
+  as?: React.ElementType
+  /** CSS class names */
   className?: string
+  /** Whether the item is disabled */
   disabled?: boolean
-  href?: string // accept a href when rendering a link, whether or not to pass it to HUI item will behandled in the component
+  /** URL for links (when as="a") */
+  href?: string
+  /** Icon to display */
   icon?: KnownIcons
+  /** Label text to display */
   label?: string
-  rel?: string // accept rel for anchors, handle in component
-  target?: string // accepot target for links, handle in component
+  /** Link relationship (when as="a") */
+  rel?: string
+  /** Link target (when as="a") */
+  target?: string
+  /** Children content - can be ReactNode or function for render props */
+  children?: ReactNode | ((_itemBag: { active: boolean; disabled: boolean; close: () => void }) => ReactNode)
+  /** Additional HTML attributes */
+  id?: string
+  role?: string
+  "aria-label"?: string
+  "aria-labelledby"?: string
+  "aria-current"?: boolean | "page" | "step" | "location" | "date" | "time"
+  /** Click handler */
+  onClick?: (_event: React.MouseEvent) => void
 }
 
 export interface PopupMenuSectionProps {
