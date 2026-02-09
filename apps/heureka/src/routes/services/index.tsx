@@ -13,29 +13,28 @@ import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
 import { extractFilterSettingsFromSearchParams } from "../../components/Services/utils"
+import { filterSearchParamsByPrefix } from "../../utils"
 
-// Schema for validating and transforming search parameters related to /services page.
+const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
+
 const servicesSearchSchema = z
   .object({
     service: z.string().optional(),
     searchTerm: z.string().optional(),
   })
-  .catchall(
-    z.preprocess(
-      (val, ctx) => {
-        if (ctx.path.length > 0 && typeof ctx.path[0] === "string" && !ctx.path[0].startsWith(SELECTED_FILTER_PREFIX)) {
-          return undefined
-        }
-        return val
-      },
-      z.union([z.string(), z.array(z.string()), z.undefined()])
-    )
-  )
+  .catchall(filterValueSchema)
 
 export type ServicesSearchParams = z.infer<typeof servicesSearchSchema>
 
+const SERVICES_KNOWN_KEYS = ["service", "searchTerm"] as const
+
+function validateServicesSearch(search: Record<string, unknown>): ServicesSearchParams {
+  const filtered = filterSearchParamsByPrefix(search, [...SERVICES_KNOWN_KEYS], [SELECTED_FILTER_PREFIX])
+  return servicesSearchSchema.parse(filtered) as ServicesSearchParams
+}
+
 export const Route = createFileRoute("/services/")({
-  validateSearch: servicesSearchSchema,
+  validateSearch: validateServicesSearch,
   loaderDeps: ({ search }) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { service, ...rest } = search // we're omitting 'service' from the deps so route does not reload when it changes
