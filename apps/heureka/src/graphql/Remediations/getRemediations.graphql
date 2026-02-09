@@ -11,6 +11,9 @@ query GetRemediations($filter: RemediationFilter) {
         service
         image
         vulnerability
+        expirationDate
+        remediationDate
+        remediatedBy
       }
     }
     totalCount

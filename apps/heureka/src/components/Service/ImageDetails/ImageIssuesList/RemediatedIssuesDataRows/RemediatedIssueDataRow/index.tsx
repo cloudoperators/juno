@@ -23,9 +23,11 @@ const cellSeverityClasses = (severity: string) => {
 
 type RemediatedIssueDataRowProps = {
   issue: ImageVulnerability
+  selected?: boolean
+  onSelect: () => void
 }
 
-export const RemediatedIssueDataRow = ({ issue }: RemediatedIssueDataRowProps) => {
+export const RemediatedIssueDataRow = ({ issue, selected, onSelect }: RemediatedIssueDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
 
@@ -39,7 +41,10 @@ export const RemediatedIssueDataRow = ({ issue }: RemediatedIssueDataRowProps) =
   }
 
   return (
-    <DataGridRow>
+    <DataGridRow
+      onClick={onSelect}
+      className={selected ? "bg-theme-background-selected cursor-pointer" : "cursor-pointer"}
+    >
       <DataGridCell className="pl-0">
         <div className={cellSeverityClasses(issue.severity)}>
           <IssueIcon severity={issue.severity} />
@@ -50,7 +55,13 @@ export const RemediatedIssueDataRow = ({ issue }: RemediatedIssueDataRowProps) =
         <Stack gap="2" direction="vertical">
           <span>{issue.name}</span>
           {issue.sourceUrl && issue.sourceUrl !== "-" && (
-            <a href={issue.sourceUrl} target="_blank" rel="noopener noreferrer" className="link-hover">
+            <a
+              href={issue.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-hover"
+              onClick={(e) => e.stopPropagation()}
+            >
               <Stack gap="1.5" alignment="center">
                 <Icon icon="openInNew" size="16" />
                 <span>Vulnerability source</span>
@@ -71,7 +82,14 @@ export const RemediatedIssueDataRow = ({ issue }: RemediatedIssueDataRowProps) =
             {issue.description}
           </span>
           {issue.description && needsExpansion && (
-            <a href="#" onClick={toggleDescription} className="link-hover">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.stopPropagation()
+                toggleDescription(e)
+              }}
+              className="link-hover"
+            >
               <Stack alignment="center">
                 {isExpanded ? "Show less" : "Show more"}
                 <Icon color="global-text" icon={isExpanded ? "expandLess" : "expandMore"} />

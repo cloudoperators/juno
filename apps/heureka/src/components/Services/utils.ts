@@ -602,9 +602,9 @@ export const getNormalizedRemediationsResponse = (
         image: node.image || null,
         vulnerability: node.vulnerability || null,
         vulnerabilityId: null,
-        remediationDate: null,
-        remediatedBy: null,
-        expirationDate: null,
+        remediationDate: node.remediationDate != null ? String(node.remediationDate) : null,
+        remediatedBy: node.remediatedBy ?? null,
+        expirationDate: node.expirationDate != null ? String(node.expirationDate) : null,
       }
     })
 

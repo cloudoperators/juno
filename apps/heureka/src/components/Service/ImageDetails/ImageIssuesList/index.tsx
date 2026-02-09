@@ -25,6 +25,7 @@ import { fetchImages } from "../../../../api/fetchImages"
 import { fetchRemediations } from "../../../../api/fetchRemediations"
 import { IssuesDataRows } from "./IssuesDataRows"
 import { RemediatedIssuesDataRows } from "./RemediatedIssuesDataRows"
+import { RemediationHistoryPanel } from "./RemediationHistoryPanel"
 import { CursorPagination } from "../../../common/CursorPagination"
 import { ErrorBoundary } from "../../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../../common/getErrorDataRow"
@@ -114,16 +115,22 @@ const VulnerabilitiesTabContent = ({
 }
 
 const RemediatedVulnerabilitiesTabContent = ({
+  service,
+  image,
   issuesPromise,
   remediationsPromise,
   setPageCursor,
   successMessage,
 }: {
+  service: string
+  image: string
   issuesPromise: ReturnType<typeof fetchImages>
   remediationsPromise: ReturnType<typeof fetchRemediations>
   setPageCursor: (cursor: string | null | undefined) => void
   successMessage: string | null
 }) => {
+  const [selectedVulnerability, setSelectedVulnerability] = useState<string | null>(null)
+
   return (
     <>
       {successMessage && (
@@ -150,7 +157,12 @@ const RemediatedVulnerabilitiesTabContent = ({
               resetKeys={[issuesPromise, remediationsPromise]}
             >
               <Suspense fallback={<LoadingDataRow colSpan={4} />}>
-                <RemediatedIssuesDataRows issuesPromise={issuesPromise} remediationsPromise={remediationsPromise} />
+                <RemediatedIssuesDataRows
+                  issuesPromise={issuesPromise}
+                  remediationsPromise={remediationsPromise}
+                  selectedVulnerabilityName={selectedVulnerability}
+                  onSelectVulnerability={setSelectedVulnerability}
+                />
               </Suspense>
             </ErrorBoundary>
           )}
@@ -167,6 +179,12 @@ const RemediatedVulnerabilitiesTabContent = ({
           </ErrorBoundary>
         )}
       </div>
+      <RemediationHistoryPanel
+        service={service}
+        image={image}
+        vulnerability={selectedVulnerability}
+        onClose={() => setSelectedVulnerability(null)}
+      />
     </>
   )
 }
@@ -261,6 +279,8 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const RemediatedVulnerabilitiesTab = () => {
     return (
       <RemediatedVulnerabilitiesTabContent
+        service={service}
+        image={image.repository}
         issuesPromise={remediatedIssuesPromise}
         remediationsPromise={remediationsPromise}
         setPageCursor={setRemediatedPageCursor}

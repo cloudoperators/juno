@@ -1992,6 +1992,9 @@ export type GetRemediationsQuery = {
         service?: string | null
         image?: string | null
         vulnerability?: string | null
+        expirationDate?: any | null
+        remediationDate?: any | null
+        remediatedBy?: string | null
       }
     } | null> | null
   } | null
@@ -2373,6 +2376,9 @@ export const GetRemediationsDocument = gql`
           service
           image
           vulnerability
+          expirationDate
+          remediationDate
+          remediatedBy
         }
       }
       totalCount
