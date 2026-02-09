@@ -1,1 +1,0 @@
-import{j as r,V as o,m as t}from"./Shell-DO_mhGpw.js";const c=({error:s})=>{const e=s,n=e.name?`${e.name}: `:"Error: ",a=e.message||"Something went wrong";return r.jsxs(o,{gap:"2",alignment:"center",children:[r.jsx(t,{icon:"danger",className:"text-theme-danger"}),r.jsxs("span",{children:[n,a]})]})};export{c as E};
