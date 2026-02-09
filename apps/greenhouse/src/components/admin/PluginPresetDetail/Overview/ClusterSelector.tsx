@@ -15,7 +15,7 @@ export const ClusterSelector: React.FC<ClusterSelectorProps> = ({ pluginPreset }
   const clusterSelector = pluginPreset.spec?.clusterSelector
 
   return (
-    <Stack gap="4" direction="vertical">
+    <Stack gap="4" direction="vertical" className="flex-1">
       <h3>Cluster Selector</h3>
       {clusterSelector ? <JsonViewer expanded data={clusterSelector} /> : <p>No cluster selector configured</p>}
     </Stack>

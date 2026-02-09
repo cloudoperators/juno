@@ -12,8 +12,8 @@ import { PluginPreset } from "../../types/k8sTypes"
 import { PluginInstances } from "./PluginInstances"
 import { Conditions } from "./Conditions"
 
-const Section = ({ children }: { children: React.ReactNode }) => (
-  <Container px={false} py>
+const Section = ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement>) => (
+  <Container px={false} py {...rest}>
     {children}
   </Container>
 )
@@ -23,10 +23,8 @@ export const Overview = ({ pluginPreset }: { pluginPreset: PluginPreset }) => (
     <Section>
       <PluginPresetStats pluginPreset={pluginPreset} />
     </Section>
-    <Section>
+    <Section className="flex">
       <BasicInformation pluginPreset={pluginPreset} />
-    </Section>
-    <Section>
       <ClusterSelector pluginPreset={pluginPreset} />
     </Section>
     <Section>

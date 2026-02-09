@@ -12,7 +12,7 @@ interface BasicInformationProps {
 }
 
 export const BasicInformation: React.FC<BasicInformationProps> = ({ pluginPreset }) => (
-  <Stack gap="4" direction="vertical">
+  <Stack gap="4" direction="vertical" className="flex-1">
     <h3>Basic Information</h3>
     <DataGrid columns={2} minContentColumns={[0]}>
       <DataGridRow>
