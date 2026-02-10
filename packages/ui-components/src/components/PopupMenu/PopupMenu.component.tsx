@@ -101,47 +101,24 @@ export interface PopupMenuContextType {
   menuSize: "normal" | "small"
 }
 
-export interface PopupMenuProps {
-  /** The children to render. If no PopupMenu.Toggle child is passed, PopupMenu will render a default toggle. Pass a PopupMenu.Menu child in order to have a working component. */
-  children?: ReactNode
-  /** Add a custom className to the wrapping element. NOTE: The Menu will be rendered into a Portal outside the wrapping parent element, so the Menu and its children will be outside the scope of the parent CSS selector.*/
-  className?: string
+export interface PopupMenuProps extends React.HTMLAttributes<HTMLElement> {
   /** Whether the PopupMenu is disabled. */
   disabled?: boolean
   /** The icon to render when using the default toggle. Will be ignored if a PopupMenu.Toggle child is passed. */
   icon?: KnownIcons
   /** The size of the menu and its items. */
   menuSize?: "normal" | "small"
-  /** Additional props passed to the root element */
-  id?: string
-  role?: string
-  "aria-label"?: string
-  "aria-labelledby"?: string
   /** Handler to run when the Menu closes. */
   onClose?: () => void
   /** Handler to run when the Menu opens. */
   onOpen?: () => void
 }
 
-export interface PopupMenuToggleProps {
+export interface PopupMenuToggleProps extends React.HTMLAttributes<HTMLElement> {
   /** Element type to render as */
   as?: React.ElementType
-  /** CSS class names */
-  className?: string
   /** Whether the toggle is disabled */
   disabled?: boolean
-  /** Children to render inside the toggle */
-  children?: ReactNode
-  /** Additional HTML attributes */
-  id?: string
-  "aria-expanded"?: boolean
-  "aria-haspopup"?: boolean
-  "aria-label"?: string
-  "aria-labelledby"?: string
-  role?: string
-  type?: string
-  /** Click handler */
-  onClick?: (_event: React.MouseEvent) => void
 }
 
 //Extract types directly from React.ElementType as Headless Menu Items is a dynamically typed component that cannot be extended with React.ComponentPropsWithRef (such as `href` or `target` – these will be accepted when passing `as` as `a` in order to render an anchor, but not when rendering a div.):
@@ -154,33 +131,22 @@ export interface PopupMenuOptionsProps extends HeadlessMenuItemsProps {
   key?: React.Key
 }
 
-export interface PopupMenuItemProps {
-  /** Element type to render as (e.g., 'div', 'a', 'button') */
-  as?: React.ElementType
-  /** CSS class names */
+export interface PopupMenuItemBag {
+  active: boolean
+  disabled: boolean
+  focus: boolean
+}
+
+export interface PopupMenuItemProps extends Omit<React.HTMLAttributes<HTMLElement>, "children"> {
+  as?: React.ElementType // Allow customising the element type to allow for rendering items as anchor elements, just as headless ui does
+  children?: ReactNode | ((_itemBag: PopupMenuItemBag) => ReactNode) // Can be a render prop function
   className?: string
-  /** Whether the item is disabled */
   disabled?: boolean
-  /** URL for links (when as="a") */
-  href?: string
-  /** Icon to display */
+  href?: string // accept a href when rendering a link, whether or not to pass it to HUI item will behandled in the component
   icon?: KnownIcons
-  /** Label text to display */
   label?: string
-  /** Link relationship (when as="a") */
-  rel?: string
-  /** Link target (when as="a") */
-  target?: string
-  /** Children content - can be ReactNode or function for render props */
-  children?: ReactNode | ((_itemBag: { active: boolean; disabled: boolean; close: () => void }) => ReactNode)
-  /** Additional HTML attributes */
-  id?: string
-  role?: string
-  "aria-label"?: string
-  "aria-labelledby"?: string
-  "aria-current"?: boolean | "page" | "step" | "location" | "date" | "time"
-  /** Click handler */
-  onClick?: (_event: React.MouseEvent) => void
+  rel?: string // accept rel for anchors, handle in component
+  target?: string // accepot target for links, handle in component
 }
 
 export interface PopupMenuSectionProps {

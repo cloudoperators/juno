@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { HTMLProps } from "react"
+import React from "react"
 import { Tab as ReactTab } from "react-tabs"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
-import { mergeClassNames } from "./Tab.utils"
 
 const tabStyles = `
   jn:flex
@@ -39,7 +38,7 @@ const iconStyles = `
 export const Tab = ({ children, label = "", icon, disabled = false, className = "", ...props }: TabProps) => {
   return (
     <ReactTab
-      className={`juno-tab ${tabStyles} ${mergeClassNames(className)}`}
+      className={`juno-tab ${tabStyles} ${className}`}
       disabledClassName={`juno-tab-disabled ${disabledTabStyles}`}
       selectedClassName={`juno-tab-selected ${selectedTabStyles}`}
       disabled={disabled}
@@ -53,7 +52,7 @@ export const Tab = ({ children, label = "", icon, disabled = false, className = 
 
 Tab.tabsRole = "Tab"
 
-export interface TabProps extends Omit<HTMLProps<HTMLLIElement>, "className" | "tabIndex"> {
+export interface TabProps extends Omit<React.HTMLAttributes<HTMLLIElement>, "tabIndex"> {
   /** The children to render inside the Tab (-button) */
   children?: React.ReactNode
   /** The Tab label (only rendered when no children are supplied) */
@@ -62,8 +61,4 @@ export interface TabProps extends Omit<HTMLProps<HTMLLIElement>, "className" | "
   icon?: KnownIcons
   /** Whether the Tab is disabled */
   disabled?: boolean
-  /** Add custom classNames to the Tab */
-  className?: string | string[] | { [name: string]: boolean } | undefined
-  disabledClassName?: string | undefined
-  selectedClassName?: string | undefined
 }
