@@ -17,7 +17,7 @@ import {
 } from "../components/StoreProvider"
 import { parseInitialFilters } from "../lib/store/createFiltersSlice"
 import { isObjectWithKeys } from "../lib/helpers"
-import { filterSearchParamsByPrefix } from "../lib/validateSearch"
+import { filterSearchParamsByPrefix } from "../lib/helpers"
 
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 

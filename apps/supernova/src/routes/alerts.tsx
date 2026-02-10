@@ -14,7 +14,7 @@ import { ACTIVE_FILTERS_PREFIX, PAUSED_FILTERS_PREFIX } from "../constants"
 import { convertUrlStateToAppState, getFiltersForUrl } from "../lib/urlStateUtils"
 import { useGlobalsActions, useFilterActions, useGlobalsInitialFiltersApplied } from "../components/StoreProvider"
 import { isObjectWithKeys } from "../lib/utils"
-import { filterSearchParamsByPrefix } from "../lib/validateSearch"
+import { filterSearchParamsByPrefix } from "../lib/utils"
 
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
