@@ -52,7 +52,7 @@ export const Tab = ({ children, label = "", icon, disabled = false, className = 
 
 Tab.tabsRole = "Tab"
 
-export interface TabProps extends Omit<React.HTMLAttributes<HTMLLIElement>, "tabIndex"> {
+export interface TabProps extends Omit<React.HTMLProps<HTMLLIElement>, "tabIndex"> {
   /** The children to render inside the Tab (-button) */
   children?: React.ReactNode
   /** The Tab label (only rendered when no children are supplied) */
