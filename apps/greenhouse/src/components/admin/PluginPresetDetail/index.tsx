@@ -28,30 +28,28 @@ const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPrese
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 
   return (
-    <>
-      <Tabs selectedIndex={selectedTabIndex} onSelect={setSelectedTabIndex}>
-        <TabList>
-          <Tab label="Overview" />
-          <Tab label="Configuration Overrides" />
-          <Tab label="Raw Data" />
-        </TabList>
-        <TabPanel>
-          <Container px={false} py>
-            {pluginPreset && <Overview pluginPreset={pluginPreset} />}
-          </Container>
-        </TabPanel>
-        <TabPanel>
-          <Container px={false} py>
-            {pluginPreset && <ConfigurationOverrides pluginPreset={pluginPreset} />}
-          </Container>
-        </TabPanel>
-        <TabPanel>
-          <Container px={false} py>
-            {pluginPreset && <RawData pluginPreset={pluginPreset} />}
-          </Container>
-        </TabPanel>
-      </Tabs>
-    </>
+    <Tabs selectedIndex={selectedTabIndex} onSelect={setSelectedTabIndex}>
+      <TabList>
+        <Tab label="Overview" />
+        <Tab label="Configuration Overrides" />
+        <Tab label="Raw Data" />
+      </TabList>
+      <TabPanel>
+        <Container px={false} py>
+          <Overview pluginPreset={pluginPreset} />
+        </Container>
+      </TabPanel>
+      <TabPanel>
+        <Container px={false} py>
+          <ConfigurationOverrides pluginPreset={pluginPreset} />
+        </Container>
+      </TabPanel>
+      <TabPanel>
+        <Container px={false} py>
+          <RawData pluginPreset={pluginPreset} />
+        </Container>
+      </TabPanel>
+    </Tabs>
   )
 }
 

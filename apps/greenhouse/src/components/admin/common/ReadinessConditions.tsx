@@ -78,7 +78,7 @@ const ConditionCard: React.FC<{ condition: ReadinessCondition }> = ({ condition 
             <GridColumn>
               <strong>{condition.type}</strong>
             </GridColumn>
-            <GridColumn auto>{condition.status === "True" ? "true" : "false"}</GridColumn>
+            <GridColumn auto>{condition.status}</GridColumn>
           </GridRow>
           <GridRow className="py-1">
             <GridColumn>

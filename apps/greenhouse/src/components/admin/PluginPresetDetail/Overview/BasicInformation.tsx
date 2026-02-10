@@ -17,15 +17,15 @@ export const BasicInformation: React.FC<BasicInformationProps> = ({ pluginPreset
     <DataGrid columns={2} minContentColumns={[0]}>
       <DataGridRow>
         <DataGridHeadCell nowrap>Name</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.metadata?.name || "N/A"}</DataGridCell>
+        <DataGridCell>{pluginPreset.metadata?.name}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Plugin Definition</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.spec?.plugin?.pluginDefinitionRef?.name || "N/A"}</DataGridCell>
+        <DataGridCell>{pluginPreset.spec?.plugin?.pluginDefinitionRef?.name}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Owning Team</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.metadata?.labels?.["greenhouse.sap/owned-by"] || "N/A"}</DataGridCell>
+        <DataGridCell>{pluginPreset.metadata?.labels?.["greenhouse.sap/owned-by"]}</DataGridCell>
       </DataGridRow>
       {pluginPreset.metadata?.labels && Object.keys(pluginPreset.metadata.labels).length > 0 && (
         <DataGridRow>

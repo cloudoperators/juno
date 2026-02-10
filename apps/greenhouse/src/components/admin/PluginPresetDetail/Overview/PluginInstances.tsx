@@ -33,7 +33,7 @@ const DataRows = ({ colSpan }: { colSpan: number }) => {
   }
 
   const isPluginReady = (plugin: Plugin) => {
-    return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True")
+    return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True") ?? false
   }
 
   return (
@@ -47,7 +47,7 @@ const DataRows = ({ colSpan }: { colSpan: number }) => {
               <Icon icon={ready ? "checkCircle" : "error"} color={ready ? "text-theme-success" : "text-theme-danger"} />
             </DataGridCell>
             <DataGridCell>{plugin.metadata?.name}</DataGridCell>
-            <DataGridCell>{plugin.spec?.clusterName || "greenhouse"}</DataGridCell>
+            <DataGridCell>{plugin.spec?.clusterName}</DataGridCell>
             <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
           </DataGridRow>
         )
