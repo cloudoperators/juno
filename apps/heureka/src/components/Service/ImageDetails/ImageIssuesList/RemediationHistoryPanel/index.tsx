@@ -15,6 +15,8 @@ import {
   PopupMenu,
   PopupMenuOptions,
   PopupMenuItem,
+  Toast,
+  Stack,
 } from "@cloudoperators/juno-ui-components"
 import { fetchRemediations } from "../../../../../api/fetchRemediations"
 import { deleteRemediation } from "../../../../../api/deleteRemediation"
@@ -31,6 +33,8 @@ type RemediationHistoryPanelProps = {
   image: string
   vulnerability: string | null
   onClose: () => void
+  /** Called after a successful revert so the parent can refetch getRemediations and getImages. */
+  onRevertSuccess?: () => void | Promise<void>
 }
 
 const COLUMN_SPAN = 6
@@ -101,27 +105,44 @@ const RemediationHistoryTable = ({
   )
 }
 
-export const RemediationHistoryPanel = ({ service, image, vulnerability, onClose }: RemediationHistoryPanelProps) => {
+type RevertMessage = { variant: "success" | "error"; text: string }
+
+export const RemediationHistoryPanel = ({
+  service,
+  image,
+  vulnerability,
+  onClose,
+  onRevertSuccess,
+}: RemediationHistoryPanelProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
+  const [revertMessage, setRevertMessage] = useState<RevertMessage | null>(null)
 
   const remediationsPromise = useMemo(() => {
     if (!vulnerability) return null
-    // TODO(BE): Remove workaround once getRemediations filter and deleteRemediation are fixed. See comment below.
+
     return fetchRemediations({
       apiClient,
       queryClient,
       filter: {
         service: [service],
-        image: [vulnerability],
-        vulnerability: [image],
+        image: [image],
+        vulnerability: [vulnerability],
       },
     })
   }, [service, image, vulnerability, apiClient, queryClient])
 
   const handleRevert = async (remediationId: string) => {
-    await deleteRemediation({ apiClient, remediationId })
-    queryClient.invalidateQueries({ queryKey: ["remediations"] })
-    queryClient.invalidateQueries({ queryKey: ["images"] })
+    try {
+      await deleteRemediation({ apiClient, remediationId })
+      await onRevertSuccess?.()
+      const text = `Vulnerability ${vulnerability ?? "unknown"} reverted from false positive successfully.`
+      setRevertMessage({ variant: "success", text })
+    } catch (err) {
+      setRevertMessage({
+        variant: "error",
+        text: err instanceof Error ? err.message : "Failed to delete remediation",
+      })
+    }
   }
 
   return (
@@ -132,6 +153,18 @@ export const RemediationHistoryPanel = ({ service, image, vulnerability, onClose
       size="large"
     >
       <PanelBody>
+        {revertMessage && (
+          <Stack direction="vertical" gap="2" className="jn-mb-4">
+            <Toast
+              variant={revertMessage.variant}
+              autoDismiss
+              autoDismissTimeout={5000}
+              onDismiss={() => setRevertMessage(null)}
+            >
+              {revertMessage.text}
+            </Toast>
+          </Stack>
+        )}
         {remediationsPromise && (
           <ErrorBoundary
             displayErrorMessage

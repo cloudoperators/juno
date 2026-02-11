@@ -285,35 +285,15 @@ type NormalizedServiceImageVulnerabilities = {
   totalCount: number
 }
 
-export const getNormalizedImageVulnerabilitiesResponse = (
-  // Apollo Client's use() hook can return DeepPartialObject<GetImagesQuery> during loading
-  data: GetImagesQuery | undefined
-): NormalizedServiceImageVulnerabilities => {
-  if (!data?.Images?.edges?.[0]?.node) {
-    return {
-      vulnerabilities: [],
-      totalImageVulnerabilities: 0,
-      pages: [],
-      pageNumber: 1,
-      totalCount: 0,
-    }
-  }
+// Extract the type for vulnerability edge from GetImagesQuery structure
+type ImageNodeFromQuery = NonNullable<NonNullable<NonNullable<GetImagesQuery["Images"]>["edges"]>[number]>["node"]
+type VulnerabilityEdgeFromQuery =
+  NonNullable<NonNullable<ImageNodeFromQuery>["vulnerabilities"]>["edges"] extends Array<infer E | null> ? E : never
 
-  const imageNode = data.Images.edges[0].node
-  const vulnerabilitiesEdges = imageNode.vulnerabilities?.edges || []
-  const vulnerabilitiesPageInfo = imageNode.vulnerabilities?.pageInfo
-
-  // Extract the type for vulnerability edge from GetImagesQuery structure
-  type VulnerabilityEdge = NonNullable<
-    NonNullable<NonNullable<NonNullable<GetImagesQuery["Images"]>["edges"]>[0]>["node"]
-  >["vulnerabilities"] extends infer V
-    ? V extends { edges: Array<infer E | null> }
-      ? E
-      : never
-    : never
-
-  const vulnerabilities: ImageVulnerability[] = vulnerabilitiesEdges
-    .filter((edge): edge is NonNullable<VulnerabilityEdge> => edge !== null && edge.node !== null)
+function extractVulnerabilitiesFromImageNode(imageNode: ImageNodeFromQuery): ImageVulnerability[] {
+  const edges = imageNode?.vulnerabilities?.edges || []
+  return edges
+    .filter((edge): edge is NonNullable<VulnerabilityEdgeFromQuery> => edge !== null && edge?.node != null)
     .map((edge) => {
       const node = edge.node
       return {
@@ -325,20 +305,51 @@ export const getNormalizedImageVulnerabilitiesResponse = (
         sourceUrl: node.sourceUrl || "",
       }
     })
+}
 
-  const totalImageVulnerabilities = imageNode.vulnerabilityCounts?.total ?? 0
-  const pages = vulnerabilitiesPageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
+export const getNormalizedImageVulnerabilitiesResponse = (
+  // Apollo Client's use() hook can return DeepPartialObject<GetImagesQuery> during loading
+  data: GetImagesQuery | undefined
+): NormalizedServiceImageVulnerabilities => {
+  const edges = data?.Images?.edges
+  if (!edges?.length) {
+    return {
+      vulnerabilities: [],
+      totalImageVulnerabilities: 0,
+      pages: [],
+      pageNumber: 1,
+      totalCount: 0,
+    }
+  }
+
+  // Aggregate vulnerabilities from all image edges (handles vulFilter responses that may return multiple nodes or different shapes)
+  const allVulnerabilities: ImageVulnerability[] = []
+  let vulnerabilitiesPageInfo: NonNullable<NonNullable<ImageNodeFromQuery>["vulnerabilities"]>["pageInfo"] = null
+  let totalImageVulnerabilities = 0
+
+  for (const edge of edges) {
+    const node = edge?.node
+    if (!node) continue
+    const vulns = extractVulnerabilitiesFromImageNode(node)
+    allVulnerabilities.push(...vulns)
+    if (node.vulnerabilityCounts?.total != null) {
+      totalImageVulnerabilities = Math.max(totalImageVulnerabilities, node.vulnerabilityCounts.total)
+    }
+    if (node.vulnerabilities?.pageInfo && !vulnerabilitiesPageInfo) {
+      vulnerabilitiesPageInfo = node.vulnerabilities.pageInfo
+    }
+  }
+
+  const pages = vulnerabilitiesPageInfo?.pages?.filter((p): p is Page => p !== null) || []
   const pageNumber = vulnerabilitiesPageInfo?.pageNumber || 1
-
-  // When vulnerabilities.edges is [] or vulnerabilities.pageInfo is null, there are no results
-  const hasNoResults = vulnerabilities.length === 0 || !vulnerabilitiesPageInfo
+  const hasNoResults = allVulnerabilities.length === 0 || !vulnerabilitiesPageInfo
 
   return {
-    vulnerabilities,
+    vulnerabilities: allVulnerabilities,
     totalImageVulnerabilities,
     pages,
     pageNumber,
-    totalCount: hasNoResults ? 0 : vulnerabilities.length,
+    totalCount: hasNoResults ? 0 : allVulnerabilities.length,
   }
 }
 

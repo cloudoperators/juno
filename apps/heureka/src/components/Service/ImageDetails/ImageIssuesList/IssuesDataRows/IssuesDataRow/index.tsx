@@ -38,7 +38,7 @@ type IssuesDataRowProps = {
   service: string
   image: string
   showFalsePositiveAction?: boolean
-  onFalsePositiveSuccess?: (cveNumber: string) => void
+  onFalsePositiveSuccess?: (cveNumber: string) => void | Promise<void>
 }
 
 export const IssuesDataRow = ({
@@ -52,7 +52,7 @@ export const IssuesDataRow = ({
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
-  const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
+  const { apiClient } = useRouteContext({ from: "/services/$service" })
 
   if (!issue || !issue.name) {
     return null
@@ -72,11 +72,8 @@ export const IssuesDataRow = ({
     try {
       await createRemediation({ apiClient, input })
       setIsModalOpen(false)
-      // Invalidate queries to refresh the data
-      queryClient.invalidateQueries({ queryKey: ["images"] })
-      queryClient.invalidateQueries({ queryKey: ["remediations"] })
       const cveNumber = issue?.name || "unknown"
-      onFalsePositiveSuccess?.(cveNumber)
+      await onFalsePositiveSuccess?.(cveNumber)
     } catch (error) {
       setCreateError(error instanceof Error ? error.message : "Failed to create remediation")
     }

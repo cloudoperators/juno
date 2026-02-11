@@ -51,7 +51,7 @@ const VulnerabilitiesTabContent = ({
   setPageCursor: (cursor: string | null | undefined) => void
   issuesPromise: ReturnType<typeof fetchImages>
   successMessage: string | null
-  onFalsePositiveSuccess: (cveNumber: string) => void
+  onFalsePositiveSuccess: (cveNumber: string) => void | Promise<void>
 }) => {
   return (
     <>
@@ -121,6 +121,7 @@ const RemediatedVulnerabilitiesTabContent = ({
   remediationsPromise,
   setPageCursor,
   successMessage,
+  onDataRefresh,
 }: {
   service: string
   image: string
@@ -128,6 +129,7 @@ const RemediatedVulnerabilitiesTabContent = ({
   remediationsPromise: ReturnType<typeof fetchRemediations>
   setPageCursor: (cursor: string | null | undefined) => void
   successMessage: string | null
+  onDataRefresh?: () => void | Promise<void>
 }) => {
   const [selectedVulnerability, setSelectedVulnerability] = useState<string | null>(null)
 
@@ -184,6 +186,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         image={image}
         vulnerability={selectedVulnerability}
         onClose={() => setSelectedVulnerability(null)}
+        onRevertSuccess={onDataRefresh}
       />
     </>
   )
@@ -199,6 +202,13 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
   const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useState<string | null>(null)
   const [remediatedSuccessMessage, setRemediatedSuccessMessage] = useState<string | null>(null)
+  const [, setRefreshKey] = useState(0)
+
+  const refreshIssuesData = useCallback(async () => {
+    await queryClient.refetchQueries({ queryKey: ["remediations"] })
+    await queryClient.refetchQueries({ queryKey: ["images"] })
+    setRefreshKey((k) => k + 1)
+  }, [queryClient])
 
   const openVulFilter = {
     status: "open",
@@ -255,12 +265,13 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
     const { addMessage } = useActions()
 
     const handleFalsePositiveSuccess = useCallback(
-      (cveNumber: string) => {
+      async (cveNumber: string) => {
+        await refreshIssuesData()
         const text = `Vulnerability ${cveNumber} marked as false positive successfully.`
         addMessage({ variant: "success", text })
         setVulnerabilitiesSuccessMessage(text)
       },
-      [addMessage]
+      [addMessage, refreshIssuesData]
     )
 
     return (
@@ -285,6 +296,7 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
         remediationsPromise={remediationsPromise}
         setPageCursor={setRemediatedPageCursor}
         successMessage={remediatedSuccessMessage}
+        onDataRefresh={refreshIssuesData}
       />
     )
   }

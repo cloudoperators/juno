@@ -14,7 +14,7 @@ type IssuesDataRowsProps = {
   issuesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>
   service: string
   image: string
-  onFalsePositiveSuccess: (cveNumber: string) => void
+  onFalsePositiveSuccess: (cveNumber: string) => void | Promise<void>
 }
 
 export const IssuesDataRows = ({ issuesPromise, service, image, onFalsePositiveSuccess }: IssuesDataRowsProps) => {

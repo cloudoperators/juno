@@ -1961,6 +1961,7 @@ export type CreateRemediationMutation = {
     remediationDate?: any | null
     service?: string | null
     serviceId?: string | null
+    severity?: SeverityValues | null
     type?: RemediationTypeValues | null
     vulnerability?: string | null
     vulnerabilityId?: string | null
@@ -2354,6 +2355,7 @@ export const CreateRemediationDocument = gql`
       remediationDate
       service
       serviceId
+      severity
       type
       vulnerability
       vulnerabilityId

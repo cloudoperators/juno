@@ -31,7 +31,9 @@ export const RemediatedIssuesDataRows = ({
   const remediationsResult = use(remediationsPromise)
   const { error: issuesError, data: issuesData } = issuesResult
   const { data: remediationsData } = remediationsResult
-  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(issuesData as GetImagesQuery | undefined)
+  // Support both Apollo result (.data) and raw query data (e.g. from React Query cache)
+  const queryData = (issuesData ?? (issuesResult as unknown as GetImagesQuery)) as GetImagesQuery | undefined
+  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(queryData)
   // Keep remediations loaded for future remediation-actions panel
   getNormalizedRemediationsResponse(remediationsData as GetRemediationsQuery | undefined)
   if (issuesError) {
