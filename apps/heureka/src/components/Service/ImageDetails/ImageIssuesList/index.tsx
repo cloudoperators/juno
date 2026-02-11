@@ -18,7 +18,6 @@ import {
   TabPanel,
   Message,
 } from "@cloudoperators/juno-ui-components"
-import { useActions, Messages, MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { getNormalizedImageVulnerabilitiesResponse, ServiceImage } from "../../../Services/utils"
 import type { VulnerabilityFilter } from "../../../../generated/graphql"
 import { fetchImages } from "../../../../api/fetchImages"
@@ -64,7 +63,6 @@ const VulnerabilitiesTabContent = ({
           <Message text={successMessage} variant="success" />
         </div>
       )}
-      <Messages className="mb-4 mt-4" />
       <Stack gap="2" className="mb-4 mt-4">
         <SearchInput
           placeholder="Search for CVE number"
@@ -146,7 +144,6 @@ const RemediatedVulnerabilitiesTabContent = ({
           <Message text={successMessage} variant="success" />
         </div>
       )}
-      <Messages className="mb-4 mt-4" />
       <div className="mt-4">
         <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
           <DataGridRow>
@@ -297,16 +294,13 @@ export const ImageIssuesList = ({
   }, [remediatedSuccessMessage])
 
   const VulnerabilitiesTab = () => {
-    const { addMessage } = useActions()
-
     const handleFalsePositiveSuccess = useCallback(
       async (cveNumber: string) => {
         await refreshIssuesData()
         const text = `Vulnerability ${cveNumber} marked as false positive successfully.`
-        addMessage({ variant: "success", text })
         setVulnerabilitiesSuccessMessage(text)
       },
-      [addMessage, refreshIssuesData]
+      [refreshIssuesData]
     )
 
     return (
@@ -346,14 +340,10 @@ export const ImageIssuesList = ({
           <Tab label="Remediated Vulnerabilities" />
         </TabList>
         <TabPanel>
-          <MessagesProvider>
-            <VulnerabilitiesTab />
-          </MessagesProvider>
+          <VulnerabilitiesTab />
         </TabPanel>
         <TabPanel>
-          <MessagesProvider>
-            <RemediatedVulnerabilitiesTab />
-          </MessagesProvider>
+          <RemediatedVulnerabilitiesTab />
         </TabPanel>
       </Tabs>
     </>

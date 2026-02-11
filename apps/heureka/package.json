@@ -28,7 +28,6 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tanstack/react-query": "5.90.16",
