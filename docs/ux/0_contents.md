@@ -31,12 +31,13 @@
    4. Wizard Pattern
    5. Inline Adding And Deleting Items
    6. [Modals](modals.md)
-   7. PopupMenus
+   7. [PopupMenus](popup-and-overflow-menus.md)
    8. Messages & Notifications
 5. [Application Design Guidelines](application-design-guidelines.md)
    1. Interaction Guidelines
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
    3. [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
+   4. [Transient States And Progress](transient-states-and-progress.md)
 6. Versioning, Deprecation Policy
    [7. Resources](resources.md)
 7. Appendix
