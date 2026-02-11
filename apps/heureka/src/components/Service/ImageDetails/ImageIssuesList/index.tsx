@@ -119,6 +119,7 @@ const VulnerabilitiesTabContent = ({
 const RemediatedVulnerabilitiesTabContent = ({
   service,
   image,
+  setSearchTerm,
   issuesPromise,
   remediationsPromise,
   setPageCursor,
@@ -129,6 +130,7 @@ const RemediatedVulnerabilitiesTabContent = ({
 }: {
   service: string
   image: string
+  setSearchTerm: (term: string | undefined) => void
   issuesPromise: ReturnType<typeof fetchImages>
   remediationsPromise: ReturnType<typeof fetchRemediations>
   setPageCursor: (cursor: string | null | undefined) => void
@@ -144,6 +146,14 @@ const RemediatedVulnerabilitiesTabContent = ({
           <Message text={successMessage} variant="success" />
         </div>
       )}
+      <Stack gap="2" className="mb-4 mt-4">
+        <SearchInput
+          placeholder="Search for CVE number"
+          className="w-96 ml-auto"
+          onSearch={(search) => setSearchTerm(search || "")}
+          onClear={() => setSearchTerm("")}
+        />
+      </Stack>
       <div className="mt-4">
         <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
           <DataGridRow>
@@ -206,6 +216,7 @@ export const ImageIssuesList = ({
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
+  const [remediatedSearchTerm, setRemediatedSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
   const [remediatedPageCursor, setRemediatedPageCursor] = useState<string | null | undefined>(undefined)
   const selectedTabIndex = vulnerabilitiesTab === "remediated" ? 1 : 0
@@ -246,7 +257,10 @@ export const ImageIssuesList = ({
     status: "open",
     ...(searchTerm ? { search: [searchTerm] } : {}),
   }
-  const remediatedVulFilter = { status: "remediated" }
+  const remediatedVulFilter = {
+    status: "remediated",
+    ...(remediatedSearchTerm ? { search: [remediatedSearchTerm] } : {}),
+  }
 
   const issuesPromise = fetchImages({
     apiClient,
@@ -271,6 +285,10 @@ export const ImageIssuesList = ({
     afterVulnerabilities: remediatedPageCursor,
     vulFilter: remediatedVulFilter as VulnerabilityFilter,
   })
+
+  useEffect(() => {
+    setRemediatedPageCursor(undefined)
+  }, [remediatedSearchTerm])
 
   const remediationsPromise = fetchRemediations({
     apiClient,
@@ -321,6 +339,7 @@ export const ImageIssuesList = ({
       <RemediatedVulnerabilitiesTabContent
         service={service}
         image={image.repository}
+        setSearchTerm={setRemediatedSearchTerm}
         issuesPromise={remediatedIssuesPromise}
         remediationsPromise={remediationsPromise}
         setPageCursor={setRemediatedPageCursor}
