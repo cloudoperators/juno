@@ -27,7 +27,11 @@ export const ImageVersionsList = ({ versions, service, imageRepository }: ImageV
   const handleVersionClick = (version: string) => {
     navigate({
       to: "/services/$service/images/$image/versions/$version",
-      params: { service, image: imageRepository, version },
+      params: {
+        service: encodeURIComponent(service),
+        image: encodeURIComponent(imageRepository),
+        version: encodeURIComponent(version),
+      },
     })
   }
 
