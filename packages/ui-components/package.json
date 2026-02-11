@@ -15,10 +15,6 @@
     "build/*"
   ],
   "author": "UI-Team",
-  "contributors": [
-    "Esther Schmitz",
-    "Franz Heidl"
-  ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/juno-ui-components",
   "license": "Apache-2.0",
   "engines": {
