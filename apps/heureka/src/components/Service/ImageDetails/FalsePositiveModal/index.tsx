@@ -52,9 +52,10 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [descriptionError, setDescriptionError] = useState<string>("")
 
+  const descriptionTrimmed = description.trim()
+
   const handleConfirm = async () => {
-    // Validate description
-    if (!description.trim()) {
+    if (!descriptionTrimmed) {
       setDescriptionError("Description is required")
       return
     }
@@ -67,7 +68,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         vulnerability,
         service,
         image,
-        description: description.trim(),
+        description: descriptionTrimmed,
         ...(severity && { severity: toSeverityValue(severity) }),
         ...(expirationDate && { expirationDate: expirationDate.toISOString() }),
       }
@@ -110,7 +111,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
               onClick={handleConfirm}
               label={CONFIRM_LABEL}
               variant="primary"
-              disabled={isSubmitting || !description.trim()}
+              disabled={isSubmitting || !descriptionTrimmed}
             />
           </Stack>
         </ModalFooter>
