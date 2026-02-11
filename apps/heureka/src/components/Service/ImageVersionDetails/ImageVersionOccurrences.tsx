@@ -20,15 +20,13 @@ const BoxWithTooltip = ({ instance }: ToolTipBoxType) => (
           <Icon icon="info" size="18" className="cursor-pointer hover:text-theme-primary" />
         </TooltipTrigger>
         <TooltipContent>
-          <span> Namespace: {instance?.namespace || "--"}</span>
-          <br />
-          <span> Region: {instance?.region || "--"}</span>
-          <br />
-          <span> Cluster: {instance?.cluster || "--"}</span>
-          <br />
-          <span> Container: {instance?.container || "--"}</span>
-          <br />
-          <span> Pod: {instance?.pod || "--"}</span>
+          <Stack gap="1" direction="vertical">
+            <span>Namespace: {instance?.namespace || "--"}</span>
+            <span>Region: {instance?.region || "--"}</span>
+            <span>Cluster: {instance?.cluster || "--"}</span>
+            <span>Container: {instance?.container || "--"}</span>
+            <span>Pod: {instance?.pod || "--"}</span>
+          </Stack>
         </TooltipContent>
       </Tooltip>
     </Stack>
