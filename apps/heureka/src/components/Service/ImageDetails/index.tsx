@@ -22,13 +22,24 @@ import { ImageIssuesList } from "./ImageIssuesList"
 import { ObservableQuery } from "@apollo/client"
 import { GetImagesQuery } from "../../../generated/graphql"
 
+export type VulnerabilitiesTabValue = "active" | "remediated"
+
 type ImageDetailsProps = {
   imagesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>
   imageRepository: string
   service: string
+  vulnerabilitiesTab?: VulnerabilitiesTabValue
+  /** CVE number when remediation history panel is open (from vulRemediations search param). */
+  vulRemediations?: string
 }
 
-export const ImageDetails = ({ imagesPromise, imageRepository, service }: ImageDetailsProps) => {
+export const ImageDetails = ({
+  imagesPromise,
+  imageRepository,
+  service,
+  vulnerabilitiesTab = "active",
+  vulRemediations,
+}: ImageDetailsProps) => {
   const { data } = use(imagesPromise)
   const { images } = getNormalizedImagesResponse(data as GetImagesQuery | undefined)
   const image = images.find((img: ServiceImage) => img.repository === imageRepository)
@@ -139,7 +150,14 @@ export const ImageDetails = ({ imagesPromise, imageRepository, service }: ImageD
       </DataGrid>
 
       {/* Issues List Section */}
-      {service && imageRepository && image && <ImageIssuesList service={service} image={image} />}
+      {service && imageRepository && image && (
+        <ImageIssuesList
+          service={service}
+          image={image}
+          vulnerabilitiesTab={vulnerabilitiesTab}
+          vulRemediations={vulRemediations}
+        />
+      )}
     </>
   )
 }

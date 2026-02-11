@@ -4,7 +4,7 @@
  */
 
 import React, { Suspense, useState, useCallback, useEffect } from "react"
-import { useRouteContext } from "@tanstack/react-router"
+import { useNavigate, useRouteContext } from "@tanstack/react-router"
 import {
   DataGrid,
   DataGridRow,
@@ -30,10 +30,14 @@ import { CursorPagination } from "../../../common/CursorPagination"
 import { ErrorBoundary } from "../../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../../common/getErrorDataRow"
 import { LoadingDataRow } from "../../../common/LoadingDataRow"
+import type { VulnerabilitiesTabValue } from "../index"
 
 type ImageIssuesListProps = {
   service: string
   image: ServiceImage
+  vulnerabilitiesTab?: VulnerabilitiesTabValue
+  /** CVE number when remediation history panel is open (from vulRemediations search param). */
+  vulRemediations?: string
 }
 
 const VulnerabilitiesTabContent = ({
@@ -122,6 +126,8 @@ const RemediatedVulnerabilitiesTabContent = ({
   setPageCursor,
   successMessage,
   onDataRefresh,
+  selectedVulnerability,
+  onSelectVulnerability,
 }: {
   service: string
   image: string
@@ -130,9 +136,9 @@ const RemediatedVulnerabilitiesTabContent = ({
   setPageCursor: (cursor: string | null | undefined) => void
   successMessage: string | null
   onDataRefresh?: () => void | Promise<void>
+  selectedVulnerability: string | null
+  onSelectVulnerability: (cve: string | null) => void
 }) => {
-  const [selectedVulnerability, setSelectedVulnerability] = useState<string | null>(null)
-
   return (
     <>
       {successMessage && (
@@ -163,7 +169,7 @@ const RemediatedVulnerabilitiesTabContent = ({
                   issuesPromise={issuesPromise}
                   remediationsPromise={remediationsPromise}
                   selectedVulnerabilityName={selectedVulnerability}
-                  onSelectVulnerability={setSelectedVulnerability}
+                  onSelectVulnerability={onSelectVulnerability}
                 />
               </Suspense>
             </ErrorBoundary>
@@ -185,7 +191,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         service={service}
         image={image}
         vulnerability={selectedVulnerability}
-        onClose={() => setSelectedVulnerability(null)}
+        onClose={() => onSelectVulnerability(null)}
         onRevertSuccess={onDataRefresh}
       />
     </>
@@ -194,12 +200,41 @@ const RemediatedVulnerabilitiesTabContent = ({
 
 const SUCCESS_MESSAGE_DURATION_MS = 5000
 
-export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
+export const ImageIssuesList = ({
+  service,
+  image,
+  vulnerabilitiesTab = "active",
+  vulRemediations,
+}: ImageIssuesListProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
+  const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
   const [remediatedPageCursor, setRemediatedPageCursor] = useState<string | null | undefined>(undefined)
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0)
+  const selectedTabIndex = vulnerabilitiesTab === "remediated" ? 1 : 0
+  const handleTabSelect = useCallback(
+    (index: number) => {
+      const list: VulnerabilitiesTabValue = index === 1 ? "remediated" : "active"
+      navigate({
+        to: "/services/$service/images/$image",
+        params: { service, image: image.repository },
+        search: { vulnerabilitiesList: list, vulRemediations: list === "remediated" ? vulRemediations : undefined },
+        replace: true,
+      })
+    },
+    [navigate, service, image.repository, vulRemediations]
+  )
+  const handleRemediationPanelVulnerabilityChange = useCallback(
+    (cve: string | null) => {
+      navigate({
+        to: "/services/$service/images/$image",
+        params: { service, image: image.repository },
+        search: { vulnerabilitiesList: "remediated", vulRemediations: cve ?? undefined },
+        replace: true,
+      })
+    },
+    [navigate, service, image.repository]
+  )
   const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useState<string | null>(null)
   const [remediatedSuccessMessage, setRemediatedSuccessMessage] = useState<string | null>(null)
   const [, setRefreshKey] = useState(0)
@@ -297,13 +332,15 @@ export const ImageIssuesList = ({ service, image }: ImageIssuesListProps) => {
         setPageCursor={setRemediatedPageCursor}
         successMessage={remediatedSuccessMessage}
         onDataRefresh={refreshIssuesData}
+        selectedVulnerability={vulRemediations ?? null}
+        onSelectVulnerability={handleRemediationPanelVulnerabilityChange}
       />
     )
   }
 
   return (
     <>
-      <Tabs selectedIndex={selectedTabIndex} onSelect={setSelectedTabIndex} variant="content">
+      <Tabs selectedIndex={selectedTabIndex} onSelect={handleTabSelect} variant="content">
         <TabList>
           <Tab label="Active Vulnerabilities" />
           <Tab label="Remediated Vulnerabilities" />
