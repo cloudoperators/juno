@@ -165,6 +165,8 @@ TODO: don't show multiple spinners in parallel, if one spinner in a higher conte
 
 The overall ideas guiding handling of empty, loading, and busy states are similar to how we handle errors: Communicate, block as little as possible, be consistent, and be accessible.
 
+For more and in-depth guidance on handling loading and in-progress states, see [Transient States and Progress](transient-states-and-progress.md).
+
 ### Communicate Clearly
 
 Explain the state – why is something empty? Don’t overdo it for busy states if initiated by the user: in these cases users have clicked a button, a busy indicator is enough to show something is happening (except when the action fails or times out, see error handling).
