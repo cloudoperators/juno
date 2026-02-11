@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import {
   Modal,
   ModalFooter,
@@ -51,6 +51,13 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   const [expirationDate, setExpirationDate] = useState<Date | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [descriptionError, setDescriptionError] = useState<string>("")
+  const isMountedRef = useRef(true)
+
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
 
   const descriptionTrimmed = description.trim()
 
@@ -73,13 +80,18 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         ...(expirationDate && { expirationDate: expirationDate.toISOString() }),
       }
       await onConfirm(input)
-      setDescription("")
-      setExpirationDate(null)
+      if (isMountedRef.current) {
+        setDescription("")
+        setExpirationDate(null)
+        onClose()
+      }
     } catch (error) {
       console.error("Failed to create remediation:", error)
       // Error is shown in modal via errorMessage from parent
     } finally {
-      setIsSubmitting(false)
+      if (isMountedRef.current) {
+        setIsSubmitting(false)
+      }
     }
   }
 
