@@ -39,10 +39,6 @@ export const fetchImageVersions = ({
     afterOccurences,
   ]
 
-  // Invalidate cache first to ensure queryFn is always called (forces network request)
-  // Then use ensureQueryData to maintain promise stability (like other fetch functions)
-  queryClient.invalidateQueries({ queryKey })
-
   return queryClient.ensureQueryData({
     queryKey,
     queryFn: () =>
@@ -57,7 +53,6 @@ export const fetchImageVersions = ({
           firstOccurences,
           afterOccurences,
         },
-        fetchPolicy: "network-only", // Force network request to always fetch fresh data
       }),
   })
 }
