@@ -33,7 +33,7 @@ export const RemediatedIssueDataRow = ({ issue, selected, onSelect }: Remediated
 
   const toggleDescription = (e: React.MouseEvent) => {
     e.preventDefault()
-    setIsExpanded(!isExpanded)
+    setIsExpanded((prev) => !prev)
   }
 
   if (!issue?.name) {
