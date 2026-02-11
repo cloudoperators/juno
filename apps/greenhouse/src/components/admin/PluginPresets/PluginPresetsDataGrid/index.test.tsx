@@ -23,7 +23,7 @@ const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | 
   })
   const testRoute = createRoute({
     getParentRoute: () => rootRoute,
-    path: "/admin/plugin-presets",
+    path: "/admin/plugin-presets/",
     component: () => (
       <QueryClientProvider
         client={
@@ -59,7 +59,7 @@ const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | 
       organization: "test-org",
     },
     history: createMemoryHistory({
-      initialEntries: ["/admin/plugin-presets"],
+      initialEntries: ["/admin/plugin-presets/"],
     }),
   })
   return await act(async () => render(<RouterProvider router={router} />))
