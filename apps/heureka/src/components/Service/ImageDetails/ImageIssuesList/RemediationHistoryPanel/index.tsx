@@ -89,12 +89,12 @@ const RemediationHistoryTable = ({
           <DataGridCell>{r.type ?? "—"}</DataGridCell>
           <DataGridCell>{r.description ?? "—"}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-            <PopupMenu icon="moreVert" className="whitespace-nowrap" disabled={revertingId === r.remediationId}>
+            <PopupMenu icon="moreVert" className="whitespace-nowrap" disabled={!!revertingId}>
               <PopupMenuOptions>
                 <PopupMenuItem
                   label={revertingId === r.remediationId ? "Reverting..." : "Revert False Positive"}
                   onClick={() => handleRevert(r)}
-                  disabled={revertingId === r.remediationId}
+                  disabled={!!revertingId}
                 />
               </PopupMenuOptions>
             </PopupMenu>
