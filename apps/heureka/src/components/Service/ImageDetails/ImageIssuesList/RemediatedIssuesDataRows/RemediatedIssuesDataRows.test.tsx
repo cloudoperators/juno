@@ -9,7 +9,7 @@ import { ObservableQuery } from "@apollo/client"
 import { RemediatedIssuesDataRows } from "./index"
 import { GetImagesQuery, GetRemediationsQuery } from "../../../../../generated/graphql"
 
-const emptyImagesPromise: Promise<ObservableQuery.Result<GetImagesQuery>> = Promise.resolve({
+const emptyImagesPromise = Promise.resolve({
   data: {
     Images: {
       edges: [],
@@ -22,9 +22,9 @@ const emptyImagesPromise: Promise<ObservableQuery.Result<GetImagesQuery>> = Prom
   error: undefined,
   partial: false,
   dataState: "complete" as const,
-})
+}) as unknown as Promise<ObservableQuery.Result<GetImagesQuery>>
 
-const emptyRemediationsPromise: Promise<ObservableQuery.Result<GetRemediationsQuery>> = Promise.resolve({
+const emptyRemediationsPromise = Promise.resolve({
   data: {
     Remediations: {
       edges: [],
@@ -37,7 +37,7 @@ const emptyRemediationsPromise: Promise<ObservableQuery.Result<GetRemediationsQu
   error: undefined,
   partial: false,
   dataState: "complete" as const,
-})
+}) as unknown as Promise<ObservableQuery.Result<GetRemediationsQuery>>
 
 describe("RemediatedIssuesDataRows", () => {
   it("renders empty state when there are no remediated vulnerabilities", async () => {
