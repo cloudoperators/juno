@@ -7,22 +7,24 @@ import React, { ReactNode, FormHTMLAttributes } from "react"
 import { Stack } from "../Stack/Stack.component"
 import { Message } from "../Message/Message.component"
 
-const signInFormBaseStyles = `
-  jn:mb-8
-`
-
 const signInFormTitleStyles = `
   jn:text-2xl
   jn:font-bold
-  jn:mb-4
+  jn:text-theme-highest
 `
 
 const resetPasswordLinkStyles = `
-  jn:text-theme-link
-  jn:underline
+  jn:font-medium
   jn:text-sm
-  jn:mt-2
-  jn:inline-block
+  jn:block
+  jn:text-right
+  jn:my-2 
+`
+
+const requestAccessLinkStyles = `
+  jn:font-medium
+  jn:text-sm
+  jn:text-theme-default
 `
 
 export interface SignInFormProps extends Omit<FormHTMLAttributes<HTMLFormElement>, "title"> {
@@ -73,23 +75,27 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   children,
   ...props
 }) => {
-  // Determine the error message to display
   const errorMessage = error === true ? "Authentication failed" : typeof error === "string" ? error : null
 
   return (
-    <form className={`juno-sign-in-form ${signInFormBaseStyles} ${className}`} {...props}>
-      {title !== false && <h1 className={`juno-sign-in-form-heading ${signInFormTitleStyles}`}>{title}</h1>}
+    <form className={`juno-sign-in-form ${className}`} {...props}>
+      {title !== false && <h4 className={`juno-sign-in-form-heading ${signInFormTitleStyles}`}>{title}</h4>}
 
-      {errorMessage && <Message variant="error" text={errorMessage} className="jn:mb-4" />}
+      {errorMessage && <Message variant="error" text={errorMessage} className="jn:my-4" />}
 
-      <Stack direction="vertical" gap="4">
+      <Stack direction="vertical" className="mx-2">
         {children}
       </Stack>
 
       {resetPwUrl && (
+        <>
         <a href={resetPwUrl} className={`juno-sign-in-form-reset-link ${resetPasswordLinkStyles}`}>
           Reset password
         </a>
+          <span className={`juno-sign-in-form-request-access-link ${requestAccessLinkStyles}`}>
+            Don’t have an account? <a href="#">Request Access</a>
+          </span>
+        </>
       )}
     </form>
   )

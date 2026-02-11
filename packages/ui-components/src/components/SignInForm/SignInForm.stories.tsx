@@ -26,6 +26,7 @@ const meta: Meta<typeof SignInForm> = {
       },
     },
   },
+  // Should I write decoratators for container-width?
 }
 
 export default meta
@@ -44,10 +45,12 @@ export const Default: Story = {
     title: "Sign In",
     resetPwUrl: "#",
     children: [
-      <TextInput key="username" label="Username or Email" id="username" required />,
-      <TextInput key="password" label="Password" id="password" type="password" required />,
+      <Stack key="inputs" direction="vertical" gap="2" className="jn:my-2">
+        <TextInput key="email" label="Email address" id="email" required />
+        <TextInput key="password" label="Password" id="password" type="password" required />
+      </Stack>,
       <Checkbox key="remember" label="Remember me" id="remember" />,
-      <Button key="submit" variant="primary" type="submit">
+      <Button key="submit" variant="primary" type="submit" className="jn:mt-4">
         Sign In
       </Button>,
     ],
@@ -65,21 +68,25 @@ export const AdditionalInputs: Story = {
   },
   args: {
     title: "Sign In to Your Account",
+    error: true,
     resetPwUrl: "#",
     children: [
-      <TextInput key="username" label="Username or Email" id="username" required />,
-      <TextInput key="password" label="Password" id="password" type="password" required />,
-      <Stack key="region" direction="vertical" gap="2">
-        <Label text="Select Region" htmlFor="region" />
-        <NativeSelect id="region">
-          <NativeSelectOption value="" label="-- Choose a region --" />
-          <NativeSelectOption value="us" label="United States" />
-          <NativeSelectOption value="eu" label="Europe" />
-          <NativeSelectOption value="asia" label="Asia Pacific" />
-        </NativeSelect>
+      <Stack key="inputs" direction="vertical" gap="2" className="jn:mb-2">
+        <TextInput key="username" label="Username" id="username" required />
+        <TextInput key="password" label="Password" id="password" type="password" required />
+        <Stack key="region" direction="vertical" gap="2">
+          {/* Replace NativeSelect with Select? Or this is an example so it doesn't matter */}
+          <Label text="Select Region" htmlFor="region" />
+          <NativeSelect id="region">
+            <NativeSelectOption value="" label="-- Choose a region --" />
+            <NativeSelectOption value="us" label="United States" />
+            <NativeSelectOption value="eu" label="Europe" />
+            <NativeSelectOption value="asia" label="Asia Pacific" />
+          </NativeSelect>
+        </Stack>
       </Stack>,
       <Checkbox key="remember" label="Remember me" id="remember" />,
-      <Button key="submit" variant="primary" type="submit">
+      <Button key="submit" variant="primary" type="submit" className="jn:mt-4">
         Sign In
       </Button>,
     ],
@@ -97,7 +104,7 @@ export const ExternalAuthentication: Story = {
   },
   args: {
     title: false,
-    resetPwUrl: "",
+    // Did you mean it like this? Or no children entirely? As it's much easier to handle like passing button as child props. I think if there's no props to pass to the SignInForm component, it's better to consumers to simply just use ternary like (X && Y && Z ? <Sign x={X} y={Y} z={Z} /> : <Button>Proceed</Button>) I am asking as I am not quite sure I understood you correctly with this no children line) or Did you mean when someone using <SignInForm /> => it's rendering as <Button>Proceed</Button>?
     children: [
       <Button key="proceed" variant="primary" type="submit">
         Proceed
