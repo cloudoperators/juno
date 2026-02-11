@@ -15,14 +15,16 @@ export const Route = createFileRoute("/services/$service/images/$image/versions/
   shouldReload: false,
   loader: ({ context, params: { service, image, version } }) => {
     const { queryClient, apiClient } = context
-    // create a promise to fetch the image versions for this service, image, and version
+    const decodedService = decodeURIComponent(service)
+    const decodedImage = decodeURIComponent(image)
+    const decodedVersion = decodeURIComponent(version)
     const imageVersionsPromise = fetchImageVersions({
       queryClient,
       apiClient,
       filter: {
-        service: [service],
-        repository: [image],
-        version: [version],
+        service: [decodedService],
+        repository: [decodedImage],
+        version: [decodedVersion],
       },
       firstVulnerabilities: 20,
       firstOccurences: 100,
@@ -31,16 +33,17 @@ export const Route = createFileRoute("/services/$service/images/$image/versions/
     return {
       imageVersionsPromise,
       crumb: {
-        label: getShortSha256(version),
+        label: getShortSha256(decodedVersion),
       },
+      decodedParams: { service: decodedService, image: decodedImage, version: decodedVersion },
     }
   },
   component: ImageVersionDetailsPage,
 })
 
 function ImageVersionDetailsPage() {
-  const { imageVersionsPromise } = Route.useLoaderData()
-  const { service, image, version } = Route.useParams()
+  const { imageVersionsPromise, decodedParams } = Route.useLoaderData()
+  const { service, image, version } = decodedParams
 
   return (
     <ErrorBoundary displayErrorMessage>

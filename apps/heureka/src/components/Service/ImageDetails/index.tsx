@@ -58,6 +58,7 @@ export const ImageDetails = ({
         image: encodeURIComponent(imageRepository),
         version: encodeURIComponent(version),
       },
+      search: {},
     })
   }
 

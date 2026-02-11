@@ -32,6 +32,7 @@ export const ImageVersionsList = ({ versions, service, imageRepository }: ImageV
         image: encodeURIComponent(imageRepository),
         version: encodeURIComponent(version),
       },
+      search: {},
     })
   }
 
