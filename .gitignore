@@ -15,9 +15,6 @@ vite.config.*.timestamp-*
 # pnpm local package store (if configured locally)
 .pnpm-store/
 
-# TanStack Router cache directory
-.tanstack/
-
 # act artifacts needed for testing workflows
 .secrets
 .env
