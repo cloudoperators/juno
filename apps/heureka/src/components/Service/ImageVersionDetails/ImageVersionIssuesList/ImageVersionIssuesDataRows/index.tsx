@@ -18,7 +18,9 @@ type ImageVersionIssuesDataRowsProps = {
 
 export const ImageVersionIssuesDataRows = ({ issuesPromise, service, image }: ImageVersionIssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
-  const { imageVersion: versionDetails } = getNormalizedImageVersionDetailsResponse(data)
+  const { imageVersion: versionDetails } = getNormalizedImageVersionDetailsResponse(
+    data as GetImageVersionsQuery | undefined
+  )
 
   if (error) {
     return <EmptyDataGridRow colSpan={4}>Error loading vulnerabilities: {error.message}</EmptyDataGridRow>

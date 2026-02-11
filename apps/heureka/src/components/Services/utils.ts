@@ -14,6 +14,7 @@ import {
   GetServiceFiltersQuery,
   GetImagesQuery,
   GetRemediationsQuery,
+  GetImageVersionsQuery,
   VulnerabilityEdge,
   ComponentInstanceEdge,
 } from "../../generated/graphql"
@@ -461,7 +462,7 @@ type NormalizedImageVersionDetails = {
 
 // Normalization function for GetImageVersions query
 export const getNormalizedImageVersionDetailsResponse = (
-  data: any // Will be GetImageVersionsQuery after codegen
+  data: GetImageVersionsQuery | undefined
 ): NormalizedImageVersionDetails => {
   if (!data?.ImageVersions?.edges?.[0]?.node) {
     return {
@@ -574,7 +575,7 @@ export const getNormalizedImageVersionDetailsResponse = (
 
 // Normalization function that returns array of image versions (for compatibility with old panel)
 export const getNormalizedImageVersionsResponse = (
-  data: any // Will be GetImageVersionsQuery after codegen
+  data: GetImageVersionsQuery | undefined
 ): { imageVersions: ServiceImageVersion[] } => {
   const normalized = getNormalizedImageVersionDetailsResponse(data)
 
