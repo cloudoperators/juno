@@ -3,11 +3,6 @@
   "version": "0.7.23",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
-  "contributors": [
-    "Andreas Pfau",
-    "Arturo Reuschenbach Puncernau",
-    "Esther Schmitz"
-  ],
   "repository": "https://github.com/cloudoperators/greenhouse/tree/main/ui/dashboard",
   "license": "Apache-2.0",
   "source": "src/index.js",

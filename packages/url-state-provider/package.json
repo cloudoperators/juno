@@ -3,10 +3,6 @@
   "version": "3.0.7",
   "description": "Save several paths in the url. This makes it possible to manage the status of several apps such as micro frontends with the help of URL.",
   "author": "UI-Team",
-  "contributors": [
-    "Tilman Haupt",
-    "Andreas Pfau"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cloudoperators/juno.git#main"
