@@ -34,7 +34,6 @@ export const ImageVersionDetails = ({
   }
 
   const { imageVersions } = getNormalizedImageVersionsResponse(data as GetImageVersionsQuery | undefined)
-  // Since we're querying for a specific version, we should get exactly one result
   const imageVersion = imageVersions[0]
 
   if (!imageVersion) {

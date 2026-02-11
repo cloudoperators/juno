@@ -14,6 +14,8 @@ import {
   GetServiceFiltersQuery,
   GetImagesQuery,
   GetRemediationsQuery,
+  VulnerabilityEdge,
+  ComponentInstanceEdge,
 } from "../../generated/graphql"
 import { Filter, FilterSettings, SelectedFilter, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
@@ -476,8 +478,10 @@ export const getNormalizedImageVersionDetailsResponse = (
   const vulnerabilitiesPageInfo = imageVersionNode.vulnerabilities?.pageInfo
 
   const vulnerabilities: ImageVulnerability[] = vulnerabilitiesEdges
-    .filter((edge: any) => edge !== null && edge.node !== null)
-    .map((edge: any) => {
+    .filter(
+      (edge: VulnerabilityEdge | null | undefined): edge is VulnerabilityEdge => edge != null && edge.node != null
+    )
+    .map((edge: VulnerabilityEdge) => {
       const node = edge.node
       return {
         id: node.id || "",
@@ -518,8 +522,11 @@ export const getNormalizedImageVersionDetailsResponse = (
   }
 
   const occurrences: ComponentInstance[] = occurrencesEdges
-    .filter((edge: any) => edge !== null && edge.node !== null)
-    .map((edge: any) => {
+    .filter(
+      (edge: ComponentInstanceEdge | null | undefined): edge is ComponentInstanceEdge =>
+        edge != null && edge.node != null
+    )
+    .map((edge: ComponentInstanceEdge) => {
       const node = edge.node
       const ccrn = node.ccrn || ""
       const parsed = parseCcrn(ccrn)
