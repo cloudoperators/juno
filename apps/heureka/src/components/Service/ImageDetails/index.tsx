@@ -63,8 +63,9 @@ export const ImageDetails = ({
   }
 
   const versions = image.versions || []
-  const displayedVersions = showAllVersions ? versions : versions.slice(0, 3)
-  const hasMoreVersions = versions.length > 3
+  const VERSIONS_INITIAL = 30
+  const displayedVersions = showAllVersions ? versions : versions.slice(0, VERSIONS_INITIAL)
+  const hasMoreVersions = versions.length > VERSIONS_INITIAL
 
   return (
     <>
@@ -103,7 +104,7 @@ export const ImageDetails = ({
           <DataGridRow>
             <DataGridHeadCell>Versions ({versions.length})</DataGridHeadCell>
             <DataGridCell>
-              <Stack gap="2" direction="vertical">
+              <div className="grid grid-cols-[repeat(auto-fill,_minmax(5rem,_auto))] gap-x-4 gap-y-1">
                 {displayedVersions.map((version) => (
                   <a
                     key={version.id}
@@ -113,42 +114,34 @@ export const ImageDetails = ({
                       e.preventDefault()
                       handleVersionClick(version.version)
                     }}
-                    className="link-hover"
+                    className="link-hover w-fit"
                   >
-                    <span>{getShortSha256(version.version)}</span>
+                    {getShortSha256(version.version)}
                   </a>
                 ))}
-                {hasMoreVersions && !showAllVersions && (
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setShowAllVersions(true)
-                    }}
-                    className="link-hover"
-                  >
-                    <Stack alignment="center" direction="horizontal" gap="1">
-                      <span>Show all</span>
-                      <Icon color="global-text" icon="expandMore" />
-                    </Stack>
-                  </a>
-                )}
-                {hasMoreVersions && showAllVersions && (
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setShowAllVersions(false)
-                    }}
-                    className="link-hover"
-                  >
-                    <Stack alignment="center" direction="horizontal" gap="1">
-                      <span>Show less</span>
+              </div>
+              {hasMoreVersions && (
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setShowAllVersions((prev) => !prev)
+                  }}
+                  className="link-hover mt-2 inline-flex items-center gap-1"
+                >
+                  {showAllVersions ? (
+                    <>
+                      <span>Show less ...</span>
                       <Icon color="global-text" icon="expandLess" />
-                    </Stack>
-                  </a>
-                )}
-              </Stack>
+                    </>
+                  ) : (
+                    <>
+                      <span>Show ({versions.length - VERSIONS_INITIAL} more ...)</span>
+                      <Icon color="global-text" icon="expandMore" />
+                    </>
+                  )}
+                </a>
+              )}
             </DataGridCell>
           </DataGridRow>
         )}

@@ -3,11 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, MouseEvent } from "react"
+import React, { useState } from "react"
 import { Stack, Icon } from "@cloudoperators/juno-ui-components"
 import { useNavigate } from "@tanstack/react-router"
 import { ImageVersion } from "../../../Services/utils"
 import SectionContentHeading from "../../../common/SectionContentHeading"
+import { getShortSha256 } from "../../../../utils"
+
+const VERSIONS_INITIAL = 30
 
 type ImageVersionsListProps = {
   versions: ImageVersion[]
@@ -16,13 +19,10 @@ type ImageVersionsListProps = {
 }
 
 export const ImageVersionsList = ({ versions, service, imageRepository }: ImageVersionsListProps) => {
-  const [displayVersions, setDisplayVersions] = useState(false)
+  const [showAllVersions, setShowAllVersions] = useState(false)
   const navigate = useNavigate()
-
-  const onShowMoreClicked = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-    setDisplayVersions(!displayVersions)
-  }
+  const displayedVersions = showAllVersions ? versions : versions.slice(0, VERSIONS_INITIAL)
+  const hasMoreVersions = versions.length > VERSIONS_INITIAL
 
   const handleVersionClick = (version: string) => {
     navigate({
@@ -43,37 +43,44 @@ export const ImageVersionsList = ({ versions, service, imageRepository }: ImageV
   return (
     <>
       <SectionContentHeading>Image Versions</SectionContentHeading>
-      {displayVersions && (
-        <div className="my-4">
-          <Stack gap="2" direction="vertical">
-            {versions.map((version) => (
-              <a
-                key={version.id}
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleVersionClick(version.version)
-                }}
-                className="link-hover"
-              >
-                <Stack gap="2" direction="horizontal" alignment="center">
-                  <Icon icon="info" size="16" />
-                  <span>{version.version}</span>
-                </Stack>
-              </a>
-            ))}
-          </Stack>
-        </div>
-      )}
-
-      <div className="advance-link">
-        <a href="#" rel="noopener noreferrer" onClick={onShowMoreClicked}>
-          <Stack alignment="center">
-            {displayVersions ? "Hide Versions" : "Display Versions"}
-            <Icon color="global-text" icon={displayVersions ? "expandLess" : "expandMore"} />
-          </Stack>
-        </a>
+      <div className="grid grid-cols-[repeat(auto-fill,_minmax(5rem,_auto))] gap-x-4 gap-y-1 mt-4">
+        {displayedVersions.map((version) => (
+          <a
+            key={version.id}
+            href="#"
+            title={version.version}
+            onClick={(e) => {
+              e.preventDefault()
+              handleVersionClick(version.version)
+            }}
+            className="link-hover w-fit"
+          >
+            {getShortSha256(version.version)}
+          </a>
+        ))}
       </div>
+      {hasMoreVersions && (
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault()
+            setShowAllVersions((prev) => !prev)
+          }}
+          className="link-hover mt-2 inline-flex items-center gap-1"
+        >
+          {showAllVersions ? (
+            <Stack alignment="center" direction="horizontal" gap="1">
+              <span>Show less</span>
+              <Icon color="global-text" icon="expandLess" />
+            </Stack>
+          ) : (
+            <Stack alignment="center" direction="horizontal" gap="1">
+              <span>Show more ({versions.length - VERSIONS_INITIAL} more)</span>
+              <Icon color="global-text" icon="expandMore" />
+            </Stack>
+          )}
+        </a>
+      )}
     </>
   )
 }
