@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useMemo } from "react"
 import CodeMirror, { EditorView, highlightWhitespace } from "@uiw/react-codemirror"
 import { yaml } from "@codemirror/lang-yaml"
 import yamlParser from "js-yaml"
@@ -10,13 +10,9 @@ interface YamlDataProps {
 }
 
 export default function YamlData({ value, height = "100%" }: YamlDataProps) {
-  const [yamlContent, setYamlContent] = useState<string>("")
-  const [error, setError] = useState<string>("")
-
-  useEffect(() => {
+  const { yamlContent, error } = useMemo(() => {
     if (!value) {
-      setYamlContent("")
-      return
+      return { yamlContent: "", error: "" }
     }
 
     try {
@@ -26,9 +22,12 @@ export default function YamlData({ value, height = "100%" }: YamlDataProps) {
         noRefs: true,
         sortKeys: false,
       })
-      setYamlContent(yamlString)
+      return { yamlContent: yamlString, error: "" }
     } catch (err) {
-      setError(`Failed to convert JSON to YAML: ${(err as Error).message}`)
+      return {
+        yamlContent: "",
+        error: `Failed to convert JSON to YAML: ${(err as Error).message}`,
+      }
     }
   }, [value])
 
@@ -54,29 +53,6 @@ export default function YamlData({ value, height = "100%" }: YamlDataProps) {
           }),
         ]}
         editable={false}
-        basicSetup={{
-          lineNumbers: true,
-          highlightActiveLineGutter: true,
-          highlightSpecialChars: true,
-          foldGutter: true,
-          drawSelection: true,
-          dropCursor: true,
-          allowMultipleSelections: true,
-          indentOnInput: true,
-          syntaxHighlighting: true,
-          bracketMatching: true,
-          closeBrackets: true,
-          autocompletion: true,
-          rectangularSelection: true,
-          crosshairCursor: true,
-          highlightActiveLine: true,
-          highlightSelectionMatches: true,
-          closeBracketsKeymap: true,
-          searchKeymap: true,
-          foldKeymap: true,
-          completionKeymap: true,
-          lintKeymap: true,
-        }}
       />
     </>
   )
