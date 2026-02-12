@@ -24,13 +24,7 @@ export const Layout = ({ error }: LayoutProps) => (
         it is caught and displayed here keeping breadcrumb and the navigation visible,
         providing a consistent layout for error handling.
       */}
-      {error ? (
-        <ErrorMessage error={error} />
-      ) : (
-        <Container px={false}>
-          <Outlet />
-        </Container>
-      )}
+      {error ? <ErrorMessage error={error} /> : <Outlet />}
     </Container>
   </>
 )

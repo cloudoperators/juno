@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useState, useEffect, useRef } from "react"
 import CodeMirror, { EditorView, highlightWhitespace } from "@uiw/react-codemirror"
 import { yaml } from "@codemirror/lang-yaml"
 import yamlParser from "js-yaml"
@@ -6,10 +6,28 @@ import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 
 interface YamlDataProps {
   value?: object
-  height?: string
 }
 
-export default function YamlData({ value, height = "100%" }: YamlDataProps) {
+export default function YamlData({ value }: YamlDataProps) {
+  const [editorHeight, setEditorHeight] = useState<string>("600px")
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect()
+        const bottomMargin = 6
+        const availableHeight = window.innerHeight - rect.top - bottomMargin
+        setEditorHeight(`${availableHeight}px`)
+      }
+    }
+
+    updateHeight()
+    window.addEventListener("resize", updateHeight)
+
+    return () => window.removeEventListener("resize", updateHeight)
+  }, [])
+
   const { yamlContent, error } = useMemo(() => {
     if (!value) {
       return { yamlContent: "No data available", error: "" }
@@ -32,11 +50,11 @@ export default function YamlData({ value, height = "100%" }: YamlDataProps) {
   }, [value])
 
   return (
-    <>
+    <div ref={containerRef}>
       {error && <ErrorMessage error={new Error(error)} />}
       <CodeMirror
         value={yamlContent}
-        height={height}
+        height={editorHeight}
         theme="dark"
         extensions={[
           yaml(),
@@ -56,6 +74,6 @@ export default function YamlData({ value, height = "100%" }: YamlDataProps) {
         aria-label="YAML data viewer (read-only)"
         aria-readonly="true"
       />
-    </>
+    </div>
   )
 }

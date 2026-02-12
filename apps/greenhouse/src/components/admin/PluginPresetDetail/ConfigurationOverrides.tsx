@@ -8,9 +8,7 @@ import { Container, CodeBlock, JsonViewer } from "@cloudoperators/juno-ui-compon
 import { PluginPreset } from "../types/k8sTypes"
 
 export const ConfigurationOverrides = ({ pluginPreset }: { pluginPreset: PluginPreset }) => (
-  <Container px={false} py>
-    <CodeBlock>
-      <JsonViewer data={pluginPreset.spec?.plugin?.optionValues || {}} toolbar expanded={2} />
-    </CodeBlock>
-  </Container>
+  <CodeBlock>
+    <JsonViewer data={pluginPreset.spec?.plugin?.optionValues || {}} toolbar expanded={2} />
+  </CodeBlock>
 )
