@@ -4,13 +4,13 @@
  */
 
 import React, { ReactNode, FormHTMLAttributes } from "react"
-import { Stack } from "../Stack/Stack.component"
 import { Message } from "../Message/Message.component"
 
 const signInFormTitleStyles = `
-  jn:text-2xl
+  jn:text-xl
   jn:font-bold
   jn:text-theme-highest
+  jn:mb-4
 `
 
 const resetPasswordLinkStyles = `
@@ -18,13 +18,7 @@ const resetPasswordLinkStyles = `
   jn:text-sm
   jn:block
   jn:text-right
-  jn:my-2 
-`
-
-const requestAccessLinkStyles = `
-  jn:font-medium
-  jn:text-sm
-  jn:text-theme-default
+  jn:mt-2
 `
 
 export interface SignInFormProps extends Omit<FormHTMLAttributes<HTMLFormElement>, "title"> {
@@ -79,23 +73,16 @@ export const SignInForm: React.FC<SignInFormProps> = ({
 
   return (
     <form className={`juno-sign-in-form ${className}`} {...props}>
-      {title !== false && <h4 className={`juno-sign-in-form-heading ${signInFormTitleStyles}`}>{title}</h4>}
+      {title !== false && <h1 className={`juno-sign-in-form-heading ${signInFormTitleStyles}`}>{title}</h1>}
 
-      {errorMessage && <Message variant="error" text={errorMessage} className="jn:my-4" />}
+      {errorMessage && <Message variant="error" text={errorMessage} className="jn:mb-4" />}
 
-      <Stack direction="vertical" className="mx-2">
-        {children}
-      </Stack>
+      {children}
 
       {resetPwUrl && (
-        <>
         <a href={resetPwUrl} className={`juno-sign-in-form-reset-link ${resetPasswordLinkStyles}`}>
           Reset password
         </a>
-          <span className={`juno-sign-in-form-request-access-link ${requestAccessLinkStyles}`}>
-            Don’t have an account? <a href="#">Request Access</a>
-          </span>
-        </>
       )}
     </form>
   )

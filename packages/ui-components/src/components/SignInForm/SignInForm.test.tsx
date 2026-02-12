@@ -69,7 +69,7 @@ describe("SignInForm Component Tests", () => {
     test("applies correct styling to title", () => {
       render(<SignInForm data-testid="my-signin-form" title="Test Title" />)
       const heading = screen.getByRole("heading")
-      expect(heading).toHaveClass("jn:text-2xl")
+      expect(heading).toHaveClass("jn:text-xl")
       expect(heading).toHaveClass("jn:font-bold")
       expect(heading).toHaveClass("jn:text-theme-highest")
     })
@@ -139,20 +139,6 @@ describe("SignInForm Component Tests", () => {
       expect(link).toHaveClass("jn:font-medium")
       expect(link).toHaveClass("jn:text-sm")
     })
-
-    test("displays request access link when reset password link is shown", () => {
-      const { container } = render(<SignInForm data-testid="my-signin-form" resetPwUrl="/reset" />)
-      const requestAccessSpan = container.querySelector(".juno-sign-in-form-request-access-link")
-      expect(requestAccessSpan).toBeInTheDocument()
-      expect(requestAccessSpan?.textContent).toContain("Don't have an account?")
-      expect(screen.getByText("Request Access")).toBeInTheDocument()
-    })
-
-    test("does not display request access link when resetPwUrl is not provided", () => {
-      render(<SignInForm data-testid="my-signin-form" />)
-      expect(screen.queryByText("Don't have an account?")).not.toBeInTheDocument()
-      expect(screen.queryByText("Request Access")).not.toBeInTheDocument()
-    })
   })
 
   describe("Children Rendering", () => {
@@ -181,16 +167,6 @@ describe("SignInForm Component Tests", () => {
     test("renders without children", () => {
       render(<SignInForm data-testid="my-signin-form" />)
       expect(screen.getByTestId("my-signin-form")).toBeInTheDocument()
-    })
-
-    test("children are wrapped in Stack component", () => {
-      const { container } = render(
-        <SignInForm data-testid="my-signin-form">
-          <input type="text" />
-        </SignInForm>
-      )
-      const stack = container.querySelector(".juno-stack")
-      expect(stack).toBeInTheDocument()
     })
   })
 
