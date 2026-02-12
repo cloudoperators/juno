@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.8.0
+
+### Minor Changes
+
+- 0e8a0bd: Add plugin preset detail view that can be accessible at `/admin/plugin-presets/:pluginPresetName`.
+
 ## 0.7.23
 
 ### Patch Changes
