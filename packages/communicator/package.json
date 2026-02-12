@@ -3,9 +3,6 @@
   "version": "2.2.23",
   "description": "Send and receive across tabs",
   "author": "UI-Team",
-  "contributors": [
-    "Andreas Pfau"
-  ],
   "type": "module",
   "main": "build/index.js",
   "types": "build/types/index.d.ts",
