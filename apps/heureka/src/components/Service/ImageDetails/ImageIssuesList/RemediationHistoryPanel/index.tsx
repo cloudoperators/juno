@@ -169,10 +169,7 @@ export const RemediationHistoryPanel = ({
       <PanelBody>
         {revertMessage && (
           <Stack direction="vertical" gap="2" className="jn-mb-4">
-            <Message
-              variant={revertMessage.variant === "error" ? "error" : "success"}
-              text={revertMessage.text}
-            />
+            <Message variant={revertMessage.variant === "error" ? "error" : "success"} text={revertMessage.text} />
           </Stack>
         )}
         {remediationsPromise && (
