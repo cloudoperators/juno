@@ -15,7 +15,7 @@ import {
   PopupMenu,
   PopupMenuOptions,
   PopupMenuItem,
-  Toast,
+  Message,
   Stack,
 } from "@cloudoperators/juno-ui-components"
 import { fetchRemediations } from "../../../../../api/fetchRemediations"
@@ -154,24 +154,25 @@ export const RemediationHistoryPanel = ({
     }
   }
 
+  const handlePanelClose = () => {
+    setRevertMessage(null)
+    onClose()
+  }
+
   return (
     <Panel
       heading={vulnerability ? `Remediations for ${vulnerability}` : undefined}
-      opened={!!vulnerability}
-      onClose={onClose}
+      opened={!!vulnerability || !!revertMessage}
+      onClose={handlePanelClose}
       size="large"
     >
       <PanelBody>
         {revertMessage && (
           <Stack direction="vertical" gap="2" className="jn-mb-4">
-            <Toast
-              variant={revertMessage.variant}
-              autoDismiss
-              autoDismissTimeout={5000}
-              onDismiss={() => setRevertMessage(null)}
-            >
-              {revertMessage.text}
-            </Toast>
+            <Message
+              variant={revertMessage.variant === "error" ? "error" : "success"}
+              text={revertMessage.text}
+            />
           </Stack>
         )}
         {remediationsPromise && (
