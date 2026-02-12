@@ -12,7 +12,7 @@ interface YamlDataProps {
 export default function YamlData({ value, height = "100%" }: YamlDataProps) {
   const { yamlContent, error } = useMemo(() => {
     if (!value) {
-      return { yamlContent: "", error: "" }
+      return { yamlContent: "No data available", error: "" }
     }
 
     try {
@@ -26,7 +26,7 @@ export default function YamlData({ value, height = "100%" }: YamlDataProps) {
     } catch (err) {
       return {
         yamlContent: "",
-        error: `Failed to convert JSON to YAML: ${(err as Error).message}`,
+        error: `Failed to serialize object to YAML: ${(err as Error).message}`,
       }
     }
   }, [value])
@@ -53,6 +53,8 @@ export default function YamlData({ value, height = "100%" }: YamlDataProps) {
           }),
         ]}
         editable={false}
+        aria-label="YAML data viewer (read-only)"
+        aria-readonly="true"
       />
     </>
   )
