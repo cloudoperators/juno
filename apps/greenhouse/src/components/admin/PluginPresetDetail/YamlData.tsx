@@ -9,7 +9,7 @@ interface YamlDataProps {
 }
 
 export default function YamlData({ value }: YamlDataProps) {
-  const [editorHeight, setEditorHeight] = useState<string>("600px")
+  const [editorHeight, setEditorHeight] = useState<string>("100%")
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
