@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React, { useMemo, useState, useEffect, useRef } from "react"
 import CodeMirror, { EditorView, highlightWhitespace } from "@uiw/react-codemirror"
 import { yaml } from "@codemirror/lang-yaml"
