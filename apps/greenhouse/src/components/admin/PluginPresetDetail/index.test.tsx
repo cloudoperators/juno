@@ -65,8 +65,8 @@ describe("PluginPresetDetail", () => {
     await renderComponent(new Promise((resolve) => resolve(mockPreset)))
 
     expect(screen.getByRole("heading", { name: "preset-1" })).toBeInTheDocument()
-    expect(screen.getByText("Overview")).toBeInTheDocument()
+    expect(await screen.findByText("Overview")).toBeInTheDocument()
     expect(screen.getByText("Configuration Overrides")).toBeInTheDocument()
-    expect(screen.getByText("Raw Data")).toBeInTheDocument()
+    expect(screen.getByText("YAML")).toBeInTheDocument()
   })
 })
