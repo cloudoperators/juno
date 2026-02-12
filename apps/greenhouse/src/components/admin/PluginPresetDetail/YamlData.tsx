@@ -8,7 +8,7 @@ interface YamlDataProps {
   value?: object
 }
 
-export default function YamlData({ value }: YamlDataProps) {
+export default function YamlData({ value, ...props }: YamlDataProps) {
   const [editorHeight, setEditorHeight] = useState<string>("100%")
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -73,6 +73,7 @@ export default function YamlData({ value }: YamlDataProps) {
         editable={false}
         aria-label="YAML data viewer (read-only)"
         aria-readonly="true"
+        {...props}
       />
     </div>
   )
