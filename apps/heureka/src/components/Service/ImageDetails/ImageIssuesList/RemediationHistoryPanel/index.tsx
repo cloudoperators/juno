@@ -34,7 +34,7 @@ type RemediationHistoryPanelProps = {
   vulnerability: string | null
   onClose: () => void
   /** Called after a successful revert so the parent can refetch getRemediations and getImages. */
-  onRevertSuccess?: () => void | Promise<void>
+  onRevertSuccess?: (vulnerability: string) => void | Promise<void>
 }
 
 const COLUMN_SPAN = 6
@@ -134,9 +134,18 @@ export const RemediationHistoryPanel = ({
   const handleRevert = async (remediationId: string) => {
     try {
       await deleteRemediation({ apiClient, remediationId })
-      await onRevertSuccess?.()
       const text = `Vulnerability ${vulnerability ?? "unknown"} reverted from false positive successfully.`
       setRevertMessage({ variant: "success", text })
+
+      // Refresh panel/list data after showing success feedback.
+      // This keeps the success toast visible even if refresh fails.
+      try {
+        if (vulnerability) {
+          await onRevertSuccess?.(vulnerability)
+        }
+      } catch (refreshError) {
+        console.error("Failed to refresh data after remediation revert:", refreshError)
+      }
     } catch (err) {
       setRevertMessage({
         variant: "error",
