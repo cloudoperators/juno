@@ -20,10 +20,8 @@ const searchParamsSchema = z
 
 export type PluginPresetSearchParams = z.infer<typeof searchParamsSchema>
 
-const PLUGIN_PRESETS_KNOWN_KEYS = ["searchTerm"] as const
-
 function validatePluginPresetsSearch(search: Record<string, unknown>): PluginPresetSearchParams {
-  const filtered = filterSearchParamsByPrefix(search, [...PLUGIN_PRESETS_KNOWN_KEYS], [SELECTED_FILTER_PREFIX])
+  const filtered = filterSearchParamsByPrefix(search, Object.keys(searchParamsSchema.shape), [SELECTED_FILTER_PREFIX])
   return searchParamsSchema.parse(filtered)
 }
 

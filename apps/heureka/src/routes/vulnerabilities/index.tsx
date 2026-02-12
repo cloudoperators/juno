@@ -23,10 +23,10 @@ const vulnerabilitiesSearchSchema = z
 
 export type VulnerabilitiesSearchParams = z.infer<typeof vulnerabilitiesSearchSchema>
 
-const VULNERABILITIES_KNOWN_KEYS = ["vulnerability", "searchTerm"] as const
-
 function validateVulnerabilitiesSearch(search: Record<string, unknown>): VulnerabilitiesSearchParams {
-  const filtered = filterSearchParamsByPrefix(search, [...VULNERABILITIES_KNOWN_KEYS], [SELECTED_FILTER_PREFIX])
+  const filtered = filterSearchParamsByPrefix(search, Object.keys(vulnerabilitiesSearchSchema.shape), [
+    SELECTED_FILTER_PREFIX,
+  ])
   return vulnerabilitiesSearchSchema.parse(filtered) as VulnerabilitiesSearchParams
 }
 

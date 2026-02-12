@@ -26,14 +26,11 @@ const searchSchema = z
   })
   .catchall(filterValueSchema)
 
-const ALERTS_KNOWN_KEYS = ["searchTerm", "showDetailsFor", "predefinedFilter"] as const
-
 function validateAlertsSearch(search: Record<string, unknown>): z.infer<typeof searchSchema> {
-  const filtered = filterSearchParamsByPrefix(
-    search,
-    [...ALERTS_KNOWN_KEYS],
-    [ACTIVE_FILTERS_PREFIX, PAUSED_FILTERS_PREFIX]
-  )
+  const filtered = filterSearchParamsByPrefix(search, Object.keys(searchSchema.shape), [
+    ACTIVE_FILTERS_PREFIX,
+    PAUSED_FILTERS_PREFIX,
+  ])
   return searchSchema.parse(filtered)
 }
 

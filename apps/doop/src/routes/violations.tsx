@@ -28,10 +28,8 @@ const searchSchema = z
   })
   .catchall(filterValueSchema)
 
-const VIOLATIONS_KNOWN_KEYS = ["searchTerm", "violationGroup"] as const
-
 function validateViolationsSearch(search: Record<string, unknown>): z.infer<typeof searchSchema> {
-  const filtered = filterSearchParamsByPrefix(search, [...VIOLATIONS_KNOWN_KEYS], [ACTIVE_FILTERS_PREFIX])
+  const filtered = filterSearchParamsByPrefix(search, Object.keys(searchSchema.shape), [ACTIVE_FILTERS_PREFIX])
   return searchSchema.parse(filtered)
 }
 

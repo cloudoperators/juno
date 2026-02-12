@@ -26,10 +26,8 @@ const servicesSearchSchema = z
 
 export type ServicesSearchParams = z.infer<typeof servicesSearchSchema>
 
-const SERVICES_KNOWN_KEYS = ["service", "searchTerm"] as const
-
 function validateServicesSearch(search: Record<string, unknown>): ServicesSearchParams {
-  const filtered = filterSearchParamsByPrefix(search, [...SERVICES_KNOWN_KEYS], [SELECTED_FILTER_PREFIX])
+  const filtered = filterSearchParamsByPrefix(search, Object.keys(servicesSearchSchema.shape), [SELECTED_FILTER_PREFIX])
   return servicesSearchSchema.parse(filtered) as ServicesSearchParams
 }
 
