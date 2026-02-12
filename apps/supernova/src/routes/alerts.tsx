@@ -14,6 +14,9 @@ import { ACTIVE_FILTERS_PREFIX, PAUSED_FILTERS_PREFIX } from "../constants"
 import { convertUrlStateToAppState, getFiltersForUrl } from "../lib/urlStateUtils"
 import { useGlobalsActions, useFilterActions, useGlobalsInitialFiltersApplied } from "../components/StoreProvider"
 import { isObjectWithKeys } from "../lib/utils"
+import { filterSearchParamsByPrefix } from "../lib/utils"
+
+const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
 const searchSchema = z
   .object({
@@ -21,25 +24,18 @@ const searchSchema = z
     showDetailsFor: z.string().optional(),
     predefinedFilter: z.string().optional(),
   })
-  .catchall(
-    z.preprocess(
-      (val, ctx) => {
-        if (
-          ctx.path.length > 0 &&
-          typeof ctx.path[0] === "string" &&
-          !ctx.path[0].startsWith(ACTIVE_FILTERS_PREFIX) &&
-          !ctx.path[0].startsWith(PAUSED_FILTERS_PREFIX)
-        ) {
-          return undefined
-        }
-        return val
-      },
-      z.union([z.string(), z.array(z.string()), z.undefined()])
-    )
-  )
+  .catchall(filterValueSchema)
+
+function validateAlertsSearch(search: Record<string, unknown>): z.infer<typeof searchSchema> {
+  const filtered = filterSearchParamsByPrefix(search, Object.keys(searchSchema.shape), [
+    ACTIVE_FILTERS_PREFIX,
+    PAUSED_FILTERS_PREFIX,
+  ])
+  return searchSchema.parse(filtered)
+}
 
 export const Route = createFileRoute("/alerts")({
-  validateSearch: searchSchema,
+  validateSearch: validateAlertsSearch,
   beforeLoad: ({ search }) => {
     // extract alerts specific state from the URL search params
     const { activeFilters, pausedFilters, predefinedFilter, searchTerm, showDetailsFor } =
