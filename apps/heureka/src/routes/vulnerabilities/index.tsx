@@ -10,28 +10,28 @@ import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchVulnerabilities } from "../../api/fetchVulnerabilities"
 import { fetchVulnerabilityFilters } from "../../api/fetchVulnerabilityFilters"
 import { extractFilterSettingsFromSearchParams } from "../../components/Vulnerabilities/utils"
+import { filterSearchParamsByPrefix } from "../../utils"
+
+const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
 const vulnerabilitiesSearchSchema = z
   .object({
     vulnerability: z.string().optional(),
     searchTerm: z.preprocess((val) => (typeof val === "number" ? val.toString() : val), z.string().optional()),
   })
-  .catchall(
-    z.preprocess(
-      (val, ctx) => {
-        if (ctx.path.length > 0 && typeof ctx.path[0] === "string" && !ctx.path[0].startsWith(SELECTED_FILTER_PREFIX)) {
-          return undefined
-        }
-        return val
-      },
-      z.union([z.string(), z.array(z.string()), z.undefined()])
-    )
-  )
+  .catchall(filterValueSchema)
 
 export type VulnerabilitiesSearchParams = z.infer<typeof vulnerabilitiesSearchSchema>
 
+function validateVulnerabilitiesSearch(search: Record<string, unknown>): VulnerabilitiesSearchParams {
+  const filtered = filterSearchParamsByPrefix(search, Object.keys(vulnerabilitiesSearchSchema.shape), [
+    SELECTED_FILTER_PREFIX,
+  ])
+  return vulnerabilitiesSearchSchema.parse(filtered) as VulnerabilitiesSearchParams
+}
+
 export const Route = createFileRoute("/vulnerabilities/")({
-  validateSearch: vulnerabilitiesSearchSchema,
+  validateSearch: validateVulnerabilitiesSearch,
   loaderDeps: ({ search }) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { vulnerability, ...rest } = search // we're omitting 'service' from the deps so route does not reload when it changes

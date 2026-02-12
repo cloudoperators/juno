@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.29
+
+### Patch Changes
+
+- bbe4d3a: Clean up the template application to align with the standard Juno setup.
+
 ## 2.0.28
 
 ### Patch Changes

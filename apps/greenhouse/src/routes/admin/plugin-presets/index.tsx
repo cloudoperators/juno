@@ -8,28 +8,26 @@ import { z } from "zod"
 import { PluginPresets } from "../../../components/admin/PluginPresets"
 import { SELECTED_FILTER_PREFIX } from "../../../components/admin/constants"
 import { extractFilterSettingsFromSearchParams } from "../../../components/admin/utils"
+import { filterSearchParamsByPrefix } from "../../../lib/helpers"
+
+const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
 const searchParamsSchema = z
   .object({
     searchTerm: z.string().optional(),
   })
-  .catchall(
-    z.preprocess(
-      (val, ctx) => {
-        if (ctx.path.length > 0 && typeof ctx.path[0] === "string" && !ctx.path[0].startsWith(SELECTED_FILTER_PREFIX)) {
-          return undefined
-        }
-        return val
-      },
-      z.union([z.string(), z.array(z.string()), z.undefined()])
-    )
-  )
+  .catchall(filterValueSchema)
 
 export type PluginPresetSearchParams = z.infer<typeof searchParamsSchema>
 
+function validatePluginPresetsSearch(search: Record<string, unknown>): PluginPresetSearchParams {
+  const filtered = filterSearchParamsByPrefix(search, Object.keys(searchParamsSchema.shape), [SELECTED_FILTER_PREFIX])
+  return searchParamsSchema.parse(filtered)
+}
+
 export const Route = createFileRoute("/admin/plugin-presets/")({
   component: PluginPresets,
-  validateSearch: (search: Record<string, unknown>) => searchParamsSchema.parse(search),
+  validateSearch: validatePluginPresetsSearch,
   loaderDeps: (search) => ({
     ...search,
   }),
