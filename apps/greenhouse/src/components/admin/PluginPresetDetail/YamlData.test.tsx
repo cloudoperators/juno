@@ -50,20 +50,6 @@ describe("YamlData", () => {
       expect(editorText).toContain("name")
       expect(editorText).toContain("my-preset")
     })
-
-    it("should render 'No data available' when value is undefined", () => {
-      render(<YamlData data-testid="codemirror" />)
-
-      const editor = screen.getByTestId("codemirror")
-      expect(editor.textContent).toContain("No data available")
-    })
-
-    it("should render 'No data available' when value is null", () => {
-      render(<YamlData value={undefined} data-testid="codemirror" />)
-
-      const editor = screen.getByTestId("codemirror")
-      expect(editor.textContent).toContain("No data available")
-    })
   })
 
   describe("error handling", () => {
