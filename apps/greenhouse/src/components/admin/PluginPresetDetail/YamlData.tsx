@@ -10,7 +10,7 @@ import yamlParser from "js-yaml"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 
 interface YamlDataProps {
-  value?: object
+  value: object
 }
 
 export default function YamlData({ value, ...props }: YamlDataProps) {
@@ -34,10 +34,6 @@ export default function YamlData({ value, ...props }: YamlDataProps) {
   }, [])
 
   const { yamlContent, error } = useMemo(() => {
-    if (!value) {
-      return { yamlContent: "No data available", error: "" }
-    }
-
     try {
       const yamlString = yamlParser.dump(value, {
         indent: 2,
