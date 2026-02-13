@@ -5,7 +5,7 @@
 
 import React, { useState, MouseEvent, useEffect } from "react"
 import { Box, Stack, Tooltip, TooltipTrigger, TooltipContent, Icon } from "@cloudoperators/juno-ui-components"
-import { ServiceImage, ComponentInstance } from "../../Services/utils"
+import { ServiceImageVersion, ComponentInstance } from "../../Services/utils"
 
 type ToolTipBoxType = {
   instance: ComponentInstance
@@ -20,15 +20,13 @@ const BoxWithTooltip = ({ instance }: ToolTipBoxType) => (
           <Icon icon="info" size="18" className="cursor-pointer hover:text-theme-primary" />
         </TooltipTrigger>
         <TooltipContent>
-          <span> Namespace: {instance?.namespace || "--"}</span>
-          <br />
-          <span> Region: {instance?.region || "--"}</span>
-          <br />
-          <span> Cluster: {instance?.cluster || "--"}</span>
-          <br />
-          <span> Container: {instance?.container || "--"}</span>
-          <br />
-          <span> Pod: {instance?.pod || "--"}</span>
+          <Stack gap="1" direction="vertical">
+            <span>Namespace: {instance?.namespace || "--"}</span>
+            <span>Region: {instance?.region || "--"}</span>
+            <span>Cluster: {instance?.cluster || "--"}</span>
+            <span>Container: {instance?.container || "--"}</span>
+            <span>Pod: {instance?.pod || "--"}</span>
+          </Stack>
         </TooltipContent>
       </Tooltip>
     </Stack>
@@ -47,8 +45,9 @@ const groupInstances = (instances: ComponentInstance[]) => {
   const grouped: Record<string, Record<string, ComponentInstance[]>> = {} // Namespace -> Container -> Instances
 
   instances.forEach((instance) => {
+    // Use parsed fields from ccrn
     const namespace = instance.namespace || "Unknown"
-    const container = instance.container || "Unknown"
+    const container = instance.container || "All"
 
     if (!grouped[namespace]) grouped[namespace] = {}
     if (!grouped[namespace][container]) grouped[namespace][container] = []
@@ -60,12 +59,13 @@ const groupInstances = (instances: ComponentInstance[]) => {
 }
 
 type ImageVersionOccurrencesProps = {
-  imageVersion: ServiceImage
+  imageVersion: ServiceImageVersion
 }
 
 const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps) => {
   const [displayOccurrences, setDisplayOccurrences] = useState(false)
-  const grouped = groupInstances(imageVersion.componentInstances || [])
+  const componentInstances = imageVersion.componentInstances || []
+  const grouped = groupInstances(componentInstances)
 
   useEffect(() => {
     // Reset state when myProp changes
@@ -82,7 +82,7 @@ const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps)
       {displayOccurrences &&
         grouped &&
         Object.entries(grouped).map(([namespace, containers]) => (
-          <>
+          <div key={namespace}>
             {Object.entries(containers).map(([container, instances]) => (
               <div className="my-2" key={`${namespace}-${container}`}>
                 <div className="mb-4">
@@ -90,12 +90,12 @@ const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps)
                 </div>
                 <div className="grid grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] gap-2">
                   {instances.map((item, i) => (
-                    <BoxWithTooltip key={i} instance={item} />
+                    <BoxWithTooltip key={item.id || i} instance={item} />
                   ))}
                 </div>
               </div>
             ))}
-          </>
+          </div>
         ))}
 
       <div className="advance-link">
