@@ -62,6 +62,7 @@ describe("YamlData", () => {
 
       // Check if ErrorMessage is rendered (outside editor)
       expect(screen.getByText(/Failed to serialize object to YAML/i)).toBeInTheDocument()
+      expect(screen.queryByTestId("codemirror")).not.toBeInTheDocument()
     })
   })
 })
