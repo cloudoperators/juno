@@ -40,7 +40,6 @@ export default function YamlViewer({ value, ...props }: YamlViewerProps) {
       ) : (
         <CodeMirror
           value={yamlContent}
-          height="100%"
           theme="dark"
           extensions={[
             yaml(),
