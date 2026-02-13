@@ -99,7 +99,7 @@ const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps)
         ))}
 
       <div className="advance-link">
-        <a href="#" rel="noopener noreferrer" onClick={onShowMoreClicked}>
+        <a href="#" onClick={onShowMoreClicked}>
           <Stack alignment="center">
             {displayOccurrences ? "Hide Occurrences" : "Display Occurrences"}
             <Icon color="global-text" icon={displayOccurrences ? "expandLess" : "expandMore"} />

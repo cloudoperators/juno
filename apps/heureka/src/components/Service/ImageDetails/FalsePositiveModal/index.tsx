@@ -23,8 +23,10 @@ type FalsePositiveModalProps = {
   severity?: string
   service: string
   image: string
-  /** Error message to show when createRemediation fails. Shown above the form content. */
+  /** Error message to show when createRemediation fails. */
   errorMessage?: string | null
+  /** Called when submit fails so the parent can set errorMessage. */
+  onSetError?: (message: string | null) => void
 }
 
 const CONFIRM_LABEL = "Mark as False Positive"
@@ -46,6 +48,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   service,
   image,
   errorMessage,
+  onSetError,
 }) => {
   const [description, setDescription] = useState<string>("")
   const [expirationDate, setExpirationDate] = useState<Date | null>(null)
@@ -86,8 +89,10 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         onClose()
       }
     } catch (error) {
-      console.error("Failed to create remediation:", error)
-      // Error is shown in modal via errorMessage from parent
+      const message = error instanceof Error ? error.message : "Failed to create remediation"
+      if (isMountedRef.current) {
+        onSetError?.(message)
+      }
     } finally {
       if (isMountedRef.current) {
         setIsSubmitting(false)
@@ -99,6 +104,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
     setDescription("")
     setExpirationDate(null)
     setDescriptionError("")
+    onSetError?.(null)
     onClose()
   }
 
@@ -155,7 +161,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
             placeholder="Add a description explaining why this is a false positive..."
             value={description}
             onChange={handleDescriptionChange}
-            rows={4}
+            rows={14}
             required
             invalid={!!descriptionError}
             errortext={descriptionError || ""}

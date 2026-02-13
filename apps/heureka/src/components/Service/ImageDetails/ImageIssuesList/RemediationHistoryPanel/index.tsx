@@ -138,13 +138,17 @@ export const RemediationHistoryPanel = ({
       setRevertMessage({ variant: "success", text })
 
       // Refresh panel/list data after showing success feedback.
-      // This keeps the success toast visible even if refresh fails.
       try {
         if (vulnerability) {
           await onRevertSuccess?.(vulnerability)
         }
       } catch (refreshError) {
-        console.error("Failed to refresh data after remediation revert:", refreshError)
+        const refreshMsg =
+          refreshError instanceof Error ? refreshError.message : "Failed to refresh data after revert"
+        setRevertMessage({
+          variant: "error",
+          text: `Revert succeeded, but ${refreshMsg.toLowerCase()}. You may need to refresh the page.`,
+        })
       }
     } catch (err) {
       setRevertMessage({

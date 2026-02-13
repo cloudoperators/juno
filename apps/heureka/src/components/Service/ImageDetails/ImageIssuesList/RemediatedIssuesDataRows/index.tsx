@@ -7,10 +7,8 @@ import React, { use } from "react"
 import { ObservableQuery } from "@apollo/client"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { RemediatedIssueDataRow } from "./RemediatedIssueDataRow"
-import { getNormalizedRemediationsResponse } from "../../../../Services/utils"
 import { getNormalizedImageVulnerabilitiesResponse } from "../../../../Services/utils"
-import { GetRemediationsQuery } from "../../../../../generated/graphql"
-import { GetImagesQuery } from "../../../../../generated/graphql"
+import { GetRemediationsQuery, GetImagesQuery } from "../../../../../generated/graphql"
 
 const COLUMN_SPAN = 4
 
@@ -23,19 +21,14 @@ type RemediatedIssuesDataRowsProps = {
 
 export const RemediatedIssuesDataRows = ({
   issuesPromise,
-  remediationsPromise,
   selectedVulnerabilityName,
   onSelectVulnerability,
 }: RemediatedIssuesDataRowsProps) => {
   const issuesResult = use(issuesPromise)
-  const remediationsResult = use(remediationsPromise)
   const { error: issuesError, data: issuesData } = issuesResult
-  const { data: remediationsData } = remediationsResult
-  // Support both Apollo result (.data) and raw query data (e.g. from React Query cache)
-  const queryData = (issuesData ?? (issuesResult as unknown as GetImagesQuery)) as GetImagesQuery | undefined
-  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(queryData)
-  // Keep remediations loaded for future remediation-actions panel
-  getNormalizedRemediationsResponse(remediationsData as GetRemediationsQuery | undefined)
+  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(
+    issuesData as GetImagesQuery | undefined
+  )
   if (issuesError) {
     return (
       <EmptyDataGridRow colSpan={COLUMN_SPAN}>

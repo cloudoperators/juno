@@ -4,8 +4,7 @@
  */
 
 import React, { useState } from "react"
-import { DataGridRow, DataGridCell, Stack } from "@cloudoperators/juno-ui-components"
-import { Icon } from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Stack, Icon } from "@cloudoperators/juno-ui-components"
 import { IssueIcon } from "../../../../../common/IssueIcon"
 import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
 import { ImageVulnerability } from "../../../../../Services/utils"

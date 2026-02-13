@@ -71,9 +71,9 @@ export const IssuesDataRow = ({
     setCreateError(null)
     try {
       await createRemediation({ apiClient, input })
-      setIsModalOpen(false)
       const cveNumber = issue?.name || "unknown"
       await onFalsePositiveSuccess?.(cveNumber)
+      setIsModalOpen(false)
     } catch (error) {
       setCreateError(error instanceof Error ? error.message : "Failed to create remediation")
     }
@@ -144,6 +144,7 @@ export const IssuesDataRow = ({
           service={service}
           image={image}
           errorMessage={createError}
+          onSetError={setCreateError}
         />
       )}
     </>
