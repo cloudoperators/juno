@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import { describe, it, expect } from "vitest"
 import YamlData from "./YamlData"
 
@@ -49,6 +49,38 @@ describe("YamlData", () => {
       expect(editorText).toContain("metadata")
       expect(editorText).toContain("name")
       expect(editorText).toContain("my-preset")
+    })
+
+    it('should use auto height when heightMode is "auto"', () => {
+      const mockData = {
+        apiVersion: "v1",
+        kind: "PluginPreset",
+        metadata: {
+          name: "my-preset",
+        },
+      }
+
+      const { container } = render(<YamlData value={mockData} heightMode="auto" />)
+
+      const editorContainer = container.firstChild as HTMLElement
+      expect(editorContainer.getAttribute("data-height")).toBe("auto")
+    })
+
+    it('should use calculated height when heightMode is "fill"', async () => {
+      const mockData = {
+        apiVersion: "v1",
+        kind: "PluginPreset",
+        metadata: {
+          name: "my-preset",
+        },
+      }
+
+      const { container } = render(<YamlData value={mockData} heightMode="fill" />)
+
+      await waitFor(() => {
+        const editorContainer = container.firstChild as HTMLElement
+        expect(editorContainer.getAttribute("data-height")).not.toBe("auto")
+      })
     })
   })
 

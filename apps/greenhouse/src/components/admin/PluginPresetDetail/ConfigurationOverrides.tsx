@@ -4,11 +4,13 @@
  */
 
 import React from "react"
-import { Container, CodeBlock, JsonViewer } from "@cloudoperators/juno-ui-components"
 import { PluginPreset } from "../types/k8sTypes"
+import YamlData from "../common/YamlData"
 
 export const ConfigurationOverrides = ({ pluginPreset }: { pluginPreset: PluginPreset }) => (
-  <CodeBlock>
-    <JsonViewer data={pluginPreset.spec?.plugin?.optionValues || {}} toolbar expanded={2} />
-  </CodeBlock>
+  <>
+    {pluginPreset.spec?.plugin?.optionValues && (
+      <YamlData value={pluginPreset.spec?.plugin?.optionValues} heightMode="fill" />
+    )}
+  </>
 )

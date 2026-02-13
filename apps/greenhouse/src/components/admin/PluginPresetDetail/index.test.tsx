@@ -66,7 +66,7 @@ describe("PluginPresetDetail", () => {
 
     expect(screen.getByRole("heading", { name: "preset-1" })).toBeInTheDocument()
     expect(await screen.findByText("Overview")).toBeInTheDocument()
-    expect(screen.getByText("Configuration Overrides")).toBeInTheDocument()
+    expect(screen.getByText("Configuration")).toBeInTheDocument()
     expect(screen.getByText("YAML")).toBeInTheDocument()
   })
 })
