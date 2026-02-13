@@ -22,7 +22,7 @@ import { ConfigurationOverrides } from "./ConfigurationOverrides"
 import { PluginPreset } from "../types/k8sTypes"
 import { isReady } from "../utils"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
-import YamlData from "../common/YamlData"
+import YamlViewer from "../common/YamlViewer"
 
 const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPreset }) => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
@@ -46,7 +46,7 @@ const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPrese
       </TabPanel>
       <TabPanel>
         <Container px={false} py>
-          <YamlData value={pluginPreset} heightMode="fill" />
+          <YamlViewer value={pluginPreset} />
         </Container>
       </TabPanel>
     </Tabs>

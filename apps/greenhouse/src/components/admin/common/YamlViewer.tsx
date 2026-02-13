@@ -9,33 +9,12 @@ import { yaml } from "@codemirror/lang-yaml"
 import yamlParser from "js-yaml"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 
-interface YamlDataProps {
+interface YamlViewerProps {
   value: object
-  heightMode?: "fill" | "auto"
 }
 
-export default function YamlData({ value, heightMode = "auto", ...props }: YamlDataProps) {
-  const [editorHeight, setEditorHeight] = useState<string>("100%")
+export default function YamlViewer({ value, ...props }: YamlViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (heightMode !== "fill") return
-
-    const updateHeight = () => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        const viewportHeight = window.innerHeight
-        const bottomMargin = 6
-        const availableHeight = viewportHeight - rect.top - bottomMargin
-        setEditorHeight(`${Math.max(300, availableHeight)}px`)
-      }
-    }
-
-    updateHeight()
-    window.addEventListener("resize", updateHeight)
-
-    return () => window.removeEventListener("resize", updateHeight)
-  }, [heightMode])
 
   const { yamlContent, error } = useMemo(() => {
     try {
@@ -54,16 +33,14 @@ export default function YamlData({ value, heightMode = "auto", ...props }: YamlD
     }
   }, [value])
 
-  const height = heightMode === "auto" ? "auto" : editorHeight
-
   return (
-    <div ref={containerRef} data-height={height}>
+    <div ref={containerRef}>
       {error ? (
         <ErrorMessage error={new Error(error)} />
       ) : (
         <CodeMirror
           value={yamlContent}
-          height={height}
+          height="100%"
           theme="dark"
           extensions={[
             yaml(),
