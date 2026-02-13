@@ -21,10 +21,9 @@ import { createConditionAbbreviation } from "../utils"
 const CONDITION_VARIANTS = {
   True: "success",
   False: "error",
-  Unknown: "warning",
 } as const
 
-type ConditionVariant = (typeof CONDITION_VARIANTS)[keyof typeof CONDITION_VARIANTS]
+type ConditionVariant = (typeof CONDITION_VARIANTS)[keyof typeof CONDITION_VARIANTS] | "default"
 
 type ReadinessCondition = {
   type: string
@@ -34,17 +33,22 @@ type ReadinessCondition = {
   reason?: string
 }
 
-const getReadinessConditionVariant = (status: string) =>
-  CONDITION_VARIANTS[status as keyof typeof CONDITION_VARIANTS] ?? CONDITION_VARIANTS.Unknown
+const getReadinessConditionVariant = (condition: ReadinessCondition): ConditionVariant => {
+  // Only color code the "Ready" condition
+  if (condition.type === "Ready") {
+    return condition.status === "True" ? "success" : "error"
+  }
+  return "default"
+}
 
 const ConditionBadge: React.FC<{ condition: ReadinessCondition }> = ({ condition }) => {
-  const variant = getReadinessConditionVariant(condition.status)
+  const variant = getReadinessConditionVariant(condition)
   const displayValue = createConditionAbbreviation(condition.type)
 
   return (
     <Tooltip triggerEvent="hover">
       <TooltipTrigger asChild>
-        <Badge icon text={displayValue} variant={variant} />
+        <Badge icon={condition.type === "Ready"} text={displayValue} variant={variant} />
       </TooltipTrigger>
       <TooltipContent>{condition.type}</TooltipContent>
     </Tooltip>
@@ -57,15 +61,14 @@ const getVariantStyles = (variant: ConditionVariant) => {
       return "bg-theme-success/25 border-theme-success"
     case "error":
       return "bg-theme-danger/25 border-theme-danger"
-    case "warning":
-      return "bg-theme-warning/25 border-theme-warning"
+    case "default":
     default:
       return "bg-theme-default/25 border-theme-default"
   }
 }
 
 const ConditionCard: React.FC<{ condition: ReadinessCondition }> = ({ condition }) => {
-  const variant = getReadinessConditionVariant(condition.status)
+  const variant = getReadinessConditionVariant(condition)
 
   return (
     <Box className={`p-4 border ${getVariantStyles(variant)}`}>

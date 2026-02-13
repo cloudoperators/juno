@@ -19,14 +19,14 @@ interface DataRowsProps {
 }
 
 export const DataRows = ({ colSpan }: DataRowsProps) => {
-  const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets/" })
+  const { apiClient, user } = useRouteContext({ from: "/admin/plugin-presets/" })
   const search = useSearch({ from: "/admin/plugin-presets/" })
   const navigate = useNavigate()
   const filterSettings = extractFilterSettingsFromSearchParams(search)
 
   const { data: pluginPresets } = useSuspenseQuery({
-    queryKey: [FETCH_PLUGIN_PRESETS_CACHE_KEY, organization, filterSettings],
-    queryFn: () => fetchPluginPresets({ apiClient, namespace: organization, filterSettings }),
+    queryKey: [FETCH_PLUGIN_PRESETS_CACHE_KEY, user.organization, filterSettings],
+    queryFn: () => fetchPluginPresets({ apiClient, namespace: user.organization, filterSettings }),
   })
 
   if (!pluginPresets || pluginPresets.length === 0) {

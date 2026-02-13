@@ -4,6 +4,7 @@
  */
 
 import { Filter } from "../../common/types"
+import { FILTER_IDS, SUPPORT_GROUP_LABEL } from "../../constants"
 import { PluginPreset } from "../../types/k8sTypes"
 
 const getPluginPresetDefinitionValues = (presets: PluginPreset[]) =>
@@ -15,12 +16,26 @@ const getPluginPresetDefinitionValues = (presets: PluginPreset[]) =>
     )
   ).filter((value): value is string => !!value)
 
+const getSupportGroupValues = (presets: PluginPreset[]) =>
+  Array.from(
+    new Set(
+      presets.map((preset) => {
+        return preset.metadata?.labels?.[SUPPORT_GROUP_LABEL]
+      })
+    )
+  ).filter((value): value is string => !!value)
+
 const extractPluginPresetFilters = (pluginPresets: PluginPreset[]) => {
   return [
     {
-      id: "pluginPresetDefinition",
+      id: FILTER_IDS.PLUGIN_PRESET_DEFINITION,
       label: "Plugin Preset Definition",
       values: getPluginPresetDefinitionValues(pluginPresets),
+    },
+    {
+      id: FILTER_IDS.SUPPORT_GROUP,
+      label: "Support Group",
+      values: getSupportGroupValues(pluginPresets),
     },
   ]
 }

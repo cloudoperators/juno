@@ -25,7 +25,7 @@ export const PluginPresets = () => {
 
   return (
     <>
-      <Container px={false} py>
+      <Container px={false} py={false}>
         <ContentHeading>Plugin Presets Overview</ContentHeading>
         <p>Manage and monitor plugin preset configurations across all clusters</p>
       </Container>

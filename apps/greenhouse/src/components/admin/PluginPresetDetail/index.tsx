@@ -55,15 +55,15 @@ const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPrese
 
 export const PluginPresetDetail = () => {
   const { pluginPresetName } = useParams({ from: "/admin/plugin-presets/$pluginPresetName" })
-  const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets/$pluginPresetName" })
+  const { apiClient, user } = useRouteContext({ from: "/admin/plugin-presets/$pluginPresetName" })
 
   const {
     data: pluginPreset,
     isLoading,
     error,
   } = useQuery({
-    queryKey: [FETCH_PLUGIN_PRESET_CACHE_KEY, organization, pluginPresetName],
-    queryFn: () => fetchPluginPreset({ apiClient, namespace: organization, pluginPresetName }),
+    queryKey: [FETCH_PLUGIN_PRESET_CACHE_KEY, user.organization, pluginPresetName],
+    queryFn: () => fetchPluginPreset({ apiClient, namespace: user.organization, pluginPresetName }),
   })
 
   return (

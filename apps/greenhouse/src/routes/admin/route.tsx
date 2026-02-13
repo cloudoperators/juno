@@ -5,18 +5,8 @@
 
 import { createFileRoute } from "@tanstack/react-router"
 import { Layout } from "../../components/admin/Layout"
-import { Crumb } from "../-types"
 
 export const Route = createFileRoute("/admin")({
   component: Layout,
   errorComponent: Layout,
-  loader: () => {
-    const crumb: Crumb = {
-      label: "Admin",
-      icon: "home",
-    }
-    return {
-      crumb,
-    }
-  },
 })
