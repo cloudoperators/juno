@@ -88,6 +88,7 @@ export { SideNavigation } from "./components/SideNavigation/SideNavigation.compo
 export { SideNavigationGroup } from "./components/SideNavigationGroup/SideNavigationGroup.component"
 export { SideNavigationItem } from "./components/SideNavigationItem/SideNavigationItem.component"
 export { SideNavigationList } from "./components/SideNavigationList/SideNavigationList.component"
+export { SignInForm } from "./components/SignInForm/SignInForm.component"
 export { SortButton } from "./components/SortButton/SortButton.component"
 export { Spinner } from "./components/Spinner/Spinner.component"
 export { Stack } from "./components/Stack/Stack.component"
@@ -193,6 +194,7 @@ export type { SideNavigationProps } from "./components/SideNavigation/SideNaviga
 export type { SideNavigationGroupProps } from "./components/SideNavigationGroup/SideNavigationGroup.component"
 export type { SideNavigationItemProps } from "./components/SideNavigationItem/SideNavigationItem.component"
 export type { SideNavigationListProps } from "./components/SideNavigationList/SideNavigationList.component"
+export type { SignInFormProps } from "./components/SignInForm/SignInForm.component"
 export type { SortButtonProps } from "./components/SortButton/SortButton.component"
 export type { SpinnerProps } from "./components/Spinner/Spinner.component"
 export type {

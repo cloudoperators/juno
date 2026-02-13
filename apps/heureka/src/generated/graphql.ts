@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client"
-import * as Apollo from "@apollo/client"
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
@@ -22,7 +21,6 @@ export type Activity = Node & {
   __typename?: "Activity"
   evidences?: Maybe<EvidenceConnection>
   id: Scalars["ID"]["output"]
-  issueMatchChanges?: Maybe<IssueMatchChangeConnection>
   issues?: Maybe<IssueConnection>
   metadata?: Maybe<Metadata>
   services?: Maybe<ServiceConnection>
@@ -32,12 +30,6 @@ export type Activity = Node & {
 export type ActivityEvidencesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<EvidenceFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type ActivityIssueMatchChangesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<IssueMatchChangeFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
@@ -143,7 +135,10 @@ export type Component = Node & {
   componentVersions?: Maybe<ComponentVersionConnection>
   id: Scalars["ID"]["output"]
   metadata?: Maybe<Metadata>
+  organization?: Maybe<Scalars["String"]["output"]>
+  repository?: Maybe<Scalars["String"]["output"]>
   type?: Maybe<ComponentTypeValues>
+  url?: Maybe<Scalars["String"]["output"]>
 }
 
 export type ComponentComponentVersionsArgs = {
@@ -168,7 +163,8 @@ export type ComponentEdge = Edge & {
 
 export type ComponentFilter = {
   componentCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
-  componentVersionRepository?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  organization?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  repository?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   state?: InputMaybe<Array<StateFilter>>
 }
@@ -184,7 +180,10 @@ export type ComponentFilterValueComponentCcrnArgs = {
 
 export type ComponentInput = {
   ccrn?: InputMaybe<Scalars["String"]["input"]>
+  organization?: InputMaybe<Scalars["String"]["input"]>
+  repository?: InputMaybe<Scalars["String"]["input"]>
   type?: InputMaybe<ComponentTypeValues>
+  url?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type ComponentInstance = Node & {
@@ -572,6 +571,52 @@ export type ImageFilter = {
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
+export type ImageVersion = Node & {
+  __typename?: "ImageVersion"
+  id: Scalars["ID"]["output"]
+  metadata?: Maybe<Metadata>
+  occurences?: Maybe<ComponentInstanceConnection>
+  repository?: Maybe<Scalars["String"]["output"]>
+  tag?: Maybe<Scalars["String"]["output"]>
+  version?: Maybe<Scalars["String"]["output"]>
+  vulnerabilities?: Maybe<VulnerabilityConnection>
+  vulnerabilityCounts?: Maybe<SeverityCounts>
+}
+
+export type ImageVersionOccurencesArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type ImageVersionVulnerabilitiesArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<VulnerabilityFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
+export type ImageVersionConnection = Connection & {
+  __typename?: "ImageVersionConnection"
+  counts?: Maybe<SeverityCounts>
+  edges: Array<Maybe<ImageVersionEdge>>
+  pageInfo?: Maybe<PageInfo>
+  totalCount: Scalars["Int"]["output"]
+}
+
+export type ImageVersionEdge = Edge & {
+  __typename?: "ImageVersionEdge"
+  cursor?: Maybe<Scalars["String"]["output"]>
+  node: ImageVersion
+}
+
+export type ImageVersionFilter = {
+  image?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  repository?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
+  tag?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  version?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+}
+
 export type Issue = Node & {
   __typename?: "Issue"
   activities?: Maybe<ActivityConnection>
@@ -659,7 +704,6 @@ export type IssueMatch = Node & {
   id: Scalars["ID"]["output"]
   issue: Issue
   issueId?: Maybe<Scalars["String"]["output"]>
-  issueMatchChanges?: Maybe<IssueMatchChangeConnection>
   metadata?: Maybe<Metadata>
   remediationDate?: Maybe<Scalars["DateTime"]["output"]>
   severity?: Maybe<Severity>
@@ -679,52 +723,6 @@ export type IssueMatchEvidencesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<EvidenceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type IssueMatchIssueMatchChangesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<IssueMatchChangeFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type IssueMatchChange = Node & {
-  __typename?: "IssueMatchChange"
-  action?: Maybe<IssueMatchChangeActions>
-  activity: Activity
-  activityId?: Maybe<Scalars["String"]["output"]>
-  id: Scalars["ID"]["output"]
-  issueMatch: IssueMatch
-  issueMatchId?: Maybe<Scalars["String"]["output"]>
-  metadata?: Maybe<Metadata>
-}
-
-export enum IssueMatchChangeActions {
-  Add = "add",
-  Remove = "remove",
-}
-
-export type IssueMatchChangeConnection = Connection & {
-  __typename?: "IssueMatchChangeConnection"
-  edges?: Maybe<Array<Maybe<IssueMatchChangeEdge>>>
-  pageInfo?: Maybe<PageInfo>
-  totalCount: Scalars["Int"]["output"]
-}
-
-export type IssueMatchChangeEdge = Edge & {
-  __typename?: "IssueMatchChangeEdge"
-  cursor?: Maybe<Scalars["String"]["output"]>
-  node: IssueMatchChange
-}
-
-export type IssueMatchChangeFilter = {
-  action?: InputMaybe<Array<InputMaybe<IssueMatchChangeActions>>>
-  state?: InputMaybe<Array<StateFilter>>
-}
-
-export type IssueMatchChangeInput = {
-  action?: InputMaybe<IssueMatchChangeActions>
-  activityId?: InputMaybe<Scalars["String"]["input"]>
-  issueMatchId?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type IssueMatchConnection = Connection & {
@@ -965,7 +963,6 @@ export type Mutation = {
   createEvidence: Evidence
   createIssue: Issue
   createIssueMatch: IssueMatch
-  createIssueMatchChange: IssueMatchChange
   createIssueRepository: IssueRepository
   createIssueVariant: IssueVariant
   createRemediation: Remediation
@@ -980,7 +977,6 @@ export type Mutation = {
   deleteEvidence: Scalars["String"]["output"]
   deleteIssue: Scalars["String"]["output"]
   deleteIssueMatch: Scalars["String"]["output"]
-  deleteIssueMatchChange: Scalars["String"]["output"]
   deleteIssueRepository: Scalars["String"]["output"]
   deleteIssueVariant: Scalars["String"]["output"]
   deleteRemediation: Scalars["String"]["output"]
@@ -1003,7 +999,6 @@ export type Mutation = {
   updateEvidence: Evidence
   updateIssue: Issue
   updateIssueMatch: IssueMatch
-  updateIssueMatchChange: IssueMatchChange
   updateIssueRepository: IssueRepository
   updateIssueVariant: IssueVariant
   updateRemediation: Remediation
@@ -1085,10 +1080,6 @@ export type MutationCreateIssueMatchArgs = {
   input: IssueMatchInput
 }
 
-export type MutationCreateIssueMatchChangeArgs = {
-  input: IssueMatchChangeInput
-}
-
 export type MutationCreateIssueRepositoryArgs = {
   input: IssueRepositoryInput
 }
@@ -1142,10 +1133,6 @@ export type MutationDeleteIssueArgs = {
 }
 
 export type MutationDeleteIssueMatchArgs = {
-  id: Scalars["ID"]["input"]
-}
-
-export type MutationDeleteIssueMatchChangeArgs = {
   id: Scalars["ID"]["input"]
 }
 
@@ -1253,11 +1240,6 @@ export type MutationUpdateIssueMatchArgs = {
   input: IssueMatchInput
 }
 
-export type MutationUpdateIssueMatchChangeArgs = {
-  id: Scalars["ID"]["input"]
-  input: IssueMatchChangeInput
-}
-
 export type MutationUpdateIssueRepositoryArgs = {
   id: Scalars["ID"]["input"]
   input: IssueRepositoryInput
@@ -1315,6 +1297,38 @@ export type PageInfo = {
   pages?: Maybe<Array<Maybe<Page>>>
 }
 
+export type Patch = Node & {
+  __typename?: "Patch"
+  componentVersionId?: Maybe<Scalars["ID"]["output"]>
+  componentVersionName?: Maybe<Scalars["String"]["output"]>
+  id: Scalars["ID"]["output"]
+  metadata?: Maybe<Metadata>
+  serviceId?: Maybe<Scalars["ID"]["output"]>
+  serviceName?: Maybe<Scalars["String"]["output"]>
+}
+
+export type PatchConnection = Connection & {
+  __typename?: "PatchConnection"
+  edges?: Maybe<Array<Maybe<PatchEdge>>>
+  pageInfo?: Maybe<PageInfo>
+  totalCount: Scalars["Int"]["output"]
+}
+
+export type PatchEdge = Edge & {
+  __typename?: "PatchEdge"
+  cursor?: Maybe<Scalars["String"]["output"]>
+  node: Patch
+}
+
+export type PatchFilter = {
+  componentVersionId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  componentVersionName?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  id?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  serviceId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  serviceName?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  state?: InputMaybe<Array<StateFilter>>
+}
+
 export type Query = {
   __typename?: "Query"
   Activities?: Maybe<ActivityConnection>
@@ -1324,14 +1338,15 @@ export type Query = {
   ComponentVersions?: Maybe<ComponentVersionConnection>
   Components?: Maybe<ComponentConnection>
   Evidences?: Maybe<EvidenceConnection>
+  ImageVersions?: Maybe<ImageVersionConnection>
   Images?: Maybe<ImageConnection>
   IssueCounts?: Maybe<SeverityCounts>
-  IssueMatchChanges?: Maybe<IssueMatchChangeConnection>
   IssueMatchFilterValues?: Maybe<IssueMatchFilterValue>
   IssueMatches?: Maybe<IssueMatchConnection>
   IssueRepositories?: Maybe<IssueRepositoryConnection>
   IssueVariants?: Maybe<IssueVariantConnection>
   Issues?: Maybe<IssueConnection>
+  Patches?: Maybe<PatchConnection>
   Remediations?: Maybe<RemediationConnection>
   ScannerRunTagFilterValues?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>
   ScannerRuns?: Maybe<ScannerRunConnection>
@@ -1375,6 +1390,12 @@ export type QueryEvidencesArgs = {
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
+export type QueryImageVersionsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<ImageVersionFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
 export type QueryImagesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ImageFilter>
@@ -1383,12 +1404,6 @@ export type QueryImagesArgs = {
 
 export type QueryIssueCountsArgs = {
   filter?: InputMaybe<IssueFilter>
-}
-
-export type QueryIssueMatchChangesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<IssueMatchChangeFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
 export type QueryIssueMatchesArgs = {
@@ -1417,10 +1432,17 @@ export type QueryIssuesArgs = {
   orderBy?: InputMaybe<Array<InputMaybe<IssueOrderBy>>>
 }
 
+export type QueryPatchesArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>
+  filter?: InputMaybe<PatchFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+}
+
 export type QueryRemediationsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<RemediationFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<RemediationOrderBy>>>
 }
 
 export type QueryScannerRunsArgs = {
@@ -1467,6 +1489,7 @@ export type Remediation = Node & {
   remediationDate?: Maybe<Scalars["DateTime"]["output"]>
   service?: Maybe<Scalars["String"]["output"]>
   serviceId?: Maybe<Scalars["ID"]["output"]>
+  severity?: Maybe<SeverityValues>
   type?: Maybe<RemediationTypeValues>
   vulnerability?: Maybe<Scalars["String"]["output"]>
   vulnerabilityId?: Maybe<Scalars["ID"]["output"]>
@@ -1487,7 +1510,9 @@ export type RemediationEdge = Edge & {
 
 export type RemediationFilter = {
   image?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
   state?: InputMaybe<Array<StateFilter>>
   type?: InputMaybe<Array<InputMaybe<RemediationTypeValues>>>
   vulnerability?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -1500,12 +1525,26 @@ export type RemediationInput = {
   remediatedBy?: InputMaybe<Scalars["String"]["input"]>
   remediationDate?: InputMaybe<Scalars["DateTime"]["input"]>
   service?: InputMaybe<Scalars["String"]["input"]>
+  severity?: InputMaybe<SeverityValues>
   type?: InputMaybe<RemediationTypeValues>
   vulnerability?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type RemediationOrderBy = {
+  by?: InputMaybe<RemediationOrderByField>
+  direction?: InputMaybe<OrderDirection>
+}
+
+export enum RemediationOrderByField {
+  Severity = "severity",
+  Vulnerability = "vulnerability",
+}
+
 export enum RemediationTypeValues {
   FalsePositive = "false_positive",
+  Mitigation = "mitigation",
+  Rescore = "rescore",
+  RiskAccepted = "risk_accepted",
 }
 
 export type ScannerRun = Node & {
@@ -1600,6 +1639,7 @@ export type ServiceRemediationsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<RemediationFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
+  orderBy?: InputMaybe<Array<InputMaybe<RemediationOrderBy>>>
 }
 
 export type ServiceSupportGroupsArgs = {
@@ -1887,6 +1927,7 @@ export type VulnerabilityFilter = {
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
+  status?: InputMaybe<VulnerabilityStatus>
   supportGroup?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
@@ -1895,6 +1936,162 @@ export type VulnerabilityFilterValue = {
   service?: Maybe<FilterItem>
   severity?: Maybe<FilterItem>
   supportGroup?: Maybe<FilterItem>
+}
+
+export enum VulnerabilityStatus {
+  All = "all",
+  Open = "open",
+  Remediated = "remediated",
+}
+
+export type CreateRemediationMutationVariables = Exact<{
+  input: RemediationInput
+}>
+
+export type CreateRemediationMutation = {
+  __typename?: "Mutation"
+  createRemediation: {
+    __typename?: "Remediation"
+    id: string
+    description?: string | null
+    expirationDate?: any | null
+    image?: string | null
+    imageId?: string | null
+    remediatedBy?: string | null
+    remediationDate?: any | null
+    service?: string | null
+    serviceId?: string | null
+    severity?: SeverityValues | null
+    type?: RemediationTypeValues | null
+    vulnerability?: string | null
+    vulnerabilityId?: string | null
+  }
+}
+
+export type DeleteRemediationMutationVariables = Exact<{
+  id: Scalars["ID"]["input"]
+}>
+
+export type DeleteRemediationMutation = { __typename?: "Mutation"; deleteRemediation: string }
+
+export type GetRemediationsQueryVariables = Exact<{
+  filter?: InputMaybe<RemediationFilter>
+}>
+
+export type GetRemediationsQuery = {
+  __typename?: "Query"
+  Remediations?: {
+    __typename?: "RemediationConnection"
+    totalCount: number
+    edges?: Array<{
+      __typename?: "RemediationEdge"
+      node: {
+        __typename?: "Remediation"
+        id: string
+        type?: RemediationTypeValues | null
+        description?: string | null
+        service?: string | null
+        image?: string | null
+        vulnerability?: string | null
+        expirationDate?: any | null
+        remediationDate?: any | null
+        remediatedBy?: string | null
+      }
+    } | null> | null
+  } | null
+}
+
+export type GetImageVersionsQueryVariables = Exact<{
+  filter?: InputMaybe<ImageVersionFilter>
+  first?: InputMaybe<Scalars["Int"]["input"]>
+  after?: InputMaybe<Scalars["String"]["input"]>
+  firstVulnerabilities?: InputMaybe<Scalars["Int"]["input"]>
+  afterVulnerabilities?: InputMaybe<Scalars["String"]["input"]>
+  firstOccurences?: InputMaybe<Scalars["Int"]["input"]>
+  afterOccurences?: InputMaybe<Scalars["String"]["input"]>
+}>
+
+export type GetImageVersionsQuery = {
+  __typename?: "Query"
+  ImageVersions?: {
+    __typename?: "ImageVersionConnection"
+    totalCount: number
+    counts?: {
+      __typename?: "SeverityCounts"
+      critical: number
+      high: number
+      medium: number
+      low: number
+      none: number
+      total: number
+    } | null
+    edges: Array<{
+      __typename?: "ImageVersionEdge"
+      node: {
+        __typename?: "ImageVersion"
+        id: string
+        tag?: string | null
+        repository?: string | null
+        version?: string | null
+        vulnerabilityCounts?: {
+          __typename?: "SeverityCounts"
+          critical: number
+          high: number
+          medium: number
+          low: number
+          none: number
+          total: number
+        } | null
+        occurences?: {
+          __typename?: "ComponentInstanceConnection"
+          edges: Array<{
+            __typename?: "ComponentInstanceEdge"
+            node: {
+              __typename?: "ComponentInstance"
+              id: string
+              ccrn?: string | null
+              componentVersionId?: string | null
+            }
+          } | null>
+        } | null
+        vulnerabilities?: {
+          __typename?: "VulnerabilityConnection"
+          edges: Array<{
+            __typename?: "VulnerabilityEdge"
+            node: {
+              __typename?: "Vulnerability"
+              id: string
+              severity?: SeverityValues | null
+              name?: string | null
+              sourceUrl?: string | null
+              earliestTargetRemediationDate?: any | null
+              description?: string | null
+            }
+          } | null>
+          pageInfo?: {
+            __typename?: "PageInfo"
+            pageNumber?: number | null
+            pages?: Array<{ __typename?: "Page"; after?: string | null; pageNumber?: number | null } | null> | null
+          } | null
+        } | null
+      }
+    } | null>
+    pageInfo?: {
+      __typename?: "PageInfo"
+      hasNextPage?: boolean | null
+      hasPreviousPage?: boolean | null
+      isValidPage?: boolean | null
+      pageNumber?: number | null
+      nextPageAfter?: string | null
+      pages?: Array<{
+        __typename?: "Page"
+        after?: string | null
+        isCurrent?: boolean | null
+        pageNumber?: number | null
+        pageCount?: number | null
+      } | null> | null
+    } | null
+  } | null
 }
 
 export type GetImagesQueryVariables = Exact<{
@@ -2146,6 +2343,130 @@ export type GetVulnerabilityFiltersQuery = {
   } | null
 }
 
+export const CreateRemediationDocument = gql`
+  mutation CreateRemediation($input: RemediationInput!) {
+    createRemediation(input: $input) {
+      id
+      description
+      expirationDate
+      image
+      imageId
+      remediatedBy
+      remediationDate
+      service
+      serviceId
+      severity
+      type
+      vulnerability
+      vulnerabilityId
+    }
+  }
+`
+export const DeleteRemediationDocument = gql`
+  mutation DeleteRemediation($id: ID!) {
+    deleteRemediation(id: $id)
+  }
+`
+export const GetRemediationsDocument = gql`
+  query GetRemediations($filter: RemediationFilter) {
+    Remediations(filter: $filter) {
+      edges {
+        node {
+          id
+          type
+          description
+          service
+          image
+          vulnerability
+          expirationDate
+          remediationDate
+          remediatedBy
+        }
+      }
+      totalCount
+    }
+  }
+`
+export const GetImageVersionsDocument = gql`
+  query GetImageVersions(
+    $filter: ImageVersionFilter
+    $first: Int
+    $after: String
+    $firstVulnerabilities: Int
+    $afterVulnerabilities: String
+    $firstOccurences: Int
+    $afterOccurences: String
+  ) {
+    ImageVersions(first: $first, after: $after, filter: $filter) {
+      counts {
+        critical
+        high
+        medium
+        low
+        none
+        total
+      }
+      edges {
+        node {
+          id
+          tag
+          repository
+          version
+          vulnerabilityCounts {
+            critical
+            high
+            medium
+            low
+            none
+            total
+          }
+          occurences(first: $firstOccurences, after: $afterOccurences) {
+            edges {
+              node {
+                id
+                ccrn
+                componentVersionId
+              }
+            }
+          }
+          vulnerabilities(first: $firstVulnerabilities, after: $afterVulnerabilities) {
+            edges {
+              node {
+                id
+                severity
+                name
+                sourceUrl
+                earliestTargetRemediationDate
+                description
+              }
+            }
+            pageInfo {
+              pageNumber
+              pages {
+                after
+                pageNumber
+              }
+            }
+          }
+        }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        isValidPage
+        pageNumber
+        nextPageAfter
+        pages {
+          after
+          isCurrent
+          pageNumber
+          pageCount
+        }
+      }
+    }
+  }
+`
 export const GetImagesDocument = gql`
   query GetImages(
     $imgFilter: ImageFilter
@@ -2225,7 +2546,6 @@ export const GetImagesDocument = gql`
     }
   }
 `
-export type GetImagesQueryResult = Apollo.ApolloQueryResult<GetImagesQuery>
 export const GetServiceFiltersDocument = gql`
   query GetServiceFilters {
     ServiceFilterValues {
@@ -2242,7 +2562,6 @@ export const GetServiceFiltersDocument = gql`
     }
   }
 `
-export type GetServiceFiltersQueryResult = Apollo.ApolloQueryResult<GetServiceFiltersQuery>
 export const GetServicesDocument = gql`
   query GetServices($filter: ServiceFilter, $first: Int, $after: String, $orderBy: [ServiceOrderBy]) {
     Services(filter: $filter, first: $first, after: $after, orderBy: $orderBy) {
@@ -2295,7 +2614,6 @@ export const GetServicesDocument = gql`
     }
   }
 `
-export type GetServicesQueryResult = Apollo.ApolloQueryResult<GetServicesQuery>
 export const GetVulnerabilitiesDocument = gql`
   query GetVulnerabilities(
     $filter: VulnerabilityFilter
@@ -2354,7 +2672,6 @@ export const GetVulnerabilitiesDocument = gql`
     }
   }
 `
-export type GetVulnerabilitiesQueryResult = Apollo.ApolloQueryResult<GetVulnerabilitiesQuery>
 export const GetVulnerabilityFiltersDocument = gql`
   query GetVulnerabilityFilters {
     VulnerabilityFilterValues {
@@ -2371,4 +2688,3 @@ export const GetVulnerabilityFiltersDocument = gql`
     }
   }
 `
-export type GetVulnerabilityFiltersQueryResult = Apollo.ApolloQueryResult<GetVulnerabilityFiltersQuery>

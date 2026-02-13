@@ -292,7 +292,7 @@
   line-height: 50%;
   opacity: 0;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-text-light);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -314,7 +314,7 @@
 .numInputWrapper span.arrowUp:after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 4px solid rgba(var(--color-text-highest-raw), 0.6);
+  border-bottom: 4px solid var(--color-text-high);
   top: 26%;
 }
 .numInputWrapper span.arrowDown {
@@ -323,7 +323,7 @@
 .numInputWrapper span.arrowDown:after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 4px solid rgba(var(--color-text-highest-raw), 0.6);
+  border-top: 4px solid var(--color-text-high);
   top: 40%;
 }
 .numInputWrapper span svg {
@@ -331,7 +331,7 @@
   height: auto;
 }
 .numInputWrapper span svg path {
-  fill: rgba(var(--color-text-highest-raw), 0.5);
+  fill: var(--color-text-high);
 }
 .numInputWrapper:hover {
   background: rgba(var(--color-background-lvl-5-raw), 0.05);
@@ -406,7 +406,7 @@
 .flatpickr-current-month input.cur-year[disabled],
 .flatpickr-current-month input.cur-year[disabled]:hover {
   font-size: 100%;
-  color: rgba(var(--color-text-highest-raw), 0.5);
+  color: var(--color-text-high);
   background: transparent;
   pointer-events: none;
 }
@@ -648,7 +648,7 @@ span.flatpickr-weekday {
 .flatpickr-day.notAllowed,
 .flatpickr-day.notAllowed.prevMonthDay,
 .flatpickr-day.notAllowed.nextMonthDay {
-  color: rgba(var(--color-text-highest-raw), 0.3);
+  color: var(--color-text-disabled);
   background: transparent;
   border-color: transparent;
   cursor: default;
@@ -656,7 +656,7 @@ span.flatpickr-weekday {
 .flatpickr-day.flatpickr-disabled,
 .flatpickr-day.flatpickr-disabled:hover {
   cursor: not-allowed;
-  color: rgba(var(--color-text-highest-raw), 0.1);
+  color: var(--color-text-disabled);
 }
 .flatpickr-day.week.selected {
   border-radius: 0;
@@ -691,7 +691,7 @@ span.flatpickr-weekday {
   display: block;
   width: 100%;
   max-width: none;
-  color: rgba(var(--color-text-highest-raw), 0.3);
+  color: var(--color-text-high);
   background: transparent;
   cursor: default;
   border: none;
@@ -789,7 +789,7 @@ span.flatpickr-weekday {
   height: inherit;
   float: left;
   line-height: inherit;
-  color: rgba(var(--color-text-highest-raw), 0.95);
+  color: var(--color-text-highest);
   font-weight: bold;
   width: 2%;
   -webkit-user-select: none;

@@ -121,3 +121,22 @@ export function filterSearchParamsByPrefix(
   }
   return result
 }
+
+/**
+ * Extracts the first 7 characters after "sha256:" from a version string.
+ * If the version doesn't match the pattern, returns the original version.
+ * @param version - The version string (e.g., "sha256:abc123def456...")
+ * @returns The first 7 characters after "sha256:" or the original version
+ */
+export const getShortSha256 = (version: string): string => {
+  if (!version) return version
+
+  // Check if it starts with "sha256:"
+  const sha256Match = version.match(/^sha256:(.{7})/)
+  if (sha256Match) {
+    return sha256Match[1] // Return the first 7 characters after "sha256:"
+  }
+
+  // If it doesn't match the pattern, return as is
+  return version
+}

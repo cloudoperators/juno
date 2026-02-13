@@ -13,6 +13,10 @@ import {
   ServiceFilter,
   GetServiceFiltersQuery,
   GetImagesQuery,
+  GetRemediationsQuery,
+  GetImageVersionsQuery,
+  VulnerabilityEdge,
+  ComponentInstanceEdge,
 } from "../../generated/graphql"
 import { Filter, FilterSettings, SelectedFilter, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
@@ -262,6 +266,20 @@ export type ImageVulnerability = {
   sourceUrl: string
 }
 
+export type RemediatedVulnerability = {
+  id: string
+  remediationId: string
+  type: string | null
+  description: string | null
+  service: string | null
+  image: string | null
+  vulnerability: string | null
+  vulnerabilityId: string | null
+  remediationDate: string | null
+  remediatedBy: string | null
+  expirationDate: string | null
+}
+
 type NormalizedServiceImageVulnerabilities = {
   vulnerabilities: ImageVulnerability[]
   totalImageVulnerabilities: number
@@ -270,35 +288,15 @@ type NormalizedServiceImageVulnerabilities = {
   totalCount: number
 }
 
-export const getNormalizedImageVulnerabilitiesResponse = (
-  // Apollo Client's use() hook can return DeepPartialObject<GetImagesQuery> during loading
-  data: GetImagesQuery | undefined
-): NormalizedServiceImageVulnerabilities => {
-  if (!data?.Images?.edges?.[0]?.node) {
-    return {
-      vulnerabilities: [],
-      totalImageVulnerabilities: 0,
-      pages: [],
-      pageNumber: 1,
-      totalCount: 0,
-    }
-  }
+// Extract the type for vulnerability edge from GetImagesQuery structure
+type ImageNodeFromQuery = NonNullable<NonNullable<NonNullable<GetImagesQuery["Images"]>["edges"]>[number]>["node"]
+type VulnerabilityEdgeFromQuery =
+  NonNullable<NonNullable<ImageNodeFromQuery>["vulnerabilities"]>["edges"] extends Array<infer E | null> ? E : never
 
-  const imageNode = data.Images.edges[0].node
-  const vulnerabilitiesEdges = imageNode.vulnerabilities?.edges || []
-  const vulnerabilitiesPageInfo = imageNode.vulnerabilities?.pageInfo
-
-  // Extract the type for vulnerability edge from GetImagesQuery structure
-  type VulnerabilityEdge = NonNullable<
-    NonNullable<NonNullable<NonNullable<GetImagesQuery["Images"]>["edges"]>[0]>["node"]
-  >["vulnerabilities"] extends infer V
-    ? V extends { edges: Array<infer E | null> }
-      ? E
-      : never
-    : never
-
-  const vulnerabilities: ImageVulnerability[] = vulnerabilitiesEdges
-    .filter((edge): edge is NonNullable<VulnerabilityEdge> => edge !== null && edge.node !== null)
+function extractVulnerabilitiesFromImageNode(imageNode: ImageNodeFromQuery): ImageVulnerability[] {
+  const edges = imageNode?.vulnerabilities?.edges || []
+  return edges
+    .filter((edge): edge is NonNullable<VulnerabilityEdgeFromQuery> => edge !== null && edge?.node != null)
     .map((edge) => {
       const node = edge.node
       return {
@@ -310,20 +308,51 @@ export const getNormalizedImageVulnerabilitiesResponse = (
         sourceUrl: node.sourceUrl || "",
       }
     })
+}
 
-  const totalImageVulnerabilities = imageNode.vulnerabilityCounts?.total ?? 0
-  const pages = vulnerabilitiesPageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
+export const getNormalizedImageVulnerabilitiesResponse = (
+  // Apollo Client's use() hook can return DeepPartialObject<GetImagesQuery> during loading
+  data: GetImagesQuery | undefined
+): NormalizedServiceImageVulnerabilities => {
+  const edges = data?.Images?.edges
+  if (!edges?.length) {
+    return {
+      vulnerabilities: [],
+      totalImageVulnerabilities: 0,
+      pages: [],
+      pageNumber: 1,
+      totalCount: 0,
+    }
+  }
+
+  // Aggregate vulnerabilities from all image edges (handles vulFilter responses that may return multiple nodes or different shapes)
+  const allVulnerabilities: ImageVulnerability[] = []
+  let vulnerabilitiesPageInfo: NonNullable<NonNullable<ImageNodeFromQuery>["vulnerabilities"]>["pageInfo"] = null
+  let totalImageVulnerabilities = 0
+
+  for (const edge of edges) {
+    const node = edge?.node
+    if (!node) continue
+    const vulns = extractVulnerabilitiesFromImageNode(node)
+    allVulnerabilities.push(...vulns)
+    if (node.vulnerabilityCounts?.total != null) {
+      totalImageVulnerabilities = Math.max(totalImageVulnerabilities, node.vulnerabilityCounts.total)
+    }
+    if (node.vulnerabilities?.pageInfo && !vulnerabilitiesPageInfo) {
+      vulnerabilitiesPageInfo = node.vulnerabilities.pageInfo
+    }
+  }
+
+  const pages = vulnerabilitiesPageInfo?.pages?.filter((p): p is Page => p !== null) || []
   const pageNumber = vulnerabilitiesPageInfo?.pageNumber || 1
-
-  // When vulnerabilities.edges is [] or vulnerabilities.pageInfo is null, there are no results
-  const hasNoResults = vulnerabilities.length === 0 || !vulnerabilitiesPageInfo
+  const hasNoResults = allVulnerabilities.length === 0 || !vulnerabilitiesPageInfo
 
   return {
-    vulnerabilities,
+    vulnerabilities: allVulnerabilities,
     totalImageVulnerabilities,
     pages,
     pageNumber,
-    totalCount: hasNoResults ? 0 : vulnerabilities.length,
+    totalCount: hasNoResults ? 0 : allVulnerabilities.length,
   }
 }
 
@@ -398,5 +427,207 @@ export const sanitizeFilterSettings = (filters: Filter[], filterSettings: Filter
   return {
     ...filterSettings,
     selectedFilters: validFilters,
+  }
+}
+
+// Types for ImageVersion details (will be properly typed after codegen)
+export type ImageVersionDetails = {
+  id: string
+  tag?: string | null
+  repository?: string | null
+  version: string
+  vulnerabilityCounts: IssuesCountsType
+  occurrences?: ComponentInstance[]
+  vulnerabilities?: ImageVulnerability[]
+}
+
+// Alias for compatibility with old panel structure
+export type ServiceImageVersion = {
+  id: string
+  tag?: string | null
+  repository?: string | null
+  version: string
+  issueCounts: IssuesCountsType
+  componentInstances?: ComponentInstance[]
+  componentInstancesCount?: number
+  vulnerabilities?: ImageVulnerability[]
+}
+
+type NormalizedImageVersionDetails = {
+  imageVersion: ImageVersionDetails | null
+  totalCount: number
+  pages: Page[]
+  pageNumber: number
+}
+
+// Normalization function for GetImageVersions query
+export const getNormalizedImageVersionDetailsResponse = (
+  data: GetImageVersionsQuery | undefined
+): NormalizedImageVersionDetails => {
+  if (!data?.ImageVersions?.edges?.[0]?.node) {
+    return {
+      imageVersion: null,
+      totalCount: 0,
+      pages: [],
+      pageNumber: 1,
+    }
+  }
+
+  const imageVersionNode = data.ImageVersions.edges[0].node
+  const vulnerabilitiesEdges = imageVersionNode.vulnerabilities?.edges || []
+  const occurrencesEdges = imageVersionNode.occurences?.edges || []
+  const vulnerabilitiesPageInfo = imageVersionNode.vulnerabilities?.pageInfo
+
+  const vulnerabilities: ImageVulnerability[] = vulnerabilitiesEdges
+    .filter(
+      (edge: VulnerabilityEdge | null | undefined): edge is VulnerabilityEdge => edge != null && edge.node != null
+    )
+    .map((edge: VulnerabilityEdge) => {
+      const node = edge.node
+      return {
+        id: node.id || "",
+        severity: node.severity || "",
+        name: node.name || "",
+        earliestTargetRemediationDate: node.earliestTargetRemediationDate || "",
+        description: node.description || "",
+        sourceUrl: node.sourceUrl || "",
+      }
+    })
+
+  // Helper function to parse ccrn string and extract fields
+  const parseCcrn = (
+    ccrn: string
+  ): { cluster?: string; namespace?: string; pod?: string; container?: string; region?: string } => {
+    if (!ccrn) return {}
+
+    const result: { cluster?: string; namespace?: string; pod?: string; container?: string; region?: string } = {}
+
+    // Parse ccrn format: "ccrn: apiVersion=..., kind=container, cluster=..., namespace=..., pod=..., name=..."
+    const clusterMatch = ccrn.match(/cluster=([^,]+)/)
+    const namespaceMatch = ccrn.match(/namespace=([^,]+)/)
+    const podMatch = ccrn.match(/pod=([^,]+)/)
+    const nameMatch = ccrn.match(/name=([^,]+)/)
+
+    if (clusterMatch) result.cluster = clusterMatch[1].trim()
+    if (namespaceMatch) result.namespace = namespaceMatch[1].trim()
+    if (podMatch) result.pod = podMatch[1].trim()
+    if (nameMatch) result.container = nameMatch[1].trim()
+
+    // Extract region from cluster name if it follows a pattern like s-eu-nl-1 (region would be "eu")
+    if (result.cluster) {
+      const regionMatch = result.cluster.match(/^[^-]+-([^-]+)-/)
+      if (regionMatch) result.region = regionMatch[1]
+    }
+
+    return result
+  }
+
+  const occurrences: ComponentInstance[] = occurrencesEdges
+    .filter(
+      (edge: ComponentInstanceEdge | null | undefined): edge is ComponentInstanceEdge =>
+        edge != null && edge.node != null
+    )
+    .map((edge: ComponentInstanceEdge) => {
+      const node = edge.node
+      const ccrn = node.ccrn || ""
+      const parsed = parseCcrn(ccrn)
+
+      return {
+        id: node.id || "",
+        ccrn: ccrn,
+        componentVersionId: node.componentVersionId || "",
+        cluster: parsed.cluster || "",
+        namespace: parsed.namespace || "",
+        pod: parsed.pod || "",
+        container: parsed.container || "",
+        region: parsed.region || "",
+      }
+    })
+
+  const imageVersion: ImageVersionDetails = {
+    id: imageVersionNode.id || "",
+    tag: imageVersionNode.tag || null,
+    repository: imageVersionNode.repository || null,
+    version: imageVersionNode.version || "",
+    vulnerabilityCounts: imageVersionNode.vulnerabilityCounts || {
+      critical: 0,
+      high: 0,
+      medium: 0,
+      low: 0,
+      none: 0,
+      total: 0,
+    },
+    occurrences,
+    vulnerabilities,
+  }
+
+  const pages = vulnerabilitiesPageInfo?.pages?.filter((edge: any): edge is Page => edge !== null) || []
+  const pageNumber = vulnerabilitiesPageInfo?.pageNumber || 1
+  const hasNoResults = vulnerabilities.length === 0 || !vulnerabilitiesPageInfo
+
+  return {
+    imageVersion,
+    totalCount: hasNoResults ? 0 : vulnerabilities.length,
+    pages,
+    pageNumber,
+  }
+}
+
+// Normalization function that returns array of image versions (for compatibility with old panel)
+export const getNormalizedImageVersionsResponse = (
+  data: GetImageVersionsQuery | undefined
+): { imageVersions: ServiceImageVersion[] } => {
+  const normalized = getNormalizedImageVersionDetailsResponse(data)
+
+  if (!normalized.imageVersion) {
+    return { imageVersions: [] }
+  }
+
+  const serviceImageVersion: ServiceImageVersion = {
+    id: normalized.imageVersion.id,
+    tag: normalized.imageVersion.tag,
+    repository: normalized.imageVersion.repository,
+    version: normalized.imageVersion.version,
+    issueCounts: normalized.imageVersion.vulnerabilityCounts,
+    componentInstances: normalized.imageVersion.occurrences,
+    componentInstancesCount: normalized.imageVersion.occurrences?.length || 0,
+    vulnerabilities: normalized.imageVersion.vulnerabilities,
+  }
+
+  return {
+    imageVersions: [serviceImageVersion],
+  }
+}
+
+export const getNormalizedRemediationsResponse = (
+  data: GetRemediationsQuery | undefined
+): { remediatedVulnerabilities: RemediatedVulnerability[] } => {
+  if (!data?.Remediations?.edges) {
+    return {
+      remediatedVulnerabilities: [],
+    }
+  }
+
+  const remediatedVulnerabilities: RemediatedVulnerability[] = data.Remediations.edges
+    .filter((edge): edge is NonNullable<typeof edge> => edge !== null && edge.node !== null)
+    .map((edge) => {
+      const node = edge.node
+      return {
+        id: node.vulnerability || "",
+        remediationId: node.id || "",
+        type: node.type || null,
+        description: node.description || null,
+        service: node.service || null,
+        image: node.image || null,
+        vulnerability: node.vulnerability || null,
+        vulnerabilityId: null,
+        remediationDate: node.remediationDate != null ? String(node.remediationDate) : null,
+        remediatedBy: node.remediatedBy ?? null,
+        expirationDate: node.expirationDate != null ? String(node.expirationDate) : null,
+      }
+    })
+
+  return {
+    remediatedVulnerabilities,
   }
 }
