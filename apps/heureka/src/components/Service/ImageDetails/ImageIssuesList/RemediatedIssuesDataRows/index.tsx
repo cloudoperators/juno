@@ -30,9 +30,7 @@ export const RemediatedIssuesDataRows = ({
   const remediationsResult = use(remediationsPromise)
   const { error: issuesError, data: issuesData } = issuesResult
   const { error: remediationsError } = remediationsResult
-  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(
-    issuesData as GetImagesQuery | undefined
-  )
+  const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(issuesData as GetImagesQuery | undefined)
   if (issuesError) {
     return (
       <EmptyDataGridRow colSpan={COLUMN_SPAN}>
