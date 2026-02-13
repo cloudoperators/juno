@@ -56,30 +56,33 @@ export default function YamlData({ value, ...props }: YamlDataProps) {
 
   return (
     <div ref={containerRef}>
-      {error && <ErrorMessage error={new Error(error)} />}
-      <CodeMirror
-        value={yamlContent}
-        height={editorHeight}
-        theme="dark"
-        extensions={[
-          yaml(),
-          highlightWhitespace(),
-          EditorView.theme({
-            ".cm-highlightSpace": {
-              backgroundImage:
-                "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><circle cx='3' cy='3' r='1' fill='%23cccccc' /></svg>\")",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              backgroundSize: "contain",
-              opacity: 0.1,
-            },
-          }),
-        ]}
-        editable={false}
-        aria-label="YAML data viewer (read-only)"
-        aria-readonly="true"
-        {...props}
-      />
+      {error ? (
+        <ErrorMessage error={new Error(error)} />
+      ) : (
+        <CodeMirror
+          value={yamlContent}
+          height={editorHeight}
+          theme="dark"
+          extensions={[
+            yaml(),
+            highlightWhitespace(),
+            EditorView.theme({
+              ".cm-highlightSpace": {
+                backgroundImage:
+                  "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><circle cx='3' cy='3' r='1' fill='%23cccccc' /></svg>\")",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "contain",
+                opacity: 0.1,
+              },
+            }),
+          ]}
+          editable={false}
+          aria-label="YAML data viewer (read-only)"
+          aria-readonly="true"
+          {...props}
+        />
+      )}
     </div>
   )
 }
