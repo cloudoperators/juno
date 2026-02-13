@@ -4,7 +4,8 @@
  */
 
 import React, { ReactNode, FormHTMLAttributes } from "react"
-import { Message } from "../Message/Message.component"
+import { Message } from "../Message"
+import { Stack } from "../Stack"
 
 const signInFormTitleStyles = `
   jn:text-xl
@@ -40,9 +41,9 @@ export interface SignInFormProps extends Omit<FormHTMLAttributes<HTMLFormElement
   /**
    * URL for the password reset link.
    * Pass a valid URL string to display the "Reset password" link.
-   * Pass an empty string or omit to hide the link.
+   * Pass `null` (default) or an empty string to hide the link.
    */
-  resetPwUrl?: string
+  resetPwUrl?: string | null
 
   /**
    * Additional CSS classes to apply to the form for custom styling.
@@ -53,6 +54,7 @@ export interface SignInFormProps extends Omit<FormHTMLAttributes<HTMLFormElement
    * Form inputs and controls to render.
    * These are typically TextInput components for username and password,
    * optional Checkbox for "Remember me", or any additional inputs.
+   * Automatic layout and spacing is applied to children via a Stack component.
    */
   children?: ReactNode
 }
@@ -64,7 +66,7 @@ export interface SignInFormProps extends Omit<FormHTMLAttributes<HTMLFormElement
 export const SignInForm: React.FC<SignInFormProps> = ({
   title = "Sign In",
   error = false,
-  resetPwUrl = "",
+  resetPwUrl = null,
   className = "",
   children,
   ...props
@@ -77,7 +79,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
 
       {errorMessage && <Message variant="error" text={errorMessage} className="jn:mb-4" />}
 
-      {children}
+      <Stack direction="vertical" gap="2">
+        {children}
+      </Stack>
 
       {resetPwUrl && (
         <a href={resetPwUrl} className={`juno-sign-in-form-reset-link ${resetPasswordLinkStyles}`}>

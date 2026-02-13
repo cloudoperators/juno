@@ -10,7 +10,6 @@ import { SignInForm } from "./SignInForm.component"
 import { TextInput } from "../TextInput"
 import { Button } from "../Button"
 import { Checkbox } from "../Checkbox"
-import { Stack } from "../Stack"
 import { SelectOption } from "../SelectOption"
 import { Select } from "../Select"
 import { PortalProvider } from "../PortalProvider"
@@ -39,12 +38,12 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const commonFormChildren = (additionalInputs?: React.ReactNode) => [
-  <Stack key="inputs" direction="vertical" gap="2">
+  <>
     <TextInput key="email" label="Email address" id="email" required />
     <TextInput key="password" label="Password" id="password" type="password" required />
     {additionalInputs}
     <Checkbox key="remember" label="Remember me" id="remember" />
-  </Stack>,
+  </>,
   <Button key="submit" variant="primary" type="submit" className="jn:mt-4 jn:w-full">
     Sign In
   </Button>,
