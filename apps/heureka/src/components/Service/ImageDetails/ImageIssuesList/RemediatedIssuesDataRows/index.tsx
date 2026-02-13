@@ -5,6 +5,7 @@
 
 import React, { use } from "react"
 import { ObservableQuery } from "@apollo/client"
+import { Message, Stack } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { RemediatedIssueDataRow } from "./RemediatedIssueDataRow"
 import { getNormalizedImageVulnerabilitiesResponse } from "../../../../Services/utils"
@@ -21,11 +22,14 @@ type RemediatedIssuesDataRowsProps = {
 
 export const RemediatedIssuesDataRows = ({
   issuesPromise,
+  remediationsPromise,
   selectedVulnerabilityName,
   onSelectVulnerability,
 }: RemediatedIssuesDataRowsProps) => {
   const issuesResult = use(issuesPromise)
+  const remediationsResult = use(remediationsPromise)
   const { error: issuesError, data: issuesData } = issuesResult
+  const { error: remediationsError } = remediationsResult
   const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(
     issuesData as GetImagesQuery | undefined
   )
@@ -43,6 +47,16 @@ export const RemediatedIssuesDataRows = ({
 
   return (
     <>
+      {remediationsError && (
+        <EmptyDataGridRow colSpan={COLUMN_SPAN}>
+          <Stack direction="vertical" gap="2">
+            <Message
+              variant="error"
+              text={`Remediation history could not be loaded: ${remediationsError.message}. You can try opening the panel again.`}
+            />
+          </Stack>
+        </EmptyDataGridRow>
+      )}
       {vulnerabilities.map((issue) => (
         <RemediatedIssueDataRow
           key={issue.id}
