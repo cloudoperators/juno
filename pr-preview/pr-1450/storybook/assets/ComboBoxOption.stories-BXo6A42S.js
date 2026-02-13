@@ -1,0 +1,14 @@
+import{j as s}from"./iframe-v4tQulfF.js";import{a,C as n}from"./ComboBoxOption.component-mUWISrMO.js";import"./preload-helper-PPVm8Dsz.js";import"./floating-ui.react-cz9oHXNH.js";import"./Label.component-CT8Nw4GD.js";import"./FormHint.component-BzmUu3tK.js";import"./Icon.component-CcrIwlu0.js";import"./Spinner.component-Cpwwhuad.js";import"./PortalProvider.component-Bik1Vz_o.js";import"./element-movement-BNogn9g6.js";import"./frozen-PCzSyWd8.js";import"./use-tree-walker-B5q2N4qP.js";const D={title:"Forms/ComboBox/ComboBoxOption",component:a,argTypes:{},render:t=>s.jsx(n,{children:s.jsx(a,{...t})})},r={args:{value:"Option 1"}},o={args:{disabled:!0,value:"Disabled Option"}},e={args:{children:"Option 1"}};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
+  args: {
+    value: "Option 1"
+  }
+}`,...r.parameters?.docs?.source}}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+  args: {
+    disabled: true,
+    value: "Disabled Option"
+  }
+}`,...o.parameters?.docs?.source}}};e.parameters={...e.parameters,docs:{...e.parameters?.docs,source:{originalSource:`{
+  args: {
+    children: "Option 1"
+  }
+}`,...e.parameters?.docs?.source}}};const f=["Default","Disabled","ChildrenOnly"];export{e as ChildrenOnly,r as Default,o as Disabled,f as __namedExportsOrder,D as default};
