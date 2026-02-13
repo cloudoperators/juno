@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo, useState, useEffect, useRef } from "react"
+import React, { useMemo, useRef } from "react"
 import CodeMirror, { EditorView, highlightWhitespace } from "@uiw/react-codemirror"
 import { yaml } from "@codemirror/lang-yaml"
 import yamlParser from "js-yaml"
