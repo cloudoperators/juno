@@ -7,6 +7,7 @@ import React from "react"
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
 const badgeBaseStyles = `
+  jn:inline-flex
   jn:rounded
   jn:text-sm
   jn:text-theme-default
@@ -101,11 +102,10 @@ export const Badge: React.FC<BadgeProps> = ({
   return (
     <span
       className={`
-        juno-badge 
-        juno-badge-${variant} 
-        ${badgeBaseStyles} 
-        ${getVariantStyle(variant)} 
-        ${icon ? "jn:inline-flex" : ""} 
+        juno-badge
+        juno-badge-${variant}
+        ${badgeBaseStyles}
+        ${getVariantStyle(variant)}
         ${className}`}
       {...props}
     >
