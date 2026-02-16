@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { TabList as ReactTabList, TabListProps as ReactTabListProps } from "react-tabs"
+import { TabList as ReactTabList } from "react-tabs"
 import { TabsVariant, useTabsContext } from "../Tabs/Tabs.component"
 
 const tabListStyles = `
@@ -49,7 +49,7 @@ export const TabList = ({ variant = "content", children, ...props }: TabListProp
 
 TabList.tabsRole = "TabList"
 
-export interface TabListProps extends ReactTabListProps {
+export interface TabListProps extends React.HTMLAttributes<HTMLUListElement> {
   /** Pick the TabList style */
   variant?: TabsVariant
   /** The individual child Tabs to render */

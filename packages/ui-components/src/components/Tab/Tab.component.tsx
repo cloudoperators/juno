@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Tab as ReactTab, TabProps as ReactTabProps } from "react-tabs"
+import { Tab as ReactTab } from "react-tabs"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 
@@ -52,7 +52,7 @@ export const Tab = ({ children, label = "", icon, disabled = false, className = 
 
 Tab.tabsRole = "Tab"
 
-export interface TabProps extends ReactTabProps {
+export interface TabProps extends Omit<React.HTMLProps<HTMLLIElement>, "tabIndex"> {
   /** The children to render inside the Tab (-button) */
   children?: React.ReactNode
   /** The Tab label (only rendered when no children are supplied) */
@@ -61,6 +61,4 @@ export interface TabProps extends ReactTabProps {
   icon?: KnownIcons
   /** Whether the Tab is disabled */
   disabled?: boolean
-  /** Add custom classNames to the Tab */
-  className?: string
 }
