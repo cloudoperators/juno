@@ -19,10 +19,10 @@ import {
 import { fetchPluginPreset, FETCH_PLUGIN_PRESET_CACHE_KEY } from "../api/plugin-presets/fetchPluginPreset"
 import { Overview } from "./Overview"
 import { ConfigurationOverrides } from "./ConfigurationOverrides"
-import { RawData } from "./RawData"
 import { PluginPreset } from "../types/k8sTypes"
 import { isReady } from "../utils"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
+import YamlViewer from "../common/YamlViewer"
 
 const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPreset }) => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
@@ -31,8 +31,8 @@ const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPrese
     <Tabs selectedIndex={selectedTabIndex} onSelect={setSelectedTabIndex}>
       <TabList>
         <Tab label="Overview" />
-        <Tab label="Configuration Overrides" />
-        <Tab label="Raw Data" />
+        <Tab label="Configuration" />
+        <Tab label="YAML" />
       </TabList>
       <TabPanel>
         <Container px={false} py>
@@ -46,7 +46,7 @@ const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPrese
       </TabPanel>
       <TabPanel>
         <Container px={false} py>
-          <RawData pluginPreset={pluginPreset} />
+          <YamlViewer value={pluginPreset} />
         </Container>
       </TabPanel>
     </Tabs>
