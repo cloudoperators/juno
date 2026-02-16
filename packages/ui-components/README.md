@@ -1,4 +1,4 @@
-# Juno UI Components Library test
+# Juno UI Components Library
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
@@ -10,7 +10,7 @@ To add Juno UI components to your app as a development dependency, install them 
 pnpm add @cloudoperators/juno-ui-components
 ```
 
-…or declare manually as a dev-dependency:
+or declare manually as a dev-dependency:
 
 ```js
 // package.json
