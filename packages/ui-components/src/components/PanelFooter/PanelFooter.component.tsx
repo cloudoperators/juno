@@ -4,7 +4,6 @@
  */
 
 import React, { ReactNode, HTMLAttributes } from "react"
-import { parser } from "storybook/internal/babel"
 
 const panelFooterBaseStyles = `
   jn:border-t
