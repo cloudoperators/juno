@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.17
+
+### Patch Changes
+
+- 359d33c: Makes route search validation Zod v4–ready (filter by prefix before parse) and upgrade zod to v4
+- Updated dependencies [6246658]
+- Updated dependencies [6a3c001]
+- Updated dependencies [ce5ee1f]
+- Updated dependencies [787458b]
+  - @cloudoperators/juno-ui-components@6.1.0
+  - @cloudoperators/juno-messages-provider@0.2.29
+
 ## 2.6.16
 
 ### Patch Changes

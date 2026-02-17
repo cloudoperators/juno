@@ -1,5 +1,20 @@
 # heureka
 
+## 1.0.0
+
+### Major Changes
+
+- 48156b0: Adds false positive remediation on the image details page with create and revert. Introduces image version details page to show deployment locations for each image version.
+
+### Patch Changes
+
+- 359d33c: Makes route search validation Zod v4–ready (filter by prefix before parse) and upgrade zod to v4
+- Updated dependencies [6246658]
+- Updated dependencies [6a3c001]
+- Updated dependencies [ce5ee1f]
+- Updated dependencies [787458b]
+  - @cloudoperators/juno-ui-components@6.1.0
+
 ## 0.9.16
 
 ### Patch Changes

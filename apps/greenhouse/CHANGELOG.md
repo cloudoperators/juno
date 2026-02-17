@@ -1,5 +1,23 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.8.1
+
+### Patch Changes
+
+- 359d33c: Makes route search validation Zod v4–ready (filter by prefix before parse) and upgrade zod to v4
+- 4a100f3: Replace JSON viewer with YAML editor for plugin preset admin area
+- Updated dependencies [6246658]
+- Updated dependencies [6a3c001]
+- Updated dependencies [ce5ee1f]
+- Updated dependencies [48156b0]
+- Updated dependencies [359d33c]
+- Updated dependencies [787458b]
+  - @cloudoperators/juno-ui-components@6.1.0
+  - @cloudoperators/juno-app-heureka@1.0.0
+  - @cloudoperators/juno-app-supernova@0.19.20
+  - @cloudoperators/juno-app-doop@2.6.17
+  - @cloudoperators/juno-messages-provider@0.2.29
+
 ## 0.8.0
 
 ### Minor Changes
