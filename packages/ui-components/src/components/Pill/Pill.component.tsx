@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { FC, HTMLAttributes, ReactNode, MouseEvent } from "react"
+import React, { HTMLAttributes, ReactNode, MouseEvent } from "react"
 import { Icon } from "../Icon"
 
 // eslint-disable-next-line no-unused-vars

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { FC, ReactNode } from "react"
+import React, { ReactNode } from "react"
 
 import { StyleProvider } from "../StyleProvider"
 import { ShadowRoot } from "../ShadowRoot"

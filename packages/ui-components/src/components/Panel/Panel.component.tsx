@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, FC, HTMLAttributes, ReactNode, MouseEvent, MouseEventHandler } from "react"
+import React, { useState, useEffect, useRef, HTMLAttributes, ReactNode, MouseEvent, MouseEventHandler } from "react"
 import { createPortal } from "react-dom"
 
 import { Icon } from "../Icon/Icon.component"

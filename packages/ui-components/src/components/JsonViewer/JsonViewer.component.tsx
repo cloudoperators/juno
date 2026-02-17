@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { FC, HTMLAttributes, HTMLProps, ReactNode, useContext, useLayoutEffect, useMemo, useState } from "react"
+import React, { HTMLAttributes, HTMLProps, ReactNode, useContext, useLayoutEffect, useMemo, useState } from "react"
 import * as themes from "./themes"
 import { SearchInput } from "../SearchInput"
 import { ExpandControlType, ExpandIconProps, TypeValueLabelType } from "./JsonViewer.types"
@@ -184,7 +184,7 @@ interface TypeValueLabelProps {
   value: unknown
 }
 
-const Toolbar: FC = () => {
+const Toolbar = () => {
   const { colors, onExpandAll, onSearch } = useContext(ThemeContext)
 
   return (

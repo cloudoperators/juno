@@ -11,7 +11,6 @@ import React, {
   ChangeEventHandler,
   MouseEvent,
   MouseEventHandler,
-  FC,
   SelectHTMLAttributes,
 } from "react"
 
