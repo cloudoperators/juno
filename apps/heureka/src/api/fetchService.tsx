@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ApolloQueryResult } from "@apollo/client"
+import { ObservableQuery } from "@apollo/client"
 import { GetServicesDocument, GetServicesQuery, OrderDirection, ServiceOrderByField } from "../generated/graphql"
 import { RouteContext } from "../routes/-types"
 
@@ -15,7 +15,7 @@ export const fetchService = ({
   queryClient,
   apiClient,
   service,
-}: FetchServiceParams): Promise<ApolloQueryResult<GetServicesQuery>> => {
+}: FetchServiceParams): Promise<ObservableQuery.Result<GetServicesQuery>> => {
   return queryClient.ensureQueryData({
     queryKey: ["services", service],
     queryFn: () =>

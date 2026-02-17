@@ -1,13 +1,8 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse",
-  "version": "0.7.23",
+  "version": "0.8.0",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
-  "contributors": [
-    "Andreas Pfau",
-    "Arturo Reuschenbach Puncernau",
-    "Esther Schmitz"
-  ],
   "repository": "https://github.com/cloudoperators/greenhouse/tree/main/ui/dashboard",
   "license": "Apache-2.0",
   "source": "src/index.js",
@@ -21,6 +16,7 @@
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
+    "@types/js-yaml": "4.0.9",
     "@types/lodash": "4.17.21",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
@@ -30,7 +26,7 @@
     "interweave": "13.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-error-boundary": "6.0.0",
+    "react-error-boundary": "6.1.0",
     "react-markdown": "10.1.0",
     "remark-gfm": " 4.0.1",
     "shadow-dom-testing-library": "1.13.1",
@@ -59,8 +55,11 @@
     "@cloudoperators/juno-oauth": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
+    "@codemirror/lang-yaml": "6.1.2",
     "@tanstack/react-query": "5.90.16",
     "@tanstack/react-router": "1.150.0",
+    "@uiw/react-codemirror": "4.25.4",
+    "js-yaml": "4.1.1",
     "lodash": "4.17.23"
   }
 }

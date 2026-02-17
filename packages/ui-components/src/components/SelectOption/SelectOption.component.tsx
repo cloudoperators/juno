@@ -10,9 +10,9 @@ import { Icon } from "../Icon"
 
 const optionStyles = `
   jn:flex
-  jn:pt-[0.6875rem]
+  jn:pt-2.75
   jn:pb-[0.5rem]
-  jn:pr-[0.875rem]
+  jn:pr-3.5
   jn:select-none
   jn:hover:outline-hidden
   jn:hover:ring-2
@@ -23,7 +23,7 @@ const optionStyles = `
 
 const unselectedOptionStyles = `
   jn:text-theme-default
-  jn:pl-[2.375rem]
+  jn:pl-9.5
 `
 
 const selectedOptionStyles = `
@@ -95,7 +95,7 @@ export const SelectOption = ({
         <li
           className={`
           juno-select-option 
-          jn:min-h-[2.5rem]
+          jn:min-h-10
           ${optionStyles}
           ${selected ? "juno-select-option-selected " + selectedOptionStyles : unselectedOptionStyles}
           ${disabled ? "juno-select-option-disabled jn:opacity-50 jn:cursor-not-allowed" : ""}

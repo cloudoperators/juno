@@ -4,10 +4,11 @@
  */
 
 import React from "react"
+import { FallbackProps } from "react-error-boundary"
 import { Message } from "@cloudoperators/juno-ui-components"
 
-const ErrorFallback = ({ error }: { error: Error }) => (
-  <Message text={error?.message || "An error occurred"} variant="danger" />
+const ErrorFallback = ({ error }: FallbackProps) => (
+  <Message text={error instanceof Error && error.message ? error.message : "An error occurred"} variant="danger" />
 )
 
 export default ErrorFallback
