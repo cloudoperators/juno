@@ -12,7 +12,7 @@ import { extractFilterSettingsFromSearchParams } from "../../../utils"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
 import { PluginPreset } from "../../../types/k8sTypes"
 import { getReadyCondition, isReady } from "../../../utils"
-import ReadinessConditions from "../../../common/ReadinessConditions"
+import { SUPPORT_GROUP_LABEL } from "../../../constants"
 
 interface DataRowsProps {
   colSpan: number
@@ -48,6 +48,7 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
             <Icon
               icon={isReady(preset) ? "checkCircle" : "error"}
               color={isReady(preset) ? "text-theme-success" : "text-theme-danger"}
+              title={isReady(preset) ? "Ready" : "Not Ready"}
             />
           </DataGridCell>
           <DataGridCell>
@@ -58,9 +59,7 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
             {preset.spec?.plugin?.pluginDefinitionRef.name || preset.spec?.plugin?.pluginDefinition}
           </DataGridCell>
           <DataGridCell>{!isReady(preset) ? getReadyCondition(preset)?.message : ""}</DataGridCell>
-          <DataGridCell>
-            <ReadinessConditions conditions={preset.status?.statusConditions?.conditions || []} />
-          </DataGridCell>
+          <DataGridCell>{preset.metadata?.labels?.[SUPPORT_GROUP_LABEL]}</DataGridCell>
           <DataGridCell nowrap>
             <Button size="small" variant="primary" className="w-fit">
               View details
