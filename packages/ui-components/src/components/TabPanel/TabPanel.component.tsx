@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { TabPanel as ReactTabPanel } from "react-tabs"
 
 /**
@@ -22,6 +22,6 @@ export const TabPanel = ({ children, className = "", ...props }: TabPanelProps):
 
 TabPanel.tabsRole = "TabPanel"
 
-export interface TabPanelProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TabPanelProps extends HTMLAttributes<HTMLDivElement> {
   /** The content to show/render when the associated Tab is selected */
 }

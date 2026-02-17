@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { TabList as ReactTabList } from "react-tabs"
 import { TabsVariant, useTabsContext } from "../Tabs/Tabs.component"
 
@@ -37,7 +37,7 @@ const getVariantStyles = (variant: TabsVariant) => {
  * @see {@link TabListProps}
  */
 
-export const TabList = ({ variant = "content", children, ...props }: TabListProps): React.ReactNode => {
+export const TabList = ({ variant = "content", children, ...props }: TabListProps): ReactNode => {
   const tabsContext = useTabsContext() || {}
   const tabsVariant = tabsContext.variant || variant
 
@@ -53,9 +53,9 @@ export const TabList = ({ variant = "content", children, ...props }: TabListProp
 
 TabList.tabsRole = "TabList"
 
-export interface TabListProps extends React.HTMLAttributes<HTMLUListElement> {
+export interface TabListProps extends HTMLAttributes<HTMLUListElement> {
   /** Pick the TabList style */
   variant?: TabsVariant
   /** The individual child Tabs to render */
-  children?: React.ReactNode
+  children?: ReactNode
 }
