@@ -1,0 +1,2 @@
+import{j as o}from"./iframe-C3o_YF3Q.js";import{a as s}from"./TabPanel-SQHTu66M.js";const a=({children:e,className:t="",...n})=>o.jsx(s,{className:`juno-tabpanel ${t}`,selectedClassName:"juno-tabpanel-selected",...n,children:e});a.tabsRole="TabPanel";try{a.displayName="TabPanel",a.__docgenInfo={description:`The TabPanel holds content related to a Tab in a TabList in a wrapping Tab component. Not to be used standalone / outside a Tabs wrapper.
+ *`,displayName:"TabPanel",props:{}}}catch{}export{a as T};
