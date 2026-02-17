@@ -72,6 +72,8 @@ export interface GridColumnProps extends HTMLAttributes<HTMLDivElement> {
  * The `GridColumn` component represents an individual column within a `Grid`,
  * providing options for span and width adjustments. It supports flexible styling
  * for responsive layout.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-grid-gridcolumn--docs
+ * @see {@link GridColumnProps}
  */
 export const GridColumn = ({
   width,

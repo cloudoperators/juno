@@ -44,6 +44,8 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
  * It is perfect for annotations, supplementary explanations, and remarks where more visually
  * pronounced components like a MessageBox or InfoBox would be excessive.
  * This component typically displays small text but can contain any child elements as required.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-box--docs
+ * @see {@link BoxProps}
  */
 export const Box = ({ children, unpad = false, className = "", ...props }: BoxProps): ReactNode => {
   const combinedClassName = `juno-box ${boxStyles} ${!unpad ? boxPadding : ""} ${className}`

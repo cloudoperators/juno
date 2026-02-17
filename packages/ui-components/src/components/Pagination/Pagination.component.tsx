@@ -92,6 +92,8 @@ export type PaginationProps = Omit<HTMLAttributes<HTMLDivElement>, "onBlur"> & {
 
 /**
  * The Pagination component provides navigation controls for paginated content.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-pagination--docs
+ * @see {@link PaginationProps}
  */
 export const Pagination = ({
   variant = "default",

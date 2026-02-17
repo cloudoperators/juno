@@ -37,6 +37,8 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
  * The `Grid` component establishes a customizable grid layout, enabling
  * responsive design. It collaborates with `GridColumn` and `GridRow` for
  * flexible arrangement of content.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-grid-grid--docs
+ * @see {@link GridProps}
  */
 export const Grid = ({ auto = false, children, className = "", ...props }: GridProps): ReactNode => {
   const gridStyles = auto ? autoStyles : {}

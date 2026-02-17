@@ -39,6 +39,8 @@ export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
 /**
  * The `FormSection` component groups related form elements within a section,
  * offering a title and customizable styling. It assists in organizing content within forms.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-formsection--docs
+ * @see {@link FormSectionProps}
  */
 export const FormSection = ({ title = "", children, className = "", ...props }: FormSectionProps): ReactNode => {
   return (

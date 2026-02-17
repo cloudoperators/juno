@@ -35,6 +35,8 @@ export interface NativeSelectOptionProps extends Omit<OptionHTMLAttributes<HTMLO
 /**
  * The `NativeSelectOption` represents individual options within a dropdown list
  * for use in `NativeSelect`, offering label-value pairs with optional disable state.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-nativeselect-nativeselectoption--docs
+ * @see {@link NativeSelectOptionProps}
  */
 export const NativeSelectOption = ({
   value,

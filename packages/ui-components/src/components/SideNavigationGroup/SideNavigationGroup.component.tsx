@@ -41,6 +41,9 @@ export interface SideNavigationGroupProps {
  *
  * This component is used to create and manage expandable and collapsible sections of navigation,
  * allowing users to efficiently navigate hierarchical menus.
+ *
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-sidenavigation-sidenavigationgroup--docs
+ * @see {@link SideNavigationGroupProps}
  **/
 export const SideNavigationGroup = ({
   children,

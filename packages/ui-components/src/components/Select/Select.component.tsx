@@ -146,10 +146,12 @@ export interface SelectProps
   wrapperClassName?: string
 }
 
-/** 
-  A Select component that can be configured to allow selecting a single item or multiple items.
-  Pass a `defaultValue` to render as an uncontrolled component that tracks its open state etc internally.
-*/
+/**
+ * A Select component that can be configured to allow selecting a single item or multiple items.
+ * Pass a `defaultValue` to render as an uncontrolled component that tracks its open state etc internally.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-select-select--docs
+ * @see {@link SelectProps}
+ */
 export const Select = ({
   ariaLabel = "",
   children,

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { HTMLAttributes, ReactNode } from "react"
+import React, { HTMLAttributes, MouseEventHandler, ReactNode } from "react"
 import { NavigationItem } from "../NavigationItem/index"
 import { KnownIcons } from "../Icon/Icon.component"
 
@@ -37,8 +37,10 @@ const topNavActiveItemStyles = `
 `
 
 /**
-An individual item of a top level navigation. Place inside TopNavigation.
-*/
+ * An individual item of a top level navigation. Place inside TopNavigation.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-topnavigation-topnavigationitem--docs
+ * @see {@link TopNavigationItemProps}
+ */
 export const TopNavigationItem = ({
   active = false,
   ariaLabel,

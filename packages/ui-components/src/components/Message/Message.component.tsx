@@ -213,6 +213,8 @@ const clearAutoDismissTimeout = (timeoutRef: MutableRefObject<number | null>) =>
 /**
  * The `Message` component displays important information or alerts concerning the content,
  * page state, or the view's purpose, with support for dismissible and auto-dismiss features.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-message--docs
+ * @see {@link MessageProps}
  */
 export const Message = ({
   title,

@@ -42,6 +42,8 @@ export interface PageFooterProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * `PageFooter` component renders a footer at the bottom of the page.
  * It can include links, informational text, and an optional copyright notice.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-pagefooter--docs
+ * @see {@link PageFooterProps}
  */
 export const PageFooter = ({ className = "", children, copyright = "", ...props }: PageFooterProps): ReactNode => {
   return (

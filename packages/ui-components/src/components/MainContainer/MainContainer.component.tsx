@@ -14,6 +14,8 @@ const mainStyles = `
 /**
  * The `MainContainer` is the core container for application content, ideal for manual scaffold setups.
  * In most instances, `AppShell` offers a comprehensive layout alternative.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-maincontainer--docs
+ * @see {@link MainContainerProps}
  */
 export const MainContainer = ({ className = "", children, ...props }: MainContainerProps): ReactNode => {
   return (

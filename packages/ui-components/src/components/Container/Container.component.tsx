@@ -15,6 +15,8 @@ const containerStyles = (px: boolean, py: boolean) => {
 /**
  * The `Container` component serves as a basic layout container with configurable padding options,
  * providing structure and spacing within layouts.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-container--docs
+ * @see {@link ContainerProps}
  */
 export const Container = ({ px = true, py = false, className = "", children, ...props }: ContainerProps): ReactNode => {
   return (

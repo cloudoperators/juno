@@ -17,7 +17,11 @@ export interface TabNavigationContextType {
 
 export const TabNavigationContext = createContext<TabNavigationContextType | undefined>(undefined)
 
-/** A Tab Navigation parent component. Use to wrap `<TabNavigationItem>` elements inside. For tabs with corresponding tab panels, use `<Tabs>` instead. */
+/**
+ * A TabNavigation parent component. Use to wrap `<TabNavigationItem>` elements inside. For tabs with corresponding tab panels, use `<Tabs>` instead.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-tabnavigation-tabnavigation--docs
+ * @see {@link TabNavigationProps}
+ */
 export const TabNavigation = ({
   activeItem,
   ariaLabel,

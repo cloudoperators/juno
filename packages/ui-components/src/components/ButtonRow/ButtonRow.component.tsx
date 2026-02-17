@@ -13,6 +13,8 @@ import { Stack } from "../Stack/Stack.component"
  * button elements are neatly organized within a row. This is particularly
  * useful in dialogs, forms, or any interface requiring a uniform presentation
  * for multiple actions.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-buttonrow--docs
+ * @see {@link ButtonRowProps}
  */
 export const ButtonRow = ({ children, className = "", ...props }: ButtonRowProps): ReactNode => {
   return (

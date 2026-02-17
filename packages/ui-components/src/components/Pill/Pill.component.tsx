@@ -49,7 +49,9 @@ const pillValueStyles = (onClick: boolean) => {
 }
 
 /**
-A Pill to represent a value, or key and value. Can e.g. be used to represent selected filter values in a filter component. Can optionally be closed. On close the uid, if provided, or the pillKey is returned in the callback.
+ * A Pill to represent a value, or key and value. Can e.g. be used to represent selected filter values in a filter component. Can optionally be closed. On close the uid, if provided, or the pillKey is returned in the callback.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-pill--docs
+ * @see {@link PillProps}
  */
 export const Pill = ({
   uid = "",

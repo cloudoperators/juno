@@ -94,6 +94,8 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * A Panel component that slides in from the right side of the screen.
  * It can be used to display additional content/controls for the content area.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-panel-panel--docs
+ * @see {@link PanelProps}
  */
 export const Panel = ({
   heading = "",

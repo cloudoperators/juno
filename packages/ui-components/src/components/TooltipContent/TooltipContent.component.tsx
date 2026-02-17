@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { forwardRef, HTMLAttributes, ReactNode } from "react"
 import { useMergeRefs } from "@floating-ui/react"
 
 import { Icon } from "../Icon/Icon.component"
@@ -47,6 +47,8 @@ export interface TooltipContentProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Put content for a tooltip here. See Tooltip for more in-depth explanation and examples.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-tooltip-tooltipcontent--docs
+ * @see {@link TooltipContentProps}
  */
 export const TooltipContent = forwardRef<HTMLElement, TooltipContentProps>(function TooltipContent(
   { className = "", children, ...props },

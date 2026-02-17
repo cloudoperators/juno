@@ -28,7 +28,11 @@ const tabNavActiveItemStyles = `
   jn:border-theme-tab-active-bottom
 `
 
-/** An individual Tab Navigation Item. Use wrapped in a `<TabNavigation>` parent component. */
+/**
+ * An individual Tab Navigation Item. Use wrapped in a `<TabNavigation>` parent component.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-tabnavigation-tabnavigationitem--docs
+ * @see {@link TabProps}
+ */
 export const TabNavigationItem = ({
   active = false,
   ariaLabel,

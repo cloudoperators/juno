@@ -27,6 +27,8 @@ export interface FormRowProps extends HTMLAttributes<HTMLDivElement> {
  * The `FormRow` component structures individual form elements within a row layout.
  * It serves as a container for inputs like `TextInput`, `Textarea`, and others,
  * supporting custom styling with class names.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-formrow--docs
+ * @see {@link FormRowProps}
  */
 export const FormRow = ({ children, className = "", ...props }: FormRowProps): ReactNode => {
   return (

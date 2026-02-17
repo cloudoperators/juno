@@ -20,6 +20,8 @@ export interface FormattedTextProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * The `FormattedText` component provides a container for stylized text.
  * It supports custom content and additional styling through class names.
+ * @see https://cloudoperators.github.io/juno/?path=/story/components-formattedtext--basic
+ * @see {@link FormattedTextProps}
  */
 export const FormattedText = ({
   className = "", // Default value for className

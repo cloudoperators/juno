@@ -945,6 +945,8 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
 /**
  * The `Icon` component provides a versatile way to render SVG icons with customizable size,
  * color, and accessibility features. Icons can be interactive through click events or embedded links.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-icon--docs
+ * @see {@link IconProps}
  */
 export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(function Icon(
   { icon, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },

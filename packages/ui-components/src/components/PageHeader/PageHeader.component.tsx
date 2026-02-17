@@ -64,6 +64,8 @@ const optionsStyles = `
 /**
  * `PageHeader` component renders the top header of an application.
  * It includes customizable `logo`, `title`, and other options.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-pageheader--docs
+ * @see {@link PageHeaderProps}
  */
 
 export const PageHeader = ({

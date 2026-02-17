@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useRef, useContext, useEffect, useState } from "react"
+import React, { createContext, useRef, useContext, useEffect, useState, CSSProperties, ReactNode } from "react"
 import { Portal } from "./PortalProvider.Portal.component"
 
 const DEFAULT_PORTAL_ROOT_ID = "juno-portal-root"
@@ -70,6 +70,8 @@ export function usePortalRef() {
 /** A PortalProvider component that helps using and managing portals.
  * It renders a portal root container, creates a context to expose a ref the container, a `PortalProvider.Portal` component to render content into a portal, and a `usePortalRef` hook to render content into a portal.
  * Normally, there is no need to include `PortalProvider` manually, when using `AppShell` `PortalProvider` is already included in the app.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-portalprovider--docs
+ * @see {@link PortalProviderProps}
  */
 export const PortalProvider = ({ children, className = "", id = DEFAULT_PORTAL_ROOT_ID }: PortalProviderProps) => {
   const portalRootRef = useRef<HTMLDivElement | null>(null)

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 import { TabList as ReactTabList, TabListProps as ReactTabListProps } from "react-tabs"
 import { TabsVariant, useTabsContext } from "../Tabs/Tabs.component"
 
@@ -31,8 +31,11 @@ const getVariantStyles = (variant: TabsVariant) => {
   }
 }
 
-/** A tabList component wraps all individual Tabs inside a parent Tabs component */
-
+/**
+ * A TabList component wraps all individual Tabs inside a parent Tabs component
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tablist--docs
+ * @see {@link TabListProps}
+ */
 export const TabList = ({ variant = "content", children, ...props }: TabListProps) => {
   const tabsContext = useTabsContext() || {}
   const tabsVariant = tabsContext.variant || variant

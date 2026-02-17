@@ -39,6 +39,8 @@ export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
  * The `Form` component is designed to encapsulate form sections and groups,
  * providing a structured way to build complex forms. It can include a title and
  * supports additional styling through custom CSS classes.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-form--docs
+ * @see {@link FormProps}
  */
 export const Form = ({ title = "", className = "", children, ...props }: FormProps): ReactNode => {
   return (

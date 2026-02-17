@@ -76,6 +76,8 @@ export interface BreadcrumbItemProps extends HTMLAttributes<HTMLSpanElement> {
  * The `BreadcrumbItem` component represents an individual item within a Breadcrumb component.
  * It can render as either a static label or a navigable link, depending on the `active`
  * and `disabled` states. It supports custom icons, labels, and click functionality.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-breadcrumb-breadcrumbitem--docs
+ * @see {@link BreadcrumbItemProps}
  */
 export const BreadcrumbItem = ({
   href = "#",

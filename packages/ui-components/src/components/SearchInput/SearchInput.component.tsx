@@ -147,6 +147,8 @@ const getClearIconSize = (variant: "rounded" | "hero" | "default"): string => {
  * A SearchInput is a controlled input component for searching.
  * It provides a text field to enter a search query and optional clear and search icons.
  * Three styling variants are supported: "rounded", "hero", and "default".
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-searchinput--docs
+ * @see {@link SearchInputProps}
  */
 export const SearchInput = ({
   value = "",

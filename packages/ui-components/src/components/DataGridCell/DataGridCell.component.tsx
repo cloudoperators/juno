@@ -38,6 +38,8 @@ const cellCustomStyles = (colSpan: number | undefined) => {
 /**
  * `DataGridCell` is a versatile layout component for `DataGrid`, supporting cell-specific configurations
  * like column span and wrapping. It adapts orientation based on grid context.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridcell--docs
+ * @see {@link DataGridCellProps}
  */
 export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
   ({ colSpan, nowrap = false, className = "", children, ...props }, ref) => {

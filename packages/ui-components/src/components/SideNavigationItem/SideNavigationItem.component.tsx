@@ -84,6 +84,9 @@ export interface SideNavigationItemProps extends HTMLAttributes<HTMLElement> {
  * - State Indicators: Supports active and disabled states, visually indicating the current focus or usability.
  * - Expandable Sections: When nested, automatically renders expand/collapse controls for child navigation items.
  * - Customization: Offers extensive styling versatility through CSS classes and optional icon rendering for visual enhancement.
+ *
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-sidenavigation-sidenavigationitem--docs
+ * @see {@link SideNavigationItemProps}
  */
 
 export const SideNavigationItem = ({

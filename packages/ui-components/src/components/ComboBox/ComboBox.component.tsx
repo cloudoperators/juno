@@ -173,6 +173,8 @@ type OptionValuesAndLabelsValue = {
 /**
  * The `ComboBox` component is a customizable, accessible, and interactive dropdown component, allowing users to select from a list of options.
  * It features dynamic filtering and optional asynchronous loading for extended functionality.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-combobox-combobox--docs
+ * @see {@link ComboBoxProps}
  */
 
 export const ComboBox = ({

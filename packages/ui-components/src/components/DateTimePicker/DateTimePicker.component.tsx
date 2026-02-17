@@ -89,6 +89,8 @@ interface SelectedDate {
 /**
  * `DateTimePicker` is a versatile and highly configurable component for date and time selection,
  * powered by Flatpickr. It supports options like direct input, localization, and validation states.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-datetimepicker-datetimepicker--docs
+ * @see {@link DateTimePickerProps}
  */
 export const DateTimePicker = ({
   allowInput = false,

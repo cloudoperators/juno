@@ -24,6 +24,8 @@ const Wrapper = ({ children, shadowRoot, shadowRootMode }: WrapperProps): ReactN
  * The `AppShellProvider` component serves as a wrapper for Juno apps. It integrates both
  * `StyleProvider` and `PortalProvider`, offering consistent theming and managing portals across the app.
  * This provider can optionally render within a `ShadowRoot` to encapsulate styles independently.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-appshellprovider--docs
+ * @see {@link AppShellProviderProps}
  */
 export const AppShellProvider = ({
   shadowRoot = true,

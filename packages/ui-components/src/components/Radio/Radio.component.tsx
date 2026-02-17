@@ -93,7 +93,11 @@ const hintStyles = `
   jn:ml-6
 `
 
-/** A controlled Radio component. */
+/**
+ * A controlled Radio component.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-radio--docs
+ * @see {@link RadioProps}
+ */
 export const Radio = ({
   checked = false,
   className = "",

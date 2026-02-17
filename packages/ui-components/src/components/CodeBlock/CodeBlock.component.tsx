@@ -108,6 +108,8 @@ const jsonTheme = {
 /**
  * The `CodeBlock` component renders a block of preformatted code or content. It offers features such
  * as optional wrapping, copying to clipboard, and syntax highlighting for JSON content via a custom viewer.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-codeblock--docs
+ * @see {@link CodeBlockProps}
  */
 export const CodeBlock = ({
   content = "",

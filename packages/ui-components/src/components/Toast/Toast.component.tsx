@@ -48,8 +48,10 @@ export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 /**
-A Toast component. Use for short-lived, temporary/transient messaging to users relating to their current usage context, e.g. 'Edits changed successfully'. For more general, persistent messaging, e.g. 'Our servers will be down for maintenance all weekend', use Message instead.
-*/
+ * A Toast component. Use for short-lived, temporary/transient messaging to users relating to their current usage context, e.g. 'Edits changed successfully'. For more general, persistent messaging, e.g. 'Our servers will be down for maintenance all weekend', use Message instead.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-toast--docs
+ * @see {@link ToastProps}
+ */
 
 export const Toast = ({
   variant = "info",

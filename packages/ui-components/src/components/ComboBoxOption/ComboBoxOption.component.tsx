@@ -52,6 +52,8 @@ const truncateOptionStyles = `
 /**
  * `ComboBoxOption` is a component used within a `ComboBox` to represent each selectable option.
  * It displays the option's label and value, and indicates the selected state with styles or an icon.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-combobox-comboboxoption--docs
+ * @see {@link ComboBoxOptionProps}
  */
 
 export const ComboBoxOption = ({

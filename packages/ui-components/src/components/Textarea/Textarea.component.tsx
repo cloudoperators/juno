@@ -89,10 +89,12 @@ interface IconsProps {
   disabled: boolean
 }
 
-/** 
-A controlled Text Input.
-Also covers email, telephone, password, url derivates. 
-*/
+/**
+ * A controlled Text Input.
+ * Also covers email, telephone, password, url derivates.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-textarea--docs
+ * @see {@link TextareaProps}
+ */
 export const Textarea = ({
   name,
   value = "",

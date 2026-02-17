@@ -18,6 +18,8 @@ const headerContainerStyles = `
 /**
  * The `HeaderContainer` component serves as a fixed, styled container at the top
  * of a page or view, supporting full-width or constrained layouts.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-headercontainer--docs
+ * @see {@link HeaderContainerProps}
  */
 export const HeaderContainer = ({
   fullWidth = false,

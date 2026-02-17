@@ -44,6 +44,8 @@ const disabledstyles = `
 /**
  * The `Label` component is a reusable, accessible label for form elements.
  * It supports optional features like disabling, required indicators, and floating label styles.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-label--docs
+ * @see {@link LabelProps}
  */
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(
   (

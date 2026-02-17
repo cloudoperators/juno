@@ -53,6 +53,8 @@ const getVariantStyles = (variant: FormHintVariant): string => {
 /**
  * The `FormHint` component provides contextual messages associated with form elements,
  * such as help, error, or success messages. It adjusts appearance based on the variant specified.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-formhint--docs
+ * @see {@link FormHintProps}
  */
 export const FormHint = ({
   children,

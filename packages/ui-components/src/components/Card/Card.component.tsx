@@ -39,6 +39,8 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
  * The `Card` component acts as a versatile container for various types of content, providing
  * an optional padding feature for additional layout flexibility. It is commonly used for
  * displaying information or grouping elements, allowing for consistent styling and shadow effects.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-card--docs
+ * @see {@link CardProps}
  */
 export const Card = ({ children, padding = false, className = "", ...props }: CardProps): ReactNode => {
   const combinedClassName = `juno-card ${cardStyles} ${padding ? cardPadding : ""} ${className}`

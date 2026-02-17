@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useContext, useEffect, useState, ReactNode } from "react"
+import React, { useContext, useEffect, useState, ReactNode, MouseEvent, HTMLAttributes, MouseEventHandler } from "react"
 
 import { NavigationContext } from "../Navigation/Navigation.component"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
@@ -22,6 +22,8 @@ const disabledStyles = `
  * `NavigationItem` acts as a singular navigational unit within a `Navigation`,
  * offering styles for active and inactive states, and supporting disabled
  * interactions internally.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-navigation-navigationitem--docs
+ * @see {@link NavigationItemProps}
  */
 export const NavigationItem = ({
   active = false,

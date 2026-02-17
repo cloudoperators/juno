@@ -9,6 +9,8 @@ import "./data-grid-row.css"
 /**
  * `DataGridRow` represents a row in a `DataGrid`, supporting interactions such as selection and click handling.
  * It provides styles for active states and custom behavior when interacted with.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridrow--docs
+ * @see {@link DataGridRowProps}
  */
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
   ({ isSelected = false, onClick, className = "", children, ...props }, ref) => {

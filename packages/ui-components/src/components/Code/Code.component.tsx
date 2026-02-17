@@ -13,6 +13,8 @@ const codeStyles = `
 /**
  * The `Code` component is a lightweight inline `<code>` element used for displaying code snippets or text.
  * It can accept content directly through the `content` prop or render children encapsulated within it.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-code--docs
+ * @see {@link CodeProps}
  */
 export const Code = ({ content = "", children, className = "", ...props }: CodeProps): ReactNode => {
   return (

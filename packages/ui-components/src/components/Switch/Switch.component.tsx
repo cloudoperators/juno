@@ -207,6 +207,9 @@ const renderFormHint = (errortext: ReactNode, successtext: ReactNode, helptext: 
  * A basic switch component for toggling between two options.
  * Use this component for interactions that produce immediate results.
  * For form scenarios requiring submission, use checkboxes instead.
+ *
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-switch--docs
+ * @see {@link SwitchProps}
  */
 export const Switch = ({
   name = "",

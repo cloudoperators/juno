@@ -73,8 +73,10 @@ export interface RadioGroupContextProps {
 export const RadioGroupContext = createContext<RadioGroupContextProps>({})
 
 /**
-A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.
-*/
+ * A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-radio-radiogroup--docs
+ * @see {@link RadioGroupProps}
+ */
 export const RadioGroup = ({
   children,
   className = "",

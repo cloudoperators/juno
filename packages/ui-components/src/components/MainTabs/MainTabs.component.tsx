@@ -9,6 +9,8 @@ import { Tabs } from "../Tabs/index"
 /**
  * `MainTabs` represents primary tab navigation at the content area's top, for complete content switching.
  * Ideal for major interface tabbing; use `Tabs` for partial content areas.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-maintabs--docs
+ * @see {@link MainTabsProps}
  */
 export const MainTabs = ({
   children,

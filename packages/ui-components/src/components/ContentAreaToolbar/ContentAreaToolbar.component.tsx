@@ -30,6 +30,8 @@ export interface ContentAreaToolbarProps extends HTMLAttributes<HTMLDivElement> 
 /**
  * The `ContentAreaToolbar` represents the main toolbar within a content area, providing space
  * for main actions relevant to the current page context. It supports custom content and styling.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-contentareatoolbar--docs
+ * @see {@link ContentAreaToolbarProps}
  */
 export const ContentAreaToolbar = ({ className = "", children, ...props }: ContentAreaToolbarProps): ReactNode => {
   return (

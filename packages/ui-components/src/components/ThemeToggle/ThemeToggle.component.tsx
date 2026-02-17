@@ -56,6 +56,8 @@ export interface ThemeToggleProps {
  * ThemeToggle is a button component that toggles between Light and Dark UI Themes.
  * This component requires a StyleProvider context to function, which is automatically provided by the Juno AppShell.
  * If not using the AppShell, include a StyleProvider manually.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-themetoggle--docs
+ * @see {@link ThemeToggleProps}
  */
 export const ThemeToggle = ({
   className = "",

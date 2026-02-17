@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 import { Tab as ReactTab, TabProps as ReactTabProps } from "react-tabs"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
@@ -31,10 +31,11 @@ const iconStyles = `
   jn:mr-2
 `
 
-/** A Tab Component representing an individual Tab inside a wrapping TabList inside a wrapping Tabs component. Not to be used standalone outside of the mentioned parent components.
-
-
-*/
+/**
+ * A Tab Component representing an individual Tab inside a wrapping TabList inside a wrapping Tabs component. Not to be used standalone outside of the mentioned parent components.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tab--docs
+ * @see {@link TabProps}
+ */
 export const Tab = ({ children, label = "", icon, disabled = false, className = "", ...props }: TabProps) => {
   return (
     <ReactTab

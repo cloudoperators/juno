@@ -28,6 +28,8 @@ export interface GridRowProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * The `GridRow` component acts as a container to hold `GridColumn` elements
  * within a `Grid`. It ensures proper flexbox wrapping for responsive design.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-grid-gridrow--docs
+ * @see {@link GridRowProps}
  */
 export const GridRow = ({ children, className = "", ...props }: GridRowProps): ReactNode => {
   return (

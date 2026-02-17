@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 import { TabPanel as ReactTabPanel, TabPanelProps as ReactTabPanelProps } from "react-tabs"
 
 /**
-The TabPanel holds content related to a Tab in a TabList in a wrapping Tab component. Not to be used standalone / outside a Tabs wrapper.
-*/
+ * The TabPanel holds content related to a Tab in a TabList in a wrapping Tab component. Not to be used standalone / outside a Tabs wrapper.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tabpanel--docs
+ * @see {@link TabPanelProps}
+ */
 
 export const TabPanel = ({ children, className = "", ...props }: TabPanelProps) => {
   return (

@@ -16,6 +16,8 @@ import { HeaderContainer } from "../HeaderContainer/index"
  * The `AppShell` component provides the foundational layout structure for the application.
  * It acts similarly to an HTML `body` element, organizing pages with headers, footers,
  * navigation, and content areas. For simpler manual layout setup, consider using `AppBody`.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-appshell--docs
+ * @see {@link AppShellProps}
  */
 export const AppShell = ({
   children,

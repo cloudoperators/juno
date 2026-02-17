@@ -17,6 +17,8 @@ const containerStyles = `
  * flexibility and control over the structure of the application body. For most cases,
  * consider using the `AppShell` component which encompasses more features suitable for
  * typical application scaffolding.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-appbody--docs
+ * @see {@link AppBodyProps}
  */
 export const AppBody = ({ className = "", children, ...props }: AppBodyProps): ReactNode => {
   return (

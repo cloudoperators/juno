@@ -352,6 +352,8 @@ interface JsonDataProps extends HTMLAttributes<HTMLDivElement> {
  * The `JsonViewer` component provides a structured visualization of JSON data,
  * with support for syntax highlighting, collapsible elements, and search functionality.
  * Tailorable themes and display settings are available for user customization.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-jsonviewer--docs
+ * @see {@link JsonViewerProps}
  */
 export const JsonViewer = ({
   data = {},

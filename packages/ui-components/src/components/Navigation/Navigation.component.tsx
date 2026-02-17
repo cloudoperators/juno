@@ -37,6 +37,8 @@ interface NavigationMappingItem {
  * A generic `Navigation` component that offers context-managed item selection,
  * designed for internal use with semantic wrappers like `SideNavigation`,
  * `TabNavigation`, and `TopNavigation`.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-navigation--docs
+ * @see {@link NavigationProps}
  */
 export const Navigation = ({
   activeItem = "",

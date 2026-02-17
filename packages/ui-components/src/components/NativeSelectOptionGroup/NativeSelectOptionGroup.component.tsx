@@ -35,6 +35,8 @@ export interface NativeSelectOptionGroupProps extends OptgroupHTMLAttributes<HTM
 /**
  * The `NativeSelectOptionGroup` categorizes related options within a dropdown list,
  * enhancing semantic groupings for larger datasets in `NativeSelect`.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-nativeselect-nativeselectoptiongroup--docs
+ * @see {@link NativeSelectOptionGroupProps}
  */
 export const NativeSelectOptionGroup = ({
   label = "",

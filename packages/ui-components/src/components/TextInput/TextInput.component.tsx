@@ -87,10 +87,12 @@ const hintStyles = `
   jn:mt-0
 `
 
-/** 
-A controlled Text Input.
-Also covers email, telephone, password, url derivates. 
-*/
+/**
+ * A controlled Text Input.
+ * Also covers email, telephone, password, url derivates.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-textinput--docs
+ * @see {@link TextInputProps}
+ */
 export const TextInput = ({
   value = "",
   id = "",

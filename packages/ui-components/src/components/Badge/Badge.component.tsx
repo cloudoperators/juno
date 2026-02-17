@@ -87,6 +87,8 @@ const isValidIcon = (icon: string): icon is KnownIcons => {
  * The `Badge` component visually represents properties or states of an entity.
  * It supports multiple semantic variants, each with distinct styling. An optional
  * icon can be included to further emphasize meaning.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-badge--docs
+ * @see {@link BadgeProps}
  */
 export const Badge = ({
   variant = "default",

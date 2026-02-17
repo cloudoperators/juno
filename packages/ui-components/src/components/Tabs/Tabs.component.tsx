@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from "react"
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react"
 import { Tabs as ReactTabs } from "react-tabs"
 
 export interface TabsContextType {
@@ -13,12 +13,14 @@ export interface TabsContextType {
 const TabsContext = createContext<TabsContextType>({})
 export const useTabsContext = () => useContext(TabsContext)
 
-/** 
-A Tabs component.
-The parent wrapping TabList, Tab, and TabPanel subcomponents.
-For a navigation that looks like tabs, but runs onClick handlers or contains hrefs, use TabNavigation instead.
-Tabs are used to provide a tabbed section within the content area when combining static content and tabbed content on the same page. You will probably want to use a 'Container' (px=false) inside the TabPanels to get nice padding.
-*/
+/**
+ * A Tabs component.
+ * The parent wrapping TabList, Tab, and TabPanel subcomponents.
+ * For a navigation that looks like tabs, but runs onClick handlers or contains hrefs, use TabNavigation instead.
+ * Tabs are used to provide a tabbed section within the content area when combining static content and tabbed content on the same page. You will probably want to use a 'Container' (px=false) inside the TabPanels to get nice padding.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tabs--docs
+ * @see {@link TabsProps}
+ */
 
 export const Tabs = ({
   children,

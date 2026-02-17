@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { cloneElement, forwardRef, HTMLAttributes, HTMLProps, isValidElement, ReactNode, RefObject } from "react"
 
 import { useMergeRefs } from "@floating-ui/react"
 
@@ -22,6 +22,8 @@ type CustomProps = HTMLProps<HTMLElement> & {
 }
 /**
  * This is the trigger element for a tooltip. See Tooltip for more in-depth explanation and examples.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-tooltip-tooltiptrigger--docs
+ * @see {@link TooltipTriggerProps}
  */
 export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(function TooltipTrigger(
   { children, asChild = false, className = "", ...props },

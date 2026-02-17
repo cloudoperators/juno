@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode } from "react"
+import React, { HTMLProps, ReactNode } from "react"
 
 // Previously we used template literals to dynamically determine the gap classname like this: gap-${gap ? gap : '0'}
 // however if we want to use tailwind jit this doesn't work since these dynamic classnames will get purged. The way
@@ -133,6 +133,8 @@ const justifyItems = (distribution: StackDistribution) => {
 /**
  * A Stack is a layout primitive that ensures its children are stacked either horizontally next to each other or vertically, one below the other.
  * In addition a gap can be defined which the Stack injects between its children so they have some margin from one another.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-stack--docs
+ * @see {@link StackProps}
  */
 export const Stack = ({
   direction = "horizontal",

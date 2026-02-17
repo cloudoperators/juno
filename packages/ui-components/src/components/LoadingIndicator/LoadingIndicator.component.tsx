@@ -35,6 +35,8 @@ const defaultSize = 96
  * The `LoadingIndicator` visually represents ongoing loading processes for pages,
  * large sections, or panels, offering custom size and color adjustments.
  * It's suitable for prominent loading displays rather than granular elements.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-loadingindicator--docs
+ * @see {@link LoadingIndicatorProps}
  */
 export const LoadingIndicator = ({
   size = defaultSize,

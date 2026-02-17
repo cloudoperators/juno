@@ -32,6 +32,8 @@ export interface PanelBodyProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * A PanelBody component is used to encapsulate the main content of a panel.
  * The primary content for the panel, such as forms or information, is rendered here.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-panel-panelbody--docs
+ * @see {@link PanelBodyProps}
  */
 export const PanelBody = ({ className = "", footer, children, ...props }: PanelBodyProps): ReactNode => {
   return (

@@ -158,6 +158,8 @@ const spinnerColorClass = (variant: ButtonVariant) => {
 /**
  * The `Button` component provides an interactive element for user actions, supporting various sizes,
  * styles, and states such as disabled or in-progress.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-button--docs
+ * @see {@link ButtonProps}
  */
 export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (

@@ -40,6 +40,8 @@ import React, { ReactNode, useEffect, useRef, useState } from "react"
  * Functional component which creates and inserts a shadow dom element
  * in to the current parent element. ShadowRoot allows html to be isolated from the rest of the DOM. If styles are given, these and
  * the children are added to the shadow element. The themeClass is added to a wrapper div surrounding the children.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-shadowroot--docs
+ * @see {@link ShadowRootProps}
  */
 export const ShadowRoot = ({ mode = "open", delegatesFocus = false, children }: ShadowRootProps): ReactNode => {
   // reference element which is replaced by the shadow dom element

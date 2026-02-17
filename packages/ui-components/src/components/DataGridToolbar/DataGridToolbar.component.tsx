@@ -21,6 +21,8 @@ const childrenWrapperStyles = `
 /**
  * `DataGridToolbar` provides an action bar for a `DataGrid`, designed to hold controls like buttons and search inputs
  * for performing group operations and interfacing with the grid content.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridtoolbar--docs
+ * @see {@link DataGridToolbarProps}
  */
 export const DataGridToolbar = ({ search, className = "", children, ...props }: DataGridToolbarProps): ReactNode => {
   return (

@@ -26,6 +26,8 @@ const defaultmodalfooterstyles = `
  * The `ModalFooter` component is a versatile footer meant for the `Modal`, offering
  * default or customizable confirm and cancel buttons, and an option to pass
  * custom content.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-modal-modalfooter--docs
+ * @see {@link ModalFooterProps}
  */
 export const ModalFooter = ({
   className = "",

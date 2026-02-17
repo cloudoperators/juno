@@ -28,7 +28,7 @@ export const useTooltipState: () => NonNullable<TooltipContextType> = () => {
 }
 
 export interface TooltipProps extends HTMLAttributes<HTMLElement> {
-  // /** The semantic variant of the tooltip, or `plain` */
+  /** The semantic variant of the tooltip, or `plain` */
   variant?: ToolTipVariant
   /** Uncontrolled Tooltip: Choose which event should trigger the opening of the tooltip (click or hover) */
   triggerEvent?: "click" | "hover"
@@ -46,9 +46,11 @@ export interface TooltipProps extends HTMLAttributes<HTMLElement> {
 }
 
 /**
- * A tooltip component that optionally comes in the various semantic flavors (e.g. info, warning, ...). It can be used as an uncontrolled component where
+ * A Tooltip component that optionally comes in the various semantic flavors (e.g. info, warning, ...). It can be used as an uncontrolled component where
  * you configure the event type that should open the tooltip (click or hover) or alternatively you can use it as a controlled component where you set the
  * open state and handle the events that open/close the tooltip yourself.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-tooltip-tooltip--docs
+ * @see {@link TooltipProps}
  */
 
 export const Tooltip = ({

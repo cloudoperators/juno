@@ -8,6 +8,8 @@ import React, { HTMLAttributes, ReactNode } from "react"
 /**
  * `DataGridFoot` is used to display a footer section for a `DataGrid`, supporting summary data or controls
  * related to the grid content. It is styled consistently with other grid sections.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-datagrid-datagridfoot--docs
+ * @see {@link DataGridFootProps}
  */
 export const DataGridFoot = ({ className = "", children, ...props }: DataGridFootProps): ReactNode => {
   return (

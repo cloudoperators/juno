@@ -95,6 +95,8 @@ export interface IntroBoxProps extends Omit<HTMLAttributes<HTMLDivElement>, "tit
  * The `IntroBox` component presents important information about the contents,
  * purpose, or state of a page or view, using distinct styles for emphasis.
  * Supports "hero" variant with optional background images.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-introbox--docs
+ * @see {@link IntroBoxProps}
  */
 export const IntroBox = ({
   title = "",

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement, ReactNode } from "react"
+import React, { HTMLAttributes, ReactElement, ReactNode } from "react"
 import { Navigation } from "../Navigation/Navigation.component"
 import { SideNavigationListProps } from "../SideNavigationList"
 
@@ -17,9 +17,11 @@ const sideNavStyles = `
 `
 
 /**
-A generic vertical side navigation component.
-Place SideNavigationItem components as children.
-*/
+ * A generic vertical side navigation component.
+ * Place SideNavigationItem components as children.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-sidenavigation-sidenavigation--docs
+ * @see {@link SideNavigationProps}
+ */
 
 export const SideNavigation = ({
   activeItem = "",

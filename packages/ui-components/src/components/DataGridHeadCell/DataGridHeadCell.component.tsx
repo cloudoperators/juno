@@ -16,6 +16,8 @@ const headCellBaseStyles = `
 /**
  * `DataGridHeadCell` is designed for use within a `DataGrid` header, defining column attributes and appearance.
  * It accommodates configurations like sorting (future implementation) and display styles.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridheadcell--docs
+ * @see {@link DataGridHeadCellProps}
  */
 export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps>(
   (

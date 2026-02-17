@@ -35,6 +35,8 @@ export interface ContentHeadingProps extends HTMLAttributes<HTMLHeadingElement> 
 /**
  * The `ContentHeading` represents the primary heading of a page or view, usable within a `<ContentContainer>`
  * or `<AppShell>`. The heading can be defined via the `heading` prop or the `children` prop.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-contentheading--docs
+ * @see {@link ContentHeadingProps}
  */
 export const ContentHeading = ({
   heading = "",

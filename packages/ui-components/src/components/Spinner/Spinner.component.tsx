@@ -32,9 +32,12 @@ const defaultColor = `
   jn:text-theme-on-default
 `
 
-/** 
-A generic Spinner component to indicate an individual component or portion of the UI is busy processing or awaiting data. 
-To indicate full views, panels, or other larger parts of an interface are busy or waiting for data, use LoadingIndicator instead.*/
+/**
+ * A generic Spinner component to indicate an individual component or portion of the UI is busy processing or awaiting data.
+ * To indicate full views, panels, or other larger parts of an interface are busy or waiting for data, use LoadingIndicator instead.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-spinner--docs
+ * @see {@link SpinnerProps}
+ */
 export const Spinner = ({
   variant = "default",
   size,

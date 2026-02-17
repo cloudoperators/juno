@@ -14,9 +14,11 @@ const topNavStyles = `
 `
 
 /**
-A generic horizontal top level navigation component. To be placed below the application header but above application content.
-Place `TopNavigationItem` elements as children.
-*/
+ * A generic horizontal top level navigation component. To be placed below the application header but above application content.
+ * Place `TopNavigationItem` elements as children.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-topnavigation-topnavigation--docs
+ * @see {@link TopNavigationProps}
+ */
 
 export const TopNavigation = ({
   activeItem,

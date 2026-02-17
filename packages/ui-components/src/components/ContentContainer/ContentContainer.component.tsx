@@ -28,6 +28,8 @@ export interface ContentContainerProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * The `ContentContainer` serves as a wrapper for application content, designed for manual layout creation.
  * It can center content when the browser window is wider than the max breakpoint.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-contentcontainer--docs
+ * @see {@link ContentContainerProps}
  */
 export const ContentContainer = ({ className = "", children, ...props }: ContentContainerProps): ReactNode => {
   return (

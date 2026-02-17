@@ -10,6 +10,8 @@ import { DataGridCell } from "../DataGridCell/DataGridCell.component"
 /**
  * `DataGridCheckboxCell` integrates a checkbox within a `DataGrid` cell, ideal for selection-based interactions.
  * It manages the selected state and supports custom behaviors upon state changes.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-datagrid-datagridcheckboxcell--docs
+ * @see {@link DataGridCheckboxCellProps}
  */
 export const DataGridCheckboxCell = ({
   selected = false,

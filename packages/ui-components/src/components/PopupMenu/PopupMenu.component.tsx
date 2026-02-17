@@ -193,7 +193,11 @@ export { PopupMenuContext }
 
 // POPUP MENU
 
-/** A Popup Menu component that wraps Headless UI Menu. The Menu will be rendered into a Juno Portal, so using Juno's PortalProvider (which is already included when using Juno's AppShell) is mandatory. */
+/**
+ * A Popup Menu component that wraps Headless UI Menu. The Menu will be rendered into a Juno Portal, so using Juno's PortalProvider (which is already included when using Juno's AppShell) is mandatory.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-popupmenu--docs
+ * @see {@link PopupMenuProps}
+ */
 const PopupMenu = ({
   children,
   className = "",

@@ -3,7 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, useId, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useId,
+  ReactNode,
+  MouseEvent,
+  HTMLProps,
+  ReactElement,
+  MouseEventHandler,
+} from "react"
 import { createPortal } from "react-dom"
 import { FocusTrap } from "focus-trap-react"
 import { ModalFooter } from "../ModalFooter/index"
@@ -75,6 +85,8 @@ const sizeClass = (size: ModalSize) => {
 /**
  * The `Modal` component provides a flexible dialog window for user interactions,
  * supporting titles, dismissal controls, sizing options, and comprehensive footer configurations.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-modal-modal--docs
+ * @see {@link ModalProps}
  */
 export const Modal = ({
   title = "",

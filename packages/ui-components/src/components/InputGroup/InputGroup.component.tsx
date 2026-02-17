@@ -66,6 +66,8 @@ const getClassNames = (baseClassName: string, variant: VariantTypes, disabled: b
 /**
  * InputGroup is a component used to visually group related elements such as
  * Buttons, TextInput, and Select elements, providing a cohesive styling approach.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-inputgroup--docs
+ * @see {@link InputGroupProps}
  */
 export const InputGroup = ({
   children,

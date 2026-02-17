@@ -208,6 +208,8 @@ const SelectIcons = ({ isLoading, hasError, isInvalid, isValid, disabled }: Sele
  * The `NativeSelect` component is a basic HTML select element with extra features
  * such as styles and loading/error states. It supports native select options while
  * offering customization for validation indicators.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-nativeselect-nativeselect--docs
+ * @see {@link NativeSelectProps}
  */
 export const NativeSelect = ({
   name = "Unnamed Select",

@@ -29,6 +29,8 @@ export interface BreadcrumbProps extends HTMLAttributes<HTMLElement> {
  * - Wrapping `BreadcrumbItem` or other custom components to form breadcrumb navigation.
  * - Automatic insertion of separator icons between items, enhancing visibility.
  * - Filtering out invalid React elements to prevent rendering errors.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-breadcrumb-breadcrumb--docs
+ * @see {@link BreadcrumbProps}
  */
 export const Breadcrumb = ({ children, className = "", ...props }: BreadcrumbProps): ReactNode => {
   const childrenArray = Children.toArray(children).filter(isValidElement) // Filter out invalid elements

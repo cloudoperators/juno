@@ -56,6 +56,8 @@ export const useDataGridContext = () => useContext(DataGridContext)
 /**
  * The `DataGrid` component displays tabular data with customizable columns and layout.
  * It supports interactive styling through child components like `DataGridRow` for advanced interactions.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagrid--docs
+ * @see {@link DataGridProps}
  */
 export const DataGrid = ({
   columns = 1,

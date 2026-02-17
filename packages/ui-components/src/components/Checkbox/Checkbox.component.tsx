@@ -112,6 +112,8 @@ const hintStyles = `
  * indeterminate, invalid, and valid, and integrates with a checkbox group context
  * for collective state management. This component supports labels, icons,
  * error/success indicators, and custom event handlers.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-checkbox-checkbox--docs
+ * @see {@link CheckboxProps}
  */
 export const Checkbox = ({
   checked = false,

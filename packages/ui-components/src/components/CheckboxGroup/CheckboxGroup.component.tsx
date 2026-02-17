@@ -58,6 +58,8 @@ export const CheckboxGroupContext = createContext<CheckboxGroupContextProps | un
  * It manages the collective state for checkboxes, allowing for individual or batch validation
  * and selection. It supports states such as disabled, valid, and invalid, and offers customization
  * for error and success messages. It also furnishes a grouped label and help text for a unified UI.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-checkbox-checkboxgroup--docs
+ * @see {@link CheckboxGroupProps}
  */
 export const CheckboxGroup = ({
   children,
