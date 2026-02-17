@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 import { ToggleButton } from "../ToggleButton/ToggleButton.component"
 import { Icon } from "../Icon/Icon.component"
 import { ButtonProps } from "../Button"
@@ -17,10 +17,10 @@ export interface SortButtonProps extends Omit<ButtonProps, "value" | "onChange">
    * @deprecated: Will be removed in the next major release, use onChange instead.
    */
   onOrderChange?: (_order: OrderType) => void
-  options?: { value: OrderType; label: React.ReactNode }[]
+  options?: { value: OrderType; label: ReactNode }[]
 }
 
-export const SortButton: React.FC<SortButtonProps> = ({
+export const SortButton = ({
   order = "desc",
   onChange,
   options = [
@@ -28,7 +28,7 @@ export const SortButton: React.FC<SortButtonProps> = ({
     { value: "desc", label: <Icon icon="sortShortWideArrowDown" /> },
   ],
   ...props
-}) => {
+}: SortButtonProps): ReactNode => {
   const handleChange = (newOrder: OrderType) => {
     onChange?.(newOrder)
   }

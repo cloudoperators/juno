@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useRef, MutableRefObject, ReactNode, HTMLAttributes } from "react"
 
 import { Icon } from "../Icon"
 import { KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
@@ -63,7 +63,7 @@ const messageVariantStyles = {
 
 export type MessageVariantType = "info" | "warning" | "danger" | "error" | "success"
 
-export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MessageProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Optional title for the message.
    */
@@ -116,7 +116,7 @@ export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
    * Pass optional React nodes or a collection of React nodes to be rendered as content.
    * Takes precedence over the text property.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 const getBackgroundStyle = (variant: MessageVariantType): string => {
@@ -188,7 +188,7 @@ const initiateAutoDismiss = (
   autoDismiss: boolean,
   timeout: number,
   hideMessage: () => void,
-  timeoutRef: React.MutableRefObject<number | null>
+  timeoutRef: MutableRefObject<number | null>
 ) => {
   // Ensure that auto-dismiss is enabled and that timeout value is valid
   if (!autoDismiss || timeout < 1) return
@@ -203,7 +203,7 @@ const initiateAutoDismiss = (
 }
 
 // Clear auto-dismiss timeout, if exists and reset the timeout reference
-const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | null>) => {
+const clearAutoDismissTimeout = (timeoutRef: MutableRefObject<number | null>) => {
   if (timeoutRef.current !== null) {
     clearTimeout(timeoutRef.current)
     timeoutRef.current = null
@@ -213,20 +213,8 @@ const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | nul
 /**
  * The `Message` component displays important information or alerts concerning the content,
  * page state, or the view's purpose, with support for dismissible and auto-dismiss features.
- *
- * @component
- * @param {string} [title] Optional title representing message thrust. Defaults to none.
- * @param {string} [text] Default content text to show within the message, overridden by `children`.
- * @param {MessageVariantType} [variant] Styling variant, determining semantic appearance. Defaults to `"info"`.
- * @param {boolean} [dismissible] Enables dismissal functionality with close button. Defaults to `false`.
- * @param {boolean} [autoDismiss] Toggles automatic dismissal after a timeout. Defaults to `false`.
- * @param {number} [autoDismissTimeout] Specifies timeout in milliseconds for auto-dismiss; default is `10000`.
- * @param {function} [onDismiss] Callback for when message is dismissed.
- * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
- * @param {React.ReactNode} [children] Nodes or components to render as message content, taking precedence over `text`.
- * @returns {React.ReactElement} A contextual message component with optional interactions.
  */
-export const Message: React.FC<MessageProps> = ({
+export const Message = ({
   title,
   variant = "info",
   dismissible = false,
@@ -235,7 +223,7 @@ export const Message: React.FC<MessageProps> = ({
   onDismiss,
   className = "",
   ...props
-}) => {
+}: MessageProps): ReactNode => {
   const [visible, setVisible] = useState<boolean>(true)
   const autoDismissTimeoutRef = useRef<number | null>(null)
   const { text, children } = props

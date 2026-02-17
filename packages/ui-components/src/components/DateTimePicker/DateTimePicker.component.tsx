@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useRef, useId, useMemo, useState, ReactNode } from "react"
+import React, { useEffect, useRef, useId, useMemo, useState, ReactNode, HTMLAttributes } from "react"
 import flatpickr from "flatpickr"
 import { FormHint } from "../FormHint/"
 import { Icon } from "../Icon"
@@ -89,59 +89,8 @@ interface SelectedDate {
 /**
  * `DateTimePicker` is a versatile and highly configurable component for date and time selection,
  * powered by Flatpickr. It supports options like direct input, localization, and validation states.
- *
- * @component
- * @param {boolean} [allowInput] Determines if user input is permitted directly. Defaults to `false`.
- * @param {boolean} [allowInvalidPreload] Allows preloading invalid dates for display, clearing if disabled.
- * @param {string} [ariaDateFormat] ARIA label format for days in the calendar, conforming to dateFormat tokens.
- * @param {string} [className] Additional CSS classes for the input element.
- * @param {string} [conjunction] Delimiter for multiple dates. Defaults to `", "`.
- * @param {string} [dateFormat] Characters customizing date input format, based on Flatpickr specifications.
- * @param {string | number | Date | DateOption[]} [defaultDate] Default date setting, used if `value` is unspecified.
- * @param {number} [defaultHour] Initial hour in the time picker, effective when time picking is enabled.
- * @param {number} [defaultMinute] Initial minute in the time picker, effective when time picking is enabled.
- * @param {string | number | Date | DateOption[]} [defaultValue] Alias for value-related properties.
- * @param {DateLimit<DateOption>[]} [disable] List of dates to disable from selection, per Flatpickr syntax.
- * @param {boolean} [disabled] Overall component disabled state.
- * @param {boolean} [enableSeconds] Enables display of seconds in the time picker.
- * @param {boolean} [enableTime] Enables time picker functionality alongside date.
- * @param {ReactNode} [errortext] Helper text rendered when an error or validation warning is present.
- * @param {ReactNode} [helptext] Text providing guidance or explanation of the component's use.
- * @param {number} [hourIncrement] Step increment for hours when using the time picker.
- * @param {string} [id] Unique ID for the component's input field, auto-generated if omitted.
- * @param {boolean} [invalid] Shows an invalid state indicator, often for validation results.
- * @param {string} [label] Label for the input field, describing its purpose.
- * @param {LocaleKey | Partial<CustomLocale>} [locale] Locale object or key for international formatting.
- * @param {DateOption} [maxDate] Maximum permissible date for input, inclusive.
- * @param {DateOption} [minDate] Minimum permissible date for input, inclusive.
- * @param {number} [minuteIncrement] Step increment for minutes in the time picker.
- * @param {"single" | "multiple" | "range"} [mode] Picker mode: single, multiple, or date range.
- * @param {"static" | "dropdown"} [monthSelectorType] Month selection dropdown type; static by default.
- * @param {string} [name] Name attribute for HTML form integration.
- * @param {boolean} [noCalendar] If true, excludes calendar, showing only the time picker.
- * @param {DateChangeHandler} [onBlur] Handler for loss of focus events.
- * @param {DateChangeHandler} [onChange] Handler for changes in date or time values.
- * @param {DateChangeHandler} [onClear] Specific handler for clear icon interactions, also triggering onChange.
- * @param {DateChangeHandler} [onClose] Handler when the calendar interface is closed.
- * @param {DateChangeHandler} [onFocus] Handler when the input field receives focus.
- * @param {DateChangeHandler} [onMonthChange] Handler for changes in month selection.
- * @param {DateChangeHandler} [onOpen] Handler for when the calendar popup is opened.
- * @param {DateChangeHandler} [onReady] Handler when the picker is ready for interaction.
- * @param {DateChangeHandler} [onYearChange] Handler for changes in the year selection.
- * @param {string} [placeholder] Placeholder text for the input.
- * @param {boolean} [required] Marks field as required, demanding a Label component for context.
- * @param {boolean} [shorthandCurrentMonth] Shows month abbreviated, e.g., "Jan" for "January".
- * @param {number} [showMonths] Number of months to display at once.
- * @param {ReactNode} [successtext] Success message when input is valid.
- * @param {boolean} [time_24hr] Uses 24-hour format without AM/PM toggle.
- * @param {boolean} [valid] Boolean specifying a validated state.
- * @param {string | number | Date | DateOption[]} [value] Current value, optionally configurable.
- * @param {boolean} [weekNumbers] Enables week number display in the calendar.
- * @param {"full" | "auto"} [width] Sets input field width, "full" by default.
- * @param {string} [wrapperClassName] Wrapper class for the container element for additional styling.
- * @returns {React.ReactElement} A comprehensive date and time picker.
  */
-export const DateTimePicker: React.FC<DateTimePickerProps> = ({
+export const DateTimePicker = ({
   allowInput = false,
   allowInvalidPreload = false,
   ariaDateFormat = "F j, Y",
@@ -191,7 +140,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}) => {
+}: DateTimePickerProps): ReactNode => {
   // always generate auto-id string using the useId hook to avoid "more hooks than in previous render" error when removing custom id:
   const autoId = "juno-datetimepicker-" + useId()
   const theId = id && id.length ? id : autoId
@@ -610,7 +559,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
 type DateChangeHandler = (dates?: Date[], dateStr?: string, instance?: flatpickr.Instance) => void
 
 export interface DateTimePickerProps
-  extends Omit<React.HTMLAttributes<HTMLInputElement>, "defaultValue" | "onFocus" | "onBlur" | "onChange"> {
+  extends Omit<HTMLAttributes<HTMLInputElement>, "defaultValue" | "onFocus" | "onBlur" | "onChange"> {
   /**
    * Determines if the DateTimePicker input element allows direct keyboard input.
    * @default false

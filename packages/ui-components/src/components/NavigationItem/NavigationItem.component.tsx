@@ -22,24 +22,8 @@ const disabledStyles = `
  * `NavigationItem` acts as a singular navigational unit within a `Navigation`,
  * offering styles for active and inactive states, and supporting disabled
  * interactions internally.
- *
- * @component
- * @param {boolean} [active] Indicates if the item is currently selected; parent setting overrides if active item exists.
- * @param {string} [activeItemStyles] CSS styles applied to the item when active.
- * @param {string} [ariaLabel] ARIA label aiding navigational element description.
- * @param {string} [className] Custom styling for the item element; impacts wrapper if `wrapperClassName` is undefined. Defaults to an empty string.
- * @param {ReactNode} [children] Content or label rendered within the navigation item.
- * @param {boolean} [disabled] Toggles the disabled attribute, preventing interactivity. Defaults to `false`.
- * @param {KnownIcons} [icon] An icon displayed within the item for visual representation.
- * @param {string} [inactiveItemStyles] Styles applied to items when inactive to differentiate visually.
- * @param {string} [label] Alternative label text if `children` is absent, impacting rendered content.
- * @param {string} [href] When specified, renders the item as an anchor element for navigation.
- * @param {React.MouseEventHandler<EventTarget>} [onClick] Click event handler, executing custom logic for the item.
- * @param {string} [value] Technical identifier through item value, usable when child strings are not available.
- * @param {string} [wrapperClassName] Class names for `<li>` element wrapping the navigation item itself. Defaults to an empty string.
- * @returns {React.ReactElement} A detailed navigational unit with configurable styles and states.
  */
-export const NavigationItem: React.FC<NavigationItemProps> = ({
+export const NavigationItem = ({
   active = false,
   activeItemStyles = "",
   ariaLabel = "",
@@ -54,7 +38,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   value = "",
   wrapperClassName = "",
   ...props
-}) => {
+}: NavigationItemProps): ReactNode => {
   // Utility
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
@@ -97,7 +81,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     setIsActive(active)
   }, [activeItem, active])
 
-  const handleClick = (event: React.MouseEvent<EventTarget>) => {
+  const handleClick = (event: MouseEvent<EventTarget>) => {
     if (disabled) {
       event.preventDefault()
     } else {
@@ -169,7 +153,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   )
 }
 
-export interface NavigationItemProps extends React.HTMLAttributes<HTMLElement> {
+export interface NavigationItemProps extends HTMLAttributes<HTMLElement> {
   /**
    * Whether the navigation item is the currently active item. If an active item is set on the parent, the one on the parent will win.
    * @default false
@@ -228,7 +212,7 @@ export interface NavigationItemProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Handler executed during item clicks for operational logic.
    */
-  onClick?: React.MouseEventHandler<EventTarget>
+  onClick?: MouseEventHandler<EventTarget>
 
   /**
    * Value for technical/item identification purposes, utilized when differing from `label` or child strings.

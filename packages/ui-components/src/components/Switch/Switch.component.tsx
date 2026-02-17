@@ -3,7 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useId,
+  ReactNode,
+  ButtonHTMLAttributes,
+  ChangeEvent,
+  MouseEvent,
+} from "react"
 
 import { Label } from "../Label/Label.component"
 import { Icon } from "../Icon/Icon.component"
@@ -72,7 +81,7 @@ const hintBaseStyles = `
 
 type SwitchSize = "small" | "default" | "large"
 
-export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "ref"> {
+export interface SwitchProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "ref"> {
   /**
    * HTML name attribute for the switch button
    */
@@ -129,12 +138,12 @@ export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
    * Callback function to handle changes to the switch state
    */
   // eslint-disable-next-line no-unused-vars
-  onChange?: (event: React.ChangeEvent<HTMLButtonElement>) => void
+  onChange?: (event: ChangeEvent<HTMLButtonElement>) => void
   /**
    * Callback function to handle click events on the switch
    */
   // eslint-disable-next-line no-unused-vars
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
   /**
    * Custom class name to apply to the wrapper element
    * Useful for styling and positioning the outermost element of the component
@@ -199,7 +208,7 @@ const renderFormHint = (errortext: ReactNode, successtext: ReactNode, helptext: 
  * Use this component for interactions that produce immediate results.
  * For form scenarios requiring submission, use checkboxes instead.
  */
-export const Switch: React.FC<SwitchProps> = ({
+export const Switch = ({
   name = "",
   id = "",
   label,
@@ -217,7 +226,7 @@ export const Switch: React.FC<SwitchProps> = ({
   onClick,
   wrapperClassName = "",
   ...props
-}) => {
+}: SwitchProps): ReactNode => {
   const generateUniqueId = (): string => "juno-switch-" + useId()
 
   const [isOn, setIsOn] = useState<boolean>(on)
@@ -246,10 +255,10 @@ export const Switch: React.FC<SwitchProps> = ({
     setIsValid(isComponentValid)
   }, [isComponentValid])
 
-  const handleSwitchClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleSwitchClick = (event: MouseEvent<HTMLButtonElement>): void => {
     setIsOn(!isOn)
     if (onClick) onClick(event)
-    if (onChange) onChange(event as unknown as React.ChangeEvent<HTMLButtonElement>)
+    if (onChange) onChange(event as unknown as ChangeEvent<HTMLButtonElement>)
   }
 
   const generatedId: string = id || generateUniqueId()

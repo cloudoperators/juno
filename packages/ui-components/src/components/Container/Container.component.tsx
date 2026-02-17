@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const containerStyles = (px: boolean, py: boolean) => {
   return `
@@ -15,15 +15,8 @@ const containerStyles = (px: boolean, py: boolean) => {
 /**
  * The `Container` component serves as a basic layout container with configurable padding options,
  * providing structure and spacing within layouts.
- *
- * @component
- * @param {boolean} [px] Whether horizontal padding should be applied. The default is `true`.
- * @param {boolean} [py] Whether vertical padding should be applied. The default is `false`.
- * @param {string} [className] Additional CSS classes for styling the container. Defaults to an empty string.
- * @param {React.ReactNode} [children] Content to render inside the container.
- * @returns {React.ReactElement} A padded container for content layout.
  */
-export const Container: React.FC<ContainerProps> = ({ px = true, py = false, className = "", children, ...props }) => {
+export const Container = ({ px = true, py = false, className = "", children, ...props }: ContainerProps): ReactNode => {
   return (
     <div className={`juno-container ${containerStyles(px, py)} ${className}`} {...props}>
       {children}
@@ -31,7 +24,7 @@ export const Container: React.FC<ContainerProps> = ({ px = true, py = false, cla
   )
 }
 
-export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Specifies whether horizontal padding should be added.
    * @default true
@@ -50,5 +43,5 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
 
   /** Elements or components to render within the Container. */
-  children?: React.ReactNode
+  children?: ReactNode
 }

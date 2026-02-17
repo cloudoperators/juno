@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Fragment, useContext, useEffect } from "react"
+import React, { Fragment, HTMLAttributes, ReactNode, useContext, useEffect } from "react"
 import { ListboxOption } from "@headlessui/react"
 import { SelectContext } from "../Select/Select.component"
 import { Icon } from "../Icon"
@@ -50,7 +50,7 @@ const truncateOptionStyles = `
   jn:whitespace-nowrap
 `
 
-export interface SelectOptionProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface SelectOptionProps extends HTMLAttributes<HTMLLIElement> {
   children?: string
   className?: string
   disabled?: boolean
@@ -58,14 +58,14 @@ export interface SelectOptionProps extends React.HTMLAttributes<HTMLLIElement> {
   label?: string
 }
 
-export const SelectOption: React.FC<SelectOptionProps> = ({
+export const SelectOption = ({
   children,
   className = "",
   disabled = false,
   value = "",
   label,
   ...props
-}) => {
+}: SelectOptionProps): ReactNode => {
   const selectContext = useContext(SelectContext)
   const { truncateOptions, addOptionValueAndLabel } = selectContext || {
     truncateOptions: false,

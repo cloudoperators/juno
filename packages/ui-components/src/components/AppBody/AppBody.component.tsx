@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, HTMLAttributes } from "react"
 
 const containerStyles = `
   jn:flex
@@ -17,13 +17,8 @@ const containerStyles = `
  * flexibility and control over the structure of the application body. For most cases,
  * consider using the `AppShell` component which encompasses more features suitable for
  * typical application scaffolding.
- *
- * @component
- * @param {string} [className] Add custom class name to style the component.
- * @param {React.ReactNode} [children] The content to be rendered inside the AppBody.
- * @returns {React.ReactElement} A JSX element containing the app's body structure.
  */
-export const AppBody: React.FC<AppBodyProps> = ({ className = "", children, ...props }) => {
+export const AppBody = ({ className = "", children, ...props }: AppBodyProps): ReactNode => {
   return (
     <div className={`juno-body ${containerStyles} ${className}`} {...props}>
       {children}
@@ -31,7 +26,7 @@ export const AppBody: React.FC<AppBodyProps> = ({ className = "", children, ...p
   )
 }
 
-export interface AppBodyProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AppBodyProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Add custom class name to style the component.
    * @default ""
@@ -41,5 +36,5 @@ export interface AppBodyProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The content to be rendered inside the AppBody component.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }

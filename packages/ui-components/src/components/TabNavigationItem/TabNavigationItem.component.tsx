@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useContext } from "react"
+import React, { HTMLAttributes, MouseEventHandler, ReactNode, useContext } from "react"
 import { NavigationItem } from "../NavigationItem/index"
 import { TabNavigationContext } from "../TabNavigation/TabNavigation.component"
 import { KnownIcons } from "../Icon/Icon.component.js"
@@ -29,7 +29,7 @@ const tabNavActiveItemStyles = `
 `
 
 /** An individual Tab Navigation Item. Use wrapped in a `<TabNavigation>` parent component. */
-export const TabNavigationItem: React.FC<TabNavigationItemProps> = ({
+export const TabNavigationItem = ({
   active = false,
   ariaLabel,
   children,
@@ -41,7 +41,7 @@ export const TabNavigationItem: React.FC<TabNavigationItemProps> = ({
   onClick,
   value = "",
   ...props
-}) => {
+}: TabNavigationItemProps): ReactNode => {
   const tabNavigationContext = useContext(TabNavigationContext)
   const { tabStyle: tabStyle } = tabNavigationContext || {}
   return (
@@ -71,13 +71,13 @@ export const TabNavigationItem: React.FC<TabNavigationItemProps> = ({
   )
 }
 
-export interface TabNavigationItemProps extends React.HTMLAttributes<HTMLElement> {
+export interface TabNavigationItemProps extends HTMLAttributes<HTMLElement> {
   /** Whether the tab navigation item is active */
   active?: boolean
   /** The aria label of the item */
   ariaLabel?: string
   /** The children to render. In order to make the navigation work, you also need to pass a `value` or `label` prop, or both. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a custom className */
   className?: string
   /** Whether the tab navigation item is disabled */
@@ -89,7 +89,7 @@ export interface TabNavigationItemProps extends React.HTMLAttributes<HTMLElement
   /** The label of the tab navigation item. Must be unique within any given `<TabNavigation>` group. */
   label?: string
   /** Pass a custom handler to execute when the tab is clicked */
-  onClick?: React.MouseEventHandler<HTMLElement>
+  onClick?: MouseEventHandler<HTMLElement>
   /** An optional technical identifier fort the tab. If not passed, the label will be used to identify the tab. NOTE: If value is passed, the value of the active tab MUST be used when setting the activeItem prop on the parent TabNavigation.*/
   value?: string
 }

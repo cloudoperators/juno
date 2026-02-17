@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { AppBody } from "../AppBody/index"
 import { PageHeader } from "../PageHeader/index"
 import { MainContainer } from "../MainContainer/index"
@@ -16,26 +16,8 @@ import { HeaderContainer } from "../HeaderContainer/index"
  * The `AppShell` component provides the foundational layout structure for the application.
  * It acts similarly to an HTML `body` element, organizing pages with headers, footers,
  * navigation, and content areas. For simpler manual layout setup, consider using `AppBody`.
- *
- * @component
- * @param {React.ReactNode} [children] The main content to be rendered within the shell.
- * @param {string} [className] Add custom class name to style the component.
- * @param {boolean} [embedded] Determines if the app should be rendered in embedded mode,
- * reducing layout components to core content. Only the content area and children are rendered
- * along with a TopNavigation if provided, excluding header, footer, and remaining layout components.
- * @default false
- * @param {React.ReactNode} [pageHeader] Pass either a `<PageHeader>` component or a string to be used
- * as the application name in the standard page header.
- * @default `<PageHeader />`
- * @param {React.ReactNode} [pageFooter] If specified, a `<PageFooter>` component; otherwise, defaults to `<PageFooter />`.
- * @default `<PageFooter />`
- * @param {React.ReactNode} [topNavigation] Optional `<TopNavigation>` component. Only rendered if provided.
- * @param {React.ReactNode} [sideNavigation] Optional `<SideNavigation>` component. Only rendered if provided.
- * @param {boolean} [fullWidthContent] Indicates whether the main content should span the full viewport width.
- * Defaults to `false` unless embedded, allowing content to occupy full width.
- * @returns {React.ReactElement} A structured shell containing various sections of the app.
  */
-export const AppShell: React.FC<AppShellProps> = ({
+export const AppShell = ({
   children,
   className = "",
   embedded = false,
@@ -45,7 +27,7 @@ export const AppShell: React.FC<AppShellProps> = ({
   sideNavigation,
   topNavigation,
   ...props
-}) => {
+}: AppShellProps): ReactNode => {
   // Determine whether to set fullWidth to true in embedded mode or not:
   // In embedded mode (i.e., embedded === true), fullWidthContent defaults to true unless explicitly set to false.
   // In non-embedded mode, fullWidthContent defaults to false unless explicitly set to true.
@@ -84,7 +66,7 @@ export const AppShell: React.FC<AppShellProps> = ({
   )
 }
 
-export interface AppShellProps extends React.HTMLAttributes<HTMLElement> {
+export interface AppShellProps extends HTMLAttributes<HTMLElement> {
   /**
    * The main content of the app.
    */

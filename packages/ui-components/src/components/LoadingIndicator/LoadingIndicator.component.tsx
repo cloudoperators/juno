@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, SVGAttributes } from "react"
 import Loading from "./loading-indicator.svg"
 
-export interface LoadingIndicatorProps extends React.SVGAttributes<SVGElement> {
+export interface LoadingIndicatorProps extends SVGAttributes<SVGElement> {
   /**
    * The size of the LoadingIndicator in pixels. Must be a positive number value.
    * If a string, must be a valid number.
@@ -35,19 +35,13 @@ const defaultSize = 96
  * The `LoadingIndicator` visually represents ongoing loading processes for pages,
  * large sections, or panels, offering custom size and color adjustments.
  * It's suitable for prominent loading displays rather than granular elements.
- *
- * @component
- * @param {string | number} [size] Specifies the indicator size in pixels. Defaults to `96`.
- * @param {string} [color] Sets the loading indicator's color, flexible via contextual or explicit CSS classes.
- * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
- * @returns {React.ReactElement} A visual loading indicator for prominent operations.
  */
-export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
+export const LoadingIndicator = ({
   size = defaultSize,
   color = "",
   className = "",
   ...props
-}) => {
+}: LoadingIndicatorProps): ReactNode => {
   // Remove non-numeric characters
   const sanitizedSize = typeof size === "number" ? size : parseInt(size)
   // Default size if NaN, zero, or negative

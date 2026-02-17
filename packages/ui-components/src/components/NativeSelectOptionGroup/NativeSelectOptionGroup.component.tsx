@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { OptgroupHTMLAttributes, ReactNode } from "react"
 
-export interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttributes<HTMLOptGroupElement> {
+export interface NativeSelectOptionGroupProps extends OptgroupHTMLAttributes<HTMLOptGroupElement> {
   /**
    * A visible label for the option group.
    * It will be displayed as the group heading in the dropdown.
@@ -29,27 +29,20 @@ export interface NativeSelectOptionGroupProps extends React.OptgroupHTMLAttribut
    * Elements to be rendered within the option group.
    * Typically, these should be NativeSelectOption components.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
  * The `NativeSelectOptionGroup` categorizes related options within a dropdown list,
  * enhancing semantic groupings for larger datasets in `NativeSelect`.
- *
- * @component
- * @param {string} [label] Group heading displayed for item contextualization within dropdown.
- * @param {boolean} [disabled] Quando true, a group and each item within it are blocked from selection. Defaults to `false`.
- * @param {string} [className] CSS classes applied for tailored style. Defaults to an empty string.
- * @param {React.ReactNode} [children] `NativeSelectOption` components or items to be housed within the group.
- * @returns {React.ReactElement} A component grouping related options for dropdown selections.
  */
-export const NativeSelectOptionGroup: React.FC<NativeSelectOptionGroupProps> = ({
+export const NativeSelectOptionGroup = ({
   label = "",
   disabled = false,
   className = "",
   children,
   ...props
-}) => {
+}: NativeSelectOptionGroupProps): ReactNode => {
   return (
     <optgroup label={label} disabled={disabled} className={`juno-select-option-group ${className}`} {...props}>
       {children}

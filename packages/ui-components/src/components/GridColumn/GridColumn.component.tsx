@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode } from "react"
+import React, { CSSProperties, HTMLAttributes, ReactNode } from "react"
 
 const baseColumnStyles = `
   jn:flex-grid-column
@@ -26,7 +26,7 @@ const columnWidthStyles: { [key: number]: string } = {
   12: "jn:w-grid-col-12",
 }
 
-const autoColumnStyles: React.CSSProperties = {
+const autoColumnStyles: CSSProperties = {
   flexGrow: "1",
   flexShrink: "0",
   flexBasis: "0",
@@ -38,7 +38,7 @@ const getColumnWidthStyles = (cols: number | undefined): string => {
   return columnWidthStyles[cols]
 }
 
-export interface GridColumnProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface GridColumnProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The number of columns to span the column over.
    */
@@ -72,24 +72,16 @@ export interface GridColumnProps extends React.HTMLAttributes<HTMLDivElement> {
  * The `GridColumn` component represents an individual column within a `Grid`,
  * providing options for span and width adjustments. It supports flexible styling
  * for responsive layout.
- *
- * @component
- * @param {number} [cols] Number of columns to span across. Overrides default width.
- * @param {number} [width] Percentage width, supersedes `cols` if specified.
- * @param {boolean} [auto] Sets column to auto width for flexible layout. Defaults to `false`.
- * @param {string} [className] Additional CSS classes for styling. Defaults to an empty string.
- * @param {React.ReactNode} [children] Content to be rendered inside the column.
- * @returns {React.ReactElement} A configurable grid column for layout customization.
  */
-export const GridColumn: React.FC<GridColumnProps> = ({
+export const GridColumn = ({
   width,
   cols,
   auto = false,
   className = "",
   children,
   ...props
-}) => {
-  const widthBasedStyles: React.CSSProperties = width
+}: GridColumnProps): ReactNode => {
+  const widthBasedStyles: CSSProperties = width
     ? {
         width: `${width}%`,
         flexGrow: "0",
@@ -99,7 +91,7 @@ export const GridColumn: React.FC<GridColumnProps> = ({
     : {}
 
   // Determine final styles based on width or auto props
-  const finalColumnStyles: React.CSSProperties = width ? widthBasedStyles : auto ? autoColumnStyles : {}
+  const finalColumnStyles: CSSProperties = width ? widthBasedStyles : auto ? autoColumnStyles : {}
 
   return (
     <div

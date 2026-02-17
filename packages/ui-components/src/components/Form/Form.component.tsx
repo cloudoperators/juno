@@ -39,14 +39,8 @@ export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
  * The `Form` component is designed to encapsulate form sections and groups,
  * providing a structured way to build complex forms. It can include a title and
  * supports additional styling through custom CSS classes.
- *
- * @component
- * @param {string} [title] Title for the form, displayed at the top.
- * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
- * @param {React.ReactNode} [children] Content within the form, typically form elements like `FormSection` or `FormGroup`.
- * @returns {React.ReactElement} A structured form component for building complex forms.
  */
-export const Form: React.FC<FormProps> = ({ title = "", className = "", children, ...props }) => {
+export const Form = ({ title = "", className = "", children, ...props }: FormProps): ReactNode => {
   return (
     <form className={`juno-form ${formBaseStyles} ${className}`} {...props}>
       {title ? <h1 className={`juno-form-heading ${formTitleStyles}`}>{title}</h1> : null}

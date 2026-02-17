@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, MouseEvent, HTMLAttributes, MouseEventHandler } from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 
 const breadcrumbItemBaseStyles = `
@@ -19,7 +19,7 @@ const breadcrumbLinkBaseStyles = `
   jn:inline-flex
 `
 
-export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface BreadcrumbItemProps extends HTMLAttributes<HTMLSpanElement> {
   /**
    * The type of icon to display within the breadcrumb item.
    */
@@ -51,7 +51,7 @@ export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLSpanElemen
   /**
    * The click event handler for the breadcrumb item, called when the item is clicked.
    */
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>
+  onClick?: MouseEventHandler<HTMLAnchorElement>
 
   /**
    * If `true`, disables the breadcrumb item, preventing interaction.
@@ -69,27 +69,15 @@ export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLSpanElemen
    * Custom content to be rendered inside the breadcrumb item, replacing default content.
    * This takes precedence over other content.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
  * The `BreadcrumbItem` component represents an individual item within a Breadcrumb component.
  * It can render as either a static label or a navigable link, depending on the `active`
  * and `disabled` states. It supports custom icons, labels, and click functionality.
- *
- * @component
- * @param {KnownIcons} [icon] Type of icon to display within the breadcrumb item.
- * @param {string} [href="#"] URL the breadcrumb item points to for navigation.
- * @param {string} [label="Item"] Text to display inside the breadcrumb item.
- * @param {string} [ariaLabel] String for the `aria-label` attribute to aid accessibility.
- * @param {boolean} [active=false] Specifies if the item is the last or actively displayed breadcrumb.
- * @param {React.MouseEventHandler<HTMLAnchorElement>} [onClick] Handler for click events on the breadcrumb item.
- * @param {boolean} [disabled=false] If `true`, disables interaction with the breadcrumb item while rendering it visually distinct.
- * @param {string} [className=""] Additional custom CSS class names for styling.
- * @param {React.ReactNode} [children] Custom content to be rendered, taking precedence over standard content.
- * @returns {React.ReactElement} A navigable or static breadcrumb item with optional icon and styling.
  */
-export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
+export const BreadcrumbItem = ({
   href = "#",
   label = "Item",
   ariaLabel = "",
@@ -100,7 +88,7 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
   className = "",
   icon,
   ...props
-}) => {
+}: BreadcrumbItemProps): ReactNode => {
   if (children) return <>{children}</> // Render custom content if provided
 
   const iconElement = icon ? (
@@ -122,7 +110,7 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
     )
   }
 
-  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (onClick && !disabled) onClick(event)
   }
 

@@ -3,7 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useContext, useId, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useContext,
+  useId,
+  ReactNode,
+  ChangeEvent,
+  MouseEvent,
+  HTMLAttributes,
+  ChangeEventHandler,
+  MouseEventHandler,
+} from "react"
 import { CheckboxGroupContext } from "../CheckboxGroup/CheckboxGroup.component"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
@@ -100,27 +112,8 @@ const hintStyles = `
  * indeterminate, invalid, and valid, and integrates with a checkbox group context
  * for collective state management. This component supports labels, icons,
  * error/success indicators, and custom event handlers.
- *
- * @component
- * @param {boolean} [checked=false] Specifies if the Checkbox is checked.
- * @param {string} [className] Custom CSS classes for styling the Checkbox.
- * @param {boolean} [disabled=false] Specifies if the Checkbox is disabled.
- * @param {ReactNode} [errortext] Text displayed when there is an error or validation issue.
- * @param {ReactNode} [helptext] Additional text to explain the purpose and importance of the Checkbox.
- * @param {string} [id] The Checkbox's ID. Automatically generated if not provided.
- * @param {boolean} [indeterminate=false] Specifies if the Checkbox is in an indeterminate state.
- * @param {boolean} [invalid=false] Indicates if the Checkbox has failed validation.
- * @param {string} [label] The label text for the Checkbox.
- * @param {string} [name] The name attribute of the Checkbox.
- * @param {function} [onChange] Event handler for when the Checkbox value changes.
- * @param {function} [onClick] Event handler for when the Checkbox is clicked.
- * @param {boolean} [required=false] Sets if the Checkbox is a required field.
- * @param {ReactNode} [successtext] Text displayed when the Checkbox passes validation.
- * @param {boolean} [valid=false] Indicates if the Checkbox has successfully passed validation.
- * @param {string} [value] The value attribute of the Checkbox.
- * @returns {React.ReactElement} A standard Checkbox component with custom behavior and styling.
  */
-export const Checkbox: React.FC<CheckboxProps> = ({
+export const Checkbox = ({
   checked = false,
   className = "",
   disabled = false,
@@ -138,8 +131,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   valid = false,
   value = "",
   ...props
-}) => {
-  // Utility
+}: CheckboxProps): ReactNode => {
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
@@ -156,7 +148,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     updateSelectedValue: updateGroupSelectedValue,
   } = checkboxGroupContext || {}
 
-  // Lazily initialise the Checkbox:
   const initialChecked = () => {
     if (checkboxGroupContext) {
       if (groupSelectedOptions && groupSelectedOptions.includes(value)) {
@@ -209,7 +200,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     setIsValid(validated)
   }, [validated])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsChecked(!isChecked)
     // If we are in a context, update :
     if (groupHandleCheckboxChange && typeof groupHandleCheckboxChange === "function") {
@@ -219,7 +210,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     onChange && onChange(event)
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLInputElement>) => {
+  const handleClick = (event: MouseEvent<HTMLInputElement>) => {
     onClick && onClick(event)
   }
 
@@ -344,7 +335,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   )
 }
 
-export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CheckboxProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Specifies if the Checkbox is checked.
    * @default false
@@ -403,12 +394,12 @@ export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Event handler for change events on the Checkbox.
    */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onChange?: ChangeEventHandler<HTMLInputElement>
 
   /**
    * Event handler for click events on the Checkbox.
    */
-  onClick?: React.MouseEventHandler<HTMLInputElement>
+  onClick?: MouseEventHandler<HTMLInputElement>
 
   /**
    * Specifies if the Checkbox is required for form validation.

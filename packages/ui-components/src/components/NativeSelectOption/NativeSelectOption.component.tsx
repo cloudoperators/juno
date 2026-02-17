@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { OptionHTMLAttributes, ReactNode } from "react"
 
-export interface NativeSelectOptionProps
-  extends Omit<React.OptionHTMLAttributes<HTMLOptionElement>, "label" | "value"> {
+export interface NativeSelectOptionProps extends Omit<OptionHTMLAttributes<HTMLOptionElement>, "label" | "value"> {
   /**
    * A visible label for the option.
    * It will be displayed to the user in the dropdown.
@@ -36,21 +35,14 @@ export interface NativeSelectOptionProps
 /**
  * The `NativeSelectOption` represents individual options within a dropdown list
  * for use in `NativeSelect`, offering label-value pairs with optional disable state.
- *
- * @component
- * @param {string | number} [label] Visible label for the option within the dropdown menu.
- * @param {string | number} [value] Value tied to the option, submitted during form process.
- * @param {boolean} [disabled] Disables option selection, making it not selectable. Defaults to `false`.
- * @param {string} [className] Additional CSS classes for customized styling. Defaults to an empty string.
- * @returns {React.ReactElement} A self-contained option element for dropdown select menus.
  */
-export const NativeSelectOption: React.FC<NativeSelectOptionProps> = ({
+export const NativeSelectOption = ({
   value,
   label,
   disabled = false,
   className = "",
   ...props
-}) => {
+}: NativeSelectOptionProps): ReactNode => {
   return (
     <option value={value} disabled={disabled} className={`juno-select-option ${className}`} {...props}>
       {label || value}

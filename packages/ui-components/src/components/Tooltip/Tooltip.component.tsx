@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { createContext, HTMLAttributes, ReactNode, useContext } from "react"
 import { useTooltip, UseTooltipProps } from "./useTooltip"
 import { ToolTipVariant, TooltipPlacement } from "./ToolTip.types"
 
 // Define a type for TooltipContext, which holds the return value of useTooltip
 type TooltipContextType = ReturnType<typeof useTooltip> | null
 
-const TooltipContext = React.createContext<TooltipContextType>(null)
+const TooltipContext = createContext<TooltipContextType>(null)
 
 /**
  * This hook holds the TooltipContext.
@@ -18,7 +18,7 @@ const TooltipContext = React.createContext<TooltipContextType>(null)
  * @returns TooltipContext
  */
 export const useTooltipState: () => NonNullable<TooltipContextType> = () => {
-  const context = React.useContext(TooltipContext)
+  const context = useContext(TooltipContext)
 
   if (context == null) {
     throw new Error("Tooltip components must be wrapped in <Tooltip />")
@@ -27,7 +27,7 @@ export const useTooltipState: () => NonNullable<TooltipContextType> = () => {
   return context
 }
 
-export interface TooltipProps extends React.HTMLAttributes<HTMLElement> {
+export interface TooltipProps extends HTMLAttributes<HTMLElement> {
   // /** The semantic variant of the tooltip, or `plain` */
   variant?: ToolTipVariant
   /** Uncontrolled Tooltip: Choose which event should trigger the opening of the tooltip (click or hover) */
@@ -42,7 +42,7 @@ export interface TooltipProps extends React.HTMLAttributes<HTMLElement> {
    * you also have to take care of opening and closing it. In this case the triggerEvent prop is ignored since you're handling the trigger yourself */
   open?: boolean
   /** Pass the TooltipTrigger and TooltipContent elements as children */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
@@ -51,7 +51,7 @@ export interface TooltipProps extends React.HTMLAttributes<HTMLElement> {
  * open state and handle the events that open/close the tooltip yourself.
  */
 
-export const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip = ({
   initialOpen = false,
   placement = "top",
   variant,
@@ -60,7 +60,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   disabled = false,
   children,
   ...props
-}) => {
+}: TooltipProps): ReactNode => {
   // This can accept any floating ui props as options, e.g. `placement`,
   // or other positioning options.
   const tooltip = useTooltip({

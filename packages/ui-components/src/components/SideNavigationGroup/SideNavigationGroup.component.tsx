@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement, ReactNode, useEffect, useState } from "react"
+import React, { Children, ReactElement, ReactNode, useEffect, useState, MouseEvent } from "react"
 import { Icon } from "../Icon"
 import { SideNavigationItemProps } from "../SideNavigationItem"
 
@@ -42,12 +42,12 @@ export interface SideNavigationGroupProps {
  * This component is used to create and manage expandable and collapsible sections of navigation,
  * allowing users to efficiently navigate hierarchical menus.
  **/
-export const SideNavigationGroup: React.FC<SideNavigationGroupProps> = ({
+export const SideNavigationGroup = ({
   children,
   disabled = false,
   label = "",
   open = false,
-}) => {
+}: SideNavigationGroupProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(open)
 
   // Sync internal state with external prop changes
@@ -55,14 +55,14 @@ export const SideNavigationGroup: React.FC<SideNavigationGroupProps> = ({
     setIsOpen(open)
   }, [open])
 
-  const handleToggleOpen = (e: React.MouseEvent<HTMLElement>) => {
+  const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
     if (disabled) return
     e.stopPropagation() //Prevent event bubbling when expanding/collapsing
     setIsOpen(!isOpen)
   }
 
   const renderExpandIcon = () =>
-    children && React.Children.count(children) > 0 ? (
+    children && Children.count(children) > 0 ? (
       <span onClick={handleToggleOpen} role="button" tabIndex={0}>
         <Icon
           size="24"

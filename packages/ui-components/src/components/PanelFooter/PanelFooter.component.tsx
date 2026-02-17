@@ -4,6 +4,7 @@
  */
 
 import React, { ReactNode, HTMLAttributes } from "react"
+import { parser } from "storybook/internal/babel"
 
 const panelFooterBaseStyles = `
   jn:border-t
@@ -35,7 +36,7 @@ export interface PanelFooterProps extends HTMLAttributes<HTMLDivElement> {
  * Typically used to contain footer elements like buttons, which can be added to the PanelBody component via its `footer` property.
  * Buttons placed inside will be automatically aligned to the right.
  */
-export const PanelFooter: React.FC<PanelFooterProps> = ({ className = "", children, ...props }) => {
+export const PanelFooter = ({ className = "", children, ...props }: PanelFooterProps): ReactNode => {
   return (
     <div className={`juno-panel-footer ${panelFooterBaseStyles} ${className}`} {...props}>
       {children}

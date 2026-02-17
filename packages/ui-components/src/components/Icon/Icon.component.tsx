@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { forwardRef, LegacyRef } from "react"
+import React, { forwardRef, HTMLProps, LegacyRef, MouseEvent, MouseEventHandler } from "react"
 
 /* Import Icons here. The icon svgs in the icons folder correspond to the respective "xyz_24px.svg" from material-ui icons.
  */
@@ -945,17 +945,6 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
 /**
  * The `Icon` component provides a versatile way to render SVG icons with customizable size,
  * color, and accessibility features. Icons can be interactive through click events or embedded links.
- *
- * @component
- * @param {KnownIcons} [icon] The name of the icon to render, from the predefined set.
- * @param {string} [color] Specifies the color to apply to the icon.
- * @param {string | number} [size] Determines the size of the icon, in pixels or rem.
- * @param {string} [title] Accessibility title attribute for the icon, providing context.
- * @param {string} [className] Additional CSS class names for styling. Defaults to an empty string.
- * @param {string} [href] URL for navigation when icon is clicked, rendering as an anchor if specified.
- * @param {boolean} [disabled] Sets icon to a disabled state, preventing interaction. Defaults to `false`.
- * @param {function} [onClick] Handler for click events when rendering as a button element.
- * @returns {React.ReactElement} A customizable SVG icon component with interactive capabilities.
  */
 export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(function Icon(
   { icon, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
@@ -975,13 +964,13 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
     ...iconProps,
   })
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     onClick && onClick(event)
   }
 
   const button = (
     <button
-      {...(props as React.HTMLProps<HTMLButtonElement>)}
+      {...(props as HTMLProps<HTMLButtonElement>)}
       type="button"
       onClick={handleClick}
       className={`juno-icon-button ${buttonIconStyles} ${className}`}
@@ -995,7 +984,7 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
 
   const anchor = (
     <a
-      {...(props as React.HTMLProps<HTMLAnchorElement>)}
+      {...(props as HTMLProps<HTMLAnchorElement>)}
       aria-label={title || icon || undefined}
       href={href}
       className={`juno-icon-link ${anchorIconStyles} ${className}`}
@@ -1010,8 +999,7 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
   return href ? anchor : onClick ? button : <span ref={ref}>{icn}</span>
 })
 
-export interface IconProps
-  extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
+export interface IconProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLProps<HTMLButtonElement>, "size"> {
   /** The name of the icon to render. */
   icon?: KnownIcons
 
@@ -1039,5 +1027,5 @@ export interface IconProps
   disabled?: boolean
 
   /** Click event handler for icon interaction, applicable to button elements. */
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  onClick?: MouseEventHandler<HTMLButtonElement>
 }

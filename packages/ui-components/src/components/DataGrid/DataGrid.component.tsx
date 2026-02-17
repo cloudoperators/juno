@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { createContext, HTMLAttributes, ReactNode, useContext } from "react"
 
 const dataGridStyles = `
 	jn:grid
@@ -48,27 +48,16 @@ interface DataGridContextType {
   cellVerticalAlignment?: CellVerticalAlignmentType
 }
 
-const DataGridContext = React.createContext<DataGridContextType>({})
+const DataGridContext = createContext<DataGridContextType>({})
 
-export const useDataGridContext = () => React.useContext(DataGridContext)
+export const useDataGridContext = () => useContext(DataGridContext)
 
 // TODO: allow for passing in props addItems, addItemsLabel, search, etc.:
 /**
  * The `DataGrid` component displays tabular data with customizable columns and layout.
  * It supports interactive styling through child components like `DataGridRow` for advanced interactions.
- *
- * @component
- * @param {number} [columns] Number of columns in the grid layout. Defaults to `1`.
- * @param {string} [columnMaxSize] Maximum size for columns, with "auto" as default. Use "1fr" for equal sizing.
- * @param {string} [columnMinSize] Minimum size for columns, defaulting to `"0px"`.
- * @param {number[]} [minContentColumns] Array specifying columns to size by minimum content.
- * @param {string} [gridColumnTemplate] Custom CSS notation for grid columns, overriding other sizing props.
- * @param {CellVerticalAlignmentType} [cellVerticalAlignment] Vertical alignment for grid cells. Default is `"center"`.
- * @param {string} [className] Additional CSS classes for styling the DataGrid. Defaults to an empty string.
- * @param {React.ReactNode} [children] Components or elements to render within the DataGrid.
- * @returns {React.ReactElement} A flexible data grid component with extensive customization.
  */
-export const DataGrid: React.FC<DataGridProps> = ({
+export const DataGrid = ({
   columns = 1,
   columnMaxSize = "auto",
   columnMinSize = "0px",
@@ -78,7 +67,7 @@ export const DataGrid: React.FC<DataGridProps> = ({
   className = "",
   children,
   ...props
-}) => {
+}: DataGridProps): ReactNode => {
   const dataGridConf = {
     cellVerticalAlignment: cellVerticalAlignment,
     // selectable: selectable
@@ -99,7 +88,7 @@ export const DataGrid: React.FC<DataGridProps> = ({
 
 export type CellVerticalAlignmentType = "center" | "top"
 
-export interface DataGridProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DataGridProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Specifies the number of columns in the grid.
    * @default 1
@@ -131,7 +120,7 @@ export interface DataGridProps extends React.HTMLAttributes<HTMLDivElement> {
   cellVerticalAlignment?: CellVerticalAlignmentType
 
   /** Components or elements to render within the DataGrid container. */
-  children?: React.ReactNode
+  children?: ReactNode
 
   /**
    * Additional class names for styling.

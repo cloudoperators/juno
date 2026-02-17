@@ -3,23 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { forwardRef } from "react"
+import React, { forwardRef, HTMLAttributes, MouseEvent, ReactNode } from "react"
 import "./data-grid-row.css"
 
 /**
  * `DataGridRow` represents a row in a `DataGrid`, supporting interactions such as selection and click handling.
  * It provides styles for active states and custom behavior when interacted with.
- *
- * @component
- * @param {boolean} [isSelected] Specifies if the row should appear selected. Defaults to `false`.
- * @param {function} [onClick] Row click handler to execute custom actions.
- * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
- * @param {React.ReactNode} [children] Elements or components to render within the row.
- * @returns {React.ReactElement} An interactive grid row component with selectable and clickable features.
  */
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
   ({ isSelected = false, onClick, className = "", children, ...props }, ref) => {
-    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const handleClick = (event: MouseEvent<HTMLDivElement>) => {
       if (onClick) onClick(event)
     }
 
@@ -40,7 +33,7 @@ export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
 
 DataGridRow.displayName = "DataGridRow"
 
-export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DataGridRowProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Indicates if the DataGridRow should be in an active state,
    * applying styles for persistent selection or activation.
@@ -50,7 +43,7 @@ export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Row click handler
    */
-  onClick?: (_event: React.MouseEvent<HTMLDivElement>) => void
+  onClick?: (_event: MouseEvent<HTMLDivElement>) => void
 
   /**
    * Additional custom CSS class names that can be applied to the DataGridRow.
@@ -60,5 +53,5 @@ export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Elements or components that will be rendered within the DataGridRow.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }

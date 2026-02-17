@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement, ReactNode } from "react"
+import React, { HTMLAttributes, isValidElement, MouseEventHandler, ReactElement, ReactNode } from "react"
 import DefaultLogo from "../../img/JunoUI_logo.svg"
 
 const pageHeaderStyles = `
@@ -64,19 +64,9 @@ const optionsStyles = `
 /**
  * `PageHeader` component renders the top header of an application.
  * It includes customizable `logo`, `title`, and other options.
- *
- * @component
- * @param {string | ReactElement} [applicationName=""] - Name of the application.
- * @param {string | ReactElement} [heading=""] - Deprecated, replaced by `applicationName`.
- * @param {string} [href=""] - Link to open when applicationName or logo is clicked.
- * @param {string} [className=""] - Custom class names for styling.
- * @param {boolean | ReactElement} [logo=true] - Application logo to display.
- * @param {React.MouseEventHandler<HTMLDivElement>} [onClick] - Handler executed when `applicationName` or `logo` are clicked.
- * @param {ReactNode} [children] - Children to render in the header such as user name, avatar, etc.
- * @returns {React.ReactElement} Header component with application name, logo, and additional children.
  */
 
-export const PageHeader: React.FC<PageHeaderProps> = ({
+export const PageHeader = ({
   heading = "",
   applicationName = "",
   href = "",
@@ -85,9 +75,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   children,
   onClick,
   ...props
-}) => {
+}: PageHeaderProps): ReactNode => {
   const Logo =
-    typeof logo === "function" || React.isValidElement(logo)
+    typeof logo === "function" || isValidElement(logo)
       ? logo
       : logo && <DefaultLogo alt="" data-testid="default-logo" />
 
@@ -122,7 +112,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   )
 }
 
-export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageHeaderProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Name of the application.
    * @default ""
@@ -151,7 +141,7 @@ export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Handler executed on click of `applicationName` or `logo`.
    */
-  onClick?: React.MouseEventHandler<HTMLDivElement>
+  onClick?: MouseEventHandler<HTMLDivElement>
   /**
    * Children to render in header like user info, avatar, log-in/out button, etc.
    */

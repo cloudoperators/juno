@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, createContext, useId, ReactNode } from "react"
+import React, { useState, useEffect, useMemo, createContext, useId, ReactNode, HTMLAttributes } from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
@@ -58,25 +58,8 @@ export const CheckboxGroupContext = createContext<CheckboxGroupContextProps | un
  * It manages the collective state for checkboxes, allowing for individual or batch validation
  * and selection. It supports states such as disabled, valid, and invalid, and offers customization
  * for error and success messages. It also furnishes a grouped label and help text for a unified UI.
- *
- * @component
- * @param {ReactNode} [children] The Checkbox components contained within this group.
- * @param {string} [className] Custom CSS classes for styling the CheckboxGroup.
- * @param {boolean} [disabled=false] Disables all checkboxes within the group.
- * @param {ReactNode} [errortext] Message displayed when validation fails or an error is present.
- * @param {ReactNode} [helptext] Additional text providing explanation of the group's purpose.
- * @param {string} [id] The unique group ID. Generated automatically if unspecified.
- * @param {boolean} [invalid=false] Whether the CheckboxGroup is currently invalidated.
- * @param {string} [label] The label associated with the CheckboxGroup.
- * @param {string} [name] Name attribute for the entire group. A unique identifier is generated if unspecified.
- * @param {function} [onChange] Event handler for changes in selection.
- * @param {boolean} [required=false] Indicates if selection is mandatory in the group.
- * @param {string[]} [selected] Array of selected option values within the group.
- * @param {ReactNode} [successtext] Message displayed when validation is successful.
- * @param {boolean} [valid=false] Whether the CheckboxGroup has been successfully validated.
- * @returns {React.ReactElement} A context-enabled CheckboxGroup component with built-in state management.
  */
-export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
+export const CheckboxGroup = ({
   children,
   className = "",
   disabled = false,
@@ -92,7 +75,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   successtext = "",
   valid = false,
   ...props
-}) => {
+}: CheckboxGroupProps): ReactNode => {
   // Utility
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
@@ -205,7 +188,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   )
 }
 
-export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface CheckboxGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** The Checkbox children of the CheckboxGroup. */
   children?: ReactNode
 

@@ -3,7 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useContext, MouseEventHandler, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useId,
+  useContext,
+  MouseEventHandler,
+  ReactNode,
+  HTMLAttributes,
+  MouseEvent,
+} from "react"
 import { RadioGroupContext, RadioGroupContextProps } from "../RadioGroup/RadioGroup.component"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/Icon.component"
@@ -84,7 +94,7 @@ const hintStyles = `
 `
 
 /** A controlled Radio component. */
-export const Radio: React.FC<RadioProps> = ({
+export const Radio = ({
   checked = false,
   className = "",
   disabled = false,
@@ -101,7 +111,7 @@ export const Radio: React.FC<RadioProps> = ({
   valid = false,
   value = "",
   ...props
-}) => {
+}: RadioProps): ReactNode => {
   // Utility
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
@@ -192,7 +202,7 @@ export const Radio: React.FC<RadioProps> = ({
     }
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     onClick && onClick(event)
   }
 
@@ -296,7 +306,7 @@ export const Radio: React.FC<RadioProps> = ({
   )
 }
 
-export interface RadioProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface RadioProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** Whether the Radio is checked */
   checked?: boolean
   /** Pass a custom className */

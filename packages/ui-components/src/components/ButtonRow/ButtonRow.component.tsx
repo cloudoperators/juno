@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { Stack } from "../Stack/Stack.component"
 
 /**
@@ -13,20 +13,15 @@ import { Stack } from "../Stack/Stack.component"
  * button elements are neatly organized within a row. This is particularly
  * useful in dialogs, forms, or any interface requiring a uniform presentation
  * for multiple actions.
- *
- * @component
- * @param {string} [className] Additional class to apply custom styles to the `ButtonRow`.
- * @param {React.ReactNode} [children] Elements to be rendered within the `ButtonRow`, typically button elements.
- * @returns {React.ReactElement} A row container component for buttons, with spacing and alignment applied.
  */
-export const ButtonRow: React.FC<ButtonRowProps> = ({ children, className = "", ...props }) => {
+export const ButtonRow = ({ children, className = "", ...props }: ButtonRowProps): ReactNode => {
   return (
     <Stack gap="2" distribution="end" className={`juno-button-row ${className}`} {...props}>
       {children}
     </Stack>
   )
 }
-export interface ButtonRowProps extends React.HTMLAttributes<HTMLElement> {
+export interface ButtonRowProps extends HTMLAttributes<HTMLElement> {
   /**
    * Add a class to the ButtonRow for additional styling.
    * @default ""
@@ -36,5 +31,5 @@ export interface ButtonRowProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Children to render within the ButtonRow.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }

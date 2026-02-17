@@ -12,6 +12,7 @@ import React, {
   MouseEvent,
   MouseEventHandler,
   FC,
+  SelectHTMLAttributes,
 } from "react"
 
 import { Icon } from "../Icon/Icon.component"
@@ -91,7 +92,7 @@ const stateClasses = {
   paddingDefaultRight: `jn:pr-9`,
 }
 
-export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+export interface NativeSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   /**
    * Name of the select element.
    * Used as a key for the selected value if a form is submitted.
@@ -168,16 +169,18 @@ export interface NativeSelectProps extends React.SelectHTMLAttributes<HTMLSelect
   wrapperClassName?: string
 }
 
-/**
- * Renders the appropriate 'state' icon based on the state of the select element
- */
-const SelectIcons: FC<{
+interface SelecIconsProps {
   isLoading: boolean
   hasError: boolean
   isInvalid: boolean
   isValid: boolean
   disabled?: boolean
-}> = ({ isLoading, hasError, isInvalid, isValid, disabled }) => {
+}
+
+/**
+ * Renders the appropriate 'state' icon based on the state of the select element
+ */
+const SelectIcons = ({ isLoading, hasError, isInvalid, isValid, disabled }: SelecIconsProps): ReactNode => {
   if (isLoading) {
     return (
       <div className={`juno-select-loading ${stateClasses.loading}`}>
@@ -205,23 +208,8 @@ const SelectIcons: FC<{
  * The `NativeSelect` component is a basic HTML select element with extra features
  * such as styles and loading/error states. It supports native select options while
  * offering customization for validation indicators.
- *
- * @component
- * @param {string} [name] Key/name associated with the select value during form submissions.
- * @param {string} [id] Identifier for the select element to ensure unique accessibility.
- * @param {string} [className] CSS class names for styling the select element. Defaults to an empty string.
- * @param {React.ReactNode} [children] Options or groups rendered within the select element. Defaults to empty.
- * @param {boolean} [disabled] Disables component interactions, rendering it unclickable. Defaults to `false`.
- * @param {boolean} [invalid] Highlights the select element for invalid input or validation errors. Defaults to `false`.
- * @param {boolean} [valid] Signifies successful input or validation, with visual highlights. Defaults to `false`.
- * @param {boolean} [loading] Displays a loading state over the select during asynchronous operations. Defaults to `false`.
- * @param {boolean} [error] Shows error status, commonly for data-fetching issues, not validation errors. Defaults to `false`.
- * @param {ChangeEventHandler<HTMLSelectElement>} [onChange] Response to changes in selection amongst options.
- * @param {MouseEventHandler<HTMLSelectElement>} [onClick] Handler for click events on the select dropdown.
- * @param {string} [wrapperClassName] CSS class names for styling the outer wrapper around the component. Defaults to an empty string.
- * @returns {React.ReactElement} A configurable and interactive native select component.
  */
-export const NativeSelect: FC<NativeSelectProps> = ({
+export const NativeSelect = ({
   name = "Unnamed Select",
   id = "",
   children,
@@ -235,7 +223,7 @@ export const NativeSelect: FC<NativeSelectProps> = ({
   onClick,
   wrapperClassName = "",
   ...props
-}) => {
+}: NativeSelectProps): ReactNode => {
   const [isLoading, setIsLoading] = useState(loading)
   const [isValid, setIsValid] = useState(valid)
   const [isInvalid, setIsInvalid] = useState(invalid)

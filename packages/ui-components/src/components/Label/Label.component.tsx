@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { forwardRef, HTMLAttributes } from "react"
 
 const labelstyles = `
   jn:text-theme-high
@@ -44,18 +44,8 @@ const disabledstyles = `
 /**
  * The `Label` component is a reusable, accessible label for form elements.
  * It supports optional features like disabling, required indicators, and floating label styles.
- *
- * @component
- * @param {string} [text] Text content for the label. Required for visual representation.
- * @param {string} [htmlFor] Associated ID of a form input, linking label functionality.
- * @param {boolean} [required] Displays a required indicator alongside the label. Defaults to `false`.
- * @param {string} [className] Custom class names for styling the label. Defaults to an empty string.
- * @param {boolean} [disabled] Applies disabled styles, indicating non-interactive fields.
- * @param {boolean} [floating] Enables floating label style for enhanced readability. Defaults to `false`.
- * @param {boolean} [minimized] Applies minimized label style; requires `floating` set to `true`. Defaults to `false`.
- * @returns {React.ReactElement} An accessible and styled form label component.
  */
-export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
+export const Label = forwardRef<HTMLLabelElement, LabelProps>(
   (
     {
       text = "",
@@ -101,7 +91,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
 
 Label.displayName = "Label"
 
-export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement> {
+export interface LabelProps extends HTMLAttributes<HTMLLabelElement> {
   /**
    * Text content for the label, required for display.
    */

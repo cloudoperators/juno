@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, MouseEvent, MouseEventHandler, HTMLProps } from "react"
 import { Button } from "../Button/index"
 import { ButtonRow } from "../ButtonRow/index"
 import { KnownIcons } from "../Icon/Icon.component"
@@ -26,21 +26,8 @@ const defaultmodalfooterstyles = `
  * The `ModalFooter` component is a versatile footer meant for the `Modal`, offering
  * default or customizable confirm and cancel buttons, and an option to pass
  * custom content.
- *
- * @component
- * @param {string} [className] Custom class names for styling and alignment, especially useful with custom content.
- * @param {React.ReactNode} [children] Custom children content replacing default button structure.
- * @param {string} [confirmButtonLabel] Label for the confirm button; its presence enables dual button mode. Defaults to empty string.
- * @param {string} [cancelButtonLabel] Custom label for the cancel button, only effective alongside `confirmButtonLabel`.
- * @param {KnownIcons} [confirmButtonIcon] Icon name for the confirm button enhancement.
- * @param {KnownIcons} [cancelButtonIcon] Icon name for the cancel button enhancement.
- * @param {boolean} [disableConfirmButton] Disables the confirm button functionality. Defaults to `false`.
- * @param {boolean} [disableCancelButton] Disables the cancellation button functionality. Defaults to `false`.
- * @param {React.MouseEventHandler<HTMLElement>} [onConfirm] Handler for confirm button click events.
- * @param {React.MouseEventHandler<HTMLElement>} [onCancel] Handler for cancel button click events.
- * @returns {React.ReactElement} A configurable footer for modals with standard or custom button arrangements.
  */
-export const ModalFooter: React.FC<ModalFooterProps> = ({
+export const ModalFooter = ({
   className = "",
   children,
   confirmButtonLabel = "",
@@ -52,12 +39,12 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
   onConfirm,
   onCancel,
   ...props
-}) => {
-  const handleConfirmClick = (event: React.MouseEvent<HTMLElement>) => {
+}: ModalFooterProps): ReactNode => {
+  const handleConfirmClick = (event: MouseEvent<HTMLElement>) => {
     onConfirm && onConfirm(event)
   }
 
-  const handleCancelClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleCancelClick = (event: MouseEvent<HTMLElement>) => {
     onCancel && onCancel(event)
   }
 
@@ -100,7 +87,7 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
   )
 }
 
-export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
+export interface ModalFooterProps extends HTMLProps<HTMLDivElement> {
   /**
    * A custom className. Useful to configure flex items alignment when passing custom content as children.
    * @default ""
@@ -110,7 +97,7 @@ export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
   /**
    * Custom children content replacing default button structure.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 
   /**
    * The label for the Confirm-button. When passed, the component will render a Confirm button and a cancel button, otherwise the component will ONLY render a Close-Button.
@@ -149,10 +136,10 @@ export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
   /**
    * Handler to execute once the confirming button is clicked.
    */
-  onConfirm?: React.MouseEventHandler<HTMLElement>
+  onConfirm?: MouseEventHandler<HTMLElement>
 
   /**
    * Handler to execute once the cancelling button is clicked.
    */
-  onCancel?: React.MouseEventHandler<HTMLElement>
+  onCancel?: MouseEventHandler<HTMLElement>
 }

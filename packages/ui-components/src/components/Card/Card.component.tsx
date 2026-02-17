@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const cardStyles = `
   jn:text-sm
@@ -16,11 +16,11 @@ const cardStyles = `
 
 const cardPadding = "jn:p-4"
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Components or elements to be rendered as content.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 
   /**
    * Optional padding for the Card component.
@@ -39,14 +39,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * The `Card` component acts as a versatile container for various types of content, providing
  * an optional padding feature for additional layout flexibility. It is commonly used for
  * displaying information or grouping elements, allowing for consistent styling and shadow effects.
- *
- * @component
- * @param {React.ReactNode} [children] Components or elements to be rendered within the Card.
- * @param {boolean} [padding=false] Determines if padding should be applied to the Card.
- * @param {string} [className] Additional CSS classes for custom styling.
- * @returns {React.ReactElement} A customizable Card component for content display.
  */
-export const Card: React.FC<CardProps> = ({ children, padding = false, className = "", ...props }) => {
+export const Card = ({ children, padding = false, className = "", ...props }: CardProps): ReactNode => {
   const combinedClassName = `juno-card ${cardStyles} ${padding ? cardPadding : ""} ${className}`
   return (
     <div className={combinedClassName} {...props}>

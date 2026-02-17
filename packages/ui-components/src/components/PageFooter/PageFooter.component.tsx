@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import "./page-footer.css"
 
 const basePageFooterStyles = `
@@ -17,7 +17,7 @@ const basePageFooterStyles = `
   jn:bg-theme-pagefooter
 `
 
-export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageFooterProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Additional custom styling class name for the footer container.
    * @default ""
@@ -31,7 +31,7 @@ export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
    * - `.juno-pagefooter-items-inline`: Style for a single line list with pipe separators.
    * - `.juno-pagefooter-item`: Style for individual list items.
    */
-  children?: React.ReactNode
+  children?: ReactNode
   /**
    * Optional copyright notice to display within the footer.
    * @default ""
@@ -42,14 +42,8 @@ export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * `PageFooter` component renders a footer at the bottom of the page.
  * It can include links, informational text, and an optional copyright notice.
- *
- * @component
- * @param {string} [className=""] - Additional custom styling class name for the footer container.
- * @param {React.ReactNode} [children] - Content to render inside the footer.
- * @param {string} [copyright=""] - Optional copyright notice to display within the footer.
- * @returns {React.ReactElement} A footer component with flexible content and optional copyright section.
  */
-export const PageFooter: React.FC<PageFooterProps> = ({ className = "", children, copyright = "", ...props }) => {
+export const PageFooter = ({ className = "", children, copyright = "", ...props }: PageFooterProps): ReactNode => {
   return (
     <div className={`juno-pagefooter ${basePageFooterStyles} ${className}`} role="contentinfo" {...props}>
       <div className="juno-pagefooter-content">

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { LegacyRef } from "react"
+import React, { forwardRef, HTMLProps, LegacyRef, MouseEventHandler, ReactNode, MouseEvent } from "react"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/index"
@@ -158,23 +158,8 @@ const spinnerColorClass = (variant: ButtonVariant) => {
 /**
  * The `Button` component provides an interactive element for user actions, supporting various sizes,
  * styles, and states such as disabled or in-progress.
- *
- * @component
- * @param {ButtonVariant} [variant="default"] Selects the button variant for styling purposes.
- * @param {ButtonSize} [size="default"] Chooses the button size.
- * @param {boolean} [disabled] Indicates if the button is disabled, preventing interaction.
- * @param {string} [href] If specified, renders the button as an `<a>` element with this URL.
- * @param {string} [label] Text to display on the button. Can also be passed as children.
- * @param {string} [title] Accessibility title. Defaults to the label if not specified.
- * @param {KnownIcons} [icon] Name of an icon to display within the button.
- * @param {string} [className=""] Additional CSS class names for styling the button.
- * @param {React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>} [onClick] Event handler for click events.
- * @param {boolean} [progress=false] If true, a loading spinner is shown instead of the icon.
- * @param {string} [progressLabel] Text to display when the button action is in progress.
- * @param {React.ReactNode} [children] Content to display inside the button.
- * @returns {React.ReactElement} An interactive button component with customizable styles and behaviors.
  */
-export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (
     {
       label,
@@ -208,7 +193,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
 
     const buttonLabel = progress && progressLabel ? progressLabel : label || children
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    const handleClick = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
       onClick && onClick(event)
     }
 
@@ -227,7 +212,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
         disabled={disabled || undefined}
         onClick={handleClick}
         ref={ref as LegacyRef<HTMLButtonElement>}
-        {...(props as React.HTMLProps<HTMLButtonElement>)}
+        {...(props as HTMLProps<HTMLButtonElement>)}
         type="button"
         title={titleValue}
       >
@@ -254,7 +239,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
         disabled={disabled}
         onClick={onClick}
         ref={ref as LegacyRef<HTMLAnchorElement>}
-        {...(props as React.HTMLProps<HTMLAnchorElement>)}
+        {...(props as HTMLProps<HTMLAnchorElement>)}
         title={titleValue}
       >
         {buttonIcon}
@@ -271,12 +256,11 @@ Button.displayName = "Button"
 type ButtonVariant = "primary" | "primary-danger" | "default" | "subdued"
 type ButtonSize = "small" | "default"
 
-export interface ButtonProps
-  extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
+export interface ButtonProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLProps<HTMLButtonElement>, "size"> {
   /**
    * Child elements or text to be rendered inside the button.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 
   /**
    * Choose a variant for your button style. Defaults to "default" if unspecified.
@@ -324,7 +308,7 @@ export interface ButtonProps
   /**
    * Click event handler for the button.
    */
-  onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
 
   /**
    * Indicates whether the button's action is in progress.

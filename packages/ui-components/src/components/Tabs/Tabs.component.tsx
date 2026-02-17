@@ -10,8 +10,8 @@ export interface TabsContextType {
   variant?: TabsVariant
 }
 
-const TabsContext = React.createContext<TabsContextType>({})
-export const useTabsContext = () => React.useContext(TabsContext)
+const TabsContext = createContext<TabsContextType>({})
+export const useTabsContext = () => useContext(TabsContext)
 
 /** 
 A Tabs component.
@@ -68,7 +68,7 @@ export type TabsVariant = "main" | "content" | "codeblocks"
 
 export interface TabsProps {
   /** All the child elements of the Tabs: Tab(s) inside a TabList and TabPanel(s) */
-  children?: React.ReactNode
+  children?: ReactNode
   /** The index of the Tab to be selected by default in "Uncontrolled Mode" (default) where Tabs handle their state internally. Do not use in "Controlled Mode".*/
   defaultIndex?: number
   /** The index of the Tab to be selected by default. This enables "Controlled Mode" where the developer takes over control of the Tabs state and behaviour. Requires onSelect to be set.*/

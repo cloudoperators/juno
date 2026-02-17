@@ -6,7 +6,7 @@
 import React, { ComponentType, useEffect } from "react"
 
 function withDeprecationWarning<T extends object>(WrappedComponent: ComponentType<T>, message: string) {
-  const ComponentWithDeprecationWarning: React.FC<T> = (props: T) => {
+  const ComponentWithDeprecationWarning: FC<T> = (props: T) => {
     useEffect(() => {
       console.warn(message)
     }, [])

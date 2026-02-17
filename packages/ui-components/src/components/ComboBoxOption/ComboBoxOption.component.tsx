@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Fragment, useEffect, useContext } from "react"
+import React, { Fragment, useEffect, useContext, HTMLProps, ReactNode } from "react"
 import { ComboboxOption } from "@headlessui/react"
 import { ComboBoxContext } from "../ComboBox/ComboBox.component"
 import { Icon } from "../Icon/Icon.component"
@@ -52,24 +52,16 @@ const truncateOptionStyles = `
 /**
  * `ComboBoxOption` is a component used within a `ComboBox` to represent each selectable option.
  * It displays the option's label and value, and indicates the selected state with styles or an icon.
- *
- * @component
- * @param {string} [children] Text or element to render inside the ComboBoxOption. Should be a string when specified.
- * @param {boolean} [disabled] If true, the option is disabled and not selectable. Defaults to `false`.
- * @param {string} [value] The value of the option, used to identify the selection.
- * @param {string} [label] The label for the option, displayed if `children` is not used.
- * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
- * @returns {React.ReactElement} A selectable option component for use within a ComboBox.
  */
 
-export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
+export const ComboBoxOption = ({
   children,
   disabled = false,
   value = "",
   label = "",
   className = "",
   ...props
-}) => {
+}: ComboBoxOptionProps): ReactNode => {
   const comboBoxContext = useContext(ComboBoxContext)
   const {
     selectedValue: selectedValue,
@@ -112,7 +104,7 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   )
 }
 
-export interface ComboBoxOptionProps extends React.HTMLProps<HTMLLIElement> {
+export interface ComboBoxOptionProps extends HTMLProps<HTMLLIElement> {
   /**
    * Content to render inside the ComboBoxOption. Should be specified as a string.
    */

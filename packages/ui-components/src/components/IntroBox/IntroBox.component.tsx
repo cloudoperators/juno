@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode, useMemo } from "react"
 
 const introbox = (variant: string, heroImage: string) => {
   return `
@@ -55,7 +55,7 @@ const introboxHeading = `
     jn:font-bold
 `
 
-export interface IntroBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+export interface IntroBoxProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /**
    * Pass an optional title.
    * @default ""
@@ -88,24 +88,15 @@ export interface IntroBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   /**
    * Pass child nodes to be rendered as content, taking precedence over `text`.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
  * The `IntroBox` component presents important information about the contents,
  * purpose, or state of a page or view, using distinct styles for emphasis.
  * Supports "hero" variant with optional background images.
- *
- * @component
- * @param {string} [title] Optional title for the intro box. Defaults to an empty string.
- * @param {string} [text] Content text within the intro box, overridden by `children`. Defaults to an empty string.
- * @param {"default" | "hero"} [variant] Style variant of the intro box, affecting layout and visuals. Defaults to "default".
- * @param {string} [heroImage] Optional background image for the "hero" variant, specified as a CSS background image string.
- * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
- * @param {React.ReactNode} [children] Content elements to render inside the intro box, taking precedence over `text`.
- * @returns {React.ReactElement} A styled component for presenting introductory information or alerts.
  */
-export const IntroBox: React.FC<IntroBoxProps> = ({
+export const IntroBox = ({
   title = "",
   text = "",
   variant = "default",
@@ -113,8 +104,8 @@ export const IntroBox: React.FC<IntroBoxProps> = ({
   className = "",
   children,
   ...props
-}) => {
-  const isHeroWithImage = React.useMemo(() => {
+}: IntroBoxProps): ReactNode => {
+  const isHeroWithImage = useMemo(() => {
     return heroImage && variant === "hero"
   }, [variant, heroImage])
 

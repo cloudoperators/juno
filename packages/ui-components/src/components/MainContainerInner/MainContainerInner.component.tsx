@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const mainInnerStyles = `
   jn:flex
@@ -18,19 +18,13 @@ const constrainStyles = `
 /**
  * `MainContainerInner` offers a structured inner wrapper for page content, enabling width constraints
  * or full-width rendering as needed.
- *
- * @component
- * @param {React.ReactNode} [children] Components or content to render within the container.
- * @param {boolean} [fullWidth] Indicates if content should be full-width. Defaults to `false`.
- * @param {string} [className] Additional CSS class names for stylized rendering. Defaults to an empty string.
- * @returns {React.ReactElement} A structured inner container for page content.
  */
-export const MainContainerInner: React.FC<MainContainerInnerProps> = ({
+export const MainContainerInner = ({
   children,
   fullWidth = false,
   className = "",
   ...props
-}) => {
+}: MainContainerInnerProps): ReactNode => {
   return (
     <div
       className={`
@@ -45,11 +39,11 @@ export const MainContainerInner: React.FC<MainContainerInnerProps> = ({
   )
 }
 
-export interface MainContainerInnerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MainContainerInnerProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The children to render within the container.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 
   /**
    * Determines if content stretches to full viewport width.

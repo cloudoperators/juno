@@ -21,7 +21,7 @@ A generic vertical side navigation component.
 Place SideNavigationItem components as children.
 */
 
-export const SideNavigation: React.FC<SideNavigationProps> = ({
+export const SideNavigation = ({
   activeItem = "",
   ariaLabel,
   children,
@@ -29,7 +29,7 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
   disabled = false,
   onActiveItemChange,
   ...props
-}) => {
+}: SideNavigationProps): ReactNode => {
   return (
     <Navigation
       activeItem={activeItem}
@@ -44,7 +44,7 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
   )
 }
 
-export interface SideNavigationProps extends React.HTMLAttributes<HTMLElement> {
+export interface SideNavigationProps extends HTMLAttributes<HTMLElement> {
   /** The active navigation item by label */
   activeItem?: ReactNode
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */

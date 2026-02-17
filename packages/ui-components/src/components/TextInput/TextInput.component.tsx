@@ -3,7 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useRef, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useId,
+  useRef,
+  ReactNode,
+  ChangeEventHandler,
+  FocusEventHandler,
+  InputHTMLAttributes,
+  ChangeEvent,
+  FocusEvent,
+} from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/FormHint.component"
@@ -79,7 +91,7 @@ const hintStyles = `
 A controlled Text Input.
 Also covers email, telephone, password, url derivates. 
 */
-export const TextInput: React.FC<TextInputProps> = ({
+export const TextInput = ({
   value = "",
   id = "",
   name,
@@ -103,7 +115,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}) => {
+}: TextInputProps): ReactNode => {
   const isNotEmptyString = (str: unknown) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
@@ -144,17 +156,17 @@ export const TextInput: React.FC<TextInputProps> = ({
     setIsValid(validated)
   }, [validated])
 
-  const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
     onChange && onChange(event)
   }
 
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
     setFocus(true)
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
     setFocus(false)
     onBlur && onBlur(event)
   }
@@ -245,7 +257,7 @@ export const TextInput: React.FC<TextInputProps> = ({
 type TextInputType = "text" | "email" | "password" | "tel" | "url" | "number"
 type TextInputWidth = "full" | "auto"
 
-export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Pass a name attribute */
   name?: string
   /** Pass a value */
@@ -271,11 +283,11 @@ export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   /** Pass a valid autocomplete value. We do not police validity. */
   autoComplete?: string
   /** Pass a change handler */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onChange?: ChangeEventHandler<HTMLInputElement>
   /** Pass a focus handler */
-  onFocus?: React.FocusEventHandler<HTMLInputElement>
+  onFocus?: FocusEventHandler<HTMLInputElement>
   /** Pass a blur handler */
-  onBlur?: React.FocusEventHandler<HTMLInputElement>
+  onBlur?: FocusEventHandler<HTMLInputElement>
   /** Specify the type attribute. Defaults to an input with no type attribute, which in turn will be treateas as type="text" by browsers. */
   type?: TextInputType
   /** The label of the input */

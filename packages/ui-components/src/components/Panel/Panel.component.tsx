@@ -95,7 +95,7 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
  * A Panel component that slides in from the right side of the screen.
  * It can be used to display additional content/controls for the content area.
  */
-export const Panel: FC<PanelProps> = ({
+export const Panel = ({
   heading = "",
   size = "default",
   opened = false,
@@ -104,7 +104,7 @@ export const Panel: FC<PanelProps> = ({
   className = "",
   children,
   ...props
-}) => {
+}: PanelProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(opened)
   const [isCloseable, setIsCloseable] = useState(closeable)
   const [isTransitioning, setIsTransitioning] = useState(false)

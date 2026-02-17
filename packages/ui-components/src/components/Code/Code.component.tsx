@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ComponentPropsWithoutRef, ReactNode } from "react"
 
 const codeStyles = `
   jn:bg-theme-code-block
@@ -13,14 +13,8 @@ const codeStyles = `
 /**
  * The `Code` component is a lightweight inline `<code>` element used for displaying code snippets or text.
  * It can accept content directly through the `content` prop or render children encapsulated within it.
- *
- * @component
- * @param {string} [content] Text content to display within the code element. Defaults to an empty string.
- * @param {React.ReactNode} [children] Elements or text to render inside the code element.
- * @param {string} [className] Additional CSS classes for styling the code element. Defaults to an empty string.
- * @returns {React.ReactElement} A styled inline code element.
  */
-export const Code: React.FC<CodeProps> = ({ content = "", children, className = "", ...props }) => {
+export const Code = ({ content = "", children, className = "", ...props }: CodeProps): ReactNode => {
   return (
     <code className={`juno-code ${codeStyles} ${className}`} {...props}>
       {content || children}
@@ -28,7 +22,7 @@ export const Code: React.FC<CodeProps> = ({ content = "", children, className = 
   )
 }
 
-export interface CodeProps extends React.ComponentPropsWithoutRef<"code"> {
+export interface CodeProps extends ComponentPropsWithoutRef<"code"> {
   /**
    * Text content to render within the code element. Overrides `children`.
    * @default ""
@@ -41,5 +35,5 @@ export interface CodeProps extends React.ComponentPropsWithoutRef<"code"> {
   className?: string
 
   /** Elements or text to render inside the code element. */
-  children?: React.ReactNode
+  children?: ReactNode
 }

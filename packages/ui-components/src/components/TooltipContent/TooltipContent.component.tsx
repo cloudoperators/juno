@@ -38,9 +38,9 @@ const getIcon = (variant: ToolTipVariant) => {
   }
 }
 
-export interface TooltipContentProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TooltipContentProps extends HTMLAttributes<HTMLDivElement> {
   /** Pass child nodes to display in the tooltip */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a className to render to the icon button*/
   className?: string
 }
@@ -48,7 +48,7 @@ export interface TooltipContentProps extends React.HTMLAttributes<HTMLDivElement
 /**
  * Put content for a tooltip here. See Tooltip for more in-depth explanation and examples.
  */
-export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>(function TooltipContent(
+export const TooltipContent = forwardRef<HTMLElement, TooltipContentProps>(function TooltipContent(
   { className = "", children, ...props },
   propRef
 ) {

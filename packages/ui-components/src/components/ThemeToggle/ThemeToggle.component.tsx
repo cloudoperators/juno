@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode } from "react"
 
 import { StyleProvider } from "../StyleProvider/StyleProvider.component"
 import { Icon } from "../Icon/Icon.component"
@@ -57,14 +57,14 @@ export interface ThemeToggleProps {
  * This component requires a StyleProvider context to function, which is automatically provided by the Juno AppShell.
  * If not using the AppShell, include a StyleProvider manually.
  */
-export const ThemeToggle: React.FC<ThemeToggleProps> = ({
+export const ThemeToggle = ({
   className = "",
   disabled = false,
   id,
   name,
   onToggleTheme,
   ...props
-}) => {
+}: ThemeToggleProps): ReactNode => {
   // Consume the theme context
   const ThemeContext = StyleProvider.useStyles()
 

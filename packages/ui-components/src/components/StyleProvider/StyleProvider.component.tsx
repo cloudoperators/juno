@@ -160,4 +160,4 @@ export interface StyleProviderProps {
 
 // Export a helper hook to use styles in nested components
 // Returns {styles, theme, currentTheme, setThemeClass, addCssClass, removeCssClass}
-StyleProvider.useStyles = () => React.useContext(StylesContext)!
+StyleProvider.useStyles = () => useContext(StylesContext)!

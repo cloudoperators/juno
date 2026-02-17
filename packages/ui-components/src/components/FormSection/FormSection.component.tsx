@@ -39,14 +39,8 @@ export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
 /**
  * The `FormSection` component groups related form elements within a section,
  * offering a title and customizable styling. It assists in organizing content within forms.
- *
- * @component
- * @param {string} [title] Section title, displayed at the top. Defaults to an empty string.
- * @param {React.ReactNode} [children] Content to be rendered within the form section, can include form elements.
- * @param {string} [className] Additional CSS classes for styling the form section. Defaults to an empty string.
- * @returns {React.ReactElement} A component for grouping form elements within a defined section.
  */
-export const FormSection: React.FC<FormSectionProps> = ({ title = "", children, className = "", ...props }) => {
+export const FormSection = ({ title = "", children, className = "", ...props }: FormSectionProps): ReactNode => {
   return (
     <section className={`juno-form-section ${formSectionBaseStyles} ${className}`} {...props}>
       {title ? <h1 className={`juno-formsection-heading ${headingStyles}`}>{title}</h1> : null}

@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const formRowBaseStyles = `
   jn:mb-2
 `
 
-export interface FormRowProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FormRowProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Content to render inside FormRow.
    * Typically, these will be form elements such as TextInput, Textarea, Select, Radio, CheckboxGroups, etc.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 
   /**
    * Additional CSS classes to apply to the FormRow for custom styling.
@@ -27,13 +27,8 @@ export interface FormRowProps extends React.HTMLAttributes<HTMLDivElement> {
  * The `FormRow` component structures individual form elements within a row layout.
  * It serves as a container for inputs like `TextInput`, `Textarea`, and others,
  * supporting custom styling with class names.
- *
- * @component
- * @param {React.ReactNode} [children] Content rendered inside the FormRow, typically form elements.
- * @param {string} [className] Custom CSS classes for styling the FormRow. Defaults to an empty string.
- * @returns {React.ReactElement} A container for form row elements with support for custom styles.
  */
-export const FormRow: React.FC<FormRowProps> = ({ children, className = "", ...props }) => {
+export const FormRow = ({ children, className = "", ...props }: FormRowProps): ReactNode => {
   return (
     <div className={`juno-form-row ${formRowBaseStyles} ${className}`} {...props}>
       {children}

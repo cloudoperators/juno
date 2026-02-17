@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { forwardRef } from "react"
+import React, { forwardRef, HTMLAttributes, ReactNode } from "react"
 
 import { useDataGridContext, CellVerticalAlignmentType } from "../DataGrid/DataGrid.component"
 
@@ -38,13 +38,6 @@ const cellCustomStyles = (colSpan: number | undefined) => {
 /**
  * `DataGridCell` is a versatile layout component for `DataGrid`, supporting cell-specific configurations
  * like column span and wrapping. It adapts orientation based on grid context.
- *
- * @component
- * @param {number} [colSpan] Defines how many columns the cell should span.
- * @param {boolean} [nowrap] Prevents content wrapping within the cell. Defaults to `false`.
- * @param {string} [className] Additional CSS classes for custom styling. Defaults to an empty string.
- * @param {React.ReactNode} [children] Content or components to render inside the DataGridCell.
- * @returns {React.ReactElement} A configurable grid cell with optional spanning and wrapping.
  */
 export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
   ({ colSpan, nowrap = false, className = "", children, ...props }, ref) => {
@@ -67,7 +60,7 @@ export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
 
 DataGridCell.displayName = "DataGridCell"
 
-export interface DataGridCellProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DataGridCellProps extends HTMLAttributes<HTMLDivElement> {
   /** Defines the number of columns the cell spans. */
   colSpan?: number
 
@@ -78,7 +71,7 @@ export interface DataGridCellProps extends React.HTMLAttributes<HTMLDivElement> 
   nowrap?: boolean
 
   /** Components or elements to render within the DataGridCell. */
-  children?: React.ReactNode
+  children?: ReactNode
 
   /**
    * Additional CSS class names for custom styling.
@@ -86,13 +79,13 @@ export interface DataGridCellProps extends React.HTMLAttributes<HTMLDivElement> 
    */
   className?: string
 }
-export interface DataGridCellProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DataGridCellProps extends HTMLAttributes<HTMLDivElement> {
   /** Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.  */
   colSpan?: number
   /** Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;) */
   nowrap?: boolean
   /** Children to render in the DataGridCell */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Add a classname */
   className?: string
 }

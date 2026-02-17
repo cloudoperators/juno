@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
 const badgeBaseStyles = `
@@ -29,7 +29,7 @@ const iconStyles = "jn:mr-1 jn:items-center"
 
 export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   /**
    * Specify a semantic variant that determines the appearance of the badge.
    * @default "default"
@@ -59,7 +59,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
    * React nodes or a collection of React nodes to be rendered as content, taking
    * precedence over the `text` property.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 const getVariantStyle = (variant: BadgeVariantType): string => badgeVariantStyles[variant] || badgeVariantStyles.default
@@ -87,23 +87,15 @@ const isValidIcon = (icon: string): icon is KnownIcons => {
  * The `Badge` component visually represents properties or states of an entity.
  * It supports multiple semantic variants, each with distinct styling. An optional
  * icon can be included to further emphasize meaning.
- *
- * @component
- * @param {BadgeVariantType} [variant="default"] A semantic variant for the badge style.
- * @param {boolean | KnownIcons} [icon=false] When true, displays an icon related to the variant. Accepts a valid icon string.
- * @param {string} [text] String content to display within the badge. Children take precedence.
- * @param {string} [className] Additional class names for styling the badge.
- * @param {React.ReactNode} [children] Nodes to render inside the badge, taking precedence over `text`.
- * @returns {React.ReactElement} A styled badge element indicating a property or state.
  */
-export const Badge: React.FC<BadgeProps> = ({
+export const Badge = ({
   variant = "default",
   icon = false,
   text = "",
   className = "",
   children,
   ...props
-}) => {
+}: BadgeProps): ReactNode => {
   const iconToRender = getIcon(icon, variant)
   const iconColor = getIconColor(icon, variant)
 

@@ -11,13 +11,13 @@ const dividerStyles = `
   jn:bg-theme-background-lvl-3
 `
 
-export interface SelectDividerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SelectDividerProps extends HTMLAttributes<HTMLDivElement> {
   /** add a custom className */
   className?: string
 }
 
 /** A visual border/divider between SelectOptions or SelectGroups */
-export const SelectDivider = React.forwardRef<HTMLDivElement, SelectDividerProps>(
+export const SelectDivider = forwardRef<HTMLDivElement, SelectDividerProps>(
   ({ className = "", ...props }, forwardedRef) => {
     return <div className={`juno-select-divider ${dividerStyles} ${className}`} ref={forwardedRef} {...props} />
   }

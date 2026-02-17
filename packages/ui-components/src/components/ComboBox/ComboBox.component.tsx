@@ -3,7 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useId, useMemo, createContext, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useId,
+  useMemo,
+  createContext,
+  ReactNode,
+  ChangeEvent,
+  FocusEvent,
+  Children,
+  isValidElement,
+  HTMLAttributes,
+  FocusEventHandler,
+  ChangeEventHandler,
+} from "react"
 import { Combobox, ComboboxInput, ComboboxOptions, ComboboxButton } from "@headlessui/react"
 import {
   useFloating,
@@ -159,38 +173,9 @@ type OptionValuesAndLabelsValue = {
 /**
  * The `ComboBox` component is a customizable, accessible, and interactive dropdown component, allowing users to select from a list of options.
  * It features dynamic filtering and optional asynchronous loading for extended functionality.
- *
- * @component
- * @param {string} [ariaLabel] ARIA label, defaults to the `label` if provided.
- * @param {ReactNode} [children] Use with `ComboBox.Option` to render dropdown options.
- * @param {string} [className] CSS classes applied to the combo box. Defaults to an empty string.
- * @param {string} [defaultValue] Uncontrolled initial value for internal state handling.
- * @param {boolean} [disabled] Specifies if the combobox is disabled. The default is `false`.
- * @param {boolean} [error] Internal error indicator; differs from validation `invalid`. The default is `false`.
- * @param {ReactNode} [errortext] Text displayed on validation failure or internal error.
- * @param {ReactNode} [helptext] Informative text explaining the ComboBox's purposes.
- * @param {string} [id] ID assigned to the Text Input, auto-generated if unspecified.
- * @param {boolean} [invalid] Validation state identifying invalidities. The default is `false`.
- * @param {string} [label] ComboBox label text.
- * @param {boolean} [loading] Loading indicator for asynchronous data fetching. The default is `false`.
- * @param {string} [name] Form attribute representing the ComboBox.
- * @param {function} [onBlur] Event handler for input losing focus.
- * @param {function} [onChange] Handler for changing selection.
- * @param {function} [onFocus] Event handler for input focus event.
- * @param {function} [onInputChange] Handler for text input alterations.
- * @param {string} [placeholder] Placeholder for the input field. Defaults to `"Select…"`.
- * @param {boolean} [required] Whether a value selection is required. The default is `false`.
- * @param {ReactNode} [successtext] Text displayed upon successful validation.
- * @param {boolean} [truncateOptions] Sets whether to truncate options when space is limited. The default is `false`.
- * @param {boolean} [valid] Specifies successful validation. The default is `false`.
- * @param {string} [value] Controlled mode selected value.
- * @param {string} [valueLabel] Label for value or defaultValue.
- * @param {ComboBoxWidth} [width] Specifies input width: "full" or "auto". The default is `"full"`.
- * @param {string} [wrapperClassName] Custom class for styling the outermost wrapper. Defaults to an empty string.
- * @returns {React.ReactElement} An interactive ComboBox component with advanced behaviors.
  */
 
-export const ComboBox: React.FC<ComboBoxProps> = ({
+export const ComboBox = ({
   ariaLabel,
   children,
   className = "",
@@ -218,7 +203,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}) => {
+}: ComboBoxProps): ReactNode => {
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
@@ -326,12 +311,12 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
     onChange && onChange(stringValue)
   }
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event?.target?.value)
     onInputChange && onInputChange(event)
   }
 
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
     setFocus(true)
 
     if (!isOpen) {
@@ -341,7 +326,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
     setFocus(false)
     setIsOpen(false)
     // TODO: TypeError: Converting circular structure to JSON
@@ -352,9 +337,9 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 
   const filteredChildren =
     query === ""
-      ? React.Children.toArray(children)
-      : React.Children.toArray(children).filter((child) => {
-          if (React.isValidElement<ComboBoxOptionProps>(child)) {
+      ? Children.toArray(children)
+      : Children.toArray(children).filter((child) => {
+          if (isValidElement<ComboBoxOptionProps>(child)) {
             // ensure that we filter on the value that is displayed to the user. Apply the same logic as when rendering
             // the options, i.e. match children if present, if not match label, lastly if neither label nor children exist, then check value
             const optionDisplayValue = child.props.children?.toString() || child.props.label || child.props.value
@@ -546,7 +531,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
 }
 
 export type ComboBoxWidth = "full" | "auto"
-export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children"> {
+export interface ComboBoxProps extends Omit<HTMLAttributes<HTMLElement>, "onChange" | "onInput" | "children"> {
   /** ARIA label for accessibility. Defaults to label if provided. */
   ariaLabel?: string
 
@@ -602,16 +587,16 @@ export interface ComboBoxProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   name?: string
 
   /** Handler for when the ComboBox loses focus. */
-  onBlur?: React.FocusEventHandler<HTMLInputElement>
+  onBlur?: FocusEventHandler<HTMLInputElement>
 
   /** Handler for changes in the ComboBox selection. */
   onChange?: (_value: string) => void
 
   /** Handler for when the ComboBox input gains focus. */
-  onFocus?: React.FocusEventHandler<HTMLInputElement>
+  onFocus?: FocusEventHandler<HTMLInputElement>
 
   /** Handler for changes in the ComboBox's text input value. */
-  onInputChange?: React.ChangeEventHandler<HTMLInputElement>
+  onInputChange?: ChangeEventHandler<HTMLInputElement>
 
   /** Placeholder text for ComboBox input.
    * @default "Select…"
