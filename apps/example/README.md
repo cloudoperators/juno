@@ -16,7 +16,7 @@ cd apps/example
 pnpx turbo build:static
 ```
 
-This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy a `appProps.json` file containing the required props into the dist folder.
+This will generate an `index.html` file along with the necessary assets in the dist folder. You’ll need to copy an `appProps.json` file containing the required props into the dist folder.
 
 ## As a Micro Frontend (MFE)
 
