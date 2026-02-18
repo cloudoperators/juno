@@ -30,10 +30,9 @@
   "dependencies": {
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
+    "@cloudoperators/greenhouse-auth-provider": "workspace:*",
     "@tanstack/react-query": "5.90.16",
-    "@tanstack/react-router": "1.150.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "@tanstack/react-router": "1.150.0"
   },
   "devDependencies": {
     "@apollo/client": "4.1.0",
@@ -71,5 +70,9 @@
     "vite-plugin-svgr": "4.5.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
+  },
+  "peerDependencies": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   }
 }

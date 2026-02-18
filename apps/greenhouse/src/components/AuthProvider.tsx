@@ -5,6 +5,7 @@
 
 import React, { createContext, useContext, useState, useMemo, useRef, useEffect } from "react"
 import { oidcSession, mockedSession, tokenSession } from "@cloudoperators/juno-oauth"
+import { createAuthStore, AuthStore } from "@cloudoperators/greenhouse-auth-provider"
 
 const setOrganizationToUrl = (groups: any, enableHashedRouting: boolean) => {
   const orgName = groups?.find((g: any) => g.startsWith("organization:"))?.split(":")[1]
@@ -90,7 +91,8 @@ const initializeDemoAuth = (
   enableHashedRouting: boolean,
   setAuthData: any,
   setOidcError: any,
-  setOrganizationToUrl: any
+  setOrganizationToUrl: any,
+  pluginAuth: AuthStore
 ) => {
   return tokenSession({
     token: demoUserToken,
@@ -104,6 +106,11 @@ const initializeDemoAuth = (
         return
       }
       setAuthData(data)
+      pluginAuth.setAuthState({
+        status: data?.loggedIn ? "authenticated" : "anonymous",
+        token: data?.auth?.access_token,
+        userId: data?.auth?.claims?.sub,
+      })
       // set the organization name in the URL
       if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups, enableHashedRouting)
     },
@@ -138,7 +145,8 @@ const initializeRealOidc = (
   orgName: any,
   enableHashedRouting: boolean,
   setAuthData: any,
-  setOrganizationToUrl: any
+  setOrganizationToUrl: any,
+  pluginAuth: AuthStore
 ) => {
   const requestParams = JSON.stringify({
     connector_id: !orgName ? undefined : orgName,
@@ -153,6 +161,11 @@ const initializeRealOidc = (
     flowType: "code",
     onUpdate: (data: any) => {
       setAuthData(data)
+      pluginAuth.setAuthState({
+        status: "authenticated",
+        token: data?.auth?.JWT,
+        userId: data?.auth?.parsed?.fullName,
+      })
       // set the organization name in the URL
       if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups, enableHashedRouting)
     },
@@ -167,6 +180,13 @@ export const AuthProvider = ({ options, children }: any) => {
   const [isDemoMode, setIsDemoMode] = useState(false)
   const [oidcError, setOidcError] = useState(null)
   const oidcInstance = useRef(null)
+  const pluginAuthRef = useRef<AuthStore | null>(null)
+
+  if (!pluginAuthRef.current) {
+    pluginAuthRef.current = createAuthStore()
+  }
+
+  const pluginAuth = pluginAuthRef.current
 
   const initializeOidc = () => {
     if (oidcInstance.current || oidcError) return oidcInstance.current
@@ -197,7 +217,8 @@ export const AuthProvider = ({ options, children }: any) => {
         enableHashedRouting,
         setAuthData,
         setOidcError,
-        setOrganizationToUrl
+        setOrganizationToUrl,
+        pluginAuth
       )
       return oidcInstance.current
     }
@@ -224,7 +245,8 @@ export const AuthProvider = ({ options, children }: any) => {
         orgName,
         enableHashedRouting,
         setAuthData,
-        setOrganizationToUrl
+        setOrganizationToUrl,
+        pluginAuth
       )
       return oidcInstance.current
     }
@@ -268,11 +290,12 @@ export const AuthProvider = ({ options, children }: any) => {
       error: authData ? authData?.error : oidcError,
       // @ts-expect-error TS(2339): Property 'auth' does not exist on type 'never'.
       data: authData ? authData?.auth : null,
+      pluginAuth,
       isDemoMode,
       login,
       logout,
     }),
-    [authData, login, logout]
+    [authData, pluginAuth, login, logout]
   )
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

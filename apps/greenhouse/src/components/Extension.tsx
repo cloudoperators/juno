@@ -10,6 +10,7 @@ import * as doop from "@cloudoperators/juno-app-doop"
 import * as heureka from "@cloudoperators/juno-app-heureka"
 import * as admin from "../components/core-apps/org-admin"
 import { AppProps } from "../Shell"
+import type { AuthStore, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
 
 const getApp = (appName: string) => {
   switch (appName) {
@@ -31,12 +32,18 @@ type ExtensionProps = {
   config: any
   auth: any
   appProps: AppProps
+  pluginAuth: AuthStore
 }
 
-function Extension({ id, config, auth, appProps }: ExtensionProps) {
+function Extension({ id, config, auth, appProps, pluginAuth }: ExtensionProps) {
   const router = useRouter()
   const appContainerRef = useRef<HTMLDivElement>(null)
   const app = getApp(config.name)
+
+  // Remove the setter from the pluginAuth before passing it to the plugin, to prevent plugins from changing the auth state directly
+  const authForPlugin: EmbeddedAuth = Object.freeze({
+    getSnapshot: pluginAuth.getSnapshot,
+  })
 
   useEffect(() => {
     if (!app || !appContainerRef.current) {
@@ -52,6 +59,7 @@ function Extension({ id, config, auth, appProps }: ExtensionProps) {
               token: auth?.JWT,
               basePath: `${router.basepath === "/" ? "" : router.basepath}/${config.id}`,
               enableHashedRouting: appProps?.enableHashedRouting || false,
+              auth: authForPlugin,
             }
           : { auth: auth }),
       },

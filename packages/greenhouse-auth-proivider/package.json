@@ -1,0 +1,46 @@
+{
+  "name": "@cloudoperators/greenhouse-auth-provider",
+  "version": "1.0.0",
+  "description": "Package provides authentication for Greenhouse and plugins",
+  "author": "UI-Team",
+  "private": true,
+  "source": "src/index.js",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/greenhouse-auth-provider",
+  "license": "Apache-2.0",
+  "type": "module",
+  "types": "build/types/index.d.ts",
+  "files": [
+    "build/**",
+    "LICENCE"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "devDependencies": {
+    "@cloudoperators/juno-config": "workspace:*",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.1",
+    "@types/node": "24.10.4",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "react": "19.2.3",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4",
+    "vite": "7.3.1",
+    "vite-plugin-dts": "4.5.4"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "lint": "eslint ",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
+  }
+}
