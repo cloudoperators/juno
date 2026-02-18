@@ -92,6 +92,6 @@ export interface TopNavigationItemProps extends HTMLAttributes<HTMLElement> {
   href?: string
   /** A handler to execute once the navigation item is clicked. Will render the item as a button element if passed */
   onClick?: MouseEventHandler<HTMLElement>
-  /** An optional technical identifier fort the tab. If not passed, the label will be used to identify the tab. NOTE: If value is passed, the value of the active tab MUST be used when setting the activeItem prop on the parent TabNavigation.*/
+  /** An optional technical identifier for the tab. If not passed, the label will be used to identify the tab. NOTE: If value is passed, the value of the active tab MUST be used when setting the activeItem prop on the parent TabNavigation.*/
   value?: string
 }

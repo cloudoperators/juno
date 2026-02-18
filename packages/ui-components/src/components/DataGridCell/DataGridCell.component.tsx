@@ -81,13 +81,3 @@ export interface DataGridCellProps extends HTMLAttributes<HTMLDivElement> {
    */
   className?: string
 }
-export interface DataGridCellProps extends HTMLAttributes<HTMLDivElement> {
-  /** Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.  */
-  colSpan?: number
-  /** Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;) */
-  nowrap?: boolean
-  /** Children to render in the DataGridCell */
-  children?: ReactNode
-  /** Add a classname */
-  className?: string
-}

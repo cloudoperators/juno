@@ -88,7 +88,7 @@ interface SelectedDate {
 }
 
 /**
- * A all-purpose date and time picker component. Highly configurable, based on Flatpickr.
+ * An all-purpose date and time picker component. Highly configurable, based on Flatpickr.
  * @see https://cloudoperators.github.io/juno/?path=/docs/wip-datetimepicker-datetimepicker--docs
  * @see {@link DateTimePickerProps}
  */
@@ -595,7 +595,7 @@ export interface DateTimePickerProps
   /** Whether the DateTimePicker input element allows direct user keyboard input. Default is `false`.
    */
   allowInput?: boolean
-  /** Allows the preloading of an invalid date (e.g. a date that hass been disable by passing `disable`). When disabled, the field will be cleared if the provided date is invalid */
+  /** Allows preloading of an invalid date (e.g. a date that has been disabled by passing disable). When disabled, the field will be cleared if the provided date is invalid */
   allowInvalidPreload?: boolean
   /** How the `aria-label` date for each day in the calendar will be formed. Uses the same rules/tokens as `dateFormat´ as described here: https://flatpickr.js.org/formatting/. When changing this, make sure the outcome makes sense when using a screenreader.*/
   ariaDateFormat?: string

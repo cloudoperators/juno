@@ -258,7 +258,7 @@ type ModalSize = "small" | "large" | "xl" | "2xl"
 
 export interface ModalProps extends Omit<HTMLProps<HTMLDivElement>, "size" | "title"> {
   /**
-   * The title of the modal. This will be rendering as the heading of the modal, and the modal's `arial-labelledby` attribute will reference the title/heading element. If the modal does not have `title` or `heading`, use `ariaLabel` to provide an accessible name for the modal.
+   * The title of the modal. This will be rendering as the heading of the modal, and the modal's `aria-labelledby` attribute will reference the title/heading element. If the modal does not have `title` or `heading`, use `ariaLabel` to provide an accessible name for the modal.
    */
   title?: ReactNode
 

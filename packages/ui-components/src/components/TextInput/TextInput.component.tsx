@@ -89,7 +89,7 @@ const hintStyles = `
 
 /**
  * A controlled Text Input.
- * Also covers email, telephone, password, url derivates.
+ * Also covers email, telephone, password, URL derivatives.
  * @see https://cloudoperators.github.io/juno/?path=/docs/forms-textinput--docs
  * @see {@link TextInputProps}
  */
