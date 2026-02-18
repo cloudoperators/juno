@@ -33,7 +33,7 @@ type ReadinessCondition = {
   reason?: string
 }
 
-const getReadinessConditionVariant = (condition: ReadinessCondition): ConditionVariant => {
+const getReadinessConditionVariant = (condition: ReadinessCondition) => {
   // Only color code the "Ready" condition
   if (condition.type === "Ready") {
     return condition.status === "True" ? "success" : "error"

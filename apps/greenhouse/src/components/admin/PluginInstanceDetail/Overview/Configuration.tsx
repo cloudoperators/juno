@@ -21,7 +21,7 @@ export const Configuration: React.FC<ConfigurationProps> = ({ plugin }) => {
     <Stack direction="vertical" gap="4">
       <ContentHeading>Configuration</ContentHeading>
       {optionValues.length === 0 ? (
-        <p>No configuration overrides</p>
+        <p>No configuration</p>
       ) : (
         <YamlViewer
           value={

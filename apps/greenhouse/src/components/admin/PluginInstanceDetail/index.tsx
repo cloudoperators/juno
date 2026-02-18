@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React from "react"
 import { useParams, useRouteContext } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
 import {
@@ -26,30 +26,26 @@ const isPluginReady = (plugin: Plugin) => {
   return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True")
 }
 
-const PluginInstanceDetailContent = ({ plugin }: { plugin: Plugin }) => {
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0)
-
-  return (
-    <>
-      <Tabs selectedIndex={selectedTabIndex} onSelect={setSelectedTabIndex}>
-        <TabList>
-          <Tab label="Overview" />
-          <Tab label="YAML" />
-        </TabList>
-        <TabPanel>
-          <Container px={false} py>
-            <Overview plugin={plugin} />
-          </Container>
-        </TabPanel>
-        <TabPanel>
-          <Container px={false} py>
-            <YamlViewer value={plugin} />
-          </Container>
-        </TabPanel>
-      </Tabs>
-    </>
-  )
-}
+const PluginInstanceDetailContent = ({ plugin }: { plugin: Plugin }) => (
+  <>
+    <Tabs>
+      <TabList>
+        <Tab label="Overview" />
+        <Tab label="YAML" />
+      </TabList>
+      <TabPanel>
+        <Container px={false} py>
+          <Overview plugin={plugin} />
+        </Container>
+      </TabPanel>
+      <TabPanel>
+        <Container px={false} py>
+          <YamlViewer value={plugin} />
+        </Container>
+      </TabPanel>
+    </Tabs>
+  </>
+)
 
 export const PluginInstanceDetail = () => {
   const { pluginInstance } = useParams({

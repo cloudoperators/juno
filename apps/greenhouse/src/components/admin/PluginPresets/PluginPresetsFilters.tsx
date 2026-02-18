@@ -17,7 +17,7 @@ import {
 } from "../api/plugin-presets/fetchPluginPresetsFilters"
 import { FilterSelect } from "../common/FilterSelect"
 
-export const PluginPresetsFilters = ({ ...rest }) => {
+export const PluginPresetsFilters = () => {
   const navigate = useNavigate()
   const { apiClient, user } = useRouteContext({ from: "/admin/plugin-presets" })
   const { filterSettings } = useLoaderData({ from: "/admin/plugin-presets/" })
