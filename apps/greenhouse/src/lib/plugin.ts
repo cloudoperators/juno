@@ -7,6 +7,16 @@ import { useStore, createStore } from "zustand"
 import { devtools } from "zustand/middleware"
 import { produce } from "immer"
 
+type PluginState = {
+  active: string[]
+  config: Record<string, any>
+  appConfig: any[]
+  mngConfig: any[]
+  isFetching: boolean
+  error: any
+  updatedAt: number | null
+}
+
 export const NAV_TYPES = {
   APP: "app",
   MNG: "management",
@@ -77,9 +87,8 @@ const findActiveAppId = (appConfig: any) => {
 
   return [minWeightApp.id]
 }
-
 const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
-  const store = createStore(
+  const store = createStore<PluginState>()(
     devtools(() => ({
       active: [],
       config: {
@@ -96,18 +105,19 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
           },
         }),
       },
-      appConfig: [], // kube app configs
-      mngConfig: [], // management app configs
+      appConfig: [],
+      mngConfig: [],
       isFetching: false,
       error: null,
       updatedAt: null,
     }))
   )
+
   const { getState, setState } = store
 
-  const setIsFetching = (newState: any) => {
+  const setIsFetching = (newState: boolean) => {
     setState(
-      produce((state: any) => {
+      produce((state: PluginState) => {
         state.isFetching = newState
       }),
       false,
@@ -117,20 +127,22 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
 
   const setError = (error: any) =>
     setState(
-      produce((state: any) => {
+      produce((state: PluginState) => {
         state.error = error
       }),
       false,
       "plugin/setError"
     )
 
-  const setActive = (active: any) =>
+  const setActive = (active: string | string[] | null) =>
     setState(
-      produce((state: any) => {
-        if (!Array.isArray(active)) active = [active]
-        // if the current state is the same as the new state, don't update
-        if (JSON.stringify(state.active) === JSON.stringify(active)) return
-        state.active = active
+      produce((state: PluginState) => {
+        // Handle null case
+        if (active === null) return
+
+        const activeArray = Array.isArray(active) ? active : [active]
+        if (JSON.stringify(state.active) === JSON.stringify(activeArray)) return
+        state.active = activeArray
       }),
       false,
       "plugin/setActive"
@@ -138,11 +150,29 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
 
   const addConfig = (config: any) =>
     setState(
-      produce((state: any) => {
+      produce((state: PluginState) => {
         state.config = { ...getState().config, ...config }
       }),
       false,
       "plugin/addConfig"
+    )
+
+  const setAppConfig = (appConfig: any[]) =>
+    setState(
+      produce((state: PluginState) => {
+        state.appConfig = appConfig
+      }),
+      false,
+      "plugin/setAppConfig"
+    )
+
+  const setMngConfig = (mngConfig: any[]) =>
+    setState(
+      produce((state: PluginState) => {
+        state.mngConfig = mngConfig
+      }),
+      false,
+      "plugin/setMngConfig"
     )
 
   const splitApps = () => {
@@ -153,32 +183,14 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
     setMngConfig(mngConfig)
   }
 
-  const setAppConfig = (appConfig: any) =>
-    setState(
-      produce((state: any) => {
-        state.appConfig = appConfig
-      }),
-      false,
-      "plugin/setAppConfig"
-    )
-
-  const setMngConfig = (mngConfig: any) =>
-    setState(
-      produce((state: any) => {
-        state.mngConfig = mngConfig
-      }),
-      false,
-      "plugin/setMngConfig"
-    )
-
   return {
-    active: () => useStore(store, (s: any) => s.active),
-    config: () => useStore(store, (s: any) => s.config),
-    appConfig: () => useStore(store, (s: any) => s.appConfig),
-    mngConfig: () => useStore(store, (s: any) => s.mngConfig),
-    isFetching: () => useStore(store, (s: any) => s.isFetching),
-    error: () => useStore(store, (s: any) => s.error),
-    updatedAt: () => useStore(store, (s: any) => s.updatedAt),
+    active: () => useStore(store, (s) => s.active),
+    config: () => useStore(store, (s) => s.config),
+    appConfig: () => useStore(store, (s) => s.appConfig),
+    mngConfig: () => useStore(store, (s) => s.mngConfig),
+    isFetching: () => useStore(store, (s) => s.isFetching),
+    error: () => useStore(store, (s) => s.error),
+    updatedAt: () => useStore(store, (s) => s.updatedAt),
     setActive: setActive,
     requestConfig: () => {
       setIsFetching(true)
@@ -187,20 +199,14 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
     receiveError: (error: any) => {
       setIsFetching(false)
       setError(error)
-      // on api error split then the preconfigured
       splitApps()
     },
     receiveConfig: (kubeConfig: any) => {
-      // add config and other states
       addConfig(kubeConfig)
       setIsFetching(false)
       setError(null)
-
-      // split apps in mng and apps
       splitApps()
 
-      // if no config found in the active apps set a new one but from the apps and not mng
-      // @ts-expect-error TS(2532): Object is possibly 'undefined'.
       if (Object.keys(getState().config).filter((key) => getState().active.includes(key)).length === 0) {
         const newActiveApp = findActiveAppId(getState().appConfig)
         setActive(newActiveApp)
