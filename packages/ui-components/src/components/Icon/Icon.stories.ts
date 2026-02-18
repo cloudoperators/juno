@@ -19,7 +19,7 @@ const meta: Meta<typeof Icon> = {
   parameters: {
     docs: {
       description: {
-        component: "A generic icon component. Accepts text color classes for color.",
+        component: "A generic name component. Accepts text color classes for color.",
       },
       source: {
         transform: (source: string): string => {
@@ -37,42 +37,42 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    icon: "help",
-    color: "jn-global-text",
+    name: "circle-question-mark",
+    className: "", // need to apply styles as previously
   },
 }
 
 export const Info_Colored: Story = {
   args: {
-    icon: "info",
-    color: "jn:text-theme-info",
+    name: "info",
+    className: "jn:text-theme-error",
   },
 }
 
 export const Danger_Colored: Story = {
   args: {
-    icon: "danger",
-    color: "jn:text-theme-danger",
+    name: "siren",
+    className: "jn:text-theme-info",
   },
 }
 
 export const Success_Colored: Story = {
   args: {
-    icon: "success",
+    name: "square-check",
     color: "jn:text-theme-success",
   },
 }
 
 export const Warning_Colored: Story = {
   args: {
-    icon: "warning",
+    name: "triangle-alert",
     color: "jn:text-theme-warning",
   },
 }
 
 export const ThemeColor: Story = {
   args: {
-    icon: "help",
+    name: "help",
     color: "jn-global-text",
   },
 }
@@ -80,7 +80,7 @@ export const ThemeColor: Story = {
 export const Smaller: Story = {
   args: {
     ...Default.args,
-    icon: "help",
+    name: "help",
     size: "18",
   },
 }
@@ -88,7 +88,7 @@ export const Smaller: Story = {
 export const Larger: Story = {
   args: {
     ...Default.args,
-    icon: "help",
+    name: "help",
     size: "64",
   },
 }
@@ -114,278 +114,278 @@ export const IconAsButton: Story = {
 export const Account_Circle: Story = {
   args: {
     ...Default.args,
-    icon: "accountCircle",
+    name: "accountCircle",
   },
 }
 
 export const Add_Circle: Story = {
   args: {
     ...Default.args,
-    icon: "addCircle",
+    name: "addCircle",
   },
 }
 
 export const Auto_Awesome_Mosaic: Story = {
   args: {
     ...Default.args,
-    icon: "autoAwesomeMosaic",
+    name: "autoAwesomeMosaic",
   },
 }
 
 export const Auto_Awesome_Motion: Story = {
   args: {
     ...Default.args,
-    icon: "autoAwesomeMotion",
+    name: "autoAwesomeMotion",
   },
 }
 
 export const Bolt: Story = {
   args: {
     ...Default.args,
-    icon: "bolt",
+    name: "bolt",
   },
 }
 
 export const Cancel: Story = {
   args: {
     ...Default.args,
-    icon: "cancel",
+    name: "cancel",
   },
 }
 
 export const Check: Story = {
   args: {
-    icon: "check",
+    name: "check",
   },
 }
 
 export const CheckCircle: Story = {
   args: {
-    icon: "checkCircle",
+    name: "checkCircle",
   },
 }
 
 export const ChevronLeft: Story = {
   args: {
-    icon: "chevronLeft",
+    name: "chevronLeft",
   },
 }
 
 export const ChevronRight: Story = {
   args: {
-    icon: "chevronRight",
+    name: "chevronRight",
   },
 }
 
 export const Close: Story = {
   args: {
-    icon: "close",
+    name: "close",
   },
 }
 
 export const Comment: Story = {
   args: {
     ...Default.args,
-    icon: "comment",
+    name: "comment",
   },
 }
 
 export const ContentCopy: Story = {
   args: {
-    icon: "contentCopy",
+    name: "contentCopy",
   },
 }
 
 export const Danger: Story = {
   args: {
     ...Default.args,
-    icon: "danger",
+    name: "danger",
   },
 }
 
 export const Dangerous: Story = {
   args: {
-    icon: "dangerous",
+    name: "dangerous",
   },
 }
 
 export const DeleteForever: Story = {
   args: {
-    icon: "deleteForever",
+    name: "deleteForever",
   },
 }
 
 export const Description: Story = {
   args: {
     ...Default.args,
-    icon: "description",
+    name: "description",
   },
 }
 
 export const DNS: Story = {
   args: {
     ...Default.args,
-    icon: "dns",
+    name: "dns",
   },
 }
 
 export const Download: Story = {
   args: {
-    icon: "download",
+    name: "download",
   },
 }
 
 export const Edit: Story = {
   args: {
     ...Default.args,
-    icon: "edit",
+    name: "edit",
   },
 }
 
 export const Error: Story = {
   args: {
     ...Default.args,
-    icon: "dangerous",
+    name: "dangerous",
   },
 }
 
 export const Error_Outline: Story = {
   args: {
     ...Default.args,
-    icon: "errorOutline",
+    name: "errorOutline",
   },
 }
 
 export const Exit_To_App: Story = {
   args: {
     ...Default.args,
-    icon: "exitToApp",
+    name: "exitToApp",
   },
 }
 
 export const Expand_Less: Story = {
   args: {
     ...Default.args,
-    icon: "expandLess",
+    name: "expandLess",
   },
 }
 
 export const Expand_More: Story = {
   args: {
     ...Default.args,
-    icon: "expandMore",
+    name: "expandMore",
   },
 }
 
 export const Filter_Alt: Story = {
   args: {
     ...Default.args,
-    icon: "filterAlt",
+    name: "filterAlt",
   },
 }
 
 export const Forum: Story = {
   args: {
     ...Default.args,
-    icon: "forum",
+    name: "forum",
   },
 }
 
 export const Help: Story = {
   args: {
     ...Default.args,
-    icon: "help",
+    name: "help",
   },
 }
 
 export const Home: Story = {
   args: {
     ...Default.args,
-    icon: "home",
+    name: "home",
   },
 }
 
 export const Info: Story = {
   args: {
     ...Default.args,
-    icon: "info",
+    name: "info",
   },
 }
 
 export const Language: Story = {
   args: {
     ...Default.args,
-    icon: "language",
+    name: "language",
   },
 }
 
 export const Manage_Accounts: Story = {
   args: {
     ...Default.args,
-    icon: "manageAccounts",
+    name: "manageAccounts",
   },
 }
 
 export const Monitor_Heart: Story = {
   args: {
     ...Default.args,
-    icon: "monitorHeart",
+    name: "monitorHeart",
   },
 }
 
 export const More_Vert: Story = {
   args: {
     ...Default.args,
-    icon: "moreVert",
+    name: "moreVert",
   },
 }
 
 export const Nights_Stay: Story = {
   args: {
     ...Default.args,
-    icon: "nightsStay",
+    name: "nightsStay",
   },
 }
 
 export const Notifications_Off: Story = {
   args: {
     ...Default.args,
-    icon: "notificationsOff",
+    name: "notificationsOff",
   },
 }
 
 export const Open_In_Browser: Story = {
   args: {
     ...Default.args,
-    icon: "openInBrowser",
+    name: "openInBrowser",
   },
 }
 
 export const Open_In_New: Story = {
   args: {
     ...Default.args,
-    icon: "openInNew",
+    name: "openInNew",
   },
 }
 
 export const Place: Story = {
   args: {
     ...Default.args,
-    icon: "place",
+    name: "place",
   },
 }
 
 export const Search: Story = {
   args: {
     ...Default.args,
-    icon: "search",
+    name: "search",
   },
 }
 
 export const SeverityLow: Story = {
   args: {
     ...Default.args,
-    icon: "severityLow",
+    name: "severityLow",
     color: "jn:text-theme-severity-low",
   },
 }
@@ -393,7 +393,7 @@ export const SeverityLow: Story = {
 export const SeverityMedium: Story = {
   args: {
     ...Default.args,
-    icon: "severityMedium",
+    name: "severityMedium",
     color: "jn:text-theme-severity-medium",
   },
 }
@@ -401,7 +401,7 @@ export const SeverityMedium: Story = {
 export const SeverityHigh: Story = {
   args: {
     ...Default.args,
-    icon: "severityHigh",
+    name: "severityHigh",
     color: "jn:text-theme-severity-high",
   },
 }
@@ -409,7 +409,7 @@ export const SeverityHigh: Story = {
 export const SeverityVeryHigh: Story = {
   args: {
     ...Default.args,
-    icon: "severityVeryHigh",
+    name: "severityVeryHigh",
     color: "jn:text-theme-severity-very-high",
   },
 }
@@ -417,7 +417,7 @@ export const SeverityVeryHigh: Story = {
 export const SeverityCritical: Story = {
   args: {
     ...Default.args,
-    icon: "severityCritical",
+    name: "severityCritical",
     color: "jn:text-theme-severity-critical",
   },
 }
@@ -425,7 +425,7 @@ export const SeverityCritical: Story = {
 export const SeverityUnknown: Story = {
   args: {
     ...Default.args,
-    icon: "severityUnknown",
+    name: "severityUnknown",
     color: "jn:text-theme-severity-unknown",
   },
 }
@@ -433,62 +433,62 @@ export const SeverityUnknown: Story = {
 export const Success: Story = {
   args: {
     ...Default.args,
-    icon: "success",
+    name: "success",
   },
 }
 
 export const SortShortWideArrowUp: Story = {
   args: {
     ...Default.args,
-    icon: "sortShortWideArrowUp",
+    name: "sortShortWideArrowUp",
   },
 }
 
 export const SortShortWideArrowDown: Story = {
   args: {
     ...Default.args,
-    icon: "sortShortWideArrowDown",
+    name: "sortShortWideArrowDown",
   },
 }
 
 export const SortWideShortArrowUp: Story = {
   args: {
     ...Default.args,
-    icon: "sortWideShortArrowUp",
+    name: "sortWideShortArrowUp",
   },
 }
 
 export const SortWideShortArrowDown: Story = {
   args: {
     ...Default.args,
-    icon: "sortWideShortArrowDown",
+    name: "sortWideShortArrowDown",
   },
 }
 
 export const Upload: Story = {
   args: {
     ...Default.args,
-    icon: "upload",
+    name: "upload",
   },
 }
 
 export const Warning: Story = {
   args: {
     ...Default.args,
-    icon: "warning",
+    name: "warning",
   },
 }
 
 export const WBSunny: Story = {
   args: {
     ...Default.args,
-    icon: "wbSunny",
+    name: "wbSunny",
   },
 }
 
 export const Widgets: Story = {
   args: {
     ...Default.args,
-    icon: "widgets",
+    name: "widgets",
   },
 }

@@ -876,6 +876,16 @@ importers:
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.4)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.12.7(@types/node@24.10.4)(typescript@5.9.3))(sass@1.81.1)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
 
   packages/ui-components:
+    dependencies:
+      '@iconify/react':
+        specifier: 6.0.2
+        version: 6.0.2(react@19.2.3)
+      lucide-react:
+        specifier: 0.574.0
+        version: 0.574.0(react@19.2.3)
+      react-helmet:
+        specifier: 6.1.0
+        version: 6.1.0(react@19.2.3)
     devDependencies:
       '@babel/preset-env':
         specifier: 7.28.5
@@ -2581,6 +2591,14 @@ packages:
   '@humanwhocodes/retry@0.4.3':
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
+
+  '@iconify/react@6.0.2':
+    resolution: {integrity: sha512-SMmC2sactfpJD427WJEDN6PMyznTFMhByK9yLW0gOTtnjzzbsi/Ke/XqsumsavFPwNiXs8jSiYeZTmLCLwO+Fg==}
+    peerDependencies:
+      react: '>=16'
+
+  '@iconify/types@2.0.0':
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   '@inquirer/confirm@5.1.10':
     resolution: {integrity: sha512-FxbQ9giWxUWKUk2O5XZ6PduVnH2CZ/fmMKMBkH71MHJvWr7WL5AHKevhzF1L5uYWB2P548o1RzVxrNd3dpmk6g==}
@@ -5812,6 +5830,11 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
+  lucide-react@0.574.0:
+    resolution: {integrity: sha512-dJ8xb5juiZVIbdSn3HTyHsjjIwUwZ4FNwV0RtYDScOyySOeie1oXZTymST6YPJ4Qwt3Po8g4quhYl4OxtACiuQ==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
@@ -6429,6 +6452,14 @@ packages:
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
 
+  react-fast-compare@3.2.2:
+    resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
+
+  react-helmet@6.1.0:
+    resolution: {integrity: sha512-4uMzEY9nlDlgxr61NL3XbKRy1hEkXmKNXhjbAIOVw5vcFrsdYbH2FEwcNyWvWinl103nXgzYNlns9ca+8kFiWw==}
+    peerDependencies:
+      react: '>=16.3.0'
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -6444,6 +6475,11 @@ packages:
   react-refresh@0.17.0:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
     engines: {node: '>=0.10.0'}
+
+  react-side-effect@2.1.2:
+    resolution: {integrity: sha512-PVjOcvVOyIILrYoyGEpDN3vmYNLdy1CajSFNt4TDsVQC5KpTijDvWVoR+/7Rz2xT978D8/ZtFceXxzsPwZEDvw==}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.0 || ^18.0.0
 
   react-tabs@6.1.0:
     resolution: {integrity: sha512-6QtbTRDKM+jA/MZTTefvigNxo0zz+gnBTVFw2CFVvq+f2BuH0nF0vDLNClL045nuTAdOoK/IL1vTP0ZLX0DAyQ==}
@@ -9703,6 +9739,13 @@ snapshots:
   '@humanwhocodes/retry@0.3.1': {}
 
   '@humanwhocodes/retry@0.4.3': {}
+
+  '@iconify/react@6.0.2(react@19.2.3)':
+    dependencies:
+      '@iconify/types': 2.0.0
+      react: 19.2.3
+
+  '@iconify/types@2.0.0': {}
 
   '@inquirer/confirm@5.1.10(@types/node@24.10.4)':
     dependencies:
@@ -13308,6 +13351,10 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
+  lucide-react@0.574.0(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+
   lz-string@1.5.0: {}
 
   magic-string@0.26.7:
@@ -14141,6 +14188,16 @@ snapshots:
     dependencies:
       react: 19.2.3
 
+  react-fast-compare@3.2.2: {}
+
+  react-helmet@6.1.0(react@19.2.3):
+    dependencies:
+      object-assign: 4.1.1
+      prop-types: 15.8.1
+      react: 19.2.3
+      react-fast-compare: 3.2.2
+      react-side-effect: 2.1.2(react@19.2.3)
+
   react-is@16.13.1: {}
 
   react-is@17.0.2: {}
@@ -14164,6 +14221,10 @@ snapshots:
       - supports-color
 
   react-refresh@0.17.0: {}
+
+  react-side-effect@2.1.2(react@19.2.3):
+    dependencies:
+      react: 19.2.3
 
   react-tabs@6.1.0(react@19.2.3):
     dependencies:

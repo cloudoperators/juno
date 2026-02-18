@@ -72,5 +72,10 @@
     "test-vitest:watch": "vitest",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "clean:cache": "rm -rf .turbo"
+  },
+  "dependencies": {
+    "@iconify/react": "6.0.2",
+    "lucide-react": "0.574.0",
+    "react-helmet": "6.1.0"
   }
 }
