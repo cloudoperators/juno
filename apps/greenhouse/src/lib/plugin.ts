@@ -199,14 +199,18 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
     receiveError: (error: any) => {
       setIsFetching(false)
       setError(error)
+      // on api error split then the preconfigured
       splitApps()
     },
     receiveConfig: (kubeConfig: any) => {
+      // add config and other states
       addConfig(kubeConfig)
       setIsFetching(false)
       setError(null)
+      // add config and other states
       splitApps()
 
+      // if no config found in the active apps set a new one but from the apps and not mng
       if (Object.keys(getState().config).filter((key) => getState().active.includes(key)).length === 0) {
         const newActiveApp = findActiveAppId(getState().appConfig)
         setActive(newActiveApp)
