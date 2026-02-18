@@ -105,8 +105,8 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
           },
         }),
       },
-      appConfig: [],
-      mngConfig: [],
+      appConfig: [], // kube app configs
+      mngConfig: [], // management app configs
       isFetching: false,
       error: null,
       updatedAt: null,
@@ -137,10 +137,10 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
   const setActive = (active: string | string[] | null) =>
     setState(
       produce((state: PluginState) => {
-        // Handle null case
         if (active === null) return
 
         const activeArray = Array.isArray(active) ? active : [active]
+        // if the current state is the same as the new state, don't update
         if (JSON.stringify(state.active) === JSON.stringify(activeArray)) return
         state.active = activeArray
       }),
@@ -156,6 +156,14 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
       false,
       "plugin/addConfig"
     )
+
+  const splitApps = () => {
+    const allConfig = getState().config
+    const appConfig = filterAndSortConfigByType(allConfig, NAV_TYPES.APP)
+    setAppConfig(appConfig)
+    const mngConfig = filterAndSortConfigByType(allConfig, NAV_TYPES.MNG)
+    setMngConfig(mngConfig)
+  }
 
   const setAppConfig = (appConfig: any[]) =>
     setState(
@@ -174,14 +182,6 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
       false,
       "plugin/setMngConfig"
     )
-
-  const splitApps = () => {
-    const allConfig = getState().config
-    const appConfig = filterAndSortConfigByType(allConfig, NAV_TYPES.APP)
-    setAppConfig(appConfig)
-    const mngConfig = filterAndSortConfigByType(allConfig, NAV_TYPES.MNG)
-    setMngConfig(mngConfig)
-  }
 
   return {
     active: () => useStore(store, (s) => s.active),
