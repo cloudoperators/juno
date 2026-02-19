@@ -56,7 +56,10 @@ const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | 
           return mockPromise
         },
       },
-      organization: "test-org",
+      user: {
+        organization: "test-org",
+        supportGroups: [],
+      },
     },
     history: createMemoryHistory({
       initialEntries: ["/admin/plugin-presets/"],
