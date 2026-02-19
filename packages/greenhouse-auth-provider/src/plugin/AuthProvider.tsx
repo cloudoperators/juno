@@ -20,6 +20,7 @@ type AuthProviderProps = ({ embedded: true } & EmbeddedAuthProps) | ({ embedded?
 const AuthContext = createContext<AuthState | null>(null)
 
 const EmbeddedAuthProvider = ({ auth, children }: EmbeddedAuthProps) => {
+  // Read the snapshot on every render - the shell remounts the plugin when auth changes
   return <AuthContext.Provider value={auth.getSnapshot()}>{children}</AuthContext.Provider>
 }
 

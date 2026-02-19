@@ -13,11 +13,14 @@
   "types": "build/types/index.d.ts",
   "files": [
     "build/**",
-    "LICENCE"
+    "LICENSE"
   ],
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=8.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
