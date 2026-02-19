@@ -439,6 +439,12 @@ importers:
       '@tanstack/react-router':
         specifier: 1.150.0
         version: 1.150.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      react:
+        specifier: 19.2.3
+        version: 19.2.3
+      react-dom:
+        specifier: 19.2.3
+        version: 19.2.3(react@19.2.3)
     devDependencies:
       '@apollo/client':
         specifier: 4.1.0
