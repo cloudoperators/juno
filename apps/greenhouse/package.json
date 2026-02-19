@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/greenhouse/tree/main/ui/dashboard",

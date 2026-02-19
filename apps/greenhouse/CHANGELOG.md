@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.9.1
+
+### Patch Changes
+
+- 2f84dbf: Introduces a new authentication provider package that enables secure, read-only authentication state sharing between the Greenhouse shell app and plugins.
+- Updated dependencies [2f84dbf]
+  - @cloudoperators/juno-app-heureka@1.0.2
+
 ## 0.9.0
 
 ### Minor Changes
