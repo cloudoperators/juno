@@ -107,9 +107,10 @@ const initializeDemoAuth = (
       }
       setAuthData(data)
       pluginAuth.setAuthState({
-        status: data?.loggedIn ? "authenticated" : "anonymous",
-        token: data?.auth?.access_token,
-        userId: data?.auth?.claims?.sub,
+        status: "authenticated",
+        token: data?.auth?.JWT,
+        userId: data?.auth?.parsed?.userId,
+        userName: data?.auth?.parsed?.fullName,
       })
       // set the organization name in the URL
       if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups, enableHashedRouting)
