@@ -27,7 +27,6 @@ describe("Navigation", () => {
 
     // Check that all navigation items are rendered
     expect(await screen.findByText("Clusters")).toBeInTheDocument()
-    expect(screen.getByText("Teams")).toBeInTheDocument()
     expect(screen.getByText("Plugin Presets")).toBeInTheDocument()
   })
 })

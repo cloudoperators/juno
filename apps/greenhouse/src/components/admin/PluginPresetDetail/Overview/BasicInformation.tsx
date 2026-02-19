@@ -4,7 +4,15 @@
  */
 
 import React from "react"
-import { DataGrid, DataGridRow, DataGridHeadCell, DataGridCell, Pill, Stack } from "@cloudoperators/juno-ui-components"
+import {
+  DataGrid,
+  DataGridRow,
+  DataGridHeadCell,
+  DataGridCell,
+  Pill,
+  Stack,
+  ContentHeading,
+} from "@cloudoperators/juno-ui-components"
 import { PluginPreset } from "../../types/k8sTypes"
 
 interface BasicInformationProps {
@@ -13,7 +21,7 @@ interface BasicInformationProps {
 
 export const BasicInformation: React.FC<BasicInformationProps> = ({ pluginPreset }) => (
   <Stack gap="4" direction="vertical" className="flex-1">
-    <h3>Basic Information</h3>
+    <ContentHeading>Basic Information</ContentHeading>
     <DataGrid columns={2} minContentColumns={[0]}>
       <DataGridRow>
         <DataGridHeadCell nowrap>Name</DataGridHeadCell>

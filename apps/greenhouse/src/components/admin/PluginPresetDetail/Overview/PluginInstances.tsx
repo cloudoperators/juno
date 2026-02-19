@@ -4,9 +4,17 @@
  */
 
 import React, { Suspense } from "react"
-import { useParams, useRouteContext } from "@tanstack/react-router"
+import { useParams, useRouteContext, useNavigate } from "@tanstack/react-router"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { DataGrid, DataGridRow, DataGridHeadCell, DataGridCell, Icon, Stack } from "@cloudoperators/juno-ui-components"
+import {
+  DataGrid,
+  DataGridRow,
+  DataGridHeadCell,
+  DataGridCell,
+  Icon,
+  Stack,
+  ContentHeading,
+} from "@cloudoperators/juno-ui-components"
 import { LoadingDataRow } from "../../common/LoadingDataRow"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
@@ -17,11 +25,12 @@ const COLUMN_SPAN = 4
 
 const DataRows = ({ colSpan }: { colSpan: number }) => {
   const { pluginPresetName } = useParams({ from: "/admin/plugin-presets/$pluginPresetName" })
-  const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets/$pluginPresetName" })
+  const { apiClient, user } = useRouteContext({ from: "/admin/plugin-presets/$pluginPresetName" })
+  const navigate = useNavigate({ from: "/admin/plugin-presets/$pluginPresetName" })
 
   const { data: plugins } = useSuspenseQuery({
-    queryKey: [FETCH_PLUGINS_CACHE_KEY, organization, pluginPresetName],
-    queryFn: () => fetchPlugins({ apiClient, namespace: organization, pluginPresetName }),
+    queryKey: [FETCH_PLUGINS_CACHE_KEY, user.organization, pluginPresetName],
+    queryFn: () => fetchPlugins({ apiClient, namespace: user.organization, pluginPresetName }),
   })
 
   if (plugins.length === 0) {
@@ -42,7 +51,18 @@ const DataRows = ({ colSpan }: { colSpan: number }) => {
         const ready = isPluginReady(plugin)
 
         return (
-          <DataGridRow key={plugin.metadata?.name} onClick={() => {}}>
+          <DataGridRow
+            key={plugin.metadata?.name}
+            onClick={() => {
+              navigate({
+                to: "/admin/plugin-presets/$pluginPresetName/plugin-instances/$pluginInstance",
+                params: {
+                  pluginPresetName,
+                  pluginInstance: plugin.metadata?.name || "",
+                },
+              })
+            }}
+          >
             <DataGridCell>
               <Icon icon={ready ? "checkCircle" : "error"} color={ready ? "text-theme-success" : "text-theme-danger"} />
             </DataGridCell>
@@ -59,7 +79,7 @@ const DataRows = ({ colSpan }: { colSpan: number }) => {
 export const PluginInstances = () => {
   return (
     <Stack direction="vertical" gap="4">
-      <h3>Plugin Instances</h3>
+      <ContentHeading>Plugin Instances</ContentHeading>
       <DataGrid columns={COLUMN_SPAN}>
         <DataGridRow>
           <DataGridHeadCell>
