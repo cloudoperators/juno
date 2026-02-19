@@ -207,7 +207,7 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
       addConfig(kubeConfig)
       setIsFetching(false)
       setError(null)
-      // add config and other states
+      // split apps in mng and apps
       splitApps()
 
       // if no config found in the active apps set a new one but from the apps and not mng
