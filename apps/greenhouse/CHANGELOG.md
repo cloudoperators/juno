@@ -1,5 +1,22 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.9.0
+
+### Minor Changes
+
+- c786282: Added plugin instance detail page that can be accessible at `/admin/plugin-presets/$pluginPresetName/plugin-instances/$pluginInstance`.
+
+### Patch Changes
+
+- 42e57aa: Typed the plugin state in the store
+- Updated dependencies [aff8f05]
+- Updated dependencies [6b26feb]
+  - @cloudoperators/juno-ui-components@6.1.1
+  - @cloudoperators/juno-app-doop@2.6.18
+  - @cloudoperators/juno-app-heureka@1.0.1
+  - @cloudoperators/juno-app-supernova@0.19.21
+  - @cloudoperators/juno-messages-provider@0.2.30
+
 ## 0.8.1
 
 ### Patch Changes
